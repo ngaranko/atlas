@@ -54,6 +54,9 @@ class Search extends React.Component {
         type: ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
         payload: this.state.query.trim()
       });
+
+      this.clearSuggestions();
+
     } else {
       const activeSuggestion = autosuggestDataService.getSuggestionByIndex(
         this.state.suggestions,
@@ -92,10 +95,9 @@ class Search extends React.Component {
       suggestions: [],
       numberOfSuggestions: 0,
       activeSuggestionIndex: -1,
-      originalQuery: '' // TODO: scope._display
+      // originalQuery: '' // TODO: scope._display
     });
   }
-
 
   render() {
     return (
@@ -111,7 +113,6 @@ class Search extends React.Component {
               suggestions={this.state.suggestions}
               query={this.state.query}
               onSuggestSelection={this.onSuggestSelection}
-              onClearSuggestions={this.clearSuggestions}
             />
             <button
               disabled={!this.state.query.trim()}

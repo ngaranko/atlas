@@ -5,7 +5,8 @@ class AutoSuggest extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeSuggestionIndex: -1
+      activeSuggestionIndex: -1,
+      showSuggestions: false
     };
 
     this.clearQuery = this.clearQuery.bind(this);
@@ -50,11 +51,9 @@ class AutoSuggest extends React.Component {
       legendTitle,
       uniqueId,
       classNames,
-      onTextInput,
       suggestions,
       query,
       onSuggestSelection,
-      onClearSuggestions
     } = this.props;
 
     return (
@@ -97,7 +96,9 @@ class AutoSuggest extends React.Component {
             <h3 className="c-autocomplete__tip">Enkele suggesties</h3>
             {suggestions.map((category) =>
               (<div className="c-autocomplete__category" key={category.label}>
-                <h4 className="c-autocomplete__category__heading qa-autocomplete-header">{category.label}</h4>
+                <h4 className="c-autocomplete__category__heading qa-autocomplete-header">
+                  {category.label}
+                </h4>
                 <ul>
                   {category.content.map((suggestion) =>
                     (<li key={suggestion._display}>
@@ -111,7 +112,6 @@ class AutoSuggest extends React.Component {
                   )}
                 </ul>
               </div>)
-
             )}
           </div>
         }
@@ -121,7 +121,23 @@ class AutoSuggest extends React.Component {
 }
 
 AutoSuggest.propTypes = {
-  onTextInput: PropTypes.func
+  onTextInput: PropTypes.func.isRequired,
+  placeHolder: PropTypes.string,
+  legendTitle: PropTypes.string,
+  uniqueId: PropTypes.string,
+  classNames: PropTypes.string,
+  suggestions: PropTypes.array,
+  query: PropTypes.string,
+  onSuggestSelection: PropTypes.func.isRequired
+};
+
+AutoSuggest.defaultProps = {
+  placeHolder: '',
+  legendTitle: '',
+  uniqueId: Date.now().toString(),
+  classNames: '',
+  suggestions: [],
+  query: ''
 };
 
 export default AutoSuggest;
