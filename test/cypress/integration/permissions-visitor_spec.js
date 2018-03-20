@@ -90,7 +90,6 @@ describe('visitor permissions', () => {
     cy.visit(URLS.map);
     cy.wait(PAGELOAD_WAIT);
     cy.get('.map-layers__category').should(($values) => {
-      expect($values).to.not.contain('Economie en haven');
       expect($values).to.contain('Geografie');
       expect($values).to.not.contain('Bedrijven - Invloedsgebieden');
     });
