@@ -6,20 +6,30 @@
         </dp-glossary-header>
 
         <dl class="c-key-value-list">
-          <dt>Naam</dt>
-          <dd>{{ vm.apiData.results._display }}</dd>
-          <dt>Type</dt>
-          <dd>{{ vm.apiData.results.biz_type }}</dd>
-          <dt>Heffingsgrondslag</dt>
-          <dd>{{ vm.apiData.results.heffingsgrondslag }}</dd>
-          <dt>Jaarlijks opgehaald bedrag</dt>
-          <dd>{{ vm.apiData.results.heffing }}</dd>
-          <dt>Aantal heffingsplichtigen</dt>
-          <dd>{{ vm.apiData.results.bijdrageplichtigen }}</dd>
-          <dt>Website</dt>
-          <dd><a href="{{ vm.apiData.results.website }}" class="o-btn o-btn--link c-detail__table-link">{{ vm.apiData.results.website }}</a></dd>
-          <dt>Verordening</dt>
-          <dd><a href="{{ vm.apiData.results.verordening }}" class="o-btn o-btn--link c-detail__table-link">{{ vm.apiData.results.verordening }}</a></dd>
+            <dt>Naam</dt>
+            <dd>{{ vm.apiData.results._display }}</dd>
+            <dt>Type</dt>
+            <dd>{{ vm.apiData.results.biz_type }}</dd>
+            <dt>Heffingsgrondslag</dt>
+            <dd>{{ vm.apiData.results.heffingsgrondslag }}</dd>
+            <dt>Jaarlijks opgehaald bedrag</dt>
+            <dd>{{ vm.apiData.results.heffing }}</dd>
+            <dt>Aantal heffingsplichtigen</dt>
+            <dd>{{ vm.apiData.results.bijdrageplichtigen }}</dd>
+            <dt>Website</dt>
+            <dd class="c-key-value-list__value--ellipsis">
+                <a
+                    href="{{ vm.apiData.results.website }}"
+                    class="o-btn o-btn--link c-key-value-list__value-inline"
+                >{{ vm.apiData.results.website }}</a>
+            </dd>
+            <dt>Verordening</dt>
+            <dd class="c-key-value-list__value--ellipsis">
+                <a
+                    href="{{ vm.apiData.results.verordening }}"
+                    class="o-btn o-btn--link c-key-value-list__value-inline"
+                >{{ vm.apiData.results.verordening }}</a>
+            </dd>
         </dl>
     </div>
 </div>
