@@ -19,12 +19,7 @@ class ActiveOverlays {
   }
 
   setOverlays(newOverlays) {
-    const overlaysAreEqualSize = newOverlays.length === this.allOverlays.length;
-    const overlaysAreEqual = overlaysAreEqualSize && newOverlays
-      .every((overlay, index) => (
-        this.allOverlays[index] && overlay.id === this.allOverlays[index].id));
-
-    this.allOverlays = overlaysAreEqual ? this.allOverlays : newOverlays;
+    this.allOverlays = newOverlays;
   }
 
   getVisibleOverlays(zoom) {
