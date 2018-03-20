@@ -3,45 +3,7 @@ import PropTypes from 'prop-types';
 import AutoSuggest from '../../shared/components/autosuggest/AutoSuggest';
 import getSharedConfig from '../../shared/services/shared-config/shared-config';
 import ACTIONS from '../../shared/actions';
-import { autosuggestDataService, getSuggestionByIndex } from './autosuggest-service';
-import apiUrl from '../../shared/services/api';
-
-const mockSuggestion = [
-  {
-    'content': [
-      {
-        '_display': 'Dam',
-        'uri': 'bag/openbareruimte/03630000003186/'
-      },
-      {
-        '_display': 'Damloperspad',
-        'uri': 'bag/openbareruimte/03630000001038/'
-      },
-      {
-        '_display': 'Damrak',
-        'uri': 'bag/openbareruimte/03630000003187/'
-      }
-    ],
-    'label': 'Straatnamen'
-  },
-  {
-    'content': [
-      {
-        '_display': 'Damrak 1',
-        'uri': 'monumenten/monumenten/8e8ae1dd-78a2-4a5f-841d-1870631b7e33/'
-      },
-      {
-        '_display': 'Dam 10',
-        'uri': 'monumenten/monumenten/aa3f9081-2ac4-49ea-95d2-0aad7aecd883/'
-      },
-      {
-        '_display': 'Damrak 15',
-        'uri': 'monumenten/monumenten/f93e31ba-89eb-4784-87e1-d32c33b5236d/'
-      }
-    ],
-    'label': 'Monumenten'
-  }
-];
+import autosuggestDataService from './autosuggest-service';
 
 class Search extends React.Component {
   constructor(props) {

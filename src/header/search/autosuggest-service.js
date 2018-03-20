@@ -22,12 +22,12 @@ function formatData(categories, query) {
   };
 }
 
-export function autosuggestDataService(query) {
+function search(query) {
   return getByUrl(`${apiUrl}typeahead`, { q: query })
     .then((response) => formatData(response, query));
 }
 
-export function getSuggestionByIndex(searchResults, index) {
+function getSuggestionByIndex(searchResults, index) {
   var activeSuggestion;
 
   searchResults.forEach(function (category) {
@@ -40,3 +40,8 @@ export function getSuggestionByIndex(searchResults, index) {
 
   return activeSuggestion;
 }
+
+export default {
+  search,
+  getSuggestionByIndex
+};
