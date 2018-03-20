@@ -11,6 +11,7 @@ class AutoSuggest extends React.Component {
     this.clearQuery = this.clearQuery.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onInput = this.onInput.bind(this);
+    this.onFocus = this.onFocus.bind(this);
   }
 
   clearQuery() {
@@ -32,6 +33,15 @@ class AutoSuggest extends React.Component {
       showSuggestions: true
     });
     this.props.onTextInput(event);
+  }
+
+  onFocus(event) {
+    this.setState({
+      showSuggestions: true
+    });
+    if (this.props.suggestions.length < 1) {
+      this.props.onTextInput(event);
+    }
   }
 
   render() {
@@ -65,7 +75,7 @@ class AutoSuggest extends React.Component {
               spellCheck="false"
               placeholder={placeHolder}
               onInput={this.onInput}
-              onFocus={this.onInput}
+              onFocus={this.onFocus}
               onBlur={this.onBlur}
               // ng-keydown="navigateSuggestions($event)"
             />
