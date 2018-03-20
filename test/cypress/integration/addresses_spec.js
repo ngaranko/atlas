@@ -96,13 +96,6 @@ describe('addresses module', () => {
       });
       cy.get('ul.o-list').should('exist').and('be.visible');
       cy.get('.c-data-selection-active-filters__listitem').contains('Buitenveldert-West').should('exist').and('be.visible');
-
-
     });
   });
-
-
-
-
 });
-
