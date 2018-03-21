@@ -25,6 +25,20 @@ describe('datasets module', () => {
       cy.get('.c-data-selection-card').should('exist').and('be.visible');
     });
 
+    it('should open a dataset', () => {
+      // click on the link to go to the datasets without a specified catalogus theme
+      cy.get('.c-homepage__block--datasets').get('.qa-theme-link').first().click();
+      // the homepage should not be visible anymore
+      cy.get('.c-homepage').should('not.be.visible');
+      // the data selection should be visible
+      cy.get('.c-data-selection').should('exist').and('be.visible');
+      // the title should contain Datasets
+      cy.get('h1').contains('Datasets').should('exist').and('be.visible');
+      cy.get('.c-data-selection-card').first().click();
+      // as downloading is not testable, we check for the presence of a a href
+      cy.get('.c-detail-catalogus-table').find('a').should('exist').and('be.visible').and('have.attr', 'href');
+    });
+
     it('should open the datasets catalogus with a filter and see filtered results', () => {
       // click on the link to go to the datasets without a specified catalogus theme
       cy.get('.c-homepage__block--datasets').find('.c-catalogus-theme__icon--kaart').click();
