@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './_autosuggest.scss';
+
 class AutoSuggest extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,12 @@ class AutoSuggest extends React.Component {
     this.onBlur = this.onBlur.bind(this);
     this.onInput = this.onInput.bind(this);
     this.onFocus = this.onFocus.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.query && nextProps.query.length > 2) {
+      this.textInput.value = this.props.query;
+    }
   }
 
   clearQuery() {
@@ -67,7 +75,6 @@ class AutoSuggest extends React.Component {
               id={uniqueId}
               className={classNames}
               type="text"
-              ng-model="query"
               autoCapitalize="off"
               autoCorrect="off"
               autoComplete="off"
@@ -92,11 +99,11 @@ class AutoSuggest extends React.Component {
           </div>
         </div>
         {suggestions.length > 0 && this.state.showSuggestions &&
-          <div className="c-autocomplete">
-            <h3 className="c-autocomplete__tip">Enkele suggesties</h3>
+          <div className="c-autosuggest">
+            <h3 className="c-autosuggest__tip">Enkele suggesties</h3>
             {suggestions.map((category) =>
-              (<div className="c-autocomplete__category" key={category.label + category.index}>
-                <h4 className="c-autocomplete__category__heading qa-autocomplete-header">
+              (<div className="c-autosuggest__category" key={category.label + category.index}>
+                <h4 className="c-autosuggest__category__heading qa-autosuggest-header">
                   {category.label}
                 </h4>
                 <ul>
@@ -104,8 +111,9 @@ class AutoSuggest extends React.Component {
                     (<li key={suggestion._display + suggestion.index}>
                       <button
                         type="button"
-                        className={`c-autocomplete__category__suggestion ${this.state.activeSuggestionIndex === suggestion.index ? 'c-autocomplete__category__suggestion--active' : ''}`}
+                        className={`c-autosuggest__category__suggestion ${this.state.activeSuggestionIndex === suggestion.index ? 'c-autosuggest__category__suggestion--active' : ''}`}
                         onClick={() => { onSuggestSelection(suggestion); this.clearQuery(); }}
+                        // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: suggestion._display }}
                       />
                     </li>)

@@ -5,9 +5,11 @@ import getSharedConfig from '../../shared/services/shared-config/shared-config';
 import ACTIONS from '../../shared/actions';
 import autosuggestDataService from './autosuggest-service';
 
+import './_search.scss';
+
 class Search extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       query: props.query,
       suggestions: []
@@ -42,6 +44,7 @@ class Search extends React.Component {
 
   onFormSubmit(event) {
     event.preventDefault();
+    event.stopPropagation();
     const currentViewState = this.context.store.getState();
     const isDatasetView = currentViewState.dataSelection && currentViewState.dataSelection.view === 'CARDS';
 

@@ -1,0 +1,72 @@
+@import "../../styles/config";
+
+$suggestion-offset: $base-font-size;
+
+.c-autosuggest {
+  position: absolute;
+  top: $site-header-search-form-height - 1px;
+  right: $site-header-search-form-height + $base-whitespace * .5;
+  left: 0;
+  border: 1px solid $secondary-gray20;
+  background-color: $primary-light;
+  box-shadow: 0 3px 4px 0 $secondary-gray60;
+
+  .c-autosuggest__tip {
+    @include font-size($s-font);
+    @include font-weight($normal-weight);
+    margin-top: $base-whitespace / 2;
+    color: $secondary-gray60;
+    text-align: center;
+  }
+
+  .c-autosuggest__category {
+    &:not(:first-of-type) {
+      margin-top: $base-whitespace / 2;
+      padding-top: $base-whitespace;
+      border-top: 1px solid $secondary-gray20;
+    }
+  }
+
+  .c-autosuggest__category__heading {
+    @include font-weight($normal-weight);
+    margin: {
+      top: 0;
+      right: $base-whitespace;
+      bottom: $base-whitespace / 2 ;
+      left: $base-whitespace;
+    };
+    color: $secondary-gray60;
+  }
+
+  .c-autosuggest__category__suggestion {
+    @include font-size($s-font);
+    display: block;
+    position: relative;
+    width: 100%;
+    padding-top: $base-whitespace / 3;
+    padding-bottom: $base-whitespace / 2;
+    background-color: transparent;
+    color: $primary-dark;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:hover,
+    &.c-autosuggest__category__suggestion--active {
+      background-color: $secondary-gray10;
+      font-weight: inherit;
+    }
+
+    &::before {
+      display: inline-block;
+      position: relative;
+      left: $base-whitespace;
+      width: 15px;
+      padding-right: $base-whitespace;
+      content: "›";
+    }
+  }
+}
+
