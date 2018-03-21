@@ -12,6 +12,7 @@ export const HOSTS = {
   DEVELOPMENT: 'localhost'
 };
 
+// TODO convert `getEnvironment` to (process.env.NODE_ENV)
 export const getEnvironment = (host) => {
   switch (host) {
     case 'data.amsterdam.nl':

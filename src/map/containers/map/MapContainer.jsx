@@ -8,6 +8,9 @@ import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 import DrawTool from '../../containers/draw-tool/DrawToolContainer'; //eslint-disable-line
 import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
 
+import LeafletContainer from '../leaflet/LeafletContainer';
+import MapPanelContainer from '../../containers/panel/MapPanelContainer';
+
 const mapStateToProps = (state) => ({
   isFullscreen: state.ui.isMapFullscreen,
   map: state.map
@@ -25,11 +28,15 @@ class MapContainer extends React.Component { //eslint-disable-line
   render() {
     return (
       <div className="c-map c-map--drawing-mode- qa-map-container">
+        <LeafletContainer />
         <ToggleFullscreen
           isFullscreen={this.props.isFullscreen}
           onToggleFullscreen={this.props.onToggleFullscreen}
         />
+        <MapPanelContainer />
       </div>
+
+
     );
   }
 }
