@@ -7,6 +7,7 @@ import MapDetailAdressenOpenbareRuimte from './adressen/MapDetailAdressenOpenbar
 import MapDetailAdressenPand from './adressen/MapDetailAdressenPand';
 import MapDetailAdressenStandplaats from './adressen/MapDetailAdressenStandplaats';
 import MapDetailAdressenVerblijfsobject from './adressen/MapDetailAdressenVerblijfsobject';
+import MapDetailBedrijfsinvesteringszone from './MapDetailBedrijfsinvesteringszone';
 import MapDetailExplosievenGevrijwaardGebied from './explosieven/MapDetailExplosievenGevrijwaardGebied';
 import MapDetailExplosievenInslag from './explosieven/MapDetailExplosievenInslag';
 import MapDetailExplosievenUitgevoerdOnderzoek from './explosieven/MapDetailExplosievenUitgevoerdOnderzoek';
@@ -76,6 +77,15 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize, onPanoPreviewC
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
           standplaats={result}
+        />
+      );
+    case endpointTypes.bedrijfsinvesteringszone:
+      return (
+        <MapDetailBedrijfsinvesteringszone
+          bedrijfsinvesteringszone={result}
+          onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
+          panoUrl={panoUrl}
         />
       );
     case endpointTypes.explosievenGevrijwaardGebied:

@@ -23,7 +23,8 @@ const categoryTypeOrder = [
   'bommenkaart/gevrijwaardgebied',
   'bommenkaart/uitgevoerdonderzoek',
   'monumenten/monument',
-  'grex/grondexploitatie'
+  'grex/grondexploitatie',
+  'vsd/biz'
 ];
 
 export default categoryTypeOrder;

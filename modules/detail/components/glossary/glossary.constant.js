@@ -55,6 +55,10 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/zakelijk-recht/',
                     meta: []
                 },
+                BIZ: {
+                    label_singular: 'Bedrijfsinvesteringszone',
+                    label_plural: 'Bedrijfsinvesteringszones'
+                },
                 BOUWBLOK: {
                     label_singular: 'Bouwblok',
                     label_plural: 'Bouwblokken',

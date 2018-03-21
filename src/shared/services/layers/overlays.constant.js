@@ -30,7 +30,11 @@ const SOURCES = {
     minZoom: 8,
     maxZoom: 16,
     legend: 'maps/biz?version=1.3.0&service=WMS&request=GetLegend' +
-    'Graphic&sld_version=1.1.0&layer=biz_polygons&format=image/png&STYLE=default'
+    'Graphic&sld_version=1.1.0&layer=biz_polygons&format=image/png&STYLE=default',
+    detailUrl: 'geosearch/biz/', // Geosearch URL
+    detailItem: 'biz', // Not needed for this API endpoint,
+                       // but needed to trigger nearest detail on click...
+    detailIsShape: true
   },
   hvo: {
     authScope: 'HR/R',

@@ -25,6 +25,7 @@ const categoryLabelsByType = {
   'pand/monument': categoryLabels.monument,
   'nap/peilmerk': categoryLabels.napPijlmerk,
   vestiging: categoryLabels.vestiging,
+  'vsd/biz': categoryLabels.bedrijfsinvesteringszone,
   'wkpb/beperking': categoryLabels.gemeentelijkeBeperking
 };
 

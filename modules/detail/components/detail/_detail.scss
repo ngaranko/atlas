@@ -1,5 +1,12 @@
 .c-detail {
   padding: $detail-padding;
+
+  // Needs to be nested to gain more importance over `o-btn`
+  & .c-detail__table-link {
+    display: block;
+    line-height: inherit;
+    word-wrap: break-word;
+  }
 }
 
 .c-detail__block {
