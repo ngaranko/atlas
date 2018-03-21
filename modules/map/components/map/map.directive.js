@@ -166,13 +166,17 @@ import SOURCES from '../../../../src/shared/services/layers/overlays.constant';
             });
 
             function setOverlays () {
-                const newOverlays = scope.mapState.overlays.filter(overlay => SOURCES[overlay.id]),
-                    isInit = oldOverlays === null;
+                const isInit = oldOverlays === null;
+
+                activeOverlays.setOverlays(scope.mapState.overlays);
+                const newOverlays = activeOverlays.getOverlays();
+
+                if (isInit && !newOverlays.length) {
+                    return;
+                }
 
                 oldOverlays = oldOverlays || [];
                 scope.hasActiveOverlays = newOverlays.length > 0;
-
-                activeOverlays.setOverlays(scope.mapState.overlays);
 
                 if (angular.equals(newOverlays, oldOverlays)) {
                     return;
