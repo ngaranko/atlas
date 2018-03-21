@@ -878,6 +878,26 @@ const SOURCES = {
   },
 
   // Verkeer
+  trm: {
+    url: 'maps/trm',
+    label_short: 'Tram - lijnen',
+    label_long: 'Tram - lijnen',
+    parent_label: 'Metro en tram - lijnen',
+    layers: ['tramlijnen'],
+    minZoom: 8,
+    maxZoom: 16,
+    noDetail: true
+  },
+  mtr: {
+    url: 'maps/trm',
+    label_short: 'Metro - lijnen',
+    label_long: 'Metro - lijnen',
+    parent_label: 'Metro en tram - lijnen',
+    layers: ['metrolijnen'],
+    minZoom: 8,
+    maxZoom: 16,
+    noDetail: true
+  },
   pv: {
     url: 'maps/parkeervakken',
     label_short: 'Parkeervakken - Fiscale indeling',

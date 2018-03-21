@@ -1672,6 +1672,29 @@ export default [
   },
   {
     category: 'Verkeer en infrastructuur',
+    legendItems: [
+      {
+        id: 'mtr',
+        notClickable: true,
+        layer: 'metrolijnen',
+        selectable: true,
+        title: 'Metrolijn'
+      },
+      {
+        id: 'trm',
+        notClickable: true,
+        layer: 'tramlijnen',
+        selectable: true,
+        title: 'Tramlijn'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Metro en tram - Spoorlijnen',
+    url: '/maps/trm?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Verkeer en infrastructuur',
     id: 'pv',
     notClickable: true,
     layers: ['alle_parkeervakken'],
