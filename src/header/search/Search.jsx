@@ -7,10 +7,10 @@ import autosuggestDataService from './autosuggest-service';
 
 class Search extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       query: props.query,
-      suggestions: ''
+      suggestions: []
     };
     this.onTextInput = this.onTextInput.bind(this);
     this.onSuggestSelection = this.onSuggestSelection.bind(this);
@@ -23,8 +23,8 @@ class Search extends React.Component {
     if (!event || event.target.value === '') {
       // clear
       this.setState({
-        suggestions: [],
-        query: ''
+        query: '',
+        suggestions: []
       });
     } else {
       this.setState({
@@ -42,6 +42,8 @@ class Search extends React.Component {
 
   onFormSubmit(event) {
     event.preventDefault();
+    const currentViewState = this.context.store.getState();
+    const isDatasetView = currentViewState.dataSelection && currentViewState.dataSelection.view === 'CARDS';
 
     if (this.state.activeSuggestionIndex === -1) {
       // Load the search results
@@ -50,13 +52,10 @@ class Search extends React.Component {
       });
 
       this.context.store.dispatch({
-        // TODO do correct implementation of type
-        type: ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
+        type: isDatasetView ? ACTIONS.FETCH_DATA_SELECTION : ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
         payload: this.state.query.trim()
       });
-
       this.clearSuggestions();
-
     } else {
       const activeSuggestion = autosuggestDataService.getSuggestionByIndex(
         this.state.suggestions,
@@ -101,7 +100,7 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div id={'header-search'}>
+      <div id="header-search">
         <form className="c-search-form" onSubmit={this.onFormSubmit}>
           <fieldset>
             <AutoSuggest

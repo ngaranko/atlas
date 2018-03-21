@@ -95,13 +95,13 @@ class AutoSuggest extends React.Component {
           <div className="c-autocomplete">
             <h3 className="c-autocomplete__tip">Enkele suggesties</h3>
             {suggestions.map((category) =>
-              (<div className="c-autocomplete__category" key={category.label}>
+              (<div className="c-autocomplete__category" key={category.label + category.index}>
                 <h4 className="c-autocomplete__category__heading qa-autocomplete-header">
                   {category.label}
                 </h4>
                 <ul>
                   {category.content.map((suggestion) =>
-                    (<li key={suggestion._display}>
+                    (<li key={suggestion._display + suggestion.index}>
                       <button
                         type="button"
                         className={`c-autocomplete__category__suggestion ${this.state.activeSuggestionIndex === suggestion.index ? 'c-autocomplete__category__suggestion--active' : ''}`}
@@ -126,7 +126,7 @@ AutoSuggest.propTypes = {
   legendTitle: PropTypes.string,
   uniqueId: PropTypes.string,
   classNames: PropTypes.string,
-  suggestions: PropTypes.array,
+  suggestions: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   query: PropTypes.string,
   onSuggestSelection: PropTypes.func.isRequired
 };
