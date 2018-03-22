@@ -79,5 +79,30 @@ describe('addresses module', () => {
       cy.get('.leaflet-marker-icon').should('exist').and('be.visible');
     });
   });
-});
 
+  describe('user should be be able to filter on an area', () => {
+    it('should show the addresses and map when selected', () => {
+      // click on "Buitenveldert-West" in the left filter menu
+      cy.get('.c-data-selection-available-filters__item').contains('Buitenveldert-West').click();
+      // expect the number in the title to equal 9549
+      cy.get('h1').then((title) => {
+        const results = parseInt(title.text().match(/\(([1-9.,]*)\)/)[1].replace('.', ''));
+        expect(results).to.equal(9549)
+      });
+      // click on "kaart weergeven"
+      cy.get('.c-toggle-view-button.qa-dp-link').click();
+      // map should be visible now
+      cy.get('.qa-map-container').should('exist').and('be.visible');
+      // , with large right column
+      cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
+      // count the number of cluster icons on the map
+      cy.get('.o-highlight-cluster').then((items) => {
+        expect(items.length).to.eq(5)
+      });
+      // list should be visible in right column
+      cy.get('ul.o-list').should('exist').and('be.visible');
+      // active filter should show
+      cy.get('.c-data-selection-active-filters__listitem').contains('Buitenveldert-West').should('exist').and('be.visible');
+    });
+  });
+});

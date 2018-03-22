@@ -109,6 +109,23 @@ describe('MapDetailResult', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('should render bedrijfsinvesteringszone', () => {
+    const endpoint = 'vsd/biz/';
+    const panoUrl = 'panoUrl';
+    const result = { label: 'value' };
+    const clickHandler = jest.fn();
+    const wrapper = shallow(
+      <MapDetailResult
+        endpoint={endpoint}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
+        panoUrl={panoUrl}
+        result={result}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('should render explosieven gevrijwaard gebied', () => {
     const endpoint = 'milieuthemas/explosieven/gevrijwaardgebied/';
     const panoUrl = 'panoUrl';

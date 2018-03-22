@@ -75,7 +75,7 @@ $below-list-height: 1px + $map-preview-panel-bottom;
     overflow-y: auto;
 
     .c-dashboard__body--error & {
-      max-height: calc(100% - #{$above-list-height + $below-list-height + $dashboard-error-height}); //NB: fix for IE
+      max-height: calc(100vh - #{$above-list-height + $below-list-height + $dashboard-error-height}); //NB: fix for IE
     }
   }
 
