@@ -11,7 +11,7 @@ const glob = Promise.promisify(require('glob'))
 const started = new Date()
 let numFailed = 0
 
-return glob('test/cypress/integration/**/*', {
+return glob('test/cypress/integration_disabled/**/*', {
   nodir: true,
   realpath: true,
 })
