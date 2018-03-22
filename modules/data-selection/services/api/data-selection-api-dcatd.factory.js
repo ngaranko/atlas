@@ -57,51 +57,54 @@
         function getQueryTheme (filters) {
             return Object.keys(filters).reduce((queryString, key) => {
                 if (key !== 'groups') return queryString;
-                return queryString + (queryString ? ' ' : '') + `eq=theme:${filters[key]}`;
+                return queryString + `eq=theme:${filters[key]}`;
             }, '');
         }
 
         function getQueryFormat (filters) {
             return Object.keys(filters).reduce((queryString, key) => {
                 if (key !== 'data_format') return queryString;
-                return queryString + (queryString ? ' ' : '') + `eq=${filters[key]}`;
+                return queryString + `eq=${filters[key]}`;
             }, '');
         }
 
         function formatFilters (searchParams) {
-            const searchParamTheme = '/properties/dcat:theme/items',
-                searchParamFormat = '/properties/dcat:distribution/items/properties/dct:format';
+            // const searchParamTheme = '/properties/dcat:theme/items',
+            //     searchParamFormat = '/properties/dcat:distribution/items/properties/dct:format';
             var filters = {};
-            if (angular.isUndefined(searchParams[searchParamTheme])) {
-                filters.groups = {
-                    numberOfOptions: 2,
-                    options: [{
-                        id: 'geografie',
-                        label: 'Geografie',
-                        count: 1
-                    }, {
-                        id: 'energie',
-                        label: 'Energie',
-                        count: 1
-                    }
-                    ]
-                };
-            }
-            if (angular.isUndefined(searchParams[searchParamFormat])) {
-                filters.data_format = {
-                    numberOfOptions: 2,
-                    options: [{
-                        id: 'application/pdf',
-                        label: 'pdf',
-                        count: 1
-                    },
-                    {
-                        id: 'text/csv',
-                        label: 'csv',
-                        count: 1
-                    }]
-                };
-            }
+
+            // if (angular.isUndefined(searchParams[searchParamTheme])) {
+            filters.groups = {
+                numberOfOptions: 2,
+                options: [{
+                    id: 'geografie',
+                    label: 'Geografie',
+                    count: 1
+                }, {
+                    id: 'energie',
+                    label: 'Energie',
+                    count: 1
+                }
+                ]
+            };
+
+            // }
+            // if (angular.isUndefined(searchParams[searchParamFormat])) {
+            filters.data_format = {
+                numberOfOptions: 2,
+                options: [{
+                    id: 'application/pdf',
+                    label: 'pdf',
+                    count: 1
+                },
+                {
+                    id: 'text/csv',
+                    label: 'csv',
+                    count: 1
+                }]
+            };
+            // }
+
             return Object.keys(filters).reduce((filterString, key) => {
                 return filters;
             }, {});

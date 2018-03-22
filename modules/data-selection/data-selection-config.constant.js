@@ -28,8 +28,8 @@
                     ],
                     CONTENT: {
                         CARDS: [
-                            // { label: 'Id', variables: ['dct:identifier'] },
                             { label: 'Naam', variables: ['dct:title'] },
+                            { label: 'Id', variables: ['dct:identifier'] },
                             {
                                 label: 'Omschrijving',
                                 formatter: 'truncateHtmlAsText',
