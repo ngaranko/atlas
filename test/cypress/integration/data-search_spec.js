@@ -1,5 +1,11 @@
 /* eslint-disable */
 import { login, logout } from '../services/authentication';
+import {
+  defineSearchRoutes,
+  waitForSearch,
+  defineGeoSearchRoutes,
+  waitForGeoSearch
+} from '../services/routing';
 import '../support';
 
 describe('data search module', () => {
@@ -13,63 +19,62 @@ describe('data search module', () => {
 
   it('user should see suggestions', () => {
     // open the autocomplete panel and select the first dataset option and route the correct address
+    cy.server();
+    cy.route('/typeahead?q=Park').as('getResults');
+    cy.route('/bag/openbareruimte/*').as('getItem');
+
     cy.visit('/');
     cy.get('input.js-search-input').trigger('focus');
     cy.get('input.js-search-input').type('Park');
     cy.get('input.js-search-input').trigger('change');
+
+    cy.wait('@getResults');
     cy.get('.c-autocomplete').should('exist').and('be.visible');
     cy.get('h4').contains('Straatnamen').siblings('ul').children('li').first().children().first()
     .then(($el) => {
       const firstValue = $el[0].innerText;
       cy.get('h4').contains('Straatnamen').siblings('ul').children('li').first().click();
+      cy.wait('@getItem');
       cy.get('.o-header__title').contains(firstValue).should('exist').and('be.visible');
     });
   });
 
-  describe('user should be able to submit', () => {
-    beforeEach(() => {
-      cy.server()
-      cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults')
-      cy.visit('/');
-      cy.get('input.js-search-input').trigger('focus');
-    });
-
-    it('should submit the search and give results', () => {
-      cy.get('input.js-search-input').type('Park');
-      cy.get('.c-search-form').submit();
-      cy.wait('@getResults');
-      cy.get('.o-list').should('exist').and('be.visible')
-    });
-
-    it('should submit the search and give no results', () => {
-      cy.get('input.js-search-input').type('NORESULTS');
-      cy.get('.c-search-form').submit();
-      cy.wait('@getResults');
-      cy.get('.o-list').should('have.length', 0);
-    });
-  });
-
   it('should open the address catalogus', () => {
+    cy.server();
+    defineGeoSearchRoutes();
+    cy.route('/typeahead?q=Ad+Windighof+2').as('getResults');
+    cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
+    cy.route('/panorama/thumbnail/*').as('getPanoThumbnail');
+    cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
+
     // ensure the viewport is always the same in this test, so the clicks can be aligned properly
     cy.viewport(1000, 660);
     cy.visit('/');
     // type in search and click on autosuggest item
     cy.get('#global-search').focus().type('Ad Windighof 2');
+
+    cy.wait('@getResults');
     cy.get('.c-autocomplete').contains('Ad Windighof 2').click();
 
     // check that the large right column is visible and shows the correct data
+    cy.wait('@getVerblijfsobject');
     cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
     cy.get('.qa-dashboard__column--right').get('.qa-title span').contains('Ad Windighof 2').and('have.css', 'font-style').and('match', /italic/);
     cy.get('.qa-dashboard__column--right').get('dl').contains('1087HE');
+
+    cy.wait('@getPanoThumbnail');
     cy.get('.qa-dashboard__column--right').get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
     cy.get('.c-panel--danger').should('exist').and('be.visible').contains('Status: Verblijfsobject gevormd');
 
     // click in map (there is a marker on this position)
     cy.get('.qa-map-container').click(166, 304);
+
     // check link in right column and click on it
+    waitForGeoSearch();
     cy.get('.c-search-results__block-content').should('exist').and('be.visible').contains('Ad Windighof 2').click();
 
     // check that the large right column is visible and shows the correct data
+    cy.wait('@getNummeraanduiding');
     cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
     cy.get('.qa-dashboard__column--right').get('.qa-title span').contains('Ad Windighof 2').and('have.css', 'font-style').and('match', /italic/);
     cy.get('.qa-dashboard__column--right').get('dl').contains('1087HE');
@@ -83,5 +88,28 @@ describe('data search module', () => {
     // helper function to check values in previewpanel
     cy.checkPreviewPanel(['Ad Windighof 2', 'Verblijfsobject gevormd']);
     cy.get('.c-panel--danger').should('not.exist').and('not.be.visible');
+  });
+
+  describe('user should be able to submit', () => {
+    beforeEach(() => {
+      cy.server();
+      defineSearchRoutes();
+      cy.visit('/');
+      cy.get('input.js-search-input').trigger('focus');
+    });
+
+    it('should submit the search and give results', () => {
+      cy.get('input.js-search-input').type('Park');
+      cy.get('.c-search-form').submit();
+      waitForSearch();
+      cy.get('.o-list').should('exist').and('be.visible')
+    });
+
+    it('should submit the search and give no results', () => {
+      cy.get('input.js-search-input').type('NORESULTS');
+      cy.get('.c-search-form').submit();
+      waitForSearch();
+      cy.get('.o-list').should('have.length', 0);
+    });
   });
 });

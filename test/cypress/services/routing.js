@@ -1,0 +1,45 @@
+export function defineSearchRoutes() {
+  cy.route('/atlas/search/adres/?q=*').as('getSearchAddressResults');
+  cy.route('/atlas/search/gebied/?q=*').as('getSearchGebiedResults');
+  cy.route('/atlas/search/kadastraalobject/?q=*').as('getSearchKadastraalObjectResults');
+  cy.route('/atlas/search/kadastraalsubject/?q=*').as('getSearchKadastraalSubjectResults');
+  cy.route('/atlas/search/openbareruimte/?q=*').as('getSearchOpenbareRuimteResults');
+  cy.route('/catalogus/api/3/action/package_search*').as('getSearchCatalogueResults');
+  cy.route('/handelsregister/search/maatschappelijkeactiviteit/?q=*').as('getSearchMaatschappelijkeActiviteitResults');
+  cy.route('/handelsregister/search/vestiging/?q=*').as('getSearchVestigingResults');
+  cy.route('/meetbouten/search/?q=*').as('getSearchMeetboutenResults');
+  cy.route('/monumenten/search/?q=*').as('getSearchMonumentsResults');
+}
+
+export function waitForSearch() {
+  cy.wait('@getSearchAddressResults');
+  cy.wait('@getSearchGebiedResults');
+  cy.wait('@getSearchKadastraalObjectResults');
+  cy.wait('@getSearchKadastraalSubjectResults');
+  cy.wait('@getSearchOpenbareRuimteResults');
+  cy.wait('@getSearchCatalogueResults');
+  cy.wait('@getSearchMaatschappelijkeActiviteitResults');
+  cy.wait('@getSearchVestigingResults');
+  cy.wait('@getSearchMeetboutenResults');
+  cy.wait('@getSearchMonumentsResults');
+}
+
+export function defineGeoSearchRoutes() {
+  cy.route('/geosearch/nap/*').as('getGeoSearchNap');
+  cy.route('/geosearch/atlas/*').as('getGeoSearchAtlas');
+  cy.route('/geosearch/munitie/*').as('getGeoSearchMunitie');
+  cy.route('/geosearch/bominslag/*').as('getGeoSearchBominslag');
+  cy.route('/geosearch/monumenten/*').as('getGeoSearchMonumenten');
+  cy.route('/geosearch/grondexploitatie/*').as('getGeoSearchGrondexploitatie');
+  cy.route('/geosearch/biz/*').as('getGeoSearchBiz');
+}
+
+export function waitForGeoSearch() {
+  cy.wait('@getGeoSearchNap');
+  cy.wait('@getGeoSearchAtlas');
+  cy.wait('@getGeoSearchMunitie');
+  cy.wait('@getGeoSearchBominslag');
+  cy.wait('@getGeoSearchMonumenten');
+  cy.wait('@getGeoSearchGrondexploitatie');
+  cy.wait('@getGeoSearchBiz');
+}
