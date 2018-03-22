@@ -1,5 +1,5 @@
 import BOUNDING_BOX from './bounding-box.constant';
-import { getEnvironment } from '../../shared/environment';
+import ENVIROMENT from '../../shared/environment';
 import getCrs from './crs-service';
 
 const BOUNDS = [
@@ -69,15 +69,13 @@ const environmentConfig = {
   }
 };
 
-const env = getEnvironment(window.location.host);
-
-const getMapConfig = () => ({
+const MAP_CONFIG = {
   ...defaultConfig,
   BASE_LAYER_OPTIONS: {
     ...defaultConfig.BASE_LAYER_OPTIONS,
-    ...environmentConfig[env].BASE_LAYER_OPTIONS
+    ...environmentConfig[ENVIROMENT].BASE_LAYER_OPTIONS
   },
-  OVERLAY_ROOT: environmentConfig[env].OVERLAY_ROOT
-});
+  OVERLAY_ROOT: environmentConfig[ENVIROMENT].OVERLAY_ROOT
+};
 
-export default getMapConfig;
+export default MAP_CONFIG;

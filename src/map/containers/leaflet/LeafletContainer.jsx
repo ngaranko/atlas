@@ -6,13 +6,13 @@ import { bindActionCreators } from 'redux';
 import DrawTool from '../../containers/draw-tool/DrawToolContainer'; //eslint-disable-line
 import LeafletMap from '../../components/leaflet-map/LeafletMap';
 
-import getMapConfig from '../../services/map-config';
+import MAP_CONFIG from '../../services/map-config';
 
 import { getLayers, getBaseLayer, updateZoom, updatePan } from '../../ducks/map/map';
 
-const baseLayerOptions = getMapConfig().BASE_LAYER_OPTIONS;
-const mapOptions = getMapConfig().MAP_OPTIONS;
-const scaleControlOptions = getMapConfig().SCALE_OPTIONS;
+const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
+const mapOptions = MAP_CONFIG.MAP_OPTIONS;
+const scaleControlOptions = MAP_CONFIG.SCALE_OPTIONS;
 
 const mapStateToProps = (state) => ({
   baseLayer: getBaseLayer(state, baseLayerOptions),

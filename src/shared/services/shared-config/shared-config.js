@@ -1,4 +1,4 @@
-import { getEnvironment } from '../../environment';
+import ENVIROMENT from '../../environment';
 
 export const globalConfig = {
   RADIUS: 50, // Thumbnail search radius
@@ -24,14 +24,9 @@ export const environmentConfig = {
   }
 };
 
-export const getEnvironmentHelper = (environment) => {
-  if (environment) {
-    return environment.NAME;
-  }
-  return getEnvironment(window.location.host);
+const getSharedConfig = {
+  ...globalConfig,
+  ...environmentConfig[ENVIROMENT]
 };
-
-const getSharedConfig = (environment) => (
-  { ...globalConfig, ...environmentConfig[getEnvironmentHelper(environment)] });
 
 export default getSharedConfig;

@@ -4,7 +4,7 @@ import SOURCES from '../../../shared/services/layers/overlays.constant';
 import BASE_LAYERS from '../../../shared/services/layers/base-layers.constant';
 import ACTIONS from '../../../shared/actions';
 
-import getMapConfig from '../../services/map-config';
+import MAP_CONFIG from '../../services/map-config';
 
 // HELPER METHODS
 const getActiveBaselayer = (slug) => BASE_LAYERS.find((layer) => layer.slug === slug);
@@ -12,7 +12,7 @@ const generateLayer = (overlay, url) => ({
   ...overlay,
   url,
   overlayOptions: {
-    ...getMapConfig().OVERLAY_OPTIONS,
+    ...MAP_CONFIG.OVERLAY_OPTIONS,
     layers: SOURCES[overlay.id].layers
   }
 });
@@ -29,7 +29,7 @@ export const getLayers = (state) => (
     if (!layer) {
       return false;
     }
-    const layerUrl = `${getMapConfig().OVERLAY_ROOT}/${layer.url}`;
+    const layerUrl = `${MAP_CONFIG.OVERLAY_ROOT}/${layer.url}`;
     if (!layer.authScope) {
       return generateLayer(overlay, layerUrl);
     }

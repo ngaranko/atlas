@@ -1,4 +1,4 @@
-export const ENVIRONMENT = {
+export const ENVIRONMENTS = {
   DEVELOPMENT: 'DEVELOPMENT',
   ACCEPTATION: 'ACCEPTATION',
   PRE_PRODUCTION: 'PRE_PRODUCTION',
@@ -12,16 +12,22 @@ export const HOSTS = {
   DEVELOPMENT: 'localhost'
 };
 
-// TODO convert `getEnvironment` to (process.env.NODE_ENV)
 export const getEnvironment = (host) => {
   switch (host) {
     case 'data.amsterdam.nl':
-      return ENVIRONMENT.PRODUCTION;
+      return ENVIRONMENTS.PRODUCTION;
     case 'pre.data.amsterdam.nl':
-      return ENVIRONMENT.PRE_PRODUCTION;
+      return ENVIRONMENTS.PRE_PRODUCTION;
     case 'acc.data.amsterdam.nl':
-      return ENVIRONMENT.ACCEPTATION;
+      return ENVIRONMENTS.ACCEPTATION;
     default:
-      return ENVIRONMENT.DEVELOPMENT;
+      return ENVIRONMENTS.DEVELOPMENT;
   }
 };
+
+
+const ENVIROMENT = (process.env.NODE_ENV).toUpperCase();
+
+export const getEnv = () => ENVIROMENT;
+
+export default ENVIROMENT;

@@ -13,8 +13,7 @@ import MapPanelContainer from '../../containers/panel/MapPanelContainer';
 import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
 
 const mapStateToProps = (state) => ({
-  isFullscreen: state.ui.isMapFullscreen,
-  map: state.map
+  isFullscreen: state.ui.isMapFullscreen
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -50,7 +49,6 @@ MapContainer.defaultProps = {
 };
 
 MapContainer.propTypes = {
-  map: PropTypes.shape({}).isRequired, //eslint-disable-line
   isFullscreen: PropTypes.bool.isRequired,
   onToggleFullscreen: PropTypes.func.isRequired
 };

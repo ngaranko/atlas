@@ -1,5 +1,5 @@
 import getState from '../redux/get-state';
-import getSharedConfig from '../shared-config/shared-config';
+import SHARED_CONFIG from '../shared-config/shared-config';
 
 export const getAccessToken = () => getState().user.accessToken;
 
@@ -19,7 +19,7 @@ export const getWithToken = (url, params, cancel, token) => {
   const headers = {};
 
   if (token) {
-    headers.Authorization = getSharedConfig().AUTH_HEADER_PREFIX + token;
+    headers.Authorization = SHARED_CONFIG.AUTH_HEADER_PREFIX + token;
   }
 
   const options = {
