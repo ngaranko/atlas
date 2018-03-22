@@ -5,6 +5,7 @@ import getSharedConfig from '../../shared/services/shared-config/shared-config';
 import ACTIONS from '../../shared/actions';
 import autosuggestDataService from './autosuggest-service';
 import getState from '../../shared/services/redux/get-state';
+import piwik from '../../shared/services/piwik/piwik';
 
 import './_search.scss';
 
@@ -49,6 +50,8 @@ class Search extends React.Component {
     const currentViewState = getState();
     const isDatasetView = currentViewState.dataSelection && currentViewState.dataSelection.view === 'CARDS';
 
+    piwik.push(['trackSiteSearch', this.state.query, isDatasetView ? 'datasets' : 'data', this.state.numberOfSuggestions]);
+
     if (this.state.activeSuggestionIndex === -1) {
       // Load the search results
       this.context.store.dispatch({
@@ -81,7 +84,8 @@ class Search extends React.Component {
         if (suggestions && suggestions.query === this.state.query) {
           // Only load suggestions if they are still relevant.
           this.setState({
-            suggestions: suggestions.data
+            suggestions: suggestions.data,
+            numberOfSuggestions: suggestions.count
           });
         }
       });
