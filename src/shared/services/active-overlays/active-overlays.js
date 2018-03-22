@@ -6,8 +6,9 @@ class ActiveOverlays {
     this.allOverlays = [];
   }
 
-  get getOverlays() {
-    return this.allOverlays;
+  getOverlays() {
+    return this.allOverlays
+      .filter((overlay) => ActiveOverlays.isAuthorised(overlay));
   }
 
   static isVisibleAtCurrentZoom(overlay, zoomLevel) {
@@ -16,6 +17,17 @@ class ActiveOverlays {
     }
     const zoom = zoomLevel || getState().map.zoom;
     return zoom >= SOURCES[overlay].minZoom && zoom <= SOURCES[overlay].maxZoom;
+  }
+
+  static isAuthorised(overlay) {
+    const state = getState();
+    const user = state.user;
+    const layer = state.mapLayers.find((item) => item.id === overlay.id);
+    const authScope = layer && layer.authScope;
+
+    return SOURCES[overlay.id] && layer && (
+      !authScope || (user.authenticated && user.scopes.includes(authScope))
+    );
   }
 
   setOverlays(newOverlays) {
@@ -45,7 +57,9 @@ class ActiveOverlays {
   getVisibleSources(zoom) {
     return this.allOverlays
       .filter((source) => (
-        source.isVisible && ActiveOverlays.isVisibleAtCurrentZoom(source.id, zoom)
+        source.isVisible &&
+        ActiveOverlays.isAuthorised(source) &&
+        ActiveOverlays.isVisibleAtCurrentZoom(source.id, zoom)
       ))
       .map((source) => SOURCES[source.id]);
   }
