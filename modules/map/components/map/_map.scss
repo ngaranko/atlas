@@ -19,7 +19,8 @@ $on-top-of-leaflet: 999;
   pointer-events: none; // allows mouse clicks to pass to leaflet map in FireFox
 }
 
-.c-map__leaflet, .leaflet-container {
+.c-map__leaflet,
+.leaflet-container {
   position: absolute;
   top: 0;
   right: 0;

@@ -8,7 +8,7 @@ import LeafletMap from '../../components/leaflet-map/LeafletMap';
 
 import getMapConfig from '../../services/map-config';
 
-import { getBaseLayer, updateZoom, updatePan } from '../../ducks/map/map';
+import { getLayers, getBaseLayer, updateZoom, updatePan } from '../../ducks/map/map';
 
 const baseLayerOptions = getMapConfig().BASE_LAYER_OPTIONS;
 const mapOptions = getMapConfig().MAP_OPTIONS;
@@ -17,6 +17,7 @@ const scaleControlOptions = getMapConfig().SCALE_OPTIONS;
 const mapStateToProps = (state) => ({
   map: state.map,
   baseLayer: getBaseLayer(state, baseLayerOptions),
+  layers: getLayers(state),
   center: state.map.viewCenter,
   zoom: state.map.zoom
 });
@@ -33,6 +34,7 @@ class LeafletContainer extends React.Component { //eslint-disable-line
 
   render() {
     const {
+      layers,
       baseLayer,
       center,
       zoom,
@@ -43,6 +45,7 @@ class LeafletContainer extends React.Component { //eslint-disable-line
     return (
       <div>
         <LeafletMap
+          layers={layers}
           mapOptions={mapOptions}
           scaleControlOptions={scaleControlOptions}
           baseLayer={baseLayer}
@@ -63,6 +66,7 @@ LeafletContainer.contextTypes = {
 LeafletContainer.propTypes = {
   map: PropTypes.shape({}).isRequired, //eslint-disable-line
   baseLayer: PropTypes.shape({}).isRequired, // eslint-disable-line
+  layers: PropTypes.array.isRequired, // eslint-disable-line
   center: PropTypes.array.isRequired, // eslint-disable-line
   zoom: PropTypes.number.isRequired,
   onUpdateZoom: PropTypes.func, // eslint-disable-line

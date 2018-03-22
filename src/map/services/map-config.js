@@ -76,7 +76,8 @@ const getMapConfig = () => ({
   BASE_LAYER_OPTIONS: {
     ...defaultConfig.BASE_LAYER_OPTIONS,
     ...environmentConfig[env].BASE_LAYER_OPTIONS
-  }
+  },
+  OVERLAY_ROOT: environmentConfig[env].OVERLAY_ROOT
 });
 
 export default getMapConfig;

@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map, TileLayer, ZoomControl, ScaleControl } from 'react-leaflet';
 
+import NonTiledLayer from './custom/NonTiledLayer';
+
+const isVisibleToOpacity = ((isVisible) => isVisible ? 100 : 0); //eslint-disable-line
+
 class LeafletMap extends React.Component {
   constructor() {
     super();
@@ -41,7 +45,7 @@ class LeafletMap extends React.Component {
   }
 
   render() {
-    const { center, zoom, baseLayer, mapOptions, scaleControlOptions } = this.props;
+    const { center, zoom, baseLayer, mapOptions, scaleControlOptions, layers } = this.props;
     return (
       <Map
         onZoomEnd={this.handleZoomEnd}
@@ -56,6 +60,16 @@ class LeafletMap extends React.Component {
           {...baseLayer.baseLayerOptions}
           url={baseLayer.urlTemplate}
         />
+        {
+          layers.map((layer) => (
+            <NonTiledLayer
+              key={layer.id}
+              {...layer.overlayOptions}
+              url={layer.url}
+              opacity={isVisibleToOpacity(layer.isVisible)}
+            />
+          ))
+        }
         <ScaleControl {...scaleControlOptions} />
         {
           this.props.isZoomControlVisible && (
@@ -68,6 +82,7 @@ class LeafletMap extends React.Component {
 }
 
 LeafletMap.defaultProps = {
+  layers: [],
   center: [52.3731081, 4.8932945],
   zoom: 11,
   baseUrl: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
@@ -86,6 +101,7 @@ LeafletMap.defaultProps = {
 };
 
 LeafletMap.propTypes = {
+  layers: PropTypes.array, //eslint-disable-line
   center: PropTypes.array, //eslint-disable-line
   zoom: PropTypes.number,
   mapOptions: PropTypes.shape({}),
