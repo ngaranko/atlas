@@ -1,4 +1,4 @@
-fdescribe('The dataSelectionApiDcatd factory', function () {
+describe('The dataSelectionApiDcatd factory', function () {
     let $rootScope,
         $q,
         dataSelectionApiDcatd,
@@ -159,11 +159,11 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
 
     it('calls the api factory with theme parameter and searchText', function () {
         // With an active filter and search text
-        dataSelectionApiDcatd.query(config, { groups: 'theme:energie' }, 1, 'searchText');
+        dataSelectionApiDcatd.query(config, { groups: 'energie' }, 1, 'searchText');
         expect(api.getByUri).toHaveBeenCalledWith('dcatd/', {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
-            '/properties/dcat:theme/items=eq=': 'theme:energie',
+            '/properties/dcat:theme/items': 'eq=theme:energie',
             q: 'searchText'
         });
 
@@ -172,12 +172,12 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
 
     it('calls the api factory with active filters and searchText', function () {
         // With active filters
-        dataSelectionApiDcatd.query(config, { groups: 'theme:energie', data_format: 'xlsx' }, 1, 'searchText');
+        dataSelectionApiDcatd.query(config, { groups: 'energie', data_format: 'application/pdf' }, 1, 'searchText');
         expect(api.getByUri).toHaveBeenCalledWith('dcatd/', {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
-            '/properties/dcat:theme/items=eq=': 'theme:energie',
-            '/properties/dcat:distribution/items/properties/dct:format=eq=': 'xlsx',
+            '/properties/dcat:theme/items': 'eq=theme:energie',
+            '/properties/dcat:distribution/items/properties/dct:format': 'eq=application/pdf',
             q: 'searchText'
         });
 
@@ -272,11 +272,11 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
                 groups: {
                     numberOfOptions: 2,
                     options: [{
-                        id: 'theme:geografie',
+                        id: 'geografie',
                         label: 'Geografie',
                         count: 1
                     }, {
-                        id: 'theme:energie',
+                        id: 'energie',
                         label: 'Energie',
                         count: 1
                     }
@@ -285,13 +285,13 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
                 data_format: {
                     numberOfOptions: 2,
                     options: [{
-                        id: 'pdf',
+                        id: 'application/pdf',
                         label: 'pdf',
                         count: 1
                     },
                     {
-                        id: 'xlsx',
-                        label: 'xlsx',
+                        id: 'text/csv',
+                        label: 'csv',
                         count: 1
                     }]
                 }
@@ -302,7 +302,7 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
             let output = {};
 
             // With only one filter in the API response
-            dataSelectionApiDcatd.query(config, { groups: 'theme:energie' }, 1).then(function (_output_) {
+            dataSelectionApiDcatd.query(config, { groups: 'energie' }, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();
@@ -311,13 +311,13 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
                 data_format: {
                     numberOfOptions: 2,
                     options: [{
-                        id: 'pdf',
+                        id: 'application/pdf',
                         label: 'pdf',
                         count: 1
                     },
                     {
-                        id: 'xlsx',
-                        label: 'xlsx',
+                        id: 'text/csv',
+                        label: 'csv',
                         count: 1
                     }]
                 }

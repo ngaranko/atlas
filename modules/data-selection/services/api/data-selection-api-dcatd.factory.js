@@ -18,8 +18,8 @@
                 },
                 queryTheme = getQueryTheme(activeFilters),
                 queryFormat = getQueryFormat(activeFilters),
-                searchParamTheme = '/properties/dcat:theme/items=eq=',
-                searchParamFormat = '/properties/dcat:distribution/items/properties/dct:format=eq=';
+                searchParamTheme = '/properties/dcat:theme/items',
+                searchParamFormat = '/properties/dcat:distribution/items/properties/dct:format';
 
             if (searchText) {
                 // Optional search text
@@ -27,7 +27,7 @@
             }
 
             if (queryTheme !== '') {
-                // optional thema filter
+                // optional thema/groups filter
                 searchParams[searchParamTheme] = queryTheme;
             }
 
@@ -57,30 +57,30 @@
         function getQueryTheme (filters) {
             return Object.keys(filters).reduce((queryString, key) => {
                 if (key !== 'groups') return queryString;
-                return queryString + (queryString ? ' ' : '') + `${filters[key]}`;
+                return queryString + (queryString ? ' ' : '') + `eq=theme:${filters[key]}`;
             }, '');
         }
 
         function getQueryFormat (filters) {
             return Object.keys(filters).reduce((queryString, key) => {
                 if (key !== 'data_format') return queryString;
-                return queryString + (queryString ? ' ' : '') + `${filters[key]}`;
+                return queryString + (queryString ? ' ' : '') + `eq=${filters[key]}`;
             }, '');
         }
 
         function formatFilters (searchParams) {
-            const searchParamTheme = '/properties/dcat:theme/items=eq=',
-                searchParamFormat = '/properties/dcat:distribution/items/properties/dct:format=eq=';
+            const searchParamTheme = '/properties/dcat:theme/items',
+                searchParamFormat = '/properties/dcat:distribution/items/properties/dct:format';
             var filters = {};
             if (angular.isUndefined(searchParams[searchParamTheme])) {
                 filters.groups = {
                     numberOfOptions: 2,
                     options: [{
-                        id: 'theme:geografie',
+                        id: 'geografie',
                         label: 'Geografie',
                         count: 1
                     }, {
-                        id: 'theme:energie',
+                        id: 'energie',
                         label: 'Energie',
                         count: 1
                     }
@@ -91,13 +91,13 @@
                 filters.data_format = {
                     numberOfOptions: 2,
                     options: [{
-                        id: 'pdf',
+                        id: 'application/pdf',
                         label: 'pdf',
                         count: 1
                     },
                     {
-                        id: 'xlsx',
-                        label: 'xlsx',
+                        id: 'text/csv',
+                        label: 'csv',
                         count: 1
                     }]
                 };

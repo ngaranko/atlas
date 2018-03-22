@@ -15,6 +15,7 @@
         const vm = this;
 
         vm.onClick = (theme) => {
+
             store.dispatch({
                 type: ACTIONS.APPLY_FILTERS,
                 payload: {
