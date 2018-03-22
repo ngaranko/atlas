@@ -1,4 +1,3 @@
-import SOURCES from '../../../../src/shared/services/layers/overlays.constant';
 (() => {
     angular
         .module('dpMap')
