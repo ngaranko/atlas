@@ -1,7 +1,6 @@
-import ENVIROMENT, {
+import {
   getEnvironment,
-  ENVIRONMENTS,
-  getEnv
+  ENVIRONMENTS
 } from './environment';
 
 describe('The environment service', () => {
