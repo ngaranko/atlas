@@ -24,9 +24,9 @@ export const environmentConfig = {
   }
 };
 
-const getSharedConfig = {
+const SHARED_CONFIG = {
   ...globalConfig,
   ...environmentConfig[ENVIROMENT]
 };
 
-export default getSharedConfig;
+export default SHARED_CONFIG;

@@ -1,13 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MapContainer should render 1`] = `
-<section
-  className="map"
+<div
+  className="c-map c-map--drawing-mode- qa-map-container"
 >
-  <Connect(Component) />
+  <Connect(LeafletContainer) />
   <ToggleFullscreen
     isFullscreen={false}
     onToggleFullscreen={[Function]}
   />
-</section>
+  <Connect(MapPanelContainer) />
+  <Connect(MapPreviewPanelContainer) />
+</div>
 `;
