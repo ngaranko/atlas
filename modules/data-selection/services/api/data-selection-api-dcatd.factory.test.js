@@ -308,6 +308,18 @@ describe('The dataSelectionApiDcatd factory', function () {
             $rootScope.$apply();
 
             expect(output.filters).toEqual({
+                groups: {
+                    numberOfOptions: 2,
+                    options: [{
+                        id: 'geografie',
+                        label: 'Geografie',
+                        count: 1
+                    }, {
+                        id: 'energie',
+                        label: 'Energie',
+                        count: 1
+                    }]
+                },
                 data_format: {
                     numberOfOptions: 2,
                     options: [{
