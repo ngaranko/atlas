@@ -10,6 +10,7 @@ import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscree
 
 import LeafletContainer from '../leaflet/LeafletContainer';
 import MapPanelContainer from '../../containers/panel/MapPanelContainer';
+import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
 
 const mapStateToProps = (state) => ({
   isFullscreen: state.ui.isMapFullscreen,
@@ -34,9 +35,8 @@ class MapContainer extends React.Component { //eslint-disable-line
           onToggleFullscreen={this.props.onToggleFullscreen}
         />
         <MapPanelContainer />
+        <MapPreviewPanelContainer />
       </div>
-
-
     );
   }
 }
