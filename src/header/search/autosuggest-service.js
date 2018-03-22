@@ -1,6 +1,8 @@
 import apiUrl from '../../shared/services/api';
 import { getByUrl } from '../../shared/services/api/api';
 
+const ENDPOINT = 'typeahead';
+
 function formatData(categories, query) {
   let suggestionIndex = 0;
   let numberOfResults = 0;
@@ -8,7 +10,7 @@ function formatData(categories, query) {
     categories.forEach((category) => {
       category.content.map((suggestion) => {
         suggestionIndex += 1;
-        suggestion.index = suggestionIndex;
+        suggestion.index = suggestionIndex; // eslint-disable-line no-param-reassign
         numberOfResults += 1;
 
         return suggestion;
@@ -23,15 +25,15 @@ function formatData(categories, query) {
 }
 
 function search(query) {
-  return getByUrl(`${apiUrl}typeahead`, { q: query })
+  return getByUrl(`${apiUrl}${ENDPOINT}`, { q: query })
     .then((response) => formatData(response, query));
 }
 
 function getSuggestionByIndex(searchResults, index) {
-  var activeSuggestion;
+  let activeSuggestion;
 
-  searchResults.forEach(function (category) {
-    category.content.forEach(function (suggestion) {
+  searchResults.forEach((category) => {
+    category.content.forEach((suggestion) => {
       if (suggestion.index === index) {
         activeSuggestion = suggestion;
       }

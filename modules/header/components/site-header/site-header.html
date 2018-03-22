@@ -13,13 +13,13 @@
             <div ng-if="vm.isTall" class="u-col-sm--6 qa-site-header__contact">
                 <a href="mailto:datapunt@amsterdam.nl" class="c-site-header__contact">Contact</a>
             </div>
-            <div style="clear:both" ng-if="vm.isTall"></div>
+            <div class="u-clearfix" ng-if="vm.isTall"></div>
             <div ng-class="{
                         'u-col-sm--12 c-site-header__toolbar qa-site-header__toolbar': vm.isTall
                     }">
                 <div class="u-col-sm--6">
                     <div class="c-site-header__search qa-site-header__search react-autosuggest-container">
-                        <!--<dp-search query="{{vm.query}}" search-action="vm.searchAction"></dp-search>-->
+                        <!-- search bar is loaded here -->
                     </div>
                 </div>
                 <div class="u-col-sm--3 qa-site-header__menu-col" ng-class="{'u-col-sm--6': vm.isTall}">

@@ -4,6 +4,7 @@ import AutoSuggest from '../../shared/components/autosuggest/AutoSuggest';
 import getSharedConfig from '../../shared/services/shared-config/shared-config';
 import ACTIONS from '../../shared/actions';
 import autosuggestDataService from './autosuggest-service';
+import getState from '../../shared/services/redux/get-state';
 
 import './_search.scss';
 
@@ -45,7 +46,7 @@ class Search extends React.Component {
   onFormSubmit(event) {
     event.preventDefault();
     event.stopPropagation();
-    const currentViewState = this.context.store.getState();
+    const currentViewState = getState();
     const isDatasetView = currentViewState.dataSelection && currentViewState.dataSelection.view === 'CARDS';
 
     if (this.state.activeSuggestionIndex === -1) {
