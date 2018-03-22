@@ -43,7 +43,7 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
             PRIMARY_KEY: 'dct:identifier',
             FILTERS: [
                 {
-                    slug: 'theme',
+                    slug: 'groups',
                     label: 'Thema\'s'
                 }, {
                     slug: 'data_format',
@@ -159,7 +159,7 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
 
     it('calls the api factory with theme parameter and searchText', function () {
         // With an active filter and search text
-        dataSelectionApiDcatd.query(config, { theme: 'theme:energie' }, 1, 'searchText');
+        dataSelectionApiDcatd.query(config, { groups: 'theme:energie' }, 1, 'searchText');
         expect(api.getByUri).toHaveBeenCalledWith('dcatd/', {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
@@ -172,7 +172,7 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
 
     it('calls the api factory with active filters and searchText', function () {
         // With active filters
-        dataSelectionApiDcatd.query(config, { theme: 'theme:energie', data_format: 'xlsx' }, 1, 'searchText');
+        dataSelectionApiDcatd.query(config, { groups: 'theme:energie', data_format: 'xlsx' }, 1, 'searchText');
         expect(api.getByUri).toHaveBeenCalledWith('dcatd/', {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
@@ -269,11 +269,15 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
             $rootScope.$apply();
 
             expect(output.filters).toEqual({
-                theme: {
-                    numberOfOptions: 1,
+                groups: {
+                    numberOfOptions: 2,
                     options: [{
-                        id: 'energie',
-                        label: 'theme:energie',
+                        id: 'theme:geografie',
+                        label: 'Geografie',
+                        count: 1
+                    }, {
+                        id: 'theme:energie',
+                        label: 'Energie',
                         count: 1
                     }
                     ]
@@ -281,13 +285,13 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
                 data_format: {
                     numberOfOptions: 2,
                     options: [{
-                        id: 'txt',
-                        label: 'testlabeltxt',
+                        id: 'pdf',
+                        label: 'pdf',
                         count: 1
                     },
                     {
                         id: 'xlsx',
-                        label: 'testlabelxslx',
+                        label: 'xlsx',
                         count: 1
                     }]
                 }
@@ -298,7 +302,7 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
             let output = {};
 
             // With only one filter in the API response
-            dataSelectionApiDcatd.query(config, { theme: 'theme:energie' }, 1).then(function (_output_) {
+            dataSelectionApiDcatd.query(config, { groups: 'theme:energie' }, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();
@@ -307,13 +311,13 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
                 data_format: {
                     numberOfOptions: 2,
                     options: [{
-                        id: 'txt',
-                        label: 'testlabeltxt',
+                        id: 'pdf',
+                        label: 'pdf',
                         count: 1
                     },
                     {
                         id: 'xlsx',
-                        label: 'testlabelxslx',
+                        label: 'xlsx',
                         count: 1
                     }]
                 }

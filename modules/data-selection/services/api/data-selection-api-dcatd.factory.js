@@ -38,7 +38,6 @@
 
             api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
                 const count = data['dcat:dataset'].length;
-                // debugger;
                 if (count !== 0) {
                     const results = data['dcat:dataset'];
                     deferred.resolve({
@@ -57,7 +56,7 @@
 
         function getQueryTheme (filters) {
             return Object.keys(filters).reduce((queryString, key) => {
-                if (key !== 'theme') return queryString;
+                if (key !== 'groups') return queryString;
                 return queryString + (queryString ? ' ' : '') + `${filters[key]}`;
             }, '');
         }
@@ -74,11 +73,15 @@
                 searchParamFormat = '/properties/dcat:distribution/items/properties/dct:format=eq=';
             var filters = {};
             if (angular.isUndefined(searchParams[searchParamTheme])) {
-                filters.theme = {
-                    numberOfOptions: 1,
+                filters.groups = {
+                    numberOfOptions: 2,
                     options: [{
-                        id: 'energie',
-                        label: 'theme:energie',
+                        id: 'theme:geografie',
+                        label: 'Geografie',
+                        count: 1
+                    }, {
+                        id: 'theme:energie',
+                        label: 'Energie',
                         count: 1
                     }
                     ]
@@ -88,13 +91,13 @@
                 filters.data_format = {
                     numberOfOptions: 2,
                     options: [{
-                        id: 'txt',
-                        label: 'testlabeltxt',
+                        id: 'pdf',
+                        label: 'pdf',
                         count: 1
                     },
                     {
                         id: 'xlsx',
-                        label: 'testlabelxslx',
+                        label: 'xlsx',
                         count: 1
                     }]
                 };

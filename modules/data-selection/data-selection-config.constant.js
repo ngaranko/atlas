@@ -18,7 +18,7 @@
                     SHOW_FILTER_OPTION_COUNTS: false,
                     FILTERS: [
                         {
-                            slug: 'theme',
+                            slug: 'groups',
                             label: 'Thema\'s'
                         }, {
                             slug: 'data_format',
@@ -28,7 +28,7 @@
                     ],
                     CONTENT: {
                         CARDS: [
-                            { label: 'Id', variables: ['dct:identifier'] },
+                            // { label: 'Id', variables: ['dct:identifier'] },
                             { label: 'Naam', variables: ['dct:title'] },
                             {
                                 label: 'Omschrijving',
@@ -59,9 +59,29 @@
                             // }
                         ]
                     },
-                    THEMAS: ['Bestuur en organisatie', 'Bevolking', 'Dienstverlening', 'Economie & Haven', 'Educatie, Jeugd & Diversiteit', 'Energie', 'Geografie', 'Milieu & Water', 'Openbare orde & veiligheid', 'Openbare ruimte & groen', 'Sport & recreatie', 'Stedelijke ontwikkeling', 'Toerisme & cultuur', 'Verkeer & Infrastructuur', 'Verkiezingen', 'Werk & Inkomen', 'Wonen & leefomgeving', 'Zorg & welzijn'],
+                    THEMAS: ['Bestuur en organisatie', 'Bevolking', 'Dienstverlening', 'Economie & Haven',
+                        'Educatie, Jeugd & Diversiteit', 'Energie', 'Geografie', 'Milieu & Water',
+                        'Openbare orde & veiligheid', 'Openbare ruimte & groen', 'Sport & recreatie',
+                        'Stedelijke ontwikkeling', 'Toerisme & cultuur', 'Verkeer & Infrastructuur',
+                        'Verkiezingen', 'Werk & Inkomen', 'Wonen & leefomgeving', 'Zorg & welzijn'],
                     FORMATS: ['', 'xlsx', 'pdf', 'csv', 'json', 'geojson', 'shp', 'xml', 'anders'],
-                    OWNERS: ['AEB Amsterdam', 'Amsterdam Economic Board', 'Amsterdam Marketing', 'Amsterdam Museum', 'Athlon Car Lease', 'Brandweer Amsterdam-Amstelland', 'CBS', 'CIBG', 'Cliëntenbelang', 'Cultuurcompagnie Noord-Holland', 'GGD Amsterdam', 'GOVI', 'Gemeente Amsterdam', 'Gemeente Amsterdam, Basisinformatie', 'Gemeente Amsterdam, Bestuur en Organisatie', 'Gemeente Amsterdam, Economie', 'Gemeente Amsterdam, Grond en Ontwikkeling', 'Gemeente Amsterdam, Monumenten en Archeologie', 'Gemeente Amsterdam, Onderwijs, Jeugd en Zorg', 'Gemeente Amsterdam, Onderzoek, Informatie en Statistiek', 'Gemeente Amsterdam, Projectmanagementbureau', 'Gemeente Amsterdam, Ruimte en Duurzaamheid', 'Gemeente Amsterdam, Sport en Bos', 'Gemeente Amsterdam, Stadsarchief', 'Gemeente Amsterdam, Stadsdeel Centrum', 'Gemeente Amsterdam, Stadsdeel West', 'Gemeente Amsterdam, Verkeer en Openbare Ruimte', 'Gemeente Amsterdam, Wonen', 'Gemeente Amsterdam, programma Afval Keten', 'Gemeente Amsterdam, stadsdeel Zuidoost', 'JeKuntMeer.nl', 'KNMI', 'Kadaster', 'Landelijk Register Kinderopvang en Peuterspeelzalen', 'Liander', 'Ministerie van OCW', 'Nationale Databank Wegverkeergegevens', 'Open Cultuur Data', 'Politie Amsterdam-Amstelland', 'Rijksdienst voor Cultureel Erfgoed', 'Rijksdienst voor Ondernemend Nederland', 'Rijksmuseum Amsterdam', 'Rijkswaterstaat', 'UWV', 'Waag Society'],
+                    OWNERS: ['AEB Amsterdam', 'Amsterdam Economic Board', 'Amsterdam Marketing', 'Amsterdam Museum',
+                        'Athlon Car Lease', 'Brandweer Amsterdam-Amstelland', 'CBS', 'CIBG', 'Cliëntenbelang',
+                        'Cultuurcompagnie Noord-Holland', 'GGD Amsterdam', 'GOVI', 'Gemeente Amsterdam',
+                        'Gemeente Amsterdam, Basisinformatie', 'Gemeente Amsterdam, Bestuur en Organisatie',
+                        'Gemeente Amsterdam, Economie', 'Gemeente Amsterdam, Grond en Ontwikkeling',
+                        'Gemeente Amsterdam, Monumenten en Archeologie', 'Gemeente Amsterdam, Onderwijs, Jeugd en Zorg',
+                        'Gemeente Amsterdam, Onderzoek, Informatie en Statistiek',
+                        'Gemeente Amsterdam, Projectmanagementbureau', 'Gemeente Amsterdam, Ruimte en Duurzaamheid',
+                        'Gemeente Amsterdam, Sport en Bos', 'Gemeente Amsterdam, Stadsarchief',
+                        'Gemeente Amsterdam, Stadsdeel Centrum', 'Gemeente Amsterdam, Stadsdeel West',
+                        'Gemeente Amsterdam, Verkeer en Openbare Ruimte', 'Gemeente Amsterdam, Wonen',
+                        'Gemeente Amsterdam, programma Afval Keten', 'Gemeente Amsterdam, stadsdeel Zuidoost',
+                        'JeKuntMeer.nl', 'KNMI', 'Kadaster', 'Landelijk Register Kinderopvang en Peuterspeelzalen',
+                        'Liander', 'Ministerie van OCW', 'Nationale Databank Wegverkeergegevens', 'Open Cultuur Data',
+                        'Politie Amsterdam-Amstelland', 'Rijksdienst voor Cultureel Erfgoed',
+                        'Rijksdienst voor Ondernemend Nederland', 'Rijksmuseum Amsterdam', 'Rijkswaterstaat', 'UWV',
+                        'Waag Society']
                 },
                 bag: {
                     CUSTOM_API: 'dataSelectionApiDataSelection',
