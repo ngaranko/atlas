@@ -1,8 +1,8 @@
-@import "../../styles/config";
+@import "../../../shared/styles/config";
 
 $suggestion-offset: $base-font-size;
 
-.c-autosuggest {
+.c-auto-suggest {
   position: absolute;
   top: $site-header-search-form-height - 1px;
   right: $site-header-search-form-height + $base-whitespace * .5;
@@ -11,7 +11,7 @@ $suggestion-offset: $base-font-size;
   background-color: $primary-light;
   box-shadow: 0 3px 4px 0 $secondary-gray60;
 
-  .c-autosuggest__tip {
+  .c-auto-suggest__tip {
     @include font-size($s-font);
     @include font-weight($normal-weight);
     margin-top: $base-whitespace / 2;
@@ -19,7 +19,7 @@ $suggestion-offset: $base-font-size;
     text-align: center;
   }
 
-  .c-autosuggest__category {
+  .c-auto-suggest__category {
     &:not(:first-of-type) {
       margin-top: $base-whitespace / 2;
       padding-top: $base-whitespace;
@@ -27,7 +27,7 @@ $suggestion-offset: $base-font-size;
     }
   }
 
-  .c-autosuggest__category__heading {
+  .c-auto-suggest__category__heading {
     @include font-weight($normal-weight);
     margin: {
       top: 0;
@@ -38,7 +38,7 @@ $suggestion-offset: $base-font-size;
     color: $secondary-gray60;
   }
 
-  .c-autosuggest__category__suggestion {
+  .c-auto-suggest__category__suggestion {
     @include font-size($s-font);
     display: block;
     position: relative;
@@ -54,7 +54,7 @@ $suggestion-offset: $base-font-size;
     overflow: hidden;
 
     &:hover,
-    &.c-autosuggest__category__suggestion--active {
+    &.c-auto-suggest__category__suggestion--active {
       background-color: $secondary-gray10;
       font-weight: inherit;
     }
@@ -69,4 +69,3 @@ $suggestion-offset: $base-font-size;
     }
   }
 }
-

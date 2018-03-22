@@ -1,25 +1,21 @@
-import apiUrl from '../../shared/services/api';
-import { getByUrl } from '../../shared/services/api/api';
+import apiUrl from '../../../shared/services/api';
+import { getByUrl } from '../../../shared/services/api/api';
 
 const ENDPOINT = 'typeahead';
 
 function formatData(categories, query) {
-  let suggestionIndex = 0;
-  let numberOfResults = 0;
-  if (categories.length > 0) {
-    categories.forEach((category) => {
-      category.content.map((suggestion) => {
-        suggestionIndex += 1;
-        suggestion.index = suggestionIndex; // eslint-disable-line no-param-reassign
-        numberOfResults += 1;
+  const numberOfResults = categories.reduce((acc, category) => acc + category.content.length, 0);
+  const indexedCategories = categories.map((category, i) => ({
+    ...category,
+    content: category.content.map((suggestion, j) => ({
+      ...suggestion,
+      index: `${i}-${j}`
+    }))
+  }));
 
-        return suggestion;
-      });
-    });
-  }
   return {
     count: numberOfResults,
-    data: categories,
+    data: indexedCategories,
     query
   };
 }

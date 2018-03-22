@@ -1,9 +1,9 @@
-import autosuggestDataService from './autosuggest-service';
-import { getByUrl } from '../../shared/services/api/api';
+import autoSuggestDataService from './auto-suggest-service';
+import { getByUrl } from '../../../shared/services/api/api';
 
 jest.mock('../../shared/services/api/api');
 
-describe('The autosuggest service', () => {
+describe('The auto-suggest service', () => {
   let mockedResults;
 
   beforeEach(() => {
@@ -44,7 +44,7 @@ describe('The autosuggest service', () => {
   it('can search and format data', () => {
     let suggestions;
 
-    autosuggestDataService.search('linnae').then((data) => {
+    autoSuggestDataService.search('linnae').then((data) => {
       suggestions = data;
     }).then(() => {
       expect(suggestions.count).toBe(3);

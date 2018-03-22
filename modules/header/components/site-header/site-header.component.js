@@ -37,7 +37,7 @@
         function setSearchComponent () {
             $timeout(() => {
                 if (!$window.document.getElementById('header-search')) {
-                    const autosuggestContainer = $window.document.querySelector('.react-autosuggest-container');
+                    const autosuggestContainer = $window.document.querySelector('.react-auto-suggest-container');
                     render(React.createElement(searchComponent, null), autosuggestContainer);
                 }
             });

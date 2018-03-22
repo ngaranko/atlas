@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AutoSuggest from '../../shared/components/autosuggest/AutoSuggest';
-import getSharedConfig from '../../shared/services/shared-config/shared-config';
-import ACTIONS from '../../shared/actions';
-import autosuggestDataService from './autosuggest-service';
-import getState from '../../shared/services/redux/get-state';
-import piwik from '../../shared/services/piwik/piwik';
+import AutoSuggestWrapper from '../../wrappers/auto-suggest/AutoSuggestWrapper';
+import getSharedConfig from '../../../shared/services/shared-config/shared-config';
+import ACTIONS from '../../../shared/actions';
+import autoSuggestService from '../../services/auto-suggest/auto-suggest-service';
+import getState from '../../../shared/services/redux/get-state';
+import piwik from '../../../shared/services/piwik/piwik';
 
 import './_search.scss';
 
@@ -13,7 +13,7 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: props.query,
+      query: props.searchQuery,
       suggestions: []
     };
     this.onTextInput = this.onTextInput.bind(this);
@@ -24,6 +24,7 @@ class Search extends React.Component {
   }
 
   onTextInput(event) {
+    const { onSearchInput } = this.props;
     if (!event || event.target.value === '') {
       // clear
       this.setState({
@@ -31,9 +32,9 @@ class Search extends React.Component {
         suggestions: []
       });
     } else {
-      this.setState({
-        query: event.target.value
-      }, this.getSuggestions);
+      onSearchInput(event.target.value);
+      // timeout to ensure the state has been set before the getSuggestions fn is called
+      setTimeout(this.getSuggestions, 0, true);
     }
   }
 
@@ -60,11 +61,11 @@ class Search extends React.Component {
 
       this.context.store.dispatch({
         type: isDatasetView ? ACTIONS.FETCH_DATA_SELECTION : ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
-        payload: this.state.query.trim()
+        payload: this.state.query
       });
       this.clearSuggestions();
     } else {
-      const activeSuggestion = autosuggestDataService.getSuggestionByIndex(
+      const activeSuggestion = autoSuggestService.getSuggestionByIndex(
         this.state.suggestions,
         this.state.activeSuggestionIndex
       );
@@ -74,14 +75,16 @@ class Search extends React.Component {
   }
 
   getSuggestions() {
+    const { searchQuery } = this.props;
+
     this.setState({
       activeSuggestionIndex: -1,
       originalQuery: this.state.query
     });
 
-    if (this.state.query.length > 1) {
-      autosuggestDataService.search(this.state.query).then((suggestions) => {
-        if (suggestions && suggestions.query === this.state.query) {
+    if (searchQuery.length > 1) {
+      autoSuggestService.search(searchQuery).then((suggestions) => {
+        if (suggestions && suggestions.query === searchQuery) {
           // Only load suggestions if they are still relevant.
           this.setState({
             suggestions: suggestions.data,
@@ -111,7 +114,7 @@ class Search extends React.Component {
       <div id="header-search">
         <form className="c-search-form" onSubmit={this.onFormSubmit}>
           <fieldset>
-            <AutoSuggest
+            <AutoSuggestWrapper
               placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
               classNames={'c-search-form__input js-search-input qa-search-form-input'}
               uniqueId={'global-search'}
@@ -122,7 +125,7 @@ class Search extends React.Component {
               onSuggestSelection={this.onSuggestSelection}
             />
             <button
-              disabled={!this.state.query.trim()}
+              disabled={!this.state.query}
               className="c-search-form__submit qa-search-form-submit"
               type="submit"
               title="Zoeken"
@@ -137,11 +140,12 @@ class Search extends React.Component {
 }
 
 Search.propTypes = {
-  query: PropTypes.string
+  searchQuery: PropTypes.string,
+  onSearchInput: PropTypes.func.isRequired
 };
 
 Search.defaultProps = {
-  query: ''
+  searchQuery: ''
 };
 
 

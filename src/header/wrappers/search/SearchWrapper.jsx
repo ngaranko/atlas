@@ -1,11 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import Search from './Search';
+import SearchContainer from '../../containers/search/SearchContainer';
 
 const SearchWrapper = () => (
   <Provider store={window.reduxStore}>
-    <Search />
+    <SearchContainer />
   </Provider>
 );
 
