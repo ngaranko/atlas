@@ -84,6 +84,7 @@ import '../modules/data-selection/components/views/list/list.component';
 import '../modules/data-selection/components/views/table/table.component';
 import '../modules/data-selection/data-selection-config.constant';
 import '../modules/data-selection/services/api/data-selection-api-ckan.factory';
+import '../modules/data-selection/services/api/data-selection-api-dcatd.factory';
 import '../modules/data-selection/services/api/data-selection-api-data-selection.factory';
 import '../modules/data-selection/services/api/data-selection-api.factory';
 import '../modules/data-selection/services/api/data-selection-api.run';
@@ -289,6 +290,7 @@ import '../modules/data-selection/components/formatter/aggregate/aggregate.filte
 import '../modules/data-selection/components/formatter/hr-bezoekadres/hr-bezoekadres.filter.test';
 import '../modules/data-selection/services/api/data-selection-api.factory.test';
 import '../modules/data-selection/services/api/data-selection-api-ckan.factory.test';
+import '../modules/data-selection/services/api/data-selection-api-dcatd.factory.test';
 import '../modules/data-selection/services/api/data-selection-api-data-selection.factory.test';
 import '../modules/data-selection/services/document-title/document-title.factory.test';
 import '../modules/map/map-config.factory.test';
