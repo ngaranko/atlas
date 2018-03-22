@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map, TileLayer, ZoomControl, ScaleControl } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
 
 import NonTiledLayer from './custom/NonTiledLayer';
 
@@ -45,7 +45,15 @@ class LeafletMap extends React.Component {
   }
 
   render() {
-    const { center, zoom, baseLayer, mapOptions, scaleControlOptions, layers } = this.props;
+    const {
+      center,
+      zoom,
+      baseLayer,
+      mapOptions,
+      scaleControlOptions,
+      layers,
+      markers
+    } = this.props;
     return (
       <Map
         onZoomEnd={this.handleZoomEnd}
@@ -70,6 +78,11 @@ class LeafletMap extends React.Component {
             />
           ))
         }
+        {
+          markers.map((marker) => (
+            <Marker position={marker.position} />
+          ))
+        }
         <ScaleControl {...scaleControlOptions} />
         {
           this.props.isZoomControlVisible && (
@@ -83,6 +96,7 @@ class LeafletMap extends React.Component {
 
 LeafletMap.defaultProps = {
   layers: [],
+  markers: [],
   center: [52.3731081, 4.8932945],
   zoom: 11,
   baseUrl: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
@@ -102,6 +116,7 @@ LeafletMap.defaultProps = {
 
 LeafletMap.propTypes = {
   layers: PropTypes.array, //eslint-disable-line
+  markers: PropTypes.array, //eslint-disable-line
   center: PropTypes.array, //eslint-disable-line
   zoom: PropTypes.number,
   mapOptions: PropTypes.shape({}),

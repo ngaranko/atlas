@@ -15,7 +15,6 @@ const mapOptions = getMapConfig().MAP_OPTIONS;
 const scaleControlOptions = getMapConfig().SCALE_OPTIONS;
 
 const mapStateToProps = (state) => ({
-  map: state.map,
   baseLayer: getBaseLayer(state, baseLayerOptions),
   layers: getLayers(state),
   center: state.map.viewCenter,
@@ -27,50 +26,39 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onUpdatePan: updatePan
 }, dispatch);
 
-class LeafletContainer extends React.Component { //eslint-disable-line
-  constructor(props) { //eslint-disable-line
-    super(props);
-  }
-
-  render() {
-    const {
-      layers,
-      baseLayer,
-      center,
-      zoom,
-      onUpdateZoom,
-      onUpdatePan
-    } = this.props;
-
-    return (
-      <div>
-        <LeafletMap
-          layers={layers}
-          mapOptions={mapOptions}
-          scaleControlOptions={scaleControlOptions}
-          baseLayer={baseLayer}
-          center={center}
-          zoom={zoom}
-          onZoomEnd={onUpdateZoom}
-          onDragEnd={onUpdatePan}
-        />
-      </div>
-    );
-  }
-}
+const LeafletContainer = ({
+  layers,
+  baseLayer,
+  center,
+  zoom,
+  onUpdateZoom,
+  onUpdatePan
+}) => (
+  <div>
+    <LeafletMap
+      layers={layers}
+      mapOptions={mapOptions}
+      scaleControlOptions={scaleControlOptions}
+      baseLayer={baseLayer}
+      center={center}
+      zoom={zoom}
+      onZoomEnd={onUpdateZoom}
+      onDragEnd={onUpdatePan}
+    />
+  </div>
+);
 
 LeafletContainer.contextTypes = {
   store: PropTypes.object.isRequired
 };
 
 LeafletContainer.propTypes = {
-  map: PropTypes.shape({}).isRequired, //eslint-disable-line
   baseLayer: PropTypes.shape({}).isRequired, // eslint-disable-line
   layers: PropTypes.array.isRequired, // eslint-disable-line
   center: PropTypes.array.isRequired, // eslint-disable-line
   zoom: PropTypes.number.isRequired,
-  onUpdateZoom: PropTypes.func, // eslint-disable-line
-  onUpdatePan: PropTypes.func, // eslint-disable-line
+  onUpdateZoom: PropTypes.func.isRequired,
+  onUpdatePan: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeafletContainer);
