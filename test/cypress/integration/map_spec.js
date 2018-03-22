@@ -1,5 +1,9 @@
 /* eslint-disable */
 import '../support';
+import {
+  defineGeoSearchRoutes,
+  waitForGeoSearch
+} from '../services/routing';
 
 
 describe('map module', () => {
@@ -22,24 +26,47 @@ describe('map module', () => {
 
   describe('user should be able to interact with the map', () => {
     it('should show results based on the interaction with the map', () => {
+      cy.server();
+      defineGeoSearchRoutes();
+      cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
+      cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
+      cy.route('/panorama/thumbnail/*').as('getPanoThumbnail');
+      cy.route('/typeahead?q=dam+1').as('getResults');
       // ensure the viewport is always the same in this test, so the clicks can be aligned properly
       cy.viewport(1000, 660);
       cy.visit('/');
+
       cy.get('.qa-map-link').click();
       cy.get('#global-search').focus().type('dam 1');
+
+      cy.wait('@getResults');
       cy.get('.c-autocomplete').contains('Dam 1').click();
+
+      cy.wait('@getVerblijfsobject');
       // check that the circle icon is drawed on the map
-      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible').and('have.attr', 'src', 'assets/images/map/detail.svg');
+      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive')
+        .should('exist')
+        .and('be.visible')
+        .and('have.attr', 'src', 'assets/images/map/detail.svg');
       cy.checkPreviewPanel(['Dam 1', 'winkelfunctie']);
 
       // click somewhere in the map (not on a marker)
       cy.get('.qa-map-container').click(560, 293);
-      // check that the search icon is drawed on the map
-      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible').and('have.attr', 'src', 'assets/images/map/search.svg');
+
+      waitForGeoSearch();
+      // check that the search icon is drawn on the map
+      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive')
+        .should('exist').and('be.visible')
+        .and('have.attr', 'src', 'assets/images/map/search.svg');
       cy.get('.map-preview-panel.map-preview-panel--visible').contains('Beursplein 2').click();
-      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible');
-      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible').and('have.attr', 'src', 'assets/images/map/detail.svg');
-      cy.get('.map-preview-panel.map-preview-panel--visible').get('img.map-detail-result__header-pano').should('exist').and('be.visible');
+
+      cy.wait('@getNummeraanduiding');
+      cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive')
+        .should('exist').and('be.visible')
+        .and('have.attr', 'src', 'assets/images/map/detail.svg');
+      cy.get('.map-preview-panel.map-preview-panel--visible')
+        .get('img.map-detail-result__header-pano')
+        .should('exist').and('be.visible');
       cy.checkPreviewPanel(['Indicatie hoofdadres', 'Nee']);
 
       // click on the button inside the panel balloon thingy, and expect the large right column to become visible
@@ -47,12 +74,19 @@ describe('map module', () => {
       cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
       cy.get('.qa-dashboard__column--right').get('.qa-title').contains('Beursplein 2');
       cy.get('.qa-dashboard__column--right').get('dl').contains('1012JW');
-      cy.get('.qa-dashboard__column--right').get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
+      cy.wait('@getPanoThumbnail');
+      cy.get('.qa-dashboard__column--right')
+        .get('img.c-straatbeeld-thumbnail--img')
+        .should('exist').and('be.visible');
       cy.get('.c-panel--warning').should('exist').and('be.visible');
       cy.get('.c-panel--warning').contains('Dit is een nevenadres');
     });
 
     it('should remember the state when navigating back', () => {
+      cy.server();
+      cy.route('/geosearch/search/?item=meetbout*').as('getResults');
+      cy.route('/meetbouten/meetbout/*').as('getMeetbout');
+      cy.route('/panorama/thumbnail/*').as('getPanoThumbnail');
       // ensure the viewport is always the same in this test, so the clicks can be aligned properly
       cy.viewport(1000, 660);
 
@@ -69,19 +103,26 @@ describe('map module', () => {
       // click on the map
       cy.get('.qa-map-container').click(702, 517);
 
-      cy.get('.map-preview-panel.map-preview-panel--visible').get('img.map-detail-result__header-pano').should('exist').and('be.visible');
+      cy.wait('@getResults');
+      cy.wait('@getMeetbout');
       cy.checkPreviewPanel(['Nieuwmarkt 25', '10581111']);
 
       cy.get('button.map-search-results__button').click();
+
+      cy.wait('@getPanoThumbnail');
       cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
       cy.get('.qa-dashboard__column--right').get('.qa-title').contains('10581111');
       cy.get('.qa-dashboard__column--right').get('dl').contains('Nieuwmarkt 25');
-      cy.get('.qa-dashboard__column--right').get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
+      cy.get('.qa-dashboard__column--right')
+        .get('img.c-straatbeeld-thumbnail--img')
+        .should('exist').and('be.visible');
 
       cy.get('button.toggle-fullscreen').click();
 
       cy.get('.qa-dashboard__column--right').should('exist').and('not.be.visible');
-      cy.get('.map-preview-panel.map-preview-panel--visible').get('img.map-detail-result__header-pano').should('exist').and('be.visible');
+      cy.get('.map-preview-panel.map-preview-panel--visible')
+        .get('img.map-detail-result__header-pano')
+        .should('exist').and('be.visible');
       cy.checkPreviewPanel(['Nieuwmarkt 25', '10581111']);
 
       cy.go('back');
@@ -89,12 +130,16 @@ describe('map module', () => {
       cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
       cy.get('.qa-dashboard__column--right').get('.qa-title').contains('10581111');
       cy.get('.qa-dashboard__column--right').get('dl').contains('Nieuwmarkt 25');
-      cy.get('.qa-dashboard__column--right').get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
+      cy.get('.qa-dashboard__column--right')
+        .get('img.c-straatbeeld-thumbnail--img')
+        .should('exist').and('be.visible');
 
       cy.go('back');
 
       cy.get('.qa-dashboard__column--right').should('exist').and('not.be.visible');
-      cy.get('.map-preview-panel.map-preview-panel--visible').get('img.map-detail-result__header-pano').should('exist').and('be.visible');
+      cy.get('.map-preview-panel.map-preview-panel--visible')
+        .get('img.map-detail-result__header-pano')
+        .should('exist').and('be.visible');
       cy.checkPreviewPanel(['Nieuwmarkt 25', '10581111']);
     });
   });
