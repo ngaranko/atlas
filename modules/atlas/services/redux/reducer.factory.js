@@ -35,7 +35,7 @@ import { combineReducers } from 'redux';
             const PageReducer = $window.reducers.PageReducer;
             const StraatbeeldReducer = $window.reducers.StraatbeeldReducer;
             const UserReducer = $window.reducers.UserReducer;
-            const searchQueryReducer = $window.reducers.SearchQueryReducer;
+            const autoSuggestReducer = $window.reducers.AutoSuggestReducer;
             const newRootReducer = combineReducers({
                 dataSelection: DataSelectionReducer,
                 page: PageReducer,
@@ -45,7 +45,7 @@ import { combineReducers } from 'redux';
                 straatbeeld: StraatbeeldReducer,
                 ui: UiReducer,
                 user: UserReducer,
-                autoSuggest: searchQueryReducer
+                autoSuggest: autoSuggestReducer
             });
             const filteredState = {
                 dataSelection: deprecatedState.dataSelection,

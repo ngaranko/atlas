@@ -3,16 +3,28 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { setSearchQuery } from '../../ducks/search/search-query';
+import { setSearchQuery, setSuggestions } from '../../ducks/auto-suggest/auto-suggest';
+import { fetchDetail } from '../../../reducers/details';
+import { fetchDataSelection, fetchSearchResultsByQuery } from '../../../reducers/search';
+import { emptyFilters } from '../../../reducers/filters';
+
 import Search from '../../components/search/Search';
 
 
 const mapStateToProps = (state) => ({
-  searchQuery: state.autoSuggest.searchQuery
+  searchQuery: state.autoSuggest.searchQuery,
+  suggestions: state.autoSuggest.suggestions,
+  numberOfSuggestions: state.autoSuggest.numberOfSuggestions,
+  isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS'
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onSearchInput: setSearchQuery
+  onSearchInput: setSearchQuery,
+  setSuggestions,
+  fetchDetail,
+  fetchDataSelection,
+  fetchSearchResultsByQuery,
+  emptyFilters
 }, dispatch);
 
 const SearchContainer = (props) => (
@@ -30,7 +42,6 @@ SearchContainer.defaultProps = {
 
 SearchContainer.propTypes = {
   searchQuery: PropTypes.string
-  // onToggleFullscreen: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);

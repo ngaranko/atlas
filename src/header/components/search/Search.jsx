@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AutoSuggestWrapper from '../../wrappers/auto-suggest/AutoSuggestWrapper';
 import getSharedConfig from '../../../shared/services/shared-config/shared-config';
-import ACTIONS from '../../../shared/actions';
 import autoSuggestService from '../../services/auto-suggest/auto-suggest-service';
-import getState from '../../../shared/services/redux/get-state';
-import piwik from '../../../shared/services/piwik/piwik';
 
 import './_search.scss';
 
@@ -24,49 +21,54 @@ class Search extends React.Component {
   }
 
   onTextInput(event) {
-    const { onSearchInput } = this.props;
+    const { onSearchInput, setSuggestions } = this.props;
     if (!event || event.target.value === '') {
       // clear
-      this.setState({
-        query: '',
-        suggestions: []
-      });
+      onSearchInput();
+      setSuggestions();
     } else {
       onSearchInput(event.target.value);
       // timeout to ensure the state has been set before the getSuggestions fn is called
-      setTimeout(this.getSuggestions, 0, true);
+      setTimeout(this.getSuggestions, 0, false);
     }
   }
 
   onSuggestSelection(suggestion) {
-    this.context.store.dispatch({
-      type: ACTIONS.FETCH_DETAIL,
-      payload: `${getSharedConfig().API_ROOT}${suggestion.uri}`
-    });
+    const { fetchDetail, searchQuery } = this.props;
+
+
+    // eslint-disable-next-line no-underscore-dangle
+    window._paq.push(['trackEvent', 'search', 'auto-suggest', searchQuery, suggestion._display]);
+
+    fetchDetail(`${getSharedConfig().API_ROOT}${suggestion.uri}`);
   }
 
   onFormSubmit(event) {
     event.preventDefault();
     event.stopPropagation();
-    const currentViewState = getState();
-    const isDatasetView = currentViewState.dataSelection && currentViewState.dataSelection.view === 'CARDS';
+    const { fetchDataSelection,
+      fetchSearchResultsByQuery,
+      isDatasetView,
+      searchQuery,
+      emptyFilters,
+      suggestions,
+      numberOfSuggestions } = this.props;
 
-    piwik.push(['trackSiteSearch', this.state.query, isDatasetView ? 'datasets' : 'data', this.state.numberOfSuggestions]);
+    // eslint-disable-next-line no-underscore-dangle
+    window._paq.push(['trackSiteSearch', searchQuery, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
 
     if (this.state.activeSuggestionIndex === -1) {
       // Load the search results
-      this.context.store.dispatch({
-        type: ACTIONS.EMPTY_FILTERS
-      });
-
-      this.context.store.dispatch({
-        type: isDatasetView ? ACTIONS.FETCH_DATA_SELECTION : ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
-        payload: this.state.query
-      });
+      emptyFilters();
+      if (isDatasetView) {
+        fetchDataSelection(searchQuery);
+      } else {
+        fetchSearchResultsByQuery(searchQuery);
+      }
       this.clearSuggestions();
     } else {
       const activeSuggestion = autoSuggestService.getSuggestionByIndex(
-        this.state.suggestions,
+        suggestions,
         this.state.activeSuggestionIndex
       );
 
@@ -75,7 +77,7 @@ class Search extends React.Component {
   }
 
   getSuggestions() {
-    const { searchQuery } = this.props;
+    const { searchQuery, setSuggestions } = this.props;
 
     this.setState({
       activeSuggestionIndex: -1,
@@ -86,30 +88,27 @@ class Search extends React.Component {
       autoSuggestService.search(searchQuery).then((suggestions) => {
         if (suggestions && suggestions.query === searchQuery) {
           // Only load suggestions if they are still relevant.
-          this.setState({
-            suggestions: suggestions.data,
-            numberOfSuggestions: suggestions.count
-          });
+          setSuggestions(suggestions.data, suggestions.count);
         }
       });
     } else {
-      this.setState({
-        suggestions: [],
-        numberOfSuggestions: 0
-      });
+      setSuggestions();
     }
   }
 
   clearSuggestions() {
+    const { onSearchInput, setSuggestions } = this.props;
+
+    onSearchInput();
+    setSuggestions();
     this.setState({
-      suggestions: [],
-      numberOfSuggestions: 0,
-      activeSuggestionIndex: -1,
+      activeSuggestionIndex: -1
       // originalQuery: '' // TODO: scope._display
     });
   }
 
   render() {
+    const { suggestions, searchQuery } = this.props;
     return (
       <div id="header-search">
         <form className="c-search-form" onSubmit={this.onFormSubmit}>
@@ -120,12 +119,12 @@ class Search extends React.Component {
               uniqueId={'global-search'}
               legendTitle={'Data zoeken'}
               onTextInput={this.onTextInput}
-              suggestions={this.state.suggestions}
-              query={this.state.query}
+              suggestions={suggestions}
+              query={searchQuery}
               onSuggestSelection={this.onSuggestSelection}
             />
             <button
-              disabled={!this.state.query}
+              disabled={!searchQuery}
               className="c-search-form__submit qa-search-form-submit"
               type="submit"
               title="Zoeken"
@@ -141,11 +140,22 @@ class Search extends React.Component {
 
 Search.propTypes = {
   searchQuery: PropTypes.string,
-  onSearchInput: PropTypes.func.isRequired
+  suggestions: PropTypes.arrayOf(PropTypes.object),
+  numberOfSuggestions: PropTypes.number,
+  onSearchInput: PropTypes.func.isRequired,
+  setSuggestions: PropTypes.func.isRequired,
+  fetchDetail: PropTypes.func.isRequired,
+  fetchDataSelection: PropTypes.func.isRequired,
+  fetchSearchResultsByQuery: PropTypes.func.isRequired,
+  emptyFilters: PropTypes.func.isRequired,
+  isDatasetView: PropTypes.bool
 };
 
 Search.defaultProps = {
-  searchQuery: ''
+  searchQuery: '',
+  suggestions: [],
+  isDatasetView: false,
+  numberOfSuggestions: 0
 };
 
 
