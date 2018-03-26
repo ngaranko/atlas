@@ -119,7 +119,7 @@ MapLeaflet.propTypes = {
     id: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,
     overlayOptions: PropTypes.shape({}),
-    transparent: PropTypes.bool.isRequired,
+    transparent: PropTypes.bool,
     url: PropTypes.string.isRequired
   })),
   markers: PropTypes.array, //eslint-disable-line
