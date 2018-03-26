@@ -12,6 +12,7 @@ module.exports = {
   "rules": {
     "arrow-parens": ["error", "always"],
     "comma-dangle": ["error", "never"],
+    "newline-per-chained-call": false,
     "no-nested-ternary": "off",
     "no-underscore-dangle": ["error", {
       "allow": []
