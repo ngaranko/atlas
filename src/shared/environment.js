@@ -12,6 +12,7 @@ export const HOSTS = {
   DEVELOPMENT: 'localhost'
 };
 
+// deprecated
 export const getEnvironment = (host) => {
   switch (host) {
     case 'data.amsterdam.nl':
@@ -25,9 +26,8 @@ export const getEnvironment = (host) => {
   }
 };
 
+const ENVIRONMENT = (process.env.NODE_ENV).toUpperCase();
 
-const ENVIROMENT = (process.env.NODE_ENV).toUpperCase();
+export const getEnv = () => ENVIRONMENT;
 
-export const getEnv = () => ENVIROMENT;
-
-export default ENVIROMENT;
+export default ENVIRONMENT;

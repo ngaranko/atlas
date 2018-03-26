@@ -2,7 +2,7 @@ import * as address from '../../../shared/services/adressen/adressen-nummeraandu
 import * as monument from '../../../shared/services/monument/monument';
 import * as vestiging from '../../../shared/services/vestiging/vestiging';
 
-import apiUrl from '../../../shared/services/api';
+import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config';
 
 import transformResultByType from './transform-result-by-type';
 
@@ -100,7 +100,7 @@ export default function search(location, user) {
       .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
       .join('&');
 
-    return fetch(`${apiUrl}${endpoint.uri}?${queryString}`)
+    return fetch(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`)
       .then((response) => response.json())
       .then(fetchRelatedForUser(user))
       .then((features) => features

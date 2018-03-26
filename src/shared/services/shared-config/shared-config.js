@@ -1,6 +1,6 @@
-import ENVIROMENT from '../../environment';
+import ENVIRONMENT from '../../environment';
 
-export const globalConfig = {
+const baseConfig = {
   RADIUS: 50, // Thumbnail search radius
   THUMBNAIL_WIDTH: 240,
   STRAATBEELD_THUMB_URL: 'panorama/thumbnail/',
@@ -9,11 +9,8 @@ export const globalConfig = {
   ROOT_KEYS: ['API_ROOT']
 };
 
-export const environmentConfig = {
+const environmentConfig = {
   PRODUCTION: {
-    API_ROOT: 'https://api.data.amsterdam.nl/'
-  },
-  PRE_PRODUCTION: {
     API_ROOT: 'https://api.data.amsterdam.nl/'
   },
   ACCEPTATION: {
@@ -25,8 +22,8 @@ export const environmentConfig = {
 };
 
 const SHARED_CONFIG = {
-  ...globalConfig,
-  ...environmentConfig[ENVIROMENT]
+  ...baseConfig,
+  ...environmentConfig[ENVIRONMENT]
 };
 
 export default SHARED_CONFIG;

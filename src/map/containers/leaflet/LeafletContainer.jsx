@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import DrawTool from '../../containers/draw-tool/DrawToolContainer'; //eslint-disable-line
-import LeafletMap from '../../components/leaflet-map/LeafletMap';
+import MapLeaflet from '../../components/map-leaflet/MapLeaflet';
 
 import MAP_CONFIG from '../../services/map-config';
 
@@ -35,7 +35,7 @@ const LeafletContainer = ({
   onUpdatePan
 }) => (
   <div>
-    <LeafletMap
+    <MapLeaflet
       layers={layers}
       mapOptions={mapOptions}
       scaleControlOptions={scaleControlOptions}
@@ -52,10 +52,24 @@ LeafletContainer.contextTypes = {
   store: PropTypes.object.isRequired
 };
 
+LeafletContainer.defaultProps = {
+  layers: [],
+  center: []
+};
+
 LeafletContainer.propTypes = {
-  baseLayer: PropTypes.shape({}).isRequired, // eslint-disable-line
-  layers: PropTypes.array.isRequired, // eslint-disable-line
-  center: PropTypes.array.isRequired, // eslint-disable-line
+  baseLayer: PropTypes.shape({
+    urlTemplate: PropTypes.string.isRequired,
+    baseLayerOptions: PropTypes.shape({}).isRequired
+  }).isRequired,
+  layers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+    overlayOptions: PropTypes.shape({}),
+    transparent: PropTypes.bool.isRequired,
+    url: PropTypes.string.isRequired
+  })),
+  center: PropTypes.arrayOf(PropTypes.number),
   zoom: PropTypes.number.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired

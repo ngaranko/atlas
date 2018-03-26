@@ -2,7 +2,7 @@ import * as address from '../../shared/services/adressen/adressen-nummeraanduidi
 import * as monument from '../../shared/services/monument/monument';
 import * as vestiging from '../../shared/services/vestiging/vestiging';
 
-import apiUrl from '../../shared/services/api';
+import SHARED_CONFIG from '../../shared/services/shared-config/shared-config';
 
 // NOTE: beware, if FETCH_MAP_SEARCH_RESULTS_REQUEST action is fired then
 // these endpoints are used to get geosearch details for MapSearchResults panel.
@@ -213,7 +213,7 @@ export default function search(location, user) {
       .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
       .join('&');
 
-    return fetch(`${apiUrl}${endpoint.uri}?${queryString}`)
+    return fetch(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`)
       .then((response) => response.json())
       .then(fetchRelatedForUser(user))
       .then((features) => features

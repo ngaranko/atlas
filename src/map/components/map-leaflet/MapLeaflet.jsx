@@ -4,18 +4,18 @@ import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet
 
 import NonTiledLayer from './custom/NonTiledLayer';
 
-const isVisibleToOpacity = ((isVisible) => isVisible ? 100 : 0); //eslint-disable-line
+const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
-class LeafletMap extends React.Component {
+class MapLeaflet extends React.Component {
   constructor() {
     super();
-    this.handleZoomEnd = this.handleZoomEnd.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleMoveEnd = this.handleMoveEnd.bind(this);
-    this.handleDragEnd = this.handleDragEnd.bind(this);
+    this.onZoomEnd = this.onZoomEnd.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.onMoveEnd = this.onMoveEnd.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
   }
 
-  handleZoomEnd(event) {
+  onZoomEnd(event) {
     this.props.onZoomEnd({
       zoom: event.target.getZoom(),
       maxZoom: event.target.getMaxZoom(),
@@ -23,7 +23,7 @@ class LeafletMap extends React.Component {
     });
   }
 
-  handleClick(event) {
+  onClick(event) {
     const { latlng, containerPoint, layerPoint } = event;
     this.props.onClick({
       latlng,
@@ -32,13 +32,13 @@ class LeafletMap extends React.Component {
     });
   }
 
-  handleMoveEnd(event) {
+  onMoveEnd(event) {
     this.props.onMoveEnd({
       center: event.target.getCenter()
     });
   }
 
-  handleDragEnd(event) {
+  onDragEnd(event) {
     this.props.onDragEnd({
       center: event.target.getCenter()
     });
@@ -56,10 +56,10 @@ class LeafletMap extends React.Component {
     } = this.props;
     return (
       <Map
-        onZoomEnd={this.handleZoomEnd}
-        onClick={this.handleClick}
-        onMoveEnd={this.handleMoveEnd}
-        onDragEnd={this.handleDragEnd}
+        onZoomEnd={this.onZoomEnd}
+        onClick={this.onClick}
+        onMoveEnd={this.onMoveEnd}
+        onDragEnd={this.onDragEnd}
         center={center}
         zoom={zoom}
         {...mapOptions}
@@ -74,7 +74,7 @@ class LeafletMap extends React.Component {
               key={layer.id}
               {...layer.overlayOptions}
               url={layer.url}
-              opacity={isVisibleToOpacity(layer.isVisible)}
+              opacity={visibleToOpacity(layer.isVisible)}
             />
           ))
         }
@@ -94,7 +94,7 @@ class LeafletMap extends React.Component {
   }
 }
 
-LeafletMap.defaultProps = {
+MapLeaflet.defaultProps = {
   layers: [],
   markers: [],
   center: [52.3731081, 4.8932945],
@@ -114,10 +114,16 @@ LeafletMap.defaultProps = {
   onDragEnd: () => 'dragend'
 };
 
-LeafletMap.propTypes = {
-  layers: PropTypes.array, //eslint-disable-line
+MapLeaflet.propTypes = {
+  layers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+    overlayOptions: PropTypes.shape({}),
+    transparent: PropTypes.bool.isRequired,
+    url: PropTypes.string.isRequired
+  })),
   markers: PropTypes.array, //eslint-disable-line
-  center: PropTypes.array, //eslint-disable-line
+  center: PropTypes.arrayOf(PropTypes.number),
   zoom: PropTypes.number,
   mapOptions: PropTypes.shape({}),
   scaleControlOptions: PropTypes.shape({}),
@@ -133,4 +139,4 @@ LeafletMap.propTypes = {
   onDragEnd: PropTypes.func
 };
 
-export default LeafletMap;
+export default MapLeaflet;
