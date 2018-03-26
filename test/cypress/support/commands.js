@@ -5,7 +5,7 @@ Cypress.Commands.add('checkPreviewPanel', (values) => {
     if (Array.isArray(values)) {
       values.forEach((val) => {
         expect($values).to.contain(val);
-      })
+      });
     } else {
       expect($values).to.contain(values);
     }

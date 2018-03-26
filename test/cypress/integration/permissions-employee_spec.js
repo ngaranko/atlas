@@ -1,5 +1,5 @@
 import { login, logout } from '../services/authentication';
-import { URLS } from '../shared/urls';
+import URLS from '../shared/urls';
 import { PAGELOAD_WAIT, foundKadastraleSubjecten } from '../shared/helpers';
 
 describe('employee permissions', () => {
@@ -34,10 +34,13 @@ describe('employee permissions', () => {
     cy.wait('@getMeetboutenResults');
     cy.wait('@getMonumentenResults');
 
-    cy.get('.c-panel--warning').contains('Medewerkers met speciale bevoegdheden kunnen alle gegevens vinden');
+    cy.get('.c-panel--warning')
+      .contains('Medewerkers met speciale bevoegdheden kunnen alle gegevens vinden');
     cy.get('.qa-search-header').contains('Kadastrale subjecten');
     cy.get('.qa-search-header').contains('Kadastrale subjecten').then((title) => {
-      foundKadastraleSubjecten.amount = parseInt(title.text().match(/\(([1-9.,]*)\)/)[1].replace('.', ''));
+      foundKadastraleSubjecten.amount = parseInt(
+        title.text().match(/\(([1-9.,]*)\)/)[1].replace('.', ''), 10
+      );
     });
   });
 
@@ -166,7 +169,7 @@ describe('employee permissions', () => {
 
     cy.get('button.toggle-fullscreen').click();
     cy.get('.notification--info').should('not.exist');
-    cy.get('.map-detail-result__header-subtitle').contains('vom ')
+    cy.get('.map-detail-result__header-subtitle').contains('vom ');
   });
 
   it('7G. Should allow an employee to view "maatschappelijke activiteit"', () => {
@@ -202,5 +205,4 @@ describe('employee permissions', () => {
       expect($values).to.contain('Beschrijving');
     });
   });
-
 });
