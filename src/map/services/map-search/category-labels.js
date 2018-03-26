@@ -3,6 +3,10 @@ const categoryLabels = {
     singular: 'Adres',
     plural: 'Adressen'
   },
+  bedrijfsinvesteringszone: {
+    singular: 'Bedrijfsinvesteringszone',
+    plural: 'Bedrijfsinvesteringszones'
+  },
   explosief: {
     singular: 'Explosief',
     plural: 'Explosieven'

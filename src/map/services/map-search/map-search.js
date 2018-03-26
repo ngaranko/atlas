@@ -19,7 +19,8 @@ const endpoints = [
       monumenttype: 'isnot_pand_bouwblok'
     }
   },
-  { uri: 'geosearch/grondexploitatie/' }
+  { uri: 'geosearch/grondexploitatie/' },
+  { uri: 'geosearch/biz/' }
 ];
 
 const relatedResourcesByType = {

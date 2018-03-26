@@ -98,6 +98,19 @@ exports[`MapDetailResult should render adressen verblijfsobject 1`] = `
 />
 `;
 
+exports[`MapDetailResult should render bedrijfsinvesteringszone 1`] = `
+<MapDetailBedrijfsinvesteringszone
+  bedrijfsinvesteringszone={
+    Object {
+      "label": "value",
+    }
+  }
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+/>
+`;
+
 exports[`MapDetailResult should render explosieven gevrijwaard gebied 1`] = `
 <MapDetailExplosievenGevrijwaardGebied
   gevrijwaardGebied={

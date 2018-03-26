@@ -86,6 +86,7 @@ class MapPanelContainer extends React.Component {
               onLayerToggle={this.props.onLayerToggle}
               onLayerVisibilityToggle={this.props.onLayerVisibilityToggle}
               overlays={this.props.overlays}
+              user={this.props.user}
               zoomLevel={this.props.zoomLevel}
             />
           )}

@@ -6,8 +6,9 @@ class ActiveOverlays {
     this.allOverlays = [];
   }
 
-  get getOverlays() {
-    return this.allOverlays;
+  getOverlays() {
+    return this.allOverlays
+      .filter((overlay) => ActiveOverlays.isAuthorised(overlay));
   }
 
   static isVisibleAtCurrentZoom(overlay, zoomLevel) {
@@ -18,42 +19,57 @@ class ActiveOverlays {
     return zoom >= SOURCES[overlay].minZoom && zoom <= SOURCES[overlay].maxZoom;
   }
 
+  static isAuthorised(overlay) {
+    const state = getState();
+    const user = state.user;
+    const layer = state.mapLayers.find((item) => (
+      (item.id && item.id === overlay.id) ||
+      (!item.id && item.legendItems && item.legendItems.length &&
+        item.legendItems.some((legendItem) => (
+          legendItem.id === overlay.id
+        ))
+      )
+    ));
+    const authScope = layer && layer.authScope;
+
+    return SOURCES[overlay.id] && layer && (
+      !authScope || (user.authenticated && user.scopes.includes(authScope))
+    );
+  }
+
   setOverlays(newOverlays) {
-    const overlaysAreEqual = newOverlays.every((overlay, index) => (
-      this.allOverlays[index] && overlay.id === this.allOverlays[index].id));
-    if (overlaysAreEqual) {
-      return;
-    }
     this.allOverlays = newOverlays;
   }
 
   getVisibleOverlays(zoom) {
     return this.getVisibleSources(zoom)
-        .filter((source) => source.detailUrl && source.detailItem)
-        .filter((a, index, self) => self.findIndex((b) => b.detailItem === a.detailItem === index));
+      .filter((source) => source.detailUrl && source.detailItem)
+      .filter((a, index, self) => self.findIndex((b) => b.detailItem === a.detailItem === index));
   }
 
   getOverlaysWarning(zoom) {
     return this.getVisibleSources(zoom)
-        .filter((source) => source.noDetail)
-        .map((a) => a.label_short)
-        .join(', ');
+      .filter((source) => source.noDetail)
+      .map((a) => a.label_short)
+      .join(', ');
   }
 
   getOverlaysLabels(zoom) {
     const labels = this.getVisibleSources(zoom)
-        .map((a) => a.parent_label || a.label_short);
+      .map((a) => a.parent_label || a.label_short);
 
     return [...new Set(labels)].join(', ');
   }
 
   getVisibleSources(zoom) {
-    return this.allOverlays.filter((source) => (
-      source.isVisible && ActiveOverlays.isVisibleAtCurrentZoom(source.id, zoom)))
+    return this.allOverlays
+      .filter((source) => (
+        source.isVisible &&
+        ActiveOverlays.isAuthorised(source) &&
+        ActiveOverlays.isVisibleAtCurrentZoom(source.id, zoom)
+      ))
       .map((source) => SOURCES[source.id]);
   }
 }
-
-export class ActiveOverlaysTest extends ActiveOverlays {}
 
 export default new ActiveOverlays();
