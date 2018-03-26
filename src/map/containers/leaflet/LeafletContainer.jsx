@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import DrawTool from '../../containers/draw-tool/DrawToolContainer'; //eslint-disable-line
 import MapLeaflet from '../../components/leaflet/MapLeaflet';
-
 import MAP_CONFIG from '../../services/map-config';
-
 import { getLayers, getBaseLayer, updateZoom, updatePan } from '../../ducks/map/map';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
