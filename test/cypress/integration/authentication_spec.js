@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { login, logout } from '../services/authentication';
 
 describe('auth module', () => {

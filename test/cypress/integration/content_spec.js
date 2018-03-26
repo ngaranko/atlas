@@ -1,4 +1,3 @@
-/* eslint-disable */
 describe('content module', () => {
   describe('user should be able to navigate to the content from the homepage', () => {
     it('should open `Bediening` content', () => {
