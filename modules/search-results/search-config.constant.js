@@ -82,7 +82,8 @@
                         monumenttype: 'isnot_pand_bouwblok'
                     }
                 },
-                { uri: 'geosearch/grondexploitatie/' }
+                { uri: 'geosearch/grondexploitatie/' },
+                { uri: 'geosearch/biz/' }
             ],
             COORDINATES_HIERARCHY: [
                 {
@@ -171,6 +172,11 @@
                     label_singular: 'Grondexploitatie',
                     label_plural: 'Grondexploitaties',
                     features: ['grex/grondexploitatie']
+                }, {
+                    slug: 'bedrijfsinvesteringszone',
+                    label_singular: 'Bedrijfsinvesteringszone',
+                    label_plural: 'Bedrijfsinvesteringszones',
+                    features: ['vsd/biz']
                 }
             ]
         });

@@ -30,7 +30,11 @@ const SOURCES = {
     minZoom: 8,
     maxZoom: 16,
     legend: 'maps/biz?version=1.3.0&service=WMS&request=GetLegend' +
-    'Graphic&sld_version=1.1.0&layer=biz_polygons&format=image/png&STYLE=default'
+    'Graphic&sld_version=1.1.0&layer=biz_polygons&format=image/png&STYLE=default',
+    detailUrl: 'geosearch/biz/', // Geosearch URL
+    detailItem: 'biz', // Not needed for this API endpoint,
+                       // but needed to trigger nearest detail on click...
+    detailIsShape: true
   },
   hvo: {
     authScope: 'HR/R',
@@ -874,6 +878,26 @@ const SOURCES = {
   },
 
   // Verkeer
+  trm: {
+    url: 'maps/trm',
+    label_short: 'Tram - lijnen',
+    label_long: 'Tram - lijnen',
+    parent_label: 'Metro en tram - lijnen',
+    layers: ['tramlijnen'],
+    minZoom: 8,
+    maxZoom: 16,
+    noDetail: true
+  },
+  mtr: {
+    url: 'maps/trm',
+    label_short: 'Metro - lijnen',
+    label_long: 'Metro - lijnen',
+    parent_label: 'Metro en tram - lijnen',
+    layers: ['metrolijnen'],
+    minZoom: 8,
+    maxZoom: 16,
+    noDetail: true
+  },
   pv: {
     url: 'maps/parkeervakken',
     label_short: 'Parkeervakken - Fiscale indeling',

@@ -144,6 +144,9 @@ $map-panel-max-width: 444px;
     height: auto;
     max-height: none;
     position: absolute;
+    // Make sure the width is fixed
+    width: $map-panel-max-width;
+
 
     &--collapsed,
     &--has-no-active-layers,
@@ -157,16 +160,13 @@ $map-panel-max-width: 444px;
       height: auto;
     }
 
-    // Make sure the width is fixed
-    width: $map-panel-max-width;
-
     // This hack makes sure IE also has a white background when printing
     // https://stackoverflow.com/a/27822161
     @media print {
       &::before {
         border-right: $map-panel-max-width solid $primary-light;
         bottom: 0;
-        content: '';
+        content: "";
         display: block;
         left: 0;
         position: absolute;
