@@ -13,11 +13,15 @@ class Search extends React.Component {
       query: props.searchQuery,
       suggestions: []
     };
+
     this.onTextInput = this.onTextInput.bind(this);
     this.onSuggestSelection = this.onSuggestSelection.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.clearSuggestions = this.clearSuggestions.bind(this);
+    if (window.opener && window.suggestionToLoadUri) {
+      this.openDetailOnLoad();
+    }
   }
 
   onTextInput(event) {
@@ -33,14 +37,22 @@ class Search extends React.Component {
     }
   }
 
-  onSuggestSelection(suggestion) {
+  onSuggestSelection(suggestion, event) {
+    event.preventDefault();
+    event.stopPropagation();
     const { fetchDetail, searchQuery } = this.props;
-
 
     // eslint-disable-next-line no-underscore-dangle
     window._paq.push(['trackEvent', 'search', 'auto-suggest', searchQuery, suggestion._display]);
 
-    fetchDetail(`${getSharedConfig().API_ROOT}${suggestion.uri}`);
+    if (event.ctrlKey || event.metaKey) {
+      const newWindow = window.open(`${window.location.href}`, '_blank, rel=noopener');
+      // setting uri to the window, as window.postMessage does not work for some reason
+      // (webpack overrides the data it seems)
+      newWindow.window.suggestionToLoadUri = suggestion.uri;
+    } else {
+      fetchDetail(`${getSharedConfig().API_ROOT}${suggestion.uri}`);
+    }
   }
 
   onFormSubmit(event) {
@@ -105,6 +117,12 @@ class Search extends React.Component {
       activeSuggestionIndex: -1
       // originalQuery: '' // TODO: scope._display
     });
+  }
+
+  openDetailOnLoad() {
+    const { fetchDetail } = this.props;
+    const suggestionUri = window.suggestionToLoadUri;
+    fetchDetail(`${getSharedConfig().API_ROOT}${suggestionUri}`);
   }
 
   render() {

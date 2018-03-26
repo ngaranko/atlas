@@ -55,7 +55,7 @@ class AutoSuggest extends React.Component {
       classNames,
       suggestions,
       query,
-      onSuggestSelection,
+      onSuggestSelection
     } = this.props;
 
     return (
@@ -107,7 +107,7 @@ class AutoSuggest extends React.Component {
                         <button
                           type="button"
                           className={`c-auto-suggest__category__suggestion c-auto-suggest__category__suggestion--${this.state.activeSuggestionIndex === suggestion.index ? '' : 'in'}active`}
-                          onClick={() => { onSuggestSelection(suggestion); this.clearQuery(); }}
+                          onClick={(e) => { onSuggestSelection(suggestion, e); this.clearQuery(); }}
                         >
                           <span> {suggestion._display} </span>
                         </button>
