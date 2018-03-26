@@ -1,7 +1,9 @@
-/* eslint-disable */
 describe('datasets module', () => {
   describe('user should be able to navigate to the datasets catalogus from the homepage', () => {
     beforeEach(() => {
+      cy.server()
+      cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults')
+
       // go to the homepage
       cy.visit('/');
       // check if the link is in the dom and visible
@@ -13,6 +15,8 @@ describe('datasets module', () => {
     it('should open the datasets catalogus without a filter and see results', () => {
       // click on the link to go to the datasets without a specified catalogus theme
       cy.get('.c-homepage__block--datasets').find('.qa-dp-link').click();
+      cy.wait('@getResults');
+
       // the homepage should not be visible anymore
       cy.get('.c-homepage').should('not.be.visible');
       // the data selection should be visible
@@ -28,6 +32,8 @@ describe('datasets module', () => {
     it('should open a dataset', () => {
       // click on the link to go to the datasets without a specified catalogus theme
       cy.get('.c-homepage__block--datasets').get('.qa-theme-link').first().click();
+      cy.wait('@getResults');
+
       // the homepage should not be visible anymore
       cy.get('.c-homepage').should('not.be.visible');
       // the data selection should be visible
@@ -35,13 +41,19 @@ describe('datasets module', () => {
       // the title should contain Datasets
       cy.get('h1').contains('Datasets').should('exist').and('be.visible');
       cy.get('.c-data-selection-card').first().click();
-      // as downloading is not testable, we check for the presence of a a href
-      cy.get('.c-detail-catalogus-table').find('a').should('exist').and('be.visible').and('have.attr', 'href');
+      cy.wait('@getResults');
+
+      // as downloading is not testable, we check for the presence of href
+      cy.get('.c-detail-catalogus-table').find('a')
+        .should('exist').and('be.visible')
+        .and('have.attr', 'href');
     });
 
     it('should open the datasets catalogus with a filter and see filtered results', () => {
       // click on the link to go to the datasets without a specified catalogus theme
       cy.get('.c-homepage__block--datasets').find('.c-catalogus-theme__icon--kaart').click();
+      cy.wait('@getResults');
+
       // the homepage should not be visible anymore
       cy.get('.c-homepage').should('not.be.visible');
       // the datasets component should be visible
