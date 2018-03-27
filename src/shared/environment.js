@@ -12,7 +12,8 @@ export const HOSTS = {
   DEVELOPMENT: 'localhost'
 };
 
-// deprecated
+// DEPRECATED: used by modules/shared/services/eviroment/environment.factory.js
+// NODE_ENV doesn't differentiate between pre-production and production
 export const getEnvironment = (host) => {
   switch (host) {
     case 'data.amsterdam.nl':
