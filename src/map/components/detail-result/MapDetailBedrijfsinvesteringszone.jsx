@@ -27,7 +27,7 @@ const MapDetailBedrijfsinvesteringszone = ({
         value={bedrijfsinvesteringszone.heffingsgrondslag}
       />
       <MapDetailResultItem
-        label="Jaarlijks opgehaald bedrag"
+        label="Jaarlijkse heffing (EUR)"
         value={bedrijfsinvesteringszone.heffing}
       />
       <MapDetailResultItem
