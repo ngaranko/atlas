@@ -29,15 +29,6 @@ function search(query) {
     .then((response) => formatData(response, query));
 }
 
-function getSuggestionByIndex(searchResults, suggestionIndex) {
-  return searchResults.reduce((flatResults, category) =>
-    [...flatResults, ...category.content], [])
-    .filter((suggestion, index) =>
-      index === suggestionIndex
-    )[0];
-}
-
 export default {
-  search,
-  getSuggestionByIndex
+  search
 };

@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { setSearchQuery, setSuggestions, setActiveSuggestion, setShowSuggestions } from '../../ducks/auto-suggest/auto-suggest';
+import {
+  setSearchQuery,
+  setSuggestions,
+  setActiveSuggestionIndex,
+  setShowSuggestions,
+  setActiveSuggestion
+} from '../../ducks/auto-suggest/auto-suggest';
 import { fetchDetail } from '../../../reducers/details';
 import { fetchDataSelection, fetchSearchResultsByQuery } from '../../../reducers/search';
 import { emptyFilters } from '../../../reducers/filters';
@@ -17,6 +23,7 @@ const mapStateToProps = (state) => ({
   numberOfSuggestions: state.autoSuggest.numberOfSuggestions,
   isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
   activeSuggestionIndex: state.autoSuggest.activeSuggestionIndex,
+  activeSuggestion: state.autoSuggest.activeSuggestion,
   showSuggestions: state.autoSuggest.showSuggestions
 });
 
@@ -27,6 +34,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchDataSelection,
   fetchSearchResultsByQuery,
   emptyFilters,
+  setActiveSuggestionIndex,
   setActiveSuggestion,
   setShowSuggestions
 }, dispatch);

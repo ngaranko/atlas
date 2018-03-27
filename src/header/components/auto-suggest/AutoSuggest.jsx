@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import escapeStringRegexp from 'escape-string-regexp';
 
 import './_auto-suggest.scss';
 
@@ -11,11 +12,11 @@ class AutoSuggest extends React.Component {
     this.onInput = this.onInput.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.navigateSuggestions = this.navigateSuggestions.bind(this);
+    this.setSuggestedQuery = this.setSuggestedQuery.bind(this);
   }
 
   onBlur() {
     const { setShowSuggestions } = this.props;
-
     setTimeout(() => {
       setShowSuggestions(false);
     }, 200);
@@ -37,14 +38,16 @@ class AutoSuggest extends React.Component {
 
   navigateSuggestions(event) {
     const {
-      setActiveSuggestion,
+      setActiveSuggestionIndex,
       activeSuggestionIndex,
       numberOfSuggestions,
-      setShowSuggestions
+      setShowSuggestions,
+      query,
+      onSuggestSelection,
+      activeSuggestion,
+      showSuggestions
     } = this.props;
 
-    // Cancel outstanding requests, we don't want
-    // suggestions to 'refresh' while navigating.
     switch (event.keyCode) {
       // Arrow up
       case 38:
@@ -52,27 +55,40 @@ class AutoSuggest extends React.Component {
         // beginning of the input, we don't want that!
         event.preventDefault();
 
-        setActiveSuggestion(Math.max(activeSuggestionIndex - 1, -1));
-
-        if (activeSuggestionIndex === -1) {
-          // scope.query = scope.originalQuery;
-        } else {
-          this.setSuggestedQuery();
+        if (!showSuggestions || !numberOfSuggestions) {
+          return;
         }
 
+        // set the active suggestion index, and immediately use it in the if-statement
+        if (setActiveSuggestionIndex(Math.max(activeSuggestionIndex - 1, -1)).index === -1) {
+          this.textInput.value = query;
+        } else {
+          setTimeout(this.setSuggestedQuery, 0);
+        }
         break;
 
       // Arrow down
       case 40:
-        setActiveSuggestion(Math.min(activeSuggestionIndex + 1, numberOfSuggestions - 1));
-        this.setSuggestedQuery();
+        if (!showSuggestions || !numberOfSuggestions) {
+          return;
+        }
+        setActiveSuggestionIndex(Math.min(activeSuggestionIndex + 1, numberOfSuggestions - 1));
+        setTimeout(this.setSuggestedQuery, 0);
         break;
 
       // Escape
       case 27:
-        // scope.query = scope.originalQuery;
+        this.textInput.value = query;
         setShowSuggestions(false);
         this.textInput.blur();
+        break;
+
+      // Enter
+      case 13:
+        if (activeSuggestionIndex > -1) {
+          onSuggestSelection(activeSuggestion, event);
+          this.clearQuery();
+        }
         break;
 
       default:
@@ -81,11 +97,15 @@ class AutoSuggest extends React.Component {
   };
 
   setSuggestedQuery() {
-    // console.log('asdsad')
-    // scope.query = autocomplete.getSuggestionByIndex(
-    //   suggestions,
-    //   scope.activeSuggestionIndex
-    // )._display;
+    const { suggestions, activeSuggestionIndex, setActiveSuggestion } = this.props;
+    const thisActiveSuggestion = this.getSuggestionByIndex(
+      suggestions,
+      activeSuggestionIndex
+    );
+
+    setActiveSuggestion(thisActiveSuggestion);
+
+    this.textInput.value = thisActiveSuggestion._display;
   }
 
   clearQuery() {
@@ -93,6 +113,15 @@ class AutoSuggest extends React.Component {
     this.textInput.value = '';
     this.textInput.focus();
     onTextInput();
+  }
+
+
+  getSuggestionByIndex(searchResults, suggestionIndex) {
+    return searchResults.reduce((flatResults, category) =>
+      [...flatResults, ...category.content], [])
+      .filter((suggestion, index) =>
+        index === suggestionIndex
+      )[0];
   }
 
   render() {
@@ -168,8 +197,8 @@ class AutoSuggest extends React.Component {
                                   onClick={
                                     (e) => { onSuggestSelection(suggestion, e); this.clearQuery(); }
                                   }
+                                  dangerouslySetInnerHTML={{ __html: suggestion._display.replace(new RegExp(`(${escapeStringRegexp(query)})`, 'gi'), '<span class="c-auto-suggest__highlight">$1</span>') }}
                                 >
-                                  <span> {suggestion._display} </span>
                                 </button>
                               </li>
                             )
@@ -206,11 +235,13 @@ AutoSuggest.propTypes = {
   numberOfSuggestions: PropTypes.number,
   query: PropTypes.string,
   onSuggestSelection: PropTypes.func.isRequired,
+  setActiveSuggestionIndex: PropTypes.func.isRequired,
   setActiveSuggestion: PropTypes.func.isRequired,
   activeSuggestionIndex: PropTypes.number,
   showSuggestions: PropTypes.bool,
   setShowSuggestions: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  activeSuggestion: PropTypes.object.isRequired //eslint-disable-line
 };
 
 AutoSuggest.defaultProps = {

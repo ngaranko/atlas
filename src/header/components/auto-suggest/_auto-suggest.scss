@@ -40,6 +40,7 @@ $suggestion-offset: $base-font-size;
 
   .c-auto-suggest__category__suggestion {
     @include font-size($s-font);
+    @include font-weight($light-weight);
     display: block;
     position: relative;
     width: 100%;
@@ -67,5 +68,9 @@ $suggestion-offset: $base-font-size;
       padding-right: $base-whitespace;
       content: "›";
     }
+  }
+
+  &__highlight {
+    @include font-weight($bold-weight);
   }
 }

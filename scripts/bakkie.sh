@@ -10,7 +10,6 @@ echo Build distribution of this branch
 export NODE_ENV=test
 
 # Uninstall cypress because it is not used here and installation is sluggish
-#    Note: uninstall actually performs an installation as well (NPM magic)
 npm uninstall cypress
 npm install
 npm run build-test

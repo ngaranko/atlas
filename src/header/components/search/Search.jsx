@@ -52,6 +52,7 @@ class Search extends React.Component {
       newWindow.window.suggestionToLoadUri = suggestion.uri;
     } else {
       fetchDetail(`${getSharedConfig().API_ROOT}${suggestion.uri}`);
+      this.clearSuggestions();
     }
   }
 
@@ -63,7 +64,6 @@ class Search extends React.Component {
       isDatasetView,
       searchQuery,
       emptyFilters,
-      suggestions,
       numberOfSuggestions,
       activeSuggestionIndex
     } = this.props;
@@ -79,20 +79,13 @@ class Search extends React.Component {
       } else {
         fetchSearchResultsByQuery(searchQuery);
       }
-      this.clearSuggestions();
-    } else {
-      const activeSuggestion = autoSuggestService.getSuggestionByIndex(
-        suggestions,
-        activeSuggestionIndex
-      );
-      // console.log(activeSuggestionIndex, activeSuggestion, suggestions)
-      this.onSuggestSelection(activeSuggestion, event);
     }
+    this.clearSuggestions();
   }
 
   getSuggestions() {
-    const { searchQuery, setSuggestions, setActiveSuggestion } = this.props;
-    setActiveSuggestion();
+    const { searchQuery, setSuggestions, setActiveSuggestionIndex } = this.props;
+    setActiveSuggestionIndex();
 
     this.setState({
       originalQuery: this.state.query
@@ -111,15 +104,11 @@ class Search extends React.Component {
   }
 
   clearSuggestions() {
-    const { onSearchInput, setSuggestions, setActiveSuggestion } = this.props;
+    const { onSearchInput, setSuggestions, setActiveSuggestionIndex } = this.props;
 
     onSearchInput();
     setSuggestions();
-    setActiveSuggestion();
-    this.setState({
-      activeSuggestionIndex: -1
-      // originalQuery: '' // TODO: scope._display
-    });
+    setActiveSuggestionIndex();
   }
 
   openDetailOnLoad() {
@@ -133,11 +122,13 @@ class Search extends React.Component {
     const {
       suggestions,
       searchQuery,
-      setActiveSuggestion,
+      setActiveSuggestionIndex,
       activeSuggestionIndex,
       showSuggestions,
       setShowSuggestions,
-      numberOfSuggestions
+      numberOfSuggestions,
+      setActiveSuggestion,
+      activeSuggestion
     } = this.props;
 
     return (
@@ -151,8 +142,10 @@ class Search extends React.Component {
         numberOfSuggestions={numberOfSuggestions}
         query={searchQuery}
         onSuggestSelection={this.onSuggestSelection}
+        setActiveSuggestionIndex={setActiveSuggestionIndex}
         setActiveSuggestion={setActiveSuggestion}
         activeSuggestionIndex={activeSuggestionIndex}
+        activeSuggestion={activeSuggestion}
         showSuggestions={showSuggestions}
         setShowSuggestions={setShowSuggestions}
         onSubmit={this.onFormSubmit}
@@ -174,8 +167,10 @@ Search.propTypes = {
   isDatasetView: PropTypes.bool,
   showSuggestions: PropTypes.bool,
   activeSuggestionIndex: PropTypes.number,
+  setActiveSuggestionIndex: PropTypes.func.isRequired,
   setActiveSuggestion: PropTypes.func.isRequired,
-  setShowSuggestions: PropTypes.func.isRequired
+  setShowSuggestions: PropTypes.func.isRequired,
+  activeSuggestion: PropTypes.object //eslint-disable-line
 };
 
 Search.defaultProps = {
@@ -184,7 +179,8 @@ Search.defaultProps = {
   isDatasetView: false,
   numberOfSuggestions: 0,
   activeSuggestionIndex: -1,
-  showSuggestions: false
+  showSuggestions: false,
+  activeSuggestion: {}
 };
 
 
