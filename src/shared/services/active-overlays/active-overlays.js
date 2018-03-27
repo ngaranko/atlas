@@ -24,7 +24,7 @@ class ActiveOverlays {
     const user = state.user;
     const layer = state.mapLayers.find((item) => (
       (item.id && item.id === overlay.id) ||
-      (!item.id && item.legendItems && item.legendItems.length &&
+      (item.legendItems && item.legendItems.length &&
         item.legendItems.some((legendItem) => (
           legendItem.id === overlay.id
         ))
