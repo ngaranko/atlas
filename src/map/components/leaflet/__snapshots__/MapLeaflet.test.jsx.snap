@@ -863,7 +863,7 @@ exports[`MapSearchResults should render map with without layers and add/remove l
       ]
     }
     opacity={100}
-    url="https://acc.map.data.amsterdam.nl//maps/biz"
+    url="https://acc.map.data.amsterdam.nl/maps/biz"
   />
   <ScaleControl
     imperial={false}

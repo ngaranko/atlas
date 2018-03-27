@@ -73,7 +73,7 @@ describe('MapSearchResults', () => {
             layers: ['biz_polygons']
           },
           transparent: true,
-          url: 'https://acc.map.data.amsterdam.nl//maps/biz'
+          url: 'https://acc.map.data.amsterdam.nl/maps/biz'
         }
       ]
     });
