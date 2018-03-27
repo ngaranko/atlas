@@ -5,12 +5,16 @@ const ENDPOINT = 'typeahead';
 
 function formatData(categories, query) {
   const numberOfResults = categories.reduce((acc, category) => acc + category.content.length, 0);
-  const indexedCategories = categories.map((category, i) => ({
+  let indexInTotal = -1;
+  const indexedCategories = categories.map((category) => ({
     ...category,
-    content: category.content.map((suggestion, j) => ({
-      ...suggestion,
-      index: `${i}-${j}`
-    }))
+    content: category.content.map((suggestion) => {
+      indexInTotal += 1;
+      return {
+        ...suggestion,
+        index: indexInTotal
+      };
+    })
   }));
 
   return {
@@ -25,18 +29,12 @@ function search(query) {
     .then((response) => formatData(response, query));
 }
 
-function getSuggestionByIndex(searchResults, index) {
-  let activeSuggestion;
-
-  searchResults.forEach((category) => {
-    category.content.forEach((suggestion) => {
-      if (suggestion.index === index) {
-        activeSuggestion = suggestion;
-      }
-    });
-  });
-
-  return activeSuggestion;
+function getSuggestionByIndex(searchResults, suggestionIndex) {
+  return searchResults.reduce((flatResults, category) =>
+    [...flatResults, ...category.content], [])
+    .filter((suggestion, index) =>
+      index === suggestionIndex
+    )[0];
 }
 
 export default {

@@ -46,7 +46,7 @@ class Search extends React.Component {
     window._paq.push(['trackEvent', 'search', 'auto-suggest', searchQuery, suggestion._display]);
 
     if (event.ctrlKey || event.metaKey) {
-      const newWindow = window.open(`${window.location.href}`, '_blank, rel=noopener');
+      const newWindow = window.open(`${window.location.href}`, '_blank');
       // setting uri to the window, as window.postMessage does not work for some reason
       // (webpack overrides the data it seems)
       newWindow.window.suggestionToLoadUri = suggestion.uri;
@@ -65,7 +65,8 @@ class Search extends React.Component {
       emptyFilters,
       suggestions,
       numberOfSuggestions,
-      activeSuggestionIndex} = this.props;
+      activeSuggestionIndex
+    } = this.props;
 
     // eslint-disable-next-line no-underscore-dangle
     window._paq.push(['trackSiteSearch', searchQuery, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
@@ -84,8 +85,8 @@ class Search extends React.Component {
         suggestions,
         activeSuggestionIndex
       );
-
-      this.onSuggestSelection(activeSuggestion);
+      // console.log(activeSuggestionIndex, activeSuggestion, suggestions)
+      this.onSuggestSelection(activeSuggestion, event);
     }
   }
 
@@ -135,38 +136,27 @@ class Search extends React.Component {
       setActiveSuggestion,
       activeSuggestionIndex,
       showSuggestions,
-      setShowSuggestions
+      setShowSuggestions,
+      numberOfSuggestions
     } = this.props;
 
     return (
-      <div id="header-search">
-        <form className="c-search-form" onSubmit={this.onFormSubmit}>
-          <fieldset>
-            <AutoSuggestWrapper
-              placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
-              classNames={'c-search-form__input js-search-input qa-search-form-input'}
-              uniqueId={'global-search'}
-              legendTitle={'Data zoeken'}
-              onTextInput={this.onTextInput}
-              suggestions={suggestions}
-              query={searchQuery}
-              onSuggestSelection={this.onSuggestSelection}
-              setActiveSuggestion={setActiveSuggestion}
-              activeSuggestionIndex={activeSuggestionIndex}
-              showSuggestions={showSuggestions}
-              setShowSuggestions={setShowSuggestions}
-            />
-            <button
-              disabled={!searchQuery}
-              className="c-search-form__submit qa-search-form-submit"
-              type="submit"
-              title="Zoeken"
-            >
-              <span className="u-sr-only">Zoeken</span>
-            </button>
-          </fieldset>
-        </form>
-      </div>
+      <AutoSuggestWrapper
+        placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
+        classNames={'c-search-form__input js-search-input qa-search-form-input'}
+        uniqueId={'global-search'}
+        legendTitle={'Data zoeken'}
+        onTextInput={this.onTextInput}
+        suggestions={suggestions}
+        numberOfSuggestions={numberOfSuggestions}
+        query={searchQuery}
+        onSuggestSelection={this.onSuggestSelection}
+        setActiveSuggestion={setActiveSuggestion}
+        activeSuggestionIndex={activeSuggestionIndex}
+        showSuggestions={showSuggestions}
+        setShowSuggestions={setShowSuggestions}
+        onSubmit={this.onFormSubmit}
+      />
     );
   }
 }
