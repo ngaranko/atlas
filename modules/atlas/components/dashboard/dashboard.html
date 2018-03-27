@@ -51,7 +51,7 @@
             <div class="u-row u-full-height">
 
                 <!-- Middle column -->
-                <div ng-show="vm.columnSizes.middle"
+                <div ng-if="vm.columnSizes.middle"
                     class="c-dashboard__column u-col-sm--{{vm.columnSizes.middle}} qa-dashboard__column--middle"
                     ng-class="{ 'u-page-break-after': vm.columnSizes.middle && vm.columnSizes.right }">
 
