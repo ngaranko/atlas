@@ -99,7 +99,6 @@ MapLeaflet.defaultProps = {
   markers: [],
   center: [52.3731081, 4.8932945],
   zoom: 11,
-  baseUrl: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
   mapOptions: {},
   scaleControlOptions: {},
   baseLayer: {
