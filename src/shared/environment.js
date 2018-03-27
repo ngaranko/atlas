@@ -29,6 +29,4 @@ export const getEnvironment = (host) => {
 
 const ENVIRONMENT = (process.env.NODE_ENV).toUpperCase();
 
-export const getEnv = () => ENVIRONMENT;
-
 export default ENVIRONMENT;
