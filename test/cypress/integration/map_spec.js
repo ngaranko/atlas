@@ -1,4 +1,3 @@
-/* eslint-disable */
 import '../support';
 import {
   defineGeoSearchRoutes,
@@ -69,7 +68,8 @@ describe('map module', () => {
         .should('exist').and('be.visible');
       cy.checkPreviewPanel(['Indicatie hoofdadres', 'Nee']);
 
-      // click on the button inside the panel balloon thingy, and expect the large right column to become visible
+      // click on the button inside the panel balloon thingy, and expect the large right column to
+      // become visible
       cy.get('button.map-preview-panel__button[title="Volledige weergave tonen"]').click();
       cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
       cy.get('.qa-dashboard__column--right').get('.qa-title').contains('Beursplein 2');
@@ -92,7 +92,9 @@ describe('map module', () => {
 
       cy.visit('/#?mpb=topografie&mpz=11&mpfs=T&mpv=52.3728007:4.899258&pgn=home&uvm=T');
       cy.get('.map-layers__category').contains('Meetbouten - Zaksnelheid').click();
-      cy.get('.map-legend__notification').contains('Zichtbaar bij verder inzoomen').and('is.visible');
+      cy.get('.map-legend__notification')
+        .contains('Zichtbaar bij verder inzoomen')
+        .and('is.visible');
       cy.get('.leaflet-control-zoom-in').click();
       // wait for the second click
       cy.wait(250);

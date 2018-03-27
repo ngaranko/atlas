@@ -1,4 +1,3 @@
-/* eslint-disable */
 describe('embed module', () => {
   beforeEach(() => {
     // go to the homepage
@@ -15,6 +14,5 @@ describe('embed module', () => {
     });
     // the user should not be able to toggle map layers
     cy.get('input[type="checkbox"]').should('not.be.visible');
-
   });
 });
