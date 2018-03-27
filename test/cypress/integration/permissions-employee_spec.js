@@ -278,7 +278,7 @@ describe('employee permissions', () => {
     });
   });
 
-  it('8. Should show an employee all information in "monument"', () => {
+  it('8A. Should show an employee all information in "monument"', () => {
     cy.server();
     cy.route('/monumenten/monumenten/*').as('getMonument');
     cy.route('/monumenten/complexen/*').as('getComplex');
