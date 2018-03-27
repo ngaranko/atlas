@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AutoSuggestWrapper from '../../wrappers/auto-suggest/AutoSuggestWrapper';
 import getSharedConfig from '../../../shared/services/shared-config/shared-config';
-import autoSuggestService from '../../services/auto-suggest/auto-suggest-service';
+import autoSuggestService from '../../services/auto-suggest/auto-suggest';
 
 import './_search.scss';
 

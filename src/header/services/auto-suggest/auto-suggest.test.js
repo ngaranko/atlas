@@ -1,4 +1,4 @@
-import autoSuggestDataService from './auto-suggest-service';
+import autoSuggestDataService from './auto-suggest';
 import { getByUrl } from '../../../shared/services/api/api';
 
 jest.mock('../../shared/services/api/api');
@@ -72,50 +72,4 @@ describe('The auto-suggest service', () => {
       expect(suggestions.data[1].content[1].index).toBe(2);
     });
   });
-
-  // it('can get the active search suggestion', function () {
-  //   let mockedFormattedSearchResults = [
-  //     {
-  //       label: 'Category A',
-  //       content: [
-  //         {
-  //           _display: 'Suggestion A1',
-  //           index: 0
-  //         }, {
-  //           _display: 'Suggestion A2',
-  //           index: 1
-  //         }
-  //       ]
-  //     }, {
-  //       label: 'Category B',
-  //       content: [
-  //         {
-  //           _display: 'Suggestion B1',
-  //           index: 2
-  //         }
-  //       ]
-  //     }, {
-  //       label: 'Category C',
-  //       content: [
-  //         {
-  //           _display: 'Suggestion C1',
-  //           index: 3
-  //         }, {
-  //           _display: 'Suggestion C2',
-  //           index: 4
-  //         }, {
-  //           _display: 'Suggestion C3',
-  //           index: 5
-  //         }
-  //       ]
-  //     }
-  //   ];
-  //
-  //   expect(autocompleteData.getSuggestionByIndex(mockedFormattedSearchResults, 0)._display).toBe('Suggestion A1');
-  //   expect(autocompleteData.getSuggestionByIndex(mockedFormattedSearchResults, 1)._display).toBe('Suggestion A2');
-  //   expect(autocompleteData.getSuggestionByIndex(mockedFormattedSearchResults, 2)._display).toBe('Suggestion B1');
-  //   expect(autocompleteData.getSuggestionByIndex(mockedFormattedSearchResults, 3)._display).toBe('Suggestion C1');
-  //   expect(autocompleteData.getSuggestionByIndex(mockedFormattedSearchResults, 4)._display).toBe('Suggestion C2');
-  //   expect(autocompleteData.getSuggestionByIndex(mockedFormattedSearchResults, 5)._display).toBe('Suggestion C3');
-  // });
 });

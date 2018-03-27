@@ -12,7 +12,7 @@ import {
 } from '../../ducks/auto-suggest/auto-suggest';
 import { fetchDetail } from '../../../reducers/details';
 import { fetchDataSelection, fetchSearchResultsByQuery } from '../../../reducers/search';
-import { emptyFilters } from '../../../reducers/filters';
+import emptyFilters from '../../../reducers/filters';
 
 import Search from '../../components/search/Search';
 

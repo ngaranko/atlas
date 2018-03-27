@@ -1,4 +1,4 @@
-export function emptyFilters() {
+export default function emptyFilters() {
   return {
     type: {
       id: 'EMPTY_FILTERS'
