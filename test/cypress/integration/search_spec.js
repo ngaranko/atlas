@@ -1,9 +1,5 @@
 import { defineSearchRoutes, waitForSearch } from '../services/routing';
-
-// helper function, to extract the number in the titles
-function getNumberInText(text) {
-  return parseInt(text.match(/\(([1-9.,]*)\)/)[1].replace('.', ''), 10);
-}
+import getCountFromHeader from '../shared/get-count-from-header';
 
 describe('search module', () => {
   beforeEach(() => {
@@ -34,13 +30,13 @@ describe('search module', () => {
 
     waitForSearch(false);
     cy.get('h2').contains('Openbare ruimtes').then((title) => {
-      expect(getNumberInText(title.text())).to.equal(7);
+      expect(getCountFromHeader(title.text())).to.equal(7);
     });
     cy.get('h2').contains('Adressen').then((title) => {
-      expect(getNumberInText(title.text())).to.equal(369);
+      expect(getCountFromHeader(title.text())).to.equal(369);
     });
     cy.get('h2').contains('Monumenten').then((title) => {
-      expect(getNumberInText(title.text())).to.equal(49);
+      expect(getCountFromHeader(title.text())).to.equal(49);
     });
     cy.get('h2').contains('Adressen').parent().parent().find('.c-show-more').click();
     cy.get('li').contains('nevenadres').should('exist').and('be.visible');

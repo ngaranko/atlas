@@ -1,4 +1,5 @@
 import { login, logout } from '../services/authentication';
+import getCountFromHeader from '../shared/get-count-from-header';
 import URLS from '../shared/urls';
 import foundKadastraleSubjecten from '../shared/helpers';
 import {
@@ -47,7 +48,7 @@ describe('employee PLUS permissions', () => {
     cy.get('.qa-search-header').contains('Kadastrale subjecten');
     if (foundKadastraleSubjecten.amount > 0) {
       cy.get('.qa-search-header').contains('Kadastrale subjecten').then((title) => {
-        const tmpFoundKs = parseInt(title.text().match(/\(([1-9.,]*)\)/)[1].replace('.', ''), 10);
+        const tmpFoundKs = getCountFromHeader(title.text());
         expect(tmpFoundKs).to.be.above(foundKadastraleSubjecten.amount);
       });
     } else {

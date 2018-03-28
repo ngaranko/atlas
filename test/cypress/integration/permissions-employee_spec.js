@@ -1,4 +1,5 @@
 import { login, logout } from '../services/authentication';
+import getCountFromHeader from '../shared/get-count-from-header';
 import URLS from '../shared/urls';
 import foundKadastraleSubjecten from '../shared/helpers';
 import {
@@ -46,9 +47,7 @@ describe('employee permissions', () => {
       .contains('Medewerkers met speciale bevoegdheden kunnen alle gegevens vinden');
     cy.get('.qa-search-header').contains('Kadastrale subjecten');
     cy.get('.qa-search-header').contains('Kadastrale subjecten').then((title) => {
-      foundKadastraleSubjecten.amount = parseInt(
-        title.text().match(/\(([1-9.,]*)\)/)[1].replace('.', ''), 10
-      );
+      foundKadastraleSubjecten.amount = getCountFromHeader(title.text());
     });
   });
 

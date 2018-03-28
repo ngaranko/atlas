@@ -1,3 +1,5 @@
+import getCountFromHeader from '../shared/get-count-from-header';
+
 describe('addresses module', () => {
   beforeEach(() => {
     cy.server();
@@ -120,7 +122,7 @@ describe('addresses module', () => {
 
       // expect the number in the title to equal 9549
       cy.get('h1').then((title) => {
-        const results = parseInt(title.text().match(/\(([1-9.,]*)\)/)[1].replace('.', ''), 10);
+        const results = getCountFromHeader(title.text());
         expect(results).to.equal(9549);
       });
       // click on "kaart weergeven"
