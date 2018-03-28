@@ -4,17 +4,12 @@ import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import getSharedConfig from '../../../shared/services/shared-config/shared-config';
 import autoSuggestService from '../../services/auto-suggest/auto-suggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
-
+import returnPromise from '../../../shared/services/return-promise/return-promise'
 import './_search.scss';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      query: props.searchQuery,
-      suggestions: []
-    };
-
     this.onTextInput = this.onTextInput.bind(this);
     this.onSuggestSelection = this.onSuggestSelection.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
@@ -32,9 +27,7 @@ class Search extends React.Component {
       onSearchInput();
       setSuggestions();
     } else {
-      onSearchInput(event.target.value);
-      // timeout to ensure the state has been set before the getSuggestions fn is called
-      setTimeout(this.getSuggestions, 0, false);
+      returnPromise(onSearchInput, event.target.value).then(this.getSuggestions);
     }
   }
 
@@ -85,10 +78,6 @@ class Search extends React.Component {
   getSuggestions() {
     const { searchQuery, setSuggestions, setActiveSuggestionIndex } = this.props;
     setActiveSuggestionIndex();
-
-    this.setState({
-      originalQuery: this.state.query
-    });
 
     if (searchQuery.length > 1) {
       autoSuggestService.search(searchQuery).then((suggestions) => {

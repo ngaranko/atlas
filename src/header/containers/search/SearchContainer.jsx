@@ -42,7 +42,6 @@ const SearchContainer = (props) => (
   <Search {...props} />
 );
 
-
 SearchContainer.contextTypes = {
   store: PropTypes.object.isRequired
 };

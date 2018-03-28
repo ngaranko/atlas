@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AutoSuggestCategory from './AutoSuggestCategory';
+import returnPromise from '../../../shared/services/return-promise/return-promise'
 
 
 import './_auto-suggest.scss';
@@ -95,12 +96,14 @@ class AutoSuggest extends React.Component {
           return;
         }
 
-        // set the active suggestion index, and immediately use it in the if-statement
-        if (setActiveSuggestionIndex(Math.max(activeSuggestionIndex - 1, -1)).index === -1) {
-          this.textInput.value = query;
-        } else {
-          setTimeout(this.setSuggestedQuery);
-        }
+        returnPromise(setActiveSuggestionIndex, Math.max(activeSuggestionIndex - 1, -1))
+          .then((setValue) => {
+            if (setValue.index === -1) {
+              this.textInput.value = query;
+            } else {
+              this.setSuggestedQuery();
+            }
+          });
         break;
 
       // Arrow down
@@ -108,8 +111,11 @@ class AutoSuggest extends React.Component {
         if (!showSuggestions || !numberOfSuggestions) {
           return;
         }
-        setActiveSuggestionIndex(Math.min(activeSuggestionIndex + 1, numberOfSuggestions - 1));
-        setTimeout(this.setSuggestedQuery);
+        returnPromise(
+          setActiveSuggestionIndex,
+          Math.min(activeSuggestionIndex + 1, numberOfSuggestions - 1)
+        )
+          .then(this.setSuggestedQuery);
         break;
 
       // Escape
