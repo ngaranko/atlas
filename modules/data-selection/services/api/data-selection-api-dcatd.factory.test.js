@@ -1,23 +1,28 @@
-describe('The dataSelectionApiDcatd factory', function () {
+import mockedApiResponseJson from './data-selection-api-dcatd.factory.test.response';
+import mockedApiResponseMetaJson from './data-selection-api-dcatd.factory.test.response.meta';
+
+fdescribe('The dataSelectionApiDcatd factory', function () {
     let $rootScope,
         $q,
         dataSelectionApiDcatd,
         api,
         mockedApiResponse,
+        mockedApiResponseMeta,
         config;
 
     beforeEach(function () {
         angular.mock.module(
-            'dpDataSelection',
-            {
+            'dpDataSelection', {
                 api: {
                     getByUri: function (url) {
                         const q = $q.defer();
 
                         if (url === 'dcatd/reject') {
                             q.reject();
+                        } else if (url === 'dcatd/openapi') {
+                            q.resolve(mockedApiResponseMetaJson);
                         } else {
-                            q.resolve(mockedApiResponse);
+                            q.resolve(mockedApiResponseJson);
                         }
 
                         return q.promise;
@@ -40,127 +45,51 @@ describe('The dataSelectionApiDcatd factory', function () {
             MAX_ITEMS_PER_PAGE: 2,
             ENDPOINT_PREVIEW: 'dcatd/',
             ENDPOINT_DETAIL: 'dcatd/datasets',
+            ENDPOINT_METADATA: 'dcatd/openapi',
             PRIMARY_KEY: 'dct:identifier',
-            FILTERS: [
-                {
-                    slug: 'groups',
-                    label: 'Thema\'s'
-                }, {
-                    slug: 'data_format',
-                    label: 'Formaten',
-                    formatter: 'lowercase'
-                }
-            ]
+            FILTERS: [{
+                slug: 'groups',
+                label: 'Thema\'s'
+            }, {
+                slug: 'data_format',
+                label: 'Formaten',
+                formatter: 'lowercase'
+            }, {
+                slug: 'service_type',
+                label: 'Service type',
+                formatter: 'lowercase'
+            }, {
+                slug: 'owner',
+                label: 'Gepubliceerd door'
+            }]
         };
 
-        mockedApiResponse = {
-            '@context': {
-                'ams': 'http://datacatalogus.amsterdam.nl/term/',
-                'ams-dcatd': 'https://acc.api.data.amsterdam.nl/dcatd/datasets/',
-                'ckan': 'https://ckan.org/terms/',
-                'class': 'ams:class#',
-                'dc': 'http://purl.org/dc/elements/1.1/',
-                'dcat': 'http://www.w3.org/ns/dcat#',
-                'dct': 'http://purl.org/dc/terms/',
-                'foaf': 'http://xmlns.com/foaf/0.1/',
-                'lang1': 'http://id.loc.gov/vocabulary/iso639-1/',
-                'lang2': 'http://id.loc.gov/vocabulary/iso639-2/',
-                'org': 'ams:org#',
-                'overheid': 'http://standaarden.overheid.nl/owms/terms/',
-                'overheidds': 'http://standaarden.overheid.nl/owms/terms/ds#',
-                'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-                'rdfs': 'http://www.w3.org/2000/01/rdf-schema#',
-                'skos': 'http://www.w3.org/2004/02/skos/core#',
-                'theme': 'ams:theme#',
-                'time': 'http://www.w3.org/2006/time#',
-                'vcard': 'http://www.w3.org/2006/vcard/ns#',
-                'dcat:dataset': {
-                    '@container': '@list'
-                },
-                'dcat:distribution': {
-                    '@container': '@set'
-                },
-                'dcat:keyword': {
-                    '@container': '@set'
-                },
-                'dcat:landingpage': {
-                    '@type': '@id'
-                },
-                'dcat:theme': {
-                    '@container': '@set',
-                    '@type': '@id'
-                },
-                'dct:issued': {
-                    '@type': 'xsd:date'
-                },
-                'dct:language': {
-                    '@type': '@id'
-                },
-                'dct:modified': {
-                    '@type': 'xsd:date'
-                },
-                'foaf:homepage': {
-                    '@type': '@id'
-                },
-                'foaf:mbox': {
-                    '@type': '@id'
-                },
-                'vcard:hasEmail': {
-                    '@type': '@id'
-                },
-                'vcard:hasURL': {
-                    '@type': '@id'
-                },
-                'vcard:hasLogo': {
-                    '@type': '@id'
-                }
-            },
-            'dcat:dataset': [
-                {
-                    '@id': 'ams-dcatd:642f15c7-8368-4795-9e3d-1a87fa7e562a',
-                    'dct:description': '<p>Alle activiteiten in Amsterdam en omgeving...</p>',
-                    'dct:identifier': '642f15c7-8368-4795-9e3d-1a87fa7e562a',
-                    'dct:title': 'Activiteiten'
-                },
-                {
-                    '@id': 'ams-dcatd:a968ab7f-d891-4502-b103-0f78dcc58fb8',
-                    'dct:description': '<p>Alle restaurants en cafes in Amsterdam en omgeving...</p>',
-                    'dct:identifier': 'a968ab7f-d891-4502-b103-0f78dcc58fb8',
-                    'dct:title': 'Eten en Drinken'
-                },
-                {
-                    '@id': 'ams-dcatd:5b1174ee-901b-47de-abfb-14548bfcb7fb',
-                    'dct:description': '<p>Alle evenementen in Amsterdam en omgeving...</p>',
-                    'dct:identifier': '5b1174ee-901b-47de-abfb-14548bfcb7fb',
-                    'dct:title': 'Evenementen in Amsterdam'
-                },
-                {
-                    '@id': 'ams-dcatd:d7a4c93c-0d7f-4d39-82d4-5f50eaffa624',
-                    'dct:description': '<p>Alle attracties in Amsterdam en omgeving...</p>',
-                    'dct:identifier': 'd7a4c93c-0d7f-4d39-82d4-5f50eaffa624',
-                    'dct:title': 'Attracties'
-                }
-            ]
-        };
-
+        mockedApiResponse = mockedApiResponseJson;
+        mockedApiResponseMeta = mockedApiResponseMetaJson;
         spyOn(api, 'getByUri').and.callThrough();
     });
 
-    it('calls the api factory with available no parameters', function () {
+    fit('calls the api factory with available no parameters', function () {
         // Without active filters
         dataSelectionApiDcatd.query(config, {}, 1);
-        expect(api.getByUri).toHaveBeenCalledWith('dcatd/', {
-            offset: 0,
-            limit: config.MAX_ITEMS_PER_PAGE
-        });
+        expect(api.getByUri).toHaveBeenCalledWith(
+            ['dcatd/openapi'],
+            ['dcatd/datasets', {
+                offset: 0,
+                limit: config.MAX_ITEMS_PER_PAGE
+            }]
+        );
 
         api.getByUri.calls.reset();
     });
 
     it('calls the api factory with theme parameter and searchText', function () {
         // With an active filter and search text
-        dataSelectionApiDcatd.query(config, { groups: 'energie' }, 1, 'searchText');
-        expect(api.getByUri).toHaveBeenCalledWith('dcatd/', {
+        dataSelectionApiDcatd.query(config, {
+            groups: 'energie'
+        }, 1, 'searchText');
+        expect(api.getByUri).toHaveBeenCalledWith('dcatd/openapi');
+        expect(api.getByUri).toHaveBeenCalledWith('dcatd/datasets', {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
             '/properties/dcat:theme/items': 'eq=theme:energie',
@@ -172,7 +101,10 @@ describe('The dataSelectionApiDcatd factory', function () {
 
     it('calls the api factory with active filters and searchText', function () {
         // With active filters
-        dataSelectionApiDcatd.query(config, { groups: 'energie', data_format: 'application/pdf' }, 1, 'searchText');
+        dataSelectionApiDcatd.query(config, {
+            groups: 'energie',
+            data_format: 'application/pdf'
+        }, 1, 'searchText');
         expect(api.getByUri).toHaveBeenCalledWith('dcatd/', {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
@@ -224,7 +156,7 @@ describe('The dataSelectionApiDcatd factory', function () {
         let thenCalled = false,
             catchCalled = false;
 
-        mockedApiResponse['dcat:dataset'] = [];
+        mockedApiResponseJson['dcat:dataset'] = [];
 
         dataSelectionApiDcatd.query(config, {}, 1).then(() => {
             thenCalled = true;
@@ -237,15 +169,17 @@ describe('The dataSelectionApiDcatd factory', function () {
         expect(catchCalled).toBe(true);
     });
 
-    it('processes the results correctly', function () {
+    sit('processes the results correctly', function () {
         let output = {};
 
         dataSelectionApiDcatd.query(config, {}, 1).then(function (_output_) {
             output = _output_;
+            console.log(JSON.stringify(output.data));
         });
         $rootScope.$apply();
 
         expect(output.data.length).toEqual(4);
+        console.log(JSON.stringify(output.data[0]));
         expect(output.data[0]).toEqual({
             _links: {
                 self: {
@@ -279,21 +213,21 @@ describe('The dataSelectionApiDcatd factory', function () {
                         id: 'energie',
                         label: 'Energie',
                         count: 1
-                    }
-                    ]
+                    }]
                 },
                 data_format: {
                     numberOfOptions: 2,
                     options: [{
-                        id: 'application/pdf',
-                        label: 'pdf',
-                        count: 1
-                    },
-                    {
-                        id: 'text/csv',
-                        label: 'csv',
-                        count: 1
-                    }]
+                            id: 'application/pdf',
+                            label: 'pdf',
+                            count: 1
+                        },
+                        {
+                            id: 'text/csv',
+                            label: 'csv',
+                            count: 1
+                        }
+                    ]
                 }
             });
         });
@@ -302,7 +236,9 @@ describe('The dataSelectionApiDcatd factory', function () {
             let output = {};
 
             // With only one filter in the API response
-            dataSelectionApiDcatd.query(config, { groups: 'energie' }, 1).then(function (_output_) {
+            dataSelectionApiDcatd.query(config, {
+                groups: 'energie'
+            }, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();
@@ -323,15 +259,16 @@ describe('The dataSelectionApiDcatd factory', function () {
                 data_format: {
                     numberOfOptions: 2,
                     options: [{
-                        id: 'application/pdf',
-                        label: 'pdf',
-                        count: 1
-                    },
-                    {
-                        id: 'text/csv',
-                        label: 'csv',
-                        count: 1
-                    }]
+                            id: 'application/pdf',
+                            label: 'pdf',
+                            count: 1
+                        },
+                        {
+                            id: 'text/csv',
+                            label: 'csv',
+                            count: 1
+                        }
+                    ]
                 }
             });
         });

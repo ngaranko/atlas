@@ -102,6 +102,7 @@ import '../modules/detail/components/date/date.filter';
 import '../modules/detail/components/detail/detail.component';
 import '../modules/detail/components/detail/follow-link/follow-link.directive';
 import '../modules/detail/components/filename/filename.filter';
+import '../modules/detail/components/option-label/option-label.filter';
 import '../modules/detail/components/glossary/glossary.constant';
 import '../modules/detail/components/glossary/header/glossary-header.directive';
 import '../modules/detail/components/glossary/meta/glossary-meta.directive';
@@ -335,6 +336,7 @@ import '../modules/detail/components/meetbouten-graph/meetbouten-graph.directive
 import '../modules/detail/components/glossary/meta/glossary-meta.directive.test';
 import '../modules/detail/components/glossary/header/glossary-header.directive.test';
 import '../modules/detail/components/filename/filename.filter.test';
+import '../modules/detail/components/option-label/option-label.filter.test';
 import '../modules/detail/components/date/date.filter.test';
 import '../modules/detail/components/partial-select/partial-select.directive.test';
 import '../modules/detail/components/partial-select/partial-compiler.factory.test';

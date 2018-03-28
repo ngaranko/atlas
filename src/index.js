@@ -115,6 +115,7 @@ import '../modules/detail/components/detail/follow-link/follow-link.directive';
 import '../modules/detail/components/detail/templates/grondexploitatie/grondexploitatie-grafiek-totale-begroting/grondexploitatie-grafiek-totale-begroting.component';
 import '../modules/detail/components/detail/templates/grondexploitatie/grondexploitatie-grafiek-gefaseerde-begroting/grondexploitatie-grafiek-gefaseerde-begroting.component';
 import '../modules/detail/components/filename/filename.filter';
+import '../modules/detail/components/option-label/option-label.filter';
 import '../modules/detail/components/glossary/glossary.constant';
 import '../modules/detail/components/glossary/header/glossary-header.directive';
 import '../modules/detail/components/glossary/meta/glossary-meta.directive';
