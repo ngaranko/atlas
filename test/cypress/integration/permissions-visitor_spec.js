@@ -1,5 +1,5 @@
 import { logout } from '../services/authentication';
-import { URLS } from '../shared/urls';
+import URLS from '../shared/urls';
 import { PAGELOAD_WAIT } from '../shared/helpers';
 
 describe('visitor permissions', () => {
@@ -13,8 +13,8 @@ describe('visitor permissions', () => {
     cy.get('#global-search').focus().type('bakker');
     cy.get('.c-autocomplete__tip').should('exist').and('be.visible');
     cy.get('.qa-autocomplete-header').should(($values) => {
-      expect($values).to.not.contain('Kadastrale subjecten')
-    })
+      expect($values).to.not.contain('Kadastrale subjecten');
+    });
   });
 
   it('1. Should show a message after search is performed', () => {
@@ -22,7 +22,7 @@ describe('visitor permissions', () => {
     cy.get('.qa-search-form-submit').click();
     cy.get('.c-panel--warning').contains('Meer resultaten na inloggen');
     cy.get('.qa-search-header').should(($values) => {
-      expect($values).to.not.contain('Kadastrale subjecten')
+      expect($values).to.not.contain('Kadastrale subjecten');
     });
   });
 
@@ -33,7 +33,6 @@ describe('visitor permissions', () => {
       .contains('Medewerkers/ketenpartners van Gemeente Amsterdam');
     cy.get('.o-header__title').should('not.exist');
     cy.get('dl.qa-natuurlijk-persoon').should('not.exist');
-
   });
 
   it('2B. Should not allow a visitor to view a non-natural subject', () => {
@@ -154,7 +153,7 @@ describe('visitor permissions', () => {
     cy.get('dl.c-key-value-list').should('not.exist');
     cy.get('button.toggle-fullscreen').click();
     cy.get('.notification--info').contains('Medewerkers/ketenpartners van Gemeente Amsterdam');
-    cy.get('.map-detail-result__header-subtitle').should('not.exist')
+    cy.get('.map-detail-result__header-subtitle').should('not.exist');
   });
 
   it('7G. Should not allow a visitor to view "maatschappelijke activiteit"', () => {
