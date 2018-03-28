@@ -20,8 +20,8 @@ exports[`MapDetailBedrijfsinvesteringszone should render everything 1`] = `
       value="Bedrijfsinvesteringszone heffingsgrondslag"
     />
     <MapDetailResultItem
-      label="Jaarlijkse heffing (EUR)"
-      value="Bedrijfsinvesteringszone heffing"
+      label="Jaarlijkse heffing"
+      value="Bedrijfsinvesteringszone heffing_display"
     />
     <MapDetailResultItem
       label="Aantal heffingsplichtigen"
