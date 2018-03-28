@@ -1,15 +1,35 @@
 @import "../../../shared/styles/config";
 
 $suggestion-offset: $base-font-size;
+$backdrop-color: rgba(0, 0, 0, .5);
 
 .c-auto-suggest {
   background-color: $primary-light;
-  border: 1px solid $secondary-gray20;
-  box-shadow: 0 3px 4px 0 $secondary-gray60;
+  border: 2px solid $primary-dark;
+  border-top: 1px solid $primary-dark;
   left: 0;
   position: absolute;
   right: $site-header-search-form-height + $base-whitespace * .5;
   top: $site-header-search-form-height - 1px;
+
+  &__backdrop {
+    &::before {
+      background-color: $backdrop-color;
+      bottom: 0;
+      content: "";
+      display: block;
+      left: 0;
+      position: fixed;
+      right: 0;
+      top: $site-header-height;
+    }
+
+    .c-site-header--tall & {
+      &::before {
+        top: $site-header-height-tall + $site-header-toolbar-height;
+      }
+    }
+  }
 
   &__tip {
     @include font-size($s-font);

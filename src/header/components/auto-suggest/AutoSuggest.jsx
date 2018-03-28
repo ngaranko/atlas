@@ -152,7 +152,7 @@ class AutoSuggest extends React.Component {
     } = this.props;
 
     return (
-      <div id="header-search">
+      <div id="header-search" className={`${showSuggestions && suggestions.length ? 'c-auto-suggest__backdrop' : ''}`}>
         <form className="c-search-form" onSubmit={onSubmit}>
           <fieldset>
             <div>

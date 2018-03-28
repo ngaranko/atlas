@@ -103,7 +103,7 @@ class Search extends React.Component {
     const { fetchDetail } = this.props;
     const suggestionUri = window.suggestionToLoadUri;
     fetchDetail(`${getSharedConfig().API_ROOT}${suggestionUri}`);
-    window.suggestionToLoadUri = null;
+    window.suggestionToLoadUri = undefined;
   }
 
   render() {

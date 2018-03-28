@@ -45,7 +45,7 @@ $clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
     }
 
     &:focus {
-      border-color: $primary-dark;
+      border: 2px solid $primary-dark;
     }
 
     &-container {
@@ -64,7 +64,7 @@ $clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
     top: $clear-button-margin;
 
     &:hover {
-      background-color: $primary-contrast;
+      color: $primary-contrast;
     }
   }
 
@@ -81,7 +81,7 @@ $clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
     width: $site-header-search-form-height;
 
     &:hover {
-      background-color: $secondary-gray60;
+      background-color: $primary-contrast-hover;
     }
   }
 }
