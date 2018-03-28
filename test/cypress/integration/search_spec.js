@@ -1,8 +1,8 @@
-/* eslint-disable */
+import { defineSearchRoutes, waitForSearch } from '../services/routing';
 
 // helper function, to extract the number in the titles
 function getNumberInText(text) {
-  return parseInt(text.match(/\(([1-9.,]*)\)/)[1].replace('.', ''));
+  return parseInt(text.match(/\(([1-9.,]*)\)/)[1].replace('.', ''), 10);
 }
 
 describe('search module', () => {
@@ -12,7 +12,12 @@ describe('search module', () => {
   });
 
   it('should show 4 categories when searching for the term "Oost"', () => {
+    cy.server();
+    cy.route('/typeahead?q=oost').as('getResults');
+
     cy.get('#global-search').type('oost');
+
+    cy.wait('@getResults');
     // count the headers inside the autocomplete
     cy.get('h4.qa-autocomplete-header').then((headers) => {
       expect(headers.length).to.eq(4)
@@ -20,9 +25,14 @@ describe('search module', () => {
   });
 
   it('should show results when searching for "dam"', () => {
+    cy.server();
+    defineSearchRoutes();
+
     cy.get('#global-search').type('dam');
     // submit search form
     cy.get('.c-search-form').submit();
+
+    waitForSearch(false);
     cy.get('h2').contains('Openbare ruimtes').then((title) => {
       expect(getNumberInText(title.text())).to.equal(7)
     });
