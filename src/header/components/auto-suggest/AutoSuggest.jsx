@@ -50,8 +50,7 @@ class AutoSuggest extends React.Component {
   onSuggestionSelection(suggestion, event) {
     const { onSuggestSelection } = this.props;
 
-    onSuggestSelection(suggestion, event);
-    this.clearQuery();
+    onSuggestSelection(suggestion, event, this.clearQuery);
   }
 
   setSuggestedQuery() {
@@ -128,8 +127,7 @@ class AutoSuggest extends React.Component {
       // Enter
       case 13:
         if (activeSuggestionIndex > -1) {
-          onSuggestSelection(activeSuggestion, event);
-          this.clearQuery();
+          onSuggestSelection(activeSuggestion, event, this.clearQuery);
         }
         break;
 

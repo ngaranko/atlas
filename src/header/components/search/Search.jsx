@@ -31,7 +31,7 @@ class Search extends React.Component {
     }
   }
 
-  onSuggestSelection(suggestion, event) {
+  onSuggestSelection(suggestion, event, callbackFn) {
     const { fetchDetail, searchQuery } = this.props;
     event.preventDefault();
     event.stopPropagation();
@@ -45,7 +45,7 @@ class Search extends React.Component {
       newWindow.window.suggestionToLoadUri = suggestion.uri;
     } else {
       fetchDetail(`${getSharedConfig().API_ROOT}${suggestion.uri}`);
-      this.clearSuggestions();
+      callbackFn();
     }
   }
 

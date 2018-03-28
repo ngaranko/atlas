@@ -75,12 +75,14 @@ $backdrop-color: rgba(0, 0, 0, .5);
       }
 
       &::before {
-        content: "›";
+        @extend %dp-link-arrow-icon;
+        content: "";
         display: inline-block;
-        left: $base-whitespace;
+        height: 19px;
         padding-right: $base-whitespace;
         position: relative;
-        width: 15px;
+        width: 17px;
+        vertical-align: sub;
       }
     }
   }
