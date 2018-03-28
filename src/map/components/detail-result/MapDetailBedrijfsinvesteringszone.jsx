@@ -28,7 +28,7 @@ const MapDetailBedrijfsinvesteringszone = ({
       />
       <MapDetailResultItem
         label="Jaarlijkse heffing"
-        value={bedrijfsinvesteringszone.heffing_display}
+        value={bedrijfsinvesteringszone.heffing}
       />
       <MapDetailResultItem
         label="Aantal heffingsplichtigen"
