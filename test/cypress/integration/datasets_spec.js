@@ -1,8 +1,8 @@
 describe('datasets module', () => {
   describe('user should be able to navigate to the datasets catalogus from the homepage', () => {
     beforeEach(() => {
-      cy.server()
-      cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults')
+      cy.server();
+      cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults');
 
       // go to the homepage
       cy.visit('/');

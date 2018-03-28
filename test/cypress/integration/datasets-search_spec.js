@@ -27,7 +27,7 @@ describe('datasets search module', () => {
 
   describe('user should be able to search and see results', () => {
     it('should open the datasets results', () => {
-      cy.server()
+      cy.server();
       defineSearchRoutes();
 
       cy.visit('/');
@@ -41,7 +41,7 @@ describe('datasets search module', () => {
     });
 
     it('should not open the datasets results because there are no results', () => {
-      cy.server()
+      cy.server();
       defineSearchRoutes();
 
       cy.visit('/');

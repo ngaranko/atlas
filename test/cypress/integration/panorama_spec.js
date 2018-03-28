@@ -117,8 +117,8 @@ describe('panorama module', () => {
       cy.get('.qa-hotspot-rotation:visible').each((button) => {
         // get largest (e.g. closest by) navigation button
         cy.wrap(button).should('have.css', 'width').then((width) => {
-          if (parseInt(width.replace('px', '')) > largestButtonSize) {
-            largestButtonSize = parseInt(width.replace('px', ''));
+          if (parseInt(width.replace('px', ''), 10) > largestButtonSize) {
+            largestButtonSize = parseInt(width.replace('px', ''), 10);
             largestButton = button;
           }
         });
@@ -130,7 +130,7 @@ describe('panorama module', () => {
       // verify that something happened by comparing the url
       cy.location().then((loc) => {
         newUrl = loc.pathname + loc.hash;
-        expect(newUrl).not.to.equal(panoUrl)
+        expect(newUrl).not.to.equal(panoUrl);
       });
 
       cy.get('button.c-straatbeeld__close').click();
@@ -150,7 +150,7 @@ describe('panorama module', () => {
 
       waitForGeoSearch();
       cy.get('h1.o-header__title').contains('Resultaten').should('exist').and('be.visible');
-      cy.get('h2').contains('Openbare ruimte').should('exist').and('be.visible')
+      cy.get('h2').contains('Openbare ruimte').should('exist').and('be.visible');
     });
   });
 });

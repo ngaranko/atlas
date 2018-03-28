@@ -1,6 +1,6 @@
 import { login, logout } from '../services/authentication';
 import URLS from '../shared/urls';
-import { foundKadastraleSubjecten } from '../shared/helpers';
+import foundKadastraleSubjecten from '../shared/helpers';
 import {
   defineGeoSearchRoutes,
   defineSearchRoutes,

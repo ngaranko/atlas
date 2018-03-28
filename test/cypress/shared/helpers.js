@@ -1,3 +1,5 @@
-export const foundKadastraleSubjecten = {
+const foundKadastraleSubjecten = {
   amount: 0
 };
+
+export default foundKadastraleSubjecten;

@@ -122,7 +122,7 @@ describe('data search module', () => {
       cy.get('input.js-search-input').type('Park');
       cy.get('.c-search-form').submit();
       waitForSearch();
-      cy.get('.o-list').should('exist').and('be.visible')
+      cy.get('.o-list').should('exist').and('be.visible');
     });
 
     it('should submit the search and give no results', () => {

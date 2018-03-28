@@ -55,7 +55,7 @@ describe('trade-register module', () => {
 
     after(() => {
       logout();
-    })
+    });
 
     beforeEach(() => {
       cy.server();
