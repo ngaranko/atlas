@@ -1,18 +1,23 @@
+import {
+    setDataSelectionDcatFilters
+} from '../../../../src/data-selection/ducks/data-selection/data-selection-catalog';
+
 (function () {
     angular
         .module('dpDataSelection')
         .factory('dataSelectionApiDcatd', dataSelectionApiDcatdFactory);
 
-    dataSelectionApiDcatdFactory.$inject = ['$q', '$filter', 'sharedConfig', 'api'];
+    dataSelectionApiDcatdFactory.$inject = ['$window', '$q', '$filter', 'sharedConfig', 'api'];
 
-    function dataSelectionApiDcatdFactory ($q, $filter, sharedConfig, api) {
+    function dataSelectionApiDcatdFactory ($window, $q, $filter, sharedConfig, api) {
         const searchParamTheme = '/properties/dcat:theme/items',
             searchParamFormat = '/properties/dcat:distribution/items/properties/dct:format',
             searchParamOwner = '/properties/ams:owner';
-        var dcatFilters;
+        var catalogFilters;
 
         return {
-            query: query
+            query: query,
+            getFilters
         };
 
         function query (config, activeFilters, page, searchText) {
@@ -47,6 +52,8 @@
 
             $q.all([getFilters(config)]).then(() => {
                 api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
+                    // deferred.resolve({success: true});
+                    // return;
                     const count = data['dcat:dataset'].length;
                     if (count !== 0) {
                         const results = data['dcat:dataset'];
@@ -67,33 +74,41 @@
 
         function getFilters (config) {
             const deferred = $q.defer();
-            if (angular.isDefined(dcatFilters)) {
+            if (angular.isDefined(catalogFilters)) {
                 deferred.resolve();
             } else {
-                console.log('get filters from openapi');
                 api.getByUri(config.ENDPOINT_METADATA).then(data => {
+                    console.log('call config.ENDPOINT_METADATA', data);
+                    // deferred.resolve({
+                    //     groupTypes: [],
+                    //     formatTypes: [],
+                    //     ownerTypes: [],
+                    //     licenseTypes: []
+                        
+                    // });
+                    // return;
                     const dcatDocProperties = data.components.schemas['dcat-doc'].properties,
                         themaProperties = dcatDocProperties['dcat:theme'].items,
                         distributionProperties = dcatDocProperties['dcat:distribution'].items.properties,
                         ownerProperties = dcatDocProperties['ams:owner'].examples;
 
-                    dcatFilters = {};
-                    dcatFilters.groupTypes = getOptions(themaProperties);
-                    dcatFilters.formatTypes = getOptions(distributionProperties['dct:format']);
-                    dcatFilters.serviceTypes = getOptions(distributionProperties['ams:serviceType']);
-                    dcatFilters.resourceTypes = getOptions(distributionProperties['ams:resourceType']);
-                    dcatFilters.ownerTypes = ownerProperties.map(item => {
-                        return {
-                            id: item,
-                            label: item
-                        };
-                    });
-                    dcatFilters.licenseTypes = getOptions(dcatDocProperties['ams:license']);
-
-                    // store.dispatch()
+                    catalogFilters = {
+                        groupTypes: getOptions(themaProperties),
+                        formatTypes: getOptions(distributionProperties['dct:format']),
+                        serviceTypes: getOptions(distributionProperties['ams:serviceType']),
+                        resourceTypes: getOptions(distributionProperties['ams:resourceType']),
+                        ownerTypes: ownerProperties.map(item => {
+                            return {
+                                id: item,
+                                label: item
+                            };
+                        }),
+                        licenseTypes: getOptions(dcatDocProperties['ams:license'])
+                    };
+                    $window.reduxStore.dispatch(setDataSelectionDcatFilters(catalogFilters));
 
                     deferred.resolve();
-                }, deferred.reject);
+                });
             }
 
             return deferred.promise;
@@ -156,8 +171,8 @@
             var filters = {};
 
             filters.groups = {
-                numberOfOptions: dcatFilters.groupTypes.length,
-                options: dcatFilters.groupTypes.map(option => {
+                numberOfOptions: catalogFilters.groupTypes.length,
+                options: catalogFilters.groupTypes.map(option => {
                     return {
                         id: option.id,
                         label: option.label,
@@ -167,8 +182,8 @@
             };
 
             filters.data_format = {
-                numberOfOptions: dcatFilters.formatTypes.length,
-                options: dcatFilters.formatTypes.map(option => {
+                numberOfOptions: catalogFilters.formatTypes.length,
+                options: catalogFilters.formatTypes.map(option => {
                     return {
                         id: option.id,
                         label: option.label,
@@ -178,8 +193,8 @@
             };
 
             filters.service_type = {
-                numberOfOptions: dcatFilters.serviceTypes.length,
-                options: dcatFilters.serviceTypes.map(option => {
+                numberOfOptions: catalogFilters.serviceTypes.length,
+                options: catalogFilters.serviceTypes.map(option => {
                     return {
                         id: option.id,
                         label: option.label,
@@ -189,8 +204,8 @@
             };
 
             filters.resource_type = {
-                numberOfOptions: dcatFilters.resourceTypes.length,
-                options: dcatFilters.resourceTypes.map(option => {
+                numberOfOptions: catalogFilters.resourceTypes.length,
+                options: catalogFilters.resourceTypes.map(option => {
                     return {
                         id: option.id,
                         label: option.label,
@@ -200,8 +215,8 @@
             };
 
             filters.owner = {
-                numberOfOptions: dcatFilters.ownerTypes.length,
-                options: dcatFilters.ownerTypes.map(option => {
+                numberOfOptions: catalogFilters.ownerTypes.length,
+                options: catalogFilters.ownerTypes.map(option => {
                     return {
                         id: option.id,
                         label: option.label,

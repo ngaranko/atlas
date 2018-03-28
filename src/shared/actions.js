@@ -156,10 +156,6 @@ export default {
     id: 'SET_DATA_SELECTION_VIEW',
     isButton: true
   },
-  SET_DATA_SELECTION_FILTERS: {
-    id: 'SET_DATA_SELECTION_FILTERS'
-  },
-
 
   SHOW_HOME: {
     id: 'SHOW_HOME'

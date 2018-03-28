@@ -8,7 +8,7 @@
                 reload: '=',
                 isLoading: '=',
                 isMapHighlight: '=',
-                dcatFilters: '=',
+                catalogFilters: '=',
                 user: '<'
             },
             templateUrl: 'modules/detail/components/detail/detail.html',

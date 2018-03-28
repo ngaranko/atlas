@@ -16,7 +16,6 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
                 api: {
                     getByUri: function (url) {
                         const q = $q.defer();
-
                         if (url === 'dcatd/reject') {
                             q.reject();
                         } else if (url === 'dcatd/openapi') {
@@ -43,7 +42,7 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
 
         config = {
             MAX_ITEMS_PER_PAGE: 2,
-            ENDPOINT_PREVIEW: 'dcatd/',
+            ENDPOINT_PREVIEW: 'dcatd/datasets',
             ENDPOINT_DETAIL: 'dcatd/datasets',
             ENDPOINT_METADATA: 'dcatd/openapi',
             PRIMARY_KEY: 'dct:identifier',
@@ -70,17 +69,37 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
     });
 
     fit('calls the api factory with available no parameters', function () {
-        // Without active filters
-        dataSelectionApiDcatd.query(config, {}, 1);
-        expect(api.getByUri).toHaveBeenCalledWith(
-            ['dcatd/openapi'],
-            ['dcatd/datasets', {
-                offset: 0,
-                limit: config.MAX_ITEMS_PER_PAGE
-            }]
-        );
+        let output = {};
 
-        api.getByUri.calls.reset();
+        // Without active filters
+        // dataSelectionApiDcatd.getFilters(config).then(
+        //     (_output_) => {
+        //         output = _output_;
+        //         console.log(JSON.stringify(output));
+        //     }
+        // );
+        // $rootScope.$apply();
+        // console.log('asfasdf');
+        // expect(api.getByUri).toHaveBeenCalledWith('dcatd/openapi');
+
+        dataSelectionApiDcatd.query(config, {}, 1);
+        $rootScope.$apply();
+
+        // expect(api.getByUri).toHaveBeenCalledWith(
+        //     ['dcatd/openapi'], ['dcatd/datasets', {
+        //         offset: 1,
+        //         limit: config.MAX_ITEMS_PER_PAGE
+        //     }]
+        // );
+        expect(api.getByUri).toHaveBeenCalledWith('dcatd/openapi');
+        expect(api.getByUri).toHaveBeenCalledWith('dcatd/datasets');
+
+        // expect(api.getByUri).toHaveBeenCalledWith('dcatd/datasets', {
+        //     offset: 1,
+        //     limit: config.MAX_ITEMS_PER_PAGE
+        // });
+
+        // api.getByUri.calls.reset();
     });
 
     it('calls the api factory with theme parameter and searchText', function () {
@@ -169,7 +188,7 @@ fdescribe('The dataSelectionApiDcatd factory', function () {
         expect(catchCalled).toBe(true);
     });
 
-    sit('processes the results correctly', function () {
+    it('processes the results correctly', function () {
         let output = {};
 
         dataSelectionApiDcatd.query(config, {}, 1).then(function (_output_) {

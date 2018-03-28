@@ -5,7 +5,7 @@
             <h2 class="o-header__title u-margin__bottom--3">{{vm.apiData.results["dct:title"]}}</h2>
         </div>
         <dl class="c-key-value-list">
-            <dt>Aangemaakt - {{ vm.apiData.results['foaf:isPrimaryTopicOf']['dct:issued']}}</dt>
+            <dt>Aangemaakt</dt>
             <dd>{{ { metadata_created: vm.apiData.results['foaf:isPrimaryTopicOf']['dct:issued'], metadata_compact: true }
                 | modificationDate }} ({{vm.apiData.results['foaf:isPrimaryTopicOf']['dct:issued'] | date:'dd MMMM yyyy'}})</dd>
             <dt>Gepubliceerd door</dt>
@@ -19,7 +19,7 @@
             <dt>Thema</dt>
             <dd>
                 <ul ng-repeat="group in vm.apiData.results['dcat:theme']">
-                    <li> {{ group | optionLabel: vm.dcatFilters.groupTypes:'theme'}}</li>
+                    <li> {{ group | optionLabel: vm.catalogFilters.groupTypes:'theme'}}</li>
                 </ul>
             </dd>
         </dl>
@@ -42,8 +42,8 @@
                                    c-detail-catalogus-table__field--type">
                             <div class="c-data-selection-file-type
                                         c-data-selection-file-type__name
-                                        c-data-selection-file-type__format-{{resource['dct:format'] | optionLabel: vm.dcatFilters.formatTypes| lowercase }}">
-                                <span ng-if="resource['dct:format']">{{resource['dct:format'] | optionLabel: vm.dcatFilters.formatTypes}}</span>
+                                        c-data-selection-file-type__format-{{resource['dct:format'] | optionLabel: vm.catalogFilters.formatTypes| lowercase }}">
+                                <span ng-if="resource['dct:format']">{{resource['dct:format'] | optionLabel: vm.catalogFilters.formatTypes}}</span>
                                 <span ng-if="!resource['dct:format']"> ? </span>
                             </div>
                         </td>
@@ -69,8 +69,8 @@
                                    c-detail-catalogus-table__field
                                    c-detail-catalogus-table__field--size
                                    u-align--right">
-                            <!-- <span class="c-detail-catalogus-table__text"
-                                  ng-if="resource.size > 0" >{{resource.size | filesize}}</span> -->
+                            <span class="c-detail-catalogus-table__text"
+                                  ng-if="resource['dcat:byteSize'] > 0" >{{resource['dcat:byteSize'] | filesize}}</span>
                             <a ng-href="{{resource['dcat:accessURL']}}" target="_blank" rel="noopener" class="o-btn o-btn--inverted-block"></a>
                         </td>
                     </tr>
@@ -95,7 +95,7 @@
     <div class="u-row u-margin__bottom--4">
 
         <h3 class="o-header__subtitle">Licentie</h3>
-        <p ng-if="vm.apiData.results['ams:license']">{{vm.apiData.results['ams:license'] | optionLabel: vm.dcatFilters.licenseTypes }}</p>
+        <p ng-if="vm.apiData.results['ams:license']">{{vm.apiData.results['ams:license'] | optionLabel: vm.catalogFilters.licenseTypes }}</p>
         <!-- <a ng-if="vm.apiData.results.license_url" class="o-btn o-btn--link" ng-href="{{ vm.apiData.results.license_url }}" target="_blank"
                 rel="noopener">{{vm.apiData.results.license_title}}</a> -->
 
