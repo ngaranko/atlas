@@ -1,4 +1,4 @@
-export const URLS = {
+const URLS = {
   address: '/#?dte=bag%2Fverblijfsobject%2F03630000749400%2F&mpb=topografie&mpz=16&mpv=52.3702716:4.8933987',
   business: '/#?dte=brk%2Fobject%2FNL.KAD.OnroerendeZaak.11460857510001%2F&mpb=topografie&mpz=16&mpv=52.370289:4.8931626',
   gemeentelijkeBeperking: '/#?dte=wkpb%2Fbeperking%2F1006388%2F&mpb=topografie&mpz=13&mpo=gbep::T&mpv=52.3777106:4.8920377',
@@ -15,3 +15,5 @@ export const URLS = {
   vestiging: '/#?dte=handelsregister%2Fvestiging%2F000003579875%2F&mpb=topografie&mpz=16&mpv=52.3606667:4.8941516',
   vestigingenTabel: '/#?dsd=hr&dsp=1&dsv=TABLE&mpb=topografie&mpz=11&mpv=52.3731081:4.8932945'
 };
+
+export default URLS;
