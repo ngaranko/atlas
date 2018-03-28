@@ -1,10 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import escapeStringRegexp from 'escape-string-regexp';
+import AutoSuggestCategory from './AutoSuggestCategory';
+
 
 import './_auto-suggest.scss';
 
 class AutoSuggest extends React.Component {
+  static getSuggestionByIndex(searchResults, suggestionIndex) {
+    return searchResults.reduce((flatResults, category) =>
+      [...flatResults, ...category.content], [])
+      .filter((suggestion, index) =>
+        index === suggestionIndex
+      )[0];
+  }
+
   constructor(props) {
     super(props);
     this.clearQuery = this.clearQuery.bind(this);
@@ -13,6 +22,7 @@ class AutoSuggest extends React.Component {
     this.onFocus = this.onFocus.bind(this);
     this.navigateSuggestions = this.navigateSuggestions.bind(this);
     this.setSuggestedQuery = this.setSuggestedQuery.bind(this);
+    this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
   }
 
   onBlur() {
@@ -34,6 +44,32 @@ class AutoSuggest extends React.Component {
     if (!suggestions.length) {
       onTextInput(event);
     }
+  }
+
+  onSuggestionSelection(suggestion, event) {
+    const { onSuggestSelection } = this.props;
+
+    onSuggestSelection(suggestion, event);
+    this.clearQuery();
+  }
+
+  setSuggestedQuery() {
+    const { suggestions, activeSuggestionIndex, setActiveSuggestion } = this.props;
+    const thisActiveSuggestion = AutoSuggest.getSuggestionByIndex(
+      suggestions,
+      activeSuggestionIndex
+    );
+
+    setActiveSuggestion(thisActiveSuggestion);
+
+    this.textInput.value = thisActiveSuggestion._display;
+  }
+
+  clearQuery() {
+    const { onTextInput } = this.props;
+    this.textInput.value = '';
+    this.textInput.focus();
+    onTextInput();
   }
 
   navigateSuggestions(event) {
@@ -63,7 +99,7 @@ class AutoSuggest extends React.Component {
         if (setActiveSuggestionIndex(Math.max(activeSuggestionIndex - 1, -1)).index === -1) {
           this.textInput.value = query;
         } else {
-          setTimeout(this.setSuggestedQuery, 0);
+          setTimeout(this.setSuggestedQuery);
         }
         break;
 
@@ -73,7 +109,7 @@ class AutoSuggest extends React.Component {
           return;
         }
         setActiveSuggestionIndex(Math.min(activeSuggestionIndex + 1, numberOfSuggestions - 1));
-        setTimeout(this.setSuggestedQuery, 0);
+        setTimeout(this.setSuggestedQuery);
         break;
 
       // Escape
@@ -94,34 +130,6 @@ class AutoSuggest extends React.Component {
       default:
         break;
     }
-  };
-
-  setSuggestedQuery() {
-    const { suggestions, activeSuggestionIndex, setActiveSuggestion } = this.props;
-    const thisActiveSuggestion = this.getSuggestionByIndex(
-      suggestions,
-      activeSuggestionIndex
-    );
-
-    setActiveSuggestion(thisActiveSuggestion);
-
-    this.textInput.value = thisActiveSuggestion._display;
-  }
-
-  clearQuery() {
-    const { onTextInput } = this.props;
-    this.textInput.value = '';
-    this.textInput.focus();
-    onTextInput();
-  }
-
-
-  getSuggestionByIndex(searchResults, suggestionIndex) {
-    return searchResults.reduce((flatResults, category) =>
-      [...flatResults, ...category.content], [])
-      .filter((suggestion, index) =>
-        index === suggestionIndex
-      )[0];
   }
 
   render() {
@@ -132,94 +140,73 @@ class AutoSuggest extends React.Component {
       classNames,
       suggestions,
       query,
-      onSuggestSelection,
       showSuggestions,
       activeSuggestionIndex,
       onSubmit
     } = this.props;
 
     return (
-      <div>
-        <div id="header-search">
-          <form className="c-search-form" onSubmit={onSubmit}>
-            <fieldset>
-              <div>
-                {legendTitle && <legend className="u-sr-only">legendTitle</legend>}
-                <div className="c-search-form__input-container">
-                  <label htmlFor={uniqueId} className="u-sr-only">zoektekst</label>
-                  <input
-                    ref={(input) => { this.textInput = input; }}
-                    id={uniqueId}
-                    className={classNames}
-                    type="text"
-                    autoCapitalize="off"
-                    autoCorrect="off"
-                    autoComplete="off"
-                    spellCheck="false"
-                    placeholder={placeHolder}
-                    onInput={this.onInput}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-                    onKeyDown={this.navigateSuggestions}
-                  />
+      <div id="header-search">
+        <form className="c-search-form" onSubmit={onSubmit}>
+          <fieldset>
+            <div>
+              {legendTitle && <legend className="u-sr-only">legendTitle</legend>}
+              <div className="c-search-form__input-container">
+                <label htmlFor={uniqueId} className="u-sr-only">zoektekst</label>
+                <input
+                  ref={(input) => { this.textInput = input; }}
+                  id={uniqueId}
+                  className={classNames}
+                  type="text"
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                  autoComplete="off"
+                  spellCheck="false"
+                  placeholder={placeHolder}
+                  onInput={this.onInput}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
+                  onKeyDown={this.navigateSuggestions}
+                />
 
-                  {query &&
-                    <button
-                      type="button"
-                      className="qa-search-form__clear c-search-form__clear"
-                      onClick={this.clearQuery}
-                      title="Wis zoektekst"
-                    >
-                      <span className="u-sr-only">Wis zoektekst</span>
-                    </button>
-                  }
-                </div>
+                {query &&
+                  <button
+                    type="button"
+                    className="qa-search-form__clear c-search-form__clear"
+                    onClick={this.clearQuery}
+                    title="Wis zoektekst"
+                  >
+                    <span className="u-sr-only">Wis zoektekst</span>
+                  </button>
+                }
               </div>
-              {suggestions.length > 0 && showSuggestions &&
-                <div className="c-auto-suggest">
-                  <h3 className="c-auto-suggest__tip">Enkele suggesties</h3>
-                  {suggestions.map((category) =>
-                    (
-                      <div
-                        className="c-auto-suggest__category"
-                        key={category.label + category.index}
-                      >
-                        <h4 className="c-auto-suggest__category__heading qa-auto-suggest-header">
-                          {category.label}
-                        </h4>
-                        <ul>
-                          {category.content.map((suggestion) =>
-                            (
-                              <li key={suggestion._display + suggestion.index}>
-                                <button
-                                  type="button"
-                                  className={`c-auto-suggest__category__suggestion c-auto-suggest__category__suggestion--${activeSuggestionIndex === suggestion.index ? '' : 'in'}active`}
-                                  onClick={
-                                    (e) => { onSuggestSelection(suggestion, e); this.clearQuery(); }
-                                  }
-                                  dangerouslySetInnerHTML={{ __html: suggestion._display.replace(new RegExp(`(${escapeStringRegexp(query)})`, 'gi'), '<span class="c-auto-suggest__highlight">$1</span>') }}
-                                >
-                                </button>
-                              </li>
-                            )
-                          )}
-                        </ul>
-                      </div>
-                    )
-                  )}
-                </div>
-              }
-              <button
-                disabled={!query}
-                className="c-search-form__submit qa-search-form-submit"
-                type="submit"
-                title="Zoeken"
-              >
-                <span className="u-sr-only">Zoeken</span>
-              </button>
-            </fieldset>
-          </form>
-        </div>
+            </div>
+            {suggestions.length > 0 && showSuggestions &&
+              <div className="c-auto-suggest">
+                <h3 className="c-auto-suggest__tip">Enkele suggesties</h3>
+                {suggestions.map((category) =>
+                  (
+                    <AutoSuggestCategory
+                      key={category.label + category.index}
+                      category={category}
+                      activeSuggestionIndex={activeSuggestionIndex}
+                      query={query}
+                      onSuggestionSelection={this.onSuggestionSelection}
+                    />
+                  )
+                )}
+              </div>
+            }
+            <button
+              disabled={!query}
+              className="c-search-form__submit qa-search-form-submit"
+              type="submit"
+              title="Zoeken"
+            >
+              <span className="u-sr-only">Zoeken</span>
+            </button>
+          </fieldset>
+        </form>
       </div>
     );
   }
@@ -228,7 +215,7 @@ class AutoSuggest extends React.Component {
 AutoSuggest.propTypes = {
   placeHolder: PropTypes.string,
   classNames: PropTypes.string,
-  uniqueId: PropTypes.string,
+  uniqueId: PropTypes.string.isRequired,
   legendTitle: PropTypes.string,
   onTextInput: PropTypes.func.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object),

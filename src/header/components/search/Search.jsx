@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AutoSuggestWrapper from '../../wrappers/auto-suggest/AutoSuggestWrapper';
+import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import getSharedConfig from '../../../shared/services/shared-config/shared-config';
 import autoSuggestService from '../../services/auto-suggest/auto-suggest';
+import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 
 import './_search.scss';
 
@@ -42,8 +43,7 @@ class Search extends React.Component {
     event.preventDefault();
     event.stopPropagation();
 
-    // eslint-disable-next-line no-underscore-dangle
-    window._paq.push(['trackEvent', 'search', 'auto-suggest', searchQuery, suggestion._display]);
+    piwikTracker(['trackEvent', 'search', 'auto-suggest', searchQuery, suggestion._display]);
 
     if (event.ctrlKey || event.metaKey) {
       const newWindow = window.open(`${window.location.href}`, '_blank');
@@ -68,8 +68,7 @@ class Search extends React.Component {
       activeSuggestionIndex
     } = this.props;
 
-    // eslint-disable-next-line no-underscore-dangle
-    window._paq.push(['trackSiteSearch', searchQuery, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
+    piwikTracker(['trackSiteSearch', searchQuery, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
 
     if (activeSuggestionIndex === -1) {
       // Load the search results
@@ -132,7 +131,7 @@ class Search extends React.Component {
     } = this.props;
 
     return (
-      <AutoSuggestWrapper
+      <AutoSuggest
         placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
         classNames={'c-search-form__input js-search-input qa-search-form-input'}
         uniqueId={'global-search'}
