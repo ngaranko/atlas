@@ -86,7 +86,7 @@ describe('The google sheet factory', function () {
         angular.extend(config, {
             getStatic: {
                 PRODUCTION: true,
-                ACCEPTATION: false
+                ACCEPTANCE: false
             },
             staticAddress: 'staticAddress',
             key: 'CMSKEY',
@@ -192,7 +192,7 @@ describe('The google sheet factory', function () {
                 environment = _environment_;
             });
 
-            environment.NAME = 'ACCEPTATION';
+            environment.NAME = 'ACCEPTANCE';
         });
 
         it('puts a scripts in the document header to load the sheet contents', function () {

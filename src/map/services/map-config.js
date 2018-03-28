@@ -1,5 +1,5 @@
 import BOUNDING_BOX from './bounding-box.constant';
-import ENVIRONMENT from '../../shared/environment';
+import ENVIRONMENT, { ENVIRONMENTS } from '../../shared/environment';
 import getCrs from './crs-service';
 
 const BOUNDS = [
@@ -43,25 +43,25 @@ const defaultConfig = {
 
 
 const environmentConfig = {
-  PRODUCTION: {
+  [ENVIRONMENTS.PRODUCTION]: {
     BASE_LAYER_OPTIONS: {
       subdomains: ['t1', 't2', 't3', 't4']
     },
     OVERLAY_ROOT: 'https://map.data.amsterdam.nl/'
   },
-  PRE_PRODUCTION: {
+  [ENVIRONMENTS.PRE_PRODUCTION]: {
     BASE_LAYER_OPTIONS: {
       subdomains: ['t1', 't2', 't3', 't4']
     },
     OVERLAY_ROOT: 'https://map.data.amsterdam.nl/'
   },
-  ACCEPTATION: {
+  [ENVIRONMENTS.ACCEPTANCE]: {
     BASE_LAYER_OPTIONS: {
       subdomains: ['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4']
     },
     OVERLAY_ROOT: 'https://acc.map.data.amsterdam.nl/'
   },
-  DEVELOPMENT: {
+  [ENVIRONMENTS.DEVELOPMENT]: {
     BASE_LAYER_OPTIONS: {
       subdomains: ['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4']
     },

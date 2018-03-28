@@ -35,7 +35,7 @@ describe('The environment factory', function () {
             mockedHostname = 'acc.data.amsterdam.nl';
 
             angular.mock.inject(function (environment) {
-                expect(environment.NAME).toEqual('ACCEPTATION');
+                expect(environment.NAME).toEqual('ACCEPTANCE');
             });
         });
 

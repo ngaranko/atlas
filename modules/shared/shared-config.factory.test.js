@@ -19,8 +19,8 @@ describe('The sharedConfig factory', function () {
     }
 
     describe('returns a combination of global and environment specific configuration', function () {
-        it('ACCEPTATION', function () {
-            const sharedConfig = prepareMocks('ACCEPTATION');
+        it('ACCEPTANCE', function () {
+            const sharedConfig = prepareMocks('ACCEPTANCE');
 
             // Global config
             expect(sharedConfig.RADIUS).toBe(50);

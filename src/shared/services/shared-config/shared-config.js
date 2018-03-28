@@ -1,4 +1,4 @@
-import ENVIRONMENT from '../../environment';
+import ENVIRONMENT, { ENVIRONMENTS } from '../../environment';
 
 const baseConfig = {
   RADIUS: 50, // Thumbnail search radius
@@ -10,13 +10,13 @@ const baseConfig = {
 };
 
 const environmentConfig = {
-  PRODUCTION: {
+  [ENVIRONMENTS.PRODUCTION]: {
     API_ROOT: 'https://api.data.amsterdam.nl/'
   },
-  ACCEPTATION: {
+  [ENVIRONMENTS.ACCEPTANCE]: {
     API_ROOT: 'https://acc.api.data.amsterdam.nl/'
   },
-  DEVELOPMENT: {
+  [ENVIRONMENTS.DEVELOPMENT]: {
     API_ROOT: 'https://acc.api.data.amsterdam.nl/'
   }
 };

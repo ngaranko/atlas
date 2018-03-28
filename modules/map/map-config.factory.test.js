@@ -51,7 +51,7 @@ describe('The mapConfig factory', function () {
         });
 
         it('ACCEPTATION', function () {
-            const mapConfig = prepareMocks('ACCEPTATION');
+            const mapConfig = prepareMocks('ACCEPTANCE');
 
             // Global config
             expect(mapConfig.BASE_LAYER_OPTIONS.minZoom).toBe(8);

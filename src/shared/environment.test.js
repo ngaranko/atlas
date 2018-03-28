@@ -12,8 +12,9 @@ describe('The environment service', () => {
     expect(getEnvironment('pre.data.amsterdam.nl')).toBe(ENVIRONMENTS.PRE_PRODUCTION);
   });
 
-  it('uses ACCEPTATION on acc.data.amsterdam.nl', () => {
-    expect(getEnvironment('acc.data.amsterdam.nl')).toBe(ENVIRONMENTS.ACCEPTATION);
+  it('uses ACCEPTANCE on acc.data.amsterdam.nl', () => {
+    const test = getEnvironment('acc.data.amsterdam.nl');
+    expect(test).toBe(ENVIRONMENTS.ACCEPTANCE);
   });
 
   it('and a fallback to development for the rest', () => {

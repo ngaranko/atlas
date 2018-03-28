@@ -1,6 +1,6 @@
 export const ENVIRONMENTS = {
   DEVELOPMENT: 'DEVELOPMENT',
-  ACCEPTATION: 'ACCEPTATION',
+  ACCEPTANCE: 'ACCEPTANCE',
   PRE_PRODUCTION: 'PRE_PRODUCTION',
   PRODUCTION: 'PRODUCTION'
 };
@@ -8,7 +8,7 @@ export const ENVIRONMENTS = {
 export const HOSTS = {
   PRODUCTION: 'data.amsterdam.nl',
   PRE_PRODUCTION: 'pre.data.amsterdam.nl',
-  ACCEPTATION: 'acc.data.amsterdam.nl',
+  ACCEPTANCE: 'acc.data.amsterdam.nl',
   DEVELOPMENT: 'localhost'
 };
 
@@ -21,7 +21,7 @@ export const getEnvironment = (host) => {
     case 'pre.data.amsterdam.nl':
       return ENVIRONMENTS.PRE_PRODUCTION;
     case 'acc.data.amsterdam.nl':
-      return ENVIRONMENTS.ACCEPTATION;
+      return ENVIRONMENTS.ACCEPTANCE;
     default:
       return ENVIRONMENTS.DEVELOPMENT;
   }
