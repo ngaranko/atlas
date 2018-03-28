@@ -11,17 +11,20 @@ export function defineSearchRoutes() {
   cy.route('/monumenten/search/?q=*').as('getSearchMonumentsResults');
 }
 
-export function waitForSearch() {
+export function waitForSearch(type = 'EMPLOYEE_PLUS') {
   cy.wait('@getSearchAddressResults');
   cy.wait('@getSearchGebiedResults');
   cy.wait('@getSearchKadastraalObjectResults');
-  cy.wait('@getSearchKadastraalSubjectResults');
   cy.wait('@getSearchOpenbareRuimteResults');
   cy.wait('@getSearchCatalogueResults');
-  cy.wait('@getSearchMaatschappelijkeActiviteitResults');
-  cy.wait('@getSearchVestigingResults');
   cy.wait('@getSearchMeetboutenResults');
   cy.wait('@getSearchMonumentsResults');
+
+  if (type === 'EMPLOYEE_PLUS' || type === 'EMPLOYEE') {
+    cy.wait('@getSearchKadastraalSubjectResults');
+    cy.wait('@getSearchMaatschappelijkeActiviteitResults');
+    cy.wait('@getSearchVestigingResults');
+  }
 }
 
 export function defineGeoSearchRoutes() {
