@@ -116,14 +116,22 @@ describe('addresses module', () => {
 
   describe('user should be be able to filter on an area', () => {
     it('should show the addresses and map when selected', () => {
+      let totalCount;
+
+      // Get the number in the title before filtering
+      cy.get('h1').then((title) => {
+        totalCount = getCountFromHeader(title.text());
+      });
+
       // click on "Buitenveldert-West" in the left filter menu
       cy.get('.c-data-selection-available-filters__item').contains('Buitenveldert-West').click();
       cy.wait('@getResults');
 
-      // expect the number in the title to equal 9549
+      // Expect the number in the title after filtering to be smaller than the number before
+      // filtering
       cy.get('h1').then((title) => {
-        const results = getCountFromHeader(title.text());
-        expect(results).to.equal(9549);
+        const filteredCount = getCountFromHeader(title.text());
+        expect(filteredCount).to.be.below(totalCount);
       });
       // click on "kaart weergeven"
       cy.get('.c-toggle-view-button.qa-dp-link').click();
