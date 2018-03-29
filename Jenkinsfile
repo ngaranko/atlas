@@ -89,6 +89,7 @@ pipeline {
       }
     }
     stage('Build A') {
+      when { branch 'master' }
       steps {
         sh "docker build -t ${IMAGE_BUILD} " +
           "--shm-size 1G " +
