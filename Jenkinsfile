@@ -34,14 +34,14 @@ pipeline {
         stage('Linting') {
           steps {
             sh 'docker network prune'
-            sh 'docker-compose up --build --exit-code-from test-lint test-lint'
+            sh 'docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-lint test-lint'
             // echo 'Skip'
           }
         }
         stage('Unit') {
           steps {
             sh 'docker network prune'
-            sh 'docker-compose up --build --exit-code-from test-unit test-unit'
+            sh 'docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-unit test-unit'
             // echo 'Skip'
           }
         }
@@ -56,7 +56,7 @@ pipeline {
           }
           steps {
             sh 'docker network prune'
-            sh 'docker-compose up --build --exit-code-from test-e2e-functional test-e2e-functional'
+            sh 'docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-e2e-functional test-e2e-functional'
             // echo 'Skip'
           }
           post {
@@ -72,7 +72,7 @@ pipeline {
           }
           steps {
             sh 'docker network prune'
-            sh 'docker-compose up --build --exit-code-from test-e2e-aria test-e2e-aria'
+            sh 'docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-e2e-aria test-e2e-aria'
             // echo 'Skip'
           }
           post {
