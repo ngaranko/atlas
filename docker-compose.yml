@@ -52,7 +52,7 @@ services:
     environment:
       # Note that baseUrl must be formatted so
       # calls to API pass CORS check!
-      - CYPRESS_baseUrl=https://acc.data.amsterdam.nl
+      - CYPRESS_baseUrl=http://acc.data.amsterdam.nl
       - USERNAME_EMPLOYEE
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
@@ -64,7 +64,7 @@ services:
       dockerfile: Dockerfile-e2e-aria
       context: .
     links:
-      - atlas_aria
+      - atlas_aria:atlas
     environment:
       - BASE_URL=http://atlas:80
       - USERNAME_EMPLOYEE
