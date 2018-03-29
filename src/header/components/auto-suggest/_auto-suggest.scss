@@ -74,15 +74,13 @@ $backdrop-color: rgba(0, 0, 0, .5);
         font-weight: inherit;
       }
 
-      &::before {
-        @extend %dp-link-arrow-icon;
-        content: "";
+      .icon {
         display: inline-block;
-        height: 19px;
-        padding-right: $base-whitespace;
+        height: 22px;
+        margin-left: $base-whitespace / 2;
         position: relative;
         vertical-align: sub;
-        width: 17px;
+        width: 22px;
       }
     }
   }
