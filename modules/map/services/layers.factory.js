@@ -43,7 +43,6 @@ import BASE_LAYERS from '../../../src/shared/services/layers/base-layers.constan
             }
 
             template = getBaseLayerTemplate(layerName);
-
             baseLayer = L.tileLayer(
                 template,
                 mapConfig.BASE_LAYER_OPTIONS

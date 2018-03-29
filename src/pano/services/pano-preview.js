@@ -1,4 +1,4 @@
-import apiUrl from '../../shared/services/api';
+import SHARED_CONFIG from '../../shared/services/shared-config/shared-config';
 
 export default function fetchPano(location) {
   const searchParams = {
@@ -12,7 +12,7 @@ export default function fetchPano(location) {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&');
 
-  return fetch(`${apiUrl}panorama/thumbnail/?${queryString}`)
+  return fetch(`${SHARED_CONFIG.API_ROOT}panorama/thumbnail/?${queryString}`)
     .then((response) => {
       if (response.ok) {
         return response.json();

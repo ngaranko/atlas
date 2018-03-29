@@ -1,4 +1,4 @@
-export default {
+const mapBaseLayers = {
   topography: [
     {
       value: 'topografie',
@@ -80,3 +80,5 @@ export default {
     }
   ]
 };
+
+export default mapBaseLayers;

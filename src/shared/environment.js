@@ -1,6 +1,6 @@
-export const ENVIRONMENT = {
+export const ENVIRONMENTS = {
   DEVELOPMENT: 'DEVELOPMENT',
-  ACCEPTATION: 'ACCEPTATION',
+  ACCEPTANCE: 'ACCEPTANCE',
   PRE_PRODUCTION: 'PRE_PRODUCTION',
   PRODUCTION: 'PRODUCTION'
 };
@@ -8,19 +8,25 @@ export const ENVIRONMENT = {
 export const HOSTS = {
   PRODUCTION: 'data.amsterdam.nl',
   PRE_PRODUCTION: 'pre.data.amsterdam.nl',
-  ACCEPTATION: 'acc.data.amsterdam.nl',
+  ACCEPTANCE: 'acc.data.amsterdam.nl',
   DEVELOPMENT: 'localhost'
 };
 
+// DEPRECATED: used by modules/shared/services/eviroment/environment.factory.js
+// NODE_ENV doesn't differentiate between pre-production and production
 export const getEnvironment = (host) => {
   switch (host) {
     case 'data.amsterdam.nl':
-      return ENVIRONMENT.PRODUCTION;
+      return ENVIRONMENTS.PRODUCTION;
     case 'pre.data.amsterdam.nl':
-      return ENVIRONMENT.PRE_PRODUCTION;
+      return ENVIRONMENTS.PRE_PRODUCTION;
     case 'acc.data.amsterdam.nl':
-      return ENVIRONMENT.ACCEPTATION;
+      return ENVIRONMENTS.ACCEPTANCE;
     default:
-      return ENVIRONMENT.DEVELOPMENT;
+      return ENVIRONMENTS.DEVELOPMENT;
   }
 };
+
+const ENVIRONMENT = (process.env.NODE_ENV).toUpperCase();
+
+export default ENVIRONMENT;

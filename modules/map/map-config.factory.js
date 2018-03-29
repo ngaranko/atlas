@@ -62,7 +62,7 @@
                 },
                 OVERLAY_ROOT: 'https://map.data.amsterdam.nl/'
             },
-            ACCEPTATION: {
+            ACCEPTANCE: {
                 BASE_LAYER_OPTIONS: {
                     subdomains: ['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4']
                 },
