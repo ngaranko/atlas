@@ -5,6 +5,8 @@ describe('print module', () => {
   });
 
   it('should show a print version of the page when the user click on the print button', () => {
+    const headerTitle = 'h1.c-print-header__title';
+
     cy.server();
     cy.route('/typeahead?q=10581111').as('getTypeAhead');
     cy.route('/meetbouten/meetbout/*').as('getResults');
@@ -24,9 +26,9 @@ describe('print module', () => {
 
     cy.get('button.qa-menu__link').click();
     cy.get('a.c-menu__subitem').contains('Printen').click();
-    cy.get('h1.c-print-header__title').should('exist').and('be.visible');
+    cy.get(headerTitle).should('exist').and('be.visible');
     cy.get('.c-print-header__close').click();
-    cy.get('h1.c-print-header__title').should('not.exist').and('not.be.visible');
+    cy.get(headerTitle).should('not.exist').and('not.be.visible');
     cy.get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
     cy.get('h2.qa-title').should('exist').and('be.visible').contains('10581111');
   });
