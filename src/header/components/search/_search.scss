@@ -1,6 +1,6 @@
 @import "../../../shared/styles/config";
 
-$clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
+$clear-button-margin: 3px;
 
 .c-search-form {
   position: relative;
@@ -56,29 +56,37 @@ $clear-button-margin: ($site-header-search-form-height - $button-size) / 2;
   }
 
   &__clear {
-    @include icon-button("clear");
     cursor: pointer;
+    height: 25px;
     outline: none;
     position: absolute;
     right: $clear-button-margin;
     top: $clear-button-margin;
+    width: 25px;
 
     &:hover {
-      color: $primary-contrast;
+      svg {
+        fill: $primary-contrast;
+      }
     }
   }
 
   &__submit {
-    @extend %dp-search-icon;
     @include font-size($s-font);
     background-color: $primary-contrast;
     background-repeat: no-repeat;
-    color: $primary-light;
     cursor: pointer;
     float: left;
     height: $site-header-search-form-height;
     margin-left: $base-whitespace * .5;
     width: $site-header-search-form-height;
+
+    svg {
+      fill: $primary-light;
+      height: $site-header-search-form-height;
+      padding: 3px;
+      width: $site-header-search-form-height;
+    }
 
     &:hover {
       background-color: $primary-contrast-hover;

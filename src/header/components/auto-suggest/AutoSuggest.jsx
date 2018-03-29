@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AutoSuggestCategory from './AutoSuggestCategory';
 import returnPromise from '../../../shared/services/return-promise/return-promise'
-
+import SearchIcon from '../../../../public/images/icon-search.svg';
+import ClearIcon from '../../../../public/images/icon-clear.svg';
 
 import './_auto-suggest.scss';
 
@@ -180,6 +181,7 @@ class AutoSuggest extends React.Component {
                     onClick={this.clearQuery}
                     title="Wis zoektekst"
                   >
+                    <ClearIcon />
                     <span className="u-sr-only">Wis zoektekst</span>
                   </button>
                 }
@@ -207,6 +209,7 @@ class AutoSuggest extends React.Component {
               type="submit"
               title="Zoeken"
             >
+              <SearchIcon />
               <span className="u-sr-only">Zoeken</span>
             </button>
           </fieldset>
