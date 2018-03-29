@@ -39,21 +39,6 @@
                                 formatter: 'truncateHtmlAsText',
                                 variables: ['dct:description']
                             }
-                            // }, {
-                            //     label: 'Datum',
-                            //     variables: ['metadata_created', 'metadata_modified'],
-                            //     formatter: 'modificationDate'
-                            // }, {
-                            //     label: 'Formaten',
-                            //     variables: ['resources.format'],
-                            //     formatter: 'aggregate',
-                            //     template: 'file-type'
-                            // }, {
-                            //     label: 'Labels',
-                            //     variables: ['tags.display_name'],
-                            //     formatter: 'aggregate',
-                            //     template: 'tags'
-                            // }
                         ]
                     }
                 },

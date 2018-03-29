@@ -1,7 +1,3 @@
-import {
-    setDataSelectionDcatFilters
-} from '../../../../src/data-selection/ducks/data-selection/data-selection-catalog';
-
 (function () {
     angular
         .module('dpDataSelection')
@@ -13,14 +9,12 @@ import {
         const searchParamTheme = '/properties/dcat:theme/items',
             searchParamFormat = '/properties/dcat:distribution/items/properties/dct:format',
             searchParamOwner = '/properties/ams:owner';
-        var catalogFilters;
 
         return {
-            query: query,
-            getFilters
+            query: query
         };
 
-        function query (config, activeFilters, page, searchText) {
+        function query (config, activeFilters, page, searchText, geometryFilter, catalogFilters) {
             const deferred = $q.defer(),
                 searchParams = {
                     offset: (page - 1) * config.MAX_ITEMS_PER_PAGE,
@@ -50,80 +44,22 @@ import {
                 searchParams[searchParamOwner] = queryOwner;
             }
 
-            $q.all([getFilters(config)]).then(() => {
-                api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
-                    // deferred.resolve({success: true});
-                    // return;
-                    const count = data['dcat:dataset'].length;
-                    if (count !== 0) {
-                        const results = data['dcat:dataset'];
-                        deferred.resolve({
-                            numberOfPages: Math.ceil(count / config.MAX_ITEMS_PER_PAGE),
-                            numberOfRecords: count,
-                            filters: formatFilters(results, config),
-                            data: formatData(config, results)
-                        });
-                    } else {
-                        deferred.reject();
-                    }
-                }, deferred.reject);
-            });
+            api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
+                const count = data['dcat:dataset'].length;
+                if (count !== 0) {
+                    const results = data['dcat:dataset'];
+                    deferred.resolve({
+                        numberOfPages: Math.ceil(count / config.MAX_ITEMS_PER_PAGE),
+                        numberOfRecords: count,
+                        filters: formatFilters(results, config, catalogFilters),
+                        data: formatData(config, results)
+                    });
+                } else {
+                    deferred.reject();
+                }
+            }, deferred.reject);
 
             return deferred.promise;
-        }
-
-        function getFilters (config) {
-            const deferred = $q.defer();
-            if (angular.isDefined(catalogFilters)) {
-                deferred.resolve();
-            } else {
-                api.getByUri(config.ENDPOINT_METADATA).then(data => {
-                    console.log('call config.ENDPOINT_METADATA', data);
-                    // deferred.resolve({
-                    //     groupTypes: [],
-                    //     formatTypes: [],
-                    //     ownerTypes: [],
-                    //     licenseTypes: []
-                        
-                    // });
-                    // return;
-                    const dcatDocProperties = data.components.schemas['dcat-doc'].properties,
-                        themaProperties = dcatDocProperties['dcat:theme'].items,
-                        distributionProperties = dcatDocProperties['dcat:distribution'].items.properties,
-                        ownerProperties = dcatDocProperties['ams:owner'].examples;
-
-                    catalogFilters = {
-                        groupTypes: getOptions(themaProperties),
-                        formatTypes: getOptions(distributionProperties['dct:format']),
-                        serviceTypes: getOptions(distributionProperties['ams:serviceType']),
-                        resourceTypes: getOptions(distributionProperties['ams:resourceType']),
-                        ownerTypes: ownerProperties.map(item => {
-                            return {
-                                id: item,
-                                label: item
-                            };
-                        }),
-                        licenseTypes: getOptions(dcatDocProperties['ams:license'])
-                    };
-                    $window.reduxStore.dispatch(setDataSelectionDcatFilters(catalogFilters));
-
-                    deferred.resolve();
-                });
-            }
-
-            return deferred.promise;
-        }
-
-        function getOptions (propertyType) {
-            var options = [];
-            for (var i = 0; i < propertyType.enum.length; ++i) {
-                const index = propertyType.enum[i].indexOf(':');
-                options.push({
-                    id: index === -1 ? propertyType.enum[i] : propertyType.enum[i].substring(index + 1),
-                    label: propertyType.enumNames[i]
-                });
-            }
-            return options;
         }
 
         function getQueryTheme (filters) {
@@ -147,7 +83,8 @@ import {
             }, '');
         }
 
-        function formatFilters (searchParams, filtersConfig) {
+        function formatFilters (searchParams, filtersConfig, catalogFilters) {
+            // TODO
             // return Object.keys(rawData).reduce((filters, key) => {
             //     const items = rawData[key].items;
             //     const filterConfig = filtersConfig.find(config => config.slug === key);
