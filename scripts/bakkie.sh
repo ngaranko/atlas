@@ -13,6 +13,7 @@ export NODE_ENV=test
 # Removes the entry from `package.json`, which prevents the `npm install`
 # command below from installing cypress,
 npm uninstall cypress
+npm cache clean --force
 npm install
 npm run build-test
 
