@@ -13,8 +13,8 @@ describe('search module', () => {
 
   it('should show 4 categories when searching for the term "Oost"', () => {
     cy.get('#global-search').type('oost');
-    // count the headers inside the autocomplete
-    cy.get('h4.qa-autocomplete-header').then((headers) => {
+    // count the headers inside the auto-suggest
+    cy.get('h4.qa-auto-suggest-header').then((headers) => {
       expect(headers.length).to.eq(4)
     })
   });

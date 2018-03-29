@@ -9,10 +9,10 @@ describe('visitor permissions', () => {
     logout();
   });
 
-  it('0. Should NOT show "Kadastrale subjecten" in the autocomplete', () => {
+  it('0. Should NOT show "Kadastrale subjecten" in the auto-suggest', () => {
     cy.get('#global-search').focus().type('bakker');
-    cy.get('.c-autocomplete__tip').should('exist').and('be.visible');
-    cy.get('.qa-autocomplete-header').should(($values) => {
+    cy.get('.c-auto-suggest__tip').should('exist').and('be.visible');
+    cy.get('.qa-auto-suggest-header').should(($values) => {
       expect($values).to.not.contain('Kadastrale subjecten');
     });
   });

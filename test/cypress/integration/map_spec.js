@@ -27,7 +27,7 @@ describe('map module', () => {
       cy.visit('/');
       cy.get('.qa-map-link').click();
       cy.get('#global-search').focus().type('dam 1');
-      cy.get('.c-autocomplete').contains('Dam 1').click();
+      cy.get('.c-auto-suggest').contains('Dam 1').click();
       // check that the circle icon is drawed on the map
       cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').should('exist').and('be.visible').and('have.attr', 'src', 'assets/images/map/detail.svg');
       cy.checkPreviewPanel(['Dam 1', 'winkelfunctie']);

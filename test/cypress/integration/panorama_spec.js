@@ -78,7 +78,7 @@ describe('panorama module', () => {
       cy.viewport(1000, 660);
       cy.get('.leaflet-marker-pane').find('img').should('exist').and('be.visible');
       cy.get('#global-search').type('dam 1');
-      cy.get('.c-autocomplete').contains('Dam 1').click();
+      cy.get('.c-auto-suggest').contains('Dam 1').click();
       cy.get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
       cy.get('h2.qa-title').should('exist').and('be.visible').contains('Dam 1');
       cy.get('img.c-straatbeeld-thumbnail--img').click();

@@ -12,12 +12,12 @@ describe('data search module', () => {
   });
 
   it('user should see suggestions', () => {
-    // open the autocomplete panel and select the first dataset option and route the correct address
+    // open the auto-suggest panel and select the first dataset option and route the correct address
     cy.visit('/');
     cy.get('input.js-search-input').trigger('focus');
     cy.get('input.js-search-input').type('Park');
     cy.get('input.js-search-input').trigger('change');
-    cy.get('.c-autocomplete').should('exist').and('be.visible');
+    cy.get('.c-auto-suggest').should('exist').and('be.visible');
     cy.get('h4').contains('Straatnamen').siblings('ul').children('li').first().children().first()
     .then(($el) => {
       const firstValue = $el[0].innerText;
@@ -55,7 +55,7 @@ describe('data search module', () => {
     cy.visit('/');
     // type in search and click on autosuggest item
     cy.get('#global-search').focus().type('Ad Windighof 2');
-    cy.get('.c-autocomplete').contains('Ad Windighof 2').click();
+    cy.get('.c-auto-suggest').contains('Ad Windighof 2').click();
 
     // check that the large right column is visible and shows the correct data
     cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');

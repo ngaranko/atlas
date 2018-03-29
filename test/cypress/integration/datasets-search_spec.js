@@ -10,12 +10,12 @@ describe('datasets search module', () => {
   });
 
   describe('user should be to type and see suggestions', () => {
-    it('should open the autocomplete panel', () => {
+    it('should open the auto-suggest panel', () => {
       cy.visit('/');
       cy.get('input.js-search-input').trigger('focus');
       cy.get('input.js-search-input').type('Park');
       cy.get('input.js-search-input').trigger('change');
-      cy.get('.c-autocomplete').should('exist').and('be.visible');
+      cy.get('.c-auto-suggest').should('exist').and('be.visible');
     });
   });
 

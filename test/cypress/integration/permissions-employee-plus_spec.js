@@ -17,11 +17,11 @@ describe('employee PLUS permissions', () => {
     foundKadastraleSubjecten.amount = 0;
   });
 
-  it('0. Should show "Kadastrale subjecten" for medewerker plus in the autocomplete', () => {
+  it('0. Should show "Kadastrale subjecten" for medewerker plus in the auto-suggest', () => {
     cy.get('#global-search').focus().type('bakker');
-    cy.get('.c-autocomplete__tip').should('exist').and('be.visible');
-    cy.get('.qa-autocomplete-header').contains('Kadastrale subjecten');
-    cy.get('.c-autocomplete__category__suggestion').contains('lia Bak');
+    cy.get('.c-auto-suggest__tip').should('exist').and('be.visible');
+    cy.get('.qa-auto-suggest-header').contains('Kadastrale subjecten');
+    cy.get('.c-auto-suggest__category__suggestion').contains('lia Bak');
   });
 
   it('1. Should show no message after search is performed', () => {
