@@ -1,6 +1,11 @@
 version: '3.5'
 services:
-  atlas: # NGINX
+  atlas_func: # NGINX
+    build:
+      context: .
+    ipc: host
+
+  atlas_aria: # NGINX
     build:
       context: .
     ipc: host
@@ -43,11 +48,11 @@ services:
       dockerfile: Dockerfile-e2e-functional
       context: .
     links:
-      - atlas:acc.data.amsterdam.nl
+      - atlas_func:acc.data.amsterdam.nl
     environment:
       # Note that baseUrl must be formatted so
       # calls to API pass CORS check!
-      - CYPRESS_baseUrl=http://acc.data.amsterdam.nl:80
+      - CYPRESS_baseUrl=https://acc.data.amsterdam.nl
       - USERNAME_EMPLOYEE
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
@@ -59,7 +64,7 @@ services:
       dockerfile: Dockerfile-e2e-aria
       context: .
     links:
-      - atlas
+      - atlas_aria
     environment:
       - BASE_URL=http://atlas:80
       - USERNAME_EMPLOYEE
