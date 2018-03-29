@@ -15,11 +15,8 @@ pipeline {
       // TODO remove this stage when jenkins jobs run in isolation
       steps {
         sh "docker ps"
-        sh "docker network ls"
         sh "docker-compose down -v || true"
         sh "docker network prune"
-        sh "docker ps"
-        sh "docker network ls"
       }
     }
     stage('Test & Bakkie') {
@@ -61,7 +58,7 @@ pipeline {
           }
           post {
             always {
-              sh "docker-compose down -v || true"
+              sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
             }
           }
         }
@@ -77,14 +74,14 @@ pipeline {
           }
           post {
             always {
-              sh "docker-compose down -v || true"
+              sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
             }
           }
         }
       }
       post {
         always {
-          sh "docker-compose down -v || true"
+          sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
         }
       }
     }
@@ -158,7 +155,7 @@ pipeline {
   post {
     always {
       echo 'Cleaning'
-      sh "docker-compose down -v || true"
+      sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
       sh "docker network prune"
     }
 
