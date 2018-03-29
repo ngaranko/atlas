@@ -14,12 +14,12 @@ pipeline {
     stage('Clean') {
       // TODO remove this stage when jenkins jobs run in isolation
       steps {
-        sh 'docker ps'
-        sh 'docker network ls'
-        sh 'docker-compose down -v || true'
-        sh 'docker network prune'
-        sh 'docker ps'
-        sh 'docker network ls'
+        sh "docker ps"
+        sh "docker network ls"
+        sh "docker-compose down -v || true"
+        sh "docker network prune"
+        sh "docker ps"
+        sh "docker network ls"
       }
     }
     stage('Test & Bakkie') {
@@ -33,14 +33,14 @@ pipeline {
         }
         stage('Linting') {
           steps {
-            sh 'docker network prune'
+            sh "docker network prune"
             sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-lint test-lint"
             // echo 'Skip'
           }
         }
         stage('Unit') {
           steps {
-            sh 'docker network prune'
+            sh "docker network prune"
             sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-unit test-unit"
             // echo 'Skip'
           }
@@ -55,13 +55,13 @@ pipeline {
             PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
           }
           steps {
-            sh 'docker network prune'
+            sh "docker network prune"
             sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-e2e-functional test-e2e-functional"
             // echo 'Skip'
           }
           post {
             always {
-              sh 'docker-compose down -v || true'
+              sh "docker-compose down -v || true"
             }
           }
         }
@@ -71,20 +71,20 @@ pipeline {
             COMPOSE_PROJECT_NAME   = 'atlas-aria-e2e'
           }
           steps {
-            sh 'docker network prune'
+            sh "docker network prune"
             sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-e2e-aria test-e2e-aria"
             // echo 'Skip'
           }
           post {
             always {
-              sh 'docker-compose down -v || true'
+              sh "docker-compose down -v || true"
             }
           }
         }
       }
       post {
         always {
-          sh 'docker-compose down -v || true'
+          sh "docker-compose down -v || true"
         }
       }
     }
@@ -158,8 +158,8 @@ pipeline {
   post {
     always {
       echo 'Cleaning'
-      sh 'docker-compose down -v || true'
-      sh 'docker network prune'
+      sh "docker-compose down -v || true"
+      sh "docker network prune"
     }
 
     success {
