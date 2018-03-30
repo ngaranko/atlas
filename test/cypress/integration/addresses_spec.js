@@ -1,5 +1,8 @@
 import { getCountFromHeader } from '../support/helper-functions';
 
+const dataSelection = '.c-data-selection';
+const homepage = '.c-homepage';
+
 describe('addresses module', () => {
   beforeEach(() => {
     cy.server();
@@ -9,10 +12,12 @@ describe('addresses module', () => {
 
     // go to the homepage
     cy.visit('/');
+    // the homepage should be visible
+    cy.get(homepage).should('exist').and('be.visible');
     // check if the link is in the dom and visible
     cy.get('.c-homepage__block--adressen').should('exist').and('be.visible');
     // the data-selection should not exist yet
-    cy.get('.c-data-selection').should('not.exist');
+    cy.get(dataSelection).should('not.exist');
     // click on the link to go to the addresses
     cy.get('.c-homepage__block--adressen').click();
     // scroll to top so first item is in view
@@ -24,9 +29,9 @@ describe('addresses module', () => {
   describe('user should be able to navigate to the addresses from the homepage', () => {
     it('should open the address catalogus', () => {
       // the homepage should not be visible anymore
-      cy.get('.c-homepage').should('not.be.visible');
+      cy.get(homepage).should('not.be.visible');
       // the data selection should exist
-      cy.get('.c-data-selection').should('exist').and('be.visible');
+      cy.get(dataSelection).should('exist').and('be.visible');
       // the title should contain Adressen
       cy.get('h1').contains('Adressen').should('exist').and('be.visible');
     });
@@ -80,7 +85,7 @@ describe('addresses module', () => {
           const selectedGroup = firstTableHeader[0].innerText;
           cy.get('.c-table__content-row').first().find('td:nth-child(1)')
             .then((firstValue) => {
-              const selectedValue = firstValue[0].innerText;
+              const selectedValue = firstValue[0].innerText.trim();
               // click on the firstItem
               cy.get('.c-table__content-row').first().click();
 
