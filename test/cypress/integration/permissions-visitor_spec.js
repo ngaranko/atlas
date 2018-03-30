@@ -1,17 +1,10 @@
-import { logout } from '../services/authentication';
 import URLS from '../shared/urls';
-import {
-  defineGeoSearchRoutes,
-  defineSearchRoutes,
-  waitForGeoSearch,
-  waitForSearch
-} from '../services/routing';
 
 describe('visitor permissions', () => {
   beforeEach(() => {
     // go to the homepage
     cy.visit('/');
-    logout();
+    cy.logout();
   });
 
   it('0. Should NOT show "Kadastrale subjecten" in the autocomplete', () => {
@@ -29,12 +22,12 @@ describe('visitor permissions', () => {
 
   it('1. Should show a message after search is performed', () => {
     cy.server();
-    defineSearchRoutes();
+    cy.defineSearchRoutes();
 
     cy.get('#global-search').focus().type('bakker');
     cy.get('.qa-search-form-submit').click();
 
-    waitForSearch(false);
+    cy.waitForSearch(false);
     cy.get('.c-panel--warning').contains('Meer resultaten na inloggen');
     cy.get('.qa-search-header').should(($values) => {
       expect($values).to.not.contain('Kadastrale subjecten');
@@ -154,14 +147,14 @@ describe('visitor permissions', () => {
 
   it('7C. Should show a visitor limited information in a Geo search', () => {
     cy.server();
-    defineGeoSearchRoutes();
+    cy.defineGeoSearchRoutes();
     cy.route('/bag/pand/*').as('getResults');
     cy.route('/monumenten/monumenten/?betreft_pand=*').as('getMonumenten');
     cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen');
 
     cy.visit(URLS.geoSearch);
 
-    waitForGeoSearch();
+    cy.waitForGeoSearch();
     cy.wait('@getResults');
     cy.wait('@getMonumenten');
     cy.wait('@getNummeraanduidingen');

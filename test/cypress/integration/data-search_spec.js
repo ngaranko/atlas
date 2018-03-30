@@ -1,19 +1,10 @@
-import { login, logout } from '../services/authentication';
-import {
-  defineSearchRoutes,
-  waitForSearch,
-  defineGeoSearchRoutes,
-  waitForGeoSearch
-} from '../services/routing';
-import '../support';
-
 describe('data search module', () => {
   before(() => {
-    login();
+    cy.login();
   });
 
   after(() => {
-    logout();
+    cy.logout();
   });
 
   it('user should see suggestions', () => {
@@ -43,7 +34,7 @@ describe('data search module', () => {
 
   it('should open the address catalogus', () => {
     cy.server();
-    defineGeoSearchRoutes();
+    cy.defineGeoSearchRoutes();
     cy.route('/typeahead?q=Ad+Windighof+2').as('getResults');
     cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
     cy.route('/panorama/thumbnail/*').as('getPanoThumbnail');
@@ -79,7 +70,7 @@ describe('data search module', () => {
     cy.get('.qa-map-container').click(166, 304);
 
     // check link in right column and click on it
-    waitForGeoSearch();
+    cy.waitForGeoSearch();
     cy.get('.c-search-results__block-content')
       .contains('Ad Windighof 2')
       .should('exist').and('be.visible')
@@ -113,7 +104,7 @@ describe('data search module', () => {
   describe('user should be able to submit', () => {
     beforeEach(() => {
       cy.server();
-      defineSearchRoutes();
+      cy.defineSearchRoutes();
       cy.visit('/');
       cy.get('input.js-search-input').trigger('focus');
     });
@@ -121,14 +112,14 @@ describe('data search module', () => {
     it('should submit the search and give results', () => {
       cy.get('input.js-search-input').type('Park');
       cy.get('.c-search-form').submit();
-      waitForSearch();
+      cy.waitForSearch();
       cy.get('.o-list').should('exist').and('be.visible');
     });
 
     it('should submit the search and give no results', () => {
       cy.get('input.js-search-input').type('NORESULTS');
       cy.get('.c-search-form').submit();
-      waitForSearch();
+      cy.waitForSearch();
       cy.get('.o-list').should('have.length', 0);
     });
   });

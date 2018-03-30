@@ -1,13 +1,10 @@
-import { login, logout } from '../services/authentication';
-import { defineSearchRoutes, waitForSearch } from '../services/routing';
-
 describe('datasets search module', () => {
   before(() => {
-    login();
+    cy.login();
   });
 
   after(() => {
-    logout();
+    cy.logout();
   });
 
   describe('user should be to type and see suggestions', () => {
@@ -28,13 +25,13 @@ describe('datasets search module', () => {
   describe('user should be able to search and see results', () => {
     it('should open the datasets results', () => {
       cy.server();
-      defineSearchRoutes();
+      cy.defineSearchRoutes();
 
       cy.visit('/');
       cy.get('input.js-search-input').trigger('focus');
       cy.get('input.js-search-input').type('Park');
       cy.get('.c-search-form').submit();
-      waitForSearch();
+      cy.waitForSearch();
 
       cy.get('.o-tabs__tab--link').contains('Datasets').click();
       cy.get('.c-data-selection-card').should('exist').and('be.visible');
@@ -42,13 +39,13 @@ describe('datasets search module', () => {
 
     it('should not open the datasets results because there are no results', () => {
       cy.server();
-      defineSearchRoutes();
+      cy.defineSearchRoutes();
 
       cy.visit('/');
       cy.get('input.js-search-input').trigger('focus');
       cy.get('input.js-search-input').type('NORESULTS');
       cy.get('.c-search-form').submit();
-      waitForSearch();
+      cy.waitForSearch();
 
       cy.get('.o-tabs__tab--link').should('not.exist').and('not.be.visible');
       cy.get('.c-data-selection-card').should('not.exist').and('not.be.visible');

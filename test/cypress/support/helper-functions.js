@@ -8,6 +8,8 @@
  * @return {number} The number from the header title.
  */
 const getCountFromHeader = (text) =>
-  parseInt(text.match(/\(([1-9.,]*)\)/)[1].replace('.', ''), 10);
+  parseInt(text.match(/\(([0-9.,]*)\)/)[1].replace('.', ''), 10);
 
-export default getCountFromHeader;
+export default {
+  getCountFromHeader
+};

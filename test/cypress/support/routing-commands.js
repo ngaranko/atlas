@@ -1,4 +1,14 @@
-export function defineSearchRoutes() {
+Cypress.Commands.add('defineGeoSearchRoutes', () => {
+  cy.route('/geosearch/nap/*').as('getGeoSearchNap');
+  cy.route('/geosearch/atlas/*').as('getGeoSearchAtlas');
+  cy.route('/geosearch/munitie/*').as('getGeoSearchMunitie');
+  cy.route('/geosearch/bominslag/*').as('getGeoSearchBominslag');
+  cy.route('/geosearch/monumenten/*').as('getGeoSearchMonumenten');
+  cy.route('/geosearch/grondexploitatie/*').as('getGeoSearchGrondexploitatie');
+  cy.route('/geosearch/biz/*').as('getGeoSearchBiz');
+});
+
+Cypress.Commands.add('defineSearchRoutes', () => {
   cy.route('/atlas/search/adres/?q=*').as('getSearchAddressResults');
   cy.route('/atlas/search/gebied/?q=*').as('getSearchGebiedResults');
   cy.route('/atlas/search/kadastraalobject/?q=*').as('getSearchKadastraalObjectResults');
@@ -9,9 +19,19 @@ export function defineSearchRoutes() {
   cy.route('/handelsregister/search/vestiging/?q=*').as('getSearchVestigingResults');
   cy.route('/meetbouten/search/?q=*').as('getSearchMeetboutenResults');
   cy.route('/monumenten/search/?q=*').as('getSearchMonumentsResults');
-}
+});
 
-export function waitForSearch(type = 'EMPLOYEE_PLUS') {
+Cypress.Commands.add('waitForGeoSearch', () => {
+  cy.wait('@getGeoSearchNap');
+  cy.wait('@getGeoSearchAtlas');
+  cy.wait('@getGeoSearchMunitie');
+  cy.wait('@getGeoSearchBominslag');
+  cy.wait('@getGeoSearchMonumenten');
+  cy.wait('@getGeoSearchGrondexploitatie');
+  cy.wait('@getGeoSearchBiz');
+});
+
+Cypress.Commands.add('waitForSearch', (type = 'EMPLOYEE_PLUS') => {
   cy.wait('@getSearchAddressResults');
   cy.wait('@getSearchGebiedResults');
   cy.wait('@getSearchKadastraalObjectResults');
@@ -25,24 +45,4 @@ export function waitForSearch(type = 'EMPLOYEE_PLUS') {
     cy.wait('@getSearchMaatschappelijkeActiviteitResults');
     cy.wait('@getSearchVestigingResults');
   }
-}
-
-export function defineGeoSearchRoutes() {
-  cy.route('/geosearch/nap/*').as('getGeoSearchNap');
-  cy.route('/geosearch/atlas/*').as('getGeoSearchAtlas');
-  cy.route('/geosearch/munitie/*').as('getGeoSearchMunitie');
-  cy.route('/geosearch/bominslag/*').as('getGeoSearchBominslag');
-  cy.route('/geosearch/monumenten/*').as('getGeoSearchMonumenten');
-  cy.route('/geosearch/grondexploitatie/*').as('getGeoSearchGrondexploitatie');
-  cy.route('/geosearch/biz/*').as('getGeoSearchBiz');
-}
-
-export function waitForGeoSearch() {
-  cy.wait('@getGeoSearchNap');
-  cy.wait('@getGeoSearchAtlas');
-  cy.wait('@getGeoSearchMunitie');
-  cy.wait('@getGeoSearchBominslag');
-  cy.wait('@getGeoSearchMonumenten');
-  cy.wait('@getGeoSearchGrondexploitatie');
-  cy.wait('@getGeoSearchBiz');
-}
+});

@@ -1,4 +1,4 @@
-import getCountFromHeader from '../shared/get-count-from-header';
+import { getCountFromHeader } from '../support/helper-functions';
 
 describe('addresses module', () => {
   beforeEach(() => {
@@ -6,7 +6,6 @@ describe('addresses module', () => {
     cy.route('/dataselectie/bag/*').as('getResults');
     cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
     cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
-
 
     // go to the homepage
     cy.visit('/');

@@ -1,17 +1,9 @@
-import { login, logout } from '../services/authentication';
-import getCountFromHeader from '../shared/get-count-from-header';
+import { getCountFromHeader } from '../support/helper-functions';
 import URLS from '../shared/urls';
-import foundKadastraleSubjecten from '../shared/helpers';
-import {
-  defineGeoSearchRoutes,
-  defineSearchRoutes,
-  waitForGeoSearch,
-  waitForSearch
-} from '../services/routing';
 
 describe('employee permissions', () => {
   before(() => {
-    login('EMPLOYEE');
+    cy.login('EMPLOYEE');
   });
 
   beforeEach(() => {
@@ -20,7 +12,7 @@ describe('employee permissions', () => {
   });
 
   after(() => {
-    logout();
+    cy.logout();
   });
 
   it('0. Should show "Kadastrale subjecten" for medewerker in the autocomplete', () => {
@@ -37,17 +29,17 @@ describe('employee permissions', () => {
 
   it('1. Should show a message after search is performed', () => {
     cy.server();
-    defineSearchRoutes();
+    cy.defineSearchRoutes();
 
     cy.get('#global-search').focus().type('bakker');
     cy.get('.qa-search-form-submit').click();
 
-    waitForSearch();
+    cy.waitForSearch();
     cy.get('.c-panel--warning')
       .contains('Medewerkers met speciale bevoegdheden kunnen alle gegevens vinden');
-    cy.get('.qa-search-header').contains('Kadastrale subjecten');
     cy.get('.qa-search-header').contains('Kadastrale subjecten').then((title) => {
-      foundKadastraleSubjecten.amount = getCountFromHeader(title.text());
+      const count = getCountFromHeader(title.text());
+      expect(count).to.be.below(100);
     });
   });
 
@@ -173,7 +165,7 @@ describe('employee permissions', () => {
 
   it('7C. Should show an employee all information in a Geo search', () => {
     cy.server();
-    defineGeoSearchRoutes();
+    cy.defineGeoSearchRoutes();
     cy.route('/bag/pand/*').as('getResults');
     cy.route('/monumenten/monumenten/?betreft_pand=*').as('getMonumenten');
     cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen');
@@ -181,7 +173,7 @@ describe('employee permissions', () => {
 
     cy.visit(URLS.geoSearch);
 
-    waitForGeoSearch();
+    cy.waitForGeoSearch();
     cy.wait('@getResults');
     cy.wait('@getMonumenten');
     cy.wait('@getNummeraanduidingen');

@@ -1,5 +1,3 @@
-import { defineGeoSearchRoutes, waitForGeoSearch } from '../services/routing';
-
 describe('panorama module', () => {
   beforeEach(() => {
     cy.server();
@@ -91,7 +89,7 @@ describe('panorama module', () => {
       const panoUrl = '/#?dte=bag%2Fverblijfsobject%2F03630003761571%2F&mpb=topografie&mpz=16&mpo=pano::T&mpv=52.373434:4.8936217&sbf=Cu&sbh=-Mh&sbi=TMX7315120208-000073_pano_0005_000460&sbl=ZRXE4:3JKXp&sbp=r';
       let newUrl;
 
-      defineGeoSearchRoutes();
+      cy.defineGeoSearchRoutes();
       cy.route('/typeahead?q=dam+1').as('getTypeAhead');
       cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
       cy.route('/panorama/thumbnail/*').as('getPanoThumbnail');
@@ -148,7 +146,7 @@ describe('panorama module', () => {
       });
       cy.get('button.c-straatbeeld__close').click();
 
-      waitForGeoSearch();
+      cy.waitForGeoSearch();
       cy.get('h1.o-header__title').contains('Resultaten').should('exist').and('be.visible');
       cy.get('h2').contains('Openbare ruimte').should('exist').and('be.visible');
     });

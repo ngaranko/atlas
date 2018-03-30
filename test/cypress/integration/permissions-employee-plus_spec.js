@@ -1,17 +1,9 @@
-import { login, logout } from '../services/authentication';
-import getCountFromHeader from '../shared/get-count-from-header';
+import { getCountFromHeader } from '../support/helper-functions';
 import URLS from '../shared/urls';
-import foundKadastraleSubjecten from '../shared/helpers';
-import {
-  defineGeoSearchRoutes,
-  defineSearchRoutes,
-  waitForGeoSearch,
-  waitForSearch
-} from '../services/routing';
 
 describe('employee PLUS permissions', () => {
   before(() => {
-    login('EMPLOYEE_PLUS');
+    cy.login('EMPLOYEE_PLUS');
   });
 
   beforeEach(() => {
@@ -20,8 +12,7 @@ describe('employee PLUS permissions', () => {
   });
 
   after(() => {
-    logout();
-    foundKadastraleSubjecten.amount = 0;
+    cy.logout();
   });
 
   it('0. Should show "Kadastrale subjecten" for medewerker plus in the autocomplete', () => {
@@ -38,22 +29,17 @@ describe('employee PLUS permissions', () => {
 
   it('1. Should show no message after search is performed', () => {
     cy.server();
-    defineSearchRoutes();
+    cy.defineSearchRoutes();
 
     cy.get('#global-search').focus().type('bakker');
     cy.get('.qa-search-form-submit').click();
 
-    waitForSearch();
+    cy.waitForSearch();
     cy.get('.c-panel--warning').should('not.exist');
-    cy.get('.qa-search-header').contains('Kadastrale subjecten');
-    if (foundKadastraleSubjecten.amount > 0) {
-      cy.get('.qa-search-header').contains('Kadastrale subjecten').then((title) => {
-        const tmpFoundKs = getCountFromHeader(title.text());
-        expect(tmpFoundKs).to.be.above(foundKadastraleSubjecten.amount);
-      });
-    } else {
-      cy.log('foundKadastraleSubjecten.amount not filled, run the permissions-employee_spec before running this test');
-    }
+    cy.get('.qa-search-header').contains('Kadastrale subjecten').then((title) => {
+      const count = getCountFromHeader(title.text());
+      expect(count).to.be.above(100);
+    });
   });
 
   it('2A. Should allow a plus employee to view everything of natural subject', () => {
@@ -183,7 +169,7 @@ describe('employee PLUS permissions', () => {
 
   it('7C. Should show a plus employee all information in a Geo search', () => {
     cy.server();
-    defineGeoSearchRoutes();
+    cy.defineGeoSearchRoutes();
     cy.route('/bag/pand/*').as('getResults');
     cy.route('/monumenten/monumenten/?betreft_pand=*').as('getMonumenten');
     cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen');
@@ -191,7 +177,7 @@ describe('employee PLUS permissions', () => {
 
     cy.visit(URLS.geoSearch);
 
-    waitForGeoSearch();
+    cy.waitForGeoSearch();
     cy.wait('@getResults');
     cy.wait('@getMonumenten');
     cy.wait('@getNummeraanduidingen');

@@ -1,5 +1,3 @@
-import { login, logout } from '../services/authentication';
-
 const dataSelection = '.c-data-selection';
 const homepage = '.c-homepage';
 const notification = '.c-panel--warning';
@@ -50,11 +48,11 @@ describe('trade-register module', () => {
 
   describe('authenticated', () => {
     before(() => {
-      login();
+      cy.login();
     });
 
     after(() => {
-      logout();
+      cy.logout();
     });
 
     beforeEach(() => {

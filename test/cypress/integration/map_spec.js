@@ -1,10 +1,3 @@
-import '../support';
-import {
-  defineGeoSearchRoutes,
-  waitForGeoSearch
-} from '../services/routing';
-
-
 describe('map module', () => {
   describe('user should be able to navigate to the map from the homepage', () => {
     it('should open the map', () => {
@@ -26,7 +19,7 @@ describe('map module', () => {
   describe('user should be able to interact with the map', () => {
     it('should show results based on the interaction with the map', () => {
       cy.server();
-      defineGeoSearchRoutes();
+      cy.defineGeoSearchRoutes();
       cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
       cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
       cy.route('/panorama/thumbnail/*').as('getPanoThumbnail');
@@ -52,7 +45,7 @@ describe('map module', () => {
       // click somewhere in the map (not on a marker)
       cy.get('.qa-map-container').click(560, 293);
 
-      waitForGeoSearch();
+      cy.waitForGeoSearch();
       // check that the search icon is drawn on the map
       cy.get('.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive')
         .should('exist').and('be.visible')
