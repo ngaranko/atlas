@@ -8,7 +8,6 @@ import './_auto-suggest.scss';
 
 class AutoSuggest extends React.Component {
   static getSuggestionByIndex(searchResults, suggestionIndex) {
-    console.log(suggestionIndex)
     return searchResults.reduce((flatResults, category) =>
       [...flatResults, ...category.content], [])
       .filter((flatSuggestion, index) =>
@@ -23,27 +22,36 @@ class AutoSuggest extends React.Component {
     this.onInput = this.onInput.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.navigateSuggestions = this.navigateSuggestions.bind(this);
-    this.setSuggestedQuery = this.setSuggestedQuery.bind(this);
     this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+
+    this.state = {
+      showSuggestions: false
+    };
   }
 
   onBlur() {
-    const { setShowSuggestions } = this.props;
     setTimeout(() => {
-      setShowSuggestions(false);
+      this.setState({
+        showSuggestions: false
+      });
     }, 200);
   }
 
   onInput(event) {
-    const { setShowSuggestions, onTextInput } = this.props;
+    const { onTextInput } = this.props;
     event.persist();
     onTextInput(event.target.value);
-    setShowSuggestions(true);
+    this.setState({
+      showSuggestions: true
+    });
   }
 
   onFocus(event) {
-    const { setShowSuggestions, onTextInput, suggestions, query } = this.props;
-    setShowSuggestions(true);
+    const { onTextInput, suggestions, query } = this.props;
+    this.setState({
+      showSuggestions: true
+    });
     if (query.length && !suggestions.length) {
       event.persist();
       onTextInput(event);
@@ -56,36 +64,24 @@ class AutoSuggest extends React.Component {
     onSuggestSelection(suggestion, event);
   }
 
-  setSuggestedQuery() {
-    const { suggestions, activeSuggestion, setActiveSuggestion } = this.props;
-    // const thisActiveSuggestion = AutoSuggest.getSuggestionByIndex(
-    //   suggestions,
-    //   activeSuggestion
-    // );
-    //
-    // setActiveSuggestion(thisActiveSuggestion);
-
-    this.textInput.value = activeSuggestion._display;
-  }
-
   clearQuery() {
-    const { onTextInput } = this.props;
+    const { onTextInput, setActiveSuggestion } = this.props;
     this.textInput.value = '';
     this.textInput.focus();
+    setActiveSuggestion({})
     onTextInput();
   }
 
   navigateSuggestions(event) {
     const {
       numberOfSuggestions,
-      setShowSuggestions,
       query,
       onSuggestSelection,
       activeSuggestion,
-      showSuggestions,
-      onKeyboardNavigation,
+      setActiveSuggestion,
       suggestions
     } = this.props;
+    const { showSuggestions } = this.state;
 
     switch (event.keyCode) {
       // Arrow up
@@ -98,13 +94,16 @@ class AutoSuggest extends React.Component {
           return;
         }
 
-        const goUpToSuggestion = AutoSuggest.getSuggestionByIndex(suggestions, Math.max(activeSuggestion.index || 0 - 1, -1));
-        onKeyboardNavigation(goUpToSuggestion);
+        const goUpToSuggestion = AutoSuggest.getSuggestionByIndex(
+          suggestions,
+          Math.max(activeSuggestion.index - 1, -1)
+        );
+        setActiveSuggestion(goUpToSuggestion);
 
         if (activeSuggestion.index === -1) {
           this.textInput.value = query;
         } else {
-          this.setSuggestedQuery();
+          this.textInput.value = activeSuggestion._display;
         }
 
         break;
@@ -114,30 +113,47 @@ class AutoSuggest extends React.Component {
         if (!showSuggestions || !numberOfSuggestions) {
           return;
         }
-        const goDownToSuggestion = AutoSuggest.getSuggestionByIndex(suggestions, Math.min(activeSuggestion.index || -1 + 1, numberOfSuggestions - 1))
-        onKeyboardNavigation(goDownToSuggestion);
-        this.setSuggestedQuery();
+        const goDownToSuggestion = AutoSuggest.getSuggestionByIndex(
+          suggestions,
+          Math.min(activeSuggestion.index + 1, numberOfSuggestions - 1)
+        )
+        setActiveSuggestion(goDownToSuggestion);
+        this.textInput.value = activeSuggestion._display;
 
         break;
 
       // Escape
       case 27:
         this.textInput.value = query;
-        setShowSuggestions(false);
+        this.setState({
+          showSuggestions: false
+        });
         this.textInput.blur();
         break;
 
       // Enter
       case 13:
         if (activeSuggestion.index > -1) {
-          onSuggestSelection(activeSuggestion, event);
           this.clearQuery();
+          onSuggestSelection(activeSuggestion, event);
         }
         break;
 
       default:
         break;
     }
+  }
+
+  onFormSubmit(event) {
+    const { onSubmit, setActiveSuggestion } = this.props;
+
+    this.setState({
+      showSuggestions: false
+    });
+
+    setActiveSuggestion({})
+
+    onSubmit(event);
   }
 
   render() {
@@ -148,14 +164,14 @@ class AutoSuggest extends React.Component {
       classNames,
       suggestions,
       query,
-      showSuggestions,
       activeSuggestion,
       onSubmit
     } = this.props;
+    const { showSuggestions } = this.state;
 
     return (
       <div id="header-search" className={`${showSuggestions && suggestions.length ? 'c-auto-suggest__backdrop' : ''}`}>
-        <form className="c-search-form" onSubmit={onSubmit}>
+        <form className="c-search-form" onSubmit={this.onFormSubmit}>
           <fieldset>
             <div>
               {legendTitle && <legend className="u-sr-only">legendTitle</legend>}
@@ -232,11 +248,9 @@ AutoSuggest.propTypes = {
   numberOfSuggestions: PropTypes.number,
   query: PropTypes.string,
   onSuggestSelection: PropTypes.func.isRequired,
-  onKeyboardNavigation: PropTypes.func.isRequired,
-  showSuggestions: PropTypes.bool,
-  setShowSuggestions: PropTypes.func.isRequired,
+  setActiveSuggestion: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  activeSuggestion: PropTypes.object.isRequired //eslint-disable-line
+  activeSuggestion: PropTypes.object //eslint-disable-line
 };
 
 AutoSuggest.defaultProps = {
@@ -246,8 +260,7 @@ AutoSuggest.defaultProps = {
   classNames: '',
   suggestions: [],
   numberOfSuggestions: 0,
-  query: '',
-  showSuggestions: false,
+  query: ''
 };
 
 export default AutoSuggest;

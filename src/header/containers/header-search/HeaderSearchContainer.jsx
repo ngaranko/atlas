@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  setShowSuggestions,
   setActiveSuggestion,
   getSuggestions
 } from '../../ducks/auto-suggest/auto-suggest';
@@ -24,16 +23,14 @@ const mapStateToProps = (state) => ({
   numberOfSuggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.count : 0,
   isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
   activeSuggestion: state.autoSuggest.activeSuggestion,
-  showSuggestions: state.autoSuggest.showSuggestions
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  searchAll: fetchSearchResultsByQuery,
-  searchDatasets: fetchDataSelection,
-  toggleActiveSuggestion: setActiveSuggestion,
-  toggleShowSuggestions: setShowSuggestions,
-  goToDetail: fetchDetail,
-  onTextInput: getSuggestions
+  fetchSearchResultsByQuery,
+  fetchDataSelection,
+  setActiveSuggestion,
+  fetchDetail,
+  getSuggestions
 }, dispatch);
 
 class HeaderSearchContainer extends React.Component {
@@ -60,7 +57,7 @@ class HeaderSearchContainer extends React.Component {
       // (webpack overrides the data it seems)
       newWindow.window.suggestionToLoadUri = suggestion.uri;
     } else {
-      fetchDetail(`${getSharedConfig().API_ROOT}${suggestion.uri}`);
+      this.props.fetchDetail(`${getSharedConfig().API_ROOT}${suggestion.uri}`);
     }
   }
 
@@ -72,8 +69,6 @@ class HeaderSearchContainer extends React.Component {
       activeSuggestion,
       numberOfSuggestions,
       query,
-      searchAll,
-      searchDatasets
     } = this.props;
 
     piwikTracker(['trackSiteSearch', query, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
@@ -82,29 +77,25 @@ class HeaderSearchContainer extends React.Component {
       // Load the search results
       emptyFilters();
       if (isDatasetView) {
-        searchDatasets(query);
+        this.props.fetchDataSelection(query);
       } else {
-        searchAll(query);
+        this.props.fetchSearchResultsByQuery(query);
       }
     }
   }
 
   openDetailOnLoad() {
     const suggestionUri = window.suggestionToLoadUri;
-    fetchDetail(`${getSharedConfig().API_ROOT}${suggestionUri}`);
+    this.props.fetchDetail(`${getSharedConfig().API_ROOT}${suggestionUri}`);
     window.suggestionToLoadUri = undefined;
   }
 
   render() {
     const {
       suggestions,
-      showSuggestions,
       numberOfSuggestions,
       activeSuggestion,
-      onTextInput,
       query,
-      toggleShowSuggestions,
-      toggleActiveSuggestion
     } = this.props;
 
     return (
@@ -116,12 +107,10 @@ class HeaderSearchContainer extends React.Component {
         suggestions={suggestions}
         numberOfSuggestions={numberOfSuggestions}
         query={query}
-        onTextInput={onTextInput}
+        onTextInput={this.props.getSuggestions}
         onSuggestSelection={this.onSuggestSelection}
-        onKeyboardNavigation={toggleActiveSuggestion}
+        setActiveSuggestion={this.props.setActiveSuggestion}
         activeSuggestion={activeSuggestion}
-        showSuggestions={showSuggestions}
-        setShowSuggestions={toggleShowSuggestions}
         onSubmit={this.onFormSubmit}
       />
     );
@@ -133,12 +122,10 @@ HeaderSearchContainer.contextTypes = {
 };
 
 HeaderSearchContainer.defaultProps = {
-  searchQuery: '',
+  query: '',
   suggestions: [],
   isDatasetView: false,
   numberOfSuggestions: 0,
-  activeSuggestionIndex: -1,
-  showSuggestions: false,
   activeSuggestion: {}
 };
 
@@ -147,10 +134,20 @@ HeaderSearchContainer.propTypes = {
   suggestions: PropTypes.arrayOf(PropTypes.object),
   numberOfSuggestions: PropTypes.number,
   isDatasetView: PropTypes.bool,
-  showSuggestions: PropTypes.bool,
-  activeSuggestionIndex: PropTypes.number,
   activeSuggestion: PropTypes.object, //eslint-disable-line
-  onTextInput: PropTypes.func.isRequired
+  fetchSearchResultsByQuery: PropTypes.func.isRequired,
+  fetchDataSelection: PropTypes.func.isRequired,
+  setActiveSuggestion: PropTypes.func.isRequired,
+  fetchDetail: PropTypes.func.isRequired,
+  getSuggestions: PropTypes.func.isRequired
 };
+/*
+
+  fetchSearchResultsByQuery,
+  fetchDataSelection,
+  setActiveSuggestion,
+  fetchDetail,
+  getSuggestions
+ */
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearchContainer);
