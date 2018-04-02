@@ -43,7 +43,6 @@ class HeaderSearchContainer extends React.Component {
     }
   }
 
-
   onSuggestSelection(suggestion, event) {
     const { suggestions } = this.props;
     event.preventDefault();
@@ -141,13 +140,5 @@ HeaderSearchContainer.propTypes = {
   fetchDetail: PropTypes.func.isRequired,
   getSuggestions: PropTypes.func.isRequired
 };
-/*
-
-  fetchSearchResultsByQuery,
-  fetchDataSelection,
-  setActiveSuggestion,
-  fetchDetail,
-  getSuggestions
- */
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearchContainer);

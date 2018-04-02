@@ -27,7 +27,6 @@ export default function AutoSuggestReducer(state = initialState, action) {
   }
 }
 
-
 export const setActiveSuggestion = (suggestion = { index: -1 }) =>
   ({ type: SET_ACTIVE_SUGGESTION, suggestion });
 
