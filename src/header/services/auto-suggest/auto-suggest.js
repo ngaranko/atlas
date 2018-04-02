@@ -29,6 +29,4 @@ function search(query) {
     .then((response) => formatData(response, query));
 }
 
-export default {
-  search
-};
+export default search;

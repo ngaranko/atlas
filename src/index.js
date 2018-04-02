@@ -6,7 +6,7 @@ import './map/wrappers/map/MapWrapper';
 import './map/wrappers/map-embed-button/MapEmbedButtonWrapper';
 import './detail/wrappers/graph-wrappers/GrondexploitatieGrafiekTotaleBegrotingWrapper';
 import './detail/wrappers/graph-wrappers/GrondexploitatieGrafiekGefaseerdeBegrotingWrapper';
-import './header/wrappers/search/SearchWrapper';
+import './header/wrappers/header-search/HeaderSearchWrapper';
 
 // All third party dependencies
 import './vendor';

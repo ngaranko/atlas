@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AutoSuggestItem from './AutoSuggestItem';
 
 const AutoSuggestCategory = (props) => {
-  const { category, activeSuggestionIndex, query, onSuggestionSelection } = props;
+  const { category, activeSuggestion, query, onSuggestionSelection } = props;
 
   return (
     <div className="c-auto-suggest__category">
@@ -15,7 +15,7 @@ const AutoSuggestCategory = (props) => {
           (
             <AutoSuggestItem
               key={suggestion._display + suggestion.index}
-              isActive={activeSuggestionIndex === suggestion.index}
+              isActive={activeSuggestion && activeSuggestion.index === suggestion.index}
               onSuggestionSelection={(e) => {
                 onSuggestionSelection(suggestion, e);
               }}
@@ -34,7 +34,7 @@ AutoSuggestCategory.defaultProps = {
 
 AutoSuggestCategory.propTypes = {
   category: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  activeSuggestionIndex: PropTypes.number.isRequired,
+  activeSuggestion: PropTypes.object,
   query: PropTypes.string.isRequired,
   onSuggestionSelection: PropTypes.func.isRequired
 };

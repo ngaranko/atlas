@@ -4,7 +4,8 @@ import escapeStringRegexp from 'escape-string-regexp';
 import ArrowRightIcon from '../../../../public/images/icon-arrow-right.svg';
 
 const AutoSuggestItem = (props) => {
-  const { isActive, onSuggestionSelection, query } = props;
+  const { isActive, onSuggestionSelection, query, content } = props;
+  const highlightedSuggestion = content.replace(new RegExp(`(${escapeStringRegexp(query)})`, 'gi'), '<span class="c-auto-suggest__highlight">$1</span>');
 
   return (
     <li>
@@ -19,7 +20,7 @@ const AutoSuggestItem = (props) => {
         <span
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
-            __html: props.content.replace(new RegExp(`(${escapeStringRegexp(query)})`, 'gi'), '<span class="c-auto-suggest__highlight">$1</span>')
+            __html: highlightedSuggestion
           }}
         />
       </button>

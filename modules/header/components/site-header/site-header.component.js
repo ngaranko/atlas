@@ -23,7 +23,7 @@
         const vm = this;
         const React = $window.React;
         const render = $window.render;
-        const searchComponent = $window.SearchWrapper;
+        const searchWrapper = $window.SearchWrapper;
 
         $scope.$watch('vm.size', updateSize);
 
@@ -38,7 +38,7 @@
             $timeout(() => {
                 if (!$window.document.getElementById('header-search')) {
                     const autosuggestContainer = $window.document.querySelector('.react-auto-suggest-container');
-                    render(React.createElement(searchComponent, null), autosuggestContainer);
+                    render(React.createElement(searchWrapper, null), autosuggestContainer);
                 }
             });
         }

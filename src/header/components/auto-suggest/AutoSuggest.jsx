@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AutoSuggestCategory from './AutoSuggestCategory';
-import returnPromise from '../../../shared/services/return-promise/return-promise'
 import SearchIcon from '../../../../public/images/icon-search.svg';
 import ClearIcon from '../../../../public/images/icon-clear.svg';
 
@@ -9,9 +8,10 @@ import './_auto-suggest.scss';
 
 class AutoSuggest extends React.Component {
   static getSuggestionByIndex(searchResults, suggestionIndex) {
+    console.log(suggestionIndex)
     return searchResults.reduce((flatResults, category) =>
       [...flatResults, ...category.content], [])
-      .filter((suggestion, index) =>
+      .filter((flatSuggestion, index) =>
         index === suggestionIndex
       )[0];
   }
@@ -36,14 +36,16 @@ class AutoSuggest extends React.Component {
 
   onInput(event) {
     const { setShowSuggestions, onTextInput } = this.props;
-    onTextInput(event);
+    event.persist();
+    onTextInput(event.target.value);
     setShowSuggestions(true);
   }
 
   onFocus(event) {
-    const { setShowSuggestions, onTextInput, suggestions } = this.props;
+    const { setShowSuggestions, onTextInput, suggestions, query } = this.props;
     setShowSuggestions(true);
-    if (!suggestions.length) {
+    if (query.length && !suggestions.length) {
+      event.persist();
       onTextInput(event);
     }
   }
@@ -51,19 +53,19 @@ class AutoSuggest extends React.Component {
   onSuggestionSelection(suggestion, event) {
     const { onSuggestSelection } = this.props;
 
-    onSuggestSelection(suggestion, event, this.clearQuery);
+    onSuggestSelection(suggestion, event);
   }
 
   setSuggestedQuery() {
-    const { suggestions, activeSuggestionIndex, setActiveSuggestion } = this.props;
-    const thisActiveSuggestion = AutoSuggest.getSuggestionByIndex(
-      suggestions,
-      activeSuggestionIndex
-    );
+    const { suggestions, activeSuggestion, setActiveSuggestion } = this.props;
+    // const thisActiveSuggestion = AutoSuggest.getSuggestionByIndex(
+    //   suggestions,
+    //   activeSuggestion
+    // );
+    //
+    // setActiveSuggestion(thisActiveSuggestion);
 
-    setActiveSuggestion(thisActiveSuggestion);
-
-    this.textInput.value = thisActiveSuggestion._display;
+    this.textInput.value = activeSuggestion._display;
   }
 
   clearQuery() {
@@ -75,14 +77,14 @@ class AutoSuggest extends React.Component {
 
   navigateSuggestions(event) {
     const {
-      setActiveSuggestionIndex,
-      activeSuggestionIndex,
       numberOfSuggestions,
       setShowSuggestions,
       query,
       onSuggestSelection,
       activeSuggestion,
-      showSuggestions
+      showSuggestions,
+      onKeyboardNavigation,
+      suggestions
     } = this.props;
 
     switch (event.keyCode) {
@@ -96,14 +98,15 @@ class AutoSuggest extends React.Component {
           return;
         }
 
-        returnPromise(setActiveSuggestionIndex, Math.max(activeSuggestionIndex - 1, -1))
-          .then((setValue) => {
-            if (setValue.index === -1) {
-              this.textInput.value = query;
-            } else {
-              this.setSuggestedQuery();
-            }
-          });
+        const goUpToSuggestion = AutoSuggest.getSuggestionByIndex(suggestions, Math.max(activeSuggestion.index || 0 - 1, -1));
+        onKeyboardNavigation(goUpToSuggestion);
+
+        if (activeSuggestion.index === -1) {
+          this.textInput.value = query;
+        } else {
+          this.setSuggestedQuery();
+        }
+
         break;
 
       // Arrow down
@@ -111,11 +114,10 @@ class AutoSuggest extends React.Component {
         if (!showSuggestions || !numberOfSuggestions) {
           return;
         }
-        returnPromise(
-          setActiveSuggestionIndex,
-          Math.min(activeSuggestionIndex + 1, numberOfSuggestions - 1)
-        )
-          .then(this.setSuggestedQuery);
+        const goDownToSuggestion = AutoSuggest.getSuggestionByIndex(suggestions, Math.min(activeSuggestion.index || -1 + 1, numberOfSuggestions - 1))
+        onKeyboardNavigation(goDownToSuggestion);
+        this.setSuggestedQuery();
+
         break;
 
       // Escape
@@ -127,8 +129,9 @@ class AutoSuggest extends React.Component {
 
       // Enter
       case 13:
-        if (activeSuggestionIndex > -1) {
-          onSuggestSelection(activeSuggestion, event, this.clearQuery);
+        if (activeSuggestion.index > -1) {
+          onSuggestSelection(activeSuggestion, event);
+          this.clearQuery();
         }
         break;
 
@@ -146,7 +149,7 @@ class AutoSuggest extends React.Component {
       suggestions,
       query,
       showSuggestions,
-      activeSuggestionIndex,
+      activeSuggestion,
       onSubmit
     } = this.props;
 
@@ -195,7 +198,7 @@ class AutoSuggest extends React.Component {
                     <AutoSuggestCategory
                       key={category.label + category.index}
                       category={category}
-                      activeSuggestionIndex={activeSuggestionIndex}
+                      activeSuggestion={activeSuggestion}
                       query={query}
                       onSuggestionSelection={this.onSuggestionSelection}
                     />
@@ -229,9 +232,7 @@ AutoSuggest.propTypes = {
   numberOfSuggestions: PropTypes.number,
   query: PropTypes.string,
   onSuggestSelection: PropTypes.func.isRequired,
-  setActiveSuggestionIndex: PropTypes.func.isRequired,
-  setActiveSuggestion: PropTypes.func.isRequired,
-  activeSuggestionIndex: PropTypes.number,
+  onKeyboardNavigation: PropTypes.func.isRequired,
   showSuggestions: PropTypes.bool,
   setShowSuggestions: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -247,7 +248,6 @@ AutoSuggest.defaultProps = {
   numberOfSuggestions: 0,
   query: '',
   showSuggestions: false,
-  activeSuggestionIndex: -1
 };
 
 export default AutoSuggest;
