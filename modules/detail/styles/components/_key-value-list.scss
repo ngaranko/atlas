@@ -36,9 +36,9 @@
   }
 
   .c-key-value-list__value--ellipsis {
-    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    overflow: hidden;
   }
 
   .c-key-value-list__value-inline {

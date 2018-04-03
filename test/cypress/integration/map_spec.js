@@ -58,12 +58,12 @@ describe('map module', () => {
 
       cy.visit('/#?mpb=topografie&mpz=11&mpfs=T&mpv=52.3728007:4.899258&pgn=home&uvm=T');
       cy.get('.map-layers__category').contains('Meetbouten - Zaksnelheid').click();
-      cy.get('.map-legend__zoom-level-notification').contains('Zichtbaar bij verder inzoomen').and('is.visible');
+      cy.get('.map-legend__notification').contains('Zichtbaar bij verder inzoomen').and('is.visible');
       cy.get('.leaflet-control-zoom-in').click();
       // wait for the second click
       cy.wait(250);
       cy.get('.leaflet-control-zoom-in').click();
-      cy.get('.map-legend__zoom-level-notification').should('not.be.visible');
+      cy.get('.map-legend__notification').should('not.be.visible');
       cy.get('.map-legend__items').should('exist').and('be.visible');
 
       // click on the map

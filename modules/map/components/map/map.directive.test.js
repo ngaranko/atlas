@@ -18,10 +18,28 @@ describe('The dp-map directive', () => {
         mockedMapState,
         mockedLeafletMap,
         mockedMarkers,
-        mockedState;
+        mockedState,
+        oldReduxStore;
 
     beforeEach(() => {
-        mockedState = {};
+        mockedUser = {
+            authenticated: true,
+            scopes: ['HR/R'],
+            name: ''
+        };
+
+        mockedState = {
+            mapLayers: [
+                { id: getLayerPropertyByIndex(0), authScope: '' },
+                { id: getLayerPropertyByIndex(1), authScope: '' }
+            ],
+            user: mockedUser
+        };
+
+        oldReduxStore = window.reduxStore; // eslint-disable-line angular/window-service
+        window.reduxStore = { // eslint-disable-line angular/window-service
+            getState: () => mockedState
+        };
 
         angular.mock.module(
             'dpMap',
@@ -133,16 +151,14 @@ describe('The dp-map directive', () => {
             clustered: []
         };
 
-        mockedUser = {
-            authenticated: true,
-            scopes: ['HR/R'],
-            name: ''
-        };
-
         $window.render = angular.noop;
         $window.React = {
             createElement: angular.noop
         };
+    });
+
+    afterEach(() => {
+        window.reduxStore = oldReduxStore; // eslint-disable-line angular/window-service
     });
 
     function getDirective (mapState, markers, useRootScopeApply, resize) {
@@ -225,6 +241,39 @@ describe('The dp-map directive', () => {
             });
         });
 
+        it('will no be added if the mapLayers have not been initialized in the state', () => {
+            mockedState.mapLayers = [];
+            mockedMapState.overlays = [{id: firstLayerProperty, isVisible: true}];
+            getDirective(mockedMapState, mockedMarkers);
+
+            expect(layers.addOverlay).not.toHaveBeenCalled();
+        });
+
+        it('will not be added if the user is not authorized while required', () => {
+            mockedState.mapLayers[0].authScope = 'HR/R';
+            mockedUser.authenticated = false;
+            mockedMapState.overlays = [{id: firstLayerProperty, isVisible: true}];
+            getDirective(mockedMapState, mockedMarkers);
+
+            expect(layers.addOverlay).not.toHaveBeenCalled();
+        });
+
+        it('will not be added if the user doesn\'t have the required scope', () => {
+            mockedState.mapLayers[0].authScope = 'LAY/R';
+            mockedMapState.overlays = [{id: firstLayerProperty, isVisible: true}];
+            getDirective(mockedMapState, mockedMarkers);
+
+            expect(layers.addOverlay).not.toHaveBeenCalled();
+        });
+
+        it('will be added if the user has the required scope', () => {
+            mockedState.mapLayers[0].authScope = 'HR/R';
+            mockedMapState.overlays = [{id: firstLayerProperty, isVisible: true}];
+            getDirective(mockedMapState, mockedMarkers);
+
+            expect(layers.addOverlay).toHaveBeenCalledWith(mockedLeafletMap, firstLayerProperty);
+        });
+
         it('can be added on initialization', () => {
             mockedMapState.overlays = [{id: firstLayerProperty, isVisible: true}];
             getDirective(mockedMapState, mockedMarkers);
@@ -271,6 +320,22 @@ describe('The dp-map directive', () => {
 
             expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, firstLayerProperty);
             expect(layers.removeOverlay).toHaveBeenCalledWith(mockedLeafletMap, secondLayerProperty);
+        });
+
+        it('stay the same when nothing changes', () => {
+            mockedMapState.overlays = [
+                {id: firstLayerProperty, isVisible: true},
+                {id: secondLayerProperty, isVisible: true}
+            ];
+            getDirective(mockedMapState, mockedMarkers);
+            expect(layers.removeOverlay).not.toHaveBeenCalled();
+
+            mockedUser.scopes = [];
+            layers.addOverlay.calls.reset();
+            $rootScope.$digest();
+
+            expect(layers.addOverlay).not.toHaveBeenCalled();
+            expect(layers.removeOverlay).not.toHaveBeenCalled();
         });
 
         it('is updated when the user authorization level changes', () => {

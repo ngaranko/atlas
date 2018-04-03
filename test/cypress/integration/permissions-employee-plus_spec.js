@@ -1,5 +1,5 @@
 import { login, logout } from '../services/authentication';
-import {URLS} from '../shared/urls';
+import URLS from '../shared/urls';
 import { PAGELOAD_WAIT, foundKadastraleSubjecten } from '../shared/helpers';
 
 describe('employee PLUS permissions', () => {
@@ -31,11 +31,11 @@ describe('employee PLUS permissions', () => {
     cy.get('.qa-search-header').contains('Kadastrale subjecten');
     if (foundKadastraleSubjecten.amount > 0) {
       cy.get('.qa-search-header').contains('Kadastrale subjecten').then((title) => {
-        const tmpFoundKs = parseInt(title.text().match(/\(([1-9.,]*)\)/)[1].replace('.', ''));
+        const tmpFoundKs = parseInt(title.text().match(/\(([1-9.,]*)\)/)[1].replace('.', ''), 10);
         expect(tmpFoundKs).to.be.above(foundKadastraleSubjecten.amount);
       });
     } else {
-      cy.log('foundKadastraleSubjecten.amount not filled, run the permissions-employee_spec before running this test')
+      cy.log('foundKadastraleSubjecten.amount not filled, run the permissions-employee_spec before running this test');
     }
   });
 
@@ -157,7 +157,7 @@ describe('employee PLUS permissions', () => {
   it('7F. Should allow a plus employee to view "vestiging"', () => {
     cy.visit(URLS.vestiging);
     cy.wait(PAGELOAD_WAIT);
-    cy.get('.o-header__title').contains('oierss')
+    cy.get('.o-header__title').contains('oierss');
     cy.get('.c-panel--warning').should('not.exist');
     cy.get('dl.c-key-value-list dd').should(($values) => {
       expect($values).to.contain('vom');
@@ -165,13 +165,13 @@ describe('employee PLUS permissions', () => {
 
     cy.get('button.toggle-fullscreen').click();
     cy.get('.notification--info').should('not.exist');
-    cy.get('.map-detail-result__header-subtitle').contains('vom')
+    cy.get('.map-detail-result__header-subtitle').contains('vom');
   });
 
   it('7G. Should allow a plus employee to view "maatschappelijke activiteit"', () => {
     cy.visit(URLS.vestiging);
     cy.wait(PAGELOAD_WAIT);
-    cy.get('.o-header__title').contains('ooiers')
+    cy.get('.o-header__title').contains('ooiers');
     cy.get('.c-panel--warning').should('not.exist');
     cy.get('dl.c-key-value-list dd').should(($values) => {
       expect($values).to.contain('vom');
