@@ -1,18 +1,26 @@
+const columnRight = '.qa-dashboard__column--right';
+const homepage = '.c-homepage';
+const map = '.c-map';
+const notification = '.map-legend__notification';
+const scrollWrapper = '.scroll-wrapper';
+
 describe('map module', () => {
   describe('user should be able to navigate to the map from the homepage', () => {
     it('should open the map', () => {
       // go to the homepage
       cy.visit('/');
+      // the homepage should be visible
+      cy.get(homepage).should('be.visible');
       // check if the link is in the dom and visible
       cy.get('.qa-map-link').should('exist').and('be.visible');
       // the map should not exist yet
-      cy.get('.c-map').should('not.exist');
+      cy.get(map).should('not.exist');
       // click on the link to go to the map
       cy.get('.qa-map-link').click();
       // the homepage should not be visible anymore
-      cy.get('.c-homepage').should('not.be.visible');
+      cy.get(homepage).should('not.be.visible');
       // the map should be visible
-      cy.get('.c-map').should('exist').and('be.visible');
+      cy.get(map).should('exist').and('be.visible');
     });
   });
 
@@ -64,11 +72,11 @@ describe('map module', () => {
       // click on the button inside the panel balloon thingy, and expect the large right column to
       // become visible
       cy.get('button.map-preview-panel__button[title="Volledige weergave tonen"]').click();
-      cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
-      cy.get('.qa-dashboard__column--right').get('.qa-title').contains('Beursplein 2');
-      cy.get('.qa-dashboard__column--right').get('dl').contains('1012JW');
+      cy.get(columnRight).should('exist').and('be.visible');
+      cy.get(columnRight).get('.qa-title').contains('Beursplein 2');
+      cy.get(columnRight).get('dl').contains('1012JW');
       cy.wait('@getPanoThumbnail');
-      cy.get('.qa-dashboard__column--right')
+      cy.get(columnRight)
         .get('img.c-straatbeeld-thumbnail--img')
         .should('exist').and('be.visible');
       cy.get('.c-panel--warning').should('exist').and('be.visible');
@@ -85,14 +93,14 @@ describe('map module', () => {
 
       cy.visit('/#?mpb=topografie&mpz=11&mpfs=T&mpv=52.3728007:4.899258&pgn=home&uvm=T');
       cy.get('.map-layers__category').contains('Meetbouten - Zaksnelheid').click();
-      cy.get('.map-legend__notification')
+      cy.get(notification)
         .contains('Zichtbaar bij verder inzoomen')
         .and('is.visible');
       cy.get('.leaflet-control-zoom-in').click();
       // wait for the second click
       cy.wait(250);
       cy.get('.leaflet-control-zoom-in').click();
-      cy.get('.map-legend__notification').should('not.be.visible');
+      cy.get(notification).should('not.be.visible');
       cy.get('.map-legend__items').should('exist').and('be.visible');
 
       // click on the map
@@ -105,16 +113,16 @@ describe('map module', () => {
       cy.get('button.map-search-results__button').click();
 
       cy.wait('@getPanoThumbnail');
-      cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
-      cy.get('.qa-dashboard__column--right').get('.qa-title').contains('10581111');
-      cy.get('.qa-dashboard__column--right').get('dl').contains('Nieuwmarkt 25');
-      cy.get('.qa-dashboard__column--right')
+      cy.get(columnRight).should('exist').and('be.visible');
+      cy.get(columnRight).get('.qa-title').contains('10581111');
+      cy.get(columnRight).get('dl').contains('Nieuwmarkt 25');
+      cy.get(columnRight)
         .get('img.c-straatbeeld-thumbnail--img')
         .should('exist').and('be.visible');
 
       cy.get('button.toggle-fullscreen').click();
 
-      cy.get('.qa-dashboard__column--right').should('exist').and('not.be.visible');
+      cy.get(columnRight).should('exist').and('not.be.visible');
       cy.get('.map-preview-panel.map-preview-panel--visible')
         .get('img.map-detail-result__header-pano')
         .should('exist').and('be.visible');
@@ -122,16 +130,16 @@ describe('map module', () => {
 
       cy.go('back');
 
-      cy.get('.qa-dashboard__column--right').should('exist').and('be.visible');
-      cy.get('.qa-dashboard__column--right').get('.qa-title').contains('10581111');
-      cy.get('.qa-dashboard__column--right').get('dl').contains('Nieuwmarkt 25');
-      cy.get('.qa-dashboard__column--right')
+      cy.get(columnRight).should('exist').and('be.visible');
+      cy.get(columnRight).get('.qa-title').contains('10581111');
+      cy.get(columnRight).get('dl').contains('Nieuwmarkt 25');
+      cy.get(columnRight)
         .get('img.c-straatbeeld-thumbnail--img')
         .should('exist').and('be.visible');
 
       cy.go('back');
 
-      cy.get('.qa-dashboard__column--right').should('exist').and('not.be.visible');
+      cy.get(columnRight).should('exist').and('not.be.visible');
       cy.get('.map-preview-panel.map-preview-panel--visible')
         .get('img.map-detail-result__header-pano')
         .should('exist').and('be.visible');
@@ -144,7 +152,7 @@ describe('map module', () => {
       // route to the map by url
       cy.visit('/#?mpb=topografie');
       // the map container should exist
-      cy.get('.c-map').should('exist').and('be.visible');
+      cy.get(map).should('exist').and('be.visible');
       // the leaflet map should exist
       cy.get('.s-leaflet-draw').should('exist').and('be.visible');
       // the leaflet map should exist and should contain img
@@ -170,13 +178,13 @@ describe('map module', () => {
       // the map-panel should have the class collapsed
       cy.get('.map-panel').should('have.class', 'map-panel--collapsed');
       // the scroll wrapper should not be visible when map panel is collapsed
-      cy.get('.scroll-wrapper').should('not.be.visible');
+      cy.get(scrollWrapper).should('not.be.visible');
       // expand the map-panel
       cy.get('.map-panel__toggle').click();
       // the map panel should have the class expanded
       cy.get('.map-panel').should('have.class', 'map-panel--expanded');
       // the scroll wrapper should be visible when map panel is expanded
-      cy.get('.scroll-wrapper').should('exist').and('be.visible');
+      cy.get(scrollWrapper).should('exist').and('be.visible');
     });
   });
 });
