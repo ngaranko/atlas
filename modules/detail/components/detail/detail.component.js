@@ -56,6 +56,10 @@
         // (Re)load the data when the endpoint is set or gets changed
         $scope.$watch('vm.endpoint', getData);
 
+        $scope.$watch('vm.catalogFilters', () => {
+            getData(vm.endpoint);
+        });
+
         // (Re)load the data when the user logs in or out or on a change of authorization level
         $scope.$watch('vm.user.scopes', (newValue, oldValue) => {
             if (newValue !== oldValue) {

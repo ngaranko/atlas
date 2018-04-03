@@ -38,6 +38,16 @@
                                 label: 'Omschrijving',
                                 formatter: 'truncateHtmlAsText',
                                 variables: ['dct:description']
+                            },
+                            {
+                                label: 'Omschrijving',
+                                formatter: 'truncateHtmlAsText',
+                                variables: ['dct:description']
+                            },
+                            {
+                                label: 'Omschrijving',
+                                formatter: 'truncateHtmlAsText',
+                                variables: ['dct:description']
                             }
                         ]
                     }

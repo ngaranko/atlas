@@ -44,21 +44,24 @@
                 searchParams[searchParamOwner] = queryOwner;
             }
 
-            api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
-                const count = data['dcat:dataset'].length;
-                if (count !== 0) {
-                    const results = data['dcat:dataset'];
-                    deferred.resolve({
-                        numberOfPages: Math.ceil(count / config.MAX_ITEMS_PER_PAGE),
-                        numberOfRecords: count,
-                        filters: formatFilters(results, config, catalogFilters),
-                        data: formatData(config, results)
-                    });
-                } else {
-                    deferred.reject();
-                }
-            }, deferred.reject);
-
+            if (Object.keys(catalogFilters).length === 0 && catalogFilters.constructor === Object) {
+                deferred.reject();
+            } else {
+                api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
+                    const count = data['dcat:dataset'].length;
+                    if (count !== 0) {
+                        const results = data['dcat:dataset'];
+                        deferred.resolve({
+                            numberOfPages: Math.ceil(count / config.MAX_ITEMS_PER_PAGE),
+                            numberOfRecords: count,
+                            filters: formatFilters(results, config, catalogFilters),
+                            data: formatData(config, results)
+                        });
+                    } else {
+                        deferred.reject();
+                    }
+                }, deferred.reject);
+            }
             return deferred.promise;
         }
 
@@ -105,7 +108,21 @@
             //     return filters;
             // }, {});
 
-            var filters = {};
+            var filters = {
+                groups: {
+                    options: []
+                },
+                data_format: {
+                    options: []
+                },
+                owner: {
+                    options: []
+                }
+            };
+
+            if (Object.keys(catalogFilters).length === 0 && catalogFilters.constructor === Object) {
+                return filters;
+            }
 
             filters.groups = {
                 numberOfOptions: catalogFilters.groupTypes.length,
