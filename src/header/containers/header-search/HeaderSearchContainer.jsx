@@ -48,7 +48,7 @@ class HeaderSearchContainer extends React.Component {
     event.preventDefault();
     event.stopPropagation();
 
-    piwikTracker(['trackEvent', 'search', 'auto-suggest', suggestions.query , suggestion._display]);
+    piwikTracker(['trackEvent', 'search', 'auto-suggest', suggestions.query , suggestion.label]);
 
     if (event.ctrlKey || event.metaKey) {
       const newWindow = window.open(`${window.location.href}`, '_blank');
@@ -67,12 +67,13 @@ class HeaderSearchContainer extends React.Component {
       isDatasetView,
       activeSuggestion,
       numberOfSuggestions,
-      query,
+      query
     } = this.props;
+
 
     piwikTracker(['trackSiteSearch', query, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
 
-    if (!Object.keys(activeSuggestion).length) {
+    if (activeSuggestion.index === -1) {
       // Load the search results
       emptyFilters();
       if (isDatasetView) {
@@ -121,24 +122,24 @@ HeaderSearchContainer.contextTypes = {
 };
 
 HeaderSearchContainer.defaultProps = {
-  query: '',
-  suggestions: [],
+  activeSuggestion: {},
   isDatasetView: false,
   numberOfSuggestions: 0,
-  activeSuggestion: {}
+  query: '',
+  suggestions: []
 };
 
 HeaderSearchContainer.propTypes = {
-  query: PropTypes.string,
-  suggestions: PropTypes.arrayOf(PropTypes.object),
-  numberOfSuggestions: PropTypes.number,
-  isDatasetView: PropTypes.bool,
-  activeSuggestion: PropTypes.object, //eslint-disable-line
-  fetchSearchResultsByQuery: PropTypes.func.isRequired,
+  activeSuggestion: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   fetchDataSelection: PropTypes.func.isRequired,
-  setActiveSuggestion: PropTypes.func.isRequired,
   fetchDetail: PropTypes.func.isRequired,
-  getSuggestions: PropTypes.func.isRequired
+  fetchSearchResultsByQuery: PropTypes.func.isRequired,
+  getSuggestions: PropTypes.func.isRequired,
+  isDatasetView: PropTypes.bool,
+  numberOfSuggestions: PropTypes.number,
+  query: PropTypes.string,
+  setActiveSuggestion: PropTypes.func.isRequired,
+  suggestions: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearchContainer);

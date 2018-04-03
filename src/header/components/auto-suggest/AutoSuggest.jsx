@@ -34,7 +34,7 @@ class AutoSuggest extends React.Component {
     const { activeSuggestion } = this.props;
 
     if (activeSuggestion.index > -1) {
-      this.textInput.value = activeSuggestion._display;
+      this.textInput.value = activeSuggestion.label;
     }
   }
 
@@ -47,9 +47,11 @@ class AutoSuggest extends React.Component {
   }
 
   onInput(event) {
-    const { onTextInput } = this.props;
+    const { onTextInput, setActiveSuggestion } = this.props;
     event.persist();
+    setActiveSuggestion();
     onTextInput(event.target.value);
+
     this.setState({
       showSuggestions: true
     });
@@ -101,11 +103,9 @@ class AutoSuggest extends React.Component {
         // By default the up arrow puts the cursor at the
         // beginning of the input, we don't want that!
         event.preventDefault();
-
         if (!showSuggestions || !numberOfSuggestions) {
           return;
         }
-
         setActiveSuggestion(
           AutoSuggest.getSuggestionByIndex(
             suggestions,
@@ -116,9 +116,7 @@ class AutoSuggest extends React.Component {
         if (activeSuggestion.index === -1) {
           this.textInput.value = query;
         }
-
         break;
-
       // Arrow down
       case 40:
         if (!showSuggestions || !numberOfSuggestions) {
@@ -130,9 +128,7 @@ class AutoSuggest extends React.Component {
             Math.min(activeSuggestion.index + 1, numberOfSuggestions - 1)
           )
         );
-
         break;
-
       // Escape
       case 27:
         this.textInput.value = query;
@@ -141,7 +137,6 @@ class AutoSuggest extends React.Component {
         });
         this.textInput.blur();
         break;
-
       // Enter
       case 13:
         if (activeSuggestion.index > -1) {
@@ -149,7 +144,6 @@ class AutoSuggest extends React.Component {
           onSuggestSelection(activeSuggestion, event);
         }
         break;
-
       default:
         break;
     }
@@ -248,28 +242,28 @@ class AutoSuggest extends React.Component {
 }
 
 AutoSuggest.propTypes = {
-  placeHolder: PropTypes.string,
+  activeSuggestion: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   classNames: PropTypes.string,
-  uniqueId: PropTypes.string.isRequired,
   legendTitle: PropTypes.string,
-  onTextInput: PropTypes.func.isRequired,
-  suggestions: PropTypes.arrayOf(PropTypes.object),
   numberOfSuggestions: PropTypes.number,
-  query: PropTypes.string,
-  onSuggestSelection: PropTypes.func.isRequired,
-  setActiveSuggestion: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  activeSuggestion: PropTypes.object //eslint-disable-line
+  onSuggestSelection: PropTypes.func.isRequired,
+  onTextInput: PropTypes.func.isRequired,
+  placeHolder: PropTypes.string,
+  query: PropTypes.string,
+  setActiveSuggestion: PropTypes.func.isRequired,
+  suggestions: PropTypes.arrayOf(PropTypes.object),
+  uniqueId: PropTypes.string.isRequired
 };
 
 AutoSuggest.defaultProps = {
-  placeHolder: '',
-  legendTitle: '',
-  uniqueId: Date.now().toString(),
   classNames: '',
-  suggestions: [],
+  legendTitle: '',
   numberOfSuggestions: 0,
-  query: ''
+  placeHolder: '',
+  query: '',
+  suggestions: [],
+  uniqueId: Date.now().toString(),
 };
 
 export default AutoSuggest;

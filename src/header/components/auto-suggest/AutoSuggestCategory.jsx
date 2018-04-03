@@ -14,12 +14,12 @@ const AutoSuggestCategory = (props) => {
         {category.content.map((suggestion) =>
           (
             <AutoSuggestItem
-              key={suggestion._display + suggestion.index}
+              key={suggestion.label + suggestion.index}
               isActive={activeSuggestion && activeSuggestion.index === suggestion.index}
               onSuggestionSelection={(e) => {
                 onSuggestionSelection(suggestion, e);
               }}
-              content={suggestion._display}
+              content={suggestion.label}
               query={query}
             />
           )
@@ -33,10 +33,10 @@ AutoSuggestCategory.defaultProps = {
 };
 
 AutoSuggestCategory.propTypes = {
+  activeSuggestion: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   category: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  activeSuggestion: PropTypes.object,
-  query: PropTypes.string.isRequired,
-  onSuggestionSelection: PropTypes.func.isRequired
+  onSuggestionSelection: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired
 };
 
 

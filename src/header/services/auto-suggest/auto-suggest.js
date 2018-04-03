@@ -11,7 +11,8 @@ function formatData(categories, query) {
     content: category.content.map((suggestion) => {
       indexInTotal += 1;
       return {
-        ...suggestion,
+        uri: suggestion.uri,
+        label: suggestion._display,
         index: indexInTotal
       };
     })

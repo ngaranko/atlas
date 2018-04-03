@@ -33,9 +33,9 @@ AutoSuggestItem.defaultProps = {
 };
 
 AutoSuggestItem.propTypes = {
+  content: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
   onSuggestionSelection: PropTypes.func.isRequired,
-  content: PropTypes.string.isRequired,
   query: PropTypes.string.isRequired
 };
 
