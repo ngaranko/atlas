@@ -1,3 +1,5 @@
+const notification = '.c-panel--danger';
+
 describe('data search module', () => {
   before(() => {
     cy.login();
@@ -62,7 +64,7 @@ describe('data search module', () => {
     cy.get('.qa-dashboard__column--right')
       .get('img.c-straatbeeld-thumbnail--img')
       .should('exist').and('be.visible');
-    cy.get('.c-panel--danger')
+    cy.get(notification)
       .contains('Status: Verblijfsobject gevormd')
       .should('exist').and('be.visible');
 
@@ -98,7 +100,7 @@ describe('data search module', () => {
       .should('exist').and('be.visible');
     // helper function to check values in previewpanel
     cy.checkPreviewPanel(['Ad Windighof 2', 'Verblijfsobject gevormd']);
-    cy.get('.c-panel--danger').should('not.exist').and('not.be.visible');
+    cy.get(notification).should('not.exist').and('not.be.visible');
   });
 
   describe('user should be able to submit', () => {
