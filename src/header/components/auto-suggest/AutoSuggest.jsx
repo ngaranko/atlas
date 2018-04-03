@@ -47,9 +47,9 @@ class AutoSuggest extends React.Component {
   }
 
   onInput(event) {
-    const { onTextInput, setActiveSuggestion } = this.props;
+    const { onTextInput } = this.props;
     event.persist();
-    setActiveSuggestion();
+    this.resetActiveSuggestion();
     onTextInput(event.target.value);
 
     this.setState({
@@ -75,13 +75,13 @@ class AutoSuggest extends React.Component {
   }
 
   onFormSubmit(event) {
-    const { onSubmit, setActiveSuggestion } = this.props;
+    const { onSubmit } = this.props;
 
     this.setState({
       showSuggestions: false
     });
 
-    setActiveSuggestion();
+    this.resetActiveSuggestion();
 
     onSubmit(event);
   }
@@ -92,7 +92,7 @@ class AutoSuggest extends React.Component {
       query,
       onSuggestSelection,
       activeSuggestion,
-      setActiveSuggestion,
+      onSuggestionNavigation,
       suggestions
     } = this.props;
     const { showSuggestions } = this.state;
@@ -106,7 +106,7 @@ class AutoSuggest extends React.Component {
         if (!showSuggestions || !numberOfSuggestions) {
           return;
         }
-        setActiveSuggestion(
+        onSuggestionNavigation(
           AutoSuggest.getSuggestionByIndex(
             suggestions,
             Math.max(activeSuggestion.index - 1, -1)
@@ -122,7 +122,7 @@ class AutoSuggest extends React.Component {
         if (!showSuggestions || !numberOfSuggestions) {
           return;
         }
-        setActiveSuggestion(
+        onSuggestionNavigation(
           AutoSuggest.getSuggestionByIndex(
             suggestions,
             Math.min(activeSuggestion.index + 1, numberOfSuggestions - 1)
@@ -142,6 +142,7 @@ class AutoSuggest extends React.Component {
         if (activeSuggestion.index > -1) {
           this.clearQuery();
           onSuggestSelection(activeSuggestion, event);
+          this.textInput.blur();
         }
         break;
       default:
@@ -150,21 +151,26 @@ class AutoSuggest extends React.Component {
   }
 
   clearQuery() {
-    const { onTextInput, setActiveSuggestion } = this.props;
+    const { onTextInput } = this.props;
     this.textInput.value = '';
     this.textInput.focus();
-    setActiveSuggestion();
+    this.resetActiveSuggestion();
     this.setState({
       showSuggestions: false
     });
     onTextInput();
   }
 
+  resetActiveSuggestion() {
+    // wrapper function to improve readability
+    const { onSuggestionNavigation } = this.props;
+    onSuggestionNavigation();
+  }
+
   render() {
     const {
       placeHolder,
       legendTitle,
-      uniqueId,
       classNames,
       suggestions,
       query,
@@ -179,10 +185,10 @@ class AutoSuggest extends React.Component {
             <div>
               {legendTitle && <legend className="u-sr-only">legendTitle</legend>}
               <div className="c-search-form__input-container">
-                <label htmlFor={uniqueId} className="u-sr-only">zoektekst</label>
+                <label htmlFor="auto-suggest-input" className="u-sr-only">zoektekst</label>
                 <input
                   ref={(input) => { this.textInput = input; }}
-                  id={uniqueId}
+                  id="auto-suggest-input"
                   className={classNames}
                   type="text"
                   autoCapitalize="off"
@@ -251,9 +257,8 @@ AutoSuggest.propTypes = {
   onTextInput: PropTypes.func.isRequired,
   placeHolder: PropTypes.string,
   query: PropTypes.string,
-  setActiveSuggestion: PropTypes.func.isRequired,
-  suggestions: PropTypes.arrayOf(PropTypes.object),
-  uniqueId: PropTypes.string.isRequired
+  onSuggestionNavigation: PropTypes.func.isRequired,
+  suggestions: PropTypes.arrayOf(PropTypes.object)
 };
 
 AutoSuggest.defaultProps = {
@@ -262,8 +267,7 @@ AutoSuggest.defaultProps = {
   numberOfSuggestions: 0,
   placeHolder: '',
   query: '',
-  suggestions: [],
-  uniqueId: Date.now().toString()
+  suggestions: []
 };
 
 export default AutoSuggest;

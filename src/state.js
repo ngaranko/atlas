@@ -1,7 +1,7 @@
 import { compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-import rootSaga from './shared/sagas';
+import rootSaga from './root-saga';
 import './shared/ducks/error-message';
 import './map/ducks/click-location/map-click-location';
 import * as auth from './shared/services/auth/auth';

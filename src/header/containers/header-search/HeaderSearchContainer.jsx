@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
   query: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.query : '',
   numberOfSuggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.count : 0,
   isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
-  activeSuggestion: state.autoSuggest.activeSuggestion,
+  activeSuggestion: state.autoSuggest.activeSuggestion
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -102,14 +102,13 @@ class HeaderSearchContainer extends React.Component {
       <AutoSuggest
         placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
         classNames={'c-search-form__input js-search-input qa-search-form-input'}
-        uniqueId={'global-search'}
         legendTitle={'Data zoeken'}
         suggestions={suggestions}
         numberOfSuggestions={numberOfSuggestions}
         query={query}
         onTextInput={this.props.getSuggestions}
         onSuggestSelection={this.onSuggestSelection}
-        setActiveSuggestion={this.props.setActiveSuggestion}
+        onSuggestionNavigation={this.props.setActiveSuggestion}
         activeSuggestion={activeSuggestion}
         onSubmit={this.onFormSubmit}
       />
