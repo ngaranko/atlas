@@ -1,6 +1,5 @@
 import { getCountFromHeader } from '../support/helper-functions';
-import URLS from '../shared/urls';
-import { queries, values } from '../support/permissions-constants';
+import { queries, urls, values } from '../support/permissions-constants';
 
 describe('employee permissions', () => {
   before(() => {
@@ -48,7 +47,7 @@ describe('employee permissions', () => {
     cy.server();
     cy.route('/brk/subject/*').as('getResults');
 
-    cy.visit(URLS.natuurlijk);
+    cy.visit(urls.natuurlijk);
 
     cy.wait('@getResults');
     cy.get(queries.warningPanel)
@@ -61,7 +60,7 @@ describe('employee permissions', () => {
     cy.server();
     cy.route('/brk/subject/*').as('getResults');
 
-    cy.visit(URLS.nietNatuurlijk);
+    cy.visit(urls.nietNatuurlijk);
 
     cy.wait('@getResults');
     cy.get(queries.warningPanel).should('not.exist');
@@ -75,7 +74,7 @@ describe('employee permissions', () => {
     cy.route('/brk/object-expand/*').as('getObjectExpand');
     cy.route('/bag/nummeraanduiding/?kadastraalobject=*').as('getNummeraanduidingen');
 
-    cy.visit(URLS.business);
+    cy.visit(urls.business);
 
     cy.wait('@getResults');
     cy.wait('@getObjectExpand');
@@ -94,7 +93,7 @@ describe('employee permissions', () => {
     cy.route('/monumenten/monumenten/*').as('getMonument');
     cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen');
 
-    cy.visit(URLS.address);
+    cy.visit(urls.address);
 
     cy.wait('@getVerblijfsobject');
     cy.wait('@getMonument');
@@ -122,7 +121,7 @@ describe('employee permissions', () => {
     cy.route('/wkpb/brondocument/?beperking=*').as('getBronDocument');
     cy.route('/brk/object/?beperkingen__id=*').as('getObject');
 
-    cy.visit(URLS.gemeentelijkeBeperking);
+    cy.visit(urls.gemeentelijkeBeperking);
 
     cy.wait('@getResults');
     cy.wait('@getBronDocument');
@@ -133,7 +132,7 @@ describe('employee permissions', () => {
   });
 
   it('6. Should show an employee all map layers', () => {
-    cy.visit(URLS.map);
+    cy.visit(urls.map);
     cy.get(queries.mapLayersCategory).should(($values) => {
       expect($values).to.contain(values.economieEnHaven);
       expect($values).to.contain(values.geografie);
@@ -145,7 +144,7 @@ describe('employee permissions', () => {
     cy.server();
     cy.route('/dataselectie/hr/*').as('getResults');
 
-    cy.visit(URLS.vestigingenTabel);
+    cy.visit(urls.vestigingenTabel);
 
     cy.wait('@getResults');
     cy.get(queries.warningPanel).should('not.exist');
@@ -159,7 +158,7 @@ describe('employee permissions', () => {
     cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen');
     cy.route('/handelsregister/vestiging/?pand=*').as('getVestigingen');
 
-    cy.visit(URLS.pand);
+    cy.visit(urls.pand);
 
     cy.wait('@getResults');
     cy.wait('@getMonumenten');
@@ -178,7 +177,7 @@ describe('employee permissions', () => {
     cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen');
     cy.route('/handelsregister/vestiging/?pand=*').as('getVestigingen');
 
-    cy.visit(URLS.geoSearch);
+    cy.visit(urls.geoSearch);
 
     cy.waitForGeoSearch();
     cy.wait('@getResults');
@@ -199,7 +198,7 @@ describe('employee permissions', () => {
     cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getMonument');
     cy.route('/handelsregister/vestiging/?nummeraanduiding=*').as('getVestigingen');
 
-    cy.visit(URLS.ligplaats);
+    cy.visit(urls.ligplaats);
 
     cy.wait('@getResults');
     cy.wait('@getNummeraanduiding');
@@ -217,7 +216,7 @@ describe('employee permissions', () => {
     cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getMonument');
     cy.route('/handelsregister/vestiging/?nummeraanduiding=*').as('getVestigingen');
 
-    cy.visit(URLS.standplaats);
+    cy.visit(urls.standplaats);
 
     cy.wait('@getResults');
     cy.wait('@getNummeraanduiding');
@@ -233,7 +232,7 @@ describe('employee permissions', () => {
     cy.route('/handelsregister/vestiging/*').as('getVestiging');
     cy.route('/handelsregister/maatschappelijkeactiviteit/*').as('getMaatschappelijkeActiviteit');
 
-    cy.visit(URLS.vestiging);
+    cy.visit(urls.vestiging);
 
     cy.wait('@getVestiging');
     cy.wait('@getMaatschappelijkeActiviteit');
@@ -253,7 +252,7 @@ describe('employee permissions', () => {
     cy.route('/handelsregister/vestiging/?maatschappelijke_activiteit=*').as('getVestigingen');
     cy.route('/handelsregister/functievervulling/?heeft_aansprakelijke=*').as('getFunctievervullingen');
 
-    cy.visit(URLS.maatschappelijkeActiviteit);
+    cy.visit(urls.maatschappelijkeActiviteit);
 
     cy.wait('@getMaatschappelijkeActiviteit');
     cy.wait('@getPersoon');
@@ -270,7 +269,7 @@ describe('employee permissions', () => {
     cy.route('/monumenten/complexen/*').as('getComplex');
     cy.route('/monumenten/situeringen/?monument_id=*').as('getSitueringen');
 
-    cy.visit(URLS.monument);
+    cy.visit(urls.monument);
 
     cy.wait('@getMonument');
     cy.wait('@getComplex');
@@ -287,7 +286,7 @@ describe('employee permissions', () => {
     cy.route('/monumenten/complexen/*').as('getComplex');
     cy.route('/monumenten/monumenten/?complex_id=*').as('getMonumenten');
 
-    cy.visit(URLS.monumentComplex);
+    cy.visit(urls.monumentComplex);
 
     cy.wait('@getComplex');
     cy.wait('@getMonumenten');

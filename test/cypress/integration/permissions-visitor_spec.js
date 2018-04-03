@@ -1,5 +1,4 @@
-import URLS from '../shared/urls';
-import { queries, values } from '../support/permissions-constants';
+import { queries, urls, values } from '../support/permissions-constants';
 
 describe('visitor permissions', () => {
   beforeEach(() => {
@@ -36,7 +35,7 @@ describe('visitor permissions', () => {
   });
 
   it('2A. Should NOT allow a visitor to view a natural subject', () => {
-    cy.visit(URLS.natuurlijk);
+    cy.visit(urls.natuurlijk);
 
     cy.get(queries.warningPanel)
       .contains('Medewerkers/ketenpartners van Gemeente Amsterdam');
@@ -45,7 +44,7 @@ describe('visitor permissions', () => {
   });
 
   it('2B. Should NOT allow a visitor to view a non-natural subject', () => {
-    cy.visit(URLS.nietNatuurlijk);
+    cy.visit(urls.nietNatuurlijk);
 
     cy.get(queries.warningPanel)
       .contains('Medewerkers/ketenpartners van Gemeente Amsterdam');
@@ -59,7 +58,7 @@ describe('visitor permissions', () => {
     cy.route('/brk/object-expand/*').as('getObjectExpand');
     cy.route('/bag/nummeraanduiding/?kadastraalobject=*').as('getNummeraanduidingen');
 
-    cy.visit(URLS.business);
+    cy.visit(urls.business);
 
     cy.wait('@getResults');
     cy.wait('@getObjectExpand');
@@ -81,7 +80,7 @@ describe('visitor permissions', () => {
     cy.route('/monumenten/monumenten/*').as('getMonument');
     cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen');
 
-    cy.visit(URLS.address);
+    cy.visit(urls.address);
 
     cy.wait('@getVerblijfsobject');
     cy.wait('@getMonument');
@@ -109,7 +108,7 @@ describe('visitor permissions', () => {
     cy.route('/wkpb/brondocument/?beperking=*').as('getBronDocument');
     cy.route('/brk/object/?beperkingen__id=*').as('getObject');
 
-    cy.visit(URLS.gemeentelijkeBeperking);
+    cy.visit(urls.gemeentelijkeBeperking);
 
     cy.wait('@getResults');
     cy.wait('@getBronDocument');
@@ -121,7 +120,7 @@ describe('visitor permissions', () => {
   });
 
   it('6. Should show a visitor limited map layers', () => {
-    cy.visit(URLS.map);
+    cy.visit(urls.map);
     cy.get(queries.mapLayersCategory).should(($values) => {
       expect($values).to.contain(values.geografie);
       expect($values).to.not.contain(values.bedrijvenInvloedsgebieden);
@@ -129,7 +128,7 @@ describe('visitor permissions', () => {
   });
 
   it('7A. Should NOT allow a visitor to view "Vestigingen"', () => {
-    cy.visit(URLS.vestigingenTabel);
+    cy.visit(urls.vestigingenTabel);
     cy.get(queries.warningPanel).contains('Medewerkers/ketenpartners van Gemeente Amsterdam');
     cy.get(queries.table).should('not.exist');
   });
@@ -140,7 +139,7 @@ describe('visitor permissions', () => {
     cy.route('/monumenten/monumenten/?betreft_pand=*').as('getMonumenten');
     cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen');
 
-    cy.visit(URLS.pand);
+    cy.visit(urls.pand);
 
     cy.wait('@getResults');
     cy.wait('@getMonumenten');
@@ -157,7 +156,7 @@ describe('visitor permissions', () => {
     cy.route('/monumenten/monumenten/?betreft_pand=*').as('getMonumenten');
     cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen');
 
-    cy.visit(URLS.geoSearch);
+    cy.visit(urls.geoSearch);
 
     cy.waitForGeoSearch();
     cy.wait('@getResults');
@@ -180,7 +179,7 @@ describe('visitor permissions', () => {
     cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
     cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getMonument');
 
-    cy.visit(URLS.ligplaats);
+    cy.visit(urls.ligplaats);
 
     cy.wait('@getResults');
     cy.wait('@getNummeraanduiding');
@@ -196,7 +195,7 @@ describe('visitor permissions', () => {
     cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
     cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getMonument');
 
-    cy.visit(URLS.standplaats);
+    cy.visit(urls.standplaats);
 
     cy.wait('@getResults');
     cy.wait('@getNummeraanduiding');
@@ -207,7 +206,7 @@ describe('visitor permissions', () => {
   });
 
   it('7F. Should NOT allow a visitor to view "vestiging"', () => {
-    cy.visit(URLS.vestiging);
+    cy.visit(urls.vestiging);
     cy.get(queries.headerTitle).should('not.exist');
     cy.get(queries.warningPanel).contains('Medewerkers/ketenpartners van Gemeente Amsterdam');
     cy.get(queries.keyValueList).should('not.exist');
@@ -217,7 +216,7 @@ describe('visitor permissions', () => {
   });
 
   it('7G. Should NOT allow a visitor to view "maatschappelijke activiteit"', () => {
-    cy.visit(URLS.maatschappelijkeActiviteit);
+    cy.visit(urls.maatschappelijkeActiviteit);
     cy.get(queries.headerTitle).should('not.exist');
     cy.get(queries.warningPanel).contains('Medewerkers/ketenpartners van Gemeente Amsterdam');
     cy.get(queries.keyValueList).should('not.exist');
@@ -229,7 +228,7 @@ describe('visitor permissions', () => {
     cy.route('/monumenten/complexen/*').as('getComplex');
     cy.route('/monumenten/situeringen/?monument_id=*').as('getSitueringen');
 
-    cy.visit(URLS.monument);
+    cy.visit(urls.monument);
 
     cy.wait('@getMonument');
     cy.wait('@getComplex');
@@ -246,7 +245,7 @@ describe('visitor permissions', () => {
     cy.route('/monumenten/complexen/*').as('getComplex');
     cy.route('/monumenten/monumenten/?complex_id=*').as('getMonumenten');
 
-    cy.visit(URLS.monumentComplex);
+    cy.visit(urls.monumentComplex);
 
     cy.wait('@getComplex');
     cy.wait('@getMonumenten');
