@@ -43,6 +43,12 @@ class HeaderSearchContainer extends React.Component {
     }
   }
 
+  componentWillMount() {
+    if (this.props.prefillQuery.length) {
+      this.props.getSuggestions(this.props.prefillQuery);
+    }
+  }
+
   onSuggestSelection(suggestion, event) {
     event.preventDefault();
     event.stopPropagation();
@@ -124,6 +130,7 @@ HeaderSearchContainer.defaultProps = {
   activeSuggestion: {},
   isDatasetView: false,
   numberOfSuggestions: 0,
+  prefillQuery: '',
   query: '',
   suggestions: []
 };
@@ -136,6 +143,7 @@ HeaderSearchContainer.propTypes = {
   getSuggestions: PropTypes.func.isRequired,
   isDatasetView: PropTypes.bool,
   numberOfSuggestions: PropTypes.number,
+  prefillQuery: PropTypes.string,
   query: PropTypes.string,
   setActiveSuggestion: PropTypes.func.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object)

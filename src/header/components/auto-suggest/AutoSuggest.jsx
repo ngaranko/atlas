@@ -31,10 +31,15 @@ class AutoSuggest extends React.Component {
   }
 
   componentDidUpdate() {
-    const { activeSuggestion } = this.props;
+    const { activeSuggestion, query } = this.props;
 
     if (activeSuggestion.index > -1) {
       this.textInput.value = activeSuggestion.label;
+    }
+    else if (query.length) {
+      this.textInput.value = query;
+    } else {
+      this.textInput.value = '';
     }
   }
 
@@ -64,7 +69,7 @@ class AutoSuggest extends React.Component {
     });
     if (query.length && !suggestions.length) {
       event.persist();
-      onTextInput(event);
+      onTextInput(query);
     }
   }
 

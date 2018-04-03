@@ -4,9 +4,9 @@ import { render } from 'react-dom';
 
 import SearchContainer from '../../containers/header-search/HeaderSearchContainer';
 
-const HeaderSearchWrapper = () => (
+const HeaderSearchWrapper = (props) => (
   <Provider store={window.reduxStore}>
-    <SearchContainer />
+    <SearchContainer {...props} />
   </Provider>
 );
 
