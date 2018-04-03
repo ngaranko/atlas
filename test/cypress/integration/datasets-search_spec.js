@@ -1,3 +1,6 @@
+const datasetsTab = '.o-tabs__tab--link';
+const datasetsCard = '.c-data-selection-card';
+
 describe('datasets search module', () => {
   before(() => {
     cy.login();
@@ -33,8 +36,8 @@ describe('datasets search module', () => {
       cy.get('.c-search-form').submit();
       cy.waitForSearch();
 
-      cy.get('.o-tabs__tab--link').contains('Datasets').click();
-      cy.get('.c-data-selection-card').should('exist').and('be.visible');
+      cy.get(datasetsTab).contains('Datasets').click();
+      cy.get(datasetsCard).should('exist').and('be.visible');
     });
 
     it('should not open the datasets results because there are no results', () => {
@@ -47,8 +50,8 @@ describe('datasets search module', () => {
       cy.get('.c-search-form').submit();
       cy.waitForSearch();
 
-      cy.get('.o-tabs__tab--link').should('not.exist').and('not.be.visible');
-      cy.get('.c-data-selection-card').should('not.exist').and('not.be.visible');
+      cy.get(datasetsTab).should('not.exist').and('not.be.visible');
+      cy.get(datasetsCard).should('not.exist').and('not.be.visible');
     });
   });
 });
