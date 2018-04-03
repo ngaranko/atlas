@@ -54,7 +54,7 @@ class HeaderSearchContainer extends React.Component {
     event.stopPropagation();
     const { suggestions } = this.props;
 
-    piwikTracker(['trackEvent', 'search', 'auto-suggest', suggestions.query , suggestion.label]);
+    piwikTracker(['trackEvent', 'search', 'auto-suggest', suggestions.query, suggestion.label]);
 
     if (event.ctrlKey || event.metaKey) {
       const newWindow = window.open(`${window.location.href}`, '_blank');
