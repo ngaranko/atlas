@@ -1,3 +1,7 @@
+const homepage = '.c-homepage';
+const statusBarInfo = '.c-straatbeeld-status-bar__info-item';
+const straatbeeld = '.c-straatbeeld';
+
 describe('panorama module', () => {
   beforeEach(() => {
     cy.server();
@@ -5,10 +9,12 @@ describe('panorama module', () => {
 
     // go to the homepage
     cy.visit('/');
+    // the homepage should be visible
+    cy.get(homepage).should('be.visible');
     // check if the link is in the dom and visible
     cy.get('.qa-straatbeeld-link').should('exist').and('be.visible');
-    // the map should not exist yet
-    cy.get('.c-straatbeeld').should('not.exist');
+    // the straatbeeld should not exist yet
+    cy.get(straatbeeld).should('not.exist');
     // click on the link to go to the map
     cy.get('.qa-straatbeeld-link').click();
 
@@ -18,9 +24,9 @@ describe('panorama module', () => {
   describe('user should be able to navigate to the panoram from the homepage', () => {
     it('should open the panorama viewer', () => {
       // the homepage should not be visible anymore
-      cy.get('.c-homepage').should('not.be.visible');
+      cy.get(homepage).should('not.be.visible');
       // the map should be visible
-      cy.get('.c-straatbeeld').should('exist').and('be.visible');
+      cy.get(straatbeeld).should('exist').and('be.visible');
     });
   });
 
@@ -33,15 +39,20 @@ describe('panorama module', () => {
     });
 
     it('should be able to click a hotspot and change the coordinates', () => {
-      cy.get('.c-straatbeeld-status-bar__info-item').first()
+      cy.get(statusBarInfo).first()
       .then((coordinatesEl) => {
         const coordinates = coordinatesEl[0].innerText;
+
+        cy.get(statusBarInfo).first()
+          .contains(coordinates)
+          .should('exist');
+
         // the click the first hotspot
         cy.get('.qa-hotspot-button:visible').first().click();
 
         cy.wait('@getResults');
         // the coordinates should be different
-        cy.get('.c-straatbeeld-status-bar__info-item').first()
+        cy.get(statusBarInfo).first()
           .contains(coordinates)
           .should('not.exist');
       });
@@ -69,15 +80,20 @@ describe('panorama module', () => {
     });
 
     it('should change the coordinates when clicked on the map', () => {
-      cy.get('.c-straatbeeld-status-bar__info-item').first()
+      cy.get(statusBarInfo).first()
       .then((coordinatesEl) => {
         const coordinates = coordinatesEl[0].innerText;
+
+        cy.get(statusBarInfo).first()
+          .contains(coordinates)
+          .should('exist');
+
         // click on the leaflet map with a different position
         cy.get('.s-leaflet-draw').trigger('click', 20, 100);
 
         cy.wait('@getResults');
         // the coordinates should be different
-        cy.get('.c-straatbeeld-status-bar__info-item').first()
+        cy.get(statusBarInfo).first()
           .contains(coordinates)
           .should('not.exist');
       });
