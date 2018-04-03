@@ -70,8 +70,8 @@ class AutoSuggest extends React.Component {
 
   onSuggestionSelection(suggestion, event) {
     const { onSuggestSelection } = this.props;
-
     onSuggestSelection(suggestion, event);
+    this.clearQuery();
   }
 
   onFormSubmit(event) {
@@ -263,7 +263,7 @@ AutoSuggest.defaultProps = {
   placeHolder: '',
   query: '',
   suggestions: [],
-  uniqueId: Date.now().toString(),
+  uniqueId: Date.now().toString()
 };
 
 export default AutoSuggest;

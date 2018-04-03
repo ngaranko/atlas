@@ -44,9 +44,9 @@ class HeaderSearchContainer extends React.Component {
   }
 
   onSuggestSelection(suggestion, event) {
-    const { suggestions } = this.props;
     event.preventDefault();
     event.stopPropagation();
+    const { suggestions } = this.props;
 
     piwikTracker(['trackEvent', 'search', 'auto-suggest', suggestions.query , suggestion.label]);
 
@@ -61,8 +61,6 @@ class HeaderSearchContainer extends React.Component {
   }
 
   onFormSubmit(event) {
-    event.preventDefault();
-    event.stopPropagation();
     const {
       isDatasetView,
       activeSuggestion,
@@ -70,6 +68,8 @@ class HeaderSearchContainer extends React.Component {
       query
     } = this.props;
 
+    event.preventDefault();
+    event.stopPropagation();
 
     piwikTracker(['trackSiteSearch', query, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
 
@@ -95,7 +95,7 @@ class HeaderSearchContainer extends React.Component {
       suggestions,
       numberOfSuggestions,
       activeSuggestion,
-      query,
+      query
     } = this.props;
 
     return (
