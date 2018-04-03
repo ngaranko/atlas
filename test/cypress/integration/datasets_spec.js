@@ -1,3 +1,7 @@
+const activeFilters = '.c-data-selection-active-filters';
+const dataSelection = '.c-data-selection';
+const homepage = '.c-homepage';
+
 describe('datasets module', () => {
   describe('user should be able to navigate to the datasets catalogus from the homepage', () => {
     beforeEach(() => {
@@ -6,10 +10,12 @@ describe('datasets module', () => {
 
       // go to the homepage
       cy.visit('/');
+      // the homepage should be visible
+      cy.get(homepage).should('be.visible');
       // check if the link is in the dom and visible
       cy.get('.c-homepage__block--datasets').should('exist').and('be.visible');
       // the datasets component should not exist yet
-      cy.get('.c-data-selection').should('not.exist');
+      cy.get(dataSelection).should('not.exist');
     });
 
     it('should open the datasets catalogus without a filter and see results', () => {
@@ -18,13 +24,13 @@ describe('datasets module', () => {
       cy.wait('@getResults');
 
       // the homepage should not be visible anymore
-      cy.get('.c-homepage').should('not.be.visible');
+      cy.get(homepage).should('not.be.visible');
       // the data selection should be visible
-      cy.get('.c-data-selection').should('exist').and('be.visible');
+      cy.get(dataSelection).should('exist').and('be.visible');
       // the title should contain Datasets
       cy.get('h1').contains('Datasets').should('exist').and('be.visible');
       // the datasets filters should not exist
-      cy.get('.c-data-selection-active-filters').should('not.exist').and('not.be.visible');
+      cy.get(activeFilters).should('not.exist').and('not.be.visible');
       // at least one results should exist
       cy.get('.c-data-selection-card').should('exist').and('be.visible');
     });
@@ -35,9 +41,9 @@ describe('datasets module', () => {
       cy.wait('@getResults');
 
       // the homepage should not be visible anymore
-      cy.get('.c-homepage').should('not.be.visible');
+      cy.get(homepage).should('not.be.visible');
       // the data selection should be visible
-      cy.get('.c-data-selection').should('exist').and('be.visible');
+      cy.get(dataSelection).should('exist').and('be.visible');
       // the title should contain Datasets
       cy.get('h1').contains('Datasets').should('exist').and('be.visible');
       cy.get('.c-data-selection-card').first().click();
@@ -55,13 +61,13 @@ describe('datasets module', () => {
       cy.wait('@getResults');
 
       // the homepage should not be visible anymore
-      cy.get('.c-homepage').should('not.be.visible');
+      cy.get(homepage).should('not.be.visible');
       // the datasets component should be visible
-      cy.get('.c-data-selection').should('exist').and('be.visible');
+      cy.get(dataSelection).should('exist').and('be.visible');
       // the title should contain Datasets
       cy.get('h1').contains('Datasets').should('exist').and('be.visible');
       // the datasets filters should exist
-      cy.get('.c-data-selection-active-filters').should('exist').and('be.visible');
+      cy.get(activeFilters).should('exist').and('be.visible');
       // at least one results should exist
       cy.get('.c-data-selection-card').should('exist').and('be.visible');
     });
