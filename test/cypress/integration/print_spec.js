@@ -1,3 +1,5 @@
+const headerTitle = 'h1.c-print-header__title';
+
 describe('print module', () => {
   beforeEach(() => {
     // go to the homepage
@@ -5,8 +7,6 @@ describe('print module', () => {
   });
 
   it('should show a print version of the page when the user click on the print button', () => {
-    const headerTitle = 'h1.c-print-header__title';
-
     cy.server();
     cy.route('/typeahead?q=10581111').as('getTypeAhead');
     cy.route('/meetbouten/meetbout/*').as('getResults');
