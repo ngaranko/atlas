@@ -128,7 +128,6 @@ describe('HeaderSearchContainer', () => {
       });
     });
 
-    // TODO
     it('does call to open new window if ctrl key is pressed', () => {
       const store = configureMockStore()({ ...initialState });
       const selectedSuggestion = {
@@ -140,21 +139,25 @@ describe('HeaderSearchContainer', () => {
       const mockEvent = {
         preventDefault: jest.fn(),
         stopPropagation: jest.fn(),
-        ctrlKey: false,
+        ctrlKey: true,
         metaKey: false
       };
 
       jest.spyOn(store, 'dispatch');
+      global.open = () => {
+        return {
+          window: {}
+        }
+      };
+      jest.spyOn(global, 'open');
+
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onSuggestSelection(selectedSuggestion, mockEvent);
 
-      expect(fetchDetail).toHaveBeenCalled();
-
-      expect(store.dispatch).toHaveBeenCalledWith({
-        type: 'FETCH_DETAIL',
-        payload: 'https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001038/'
-      });
+      expect(fetchDetail).not.toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalled();
+      expect(global.open).toHaveBeenCalled();
     });
   });
 
