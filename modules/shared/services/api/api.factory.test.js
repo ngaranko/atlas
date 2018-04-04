@@ -136,6 +136,18 @@ describe('The api factory', function () {
         $httpBackend.flush();
     });
 
+    it('does not add an Authorization header if specified not to', function () {
+        // Not logged in
+        isLoggedIn = true;
+
+        $httpBackend.expectGET(
+            'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
+            $http.defaults.headers.common
+        );
+        api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/', null, null, false);
+        $httpBackend.flush();
+    });
+
     describe('generating a URL with an access token', () => {
         it('adds the access token when logged in', () => {
             isLoggedIn = true;
