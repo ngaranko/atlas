@@ -18,45 +18,52 @@ import getSharedConfig from '../../../shared/services/shared-config/shared-confi
 import './_search.scss';
 
 const mapStateToProps = (state) => ({
-  suggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.data : [],
-  query: state.autoSuggest.query || '',
-  numberOfSuggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.count : 0,
+  activeSuggestion: state.autoSuggest.activeSuggestion,
   isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
-  activeSuggestion: state.autoSuggest.activeSuggestion
+  numberOfSuggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.count : 0,
+  query: state.autoSuggest.query,
+  suggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.data : []
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  fetchSearchResultsByQuery,
+  emptyFilters,
   fetchDataSelection,
-  setActiveSuggestion,
   fetchDetail,
-  getSuggestions
+  fetchSearchResultsByQuery,
+  getSuggestions,
+  setActiveSuggestion
 }, dispatch);
 
 class HeaderSearchContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.onSuggestSelection = this.onSuggestSelection.bind(this);
+    this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     if (window.opener && window.suggestionToLoadUri) {
+      // if user is sent here with a ctrl+click action
+      // open the detail page
       this.openDetailOnLoad();
     }
   }
 
   componentWillMount() {
+    /*
+      if there is a query passed along the component
+      (from url to state)
+      do the initial call to set the state with this query
+      this only needs to happen when the page is loaded, therefore in te componentWillMount()
+    */
     if (this.props.prefillQuery.length) {
       this.props.getSuggestions(this.props.prefillQuery);
     }
   }
 
-  onSuggestSelection(suggestion, event) {
-    event.preventDefault();
-    event.stopPropagation();
+  onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
     const { suggestions } = this.props;
 
     piwikTracker(['trackEvent', 'search', 'auto-suggest', suggestions.query, suggestion.label]);
 
-    if (event.ctrlKey || event.metaKey) {
+    if (shouldOpenInNewWindow) {
       const newWindow = window.open(`${window.location.href}`, '_blank');
       // setting uri to the window, as window.postMessage does not work for some reason
       // (webpack overrides the data it seems)
@@ -66,22 +73,19 @@ class HeaderSearchContainer extends React.Component {
     }
   }
 
-  onFormSubmit(event) {
+  onFormSubmit() {
     const {
-      isDatasetView,
       activeSuggestion,
+      isDatasetView,
       numberOfSuggestions,
       query
     } = this.props;
-
-    event.preventDefault();
-    event.stopPropagation();
 
     piwikTracker(['trackSiteSearch', query, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
 
     if (activeSuggestion.index === -1) {
       // Load the search results
-      emptyFilters();
+      this.props.emptyFilters();
       if (isDatasetView) {
         this.props.fetchDataSelection(query);
       } else {
@@ -91,6 +95,8 @@ class HeaderSearchContainer extends React.Component {
   }
 
   openDetailOnLoad() {
+    // if user is sent here with a ctrl+click action
+    // open the detail page
     const suggestionUri = window.suggestionToLoadUri;
     this.props.fetchDetail(`${getSharedConfig().API_ROOT}${suggestionUri}`);
     window.suggestionToLoadUri = undefined;
@@ -98,25 +104,25 @@ class HeaderSearchContainer extends React.Component {
 
   render() {
     const {
-      suggestions,
-      numberOfSuggestions,
       activeSuggestion,
-      query
+      numberOfSuggestions,
+      query,
+      suggestions
     } = this.props;
 
     return (
       <AutoSuggest
-        placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
-        classNames={'c-search-form__input js-search-input qa-search-form-input'}
-        legendTitle={'Data zoeken'}
-        suggestions={suggestions}
-        numberOfSuggestions={numberOfSuggestions}
-        query={query}
-        onTextInput={this.props.getSuggestions}
-        onSuggestSelection={this.onSuggestSelection}
-        onSuggestionNavigation={this.props.setActiveSuggestion}
         activeSuggestion={activeSuggestion}
+        containerClassName={'c-search-form-container qa-search-form-container'}
+        legendTitle={'Data zoeken'}
+        numberOfSuggestions={numberOfSuggestions}
         onSubmit={this.onFormSubmit}
+        onSuggestionNavigation={this.props.setActiveSuggestion}
+        onSuggestionSelection={this.onSuggestionSelection}
+        onTextInput={this.props.getSuggestions}
+        placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
+        query={query}
+        suggestions={suggestions}
       />
     );
   }

@@ -39,7 +39,7 @@ $backdrop-color: rgba(0, 0, 0, .5);
     text-align: center;
   }
 
-  &__category {
+  &-category {
     &:not(:first-of-type) {
       border-top: 1px solid $secondary-gray20;
       margin-top: $base-whitespace / 2;
@@ -52,36 +52,36 @@ $backdrop-color: rgba(0, 0, 0, .5);
       margin: 0 $base-whitespace $base-whitespace / 2;
     }
 
-    &__suggestion {
-      @include font-size($s-font);
-      @include font-weight($light-weight);
-      background-color: transparent;
-      color: $primary-dark;
-      cursor: pointer;
-      display: block;
-      overflow: hidden;
-      padding-bottom: $base-whitespace / 2;
-      padding-top: $base-whitespace / 3;
+  }
+  &-item {
+    @include font-size($s-font);
+    @include font-weight($light-weight);
+    background-color: transparent;
+    color: $primary-dark;
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+    padding-bottom: $base-whitespace / 2;
+    padding-top: $base-whitespace / 3;
+    position: relative;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+
+    &:hover,
+    &--active {
+      background-color: $secondary-gray10;
+      font-weight: inherit;
+    }
+
+    .icon {
+      display: inline-block;
+      height: 22px;
+      margin-left: $base-whitespace / 2;
       position: relative;
-      text-align: left;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      width: 100%;
-
-      &:hover,
-      &--active {
-        background-color: $secondary-gray10;
-        font-weight: inherit;
-      }
-
-      .icon {
-        display: inline-block;
-        height: 22px;
-        margin-left: $base-whitespace / 2;
-        position: relative;
-        vertical-align: sub;
-        width: 22px;
-      }
+      vertical-align: sub;
+      width: 22px;
     }
   }
 

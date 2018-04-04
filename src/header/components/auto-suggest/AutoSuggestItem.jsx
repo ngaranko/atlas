@@ -14,7 +14,7 @@ const AutoSuggestItem = (props) => {
     <li>
       <button
         type="button"
-        className={`c-auto-suggest__category__suggestion ${isActive ? 'c-auto-suggest__category__suggestion--active' : ''}`}
+        className={`c-auto-suggest-item ${isActive ? 'c-auto-suggest-item--active' : ''}`}
         onClick={onSuggestionSelection}
       >
         <span className="icon">
@@ -41,6 +41,5 @@ AutoSuggestItem.propTypes = {
   onSuggestionSelection: PropTypes.func.isRequired,
   query: PropTypes.string.isRequired
 };
-
 
 export default AutoSuggestItem;

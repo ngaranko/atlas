@@ -127,17 +127,17 @@ describe('The dp-search directive', () => {
     it('optionally fills the searchbox with a query', () => {
         // Without a query
         let directive = getDirective('');
-        expect(directive.find('.js-search-input')[0].value).toBe('');
+        expect(directive.find('.qa-search-form-container input')[0].value).toBe('');
 
         // With a query
         directive = getDirective('query without suggestions');
-        expect(directive.find('.js-search-input')[0].value).toBe('query without suggestions');
+        expect(directive.find('.qa-search-form-container input')[0].value).toBe('query without suggestions');
     });
 
     it('provides for a clear button to clear the searchtext', () => {
         const directive = getDirective('any query');
         directive.find('.qa-search-form__clear').click();
-        expect(directive.find('.js-search-input')[0].value).toBe('');
+        expect(directive.find('.qa-search-form-container input')[0].value).toBe('');
     });
 
     it('does not search on cleared input', () => {
@@ -153,8 +153,8 @@ describe('The dp-search directive', () => {
         spyOn(store, 'dispatch');
 
         // Set a query
-        directive.find('.js-search-input')[0].value = 'query without suggestions';
-        directive.find('.js-search-input').trigger('change');
+        directive.find('.qa-search-form-container input')[0].value = 'query without suggestions';
+        directive.find('.qa-search-form-container input').trigger('change');
 
         // Submit the form
         directive.find('.c-search-form').trigger('submit');
@@ -175,8 +175,8 @@ describe('The dp-search directive', () => {
         spyOn(store, 'dispatch');
 
         // Set a query
-        directive.find('.js-search-input')[0].value = '  ';
-        directive.find('.js-search-input').trigger('change');
+        directive.find('.qa-search-form-container input')[0].value = '  ';
+        directive.find('.qa-search-form-container input').trigger('change');
 
         // Submit the form by button click
         directive.find('.c-search-form__submit').eq(0).click();
@@ -204,14 +204,14 @@ describe('The dp-search directive', () => {
             expect(directive.find('.c-autocomplete').length).toBe(0);
 
             // A query without suggestions
-            directive.find('.js-search-input')[0].value = 'query without suggestions';
-            directive.find('.js-search-input').trigger('change');
+            directive.find('.qa-search-form-container input')[0].value = 'query without suggestions';
+            directive.find('.qa-search-form-container input').trigger('change');
             finishApiCall();
             expect(directive.find('.c-autocomplete').length).toBe(0);
 
             // A query with suggestions
-            directive.find('.js-search-input')[0].value = 'query with suggestions';
-            directive.find('.js-search-input').trigger('change');
+            directive.find('.qa-search-form-container input')[0].value = 'query with suggestions';
+            directive.find('.qa-search-form-container input').trigger('change');
             finishApiCall();
             expect(directive.find('.c-autocomplete').length).toBe(1);
             expect(directive.find('.c-autocomplete div:nth-of-type(1) h4').text()).toBe('Category A');
@@ -231,15 +231,15 @@ describe('The dp-search directive', () => {
             spyOn(autocompleteData, 'search').and.callThrough();
 
             // With a query
-            directive.find('.js-search-input')[0].value = 'query without suggestions';
-            directive.find('.js-search-input').trigger('change');
+            directive.find('.qa-search-form-container input')[0].value = 'query without suggestions';
+            directive.find('.qa-search-form-container input').trigger('change');
             finishApiCall();
             expect(autocompleteData.search).toHaveBeenCalledTimes(1);
             expect(autocompleteData.search).toHaveBeenCalledWith('query without suggestions');
 
             // Without a query;
-            directive.find('.js-search-input')[0].value = '';
-            directive.find('.js-search-input').trigger('change');
+            directive.find('.qa-search-form-container input')[0].value = '';
+            directive.find('.qa-search-form-container input').trigger('change');
             finishApiCall();
             expect(autocompleteData.search).toHaveBeenCalledTimes(1);
         });
@@ -247,11 +247,11 @@ describe('The dp-search directive', () => {
         it('Only show relevat autocomplete suggestions', () => {
             const directive = getDirective('');
 
-            directive.find('.js-search-input')[0].value = 'query with suggestions';
-            directive.find('.js-search-input').trigger('change');
+            directive.find('.qa-search-form-container input')[0].value = 'query with suggestions';
+            directive.find('.qa-search-form-container input').trigger('change');
 
-            directive.find('.js-search-input')[0].value = 'query without suggestions';
-            directive.find('.js-search-input').trigger('change');
+            directive.find('.qa-search-form-container input')[0].value = 'query without suggestions';
+            directive.find('.qa-search-form-container input').trigger('change');
 
             finishApiCall();
             expect(directive.find('.c-autocomplete').length).toBe(0);
@@ -262,8 +262,8 @@ describe('The dp-search directive', () => {
                 const directive = getDirective('');
 
                 // Load suggestions
-                directive.find('.js-search-input')[0].value = 'query with suggestions';
-                directive.find('.js-search-input').trigger('change');
+                directive.find('.qa-search-form-container input')[0].value = 'query with suggestions';
+                directive.find('.qa-search-form-container input').trigger('change');
                 finishApiCall();
 
                 spyOn(store, 'dispatch');
@@ -300,15 +300,15 @@ describe('The dp-search directive', () => {
                 const directive = getDirective('');
 
                 // Load suggestions
-                directive.find('.js-search-input')[0].value = 'query with suggestions';
-                directive.find('.js-search-input').trigger('change');
+                directive.find('.qa-search-form-container input')[0].value = 'query with suggestions';
+                directive.find('.qa-search-form-container input').trigger('change');
                 finishApiCall();
 
                 expect(directive.find('.c-autocomplete').length).toBe(1);
 
                 // Click a suggestion
                 directive.find('.c-autocomplete button').eq(0).click();
-                directive.find('.js-search-input').trigger('blur');
+                directive.find('.qa-search-form-container input').trigger('blur');
                 $interval.flush(FLUSH_PERIOD);
 
                 expect(directive.find('.c-autocomplete').length).toBe(0);
@@ -318,14 +318,14 @@ describe('The dp-search directive', () => {
                 const directive = getDirective('');
 
                 // Load suggestions
-                directive.find('.js-search-input')[0].value = 'query with suggestions';
-                directive.find('.js-search-input').trigger('change');
+                directive.find('.qa-search-form-container input')[0].value = 'query with suggestions';
+                directive.find('.qa-search-form-container input').trigger('change');
                 finishApiCall();
 
                 // First suggestion
                 directive.find('.c-autocomplete button').eq(0).click();
 
-                expect(directive.find('.js-search-input')[0].value).toBe('');
+                expect(directive.find('.qa-search-form-container input')[0].value).toBe('');
             });
         });
 
@@ -341,8 +341,8 @@ describe('The dp-search directive', () => {
                 const directive = getDirective('');
 
                 // Load suggestions
-                directive.find('.js-search-input')[0].value = 'query with suggestions';
-                directive.find('.js-search-input').trigger('change');
+                directive.find('.qa-search-form-container input')[0].value = 'query with suggestions';
+                directive.find('.qa-search-form-container input').trigger('change');
                 finishApiCall();
 
                 // Make sure no suggestion is highlighted by default
@@ -359,7 +359,7 @@ describe('The dp-search directive', () => {
                 /**
                  * Press the DOWN ARROW for the first time
                  */
-                triggerKeyDownEvent(directive.find('.js-search-input'), 40);
+                triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 40);
                 $rootScope.$apply();
 
                 // Highlight the active suggestion in the list with suggestions
@@ -374,12 +374,12 @@ describe('The dp-search directive', () => {
                     .toBe(false);
 
                 // Show the highlighted suggestion in the searchbox
-                expect(directive.find('.js-search-input')[0].value).toBe('Suggestion A1');
+                expect(directive.find('.qa-search-form-container input')[0].value).toBe('Suggestion A1');
 
                 /**
                  * Press the DOWN ARROW for the second time
                  */
-                triggerKeyDownEvent(directive.find('.js-search-input'), 40);
+                triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 40);
                 $rootScope.$apply();
 
                 expect(directive.find('.c-autocomplete li').eq(0).find('button')
@@ -392,12 +392,12 @@ describe('The dp-search directive', () => {
                     .hasClass('c-autocomplete__category__suggestion--active'))
                     .toBe(false);
 
-                expect(directive.find('.js-search-input')[0].value).toBe('Suggestion A2');
+                expect(directive.find('.qa-search-form-container input')[0].value).toBe('Suggestion A2');
 
                 /**
                  * Press the DOWN ARROW again (making sure the 2nd category of suggestions is working as well)
                  */
-                triggerKeyDownEvent(directive.find('.js-search-input'), 40);
+                triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 40);
                 $rootScope.$apply();
 
                 expect(directive.find('.c-autocomplete li').eq(0).find('button')
@@ -410,12 +410,12 @@ describe('The dp-search directive', () => {
                     .hasClass('c-autocomplete__category__suggestion--active'))
                     .toBe(true);
 
-                expect(directive.find('.js-search-input')[0].value).toBe('Suggestion B1');
+                expect(directive.find('.qa-search-form-container input')[0].value).toBe('Suggestion B1');
 
                 /**
                  * Press the UP arrow
                  */
-                triggerKeyDownEvent(directive.find('.js-search-input'), 38);
+                triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 38);
                 $rootScope.$apply();
 
                 expect(directive.find('.c-autocomplete li').eq(0).find('button')
@@ -428,51 +428,51 @@ describe('The dp-search directive', () => {
                     .hasClass('c-autocomplete__category__suggestion--active'))
                     .toBe(false);
 
-                expect(directive.find('.js-search-input')[0].value).toBe('Suggestion A2');
+                expect(directive.find('.qa-search-form-container input')[0].value).toBe('Suggestion A2');
             });
 
             it('restores the original query if the UP is used to remove focus from the suggestions', () => {
                 const directive = getDirective('');
 
                 // Load suggestions
-                directive.find('.js-search-input')[0].value = 'query with suggestions';
-                directive.find('.js-search-input').trigger('change');
+                directive.find('.qa-search-form-container input')[0].value = 'query with suggestions';
+                directive.find('.qa-search-form-container input').trigger('change');
                 finishApiCall();
 
                 // Navigate to a suggestion
-                triggerKeyDownEvent(directive.find('.js-search-input'), 40);
+                triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 40);
                 $rootScope.$apply();
 
-                expect(directive.find('.js-search-input')[0].value).toBe('Suggestion A1');
+                expect(directive.find('.qa-search-form-container input')[0].value).toBe('Suggestion A1');
 
                 // Deselect all suggestion in the autocomplete, by navigating back with the UP ARROW
-                triggerKeyDownEvent(directive.find('.js-search-input'), 38);
+                triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 38);
                 $rootScope.$apply();
 
-                expect(directive.find('.js-search-input')[0].value).toBe('query with suggestions');
+                expect(directive.find('.qa-search-form-container input')[0].value).toBe('query with suggestions');
             });
 
             it('restores the original query and hides the suggestion when pressing ESCAPE', () => {
                 const directive = getDirective();
 
                 // Load suggestions
-                directive.find('.js-search-input')[0].value = 'query with suggestions';
-                directive.find('.js-search-input').trigger('change');
+                directive.find('.qa-search-form-container input')[0].value = 'query with suggestions';
+                directive.find('.qa-search-form-container input').trigger('change');
                 finishApiCall();
 
                 // Navigate to the third suggestion
-                triggerKeyDownEvent(directive.find('.js-search-input'), 40);
-                triggerKeyDownEvent(directive.find('.js-search-input'), 40);
-                triggerKeyDownEvent(directive.find('.js-search-input'), 40);
+                triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 40);
+                triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 40);
+                triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 40);
                 $rootScope.$apply();
 
-                expect(directive.find('.js-search-input')[0].value).toBe('Suggestion B1');
+                expect(directive.find('.qa-search-form-container input')[0].value).toBe('Suggestion B1');
                 expect(directive.find('.c-autocomplete').length).toBe(1);
 
                 // Press ESCAPE
-                triggerKeyDownEvent(directive.find('.js-search-input'), 27);
+                triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 27);
 
-                expect(directive.find('.js-search-input')[0].value).toBe('query with suggestions');
+                expect(directive.find('.qa-search-form-container input')[0].value).toBe('query with suggestions');
                 expect(directive.find('.c-autocomplete').length).toBe(0);
             });
 
@@ -485,13 +485,13 @@ describe('The dp-search directive', () => {
                     directive = getDirective('');
 
                     // Load suggestions
-                    directive.find('.js-search-input')[0].value = 'query with suggestions';
-                    directive.find('.js-search-input').trigger('change');
+                    directive.find('.qa-search-form-container input')[0].value = 'query with suggestions';
+                    directive.find('.qa-search-form-container input').trigger('change');
                     finishApiCall();
 
                     // Navigate to the second suggestion
-                    triggerKeyDownEvent(directive.find('.js-search-input'), 40);
-                    triggerKeyDownEvent(directive.find('.js-search-input'), 40);
+                    triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 40);
+                    triggerKeyDownEvent(directive.find('.qa-search-form-container input'), 40);
                     $rootScope.$apply();
 
                     // Trigger the submit
@@ -506,7 +506,7 @@ describe('The dp-search directive', () => {
                 });
 
                 it('clears the active suggestion in the searchbox', () => {
-                    expect(directive.find('.js-search-input')[0].value).toBe('');
+                    expect(directive.find('.qa-search-form-container input')[0].value).toBe('');
                 });
 
                 it('hides the suggestions when submitting the form', () => {
@@ -519,14 +519,14 @@ describe('The dp-search directive', () => {
             const directive = getDirective('');
 
             // Load suggestions
-            directive.find('.js-search-input')[0].value = 'query with suggestions';
-            directive.find('.js-search-input').trigger('change');
+            directive.find('.qa-search-form-container input')[0].value = 'query with suggestions';
+            directive.find('.qa-search-form-container input').trigger('change');
             finishApiCall();
 
             expect(directive.find('.c-autocomplete').length).toBe(1);
 
             // Lose focus
-            directive.find('.js-search-input').trigger('blur');
+            directive.find('.qa-search-form-container input').trigger('blur');
             $interval.flush(FLUSH_PERIOD);
 
             expect(directive.find('.c-autocomplete').length).toBe(0);

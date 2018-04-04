@@ -6,8 +6,8 @@ const AutoSuggestCategory = (props) => {
   const { category, activeSuggestion, query, onSuggestionSelection } = props;
 
   return (
-    <div className="c-auto-suggest__category">
-      <h4 className="c-auto-suggest__category__heading qa-auto-suggest-header">
+    <div className="c-auto-suggest-category">
+      <h4 className="c-auto-suggest-category__heading qa-auto-suggest-header">
         {category.label}
       </h4>
       <ul>
