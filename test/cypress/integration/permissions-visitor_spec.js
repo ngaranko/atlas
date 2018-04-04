@@ -97,8 +97,8 @@ describe('visitor permissions', () => {
       expect($values).to.contain('Vestigingen');
       expect($values).to.contain('Kadastrale objecten');
       expect($values).to.contain('Monumenten');
+      expect($values).to.not.contain(values.zakelijkeRechten);
     });
-    cy.get(queries.headerSubTitle).contains(values.zakelijkeRechten).should('not.exist');
     cy.get(queries.warningPanel).contains('Medewerkers/ketenpartners van Gemeente Amsterdam');
   });
 

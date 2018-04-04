@@ -110,8 +110,8 @@ describe('employee permissions', () => {
       expect($values).to.contain('Vestigingen');
       expect($values).to.contain('Kadastrale objecten');
       expect($values).to.contain('Monumenten');
+      expect($values).to.contain(values.zakelijkeRechten);
     });
-    cy.get(queries.headerSubTitle).contains(values.zakelijkeRechten).should('exist');
     cy.get(queries.warningPanel).should('not.exist');
   });
 
