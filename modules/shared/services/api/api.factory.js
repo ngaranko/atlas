@@ -22,6 +22,7 @@
         }
 
         function getWithToken (url, params, cancel, token) {
+            const maxAttempts = 3;
             const headers = {};
 
             if (token) {
@@ -43,13 +44,33 @@
                 options.timeout.then(() => isCancelled = true);
             }
 
-            return $http(options)
-                .then(response => response.data)
-                .finally(() => {
-                    if (options.timeout && !isCancelled) {
-                        cancel.reject();
-                    }
-                });
+            const deferred = $q.defer();
+
+            recursiveRequest(1);
+
+            return deferred.promise;
+
+            function recursiveRequest (attempt) {
+                $http(options)
+                    .then(
+                        (response) => deferred.resolve(response.data),
+                        (rejection) => {
+                            if (attempt < maxAttempts &&
+                                (rejection.status < 200 || rejection.status >= 300)
+                            ) {
+                                rejection.errorHandled = true;
+                                recursiveRequest(attempt + 1);
+                            } else {
+                                deferred.reject(rejection);
+                            }
+                        }
+                    )
+                    .finally(() => {
+                        if (options.timeout && !isCancelled) {
+                            cancel.reject();
+                        }
+                    });
+            }
         }
 
         /**
