@@ -1,6 +1,7 @@
 const SET_ACTIVE_SUGGESTION = 'SET_ACTIVE_SUGGESTION';
 const FETCH_SUGGESTIONS_REQUEST = 'FETCH_SUGGESTIONS_REQUEST';
 const FETCH_SUGGESTIONS_SUCCESS = 'FETCH_SUGGESTIONS_SUCCESS';
+const FETCH_SUGGESTIONS_FAILURE = 'FETCH_SUGGESTIONS_FAILURE';
 
 const initialState = {};
 
@@ -15,6 +16,11 @@ export default function AutoSuggestReducer(state = initialState, action) {
       return {
         ...state,
         suggestions: action.suggestions
+      };
+    case FETCH_SUGGESTIONS_FAILURE:
+      return {
+        ...state,
+        suggestions: []
       };
     case SET_ACTIVE_SUGGESTION:
       return {

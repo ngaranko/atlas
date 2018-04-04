@@ -19,7 +19,7 @@ import './_search.scss';
 
 const mapStateToProps = (state) => ({
   suggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.data : [],
-  query: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.query : '',
+  query: state.autoSuggest.query || '',
   numberOfSuggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.count : 0,
   isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
   activeSuggestion: state.autoSuggest.activeSuggestion

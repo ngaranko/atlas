@@ -3,7 +3,7 @@ import { getByUrl } from '../../../shared/services/api/api';
 
 const ENDPOINT = 'typeahead';
 
-function formatData(categories, query) {
+function formatData(categories) {
   const numberOfResults = categories.reduce((acc, category) => acc + category.content.length, 0);
   let indexInTotal = -1;
   const indexedCategories = categories.map((category) => ({
@@ -20,15 +20,13 @@ function formatData(categories, query) {
 
   return {
     count: numberOfResults,
-    data: indexedCategories,
-    query
+    data: indexedCategories
   };
 }
 
 function search(query) {
   return getByUrl(`${apiUrl}${ENDPOINT}`, { q: query })
-    .then((response) => formatData(response, query))
-    .catch(() => formatData([], query));
+    .then((response) => formatData(response));
 }
 
 export default search;
