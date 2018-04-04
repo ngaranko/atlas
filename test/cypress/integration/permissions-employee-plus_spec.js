@@ -1,10 +1,9 @@
-import { login, logout } from '../services/authentication';
-import URLS from '../shared/urls';
-import { PAGELOAD_WAIT, foundKadastraleSubjecten } from '../shared/helpers';
+import { getCountFromHeader } from '../support/helper-functions';
+import { queries, urls, values } from '../support/permissions-constants';
 
 describe('employee PLUS permissions', () => {
   before(() => {
-    login('EMPLOYEE_PLUS');
+    cy.login('EMPLOYEE_PLUS');
   });
 
   beforeEach(() => {
@@ -13,62 +12,101 @@ describe('employee PLUS permissions', () => {
   });
 
   after(() => {
-    logout();
-    foundKadastraleSubjecten.amount = 0;
+    cy.logout();
   });
 
-  it('0. Should show "Kadastrale subjecten" for medewerker plus in the auto-suggest', () => {
+  it('0. Should show "Kadastrale subjecten" for medewerker plus in the autocomplete', () => {
+    cy.server();
+    cy.route('/typeahead?q=bakker').as('getResults');
+
     cy.get('#global-search').focus().type('bakker');
-    cy.get('.c-auto-suggest__tip').should('exist').and('be.visible');
-    cy.get('.qa-auto-suggest-header').contains('Kadastrale subjecten');
-    cy.get('.c-auto-suggest__category__suggestion').contains('lia Bak');
+
+    cy.wait('@getResults');
+    cy.get('.c-autocomplete__tip').should('exist').and('be.visible');
+    cy.get(queries.autoSuggestHeader).contains(values.kadastraleSubjecten);
+    cy.get('.c-autocomplete-item').contains('lia Bak');
   });
 
   it('1. Should show no message after search is performed', () => {
+    cy.server();
+    cy.defineSearchRoutes();
+
     cy.get('#global-search').focus().type('bakker');
     cy.get('.qa-search-form-submit').click();
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('.qa-search-header').contains('Kadastrale subjecten');
-    if (foundKadastraleSubjecten.amount > 0) {
-      cy.get('.qa-search-header').contains('Kadastrale subjecten').then((title) => {
-        const tmpFoundKs = parseInt(title.text().match(/\(([1-9.,]*)\)/)[1].replace('.', ''), 10);
-        expect(tmpFoundKs).to.be.above(foundKadastraleSubjecten.amount);
-      });
-    } else {
-      cy.log('foundKadastraleSubjecten.amount not filled, run the permissions-employee_spec before running this test');
-    }
+
+    cy.waitForSearch();
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.searchHeader).contains(values.kadastraleSubjecten).then((title) => {
+      const count = getCountFromHeader(title.text());
+      expect(count).to.be.above(100);
+    });
   });
 
   it('2A. Should allow a plus employee to view everything of natural subject', () => {
-    cy.visit(URLS.natuurlijk);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('.o-header__title').contains('akke');
-    cy.get('dl.qa-natuurlijk-persoon').should('exist').and('be.visible');
+    cy.server();
+    cy.route('/brk/subject/*').as('getResults');
+    cy.route('/brk/zakelijk-recht/?kadastraal_subject=*').as('getZakelijkeRechten');
+
+    cy.visit(urls.natuurlijk);
+
+    cy.wait('@getResults');
+    cy.wait('@getZakelijkeRechten');
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.headerTitle).contains('akke');
+    cy.get(queries.natuurlijkPersoon).should('exist').and('be.visible');
     cy.get('.qa-kadastraal-subject-recht').contains('Eigendom');
   });
 
   it('2B. Should allow a plus employee to view a non-natural subject', () => {
-    cy.visit(URLS.nietNatuurlijk);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('.o-header__title').contains('ledo Ho');
-    cy.get('dl.qa-niet-natuurlijk-persoon').should('exist').and('be.visible');
+    cy.server();
+    cy.route('/brk/subject/*').as('getResults');
+    cy.route('/brk/zakelijk-recht/?kadastraal_subject=*').as('getZakelijkeRechten');
+
+    cy.visit(urls.nietNatuurlijk);
+
+    cy.wait('@getResults');
+    cy.wait('@getZakelijkeRechten');
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.headerTitle).contains('ledo Ho');
+    cy.get(queries.nietNatuurlijkPersoon).should('exist').and('be.visible');
+    cy.get('.qa-kadastraal-subject-recht').contains('Eigendom');
   });
 
   it('3. Should show a plus employee all info for a cadastral subject', () => {
-    cy.visit(URLS.business);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('.o-header__title').contains('575 A');
-    cy.get('.o-header__subtitle').contains('Aantekeningen');
+    cy.server();
+    cy.route('/brk/object/*').as('getResults');
+    cy.route('/brk/object-expand/*').as('getObjectExpand');
+    cy.route('/bag/nummeraanduiding/?kadastraalobject=*').as('getNummeraanduidingen');
+
+    cy.visit(urls.business);
+
+    cy.wait('@getResults');
+    cy.wait('@getObjectExpand');
+    cy.wait('@getNummeraanduidingen');
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.headerTitle).contains('575 A');
+    cy.get(queries.headerSubTitle).contains(values.aantekeningen);
   });
 
   it('4. Should show a plus employee all info for an address', () => {
-    cy.visit(URLS.address);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.o-header__title').contains('Nes 98');
-    cy.get('.o-header__subtitle').should(($values) => {
+    cy.server();
+    cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
+    cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
+    cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden');
+    cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as('getObjectExpand');
+    cy.route('/monumenten/monumenten/*').as('getMonument');
+    cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen');
+
+    cy.visit(urls.address);
+
+    cy.wait('@getVerblijfsobject');
+    cy.wait('@getMonument');
+    cy.wait('@getNummeraanduiding');
+    cy.wait('@getObjectExpand');
+    cy.wait('@getPanden');
+    cy.wait('@getSitueringen');
+    cy.get(queries.headerTitle).contains('Nes 98');
+    cy.get(queries.headerSubTitle).should(($values) => {
       expect($values).to.contain('Ligt in');
       expect($values).to.contain('Panoramabeeld');
       expect($values).to.contain('Verblijfsobject');
@@ -76,130 +114,189 @@ describe('employee PLUS permissions', () => {
       expect($values).to.contain('Vestigingen');
       expect($values).to.contain('Kadastrale objecten');
       expect($values).to.contain('Monumenten');
+      expect($values).to.contain(values.zakelijkeRechten);
     });
-    cy.get('h3').should(($values) => {
-      expect($values).to.contain('Zakelijke rechten');
-    });
-    cy.get('.c-panel--warning').should('not.exist');
+    cy.get(queries.warningPanel).should('not.exist');
   });
 
   it('5. Should show a plus employee all info for "Gemeentelijke beperking"', () => {
-    cy.visit(URLS.gemeentelijkeBeperking);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('.o-header__title').contains('6142');
-    cy.get('.c-key-value-list').contains('Documentnaam');
+    cy.server();
+    cy.route('/wkpb/beperking/*').as('getResults');
+    cy.route('/wkpb/brondocument/?beperking=*').as('getBronDocument');
+    cy.route('/brk/object/?beperkingen__id=*').as('getObject');
+
+    cy.visit(urls.gemeentelijkeBeperking);
+
+    cy.wait('@getResults');
+    cy.wait('@getBronDocument');
+    cy.wait('@getObject');
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.headerTitle).contains('6142');
+    cy.get(queries.keyValueList).contains(values.documentnaam);
   });
 
   it('6. Should show a plus employee all map layers', () => {
-    cy.visit(URLS.map);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.map-layers__category').should(($values) => {
-      expect($values).to.contain('Economie en haven');
-      expect($values).to.contain('Geografie');
-      expect($values).to.contain('Bedrijven - Invloedsgebieden');
+    cy.visit(urls.map);
+    cy.get(queries.mapLayersCategory).should(($values) => {
+      expect($values).to.contain(values.economieEnHaven);
+      expect($values).to.contain(values.geografie);
+      expect($values).to.contain(values.bedrijvenInvloedsgebieden);
     });
   });
 
   it('7A. Should allow a plus employee to view "Vestigingen"', () => {
-    cy.visit(URLS.vestigingenTabel);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('.c-table').contains('Handelsnaam');
+    cy.server();
+    cy.route('/dataselectie/hr/*').as('getResults');
+
+    cy.visit(urls.vestigingenTabel);
+
+    cy.wait('@getResults');
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.table).contains('Handelsnaam');
   });
 
   it('7B. Should show a plus employee all "Pand" information', () => {
-    cy.visit(URLS.pand);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.o-header__title').contains('100012');
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('li').should(($values) => {
-      expect($values).to.contain('llan');
-    });
+    cy.server();
+    cy.route('/bag/pand/*').as('getResults');
+    cy.route('/monumenten/monumenten/?betreft_pand=*').as('getMonumenten');
+    cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen');
+    cy.route('/handelsregister/vestiging/?pand=*').as('getVestigingen');
+
+    cy.visit(urls.pand);
+
+    cy.wait('@getResults');
+    cy.wait('@getMonumenten');
+    cy.wait('@getNummeraanduidingen');
+    cy.wait('@getVestigingen');
+    cy.get(queries.headerTitle).contains('100012');
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.listItem).contains(values.pandVestigingName);
   });
 
-  it('7C. Should show a plus employee all information in a Geo search', () => {
-    cy.visit(URLS.geoSearch);
-    cy.wait(PAGELOAD_WAIT);
+  // TODO This test is misteriously failing inside the docker container
+  it.skip('7C. Should show a plus employee all information in a Geo search', () => {
+    cy.server();
+    cy.defineGeoSearchRoutes();
+    cy.route('/bag/pand/*').as('getResults');
+    cy.route('/monumenten/monumenten/?betreft_pand=*').as('getMonumenten');
+    cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen');
+    cy.route('/handelsregister/vestiging/?pand=*').as('getVestigingen');
+
+    cy.visit(urls.geoSearch);
+
+    cy.waitForGeoSearch();
+    cy.wait('@getResults');
+    cy.wait('@getMonumenten');
+    cy.wait('@getNummeraanduidingen');
+    cy.wait('@getVestigingen');
     cy.get('.o-header').contains('121393.70, 4873');
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('h2').should(($values) => {
-      expect($values).to.contain('Vestigingen');
-    });
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.headerSubTitle).contains(values.vestigingen);
     cy.get('button.toggle-fullscreen').click();
-    cy.wait(PAGELOAD_WAIT);
-    cy.screenshot();
-    cy.get('.map-search-results-category__header').should(($values) => {
-      expect($values).to.contain('Vestigingen');
-    });
+    cy.get(queries.mapSearchResultsCategoryHeader).contains(values.vestigingen);
   });
 
   it('7D. Should show a plus employee all information in a "ligplaats" search', () => {
-    cy.visit(URLS.ligplaats);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.o-header__title').contains('terdo');
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('li').should(($values) => {
-      expect($values).to.contain('ace Am');
-    });
+    cy.server();
+    cy.route('/bag/ligplaats/*').as('getResults');
+    cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
+    cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getMonument');
+    cy.route('/handelsregister/vestiging/?nummeraanduiding=*').as('getVestigingen');
+
+    cy.visit(urls.ligplaats);
+
+    cy.wait('@getResults');
+    cy.wait('@getNummeraanduiding');
+    cy.wait('@getMonument');
+    cy.wait('@getVestigingen');
+    cy.get(queries.headerTitle).contains('terdo');
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.listItem).contains(values.ligplaatsVestigingName);
   });
 
   it('7E. Should show a plus employee all information in "standplaats" search', () => {
-    cy.visit(URLS.standplaats);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.o-header__title').contains('eletst');
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('li').should(($values) => {
-      expect($values).to.contain('tru');
-    });
+    cy.server();
+    cy.route('/bag/standplaats/*').as('getResults');
+    cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
+    cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getMonument');
+    cy.route('/handelsregister/vestiging/?nummeraanduiding=*').as('getVestigingen');
+
+    cy.visit(urls.standplaats);
+
+    cy.wait('@getResults');
+    cy.wait('@getNummeraanduiding');
+    cy.wait('@getMonument');
+    cy.wait('@getVestigingen');
+    cy.get(queries.headerTitle).contains('eletst');
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.listItem).contains(values.standplaatsVestigingName);
   });
 
   it('7F. Should allow a plus employee to view "vestiging"', () => {
-    cy.visit(URLS.vestiging);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.o-header__title').contains('oierss');
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('dl.c-key-value-list dd').should(($values) => {
-      expect($values).to.contain('vom');
-    });
+    cy.server();
+    cy.route('/handelsregister/vestiging/*').as('getVestiging');
+    cy.route('/handelsregister/maatschappelijkeactiviteit/*').as('getMaatschappelijkeActiviteit');
+
+    cy.visit(urls.vestiging);
+
+    cy.wait('@getVestiging');
+    cy.wait('@getMaatschappelijkeActiviteit');
+    cy.get(queries.headerTitle).contains('oierss');
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.keyValueList).contains(values.vestigingName);
 
     cy.get('button.toggle-fullscreen').click();
-    cy.get('.notification--info').should('not.exist');
-    cy.get('.map-detail-result__header-subtitle').contains('vom');
+    cy.get(queries.infoNotification).should('not.exist');
+    cy.get(queries.mapDetailResultHeaderSubTitle).contains(values.vestigingName);
   });
 
   it('7G. Should allow a plus employee to view "maatschappelijke activiteit"', () => {
-    cy.visit(URLS.vestiging);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.o-header__title').contains('ooiers');
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('dl.c-key-value-list dd').should(($values) => {
-      expect($values).to.contain('vom');
-    });
+    cy.server();
+    cy.route('/handelsregister/maatschappelijkeactiviteit/*').as('getMaatschappelijkeActiviteit');
+    cy.route('/handelsregister/persoon/*').as('getPersoon');
+    cy.route('/handelsregister/vestiging/?maatschappelijke_activiteit=*').as('getVestigingen');
+    cy.route('/handelsregister/functievervulling/?heeft_aansprakelijke=*').as('getFunctievervullingen');
+
+    cy.visit(urls.maatschappelijkeActiviteit);
+
+    cy.wait('@getMaatschappelijkeActiviteit');
+    cy.wait('@getPersoon');
+    cy.wait('@getVestigingen');
+    cy.wait('@getFunctievervullingen');
+    cy.get(queries.headerTitle).contains(values.maatschappelijkeActiviteitName);
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.keyValueList).contains(values.maatschappelijkeActiviteitVestigingName);
   });
 
+  it('8A. Should show a plus employee all information in "monument"', () => {
+    cy.server();
+    cy.route('/monumenten/monumenten/*').as('getMonument');
+    cy.route('/monumenten/complexen/*').as('getComplex');
+    cy.route('/monumenten/situeringen/?monument_id=*').as('getSitueringen');
 
-  it('8. Should show a plus employee all information in "monument"', () => {
-    cy.visit(URLS.monument);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.o-header__title').contains('Museumtuin met hekwerken en bouwfragmenten');
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('dl.c-key-value-list dt').should(($values) => {
-      expect($values).to.contain('Redengevende omschrijving');
-    });
+    cy.visit(urls.monument);
+
+    cy.wait('@getMonument');
+    cy.wait('@getComplex');
+    cy.wait('@getSitueringen');
+    cy.get(queries.headerTitle).contains('Museumtuin met hekwerken en bouwfragmenten');
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.keyValueList).contains(values.redengevendeOmschrijving);
     cy.get('button.toggle-fullscreen').click();
-    cy.get('.map-detail-result__item').should(($values) => {
-      expect($values).to.contain('Type');
-    });
+    cy.get(queries.mapDetailResultItem).contains(values.type);
   });
 
   it('8B. Should show a plus employee all information in "monument complex"', () => {
-    cy.visit(URLS.monumentComplex);
-    cy.wait(PAGELOAD_WAIT);
-    cy.get('.o-header__title').contains('us Bot');
-    cy.get('.c-panel--warning').should('not.exist');
-    cy.get('dl.c-key-value-list dt').should(($values) => {
-      expect($values).to.contain('Beschrijving');
-    });
+    cy.server();
+    cy.route('/monumenten/complexen/*').as('getComplex');
+    cy.route('/monumenten/monumenten/?complex_id=*').as('getMonumenten');
+
+    cy.visit(urls.monumentComplex);
+
+    cy.wait('@getComplex');
+    cy.wait('@getMonumenten');
+    cy.get(queries.headerTitle).contains('us Bot');
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.keyValueList).contains(values.beschrijving);
   });
 });

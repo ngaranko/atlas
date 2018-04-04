@@ -347,13 +347,13 @@ describe('The dp-search directive', () => {
 
                 // Make sure no suggestion is highlighted by default
                 expect(directive.find('.c-autocomplete li').eq(0).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(false);
                 expect(directive.find('.c-autocomplete li').eq(1).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(false);
                 expect(directive.find('.c-autocomplete li').eq(2).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(false);
 
                 /**
@@ -364,13 +364,13 @@ describe('The dp-search directive', () => {
 
                 // Highlight the active suggestion in the list with suggestions
                 expect(directive.find('.c-autocomplete li').eq(0).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(true);
                 expect(directive.find('.c-autocomplete li').eq(1).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(false);
                 expect(directive.find('.c-autocomplete li').eq(2).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(false);
 
                 // Show the highlighted suggestion in the searchbox
@@ -383,13 +383,13 @@ describe('The dp-search directive', () => {
                 $rootScope.$apply();
 
                 expect(directive.find('.c-autocomplete li').eq(0).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(false);
                 expect(directive.find('.c-autocomplete li').eq(1).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(true);
                 expect(directive.find('.c-autocomplete li').eq(2).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(false);
 
                 expect(directive.find('.c-search-form-input')[0].value).toBe('Suggestion A2');
@@ -401,13 +401,13 @@ describe('The dp-search directive', () => {
                 $rootScope.$apply();
 
                 expect(directive.find('.c-autocomplete li').eq(0).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(false);
                 expect(directive.find('.c-autocomplete li').eq(1).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(false);
                 expect(directive.find('.c-autocomplete li').eq(2).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(true);
 
                 expect(directive.find('.c-search-form-input')[0].value).toBe('Suggestion B1');
@@ -419,13 +419,13 @@ describe('The dp-search directive', () => {
                 $rootScope.$apply();
 
                 expect(directive.find('.c-autocomplete li').eq(0).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(false);
                 expect(directive.find('.c-autocomplete li').eq(1).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(true);
                 expect(directive.find('.c-autocomplete li').eq(2).find('button')
-                    .hasClass('c-autocomplete__category__suggestion--active'))
+                    .hasClass(.c-autocomplete-item--active'))
                     .toBe(false);
 
                 expect(directive.find('.c-search-form-input')[0].value).toBe('Suggestion A2');
