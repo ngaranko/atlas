@@ -15,8 +15,6 @@ import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import getSharedConfig from '../../../shared/services/shared-config/shared-config';
 
-import './_search.scss';
-
 const mapStateToProps = (state) => ({
   activeSuggestion: state.autoSuggest.activeSuggestion,
   isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
@@ -60,7 +58,6 @@ class HeaderSearchContainer extends React.Component {
 
   onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
     const { suggestions } = this.props;
-
     piwikTracker(['trackEvent', 'search', 'auto-suggest', suggestions.query, suggestion.label]);
 
     if (shouldOpenInNewWindow) {

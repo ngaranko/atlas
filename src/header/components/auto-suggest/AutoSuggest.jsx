@@ -96,7 +96,10 @@ class AutoSuggest extends React.Component {
     }
 
     onSuggestionSelection(suggestion, shouldOpenInNewWindow);
-    this.clearQuery();
+    if (!shouldOpenInNewWindow) {
+      this.clearQuery();
+      this.textInput.blur();
+    }
   }
 
   onFormSubmit(event) {
@@ -118,7 +121,6 @@ class AutoSuggest extends React.Component {
       activeSuggestion,
       numberOfSuggestions,
       onSuggestionNavigation,
-      onSuggestionSelection,
       query,
       suggestions
     } = this.props;
@@ -169,9 +171,7 @@ class AutoSuggest extends React.Component {
       // Enter
       case 13:
         if (activeSuggestion.index > -1) {
-          this.clearQuery();
-          onSuggestionSelection(activeSuggestion, event);
-          this.textInput.blur();
+          this.onSuggestionSelection(activeSuggestion, event);
         }
         break;
       default:
