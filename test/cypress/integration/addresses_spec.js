@@ -7,8 +7,6 @@ describe('addresses module', () => {
   beforeEach(() => {
     cy.server();
     cy.route('/dataselectie/bag/*').as('getResults');
-    cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
-    cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
 
     // go to the homepage
     cy.visit('/');
@@ -80,6 +78,13 @@ describe('addresses module', () => {
 
   describe('user should be able to navigate to the address detail view', () => {
     it('should open the detail view with the correct address', () => {
+      cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
+      cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
+      cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden');
+      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as('getObjectExpand');
+      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen');
+      cy.route('/monumenten/monumenten/*').as('getMonument');
+
       cy.get('th.c-table__header-field').first()
         .then((firstTableHeader) => {
           const selectedGroup = firstTableHeader[0].innerText;
@@ -91,6 +96,10 @@ describe('addresses module', () => {
 
               cy.wait('@getNummeraanduiding');
               cy.wait('@getVerblijfsobject');
+              cy.wait('@getPanden');
+              cy.wait('@getObjectExpand');
+              cy.wait('@getSitueringen');
+              cy.wait('@getMonument');
 
               // the detail view should exist
               cy.get('.qa-detail').should('exist').and('be.visible');
@@ -107,11 +116,22 @@ describe('addresses module', () => {
 
   describe('user should be able to view a cursor in the leaflet map', () => {
     it('should open the detail view with a leaflet map and a cursor', () => {
+      cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
+      cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
+      cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden');
+      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as('getObjectExpand');
+      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen');
+      cy.route('/monumenten/monumenten/*').as('getMonument');
+
       // click on the first item in the table
       cy.get('.c-table__content-row').first().click();
 
       cy.wait('@getNummeraanduiding');
       cy.wait('@getVerblijfsobject');
+      cy.wait('@getPanden');
+      cy.wait('@getObjectExpand');
+      cy.wait('@getSitueringen');
+      cy.wait('@getMonument');
 
       // the cursor should be rendered inside the leaflet map
       cy.get('.leaflet-marker-icon').should('exist').and('be.visible');
@@ -119,7 +139,9 @@ describe('addresses module', () => {
   });
 
   describe('user should be be able to filter on an area', () => {
-    it('should show the addresses and map when selected', () => {
+    it.only('should show the addresses and map when selected', () => {
+      cy.route('/dataselectie/bag/geolocation/*').as('getGeoResults');
+
       let totalCount;
 
       // Get the number in the title before filtering
@@ -137,8 +159,11 @@ describe('addresses module', () => {
         const filteredCount = getCountFromHeader(title.text());
         expect(filteredCount).to.be.below(totalCount);
       });
+
       // click on "kaart weergeven"
       cy.get('.c-toggle-view-button.qa-dp-link').click();
+      cy.wait('@getGeoResults');
+
       // map should be visible now
       cy.get('.qa-map-container').should('exist').and('be.visible');
       // , with large right column
