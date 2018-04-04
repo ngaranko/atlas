@@ -138,7 +138,12 @@ HeaderSearchContainer.defaultProps = {
 };
 
 HeaderSearchContainer.propTypes = {
-  activeSuggestion: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  activeSuggestion: PropTypes.shape({
+    uri: PropTypes.string,
+    label: PropTypes.string,
+    index: PropTypes.number
+  }),
+  emptyFilters: PropTypes.func.isRequired,
   fetchDataSelection: PropTypes.func.isRequired,
   fetchDetail: PropTypes.func.isRequired,
   fetchSearchResultsByQuery: PropTypes.func.isRequired,

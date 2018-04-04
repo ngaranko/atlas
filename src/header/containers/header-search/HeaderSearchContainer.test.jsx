@@ -99,26 +99,20 @@ describe('HeaderSearchContainer', () => {
     expect(store.dispatch).not.toHaveBeenCalled();
   });
 
-  describe('onSuggestSelection', () => {
+  describe('onSuggestionSelection', () => {
     it('does the fetch detail dispatch upon called', () => {
       const store = configureMockStore()({ ...initialState });
+      const shouldOpenInNewWindow = false;
       const selectedSuggestion = {
         uri: 'bag/openbareruimte/03630000001038/',
         label: 'Damloperspad',
         index: 1
       };
 
-      const mockEvent = {
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
-        ctrlKey: false,
-        metaKey: false
-      };
-
       jest.spyOn(store, 'dispatch');
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
-      headerSearch.instance().onSuggestSelection(selectedSuggestion, mockEvent);
+      headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
 
       expect(fetchDetail).toHaveBeenCalled();
 
@@ -128,19 +122,13 @@ describe('HeaderSearchContainer', () => {
       });
     });
 
-    it('does call to open new window if ctrl key is pressed', () => {
+    it('does call to open new window if shouldOpenInNewWindow is true', () => {
       const store = configureMockStore()({ ...initialState });
+      const shouldOpenInNewWindow = true;
       const selectedSuggestion = {
         uri: 'bag/openbareruimte/03630000001038/',
         label: 'Damloperspad',
         index: 1
-      };
-
-      const mockEvent = {
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
-        ctrlKey: true,
-        metaKey: false
       };
 
       jest.spyOn(store, 'dispatch');
@@ -153,7 +141,7 @@ describe('HeaderSearchContainer', () => {
 
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
-      headerSearch.instance().onSuggestSelection(selectedSuggestion, mockEvent);
+      headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
 
       expect(fetchDetail).not.toHaveBeenCalled();
       expect(store.dispatch).not.toHaveBeenCalled();
@@ -177,16 +165,10 @@ describe('HeaderSearchContainer', () => {
         }
       });
 
-      const mockEvent = {
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
-        ctrlKey: false,
-        metaKey: false
-      };
       jest.spyOn(store, 'dispatch');
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
-      headerSearch.instance().onFormSubmit(mockEvent);
+      headerSearch.instance().onFormSubmit();
 
       expect(fetchDataSelection).not.toHaveBeenCalled();
       expect(fetchSearchResultsByQuery).not.toHaveBeenCalled();
@@ -205,16 +187,10 @@ describe('HeaderSearchContainer', () => {
         }
       });
 
-      const mockEvent = {
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
-        ctrlKey: false,
-        metaKey: false
-      };
       jest.spyOn(store, 'dispatch');
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
-      headerSearch.instance().onFormSubmit(mockEvent);
+      headerSearch.instance().onFormSubmit();
 
       expect(fetchDataSelection).not.toHaveBeenCalled();
       expect(fetchSearchResultsByQuery).toHaveBeenCalled();
@@ -233,16 +209,10 @@ describe('HeaderSearchContainer', () => {
         }
       });
 
-      const mockEvent = {
-        preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
-        ctrlKey: false,
-        metaKey: false
-      };
       jest.spyOn(store, 'dispatch');
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
-      headerSearch.instance().onFormSubmit(mockEvent);
+      headerSearch.instance().onFormSubmit();
 
       expect(fetchDataSelection).toHaveBeenCalled();
       expect(fetchSearchResultsByQuery).not.toHaveBeenCalled();

@@ -74,14 +74,13 @@ class AutoSuggest extends React.Component {
     });
   }
 
-  onFocus(event) {
+  onFocus() {
     const { onTextInput, suggestions, query } = this.props;
     this.setState({
       showSuggestions: true,
       setPrefillQuery: false
     });
     if (query.length && !suggestions.length) {
-      event.persist();
       onTextInput(query);
     }
   }
