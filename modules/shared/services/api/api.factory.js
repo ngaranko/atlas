@@ -23,6 +23,7 @@
 
         function getWithToken (url, params, cancel, token) {
             const maxAttempts = 3;
+            const attemptInterval = 100;
             const headers = {};
 
             if (token) {
@@ -59,7 +60,9 @@
                                 (rejection.status < 200 || rejection.status >= 300)
                             ) {
                                 rejection.errorHandled = true;
-                                recursiveRequest(attempt + 1);
+                                $interval(() => {
+                                    recursiveRequest(attempt + 1);
+                                }, attemptInterval, 1);
                             } else {
                                 deferred.reject(rejection);
                             }
