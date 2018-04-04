@@ -16,7 +16,7 @@ describe('print module', () => {
     cy.get('#global-search').type('10581111');
 
     cy.wait('@getTypeAhead');
-    cy.get('.c-autocomplete').contains('10581111').click();
+    cy.get('.c-auto-suggest').contains('10581111').click();
 
     cy.wait('@getResults');
     cy.wait('@getMeeting');

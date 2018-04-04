@@ -21,7 +21,7 @@ describe('data search module', () => {
     cy.get('.c-search-form-input').trigger('change');
 
     cy.wait('@getResults');
-    cy.get('.c-autocomplete').should('exist').and('be.visible');
+    cy.get('.c-auto-suggest').should('exist').and('be.visible');
     cy.get('h4').contains('Straatnamen').siblings('ul').children('li')
       .first()
       .children()
@@ -49,7 +49,7 @@ describe('data search module', () => {
     cy.get('#global-search').focus().type('Ad Windighof 2');
 
     cy.wait('@getResults');
-    cy.get('.c-autocomplete').contains('Ad Windighof 2').click();
+    cy.get('.c-auto-suggest').contains('Ad Windighof 2').click();
 
     // check that the large right column is visible and shows the correct data
     cy.wait('@getVerblijfsobject');

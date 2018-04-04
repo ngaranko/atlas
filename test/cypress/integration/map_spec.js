@@ -42,7 +42,7 @@ describe('map module', () => {
       cy.get('#global-search').focus().type('dam 1');
 
       cy.wait('@getResults');
-      cy.get('.c-autocomplete').contains('Dam 1').click();
+      cy.get('.c-auto-suggest').contains('Dam 1').click();
 
       cy.wait('@getVerblijfsobject');
       // check that the circle icon is drawed on the map

@@ -22,9 +22,9 @@ describe('employee PLUS permissions', () => {
     cy.get('#global-search').focus().type('bakker');
 
     cy.wait('@getResults');
-    cy.get('.c-autocomplete__tip').should('exist').and('be.visible');
+    cy.get('.c-auto-suggest__tip').should('exist').and('be.visible');
     cy.get(queries.autoSuggestHeader).contains(values.kadastraleSubjecten);
-    cy.get('.c-autocomplete-item').contains('lia Bak');
+    cy.get('.c-auto-suggest-item').contains('lia Bak');
   });
 
   it('1. Should show no message after search is performed', () => {

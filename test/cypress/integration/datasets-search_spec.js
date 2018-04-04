@@ -21,7 +21,7 @@ describe('datasets search module', () => {
       cy.get('.c-search-form-input').trigger('change');
       cy.wait('@getTypeAhead');
 
-      cy.get('.c-autocomplete').should('exist').and('be.visible');
+      cy.get('.c-auto-suggest').should('exist').and('be.visible');
     });
   });
 

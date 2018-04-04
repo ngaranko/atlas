@@ -22,9 +22,9 @@ describe('employee permissions', () => {
     cy.get('#global-search').focus().type('bakker');
 
     cy.wait('@getResults');
-    cy.get('.c-autocomplete__tip').should('exist').and('be.visible');
+    cy.get('.c-auto-suggest__tip').should('exist').and('be.visible');
     cy.get(queries.autoSuggestHeader).contains(values.kadastraleSubjecten);
-    cy.get('.c-autocomplete-item').contains('ijf Ja');
+    cy.get('.c-auto-suggest-item').contains('ijf Ja');
   });
 
   it('1. Should show a message after search is performed', () => {

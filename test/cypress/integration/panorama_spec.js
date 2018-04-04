@@ -115,7 +115,7 @@ describe('panorama module', () => {
       cy.get('#global-search').type('dam 1');
 
       cy.wait('@getTypeAhead');
-      cy.get('.c-autocomplete').contains('Dam 1').click();
+      cy.get('.c-auto-suggest').contains('Dam 1').click();
 
       cy.wait('@getVerblijfsobject');
       cy.wait('@getPanoThumbnail');
