@@ -137,7 +137,7 @@ describe('The api factory', function () {
     });
 
     it('does not add an Authorization header if specified not to', function () {
-        // Not logged in
+        // Logged in
         isLoggedIn = true;
 
         $httpBackend.expectGET(
