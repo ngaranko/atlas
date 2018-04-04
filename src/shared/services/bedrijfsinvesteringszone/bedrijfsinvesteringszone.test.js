@@ -19,6 +19,7 @@ describe('The bedrijfsinvesteringszone resource', () => {
         bijdrageplichtigen: 'Bedrijfsinvesteringszone heffingsplichtigen',
         biz_type: 'Bedrijfsinvesteringszone type',
         geometrie: { type: 'Point' },
+        heffing_display: 'Bedrijfsinvesteringszone heffingLabel',
         something: 'abc123'
       }));
       getCenter.mockImplementation(() => ({ x: 1, y: 2 }));
@@ -29,6 +30,8 @@ describe('The bedrijfsinvesteringszone resource', () => {
           _display: 'Bedrijfsinvesteringszone display name 1',
           bijdrageplichtigen: 'Bedrijfsinvesteringszone heffingsplichtigen',
           biz_type: 'Bedrijfsinvesteringszone type',
+          heffing_display: 'Bedrijfsinvesteringszone heffingLabel',
+          heffingLabel: 'Bedrijfsinvesteringszone heffingLabel',
           heffingsplichtigen: 'Bedrijfsinvesteringszone heffingsplichtigen',
           geometrie: { type: 'Point' },
           label: 'Bedrijfsinvesteringszone display name 1',
@@ -49,6 +52,7 @@ describe('The bedrijfsinvesteringszone resource', () => {
 
       const promise = fetchByUri(uri).then((response) => {
         expect(response).toEqual({
+          heffingLabel: undefined,
           heffingsplichtigen: undefined,
           label: undefined,
           location: null,
