@@ -6,7 +6,7 @@ import MapDetailBedrijfsinvesteringszone from './MapDetailBedrijfsinvesteringszo
 describe('MapDetailBedrijfsinvesteringszone', () => {
   it('should render everything', () => {
     const bedrijfsinvesteringszone = {
-      heffing: 'Bedrijfsinvesteringszone heffing',
+      heffingLabel: 'Bedrijfsinvesteringszone heffingLabel',
       heffingsgrondslag: 'Bedrijfsinvesteringszone heffingsgrondslag',
       heffingsplichtigen: 80,
       label: 'Bedrijfsinvesteringszone label',
