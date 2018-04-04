@@ -28,7 +28,7 @@ const MapDetailBedrijfsinvesteringszone = ({
       />
       <MapDetailResultItem
         label="Jaarlijkse heffing"
-        value={bedrijfsinvesteringszone.heffing}
+        value={bedrijfsinvesteringszone.heffingLabel}
       />
       <MapDetailResultItem
         label="Aantal heffingsplichtigen"
@@ -40,7 +40,7 @@ const MapDetailBedrijfsinvesteringszone = ({
 
 MapDetailBedrijfsinvesteringszone.propTypes = {
   bedrijfsinvesteringszone: PropTypes.shape({
-    heffing: PropTypes.string,
+    heffingLabel: PropTypes.string,
     heffingsgrondslag: PropTypes.string,
     heffingsplichtigen: PropTypes.number,
     label: PropTypes.string,

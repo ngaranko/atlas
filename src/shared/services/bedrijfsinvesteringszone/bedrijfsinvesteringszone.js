@@ -10,7 +10,7 @@ export default function fetchByUri(uri) {
 
       return {
         ...result,
-        heffing: result.heffing_display,
+        heffingLabel: result.heffing_display,
         heffingsplichtigen: result.bijdrageplichtigen,
         label: result._display,
         location: result.location || wgs84Center,
