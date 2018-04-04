@@ -27,7 +27,8 @@ function formatData(categories, query) {
 
 function search(query) {
   return getByUrl(`${apiUrl}${ENDPOINT}`, { q: query })
-    .then((response) => formatData(response, query));
+    .then((response) => formatData(response, query))
+    .catch(() => formatData([], query));
 }
 
 export default search;

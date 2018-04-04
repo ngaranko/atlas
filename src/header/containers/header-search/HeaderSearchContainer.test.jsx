@@ -144,10 +144,10 @@ describe('HeaderSearchContainer', () => {
       };
 
       jest.spyOn(store, 'dispatch');
-      global.open = () => {
+      global.open = () => { // eslint-disable-line arrow-body-style
         return {
           window: {}
-        }
+        }; // eslint-disable-line arrow-body-style
       };
       jest.spyOn(global, 'open');
 

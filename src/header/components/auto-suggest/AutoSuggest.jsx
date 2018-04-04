@@ -31,15 +31,9 @@ class AutoSuggest extends React.Component {
   }
 
   componentDidUpdate() {
-    const { activeSuggestion, query } = this.props;
-
+    const { activeSuggestion } = this.props;
     if (activeSuggestion.index > -1) {
       this.textInput.value = activeSuggestion.label;
-    }
-    else if (query.length) {
-      this.textInput.value = query;
-    } else {
-      this.textInput.value = '';
     }
   }
 
@@ -111,6 +105,13 @@ class AutoSuggest extends React.Component {
         if (!showSuggestions || !numberOfSuggestions) {
           return;
         }
+
+        if (activeSuggestion.index === 0) {
+          // if user is on first suggestion and navigates up,
+          // the user goes back to the inputfield
+          this.textInput.value = query;
+        }
+
         onSuggestionNavigation(
           AutoSuggest.getSuggestionByIndex(
             suggestions,
@@ -118,9 +119,6 @@ class AutoSuggest extends React.Component {
           )
         );
 
-        if (activeSuggestion.index === -1) {
-          this.textInput.value = query;
-        }
         break;
       // Arrow down
       case 40:
