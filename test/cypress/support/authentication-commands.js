@@ -17,7 +17,7 @@ const checkEnvironmentVariablesSet = () => {
 const USER_TOKENS = {
 };
 
-export function login(type = 'EMPLOYEE_PLUS') {
+Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
   const baseUrl = Cypress.config('baseUrl');
 
   if (USER_TOKENS[type]) {
@@ -97,13 +97,13 @@ export function login(type = 'EMPLOYEE_PLUS') {
         });
       });
     });
-}
+});
 
-export function logout() {
+Cypress.Commands.add('logout', () => {
   cy.get('.qa-menu').then((menu) => {
     if (menu && menu.find('.qa-menu__user-menu').length) {
       cy.get('.qa-menu__user-menu button').click();
       cy.get('.qa-menu__user-menu dp-logout-button button').click();
     }
   });
-}
+});
