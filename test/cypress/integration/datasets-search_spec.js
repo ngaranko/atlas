@@ -12,9 +12,9 @@ describe('datasets search module', () => {
   describe('user should be to type and see suggestions', () => {
     it('should open the auto-suggest panel', () => {
       cy.visit('/');
-      cy.get('.qa-search-form-container input').trigger('focus');
-      cy.get('.qa-search-form-container input').type('Park');
-      cy.get('.qa-search-form-container input').trigger('change');
+      cy.get('.c-search-form-input').trigger('focus');
+      cy.get('.c-search-form-input').type('Park');
+      cy.get('.c-search-form-input').trigger('change');
       cy.get('.c-auto-suggest').should('exist').and('be.visible');
     });
   });
@@ -24,8 +24,8 @@ describe('datasets search module', () => {
       cy.server()
       cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults')
       cy.visit('/');
-      cy.get('.qa-search-form-container input').trigger('focus');
-      cy.get('.qa-search-form-container input').type('Park');
+      cy.get('.c-search-form-input').trigger('focus');
+      cy.get('.c-search-form-input').type('Park');
       cy.get('.c-search-form').submit();
       cy.wait('@getResults');
       cy.get('.o-tabs__tab--link').contains('Datasets').click();
@@ -36,8 +36,8 @@ describe('datasets search module', () => {
       cy.server()
       cy.route('https://acc.api.data.amsterdam.nl/catalogus/api/3/action/*').as('getResults')
       cy.visit('/');
-      cy.get('.qa-search-form-container input').trigger('focus');
-      cy.get('.qa-search-form-container input').type('NORESULTS');
+      cy.get('.c-search-form-input').trigger('focus');
+      cy.get('.c-search-form-input').type('NORESULTS');
       cy.get('.c-search-form').submit();
       cy.wait('@getResults');
       cy.get('.o-tabs__tab--link').should('not.exist').and('not.be.visible');

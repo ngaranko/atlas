@@ -113,7 +113,6 @@ class HeaderSearchContainer extends React.Component {
     return (
       <AutoSuggest
         activeSuggestion={activeSuggestion}
-        containerClassName={'c-search-form-container qa-search-form-container'}
         legendTitle={'Data zoeken'}
         numberOfSuggestions={numberOfSuggestions}
         onSubmit={this.onFormSubmit}

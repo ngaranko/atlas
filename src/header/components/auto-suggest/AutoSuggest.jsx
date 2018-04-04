@@ -199,7 +199,6 @@ class AutoSuggest extends React.Component {
   render() {
     const {
       activeSuggestion,
-      containerClassName,
       legendTitle,
       placeHolder,
       query,
@@ -211,12 +210,13 @@ class AutoSuggest extends React.Component {
       <form id="header-search" onSubmit={this.onFormSubmit} className={`c-search-form ${showSuggestions && suggestions.length ? 'c-auto-suggest__backdrop' : ''}`}>
         <fieldset>
           {legendTitle && <legend className="u-sr-only">legendTitle</legend>}
-          <div className={containerClassName}>
+          <div className="c-search-form-container">
             <label htmlFor="auto-suggest-input" className="u-sr-only">zoektekst</label>
             <input
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"
+              className="c-search-form-input"
               id="auto-suggest-input"
               onBlur={this.onBlur}
               onFocus={this.onFocus}
@@ -275,7 +275,6 @@ AutoSuggest.propTypes = {
     label: PropTypes.string,
     index: PropTypes.number
   }).isRequired,
-  containerClassName: PropTypes.string,
   legendTitle: PropTypes.string,
   numberOfSuggestions: PropTypes.number,
   onSubmit: PropTypes.func.isRequired,
@@ -288,7 +287,6 @@ AutoSuggest.propTypes = {
 };
 
 AutoSuggest.defaultProps = {
-  containerClassName: '',
   legendTitle: '',
   numberOfSuggestions: 0,
   placeHolder: '',

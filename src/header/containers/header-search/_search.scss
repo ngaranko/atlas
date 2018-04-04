@@ -9,49 +9,49 @@ $clear-button-margin: 3px;
     float: left;
     position: relative;
     width: calc(100% - #{$site-header-search-form-height + $base-whitespace * .5});
+  }
 
-    input {
-      @include font-size($s-font);
-      @include font-weight($bold-weight);
-      appearance: none; // sass-lint:disable-line
-      background-color: $primary-light;
-      border: 1px solid $secondary-gray20;
-      border-radius: 0;
-      color: $primary-dark;
-      display: block;
-      height: $site-header-search-form-height;
-      outline: none;
-      padding-left: $base-whitespace;
-      padding-right: $base-whitespace + $site-header-search-form-height;
-      width: 100%;
+  &-input {
+    @include font-size($s-font);
+    @include font-weight($bold-weight);
+    appearance: none; // sass-lint:disable-line
+    background-color: $primary-light;
+    border: 1px solid $secondary-gray20;
+    border-radius: 0;
+    color: $primary-dark;
+    display: block;
+    height: $site-header-search-form-height;
+    outline: none;
+    padding-left: $base-whitespace;
+    padding-right: $base-whitespace + $site-header-search-form-height;
+    width: 100%;
 
-      &:last-child {
-        // if the clear button is not showed, then there should be no extra padding on the right
-        padding-right: $base-whitespace;
-      }
+    &:last-child {
+      // if the clear button is not showed, then there should be no extra padding on the right
+      padding-right: $base-whitespace;
+    }
 
-      &::placeholder {
-        @include font-weight($normal-weight);
-        color: $secondary-gray60;
-      }
+    &::placeholder {
+      @include font-weight($normal-weight);
+      color: $secondary-gray60;
+    }
 
-      &:-ms-input-placeholder { /* IE11 */ //sass-lint:disable-line no-vendor-prefixes no-css-comments
-        @include font-weight($normal-weight);
-        color: $secondary-gray60;
-      }
+    &:-ms-input-placeholder { /* IE11 */ //sass-lint:disable-line no-vendor-prefixes no-css-comments
+      @include font-weight($normal-weight);
+      color: $secondary-gray60;
+    }
 
-      &::-ms-input-placeholder { /* Edge */ // sass-lint:disable-line no-vendor-prefixes no-css-comments
-        // cannot change font attributes in edge here, so we have a lighter text color
-        color: $secondary-gray40;
-      }
+    &::-ms-input-placeholder { /* Edge */ // sass-lint:disable-line no-vendor-prefixes no-css-comments
+      // cannot change font attributes in edge here, so we have a lighter text color
+      color: $secondary-gray40;
+    }
 
-      &::-ms-clear { //sass-lint:disable-line no-vendor-prefixes
-        display: none;
-      }
+    &::-ms-clear { //sass-lint:disable-line no-vendor-prefixes
+      display: none;
+    }
 
-      &:focus {
-        border: 2px solid $primary-dark;
-      }
+    &:focus {
+      border: 2px solid $primary-dark;
     }
   }
 
