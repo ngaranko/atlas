@@ -1,0 +1,18 @@
+// resources, resources-item and the styles/** are copyied form dcatd_admin and should be integrated in atlas
+@import "./resources";
+@import "./resources-item";
+.resources {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.dcad-dataset-detail {
+  .c-detail__block {
+    dl>dt {
+      width: 30%;
+    }
+    dl>dd {
+      width: 70%;
+    }
+  }
+}

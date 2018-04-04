@@ -83,7 +83,8 @@ describe('The dataSelectionApiDcatd factory', function () {
             }]
         };
 
-        mockedApiResponse = { ...mockedApiResponseJson
+        mockedApiResponse = {
+            ...mockedApiResponseJson
         };
         spyOn(api, 'getByUri').and.callThrough();
     });
@@ -239,15 +240,15 @@ describe('The dataSelectionApiDcatd factory', function () {
                 data_format: {
                     numberOfOptions: 2,
                     options: [{
-                            id: 'application/pdf',
-                            label: 'pdf',
-                            count: 1
-                        },
-                        {
-                            id: 'text/csv',
-                            label: 'csv',
-                            count: 1
-                        }
+                        id: 'application/pdf',
+                        label: 'pdf',
+                        count: 1
+                    },
+                    {
+                        id: 'text/csv',
+                        label: 'csv',
+                        count: 1
+                    }
                     ]
                 }
             });
@@ -280,15 +281,15 @@ describe('The dataSelectionApiDcatd factory', function () {
                 data_format: {
                     numberOfOptions: 2,
                     options: [{
-                            id: 'application/pdf',
-                            label: 'pdf',
-                            count: 1
-                        },
-                        {
-                            id: 'text/csv',
-                            label: 'csv',
-                            count: 1
-                        }
+                        id: 'application/pdf',
+                        label: 'pdf',
+                        count: 1
+                    },
+                    {
+                        id: 'text/csv',
+                        label: 'csv',
+                        count: 1
+                    }
                     ]
                 }
             });

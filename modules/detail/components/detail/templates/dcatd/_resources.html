@@ -1,0 +1,38 @@
+<div class="resources">
+
+    <div class="resources-type" ng-repeat="resourceType in vm.apiData.results.resources">
+        <div class="resources-type__header">
+            <span class="resources-type__header-title">{{resourceType.type | optionLabel: vm.catalogFilters.resourceTypes}}</span>
+            <!-- {{resourceType | json}} -->
+            <button type="button" class="resources-button resources-button-new" />
+            <!-- onClick={()=> this.handleAddResource(this.getResourceTypeSchema().enum[index])} -->
+            <!--  -->
+        </div>
+        <div class="resources-type__content" ng-repeat="resource in resourceType.rows">
+            <div class="resources-type__content-item piwik_download" dp-follow-link="{{ resource['dcat:accessURL'] }}">
+                <div class="resources-item">
+                    <div class="resources-item__modified" ng-if="resource['dct:modified']">
+                        gewijzigd op {{resource['dct:modified'] | date:'dd MMMM yyyy' }}
+                    </div>
+                    <div class="resources-item__file-size">{{resource['dcat:byteSize'] | filesize}}</div>
+                    <div class="resources-item__title">
+                        {{resource['dct:title']}}
+                    </div>
+                    <div class="resources-item__description">
+                        <span class="c-data-selection-file-type
+                                     c-data-selection-file-type__name
+                                     c-data-selection-file-type__format-{{resource['dct:format'] | optionLabel: vm.catalogFilters.formatTypes| lowercase }}">
+                            <span ng-if="resource['dct:format']">{{resource['dct:format'] | optionLabel: vm.catalogFilters.formatTypes}}</span>
+                            <span ng-if="!resource['dct:format']"> ? </span>
+                        </span>
+                        <span>{{resource['dct:description']}}</span>
+                    </div>
+                </div>
+
+
+                <button type="button" class="resources-button resources-button-edit" ng-click="alert('not implemented');return false;" vm.apiData.results/>
+                <!-- onClick={()=> this.handleEditResource(resource)} -->
+            </div>
+        </div>
+    </div>
+</div>
