@@ -1,6 +1,7 @@
 describe('The google sheet factory', function () {
     const config = {};
     let $rootScope,
+        $interval,
         $window,
         $httpBackend,
         googleSheet,
@@ -76,8 +77,9 @@ describe('The google sheet factory', function () {
             $provide.constant('GOOGLE_SHEET_CMS', config);
         });
 
-        angular.mock.inject(function (_$rootScope_, _$window_, _$httpBackend_, _googleSheet_) {
+        angular.mock.inject(function (_$rootScope_, _$interval_, _$window_, _$httpBackend_, _googleSheet_) {
             $rootScope = _$rootScope_;
+            $interval = _$interval_;
             $window = _$window_;
             $httpBackend = _$httpBackend_;
             googleSheet = _googleSheet_;
@@ -141,7 +143,13 @@ describe('The google sheet factory', function () {
             let result;
             googleSheet.getContents('type').then(contents => result = contents);
 
+            // Flush three times, for the api service retries three times
             $httpBackend.flush();
+            $interval.flush(100);
+            $httpBackend.flush();
+            $interval.flush(100);
+            $httpBackend.flush();
+
             expect(result).toEqual({
                 feed: {
                     title: ''
