@@ -17,11 +17,15 @@ describe('employee permissions', () => {
 
   it('0. Should show "Kadastrale subjecten" for medewerker in the autocomplete', () => {
     cy.server();
-    cy.route('/typeahead?q=bakker').as('getResults');
+    // TODO: enable this (getResults) once fetch is supported by Cypress
+    // https://github.com/cypress-io/cypress/issues/95
+    // cy.route('/typeahead?q=bakker').as('getResults');
 
     cy.get('#auto-suggest-input').focus().type('bakker');
 
-    cy.wait('@getResults');
+    // TODO: remove wait(500) and enably the route-wait
+    cy.wait(500);
+    // cy.wait('@getResults');
     cy.get('.c-auto-suggest__tip').should('exist').and('be.visible');
     cy.get(queries.autoSuggestHeader).contains(values.kadastraleSubjecten);
     cy.get('.c-auto-suggest-item').contains('ijf Ja');

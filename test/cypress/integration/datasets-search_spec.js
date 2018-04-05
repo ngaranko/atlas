@@ -13,13 +13,18 @@ describe('datasets search module', () => {
   describe('user should be to type and see suggestions', () => {
     it('should open the autocomplete panel', () => {
       cy.server();
-      cy.route('/typeahead?q=Park').as('getTypeAhead');
+      // TODO: enable this (getTypeAhead) once fetch is supported by Cypress
+      // https://github.com/cypress-io/cypress/issues/95
+      // cy.route('/typeahead?q=Park').as('getTypeAhead');
 
       cy.visit('/');
       cy.get('.c-search-form-input').trigger('focus');
       cy.get('.c-search-form-input').type('Park');
       cy.get('.c-search-form-input').trigger('change');
-      cy.wait('@getTypeAhead');
+
+      // TODO: remove wait(500) and enably the route-wait
+      cy.wait(500);
+      // cy.wait('@getTypeAhead');
 
       cy.get('.c-auto-suggest').should('exist').and('be.visible');
     });

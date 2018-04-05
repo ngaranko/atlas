@@ -8,14 +8,18 @@ describe('print module', () => {
 
   it('should show a print version of the page when the user click on the print button', () => {
     cy.server();
-    cy.route('/typeahead?q=10581111').as('getTypeAhead');
+    // TODO: enable this (getTypeAhead) once fetch is supported by Cypress
+    // https://github.com/cypress-io/cypress/issues/95
+    // cy.route('/typeahead?q=10581111').as('getTypeAhead');
     cy.route('/meetbouten/meetbout/*').as('getResults');
     cy.route('/meetbouten/meting/?meetbout=*').as('getMeeting');
     cy.route('/panorama/thumbnail/?*').as('getPanoThumbnail');
 
     cy.get('#auto-suggest-input').type('10581111');
 
-    cy.wait('@getTypeAhead');
+    // TODO: remove wait(500) and enably the route-wait
+    cy.wait(500);
+    // cy.wait('@getTypeAhead');
     cy.get('.c-auto-suggest').contains('10581111').click();
 
     cy.wait('@getResults');

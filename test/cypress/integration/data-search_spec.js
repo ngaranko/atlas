@@ -12,15 +12,19 @@ describe('data search module', () => {
   it('user should see suggestions', () => {
     // open the autocomplete panel and select the first dataset option and route the correct address
     cy.server();
-    cy.route('/typeahead?q=Park').as('getResults');
+
+    // TODO: enable this (getResults) once fetch is supported by Cypress
+    // https://github.com/cypress-io/cypress/issues/95
+
+    // cy.route('/typeahead?q=Park').as('getResults');
     cy.route('/bag/openbareruimte/*').as('getItem');
 
     cy.visit('/');
-    cy.get('.c-search-form-input').trigger('focus');
-    cy.get('.c-search-form-input').type('Park');
-    cy.get('.c-search-form-input').trigger('change');
+    cy.get('#auto-suggest-input').focus().type('Dam');
 
-    cy.wait('@getResults');
+    // TODO: remove wait(500) and enably the route-wait
+    cy.wait(500);
+    // cy.wait('@getResults');
     cy.get('.c-auto-suggest').should('exist').and('be.visible');
     cy.get('h4').contains('Straatnamen').siblings('ul').children('li')
       .first()
@@ -37,7 +41,11 @@ describe('data search module', () => {
   it('should open the address catalogus', () => {
     cy.server();
     cy.defineGeoSearchRoutes();
-    cy.route('/typeahead?q=Ad+Windighof+2').as('getResults');
+
+    // TODO: enable this (getResults) once fetch is supported by Cypress
+    // https://github.com/cypress-io/cypress/issues/95
+
+    // cy.route('/typeahead?q=Ad+Windighof+2').as('getResults');
     cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
     cy.route('/panorama/thumbnail/*').as('getPanoThumbnail');
     cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
@@ -48,7 +56,9 @@ describe('data search module', () => {
     // type in search and click on autosuggest item
     cy.get('#auto-suggest-input').focus().type('Ad Windighof 2');
 
-    cy.wait('@getResults');
+    // TODO: remove wait(500) and enably the route-wait
+    cy.wait(500);
+    // cy.wait('@getResults');
     cy.get('.c-auto-suggest').contains('Ad Windighof 2').click();
 
     // check that the large right column is visible and shows the correct data

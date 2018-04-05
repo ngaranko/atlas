@@ -1,5 +1,6 @@
 import apiUrl from '../../../shared/services/api';
 import { getByUrl } from '../../../shared/services/api/api';
+import { getAuthHeaders } from '../../../shared/services/auth/auth';
 
 const ENDPOINT = 'typeahead';
 
@@ -26,8 +27,13 @@ function formatData(categories) {
 }
 
 function search(query) {
-  return getByUrl(`${apiUrl}${ENDPOINT}`, { q: query })
+  const uri = `${apiUrl}${ENDPOINT}?q=${query}`;
+  return fetch(uri, { headers: getAuthHeaders() })
+    .then((response) => response.json())
     .then((response) => formatData(response));
+
+  // return getByUrl(`${apiUrl}${ENDPOINT}`, { q: query })
+  //   .then((response) => formatData(response));
 }
 
 export default search;
