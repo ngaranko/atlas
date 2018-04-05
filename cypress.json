@@ -1,6 +1,12 @@
 {
-  "screenshotOnHeadlessFailure": false,
-  "videoRecording": false,
+  "baseUrl": "http://localhost:8080",
+  "fixturesFolder": "test/cypress/fixtures",
   "integrationFolder": "test/cypress/integration",
-  "baseUrl": "http://localhost:8080"
+  "pluginsFile": "test/cypress/plugins/index.js",
+  "requestTimeout": 15000,
+  "screenshotOnHeadlessFailure": false,
+  "screenshotsFolder": "test/cypress/screenshots",
+  "supportFile": "test/cypress/support/index.js",
+  "videoRecording": false,
+  "videosFolder": "test/cypress/videos"
 }

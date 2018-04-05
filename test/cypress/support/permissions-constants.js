@@ -1,4 +1,4 @@
-export const URLS = {
+const urls = {
   address: '/#?dte=bag%2Fverblijfsobject%2F03630000749400%2F&mpb=topografie&mpz=16&mpv=52.3702716:4.8933987',
   business: '/#?dte=brk%2Fobject%2FNL.KAD.OnroerendeZaak.11460857510001%2F&mpb=topografie&mpz=16&mpv=52.370289:4.8931626',
   gemeentelijkeBeperking: '/#?dte=wkpb%2Fbeperking%2F1006388%2F&mpb=topografie&mpz=13&mpo=gbep::T&mpv=52.3777106:4.8920377',
@@ -14,4 +14,48 @@ export const URLS = {
   standplaats: '/#?dte=bag%2Fstandplaats%2F03630000691684%2F&mpb=topografie&mpz=16&mpv=52.3747877:4.8352249',
   vestiging: '/#?dte=handelsregister%2Fvestiging%2F000003579875%2F&mpb=topografie&mpz=16&mpv=52.3606667:4.8941516',
   vestigingenTabel: '/#?dsd=hr&dsp=1&dsv=TABLE&mpb=topografie&mpz=11&mpv=52.3731081:4.8932945'
+};
+
+const queries = {
+  autoSuggestHeader: '.qa-autocomplete-header',
+  headerTitle: '.o-header__title',
+  headerSubTitle: '.o-header__subtitle',
+  infoNotification: '.notification--info',
+  keyValueList: '.c-key-value-list',
+  listItem: 'li',
+  mapLayersCategory: '.map-layers__category',
+  mapDetailResultHeaderSubTitle: '.map-detail-result__header-subtitle',
+  mapDetailResultItem: '.map-detail-result__item',
+  mapSearchResultsCategoryHeader: '.map-search-results-category__header',
+  natuurlijkPersoon: 'dl.qa-natuurlijk-persoon',
+  nietNatuurlijkPersoon: 'dl.qa-niet-natuurlijk-persoon',
+  searchHeader: '.qa-search-header',
+  table: '.c-table',
+  warningPanel: '.c-panel--warning'
+};
+
+const values = {
+  aantekeningen: 'Aantekeningen',
+  bedrijvenInvloedsgebieden: 'Bedrijven - Invloedsgebieden',
+  beschrijving: 'Beschrijving',
+  documentnaam: 'Documentnaam',
+  economieEnHaven: 'Economie en haven',
+  geografie: 'Geografie',
+  kadastraleSubjecten: 'Kadastrale subjecten',
+  ligplaatsVestigingName: 'alac',
+  maatschappelijkeActiviteitName: 'om B',
+  maatschappelijkeActiviteitVestigingName: 'om B',
+  pandVestigingName: 'ller',
+  redengevendeOmschrijving: 'Redengevende omschrijving',
+  standplaatsVestigingName: 'us B',
+  type: 'Type',
+  vestigingName: 'om B',
+  vestigingen: 'Vestigingen',
+  zakelijkeRechten: 'Zakelijke rechten'
+};
+
+export default {
+  queries,
+  urls,
+  values
 };
