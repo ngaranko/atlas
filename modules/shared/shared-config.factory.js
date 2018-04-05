@@ -9,7 +9,7 @@ import getSharedConfig from '../../src/shared/services/shared-config/shared-conf
 
     sharedConfigFactory.$inject = ['environment'];
 
-    function sharedConfigFactory (environment) {
+    function sharedConfigFactory(environment) {
         return getSharedConfig(environment);
     }
 })();

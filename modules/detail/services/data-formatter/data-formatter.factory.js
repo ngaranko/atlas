@@ -63,7 +63,8 @@
 
             delete data['dcat:distribution'];
             data.editDatasetUrl = `dcatd_admin/datasets/${data['dct:identifier']}`;
-            data.canEditDataset = state.user.scopes.includes('GREX/R');
+            data.canEditDataset = state.user.scopes.includes('CAT/W');
+            // data.canEditDataset = state.user.scopes.includes('GREX/R');
 
             return data;
         }

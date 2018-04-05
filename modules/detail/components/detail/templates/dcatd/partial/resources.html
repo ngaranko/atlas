@@ -3,18 +3,16 @@
     <div class="resources-type" ng-repeat="resourceType in vm.apiData.results.resources">
         <div class="resources-type__header">
             <span class="resources-type__header-title">{{resourceType.type | optionLabel: vm.catalogFilters.resourceTypes}}</span>
-            <!-- {{resourceType | json}} -->
-            <button type="button" class="resources-button resources-button-new" />
-            <!-- onClick={()=> this.handleAddResource(this.getResourceTypeSchema().enum[index])} -->
-            <!--  -->
+            <button type="button" ng-if="vm.apiData.results.canEditDataset" class="resources-button resources-button-new" onclick="alert('not implemented');return false;" />
         </div>
         <div class="resources-type__content" ng-repeat="resource in resourceType.rows">
-            <div class="resources-type__content-item piwik_download" dp-follow-link="{{ resource['dcat:accessURL'] }}">
-                <div class="resources-item">
+            <div class="resources-type__content-item piwik_download">
+                <div class="resources-item" dp-follow-link="{{ resource['dcat:accessURL'] }}">
                     <div class="resources-item__modified" ng-if="resource['dct:modified']">
                         gewijzigd op {{resource['dct:modified'] | date:'dd MMMM yyyy' }}
                     </div>
-                    <div class="resources-item__file-size">{{resource['dcat:byteSize'] | filesize}}</div>
+                    <div class="resources-item__file-size" ng-if="resource['dcat:byteSize'] > 0">{{resource['dcat:byteSize'] | filesize}}</div>
+                    <div class="resources-item__navigate-arrow" ng-if="!resource['dcat:byteSize']"></div>
                     <div class="resources-item__title">
                         {{resource['dct:title']}}
                     </div>
@@ -30,8 +28,7 @@
                 </div>
 
 
-                <button type="button" class="resources-button resources-button-edit" ng-click="alert('not implemented');return false;" vm.apiData.results/>
-                <!-- onClick={()=> this.handleEditResource(resource)} -->
+                <button type="button" ng-if="vm.apiData.results.canEditDataset" class="resources-button resources-button-edit" onclick="alert('not implemented');return false;"/>
             </div>
         </div>
     </div>

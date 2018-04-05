@@ -5,13 +5,15 @@ const initialState = {};
 
 function getOptions(propertyType) {
   const options = [];
-  for (let i = 0; i < propertyType.enum.length; ++i) {
-    const index = propertyType.enum[i].indexOf(':');
-    options.push({
-      id: index === -1 ? propertyType.enum[i] : propertyType.enum[i].substring(index + 1),
-      label: propertyType.enumNames[i]
-    });
-  }
+  propertyType.enum.forEach(
+    (item, i) => {
+      const index = propertyType.enum[i].indexOf(':');
+      options.push({
+        id: index === -1 ? propertyType.enum[i] : propertyType.enum[i].substring(index + 1),
+        label: propertyType.enumNames[i]
+      });
+    }
+  );
   return options;
 }
 
@@ -25,13 +27,15 @@ function getCatalogFilters(data) {
     formatTypes: getOptions(distributionProperties['dct:format']),
     serviceTypes: getOptions(distributionProperties['ams:serviceType']),
     resourceTypes: getOptions(distributionProperties['ams:resourceType']),
-    ownerTypes: ownerProperties.map((item) => {
-      return {
-        id: item,
-        label: item
-      };
-    }),
-    licenseTypes: getOptions(dcatDocProperties['ams:license'])
+    ownerTypes: ownerProperties.map((item) => ({
+      id: item,
+      label: item
+    })),
+    licenseTypes: getOptions(dcatDocProperties['ams:license']),
+    spatialUnits: getOptions(dcatDocProperties['ams:spatialUnit']),
+    temporalUnits: getOptions(dcatDocProperties['ams:temporalUnit']),
+    accrualPeriodicities: getOptions(dcatDocProperties['dct:accrualPeriodicity']),
+    languages: getOptions(dcatDocProperties['dct:language'])
   };
 
   return catalogFilters;

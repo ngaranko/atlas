@@ -3,7 +3,7 @@
     <div class="u-row u-margin__bottom--4">
         <div class="o-header">
             <h3 class="o-header__subtitle">Dataset
-                <button ng-click="alert()" class="o-btn navigate-button" title="Wijzigen" dp-routing-link="{{ vm.apiData.results.editDatasetUrl }}">
+                <button class="o-btn navigate-button" title="Wijzigen" dp-routing-link="{{ vm.apiData.results.editDatasetUrl }}">
                     Wijzigen
                     <span class="u-sr-only">Wijzigen</span>
                 </button>
@@ -17,7 +17,7 @@
         <div class="u-col-md--12">
             <h3 class="o-header__subtitle">Resources</h3>
 
-            <div class="c-detail__block--" ng-include="'modules/detail/components/detail/templates/dcatd/_resources.html'"></div>
+            <div class="c-detail__block--" ng-include="'modules/detail/components/detail/templates/dcatd/partial/resources.html'"></div>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
         <div class="u-col-md--12">
             <h3 class="o-header__subtitle">Details</h3>
 
-            <div ng-include="'modules/detail/components/detail/templates/dcatd/_details.html'"></div>
+            <div ng-include="'modules/detail/components/detail/templates/dcatd/partial/details.html'"></div>
         </div>
     </div>
 
@@ -33,7 +33,7 @@
         <div class="u-col-md--12">
             <h3 class="o-header__subtitle">Thema's</h3>
 
-            <div ng-include="'modules/detail/components/detail/templates/dcatd/_themes.html'"></div>
+            <div ng-include="'modules/detail/components/detail/templates/dcatd/partial/themes.html'"></div>
         </div>
     </div>
 
