@@ -13,7 +13,8 @@ function formatData(categories) {
       return {
         uri: suggestion.uri,
         label: suggestion._display,
-        index: indexInTotal
+        index: indexInTotal,
+        category: category.label
       };
     })
   }));

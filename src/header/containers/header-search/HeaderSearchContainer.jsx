@@ -57,8 +57,8 @@ class HeaderSearchContainer extends React.Component {
   }
 
   onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
-    const { suggestions } = this.props;
-    piwikTracker(['trackEvent', 'search', 'auto-suggest', suggestions.query, suggestion.label]);
+    const { query } = this.props;
+    piwikTracker(['trackEvent', 'auto-suggest', suggestion.category, query, suggestion.label]);
 
     if (shouldOpenInNewWindow) {
       const newWindow = window.open(`${window.location.href}`, '_blank');
@@ -141,7 +141,8 @@ HeaderSearchContainer.propTypes = {
   activeSuggestion: PropTypes.shape({
     uri: PropTypes.string,
     label: PropTypes.string,
-    index: PropTypes.number
+    index: PropTypes.number,
+    category: PropTypes.string
   }),
   emptyFilters: PropTypes.func.isRequired,
   fetchDataSelection: PropTypes.func.isRequired,

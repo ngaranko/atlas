@@ -1,7 +1,7 @@
 import autoSuggestDataService from './auto-suggest';
 import { getByUrl } from '../../../shared/services/api/api';
 
-jest.mock('../../shared/services/api/api');
+jest.mock('../../../shared/services/api/api');
 
 describe('The auto-suggest service', () => {
   let mockedResults;

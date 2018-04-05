@@ -272,7 +272,8 @@ AutoSuggest.propTypes = {
   activeSuggestion: PropTypes.shape({
     uri: PropTypes.string,
     label: PropTypes.string,
-    index: PropTypes.number
+    index: PropTypes.number,
+    category: PropTypes.string
   }).isRequired,
   legendTitle: PropTypes.string,
   numberOfSuggestions: PropTypes.number,
