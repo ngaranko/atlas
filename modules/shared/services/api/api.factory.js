@@ -85,10 +85,11 @@
          * @param {string} url
          * @param {Object} params
          * @param {Promise} cancel - an optional promise ($q.defer()) to be able to cancel the request
+         * @param {bool} withToken - Send the user token along with the request if it exists
          * @returns {Promise}
          */
-        function getByUrl (url, params, cancel) {
-            const token = getAccessToken();
+        function getByUrl (url, params, cancel, withToken = true) {
+            const token = withToken ? getAccessToken() : null;
             return $q.resolve(getWithToken(url, params, cancel, token));
         }
 
