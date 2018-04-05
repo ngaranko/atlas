@@ -214,7 +214,7 @@ describe('AutoSuggest', () => {
       query={mockFilledState.query}
       numberOfSuggestions={mockFilledState.numberOfSuggestions}
     />);
-    jest.spyOn(emptyAutoSuggestComponent.instance(), 'getSuggestionByIndex');
+    // jest.spyOn(emptyAutoSuggestComponent.instance(), 'getSuggestionByIndex');
 
     const inputField = emptyAutoSuggestComponent.find('input#auto-suggest-input');
     expect(emptyAutoSuggestComponent.instance().props.activeSuggestion).toEqual({ index: -1 });

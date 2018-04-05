@@ -14,7 +14,7 @@ jest.mock('../../ducks/layers/map-layers');
 jest.mock('../../ducks/detail/map-detail');
 jest.mock('../../../pano/ducks/preview/pano-preview');
 
-xdescribe('MapPreviewPanelContainer', () => {
+describe('MapPreviewPanelContainer', () => {
   const initialState = {
     isMapPreviewPanelVisible: true,
     map: {
