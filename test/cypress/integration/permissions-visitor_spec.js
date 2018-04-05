@@ -13,12 +13,12 @@ describe('visitor permissions', () => {
     // https://github.com/cypress-io/cypress/issues/95
     // cy.route('/typeahead?q=bakker').as('getResults');
 
-    cy.get('#auto-suggest-input').focus().type('bakker');
+    cy.get('#auto-suggest-textinput').focus().type('bakker');
 
     // TODO: remove wait(500) and enably the route-wait
     cy.wait(500);
     // cy.wait('@getResults');
-    cy.get('.c-auto-suggest__tip').should('exist').and('be.visible');
+    cy.get('.auto-suggest__tip').should('exist').and('be.visible');
     cy.get(queries.autoSuggestHeader).should(($values) => {
       expect($values).to.not.contain(values.kadastraleSubjecten);
     });
@@ -28,7 +28,7 @@ describe('visitor permissions', () => {
     cy.server();
     cy.defineSearchRoutes();
 
-    cy.get('#auto-suggest-input').focus().type('bakker');
+    cy.get('#auto-suggest-textinput').focus().type('bakker');
     cy.get('.qa-search-form-submit').click();
 
     cy.waitForSearch(false);

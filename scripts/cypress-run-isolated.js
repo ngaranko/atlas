@@ -28,9 +28,6 @@ return glob('test/cypress/integration/**/*', {
       USERNAME_EMPLOYEE_PLUS: process.env.USERNAME_EMPLOYEE_PLUS,
       PASSWORD_EMPLOYEE: process.env.PASSWORD_EMPLOYEE,
       PASSWORD_EMPLOYEE_PLUS: process.env.PASSWORD_EMPLOYEE_PLUS
-    },
-    config: {
-      numTestsKeptInMemory: 0
     }
   })
   .then((results) => {

@@ -11,10 +11,10 @@ function formatData(categories) {
     content: category.content.map((suggestion) => {
       indexInTotal += 1;
       return {
-        uri: suggestion.uri,
-        label: suggestion._display,
+        category: category.label,
         index: indexInTotal,
-        category: category.label
+        label: suggestion._display,
+        uri: suggestion.uri
       };
     })
   }));

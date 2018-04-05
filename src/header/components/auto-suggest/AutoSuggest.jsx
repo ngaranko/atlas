@@ -89,12 +89,10 @@ class AutoSuggest extends React.Component {
     const { onSuggestionSelection } = this.props;
     event.preventDefault();
     event.stopPropagation();
-    let shouldOpenInNewWindow = false;
-    if (event.ctrlKey || event.metaKey) {
-      shouldOpenInNewWindow = true;
-    }
+    const shouldOpenInNewWindow = event.ctrlKey || event.metaKey;
 
     onSuggestionSelection(suggestion, shouldOpenInNewWindow);
+
     if (!shouldOpenInNewWindow) {
       this.clearQuery();
       this.textInput.blur();
@@ -206,17 +204,24 @@ class AutoSuggest extends React.Component {
     const { showSuggestions } = this.state;
 
     return (
-      <form id="header-search" onSubmit={this.onFormSubmit} className={`c-search-form ${showSuggestions && suggestions.length ? 'c-auto-suggest__backdrop' : ''}`}>
+      <form
+        id="header-search"
+        onSubmit={this.onFormSubmit}
+        className={
+          `auto-suggest__input
+          ${showSuggestions && suggestions.length ? 'auto-suggest__backdrop' : ''}`
+        }
+      >
         <fieldset>
           {legendTitle && <legend className="u-sr-only">legendTitle</legend>}
-          <div className="c-search-form-container">
-            <label htmlFor="auto-suggest-input" className="u-sr-only">zoektekst</label>
+          <div className="auto-suggest__input-container">
+            <label htmlFor="auto-suggest-textinput" className="u-sr-only">zoektekst</label>
             <input
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"
-              className="c-search-form-input"
-              id="auto-suggest-input"
+              className="auto-suggest__input-textinput"
+              id="auto-suggest-textinput"
               onBlur={this.onBlur}
               onFocus={this.onFocus}
               onInput={this.onInput}
@@ -230,7 +235,7 @@ class AutoSuggest extends React.Component {
             {query &&
               <button
                 type="button"
-                className="qa-search-form__clear c-search-form__clear"
+                className="qa-search-form__clear auto-suggest__input__clear"
                 onClick={this.clearQuery}
                 title="Wis zoektekst"
               >
@@ -240,13 +245,13 @@ class AutoSuggest extends React.Component {
             }
           </div>
           {suggestions.length > 0 && showSuggestions &&
-            <div className="c-auto-suggest">
-              <h3 className="c-auto-suggest__tip">Enkele suggesties</h3>
+            <div className="auto-suggest__dropdown">
+              <h3 className="auto-suggest__dropdown__tip">Enkele suggesties</h3>
               {suggestions.map((category) => (
                 <AutoSuggestCategory
                   activeSuggestion={activeSuggestion}
                   category={category}
-                  key={category.label + category.index}
+                  key={category.label}
                   onSuggestionSelection={this.onSuggestionSelection}
                   query={query}
                 />)
@@ -254,7 +259,7 @@ class AutoSuggest extends React.Component {
             </div>
           }
           <button
-            className="c-search-form__submit qa-search-form-submit"
+            className="auto-suggest__input__submit qa-search-form-submit"
             disabled={!query}
             title="Zoeken"
             type="submit"
@@ -270,10 +275,10 @@ class AutoSuggest extends React.Component {
 
 AutoSuggest.propTypes = {
   activeSuggestion: PropTypes.shape({
-    uri: PropTypes.string,
-    label: PropTypes.string,
+    category: PropTypes.string,
     index: PropTypes.number,
-    category: PropTypes.string
+    label: PropTypes.string,
+    uri: PropTypes.string
   }).isRequired,
   legendTitle: PropTypes.string,
   numberOfSuggestions: PropTypes.number,

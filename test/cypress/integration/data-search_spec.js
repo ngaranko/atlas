@@ -20,12 +20,12 @@ describe('data search module', () => {
     cy.route('/bag/openbareruimte/*').as('getItem');
 
     cy.visit('/');
-    cy.get('#auto-suggest-input').focus().type('Dam');
+    cy.get('#auto-suggest-textinput').focus().type('Dam');
 
     // TODO: remove wait(500) and enably the route-wait
     cy.wait(500);
     // cy.wait('@getResults');
-    cy.get('.c-auto-suggest').should('exist').and('be.visible');
+    cy.get('.auto-suggest').should('exist').and('be.visible');
     cy.get('h4').contains('Straatnamen').siblings('ul').children('li')
       .first()
       .children()
@@ -54,12 +54,12 @@ describe('data search module', () => {
     cy.viewport(1000, 660);
     cy.visit('/');
     // type in search and click on autosuggest item
-    cy.get('#auto-suggest-input').focus().type('Ad Windighof 2');
+    cy.get('#auto-suggest-textinput').focus().type('Ad Windighof 2');
 
     // TODO: remove wait(500) and enably the route-wait
     cy.wait(500);
     // cy.wait('@getResults');
-    cy.get('.c-auto-suggest').contains('Ad Windighof 2').click();
+    cy.get('.auto-suggest').contains('Ad Windighof 2').click();
 
     // check that the large right column is visible and shows the correct data
     cy.wait('@getVerblijfsobject');
@@ -118,19 +118,19 @@ describe('data search module', () => {
       cy.server();
       cy.defineSearchRoutes();
       cy.visit('/');
-      cy.get('.c-search-form-input').trigger('focus');
+      cy.get('.auto-suggest__input-textinput').trigger('focus');
     });
 
     it('should submit the search and give results', () => {
-      cy.get('.c-search-form-input').type('Park');
-      cy.get('.c-search-form').submit();
+      cy.get('.auto-suggest__input-textinput').type('Park');
+      cy.get('.auto-suggest__input').submit();
       cy.waitForSearch();
       cy.get('.o-list').should('exist').and('be.visible');
     });
 
     it('should submit the search and give no results', () => {
-      cy.get('.c-search-form-input').type('NORESULTS');
-      cy.get('.c-search-form').submit();
+      cy.get('.auto-suggest__input-textinput').type('NORESULTS');
+      cy.get('.auto-suggest__input').submit();
       cy.waitForSearch();
       cy.get('.o-list').should('have.length', 0);
     });

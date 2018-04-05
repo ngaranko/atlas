@@ -18,15 +18,15 @@ describe('datasets search module', () => {
       // cy.route('/typeahead?q=Park').as('getTypeAhead');
 
       cy.visit('/');
-      cy.get('.c-search-form-input').trigger('focus');
-      cy.get('.c-search-form-input').type('Park');
-      cy.get('.c-search-form-input').trigger('change');
+      cy.get('.auto-suggest__input-textinput').trigger('focus');
+      cy.get('.auto-suggest__input-textinput').type('Park');
+      cy.get('.auto-suggest__input-textinput').trigger('change');
 
       // TODO: remove wait(500) and enably the route-wait
       cy.wait(500);
       // cy.wait('@getTypeAhead');
 
-      cy.get('.c-auto-suggest').should('exist').and('be.visible');
+      cy.get('.auto-suggest').should('exist').and('be.visible');
     });
   });
 
@@ -36,9 +36,9 @@ describe('datasets search module', () => {
       cy.defineSearchRoutes();
 
       cy.visit('/');
-      cy.get('.c-search-form-input').trigger('focus');
-      cy.get('.c-search-form-input').type('Park');
-      cy.get('.c-search-form').submit();
+      cy.get('.auto-suggest__input-textinput').trigger('focus');
+      cy.get('.auto-suggest__input-textinput').type('Park');
+      cy.get('.auto-suggest__input').submit();
       cy.waitForSearch();
 
       cy.get(datasetsTab).contains('Datasets').click();
@@ -50,9 +50,9 @@ describe('datasets search module', () => {
       cy.defineSearchRoutes();
 
       cy.visit('/');
-      cy.get('.c-search-form-input').trigger('focus');
-      cy.get('.c-search-form-input').type('NORESULTS');
-      cy.get('.c-search-form').submit();
+      cy.get('.auto-suggest__input-textinput').trigger('focus');
+      cy.get('.auto-suggest__input-textinput').type('NORESULTS');
+      cy.get('.auto-suggest__input').submit();
       cy.waitForSearch();
 
       cy.get(datasetsTab).should('not.exist').and('not.be.visible');

@@ -7,14 +7,14 @@ const AutoSuggestItem = (props) => {
   const { isActive, onSuggestionSelection, query, content } = props;
   const highlightedSuggestion = content.replace(
     new RegExp(`(${escapeStringRegexp(query.trim())})`, 'gi'),
-    '<span class="c-auto-suggest__highlight">$1</span>'
+    '<span class="auto-suggest__dropdown__highlight">$1</span>'
   );
 
   return (
     <li>
       <button
         type="button"
-        className={`c-auto-suggest-item ${isActive ? 'c-auto-suggest-item--active' : ''}`}
+        className={`auto-suggest__dropdown-item ${isActive ? 'auto-suggest__dropdown-item--active' : ''}`}
         onClick={onSuggestionSelection}
       >
         <span className="icon">

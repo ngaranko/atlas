@@ -21,21 +21,21 @@ describe('employee permissions', () => {
     // https://github.com/cypress-io/cypress/issues/95
     // cy.route('/typeahead?q=bakker').as('getResults');
 
-    cy.get('#auto-suggest-input').focus().type('bakker');
+    cy.get('#auto-suggest-textinput').focus().type('bakker');
 
     // TODO: remove wait(500) and enably the route-wait
     cy.wait(500);
     // cy.wait('@getResults');
-    cy.get('.c-auto-suggest__tip').should('exist').and('be.visible');
+    cy.get('.auto-suggest__tip').should('exist').and('be.visible');
     cy.get(queries.autoSuggestHeader).contains(values.kadastraleSubjecten);
-    cy.get('.c-auto-suggest-item').contains('ijf Ja');
+    cy.get('.auto-suggest-item').contains('ijf Ja');
   });
 
   it('1. Should show a message after search is performed', () => {
     cy.server();
     cy.defineSearchRoutes();
 
-    cy.get('#auto-suggest-input').focus().type('bakker');
+    cy.get('#auto-suggest-textinput').focus().type('bakker');
     cy.get('.qa-search-form-submit').click();
 
     cy.waitForSearch();

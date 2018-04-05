@@ -152,10 +152,10 @@ HeaderSearchContainer.defaultProps = {
 
 HeaderSearchContainer.propTypes = {
   activeSuggestion: PropTypes.shape({
-    uri: PropTypes.string,
-    label: PropTypes.string,
+    category: PropTypes.string,
     index: PropTypes.number,
-    category: PropTypes.string
+    label: PropTypes.string,
+    uri: PropTypes.string
   }),
   isDatasetView: PropTypes.bool,
   numberOfSuggestions: PropTypes.number,

@@ -12,7 +12,7 @@ describe('search module', () => {
     // https://github.com/cypress-io/cypress/issues/95
     // cy.route('/typeahead?q=oost').as('getResults');
 
-    cy.get('#auto-suggest-input').type('oost');
+    cy.get('#auto-suggest-textinput').type('oost');
 
     // TODO: remove wait(500) and enably the route-wait
     cy.wait(500);
@@ -27,9 +27,9 @@ describe('search module', () => {
     cy.server();
     cy.defineSearchRoutes();
 
-    cy.get('#auto-suggest-input').type('dam');
+    cy.get('#auto-suggest-textinput').type('dam');
     // submit search form
-    cy.get('.c-search-form').submit();
+    cy.get('.auto-suggest__input').submit();
 
     cy.waitForSearch(false);
     cy.get('h2').contains('Openbare ruimtes').then((title) => {

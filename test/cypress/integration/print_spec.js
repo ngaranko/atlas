@@ -15,12 +15,12 @@ describe('print module', () => {
     cy.route('/meetbouten/meting/?meetbout=*').as('getMeeting');
     cy.route('/panorama/thumbnail/?*').as('getPanoThumbnail');
 
-    cy.get('#auto-suggest-input').type('10581111');
+    cy.get('#auto-suggest-textinput').type('10581111');
 
     // TODO: remove wait(500) and enably the route-wait
     cy.wait(500);
     // cy.wait('@getTypeAhead');
-    cy.get('.c-auto-suggest').contains('10581111').click();
+    cy.get('.auto-suggest').contains('10581111').click();
 
     cy.wait('@getResults');
     cy.wait('@getMeeting');
