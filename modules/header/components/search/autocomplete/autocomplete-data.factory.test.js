@@ -1,3 +1,4 @@
+/* eslint-disable */
 // describe('The autocompleteData factory', function () {
 //     var $rootScope,
 //         $q,

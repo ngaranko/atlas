@@ -28,8 +28,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onDatasetSearch: fetchDataSelection,
   onDetailLoad: fetchDetail,
   onSearch: fetchSearchResultsByQuery,
-  onTextInput: getSuggestions,
-  onSuggestionActivate: setActiveSuggestion
+  onSuggestionActivate: setActiveSuggestion,
+  onTextInput: getSuggestions
 }, dispatch);
 
 class HeaderSearchContainer extends React.Component {
@@ -63,7 +63,8 @@ class HeaderSearchContainer extends React.Component {
   onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
     const {
       onDetailLoad,
-      query } = this.props;
+      query
+    } = this.props;
     piwikTracker(['trackEvent', 'auto-suggest', suggestion.category, query]);
 
     if (shouldOpenInNewWindow) {
@@ -156,16 +157,16 @@ HeaderSearchContainer.propTypes = {
     index: PropTypes.number,
     category: PropTypes.string
   }),
+  isDatasetView: PropTypes.bool,
+  numberOfSuggestions: PropTypes.number,
   onCleanDatasetOverview: PropTypes.func.isRequired,
   onDatasetSearch: PropTypes.func.isRequired,
   onDetailLoad: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
+  onSuggestionActivate: PropTypes.func.isRequired,
   onTextInput: PropTypes.func.isRequired,
-  isDatasetView: PropTypes.bool,
-  numberOfSuggestions: PropTypes.number,
   prefillQuery: PropTypes.string,
   query: PropTypes.string,
-  onSuggestionActivate: PropTypes.func.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object)
 };
 
