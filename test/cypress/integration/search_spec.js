@@ -10,7 +10,7 @@ describe('search module', () => {
     cy.server();
     cy.route('/typeahead?q=oost').as('getResults');
 
-    cy.get('#global-search').type('oost');
+    cy.get('#auto-suggest-input').type('oost');
 
     cy.wait('@getResults');
     // count the headers inside the autocomplete
@@ -23,7 +23,7 @@ describe('search module', () => {
     cy.server();
     cy.defineSearchRoutes();
 
-    cy.get('#global-search').type('dam');
+    cy.get('#auto-suggest-input').type('dam');
     // submit search form
     cy.get('.c-search-form').submit();
 

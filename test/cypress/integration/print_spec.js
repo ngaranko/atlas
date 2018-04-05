@@ -13,7 +13,7 @@ describe('print module', () => {
     cy.route('/meetbouten/meting/?meetbout=*').as('getMeeting');
     cy.route('/panorama/thumbnail/?*').as('getPanoThumbnail');
 
-    cy.get('#global-search').type('10581111');
+    cy.get('#auto-suggest-input').type('10581111');
 
     cy.wait('@getTypeAhead');
     cy.get('.c-auto-suggest').contains('10581111').click();

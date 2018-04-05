@@ -24,12 +24,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  emptyFilters,
-  fetchDataSelection,
-  fetchDetail,
-  fetchSearchResultsByQuery,
-  getSuggestions,
-  setActiveSuggestion
+  onCleanDatasetOverview: emptyFilters,
+  onDatasetSearch: fetchDataSelection,
+  onDetailLoad: fetchDetail,
+  onSearch: fetchSearchResultsByQuery,
+  onTextInput: getSuggestions,
+  onSuggestionActivate: setActiveSuggestion
 }, dispatch);
 
 class HeaderSearchContainer extends React.Component {
@@ -45,19 +45,25 @@ class HeaderSearchContainer extends React.Component {
   }
 
   componentWillMount() {
+    const {
+      onTextInput,
+      prefillQuery
+    } = this.props;
     /*
       if there is a query passed along the component
       (from url to state)
       do the initial call to set the state with this query
       this only needs to happen when the page is loaded, therefore in te componentWillMount()
     */
-    if (this.props.prefillQuery.length) {
-      this.props.getSuggestions(this.props.prefillQuery);
+    if (prefillQuery.length) {
+      onTextInput(prefillQuery);
     }
   }
 
   onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
-    const { query } = this.props;
+    const {
+      onDetailLoad,
+      query } = this.props;
     piwikTracker(['trackEvent', 'auto-suggest', suggestion.category, query]);
 
     if (shouldOpenInNewWindow) {
@@ -66,7 +72,7 @@ class HeaderSearchContainer extends React.Component {
       // (webpack overrides the data it seems)
       newWindow.window.suggestionToLoadUri = suggestion.uri;
     } else {
-      this.props.fetchDetail(`${getSharedConfig().API_ROOT}${suggestion.uri}`);
+      onDetailLoad(`${getSharedConfig().API_ROOT}${suggestion.uri}`);
     }
   }
 
@@ -75,6 +81,9 @@ class HeaderSearchContainer extends React.Component {
       activeSuggestion,
       isDatasetView,
       numberOfSuggestions,
+      onCleanDatasetOverview,
+      onDatasetSearch,
+      onSearch,
       query
     } = this.props;
 
@@ -82,20 +91,21 @@ class HeaderSearchContainer extends React.Component {
 
     if (activeSuggestion.index === -1) {
       // Load the search results
-      this.props.emptyFilters();
+      onCleanDatasetOverview();
       if (isDatasetView) {
-        this.props.fetchDataSelection(query);
+        onDatasetSearch(query);
       } else {
-        this.props.fetchSearchResultsByQuery(query);
+        onSearch(query);
       }
     }
   }
 
   openDetailOnLoad() {
+    const { onDetailLoad } = this.props;
     // if user is sent here with a ctrl+click action
     // open the detail page
     const suggestionUri = window.suggestionToLoadUri;
-    this.props.fetchDetail(`${getSharedConfig().API_ROOT}${suggestionUri}`);
+    onDetailLoad(`${getSharedConfig().API_ROOT}${suggestionUri}`);
     window.suggestionToLoadUri = undefined;
   }
 
@@ -103,6 +113,8 @@ class HeaderSearchContainer extends React.Component {
     const {
       activeSuggestion,
       numberOfSuggestions,
+      onSuggestionActivate,
+      onTextInput,
       query,
       suggestions
     } = this.props;
@@ -113,9 +125,9 @@ class HeaderSearchContainer extends React.Component {
         legendTitle={'Data zoeken'}
         numberOfSuggestions={numberOfSuggestions}
         onSubmit={this.onFormSubmit}
-        onSuggestionNavigation={this.props.setActiveSuggestion}
+        onSuggestionNavigation={onSuggestionActivate}
         onSuggestionSelection={this.onSuggestionSelection}
-        onTextInput={this.props.getSuggestions}
+        onTextInput={onTextInput}
         placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
         query={query}
         suggestions={suggestions}
@@ -144,16 +156,16 @@ HeaderSearchContainer.propTypes = {
     index: PropTypes.number,
     category: PropTypes.string
   }),
-  emptyFilters: PropTypes.func.isRequired,
-  fetchDataSelection: PropTypes.func.isRequired,
-  fetchDetail: PropTypes.func.isRequired,
-  fetchSearchResultsByQuery: PropTypes.func.isRequired,
-  getSuggestions: PropTypes.func.isRequired,
+  onCleanDatasetOverview: PropTypes.func.isRequired,
+  onDatasetSearch: PropTypes.func.isRequired,
+  onDetailLoad: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
+  onTextInput: PropTypes.func.isRequired,
   isDatasetView: PropTypes.bool,
   numberOfSuggestions: PropTypes.number,
   prefillQuery: PropTypes.string,
   query: PropTypes.string,
-  setActiveSuggestion: PropTypes.func.isRequired,
+  onSuggestionActivate: PropTypes.func.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object)
 };
 

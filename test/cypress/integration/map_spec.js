@@ -39,7 +39,7 @@ describe('map module', () => {
       cy.visit('/');
 
       cy.get('.qa-map-link').click();
-      cy.get('#global-search').focus().type('dam 1');
+      cy.get('#auto-suggest-input').focus().type('dam 1');
 
       cy.wait('@getResults');
       cy.get('.c-auto-suggest').contains('Dam 1').click();

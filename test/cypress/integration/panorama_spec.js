@@ -112,7 +112,7 @@ describe('panorama module', () => {
 
       cy.viewport(1000, 660);
       cy.get('.leaflet-marker-pane').find('img').should('exist').and('be.visible');
-      cy.get('#global-search').type('dam 1');
+      cy.get('#auto-suggest-input').type('dam 1');
 
       cy.wait('@getTypeAhead');
       cy.get('.c-auto-suggest').contains('Dam 1').click();

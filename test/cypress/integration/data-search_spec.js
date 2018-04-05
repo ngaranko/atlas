@@ -46,7 +46,7 @@ describe('data search module', () => {
     cy.viewport(1000, 660);
     cy.visit('/');
     // type in search and click on autosuggest item
-    cy.get('#global-search').focus().type('Ad Windighof 2');
+    cy.get('#auto-suggest-input').focus().type('Ad Windighof 2');
 
     cy.wait('@getResults');
     cy.get('.c-auto-suggest').contains('Ad Windighof 2').click();

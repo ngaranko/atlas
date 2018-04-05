@@ -19,7 +19,7 @@ describe('employee permissions', () => {
     cy.server();
     cy.route('/typeahead?q=bakker').as('getResults');
 
-    cy.get('#global-search').focus().type('bakker');
+    cy.get('#auto-suggest-input').focus().type('bakker');
 
     cy.wait('@getResults');
     cy.get('.c-auto-suggest__tip').should('exist').and('be.visible');
@@ -31,7 +31,7 @@ describe('employee permissions', () => {
     cy.server();
     cy.defineSearchRoutes();
 
-    cy.get('#global-search').focus().type('bakker');
+    cy.get('#auto-suggest-input').focus().type('bakker');
     cy.get('.qa-search-form-submit').click();
 
     cy.waitForSearch();
