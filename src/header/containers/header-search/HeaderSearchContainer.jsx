@@ -126,7 +126,7 @@ class HeaderSearchContainer extends React.Component {
         legendTitle={'Data zoeken'}
         numberOfSuggestions={numberOfSuggestions}
         onSubmit={this.onFormSubmit}
-        onSuggestionNavigation={onSuggestionActivate}
+        onSuggestionActivate={onSuggestionActivate}
         onSuggestionSelection={this.onSuggestionSelection}
         onTextInput={onTextInput}
         placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}

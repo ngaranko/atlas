@@ -73,7 +73,7 @@ const selectedSuggestion = {
 const onSubmit = {
   fn: jest.fn()
 };
-const onSuggestionNavigation = {
+const onSuggestionActivate = {
   fn: jest.fn()
 };
 const onSuggestionSelection = {
@@ -95,7 +95,7 @@ describe('AutoSuggest', () => {
     const emptyAutoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
       onSubmit={onSubmit.fn}
-      onSuggestionNavigation={onSuggestionNavigation.fn}
+      onSuggestionActivate={onSuggestionActivate.fn}
       onSuggestionSelection={onSuggestionSelection.fn}
       onTextInput={onTextInput.fn}
     />);
@@ -105,7 +105,7 @@ describe('AutoSuggest', () => {
     const filledAutoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
       onSubmit={onSubmit.fn}
-      onSuggestionNavigation={onSuggestionNavigation.fn}
+      onSuggestionActivate={onSuggestionActivate.fn}
       onSuggestionSelection={onSuggestionSelection.fn}
       onTextInput={onTextInput.fn}
       query={mockFilledState.query}
@@ -122,7 +122,7 @@ describe('AutoSuggest', () => {
     const emptyAutoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
       onSubmit={onSubmit.fn}
-      onSuggestionNavigation={onSuggestionNavigation.fn}
+      onSuggestionActivate={onSuggestionActivate.fn}
       onSuggestionSelection={onSuggestionSelection.fn}
       onTextInput={onTextInput.fn}
     />);
@@ -141,7 +141,7 @@ describe('AutoSuggest', () => {
     const emptyAutoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
       onSubmit={onSubmit.fn}
-      onSuggestionNavigation={onSuggestionNavigation.fn}
+      onSuggestionActivate={onSuggestionActivate.fn}
       onSuggestionSelection={onSuggestionSelection.fn}
       onTextInput={onTextInput.fn}
     />);
@@ -160,7 +160,7 @@ describe('AutoSuggest', () => {
     const emptyAutoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
       onSubmit={onSubmit.fn}
-      onSuggestionNavigation={onSuggestionNavigation.fn}
+      onSuggestionActivate={onSuggestionActivate.fn}
       onSuggestionSelection={onSuggestionSelection.fn}
       onTextInput={onTextInput.fn}
     />);
@@ -183,7 +183,7 @@ describe('AutoSuggest', () => {
     const emptyAutoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
       onSubmit={onSubmit.fn}
-      onSuggestionNavigation={onSuggestionNavigation.fn}
+      onSuggestionActivate={onSuggestionActivate.fn}
       onSuggestionSelection={onSuggestionSelection.fn}
       onTextInput={onTextInput.fn}
     />);
@@ -207,7 +207,7 @@ describe('AutoSuggest', () => {
     const emptyAutoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
       onSubmit={onSubmit.fn}
-      onSuggestionNavigation={onSuggestionNavigation.fn}
+      onSuggestionActivate={onSuggestionActivate.fn}
       onSuggestionSelection={onSuggestionSelection.fn}
       onTextInput={onTextInput.fn}
       suggestions={mockFilledState.suggestions}

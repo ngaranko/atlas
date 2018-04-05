@@ -119,7 +119,7 @@ class AutoSuggest extends React.Component {
     const {
       activeSuggestion,
       numberOfSuggestions,
-      onSuggestionNavigation,
+      onSuggestionActivate,
       query,
       suggestions
     } = this.props;
@@ -140,7 +140,7 @@ class AutoSuggest extends React.Component {
           // the user goes back to the inputfield
           this.textInput.value = query;
         }
-        onSuggestionNavigation(
+        onSuggestionActivate(
           AutoSuggest.getSuggestionByIndex(
             suggestions,
             Math.max(activeSuggestion.index - 1, -1)
@@ -152,7 +152,7 @@ class AutoSuggest extends React.Component {
         if (!showSuggestions || !numberOfSuggestions) {
           return;
         }
-        onSuggestionNavigation(
+        onSuggestionActivate(
           AutoSuggest.getSuggestionByIndex(
             suggestions,
             Math.min(activeSuggestion.index + 1, numberOfSuggestions - 1)
@@ -191,8 +191,8 @@ class AutoSuggest extends React.Component {
 
   resetActiveSuggestion() {
     // wrapper function to improve readability
-    const { onSuggestionNavigation } = this.props;
-    onSuggestionNavigation();
+    const { onSuggestionActivate } = this.props;
+    onSuggestionActivate();
   }
 
   render() {
@@ -282,7 +282,7 @@ AutoSuggest.propTypes = {
   onTextInput: PropTypes.func.isRequired,
   placeHolder: PropTypes.string,
   query: PropTypes.string,
-  onSuggestionNavigation: PropTypes.func.isRequired,
+  onSuggestionActivate: PropTypes.func.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object)
 };
 
