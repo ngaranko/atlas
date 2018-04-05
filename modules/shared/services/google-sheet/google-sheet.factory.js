@@ -46,7 +46,8 @@
             // The 'static' version of the sheet is accessed by url
             // The contents is refreshed on a daily basis or on demand by a curl script that is run by Jenkins
             // Like curl https://spreadsheets.google.com/feeds/list/$KEY/$INDEX/public/basic?alt=json > [somefile]
-            return api.getByUrl(`${GOOGLE_SHEET_CMS.staticAddress}/${key}.${index}.json`);
+            // No params, no cancel promise, don't send the user token along with the request
+            return api.getByUrl(`${GOOGLE_SHEET_CMS.staticAddress}/${key}.${index}.json`, null, null, false);
         }
 
         function getDynamicSheet (key, index) {
