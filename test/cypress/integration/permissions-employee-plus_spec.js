@@ -23,8 +23,8 @@ describe('employee PLUS permissions', () => {
 
     cy.get('#auto-suggest-input').focus().type('bakker');
 
-    // TODO: remove wait(500) and enably the route-wait
-    cy.wait(500);
+    // TODO: remove wait(5000) and enably the route-wait
+    cy.wait(5000);
     // cy.wait('@getResults');
     cy.get('.c-auto-suggest__tip').should('exist').and('be.visible');
     cy.get(queries.autoSuggestHeader).contains(values.kadastraleSubjecten);

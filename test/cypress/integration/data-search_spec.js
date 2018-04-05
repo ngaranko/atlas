@@ -22,8 +22,8 @@ describe('data search module', () => {
     cy.visit('/');
     cy.get('#auto-suggest-input').focus().type('Dam');
 
-    // TODO: remove wait(500) and enably the route-wait
-    cy.wait(500);
+    // TODO: remove wait(5000) and enably the route-wait
+    cy.wait(5000);
     // cy.wait('@getResults');
     cy.get('.c-auto-suggest').should('exist').and('be.visible');
     cy.get('h4').contains('Straatnamen').siblings('ul').children('li')
@@ -56,8 +56,8 @@ describe('data search module', () => {
     // type in search and click on autosuggest item
     cy.get('#auto-suggest-input').focus().type('Ad Windighof 2');
 
-    // TODO: remove wait(500) and enably the route-wait
-    cy.wait(500);
+    // TODO: remove wait(5000) and enably the route-wait
+    cy.wait(5000);
     // cy.wait('@getResults');
     cy.get('.c-auto-suggest').contains('Ad Windighof 2').click();
 
