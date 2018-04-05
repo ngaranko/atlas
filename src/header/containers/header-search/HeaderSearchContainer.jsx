@@ -58,7 +58,7 @@ class HeaderSearchContainer extends React.Component {
 
   onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
     const { query } = this.props;
-    piwikTracker(['trackEvent', 'auto-suggest', suggestion.category, query, suggestion.label]);
+    piwikTracker(['trackEvent', 'auto-suggest', suggestion.category, query]);
 
     if (shouldOpenInNewWindow) {
       const newWindow = window.open(`${window.location.href}`, '_blank');

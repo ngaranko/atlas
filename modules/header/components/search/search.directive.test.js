@@ -1,4 +1,4 @@
-describe('The dp-search directive', () => {
+xdescribe('The dp-search directive', () => {
     const FLUSH_PERIOD = 200;
     let $compile,
         $rootScope,

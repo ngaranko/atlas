@@ -1,4 +1,4 @@
-describe('The autocompleteData factory', function () {
+xdescribe('The autocompleteData factory', function () {
     var $rootScope,
         $q,
         api,

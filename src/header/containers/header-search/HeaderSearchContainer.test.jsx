@@ -47,17 +47,20 @@ describe('HeaderSearchContainer', () => {
               {
                 uri: 'bag/openbareruimte/03630000003186/',
                 label: 'Dam',
-                index: 0
+                index: 0,
+                category: 'Straatnamen'
               },
               {
                 uri: 'bag/openbareruimte/03630000001038/',
                 label: 'Damloperspad',
-                index: 1
+                index: 1,
+                category: 'Straatnamen'
               },
               {
                 uri: 'bag/openbareruimte/03630000003187/',
                 label: 'Damrak',
-                index: 2
+                index: 2,
+                category: 'Straatnamen'
               }
             ],
             label: 'Straatnamen'
@@ -67,17 +70,20 @@ describe('HeaderSearchContainer', () => {
               {
                 uri: 'monumenten/monumenten/8e8ae1dd-78a2-4a5f-841d-1870631b7e33/',
                 label: 'Damrak 1',
-                index: 3
+                index: 3,
+                category: 'Monumenten'
               },
               {
                 uri: 'monumenten/monumenten/aa3f9081-2ac4-49ea-95d2-0aad7aecd883/',
                 label: 'Dam 10',
-                index: 4
+                index: 4,
+                category: 'Monumenten'
               },
               {
                 uri: 'monumenten/monumenten/f93e31ba-89eb-4784-87e1-d32c33b5236d/',
                 label: 'Damrak 15',
-                index: 5
+                index: 5,
+                category: 'Monumenten'
               }
             ],
             label: 'Monumenten'
@@ -106,7 +112,8 @@ describe('HeaderSearchContainer', () => {
       const selectedSuggestion = {
         uri: 'bag/openbareruimte/03630000001038/',
         label: 'Damloperspad',
-        index: 1
+        index: 1,
+        category: 'Straatnamen'
       };
 
       jest.spyOn(store, 'dispatch');
@@ -128,7 +135,8 @@ describe('HeaderSearchContainer', () => {
       const selectedSuggestion = {
         uri: 'bag/openbareruimte/03630000001038/',
         label: 'Damloperspad',
-        index: 1
+        index: 1,
+        category: 'Straatnamen'
       };
 
       jest.spyOn(store, 'dispatch');
@@ -157,7 +165,8 @@ describe('HeaderSearchContainer', () => {
           activeSuggestion: {
             uri: 'monumenten/monumenten/8e8ae1dd-78a2-4a5f-841d-1870631b7e33/',
             label: 'Damrak 1',
-            index: 3
+            index: 3,
+            category: 'Monumenten'
           }
         },
         dataSelection: {

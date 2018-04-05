@@ -42,7 +42,7 @@ describe('The auto-suggest service', () => {
   });
 
   it('can search and format data', () => {
-    autoSuggestDataService.search('linnae').then((suggestions) => {
+    autoSuggestDataService('linnae').then((suggestions) => {
       expect(suggestions.count).toBe(3);
       expect(suggestions.query).toBe('linnae');
       expect(suggestions.data.length).toBe(2);
