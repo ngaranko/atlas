@@ -26,7 +26,8 @@
         'geojson',
         'crsConverter',
         'dataFormatter',
-        'nearestDetail'
+        'nearestDetail',
+        'markdownParser'
     ];
 
     /* eslint-disable max-params */
@@ -40,7 +41,8 @@
         geojson,
         crsConverter,
         dataFormatter,
-        nearestDetail
+        nearestDetail,
+        markdownParser
     ) {
         /* eslint-enable max-params */
         var vm = this;
@@ -90,6 +92,10 @@
             } else {
                 api.getByUrl(endpoint).then(function (data) {
                     data = dataFormatter.formatData(data, subject);
+
+                    if (category === 'dcatd' && subject === 'datasets') {
+                        data['dct:description'] = markdownParser.parse(data['dct:description']);
+                    }
 
                     vm.apiData = {
                         results: data
