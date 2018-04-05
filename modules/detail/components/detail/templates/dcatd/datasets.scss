@@ -15,4 +15,14 @@
       width: 70%;
     }
   }
+  .o-header__subtitle {
+    position: relative;
+
+    .navigate-button {
+      @extend %icon--border-hover;
+      @include icon-label-right("forward", "", "white", "tall");
+      position: absolute;
+      right: 0;
+    }
+  }
 }

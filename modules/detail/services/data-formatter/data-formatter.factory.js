@@ -62,7 +62,7 @@
             }).filter(resource => resource.rows.length > 0);
 
             delete data['dcat:distribution'];
-            data.editDatasetUrl = `dcatd_admin/datasets/${data['@id']}`;
+            data.editDatasetUrl = `dcatd_admin/datasets/${data['dct:identifier']}`;
             data.canEditDataset = state.user.scopes.includes('GREX/R');
 
             return data;

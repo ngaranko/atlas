@@ -2,11 +2,13 @@
 
     <div class="u-row u-margin__bottom--4">
         <div class="o-header">
-            <h3 class="o-header__subtitle">Dataset</h3>
+            <h3 class="o-header__subtitle">Dataset
+                <button ng-click="alert()" class="o-btn navigate-button" title="Wijzigen" dp-routing-link="{{ vm.apiData.results.editDatasetUrl }}">
+                    Wijzigen
+                    <span class="u-sr-only">Wijzigen</span>
+                </button>
+            </h3>
             <h2 class="o-header__title u-margin__bottom--3 ">{{vm.apiData.results["dct:title"]}}</h2>
-            <a ng-if="vm.apiData.results.canEditDataset===true" ng-href="{{vm.apiData.results.editDatasetUrl}}" rel="noopener" class="o-btn o-btn--link">Edit dataset</a>
-            <button type="button" class="resources-button resources-button-edit" ng-if="vmvm.apiData.results.canEditDataset" ng-click="editDataset(vm.apiData.results.editDatasetUrl);"
-            />
         </div>
         <span class="s-detail-catalogus-notes" ng-bind-html="vm.apiData.results['dct:description']"> </span>
     </div>
