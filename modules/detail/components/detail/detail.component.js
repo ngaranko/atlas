@@ -56,9 +56,13 @@
         });
 
         // (Re)load the data when the endpoint is set or gets changed
-        $scope.$watch('vm.endpoint', getData);
+        $scope.$watch('vm.endpoint', () => {
+            getData(vm.endpoint);
+        });
 
+        // Ensure the catalog filters for dcatd endpoints
         $scope.$watch('vm.catalogFilters', () => {
+            if (!vm.catalogFilters) return;
             getData(vm.endpoint);
         });
 
@@ -86,7 +90,12 @@
                 //   BRK Kadastrale Subjecten, nor
                 //   handelsregister, nor
                 //   grondexploitatie
+                // Or the catalogFilter data is not present
                 // so do not fetch data
+                delete vm.apiData;
+                errorHandler();
+            } else if (category === 'dcatd' && subject === 'datasets' && !vm.catalogFilters) {
+                // The catalogFilters data is not present so do not fetch data
                 delete vm.apiData;
                 errorHandler();
             } else {

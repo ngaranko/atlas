@@ -87,27 +87,6 @@
         }
 
         function formatFilters (searchParams, filtersConfig, catalogFilters) {
-            // TODO
-            // return Object.keys(rawData).reduce((filters, key) => {
-            //     const items = rawData[key].items;
-            //     const filterConfig = filtersConfig.find(config => config.slug === key);
-            //     if (filterConfig && filterConfig.formatter) {
-            //         items.forEach(item => item.display_name = $filter(filterConfig.formatter)(item.display_name));
-            //     }
-            //     items.sort((a, b) => a.display_name.localeCompare(b.display_name));
-            //     filters[key] = {
-            //         numberOfOptions: rawData[key].items.length,
-            //         options: items.map(option => {
-            //             return {
-            //                 id: option.name,
-            //                 label: option.display_name,
-            //                 count: option.count
-            //             };
-            //         })
-            //     };
-            //     return filters;
-            // }, {});
-
             var filters = {
                 groups: {
                     options: []
@@ -119,10 +98,6 @@
                     options: []
                 }
             };
-
-            if (Object.keys(catalogFilters).length === 0 && catalogFilters.constructor === Object) {
-                return filters;
-            }
 
             filters.groups = {
                 numberOfOptions: catalogFilters.groupTypes.length,
