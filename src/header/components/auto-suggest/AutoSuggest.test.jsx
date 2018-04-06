@@ -70,18 +70,10 @@ const selectedSuggestion = {
   category: 'Straatnamen'
 };
 
-const onSubmit = {
-  fn: jest.fn()
-};
-const onSuggestionActivate = {
-  fn: jest.fn()
-};
-const onSuggestionSelection = {
-  fn: jest.fn()
-};
-const onTextInput = {
-  fn: jest.fn()
-};
+const onSubmit = jest.fn();
+const onSuggestionActivate = jest.fn();
+const onSuggestionSelection = jest.fn();
+const onTextInput = jest.fn();
 
 describe('The AutoSuggest component', () => {
   beforeEach(() => {
@@ -92,83 +84,95 @@ describe('The AutoSuggest component', () => {
 
   it('optionally fills the searchbox with a query', () => {
     // Without a query
-    const emptyAutoSuggestComponent = mount(<AutoSuggest
+    const autoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit.fn}
-      onSuggestionActivate={onSuggestionActivate.fn}
-      onSuggestionSelection={onSuggestionSelection.fn}
-      onTextInput={onTextInput.fn}
+      onSubmit={onSubmit}
+      onSuggestionActivate={onSuggestionActivate}
+      onSuggestionSelection={onSuggestionSelection}
+      onTextInput={onTextInput}
     />);
-    expect(emptyAutoSuggestComponent.find('input#auto-suggest-textinput').text()).toBe('');
+    expect(autoSuggestComponent.find('input#auto-suggest-textinput').text()).toBe('');
 
     // With a query
-    const filledAutoSuggestComponent = mount(<AutoSuggest
+    const prefilledAutoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit.fn}
-      onSuggestionActivate={onSuggestionActivate.fn}
-      onSuggestionSelection={onSuggestionSelection.fn}
-      onTextInput={onTextInput.fn}
+      onSubmit={onSubmit}
+      onSuggestionActivate={onSuggestionActivate}
+      onSuggestionSelection={onSuggestionSelection}
+      onTextInput={onTextInput}
       query={mockFilledState.query}
     />, { disableLifecycleMethods: false });
 
-    filledAutoSuggestComponent.setProps({ query: mockFilledState.query });
-    filledAutoSuggestComponent.update();
+    // trigger the componentDidUpdate method
+    prefilledAutoSuggestComponent.setProps({ query: mockFilledState.query });
+    prefilledAutoSuggestComponent.update();
 
-    expect(filledAutoSuggestComponent).toMatchSnapshot();
+    expect(prefilledAutoSuggestComponent).toMatchSnapshot();
   });
 
   it('calls the prop function "onTextInput" on text input', () => {
-    const emptyAutoSuggestComponent = mount(<AutoSuggest
+    const autoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit.fn}
-      onSuggestionActivate={onSuggestionActivate.fn}
-      onSuggestionSelection={onSuggestionSelection.fn}
-      onTextInput={onTextInput.fn}
-    />);
+      onSubmit={onSubmit}
+      onSuggestionActivate={onSuggestionActivate}
+      onSuggestionSelection={onSuggestionSelection}
+      onTextInput={onTextInput}
+      query={mockFilledState.query}
+    />, { disableLifecycleMethods: false });
 
-    jest.spyOn(onTextInput, 'fn');
-    const inputField = emptyAutoSuggestComponent.find('input#auto-suggest-textinput');
+    // trigger the componentDidUpdate method
+    autoSuggestComponent.setProps({ query: mockFilledState.query });
+    autoSuggestComponent.update();
+
+    const inputField = autoSuggestComponent.find('input#auto-suggest-textinput');
     inputField.simulate('input', { target: { value: 'd' } });
     inputField.simulate('input', { target: { value: 'a' } });
     inputField.simulate('input', { target: { value: 'm' } });
 
-    expect(onTextInput.fn).toHaveBeenCalledTimes(3);
+    expect(onTextInput).toHaveBeenCalledTimes(3);
   });
 
   it('should toggle the "showsuggestions" state on focus and blur of the input field', () => {
     jest.useFakeTimers();
-    const emptyAutoSuggestComponent = mount(<AutoSuggest
+    const autoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit.fn}
-      onSuggestionActivate={onSuggestionActivate.fn}
-      onSuggestionSelection={onSuggestionSelection.fn}
-      onTextInput={onTextInput.fn}
-    />);
+      onSubmit={onSubmit}
+      onSuggestionActivate={onSuggestionActivate}
+      onSuggestionSelection={onSuggestionSelection}
+      onTextInput={onTextInput}
+      suggestions={mockFilledState.suggestions}
+      query={mockFilledState.query}
+    />, { disableLifecycleMethods: false });
 
-    expect(emptyAutoSuggestComponent.state().showSuggestions).toBe(false);
-    const inputField = emptyAutoSuggestComponent.find('input#auto-suggest-textinput');
+    // trigger the componentDidUpdate method
+    autoSuggestComponent.setProps({ query: mockFilledState.query });
+    autoSuggestComponent.update();
+
+    const inputField = autoSuggestComponent.find('input#auto-suggest-textinput');
+
+    expect(autoSuggestComponent).toMatchSnapshot();
     inputField.simulate('focus');
-    expect(emptyAutoSuggestComponent.state().showSuggestions).toBe(true);
+    expect(autoSuggestComponent).toMatchSnapshot();
     inputField.simulate('blur');
     jest.runAllTimers();
-    expect(emptyAutoSuggestComponent.state().showSuggestions).toBe(false);
+    expect(autoSuggestComponent).toMatchSnapshot();
   });
 
   it('should allow the user to navigate with the keyboard', () => {
-    const emptyAutoSuggestComponent = mount(<AutoSuggest
+    const autoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit.fn}
-      onSuggestionActivate={onSuggestionActivate.fn}
-      onSuggestionSelection={onSuggestionSelection.fn}
-      onTextInput={onTextInput.fn}
+      onSubmit={onSubmit}
+      onSuggestionActivate={onSuggestionActivate}
+      onSuggestionSelection={onSuggestionSelection}
+      onTextInput={onTextInput}
       suggestions={mockFilledState.suggestions}
       query={mockFilledState.query}
       numberOfSuggestions={mockFilledState.numberOfSuggestions}
     />);
 
-    const inputField = emptyAutoSuggestComponent.find('input#auto-suggest-textinput');
+    const inputField = autoSuggestComponent.find('input#auto-suggest-textinput');
     inputField.simulate('focus');
-    expect(emptyAutoSuggestComponent).toMatchSnapshot();
+    expect(autoSuggestComponent).toMatchSnapshot();
     inputField.simulate('keydown', {
       target: {
         keyCode: 40,
@@ -179,19 +183,18 @@ describe('The AutoSuggest component', () => {
         altKey: false
       }
     });
-    expect(emptyAutoSuggestComponent).toMatchSnapshot();
+    expect(autoSuggestComponent).toMatchSnapshot();
   });
 
   describe('when selecting a suggestion', () => {
     it('should set "shouldopeninnewwindow" boolean true if ctrl key is pressed', () => {
-      const emptyAutoSuggestComponent = mount(<AutoSuggest
+      const autoSuggestComponent = mount(<AutoSuggest
         activeSuggestion={{ index: -1 }}
-        onSubmit={onSubmit.fn}
-        onSuggestionActivate={onSuggestionActivate.fn}
-        onSuggestionSelection={onSuggestionSelection.fn}
-        onTextInput={onTextInput.fn}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
       />);
-      jest.spyOn(onSuggestionSelection, 'fn');
 
       const mockEvent = {
         preventDefault: jest.fn(),
@@ -200,20 +203,19 @@ describe('The AutoSuggest component', () => {
         metaKey: false
       };
 
-      emptyAutoSuggestComponent.instance().onSuggestionSelection(selectedSuggestion, mockEvent);
-      expect(onSuggestionSelection.fn).toHaveBeenCalledWith(selectedSuggestion, true);
+      autoSuggestComponent.instance().onSuggestionSelection(selectedSuggestion, mockEvent);
+      expect(onSuggestionSelection).toHaveBeenCalledWith(selectedSuggestion, true);
     });
 
 
-    it('should set "shouldopeninnewwindow" boolean false if no ctrl key is pressed', () => {
-      const emptyAutoSuggestComponent = mount(<AutoSuggest
+    fit('should set "shouldopeninnewwindow" boolean false if no ctrl key is pressed', () => {
+      const autoSuggestComponent = mount(<AutoSuggest
         activeSuggestion={{ index: -1 }}
-        onSubmit={onSubmit.fn}
-        onSuggestionActivate={onSuggestionActivate.fn}
-        onSuggestionSelection={onSuggestionSelection.fn}
-        onTextInput={onTextInput.fn}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
       />);
-      jest.spyOn(onSuggestionSelection, 'fn');
 
       const mockEvent = {
         preventDefault: jest.fn(),
@@ -222,8 +224,8 @@ describe('The AutoSuggest component', () => {
         metaKey: false
       };
 
-      emptyAutoSuggestComponent.instance().onSuggestionSelection(selectedSuggestion, mockEvent);
-      expect(onSuggestionSelection.fn).toHaveBeenCalledWith(selectedSuggestion, false);
+      autoSuggestComponent.instance().onSuggestionSelection(selectedSuggestion, mockEvent);
+      expect(onSuggestionSelection).toHaveBeenCalledWith(selectedSuggestion, false);
     });
   });
 
