@@ -6,8 +6,8 @@
             <button type="button" ng-if="vm.apiData.results.canEditDataset" class="resources-button resources-button-new" onclick="alert('not implemented');return false;" />
         </div>
         <div class="resources-type__content" ng-repeat="resource in resourceType.rows">
-            <div class="resources-type__content-item piwik_download">
-                <div class="resources-item" dp-follow-link="{{ resource['dcat:accessURL'] }}">
+            <div class="resources-type__content-item">
+                <a class="resources-item piwik_download" dp-follow-link="{{ resource['dcat:accessURL'] }}">
                     <div class="resources-item__modified" ng-if="resource['dct:modified']">
                         gewijzigd op {{resource['dct:modified'] | date:'dd MMMM yyyy' }}
                     </div>
@@ -25,7 +25,7 @@
                         </span>
                         <span>{{resource['dct:description']}}</span>
                     </div>
-                </div>
+                </a>
 
 
                 <button type="button" ng-if="vm.apiData.results.canEditDataset" class="resources-button resources-button-edit" onclick="alert('not implemented');return false;"/>
