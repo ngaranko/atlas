@@ -89,19 +89,16 @@ describe('The dataSelectionApiDcatd factory', function () {
         spyOn(api, 'getByUri').and.callThrough();
     });
 
-    it('calls the api factory with available no parameters', function () {
+    it('doesn\'t call the api factory when no parameters are provided', function () {
         dataSelectionApiDcatd.query(config, {}, 1);
-        expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
-            offset: 0,
-            limit: config.MAX_ITEMS_PER_PAGE
-        });
+        expect(api.getByUri).not.toHaveBeenCalled();
     });
 
     it('calls the api factory with theme parameter and searchText', function () {
         // With an active filter and search text
         dataSelectionApiDcatd.query(config, {
             groups: 'energie'
-        }, 1, 'searchText');
+        }, 1, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
@@ -115,7 +112,7 @@ describe('The dataSelectionApiDcatd factory', function () {
         dataSelectionApiDcatd.query(config, {
             groups: 'energie',
             data_format: 'application/pdf'
-        }, 1, 'searchText');
+        }, 1, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
@@ -127,7 +124,7 @@ describe('The dataSelectionApiDcatd factory', function () {
         api.getByUri.calls.reset();
 
         // With another page
-        dataSelectionApiDcatd.query(config, {}, 2, 'searchText');
+        dataSelectionApiDcatd.query(config, {}, 2, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 2,
             limit: config.MAX_ITEMS_PER_PAGE,
@@ -139,7 +136,7 @@ describe('The dataSelectionApiDcatd factory', function () {
         // With an active filter and search text
         dataSelectionApiDcatd.query(config, {
             owner: 'owner'
-        }, 1, 'searchText');
+        }, 1, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,

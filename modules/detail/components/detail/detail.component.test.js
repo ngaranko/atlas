@@ -5,8 +5,14 @@ describe('the dp-detail component', () => {
         store,
         ACTIONS,
         mockedUser,
-        mockedGeometryPoint = {type: 'Point', coordinates: 'FAKE_NUMMERAANDUIDING_POINT'},
-        mockedGeometryMultiPolygon = {type: 'MultiPolygon', coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'};
+        mockedGeometryPoint = {
+            type: 'Point',
+            coordinates: 'FAKE_NUMMERAANDUIDING_POINT'
+        },
+        mockedGeometryMultiPolygon = {
+            type: 'MultiPolygon',
+            coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'
+        };
 
     const grondexploitatieEndPoint = 'http://www.fake-endpoint.com/grondexploitatie/project/987/';
     const naturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/123/';
@@ -14,10 +20,9 @@ describe('the dp-detail component', () => {
 
     beforeEach(() => {
         angular.mock.module(
-            'dpDetail',
-            {
+            'dpDetail', {
                 store: {
-                    dispatch: () => {},
+                    dispatch: () => { },
                     getState: angular.noop
                 },
                 api: {
@@ -25,8 +30,8 @@ describe('the dp-detail component', () => {
                         var q = $q.defer();
 
                         if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
-                                endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/' ||
-                                endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
+                            endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/' ||
+                            endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
                             q.resolve({
                                 _display: 'Adresstraat 1A',
                                 dummy: 'A',
@@ -101,7 +106,7 @@ describe('the dp-detail component', () => {
                         var templateUrl = 'modules/detail/components/detail/templates/';
 
                         if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
-                                endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
+                            endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
                             templateUrl += 'bag/nummeraanduiding';
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
                             templateUrl += 'brk/object';
@@ -122,7 +127,7 @@ describe('the dp-detail component', () => {
                         var q = $q.defer();
 
                         if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
-                                endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
+                            endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
                             q.resolve(mockedGeometryPoint);
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
                             q.resolve(mockedGeometryMultiPolygon);
@@ -334,7 +339,7 @@ describe('the dp-detail component', () => {
 
         expect(store.dispatch).not.toHaveBeenCalled();
 
-        // Set an initial endpoint
+            // Set an initial endpoint
         endpoint = 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/';
         component = getComponent(endpoint, false);
         scope = component.isolateScope();
@@ -360,7 +365,7 @@ describe('the dp-detail component', () => {
             payload: false
         });
 
-        // Change the endpoint
+            // Change the endpoint
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/object/789/';
         $rootScope.$apply();
 
@@ -393,12 +398,12 @@ describe('the dp-detail component', () => {
 
         expect(store.dispatch).not.toHaveBeenCalled();
 
-        // Set an initial endpoint
+            // Set an initial endpoint
         endpoint = 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/';
         component = getComponent(endpoint, false);
         scope = component.isolateScope();
 
-        // Turn on the reload flag
+            // Turn on the reload flag
         scope.vm.reload = true;
         $rootScope.$apply();
 

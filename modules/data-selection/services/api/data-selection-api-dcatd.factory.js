@@ -14,7 +14,7 @@
             query: query
         };
 
-        function query (config, activeFilters, page, searchText, geometryFilter, catalogFilters) {
+        function query (config, activeFilters, page, searchText = '', geometryFilter = undefined, catalogFilters = {}) {
             const deferred = $q.defer(),
                 searchParams = {
                     offset: (page - 1) * config.MAX_ITEMS_PER_PAGE,
