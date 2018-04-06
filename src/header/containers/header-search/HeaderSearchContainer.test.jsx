@@ -159,6 +159,9 @@ describe('HeaderSearchContainer', () => {
 
   describe('onFormSubmit', () => {
     it('does no call if there is an active suggestion', () => {
+      // in this case the 'onSuggestionSelection()' should be called, but this logic is in
+      // the AutoSuggest component.
+
       const store = configureMockStore()({
         ...initialState,
         autoSuggest: {
@@ -174,7 +177,6 @@ describe('HeaderSearchContainer', () => {
         }
       });
 
-      jest.spyOn(store, 'dispatch');
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onFormSubmit();
@@ -196,7 +198,6 @@ describe('HeaderSearchContainer', () => {
         }
       });
 
-      jest.spyOn(store, 'dispatch');
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onFormSubmit();
@@ -218,7 +219,6 @@ describe('HeaderSearchContainer', () => {
         }
       });
 
-      jest.spyOn(store, 'dispatch');
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onFormSubmit();

@@ -208,7 +208,7 @@ describe('The AutoSuggest component', () => {
     });
 
 
-    fit('should set "shouldopeninnewwindow" boolean false if no ctrl key is pressed', () => {
+    it('should set "shouldopeninnewwindow" boolean false if no ctrl key is pressed', () => {
       const autoSuggestComponent = mount(<AutoSuggest
         activeSuggestion={{ index: -1 }}
         onSubmit={onSubmit}
