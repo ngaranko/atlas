@@ -4,27 +4,41 @@
 .resources {
   margin-left: -20px;
   margin-right: -20px;
-
-  .resources-item__description{
-    :first-child{
-      margin-right: 5px;
+  &-item {
+    display: flex;
+    &__left {
+      flex-grow: 1;
+    }
+    &__right {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+    &__modified {
+      position: initial;
+      right: auto;
+    }
+    &__description {
+      :first-child {
+        margin-right: 5px;
+      }
+    }
+    &__navigation {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: -7px;
+      &-file-size {
+        padding-top: 3px;
+      }
+      &-arrow {
+        @extend %icon-arrow-right;
+        height: 24.5px;
+        width: 24.5px;
+        background-size: 100%;
+      }
     }
   }
-
-  .resources-item__navigate-arrow {
-    bottom: 0;
-    position: absolute;
-    right: 60px;
-
-    &::after {
-      @extend %icon-arrow-right;
-      bottom: -5px;
-      content: "";
-      display: inline-block;
-      height: 35px;
-      position: absolute;
-      width: 35px;
-    }
+  &-button{
+    margin-left: 31px; 
   }
 }
 
@@ -38,13 +52,28 @@
     }
   }
   .o-header__subtitle {
-    position: relative;
-    .navigate-button {
+    .o-header__button.catalog__button--wijzigen {
+      &::before {
+        @extend %icon-edit;
+        &:hover {
+          @extend %icon-edit-white;
+        }
+        content: "";
+        display: block;
+        height: 24px;
+        width: 24px;
+        margin-right: 13px;
+        background-size: 90%;
+      }
       @extend %icon--border-hover;
       @include icon-label-right("forward", "", "white", "tall");
-      position: absolute;
-      right: 0;
     }
+    .o-header__button.c-stelselpedia__button {
+      height: 32px;
+      width: 32px;
+      padding-left: 5px;
+    }
+    padding: auto 10px auto 10px;
   }
   .c-catalogus-theme {
     display: flex;
@@ -54,9 +83,34 @@
       padding: 10px;
     }
   }
-  .resources-item__description{
-    &:first-child{
-      margin-right: 10px;
+  .o-tag--transparent {
+    display: inline-block;
+    &>i {
+      width: 16.97056274847714;
+      height: 16.97056274847714;
+      border-color: $secondary-gray30;
+      border-style: solid;
+      border-width: 0 0 1px 1px;
+      display: inline-block;
+      padding: 8.58528137423857px;
+      position: relative;
+      top: 3.3px;
+      left: 13.16px; //transform: rotate(135deg);
+      -webkit-transform: rotate(45deg);
+    }
+    &>span {
+      border-top: 1px solid $secondary-gray30;
+      border-right: 1px solid $secondary-gray30;
+      border-bottom: 1px solid $secondary-gray30;
+      color: $secondary-gray80;
+      display: inline-block;
+      height: 26px;
+      line-height: 26px;
+      margin: $base-whitespace / 2 0 $base-whitespace / 2;
+      padding: 0 20px 0 23px;
+      position: relative;
+      text-decoration: none;
+      text-transform: capitalize;
     }
   }
 }

@@ -57,15 +57,13 @@
             data.resources = resourceTypes.map((item, index) => {
                 return {
                     type: item.id,
-                    rows: resources.filter((row) => row['ams:resourceType'] === item.id)
+                    rows: resources.filter((row) => row['ams:resourceType'] === item.id) // .map((r) => {r['dct:modified'] = '2018-01-07'; return r;})
                 };
             }).filter(resource => resource.rows.length > 0);
 
             delete data['dcat:distribution'];
             data.editDatasetUrl = `dcatd_admin/datasets/${data['dct:identifier']}`;
             data.canEditDataset = state.user.scopes.includes('CAT/W');
-            // data.canEditDataset = state.user.scopes.includes('GREX/R');
-
             return data;
         }
     }
