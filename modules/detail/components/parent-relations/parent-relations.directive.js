@@ -23,30 +23,11 @@
     function DpParentRelationsController (PARENT_RELATIONS_CONFIG) {
         var vm = this;
 
-        vm.parentRelations = PARENT_RELATIONS_CONFIG
-            .map(convertToObject)
-            .map(getRelatedContent)
-            .filter(removeEmptyContent);
-
-        function convertToObject (parent) {
-            return {
-                variable: parent
-            };
-        }
-
-        function getRelatedContent (parent) {
-            parent.data = vm.content[parent.variable] || vm.content['_' + parent.variable] || null;
-
-            // @TODO remove the exception when backend uses correct variable name tg-3551
-            if (parent.variable === 'buurtcombinatie') {
-                parent.variable = 'wijk';
-            }
-
-            return parent;
-        }
-
-        function removeEmptyContent (parent) {
-            return parent.data !== null;
-        }
+        vm.parentRelations = PARENT_RELATIONS_CONFIG.keyOrder
+            .map((key) => ({
+                data: vm.content[key] || vm.content['_' + key] || null,
+                label: PARENT_RELATIONS_CONFIG.labels[key]
+            }))
+            .filter((item) => item.data !== null);
     }
 })();
