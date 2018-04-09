@@ -18,7 +18,9 @@ import getSharedConfig from '../../../shared/services/shared-config/shared-confi
 const mapStateToProps = (state) => ({
   activeSuggestion: state.autoSuggest.activeSuggestion,
   isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
+  isMapFullscreen: state.ui.isMapFullscreen,
   numberOfSuggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.count : 0,
+  pageName: state.page.name,
   query: state.autoSuggest.query,
   suggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.data : []
 });
@@ -113,9 +115,11 @@ class HeaderSearchContainer extends React.Component {
   render() {
     const {
       activeSuggestion,
+      isMapFullscreen,
       numberOfSuggestions,
       onSuggestionActivate,
       onTextInput,
+      pageName,
       query,
       suggestions
     } = this.props;
@@ -123,12 +127,14 @@ class HeaderSearchContainer extends React.Component {
     return (
       <AutoSuggest
         activeSuggestion={activeSuggestion}
+        isMapFullscreen={isMapFullscreen}
         legendTitle={'Data zoeken'}
         numberOfSuggestions={numberOfSuggestions}
         onSubmit={this.onFormSubmit}
         onSuggestionActivate={onSuggestionActivate}
         onSuggestionSelection={this.onSuggestionSelection}
         onTextInput={onTextInput}
+        pageName={pageName}
         placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
         query={query}
         suggestions={suggestions}
@@ -145,6 +151,7 @@ HeaderSearchContainer.defaultProps = {
   activeSuggestion: {},
   isDatasetView: false,
   numberOfSuggestions: 0,
+  pageName: '',
   prefillQuery: '',
   query: '',
   suggestions: []
@@ -158,6 +165,7 @@ HeaderSearchContainer.propTypes = {
     uri: PropTypes.string
   }),
   isDatasetView: PropTypes.bool,
+  isMapFullscreen: PropTypes.bool.isRequired,
   numberOfSuggestions: PropTypes.number,
   onCleanDatasetOverview: PropTypes.func.isRequired,
   onDatasetSearch: PropTypes.func.isRequired,
@@ -165,6 +173,7 @@ HeaderSearchContainer.propTypes = {
   onSearch: PropTypes.func.isRequired,
   onSuggestionActivate: PropTypes.func.isRequired,
   onTextInput: PropTypes.func.isRequired,
+  pageName: PropTypes.string,
   prefillQuery: PropTypes.string,
   query: PropTypes.string,
   suggestions: PropTypes.arrayOf(PropTypes.object)

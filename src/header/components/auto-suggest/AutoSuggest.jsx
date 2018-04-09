@@ -27,13 +27,26 @@ class AutoSuggest extends React.Component {
     this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
 
     this.state = {
+      lastActionIsFormSubmit: false,
       showSuggestions: false,
       setPrefillQuery: true
     };
   }
 
-  componentDidUpdate() {
-    const { activeSuggestion, query } = this.props;
+  componentDidUpdate(prevProps) {
+    const {
+      activeSuggestion,
+      isMapFullscreen,
+      pageName,
+      query
+    } = this.props;
+
+    // navigating from Home to the Map does not change the pageName
+    // thats why we do an extra check for isMapFullscreen
+    const isPageNavigation =
+      prevProps.pageName !== pageName ||
+      prevProps.isMapFullscreen !== isMapFullscreen;
+
     if (activeSuggestion.index > -1) {
       this.textInput.value = activeSuggestion.label;
     }
@@ -52,6 +65,10 @@ class AutoSuggest extends React.Component {
       */
       this.textInput.value = query;
     }
+
+    if (!this.state.lastActionIsFormSubmit && isPageNavigation) {
+      this.clearQuery(false);
+    }
   }
 
   onBlur() {
@@ -69,14 +86,21 @@ class AutoSuggest extends React.Component {
     onTextInput(event.target.value);
 
     this.setState({
+      lastActionIsFormSubmit: false,
       showSuggestions: true,
       setPrefillQuery: false
     });
   }
 
   onFocus() {
-    const { onTextInput, suggestions, query } = this.props;
+    const {
+      onTextInput,
+      suggestions,
+      query
+    } = this.props;
+
     this.setState({
+      lastActionIsFormSubmit: false,
       showSuggestions: true,
       setPrefillQuery: false
     });
@@ -105,12 +129,21 @@ class AutoSuggest extends React.Component {
     event.stopPropagation();
 
     this.setState({
+      lastActionIsFormSubmit: true,
       showSuggestions: false
+    }, () => {
+      this.resetActiveSuggestion();
+      onSubmit();
     });
 
-    this.resetActiveSuggestion();
-
-    onSubmit();
+    setTimeout(() => {
+      // reset the value of "lastActionIsFormSubmit"
+      // to ensure that the inputfield is reset if the user navigates away
+      // without interacting
+      this.setState({
+        lastActionIsFormSubmit: false
+      });
+    }, 200);
   }
 
   navigateSuggestions(event) {
@@ -176,10 +209,12 @@ class AutoSuggest extends React.Component {
     }
   }
 
-  clearQuery() {
+  clearQuery(shouldFocus = true) {
     const { onTextInput } = this.props;
     this.textInput.value = '';
-    this.textInput.focus();
+    if (shouldFocus) {
+      this.textInput.focus();
+    }
     this.resetActiveSuggestion();
     this.setState({
       showSuggestions: false
@@ -280,20 +315,23 @@ AutoSuggest.propTypes = {
     label: PropTypes.string,
     uri: PropTypes.string
   }).isRequired,
+  isMapFullscreen: PropTypes.bool.isRequired,
   legendTitle: PropTypes.string,
   numberOfSuggestions: PropTypes.number,
   onSubmit: PropTypes.func.isRequired,
+  onSuggestionActivate: PropTypes.func.isRequired,
   onSuggestionSelection: PropTypes.func.isRequired,
   onTextInput: PropTypes.func.isRequired,
+  pageName: PropTypes.string,
   placeHolder: PropTypes.string,
   query: PropTypes.string,
-  onSuggestionActivate: PropTypes.func.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object)
 };
 
 AutoSuggest.defaultProps = {
   legendTitle: '',
   numberOfSuggestions: 0,
+  pageName: '',
   placeHolder: '',
   query: '',
   suggestions: []
