@@ -3,6 +3,7 @@
   "fixturesFolder": "test/cypress/fixtures",
   "integrationFolder": "test/cypress/integration",
   "pluginsFile": "test/cypress/plugins/index.js",
+  "requestTimeout": 15000,
   "screenshotOnHeadlessFailure": false,
   "screenshotsFolder": "test/cypress/screenshots",
   "supportFile": "test/cypress/support/index.js",
