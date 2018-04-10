@@ -59,25 +59,31 @@
             // Filter on fields allowed by current authorization level
             const fields = DATA_SELECTION_CONFIG.datasets[dataset].CONTENT[view];
 
-            return {
-                head: fields.map(item => item.label),
-                body: rawData.map(rawDataRow => {
-                    return {
-                        detailEndpoint: rawDataRow._links.self.href,
-                        content: fields.map(item => {
-                            return item.variables.map(variable => {
-                                const path = variable.split('.');
-                                return {
-                                    key: variable,
-                                    value: recurGetContent(path, rawDataRow)
-                                };
-                            });
-                        })
-                    };
-                }),
-                formatters: fields.map(item => item.formatter),
-                templates: fields.map(item => item.template)
-            };
+            // For the catalog return the data unformatted.
+            // The formatting is complex an will be done in the catalog view component
+            if (view === 'CARDS') {
+                return rawData;
+            } else {
+                return {
+                    head: fields.map(item => item.label),
+                    body: rawData.map(rawDataRow => {
+                        return {
+                            detailEndpoint: rawDataRow._links.self.href,
+                            content: fields.map(item => {
+                                return item.variables.map(variable => {
+                                    const path = variable.split('.');
+                                    return {
+                                        key: variable,
+                                        value: recurGetContent(path, rawDataRow)
+                                    };
+                                });
+                            })
+                        };
+                    }),
+                    formatters: fields.map(item => item.formatter),
+                    templates: fields.map(item => item.template)
+                };
+            }
         }
 
         function recurGetContent (path, rawData) {

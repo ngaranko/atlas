@@ -23,7 +23,7 @@
                     !angular.isObject(state.straatbeeld);
 
             if ((isCardsView) ||
-                (state.detail && state.detail.endpoint.includes('/catalogus/api/'))) {
+                (state.detail && state.detail.endpoint.includes('/dcatd/datasets/'))) {
                 // Search in datasets
                 vm.query = state.dataSelection && state.dataSelection.query;
                 vm.searchAction = ACTIONS.FETCH_DATA_SELECTION;
