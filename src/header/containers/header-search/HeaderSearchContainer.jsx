@@ -70,8 +70,12 @@ class HeaderSearchContainer extends React.Component {
       prevProps.isMapFullscreen !== isMapFullscreen ||
       prevProps.pageName !== pageName;
 
+    // on navigation, clear auto-suggest
     if (doResetQuery && !prefillQuery) {
       onGetSuggestions();
+    } else if (prevProps.prefillQuery !== prefillQuery) {
+      // if the user ends up on a search page, set prefillQuery
+      onGetSuggestions(prefillQuery);
     }
   }
 

@@ -204,7 +204,7 @@ class AutoSuggest extends React.Component {
               ref={(input) => { this.textInput = input; }}
               spellCheck="false"
               type="text"
-              value={query}
+              value={query || ''}
             />
 
             {query &&
