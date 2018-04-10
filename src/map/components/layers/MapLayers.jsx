@@ -26,7 +26,7 @@ const MapLayers = (props) => (
             <h4 className="map-layers__category-text">{category}</h4>
             <ul>
               {props.layers
-                .filter((layer) => layer.category === category && showLayer(layer, props.user))
+                .filter((layer) => layer.category === category)
                 .map((layer) => (
                   <li
                     className={`
