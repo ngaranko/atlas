@@ -37,7 +37,7 @@
         function setSearchComponent () {
             $timeout(() => {
                 const autosuggestContainer = $window.document.querySelector('.react-auto-suggest-container');
-                render(React.createElement(searchWrapper, {prefillQuery: vm.query}), autosuggestContainer);
+                render(React.createElement(searchWrapper, null), autosuggestContainer);
             });
         }
     }
