@@ -1,9 +1,4 @@
-/* eslint-disable */
-
-// helper function, to extract the number in the titles
-function getNumberInText(text) {
-  return parseInt(text.match(/\(([1-9.,]*)\)/)[1].replace('.', ''));
-}
+import { getCountFromHeader } from '../support/helper-functions';
 
 describe('search module', () => {
   beforeEach(() => {
@@ -12,25 +7,35 @@ describe('search module', () => {
   });
 
   it('should show 4 categories when searching for the term "Oost"', () => {
+    cy.server();
+    cy.route('/typeahead?q=oost').as('getResults');
+
     cy.get('#global-search').type('oost');
+
+    cy.wait('@getResults');
     // count the headers inside the autocomplete
     cy.get('h4.qa-autocomplete-header').then((headers) => {
-      expect(headers.length).to.eq(4)
-    })
+      expect(headers.length).to.eq(4);
+    });
   });
 
   it('should show results when searching for "dam"', () => {
+    cy.server();
+    cy.defineSearchRoutes();
+
     cy.get('#global-search').type('dam');
     // submit search form
     cy.get('.c-search-form').submit();
+
+    cy.waitForSearch(false);
     cy.get('h2').contains('Openbare ruimtes').then((title) => {
-      expect(getNumberInText(title.text())).to.equal(7)
+      expect(getCountFromHeader(title.text())).to.be.within(2, 10);
     });
     cy.get('h2').contains('Adressen').then((title) => {
-      expect(getNumberInText(title.text())).to.equal(369)
+      expect(getCountFromHeader(title.text())).to.be.within(250, 450);
     });
     cy.get('h2').contains('Monumenten').then((title) => {
-      expect(getNumberInText(title.text())).to.equal(49)
+      expect(getCountFromHeader(title.text())).to.be.within(10, 100);
     });
     cy.get('h2').contains('Adressen').parent().parent().find('.c-show-more').click();
     cy.get('li').contains('nevenadres').should('exist').and('be.visible');

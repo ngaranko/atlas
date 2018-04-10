@@ -7,12 +7,6 @@ describe('The dp-parent-relations directive', function () {
         angular.mock.module(
             'dpDetail',
             function ($provide) {
-                $provide.constant('PARENT_RELATIONS_CONFIG', [
-                    'universe',
-                    'planet',
-                    'buurtcombinatie',
-                    'verblijfsobject'
-                ]);
                 $provide.factory('dpLinkDirective', function () {
                     return {};
                 });
@@ -25,35 +19,51 @@ describe('The dp-parent-relations directive', function () {
         });
 
         mockedContent = {
-            universe: {
-                _display: 'Het allerhoogste niveau',
+            stadsdeel: {
+                _display: 'Centrum',
                 _links: {
                     self: {
-                        href: 'http://www.example.com/bag/universe/1'
-                    }
-                }
-            },
-            planet: {
-                _display: 'Aarde',
-                _links: {
-                    self: {
-                        href: 'http://www.example.com/bag/planet/1'
+                        href: 'https://acc.data.amsterdam.nl/bag/stadsdeel/1'
                     }
                 }
             },
             buurtcombinatie: {
-                _display: 'Oost',
+                _display: 'Burgwallen',
                 _links: {
                     self: {
-                        href: 'http://www.example.com/bag/_display/666'
+                        href: 'https://acc.data.amsterdam.nl/bag/buurtcombinatie/1'
                     }
                 }
             },
-            verblijfsobject: {
-                _display: 'Weesperstraat 113',
+            buurt: {
+                _display: 'Oude Kerk',
                 _links: {
                     self: {
-                        href: 'http://www.example.com/bag/addresseerbaar-object/114'
+                        href: 'https://acc.data.amsterdam.nl/bag/buurt/1'
+                    }
+                }
+            },
+            bouwblok: {
+                _display: 'YA77',
+                _links: {
+                    self: {
+                        href: 'https://acc.data.amsterdam.nl/bag/bouwblok/1'
+                    }
+                }
+            },
+            gebiedsgerichtwerken: {
+                _display: 'Centrum-West',
+                _links: {
+                    self: {
+                        href: 'https://acc.data.amsterdam.nl/bag/ggw/1'
+                    }
+                }
+            },
+            grootstedelijkgebied: {
+                _display: 'Noordzuidlijn',
+                _links: {
+                    self: {
+                        href: 'https://acc.data.amsterdam.nl/bag/gsg/1'
                     }
                 }
             }
@@ -84,48 +94,54 @@ describe('The dp-parent-relations directive', function () {
         directive = getDirective(content);
 
         expect(directive.find('dl').length).toBe(1);
-        expect(directive.find('dt').length).toBe(4);
-        expect(directive.find('dd').length).toBe(4);
+        expect(directive.find('dt').length).toBe(6);
+        expect(directive.find('dd').length).toBe(6);
 
-        expect(directive.find('dt:nth-of-type(1)').text().trim()).toBe('Universe');
-        expect(directive.find('dd:nth-of-type(1)').text().trim()).toBe('Het allerhoogste niveau');
+        expect(directive.find('dt:nth-of-type(1)').text().trim()).toBe('Stadsdeel');
+        expect(directive.find('dd:nth-of-type(1)').text().trim()).toBe('Centrum');
 
-        expect(directive.find('dt:nth-of-type(2)').text().trim()).toBe('Planet');
-        expect(directive.find('dd:nth-of-type(2)').text().trim()).toBe('Aarde');
+        expect(directive.find('dt:nth-of-type(2)').text().trim()).toBe('Wijk');
+        expect(directive.find('dd:nth-of-type(2)').text().trim()).toBe('Burgwallen');
 
-        expect(directive.find('dt:nth-of-type(3)').text().trim()).toBe('Wijk');
-        expect(directive.find('dd:nth-of-type(3)').text().trim()).toBe('Oost');
+        expect(directive.find('dt:nth-of-type(3)').text().trim()).toBe('Buurt');
+        expect(directive.find('dd:nth-of-type(3)').text().trim()).toBe('Oude Kerk');
 
-        expect(directive.find('dt:nth-of-type(4)').text().trim()).toBe('Verblijfsobject');
-        expect(directive.find('dd:nth-of-type(4)').text().trim()).toBe('Weesperstraat 113');
+        expect(directive.find('dt:nth-of-type(4)').text().trim()).toBe('Bouwblok');
+        expect(directive.find('dd:nth-of-type(4)').text().trim()).toBe('YA77');
+
+        expect(directive.find('dt:nth-of-type(5)').text().trim()).toBe('Gebiedsgericht werken');
+        expect(directive.find('dd:nth-of-type(5)').text().trim()).toBe('Centrum-West');
+
+        expect(directive.find('dt:nth-of-type(6)').text().trim()).toBe('Grootstedelijk gebied');
+        expect(directive.find('dd:nth-of-type(6)').text().trim()).toBe('Noordzuidlijn');
     });
 
     it('doesn\'t show missing relations', function () {
         var directive,
             content = angular.copy(mockedContent);
 
-        delete content.verblijfsobject;
+        delete content.grootstedelijkgebied;
         directive = getDirective(content);
 
         expect(directive.find('dl').length).toBe(1);
-        expect(directive.find('dt').length).toBe(3);
-        expect(directive.find('dd').length).toBe(3);
+        expect(directive.find('dt').length).toBe(5);
+        expect(directive.find('dd').length).toBe(5);
     });
 
     it('supports API data with and without prefix underscores', function () {
         var directive,
             content = angular.copy(mockedContent),
-            verblijfsobjectData = angular.copy(content.verblijfsobject);
+            data = angular.copy(content.grootstedelijkgebied);
 
-        delete content.verblijfsobject;
-        content._verblijfsobject = verblijfsobjectData;
+        delete content.grootstedelijkgebied;
+        content._grootstedelijkgebied = data;
         directive = getDirective(content);
 
         expect(directive.find('dl').length).toBe(1);
-        expect(directive.find('dt').length).toBe(4);
-        expect(directive.find('dd').length).toBe(4);
+        expect(directive.find('dt').length).toBe(6);
+        expect(directive.find('dd').length).toBe(6);
 
-        expect(directive.find('dt:nth-of-type(4)').text().trim()).toBe('Verblijfsobject');
-        expect(directive.find('dd:nth-of-type(4)').text().trim()).toBe('Weesperstraat 113');
+        expect(directive.find('dt:nth-of-type(6)').text().trim()).toBe('Grootstedelijk gebied');
+        expect(directive.find('dd:nth-of-type(6)').text().trim()).toBe('Noordzuidlijn');
     });
 });
