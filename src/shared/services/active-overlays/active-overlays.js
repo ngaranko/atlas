@@ -1,5 +1,9 @@
 import getState from '../redux/get-state';
-import SOURCES from '../layers/overlays.constant';
+// import SOURCES from '../layers/overlays.constant';
+
+import mapLayers from '../../../map/services/map-layers';
+
+const findLayer = (id) => mapLayers.find((mapLayer) => mapLayer.id === id);
 
 class ActiveOverlays {
   constructor() {
@@ -12,11 +16,12 @@ class ActiveOverlays {
   }
 
   static isVisibleAtCurrentZoom(overlay, zoomLevel) {
-    if (!SOURCES[overlay]) {
+    const layer = findLayer(overlay);
+    if (!layer) {
       return false;
     }
     const zoom = zoomLevel || getState().map.zoom;
-    return zoom >= SOURCES[overlay].minZoom && zoom <= SOURCES[overlay].maxZoom;
+    return zoom >= layer.minZoom && zoom <= layer.maxZoom;
   }
 
   static isAuthorised(overlay) {
@@ -32,7 +37,7 @@ class ActiveOverlays {
     ));
     const authScope = layer && layer.authScope;
 
-    return SOURCES[overlay.id] && layer && (
+    return findLayer(overlay.id) && layer && (
       !authScope || (user.authenticated && user.scopes.includes(authScope))
     );
   }
@@ -42,6 +47,7 @@ class ActiveOverlays {
   }
 
   getVisibleOverlays(zoom) {
+    debugger;
     return this.getVisibleSources(zoom)
       .filter((source) => source.detailUrl && source.detailItem)
       .filter((a, index, self) => self.findIndex((b) => b.detailItem === a.detailItem === index));
@@ -68,7 +74,7 @@ class ActiveOverlays {
         ActiveOverlays.isAuthorised(source) &&
         ActiveOverlays.isVisibleAtCurrentZoom(source.id, zoom)
       ))
-      .map((source) => SOURCES[source.id]);
+      .map((source) => findLayer(source.id));
   }
 }
 
