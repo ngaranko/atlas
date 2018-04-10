@@ -41,16 +41,16 @@ class AutoSuggest extends React.Component {
 
     // navigating from Home to the Map does not change the pageName
     // thats why we do an extra check for isMapFullscreen
-    const isPageNavigation =
-      prevProps.queryFromUrl !== queryFromUrl;
+    const isPageNavigation = prevProps.queryFromUrl !== queryFromUrl;
 
     if (activeSuggestion.index > -1) {
       this.textInput.value = activeSuggestion.label;
     }
+
     if (this.state.setPrefillQuery && query.length) {
       /*
         if the prefillQuery is passed to the parent container
-        a initial call is done.
+        an initial call is done.
         Because of that, the query in the state is being updated
         we need to update the input value according to this query
         this cannot be done in the componentWill/DidMount of Autosuggest, as
@@ -324,7 +324,6 @@ AutoSuggest.propTypes = {
 AutoSuggest.defaultProps = {
   legendTitle: '',
   numberOfSuggestions: 0,
-  pageName: '',
   placeHolder: '',
   query: '',
   queryFromUrl: '',

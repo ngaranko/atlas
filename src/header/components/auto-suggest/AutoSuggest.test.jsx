@@ -53,7 +53,7 @@ const mockFilledState = {
     }
   ],
   query: 'dam',
-  numberOfSuggestions: 60,
+  numberOfSuggestions: 6,
   isDatasetView: false,
   activeSuggestion: {
     uri: 'monumenten/monumenten/8e8ae1dd-78a2-4a5f-841d-1870631b7e33/',
@@ -91,7 +91,7 @@ describe('The AutoSuggest component', () => {
       onSuggestionSelection={onSuggestionSelection}
       onTextInput={onTextInput}
     />);
-    expect(autoSuggestComponent.find('input#auto-suggest-textinput').text()).toBe('');
+    expect(autoSuggestComponent.instance().textInput.value).toBe('');
 
     // With a query
     const prefilledAutoSuggestComponent = mount(<AutoSuggest
@@ -107,7 +107,7 @@ describe('The AutoSuggest component', () => {
     prefilledAutoSuggestComponent.setProps({ query: mockFilledState.query });
     prefilledAutoSuggestComponent.update();
 
-    expect(prefilledAutoSuggestComponent).toMatchSnapshot();
+    expect(prefilledAutoSuggestComponent.instance().textInput.value).toBe('dam');
   });
 
   it('calls the prop function "onTextInput" on text input', () => {
@@ -117,14 +117,11 @@ describe('The AutoSuggest component', () => {
       onSuggestionActivate={onSuggestionActivate}
       onSuggestionSelection={onSuggestionSelection}
       onTextInput={onTextInput}
-      query={mockFilledState.query}
-    />, { disableLifecycleMethods: false });
+    />);
 
     // trigger the componentDidUpdate method
-    autoSuggestComponent.setProps({ query: mockFilledState.query });
-    autoSuggestComponent.update();
 
-    const inputField = autoSuggestComponent.find('input#auto-suggest-textinput');
+    const inputField = autoSuggestComponent.find('input#auto-suggest__input');
     inputField.simulate('input', { target: { value: 'd' } });
     inputField.simulate('input', { target: { value: 'a' } });
     inputField.simulate('input', { target: { value: 'm' } });
@@ -148,17 +145,24 @@ describe('The AutoSuggest component', () => {
     autoSuggestComponent.setProps({ query: mockFilledState.query });
     autoSuggestComponent.update();
 
-    const inputField = autoSuggestComponent.find('input#auto-suggest-textinput');
+    const inputField = autoSuggestComponent.find('input#auto-suggest__input');
 
     expect(autoSuggestComponent).toMatchSnapshot();
     inputField.simulate('focus');
+    autoSuggestComponent.update();
     expect(autoSuggestComponent).toMatchSnapshot();
     inputField.simulate('blur');
+    autoSuggestComponent.update();
     jest.runAllTimers();
+    autoSuggestComponent.update();
     expect(autoSuggestComponent).toMatchSnapshot();
   });
 
   it('should allow the user to navigate with the keyboard', () => {
+    /*
+        TODO: move to integration test
+        as the activesuggestion is set in the redux store
+     */
     const autoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
       onSubmit={onSubmit}
@@ -170,7 +174,7 @@ describe('The AutoSuggest component', () => {
       numberOfSuggestions={mockFilledState.numberOfSuggestions}
     />);
 
-    const inputField = autoSuggestComponent.find('input#auto-suggest-textinput');
+    const inputField = autoSuggestComponent.find('input#auto-suggest__input');
     inputField.simulate('focus');
     expect(autoSuggestComponent).toMatchSnapshot();
     inputField.simulate('keydown', {
@@ -183,11 +187,13 @@ describe('The AutoSuggest component', () => {
         altKey: false
       }
     });
+    autoSuggestComponent.setProps({ activeSuggestion: mockFilledState.activeSuggestion });
+    autoSuggestComponent.update();
     expect(autoSuggestComponent).toMatchSnapshot();
   });
 
   describe('when selecting a suggestion', () => {
-    it('should set "shouldopeninnewwindow" boolean true if ctrl key is pressed', () => {
+    it('should request to open in new window when CTRL key is pressed.', () => {
       const autoSuggestComponent = mount(<AutoSuggest
         activeSuggestion={{ index: -1 }}
         onSubmit={onSubmit}
@@ -203,12 +209,16 @@ describe('The AutoSuggest component', () => {
         metaKey: false
       };
 
-      autoSuggestComponent.instance().onSuggestionSelection(selectedSuggestion, mockEvent);
+      autoSuggestComponent.find('input#auto-suggest__input').simulate('focus');
+      autoSuggestComponent.find('input#auto-suggest__input').type('Dam');
+      autoSuggestComponent.setProps({ suggestions: mockFilledState.suggestions });
+      autoSuggestComponent.update();
+      autoSuggestComponent.find('.auto-suggest__dropdown-item').at(2).simulate('click', mockEvent);
       expect(onSuggestionSelection).toHaveBeenCalledWith(selectedSuggestion, true);
     });
 
 
-    it('should set "shouldopeninnewwindow" boolean false if no ctrl key is pressed', () => {
+    it('should not request to open in new window when no CTRL key is pressed.', () => {
       const autoSuggestComponent = mount(<AutoSuggest
         activeSuggestion={{ index: -1 }}
         onSubmit={onSubmit}
@@ -224,9 +234,12 @@ describe('The AutoSuggest component', () => {
         metaKey: false
       };
 
-      autoSuggestComponent.instance().onSuggestionSelection(selectedSuggestion, mockEvent);
+      autoSuggestComponent.find('input#auto-suggest__input').simulate('focus');
+      autoSuggestComponent.find('input#auto-suggest__input').type('Dam');
+      autoSuggestComponent.setProps({ suggestions: mockFilledState.suggestions });
+      autoSuggestComponent.update();
+      autoSuggestComponent.find('.auto-suggest__dropdown-item').at(2).simulate('click', mockEvent);
       expect(onSuggestionSelection).toHaveBeenCalledWith(selectedSuggestion, false);
     });
   });
-
 });
