@@ -14,12 +14,9 @@ pipeline {
     stage('Clean') {
       // TODO remove this stage when jenkins jobs run in isolation
       steps {
-        sh 'docker ps'
-        sh 'docker network ls'
-        sh 'docker-compose down -v || true'
-        sh 'docker network prune'
-        sh 'docker ps'
-        sh 'docker network ls'
+        sh "docker ps"
+        sh "docker-compose down -v || true"
+        sh "docker network prune -f"
       }
     }
     stage('Test & Bakkie') {
@@ -33,62 +30,63 @@ pipeline {
         }
         stage('Linting') {
           steps {
-            sh 'docker network prune'
-            sh 'docker-compose up --build --exit-code-from test-lint test-lint'
+            sh "docker network prune -f"
+            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-lint test-lint"
             // echo 'Skip'
           }
         }
         stage('Unit') {
           steps {
-            sh 'docker network prune'
-            sh 'docker-compose up --build --exit-code-from test-unit test-unit'
+            sh "docker network prune -f"
+            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-unit test-unit"
             // echo 'Skip'
           }
         }
         stage('Functional E2E') {
           environment {
             // Setting compose project name helps prevent service clash in unisolated Jenkins slaves
-            COMPOSE_PROJECT_NAME   = 'atlas-func-e2e'
+            E2E_NAME               = 'func-e2e'
             USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
             USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
             PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
             PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
           }
           steps {
-            sh 'docker network prune'
-            sh 'docker-compose up --build --exit-code-from test-e2e-functional test-e2e-functional'
+            sh "docker network prune -f"
+            sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} up --build --exit-code-from test-e2e-functional test-e2e-functional"
             // echo 'Skip'
           }
           post {
             always {
-              sh 'docker-compose down -v || true'
+              sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} down -v || true"
             }
           }
         }
         stage('Aria E2E') {
           environment {
             // Setting compose project name helps prevent service clash in unisolated Jenkins slaves
-            COMPOSE_PROJECT_NAME   = 'atlas-aria-e2e'
+            E2E_NAME               = 'aria-e2e'
           }
           steps {
-            sh 'docker network prune'
-            sh 'docker-compose up --build --exit-code-from test-e2e-aria test-e2e-aria'
+            sh "docker network prune -f"
+            sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} up --build --exit-code-from test-e2e-aria test-e2e-aria"
             // echo 'Skip'
           }
           post {
             always {
-              sh 'docker-compose down -v || true'
+              sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} down -v || true"
             }
           }
         }
       }
       post {
         always {
-          sh 'docker-compose down -v || true'
+          sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
         }
       }
     }
     stage('Build A') {
+      when { branch 'master' }
       steps {
         sh "docker build -t ${IMAGE_BUILD} " +
           "--shm-size 1G " +
@@ -157,8 +155,8 @@ pipeline {
   post {
     always {
       echo 'Cleaning'
-      sh 'docker-compose down -v || true'
-      sh 'docker network prune'
+      sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
+      sh "docker network prune -f"
     }
 
     success {
