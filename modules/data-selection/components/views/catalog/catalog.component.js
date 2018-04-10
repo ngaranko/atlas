@@ -12,9 +12,9 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionCatalogController.$inject = ['store', 'ACTIONS'];
+    DpDataSelectionCatalogController.$inject = ['store', 'ACTIONS', '$filter'];
 
-    function DpDataSelectionCatalogController (store, ACTIONS) {
+    function DpDataSelectionCatalogController (store, ACTIONS, $filter) {
         const vm = this;
 
         var state = store.getState();
@@ -31,14 +31,17 @@
 
         function getViewModel (content) {
             var result = content.map((item, index) => {
-                var ret = {};
-                ret.header = item['dct:title'];
-                ret.description = item['dct:description'];
-                ret.modification = { 'metadata_created': '2018-01-01', 'metadata_modified': '2018-03-01' };
-                ret.formats = item['dcat:distribution'].map(resource => resource['dct:format']);
-                ret.tags = item['dcat:keyword'];
-                ret.detailEndpoint = item._links.self.href;
-                return ret;
+                return {
+                    header: item['dct:title'],
+                    description: item['dct:description'],
+                    modification: {
+                        'metadata_created': '2018-01-01',
+                        'metadata_modified': '2018-03-01'
+                    },
+                    formats: $filter('aggregate')(item['dcat:distribution'].map(resource => resource['dct:format'])),
+                    tags: item['dcat:keyword'],
+                    detailEndpoint: item._links.self.href
+                };
             });
             return result;
         }

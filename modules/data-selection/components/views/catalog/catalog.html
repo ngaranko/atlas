@@ -7,15 +7,15 @@
         </h2>
 
         <span class="c-data-selection-catalog__formats">
-                <span ng-repeat="format in row.formats">*** {{format}} /// </span>
-            </span>
+            <span ng-repeat="format in row.formats">*** {{format.name | optionLabel:vm.catalogFilters.formatTypes| lowercase }} x {{format.count}} /// </span>
+        </span>
 
         <span class="c-data-selection-catalog__tags">
             <span ng-repeat="tag in row.tags">{{tag}} - </span>
         </span>
 
         <div class="c-data-selection-catalog__description">
-                {{row.description}}
+            {{row.description}}
         </div>
     </button>
 </div>

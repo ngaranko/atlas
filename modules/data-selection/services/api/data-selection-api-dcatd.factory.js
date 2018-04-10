@@ -48,7 +48,7 @@
                 deferred.reject();
             } else {
                 api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
-                    const count = data['dcat:dataset'].length;
+                    const count = data['dcat:dataset'].length * 3;
                     if (count !== 0) {
                         const results = data['dcat:dataset'];
                         deferred.resolve({
