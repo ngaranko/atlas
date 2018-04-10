@@ -16,7 +16,7 @@ pipeline {
       steps {
         sh "docker ps"
         sh "docker-compose down -v || true"
-        sh "docker network prune"
+        sh "docker network prune -f"
       }
     }
     stage('Test & Bakkie') {
@@ -30,14 +30,14 @@ pipeline {
         }
         stage('Linting') {
           steps {
-            sh "docker network prune"
+            sh "docker network prune -f"
             sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-lint test-lint"
             // echo 'Skip'
           }
         }
         stage('Unit') {
           steps {
-            sh "docker network prune"
+            sh "docker network prune -f"
             sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-unit test-unit"
             // echo 'Skip'
           }
@@ -52,8 +52,8 @@ pipeline {
             PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
           }
           steps {
-            sh "docker network prune"
-            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-e2e-functional test-e2e-functional"
+            sh "docker network prune -f"
+            sh "docker-compose -p ${env.BRANCH_NAME}-func-e2e up --build --exit-code-from test-e2e-functional test-e2e-functional"
             // echo 'Skip'
           }
         }
@@ -63,8 +63,8 @@ pipeline {
             COMPOSE_PROJECT_NAME   = 'atlas-aria-e2e'
           }
           steps {
-            sh "docker network prune"
-            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-e2e-aria test-e2e-aria"
+            sh "docker network prune -f"
+            sh "docker-compose -p ${env.BRANCH_NAME}-aria-e2e up --build --exit-code-from test-e2e-aria test-e2e-aria"
             // echo 'Skip'
           }
         }
@@ -146,7 +146,7 @@ pipeline {
     always {
       echo 'Cleaning'
       sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
-      sh "docker network prune"
+      sh "docker network prune -f"
     }
 
     success {
