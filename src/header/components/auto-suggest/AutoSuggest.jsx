@@ -61,9 +61,7 @@ class AutoSuggest extends React.Component {
       */
       this.textInput.value = query;
     }
-    console.log(prevProps.queryFromUrl, queryFromUrl)
     if (!this.state.lastActionIsFormSubmit && isPageNavigation) {
-      console.log('-- CLEAR')
       this.clearQuery(false);
     }
   }
