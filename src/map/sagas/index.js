@@ -5,6 +5,7 @@ import watchFetchMapLayers from './layers/map-layers';
 import watchFetchMapSearchResults from './search-results/map-search-results';
 import watchFetchMapDetail from './detail/map-detail';
 import watchFetchPanoPreview from '../../pano/sagas/preview/pano-preview';
+import watchMapClick from './map/map';
 
 export default function* rootSaga() {
   yield all([
@@ -12,6 +13,7 @@ export default function* rootSaga() {
     fork(watchFetchMapLayers),
     fork(watchFetchMapSearchResults),
     fork(watchFetchMapDetail),
-    fork(watchFetchPanoPreview)
+    fork(watchFetchPanoPreview),
+    fork(watchMapClick)
   ]);
 }

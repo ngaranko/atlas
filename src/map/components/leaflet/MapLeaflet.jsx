@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
 
 import NonTiledLayer from './custom/NonTiledLayer';
+import searchIcon from './services/search-icon';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
+
 
 class MapLeaflet extends React.Component {
   constructor() {
@@ -80,7 +82,7 @@ class MapLeaflet extends React.Component {
         }
         {
           markers.map((marker) => (
-            <Marker position={marker.position} />
+            <Marker position={marker.position} key={marker.position} icon={searchIcon} />
           ))
         }
         <ScaleControl {...scaleControlOptions} />

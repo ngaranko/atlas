@@ -23,6 +23,15 @@ export const getBaseLayer = (state, baseLayerOptions) => ({
   baseLayerOptions
 });
 
+export const getSearchMarker = (state) => (
+  state.search && state.search.location.length ?
+    [{ position: state.search.location }] : []
+);
+
+export const getMarkers = (state) => {
+  return getSearchMarker(state);
+};
+
 export const getLayers = (state) => (
   state.map.overlays.map((overlay) => {
     const layer = SOURCES[overlay.id];
@@ -48,3 +57,11 @@ export const getLayers = (state) => (
 export const updateZoom = (payload) => ({ type: ACTIONS.MAP_ZOOM, payload });
 export const updatePan = (payload) =>
   ({ type: ACTIONS.MAP_PAN, payload: [payload.center.lat, payload.center.lng] });
+
+export const updateClick = (payload) => ({
+  type: ACTIONS.SET_MAP_CLICK_LOCATION.id,
+  location: {
+    latitude: payload.latlng.lat,
+    longitude: payload.latlng.lng
+  }
+});
