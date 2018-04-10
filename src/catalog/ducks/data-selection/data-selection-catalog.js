@@ -35,7 +35,8 @@ function getCatalogFilters(data) {
     spatialUnits: getOptions(dcatDocProperties['ams:spatialUnit']),
     temporalUnits: getOptions(dcatDocProperties['ams:temporalUnit']),
     accrualPeriodicities: getOptions(dcatDocProperties['dct:accrualPeriodicity']),
-    languages: getOptions(dcatDocProperties['dct:language'])
+    languages: getOptions(dcatDocProperties['dct:language']),
+    distributionTypes: getOptions(distributionProperties['ams:distributionType'])
   };
 
   return catalogFilters;

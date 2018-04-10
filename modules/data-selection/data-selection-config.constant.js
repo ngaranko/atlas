@@ -8,50 +8,6 @@
                 MAX_NUMBER_OF_CLUSTERED_MARKERS: 10000
             },
             datasets: {
-                dcatd: {
-                    MAX_ITEMS_PER_PAGE: 100,
-                    CUSTOM_API: 'dataSelectionApiDcatd',
-                    ENDPOINT_METADATA: 'dcatd/openapi',
-                    ENDPOINT_PREVIEW: 'dcatd/datasets',
-                    ENDPOINT_DETAIL: 'dcatd/datasets',
-                    TITLE: 'Dcatd',
-                    PRIMARY_KEY: 'dct:identifier',
-                    SHOW_FILTER_OPTION_COUNTS: false,
-                    FILTERS: [
-                        {
-                            slug: 'groups',
-                            label: 'Thema\'s'
-                        }, {
-                            slug: 'data_format',
-                            label: 'Formaten',
-                            formatter: 'lowercase'
-                        }, {
-                            slug: 'owner',
-                            label: 'Gepubliceerd door'
-                        }
-                    ],
-                    CONTENT: {
-                        CARDS: [
-                            { label: 'Naam', variables: ['dct:title'] },
-                            { label: 'Id', variables: ['dct:identifier'] },
-                            {
-                                label: 'Omschrijving',
-                                formatter: 'truncateHtmlAsText',
-                                variables: ['dct:description']
-                            },
-                            {
-                                label: 'Omschrijving',
-                                formatter: 'truncateHtmlAsText',
-                                variables: ['dct:description']
-                            },
-                            {
-                                label: 'Omschrijving',
-                                formatter: 'truncateHtmlAsText',
-                                variables: ['dct:description']
-                            }
-                        ]
-                    }
-                },
                 bag: {
                     CUSTOM_API: 'dataSelectionApiDataSelection',
                     MAX_AVAILABLE_PAGES: 100,
@@ -299,6 +255,38 @@
                                 variables: ['handelsnaam']
                             }
                         ]
+                    }
+                },
+                dcatd: {
+                    MAX_ITEMS_PER_PAGE: 100,
+                    CUSTOM_API: 'dataSelectionApiDcatd',
+                    ENDPOINT_METADATA: 'dcatd/openapi',
+                    ENDPOINT_PREVIEW: 'dcatd/datasets',
+                    ENDPOINT_DETAIL: 'dcatd/datasets',
+                    TITLE: 'DcatdCatalogus',
+                    PRIMARY_KEY: 'dct:identifier',
+                    SHOW_FILTER_OPTION_COUNTS: false,
+                    FILTERS: [
+                        {
+                            slug: 'groups',
+                            label: 'Thema\'s'
+                        }, {
+                            slug: 'formats',
+                            label: 'Formaten',
+                            formatter: 'lowercase'
+                        }, {
+                            slug: 'owners',
+                            label: 'Eigenaar'
+                        }, {
+                            slug: 'distributionTypes',
+                            label: 'Verschijningsvorm'
+                        }, {
+                            slug: 'serviceTypes',
+                            label: 'API/Service formaten'
+                        }
+                    ],
+                    CONTENT: {
+                        CARDS: []
                     }
                 }
             }

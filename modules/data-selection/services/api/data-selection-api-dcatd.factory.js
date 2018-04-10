@@ -8,7 +8,9 @@
     function dataSelectionApiDcatdFactory ($window, $q, $filter, sharedConfig, api) {
         const searchParamTheme = '/properties/dcat:theme/items',
             searchParamFormat = '/properties/dcat:distribution/items/properties/dct:format',
-            searchParamOwner = '/properties/ams:owner';
+            searchParamOwner = '/properties/ams:owner',
+            searchParamDistributionType = '/properties/dcat:distribution/items/properties/ams:distributionType',
+            searchParamServiceType = '/properties/dcat:distribution/items/properties/ams:serviceType';
 
         return {
             query: query
@@ -22,7 +24,9 @@
                 },
                 queryTheme = getQueryTheme(activeFilters),
                 queryFormat = getQueryFormat(activeFilters),
-                queryOwner = getQueryOwner(activeFilters);
+                queryOwner = getQueryOwner(activeFilters),
+                queryDistributionType = getQueryDistributionType(activeFilters),
+                queryServiceType = getQueryServiceType(activeFilters);
 
             if (searchText) {
                 // Optional search text
@@ -42,6 +46,16 @@
             if (queryOwner !== '') {
                 // optional owner filter
                 searchParams[searchParamOwner] = queryOwner;
+            }
+
+            if (queryDistributionType !== '') {
+                // optional distribution type filter
+                searchParams[searchParamDistributionType] = queryDistributionType;
+            }
+
+            if (queryServiceType !== '') {
+                // optional service type filter
+                searchParams[searchParamServiceType] = queryServiceType;
             }
 
             if (Object.keys(catalogFilters).length === 0 && catalogFilters.constructor === Object) {
@@ -74,14 +88,28 @@
 
         function getQueryFormat (filters) {
             return Object.keys(filters).reduce((queryString, key) => {
-                if (key !== 'data_format') return queryString;
+                if (key !== 'formats') return queryString;
                 return queryString + `eq=${filters[key]}`;
             }, '');
         }
 
         function getQueryOwner (filters) {
             return Object.keys(filters).reduce((queryString, key) => {
-                if (key !== 'owner') return queryString;
+                if (key !== 'owners') return queryString;
+                return queryString + `eq=${filters[key]}`;
+            }, '');
+        }
+
+        function getQueryDistributionType (filters) {
+            return Object.keys(filters).reduce((queryString, key) => {
+                if (key !== 'distributionTypes') return queryString;
+                return queryString + `eq=${filters[key]}`;
+            }, '');
+        }
+
+        function getQueryServiceType (filters) {
+            return Object.keys(filters).reduce((queryString, key) => {
+                if (key !== 'serviceTypes') return queryString;
                 return queryString + `eq=${filters[key]}`;
             }, '');
         }
@@ -91,10 +119,16 @@
                 groups: {
                     options: []
                 },
-                data_format: {
+                formats: {
                     options: []
                 },
-                owner: {
+                owners: {
+                    options: []
+                },
+                distributionTypes: {
+                    options: []
+                },
+                serviceTypes: {
                     options: []
                 }
             };
@@ -110,7 +144,7 @@
                 })
             };
 
-            filters.data_format = {
+            filters.formats = {
                 numberOfOptions: catalogFilters.formatTypes.length,
                 options: catalogFilters.formatTypes.map(option => {
                     return {
@@ -121,7 +155,29 @@
                 })
             };
 
-            filters.service_type = {
+            filters.owners = {
+                numberOfOptions: catalogFilters.ownerTypes.length,
+                options: catalogFilters.ownerTypes.map(option => {
+                    return {
+                        id: option.id,
+                        label: option.label,
+                        count: 1
+                    };
+                })
+            };
+
+            filters.distributionTypes = {
+                numberOfOptions: catalogFilters.distributionTypes.length,
+                options: catalogFilters.distributionTypes.map(option => {
+                    return {
+                        id: option.id,
+                        label: option.label,
+                        count: 1
+                    };
+                })
+            };
+
+            filters.serviceTypes = {
                 numberOfOptions: catalogFilters.serviceTypes.length,
                 options: catalogFilters.serviceTypes.map(option => {
                     return {
@@ -132,20 +188,9 @@
                 })
             };
 
-            filters.resource_type = {
+            filters.resourceTypes = {
                 numberOfOptions: catalogFilters.resourceTypes.length,
                 options: catalogFilters.resourceTypes.map(option => {
-                    return {
-                        id: option.id,
-                        label: option.label,
-                        count: 1
-                    };
-                })
-            };
-
-            filters.owner = {
-                numberOfOptions: catalogFilters.ownerTypes.length,
-                options: catalogFilters.ownerTypes.map(option => {
                     return {
                         id: option.id,
                         label: option.label,
