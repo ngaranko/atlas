@@ -114,7 +114,7 @@ describe('panorama module', () => {
 
       cy.viewport(1000, 660);
       cy.get('.leaflet-marker-pane').find('img').should('exist').and('be.visible');
-      cy.get('#auto-suggest-textinput').type('dam 1');
+      cy.get('#auto-suggest__input').type('dam 1');
 
       // TODO: remove wait(500) and enably the route-wait
       cy.wait(500);

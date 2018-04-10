@@ -14,7 +14,10 @@ const AutoSuggestItem = (props) => {
     <li>
       <button
         type="button"
-        className={`auto-suggest__dropdown-item ${isActive ? 'auto-suggest__dropdown-item--active' : ''}`}
+        className={`
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--${isActive ? 'active' : 'inactive'}
+        `}
         onClick={onSuggestionSelection}
       >
         <span className="icon">

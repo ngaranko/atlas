@@ -20,7 +20,7 @@ describe('data search module', () => {
     cy.route('/bag/openbareruimte/*').as('getItem');
 
     cy.visit('/');
-    cy.get('#auto-suggest-textinput').focus().type('Dam');
+    cy.get('#auto-suggest__input').focus().type('Dam');
 
     // TODO: remove wait(500) and enably the route-wait
     cy.wait(500);
@@ -54,7 +54,7 @@ describe('data search module', () => {
     cy.viewport(1000, 660);
     cy.visit('/');
     // type in search and click on autosuggest item
-    cy.get('#auto-suggest-textinput').focus().type('Ad Windighof 2');
+    cy.get('#auto-suggest__input').focus().type('Ad Windighof 2');
 
     // TODO: remove wait(500) and enably the route-wait
     cy.wait(500);
@@ -118,19 +118,19 @@ describe('data search module', () => {
       cy.server();
       cy.defineSearchRoutes();
       cy.visit('/');
-      cy.get('.auto-suggest__input-textinput').trigger('focus');
+      cy.get('.auto-suggest__input').trigger('focus');
     });
 
     it('should submit the search and give results', () => {
-      cy.get('.auto-suggest__input-textinput').type('Park');
-      cy.get('.auto-suggest__input').submit();
+      cy.get('.auto-suggest__input').type('Park');
+      cy.get('.auto-suggest').submit();
       cy.waitForSearch();
       cy.get('.o-list').should('exist').and('be.visible');
     });
 
     it('should submit the search and give no results', () => {
-      cy.get('.auto-suggest__input-textinput').type('NORESULTS');
-      cy.get('.auto-suggest__input').submit();
+      cy.get('.auto-suggest__input').type('NORESULTS');
+      cy.get('.auto-suggest').submit();
       cy.waitForSearch();
       cy.get('.o-list').should('have.length', 0);
     });

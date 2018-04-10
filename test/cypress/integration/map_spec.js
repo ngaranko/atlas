@@ -41,7 +41,7 @@ describe('map module', () => {
       cy.visit('/');
 
       cy.get('.qa-map-link').click();
-      cy.get('#auto-suggest-textinput').focus().type('dam 1');
+      cy.get('#auto-suggest__input').focus().type('dam 1');
 
       // TODO: remove wait(500) and enably the route-wait
       cy.wait(500);

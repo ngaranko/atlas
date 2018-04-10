@@ -15,7 +15,7 @@ describe('print module', () => {
     cy.route('/meetbouten/meting/?meetbout=*').as('getMeeting');
     cy.route('/panorama/thumbnail/?*').as('getPanoThumbnail');
 
-    cy.get('#auto-suggest-textinput').type('10581111');
+    cy.get('#auto-suggest__input').type('10581111');
 
     // TODO: remove wait(500) and enably the route-wait
     cy.wait(500);

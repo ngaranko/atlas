@@ -25,7 +25,6 @@ class AutoSuggest extends React.Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onInput = this.onInput.bind(this);
     this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
-
     this.state = {
       lastActionIsFormSubmit: false,
       showSuggestions: false,
@@ -36,21 +35,18 @@ class AutoSuggest extends React.Component {
   componentDidUpdate(prevProps) {
     const {
       activeSuggestion,
-      isMapFullscreen,
-      pageName,
-      query
+      query,
+      queryFromUrl
     } = this.props;
 
     // navigating from Home to the Map does not change the pageName
     // thats why we do an extra check for isMapFullscreen
     const isPageNavigation =
-      prevProps.pageName !== pageName ||
-      prevProps.isMapFullscreen !== isMapFullscreen;
+      prevProps.queryFromUrl !== queryFromUrl;
 
     if (activeSuggestion.index > -1) {
       this.textInput.value = activeSuggestion.label;
     }
-
     if (this.state.setPrefillQuery && query.length) {
       /*
         if the prefillQuery is passed to the parent container
@@ -65,8 +61,9 @@ class AutoSuggest extends React.Component {
       */
       this.textInput.value = query;
     }
-
+    console.log(prevProps.queryFromUrl, queryFromUrl)
     if (!this.state.lastActionIsFormSubmit && isPageNavigation) {
+      console.log('-- CLEAR')
       this.clearQuery(false);
     }
   }
@@ -240,23 +237,22 @@ class AutoSuggest extends React.Component {
 
     return (
       <form
-        id="header-search"
         onSubmit={this.onFormSubmit}
         className={
-          `auto-suggest__input
+          `auto-suggest
           ${showSuggestions && suggestions.length ? 'auto-suggest__backdrop' : ''}`
         }
       >
         <fieldset>
           {legendTitle && <legend className="u-sr-only">legendTitle</legend>}
-          <div className="auto-suggest__input-container">
-            <label htmlFor="auto-suggest-textinput" className="u-sr-only">zoektekst</label>
+          <div className="auto-suggest-container">
+            <label htmlFor="auto-suggest__input" className="u-sr-only">zoektekst</label>
             <input
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"
-              className="auto-suggest__input-textinput"
-              id="auto-suggest-textinput"
+              className="auto-suggest__input"
+              id="auto-suggest__input"
               onBlur={this.onBlur}
               onFocus={this.onFocus}
               onInput={this.onInput}
@@ -270,7 +266,7 @@ class AutoSuggest extends React.Component {
             {query &&
               <button
                 type="button"
-                className="qa-search-form__clear auto-suggest__input__clear"
+                className="qa-search-form__clear auto-suggest__clear"
                 onClick={this.clearQuery}
                 title="Wis zoektekst"
               >
@@ -281,7 +277,7 @@ class AutoSuggest extends React.Component {
           </div>
           {suggestions.length > 0 && showSuggestions &&
             <div className="auto-suggest__dropdown">
-              <h3 className="auto-suggest__dropdown__tip">Enkele suggesties</h3>
+              <h3 className="auto-suggest__tip">Enkele suggesties</h3>
               {suggestions.map((category) => (
                 <AutoSuggestCategory
                   activeSuggestion={activeSuggestion}
@@ -294,7 +290,7 @@ class AutoSuggest extends React.Component {
             </div>
           }
           <button
-            className="auto-suggest__input__submit qa-search-form-submit"
+            className="auto-suggest__submit qa-search-form-submit"
             disabled={!query}
             title="Zoeken"
             type="submit"
@@ -315,16 +311,15 @@ AutoSuggest.propTypes = {
     label: PropTypes.string,
     uri: PropTypes.string
   }).isRequired,
-  isMapFullscreen: PropTypes.bool.isRequired,
   legendTitle: PropTypes.string,
   numberOfSuggestions: PropTypes.number,
   onSubmit: PropTypes.func.isRequired,
   onSuggestionActivate: PropTypes.func.isRequired,
   onSuggestionSelection: PropTypes.func.isRequired,
   onTextInput: PropTypes.func.isRequired,
-  pageName: PropTypes.string,
   placeHolder: PropTypes.string,
   query: PropTypes.string,
+  queryFromUrl: PropTypes.string,
   suggestions: PropTypes.arrayOf(PropTypes.object)
 };
 
@@ -334,6 +329,7 @@ AutoSuggest.defaultProps = {
   pageName: '',
   placeHolder: '',
   query: '',
+  queryFromUrl: '',
   suggestions: []
 };
 
