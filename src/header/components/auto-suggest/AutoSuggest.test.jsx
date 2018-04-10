@@ -52,7 +52,7 @@ const mockFilledState = {
       label: 'Monumenten'
     }
   ],
-  query: 'dam',
+  typedQuery: 'dam',
   numberOfSuggestions: 6,
   isDatasetView: false,
   activeSuggestion: {
@@ -100,11 +100,10 @@ describe('The AutoSuggest component', () => {
       onSuggestionActivate={onSuggestionActivate}
       onSuggestionSelection={onSuggestionSelection}
       onTextInput={onTextInput}
-      query={mockFilledState.query}
     />, { disableLifecycleMethods: false });
 
     // trigger the componentDidUpdate method
-    prefilledAutoSuggestComponent.setProps({ query: mockFilledState.query });
+    prefilledAutoSuggestComponent.setProps({ query: mockFilledState.typedQuery });
     prefilledAutoSuggestComponent.update();
 
     expect(prefilledAutoSuggestComponent.instance().textInput.value).toBe('dam');
@@ -122,9 +121,9 @@ describe('The AutoSuggest component', () => {
     // trigger the componentDidUpdate method
 
     const inputField = autoSuggestComponent.find('input#auto-suggest__input');
-    inputField.simulate('input', { target: { value: 'd' } });
-    inputField.simulate('input', { target: { value: 'a' } });
-    inputField.simulate('input', { target: { value: 'm' } });
+    inputField.simulate('change', { target: { value: 'd' } });
+    inputField.simulate('change', { target: { value: 'a' } });
+    inputField.simulate('change', { target: { value: 'm' } });
 
     expect(onTextInput).toHaveBeenCalledTimes(3);
   });
@@ -138,11 +137,10 @@ describe('The AutoSuggest component', () => {
       onSuggestionSelection={onSuggestionSelection}
       onTextInput={onTextInput}
       suggestions={mockFilledState.suggestions}
-      query={mockFilledState.query}
     />, { disableLifecycleMethods: false });
 
     // trigger the componentDidUpdate method
-    autoSuggestComponent.setProps({ query: mockFilledState.query });
+    autoSuggestComponent.setProps({ query: mockFilledState.typedQuery });
     autoSuggestComponent.update();
 
     const inputField = autoSuggestComponent.find('input#auto-suggest__input');
@@ -170,7 +168,7 @@ describe('The AutoSuggest component', () => {
       onSuggestionSelection={onSuggestionSelection}
       onTextInput={onTextInput}
       suggestions={mockFilledState.suggestions}
-      query={mockFilledState.query}
+      query={mockFilledState.typedQuery}
       numberOfSuggestions={mockFilledState.numberOfSuggestions}
     />);
 
@@ -187,7 +185,10 @@ describe('The AutoSuggest component', () => {
         altKey: false
       }
     });
-    autoSuggestComponent.setProps({ activeSuggestion: mockFilledState.activeSuggestion });
+    autoSuggestComponent.setProps({
+      activeSuggestion: mockFilledState.activeSuggestion,
+      highlightQuery: mockFilledState.typedQuery
+    });
     autoSuggestComponent.update();
     expect(autoSuggestComponent).toMatchSnapshot();
   });

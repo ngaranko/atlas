@@ -7,15 +7,28 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
       "index": -1,
     }
   }
+  highlightQuery=""
   legendTitle=""
   numberOfSuggestions={6}
   onSubmit={[MockFunction]}
   onSuggestionActivate={
     [MockFunction] {
       "calls": Array [
-        Array [],
-        Array [],
-        Array [],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
       ],
     }
   }
@@ -111,12 +124,13 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
           className="auto-suggest__input"
           id="auto-suggest__input"
           onBlur={[Function]}
+          onChange={[Function]}
           onFocus={[Function]}
-          onInput={[Function]}
           onKeyDown={[Function]}
           placeholder=""
           spellCheck="false"
           type="text"
+          value="dam"
         />
         <button
           className="qa-search-form__clear auto-suggest__clear"
@@ -175,7 +189,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
           }
           key="Straatnamen"
           onSuggestionSelection={[Function]}
-          query="dam"
+          query=""
         >
           <div
             className="auto-suggest__dropdown-category"
@@ -191,7 +205,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                 isActive={false}
                 key="Dam0"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -212,7 +226,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span>",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -224,7 +238,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                 isActive={false}
                 key="Damloperspad1"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -245,7 +259,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span>loperspad",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>p<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>p<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -257,7 +271,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                 isActive={false}
                 key="Damrak2"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -278,7 +292,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span>rak",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -321,7 +335,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
           }
           key="Monumenten"
           onSuggestionSelection={[Function]}
-          query="dam"
+          query=""
         >
           <div
             className="auto-suggest__dropdown-category"
@@ -337,7 +351,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                 isActive={false}
                 key="Damrak 13"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -358,7 +372,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span>rak 1",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>1<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -370,7 +384,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                 isActive={false}
                 key="Dam 104"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -391,7 +405,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span> 10",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>1<span class=\\"auto-suggest__dropdown__highlight\\"></span>0<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -403,7 +417,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                 isActive={false}
                 key="Damrak 155"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -424,7 +438,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span>rak 15",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>1<span class=\\"auto-suggest__dropdown__highlight\\"></span>5<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -465,15 +479,28 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
       "uri": "monumenten/monumenten/8e8ae1dd-78a2-4a5f-841d-1870631b7e33/",
     }
   }
+  highlightQuery="dam"
   legendTitle=""
   numberOfSuggestions={6}
   onSubmit={[MockFunction]}
   onSuggestionActivate={
     [MockFunction] {
       "calls": Array [
-        Array [],
-        Array [],
-        Array [],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
       ],
     }
   }
@@ -569,12 +596,13 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
           className="auto-suggest__input"
           id="auto-suggest__input"
           onBlur={[Function]}
+          onChange={[Function]}
           onFocus={[Function]}
-          onInput={[Function]}
           onKeyDown={[Function]}
           placeholder=""
           spellCheck="false"
           type="text"
+          value="dam"
         />
         <button
           className="qa-search-form__clear auto-suggest__clear"
@@ -926,15 +954,28 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
       "index": -1,
     }
   }
+  highlightQuery=""
   legendTitle=""
   numberOfSuggestions={0}
   onSubmit={[MockFunction]}
   onSuggestionActivate={
     [MockFunction] {
       "calls": Array [
-        Array [],
-        Array [],
-        Array [],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
       ],
     }
   }
@@ -1030,12 +1071,13 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           className="auto-suggest__input"
           id="auto-suggest__input"
           onBlur={[Function]}
+          onChange={[Function]}
           onFocus={[Function]}
-          onInput={[Function]}
           onKeyDown={[Function]}
           placeholder=""
           spellCheck="false"
           type="text"
+          value="dam"
         />
         <button
           className="qa-search-form__clear auto-suggest__clear"
@@ -1080,15 +1122,28 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
       "index": -1,
     }
   }
+  highlightQuery=""
   legendTitle=""
   numberOfSuggestions={0}
   onSubmit={[MockFunction]}
   onSuggestionActivate={
     [MockFunction] {
       "calls": Array [
-        Array [],
-        Array [],
-        Array [],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
       ],
     }
   }
@@ -1184,12 +1239,13 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           className="auto-suggest__input"
           id="auto-suggest__input"
           onBlur={[Function]}
+          onChange={[Function]}
           onFocus={[Function]}
-          onInput={[Function]}
           onKeyDown={[Function]}
           placeholder=""
           spellCheck="false"
           type="text"
+          value="dam"
         />
         <button
           className="qa-search-form__clear auto-suggest__clear"
@@ -1248,7 +1304,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           }
           key="Straatnamen"
           onSuggestionSelection={[Function]}
-          query="dam"
+          query=""
         >
           <div
             className="auto-suggest__dropdown-category"
@@ -1264,7 +1320,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                 isActive={false}
                 key="Dam0"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -1285,7 +1341,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span>",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -1297,7 +1353,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                 isActive={false}
                 key="Damloperspad1"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -1318,7 +1374,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span>loperspad",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>p<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>p<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -1330,7 +1386,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                 isActive={false}
                 key="Damrak2"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -1351,7 +1407,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span>rak",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -1394,7 +1450,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           }
           key="Monumenten"
           onSuggestionSelection={[Function]}
-          query="dam"
+          query=""
         >
           <div
             className="auto-suggest__dropdown-category"
@@ -1410,7 +1466,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                 isActive={false}
                 key="Damrak 13"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -1431,7 +1487,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span>rak 1",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>1<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -1443,7 +1499,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                 isActive={false}
                 key="Dam 104"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -1464,7 +1520,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span> 10",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>1<span class=\\"auto-suggest__dropdown__highlight\\"></span>0<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -1476,7 +1532,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                 isActive={false}
                 key="Damrak 155"
                 onSuggestionSelection={[Function]}
-                query="dam"
+                query=""
               >
                 <li>
                   <button
@@ -1497,7 +1553,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <span
                       dangerouslySetInnerHTML={
                         Object {
-                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dam</span>rak 15",
+                          "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>m<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>1<span class=\\"auto-suggest__dropdown__highlight\\"></span>5<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
                         }
                       }
                     />
@@ -1535,15 +1591,28 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
       "index": -1,
     }
   }
+  highlightQuery=""
   legendTitle=""
   numberOfSuggestions={0}
   onSubmit={[MockFunction]}
   onSuggestionActivate={
     [MockFunction] {
       "calls": Array [
-        Array [],
-        Array [],
-        Array [],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
+        Array [
+          Object {
+            "index": -1,
+          },
+        ],
       ],
     }
   }
@@ -1639,12 +1708,13 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           className="auto-suggest__input"
           id="auto-suggest__input"
           onBlur={[Function]}
+          onChange={[Function]}
           onFocus={[Function]}
-          onInput={[Function]}
           onKeyDown={[Function]}
           placeholder=""
           spellCheck="false"
           type="text"
+          value="dam"
         />
         <button
           className="qa-search-form__clear auto-suggest__clear"

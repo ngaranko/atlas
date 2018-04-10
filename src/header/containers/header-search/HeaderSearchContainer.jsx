@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
+  getSuggestions,
   setActiveSuggestion,
-  getSuggestions
+  setQuery
 } from '../../ducks/auto-suggest/auto-suggest';
 import { fetchDetail } from '../../../reducers/details';
 import { fetchDataSelection, fetchSearchResultsByQuery } from '../../../reducers/search';
@@ -19,13 +20,8 @@ const mapStateToProps = (state) => ({
   activeSuggestion: state.autoSuggest.activeSuggestion,
   isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
   numberOfSuggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.count : 0,
-  query: state.autoSuggest.query,
-  queryFromUrl:
-    state.search ?
-      state.search.query :
-      state.dataSelection ?
-        state.dataSelection.query :
-        null,
+  displayQuery: state.autoSuggest.displayQuery,
+  typedQuery: state.autoSuggest.typedQuery,
   suggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.data : []
 });
 
@@ -35,7 +31,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onDetailLoad: fetchDetail,
   onSearch: fetchSearchResultsByQuery,
   onSuggestionActivate: setActiveSuggestion,
-  onTextInput: getSuggestions
+  onGetSuggestions: getSuggestions,
+  onSetQuery: setQuery
 }, dispatch);
 
 class HeaderSearchContainer extends React.Component {
@@ -43,6 +40,8 @@ class HeaderSearchContainer extends React.Component {
     super(props);
     this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onUserInput = this.onUserInput.bind(this);
+    this.onSuggestionActivate = this.onSuggestionActivate.bind(this);
     if (window.opener && window.suggestionToLoadUri) {
       // if user is sent here with a ctrl+click action
       // open the detail page
@@ -52,7 +51,7 @@ class HeaderSearchContainer extends React.Component {
 
   componentWillMount() {
     const {
-      onTextInput,
+      onSetQuery,
       prefillQuery
     } = this.props;
     /*
@@ -62,8 +61,17 @@ class HeaderSearchContainer extends React.Component {
       this only needs to happen when the page is loaded, therefore in te componentWillMount()
     */
     if (prefillQuery.length) {
-      onTextInput(prefillQuery);
+      onSetQuery(prefillQuery);
     }
+  }
+
+  onSuggestionActivate(suggestion) {
+    const { onSuggestionActivate, onSetQuery, typedQuery } = this.props;
+
+    if (suggestion && suggestion.index === -1) {
+      onSetQuery(typedQuery);
+    }
+    onSuggestionActivate(suggestion);
   }
 
   onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
@@ -91,20 +99,27 @@ class HeaderSearchContainer extends React.Component {
       onCleanDatasetOverview,
       onDatasetSearch,
       onSearch,
-      query
+      typedQuery
     } = this.props;
 
-    piwikTracker(['trackSiteSearch', query, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
+    piwikTracker(['trackSiteSearch', typedQuery, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
 
     if (activeSuggestion.index === -1) {
       // Load the search results
       onCleanDatasetOverview();
       if (isDatasetView) {
-        onDatasetSearch(query);
+        onDatasetSearch(typedQuery);
       } else {
-        onSearch(query);
+        onSearch(typedQuery);
       }
     }
+  }
+
+  onUserInput(query) {
+    const { onSetQuery, onGetSuggestions } = this.props;
+
+    onSetQuery(query);
+    onGetSuggestions(query);
   }
 
   openDetailOnLoad() {
@@ -120,10 +135,8 @@ class HeaderSearchContainer extends React.Component {
     const {
       activeSuggestion,
       numberOfSuggestions,
-      onSuggestionActivate,
-      onTextInput,
-      queryFromUrl,
-      query,
+      typedQuery,
+      displayQuery,
       suggestions
     } = this.props;
 
@@ -133,12 +146,12 @@ class HeaderSearchContainer extends React.Component {
         legendTitle={'Data zoeken'}
         numberOfSuggestions={numberOfSuggestions}
         onSubmit={this.onFormSubmit}
-        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionActivate={this.onSuggestionActivate}
         onSuggestionSelection={this.onSuggestionSelection}
-        onTextInput={onTextInput}
+        onTextInput={this.onUserInput}
         placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
-        query={query}
-        queryFromUrl={queryFromUrl}
+        query={displayQuery || typedQuery}
+        highlightQuery={typedQuery}
         suggestions={suggestions}
       />
     );
@@ -151,12 +164,13 @@ HeaderSearchContainer.contextTypes = {
 
 HeaderSearchContainer.defaultProps = {
   activeSuggestion: {},
+  displayQuery: '',
   isDatasetView: false,
   numberOfSuggestions: 0,
   prefillQuery: '',
   query: '',
-  queryFromUrl: '',
-  suggestions: []
+  suggestions: [],
+  typedQuery: ''
 };
 
 HeaderSearchContainer.propTypes = {
@@ -166,18 +180,20 @@ HeaderSearchContainer.propTypes = {
     label: PropTypes.string,
     uri: PropTypes.string
   }),
+  displayQuery: PropTypes.string,
   isDatasetView: PropTypes.bool,
   numberOfSuggestions: PropTypes.number,
   onCleanDatasetOverview: PropTypes.func.isRequired,
   onDatasetSearch: PropTypes.func.isRequired,
   onDetailLoad: PropTypes.func.isRequired,
+  onGetSuggestions: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
+  onSetQuery: PropTypes.func.isRequired,
   onSuggestionActivate: PropTypes.func.isRequired,
-  onTextInput: PropTypes.func.isRequired,
   prefillQuery: PropTypes.string,
   query: PropTypes.string,
-  queryFromUrl: PropTypes.string,
-  suggestions: PropTypes.arrayOf(PropTypes.object)
+  suggestions: PropTypes.arrayOf(PropTypes.object),
+  typedQuery: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearchContainer);

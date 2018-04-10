@@ -26,44 +26,9 @@ class AutoSuggest extends React.Component {
     this.onInput = this.onInput.bind(this);
     this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
     this.state = {
-      lastActionIsFormSubmit: false,
-      showSuggestions: false,
-      setPrefillQuery: true
+      originalQuery: '',
+      showSuggestions: false
     };
-  }
-
-  componentDidUpdate(prevProps) {
-    const {
-      activeSuggestion,
-      query,
-      queryFromUrl
-    } = this.props;
-
-    // navigating from Home to the Map does not change the pageName
-    // thats why we do an extra check for isMapFullscreen
-    const isPageNavigation = prevProps.queryFromUrl !== queryFromUrl;
-
-    if (activeSuggestion.index > -1) {
-      this.textInput.value = activeSuggestion.label;
-    }
-
-    if (this.state.setPrefillQuery && query.length) {
-      /*
-        if the prefillQuery is passed to the parent container
-        an initial call is done.
-        Because of that, the query in the state is being updated
-        we need to update the input value according to this query
-        this cannot be done in the componentWill/DidMount of Autosuggest, as
-        is is being registred as an update.
-
-        The setPrefillQuery in the componentstate is reset as soon
-        as the user interacts with the inputfield
-      */
-      this.textInput.value = query;
-    }
-    if (!this.state.lastActionIsFormSubmit && isPageNavigation) {
-      this.clearQuery(false);
-    }
   }
 
   onBlur() {
@@ -81,9 +46,7 @@ class AutoSuggest extends React.Component {
     onTextInput(event.target.value);
 
     this.setState({
-      lastActionIsFormSubmit: false,
-      showSuggestions: true,
-      setPrefillQuery: false
+      showSuggestions: true
     });
   }
 
@@ -95,9 +58,7 @@ class AutoSuggest extends React.Component {
     } = this.props;
 
     this.setState({
-      lastActionIsFormSubmit: false,
-      showSuggestions: true,
-      setPrefillQuery: false
+      showSuggestions: true
     });
     if (query.length && !suggestions.length) {
       onTextInput(query);
@@ -124,21 +85,11 @@ class AutoSuggest extends React.Component {
     event.stopPropagation();
 
     this.setState({
-      lastActionIsFormSubmit: true,
       showSuggestions: false
     }, () => {
       this.resetActiveSuggestion();
       onSubmit();
     });
-
-    setTimeout(() => {
-      // reset the value of "lastActionIsFormSubmit"
-      // to ensure that the inputfield is reset if the user navigates away
-      // without interacting
-      this.setState({
-        lastActionIsFormSubmit: false
-      });
-    }, 200);
   }
 
   navigateSuggestions(event) {
@@ -146,7 +97,6 @@ class AutoSuggest extends React.Component {
       activeSuggestion,
       numberOfSuggestions,
       onSuggestionActivate,
-      query,
       suggestions
     } = this.props;
     const { showSuggestions } = this.state;
@@ -161,11 +111,6 @@ class AutoSuggest extends React.Component {
           return;
         }
 
-        if (activeSuggestion.index === 0) {
-          // if user is on first suggestion and navigates up,
-          // the user goes back to the inputfield
-          this.textInput.value = query;
-        }
         onSuggestionActivate(
           AutoSuggest.getSuggestionByIndex(
             suggestions,
@@ -187,7 +132,7 @@ class AutoSuggest extends React.Component {
         break;
       // Escape
       case 27:
-        this.textInput.value = query;
+        this.resetActiveSuggestion();
         this.setState({
           showSuggestions: false
         });
@@ -206,7 +151,6 @@ class AutoSuggest extends React.Component {
 
   clearQuery(shouldFocus = true) {
     const { onTextInput } = this.props;
-    this.textInput.value = '';
     if (shouldFocus) {
       this.textInput.focus();
     }
@@ -220,12 +164,13 @@ class AutoSuggest extends React.Component {
   resetActiveSuggestion() {
     // wrapper function to improve readability
     const { onSuggestionActivate } = this.props;
-    onSuggestionActivate();
+    onSuggestionActivate({ index: -1 });
   }
 
   render() {
     const {
       activeSuggestion,
+      highlightQuery,
       legendTitle,
       placeHolder,
       query,
@@ -253,12 +198,13 @@ class AutoSuggest extends React.Component {
               id="auto-suggest__input"
               onBlur={this.onBlur}
               onFocus={this.onFocus}
-              onInput={this.onInput}
+              onChange={this.onInput}
               onKeyDown={this.navigateSuggestions}
               placeholder={placeHolder}
               ref={(input) => { this.textInput = input; }}
               spellCheck="false"
               type="text"
+              value={query}
             />
 
             {query &&
@@ -282,7 +228,7 @@ class AutoSuggest extends React.Component {
                   category={category}
                   key={category.label}
                   onSuggestionSelection={this.onSuggestionSelection}
-                  query={query}
+                  query={highlightQuery}
                 />)
               )}
             </div>
@@ -309,6 +255,7 @@ AutoSuggest.propTypes = {
     label: PropTypes.string,
     uri: PropTypes.string
   }).isRequired,
+  highlightQuery: PropTypes.string,
   legendTitle: PropTypes.string,
   numberOfSuggestions: PropTypes.number,
   onSubmit: PropTypes.func.isRequired,
@@ -317,11 +264,11 @@ AutoSuggest.propTypes = {
   onTextInput: PropTypes.func.isRequired,
   placeHolder: PropTypes.string,
   query: PropTypes.string,
-  queryFromUrl: PropTypes.string,
   suggestions: PropTypes.arrayOf(PropTypes.object)
 };
 
 AutoSuggest.defaultProps = {
+  highlightQuery: '',
   legendTitle: '',
   numberOfSuggestions: 0,
   placeHolder: '',
