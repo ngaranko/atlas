@@ -8,12 +8,9 @@ import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
 import './_map-layers.scss';
 
-const showLayer = (layer, user) => (
-  !layer.authScope || (user.authenticated && user.scopes.includes(layer.authScope))
-);
 
 const showCategory = (layers, user) => (
-  layers.filter((layer) => layer.category && showLayer(layer, user))
+  layers.filter((layer) => layer.category)
 );
 
 const MapLayers = (props) => (
