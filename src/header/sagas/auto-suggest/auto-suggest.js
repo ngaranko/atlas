@@ -5,7 +5,7 @@ import autoSuggestSearch from '../../services/auto-suggest/auto-suggest';
 
 function* fetchSuggestions(action) {
   try {
-    yield call(delay, 250);
+    yield call(delay, 200);
     const suggestions = yield call(autoSuggestSearch, action.query);
     yield put({ type: 'FETCH_SUGGESTIONS_SUCCESS', suggestions });
   } catch (error) {
