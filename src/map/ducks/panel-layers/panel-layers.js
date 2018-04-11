@@ -28,21 +28,7 @@ export const getPanelLayers = (mapLayers) => ({ type: FETCH_LEGENDA_ITEMS_REQUES
 
 export const selectActivePanelLayers = (state) => {
   const mapLayerIds = state.map.overlays.map((mapLayer) => mapLayer.id);
-  const mapLayers = state.mapLayers.layers.items;
-  const panelLayers = state.mapLayers.panelLayers.items.map((layer) => {
-    const matchingMapLayer = mapLayers.find((mapLayer) => (
-      mapLayer.id === layer.id ||
-        layer.legendItems.some((legentItem) => legentItem.id === mapLayer.id)
-    ));
-    const newLayer = {
-      url: matchingMapLayer.url,
-      minZoom: matchingMapLayer.minZoom,
-      maxZoom: matchingMapLayer.minZoom,
-      ...layer
-    };
-    return newLayer;
-  });
-  return panelLayers
+  return state.mapLayers.panelLayers.items
     .filter((mapLayer) => (
       [
         mapLayer.id,
