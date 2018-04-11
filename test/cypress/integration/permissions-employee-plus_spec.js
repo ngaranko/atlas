@@ -28,7 +28,7 @@ describe('employee PLUS permissions', () => {
     // cy.wait('@getResults');
     cy.get('.auto-suggest__tip').should('exist').and('be.visible');
     cy.get(queries.autoSuggestHeader).contains(values.kadastraleSubjecten);
-    cy.get('.auto-suggest-item').contains('lia Bak');
+    cy.get('.auto-suggest__dropdown-item').contains('lia Bak');
   });
 
   it('1. Should show no message after search is performed', () => {
