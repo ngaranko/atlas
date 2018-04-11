@@ -33,7 +33,8 @@ describe('the dp-detail component', () => {
 
                         if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
                             endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/' ||
-                            endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
+                            endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/'
+                        ) {
                             q.resolve({
                                 _display: 'Adresstraat 1A',
                                 dummy: 'A',
@@ -354,7 +355,7 @@ describe('the dp-detail component', () => {
 
         expect(store.dispatch).not.toHaveBeenCalled();
 
-            // Set an initial endpoint
+        // Set an initial endpoint
         endpoint = 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/';
         component = getComponent(endpoint, false);
         scope = component.isolateScope();
@@ -589,7 +590,7 @@ describe('the dp-detail component', () => {
     });
 
     describe('"dcatd" data', () => {
-        it('should not fetch data when catalogFilters are nog provided', () => {
+        it('should not fetch data when catalogFilters are not provided', () => {
             const component = getComponent(dcatdEndPoint);
             const scope = component.isolateScope();
 

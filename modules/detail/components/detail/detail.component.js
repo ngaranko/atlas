@@ -56,14 +56,13 @@
         });
 
         // (Re)load the data when the endpoint is set or gets changed
-        $scope.$watch('vm.endpoint', () => {
-            getData(vm.endpoint);
-        });
+        $scope.$watch('vm.endpoint', getData);
 
         // Ensure the catalog filters for dcatd endpoints
         $scope.$watch('vm.catalogFilters', () => {
-            if (!vm.catalogFilters) return;
-            getData(vm.endpoint);
+            if (vm.catalogFilters) {
+                getData(vm.endpoint);
+            }
         });
 
         // (Re)load the data when the user logs in or out or on a change of authorization level
@@ -90,7 +89,6 @@
                 //   BRK Kadastrale Subjecten, nor
                 //   handelsregister, nor
                 //   grondexploitatie
-                // Or the catalogFilter data is not present
                 // so do not fetch data
                 delete vm.apiData;
                 errorHandler();
