@@ -1,12 +1,10 @@
 .custom-legenda {
-  margin-bottom: -20px;
+  display: flex;
+  justify-content: center;
 
   &__item {
-    display: inline-block;
-    margin-bottom: 10px;
     padding-left: 26px;
     position: relative;
-    width: 33.3%;
   }
 
   &__color {
