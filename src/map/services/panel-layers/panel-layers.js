@@ -525,8 +525,7 @@ export default [
         notClickable: true,
         layer: 'burgerlijke_gemeente',
         selectable: true,
-        title: 'Burgerlijke gemeente',
-        layers: ['burgerlijke_gemeente', 'burgerlijke_gemeente_label']
+        title: 'Burgerlijke gemeente'
       },
       {
         id: 'kgem',

@@ -30,9 +30,14 @@ export const selectActivePanelLayers = (state) => {
   const mapLayerIds = state.map.overlays.map((mapLayer) => mapLayer.id);
   const mapLayers = state.mapLayers.layers.items;
   const panelLayers = state.mapLayers.panelLayers.items.map((layer) => {
-    const matchingMapLayer = mapLayers.find((mapLayer) => mapLayer.id === layer.id);
+    const matchingMapLayer = mapLayers.find((mapLayer) => (
+      mapLayer.id === layer.id ||
+        layer.legendItems.some((legentItem) => legentItem.id === mapLayer.id)
+    ));
     const newLayer = {
-      ...matchingMapLayer,
+      url: matchingMapLayer.url,
+      minZoom: matchingMapLayer.minZoom,
+      maxZoom: matchingMapLayer.minZoom,
       ...layer
     };
     return newLayer;
