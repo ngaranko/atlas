@@ -1,10 +1,12 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
-import autoSuggest from '../../services/auto-suggest/auto-suggest';
+import autoSuggestSearch from '../../services/auto-suggest/auto-suggest';
 
 function* fetchSuggestions(action) {
   try {
-    const suggestions = yield call(autoSuggest, action.query);
+    yield call(delay, 250);
+    const suggestions = yield call(autoSuggestSearch, action.query);
     yield put({ type: 'FETCH_SUGGESTIONS_SUCCESS', suggestions });
   } catch (error) {
     yield put({ type: 'FETCH_SUGGESTIONS_FAILURE', error });

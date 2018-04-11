@@ -1,4 +1,4 @@
-import autoSuggestDataService from './auto-suggest';
+import autoSuggestSearch from './auto-suggest';
 import { getAuthHeaders } from '../../../shared/services/auth/auth';
 
 jest.mock('../../../shared/services/auth/auth');
@@ -43,7 +43,7 @@ describe('The auto-suggest service', () => {
 
   it('can search and format data', () => {
     fetch.mockResponseOnce(JSON.stringify(mockedResults));
-    autoSuggestDataService('linnae').then((suggestions) => {
+    autoSuggestSearch('linnae').then((suggestions) => {
       expect(suggestions.count).toBe(3);
       expect(suggestions.data.length).toBe(2);
 

@@ -8,7 +8,10 @@ import {
   setActiveSuggestion,
 } from '../../ducks/auto-suggest/auto-suggest';
 import { fetchDetail } from '../../../reducers/details';
-import { fetchDataSelection, fetchSearchResultsByQuery } from '../../../reducers/search';
+import {
+  fetchDataSelection,
+  fetchSearchResultsByQuery
+} from '../../../reducers/search';
 import emptyFilters from '../../../shared/ducks/filters/filters';
 
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
@@ -17,32 +20,32 @@ import getSharedConfig from '../../../shared/services/shared-config/shared-confi
 
 const mapStateToProps = (state) => ({
   activeSuggestion: state.autoSuggest.activeSuggestion,
-  isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
-  numberOfSuggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.count : 0,
   displayQuery: state.autoSuggest.displayQuery,
-  typedQuery: state.autoSuggest.typedQuery,
-  suggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.data : [],
-  prefillQuery: state.search ? state.search.query : state.dataSelection ? state.dataSelection.query : '',
+  isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
   isMapFullscreen: state.ui ? state.ui.isMapFullscreen : false,
-  pageName: state.page ? state.page.name : ''
+  numberOfSuggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.count : 0,
+  pageName: state.page ? state.page.name : '',
+  prefillQuery: state.search ? state.search.query : state.dataSelection ? state.dataSelection.query : '',
+  suggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.data : [],
+  typedQuery: state.autoSuggest.typedQuery
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onCleanDatasetOverview: emptyFilters,
   onDatasetSearch: fetchDataSelection,
   onDetailLoad: fetchDetail,
-  onSearch: fetchSearchResultsByQuery,
-  onSuggestionActivate: setActiveSuggestion,
   onGetSuggestions: getSuggestions,
+  onSearch: fetchSearchResultsByQuery,
+  onSuggestionActivate: setActiveSuggestion
 }, dispatch);
 
 class HeaderSearchContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.onUserInput = this.onUserInput.bind(this);
     this.onSuggestionActivate = this.onSuggestionActivate.bind(this);
+    this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
+    this.onUserInput = this.onUserInput.bind(this);
 
     if (window.opener && window.suggestionToLoadUri) {
       // if user is sent here with a ctrl+click action
@@ -52,7 +55,11 @@ class HeaderSearchContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { prefillQuery, onGetSuggestions } = this.props;
+    const {
+      onGetSuggestions,
+      prefillQuery,
+    } = this.props;
+
     if (prefillQuery) {
       onGetSuggestions(prefillQuery);
     }
@@ -60,8 +67,8 @@ class HeaderSearchContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     const {
-      onGetSuggestions,
       isMapFullscreen,
+      onGetSuggestions,
       pageName,
       prefillQuery
     } = this.props;
@@ -80,7 +87,11 @@ class HeaderSearchContainer extends React.Component {
   }
 
   onSuggestionActivate(suggestion) {
-    const { onSuggestionActivate, typedQuery, onGetSuggestions } = this.props;
+    const {
+      onSuggestionActivate,
+      onGetSuggestions,
+      typedQuery
+    } = this.props;
 
     if (suggestion && suggestion.index === -1) {
       onGetSuggestions(typedQuery);
@@ -93,6 +104,7 @@ class HeaderSearchContainer extends React.Component {
       onDetailLoad,
       typedQuery
     } = this.props;
+
     piwikTracker(['trackEvent', 'auto-suggest', suggestion.category, typedQuery]);
 
     if (shouldOpenInNewWindow) {
@@ -130,13 +142,17 @@ class HeaderSearchContainer extends React.Component {
   }
 
   onUserInput(query) {
-    const { onGetSuggestions } = this.props;
+    const {
+      onGetSuggestions
+    } = this.props;
 
     onGetSuggestions(query);
   }
 
   openDetailOnLoad() {
-    const { onDetailLoad } = this.props;
+    const {
+      onDetailLoad
+    } = this.props;
     // if user is sent here with a ctrl+click action
     // open the detail page
     const suggestionUri = window.suggestionToLoadUri;
@@ -147,15 +163,16 @@ class HeaderSearchContainer extends React.Component {
   render() {
     const {
       activeSuggestion,
-      numberOfSuggestions,
-      typedQuery,
       displayQuery,
-      suggestions
+      numberOfSuggestions,
+      suggestions,
+      typedQuery
     } = this.props;
 
     return (
       <AutoSuggest
         activeSuggestion={activeSuggestion}
+        highlightQuery={typedQuery}
         legendTitle={'Data zoeken'}
         numberOfSuggestions={numberOfSuggestions}
         onSubmit={this.onFormSubmit}
@@ -164,7 +181,6 @@ class HeaderSearchContainer extends React.Component {
         onTextInput={this.onUserInput}
         placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
         query={displayQuery || typedQuery}
-        highlightQuery={typedQuery}
         suggestions={suggestions}
       />
     );
@@ -180,10 +196,10 @@ HeaderSearchContainer.defaultProps = {
   displayQuery: '',
   isDatasetView: false,
   numberOfSuggestions: 0,
+  pageName: '',
   prefillQuery: '',
   suggestions: [],
-  typedQuery: '',
-  pageName: ''
+  typedQuery: ''
 };
 
 HeaderSearchContainer.propTypes = {
@@ -195,6 +211,7 @@ HeaderSearchContainer.propTypes = {
   }),
   displayQuery: PropTypes.string,
   isDatasetView: PropTypes.bool,
+  isMapFullscreen: PropTypes.bool.isRequired,
   numberOfSuggestions: PropTypes.number,
   onCleanDatasetOverview: PropTypes.func.isRequired,
   onDatasetSearch: PropTypes.func.isRequired,
@@ -202,11 +219,10 @@ HeaderSearchContainer.propTypes = {
   onGetSuggestions: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   onSuggestionActivate: PropTypes.func.isRequired,
-  isMapFullscreen: PropTypes.bool.isRequired,
+  pageName: PropTypes.string,
   prefillQuery: PropTypes.string,
   suggestions: PropTypes.arrayOf(PropTypes.object),
-  typedQuery: PropTypes.string,
-  pageName: PropTypes.string
+  typedQuery: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearchContainer);

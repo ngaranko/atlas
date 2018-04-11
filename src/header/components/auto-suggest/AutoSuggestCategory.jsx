@@ -11,19 +11,17 @@ const AutoSuggestCategory = (props) => {
         {category.label}
       </h4>
       <ul>
-        {category.content.map((suggestion) =>
-          (
-            <AutoSuggestItem
-              key={suggestion.label + suggestion.index}
-              isActive={activeSuggestion && activeSuggestion.index === suggestion.index}
-              onSuggestionSelection={(e) => {
-                onSuggestionSelection(suggestion, e);
-              }}
-              content={suggestion.label}
-              query={query}
-            />
-          )
-        )}
+        {category.content.map((suggestion) => (
+          <AutoSuggestItem
+            key={suggestion.label + suggestion.index}
+            isActive={activeSuggestion && activeSuggestion.index === suggestion.index}
+            onSuggestionSelection={(e) => {
+              onSuggestionSelection(suggestion, e);
+            }}
+            content={suggestion.label}
+            query={query}
+          />
+        ))}
       </ul>
     </div>
   );

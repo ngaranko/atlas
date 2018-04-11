@@ -40,7 +40,10 @@ class AutoSuggest extends React.Component {
   }
 
   onInput(event) {
-    const { onTextInput } = this.props;
+    const {
+      onTextInput
+    } = this.props;
+
     event.persist();
     this.resetActiveSuggestion();
     onTextInput(event.target.value);
@@ -66,7 +69,10 @@ class AutoSuggest extends React.Component {
   }
 
   onSuggestionSelection(suggestion, event) {
-    const { onSuggestionSelection } = this.props;
+    const {
+      onSuggestionSelection
+    } = this.props;
+
     event.preventDefault();
     event.stopPropagation();
     const shouldOpenInNewWindow = event.ctrlKey || event.metaKey;
@@ -80,7 +86,10 @@ class AutoSuggest extends React.Component {
   }
 
   onFormSubmit(event) {
-    const { onSubmit } = this.props;
+    const {
+      onSubmit
+    } = this.props;
+
     event.preventDefault();
     event.stopPropagation();
 
@@ -99,6 +108,7 @@ class AutoSuggest extends React.Component {
       onSuggestionActivate,
       suggestions
     } = this.props;
+
     const { showSuggestions } = this.state;
 
     switch (event.keyCode) {
@@ -150,7 +160,10 @@ class AutoSuggest extends React.Component {
   }
 
   clearQuery(shouldFocus = true) {
-    const { onTextInput } = this.props;
+    const {
+      onTextInput
+    } = this.props;
+
     if (shouldFocus) {
       this.textInput.focus();
     }
@@ -163,7 +176,10 @@ class AutoSuggest extends React.Component {
 
   resetActiveSuggestion() {
     // wrapper function to improve readability
-    const { onSuggestionActivate } = this.props;
+    const {
+      onSuggestionActivate
+    } = this.props;
+
     onSuggestionActivate({ index: -1 });
   }
 
@@ -176,7 +192,9 @@ class AutoSuggest extends React.Component {
       query,
       suggestions,
     } = this.props;
-    const { showSuggestions } = this.state;
+    const {
+      showSuggestions
+    } = this.state;
 
     return (
       <form
@@ -229,8 +247,8 @@ class AutoSuggest extends React.Component {
                   key={category.label}
                   onSuggestionSelection={this.onSuggestionSelection}
                   query={highlightQuery}
-                />)
-              )}
+                />
+              ))}
             </div>
           }
           <button
