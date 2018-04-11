@@ -76,15 +76,23 @@ describe('The dataFormatter factory', function () {
 
     it('uses catalogFiltes to format dcat data', function () {
         const data = {
+            'dcat:title': 'title',
             'dcat:distribution': [{
                 'ams:resourceType': 'resourceTypeId'
             }]
         };
         var result = dataFormatter.formatData(data, 'datasets');
-        expect(result).not.toBe(null);
+        expect(result).toBeTruthy();
         expect(result['dcat:distribution']).toBe(undefined);
-        expect(result.editDatasetUrl).toBeTruthy();
-        expect(result.canEditDataset).toBe(false);
+        expect(result).toEqual({
+            'dcat:title': 'title',
+            resources: [{
+                type: 'resourceTypeId',
+                rows: [{ 'ams:resourceType': 'resourceTypeId' }]
+            }],
+            editDatasetUrl: 'dcatd_admin/datasets/undefined',
+            canEditDataset: false
+        });
     });
 
     it('returns an empty object when the resourceTypes are not provided to format dcat data', function () {

@@ -102,8 +102,8 @@ describe('The dataSelectionApiDcatd factory', function () {
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
-            '/properties/dcat:theme/items': 'eq=theme:energie',
-            q: 'searchText'
+            q: 'searchText',
+            '/properties/dcat:theme/items': 'eq=theme:energie'
         });
     });
 
@@ -116,9 +116,9 @@ describe('The dataSelectionApiDcatd factory', function () {
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
+            q: 'searchText',
             '/properties/dcat:theme/items': 'eq=theme:energie',
-            '/properties/dcat:distribution/items/properties/dct:format': 'eq=application/pdf',
-            q: 'searchText'
+            '/properties/dcat:distribution/items/properties/dct:format': 'eq=application/pdf'
         });
 
         api.getByUri.calls.reset();
@@ -140,8 +140,8 @@ describe('The dataSelectionApiDcatd factory', function () {
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
-            '/properties/ams:owner': 'eq=owner',
-            q: 'searchText'
+            q: 'searchText',
+            '/properties/ams:owner': 'eq=owner'
         });
     });
 
@@ -209,87 +209,6 @@ describe('The dataSelectionApiDcatd factory', function () {
                     'href': 'https://api.amsterdam.nl/dcatd/datasets/642f15c7-8368-4795-9e3d-1a87fa7e562a'
                 }
             }
-        });
-    });
-
-    xdescribe('the formatFilters process', function () {
-        it('orders the filters based on the configuration', function () {
-            let output = {};
-
-            dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(function (_output_) {
-                output = _output_;
-            });
-            $rootScope.$apply();
-
-            expect(output.filters).toEqual({
-                groups: {
-                    numberOfOptions: 2,
-                    options: [{
-                        id: 'geografie',
-                        label: 'Geografie',
-                        count: 1
-                    }, {
-                        id: 'energie',
-                        label: 'Energie',
-                        count: 1
-                    }]
-                },
-                data_format: {
-                    numberOfOptions: 2,
-                    options: [{
-                        id: 'application/pdf',
-                        label: 'pdf',
-                        count: 1
-                    },
-                    {
-                        id: 'text/csv',
-                        label: 'csv',
-                        count: 1
-                    }
-                    ]
-                }
-            });
-        });
-
-        it('won\'t return filters from the configuration that are not part of the API\'s response', function () {
-            let output = {};
-
-            // With only one filter in the API response
-            dataSelectionApiDcatd.query(config, {
-                groups: 'energie'
-            }, 1, '', undefined, catalogFilters).then(function (_output_) {
-                output = _output_;
-            });
-            $rootScope.$apply();
-
-            expect(output.filters).toEqual({
-                groups: {
-                    numberOfOptions: 2,
-                    options: [{
-                        id: 'geografie',
-                        label: 'Geografie',
-                        count: 1
-                    }, {
-                        id: 'energie',
-                        label: 'Energie',
-                        count: 1
-                    }]
-                },
-                data_format: {
-                    numberOfOptions: 2,
-                    options: [{
-                        id: 'application/pdf',
-                        label: 'pdf',
-                        count: 1
-                    },
-                    {
-                        id: 'text/csv',
-                        label: 'csv',
-                        count: 1
-                    }
-                    ]
-                }
-            });
         });
     });
 });

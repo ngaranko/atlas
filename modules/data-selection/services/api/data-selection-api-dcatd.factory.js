@@ -22,53 +22,53 @@
                     offset: (page - 1) * config.MAX_ITEMS_PER_PAGE,
                     limit: config.MAX_ITEMS_PER_PAGE
                 },
-                queryTheme = getQueryTheme(activeFilters),
-                queryFormat = getQueryFormat(activeFilters),
-                queryOwner = getQueryOwner(activeFilters),
-                queryDistributionType = getQueryDistributionType(activeFilters),
-                queryServiceType = getQueryServiceType(activeFilters);
+                queryTheme = activeFilters.groups && `eq=theme:${activeFilters.groups}`,
+                queryFormat = activeFilters.formats && `eq=${activeFilters.formats}`,
+                queryOwner = activeFilters.owners && `eq=${activeFilters.owners}`,
+                queryDistributionType = activeFilters.distributionTypes && `eq=${activeFilters.distributionTypes}`,
+                queryServiceType = activeFilters.serviceTypes && `eq=${activeFilters.serviceTypes}`;
 
             if (searchText) {
                 // Optional search text
                 searchParams.q = searchText;
             }
 
-            if (queryTheme !== '') {
+            if (queryTheme) {
                 // optional thema/groups filter
                 searchParams[searchParamTheme] = queryTheme;
             }
 
-            if (queryFormat !== '') {
+            if (queryFormat) {
                 // optional format filter
                 searchParams[searchParamFormat] = queryFormat;
             }
 
-            if (queryOwner !== '') {
+            if (queryOwner) {
                 // optional owner filter
                 searchParams[searchParamOwner] = queryOwner;
             }
 
-            if (queryDistributionType !== '') {
+            if (queryDistributionType) {
                 // optional distribution type filter
                 searchParams[searchParamDistributionType] = queryDistributionType;
             }
 
-            if (queryServiceType !== '') {
+            if (queryServiceType) {
                 // optional service type filter
                 searchParams[searchParamServiceType] = queryServiceType;
             }
 
-            if (Object.keys(catalogFilters).length === 0 && catalogFilters.constructor === Object) {
+            if (!Object.keys(catalogFilters).length) {
                 deferred.reject();
             } else {
                 api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
-                    const count = data['dcat:dataset'].length * 3;
-                    if (count !== 0) {
+                    const count = data['dcat:dataset'].length;
+                    if (count) {
                         const results = data['dcat:dataset'];
                         deferred.resolve({
                             numberOfPages: Math.ceil(count / config.MAX_ITEMS_PER_PAGE),
                             numberOfRecords: count,
-                            filters: formatFilters(results, config, catalogFilters),
+                            filters: formatFilters(config, catalogFilters),
                             data: formatData(config, results)
                         });
                     } else {
@@ -79,129 +79,61 @@
             return deferred.promise;
         }
 
-        function getQueryTheme (filters) {
-            return Object.keys(filters).reduce((queryString, key) => {
-                if (key !== 'groups') return queryString;
-                return queryString + `eq=theme:${filters[key]}`;
-            }, '');
-        }
-
-        function getQueryFormat (filters) {
-            return Object.keys(filters).reduce((queryString, key) => {
-                if (key !== 'formats') return queryString;
-                return queryString + `eq=${filters[key]}`;
-            }, '');
-        }
-
-        function getQueryOwner (filters) {
-            return Object.keys(filters).reduce((queryString, key) => {
-                if (key !== 'owners') return queryString;
-                return queryString + `eq=${filters[key]}`;
-            }, '');
-        }
-
-        function getQueryDistributionType (filters) {
-            return Object.keys(filters).reduce((queryString, key) => {
-                if (key !== 'distributionTypes') return queryString;
-                return queryString + `eq=${filters[key]}`;
-            }, '');
-        }
-
-        function getQueryServiceType (filters) {
-            return Object.keys(filters).reduce((queryString, key) => {
-                if (key !== 'serviceTypes') return queryString;
-                return queryString + `eq=${filters[key]}`;
-            }, '');
-        }
-
-        function formatFilters (searchParams, filtersConfig, catalogFilters) {
-            var filters = {
+        function formatFilters (filtersConfig, catalogFilters) {
+            const filters = {
                 groups: {
-                    options: []
+                    numberOfOptions: catalogFilters.groupTypes.length,
+                    options: catalogFilters.groupTypes.map(option => {
+                        return {
+                            id: option.id,
+                            label: option.label,
+                            count: 1
+                        };
+                    })
                 },
                 formats: {
-                    options: []
+                    numberOfOptions: catalogFilters.formatTypes.length,
+                    options: catalogFilters.formatTypes.map(option => {
+                        return {
+                            id: option.id,
+                            label: option.label,
+                            count: 1
+                        };
+                    })
                 },
                 owners: {
-                    options: []
+                    numberOfOptions: catalogFilters.ownerTypes.length,
+                    options: catalogFilters.ownerTypes.map(option => {
+                        return {
+                            id: option.id,
+                            label: option.label,
+                            count: 1
+                        };
+                    })
                 },
                 distributionTypes: {
-                    options: []
+                    numberOfOptions: catalogFilters.distributionTypes.length,
+                    options: catalogFilters.distributionTypes.map(option => {
+                        return {
+                            id: option.id,
+                            label: option.label,
+                            count: 1
+                        };
+                    })
                 },
                 serviceTypes: {
-                    options: []
+                    numberOfOptions: catalogFilters.serviceTypes.length,
+                    options: catalogFilters.serviceTypes.map(option => {
+                        return {
+                            id: option.id,
+                            label: option.label,
+                            count: 1
+                        };
+                    })
                 }
             };
 
-            filters.groups = {
-                numberOfOptions: catalogFilters.groupTypes.length,
-                options: catalogFilters.groupTypes.map(option => {
-                    return {
-                        id: option.id,
-                        label: option.label,
-                        count: 1
-                    };
-                })
-            };
-
-            filters.formats = {
-                numberOfOptions: catalogFilters.formatTypes.length,
-                options: catalogFilters.formatTypes.map(option => {
-                    return {
-                        id: option.id,
-                        label: option.label,
-                        count: 1
-                    };
-                })
-            };
-
-            filters.owners = {
-                numberOfOptions: catalogFilters.ownerTypes.length,
-                options: catalogFilters.ownerTypes.map(option => {
-                    return {
-                        id: option.id,
-                        label: option.label,
-                        count: 1
-                    };
-                })
-            };
-
-            filters.distributionTypes = {
-                numberOfOptions: catalogFilters.distributionTypes.length,
-                options: catalogFilters.distributionTypes.map(option => {
-                    return {
-                        id: option.id,
-                        label: option.label,
-                        count: 1
-                    };
-                })
-            };
-
-            filters.serviceTypes = {
-                numberOfOptions: catalogFilters.serviceTypes.length,
-                options: catalogFilters.serviceTypes.map(option => {
-                    return {
-                        id: option.id,
-                        label: option.label,
-                        count: 1
-                    };
-                })
-            };
-
-            filters.resourceTypes = {
-                numberOfOptions: catalogFilters.resourceTypes.length,
-                options: catalogFilters.resourceTypes.map(option => {
-                    return {
-                        id: option.id,
-                        label: option.label,
-                        count: 1
-                    };
-                })
-            };
-
-            return Object.keys(filters).reduce((filterString, key) => {
-                return filters;
-            }, {});
+            return filters;
         }
 
         function formatData (config, rawData) {
@@ -216,8 +148,7 @@
         }
 
         function getDetailEndpoint (config, rawDataRow) {
-            return sharedConfig.API_ROOT + config.ENDPOINT_DETAIL +
-                '/' + rawDataRow[config.PRIMARY_KEY];
+            return `${sharedConfig.API_ROOT}${config.ENDPOINT_DETAIL}/${rawDataRow[config.PRIMARY_KEY]}`;
         }
     }
 })();

@@ -51,20 +51,30 @@
         function formatCatalogData (data) {
             const state = store.getState();
             const resourceTypes = state.catalogFilters.resourceTypes;
-            if (!resourceTypes) return {};
+            if (!resourceTypes || !data) {
+                return {};
+            }
             var resources = data['dcat:distribution'];
 
-            data.resources = resourceTypes.map((item, index) => {
-                return {
-                    type: item.id,
-                    rows: resources.filter((row) => row['ams:resourceType'] === item.id) // .map((r) => {r['dct:modified'] = '2018-01-07'; return r;})
-                };
-            }).filter(resource => resource.rows.length > 0);
+            const formattedData = {
+                resources: resourceTypes.map((item, index) => {
+                    return {
+                        type: item.id,
+                        rows: resources.filter((row) => row['ams:resourceType'] === item.id)
+                    };
+                }).filter(resource => resource.rows.length),
+                editDatasetUrl: `dcatd_admin/datasets/${data['dct:identifier']}`,
+                canEditDataset: state.user.scopes.includes('CAT/W')
+            };
 
-            delete data['dcat:distribution'];
-            data.editDatasetUrl = `dcatd_admin/datasets/${data['dct:identifier']}`;
-            data.canEditDataset = state.user.scopes.includes('CAT/W');
-            return data;
+            return Object.keys(data).reduce((result, key) => {
+                if (key === 'dcat:distribution') {
+                    return result;
+                }
+
+                result[key] = data[key];
+                return result;
+            }, formattedData);
         }
     }
 })();
