@@ -1,4 +1,5 @@
-import mapLayers from './map-layers';
+import mapLayers from './map-layers/map-layers';
+import panelLayers from './panel-layers/panel-layers';
 import mapBaseLayers from './map-base-layers';
 
 const TIMEOUT = 100;
@@ -15,4 +16,10 @@ function getMapLayers() {
   });
 }
 
-export default { getMapBaseLayers, getMapLayers };
+function getPanelLayers() {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(panelLayers), TIMEOUT);
+  });
+}
+
+export default { getMapBaseLayers, getMapLayers, getPanelLayers };

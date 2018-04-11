@@ -9,7 +9,7 @@ import { maximizeMapPreviewPanel, closeMapPreviewPanel }
   from '../../ducks/preview-panel/map-preview-panel';
 import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
-import { selectNotClickableVisibleMapLayers } from '../../ducks/layers/map-layers';
+import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/panel-layers';
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
 import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 import { fetchStraatbeeldById } from '../../ducks/streetview/streetview';

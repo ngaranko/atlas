@@ -1,5 +1,4 @@
 import getState from '../redux/get-state';
-// import SOURCES from '../layers/overlays.constant';
 
 import mapLayers from '../../../map/services/map-layers';
 
@@ -47,7 +46,6 @@ class ActiveOverlays {
   }
 
   getVisibleOverlays(zoom) {
-    debugger;
     return this.getVisibleSources(zoom)
       .filter((source) => source.detailUrl && source.detailItem)
       .filter((a, index, self) => self.findIndex((b) => b.detailItem === a.detailItem === index));
