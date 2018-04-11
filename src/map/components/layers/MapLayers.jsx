@@ -2,22 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MapLegend from '../legend/MapLegend';
-import Notification from '../../../shared/components/notification/Notification';
 import AddIcon from '../../../../public/images/icon-plus.svg';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
 import './_map-layers.scss';
 
-
-const showCategory = (layers, user) => (
-  layers.filter((layer) => layer.category)
+const getCategories = (layers) => (
+  layers.filter((layer) => layer.category).map((layer) => layer.category)
 );
 
 const MapLayers = (props) => (
   <div className="map-layers">
     <h3 className="u-sr-only">Beschikbare kaartlagen</h3>
     <ul>
-      {[...new Set(showCategory(props.layers, props.user).map((layer) => layer.category))]
+      {[...new Set(getCategories(props.layers))]
         .map((category) => (
           <li className="map-layers__category" key={category}>
             <h4 className="map-layers__category-text">{category}</h4>
@@ -53,21 +51,13 @@ const MapLayers = (props) => (
           </li>
       ))}
     </ul>
-    {!props.user.authenticated && (
-      <Notification>
-        <a
-          href="#?mpb=topografie&pgn=content-overzicht&pgi=item1&pgt=inloggen"
-        >Meer kaartlagen</a> na inloggen.
-      </Notification>
-    )}
   </div>
 );
 
 MapLayers.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
   layers: PropTypes.array, // eslint-disable-line
-  onLayerToggle: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  user: PropTypes.object // eslint-disable-line
+  onLayerToggle: PropTypes.func.isRequired // eslint-disable-line react/no-unused-prop-types
 };
 
 export default MapLayers;
