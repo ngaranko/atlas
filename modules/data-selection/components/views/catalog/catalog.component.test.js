@@ -1,3 +1,5 @@
+import mockedContentJson from './catalog.component.test.content';
+
 describe('The catalog component', function () {
     'use strict';
 
@@ -7,56 +9,36 @@ describe('The catalog component', function () {
         ACTIONS;
 
     const mockedStore = {
-        dispatch: angular.noop
+        dispatch: angular.noop,
+        getState: angular.noop
     };
 
     const mockedACTIONS = {
         FETCH_DETAIL: 'Fetch Detail'
     };
 
-    const mockedContent = {
-        body: [
-            {
-                content: [
-                    [
-                        {
-                            key: 'key',
-                            value: 'value'
-                        }
-                    ], [
-                        {
-                            key: 'key',
-                            value: 'value'
-                        }
-                    ], [
-                        {
-                            key: 'key',
-                            value: 'value'
-                        }
-                    ], [
-                        {
-                            key: 'key',
-                            value: 'value'
-                        }
-                    ], [
-                        {
-                            key: 'key',
-                            value: 'value'
-                        }]
-                ],
-                detailEndpoint: 'endpoint'
-            }
-        ],
-        formatters: [],
-        head: [],
-        templates: []
-    };
+    const mockedContent =
+        mockedContentJson['dcat:dataset'].map(item => {
+            return {
+                ...item,
+                _links: {
+                    self: 'endpoint'
+                }
+            };
+        })
+        ;
+
+    const mockedOptionLabelFilter = () => 'label';
 
     beforeEach(function () {
         angular.mock.module('dpDataSelection', {
             store: mockedStore,
             ACTIONS: mockedACTIONS
-        });
+        },
+            function ($provide) {
+                $provide.value('optionLabelFilter', mockedOptionLabelFilter);
+            }
+        );
 
         angular.mock.inject(function (_$rootScope_, _$compile_, _store_, _ACTIONS_) {
             $rootScope = _$rootScope_;
@@ -68,7 +50,7 @@ describe('The catalog component', function () {
         spyOn(store, 'dispatch');
     });
 
-    function getComponent () {
+    function getComponent (filterFormatter) {
         const element = document.createElement('dp-data-selection-catalog');
         element.setAttribute('content', 'content');
 
@@ -82,13 +64,19 @@ describe('The catalog component', function () {
     }
 
     it('can load a detail page for a catalog', function () {
+        spyOn(store, 'getState').and.returnValue({
+            catalogFilters: {
+
+            }
+        });
+
         const component = getComponent();
 
         component.find('.qa-catalog-fetch-detail')[0].click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_DETAIL,
-            payload: mockedContent.body[0].detailEndpoint
+            payload: mockedContent.detailEndpoint
         });
     });
 });

@@ -61,7 +61,7 @@
 
             // For the catalog return the data unformatted.
             // The formatting is complex an will be done in the catalog view component
-            if (view === 'CARDS') {
+            if (view === 'CATALOG') {
                 return rawData;
             } else {
                 return {

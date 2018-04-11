@@ -84,10 +84,10 @@ describe('The header controller', function () {
         expect(controller.searchAction).toEqual(ACTIONS.FETCH_DATA_SELECTION);
     });
 
-    it('sets the dataSelection query and action when detail API view is active', function () {
+    it('sets the dataSelection query and action when catalog detail API view is active', function () {
         spyOn(store, 'getState').and.returnValue({
             detail: {
-                endpoint: 'somewhere://abc/catalogus/api/xyz'
+                endpoint: 'somewhere://abc/dcatd/datasets/xyz'
             }
         });
 

@@ -25,10 +25,11 @@
             const VIEW_NAMES = {
                 TABLE: 'Tabel',
                 LIST: 'Lijst',
-                CARDS: 'Datasets'
+                CARDS: 'Datasets',
+                CATALOG: 'Datasets'
             };
 
-            if (dataSelectionState.view === 'CARDS' && Object.keys(filtersState).length === 0) {
+            if ((dataSelectionState.view === 'CARDS' || dataSelectionState.view === 'CATALOG') && !Object.keys(filtersState).length) {
                 if (dataSelectionState.query) {
                     return `Datasets met '${dataSelectionState.query}'`;
                 } else {
@@ -47,7 +48,7 @@
 
                 output = view;
 
-                if (variant !== 'catalogus') {
+                if (variant !== 'dcatd' ) {
                     output += ` ${variant}`;
                 }
 

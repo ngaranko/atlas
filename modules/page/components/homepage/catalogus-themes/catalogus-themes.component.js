@@ -26,7 +26,7 @@
                 type: ACTIONS.FETCH_DATA_SELECTION,
                 payload: {
                     dataset: 'dcatd',
-                    view: 'CARDS',
+                    view: 'CATALOG',
                     page: 1
                 }
             });

@@ -35,7 +35,7 @@
     ) {
         const vm = this;
 
-        vm.showCatalogusIntroduction = vm.state.view === 'CARDS' &&
+        vm.showCatalogusIntroduction = vm.state.view === 'CATALOG' &&
             userSettings.showCatalogusIntroduction.value === true.toString();
 
         $scope.$watch('vm.showCatalogusIntroduction', function () {
@@ -73,7 +73,7 @@
             vm.view = vm.state.view;
 
             const isQueryView = angular.isDefined(vm.state.query) && vm.state.query.trim().length >= 1;
-            vm.showTabHeader = () => vm.view === 'CARDS' && isQueryView;
+            vm.showTabHeader = () => (vm.view === 'CARDS' || vm.view === 'CATALOG') && isQueryView;
             vm.currentPage = vm.state.page;
 
             vm.numberOfRecords = null;
@@ -130,6 +130,7 @@
                     }, vm.filters);
 
                     if (
+                        isListView &&
                         isListView &&
                         vm.numberOfRecords <= DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS
                     ) {

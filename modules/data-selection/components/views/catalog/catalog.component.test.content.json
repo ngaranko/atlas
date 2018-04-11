@@ -1,0 +1,23 @@
+{
+  "dcat:dataset": [{
+    "@id": "ams-dcatd:ois-95620",
+    "dct:description": "Diverse datasets met statistieken van Onderzoek, Informatie en\nStatistiek.\n\nThema: Openbare orde en veiligheid,\\\nDetailniveau: Amsterdam in Europa",
+    "dct:identifier": "ois-95620",
+    "dct:title": "Openbare orde en veiligheid (Amsterdam in Europa)",
+    "dcat:distribution": [{
+      "dct:format": "application/vnd.ms-excel"
+    }],
+    "dcat:keyword": ["ois", "veiligheid"]
+  }, {
+    "@id": "ams-dcatd:ois-36106",
+    "dct:description": "Diverse datasets met statistieken van Onderzoek, Informatie en\nStatistiek.\n\nThema: Verkeer en infrastructuur,\\\nDetailniveau: Vier grote steden en Nederland",
+    "dct:identifier": "ois-36106",
+    "dct:title": "Verkeer en infrastructuur (Vier grote steden en Nederland)",
+    "dcat:distribution": [{
+      "dct:format": "application/vnd.ms-excel"
+    }, {
+      "dct:format": "application/vnd.ms-excel"
+    }],
+    "dcat:keyword": ["bromfiets", "ois", "verkeersslachtoffers"]
+  }]
+}

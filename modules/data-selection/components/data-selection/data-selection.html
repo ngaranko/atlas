@@ -64,8 +64,8 @@
                             content="vm.data"
                             dataset="vm.state.dataset"></dp-data-selection-table>
                         <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
-                        <!-- <dp-data-selection-cards ng-if="vm.view === 'NONE'" content="vm.data"></dp-data-selection-cards> -->
-                        <dp-data-selection-catalog ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-catalog>
+                        <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
+                        <dp-data-selection-catalog ng-if="vm.view === 'CATALOG'" content="vm.data"></dp-data-selection-catalog>
                     </div>
 
                     <dp-data-selection-pagination

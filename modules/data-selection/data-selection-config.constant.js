@@ -286,7 +286,7 @@
                         }
                     ],
                     CONTENT: {
-                        CARDS: []
+                        CATALOG: []
                     }
                 }
             }

@@ -80,6 +80,10 @@ describe('The dataSelectionApiDcatd factory', function () {
             licenseTypes: [{
                 id: 'id',
                 label: 'label'
+            }],
+            distributionTypes: [{
+                id: 'id',
+                label: 'label'
             }]
         };
 
@@ -111,7 +115,7 @@ describe('The dataSelectionApiDcatd factory', function () {
         // With active filters
         dataSelectionApiDcatd.query(config, {
             groups: 'energie',
-            data_format: 'application/pdf'
+            formats: 'application/pdf'
         }, 1, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 0,
@@ -135,13 +139,39 @@ describe('The dataSelectionApiDcatd factory', function () {
     it('calls the api factory with owner parameter and searchText', function () {
         // With an active filter and search text
         dataSelectionApiDcatd.query(config, {
-            owner: 'owner'
+            owners: 'owner'
         }, 1, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
             q: 'searchText',
             '/properties/ams:owner': 'eq=owner'
+        });
+    });
+
+    it('calls the api factory with serviceType parameter and searchText', function () {
+        // With an active filter and search text
+        dataSelectionApiDcatd.query(config, {
+            serviceTypes: 'wms'
+        }, 1, 'searchText', undefined, catalogFilters);
+        expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
+            offset: 0,
+            limit: config.MAX_ITEMS_PER_PAGE,
+            q: 'searchText',
+            '/properties/dcat:distribution/items/properties/ams:serviceType': 'eq=wms'
+        });
+    });
+
+    it('calls the api factory with distributionType parameter and searchText', function () {
+        // With an active filter and search text
+        dataSelectionApiDcatd.query(config, {
+            distributionTypes: 'file'
+        }, 1, 'searchText', undefined, catalogFilters);
+        expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
+            offset: 0,
+            limit: config.MAX_ITEMS_PER_PAGE,
+            q: 'searchText',
+            '/properties/dcat:distribution/items/properties/ams:distributionType': 'eq=file'
         });
     });
 

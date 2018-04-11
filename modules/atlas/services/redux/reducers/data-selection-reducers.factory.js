@@ -39,12 +39,12 @@
             const mergeInto = angular.isString(payload) ? {
                 query: payload,
                 page: 1,
-                view: 'CARDS',
-                dataset: 'catalogus'
+                view: 'CATALOG',
+                dataset: 'dcatd'
             } : payload;
 
             const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
-
+console.log(view);
             const geometryFilter = mergeInto.resetGeometryFilter
                 ? {
                     markers: [],
@@ -169,7 +169,7 @@
          * @returns {Object} newState
          */
         function setDataSelectionViewReducer (state, payload) {
-            const views = ['LIST', 'TABLE', 'CARDS'],
+            const views = ['LIST', 'TABLE', 'CARDS', 'CATALOG'],
                 viewFound = views.indexOf(payload) !== -1,
                 view = viewFound ? payload : undefined;
 
