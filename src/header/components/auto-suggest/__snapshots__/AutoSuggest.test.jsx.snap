@@ -11,27 +11,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
   legendTitle=""
   numberOfSuggestions={6}
   onSubmit={[MockFunction]}
-  onSuggestionActivate={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-      ],
-    }
-  }
+  onSuggestionActivate={[MockFunction]}
   onSuggestionSelection={[MockFunction]}
   onTextInput={
     [MockFunction] {
@@ -483,27 +463,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
   legendTitle=""
   numberOfSuggestions={6}
   onSubmit={[MockFunction]}
-  onSuggestionActivate={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-      ],
-    }
-  }
+  onSuggestionActivate={[MockFunction]}
   onSuggestionSelection={[MockFunction]}
   onTextInput={
     [MockFunction] {
@@ -958,27 +918,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   legendTitle=""
   numberOfSuggestions={0}
   onSubmit={[MockFunction]}
-  onSuggestionActivate={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-      ],
-    }
-  }
+  onSuggestionActivate={[MockFunction]}
   onSuggestionSelection={[MockFunction]}
   onTextInput={
     [MockFunction] {
@@ -1126,27 +1066,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   legendTitle=""
   numberOfSuggestions={0}
   onSubmit={[MockFunction]}
-  onSuggestionActivate={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-      ],
-    }
-  }
+  onSuggestionActivate={[MockFunction]}
   onSuggestionSelection={[MockFunction]}
   onTextInput={
     [MockFunction] {
@@ -1595,27 +1515,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   legendTitle=""
   numberOfSuggestions={0}
   onSubmit={[MockFunction]}
-  onSuggestionActivate={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-        Array [
-          Object {
-            "index": -1,
-          },
-        ],
-      ],
-    }
-  }
+  onSuggestionActivate={[MockFunction]}
   onSuggestionSelection={[MockFunction]}
   onTextInput={
     [MockFunction] {
