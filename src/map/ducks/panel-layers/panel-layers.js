@@ -24,7 +24,7 @@ export default function PanelLayersReducer(state = initialState, action) {
   }
 }
 
-export const getPanelLayers = (mapLayers) => ({ type: FETCH_LEGENDA_ITEMS_REQUEST, mapLayers });
+export const fetchPanelLayers = (mapLayers) => ({ type: FETCH_LEGENDA_ITEMS_REQUEST, mapLayers });
 
 export const selectActivePanelLayers = (state) => {
   const mapLayerIds = state.map.overlays.map((mapLayer) => mapLayer.id);

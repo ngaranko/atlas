@@ -1,15 +1,41 @@
+import { createSelector } from 'reselect';
+
 export const FETCH_MAP_BASE_LAYERS_REQUEST = 'FETCH_MAP_BASE_LAYERS_REQUEST';
 export const FETCH_MAP_BASE_LAYERS_SUCCESS = 'FETCH_MAP_BASE_LAYERS_SUCCESS';
 export const FETCH_MAP_BASE_LAYERS_FAILURE = 'FETCH_MAP_BASE_LAYERS_FAILURE';
 
 const initialState = {
-  items: {
-    typography: [],
-    aerial: []
-  },
+  items: [],
   isLoading: false,
   error: null
 };
+
+const getUrlTemplateOfActiveLayer = (layers, value) => {
+  const activeLayer = layers.find((layer) => layer.value === value);
+  return activeLayer ? activeLayer.urlTemplate : '';
+};
+
+const getAllBaseLayers = (state) => state.mapLayers.baseLayers.items;
+
+export const getBaseLayers = createSelector([getAllBaseLayers],
+  (baseLayers) => baseLayers.reduce((result, item) => ({
+    ...result,
+    [item.category]: !result[item.category] ? [item] :
+      [...result[item.category], item]
+  }), {}));
+
+const getActiveBaseLayer = (state) => state.map.baseLayer;
+
+const getBase = (state, layerOptions) => ({
+  layers: state.mapLayers.baseLayers.items,
+  layerOptions
+});
+
+export const getBaseLayer = createSelector([getBase, getActiveBaseLayer],
+  (base, activeLayerId) => ({
+    urlTemplate: getUrlTemplateOfActiveLayer(base.layers, activeLayerId),
+    baseLayerOptions: base.layerOptions
+  }));
 
 export default function MapBaseLayersReducer(state = initialState, action) {
   switch (action.type) {
@@ -27,7 +53,7 @@ export default function MapBaseLayersReducer(state = initialState, action) {
   }
 }
 
-export const getMapBaseLayers = () => ({ type: FETCH_MAP_BASE_LAYERS_REQUEST });
+export const fetchMapBaseLayers = () => ({ type: FETCH_MAP_BASE_LAYERS_REQUEST });
 
 window.reducers = window.reducers || {};
 window.reducers.MapBaseLayersReducer = MapBaseLayersReducer;

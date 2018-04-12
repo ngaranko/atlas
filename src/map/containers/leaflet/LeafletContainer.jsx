@@ -5,7 +5,9 @@ import { bindActionCreators } from 'redux';
 
 import MapLeaflet from '../../components/leaflet/MapLeaflet';
 import MAP_CONFIG from '../../services/map-config';
-import { getLayers, getBaseLayer, updateZoom, updatePan } from '../../ducks/map/map';
+import { updateZoom, updatePan } from '../../ducks/map/map';
+import { getBaseLayer } from '../../ducks/base-layers/map-base-layers';
+import { getLayers } from '../../ducks/layers/map-layers';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
@@ -32,16 +34,20 @@ const LeafletContainer = ({
   onUpdatePan
 }) => (
   <div>
-    <MapLeaflet
-      layers={layers}
-      mapOptions={mapOptions}
-      scaleControlOptions={scaleControlOptions}
-      baseLayer={baseLayer}
-      center={center}
-      zoom={zoom}
-      onZoomEnd={onUpdateZoom}
-      onDragEnd={onUpdatePan}
-    />
+    {
+      baseLayer.urlTemplate.length && (
+        <MapLeaflet
+          layers={layers}
+          mapOptions={mapOptions}
+          scaleControlOptions={scaleControlOptions}
+          baseLayer={baseLayer}
+          center={center}
+          zoom={zoom}
+          onZoomEnd={onUpdateZoom}
+          onDragEnd={onUpdatePan}
+        />
+      )
+    }
   </div>
 );
 
@@ -51,14 +57,17 @@ LeafletContainer.contextTypes = {
 
 LeafletContainer.defaultProps = {
   layers: [],
-  center: []
+  center: [],
+  baseLayer: {
+    urlTemplate: ''
+  }
 };
 
 LeafletContainer.propTypes = {
   baseLayer: PropTypes.shape({
-    urlTemplate: PropTypes.string.isRequired,
-    baseLayerOptions: PropTypes.shape({}).isRequired
-  }).isRequired,
+    urlTemplate: PropTypes.string,
+    baseLayerOptions: PropTypes.shape({})
+  }),
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,

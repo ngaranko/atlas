@@ -1,9 +1,4 @@
-import { createSelector } from 'reselect';
-
-import { createUrlWithToken } from '../../../shared/services/api/api';
-import BASE_LAYERS from '../../../shared/services/layers/base-layers.constant';
 import ACTIONS from '../../../shared/actions';
-import MAP_CONFIG from '../../services/map-config';
 
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
@@ -79,52 +74,6 @@ export default function MapReducer(state = initialState, action) {
       return state;
   }
 }
-
-// HELPER METHODS
-const findLayer = (layers, id) => layers.find((mapLayer) => mapLayer.id === id);
-const getActiveBaselayer = (slug) => BASE_LAYERS.find((layer) => layer.slug === slug);
-const generateLayer = (layers, overlay, url) => ({
-  ...overlay,
-  url,
-  overlayOptions: {
-    ...MAP_CONFIG.OVERLAY_OPTIONS,
-    layers: findLayer(layers, overlay.id).layers
-  }
-});
-
-// SELECTORS
-export const getBaseLayer = (state, baseLayerOptions) => ({
-  urlTemplate: getActiveBaselayer(state.map.baseLayer).urlTemplate,
-  baseLayerOptions
-});
-
-const getMapLayers = (state) => state.mapLayers.layers.items;
-const getOverlays = (state) => state.map.overlays;
-const getAccessToken = (state) => state.user.accessToken;
-
-export const getLayers = createSelector(
-  [getOverlays, getAccessToken, getMapLayers],
-  (overlays, token, layers) => (
-    overlays.map((overlay) => {
-      const layer = findLayer(layers, overlay.id);
-      if (!layer) {
-        return false;
-      }
-      const layerUrl = `${MAP_CONFIG.OVERLAY_ROOT}/${layer.url}`;
-      if (!layer.authScope) {
-        return generateLayer(layers, overlay, layerUrl);
-      }
-      if (token) {
-        return generateLayer(
-          layers,
-          overlay,
-          createUrlWithToken(layerUrl, token)
-        );
-      }
-      return false;
-    })
-    .filter((layer) => layer))
-);
 
 export const mapClearDrawing = () => ({ type: MAP_CLEAR_DRAWING });
 export const mapEmptyGeometry = () => ({ type: MAP_EMPTY_GEOMETRY });

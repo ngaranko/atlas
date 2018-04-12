@@ -12,9 +12,9 @@ import LeafletContainer from '../leaflet/LeafletContainer';
 import MapPanelContainer from '../../containers/panel/MapPanelContainer';
 import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
 
-import { getMapBaseLayers } from '../../ducks/base-layers/map-base-layers';
-import { getMapLayers } from '../../ducks/layers/map-layers';
-import { getPanelLayers } from '../../ducks/panel-layers/panel-layers';
+import { fetchMapBaseLayers } from '../../ducks/base-layers/map-base-layers';
+import { fetchMapLayers } from '../../ducks/layers/map-layers';
+import { fetchPanelLayers } from '../../ducks/panel-layers/panel-layers';
 
 const mapStateToProps = (state) => ({
   isFullscreen: state.ui.isMapFullscreen
@@ -30,9 +30,9 @@ class MapContainer extends React.Component { //eslint-disable-line
   }
 
   componentDidMount() {
-    this.context.store.dispatch(getMapBaseLayers());
-    this.context.store.dispatch(getMapLayers());
-    this.context.store.dispatch(getPanelLayers());
+    this.context.store.dispatch(fetchMapBaseLayers());
+    this.context.store.dispatch(fetchMapLayers());
+    this.context.store.dispatch(fetchPanelLayers());
   }
 
   render() {

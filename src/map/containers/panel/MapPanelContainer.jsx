@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { setMapBaseLayer } from '../../ducks/map/map';
 import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/map-overlays';
 import { selectActivePanelLayers } from '../../ducks/panel-layers/panel-layers';
+import { getBaseLayers } from '../../ducks/base-layers/map-base-layers';
 import { toggleMapPanel, toggleMapPanelHandle } from '../../../shared/ducks/ui/ui';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
@@ -23,7 +24,7 @@ const mapStateToProps = (state) => ({
   isMapLayersVisible: state.ui.isMapLayersVisible,
   isEachOverlayInvisible: state.map.overlays.every((overlay) => overlay.isVisible),
   isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,
-  mapBaseLayers: state.mapLayers.baseLayers.items,
+  mapBaseLayers: getBaseLayers(state),
   mapLayers: state.mapLayers.panelLayers.items,
   overlays: state.map.overlays,
   zoomLevel: state.map.zoom,
