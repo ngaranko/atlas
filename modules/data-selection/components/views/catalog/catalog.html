@@ -1,12 +1,20 @@
 <div class="u-margin__bottom--1">
-    <button ng-repeat="row in vm.items" ng-click="vm.fetch_detail(row.detailEndpoint)" class="c-data-selection-catalog qa-catalog-fetch-detail u-no-presentation">
-        <h2 class="c-data-selection-catalog__header">
-            {{row.header}}
-            <span>{{row.modification | modificationDate}}</span>
-        </h2>
+    <button ng-repeat="row in vm.items" ng-click="vm.fetch_detail(row.detailEndpoint)" class="c-data-selection-catalog u-no-presentation">
+        <div class="c-data-selection-catalog__header">
+            <h2>
+                {{row.header}}
+            </h2>
+            <div>{{row.modification | modificationDate}}</div>
+        </div>
 
         <span class="c-data-selection-catalog__formats">
-            <span ng-repeat="format in row.formats">*** {{format.name | optionLabel:vm.catalogFilters.formatTypes| lowercase }} x {{format.count}} /// </span>
+            <div ng-repeat="format in row.formats" class="c-data-selection-file-type">
+                <span class="c-data-selection-file-type__name c-data-selection-file-type__format-{{format.name | optionLabel:vm.catalogFilters.formatTypes| lowercase }}">
+                    {{format.name | optionLabel:vm.catalogFilters.formatTypes| lowercase }}
+                </span>
+                <span class="c-data-selection-file-type__x">x</span>
+                <span class="c-data-selection-file-type__count ng-binding">{{format.count}}</span>
+            </div>
         </span>
 
         <span class="c-data-selection-catalog__tags">
@@ -14,7 +22,7 @@
         </span>
 
         <div class="c-data-selection-catalog__description">
-            {{row.description}}
+            {{row.description | truncateHtmlAsText}}
         </div>
     </button>
 </div>
