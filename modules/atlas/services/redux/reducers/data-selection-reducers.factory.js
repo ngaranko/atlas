@@ -44,7 +44,7 @@
             } : payload;
 
             const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
-console.log(view);
+
             const geometryFilter = mergeInto.resetGeometryFilter
                 ? {
                     markers: [],

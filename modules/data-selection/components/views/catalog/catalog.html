@@ -18,7 +18,14 @@
         </span>
 
         <span class="c-data-selection-catalog__tags">
-            <span ng-repeat="tag in row.tags">{{tag}} - </span>
+            <ul ng-repeat="tag in row.tags" class="u-inline">
+                <li class="u-inline">
+                    <div class="o-tag--transparent-small">
+                        <i></i>
+                        <span>{{tag | dpUppercaseFirstLetter}}</span>
+                    </div>
+                </li>
+            </ul>
         </span>
 
         <div class="c-data-selection-catalog__description">
