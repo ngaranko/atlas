@@ -1,6 +1,7 @@
 export default [
   {
     id: 'pano',
+    layers: ['panorama_recent'],
     legendItems: [
       {
         selectable: false,
@@ -15,16 +16,24 @@ export default [
         title: '2016'
       }
     ],
-    title: 'Panoramabeelden'
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Panoramabeelden',
+    url: '/maps/panorama?version=1.3.0&service=WMS'
   },
   {
     id: 'pano2018',
+    layers: ['panorama_recent_2018'],
     legendItems: [
       {
         selectable: false,
         title: '2018'
       }
-    ]
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Panoramabeelden',
+    url: '/maps/panorama?version=1.3.0&service=WMS'
   },
   {
     id: 'pano2017',
@@ -53,469 +62,6 @@ export default [
     minZoom: 11,
     title: 'Panoramabeelden',
     url: '/maps/panorama?version=1.3.0&service=WMS'
-  },
-  {
-    category: 'Economie en haven',
-    id: 'biz',
-    layers: ['biz_polygons'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Bedrijfsinvesteringszone'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 8,
-    title: 'Bedrijfsinvesteringszones',
-    url: '/maps/biz?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'bouw',
-    layers: ['bouw'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Afwerking van gebouwen'
-      },
-      {
-        selectable: false,
-        title: 'Bouwinstallatie'
-      },
-      {
-        selectable: false,
-        title: 'Bouw/utiliteitsbouw algemeen / klusbedrijf'
-      },
-      {
-        selectable: false,
-        title: 'Dak- en overige gespecialiseerde bouw'
-      },
-      {
-        selectable: false,
-        title: 'Grond, water, wegenbouw'
-      },
-      {
-        selectable: false,
-        title: 'Overige bouw'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Bouw',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'csr',
-    layers: ['cultuur_sport_recreatie'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Kunst'
-      },
-      {
-        selectable: false,
-        title: 'Musea, bibliotheken, kunstuitleen'
-      },
-      {
-        selectable: false,
-        title: 'Recreatie'
-      },
-      {
-        selectable: false,
-        title: 'Sport'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Cultuur, sport, recreatie',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'fdvrog',
-    layers: ['financiele_dienstverlening_verhuur'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Financiële dienstverlening en verzekeringen'
-      },
-      {
-        selectable: false,
-        title: 'Holdings'
-      },
-      {
-        selectable: false,
-        title: 'Verhuur van- en beheer/handel in onroerend goed'
-      },
-      {
-        selectable: false,
-        title: 'Verhuur van roerende goederen'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Financiële dienstv., verhuur van (on)roerend goed',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'hvo',
-    layers: ['handel_vervoer_opslag'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Detailhandel (verkoop aan consumenten, niet zelf vervaardigd)'
-      },
-      {
-        selectable: false,
-        title: 'Dienstverlening vervoer'
-      },
-      {
-        selectable: false,
-        title: 'Groothandel (verkoop aan andere ondernemingen, niet zelf vervaardigd)'
-      },
-      {
-        selectable: false,
-        title: 'Handel en reparatie van auto\'s'
-      },
-      {
-        selectable: false,
-        title: 'Handelsbemiddeling (tussenpersoon, verkoopt niet zelf)'
-      },
-      {
-        selectable: false,
-        title: 'Opslag'
-      },
-      {
-        selectable: false,
-        title: 'Vervoer'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Handel, vervoer, opslag',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'hrc',
-    layers: ['horeca'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Café'
-      },
-      {
-        selectable: false,
-        title: 'Cafetaria, snackbar, ijssalon'
-      },
-      {
-        selectable: false,
-        title: 'Hotel, pension'
-      },
-      {
-        selectable: false,
-        title: 'Hotel-restaurant'
-      },
-      {
-        selectable: false,
-        title: 'Kantine, catering'
-      },
-      {
-        selectable: false,
-        title: 'Restaurant, café-restaurant'
-      },
-      {
-        selectable: false,
-        title: 'Overige horeca'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Horeca',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'itc',
-    layers: ['telecommunicatie'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Activiteiten op gebied van film, tv, radio, audio'
-      },
-      {
-        selectable: false,
-        title: 'Activiteiten op het gebied van ict'
-      },
-      {
-        selectable: false,
-        title: 'Telecommunicatie'
-      },
-      {
-        selectable: false,
-        title: 'Uitgeverijen'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Informatie, telecommunicatie',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'lb',
-    layers: ['landbouw'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Dienstverlening voor de land/tuinbouw'
-      },
-      {
-        selectable: false,
-        title: 'Fokken, houden dieren'
-      },
-      {
-        selectable: false,
-        title: 'Gemengd bedrijf'
-      },
-      {
-        selectable: false,
-        title: 'Teelt eenjarige gewassen'
-      },
-      {
-        selectable: false,
-        title: 'Teelt meerjarige gewassen'
-      },
-      {
-        selectable: false,
-        title: 'Teelt sierplanten'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Landbouw',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'ooz',
-    layers: ['overheid_onderwijs_zorg'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Gezondheids- en welzijnszorg'
-      },
-      {
-        selectable: false,
-        title: 'Onderwijs'
-      },
-      {
-        selectable: false,
-        title: 'Overheid'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Overheid, onderwijs, zorg',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'pd',
-    layers: ['persoonlijke_dienstverlening'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Kappers'
-      },
-      {
-        selectable: false,
-        title: 'Sauna, solaria'
-      },
-      {
-        selectable: false,
-        title: 'Schoonheidsverzorging'
-      },
-      {
-        selectable: false,
-        title: 'Uitvaart, crematoria'
-      },
-      {
-        selectable: false,
-        title: 'Overige dienstverlening'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Persoonlijke dienstverlening',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'pir',
-    layers: ['productie_installatie_reparatie'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Installatie (geen bouw)'
-      },
-      {
-        selectable: false,
-        title: 'Productie'
-      },
-      {
-        selectable: false,
-        title: 'Reparatie (geen bouw)'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Productie, installatie, reparatie',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'zd',
-    layers: ['zakelijke_dienstverlening'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Accountancy, administratie'
-      },
-      {
-        selectable: false,
-        title: 'Advocaten rechtskundige diensten, notarissen'
-      },
-      {
-        selectable: false,
-        title: 'Arbeidsbemiddeling, uitzendbureaus, uitleenbureaus'
-      },
-      {
-        selectable: false,
-        title: 'Architecten'
-      },
-      {
-        selectable: false,
-        title: 'Design'
-      },
-      {
-        selectable: false,
-        title: 'Interieurarchitecten'
-      },
-      {
-        selectable: false,
-        title: 'Managementadvies, economisch advies'
-      },
-      {
-        selectable: false,
-        title: 'Public relationsbureaus'
-      },
-      {
-        selectable: false,
-        title: 'Reclame en Marktonderzoek'
-      },
-      {
-        selectable: false,
-        title: 'Technisch ontwerp, advies, keuring/research'
-      },
-      {
-        selectable: false,
-        title: 'Overige zakelijke dienstverlening'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Zakelijke dienstverlening',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
-  },
-  {
-    authScope: 'HR/R',
-    category: 'Economie en haven',
-    id: 'ovrg',
-    layers: ['overige'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Belangenorganisaties'
-      },
-      {
-        selectable: false,
-        title: 'Hobbyclubs'
-      },
-      {
-        selectable: false,
-        title: 'Ideële organisaties'
-      },
-      {
-        selectable: false,
-        title: 'Overige'
-      },
-      {
-        selectable: false,
-        title: '(Locatie geschat)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Vestigingen - Overige',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: onroerende zaken',
@@ -941,6 +487,279 @@ export default [
     minZoom: 12,
     title: 'Meetbouten - Referentiepunten',
     url: '/maps/meetbouten?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Verkeer en infrastructuur',
+    legendItems: [
+      {
+        id: 'mtr',
+        notClickable: true,
+        layer: 'metrolijnen',
+        selectable: true,
+        title: 'Metrolijn'
+      },
+      {
+        id: 'trm',
+        notClickable: true,
+        layer: 'tramlijnen',
+        selectable: true,
+        title: 'Tramlijn'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Metro en tram - Spoorlijnen',
+    url: '/maps/trm?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Verkeer en infrastructuur',
+    id: 'pv',
+    notClickable: true,
+    layers: ['alle_parkeervakken'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'FISCAAL'
+      },
+      {
+        selectable: false,
+        title: 'Parkeervak'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Parkeervakken - Fiscale indeling',
+    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Verkeer en infrastructuur',
+    id: 'pvb',
+    notClickable: true,
+    layers: ['parkeervakken_bord'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Bord'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Parkeervakken - Speciale bestemmingen',
+    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Verkeer en infrastructuur',
+    id: 'pvr',
+    notClickable: true,
+    layers: ['parkeervakken_reservering'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'FISCAAL'
+      },
+      {
+        selectable: false,
+        title: 'Parkeerverbod'
+      },
+      {
+        selectable: false,
+        title: 'Verbod stil te staan'
+      },
+      {
+        selectable: false,
+        title: 'Verbod (brom)fietsen plaatsen'
+      },
+      {
+        selectable: false,
+        title: 'Parkeergelegenheid'
+      },
+      {
+        selectable: false,
+        title: 'Taxistandplaats'
+      },
+      {
+        selectable: false,
+        title: 'Gehandicaptenplaats'
+      },
+      {
+        selectable: false,
+        title: 'Gehandicaptenplaats algemeen'
+      },
+      {
+        selectable: false,
+        title: 'Gehandicaptenplaats kenteken'
+      },
+      {
+        selectable: false,
+        title: 'Laden lossen'
+      },
+      {
+        selectable: false,
+        title: 'Specifieke voertuigcategorie'
+      },
+      {
+        selectable: false,
+        title: 'Vergunninghouders'
+      },
+      {
+        selectable: false,
+        title: 'Blauwe zone'
+      },
+      {
+        selectable: false,
+        title: 'Einde blauwe zone'
+      },
+      {
+        selectable: false,
+        title: 'Park & Ride'
+      },
+      {
+        selectable: false,
+        title: 'Carpool'
+      },
+      {
+        selectable: false,
+        title: 'MULDER'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Parkeervakken - Gereserveerd',
+    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Verkeer en infrastructuur',
+    id: 'pr',
+    notClickable: true,
+    layers: ['reistijdenauto'],
+    legendItems: [
+      {
+        selectable: false,
+        title: '0 tot 20 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '20 tot 40 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '40 tot 60 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '60 tot 80 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '80 tot 100 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '100 tot 120 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '120 tot 140 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: 'meer dan 140 km/h - snelweg'
+      },
+      {
+        selectable: false,
+        title: '0 tot 10 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '10 tot 20 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '20 tot 30 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '30 tot 40 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '40 tot 50 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: '50 tot 60 km/h - weg'
+      },
+      {
+        selectable: false,
+        title: 'meer dan 60 km/h - weg'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Verkeersstromen - Snelheden (±5 min. geleden)',
+    url: '/maps/reistijdenauto?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Openbare orde en veiligheid',
+    legendItems: [
+      {
+        id: 'oovoalg',
+        layer: 'algemeen_overlastgebied',
+        selectable: true,
+        title: 'Algemeen overlastgebied'
+      },
+      {
+        id: 'oovodlrs',
+        layer: 'dealeroverlastgebied',
+        selectable: true,
+        title: 'Dealeroverlastgebied'
+      },
+      {
+        id: 'oovouitg',
+        layer: 'uitgaansoverlastgebied',
+        selectable: true,
+        title: 'Uitgaansoverlastgebied'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Overlastgebieden',
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Openbare orde en veiligheid',
+    id: 'oovctg',
+    layers: ['cameratoezichtgebied'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Cameratoezichtgebied'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Cameratoezichtgebieden',
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Toerisme en cultuur',
+    id: 'tcmnmt',
+    legendItems: [
+      {
+        layer: ['monument_coordinaten'],
+        selectable: false,
+        title: 'Monument (pandgerelateerd)'
+      },
+      {
+        layer: 'monument_coordinaten_nopand',
+        selectable: false,
+        title: 'Monument (overige)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 12,
+    title: 'Monumenten',
+    url: '/maps/monumenten?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: bodem',
@@ -1619,257 +1438,467 @@ export default [
     url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
   },
   {
-    category: 'Openbare orde en veiligheid',
+    category: 'Economie en haven',
+    id: 'biz',
+    layers: ['biz_polygons'],
     legendItems: [
       {
-        id: 'oovoalg',
-        layer: 'algemeen_overlastgebied',
-        selectable: true,
-        title: 'Algemeen overlastgebied'
-      },
-      {
-        id: 'oovodlrs',
-        layer: 'dealeroverlastgebied',
-        selectable: true,
-        title: 'Dealeroverlastgebied'
-      },
-      {
-        id: 'oovouitg',
-        layer: 'uitgaansoverlastgebied',
-        selectable: true,
-        title: 'Uitgaansoverlastgebied'
+        selectable: false,
+        title: 'Bedrijfsinvesteringszone'
       }
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: 'Overlastgebieden',
-    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+    title: 'Bedrijfsinvesteringszones',
+    url: '/maps/biz?version=1.3.0&service=WMS'
   },
   {
-    category: 'Openbare orde en veiligheid',
-    id: 'oovctg',
-    layers: ['cameratoezichtgebied'],
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'bouw',
+    layers: ['bouw'],
     legendItems: [
       {
         selectable: false,
-        title: 'Cameratoezichtgebied'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 8,
-    title: 'Cameratoezichtgebieden',
-    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
-  },
-  {
-    category: 'Verkeer en infrastructuur',
-    legendItems: [
-      {
-        id: 'mtr',
-        notClickable: true,
-        layer: 'metrolijnen',
-        selectable: true,
-        title: 'Metrolijn'
-      },
-      {
-        id: 'trm',
-        notClickable: true,
-        layer: 'tramlijnen',
-        selectable: true,
-        title: 'Tramlijn'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 8,
-    title: 'Metro en tram - Spoorlijnen',
-    url: '/maps/trm?version=1.3.0&service=WMS'
-  },
-  {
-    category: 'Verkeer en infrastructuur',
-    id: 'pv',
-    notClickable: true,
-    layers: ['alle_parkeervakken'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'FISCAAL'
+        title: 'Afwerking van gebouwen'
       },
       {
         selectable: false,
-        title: 'Parkeervak'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 8,
-    title: 'Parkeervakken - Fiscale indeling',
-    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
-  },
-  {
-    category: 'Verkeer en infrastructuur',
-    id: 'pvb',
-    notClickable: true,
-    layers: ['parkeervakken_bord'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Bord'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 8,
-    title: 'Parkeervakken - Speciale bestemmingen',
-    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
-  },
-  {
-    category: 'Verkeer en infrastructuur',
-    id: 'pvr',
-    notClickable: true,
-    layers: ['parkeervakken_reservering'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'FISCAAL'
+        title: 'Bouwinstallatie'
       },
       {
         selectable: false,
-        title: 'Parkeerverbod'
+        title: 'Bouw/utiliteitsbouw algemeen / klusbedrijf'
       },
       {
         selectable: false,
-        title: 'Verbod stil te staan'
+        title: 'Dak- en overige gespecialiseerde bouw'
       },
       {
         selectable: false,
-        title: 'Verbod (brom)fietsen plaatsen'
+        title: 'Grond, water, wegenbouw'
       },
       {
         selectable: false,
-        title: 'Parkeergelegenheid'
+        title: 'Overige bouw'
       },
       {
         selectable: false,
-        title: 'Taxistandplaats'
-      },
-      {
-        selectable: false,
-        title: 'Gehandicaptenplaats'
-      },
-      {
-        selectable: false,
-        title: 'Gehandicaptenplaats algemeen'
-      },
-      {
-        selectable: false,
-        title: 'Gehandicaptenplaats kenteken'
-      },
-      {
-        selectable: false,
-        title: 'Laden lossen'
-      },
-      {
-        selectable: false,
-        title: 'Specifieke voertuigcategorie'
-      },
-      {
-        selectable: false,
-        title: 'Vergunninghouders'
-      },
-      {
-        selectable: false,
-        title: 'Blauwe zone'
-      },
-      {
-        selectable: false,
-        title: 'Einde blauwe zone'
-      },
-      {
-        selectable: false,
-        title: 'Park & Ride'
-      },
-      {
-        selectable: false,
-        title: 'Carpool'
-      },
-      {
-        selectable: false,
-        title: 'MULDER'
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Parkeervakken - Gereserveerd',
-    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
+    title: 'Vestigingen - Bouw',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
-    category: 'Verkeer en infrastructuur',
-    id: 'pr',
-    notClickable: true,
-    layers: ['reistijdenauto'],
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'csr',
+    layers: ['cultuur_sport_recreatie'],
     legendItems: [
       {
         selectable: false,
-        title: '0 tot 20 km/h - snelweg'
+        title: 'Kunst'
       },
       {
         selectable: false,
-        title: '20 tot 40 km/h - snelweg'
+        title: 'Musea, bibliotheken, kunstuitleen'
       },
       {
         selectable: false,
-        title: '40 tot 60 km/h - snelweg'
+        title: 'Recreatie'
       },
       {
         selectable: false,
-        title: '60 tot 80 km/h - snelweg'
+        title: 'Sport'
       },
       {
         selectable: false,
-        title: '80 tot 100 km/h - snelweg'
-      },
-      {
-        selectable: false,
-        title: '100 tot 120 km/h - snelweg'
-      },
-      {
-        selectable: false,
-        title: '120 tot 140 km/h - snelweg'
-      },
-      {
-        selectable: false,
-        title: 'meer dan 140 km/h - snelweg'
-      },
-      {
-        selectable: false,
-        title: '0 tot 10 km/h - weg'
-      },
-      {
-        selectable: false,
-        title: '10 tot 20 km/h - weg'
-      },
-      {
-        selectable: false,
-        title: '20 tot 30 km/h - weg'
-      },
-      {
-        selectable: false,
-        title: '30 tot 40 km/h - weg'
-      },
-      {
-        selectable: false,
-        title: '40 tot 50 km/h - weg'
-      },
-      {
-        selectable: false,
-        title: '50 tot 60 km/h - weg'
-      },
-      {
-        selectable: false,
-        title: 'meer dan 60 km/h - weg'
+        title: '(Locatie geschat)'
       }
     ],
     maxZoom: 16,
-    minZoom: 8,
-    title: 'Verkeersstromen - Snelheden (±5 min. geleden)',
-    url: '/maps/reistijdenauto?version=1.3.0&service=WMS'
+    minZoom: 11,
+    title: 'Vestigingen - Cultuur, sport, recreatie',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'fdvrog',
+    layers: ['financiele_dienstverlening_verhuur'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Financiële dienstverlening en verzekeringen'
+      },
+      {
+        selectable: false,
+        title: 'Holdings'
+      },
+      {
+        selectable: false,
+        title: 'Verhuur van- en beheer/handel in onroerend goed'
+      },
+      {
+        selectable: false,
+        title: 'Verhuur van roerende goederen'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Vestigingen - Financiële dienstv., verhuur van (on)roerend goed',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'hvo',
+    layers: ['handel_vervoer_opslag'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Detailhandel (verkoop aan consumenten, niet zelf vervaardigd)'
+      },
+      {
+        selectable: false,
+        title: 'Dienstverlening vervoer'
+      },
+      {
+        selectable: false,
+        title: 'Groothandel (verkoop aan andere ondernemingen, niet zelf vervaardigd)'
+      },
+      {
+        selectable: false,
+        title: 'Handel en reparatie van auto\'s'
+      },
+      {
+        selectable: false,
+        title: 'Handelsbemiddeling (tussenpersoon, verkoopt niet zelf)'
+      },
+      {
+        selectable: false,
+        title: 'Opslag'
+      },
+      {
+        selectable: false,
+        title: 'Vervoer'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Vestigingen - Handel, vervoer, opslag',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'hrc',
+    layers: ['horeca'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Café'
+      },
+      {
+        selectable: false,
+        title: 'Cafetaria, snackbar, ijssalon'
+      },
+      {
+        selectable: false,
+        title: 'Hotel, pension'
+      },
+      {
+        selectable: false,
+        title: 'Hotel-restaurant'
+      },
+      {
+        selectable: false,
+        title: 'Kantine, catering'
+      },
+      {
+        selectable: false,
+        title: 'Restaurant, café-restaurant'
+      },
+      {
+        selectable: false,
+        title: 'Overige horeca'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Vestigingen - Horeca',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'itc',
+    layers: ['telecommunicatie'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Activiteiten op gebied van film, tv, radio, audio'
+      },
+      {
+        selectable: false,
+        title: 'Activiteiten op het gebied van ict'
+      },
+      {
+        selectable: false,
+        title: 'Telecommunicatie'
+      },
+      {
+        selectable: false,
+        title: 'Uitgeverijen'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Vestigingen - Informatie, telecommunicatie',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'lb',
+    layers: ['landbouw'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Dienstverlening voor de land/tuinbouw'
+      },
+      {
+        selectable: false,
+        title: 'Fokken, houden dieren'
+      },
+      {
+        selectable: false,
+        title: 'Gemengd bedrijf'
+      },
+      {
+        selectable: false,
+        title: 'Teelt eenjarige gewassen'
+      },
+      {
+        selectable: false,
+        title: 'Teelt meerjarige gewassen'
+      },
+      {
+        selectable: false,
+        title: 'Teelt sierplanten'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Vestigingen - Landbouw',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'ooz',
+    layers: ['overheid_onderwijs_zorg'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Gezondheids- en welzijnszorg'
+      },
+      {
+        selectable: false,
+        title: 'Onderwijs'
+      },
+      {
+        selectable: false,
+        title: 'Overheid'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Vestigingen - Overheid, onderwijs, zorg',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'pd',
+    layers: ['persoonlijke_dienstverlening'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Kappers'
+      },
+      {
+        selectable: false,
+        title: 'Sauna, solaria'
+      },
+      {
+        selectable: false,
+        title: 'Schoonheidsverzorging'
+      },
+      {
+        selectable: false,
+        title: 'Uitvaart, crematoria'
+      },
+      {
+        selectable: false,
+        title: 'Overige dienstverlening'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Vestigingen - Persoonlijke dienstverlening',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'pir',
+    layers: ['productie_installatie_reparatie'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Installatie (geen bouw)'
+      },
+      {
+        selectable: false,
+        title: 'Productie'
+      },
+      {
+        selectable: false,
+        title: 'Reparatie (geen bouw)'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Vestigingen - Productie, installatie, reparatie',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'zd',
+    layers: ['zakelijke_dienstverlening'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Accountancy, administratie'
+      },
+      {
+        selectable: false,
+        title: 'Advocaten rechtskundige diensten, notarissen'
+      },
+      {
+        selectable: false,
+        title: 'Arbeidsbemiddeling, uitzendbureaus, uitleenbureaus'
+      },
+      {
+        selectable: false,
+        title: 'Architecten'
+      },
+      {
+        selectable: false,
+        title: 'Design'
+      },
+      {
+        selectable: false,
+        title: 'Interieurarchitecten'
+      },
+      {
+        selectable: false,
+        title: 'Managementadvies, economisch advies'
+      },
+      {
+        selectable: false,
+        title: 'Public relationsbureaus'
+      },
+      {
+        selectable: false,
+        title: 'Reclame en Marktonderzoek'
+      },
+      {
+        selectable: false,
+        title: 'Technisch ontwerp, advies, keuring/research'
+      },
+      {
+        selectable: false,
+        title: 'Overige zakelijke dienstverlening'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Vestigingen - Zakelijke dienstverlening',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'HR/R',
+    category: 'Economie en haven',
+    id: 'ovrg',
+    layers: ['overige'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Belangenorganisaties'
+      },
+      {
+        selectable: false,
+        title: 'Hobbyclubs'
+      },
+      {
+        selectable: false,
+        title: 'Ideële organisaties'
+      },
+      {
+        selectable: false,
+        title: 'Overige'
+      },
+      {
+        selectable: false,
+        title: '(Locatie geschat)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Vestigingen - Overige',
+    url: '/maps/handelsregister?version=1.3.0&service=WMS'
   },
   {
     authScope: 'GREX/R',
@@ -1890,25 +1919,5 @@ export default [
     minZoom: 8,
     title: 'Grondexploitaties - Projecten',
     url: '/maps/grondexploitatie?version=1.3.0&service=WMS'
-  },
-  {
-    category: 'Toerisme en cultuur',
-    id: 'tcmnmt',
-    legendItems: [
-      {
-        layer: ['monument_coordinaten'],
-        selectable: false,
-        title: 'Monument (pandgerelateerd)'
-      },
-      {
-        layer: 'monument_coordinaten_nopand',
-        selectable: false,
-        title: 'Monument (overige)'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 12,
-    title: 'Monumenten',
-    url: '/maps/monumenten?version=1.3.0&service=WMS'
   }
 ];
