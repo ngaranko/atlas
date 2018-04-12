@@ -192,7 +192,9 @@ HeaderSearchContainer.contextTypes = {
 };
 
 HeaderSearchContainer.defaultProps = {
-  activeSuggestion: {},
+  activeSuggestion: { 
+    index: -1 
+  },
   displayQuery: '',
   isDatasetView: false,
   numberOfSuggestions: 0,
