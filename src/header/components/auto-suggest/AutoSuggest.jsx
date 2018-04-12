@@ -41,11 +41,14 @@ class AutoSuggest extends React.Component {
 
   onInput(event) {
     const {
-      onTextInput
+      onTextInput,
+      activeSuggestion
     } = this.props;
 
     event.persist();
-    this.resetActiveSuggestion();
+    if (activeSuggestion.index > -1) {
+      this.resetActiveSuggestion();
+    }
     onTextInput(event.target.value);
 
     this.setState({
