@@ -57,6 +57,7 @@
             var resources = data['dcat:distribution'];
 
             const formattedData = {
+                _display: data['dct:title'],
                 resources: resourceTypes.map((item, index) => {
                     return {
                         type: item.id,
