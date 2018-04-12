@@ -40,6 +40,15 @@
   &-button{
     margin-left: 31px; 
   }
+  &-type__content-item{
+    cursor: pointer;
+    &:hover{
+      background-color: #eee;
+    }
+  }
+  .resources-type__content{
+    margin-bottom: 0;
+  }
 }
 
 .dcad-dataset-detail {
@@ -79,8 +88,7 @@
     display: flex;
     &>.c-catalogus-theme__icon {
       width: auto;
-      padding-right: 10px;
-      padding: 10px;
+      padding: 10px 10px 10px 0;
     }
   }
   .o-tag--transparent {
