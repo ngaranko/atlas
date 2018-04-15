@@ -1,6 +1,7 @@
 // resources, resources-item and the styles/** are copyied form dcatd_admin and should be integrated in atlas
 @import "./resources";
 @import "./resources-item";
+@import "./datasets-themes";
 .resources {
   margin-left: -20px;
   margin-right: -20px;
@@ -121,4 +122,9 @@
       text-transform: capitalize;
     }
   }
+}
+
+
+.c-catalogus-theme__icon--geografie {
+  @include icon-button-text-right("thema-geografie", "", "");
 }
