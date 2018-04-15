@@ -3,6 +3,7 @@
 @import "./resources-item";
 @import "./datasets-themes";
 .resources {
+  overflow-x: hidden;
   margin-left: -20px;
   margin-right: -20px;
   &-item {

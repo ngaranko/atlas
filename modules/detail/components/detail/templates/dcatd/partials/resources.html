@@ -20,7 +20,7 @@
                                 <span ng-if="resource['dct:format']">{{resource['dct:format'] | optionLabel: vm.catalogFilters.formatTypes}}</span>
                                 <span ng-if="!resource['dct:format']"> ? </span>
                             </span>
-                            <span>{{resource['dct:description']}}</span>
+                            <span>{{resource['dct:description'] ? resource['dct:description'] : resource['dcat:accessURL'] }}</span>
                         </div>
                     </div>
                     <div class="resources-item__right">
