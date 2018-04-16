@@ -27,7 +27,7 @@
     <dd>{{vm.apiData.results['ams:owner'] | optionLabel: vm.catalogFilters.owners}}</dd>
     <dt>Inhoudelijk contactpersoon</dt>
     <dd>
-        <a ng-if="vm.apiData.results['dcat:contactPoint']['vcard:hasEmail']" href="{{vm.apiData.results['dcat:contactPoint']['vcard:hasEmail']}}"
+        <a ng-if="vm.apiData.results['dcat:contactPoint']['vcard:hasEmail']" href="mailto:{{vm.apiData.results['dcat:contactPoint']['vcard:hasEmail']}}"
             class="o-btn o-btn--link">{{vm.apiData.results['dcat:contactPoint']['vcard:fn']}} ({{vm.apiData.results['dcat:contactPoint']['vcard:hasEmail']}})</a>
     </dd>
     <dt>Technisch contactpersoon</dt>

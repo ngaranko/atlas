@@ -85,6 +85,7 @@ describe('The dataFormatter factory', function () {
         expect(result).toBeTruthy();
         expect(result['dcat:distribution']).toBe(undefined);
         expect(result).toEqual({
+            _display: undefined,
             'dcat:title': 'title',
             resources: [{
                 type: 'resourceTypeId',

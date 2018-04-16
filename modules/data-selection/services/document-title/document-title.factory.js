@@ -48,7 +48,7 @@
 
                 output = view;
 
-                if (variant !== 'dcatd') {
+                if (variant !== 'catalogus' && variant !== 'dcatd') {
                     output += ` ${variant}`;
                 }
 
