@@ -35,7 +35,7 @@ export const getLayers = createSelector(
       if (!layer) {
         return false;
       }
-      const layerUrl = `${MAP_CONFIG.OVERLAY_ROOT}/${layer.url}`;
+      const layerUrl = !layer.external ? `${MAP_CONFIG.OVERLAY_ROOT}/${layer.url}` : layer.url;
       if (!layer.authScope) {
         return generateLayer(layers, overlay, layerUrl);
       }
