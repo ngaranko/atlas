@@ -215,7 +215,7 @@ describe('The dp-data-selection component', function () {
         });
     });
 
-    it('either calls the TABLE, LIST or CARDS view', function () {
+    it('either calls the TABLE, LIST, CARDS or CATALOG view', function () {
         let component;
 
         mockedState.view = 'TABLE';
@@ -224,11 +224,13 @@ describe('The dp-data-selection component', function () {
         expect(component.find('dp-data-selection-table').attr('content')).toBe('vm.data');
         expect(component.find('dp-data-selection-list').length).toBe(0);
         expect(component.find('dp-data-selection-cards').length).toBe(0);
+        expect(component.find('dp-data-selection-catalog').length).toBe(0);
 
         mockedState.view = 'LIST';
         component = getComponent(mockedState, mockedFilters);
         expect(component.find('dp-data-selection-list').length).toBe(1);
         expect(component.find('dp-data-selection-list').attr('content')).toBe('vm.data');
+        expect(component.find('dp-data-selection-catalog').length).toBe(0);
         expect(component.find('dp-data-selection-table').length).toBe(0);
         expect(component.find('dp-data-selection-cards').length).toBe(0);
 
@@ -236,6 +238,16 @@ describe('The dp-data-selection component', function () {
         component = getComponent(mockedState, mockedFilters);
         expect(component.find('dp-data-selection-cards').length).toBe(1);
         expect(component.find('dp-data-selection-cards').attr('content')).toBe('vm.data');
+        expect(component.find('dp-data-selection-catalog').length).toBe(0);
+        expect(component.find('dp-data-selection-list').length).toBe(0);
+        expect(component.find('dp-data-selection-table').length).toBe(0);
+
+        mockedState.view = 'CATALOG';
+        mockedApiPreviewData.data = [];
+        component = getComponent(mockedState, mockedFilters);
+        expect(component.find('dp-data-selection-catalog').length).toBe(1);
+        expect(component.find('dp-data-selection-catalog').attr('content')).toBe('vm.data');
+        expect(component.find('dp-data-selection-cards').length).toBe(0);
         expect(component.find('dp-data-selection-list').length).toBe(0);
         expect(component.find('dp-data-selection-table').length).toBe(0);
     });
