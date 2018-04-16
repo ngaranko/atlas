@@ -75,7 +75,7 @@ describe('the dp-detail component', () => {
                         } else if (endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/subject/404/') {
                             q.reject();
                         } else if (endpoint === dcatdEndPoint) {
-                            q.resolve({});
+                            q.resolve({'dct:description': 'description'});
                         }
 
                         return q.promise;
