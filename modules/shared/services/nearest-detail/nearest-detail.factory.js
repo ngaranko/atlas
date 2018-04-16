@@ -1,11 +1,13 @@
+import mapConfig from '../../../../src/map/services/map-config';
+
 (() => {
     angular
         .module('dpShared')
         .factory('nearestDetail', nearestDetailFactory);
 
-    nearestDetailFactory.$inject = ['$q', 'api', 'store', 'ACTIONS', 'mapConfig'];
+    nearestDetailFactory.$inject = ['$q', 'api', 'store', 'ACTIONS'];
 
-    function nearestDetailFactory ($q, api, store, ACTIONS, mapConfig) {
+    function nearestDetailFactory ($q, api, store, ACTIONS) {
         let detailLocation = [],
             numberOfPoints = 0,
             dispatcher;
