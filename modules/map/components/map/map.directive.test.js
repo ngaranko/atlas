@@ -1,5 +1,5 @@
-import SOURCES from '../../../../src/shared/services/layers/overlays.constant';
 import drawToolConfig from '../../../../src/map/services/draw-tool/draw-tool-config';
+const SOURCES = {};
 
 const getLayerPropertyByIndex = (index) => Object.keys(SOURCES)[index];
 describe('The dp-map directive', () => {

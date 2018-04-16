@@ -5,7 +5,7 @@ export const FETCH_LEGENDA_ITEMS_FAILURE = 'FETCH_LEGENDA_ITEMS_FAILURE';
 const initialState = {
   items: [],
   isLoading: false,
-  legendaItemsError: null
+  error: null
 };
 
 export default function PanelLayersReducer(state = initialState, action) {

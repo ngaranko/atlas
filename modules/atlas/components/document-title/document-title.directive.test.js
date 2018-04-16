@@ -11,7 +11,6 @@ describe('The dp-document-title directive', function () {
         dashboardColumns = { determineVisibility: angular.noop },
         dataSelectionDocumentTitle = { getTitle: angular.noop },
         detailDocumentTitle = { getTitle: angular.noop },
-        mapDocumentTitle = { getTitle: angular.noop },
         pageDocumentTitle = { getTitle: angular.noop },
         searchResultsDocumentTitle = { getTitle: angular.noop },
         straatbeeldDocumentTitle = { getTitle: angular.noop };
@@ -24,7 +23,6 @@ describe('The dp-document-title directive', function () {
                 $provide.value('dashboardColumns', dashboardColumns);
                 $provide.value('dpDataSelectionDocumentTitle', dataSelectionDocumentTitle);
                 $provide.value('dpDetailDocumentTitle', detailDocumentTitle);
-                $provide.value('dpMapDocumentTitle', mapDocumentTitle);
                 $provide.value('dpPageDocumentTitle', pageDocumentTitle);
                 $provide.value('dpSearchResultsDocumentTitle', searchResultsDocumentTitle);
                 $provide.value('dpStraatbeeldDocumentTitle', straatbeeldDocumentTitle);
@@ -41,7 +39,6 @@ describe('The dp-document-title directive', function () {
         spyOn(moduleDocumentTitle, 'getTitle');
         spyOn(dataSelectionDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(detailDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
-        spyOn(mapDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(pageDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(searchResultsDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(straatbeeldDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
@@ -213,18 +210,6 @@ describe('The dp-document-title directive', function () {
             var component = getComponent();
 
             expect(component.text()).toBe('Detail title - Dataportaal');
-        });
-    });
-
-    describe('map', function () {
-        it('maps the right names and services', function () {
-            spyOn(store, 'getState').and.returnValue({ map: {} });
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
-            mapDocumentTitle.getTitle.and.returnValue('Map title');
-
-            var component = getComponent();
-
-            expect(component.text()).toBe('Map title - Dataportaal');
         });
     });
 

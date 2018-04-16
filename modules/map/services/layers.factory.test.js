@@ -1,5 +1,5 @@
-import SOURCES from '../../../src/shared/services/layers/overlays.constant';
-import BASE_LAYERS from '../../../src/shared/services/layers/base-layers.constant';
+const BASE_LAYERS = [];
+const SOURCES = {};
 
 const getLayerPropertyByIndex = (index) => Object.keys(SOURCES)[index];
 const getLayerByIndex = (index) => SOURCES[getLayerPropertyByIndex(index)];

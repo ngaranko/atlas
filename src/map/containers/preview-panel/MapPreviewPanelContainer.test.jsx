@@ -5,12 +5,12 @@ import { shallow } from 'enzyme';
 import MapPreviewPanelContainer from './MapPreviewPanelContainer';
 import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
-import { selectNotClickableVisibleMapLayers } from '../../ducks/layers/map-layers';
+import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/panel-layers';
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 
 jest.mock('../../ducks/search-results/map-search-results');
-jest.mock('../../ducks/layers/map-layers');
+jest.mock('../../ducks/panel-layers/panel-layers');
 jest.mock('../../ducks/detail/map-detail');
 jest.mock('../../../pano/ducks/preview/pano-preview');
 
@@ -21,7 +21,17 @@ describe('MapPreviewPanelContainer', () => {
       zoom: 8,
       overlays: []
     },
-    mapLayers: [],
+    mapLayers: {
+      layers: {
+        items: []
+      },
+      baseLayers: {
+        items: []
+      },
+      panelLayers: {
+        items: []
+      }
+    },
     mapDetail: null,
     detail: null,
     search: null,
