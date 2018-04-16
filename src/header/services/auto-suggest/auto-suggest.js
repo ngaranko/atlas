@@ -1,8 +1,6 @@
 import apiUrl from '../../../shared/services/api';
 import { getAuthHeaders } from '../../../shared/services/auth/auth';
 
-const ENDPOINT = 'typeahead';
-
 function formatData(categories) {
   const numberOfResults = categories.reduce((acc, category) => acc + category.content.length, 0);
   let indexInTotal = -1;
@@ -26,7 +24,7 @@ function formatData(categories) {
 }
 
 function search(query) {
-  const uri = `${apiUrl}${ENDPOINT}?q=${query}`;
+  const uri = `${apiUrl}typeahead?q=${query}`;
   return fetch(uri, { headers: getAuthHeaders() })
     .then((response) => response.json())
     .then((response) => formatData(response));

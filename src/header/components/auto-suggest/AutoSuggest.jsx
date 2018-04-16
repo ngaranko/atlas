@@ -193,7 +193,7 @@ class AutoSuggest extends React.Component {
       legendTitle,
       placeHolder,
       query,
-      suggestions,
+      suggestions
     } = this.props;
     const {
       showSuggestions
@@ -299,4 +299,3 @@ AutoSuggest.defaultProps = {
 };
 
 export default AutoSuggest;
-window.AutoSuggest = AutoSuggest;

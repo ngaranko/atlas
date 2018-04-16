@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import {
   getSuggestions,
-  setActiveSuggestion,
+  setActiveSuggestion
 } from '../../ducks/auto-suggest/auto-suggest';
 import { fetchDetail } from '../../../reducers/details';
 import {
@@ -57,7 +57,7 @@ class HeaderSearchContainer extends React.Component {
   componentDidMount() {
     const {
       onGetSuggestions,
-      prefillQuery,
+      prefillQuery
     } = this.props;
 
     if (prefillQuery) {
@@ -192,8 +192,8 @@ HeaderSearchContainer.contextTypes = {
 };
 
 HeaderSearchContainer.defaultProps = {
-  activeSuggestion: { 
-    index: -1 
+  activeSuggestion: {
+    index: -1
   },
   displayQuery: '',
   isDatasetView: false,
