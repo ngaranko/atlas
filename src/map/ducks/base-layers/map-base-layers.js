@@ -25,16 +25,13 @@ export const getBaseLayers = createSelector([getAllBaseLayers],
   }), {}));
 
 const getActiveBaseLayer = (state) => state.map.baseLayer;
+const getLayerOptions = (state, baseLayerOptions) => baseLayerOptions;
+const getLayers = (state) => state.mapLayers.baseLayers.items;
 
-const getBase = (state, layerOptions) => ({
-  layers: state.mapLayers.baseLayers.items,
-  layerOptions
-});
-
-export const getBaseLayer = createSelector([getBase, getActiveBaseLayer],
-  (base, activeLayerId) => ({
-    urlTemplate: getUrlTemplateOfActiveLayer(base.layers, activeLayerId),
-    baseLayerOptions: base.layerOptions
+export const getBaseLayer = createSelector([getLayers, getActiveBaseLayer, getLayerOptions],
+  (baseLayers, activeLayerId, baseLayerOptions) => ({
+    urlTemplate: getUrlTemplateOfActiveLayer(baseLayers, activeLayerId),
+    baseLayerOptions
   }));
 
 export default function MapBaseLayersReducer(state = initialState, action) {
