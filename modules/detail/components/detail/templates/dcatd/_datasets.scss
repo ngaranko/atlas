@@ -18,11 +18,19 @@
     &__modified {
       position: initial;
       right: auto;
+      span {
+        overflow: hidden;
+        white-space: nowrap;
+      }
     }
     &__description {
-      :first-child {
+      padding-top: 5px;
+      &> :first-child {
         margin-right: 5px;
       }
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     &__navigation {
       display: flex;
@@ -33,23 +41,31 @@
       }
       &-arrow {
         @extend %icon-arrow-right;
-        height: 24.5px;
-        width: 24.5px;
+        height: 24px;
+        width: 24px;
         background-size: 100%;
       }
     }
   }
-  &-button{
-    margin-left: 31px; 
+  &-button {
+    margin-left: 31px;
   }
-  &-type__content-item{
+  .resources-type {
+    margin-bottom: 8px;
+  }
+  .resources-type__header {
+    padding-bottom: 16px;
+  }
+  .resources-type__content {
+    margin-bottom: 0;
+  }
+  .resources-type__content-item {
     cursor: pointer;
-    &:hover{
+    &:hover {
       background-color: #eee;
     }
-  }
-  .resources-type__content{
-    margin-bottom: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 }
 
@@ -60,6 +76,12 @@
     }
     dl>dd {
       width: 70%;
+      div {
+        a {
+          padding: 8px 0;
+          display: block;
+        }
+      }
     }
   }
   .o-header__subtitle {
@@ -125,7 +147,6 @@
     }
   }
 }
-
 
 .c-catalogus-theme__icon--geografie {
   @include icon-button-text-right("thema-geografie", "", "");

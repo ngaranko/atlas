@@ -80,7 +80,7 @@ describe('The dp-catalogus-themes', () => {
             type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'dcatd',
-                view: 'CARDS',
+                view: 'CATALOG',
                 page: 1
             }
         });
@@ -105,7 +105,7 @@ describe('The dp-catalogus-themes', () => {
             type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'dcatd',
-                view: 'CARDS',
+                view: 'CATALOG',
                 page: 1
             }
         });

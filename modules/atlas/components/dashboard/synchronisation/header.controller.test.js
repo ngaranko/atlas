@@ -86,6 +86,9 @@ describe('The header controller', function () {
 
     it('sets the dataSelection query and action when catalog detail API view is active', function () {
         spyOn(store, 'getState').and.returnValue({
+            dataSelection: {
+                view: 'CATALOG'
+            },
             detail: {
                 endpoint: 'somewhere://abc/dcatd/datasets/xyz'
             }

@@ -67,7 +67,6 @@
         }
 
         function fetchData () {
-            console.log('fetch');
             const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
             const catalogFilters = store.getState().catalogFilters;
             const isListView = vm.state.view === 'LIST';
@@ -103,7 +102,6 @@
                 vm.state.geometryFilter.markers,
                 catalogFilters)
                 .then(data => {
-                    console.log(data.data);
                     vm.availableFilters = data.filters;
                     vm.data = data.data;
                     vm.numberOfRecords = data.numberOfRecords;
