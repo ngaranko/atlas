@@ -82,7 +82,12 @@ export const mapStartDrawing = (payload) => ({ type: MAP_START_DRAWING, payload 
 export const mapEndDrawing = (payload) => ({ type: MAP_END_DRAWING, payload });
 export const setMapBaseLayer = (payload) => ({ type: SET_MAP_BASE_LAYER, payload });
 // old actions
-export const updateZoom = (payload) => ({ type: ACTIONS.MAP_ZOOM, payload });
+export const updateZoom = (payload) => ({ type: ACTIONS.MAP_ZOOM,
+  payload: {
+    ...payload,
+    viewCenter: [payload.center.lat, payload.center.lng]
+  }
+});
 export const updatePan = (payload) =>
   ({ type: ACTIONS.MAP_PAN, payload: [payload.center.lat, payload.center.lng] });
 
