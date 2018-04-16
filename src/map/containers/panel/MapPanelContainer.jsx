@@ -103,7 +103,6 @@ class MapPanelContainer extends React.Component {
               activeMapLayers={this.props.activeMapLayers}
               layers={this.props.mapLayers}
               onLayerToggle={this.props.onLayerToggle}
-              user={this.props.user}
             />
           </MapPanelHandle>
         </div>
