@@ -1,3 +1,5 @@
+/* sass-lint:disable property-sort-order */
+/* already in react sass lint style*/
 @import "./styles/config";
 
 .resources {
@@ -12,7 +14,7 @@
     &-new {
       @extend %icon-plus;
 
-      &:hover {
+      &:hover { // sass-lint:disable-line nesting-depth
         @extend %icon-plus-white;
       }
     }
@@ -20,7 +22,7 @@
     &-edit {
       @extend %icon-edit;
 
-      &:hover {
+      &:hover { // sass-lint:disable-line nesting-depth
         @extend %icon-edit-white;
       }
     }

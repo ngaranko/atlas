@@ -58,7 +58,7 @@
 
             const formattedData = {
                 _display: data['dct:title'],
-                resources: resourceTypes.map((item, index) => {
+                resources: resourceTypes.map(item => {
                     return {
                         type: item.id,
                         rows: resources.filter((row) => row['ams:resourceType'] === item.id)
@@ -68,14 +68,11 @@
                 canEditDataset: state.user.scopes.includes('CAT/W')
             };
 
-            return Object.keys(data).reduce((result, key) => {
-                if (key === 'dcat:distribution') {
-                    return result;
-                }
-
-                result[key] = data[key];
-                return result;
-            }, formattedData);
+            return Object.keys(data).filter((key) => key !== 'dcat:distribution')
+                .reduce((result, key) => ({
+                    ...result,
+                    [key]: data[key]
+                }), formattedData);
         }
     }
 })();

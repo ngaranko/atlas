@@ -101,7 +101,8 @@
                     data = dataFormatter.formatData(data, subject);
 
                     if (category === 'dcatd' && subject === 'datasets') {
-                        data['dct:description'] = data['dct:description'] && markdownParser.parse(data['dct:description']);
+                        data['dct:description'] = data['dct:description'] &&
+                            markdownParser.parse(data['dct:description']);
                     }
 
                     vm.apiData = {
