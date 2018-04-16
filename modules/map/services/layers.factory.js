@@ -1,5 +1,5 @@
-import SOURCES from '../../../src/shared/services/layers/overlays.constant';
-import BASE_LAYERS from '../../../src/shared/services/layers/base-layers.constant';
+const SOURCES = {};
+const BASE_LAYERS = [];
 
 (() => {
     'use strict';
