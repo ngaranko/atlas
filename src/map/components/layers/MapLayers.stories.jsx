@@ -11,7 +11,6 @@ storiesOf('Map/MapLayers', module)
       activeMapLayers={[]}
       layers={layers.slice(0, 20)}
       onLayerToggle={action('toggled')}
-      user={{ authenticated: true, scopes: ['HR/R'] }}
     />
   ))
   .add('unauthenticated', () => (
@@ -19,7 +18,6 @@ storiesOf('Map/MapLayers', module)
       activeMapLayers={[]}
       layers={layers.slice(0, 20)}
       onLayerToggle={action('toggled')}
-      user={{ authenticated: false, scopes: [] }}
     />
   ))
   .add('active layer', () => (
@@ -27,6 +25,5 @@ storiesOf('Map/MapLayers', module)
       activeMapLayers={[{ title: 'Kadastrale perceelsgrenzen' }]}
       layers={layers.slice(0, 20)}
       onLayerToggle={action('toggled')}
-      user={{ authenticated: false, scopes: [] }}
     />
   ));
