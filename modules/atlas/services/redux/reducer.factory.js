@@ -54,7 +54,7 @@ import { combineReducers } from 'redux';
                 straatbeeld: StraatbeeldReducer,
                 ui: UiReducer,
                 user: UserReducer,
-                mapLayers: mapLayers
+                mapLayers
             });
             const filteredState = {
                 dataSelection: deprecatedState.dataSelection,

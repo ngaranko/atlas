@@ -1,24 +1,24 @@
 import mapLayers from './map-layers/map-layers';
-import panelLayers from './panel-layers/panel-layers';
+import mapPanelLayers from './map-panel-layers/map-panel-layers';
 import mapBaseLayers from './map-base-layers/map-base-layers';
 
 const TIMEOUT = 100;
 
-function getMapBaseLayers() {
+export function getMapBaseLayers() {
   return new Promise((resolve) => {
     setTimeout(() => resolve(mapBaseLayers), TIMEOUT);
   });
 }
 
-function getMapLayers() {
+export function getMapLayers() {
   return new Promise((resolve) => {
     setTimeout(() => resolve(mapLayers), TIMEOUT);
   });
 }
 
-function getPanelLayers() {
+export function getPanelLayers() {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(panelLayers), TIMEOUT);
+    setTimeout(() => resolve(mapPanelLayers), TIMEOUT);
   });
 }
 

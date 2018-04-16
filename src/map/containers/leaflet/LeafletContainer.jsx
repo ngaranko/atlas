@@ -34,20 +34,18 @@ const LeafletContainer = ({
   onUpdatePan
 }) => (
   <div>
-    {
-      baseLayer.urlTemplate.length && (
-        <MapLeaflet
-          layers={layers}
-          mapOptions={mapOptions}
-          scaleControlOptions={scaleControlOptions}
-          baseLayer={baseLayer}
-          center={center}
-          zoom={zoom}
-          onZoomEnd={onUpdateZoom}
-          onDragEnd={onUpdatePan}
-        />
-      )
-    }
+    { baseLayer.urlTemplate.length && (
+      <MapLeaflet
+        layers={layers}
+        mapOptions={mapOptions}
+        scaleControlOptions={scaleControlOptions}
+        baseLayer={baseLayer}
+        center={center}
+        zoom={zoom}
+        onZoomEnd={onUpdateZoom}
+        onDragEnd={onUpdatePan}
+      />
+    )}
   </div>
 );
 

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { setMapBaseLayer } from '../../ducks/map/map';
 import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/map-overlays';
-import { selectActivePanelLayers } from '../../ducks/panel-layers/panel-layers';
+import { selectActivePanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { getBaseLayers } from '../../ducks/base-layers/map-base-layers';
 import { toggleMapPanel, toggleMapPanelHandle } from '../../../shared/ducks/ui/ui';
 import MapLayers from '../../components/layers/MapLayers';

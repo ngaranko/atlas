@@ -14,7 +14,7 @@ import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewP
 
 import { fetchMapBaseLayers } from '../../ducks/base-layers/map-base-layers';
 import { fetchMapLayers } from '../../ducks/layers/map-layers';
-import { fetchPanelLayers } from '../../ducks/panel-layers/panel-layers';
+import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 
 const mapStateToProps = (state) => ({
   isFullscreen: state.ui.isMapFullscreen

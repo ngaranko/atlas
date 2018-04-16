@@ -20,8 +20,8 @@ const getAllBaseLayers = (state) => state.mapLayers.baseLayers.items;
 export const getBaseLayers = createSelector([getAllBaseLayers],
   (baseLayers) => baseLayers.reduce((result, item) => ({
     ...result,
-    [item.category]: !result[item.category] ? [item] :
-      [...result[item.category], item]
+    [item.category]: result[item.category] ? [...result[item.category], item] :
+      [item]
   }), {}));
 
 const getActiveBaseLayer = (state) => state.map.baseLayer;
