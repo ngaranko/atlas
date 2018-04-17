@@ -123,12 +123,15 @@ describe('visitor permissions', () => {
     cy.get(queries.keyValueList).contains(values.documentnaam).should('not.exist');
   });
 
-  it('6. Should show a visitor limited map layers', () => {
+  it('6. Should show a visitor a notification for limited map layers', () => {
     cy.visit(urls.map);
     cy.get(queries.mapLayersCategory).should(($values) => {
+      expect($values).to.contain(values.economieEnHaven);
       expect($values).to.contain(values.geografie);
-      expect($values).to.not.contain(values.bedrijvenInvloedsgebieden);
+      expect($values).to.contain(values.bedrijvenInvloedsgebieden);
     });
+    cy.get(queries.legendToggleItem).contains(values.vestigingenHoreca).click();
+    cy.get(queries.legendNotification).contains(values.legendPermissionNotification).should('exist').and('be.visible');
   });
 
   it('7A. Should NOT allow a visitor to view "Vestigingen"', () => {

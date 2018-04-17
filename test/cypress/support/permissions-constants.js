@@ -22,6 +22,9 @@ const queries = {
   headerSubTitle: '.o-header__subtitle',
   infoNotification: '.notification--info',
   keyValueList: '.c-key-value-list',
+  legendItem: '.map-legend__title',
+  legendNotification: '.map-legend__notification',
+  legendToggleItem: '.map-layers__toggle-title',
   listItem: 'li',
   mapLayersCategory: '.map-layers__category',
   mapDetailResultHeaderSubTitle: '.map-detail-result__header-subtitle',
@@ -42,6 +45,8 @@ const values = {
   economieEnHaven: 'Economie en haven',
   geografie: 'Geografie',
   kadastraleSubjecten: 'Kadastrale subjecten',
+  legendCafeValue: 'Café',
+  legendPermissionNotification: 'Zichtbaar na inloggen',
   ligplaatsVestigingName: 'alac',
   maatschappelijkeActiviteitName: 'om B',
   maatschappelijkeActiviteitVestigingName: 'om B',
@@ -51,6 +56,7 @@ const values = {
   type: 'Type',
   vestigingName: 'om B',
   vestigingen: 'Vestigingen',
+  vestigingenHoreca: 'Vestigingen - Horeca',
   zakelijkeRechten: 'Zakelijke rechten'
 };
 

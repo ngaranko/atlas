@@ -134,13 +134,16 @@ describe('employee permissions', () => {
     cy.get(queries.keyValueList).contains(values.documentnaam);
   });
 
-  it('6. Should show an employee all map layers', () => {
+  it('6. Should allow an employee to view all map layers', () => {
     cy.visit(urls.map);
     cy.get(queries.mapLayersCategory).should(($values) => {
       expect($values).to.contain(values.economieEnHaven);
       expect($values).to.contain(values.geografie);
       expect($values).to.contain(values.bedrijvenInvloedsgebieden);
     });
+    cy.get(queries.legendToggleItem).contains(values.vestigingenHoreca).click();
+    cy.get(queries.legendNotification).should('not.exist');
+    cy.get(queries.legendItem).contains(values.legendCafeValue).should('exist').and('be.visible');
   });
 
   it('7A. Should allow an employee to view "Vestigingen"', () => {
