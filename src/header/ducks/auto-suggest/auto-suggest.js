@@ -3,7 +3,14 @@ const FETCH_SUGGESTIONS_REQUEST = 'FETCH_SUGGESTIONS_REQUEST';
 const FETCH_SUGGESTIONS_SUCCESS = 'FETCH_SUGGESTIONS_SUCCESS';
 const FETCH_SUGGESTIONS_FAILURE = 'FETCH_SUGGESTIONS_FAILURE';
 
-const initialState = {};
+const initialState = {
+  count: 0,
+  displayQuery: '',
+  error: '',
+  isLoading: false,
+  suggestions: [],
+  typedQuery: ''
+};
 
 export default function AutoSuggestReducer(state = initialState, action) {
   switch (action.type) {
