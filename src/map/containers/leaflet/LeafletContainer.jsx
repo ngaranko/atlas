@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import MapLeaflet from '../../components/leaflet/MapLeaflet';
 import MAP_CONFIG from '../../services/map-config';
 import { updateZoom, updatePan } from '../../ducks/map/map';
-import { getBaseLayer } from '../../ducks/base-layers/map-base-layers';
+import { getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { getLayers } from '../../ducks/layers/map-layers';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
@@ -14,7 +14,10 @@ const mapOptions = MAP_CONFIG.MAP_OPTIONS;
 const scaleControlOptions = MAP_CONFIG.SCALE_OPTIONS;
 
 const mapStateToProps = (state) => ({
-  baseLayer: getBaseLayer(state, baseLayerOptions),
+  baseLayer: {
+    urlTemplate: getUrlTemplate(state),
+    baseLayerOptions
+  },
   layers: getLayers(state),
   center: state.map.viewCenter,
   zoom: state.map.zoom
