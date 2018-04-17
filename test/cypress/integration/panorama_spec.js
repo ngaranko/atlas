@@ -106,16 +106,20 @@ describe('panorama module', () => {
       let newUrl;
 
       cy.defineGeoSearchRoutes();
-      cy.route('/typeahead?q=dam+1').as('getTypeAhead');
+      // TODO: enable this (getTypeAhead) once fetch is supported by Cypress
+      // https://github.com/cypress-io/cypress/issues/95
+      // cy.route('/typeahead?q=dam+1').as('getTypeAhead');
       cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
       cy.route('/panorama/thumbnail/*').as('getPanoThumbnail');
 
       cy.viewport(1000, 660);
       cy.get('.leaflet-marker-pane').find('img').should('exist').and('be.visible');
-      cy.get('#global-search').type('dam 1');
+      cy.get('#auto-suggest__input').type('dam 1');
 
-      cy.wait('@getTypeAhead');
-      cy.get('.c-autocomplete').contains('Dam 1').click();
+      // TODO: remove wait(500) and enably the route-wait
+      cy.wait(500);
+      // cy.wait('@getTypeAhead');
+      cy.get('.auto-suggest').contains('Dam 1').click();
 
       cy.wait('@getVerblijfsobject');
       cy.wait('@getPanoThumbnail');

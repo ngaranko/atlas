@@ -33,16 +33,20 @@ describe('map module', () => {
       cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
       cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
       cy.route('/panorama/thumbnail/*').as('getPanoThumbnail');
-      cy.route('/typeahead?q=dam+1').as('getResults');
+      // TODO: enable this (getResults) once fetch is supported by Cypress
+      // https://github.com/cypress-io/cypress/issues/95
+      // cy.route('/typeahead?q=dam+1').as('getResults');
       // ensure the viewport is always the same in this test, so the clicks can be aligned properly
       cy.viewport(1000, 660);
       cy.visit('/');
 
       cy.get('.qa-map-link').click();
-      cy.get('#global-search').focus().type('dam 1');
+      cy.get('#auto-suggest__input').focus().type('dam 1');
 
-      cy.wait('@getResults');
-      cy.get('.c-autocomplete').contains('Dam 1').click();
+      // TODO: remove wait(500) and enably the route-wait
+      cy.wait(500);
+      // cy.wait('@getResults');
+      cy.get('.auto-suggest').contains('Dam 1').click();
 
       cy.wait('@getVerblijfsobject');
       // check that the circle icon is drawed on the map

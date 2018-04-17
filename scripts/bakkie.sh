@@ -12,6 +12,7 @@ export NODE_ENV=test
 # Uninstall cypress because it is not used here and installation is sluggish
 # Removes the entry from `package.json`, which prevents the `npm install`
 # command below from installing cypress,
+rm -rf node_modules
 npm uninstall cypress
 npm install
 npm run build-test
