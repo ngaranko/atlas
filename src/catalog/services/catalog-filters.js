@@ -40,5 +40,6 @@ function getCatalogFilters(data) {
 }
 
 export default function fetchFilters() {
-  return Promise.resolve(getByUrl(`${apiUrl}dcatd/openapi`).then((data) => getCatalogFilters(data)));
+  return getByUrl(`${apiUrl}dcatd/openapi`)
+    .then((data) => getCatalogFilters(data));
 }

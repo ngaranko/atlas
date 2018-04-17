@@ -1,5 +1,6 @@
 {
-  "dcat:dataset": [{
+  "dcat:dataset": [
+    {
       "@id": "ams-dcatd: 642f15c7-8368-4795-9e3d-1a87fa7e562a",
       "dct:description": "<p>Alle activiteiten in Amsterdam en omgeving...</p>",
       "dct:identifier": "642f15c7-8368-4795-9e3d-1a87fa7e562a",

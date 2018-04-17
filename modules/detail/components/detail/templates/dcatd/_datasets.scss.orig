@@ -23,12 +23,15 @@
     &__modified {
       position: initial;
       right: auto;
+<<<<<<< Updated upstream
+=======
       height: 23px;
 
       span {
         white-space: nowrap;
         overflow: hidden;
       }
+>>>>>>> Stashed changes
     }
 
     &__description {
