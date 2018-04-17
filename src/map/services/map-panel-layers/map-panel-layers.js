@@ -1,7 +1,7 @@
 export default [
   {
     id: 'pano',
-    layers: ['panorama_recent'], // TODO: Add remaining layers (mostly "label layers")
+    layers: ['panorama_recent'],
     legendItems: [
       {
         selectable: false,
@@ -16,7 +16,6 @@ export default [
         title: '2016'
       }
     ],
-    map: '', // TODO: Investigate whether listing map name here is more useful than in the URL
     maxZoom: 16,
     minZoom: 11,
     title: 'Panoramabeelden',

@@ -1,10 +1,10 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import api from '../../services';
+import { getMapLayers } from '../../services';
 
 function* fetchMapLayers() {
   try {
-    const mapLayers = yield call(api.getMapLayers);
+    const mapLayers = yield call(getMapLayers);
     yield put({ type: 'FETCH_MAP_LAYERS_SUCCESS', mapLayers });
   } catch (error) {
     yield put({ type: 'FETCH_MAP_LAYERS_FAILURE', error });

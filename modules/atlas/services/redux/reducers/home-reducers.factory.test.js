@@ -95,19 +95,5 @@ describe('The homeReducers factory', function () {
                 expect(homeReducers.SHOW_HOME(inputState).ui.isEmbedPreview).toBe(false);
             });
         });
-
-        it('keeps the mapLayers setting', function () {
-            mockedStates.forEach(function (inputState) {
-                inputState.mapLayers = [1, 2, 3];
-                expect(homeReducers.SHOW_HOME(inputState).mapLayers).toEqual([1, 2, 3]);
-            });
-        });
-
-        it('keeps the mapBaseLayers setting', function () {
-            mockedStates.forEach(function (inputState) {
-                inputState.mapBaseLayers = [1, 2, 3];
-                expect(homeReducers.SHOW_HOME(inputState).mapBaseLayers).toEqual([1, 2, 3]);
-            });
-        });
     });
 });

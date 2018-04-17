@@ -35,10 +35,8 @@
     ) {
         return function (oldState, action) { // eslint-disable-line complexity, max-statements
             const DetailsReducer = $window.reducers.detailReducer;
-            const MapLayersReducer = $window.reducers.MapLayersReducer;
             const MapPreviewPanelReducer = $window.reducers.MapPreviewPanelReducer;
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
-            const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
             const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;
             const MapDetailReducer = $window.reducers.MapDetailReducer;
             const MapClickLocationReducer = $window.reducers.MapClickLocationReducer;
@@ -47,19 +45,6 @@
                 FETCH_DETAIL: DetailsReducer,
                 SHOW_DETAIL: DetailsReducer,
                 DETAIL_FULLSCREEN: DetailsReducer
-            };
-
-            const mapLayersReducers = {
-                FETCH_MAP_LAYERS_FAILURE: MapLayersReducer,
-                FETCH_MAP_LAYERS_REQUEST: MapLayersReducer,
-                FETCH_MAP_LAYERS_SUCCESS: MapLayersReducer
-            };
-
-            const mapBaseLayersReducers = {
-                FETCH_MAP_BASE_LAYERS_FAILURE: MapBaseLayersReducer,
-                FETCH_MAP_BASE_LAYERS_REQUEST: MapBaseLayersReducer,
-                FETCH_MAP_BASE_LAYERS_SUCCESS: MapBaseLayersReducer,
-                SET_MAP_BASE_LAYER: MapBaseLayersReducer
             };
 
             const mapOverlaysReducers = {
@@ -98,8 +83,6 @@
                 detailReducers,
                 filtersReducers,
                 homeReducers,
-                mapBaseLayersReducers,
-                mapLayersReducers,
                 mapOverlaysReducers,
                 mapPreviewPanelReducers,
                 mapReducers,

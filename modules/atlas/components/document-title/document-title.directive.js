@@ -10,7 +10,6 @@
         'dashboardColumns',
         'dpDataSelectionDocumentTitle',
         'dpDetailDocumentTitle',
-        'dpMapDocumentTitle',
         'dpPageDocumentTitle',
         'dpSearchResultsDocumentTitle',
         'dpStraatbeeldDocumentTitle'
@@ -23,7 +22,6 @@
         dashboardColumns,
         dpDataSelectionDocumentTitle,
         dpDetailDocumentTitle,
-        dpMapDocumentTitle,
         dpPageDocumentTitle,
         dpSearchResultsDocumentTitle,
         dpStraatbeeldDocumentTitle
@@ -49,10 +47,6 @@
                 visibility: 'straatbeeld',
                 documentTitle: dpStraatbeeldDocumentTitle,
                 state: 'straatbeeld'
-            }, {
-                visibility: 'map',
-                documentTitle: dpMapDocumentTitle,
-                state: 'map'
             }];
 
         return {
