@@ -2,27 +2,9 @@ describe('The dataFormatter factory', function () {
     'use strict';
 
     var dataFormatter;
-    var mockedState;
 
     beforeEach(function () {
-        mockedState = {
-            user: {
-                scopes: []
-            },
-            catalogFilters: {
-                resourceTypes: [{
-                    id: 'resourceTypeId',
-                    label: 'label'
-                }]
-            }
-        };
-        angular.mock.module('dpDetail', {
-            store: {
-                getState: () => {
-                    return mockedState;
-                }
-            }
-        });
+        angular.mock.module('dpDetail');
 
         angular.mock.inject(function (_dataFormatter_) {
             dataFormatter = _dataFormatter_;
@@ -81,7 +63,14 @@ describe('The dataFormatter factory', function () {
                 'ams:resourceType': 'resourceTypeId'
             }]
         };
-        var result = dataFormatter.formatData(data, 'datasets');
+        const catalogFilters = {
+            resourceTypes: [{
+                id: 'resourceTypeId',
+                label: 'label'
+            }]
+        }
+            ;
+        var result = dataFormatter.formatData(data, 'datasets', catalogFilters);
         expect(result).toBeTruthy();
         expect(result['dcat:distribution']).toBe(undefined);
         expect(result).toEqual({
@@ -91,14 +80,13 @@ describe('The dataFormatter factory', function () {
                 type: 'resourceTypeId',
                 rows: [{ 'ams:resourceType': 'resourceTypeId' }]
             }],
-            editDatasetUrl: 'dcatd_admin/datasets/undefined',
-            canEditDataset: false
+            editDatasetUrl: 'dcatd_admin/datasets/undefined'
         });
     });
 
     it('returns an empty object when the resourceTypes are not provided to format dcat data', function () {
-        mockedState.catalogFilters.resourceTypes = undefined;
-        var result = dataFormatter.formatData({}, 'datasets');
+        const catalogFilters = { };
+        var result = dataFormatter.formatData({}, 'datasets', catalogFilters);
         expect(result).toEqual({});
     });
 });

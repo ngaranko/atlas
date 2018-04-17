@@ -1,7 +1,8 @@
+/* sass-lint:disable property-sort-order */
+/* already in react sass lint style*/
 %font {
   font-weight: normal;
 }
-
 
 %light-font {
   @extend %font;

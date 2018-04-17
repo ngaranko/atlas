@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { fetchFilters, getCatalogFilters } from '../../services/catalog-filters';
+import fetchFilters from '../../services/catalog-filters';
 import { FETCH_CATALOG_FILTERS_SUCCESS, FETCH_CATALOG_FILTERS_FAILURE } from '../../ducks/data-selection/data-selection-catalog';
 
 function* fetchCatalogFilters() {
@@ -7,7 +7,7 @@ function* fetchCatalogFilters() {
     const filters = yield call(fetchFilters);
     yield put({
       type: FETCH_CATALOG_FILTERS_SUCCESS,
-      payload: getCatalogFilters(filters)
+      payload: filters
     });
   } catch (error) {
     yield put({ type: FETCH_CATALOG_FILTERS_FAILURE, error });

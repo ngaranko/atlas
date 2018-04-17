@@ -1,7 +1,7 @@
 import apiUrl from '../../shared/services/api';
 import { getByUrl } from '../../shared/services/api/api';
 
-export function getOptions(propertyType) {
+function getOptions(propertyType) {
   return propertyType.enum.map(
     (item, i) => {
       const index = propertyType.enum[i].indexOf(':');
@@ -13,7 +13,7 @@ export function getOptions(propertyType) {
   );
 }
 
-export function getCatalogFilters(data) {
+function getCatalogFilters(data) {
   const dcatDocProperties = data.components.schemas['dcat-doc'].properties;
   const themaProperties = dcatDocProperties['dcat:theme'].items;
   const distributionProperties = dcatDocProperties['dcat:distribution'].items.properties;
@@ -38,6 +38,6 @@ export function getCatalogFilters(data) {
   return catalogFilters;
 }
 
-export function fetchFilters() {
-  return getByUrl(`${apiUrl}dcatd/openapi`);
+export default function fetchFilters() {
+  return Promise.resolve(getByUrl(`${apiUrl}dcatd/openapi`).then((data) => getCatalogFilters(data)));
 }

@@ -2,70 +2,88 @@
 @import "./resources";
 @import "./resources-item";
 @import "./datasets-themes";
+
 .resources {
-  overflow-x: hidden;
-  margin-left: -20px;
   margin-right: -20px;
+  margin-left: -20px;
+  overflow-x: hidden;
+
   &-item {
     display: flex;
+
     &__left {
       flex-grow: 1;
     }
+
     &__right {
-      padding-left: 5px;
       padding-right: 5px;
+      padding-left: 5px;
     }
+
     &__modified {
       position: initial;
       right: auto;
+
       span {
-        overflow: hidden;
         white-space: nowrap;
+        overflow: hidden;
       }
     }
+
     &__description {
       padding-top: 5px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+
       &> :first-child {
         margin-right: 5px;
       }
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
+
     &__navigation {
       display: flex;
       justify-content: flex-end;
       margin-right: -7px;
+
       &-file-size {
         padding-top: 3px;
       }
+
       &-arrow {
         @extend %icon-arrow-right;
-        height: 24px;
         width: 24px;
+        height: 24px;
         background-size: 100%;
       }
     }
   }
+
   &-button {
     margin-left: 31px;
   }
+
   .resources-type {
     margin-bottom: 8px;
   }
+
   .resources-type__header {
     padding-bottom: 16px;
   }
+
   .resources-type__content {
     margin-bottom: 0;
   }
+
   .resources-type__content-item {
-    cursor: pointer;
-    &:hover {
-      background-color: #eee;
-    }
+
     padding-top: 8px;
     padding-bottom: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $secondary-gray10;
+    }
   }
 }
 
@@ -74,74 +92,87 @@
     dl>dt {
       width: 30%;
     }
+
     dl>dd {
       width: 70%;
+
       div {
-        a {
-          padding: 8px 0;
+        a { // sass-lint:disable-line nesting-depth
           display: block;
+          padding: 8px 0;
         }
       }
     }
   }
+
   .o-header__subtitle {
-    .o-header__button.catalog__button--wijzigen {
+    padding: auto 10px;
+
+    .o-header__button.catalog__button--wijzigen { // sass-lint:disable-line force-element-nesting
       &::before {
         @extend %icon-edit;
-        &:hover {
-          @extend %icon-edit-white;
-        }
-        content: "";
+
         display: block;
-        height: 24px;
         width: 24px;
+        height: 24px;
         margin-right: 13px;
         background-size: 90%;
+        content: "";
+
+        &:hover { // sass-lint:disable-line nesting-depth
+          @extend %icon-edit-white;
+        }
       }
       @extend %icon--border-hover;
       @include icon-label-right("forward", "", "white", "tall");
     }
-    .o-header__button.c-stelselpedia__button {
-      height: 32px;
+
+    .o-header__button.c-stelselpedia__button { // sass-lint:disable-line force-element-nesting
       width: 32px;
+      height: 32px;
       padding-left: 5px;
     }
-    padding: auto 10px auto 10px;
   }
+
   .c-catalogus-theme {
     display: flex;
+
     &>.c-catalogus-theme__icon {
       width: auto;
       padding: 10px 10px 10px 0;
     }
   }
+
   .o-tag--transparent {
-    margin-left: -8px;
     display: inline-block;
+    margin-left: -8px;
+
     &>i {
-      width: 16.97056274847714;
-      height: 16.97056274847714;
-      border-color: $secondary-gray30;
-      border-style: solid;
-      border-width: 0 0 1px 1px;
       display: inline-block;
-      padding: 8.58528137423857px;
       position: relative;
       top: 3.3px;
-      left: 13.16px; //transform: rotate(135deg);
-      -webkit-transform: rotate(45deg);
+      left: 13.16px;
+      width: 16.97056274847714;
+      height: 16.97056274847714;
+      padding: 8.58528137423857px;
+      transform: rotate(135deg);
+      border-width: 0 0 1px 1px;
+      border-style: solid;
+      border-color: $secondary-gray30;
+      -webkit-transform: rotate(45deg); // sass-lint:disable-line no-vendor-prefixes
     }
+
     &>span {
+      display: inline-block;
+      position: relative;
+      height: 26px;
+      margin: $base-whitespace / 2 0 $base-whitespace / 2;
+      padding: 0 5px;
       border-top: 1px solid $secondary-gray30;
       border-right: 1px solid $secondary-gray30;
       border-bottom: 1px solid $secondary-gray30;
       color: $secondary-gray80;
-      display: inline-block;
-      height: 26px;
       line-height: 26px;
-      margin: $base-whitespace / 2 0 $base-whitespace / 2;
-      padding: 0 5px 0 5px;
-      position: relative;
       text-decoration: none;
       text-transform: capitalize;
     }
