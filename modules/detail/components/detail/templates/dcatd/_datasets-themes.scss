@@ -8,8 +8,8 @@
   }
 }
 
-.c-catalogus-theme__detail-icon--bestuur-organisatie {
-  @include icon-detail-text-right("thema-bestuur-organisatie");
+.c-catalogus-theme__detail-icon--bestuur-en-organisatie {
+  @include icon-detail-text-right("thema-bestuur-en-organisatie");
 }
 
 .c-catalogus-theme__detail-icon--bevolking {
@@ -26,6 +26,10 @@
 
 .c-catalogus-theme__detail-icon--educatie-jeugd-diversiteit {
   @include icon-detail-text-right("educatie-jeugd-diversiteit");
+}
+
+.c-catalogus-theme__detail-icon--energie {
+  @include icon-detail-text-right("thema-energie");
 }
 
 .c-catalogus-theme__detail-icon--geografie {

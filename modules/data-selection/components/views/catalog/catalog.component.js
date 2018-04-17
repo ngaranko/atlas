@@ -35,8 +35,8 @@
                     header: item['dct:title'],
                     description: item['dct:description'],
                     modification: {
-                        'metadata_created': '2018-01-01',
-                        'metadata_modified': '2018-03-01'
+                        'metadata_created': item['foaf:isPrimaryTopicOf']['dct:issued'],
+                        'metadata_modified': item['foaf:isPrimaryTopicOf']['dct:modified']
                     },
                     formats: $filter('aggregate')(item['dcat:distribution'].map(resource => resource['dct:format'])),
                     tags: item['dcat:keyword'],
