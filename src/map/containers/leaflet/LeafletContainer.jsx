@@ -21,7 +21,6 @@ const mapStateToProps = (state) => ({
   },
   layers: getLayers(state),
   center: state.map.viewCenter,
-  layers: getLayers(state),
   markers: getMarkers(state),
   zoom: state.map.zoom
 });
