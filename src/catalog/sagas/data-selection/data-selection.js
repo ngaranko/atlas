@@ -10,7 +10,6 @@ function* fetchCatalogFilters() {
       payload: filters
     });
   } catch (error) {
-    console.log(error);
     yield put({ type: FETCH_CATALOG_FILTERS_FAILURE, error });
   }
 }
