@@ -99,13 +99,5 @@ export const updateZoom = (payload) => ({ type: ACTIONS.MAP_ZOOM,
 export const updatePan = (payload) =>
   ({ type: ACTIONS.MAP_PAN, payload: [payload.center.lat, payload.center.lng] });
 
-export const updateClick = (payload) => ({
-  type: ACTIONS.SET_MAP_CLICK_LOCATION.id,
-  location: {
-    latitude: payload.latlng.lat,
-    longitude: payload.latlng.lng
-  }
-});
-
 window.reducers = window.reducers || {};
 window.reducers.MapReducer = MapReducer;
