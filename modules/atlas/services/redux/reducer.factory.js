@@ -26,6 +26,16 @@ import { combineReducers } from 'redux';
             // Run state changes based on old reducers
             const deprecatedState = deprecatedReducer(oldState, action);
 
+            const MapPanelLayersReducer = $window.reducers.PanelLayersReducer;
+            const MapLayersReducer = $window.reducers.MapLayersReducer;
+            const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
+
+            const mapLayers = combineReducers({
+                layers: MapLayersReducer,
+                baseLayers: MapBaseLayersReducer,
+                panelLayers: MapPanelLayersReducer
+            });
+
             // Use combine reducer for new reducers
             const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
@@ -43,7 +53,8 @@ import { combineReducers } from 'redux';
                 pano: PanoPreviewReducer,
                 straatbeeld: StraatbeeldReducer,
                 ui: UiReducer,
-                user: UserReducer
+                user: UserReducer,
+                mapLayers
             });
             const filteredState = {
                 dataSelection: deprecatedState.dataSelection,
@@ -59,7 +70,8 @@ import { combineReducers } from 'redux';
                 // the URL resolution step in the deprecatedReducer would
                 // therefore reset these fields in the state.
                 error: oldState.error,
-                pano: oldState.pano
+                pano: oldState.pano,
+                mapLayers: oldState.mapLayers
             };
 
             // Combine old and new reducer states

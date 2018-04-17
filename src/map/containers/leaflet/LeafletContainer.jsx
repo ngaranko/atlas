@@ -5,7 +5,9 @@ import { bindActionCreators } from 'redux';
 
 import MapLeaflet from '../../components/leaflet/MapLeaflet';
 import MAP_CONFIG from '../../services/map-config';
-import { getLayers, getBaseLayer, updateZoom, updatePan, updateClick, getMarkers } from '../../ducks/map/map';
+import { updateZoom, updatePan, updateClick, getMarkers } from '../../ducks/map/map';
+import { getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
+import { getLayers } from '../../ducks/layers/map-layers';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
@@ -13,7 +15,11 @@ const scaleControlOptions = MAP_CONFIG.SCALE_OPTIONS;
 
 
 const mapStateToProps = (state) => ({
-  baseLayer: getBaseLayer(state, baseLayerOptions),
+  baseLayer: {
+    urlTemplate: getUrlTemplate(state),
+    baseLayerOptions
+  },
+  layers: getLayers(state),
   center: state.map.viewCenter,
   layers: getLayers(state),
   markers: getMarkers(state),
@@ -37,18 +43,20 @@ const LeafletContainer = ({
   zoom
 }) => (
   <div>
-    <MapLeaflet
-      layers={layers}
-      mapOptions={mapOptions}
-      markers={markers}
-      scaleControlOptions={scaleControlOptions}
-      baseLayer={baseLayer}
-      center={center}
-      zoom={zoom}
-      onZoomEnd={onUpdateZoom}
-      onDragEnd={onUpdatePan}
-      onClick={onUpdateClick}
-    />
+    { baseLayer.urlTemplate.length && (
+      <MapLeaflet
+        layers={layers}
+        mapOptions={mapOptions}
+        markers={markers}
+        scaleControlOptions={scaleControlOptions}
+        baseLayer={baseLayer}
+        center={center}
+        zoom={zoom}
+        onZoomEnd={onUpdateZoom}
+        onDragEnd={onUpdatePan}
+        onClick={onUpdateClick}
+      />
+    )}
   </div>
 );
 
@@ -59,14 +67,17 @@ LeafletContainer.contextTypes = {
 LeafletContainer.defaultProps = {
   layers: [],
   center: [],
-  markers: []
+  markers: [],
+  baseLayer: {
+    urlTemplate: ''
+  }
 };
 
 LeafletContainer.propTypes = {
   baseLayer: PropTypes.shape({
-    urlTemplate: PropTypes.string.isRequired,
-    baseLayerOptions: PropTypes.shape({}).isRequired
-  }).isRequired,
+    urlTemplate: PropTypes.string,
+    baseLayerOptions: PropTypes.shape({})
+  }),
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,

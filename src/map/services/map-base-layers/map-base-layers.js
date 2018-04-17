@@ -1,77 +1,97 @@
-const BASE_LAYERS = [
+const mapBaseLayers = [
   {
-    slug: 'topografie',
+    value: 'topografie',
     label: 'Topografie',
+    category: 'topography',
+    selected: true,
     urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png'
   }, {
-    slug: 'topo_rd_light',
+    value: 'topo_rd_light',
+    category: 'topography',
     label: 'Topografie licht',
     urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd_light/{z}/{x}/{y}.png'
   }, {
-    slug: 'topo_rd_zw',
+    value: 'topo_rd_zw',
+    category: 'topography',
     label: 'Topografie grijs',
     urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd_zw/{z}/{x}/{y}.png'
   }, {
-    slug: 'lf2017',
+    value: 'lf2017',
     label: 'Luchtfoto 2017',
+    category: 'aerial',
+    selected: true,
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2016',
+    value: 'lf2016',
     label: 'Luchtfoto 2016',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2016_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2015',
+    value: 'lf2015',
     label: 'Luchtfoto 2015',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2015_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2014',
+    value: 'lf2014',
     label: 'Luchtfoto 2014',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2014_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2013',
+    value: 'lf2013',
     label: 'Luchtfoto 2013',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2013_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2012',
+    value: 'lf2012',
     label: 'Luchtfoto 2012',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2012_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2011',
+    value: 'lf2011',
     label: 'Luchtfoto 2011',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2011_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2010',
+    value: 'lf2010',
     label: 'Luchtfoto 2010',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2010_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2009',
+    value: 'lf2009',
     label: 'Luchtfoto 2009',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2009_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2008',
+    value: 'lf2008',
     label: 'Luchtfoto 2008',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2008_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2007',
+    value: 'lf2007',
     label: 'Luchtfoto 2007',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2007_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2006',
+    value: 'lf2006',
     label: 'Luchtfoto 2006',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2006_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2005',
+    value: 'lf2005',
     label: 'Luchtfoto 2005',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2005_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2004',
+    value: 'lf2004',
     label: 'Luchtfoto 2004',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2004_RD/{z}/{x}/{y}.jpeg'
   }, {
-    slug: 'lf2003',
+    value: 'lf2003',
     label: 'Luchtfoto 2003',
+    category: 'aerial',
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2003_RD/{z}/{x}/{y}.jpeg'
   }
 ];
 
-export default BASE_LAYERS;
+export default mapBaseLayers;

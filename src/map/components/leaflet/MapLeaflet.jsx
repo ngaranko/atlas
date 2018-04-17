@@ -21,7 +21,8 @@ class MapLeaflet extends React.Component {
     this.props.onZoomEnd({
       zoom: event.target.getZoom(),
       maxZoom: event.target.getMaxZoom(),
-      minZoom: event.target.getMinZoom()
+      minZoom: event.target.getMinZoom(),
+      center: event.target.getCenter()
     });
   }
 

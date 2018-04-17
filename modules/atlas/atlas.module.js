@@ -9,7 +9,6 @@ import { getEnvironment, ENVIRONMENTS } from '../../src/shared/environment';
         'dpPage',
         'dpDetail',
         'dpSearchResults',
-        'dpMap',
         'dpStraatbeeld',
         'dpDataSelection',
 
