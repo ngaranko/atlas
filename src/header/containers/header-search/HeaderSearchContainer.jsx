@@ -23,10 +23,10 @@ const mapStateToProps = (state) => ({
   displayQuery: state.autoSuggest.displayQuery,
   isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
   isMapFullscreen: state.ui ? state.ui.isMapFullscreen : false,
-  numberOfSuggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.count : 0,
+  numberOfSuggestions: state.autoSuggest.count,
   pageName: state.page ? state.page.name : '',
   prefillQuery: state.search ? state.search.query : state.dataSelection ? state.dataSelection.query : '',
-  suggestions: state.autoSuggest.suggestions ? state.autoSuggest.suggestions.data : [],
+  suggestions: state.autoSuggest.suggestions,
   typedQuery: state.autoSuggest.typedQuery
 });
 
