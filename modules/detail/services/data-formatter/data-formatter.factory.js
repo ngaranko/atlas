@@ -5,19 +5,17 @@
         .module('dpDetail')
         .factory('dataFormatter', dataFormatterFactory);
 
-    dataFormatterFactory.$inject = ['store'];
-
-    function dataFormatterFactory (store) {
+    function dataFormatterFactory () {
         return {
             formatData
         };
 
-        function formatData (data, subject) {
+        function formatData (data, subject, catalogFilters) {
             switch (subject) {
                 case 'api':
                     return formatApiData(data);
                 case 'datasets': // dcat data
-                    return formatCatalogData(data);
+                    return formatCatalogData(data, catalogFilters);
                 default:
                     return data;
             }
@@ -48,9 +46,8 @@
             }, formattedData);
         }
 
-        function formatCatalogData (data) {
-            const state = store.getState();
-            const resourceTypes = state.catalogFilters.resourceTypes;
+        function formatCatalogData (data, catalogFilters) {
+            const resourceTypes = catalogFilters.resourceTypes;
             if (!resourceTypes || !data) {
                 return {};
             }
@@ -64,8 +61,7 @@
                         rows: resources.filter((row) => row['ams:resourceType'] === item.id)
                     };
                 }).filter(resource => resource.rows.length),
-                editDatasetUrl: `dcatd_admin/datasets/${data['dct:identifier']}`,
-                canEditDataset: state.user.scopes.includes('CAT/W')
+                editDatasetUrl: `dcatd_admin/datasets/${data['dct:identifier']}`
             };
 
             return Object.keys(data).filter((key) => key !== 'dcat:distribution')

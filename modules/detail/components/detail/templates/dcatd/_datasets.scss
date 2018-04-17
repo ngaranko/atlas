@@ -82,7 +82,6 @@
 
     .o-header__button .catalog__button--wijzigen { // sass-lint:disable-line force-element-nesting
       &::before {
-        // sass-lint:disable-line nesting-depth
         @extend %icon-edit;
         display: block;
         width: 24px;

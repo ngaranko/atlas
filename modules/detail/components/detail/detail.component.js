@@ -98,11 +98,12 @@
                 errorHandler();
             } else {
                 api.getByUrl(endpoint).then(function (data) {
-                    data = dataFormatter.formatData(data, subject);
+                    data = dataFormatter.formatData(data, subject, vm.catalogFilters);
 
                     if (category === 'dcatd' && subject === 'datasets') {
                         data['dct:description'] = data['dct:description'] &&
                             markdownParser.parse(data['dct:description']);
+                        data.canEditDataset = vm.user.scopes.includes('CAT/W');
                     }
 
                     vm.apiData = {

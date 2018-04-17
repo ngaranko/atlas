@@ -66,7 +66,7 @@
         }
 
         function formatFilters (filtersConfig, catalogFilters) {
-            const filters = {
+            return {
                 groups: {
                     numberOfOptions: catalogFilters.groupTypes.length,
                     options: catalogFilters.groupTypes.map(option => {
@@ -118,8 +118,6 @@
                     })
                 }
             };
-
-            return filters;
         }
 
         function formatData (config, rawData) {
