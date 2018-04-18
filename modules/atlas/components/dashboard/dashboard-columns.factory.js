@@ -36,6 +36,7 @@
             const { ui = {} } = state;
 
             visibility.error = state.error.hasErrors || state.user.error;
+            visibility.activePreviewPanel = state.isMapPreviewPanelVisible;
             visibility.map = activity.map;
 
             if (angular.isObject(state.dataSelection) && !ui.isMapFullscreen) {

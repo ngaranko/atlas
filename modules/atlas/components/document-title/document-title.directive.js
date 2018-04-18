@@ -13,10 +13,11 @@
         'dpMapDocumentTitle',
         'dpPageDocumentTitle',
         'dpSearchResultsDocumentTitle',
-        'dpStraatbeeldDocumentTitle'
+        'dpStraatbeeldDocumentTitle',
+        'dpCombinedDocumentTitle'
     ];
 
-    function DpDocumentTitleDirective (
+    function DpDocumentTitleDirective ( // eslint-disable-line max-params
         $document,
         $q,
         store,
@@ -26,9 +27,10 @@
         dpMapDocumentTitle,
         dpPageDocumentTitle,
         dpSearchResultsDocumentTitle,
-        dpStraatbeeldDocumentTitle
+        dpStraatbeeldDocumentTitle,
+        dpCombinedDocumentTitle
     ) {
-        var mapping = [
+        const mapping = [
             {
                 visibility: 'dataSelection',
                 documentTitle: dpDataSelectionDocumentTitle,
@@ -50,6 +52,10 @@
                 documentTitle: dpStraatbeeldDocumentTitle,
                 state: 'straatbeeld'
             }, {
+                visibility: 'activePreviewPanel',
+                documentTitle: dpCombinedDocumentTitle,
+                state: 'map'
+            }, {
                 visibility: 'map',
                 documentTitle: dpMapDocumentTitle,
                 state: 'map'
@@ -64,22 +70,28 @@
         };
 
         function linkFn (scope, element, attrs, controller, transcludeFn) {
-            var baseTitle = transcludeFn().text();
-            scope.title = baseTitle;
+            const baseTitle = transcludeFn().text();
 
             store.subscribe(setTitle);
 
             function setTitle () {
-                const state = store.getState(),
-                    visibility = dashboardColumns.determineVisibility(state),
-                    filtered = mapping.filter(item => visibility[item.visibility]),
-                    // mapping.filter returns an array, possibly empty
-                    current = filtered[0],
-                    stateData = current ? state[current.state] : null,
-                    displayNewTitle = current && stateData && !stateData.isLoading,
-                    getTitle = displayNewTitle ? current.documentTitle.getTitle : null;
+                let titleData;
+                const state = store.getState();
+                const visibility = dashboardColumns.determineVisibility(state);
+                const filtered = mapping.filter(item => visibility[item.visibility]);
+                // mapping.filter returns an array, possibly empty
+                const current = filtered[0];
+                const hasPreviewPanel = current.visibility === 'activePreviewPanel';
 
-                let titleData = getTitle ? getTitle(stateData, state.filters) : null;
+                const stateData = current ? state[current.state] : null;
+                const displayNewTitle = current && stateData && !stateData.isLoading;
+                const getTitle = displayNewTitle ? current.documentTitle.getTitle : null;
+
+                if (hasPreviewPanel) {
+                    titleData = getTitle ? getTitle(state, state.filters) : null;
+                } else {
+                    titleData = getTitle ? getTitle(stateData, state.filters) : null;
+                }
 
                 if (angular.isString(titleData)) {
                     const q = $q.defer();
