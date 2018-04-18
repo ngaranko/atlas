@@ -27,23 +27,18 @@
             });
         };
 
-        vm.items = getViewModel(vm.content);
-
-        function getViewModel (content) {
-            var result = content.map((item, index) => {
-                return {
-                    header: item['dct:title'],
-                    description: item['dct:description'],
-                    modification: {
-                        'metadata_created': item['foaf:isPrimaryTopicOf']['dct:issued'],
-                        'metadata_modified': item['foaf:isPrimaryTopicOf']['dct:modified']
-                    },
-                    formats: $filter('aggregate')(item['dcat:distribution'].map(resource => resource['dct:format'])),
-                    tags: item['dcat:keyword'],
-                    detailEndpoint: item._links.self.href
-                };
-            });
-            return result;
-        }
+        vm.items = vm.content.map((item, index) => {
+            return {
+                header: item['dct:title'],
+                description: item['dct:description'],
+                modification: {
+                    'metadata_created': item['foaf:isPrimaryTopicOf']['dct:issued'],
+                    'metadata_modified': item['foaf:isPrimaryTopicOf']['dct:modified']
+                },
+                formats: $filter('aggregate')(item['dcat:distribution'].map(resource => resource['dct:format'])),
+                tags: item['dcat:keyword'],
+                detailEndpoint: item._links.self.href
+            };
+        });
     }
-})();
+}) ();
