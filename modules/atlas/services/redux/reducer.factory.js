@@ -35,6 +35,7 @@ import { combineReducers } from 'redux';
             const PageReducer = $window.reducers.PageReducer;
             const StraatbeeldReducer = $window.reducers.StraatbeeldReducer;
             const UserReducer = $window.reducers.UserReducer;
+            const autoSuggestReducer = $window.reducers.AutoSuggestReducer;
             const DataSelectionCatalogReducer = $window.reducers.DataSelectionCatalogReducer;
             const newRootReducer = combineReducers({
                 dataSelection: DataSelectionReducer,
@@ -45,6 +46,7 @@ import { combineReducers } from 'redux';
                 straatbeeld: StraatbeeldReducer,
                 ui: UiReducer,
                 user: UserReducer,
+                autoSuggest: autoSuggestReducer,
                 catalogFilters: DataSelectionCatalogReducer
             });
             const filteredState = {
@@ -62,6 +64,7 @@ import { combineReducers } from 'redux';
                 // therefore reset these fields in the state.
                 error: oldState.error,
                 pano: oldState.pano,
+                autoSuggest: oldState.autoSuggest,
                 catalogFilters: oldState.catalogFilters
             };
 

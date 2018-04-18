@@ -6,7 +6,7 @@ import './map/wrappers/map/MapWrapper';
 import './map/wrappers/map-embed-button/MapEmbedButtonWrapper';
 import './detail/wrappers/graph-wrappers/GrondexploitatieGrafiekTotaleBegrotingWrapper';
 import './detail/wrappers/graph-wrappers/GrondexploitatieGrafiekGefaseerdeBegrotingWrapper';
-
+import './header/wrappers/header-search/HeaderSearchWrapper';
 
 // All third party dependencies
 import './vendor';
@@ -142,9 +142,6 @@ import '../modules/header/components/menu/dropdown/menu-dropdown.directive';
 import '../modules/header/components/menu/menu.component';
 import '../modules/header/components/print-button/print-button.component';
 import '../modules/header/components/print-header/print-header.component';
-import '../modules/header/components/search/autocomplete/autocomplete-data.factory';
-import '../modules/header/components/search/search.directive';
-import '../modules/header/components/search/suggestion-highlight/suggestion-highlight.filter';
 import '../modules/header/components/site-header/site-header.component';
 import '../modules/header/components/terugmelden-button/terugmelden-button.component';
 import '../modules/header/header-config.constant';
