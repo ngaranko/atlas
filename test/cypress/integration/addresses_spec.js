@@ -139,7 +139,7 @@ describe('addresses module', () => {
   });
 
   describe('user should be be able to filter on an area', () => {
-    it.only('should show the addresses and map when selected', () => {
+    it('should show the addresses and map when selected', () => {
       cy.route('/dataselectie/bag/geolocation/*').as('getGeoResults');
 
       let totalCount;

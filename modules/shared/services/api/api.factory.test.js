@@ -1,5 +1,6 @@
 describe('The api factory', function () {
     var $rootScope,
+        $interval,
         $http,
         $httpBackend,
         $cacheFactory,
@@ -29,8 +30,17 @@ describe('The api factory', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$http_, _$httpBackend_, _$cacheFactory_, _$q_, _api_) {
+        angular.mock.inject(function (
+            _$rootScope_,
+            _$interval_,
+            _$http_,
+            _$httpBackend_,
+            _$cacheFactory_,
+            _$q_,
+            _api_
+        ) {
             $rootScope = _$rootScope_;
+            $interval = _$interval_;
             $http = _$http_;
             $httpBackend = _$httpBackend_;
             $cacheFactory = _$cacheFactory_;
@@ -188,6 +198,80 @@ describe('The api factory', function () {
             });
 
             $rootScope.$digest();
+        });
+    });
+
+    describe('retrying a failed request', () => {
+        it('succeeds after the second try', () => {
+            var returnValue;
+
+            const getRequest = $httpBackend.whenGET('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/456/');
+            getRequest.respond(500, 'ERROR');
+
+            api.getByUri('bag/verblijfsobject/456/').then(function (data) {
+                returnValue = data;
+            });
+
+            $httpBackend.flush();
+            expect(returnValue).not.toEqual(mockedApiData);
+
+            getRequest.respond(mockedApiData);
+
+            $interval.flush(100);
+            $httpBackend.flush();
+            expect(returnValue).toEqual(mockedApiData);
+        });
+
+        it('succeeds after the third try', () => {
+            var returnValue;
+
+            const getRequest = $httpBackend.whenGET('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/456/');
+            getRequest.respond(500, 'ERROR');
+
+            api.getByUri('bag/verblijfsobject/456/').then(function (data) {
+                returnValue = data;
+            });
+
+            $httpBackend.flush();
+            expect(returnValue).not.toEqual(mockedApiData);
+
+            $interval.flush(100);
+            $httpBackend.flush();
+            expect(returnValue).not.toEqual(mockedApiData);
+
+            getRequest.respond(mockedApiData);
+
+            $interval.flush(100);
+            $httpBackend.flush();
+            expect(returnValue).toEqual(mockedApiData);
+        });
+
+        it('gives up after the third try fails', () => {
+            var returnValue;
+
+            const getRequest = $httpBackend.whenGET('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/456/');
+            getRequest.respond(500, 'ERROR');
+
+            api.getByUri('bag/verblijfsobject/456/').then(function (data) {
+                returnValue = data;
+            });
+
+            $httpBackend.flush();
+            expect(returnValue).not.toEqual(mockedApiData);
+
+            $interval.flush(100);
+            $httpBackend.flush();
+            expect(returnValue).not.toEqual(mockedApiData);
+
+            $interval.flush(100);
+            $httpBackend.flush();
+            expect(returnValue).not.toEqual(mockedApiData);
+
+            getRequest.respond(mockedApiData);
+
+            $interval.flush(100);
+            $httpBackend.verifyNoOutstandingRequest();
+            expect(returnValue).not.toEqual(mockedApiData);
         });
     });
 });

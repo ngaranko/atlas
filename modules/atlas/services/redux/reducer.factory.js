@@ -35,6 +35,7 @@ import { combineReducers } from 'redux';
             const PageReducer = $window.reducers.PageReducer;
             const StraatbeeldReducer = $window.reducers.StraatbeeldReducer;
             const UserReducer = $window.reducers.UserReducer;
+            const autoSuggestReducer = $window.reducers.AutoSuggestReducer;
             const newRootReducer = combineReducers({
                 dataSelection: DataSelectionReducer,
                 page: PageReducer,
@@ -43,7 +44,8 @@ import { combineReducers } from 'redux';
                 pano: PanoPreviewReducer,
                 straatbeeld: StraatbeeldReducer,
                 ui: UiReducer,
-                user: UserReducer
+                user: UserReducer,
+                autoSuggest: autoSuggestReducer
             });
             const filteredState = {
                 dataSelection: deprecatedState.dataSelection,
@@ -59,7 +61,8 @@ import { combineReducers } from 'redux';
                 // the URL resolution step in the deprecatedReducer would
                 // therefore reset these fields in the state.
                 error: oldState.error,
-                pano: oldState.pano
+                pano: oldState.pano,
+                autoSuggest: oldState.autoSuggest
             };
 
             // Combine old and new reducer states

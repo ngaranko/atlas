@@ -55,27 +55,6 @@ describe('The dp-site-header component', () => {
         return component;
     }
 
-    it('inserts the dp-search component and passes down a query string', () => {
-        let component;
-
-        // Without a query
-        component = getComponent('', 'short');
-        expect(component.find('dp-search')[0].getAttribute('query')).toBe('');
-
-        // With a query
-        component = getComponent('I_AM_A_FAKE_QUERY', 'short');
-        expect(component.find('dp-search')[0].getAttribute('query')).toBe('I_AM_A_FAKE_QUERY');
-
-        // Tall version
-        // Without a query
-        component = getComponent('', 'tall');
-        expect(component.find('dp-search')[0].getAttribute('query')).toBe('');
-
-        // With a query
-        component = getComponent('I_AM_A_FAKE_QUERY', 'tall');
-        expect(component.find('dp-search')[0].getAttribute('query')).toBe('I_AM_A_FAKE_QUERY');
-    });
-
     describe('the short version', () => {
         let component;
 

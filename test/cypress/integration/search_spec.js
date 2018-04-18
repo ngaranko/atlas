@@ -8,13 +8,17 @@ describe('search module', () => {
 
   it('should show 4 categories when searching for the term "Oost"', () => {
     cy.server();
-    cy.route('/typeahead?q=oost').as('getResults');
+    // TODO: enable this (getResults) once fetch is supported by Cypress
+    // https://github.com/cypress-io/cypress/issues/95
+    // cy.route('/typeahead?q=oost').as('getResults');
 
-    cy.get('#global-search').type('oost');
+    cy.get('#auto-suggest__input').type('oost');
 
-    cy.wait('@getResults');
+    // TODO: remove wait(500) and enably the route-wait
+    cy.wait(500);
+    // cy.wait('@getResults');
     // count the headers inside the autocomplete
-    cy.get('h4.qa-autocomplete-header').then((headers) => {
+    cy.get('h4.qa-auto-suggest-header').then((headers) => {
       expect(headers.length).to.eq(4);
     });
   });
@@ -23,9 +27,9 @@ describe('search module', () => {
     cy.server();
     cy.defineSearchRoutes();
 
-    cy.get('#global-search').type('dam');
+    cy.get('#auto-suggest__input').type('dam');
     // submit search form
-    cy.get('.c-search-form').submit();
+    cy.get('.auto-suggest').submit();
 
     cy.waitForSearch(false);
     cy.get('h2').contains('Openbare ruimtes').then((title) => {
