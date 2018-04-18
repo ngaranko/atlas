@@ -4,8 +4,8 @@
 @import "./datasets-themes";
 
 .resources {
-  margin-right: -20px;
-  margin-left: -20px;
+  margin-right: -2 * $base-whitespace;
+  margin-left: -2 * $base-whitespace;
   overflow-x: hidden;
 
   &-item {
@@ -13,11 +13,13 @@
 
     &__left {
       flex-grow: 1;
+      width: 100px;
     }
 
     &__right {
-      padding-right: 5px;
-      padding-left: 5px;
+      padding-right: .5 * $base-whitespace;
+      padding-left: .5 * $base-whitespace;
+      text-align: right;
     }
 
     &__modified {
@@ -27,18 +29,29 @@
 
       span {
         white-space: nowrap;
-        overflow: hidden;
       }
     }
 
-    &__description {
-      padding-top: 5px;
+    &__title {
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+    }
+
+    &__description {
+      width: 100%;
+
+      &>div {
+        padding-top: 5px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+      }
 
       &> :first-child {
-        margin-right: 5px;
+        margin-top: .5 * $base-whitespace;
+        margin-right: .5 * $base-whitespace;
       }
     }
 
@@ -58,10 +71,6 @@
         background-size: 100%;
       }
     }
-  }
-
-  &-button {
-    margin-left: 31px;
   }
 
   .resources-type {
@@ -92,11 +101,11 @@
 .dcad-dataset-detail {
   .c-detail__block {
     dl>dt {
-      width: 30%;
+      width: 34%;
     }
 
     dl>dd {
-      width: 70%;
+      width: 66%;
 
       div {
         a { // sass-lint:disable-line nesting-depth
@@ -179,8 +188,4 @@
       text-transform: capitalize;
     }
   }
-}
-
-.c-catalogus-theme__icon--geografie {
-  @include icon-button-text-right("thema-geografie", "", "");
 }

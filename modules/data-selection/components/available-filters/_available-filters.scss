@@ -7,7 +7,9 @@ $data-selection-available-filters-item-height: 32px;
 }
 
 .c-data-selection-available-filters__category {
-  padding-bottom: 2.5 * $base-whitespace;
+  margin-bottom: 2.5 * $base-whitespace;
+  padding-bottom: .5 * $base-whitespace;
+  border-bottom: 1px solid $secondary-gray20;
 
   &:last-child {
     padding: 0;
@@ -36,8 +38,7 @@ $data-selection-available-filters-item-height: 32px;
 
 .c-data-selection-available-filters__show-more {
   margin: 0 (-$data-selection-available-filters-gutter);
-  padding: 0 $data-selection-available-filters-gutter 6px;
-  border-bottom: 1px solid $secondary-gray20;
+  padding: 0 $data-selection-available-filters-gutter;
 }
 
 .c-data-selection-available-filters__show-more-button {

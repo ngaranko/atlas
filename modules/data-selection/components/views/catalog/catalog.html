@@ -1,5 +1,5 @@
-<div class="u-margin__bottom--1">
-    <button ng-repeat="row in vm.items" ng-click="vm.fetch_detail(row.detailEndpoint)" class="c-data-selection-catalog qa-catalog-fetch-detail u-no-presentation">
+<div class="c-data-selection-catalog u-margin__bottom--1">
+    <button ng-repeat="row in vm.items" ng-click="vm.fetch_detail(row.detailEndpoint)" class="c-data-selection-catalog__item qa-catalog-fetch-detail u-no-presentation">
         <div class="c-data-selection-catalog__header">
             <h2>
                 {{row.header}}

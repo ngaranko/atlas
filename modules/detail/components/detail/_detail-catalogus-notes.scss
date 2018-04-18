@@ -10,5 +10,10 @@
 
   ul {
     @extend %content-list;
+
+    p,
+    li {
+      @include font-weight($normal-weight);
+    }
   }
 }

@@ -263,17 +263,13 @@
                     ENDPOINT_METADATA: 'dcatd/openapi',
                     ENDPOINT_PREVIEW: 'dcatd/datasets',
                     ENDPOINT_DETAIL: 'dcatd/datasets',
-                    TITLE: 'DcatdCatalogus',
+                    TITLE: 'Catalogus',
                     PRIMARY_KEY: 'dct:identifier',
                     SHOW_FILTER_OPTION_COUNTS: false,
                     FILTERS: [
                         {
                             slug: 'groups',
                             label: 'Thema\'s'
-                        }, {
-                            slug: 'formats',
-                            label: 'Formaten',
-                            formatter: 'lowercase'
                         }, {
                             slug: 'owners',
                             label: 'Eigenaar'
@@ -283,6 +279,10 @@
                         }, {
                             slug: 'serviceTypes',
                             label: 'API/Service formaten'
+                        }, {
+                            slug: 'formats',
+                            label: 'Bestandsformaten',
+                            formatter: 'lowercase'
                         }
                     ],
                     CONTENT: {
