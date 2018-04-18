@@ -207,7 +207,7 @@ describe('The dataSelectionApiDcatd factory', function () {
         let thenCalled = false,
             catchCalled = false;
 
-        mockedApiResponse['dcat:dataset'] = [];
+        mockedApiResponse['void:documents'] = 0;
 
         dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(() => {
             thenCalled = true;

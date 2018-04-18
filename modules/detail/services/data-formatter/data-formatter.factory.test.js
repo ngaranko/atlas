@@ -80,7 +80,7 @@ describe('The dataFormatter factory', function () {
                 type: 'resourceTypeId',
                 rows: [{ 'ams:resourceType': 'resourceTypeId' }]
             }],
-            editDatasetUrl: 'dcatd_admin/datasets/undefined'
+            editDatasetUrl: 'dcatd_admin#/datasets/undefined'
         });
     });
 
