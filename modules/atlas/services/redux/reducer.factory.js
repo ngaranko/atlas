@@ -28,6 +28,7 @@ import { combineReducers } from 'redux';
 
             // Use combine reducer for new reducers
             const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
+            const MapDetailReducer = $window.reducers.MapDetailReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
             const UiReducer = $window.reducers.UiReducer;
             const MapReducer = $window.reducers.MapReducer;
@@ -42,6 +43,7 @@ import { combineReducers } from 'redux';
                 page: PageReducer,
                 error: ErrorMessageReducer,
                 map: MapReducer,
+                mapDetail: MapDetailReducer,
                 pano: PanoPreviewReducer,
                 straatbeeld: StraatbeeldReducer,
                 ui: UiReducer,
@@ -53,6 +55,7 @@ import { combineReducers } from 'redux';
                 dataSelection: deprecatedState.dataSelection,
                 page: deprecatedState.page,
                 map: deprecatedState.map,
+                mapDetail: deprecatedState.mapDetail,
                 straatbeeld: deprecatedState.straatbeeld,
                 ui: deprecatedState.ui,
                 user: deprecatedState.user,
