@@ -3,6 +3,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
         mockedBagState,
         mockedHrState,
         mockedCardsState,
+        mockedCatalogusState,
         mockedFilters;
 
     beforeEach(function () {
@@ -29,6 +30,15 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                             FILTERS: []
                         },
                         catalogus: {
+                            TITLE: 'Catalogus',
+                            FILTERS: [
+                                {
+                                    slug: 'groups',
+                                    label: 'Thema\'s'
+                                }
+                            ]
+                        },
+                        dcatd: {
                             TITLE: 'Catalogus',
                             FILTERS: [
                                 {
@@ -65,6 +75,13 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
             geometryFilter: {}
         };
 
+        mockedCatalogusState = {
+            dataset: 'dcatd',
+            view: 'CATALOG',
+            query: 'my query',
+            geometryFilter: {}
+        };
+
         mockedFilters = {};
     });
 
@@ -81,7 +98,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     });
 
     it('shows a the datasets query for text search in datasets', function () {
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState, mockedFilters))
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters))
             .toBe('Datasets met \'my query\'');
     });
 

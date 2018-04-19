@@ -72,6 +72,14 @@ describe('The dataSelectionApi factory', function () {
                             }, {
                                 variables: ['buurtnaam']
                             }
+                        ],
+                        CATALOG: [
+                            {
+                                variables: ['adres.openbare_ruimte', 'huisnummer'],
+                                formatter: 'adres'
+                            }, {
+                                variables: ['buurtnaam']
+                            }
                         ]
                     }
                 }
@@ -219,7 +227,7 @@ describe('The dataSelectionApi factory', function () {
 
             // With active filters
             mockedApiService.query.calls.reset();
-            dataSelectionApi.query('zwembaden', 'TABLE', {water: 'Verwarmd'}, 1, 'searchText', [], {});
+            dataSelectionApi.query('zwembaden', 'TABLE', { water: 'Verwarmd' }, 1, 'searchText', [], {});
             expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {
                 water: 'Verwarmd'
             }, 1, 'searchText', [], {});
@@ -446,6 +454,17 @@ describe('The dataSelectionApi factory', function () {
 
                 expect(outputTable).not.toEqual(outputList);
             });
+
+            it('returns the result data unchanged for the CATALOG type view', function () {
+                let outputCatalog;
+
+                dataSelectionApi.query('zwembaden', 'CATALOG', {}, 1).then(function (_output_) {
+                    outputCatalog = _output_;
+                });
+
+                $rootScope.$apply();
+                expect(outputCatalog.data).toEqual(mockedApiPreviewResponse.data);
+            });
         });
     });
 
@@ -479,7 +498,7 @@ describe('The dataSelectionApi factory', function () {
 
             // With filters
             api.getByUri.calls.reset();
-            dataSelectionApi.getMarkers('zwembaden', {water: 'Verwarmd'});
+            dataSelectionApi.getMarkers('zwembaden', { water: 'Verwarmd' });
 
             expect(api.getByUri).toHaveBeenCalledWith(
                 'zwembaden/markers/',
