@@ -8,27 +8,38 @@
 
     documentTitleFactory.$inject = [
         'dpSearchResultsDocumentTitle',
-        'dpDetailDocumentTitle'
+        'dpDetailDocumentTitle',
+        'dpMapDocumentTitle',
+        '$q'
     ];
 
     function documentTitleFactory (
         dpSearchResultsDocumentTitle,
-        dpDetailDocumentTitle
+        dpDetailDocumentTitle,
+        dpMapDocumentTitle,
+        $q
     ) {
         return {
             getTitle: getTitle
         };
 
         function getTitle (fullState) {
-            let combinedTitle;
+            const combinedTitle = [];
+            const q = $q.defer();
 
             if (fullState.detail && fullState.detail.display) {
-                combinedTitle = dpDetailDocumentTitle.getTitle(fullState.detail);
+                combinedTitle.push(dpDetailDocumentTitle.getTitle(fullState.detail));
             } else if (fullState.search && fullState.search.numberOfResults) {
-                combinedTitle = dpSearchResultsDocumentTitle.getTitle(fullState.search);
+                combinedTitle.push(dpSearchResultsDocumentTitle.getTitle(fullState.search));
             }
 
-            return combinedTitle;
+            dpMapDocumentTitle.getTitle(fullState.map).then(result => {
+                combinedTitle.push(result);
+
+                q.resolve(combinedTitle.join(', '));
+            });
+
+            return q.promise;
         }
     }
 })();

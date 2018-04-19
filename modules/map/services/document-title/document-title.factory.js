@@ -21,7 +21,7 @@
                  Wait for the next digest cycle (making this function asynchronous)
                 */
                 const overlays = activeOverlays.getOverlaysLabels();
-                q.resolve((overlays ? `${overlays} op ` : '') + 'Grote kaart');
+                q.resolve((overlays ? `${overlays} - Status op grote` : 'Grote') + ' kaart');
             });
 
             return q.promise;
