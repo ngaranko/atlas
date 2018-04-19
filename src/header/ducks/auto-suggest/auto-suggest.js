@@ -18,10 +18,10 @@ export default function AutoSuggestReducer(state = initialState, action) {
       return {
         ...state,
         count: 0,
-        displayQuery: action.query,
+        displayQuery: action.query || '', // if action.query is null, put an empty string
         error: '',
         isLoading: true,
-        typedQuery: action.query
+        typedQuery: action.query || '' // if action.query is null, put an empty string
       };
     case FETCH_SUGGESTIONS_SUCCESS:
       return {

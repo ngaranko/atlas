@@ -34,13 +34,21 @@
         environment
     ) {
         return function (oldState, action) { // eslint-disable-line complexity, max-statements
+            /**
+             *
+             *
+             *
+             * Try not to add new stuff to this file. DEPRECATED
+             *
+             *
+             *
+             */
             const DetailsReducer = $window.reducers.detailReducer;
             const MapLayersReducer = $window.reducers.MapLayersReducer;
             const MapPreviewPanelReducer = $window.reducers.MapPreviewPanelReducer;
             const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
             const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;
-            const MapDetailReducer = $window.reducers.MapDetailReducer;
             const MapClickLocationReducer = $window.reducers.MapClickLocationReducer;
 
             const detailReducers = {
@@ -74,12 +82,6 @@
                 FETCH_MAP_SEARCH_RESULTS_SUCCESS: MapSearchResultsReducer
             };
 
-            const mapDetailReducers = {
-                FETCH_MAP_DETAIL_FAILURE: MapDetailReducer,
-                FETCH_MAP_DETAIL_REQUEST: MapDetailReducer,
-                FETCH_MAP_DETAIL_SUCCESS: MapDetailReducer
-            };
-
             const mapClickLocationReducers = {
                 SET_MAP_CLICK_LOCATION: MapClickLocationReducer
             };
@@ -104,7 +106,6 @@
                 mapPreviewPanelReducers,
                 mapReducers,
                 mapSearchResultsReducers,
-                mapDetailReducers,
                 mapClickLocationReducers,
                 pageReducers,
                 searchReducers,
