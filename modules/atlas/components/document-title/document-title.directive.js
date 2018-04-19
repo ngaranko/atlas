@@ -99,7 +99,9 @@
                     titleData = q.promise;
                 }
                 if (displayNewTitle && titleData) {
-                    titleData.then(result => scope.title = (result ? result + ' - ' : '') + baseTitle);
+                    titleData.then(result => {
+                        scope.title = (result ? result + ' - ' : '') + baseTitle;
+                    });
                 }
             }
         }

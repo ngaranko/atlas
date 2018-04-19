@@ -24,19 +24,14 @@
         };
 
         function getTitle (fullState) {
-            const combinedTitle = [];
             const q = $q.defer();
 
-            if (fullState.detail && fullState.detail.display) {
-                combinedTitle.push(dpDetailDocumentTitle.getTitle(fullState.detail));
-            } else if (fullState.search && fullState.search.numberOfResults) {
-                combinedTitle.push(dpSearchResultsDocumentTitle.getTitle(fullState.search));
-            }
-
-            dpMapDocumentTitle.getTitle(fullState.map).then(result => {
-                combinedTitle.push(result);
-
-                q.resolve(combinedTitle.join(', '));
+            dpMapDocumentTitle.getTitle().then(result => {
+                if (fullState.detail && fullState.detail.display) {
+                    q.resolve(`${dpDetailDocumentTitle.getTitle(fullState.detail)} - ${result}`);
+                } else if (fullState.search && fullState.search.numberOfResults) {
+                    q.resolve(`${dpSearchResultsDocumentTitle.getTitle(fullState.search)} - ${result}`);
+                }
             });
 
             return q.promise;
