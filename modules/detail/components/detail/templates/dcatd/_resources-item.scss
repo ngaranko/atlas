@@ -22,7 +22,7 @@
     right: 39px;
     top: 0;
 
-    :not(&:empty) {
+    &:not(:empty) {
       &::before {
         content: "gewijzigd op ";
       }
