@@ -158,7 +158,7 @@ describe('The dataSelectionApiDcatd factory', function () {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
             q: 'searchText',
-            '/properties/dcat:distribution/items/properties/dct:serviceType': 'eq=wms'
+            '/properties/dcat:distribution/items/properties/ams:serviceType': 'eq=wms'
         });
     });
 

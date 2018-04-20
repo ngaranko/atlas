@@ -11,7 +11,7 @@
             format: '/properties/dcat:distribution/items/properties/dct:format',
             owner: '/properties/ams:owner',
             distributionType: '/properties/dcat:distribution/items/properties/ams:distributionType',
-            serviceType: '/properties/dcat:distribution/items/properties/dct:serviceType'
+            serviceType: '/properties/dcat:distribution/items/properties/ams:serviceType'
         };
 
         return {

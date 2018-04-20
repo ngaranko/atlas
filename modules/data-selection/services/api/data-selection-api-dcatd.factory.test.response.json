@@ -39,7 +39,7 @@
       "file": 1877,
       "api": 22
     },
-    "/properties/dcat:distribution/items/properties/dct:serviceType": {
+    "/properties/dcat:distribution/items/properties/ams:serviceType": {
       "wms": 1
     },
     "/properties/dcat:keyword/items": {
