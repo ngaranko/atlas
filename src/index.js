@@ -125,6 +125,7 @@ import '../modules/detail/components/parent-relations/parent-relations.constant'
 import '../modules/detail/components/parent-relations/parent-relations.directive';
 import '../modules/detail/components/partial-select/partial-compiler.factory';
 import '../modules/detail/components/partial-select/partial-select.directive';
+import '../modules/detail/components/time-period/time-period.filter';
 import '../modules/detail/components/wkpb-link/wkpb-link.component';
 import '../modules/detail/components/yes-no/yes-no.filter';
 import '../modules/detail/detail.vendor';

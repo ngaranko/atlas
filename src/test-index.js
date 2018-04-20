@@ -112,6 +112,7 @@ import '../modules/detail/components/parent-relations/parent-relations.constant'
 import '../modules/detail/components/parent-relations/parent-relations.directive';
 import '../modules/detail/components/partial-select/partial-compiler.factory';
 import '../modules/detail/components/partial-select/partial-select.directive';
+import '../modules/detail/components/time-period/time-period.filter';
 import '../modules/detail/components/wkpb-link/wkpb-link.component';
 import '../modules/detail/components/yes-no/yes-no.filter';
 import '../modules/detail/detail.vendor';
@@ -339,6 +340,7 @@ import '../modules/detail/components/partial-select/partial-select.directive.tes
 import '../modules/detail/components/partial-select/partial-compiler.factory.test';
 import '../modules/detail/components/current-date/current-date.directive.test';
 import '../modules/detail/components/api-call/api-call.component.test';
+import '../modules/detail/components/time-period/time-period.filter.test';
 import '../modules/detail/components/wkpb-link/wkpb-link.component.test';
 import '../modules/detail/components/parent-relations/parent-relations.directive.test';
 import '../modules/detail/components/data-selection-links/data-selection-links.component.test';

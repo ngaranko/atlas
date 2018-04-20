@@ -12,7 +12,7 @@
     <dt>Wijzigingsfrequentie</dt>
     <dd>{{vm.apiData.results['dct:accrualPeriodicity'] | optionLabel: vm.catalogFilters.accrualPeriodicities}}</dd>
     <dt>Tijdsperiode</dt>
-    <dd>{{vm.apiData.results['dct:temporal']}}</dd>
+    <dd>{{vm.apiData.results['dct:temporal'] | timePeriod }}</dd>
     <dt>Tijdseenheid</dt>
     <dd>{{vm.apiData.results['ams:temporalUnit'] | optionLabel: vm.catalogFilters.temporalUnits}}</dd>
     <dt>Omschrijving gebied</dt>
@@ -31,16 +31,17 @@
     <dd>
         <div>
             <a ng-if="vm.apiData.results['dcat:contactPoint']['vcard:hasEmail']" href="mailto:{{vm.apiData.results['dcat:contactPoint']['vcard:hasEmail']}}"
-                class="o-btn o-btn--link">{{vm.apiData.results['dcat:contactPoint']['vcard:fn']}} ({{vm.apiData.results['dcat:contactPoint']['vcard:hasEmail']}})</a>
+                class="o-btn o-btn--link dataset-detail__link">{{vm.apiData.results['dcat:contactPoint']['vcard:fn']}} ({{vm.apiData.results['dcat:contactPoint']['vcard:hasEmail']}})</a>
             <a ng-if="vm.apiData.results['dcat:contactPoint']['vcard:hasURL']" href="{{vm.apiData.results['dcat:contactPoint']['vcard:hasURL']}}"
-                class="o-btn o-btn--link">{{vm.apiData.results['dcat:contactPoint']['vcard:hasURL']}}</a>
+                class="o-btn o-btn--link dataset-detail__link">{{vm.apiData.results['dcat:contactPoint']['vcard:hasURL']}}</a>
         </div>
     </dd>
     <dt>Technisch contactpersoon</dt>
     <dd>
-        <a ng-if="vm.apiData.results['dct:publisher']['foaf:mbox']" href="mailto:{{vm.apiData.results['dct:publisher']['foaf:mbox']}}" class="o-btn o-btn--link">{{vm.apiData.results['dct:publisher']['foaf:name']}} ({{vm.apiData.results['dct:publisher']['foaf:mbox']}})</a>
+        <a ng-if="vm.apiData.results['dct:publisher']['foaf:mbox']" href="mailto:{{vm.apiData.results['dct:publisher']['foaf:mbox']}}" 
+            class="o-btn o-btn--link dataset-detail__link">{{vm.apiData.results['dct:publisher']['foaf:name']}} ({{vm.apiData.results['dct:publisher']['foaf:mbox']}})</a>
         <a ng-if="vm.apiData.results['dct:publisher']['foaf:homepage']" href="{{vm.apiData.results['dct:publisher']['foaf:homepage']}}"
-            class="o-btn o-btn--link">{{vm.apiData.results['dct:publisher']['foaf:homepage']}}</a>
+            class="o-btn o-btn--link dataset-detail__link">{{vm.apiData.results['dct:publisher']['foaf:homepage']}}</a>
     </dd>
     <dt>Zichtbaarheid</dt>
     <dd></dd>

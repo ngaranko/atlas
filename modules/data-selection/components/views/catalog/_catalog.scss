@@ -1,18 +1,8 @@
-@mixin o-tag {
-  .o-tag {
-    &::before {
-      border-top: 8px solid $secondary-gray10;
-      border-right: 8px solid $secondary-gray30;
-      border-bottom: 8px solid $secondary-gray10;
-    }
-  }
-}
-
-.o-tag--transparent-small {
+.dataset-tag-small {
   display: inline-block;
   margin-left: -8px;
 
-  &>i {
+  &__arrow {
     display: inline-block;
     position: relative;
     top: .1px;
@@ -28,7 +18,7 @@
     -webkit-transform: rotate(45deg); // sass-lint:disable-line no-vendor-prefixes
   }
 
-  &>span {
+  &__label {
     display: inline-block;
     position: relative;
     height: 16px;

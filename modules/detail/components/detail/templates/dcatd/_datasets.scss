@@ -98,7 +98,7 @@
   }
 }
 
-.dcad-dataset-detail {
+.dataset-detail {
   .c-detail__block {
     dl>dt {
       width: 34%;
@@ -106,13 +106,11 @@
 
     dl>dd {
       width: 66%;
+    }
 
-      div {
-        a { // sass-lint:disable-line nesting-depth
-          display: block;
-          padding: 8px 0;
-        }
-      }
+    .dataset-detail__link {
+      display: block;
+      padding: 8px 0;
     }
   }
 
@@ -154,11 +152,11 @@
     }
   }
 
-  .o-tag--transparent {
+  .dataset-tag {
     display: inline-block;
     margin-left: -8px;
 
-    &>i {
+    &__arrow {
       display: inline-block;
       position: relative;
       top: 3.3px;
@@ -173,7 +171,7 @@
       -webkit-transform: rotate(45deg); // sass-lint:disable-line no-vendor-prefixes
     }
 
-    &>span {
+    &__label {
       display: inline-block;
       position: relative;
       height: 26px;
