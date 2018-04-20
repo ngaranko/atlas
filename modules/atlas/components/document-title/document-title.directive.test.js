@@ -14,7 +14,8 @@ describe('The dp-document-title directive', function () {
         mapDocumentTitle = { getTitle: angular.noop },
         pageDocumentTitle = { getTitle: angular.noop },
         searchResultsDocumentTitle = { getTitle: angular.noop },
-        straatbeeldDocumentTitle = { getTitle: angular.noop };
+        straatbeeldDocumentTitle = { getTitle: angular.noop },
+        combinedDocumentTitle = { getTitle: angular.noop };
 
     beforeEach(function () {
         angular.mock.module(
@@ -28,6 +29,7 @@ describe('The dp-document-title directive', function () {
                 $provide.value('dpPageDocumentTitle', pageDocumentTitle);
                 $provide.value('dpSearchResultsDocumentTitle', searchResultsDocumentTitle);
                 $provide.value('dpStraatbeeldDocumentTitle', straatbeeldDocumentTitle);
+                $provide.value('dpCombinedDocumentTitle', combinedDocumentTitle);
             }
         );
 
@@ -45,6 +47,7 @@ describe('The dp-document-title directive', function () {
         spyOn(pageDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(searchResultsDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(straatbeeldDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
+        spyOn(combinedDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
     });
 
     function getComponent (numberOfResults, query, location, category) {
