@@ -28,6 +28,7 @@ import { combineReducers } from 'redux';
 
             // Use combine reducer for new reducers
             const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
+            const MapDetailReducer = $window.reducers.MapDetailReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
             const UiReducer = $window.reducers.UiReducer;
             const MapReducer = $window.reducers.MapReducer;
@@ -35,22 +36,26 @@ import { combineReducers } from 'redux';
             const PageReducer = $window.reducers.PageReducer;
             const StraatbeeldReducer = $window.reducers.StraatbeeldReducer;
             const UserReducer = $window.reducers.UserReducer;
+            const autoSuggestReducer = $window.reducers.AutoSuggestReducer;
             const DataSelectionCatalogReducer = $window.reducers.DataSelectionCatalogReducer;
             const newRootReducer = combineReducers({
                 dataSelection: DataSelectionReducer,
                 page: PageReducer,
                 error: ErrorMessageReducer,
                 map: MapReducer,
+                mapDetail: MapDetailReducer,
                 pano: PanoPreviewReducer,
                 straatbeeld: StraatbeeldReducer,
                 ui: UiReducer,
                 user: UserReducer,
+                autoSuggest: autoSuggestReducer,
                 catalogFilters: DataSelectionCatalogReducer
             });
             const filteredState = {
                 dataSelection: deprecatedState.dataSelection,
                 page: deprecatedState.page,
                 map: deprecatedState.map,
+                mapDetail: deprecatedState.mapDetail,
                 straatbeeld: deprecatedState.straatbeeld,
                 ui: deprecatedState.ui,
                 user: deprecatedState.user,
@@ -62,6 +67,7 @@ import { combineReducers } from 'redux';
                 // therefore reset these fields in the state.
                 error: oldState.error,
                 pano: oldState.pano,
+                autoSuggest: oldState.autoSuggest,
                 catalogFilters: oldState.catalogFilters
             };
 
