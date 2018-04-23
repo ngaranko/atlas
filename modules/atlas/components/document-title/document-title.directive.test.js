@@ -129,6 +129,34 @@ describe('The dp-document-title directive', function () {
 
             expect(moduleDocumentTitle.getTitle).toHaveBeenCalledWith(itemState, filterState);
         });
+
+        it('gets called with the full state and filters', function () {
+            const itemState = { key: 'value' },
+                filterState = { foo: 'bar' },
+                restState = { other: 'value', another: 'val', map: 'bar' },
+                fullState = { page: itemState, filters: filterState, ...restState };
+
+            spyOn(store, 'getState').and.returnValue(fullState);
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ activePreviewPanel: true, map: true });
+
+            getComponent();
+
+            expect(moduleDocumentTitle.getTitle).toHaveBeenCalledWith(fullState);
+        });
+
+        it('does not try to call the getTitle fn if it does not exist', function () {
+            const itemState = { key: 'value' },
+                filterState = { foo: 'bar' },
+                restState = { other: 'value', another: 'val' },
+                fullState = { page: itemState, filters: filterState, ...restState };
+
+            spyOn(store, 'getState').and.returnValue(fullState);
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ activePreviewPanel: true, map: true });
+
+            getComponent();
+
+            expect(moduleDocumentTitle.getTitle).not.toHaveBeenCalled();
+        });
     });
 
     it('prepends the base title with the item title', function () {

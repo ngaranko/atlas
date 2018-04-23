@@ -31,6 +31,8 @@
                     q.resolve(`${dpDetailDocumentTitle.getTitle(fullState.detail)} - ${result}`);
                 } else if (fullState.search && fullState.search.numberOfResults) {
                     q.resolve(`${dpSearchResultsDocumentTitle.getTitle(fullState.search)} - ${result}`);
+                } else {
+                    q.resolve(result);
                 }
             });
 

@@ -1,77 +1,78 @@
-xdescribe('The dpSearchResultsDocumentTitle factory', function () {
-    const searchTitle = { getTitleData: angular.noop };
-    let documentTitle;
+describe('The dpCombinedDocumentTitle factory', function () {
+    let combinedDocumentTitle,
+        $q,
+        $rootScope;
+    const detailDocumentTitle = { getTitle: angular.noop },
+        mapDocumentTitle = { getTitle: angular.noop },
+        searchResultsDocumentTitle = { getTitle: angular.noop };
 
-    beforeEach(() => {
-        angular.mock.module('dpSearchResults', $provide => {
-            $provide.value('searchTitle', searchTitle);
+    beforeEach(function () {
+        angular.mock.module(
+            'dpShared',
+            function ($provide) {
+                $provide.value('dpDetailDocumentTitle', detailDocumentTitle);
+                $provide.value('dpMapDocumentTitle', mapDocumentTitle);
+                $provide.value('dpSearchResultsDocumentTitle', searchResultsDocumentTitle);
+            }
+        );
+
+        angular.mock.inject((dpCombinedDocumentTitle, _$q_, _$rootScope_) => {
+            combinedDocumentTitle = dpCombinedDocumentTitle;
+            $q = _$q_;
+            $rootScope = _$rootScope_;
         });
 
-        angular.mock.inject(dpSearchResultsDocumentTitle => {
-            documentTitle = dpSearchResultsDocumentTitle;
+        spyOn(mapDocumentTitle, 'getTitle').and.callFake(() => {
+            const def = $q.defer();
+            def.resolve('simpele titel');
+            return def.promise;
         });
-        spyOn(searchTitle, 'getTitleData');
+
+        spyOn(detailDocumentTitle, 'getTitle').and.returnValue('detailTitel');
+
+        spyOn(searchResultsDocumentTitle, 'getTitle').and.returnValue('searchTitel');
     });
 
-    describe('For searches on text', function () {
-        it('returns "Resultaten met \'<searchText>\'" as a title', function () {
-            expect(documentTitle.getTitle({query: 'a query', numberOfResults: 10}))
-                .toBe('Data met \'a query\'');
+    it('returns a default title with promise', function () {
+        const mockState = {};
+        const promise = combinedDocumentTitle.getTitle(mockState);
+
+        promise.then(value => {
+            expect(value).toBe('simpele titel');
         });
 
-        it('returns "Geen resultaten met \'<searchText>\'" if no results as a title', function () {
-            expect(documentTitle.getTitle({query: 'a query', numberOfResults: 0}))
-                .toBe('Data met \'a query\'');
-        });
+        $rootScope.$digest();
     });
 
-    describe('For searches on a location', function () {
-        let searchOnLocation;
+    it('returns a detail title with promise', function () {
+        const mockState = {
+            detail: {
+                display: true
+            }
+        };
 
-        beforeEach(function () {
-            searchOnLocation = {
-                location: [52, 4]
-            };
+        const promise = combinedDocumentTitle.getTitle(mockState);
+
+        promise.then(value => {
+            expect(value).toBe('detailTitel - simpele titel');
         });
 
-        it('does not return only a sub title', () => {
-            searchTitle.getTitleData.and.returnValue({
-                title: '',
-                subTitle: 'subTitle'
-            });
-            expect(documentTitle.getTitle(searchOnLocation)).toBe('');
-
-            searchTitle.getTitleData.and.returnValue({
-                title: null,
-                subTitle: 'subTitle'
-            });
-            expect(documentTitle.getTitle(searchOnLocation)).toBe('');
-        });
-
-        it('returns the title', () => {
-            searchTitle.getTitleData.and.returnValue({
-                title: 'title',
-                subTitle: ''
-            });
-            expect(documentTitle.getTitle(searchOnLocation)).toBe('title');
-
-            searchTitle.getTitleData.and.returnValue({
-                title: 'title',
-                subTitle: null
-            });
-            expect(documentTitle.getTitle(searchOnLocation)).toBe('title');
-        });
-
-        it('returns both the title and the sub title with a space in between', () => {
-            searchTitle.getTitleData.and.returnValue({
-                title: 'title',
-                subTitle: 'sub title'
-            });
-            expect(documentTitle.getTitle(searchOnLocation)).toBe('title sub title');
-        });
+        $rootScope.$digest();
     });
 
-    it('returns an empty title when no searchState is known', () => {
-        expect(documentTitle.getTitle()).toBe('');
+    it('returns a search title with promise', function () {
+        const mockState = {
+            search: {
+                numberOfResults: 12
+            }
+        };
+
+        const promise = combinedDocumentTitle.getTitle(mockState);
+
+        promise.then(value => {
+            expect(value).toBe('searchTitel - simpele titel');
+        });
+
+        $rootScope.$digest();
     });
 });

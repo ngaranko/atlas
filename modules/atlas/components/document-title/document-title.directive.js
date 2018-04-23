@@ -82,13 +82,12 @@
                 // mapping.filter returns an array, possibly empty
                 const current = filtered[0];
                 const hasPreviewPanel = current && current.visibility === 'activePreviewPanel';
-
                 const stateData = current ? state[current.state] : null;
                 const displayNewTitle = current && stateData && !stateData.isLoading;
                 const getTitle = displayNewTitle ? current.documentTitle.getTitle : null;
 
                 if (hasPreviewPanel) {
-                    titleData = getTitle ? getTitle(state, state.filters) : null;
+                    titleData = getTitle ? getTitle(state) : null;
                 } else {
                     titleData = getTitle ? getTitle(stateData, state.filters) : null;
                 }
