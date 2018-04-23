@@ -81,7 +81,7 @@
                 const filtered = mapping.filter(item => visibility[item.visibility]);
                 // mapping.filter returns an array, possibly empty
                 const current = filtered[0];
-                const hasPreviewPanel = current.visibility === 'activePreviewPanel';
+                const hasPreviewPanel = current && current.visibility === 'activePreviewPanel';
 
                 const stateData = current ? state[current.state] : null;
                 const displayNewTitle = current && stateData && !stateData.isLoading;
