@@ -14,7 +14,7 @@
         };
 
         function getTitle (straatbeeldState) {
-            let title = 'Panorama';
+            let title = straatbeeldState.isFullscreen ? 'Groot panorama' : 'Panorama';
             if (straatbeeldState.history) {
                 title += ` (Alleen ${straatbeeldState.history})`;
             }

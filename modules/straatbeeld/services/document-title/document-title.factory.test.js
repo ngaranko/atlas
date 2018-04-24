@@ -31,6 +31,11 @@ describe('The dpStraatbeeldDocumentTitle factory', function () {
         expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama');
     });
 
+    it('returns the text \'Groot panorama\' when the panorama is in full screen', function () {
+        const mockedStraatbeeldState = {isFullscreen: true};
+        expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Groot panorama');
+    });
+
     it('returns the text \'Panorama (Alleen 2017) op\' and the coordinates in both WGS84 and RD', function () {
         const mockedStraatbeeldState = {
             location: [52.123, 4.789],

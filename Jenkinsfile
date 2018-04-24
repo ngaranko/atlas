@@ -82,6 +82,7 @@ pipeline {
       post {
         always {
           sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
+          sh "docker network prune -f"
         }
       }
     }
