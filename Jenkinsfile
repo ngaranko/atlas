@@ -4,6 +4,7 @@ pipeline {
     timeout(time: 1, unit: 'HOURS')
   }
   environment {
+    PROJECT_PREFIX = "${env.BRANCH_NAME}_${GIT_COMMIT:0:8}_${BUILD_NUMBER}_"
     IMAGE_BASE = "build.datapunt.amsterdam.nl:5000/atlas/app"
     IMAGE_BUILD = "${IMAGE_BASE}:${BUILD_NUMBER}"
     IMAGE_ACCEPTANCE = "${IMAGE_BASE}:acceptance"
@@ -21,54 +22,60 @@ pipeline {
           }
         }
         stage('Linting') {
+          environment {
+            PROJECT = "${PROJECT_PREFIX}lint"
+          }
           steps {
-            sh "docker-compose -p ${BUILD_NUMBER}-test-lint up --build --exit-code-from test-lint test-lint"
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-lint test-lint"
           }
           post {
             always {
-              sh "docker-compose -p ${BUILD_NUMBER}-test-lint down -v || true"
+              sh "docker-compose -p ${PROJECT} down -v || true"
             }
           }
         }
         stage('Unit') {
+          environment {
+            PROJECT = "${PROJECT_PREFIX}unit"
+          }
           steps {
-            sh "docker-compose -p ${BUILD_NUMBER}-test-unit up --build --exit-code-from test-unit test-unit"
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit test-unit"
           }
           post {
             always {
-              sh "docker-compose -p ${BUILD_NUMBER}-test-unit down -v || true"
+              sh "docker-compose -p ${PROJECT} down -v || true"
             }
           }
         }
         stage('Functional E2E') {
           environment {
-            // Setting compose project name helps prevent service clash in unisolated Jenkins slaves
-            E2E_NAME               = 'test-e2e-functional'
+          }
+          environment {
+            PROJECT                = "${PROJECT_PREFIX}e2e-functional"
             USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
             USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
             PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
             PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
           }
           steps {
-            sh "docker-compose -p ${BUILD_NUMBER}-${env.E2E_NAME} up --build --exit-code-from test-e2e-functional test-e2e-functional"
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-functional test-e2e-functional"
           }
           post {
             always {
-              sh "docker-compose -p ${BUILD_NUMBER}-${env.E2E_NAME} down -v || true"
+              sh "docker-compose -p ${PROJECT} down -v || true"
             }
           }
         }
         stage('Aria E2E') {
           environment {
-            // Setting compose project name helps prevent service clash in unisolated Jenkins slaves
-            E2E_NAME               = 'test-e2e-aria'
+            PROJECT = "${PROJECT_PREFIX}e2e-aria"
           }
           steps {
-            sh "docker-compose -p ${BUILD_NUMBER}-${env.E2E_NAME} up --build --exit-code-from test-e2e-aria test-e2e-aria"
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-aria test-e2e-aria"
           }
           post {
             always {
-              sh "docker-compose -p ${BUILD_NUMBER}-${env.E2E_NAME} down -v || true"
+              sh "docker-compose -p ${PROJECT} down -v || true"
             }
           }
         }
