@@ -1,5 +1,5 @@
 describe('The dpStraatbeeldDocumentTitle factory', function () {
-    var documentTitle;
+    let documentTitle;
 
     beforeEach(function () {
         angular.mock.module(
@@ -16,20 +16,29 @@ describe('The dpStraatbeeldDocumentTitle factory', function () {
         });
     });
 
-    it('returns the text \'Panorama\' and the coordinates in both WGS84 and RD', function () {
-        var mockedStraatbeeldState;
-
-        mockedStraatbeeldState = {
+    it('returns the text \'Panorama op\' and the coordinates in both WGS84 and RD', function () {
+        const mockedStraatbeeldState = {
             location: [52.123, 4.789]
         };
-        expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama 52.123, 4.789 (X, Y)');
+        expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama op 52.123, 4.789 (X, Y)');
 
         mockedStraatbeeldState.location = [52.987, 4.321];
-        expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama 52.987, 4.321 (X, Y)');
+        expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama op 52.987, 4.321 (X, Y)');
     });
 
     it('returns the text \'Panorama\' when no coordinates are (yet) available', function () {
         const mockedStraatbeeldState = {};
         expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama');
+    });
+
+    it('returns the text \'Panorama (Alleen 2017) op\' and the coordinates in both WGS84 and RD', function () {
+        const mockedStraatbeeldState = {
+            location: [52.123, 4.789],
+            history: 2017
+        };
+        expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama (Alleen 2017) op 52.123, 4.789 (X, Y)');
+
+        mockedStraatbeeldState.location = [52.987, 4.321];
+        expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Panorama (Alleen 2017) op 52.987, 4.321 (X, Y)');
     });
 });
