@@ -1,9 +1,9 @@
 describe('The dp-document-title directive', function () {
-    var $compile,
+    let $compile,
         $rootScope,
         $q,
-        storeHandler,
-        store = {
+        storeHandler;
+    const store = {
             subscribe: angular.noop,
             getState: angular.noop
         },
@@ -51,17 +51,13 @@ describe('The dp-document-title directive', function () {
     });
 
     function getComponent (numberOfResults, query, location, category) {
-        var component,
-            element,
-            scope;
-
-        element = document.createElement('span');
+        let element = document.createElement('span');
         element.setAttribute('dp-document-title', 'dp-document-title');
         element.innerText = 'Dataportaal';
 
-        scope = $rootScope.$new();
+        const scope = $rootScope.$new();
 
-        component = $compile(element)(scope);
+        const component = $compile(element)(scope);
         scope.$apply();
 
         storeHandler = store.subscribe.calls.argsFor(0)[0];
@@ -76,7 +72,7 @@ describe('The dp-document-title directive', function () {
         spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
         moduleDocumentTitle.getTitle.and.returnValue('');
 
-        var component = getComponent();
+        const component = getComponent();
 
         expect(component.text()).toBe('Dataportaal');
     });
@@ -164,7 +160,7 @@ describe('The dp-document-title directive', function () {
         spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
         moduleDocumentTitle.getTitle.and.returnValue('Item title');
 
-        var component = getComponent();
+        const component = getComponent();
 
         expect(component.text()).toBe('Item title - Dataportaal');
     });
@@ -176,7 +172,7 @@ describe('The dp-document-title directive', function () {
         spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
         moduleDocumentTitle.getTitle.and.returnValue(q.promise);
 
-        var component = getComponent();
+        const component = getComponent();
 
         expect(component.text()).toBe('Promise title - Dataportaal');
     });
@@ -188,7 +184,7 @@ describe('The dp-document-title directive', function () {
         spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
         moduleDocumentTitle.getTitle.and.returnValue(q.promise);
 
-        var component = getComponent();
+        const component = getComponent();
 
         expect(component.text()).toBe('Dataportaal');
     });
@@ -198,7 +194,7 @@ describe('The dp-document-title directive', function () {
         spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
         moduleDocumentTitle.getTitle.and.returnValue('');
 
-        var component = getComponent();
+        const component = getComponent();
 
         expect(component.text()).toBe('Dataportaal');
     });
@@ -209,7 +205,7 @@ describe('The dp-document-title directive', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ dataSelection: true });
             dataSelectionDocumentTitle.getTitle.and.returnValue('Data selection title');
 
-            var component = getComponent();
+            const component = getComponent();
 
             expect(component.text()).toBe('Data selection title - Dataportaal');
         });
@@ -219,7 +215,7 @@ describe('The dp-document-title directive', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true, dataSelection: true });
             dataSelectionDocumentTitle.getTitle.and.returnValue('Data selection title');
 
-            var component = getComponent();
+            const component = getComponent();
 
             expect(component.text()).toBe('Data selection title - Dataportaal');
         });
@@ -231,7 +227,7 @@ describe('The dp-document-title directive', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ detail: true });
             detailDocumentTitle.getTitle.and.returnValue('Detail title');
 
-            var component = getComponent();
+            const component = getComponent();
 
             expect(component.text()).toBe('Detail title - Dataportaal');
         });
@@ -241,7 +237,7 @@ describe('The dp-document-title directive', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true, detail: true });
             detailDocumentTitle.getTitle.and.returnValue('Detail title');
 
-            var component = getComponent();
+            const component = getComponent();
 
             expect(component.text()).toBe('Detail title - Dataportaal');
         });
@@ -253,7 +249,7 @@ describe('The dp-document-title directive', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
             mapDocumentTitle.getTitle.and.returnValue('Map title');
 
-            var component = getComponent();
+            const component = getComponent();
 
             expect(component.text()).toBe('Map title - Dataportaal');
         });
@@ -265,7 +261,7 @@ describe('The dp-document-title directive', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
             pageDocumentTitle.getTitle.and.returnValue('Page title');
 
-            var component = getComponent();
+            const component = getComponent();
 
             expect(component.text()).toBe('Page title - Dataportaal');
         });
@@ -275,7 +271,7 @@ describe('The dp-document-title directive', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true, map: true });
             pageDocumentTitle.getTitle.and.returnValue('Page title');
 
-            var component = getComponent();
+            const component = getComponent();
 
             expect(component.text()).toBe('Page title - Dataportaal');
         });
@@ -287,7 +283,7 @@ describe('The dp-document-title directive', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ searchResults: true });
             searchResultsDocumentTitle.getTitle.and.returnValue('Search results title');
 
-            var component = getComponent();
+            const component = getComponent();
 
             expect(component.text()).toBe('Search results title - Dataportaal');
         });
@@ -297,7 +293,7 @@ describe('The dp-document-title directive', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ searchResults: true, map: true });
             searchResultsDocumentTitle.getTitle.and.returnValue('Search results title');
 
-            var component = getComponent();
+            const component = getComponent();
 
             expect(component.text()).toBe('Search results title - Dataportaal');
         });
@@ -309,7 +305,7 @@ describe('The dp-document-title directive', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ straatbeeld: true });
             straatbeeldDocumentTitle.getTitle.and.returnValue('Straatbeeld title');
 
-            var component = getComponent();
+            const component = getComponent();
 
             expect(component.text()).toBe('Straatbeeld title - Dataportaal');
         });
@@ -319,9 +315,73 @@ describe('The dp-document-title directive', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ straatbeeld: true, map: true });
             straatbeeldDocumentTitle.getTitle.and.returnValue('Straatbeeld title');
 
-            var component = getComponent();
+            const component = getComponent();
 
             expect(component.text()).toBe('Straatbeeld title - Dataportaal');
+        });
+    });
+
+    describe('print, preview, or embed view', function () {
+        it('adds (printversie) to the title', function () {
+            spyOn(store, 'getState').and.returnValue({
+                ui: {
+                    isPrintMode: true
+                },
+                map: {}
+            });
+
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
+            mapDocumentTitle.getTitle.and.returnValue('Map title');
+
+            const component = getComponent();
+
+            expect(component.text()).toBe('Map title - (printversie) - Dataportaal');
+        });
+
+        it('adds (embedversie) to the title', function () {
+            spyOn(store, 'getState').and.returnValue({
+                ui: {
+                    isEmbedPreview: true
+                },
+                map: {}
+            });
+
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
+            mapDocumentTitle.getTitle.and.returnValue('Map title');
+
+            const component = getComponent();
+
+            expect(component.text()).toBe('Map title - (embedversie) - Dataportaal');
+        });
+
+        it('adds (embedded) to the title', function () {
+            spyOn(store, 'getState').and.returnValue({
+                ui: {
+                    isEmbed: true
+                },
+                map: {}
+            });
+
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
+            mapDocumentTitle.getTitle.and.returnValue('Map title');
+
+            const component = getComponent();
+
+            expect(component.text()).toBe('Map title - (embedded) - Dataportaal');
+        });
+
+        it('adds nothinh to the title', function () {
+            spyOn(store, 'getState').and.returnValue({
+                ui: {},
+                map: {}
+            });
+
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
+            mapDocumentTitle.getTitle.and.returnValue('Map title');
+
+            const component = getComponent();
+
+            expect(component.text()).toBe('Map title - Dataportaal');
         });
     });
 });

@@ -69,6 +69,21 @@
             link: linkFn
         };
 
+        function getPrintOrEmbedOrPreviewTitleAddition (state) {
+            if (!state || !state.ui) {
+                return '';
+            }
+
+            if (state.ui.isPrintMode) {
+                return '(printversie) - ';
+            } else if (state.ui.isEmbedPreview) {
+                return '(embedversie) - ';
+            } else if (state.ui.isEmbed) {
+                return '(embedded) - ';
+            }
+            return '';
+        }
+
         function linkFn (scope, element, attrs, controller, transcludeFn) {
             const baseTitle = transcludeFn().text();
 
@@ -85,6 +100,7 @@
                 const stateData = current ? state[current.state] : null;
                 const displayNewTitle = current && stateData && !stateData.isLoading;
                 const getTitle = displayNewTitle ? current.documentTitle.getTitle : null;
+                const printOrEmbedOrPreviewTitleAddition = getPrintOrEmbedOrPreviewTitleAddition(state);
 
                 if (hasPreviewPanel) {
                     titleData = getTitle ? getTitle(state) : null;
@@ -99,7 +115,8 @@
                 }
                 if (displayNewTitle && titleData) {
                     titleData.then(result => {
-                        scope.title = (result ? result + ' - ' : '') + baseTitle;
+                        const enrichedResult = result ? `${result} - ` : '';
+                        scope.title = `${enrichedResult}${printOrEmbedOrPreviewTitleAddition}${baseTitle}`;
                     });
                 }
             }
