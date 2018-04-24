@@ -11,77 +11,66 @@ pipeline {
     IMAGE_LATEST = "${IMAGE_BASE}:latest"
   }
   stages {
-    stage('Clean') {
-      // TODO remove this stage when jenkins jobs run in isolation
-      steps {
-        sh "docker ps"
-        sh "docker-compose down -v || true"
-        sh "docker network prune -f"
-      }
-    }
     stage('Test & Bakkie') {
       // failFast true // fail if one of the parallel stages fail
       parallel {
         stage('Deploy Bakkie') {
           when { not { branch 'master' } }
           steps {
-            sh "scripts/bakkie.sh ${env.BRANCH_NAME}"
+            sh "scripts/bakkie.sh ${BRANCH_NAME}"
           }
         }
         stage('Linting') {
           steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-lint test-lint"
-            // echo 'Skip'
+            sh "docker-compose -p ${BUILD_NUMBER}-test-lint up --build --exit-code-from test-lint test-lint"
+          }
+          post {
+            always {
+              sh "docker-compose -p ${BUILD_NUMBER}-test-lint down -v || true"
+            }
           }
         }
         stage('Unit') {
           steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-unit test-unit"
-            // echo 'Skip'
+            sh "docker-compose -p ${BUILD_NUMBER}-test-unit up --build --exit-code-from test-unit test-unit"
+          }
+          post {
+            always {
+              sh "docker-compose -p ${BUILD_NUMBER}-test-unit down -v || true"
+            }
           }
         }
         stage('Functional E2E') {
           environment {
             // Setting compose project name helps prevent service clash in unisolated Jenkins slaves
-            E2E_NAME               = 'func-e2e'
+            E2E_NAME               = 'test-e2e-functional'
             USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
             USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
             PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
             PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
           }
           steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} up --build --exit-code-from test-e2e-functional test-e2e-functional"
-            // echo 'Skip'
+            sh "docker-compose -p ${BUILD_NUMBER}-${env.E2E_NAME} up --build --exit-code-from test-e2e-functional test-e2e-functional"
           }
           post {
             always {
-              sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} down -v || true"
+              sh "docker-compose -p ${BUILD_NUMBER}-${env.E2E_NAME} down -v || true"
             }
           }
         }
         stage('Aria E2E') {
           environment {
             // Setting compose project name helps prevent service clash in unisolated Jenkins slaves
-            E2E_NAME               = 'aria-e2e'
+            E2E_NAME               = 'test-e2e-aria'
           }
           steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} up --build --exit-code-from test-e2e-aria test-e2e-aria"
-            // echo 'Skip'
+            sh "docker-compose -p ${BUILD_NUMBER}-${env.E2E_NAME} up --build --exit-code-from test-e2e-aria test-e2e-aria"
           }
           post {
             always {
-              sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} down -v || true"
+              sh "docker-compose -p ${BUILD_NUMBER}-${env.E2E_NAME} down -v || true"
             }
           }
-        }
-      }
-      post {
-        always {
-          sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
         }
       }
     }
@@ -133,7 +122,7 @@ pipeline {
         branch 'master'
       }
       options {
-        timeout(time:5, unit:'DAYS')
+        timeout(time: 5, unit: 'DAYS')
       }
       steps {
         script {
@@ -153,12 +142,6 @@ pipeline {
     }
   }
   post {
-    always {
-      echo 'Cleaning'
-      sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
-      sh "docker network prune -f"
-    }
-
     success {
       echo 'Pipeline success'
     }
