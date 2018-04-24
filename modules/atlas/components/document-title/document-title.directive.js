@@ -75,11 +75,11 @@
             }
 
             if (state.ui.isPrintMode) {
-                return '(printversie) - ';
+                return ' | Printversie';
             } else if (state.ui.isEmbedPreview) {
-                return '(embedversie) - ';
+                return ' | Embedversie';
             } else if (state.ui.isEmbed) {
-                return '(embedded) - ';
+                return ' | Embedded';
             }
             return '';
         }
@@ -115,8 +115,10 @@
                 }
                 if (displayNewTitle && titleData) {
                     titleData.then(result => {
-                        const enrichedResult = result ? `${result} - ` : '';
-                        scope.title = `${enrichedResult}${printOrEmbedOrPreviewTitleAddition}${baseTitle}`;
+                        const enrichedResult = result
+                            ? `${result}${printOrEmbedOrPreviewTitleAddition} - `
+                            : `${printOrEmbedOrPreviewTitleAddition}`;
+                        scope.title = `${enrichedResult}${baseTitle}`;
                     });
                 }
             }

@@ -51,7 +51,7 @@ describe('The dp-document-title directive', function () {
     });
 
     function getComponent (numberOfResults, query, location, category) {
-        let element = document.createElement('span');
+        const element = document.createElement('span');
         element.setAttribute('dp-document-title', 'dp-document-title');
         element.innerText = 'Dataportaal';
 
@@ -335,7 +335,7 @@ describe('The dp-document-title directive', function () {
 
             const component = getComponent();
 
-            expect(component.text()).toBe('Map title - (printversie) - Dataportaal');
+            expect(component.text()).toBe('Map title | Printversie - Dataportaal');
         });
 
         it('adds (embedversie) to the title', function () {
@@ -351,7 +351,7 @@ describe('The dp-document-title directive', function () {
 
             const component = getComponent();
 
-            expect(component.text()).toBe('Map title - (embedversie) - Dataportaal');
+            expect(component.text()).toBe('Map title | Embedversie - Dataportaal');
         });
 
         it('adds (embedded) to the title', function () {
@@ -367,10 +367,10 @@ describe('The dp-document-title directive', function () {
 
             const component = getComponent();
 
-            expect(component.text()).toBe('Map title - (embedded) - Dataportaal');
+            expect(component.text()).toBe('Map title | Embedded - Dataportaal');
         });
 
-        it('adds nothinh to the title', function () {
+        it('adds nothing to the title', function () {
             spyOn(store, 'getState').and.returnValue({
                 ui: {},
                 map: {}

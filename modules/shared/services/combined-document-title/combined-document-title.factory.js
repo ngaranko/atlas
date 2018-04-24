@@ -28,9 +28,9 @@
 
             dpMapDocumentTitle.getTitle().then(result => {
                 if (fullState.detail && fullState.detail.display) {
-                    q.resolve(`${dpDetailDocumentTitle.getTitle(fullState.detail)} - ${result}`);
+                    q.resolve(`${dpDetailDocumentTitle.getTitle(fullState.detail)} | ${result}`);
                 } else if (fullState.search && fullState.search.numberOfResults) {
-                    q.resolve(`${dpSearchResultsDocumentTitle.getTitle(fullState.search)} - ${result}`);
+                    q.resolve(`${dpSearchResultsDocumentTitle.getTitle(fullState.search)} | ${result}`);
                 } else {
                     q.resolve(result);
                 }

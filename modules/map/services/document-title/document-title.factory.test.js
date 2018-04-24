@@ -51,7 +51,7 @@ describe('The dpMapDocumentTitle factory', function () {
 
         $rootScope.$apply();
         promise.then(value => {
-            expect(value).toBe('Meetbouten, Monumenten - Grote kaart');
+            expect(value).toBe('Meetbouten, Monumenten | Grote kaart');
         });
     });
 });

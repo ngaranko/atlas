@@ -54,7 +54,7 @@ describe('The dpCombinedDocumentTitle factory', function () {
         const promise = combinedDocumentTitle.getTitle(mockState);
 
         promise.then(value => {
-            expect(value).toBe('detailTitel - simpele titel');
+            expect(value).toBe('detailTitel | simpele titel');
         });
 
         $rootScope.$digest();
@@ -70,7 +70,7 @@ describe('The dpCombinedDocumentTitle factory', function () {
         const promise = combinedDocumentTitle.getTitle(mockState);
 
         promise.then(value => {
-            expect(value).toBe('searchTitel - simpele titel');
+            expect(value).toBe('searchTitel | simpele titel');
         });
 
         $rootScope.$digest();
