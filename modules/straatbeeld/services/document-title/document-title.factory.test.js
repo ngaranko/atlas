@@ -32,7 +32,9 @@ describe('The dpStraatbeeldDocumentTitle factory', function () {
     });
 
     it('returns the text \'Groot panorama\' when the panorama is in full screen', function () {
-        const mockedStraatbeeldState = {isFullscreen: true};
+        const mockedStraatbeeldState = {
+            isFullscreen: true
+        };
         expect(documentTitle.getTitle(mockedStraatbeeldState)).toBe('Groot panorama');
     });
 
