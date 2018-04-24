@@ -4,7 +4,8 @@ pipeline {
     timeout(time: 1, unit: 'HOURS')
   }
   environment {
-    PROJECT_PREFIX = "${env.BRANCH_NAME}_${GIT_COMMIT:0:8}_${BUILD_NUMBER}_"
+    COMMIT_HASH = env.GIT_COMMIT.substring(0, 8)
+    PROJECT_PREFIX = "${env.BRANCH_NAME}_${COMMIT_HASH}_${BUILD_NUMBER}_"
     IMAGE_BASE = "build.datapunt.amsterdam.nl:5000/atlas/app"
     IMAGE_BUILD = "${IMAGE_BASE}:${BUILD_NUMBER}"
     IMAGE_ACCEPTANCE = "${IMAGE_BASE}:acceptance"
@@ -13,7 +14,6 @@ pipeline {
   }
   stages {
     stage('Test & Bakkie') {
-      // failFast true // fail if one of the parallel stages fail
       parallel {
         stage('Deploy Bakkie') {
           when { not { branch 'master' } }
