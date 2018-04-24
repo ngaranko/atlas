@@ -49,8 +49,6 @@ pipeline {
         }
         stage('Functional E2E') {
           environment {
-          }
-          environment {
             PROJECT                = "${PROJECT_PREFIX}e2e-functional"
             USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
             USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
