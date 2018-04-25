@@ -1,3 +1,5 @@
+import { trackPageNavigation } from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+
 (function () {
     angular
         .module('atlas')
@@ -14,7 +16,8 @@
         'dpPageDocumentTitle',
         'dpSearchResultsDocumentTitle',
         'dpStraatbeeldDocumentTitle',
-        'dpCombinedDocumentTitle'
+        'dpCombinedDocumentTitle',
+        '$timeout'
     ];
 
     function DpDocumentTitleDirective ( // eslint-disable-line max-params
@@ -28,7 +31,8 @@
         dpPageDocumentTitle,
         dpSearchResultsDocumentTitle,
         dpStraatbeeldDocumentTitle,
-        dpCombinedDocumentTitle
+        dpCombinedDocumentTitle,
+        $timeout
     ) {
         const mapping = [
             {
@@ -84,10 +88,42 @@
             return '';
         }
 
+        function hasStateSomethingLoading (state) {
+            const stateKeys = Object.keys(state);
+
+            for (let i = 0; i < stateKeys.length; i++) {
+                if (state.isLoading || state[stateKeys[i]] && state[stateKeys[i]].isLoading) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         function linkFn (scope, element, attrs, controller, transcludeFn) {
             const baseTitle = transcludeFn().text();
+            let trackerTimeout;
 
             store.subscribe(setTitle);
+
+            scope.$watch('title', (newVal, oldVal) => {
+                if (newVal !== oldVal) {
+                    triggerTracker();
+                }
+            });
+
+            function triggerTracker () {
+                const state = store.getState();
+                $timeout.cancel(trackerTimeout);
+
+                if (!hasStateSomethingLoading(state)) {
+                    trackPageNavigation();
+                } else {
+                    trackerTimeout = $timeout(() => {
+                        triggerTracker();
+                    }, 200);
+                }
+            }
 
             function setTitle () {
                 let titleData;
