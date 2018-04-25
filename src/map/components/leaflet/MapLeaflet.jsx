@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
 
-import NonTiledLayer from './custom/NonTiledLayer';
-import RdGeoJson from './custom/geo-json/RdGeoJson';
+import NonTiledLayer from './custom/non-tiled-layer';
+import RdGeoJson from './custom/geo-json';
 import searchIcon from './services/search-icon';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));

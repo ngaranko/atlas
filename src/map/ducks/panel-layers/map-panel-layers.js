@@ -1,6 +1,6 @@
-export const FETCH_LEGENDA_ITEMS_REQUEST = 'FETCH_LEGENDA_ITEMS_REQUEST';
-export const FETCH_LEGENDA_ITEMS_SUCCESS = 'FETCH_LEGENDA_ITEMS_SUCCESS';
-export const FETCH_LEGENDA_ITEMS_FAILURE = 'FETCH_LEGENDA_ITEMS_FAILURE';
+export const FETCH_PANEL_ITEMS_REQUEST = 'FETCH_PANEL_ITEMS_REQUEST';
+export const FETCH_PANEL_ITEMS_SUCCESS = 'FETCH_PANEL_ITEMS_SUCCESS';
+export const FETCH_PANEL_ITEMS_FAILURE = 'FETCH_PANEL_ITEMS_FAILURE';
 
 const initialState = {
   items: [],
@@ -10,13 +10,13 @@ const initialState = {
 
 export default function PanelLayersReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_LEGENDA_ITEMS_REQUEST:
+    case FETCH_PANEL_ITEMS_REQUEST:
       return { ...state, isLoading: true, error: null };
 
-    case FETCH_LEGENDA_ITEMS_SUCCESS:
+    case FETCH_PANEL_ITEMS_SUCCESS:
       return { ...state, isLoading: false, items: action.panelLayers };
 
-    case FETCH_LEGENDA_ITEMS_FAILURE:
+    case FETCH_PANEL_ITEMS_FAILURE:
       return { ...state, isLoading: false, error: action.error };
 
     default:
@@ -24,7 +24,7 @@ export default function PanelLayersReducer(state = initialState, action) {
   }
 }
 
-export const fetchPanelLayers = (mapLayers) => ({ type: FETCH_LEGENDA_ITEMS_REQUEST, mapLayers });
+export const fetchPanelLayers = (mapLayers) => ({ type: FETCH_PANEL_ITEMS_REQUEST, mapLayers });
 
 export const selectActivePanelLayers = (state) => {
   const mapLayerIds = state.map.overlays.map((mapLayer) => mapLayer.id);

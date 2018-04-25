@@ -10,7 +10,7 @@ import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-deta
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 
 jest.mock('../../ducks/search-results/map-search-results');
-jest.mock('../../ducks/panel-layers/panel-layers');
+jest.mock('../../ducks/panel-layers/map-panel-layers');
 jest.mock('../../ducks/detail/map-detail');
 jest.mock('../../../pano/ducks/preview/pano-preview');
 

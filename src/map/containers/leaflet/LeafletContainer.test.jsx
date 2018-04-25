@@ -52,6 +52,10 @@ describe('LeafletContainer', () => {
       user: {
         authenticated: false,
         accessToken: ''
+      },
+      mapDetail: {
+        currentEndpoint: '',
+        byEndpoint: {}
       }
     };
   });
