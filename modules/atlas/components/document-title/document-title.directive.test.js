@@ -40,7 +40,7 @@ describe('The dp-document-title directive', function () {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
-            $timeout = _$timeout_
+            $timeout = _$timeout_;
         });
 
         spyOn(store, 'subscribe');
