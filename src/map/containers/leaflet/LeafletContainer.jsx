@@ -9,6 +9,7 @@ import { updateZoom, updatePan, getMarkers } from '../../ducks/map/map';
 import { updateClick } from '../../ducks/click-location/map-click-location';
 import { getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { getLayers } from '../../ducks/layers/map-layers';
+import { getPolygons } from '../../ducks/detail/map-detail';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
@@ -23,6 +24,7 @@ const mapStateToProps = (state) => ({
   layers: getLayers(state),
   center: state.map.viewCenter,
   markers: getMarkers(state),
+  geometry: getPolygons(state),
   zoom: state.map.zoom
 });
 
@@ -37,6 +39,7 @@ const LeafletContainer = ({
   center,
   layers,
   markers,
+  geometry,
   onUpdateClick,
   onUpdatePan,
   onUpdateZoom,
@@ -52,6 +55,7 @@ const LeafletContainer = ({
         baseLayer={baseLayer}
         center={center}
         zoom={zoom}
+        geometry={geometry}
         onZoomEnd={onUpdateZoom}
         onDragEnd={onUpdatePan}
         onClick={onUpdateClick}
@@ -65,12 +69,13 @@ LeafletContainer.contextTypes = {
 };
 
 LeafletContainer.defaultProps = {
-  layers: [],
-  center: [],
-  markers: [],
   baseLayer: {
     urlTemplate: ''
-  }
+  },
+  center: [],
+  geometry: [],
+  layers: [],
+  markers: []
 };
 
 LeafletContainer.propTypes = {
@@ -86,6 +91,7 @@ LeafletContainer.propTypes = {
     url: PropTypes.string.isRequired
   })),
   center: PropTypes.arrayOf(PropTypes.number),
+  geometry: PropTypes.array, //eslint-disable-line
   markers: PropTypes.arrayOf(PropTypes.shape({})),
   zoom: PropTypes.number.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,

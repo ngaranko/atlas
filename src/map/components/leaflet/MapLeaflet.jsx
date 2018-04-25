@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
 
 import NonTiledLayer from './custom/NonTiledLayer';
+import RdGeoJson from './custom/geo-json/RdGeoJson';
 import searchIcon from './services/search-icon';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
-
 
 class MapLeaflet extends React.Component {
   constructor() {
@@ -15,6 +15,23 @@ class MapLeaflet extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.onMoveEnd = this.onMoveEnd.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+
+    this.textInput = null;
+
+    this.state = {
+      dirty: false
+    };
+
+    this.setMapElement = (element) => {
+      this.MapElement = element;
+    };
+
+    this.setGeometry = (element) => {
+      if (!element || !element.props.data.useAutoFocus || this.state.dirty) {
+        return;
+      }
+      this.MapElement.leafletElement.fitBounds(element.leafletElement.getBounds());
+    };
   }
 
   onZoomEnd(event) {
@@ -27,6 +44,7 @@ class MapLeaflet extends React.Component {
   }
 
   onClick(event) {
+    this.setState({ dirty: true });
     const { latlng, containerPoint, layerPoint } = event;
     this.props.onClick({
       latlng,
@@ -55,10 +73,12 @@ class MapLeaflet extends React.Component {
       mapOptions,
       scaleControlOptions,
       layers,
-      markers
+      markers,
+      geometry
     } = this.props;
     return (
       <Map
+        ref={this.setMapElement}
         onZoomEnd={this.onZoomEnd}
         onClick={this.onClick}
         onMoveEnd={this.onMoveEnd}
@@ -86,6 +106,15 @@ class MapLeaflet extends React.Component {
             <Marker position={marker.position} key={marker.position} icon={searchIcon} />
           ))
         }
+        {
+          geometry.map((item) => (
+            <RdGeoJson
+              ref={this.setGeometry}
+              data={item}
+              key={item.id}
+            />
+          ))
+        }
         <ScaleControl {...scaleControlOptions} />
         {
           this.props.isZoomControlVisible && (
@@ -100,6 +129,7 @@ class MapLeaflet extends React.Component {
 MapLeaflet.defaultProps = {
   layers: [],
   markers: [],
+  geometry: [],
   center: [52.3731081, 4.8932945],
   zoom: 11,
   mapOptions: {},
@@ -124,6 +154,7 @@ MapLeaflet.propTypes = {
     transparent: PropTypes.bool,
     url: PropTypes.string.isRequired
   })),
+  geometry: PropTypes.array, //eslint-disable-line
   markers: PropTypes.array, //eslint-disable-line
   center: PropTypes.arrayOf(PropTypes.number),
   zoom: PropTypes.number,

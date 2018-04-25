@@ -6,6 +6,7 @@ import ACTIONS from '../../../shared/actions';
 
 const getMapZoom = (state) => state.map.zoom;
 const getStraatbeeld = (state) => state.straatbeeld;
+const getMapPanelLayers = (state) => state.mapLayers.panelLayers.items;
 
 const getMapLayers = (state) => (
   state.map.overlays.map((overlay) => (
@@ -19,10 +20,19 @@ const getMapLayers = (state) => (
 
 function* switchClickAction(payload) {
   const straatbeeld = yield select(getStraatbeeld);
-  const layers = yield select(getMapLayers);
-  debugger;
+  const zoom = yield select(getMapZoom);
+  const panelLayers = yield select(getMapPanelLayers);
+  const allLayers = yield select(getMapLayers);
+  const layers = allLayers.filter((layer) => {
+    const matchingPanelLayer = panelLayers.find((panelLayer) => (
+      panelLayer.id === layer.id ||
+      panelLayer.legendItems.some((legendItem) => legendItem.id === layer.id)
+    ));
+    return matchingPanelLayer &&
+      zoom <= matchingPanelLayer.maxZoom &&
+      zoom >= matchingPanelLayer.minZoom;
+  });
   if (!straatbeeld && layers.length > 0) {
-    const zoom = yield select(getMapZoom);
     yield put({
       type: 'REQUEST_NEAREST_DETAILS',
       payload: {
@@ -65,7 +75,10 @@ function* fetchNearestDetails(action) {
       });
     }
   } catch (error) {
-    // yield put({ type: 'FETCH_MAP_SEARCH_RESULTS_FAILURE', error });
+    yield put({
+      type: ACTIONS.MAP_CLICK,
+      payload: [location.latitude, location.longitude]
+    });
   }
 }
 

@@ -20,4 +20,11 @@ function getCrs() {
   return crs;
 }
 
+export const getRdObject = () => ({
+  type: 'name',
+  properties: {
+    name: CRS_CONFIG.RD.code
+  }
+});
+
 export default getCrs;

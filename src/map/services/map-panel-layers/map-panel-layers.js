@@ -293,8 +293,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 10,
-    title: 'Terreinmodel (DTM AHN)',
-    url: 'https://geodata.nationaalgeoregister.nl/ahn3/ows?version=1.3.0&service=WMS'
+    title: 'Terreinmodel (DTM AHN)'
   },
   {
     category: 'Geografie: hoogte',
@@ -360,8 +359,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 10,
-    title: 'Oppervlaktemodel (DSM AHN)',
-    url: '/maps/gebieden?version=1.3.0&service=WMS'
+    title: 'Oppervlaktemodel (DSM AHN)'
   },
   {
     category: 'Geografie: hoogte',
