@@ -443,6 +443,8 @@ describe('The dp-document-title directive', function () {
             });
 
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({map: true});
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             mapDocumentTitle.getTitle.and.returnValue('Map title');
 
             const component = getComponent();
@@ -475,6 +477,8 @@ describe('The dp-document-title directive', function () {
             spyOn(store, 'getState').and.returnValues(firstReturnVal, secondReturnVal, thirdReturnVal);
 
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({map: true});
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             mapDocumentTitle.getTitle.and.returnValue('Map title');
 
             const component = getComponent();
