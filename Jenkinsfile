@@ -4,8 +4,8 @@ pipeline {
     timeout(time: 1, unit: 'HOURS')
   }
   environment {
-    COMMIT_HASH = env.GIT_COMMIT.substring(0, 8)
-    PROJECT_PREFIX = "${env.BRANCH_NAME}_${COMMIT_HASH}_${BUILD_NUMBER}_"
+    COMMIT_HASH = GIT_COMMIT.substring(0, 8)
+    PROJECT_PREFIX = "${BRANCH_NAME}_${COMMIT_HASH}_${BUILD_NUMBER}_"
     IMAGE_BASE = "build.datapunt.amsterdam.nl:5000/atlas/app"
     IMAGE_BUILD = "${IMAGE_BASE}:${BUILD_NUMBER}"
     IMAGE_ACCEPTANCE = "${IMAGE_BASE}:acceptance"
@@ -156,7 +156,7 @@ pipeline {
       slackSend(
         channel: 'ci-channel',
         color: 'danger',
-        message: "${env.JOB_NAME}: failure ${env.BUILD_URL}"
+        message: "${JOB_NAME}: failure ${BUILD_URL}"
       )
     }
   }
