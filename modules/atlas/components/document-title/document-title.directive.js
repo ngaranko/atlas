@@ -93,7 +93,15 @@
                 let titleData;
                 const state = store.getState();
                 const visibility = dashboardColumns.determineVisibility(state);
-                const filtered = mapping.filter(item => visibility[item.visibility]);
+                const activity = dashboardColumns.determineActivity(state);
+
+                // combine specific activity values with the visibility object
+                const combinedVisibilityActivity = {
+                    ...visibility,
+                    mapPreviewPanel: activity.mapPreviewPanel
+                };
+                const filtered = mapping.filter(item => combinedVisibilityActivity[item.visibility]);
+
                 // mapping.filter returns an array, possibly empty
                 const current = filtered[0];
                 const hasPreviewPanel = current && current.visibility === 'mapPreviewPanel';

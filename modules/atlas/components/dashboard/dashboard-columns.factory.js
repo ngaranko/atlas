@@ -33,13 +33,13 @@
                 !angular.isObject(state.dataSelection);
 
             return {
-                map: determineMapActivity(state),
-                searchResults,
-                page: angular.isString(state.page.name),
-                detail,
-                straatbeeld: angular.isObject(state.straatbeeld),
                 dataSelection: angular.isObject(state.dataSelection),
-                mapPreviewPanel
+                detail,
+                map: determineMapActivity(state),
+                mapPreviewPanel,
+                page: angular.isString(state.page.name),
+                searchResults,
+                straatbeeld: angular.isObject(state.straatbeeld)
             };
         }
 
@@ -49,7 +49,6 @@
             const { ui = {} } = state;
 
             visibility.error = state.error.hasErrors || state.user.error;
-            visibility.mapPreviewPanel = state.isMapPreviewPanelVisible;
             visibility.map = activity.map;
 
             if (angular.isObject(state.dataSelection) && !ui.isMapFullscreen) {
