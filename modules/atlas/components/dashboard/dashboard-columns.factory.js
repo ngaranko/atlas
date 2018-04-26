@@ -20,13 +20,26 @@
         };
 
         function determineActivity (state) {
+            const searchResults = angular.isObject(state.search);
+            const detail = angular.isObject(state.detail);
+            const { ui = {} } = state;
+
+            const geoSearchActive = searchResults &&
+                angular.isArray(state.search.location);
+
+            const mapPreviewPanel =
+                ui.isMapFullscreen &&
+                (geoSearchActive || detail) &&
+                !angular.isObject(state.dataSelection);
+
             return {
+                dataSelection: angular.isObject(state.dataSelection),
+                detail,
                 map: determineMapActivity(state),
-                searchResults: angular.isObject(state.search),
+                mapPreviewPanel,
                 page: angular.isString(state.page.name),
-                detail: angular.isObject(state.detail),
-                straatbeeld: angular.isObject(state.straatbeeld),
-                dataSelection: angular.isObject(state.dataSelection)
+                searchResults,
+                straatbeeld: angular.isObject(state.straatbeeld)
             };
         }
 
@@ -36,7 +49,6 @@
             const { ui = {} } = state;
 
             visibility.error = state.error.hasErrors || state.user.error;
-            visibility.activePreviewPanel = state.isMapPreviewPanelVisible;
             visibility.map = activity.map;
 
             if (angular.isObject(state.dataSelection) && !ui.isMapFullscreen) {
@@ -66,14 +78,6 @@
 
                 visibility.dataSelection = false;
             }
-
-            const geoSearchActive = activity.searchResults &&
-                angular.isArray(state.search.location);
-
-            visibility.mapPreviewPanel =
-                ui.isMapFullscreen &&
-                (geoSearchActive || activity.detail) &&
-                !angular.isObject(state.dataSelection);
 
             return visibility;
         }

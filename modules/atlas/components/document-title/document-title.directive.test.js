@@ -11,7 +11,7 @@ describe('The dp-document-title directive', function () {
             getState: angular.noop
         },
         moduleDocumentTitle = { getTitle: angular.noop },
-        dashboardColumns = { determineVisibility: angular.noop },
+        dashboardColumns = { determineVisibility: angular.noop, determineActivity: angular.noop },
         dataSelectionDocumentTitle = { getTitle: angular.noop },
         detailDocumentTitle = { getTitle: angular.noop },
         mapDocumentTitle = { getTitle: angular.noop },
@@ -75,6 +75,7 @@ describe('The dp-document-title directive', function () {
     it('shows the element content as default title', function () {
         spyOn(store, 'getState').and.returnValue({ page: {} });
         spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
+        spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
         moduleDocumentTitle.getTitle.and.returnValue('');
 
         const component = getComponent();
@@ -87,6 +88,7 @@ describe('The dp-document-title directive', function () {
 
         spyOn(store, 'getState').and.returnValue(state);
         spyOn(dashboardColumns, 'determineVisibility').and.returnValue({});
+        spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
 
         getComponent();
 
@@ -96,6 +98,7 @@ describe('The dp-document-title directive', function () {
     describe('getTitle', function () {
         it('does not get called when there is no visible item', function () {
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ unknownModule: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
 
             getComponent();
 
@@ -105,6 +108,7 @@ describe('The dp-document-title directive', function () {
         it('does not get called when there is no state for the visible item', function () {
             spyOn(store, 'getState').and.returnValue({});
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
 
             getComponent();
 
@@ -114,6 +118,7 @@ describe('The dp-document-title directive', function () {
         it('does not get called when the visible item is loading', function () {
             spyOn(store, 'getState').and.returnValue({ page: { isLoading: true } });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
 
             getComponent();
 
@@ -125,6 +130,7 @@ describe('The dp-document-title directive', function () {
                 filterState = { foo: 'bar' };
             spyOn(store, 'getState').and.returnValue({ page: itemState, filters: filterState });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
 
             getComponent();
 
@@ -138,21 +144,23 @@ describe('The dp-document-title directive', function () {
                 fullState = { page: itemState, filters: filterState, ...restState };
 
             spyOn(store, 'getState').and.returnValue(fullState);
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ activePreviewPanel: true, map: true });
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({ mapPreviewPanel: true });
 
             getComponent();
 
             expect(moduleDocumentTitle.getTitle).toHaveBeenCalledWith(fullState);
         });
 
-        it('does not try to call the getTitle fn if it does not exist', function () {
+        it('does not get called if the map state does exist', function () {
             const itemState = { key: 'value' },
                 filterState = { foo: 'bar' },
                 restState = { other: 'value', another: 'val' },
                 fullState = { page: itemState, filters: filterState, ...restState };
 
             spyOn(store, 'getState').and.returnValue(fullState);
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ activePreviewPanel: true, map: true });
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({ mapPreviewPanel: true });
 
             getComponent();
 
@@ -163,6 +171,8 @@ describe('The dp-document-title directive', function () {
     it('prepends the base title with the item title', function () {
         spyOn(store, 'getState').and.returnValue({ page: {} });
         spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
+        spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
         moduleDocumentTitle.getTitle.and.returnValue('Item title');
 
         const component = getComponent();
@@ -175,6 +185,8 @@ describe('The dp-document-title directive', function () {
         q.resolve('Promise title');
         spyOn(store, 'getState').and.returnValue({ page: {} });
         spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
+        spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
         moduleDocumentTitle.getTitle.and.returnValue(q.promise);
 
         const component = getComponent();
@@ -187,6 +199,8 @@ describe('The dp-document-title directive', function () {
         q.resolve('');
         spyOn(store, 'getState').and.returnValue({ page: {} });
         spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
+        spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
         moduleDocumentTitle.getTitle.and.returnValue(q.promise);
 
         const component = getComponent();
@@ -197,6 +211,8 @@ describe('The dp-document-title directive', function () {
     it('simply displays the base title when the item title is empty', function () {
         spyOn(store, 'getState').and.returnValue({ page: {} });
         spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
+        spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
         moduleDocumentTitle.getTitle.and.returnValue('');
 
         const component = getComponent();
@@ -208,6 +224,8 @@ describe('The dp-document-title directive', function () {
         it('maps the right names and services', function () {
             spyOn(store, 'getState').and.returnValue({ dataSelection: {} });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ dataSelection: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             dataSelectionDocumentTitle.getTitle.and.returnValue('Data selection title');
 
             const component = getComponent();
@@ -218,6 +236,8 @@ describe('The dp-document-title directive', function () {
         it('has precedence over the map module', function () {
             spyOn(store, 'getState').and.returnValue({ dataSelection: {} });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true, dataSelection: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             dataSelectionDocumentTitle.getTitle.and.returnValue('Data selection title');
 
             const component = getComponent();
@@ -230,6 +250,8 @@ describe('The dp-document-title directive', function () {
         it('maps the right names and services', function () {
             spyOn(store, 'getState').and.returnValue({ detail: {} });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ detail: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             detailDocumentTitle.getTitle.and.returnValue('Detail title');
 
             const component = getComponent();
@@ -240,6 +262,8 @@ describe('The dp-document-title directive', function () {
         it('has precedence over the map module', function () {
             spyOn(store, 'getState').and.returnValue({ detail: {} });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true, detail: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             detailDocumentTitle.getTitle.and.returnValue('Detail title');
 
             const component = getComponent();
@@ -252,6 +276,8 @@ describe('The dp-document-title directive', function () {
         it('maps the right names and services', function () {
             spyOn(store, 'getState').and.returnValue({ map: {} });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             mapDocumentTitle.getTitle.and.returnValue('Map title');
 
             const component = getComponent();
@@ -264,6 +290,8 @@ describe('The dp-document-title directive', function () {
         it('maps the right names and services', function () {
             spyOn(store, 'getState').and.returnValue({ page: {} });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             pageDocumentTitle.getTitle.and.returnValue('Page title');
 
             const component = getComponent();
@@ -274,6 +302,8 @@ describe('The dp-document-title directive', function () {
         it('has precedence over the map module', function () {
             spyOn(store, 'getState').and.returnValue({ page: {} });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ page: true, map: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             pageDocumentTitle.getTitle.and.returnValue('Page title');
 
             const component = getComponent();
@@ -286,6 +316,8 @@ describe('The dp-document-title directive', function () {
         it('maps the right names and services', function () {
             spyOn(store, 'getState').and.returnValue({ search: {} });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ searchResults: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             searchResultsDocumentTitle.getTitle.and.returnValue('Search results title');
 
             const component = getComponent();
@@ -296,6 +328,8 @@ describe('The dp-document-title directive', function () {
         it('has precedence over the map module', function () {
             spyOn(store, 'getState').and.returnValue({ search: {} });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ searchResults: true, map: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             searchResultsDocumentTitle.getTitle.and.returnValue('Search results title');
 
             const component = getComponent();
@@ -308,6 +342,8 @@ describe('The dp-document-title directive', function () {
         it('maps the right names and services', function () {
             spyOn(store, 'getState').and.returnValue({ straatbeeld: {} });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ straatbeeld: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             straatbeeldDocumentTitle.getTitle.and.returnValue('Straatbeeld title');
 
             const component = getComponent();
@@ -318,6 +354,8 @@ describe('The dp-document-title directive', function () {
         it('has precedence over the map module', function () {
             spyOn(store, 'getState').and.returnValue({ straatbeeld: {} });
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ straatbeeld: true, map: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             straatbeeldDocumentTitle.getTitle.and.returnValue('Straatbeeld title');
 
             const component = getComponent();
@@ -336,6 +374,8 @@ describe('The dp-document-title directive', function () {
             });
 
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             mapDocumentTitle.getTitle.and.returnValue('Map title');
 
             const component = getComponent();
@@ -352,6 +392,8 @@ describe('The dp-document-title directive', function () {
             });
 
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             mapDocumentTitle.getTitle.and.returnValue('Map title');
 
             const component = getComponent();
@@ -368,6 +410,8 @@ describe('The dp-document-title directive', function () {
             });
 
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             mapDocumentTitle.getTitle.and.returnValue('Map title');
 
             const component = getComponent();
@@ -382,6 +426,8 @@ describe('The dp-document-title directive', function () {
             });
 
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ map: true });
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
             mapDocumentTitle.getTitle.and.returnValue('Map title');
 
             const component = getComponent();

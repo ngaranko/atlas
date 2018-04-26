@@ -56,7 +56,7 @@ import { trackPageNavigation } from '../../../../src/shared/services/piwik-track
                 documentTitle: dpStraatbeeldDocumentTitle,
                 state: 'straatbeeld'
             }, {
-                visibility: 'activePreviewPanel',
+                visibility: 'mapPreviewPanel',
                 documentTitle: dpCombinedDocumentTitle,
                 state: 'map'
             }, {
@@ -129,10 +129,20 @@ import { trackPageNavigation } from '../../../../src/shared/services/piwik-track
                 let titleData;
                 const state = store.getState();
                 const visibility = dashboardColumns.determineVisibility(state);
-                const filtered = mapping.filter(item => visibility[item.visibility]);
+                const activity = dashboardColumns.determineActivity(state);
+
+                // combine specific activity values with the visibility object
+                const combinedVisibilityActivity = {
+                    ...visibility,
+                    mapPreviewPanel: activity.mapPreviewPanel
+                };
+                const filtered = mapping.filter(item =>
+                    combinedVisibilityActivity[item.visibility]
+                );
+
                 // mapping.filter returns an array, possibly empty
                 const current = filtered[0];
-                const hasPreviewPanel = current && current.visibility === 'activePreviewPanel';
+                const hasPreviewPanel = current && current.visibility === 'mapPreviewPanel';
                 const stateData = current ? state[current.state] : null;
                 const displayNewTitle = current && stateData && !stateData.isLoading;
                 const getTitle = displayNewTitle ? current.documentTitle.getTitle : null;
