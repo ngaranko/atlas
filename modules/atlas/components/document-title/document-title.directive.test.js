@@ -140,7 +140,13 @@ describe('The dp-document-title directive', function () {
             expect(moduleDocumentTitle.getTitle).toHaveBeenCalledWith(fullState);
         });
 
-        it('does not try to call the getTitle fn if it does not exist', function () {
+        it('does not get called if the state does not contain a corresponding entry', function () {
+            // the 'current' var in the directive gets filled by filtering the pre-defined set
+            // with the value 'determineVisibility' returns.
+            // with this 'current' var the corresponding stateDate is retrieved
+            // this test does not contain any corresponding stateDate, so we expect nothing
+            // to be matched, and no corresponding getTitle() fn being called
+
             const itemState = { key: 'value' },
                 filterState = { foo: 'bar' },
                 restState = { other: 'value', another: 'val' },
