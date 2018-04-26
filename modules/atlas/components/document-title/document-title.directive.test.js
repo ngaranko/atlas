@@ -133,27 +133,21 @@ describe('The dp-document-title directive', function () {
                 fullState = { page: itemState, filters: filterState, ...restState };
 
             spyOn(store, 'getState').and.returnValue(fullState);
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ activePreviewPanel: true, map: true });
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ mapPreviewPanel: true, map: true });
 
             getComponent();
 
             expect(moduleDocumentTitle.getTitle).toHaveBeenCalledWith(fullState);
         });
 
-        it('does not get called if the state does not contain a corresponding entry', function () {
-            // the 'current' var in the directive gets filled by filtering the pre-defined set
-            // with the value 'determineVisibility' returns.
-            // with this 'current' var the corresponding stateDate is retrieved
-            // this test does not contain any corresponding stateDate, so we expect nothing
-            // to be matched, and no corresponding getTitle() fn being called
-
+        it('does not get called if the map state does exist', function () {
             const itemState = { key: 'value' },
                 filterState = { foo: 'bar' },
                 restState = { other: 'value', another: 'val' },
                 fullState = { page: itemState, filters: filterState, ...restState };
 
             spyOn(store, 'getState').and.returnValue(fullState);
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ activePreviewPanel: true, map: true });
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({ mapPreviewPanel: true, map: true });
 
             getComponent();
 
