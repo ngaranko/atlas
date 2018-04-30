@@ -1,7 +1,7 @@
 pipeline {
   agent any
   options {
-    timeout(time: 1, unit: 'HOURS')
+    timeout(time: 5, unit: 'DAYS')
   }
   environment {
     COMMIT_HASH = GIT_COMMIT.substring(0, 8)
@@ -14,6 +14,9 @@ pipeline {
   }
   stages {
     stage('Test & Bakkie') {
+      options {
+        timeout(time: 60, unit: 'MINUTES')
+      }
       parallel {
         stage('Deploy Bakkie') {
           when { not { branch 'master' } }
@@ -81,6 +84,9 @@ pipeline {
     }
     stage('Build A') {
       when { branch 'master' }
+      options {
+        timeout(time: 30, unit: 'MINUTES')
+      }
       steps {
         sh "docker build -t ${IMAGE_BUILD} " +
           "--shm-size 1G " +
@@ -91,6 +97,9 @@ pipeline {
     }
     stage('Deploy A (Master)') {
       when { branch 'master' }
+      options {
+        timeout(time: 5, unit: 'MINUTES')
+      }
       steps {
         sh "docker pull ${IMAGE_BUILD}"
         sh "docker tag ${IMAGE_BUILD} ${IMAGE_ACCEPTANCE}"
@@ -103,6 +112,9 @@ pipeline {
     }
     stage('Build P (Master)') {
       when { branch 'master' }
+      options {
+        timeout(time: 30, unit: 'MINUTES')
+      }
       steps {
         // NOTE BUILD_ENV intentionaly not set (using Dockerfile default)
         sh "docker build -t ${IMAGE_PRODUCTION} " +
@@ -115,6 +127,9 @@ pipeline {
     }
     stage('Deploy pre P (Master)') {
       when { branch 'master' }
+      options {
+        timeout(time: 5, unit: 'MINUTES')
+      }
       steps {
         build job: 'Subtask_Openstack_Playbook', parameters: [
           [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
@@ -123,12 +138,7 @@ pipeline {
       }
     }
     stage('Waiting for approval (Master)') {
-      when {
-        branch 'master'
-      }
-      options {
-        timeout(time: 5, unit: 'DAYS')
-      }
+      when { branch 'master' }
       steps {
         script {
           input "Deploy to Production?"
@@ -138,6 +148,9 @@ pipeline {
     }
     stage('Deploy P (Master)') {
       when { branch 'master' }
+      options {
+        timeout(time: 5, unit: 'MINUTES')
+      }
       steps {
         build job: 'Subtask_Openstack_Playbook', parameters: [
           [$class: 'StringParameterValue', name: 'INVENTORY', value: 'production'],
