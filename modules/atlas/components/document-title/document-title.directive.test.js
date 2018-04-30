@@ -152,7 +152,7 @@ describe('The dp-document-title directive', function () {
             expect(moduleDocumentTitle.getTitle).toHaveBeenCalledWith(fullState);
         });
 
-        it('does not get called if the map state does exist', function () {
+        it('does not get called if the map state does not exist', function () {
             const itemState = { key: 'value' },
                 filterState = { foo: 'bar' },
                 restState = { other: 'value', another: 'val' },
