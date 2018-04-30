@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import fetchNearestDetail, { getResult } from '../../services/nearest-detail/nearest-detail';
+import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
 
 import ACTIONS from '../../../shared/actions';
 
@@ -11,16 +11,15 @@ function* fetchNearestDetails(action) {
     zoom
   } = action.payload;
   try {
-    const results = yield call(fetchNearestDetail, location, layers, zoom);
-    const foundResult = getResult(results);
-    if (foundResult.id) {
+    const uri = yield call(fetchNearestDetail, location, layers, zoom);
+    if (uri) {
       yield put({
         type: ACTIONS.MAP_HIGHLIGHT,
         payload: false
       });
       yield put({
         type: ACTIONS.FETCH_DETAIL,
-        payload: foundResult.uri,
+        payload: uri,
         skippedSearchResults: true
       });
     } else {

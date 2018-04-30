@@ -22,10 +22,7 @@ export const getGeometry = createSelector([getCurrentEndPoint, getAllResults, is
     }
     return {
       geometry: allResults[currentEndpoint].geometrie,
-      category: 'detail',
-      id: `id-${Math.random().toString(36).substr(2, 16)}`,
-      name: allResults[currentEndpoint].code,
-      useAutoFocus: true
+      name: allResults[currentEndpoint].code
     };
   }
 );

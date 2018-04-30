@@ -7,8 +7,8 @@ import { getRdObject } from '../../../../services/crs-service';
 import ICON_CONFIG from '../../services/icon-config.constant';
 
 class RdGeoJson extends GeoJSON {
-  createLeafletElement(props) { //eslint-disable-line
-    const { data, style } = props;
+  createLeafletElement() {
+    const { data, style } = this.props;
     const geometry = {
       ...data.geometry,
       crs: getRdObject()

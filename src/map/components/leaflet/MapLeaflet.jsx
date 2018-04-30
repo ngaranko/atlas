@@ -122,11 +122,10 @@ class MapLeaflet extends React.Component {
           ))
         }
         {
-          !!geometry.id && (
+          geometry.geometry && (
             <RdGeoJson
               ref={this.setGeometry}
               data={geometry}
-              key={geometry.id}
             />
           )
         }

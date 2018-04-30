@@ -81,7 +81,7 @@ class LeafletContainer extends React.Component {
     } = this.props;
     return (
       <div>
-        { !!baseLayer.urlTemplate.length && (
+        { baseLayer.urlTemplate && (
           <MapLeaflet
             ref={this.setMapLeaflet}
             layers={layers}

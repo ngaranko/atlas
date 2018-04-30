@@ -10,8 +10,8 @@ const generateParams = (layer, location, zoom) => ({
       (2 ** (MAP_CONFIG.BASE_LAYER_OPTIONS.maxZoom - zoom)) / 2)
 });
 
-export const getResult = (results) => {
-  const sortedResults = results.sort((a, b) => {
+export const sortResults = (results) => (
+  results.sort((a, b) => {
     if (!a.detailIsShape) {
       if (!b.detailIsShape) {
         return a.distance - b.distance;
@@ -19,25 +19,26 @@ export const getResult = (results) => {
       return -1;
     }
     return 1;
-  });
+  }));
 
-  return sortedResults[0] ? sortedResults[0] : {};
-};
-
-const retrieveLayers = (layers, layer) => (
-  layers.map((item) => ({
-    ...layer,
+const retrieveLayers = (detailItems, detailIsShape) => (
+  detailItems.map((item) => ({
+    detailIsShape,
     ...item.properties
   })));
 
 export default async function fetchNearestDetail(location, layers, zoom) {
-  const results = await layers.map(async (layer) => {
-    const params = generateParams(layer, location, zoom);
-    const result = await getByUrl(SHARED_CONFIG.API_ROOT + layer.detailUrl, params)
-      .then((data) => (retrieveLayers(data.features, layer)));
-    return result;
-  });
-  return Promise.all(results)
-  .then((arrays) => arrays
-    .reduce((a, b) => ([...a, ...b])));
+  const results = sortResults(
+    (
+      await Promise.all(
+        layers.map(async (layer) => {
+          const params = generateParams(layer, location, zoom);
+          const result = await getByUrl(SHARED_CONFIG.API_ROOT + layer.detailUrl, params);
+          return retrieveLayers(result.features, layer.detailIsShape);
+        })
+      )
+    )
+    .reduce((a, b) => ([...a, ...b]))
+  );
+  return results[0] ? results[0].uri : '';
 }

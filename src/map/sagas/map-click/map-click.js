@@ -8,7 +8,7 @@ const getMapPanelLayers = (state) => state.mapLayers.panelLayers.items;
 
 const getMapLayers = (state) => (
   state.map.overlays.map((overlay) => (
-    state.mapLayers.layers.items.find((layer) => layer.id === overlay.id) || { noDetail: true }
+    state.mapLayers.layers.items.find((layer) => layer.id === overlay.id) || {}
   )).filter((layer) => (
    layer.detailUrl && !layer.noDetail &&
    (!layer.authScope || state.user.scopes.includes(layer.authScope))
@@ -19,8 +19,8 @@ function* switchClickAction(payload) {
   const straatbeeld = yield select(getStraatbeeld);
   const zoom = yield select(getMapZoom);
   const panelLayers = yield select(getMapPanelLayers);
-  const allLayers = yield select(getMapLayers);
-  const layers = allLayers.filter((layer) => {
+  const activeMapLayers = yield select(getMapLayers);
+  const layers = activeMapLayers.filter((layer) => {
     const matchingPanelLayer = panelLayers.find((panelLayer) => (
       panelLayer.id === layer.id ||
       panelLayer.legendItems.some((legendItem) => legendItem.id === layer.id)
