@@ -25,7 +25,9 @@ const mapStateToProps = (state) => ({
   center: state.map.viewCenter,
   markers: getMarkers(state),
   geometry: getGeometry(state),
-  uiState: state.ui,
+  uiState: Object.keys(state.ui).map((key) => (
+     state.ui[key]
+   )).toString(),
   zoom: state.map.zoom
 });
 
@@ -48,9 +50,7 @@ class LeafletContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const uiState = Object.keys(nextProps.uiState).map((key) => (
-       nextProps.uiState[key]
-    )).toString();
+    const { uiState } = nextProps;
     if (uiState !== this.state.uiState) {
       this.updateGeometry();
       this.setState({ uiState });
@@ -62,8 +62,8 @@ class LeafletContainer extends React.Component {
       return;
     }
     setTimeout(() => {
-      this.MapLeaflet.setGeometryMapBounds();
       this.MapLeaflet.invalidateSize();
+      this.MapLeaflet.setGeometryMapBounds();
     });
   }
 
@@ -77,8 +77,7 @@ class LeafletContainer extends React.Component {
       onUpdateClick,
       onUpdatePan,
       onUpdateZoom,
-      zoom,
-      uiState
+      zoom
     } = this.props;
     return (
       <div>
@@ -96,7 +95,6 @@ class LeafletContainer extends React.Component {
             onZoomEnd={onUpdateZoom}
             onDragEnd={onUpdatePan}
             onClick={onUpdateClick}
-            uiState={uiState}
           />
         )}
       </div>
@@ -115,7 +113,8 @@ LeafletContainer.defaultProps = {
   center: [],
   geometry: {},
   layers: [],
-  markers: []
+  markers: [],
+  uiState: ''
 };
 
 LeafletContainer.propTypes = {
@@ -134,7 +133,7 @@ LeafletContainer.propTypes = {
   geometry: PropTypes.shape({}), //eslint-disable-line
   markers: PropTypes.arrayOf(PropTypes.shape({})),
   zoom: PropTypes.number.isRequired,
-  uiState: PropTypes.shape({}).isRequired,
+  uiState: PropTypes.string.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,
   onUpdateClick: PropTypes.func.isRequired

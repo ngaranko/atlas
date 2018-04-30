@@ -184,8 +184,7 @@ MapLeaflet.propTypes = {
   onClick: PropTypes.func,
   onDoubleClick: PropTypes.func,
   onMoveEnd: PropTypes.func,
-  onDragEnd: PropTypes.func,
-  uiState: PropTypes.shape({}).isRequired
+  onDragEnd: PropTypes.func
 };
 
 export default MapLeaflet;

@@ -56,6 +56,10 @@ describe('LeafletContainer', () => {
       mapDetail: {
         currentEndpoint: '',
         byEndpoint: {}
+      },
+      ui: {
+        map: true,
+        detail: false
       }
     };
   });
@@ -75,6 +79,10 @@ describe('LeafletContainer', () => {
         viewCenter: [52.4333137, 4.9108908],
         baseLayer: 'lf2017',
         zoom: 10,
+        ui: {
+          map: true,
+          detail: true
+        },
         overlays: [
           {
             id: 'biz',
