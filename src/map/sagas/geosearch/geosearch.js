@@ -2,7 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 import ACTIONS from '../../../shared/actions';
 
-function* requestGeoSearch(action) {
+export function* requestGeoSearch(action) {
   yield put({
     type: ACTIONS.MAP_CLICK,
     payload: action.payload

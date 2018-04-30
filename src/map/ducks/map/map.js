@@ -7,6 +7,14 @@ export const MAP_UPDATE_SHAPE = 'MAP_UPDATE_SHAPE';
 export const MAP_START_DRAWING = 'MAP_START_DRAWING';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
 
+export const getSearchMarker = (state) => (
+  state.search && state.search.location.length ?
+    [{ position: state.search.location }] : []
+);
+
+export const getMapZoom = (state) => state.map.zoom;
+export const getMarkers = (state) => getSearchMarker(state);
+
 const initialState = {
   viewCenter: [52.3731081, 4.8932945],
   baseLayer: 'topografie',
@@ -74,13 +82,6 @@ export default function MapReducer(state = initialState, action) {
       return state;
   }
 }
-
-export const getSearchMarker = (state) => (
-  state.search && state.search.location.length ?
-    [{ position: state.search.location }] : []
-);
-
-export const getMarkers = (state) => getSearchMarker(state);
 
 export const mapClearDrawing = () => ({ type: MAP_CLEAR_DRAWING });
 export const mapEmptyGeometry = () => ({ type: MAP_EMPTY_GEOMETRY });

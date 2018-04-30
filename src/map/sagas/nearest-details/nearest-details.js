@@ -4,7 +4,7 @@ import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
 
 import ACTIONS from '../../../shared/actions';
 
-function* fetchNearestDetails(action) {
+export function* fetchNearestDetails(action) {
   const {
     location,
     layers,

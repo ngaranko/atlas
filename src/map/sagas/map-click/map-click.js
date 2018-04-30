@@ -1,10 +1,10 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 
-import ACTIONS from '../../../shared/actions';
+import { getMapPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
+import { getStraatbeeld } from '../../ducks/streetview/streetview';
+import { getMapZoom } from '../../ducks/map/map';
 
-const getMapZoom = (state) => state.map.zoom;
-const getStraatbeeld = (state) => state.straatbeeld;
-const getMapPanelLayers = (state) => state.mapLayers.panelLayers.items;
+import ACTIONS from '../../../shared/actions';
 
 const getMapLayers = (state) => (
   state.map.overlays.map((overlay) => (
@@ -15,7 +15,7 @@ const getMapLayers = (state) => (
  ))
 );
 
-function* switchClickAction(payload) {
+export function* switchClickAction(payload) {
   const straatbeeld = yield select(getStraatbeeld);
   const zoom = yield select(getMapZoom);
   const panelLayers = yield select(getMapPanelLayers);
