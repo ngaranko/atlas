@@ -6,7 +6,9 @@ import watchFetchMapPanelLayers from './map-panel-layers';
 import watchFetchMapSearchResults from './search-results/map-search-results';
 import watchFetchMapDetail from './detail/map-detail';
 import watchFetchPanoPreview from '../../pano/sagas/preview/pano-preview';
-import watchMapClick, { watchFetchNearestDetails } from './map/map';
+import watchMapClick from './map-click/map-click';
+import watchFetchNearestDetails from './nearest-details/nearest-details';
+import watchGeoSearchRequest from './geosearch/geosearch';
 
 export default function* rootSaga() {
   yield all([
@@ -17,6 +19,7 @@ export default function* rootSaga() {
     fork(watchFetchMapDetail),
     fork(watchFetchPanoPreview),
     fork(watchMapClick),
-    fork(watchFetchNearestDetails)
+    fork(watchFetchNearestDetails),
+    fork(watchGeoSearchRequest)
   ]);
 }

@@ -16,21 +16,16 @@ class MapLeaflet extends React.Component {
     this.onMoveEnd = this.onMoveEnd.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
 
-    this.textInput = null;
-
-    this.state = {
-      dirty: false
-    };
-
     this.setMapElement = (element) => {
       this.MapElement = element;
     };
 
     this.setGeometry = (element) => {
-      if (!element || !element.props.data.useAutoFocus || this.state.dirty) {
+      if (!element) {
         return;
       }
-      this.MapElement.leafletElement.fitBounds(element.leafletElement.getBounds());
+      this.geometry = element;
+      this.setGeometryMapBounds();
     };
   }
 
@@ -44,7 +39,6 @@ class MapLeaflet extends React.Component {
   }
 
   onClick(event) {
-    this.setState({ dirty: true });
     const { latlng, containerPoint, layerPoint } = event;
     this.props.onClick({
       latlng,
@@ -63,6 +57,27 @@ class MapLeaflet extends React.Component {
     this.props.onDragEnd({
       center: event.target.getCenter()
     });
+  }
+
+  setGeometryMapBounds() {
+    if (!this.geometry) {
+      return;
+    }
+    const elementBounds = this.geometry.leafletElement.getBounds();
+    const mapBounds = this.MapElement.leafletElement.getBounds();
+    const fitBounds = mapBounds.contains(elementBounds);
+    if (!fitBounds) {
+      const elementZoom = this.MapElement.leafletElement.getBoundsZoom(elementBounds);
+      if (elementZoom < this.props.zoom) {
+        this.MapElement.leafletElement.fitBounds(elementBounds);
+      } else {
+        this.MapElement.leafletElement.panInsideBounds(elementBounds);
+      }
+    }
+  }
+
+  invalidateSize() {
+    this.MapElement.leafletElement.invalidateSize();
   }
 
   render() {
@@ -169,7 +184,8 @@ MapLeaflet.propTypes = {
   onClick: PropTypes.func,
   onDoubleClick: PropTypes.func,
   onMoveEnd: PropTypes.func,
-  onDragEnd: PropTypes.func
+  onDragEnd: PropTypes.func,
+  uiState: PropTypes.shape({}).isRequired
 };
 
 export default MapLeaflet;

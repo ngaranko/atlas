@@ -15,7 +15,7 @@ const getCurrentEndPoint = (state) => state.mapDetail.currentEndpoint;
 const getAllResults = (state) => state.mapDetail.byEndpoint;
 const isActive = (state) => state.search && state.search.location.length;
 
-export const getPolygons = createSelector([getCurrentEndPoint, getAllResults, isActive],
+export const getGeometry = createSelector([getCurrentEndPoint, getAllResults, isActive],
   (currentEndpoint, allResults, active) => {
     if (!allResults[currentEndpoint] || active) {
       return [];
