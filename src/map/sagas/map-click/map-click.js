@@ -10,10 +10,9 @@ const getMapLayers = (state) => (
   state.map.overlays.map((overlay) => (
     state.mapLayers.layers.items.find((layer) => layer.id === overlay.id) || { noDetail: true }
   )).filter((layer) => (
-   layer.detailUrl && !layer.noDetail
-  )).filter((layer) => (
-   !layer.authScope || state.user.scopes.includes(layer.authScope)
-  ))
+   layer.detailUrl && !layer.noDetail &&
+   (!layer.authScope || state.user.scopes.includes(layer.authScope))
+ ))
 );
 
 function* switchClickAction(payload) {
@@ -30,7 +29,7 @@ function* switchClickAction(payload) {
       zoom <= matchingPanelLayer.maxZoom &&
       zoom >= matchingPanelLayer.minZoom;
   });
-  if (!straatbeeld && layers.length > 0) {
+  if (!straatbeeld && layers.length) {
     yield put({
       type: 'REQUEST_NEAREST_DETAILS',
       payload: {

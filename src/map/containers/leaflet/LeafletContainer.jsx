@@ -113,7 +113,7 @@ LeafletContainer.defaultProps = {
     urlTemplate: ''
   },
   center: [],
-  geometry: [],
+  geometry: {},
   layers: [],
   markers: []
 };
@@ -131,7 +131,7 @@ LeafletContainer.propTypes = {
     url: PropTypes.string.isRequired
   })),
   center: PropTypes.arrayOf(PropTypes.number),
-  geometry: PropTypes.array, //eslint-disable-line
+  geometry: PropTypes.shape({}), //eslint-disable-line
   markers: PropTypes.arrayOf(PropTypes.shape({})),
   zoom: PropTypes.number.isRequired,
   uiState: PropTypes.shape({}).isRequired,

@@ -13,19 +13,19 @@ const generateParams = (layer, location, zoom) => ({
 export const getResult = (results) => {
   const sortedResults = results.sort((a, b) => {
     if (!a.detailIsShape) {
+      if (!b.detailIsShape) {
+        return a.distance - b.distance;
+      }
       return -1;
     }
-    if (a.detailIsShape) {
-      return 1;
-    }
-    return a.distance - b.distance;
+    return 1;
   });
 
   return sortedResults[0] ? sortedResults[0] : {};
 };
 
-const retrieveLayers = (array, layer) => (
-  array.map((item) => ({
+const retrieveLayers = (layers, layer) => (
+  layers.map((item) => ({
     ...layer,
     ...item.properties
   })));

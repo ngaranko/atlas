@@ -122,13 +122,13 @@ class MapLeaflet extends React.Component {
           ))
         }
         {
-          geometry.map((item) => (
+          !!geometry.id && (
             <RdGeoJson
               ref={this.setGeometry}
-              data={item}
-              key={item.id}
+              data={geometry}
+              key={geometry.id}
             />
-          ))
+          )
         }
         <ScaleControl {...scaleControlOptions} />
         {
@@ -144,7 +144,7 @@ class MapLeaflet extends React.Component {
 MapLeaflet.defaultProps = {
   layers: [],
   markers: [],
-  geometry: [],
+  geometry: {},
   center: [52.3731081, 4.8932945],
   zoom: 11,
   mapOptions: {},
@@ -169,7 +169,7 @@ MapLeaflet.propTypes = {
     transparent: PropTypes.bool,
     url: PropTypes.string.isRequired
   })),
-  geometry: PropTypes.array, //eslint-disable-line
+  geometry: PropTypes.shape({}), //eslint-disable-line
   markers: PropTypes.array, //eslint-disable-line
   center: PropTypes.arrayOf(PropTypes.number),
   zoom: PropTypes.number,
