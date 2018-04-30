@@ -1,4 +1,7 @@
+import { createSelector } from 'reselect';
+
 import ACTIONS from '../../../shared/actions';
+import { straatbeeldPerson, straatbeeldOrientation } from '../../components/leaflet/services/get-icon-by-type';
 
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
@@ -9,11 +12,36 @@ export const MAP_END_DRAWING = 'MAP_END_DRAWING';
 
 export const getSearchMarker = (state) => (
   state.search && state.search.location.length ?
-    [{ position: state.search.location }] : []
+    [{ position: state.search.location, id: `id-'${Math.random().toString(36).substr(2, 16)}`, type: 'geosearch'}] : []
 );
 
 export const getMapZoom = (state) => state.map.zoom;
-export const getMarkers = (state) => getSearchMarker(state);
+export const getStraatbeeldLocation = (state) => state.straatbeeld.location;
+export const getStraatbeeldHeading = (state) => state.straatbeeld.heading;
+
+export const getPanoMarkers = createSelector([getStraatbeeldLocation, getStraatbeeldHeading],
+  (location, heading) => (
+    location ? [
+      {
+        position: location,
+        type: straatbeeldOrientation,
+        id: `id-'${Math.random().toString(36).substr(2, 16)}`,
+        heading: heading || 0
+      },
+      {
+        position: location,
+        id: `id-'${Math.random().toString(36).substr(2, 16)}`,
+        type: straatbeeldPerson
+      }
+    ] : []
+  )
+);
+
+export const getMarkers = (state) => {
+  const geoSearchMarkers = getSearchMarker(state);
+  const panoMarkers = getPanoMarkers(state);
+  return [...geoSearchMarkers, ...panoMarkers];
+};
 
 const initialState = {
   viewCenter: [52.3731081, 4.8932945],

@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
 
+import CustomMarker from './custom/marker/CustomMarker';
 import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
-import searchIcon from './services/search-icon';
+import getIconByType from './services/get-icon-by-type';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
@@ -118,7 +119,12 @@ class MapLeaflet extends React.Component {
         }
         {
           markers.map((marker) => (
-            <Marker position={marker.position} key={marker.position} icon={searchIcon} />
+            <CustomMarker
+              position={marker.position}
+              key={marker.type}
+              icon={getIconByType(marker.type)}
+              rotationAngle={marker.heading || 0}
+            />
           ))
         }
         {

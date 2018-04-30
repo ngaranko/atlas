@@ -8,7 +8,7 @@ const searchIcon = new Icon({
   shadowUrl: null,
   shadowSize: null,
   shadowAnchor: null,
-  className: 'dp-leaflet-sarch-icon'
+  className: 'dp-leaflet-search-icon'
 });
 
 export default searchIcon;
