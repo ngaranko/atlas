@@ -12,7 +12,7 @@ import { selectLatestMapSearchResults, getMapSearchResults }
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
 import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
-import { fetchStraatbeeldById } from '../../ducks/streetview/streetview';
+import { fetchStraatbeeldById } from '../../ducks/straatbeeld/straatbeeld';
 import fetchSearchResults from '../../../reducers/search';
 import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';

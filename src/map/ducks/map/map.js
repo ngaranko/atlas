@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 
 import ACTIONS from '../../../shared/actions';
 import { straatbeeldPerson, straatbeeldOrientation } from '../../components/leaflet/services/get-icon-by-type';
+import { getStraatbeeldLocation, getStraatbeeldHeading } from '../straatbeeld/straatbeeld';
 
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
@@ -10,27 +11,22 @@ export const MAP_UPDATE_SHAPE = 'MAP_UPDATE_SHAPE';
 export const MAP_START_DRAWING = 'MAP_START_DRAWING';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
 
+export const getMapZoom = (state) => state.map.zoom;
+
 export const getSearchMarker = (state) => (
   state.search && state.search.location.length ?
-    [{ position: state.search.location, id: `id-'${Math.random().toString(36).substr(2, 16)}`, type: 'geosearch'}] : []
+    [{ position: state.search.location, type: 'geosearch' }] : []
 );
-
-export const getMapZoom = (state) => state.map.zoom;
-export const getStraatbeeldLocation = (state) => state.straatbeeld.location;
-export const getStraatbeeldHeading = (state) => state.straatbeeld.heading;
-
-export const getPanoMarkers = createSelector([getStraatbeeldLocation, getStraatbeeldHeading],
+export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, getStraatbeeldHeading],
   (location, heading) => (
     location ? [
       {
         position: location,
         type: straatbeeldOrientation,
-        id: `id-'${Math.random().toString(36).substr(2, 16)}`,
         heading: heading || 0
       },
       {
         position: location,
-        id: `id-'${Math.random().toString(36).substr(2, 16)}`,
         type: straatbeeldPerson
       }
     ] : []
@@ -39,7 +35,7 @@ export const getPanoMarkers = createSelector([getStraatbeeldLocation, getStraatb
 
 export const getMarkers = (state) => {
   const geoSearchMarkers = getSearchMarker(state);
-  const panoMarkers = getPanoMarkers(state);
+  const panoMarkers = getStraatbeeldMarkers(state);
   return [...geoSearchMarkers, ...panoMarkers];
 };
 

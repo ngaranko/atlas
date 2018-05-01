@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, ScaleControl } from 'react-leaflet';
 
 import CustomMarker from './custom/marker/CustomMarker';
 import NonTiledLayer from './custom/non-tiled-layer';
@@ -121,7 +121,7 @@ class MapLeaflet extends React.Component {
           markers.map((marker) => (
             <CustomMarker
               position={marker.position}
-              key={marker.type}
+              key={marker.position.toString() + marker.type}
               icon={getIconByType(marker.type)}
               rotationAngle={marker.heading || 0}
             />
