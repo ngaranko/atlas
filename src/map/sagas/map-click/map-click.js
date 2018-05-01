@@ -1,7 +1,7 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 
 import { getMapPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
-import { getStraatbeeld } from '../../ducks/streetview/streetview';
+import { getStraatbeeld } from '../../ducks/straatbeeld/straatbeeld';
 import { getMapZoom } from '../../ducks/map/map';
 
 import ACTIONS from '../../../shared/actions';
