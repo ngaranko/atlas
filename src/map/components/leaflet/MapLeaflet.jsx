@@ -174,8 +174,8 @@ MapLeaflet.propTypes = {
     transparent: PropTypes.bool,
     url: PropTypes.string.isRequired
   })),
-  geometry: PropTypes.shape({}), //eslint-disable-line
-  markers: PropTypes.array, //eslint-disable-line
+  geometry: PropTypes.shape({}),
+  markers: PropTypes.arrayOf(PropTypes.shape({})),
   center: PropTypes.arrayOf(PropTypes.number),
   zoom: PropTypes.number,
   mapOptions: PropTypes.shape({}),
