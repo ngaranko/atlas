@@ -27,10 +27,7 @@ describe('fetchPanelLayers', () => {
     expectSaga(fetchPanelLayers)
       .provide({
         call(effect, next) {
-          if (effect.fn === getPanelLayers) {
-            return 'panelLayers';
-          }
-          return next();
+          return effect.fn === getPanelLayers ? 'panelLayers' : next();
         }
       })
       .put({

@@ -21,12 +21,11 @@ class MapLeaflet extends React.Component {
       this.MapElement = element;
     };
 
-    this.setGeometry = (element) => {
-      if (!element) {
-        return;
+    this.setGeoJsonElement = (element) => {
+      if (element) {
+        this.geoJsonElement = element;
+        this.fitGeoJson();
       }
-      this.geometry = element;
-      this.setGeometryMapBounds();
     };
   }
 
@@ -60,18 +59,20 @@ class MapLeaflet extends React.Component {
     });
   }
 
-  setGeometryMapBounds() {
-    if (!this.geometry) {
+  fitGeoJson() {
+    if (!this.geoJsonElement) {
       return;
     }
-    const elementBounds = this.geometry.leafletElement.getBounds();
+    const elementBounds = this.geoJsonElement.leafletElement.getBounds();
     const mapBounds = this.MapElement.leafletElement.getBounds();
-    const fitBounds = mapBounds.contains(elementBounds);
-    if (!fitBounds) {
+    const elementFits = mapBounds.contains(elementBounds);
+    if (!elementFits) {
       const elementZoom = this.MapElement.leafletElement.getBoundsZoom(elementBounds);
       if (elementZoom < this.props.zoom) {
+        // pan and zoom to the geoJson element
         this.MapElement.leafletElement.fitBounds(elementBounds);
       } else {
+        // only pan to the geoJson element
         this.MapElement.leafletElement.panInsideBounds(elementBounds);
       }
     }
@@ -83,14 +84,14 @@ class MapLeaflet extends React.Component {
 
   render() {
     const {
-      center,
-      zoom,
       baseLayer,
-      mapOptions,
-      scaleControlOptions,
+      center,
+      geoJson,
       layers,
+      mapOptions,
       markers,
-      geometry
+      scaleControlOptions,
+      zoom
     } = this.props;
     return (
       <Map
@@ -128,10 +129,11 @@ class MapLeaflet extends React.Component {
           ))
         }
         {
-          geometry.geometry && (
+          geoJson.geometry && (
             <RdGeoJson
-              ref={this.setGeometry}
-              data={geometry}
+              ref={this.setGeoJsonElement}
+              key={geoJson.label}
+              data={geoJson}
             />
           )
         }
@@ -149,7 +151,7 @@ class MapLeaflet extends React.Component {
 MapLeaflet.defaultProps = {
   layers: [],
   markers: [],
-  geometry: {},
+  geoJson: {},
   center: [52.3731081, 4.8932945],
   zoom: 11,
   mapOptions: {},
@@ -174,7 +176,7 @@ MapLeaflet.propTypes = {
     transparent: PropTypes.bool,
     url: PropTypes.string.isRequired
   })),
-  geometry: PropTypes.shape({}),
+  geoJson: PropTypes.shape({}),
   markers: PropTypes.arrayOf(PropTypes.shape({})),
   center: PropTypes.arrayOf(PropTypes.number),
   zoom: PropTypes.number,

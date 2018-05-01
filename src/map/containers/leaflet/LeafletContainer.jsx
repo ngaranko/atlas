@@ -9,7 +9,7 @@ import { updateZoom, updatePan, getMarkers } from '../../ducks/map/map';
 import { updateClick } from '../../ducks/click-location/map-click-location';
 import { getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { getLayers } from '../../ducks/layers/map-layers';
-import { getGeometry } from '../../ducks/detail/map-detail';
+import { getGeoJson } from '../../ducks/detail/map-detail';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
@@ -24,7 +24,7 @@ const mapStateToProps = (state) => ({
   layers: getLayers(state),
   center: state.map.viewCenter,
   markers: getMarkers(state),
-  geometry: getGeometry(state),
+  geoJson: getGeoJson(state),
   uiState: Object.keys(state.ui).map((key) => (
      state.ui[key]
    )).toString(),
@@ -45,26 +45,25 @@ class LeafletContainer extends React.Component {
     };
     this.setMapLeaflet = (element) => {
       this.MapLeaflet = element;
-      this.updateGeometry();
+      this.updateMapBounds();
     };
   }
 
   componentWillReceiveProps(nextProps) {
     const { uiState } = nextProps;
     if (uiState !== this.state.uiState) {
-      this.updateGeometry();
+      this.updateMapBounds();
       this.setState({ uiState });
     }
   }
 
-  updateGeometry() {
-    if (!this.MapLeaflet) {
-      return;
+  updateMapBounds() {
+    if (this.MapLeaflet) {
+      setTimeout(() => {
+        this.MapLeaflet.invalidateSize();
+        this.MapLeaflet.fitGeoJson();
+      });
     }
-    setTimeout(() => {
-      this.MapLeaflet.invalidateSize();
-      this.MapLeaflet.setGeometryMapBounds();
-    });
   }
 
   render() {
@@ -73,7 +72,7 @@ class LeafletContainer extends React.Component {
       center,
       layers,
       markers,
-      geometry,
+      geoJson,
       onUpdateClick,
       onUpdatePan,
       onUpdateZoom,
@@ -91,7 +90,7 @@ class LeafletContainer extends React.Component {
             baseLayer={baseLayer}
             center={center}
             zoom={zoom}
-            geometry={geometry}
+            geoJson={geoJson}
             onZoomEnd={onUpdateZoom}
             onDragEnd={onUpdatePan}
             onClick={onUpdateClick}
@@ -111,7 +110,7 @@ LeafletContainer.defaultProps = {
     urlTemplate: ''
   },
   center: [],
-  geometry: {},
+  geoJson: {},
   layers: [],
   markers: [],
   uiState: ''
@@ -130,7 +129,7 @@ LeafletContainer.propTypes = {
     url: PropTypes.string.isRequired
   })),
   center: PropTypes.arrayOf(PropTypes.number),
-  geometry: PropTypes.shape({}), //eslint-disable-line
+  geoJson: PropTypes.shape({}), //eslint-disable-line
   markers: PropTypes.arrayOf(PropTypes.shape({})),
   zoom: PropTypes.number.isRequired,
   uiState: PropTypes.string.isRequired,
