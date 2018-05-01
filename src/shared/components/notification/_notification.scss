@@ -16,6 +16,17 @@
     background-color: $thema-10;
   }
 
+  &--message {
+    color: $secondary-gray40;
+    font-style: italic;
+    padding: 0;
+
+    &__content {
+      line-height: 1;
+      vertical-align: middle;
+    }
+  }
+
   &__content {
     line-height: 24px;
     vertical-align: middle;
