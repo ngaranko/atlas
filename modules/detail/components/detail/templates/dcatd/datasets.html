@@ -8,7 +8,8 @@
                     <button class="o-header__button c-stelselpedia__button" title="Uitleg" onclick="alert('not implemented');return false;">
                         <span class="u-sr-only">Uitleg</span>
                     </button>
-                    <button ng-if="vm.apiData.results.canEditDataset" class="o-header__button catalog__button--wijzigen" title="Wijzigen" dp-routing-link="{{ vm.apiData.results.editDatasetUrl }}">
+                    <button ng-if="vm.apiData.results.canEditDataset"
+                        class="o-header__button catalog__button catalog__button--wijzigen" title="Wijzigen" dp-routing-link="{{ vm.apiData.results.editDatasetUrl }}">
                         Wijzigen
                         <span class="u-sr-only">Wijzigen</span>
                     </button>

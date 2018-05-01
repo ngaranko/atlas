@@ -42,6 +42,7 @@
             vm.showNoResultsFound = vm.numberOfRecords === 0;
             vm.showActiveFilters = Object.keys(vm.filters).length || vm.state.geometryFilter.markers.length;
 
+            vm.canEditDataset = vm.user.scopes.includes('CAT/W');
             vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE;
 
             vm.tabs = ['bag', 'hr'].map(dataset => {
