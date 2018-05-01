@@ -89,14 +89,13 @@ import { trackPageNavigation } from '../../../../src/shared/services/piwik-track
         }
 
         function hasStateSomethingLoading (state) {
+            // deep check in the state to check for an 'isLoading' key that's true
             const stateKeys = Object.keys(state);
-
             for (let i = 0; i < stateKeys.length; i++) {
                 if (state.isLoading || state[stateKeys[i]] && state[stateKeys[i]].isLoading) {
                     return true;
                 }
             }
-
             return false;
         }
 
@@ -113,6 +112,10 @@ import { trackPageNavigation } from '../../../../src/shared/services/piwik-track
             });
 
             function triggerTracker () {
+                // recursive function
+                // this function is triggered if the title is changed, so tracking needs to be done
+                // make sure that the page is finished loading. before actually track the navigation
+                // if the page is still loading, wait 200ms and call itself to check again.
                 const state = store.getState();
                 $timeout.cancel(trackerTimeout);
 
