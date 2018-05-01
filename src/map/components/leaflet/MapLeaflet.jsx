@@ -34,12 +34,11 @@ class MapLeaflet extends React.Component {
       this.MapElement = element;
     };
 
-    this.setGeometry = (element) => {
-      if (!element) {
-        return;
+    this.setGeoJsonElement = (element) => {
+      if (element) {
+        this.geoJsonElement = element;
+        this.fitGeoJson();
       }
-      this.geometry = element;
-      this.setGeometryMapBounds();
     };
   }
 
@@ -73,18 +72,20 @@ class MapLeaflet extends React.Component {
     });
   }
 
-  setGeometryMapBounds() {
-    if (!this.geometry) {
+  fitGeoJson() {
+    if (!this.geoJsonElement) {
       return;
     }
-    const elementBounds = this.geometry.leafletElement.getBounds();
+    const elementBounds = this.geoJsonElement.leafletElement.getBounds();
     const mapBounds = this.MapElement.leafletElement.getBounds();
-    const fitBounds = mapBounds.contains(elementBounds);
-    if (!fitBounds) {
+    const elementFits = mapBounds.contains(elementBounds);
+    if (!elementFits) {
       const elementZoom = this.MapElement.leafletElement.getBoundsZoom(elementBounds);
       if (elementZoom < this.props.zoom) {
+        // pan and zoom to the geoJson element
         this.MapElement.leafletElement.fitBounds(elementBounds);
       } else {
+        // only pan to the geoJson element
         this.MapElement.leafletElement.panInsideBounds(elementBounds);
       }
     }
@@ -98,13 +99,13 @@ class MapLeaflet extends React.Component {
     const {
       center,
       clusterMarkers,
-      zoom,
       baseLayer,
-      mapOptions,
-      scaleControlOptions,
+      geoJson,
       layers,
+      mapOptions,
       markers,
-      geometry
+      scaleControlOptions,
+      zoom
     } = this.props;
     return (
       <Map
@@ -160,10 +161,11 @@ class MapLeaflet extends React.Component {
           ))
         }
         {
-          geometry.geometry && (
+          geoJson.geometry && (
             <RdGeoJson
-              ref={this.setGeometry}
-              data={geometry}
+              ref={this.setGeoJsonElement}
+              key={geoJson.label}
+              data={geoJson}
             />
           )
         }
@@ -185,7 +187,7 @@ MapLeaflet.defaultProps = {
   },
   center: [52.3731081, 4.8932945],
   clusterMarkers: [],
-  geometry: {},
+  geoJson: {},
   layers: [],
   mapOptions: {},
   markers: [],
@@ -206,7 +208,7 @@ MapLeaflet.propTypes = {
   }),
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
-  geometry: PropTypes.shape({}),
+  geoJson: PropTypes.shape({}),
   isZoomControlVisible: PropTypes.bool,
   mapOptions: PropTypes.shape({}),
   markers: PropTypes.arrayOf(PropTypes.shape({})),

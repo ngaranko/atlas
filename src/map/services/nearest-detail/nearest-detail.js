@@ -6,8 +6,8 @@ const generateParams = (layer, location, zoom) => ({
   lat: location.latitude,
   lon: location.longitude,
   item: layer.detailItem,
-  radius: layer.detailIsShape ? 0 : Math.round(
-      (2 ** (MAP_CONFIG.BASE_LAYER_OPTIONS.maxZoom - zoom)) / 2)
+  radius: layer.detailIsShape ? 0 :
+    Math.round((2 ** (MAP_CONFIG.BASE_LAYER_OPTIONS.maxZoom - zoom)) / 2)
 });
 
 export const sortResults = (results) => (

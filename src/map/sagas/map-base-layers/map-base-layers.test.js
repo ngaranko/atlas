@@ -21,10 +21,7 @@ describe('fetchMapBaseLayers', () => {
     expectSaga(fetchMapBaseLayers)
       .provide({
         call(effect, next) {
-          if (effect.fn === getMapBaseLayers) {
-            return 'mapBaseLayers';
-          }
-          return next();
+          return effect.fn === getMapBaseLayers ? 'mapBaseLayers' : next();
         }
       })
       .put({

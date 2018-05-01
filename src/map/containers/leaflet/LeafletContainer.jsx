@@ -9,7 +9,7 @@ import { updateZoom, updatePan, getMarkers } from '../../ducks/map/map';
 import { updateClick } from '../../ducks/click-location/map-click-location';
 import { getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { getLayers } from '../../ducks/layers/map-layers';
-import { getGeometry } from '../../ducks/detail/map-detail';
+import { getGeoJson } from '../../ducks/detail/map-detail';
 import { getClusterMarkers } from '../../ducks/data-selection/data-selection';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
@@ -24,7 +24,7 @@ const mapStateToProps = (state) => ({
   },
   center: state.map.viewCenter,
   clusterMarkers: getClusterMarkers(state),
-  geometry: getGeometry(state),
+  geoJson: getGeoJson(state),
   markers: getMarkers(state),
   layers: getLayers(state),
   uiState: Object.keys(state.ui).map((key) => (
@@ -47,26 +47,25 @@ class LeafletContainer extends React.Component {
     };
     this.setMapLeaflet = (element) => {
       this.MapLeaflet = element;
-      this.updateGeometry();
+      this.updateMapBounds();
     };
   }
 
   componentWillReceiveProps(nextProps) {
     const { uiState } = nextProps;
     if (uiState !== this.state.uiState) {
-      this.updateGeometry();
+      this.updateMapBounds();
       this.setState({ uiState });
     }
   }
 
-  updateGeometry() {
-    if (!this.MapLeaflet) {
-      return;
+  updateMapBounds() {
+    if (this.MapLeaflet) {
+      setTimeout(() => {
+        this.MapLeaflet.invalidateSize();
+        this.MapLeaflet.fitGeoJson();
+      });
     }
-    setTimeout(() => {
-      this.MapLeaflet.invalidateSize();
-      this.MapLeaflet.setGeometryMapBounds();
-    });
   }
 
   render() {
@@ -74,7 +73,7 @@ class LeafletContainer extends React.Component {
       baseLayer,
       center,
       clusterMarkers,
-      geometry,
+      geoJson,
       layers,
       markers,
       onUpdateClick,
@@ -89,7 +88,7 @@ class LeafletContainer extends React.Component {
             baseLayer={baseLayer}
             center={center}
             clusterMarkers={clusterMarkers}
-            geometry={geometry}
+            geoJson={geoJson}
             layers={layers}
             mapOptions={mapOptions}
             markers={markers}
@@ -116,7 +115,7 @@ LeafletContainer.defaultProps = {
   },
   center: [],
   clusterMarkers: [],
-  geometry: {},
+  geoJson: {},
   layers: [],
   markers: [],
   uiState: ''
@@ -129,7 +128,7 @@ LeafletContainer.propTypes = {
   }),
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
-  geometry: PropTypes.shape({}), //eslint-disable-line
+  geoJson: PropTypes.shape({}),
   markers: PropTypes.arrayOf(PropTypes.shape({})),
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,

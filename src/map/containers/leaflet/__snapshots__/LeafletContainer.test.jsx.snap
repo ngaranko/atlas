@@ -35,7 +35,7 @@ exports[`LeafletContainer should render 1`] = `
         4.8728099,
       ]
     }
-    geometry={Object {}}
+    geoJson={Object {}}
     isZoomControlVisible={true}
     layers={Array []}
     mapOptions={
@@ -256,7 +256,7 @@ exports[`LeafletContainer should render different baseLayer, zoom, center and an
         4.9108908,
       ]
     }
-    geometry={Object {}}
+    geoJson={Object {}}
     isZoomControlVisible={true}
     layers={
       Array [

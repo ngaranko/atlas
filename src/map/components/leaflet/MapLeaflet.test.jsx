@@ -116,7 +116,7 @@ describe('MapSearchResults', () => {
           url: 'https://acc.map.data.amsterdam.nl/maps/biz'
         }
       ],
-      geometry: {
+      geojson: {
         geometry: {
           coordinates: [120983, 487047],
           type: 'Point'
@@ -140,7 +140,7 @@ describe('MapSearchResults', () => {
           url: 'https://acc.map.data.amsterdam.nl/maps/gebieden?service=wms'
         }
       ],
-      geometry: {
+      geojson: {
         geometry: {
           coordinates: [
             [
