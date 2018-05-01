@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+
 export const FETCH_MAP_DETAIL_REQUEST = 'FETCH_MAP_DETAIL_REQUEST';
 export const FETCH_MAP_DETAIL_SUCCESS = 'FETCH_MAP_DETAIL_SUCCESS';
 export const FETCH_MAP_DETAIL_FAILURE = 'FETCH_MAP_DETAIL_FAILURE';
@@ -8,6 +10,20 @@ const initialState = {
     isLoading: false
   }
 };
+
+const getCurrentEndPoint = (state) => state.mapDetail.currentEndpoint;
+const getAllResults = (state) => state.mapDetail.byEndpoint;
+const isActive = (state) => state.search && state.search.location.length;
+
+export const getGeoJson = createSelector([getCurrentEndPoint, getAllResults, isActive],
+  (currentEndpoint, allResults, active) => (
+    (!allResults[currentEndpoint] || active) ? {} : {
+      geometry: allResults[currentEndpoint].geometrie,
+      name: allResults[currentEndpoint].code,
+      label: allResults[currentEndpoint].label
+    }
+  )
+);
 
 export default function MapDetailReducer(state = initialState, action) {
   switch (action.type) {

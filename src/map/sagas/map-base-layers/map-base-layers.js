@@ -2,7 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { getMapBaseLayers } from '../../services';
 
-function* fetchMapBaseLayers() {
+export function* fetchMapBaseLayers() {
   try {
     const mapBaseLayers = yield call(getMapBaseLayers);
     yield put({ type: 'FETCH_MAP_BASE_LAYERS_SUCCESS', mapBaseLayers });

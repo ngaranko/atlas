@@ -1,6 +1,6 @@
-export const FETCH_LEGENDA_ITEMS_REQUEST = 'FETCH_LEGENDA_ITEMS_REQUEST';
-export const FETCH_LEGENDA_ITEMS_SUCCESS = 'FETCH_LEGENDA_ITEMS_SUCCESS';
-export const FETCH_LEGENDA_ITEMS_FAILURE = 'FETCH_LEGENDA_ITEMS_FAILURE';
+export const FETCH_PANEL_ITEMS_REQUEST = 'FETCH_PANEL_ITEMS_REQUEST';
+export const FETCH_PANEL_ITEMS_SUCCESS = 'FETCH_PANEL_ITEMS_SUCCESS';
+export const FETCH_PANEL_ITEMS_FAILURE = 'FETCH_PANEL_ITEMS_FAILURE';
 
 const initialState = {
   items: [],
@@ -8,23 +8,7 @@ const initialState = {
   error: null
 };
 
-export default function PanelLayersReducer(state = initialState, action) {
-  switch (action.type) {
-    case FETCH_LEGENDA_ITEMS_REQUEST:
-      return { ...state, isLoading: true, error: null };
-
-    case FETCH_LEGENDA_ITEMS_SUCCESS:
-      return { ...state, isLoading: false, items: action.panelLayers };
-
-    case FETCH_LEGENDA_ITEMS_FAILURE:
-      return { ...state, isLoading: false, error: action.error };
-
-    default:
-      return state;
-  }
-}
-
-export const fetchPanelLayers = (mapLayers) => ({ type: FETCH_LEGENDA_ITEMS_REQUEST, mapLayers });
+export const getMapPanelLayers = (state) => state.mapLayers.panelLayers.items;
 
 export const selectActivePanelLayers = (state) => {
   const mapLayerIds = state.map.overlays.map((mapLayer) => mapLayer.id);
@@ -57,6 +41,24 @@ export const selectNotClickableVisibleMapLayers = (state) => {
     .filter((legendItem) => state.map.overlays
       .some((overlay) => overlay.id === legendItem.id && overlay.isVisible));
 };
+
+export default function PanelLayersReducer(state = initialState, action) {
+  switch (action.type) {
+    case FETCH_PANEL_ITEMS_REQUEST:
+      return { ...state, isLoading: true, error: null };
+
+    case FETCH_PANEL_ITEMS_SUCCESS:
+      return { ...state, isLoading: false, items: action.panelLayers };
+
+    case FETCH_PANEL_ITEMS_FAILURE:
+      return { ...state, isLoading: false, error: action.error };
+
+    default:
+      return state;
+  }
+}
+
+export const fetchPanelLayers = (mapLayers) => ({ type: FETCH_PANEL_ITEMS_REQUEST, mapLayers });
 
 window.reducers = window.reducers || {};
 window.reducers.PanelLayersReducer = PanelLayersReducer;
