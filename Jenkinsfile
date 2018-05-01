@@ -13,72 +13,80 @@ pipeline {
     IMAGE_LATEST = "${IMAGE_BASE}:latest"
   }
   stages {
-    stage('Test & Bakkie') {
+    stage('Deploy Bakkie') {
+      when { not { branch 'master' } }
       options {
-        timeout(time: 60, unit: 'MINUTES')
+        timeout(time: 5, unit: 'MINUTES')
       }
-      parallel {
-        stage('Deploy Bakkie') {
-          when { not { branch 'master' } }
-          steps {
-            sh "scripts/bakkie.sh ${BRANCH_NAME}"
-          }
+      steps {
+        sh "scripts/bakkie.sh ${BRANCH_NAME}"
+      }
+    }
+    stage('Linting') {
+      options {
+        timeout(time: 5, unit: 'MINUTES')
+      }
+      environment {
+        PROJECT = "${PROJECT_PREFIX}lint"
+      }
+      steps {
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-lint test-lint"
+      }
+      post {
+        always {
+          sh "docker-compose -p ${PROJECT} down -v || true"
         }
-        stage('Linting') {
-          environment {
-            PROJECT = "${PROJECT_PREFIX}lint"
-          }
-          steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-lint test-lint"
-          }
-          post {
-            always {
-              sh "docker-compose -p ${PROJECT} down -v || true"
-            }
-          }
+      }
+    }
+    stage('Unit') {
+      options {
+        timeout(time: 10, unit: 'MINUTES')
+      }
+      environment {
+        PROJECT = "${PROJECT_PREFIX}unit"
+      }
+      steps {
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit test-unit"
+      }
+      post {
+        always {
+          sh "docker-compose -p ${PROJECT} down -v || true"
         }
-        stage('Unit') {
-          environment {
-            PROJECT = "${PROJECT_PREFIX}unit"
-          }
-          steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit test-unit"
-          }
-          post {
-            always {
-              sh "docker-compose -p ${PROJECT} down -v || true"
-            }
-          }
+      }
+    }
+    stage('Functional E2E') {
+      options {
+        timeout(time: 30, unit: 'MINUTES')
+      }
+      environment {
+        PROJECT                = "${PROJECT_PREFIX}e2e-functional"
+          USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
+          USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
+          PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
+          PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
+      }
+      steps {
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-functional test-e2e-functional"
+      }
+      post {
+        always {
+          sh "docker-compose -p ${PROJECT} down -v || true"
         }
-        stage('Functional E2E') {
-          environment {
-            PROJECT                = "${PROJECT_PREFIX}e2e-functional"
-            USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
-            USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
-            PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
-            PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
-          }
-          steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-functional test-e2e-functional"
-          }
-          post {
-            always {
-              sh "docker-compose -p ${PROJECT} down -v || true"
-            }
-          }
-        }
-        stage('Aria E2E') {
-          environment {
-            PROJECT = "${PROJECT_PREFIX}e2e-aria"
-          }
-          steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-aria test-e2e-aria"
-          }
-          post {
-            always {
-              sh "docker-compose -p ${PROJECT} down -v || true"
-            }
-          }
+      }
+    }
+    stage('Aria E2E') {
+      options {
+        timeout(time: 20, unit: 'MINUTES')
+      }
+      environment {
+        PROJECT = "${PROJECT_PREFIX}e2e-aria"
+      }
+      steps {
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-aria test-e2e-aria"
+      }
+      post {
+        always {
+          sh "docker-compose -p ${PROJECT} down -v || true"
         }
       }
     }
