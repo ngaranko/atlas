@@ -15,16 +15,14 @@ const getCurrentEndPoint = (state) => state.mapDetail.currentEndpoint;
 const getAllResults = (state) => state.mapDetail.byEndpoint;
 const isActive = (state) => state.search && state.search.location.length;
 
-export const getGeometry = createSelector([getCurrentEndPoint, getAllResults, isActive],
-  (currentEndpoint, allResults, active) => {
-    if (!allResults[currentEndpoint] || active) {
-      return {};
-    }
-    return {
+export const getGeoJson = createSelector([getCurrentEndPoint, getAllResults, isActive],
+  (currentEndpoint, allResults, active) => (
+    (!allResults[currentEndpoint] || active) ? {} : {
       geometry: allResults[currentEndpoint].geometrie,
-      name: allResults[currentEndpoint].code
-    };
-  }
+      name: allResults[currentEndpoint].code,
+      label: allResults[currentEndpoint].label
+    }
+  )
 );
 
 export default function MapDetailReducer(state = initialState, action) {
