@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
 
-import { detail } from '../../components/leaflet/services/detail-icon';
+import { detailPointType } from '../../components/leaflet/services/icons.constant';
 
 const generateMarkers = (markers) => (
   markers.map((markerLocation) => ({
     position: markerLocation,
-    type: 'detail'
+    type: detailPointType
   })));
 
 export const getDataSelection = (state) => state.dataSelection;

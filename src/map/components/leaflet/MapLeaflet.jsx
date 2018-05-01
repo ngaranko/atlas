@@ -7,19 +7,20 @@ import MarkerClusterGroup from 'react-leaflet-markercluster';
 import CustomMarker from './custom/marker/CustomMarker';
 import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
-import getIconByType from './services/get-icon-by-type';
+import icons from './services/icons.constant';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
 const createClusterCustomIcon = (cluster) => (
   L.divIcon({
-    html: `
-        <div aria-label="Cluster met ${cluster.getChildCount()} onderdelen">
-          ${cluster.getChildCount()}
-        </div>
-    `,
-    className: 'leaflet-marker-icon o-highlight-cluster',
-    iconSize: L.point(40, 40, true)
+    html: `<div
+              aria-label="Cluster met ${cluster.getChildCount()} onderdelen"
+              class="o-highlight-cluster__text">
+            ${cluster.getChildCount()}
+          </div>`,
+    className: 'o-highlight-cluster',
+    iconSize: L.point(39, 39),
+    iconAnchor: L.point(19, 19)
   }));
 
 class MapLeaflet extends React.Component {
@@ -138,13 +139,16 @@ class MapLeaflet extends React.Component {
             iconCreateFunction={createClusterCustomIcon}
             spiderfyOnMaxZoom={false}
             animate={false}
+            maxClusterRadius={50}
+            chunkedLoading={true} //eslint-disable-line
+            disableClusteringAtZoom={baseLayer.baseLayerOptions.maxZoom}
           >
             {
               clusterMarkers.map((marker) => (
                 <Marker
                   position={marker.position}
                   key={marker.position.toString() + marker.type + Math.random().toString()}
-                  icon={getIconByType(marker.type)}
+                  icon={icons[marker.type]}
                 />
               ))
             }
@@ -155,7 +159,7 @@ class MapLeaflet extends React.Component {
             <CustomMarker
               position={marker.position}
               key={marker.position.toString() + marker.type}
-              icon={getIconByType(marker.type)}
+              icon={icons[marker.type]}
               rotationAngle={marker.heading || 0}
             />
           ))

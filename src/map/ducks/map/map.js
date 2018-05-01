@@ -1,9 +1,14 @@
 import { createSelector } from 'reselect';
 
-import ACTIONS from '../../../shared/actions';
-import { straatbeeldPerson, straatbeeldOrientation } from '../../components/leaflet/services/get-icon-by-type';
 import { getStraatbeeldLocation, getStraatbeeldHeading } from '../straatbeeld/straatbeeld';
 import { getDataSelection } from '../data-selection/data-selection';
+import {
+  geoSearchType,
+  straatbeeldPersonType,
+  straatbeeldOrientationType
+} from '../../components/leaflet/services/icons.constant';
+
+import ACTIONS from '../../../shared/actions';
 
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
@@ -16,19 +21,19 @@ export const getMapZoom = (state) => state.map.zoom;
 
 export const getSearchMarker = (state) => (
   state.search && state.search.location.length ?
-    [{ position: state.search.location, type: 'geosearch' }] : []
+    [{ position: state.search.location, type: geoSearchType }] : []
 );
 export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, getStraatbeeldHeading],
   (location, heading) => (
     location ? [
       {
         position: location,
-        type: straatbeeldOrientation,
+        type: straatbeeldPersonType,
         heading: heading || 0
       },
       {
         position: location,
-        type: straatbeeldPerson
+        type: straatbeeldOrientationType
       }
     ] : []
   )
