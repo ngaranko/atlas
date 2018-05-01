@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map, TileLayer, ZoomControl, ScaleControl } from 'react-leaflet';
+import L from 'leaflet';
+import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 
 import CustomMarker from './custom/marker/CustomMarker';
 import NonTiledLayer from './custom/non-tiled-layer';
@@ -8,6 +10,17 @@ import RdGeoJson from './custom/geo-json';
 import getIconByType from './services/get-icon-by-type';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
+
+const createClusterCustomIcon = (cluster) => (
+  L.divIcon({
+    html: `
+        <div aria-label="Cluster met ${cluster.getChildCount()} onderdelen">
+          ${cluster.getChildCount()}
+        </div>
+    `,
+    className: 'leaflet-marker-icon o-highlight-cluster',
+    iconSize: L.point(40, 40, true)
+  }));
 
 class MapLeaflet extends React.Component {
   constructor() {
@@ -84,6 +97,7 @@ class MapLeaflet extends React.Component {
   render() {
     const {
       center,
+      clusterMarkers,
       zoom,
       baseLayer,
       mapOptions,
@@ -118,6 +132,24 @@ class MapLeaflet extends React.Component {
           ))
         }
         {
+          <MarkerClusterGroup
+            showCoverageOnHover={false}
+            iconCreateFunction={createClusterCustomIcon}
+            spiderfyOnMaxZoom={false}
+            animate={false}
+          >
+            {
+              clusterMarkers.map((marker) => (
+                <Marker
+                  position={marker.position}
+                  key={marker.position.toString() + marker.type + Math.random().toString()}
+                  icon={getIconByType(marker.type)}
+                />
+              ))
+            }
+          </MarkerClusterGroup>
+        }
+        {
           markers.map((marker) => (
             <CustomMarker
               position={marker.position}
@@ -147,26 +179,37 @@ class MapLeaflet extends React.Component {
 }
 
 MapLeaflet.defaultProps = {
-  layers: [],
-  markers: [],
-  geometry: {},
-  center: [52.3731081, 4.8932945],
-  zoom: 11,
-  mapOptions: {},
-  scaleControlOptions: {},
   baseLayer: {
     urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
     baseLayerOptions: {}
   },
+  center: [52.3731081, 4.8932945],
+  clusterMarkers: [],
+  geometry: {},
+  layers: [],
+  mapOptions: {},
+  markers: [],
+  scaleControlOptions: {},
+  zoom: 11,
   isZoomControlVisible: true,
-  onZoomEnd: () => 'zoomend',
   onClick: () => 'click',
   onDoubleClick: () => 'doubleclick',
+  onDragEnd: () => 'dragend',
   onMoveEnd: () => 'moveend',
-  onDragEnd: () => 'dragend'
+  onZoomEnd: () => 'zoomend'
 };
 
 MapLeaflet.propTypes = {
+  baseLayer: PropTypes.shape({
+    urlTemplate: PropTypes.string,
+    baseLayerOptions: PropTypes.shape({})
+  }),
+  center: PropTypes.arrayOf(PropTypes.number),
+  clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
+  geometry: PropTypes.shape({}),
+  isZoomControlVisible: PropTypes.bool,
+  mapOptions: PropTypes.shape({}),
+  markers: PropTypes.arrayOf(PropTypes.shape({})),
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,
@@ -174,22 +217,13 @@ MapLeaflet.propTypes = {
     transparent: PropTypes.bool,
     url: PropTypes.string.isRequired
   })),
-  geometry: PropTypes.shape({}),
-  markers: PropTypes.arrayOf(PropTypes.shape({})),
-  center: PropTypes.arrayOf(PropTypes.number),
-  zoom: PropTypes.number,
-  mapOptions: PropTypes.shape({}),
-  scaleControlOptions: PropTypes.shape({}),
-  baseLayer: PropTypes.shape({
-    urlTemplate: PropTypes.string,
-    baseLayerOptions: PropTypes.shape({})
-  }),
-  isZoomControlVisible: PropTypes.bool,
-  onZoomEnd: PropTypes.func,
   onClick: PropTypes.func,
   onDoubleClick: PropTypes.func,
+  onDragEnd: PropTypes.func,
   onMoveEnd: PropTypes.func,
-  onDragEnd: PropTypes.func
+  onZoomEnd: PropTypes.func,
+  scaleControlOptions: PropTypes.shape({}),
+  zoom: PropTypes.number
 };
 
 export default MapLeaflet;

@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import ACTIONS from '../../../shared/actions';
 import { straatbeeldPerson, straatbeeldOrientation } from '../../components/leaflet/services/get-icon-by-type';
 import { getStraatbeeldLocation, getStraatbeeldHeading } from '../straatbeeld/straatbeeld';
+import { getDataSelection } from '../data-selection/data-selection';
 
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
@@ -33,11 +34,11 @@ export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, get
   )
 );
 
-export const getMarkers = (state) => {
-  const geoSearchMarkers = getSearchMarker(state);
-  const panoMarkers = getStraatbeeldMarkers(state);
-  return [...geoSearchMarkers, ...panoMarkers];
-};
+export const getMarkers = createSelector(
+  [getDataSelection, getSearchMarker, getStraatbeeldMarkers],
+  (dataSelectionActive, searchMarkers, straatbeeldMarkers) => (
+     !dataSelectionActive ? [...searchMarkers, ...straatbeeldMarkers] : []
+  ));
 
 const initialState = {
   viewCenter: [52.3731081, 4.8932945],
