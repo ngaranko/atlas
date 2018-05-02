@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import L from 'leaflet';
 import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 
@@ -8,20 +7,9 @@ import CustomMarker from './custom/marker/CustomMarker';
 import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
+import createClusterIcon from './services/cluster-icon';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
-
-const createClusterCustomIcon = (cluster) => (
-  L.divIcon({
-    html: `<div
-              aria-label="Cluster met ${cluster.getChildCount()} onderdelen"
-              class="o-highlight-cluster__text">
-            ${cluster.getChildCount()}
-          </div>`,
-    className: 'o-highlight-cluster',
-    iconSize: L.point(39, 39),
-    iconAnchor: L.point(19, 19)
-  }));
 
 class MapLeaflet extends React.Component {
   constructor() {
@@ -136,18 +124,18 @@ class MapLeaflet extends React.Component {
         {
           <MarkerClusterGroup
             showCoverageOnHover={false}
-            iconCreateFunction={createClusterCustomIcon}
+            iconCreateFunction={createClusterIcon}
             spiderfyOnMaxZoom={false}
             animate={false}
             maxClusterRadius={50}
-            chunkedLoading={true} //eslint-disable-line
+            chunkedLoading
             disableClusteringAtZoom={baseLayer.baseLayerOptions.maxZoom}
           >
             {
               clusterMarkers.map((marker) => (
                 <Marker
                   position={marker.position}
-                  key={marker.position.toString() + marker.type + Math.random().toString()}
+                  key={marker.index}
                   icon={icons[marker.type]}
                 />
               ))

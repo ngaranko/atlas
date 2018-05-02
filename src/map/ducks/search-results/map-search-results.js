@@ -8,9 +8,12 @@ export const FETCH_MAP_SEARCH_RESULTS_FAILURE = 'FETCH_MAP_SEARCH_RESULTS_FAILUR
 export const getSearch = (state) => state.search;
 export const getMapResultsByLocation = (state) => state.mapSearchResultsByLocation;
 
-export const getSearchMarker = createSelector([getSearch], (geoSearch) => (
-  geoSearch && geoSearch.location.length ?
-    [{ position: geoSearch.location, type: geoSearchType }] : []
+export const isSearchActive = createSelector([getSearch], (geoSearch) => (
+  geoSearch && geoSearch.location.length
+));
+
+export const getSearchMarker = createSelector([isSearchActive, getSearch], (active, geoSearch) => (
+  active ? [{ position: geoSearch.location, type: geoSearchType }] : []
 ));
 
 export const selectLatestMapSearchResults = createSelector([getSearch, getMapResultsByLocation],
