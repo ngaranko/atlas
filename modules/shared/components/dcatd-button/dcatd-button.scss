@@ -1,0 +1,26 @@
+.catalog__button {
+  height: auto;
+  padding: 5px 8px;
+  border: 1px solid $secondary-gray20;
+  color: $secondary-gray60;
+
+  &::before {
+    width: 12px;
+    height: 12px;
+  }
+
+  &:hover {
+    border-color: $primary-contrast;
+    background-color: $primary-contrast;
+    color: $primary-light;
+    text-decoration: none;
+  }
+
+  &--wijzigen {
+    @include icon-button-text-right("edit", "", "white");
+  }
+
+  &--toevoegen {
+    @include icon-button-text-right("add", "", "white");
+  }
+}

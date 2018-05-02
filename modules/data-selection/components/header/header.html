@@ -10,9 +10,10 @@
     </div>
 
     <div class="qa-title">
-        <button class="catalog__button catalog__button--toevoegen"
-          dp-routing-link="dcatd_admin#/datasets/_"
-          ng-if="vm.canEditDataset && (vm.state.view === 'CARDS' || vm.state.view === 'CATALOG')">Toevoegen</button>
+        <dp-dcatd-button ng-if="vm.canEditDataset && (vm.state.view === 'CARDS' || vm.state.view === 'CATALOG')" link="dcatd_admin#/datasets/_" type="toevoegen">
+          Toevoegen
+          <span class="u-sr-only">Toevoegen</span>
+        </dp-dcatd-button>
         <h1 ng-if="vm.state.view === 'TABLE'">
             {{vm.datasetTitle}}
             <span ng-if="vm.numberOfRecords !== null">({{vm.numberOfRecords | number}})</span>
