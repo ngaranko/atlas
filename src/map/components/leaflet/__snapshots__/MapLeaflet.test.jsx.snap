@@ -205,6 +205,16 @@ exports[`MapSearchResults should render map with base layer and update base laye
     tms={true}
     url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
   />
+  <r
+    animate={false}
+    chunkedLoading={true}
+    disableClusteringAtZoom={16}
+    iconCreateFunction={[Function]}
+    markers={Array []}
+    maxClusterRadius={50}
+    showCoverageOnHover={false}
+    spiderfyOnMaxZoom={false}
+  />
   <ScaleControl
     imperial={false}
     metric={true}
@@ -421,6 +431,16 @@ exports[`MapSearchResults should render map with base layer and update base laye
     tms={true}
     url="https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg"
   />
+  <r
+    animate={false}
+    chunkedLoading={true}
+    disableClusteringAtZoom={16}
+    iconCreateFunction={[Function]}
+    markers={Array []}
+    maxClusterRadius={50}
+    showCoverageOnHover={false}
+    spiderfyOnMaxZoom={false}
+  />
   <ScaleControl
     imperial={false}
     metric={true}
@@ -636,6 +656,16 @@ exports[`MapSearchResults should render map with geometry 1`] = `
     }
     tms={true}
     url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
+  />
+  <r
+    animate={false}
+    chunkedLoading={true}
+    disableClusteringAtZoom={16}
+    iconCreateFunction={[Function]}
+    markers={Array []}
+    maxClusterRadius={50}
+    showCoverageOnHover={false}
+    spiderfyOnMaxZoom={false}
   />
   <ScaleControl
     imperial={false}
@@ -864,6 +894,16 @@ exports[`MapSearchResults should render map with geometry 2`] = `
     }
     opacity={100}
     url="https://acc.map.data.amsterdam.nl/maps/biz"
+  />
+  <r
+    animate={false}
+    chunkedLoading={true}
+    disableClusteringAtZoom={16}
+    iconCreateFunction={[Function]}
+    markers={Array []}
+    maxClusterRadius={50}
+    showCoverageOnHover={false}
+    spiderfyOnMaxZoom={false}
   />
   <ScaleControl
     imperial={false}
@@ -1094,6 +1134,16 @@ exports[`MapSearchResults should render map with geometry 3`] = `
     opacity={100}
     url="https://acc.map.data.amsterdam.nl/maps/gebieden?service=wms"
   />
+  <r
+    animate={false}
+    chunkedLoading={true}
+    disableClusteringAtZoom={16}
+    iconCreateFunction={[Function]}
+    markers={Array []}
+    maxClusterRadius={50}
+    showCoverageOnHover={false}
+    spiderfyOnMaxZoom={false}
+  />
   <ScaleControl
     imperial={false}
     metric={true}
@@ -1309,6 +1359,16 @@ exports[`MapSearchResults should render map with without layers and add/remove l
     }
     tms={true}
     url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
+  />
+  <r
+    animate={false}
+    chunkedLoading={true}
+    disableClusteringAtZoom={16}
+    iconCreateFunction={[Function]}
+    markers={Array []}
+    maxClusterRadius={50}
+    showCoverageOnHover={false}
+    spiderfyOnMaxZoom={false}
   />
   <ScaleControl
     imperial={false}
@@ -1538,6 +1598,16 @@ exports[`MapSearchResults should render map with without layers and add/remove l
     opacity={100}
     url="https://acc.map.data.amsterdam.nl/maps/biz"
   />
+  <r
+    animate={false}
+    chunkedLoading={true}
+    disableClusteringAtZoom={16}
+    iconCreateFunction={[Function]}
+    markers={Array []}
+    maxClusterRadius={50}
+    showCoverageOnHover={false}
+    spiderfyOnMaxZoom={false}
+  />
   <ScaleControl
     imperial={false}
     metric={true}
@@ -1753,6 +1823,16 @@ exports[`MapSearchResults should render map with without layers and add/remove l
     }
     tms={true}
     url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
+  />
+  <r
+    animate={false}
+    chunkedLoading={true}
+    disableClusteringAtZoom={16}
+    iconCreateFunction={[Function]}
+    markers={Array []}
+    maxClusterRadius={50}
+    showCoverageOnHover={false}
+    spiderfyOnMaxZoom={false}
   />
   <ScaleControl
     imperial={false}
