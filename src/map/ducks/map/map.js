@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import { getStraatbeeldMarkers } from '../straatbeeld/straatbeeld';
 import { getDataSelection } from '../data-selection/data-selection';
-import { geoSearchType } from '../../components/leaflet/services/icons.constant';
+import { getSearchMarker } from '../search-results/map-search-results';
 
 import ACTIONS from '../../../shared/actions';
 
@@ -14,11 +14,6 @@ export const MAP_START_DRAWING = 'MAP_START_DRAWING';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
 
 export const getMapZoom = (state) => state.map.zoom;
-
-export const getSearchMarker = (state) => (
-  state.search && state.search.location.length ?
-    [{ position: state.search.location, type: geoSearchType }] : []
-);
 
 export const getMarkers = createSelector(
   [getDataSelection, getSearchMarker, getStraatbeeldMarkers],

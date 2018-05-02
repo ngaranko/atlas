@@ -1,6 +1,22 @@
+import { createSelector } from 'reselect';
+import { geoSearchType } from '../../components/leaflet/services/icons.constant';
+
 export const FETCH_MAP_SEARCH_RESULTS_REQUEST = 'FETCH_MAP_SEARCH_RESULTS_REQUEST';
 export const FETCH_MAP_SEARCH_RESULTS_SUCCESS = 'FETCH_MAP_SEARCH_RESULTS_SUCCESS';
 export const FETCH_MAP_SEARCH_RESULTS_FAILURE = 'FETCH_MAP_SEARCH_RESULTS_FAILURE';
+
+export const getSearch = (state) => state.search;
+export const getMapResultsByLocation = (state) => state.mapSearchResultsByLocation;
+
+export const getSearchMarker = createSelector([getSearch], (geoSearch) => (
+  geoSearch && geoSearch.location.length ?
+    [{ position: geoSearch.location, type: geoSearchType }] : []
+));
+
+export const selectLatestMapSearchResults = createSelector([getSearch, getMapResultsByLocation],
+  (geoSearch, mapResultsByLocation) => (
+    geoSearch && geoSearch.location && mapResultsByLocation[geoSearch.location]
+  ));
 
 const initialState = {
   mapSearchResultsByLocation: {},
@@ -32,10 +48,6 @@ export default function MapSearchResultsReducer(state = initialState, action) {
       return state;
   }
 }
-
-export const selectLatestMapSearchResults = (state) =>
-  state.search && state.search.location &&
-  state.mapSearchResultsByLocation[state.search.location];
 
 export const getMapSearchResults = (location, user) => ({
   type: FETCH_MAP_SEARCH_RESULTS_REQUEST,
