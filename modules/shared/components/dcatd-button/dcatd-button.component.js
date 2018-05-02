@@ -7,6 +7,7 @@
             templateUrl: 'modules/shared/components/dcatd-button/dcatd-button.html',
             transclude: true,
             bindings: {
+                id: '@',
                 type: '@',  // wijzigen or toevoegen
                 link: '@'
             },
@@ -25,5 +26,6 @@
         }
 
         vm.onClick = onClick;
+        vm.link = `/dcatd_admin#/datasets/${vm.id}`;
     }
 })();
