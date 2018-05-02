@@ -374,7 +374,6 @@ import '../modules/shared/components/tab-header/tab-header.factory.test';
 import '../modules/shared/components/tab-header/tab-header.component.test';
 import '../modules/shared/components/long-name-shortener/long-name-shortener.filter.test';
 import '../modules/shared/components/coordinates/coordinates.filter.test';
-import '../modules/shared/directives/routing-link/routing-link.directive.test';
 import '../modules/shared/services/storage/storage.factory.test';
 import '../modules/shared/services/markdown-parser/markdown-parser.factory.test';
 import '../modules/shared/services/redux/application-state.factory.test';
