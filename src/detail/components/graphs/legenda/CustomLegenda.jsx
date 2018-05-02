@@ -33,7 +33,7 @@ CustomLegenda.defaultProps = {
 };
 
 CustomLegenda.propTypes = {
-  payload: PropTypes.array, // eslint-disable-line
+  payload: PropTypes.arrayOf(PropTypes.shape({}))
 };
 
 export default CustomLegenda;
