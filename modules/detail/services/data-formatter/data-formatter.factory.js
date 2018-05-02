@@ -61,7 +61,7 @@
                         rows: resources.filter((row) => row['ams:resourceType'] === item.id)
                     };
                 }).filter(resource => resource.rows.length),
-                editDatasetUrl: `dcatd_admin#/datasets/${data['dct:identifier']}`
+                editDatasetUrl: `/dcatd_admin#/datasets/${data['dct:identifier']}`
             };
 
             return Object.keys(data).filter((key) => key !== 'dcat:distribution')
