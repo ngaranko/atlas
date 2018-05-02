@@ -21,7 +21,7 @@
 
         function onClick () {
             sessionStorage.setItem('DCATD_REDIRECT_URL', document.location.href);
-            // $window.location = vm.link;
+            $window.location = vm.link;
         }
 
         vm.onClick = onClick;
