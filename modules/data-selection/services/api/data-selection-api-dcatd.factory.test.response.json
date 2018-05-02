@@ -1,0 +1,28 @@
+{
+  "dcat:dataset": [
+    {
+      "@id": "ams-dcatd: 642f15c7-8368-4795-9e3d-1a87fa7e562a",
+      "dct:description": "<p>Alle activiteiten in Amsterdam en omgeving...</p>",
+      "dct:identifier": "642f15c7-8368-4795-9e3d-1a87fa7e562a",
+      "dct:title": "Activiteiten"
+    },
+    {
+      "@id": "ams-dcatd:a968ab7f-d891-4502-b103-0f78dcc58fb8",
+      "dct:description": "<p>Alle restaurants en cafes in Amsterdam en omgeving...</p>",
+      "dct:identifier": "a968ab7f-d891-4502-b103-0f78dcc58fb8",
+      "dct:title": "Eten en Drinken"
+    },
+    {
+      "@id": "ams-dcatd: 5b1174ee-901b-47de-abfb-14548bfcb7fb",
+      "dct:description": "<p>Alle evenementen in Amsterdam en omgeving...</p>",
+      "dct:identifier": "5b1174ee-901b-47de-abfb-14548bfcb7fb",
+      "dct:title": "Evenementen in Amsterdam"
+    },
+    {
+      "@id": "ams-dcatd:d7a4c93c-0d7f-4d39-82d4-5f50eaffa624",
+      "dct:description": "<p>Alle attracties in Amsterdam en omgeving...</p>",
+      "dct:identifier": "d7a4c93c-0d7f-4d39-82d4-5f50eaffa624",
+      "dct:title": "Attracties"
+    }
+  ]
+}

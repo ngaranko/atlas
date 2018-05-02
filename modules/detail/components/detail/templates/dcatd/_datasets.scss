@@ -1,0 +1,159 @@
+// resources, resources-item and the styles/** are copyied form dcatd_admin and should be integrated in atlas
+@import "./resources";
+@import "./resources-item";
+@import "./datasets-themes";
+
+.resources {
+  margin-right: -20px;
+  margin-left: -20px;
+  overflow-x: hidden;
+
+  &-item {
+    display: flex;
+
+    &__left {
+      flex-grow: 1;
+    }
+
+    &__right {
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+
+    &__modified {
+      position: initial;
+      right: auto;
+      height: 23px;
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
+    &__description {
+      :first-child {
+        margin-right: 5px;
+      }
+    }
+
+    &__navigation {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: -7px;
+
+      &-file-size {
+        padding-top: 3px;
+      }
+
+      &-arrow {
+        @extend %icon-arrow-right;
+        width: 24.5px;
+        height: 24.5px;
+        background-size: 100%;
+      }
+    }
+  }
+
+  &-button {
+    margin-left: 31px;
+  }
+
+  &-type__content-item {
+    cursor: pointer;
+
+    &:hover {
+      background-color: $secondary-gray10;
+    }
+  }
+
+  .resources-type__content {
+    margin-bottom: 0;
+  }
+}
+
+.dcad-dataset-detail {
+  .c-detail__block {
+    dl>dt {
+      width: 30%;
+    }
+
+    dl>dd {
+      width: 70%;
+    }
+  }
+
+  .o-header__subtitle {
+    padding: auto 10px;
+
+    .o-header__button .catalog__button--wijzigen { // sass-lint:disable-line force-element-nesting
+      &::before {
+        @extend %icon-edit;
+        display: block;
+        width: 24px;
+        height: 24px;
+        margin-right: 13px;
+        background-size: 90%;
+        content: "";
+
+        &:hover { // sass-lint:disable-line nesting-depth
+          @extend %icon-edit-white;
+        }
+      }
+      @extend %icon--border-hover;
+      @include icon-label-right("forward", "", "white", "tall");
+    }
+
+    .o-header__button.c-stelselpedia__button { // sass-lint:disable-line force-element-nesting
+      width: 32px;
+      height: 32px;
+      padding-left: 5px;
+    }
+  }
+
+  .c-catalogus-theme {
+    display: flex;
+
+    &>.c-catalogus-theme__icon {
+      width: auto;
+      padding: 10px 10px 10px 0;
+    }
+  }
+
+  .o-tag--transparent {
+    display: inline-block;
+
+    &>i {
+      display: inline-block;
+      position: relative;
+      top: 3.3px;
+      left: 13.16px; //transform: rotate(135deg);
+      width: 16.97056274847714;
+      height: 16.97056274847714;
+      padding: 8.58528137423857px;
+      transform: rotate(45deg);
+      border-width: 0 0 1px 1px;
+      border-style: solid;
+      border-color: $secondary-gray30;
+    }
+
+    &>span {
+      display: inline-block;
+      position: relative;
+      height: 26px;
+      margin: $base-whitespace / 2 0 $base-whitespace / 2;
+      padding: 0 20px 0 23px;
+      border-top: 1px solid $secondary-gray30;
+      border-right: 1px solid $secondary-gray30;
+      border-bottom: 1px solid $secondary-gray30;
+      color: $secondary-gray80;
+      line-height: 26px;
+      text-decoration: none;
+      text-transform: capitalize;
+    }
+  }
+}
+
+.c-catalogus-theme__icon--geografie {
+  @include icon-button-text-right("thema-geografie", "", "");
+}
