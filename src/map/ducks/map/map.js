@@ -1,12 +1,8 @@
 import { createSelector } from 'reselect';
 
-import { getStraatbeeldLocation, getStraatbeeldHeading } from '../straatbeeld/straatbeeld';
+import { getStraatbeeldMarkers } from '../straatbeeld/straatbeeld';
 import { getDataSelection } from '../data-selection/data-selection';
-import {
-  geoSearchType,
-  straatbeeldPersonType,
-  straatbeeldOrientationType
-} from '../../components/leaflet/services/icons.constant';
+import { geoSearchType } from '../../components/leaflet/services/icons.constant';
 
 import ACTIONS from '../../../shared/actions';
 
@@ -22,21 +18,6 @@ export const getMapZoom = (state) => state.map.zoom;
 export const getSearchMarker = (state) => (
   state.search && state.search.location.length ?
     [{ position: state.search.location, type: geoSearchType }] : []
-);
-export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, getStraatbeeldHeading],
-  (location, heading) => (
-    location ? [
-      {
-        position: location,
-        type: straatbeeldOrientationType,
-        heading: heading || 0
-      },
-      {
-        position: location,
-        type: straatbeeldPersonType
-      }
-    ] : []
-  )
 );
 
 export const getMarkers = createSelector(
