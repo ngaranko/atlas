@@ -28,12 +28,12 @@ export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, get
     location ? [
       {
         position: location,
-        type: straatbeeldPersonType,
+        type: straatbeeldOrientationType,
         heading: heading || 0
       },
       {
         position: location,
-        type: straatbeeldOrientationType
+        type: straatbeeldPersonType
       }
     ] : []
   )
