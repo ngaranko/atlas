@@ -97,6 +97,10 @@
                 this._tabs.forEach(tab => tab.isActive = tab.id === theActiveTab.id);
             }
 
+            get userScopes () {
+                return this._userScopes;
+            }
+
             set userScopes (userScopes) {
                 this._userScopes = userScopes;
             }
