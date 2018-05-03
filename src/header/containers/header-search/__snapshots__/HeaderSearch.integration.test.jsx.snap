@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderSearchContainer goes updates the state accordingly to the input action 1`] = `
+Object {
+  "autoSuggest": Object {
+    "count": 0,
+    "displayQuery": "dijk",
+    "error": "",
+    "isLoading": true,
+    "suggestions": Array [],
+    "typedQuery": "dijk",
+  },
+}
+`;
+
+exports[`HeaderSearchContainer goes updates the state accordingly to the input action 2`] = `
+Object {
+  "autoSuggest": Object {
+    "count": 8,
+    "displayQuery": "dijk",
+    "error": "",
+    "isLoading": false,
+    "suggestions": Array [
+      Object {
+        "content": Array [
+          Object {
+            "category": "Straatnamen",
+            "index": 0,
+            "label": "Dijkbraak",
+            "uri": "bag/openbareruimte/03630000001528/",
+          },
+          Object {
+            "category": "Straatnamen",
+            "index": 1,
+            "label": "Dijkdwarsstraat",
+            "uri": "bag/openbareruimte/03630000001970/",
+          },
+          Object {
+            "category": "Straatnamen",
+            "index": 2,
+            "label": "Dijkgraafplein",
+            "uri": "bag/openbareruimte/03630000003257/",
+          },
+        ],
+        "label": "Straatnamen",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "category": "Gebieden",
+            "index": 3,
+            "label": "Hoge Dijk (buurt)",
+            "uri": "gebieden/buurt/03630000000491/",
+          },
+        ],
+        "label": "Gebieden",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "category": "Monumenten",
+            "index": 4,
+            "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+            "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+          },
+          Object {
+            "category": "Monumenten",
+            "index": 5,
+            "label": "Dijkstraat 49",
+            "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+          },
+          Object {
+            "category": "Monumenten",
+            "index": 6,
+            "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+            "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+          },
+        ],
+        "label": "Monumenten",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "category": "Datasets",
+            "index": 7,
+            "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+            "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+          },
+        ],
+        "label": "Datasets",
+      },
+    ],
+    "typedQuery": "dijk",
+  },
+}
+`;

@@ -18,6 +18,6 @@ global.L = L;
 global.fetch = require('jest-fetch-mock');
 
 // Fail tests on any warning
-console.error = message => { // eslint-disable-line
-  throw new Error(message); // eslint-disable-line
-};
+// console.error = message => { // eslint-disable-line
+//   throw new Error(message); // eslint-disable-line
+// };
