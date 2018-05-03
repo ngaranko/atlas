@@ -18,6 +18,8 @@ global.L = L;
 global.fetch = require('jest-fetch-mock');
 
 // Fail tests on any warning
-// console.error = message => { // eslint-disable-line
-//   throw new Error(message); // eslint-disable-line
-// };
+// this seems to swallow up important info on errors, making it harder to debug failing tests
+// so we have to keep an eye on it
+console.error = message => { // eslint-disable-line
+  throw new Error(message); // eslint-disable-line
+};
