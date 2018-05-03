@@ -16,6 +16,7 @@ function formatData(categories) {
       };
     })
   }));
+
   return {
     count: numberOfResults,
     data: indexedCategories
