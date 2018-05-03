@@ -40,5 +40,7 @@
                 detailEndpoint: item._links.self.href
             };
         });
+
+        sessionStorage.setItem('DCATD_LIST_REDIRECT_URL', document.location.href);
     }
 }) ();
