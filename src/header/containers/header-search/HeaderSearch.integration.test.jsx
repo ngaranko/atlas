@@ -19,17 +19,6 @@ const mainReducer = combineReducers({
   autoSuggest: AutoSuggestReducer
 });
 
-const initialState = {
-  autoSuggest: {
-    count: 0,
-    displayQuery: '',
-    error: '',
-    isLoading: false,
-    suggestions: [],
-    typedQuery: ''
-  }
-};
-
 let store;
 
 describe('HeaderSearchContainer', () => {
@@ -41,7 +30,7 @@ describe('HeaderSearchContainer', () => {
     const enhancer = compose(
       applyMiddleware(sagaMiddleware)
     );
-    store = createStore(mainReducer, initialState, enhancer);
+    store = createStore(mainReducer, headerSearchObjects.initialState, enhancer);
     // Only run the saga which is in scope for this test
     sagaMiddleware.run(watchFetchSuggestions);
   });
