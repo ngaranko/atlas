@@ -1,4 +1,4 @@
-(function () {
+(() => {
     'use strict';
 
     angular
@@ -7,8 +7,8 @@
             templateUrl: 'modules/shared/components/dcatd-button/dcatd-button.html',
             transclude: true,
             bindings: {
-                type: '@',  // wijzigen or toevoegen
-                link: '@'
+                id: '@',
+                type: '@'  // wijzigen or toevoegen
             },
             controller: DpDcatdButtonController,
             controllerAs: 'vm'
@@ -21,9 +21,10 @@
 
         function onClick () {
             sessionStorage.setItem('DCATD_REDIRECT_URL', document.location.href);
-            $window.location = vm.link;
+            $window.location.assign(vm.link);
         }
 
         vm.onClick = onClick;
+        vm.link = `/dcatd_admin#/datasets/${vm.id}`;
     }
 })();
