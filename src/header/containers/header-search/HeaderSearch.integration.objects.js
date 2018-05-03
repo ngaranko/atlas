@@ -56,4 +56,4 @@ const mockFetchResponse =
 
 export default {
   mockFetchResponse
-}
+};

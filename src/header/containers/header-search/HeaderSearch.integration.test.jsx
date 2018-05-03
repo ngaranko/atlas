@@ -9,7 +9,6 @@ import headerSearchObjects from './HeaderSearch.integration.objects';
 import watchFetchSuggestions from '../../../header/sagas/auto-suggest/auto-suggest';
 import AutoSuggestReducer from '../../ducks/auto-suggest/auto-suggest';
 
-
 import { getAuthHeaders } from '../../../shared/services/auth/auth';
 jest.mock('../../../shared/services/auth/auth');
 
@@ -19,7 +18,6 @@ jest.mock('../../../shared/services/auth/auth');
 const mainReducer = combineReducers({
   autoSuggest: AutoSuggestReducer
 });
-
 
 const initialState = {
   autoSuggest: {
