@@ -1,14 +1,3 @@
-const initialState = {
-  autoSuggest: {
-    count: 0,
-    displayQuery: '',
-    error: '',
-    isLoading: false,
-    suggestions: [],
-    typedQuery: ''
-  }
-};
-
 const mockFetchResponse =
   [
     {
@@ -66,6 +55,5 @@ const mockFetchResponse =
   ];
 
 export default {
-  initialState,
   mockFetchResponse
 };
