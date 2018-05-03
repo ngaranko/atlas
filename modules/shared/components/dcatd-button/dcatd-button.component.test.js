@@ -1,11 +1,11 @@
-describe('The dp-dcatd-button component', function () {
+describe('The dp-dcatd-button component', () => {
     let $compile;
     let $rootScope;
     let $window;
-    // let origAuth;
+    let origSessionStorage;
 
-    beforeEach(function () {
-        angular.mock.module('dpDcatdButton');
+    beforeEach(() => {
+        angular.mock.module('dpShared');
 
         angular.mock.inject(function (_$compile_, _$rootScope_, _$window_) {
             $compile = _$compile_;
@@ -13,22 +13,27 @@ describe('The dp-dcatd-button component', function () {
             $window = _$window_;
         });
 
-        // origAuth = $window.auth;
-        // $window.auth = {
-        //     logout: angular.noop
-        // };
+        origSessionStorage = $window.sessionStorage;
+        $window.sessionStorage = {
+            setItem: angular.noop
+        };
+
+        spyOn($window.location, 'assign');
     });
 
     afterEach(() => {
-        // $window.auth = origAuth;
+        $window.sessionStorage = origSessionStorage;
     });
 
-    function getComponent () {
+    function getComponent (transcluded, type, id) {
         var component,
             element,
             scope;
 
         element = document.createElement('dp-dcatd-button');
+        element.setAttribute('type', type);
+        element.setAttribute('id', id);
+        element.innerText = transcluded;
 
         scope = $rootScope.$new();
         component = $compile(element)(scope);
@@ -37,14 +42,43 @@ describe('The dp-dcatd-button component', function () {
         return component;
     }
 
-    it('logs the user out when clicking the button', function () {
-        var component;
+    describe('rendering', () => {
+        it('renders toevoegen button', () => {
+            const component = getComponent('Toevoegen', 'toevoegen', '_');
 
-        // spyOn($window.auth, 'logout');
+            expect(component.text().trim()).toBe('Toevoegen');
+        });
 
-        component = getComponent();
-        component.find('button').click();
+        it('renders wijzigen button', () => {
+            const component = getComponent('Wijzigen', 'wijzigen', 'id-van-te-wijzigen-dataset');
 
-        // expect($window.auth.logout).toHaveBeenCalled();
+            expect(component.text().trim()).toBe('Wijzigen');
+        });
+    });
+
+    describe('events', () => {
+        it('when clicking the toevoegen button', () => {
+            spyOn($window.sessionStorage, 'setItem');
+
+            const component = getComponent('Toevoegen', 'toevoegen', '_');
+            component.find('button').click();
+
+            expect($window.sessionStorage.setItem)
+                .toHaveBeenCalledWith('DCATD_REDIRECT_URL', 'http://localhost:9876/context.html');
+
+            expect($window.location.assign).toHaveBeenCalledWith('/dcatd_admin#/datasets/_');
+        });
+
+        it('when clicking the wijzigen button', () => {
+            spyOn($window.sessionStorage, 'setItem');
+
+            const component = getComponent('Wijzigen', 'wijzigen', 'id-van-te-wijzigen-dataset');
+            component.find('button').click();
+
+            expect($window.sessionStorage.setItem)
+                .toHaveBeenCalledWith('DCATD_REDIRECT_URL', 'http://localhost:9876/context.html');
+
+            expect($window.location.assign).toHaveBeenCalledWith('/dcatd_admin#/datasets/id-van-te-wijzigen-dataset');
+        });
     });
 });

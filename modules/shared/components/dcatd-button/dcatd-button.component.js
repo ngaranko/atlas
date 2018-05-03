@@ -1,4 +1,4 @@
-(function () {
+(() => {
     'use strict';
 
     angular
@@ -8,8 +8,7 @@
             transclude: true,
             bindings: {
                 id: '@',
-                type: '@',  // wijzigen or toevoegen
-                link: '@'
+                type: '@'  // wijzigen or toevoegen
             },
             controller: DpDcatdButtonController,
             controllerAs: 'vm'
@@ -22,7 +21,7 @@
 
         function onClick () {
             sessionStorage.setItem('DCATD_REDIRECT_URL', document.location.href);
-            $window.location = vm.link;
+            $window.location.assign(vm.link);
         }
 
         vm.onClick = onClick;
