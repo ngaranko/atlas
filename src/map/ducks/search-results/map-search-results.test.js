@@ -1,5 +1,3 @@
-import { type } from 'ramda';
-
 import reducer, {
   getMapSearchResults,
   getSearch,
@@ -36,13 +34,11 @@ describe('mapSearch Selectors', () => {
   describe('getSearch', () => {
     it('should return state.search as a object', () => {
       const mockParameters = { search: {} };
-      expect(type(getSearch(mockParameters))).toEqual('Object');
       expect(getSearch(mockParameters)).toEqual(mockParameters.search);
     });
 
     it('should return state.search undefined', () => {
       const mockParameters = { };
-      expect(type(getSearch(mockParameters))).toEqual('Undefined');
       expect(getSearch(mockParameters)).toEqual();
     });
   });
@@ -53,14 +49,13 @@ describe('mapSearch Selectors', () => {
         mapSearchResultsByLocation: {}
       };
       const selected = getMapResultsByLocation(mockParameters);
-      expect(type(selected)).toEqual('Object');
       expect(selected).toBe(mockParameters.mapSearchResultsByLocation);
     });
 
     it('should return state.search.location as undefined', () => {
       const mockParameters = {};
       const selected = getMapResultsByLocation(mockParameters);
-      expect(type(selected)).toEqual('Undefined');
+      expect(selected).toEqual();
     });
   });
 
@@ -70,7 +65,6 @@ describe('mapSearch Selectors', () => {
         location: [10, 10]
       };
       const selected = isSearchActive.resultFunc(mockParameters);
-      expect(type(selected)).toEqual('Number');
       expect(selected).toEqual(mockParameters.location.length);
     });
 
@@ -79,7 +73,6 @@ describe('mapSearch Selectors', () => {
         location: []
       };
       const selected = isSearchActive.resultFunc(mockParameters);
-      expect(type(selected)).toEqual('Number');
       expect(selected).toEqual(mockParameters.location.length);
     });
   });
@@ -91,7 +84,6 @@ describe('mapSearch Selectors', () => {
         location: [10, 10]
       };
       const selected = getSearchMarker.resultFunc(isSearchActiveMock, getSearchMock);
-      expect(type(selected)).toEqual('Array');
       expect(selected).toEqual([{ position: [10, 10], type: 'geoSearchType' }]);
     });
 
@@ -101,7 +93,6 @@ describe('mapSearch Selectors', () => {
         location: []
       };
       const selected = getSearchMarker.resultFunc(isSearchActiveMock, getSearchMock);
-      expect(type(selected)).toEqual('Array');
       expect(selected).toEqual([]);
     });
   });
@@ -122,7 +113,6 @@ describe('mapSearch Selectors', () => {
       const selected = selectLatestMapSearchResults.resultFunc(
         getSearchMock, getMapResultsByLocationMock
       );
-      expect(type(selected)).toEqual('Array');
       expect(selected).toBe(getMapResultsByLocationMock['10,10']);
     });
 
@@ -134,7 +124,7 @@ describe('mapSearch Selectors', () => {
       const selected = selectLatestMapSearchResults.resultFunc(
         getSearchMock, getMapResultsByLocationMock
       );
-      expect(type(selected)).toEqual('Undefined');
+      expect(selected).toEqual();
     });
 
     it('should return undefined', () => {
@@ -149,7 +139,7 @@ describe('mapSearch Selectors', () => {
       const selected = selectLatestMapSearchResults.resultFunc(
         getSearchMock, getMapResultsByLocationMock
       );
-      expect(type(selected)).toEqual('Undefined');
+      expect(selected).toEqual();
     });
   });
 });
