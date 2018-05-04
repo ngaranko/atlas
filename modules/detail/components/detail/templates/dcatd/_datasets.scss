@@ -189,3 +189,23 @@
     }
   }
 }
+
+.dataset-detail__description {
+  a {
+    color: $primary-dark;
+    text-decoration: underline;
+
+    &:hover {
+      color: $primary-contrast;
+    }
+  }
+
+  ul {
+    @extend %content-list;
+
+    p,
+    li {
+      @include font-weight($normal-weight);
+    }
+  }
+}
