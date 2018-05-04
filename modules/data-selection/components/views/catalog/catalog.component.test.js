@@ -5,8 +5,10 @@ describe('The catalog component', function () {
 
     let $rootScope,
         $compile,
+        $window,
         store,
-        ACTIONS;
+        ACTIONS,
+        origSessionStorage;
 
     const mockedStore = {
         dispatch: angular.noop,
@@ -40,14 +42,25 @@ describe('The catalog component', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$compile_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$rootScope_, _$compile_, _$window_, _store_, _ACTIONS_) {
             $rootScope = _$rootScope_;
             $compile = _$compile_;
+            $window = _$window_;
             store = _store_;
             ACTIONS = _ACTIONS_;
         });
 
+        origSessionStorage = $window.sessionStorage;
+        $window.sessionStorage = {
+            setItem: angular.noop
+        };
+
+        spyOn($window.sessionStorage, 'setItem');
         spyOn(store, 'dispatch');
+    });
+
+    afterEach(() => {
+        $window.sessionStorage = origSessionStorage;
     });
 
     function getComponent (filterFormatter) {
@@ -78,5 +91,8 @@ describe('The catalog component', function () {
             type: ACTIONS.FETCH_DETAIL,
             payload: mockedContent.detailEndpoint
         });
+
+        expect($window.sessionStorage.setItem)
+            .toHaveBeenCalledWith('DCATD_LIST_REDIRECT_URL', jasmine.any(String));
     });
 });

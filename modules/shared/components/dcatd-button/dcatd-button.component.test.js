@@ -19,6 +19,7 @@ describe('The dp-dcatd-button component', () => {
         };
 
         spyOn($window.location, 'assign');
+        spyOn($window.sessionStorage, 'setItem');
     });
 
     afterEach(() => {
@@ -58,25 +59,21 @@ describe('The dp-dcatd-button component', () => {
 
     describe('events', () => {
         it('when clicking the toevoegen button', () => {
-            spyOn($window.sessionStorage, 'setItem');
-
             const component = getComponent('Toevoegen', 'toevoegen', '_');
             component.find('button').click();
 
             expect($window.sessionStorage.setItem)
-                .toHaveBeenCalledWith('DCATD_REDIRECT_URL', 'http://localhost:9876/context.html');
+                .toHaveBeenCalledWith('DCATD_DETAIL_REDIRECT_URL', jasmine.any(String));
 
             expect($window.location.assign).toHaveBeenCalledWith('/dcatd_admin#/datasets/_');
         });
 
         it('when clicking the wijzigen button', () => {
-            spyOn($window.sessionStorage, 'setItem');
-
             const component = getComponent('Wijzigen', 'wijzigen', 'id-van-te-wijzigen-dataset');
             component.find('button').click();
 
             expect($window.sessionStorage.setItem)
-                .toHaveBeenCalledWith('DCATD_REDIRECT_URL', 'http://localhost:9876/context.html');
+                .toHaveBeenCalledWith('DCATD_DETAIL_REDIRECT_URL', jasmine.any(String));
 
             expect($window.location.assign).toHaveBeenCalledWith('/dcatd_admin#/datasets/id-van-te-wijzigen-dataset');
         });
