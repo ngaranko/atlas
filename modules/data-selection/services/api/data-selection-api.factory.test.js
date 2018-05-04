@@ -236,43 +236,43 @@ describe('The dataSelectionApi factory', function () {
             expect(output.numberOfPages).toBe(2);
         });
 
-        // it('does something that nobody understands, unless it is provided with some comment', function () {
-        //     let output;
+        it('uses the recurent defined variables when these are provided', function () {
+            let output;
 
-        //     dataSelectionApi.query('zwembaden', 'CATALOG', {}, 1).then(function (_output_) {
-        //         output = _output_;
-        //     });
-        //     $rootScope.$apply();
-        //     expect(output.numberOfPages).toBe(2);
+            dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
+                output = _output_;
+            });
+            $rootScope.$apply();
+            expect(output.numberOfPages).toBe(2);
 
-        //     mockedConfig.datasets.zwembaden.CONTENT.CATALOG = [
-        //         {
-        //             variables: ['huisnummer']
-        //         }
-        //     ];
-        //     mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
+            mockedConfig.datasets.zwembaden.CONTENT.LIST = [
+                {
+                    variables: ['huisnummer']
+                }
+            ];
+            mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
 
-        //     mockedApiService.query.calls.reset();
-        //     dataSelectionApi.query('zwembaden', 'CATALOG', {}, 1).then(function (_output_) {
-        //         output = _output_;
-        //     });
-        //     $rootScope.$apply();
-        //     expect(output.data.body[0].content[0][0].value).toEqual('1 | 2');
+            mockedApiService.query.calls.reset();
+            dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
+                output = _output_;
+            });
+            $rootScope.$apply();
+            expect(output.data.body[0].content[0][0].value).toEqual('1 | 2');
 
-        //     mockedConfig.datasets.zwembaden.CONTENT.CATALOG = [
-        //         {
-        //             variables: ['huisnummer.adres']
-        //         }
-        //     ];
-        //     mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
+            mockedConfig.datasets.zwembaden.CONTENT.LIST = [
+                {
+                    variables: ['huisnummer.adres']
+                }
+            ];
+            mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
 
-        //     mockedApiService.query.calls.reset();
-        //     dataSelectionApi.query('zwembaden', 'CATALOG', {}, 1).then(function (_output_) {
-        //         output = _output_;
-        //     });
-        //     $rootScope.$apply();
-        //     expect(output.numberOfPages).toBe(2);
-        // });
+            mockedApiService.query.calls.reset();
+            dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
+                output = _output_;
+            });
+            $rootScope.$apply();
+            expect(output.numberOfPages).toBe(2);
+        });
 
         describe('it returns all available filters', function () {
             it('orders the filters based on the configuration', function () {
