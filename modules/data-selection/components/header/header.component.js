@@ -33,8 +33,7 @@
             const isListView = vm.state.view === 'LIST';
             const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
             const exportAuthScope = config.AUTH_SCOPE;
-
-            vm.showButtons = vm.state.dataset !== 'catalogus' && vm.state.dataset !== 'dcatd';
+            vm.showButtons = vm.state.dataset !== 'dcatd';
             vm.showDownloadButton = vm.state.view !== 'LIST' &&
                 vm.numberOfRecords > 0 &&
                 (!exportAuthScope || vm.user.scopes.includes(exportAuthScope));
