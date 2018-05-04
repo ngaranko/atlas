@@ -90,7 +90,6 @@ describe('HeaderSearchContainer', () => {
       const submit = headerSearch.find('form');
       submit.simulate('submit');
 
-
       expect(store.dispatch).toHaveBeenCalled();
       expect(search.fetchSearchResultsByQuery).toHaveBeenCalledWith('dijk');
       expect(search.fetchDataSelection).not.toHaveBeenCalled();
@@ -154,6 +153,27 @@ describe('HeaderSearchContainer', () => {
       headerSearch.update();
       expect(details.fetchDetail)
       .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
+      done();
+    }, 250);
+  });
+
+  it('allows the user to use the keyboard to dismiss the suggestions', (done) => {
+    const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
+
+    const input = headerSearch.find('input');
+    input.simulate('focus');
+    input.instance().value = 'dijk';
+    input.simulate('input');
+    input.simulate('change');
+    input.simulate('focus');
+
+    // timeout to ensure all async actions are done
+    setTimeout(() => {
+      headerSearch.update();
+      expect(headerSearch).toMatchSnapshot(); // suggestions are visible
+      input.simulate('keyDown', { key: 'escape', keyCode: 27, which: 27 });
+      headerSearch.update();
+      expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
       done();
     }, 250);
   });
