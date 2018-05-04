@@ -95,7 +95,6 @@ import '../modules/data-selection/components/views/catalog/catalog.component';
 import '../modules/data-selection/components/views/list/list.component';
 import '../modules/data-selection/components/views/table/table.component';
 import '../modules/data-selection/data-selection-config.constant';
-import '../modules/data-selection/services/api/data-selection-api-ckan.factory';
 import '../modules/data-selection/services/api/data-selection-api-dcatd.factory';
 import '../modules/data-selection/services/api/data-selection-api-data-selection.factory';
 import '../modules/data-selection/services/api/data-selection-api.factory';
