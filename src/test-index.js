@@ -79,7 +79,6 @@ import '../modules/data-selection/components/header/header.component';
 import '../modules/data-selection/components/header/toggle-view-button/toggle-view-button.component';
 import '../modules/data-selection/components/pagination/pagination-link.component';
 import '../modules/data-selection/components/pagination/pagination.component';
-import '../modules/data-selection/components/views/cards/cards.component';
 import '../modules/data-selection/components/views/catalog/catalog.component';
 import '../modules/data-selection/components/views/list/list.component';
 import '../modules/data-selection/components/views/table/table.component';
@@ -271,7 +270,6 @@ import '../modules/data-selection/components/pagination/pagination.component.tes
 import '../modules/data-selection/components/pagination/pagination-link.component.test';
 import '../modules/data-selection/components/views/table/table.component.test';
 import '../modules/data-selection/components/views/list/list.component.test';
-import '../modules/data-selection/components/views/cards/cards.component.test';
 import '../modules/data-selection/components/views/catalog/catalog.component.test';
 import '../modules/data-selection/components/data-selection/data-selection.component.test';
 import '../modules/data-selection/components/active-filters/active-filters.component.test';
