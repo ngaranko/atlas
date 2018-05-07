@@ -10,11 +10,10 @@ import watchFetchSuggestions from '../../../header/sagas/auto-suggest/auto-sugge
 import AutoSuggestReducer from '../../ducks/auto-suggest/auto-suggest';
 import DataSelectionReducer from '../../../shared/ducks/data-selection/data-selection';
 
-import { getAuthHeaders } from '../../../shared/services/auth/auth';
-
 import * as search from '../../../reducers/search';
 import * as details from '../../../reducers/details';
 
+// mock authentication call, as this is not part of this test scope
 jest.mock('../../../shared/services/auth/auth');
 
 // In the code several reducers are combined, resulting in a "key: reducer" structure
@@ -29,9 +28,7 @@ let enhancer;
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
-    global._paq = []; // eslint-disable-line no-underscore-dangle
-    // mock authentication call, as this is not part of this test scope
-    getAuthHeaders.mockImplementation(() => jest.fn());
+    global._paq = [];
     // create real store with saga. The code does not seem to update a mock-store correctly
     const sagaMiddleware = createSagaMiddleware();
     enhancer = compose(
@@ -48,30 +45,20 @@ describe('HeaderSearchContainer', () => {
     jest.clearAllMocks();
   });
 
-  it('gets and formats the data correctly before setting it to the state', () => {
-    let storeHaseBeenCalledTimes = 0;
-    store.subscribe(() => {
-      storeHaseBeenCalledTimes += 1;
-      switch (storeHaseBeenCalledTimes) {
-        case 1:
-          // first state change is from the REQUEST
-          expect(store.getState()).toMatchSnapshot();
-          break;
-        case 2:
-          // second state change is from the SUCCESS (with suggestions)
-          expect(store.getState()).toMatchSnapshot();
-          break;
-        default:
-          break;
-      }
-    });
-
+  it('gets and formats the data correctly before setting it to the state', (done) => {
     const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
 
     const input = headerSearch.find('input');
     input.simulate('focus');
     input.instance().value = 'dijk';
     input.simulate('change');
+    // first state change is from the REQUEST
+    expect(store.getState()).toMatchSnapshot();
+    setTimeout(() => {
+      // second state change is from the SUCCESS (with suggestions)
+      expect(store.getState()).toMatchSnapshot();
+      done();
+    }, 200);
   });
 
   it('allows the user to clear the query and suggestions by clicking on the clear button', (done) => {
@@ -135,7 +122,8 @@ describe('HeaderSearchContainer', () => {
         input.simulate('keyDown', { key: 'Enter', keyCode: 13, which: 13 });
         headerSearch.update();
         expect(details.fetchDetail)
-        .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
+          .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
+        expect(headerSearch).toMatchSnapshot(); // dropdown should be hidden
         done();
       }, 250);
     });
@@ -157,7 +145,7 @@ describe('HeaderSearchContainer', () => {
         autoSuggestItem.simulate('click');
         headerSearch.update();
         expect(details.fetchDetail)
-        .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
+          .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
         done();
       }, 250);
     });

@@ -1,23 +1,5 @@
 module.exports = {
-  collectCoverage: true,
-  collectCoverageFrom: [
-    'src/**/*.{js,jsx}',
-    '!**/*.constant.js',
-    '!**/*.mock.js'
-  ],
-  coverageDirectory: 'coverage/integration',
-  coverageThreshold: {
-    global: {
-      statements: 2.4,
-      branches: 2.4,
-      functions: 2.4,
-      lines: 2.4
-    }
-  },
-  coverageReporters: process.env.CI ? [
-    'html',
-    'text'
-  ] : ['lcov'],
+  collectCoverage: false,
   moduleNameMapper: {
     '^.+\\.(css|scss)$': 'identity-obj-proxy',
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/test/file-mock.js',
@@ -32,8 +14,12 @@ module.exports = {
   ],
   testMatch: [
     '**/*.integration.test.js?(x)',
-    // Do match
+    // Do match:
     // foo.integration.test.jsx
+    // Do not match:
+    // fooService.jsx
+    // foo.test.jsx
+    // barService.test.js
   ],
   testEnvironment: 'jest-environment-jsdom-global',
   testPathIgnorePatterns: [

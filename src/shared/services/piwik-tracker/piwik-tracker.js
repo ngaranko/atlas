@@ -5,7 +5,6 @@
  */
 
 const piwikTracker = (data) => {
-  // eslint-disable-next-line no-underscore-dangle
   window._paq.push(data);
 };
 

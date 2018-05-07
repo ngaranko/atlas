@@ -5096,6 +5096,247 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
 </Connect(HeaderSearchContainer)>
 `;
 
+exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the keyboard to navigate and select suggestions 3`] = `
+<Connect(HeaderSearchContainer)>
+  <HeaderSearchContainer
+    activeSuggestion={
+      Object {
+        "index": -1,
+      }
+    }
+    displayQuery=""
+    isDatasetView={false}
+    isMapFullscreen={false}
+    numberOfSuggestions={0}
+    onCleanDatasetOverview={[Function]}
+    onDatasetSearch={[Function]}
+    onDetailLoad={[Function]}
+    onGetSuggestions={[Function]}
+    onSearch={[Function]}
+    onSuggestionActivate={[Function]}
+    pageName=""
+    prefillQuery=""
+    suggestions={
+      Array [
+        Object {
+          "content": Array [
+            Object {
+              "category": "Straatnamen",
+              "index": 0,
+              "label": "Dijkbraak",
+              "uri": "bag/openbareruimte/03630000001528/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 1,
+              "label": "Dijkdwarsstraat",
+              "uri": "bag/openbareruimte/03630000001970/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 2,
+              "label": "Dijkgraafplein",
+              "uri": "bag/openbareruimte/03630000003257/",
+            },
+          ],
+          "label": "Straatnamen",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Gebieden",
+              "index": 3,
+              "label": "Hoge Dijk (buurt)",
+              "uri": "gebieden/buurt/03630000000491/",
+            },
+          ],
+          "label": "Gebieden",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Monumenten",
+              "index": 4,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 5,
+              "label": "Dijkstraat 49",
+              "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 6,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+            },
+          ],
+          "label": "Monumenten",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Datasets",
+              "index": 7,
+              "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+              "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+            },
+          ],
+          "label": "Datasets",
+        },
+      ]
+    }
+    typedQuery=""
+  >
+    <AutoSuggest
+      activeSuggestion={
+        Object {
+          "index": -1,
+        }
+      }
+      highlightQuery=""
+      legendTitle="Data zoeken"
+      numberOfSuggestions={0}
+      onSubmit={[Function]}
+      onSuggestionActivate={[Function]}
+      onSuggestionSelection={[Function]}
+      onTextInput={[Function]}
+      placeHolder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+      query=""
+      queryFromUrl=""
+      suggestions={
+        Array [
+          Object {
+            "content": Array [
+              Object {
+                "category": "Straatnamen",
+                "index": 0,
+                "label": "Dijkbraak",
+                "uri": "bag/openbareruimte/03630000001528/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 1,
+                "label": "Dijkdwarsstraat",
+                "uri": "bag/openbareruimte/03630000001970/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 2,
+                "label": "Dijkgraafplein",
+                "uri": "bag/openbareruimte/03630000003257/",
+              },
+            ],
+            "label": "Straatnamen",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Gebieden",
+                "index": 3,
+                "label": "Hoge Dijk (buurt)",
+                "uri": "gebieden/buurt/03630000000491/",
+              },
+            ],
+            "label": "Gebieden",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Monumenten",
+                "index": 4,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 5,
+                "label": "Dijkstraat 49",
+                "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 6,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+              },
+            ],
+            "label": "Monumenten",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Datasets",
+                "index": 7,
+                "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+                "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+              },
+            ],
+            "label": "Datasets",
+          },
+        ]
+      }
+    >
+      <form
+        className="auto-suggest
+          "
+        onSubmit={[Function]}
+      >
+        <fieldset>
+          <legend
+            className="u-sr-only"
+          >
+            legendTitle
+          </legend>
+          <div
+            className="auto-suggest-container"
+          >
+            <label
+              className="u-sr-only"
+              htmlFor="auto-suggest__input"
+            >
+              zoektekst
+            </label>
+            <input
+              autoCapitalize="off"
+              autoComplete="off"
+              autoCorrect="off"
+              className="auto-suggest__input"
+              id="auto-suggest__input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+              spellCheck="false"
+              type="text"
+              value=""
+            />
+          </div>
+          <button
+            className="auto-suggest__submit qa-search-form-submit"
+            disabled={true}
+            title="Zoeken"
+            type="submit"
+          >
+            <Component>
+              mock-svg
+            </Component>
+            <span
+              className="u-sr-only"
+            >
+              Zoeken
+            </span>
+          </button>
+        </fieldset>
+      </form>
+    </AutoSuggest>
+  </HeaderSearchContainer>
+</Connect(HeaderSearchContainer)>
+`;
+
 exports[`HeaderSearchContainer gets and formats the data correctly before setting it to the state 1`] = `
 Object {
   "autoSuggest": Object {

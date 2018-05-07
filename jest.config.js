@@ -32,7 +32,11 @@ module.exports = {
   ],
   testMatch: [
     '**/!(*.visual|*.integration).test.js?(x)',
+    // Do match:
+    // foo.test.jsx
+    // barService.test.js
     // Do not match:
+    // fooService.jsx
     // foo.visual.test.jsx
     // foo.integration.test.jsx
   ],
