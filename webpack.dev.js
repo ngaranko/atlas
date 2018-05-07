@@ -9,7 +9,17 @@ module.exports = merge(commonConfig({ nodeEnv, buildId }), {
   devtool: 'source-map',
   devServer: {
     disableHostCheck: true,
-    contentBase: dist
+    contentBase: dist,
+    compress: true,
+    port: 8080,
+    proxy: {
+      '/dcatd_admin': {
+        target: 'http://localhost:3000',
+        secure: false,
+        "changeOrigin": true,
+        "logLevel": "debug"         
+      }
+    }
   },
   plugins: [
     new webpack.DefinePlugin({
