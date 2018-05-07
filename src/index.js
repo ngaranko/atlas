@@ -234,6 +234,7 @@ import '../modules/shared/services/user-settings/user-settings.constant';
 import '../modules/shared/services/user-settings/user-settings.factory';
 import '../modules/shared/shared-config.factory';
 import '../modules/shared/shared.vendor';
+import '../modules/shared/services/combined-document-title/combined-document-title.factory';
 import '../modules/straatbeeld/straatbeeld.module';
 import '../modules/straatbeeld/components/history/history.directive';
 import '../modules/straatbeeld/components/hotspot/hotspot.component';
