@@ -492,15 +492,15 @@ describe('The dashboard component', function () {
 
     describe('MapPreviewPanel', () => {
         let handler;
-        let mockedVisibility;
+        let mockedActivity;
 
         beforeEach(function () {
             handler = null;
-            mockedVisibility = {
+            mockedActivity = {
                 mapPreviewPanel: false
             };
 
-            spyOn(dashboardColumns, 'determineVisibility').and.returnValue(mockedVisibility);
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue(mockedActivity);
             spyOn(store, 'dispatch');
             spyOn(store, 'subscribe').and.callFake((fn) => {
                 // This function will be called later on by other components as
@@ -516,7 +516,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
                 store.dispatch.calls.reset();
 
-                mockedVisibility.mapPreviewPanel = true;
+                mockedActivity.mapPreviewPanel = true;
                 mockedState.search = {
                     location: [1, 0]
                 };
@@ -534,7 +534,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
                 store.dispatch.calls.reset();
 
-                mockedVisibility.mapPreviewPanel = true;
+                mockedActivity.mapPreviewPanel = true;
                 mockedState.detail = {
                     endpoint: 'https://acc.api.amsterdam.nl/fake/brk/object/endpoint'
                 };
@@ -552,7 +552,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
                 store.dispatch.calls.reset();
 
-                mockedVisibility.mapPreviewPanel = true;
+                mockedActivity.mapPreviewPanel = true;
                 mockedState.detail = {
                     endpoint: 'https://acc.api.amsterdam.nl/fake/non/existent/endpoint'
                 };
@@ -570,7 +570,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
                 store.dispatch.calls.reset();
 
-                mockedVisibility.mapPreviewPanel = true;
+                mockedActivity.mapPreviewPanel = true;
                 mockedState.detail = {};
                 handler();
                 $rootScope.$digest();
@@ -586,7 +586,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
                 store.dispatch.calls.reset();
 
-                mockedVisibility.mapPreviewPanel = true;
+                mockedActivity.mapPreviewPanel = true;
                 handler();
                 $rootScope.$digest();
 
@@ -601,12 +601,12 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
                 store.dispatch.calls.reset();
 
-                mockedVisibility.mapPreviewPanel = true;
+                mockedActivity.mapPreviewPanel = true;
                 handler();
                 $rootScope.$digest();
                 store.dispatch.calls.reset();
 
-                mockedVisibility.mapPreviewPanel = false;
+                mockedActivity.mapPreviewPanel = false;
                 handler();
                 $rootScope.$digest();
 
@@ -621,12 +621,12 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
                 store.dispatch.calls.reset();
 
-                mockedVisibility.mapPreviewPanel = true;
+                mockedActivity.mapPreviewPanel = true;
                 handler();
                 $rootScope.$digest();
                 store.dispatch.calls.reset();
 
-                mockedVisibility.mapPreviewPanel = false;
+                mockedActivity.mapPreviewPanel = false;
                 mockedState.search = {
                     location: [1, 0]
                 };

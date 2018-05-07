@@ -58,7 +58,7 @@ import {
 
         // Open or close React `MapPreviewPanel` app
         $scope.$watchGroup([
-            'vm.visibility.mapPreviewPanel',
+            'vm.activity.mapPreviewPanel',
             'vm.geosearchLocation',
             'vm.detailEndpoint'
         ], () => {
@@ -66,7 +66,7 @@ import {
                 .keys(endpointTypes)
                 .some((typeKey) => vm.detailEndpoint.includes(endpointTypes[typeKey]));
 
-            if (vm.visibility.mapPreviewPanel && (vm.geosearchLocation || detailActive)) {
+            if (vm.activity.mapPreviewPanel && (vm.geosearchLocation || detailActive)) {
                 store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });
             } else {
                 store.dispatch({ type: 'CLOSE_MAP_PREVIEW_PANEL' });
