@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a suggestion 1`] = `
+exports[`HeaderSearchContainer allows the user to clear the query and suggestions by clicking on the clear button 1`] = `
 <Connect(HeaderSearchContainer)>
   <HeaderSearchContainer
     activeSuggestion={
@@ -8,7 +8,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
         "index": -1,
       }
     }
-    displayQuery=""
+    displayQuery="dijk"
     isDatasetView={false}
     isMapFullscreen={false}
     numberOfSuggestions={8}
@@ -92,7 +92,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
         },
       ]
     }
-    typedQuery=""
+    typedQuery="dijk"
   >
     <AutoSuggest
       activeSuggestion={
@@ -100,7 +100,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
           "index": -1,
         }
       }
-      highlightQuery=""
+      highlightQuery="dijk"
       legendTitle="Data zoeken"
       numberOfSuggestions={8}
       onSubmit={[Function]}
@@ -108,7 +108,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
       onSuggestionSelection={[Function]}
       onTextInput={[Function]}
       placeHolder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
-      query=""
+      query="dijk"
       queryFromUrl=""
       suggestions={
         Array [
@@ -216,8 +216,23 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
               placeholder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
               spellCheck="false"
               type="text"
-              value=""
+              value="dijk"
             />
+            <button
+              className="qa-search-form__clear auto-suggest__clear"
+              onClick={[Function]}
+              title="Wis zoektekst"
+              type="button"
+            >
+              <Component>
+                mock-svg
+              </Component>
+              <span
+                className="u-sr-only"
+              >
+                Wis zoektekst
+              </span>
+            </button>
           </div>
           <div
             className="auto-suggest__dropdown"
@@ -260,7 +275,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
               }
               key="Straatnamen"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -276,7 +291,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                     isActive={false}
                     key="Dijkbraak0"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -297,7 +312,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>braak",
                             }
                           }
                         />
@@ -309,7 +324,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                     isActive={false}
                     key="Dijkdwarsstraat1"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -330,7 +345,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span>w<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>dwarsstraat",
                             }
                           }
                         />
@@ -342,7 +357,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                     isActive={false}
                     key="Dijkgraafplein2"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -363,7 +378,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>f<span class=\\"auto-suggest__dropdown__highlight\\"></span>p<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>graafplein",
                             }
                           }
                         />
@@ -394,7 +409,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
               }
               key="Gebieden"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -410,7 +425,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                     isActive={false}
                     key="Hoge Dijk (buurt)3"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -431,7 +446,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>(<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>)<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "Hoge <span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span> (buurt)",
                             }
                           }
                         />
@@ -474,7 +489,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
               }
               key="Monumenten"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -490,7 +505,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                     isActive={false}
                     key="DIJKLICHAAM SPAARNDAMMERDIJK4"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -511,7 +526,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>L<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>C<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>S<span class=\\"auto-suggest__dropdown__highlight\\"></span>P<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>E<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
                             }
                           }
                         />
@@ -523,7 +538,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                     isActive={false}
                     key="Dijkstraat 495"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -544,7 +559,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>4<span class=\\"auto-suggest__dropdown__highlight\\"></span>9<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>straat 49",
                             }
                           }
                         />
@@ -556,7 +571,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                     isActive={false}
                     key="DIJKLICHAAM SPAARNDAMMERDIJK6"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -577,7 +592,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>L<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>C<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>S<span class=\\"auto-suggest__dropdown__highlight\\"></span>P<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>E<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
                             }
                           }
                         />
@@ -608,7 +623,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
               }
               key="Datasets"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -624,7 +639,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                     isActive={false}
                     key="Registratie actueel hoogtebestand Nederland (AHN)7"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -645,7 +660,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>c<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>h<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>(<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>)<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "Registratie actueel hoogtebestand Nederland (AHN)",
                             }
                           }
                         />
@@ -658,7 +673,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
           </div>
           <button
             className="auto-suggest__submit qa-search-form-submit"
-            disabled={true}
+            disabled={false}
             title="Zoeken"
             type="submit"
           >
@@ -678,685 +693,89 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
 </Connect(HeaderSearchContainer)>
 `;
 
-exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the keyboard to dismiss the suggestions 1`] = `
-<Connect(HeaderSearchContainer)>
-  <HeaderSearchContainer
-    activeSuggestion={
+exports[`HeaderSearchContainer allows the user to clear the query and suggestions by clicking on the clear button 2`] = `
+Object {
+  "autoSuggest": Object {
+    "count": 8,
+    "displayQuery": "dijk",
+    "error": "",
+    "isLoading": false,
+    "suggestions": Array [
       Object {
-        "index": -1,
-      }
-    }
-    displayQuery=""
-    isDatasetView={false}
-    isMapFullscreen={false}
-    numberOfSuggestions={8}
-    onCleanDatasetOverview={[Function]}
-    onDatasetSearch={[Function]}
-    onDetailLoad={[Function]}
-    onGetSuggestions={[Function]}
-    onSearch={[Function]}
-    onSuggestionActivate={[Function]}
-    pageName=""
-    prefillQuery=""
-    suggestions={
-      Array [
-        Object {
-          "content": Array [
-            Object {
-              "category": "Straatnamen",
-              "index": 0,
-              "label": "Dijkbraak",
-              "uri": "bag/openbareruimte/03630000001528/",
-            },
-            Object {
-              "category": "Straatnamen",
-              "index": 1,
-              "label": "Dijkdwarsstraat",
-              "uri": "bag/openbareruimte/03630000001970/",
-            },
-            Object {
-              "category": "Straatnamen",
-              "index": 2,
-              "label": "Dijkgraafplein",
-              "uri": "bag/openbareruimte/03630000003257/",
-            },
-          ],
-          "label": "Straatnamen",
-        },
-        Object {
-          "content": Array [
-            Object {
-              "category": "Gebieden",
-              "index": 3,
-              "label": "Hoge Dijk (buurt)",
-              "uri": "gebieden/buurt/03630000000491/",
-            },
-          ],
-          "label": "Gebieden",
-        },
-        Object {
-          "content": Array [
-            Object {
-              "category": "Monumenten",
-              "index": 4,
-              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
-              "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
-            },
-            Object {
-              "category": "Monumenten",
-              "index": 5,
-              "label": "Dijkstraat 49",
-              "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
-            },
-            Object {
-              "category": "Monumenten",
-              "index": 6,
-              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
-              "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
-            },
-          ],
-          "label": "Monumenten",
-        },
-        Object {
-          "content": Array [
-            Object {
-              "category": "Datasets",
-              "index": 7,
-              "label": "Registratie actueel hoogtebestand Nederland (AHN)",
-              "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
-            },
-          ],
-          "label": "Datasets",
-        },
-      ]
-    }
-    typedQuery=""
-  >
-    <AutoSuggest
-      activeSuggestion={
-        Object {
-          "index": -1,
-        }
-      }
-      highlightQuery=""
-      legendTitle="Data zoeken"
-      numberOfSuggestions={8}
-      onSubmit={[Function]}
-      onSuggestionActivate={[Function]}
-      onSuggestionSelection={[Function]}
-      onTextInput={[Function]}
-      placeHolder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
-      query=""
-      queryFromUrl=""
-      suggestions={
-        Array [
+        "content": Array [
           Object {
-            "content": Array [
-              Object {
-                "category": "Straatnamen",
-                "index": 0,
-                "label": "Dijkbraak",
-                "uri": "bag/openbareruimte/03630000001528/",
-              },
-              Object {
-                "category": "Straatnamen",
-                "index": 1,
-                "label": "Dijkdwarsstraat",
-                "uri": "bag/openbareruimte/03630000001970/",
-              },
-              Object {
-                "category": "Straatnamen",
-                "index": 2,
-                "label": "Dijkgraafplein",
-                "uri": "bag/openbareruimte/03630000003257/",
-              },
-            ],
-            "label": "Straatnamen",
+            "category": "Straatnamen",
+            "index": 0,
+            "label": "Dijkbraak",
+            "uri": "bag/openbareruimte/03630000001528/",
           },
           Object {
-            "content": Array [
-              Object {
-                "category": "Gebieden",
-                "index": 3,
-                "label": "Hoge Dijk (buurt)",
-                "uri": "gebieden/buurt/03630000000491/",
-              },
-            ],
-            "label": "Gebieden",
+            "category": "Straatnamen",
+            "index": 1,
+            "label": "Dijkdwarsstraat",
+            "uri": "bag/openbareruimte/03630000001970/",
           },
           Object {
-            "content": Array [
-              Object {
-                "category": "Monumenten",
-                "index": 4,
-                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
-                "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
-              },
-              Object {
-                "category": "Monumenten",
-                "index": 5,
-                "label": "Dijkstraat 49",
-                "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
-              },
-              Object {
-                "category": "Monumenten",
-                "index": 6,
-                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
-                "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
-              },
-            ],
-            "label": "Monumenten",
+            "category": "Straatnamen",
+            "index": 2,
+            "label": "Dijkgraafplein",
+            "uri": "bag/openbareruimte/03630000003257/",
+          },
+        ],
+        "label": "Straatnamen",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "category": "Gebieden",
+            "index": 3,
+            "label": "Hoge Dijk (buurt)",
+            "uri": "gebieden/buurt/03630000000491/",
+          },
+        ],
+        "label": "Gebieden",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "category": "Monumenten",
+            "index": 4,
+            "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+            "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
           },
           Object {
-            "content": Array [
-              Object {
-                "category": "Datasets",
-                "index": 7,
-                "label": "Registratie actueel hoogtebestand Nederland (AHN)",
-                "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
-              },
-            ],
-            "label": "Datasets",
+            "category": "Monumenten",
+            "index": 5,
+            "label": "Dijkstraat 49",
+            "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
           },
-        ]
-      }
-    >
-      <form
-        className="auto-suggest
-          auto-suggest__backdrop"
-        onSubmit={[Function]}
-      >
-        <fieldset>
-          <legend
-            className="u-sr-only"
-          >
-            legendTitle
-          </legend>
-          <div
-            className="auto-suggest-container"
-          >
-            <label
-              className="u-sr-only"
-              htmlFor="auto-suggest__input"
-            >
-              zoektekst
-            </label>
-            <input
-              autoCapitalize="off"
-              autoComplete="off"
-              autoCorrect="off"
-              className="auto-suggest__input"
-              id="auto-suggest__input"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              placeholder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
-              spellCheck="false"
-              type="text"
-              value=""
-            />
-          </div>
-          <div
-            className="auto-suggest__dropdown"
-          >
-            <h3
-              className="auto-suggest__tip"
-            >
-              Enkele suggesties
-            </h3>
-            <AutoSuggestCategory
-              activeSuggestion={
-                Object {
-                  "index": -1,
-                }
-              }
-              category={
-                Object {
-                  "content": Array [
-                    Object {
-                      "category": "Straatnamen",
-                      "index": 0,
-                      "label": "Dijkbraak",
-                      "uri": "bag/openbareruimte/03630000001528/",
-                    },
-                    Object {
-                      "category": "Straatnamen",
-                      "index": 1,
-                      "label": "Dijkdwarsstraat",
-                      "uri": "bag/openbareruimte/03630000001970/",
-                    },
-                    Object {
-                      "category": "Straatnamen",
-                      "index": 2,
-                      "label": "Dijkgraafplein",
-                      "uri": "bag/openbareruimte/03630000003257/",
-                    },
-                  ],
-                  "label": "Straatnamen",
-                }
-              }
-              key="Straatnamen"
-              onSuggestionSelection={[Function]}
-              query=""
-            >
-              <div
-                className="auto-suggest__dropdown-category"
-              >
-                <h4
-                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
-                >
-                  Straatnamen
-                </h4>
-                <ul>
-                  <AutoSuggestItem
-                    content="Dijkbraak"
-                    isActive={false}
-                    key="Dijkbraak0"
-                    onSuggestionSelection={[Function]}
-                    query=""
-                  >
-                    <li>
-                      <button
-                        className="
-          auto-suggest__dropdown-item
-          auto-suggest__dropdown-item--inactive
-        "
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <span
-                          className="icon"
-                        >
-                          <Component>
-                            mock-svg
-                          </Component>
-                        </span>
-                        <span
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
-                            }
-                          }
-                        />
-                      </button>
-                    </li>
-                  </AutoSuggestItem>
-                  <AutoSuggestItem
-                    content="Dijkdwarsstraat"
-                    isActive={false}
-                    key="Dijkdwarsstraat1"
-                    onSuggestionSelection={[Function]}
-                    query=""
-                  >
-                    <li>
-                      <button
-                        className="
-          auto-suggest__dropdown-item
-          auto-suggest__dropdown-item--inactive
-        "
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <span
-                          className="icon"
-                        >
-                          <Component>
-                            mock-svg
-                          </Component>
-                        </span>
-                        <span
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span>w<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
-                            }
-                          }
-                        />
-                      </button>
-                    </li>
-                  </AutoSuggestItem>
-                  <AutoSuggestItem
-                    content="Dijkgraafplein"
-                    isActive={false}
-                    key="Dijkgraafplein2"
-                    onSuggestionSelection={[Function]}
-                    query=""
-                  >
-                    <li>
-                      <button
-                        className="
-          auto-suggest__dropdown-item
-          auto-suggest__dropdown-item--inactive
-        "
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <span
-                          className="icon"
-                        >
-                          <Component>
-                            mock-svg
-                          </Component>
-                        </span>
-                        <span
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>f<span class=\\"auto-suggest__dropdown__highlight\\"></span>p<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
-                            }
-                          }
-                        />
-                      </button>
-                    </li>
-                  </AutoSuggestItem>
-                </ul>
-              </div>
-            </AutoSuggestCategory>
-            <AutoSuggestCategory
-              activeSuggestion={
-                Object {
-                  "index": -1,
-                }
-              }
-              category={
-                Object {
-                  "content": Array [
-                    Object {
-                      "category": "Gebieden",
-                      "index": 3,
-                      "label": "Hoge Dijk (buurt)",
-                      "uri": "gebieden/buurt/03630000000491/",
-                    },
-                  ],
-                  "label": "Gebieden",
-                }
-              }
-              key="Gebieden"
-              onSuggestionSelection={[Function]}
-              query=""
-            >
-              <div
-                className="auto-suggest__dropdown-category"
-              >
-                <h4
-                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
-                >
-                  Gebieden
-                </h4>
-                <ul>
-                  <AutoSuggestItem
-                    content="Hoge Dijk (buurt)"
-                    isActive={false}
-                    key="Hoge Dijk (buurt)3"
-                    onSuggestionSelection={[Function]}
-                    query=""
-                  >
-                    <li>
-                      <button
-                        className="
-          auto-suggest__dropdown-item
-          auto-suggest__dropdown-item--inactive
-        "
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <span
-                          className="icon"
-                        >
-                          <Component>
-                            mock-svg
-                          </Component>
-                        </span>
-                        <span
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>(<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>)<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
-                            }
-                          }
-                        />
-                      </button>
-                    </li>
-                  </AutoSuggestItem>
-                </ul>
-              </div>
-            </AutoSuggestCategory>
-            <AutoSuggestCategory
-              activeSuggestion={
-                Object {
-                  "index": -1,
-                }
-              }
-              category={
-                Object {
-                  "content": Array [
-                    Object {
-                      "category": "Monumenten",
-                      "index": 4,
-                      "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
-                      "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
-                    },
-                    Object {
-                      "category": "Monumenten",
-                      "index": 5,
-                      "label": "Dijkstraat 49",
-                      "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
-                    },
-                    Object {
-                      "category": "Monumenten",
-                      "index": 6,
-                      "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
-                      "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
-                    },
-                  ],
-                  "label": "Monumenten",
-                }
-              }
-              key="Monumenten"
-              onSuggestionSelection={[Function]}
-              query=""
-            >
-              <div
-                className="auto-suggest__dropdown-category"
-              >
-                <h4
-                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
-                >
-                  Monumenten
-                </h4>
-                <ul>
-                  <AutoSuggestItem
-                    content="DIJKLICHAAM SPAARNDAMMERDIJK"
-                    isActive={false}
-                    key="DIJKLICHAAM SPAARNDAMMERDIJK4"
-                    onSuggestionSelection={[Function]}
-                    query=""
-                  >
-                    <li>
-                      <button
-                        className="
-          auto-suggest__dropdown-item
-          auto-suggest__dropdown-item--inactive
-        "
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <span
-                          className="icon"
-                        >
-                          <Component>
-                            mock-svg
-                          </Component>
-                        </span>
-                        <span
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>L<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>C<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>S<span class=\\"auto-suggest__dropdown__highlight\\"></span>P<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>E<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
-                            }
-                          }
-                        />
-                      </button>
-                    </li>
-                  </AutoSuggestItem>
-                  <AutoSuggestItem
-                    content="Dijkstraat 49"
-                    isActive={false}
-                    key="Dijkstraat 495"
-                    onSuggestionSelection={[Function]}
-                    query=""
-                  >
-                    <li>
-                      <button
-                        className="
-          auto-suggest__dropdown-item
-          auto-suggest__dropdown-item--inactive
-        "
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <span
-                          className="icon"
-                        >
-                          <Component>
-                            mock-svg
-                          </Component>
-                        </span>
-                        <span
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>4<span class=\\"auto-suggest__dropdown__highlight\\"></span>9<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
-                            }
-                          }
-                        />
-                      </button>
-                    </li>
-                  </AutoSuggestItem>
-                  <AutoSuggestItem
-                    content="DIJKLICHAAM SPAARNDAMMERDIJK"
-                    isActive={false}
-                    key="DIJKLICHAAM SPAARNDAMMERDIJK6"
-                    onSuggestionSelection={[Function]}
-                    query=""
-                  >
-                    <li>
-                      <button
-                        className="
-          auto-suggest__dropdown-item
-          auto-suggest__dropdown-item--inactive
-        "
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <span
-                          className="icon"
-                        >
-                          <Component>
-                            mock-svg
-                          </Component>
-                        </span>
-                        <span
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>L<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>C<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>S<span class=\\"auto-suggest__dropdown__highlight\\"></span>P<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>E<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
-                            }
-                          }
-                        />
-                      </button>
-                    </li>
-                  </AutoSuggestItem>
-                </ul>
-              </div>
-            </AutoSuggestCategory>
-            <AutoSuggestCategory
-              activeSuggestion={
-                Object {
-                  "index": -1,
-                }
-              }
-              category={
-                Object {
-                  "content": Array [
-                    Object {
-                      "category": "Datasets",
-                      "index": 7,
-                      "label": "Registratie actueel hoogtebestand Nederland (AHN)",
-                      "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
-                    },
-                  ],
-                  "label": "Datasets",
-                }
-              }
-              key="Datasets"
-              onSuggestionSelection={[Function]}
-              query=""
-            >
-              <div
-                className="auto-suggest__dropdown-category"
-              >
-                <h4
-                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
-                >
-                  Datasets
-                </h4>
-                <ul>
-                  <AutoSuggestItem
-                    content="Registratie actueel hoogtebestand Nederland (AHN)"
-                    isActive={false}
-                    key="Registratie actueel hoogtebestand Nederland (AHN)7"
-                    onSuggestionSelection={[Function]}
-                    query=""
-                  >
-                    <li>
-                      <button
-                        className="
-          auto-suggest__dropdown-item
-          auto-suggest__dropdown-item--inactive
-        "
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <span
-                          className="icon"
-                        >
-                          <Component>
-                            mock-svg
-                          </Component>
-                        </span>
-                        <span
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>c<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>h<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>(<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>)<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
-                            }
-                          }
-                        />
-                      </button>
-                    </li>
-                  </AutoSuggestItem>
-                </ul>
-              </div>
-            </AutoSuggestCategory>
-          </div>
-          <button
-            className="auto-suggest__submit qa-search-form-submit"
-            disabled={true}
-            title="Zoeken"
-            type="submit"
-          >
-            <Component>
-              mock-svg
-            </Component>
-            <span
-              className="u-sr-only"
-            >
-              Zoeken
-            </span>
-          </button>
-        </fieldset>
-      </form>
-    </AutoSuggest>
-  </HeaderSearchContainer>
-</Connect(HeaderSearchContainer)>
+          Object {
+            "category": "Monumenten",
+            "index": 6,
+            "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+            "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+          },
+        ],
+        "label": "Monumenten",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "category": "Datasets",
+            "index": 7,
+            "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+            "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+          },
+        ],
+        "label": "Datasets",
+      },
+    ],
+    "typedQuery": "dijk",
+  },
+}
 `;
 
-exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the keyboard to dismiss the suggestions 2`] = `
+exports[`HeaderSearchContainer allows the user to clear the query and suggestions by clicking on the clear button 3`] = `
 <Connect(HeaderSearchContainer)>
   <HeaderSearchContainer
     activeSuggestion={
@@ -1597,7 +1016,92 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
 </Connect(HeaderSearchContainer)>
 `;
 
-exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the keyboard to navigate and select suggestions 1`] = `
+exports[`HeaderSearchContainer allows the user to clear the query and suggestions by clicking on the clear button 4`] = `
+Object {
+  "autoSuggest": Object {
+    "activeSuggestion": Object {
+      "index": -1,
+    },
+    "count": 0,
+    "displayQuery": "",
+    "error": "",
+    "isLoading": true,
+    "suggestions": Array [
+      Object {
+        "content": Array [
+          Object {
+            "category": "Straatnamen",
+            "index": 0,
+            "label": "Dijkbraak",
+            "uri": "bag/openbareruimte/03630000001528/",
+          },
+          Object {
+            "category": "Straatnamen",
+            "index": 1,
+            "label": "Dijkdwarsstraat",
+            "uri": "bag/openbareruimte/03630000001970/",
+          },
+          Object {
+            "category": "Straatnamen",
+            "index": 2,
+            "label": "Dijkgraafplein",
+            "uri": "bag/openbareruimte/03630000003257/",
+          },
+        ],
+        "label": "Straatnamen",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "category": "Gebieden",
+            "index": 3,
+            "label": "Hoge Dijk (buurt)",
+            "uri": "gebieden/buurt/03630000000491/",
+          },
+        ],
+        "label": "Gebieden",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "category": "Monumenten",
+            "index": 4,
+            "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+            "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+          },
+          Object {
+            "category": "Monumenten",
+            "index": 5,
+            "label": "Dijkstraat 49",
+            "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+          },
+          Object {
+            "category": "Monumenten",
+            "index": 6,
+            "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+            "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+          },
+        ],
+        "label": "Monumenten",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "category": "Datasets",
+            "index": 7,
+            "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+            "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+          },
+        ],
+        "label": "Datasets",
+      },
+    ],
+    "typedQuery": "",
+  },
+}
+`;
+
+exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a suggestion 1`] = `
 <Connect(HeaderSearchContainer)>
   <HeaderSearchContainer
     activeSuggestion={
@@ -1605,7 +1109,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
         "index": -1,
       }
     }
-    displayQuery=""
+    displayQuery="dijk"
     isDatasetView={false}
     isMapFullscreen={false}
     numberOfSuggestions={8}
@@ -1689,7 +1193,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
         },
       ]
     }
-    typedQuery=""
+    typedQuery="dijk"
   >
     <AutoSuggest
       activeSuggestion={
@@ -1697,7 +1201,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
           "index": -1,
         }
       }
-      highlightQuery=""
+      highlightQuery="dijk"
       legendTitle="Data zoeken"
       numberOfSuggestions={8}
       onSubmit={[Function]}
@@ -1705,7 +1209,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
       onSuggestionSelection={[Function]}
       onTextInput={[Function]}
       placeHolder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
-      query=""
+      query="dijk"
       queryFromUrl=""
       suggestions={
         Array [
@@ -1813,8 +1317,23 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               placeholder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
               spellCheck="false"
               type="text"
-              value=""
+              value="dijk"
             />
+            <button
+              className="qa-search-form__clear auto-suggest__clear"
+              onClick={[Function]}
+              title="Wis zoektekst"
+              type="button"
+            >
+              <Component>
+                mock-svg
+              </Component>
+              <span
+                className="u-sr-only"
+              >
+                Wis zoektekst
+              </span>
+            </button>
           </div>
           <div
             className="auto-suggest__dropdown"
@@ -1857,7 +1376,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               }
               key="Straatnamen"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -1873,7 +1392,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="Dijkbraak0"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -1894,7 +1413,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>braak",
                             }
                           }
                         />
@@ -1906,7 +1425,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="Dijkdwarsstraat1"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -1927,7 +1446,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span>w<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>dwarsstraat",
                             }
                           }
                         />
@@ -1939,7 +1458,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="Dijkgraafplein2"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -1960,7 +1479,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>f<span class=\\"auto-suggest__dropdown__highlight\\"></span>p<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>graafplein",
                             }
                           }
                         />
@@ -1991,7 +1510,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               }
               key="Gebieden"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -2007,7 +1526,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="Hoge Dijk (buurt)3"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2028,7 +1547,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>(<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>)<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "Hoge <span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span> (buurt)",
                             }
                           }
                         />
@@ -2071,7 +1590,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               }
               key="Monumenten"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -2087,7 +1606,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="DIJKLICHAAM SPAARNDAMMERDIJK4"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2108,7 +1627,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>L<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>C<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>S<span class=\\"auto-suggest__dropdown__highlight\\"></span>P<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>E<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
                             }
                           }
                         />
@@ -2120,7 +1639,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="Dijkstraat 495"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2141,7 +1660,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>4<span class=\\"auto-suggest__dropdown__highlight\\"></span>9<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>straat 49",
                             }
                           }
                         />
@@ -2153,7 +1672,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="DIJKLICHAAM SPAARNDAMMERDIJK6"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2174,7 +1693,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>L<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>C<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>S<span class=\\"auto-suggest__dropdown__highlight\\"></span>P<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>E<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
                             }
                           }
                         />
@@ -2205,7 +1724,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               }
               key="Datasets"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -2221,7 +1740,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="Registratie actueel hoogtebestand Nederland (AHN)7"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2242,7 +1761,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>c<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>h<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>(<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>)<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "Registratie actueel hoogtebestand Nederland (AHN)",
                             }
                           }
                         />
@@ -2255,7 +1774,2598 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
           </div>
           <button
             className="auto-suggest__submit qa-search-form-submit"
-            disabled={true}
+            disabled={false}
+            title="Zoeken"
+            type="submit"
+          >
+            <Component>
+              mock-svg
+            </Component>
+            <span
+              className="u-sr-only"
+            >
+              Zoeken
+            </span>
+          </button>
+        </fieldset>
+      </form>
+    </AutoSuggest>
+  </HeaderSearchContainer>
+</Connect(HeaderSearchContainer)>
+`;
+
+exports[`HeaderSearchContainer auto-suggest dropdown allows the user to dismiss the suggestions when blurring the input field 1`] = `
+<Connect(HeaderSearchContainer)>
+  <HeaderSearchContainer
+    activeSuggestion={
+      Object {
+        "index": -1,
+      }
+    }
+    displayQuery="dijk"
+    isDatasetView={false}
+    isMapFullscreen={false}
+    numberOfSuggestions={8}
+    onCleanDatasetOverview={[Function]}
+    onDatasetSearch={[Function]}
+    onDetailLoad={[Function]}
+    onGetSuggestions={[Function]}
+    onSearch={[Function]}
+    onSuggestionActivate={[Function]}
+    pageName=""
+    prefillQuery=""
+    suggestions={
+      Array [
+        Object {
+          "content": Array [
+            Object {
+              "category": "Straatnamen",
+              "index": 0,
+              "label": "Dijkbraak",
+              "uri": "bag/openbareruimte/03630000001528/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 1,
+              "label": "Dijkdwarsstraat",
+              "uri": "bag/openbareruimte/03630000001970/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 2,
+              "label": "Dijkgraafplein",
+              "uri": "bag/openbareruimte/03630000003257/",
+            },
+          ],
+          "label": "Straatnamen",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Gebieden",
+              "index": 3,
+              "label": "Hoge Dijk (buurt)",
+              "uri": "gebieden/buurt/03630000000491/",
+            },
+          ],
+          "label": "Gebieden",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Monumenten",
+              "index": 4,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 5,
+              "label": "Dijkstraat 49",
+              "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 6,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+            },
+          ],
+          "label": "Monumenten",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Datasets",
+              "index": 7,
+              "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+              "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+            },
+          ],
+          "label": "Datasets",
+        },
+      ]
+    }
+    typedQuery="dijk"
+  >
+    <AutoSuggest
+      activeSuggestion={
+        Object {
+          "index": -1,
+        }
+      }
+      highlightQuery="dijk"
+      legendTitle="Data zoeken"
+      numberOfSuggestions={8}
+      onSubmit={[Function]}
+      onSuggestionActivate={[Function]}
+      onSuggestionSelection={[Function]}
+      onTextInput={[Function]}
+      placeHolder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+      query="dijk"
+      queryFromUrl=""
+      suggestions={
+        Array [
+          Object {
+            "content": Array [
+              Object {
+                "category": "Straatnamen",
+                "index": 0,
+                "label": "Dijkbraak",
+                "uri": "bag/openbareruimte/03630000001528/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 1,
+                "label": "Dijkdwarsstraat",
+                "uri": "bag/openbareruimte/03630000001970/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 2,
+                "label": "Dijkgraafplein",
+                "uri": "bag/openbareruimte/03630000003257/",
+              },
+            ],
+            "label": "Straatnamen",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Gebieden",
+                "index": 3,
+                "label": "Hoge Dijk (buurt)",
+                "uri": "gebieden/buurt/03630000000491/",
+              },
+            ],
+            "label": "Gebieden",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Monumenten",
+                "index": 4,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 5,
+                "label": "Dijkstraat 49",
+                "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 6,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+              },
+            ],
+            "label": "Monumenten",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Datasets",
+                "index": 7,
+                "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+                "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+              },
+            ],
+            "label": "Datasets",
+          },
+        ]
+      }
+    >
+      <form
+        className="auto-suggest
+          auto-suggest__backdrop"
+        onSubmit={[Function]}
+      >
+        <fieldset>
+          <legend
+            className="u-sr-only"
+          >
+            legendTitle
+          </legend>
+          <div
+            className="auto-suggest-container"
+          >
+            <label
+              className="u-sr-only"
+              htmlFor="auto-suggest__input"
+            >
+              zoektekst
+            </label>
+            <input
+              autoCapitalize="off"
+              autoComplete="off"
+              autoCorrect="off"
+              className="auto-suggest__input"
+              id="auto-suggest__input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+              spellCheck="false"
+              type="text"
+              value="dijk"
+            />
+            <button
+              className="qa-search-form__clear auto-suggest__clear"
+              onClick={[Function]}
+              title="Wis zoektekst"
+              type="button"
+            >
+              <Component>
+                mock-svg
+              </Component>
+              <span
+                className="u-sr-only"
+              >
+                Wis zoektekst
+              </span>
+            </button>
+          </div>
+          <div
+            className="auto-suggest__dropdown"
+          >
+            <h3
+              className="auto-suggest__tip"
+            >
+              Enkele suggesties
+            </h3>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Straatnamen",
+                      "index": 0,
+                      "label": "Dijkbraak",
+                      "uri": "bag/openbareruimte/03630000001528/",
+                    },
+                    Object {
+                      "category": "Straatnamen",
+                      "index": 1,
+                      "label": "Dijkdwarsstraat",
+                      "uri": "bag/openbareruimte/03630000001970/",
+                    },
+                    Object {
+                      "category": "Straatnamen",
+                      "index": 2,
+                      "label": "Dijkgraafplein",
+                      "uri": "bag/openbareruimte/03630000003257/",
+                    },
+                  ],
+                  "label": "Straatnamen",
+                }
+              }
+              key="Straatnamen"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Straatnamen
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="Dijkbraak"
+                    isActive={false}
+                    key="Dijkbraak0"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>braak",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="Dijkdwarsstraat"
+                    isActive={false}
+                    key="Dijkdwarsstraat1"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>dwarsstraat",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="Dijkgraafplein"
+                    isActive={false}
+                    key="Dijkgraafplein2"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>graafplein",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Gebieden",
+                      "index": 3,
+                      "label": "Hoge Dijk (buurt)",
+                      "uri": "gebieden/buurt/03630000000491/",
+                    },
+                  ],
+                  "label": "Gebieden",
+                }
+              }
+              key="Gebieden"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Gebieden
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="Hoge Dijk (buurt)"
+                    isActive={false}
+                    key="Hoge Dijk (buurt)3"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Hoge <span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span> (buurt)",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Monumenten",
+                      "index": 4,
+                      "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                      "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+                    },
+                    Object {
+                      "category": "Monumenten",
+                      "index": 5,
+                      "label": "Dijkstraat 49",
+                      "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+                    },
+                    Object {
+                      "category": "Monumenten",
+                      "index": 6,
+                      "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                      "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+                    },
+                  ],
+                  "label": "Monumenten",
+                }
+              }
+              key="Monumenten"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Monumenten
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="DIJKLICHAAM SPAARNDAMMERDIJK"
+                    isActive={false}
+                    key="DIJKLICHAAM SPAARNDAMMERDIJK4"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="Dijkstraat 49"
+                    isActive={false}
+                    key="Dijkstraat 495"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>straat 49",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="DIJKLICHAAM SPAARNDAMMERDIJK"
+                    isActive={false}
+                    key="DIJKLICHAAM SPAARNDAMMERDIJK6"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Datasets",
+                      "index": 7,
+                      "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+                      "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+                    },
+                  ],
+                  "label": "Datasets",
+                }
+              }
+              key="Datasets"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Datasets
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="Registratie actueel hoogtebestand Nederland (AHN)"
+                    isActive={false}
+                    key="Registratie actueel hoogtebestand Nederland (AHN)7"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Registratie actueel hoogtebestand Nederland (AHN)",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+          </div>
+          <button
+            className="auto-suggest__submit qa-search-form-submit"
+            disabled={false}
+            title="Zoeken"
+            type="submit"
+          >
+            <Component>
+              mock-svg
+            </Component>
+            <span
+              className="u-sr-only"
+            >
+              Zoeken
+            </span>
+          </button>
+        </fieldset>
+      </form>
+    </AutoSuggest>
+  </HeaderSearchContainer>
+</Connect(HeaderSearchContainer)>
+`;
+
+exports[`HeaderSearchContainer auto-suggest dropdown allows the user to dismiss the suggestions when blurring the input field 2`] = `
+<Connect(HeaderSearchContainer)>
+  <HeaderSearchContainer
+    activeSuggestion={
+      Object {
+        "index": -1,
+      }
+    }
+    displayQuery="dijk"
+    isDatasetView={false}
+    isMapFullscreen={false}
+    numberOfSuggestions={8}
+    onCleanDatasetOverview={[Function]}
+    onDatasetSearch={[Function]}
+    onDetailLoad={[Function]}
+    onGetSuggestions={[Function]}
+    onSearch={[Function]}
+    onSuggestionActivate={[Function]}
+    pageName=""
+    prefillQuery=""
+    suggestions={
+      Array [
+        Object {
+          "content": Array [
+            Object {
+              "category": "Straatnamen",
+              "index": 0,
+              "label": "Dijkbraak",
+              "uri": "bag/openbareruimte/03630000001528/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 1,
+              "label": "Dijkdwarsstraat",
+              "uri": "bag/openbareruimte/03630000001970/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 2,
+              "label": "Dijkgraafplein",
+              "uri": "bag/openbareruimte/03630000003257/",
+            },
+          ],
+          "label": "Straatnamen",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Gebieden",
+              "index": 3,
+              "label": "Hoge Dijk (buurt)",
+              "uri": "gebieden/buurt/03630000000491/",
+            },
+          ],
+          "label": "Gebieden",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Monumenten",
+              "index": 4,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 5,
+              "label": "Dijkstraat 49",
+              "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 6,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+            },
+          ],
+          "label": "Monumenten",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Datasets",
+              "index": 7,
+              "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+              "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+            },
+          ],
+          "label": "Datasets",
+        },
+      ]
+    }
+    typedQuery="dijk"
+  >
+    <AutoSuggest
+      activeSuggestion={
+        Object {
+          "index": -1,
+        }
+      }
+      highlightQuery="dijk"
+      legendTitle="Data zoeken"
+      numberOfSuggestions={8}
+      onSubmit={[Function]}
+      onSuggestionActivate={[Function]}
+      onSuggestionSelection={[Function]}
+      onTextInput={[Function]}
+      placeHolder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+      query="dijk"
+      queryFromUrl=""
+      suggestions={
+        Array [
+          Object {
+            "content": Array [
+              Object {
+                "category": "Straatnamen",
+                "index": 0,
+                "label": "Dijkbraak",
+                "uri": "bag/openbareruimte/03630000001528/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 1,
+                "label": "Dijkdwarsstraat",
+                "uri": "bag/openbareruimte/03630000001970/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 2,
+                "label": "Dijkgraafplein",
+                "uri": "bag/openbareruimte/03630000003257/",
+              },
+            ],
+            "label": "Straatnamen",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Gebieden",
+                "index": 3,
+                "label": "Hoge Dijk (buurt)",
+                "uri": "gebieden/buurt/03630000000491/",
+              },
+            ],
+            "label": "Gebieden",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Monumenten",
+                "index": 4,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 5,
+                "label": "Dijkstraat 49",
+                "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 6,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+              },
+            ],
+            "label": "Monumenten",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Datasets",
+                "index": 7,
+                "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+                "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+              },
+            ],
+            "label": "Datasets",
+          },
+        ]
+      }
+    >
+      <form
+        className="auto-suggest
+          "
+        onSubmit={[Function]}
+      >
+        <fieldset>
+          <legend
+            className="u-sr-only"
+          >
+            legendTitle
+          </legend>
+          <div
+            className="auto-suggest-container"
+          >
+            <label
+              className="u-sr-only"
+              htmlFor="auto-suggest__input"
+            >
+              zoektekst
+            </label>
+            <input
+              autoCapitalize="off"
+              autoComplete="off"
+              autoCorrect="off"
+              className="auto-suggest__input"
+              id="auto-suggest__input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+              spellCheck="false"
+              type="text"
+              value="dijk"
+            />
+            <button
+              className="qa-search-form__clear auto-suggest__clear"
+              onClick={[Function]}
+              title="Wis zoektekst"
+              type="button"
+            >
+              <Component>
+                mock-svg
+              </Component>
+              <span
+                className="u-sr-only"
+              >
+                Wis zoektekst
+              </span>
+            </button>
+          </div>
+          <button
+            className="auto-suggest__submit qa-search-form-submit"
+            disabled={false}
+            title="Zoeken"
+            type="submit"
+          >
+            <Component>
+              mock-svg
+            </Component>
+            <span
+              className="u-sr-only"
+            >
+              Zoeken
+            </span>
+          </button>
+        </fieldset>
+      </form>
+    </AutoSuggest>
+  </HeaderSearchContainer>
+</Connect(HeaderSearchContainer)>
+`;
+
+exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the keyboard to dismiss the suggestions 1`] = `
+<Connect(HeaderSearchContainer)>
+  <HeaderSearchContainer
+    activeSuggestion={
+      Object {
+        "index": -1,
+      }
+    }
+    displayQuery="dijk"
+    isDatasetView={false}
+    isMapFullscreen={false}
+    numberOfSuggestions={8}
+    onCleanDatasetOverview={[Function]}
+    onDatasetSearch={[Function]}
+    onDetailLoad={[Function]}
+    onGetSuggestions={[Function]}
+    onSearch={[Function]}
+    onSuggestionActivate={[Function]}
+    pageName=""
+    prefillQuery=""
+    suggestions={
+      Array [
+        Object {
+          "content": Array [
+            Object {
+              "category": "Straatnamen",
+              "index": 0,
+              "label": "Dijkbraak",
+              "uri": "bag/openbareruimte/03630000001528/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 1,
+              "label": "Dijkdwarsstraat",
+              "uri": "bag/openbareruimte/03630000001970/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 2,
+              "label": "Dijkgraafplein",
+              "uri": "bag/openbareruimte/03630000003257/",
+            },
+          ],
+          "label": "Straatnamen",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Gebieden",
+              "index": 3,
+              "label": "Hoge Dijk (buurt)",
+              "uri": "gebieden/buurt/03630000000491/",
+            },
+          ],
+          "label": "Gebieden",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Monumenten",
+              "index": 4,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 5,
+              "label": "Dijkstraat 49",
+              "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 6,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+            },
+          ],
+          "label": "Monumenten",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Datasets",
+              "index": 7,
+              "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+              "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+            },
+          ],
+          "label": "Datasets",
+        },
+      ]
+    }
+    typedQuery="dijk"
+  >
+    <AutoSuggest
+      activeSuggestion={
+        Object {
+          "index": -1,
+        }
+      }
+      highlightQuery="dijk"
+      legendTitle="Data zoeken"
+      numberOfSuggestions={8}
+      onSubmit={[Function]}
+      onSuggestionActivate={[Function]}
+      onSuggestionSelection={[Function]}
+      onTextInput={[Function]}
+      placeHolder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+      query="dijk"
+      queryFromUrl=""
+      suggestions={
+        Array [
+          Object {
+            "content": Array [
+              Object {
+                "category": "Straatnamen",
+                "index": 0,
+                "label": "Dijkbraak",
+                "uri": "bag/openbareruimte/03630000001528/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 1,
+                "label": "Dijkdwarsstraat",
+                "uri": "bag/openbareruimte/03630000001970/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 2,
+                "label": "Dijkgraafplein",
+                "uri": "bag/openbareruimte/03630000003257/",
+              },
+            ],
+            "label": "Straatnamen",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Gebieden",
+                "index": 3,
+                "label": "Hoge Dijk (buurt)",
+                "uri": "gebieden/buurt/03630000000491/",
+              },
+            ],
+            "label": "Gebieden",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Monumenten",
+                "index": 4,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 5,
+                "label": "Dijkstraat 49",
+                "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 6,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+              },
+            ],
+            "label": "Monumenten",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Datasets",
+                "index": 7,
+                "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+                "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+              },
+            ],
+            "label": "Datasets",
+          },
+        ]
+      }
+    >
+      <form
+        className="auto-suggest
+          auto-suggest__backdrop"
+        onSubmit={[Function]}
+      >
+        <fieldset>
+          <legend
+            className="u-sr-only"
+          >
+            legendTitle
+          </legend>
+          <div
+            className="auto-suggest-container"
+          >
+            <label
+              className="u-sr-only"
+              htmlFor="auto-suggest__input"
+            >
+              zoektekst
+            </label>
+            <input
+              autoCapitalize="off"
+              autoComplete="off"
+              autoCorrect="off"
+              className="auto-suggest__input"
+              id="auto-suggest__input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+              spellCheck="false"
+              type="text"
+              value="dijk"
+            />
+            <button
+              className="qa-search-form__clear auto-suggest__clear"
+              onClick={[Function]}
+              title="Wis zoektekst"
+              type="button"
+            >
+              <Component>
+                mock-svg
+              </Component>
+              <span
+                className="u-sr-only"
+              >
+                Wis zoektekst
+              </span>
+            </button>
+          </div>
+          <div
+            className="auto-suggest__dropdown"
+          >
+            <h3
+              className="auto-suggest__tip"
+            >
+              Enkele suggesties
+            </h3>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Straatnamen",
+                      "index": 0,
+                      "label": "Dijkbraak",
+                      "uri": "bag/openbareruimte/03630000001528/",
+                    },
+                    Object {
+                      "category": "Straatnamen",
+                      "index": 1,
+                      "label": "Dijkdwarsstraat",
+                      "uri": "bag/openbareruimte/03630000001970/",
+                    },
+                    Object {
+                      "category": "Straatnamen",
+                      "index": 2,
+                      "label": "Dijkgraafplein",
+                      "uri": "bag/openbareruimte/03630000003257/",
+                    },
+                  ],
+                  "label": "Straatnamen",
+                }
+              }
+              key="Straatnamen"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Straatnamen
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="Dijkbraak"
+                    isActive={false}
+                    key="Dijkbraak0"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>braak",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="Dijkdwarsstraat"
+                    isActive={false}
+                    key="Dijkdwarsstraat1"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>dwarsstraat",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="Dijkgraafplein"
+                    isActive={false}
+                    key="Dijkgraafplein2"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>graafplein",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Gebieden",
+                      "index": 3,
+                      "label": "Hoge Dijk (buurt)",
+                      "uri": "gebieden/buurt/03630000000491/",
+                    },
+                  ],
+                  "label": "Gebieden",
+                }
+              }
+              key="Gebieden"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Gebieden
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="Hoge Dijk (buurt)"
+                    isActive={false}
+                    key="Hoge Dijk (buurt)3"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Hoge <span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span> (buurt)",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Monumenten",
+                      "index": 4,
+                      "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                      "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+                    },
+                    Object {
+                      "category": "Monumenten",
+                      "index": 5,
+                      "label": "Dijkstraat 49",
+                      "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+                    },
+                    Object {
+                      "category": "Monumenten",
+                      "index": 6,
+                      "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                      "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+                    },
+                  ],
+                  "label": "Monumenten",
+                }
+              }
+              key="Monumenten"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Monumenten
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="DIJKLICHAAM SPAARNDAMMERDIJK"
+                    isActive={false}
+                    key="DIJKLICHAAM SPAARNDAMMERDIJK4"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="Dijkstraat 49"
+                    isActive={false}
+                    key="Dijkstraat 495"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>straat 49",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="DIJKLICHAAM SPAARNDAMMERDIJK"
+                    isActive={false}
+                    key="DIJKLICHAAM SPAARNDAMMERDIJK6"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Datasets",
+                      "index": 7,
+                      "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+                      "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+                    },
+                  ],
+                  "label": "Datasets",
+                }
+              }
+              key="Datasets"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Datasets
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="Registratie actueel hoogtebestand Nederland (AHN)"
+                    isActive={false}
+                    key="Registratie actueel hoogtebestand Nederland (AHN)7"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Registratie actueel hoogtebestand Nederland (AHN)",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+          </div>
+          <button
+            className="auto-suggest__submit qa-search-form-submit"
+            disabled={false}
+            title="Zoeken"
+            type="submit"
+          >
+            <Component>
+              mock-svg
+            </Component>
+            <span
+              className="u-sr-only"
+            >
+              Zoeken
+            </span>
+          </button>
+        </fieldset>
+      </form>
+    </AutoSuggest>
+  </HeaderSearchContainer>
+</Connect(HeaderSearchContainer)>
+`;
+
+exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the keyboard to dismiss the suggestions 2`] = `
+<Connect(HeaderSearchContainer)>
+  <HeaderSearchContainer
+    activeSuggestion={
+      Object {
+        "index": -1,
+      }
+    }
+    displayQuery=""
+    isDatasetView={false}
+    isMapFullscreen={false}
+    numberOfSuggestions={0}
+    onCleanDatasetOverview={[Function]}
+    onDatasetSearch={[Function]}
+    onDetailLoad={[Function]}
+    onGetSuggestions={[Function]}
+    onSearch={[Function]}
+    onSuggestionActivate={[Function]}
+    pageName=""
+    prefillQuery=""
+    suggestions={
+      Array [
+        Object {
+          "content": Array [
+            Object {
+              "category": "Straatnamen",
+              "index": 0,
+              "label": "Dijkbraak",
+              "uri": "bag/openbareruimte/03630000001528/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 1,
+              "label": "Dijkdwarsstraat",
+              "uri": "bag/openbareruimte/03630000001970/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 2,
+              "label": "Dijkgraafplein",
+              "uri": "bag/openbareruimte/03630000003257/",
+            },
+          ],
+          "label": "Straatnamen",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Gebieden",
+              "index": 3,
+              "label": "Hoge Dijk (buurt)",
+              "uri": "gebieden/buurt/03630000000491/",
+            },
+          ],
+          "label": "Gebieden",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Monumenten",
+              "index": 4,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 5,
+              "label": "Dijkstraat 49",
+              "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 6,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+            },
+          ],
+          "label": "Monumenten",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Datasets",
+              "index": 7,
+              "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+              "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+            },
+          ],
+          "label": "Datasets",
+        },
+      ]
+    }
+    typedQuery="dijk"
+  >
+    <AutoSuggest
+      activeSuggestion={
+        Object {
+          "index": -1,
+        }
+      }
+      highlightQuery="dijk"
+      legendTitle="Data zoeken"
+      numberOfSuggestions={0}
+      onSubmit={[Function]}
+      onSuggestionActivate={[Function]}
+      onSuggestionSelection={[Function]}
+      onTextInput={[Function]}
+      placeHolder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+      query="dijk"
+      queryFromUrl=""
+      suggestions={
+        Array [
+          Object {
+            "content": Array [
+              Object {
+                "category": "Straatnamen",
+                "index": 0,
+                "label": "Dijkbraak",
+                "uri": "bag/openbareruimte/03630000001528/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 1,
+                "label": "Dijkdwarsstraat",
+                "uri": "bag/openbareruimte/03630000001970/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 2,
+                "label": "Dijkgraafplein",
+                "uri": "bag/openbareruimte/03630000003257/",
+              },
+            ],
+            "label": "Straatnamen",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Gebieden",
+                "index": 3,
+                "label": "Hoge Dijk (buurt)",
+                "uri": "gebieden/buurt/03630000000491/",
+              },
+            ],
+            "label": "Gebieden",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Monumenten",
+                "index": 4,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 5,
+                "label": "Dijkstraat 49",
+                "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 6,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+              },
+            ],
+            "label": "Monumenten",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Datasets",
+                "index": 7,
+                "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+                "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+              },
+            ],
+            "label": "Datasets",
+          },
+        ]
+      }
+    >
+      <form
+        className="auto-suggest
+          "
+        onSubmit={[Function]}
+      >
+        <fieldset>
+          <legend
+            className="u-sr-only"
+          >
+            legendTitle
+          </legend>
+          <div
+            className="auto-suggest-container"
+          >
+            <label
+              className="u-sr-only"
+              htmlFor="auto-suggest__input"
+            >
+              zoektekst
+            </label>
+            <input
+              autoCapitalize="off"
+              autoComplete="off"
+              autoCorrect="off"
+              className="auto-suggest__input"
+              id="auto-suggest__input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+              spellCheck="false"
+              type="text"
+              value="dijk"
+            />
+            <button
+              className="qa-search-form__clear auto-suggest__clear"
+              onClick={[Function]}
+              title="Wis zoektekst"
+              type="button"
+            >
+              <Component>
+                mock-svg
+              </Component>
+              <span
+                className="u-sr-only"
+              >
+                Wis zoektekst
+              </span>
+            </button>
+          </div>
+          <button
+            className="auto-suggest__submit qa-search-form-submit"
+            disabled={false}
+            title="Zoeken"
+            type="submit"
+          >
+            <Component>
+              mock-svg
+            </Component>
+            <span
+              className="u-sr-only"
+            >
+              Zoeken
+            </span>
+          </button>
+        </fieldset>
+      </form>
+    </AutoSuggest>
+  </HeaderSearchContainer>
+</Connect(HeaderSearchContainer)>
+`;
+
+exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the keyboard to navigate and select suggestions 1`] = `
+<Connect(HeaderSearchContainer)>
+  <HeaderSearchContainer
+    activeSuggestion={
+      Object {
+        "index": -1,
+      }
+    }
+    displayQuery="dijk"
+    isDatasetView={false}
+    isMapFullscreen={false}
+    numberOfSuggestions={8}
+    onCleanDatasetOverview={[Function]}
+    onDatasetSearch={[Function]}
+    onDetailLoad={[Function]}
+    onGetSuggestions={[Function]}
+    onSearch={[Function]}
+    onSuggestionActivate={[Function]}
+    pageName=""
+    prefillQuery=""
+    suggestions={
+      Array [
+        Object {
+          "content": Array [
+            Object {
+              "category": "Straatnamen",
+              "index": 0,
+              "label": "Dijkbraak",
+              "uri": "bag/openbareruimte/03630000001528/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 1,
+              "label": "Dijkdwarsstraat",
+              "uri": "bag/openbareruimte/03630000001970/",
+            },
+            Object {
+              "category": "Straatnamen",
+              "index": 2,
+              "label": "Dijkgraafplein",
+              "uri": "bag/openbareruimte/03630000003257/",
+            },
+          ],
+          "label": "Straatnamen",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Gebieden",
+              "index": 3,
+              "label": "Hoge Dijk (buurt)",
+              "uri": "gebieden/buurt/03630000000491/",
+            },
+          ],
+          "label": "Gebieden",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Monumenten",
+              "index": 4,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 5,
+              "label": "Dijkstraat 49",
+              "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+            },
+            Object {
+              "category": "Monumenten",
+              "index": 6,
+              "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+              "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+            },
+          ],
+          "label": "Monumenten",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "category": "Datasets",
+              "index": 7,
+              "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+              "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+            },
+          ],
+          "label": "Datasets",
+        },
+      ]
+    }
+    typedQuery="dijk"
+  >
+    <AutoSuggest
+      activeSuggestion={
+        Object {
+          "index": -1,
+        }
+      }
+      highlightQuery="dijk"
+      legendTitle="Data zoeken"
+      numberOfSuggestions={8}
+      onSubmit={[Function]}
+      onSuggestionActivate={[Function]}
+      onSuggestionSelection={[Function]}
+      onTextInput={[Function]}
+      placeHolder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+      query="dijk"
+      queryFromUrl=""
+      suggestions={
+        Array [
+          Object {
+            "content": Array [
+              Object {
+                "category": "Straatnamen",
+                "index": 0,
+                "label": "Dijkbraak",
+                "uri": "bag/openbareruimte/03630000001528/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 1,
+                "label": "Dijkdwarsstraat",
+                "uri": "bag/openbareruimte/03630000001970/",
+              },
+              Object {
+                "category": "Straatnamen",
+                "index": 2,
+                "label": "Dijkgraafplein",
+                "uri": "bag/openbareruimte/03630000003257/",
+              },
+            ],
+            "label": "Straatnamen",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Gebieden",
+                "index": 3,
+                "label": "Hoge Dijk (buurt)",
+                "uri": "gebieden/buurt/03630000000491/",
+              },
+            ],
+            "label": "Gebieden",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Monumenten",
+                "index": 4,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 5,
+                "label": "Dijkstraat 49",
+                "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+              },
+              Object {
+                "category": "Monumenten",
+                "index": 6,
+                "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+              },
+            ],
+            "label": "Monumenten",
+          },
+          Object {
+            "content": Array [
+              Object {
+                "category": "Datasets",
+                "index": 7,
+                "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+                "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+              },
+            ],
+            "label": "Datasets",
+          },
+        ]
+      }
+    >
+      <form
+        className="auto-suggest
+          auto-suggest__backdrop"
+        onSubmit={[Function]}
+      >
+        <fieldset>
+          <legend
+            className="u-sr-only"
+          >
+            legendTitle
+          </legend>
+          <div
+            className="auto-suggest-container"
+          >
+            <label
+              className="u-sr-only"
+              htmlFor="auto-suggest__input"
+            >
+              zoektekst
+            </label>
+            <input
+              autoCapitalize="off"
+              autoComplete="off"
+              autoCorrect="off"
+              className="auto-suggest__input"
+              id="auto-suggest__input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord."
+              spellCheck="false"
+              type="text"
+              value="dijk"
+            />
+            <button
+              className="qa-search-form__clear auto-suggest__clear"
+              onClick={[Function]}
+              title="Wis zoektekst"
+              type="button"
+            >
+              <Component>
+                mock-svg
+              </Component>
+              <span
+                className="u-sr-only"
+              >
+                Wis zoektekst
+              </span>
+            </button>
+          </div>
+          <div
+            className="auto-suggest__dropdown"
+          >
+            <h3
+              className="auto-suggest__tip"
+            >
+              Enkele suggesties
+            </h3>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Straatnamen",
+                      "index": 0,
+                      "label": "Dijkbraak",
+                      "uri": "bag/openbareruimte/03630000001528/",
+                    },
+                    Object {
+                      "category": "Straatnamen",
+                      "index": 1,
+                      "label": "Dijkdwarsstraat",
+                      "uri": "bag/openbareruimte/03630000001970/",
+                    },
+                    Object {
+                      "category": "Straatnamen",
+                      "index": 2,
+                      "label": "Dijkgraafplein",
+                      "uri": "bag/openbareruimte/03630000003257/",
+                    },
+                  ],
+                  "label": "Straatnamen",
+                }
+              }
+              key="Straatnamen"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Straatnamen
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="Dijkbraak"
+                    isActive={false}
+                    key="Dijkbraak0"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>braak",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="Dijkdwarsstraat"
+                    isActive={false}
+                    key="Dijkdwarsstraat1"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>dwarsstraat",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="Dijkgraafplein"
+                    isActive={false}
+                    key="Dijkgraafplein2"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>graafplein",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Gebieden",
+                      "index": 3,
+                      "label": "Hoge Dijk (buurt)",
+                      "uri": "gebieden/buurt/03630000000491/",
+                    },
+                  ],
+                  "label": "Gebieden",
+                }
+              }
+              key="Gebieden"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Gebieden
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="Hoge Dijk (buurt)"
+                    isActive={false}
+                    key="Hoge Dijk (buurt)3"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Hoge <span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span> (buurt)",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Monumenten",
+                      "index": 4,
+                      "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                      "uri": "monumenten/monumenten/1871732e-783e-4890-8759-793c1c1927af/",
+                    },
+                    Object {
+                      "category": "Monumenten",
+                      "index": 5,
+                      "label": "Dijkstraat 49",
+                      "uri": "monumenten/monumenten/6eaa9645-0564-4df1-82a5-4ed8659945ae/",
+                    },
+                    Object {
+                      "category": "Monumenten",
+                      "index": 6,
+                      "label": "DIJKLICHAAM SPAARNDAMMERDIJK",
+                      "uri": "monumenten/monumenten/e56dd328-0db8-4b26-be54-a51b4e752a1a/",
+                    },
+                  ],
+                  "label": "Monumenten",
+                }
+              }
+              key="Monumenten"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Monumenten
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="DIJKLICHAAM SPAARNDAMMERDIJK"
+                    isActive={false}
+                    key="DIJKLICHAAM SPAARNDAMMERDIJK4"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="Dijkstraat 49"
+                    isActive={false}
+                    key="Dijkstraat 495"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>straat 49",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                  <AutoSuggestItem
+                    content="DIJKLICHAAM SPAARNDAMMERDIJK"
+                    isActive={false}
+                    key="DIJKLICHAAM SPAARNDAMMERDIJK6"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+            <AutoSuggestCategory
+              activeSuggestion={
+                Object {
+                  "index": -1,
+                }
+              }
+              category={
+                Object {
+                  "content": Array [
+                    Object {
+                      "category": "Datasets",
+                      "index": 7,
+                      "label": "Registratie actueel hoogtebestand Nederland (AHN)",
+                      "uri": "dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn",
+                    },
+                  ],
+                  "label": "Datasets",
+                }
+              }
+              key="Datasets"
+              onSuggestionSelection={[Function]}
+              query="dijk"
+            >
+              <div
+                className="auto-suggest__dropdown-category"
+              >
+                <h4
+                  className="auto-suggest__dropdown-category__heading qa-auto-suggest-header"
+                >
+                  Datasets
+                </h4>
+                <ul>
+                  <AutoSuggestItem
+                    content="Registratie actueel hoogtebestand Nederland (AHN)"
+                    isActive={false}
+                    key="Registratie actueel hoogtebestand Nederland (AHN)7"
+                    onSuggestionSelection={[Function]}
+                    query="dijk"
+                  >
+                    <li>
+                      <button
+                        className="
+          auto-suggest__dropdown-item
+          auto-suggest__dropdown-item--inactive
+        "
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="icon"
+                        >
+                          <Component>
+                            mock-svg
+                          </Component>
+                        </span>
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Registratie actueel hoogtebestand Nederland (AHN)",
+                            }
+                          }
+                        />
+                      </button>
+                    </li>
+                  </AutoSuggestItem>
+                </ul>
+              </div>
+            </AutoSuggestCategory>
+          </div>
+          <button
+            className="auto-suggest__submit qa-search-form-submit"
+            disabled={false}
             title="Zoeken"
             type="submit"
           >
@@ -2370,7 +4480,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
         },
       ]
     }
-    typedQuery=""
+    typedQuery="dijk"
   >
     <AutoSuggest
       activeSuggestion={
@@ -2381,7 +4491,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
           "uri": "bag/openbareruimte/03630000001528/",
         }
       }
-      highlightQuery=""
+      highlightQuery="dijk"
       legendTitle="Data zoeken"
       numberOfSuggestions={8}
       onSubmit={[Function]}
@@ -2559,7 +4669,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               }
               key="Straatnamen"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -2575,7 +4685,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={true}
                     key="Dijkbraak0"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2596,7 +4706,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>braak",
                             }
                           }
                         />
@@ -2608,7 +4718,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="Dijkdwarsstraat1"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2629,7 +4739,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span>w<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>dwarsstraat",
                             }
                           }
                         />
@@ -2641,7 +4751,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="Dijkgraafplein2"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2662,7 +4772,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>f<span class=\\"auto-suggest__dropdown__highlight\\"></span>p<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>graafplein",
                             }
                           }
                         />
@@ -2696,7 +4806,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               }
               key="Gebieden"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -2712,7 +4822,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="Hoge Dijk (buurt)3"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2733,7 +4843,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>(<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>)<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "Hoge <span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span> (buurt)",
                             }
                           }
                         />
@@ -2779,7 +4889,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               }
               key="Monumenten"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -2795,7 +4905,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="DIJKLICHAAM SPAARNDAMMERDIJK4"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2816,7 +4926,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>L<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>C<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>S<span class=\\"auto-suggest__dropdown__highlight\\"></span>P<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>E<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
                             }
                           }
                         />
@@ -2828,7 +4938,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="Dijkstraat 495"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2849,7 +4959,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>j<span class=\\"auto-suggest__dropdown__highlight\\"></span>k<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>4<span class=\\"auto-suggest__dropdown__highlight\\"></span>9<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">Dijk</span>straat 49",
                             }
                           }
                         />
@@ -2861,7 +4971,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="DIJKLICHAAM SPAARNDAMMERDIJK6"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2882,7 +4992,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>L<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>C<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>S<span class=\\"auto-suggest__dropdown__highlight\\"></span>P<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>M<span class=\\"auto-suggest__dropdown__highlight\\"></span>E<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>D<span class=\\"auto-suggest__dropdown__highlight\\"></span>I<span class=\\"auto-suggest__dropdown__highlight\\"></span>J<span class=\\"auto-suggest__dropdown__highlight\\"></span>K<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>LICHAAM SPAARNDAMMER<span class=\\"auto-suggest__dropdown__highlight\\">DIJK</span>",
                             }
                           }
                         />
@@ -2916,7 +5026,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               }
               key="Datasets"
               onSuggestionSelection={[Function]}
-              query=""
+              query="dijk"
             >
               <div
                 className="auto-suggest__dropdown-category"
@@ -2932,7 +5042,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     isActive={false}
                     key="Registratie actueel hoogtebestand Nederland (AHN)7"
                     onSuggestionSelection={[Function]}
-                    query=""
+                    query="dijk"
                   >
                     <li>
                       <button
@@ -2953,7 +5063,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <span
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "<span class=\\"auto-suggest__dropdown__highlight\\"></span>R<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>i<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>c<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>u<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>h<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>o<span class=\\"auto-suggest__dropdown__highlight\\"></span>g<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>b<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>s<span class=\\"auto-suggest__dropdown__highlight\\"></span>t<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span>e<span class=\\"auto-suggest__dropdown__highlight\\"></span>r<span class=\\"auto-suggest__dropdown__highlight\\"></span>l<span class=\\"auto-suggest__dropdown__highlight\\"></span>a<span class=\\"auto-suggest__dropdown__highlight\\"></span>n<span class=\\"auto-suggest__dropdown__highlight\\"></span>d<span class=\\"auto-suggest__dropdown__highlight\\"></span> <span class=\\"auto-suggest__dropdown__highlight\\"></span>(<span class=\\"auto-suggest__dropdown__highlight\\"></span>A<span class=\\"auto-suggest__dropdown__highlight\\"></span>H<span class=\\"auto-suggest__dropdown__highlight\\"></span>N<span class=\\"auto-suggest__dropdown__highlight\\"></span>)<span class=\\"auto-suggest__dropdown__highlight\\"></span>",
+                              "__html": "Registratie actueel hoogtebestand Nederland (AHN)",
                             }
                           }
                         />
@@ -2986,7 +5096,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
 </Connect(HeaderSearchContainer)>
 `;
 
-exports[`HeaderSearchContainer updates the state accordingly to the input action 1`] = `
+exports[`HeaderSearchContainer gets and formats the data correctly before setting it to the state 1`] = `
 Object {
   "autoSuggest": Object {
     "count": 0,
@@ -2999,7 +5109,7 @@ Object {
 }
 `;
 
-exports[`HeaderSearchContainer updates the state accordingly to the input action 2`] = `
+exports[`HeaderSearchContainer gets and formats the data correctly before setting it to the state 2`] = `
 Object {
   "autoSuggest": Object {
     "count": 8,

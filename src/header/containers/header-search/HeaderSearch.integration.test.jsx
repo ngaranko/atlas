@@ -48,7 +48,7 @@ describe('HeaderSearchContainer', () => {
     jest.clearAllMocks();
   });
 
-  it('updates the state accordingly to the input action', () => {
+  it('gets and formats the data correctly before setting it to the state', () => {
     let storeHaseBeenCalledTimes = 0;
     store.subscribe(() => {
       storeHaseBeenCalledTimes += 1;
@@ -74,6 +74,28 @@ describe('HeaderSearchContainer', () => {
     input.simulate('change');
   });
 
+  it('allows the user to clear the query and suggestions by clicking on the clear button', (done) => {
+    const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
+
+    const input = headerSearch.find('input');
+    input.simulate('focus');
+    input.instance().value = 'dijk';
+    input.simulate('change');
+
+    // timeout to ensure all async actions are done
+    setTimeout(() => {
+      headerSearch.update();
+      expect(headerSearch).toMatchSnapshot(); // suggestions are visible
+      expect(store.getState()).toMatchSnapshot();
+      const clearButton = headerSearch.find('.auto-suggest__clear');
+      clearButton.simulate('click');
+      headerSearch.update();
+      expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
+      expect(store.getState()).toMatchSnapshot(); // query cleared
+      done();
+    }, 250);
+  });
+
   describe('auto-suggest dropdown', () => {
     it('allows the user to use the keyboard to dismiss the suggestions', (done) => {
       const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
@@ -81,9 +103,7 @@ describe('HeaderSearchContainer', () => {
       const input = headerSearch.find('input');
       input.simulate('focus');
       input.instance().value = 'dijk';
-      input.simulate('input');
       input.simulate('change');
-      input.simulate('focus');
 
       // timeout to ensure all async actions are done
       setTimeout(() => {
@@ -103,9 +123,7 @@ describe('HeaderSearchContainer', () => {
       const input = headerSearch.find('input');
       input.simulate('focus');
       input.instance().value = 'dijk';
-      input.simulate('input');
       input.simulate('change');
-      input.simulate('focus');
 
       // timeout to ensure all async actions are done
       setTimeout(() => {
@@ -129,9 +147,7 @@ describe('HeaderSearchContainer', () => {
       const input = headerSearch.find('input');
       input.simulate('focus');
       input.instance().value = 'dijk';
-      input.simulate('input');
       input.simulate('change');
-      input.simulate('focus');
 
       // timeout to ensure all async actions are done
       setTimeout(() => {
@@ -145,9 +161,55 @@ describe('HeaderSearchContainer', () => {
         done();
       }, 250);
     });
+
+    it('allows the user to dismiss the suggestions when blurring the input field', (done) => {
+      const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
+
+      const input = headerSearch.find('input');
+      input.simulate('focus');
+      input.instance().value = 'dijk';
+      input.simulate('change');
+
+      // timeout to ensure all async actions are done
+      setTimeout(() => {
+        headerSearch.update();
+        expect(headerSearch).toMatchSnapshot(); // suggestions are visible
+        input.simulate('blur');
+        // on blur the suggestions are hidden with a timeout of 200ms
+        // using jest.runAllTimers() does not work here, as this test also contains a timeout
+        // therefore a timeout in a timeout to ensure the blur timeout is ran
+        setTimeout(() => {
+          headerSearch.update();
+          expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
+          done();
+        }, 300);
+      }, 250);
+    });
+
+    it('updates the input value accordingly to the users input', (done) => {
+      const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
+
+      const input = headerSearch.find('input');
+      input.simulate('focus');
+      input.instance().value = 'dijk';
+      input.simulate('change');
+
+      // timeout to ensure all async actions are done
+      setTimeout(() => {
+        headerSearch.update();
+        expect(input.instance().value).toBe('dijk');
+        input.simulate('keyDown', { key: 'Down arrow', keyCode: 40, which: 40 });
+        headerSearch.update();
+        expect(input.instance().value).toBe('Dijkbraak');
+        input.simulate('keyDown', { key: 'Escape', keyCode: 27, which: 27 });
+        headerSearch.update();
+        expect(input.instance().value).toBe('dijk');
+        done();
+      }, 250);
+    });
   });
 
-  describe('allows the user to submit the search form', () => {
+  describe('submitting the search form', () => {
     it('regular search', () => {
       jest.spyOn(search, 'fetchSearchResultsByQuery');
       jest.spyOn(search, 'fetchDataSelection');
