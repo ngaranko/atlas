@@ -60,24 +60,22 @@
                 searchParams[propertyName.serviceType] = queryServiceType;
             }
 
-            if (!Object.keys(catalogFilters).length) {
-                deferred.reject();
-            } else {
-                api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
-                    const count = data['void:documents'];
-                    if (count) {
-                        const results = data['dcat:dataset'];
-                        deferred.resolve({
-                            numberOfPages: Math.ceil(count / config.MAX_ITEMS_PER_PAGE),
-                            numberOfRecords: count,
-                            filters: formatFilters(data['ams:facet_info'], catalogFilters),
-                            data: formatData(config, results)
-                        });
-                    } else {
-                        deferred.reject();
-                    }
-                }, deferred.reject);
-            }
+            api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
+                const count = data['void:documents'];
+                if (count) {
+                    const results = data['dcat:dataset'];
+                    deferred.resolve({
+                        numberOfPages: Math.ceil(count / config.MAX_ITEMS_PER_PAGE),
+                        numberOfRecords: count,
+                        filters: !Object.keys(catalogFilters).length ? {} :
+                          formatFilters(data['ams:facet_info'], catalogFilters),
+                        data: formatData(config, results)
+                    });
+                } else {
+                    deferred.reject();
+                }
+            }, deferred.reject);
+
             return deferred.promise;
         }
 
