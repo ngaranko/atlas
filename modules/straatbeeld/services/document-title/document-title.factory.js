@@ -14,9 +14,13 @@
         };
 
         function getTitle (straatbeeldState) {
-            let title = 'Panorama';
+            let title = straatbeeldState.isFullscreen ? 'Groot panorama' : 'Panorama';
+            if (straatbeeldState.history) {
+                title += ` (Alleen ${straatbeeldState.history})`;
+            }
+
             if (angular.isArray(straatbeeldState.location)) {
-                title += ` ${coordinatesFilter(straatbeeldState.location, 'WGS84')}`;
+                title += ` op ${coordinatesFilter(straatbeeldState.location, 'WGS84')}`;
             }
             return title;
         }
