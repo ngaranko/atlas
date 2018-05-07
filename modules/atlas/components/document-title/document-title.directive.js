@@ -154,9 +154,7 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                         scope.title = `${enrichedResult}${baseTitle}`;
 
                         $interval.cancel(trackerInterval); // cancel running interval
-                        trackerInterval = $interval(() => {
-                            triggerTracker();
-                        }, 200);
+                        trackerInterval = $interval(triggerTracker, 200);
                     });
                 }
             }
