@@ -9,10 +9,7 @@ export default function piwikTracker(data) {
 }
 
 export function trackPageNavigation() {
-  // get full path after the "/#?", as this is the way Piwik (Matomo) wants it
-  const currentPath = `?${window.location.href.split('?')[1]}`;
-
   piwikTracker(['setDocumentTitle', window.document.title]);
-  piwikTracker(['setCustomUrl', currentPath]);
+  piwikTracker(['setCustomUrl', window.location.href]);
   piwikTracker(['trackPageView']);
 }

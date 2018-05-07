@@ -1,4 +1,4 @@
-import { trackPageNavigation } from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
 
 (function () {
     angular
@@ -17,7 +17,7 @@ import { trackPageNavigation } from '../../../../src/shared/services/piwik-track
         'dpSearchResultsDocumentTitle',
         'dpStraatbeeldDocumentTitle',
         'dpCombinedDocumentTitle',
-        '$timeout'
+        '$interval'
     ];
 
     function DpDocumentTitleDirective ( // eslint-disable-line max-params
@@ -32,7 +32,7 @@ import { trackPageNavigation } from '../../../../src/shared/services/piwik-track
         dpSearchResultsDocumentTitle,
         dpStraatbeeldDocumentTitle,
         dpCombinedDocumentTitle,
-        $timeout
+        $interval
     ) {
         const mapping = [
             {
@@ -88,43 +88,27 @@ import { trackPageNavigation } from '../../../../src/shared/services/piwik-track
             return '';
         }
 
-        function hasStateSomethingLoading (state) {
-            // deep check in the state to check for an 'isLoading' key that's true
-            const stateKeys = Object.keys(state);
-            for (let i = 0; i < stateKeys.length; i++) {
-                if (state.isLoading || state[stateKeys[i]] && state[stateKeys[i]].isLoading) {
-                    return true;
-                }
-            }
-            return false;
+        function isStateLoading (state) {
+            // return isLoading keys from state reduced to one boolean
+            return Object.keys(state).reduce(
+                (acc, item) => acc || (state[item] && state[item].isLoading),
+                state.isLoading
+            );
         }
 
         function linkFn (scope, element, attrs, controller, transcludeFn) {
             const baseTitle = transcludeFn().text();
-            let trackerTimeout;
+            let trackerInterval;
 
             store.subscribe(setTitle);
 
-            scope.$watch('title', (newVal, oldVal) => {
-                if (newVal !== oldVal) {
-                    triggerTracker();
-                }
-            });
-
             function triggerTracker () {
-                // recursive function
-                // this function is triggered if the title is changed, so tracking needs to be done
-                // make sure that the page is finished loading. before actually track the navigation
-                // if the page is still loading, wait 200ms and call itself to check again.
+                // make sure that the page is finished loading.
+                // before actually tracking the navigation
                 const state = store.getState();
-                $timeout.cancel(trackerTimeout);
-
-                if (!hasStateSomethingLoading(state)) {
-                    trackPageNavigation();
-                } else {
-                    trackerTimeout = $timeout(() => {
-                        triggerTracker();
-                    }, 200);
+                if (!isStateLoading(state)) {
+                    $interval.cancel(trackerInterval);
+                    piwik.trackPageNavigation();
                 }
             }
 
@@ -168,6 +152,11 @@ import { trackPageNavigation } from '../../../../src/shared/services/piwik-track
                             ? `${result}${printOrEmbedOrPreviewTitleAddition} - `
                             : `${printOrEmbedOrPreviewTitleAddition}`;
                         scope.title = `${enrichedResult}${baseTitle}`;
+
+                        $interval.cancel(trackerInterval); // cancel running interval
+                        trackerInterval = $interval(() => {
+                            triggerTracker();
+                        }, 200);
                     });
                 }
             }

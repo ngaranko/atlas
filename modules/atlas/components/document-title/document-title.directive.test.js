@@ -5,7 +5,7 @@ describe('The dp-document-title directive', function () {
         $rootScope,
         $q,
         storeHandler,
-        $timeout;
+        $interval;
     const store = {
             subscribe: angular.noop,
             getState: angular.noop
@@ -36,11 +36,11 @@ describe('The dp-document-title directive', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_, _$timeout_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_, _$interval_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
-            $timeout = _$timeout_;
+            $interval = _$interval_;
         });
 
         spyOn(store, 'subscribe');
@@ -450,6 +450,7 @@ describe('The dp-document-title directive', function () {
             const component = getComponent();
 
             expect(component.text()).toBe('Map title - Dataportaal');
+            $interval.flush(400);
             expect(piwik.trackPageNavigation).toHaveBeenCalled();
         });
 
@@ -470,10 +471,7 @@ describe('The dp-document-title directive', function () {
                 isLoading: false
             };
 
-            // getState() is called in the setTitle() fn and in the triggerTracker() fn.
-            // isLoading is for this test 'false' in the second time getState() is
-            // called in the triggerTracker() fn.
-            // we mock it 3 times here, because of the extra call done by the setTitle() fn.
+            // we mock getState() 3 times here, because of the extra call done by the setTitle() fn
             spyOn(store, 'getState').and.returnValues(firstReturnVal, secondReturnVal, thirdReturnVal);
 
             spyOn(dashboardColumns, 'determineVisibility').and.returnValue({map: true});
@@ -484,7 +482,7 @@ describe('The dp-document-title directive', function () {
             const component = getComponent();
 
             expect(piwik.trackPageNavigation).not.toHaveBeenCalled();
-            $timeout.flush();
+            $interval.flush(400);
             expect(piwik.trackPageNavigation).toHaveBeenCalled();
             expect(component.text()).toBe('Map title - Dataportaal');
         });
