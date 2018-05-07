@@ -5,13 +5,13 @@ module.exports = {
     '!**/*.constant.js',
     '!**/*.mock.js'
   ],
-  coverageDirectory: 'coverage',
+  coverageDirectory: 'coverage/integration',
   coverageThreshold: {
     global: {
-      statements: 24,
-      branches: 35.7,
-      functions: 38.7,
-      lines: 32
+      statements: 2.4,
+      branches: 2.4,
+      functions: 2.4,
+      lines: 2.4
     }
   },
   coverageReporters: process.env.CI ? [
@@ -31,9 +31,8 @@ module.exports = {
     'enzyme-to-json/serializer'
   ],
   testMatch: [
-    '**/!(*.visual|*.integration).test.js?(x)',
-    // Do not match:
-    // foo.visual.test.jsx
+    '**/*.integration.test.js?(x)',
+    // Do match
     // foo.integration.test.jsx
   ],
   testEnvironment: 'jest-environment-jsdom-global',

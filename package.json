@@ -106,7 +106,9 @@
     "test-jest-watch": "NODE_ENV=development jest --watch",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run",
-    "test-watch": "karma start --no-single-run & jest --watch"
+    "test-watch": "karma start --no-single-run & jest --watch",
+    "test-integration": "NODE_ENV=development jest --config=jest.integration.config.js",
+    "test-integration-watch": "NODE_ENV=development jest --config=jest.integration.config.js --watch"
   },
   "repository": {
     "type": "git",

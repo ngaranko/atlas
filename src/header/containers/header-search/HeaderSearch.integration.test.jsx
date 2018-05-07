@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import createSagaMiddleware from 'redux-saga';
 
 import HeaderSearchContainer from './HeaderSearchContainer';
-import headerSearchObjects from './HeaderSearch.integration.objects';
+import headerSearchMock from './HeaderSearch.integration.mock';
 
 import watchFetchSuggestions from '../../../header/sagas/auto-suggest/auto-suggest';
 import AutoSuggestReducer from '../../ducks/auto-suggest/auto-suggest';
@@ -41,7 +41,7 @@ describe('HeaderSearchContainer', () => {
     // Only run the saga which is in scope for this test
     sagaMiddleware.run(watchFetchSuggestions);
 
-    fetch.mockResponse(JSON.stringify(headerSearchObjects.mockFetchResponse), { status: 200 });
+    fetch.mockResponse(JSON.stringify(headerSearchMock.mockFetchResponse), { status: 200 });
   });
 
   afterEach(() => {
