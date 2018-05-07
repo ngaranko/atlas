@@ -15,7 +15,7 @@ import formatDate from '../../../../src/shared/services/date-formatter/date-form
 
                 let result = startDate ? `${formatDate(startDate)} ` : '';
                 result += endDate ? `tot ${formatDate(endDate)}` : '';
-                return result;
+                return result.toLowerCase();
             }
         };
     }
