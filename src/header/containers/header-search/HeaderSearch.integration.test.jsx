@@ -74,7 +74,80 @@ describe('HeaderSearchContainer', () => {
     input.simulate('change');
   });
 
-  describe('calls upon the correct reducer on search', () => {
+  describe('auto-suggest dropdown', () => {
+    it('allows the user to use the keyboard to dismiss the suggestions', (done) => {
+      const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
+
+      const input = headerSearch.find('input');
+      input.simulate('focus');
+      input.instance().value = 'dijk';
+      input.simulate('input');
+      input.simulate('change');
+      input.simulate('focus');
+
+      // timeout to ensure all async actions are done
+      setTimeout(() => {
+        headerSearch.update();
+        expect(headerSearch).toMatchSnapshot(); // suggestions are visible
+        input.simulate('keyDown', { key: 'escape', keyCode: 27, which: 27 });
+        headerSearch.update();
+        expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
+        done();
+      }, 250);
+    });
+
+    it('allows the user to use the keyboard to navigate and select suggestions', (done) => {
+      jest.spyOn(details, 'fetchDetail');
+      const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
+
+      const input = headerSearch.find('input');
+      input.simulate('focus');
+      input.instance().value = 'dijk';
+      input.simulate('input');
+      input.simulate('change');
+      input.simulate('focus');
+
+      // timeout to ensure all async actions are done
+      setTimeout(() => {
+        headerSearch.update();
+        expect(headerSearch).toMatchSnapshot();
+        input.simulate('keyDown', { key: 'Down arrow', keyCode: 40, which: 40 });
+        headerSearch.update();
+        expect(headerSearch).toMatchSnapshot(); // first suggestion is active
+        input.simulate('keyDown', { key: 'Enter', keyCode: 13, which: 13 });
+        headerSearch.update();
+        expect(details.fetchDetail)
+        .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
+        done();
+      }, 250);
+    });
+
+    it('allows the user click on a suggestion', (done) => {
+      jest.spyOn(details, 'fetchDetail');
+      const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
+
+      const input = headerSearch.find('input');
+      input.simulate('focus');
+      input.instance().value = 'dijk';
+      input.simulate('input');
+      input.simulate('change');
+      input.simulate('focus');
+
+      // timeout to ensure all async actions are done
+      setTimeout(() => {
+        headerSearch.update();
+        expect(headerSearch).toMatchSnapshot(); // suggestions are visible
+        const autoSuggestItem = headerSearch.find('.auto-suggest__dropdown-item').first();
+        autoSuggestItem.simulate('click');
+        headerSearch.update();
+        expect(details.fetchDetail)
+        .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
+        done();
+      }, 250);
+    });
+  });
+
+  describe('allows the user to submit the search form', () => {
     it('regular search', () => {
       jest.spyOn(search, 'fetchSearchResultsByQuery');
       jest.spyOn(search, 'fetchDataSelection');
@@ -131,50 +204,4 @@ describe('HeaderSearchContainer', () => {
     });
   });
 
-  it('allows the user to use the keyboard to navigate and select suggestions', (done) => {
-    jest.spyOn(details, 'fetchDetail');
-    const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
-
-    const input = headerSearch.find('input');
-    input.simulate('focus');
-    input.instance().value = 'dijk';
-    input.simulate('input');
-    input.simulate('change');
-    input.simulate('focus');
-
-    // timeout to ensure all async actions are done
-    setTimeout(() => {
-      headerSearch.update();
-      expect(headerSearch).toMatchSnapshot();
-      input.simulate('keyDown', { key: 'Down arrow', keyCode: 40, which: 40 });
-      headerSearch.update();
-      expect(headerSearch).toMatchSnapshot(); // first suggestion is active
-      input.simulate('keyDown', { key: 'Enter', keyCode: 13, which: 13 });
-      headerSearch.update();
-      expect(details.fetchDetail)
-      .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
-      done();
-    }, 250);
-  });
-
-  it('allows the user to use the keyboard to dismiss the suggestions', (done) => {
-    const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
-
-    const input = headerSearch.find('input');
-    input.simulate('focus');
-    input.instance().value = 'dijk';
-    input.simulate('input');
-    input.simulate('change');
-    input.simulate('focus');
-
-    // timeout to ensure all async actions are done
-    setTimeout(() => {
-      headerSearch.update();
-      expect(headerSearch).toMatchSnapshot(); // suggestions are visible
-      input.simulate('keyDown', { key: 'escape', keyCode: 27, which: 27 });
-      headerSearch.update();
-      expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
-      done();
-    }, 250);
-  });
 });
