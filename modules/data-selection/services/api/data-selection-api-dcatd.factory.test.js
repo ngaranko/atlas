@@ -93,9 +93,19 @@ describe('The dataSelectionApiDcatd factory', function () {
         spyOn(api, 'getByUri').and.callThrough();
     });
 
-    it('doesn\'t call the api factory when no parameters are provided', function () {
-        dataSelectionApiDcatd.query(config, {}, 1);
-        expect(api.getByUri).not.toHaveBeenCalled();
+    it('calls the api factory with when no parameters are provided', function () {
+        let output;
+
+        dataSelectionApiDcatd.query(config, {}, 1).then(function (_output_) {
+            output = _output_;
+        });
+        $rootScope.$apply();
+
+        expect(Object.keys(output.filters).length).toBe(0);
+        expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
+            offset: 0,
+            limit: config.MAX_ITEMS_PER_PAGE
+        });
     });
 
     it('calls the api factory with theme parameter and searchText', function () {

@@ -67,7 +67,7 @@
                     deferred.resolve({
                         numberOfPages: Math.ceil(count / config.MAX_ITEMS_PER_PAGE),
                         numberOfRecords: count,
-                        filters: !Object.keys(catalogFilters).length ? {} :
+                        filters: Object.keys(catalogFilters).length === 0 ? {} :
                           formatFilters(data['ams:facet_info'], catalogFilters),
                         data: formatData(config, results)
                     });
