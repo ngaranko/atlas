@@ -1,8 +1,11 @@
+import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+
 describe('The dp-document-title directive', function () {
     let $compile,
         $rootScope,
         $q,
-        storeHandler;
+        storeHandler,
+        $interval;
     const store = {
             subscribe: angular.noop,
             getState: angular.noop
@@ -33,10 +36,11 @@ describe('The dp-document-title directive', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_, _$interval_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
+            $interval = _$interval_;
         });
 
         spyOn(store, 'subscribe');
@@ -48,6 +52,7 @@ describe('The dp-document-title directive', function () {
         spyOn(searchResultsDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(straatbeeldDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
         spyOn(combinedDocumentTitle, 'getTitle').and.callFake(moduleDocumentTitle.getTitle);
+        spyOn(piwik, 'trackPageNavigation').and.callFake(angular.noop);
     });
 
     function getComponent (numberOfResults, query, location, category) {
@@ -427,6 +432,58 @@ describe('The dp-document-title directive', function () {
 
             const component = getComponent();
 
+            expect(component.text()).toBe('Map title - Dataportaal');
+        });
+    });
+
+    describe('tracker trigger mechanism', function () {
+        it('triggers if the page title is set', function () {
+            spyOn(store, 'getState').and.returnValue({
+                map: {}
+            });
+
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({map: true});
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
+            mapDocumentTitle.getTitle.and.returnValue('Map title');
+
+            const component = getComponent();
+
+            expect(component.text()).toBe('Map title - Dataportaal');
+            $interval.flush(400);
+            expect(piwik.trackPageNavigation).toHaveBeenCalled();
+        });
+
+        it('retries if the page is still loading', function () {
+            const firstReturnVal = {
+                map: {
+                },
+                isLoading: true
+            };
+            const secondReturnVal = {
+                map: {
+                },
+                isLoading: true
+            };
+            const thirdReturnVal = {
+                map: {
+                },
+                isLoading: false
+            };
+
+            // we mock getState() 3 times here, because of the extra call done by the setTitle() fn
+            spyOn(store, 'getState').and.returnValues(firstReturnVal, secondReturnVal, thirdReturnVal);
+
+            spyOn(dashboardColumns, 'determineVisibility').and.returnValue({map: true});
+            spyOn(dashboardColumns, 'determineActivity').and.returnValue({});
+
+            mapDocumentTitle.getTitle.and.returnValue('Map title');
+
+            const component = getComponent();
+
+            expect(piwik.trackPageNavigation).not.toHaveBeenCalled();
+            $interval.flush(400);
+            expect(piwik.trackPageNavigation).toHaveBeenCalled();
             expect(component.text()).toBe('Map title - Dataportaal');
         });
     });
