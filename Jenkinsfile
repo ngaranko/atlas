@@ -1,9 +1,11 @@
 pipeline {
   agent any
   options {
-    timeout(time: 1, unit: 'HOURS')
+    timeout(time: 5, unit: 'DAYS')
   }
   environment {
+    COMMIT_HASH = GIT_COMMIT.substring(0, 8)
+    PROJECT_PREFIX = "${BRANCH_NAME}_${COMMIT_HASH}_${BUILD_NUMBER}_"
     IMAGE_BASE = "build.datapunt.amsterdam.nl:5000/atlas/app"
     IMAGE_BUILD = "${IMAGE_BASE}:${BUILD_NUMBER}"
     IMAGE_ACCEPTANCE = "${IMAGE_BASE}:acceptance"
@@ -11,82 +13,88 @@ pipeline {
     IMAGE_LATEST = "${IMAGE_BASE}:latest"
   }
   stages {
-    stage('Clean') {
-      // TODO remove this stage when jenkins jobs run in isolation
+    stage('Deploy Bakkie') {
+      when { not { branch 'master' } }
+      options {
+        timeout(time: 5, unit: 'MINUTES')
+      }
       steps {
-        sh "docker ps"
-        sh "docker-compose down -v || true"
-        sh "docker network prune -f"
+        sh "scripts/bakkie.sh ${BRANCH_NAME}"
       }
     }
-    stage('Test & Bakkie') {
-      // failFast true // fail if one of the parallel stages fail
-      parallel {
-        stage('Deploy Bakkie') {
-          when { not { branch 'master' } }
-          steps {
-            sh "scripts/bakkie.sh ${env.BRANCH_NAME}"
-          }
-        }
-        stage('Linting') {
-          steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-lint test-lint"
-            // echo 'Skip'
-          }
-        }
-        stage('Unit') {
-          steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME} up --build --exit-code-from test-unit test-unit"
-            // echo 'Skip'
-          }
-        }
-        stage('Functional E2E') {
-          environment {
-            // Setting compose project name helps prevent service clash in unisolated Jenkins slaves
-            E2E_NAME               = 'func-e2e'
-            USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
-            USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
-            PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
-            PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
-          }
-          steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} up --build --exit-code-from test-e2e-functional test-e2e-functional"
-            // echo 'Skip'
-          }
-          post {
-            always {
-              sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} down -v || true"
-            }
-          }
-        }
-        stage('Aria E2E') {
-          environment {
-            // Setting compose project name helps prevent service clash in unisolated Jenkins slaves
-            E2E_NAME               = 'aria-e2e'
-          }
-          steps {
-            sh "docker network prune -f"
-            sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} up --build --exit-code-from test-e2e-aria test-e2e-aria"
-            // echo 'Skip'
-          }
-          post {
-            always {
-              sh "docker-compose -p ${env.BRANCH_NAME}-${env.E2E_NAME} down -v || true"
-            }
-          }
-        }
+    stage('Linting') {
+      options {
+        timeout(time: 10, unit: 'MINUTES')
+      }
+      environment {
+        PROJECT = "${PROJECT_PREFIX}lint"
+      }
+      steps {
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-lint test-lint"
       }
       post {
         always {
-          sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
+          sh "docker-compose -p ${PROJECT} down -v || true"
+        }
+      }
+    }
+    stage('Unit') {
+      options {
+        timeout(time: 10, unit: 'MINUTES')
+      }
+      environment {
+        PROJECT = "${PROJECT_PREFIX}unit"
+      }
+      steps {
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit test-unit"
+      }
+      post {
+        always {
+          sh "docker-compose -p ${PROJECT} down -v || true"
+        }
+      }
+    }
+    stage('Functional E2E') {
+      options {
+        timeout(time: 30, unit: 'MINUTES')
+      }
+      environment {
+        PROJECT                = "${PROJECT_PREFIX}e2e-functional"
+          USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
+          USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
+          PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
+          PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
+      }
+      steps {
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-functional test-e2e-functional"
+      }
+      post {
+        always {
+          sh "docker-compose -p ${PROJECT} down -v || true"
+        }
+      }
+    }
+    stage('Aria E2E') {
+      options {
+        timeout(time: 20, unit: 'MINUTES')
+      }
+      environment {
+        PROJECT = "${PROJECT_PREFIX}e2e-aria"
+      }
+      steps {
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-aria test-e2e-aria"
+      }
+      post {
+        always {
+          sh "docker-compose -p ${PROJECT} down -v || true"
         }
       }
     }
     stage('Build A') {
       when { branch 'master' }
+      options {
+        timeout(time: 30, unit: 'MINUTES')
+      }
       steps {
         sh "docker build -t ${IMAGE_BUILD} " +
           "--shm-size 1G " +
@@ -97,6 +105,9 @@ pipeline {
     }
     stage('Deploy A (Master)') {
       when { branch 'master' }
+      options {
+        timeout(time: 5, unit: 'MINUTES')
+      }
       steps {
         sh "docker pull ${IMAGE_BUILD}"
         sh "docker tag ${IMAGE_BUILD} ${IMAGE_ACCEPTANCE}"
@@ -109,6 +120,9 @@ pipeline {
     }
     stage('Build P (Master)') {
       when { branch 'master' }
+      options {
+        timeout(time: 30, unit: 'MINUTES')
+      }
       steps {
         // NOTE BUILD_ENV intentionaly not set (using Dockerfile default)
         sh "docker build -t ${IMAGE_PRODUCTION} " +
@@ -121,6 +135,9 @@ pipeline {
     }
     stage('Deploy pre P (Master)') {
       when { branch 'master' }
+      options {
+        timeout(time: 5, unit: 'MINUTES')
+      }
       steps {
         build job: 'Subtask_Openstack_Playbook', parameters: [
           [$class: 'StringParameterValue', name: 'INVENTORY', value: 'acceptance'],
@@ -129,12 +146,7 @@ pipeline {
       }
     }
     stage('Waiting for approval (Master)') {
-      when {
-        branch 'master'
-      }
-      options {
-        timeout(time:5, unit:'DAYS')
-      }
+      when { branch 'master' }
       steps {
         script {
           input "Deploy to Production?"
@@ -144,6 +156,9 @@ pipeline {
     }
     stage('Deploy P (Master)') {
       when { branch 'master' }
+      options {
+        timeout(time: 5, unit: 'MINUTES')
+      }
       steps {
         build job: 'Subtask_Openstack_Playbook', parameters: [
           [$class: 'StringParameterValue', name: 'INVENTORY', value: 'production'],
@@ -153,12 +168,6 @@ pipeline {
     }
   }
   post {
-    always {
-      echo 'Cleaning'
-      sh "docker-compose -p ${env.BRANCH_NAME} down -v || true"
-      sh "docker network prune -f"
-    }
-
     success {
       echo 'Pipeline success'
     }
@@ -168,7 +177,7 @@ pipeline {
       slackSend(
         channel: 'ci-channel',
         color: 'danger',
-        message: "${env.JOB_NAME}: failure ${env.BUILD_URL}"
+        message: "${JOB_NAME}: failure ${BUILD_URL}"
       )
     }
   }
