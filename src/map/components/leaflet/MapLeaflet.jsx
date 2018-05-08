@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Map, TileLayer, ZoomControl, ScaleControl, Marker, Polygon } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 
-import CustomMarker from './custom/marker/customMarker';
+import CustomMarker from './custom/marker/CustomMarker';
 import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
