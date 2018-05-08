@@ -1,5 +1,5 @@
 const datasetsTab = '.o-tabs__tab--link';
-const datasetsCard = '.c-data-selection-card';
+const datasetsCard = '.c-data-selection-catalog__item';
 
 describe('datasets search module', () => {
   before(() => {
