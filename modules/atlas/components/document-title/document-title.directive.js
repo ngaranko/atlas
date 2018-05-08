@@ -99,6 +99,7 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
         function linkFn (scope, element, attrs, controller, transcludeFn) {
             const baseTitle = transcludeFn().text();
             let trackerInterval;
+            let previousTitle;
 
             store.subscribe(setTitle);
 
@@ -106,9 +107,10 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                 // make sure that the page is finished loading.
                 // before actually tracking the navigation
                 const state = store.getState();
-                if (!isStateLoading(state)) {
+                if (!isStateLoading(state) && scope.title !== previousTitle) {
                     $interval.cancel(trackerInterval);
                     piwik.trackPageNavigation();
+                    previousTitle = scope.title;
                 }
             }
 
