@@ -45,7 +45,7 @@ describe('HeaderSearchContainer', () => {
     jest.clearAllMocks();
   });
 
-  it('gets and formats the data correctly before setting it to the state', (done) => {
+  it('gets and formats the data correctly before setting it to the state', () => {
     const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
 
     const input = headerSearch.find('input');
@@ -54,14 +54,18 @@ describe('HeaderSearchContainer', () => {
     input.simulate('change');
     // first state change is from the REQUEST
     expect(store.getState()).toMatchSnapshot();
-    setTimeout(() => {
-      // second state change is from the SUCCESS (with suggestions)
-      expect(store.getState()).toMatchSnapshot();
-      done();
-    }, 200);
+
+    return new Promise((resolve) =>
+      // nextTick to ensure all async actions are done
+      process.nextTick(() => {
+        // second state change is from the SUCCESS (with suggestions)
+        expect(store.getState()).toMatchSnapshot();
+        resolve();
+      })
+    );
   });
 
-  it('allows the user to clear the query and suggestions by clicking on the clear button', (done) => {
+  it('allows the user to clear the query and suggestions by clicking on the clear button', () => {
     const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
 
     const input = headerSearch.find('input');
@@ -69,22 +73,25 @@ describe('HeaderSearchContainer', () => {
     input.instance().value = 'dijk';
     input.simulate('change');
 
-    // timeout to ensure all async actions are done
-    setTimeout(() => {
-      headerSearch.update();
-      expect(headerSearch).toMatchSnapshot(); // suggestions are visible
-      expect(store.getState()).toMatchSnapshot();
-      const clearButton = headerSearch.find('.auto-suggest__clear');
-      clearButton.simulate('click');
-      headerSearch.update();
-      expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
-      expect(store.getState()).toMatchSnapshot(); // query cleared
-      done();
-    }, 250);
+
+    return new Promise((resolve) =>
+      // nextTick to ensure all async actions are done
+      process.nextTick(() => {
+        headerSearch.update();
+        expect(headerSearch).toMatchSnapshot(); // suggestions are visible
+        expect(store.getState()).toMatchSnapshot();
+        const clearButton = headerSearch.find('.auto-suggest__clear');
+        clearButton.simulate('click');
+        headerSearch.update();
+        expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
+        expect(store.getState()).toMatchSnapshot(); // query cleared
+        resolve();
+      })
+    );
   });
 
   describe('auto-suggest dropdown', () => {
-    it('allows the user to use the keyboard to dismiss the suggestions', (done) => {
+    it('allows the user to use the keyboard to dismiss the suggestions', () => {
       const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
 
       const input = headerSearch.find('input');
@@ -92,89 +99,95 @@ describe('HeaderSearchContainer', () => {
       input.instance().value = 'dijk';
       input.simulate('change');
 
-      // timeout to ensure all async actions are done
-      setTimeout(() => {
-        headerSearch.update();
-        expect(headerSearch).toMatchSnapshot(); // suggestions are visible
-        input.simulate('keyDown', { key: 'escape', keyCode: 27, which: 27 });
-        headerSearch.update();
-        expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
-        done();
-      }, 250);
-    });
-
-    it('allows the user to use the keyboard to navigate and select suggestions', (done) => {
-      jest.spyOn(details, 'fetchDetail');
-      const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
-
-      const input = headerSearch.find('input');
-      input.simulate('focus');
-      input.instance().value = 'dijk';
-      input.simulate('change');
-
-      // timeout to ensure all async actions are done
-      setTimeout(() => {
-        headerSearch.update();
-        expect(headerSearch).toMatchSnapshot();
-        input.simulate('keyDown', { key: 'Down arrow', keyCode: 40, which: 40 });
-        headerSearch.update();
-        expect(headerSearch).toMatchSnapshot(); // first suggestion is active
-        input.simulate('keyDown', { key: 'Enter', keyCode: 13, which: 13 });
-        headerSearch.update();
-        expect(details.fetchDetail)
-          .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
-        expect(headerSearch).toMatchSnapshot(); // dropdown should be hidden
-        done();
-      }, 250);
-    });
-
-    it('allows the user click on a suggestion', (done) => {
-      jest.spyOn(details, 'fetchDetail');
-      const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
-
-      const input = headerSearch.find('input');
-      input.simulate('focus');
-      input.instance().value = 'dijk';
-      input.simulate('change');
-
-      // timeout to ensure all async actions are done
-      setTimeout(() => {
-        headerSearch.update();
-        expect(headerSearch).toMatchSnapshot(); // suggestions are visible
-        const autoSuggestItem = headerSearch.find('.auto-suggest__dropdown-item').first();
-        autoSuggestItem.simulate('click');
-        headerSearch.update();
-        expect(details.fetchDetail)
-          .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
-        done();
-      }, 250);
-    });
-
-    it('allows the user to dismiss the suggestions when blurring the input field', (done) => {
-      const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
-
-      const input = headerSearch.find('input');
-      input.simulate('focus');
-      input.instance().value = 'dijk';
-      input.simulate('change');
-
-      // timeout to ensure all async actions are done
-      setTimeout(() => {
-        headerSearch.update();
-        expect(headerSearch).toMatchSnapshot(); // suggestions are visible
-        input.simulate('blur');
-        // on blur the suggestions are hidden with a timeout of 200ms
-        // using jest.runAllTimers() does not work here, as this test also contains a timeout
-        // therefore a timeout in a timeout to ensure the blur timeout is ran
-        setTimeout(() => {
+      return new Promise((resolve) =>
+        // nextTick to ensure all async actions are done
+        process.nextTick(() => {
+          headerSearch.update();
+          input.simulate('keyDown', { key: 'escape', keyCode: 27, which: 27 });
           headerSearch.update();
           expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
-          done();
-        }, 300);
-      }, 250);
+          resolve();
+        })
+      );
     });
 
-    it('updates the input value accordingly to the users input', (done) => {
+    it('allows the user to use the keyboard to navigate and select suggestions', () => {
+      jest.spyOn(details, 'fetchDetail');
+      const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
+
+      const input = headerSearch.find('input');
+      input.simulate('focus');
+      input.instance().value = 'dijk';
+      input.simulate('change');
+
+
+      return new Promise((resolve) =>
+        // nextTick to ensure all async actions are done
+        process.nextTick(() => {
+          headerSearch.update();
+          input.simulate('keyDown', { key: 'Down arrow', keyCode: 40, which: 40 });
+          headerSearch.update();
+          expect(headerSearch).toMatchSnapshot(); // first suggestion is active
+          input.simulate('keyDown', { key: 'Enter', keyCode: 13, which: 13 });
+          headerSearch.update();
+          expect(details.fetchDetail)
+            .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
+          // dropdown should be hidden and value should be cleared
+          expect(headerSearch).toMatchSnapshot();
+          resolve();
+        })
+      );
+    });
+
+    it('allows the user click on a suggestion', () => {
+      jest.spyOn(details, 'fetchDetail');
+      const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
+
+      const input = headerSearch.find('input');
+      input.simulate('focus');
+      input.instance().value = 'dijk';
+      input.simulate('change');
+
+
+      return new Promise((resolve) =>
+        // nextTick to ensure all async actions are done
+        process.nextTick(() => {
+          headerSearch.update();
+          const autoSuggestItem = headerSearch.find('.auto-suggest__dropdown-item').first();
+          autoSuggestItem.simulate('click');
+          headerSearch.update();
+          expect(details.fetchDetail)
+            .toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001528/');
+          // dropdown should be hidden and value should be cleared
+          expect(headerSearch).toMatchSnapshot();
+          resolve();
+        })
+      );
+    });
+
+    it('allows the user to dismiss the suggestions when blurring the input field', () => {
+      const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
+
+      const input = headerSearch.find('input');
+      input.simulate('focus');
+      input.instance().value = 'dijk';
+      input.simulate('change');
+
+      return new Promise((resolve) =>
+        // nextTick to ensure all async actions are done
+        process.nextTick(() => {
+          headerSearch.update();
+          input.simulate('blur');
+          setTimeout(() => {
+            headerSearch.update();
+            expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
+            resolve();
+          }, 250);
+        })
+      )
+    });
+
+    it('updates the input value accordingly to the users input', () => {
       const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
 
       const input = headerSearch.find('input');
@@ -183,17 +196,35 @@ describe('HeaderSearchContainer', () => {
       input.simulate('change');
 
       // timeout to ensure all async actions are done
-      setTimeout(() => {
-        headerSearch.update();
-        expect(input.instance().value).toBe('dijk');
-        input.simulate('keyDown', { key: 'Down arrow', keyCode: 40, which: 40 });
-        headerSearch.update();
-        expect(input.instance().value).toBe('Dijkbraak');
-        input.simulate('keyDown', { key: 'Escape', keyCode: 27, which: 27 });
-        headerSearch.update();
-        expect(input.instance().value).toBe('dijk');
-        done();
-      }, 250);
+      return new Promise((resolve) =>
+        // nextTick to ensure all async actions are done
+        process.nextTick(() => {
+          headerSearch.update();
+          expect(input.instance().value).toBe('dijk');
+
+          // First suggestion
+          input.simulate('keyDown', { key: 'Down arrow', keyCode: 40, which: 40 });
+          headerSearch.update();
+          expect(input.instance().value).toBe('Dijkbraak');
+
+          // Back to input field
+          input.simulate('keyDown', { key: 'Up arrow', keyCode: 38, which: 38 });
+          headerSearch.update();
+          expect(input.instance().value).toBe('dijk');
+
+          // Second suggestion
+          input.simulate('keyDown', { key: 'Down arrow', keyCode: 40, which: 40 });
+          input.simulate('keyDown', { key: 'Down arrow', keyCode: 40, which: 40 });
+          headerSearch.update();
+          expect(input.instance().value).toBe('Dijkdwarsstraat');
+
+          // dismiss auto-suggest
+          input.simulate('keyDown', { key: 'Escape', keyCode: 27, which: 27 });
+          headerSearch.update();
+          expect(input.instance().value).toBe('dijk');
+          resolve();
+        })
+      );
     });
   });
 
@@ -216,6 +247,7 @@ describe('HeaderSearchContainer', () => {
       expect(store.dispatch).toHaveBeenCalled();
       expect(search.fetchSearchResultsByQuery).toHaveBeenCalledWith('dijk');
       expect(search.fetchDataSelection).not.toHaveBeenCalled();
+      expect(input.instance().value).toBe('dijk');
     });
 
     it('dataset search', () => {
@@ -247,11 +279,10 @@ describe('HeaderSearchContainer', () => {
       const submit = headerSearch.find('form');
       submit.simulate('submit');
 
-
       expect(store.dispatch).toHaveBeenCalled();
       expect(search.fetchDataSelection).toHaveBeenCalledWith('dijk');
       expect(search.fetchSearchResultsByQuery).not.toHaveBeenCalled();
+      expect(input.instance().value).toBe('dijk');
     });
   });
-
 });
