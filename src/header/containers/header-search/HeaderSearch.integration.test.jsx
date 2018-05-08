@@ -166,6 +166,7 @@ describe('HeaderSearchContainer', () => {
     });
 
     it('allows the user to dismiss the suggestions when blurring the input field', () => {
+      jest.useFakeTimers();
       const headerSearch = mount(<HeaderSearchContainer />, { context: { store } });
 
       const input = headerSearch.find('input');
@@ -178,11 +179,10 @@ describe('HeaderSearchContainer', () => {
         process.nextTick(() => {
           headerSearch.update();
           input.simulate('blur');
-          setTimeout(() => {
-            headerSearch.update();
-            expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
-            resolve();
-          }, 250);
+          jest.runAllTimers();
+          headerSearch.update();
+          expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
+          resolve();
         })
       )
     });
