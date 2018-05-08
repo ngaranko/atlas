@@ -1,8 +1,10 @@
 import { createSelector } from 'reselect';
 
+import { getStraatbeeldMarkers } from '../straatbeeld/straatbeeld';
+import { getDataSelection } from '../data-selection/data-selection';
+import { getSearchMarker } from '../search-results/map-search-results';
+
 import ACTIONS from '../../../shared/actions';
-import { straatbeeldPerson, straatbeeldOrientation } from '../../components/leaflet/services/get-icon-by-type';
-import { getStraatbeeldLocation, getStraatbeeldHeading } from '../straatbeeld/straatbeeld';
 
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
@@ -13,31 +15,11 @@ export const MAP_END_DRAWING = 'MAP_END_DRAWING';
 
 export const getMapZoom = (state) => state.map.zoom;
 
-export const getSearchMarker = (state) => (
-  state.search && state.search.location.length ?
-    [{ position: state.search.location, type: 'geosearch' }] : []
-);
-export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, getStraatbeeldHeading],
-  (location, heading) => (
-    location ? [
-      {
-        position: location,
-        type: straatbeeldOrientation,
-        heading: heading || 0
-      },
-      {
-        position: location,
-        type: straatbeeldPerson
-      }
-    ] : []
-  )
-);
-
-export const getMarkers = (state) => {
-  const geoSearchMarkers = getSearchMarker(state);
-  const panoMarkers = getStraatbeeldMarkers(state);
-  return [...geoSearchMarkers, ...panoMarkers];
-};
+export const getMarkers = createSelector(
+  [getDataSelection, getSearchMarker, getStraatbeeldMarkers],
+  (dataSelectionActive, searchMarkers, straatbeeldMarkers) => (
+     !dataSelectionActive ? [...searchMarkers, ...straatbeeldMarkers] : []
+  ));
 
 const initialState = {
   viewCenter: [52.3731081, 4.8932945],

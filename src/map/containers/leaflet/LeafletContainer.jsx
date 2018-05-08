@@ -9,7 +9,8 @@ import { updateZoom, updatePan, getMarkers } from '../../ducks/map/map';
 import { updateClick } from '../../ducks/click-location/map-click-location';
 import { getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { getLayers } from '../../ducks/layers/map-layers';
-import { getGeoJson } from '../../ducks/detail/map-detail';
+import { getGeoJson, getDrawShape } from '../../ducks/detail/map-detail';
+import { getClusterMarkers } from '../../ducks/data-selection/data-selection';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
@@ -21,10 +22,12 @@ const mapStateToProps = (state) => ({
     urlTemplate: getUrlTemplate(state),
     baseLayerOptions
   },
-  layers: getLayers(state),
   center: state.map.viewCenter,
-  markers: getMarkers(state),
+  clusterMarkers: getClusterMarkers(state),
   geoJson: getGeoJson(state),
+  markers: getMarkers(state),
+  layers: getLayers(state),
+  drawShape: getDrawShape(state),
   uiState: Object.keys(state.ui).map((key) => (
      state.ui[key]
    )).toString(),
@@ -70,9 +73,11 @@ class LeafletContainer extends React.Component {
     const {
       baseLayer,
       center,
+      clusterMarkers,
+      drawShape,
+      geoJson,
       layers,
       markers,
-      geoJson,
       onUpdateClick,
       onUpdatePan,
       onUpdateZoom,
@@ -82,18 +87,20 @@ class LeafletContainer extends React.Component {
       <div>
         { baseLayer.urlTemplate && (
           <MapLeaflet
-            ref={this.setMapLeaflet}
+            baseLayer={baseLayer}
+            center={center}
+            clusterMarkers={clusterMarkers}
+            drawShape={drawShape}
+            geoJson={geoJson}
             layers={layers}
             mapOptions={mapOptions}
             markers={markers}
-            scaleControlOptions={scaleControlOptions}
-            baseLayer={baseLayer}
-            center={center}
-            zoom={zoom}
-            geoJson={geoJson}
-            onZoomEnd={onUpdateZoom}
-            onDragEnd={onUpdatePan}
             onClick={onUpdateClick}
+            onDragEnd={onUpdatePan}
+            onZoomEnd={onUpdateZoom}
+            ref={this.setMapLeaflet}
+            scaleControlOptions={scaleControlOptions}
+            zoom={zoom}
           />
         )}
       </div>
@@ -110,6 +117,8 @@ LeafletContainer.defaultProps = {
     urlTemplate: ''
   },
   center: [],
+  clusterMarkers: [],
+  drawShape: {},
   geoJson: {},
   layers: [],
   markers: [],
@@ -121,6 +130,11 @@ LeafletContainer.propTypes = {
     urlTemplate: PropTypes.string,
     baseLayerOptions: PropTypes.shape({})
   }),
+  center: PropTypes.arrayOf(PropTypes.number),
+  clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
+  drawShape: PropTypes.shape({}),
+  geoJson: PropTypes.shape({}),
+  markers: PropTypes.arrayOf(PropTypes.shape({})),
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,
@@ -128,14 +142,11 @@ LeafletContainer.propTypes = {
     transparent: PropTypes.bool,
     url: PropTypes.string.isRequired
   })),
-  center: PropTypes.arrayOf(PropTypes.number),
-  geoJson: PropTypes.shape({}), //eslint-disable-line
-  markers: PropTypes.arrayOf(PropTypes.shape({})),
-  zoom: PropTypes.number.isRequired,
-  uiState: PropTypes.string.isRequired,
-  onUpdateZoom: PropTypes.func.isRequired,
+  onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,
-  onUpdateClick: PropTypes.func.isRequired
+  onUpdateZoom: PropTypes.func.isRequired,
+  uiState: PropTypes.string.isRequired,
+  zoom: PropTypes.number.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeafletContainer);

@@ -1,5 +1,39 @@
 import { createSelector } from 'reselect';
 
+import { isSearchActive } from '../search-results/map-search-results';
+
+const getCurrentEndPoint = (state) => state.mapDetail.currentEndpoint;
+const getAllResults = (state) => state.mapDetail.byEndpoint;
+const getDataSelection = (state) => state.dataSelection;
+
+export const getGeometryFilter = createSelector(getDataSelection, (dataSelection) => (
+  dataSelection && dataSelection.geometryFilter
+));
+
+export const getGeometryFilterMarkers = createSelector(getGeometryFilter, (geometryFilter) => (
+  geometryFilter && geometryFilter.markers
+));
+
+export const getDrawShape = createSelector([getDataSelection, getGeometryFilterMarkers],
+  (active, markers) => (
+    active && markers ? { latLngList: [...markers] } : {}
+  )
+);
+
+export const getGeoJson = createSelector([getCurrentEndPoint, getAllResults, isSearchActive],
+  (currentEndpoint, allResults, active) => (
+    (!allResults[currentEndpoint] || active) ? {} : {
+      geometry: allResults[currentEndpoint].geometrie,
+      name: allResults[currentEndpoint].code,
+      label: allResults[currentEndpoint].label
+    }
+  )
+);
+
+export const selectLatestMapDetail = (state) =>
+  state.mapDetail && state.mapDetail.currentEndpoint &&
+  state.mapDetail.byEndpoint[state.mapDetail.currentEndpoint];
+
 export const FETCH_MAP_DETAIL_REQUEST = 'FETCH_MAP_DETAIL_REQUEST';
 export const FETCH_MAP_DETAIL_SUCCESS = 'FETCH_MAP_DETAIL_SUCCESS';
 export const FETCH_MAP_DETAIL_FAILURE = 'FETCH_MAP_DETAIL_FAILURE';
@@ -10,20 +44,6 @@ const initialState = {
     isLoading: false
   }
 };
-
-const getCurrentEndPoint = (state) => state.mapDetail.currentEndpoint;
-const getAllResults = (state) => state.mapDetail.byEndpoint;
-const isActive = (state) => state.search && state.search.location.length;
-
-export const getGeoJson = createSelector([getCurrentEndPoint, getAllResults, isActive],
-  (currentEndpoint, allResults, active) => (
-    (!allResults[currentEndpoint] || active) ? {} : {
-      geometry: allResults[currentEndpoint].geometrie,
-      name: allResults[currentEndpoint].code,
-      label: allResults[currentEndpoint].label
-    }
-  )
-);
 
 export default function MapDetailReducer(state = initialState, action) {
   switch (action.type) {
@@ -63,10 +83,6 @@ export default function MapDetailReducer(state = initialState, action) {
       return state;
   }
 }
-
-export const selectLatestMapDetail = (state) =>
-  state.mapDetail && state.mapDetail.currentEndpoint &&
-  state.mapDetail.byEndpoint[state.mapDetail.currentEndpoint];
 
 export const getMapDetail = (endpoint, user) => ({
   type: FETCH_MAP_DETAIL_REQUEST,

@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map, TileLayer, ZoomControl, ScaleControl } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, ScaleControl, Marker, Polygon } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 
 import CustomMarker from './custom/marker/CustomMarker';
 import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
-import getIconByType from './services/get-icon-by-type';
+import icons from './services/icons.constant';
+import createClusterIcon from './services/cluster-icon';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
@@ -64,6 +66,9 @@ class MapLeaflet extends React.Component {
       return;
     }
     const elementBounds = this.geoJsonElement.leafletElement.getBounds();
+    if (!elementBounds) {
+      return;
+    }
     const mapBounds = this.MapElement.leafletElement.getBounds();
     const elementFits = mapBounds.contains(elementBounds);
     if (!elementFits) {
@@ -84,8 +89,10 @@ class MapLeaflet extends React.Component {
 
   render() {
     const {
-      baseLayer,
       center,
+      clusterMarkers,
+      baseLayer,
+      drawShape,
       geoJson,
       layers,
       mapOptions,
@@ -119,11 +126,32 @@ class MapLeaflet extends React.Component {
           ))
         }
         {
+          <MarkerClusterGroup
+            showCoverageOnHover={false}
+            iconCreateFunction={createClusterIcon}
+            spiderfyOnMaxZoom={false}
+            animate={false}
+            maxClusterRadius={50}
+            chunkedLoading
+            disableClusteringAtZoom={baseLayer.baseLayerOptions.maxZoom}
+          >
+            {
+              clusterMarkers.map((marker) => (
+                <Marker
+                  position={marker.position}
+                  key={marker.index}
+                  icon={icons[marker.type]}
+                />
+              ))
+            }
+          </MarkerClusterGroup>
+        }
+        {
           markers.map((marker) => (
             <CustomMarker
               position={marker.position}
               key={marker.position.toString() + marker.type}
-              icon={getIconByType(marker.type)}
+              icon={icons[marker.type]}
               rotationAngle={marker.heading || 0}
             />
           ))
@@ -134,6 +162,14 @@ class MapLeaflet extends React.Component {
               ref={this.setGeoJsonElement}
               key={geoJson.label}
               data={geoJson}
+            />
+          )
+        }
+        {
+          drawShape.latLngList && (
+            <Polygon
+              positions={drawShape.latLngList}
+              ref={this.setGeoJsonElement}
             />
           )
         }
@@ -149,26 +185,39 @@ class MapLeaflet extends React.Component {
 }
 
 MapLeaflet.defaultProps = {
-  layers: [],
-  markers: [],
-  geoJson: {},
-  center: [52.3731081, 4.8932945],
-  zoom: 11,
-  mapOptions: {},
-  scaleControlOptions: {},
   baseLayer: {
     urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
     baseLayerOptions: {}
   },
+  center: [52.3731081, 4.8932945],
+  clusterMarkers: [],
+  geoJson: {},
+  layers: [],
+  mapOptions: {},
+  drawShape: {},
+  markers: [],
+  scaleControlOptions: {},
+  zoom: 11,
   isZoomControlVisible: true,
-  onZoomEnd: () => 'zoomend',
   onClick: () => 'click',
   onDoubleClick: () => 'doubleclick',
+  onDragEnd: () => 'dragend',
   onMoveEnd: () => 'moveend',
-  onDragEnd: () => 'dragend'
+  onZoomEnd: () => 'zoomend'
 };
 
 MapLeaflet.propTypes = {
+  baseLayer: PropTypes.shape({
+    urlTemplate: PropTypes.string,
+    baseLayerOptions: PropTypes.shape({})
+  }),
+  center: PropTypes.arrayOf(PropTypes.number),
+  clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
+  drawShape: PropTypes.shape({}),
+  geoJson: PropTypes.shape({}),
+  isZoomControlVisible: PropTypes.bool,
+  mapOptions: PropTypes.shape({}),
+  markers: PropTypes.arrayOf(PropTypes.shape({})),
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,
@@ -176,22 +225,13 @@ MapLeaflet.propTypes = {
     transparent: PropTypes.bool,
     url: PropTypes.string.isRequired
   })),
-  geoJson: PropTypes.shape({}),
-  markers: PropTypes.arrayOf(PropTypes.shape({})),
-  center: PropTypes.arrayOf(PropTypes.number),
-  zoom: PropTypes.number,
-  mapOptions: PropTypes.shape({}),
-  scaleControlOptions: PropTypes.shape({}),
-  baseLayer: PropTypes.shape({
-    urlTemplate: PropTypes.string,
-    baseLayerOptions: PropTypes.shape({})
-  }),
-  isZoomControlVisible: PropTypes.bool,
-  onZoomEnd: PropTypes.func,
   onClick: PropTypes.func,
   onDoubleClick: PropTypes.func,
+  onDragEnd: PropTypes.func,
   onMoveEnd: PropTypes.func,
-  onDragEnd: PropTypes.func
+  onZoomEnd: PropTypes.func,
+  scaleControlOptions: PropTypes.shape({}),
+  zoom: PropTypes.number
 };
 
 export default MapLeaflet;
