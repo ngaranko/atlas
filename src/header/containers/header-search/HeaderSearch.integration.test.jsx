@@ -184,7 +184,7 @@ describe('HeaderSearchContainer', () => {
           expect(headerSearch).toMatchSnapshot(); // suggestions are not visible
           resolve();
         })
-      )
+      );
     });
 
     it('updates the input value accordingly to the users input', () => {

@@ -1,4 +1,5 @@
 module.exports = {
+  displayName: 'unit',
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{js,jsx}',
