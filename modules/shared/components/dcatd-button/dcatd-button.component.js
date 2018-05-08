@@ -25,6 +25,6 @@
         }
 
         vm.onClick = onClick;
-        vm.link = `/dcatd_admin#/datasets/${vm.id}`;
+        vm.link = `dcatd_admin#/datasets/${vm.id}`;
     }
 })();

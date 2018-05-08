@@ -114,7 +114,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -146,7 +146,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -193,7 +193,7 @@ describe('The dashboardColumns factory', function () {
                     expect(visibility.page).toBe(false);
                     expect(visibility.straatbeeld).toBe(false);
                     expect(visibility.dataSelection).toBe(false);
-                    expect(visibility.mapPreviewPanel).toBe(false);
+                    expect(activity.mapPreviewPanel).toBe(false);
                 });
 
                 it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
@@ -221,7 +221,7 @@ describe('The dashboardColumns factory', function () {
                     expect(visibility.page).toBe(false);
                     expect(visibility.straatbeeld).toBe(false);
                     expect(visibility.dataSelection).toBe(false);
-                    expect(visibility.mapPreviewPanel).toBe(false);
+                    expect(activity.mapPreviewPanel).toBe(false);
                 });
 
                 it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -272,7 +272,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
@@ -315,7 +315,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 3/3', function () {
@@ -359,7 +359,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('detail and straatbeeld can\'t be visible at the same time', function () {
@@ -431,7 +431,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 3/3', function () {
@@ -464,7 +464,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
@@ -492,7 +492,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
@@ -520,7 +520,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
@@ -562,7 +562,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -591,7 +591,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
@@ -619,7 +619,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -649,7 +649,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
@@ -676,7 +676,7 @@ describe('The dashboardColumns factory', function () {
             });
 
             it('makes the map preview panel and map visibile', function () {
-                expect(visibility.mapPreviewPanel).toBe(true);
+                expect(activity.mapPreviewPanel).toBe(true);
                 expect(activity.map).toBe(true);
                 expect(visibility.map).toBe(true);
                 expect(activity.searchResults).toBe(true);
@@ -705,7 +705,7 @@ describe('The dashboardColumns factory', function () {
             });
 
             it('makes the map preview panel and map visibile', function () {
-                expect(visibility.mapPreviewPanel).toBe(true);
+                expect(activity.mapPreviewPanel).toBe(true);
                 expect(activity.map).toBe(true);
                 expect(visibility.map).toBe(true);
                 expect(activity.searchResults).toBe(true);
@@ -742,7 +742,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
@@ -772,7 +772,7 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
-                expect(visibility.mapPreviewPanel).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 2/3, middle column: 1/3, right column 0/3', function () {
