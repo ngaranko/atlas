@@ -16,21 +16,13 @@ services:
       target: build-deps
     command: npm run test-lint
 
-  test-unit:
+  test-unit-integration:
     build:
       context: .
       target: build-deps
     environment:
       - NODE_ENV=development
     command: npm run test
-
-  test-integration:
-    build:
-      context: .
-      target: build-deps
-    environment:
-      - NODE_ENV=development
-    command: npm run test-integration
 
   storybook:
     build:
