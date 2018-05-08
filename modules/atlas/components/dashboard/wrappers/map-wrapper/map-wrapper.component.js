@@ -1,3 +1,5 @@
+import ReactDOM from 'react-dom';
+
 angular
     .module('atlas')
     .component('dpMapWrapper', {
@@ -12,9 +14,10 @@ function DpMapWrapper ($timeout, $window) {
     const React = $window.React;
     const render = $window.render;
     const MapWrapper = $window.MapWrapper;
+    let graphNode;
 
     const mountReactComponents = () => {
-        const graphNode = document.getElementById('map-wrapper');
+        graphNode = document.getElementById('map-wrapper');
         /* istanbul ignore next */
         if (graphNode) {
             render(React.createElement(MapWrapper), graphNode);
@@ -24,4 +27,10 @@ function DpMapWrapper ($timeout, $window) {
     $timeout(() => {
         mountReactComponents();
     });
+
+    this.$onDestroy = () => {
+        if (graphNode) {
+            ReactDOM.unmountComponentAtNode(graphNode);
+        }
+    };
 }

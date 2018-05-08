@@ -152,6 +152,7 @@ class MapLeaflet extends React.Component {
               position={marker.position}
               key={marker.position.toString() + marker.type}
               icon={icons[marker.type]}
+              zIndexOffset={100}
               rotationAngle={marker.heading || 0}
             />
           ))
