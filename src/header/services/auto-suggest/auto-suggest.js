@@ -1,4 +1,4 @@
-import apiUrl from '../../../shared/services/api';
+import apiUrl from '../../../shared/services/api/api';
 import { getAuthHeaders } from '../../../shared/services/auth/auth';
 
 function formatData(categories) {
