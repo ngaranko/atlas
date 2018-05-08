@@ -27,12 +27,14 @@ class Notification extends React.Component {
       `}
       >
         <span className="notification__content">{this.props.children}</span>
-        <button
-          className="notification__button"
-          onClick={this.hideNotification}
-        >
-          <CloseIcon />
-        </button>
+        { this.props.level !== 'message' &&
+          <button
+            className="notification__button"
+            onClick={this.hideNotification}
+          >
+            <CloseIcon />
+          </button>
+        }
       </p>
     );
   }
@@ -49,7 +51,7 @@ Notification.propTypes = {
     PropTypes.node
   ]).isRequired,
   className: PropTypes.string,
-  level: PropTypes.oneOf(['error', 'info'])
+  level: PropTypes.oneOf(['error', 'info', 'message'])
 };
 
 export default Notification;

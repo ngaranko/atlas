@@ -1,3 +1,5 @@
+import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+
 (function () {
     angular
         .module('atlas')
@@ -14,7 +16,8 @@
         'dpPageDocumentTitle',
         'dpSearchResultsDocumentTitle',
         'dpStraatbeeldDocumentTitle',
-        'dpCombinedDocumentTitle'
+        'dpCombinedDocumentTitle',
+        '$interval'
     ];
 
     function DpDocumentTitleDirective ( // eslint-disable-line max-params
@@ -28,7 +31,8 @@
         dpPageDocumentTitle,
         dpSearchResultsDocumentTitle,
         dpStraatbeeldDocumentTitle,
-        dpCombinedDocumentTitle
+        dpCombinedDocumentTitle,
+        $interval
     ) {
         const mapping = [
             {
@@ -84,10 +88,31 @@
             return '';
         }
 
+        function isStateLoading (state) {
+            // return isLoading keys from state reduced to one boolean
+            return Object.keys(state).reduce(
+                (acc, item) => acc || (state[item] && state[item].isLoading),
+                state.isLoading
+            );
+        }
+
         function linkFn (scope, element, attrs, controller, transcludeFn) {
             const baseTitle = transcludeFn().text();
+            let trackerInterval;
+            let previousTitle;
 
             store.subscribe(setTitle);
+
+            function triggerTracker () {
+                // make sure that the page is finished loading.
+                // before actually tracking the navigation
+                const state = store.getState();
+                if (!isStateLoading(state) && scope.title !== previousTitle) {
+                    $interval.cancel(trackerInterval);
+                    piwik.trackPageNavigation();
+                    previousTitle = scope.title;
+                }
+            }
 
             function setTitle () {
                 let titleData;
@@ -129,6 +154,9 @@
                             ? `${result}${printOrEmbedOrPreviewTitleAddition} - `
                             : `${printOrEmbedOrPreviewTitleAddition}`;
                         scope.title = `${enrichedResult}${baseTitle}`;
+
+                        $interval.cancel(trackerInterval); // cancel running interval
+                        trackerInterval = $interval(triggerTracker, 200);
                     });
                 }
             }

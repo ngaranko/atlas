@@ -26,6 +26,16 @@ describe('Notification', () => {
     expect(notification).toMatchSnapshot();
   });
 
+  it('should not show the close button for the message level', () => {
+    const notification = shallow(
+      <Notification level="message">
+        Test message
+      </Notification>
+    );
+
+    expect(notification).toMatchSnapshot();
+  });
+
   it('should be able to render `a` elements', () => {
     const notification = shallow(
       <Notification>

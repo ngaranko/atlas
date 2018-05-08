@@ -48,6 +48,22 @@ exports[`Notification should be able to render \`a\` elements 1`] = `
 </p>
 `;
 
+exports[`Notification should not show the close button for the message level 1`] = `
+<p
+  className="
+        
+        notification
+        notification--message
+      "
+>
+  <span
+    className="notification__content"
+  >
+    Test message
+  </span>
+</p>
+`;
+
 exports[`Notification should render the provided message 1`] = `
 <p
   className="
