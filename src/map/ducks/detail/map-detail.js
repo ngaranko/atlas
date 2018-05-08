@@ -4,6 +4,21 @@ import { isSearchActive } from '../search-results/map-search-results';
 
 const getCurrentEndPoint = (state) => state.mapDetail.currentEndpoint;
 const getAllResults = (state) => state.mapDetail.byEndpoint;
+const getDataSelection = (state) => state.dataSelection;
+
+export const getGeometryFilter = createSelector(getDataSelection, (dataSelection) => (
+  dataSelection && dataSelection.geometryFilter
+));
+
+export const getGeometryFilterMarkers = createSelector(getGeometryFilter, (geometryFilter) => (
+  geometryFilter && geometryFilter.markers
+));
+
+export const getDrawShape = createSelector([getDataSelection, getGeometryFilterMarkers],
+  (active, markers) => (
+    active && markers ? { latLngList: [...markers] } : {}
+  )
+);
 
 export const getGeoJson = createSelector([getCurrentEndPoint, getAllResults, isSearchActive],
   (currentEndpoint, allResults, active) => (

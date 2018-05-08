@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, ScaleControl, Marker, Polygon } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 
-import CustomMarker from './custom/marker/CustomMarker';
+import CustomMarker from './custom/marker/customMarker';
 import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
@@ -66,6 +66,9 @@ class MapLeaflet extends React.Component {
       return;
     }
     const elementBounds = this.geoJsonElement.leafletElement.getBounds();
+    if (!elementBounds) {
+      return;
+    }
     const mapBounds = this.MapElement.leafletElement.getBounds();
     const elementFits = mapBounds.contains(elementBounds);
     if (!elementFits) {
@@ -89,6 +92,7 @@ class MapLeaflet extends React.Component {
       center,
       clusterMarkers,
       baseLayer,
+      drawShape,
       geoJson,
       layers,
       mapOptions,
@@ -161,6 +165,14 @@ class MapLeaflet extends React.Component {
             />
           )
         }
+        {
+          drawShape.latLngList && (
+            <Polygon
+              positions={drawShape.latLngList}
+              ref={this.setGeoJsonElement}
+            />
+          )
+        }
         <ScaleControl {...scaleControlOptions} />
         {
           this.props.isZoomControlVisible && (
@@ -182,6 +194,7 @@ MapLeaflet.defaultProps = {
   geoJson: {},
   layers: [],
   mapOptions: {},
+  drawShape: {},
   markers: [],
   scaleControlOptions: {},
   zoom: 11,
@@ -200,6 +213,7 @@ MapLeaflet.propTypes = {
   }),
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
+  drawShape: PropTypes.shape({}),
   geoJson: PropTypes.shape({}),
   isZoomControlVisible: PropTypes.bool,
   mapOptions: PropTypes.shape({}),

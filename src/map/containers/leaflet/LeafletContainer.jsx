@@ -9,7 +9,7 @@ import { updateZoom, updatePan, getMarkers } from '../../ducks/map/map';
 import { updateClick } from '../../ducks/click-location/map-click-location';
 import { getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { getLayers } from '../../ducks/layers/map-layers';
-import { getGeoJson } from '../../ducks/detail/map-detail';
+import { getGeoJson, getDrawShape } from '../../ducks/detail/map-detail';
 import { getClusterMarkers } from '../../ducks/data-selection/data-selection';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
@@ -27,6 +27,7 @@ const mapStateToProps = (state) => ({
   geoJson: getGeoJson(state),
   markers: getMarkers(state),
   layers: getLayers(state),
+  drawShape: getDrawShape(state),
   uiState: Object.keys(state.ui).map((key) => (
      state.ui[key]
    )).toString(),
@@ -73,6 +74,7 @@ class LeafletContainer extends React.Component {
       baseLayer,
       center,
       clusterMarkers,
+      drawShape,
       geoJson,
       layers,
       markers,
@@ -88,6 +90,7 @@ class LeafletContainer extends React.Component {
             baseLayer={baseLayer}
             center={center}
             clusterMarkers={clusterMarkers}
+            drawShape={drawShape}
             geoJson={geoJson}
             layers={layers}
             mapOptions={mapOptions}
@@ -115,6 +118,7 @@ LeafletContainer.defaultProps = {
   },
   center: [],
   clusterMarkers: [],
+  drawShape: {},
   geoJson: {},
   layers: [],
   markers: [],
@@ -128,6 +132,7 @@ LeafletContainer.propTypes = {
   }),
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
+  drawShape: PropTypes.shape({}),
   geoJson: PropTypes.shape({}),
   markers: PropTypes.arrayOf(PropTypes.shape({})),
   layers: PropTypes.arrayOf(PropTypes.shape({
