@@ -12,7 +12,6 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
         'dashboardColumns',
         'dpDataSelectionDocumentTitle',
         'dpDetailDocumentTitle',
-        'dpMapDocumentTitle',
         'dpPageDocumentTitle',
         'dpSearchResultsDocumentTitle',
         'dpStraatbeeldDocumentTitle',
@@ -27,7 +26,6 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
         dashboardColumns,
         dpDataSelectionDocumentTitle,
         dpDetailDocumentTitle,
-        dpMapDocumentTitle,
         dpPageDocumentTitle,
         dpSearchResultsDocumentTitle,
         dpStraatbeeldDocumentTitle,
@@ -61,7 +59,7 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                 state: 'map'
             }, {
                 visibility: 'map',
-                documentTitle: dpMapDocumentTitle,
+                documentTitle: 'Needs to be fixed',
                 state: 'map'
             }];
 

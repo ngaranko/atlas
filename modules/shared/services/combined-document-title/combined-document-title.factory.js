@@ -9,14 +9,12 @@
     documentTitleFactory.$inject = [
         'dpSearchResultsDocumentTitle',
         'dpDetailDocumentTitle',
-        'dpMapDocumentTitle',
         '$q'
     ];
 
     function documentTitleFactory (
         dpSearchResultsDocumentTitle,
         dpDetailDocumentTitle,
-        dpMapDocumentTitle,
         $q
     ) {
         return {
@@ -26,15 +24,17 @@
         function getTitle (fullState) {
             const q = $q.defer();
 
-            dpMapDocumentTitle.getTitle().then(result => {
-                if (fullState.detail && fullState.detail.display) {
-                    q.resolve(`${dpDetailDocumentTitle.getTitle(fullState.detail)} | ${result}`);
-                } else if (fullState.search && fullState.search.numberOfResults) {
-                    q.resolve(`${dpSearchResultsDocumentTitle.getTitle(fullState.search)} | ${result}`);
-                } else {
-                    q.resolve(result);
-                }
-            });
+            // dpMapDocumentTitle.getTitle().then(result => {
+            //     if (fullState.detail && fullState.detail.display) {
+            //         q.resolve(`${dpDetailDocumentTitle.getTitle(fullState.detail)} | ${result}`);
+            //     } else if (fullState.search && fullState.search.numberOfResults) {
+            //         q.resolve(`${dpSearchResultsDocumentTitle.getTitle(fullState.search)} | ${result}`);
+            //     } else {
+            //         q.resolve(result);
+            //     }
+            // });
+
+            q.resolve('test');
 
             return q.promise;
         }
