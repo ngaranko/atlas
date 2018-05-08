@@ -83,7 +83,8 @@
                 delete vm.apiData;
                 errorHandler();
             } else {
-                api.getByUrl(endpoint).then(function (data) {
+                const endpointVersion = category === 'grondexploitatie' ? '?version=2' : '';
+                api.getByUrl(`${endpoint}${endpointVersion}`).then(function (data) {
                     data = dataFormatter.formatData(data, subject);
 
                     vm.apiData = {

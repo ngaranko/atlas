@@ -13,15 +13,20 @@ describe('datasets search module', () => {
   describe('user should be to type and see suggestions', () => {
     it('should open the autocomplete panel', () => {
       cy.server();
-      cy.route('/typeahead?q=Park').as('getTypeAhead');
+      // TODO: enable this (getTypeAhead) once fetch is supported by Cypress
+      // https://github.com/cypress-io/cypress/issues/95
+      // cy.route('/typeahead?q=Park').as('getTypeAhead');
 
       cy.visit('/');
-      cy.get('input.js-search-input').trigger('focus');
-      cy.get('input.js-search-input').type('Park');
-      cy.get('input.js-search-input').trigger('change');
-      cy.wait('@getTypeAhead');
+      cy.get('.auto-suggest__input').trigger('focus');
+      cy.get('.auto-suggest__input').type('Park');
+      cy.get('.auto-suggest__input').trigger('change');
 
-      cy.get('.c-autocomplete').should('exist').and('be.visible');
+      // TODO: remove wait(500) and enably the route-wait
+      cy.wait(500);
+      // cy.wait('@getTypeAhead');
+
+      cy.get('.auto-suggest').should('exist').and('be.visible');
     });
   });
 
@@ -31,9 +36,9 @@ describe('datasets search module', () => {
       cy.defineSearchRoutes();
 
       cy.visit('/');
-      cy.get('input.js-search-input').trigger('focus');
-      cy.get('input.js-search-input').type('Park');
-      cy.get('.c-search-form').submit();
+      cy.get('.auto-suggest__input').trigger('focus');
+      cy.get('.auto-suggest__input').type('Park');
+      cy.get('.auto-suggest').submit();
       cy.waitForSearch();
 
       cy.get(datasetsTab).contains('Datasets').click();
@@ -45,9 +50,9 @@ describe('datasets search module', () => {
       cy.defineSearchRoutes();
 
       cy.visit('/');
-      cy.get('input.js-search-input').trigger('focus');
-      cy.get('input.js-search-input').type('NORESULTS');
-      cy.get('.c-search-form').submit();
+      cy.get('.auto-suggest__input').trigger('focus');
+      cy.get('.auto-suggest__input').type('NORESULTS');
+      cy.get('.auto-suggest').submit();
       cy.waitForSearch();
 
       cy.get(datasetsTab).should('not.exist').and('not.be.visible');

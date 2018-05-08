@@ -51,5 +51,8 @@ import { getEnvironment, ENVIRONMENTS } from '../../src/shared/environment';
             .install();
     }
 
-    angular.module('atlas', moduleDependencies);
+    angular.module('atlas', moduleDependencies)
+        .config(function ($analyticsProvider) {
+            $analyticsProvider.virtualPageviews(false);
+        });
 })();

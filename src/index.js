@@ -4,9 +4,9 @@ import './map/wrappers/panel/MapPanelWrapper';
 import './map/wrappers/preview-panel/MapPreviewPanelWrapper';
 import './map/wrappers/map/MapWrapper';
 import './map/wrappers/map-embed-button/MapEmbedButtonWrapper';
-import './detail/wrappers/graph-wrappers/GrondexploitatieGrafiekTotaleBegrotingWrapper';
-import './detail/wrappers/graph-wrappers/GrondexploitatieGrafiekGefaseerdeBegrotingWrapper';
-
+import './detail/wrappers/DetailGrondexploitatieGraphTotalsWrapper';
+import './detail/wrappers/DetailGrondexploitatieGraphPhasedWrapper';
+import './header/wrappers/header-search/HeaderSearchWrapper';
 
 // All third party dependencies
 import './vendor';
@@ -112,8 +112,8 @@ import '../modules/detail/components/data-selection-links/data-selection-links.c
 import '../modules/detail/components/date/date.filter';
 import '../modules/detail/components/detail/detail.component';
 import '../modules/detail/components/detail/follow-link/follow-link.directive';
-import '../modules/detail/components/detail/templates/grondexploitatie/grondexploitatie-grafiek-totale-begroting/grondexploitatie-grafiek-totale-begroting.component';
-import '../modules/detail/components/detail/templates/grondexploitatie/grondexploitatie-grafiek-gefaseerde-begroting/grondexploitatie-grafiek-gefaseerde-begroting.component';
+import '../modules/detail/components/detail/templates/grondexploitatie/graph-totals/grondexploitatie-graph-totals.component';
+import '../modules/detail/components/detail/templates/grondexploitatie/graph-phased/grondexploitatie-graph-phased.component';
 import '../modules/detail/components/filename/filename.filter';
 import '../modules/detail/components/glossary/glossary.constant';
 import '../modules/detail/components/glossary/header/glossary-header.directive';
@@ -140,9 +140,6 @@ import '../modules/header/components/menu/dropdown/menu-dropdown.directive';
 import '../modules/header/components/menu/menu.component';
 import '../modules/header/components/print-button/print-button.component';
 import '../modules/header/components/print-header/print-header.component';
-import '../modules/header/components/search/autocomplete/autocomplete-data.factory';
-import '../modules/header/components/search/search.directive';
-import '../modules/header/components/search/suggestion-highlight/suggestion-highlight.filter';
 import '../modules/header/components/site-header/site-header.component';
 import '../modules/header/components/terugmelden-button/terugmelden-button.component';
 import '../modules/header/header-config.constant';
@@ -224,6 +221,7 @@ import '../modules/shared/services/user-settings/user-settings.constant';
 import '../modules/shared/services/user-settings/user-settings.factory';
 import '../modules/shared/shared-config.factory';
 import '../modules/shared/shared.vendor';
+import '../modules/shared/services/combined-document-title/combined-document-title.factory';
 import '../modules/straatbeeld/straatbeeld.module';
 import '../modules/straatbeeld/components/history/history.directive';
 import '../modules/straatbeeld/components/hotspot/hotspot.component';
