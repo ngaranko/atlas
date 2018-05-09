@@ -2,10 +2,7 @@ import { testSaga, expectSaga } from 'redux-saga-test-plan';
 
 import watchFetchMapDetail, { fetchMapDetail } from './map-detail';
 import * as fetchDetail from '../../services/map-detail';
-
-import {
-  fetchMapDetailFailure
-} from '../../ducks/detail/map-detail';
+import { fetchMapDetailFailure } from '../../ducks/detail/map-detail';
 
 
 describe('watchFetchMapDetail', () => {
