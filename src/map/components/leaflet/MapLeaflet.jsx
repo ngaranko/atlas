@@ -23,7 +23,6 @@ class MapLeaflet extends React.Component {
       if (element && element.leafletElement) {
         this.MapElement = element;
         this.props.getLeafletInstance(element.leafletElement);
-        window.leafletMap = element.leafletElement;
       }
     };
 

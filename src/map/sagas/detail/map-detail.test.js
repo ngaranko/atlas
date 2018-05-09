@@ -3,6 +3,10 @@ import { testSaga, expectSaga } from 'redux-saga-test-plan';
 import watchFetchMapDetail, { fetchMapDetail } from './map-detail';
 import * as fetchDetail from '../../services/map-detail';
 
+import {
+  fetchMapDetailFailure
+} from '../../ducks/detail/map-detail';
+
 
 describe('watchFetchMapDetail', () => {
   const action = { type: 'FETCH_MAP_DETAIL_REQUEST' };
@@ -38,10 +42,9 @@ describe('fetchNearestDetails', () => {
     testSaga(fetchMapDetail, action)
       .next()
       .throw(error)
-      .put({
-        type: 'FETCH_MAP_DETAIL_FAILURE',
-        error
-      })
+      .put(
+        fetchMapDetailFailure
+      )
       .next()
       .isDone();
   });
