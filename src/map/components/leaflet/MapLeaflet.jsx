@@ -20,7 +20,11 @@ class MapLeaflet extends React.Component {
     this.onDragEnd = this.onDragEnd.bind(this);
 
     this.setMapElement = (element) => {
-      this.MapElement = element;
+      if (element && element.leafletElement) {
+        this.MapElement = element;
+        this.props.getLeafletInstance(element.leafletElement);
+        window.leafletMap = element.leafletElement;
+      }
     };
 
     this.setGeoJsonElement = (element) => {
@@ -66,7 +70,7 @@ class MapLeaflet extends React.Component {
       return;
     }
     const elementBounds = this.geoJsonElement.leafletElement.getBounds();
-    if (!elementBounds) {
+    if (Object.keys(elementBounds).length === 0 && elementBounds.constructor === Object) {
       return;
     }
     const mapBounds = this.MapElement.leafletElement.getBounds();
@@ -216,6 +220,7 @@ MapLeaflet.propTypes = {
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
   drawShape: PropTypes.shape({}),
   geoJson: PropTypes.shape({}),
+  getLeafletInstance: PropTypes.func.isRequired,
   isZoomControlVisible: PropTypes.bool,
   mapOptions: PropTypes.shape({}),
   markers: PropTypes.arrayOf(PropTypes.shape({})),

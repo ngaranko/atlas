@@ -27,6 +27,10 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 class MapContainer extends React.Component { //eslint-disable-line
   constructor(props) { //eslint-disable-line
     super(props);
+    this.state = {
+      leafletInstance: null
+    };
+    this.geLeafletInstance = this.geLeafletInstance.bind(this);
   }
 
   componentDidMount() {
@@ -35,10 +39,23 @@ class MapContainer extends React.Component { //eslint-disable-line
     this.context.store.dispatch(fetchPanelLayers());
   }
 
+  geLeafletInstance(leafletInstance) {
+    this.setState({ leafletInstance });
+  }
+
   render() {
     return (
       <div className="c-map c-map--drawing-mode- qa-map-container">
-        <LeafletContainer />
+        <LeafletContainer
+          getLeafletInstance={this.geLeafletInstance}
+        />
+        {
+          this.state.leafletInstance && (
+            <DrawTool
+              leafletInstance={this.state.leafletInstance}
+            />
+          )
+        }
         <ToggleFullscreen
           isFullscreen={this.props.isFullscreen}
           onToggleFullscreen={this.props.onToggleFullscreen}
@@ -55,7 +72,8 @@ MapContainer.contextTypes = {
 };
 
 MapContainer.defaultProps = {
-  geometry: null
+  geometry: null,
+  leafletInstance: null
 };
 
 MapContainer.propTypes = {

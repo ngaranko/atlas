@@ -28,6 +28,7 @@ const mapStateToProps = (state) => ({
   markers: getMarkers(state),
   layers: getLayers(state),
   drawShape: getDrawShape(state),
+  drawMode: state.ui.drawingMode,
   uiState: Object.keys(state.ui).map((key) => (
      state.ui[key]
    )).toString(),
@@ -50,6 +51,7 @@ class LeafletContainer extends React.Component {
       this.MapLeaflet = element;
       this.updateMapBounds();
     };
+    this.onUpdateClick = this.onUpdateClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,6 +59,12 @@ class LeafletContainer extends React.Component {
     if (uiState !== this.state.uiState) {
       this.updateMapBounds();
       this.setState({ uiState });
+    }
+  }
+
+  onUpdateClick() {
+    if (this.props.drawMode !== 'none') {
+      this.props.onUpdateClick();
     }
   }
 
@@ -76,9 +84,9 @@ class LeafletContainer extends React.Component {
       clusterMarkers,
       drawShape,
       geoJson,
+      getLeafletInstance,
       layers,
       markers,
-      onUpdateClick,
       onUpdatePan,
       onUpdateZoom,
       zoom
@@ -87,6 +95,7 @@ class LeafletContainer extends React.Component {
       <div>
         { baseLayer.urlTemplate && (
           <MapLeaflet
+            getLeafletInstance={getLeafletInstance}
             baseLayer={baseLayer}
             center={center}
             clusterMarkers={clusterMarkers}
@@ -95,7 +104,7 @@ class LeafletContainer extends React.Component {
             layers={layers}
             mapOptions={mapOptions}
             markers={markers}
-            onClick={onUpdateClick}
+            onClick={this.onUpdateClick}
             onDragEnd={onUpdatePan}
             onZoomEnd={onUpdateZoom}
             ref={this.setMapLeaflet}
@@ -119,6 +128,7 @@ LeafletContainer.defaultProps = {
   center: [],
   clusterMarkers: [],
   drawShape: {},
+  drawMode: 'none',
   geoJson: {},
   layers: [],
   markers: [],
@@ -133,7 +143,9 @@ LeafletContainer.propTypes = {
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
   drawShape: PropTypes.shape({}),
+  drawMode: PropTypes.string,
   geoJson: PropTypes.shape({}),
+  getLeafletInstance: PropTypes.func.isRequired,
   markers: PropTypes.arrayOf(PropTypes.shape({})),
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,

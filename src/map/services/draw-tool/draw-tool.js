@@ -141,9 +141,20 @@ function setDrawingMode(drawingMode) {
   }
 }
 
+function clearTexts(obj) {
+  Object.keys(obj).forEach((key) => {
+    if (typeof (obj[key]) === 'object') {
+      clearTexts(obj[key]);
+    } else if (typeof (obj[key]) === 'string') {
+      obj[key] = ''; //eslint-disable-line
+    }
+  });
+}
+
 // Initialisation of the draw tool, initialise drawing and register required objects
 // in the drawTool object
 function initDrawTool(map) {
+  clearTexts(L.drawLocal);
   L.drawLocal.format = drawToolConfig.format;
 
   drawTool.map = map;
