@@ -1,11 +1,10 @@
+import getStore from './get-store';
 (function () {
     angular
         .module('dpShared')
         .factory('store', storeFactory);
 
-    storeFactory.$inject = ['applicationState'];
-
-    function storeFactory (applicationState) {
-        return applicationState.getStore();
+    function storeFactory () {
+        return getStore();
     }
 })();
