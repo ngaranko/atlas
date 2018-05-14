@@ -129,7 +129,7 @@ class MapLeaflet extends React.Component {
           ))
         }
         {
-          clusterMarkers.length && (
+          clusterMarkers.length > 0 && (
             <MarkerClusterGroup
               showCoverageOnHover={false}
               iconCreateFunction={createClusterIcon}
