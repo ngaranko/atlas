@@ -21,14 +21,20 @@ export const getDrawShape = createSelector([getDataSelection, getGeometryFilterM
   )
 );
 
+export const shouldShowGeoJson = createSelector([isSearchActive, getDetail, getDataSelection],
+ (searchActive, detailActive, dataSelectionActive) => (
+   detailActive && !dataSelectionActive && !searchActive
+ )
+);
+
 export const getGeoJson = createSelector(
-  [getCurrentEndPoint, getAllResults, isSearchActive, getDetail],
-  (currentEndpoint, allResults, searchActive, detailActive) => (
-    (!detailActive || !allResults[currentEndpoint] || searchActive) ? {} : {
+  [getCurrentEndPoint, getAllResults, shouldShowGeoJson],
+  (currentEndpoint, allResults, isGeoJsonActive) => (
+    (isGeoJsonActive && allResults[currentEndpoint]) ? {
       geometry: allResults[currentEndpoint].geometrie,
       name: allResults[currentEndpoint].code,
       label: allResults[currentEndpoint].label
-    }
+    } : {}
   )
 );
 
