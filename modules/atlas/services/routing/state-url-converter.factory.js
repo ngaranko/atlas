@@ -19,6 +19,7 @@
         const MAIN_STATE = 'DEFAULT';
         const BOOLEAN_TRUE = 'T';
         const BOOLEAN_FALSE = 'F';
+        const NO_VALUE = '_NV_';
         const TYPENAME = {
             STRING: /^string$/,
             BOOLEAN: /^boolean$/,
@@ -114,17 +115,9 @@
                 const baseType = ArrayValue.getBaseType(typeName);
                 // Split the array, replace the split char by a tmp split char because org split char can repeat
                 const TMP_SPLIT_CHAR = '|';
-                const surroundEnd = '(^|[^' + URL_ARRAY_SEPARATOR + ']|$)';
-                let surroundBeginning = surroundEnd;
+                const surroundBy = '(^|[^' + URL_ARRAY_SEPARATOR + ']|$)';
 
-                if (separator === ':' && s.indexOf('postcode:::') > -1) {
-                    // when splitting on the single ':'
-                    // allow an empty value for the postcode key
-                    // 'postcode:::' is set when addresstable has '(Geen)' for postcode
-                    surroundBeginning = '(^|::|[^' + URL_ARRAY_SEPARATOR + ']|$)';
-                }
-
-                const splitOn = new RegExp(surroundBeginning + separator + surroundEnd, 'g');
+                const splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
                 const splitValue = s.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
                 return splitValue
                     .split(TMP_SPLIT_CHAR)
@@ -264,7 +257,7 @@
                     }
                     value = asUrlValue(value, attribute.type, attribute.precision);
                     if (value) {
-                        result[key] = value;
+                        result[key] = value.replace('postcode:::', `postcode::${NO_VALUE}:`);
                     }
                 }
                 return result;
@@ -309,6 +302,10 @@
                     newState[key] = stateUrlConversion.post[key](oldState[key], newState[key]);
                 }
             });
+
+            if (newState.filters && newState.filters.postcode === NO_VALUE) {
+                newState.filters.postcode = '';
+            }
 
             return newState;
         }
