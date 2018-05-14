@@ -39,9 +39,7 @@ describe('fetchNearestDetails', () => {
     testSaga(fetchMapDetail, action)
       .next()
       .throw(error)
-      .put(
-        fetchMapDetailFailure
-      )
+      .put(fetchMapDetailFailure)
       .next()
       .isDone();
   });
