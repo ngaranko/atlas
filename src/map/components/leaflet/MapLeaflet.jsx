@@ -21,15 +21,15 @@ class MapLeaflet extends React.Component {
 
     this.setMapElement = (element) => {
       if (element && element.leafletElement) {
-        this.MapElement = element;
-        this.props.getLeafletInstance(element.leafletElement);
+        this.MapElement = element.leafletElement;
+        this.props.getLeafletInstance(this.MapElement);
       }
     };
 
-    this.setGeoJsonElement = (element) => {
+    this.setActiveElement = (element) => {
       if (element) {
-        this.geoJsonElement = element;
-        this.fitGeoJson();
+        this.activeElement = element.leafletElement;
+        this.fitActiveElement();
       }
     };
   }
@@ -64,30 +64,30 @@ class MapLeaflet extends React.Component {
     });
   }
 
-  fitGeoJson() {
-    if (!this.geoJsonElement) {
+  fitActiveElement() {
+    if (!this.activeElement) {
       return;
     }
-    const elementBounds = this.geoJsonElement.leafletElement.getBounds();
+    const elementBounds = this.activeElement.getBounds();
     if (Object.keys(elementBounds).length === 0 && elementBounds.constructor === Object) {
       return;
     }
-    const mapBounds = this.MapElement.leafletElement.getBounds();
+    const mapBounds = this.MapElement.getBounds();
     const elementFits = mapBounds.contains(elementBounds);
     if (!elementFits) {
-      const elementZoom = this.MapElement.leafletElement.getBoundsZoom(elementBounds);
+      const elementZoom = this.MapElement.getBoundsZoom(elementBounds);
       if (elementZoom < this.props.zoom) {
         // pan and zoom to the geoJson element
-        this.MapElement.leafletElement.fitBounds(elementBounds);
+        this.MapElement.fitBounds(elementBounds);
       } else {
         // only pan to the geoJson element
-        this.MapElement.leafletElement.panInsideBounds(elementBounds);
+        this.MapElement.panInsideBounds(elementBounds);
       }
     }
   }
 
   invalidateSize() {
-    this.MapElement.leafletElement.invalidateSize();
+    this.MapElement.invalidateSize();
   }
 
   render() {
@@ -129,25 +129,28 @@ class MapLeaflet extends React.Component {
           ))
         }
         {
-          <MarkerClusterGroup
-            showCoverageOnHover={false}
-            iconCreateFunction={createClusterIcon}
-            spiderfyOnMaxZoom={false}
-            animate={false}
-            maxClusterRadius={50}
-            chunkedLoading
-            disableClusteringAtZoom={baseLayer.baseLayerOptions.maxZoom}
-          >
-            {
-              clusterMarkers.map((marker) => (
-                <Marker
-                  position={marker.position}
-                  key={marker.index}
-                  icon={icons[marker.type]}
-                />
-              ))
-            }
-          </MarkerClusterGroup>
+          clusterMarkers.length && (
+            <MarkerClusterGroup
+              showCoverageOnHover={false}
+              iconCreateFunction={createClusterIcon}
+              spiderfyOnMaxZoom={false}
+              animate={false}
+              maxClusterRadius={50}
+              chunkedLoading
+              ref={this.setActiveElement}
+              disableClusteringAtZoom={baseLayer.baseLayerOptions.maxZoom}
+            >
+              {
+                clusterMarkers.map((marker) => (
+                  <Marker
+                    position={marker.position}
+                    key={marker.index}
+                    icon={icons[marker.type]}
+                  />
+                ))
+              }
+            </MarkerClusterGroup>
+          )
         }
         {
           markers.map((marker) => (
@@ -163,7 +166,7 @@ class MapLeaflet extends React.Component {
         {
           geoJson.geometry && (
             <RdGeoJson
-              ref={this.setGeoJsonElement}
+              ref={this.setActiveElement}
               key={geoJson.label}
               data={geoJson}
             />
@@ -173,7 +176,7 @@ class MapLeaflet extends React.Component {
           drawShape.latLngList && (
             <Polygon
               positions={drawShape.latLngList}
-              ref={this.setGeoJsonElement}
+              ref={this.setActiveElement}
             />
           )
         }

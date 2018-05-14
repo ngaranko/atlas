@@ -72,7 +72,7 @@ class LeafletContainer extends React.Component {
     setTimeout(() => {
       if (this.MapLeaflet) {
         this.MapLeaflet.invalidateSize();
-        this.MapLeaflet.fitGeoJson();
+        this.MapLeaflet.fitActiveElement();
       }
     });
   }
