@@ -18,11 +18,15 @@ class MapLeaflet extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.onMoveEnd = this.onMoveEnd.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.state = {
+      drawMode: false
+    };
 
     this.setMapElement = (element) => {
       if (element && element.leafletElement) {
         this.MapElement = element.leafletElement;
         this.props.getLeafletInstance(this.MapElement);
+        this.onMapDraw(this.MapElement);
       }
     };
 
@@ -32,6 +36,19 @@ class MapLeaflet extends React.Component {
         this.fitActiveElement();
       }
     };
+  }
+
+  onMapDraw(mapElement) {
+    mapElement.on('draw:drawstop', () => {
+      setTimeout(() => {
+        this.setState({ drawMode: false });
+      });
+    });
+    mapElement.on('draw:drawstart', () => {
+      setTimeout(() => {
+        this.setState({ drawMode: true });
+      });
+    });
   }
 
   onZoomEnd(event) {
@@ -45,11 +62,13 @@ class MapLeaflet extends React.Component {
 
   onClick(event) {
     const { latlng, containerPoint, layerPoint } = event;
-    this.props.onClick({
-      latlng,
-      containerPoint,
-      layerPoint
-    });
+    if (!this.state.drawMode) {
+      this.props.onClick({
+        latlng,
+        containerPoint,
+        layerPoint
+      });
+    }
   }
 
   onMoveEnd(event) {
@@ -110,6 +129,7 @@ class MapLeaflet extends React.Component {
         onClick={this.onClick}
         onMoveEnd={this.onMoveEnd}
         onDragEnd={this.onDragEnd}
+        onDraw={this.draw}
         center={center}
         zoom={zoom}
         {...mapOptions}

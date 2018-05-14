@@ -9,7 +9,7 @@ export const getSearch = (state) => state.search;
 export const getMapResultsByLocation = (state) => state.mapSearchResultsByLocation;
 
 export const isSearchActive = createSelector(getSearch, (geoSearch) => (
-  geoSearch && geoSearch.location.length
+  geoSearch && geoSearch.location && geoSearch.location.length
 ));
 
 export const getSearchMarker = createSelector([isSearchActive, getSearch], (active, geoSearch) => (

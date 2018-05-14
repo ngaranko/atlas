@@ -17,7 +17,8 @@ import { fetchMapLayers } from '../../ducks/layers/map-layers';
 import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 
 const mapStateToProps = (state) => ({
-  isFullscreen: state.ui.isMapFullscreen
+  isFullscreen: state.ui.isMapFullscreen,
+  drawMode: state.map.drawingMode
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -45,7 +46,7 @@ class MapContainer extends React.Component {
 
   render() {
     return (
-      <div className="c-map c-map--drawing-mode- qa-map-container">
+      <div className={`c-map c-map--drawing-mode-${this.props.drawMode} qa-map-container`}>
         <LeafletContainer
           getLeafletInstance={this.setLeafletInstance}
         />
@@ -73,12 +74,14 @@ MapContainer.contextTypes = {
 
 MapContainer.defaultProps = {
   geometry: null,
-  leafletInstance: null
+  leafletInstance: null,
+  drawMode: 'none'
 };
 
 MapContainer.propTypes = {
   isFullscreen: PropTypes.bool.isRequired,
-  onToggleFullscreen: PropTypes.func.isRequired
+  onToggleFullscreen: PropTypes.func.isRequired,
+  drawMode: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapContainer);
