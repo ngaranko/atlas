@@ -9,6 +9,8 @@ describe('MapSearchResults', () => {
   const mapOptions = MAP_CONFIG.MAP_OPTIONS;
   const scaleControlOptions = MAP_CONFIG.SCALE_OPTIONS;
 
+  const getLeafletInstance = () => '';
+
   const baseLayer = {
     baseLayerOptions: {
       bounds: [[52.25168, 4.64034], [52.50536, 5.10737]],
@@ -31,6 +33,7 @@ describe('MapSearchResults', () => {
         baseLayer={baseLayer}
         onZoomEnd={clickHandler}
         onDragEnd={clickHandler}
+        getLeafletInstance={getLeafletInstance}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -58,6 +61,7 @@ describe('MapSearchResults', () => {
         baseLayer={baseLayer}
         onZoomEnd={clickHandler}
         onDragEnd={clickHandler}
+        getLeafletInstance={getLeafletInstance}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -98,6 +102,7 @@ describe('MapSearchResults', () => {
         baseLayer={baseLayer}
         onZoomEnd={clickHandler}
         onDragEnd={clickHandler}
+        getLeafletInstance={getLeafletInstance}
       />
     );
     expect(wrapper).toMatchSnapshot();

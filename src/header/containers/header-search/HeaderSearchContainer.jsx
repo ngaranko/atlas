@@ -16,7 +16,7 @@ import emptyFilters from '../../../shared/ducks/filters/filters';
 
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
-import getSharedConfig from '../../../shared/services/shared-config/shared-config';
+import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config';
 
 const mapStateToProps = (state) => ({
   activeSuggestion: state.autoSuggest.activeSuggestion,
@@ -113,7 +113,7 @@ class HeaderSearchContainer extends React.Component {
       // (webpack overrides the data it seems)
       newWindow.window.suggestionToLoadUri = suggestion.uri;
     } else {
-      onDetailLoad(`${getSharedConfig().API_ROOT}${suggestion.uri}`);
+      onDetailLoad(`${SHARED_CONFIG.API_ROOT}${suggestion.uri}`);
     }
   }
 

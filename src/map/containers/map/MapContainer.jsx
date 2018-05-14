@@ -24,9 +24,13 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onToggleFullscreen: toggleMapFullscreen
 }, dispatch);
 
-class MapContainer extends React.Component { //eslint-disable-line
-  constructor(props) { //eslint-disable-line
+class MapContainer extends React.Component {
+  constructor(props) {
     super(props);
+    this.state = {
+      leafletInstance: null
+    };
+    this.setLeafletInstance = this.setLeafletInstance.bind(this);
   }
 
   componentDidMount() {
@@ -35,10 +39,23 @@ class MapContainer extends React.Component { //eslint-disable-line
     this.context.store.dispatch(fetchPanelLayers());
   }
 
+  setLeafletInstance(leafletInstance) {
+    this.setState({ leafletInstance });
+  }
+
   render() {
     return (
       <div className="c-map c-map--drawing-mode- qa-map-container">
-        <LeafletContainer />
+        <LeafletContainer
+          getLeafletInstance={this.setLeafletInstance}
+        />
+        {
+          this.state.leafletInstance && (
+            <DrawTool
+              leafletInstance={this.state.leafletInstance}
+            />
+          )
+        }
         <ToggleFullscreen
           isFullscreen={this.props.isFullscreen}
           onToggleFullscreen={this.props.onToggleFullscreen}
@@ -55,7 +72,8 @@ MapContainer.contextTypes = {
 };
 
 MapContainer.defaultProps = {
-  geometry: null
+  geometry: null,
+  leafletInstance: null
 };
 
 MapContainer.propTypes = {

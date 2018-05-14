@@ -60,13 +60,18 @@ describe('LeafletContainer', () => {
       ui: {
         map: true,
         detail: false
-      }
+      },
+      getLeafletInstance: () => ''
     };
   });
 
   it('should render', () => {
     const store = configureMockStore()({ ...initialState });
-    const wrapper = shallow(<LeafletContainer />, { context: { store } }).dive();
+    const wrapper = shallow(
+      <LeafletContainer
+        getLeafletInstance={initialState.getLeafletInstance}
+      />, { context: { store } }
+    ).dive();
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -92,7 +97,10 @@ describe('LeafletContainer', () => {
       }
     };
     const store = configureMockStore()({ ...stateWithDifferentCenter });
-    const wrapper = shallow(<LeafletContainer />, { context: { store } }).dive();
+    const wrapper = shallow(
+      <LeafletContainer
+        getLeafletInstance={initialState.getLeafletInstance}
+      />, { context: { store } }).dive();
 
     expect(wrapper).toMatchSnapshot();
   });
