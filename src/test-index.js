@@ -194,6 +194,7 @@ import '../modules/shared/components/uppercase-first-letter/uppercase-first-lett
 import '../modules/shared/components/video/video.component';
 import '../modules/shared/directives/routing-link/routing-link.directive';
 import '../modules/shared/filters/filesize.filter';
+import '../modules/shared/services/combined-document-title/combined-document-title.factory';
 import '../modules/shared/services/active-overlays/active-overlays.factory';
 import '../modules/shared/services/api/api.factory';
 import '../modules/shared/services/base-coder/base-coder.factory';
@@ -392,6 +393,7 @@ import '../modules/shared/services/geojson/geojson.factory.test';
 import '../modules/shared/services/environment/environment.factory.test';
 import '../modules/shared/services/nearest-detail/nearest-detail.factory.test';
 import '../modules/shared/filters/filesize.filter.test';
+import '../modules/shared/services/combined-document-title/combined-document-title.factory.test';
 import '../modules/atlas/components/preview-state/preview-state.directive.test';
 import '../modules/atlas/components/dashboard/dashboard-columns.factory.test';
 import '../modules/atlas/components/dashboard/dashboard.component.test';
