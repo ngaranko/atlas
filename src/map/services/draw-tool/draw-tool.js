@@ -142,19 +142,17 @@ function setDrawingMode(drawingMode) {
 }
 
 function clearTexts(obj) {
-  Object.keys(obj).forEach((key) => {
-    if (typeof (obj[key]) === 'object') {
-      clearTexts(obj[key]);
-    } else if (typeof (obj[key]) === 'string') {
-      obj[key] = ''; //eslint-disable-line
-    }
-  });
+  return Object.keys(obj).reduce((acc, key) => ({
+    ...acc,
+    [key]: typeof obj[key] === 'object' ? clearTexts(obj[key]) : (
+      typeof obj[key] === 'string' ? '' : obj[key])
+  }), {});
 }
 
 // Initialisation of the draw tool, initialise drawing and register required objects
 // in the drawTool object
 function initDrawTool(map) {
-  clearTexts(L.drawLocal);
+  L.drawLocal = clearTexts(L.drawLocal);
   L.drawLocal.format = drawToolConfig.format;
 
   drawTool.map = map;
