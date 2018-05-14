@@ -2,8 +2,6 @@ import { createSelector } from 'reselect';
 
 import { isSearchActive } from '../search-results/map-search-results';
 
-const getCurrentEndPoint = (state) => state.mapDetail.currentEndpoint;
-const getAllResults = (state) => state.mapDetail.byEndpoint;
 const getDataSelection = (state) => state.dataSelection;
 const getDetail = (state) => state.detail;
 
@@ -21,6 +19,8 @@ export const getDrawShape = createSelector([getDataSelection, getGeometryFilterM
   )
 );
 
+export const getGeometry = createSelector(getDetail, (detail) => detail && detail.geometry);
+
 export const shouldShowGeoJson = createSelector([isSearchActive, getDetail, getDataSelection],
  (searchActive, detailActive, dataSelectionActive) => (
    detailActive && !dataSelectionActive && !searchActive
@@ -28,12 +28,11 @@ export const shouldShowGeoJson = createSelector([isSearchActive, getDetail, getD
 );
 
 export const getGeoJson = createSelector(
-  [getCurrentEndPoint, getAllResults, shouldShowGeoJson],
-  (currentEndpoint, allResults, isGeoJsonActive) => (
-    (isGeoJsonActive && allResults[currentEndpoint]) ? {
-      geometry: allResults[currentEndpoint].geometrie,
-      name: allResults[currentEndpoint].code,
-      label: allResults[currentEndpoint].label
+  [shouldShowGeoJson, getGeometry, getDetail],
+  (isGeoJsonActive, geometry, detail) => (
+    (isGeoJsonActive && geometry) ? {
+      geometry,
+      label: detail.display
     } : {}
   )
 );
