@@ -28,7 +28,7 @@ const mapStateToProps = (state) => ({
   markers: getMarkers(state),
   layers: getLayers(state),
   drawShape: getDrawShape(state),
-  drawMode: state.ui.drawingMode,
+  drawMode: state.map.drawingMode,
   uiState: Object.keys(state.ui).map((key) => (
      state.ui[key]
    )).toString(),
@@ -62,9 +62,9 @@ class LeafletContainer extends React.Component {
     }
   }
 
-  onUpdateClick() {
-    if (this.props.drawMode !== 'none') {
-      this.props.onUpdateClick();
+  onUpdateClick(event) {
+    if (this.props.drawMode === 'none') {
+      this.props.onUpdateClick(event);
     }
   }
 
