@@ -12,3 +12,10 @@
 .is-embed {
   @import "components/map/map-embed";
 }
+
+
+dp-map-wrapper {
+  > div {
+    height: 100%;
+  }
+}
