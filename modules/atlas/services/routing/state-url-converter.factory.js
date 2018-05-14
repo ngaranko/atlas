@@ -114,8 +114,17 @@
                 const baseType = ArrayValue.getBaseType(typeName);
                 // Split the array, replace the split char by a tmp split char because org split char can repeat
                 const TMP_SPLIT_CHAR = '|';
-                const surroundBy = '(^|[^' + URL_ARRAY_SEPARATOR + ']|$)';
-                const splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
+                const surroundEnd = '(^|[^' + URL_ARRAY_SEPARATOR + ']|$)';
+                let surroundBeginning = surroundEnd;
+
+                if (separator === ':' && s.indexOf('postcode:::') > -1) {
+                    // when splitting on the single ':'
+                    // allow an empty value for the postcode key
+                    // 'postcode:::' is set when addresstable has '(Geen)' for postcode
+                    surroundBeginning = '(^|::|[^' + URL_ARRAY_SEPARATOR + ']|$)';
+                }
+
+                const splitOn = new RegExp(surroundBeginning + separator + surroundEnd, 'g');
                 const splitValue = s.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
                 return splitValue
                     .split(TMP_SPLIT_CHAR)

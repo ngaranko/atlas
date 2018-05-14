@@ -281,6 +281,42 @@ describe('The state url conversion factory', function () {
                 });
             });
 
+            it('translates params with empty postcode value to the corresponding state', function () {
+                const state = stateUrlConverter.params2state({}, {
+                    s: 'aap',
+                    b: 'T',
+                    n: '10',
+                    n1: '1.2',
+                    b62: 'A0',
+                    as: 'aap:noot:mies',
+                    aab: 'T::F:F::T',
+                    aaan: '1:::2::3:::4:5:::6::7:::8',
+                    kv: 'aap::noot:postcode:::mies::teun',
+                    osb: 'aap:T',
+                    v: 'v'
+                });
+
+                expect(state).toEqual({
+                    s: 'aap',
+                    x: {
+                        b: true,
+                        y: {
+                            n: 10,
+                            n1: 1.2,
+                            z: {
+                                b62: 62
+                            }
+                        }
+                    },
+                    as: ['aap', 'noot', 'mies'],
+                    aab: [[true, false], [false, true]],
+                    aaan: [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],
+                    kv: { aap: 'noot', mies: 'teun', postcode: '' },
+                    osb: { id: 'aap', isVisible: true },
+                    v: 'setValue.v'
+                });
+            });
+
             it('can translate keyvalues with empty values', function () {
                 const state = stateUrlConverter.params2state({}, {
                     kv: 'aap::'
