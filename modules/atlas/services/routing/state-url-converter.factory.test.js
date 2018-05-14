@@ -225,7 +225,7 @@ describe('The state url conversion factory', function () {
                     aab: 'T::F:F::T',
                     aaan: '1:::2::3:::4:5:::6::7:::8',
                     kv: 'aap::noot:mies::teun',
-                    dsf: 'aap::noot:postcode::_NV_:mies::teun',
+                    dsf: 'aap::noot:postcode::xxxx:mies::teun',
                     osb: 'aap:T',
                     v: 'getValue.v'
                 });
@@ -334,7 +334,7 @@ describe('The state url conversion factory', function () {
                     aab: 'T::F:F::T',
                     aaan: '1:::2::3:::4:5:::6::7:::8',
                     kv: 'aap::noot:mies::teun',
-                    dsf: 'aap::noot:postcode::_NV_:mies::teun',
+                    dsf: 'aap::noot:postcode::xxxx:mies::teun',
                     osb: 'aap:T',
                     v: 'v'
                 });

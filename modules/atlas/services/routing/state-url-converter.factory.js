@@ -19,7 +19,7 @@
         const MAIN_STATE = 'DEFAULT';
         const BOOLEAN_TRUE = 'T';
         const BOOLEAN_FALSE = 'F';
-        const NO_VALUE = '_NV_';
+        const NO_VALUE = 'xxxx';
         const TYPENAME = {
             STRING: /^string$/,
             BOOLEAN: /^boolean$/,
