@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import MapLeaflet from '../../components/leaflet/MapLeaflet';
 import MAP_CONFIG from '../../services/map-config';
-import { updateZoom, updatePan, getMarkers } from '../../ducks/map/map';
+import { updateZoom, updatePan, getMarkers, getCenter } from '../../ducks/map/map';
 import { updateClick } from '../../ducks/click-location/map-click-location';
 import { getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { getLayers } from '../../ducks/layers/map-layers';
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
     urlTemplate: getUrlTemplate(state),
     baseLayerOptions
   },
-  center: state.map.viewCenter,
+  center: getCenter(state),
   clusterMarkers: getClusterMarkers(state),
   geoJson: getGeoJson(state),
   markers: getMarkers(state),

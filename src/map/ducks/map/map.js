@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { getStraatbeeldMarkers } from '../straatbeeld/straatbeeld';
+import { getStraatbeeldMarkers, getStraatbeeldLocation } from '../straatbeeld/straatbeeld';
 import { getDataSelection } from '../data-selection/data-selection';
 import { getSearchMarker } from '../search-results/map-search-results';
 
@@ -20,6 +20,14 @@ export const getMarkers = createSelector(
   (dataSelectionActive, searchMarkers, straatbeeldMarkers) => (
      !dataSelectionActive ? [...searchMarkers, ...straatbeeldMarkers] : []
   ));
+
+export const getMapCenter = (state) => state.map && state.map.viewCenter;
+
+export const getCenter = createSelector([getMapCenter, getStraatbeeldLocation],
+  (mapCenter, straatbeeldLocation) => (
+    straatbeeldLocation || mapCenter
+  )
+);
 
 const initialState = {
   viewCenter: [52.3731081, 4.8932945],
