@@ -2,6 +2,7 @@ import stateTokenGenerator from '../../../src/shared/services/state-token-genera
 
 const checkEnvironmentVariablesSet = () => {
   const variables = [
+    'API_ROOT',
     'USERNAME_EMPLOYEE',
     'USERNAME_EMPLOYEE_PLUS',
     'PASSWORD_EMPLOYEE',
@@ -35,7 +36,8 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
 
   const redirectUri = 'http://localhost:8080/';
   const url = [
-    'https://acc.api.data.amsterdam.nl/oauth2/authorize?',
+    Cypress.env('API_ROOT'),
+    '/oauth2/authorize?',
     'idp_id=datapunt&',
     'response_type=token&',
     'client_id=citydata&',
@@ -65,7 +67,7 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
     .then((response) =>
       cy.request({
         method: 'POST',
-        url: `https://acc.api.data.amsterdam.nl/auth/idp/${response.body.match(/action="(.*?)"/).pop()}`,
+        url: `${Cypress.env('API_ROOT')}/auth/idp/${response.body.match(/action="(.*?)"/).pop()}`,
         form: true,
         body: {
           email: Cypress.env(`USERNAME_${type}`),

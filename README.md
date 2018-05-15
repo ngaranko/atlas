@@ -2,7 +2,6 @@
 
 ## Requirements
 - npm
-- Java JRE (needed to run protractor)
 
 ## Installations
 - npm install
@@ -43,6 +42,12 @@ Test using docker-compose:
 ```
 docker-compose up --build test-e2e-functional
 ```
+
+To test against production APIs you can use the same tasks, suffixed with `prod`:
+
+- Make sure the app is running locally by running `npm run start-prod`.
+- Then, in a second terminal, run `npm run test-e2e-functional-prod` (single run).
+- Or open the UI using `npm run test-e2e-functional-prod-watch`.
 
 ### E2E Aria testing
 
