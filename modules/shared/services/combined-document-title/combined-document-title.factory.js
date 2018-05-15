@@ -1,3 +1,5 @@
+import * as mapDocumentTitle from '../../../../src/map/services/document-title/document-title';
+
 (function () {
     'use strict';
 
@@ -24,17 +26,15 @@
         function getTitle (fullState) {
             const q = $q.defer();
 
-            // dpMapDocumentTitle.getTitle().then(result => {
-            //     if (fullState.detail && fullState.detail.display) {
-            //         q.resolve(`${dpDetailDocumentTitle.getTitle(fullState.detail)} | ${result}`);
-            //     } else if (fullState.search && fullState.search.numberOfResults) {
-            //         q.resolve(`${dpSearchResultsDocumentTitle.getTitle(fullState.search)} | ${result}`);
-            //     } else {
-            //         q.resolve(result);
-            //     }
-            // });
-
-            q.resolve('test');
+            mapDocumentTitle.getTitle(fullState).then(result => {
+                if (fullState.detail && fullState.detail.display) {
+                    q.resolve(`${dpDetailDocumentTitle.getTitle(fullState.detail)} | ${result}`);
+                } else if (fullState.search && fullState.search.numberOfResults) {
+                    q.resolve(`${dpSearchResultsDocumentTitle.getTitle(fullState.search)} | ${result}`);
+                } else {
+                    q.resolve(result);
+                }
+            });
 
             return q.promise;
         }

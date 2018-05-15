@@ -1,4 +1,5 @@
 import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+import * as mapDocumentTitle from '../../../../src/map/services/document-title/document-title';
 
 (function () {
     angular
@@ -59,7 +60,7 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                 state: 'map'
             }, {
                 visibility: 'map',
-                documentTitle: 'Needs to be fixed',
+                documentTitle: mapDocumentTitle,
                 state: 'map'
             }];
 
@@ -112,7 +113,7 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                 }
             }
 
-            function setTitle () {
+            function setTitle () { // eslint-disable-line complexity
                 let titleData;
                 const state = store.getState();
                 const visibility = dashboardColumns.determineVisibility(state);
@@ -135,7 +136,8 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                 const getTitle = displayNewTitle ? current.documentTitle.getTitle : null;
                 const printOrEmbedOrPreviewTitleAddition = getPrintOrEmbedOrPreviewTitleAddition(state);
 
-                if (hasPreviewPanel) {
+                if (hasPreviewPanel || current.state === 'map') {
+                    // if previewpanel or current state = map, pass along full state
                     titleData = getTitle ? getTitle(state) : null;
                 } else {
                     titleData = getTitle ? getTitle(stateData, state.filters) : null;
