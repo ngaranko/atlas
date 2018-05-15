@@ -20,7 +20,8 @@
                 view,
                 variant,
                 markers,
-                criteria;
+                criteria,
+                hasOtherFilters = false;
 
             const VIEW_NAMES = {
                 TABLE: 'Tabel',
@@ -42,7 +43,14 @@
                 // Retrieve all the active filters
                     .filter(availableFilter => angular.isDefined(filtersState[availableFilter.slug]))
                     // Show the value of each active filter
-                    .map(activeFilter => filtersState[activeFilter.slug])
+                    .map(activeFilter => {
+                        if (filtersState[activeFilter.slug] === '') {
+                            // only possible for Postcode filter;
+                            return ' zonder postcode';
+                        }
+                        hasOtherFilters = true;
+                        return filtersState[activeFilter.slug];
+                    })
                     .join(', ');
 
                 output = view;
@@ -51,7 +59,7 @@
                     output += ` ${variant}`;
                 }
 
-                if (markers.length || dataSelectionState.query || criteria.length) {
+                if (markers.length || dataSelectionState.query || hasOtherFilters) {
                     output += ' met ';
                 }
 

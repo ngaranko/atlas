@@ -21,6 +21,10 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                                 {
                                     slug: 'buurt_naam',
                                     label: 'Buurt'
+                                },
+                                {
+                                    slug: 'postcode',
+                                    label: 'Postcode'
                                 }
                             ]
                         },
@@ -112,10 +116,16 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
         mockedFilters.stadsdeel_naam = 'Oost';
         expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toBe('Tabel adressen met Oost');
 
-        // Two active filters (comma-separated_
+        // Two active filters (comma-separated)
         mockedFilters.buurt_naam = 'Flevopark';
         expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters))
             .toBe('Tabel adressen met Oost, Flevopark');
+
+        // Two active filters (comma-separated_
+        mockedFilters.postcode = '';
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters))
+            .toBe('Tabel adressen met Oost, Flevopark,  zonder postcode');
+        // double space before "zonder postcode", the browser strips this
     });
 
     it('respects the filter order from DATA_SELECTION_CONFIG', function () {
