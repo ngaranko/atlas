@@ -114,7 +114,8 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     it('optionally lists the (selected values of the) active filters', function () {
         // One active filter
         mockedFilters.stadsdeel_naam = 'Oost';
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toBe('Tabel adressen met Stadsdeel: Oost');
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters))
+            .toBe('Tabel adressen met Stadsdeel: Oost');
 
         // Two active filters (comma-separated)
         mockedFilters.buurt_naam = 'Flevopark';
