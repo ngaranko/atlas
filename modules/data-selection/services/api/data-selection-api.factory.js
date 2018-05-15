@@ -46,13 +46,35 @@
 
         function formatFilters (dataset, rawData) {
             const formattedFilters = angular.copy(DATA_SELECTION_CONFIG.datasets[dataset].FILTERS);
+            const sortFilters = DATA_SELECTION_CONFIG.datasets[dataset].SORT_FILTERS || false;
 
-            return formattedFilters.filter(function (filter) {
+            const filters = formattedFilters.filter(function (filter) {
                 // Only show the filters that are returned by the API
                 return angular.isObject(rawData[filter.slug]);
             }).map(function (filter) {
                 return angular.extend({}, filter, rawData[filter.slug]);
             });
+
+            if (sortFilters) {
+                return filters.map(filter => {
+                    filter.options.sort((a, b) => {
+                        var labelA = a.label.toLowerCase(); // ignore upper and lowercase
+                        var labelB = b.label.toLowerCase(); // ignore upper and lowercase
+                        if (labelA < labelB) {
+                            return -1;
+                        }
+                        if (labelA > labelB) {
+                            return 1;
+                        }
+
+                        // names must be equal
+                        return 0;
+                    });
+                    return filter;
+                });
+            }
+
+            return filters;
         }
 
         function formatData (dataset, view, rawData) {

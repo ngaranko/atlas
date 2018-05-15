@@ -17,6 +17,7 @@
                     ENDPOINT_DETAIL: 'bag/nummeraanduiding/',
                     PRIMARY_KEY: 'nummeraanduiding_id',
                     TITLE: 'Adressen',
+                    SORT_FILTERS: false,
                     FILTERS: [
                         {
                             slug: 'stadsdeel_naam',
@@ -136,6 +137,7 @@
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
                     PRIMARY_KEY: 'vestiging_id',
                     TITLE: 'Vestigingen',
+                    SORT_FILTERS: false,
                     FILTERS: [
                         {
                             slug: 'sbi_code',
@@ -218,6 +220,7 @@
                     TITLE: 'Catalogus',
                     PRIMARY_KEY: 'dct:identifier',
                     SHOW_FILTER_OPTION_COUNTS: false,
+                    SORT_FILTERS: true,
                     FILTERS: [
                         {
                             slug: 'groups',
