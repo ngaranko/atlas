@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
 import { isSearchActive } from '../search-results/map-search-results';
+import { getDataSelection } from '../data-selection/data-selection';
 
-const getDataSelection = (state) => state.dataSelection;
 const getDetail = (state) => state.detail;
 const getCurrentEndpoint = (state) => state.mapDetail.currentEndpoint;
 const getAllResults = (state) => state.mapDetail.byEndpoint;
@@ -10,20 +10,6 @@ const getMapDetailGeometry = createSelector([getCurrentEndpoint, getAllResults],
   (currentEndpoint, allResults) => (
      currentEndpoint && allResults &&
       allResults[currentEndpoint] && allResults[currentEndpoint].geometrie
-  )
-);
-
-export const getGeometryFilter = createSelector(getDataSelection, (dataSelection) => (
-  dataSelection && dataSelection.geometryFilter
-));
-
-export const getGeometryFilterMarkers = createSelector(getGeometryFilter, (geometryFilter) => (
-  geometryFilter && geometryFilter.markers
-));
-
-export const getDrawShape = createSelector([getDataSelection, getGeometryFilterMarkers],
-  (active, markers) => (
-    active && markers ? { latLngList: [...markers] } : {}
   )
 );
 

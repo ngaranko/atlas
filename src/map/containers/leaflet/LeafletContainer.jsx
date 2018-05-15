@@ -9,8 +9,8 @@ import { updateZoom, updatePan, getMarkers, getCenter } from '../../ducks/map/ma
 import { updateClick } from '../../ducks/click-location/map-click-location';
 import { getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { getLayers } from '../../ducks/layers/map-layers';
-import { getGeoJson, getDrawShape } from '../../ducks/detail/map-detail';
-import { getClusterMarkers } from '../../ducks/data-selection/data-selection';
+import { getGeoJson } from '../../ducks/detail/map-detail';
+import { getClusterMarkers, getDrawShape } from '../../ducks/data-selection/data-selection';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;

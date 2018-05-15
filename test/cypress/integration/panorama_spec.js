@@ -89,7 +89,7 @@ describe('panorama module', () => {
           .should('exist');
 
         // click on the leaflet map with a different position
-        cy.get('.s-leaflet-draw').trigger('click', 20, 100);
+        cy.get('.leaflet-container').trigger('click', 20, 100);
 
         cy.wait('@getResults');
         // the coordinates should be different
