@@ -20,8 +20,7 @@
                 view,
                 variant,
                 markers,
-                criteria,
-                hasOtherFilters = false;
+                criteria;
 
             const VIEW_NAMES = {
                 TABLE: 'Tabel',
@@ -45,10 +44,9 @@
                     // Show the value of each active filter
                     .map(activeFilter => {
                         if (filtersState[activeFilter.slug] === '') {
-                            return ` zonder ${activeFilter.label.toLowerCase()}`;
+                            return `${activeFilter.label}: (Geen)`;
                         }
-                        hasOtherFilters = true;
-                        return filtersState[activeFilter.slug];
+                        return `${activeFilter.label}: ${filtersState[activeFilter.slug]}`;
                     })
                     .join(', ');
 
@@ -58,7 +56,7 @@
                     output += ` ${variant}`;
                 }
 
-                if (markers.length || dataSelectionState.query || hasOtherFilters) {
+                if (markers.length || dataSelectionState.query || criteria.length) {
                     output += ' met ';
                 }
 
@@ -77,9 +75,7 @@
                     output += ', ';
                 }
 
-                output += criteria;
-
-                return output;
+                return `${output}${criteria}`;
             }
         }
     }
