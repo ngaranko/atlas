@@ -60,23 +60,15 @@
                 searchParams[propertyName.serviceType] = queryServiceType;
             }
 
-            api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
-                const count = data['void:documents'];
-                if (count) {
-                    const results = data['dcat:dataset'];
-                    deferred.resolve({
-                        numberOfPages: Math.ceil(count / config.MAX_ITEMS_PER_PAGE),
-                        numberOfRecords: count,
-                        filters: Object.keys(catalogFilters).length === 0 ? {} :
-                          formatFilters(data['ams:facet_info'], catalogFilters),
-                        data: formatData(config, results)
-                    });
-                } else {
-                    deferred.reject();
-                }
-            }, deferred.reject);
-
-            return deferred.promise;
+            return api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
+                return {
+                    numberOfPages: Math.ceil(data['void:documents'] / config.MAX_ITEMS_PER_PAGE),
+                    numberOfRecords: data['void:documents'],
+                    filters: Object.keys(catalogFilters).length === 0 ? {}
+                        : formatFilters(data['ams:facet_info'], catalogFilters),
+                    data: formatData(config, data['dcat:dataset'])
+                };
+            });
         }
 
         function getFacetOptions (facet, filterCatalog, namespace) {
@@ -92,7 +84,12 @@
         }
 
         function formatFilters (filters, catalogFilters) {
+            filters[propertyName.theme] = filters[propertyName.theme] || {};
+            filters[propertyName.format] = filters[propertyName.format] || {};
             filters[propertyName.owner] = filters[propertyName.owner] || {};
+            filters[propertyName.distributionType] = filters[propertyName.distributionType] || {};
+            filters[propertyName.serviceType] = filters[propertyName.serviceType] || {};
+
             const resultFilters = {
                 groups: {
                     numberOfOptions: Object.keys(filters[propertyName.theme]).length,
