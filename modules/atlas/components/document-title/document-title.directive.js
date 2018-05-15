@@ -59,6 +59,10 @@ import * as mapDocumentTitle from '../../../../src/map/services/document-title/d
                 documentTitle: dpCombinedDocumentTitle,
                 state: 'map'
             }, {
+                visibility: 'dataSelectionOnMap',
+                documentTitle: dpCombinedDocumentTitle,
+                state: 'map'
+            }, {
                 visibility: 'map',
                 documentTitle: mapDocumentTitle,
                 state: 'map'
@@ -122,7 +126,8 @@ import * as mapDocumentTitle from '../../../../src/map/services/document-title/d
                 // combine specific activity values with the visibility object
                 const combinedVisibilityActivity = {
                     ...visibility,
-                    mapPreviewPanel: activity.mapPreviewPanel
+                    mapPreviewPanel: activity.mapPreviewPanel,
+                    dataSelectionOnMap: activity.dataSelection
                 };
                 const filtered = mapping.filter(item =>
                     combinedVisibilityActivity[item.visibility]
@@ -131,12 +136,13 @@ import * as mapDocumentTitle from '../../../../src/map/services/document-title/d
                 // mapping.filter returns an array, possibly empty
                 const current = filtered[0];
                 const hasPreviewPanel = current && current.visibility === 'mapPreviewPanel';
+                const isDataSelectionOnMap = current && current.visibility === 'dataSelectionOnMap';
                 const stateData = current ? state[current.state] : null;
                 const displayNewTitle = current && stateData && !stateData.isLoading;
                 const getTitle = displayNewTitle ? current.documentTitle.getTitle : null;
                 const printOrEmbedOrPreviewTitleAddition = getPrintOrEmbedOrPreviewTitleAddition(state);
 
-                if (hasPreviewPanel || current.state === 'map') {
+                if (hasPreviewPanel || current.state === 'map' || isDataSelectionOnMap) {
                     // if previewpanel or current state = map, pass along full state
                     titleData = getTitle ? getTitle(state) : null;
                 } else {
