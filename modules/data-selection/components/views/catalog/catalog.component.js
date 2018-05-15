@@ -1,3 +1,5 @@
+import removeMd from 'remove-markdown';
+
 (function () {
     'use strict';
 
@@ -23,7 +25,7 @@
         vm.items = vm.content.map((item, index) => {
             return {
                 header: item['dct:title'],
-                description: item['dct:description'],
+                description: removeMd(item['dct:description']),
                 modification: {
                     'metadata_created': item['foaf:isPrimaryTopicOf']['dct:issued'],
                     'metadata_modified': item['foaf:isPrimaryTopicOf']['dct:modified']
