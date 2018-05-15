@@ -20,13 +20,6 @@
         var state = store.getState();
         vm.catalogFilters = state.catalogFilters;
 
-        vm.fetch_detail = function (endpoint) {
-            store.dispatch({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: endpoint
-            });
-        };
-
         vm.items = vm.content.map((item, index) => {
             return {
                 header: item['dct:title'],
