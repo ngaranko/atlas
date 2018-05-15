@@ -27,13 +27,13 @@ describe('MapSearchResults', () => {
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapLeaflet
-        mapOptions={mapOptions}
-        scaleControlOptions={scaleControlOptions}
-        center={center}
         baseLayer={baseLayer}
-        onZoomEnd={clickHandler}
-        onDragEnd={clickHandler}
+        center={center}
         getLeafletInstance={getLeafletInstance}
+        mapOptions={mapOptions}
+        onDragEnd={clickHandler}
+        onZoomEnd={clickHandler}
+        scaleControlOptions={scaleControlOptions}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -54,14 +54,14 @@ describe('MapSearchResults', () => {
     const layers = [];
     const wrapper = shallow(
       <MapLeaflet
-        mapOptions={mapOptions}
-        scaleControlOptions={scaleControlOptions}
-        center={center}
-        layers={layers}
         baseLayer={baseLayer}
-        onZoomEnd={clickHandler}
-        onDragEnd={clickHandler}
+        center={center}
         getLeafletInstance={getLeafletInstance}
+        layers={layers}
+        mapOptions={mapOptions}
+        onDragEnd={clickHandler}
+        onZoomEnd={clickHandler}
+        scaleControlOptions={scaleControlOptions}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -95,14 +95,14 @@ describe('MapSearchResults', () => {
     const layers = [];
     const wrapper = shallow(
       <MapLeaflet
-        mapOptions={mapOptions}
-        scaleControlOptions={scaleControlOptions}
-        center={center}
-        layers={layers}
         baseLayer={baseLayer}
-        onZoomEnd={clickHandler}
-        onDragEnd={clickHandler}
+        center={center}
         getLeafletInstance={getLeafletInstance}
+        layers={layers}
+        mapOptions={mapOptions}
+        onDragEnd={clickHandler}
+        onZoomEnd={clickHandler}
+        scaleControlOptions={scaleControlOptions}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -170,6 +170,56 @@ describe('MapSearchResults', () => {
         name: 'YE39'
       }
     });
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render clusterer', () => {
+    const center = [52.3731081, 4.8932945];
+    const zoom = 11;
+    const clusterMarkers = [
+      {
+        index: 0,
+        position: [52.37282671970971, 4.883399484657262],
+        type: 'detailPointType'
+      },
+      {
+        index: 1,
+        position: [52.37282671970951, 4.883399484657232],
+        type: 'detailPointType'
+      },
+      {
+        index: 2,
+        position: [52.37282671970952, 4.883399484657263],
+        type: 'detailPointType'
+      },
+      {
+        index: 3,
+        position: [52.37282671971952, 4.883399484657263],
+        type: 'detailPointType'
+      }
+    ];
+    const clickHandler = jest.fn();
+    const layers = [];
+    const wrapper = shallow(
+      <MapLeaflet
+        baseLayer={baseLayer}
+        center={center}
+        clusterMarkers={clusterMarkers}
+        getLeafletInstance={getLeafletInstance}
+        layers={layers}
+        mapOptions={mapOptions}
+        onDragEnd={clickHandler}
+        onZoomEnd={clickHandler}
+        scaleControlOptions={scaleControlOptions}
+        zoom={zoom}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+
+    wrapper.setProps({
+      zoom: 9
+    });
+
     expect(wrapper).toMatchSnapshot();
   });
 });
