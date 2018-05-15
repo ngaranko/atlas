@@ -20,7 +20,7 @@
         const BOOLEAN_TRUE = 'T';
         const BOOLEAN_FALSE = 'F';
         const NO_VALUE = 'xxxx';
-        const FILTERS_WITH_POSSIBLE_NO_VALUE = ['postcode', 'bijzondere_rechtstoestand']
+        const FILTERS_WITH_POSSIBLE_NO_VALUE = ['postcode', 'bijzondere_rechtstoestand'];
         const TYPENAME = {
             STRING: /^string$/,
             BOOLEAN: /^boolean$/,
@@ -305,11 +305,13 @@
                 }
             });
 
-            Object.keys(newState.filters).forEach(key => {
-                if (newState.filters[key] === NO_VALUE) {
-                    newState.filters[key] = '';
-                }
-            });
+            if (newState.filters) {
+                Object.keys(newState.filters).forEach(key => {
+                    if (newState.filters[key] === NO_VALUE) {
+                        newState.filters[key] = '';
+                    }
+                });
+            }
             return newState;
         }
     }
