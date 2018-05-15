@@ -1,58 +1,41 @@
-// /* eslint-disable */
-// TODO: omschrijven onderstaande tests naar nieuwe service
-// let oldReduxStore;
-//
-// describe('The dpMapDocumentTitle factory', function () {
-//   var documentTitle,
-//     activeOverlays,
-//     $rootScope;
-//
-//   beforeAll(() => {
-//     oldReduxStore = window.reduxStore;
-//     window.reduxStore = {
-//       getState: (() => {
-//         return {map: { zoom: 0 }};
-//       })
-//     };
-//   });
-//
-//   afterAll(() => {
-//     window.reduxStore = oldReduxStore;
-//   });
-//
-//   beforeEach(function () {
-//     angular.mock.module('dpMap', {
-//       store: angular.noop
-//     });
-//
-//     angular.mock.inject(function (dpMapDocumentTitle, _$rootScope_, _activeOverlays_) {
-//       documentTitle = dpMapDocumentTitle;
-//       $rootScope = _$rootScope_;
-//       activeOverlays = _activeOverlays_;
-//     });
-//   });
-//
-//   afterEach(() => {
-//     $rootScope.$apply();
-//   });
-//
-//   it('returns a default title with promise', function () {
-//     const promise = documentTitle.getTitle();
-//
-//     $rootScope.$apply();
-//     promise.then(value => {
-//       expect(value).toBe('Grote kaart');
-//     });
-//   });
-//
-//   it('adds selected map layers in title with promise', function () {
-//     spyOn(activeOverlays, 'getOverlaysLabels').and.returnValue('Meetbouten, Monumenten');
-//
-//     const promise = documentTitle.getTitle();
-//
-//     $rootScope.$apply();
-//     promise.then(value => {
-//       expect(value).toBe('Meetbouten, Monumenten | Grote kaart');
-//     });
-//   });
-// });
+import * as documentTitle from './document-title';
+import { selectActivePanelLayers } from '../../ducks/panel-layers/map-panel-layers';
+
+jest.mock('../../ducks/panel-layers/map-panel-layers');
+
+let mockState;
+
+describe('Draw-tool service', () => {
+  beforeEach(() => {
+  });
+
+  it('returns a default title with promise', () => {
+    mockState = { map: { zoom: 0 } };
+    selectActivePanelLayers.mockImplementation(() => ([{}]));
+    const promise = documentTitle.getTitle(mockState);
+    promise.then((value) => {
+      expect(value).toBe('Grote kaart');
+    });
+  });
+
+  it('returns a title with one active layer', () => {
+    mockState = { map: { zoom: 0 } };
+    selectActivePanelLayers.mockImplementation(() => ([{ title: 'Geselecteerde laag' }]));
+    const promise = documentTitle.getTitle(mockState);
+    promise.then((value) => {
+      expect(value).toBe('Geselecteerde laag | Grote kaart');
+    });
+  });
+
+  it('returns a title with multiple active layer', () => {
+    mockState = { map: { zoom: 0 } };
+    selectActivePanelLayers.mockImplementation(() => ([
+        { title: 'Geselecteerde laag' },
+        { title: 'Tweede laag' }
+    ]));
+    const promise = documentTitle.getTitle(mockState);
+    promise.then((value) => {
+      expect(value).toBe('Geselecteerde laag, Tweede laag | Grote kaart');
+    });
+  });
+});
