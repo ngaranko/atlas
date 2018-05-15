@@ -142,7 +142,7 @@ import * as mapDocumentTitle from '../../../../src/map/services/document-title/d
                 const getTitle = displayNewTitle ? current.documentTitle.getTitle : null;
                 const printOrEmbedOrPreviewTitleAddition = getPrintOrEmbedOrPreviewTitleAddition(state);
 
-                if (hasPreviewPanel || current.state === 'map' || isDataSelectionOnMap) {
+                if (hasPreviewPanel || current && current.state === 'map' || isDataSelectionOnMap) {
                     // if previewpanel or current state = map, pass along full state
                     titleData = getTitle ? getTitle(state) : null;
                 } else {
