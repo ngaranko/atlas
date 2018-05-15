@@ -58,6 +58,10 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                 documentTitle: dpCombinedDocumentTitle,
                 state: 'map'
             }, {
+                visibility: 'dataSelectionOnMap',
+                documentTitle: dpCombinedDocumentTitle,
+                state: 'map'
+            }, {
                 visibility: 'map',
                 documentTitle: 'Needs to be fixed',
                 state: 'map'
@@ -112,7 +116,7 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                 }
             }
 
-            function setTitle () {
+            function setTitle () { // eslint-disable-line complexity
                 let titleData;
                 const state = store.getState();
                 const visibility = dashboardColumns.determineVisibility(state);
@@ -121,7 +125,8 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                 // combine specific activity values with the visibility object
                 const combinedVisibilityActivity = {
                     ...visibility,
-                    mapPreviewPanel: activity.mapPreviewPanel
+                    mapPreviewPanel: activity.mapPreviewPanel,
+                    dataSelectionOnMap: activity.dataSelection
                 };
                 const filtered = mapping.filter(item =>
                     combinedVisibilityActivity[item.visibility]
@@ -130,12 +135,13 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                 // mapping.filter returns an array, possibly empty
                 const current = filtered[0];
                 const hasPreviewPanel = current && current.visibility === 'mapPreviewPanel';
+                const isDataSelectionOnMap = current && current.visibility === 'dataSelectionOnMap';
                 const stateData = current ? state[current.state] : null;
                 const displayNewTitle = current && stateData && !stateData.isLoading;
                 const getTitle = displayNewTitle ? current.documentTitle.getTitle : null;
                 const printOrEmbedOrPreviewTitleAddition = getPrintOrEmbedOrPreviewTitleAddition(state);
 
-                if (hasPreviewPanel) {
+                if (hasPreviewPanel || isDataSelectionOnMap) {
                     titleData = getTitle ? getTitle(state) : null;
                 } else {
                     titleData = getTitle ? getTitle(stateData, state.filters) : null;
