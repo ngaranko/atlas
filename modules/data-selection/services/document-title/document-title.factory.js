@@ -25,11 +25,10 @@
             const VIEW_NAMES = {
                 TABLE: 'Tabel',
                 LIST: 'Lijst',
-                CARDS: 'Datasets',
                 CATALOG: 'Datasets'
             };
 
-            if ((dataSelectionState.view === 'CARDS' || dataSelectionState.view === 'CATALOG') &&
+            if (dataSelectionState.view === 'CATALOG' &&
                 !Object.keys(filtersState).length) {
                 if (dataSelectionState.query) {
                     return `Datasets met '${dataSelectionState.query}'`;

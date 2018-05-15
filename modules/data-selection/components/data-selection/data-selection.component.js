@@ -74,7 +74,7 @@
             vm.view = vm.state.view;
 
             const isQueryView = angular.isDefined(vm.state.query) && vm.state.query.trim().length >= 1;
-            vm.showTabHeader = () => (vm.view === 'CARDS' || vm.view === 'CATALOG') && isQueryView;
+            vm.showTabHeader = () => (vm.view === 'CATALOG') && isQueryView;
             vm.currentPage = vm.state.page;
 
             vm.numberOfRecords = null;

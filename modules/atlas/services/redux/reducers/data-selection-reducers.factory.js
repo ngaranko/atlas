@@ -169,7 +169,7 @@
          * @returns {Object} newState
          */
         function setDataSelectionViewReducer (state, payload) {
-            const views = ['LIST', 'TABLE', 'CARDS', 'CATALOG'],
+            const views = ['LIST', 'TABLE', 'CATALOG'],
                 viewFound = views.indexOf(payload) !== -1,
                 view = viewFound ? payload : undefined;
 

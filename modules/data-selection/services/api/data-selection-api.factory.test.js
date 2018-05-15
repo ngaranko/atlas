@@ -65,14 +65,6 @@ describe('The dataSelectionApi factory', function () {
                                 variables: ['buurtnaam']
                             }
                         ],
-                        CARDS: [
-                            {
-                                variables: ['adres.openbare_ruimte', 'huisnummer'],
-                                formatter: 'adres'
-                            }, {
-                                variables: ['buurtnaam']
-                            }
-                        ],
                         CATALOG: [
                             {
                                 variables: ['adres.openbare_ruimte', 'huisnummer'],
@@ -244,16 +236,16 @@ describe('The dataSelectionApi factory', function () {
             expect(output.numberOfPages).toBe(2);
         });
 
-        it('does something that nobody understands, unless it is provided with some comment', function () {
+        it('uses the recurent defined variables when these are provided', function () {
             let output;
 
-            dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
+            dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();
             expect(output.numberOfPages).toBe(2);
 
-            mockedConfig.datasets.zwembaden.CONTENT.CARDS = [
+            mockedConfig.datasets.zwembaden.CONTENT.LIST = [
                 {
                     variables: ['huisnummer']
                 }
@@ -261,13 +253,13 @@ describe('The dataSelectionApi factory', function () {
             mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
 
             mockedApiService.query.calls.reset();
-            dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
+            dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();
             expect(output.data.body[0].content[0][0].value).toEqual('1 | 2');
 
-            mockedConfig.datasets.zwembaden.CONTENT.CARDS = [
+            mockedConfig.datasets.zwembaden.CONTENT.LIST = [
                 {
                     variables: ['huisnummer.adres']
                 }
@@ -275,7 +267,7 @@ describe('The dataSelectionApi factory', function () {
             mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
 
             mockedApiService.query.calls.reset();
-            dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
+            dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();

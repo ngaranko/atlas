@@ -73,7 +73,7 @@ describe('The header controller', function () {
     it('sets the dataSelection query and action when datasets are active', function () {
         spyOn(store, 'getState').and.returnValue({
             dataSelection: {
-                view: 'CARDS',
+                view: 'CATALOG',
                 query: 'dataSelection query'
             }
         });

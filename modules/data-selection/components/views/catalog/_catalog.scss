@@ -1,3 +1,13 @@
+@mixin o-tag {
+  .o-tag {
+    &::before {
+      border-top: 8px solid $secondary-gray10;
+      border-right: 8px solid $secondary-gray30;
+      border-bottom: 8px solid $secondary-gray10;
+    }
+  }
+}
+
 .dataset-tag-small {
   display: inline-block;
   margin-left: -8px;
