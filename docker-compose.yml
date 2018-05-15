@@ -48,11 +48,11 @@ services:
       dockerfile: Dockerfile-e2e-functional
       context: .
     links:
-      - atlas_func:data.amsterdam.nl
+      - atlas_func:acc.data.amsterdam.nl
     environment:
       # Note that baseUrl must be formatted so
       # calls to API pass CORS check!
-      - CYPRESS_baseUrl=http://data.amsterdam.nl
+      - CYPRESS_baseUrl=http://acc.data.amsterdam.nl
       - USERNAME_EMPLOYEE
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
