@@ -20,6 +20,7 @@
         const BOOLEAN_TRUE = 'T';
         const BOOLEAN_FALSE = 'F';
         const NO_VALUE = 'xxxx';
+        const FILTERS_WITH_POSSIBLE_NO_VALUE = ['postcode', 'bijzondere_rechtstoestand']
         const TYPENAME = {
             STRING: /^string$/,
             BOOLEAN: /^boolean$/,
@@ -256,7 +257,9 @@
                     }
                     value = asUrlValue(value, attribute.type, attribute.precision);
                     if (value) {
-                        result[key] = value.replace('postcode:::', `postcode::${NO_VALUE}:`);
+                        const valuesRegEx = new RegExp(`(${FILTERS_WITH_POSSIBLE_NO_VALUE.join('|')}):::`, 'g');
+                        result[key] = value
+                            .replace(valuesRegEx, `$1::${NO_VALUE}:`);
                     }
                 }
                 return result;
@@ -302,10 +305,11 @@
                 }
             });
 
-            if (newState.filters && newState.filters.postcode === NO_VALUE) {
-                newState.filters.postcode = '';
-            }
-
+            Object.keys(newState.filters).forEach(key => {
+                if (newState.filters[key] === NO_VALUE) {
+                    newState.filters[key] = '';
+                }
+            });
             return newState;
         }
     }

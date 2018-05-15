@@ -45,8 +45,7 @@
                     // Show the value of each active filter
                     .map(activeFilter => {
                         if (filtersState[activeFilter.slug] === '') {
-                            // only possible for Postcode filter;
-                            return ' zonder postcode';
+                            return ` zonder ${activeFilter.label.toLowerCase()}`;
                         }
                         hasOtherFilters = true;
                         return filtersState[activeFilter.slug];
