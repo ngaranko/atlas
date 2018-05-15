@@ -10,7 +10,6 @@
             if (angular.isObject(input)) {
                 const created = input.metadata_created;
                 const modified = input.metadata_modified;
-                const compact = input.metadata_compact;
 
                 const last = new Date(modified || created);
                 let ago = new Date() - last,
@@ -31,11 +30,7 @@
                     }
                 });
 
-                if (compact) {
-                    return `${agoCount} ${agoDuration} geleden`;
-                } else {
-                    return `${agoCount} ${agoDuration} geleden ${modified ? 'gewijzigd' : 'gemaakt'}`;
-                }
+                return `${agoCount} ${agoDuration} geleden ${modified ? 'gewijzigd' : 'gemaakt'}`;
             }
         };
     }
