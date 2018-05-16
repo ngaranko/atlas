@@ -6,6 +6,7 @@ describe('The dataSelectionApiDcatd factory', function () {
         dataSelectionApiDcatd,
         api,
         mockedApiResponse,
+        mockedEmptyApiResponse,
         config,
         catalogFilters;
 
@@ -17,6 +18,8 @@ describe('The dataSelectionApiDcatd factory', function () {
                         const q = $q.defer();
                         if (url === 'dcatd/reject') {
                             q.reject();
+                        } else if (url === 'dcatd/empty') {
+                            q.resolve(mockedEmptyApiResponse);
                         } else {
                             q.resolve(mockedApiResponse);
                         }
@@ -89,6 +92,11 @@ describe('The dataSelectionApiDcatd factory', function () {
 
         mockedApiResponse = {
             ...mockedApiResponseJson
+        };
+
+        mockedEmptyApiResponse = {
+            ...mockedApiResponseJson,
+            'ams:facet_info': {}
         };
         spyOn(api, 'getByUri').and.callThrough();
     });
@@ -196,28 +204,24 @@ describe('The dataSelectionApiDcatd factory', function () {
         expect(output.numberOfPages).toBe(2);
     });
 
+    it('still returns the total number of pages when facet_info is empty', function () {
+        let output;
+
+        config.ENDPOINT_PREVIEW = 'dcatd/empty';
+
+        dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(function (_output_) {
+            output = _output_;
+        });
+        $rootScope.$apply();
+
+        expect(output.numberOfPages).toBe(2);
+    });
+
     it('registers an error with an unsuccessful API call', () => {
         let thenCalled = false,
             catchCalled = false;
 
         config.ENDPOINT_PREVIEW = 'dcatd/reject';
-
-        dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(() => {
-            thenCalled = true;
-        }, () => {
-            catchCalled = true;
-        });
-        $rootScope.$apply();
-
-        expect(thenCalled).toBe(false);
-        expect(catchCalled).toBe(true);
-    });
-
-    it('registers an error with an unsuccessful response', () => {
-        let thenCalled = false,
-            catchCalled = false;
-
-        mockedApiResponse['void:documents'] = 0;
 
         dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(() => {
             thenCalled = true;
