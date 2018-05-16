@@ -19,8 +19,7 @@
         };
 
         function query (config, activeFilters, page, searchText = '', geometryFilter = undefined, catalogFilters = {}) {
-            const deferred = $q.defer(),
-                searchParams = {
+            const searchParams = {
                     offset: (page - 1) * config.MAX_ITEMS_PER_PAGE,
                     limit: config.MAX_ITEMS_PER_PAGE
                 },
