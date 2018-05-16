@@ -76,7 +76,7 @@
                 const catalogOption = filterCatalog.filter(item => item.id === id)[0];
                 return {
                     id: id,
-                    label: catalogOption ? catalogOption.label : '${option} niet gevonden',
+                    label: catalogOption ? catalogOption.label : id,
                     count: facet[option]
                 };
             });
