@@ -2,9 +2,10 @@ describe('The dp-site-header component', () => {
     let $compile,
         $rootScope,
         $window,
-        origAuth,
         mockedUser,
-        $timeout;
+        $timeout,
+        originalWindow;
+
 
     beforeEach(() => {
         angular.mock.module(
@@ -23,7 +24,8 @@ describe('The dp-site-header component', () => {
             $timeout = _$timeout_;
         });
 
-        origAuth = $window.auth;
+        originalWindow = $window;
+
         $window.auth = {
             login: angular.noop
         };
@@ -36,7 +38,7 @@ describe('The dp-site-header component', () => {
     });
 
     afterEach(() => {
-        $window.auth = origAuth;
+        $window = originalWindow;
     });
 
     function getComponent (query, size) {
