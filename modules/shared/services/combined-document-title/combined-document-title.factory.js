@@ -1,3 +1,5 @@
+import * as mapDocumentTitle from '../../../../src/map/services/document-title/document-title';
+
 (function () {
     'use strict';
 
@@ -25,19 +27,19 @@
 
         function getTitle (fullState) {
             const q = $q.defer();
-            // const filters = fullState.filters;
+            const filters = fullState.filters;
 
-        // dpMapDocumentTitle.getTitle().then(result => {
-        //     if (fullState.dataSelection && fullState.dataSelection.view.length) {
-        //         q.resolve(`${dpDataSelectionDocumentTitle.getTitle(fullState.dataSelection, filters)} | ${result}`);
-        //     } else if (fullState.detail && fullState.detail.display) {
-        //         q.resolve(`${dpDetailDocumentTitle.getTitle(fullState.detail, filters)} | ${result}`);
-        //     } else if (fullState.search && fullState.search.numberOfResults) {
-        //         q.resolve(`${dpSearchResultsDocumentTitle.getTitle(fullState.search, filters)} | ${result}`);
-        //     } else {
-        //         q.resolve(result);
-        //     }
-        // });
+            mapDocumentTitle.getTitle(fullState).then(result => {
+                if (fullState.dataSelection && fullState.dataSelection.view.length) {
+                    q.resolve(`${dpDataSelectionDocumentTitle.getTitle(fullState.dataSelection, filters)} | ${result}`);
+                } else if (fullState.detail && fullState.detail.display) {
+                    q.resolve(`${dpDetailDocumentTitle.getTitle(fullState.detail, filters)} | ${result}`);
+                } else if (fullState.search && fullState.search.numberOfResults) {
+                    q.resolve(`${dpSearchResultsDocumentTitle.getTitle(fullState.search, filters)} | ${result}`);
+                } else {
+                    q.resolve(result);
+                }
+            });
 
             return q.promise;
         }
