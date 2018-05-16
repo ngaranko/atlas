@@ -3,7 +3,8 @@ describe('The dp-site-header component', () => {
         $rootScope,
         $window,
         origAuth,
-        mockedUser;
+        mockedUser,
+        $timeout;
 
     beforeEach(() => {
         angular.mock.module(
@@ -15,10 +16,11 @@ describe('The dp-site-header component', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _$window_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _$window_, _$timeout_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $window = _$window_;
+            $timeout = _$timeout_;
         });
 
         origAuth = $window.auth;
@@ -54,6 +56,40 @@ describe('The dp-site-header component', () => {
 
         return component;
     }
+
+    describe('setting search component', () => {
+        beforeEach(() => {
+            // mock all the React element creation methods
+            $window.render = angular.noop;
+            $window.SearchWrapper = 'fakeWrapper';
+            $window.React = {
+                createElement: angular.noop
+            };
+        });
+
+        it('does the react createElement call', () => {
+            // if we don't use this fakeCandidate, the test will fail:
+            // TypeError: undefined is not a constructor (evaluating 'candidate.getAttribute(name)') thrown
+            const fakeCandidate = {
+                getAttribute: angular.noop
+            };
+            spyOn($window.document, 'querySelector').and.returnValue(fakeCandidate);
+            spyOn($window, 'render').and.callThrough();
+            getComponent('', 'short');
+
+            $timeout.flush();
+            expect($window.render).toHaveBeenCalled();
+        });
+
+        it('does not do the react createElement call', () => {
+            spyOn($window.document, 'querySelector').and.returnValue(undefined);
+            spyOn($window, 'render').and.callThrough();
+            getComponent('', 'short');
+
+            $timeout.flush();
+            expect($window.render).not.toHaveBeenCalled();
+        });
+    });
 
     describe('the short version', () => {
         let component;
