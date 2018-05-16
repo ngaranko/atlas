@@ -156,7 +156,7 @@ describe('panorama module', () => {
       cy.get('h2.qa-title').should('exist').and('be.visible').contains('Dam 1');
       cy.get('img.c-straatbeeld-thumbnail--img').click();
 
-      cy.get('.s-leaflet-draw').click(20, 100);
+      cy.get('.leaflet-container').click(20, 100);
 
       cy.wait('@getResults');
       // verify that something happened by comparing the url

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map, TileLayer, ZoomControl, ScaleControl, Marker, Polygon } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-markercluster';
+import { Map, TileLayer, ZoomControl, ScaleControl, Polygon, Marker } from 'react-leaflet';
 
 import CustomMarker from './custom/marker/CustomMarker';
+import ClusterGroup from './custom/cluster-group/ClusterGroup';
 import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
@@ -18,6 +18,7 @@ class MapLeaflet extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.onMoveEnd = this.onMoveEnd.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this);
     this.state = {
       drawMode: false
     };
@@ -83,6 +84,10 @@ class MapLeaflet extends React.Component {
     });
   }
 
+  onClusterGroupBounds(bounds) {
+    this.fitBoundsInsideMap(bounds);
+  }
+
   fitActiveElement() {
     if (!this.activeElement) {
       return;
@@ -91,16 +96,20 @@ class MapLeaflet extends React.Component {
     if (Object.keys(elementBounds).length === 0 && elementBounds.constructor === Object) {
       return;
     }
+    this.fitBoundsInsideMap(elementBounds);
+  }
+
+  fitBoundsInsideMap(bounds) {
     const mapBounds = this.MapElement.getBounds();
-    const elementFits = mapBounds.contains(elementBounds);
+    const elementFits = mapBounds.contains(bounds);
     if (!elementFits) {
-      const elementZoom = this.MapElement.getBoundsZoom(elementBounds);
+      const elementZoom = this.MapElement.getBoundsZoom(bounds);
       if (elementZoom < this.props.zoom) {
         // pan and zoom to the geoJson element
-        this.MapElement.fitBounds(elementBounds);
+        this.MapElement.fitBounds(bounds);
       } else {
         // only pan to the geoJson element
-        this.MapElement.panInsideBounds(elementBounds);
+        this.MapElement.panInsideBounds(bounds);
       }
     }
   }
@@ -150,13 +159,14 @@ class MapLeaflet extends React.Component {
         }
         {
           clusterMarkers.length > 0 && (
-            <MarkerClusterGroup
+            <ClusterGroup
               showCoverageOnHover={false}
               iconCreateFunction={createClusterIcon}
               spiderfyOnMaxZoom={false}
               animate={false}
               maxClusterRadius={50}
               chunkedLoading
+              getMarkerGroupBounds={this.onClusterGroupBounds}
               ref={this.setActiveElement}
               disableClusteringAtZoom={baseLayer.baseLayerOptions.maxZoom}
             >
@@ -169,7 +179,7 @@ class MapLeaflet extends React.Component {
                   />
                 ))
               }
-            </MarkerClusterGroup>
+            </ClusterGroup>
           )
         }
         {

@@ -8,7 +8,7 @@ const detailIcon = new Icon({
   shadowUrl: null,
   shadowSize: null,
   shadowAnchor: null,
-  className: 'dp-leaflet-detail-item o-highlight-cluster'
+  className: 'dp-leaflet-detail-item'
 });
 
 export default detailIcon;
