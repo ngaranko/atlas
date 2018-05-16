@@ -64,6 +64,12 @@
       font-size: $xs-font-size;
     }
   }
+
+  & > :last-child {
+    .c-data-selection-catalog__item {
+      border: none;
+    }
+  }
 }
 
 .c-data-selection-catalog__item {
@@ -73,10 +79,6 @@
   padding-bottom: $base-whitespace;
   padding-left: $base-whitespace * 2;
   border-bottom: 1px solid $secondary-gray20;
-
-  &:last-child {
-    border: none;
-  }
 
   &:hover {
     @include o-tag;

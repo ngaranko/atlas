@@ -9,10 +9,11 @@
         return function (input) {
             if (angular.isObject(input)) {
                 const created = input.metadata_created;
-                const modified = input.metadata_modified;
 
-                const last = new Date(modified || created);
-                let ago = new Date() - last,
+                const last = new Date(created);
+                const now = new Date();
+                if (now < last) return 'is in de toekomst gemaakt';
+                let ago = now - last,
                     agoCount = ago,
                     agoDuration = 'milliseconden';
                 [
@@ -30,7 +31,7 @@
                     }
                 });
 
-                return `${agoCount} ${agoDuration} geleden ${modified ? 'gewijzigd' : 'gemaakt'}`;
+                return `${agoCount} ${agoDuration} geleden gemaakt`;
             }
         };
     }

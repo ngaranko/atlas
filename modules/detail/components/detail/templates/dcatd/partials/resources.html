@@ -25,7 +25,7 @@
                         </div>
                         <div class="resources-item__right">
                             <div class="resources-item__modified">
-                                <span ng-if="resource['foaf:isPrimaryTopicOf']['dct:modified']">{{resource['foaf:isPrimaryTopicOf']['dct:modified'] | date:'dd MMMM yyyy' }}</span>
+                                <span ng-if="resource['foaf:isPrimaryTopicOf']['dct:issued']">{{resource['foaf:isPrimaryTopicOf']['dct:issued'] | date:'dd MMMM yyyy' }}</span>
                             </div>
                             <div class="resources-item__navigation">
                                 <div class="resources-item__navigation-file-size" ng-if="resource['dcat:byteSize'] > 0">{{resource['dcat:byteSize'] | filesize}}</div>
