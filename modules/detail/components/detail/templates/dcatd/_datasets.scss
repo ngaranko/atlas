@@ -207,6 +207,11 @@
         @include font-weight($normal-weight);
       }
     }
+
+    ol {
+      padding-left: 2 * $base-whitespace;
+      padding-bottom: $base-whitespace;
+    }
   }
 }
   
