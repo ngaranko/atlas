@@ -15,7 +15,7 @@ const environmentConfig = {
     ROOT: 'https://data.amsterdam.nl/'
   },
   [ENVIRONMENTS.ACCEPTANCE]: {
-    API_ROOT: 'https://acc.data.amsterdam.nl/',
+    API_ROOT: 'https://acc.api.data.amsterdam.nl/',
     ROOT: 'https://acc.data.amsterdam.nl/'
   },
   [ENVIRONMENTS.DEVELOPMENT]: {
