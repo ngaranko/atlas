@@ -6,7 +6,6 @@ describe('The dp-site-header component', () => {
         $timeout,
         originalWindow;
 
-
     beforeEach(() => {
         angular.mock.module(
             'dpHeader',
