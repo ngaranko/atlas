@@ -42,7 +42,12 @@
                 // Retrieve all the active filters
                     .filter(availableFilter => angular.isDefined(filtersState[availableFilter.slug]))
                     // Show the value of each active filter
-                    .map(activeFilter => filtersState[activeFilter.slug])
+                    .map(activeFilter => {
+                        if (filtersState[activeFilter.slug] === '') {
+                            return `${activeFilter.label}: (Geen)`;
+                        }
+                        return `${activeFilter.label}: ${filtersState[activeFilter.slug]}`;
+                    })
                     .join(', ');
 
                 output = view;
@@ -70,9 +75,7 @@
                     output += ', ';
                 }
 
-                output += criteria;
-
-                return output;
+                return `${output}${criteria}`;
             }
         }
     }
