@@ -92,9 +92,20 @@ class MapLeaflet extends React.Component {
     if (!this.activeElement) {
       return;
     }
-    const elementBounds = this.activeElement.getBounds();
-    if (Object.keys(elementBounds).length === 0 && elementBounds.constructor === Object) {
-      return;
+    let elementBounds;
+    // if activeElement is a shape
+    if (this.activeElement.getBounds) {
+      elementBounds = this.activeElement.getBounds();
+      if (Object.keys(elementBounds).length === 0 && elementBounds.constructor === Object) {
+        return;
+      }
+    // if activeElement is a point
+    } else {
+      const latLng = this.activeElement.getLatLng();
+      elementBounds = [
+        [latLng.lat, latLng.lng],
+        [latLng.lat, latLng.lng]
+      ];
     }
     this.fitBoundsInsideMap(elementBounds);
   }
@@ -185,6 +196,7 @@ class MapLeaflet extends React.Component {
         {
           markers.map((marker) => (
             <CustomMarker
+              ref={this.setActiveElement}
               position={marker.position}
               key={marker.position.toString() + marker.type}
               icon={icons[marker.type]}
