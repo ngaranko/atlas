@@ -2,11 +2,15 @@ version: '3.5'
 services:
   atlas_func: # NGINX
     build:
+      args:
+        - BUILD_ENV=acc
       context: .
     ipc: host
 
   atlas_aria: # NGINX
     build:
+      args:
+        - BUILD_ENV=acc
       context: .
     ipc: host
 
