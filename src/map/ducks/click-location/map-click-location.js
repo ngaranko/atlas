@@ -1,6 +1,6 @@
 import ACTIONS from '../../../shared/actions';
 
-const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
+export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
 
 const initialState = {};
 
