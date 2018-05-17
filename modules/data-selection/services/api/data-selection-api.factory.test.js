@@ -32,6 +32,7 @@ describe('The dataSelectionApi factory', function () {
                 zwembaden: {
                     ENDPOINT_MARKERS: 'zwembaden/markers/',
                     CUSTOM_API: 'mockedApiService',
+                    SORT_FILTERS: true,
                     FILTERS: [
                         {
                             slug: 'type',
@@ -128,6 +129,10 @@ describe('The dataSelectionApi factory', function () {
                             },
                             {
                                 count: 2,
+                                label: 'Overdekt'
+                            },
+                            {
+                                count: 666,
                                 label: 'Overdekt'
                             }
                         ]
@@ -296,6 +301,60 @@ describe('The dataSelectionApi factory', function () {
                             {
                                 label: 'Overdekt',
                                 count: 2
+                            },
+                            {
+                                label: 'Overdekt',
+                                count: 666
+                            }
+                        ]
+                    }, {
+                        slug: 'water',
+                        label: 'Watersoort',
+                        numberOfOptions: 3,
+                        options: [
+                            {
+                                label: 'Koud',
+                                count: 1
+                            },
+                            {
+                                label: 'Tropisch',
+                                count: 1
+                            }, {
+                                label: 'Verwarmd',
+                                count: 4
+                            }
+                        ]
+                    }
+                ]);
+            });
+
+            it('doesnt order the filters when configured', function () {
+                let output = {};
+
+                delete mockedConfig.datasets.zwembaden.SORT_FILTERS;
+
+                dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
+                    output = _output_;
+                });
+                $rootScope.$apply();
+
+                expect(output.filters).toEqual([
+                    {
+                        slug: 'type',
+                        label: 'Type accomodatie',
+                        numberOfOptions: 2,
+                        options: [
+                            {
+                                label: 'Buitenbad',
+                                count: 4
+                            },
+                            {
+                                label: 'Overdekt',
+                                count: 2
+                            },
+                            {
+                                label: 'Overdekt',
+                                count: 666
                             }
                         ]
                     }, {
@@ -337,13 +396,13 @@ describe('The dataSelectionApi factory', function () {
                         options: [
                             {
                                 count: 1,
+                                label: 'Koud'
+                            }, {
+                                count: 1,
                                 label: 'Tropisch'
                             }, {
                                 count: 4,
                                 label: 'Verwarmd'
-                            }, {
-                                count: 1,
-                                label: 'Koud'
                             }
                         ]
                     }

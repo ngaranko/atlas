@@ -14,9 +14,9 @@ import removeMd from 'remove-markdown';
             controllerAs: 'vm'
         });
 
-    DpDataSelectionCatalogController.$inject = ['store', 'ACTIONS', '$filter'];
+    DpDataSelectionCatalogController.$inject = ['store', '$filter'];
 
-    function DpDataSelectionCatalogController (store, ACTIONS, $filter) {
+    function DpDataSelectionCatalogController (store, $filter) {
         const vm = this;
 
         var state = store.getState();

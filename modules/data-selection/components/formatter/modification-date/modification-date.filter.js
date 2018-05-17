@@ -26,8 +26,6 @@
                         ago = Math.ceil(ago / length);
                         agoCount = ago;
                         agoDuration = duration;
-                    } else {
-                        ago = 0;
                     }
                 });
 

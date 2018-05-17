@@ -7,16 +7,10 @@ describe('The catalog component', function () {
         $compile,
         $window,
         store,
-        ACTIONS,
         origSessionStorage;
 
     const mockedStore = {
-        dispatch: angular.noop,
         getState: angular.noop
-    };
-
-    const mockedACTIONS = {
-        FETCH_DETAIL: 'Fetch Detail'
     };
 
     const mockedContent =
@@ -34,20 +28,18 @@ describe('The catalog component', function () {
 
     beforeEach(function () {
         angular.mock.module('dpDataSelection', {
-            store: mockedStore,
-            ACTIONS: mockedACTIONS
+            store: mockedStore
         },
             function ($provide) {
                 $provide.value('optionLabelFilter', mockedOptionLabelFilter);
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$compile_, _$window_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$rootScope_, _$compile_, _$window_, _store_) {
             $rootScope = _$rootScope_;
             $compile = _$compile_;
             $window = _$window_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         origSessionStorage = $window.sessionStorage;
@@ -56,7 +48,6 @@ describe('The catalog component', function () {
         };
 
         spyOn($window.sessionStorage, 'setItem');
-        spyOn(store, 'dispatch');
     });
 
     afterEach(() => {
@@ -86,11 +77,6 @@ describe('The catalog component', function () {
         const component = getComponent();
 
         component.find('.qa-catalog-fetch-detail')[0].click();
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DETAIL,
-            payload: mockedContent.detailEndpoint
-        });
 
         expect($window.sessionStorage.setItem)
             .toHaveBeenCalledWith('DCATD_LIST_REDIRECT_URL', jasmine.any(String));
