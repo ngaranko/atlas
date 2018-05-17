@@ -4,7 +4,8 @@ describe('The dpCombinedDocumentTitle factory', function () {
         $rootScope;
     const detailDocumentTitle = { getTitle: angular.noop },
         mapDocumentTitle = { getTitle: angular.noop },
-        searchResultsDocumentTitle = { getTitle: angular.noop };
+        searchResultsDocumentTitle = { getTitle: angular.noop },
+        dataSelectionDocumentTitle = { getTitle: angular.noop };
 
     beforeEach(function () {
         angular.mock.module(
@@ -13,6 +14,7 @@ describe('The dpCombinedDocumentTitle factory', function () {
                 $provide.value('dpDetailDocumentTitle', detailDocumentTitle);
                 $provide.value('dpMapDocumentTitle', mapDocumentTitle);
                 $provide.value('dpSearchResultsDocumentTitle', searchResultsDocumentTitle);
+                $provide.value('dpDataSelectionDocumentTitle', dataSelectionDocumentTitle);
             }
         );
 
@@ -29,8 +31,8 @@ describe('The dpCombinedDocumentTitle factory', function () {
         });
 
         spyOn(detailDocumentTitle, 'getTitle').and.returnValue('detailTitel');
-
         spyOn(searchResultsDocumentTitle, 'getTitle').and.returnValue('searchTitel');
+        spyOn(dataSelectionDocumentTitle, 'getTitle').and.returnValue('dataSelectionTitel');
     });
 
     it('returns a default title with promise', function () {
@@ -71,6 +73,22 @@ describe('The dpCombinedDocumentTitle factory', function () {
 
         promise.then(value => {
             expect(value).toBe('searchTitel | simpele titel');
+        });
+
+        $rootScope.$digest();
+    });
+
+    it('returns a dataselection title with promise', function () {
+        const mockState = {
+            dataSelection: {
+                view: 'CARDS'
+            }
+        };
+
+        const promise = combinedDocumentTitle.getTitle(mockState);
+
+        promise.then(value => {
+            expect(value).toBe('dataSelectionTitel | simpele titel');
         });
 
         $rootScope.$digest();

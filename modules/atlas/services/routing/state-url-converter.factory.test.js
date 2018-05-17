@@ -115,6 +115,10 @@ describe('The state url conversion factory', function () {
                         name: 'kv',
                         type: 'keyvalues'
                     },
+                    dsf: {
+                        name: 'filters',
+                        type: 'keyvalues'
+                    },
                     osb: {
                         name: 'osb',
                         type: 'object(id:string,isVisible:boolean)'
@@ -184,6 +188,44 @@ describe('The state url conversion factory', function () {
                     aab: 'T::F:F::T',
                     aaan: '1:::2::3:::4:5:::6::7:::8',
                     kv: 'aap::noot:mies::teun',
+                    osb: 'aap:T',
+                    v: 'getValue.v'
+                });
+            });
+
+            it('translates a state with an empty filter to the corresponding params', function () {
+                const params = stateUrlConverter.state2params({
+                    s: 'aap',
+                    x: {
+                        b: true,
+                        y: {
+                            n: 10,
+                            n1: 1.234,
+                            z: {
+                                b62: 62
+                            }
+                        }
+                    },
+                    as: ['aap', 'noot', 'mies'],
+                    aab: [[true, false], [false, true]],
+                    aaan: [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],
+                    kv: { aap: 'noot', mies: 'teun' },
+                    filters: { aap: 'noot', postcode: '', mies: 'teun' },
+                    osb: { id: 'aap', isVisible: true },
+                    v: 'v'
+                });
+
+                expect(params).toEqual({
+                    s: 'aap',
+                    b: 'T',
+                    n: '10',
+                    n1: '1.2',
+                    b62: 'A0',
+                    as: 'aap:noot:mies',
+                    aab: 'T::F:F::T',
+                    aaan: '1:::2::3:::4:5:::6::7:::8',
+                    kv: 'aap::noot:mies::teun',
+                    dsf: 'aap::noot:postcode::xxxx:mies::teun',
                     osb: 'aap:T',
                     v: 'getValue.v'
                 });
@@ -276,6 +318,44 @@ describe('The state url conversion factory', function () {
                     aab: [[true, false], [false, true]],
                     aaan: [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],
                     kv: { aap: 'noot', mies: 'teun' },
+                    osb: { id: 'aap', isVisible: true },
+                    v: 'setValue.v'
+                });
+            });
+
+            it('translates the NO_VALUE param to an empty string', function () {
+                const state = stateUrlConverter.params2state({}, {
+                    s: 'aap',
+                    b: 'T',
+                    n: '10',
+                    n1: '1.2',
+                    b62: 'A0',
+                    as: 'aap:noot:mies',
+                    aab: 'T::F:F::T',
+                    aaan: '1:::2::3:::4:5:::6::7:::8',
+                    kv: 'aap::noot:mies::teun',
+                    dsf: 'aap::noot:postcode::xxxx:mies::teun',
+                    osb: 'aap:T',
+                    v: 'v'
+                });
+
+                expect(state).toEqual({
+                    s: 'aap',
+                    x: {
+                        b: true,
+                        y: {
+                            n: 10,
+                            n1: 1.2,
+                            z: {
+                                b62: 62
+                            }
+                        }
+                    },
+                    as: ['aap', 'noot', 'mies'],
+                    aab: [[true, false], [false, true]],
+                    aaan: [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],
+                    kv: { aap: 'noot', mies: 'teun' },
+                    filters: { aap: 'noot', mies: 'teun', postcode: '' },
                     osb: { id: 'aap', isVisible: true },
                     v: 'setValue.v'
                 });

@@ -4,7 +4,6 @@
  * https://developer.matomo.org/guides/tracking-javascript-guide#manually-trigger-events
  */
 export default function piwikTracker(data) {
-  // eslint-disable-next-line no-underscore-dangle
   window._paq.push(data);
 }
 
