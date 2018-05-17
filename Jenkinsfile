@@ -38,7 +38,7 @@ pipeline {
         }
       }
     }
-    stage('Unit') {
+    stage('Unit and Integration') {
       options {
         timeout(time: 10, unit: 'MINUTES')
       }
@@ -46,7 +46,7 @@ pipeline {
         PROJECT = "${PROJECT_PREFIX}unit"
       }
       steps {
-        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit test-unit"
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit-integration test-unit-integration"
       }
       post {
         always {
@@ -54,6 +54,7 @@ pipeline {
         }
       }
     }
+
     stage('Functional E2E') {
       options {
         timeout(time: 30, unit: 'MINUTES')

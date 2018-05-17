@@ -25,7 +25,8 @@ module.exports = {
         "_display",
         "_embedded",
         "_links",
-        "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"
+        "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__",
+        "_paq"
       ]
     }],
     "linebreak-style": "off"
