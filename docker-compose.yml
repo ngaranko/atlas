@@ -9,6 +9,8 @@ services:
 
   atlas_aria: # NGINX
     build:
+      args:
+        - BUILD_ENV=acc
       context: .
     ipc: host
 
