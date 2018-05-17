@@ -2,8 +2,9 @@ import formatDate from './date-formatter';
 
 describe('The date formatter service', () => {
   it('turns a date instance into a date string', () => {
-    expect(formatDate(new Date('2020-12-01')))
-      .toEqual('2020 M12 1');
+    const date = { toLocaleDateString: jest.fn() };
+    date.toLocaleDateString.mockReturnValue('1 december 2020');
+    expect(formatDate(date)).toEqual('1 december 2020');
   });
 
   it('uses the Dutch locale', () => {
