@@ -2,7 +2,6 @@
 
 ## Requirements
 - npm
-- Java JRE (needed to run protractor)
 
 ## Installations
 - npm install
@@ -13,10 +12,28 @@
 
 ## Testing
 
-Karma & Jest unit test
+Karma & Jest unit and (Jest) integration test
 
 ```
 NODE_ENV=development npm test
+```
+
+Only Karma unit tests
+
+```
+NODE_ENV=development npm test-karma
+```
+
+Only Jest unit tests
+
+```
+NODE_ENV=development npm test-jest
+```
+
+Integration tests
+
+```
+NODE_ENV=development npm test-integration
 ```
 
 ### E2E testing
