@@ -205,10 +205,11 @@ exports[`MapSearchResults should render clusterer 1`] = `
     tms={true}
     url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
   />
-  <r
+  <ClusterGroup
     animate={false}
     chunkedLoading={true}
     disableClusteringAtZoom={16}
+    getMarkerGroupBounds={[Function]}
     iconCreateFunction={[Function]}
     markers={Array []}
     maxClusterRadius={50}
@@ -220,7 +221,7 @@ exports[`MapSearchResults should render clusterer 1`] = `
         NewClass {
           "_initHooksCalled": true,
           "options": Object {
-            "className": "dp-leaflet-detail-item o-highlight-cluster",
+            "className": "dp-leaflet-detail-item",
             "iconAnchor": Array [
               10,
               10,
@@ -250,7 +251,7 @@ exports[`MapSearchResults should render clusterer 1`] = `
         NewClass {
           "_initHooksCalled": true,
           "options": Object {
-            "className": "dp-leaflet-detail-item o-highlight-cluster",
+            "className": "dp-leaflet-detail-item",
             "iconAnchor": Array [
               10,
               10,
@@ -280,7 +281,7 @@ exports[`MapSearchResults should render clusterer 1`] = `
         NewClass {
           "_initHooksCalled": true,
           "options": Object {
-            "className": "dp-leaflet-detail-item o-highlight-cluster",
+            "className": "dp-leaflet-detail-item",
             "iconAnchor": Array [
               10,
               10,
@@ -310,7 +311,7 @@ exports[`MapSearchResults should render clusterer 1`] = `
         NewClass {
           "_initHooksCalled": true,
           "options": Object {
-            "className": "dp-leaflet-detail-item o-highlight-cluster",
+            "className": "dp-leaflet-detail-item",
             "iconAnchor": Array [
               10,
               10,
@@ -335,7 +336,7 @@ exports[`MapSearchResults should render clusterer 1`] = `
         ]
       }
     />
-  </r>
+  </ClusterGroup>
   <ScaleControl
     imperial={false}
     metric={true}
@@ -552,10 +553,11 @@ exports[`MapSearchResults should render clusterer 2`] = `
     tms={true}
     url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
   />
-  <r
+  <ClusterGroup
     animate={false}
     chunkedLoading={true}
     disableClusteringAtZoom={16}
+    getMarkerGroupBounds={[Function]}
     iconCreateFunction={[Function]}
     markers={Array []}
     maxClusterRadius={50}
@@ -567,7 +569,7 @@ exports[`MapSearchResults should render clusterer 2`] = `
         NewClass {
           "_initHooksCalled": true,
           "options": Object {
-            "className": "dp-leaflet-detail-item o-highlight-cluster",
+            "className": "dp-leaflet-detail-item",
             "iconAnchor": Array [
               10,
               10,
@@ -597,7 +599,7 @@ exports[`MapSearchResults should render clusterer 2`] = `
         NewClass {
           "_initHooksCalled": true,
           "options": Object {
-            "className": "dp-leaflet-detail-item o-highlight-cluster",
+            "className": "dp-leaflet-detail-item",
             "iconAnchor": Array [
               10,
               10,
@@ -627,7 +629,7 @@ exports[`MapSearchResults should render clusterer 2`] = `
         NewClass {
           "_initHooksCalled": true,
           "options": Object {
-            "className": "dp-leaflet-detail-item o-highlight-cluster",
+            "className": "dp-leaflet-detail-item",
             "iconAnchor": Array [
               10,
               10,
@@ -657,7 +659,7 @@ exports[`MapSearchResults should render clusterer 2`] = `
         NewClass {
           "_initHooksCalled": true,
           "options": Object {
-            "className": "dp-leaflet-detail-item o-highlight-cluster",
+            "className": "dp-leaflet-detail-item",
             "iconAnchor": Array [
               10,
               10,
@@ -682,7 +684,7 @@ exports[`MapSearchResults should render clusterer 2`] = `
         ]
       }
     />
-  </r>
+  </ClusterGroup>
   <ScaleControl
     imperial={false}
     metric={true}

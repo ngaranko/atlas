@@ -65,7 +65,11 @@ class MapContainer extends React.Component {
           onToggleFullscreen={this.props.onToggleFullscreen}
         />
         <MapPanelContainer />
-        <MapEmbedButton link={this.props.embedLink} />
+        {
+          this.props.embedLink.length ? (
+            <MapEmbedButton link={this.props.embedLink} />
+          ) : ''
+        }
         <MapPreviewPanelContainer />
       </div>
     );
