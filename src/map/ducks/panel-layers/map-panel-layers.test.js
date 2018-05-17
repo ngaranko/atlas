@@ -1,7 +1,11 @@
 import reducer, {
   FETCH_PANEL_ITEMS_REQUEST,
   FETCH_PANEL_ITEMS_SUCCESS,
-  FETCH_PANEL_ITEMS_FAILURE
+  FETCH_PANEL_ITEMS_FAILURE,
+  fetchPanelLayers,
+  getMapPanelLayers,
+  selectActivePanelLayers,
+  selectNotClickableVisibleMapLayers
 } from './map-panel-layers';
 
 const initialState = {
@@ -43,6 +47,118 @@ describe('post reducer', () => {
     expect(reducer({}, updateAction)).toEqual({
       error: 'Error',
       isLoading: false
+    });
+  });
+});
+
+// SELECTORS
+describe('selectors', () => {
+  const panelLayers = [
+    {
+      category: 'Geografie: onroerende zaken',
+      maxZoom: 16,
+      minZoom: 8,
+      legendItems: [
+        { id: 'bgem', notClickable: true }
+      ],
+      notClickable: true,
+      title: 'Kadastrale perceelsgrenzen',
+      url: '/maps/brk?version=1.3.0&service=WMS'
+    },
+    {
+      category: 'Verkeer en infrastructuur',
+      id: 'pv',
+      notClickable: true,
+      layers: ['alle_parkeervakken'],
+      legendItems: [
+        {
+          selectable: false,
+          title: 'FISCAAL'
+        }
+      ],
+      maxZoom: 16,
+      minZoom: 8,
+      title: 'Parkeervakken - Fiscale indeling',
+      url: '/maps/parkeervakken?version=1.3.0&service=WMS'
+    }
+  ];
+
+  const overlays = [{
+    id: 'bgem',
+    isVisible: true
+  }];
+
+  describe('getMapPanelLayers', () => {
+    it('should return an undefined if there are no panelLayers', () => {
+      const selected = getMapPanelLayers.resultFunc([]);
+      expect(selected).toEqual([]);
+    });
+
+    it('should return an array with all panelLayers', () => {
+      const selected = getMapPanelLayers.resultFunc({ items: panelLayers });
+      expect(selected).toEqual(panelLayers);
+    });
+  });
+
+  describe('selectActivePanelLayers', () => {
+    it('should return an empty array if there are no panelLayers', () => {
+      const selected = selectActivePanelLayers.resultFunc([], overlays);
+      expect(selected).toEqual([]);
+    });
+
+    it('should return an empty array if there are no active overlays', () => {
+      const selected = selectActivePanelLayers.resultFunc(panelLayers, []);
+      expect(selected).toEqual([]);
+    });
+
+    it('should return an array with all panelLayers matching the id of the active overlays', () => {
+      const selected = selectActivePanelLayers.resultFunc(panelLayers, overlays);
+      expect(selected).toEqual([
+        panelLayers[0]
+      ]);
+    });
+
+    it('should return an all active panelLayers and sort them', () => {
+      const selected = selectActivePanelLayers.resultFunc(panelLayers, [...overlays, { id: 'pv' }]);
+      expect(selected).toEqual([
+        panelLayers[1],
+        panelLayers[0]
+      ]);
+    });
+  });
+
+  describe('selectNotClickableVisibleMapLayers', () => {
+    it('should return an array of the notClickable layers', () => {
+      const selected = selectNotClickableVisibleMapLayers.resultFunc(14, panelLayers, overlays);
+      expect(selected).toEqual([
+        {
+          id: 'bgem',
+          notClickable: true
+        }
+      ]);
+    });
+
+    it('should filter out mapLayers if the current zoom of the map is bigger then the maxZoom of the layer', () => {
+      const selected = selectNotClickableVisibleMapLayers.resultFunc(20, panelLayers, overlays);
+      expect(selected).toEqual([]);
+    });
+
+    it('should filter out mapLayers if the current zoom of the map is smaller then the minZoom of the layer', () => {
+      const selected = selectNotClickableVisibleMapLayers.resultFunc(6, panelLayers, overlays);
+      expect(selected).toEqual([]);
+    });
+  });
+});
+
+// ACTION CREATORS
+describe('actions', () => {
+  describe('fetchPanelLayers', () => {
+    it('should create an action to request the panel layers', () => {
+      const expectedAction = {
+        type: FETCH_PANEL_ITEMS_REQUEST,
+        panelLayers: []
+      };
+      expect(fetchPanelLayers(expectedAction.panelLayers)).toEqual(expectedAction);
     });
   });
 });

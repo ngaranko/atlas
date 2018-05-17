@@ -13,7 +13,9 @@ export const MAP_UPDATE_SHAPE = 'MAP_UPDATE_SHAPE';
 export const MAP_START_DRAWING = 'MAP_START_DRAWING';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
 
-export const getMapZoom = (state) => state.map.zoom;
+export const getMap = (state) => state.map;
+export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
+export const getMapZoom = createSelector(getMap, (mapState) => mapState.zoom);
 
 export const getMarkers = createSelector(
   [getDataSelection, getSearchMarker, getStraatbeeldMarkers],
@@ -21,7 +23,7 @@ export const getMarkers = createSelector(
      !dataSelectionActive ? [...searchMarkers, ...straatbeeldMarkers] : []
   ));
 
-export const getMapCenter = (state) => state.map && state.map.viewCenter;
+export const getMapCenter = createSelector(getMap, (mapState) => mapState && mapState.viewCenter);
 
 export const getCenter = createSelector([getMapCenter, getStraatbeeldLocation],
   (mapCenter, straatbeeldLocation) => (

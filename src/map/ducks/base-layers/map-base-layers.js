@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 
+import { getActiveBaseLayer } from '../map/map';
+
 export const FETCH_MAP_BASE_LAYERS_REQUEST = 'FETCH_MAP_BASE_LAYERS_REQUEST';
 export const FETCH_MAP_BASE_LAYERS_SUCCESS = 'FETCH_MAP_BASE_LAYERS_SUCCESS';
 export const FETCH_MAP_BASE_LAYERS_FAILURE = 'FETCH_MAP_BASE_LAYERS_FAILURE';
@@ -16,7 +18,6 @@ const getUrlTemplateOfActiveLayer = (layers, value) => {
 };
 
 const getAllBaseLayers = (state) => state.mapLayers.baseLayers.items;
-const getActiveBaseLayer = (state) => state.map.baseLayer;
 
 export const getBaseLayers = createSelector([getAllBaseLayers],
   (baseLayers) => baseLayers.reduce((result, item) => ({
