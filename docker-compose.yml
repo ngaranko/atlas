@@ -16,7 +16,7 @@ services:
       target: build-deps
     command: npm run test-lint
 
-  test-unit:
+  test-unit-integration:
     build:
       context: .
       target: build-deps

@@ -6,23 +6,6 @@ describe('search module', () => {
     cy.visit('/');
   });
 
-  it('should show 4 categories when searching for the term "Oost"', () => {
-    cy.server();
-    // TODO: enable this (getResults) once fetch is supported by Cypress
-    // https://github.com/cypress-io/cypress/issues/95
-    // cy.route('/typeahead?q=oost').as('getResults');
-
-    cy.get('#auto-suggest__input').type('oost');
-
-    // TODO: remove wait(500) and enably the route-wait
-    cy.wait(500);
-    // cy.wait('@getResults');
-    // count the headers inside the autocomplete
-    cy.get('h4.qa-auto-suggest-header').then((headers) => {
-      expect(headers.length).to.eq(4);
-    });
-  });
-
   it('should show results when searching for "dam"', () => {
     cy.server();
     cy.defineSearchRoutes();
