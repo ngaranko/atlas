@@ -13,12 +13,14 @@ export const HOSTS = {
 };
 
 export const getEnvironment = (host) => {
-  switch (host) {
-    case 'data.amsterdam.nl':
+  if (host === HOSTS.PRE_PRODUCTION) {
+    return ENVIRONMENT.PRE_PRODUCTION;
+  }
+
+  switch (process.env.NODE_ENV) {
+    case 'production':
       return ENVIRONMENT.PRODUCTION;
-    case 'pre.data.amsterdam.nl':
-      return ENVIRONMENT.PRE_PRODUCTION;
-    case 'acc.data.amsterdam.nl':
+    case 'acceptance':
       return ENVIRONMENT.ACCEPTATION;
     default:
       return ENVIRONMENT.DEVELOPMENT;

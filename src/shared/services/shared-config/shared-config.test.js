@@ -1,51 +1,27 @@
-import getSharedConfig, { globalConfig, getEnvironmentHelper, environmentConfig } from './shared-config';
-import { HOSTS, getEnvironment } from '../../environment';
+import getSharedConfig from './shared-config';
+import { getEnvironment } from '../../environment';
+
+jest.mock('../../environment');
 
 describe('The sharedConfig service', () => {
-  describe('getSharedConfig()', () => {
-    Object.keys(environmentConfig).forEach((ENVIRONMENT) => {
-      it(`if argument is passed it should return a combination of global and environment specific configuration - env:${ENVIRONMENT}`, () => {
-        const generatedEnviroment = {
-          NAME: getEnvironment(HOSTS[ENVIRONMENT])
-        };
-        const generatedConfig = getSharedConfig(generatedEnviroment);
-        expect(generatedConfig.API_ROOT).toEqual(environmentConfig[ENVIRONMENT].API_ROOT);
-        Object.keys(globalConfig).forEach((prop) => {
-          expect(generatedConfig[prop]).toBe(globalConfig[prop]);
-        });
-      });
+  it('gives you the configuration based on global environment', () => {
+    getEnvironment.mockImplementation(() => ('PRODUCTION'));
+    expect(getSharedConfig()).toMatchSnapshot();
 
-      it(`if no argument is passed it should return a combination of global and environment specific configuration - env:${ENVIRONMENT}`, () => {
-        // set the window.location so location.host gets updated
-        jsdom.reconfigure({
-          url: `http://${HOSTS[ENVIRONMENT]}`
-        });
-        const generatedConfig = getSharedConfig();
-        expect(generatedConfig.API_ROOT).toEqual(environmentConfig[ENVIRONMENT].API_ROOT);
-        Object.keys(globalConfig).forEach((prop) => {
-          expect(generatedConfig[prop]).toBe(globalConfig[prop]);
-        });
-      });
-    });
+    getEnvironment.mockImplementation(() => ('PRE_PRODUCTION'));
+    expect(getSharedConfig()).toMatchSnapshot();
+
+    getEnvironment.mockImplementation(() => ('ACCEPTATION'));
+    expect(getSharedConfig()).toMatchSnapshot();
+
+    getEnvironment.mockImplementation(() => ('DEVELOPMENT'));
+    expect(getSharedConfig()).toMatchSnapshot();
   });
 
-  describe('getEnvironmentHelper()', () => {
-    Object.keys(environmentConfig).forEach((ENVIRONMENT) => {
-      it(`should return the name of the environment if an argument is passed - env:${ENVIRONMENT}`, () => {
-        const generatedEnviroment = {
-          NAME: getEnvironment(HOSTS[ENVIRONMENT])
-        };
-        const name = getEnvironmentHelper(generatedEnviroment);
-        expect(name).toEqual(ENVIRONMENT);
-      });
-
-      it(`should return the name of the environment if no argument is passed - env:${ENVIRONMENT}`, () => {
-        jsdom.reconfigure({
-          url: `http://${HOSTS[ENVIRONMENT]}`
-        });
-        const name = getEnvironmentHelper();
-        expect(name).toEqual(ENVIRONMENT);
-      });
-    });
+  it('gives you the configuration based on provided environment', () => {
+    expect(getSharedConfig({ NAME: 'PRODUCTION' })).toMatchSnapshot();
+    expect(getSharedConfig({ NAME: 'PRE_PRODUCTION' })).toMatchSnapshot();
+    expect(getSharedConfig({ NAME: 'ACCEPTATION' })).toMatchSnapshot();
+    expect(getSharedConfig({ NAME: 'DEVELOPMENT' })).toMatchSnapshot();
   });
 });
