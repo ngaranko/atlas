@@ -21,19 +21,19 @@ NODE_ENV=development npm test
 Only Karma unit tests
 
 ```
-NODE_ENV=development npm test-karma
+NODE_ENV=development npm run test-karma
 ```
 
 Only Jest unit tests
 
 ```
-NODE_ENV=development npm test-jest
+NODE_ENV=development npm run test-jest
 ```
 
 Integration tests
 
 ```
-NODE_ENV=development npm test-integration
+NODE_ENV=development npm run test-integration
 ```
 
 ### E2E testing
