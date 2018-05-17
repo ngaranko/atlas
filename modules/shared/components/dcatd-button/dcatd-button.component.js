@@ -14,17 +14,16 @@
             controllerAs: 'vm'
         });
 
-    DpDcatdButtonController.$inject = ['$window'];
+    DpDcatdButtonController.$inject = ['$scope', '$window'];
 
-    function DpDcatdButtonController ($window) {
+    function DpDcatdButtonController ($scope, $window) {
         const vm = this;
 
         function onClick () {
             sessionStorage.setItem('DCATD_DETAIL_REDIRECT_URL', document.location.href);
-            $window.location.assign(vm.link);
+            $window.location.assign(`dcatd_admin#/datasets/${vm.id}`);
         }
 
         vm.onClick = onClick;
-        vm.link = `dcatd_admin#/datasets/${vm.id}`;
     }
 })();
