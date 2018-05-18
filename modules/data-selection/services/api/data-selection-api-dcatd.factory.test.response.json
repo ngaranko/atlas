@@ -1,4 +1,5 @@
 {
+  "void:documents": 4,
   "dcat:dataset": [
     {
       "@id": "ams-dcatd: 642f15c7-8368-4795-9e3d-1a87fa7e562a",
@@ -24,5 +25,30 @@
       "dct:identifier": "d7a4c93c-0d7f-4d39-82d4-5f50eaffa624",
       "dct:title": "Attracties"
     }
-  ]
+  ],
+  "ams:facet_info": {
+    "/properties/dcat:distribution/items/properties/ams:resourceType": {
+      "data": 1778,
+      "vis": 89
+    },
+    "/properties/dcat:distribution/items/properties/dct:format": {
+      "text/html": 133,
+      "application/vnd.ms-excel": 1431
+    },
+    "/properties/dcat:distribution/items/properties/ams:distributionType": {
+      "file": 1877,
+      "api": 22
+    },
+    "/properties/dcat:distribution/items/properties/ams:serviceType": {
+      "wms": 1
+    },
+    "/properties/dcat:keyword/items": {
+      "buien": 1,
+      "meteorologie": 1
+    },
+    "/properties/dcat:theme/items": {
+      "theme:milieu-water": 18,
+      "theme:economie-haven": 33
+    }
+  }
 }

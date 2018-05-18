@@ -25,10 +25,11 @@
             const VIEW_NAMES = {
                 TABLE: 'Tabel',
                 LIST: 'Lijst',
-                CARDS: 'Datasets'
+                CATALOG: 'Datasets'
             };
 
-            if (dataSelectionState.view === 'CARDS' && Object.keys(filtersState).length === 0) {
+            if (dataSelectionState.view === 'CATALOG' &&
+                !Object.keys(filtersState).length) {
                 if (dataSelectionState.query) {
                     return `Datasets met '${dataSelectionState.query}'`;
                 } else {
@@ -39,7 +40,7 @@
                 variant = lowercaseFilter(DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].TITLE);
                 markers = dataSelectionState.geometryFilter.markers || [];
                 criteria = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].FILTERS
-                // Retrieve all the active filters
+                    // Retrieve all the active filters
                     .filter(availableFilter => angular.isDefined(filtersState[availableFilter.slug]))
                     // Show the value of each active filter
                     .map(activeFilter => {
@@ -63,7 +64,7 @@
                 if (markers.length) {
                     // NB: Manual replacement of the superscript 2 is required due to improper browser rendering
                     const geometryFilterDescription = dataSelectionState.geometryFilter.description
-                            .replace('&sup2;', '²');
+                        .replace('&sup2;', '²');
                     output += `ingetekend (${geometryFilterDescription})`;
                 }
 

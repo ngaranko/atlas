@@ -1,25 +1,22 @@
-<div class="u-grid dcad-dataset-detail">
+<div class="u-grid dataset-detail">
 
-    <div class="u-row u-margin__bottom--4">
+    <div class="u-row u-margin__bottom--3">
         <div class="o-header">
             <h3 class="o-header__subtitle">
                 <span>Dataset</span>
                 <div class="o-header__buttongroup">
-                    <button class="o-header__button c-stelselpedia__button" title="Uitleg" onclick="alert('not implemented');return false;">
-                        <span class="u-sr-only">Uitleg</span>
-                    </button>
-                    <button ng-if="vm.apiData.results.canEditDataset" class="o-header__button catalog__button--wijzigen" title="Wijzigen" dp-routing-link="{{ vm.apiData.results.editDatasetUrl }}">
-                        Wijzigen
-                        <span class="u-sr-only">Wijzigen</span>
-                    </button>
+                    <dp-dcatd-button ng-if="vm.apiData.results.canEditDataset" id="{{ vm.apiData.results.editDatasetId }}" type="wijzigen">
+                      Wijzigen
+                      <span class="u-sr-only">Wijzigen</span>
+                    </dp-dcatd-button>
                 </div>
             </h3>
             <h2 class="o-header__title u-margin__bottom--3 ">{{vm.apiData.results["dct:title"]}}</h2>
         </div>
-        <span class="s-detail-catalogus-notes" ng-bind-html="vm.apiData.results['dct:description']"> </span>
+        <span class="dataset-detail__description" ng-bind-html="vm.apiData.results['dct:description']"> </span>
     </div>
 
-    <div class="u-row">
+    <div class="u-row u-margin__bottom--3">
         <div class="u-col-md--12">
             <h3 class="o-header__subtitle">Resources</h3>
 
@@ -35,7 +32,7 @@
         </div>
     </div>
 
-    <div class="c-detail__block u-padding__bottom--1">
+    <div class="c-detail__block u-padding__bottom--1 u-margin__top--3">
         <div class="u-col-md--12">
             <h3 class="o-header__subtitle">Thema's</h3>
 
@@ -49,9 +46,9 @@
 
             <ul ng-repeat="tag in vm.apiData.results['dcat:keyword']" class="u-inline">
                 <li class="u-inline">
-                    <div class="o-tag--transparent">
-                        <i></i>
-                        <span>{{tag | dpUppercaseFirstLetter}}</span>
+                    <div class="dataset-tag">
+                        <i class="dataset-tag__arrow"></i>
+                        <span class="dataset-tag__label">{{tag | dpUppercaseFirstLetter}}</span>
                     </div>
                 </li>
             </ul>

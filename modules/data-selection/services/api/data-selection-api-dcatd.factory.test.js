@@ -6,6 +6,7 @@ describe('The dataSelectionApiDcatd factory', function () {
         dataSelectionApiDcatd,
         api,
         mockedApiResponse,
+        mockedEmptyApiResponse,
         config,
         catalogFilters;
 
@@ -17,6 +18,8 @@ describe('The dataSelectionApiDcatd factory', function () {
                         const q = $q.defer();
                         if (url === 'dcatd/reject') {
                             q.reject();
+                        } else if (url === 'dcatd/empty') {
+                            q.resolve(mockedEmptyApiResponse);
                         } else {
                             q.resolve(mockedApiResponse);
                         }
@@ -58,8 +61,8 @@ describe('The dataSelectionApiDcatd factory', function () {
 
         catalogFilters = {
             groupTypes: [{
-                id: 'id',
-                label: 'label'
+                id: 'milieu-water',
+                label: 'Thema\'s'
             }],
             formatTypes: [{
                 id: 'id',
@@ -80,18 +83,37 @@ describe('The dataSelectionApiDcatd factory', function () {
             licenseTypes: [{
                 id: 'id',
                 label: 'label'
+            }],
+            distributionTypes: [{
+                id: 'id',
+                label: 'label'
             }]
         };
 
         mockedApiResponse = {
             ...mockedApiResponseJson
         };
+
+        mockedEmptyApiResponse = {
+            ...mockedApiResponseJson,
+            'ams:facet_info': {}
+        };
         spyOn(api, 'getByUri').and.callThrough();
     });
 
-    it('doesn\'t call the api factory when no parameters are provided', function () {
-        dataSelectionApiDcatd.query(config, {}, 1);
-        expect(api.getByUri).not.toHaveBeenCalled();
+    it('calls the api factory with when no parameters are provided', function () {
+        let output;
+
+        dataSelectionApiDcatd.query(config, {}, 1).then(function (_output_) {
+            output = _output_;
+        });
+        $rootScope.$apply();
+
+        expect(Object.keys(output.filters).length).toBe(0);
+        expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
+            offset: 0,
+            limit: config.MAX_ITEMS_PER_PAGE
+        });
     });
 
     it('calls the api factory with theme parameter and searchText', function () {
@@ -111,7 +133,7 @@ describe('The dataSelectionApiDcatd factory', function () {
         // With active filters
         dataSelectionApiDcatd.query(config, {
             groups: 'energie',
-            data_format: 'application/pdf'
+            formats: 'application/pdf'
         }, 1, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 0,
@@ -135,13 +157,39 @@ describe('The dataSelectionApiDcatd factory', function () {
     it('calls the api factory with owner parameter and searchText', function () {
         // With an active filter and search text
         dataSelectionApiDcatd.query(config, {
-            owner: 'owner'
+            owners: 'owner'
         }, 1, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 0,
             limit: config.MAX_ITEMS_PER_PAGE,
             q: 'searchText',
             '/properties/ams:owner': 'eq=owner'
+        });
+    });
+
+    it('calls the api factory with serviceType parameter and searchText', function () {
+        // With an active filter and search text
+        dataSelectionApiDcatd.query(config, {
+            serviceTypes: 'wms'
+        }, 1, 'searchText', undefined, catalogFilters);
+        expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
+            offset: 0,
+            limit: config.MAX_ITEMS_PER_PAGE,
+            q: 'searchText',
+            '/properties/dcat:distribution/items/properties/ams:serviceType': 'eq=wms'
+        });
+    });
+
+    it('calls the api factory with distributionType parameter and searchText', function () {
+        // With an active filter and search text
+        dataSelectionApiDcatd.query(config, {
+            distributionTypes: 'file'
+        }, 1, 'searchText', undefined, catalogFilters);
+        expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
+            offset: 0,
+            limit: config.MAX_ITEMS_PER_PAGE,
+            q: 'searchText',
+            '/properties/dcat:distribution/items/properties/ams:distributionType': 'eq=file'
         });
     });
 
@@ -156,28 +204,24 @@ describe('The dataSelectionApiDcatd factory', function () {
         expect(output.numberOfPages).toBe(2);
     });
 
+    it('still returns the total number of pages when facet_info is empty', function () {
+        let output;
+
+        config.ENDPOINT_PREVIEW = 'dcatd/empty';
+
+        dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(function (_output_) {
+            output = _output_;
+        });
+        $rootScope.$apply();
+
+        expect(output.numberOfPages).toBe(2);
+    });
+
     it('registers an error with an unsuccessful API call', () => {
         let thenCalled = false,
             catchCalled = false;
 
         config.ENDPOINT_PREVIEW = 'dcatd/reject';
-
-        dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(() => {
-            thenCalled = true;
-        }, () => {
-            catchCalled = true;
-        });
-        $rootScope.$apply();
-
-        expect(thenCalled).toBe(false);
-        expect(catchCalled).toBe(true);
-    });
-
-    it('registers an error with an unsuccessful response', () => {
-        let thenCalled = false,
-            catchCalled = false;
-
-        mockedApiResponse['dcat:dataset'] = [];
 
         dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(() => {
             thenCalled = true;

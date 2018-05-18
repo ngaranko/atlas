@@ -4,8 +4,8 @@
 @import "./datasets-themes";
 
 .resources {
-  margin-right: -20px;
-  margin-left: -20px;
+  margin-right: -2 * $base-whitespace;
+  margin-left: -2 * $base-whitespace;
   overflow-x: hidden;
 
   &-item {
@@ -13,11 +13,13 @@
 
     &__left {
       flex-grow: 1;
+      width: 100px;
     }
 
     &__right {
-      padding-right: 5px;
-      padding-left: 5px;
+      padding-right: .5 * $base-whitespace;
+      padding-left: .5 * $base-whitespace;
+      text-align: right;
     }
 
     &__modified {
@@ -27,13 +29,29 @@
 
       span {
         white-space: nowrap;
-        overflow: hidden;
       }
     }
 
+    &__title {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
     &__description {
-      :first-child {
-        margin-right: 5px;
+      width: 100%;
+
+      &>div {
+        padding-top: 5px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+      }
+
+      &> :first-child {
+        margin-top: .5 * $base-whitespace;
+        margin-right: .5 * $base-whitespace;
       }
     }
 
@@ -48,60 +66,76 @@
 
       &-arrow {
         @extend %icon-arrow-right;
-        width: 24.5px;
-        height: 24.5px;
+        width: 24px;
+        height: 24px;
         background-size: 100%;
       }
     }
   }
 
-  &-button {
-    margin-left: 31px;
+  .resources-type {
+    margin-top: 8px;
+    margin-bottom: 16px;
   }
 
-  &-type__content-item {
+  .resources-type__header {
+    padding-top: 16px;
+  }
+
+  .resources-type__content {
+    margin-bottom: 0;
+  }
+
+  .resources-type__content-item {
+
+    padding-top: 8px;
+    padding-bottom: 8px;
     cursor: pointer;
 
     &:hover {
       background-color: $secondary-gray10;
     }
   }
-
-  .resources-type__content {
-    margin-bottom: 0;
-  }
 }
 
-.dcad-dataset-detail {
+.dataset-detail {
   .c-detail__block {
     dl>dt {
-      width: 30%;
+      width: 34%;
     }
 
     dl>dd {
-      width: 70%;
+      width: 66%;
+    }
+
+    .dataset-detail__link {
+      display: block;
+      padding: 8px 0;
     }
   }
 
   .o-header__subtitle {
     padding: auto 10px;
 
-    .o-header__button .catalog__button--wijzigen { // sass-lint:disable-line force-element-nesting
-      &::before {
-        @extend %icon-edit;
-        display: block;
-        width: 24px;
-        height: 24px;
-        margin-right: 13px;
-        background-size: 90%;
-        content: "";
+    .o-header__button.catalog__button--wijzigen { // sass-lint:disable-line force-element-nesting
+      @include icon-button-text-right("edit", "", "white");
 
-        &:hover { // sass-lint:disable-line nesting-depth
-          @extend %icon-edit-white;
-        }
+      height: auto;
+      padding: 5px 8px;
+      border: 1px solid $secondary-gray20;
+      color: $secondary-gray60;
+
+      &::before {
+        width: 12px;
+        height: 12px;
       }
-      @extend %icon--border-hover;
-      @include icon-label-right("forward", "", "white", "tall");
+
+      &:hover {
+        border-color: $primary-contrast;
+        background-color: $primary-contrast;
+        color: $primary-light;
+        text-decoration: none;
+      }
     }
 
     .o-header__button.c-stelselpedia__button { // sass-lint:disable-line force-element-nesting
@@ -120,29 +154,31 @@
     }
   }
 
-  .o-tag--transparent {
+  .dataset-tag {
     display: inline-block;
+    margin-left: -8px;
 
-    &>i {
+    &__arrow {
       display: inline-block;
       position: relative;
       top: 3.3px;
-      left: 13.16px; //transform: rotate(135deg);
+      left: 13.16px;
       width: 16.97056274847714;
       height: 16.97056274847714;
       padding: 8.58528137423857px;
-      transform: rotate(45deg);
+      transform: rotate(135deg);
       border-width: 0 0 1px 1px;
       border-style: solid;
       border-color: $secondary-gray30;
+      -webkit-transform: rotate(45deg); // sass-lint:disable-line no-vendor-prefixes
     }
 
-    &>span {
+    &__label {
       display: inline-block;
       position: relative;
       height: 26px;
       margin: $base-whitespace / 2 0 $base-whitespace / 2;
-      padding: 0 20px 0 23px;
+      padding: 0 5px;
       border-top: 1px solid $secondary-gray30;
       border-right: 1px solid $secondary-gray30;
       border-bottom: 1px solid $secondary-gray30;
@@ -152,8 +188,29 @@
       text-transform: capitalize;
     }
   }
-}
 
-.c-catalogus-theme__icon--geografie {
-  @include icon-button-text-right("thema-geografie", "", "");
+  &__description {
+    a {
+      color: $primary-dark;
+      text-decoration: underline;
+
+      &:hover {
+        color: $primary-contrast;
+      }
+    }
+
+    ul {
+      @extend %content-list;
+
+      p,
+      li {
+        @include font-weight($normal-weight);
+      }
+    }
+
+    ol {
+      padding-bottom: $base-whitespace;
+      padding-left: 2 * $base-whitespace;
+    }
+  }
 }

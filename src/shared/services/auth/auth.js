@@ -56,7 +56,10 @@ const scopes = [
   'HR/R', // Leesrechten
 
   // Grondexploitatie
-  'GREX/R' // Leesrechten
+  'GREX/R', // Leesrechten
+
+  // Catalogus (Dcatd) admin
+  'CAT/W' // Schrijfrechten
 ];
 const encodedScopes = encodeURIComponent(scopes.join(' '));
 // The URI we need to redirect to for communication with the OAuth2

@@ -32,6 +32,7 @@ describe('The dataSelectionApi factory', function () {
                 zwembaden: {
                     ENDPOINT_MARKERS: 'zwembaden/markers/',
                     CUSTOM_API: 'mockedApiService',
+                    SORT_FILTERS: true,
                     FILTERS: [
                         {
                             slug: 'type',
@@ -65,7 +66,7 @@ describe('The dataSelectionApi factory', function () {
                                 variables: ['buurtnaam']
                             }
                         ],
-                        CARDS: [
+                        CATALOG: [
                             {
                                 variables: ['adres.openbare_ruimte', 'huisnummer'],
                                 formatter: 'adres'
@@ -128,6 +129,10 @@ describe('The dataSelectionApi factory', function () {
                             },
                             {
                                 count: 2,
+                                label: 'Overdekt'
+                            },
+                            {
+                                count: 666,
                                 label: 'Overdekt'
                             }
                         ]
@@ -219,7 +224,7 @@ describe('The dataSelectionApi factory', function () {
 
             // With active filters
             mockedApiService.query.calls.reset();
-            dataSelectionApi.query('zwembaden', 'TABLE', {water: 'Verwarmd'}, 1, 'searchText', [], {});
+            dataSelectionApi.query('zwembaden', 'TABLE', { water: 'Verwarmd' }, 1, 'searchText', [], {});
             expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {
                 water: 'Verwarmd'
             }, 1, 'searchText', [], {});
@@ -236,16 +241,16 @@ describe('The dataSelectionApi factory', function () {
             expect(output.numberOfPages).toBe(2);
         });
 
-        it('does something that nobody understands, unless it is provided with some comment', function () {
+        it('uses the recurent defined variables when these are provided', function () {
             let output;
 
-            dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
+            dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();
             expect(output.numberOfPages).toBe(2);
 
-            mockedConfig.datasets.zwembaden.CONTENT.CARDS = [
+            mockedConfig.datasets.zwembaden.CONTENT.LIST = [
                 {
                     variables: ['huisnummer']
                 }
@@ -253,13 +258,13 @@ describe('The dataSelectionApi factory', function () {
             mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
 
             mockedApiService.query.calls.reset();
-            dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
+            dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();
             expect(output.data.body[0].content[0][0].value).toEqual('1 | 2');
 
-            mockedConfig.datasets.zwembaden.CONTENT.CARDS = [
+            mockedConfig.datasets.zwembaden.CONTENT.LIST = [
                 {
                     variables: ['huisnummer.adres']
                 }
@@ -267,7 +272,7 @@ describe('The dataSelectionApi factory', function () {
             mockedApiPreviewResponse.data[0].huisnummer = [1, 2];
 
             mockedApiService.query.calls.reset();
-            dataSelectionApi.query('zwembaden', 'CARDS', {}, 1).then(function (_output_) {
+            dataSelectionApi.query('zwembaden', 'LIST', {}, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();
@@ -296,6 +301,60 @@ describe('The dataSelectionApi factory', function () {
                             {
                                 label: 'Overdekt',
                                 count: 2
+                            },
+                            {
+                                label: 'Overdekt',
+                                count: 666
+                            }
+                        ]
+                    }, {
+                        slug: 'water',
+                        label: 'Watersoort',
+                        numberOfOptions: 3,
+                        options: [
+                            {
+                                label: 'Koud',
+                                count: 1
+                            },
+                            {
+                                label: 'Tropisch',
+                                count: 1
+                            }, {
+                                label: 'Verwarmd',
+                                count: 4
+                            }
+                        ]
+                    }
+                ]);
+            });
+
+            it('doesnt order the filters when configured', function () {
+                let output = {};
+
+                delete mockedConfig.datasets.zwembaden.SORT_FILTERS;
+
+                dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
+                    output = _output_;
+                });
+                $rootScope.$apply();
+
+                expect(output.filters).toEqual([
+                    {
+                        slug: 'type',
+                        label: 'Type accomodatie',
+                        numberOfOptions: 2,
+                        options: [
+                            {
+                                label: 'Buitenbad',
+                                count: 4
+                            },
+                            {
+                                label: 'Overdekt',
+                                count: 2
+                            },
+                            {
+                                label: 'Overdekt',
+                                count: 666
                             }
                         ]
                     }, {
@@ -337,13 +396,13 @@ describe('The dataSelectionApi factory', function () {
                         options: [
                             {
                                 count: 1,
+                                label: 'Koud'
+                            }, {
+                                count: 1,
                                 label: 'Tropisch'
                             }, {
                                 count: 4,
                                 label: 'Verwarmd'
-                            }, {
-                                count: 1,
-                                label: 'Koud'
                             }
                         ]
                     }
@@ -446,6 +505,17 @@ describe('The dataSelectionApi factory', function () {
 
                 expect(outputTable).not.toEqual(outputList);
             });
+
+            it('returns the result data unchanged for the CATALOG type view', function () {
+                let outputCatalog;
+
+                dataSelectionApi.query('zwembaden', 'CATALOG', {}, 1).then(function (_output_) {
+                    outputCatalog = _output_;
+                });
+
+                $rootScope.$apply();
+                expect(outputCatalog.data).toEqual(mockedApiPreviewResponse.data);
+            });
         });
     });
 
@@ -479,7 +549,7 @@ describe('The dataSelectionApi factory', function () {
 
             // With filters
             api.getByUri.calls.reset();
-            dataSelectionApi.getMarkers('zwembaden', {water: 'Verwarmd'});
+            dataSelectionApi.getMarkers('zwembaden', { water: 'Verwarmd' });
 
             expect(api.getByUri).toHaveBeenCalledWith(
                 'zwembaden/markers/',

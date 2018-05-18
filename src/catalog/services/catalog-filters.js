@@ -1,7 +1,5 @@
-import { call } from 'redux-saga/effects';
 import apiUrl from '../../shared/services/api';
 import { getByUrl } from '../../shared/services/api/api';
-import { Promise } from 'es6-shim';
 
 function getOptions(propertyType) {
   return propertyType.enum.map(
@@ -33,7 +31,8 @@ function getCatalogFilters(data) {
     spatialUnits: getOptions(dcatDocProperties['ams:spatialUnit']),
     temporalUnits: getOptions(dcatDocProperties['ams:temporalUnit']),
     accrualPeriodicities: getOptions(dcatDocProperties['dct:accrualPeriodicity']),
-    languages: getOptions(dcatDocProperties['dct:language'])
+    languages: getOptions(dcatDocProperties['dct:language']),
+    distributionTypes: getOptions(distributionProperties['ams:distributionType'])
   };
 
   return catalogFilters;

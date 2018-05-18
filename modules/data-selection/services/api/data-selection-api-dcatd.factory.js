@@ -6,23 +6,28 @@
     dataSelectionApiDcatdFactory.$inject = ['$window', '$q', '$filter', 'sharedConfig', 'api'];
 
     function dataSelectionApiDcatdFactory ($window, $q, $filter, sharedConfig, api) {
-        const searchParamTheme = '/properties/dcat:theme/items',
-            searchParamFormat = '/properties/dcat:distribution/items/properties/dct:format',
-            searchParamOwner = '/properties/ams:owner';
+        const propertyName = {
+            theme: '/properties/dcat:theme/items',
+            format: '/properties/dcat:distribution/items/properties/dct:format',
+            owner: '/properties/ams:owner',
+            distributionType: '/properties/dcat:distribution/items/properties/ams:distributionType',
+            serviceType: '/properties/dcat:distribution/items/properties/ams:serviceType'
+        };
 
         return {
             query: query
         };
 
         function query (config, activeFilters, page, searchText = '', geometryFilter = undefined, catalogFilters = {}) {
-            const deferred = $q.defer(),
-                searchParams = {
+            const searchParams = {
                     offset: (page - 1) * config.MAX_ITEMS_PER_PAGE,
                     limit: config.MAX_ITEMS_PER_PAGE
                 },
                 queryTheme = activeFilters.groups && `eq=theme:${activeFilters.groups}`,
-                queryFormat = activeFilters.data_format && `eq=${activeFilters.data_format}`,
-                queryOwner = activeFilters.owner && `eq=${activeFilters.owner}`;
+                queryFormat = activeFilters.formats && `eq=${activeFilters.formats}`,
+                queryOwner = activeFilters.owners && `eq=${activeFilters.owners}`,
+                queryDistributionType = activeFilters.distributionTypes && `eq=${activeFilters.distributionTypes}`,
+                queryServiceType = activeFilters.serviceTypes && `eq=${activeFilters.serviceTypes}`;
 
             if (searchText) {
                 // Optional search text
@@ -31,93 +36,88 @@
 
             if (queryTheme) {
                 // optional thema/groups filter
-                searchParams[searchParamTheme] = queryTheme;
+                searchParams[propertyName.theme] = queryTheme;
             }
 
             if (queryFormat) {
                 // optional format filter
-                searchParams[searchParamFormat] = queryFormat;
+                searchParams[propertyName.format] = queryFormat;
             }
 
             if (queryOwner) {
                 // optional owner filter
-                searchParams[searchParamOwner] = queryOwner;
+                searchParams[propertyName.owner] = queryOwner;
             }
 
-            if (!Object.keys(catalogFilters).length) {
-                deferred.reject();
-            } else {
-                api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
-                    const count = data['dcat:dataset'].length;
-                    if (count) {
-                        const results = data['dcat:dataset'];
-                        deferred.resolve({
-                            numberOfPages: Math.ceil(count / config.MAX_ITEMS_PER_PAGE),
-                            numberOfRecords: count,
-                            filters: formatFilters(config, catalogFilters),
-                            data: formatData(config, results)
-                        });
-                    } else {
-                        deferred.reject();
-                    }
-                }, deferred.reject);
+            if (queryDistributionType) {
+                // optional distribution type filter
+                searchParams[propertyName.distributionType] = queryDistributionType;
             }
-            return deferred.promise;
+
+            if (queryServiceType) {
+                // optional service type filter
+                searchParams[propertyName.serviceType] = queryServiceType;
+            }
+
+            return api.getByUri(config.ENDPOINT_PREVIEW, searchParams).then(data => {
+                return {
+                    numberOfPages: Math.ceil(data['void:documents'] / config.MAX_ITEMS_PER_PAGE),
+                    numberOfRecords: data['void:documents'],
+                    filters: Object.keys(catalogFilters).length === 0 ? {}
+                        : formatFilters(data['ams:facet_info'], catalogFilters),
+                    data: formatData(config, data['dcat:dataset'])
+                };
+            });
         }
 
-        function formatFilters (filtersConfig, catalogFilters) {
-            return {
+        function getFacetOptions (facet, filterCatalog, namespace) {
+            return Object.keys(facet).map(option => {
+                const id = namespace ? option.replace(`${namespace}:`, '') : option;
+                const catalogOption = filterCatalog.filter(item => item.id === id)[0];
+                return {
+                    id: id,
+                    label: catalogOption ? catalogOption.label : id,
+                    count: facet[option]
+                };
+            });
+        }
+
+        function formatFilters (filters, catalogFilters) {
+            filters[propertyName.theme] = filters[propertyName.theme] || {};
+            filters[propertyName.format] = filters[propertyName.format] || {};
+            filters[propertyName.owner] = filters[propertyName.owner] || {};
+            filters[propertyName.distributionType] = filters[propertyName.distributionType] || {};
+            filters[propertyName.serviceType] = filters[propertyName.serviceType] || {};
+
+            const resultFilters = {
                 groups: {
-                    numberOfOptions: catalogFilters.groupTypes.length,
-                    options: catalogFilters.groupTypes.map(option => {
-                        return {
-                            id: option.id,
-                            label: option.label,
-                            count: 1
-                        };
-                    })
+                    numberOfOptions: Object.keys(filters[propertyName.theme]).length,
+                    options: getFacetOptions(filters[propertyName.theme], catalogFilters.groupTypes, 'theme')
                 },
-                data_format: {
-                    numberOfOptions: catalogFilters.formatTypes.length,
-                    options: catalogFilters.formatTypes.map(option => {
-                        return {
-                            id: option.id,
-                            label: option.label,
-                            count: 1
-                        };
-                    })
+                formats: {
+                    numberOfOptions: Object.keys(filters[propertyName.format]).length,
+                    options: getFacetOptions(filters[propertyName.format], catalogFilters.formatTypes)
                 },
-                service_type: {
-                    numberOfOptions: catalogFilters.serviceTypes.length,
-                    options: catalogFilters.serviceTypes.map(option => {
-                        return {
-                            id: option.id,
-                            label: option.label,
-                            count: 1
-                        };
-                    })
+                owners: {
+                    numberOfOptions: Object.keys(filters[propertyName.owner]).length,
+                    options: getFacetOptions(filters[propertyName.owner], catalogFilters.ownerTypes)
                 },
-                resource_type: {
-                    numberOfOptions: catalogFilters.resourceTypes.length,
-                    options: catalogFilters.resourceTypes.map(option => {
-                        return {
-                            id: option.id,
-                            label: option.label,
-                            count: 1
-                        };
-                    })
+                distributionTypes: {
+                    numberOfOptions: Object.keys(filters[propertyName.distributionType]).length,
+                    options: getFacetOptions(filters[propertyName.distributionType], catalogFilters.distributionTypes)
                 },
-                owner: {
-                    numberOfOptions: catalogFilters.ownerTypes.length,
-                    options: catalogFilters.ownerTypes.map(option => {
-                        return {
-                            id: option.id,
-                            label: option.label,
-                            count: 1
-                        };
-                    })
+                serviceTypes: {
+                    numberOfOptions: Object.keys(filters[propertyName.serviceType]).length,
+                    options: getFacetOptions(filters[propertyName.serviceType], catalogFilters.serviceTypes)
                 }
             };
+
+            return Object.keys(resultFilters)
+                .filter((key) => resultFilters[key].numberOfOptions > 0)
+                .reduce((result, key) => ({
+                    ...result,
+                    [key]: resultFilters[key]
+                }), {});
         }
 
         function formatData (config, rawData) {
