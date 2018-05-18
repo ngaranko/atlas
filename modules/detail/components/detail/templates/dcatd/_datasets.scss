@@ -188,20 +188,20 @@
       text-transform: capitalize;
     }
   }
-  
+
   &__description {
     a {
       color: $primary-dark;
       text-decoration: underline;
-      
+
       &:hover {
         color: $primary-contrast;
       }
     }
-    
+
     ul {
       @extend %content-list;
-      
+
       p,
       li {
         @include font-weight($normal-weight);
@@ -209,9 +209,8 @@
     }
 
     ol {
-      padding-left: 2 * $base-whitespace;
       padding-bottom: $base-whitespace;
+      padding-left: 2 * $base-whitespace;
     }
   }
 }
-  
