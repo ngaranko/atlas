@@ -12,7 +12,9 @@
 
                 const last = new Date(created);
                 const now = new Date();
-                if (now < last) return 'is in de toekomst gemaakt';
+                if (now < last) {
+                    return 'is in de toekomst gemaakt';
+                }
                 let ago = now - last,
                     agoCount = ago,
                     agoDuration = 'milliseconden';

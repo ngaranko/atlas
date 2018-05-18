@@ -7,15 +7,15 @@
 
     urlToStateFactory.$inject = ['$rootScope', '$location', 'store', 'ACTIONS'];
 
-    function urlToStateFactory($rootScope, $location, store, ACTIONS) {
+    function urlToStateFactory ($rootScope, $location, store, ACTIONS) {
         return {
             initialize: initialize
         };
 
-        function initialize() {
-            var unwatch = $rootScope.$on('$locationChangeSuccess', function (event) {
-                var params = $location.search();
-                
+        function initialize () {
+            const unwatch = $rootScope.$on('$locationChangeSuccess', function (event) {
+                const params = $location.search();
+
                 store.dispatch({
                     type: ACTIONS.URL_CHANGE,
                     payload: params
