@@ -47,15 +47,14 @@ export const getActiveMapLayersWithinZoom = createSelector([getMapZoom, selectAc
 
 export const selectNotClickableVisibleMapLayers =
   createSelector([getActiveMapLayersWithinZoom, getMapOverlays],
-  (activePanelLayers, overlays) => {
-    const test = activePanelLayers
+  (activePanelLayers, overlays) => (
+    activePanelLayers
     .map((mapLayer) => [mapLayer, ...mapLayer.legendItems])
     .reduce((accumulator, legendItems) => accumulator.concat(legendItems), [])
     .filter((legendItem) => legendItem.notClickable)
     .filter((legendItem) => overlays
-      .some((overlay) => overlay.id === legendItem.id && overlay.isVisible));
-    return test;
-  }
+      .some((overlay) => overlay.id === legendItem.id && overlay.isVisible))
+  )
 );
 
 
