@@ -40,18 +40,24 @@ export const selectActivePanelLayers =
         });
     });
 
+export const getActiveMapLayersWithinZoom = createSelector([getMapZoom, selectActivePanelLayers],
+ (zoomLevel, activePanelLayers) => activePanelLayers
+ .filter((mapLayer) => (zoomLevel >= mapLayer.minZoom && zoomLevel <= mapLayer.maxZoom))
+);
+
 export const selectNotClickableVisibleMapLayers =
-  createSelector([getMapZoom, selectActivePanelLayers, getMapOverlays],
-  (zoomLevel, activePanelLayers, overlays) => (
-    activePanelLayers
-    .filter((mapLayer) => (zoomLevel >= mapLayer.minZoom && zoomLevel <= mapLayer.maxZoom))
+  createSelector([getActiveMapLayersWithinZoom, getMapOverlays],
+  (activePanelLayers, overlays) => {
+    const test = activePanelLayers
     .map((mapLayer) => [mapLayer, ...mapLayer.legendItems])
     .reduce((accumulator, legendItems) => accumulator.concat(legendItems), [])
     .filter((legendItem) => legendItem.notClickable)
     .filter((legendItem) => overlays
-      .some((overlay) => overlay.id === legendItem.id && overlay.isVisible))
-  )
+      .some((overlay) => overlay.id === legendItem.id && overlay.isVisible));
+    return test;
+  }
 );
+
 
 export default function PanelLayersReducer(state = initialState, action) {
   switch (action.type) {
