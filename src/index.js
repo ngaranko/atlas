@@ -7,6 +7,7 @@ import './map/wrappers/map-embed-button/MapEmbedButtonWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphTotalsWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphPhasedWrapper';
 import './header/wrappers/header-search/HeaderSearchWrapper';
+import './shared/components/route-link/RouteLinkWrapper';
 
 // All third party dependencies
 import './vendor';

@@ -1,4 +1,3 @@
-import applicationState from '../../services/redux/application-state';
 import ACTIONS from '../../../../src/shared/actions';
 
 (function () {
@@ -20,58 +19,49 @@ import ACTIONS from '../../../../src/shared/actions';
             controllerAs: 'vm'
         });
 
-    DpLinkController.$inject = ['$scope'];
+    DpLinkController.$inject = ['$scope', '$window', '$timeout'];
 
-    function DpLinkController ($scope) {
-        const store = applicationState.getStore();
+    function DpLinkController($scope, $window, $timeout) {
         const vm = this;
-
+        const React = $window.React;
+        const render = $window.render;
+        const routeLinkWrapper = $window.RouteLinkWrapper;
+console.log('router: ' + routeLinkWrapper);
         const BUTTON = 'button',
             LINK = 'a';
 
         vm.className = vm.className || 'o-btn o-btn--link';
         vm.inline = vm.inline || false;
-
+        vm.id = `id-react-route-link-${+Date.now()}`;
+        console.log(vm.id);
         $scope.$watch('vm.payload', function () {
             vm.tagName = getTagName(vm.type, vm.payload);
+            setRouteLinkComponent();
         });
 
-        vm.dispatch = function () {
-            store.dispatch(getAction(vm.type, vm.payload));
-        };
-
-        function getAction (type, payload) {
-            const action = {
-                type: ACTIONS[type] || type
-            };
-            if (angular.isDefined(payload)) {
-                action.payload = payload;
-            }
-            return action;
-        }
-
-        function getTagName (type, payload) {
+        function getTagName(type, payload) {
             if (ACTIONS[type] && ACTIONS[type].isButton) {
                 return BUTTON;
             } else {
-                vm.href = getHref(type, payload);
-                // Do not catch a click event and handle the state change
-                // internally, this prevents users from CTRL/CMD clicking!
                 return LINK;
             }
         }
 
-        function getHref (type, payload) {
-            // Remove state properties that do not relate to the url
-            // by converting the state to a url and back
-            // This prevents deep copying of large state objects in the reducer (eg dataSelection.markers)
-            const reducer = applicationState.getReducer(),
-                state = applicationState.getStore().getState(),
-                params = applicationState.getStateUrlConverter().state2params(state),
-                sourceState = applicationState.getStateUrlConverter().params2state({}, params),
-                targetState = reducer(sourceState, getAction(type, payload));
-
-            return applicationState.getStateUrlConverter().state2url(targetState);
+        function setRouteLinkComponent() {
+            $timeout(() => {
+                console.log(vm.id);
+                const routeLinkContainer = $window.document.querySelector(`#${vm.id}`);
+                if (routeLinkContainer) {
+                    const props = {
+                        className: vm.className,
+                        inline: vm.inline,
+                        hoverText: vm.hoverText,
+                        type: vm.type,
+                        payload: vm.payload
+                    };
+                    render(React.createElement(routeLinkWrapper, props), routeLinkContainer);
+                }
+            });
         }
     }
 })();
