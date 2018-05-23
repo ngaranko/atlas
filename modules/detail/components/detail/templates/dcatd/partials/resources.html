@@ -13,7 +13,7 @@
                             <div class="resources-item__title">
                                 {{resource['dct:title']}}
                             </div>
-                        
+
                             <div class="resources-item__description">
                                 <span class="c-data-selection-file-type
                                              c-data-selection-file-type__name
@@ -24,9 +24,7 @@
                             </div>
                         </div>
                         <div class="resources-item__right">
-                            <div class="resources-item__modified">
-                                <span ng-if="resource['dct:modified']">{{resource['dct:modified'] | date:'dd MMMM yyyy' }}</span>
-                            </div>
+                            <div class="resources-item__modified">{{resource['dct:modified'] | date:'dd MMMM yyyy' }}</div>
                             <div class="resources-item__navigation">
                                 <div class="resources-item__navigation-file-size" ng-if="resource['dcat:byteSize'] > 0">{{resource['dcat:byteSize'] | filesize}}</div>
                                 <div class="resources-item__navigation-arrow"></div>
