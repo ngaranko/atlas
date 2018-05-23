@@ -24,7 +24,7 @@
 
     &:not(:empty) {
       &::before {
-        content: "gewijzigd op ";
+        content: "ververst op ";
       }
     }
   }
