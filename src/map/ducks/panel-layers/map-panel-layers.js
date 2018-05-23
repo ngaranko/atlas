@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { getMapZoom } from '../map/map';
-import { getMapOverlays } from '../overlays/map-overlays';
+import { getMapZoom, getMapOverlays } from '../map/map';
 
 export const FETCH_PANEL_ITEMS_REQUEST = 'FETCH_PANEL_ITEMS_REQUEST';
 export const FETCH_PANEL_ITEMS_SUCCESS = 'FETCH_PANEL_ITEMS_SUCCESS';

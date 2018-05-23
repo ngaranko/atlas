@@ -29,6 +29,7 @@ import { combineReducers } from 'redux';
             const MapPanelLayersReducer = $window.reducers.PanelLayersReducer;
             const MapLayersReducer = $window.reducers.MapLayersReducer;
             const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
+            const MapReducer = $window.reducers.MapReducer;
 
             const mapLayers = combineReducers({
                 layers: MapLayersReducer,
@@ -41,7 +42,6 @@ import { combineReducers } from 'redux';
             const MapDetailReducer = $window.reducers.MapDetailReducer;
             const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
             const UiReducer = $window.reducers.UiReducer;
-            const MapReducer = $window.reducers.MapReducer;
             const DataSelectionReducer = $window.reducers.DataSelectionReducer;
             const PageReducer = $window.reducers.PageReducer;
             const StraatbeeldReducer = $window.reducers.StraatbeeldReducer;
