@@ -15,7 +15,7 @@ exports[`MapDetailResultDateItem should render future date 1`] = `
     <div
       className="map-detail-result__item-value"
     >
-      2029 M12 1
+      1 december 2029
     </div>
   </section>
 </div>
@@ -36,7 +36,7 @@ exports[`MapDetailResultDateItem should render label and date 1`] = `
     <div
       className="map-detail-result__item-value"
     >
-      1980 M09 21
+      21 september 1980
     </div>
   </section>
 </div>
