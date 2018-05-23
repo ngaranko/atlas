@@ -22,9 +22,13 @@
     right: 39px;
     top: 0;
 
-    &:not(:empty) {
+    &::before {
+      content: "ververst op ";
+    }
+
+    &:empty {
       &::before {
-        content: "ververst op ";
+        display: none;
       }
     }
   }
