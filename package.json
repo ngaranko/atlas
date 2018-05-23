@@ -62,7 +62,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.5",
     "mkdirp": "^0.5.1",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.9.0",
     "p-all": "1.0.0",
     "pa11y": "^5.0.0-beta.5",
     "pa11y-reporter-cli": "^1.0.0",
@@ -94,11 +94,14 @@
     "clean-dirs": "rimraf ./node_modules ./coverage ./coverage-legacy ./dist ./build ./pa11y/*.png",
     "preinstall": "npm cache verify",
     "start": "grunt && webpack-dev-server --config webpack.dev.js",
+    "start-prod": "grunt && webpack-dev-server --config webpack.prod-api-dev.js",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "karma start && jest",
     "test-e2e-aria": "babel-node ./test/pa11y.js",
-    "test-e2e-functional": "./scripts/cypress-run.sh",
-    "test-e2e-functional-watch": "./scripts/cypress-watch.sh",
+    "test-e2e-functional": "API_ROOT=https://acc.api.data.amsterdam.nl ./scripts/cypress-run.sh",
+    "test-e2e-functional-prod": "API_ROOT=https://api.data.amsterdam.nl ./scripts/cypress-run.sh",
+    "test-e2e-functional-prod-watch": "API_ROOT=https://api.data.amsterdam.nl ./scripts/cypress-watch.sh",
+    "test-e2e-functional-watch": "API_ROOT=https://acc.api.data.amsterdam.nl ./scripts/cypress-watch.sh",
     "test-eslint": "eslint ./modules/ ./src/ ./test/cypress/",
     "test-integration": "NODE_ENV=development jest --config=./test/jest.integration.config.js",
     "test-integration-watch": "NODE_ENV=development jest --config=./test/jest.integration.config.js --watch",
@@ -151,6 +154,7 @@
     "recharts": "^1.0.0-beta.10",
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "remove-markdown": "^0.2.2"
   }
 }

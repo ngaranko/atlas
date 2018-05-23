@@ -12,16 +12,16 @@ export const HOSTS = {
   DEVELOPMENT: 'localhost'
 };
 
-// DEPRECATED: used by modules/shared/services/eviroment/environment.factory.js
-// NODE_ENV doesn't differentiate between pre-production and production
 export const getEnvironment = (host) => {
-  switch (host) {
-    case 'data.amsterdam.nl':
+  if (host === HOSTS.PRE_PRODUCTION) {
+    return ENVIRONMENTS.PRE_PRODUCTION;
+  }
+
+  switch (process.env.NODE_ENV) {
+    case 'production':
       return ENVIRONMENTS.PRODUCTION;
-    case 'pre.data.amsterdam.nl':
-      return ENVIRONMENTS.PRE_PRODUCTION;
-    case 'acc.data.amsterdam.nl':
-      return ENVIRONMENTS.ACCEPTANCE;
+    case 'acceptance':
+      return ENVIRONMENTS.ACCEPTATION;
     default:
       return ENVIRONMENTS.DEVELOPMENT;
   }

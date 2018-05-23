@@ -5,6 +5,7 @@ import reducer, {
   fetchPanelLayers,
   getMapPanelLayers,
   selectActivePanelLayers,
+  getActiveMapLayersWithinZoom,
   selectNotClickableVisibleMapLayers
 } from './map-panel-layers';
 
@@ -77,7 +78,7 @@ describe('selectors', () => {
         }
       ],
       maxZoom: 16,
-      minZoom: 8,
+      minZoom: 10,
       title: 'Parkeervakken - Fiscale indeling',
       url: '/maps/parkeervakken?version=1.3.0&service=WMS'
     }
@@ -127,25 +128,34 @@ describe('selectors', () => {
     });
   });
 
+  describe('getActiveMapLayersWithinZoom', () => {
+    it('should filter out mapLayers based on the zoom', () => {
+      const selected = getActiveMapLayersWithinZoom.resultFunc(9, panelLayers);
+      expect(selected).toEqual([
+        panelLayers[0]
+      ]);
+    });
+
+    it('should filter out mapLayers if the current zoom of the map is bigger then the maxZoom of the layer', () => {
+      const selected = getActiveMapLayersWithinZoom.resultFunc(20, panelLayers);
+      expect(selected).toEqual([]);
+    });
+
+    it('should filter out mapLayers if the current zoom of the map is smaller then the minZoom of the layer', () => {
+      const selected = getActiveMapLayersWithinZoom.resultFunc(6, panelLayers);
+      expect(selected).toEqual([]);
+    });
+  });
+
   describe('selectNotClickableVisibleMapLayers', () => {
     it('should return an array of the notClickable layers', () => {
-      const selected = selectNotClickableVisibleMapLayers.resultFunc(14, panelLayers, overlays);
+      const selected = selectNotClickableVisibleMapLayers.resultFunc(panelLayers, overlays);
       expect(selected).toEqual([
         {
           id: 'bgem',
           notClickable: true
         }
       ]);
-    });
-
-    it('should filter out mapLayers if the current zoom of the map is bigger then the maxZoom of the layer', () => {
-      const selected = selectNotClickableVisibleMapLayers.resultFunc(20, panelLayers, overlays);
-      expect(selected).toEqual([]);
-    });
-
-    it('should filter out mapLayers if the current zoom of the map is smaller then the minZoom of the layer', () => {
-      const selected = selectNotClickableVisibleMapLayers.resultFunc(6, panelLayers, overlays);
-      expect(selected).toEqual([]);
     });
   });
 });

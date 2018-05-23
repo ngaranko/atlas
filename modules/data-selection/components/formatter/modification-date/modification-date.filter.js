@@ -9,11 +9,13 @@
         return function (input) {
             if (angular.isObject(input)) {
                 const created = input.metadata_created;
-                const modified = input.metadata_modified;
-                const compact = input.metadata_compact;
 
-                const last = new Date(modified || created);
-                let ago = new Date() - last,
+                const last = new Date(created);
+                const now = new Date();
+                if (now < last) {
+                    return 'is in de toekomst gemaakt';
+                }
+                let ago = now - last,
                     agoCount = ago,
                     agoDuration = 'milliseconden';
                 [
@@ -26,16 +28,10 @@
                         ago = Math.ceil(ago / length);
                         agoCount = ago;
                         agoDuration = duration;
-                    } else {
-                        ago = 0;
                     }
                 });
 
-                if (compact) {
-                    return `${agoCount} ${agoDuration} geleden`;
-                } else {
-                    return `${agoCount} ${agoDuration} geleden ${modified ? 'gewijzigd' : 'gemaakt'}`;
-                }
+                return `${agoCount} ${agoDuration} geleden gemaakt`;
             }
         };
     }

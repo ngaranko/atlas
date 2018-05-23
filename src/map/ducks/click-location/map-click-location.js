@@ -1,5 +1,7 @@
 import ACTIONS from '../../../shared/actions';
 
+export const getMapClickLocation = (state) => state.mapClickLocation;
+
 export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
 
 const initialState = {};

@@ -3,21 +3,39 @@ import {
   ENVIRONMENTS
 } from './environment';
 
+let nodeEnv;
+
+beforeEach(() => {
+  nodeEnv = process.env.NODE_ENV;
+});
+
+afterEach(() => {
+  process.env.NODE_ENV = nodeEnv;
+});
+
 describe('The environment service', () => {
-  it('has support for PRODUCTION', () => {
+  it('is set to production based on NODE_ENV', () => {
+    process.env.NODE_ENV = 'production';
     expect(getEnvironment('data.amsterdam.nl')).toBe(ENVIRONMENTS.PRODUCTION);
   });
 
-  it('uses PRE_PRODUCTION on pre.data.amsterdam.nl', () => {
+  it('is set to pre production based on hostname', () => {
+    process.env.NODE_ENV = 'production';
     expect(getEnvironment('pre.data.amsterdam.nl')).toBe(ENVIRONMENTS.PRE_PRODUCTION);
   });
 
-  it('uses ACCEPTANCE on acc.data.amsterdam.nl', () => {
-    const test = getEnvironment('acc.data.amsterdam.nl');
-    expect(test).toBe(ENVIRONMENTS.ACCEPTANCE);
+  it('is set to acceptance based on NODE_ENV', () => {
+    process.env.NODE_ENV = 'acceptance';
+    expect(getEnvironment('acc.data.amsterdam.nl')).toBe(ENVIRONMENTS.ACCEPTATION);
   });
 
-  it('and a fallback to development for the rest', () => {
+  it('is set to development based on NODE_ENV', () => {
+    process.env.NODE_ENV = 'development';
     expect(getEnvironment('localhost')).toBe(ENVIRONMENTS.DEVELOPMENT);
+  });
+
+  it('defaults to development', () => {
+    process.env.NODE_ENV = '';
+    expect(getEnvironment()).toBe(ENVIRONMENTS.DEVELOPMENT);
   });
 });
