@@ -24,7 +24,7 @@
 
             return result.sort((a, b) => {
                 if (a.count === b.count) {
-                    return a.name.localeCompare(b.name);
+                    return a.name ? a.name.localeCompare(b.name) : -1;
                 } else {
                     return b.count - a.count;
                 }
