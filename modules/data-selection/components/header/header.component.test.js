@@ -14,7 +14,7 @@ describe('The dp-data-selection-header', () => {
         mockedInputTable,
         mockedInputTableAuth,
         mockedInputList,
-        mockedInputCards;
+        mockedInputCatalog;
 
     beforeEach(() => {
         config = {
@@ -27,8 +27,9 @@ describe('The dp-data-selection-header', () => {
                     MAX_AVAILABLE_PAGES: 50,
                     TITLE: 'HR Vestigingen'
                 },
-                catalogus: {
-                    MAX_AVAILABLE_PAGES: 50
+                dcatd: {
+                    MAX_AVAILABLE_PAGES: 50,
+                    TITLE: 'Datasets'
                 }
             }
         };
@@ -104,10 +105,10 @@ describe('The dp-data-selection-header', () => {
             showHeader: true
         };
 
-        mockedInputCards = {
+        mockedInputCatalog = {
             state: {
-                dataset: 'catalogus',
-                view: 'CARDS',
+                dataset: 'dcatd',
+                view: 'CATALOG',
                 geometryFilter: {
                     markers: [],
                     description: 'geometryFilter description'
@@ -164,8 +165,8 @@ describe('The dp-data-selection-header', () => {
             expect(component.find('.qa-buttons').length).toBe(1);
         });
 
-        it('are never available in the CARDS view', () => {
-            component = getComponent(mockedInputCards);
+        it('are never available in the CATALOG view', () => {
+            component = getComponent(mockedInputCatalog);
             expect(component.find('.qa-buttons').length).toBe(0);
         });
     });
@@ -222,15 +223,15 @@ describe('The dp-data-selection-header', () => {
             expect(component.find('.qa-title').text().trim()).toBe('BAG Adressen');
         });
 
-        it('in CARDS view shows the number of results followed using \'Datasets(number)\'', () => {
+        it('in CATALOG view shows the number of results followed using \'Datasets(number)\'', () => {
             // Singular
-            mockedInputCards.numberOfRecords = 1;
-            component = getComponent(mockedInputCards);
+            mockedInputCatalog.numberOfRecords = 1;
+            component = getComponent(mockedInputCatalog);
             expect(component.find('.qa-title').text().trim()).toBe('Datasets (1)');
 
             // Plural, with thousand separator
-            mockedInputCards.numberOfRecords = 1234;
-            component = getComponent(mockedInputCards);
+            mockedInputCatalog.numberOfRecords = 1234;
+            component = getComponent(mockedInputCatalog);
             expect(component.find('.qa-title').text().trim()).toBe('Datasets (1.234)');
         });
 
@@ -252,9 +253,9 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
-    ['TABLE', 'CARDS'].forEach(viewName => {
+    ['TABLE', 'CATALOG'].forEach(viewName => {
         beforeEach(function () {
-            mockedViewInput = viewName === 'TABLE' ? mockedInputTable : mockedInputCards;
+            mockedViewInput = viewName === 'TABLE' ? mockedInputTable : mockedInputCatalog;
         });
 
         describe(`in ${viewName} view`, () => {
@@ -320,11 +321,11 @@ describe('The dp-data-selection-header', () => {
         const mockedInput = {
             TABLE: mockedInputTable,
             LIST: mockedInputList,
-            CARDS: mockedInputCards
+            CATALOG: mockedInputCatalog
         };
 
         // With one active filter
-        ['TABLE', 'LIST', 'CARDS'].forEach(viewName => {
+        ['TABLE', 'LIST', 'CATALOG'].forEach(viewName => {
             component = getComponent(mockedInput[viewName]);
             expect(component.find('.qa-active-filters').length).toBe(1);
         });
@@ -332,9 +333,9 @@ describe('The dp-data-selection-header', () => {
         // Without any active filter
         mockedInput.TABLE.filters = {};
         mockedInput.LIST.filters = {};
-        mockedInput.CARDS.filters = {};
+        mockedInput.CATALOG.filters = {};
 
-        ['TABLE', 'LIST', 'CARDS'].forEach(viewName => {
+        ['TABLE', 'LIST', 'CATALOG'].forEach(viewName => {
             component = getComponent(mockedInput[viewName]);
             expect(component.find('.qa-active-filters').length).toBe(0);
         });

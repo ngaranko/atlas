@@ -21,7 +21,7 @@ import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 const mapStateToProps = (state) => ({
   activeSuggestion: state.autoSuggest.activeSuggestion,
   displayQuery: state.autoSuggest.displayQuery,
-  isDatasetView: state.dataSelection && state.dataSelection.view === 'CARDS',
+  isDatasetView: state.dataSelection && state.dataSelection.view === 'CATALOG',
   isMapFullscreen: state.ui ? state.ui.isMapFullscreen : false,
   numberOfSuggestions: state.autoSuggest.count,
   pageName: state.page ? state.page.name : '',

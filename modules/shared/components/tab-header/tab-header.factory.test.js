@@ -126,4 +126,13 @@ describe('The TabHeader factory', function () {
         expect(tabHeader.getTab('tab1').count).toBe(count);
         expect(tabHeader.getTab('tab2').count).toBe(null);
     });
+
+    it('can set the userScopes that define the access to users', function () {
+        const tabHeader = new TabHeader('tabs'),
+            userScopes = ['CAT/W'];
+
+        tabHeader.userScopes = userScopes;
+
+        expect(tabHeader.userScopes).toEqual(userScopes);
+    });
 });

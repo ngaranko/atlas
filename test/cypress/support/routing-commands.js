@@ -14,7 +14,7 @@ Cypress.Commands.add('defineSearchRoutes', () => {
   cy.route('/atlas/search/kadastraalobject/?q=*').as('getSearchKadastraalObjectResults');
   cy.route('/atlas/search/kadastraalsubject/?q=*').as('getSearchKadastraalSubjectResults');
   cy.route('/atlas/search/openbareruimte/?q=*').as('getSearchOpenbareRuimteResults');
-  cy.route('/catalogus/api/3/action/package_search*').as('getSearchCatalogueResults');
+  cy.route('/dcatd/datasets*').as('getSearchCatalogueResults');
   cy.route('/handelsregister/search/maatschappelijkeactiviteit/?q=*').as('getSearchMaatschappelijkeActiviteitResults');
   cy.route('/handelsregister/search/vestiging/?q=*').as('getSearchVestigingResults');
   cy.route('/meetbouten/search/?q=*').as('getSearchMeetboutenResults');

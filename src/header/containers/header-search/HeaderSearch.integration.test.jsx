@@ -260,7 +260,7 @@ describe('HeaderSearchContainer', () => {
 
       const newState = {
         dataSelection: {
-          view: 'CARDS'
+          view: 'CATALOG'
         }
       };
       store = createStore(combinedReducer, newState, enhancer);

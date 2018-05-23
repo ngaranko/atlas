@@ -79,8 +79,8 @@ describe('The dp-catalogus-themes', () => {
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
-                dataset: 'catalogus',
-                view: 'CARDS',
+                dataset: 'dcatd',
+                view: 'CATALOG',
                 page: 1
             }
         });
@@ -104,8 +104,8 @@ describe('The dp-catalogus-themes', () => {
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
-                dataset: 'catalogus',
-                view: 'CARDS',
+                dataset: 'dcatd',
+                view: 'CATALOG',
                 page: 1
             }
         });

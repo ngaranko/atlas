@@ -2,7 +2,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     let dpDataSelectionDocumentTitle,
         mockedBagState,
         mockedHrState,
-        mockedCardsState,
+        mockedCatalogusState,
         mockedFilters;
 
     beforeEach(function () {
@@ -32,7 +32,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                             TITLE: 'Handelsregister',
                             FILTERS: []
                         },
-                        catalogus: {
+                        dcatd: {
                             TITLE: 'Catalogus',
                             FILTERS: [
                                 {
@@ -62,9 +62,9 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
             geometryFilter: {}
         };
 
-        mockedCardsState = {
-            dataset: 'catalogus',
-            view: 'CARDS',
+        mockedCatalogusState = {
+            dataset: 'dcatd',
+            view: 'CATALOG',
             query: 'my query',
             geometryFilter: {}
         };
@@ -80,18 +80,18 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     });
 
     it('shows a special title when showing all datasets', function () {
-        delete mockedCardsState.query;
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState, mockedFilters)).toBe('Datasets');
+        delete mockedCatalogusState.query;
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters)).toBe('Datasets');
     });
 
     it('shows a the datasets query for text search in datasets', function () {
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState, mockedFilters))
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters))
             .toBe('Datasets met \'my query\'');
     });
 
     it('shows both the query and the active filter', function () {
         mockedFilters.groups = 'bestuur-en-organisatie';
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState, mockedFilters))
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters))
             .toBe('Datasets met \'my query\', Thema\'s: bestuur-en-organisatie');
     });
 

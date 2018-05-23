@@ -213,7 +213,7 @@ describe('HeaderSearchContainer', () => {
           }
         },
         dataSelection: {
-          view: 'CARDS'
+          view: 'CATALOG'
         }
       });
 
