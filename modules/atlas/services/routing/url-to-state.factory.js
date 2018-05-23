@@ -13,9 +13,9 @@
         };
 
         function initialize () {
-            var unwatch = $rootScope.$watch(function () {
-                return $location.search();
-            }, function (params) {
+            const unwatch = $rootScope.$on('$locationChangeSuccess', function (event) {
+                const params = $location.search();
+
                 store.dispatch({
                     type: ACTIONS.URL_CHANGE,
                     payload: params

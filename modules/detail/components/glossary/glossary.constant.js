@@ -108,6 +108,13 @@
                         'buurtcombinatie_identificatie'
                     ]
                 },
+                DATASETS: {
+                    label_singular: 'Dataset',
+                    label_plural: 'Datasets',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
                 FUNCTIEVERVULLING: {
                     label_singular: 'Functievervulling',
                     label_plural: 'Functievervullingen',

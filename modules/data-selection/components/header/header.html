@@ -10,11 +10,15 @@
     </div>
 
     <div class="qa-title">
+        <dp-dcatd-button ng-if="vm.canEditDataset && vm.state.view === 'CATALOG'" id="_" type="toevoegen">
+          Toevoegen
+          <span class="u-sr-only">Toevoegen</span>
+        </dp-dcatd-button>
         <h1 ng-if="vm.state.view === 'TABLE'">
             {{vm.datasetTitle}}
             <span ng-if="vm.numberOfRecords !== null">({{vm.numberOfRecords | number}})</span>
         </h1>
-        <h1 ng-if="vm.state.view === 'CARDS'">Datasets ({{vm.numberOfRecords | number}})</h1>
+        <h1 ng-if="vm.state.view === 'CATALOG'">Datasets ({{vm.numberOfRecords | number}})</h1>
         <h1 ng-if="vm.state.view === 'LIST'">Resultaten</h1>
     </div>
 </div>
