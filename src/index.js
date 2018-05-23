@@ -196,7 +196,6 @@ import '../modules/shared/services/base-coder/base-coder.factory';
 import '../modules/shared/services/bounding-box/boundig-box.constant';
 import '../modules/shared/services/crs/crs-config.constant';
 import '../modules/shared/services/crs/crs-converter.factory';
-import '../modules/shared/services/crs/crs.factory';
 import '../modules/shared/services/embed/embed.factory';
 import '../modules/shared/services/environment/environment.factory';
 import '../modules/shared/services/geojson/geojson.factory';
@@ -208,7 +207,6 @@ import '../modules/shared/services/http-error-registrar/http-error-registrar.fac
 import '../modules/shared/services/http-error-registrar/http-status.factory';
 import '../modules/shared/services/localization/localization.factory';
 import '../modules/shared/services/markdown-parser/markdown-parser.factory';
-import '../modules/shared/services/nearest-detail/nearest-detail.factory';
 import '../modules/shared/services/redux/actions.constant';
 import '../modules/shared/services/redux/application-state.factory';
 import '../modules/shared/services/redux/store.factory';

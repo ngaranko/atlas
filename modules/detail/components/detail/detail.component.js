@@ -1,3 +1,5 @@
+import { getMapClickLocation } from '../../../../src/map/ducks/click-location/map-click-location';
+
 (function () {
     angular
         .module('dpDetail')
@@ -24,8 +26,7 @@
         'geometry',
         'geojson',
         'crsConverter',
-        'dataFormatter',
-        'nearestDetail'
+        'dataFormatter'
     ];
 
     /* eslint-disable max-params */
@@ -38,8 +39,7 @@
         geometry,
         geojson,
         crsConverter,
-        dataFormatter,
-        nearestDetail
+        dataFormatter
     ) {
         /* eslint-enable max-params */
         var vm = this;
@@ -67,7 +67,9 @@
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
-            vm.geosearchButton = vm.isMapHighlight ? false : nearestDetail.getLocation();
+            const location = getMapClickLocation(store.getState());
+
+            vm.geosearchButton = vm.isMapHighlight ? false : [location.latitude, location.longitude];
 
             const [category, subject] = endpointParser.getParts(endpoint);
 

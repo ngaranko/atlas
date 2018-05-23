@@ -11,7 +11,6 @@ describe('the dp-detail component', () => {
     const grondexploitatieEndPoint = 'http://www.fake-endpoint.com/grondexploitatie/project/987/';
     const naturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/123/';
     const noneNaturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/456/';
-
     beforeEach(() => {
         angular.mock.module(
             'dpDetail',
@@ -147,9 +146,6 @@ describe('the dp-detail component', () => {
                             --rdLocation[1]
                         ];
                     }
-                },
-                nearestDetail: {
-                    getLocation: () => [52.654, 4.987]
                 }
             },
             function ($provide) {
@@ -181,6 +177,7 @@ describe('the dp-detail component', () => {
 
         spyOn(store, 'dispatch');
         spyOn(store, 'getState').and.returnValue({
+            mapClickLocation: { latitude: 52.654, longitude: 4.987 },
             map: {
                 highlight: true
             }
