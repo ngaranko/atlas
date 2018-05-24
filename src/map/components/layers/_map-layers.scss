@@ -85,6 +85,22 @@
       padding: 0;
       width: 100%;
 
+      &:hover,
+      &:focus {
+        .map-layers__toggle--add,
+        .map-layers__toggle--remove {
+          background-color: $secondary-gray20;
+          border-color: $primary-dark;
+          color: $primary-dark;
+          fill: $primary-dark;
+          outline: none;
+
+          svg { //sass-lint:disable-line nesting-depth
+            fill: $primary-dark;
+          }
+        }
+      }
+
       .map-layers__toggle-title {
         overflow: hidden;
         padding: 8px;
@@ -115,15 +131,6 @@
 
     .map-layers__title--active & {
       border-color: $secondary-gray60;
-    }
-
-    .map-layers__title:hover & { // sass-lint:disable-line force-pseudo-nesting
-      background-color: $primary-contrast;
-      border-color: $primary-contrast;
-
-      svg {
-        fill: $primary-light;
-      }
     }
   }
 

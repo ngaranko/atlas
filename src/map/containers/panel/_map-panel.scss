@@ -20,14 +20,11 @@ $map-panel-max-width: 444px;
   z-index: 100;
 
   &--collapsed {
+    @extend %hover-focus-button;
     height: auto;
     min-width: auto;
     top: auto;
     width: auto;
-
-    &:hover {
-      border-color: $primary-contrast;
-    }
 
     .scroll-wrapper {
       display: none;
@@ -44,13 +41,7 @@ $map-panel-max-width: 444px;
 
       &:focus,
       &:hover {
-        background-color: $primary-contrast;
         cursor: pointer;
-
-        .map-panel__heading-icon, // sass-lint:disable-line nesting-depth
-        .map-panel__toggle-icon {
-          fill: $primary-light;
-        }
       }
     }
   }
@@ -59,10 +50,6 @@ $map-panel-max-width: 444px;
     fill: $secondary-gray60;
     height: 24px;
     width: 24px;
-
-    .map-panel--collapsed & {
-      fill: $secondary-gray60;
-    }
   }
 
   &__heading-title {
@@ -79,6 +66,7 @@ $map-panel-max-width: 444px;
   }
 
   &__toggle {
+    @extend %hover-focus-button;
     align-items: center;
     border-radius: 0;
     display: flex;
@@ -86,27 +74,6 @@ $map-panel-max-width: 444px;
     outline: none;
     padding: 4px;
     width: 100%;
-
-    &:focus {
-      background-color: $secondary-gray10;
-      color: $primary-dark;
-
-      .map-panel__heading-icon,
-      .map-panel__toggle-icon {
-        fill: $primary-dark;
-      }
-    }
-
-    &:hover {
-      background-color: $primary-contrast;
-      color: $primary-light;
-
-      .map-panel__heading-icon,
-      .map-panel__toggle-icon {
-        fill: $primary-light;
-      }
-    }
-
   }
 
   &__toggle-icon {

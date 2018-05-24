@@ -33,7 +33,8 @@
       width: $handle-height;
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
       svg {
         fill: $primary-dark;
       }
