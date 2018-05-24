@@ -74,6 +74,7 @@
 
         function updateTabHeader (query, count) {
             if (vm.showTabHeader()) {
+                vm.tabHeader.userScopes = vm.user.scopes;
                 vm.tabHeader.query = query;
                 vm.tabHeader.getTab('data').count = count;
             }

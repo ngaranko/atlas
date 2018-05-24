@@ -2,7 +2,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     let dpDataSelectionDocumentTitle,
         mockedBagState,
         mockedHrState,
-        mockedCardsState,
+        mockedCatalogusState,
         mockedFilters;
 
     beforeEach(function () {
@@ -21,6 +21,10 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                                 {
                                     slug: 'buurt_naam',
                                     label: 'Buurt'
+                                },
+                                {
+                                    slug: 'postcode',
+                                    label: 'Postcode'
                                 }
                             ]
                         },
@@ -28,7 +32,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                             TITLE: 'Handelsregister',
                             FILTERS: []
                         },
-                        catalogus: {
+                        dcatd: {
                             TITLE: 'Catalogus',
                             FILTERS: [
                                 {
@@ -58,9 +62,9 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
             geometryFilter: {}
         };
 
-        mockedCardsState = {
-            dataset: 'catalogus',
-            view: 'CARDS',
+        mockedCatalogusState = {
+            dataset: 'dcatd',
+            view: 'CATALOG',
             query: 'my query',
             geometryFilter: {}
         };
@@ -76,19 +80,19 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     });
 
     it('shows a special title when showing all datasets', function () {
-        delete mockedCardsState.query;
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState, mockedFilters)).toBe('Datasets');
+        delete mockedCatalogusState.query;
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters)).toBe('Datasets');
     });
 
     it('shows a the datasets query for text search in datasets', function () {
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState, mockedFilters))
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters))
             .toBe('Datasets met \'my query\'');
     });
 
     it('shows both the query and the active filter', function () {
         mockedFilters.groups = 'bestuur-en-organisatie';
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedCardsState, mockedFilters))
-            .toBe('Datasets met \'my query\', bestuur-en-organisatie');
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters))
+            .toBe('Datasets met \'my query\', Thema\'s: bestuur-en-organisatie');
     });
 
     it('shows the surface of the current selection', function () {
@@ -110,12 +114,19 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
     it('optionally lists the (selected values of the) active filters', function () {
         // One active filter
         mockedFilters.stadsdeel_naam = 'Oost';
-        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toBe('Tabel adressen met Oost');
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters))
+            .toBe('Tabel adressen met Stadsdeel: Oost');
 
-        // Two active filters (comma-separated_
+        // Two active filters (comma-separated)
         mockedFilters.buurt_naam = 'Flevopark';
         expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters))
-            .toBe('Tabel adressen met Oost, Flevopark');
+            .toBe('Tabel adressen met Stadsdeel: Oost, Buurt: Flevopark');
+
+        // Two active filters (comma-separated_
+        mockedFilters.postcode = '';
+        expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters))
+            .toBe('Tabel adressen met Stadsdeel: Oost, Buurt: Flevopark, Postcode: (Geen)');
+        // double space before "zonder postcode", the browser strips this
     });
 
     it('respects the filter order from DATA_SELECTION_CONFIG', function () {
@@ -125,6 +136,6 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
         };
 
         expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters))
-            .toBe('Tabel adressen met Oost, Flevopark');
+            .toBe('Tabel adressen met Stadsdeel: Oost, Buurt: Flevopark');
     });
 });

@@ -17,6 +17,7 @@
                     ENDPOINT_DETAIL: 'bag/nummeraanduiding/',
                     PRIMARY_KEY: 'nummeraanduiding_id',
                     TITLE: 'Adressen',
+                    SORT_FILTERS: false,
                     FILTERS: [
                         {
                             slug: 'stadsdeel_naam',
@@ -125,54 +126,6 @@
                         ]
                     }
                 },
-                catalogus: {
-                    MAX_ITEMS_PER_PAGE: 100,
-                    CUSTOM_API: 'dataSelectionApiCkan',
-                    ENDPOINT_PREVIEW: 'catalogus/api/3/action/package_search',
-                    ENDPOINT_DETAIL: 'catalogus/api/3/action/package_show',
-                    PRIMARY_KEY: 'id',
-                    TITLE: 'Catalogus',
-                    SHOW_FILTER_OPTION_COUNTS: false,
-                    FILTERS: [
-                        {
-                            slug: 'groups',
-                            label: 'Thema\'s'
-                        }, {
-                            slug: 'res_format',
-                            label: 'Formaten',
-                            formatter: 'lowercase'
-                        }, {
-                            slug: 'organization',
-                            label: 'Gepubliceerd door'
-                        }
-                    ],
-                    CONTENT: {
-                        CARDS: [
-                            {
-                                label: 'Naam',
-                                variables: ['title']
-                            }, {
-                                label: 'Datum',
-                                variables: ['metadata_created', 'metadata_modified'],
-                                formatter: 'modificationDate'
-                            }, {
-                                label: 'Formaten',
-                                variables: ['resources.format'],
-                                formatter: 'aggregate',
-                                template: 'file-type'
-                            }, {
-                                label: 'Labels',
-                                variables: ['tags.display_name'],
-                                formatter: 'aggregate',
-                                template: 'tags'
-                            }, {
-                                label: 'Omschrijving',
-                                formatter: 'truncateHtmlAsText',
-                                variables: ['notes']
-                            }
-                        ]
-                    }
-                },
                 hr: {
                     CUSTOM_API: 'dataSelectionApiDataSelection',
                     AUTH_SCOPE: 'HR/R',
@@ -184,6 +137,7 @@
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
                     PRIMARY_KEY: 'vestiging_id',
                     TITLE: 'Vestigingen',
+                    SORT_FILTERS: false,
                     FILTERS: [
                         {
                             slug: 'sbi_code',
@@ -255,6 +209,39 @@
                                 variables: ['handelsnaam']
                             }
                         ]
+                    }
+                },
+                dcatd: {
+                    MAX_ITEMS_PER_PAGE: 100,
+                    CUSTOM_API: 'dataSelectionApiDcatd',
+                    ENDPOINT_METADATA: 'dcatd/openapi',
+                    ENDPOINT_PREVIEW: 'dcatd/datasets',
+                    ENDPOINT_DETAIL: 'dcatd/datasets',
+                    TITLE: 'Catalogus',
+                    PRIMARY_KEY: 'dct:identifier',
+                    SHOW_FILTER_OPTION_COUNTS: false,
+                    SORT_FILTERS: true,
+                    FILTERS: [
+                        {
+                            slug: 'groups',
+                            label: 'Thema\'s'
+                        }, {
+                            slug: 'owners',
+                            label: 'Eigenaar'
+                        }, {
+                            slug: 'distributionTypes',
+                            label: 'Verschijningsvorm'
+                        }, {
+                            slug: 'serviceTypes',
+                            label: 'API/Service formaten'
+                        }, {
+                            slug: 'formats',
+                            label: 'Bestandsformaten',
+                            formatter: 'lowercase'
+                        }
+                    ],
+                    CONTENT: {
+                        CATALOG: []
                     }
                 }
             }

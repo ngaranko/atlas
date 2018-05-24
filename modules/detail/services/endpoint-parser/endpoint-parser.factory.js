@@ -38,8 +38,6 @@
 
             if (isZakelijkRecht(uriParts)) {
                 return ['brk', 'subject'];
-            } else if (isCatalogus(uriParts)) {
-                return ['catalogus', 'api'];
             } else {
                 // Remove the last segment (the ID)
                 uriParts.pop();
@@ -52,10 +50,6 @@
                 return someUriParts[0] === 'brk' &&
                     someUriParts[1] === 'zakelijk-recht' &&
                     someUriParts[someUriParts.length - 1] === 'subject';
-            }
-
-            function isCatalogus (someUriParts) {
-                return someUriParts[0] === 'catalogus' && someUriParts[1] === 'api';
             }
         }
     }

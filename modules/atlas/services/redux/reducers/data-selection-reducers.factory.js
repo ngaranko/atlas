@@ -39,8 +39,8 @@
             const mergeInto = angular.isString(payload) ? {
                 query: payload,
                 page: 1,
-                view: 'CARDS',
-                dataset: 'catalogus'
+                view: 'CATALOG',
+                dataset: 'dcatd'
             } : payload;
 
             const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
@@ -169,7 +169,7 @@
          * @returns {Object} newState
          */
         function setDataSelectionViewReducer (state, payload) {
-            const views = ['LIST', 'TABLE', 'CARDS'],
+            const views = ['LIST', 'TABLE', 'CATALOG'],
                 viewFound = views.indexOf(payload) !== -1,
                 view = viewFound ? payload : undefined;
 

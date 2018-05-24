@@ -16,6 +16,7 @@ module.exports = {
     "no-nested-ternary": "off",
     "no-underscore-dangle": ["error", {
       "allow": []
-    }]
+    }],
+    "linebreak-style": "off"
   }
 }

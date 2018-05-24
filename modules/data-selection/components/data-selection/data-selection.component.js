@@ -35,7 +35,7 @@
     ) {
         const vm = this;
 
-        vm.showCatalogusIntroduction = vm.state.view === 'CARDS' &&
+        vm.showCatalogusIntroduction = vm.state.view === 'CATALOG' &&
             userSettings.showCatalogusIntroduction.value === true.toString();
 
         $scope.$watch('vm.showCatalogusIntroduction', function () {
@@ -51,7 +51,8 @@
                 vm.state.geometryFilter,
                 vm.state.page,
                 vm.state.query,
-                vm.user.scopes
+                vm.user.scopes,
+                store.getState().catalogFilters
             ];
         }, fetchData, true);
 
@@ -60,6 +61,7 @@
 
         function updateTabHeader (query, count) {
             if (vm.showTabHeader()) {
+                vm.tabHeader.userScopes = vm.user.scopes;
                 vm.tabHeader.query = query;
                 vm.tabHeader.getTab('datasets').count = count;
             }
@@ -67,12 +69,12 @@
 
         function fetchData () {
             const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
-
+            const catalogFilters = store.getState().catalogFilters;
             const isListView = vm.state.view === 'LIST';
             vm.view = vm.state.view;
 
             const isQueryView = angular.isDefined(vm.state.query) && vm.state.query.trim().length >= 1;
-            vm.showTabHeader = () => vm.view === 'CARDS' && isQueryView;
+            vm.showTabHeader = () => (vm.view === 'CATALOG') && isQueryView;
             vm.currentPage = vm.state.page;
 
             vm.numberOfRecords = null;
@@ -98,10 +100,10 @@
                 vm.filters,
                 vm.currentPage,
                 vm.state.query,
-                vm.state.geometryFilter.markers)
+                vm.state.geometryFilter.markers,
+                catalogFilters)
                 .then(data => {
                     vm.availableFilters = data.filters;
-
                     vm.data = data.data;
                     vm.numberOfRecords = data.numberOfRecords;
                     vm.numberOfPages = data.numberOfPages;
@@ -129,6 +131,7 @@
                     }, vm.filters);
 
                     if (
+                        isListView &&
                         isListView &&
                         vm.numberOfRecords <= DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS
                     ) {

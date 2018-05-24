@@ -45,7 +45,8 @@ describe('The dp-data-selection component', function () {
                     }
                 },
                 store: {
-                    dispatch: angular.noop
+                    dispatch: angular.noop,
+                    getState: angular.noop
                 }
             },
             function ($provide) {
@@ -97,7 +98,8 @@ describe('The dp-data-selection component', function () {
                 markers: [[1, 2]]
             },
             page: 2,
-            isLoading: false
+            isLoading: false,
+            catalogFilters: {}
         };
 
         mockedFilters = {
@@ -129,6 +131,7 @@ describe('The dp-data-selection component', function () {
         spyOn(dataSelectionApi, 'query').and.callThrough();
         spyOn(dataSelectionApi, 'getMarkers').and.callThrough();
         spyOn(store, 'dispatch');
+        spyOn(store, 'getState').and.returnValue(mockedState);
     });
 
     function getComponent (state, filters, user) {
@@ -181,25 +184,27 @@ describe('The dp-data-selection component', function () {
         expect(component.find('dp-data-selection-available-filters').length).toBe(0);
     });
 
-    it('hides the tab header in CARDS view when no search query is provided', function () {
-        mockedState.view = 'CARDS';
+    it('hides the tab header in CATALOG view when no search query is provided', function () {
+        mockedState.view = 'CATALOG';
         mockedState.query = '';
+        mockedApiPreviewData.data = [];
         const component = getComponent(mockedState, mockedFilters);
         const scope = component.isolateScope();
         expect(scope.vm.showTabHeader()).toBe(false);
         expect(component.find('dp-tab-header').length).toBe(0);
     });
 
-    it('shows the tab header in CARDS view when a search query is provided', function () {
-        mockedState.view = 'CARDS';
+    it('shows the tab header in CATALOG view when a search query is provided', function () {
+        mockedState.view = 'CATALOG';
         mockedState.query = 'foo';
+        mockedApiPreviewData.data = [];
         const component = getComponent(mockedState, mockedFilters);
         const scope = component.isolateScope();
         expect(scope.vm.showTabHeader()).toBe(true);
         expect(component.find('dp-tab-header').length).toBe(1);
     });
 
-    it('hides the tab header in any other than CARDS view', function () {
+    it('hides the tab header in any other than CATALOG view', function () {
         ['TABLE', 'LIST'].forEach(view => {
             [{}, {filter: 'any filter'}].forEach(filters => {
                 mockedState.view = view;
@@ -212,7 +217,7 @@ describe('The dp-data-selection component', function () {
         });
     });
 
-    it('either calls the TABLE, LIST or CARDS view', function () {
+    it('either calls the TABLE, LIST or CATALOG view', function () {
         let component;
 
         mockedState.view = 'TABLE';
@@ -221,18 +226,22 @@ describe('The dp-data-selection component', function () {
         expect(component.find('dp-data-selection-table').attr('content')).toBe('vm.data');
         expect(component.find('dp-data-selection-list').length).toBe(0);
         expect(component.find('dp-data-selection-cards').length).toBe(0);
+        expect(component.find('dp-data-selection-catalog').length).toBe(0);
 
         mockedState.view = 'LIST';
         component = getComponent(mockedState, mockedFilters);
         expect(component.find('dp-data-selection-list').length).toBe(1);
         expect(component.find('dp-data-selection-list').attr('content')).toBe('vm.data');
+        expect(component.find('dp-data-selection-catalog').length).toBe(0);
         expect(component.find('dp-data-selection-table').length).toBe(0);
         expect(component.find('dp-data-selection-cards').length).toBe(0);
 
-        mockedState.view = 'CARDS';
+        mockedState.view = 'CATALOG';
+        mockedApiPreviewData.data = [];
         component = getComponent(mockedState, mockedFilters);
-        expect(component.find('dp-data-selection-cards').length).toBe(1);
-        expect(component.find('dp-data-selection-cards').attr('content')).toBe('vm.data');
+        expect(component.find('dp-data-selection-catalog').length).toBe(1);
+        expect(component.find('dp-data-selection-catalog').attr('content')).toBe('vm.data');
+        expect(component.find('dp-data-selection-cards').length).toBe(0);
         expect(component.find('dp-data-selection-list').length).toBe(0);
         expect(component.find('dp-data-selection-table').length).toBe(0);
     });
@@ -265,7 +274,8 @@ describe('The dp-data-selection component', function () {
 
             store.dispatch.calls.reset();
 
-            mockedState.view = 'CARDS';
+            mockedState.view = 'CATALOG';
+            mockedApiPreviewData.data = [];
             $rootScope.$apply();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.RESET_DATA_SELECTION,
@@ -273,7 +283,7 @@ describe('The dp-data-selection component', function () {
             });
         });
 
-        it('sends an empty Array if the TABLE or CARDS view is active', function () {
+        it('sends an empty Array if the TABLE or CATALOG view is active', function () {
             mockedState.view = 'TABLE';
             getComponent(mockedState, mockedFilters);
 
@@ -284,7 +294,8 @@ describe('The dp-data-selection component', function () {
 
             store.dispatch.calls.reset();
 
-            mockedState.view = 'CARDS';
+            mockedState.view = 'CATALOG';
+            mockedApiPreviewData.data = [];
             $rootScope.$apply();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_DATA_SELECTION,
@@ -382,8 +393,9 @@ describe('The dp-data-selection component', function () {
             expect(component.find('.qa-message-clustered-markers').length).toBe(1);
         });
 
-        it('is not shown on the CARDS view', () => {
-            mockedState.view = 'CARDS';
+        it('is not shown on the CATALOG view', () => {
+            mockedState.view = 'CATALOG';
+            mockedApiPreviewData.data = [];
             mockedApiPreviewData.numberOfRecords = 1001;
             const component = getComponent(mockedState, mockedFilters);
             expect(component.find('.qa-message-clustered-markers').length).toBe(0);

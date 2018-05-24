@@ -4,6 +4,18 @@ describe('The follow link directive', function () {
         $window;
 
     beforeEach(function () {
+        const $windowMock = {
+            _paq: {
+                push: angular.noop
+            },
+            open: angular.noop
+        };
+
+        angular.mock.module('dpDetail',
+            function ($provide) {
+                $provide.value('$window', $windowMock);
+            }
+        );
         angular.mock.module('dpDetail');
 
         angular.mock.inject(function (_$rootScope_, _$compile_, _$window_) {
