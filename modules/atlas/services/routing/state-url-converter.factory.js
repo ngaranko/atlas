@@ -1,4 +1,4 @@
-import BaseCoder, { getCoderForBase } from '../../../../src/shared/services/base-coder/base-coder';
+import BaseCoder, { getCoderForBase } from '../../../../src/shared/services/routing/base-coder/base-coder';
 
 (function () {
     'use strict';

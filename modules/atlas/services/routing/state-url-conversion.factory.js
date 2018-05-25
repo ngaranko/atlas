@@ -1,3 +1,5 @@
+import uriStripper from '../../../../src/shared/services/routing/uri-stripper/uri-stripper';
+
 (function () {
     //
     // This constant holds the configuration of all state variables that are stored in the url
@@ -36,9 +38,7 @@
         .module('atlas')
         .factory('stateUrlConversion', stateUrlConversionFactory);
 
-    stateUrlConversionFactory.$inject = ['uriStripper'];
-
-    function stateUrlConversionFactory (uriStripper) {
+    function stateUrlConversionFactory () {
         /* istanbul ignore next */
         const ofTypeArray = (oldState, newState) =>
             angular.isArray(oldState) ? oldState : newState;

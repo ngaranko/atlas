@@ -232,7 +232,6 @@ import '../modules/shared/services/redux/application-state.factory';
 import '../modules/shared/services/redux/store.factory';
 import '../modules/shared/services/storage/instance-storage.factory';
 import '../modules/shared/services/storage/storage.factory';
-import '../modules/shared/services/uri-stripper/uri-stripper.factory';
 import '../modules/shared/services/user-settings/setting.factory';
 import '../modules/shared/services/user-settings/user-settings.constant';
 import '../modules/shared/services/user-settings/user-settings.factory';
