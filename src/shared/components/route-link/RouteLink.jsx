@@ -11,17 +11,17 @@ const getHref = (actionType, payload) => {
   if (payload) {
     action.payload = payload;
   }
-return 'test';
+
   // Remove state properties that do not relate to the url
   // by converting the state to a url and back
   // This prevents deep copying of large state objects in the reducer (eg dataSelection.markers)
-  // const reducer = applicationState.getReducer(),
-  //   state = applicationState.getStore().getState(),
-  //   params = applicationState.getStateUrlConverter().state2params(state),
-  //   sourceState = applicationState.getStateUrlConverter().params2state({}, params),
-  //   targetState = reducer(sourceState, action);
+  const reducer = applicationState.getReducer();
+  const state = applicationState.getStore().getState();
+  const params = applicationState.getStateUrlConverter().state2params(state);
+  const sourceState = applicationState.getStateUrlConverter().params2state({}, params);
+  const targetState = reducer(sourceState, action);
 
-  // return applicationState.getStateUrlConverter().state2url(targetState);
+  return applicationState.getStateUrlConverter().state2url(targetState);
 };
 
 
@@ -30,34 +30,27 @@ class RouteLink extends Component {
     super(props);
 
     this.state = {
-      // href: getHref(props.actionType, props.payload)
+      href: getHref(props.type, props.payload)
     };
 
     this.handleNavigate = this.handleNavigate.bind(this);
   }
 
-  componentDidMount() {
-    console.log(this.state.href);
-  }
-
   handleNavigate() {
-    console.log('navigation called');
-    window.loca.href = this.state.href;
+    window.location.href = this.state.href;
   }
 
   render() {
     return (
       <div>
-        RouteLink works!
         <span className={`c-link__wrapper ${this.props.inline ? 'c-link__wrapper--inine-block' : ''}`}>
           {
             this.props.tagName === 'button' ?
               <button onClick={this.handleNavigate} className={`${this.props.className} qa-dp-link`} title={this.props.hoverText}>{this.props.children}</button>
               :
               <a href={this.state.href} className={`${this.props.className} qa-dp-link`} title={this.props.hoverText}>{this.props.children}</a>
-          }
+          }!
         </span>
-
       </div>
     );
   }
@@ -68,11 +61,14 @@ RouteLink.propTypes = {
   tagName: PropTypes.oneOf(['a', 'button']).isRequired,
   className: PropTypes.string,
   hoverText: PropTypes.string,
-  // actionType: PropTypes.string.isRequired,
-  // payload: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  payload: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
+    PropTypes.object
   ])
 };
 
@@ -81,6 +77,7 @@ RouteLink.defaultProps = {
   tagName: 'button',
   className: '',
   hoverText: '',
+  payload: '',
   children: ''
 };
 
