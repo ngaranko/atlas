@@ -1,8 +1,8 @@
 import * as Redux from 'redux';
-const applicationState = () => {
-    let reducer,
-        stateUrlConverter;
+import stateUrlConverter from '../../../../src/shared/services/routing/state-url-converter';
 
+const applicationState = () => {
+    let reducer;
     return {
         initialize,
         getStore: () => window.reduxStore,
@@ -10,11 +10,10 @@ const applicationState = () => {
         getStateUrlConverter: () => stateUrlConverter
     };
 
-    function initialize (_reducer_, _stateUrlConverter_, defaultState, ...middleware) {
+    function initialize (_reducer_, defaultState, ...middleware) {
         reducer = _reducer_;
-        stateUrlConverter = _stateUrlConverter_;
 
-        window.initializeState(Redux, _reducer_, _stateUrlConverter_, defaultState, ...middleware);
+        window.initializeState(Redux, _reducer_, defaultState, ...middleware);
     }
 };
 

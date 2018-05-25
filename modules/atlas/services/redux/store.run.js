@@ -1,3 +1,5 @@
+import stateUrlConverter from '../../../../src/shared/services/routing/state-url-converter';
+
 (function () {
     angular
         .module('atlas')
@@ -7,7 +9,6 @@
         'applicationState',
         'freeze',
         'reducer',
-        'stateUrlConverter',
         'contextMiddleware',
         'stateToUrlMiddleware',
         'environment'
@@ -17,7 +18,6 @@
             applicationState,
             freeze,
             reducer,
-            stateUrlConverter,
             contextMiddleware,
             stateToUrlMiddleware,
             environment) {
@@ -25,7 +25,6 @@
         const initialState = environment.isDevelopment() ? freeze.deepFreeze(urlDefaultState) : urlDefaultState;
         applicationState.initialize(
             reducer,
-            stateUrlConverter,
             initialState,
             contextMiddleware,
             stateToUrlMiddleware);

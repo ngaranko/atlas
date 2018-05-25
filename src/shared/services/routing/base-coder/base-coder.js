@@ -1,3 +1,5 @@
+import { isString } from '../../util/util';
+
 class BaseCoder {
   /**
    * Constructor for the BaseCoder class
@@ -158,7 +160,7 @@ class BaseCoder {
    * @returns {number}
    */
   decode(value, nDecimals = 0) {
-    if (String.isString(value)) {
+    if (isString(value)) {
       let sign = 1;
       let expr = value;
       if (expr.charAt(0) === '-') {

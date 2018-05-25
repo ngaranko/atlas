@@ -37,7 +37,7 @@
                 detail,
                 map: determineMapActivity(state),
                 mapPreviewPanel,
-                page: angular.isString(state.page.name),
+                page: angular.isString(state.page && state.page.name),
                 searchResults,
                 straatbeeld: angular.isObject(state.straatbeeld)
             };
@@ -72,7 +72,7 @@
                     visibility.straatbeeld = false;
                 } else {
                     visibility.detail = activity.detail && !activity.straatbeeld;
-                    visibility.page = angular.isString(state.page.name) && !activity.straatbeeld;
+                    visibility.page = angular.isString(state.page && state.page.name) && !activity.straatbeeld;
                     visibility.searchResults = activity.searchResults;
                 }
 
@@ -94,7 +94,7 @@
             const { ui = {} } = state;
             return ui.isMapFullscreen ||
                 (
-                    !(state.page.name && !ui.isMapFullscreen && !state.straatbeeld) &&
+                    !(state.page && state.page.name && !ui.isMapFullscreen && !state.straatbeeld) &&
                     !(state.detail && state.detail.isFullscreen) &&
                     !(state.dataSelection && state.dataSelection.view !== 'LIST') &&
                     !(state.search && state.search.isFullscreen) &&
@@ -118,7 +118,7 @@
                 // Only print the map when detail is NOT fullscreen and has geometry
                 return !state.detail.isFullscreen && angular.isObject(state.detail.geometry);
             } else {
-                return !state.page.name && !state.search;
+                return state.page && !state.page.name && !state.search;
             }
         }
 

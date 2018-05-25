@@ -24,7 +24,7 @@
             function scrollContent () {
                 const state = store.getState(),
                     visibility = dashboardColumns.determineVisibility(state),
-                    pageName = state.page.name;
+                    pageName = state.page && state.page.name;
 
                 var newRightColumnContent = checkRightColumnContent(visibility, pageName);
 
