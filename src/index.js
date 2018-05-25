@@ -66,7 +66,6 @@ import '../modules/atlas/services/redux/reducers/straatbeeld-reducers.factory';
 import '../modules/atlas/services/redux/reducers/url-reducers.factory';
 import '../modules/atlas/services/redux/store.run';
 import '../modules/atlas/services/routing/state-to-url.factory';
-import '../modules/atlas/services/routing/state-url-conversion.factory';
 import '../modules/atlas/services/routing/state-url-converter.factory';
 import '../modules/atlas/services/routing/url-to-state.factory';
 import '../modules/atlas/services/routing/url-to-state.run';

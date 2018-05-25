@@ -138,6 +138,7 @@
     "lodash.get": "^4.4.2",
     "lodash.has": "^4.5.2",
     "lodash.isequal": "^4.5.0",
+    "lodash.isobject": "^3.0.2",
     "marked": "^0.3.6",
     "marzipano": "https://github.com/Amsterdam/marzipano.git#master",
     "objectFitPolyfill": "^2.1.0",

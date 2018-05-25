@@ -1,4 +1,5 @@
 import BaseCoder, { getCoderForBase } from '../../../../src/shared/services/routing/base-coder/base-coder';
+import stateUrlConversion from '../../../../src/shared/services/routing/state-url-conversion';
 
 (function () {
     'use strict';
@@ -7,9 +8,7 @@ import BaseCoder, { getCoderForBase } from '../../../../src/shared/services/rout
         .module('atlas')
         .factory('stateUrlConverter', stateUrlConverterFactory);
 
-    stateUrlConverterFactory.$inject = ['stateUrlConversion'];
-
-    function stateUrlConverterFactory (stateUrlConversion) {
+    function stateUrlConverterFactory () {
         const URL_ARRAY_SEPARATOR = ':';    // Choose any of -._~:[]@!$'()*+,;`.
         const ARRAY_DENOTATOR = '[]';
         const MAIN_STATE = 'DEFAULT';
