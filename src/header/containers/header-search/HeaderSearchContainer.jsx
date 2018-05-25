@@ -156,7 +156,7 @@ class HeaderSearchContainer extends React.Component {
     // if user is sent here with a ctrl+click action
     // open the detail page
     const suggestionUri = window.suggestionToLoadUri;
-    onDetailLoad(`${getSharedConfig().API_ROOT}${suggestionUri}`);
+    onDetailLoad(`${SHARED_CONFIG.API_ROOT}${suggestionUri}`);
     window.suggestionToLoadUri = undefined;
   }
 
