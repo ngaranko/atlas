@@ -1,13 +1,6 @@
+import getSharedConfig from '../../shared-config/shared-config';
+
 class UriStripper {
-
-  constructor(sharedConfig) {
-    this.sharedConfig = sharedConfig;
-  }
-  // return {
-  //     stripDomain,
-  //     restoreDomain
-  // };
-
   /**
    * Strips a domain, as specified in `sharedConfig`, from the given
    * uri.
@@ -28,10 +21,11 @@ class UriStripper {
    * domain stripped and the uri without the domain. Or, in case the uri
    * has an unknown or no domain, the unmodified uri only.
    */
-  stripDomain(uri) {
+  static stripDomain(uri) {
     let result = [uri];
+    const sharedConfig = getSharedConfig();
 
-    const strippedApi = uri.replace(this.sharedConfig.API_ROOT, '');
+    const strippedApi = uri.replace(sharedConfig.API_ROOT, '');
 
     if (strippedApi !== uri) {
       result = [strippedApi];
@@ -56,15 +50,16 @@ class UriStripper {
    * the value as returned by `stripDomain`.
    * @return {string} The uri with its domain attached to it.
    */
-  restoreDomain(parts) {
+  static restoreDomain(parts) {
     let result;
+    const sharedConfig = getSharedConfig();
 
     if (parts.length === 1) {
       // Restore the API_ROOT by default
-      result = this.sharedConfig.API_ROOT + parts[0];
-    } else if (this.sharedConfig.ROOT_KEYS.indexOf(parts[0]) !== -1) {
+      result = sharedConfig.API_ROOT + parts[0];
+    } else if (sharedConfig.ROOT_KEYS.indexOf(parts[0]) !== -1) {
       // Check root based on white listing for security reasons
-      result = this.sharedConfig[parts[0]] + parts[1];
+      result = sharedConfig[parts[0]] + parts[1];
     } else {
       result = parts[1];
     }
@@ -72,4 +67,4 @@ class UriStripper {
   }
 }
 
-export default new UriStripper();
+export default UriStripper;

@@ -1,4 +1,4 @@
-import uriStripper from '../../../../src/shared/services/routing/uri-stripper/uri-stripper';
+import UriStripper from '../../../../src/shared/services/routing/uri-stripper/uri-stripper';
 
 (function () {
     //
@@ -302,8 +302,8 @@ import uriStripper from '../../../../src/shared/services/routing/uri-stripper/ur
                 dte: {
                     name: 'detail.endpoint',
                     type: 'string[]',
-                    getValue: uriStripper.stripDomain,
-                    setValue: uriStripper.restoreDomain
+                    getValue: UriStripper.stripDomain,
+                    setValue: UriStripper.restoreDomain
                 },
                 dtfs: {
                     name: 'detail.isFullscreen',
