@@ -1,3 +1,5 @@
+import BaseCoder, { getCoderForBase } from '../../../../src/shared/services/base-coder/base-coder';
+
 (function () {
     'use strict';
 
@@ -5,15 +7,9 @@
         .module('atlas')
         .factory('stateUrlConverter', stateUrlConverterFactory);
 
-    stateUrlConverterFactory.$inject = [
-        'stateUrlConversion',
-        'dpBaseCoder'
-    ];
+    stateUrlConverterFactory.$inject = ['stateUrlConversion'];
 
-    function stateUrlConverterFactory (
-        stateUrlConversion,
-        dpBaseCoder
-    ) {
+    function stateUrlConverterFactory (stateUrlConversion) {
         const URL_ARRAY_SEPARATOR = ':';    // Choose any of -._~:[]@!$'()*+,;`.
         const ARRAY_DENOTATOR = '[]';
         const MAIN_STATE = 'DEFAULT';
@@ -31,7 +27,7 @@
             ARRAY: /\[\]$/
         };
 
-        const base62Coder = dpBaseCoder.getCoderForBase(62);  // Code coordinates in base62
+        const base62Coder = getCoderForBase(62);  // Code coordinates in base62
 
         // url-state converters for every possible type
 
@@ -43,7 +39,7 @@
         class NumberValue {
             static getNumberValue (n, precision) {
                 // eg return 10.1 for 10.123
-                return precision === null ? n : dpBaseCoder.toPrecision(n, precision);
+                return precision === null ? n : BaseCoder.toPrecision(n, precision);
             }
             static urlValue (n, precision) { return NumberValue.getNumberValue(n, precision); }
             static stateValue (s, precision) { return NumberValue.getNumberValue(Number(s), precision); }
@@ -178,7 +174,7 @@
         function getValueForKey (obj, key) {
             // return 9 for obj={map: {zoom: 9}} and key = 'map.zoom', null when no value available
             // Uses recursion for endless depth
-            const {mainKey, subKey} = getFullKey(key);
+            const { mainKey, subKey } = getFullKey(key);
             if (subKey) {
                 return angular.isObject(obj[mainKey]) ? getValueForKey(obj[mainKey], subKey) : null;
             } else {
@@ -189,7 +185,7 @@
         function setValueForKey (obj, oldObj, key, value) {
             // set obj:{map: {zoom: 9}} to {map: {zoom: 8}} for key 'map.zoom' and value 8
             // the old object is used for createObject() in case of any onCreate method for the state object
-            const {mainKey, subKey} = getFullKey(key);
+            const { mainKey, subKey } = getFullKey(key);
             if (subKey) {
                 obj[mainKey] = obj[mainKey] || createObject(oldObj[mainKey], mainKey);
                 setValueForKey(obj[mainKey], oldObj[mainKey] || {}, subKey, value);

@@ -197,7 +197,6 @@ import '../modules/shared/filters/filesize.filter';
 import '../modules/shared/services/combined-document-title/combined-document-title.factory';
 import '../modules/shared/services/active-overlays/active-overlays.factory';
 import '../modules/shared/services/api/api.factory';
-import '../modules/shared/services/base-coder/base-coder.factory';
 import '../modules/shared/services/bounding-box/boundig-box.constant';
 import '../modules/shared/services/crs/crs-config.constant';
 import '../modules/shared/services/crs/crs-converter.factory';
@@ -383,7 +382,6 @@ import '../modules/shared/services/http-error-registrar/http-error-registrar.fac
 import '../modules/shared/services/http-error-registrar/http-status.factory.test';
 import '../modules/shared/services/user-settings/user-settings.factory.test';
 import '../modules/shared/services/api/api.factory.test';
-import '../modules/shared/services/base-coder/base-coder.factory.test';
 import '../modules/shared/services/localization/localization.factory.test';
 import '../modules/shared/services/embed/embed.factory.test';
 import '../modules/shared/services/uri-stripper/uri-stripper.factory.test';

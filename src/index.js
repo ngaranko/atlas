@@ -211,7 +211,6 @@ import '../modules/shared/components/video/video.component';
 import '../modules/shared/filters/filesize.filter';
 import '../modules/shared/services/active-overlays/active-overlays.factory';
 import '../modules/shared/services/api/api.factory';
-import '../modules/shared/services/base-coder/base-coder.factory';
 import '../modules/shared/services/bounding-box/boundig-box.constant';
 import '../modules/shared/services/crs/crs-config.constant';
 import '../modules/shared/services/crs/crs-converter.factory';

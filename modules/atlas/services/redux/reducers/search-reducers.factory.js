@@ -1,3 +1,5 @@
+import BaseCoder from '../../../../../src/shared/services/base-coder/base-coder';
+
 (function () {
     'use strict';
 
@@ -5,9 +7,9 @@
         .module('atlas')
         .factory('searchReducers', searchReducersFactory);
 
-    searchReducersFactory.$inject = ['ACTIONS', 'dpBaseCoder'];
+    searchReducersFactory.$inject = ['ACTIONS'];
 
-    function searchReducersFactory (ACTIONS, dpBaseCoder) {
+    function searchReducersFactory (ACTIONS) {
         var reducers = {};
 
         reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id] = fetchSearchResultsByQueryReducer;
@@ -63,7 +65,7 @@
                     isLoading: true,
                     isFullscreen: false,
                     query: null,
-                    location: dpBaseCoder.toPrecision(payload, 7),
+                    location: BaseCoder.toPrecision(payload, 7),
                     category: null,
                     numberOfResults: null
                 },
