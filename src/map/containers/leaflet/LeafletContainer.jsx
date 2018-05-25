@@ -7,10 +7,11 @@ import MapLeaflet from '../../components/leaflet/MapLeaflet';
 import MAP_CONFIG from '../../services/map-config';
 import { updateZoom, updatePan, getMarkers, getCenter } from '../../ducks/map/map';
 import { updateClick } from '../../ducks/click-location/map-click-location';
-import { getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
-import { getLayers } from '../../ducks/layers/map-layers';
+import { fetchMapBaseLayers, getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
+import { fetchMapLayers, getLayers } from '../../ducks/layers/map-layers';
 import { getGeoJson } from '../../ducks/detail/map-detail';
 import { getClusterMarkers, getDrawShape } from '../../ducks/data-selection/data-selection';
+import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
@@ -52,6 +53,16 @@ class LeafletContainer extends React.Component {
     };
   }
 
+  componentDidMount() {
+    // if the baseLayer.urlTemplate is set it means there are mapLayers
+    // this way actions won't be dispatched if the mapLayers are already in the state
+    if (!this.props.baseLayer.urlTemplate) {
+      this.context.store.dispatch(fetchMapBaseLayers());
+      this.context.store.dispatch(fetchMapLayers());
+      this.context.store.dispatch(fetchPanelLayers());
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     const { uiState } = nextProps;
     if (uiState !== this.state.uiState) {
@@ -84,28 +95,24 @@ class LeafletContainer extends React.Component {
       onUpdateClick,
       zoom
     } = this.props;
-    return (
-      <div>
-        { baseLayer.urlTemplate && (
-          <MapLeaflet
-            getLeafletInstance={getLeafletInstance}
-            baseLayer={baseLayer}
-            center={center}
-            clusterMarkers={clusterMarkers}
-            drawShape={drawShape}
-            geoJson={geoJson}
-            layers={layers}
-            mapOptions={mapOptions}
-            markers={markers}
-            onClick={onUpdateClick}
-            onDragEnd={onUpdatePan}
-            onZoomEnd={onUpdateZoom}
-            ref={this.setMapLeaflet}
-            scaleControlOptions={scaleControlOptions}
-            zoom={zoom}
-          />
-        )}
-      </div>
+    return baseLayer.urlTemplate && (
+      <MapLeaflet
+        getLeafletInstance={getLeafletInstance}
+        baseLayer={baseLayer}
+        center={center}
+        clusterMarkers={clusterMarkers}
+        drawShape={drawShape}
+        geoJson={geoJson}
+        layers={layers}
+        mapOptions={mapOptions}
+        markers={markers}
+        onClick={onUpdateClick}
+        onDragEnd={onUpdatePan}
+        onZoomEnd={onUpdateZoom}
+        ref={this.setMapLeaflet}
+        scaleControlOptions={scaleControlOptions}
+        zoom={zoom}
+      />
     );
   }
 }

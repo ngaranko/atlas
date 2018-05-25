@@ -13,9 +13,6 @@ import MapPanelContainer from '../../containers/panel/MapPanelContainer';
 import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 
-import { fetchMapBaseLayers } from '../../ducks/base-layers/map-base-layers';
-import { fetchMapLayers } from '../../ducks/layers/map-layers';
-import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 import getEmbedLink from '../../ducks/embed/embed';
 
 const mapStateToProps = (state) => ({
@@ -35,12 +32,6 @@ class MapContainer extends React.Component {
       leafletInstance: null
     };
     this.setLeafletInstance = this.setLeafletInstance.bind(this);
-  }
-
-  componentDidMount() {
-    this.context.store.dispatch(fetchMapBaseLayers());
-    this.context.store.dispatch(fetchMapLayers());
-    this.context.store.dispatch(fetchPanelLayers());
   }
 
   setLeafletInstance(leafletInstance) {

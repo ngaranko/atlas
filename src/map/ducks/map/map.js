@@ -62,7 +62,7 @@ const overlayExists = (state, newLayer) => (
     overlay.id === newLayer).length === 1
 );
 
-export function MapReducer(state = initialState, action) {
+export default function MapReducer(state = initialState, action) {
   switch (action.type) {
     case MAP_PAN:
       return {
