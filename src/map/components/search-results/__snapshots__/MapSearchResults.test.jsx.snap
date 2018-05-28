@@ -193,7 +193,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
           "
       disabled={false}
       onClick={[MockFunction]}
-      title="Bekijk Panorama view"
+      title="Panoramabeeld tonen"
     >
       <img
         alt="Panoramabeeld"
@@ -306,7 +306,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
           "
       disabled={false}
       onClick={[MockFunction]}
-      title="Bekijk Panorama view"
+      title="Panoramabeeld tonen"
     >
       <img
         alt="Panoramabeeld"
@@ -410,7 +410,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
           "
       disabled={false}
       onClick={[MockFunction]}
-      title="Bekijk Panorama view"
+      title="Panoramabeeld tonen"
     >
       <img
         alt="Panoramabeeld"
