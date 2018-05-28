@@ -45,11 +45,11 @@ import DRAW_TOOL_CONFIG from '../../../../../src/map/services/draw-tool/draw-too
                     }
 
                     if (map && map.drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
-                        if (action.type.id === ACTIONS.MAP_ZOOM.id) {
+                        if (action.type === ACTIONS.MAP_ZOOM.id) {
                             action.type = Object.assign({}, action.type);
                             action.type.ignore = true;
                         }
-                        if (action.type.id === ACTIONS.MAP_PAN.id) {
+                        if (action.type === ACTIONS.MAP_PAN.id) {
                             action.type = Object.assign({}, action.type);
                             action.type.ignore = true;
                         }
