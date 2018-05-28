@@ -151,16 +151,22 @@ export default function MapReducer(state = initialState, action) {
       };
 
     case TOGGLE_MAP_OVERLAY:
-      return state.overlays.some((overlay) => overlay.id === action.mapLayerId) ?
-        [...state.overlays.filter((overlay) => overlay.id !== action.mapLayerId)] :
-        [...state.overlays, { id: action.mapLayerId, isVisible: true }];
+      return {
+        ...state,
+        overlays: state.overlays.some((overlay) => overlay.id === action.mapLayerId) ?
+          [...state.overlays.filter((overlay) => overlay.id !== action.mapLayerId)] :
+          [...state.overlays, { id: action.mapLayerId, isVisible: true }]
+      };
 
     case TOGGLE_MAP_OVERLAY_VISIBILITY:
-      return state.overlays.map((overlay) => ({
-        ...overlay,
-        isVisible: overlay.id !== action.mapLayerId ? overlay.isVisible :
-          (action.show !== undefined ? action.show : !overlay.isVisible)
-      }));
+      return {
+        ...state,
+        overlays: state.overlays.map((overlay) => ({
+          ...overlay,
+          isVisible: overlay.id !== action.mapLayerId ? overlay.isVisible :
+            (action.show !== undefined ? action.show : !overlay.isVisible)
+        }))
+      };
 
     default:
       return state;
