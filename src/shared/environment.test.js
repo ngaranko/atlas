@@ -26,7 +26,7 @@ describe('The environment service', () => {
 
   it('is set to acceptance based on NODE_ENV', () => {
     process.env.NODE_ENV = 'acceptance';
-    expect(getEnvironment('acc.data.amsterdam.nl')).toBe(ENVIRONMENTS.ACCEPTATION);
+    expect(getEnvironment('acc.data.amsterdam.nl')).toBe(ENVIRONMENTS.ACCEPTANCE);
   });
 
   it('is set to development based on NODE_ENV', () => {

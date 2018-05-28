@@ -21,7 +21,7 @@ export const getEnvironment = (host) => {
     case 'production':
       return ENVIRONMENTS.PRODUCTION;
     case 'acceptance':
-      return ENVIRONMENTS.ACCEPTATION;
+      return ENVIRONMENTS.ACCEPTANCE;
     default:
       return ENVIRONMENTS.DEVELOPMENT;
   }
