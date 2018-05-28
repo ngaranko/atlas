@@ -29,7 +29,6 @@ describe('The state url conversion factory', function () {
                     shapeAreaTxt: ''
 
                 },
-                mapBaseLayers: {},
                 user: {
                     authenticated: false,
                     accessToken: '',
@@ -37,7 +36,6 @@ describe('The state url conversion factory', function () {
                     name: '',
                     error: false
                 },
-                mapLayers: [],
                 mapSearchResults: [],
                 mapSearchResultsByLocation: {},
                 mapDetail: {

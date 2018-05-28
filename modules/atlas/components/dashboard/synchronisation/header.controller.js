@@ -17,13 +17,12 @@
             const state = store.getState(),
                 isDataSelection = angular.isObject(state.dataSelection),
                 isListView = isDataSelection && state.dataSelection.view === 'LIST',
-                isCardsView = isDataSelection && state.dataSelection.view === 'CARDS',
+                isCatalogView = isDataSelection && state.dataSelection.view === 'CATALOG',
                 isHomepage = angular.isObject(state.page) && state.page.name === 'home' &&
                     !state.ui.isMapFullscreen &&
                     !angular.isObject(state.straatbeeld);
 
-            if ((isCardsView) ||
-                (state.detail && state.detail.endpoint.includes('/catalogus/api/'))) {
+            if (isCatalogView) {
                 // Search in datasets
                 vm.query = state.dataSelection && state.dataSelection.query;
                 vm.searchAction = ACTIONS.FETCH_DATA_SELECTION;

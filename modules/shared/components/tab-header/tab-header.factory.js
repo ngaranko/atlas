@@ -81,6 +81,8 @@
                     all[tab.id] = tab;
                     return all;
                 }, {});
+
+                this._userScopes = [];
             }
 
             get tabs () {
@@ -93,6 +95,14 @@
 
             set activeTab (theActiveTab) {
                 this._tabs.forEach(tab => tab.isActive = tab.id === theActiveTab.id);
+            }
+
+            get userScopes () {
+                return this._userScopes;
+            }
+
+            set userScopes (userScopes) {
+                this._userScopes = userScopes;
             }
 
             set query (query) {

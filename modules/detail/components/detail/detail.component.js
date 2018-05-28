@@ -1,3 +1,5 @@
+import { getMapClickLocation } from '../../../../src/map/ducks/click-location/map-click-location';
+
 (function () {
     angular
         .module('dpDetail')
@@ -8,6 +10,7 @@
                 reload: '=',
                 isLoading: '=',
                 isMapHighlight: '=',
+                catalogFilters: '=',
                 user: '<'
             },
             templateUrl: 'modules/detail/components/detail/detail.html',
@@ -25,7 +28,7 @@
         'geojson',
         'crsConverter',
         'dataFormatter',
-        'nearestDetail'
+        'markdownParser'
     ];
 
     /* eslint-disable max-params */
@@ -39,7 +42,7 @@
         geojson,
         crsConverter,
         dataFormatter,
-        nearestDetail
+        markdownParser
     ) {
         /* eslint-enable max-params */
         var vm = this;
@@ -55,6 +58,13 @@
         // (Re)load the data when the endpoint is set or gets changed
         $scope.$watch('vm.endpoint', getData);
 
+        // Ensure the catalog filters for dcatd endpoints
+        $scope.$watch('vm.catalogFilters', () => {
+            if (vm.catalogFilters) {
+                getData(vm.endpoint);
+            }
+        });
+
         // (Re)load the data when the user logs in or out or on a change of authorization level
         $scope.$watch('vm.user.scopes', (newValue, oldValue) => {
             if (newValue !== oldValue) {
@@ -67,7 +77,9 @@
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
-            vm.geosearchButton = vm.isMapHighlight ? false : nearestDetail.getLocation();
+            const location = getMapClickLocation(store.getState());
+
+            vm.geosearchButton = vm.isMapHighlight ? false : [location.latitude, location.longitude];
 
             const [category, subject] = endpointParser.getParts(endpoint);
 
@@ -82,10 +94,20 @@
                 // so do not fetch data
                 delete vm.apiData;
                 errorHandler();
+            } else if (category === 'dcatd' && subject === 'datasets' && !vm.catalogFilters) {
+                // The catalogFilters data is not present so do not fetch data
+                delete vm.apiData;
+                errorHandler();
             } else {
                 const endpointVersion = category === 'grondexploitatie' ? '?version=2' : '';
                 api.getByUrl(`${endpoint}${endpointVersion}`).then(function (data) {
-                    data = dataFormatter.formatData(data, subject);
+                    data = dataFormatter.formatData(data, subject, vm.catalogFilters);
+
+                    if (category === 'dcatd' && subject === 'datasets') {
+                        data['dct:description'] = data['dct:description'] &&
+                            markdownParser.parse(data['dct:description']);
+                        data.canEditDataset = vm.user.scopes.includes('CAT/W');
+                    }
 
                     vm.apiData = {
                         results: data

@@ -26,6 +26,16 @@ import { combineReducers } from 'redux';
             // Run state changes based on old reducers
             const deprecatedState = deprecatedReducer(oldState, action);
 
+            const MapPanelLayersReducer = $window.reducers.PanelLayersReducer;
+            const MapLayersReducer = $window.reducers.MapLayersReducer;
+            const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
+
+            const mapLayers = combineReducers({
+                layers: MapLayersReducer,
+                baseLayers: MapBaseLayersReducer,
+                panelLayers: MapPanelLayersReducer
+            });
+
             // Use combine reducer for new reducers
             const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
             const MapDetailReducer = $window.reducers.MapDetailReducer;
@@ -37,6 +47,7 @@ import { combineReducers } from 'redux';
             const StraatbeeldReducer = $window.reducers.StraatbeeldReducer;
             const UserReducer = $window.reducers.UserReducer;
             const autoSuggestReducer = $window.reducers.AutoSuggestReducer;
+            const DataSelectionCatalogReducer = $window.reducers.DataSelectionCatalogReducer;
             const newRootReducer = combineReducers({
                 dataSelection: DataSelectionReducer,
                 page: PageReducer,
@@ -47,7 +58,9 @@ import { combineReducers } from 'redux';
                 straatbeeld: StraatbeeldReducer,
                 ui: UiReducer,
                 user: UserReducer,
-                autoSuggest: autoSuggestReducer
+                mapLayers,
+                autoSuggest: autoSuggestReducer,
+                catalogFilters: DataSelectionCatalogReducer
             });
             const filteredState = {
                 dataSelection: deprecatedState.dataSelection,
@@ -65,7 +78,9 @@ import { combineReducers } from 'redux';
                 // therefore reset these fields in the state.
                 error: oldState.error,
                 pano: oldState.pano,
-                autoSuggest: oldState.autoSuggest
+                mapLayers: oldState.mapLayers,
+                autoSuggest: oldState.autoSuggest,
+                catalogFilters: oldState.catalogFilters
             };
 
             // Combine old and new reducer states

@@ -2,9 +2,10 @@
 
 exports[`The sharedConfig service gives you the configuration based on global environment 1`] = `
 Object {
-  "API_ROOT": "https://api.data.amsterdam.nl/",
+  "API_ROOT": "https://acc.api.data.amsterdam.nl/",
   "AUTH_HEADER_PREFIX": "Bearer ",
   "RADIUS": 50,
+  "ROOT": "https://acc.data.amsterdam.nl/",
   "ROOT_KEYS": Array [
     "API_ROOT",
   ],
@@ -15,9 +16,10 @@ Object {
 
 exports[`The sharedConfig service gives you the configuration based on global environment 2`] = `
 Object {
-  "API_ROOT": "https://api.data.amsterdam.nl/",
+  "API_ROOT": "https://acc.api.data.amsterdam.nl/",
   "AUTH_HEADER_PREFIX": "Bearer ",
   "RADIUS": 50,
+  "ROOT": "https://acc.data.amsterdam.nl/",
   "ROOT_KEYS": Array [
     "API_ROOT",
   ],
@@ -31,6 +33,7 @@ Object {
   "API_ROOT": "https://acc.api.data.amsterdam.nl/",
   "AUTH_HEADER_PREFIX": "Bearer ",
   "RADIUS": 50,
+  "ROOT": "https://acc.data.amsterdam.nl/",
   "ROOT_KEYS": Array [
     "API_ROOT",
   ],
@@ -44,58 +47,7 @@ Object {
   "API_ROOT": "https://acc.api.data.amsterdam.nl/",
   "AUTH_HEADER_PREFIX": "Bearer ",
   "RADIUS": 50,
-  "ROOT_KEYS": Array [
-    "API_ROOT",
-  ],
-  "STRAATBEELD_THUMB_URL": "panorama/thumbnail/",
-  "THUMBNAIL_WIDTH": 240,
-}
-`;
-
-exports[`The sharedConfig service gives you the configuration based on provided environment 1`] = `
-Object {
-  "API_ROOT": "https://api.data.amsterdam.nl/",
-  "AUTH_HEADER_PREFIX": "Bearer ",
-  "RADIUS": 50,
-  "ROOT_KEYS": Array [
-    "API_ROOT",
-  ],
-  "STRAATBEELD_THUMB_URL": "panorama/thumbnail/",
-  "THUMBNAIL_WIDTH": 240,
-}
-`;
-
-exports[`The sharedConfig service gives you the configuration based on provided environment 2`] = `
-Object {
-  "API_ROOT": "https://api.data.amsterdam.nl/",
-  "AUTH_HEADER_PREFIX": "Bearer ",
-  "RADIUS": 50,
-  "ROOT_KEYS": Array [
-    "API_ROOT",
-  ],
-  "STRAATBEELD_THUMB_URL": "panorama/thumbnail/",
-  "THUMBNAIL_WIDTH": 240,
-}
-`;
-
-exports[`The sharedConfig service gives you the configuration based on provided environment 3`] = `
-Object {
-  "API_ROOT": "https://acc.api.data.amsterdam.nl/",
-  "AUTH_HEADER_PREFIX": "Bearer ",
-  "RADIUS": 50,
-  "ROOT_KEYS": Array [
-    "API_ROOT",
-  ],
-  "STRAATBEELD_THUMB_URL": "panorama/thumbnail/",
-  "THUMBNAIL_WIDTH": 240,
-}
-`;
-
-exports[`The sharedConfig service gives you the configuration based on provided environment 4`] = `
-Object {
-  "API_ROOT": "https://acc.api.data.amsterdam.nl/",
-  "AUTH_HEADER_PREFIX": "Bearer ",
-  "RADIUS": 50,
+  "ROOT": "https://acc.data.amsterdam.nl/",
   "ROOT_KEYS": Array [
     "API_ROOT",
   ],

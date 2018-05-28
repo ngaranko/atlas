@@ -11,12 +11,22 @@ describe('MapContainer', () => {
     initialState = {
       ui: {
         isMapFullscreen: false
+      },
+      map: {
+        drawingMode: 'none'
       }
     };
   });
 
   it('should render', () => {
     const store = configureMockStore()({ ...initialState });
+    const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render', () => {
+    const store = configureMockStore()({ ...initialState, map: { drawingMode: 'draw' } });
     const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
 
     expect(wrapper).toMatchSnapshot();
