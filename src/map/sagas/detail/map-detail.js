@@ -8,7 +8,7 @@ import {
 
 import fetchDetail from '../../services/map-detail';
 
-function* fetchMapDetail(action) {
+export function* fetchMapDetail(action) {
   try {
     const mapDetail = yield call(fetchDetail, action.endpoint, action.user);
     yield put(fetchMapDetailSuccess(action.endpoint, mapDetail || {}));

@@ -1,9 +1,10 @@
+import * as mapDocumentTitle from '../../../../src/map/services/document-title/document-title';
+
 describe('The dpCombinedDocumentTitle factory', function () {
     let combinedDocumentTitle,
         $q,
         $rootScope;
     const detailDocumentTitle = { getTitle: angular.noop },
-        mapDocumentTitle = { getTitle: angular.noop },
         searchResultsDocumentTitle = { getTitle: angular.noop },
         dataSelectionDocumentTitle = { getTitle: angular.noop };
 
@@ -12,7 +13,6 @@ describe('The dpCombinedDocumentTitle factory', function () {
             'dpShared',
             function ($provide) {
                 $provide.value('dpDetailDocumentTitle', detailDocumentTitle);
-                $provide.value('dpMapDocumentTitle', mapDocumentTitle);
                 $provide.value('dpSearchResultsDocumentTitle', searchResultsDocumentTitle);
                 $provide.value('dpDataSelectionDocumentTitle', dataSelectionDocumentTitle);
             }

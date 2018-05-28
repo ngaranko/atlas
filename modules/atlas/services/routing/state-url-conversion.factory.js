@@ -57,8 +57,6 @@
                     [
                         'filters',
                         'isMapPreviewPanelVisible',
-                        'mapBaseLayers',
-                        'mapLayers',
                         'mapSearchResults',
                         'mapSearchResultsByLocation',
                         'mapDetail',
@@ -151,7 +149,6 @@
                     return newState;
                 },
                 mapBaseLayers: ofTypeObject,
-                mapLayers: ofTypeArray,
                 user: ofTypeObject,
                 mapSearchResults: ofTypeArray,
                 mapSearchResultsByLocation: ofTypeObject,
@@ -208,8 +205,6 @@
                     shapeDistanceTxt: '',
                     shapeAreaTxt: ''
                 },
-                mapBaseLayers: {},
-                mapLayers: [],
                 mapSearchResults: [],
                 mapSearchResultsByLocation: {},
                 mapDetail: {

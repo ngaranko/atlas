@@ -185,17 +185,6 @@ describe('The deprecated reducer factory', function () {
                 .toEqual(jasmine.objectContaining({ payload, type: 'FETCH_DETAIL' }));
         });
 
-        it('map layers reducers', function () {
-            spyOn($window.reducers, 'MapLayersReducer');
-
-            reducer(inputState, {
-                type: 'FETCH_MAP_LAYERS_REQUEST'
-            });
-
-            expect($window.reducers.MapLayersReducer.calls.mostRecent().args[1])
-                .toEqual(jasmine.objectContaining({ type: 'FETCH_MAP_LAYERS_REQUEST' }));
-        });
-
         it('map overlays reducers', function () {
             spyOn($window.reducers, 'MapOverlaysReducer');
 
@@ -207,19 +196,6 @@ describe('The deprecated reducer factory', function () {
 
             expect($window.reducers.MapOverlaysReducer.calls.mostRecent().args[1])
                 .toEqual(jasmine.objectContaining({ type: 'TOGGLE_MAP_OVERLAY' }));
-        });
-
-        it('map base layers reducers', function () {
-            spyOn($window.reducers, 'MapBaseLayersReducer');
-
-            reducer(inputState, {
-                type: 'FETCH_MAP_BASE_LAYERS_REQUEST'
-            });
-
-            $timeout.flush();
-
-            expect($window.reducers.MapBaseLayersReducer.calls.mostRecent().args[1])
-                .toEqual(jasmine.objectContaining({ type: 'FETCH_MAP_BASE_LAYERS_REQUEST' }));
         });
     });
 });
