@@ -250,7 +250,7 @@ exports[`MapDetailResultWrapper should render everything 1`] = `
         "
       disabled={false}
       onClick={[MockFunction]}
-      title="Bekijk Panorama view"
+      title="Panoramabeeld tonen"
     >
       <img
         alt="Panoramabeeld"

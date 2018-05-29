@@ -20,7 +20,7 @@ const MapDetailResultWrapper = ({
         `}
         disabled={!panoUrl}
         onClick={onPanoPreviewClick}
-        title={panoUrl ? 'Bekijk Panorama view' : 'Geen Panoramabeeld beschikbaar'}
+        title={panoUrl ? 'Panoramabeeld tonen' : 'Geen Panoramabeeld beschikbaar'}
       >
         {panoUrl && (
           <img
