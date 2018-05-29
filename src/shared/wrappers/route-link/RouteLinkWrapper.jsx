@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
-import RouteLink from './RouteLink';
+import RouteLink from '../../components/route-link/RouteLink';
 
 const RouteLinkWrapper = (props) => (
   <Provider store={window.reduxStore}>

@@ -118,7 +118,7 @@
                 // Only print the map when detail is NOT fullscreen and has geometry
                 return !state.detail.isFullscreen && angular.isObject(state.detail.geometry);
             } else {
-                return state.page && !state.page.name && !state.search;
+                return !(state.page && state.page.name) && !state.search;
             }
         }
 

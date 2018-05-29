@@ -63,8 +63,8 @@ import ACTIONS from '../../../../src/shared/actions';
                         payload: vm.payload
                     };
 
-                    const innerText = $element.find('ng-transclude').find('span')[0] &&
-                        $element.find('ng-transclude').find('span')[0].innerHTML;
+                    const element = $element.find('ng-transclude').find('span')[0];
+                    const innerText = element && element.innerHTML;
                     render(React.createElement(routeLinkWrapper, props, innerText), routeLinkContainer);
                 }
             });
