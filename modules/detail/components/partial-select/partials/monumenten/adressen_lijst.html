@@ -6,10 +6,10 @@
     </h4>
     <ul class="o-list">
         <li ng-repeat="object in apiData.results">
-            <dp-link
+            <dp-link-react
               payload="object.betreft_nummeraanduiding._links.self.href"
               type="FETCH_DETAIL"
-              >{{ object._display }}</dp-link>
+              >{{ object._display }}</dp-link-react>
 
             <span
               class="muted"

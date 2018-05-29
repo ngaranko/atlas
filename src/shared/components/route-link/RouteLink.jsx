@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import applicationState from '../../../../modules/shared/services/redux/application-state';
+import applicationState from '../../../../src/shared/services/redux/application-state';
 import ACTIONS from '../../../../src/shared/actions';
 
 

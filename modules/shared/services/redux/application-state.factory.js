@@ -1,4 +1,4 @@
-import applicationState from './application-state';
+import applicationState from '../../../../src/shared/services/redux/application-state';
 
 (function () {
     angular

@@ -1,4 +1,4 @@
-import getStore from './get-store';
+import getStore from '../../../../src/shared/services/redux/get-store';
 (function () {
     angular
         .module('dpShared')
