@@ -102,34 +102,35 @@ describe('panorama module', () => {
 
   describe('user should be able to interact with the panorama', () => {
     it('should remember the state when closing the pano, and update to search results when clicked in map', () => {
-      const panoUrl = '/#?dte=bag%2Fverblijfsobject%2F03630003761571%2F&mpb=topografie&mpz=16&mpo=pano::T&mpv=52.373434:4.8936217&sbf=Cu&sbh=-Mh&sbi=TMX7315120208-000073_pano_0005_000460&sbl=ZRXE4:3JKXp&sbp=r';
+      const panoUrl = '/#?dte=bag%2Fopenbareruimte%2F03630000004153%2F&mpb=topografie&mpz=11&mpv=52.3663445:4.8834678&sbh=qQ&sbi=TMX7316010203-000714_pano_0001_002608';
       let newUrl;
 
       cy.defineGeoSearchRoutes();
       // TODO: enable this (getTypeAhead) once fetch is supported by Cypress
       // https://github.com/cypress-io/cypress/issues/95
-      // cy.route('/typeahead?q=dam+1').as('getTypeAhead');
-      cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
+      cy.route('/bag/openbareruimte/*').as('getOpenbareRuimte');
       cy.route('/panorama/thumbnail/*').as('getPanoThumbnail');
 
       cy.viewport(1000, 660);
       cy.get('.leaflet-marker-pane').find('img').should('exist').and('be.visible');
-      cy.get('#auto-suggest__input').type('dam 1');
+      cy.get('#auto-suggest__input').type('lei');
 
       // TODO: remove wait(500) and enably the route-wait
       cy.wait(500);
-      // cy.wait('@getTypeAhead');
-      cy.get('.auto-suggest').contains('Dam 1').click();
+      cy.get('.auto-suggest').contains('Leidsegracht').click();
 
-      cy.wait('@getVerblijfsobject');
+      cy.wait('@getOpenbareRuimte');
       cy.wait('@getPanoThumbnail');
       cy.get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
-      cy.get('h2.qa-title').should('exist').and('be.visible').contains('Dam 1');
+      cy.get('h2.qa-title').should('exist').and('be.visible').contains('Leidsegracht');
       cy.get('img.c-straatbeeld-thumbnail--img').click();
 
-      // mimic user drag to right
-      cy.visit(panoUrl);
       cy.wait('@getResults');
+      cy.location().then((loc) => {
+        newUrl = loc.pathname + loc.hash;
+        expect(newUrl).to.equal(panoUrl);
+      });
+
       let largestButtonSize = 0;
       let largestButton;
       cy.get('.qa-hotspot-rotation:visible').each((button) => {
@@ -153,7 +154,7 @@ describe('panorama module', () => {
 
       cy.get('button.c-straatbeeld__close').click();
       cy.get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
-      cy.get('h2.qa-title').should('exist').and('be.visible').contains('Dam 1');
+      cy.get('h2.qa-title').should('exist').and('be.visible').contains('Leidsegracht');
       cy.get('img.c-straatbeeld-thumbnail--img').click();
 
       cy.get('.s-leaflet-draw').click(20, 100);
