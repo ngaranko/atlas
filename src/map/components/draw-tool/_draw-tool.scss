@@ -7,6 +7,10 @@
   top: 8px;
   z-index: 2;
 
+  .toggle-drawing {
+    @extend %hover-focus-button;
+  }
+
   .toggle-drawing,
   .shape-summary,
   .points-available {

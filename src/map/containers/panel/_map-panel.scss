@@ -1,3 +1,4 @@
+@import "../../../shared/styles/config";
 $map-panel-heading-height: 33px;
 $map-panel-offset: 130px;
 $map-panel-max-width: 444px;
@@ -172,6 +173,7 @@ $map-panel-max-width: 444px;
 
   .leaflet-control-zoom-in,
   .leaflet-control-zoom-out {
+    @extend %hover-focus-button;
     background-color: $primary-light;
     border: 1px solid $secondary-gray20;
     border-radius: 0 !important;
@@ -183,18 +185,6 @@ $map-panel-max-width: 444px;
     outline: none;
     padding: 4px;
     width: 24px !important;
-
-    &:focus {
-      background-color: $secondary-gray10;
-      color: $primary-dark;
-    }
-
-    &:hover {
-      background-color: $primary-contrast;
-      border-color: $primary-contrast;
-      color: $primary-light;
-    }
-
   }
 
   .leaflet-control-zoom-in {
