@@ -39,6 +39,10 @@
         fill: $primary-dark;
       }
     }
+
+    &:focus {
+      border-color: $primary-dark;
+    }
   }
 
   .is-embed &,
