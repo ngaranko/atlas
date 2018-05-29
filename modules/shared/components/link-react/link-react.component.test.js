@@ -72,7 +72,7 @@ describe('The dp-link-react component', function () {
         return component;
     }
 
-    fit('renders the react component', () => {
+    it('renders the react component', () => {
         getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload);
         $timeout.flush();
         expect($window.render).toHaveBeenCalled();
