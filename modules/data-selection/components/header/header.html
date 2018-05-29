@@ -27,9 +27,9 @@
 <div ng-if="vm.showTabs" class="o-tabs qa-tabs u-margin__bottom--2">
     <ul>
         <li ng-repeat="tab in vm.tabs" ng-class="{'is-active': tab.isActive}">
-            <dp-link ng-if="!tab.isActive" type="FETCH_DATA_SELECTION" payload="{dataset: tab.dataset, filters: vm.filters, page: 1, view: 'LIST'}" class-name="o-tabs__tab o-tabs__tab--link">
+            <dp-link-react ng-if="!tab.isActive" type="FETCH_DATA_SELECTION" payload="{dataset: tab.dataset, filters: vm.filters, page: 1, view: 'LIST'}" class-name="o-tabs__tab o-tabs__tab--link">
                 {{tab.title}}
-            </dp-link>
+            </dp-link-react>
 
             <span ng-if="tab.isActive" class="o-tabs__tab o-tabs__tab--active">
                 {{tab.title}}

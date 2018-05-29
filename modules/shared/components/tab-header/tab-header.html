@@ -10,7 +10,7 @@
           <span class="u-sr-only">Toevoegen</span>
         </dp-dcatd-button>
 
-        <dp-link ng-if="vm.showReset()"
+        <dp-link-react ng-if="vm.showReset()"
                  type="FETCH_DATA_SELECTION"
                  class-name="c-tab-header__reset qa-go-to-catalogus"
                  payload="{
@@ -20,8 +20,8 @@
                      view: 'CATALOG',
                      page: 1
                  }">
-                 <span>Alle datasets tonen</span>
-        </dp-link>
+                 Alle datasets tonen
+        </dp-link-react>
     </h1>
 
     <div ng-if="vm.totalCount()">
