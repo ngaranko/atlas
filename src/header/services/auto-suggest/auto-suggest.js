@@ -1,4 +1,4 @@
-import apiUrl from '../../../shared/services/api';
+import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config';
 import { getAuthHeaders } from '../../../shared/services/auth/auth';
 
 function formatData(categories) {
@@ -24,7 +24,7 @@ function formatData(categories) {
 }
 
 function search(query) {
-  const uri = `${apiUrl}typeahead?q=${query}`;
+  const uri = `${SHARED_CONFIG.API_ROOT}typeahead?q=${query}`;
   return fetch(uri, { headers: getAuthHeaders() })
     .then((response) => response.json())
     .then((response) => formatData(response));

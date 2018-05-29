@@ -8,7 +8,7 @@ import isEqual from 'lodash.isequal';
 import DrawTool from '../../components/draw-tool/DrawTool';
 import drawToolConfig from '../../services/draw-tool/draw-tool-config';
 
-import { mapClearDrawing, mapEmptyGeometry, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../../shared/ducks/map/map';
+import { mapClearDrawing, mapEmptyGeometry, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../ducks/map/map';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
 import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
@@ -63,7 +63,7 @@ class DrawToolContainer extends React.Component {
     this.getMarkers = this.getMarkers.bind(this);
 
     this.props.initialize(
-      window.leafletMap,
+      this.props.leafletInstance,
       this.onFinishShape,
       this.onDrawingMode,
       this.onUpdateShape
@@ -160,10 +160,12 @@ DrawToolContainer.propTypes = {
   drawingMode: PropTypes.string.isRequired,
   shapeMarkers: PropTypes.number.isRequired,
   shapeDistanceTxt: PropTypes.string.isRequired,
-  dataSelection: PropTypes.object,
+  dataSelection: PropTypes.shape({}),
   geometry: PropTypes.array,
 
-  currentShape: PropTypes.object,
+  currentShape: PropTypes.shape({}),
+
+  leafletInstance: PropTypes.shape({}).isRequired,
 
   toggleDrawing: PropTypes.func.isRequired,
   isEnabled: PropTypes.bool.isRequired,

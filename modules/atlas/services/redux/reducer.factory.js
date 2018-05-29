@@ -26,6 +26,16 @@ import { combineReducers } from 'redux';
             // Run state changes based on old reducers
             const deprecatedState = deprecatedReducer(oldState, action);
 
+            const MapPanelLayersReducer = $window.reducers.PanelLayersReducer;
+            const MapLayersReducer = $window.reducers.MapLayersReducer;
+            const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
+
+            const mapLayers = combineReducers({
+                layers: MapLayersReducer,
+                baseLayers: MapBaseLayersReducer,
+                panelLayers: MapPanelLayersReducer
+            });
+
             // Use combine reducer for new reducers
             const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
             const MapDetailReducer = $window.reducers.MapDetailReducer;
@@ -48,6 +58,7 @@ import { combineReducers } from 'redux';
                 straatbeeld: StraatbeeldReducer,
                 ui: UiReducer,
                 user: UserReducer,
+                mapLayers,
                 autoSuggest: autoSuggestReducer,
                 catalogFilters: DataSelectionCatalogReducer
             });
@@ -67,6 +78,7 @@ import { combineReducers } from 'redux';
                 // therefore reset these fields in the state.
                 error: oldState.error,
                 pano: oldState.pano,
+                mapLayers: oldState.mapLayers,
                 autoSuggest: oldState.autoSuggest,
                 catalogFilters: oldState.catalogFilters
             };

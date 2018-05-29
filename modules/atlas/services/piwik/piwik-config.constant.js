@@ -1,19 +1,21 @@
+import { ENVIRONMENTS } from '../../../../src/shared/environment';
+
 (function () {
     'use strict';
 
     angular
         .module('atlas')
         .constant('PIWIK_CONFIG', {
-            PRODUCTION: {
+            [ENVIRONMENTS.PRODUCTION]: {
                 SITE_ID: 1
             },
-            PRE_PRODUCTION: {
+            [ENVIRONMENTS.PRE_PRODUCTION]: {
                 SITE_ID: 3
             },
-            ACCEPTATION: {
+            [ENVIRONMENTS.ACCEPTANCE]: {
                 SITE_ID: 3
             },
-            DEVELOPMENT: {
+            [ENVIRONMENTS.DEVELOPMENT]: {
                 SITE_ID: 3
             }
         });
