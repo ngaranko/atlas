@@ -1,4 +1,4 @@
-import getSharedConfig from '../../shared-config/shared-config';
+import SHARED_CONFIG from '../../shared-config/shared-config';
 
 class UriStripper {
   /**
@@ -23,7 +23,7 @@ class UriStripper {
    */
   static stripDomain(uri) {
     let result = [uri];
-    const sharedConfig = getSharedConfig();
+    const sharedConfig = SHARED_CONFIG;
 
     const strippedApi = uri.replace(sharedConfig.API_ROOT, '');
 
@@ -52,7 +52,7 @@ class UriStripper {
    */
   static restoreDomain(parts) {
     let result;
-    const sharedConfig = getSharedConfig();
+    const sharedConfig = SHARED_CONFIG;
 
     if (parts.length === 1) {
       // Restore the API_ROOT by default
