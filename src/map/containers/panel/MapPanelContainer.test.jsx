@@ -17,7 +17,17 @@ describe('MapPanelContainer', () => {
         baseLayer: '',
         overlays: []
       },
-      mapLayers: [],
+      mapLayers: {
+        layers: {
+          items: []
+        },
+        baseLayers: {
+          items: []
+        },
+        panelLayers: {
+          items: []
+        }
+      },
       overlays: [{}],
       ui: { isMapPanelHandleVisible: true }
     });

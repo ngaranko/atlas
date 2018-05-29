@@ -5,7 +5,9 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{js,jsx}',
     '!**/*.constant.js',
-    '!**/*.mock.js'
+    '!**/*.mock.js',
+    "!**/index.js",
+    "!src/*.js",
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {

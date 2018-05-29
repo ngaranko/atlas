@@ -37,8 +37,6 @@ describe('The state url conversion definition', function () {
                     name: '',
                     error: false
                 },
-                mapLayers: [],
-                mapBaseLayers: {},
                 mapSearchResults: [],
                 mapSearchResultsByLocation: {},
                 mapDetail: {
@@ -76,8 +74,6 @@ describe('The state url conversion definition', function () {
                 page: undefined,
                 filters: undefined,
                 user: undefined,
-                mapLayers: undefined,
-                mapBaseLayers: undefined,
                 mapSearchResults: undefined,
                 mapSearchResultsByLocation: undefined,
                 mapDetail: undefined,
@@ -290,25 +286,6 @@ describe('The state url conversion definition', function () {
                 expect(newState).toEqual({
                     foo: 'bar'
                 });
-            });
-        });
-
-        describe('The post processing for mapLayers', function () {
-            it('copies all baseLayers from old state', function () {
-                let oldState,
-                    newState;
-
-                oldState = [1, 2];
-                newState = [1, 2];
-
-                stateUrlConversion.post.mapLayers(oldState, newState);
-                expect(newState).toEqual([1, 2]);
-
-                oldState = null;
-                newState = [1, 2];
-
-                stateUrlConversion.post.mapLayers(oldState, newState);
-                expect(newState).toEqual([1, 2]);
             });
         });
 

@@ -1,4 +1,4 @@
-import apiUrl from '../../shared/services/api';
+import SHARED_CONFIG from '../../shared/services/shared-config/shared-config';
 import { getByUrl } from '../../shared/services/api/api';
 
 function getOptions(propertyType) {
@@ -39,6 +39,6 @@ function getCatalogFilters(data) {
 }
 
 export default function fetchFilters() {
-  return getByUrl(`${apiUrl}dcatd/openapi`)
+  return getByUrl(`${SHARED_CONFIG.API_ROOT}dcatd/openapi`)
     .then((data) => getCatalogFilters(data));
 }

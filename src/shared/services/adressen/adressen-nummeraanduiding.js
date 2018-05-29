@@ -1,4 +1,4 @@
-import apiUrl from '../api';
+import SHARED_CONFIG from '../shared-config/shared-config';
 import verblijfsobject from './adressen-verblijfsobject';
 
 export default function fetchByUri(uri) {
@@ -30,7 +30,7 @@ export function fetchByPandId(pandId) {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&');
 
-  return fetch(`${apiUrl}bag/nummeraanduiding/?${queryString}`)
+  return fetch(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`)
     .then((response) => response.json())
     .then((data) => data.results);
 }
@@ -44,7 +44,7 @@ export function fetchByLigplaatsId(ligplaatsId) {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&');
 
-  return fetch(`${apiUrl}bag/nummeraanduiding/?${queryString}`)
+  return fetch(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`)
     .then((response) => response.json())
     .then((data) => data.results
       .map((result) => ({
@@ -68,7 +68,7 @@ export function fetchByStandplaatsId(standplaatsId) {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&');
 
-  return fetch(`${apiUrl}bag/nummeraanduiding/?${queryString}`)
+  return fetch(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`)
     .then((response) => response.json())
     .then((data) => data.results
       .map((result) => ({

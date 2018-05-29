@@ -23,8 +23,6 @@
             const defaultState = stateUrlConverter.getDefaultState();
             return {
                 ...defaultState,
-                mapBaseLayers: state.mapBaseLayers,
-                mapLayers: state.mapLayers,
                 ui: {
                     ...defaultState.ui,
                     isEmbed: state.ui.isEmbed,

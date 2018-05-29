@@ -20,7 +20,7 @@ class MapLegend extends React.Component {
       return legendItem.iconUrl;
     }
     return [
-      '//',
+      'https://',
       process.env.NODE_ENV !== 'production' ? 'acc.map.data.amsterdam.nl' : 'map.data.amsterdam.nl',
       `${mapLayer.url}&`,
       'request=GetLegendGraphic&',
