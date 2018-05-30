@@ -1,5 +1,3 @@
-import DRAW_TOOL_CONFIG from '../../../../../src/map/services/draw-tool/draw-tool-config';
-
 (function () {
     'use strict';
 
@@ -17,7 +15,7 @@ import DRAW_TOOL_CONFIG from '../../../../../src/map/services/draw-tool/draw-too
                     // Straatbeeld and detail can both exist in an invisible state
                     // An invisible straatbeeld or detail determines the meaning of some events
                     // These events are thus context sensitive and therefore handled by this middleware
-                    const { map, straatbeeld, detail, page } = store.getState();
+                    const { straatbeeld, detail, page } = store.getState();
 
                     if (action.type.id === ACTIONS.MAP_CLICK.id) {
                         if (angular.isObject(straatbeeld)) {
@@ -41,17 +39,6 @@ import DRAW_TOOL_CONFIG from '../../../../../src/map/services/draw-tool/draw-too
                             // The default action is to show the search results at the location
                             action.type = ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION;
                             action.payload = straatbeeld.location;
-                        }
-                    }
-
-                    if (map && map.drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE) {
-                        if (action.type === ACTIONS.MAP_ZOOM.id) {
-                            action.type = Object.assign({}, action.type);
-                            action.type.ignore = true;
-                        }
-                        if (action.type === ACTIONS.MAP_PAN.id) {
-                            action.type = Object.assign({}, action.type);
-                            action.type.ignore = true;
                         }
                     }
 

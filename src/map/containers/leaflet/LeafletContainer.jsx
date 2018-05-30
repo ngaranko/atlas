@@ -29,6 +29,7 @@ const mapStateToProps = (state) => ({
   markers: getMarkers(state),
   layers: getLayers(state),
   drawShape: getDrawShape(state),
+  drawingMode: state.map.drawingMode,
   uiState: Object.keys(state.ui).map((key) => (
      state.ui[key]
    )).toString(),
@@ -51,6 +52,8 @@ class LeafletContainer extends React.Component {
       this.MapLeaflet = element;
       this.updateMapBounds();
     };
+    this.handleZoom = this.handleZoom.bind(this);
+    this.handlePan = this.handlePan.bind(this);
   }
 
   componentDidMount() {
@@ -69,6 +72,15 @@ class LeafletContainer extends React.Component {
       this.updateMapBounds();
       this.setState({ uiState });
     }
+  }
+
+  handleZoom(event) {
+    console.log('handleZoom');
+    this.props.onUpdateZoom(event, this.props.drawingMode);
+  }
+
+  handlePan(event) {
+    this.props.onUpdatePan(event, this.props.drawingMode);
   }
 
   updateMapBounds() {
@@ -90,8 +102,6 @@ class LeafletContainer extends React.Component {
       getLeafletInstance,
       layers,
       markers,
-      onUpdatePan,
-      onUpdateZoom,
       onUpdateClick,
       zoom
     } = this.props;
@@ -107,8 +117,8 @@ class LeafletContainer extends React.Component {
         mapOptions={mapOptions}
         markers={markers}
         onClick={onUpdateClick}
-        onDragEnd={onUpdatePan}
-        onZoomEnd={onUpdateZoom}
+        onDragEnd={this.handlePan}
+        onZoomEnd={this.handleZoom}
         ref={this.setMapLeaflet}
         scaleControlOptions={scaleControlOptions}
         zoom={zoom}
@@ -142,6 +152,7 @@ LeafletContainer.propTypes = {
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
   drawShape: PropTypes.shape({}),
+  drawingMode: PropTypes.string.isRequired,
   geoJson: PropTypes.shape({}),
   getLeafletInstance: PropTypes.func.isRequired,
   markers: PropTypes.arrayOf(PropTypes.shape({})),

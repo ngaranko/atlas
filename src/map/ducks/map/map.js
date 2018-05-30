@@ -1,3 +1,5 @@
+import DRAW_TOOL_CONFIG from '../../services/draw-tool/draw-tool-config';
+
 import {
  getMap,
  getActiveBaseLayer,
@@ -24,10 +26,12 @@ export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
 export const MAP_HIGHLIGHT = 'MAP_HIGHLIGHT';
 export const MAP_PAN = 'MAP_PAN';
+export const MAP_PAN_SILENT = 'MAP_PAN_SILENT';
 export const MAP_REMOVE_PANO_OVERLAY = 'MAP_REMOVE_PANO_OVERLAY';
 export const MAP_START_DRAWING = 'MAP_START_DRAWING';
 export const MAP_UPDATE_SHAPE = 'MAP_UPDATE_SHAPE';
 export const MAP_ZOOM = 'MAP_ZOOM';
+export const MAP_ZOOM_SILENT = 'MAP_ZOOM_SILENT';
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
@@ -65,12 +69,14 @@ const overlayExists = (state, newLayer) => (
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
     case MAP_PAN:
+    case MAP_PAN_SILENT:
       return {
         ...state,
         viewCenter: action.payload
       };
 
     case MAP_ZOOM:
+    case MAP_ZOOM_SILENT:
       return {
         ...state,
         zoom: action.payload.zoom,
@@ -188,15 +194,22 @@ export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
 });
 export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
 
-export const updateZoom = (payload) => ({ type: MAP_ZOOM,
-  payload: {
-    ...payload,
-    viewCenter: [payload.center.lat, payload.center.lng]
-  }
-});
+const isDrawingActive = (drawingMode) => drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
 
-export const updatePan = (payload) =>
-  ({ type: MAP_PAN, payload: [payload.center.lat, payload.center.lng] });
+export const updateZoom = (payload, drawingMode) =>
+  ({
+    type: isDrawingActive(drawingMode) ? MAP_ZOOM_SILENT : MAP_ZOOM,
+    payload: {
+      ...payload,
+      viewCenter: [payload.center.lat, payload.center.lng]
+    }
+  });
+
+export const updatePan = (payload, drawingMode) =>
+  ({
+    type: isDrawingActive(drawingMode) ? MAP_PAN_SILENT : MAP_PAN,
+    payload: [payload.center.lat, payload.center.lng]
+  });
 
 window.reducers = window.reducers || {};
 window.reducers.MapReducer = MapReducer;
