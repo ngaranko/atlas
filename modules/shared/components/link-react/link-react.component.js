@@ -57,7 +57,7 @@ import ACTIONS from '../../../../src/shared/actions';
                 if (routeLinkContainer) {
                     const props = {
                         className: vm.className,
-                        inline: vm.inline,
+                        inline: vm.inline === 'false' ? false : true,
                         hoverText: vm.hoverText,
                         type: vm.type,
                         payload: vm.payload

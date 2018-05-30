@@ -150,9 +150,7 @@ function getValueForKey(obj, key) {
   // Uses recursion for endless depth
   const { mainKey, subKey } = getFullKey(key);
   if (subKey) {
-    const temp = isObject(obj[mainKey]) ? getValueForKey(obj[mainKey], subKey) : null;
-    return temp;
-    // return isObject(obj[mainKey]) ? getValueForKey(obj[mainKey], subKey) : null;
+    return isObject(obj[mainKey]) ? getValueForKey(obj[mainKey], subKey) : null;
   }
   return obj[mainKey] || null;
 }
@@ -232,8 +230,7 @@ class StateUrlConverter {
         value = asUrlValue(value, attribute.type, attribute.precision);
         if (value) {
           const valuesRegEx = new RegExp(`(${FILTERS_WITH_POSSIBLE_NO_VALUE.join('|')}):::`, 'g');
-          result[key] = value
-            .replace(valuesRegEx, `$1::${NO_VALUE}:`);
+          result[key] = value.replace(valuesRegEx, `$1::${NO_VALUE}:`);
         }
       }
       return result;
