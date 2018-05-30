@@ -102,7 +102,7 @@ describe('panorama module', () => {
 
   describe('user should be able to interact with the panorama', () => {
     it('should remember the state when closing the pano, and update to search results when clicked in map', () => {
-      const panoUrl = '/#?dte=bag%2Fopenbareruimte%2F03630000004153%2F&mpb=topografie&mpz=11&mpv=52.3663445:4.8834678&sbh=qQ&sbi=TMX7316010203-000714_pano_0001_002608';
+      const panoUrl = '/#?dte=bag%2Fopenbareruimte%2F03630000004153%2F&mpb=topografie&mpz=11&mpv=52.3734173:4.8935939&sbh=qQ&sbi=TMX7316010203-000714_pano_0001_002608';
       let newUrl;
 
       cy.defineGeoSearchRoutes();
