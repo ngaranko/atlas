@@ -38,15 +38,7 @@
 
 
   &.c-straatbeeld-history__button--active {
-    border-color: $primary-dark;
-    outline: none;
-    background-color: $secondary-gray20;
-    color: $primary-dark;
-    fill: $primary-dark;
-
-    svg {
-      fill: $primary-dark;
-    }
+    @extend %active-button;
 
     &::after {
       @extend %dp-down-black-icon;

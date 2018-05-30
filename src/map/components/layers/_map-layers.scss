@@ -90,15 +90,7 @@
       &:focus {
         .map-layers__toggle--add,
         .map-layers__toggle--remove {
-          background-color: $secondary-gray20;
-          border-color: $primary-dark;
-          color: $primary-dark;
-          fill: $primary-dark;
-          outline: none;
-
-          svg { //sass-lint:disable-line nesting-depth
-            fill: $primary-dark;
-          }
+          @extend %active-button;
         }
       }
 
