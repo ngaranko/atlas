@@ -143,9 +143,54 @@ export default [
     detailIsShape: true
   },
   {
+    id: 'gbgs',
+    url: 'maps/wkpb',
+    layers: ['beperking-GS']
+  },
+  {
     id: 'gbep',
     url: 'maps/wkpb',
-    layers: ['wkpb']
+    layers: ['beperking-EP']
+  },
+  {
+    id: 'gbwu',
+    url: 'maps/wkpb',
+    layers: ['beperking-WU']
+  },
+  {
+    id: 'gbkw',
+    url: 'maps/wkpb',
+    layers: ['beperking-KW']
+  },
+  {
+    id: 'gboh',
+    url: 'maps/wkpb',
+    layers: ['beperking-OH']
+  },
+  {
+    id: 'gbhv',
+    url: 'maps/wkpb',
+    layers: ['beperking-HV']
+  },
+  {
+    id: 'gbgg',
+    url: 'maps/wkpb',
+    layers: ['beperking-GG']
+  },
+  {
+    id: 'gbos',
+    url: 'maps/wkpb',
+    layers: ['beperking-OS']
+  },
+  {
+    id: 'gbvv',
+    url: 'maps/wkpb',
+    layers: ['beperking-VV']
+  },
+  {
+    id: 'gbhs',
+    url: 'maps/wkpb',
+    layers: ['beperking-HS']
   },
   // geografie: gebieden
   {

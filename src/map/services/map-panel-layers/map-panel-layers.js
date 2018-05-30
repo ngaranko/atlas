@@ -101,44 +101,66 @@ export default [
   },
   {
     category: 'Geografie: onroerende zaken',
-    id: 'gbep',
-    layers: ['wkpb'],
     legendItems: [
       {
-        selectable: false,
+        id: 'gbgs',
+        layer: 'beperking-GS',
+        selectable: true,
         title: 'Sluiting v. woning etc.'
       },
       {
-        selectable: false,
+        id: 'gbep',
+        layer: 'beperking-EP',
+        selectable: true,
         title: 'Exploitatieplan'
       },
       {
-        selectable: false,
+        id: 'gbwu',
+        layer: 'beperking-WU',
+        selectable: true,
         title: 'Woningwet'
       },
       {
-        selectable: false,
+        id: 'gbkw',
+        layer: 'beperking-KW',
+        selectable: true,
         title: 'Wet bodembescherming'
       },
       {
-        selectable: false,
+        id: 'gboh',
+        layer: 'beperking-OH',
+        selectable: true,
         title: 'WABO bestuursdwang / dwangsom'
       },
       {
-        selectable: false,
+        id: 'gbhv',
+        layer: 'beperking-HV',
+        selectable: true,
         title: 'Vordering tot woonruimte'
       },
       {
-        selectable: false,
+        id: 'gbgg',
+        layer: 'beperking-GG',
+        selectable: true,
         title: 'Gemeentelijk monument'
       },
       {
-        selectable: false,
+        id: 'gbos',
+        layer: 'beperking-OS',
+        selectable: true,
         title: 'Sluiting obv opiumwet'
       },
       {
-        selectable: false,
+        id: 'gbvv',
+        layer: 'beperking-VV',
+        selectable: true,
         title: '(voorlopige) aanwijzing WVG'
+      }
+      {
+        id: 'gbhs',
+        layer: 'beperking-HS',
+        selectable: true,
+        title: 'Splitsingsvergunningstelsel'
       }
     ],
     maxZoom: 16,
