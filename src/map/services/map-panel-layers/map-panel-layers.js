@@ -155,7 +155,7 @@ export default [
         layer: 'beperking-VV',
         selectable: true,
         title: '(voorlopige) aanwijzing WVG'
-      }
+      },
       {
         id: 'gbhs',
         layer: 'beperking-HS',
