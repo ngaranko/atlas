@@ -47,7 +47,8 @@ describe('LeafletContainer', () => {
         viewCenter: [52.4138254, 4.8728099],
         baseLayer: 'topografie',
         zoom: 8,
-        overlays: []
+        overlays: [],
+        drawingMode: 'none'
       },
       user: {
         authenticated: false,
@@ -93,7 +94,8 @@ describe('LeafletContainer', () => {
             id: 'biz',
             isVisible: true
           }
-        ]
+        ],
+        drawingMode: 'none'
       }
     };
     const store = configureMockStore()({ ...stateWithDifferentCenter });

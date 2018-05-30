@@ -75,7 +75,6 @@ class LeafletContainer extends React.Component {
   }
 
   handleZoom(event) {
-    console.log('handleZoom');
     this.props.onUpdateZoom(event, this.props.drawingMode);
   }
 
