@@ -21,7 +21,6 @@ $map-panel-max-width: 444px;
   z-index: 100;
 
   &--collapsed {
-    @extend %hover-focus-button;
     height: auto;
     min-width: auto;
     top: auto;
@@ -69,6 +68,7 @@ $map-panel-max-width: 444px;
   &__toggle {
     @extend %hover-focus-button;
     align-items: center;
+    border: 1px solid transparent;
     border-radius: 0;
     display: flex;
     height: 100%;
@@ -176,6 +176,7 @@ $map-panel-max-width: 444px;
     @extend %hover-focus-button;
     background-color: $primary-light;
     border: 1px solid $secondary-gray20;
+    border-bottom: 1px solid !important;
     border-radius: 0 !important;
     box-shadow: 2px 2px 0 0 $secondary-gray40;
     box-sizing: content-box;
