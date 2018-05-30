@@ -187,11 +187,6 @@ export default [
     url: 'maps/wkpb',
     layers: ['beperking-VV']
   },
-  {
-    id: 'gbhs',
-    url: 'maps/wkpb',
-    layers: ['beperking-HS']
-  },
   // geografie: gebieden
   {
     id: 'gsg',
