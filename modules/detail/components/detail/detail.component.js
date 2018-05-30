@@ -99,7 +99,7 @@ import { getMapClickLocation } from '../../../../src/map/ducks/click-location/ma
                 delete vm.apiData;
                 errorHandler();
             } else {
-                const endpointVersion = category === 'grondexploitatie' ? '?version=2' : '';
+                const endpointVersion = category === 'grondexploitatie' ? '?version=3' : '';
                 api.getByUrl(`${endpoint}${endpointVersion}`).then(function (data) {
                     data = dataFormatter.formatData(data, subject, vm.catalogFilters);
 
