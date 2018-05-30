@@ -421,7 +421,6 @@ const stateUrlConversion = {
       type: 'boolean'
     }
   }
-
 };
 
 export default stateUrlConversion;

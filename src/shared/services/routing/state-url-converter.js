@@ -161,14 +161,12 @@ function setValueForKey(obj, oldObj, key, value) {
   // set obj:{map: {zoom: 9}} to {map: {zoom: 8}} for key 'map.zoom' and value 8
   // the old object is used for createObject() in case of any onCreate method for the state object
   const { mainKey, subKey } = getFullKey(key);
-  let result = obj;
   if (subKey) {
-    result[mainKey] = obj[mainKey] || createObject(oldObj[mainKey], mainKey);
-    result = setValueForKey(result[mainKey], oldObj[mainKey] || {}, subKey, value);
+    obj[mainKey] = obj[mainKey] || createObject(oldObj[mainKey], mainKey);
+    setValueForKey(obj[mainKey], oldObj[mainKey] || {}, subKey, value);
   } else {
-    result[mainKey] = value;
+    obj[mainKey] = value;
   }
-  return result;
 }
 
 function asUrlValue(value, typeName, precision = null, separator = URL_ARRAY_SEPARATOR) {
@@ -234,10 +232,8 @@ class StateUrlConverter {
         value = asUrlValue(value, attribute.type, attribute.precision);
         if (value) {
           const valuesRegEx = new RegExp(`(${FILTERS_WITH_POSSIBLE_NO_VALUE.join('|')}):::`, 'g');
-          return {
-            ...result,
-            [key]: value.replace(valuesRegEx, `$1::${NO_VALUE}:`)
-          };
+          result[key] = value
+            .replace(valuesRegEx, `$1::${NO_VALUE}:`);
         }
       }
       return result;
@@ -252,7 +248,6 @@ class StateUrlConverter {
    */
   static params2state(oldState, params) {
     let newState = createObject(oldState, MAIN_STATE, params);
-
     newState = Object.keys(stateUrlConversion.stateVariables).reduce((result, key) => {
       const attribute = stateUrlConversion.stateVariables[key];
       let value = params[key];
@@ -263,7 +258,7 @@ class StateUrlConverter {
           value = attribute.setValue(value);
         }
         if (value !== null) {
-          return { ...result, ...setValueForKey(result, oldState, attribute.name, value) };
+          setValueForKey(result, oldState, attribute.name, value);
         }
       }
       return result;

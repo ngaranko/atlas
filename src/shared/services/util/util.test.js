@@ -1,6 +1,6 @@
 import './util';
 import { isFunction, isString } from 'util';
-import { isDefined } from './util';
+import { isDefined, cloneObject } from './util';
 
 describe('util service', () => {
   const fn = () => { };
@@ -35,5 +35,12 @@ describe('util service', () => {
     expect(isString(undef)).toBe(false);
     expect(isString(notdefined)).toBe(false);
     expect(isString(str)).toBe(true);
+  });
+
+  it.only('should clone object', () => {
+    const obj = { a: 'a', b: { c: 'c' }, f: () => this.b.c };
+    const cloned = cloneObject(obj);
+    expect(obj).not.toBe(cloned);
+    expect(obj).toEqual(cloned);
   });
 });
