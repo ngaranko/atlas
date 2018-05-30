@@ -20,6 +20,12 @@ module.exports = function(env) {
           secure: false,
           "changeOrigin": true,
           "logLevel": "debug"
+        },
+        '/grondexploitatie': {
+          target: 'http://localhost:8000',
+          secure: false,
+          "changeOrigin": true,
+          "logLevel": "debug"
         }
       }
     },
