@@ -59,8 +59,6 @@ const stateUrlConversion = {
       [
         'filters',
         'isMapPreviewPanelVisible',
-        'mapBaseLayers',
-        'mapLayers',
         'mapSearchResults',
         'mapSearchResultsByLocation',
         'mapDetail',
@@ -158,7 +156,6 @@ const stateUrlConversion = {
       return newState;
     },
     mapBaseLayers: ofTypeObject,
-    mapLayers: ofTypeArray,
     user: ofTypeObject,
     mapSearchResults: ofTypeArray,
     mapSearchResultsByLocation: ofTypeObject,
@@ -217,7 +214,6 @@ const stateUrlConversion = {
       shapeAreaTxt: ''
     },
     mapBaseLayers: {},
-    mapLayers: [],
     mapSearchResults: [],
     mapSearchResultsByLocation: {},
     mapDetail: {
