@@ -149,7 +149,7 @@ class BaseCoder {
     } else if (Array.isArray(value)) {
       return value.map((e) => this.encode(e, nDecimals));
     }
-    return '';
+    return undefined;
   }
 
   /**
@@ -160,6 +160,7 @@ class BaseCoder {
    * @returns {number}
    */
   decode(value, nDecimals = 0) {
+    let result;
     if (isString(value)) {
       let sign = 1;
       let expr = value;
@@ -167,7 +168,7 @@ class BaseCoder {
         sign = -1;
         expr = expr.substr(1);
       }
-      let result = sign * this.decodeString(expr);
+      result = sign * this.decodeString(expr);
       if (nDecimals !== 0) {
         const precisionFactor = BaseCoder.precisionFactor(nDecimals);
         if (isFinite(precisionFactor)) {
@@ -176,11 +177,10 @@ class BaseCoder {
           result = Number.NaN;
         }
       }
-      return result;
     } else if (Array.isArray(value)) {
       return value.map((e) => this.decode(e, nDecimals));
     }
-    return 0;
+    return result;
   }
 }
 
