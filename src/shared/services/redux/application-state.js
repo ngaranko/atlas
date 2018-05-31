@@ -1,5 +1,6 @@
 import * as Redux from 'redux';
 import stateUrlConverter from '../routing/state-url-converter';
+import stateUrlConversion from '../routing/state-url-conversion';
 
 const applicationState = () => {
   let reducer;
@@ -9,6 +10,8 @@ const applicationState = () => {
 
     window.initializeState(Redux, _reducer_, defaultState, ...middleware);
   }
+
+  stateUrlConverter.init(stateUrlConversion);
 
   return {
     initialize,

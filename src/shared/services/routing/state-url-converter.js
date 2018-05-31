@@ -1,6 +1,5 @@
 import isObject from 'lodash.isobject';
 import BaseCoder, { getCoderForBase } from './base-coder/base-coder';
-import stateUrlConversion from './state-url-conversion';
 import { isDefined, isFunction } from '../util/util';
 
 const URL_ARRAY_SEPARATOR = ':';    // Choose any of -._~:[]@!$'()*+,;`.
@@ -117,19 +116,6 @@ class ArrayValue {
   }
 }
 
-function createObject(oldObj, key, params) {
-  // create a state object by using its initial value (default {}) and onCreate method if defined
-  const initialValues = stateUrlConversion.initialValues;
-  const initialValue = initialValues[key] || {};
-  const onCreate = stateUrlConversion.onCreate[key];
-
-  let newObj = { ...initialValue };
-  if (isFunction(onCreate)) {
-    newObj = onCreate(oldObj, newObj, params, initialValues);
-  }
-  return newObj;
-}
-
 function getFullKey(key) {
   // decompose 'map.viewCenter' in {mainKey: 'map', subKey: 'viewCenter'}
   // or 'isPrintmode' in {mainKey: 'isPrintmode'}
@@ -160,7 +146,7 @@ function setValueForKey(obj, oldObj, key, value) {
   // the old object is used for createObject() in case of any onCreate method for the state object
   const { mainKey, subKey } = getFullKey(key);
   if (subKey) {
-    obj[mainKey] = obj[mainKey] || createObject(oldObj[mainKey], mainKey); // eslint-disable-line
+    obj[mainKey] = obj[mainKey] || stateUrlConverter.createObject(oldObj[mainKey], mainKey); // eslint-disable-line
     setValueForKey(obj[mainKey], oldObj[mainKey] || {}, subKey, value);
   } else {
     obj[mainKey] = value; // eslint-disable-line no-param-reassign
@@ -214,13 +200,32 @@ function asStateValue(decodedValue, typeName, precision = null, separator = URL_
   return stateValue;
 }
 
+const stateUrlConverter = {
+  stateUrlConversion: {},
 
-class StateUrlConverter {
+  init: (stateUrlConversion) => {
+    stateUrlConverter.stateUrlConversion = stateUrlConversion;
+  },
 
-  static state2params(state) {
+  createObject: (oldObj, key, params) => {
+    // create a state object by using its initial value (default {}) and onCreate method if defined
+    const initialValues = stateUrlConverter.stateUrlConversion.initialValues;
+    const initialValue = initialValues[key] || {};
+    const onCreate = stateUrlConverter.stateUrlConversion.onCreate[key];
+
+    let newObj = { ...initialValue };
+    if (isFunction(onCreate)) {
+      newObj = onCreate(oldObj, newObj, params, initialValues);
+    }
+    return newObj;
+  },
+
+
+  state2params: (state) => {
+    const { stateVariables } = stateUrlConverter.stateUrlConversion;
     // Converts a state to a params object that is stored in the url
-    return Object.keys(stateUrlConversion.stateVariables).reduce((result, key) => {
-      const attribute = stateUrlConversion.stateVariables[key];
+    return Object.keys(stateVariables).reduce((result, key) => {
+      const attribute = stateVariables[key];
       let value = getValueForKey(state, attribute.name);
       if (value !== null) {
         // store value in url
@@ -235,7 +240,7 @@ class StateUrlConverter {
       }
       return result;
     }, {});
-  }
+  },
 
   /**
    * Converts a params object (payload or url value) to a new state object
@@ -243,8 +248,10 @@ class StateUrlConverter {
    * @param  {object} params   list of get parameters
    * @return {object}          new state
    */
-  static params2state(oldState, params) {
-    let newState = createObject(oldState, MAIN_STATE, params);
+  params2state: (oldState, params) => {
+    const stateUrlConversion = stateUrlConverter.stateUrlConversion;
+
+    let newState = stateUrlConverter.createObject(oldState, MAIN_STATE, params);
     newState = Object.keys(stateUrlConversion.stateVariables).reduce((result, key) => {
       const attribute = stateUrlConversion.stateVariables[key];
       let value = params[key];
@@ -283,22 +290,20 @@ class StateUrlConverter {
       });
     }
     return newState;
-  }
+  },
 
-  static state2url(state) {
+  state2url: (state) => {
     // Convert the url parameters object into a url parameter string
-    const params = StateUrlConverter.state2params(state);
+    const params = stateUrlConverter.state2params(state);
     return `#${Object.keys(params).reduce((result, key) => {
       let value = result;
       value += value ? '&' : '?';
       value += `${key}=${(params[key])}`;
       return value;
     }, '')}`;
-  }
+  },
 
-  static getDefaultState() {
-    return StateUrlConverter.params2state({}, {});
-  }
-}
+  getDefaultState: () => stateUrlConverter.params2state({}, {})
+};
 
-export default StateUrlConverter;
+export default stateUrlConverter;

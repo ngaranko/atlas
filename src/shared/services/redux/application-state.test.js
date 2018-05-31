@@ -3,7 +3,7 @@ import applicationState from './application-state';
 
 jest.mock('redux');
 
-describe('The applicationState', () => {
+fdescribe('The applicationState', () => {
   const fakeReducer = 'I_AM_THE_REDUCER';
   const fakeDefaultState = 'THIS_IS_THE_DEFAULT_STATE';
   const fakeMiddleware = 'I_AM_MIDDLEWARE';

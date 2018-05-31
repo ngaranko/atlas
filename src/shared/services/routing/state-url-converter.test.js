@@ -1,11 +1,14 @@
 import DRAW_TOOL_CONFIG from '../../../../src/map/services/draw-tool/draw-tool-config';
 import stateUrlConverter from './state-url-converter';
-import stateUrlConversion from './state-url-conversion';
+import defaultStateUrlConversion from './state-url-conversion';
 import mockedStateUrlConversion from './state-url-conversion.mock';
-import { cloneObject } from '../util/util';
 
-describe('The state url conversion factory', () => {
+describe.only('The state url conversion factory', () => {
   describe('The default state', () => {
+    beforeEach(() => {
+      stateUrlConverter.init(defaultStateUrlConversion);
+    });
+
     it('is exported as DEFAULT_STATE', () => {
       const DEFAULT_STATE = stateUrlConverter.getDefaultState();
 
@@ -62,10 +65,14 @@ describe('The state url conversion factory', () => {
   });
 
   describe('the translation methods', () => {
+    let stateUrlConversion;
     beforeEach(() => {
-      Object.keys(mockedStateUrlConversion).forEach((key) => {
-        stateUrlConversion[key] = cloneObject(mockedStateUrlConversion[key]);
-      });
+      stateUrlConversion = {
+        ...mockedStateUrlConversion,
+        initialValues: { ...mockedStateUrlConversion.initialValues },
+        stateVariables: { ...mockedStateUrlConversion.stateVariables }
+      };
+      stateUrlConverter.init(stateUrlConversion);
     });
 
     describe('The state to params translation', () => {
@@ -166,15 +173,20 @@ describe('The state url conversion factory', () => {
 
       it('skips values of unknown type', () => {
         stateUrlConversion.stateVariables.s.type = 'string1';
+        stateUrlConverter.init(stateUrlConversion);
         const params = stateUrlConverter.state2params({
           s: 'aap'
         });
 
         expect(params).toEqual({});
+        stateUrlConversion.stateVariables.s.type = 'string';
       });
     });
 
     describe('The state to url string', () => {
+      beforeEach(() => {
+      });
+
       it('returns a url string for the converted state', () => {
         const mockedState = {
           s: 'aap',
@@ -182,6 +194,7 @@ describe('The state url conversion factory', () => {
             b: true
           }
         };
+
         const link = stateUrlConverter.state2url(mockedState);
         expect(link).toEqual('#?s=aap&b=T');
       });
@@ -294,6 +307,7 @@ describe('The state url conversion factory', () => {
             aap: 'noot'
           }
         };
+        stateUrlConverter.init(stateUrlConversion);
 
         const state = stateUrlConverter.params2state({}, { b: 'T' });
         expect(state).toEqual({
@@ -310,6 +324,7 @@ describe('The state url conversion factory', () => {
             aap: 'noot'
           }
         };
+        stateUrlConverter.init(stateUrlConversion);
 
         const state = stateUrlConverter.params2state({}, {});
         expect(state).toEqual({
@@ -323,6 +338,7 @@ describe('The state url conversion factory', () => {
             mies: 'teun'
           }
         };
+        stateUrlConverter.init(stateUrlConversion);
 
         const state = stateUrlConverter.params2state({}, {});
         expect(state).toEqual({
@@ -344,6 +360,7 @@ describe('The state url conversion factory', () => {
           }
         };
 
+        stateUrlConverter.init(stateUrlConversion);
         const state = stateUrlConverter.params2state({
           x: {
             aap: 'old noot'
@@ -371,6 +388,7 @@ describe('The state url conversion factory', () => {
               aap: 'new noot'
             }
           };
+          stateUrlConverter.init(stateUrlConversion);
 
           const state = stateUrlConverter.params2state({
             aap: 'old noot'
@@ -399,6 +417,7 @@ describe('The state url conversion factory', () => {
             aap: 'new noot'
           }
         };
+        stateUrlConverter.init(stateUrlConversion);
 
         const state = stateUrlConverter.params2state({
           x: {
@@ -417,6 +436,7 @@ describe('The state url conversion factory', () => {
 
       it('skips values of unknown type', () => {
         stateUrlConversion.stateVariables.s.type = 'string1';
+        stateUrlConverter.init(stateUrlConversion);
         const state = stateUrlConverter.params2state({}, { s: 'mies' });
         expect(state).toEqual({});
       });
