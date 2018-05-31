@@ -24,7 +24,7 @@ describe('the dp-detail component', () => {
         angular.mock.module(
             'dpDetail', {
                 store: {
-                    dispatch: () => { },
+                    dispatch: () => {},
                     getState: angular.noop
                 },
                 api: {
@@ -161,9 +161,6 @@ describe('the dp-detail component', () => {
                         ];
                     }
                 },
-                nearestDetail: {
-                    getLocation: () => [52.654, 4.987]
-                },
                 markdownParser: {
                     parse: angular.noop
                 }
@@ -199,6 +196,7 @@ describe('the dp-detail component', () => {
 
         spyOn(store, 'dispatch');
         spyOn(store, 'getState').and.returnValue({
+            mapClickLocation: { latitude: 52.654, longitude: 4.987 },
             map: {
                 highlight: true
             }

@@ -1,3 +1,10 @@
+import {
+  MAP_ZOOM,
+  MAP_PAN,
+  MAP_ADD_PANO_OVERLAY,
+  MAP_REMOVE_PANO_OVERLAY,
+  MAP_HIGHLIGHT
+} from '../map/ducks/map/map';
 //
 // ACTIONS are identified by their id
 // Optionally an action can specify:
@@ -43,17 +50,12 @@ export default {
   SHOW_SEARCH_RESULTS: {
     id: 'SHOW_SEARCH_RESULTS'
   },
-
-  SHOW_MAP: {
-    id: 'SHOW_MAP',
-    isButton: false
-  },
   MAP_ADD_PANO_OVERLAY: {
-    id: 'MAP_ADD_PANO_OVERLAY',
+    id: MAP_ADD_PANO_OVERLAY,
     ignore: true
   },
   MAP_REMOVE_PANO_OVERLAY: {
-    id: 'MAP_REMOVE_PANO_OVERLAY',
+    id: MAP_REMOVE_PANO_OVERLAY,
     ignore: true
   },
   MAP_CLICK: {
@@ -65,15 +67,15 @@ export default {
     ignore: true
   },
   MAP_PAN: {
-    id: 'MAP_PAN',
+    id: MAP_PAN,
     replace: true
   },
   MAP_ZOOM: {
-    id: 'MAP_ZOOM',
+    id: MAP_ZOOM,
     replace: true
   },
   MAP_HIGHLIGHT: {
-    id: 'MAP_HIGHLIGHT',
+    id: MAP_HIGHLIGHT,
     ignore: true
   },
   MAP_START_DRAWING: {

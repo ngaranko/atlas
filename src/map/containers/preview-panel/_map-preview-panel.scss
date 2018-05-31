@@ -44,30 +44,28 @@ $map-preview-panel-max-width: 440px;
   }
 
   &__button {
+    @extend %hover-focus-button;
     border-radius: 0;
     height: 24px;
     margin-left: 4px;
     outline: none;
     width: 24px;
 
-    &:hover {
-      background-color: $primary-contrast;
-    }
-
     &--show-all {
       align-items: center;
       display: flex;
       flex-grow: 1;
 
-      &:hover {
-        background-color: transparent;
+      &:hover,
+      &:focus {
+        background-color: transparent !important; //override %hover-focus-button
 
-        .map-preview-panel__button-label {
+        .map-preview-panel__button-label { //sass-lint:disable-line nesting-depth
           color: $primary-contrast;
           text-decoration: underline;
         }
 
-        .map-preview-panel__button-icon {
+        .map-preview-panel__button-icon { //sass-lint:disable-line nesting-depth
           fill: $primary-contrast;
         }
       }
@@ -88,10 +86,6 @@ $map-preview-panel-max-width: 440px;
       fill: $secondary-gray60;
       height: inherit;
       width: inherit;
-
-      *:hover > & {
-        fill: $primary-light;
-      }
     }
   }
 

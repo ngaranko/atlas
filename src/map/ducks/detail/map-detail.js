@@ -1,10 +1,58 @@
+import { createSelector } from 'reselect';
+
+import { isSearchActive } from '../search-results/map-search-results';
+import { getDataSelection } from '../data-selection/data-selection';
+
+const detailSelector = (state) => state.detail;
+const mapDetailSelector = (state) => state.mapDetail;
+
+export const getCurrentEndpoint = createSelector(mapDetailSelector,
+  (mapDetail) => mapDetail.currentEndpoint);
+
+export const getAllResults = createSelector(mapDetailSelector,
+  (mapDetail) => mapDetail.byEndpoint);
+
+export const selectLatestMapDetail = createSelector([getCurrentEndpoint, getAllResults],
+  (currentEndpoint, byEndpoint) => (
+    currentEndpoint && byEndpoint && byEndpoint[currentEndpoint]
+  ));
+
+export const getMapDetailGeometry = createSelector(selectLatestMapDetail,
+  (activeMapDetail) => (
+     activeMapDetail && activeMapDetail.geometrie
+));
+
+export const getGeometry = createSelector([detailSelector, getMapDetailGeometry],
+  (detail, mapDetailGeometry) => (
+    detail && detail.geometry ? detail.geometry : mapDetailGeometry
+  )
+);
+
+export const shouldShowGeoJson = createSelector([detailSelector, isSearchActive, getDataSelection],
+ (detailActive, searchActive, dataSelectionActive) => (
+   Boolean(detailActive && !searchActive && !dataSelectionActive)
+ )
+);
+
+export const getGeoJson = createSelector(
+  [shouldShowGeoJson, getGeometry, detailSelector],
+  (isGeoJsonActive, geometry, detail) => (
+    (isGeoJsonActive && geometry) ? {
+      geometry,
+      label: detail && detail.display ? detail.display : ''
+    } : {}
+  )
+);
+
 export const FETCH_MAP_DETAIL_REQUEST = 'FETCH_MAP_DETAIL_REQUEST';
-const FETCH_MAP_DETAIL_SUCCESS = 'FETCH_MAP_DETAIL_SUCCESS';
-const FETCH_MAP_DETAIL_FAILURE = 'FETCH_MAP_DETAIL_FAILURE';
+export const FETCH_MAP_DETAIL_SUCCESS = 'FETCH_MAP_DETAIL_SUCCESS';
+export const FETCH_MAP_DETAIL_FAILURE = 'FETCH_MAP_DETAIL_FAILURE';
 
 const initialState = {
   byEndpoint: {},
-  isLoading: false
+  isLoading: false,
+  currentEndpoint: '',
+  error: ''
 };
 
 export default function MapDetailReducer(state = initialState, action) {
@@ -29,17 +77,14 @@ export default function MapDetailReducer(state = initialState, action) {
     case FETCH_MAP_DETAIL_FAILURE:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        error: action.error
       };
 
     default:
       return state;
   }
 }
-
-export const selectLatestMapDetail = (state) =>
-  state.mapDetail && state.mapDetail.currentEndpoint &&
-  state.mapDetail.byEndpoint[state.mapDetail.currentEndpoint];
 
 export const getMapDetail = (endpoint, user) => ({
   type: FETCH_MAP_DETAIL_REQUEST,

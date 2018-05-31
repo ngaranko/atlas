@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getMapBaseLayers, setMapBaseLayer } from '../../ducks/base-layers/map-base-layers';
-import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/map-overlays';
-import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
+import { setMapBaseLayer, toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/map/map';
+import { selectActivePanelLayers } from '../../ducks/panel-layers/map-panel-layers';
+import { getBaseLayers } from '../../ducks/base-layers/map-base-layers';
 import { toggleMapPanel, toggleMapPanelHandle } from '../../../shared/ducks/ui/ui';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
@@ -17,14 +17,14 @@ import MapLayersIcon from '../../../../public/images/icon-map-layers.svg';
 
 const mapStateToProps = (state) => ({
   activeBaseLayer: state.map.baseLayer,
-  activeMapLayers: selectActiveMapLayers(state),
+  activeMapLayers: selectActivePanelLayers(state),
   atlas: state.atlas,
   isMapPanelVisible: state.ui.isMapPanelVisible,
   isMapLayersVisible: state.ui.isMapLayersVisible,
   isEachOverlayInvisible: state.map.overlays.every((overlay) => overlay.isVisible),
   isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,
-  mapBaseLayers: state.mapBaseLayers,
-  mapLayers: state.mapLayers,
+  mapBaseLayers: getBaseLayers(state),
+  mapLayers: state.mapLayers.panelLayers.items,
   overlays: state.map.overlays,
   zoomLevel: state.map.zoom,
   user: state.user
@@ -40,11 +40,6 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 }, dispatch);
 
 class MapPanelContainer extends React.Component {
-  componentDidMount() {
-    this.context.store.dispatch(getMapBaseLayers());
-    this.context.store.dispatch(getMapLayers());
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.isMapPanelVisible && prevProps.overlays.length < this.props.overlays.length) {
       const scrollEl = document.querySelector('.map-panel .map-legend');

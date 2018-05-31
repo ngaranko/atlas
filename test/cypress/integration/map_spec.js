@@ -160,7 +160,7 @@ describe('map module', () => {
       // the map container should exist
       cy.get(map).should('exist').and('be.visible');
       // the leaflet map should exist
-      cy.get('.s-leaflet-draw').should('exist').and('be.visible');
+      cy.get('.leaflet-container').should('exist').and('be.visible');
       // the leaflet map should exist and should contain img
       cy.get('.leaflet-tile-container').find('img').should('exist').and('be.visible');
     });

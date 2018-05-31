@@ -1,3 +1,5 @@
+import { getMapClickLocation } from '../../../../src/map/ducks/click-location/map-click-location';
+
 (function () {
     angular
         .module('dpDetail')
@@ -26,7 +28,6 @@
         'geojson',
         'crsConverter',
         'dataFormatter',
-        'nearestDetail',
         'markdownParser'
     ];
 
@@ -41,7 +42,6 @@
         geojson,
         crsConverter,
         dataFormatter,
-        nearestDetail,
         markdownParser
     ) {
         /* eslint-enable max-params */
@@ -77,7 +77,9 @@
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
-            vm.geosearchButton = vm.isMapHighlight ? false : nearestDetail.getLocation();
+            const location = getMapClickLocation(store.getState());
+
+            vm.geosearchButton = vm.isMapHighlight ? false : [location.latitude, location.longitude];
 
             const [category, subject] = endpointParser.getParts(endpoint);
 
@@ -97,7 +99,7 @@
                 delete vm.apiData;
                 errorHandler();
             } else {
-                const endpointVersion = category === 'grondexploitatie' ? '?version=2' : '';
+                const endpointVersion = category === 'grondexploitatie' ? '?version=3' : '';
                 api.getByUrl(`${endpoint}${endpointVersion}`).then(function (data) {
                     data = dataFormatter.formatData(data, subject, vm.catalogFilters);
 

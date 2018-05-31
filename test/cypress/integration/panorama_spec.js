@@ -89,7 +89,7 @@ describe('panorama module', () => {
           .should('exist');
 
         // click on the leaflet map with a different position
-        cy.get('.s-leaflet-draw').trigger('click', 20, 100);
+        cy.get('.leaflet-container').trigger('click', 20, 100);
 
         cy.wait('@getResults');
         // the coordinates should be different
@@ -102,7 +102,7 @@ describe('panorama module', () => {
 
   describe('user should be able to interact with the panorama', () => {
     it('should remember the state when closing the pano, and update to search results when clicked in map', () => {
-      const panoUrl = '/#?dte=bag%2Fopenbareruimte%2F03630000004153%2F&mpb=topografie&mpz=11&mpv=52.3663445:4.8834678&sbh=qQ&sbi=TMX7316010203-000714_pano_0001_002608';
+      const panoUrl = '/#?dte=bag%2Fopenbareruimte%2F03630000004153%2F&mpb=topografie&mpz=11&mpo=pano::T&mpv=52.3663002:4.883519&sbf=Cu&sbh=qQ&sbi=TMX7316010203-000714_pano_0001_002608&sbl=ZREfS:3IuGM';
       let newUrl;
 
       cy.defineGeoSearchRoutes();
@@ -157,7 +157,7 @@ describe('panorama module', () => {
       cy.get('h2.qa-title').should('exist').and('be.visible').contains('Leidsegracht');
       cy.get('img.c-straatbeeld-thumbnail--img').click();
 
-      cy.get('.s-leaflet-draw').click(20, 100);
+      cy.get('.leaflet-container').click(20, 100);
 
       cy.wait('@getResults');
       // verify that something happened by comparing the url

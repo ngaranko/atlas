@@ -425,7 +425,8 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_ADD_PANO_OVERLAY
+                type: 'MAP_ADD_PANO_OVERLAY',
+                payload: {}
             });
         });
 
@@ -444,10 +445,9 @@ describe('The dashboard component', function () {
 
             $rootScope.$digest();
 
-            expect(store.dispatch.calls.mostRecent()).toEqual(jasmine.objectContaining({ args: [{ type: {
-                id: 'MAP_REMOVE_PANO_OVERLAY',
-                ignore: true
-            } }] }));
+            expect(store.dispatch.calls.mostRecent()).toEqual(jasmine.objectContaining({ args: [{
+                type: 'MAP_REMOVE_PANO_OVERLAY'
+            }] }));
         });
 
         it('are changed when the straatbeeld history selection changes', () => {
@@ -463,7 +463,8 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_ADD_PANO_OVERLAY
+                type: 'MAP_ADD_PANO_OVERLAY',
+                payload: { history: 2020 }
             });
 
             store.dispatch.calls.reset();
@@ -474,7 +475,8 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_ADD_PANO_OVERLAY
+                type: ACTIONS.MAP_ADD_PANO_OVERLAY.id,
+                payload: { history: 2018 }
             });
 
             store.dispatch.calls.reset();
@@ -485,7 +487,8 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_ADD_PANO_OVERLAY
+                type: ACTIONS.MAP_ADD_PANO_OVERLAY.id,
+                payload: { history: null }
             });
         });
     });

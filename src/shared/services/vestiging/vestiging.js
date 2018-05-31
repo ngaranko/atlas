@@ -4,7 +4,7 @@ import { getAuthHeaders } from '../auth/auth';
 import getCenter from '../geo-json/geo-json';
 import { rdToWgs84 } from '../coordinate-reference-system/crs-converter';
 import maatschappelijkeActiviteit from '../maatschappelijke-activiteit/maatschappelijke-activiteit';
-import apiUrl from '../api';
+import SHARED_CONFIG from '../shared-config/shared-config';
 
 
 export default function fetchByUri(uri) {
@@ -47,7 +47,7 @@ export function fetchByPandId(pandId) {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&');
 
-  return fetch(`${apiUrl}handelsregister/vestiging/?${queryString}`,
+  return fetch(`${SHARED_CONFIG.API_ROOT}handelsregister/vestiging/?${queryString}`,
     { headers: getAuthHeaders() }
   )
     .then((response) => response.json())
@@ -63,7 +63,7 @@ export function fetchByAddressId(addressId) {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&');
 
-  return fetch(`${apiUrl}handelsregister/vestiging/?${queryString}`,
+  return fetch(`${SHARED_CONFIG.API_ROOT}}handelsregister/vestiging/?${queryString}`,
     { headers: getAuthHeaders() }
   )
     .then((response) => response.json())
