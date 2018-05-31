@@ -122,7 +122,13 @@ class MapLeaflet extends React.Component {
     } = this.props;
     return (
       <ResizeAware
-        style={{ position: 'relative', height: '100%' }}
+        style={{
+          bottom: '0',
+          left: '0',
+          position: 'absolute',
+          right: '0',
+          top: '0'
+        }}
         onlyEvent
         onResize={this.handleResize}
       >
