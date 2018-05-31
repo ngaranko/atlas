@@ -77,7 +77,6 @@
     .select-button__icon-wrapper {
       @extend %hover-focus-button;
       border-color: $secondary-gray32;
-      color: $secondary-gray60;
     }
 
     &.select-button--expanded {
