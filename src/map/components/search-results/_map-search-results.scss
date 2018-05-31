@@ -23,6 +23,11 @@ $below-list-height: 1px + $map-preview-panel-bottom;
     &-pano-button {
       height: 100%;
       width: 100%;
+
+      &:focus {
+        outline: 2px solid $primary-dark;
+        outline-offset: -2px;
+      }
     }
 
     &-pano-button--disabled {
@@ -86,6 +91,7 @@ $below-list-height: 1px + $map-preview-panel-bottom;
   }
 
   &__button {
+    @extend %hover-focus-button;
     align-items: center;
     background-color: $primary-light;
     border: 1px solid $secondary-gray20;
@@ -98,12 +104,6 @@ $below-list-height: 1px + $map-preview-panel-bottom;
     margin: auto;
     padding: 6px 16px 6px 8px;
     width: auto;
-
-    &:hover {
-      background-color: $primary-contrast;
-      color: $primary-light;
-      fill: $primary-light;
-    }
 
     &-icon {
       fill: inherit;

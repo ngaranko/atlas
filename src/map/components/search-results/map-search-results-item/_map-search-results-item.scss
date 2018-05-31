@@ -6,11 +6,8 @@
     border-top: 1px solid $secondary-gray10;
   }
 
-  &:hover {
-    background-color: $secondary-gray10;
-  }
-
   &__button {
+    @extend %hover-focus-listitem;
     align-items: center;
     display: flex;
     padding: 4px 8px;

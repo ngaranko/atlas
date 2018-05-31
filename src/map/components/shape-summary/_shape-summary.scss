@@ -1,4 +1,4 @@
-@import "../../../shared/styles/config/variables/colors";
+@import "../../../shared/styles/config";
 
 .shape-summary {
   background-color: $primary-light;
@@ -8,18 +8,11 @@
   padding: 4px;
 
   &__button {
+    @extend %hover-focus-button;
     display: block;
-    fill: $secondary-gray20;
+    fill: $secondary-gray60;
     height: 24px;
     width: 24px;
-
-    &:focus,
-    &:hover {
-      background-color: $primary-contrast;
-      border-color: $primary-contrast;
-      color: $primary-light;
-      fill: $primary-light;
-    }
   }
 
   &__label {

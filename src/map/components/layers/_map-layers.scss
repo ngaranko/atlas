@@ -72,6 +72,7 @@
     }
 
     button {
+      @extend %hover-focus-listitem;
       align-items: center;
       background-color: transparent;
       border: none;
@@ -84,6 +85,14 @@
       overflow: hidden;
       padding: 0;
       width: 100%;
+
+      &:hover,
+      &:focus {
+        .map-layers__toggle--add,
+        .map-layers__toggle--remove {
+          @extend %active-button;
+        }
+      }
 
       .map-layers__toggle-title {
         overflow: hidden;
@@ -115,15 +124,6 @@
 
     .map-layers__title--active & {
       border-color: $secondary-gray60;
-    }
-
-    .map-layers__title:hover & { // sass-lint:disable-line force-pseudo-nesting
-      background-color: $primary-contrast;
-      border-color: $primary-contrast;
-
-      svg {
-        fill: $primary-light;
-      }
     }
   }
 
