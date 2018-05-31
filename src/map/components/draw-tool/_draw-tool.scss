@@ -7,6 +7,10 @@
   top: 8px;
   z-index: 2;
 
+  .toggle-drawing {
+    @extend %hover-focus-button;
+  }
+
   .toggle-drawing,
   .shape-summary,
   .points-available {
@@ -74,6 +78,12 @@
 
     .leaflet-dragging & {
       cursor: move;
+    }
+
+    &:focus {
+      border: 1px solid $primary-dark;
+      border-radius: 50%;
+      outline: none;
     }
   }
 }

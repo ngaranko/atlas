@@ -23,8 +23,8 @@ describe('The deprecated reducer factory', function () {
                         detailReducer: angular.noop,
                         MapLayersReducer: angular.noop,
                         MapPanelReducer: angular.noop,
-                        MapOverlaysReducer: angular.noop,
-                        MapBaseLayersReducer: angular.noop
+                        MapBaseLayersReducer: angular.noop,
+                        MapPreviewPanelReducer: angular.noop
                     }
                 },
                 freeze: jasmine.createSpyObj('freeze', ['deepFreeze']),
@@ -129,7 +129,6 @@ describe('The deprecated reducer factory', function () {
         reducer(inputState, {type: {id: 'ACTION_A'}});
         reducer(inputState, {type: {id: 'ACTION_B'}});
         reducer(inputState, {type: {id: 'ACTION_C'}});
-        reducer(inputState, {type: {id: 'ACTION_E'}});
         reducer(inputState, {type: {id: 'ACTION_F'}});
         reducer(inputState, {type: {id: 'ACTION_G'}});
         reducer(inputState, {type: {id: 'ACTION_H'}});
@@ -138,7 +137,7 @@ describe('The deprecated reducer factory', function () {
 
         expect(urlReducers.ACTION_A).toHaveBeenCalled();
         expect(homeReducers.ACTION_C).toHaveBeenCalled();
-        expect(mapReducers.ACTION_E).toHaveBeenCalled();
+        expect(mapReducers.ACTION_E).not.toHaveBeenCalled();
         expect(pageReducers.ACTION_F).toHaveBeenCalled();
         expect(searchReducers.ACTION_G).toHaveBeenCalled();
         expect(straatbeeldReducers.ACTION_H).toHaveBeenCalled();
@@ -186,16 +185,16 @@ describe('The deprecated reducer factory', function () {
         });
 
         it('map overlays reducers', function () {
-            spyOn($window.reducers, 'MapOverlaysReducer');
+            spyOn($window.reducers, 'MapPreviewPanelReducer');
 
             reducer(inputState, {
-                type: 'TOGGLE_MAP_OVERLAY'
+                type: 'CLOSE_MAP_PREVIEW_PANEL'
             });
 
             $timeout.flush();
 
-            expect($window.reducers.MapOverlaysReducer.calls.mostRecent().args[1])
-                .toEqual(jasmine.objectContaining({ type: 'TOGGLE_MAP_OVERLAY' }));
+            expect($window.reducers.MapPreviewPanelReducer.calls.mostRecent().args[1])
+                .toEqual(jasmine.objectContaining({ type: 'CLOSE_MAP_PREVIEW_PANEL' }));
         });
     });
 });

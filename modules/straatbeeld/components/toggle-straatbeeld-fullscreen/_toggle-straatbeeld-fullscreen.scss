@@ -3,4 +3,8 @@ dp-toggle-straatbeeld-fullscreen {
   top: $container-whitespace;
   left: $container-whitespace;
   z-index: $on-top-z-index;
+
+  .c-toggle-straatbeeld-fullscreen {
+    @extend %hover-focus-button;
+  }
 }

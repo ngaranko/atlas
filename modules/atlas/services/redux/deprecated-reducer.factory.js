@@ -10,7 +10,6 @@
         'urlReducers',
         'freeze',
         'homeReducers',
-        'mapReducers',
         'pageReducers',
         'searchReducers',
         'straatbeeldReducers',
@@ -25,7 +24,6 @@
         urlReducers,
         freeze,
         homeReducers,
-        mapReducers,
         pageReducers,
         searchReducers,
         straatbeeldReducers,
@@ -45,7 +43,6 @@
              */
             const DetailsReducer = $window.reducers.detailReducer;
             const MapPreviewPanelReducer = $window.reducers.MapPreviewPanelReducer;
-            const MapOverlaysReducer = $window.reducers.MapOverlaysReducer;
             const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;
             const MapClickLocationReducer = $window.reducers.MapClickLocationReducer;
 
@@ -53,12 +50,6 @@
                 FETCH_DETAIL: DetailsReducer,
                 SHOW_DETAIL: DetailsReducer,
                 DETAIL_FULLSCREEN: DetailsReducer
-            };
-
-            const mapOverlaysReducers = {
-                TOGGLE_MAP_OVERLAY: MapOverlaysReducer,
-                TOGGLE_MAP_OVERLAYS: MapOverlaysReducer,
-                TOGGLE_MAP_OVERLAY_VISIBILITY: MapOverlaysReducer
             };
 
             const mapSearchResultsReducers = {
@@ -85,9 +76,7 @@
                 detailReducers,
                 filtersReducers,
                 homeReducers,
-                mapOverlaysReducers,
                 mapPreviewPanelReducers,
-                mapReducers,
                 mapSearchResultsReducers,
                 mapClickLocationReducers,
                 pageReducers,

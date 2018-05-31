@@ -82,7 +82,6 @@ describe('The stateToUrlMiddleware factory', function () {
     it('does call stateToUrl.update for all other actions', function () {
         var actionsWithUrlUpdate = [
             ACTIONS.SHOW_SEARCH_RESULTS,
-            ACTIONS.SHOW_MAP,
             ACTIONS.MAP_PAN,
             ACTIONS.MAP_ZOOM,
             ACTIONS.MAP_END_DRAWING,
@@ -121,7 +120,6 @@ describe('The stateToUrlMiddleware factory', function () {
             ],
             shouldNotUseReplace = [
                 ACTIONS.SHOW_SEARCH_RESULTS,
-                ACTIONS.SHOW_MAP,
                 ACTIONS.MAP_END_DRAWING,
                 ACTIONS.SHOW_DETAIL,
                 ACTIONS.FETCH_STRAATBEELD_BY_ID,

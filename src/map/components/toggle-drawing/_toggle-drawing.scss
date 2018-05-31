@@ -27,21 +27,10 @@
     }
   }
 
-
+  &:hover,
   &:focus {
-    background-color: $secondary-gray10;
-    color: $primary-dark;
-    fill: $primary-dark;
-  }
-
-  &:hover {
-    background-color: $primary-contrast;
-    border-color: $primary-contrast;
-
-    .toggle-drawing__icon,
     .toggle-drawing__label {
-      color: $primary-light;
-      fill: $primary-light;
+      color: $primary-dark;
     }
   }
 

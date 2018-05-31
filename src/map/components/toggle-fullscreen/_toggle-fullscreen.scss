@@ -1,7 +1,7 @@
-@import "../../../shared/styles/config/variables/colors";
-@import "../../../shared/styles/config/variables/whitespace";
+@import "../../../shared/styles/config";
 
 .toggle-fullscreen {
+  @extend %hover-focus-button;
   background-color: $primary-light;
   border: solid 1px $secondary-gray20;
   box-shadow: 2px 2px 0 0 $secondary-gray40;
@@ -18,22 +18,6 @@
     fill: $secondary-gray60;
     height: 24px;
     width: 24px;
-  }
-
-  &:focus {
-    background-color: $secondary-gray10;
-    color: $primary-dark;
-    fill: $primary-dark;
-    outline: none;
-  }
-
-  &:hover {
-    background-color: $primary-contrast;
-    border-color: $primary-contrast;
-
-    .toggle-fullscreen__icon {
-      fill: $primary-light;
-    }
   }
 
   .is-embed &,

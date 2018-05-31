@@ -59,7 +59,6 @@ import '../modules/atlas/services/redux/reducer.factory';
 import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory';
 import '../modules/atlas/services/redux/reducers/filters-reducers.factory';
 import '../modules/atlas/services/redux/reducers/home-reducers.factory';
-import '../modules/atlas/services/redux/reducers/map-reducers.factory';
 import '../modules/atlas/services/redux/reducers/page-reducers.factory';
 import '../modules/atlas/services/redux/reducers/search-reducers.factory';
 import '../modules/atlas/services/redux/reducers/straatbeeld-reducers.factory';

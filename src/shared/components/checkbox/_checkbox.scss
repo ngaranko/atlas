@@ -4,6 +4,7 @@
   background-color: $primary-light;
   border: 1px solid $primary-dark;
   box-sizing: content-box;
+  cursor: pointer;
   display: block;
   height: 24px;
   margin-right: 10px;
@@ -26,6 +27,18 @@
     &:checked + svg {
       display: block;
     }
+
+    &:focus,
+    &:hover {
+      &:not(:checked) + svg {
+        display: block;
+        fill: transparent;
+      }
+
+      & + svg {
+        border: 1px solid $primary-dark;
+      }
+    }
   }
 
   svg {
@@ -37,5 +50,9 @@
     position: absolute;
     top: 0;
     width: 24px;
+  }
+
+  * {
+    cursor: pointer;
   }
 }
