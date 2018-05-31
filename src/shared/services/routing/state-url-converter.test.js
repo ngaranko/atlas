@@ -23,7 +23,7 @@ describe('The state url conversion factory', () => {
           shapeAreaTxt: ''
 
         },
-        mapBaseLayers: {},
+        mapBaseLayers: null,
         user: {
           authenticated: false,
           accessToken: '',
@@ -31,7 +31,6 @@ describe('The state url conversion factory', () => {
           name: '',
           error: false
         },
-        mapLayers: [],
         mapSearchResults: [],
         mapSearchResultsByLocation: {},
         mapDetail: {
