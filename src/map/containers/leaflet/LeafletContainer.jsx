@@ -12,6 +12,7 @@ import { fetchMapLayers, getLayers } from '../../ducks/layers/map-layers';
 import { getGeoJson } from '../../ducks/detail/map-detail';
 import { getClusterMarkers, getDrawShape } from '../../ducks/data-selection/data-selection';
 import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
+import { isDrawingActive } from '../../services/draw-tool/draw-tool';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
@@ -30,9 +31,6 @@ const mapStateToProps = (state) => ({
   layers: getLayers(state),
   drawShape: getDrawShape(state),
   drawingMode: state.map.drawingMode,
-  uiState: Object.keys(state.ui).map((key) => (
-     state.ui[key]
-   )).toString(),
   zoom: state.map.zoom
 });
 
@@ -50,10 +48,10 @@ class LeafletContainer extends React.Component {
     };
     this.setMapLeaflet = (element) => {
       this.MapLeaflet = element;
-      this.updateMapBounds();
     };
     this.handleZoom = this.handleZoom.bind(this);
     this.handlePan = this.handlePan.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -66,29 +64,18 @@ class LeafletContainer extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { uiState } = nextProps;
-    if (uiState !== this.state.uiState) {
-      this.updateMapBounds();
-      this.setState({ uiState });
-    }
-  }
-
   handleZoom(event) {
-    this.props.onUpdateZoom(event, this.props.drawingMode);
+    this.props.onUpdateZoom(event, isDrawingActive(this.props.drawingMode));
   }
 
   handlePan(event) {
-    this.props.onUpdatePan(event, this.props.drawingMode);
+    this.props.onUpdatePan(event, isDrawingActive(this.props.drawingMode));
   }
 
-  updateMapBounds() {
-    setTimeout(() => {
-      if (this.MapLeaflet) {
-        this.MapLeaflet.invalidateSize();
-        this.MapLeaflet.fitActiveElement();
-      }
-    });
+  handleClick(event) {
+    if (!isDrawingActive(this.props.drawingMode)) {
+      this.props.onUpdateClick(event);
+    }
   }
 
   render() {
@@ -101,7 +88,6 @@ class LeafletContainer extends React.Component {
       getLeafletInstance,
       layers,
       markers,
-      onUpdateClick,
       zoom
     } = this.props;
     return baseLayer.urlTemplate && (
@@ -115,7 +101,7 @@ class LeafletContainer extends React.Component {
         layers={layers}
         mapOptions={mapOptions}
         markers={markers}
-        onClick={onUpdateClick}
+        onClick={this.handleClick}
         onDragEnd={this.handlePan}
         onZoomEnd={this.handleZoom}
         ref={this.setMapLeaflet}
@@ -139,8 +125,7 @@ LeafletContainer.defaultProps = {
   drawShape: {},
   geoJson: {},
   layers: [],
-  markers: [],
-  uiState: ''
+  markers: []
 };
 
 LeafletContainer.propTypes = {
@@ -165,7 +150,6 @@ LeafletContainer.propTypes = {
   onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
-  uiState: PropTypes.string.isRequired,
   zoom: PropTypes.number.isRequired
 };
 
