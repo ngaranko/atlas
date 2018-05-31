@@ -11,7 +11,7 @@ const baseConfig = {
 
 const environmentConfig = {
   [ENVIRONMENTS.PRODUCTION]: {
-    API_ROOT: 'https://data.amsterdam.nl/',
+    API_ROOT: 'https://api.data.amsterdam.nl/',
     ROOT: 'https://data.amsterdam.nl/'
   },
   [ENVIRONMENTS.ACCEPTANCE]: {
