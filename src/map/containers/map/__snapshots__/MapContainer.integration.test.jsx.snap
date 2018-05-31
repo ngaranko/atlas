@@ -12648,13 +12648,13 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "id": "gbos",
                     "layer": "beperking-OS",
                     "selectable": true,
-                    "title": "Sluiting obv opiumwet",
+                    "title": "Sluiting o.b.v. Opiumwet",
                   },
                   Object {
                     "id": "gbgs",
                     "layer": "beperking-GS",
                     "selectable": true,
-                    "title": "Sluiting v. woning etc.",
+                    "title": "Sluiting v. woning/lokaal/erf",
                   },
                   Object {
                     "id": "gbgg",
@@ -15445,13 +15445,13 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                               "id": "gbos",
                               "layer": "beperking-OS",
                               "selectable": true,
-                              "title": "Sluiting obv opiumwet",
+                              "title": "Sluiting o.b.v. Opiumwet",
                             },
                             Object {
                               "id": "gbgs",
                               "layer": "beperking-GS",
                               "selectable": true,
-                              "title": "Sluiting v. woning etc.",
+                              "title": "Sluiting v. woning/lokaal/erf",
                             },
                             Object {
                               "id": "gbgg",
