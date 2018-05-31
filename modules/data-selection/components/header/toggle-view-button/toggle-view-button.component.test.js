@@ -42,14 +42,6 @@ describe('The dp-data-selection-toggle-view-button component', function () {
         $rootScope.$apply();
 
         expect(component.find('ng-transclude').text().trim()).toBe('Kaart weergeven');
-        expect(component.find('button').attr('title').trim()).toBe('Resultaten op de kaart weergeven');
-
-        component.find('button').click();
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SET_DATA_SELECTION_VIEW,
-            payload: 'LIST'
-        });
     });
 
     it('when in list view: it shows a link to the table view', function () {
@@ -57,12 +49,5 @@ describe('The dp-data-selection-toggle-view-button component', function () {
         $rootScope.$apply();
 
         expect(component.find('ng-transclude').text().trim()).toBe('Tabel weergeven');
-        expect(component.find('button').attr('title').trim()).toBe('Resultaten in tabel weergeven');
-
-        component.find('button').click();
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SET_DATA_SELECTION_VIEW,
-            payload: 'TABLE'
-        });
     });
 });

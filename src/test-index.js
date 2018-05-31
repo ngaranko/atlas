@@ -75,7 +75,7 @@ import '../modules/data-selection/components/formatter/zip-code/zip-code.filter'
 import '../modules/data-selection/components/header/download-button/download-button.component';
 import '../modules/data-selection/components/header/header.component';
 import '../modules/data-selection/components/header/toggle-view-button/toggle-view-button.component';
-import '../modules/data-selection/components/pagination/pagination-link.component';
+// import '../modules/data-selection/components/pagination/pagination-link.component';
 import '../modules/data-selection/components/pagination/pagination.component';
 import '../modules/data-selection/components/views/catalog/catalog.component';
 import '../modules/data-selection/components/views/list/list.component';
@@ -331,7 +331,7 @@ import '../modules/shared/components/api-error/api-error.component.test';
 import '../modules/shared/components/link-to-page/link-to-page.component.test';
 import '../modules/shared/components/expand-collapse/expand-collapse.directive.test';
 import '../modules/shared/components/anchor-link/anchor-link.component.test';
-import '../modules/shared/components/link/link.component.test';
+// import '../modules/shared/components/link/link.component.test';
 import '../modules/shared/components/link-react/link-react.component.test';
 import '../modules/shared/components/straatbeeld-thumbnail/dp-alt.component.test';
 import '../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component.test';
