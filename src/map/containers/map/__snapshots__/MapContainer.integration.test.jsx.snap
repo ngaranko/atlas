@@ -375,8 +375,11 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               onlyEvent={true}
               style={
                 Object {
-                  "height": "100%",
-                  "position": "relative",
+                  "bottom": "0",
+                  "left": "0",
+                  "position": "absolute",
+                  "right": "0",
+                  "top": "0",
                 }
               }
               widthPropName={undefined}
@@ -384,8 +387,11 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               <div
                 style={
                   Object {
-                    "height": "100%",
-                    "position": "relative",
+                    "bottom": "0",
+                    "left": "0",
+                    "position": "absolute",
+                    "right": "0",
+                    "top": "0",
                   }
                 }
               >

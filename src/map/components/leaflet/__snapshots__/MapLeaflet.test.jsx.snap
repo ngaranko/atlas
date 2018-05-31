@@ -7,8 +7,11 @@ exports[`MapSearchResults should render clusterer 1`] = `
   onlyEvent={true}
   style={
     Object {
-      "height": "100%",
-      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "position": "absolute",
+      "right": "0",
+      "top": "0",
     }
   }
 >
@@ -367,8 +370,11 @@ exports[`MapSearchResults should render clusterer 2`] = `
   onlyEvent={true}
   style={
     Object {
-      "height": "100%",
-      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "position": "absolute",
+      "right": "0",
+      "top": "0",
     }
   }
 >
@@ -727,8 +733,11 @@ exports[`MapSearchResults should render map with base layer and update base laye
   onlyEvent={true}
   style={
     Object {
-      "height": "100%",
-      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "position": "absolute",
+      "right": "0",
+      "top": "0",
     }
   }
 >
@@ -955,8 +964,11 @@ exports[`MapSearchResults should render map with base layer and update base laye
   onlyEvent={true}
   style={
     Object {
-      "height": "100%",
-      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "position": "absolute",
+      "right": "0",
+      "top": "0",
     }
   }
 >
@@ -1183,8 +1195,11 @@ exports[`MapSearchResults should render map with geometry 1`] = `
   onlyEvent={true}
   style={
     Object {
-      "height": "100%",
-      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "position": "absolute",
+      "right": "0",
+      "top": "0",
     }
   }
 >
@@ -1411,8 +1426,11 @@ exports[`MapSearchResults should render map with geometry 2`] = `
   onlyEvent={true}
   style={
     Object {
-      "height": "100%",
-      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "position": "absolute",
+      "right": "0",
+      "top": "0",
     }
   }
 >
@@ -1651,8 +1669,11 @@ exports[`MapSearchResults should render map with geometry 3`] = `
   onlyEvent={true}
   style={
     Object {
-      "height": "100%",
-      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "position": "absolute",
+      "right": "0",
+      "top": "0",
     }
   }
 >
@@ -1892,8 +1913,11 @@ exports[`MapSearchResults should render map with without layers and add/remove l
   onlyEvent={true}
   style={
     Object {
-      "height": "100%",
-      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "position": "absolute",
+      "right": "0",
+      "top": "0",
     }
   }
 >
@@ -2120,8 +2144,11 @@ exports[`MapSearchResults should render map with without layers and add/remove l
   onlyEvent={true}
   style={
     Object {
-      "height": "100%",
-      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "position": "absolute",
+      "right": "0",
+      "top": "0",
     }
   }
 >
@@ -2360,8 +2387,11 @@ exports[`MapSearchResults should render map with without layers and add/remove l
   onlyEvent={true}
   style={
     Object {
-      "height": "100%",
-      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "position": "absolute",
+      "right": "0",
+      "top": "0",
     }
   }
 >
