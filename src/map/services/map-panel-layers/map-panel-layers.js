@@ -103,22 +103,10 @@ export default [
     category: 'Geografie: onroerende zaken',
     legendItems: [
       {
-        id: 'gbgs',
-        layer: 'beperking-GS',
+        id: 'gbvv',
+        layer: 'beperking-VV',
         selectable: true,
-        title: 'Sluiting v. woning etc.'
-      },
-      {
-        id: 'gbep',
-        layer: 'beperking-EP',
-        selectable: true,
-        title: 'Exploitatieplan'
-      },
-      {
-        id: 'gbwu',
-        layer: 'beperking-WU',
-        selectable: true,
-        title: 'Woningwet'
+        title: '(voorlopige) aanwijzing WVG'
       },
       {
         id: 'gbkw',
@@ -127,22 +115,16 @@ export default [
         title: 'Wet bodembescherming'
       },
       {
+        id: 'gbwu',
+        layer: 'beperking-WU',
+        selectable: true,
+        title: 'Woningwet'
+      },
+      {
         id: 'gboh',
         layer: 'beperking-OH',
         selectable: true,
         title: 'WABO bestuursdwang / dwangsom'
-      },
-      {
-        id: 'gbhv',
-        layer: 'beperking-HV',
-        selectable: true,
-        title: 'Vordering tot woonruimte'
-      },
-      {
-        id: 'gbgg',
-        layer: 'beperking-GG',
-        selectable: true,
-        title: 'Gemeentelijk monument'
       },
       {
         id: 'gbos',
@@ -151,10 +133,28 @@ export default [
         title: 'Sluiting obv opiumwet'
       },
       {
-        id: 'gbvv',
-        layer: 'beperking-VV',
+        id: 'gbgs',
+        layer: 'beperking-GS',
         selectable: true,
-        title: '(voorlopige) aanwijzing WVG'
+        title: 'Sluiting v. woning etc.'
+      },
+      {
+        id: 'gbgg',
+        layer: 'beperking-GG',
+        selectable: true,
+        title: 'Gemeentelijk monument'
+      },
+      {
+        id: 'gbep',
+        layer: 'beperking-EP',
+        selectable: true,
+        title: 'Exploitatieplan'
+      },
+      {
+        id: 'gbhv',
+        layer: 'beperking-HV',
+        selectable: true,
+        title: 'Vordering tot woonruimte'
       }
     ],
     maxZoom: 16,
