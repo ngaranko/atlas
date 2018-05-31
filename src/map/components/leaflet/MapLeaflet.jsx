@@ -86,14 +86,13 @@ class MapLeaflet extends React.Component {
     const elementBounds = getBounds(element);
     const elementBoundsId = boundsToString(elementBounds);
     // check if the bounds are the same in that case we don't need to update
-    if (elementBoundsId === this.state.previousElementBounds) {
-      return;
+    if (elementBoundsId !== this.state.previousElementBoundsId) {
+      this.fitActiveElement(elementBounds);
     }
-    this.setState({ previousElementBoundsId: elementBoundsId });
-    this.fitActiveElement(elementBounds);
   }
 
   fitActiveElement(bounds) {
+    this.setState({ previousElementBoundsId: boundsToString(bounds) });
     const mapBounds = this.MapElement.getBounds();
     const elementFits = mapBounds.contains(bounds);
     if (!elementFits) {
