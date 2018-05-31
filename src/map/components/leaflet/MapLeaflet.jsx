@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ResizeAware from 'react-resize-aware';
 import { Map, TileLayer, ZoomControl, ScaleControl, Polygon, Marker } from 'react-leaflet';
 
 import CustomMarker from './custom/marker/CustomMarker';
@@ -8,6 +9,7 @@ import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
 import createClusterIcon from './services/cluster-icon';
+import { boundsToString, getBounds } from './services/bounds';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
@@ -18,38 +20,25 @@ class MapLeaflet extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.onMoveEnd = this.onMoveEnd.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.handleResize = this.handleResize.bind(this);
     this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this);
     this.state = {
-      drawMode: false
+      previousElementBoundsId: ''
     };
 
     this.setMapElement = (element) => {
       if (element && element.leafletElement) {
         this.MapElement = element.leafletElement;
         this.props.getLeafletInstance(this.MapElement);
-        this.onMapDraw(this.MapElement);
       }
     };
 
     this.setActiveElement = (element) => {
       if (element) {
         this.activeElement = element.leafletElement;
-        this.fitActiveElement();
+        this.fitActiveElement(this.activeElement);
       }
     };
-  }
-
-  onMapDraw(mapElement) {
-    mapElement.on('draw:drawstop', () => {
-      setTimeout(() => {
-        this.setState({ drawMode: false });
-      });
-    });
-    mapElement.on('draw:drawstart', () => {
-      setTimeout(() => {
-        this.setState({ drawMode: true });
-      });
-    });
   }
 
   onZoomEnd(event) {
@@ -63,13 +52,11 @@ class MapLeaflet extends React.Component {
 
   onClick(event) {
     const { latlng, containerPoint, layerPoint } = event;
-    if (!this.state.drawMode) {
-      this.props.onClick({
-        latlng,
-        containerPoint,
-        layerPoint
-      });
-    }
+    this.props.onClick({
+      latlng,
+      containerPoint,
+      layerPoint
+    });
   }
 
   onMoveEnd(event) {
@@ -88,25 +75,20 @@ class MapLeaflet extends React.Component {
     this.fitBoundsInsideMap(bounds);
   }
 
-  fitActiveElement() {
-    if (!this.activeElement) {
+  handleResize() {
+    this.setState({ previousElementBoundsId: '' });
+    this.MapElement.invalidateSize();
+    this.fitActiveElement(this.activeElement);
+  }
+
+  fitActiveElement(element) {
+    const elementBounds = getBounds(element);
+    const elementBoundsId = boundsToString(elementBounds);
+    // check if the bounds are the same in that case we don't need to update
+    if (elementBoundsId === this.state.previousElementBounds) {
       return;
     }
-    let elementBounds;
-    // if activeElement is a shape
-    if (this.activeElement.getBounds) {
-      elementBounds = this.activeElement.getBounds();
-      if (Object.keys(elementBounds).length === 0 && elementBounds.constructor === Object) {
-        return;
-      }
-    // if activeElement is a point
-    } else {
-      const latLng = this.activeElement.getLatLng();
-      elementBounds = [
-        [latLng.lat, latLng.lng],
-        [latLng.lat, latLng.lng]
-      ];
-    }
+    this.setState({ previousElementBoundsId: elementBoundsId });
     this.fitBoundsInsideMap(elementBounds);
   }
 
@@ -125,10 +107,6 @@ class MapLeaflet extends React.Component {
     }
   }
 
-  invalidateSize() {
-    this.MapElement.invalidateSize();
-  }
-
   render() {
     const {
       center,
@@ -143,92 +121,98 @@ class MapLeaflet extends React.Component {
       zoom
     } = this.props;
     return (
-      <Map
-        ref={this.setMapElement}
-        onZoomEnd={this.onZoomEnd}
-        onClick={this.onClick}
-        onMoveEnd={this.onMoveEnd}
-        onDragEnd={this.onDragEnd}
-        onDraw={this.draw}
-        center={center}
-        zoom={zoom}
-        {...mapOptions}
+      <ResizeAware
+        style={{ position: 'relative', height: '100%' }}
+        onlyEvent
+        onResize={this.handleResize}
       >
-        <TileLayer
-          {...baseLayer.baseLayerOptions}
-          url={baseLayer.urlTemplate}
-        />
-        {
-          layers.map((layer) => (
-            <NonTiledLayer
-              key={layer.id}
-              {...layer.overlayOptions}
-              url={layer.url}
-              opacity={visibleToOpacity(layer.isVisible)}
-            />
-          ))
-        }
-        {
-          clusterMarkers.length > 0 && (
-            <ClusterGroup
-              showCoverageOnHover={false}
-              iconCreateFunction={createClusterIcon}
-              spiderfyOnMaxZoom={false}
-              animate={false}
-              maxClusterRadius={50}
-              chunkedLoading
-              getMarkerGroupBounds={this.onClusterGroupBounds}
-              ref={this.setActiveElement}
-              disableClusteringAtZoom={baseLayer.baseLayerOptions.maxZoom}
-            >
-              {
-                clusterMarkers.map((marker) => (
-                  <Marker
-                    position={marker.position}
-                    key={marker.index}
-                    icon={icons[marker.type]}
-                  />
-                ))
-              }
-            </ClusterGroup>
-          )
-        }
-        {
-          markers.map((marker) => (
-            <CustomMarker
-              ref={this.setActiveElement}
-              position={marker.position}
-              key={marker.position.toString() + marker.type}
-              icon={icons[marker.type]}
-              zIndexOffset={100}
-              rotationAngle={marker.heading || 0}
-            />
-          ))
-        }
-        {
-          geoJson.geometry && (
-            <RdGeoJson
-              ref={this.setActiveElement}
-              key={geoJson.label}
-              data={geoJson}
-            />
-          )
-        }
-        {
-          drawShape.latLngList && (
-            <Polygon
-              positions={drawShape.latLngList}
-              ref={this.setActiveElement}
-            />
-          )
-        }
-        <ScaleControl {...scaleControlOptions} />
-        {
-          this.props.isZoomControlVisible && (
-            <ZoomControl position="bottomright" />
-          )
-        }
-      </Map>
+        <Map
+          ref={this.setMapElement}
+          onZoomEnd={this.onZoomEnd}
+          onClick={this.onClick}
+          onMoveEnd={this.onMoveEnd}
+          onDragEnd={this.onDragEnd}
+          onDraw={this.draw}
+          center={center}
+          zoom={zoom}
+          {...mapOptions}
+        >
+          <TileLayer
+            {...baseLayer.baseLayerOptions}
+            url={baseLayer.urlTemplate}
+          />
+          {
+            layers.map((layer) => (
+              <NonTiledLayer
+                key={layer.id}
+                {...layer.overlayOptions}
+                url={layer.url}
+                opacity={visibleToOpacity(layer.isVisible)}
+              />
+            ))
+          }
+          {
+            clusterMarkers.length > 0 && (
+              <ClusterGroup
+                showCoverageOnHover={false}
+                iconCreateFunction={createClusterIcon}
+                spiderfyOnMaxZoom={false}
+                animate={false}
+                maxClusterRadius={50}
+                chunkedLoading
+                getMarkerGroupBounds={this.onClusterGroupBounds}
+                ref={this.setActiveElement}
+                disableClusteringAtZoom={baseLayer.baseLayerOptions.maxZoom}
+              >
+                {
+                  clusterMarkers.map((marker) => (
+                    <Marker
+                      position={marker.position}
+                      key={marker.index}
+                      icon={icons[marker.type]}
+                    />
+                  ))
+                }
+              </ClusterGroup>
+            )
+          }
+          {
+            markers.map((marker) => (
+              <CustomMarker
+                ref={this.setActiveElement}
+                position={marker.position}
+                key={marker.position.toString() + marker.type}
+                icon={icons[marker.type]}
+                zIndexOffset={100}
+                rotationAngle={marker.heading || 0}
+              />
+            ))
+          }
+          {
+            geoJson.geometry && (
+              <RdGeoJson
+                ref={this.setActiveElement}
+                key={geoJson.label}
+                data={geoJson}
+              />
+            )
+          }
+          {
+            drawShape.latLngList && (
+              <Polygon
+                positions={drawShape.latLngList}
+                ref={this.setActiveElement}
+              />
+            )
+          }
+          <ScaleControl {...scaleControlOptions} />
+          {
+            this.props.isZoomControlVisible && (
+              <ZoomControl position="bottomright" />
+            )
+          }
+        </Map>
+      </ResizeAware>
     );
   }
 }

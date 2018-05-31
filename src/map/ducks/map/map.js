@@ -1,5 +1,3 @@
-import DRAW_TOOL_CONFIG from '../../services/draw-tool/draw-tool-config';
-
 import {
  getMap,
  getActiveBaseLayer,
@@ -194,20 +192,18 @@ export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
 });
 export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
 
-const isDrawingActive = (drawingMode) => drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
-
-export const updateZoom = (payload, drawingMode) =>
+export const updateZoom = (payload, isDrawingActive) =>
   ({
-    type: isDrawingActive(drawingMode) ? MAP_ZOOM_SILENT : MAP_ZOOM,
+    type: isDrawingActive ? MAP_ZOOM_SILENT : MAP_ZOOM,
     payload: {
       ...payload,
       viewCenter: [payload.center.lat, payload.center.lng]
     }
   });
 
-export const updatePan = (payload, drawingMode) =>
+export const updatePan = (payload, isDrawingActive) =>
   ({
-    type: isDrawingActive(drawingMode) ? MAP_PAN_SILENT : MAP_PAN,
+    type: isDrawingActive ? MAP_PAN_SILENT : MAP_PAN,
     payload: [payload.center.lat, payload.center.lng]
   });
 
