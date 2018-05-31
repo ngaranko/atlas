@@ -92,6 +92,9 @@ class MapLeaflet extends React.Component {
   }
 
   fitActiveElement(bounds) {
+    if (!bounds) {
+      return;
+    }
     this.setState({ previousElementBoundsId: boundsToString(bounds) });
     const mapBounds = this.MapElement.getBounds();
     const elementFits = mapBounds.contains(bounds);

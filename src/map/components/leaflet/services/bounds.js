@@ -13,7 +13,7 @@ export const getBounds = (element) => {
       [latLng.lat, latLng.lng]
     ];
   }
-  return [];
+  return '';
 };
 
 export const boundsToString = (elementBounds) => (
