@@ -130,13 +130,13 @@ export default [
         id: 'gbos',
         layer: 'beperking-OS',
         selectable: true,
-        title: 'Sluiting obv opiumwet'
+        title: 'Sluiting o.b.v. Opiumwet'
       },
       {
         id: 'gbgs',
         layer: 'beperking-GS',
         selectable: true,
-        title: 'Sluiting v. woning etc.'
+        title: 'Sluiting v. woning/lokaal/erf'
       },
       {
         id: 'gbgg',
