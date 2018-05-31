@@ -36,7 +36,7 @@ class MapLeaflet extends React.Component {
     this.setActiveElement = (element) => {
       if (element) {
         this.activeElement = element.leafletElement;
-        this.fitActiveElement(this.activeElement);
+        this.checkIfActiveElementNeedsUpdate(this.activeElement);
       }
     };
   }
@@ -72,16 +72,17 @@ class MapLeaflet extends React.Component {
   }
 
   onClusterGroupBounds(bounds) {
-    this.fitBoundsInsideMap(bounds);
+    this.fitActiveElement(bounds);
   }
 
   handleResize() {
-    this.setState({ previousElementBoundsId: '' });
     this.MapElement.invalidateSize();
-    this.fitActiveElement(this.activeElement);
+    if (this.activeElement) {
+      this.fitActiveElement(getBounds(this.activeElement));
+    }
   }
 
-  fitActiveElement(element) {
+  checkIfActiveElementNeedsUpdate(element) {
     const elementBounds = getBounds(element);
     const elementBoundsId = boundsToString(elementBounds);
     // check if the bounds are the same in that case we don't need to update
@@ -89,10 +90,10 @@ class MapLeaflet extends React.Component {
       return;
     }
     this.setState({ previousElementBoundsId: elementBoundsId });
-    this.fitBoundsInsideMap(elementBounds);
+    this.fitActiveElement(elementBounds);
   }
 
-  fitBoundsInsideMap(bounds) {
+  fitActiveElement(bounds) {
     const mapBounds = this.MapElement.getBounds();
     const elementFits = mapBounds.contains(bounds);
     if (!elementFits) {
