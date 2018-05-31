@@ -1,35 +1,42 @@
-import { createSelector } from 'reselect';
+import DRAW_TOOL_CONFIG from '../../services/draw-tool/draw-tool-config';
 
-import { getStraatbeeldMarkers, getStraatbeeldLocation } from '../straatbeeld/straatbeeld';
-import { getDataSelection } from '../data-selection/data-selection';
-import { getSearchMarker } from '../search-results/map-search-results';
+import {
+ getMap,
+ getActiveBaseLayer,
+ getMapZoom,
+ getMapOverlays,
+ getMarkers,
+ getMapCenter,
+ getCenter
+} from './map-selectors';
 
-import ACTIONS from '../../../shared/actions';
+export {
+  getMap,
+  getActiveBaseLayer,
+  getMapZoom,
+  getMapOverlays,
+  getMarkers,
+  getMapCenter,
+  getCenter
+};
 
-export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
+export const MAP_ADD_PANO_OVERLAY = 'MAP_ADD_PANO_OVERLAY';
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
-export const MAP_UPDATE_SHAPE = 'MAP_UPDATE_SHAPE';
-export const MAP_START_DRAWING = 'MAP_START_DRAWING';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
-
-export const getMap = (state) => state.map;
-export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
-export const getMapZoom = createSelector(getMap, (mapState) => mapState.zoom);
-
-export const getMarkers = createSelector(
-  [getDataSelection, getSearchMarker, getStraatbeeldMarkers],
-  (dataSelectionActive, searchMarkers, straatbeeldMarkers) => (
-     !dataSelectionActive ? [...searchMarkers, ...straatbeeldMarkers] : []
-  ));
-
-export const getMapCenter = createSelector(getMap, (mapState) => mapState && mapState.viewCenter);
-
-export const getCenter = createSelector([getMapCenter, getStraatbeeldLocation],
-  (mapCenter, straatbeeldLocation) => (
-    straatbeeldLocation || mapCenter
-  )
-);
+export const MAP_HIGHLIGHT = 'MAP_HIGHLIGHT';
+export const MAP_PAN = 'MAP_PAN';
+export const MAP_PAN_SILENT = 'MAP_PAN_SILENT';
+export const MAP_REMOVE_PANO_OVERLAY = 'MAP_REMOVE_PANO_OVERLAY';
+export const MAP_START_DRAWING = 'MAP_START_DRAWING';
+export const MAP_UPDATE_SHAPE = 'MAP_UPDATE_SHAPE';
+export const MAP_ZOOM = 'MAP_ZOOM';
+export const MAP_ZOOM_SILENT = 'MAP_ZOOM_SILENT';
+export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
+export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
+export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
+export const TOGGLE_MAP_OVERLAYS = 'TOGGLE_MAP_OVERLAYS';
+export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
 
 const initialState = {
   viewCenter: [52.3731081, 4.8932945],
@@ -48,8 +55,41 @@ let polygon = {};
 let has2Markers;
 let moreThan2Markers;
 
+const getNewLayer = (straatbeeld) => (
+  straatbeeld && straatbeeld.history
+    ? `pano${straatbeeld.history}`
+    : 'pano'
+  );
+
+const overlayExists = (state, newLayer) => (
+  state.map && state.map.overlays.filter((overlay) =>
+    overlay.id === newLayer).length === 1
+);
+
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
+    case MAP_PAN:
+    case MAP_PAN_SILENT:
+      return {
+        ...state,
+        viewCenter: action.payload
+      };
+
+    case MAP_ZOOM:
+    case MAP_ZOOM_SILENT:
+      return {
+        ...state,
+        zoom: action.payload.zoom,
+        viewCenter: Array.isArray(action.payload.viewCenter) ?
+          action.payload.viewCenter : state.viewCenter
+      };
+
+    case MAP_HIGHLIGHT:
+      return {
+        ...state,
+        highlight: action.payload
+      };
+
     case MAP_CLEAR_DRAWING:
       return {
         ...state,
@@ -94,6 +134,46 @@ export default function MapReducer(state = initialState, action) {
         baseLayer: action.payload
       };
 
+    case MAP_ADD_PANO_OVERLAY: //eslint-disable-line
+      const newLayer = getNewLayer(action.payload);
+      return overlayExists(state, newLayer) ? state : {
+        ...state,
+        overlays: [
+          ...(state.overlays.filter((overlay) =>
+            !overlay.id.startsWith('pano'))
+          ),
+          { id: newLayer, isVisible: true }
+        ]
+      };
+
+    case MAP_REMOVE_PANO_OVERLAY: //eslint-disable-line
+      // Remove all active 'pano' layers
+      const overlays = state && state.overlays
+          .filter((overlay) => !overlay.id.startsWith('pano'));
+
+      return state && overlays.length === state.overlays.length ? state : {
+        ...state,
+        overlays
+      };
+
+    case TOGGLE_MAP_OVERLAY:
+      return {
+        ...state,
+        overlays: state.overlays.some((overlay) => overlay.id === action.mapLayerId) ?
+          [...state.overlays.filter((overlay) => overlay.id !== action.mapLayerId)] :
+          [...state.overlays, { id: action.mapLayerId, isVisible: true }]
+      };
+
+    case TOGGLE_MAP_OVERLAY_VISIBILITY:
+      return {
+        ...state,
+        overlays: state.overlays.map((overlay) => ({
+          ...overlay,
+          isVisible: overlay.id !== action.mapLayerId ? overlay.isVisible :
+            (action.show !== undefined ? action.show : !overlay.isVisible)
+        }))
+      };
+
     default:
       return state;
   }
@@ -105,16 +185,31 @@ export const mapUpdateShape = (payload) => ({ type: MAP_UPDATE_SHAPE, payload })
 export const mapStartDrawing = (payload) => ({ type: MAP_START_DRAWING, payload });
 export const mapEndDrawing = (payload) => ({ type: MAP_END_DRAWING, payload });
 export const setMapBaseLayer = (payload) => ({ type: SET_MAP_BASE_LAYER, payload });
-// old actions
-export const updateZoom = (payload) => ({ type: ACTIONS.MAP_ZOOM,
-  payload: {
-    ...payload,
-    viewCenter: [payload.center.lat, payload.center.lng]
-  }
-});
 
-export const updatePan = (payload) =>
-  ({ type: ACTIONS.MAP_PAN, payload: [payload.center.lat, payload.center.lng] });
+export const toggleMapOverlay = (mapLayerId) => ({ type: TOGGLE_MAP_OVERLAY, mapLayerId });
+export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
+  type: TOGGLE_MAP_OVERLAY_VISIBILITY,
+  mapLayerId,
+  show
+});
+export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
+
+const isDrawingActive = (drawingMode) => drawingMode !== DRAW_TOOL_CONFIG.DRAWING_MODE.NONE;
+
+export const updateZoom = (payload, drawingMode) =>
+  ({
+    type: isDrawingActive(drawingMode) ? MAP_ZOOM_SILENT : MAP_ZOOM,
+    payload: {
+      ...payload,
+      viewCenter: [payload.center.lat, payload.center.lng]
+    }
+  });
+
+export const updatePan = (payload, drawingMode) =>
+  ({
+    type: isDrawingActive(drawingMode) ? MAP_PAN_SILENT : MAP_PAN,
+    payload: [payload.center.lat, payload.center.lng]
+  });
 
 window.reducers = window.reducers || {};
 window.reducers.MapReducer = MapReducer;

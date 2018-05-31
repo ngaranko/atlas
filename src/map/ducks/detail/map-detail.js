@@ -51,6 +51,7 @@ export const FETCH_MAP_DETAIL_FAILURE = 'FETCH_MAP_DETAIL_FAILURE';
 const initialState = {
   byEndpoint: {},
   isLoading: false,
+  currentEndpoint: '',
   error: ''
 };
 
