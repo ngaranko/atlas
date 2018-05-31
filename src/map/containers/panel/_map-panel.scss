@@ -77,9 +77,8 @@ $map-panel-max-width: 444px;
     width: 100%;
 
     .map-panel--collapsed & {
-      border: 1px solid transparent;
+      border: solid 1px $secondary-gray20;
     }
-
   }
 
   &__toggle-icon {
