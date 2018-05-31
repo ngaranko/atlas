@@ -42,17 +42,15 @@ class RouteLink extends Component {
 
   render() {
     return (
-      <div>
-        <span className={`c-link__wrapper ${this.props.inline ? 'c-link__wrapper--inine-block' : ''}`}>
-          {/* {
+      <span className={`c-link__wrapper ${this.props.inline ? 'c-link__wrapper--inine-block' : ''}`}>
+        {/* {
             this.props.tagName === 'button' ?
               <button onClick={this.handleNavigate} className={`${this.props.className} qa-dp-link`} title={this.props.hoverText}>{this.props.children}</button>
               :
               <a href={this.state.href} className={`${this.props.className} qa-dp-link`} title={this.props.hoverText}>{this.props.children}</a>
           }! */}
-          <a href={this.state.href} className={`${this.props.className} qa-dp-link`} title={this.props.hoverText}>{this.props.children}</a>!
-        </span>
-      </div>
+        <a href={this.state.href} className={`${this.props.className} qa-dp-link`} title={this.props.hoverText}>{this.props.children}</a>
+      </span>
     );
   }
 }
