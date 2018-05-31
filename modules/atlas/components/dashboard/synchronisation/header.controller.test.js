@@ -28,8 +28,8 @@ describe('The header controller', function () {
         });
 
         mockedState = {
-            map: {
-                isFullscreen: false
+            ui: {
+                isMapFullscreen: false
             },
             search: {
                 query: 'i am a search query'
@@ -73,7 +73,7 @@ describe('The header controller', function () {
     it('sets the dataSelection query and action when datasets are active', function () {
         spyOn(store, 'getState').and.returnValue({
             dataSelection: {
-                view: 'CARDS',
+                view: 'CATALOG',
                 query: 'dataSelection query'
             }
         });
@@ -84,10 +84,13 @@ describe('The header controller', function () {
         expect(controller.searchAction).toEqual(ACTIONS.FETCH_DATA_SELECTION);
     });
 
-    it('sets the dataSelection query and action when detail API view is active', function () {
+    it('sets the dataSelection query and action when catalog detail API view is active', function () {
         spyOn(store, 'getState').and.returnValue({
+            dataSelection: {
+                view: 'CATALOG'
+            },
             detail: {
-                endpoint: 'somewhere://abc/catalogus/api/xyz'
+                endpoint: 'somewhere://abc/dcatd/datasets/xyz'
             }
         });
 
@@ -153,7 +156,7 @@ describe('The header controller', function () {
 
     describe('not all states have an embed version', function () {
         it('only in fullscreen map there is an embed button', function () {
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
 
             mockedState.page = {
                 name: 'home'
@@ -166,7 +169,7 @@ describe('The header controller', function () {
         });
 
         it('there is no embed button when both full screen map and straatbeeld are active', function () {
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
             mockedState.straatbeeld = {};
 
             spyOn(store, 'getState').and.returnValue(mockedState);

@@ -15,7 +15,7 @@
                     title: 'Datasets',
                     action: 'FETCH_DATA_SELECTION',
                     getPayload: (query) => {
-                        return {dataset: 'catalogus', view: 'CARDS', query, page: 1};
+                        return {dataset: 'dcatd', view: 'CATALOG', query, page: 1};
                     },
                     tip: 'in datasets kun je momenteel alleen zoeken op hele woorden (dus zoek niet op \'zonne\' ' +
                         'maar op \'zonnepanelen\' of \'zonnepaneel\'). Alternatief is de optie \'Alle datasets ' +

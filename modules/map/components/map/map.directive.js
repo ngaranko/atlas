@@ -6,6 +6,7 @@
     dpMapDirective.$inject = [
         '$timeout',
         '$window',
+        'embed',
         'L',
         'mapConfig',
         'layers',
@@ -13,20 +14,31 @@
         'panning',
         'zoom',
         'onMapClick',
-        'overlays',
-        'activeOverlays'
+        'activeOverlays',
+        'store'
     ];
 
     // eslint-disable-next-line max-params
-    function dpMapDirective ($timeout, $window, L, mapConfig, layers, highlight, panning, zoom, onMapClick, overlays,
-                             activeOverlays) {
+    function dpMapDirective (
+        $timeout,
+        $window,
+        embed,
+        L,
+        mapConfig,
+        layers,
+        highlight,
+        panning,
+        zoom,
+        onMapClick,
+        activeOverlays,
+        store
+        ) {
         return {
             restrict: 'E',
             scope: {
                 mapState: '=',
                 markers: '=',
                 drawGeometry: '=',
-                showLayerSelection: '=',
                 resize: '<',
                 user: '<'
             },
@@ -36,7 +48,8 @@
 
         function linkFunction (scope, element) {
             let leafletMap,
-                oldOverlays = null;
+                oldOverlays = null,
+                embedLink;
 
             const container = element[0].querySelector('.js-leaflet-map');
             const options = angular.merge(mapConfig.MAP_OPTIONS, {
@@ -47,9 +60,41 @@
             const React = $window.React;
             const render = $window.render;
             const MapPanelWrapper = $window.MapPanelWrapper;
+            const MapPreviewPanelWrapper = $window.MapPreviewPanelWrapper;
+            const MapWrapper = $window.MapWrapper;
+            const MapEmbedButtonWrapper = $window.MapEmbedButtonWrapper;
+
+            const mountReactComponents = () => {
+                const mapEmbedButtonNode = document.getElementById('map-embed-button');
+                /* istanbul ignore next */
+                if (mapEmbedButtonNode) {
+                    render(React.createElement(MapEmbedButtonWrapper, { embedLink }), mapEmbedButtonNode);
+                }
+            };
+
+            store.subscribe(update);
+            update();
+
+            function update () {
+                const state = store.getState();
+                const nonEmbedState = {
+                    ...state,
+                    ui: {
+                        ...state.ui,
+                        isEmbed: false,
+                        isEmbedPreview: false
+                    }
+                };
+                embedLink = embed.getLink(nonEmbedState);
+                mountReactComponents();
+            }
 
             $timeout(() => {
                 render(React.createElement(MapPanelWrapper, null), document.getElementById('map-panel-react'));
+                render(React.createElement(MapPreviewPanelWrapper, null),
+                    document.getElementById('map-preview-panel-react'));
+                render(React.createElement(MapWrapper, null),
+                    document.getElementById('map-react'));
             });
 
             /**
@@ -58,6 +103,7 @@
              */
             scope.$applyAsync(() => {
                 leafletMap = L.map(container, options);
+                $window.leafletMap = leafletMap;
 
                 panning.initialize(leafletMap);
                 highlight.initialize();
@@ -101,7 +147,7 @@
                 scope.$watch('markers.clustered', function (newCollection, oldCollection) {
                     highlight.clearCluster(leafletMap);
 
-                    if (newCollection.length) {
+                    if (newCollection && newCollection.length > 0) {
                         highlight.setCluster(leafletMap, newCollection);
                     }
                 }, true);
@@ -119,13 +165,17 @@
             });
 
             function setOverlays () {
-                const newOverlays = scope.mapState.overlays.filter(overlay => overlays.SOURCES[overlay.id]),
-                    isInit = oldOverlays === null;
+                const isInit = oldOverlays === null;
+
+                activeOverlays.setOverlays(scope.mapState.overlays);
+                const newOverlays = activeOverlays.getOverlays();
+
+                if (isInit && !newOverlays.length) {
+                    return;
+                }
 
                 oldOverlays = oldOverlays || [];
                 scope.hasActiveOverlays = newOverlays.length > 0;
-
-                activeOverlays.setOverlays(scope.mapState.overlays);
 
                 if (angular.equals(newOverlays, oldOverlays)) {
                     return;

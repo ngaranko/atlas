@@ -22,7 +22,10 @@ const ERROR_MESSAGES = {
 // success
 const AUTH_PARAMS = ['access_token', 'token_type', 'expires_in', 'state'];
 
-const API_ROOT = process.env.NODE_ENV === 'production'
+// Resolved at compile time by webpack,
+// e.g.: "export conts API_ROOT = 'production' === 'production' ? ... : ...;
+// see: https://webpack.js.org/plugins/environment-plugin/
+export const API_ROOT = process.env.NODE_ENV === 'production'
   ? 'https://api.data.amsterdam.nl/'
   : 'https://acc.api.data.amsterdam.nl/';
 
@@ -50,12 +53,18 @@ const scopes = [
   'MON/RDM', // Lezen details van Monumenten
 
   // Handelsregister
-  'HR/R' // Leesrechten
+  'HR/R', // Leesrechten
+
+  // Grondexploitatie
+  'GREX/R', // Leesrechten
+
+  // Catalogus (Dcatd) admin
+  'CAT/W' // Schrijfrechten
 ];
 const encodedScopes = encodeURIComponent(scopes.join(' '));
 // The URI we need to redirect to for communication with the OAuth2
 // authorization service
-const AUTH_PATH = `oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata&scope=${encodedScopes}`;
+export const AUTH_PATH = `oauth2/authorize?idp_id=datapunt&response_type=token&client_id=citydata&scope=${encodedScopes}`;
 
 // The keys of values we need to store in the session storage
 //
@@ -84,8 +93,7 @@ function handleError(code, description) {
 
   // Remove parameters from the URL, as set by the error callback from the
   // OAuth2 authorization service, to clean up the URL.
-
-  location.search = '';
+  location.assign(`${location.protocol}//${location.host}${location.pathname}`);
 
   throw new Error('Authorization service responded with error ' +
       `${code} [${description}] (${ERROR_MESSAGES[code]})`);
@@ -194,7 +202,7 @@ export function login() {
   sessionStorage.setItem(RETURN_PATH, location.hash);
   sessionStorage.setItem(STATE_TOKEN, stateToken);
 
-  location.href = `${API_ROOT}${AUTH_PATH}&state=${encodedStateToken}&redirect_uri=${callback}`;
+  location.assign(`${API_ROOT}${AUTH_PATH}&state=${encodedStateToken}&redirect_uri=${callback}`);
 }
 
 export function logout() {
@@ -237,6 +245,17 @@ export function getScopes() {
 
 export function getName() {
   return tokenData.name || '';
+}
+
+/**
+ * Creates an instance of the native JS `Headers` class containing the
+ * authorization headers needed for an API call.
+ *
+ * @returns {Object<string, string>} The headers needed for an API call.
+ */
+export function getAuthHeaders() {
+  const accessToken = getAccessToken();
+  return accessToken ? { Authorization: `Bearer ${getAccessToken()}` } : {};
 }
 
 window.auth = {

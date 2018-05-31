@@ -122,6 +122,7 @@ function commonConfig({ nodeEnv }) {
         // leaflet.nontiledlayer, because it will include leaflet otherwise.
         { from: './node_modules/leaflet/dist/leaflet.js' },
         { from: './node_modules/leaflet.nontiledlayer/dist/NonTiledLayer.js' },
+        { from: './node_modules/leaflet.nontiledlayer/dist/NonTiledLayer.js.map' },
         { from: './node_modules/proj4/dist/proj4.js' },
         { from: './node_modules/proj4leaflet/src/proj4leaflet.js' },
 

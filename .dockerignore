@@ -1,1 +1,7 @@
+.env
+.git
+.sass-cache
+build
 node_modules/
+coverage/
+coverage-legacy/

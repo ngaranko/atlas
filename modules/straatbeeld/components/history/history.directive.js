@@ -21,14 +21,15 @@
 
         function linkFunction (scope, element) {
             const firstYear = 2016;
-            const currentYear = new Date().getFullYear();
-            const total = currentYear - firstYear + 1;
+            // Update the lastYear manually if there are straatbeelden available for that year
+            const lastYear = 2018;
+            const total = lastYear - firstYear + 1;
             const everywhere = angular.element(window.document);
 
             scope.options = Array(total)
                 .fill(0)
                 .map((value, index) => {
-                    const year = currentYear - index;
+                    const year = lastYear - index;
                     return {
                         year: year,
                         label: 'Alleen ' + year

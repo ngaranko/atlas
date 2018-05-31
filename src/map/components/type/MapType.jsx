@@ -6,6 +6,8 @@ import { SelectButton } from '../../../shared/components/select-button';
 import AerialIcon from '../../../../public/images/icon-aerial.svg';
 import TopographyIcon from '../../../../public/images/icon-topography.svg';
 
+import './_map-type.scss';
+
 function hasLayer(activeBaseLayer, baseLayers) {
   return baseLayers && baseLayers.length > 0 &&
     baseLayers.some((layer) => layer.value === activeBaseLayer);
@@ -13,7 +15,7 @@ function hasLayer(activeBaseLayer, baseLayers) {
 
 const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (
   <section className="map-type">
-    <div className="map-type__title">Achtergrond</div>
+    <h3 className="map-type__title">Achtergrond</h3>
 
     <SelectButton
       className="map-type__select map-type__select--topography"

@@ -1,3 +1,5 @@
+import { authenticateError } from '../../../../src/reducers/user';
+
 (function () {
     'use strict';
 
@@ -24,7 +26,7 @@
             try {
                 $window.auth.login();
             } catch (error) {
-                store.dispatch({ type: ACTIONS.AUTHENTICATE_ERROR });
+                store.dispatch(authenticateError());
             }
         };
 

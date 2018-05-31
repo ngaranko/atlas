@@ -30,14 +30,11 @@
                     type: payload.type,
                     item: payload.item
                 } : state.page,
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    isFullscreen: false
-                } : state.map,
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: false
-                } : state.layerSelection,
+                ui: angular.isObject(state.ui) ? {
+                    ...state.ui,
+                    isMapPanelVisible: false,
+                    isMapFullscreen: false
+                } : state.ui,
                 search: null,
                 detail: null,
                 straatbeeld: null,

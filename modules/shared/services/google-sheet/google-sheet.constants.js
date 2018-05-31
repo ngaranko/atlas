@@ -6,7 +6,7 @@
         .constant('GOOGLE_SHEET_CMS', {
             getStatic: {   // when to get CMS static data (daily refreshed) or dynamically direct from the sheet
                 PRODUCTION: true,
-                PRE_PRODUCTION: false,
+                PRE_PRODUCTION: true,
                 ACCEPTATION: false,
                 DEVELOPMENT: false
             },
@@ -20,7 +20,8 @@
                 apis: 5,
                 proclaimer: 6,
                 info: 7,
-                inloggen: 8
+                inloggen: 8,
+                statistieken: 9
             }
         });
 })();

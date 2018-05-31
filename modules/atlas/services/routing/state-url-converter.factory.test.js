@@ -1,14 +1,14 @@
+import DRAW_TOOL_CONFIG from '../../../../src/map/services/draw-tool/draw-tool-config';
+
 describe('The state url conversion factory', function () {
-    let stateUrlConverter,
-        DRAW_TOOL_CONFIG;
+    let stateUrlConverter;
 
     describe('The default state', function () {
         beforeEach(function () {
             angular.mock.module('atlas');
 
-            angular.mock.inject(function (_stateUrlConverter_, _DRAW_TOOL_CONFIG_) {
+            angular.mock.inject(function (_stateUrlConverter_) {
                 stateUrlConverter = _stateUrlConverter_;
-                DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
             });
         });
 
@@ -21,11 +21,13 @@ describe('The state url conversion factory', function () {
                     overlays: [],
                     viewCenter: [52.3731081, 4.8932945],
                     zoom: 11,
-                    showActiveOverlays: false,
-                    isFullscreen: false,
                     isLoading: false,
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
-                    highlight: true
+                    highlight: true,
+                    shapeMarkers: 0,
+                    shapeDistanceTxt: '',
+                    shapeAreaTxt: ''
+
                 },
                 mapBaseLayers: {},
                 user: {
@@ -36,26 +38,32 @@ describe('The state url conversion factory', function () {
                     error: false
                 },
                 mapLayers: [],
-                isMapPanelVisible: false,
+                mapSearchResults: [],
+                mapSearchResultsByLocation: {},
+                mapDetail: {
+                    isLoading: false,
+                    currentEndpoint: '',
+                    byEndpoint: {}
+                },
+                mapClickLocation: {},
                 ui: {
-                    isMapPanelHandleVisible: true
+                    isEmbed: false,
+                    isEmbedPreview: false,
+                    isMapFullscreen: false,
+                    isMapPanelVisible: false,
+                    isMapLayersVisible: true,
+                    isMapPanelHandleVisible: true,
+                    isPrintMode: false
                 },
+                isMapPreviewPanelVisible: false,
                 filters: {},
-                layerSelection: {
-                    isEnabled: false
-                },
                 search: null,
                 page: {
                     name: 'home'
                 },
                 detail: null,
                 straatbeeld: null,
-                dataSelection: null,
-                atlas: {
-                    isPrintMode: false,
-                    isEmbedPreview: false,
-                    isEmbed: false
-                }
+                dataSelection: null
             });
         });
     });
@@ -105,6 +113,10 @@ describe('The state url conversion factory', function () {
                     },
                     kv: {
                         name: 'kv',
+                        type: 'keyvalues'
+                    },
+                    dsf: {
+                        name: 'filters',
                         type: 'keyvalues'
                     },
                     osb: {
@@ -176,6 +188,44 @@ describe('The state url conversion factory', function () {
                     aab: 'T::F:F::T',
                     aaan: '1:::2::3:::4:5:::6::7:::8',
                     kv: 'aap::noot:mies::teun',
+                    osb: 'aap:T',
+                    v: 'getValue.v'
+                });
+            });
+
+            it('translates a state with an empty filter to the corresponding params', function () {
+                const params = stateUrlConverter.state2params({
+                    s: 'aap',
+                    x: {
+                        b: true,
+                        y: {
+                            n: 10,
+                            n1: 1.234,
+                            z: {
+                                b62: 62
+                            }
+                        }
+                    },
+                    as: ['aap', 'noot', 'mies'],
+                    aab: [[true, false], [false, true]],
+                    aaan: [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],
+                    kv: { aap: 'noot', mies: 'teun' },
+                    filters: { aap: 'noot', postcode: '', mies: 'teun' },
+                    osb: { id: 'aap', isVisible: true },
+                    v: 'v'
+                });
+
+                expect(params).toEqual({
+                    s: 'aap',
+                    b: 'T',
+                    n: '10',
+                    n1: '1.2',
+                    b62: 'A0',
+                    as: 'aap:noot:mies',
+                    aab: 'T::F:F::T',
+                    aaan: '1:::2::3:::4:5:::6::7:::8',
+                    kv: 'aap::noot:mies::teun',
+                    dsf: 'aap::noot:postcode::xxxx:mies::teun',
                     osb: 'aap:T',
                     v: 'getValue.v'
                 });
@@ -268,6 +318,44 @@ describe('The state url conversion factory', function () {
                     aab: [[true, false], [false, true]],
                     aaan: [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],
                     kv: { aap: 'noot', mies: 'teun' },
+                    osb: { id: 'aap', isVisible: true },
+                    v: 'setValue.v'
+                });
+            });
+
+            it('translates the NO_VALUE param to an empty string', function () {
+                const state = stateUrlConverter.params2state({}, {
+                    s: 'aap',
+                    b: 'T',
+                    n: '10',
+                    n1: '1.2',
+                    b62: 'A0',
+                    as: 'aap:noot:mies',
+                    aab: 'T::F:F::T',
+                    aaan: '1:::2::3:::4:5:::6::7:::8',
+                    kv: 'aap::noot:mies::teun',
+                    dsf: 'aap::noot:postcode::xxxx:mies::teun',
+                    osb: 'aap:T',
+                    v: 'v'
+                });
+
+                expect(state).toEqual({
+                    s: 'aap',
+                    x: {
+                        b: true,
+                        y: {
+                            n: 10,
+                            n1: 1.2,
+                            z: {
+                                b62: 62
+                            }
+                        }
+                    },
+                    as: ['aap', 'noot', 'mies'],
+                    aab: [[true, false], [false, true]],
+                    aaan: [[[1, 2], [3, 4]], [[5, 6], [7, 8]]],
+                    kv: { aap: 'noot', mies: 'teun' },
+                    filters: { aap: 'noot', mies: 'teun', postcode: '' },
                     osb: { id: 'aap', isVisible: true },
                     v: 'setValue.v'
                 });

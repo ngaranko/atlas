@@ -42,7 +42,21 @@ const webpackConfig = {
           legacy,
           /atlas\.run\.js$/
         ],
-        use: 'babel-loader'
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['react-app', 'env'],
+            plugins: ['transform-object-rest-spread',
+                ['istanbul', {
+                  'exclude': [
+                    '**/*.spec.js',
+                    '**/*.test.js',
+                    'src/*'
+                  ]
+                }]
+            ]
+          }
+        }
       }
     ]
   },
@@ -79,7 +93,7 @@ module.exports = function (config) {
     },
     coverageIstanbulReporter: {
       reports: ['html', 'text-summary'],
-      dir: path.join(__dirname, 'coverage'),
+      dir: path.join(__dirname, 'coverage-legacy'),
       thresholds: {
         emitWarning: false,
         global: {

@@ -55,6 +55,10 @@
                     url: 'https://www.amsterdam.nl/stelselpedia/brk-index/catalog-brk-levering/zakelijk-recht/',
                     meta: []
                 },
+                BIZ: {
+                    label_singular: 'Bedrijfsinvesteringszone',
+                    label_plural: 'Bedrijfsinvesteringszones'
+                },
                 BOUWBLOK: {
                     label_singular: 'Bouwblok',
                     label_plural: 'Bouwblokken',
@@ -104,6 +108,13 @@
                         'buurtcombinatie_identificatie'
                     ]
                 },
+                DATASETS: {
+                    label_singular: 'Dataset',
+                    label_plural: 'Datasets',
+                    description: null,
+                    url: null,
+                    meta: []
+                },
                 FUNCTIEVERVULLING: {
                     label_singular: 'Functievervulling',
                     label_plural: 'Functievervullingen',
@@ -135,6 +146,10 @@
                     description: null,
                     url: null,
                     meta: []
+                },
+                GRONDEXPLOITATIE: {
+                    label_singular: 'Grondexploitatie',
+                    label_plural: 'Grondexploitaties'
                 },
                 GROOTSTEDELIJKGEBIED: {
                     label_singular: 'Grootstedelijk gebied',

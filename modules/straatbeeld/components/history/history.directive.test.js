@@ -155,16 +155,6 @@ describe('The dp-straatbeeld-history component', function () {
     });
 
     describe('The menu items', () => {
-        let clock;
-
-        beforeEach(() => {
-            clock = jasmine.clock();
-        });
-
-        afterEach(() => {
-            clock.uninstall();
-        });
-
         it('The first item is for the most recent street view', () => {
             const component = getComponent();
             const button = component.find('.qa-straatbeeld-history__button');
@@ -176,9 +166,7 @@ describe('The dp-straatbeeld-history component', function () {
             expect(items.eq(0).text()).toContain('recent');
         });
 
-        it('Does not list any years if the current year is before 2016', () => {
-            clock.mockDate(new Date(2015, 3, 9));
-
+        it('Lists every year from 2016 till the 2018', () => {
             const component = getComponent();
             const button = component.find('.qa-straatbeeld-history__button');
 
@@ -186,60 +174,15 @@ describe('The dp-straatbeeld-history component', function () {
 
             const items = component.find('.qa-straatbeeld-history__item');
 
-            expect(items.length).toBe(1);
-        });
-
-        it('Lists every year from 2016 till the current year (2016)', () => {
-            clock.mockDate(new Date(2016, 11, 31));
-
-            const component = getComponent();
-            const button = component.find('.qa-straatbeeld-history__button');
-
-            button.click();
-
-            const items = component.find('.qa-straatbeeld-history__item');
-
-            expect(items.length).toBe(2);
-            expect(items.eq(1).text()).toContain('2016');
-        });
-
-        it('Lists every year from 2016 till the current year (2017)', () => {
-            clock.mockDate(new Date(2017, 0, 1));
-
-            const component = getComponent();
-            const button = component.find('.qa-straatbeeld-history__button');
-
-            button.click();
-
-            const items = component.find('.qa-straatbeeld-history__item');
-
-            expect(items.length).toBe(3);
-            expect(items.eq(1).text()).toContain('2017');
-            expect(items.eq(2).text()).toContain('2016');
-        });
-
-        it('Lists every year from 2016 till the current year (2020)', () => {
-            clock.mockDate(new Date(2020, 10, 16));
-
-            const component = getComponent();
-            const button = component.find('.qa-straatbeeld-history__button');
-
-            button.click();
-
-            const items = component.find('.qa-straatbeeld-history__item');
-
-            expect(items.length).toBe(6);
-            expect(items.eq(1).text()).toContain('2020');
-            expect(items.eq(2).text()).toContain('2019');
-            expect(items.eq(3).text()).toContain('2018');
-            expect(items.eq(4).text()).toContain('2017');
-            expect(items.eq(5).text()).toContain('2016');
+            expect(items.length).toBe(4);
+            expect(items.eq(0).text()).toContain('recent');
+            expect(items.eq(1).text()).toContain('2018');
+            expect(items.eq(2).text()).toContain('2017');
+            expect(items.eq(3).text()).toContain('2016');
         });
 
         it('sets the selection', () => {
             let items;
-
-            clock.mockDate(new Date(2020, 10, 16));
 
             const component = getComponent();
             const button = component.find('.qa-straatbeeld-history__button');
@@ -249,16 +192,16 @@ describe('The dp-straatbeeld-history component', function () {
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(1).click();
-            expect(button.text()).toContain('2020');
-
-            button.click();
-            items = component.find('.qa-straatbeeld-history__item');
-            items.eq(3).click();
             expect(button.text()).toContain('2018');
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
-            items.eq(5).click();
+            items.eq(2).click();
+            expect(button.text()).toContain('2017');
+
+            button.click();
+            items = component.find('.qa-straatbeeld-history__item');
+            items.eq(3).click();
             expect(button.text()).toContain('2016');
 
             button.click();
@@ -270,8 +213,6 @@ describe('The dp-straatbeeld-history component', function () {
         it('dispatches an action', () => {
             let items;
 
-            clock.mockDate(new Date(2020, 10, 16));
-
             const component = getComponent();
             const button = component.find('.qa-straatbeeld-history__button');
 
@@ -280,20 +221,20 @@ describe('The dp-straatbeeld-history component', function () {
             items.eq(1).click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SET_STRAATBEELD_HISTORY,
-                payload: 2020
-            });
-
-            button.click();
-            items = component.find('.qa-straatbeeld-history__item');
-            items.eq(3).click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SET_STRAATBEELD_HISTORY,
                 payload: 2018
             });
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
-            items.eq(5).click();
+            items.eq(2).click();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SET_STRAATBEELD_HISTORY,
+                payload: 2017
+            });
+
+            button.click();
+            items = component.find('.qa-straatbeeld-history__item');
+            items.eq(3).click();
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SET_STRAATBEELD_HISTORY,
                 payload: 2016
@@ -309,70 +250,49 @@ describe('The dp-straatbeeld-history component', function () {
         });
 
         it('can have its selection initialized', () => {
-            clock.mockDate(new Date(2020, 10, 16));
-
-            const component = getComponent(null, null, 2020);
+            const component = getComponent(null, null, 2017);
             const button = component.find('.qa-straatbeeld-history__button');
 
-            expect(button.text()).toContain('2020');
+            expect(button.text()).toContain('2017');
 
             button.click();
             const items = component.find('.qa-straatbeeld-history__item');
 
-            expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBeTruthy();
-            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(4).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(5).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
+            expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBe(true);
+            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(4).hasClass('c-straatbeeld-history__item--active')).toBe(false);
         });
 
         it('highlights the selection', () => {
             let items;
-
-            clock.mockDate(new Date(2020, 10, 16));
 
             const component = getComponent();
             const button = component.find('.qa-straatbeeld-history__button');
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
-            expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBeTruthy();
-            expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(4).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(5).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
+            expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBe(true);
+            expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBe(false);
 
             items.eq(2).click();
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
-            expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBeTruthy();
-            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(4).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(5).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-
-            items.eq(4).click();
-            button.click();
-            items = component.find('.qa-straatbeeld-history__item');
-            expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(4).hasClass('c-straatbeeld-history__item--active')).toBeTruthy();
-            expect(items.eq(5).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
+            expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBe(true);
+            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBe(false);
 
             items.eq(0).click();
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
-            expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBeTruthy();
-            expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(4).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
-            expect(items.eq(5).hasClass('c-straatbeeld-history__item--active')).toBeFalsy();
+            expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBe(true);
+            expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBe(false);
         });
     });
 });

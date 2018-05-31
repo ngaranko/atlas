@@ -18,62 +18,33 @@ describe('The modification-date filter', function () {
         expect(modDateFilter()).toBeUndefined();
     });
 
-    it('shows the time as since created when no modified date is supplied', function () {
+    it('shows the time as since created: 5 days', function () {
         expect(modDateFilter({
             metadata_created: '2016-12-10T12:00:00'
-        })).toContain('gemaakt');
+        })).toBe('5 dagen geleden gemaakt');
     });
 
-    it('shows the time as since modified when a modified date is supplied', function () {
+    it('shows the time as since created: 4 hours', function () {
         expect(modDateFilter({
-            metadata_modified: '2016-12-10T12:00:00'
-        })).toContain('gewijzigd');
-
-        expect(modDateFilter({
-            metadata_created: '2016-12-10T12:00:00',
-            metadata_modified: '2016-12-10T12:00:00'
-        })).toContain('gewijzigd');
+            metadata_created: '2016-12-15T08:14:10'
+        })).toBe('4 uren geleden gemaakt');
     });
 
-    it('shows the time difference in milliseconds for very small durations', function () {
+    it('shows the time as since created: 3 minutes', function () {
         expect(modDateFilter({
-            metadata_modified: '2016-12-15T12:00:00'
-        })).toBe('0 milliseconden geleden gewijzigd');
+            metadata_created: '2016-12-15T11:57:04'
+        })).toBe('3 minuten geleden gemaakt');
     });
 
-    it('shows the time difference in seconds for durations >= 2 seconds', function () {
+    it('shows the time as since created: 6 seconds', function () {
         expect(modDateFilter({
-            metadata_modified: '2016-12-15T11:59:00'
-        })).toBe('60 seconden geleden gewijzigd');
+            metadata_created: '2016-12-15T11:59:54'
+        })).toBe('6 seconden geleden gemaakt');
     });
 
-    it('shows the time difference in minutes for durations >= 2 minutes', function () {
+    it('shows the time as since created: future time', function () {
         expect(modDateFilter({
-            metadata_modified: '2016-12-15T11:58:00'
-        })).toBe('2 minuten geleden gewijzigd');
-    });
-
-    it('shows the time difference in hours for durations >= 2 hours', function () {
-        expect(modDateFilter({
-            metadata_modified: '2016-12-15T10:00:00'
-        })).toBe('2 uren geleden gewijzigd');
-    });
-
-    it('shows the time difference in days for durations >= 2 days', function () {
-        expect(modDateFilter({
-            metadata_modified: '2016-12-13T12:00:00'
-        })).toBe('2 dagen geleden gewijzigd');
-    });
-
-    it('shows the time difference rounded to the nearest larger value', function () {
-        expect(modDateFilter({
-            metadata_modified: '2016-12-13T11:59:59'
-        })).toBe('3 dagen geleden gewijzigd');
-    });
-
-    it('shows the time difference in a compact fashion', function () {
-        expect(modDateFilter({
-            metadata_modified: '2016-12-13T11:59:59', metadata_compact: true
-        })).toBe('3 dagen geleden');
+            metadata_created: '2017-12-15T11:59:54'
+        })).toBe('is in de toekomst gemaakt');
     });
 });

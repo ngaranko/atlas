@@ -4,19 +4,27 @@ describe('the dp-detail component', () => {
         $q,
         store,
         ACTIONS,
+        api,
         mockedUser,
-        mockedGeometryPoint = {type: 'Point', coordinates: 'FAKE_NUMMERAANDUIDING_POINT'},
-        mockedGeometryMultiPolygon = {type: 'MultiPolygon', coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'};
+        mockedGeometryPoint = {
+            type: 'Point',
+            coordinates: 'FAKE_NUMMERAANDUIDING_POINT'
+        },
+        mockedGeometryMultiPolygon = {
+            type: 'MultiPolygon',
+            coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON'
+        };
 
+    const grondexploitatieEndPoint = 'http://www.fake-endpoint.com/grondexploitatie/project/987/';
     const naturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/123/';
     const noneNaturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/456/';
+    const dcatdEndPoint = 'http://www.fake-endpoint.com/dcatd/datasets/789/';
 
     beforeEach(() => {
         angular.mock.module(
-            'dpDetail',
-            {
+            'dpDetail', {
                 store: {
-                    dispatch: () => {},
+                    dispatch: () => { },
                     getState: angular.noop
                 },
                 api: {
@@ -24,8 +32,9 @@ describe('the dp-detail component', () => {
                         var q = $q.defer();
 
                         if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
-                                endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/' ||
-                                endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
+                            endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/' ||
+                            endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/'
+                        ) {
                             q.resolve({
                                 _display: 'Adresstraat 1A',
                                 dummy: 'A',
@@ -37,6 +46,11 @@ describe('the dp-detail component', () => {
                                 _display: 'Een of ander kadastraal object',
                                 dummy: 'B',
                                 something: -90
+                            });
+                        } else if (endpoint === grondexploitatieEndPoint) {
+                            q.resolve({
+                                _display: 'My grex',
+                                dummy: 'G'
                             });
                         } else if (endpoint === 'http://www.fake-endpoint.com/handelsregister/vestiging/987/') {
                             q.resolve({
@@ -60,6 +74,8 @@ describe('the dp-detail component', () => {
                             });
                         } else if (endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/subject/404/') {
                             q.reject();
+                        } else if (endpoint === dcatdEndPoint) {
+                            q.resolve({'dct:description': 'description'});
                         }
 
                         return q.promise;
@@ -79,11 +95,17 @@ describe('the dp-detail component', () => {
                         } else if (endpoint === 'http://www.fake-endpoint.com/handelsregister/vestiging/987/') {
                             category = 'handelsregister';
                             subject = 'vestiging';
+                        } else if (endpoint === grondexploitatieEndPoint) {
+                            category = 'grondexploitatie';
+                            subject = 'project';
                         } else if (endpoint === naturalPersonEndPoint) {
                             category = 'brk';
                             subject = 'subject';
                         } else if (endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
                             subject = 'api';
+                        } else if (endpoint === dcatdEndPoint) {
+                            category = 'dcatd';
+                            subject = 'datasets';
                         }
 
                         return [category, subject];
@@ -92,7 +114,7 @@ describe('the dp-detail component', () => {
                         var templateUrl = 'modules/detail/components/detail/templates/';
 
                         if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
-                                endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
+                            endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
                             templateUrl += 'bag/nummeraanduiding';
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
                             templateUrl += 'brk/object';
@@ -113,7 +135,7 @@ describe('the dp-detail component', () => {
                         var q = $q.defer();
 
                         if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
-                                endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
+                            endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
                             q.resolve(mockedGeometryPoint);
                         } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
                             q.resolve(mockedGeometryMultiPolygon);
@@ -141,6 +163,9 @@ describe('the dp-detail component', () => {
                 },
                 nearestDetail: {
                     getLocation: () => [52.654, 4.987]
+                },
+                markdownParser: {
+                    parse: angular.noop
                 }
             },
             function ($provide) {
@@ -155,13 +180,15 @@ describe('the dp-detail component', () => {
             _$rootScope_,
             _$q_,
             _store_,
-            _ACTIONS_
+            _ACTIONS_,
+            _api_
         ) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
             store = _store_;
             ACTIONS = _ACTIONS_;
+            api = _api_;
         });
 
         mockedUser = {
@@ -176,32 +203,60 @@ describe('the dp-detail component', () => {
                 highlight: true
             }
         });
+        spyOn(api, 'getByUrl').and.callThrough();
     });
 
-    function getComponent (endpoint, isLoading, isMapHighlight = true) {
+    function getComponent (endpoint, isLoading, isMapHighlight = true, show = true, catalogFilters = undefined) {
         var component,
             element,
             scope;
 
         element = document.createElement('dp-detail');
+        element.setAttribute('show', 'show');
         element.setAttribute('endpoint', '{{endpoint}}');
         element.setAttribute('is-loading', 'isLoading');
         element.setAttribute('reload', 'reload');
         element.setAttribute('user', 'user');
         element.setAttribute('is-map-highlight', 'isMapHighlight');
+        element.setAttribute('catalog-filters', 'catalogFilters');
 
         scope = $rootScope.$new();
+        scope.show = show;
         scope.endpoint = endpoint;
         scope.isLoading = isLoading;
         scope.reload = false;
         scope.user = mockedUser;
         scope.isMapHighlight = isMapHighlight;
+        scope.catalogFilters = catalogFilters;
 
         component = $compile(element)(scope);
         scope.$apply();
 
         return component;
     }
+
+    describe('visibility', () => {
+        it('is not visible when `show` is false while loading', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', true, true, false);
+            expect(component.find('.qa-detail-content').length).toBe(0);
+        });
+
+        it('is not visible when `show` is false while not loading', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/',
+                false, true, false);
+            expect(component.find('.qa-detail-content').length).toBe(0);
+        });
+
+        it('is not visible when `show` is true while loading', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', true);
+            expect(component.find('.qa-detail-content').length).toBe(0);
+        });
+
+        it('is visible when `show` is true while not loading', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
+            expect(component.find('.qa-detail-content').length).toBe(1);
+        });
+    });
 
     it('puts data on the scope based on the endpoint', () => {
         var component,
@@ -313,7 +368,7 @@ describe('the dp-detail component', () => {
                 naam: 'naam'
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(3);
+        expect(store.dispatch).toHaveBeenCalledTimes(2);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
@@ -326,7 +381,7 @@ describe('the dp-detail component', () => {
             payload: false
         });
 
-        // Change the endpoint
+            // Change the endpoint
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/object/789/';
         $rootScope.$apply();
 
@@ -337,7 +392,7 @@ describe('the dp-detail component', () => {
                 something: -90
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(5);
+        expect(store.dispatch).toHaveBeenCalledTimes(4);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
@@ -359,12 +414,12 @@ describe('the dp-detail component', () => {
 
         expect(store.dispatch).not.toHaveBeenCalled();
 
-        // Set an initial endpoint
+            // Set an initial endpoint
         endpoint = 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/';
         component = getComponent(endpoint, false);
         scope = component.isolateScope();
 
-        // Turn on the reload flag
+            // Turn on the reload flag
         scope.vm.reload = true;
         $rootScope.$apply();
 
@@ -376,7 +431,7 @@ describe('the dp-detail component', () => {
                 naam: 'naam'
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(5);
+        expect(store.dispatch).toHaveBeenCalledTimes(4);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
             payload: {
@@ -485,7 +540,11 @@ describe('the dp-detail component', () => {
 
             const scope = component.isolateScope();
 
-            expect(scope.vm.isLoading).toBe(false);
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DETAIL,
+                payload: {}
+            });
+
             expect(scope.vm.apiData).toBeUndefined();
             expect(store.dispatch).toHaveBeenCalledTimes(1);
         });
@@ -500,9 +559,52 @@ describe('the dp-detail component', () => {
             mockedUser.scopes = []; // triggers $watch
             scope.$digest();
 
-            expect(scope.vm.isLoading).toBe(false);
             expect(scope.vm.apiData).toBeUndefined();
-            expect(store.dispatch).not.toHaveBeenCalled(); // data removed
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DETAIL,
+                payload: {}
+            });
+        });
+    });
+
+    describe('"grondexploitatie" data', () => {
+        it('should be fetched if is authenticated as EMPLOYEE', () => {
+            mockedUser.scopes = ['GREX/R'];
+
+            getComponent(grondexploitatieEndPoint);
+        });
+
+        it('should not fetch data if not authorized', () => {
+            const component = getComponent(grondexploitatieEndPoint);
+
+            const scope = component.isolateScope();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: ACTIONS.SHOW_DETAIL,
+                payload: {}
+            });
+
+            expect(scope.vm.apiData).toBeUndefined();
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe('"dcatd" data', () => {
+        it('should not fetch data when catalogFilters are not provided', () => {
+            const component = getComponent(dcatdEndPoint);
+            const scope = component.isolateScope();
+
+            expect(scope.vm.apiData).toBeUndefined();
+            expect(api.getByUrl).not.toHaveBeenCalled();
+        });
+
+        it('should fetch data when the catatalogFilters are set', () => {
+            const component = getComponent(dcatdEndPoint, true, true, true, {});
+
+            const scope = component.isolateScope();
+
+            expect(scope.vm.apiData).not.toBeUndefined();
+            expect(api.getByUrl).toHaveBeenCalled();
         });
     });
 

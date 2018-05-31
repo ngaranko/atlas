@@ -1,3 +1,5 @@
+import { getEnvironment, ENVIRONMENT } from '../../src/shared/environment';
+
 (function () {
     'use strict';
 
@@ -16,22 +18,23 @@
 
         // Third party modules
         'angulartics.piwik',
-        'ngRaven'
+        'ngRaven',
+
+        'ngAria'
     ];
 
     /* eslint-disable angular/window-service */
     const Raven = window.Raven;
 
+    const environment = getEnvironment(window.location.hostname);
+
     const ravenConfig = {
-        environment: window.location.hostname
+        environment,
+        sentryEndpoint: 'https://e787d53c011243b59ae368a912ee6d3f@sentry.datapunt.amsterdam.nl/2'
     };
 
     /* istanbul ignore next */
-    if (ravenConfig.environment === 'data.amsterdam.nl') {
-        ravenConfig.sentryEndpoint = 'https://e787d53c011243b59ae368a912ee6d3f@sentry.datapunt.amsterdam.nl/2';
-    } else if (ravenConfig.environment === 'acc.amsterdam.nl') {
-        ravenConfig.sentryEndpoint = 'https://f52176a24eae4ad9acb7acc3fd5f7cdc@sentry.datapunt.amsterdam.nl/4';
-    } else {
+    if (environment === ENVIRONMENT.DEVELOPMENT) {
         Raven.setShouldSendCallback(() => false);
         Raven.isSetup = () => true;
     }
@@ -49,5 +52,8 @@
             .install();
     }
 
-    angular.module('atlas', moduleDependencies);
+    angular.module('atlas', moduleDependencies)
+        .config(function ($analyticsProvider) {
+            $analyticsProvider.virtualPageviews(false);
+        });
 })();

@@ -39,18 +39,43 @@
     stateUrlConversionFactory.$inject = ['uriStripper'];
 
     function stateUrlConversionFactory (uriStripper) {
+        /* istanbul ignore next */
+        const ofTypeArray = (oldState, newState) =>
+            angular.isArray(oldState) ? oldState : newState;
+        /* istanbul ignore next */
+        const ofTypeObject = (oldState, newState) =>
+            angular.isObject(oldState) ? oldState : newState;
+        /* istanbul ignore next */
+        const ofTypeBoolean = (oldState, newState) =>
+            oldState === true || oldState === false ? oldState : newState;
+
         return {
             onCreate: {
                 // Initialisation methods for the url2state conversion
                 // These methods are executed after a state object has been initialized with the initialValues
                 DEFAULT: (oldState, newState, params, initialValues) => {
-                    ['atlas', 'page', 'layerSelection', 'filters', 'user', 'mapLayers', 'mapBaseLayers',
-                        'isMapPanelVisible', 'ui'].forEach(s => {
-                            const value = initialValues[s];
-                            newState[s] = angular.isDefined(value)
-                                ? (angular.isArray(value) ? [...value]
-                                : angular.isObject(value) ? {...value} : value) : value;
-                        });
+                    [
+                        'filters',
+                        'isMapPreviewPanelVisible',
+                        'mapBaseLayers',
+                        'mapLayers',
+                        'mapSearchResults',
+                        'mapSearchResultsByLocation',
+                        'mapDetail',
+                        'mapClickLocation',
+                        'page',
+                        'ui',
+                        'user'
+                    ].forEach(s => {
+                        const value = initialValues[s];
+                        newState[s] = angular.isDefined(value)
+                            ? (angular.isArray(value)
+                                ? [...value]
+                                : angular.isObject(value)
+                                    ? {...value}
+                                    : value)
+                            : value;
+                    });
                     if (angular.equals(params, {})) {
                         // When no params, go to home page and show initial map
                         newState.page.name = 'home';
@@ -62,16 +87,6 @@
             post: {
                 // Post processing methods
                 // These methods are exectuted when the url2state conversion has finished
-                user: (oldState, newState) => {
-                    if (angular.isObject(oldState)) {
-                        newState.authenticated = oldState.authenticated;
-                        newState.accessToken = oldState.accessToken;
-                        newState.scopes = oldState.scopes;
-                        newState.name = oldState.name;
-                        newState.error = oldState.error;
-                    }
-                    return newState;
-                },
                 dataSelection: (oldState, newState) => {
                     if (angular.isObject(oldState)) {
                         newState.markers = oldState.markers;
@@ -86,6 +101,7 @@
                         newState.geometry = oldState.geometry;
                         newState.isLoading = oldState.isLoading;
                         newState.isFullscreen = oldState.isFullscreen;
+                        newState.skippedSearchResults = oldState.skippedSearchResults;
                     }
                     return newState;
                 },
@@ -95,41 +111,19 @@
 
                         newState.highlight = oldState.highlight;
                         newState.isLoading = oldState.isLoading;
-                    }
-                    return newState;
-                },
-                mapBaseLayers: (oldState, newState) => {
-                    if (angular.isObject(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
-                mapLayers: (oldState, newState) => {
-                    if (angular.isArray(oldState)) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
-                isMapPanelVisible: (oldState, newState) => {
-                    if (oldState === true || oldState === false) {
-                        newState = oldState;
-                    }
-                    return newState;
-                },
-                ui: (oldState, newState) => {
-                    /* istanbul ignore if */
-                    if (angular.isObject(oldState)) {
-                        newState = oldState;
+                        newState.shapeMarkers = oldState.shapeMarkers;
+                        newState.shapeDistanceTxt = oldState.shapeDistanceTxt;
+                        newState.shapeAreaTxt = oldState.shapeAreaTxt;
                     }
                     return newState;
                 },
                 search: (oldState, newState) => {
                     const hasOldState = angular.isObject(oldState);
                     const hasInputChanged = hasOldState && (
-                            oldState.query !== newState.query ||
-                            !angular.equals(oldState.location, newState.location) ||
-                            oldState.category !== newState.category
-                        );
+                        oldState.query !== newState.query ||
+                        !angular.equals(oldState.location, newState.location) ||
+                        oldState.category !== newState.category
+                    );
 
                     if (hasInputChanged) {
                         newState.numberOfResults = null;
@@ -155,15 +149,25 @@
                         }
                     }
                     return newState;
+                },
+                mapBaseLayers: ofTypeObject,
+                mapLayers: ofTypeArray,
+                user: ofTypeObject,
+                mapSearchResults: ofTypeArray,
+                mapSearchResultsByLocation: ofTypeObject,
+                mapDetail: ofTypeObject,
+                mapClickLocation: ofTypeObject,
+                isMapPreviewPanelVisible: ofTypeBoolean,
+                ui: (oldState, newState) => {
+                    if (angular.isObject(oldState)) {
+                        // Do not keep the state of the drawing mode
+                        newState.isMapPanelHandleVisible = oldState.isMapPanelHandleVisible;
+                    }
+                    return newState;
                 }
             },
             initialValues: {
                 // When creating a state object it will be initialized with these values
-                atlas: {
-                    isPrintMode: false,
-                    isEmbedPreview: false,
-                    isEmbed: false
-                },
                 user: {
                     authenticated: false,
                     accessToken: '',
@@ -185,29 +189,36 @@
                 },
                 detail: {
                     isFullscreen: false,
-                    isLoading: true
+                    isLoading: true,
+                    skippedSearchResults: false
                     // endpoint: 'http://api.example.com/bag/verblijfsobject/123/',
                     // display: 'This is the _display variable as available in each endpoint',
                     // geometry: null,
                 },
                 filters: {},
-                layerSelection: {
-                    isEnabled: false
-                },
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
                     zoom: 11,
                     overlays: [],
-                    isFullscreen: false,
                     isLoading: false,
-                    showActiveOverlays: false,
                     drawingMode: 'none',
-                    highlight: true
+                    highlight: true,
+                    shapeMarkers: 0,
+                    shapeDistanceTxt: '',
+                    shapeAreaTxt: ''
                 },
                 mapBaseLayers: {},
                 mapLayers: [],
-                isMapPanelVisible: false,
+                mapSearchResults: [],
+                mapSearchResultsByLocation: {},
+                mapDetail: {
+                    isLoading: false,
+                    currentEndpoint: '',
+                    byEndpoint: {}
+                },
+                mapClickLocation: {},
+                isMapPreviewPanelVisible: false,
                 page: {
                     name: null  // eg: 'home'
                 },
@@ -236,7 +247,13 @@
                     // id: 'ABC123',
                 },
                 ui: {
-                    isMapPanelHandleVisible: true
+                    isEmbed: false,
+                    isEmbedPreview: false,
+                    isMapFullscreen: false,
+                    isMapLayersVisible: true,
+                    isMapPanelVisible: false,
+                    isMapPanelHandleVisible: true,
+                    isPrintMode: false
                 }
             },
             stateVariables: {
@@ -244,15 +261,15 @@
                 // The type is stored with the name, every state variable has to have a type specification
                 // atlas (at)
                 atp: {
-                    name: 'atlas.isPrintMode',
+                    name: 'ui.isPrintMode',
                     type: 'boolean'
                 },
                 ate: {
-                    name: 'atlas.isEmbed',
+                    name: 'ui.isEmbed',
                     type: 'boolean'
                 },
                 atep: {
-                    name: 'atlas.isEmbedPreview',
+                    name: 'ui.isEmbedPreview',
                     type: 'boolean'
                 },
                 // dataSelection (ds)
@@ -298,11 +315,6 @@
                     type: 'keyvalues'
                 },
                 // header (hd, not used)
-                // layerSelection (ls)
-                lse: {
-                    name: 'layerSelection.isEnabled',
-                    type: 'boolean'
-                },
                 // map (mp)
                 mpb: {
                     name: 'map.baseLayer',
@@ -313,7 +325,7 @@
                     type: 'number'
                 },
                 mpfs: {
-                    name: 'map.isFullscreen',
+                    name: 'ui.isMapFullscreen',
                     type: 'boolean'
                 },
                 mpg: {
@@ -324,10 +336,6 @@
                 mpo: {
                     name: 'map.overlays',
                     type: 'object(id:string,isVisible:boolean)[]'
-                },
-                mps: {
-                    name: 'map.showActiveOverlays',
-                    type: 'boolean'
                 },
                 mpv: {
                     name: 'map.viewCenter',
@@ -398,6 +406,11 @@
                     name: 'straatbeeld.history',
                     type: 'base62',
                     precision: 1
+                },
+                // UI visibility (uv)
+                uvm: {
+                    name: 'ui.isMapPanelVisible',
+                    type: 'boolean'
                 }
             }
         };

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapDetailMeetbout should render everything 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Meetbout label"
+  title="Meetbout"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Status"
+      value="Meetbout status"
+    />
+    <MapDetailResultItem
+      label="Adres"
+      value="Meetbout address"
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;

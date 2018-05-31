@@ -18,12 +18,7 @@ describe('The dashboardColumns factory', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                showActiveOverlays: false,
-                isFullscreen: false,
                 isLoading: false
-            },
-            layerSelection: {
-                isEnabled: false
             },
             search: null,
             page: {
@@ -32,9 +27,14 @@ describe('The dashboardColumns factory', function () {
             detail: null,
             straatbeeld: null,
             dataSelection: null,
-            atlas: {
-                isPrintMode: false,
-                isEmbedPreview: false
+            error: {
+                hasErrors: false,
+                types: {}
+            },
+            ui: {
+                isEmbedPreview: false,
+                isMapFullscreen: false,
+                isPrintMode: false
             }
         };
 
@@ -52,16 +52,6 @@ describe('The dashboardColumns factory', function () {
          * Note; test-cases for map activity are listed below, map activity equals map visibility, all available
          * scenarios are only listed once (at the visibility describe block)
          */
-        it('checks if map.layerSelection is true in the state', function () {
-            mockedState.layerSelection.isEnabled = true;
-            activity = dashboardColumns.determineActivity(mockedState);
-            expect(activity.layerSelection).toBe(true);
-
-            mockedState.layerSelection.isEnabled = false;
-            activity = dashboardColumns.determineActivity(mockedState);
-            expect(activity.layerSelection).toBe(false);
-        });
-
         it('checks if page is a string', function () {
             activity = dashboardColumns.determineActivity(mockedState);
             expect(activity.page).toBe(true);
@@ -119,12 +109,12 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
                 expect(activity.map).toBe(false);
                 expect(visibility.map).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -140,7 +130,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -151,12 +141,12 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.page).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
                 expect(activity.map).toBe(false);
                 expect(visibility.map).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -199,11 +189,11 @@ describe('The dashboardColumns factory', function () {
                     expect(visibility.map).toBe(searchInput === 'location');
                     expect(visibility.searchResults).toBe(true);
 
-                    expect(visibility.layerSelection).toBe(false);
                     expect(visibility.detail).toBe(false);
                     expect(visibility.page).toBe(false);
                     expect(visibility.straatbeeld).toBe(false);
                     expect(visibility.dataSelection).toBe(false);
+                    expect(activity.mapPreviewPanel).toBe(false);
                 });
 
                 it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
@@ -215,7 +205,7 @@ describe('The dashboardColumns factory', function () {
 
             describe('the print version', function () {
                 beforeEach(function () {
-                    mockedState.atlas.isPrintMode = true;
+                    mockedState.ui.isPrintMode = true;
 
                     activity = dashboardColumns.determineActivity(mockedState);
                     visibility = dashboardColumns.determineVisibility(mockedState);
@@ -225,13 +215,13 @@ describe('The dashboardColumns factory', function () {
                 it('makes the searchResults visibile', function () {
                     expect(visibility.searchResults).toBe(true);
 
-                    expect(visibility.layerSelection).toBe(false);
                     expect(visibility.detail).toBe(false);
                     expect(activity.map).toBe(false);
                     expect(visibility.map).toBe(false);
                     expect(visibility.page).toBe(false);
                     expect(visibility.straatbeeld).toBe(false);
                     expect(visibility.dataSelection).toBe(false);
+                    expect(activity.mapPreviewPanel).toBe(false);
                 });
 
                 it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -259,16 +249,30 @@ describe('The dashboardColumns factory', function () {
                 hasLimitedWidth = dashboardColumns.hasLimitedWidth(mockedState);
             });
 
+            it('deals with incomplete state', function () {
+                delete mockedState.ui;
+                activity = dashboardColumns.determineActivity(mockedState);
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                expect(activity.map).toBe(true);
+                expect(visibility.map).toBe(true);
+                expect(visibility.detail).toBe(true);
+
+                expect(visibility.page).toBe(false);
+                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.searchResults).toBe(false);
+                expect(visibility.dataSelection).toBe(false);
+            });
+
             it('makes the map and detail page visibile', function () {
                 expect(activity.map).toBe(true);
                 expect(visibility.map).toBe(true);
                 expect(visibility.detail).toBe(true);
 
-                expect(visibility.layerSelection).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
@@ -296,7 +300,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
             });
 
             it('makes the map and detail page visibile', function () {
@@ -307,11 +311,11 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.map).toBe(true);
                 expect(visibility.detail).toBe(true);
 
-                expect(visibility.layerSelection).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 3/3', function () {
@@ -352,10 +356,10 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('detail and straatbeeld can\'t be visible at the same time', function () {
@@ -411,7 +415,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -424,10 +428,10 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.straatbeeld).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 3/3', function () {
@@ -438,75 +442,10 @@ describe('The dashboardColumns factory', function () {
         });
     });
 
-    describe('when using layer selection', function () {
-        beforeEach(function () {
-            mockedState.page.name = null;
-            mockedState.detail = {
-                endpoint: 'http://api.example.com/blah/blah/123',
-                isLoading: false
-            };
-            mockedState.layerSelection.isEnabled = true;
-        });
-
-        describe('the default non-print version', function () {
-            beforeEach(function () {
-                activity = dashboardColumns.determineActivity(mockedState);
-                visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
-            });
-
-            it('makes the layerSelection and map visibile', function () {
-                expect(visibility.layerSelection).toBe(true);
-                expect(activity.map).toBe(true);
-                expect(visibility.map).toBe(true);
-
-                expect(visibility.detail).toBe(false);
-                expect(visibility.page).toBe(false);
-                expect(visibility.straatbeeld).toBe(false);
-                expect(visibility.searchResults).toBe(false);
-                expect(visibility.dataSelection).toBe(false);
-            });
-
-            it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
-                expect(columnSizes.left).toBe(0);
-                expect(columnSizes.middle).toBe(12);
-                expect(columnSizes.right).toBe(0);
-            });
-        });
-
-        describe('the print version', function () {
-            beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
-
-                activity = dashboardColumns.determineActivity(mockedState);
-                visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
-            });
-
-            it('makes the layerSelection visibile', function () {
-                expect(visibility.layerSelection).toBe(true);
-
-                expect(visibility.detail).toBe(false);
-                expect(activity.map).toBe(false);
-                expect(visibility.map).toBe(false);
-                expect(visibility.page).toBe(false);
-                expect(visibility.straatbeeld).toBe(false);
-                expect(visibility.searchResults).toBe(false);
-                expect(visibility.dataSelection).toBe(false);
-            });
-
-            it('left column: 2/3, middle column: 1/3, right column 0/3', function () {
-                expect(columnSizes.left).toBe(0);
-                expect(columnSizes.middle).toBe(12);
-                expect(columnSizes.right).toBe(0);
-            });
-        });
-    });
-
     describe('when using a fullscreen map', function () {
         beforeEach(function () {
             mockedState.dataSelection = {};
-            mockedState.map.isFullscreen = true;
+            mockedState.ui.isMapFullscreen = true;
         });
 
         describe('the default non-print version', function () {
@@ -521,11 +460,11 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.map).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
@@ -537,7 +476,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -549,11 +488,11 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.map).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
@@ -565,8 +504,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the embed preview version', function () {
             beforeEach(function () {
-                mockedState.atlas.isEmbedPreview = true;
-                mockedState.layerSelection.isEnabled = true;
+                mockedState.ui.isEmbedPreview = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -578,79 +516,14 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.map).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.dataSelection).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
-                expect(columnSizes.left).toBe(0);
-                expect(columnSizes.middle).toBe(12);
-                expect(columnSizes.right).toBe(0);
-            });
-        });
-    });
-
-    describe('when using layer selection while using a fullscreen map', function () {
-        beforeEach(function () {
-            mockedState.detail = {
-                uri: 'blah/blah/123',
-                isLoading: false
-            };
-            mockedState.layerSelection.isEnabled = true;
-            mockedState.map.isFullscreen = true;
-        });
-
-        describe('the default non-print version', function () {
-            beforeEach(function () {
-                activity = dashboardColumns.determineActivity(mockedState);
-                visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
-            });
-
-            it('makes the layerSelection and map visibile', function () {
-                expect(visibility.layerSelection).toBe(true);
-                expect(activity.map).toBe(true);
-                expect(visibility.map).toBe(true);
-
-                expect(visibility.detail).toBe(false);
-                expect(visibility.page).toBe(false);
-                expect(visibility.straatbeeld).toBe(false);
-                expect(visibility.searchResults).toBe(false);
-                expect(visibility.dataSelection).toBe(false);
-            });
-
-            it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
-                expect(columnSizes.left).toBe(0);
-                expect(columnSizes.middle).toBe(12);
-                expect(columnSizes.right).toBe(0);
-            });
-        });
-
-        describe('the print version', function () {
-            beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
-
-                activity = dashboardColumns.determineActivity(mockedState);
-                visibility = dashboardColumns.determineVisibility(mockedState);
-                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
-            });
-
-            it('makes the layerSelection visibile', function () {
-                expect(visibility.layerSelection).toBe(true);
-
-                expect(visibility.detail).toBe(false);
-                expect(activity.map).toBe(true);
-                expect(visibility.map).toBe(true);
-                expect(visibility.page).toBe(false);
-                expect(visibility.straatbeeld).toBe(false);
-                expect(visibility.searchResults).toBe(false);
-                expect(visibility.dataSelection).toBe(false);
-            });
-
-            it('left column: 2/3, middle column: 1/3, right column 0/3', function () {
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(12);
                 expect(columnSizes.right).toBe(0);
@@ -686,10 +559,10 @@ describe('The dashboardColumns factory', function () {
                 expect(activity.map).toBe(false);
                 expect(visibility.map).toBe(false);
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -715,10 +588,10 @@ describe('The dashboardColumns factory', function () {
                 expect(visibility.map).toBe(true);
 
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 1/3, right column 2/3', function () {
@@ -730,7 +603,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
 
                 activity = dashboardColumns.determineActivity(mockedState);
                 visibility = dashboardColumns.determineVisibility(mockedState);
@@ -743,10 +616,10 @@ describe('The dashboardColumns factory', function () {
                 expect(activity.map).toBe(false);
                 expect(visibility.map).toBe(false);
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 0/3, right column 3/3', function () {
@@ -758,7 +631,7 @@ describe('The dashboardColumns factory', function () {
 
         describe('the list view print version', function () {
             beforeEach(function () {
-                mockedState.atlas.isPrintMode = true;
+                mockedState.ui.isPrintMode = true;
                 mockedState.dataSelection.view = 'LIST';
                 mockedState.dataSelection.isFullscreen = false;
 
@@ -773,13 +646,136 @@ describe('The dashboardColumns factory', function () {
                 expect(activity.map).toBe(true);
                 expect(visibility.map).toBe(true);
                 expect(visibility.detail).toBe(false);
-                expect(visibility.layerSelection).toBe(false);
                 expect(visibility.page).toBe(false);
                 expect(visibility.searchResults).toBe(false);
                 expect(visibility.straatbeeld).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
             });
 
             it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(0);
+                expect(columnSizes.middle).toBe(12);
+                expect(columnSizes.right).toBe(0);
+            });
+        });
+    });
+
+    describe('when using geosearch results while using a fullscreen map', function () {
+        beforeEach(function () {
+            mockedState.search = {
+                location: [1.2, 3.4]
+            };
+            mockedState.ui.isMapFullscreen = true;
+        });
+
+        describe('the default non-print version', function () {
+            beforeEach(function () {
+                activity = dashboardColumns.determineActivity(mockedState);
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+            });
+
+            it('makes the map preview panel and map visibile', function () {
+                expect(activity.mapPreviewPanel).toBe(true);
+                expect(activity.map).toBe(true);
+                expect(visibility.map).toBe(true);
+                expect(activity.searchResults).toBe(true);
+
+                expect(visibility.detail).toBe(false);
+                expect(visibility.page).toBe(false);
+                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.searchResults).toBe(false);
+                expect(visibility.dataSelection).toBe(false);
+            });
+
+            it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(0);
+                expect(columnSizes.middle).toBe(12);
+                expect(columnSizes.right).toBe(0);
+            });
+        });
+
+        describe('the print version', function () {
+            beforeEach(function () {
+                mockedState.ui.isPrintMode = true;
+
+                activity = dashboardColumns.determineActivity(mockedState);
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+            });
+
+            it('makes the map preview panel and map visibile', function () {
+                expect(activity.mapPreviewPanel).toBe(true);
+                expect(activity.map).toBe(true);
+                expect(visibility.map).toBe(true);
+                expect(activity.searchResults).toBe(true);
+
+                expect(visibility.detail).toBe(false);
+                expect(visibility.page).toBe(false);
+                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.searchResults).toBe(false);
+                expect(visibility.dataSelection).toBe(false);
+            });
+
+            it('left column: 2/3, middle column: 1/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(0);
+                expect(columnSizes.middle).toBe(12);
+                expect(columnSizes.right).toBe(0);
+            });
+        });
+
+        describe('non-print version with data selection active', function () {
+            beforeEach(function () {
+                mockedState.dataSelection = {};
+                activity = dashboardColumns.determineActivity(mockedState);
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+            });
+
+            it('makes the map visibile', function () {
+                expect(activity.map).toBe(true);
+                expect(visibility.map).toBe(true);
+                expect(activity.searchResults).toBe(true);
+                expect(activity.dataSelection).toBe(true);
+
+                expect(visibility.detail).toBe(false);
+                expect(visibility.page).toBe(false);
+                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.searchResults).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
+            });
+
+            it('left column: 0/3, middle column: 3/3, right column 0/3', function () {
+                expect(columnSizes.left).toBe(0);
+                expect(columnSizes.middle).toBe(12);
+                expect(columnSizes.right).toBe(0);
+            });
+        });
+
+        describe('the print version with data selection active', function () {
+            beforeEach(function () {
+                mockedState.dataSelection = {};
+                mockedState.ui.isPrintMode = true;
+
+                activity = dashboardColumns.determineActivity(mockedState);
+                visibility = dashboardColumns.determineVisibility(mockedState);
+                columnSizes = dashboardColumns.determineColumnSizes(mockedState);
+            });
+
+            it('makes the map preview panel and map visibile', function () {
+                expect(activity.map).toBe(true);
+                expect(visibility.map).toBe(true);
+                expect(activity.searchResults).toBe(true);
+                expect(activity.dataSelection).toBe(true);
+
+                expect(visibility.detail).toBe(false);
+                expect(visibility.page).toBe(false);
+                expect(visibility.straatbeeld).toBe(false);
+                expect(visibility.searchResults).toBe(false);
+                expect(activity.mapPreviewPanel).toBe(false);
+            });
+
+            it('left column: 2/3, middle column: 1/3, right column 0/3', function () {
                 expect(columnSizes.left).toBe(0);
                 expect(columnSizes.middle).toBe(12);
                 expect(columnSizes.right).toBe(0);

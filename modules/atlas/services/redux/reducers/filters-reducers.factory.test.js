@@ -18,14 +18,9 @@ describe('The filtersReducers factory', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                showActiveOverlays: false,
-                isFullscreen: false,
                 isLoading: false
             },
             filters: {},
-            layerSelection: {
-                isEnabled: false
-            },
             search: null,
             page: {
                 name: 'home'
@@ -33,9 +28,11 @@ describe('The filtersReducers factory', function () {
             detail: null,
             straatbeeld: null,
             dataSelection: null,
-            atlas: {
-                isPrintMode: false,
-                isEmbedPreview: false
+            ui: {
+                isEmbedPreview: false,
+                isMapFullscreen: false,
+                isMapPanelVisible: false,
+                isPrintMode: false
             }
         };
 

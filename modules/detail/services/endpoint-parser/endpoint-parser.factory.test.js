@@ -34,8 +34,8 @@ describe('The endpointParser factory', function () {
             expect(endpointParser.getParts('https://api.data.amsterdam.nl/folder-1/folder-2/folder-3/123/'))
                 .toEqual(['folder-2', 'folder-3']);
 
-            expect(endpointParser.getParts('https://data.amsterdam.nl/catalogus/api/3/action/package_show?id=7'))
-                .toEqual(['catalogus', 'api']);
+            expect(endpointParser.getParts('https://data.amsterdam.nl/dcatd/datasets/id'))
+                .toEqual(['dcatd', 'datasets']);
         });
     });
 
@@ -60,10 +60,10 @@ describe('The endpointParser factory', function () {
                 .toBe('modules/detail/components/detail/templates/brk/subject.html');
         });
 
-        it('has special exception for catalogus detail pages', () => {
+        it('has special exception for catalogus detail pageuss', () => {
             expect(endpointParser.getTemplateUrl(
-                'https://data.amsterdam.nl/catalogus/api/3/action/package_show?id=123'
-            )).toBe('modules/detail/components/detail/templates/catalogus/api.html');
+                'https://data.amsterdam.nl/dcatd/datasets/id'
+            )).toBe('modules/detail/components/detail/templates/dcatd/datasets.html');
         });
     });
 
@@ -82,8 +82,8 @@ describe('The endpointParser factory', function () {
                 .toBe('INSLAG');
 
             expect(endpointParser.getGlossaryKey(
-                'https://data.amsterdam.nl/catalogus/api/3/action/package_show?id=124'
-            )).toBe('API');
+                'https://data.amsterdam.nl/dcatd/datasets/id'
+            )).toBe('DATASETS');
         });
 
         it('turns dashes (-) in the endpoint into underscores (_) in the glossary key', () => {
@@ -96,6 +96,11 @@ describe('The endpointParser factory', function () {
             expect(endpointParser.getGlossaryKey('https://api.data.amsterdam.nl/brk/zakelijk-recht/' +
                     'some-id-with-numbers-123456/subject/'))
                 .toBe('SUBJECT');
+        });
+
+        it('has special exception for "grondexploitatie"', () => {
+            expect(endpointParser.getGlossaryKey('https://api.data.amsterdam.nl/grondexploitatie/project/123/'))
+                .toBe('GRONDEXPLOITATIE');
         });
     });
 });

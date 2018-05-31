@@ -1,5 +1,12 @@
 .c-detail {
   padding: $detail-padding;
+
+  // Needs to be nested to gain more importance over `o-btn`
+  & .c-detail__table-link {
+    display: block;
+    line-height: inherit;
+    word-wrap: break-word;
+  }
 }
 
 .c-detail__block {
@@ -28,9 +35,15 @@
   }
 }
 
-.c-detail__geosearch {
-  display: block;
-  margin: 0;
-  padding: $base-whitespace (4 * $base-whitespace);
-  border-bottom: 1px solid $secondary-gray20;
+.o-btn--plus {
+  &.c-detail__geosearch {
+    display: block;
+    margin: 0;
+    padding: $base-whitespace (4 * $base-whitespace);
+    border-bottom: 1px solid $secondary-gray20;
+  }
+}
+
+.c-disabled-message {
+  margin-top: 2 * $base-whitespace;
 }

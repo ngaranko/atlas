@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import RemoveIcon from '../../../../public/images/icon-cross.svg';
+import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 
 import './_notification.scss';
 
@@ -27,12 +27,14 @@ class Notification extends React.Component {
       `}
       >
         <span className="notification__content">{this.props.children}</span>
-        <button
-          className="notification__button"
-          onClick={this.hideNotification}
-        >
-          <RemoveIcon />
-        </button>
+        { this.props.level !== 'message' &&
+          <button
+            className="notification__button"
+            onClick={this.hideNotification}
+          >
+            <CloseIcon />
+          </button>
+        }
       </p>
     );
   }
@@ -49,7 +51,7 @@ Notification.propTypes = {
     PropTypes.node
   ]).isRequired,
   className: PropTypes.string,
-  level: PropTypes.oneOf(['error', 'info'])
+  level: PropTypes.oneOf(['error', 'info', 'message'])
 };
 
 export default Notification;

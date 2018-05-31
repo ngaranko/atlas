@@ -19,6 +19,8 @@
         const MAIN_STATE = 'DEFAULT';
         const BOOLEAN_TRUE = 'T';
         const BOOLEAN_FALSE = 'F';
+        const NO_VALUE = 'xxxx';
+        const FILTERS_WITH_POSSIBLE_NO_VALUE = ['postcode', 'bijzondere_rechtstoestand'];
         const TYPENAME = {
             STRING: /^string$/,
             BOOLEAN: /^boolean$/,
@@ -255,15 +257,22 @@
                     }
                     value = asUrlValue(value, attribute.type, attribute.precision);
                     if (value) {
-                        result[key] = value;
+                        const valuesRegEx = new RegExp(`(${FILTERS_WITH_POSSIBLE_NO_VALUE.join('|')}):::`, 'g');
+                        result[key] = value
+                            .replace(valuesRegEx, `$1::${NO_VALUE}:`);
                     }
                 }
                 return result;
             }, {});
         }
 
+        /**
+         * Converts a params object (payload or url value) to a new state object
+         * @param  {object} oldState current state
+         * @param  {object} params   list of get parameters
+         * @return {object}          new state
+         */
         function params2state (oldState, params) {
-            // Converts a params object (payload or url value) to a new state object
             let newState = createObject(oldState, MAIN_STATE, params);
 
             newState = Object.keys(stateUrlConversion.stateVariables).reduce((result, key) => {
@@ -296,6 +305,13 @@
                 }
             });
 
+            if (newState.filters) {
+                Object.keys(newState.filters).forEach(key => {
+                    if (newState.filters[key] === NO_VALUE) {
+                        newState.filters[key] = '';
+                    }
+                });
+            }
             return newState;
         }
     }

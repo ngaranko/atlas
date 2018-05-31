@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapContainer should render 1`] = `
+<section
+  className="map"
+>
+  <Connect(Component) />
+  <ToggleFullscreen
+    isFullscreen={false}
+    onToggleFullscreen={[Function]}
+  />
+</section>
+`;

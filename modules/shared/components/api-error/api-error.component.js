@@ -1,3 +1,8 @@
+import {
+    ERROR_TYPES,
+    resetGlobalError
+} from '../../../../src/shared/ducks/error-message';
+
 (function () {
     angular
         .module('dpShared')
@@ -10,39 +15,51 @@
             controllerAs: 'vm'
         });
 
-    DpApiErrorController.$inject = ['$scope', 'httpStatus'];
+    DpApiErrorController.$inject = ['$scope', '$timeout', 'store'];
 
-    function DpApiErrorController ($scope, httpStatus) {
+    function DpApiErrorController ($scope, $timeout, store) {
         const vm = this;
 
-        // Simply expose the http status as well
-        vm.httpStatus = httpStatus.getStatus();
+        vm.hide = () => {
+            store.dispatch(resetGlobalError());
+        };
 
-        reset();
+        const reset = () => {
+            vm.showGeneralError = false;
+            vm.showNotFoundError = false;
+            vm.showLoginError = false;
+        };
 
-        $scope.$watch('vm.httpStatus.hasErrors', (hasErrors) => {
+        const checkErrors = (errorState) => {
             reset();
-
+            const { hasErrors, types } = errorState;
             if (hasErrors) {
-                if (vm.httpStatus[httpStatus.NOT_FOUND_ERROR]) {
+                if (types.hasOwnProperty(ERROR_TYPES.NOT_FOUND_ERROR)) {
                     vm.showNotFoundError = true;
-                } else if (vm.httpStatus[httpStatus.LOGIN_ERROR]) {
+                } else if (types.hasOwnProperty(ERROR_TYPES.LOGIN_ERROR)) {
                     vm.showLoginError = true;
                 } else {
-                    vm.showServerError = true;
+                    vm.showGeneralError = true;
                 }
             }
-        });
+        };
+
+        reset();
+        checkErrors(store.getState().error);
 
         $scope.$watch('vm.user.error', (error) => {
             if (error) {
-                httpStatus.registerError(httpStatus.LOGIN_ERROR);
+                vm.showLoginError = true;
             }
         });
 
-        function reset () {
-            vm.showServerError = false;
-            vm.showNotFoundError = false;
-        }
+        store.subscribe(() => {
+            const { error } = store.getState();
+            if (error.hasErrors) {
+                $timeout(() => {
+                    checkErrors(error);
+                });
+            }
+        });
     }
 })();

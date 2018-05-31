@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapDetailNapPeilmerk should not render empty height 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Peilmerk label"
+  title="NAP Peilmerk"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Hoogte NAP"
+      value=""
+    />
+    <MapDetailResultItem
+      label="Jaar"
+      value="1919"
+    />
+    <MapDetailResultItem
+      label="Omschrijving"
+      value="Peilmerk description"
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;
+
+exports[`MapDetailNapPeilmerk should not render without height 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Peilmerk label"
+  title="NAP Peilmerk"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Hoogte NAP"
+      value=""
+    />
+    <MapDetailResultItem
+      label="Jaar"
+      value="1919"
+    />
+    <MapDetailResultItem
+      label="Omschrijving"
+      value="Peilmerk description"
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;
+
+exports[`MapDetailNapPeilmerk should render everything 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Peilmerk label"
+  title="NAP Peilmerk"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Hoogte NAP"
+      value="123 m"
+    />
+    <MapDetailResultItem
+      label="Jaar"
+      value="1919"
+    />
+    <MapDetailResultItem
+      label="Omschrijving"
+      value="Peilmerk description"
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;

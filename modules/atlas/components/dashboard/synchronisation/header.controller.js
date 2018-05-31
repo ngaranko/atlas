@@ -17,13 +17,12 @@
             const state = store.getState(),
                 isDataSelection = angular.isObject(state.dataSelection),
                 isListView = isDataSelection && state.dataSelection.view === 'LIST',
-                isCardsView = isDataSelection && state.dataSelection.view === 'CARDS',
+                isCatalogView = isDataSelection && state.dataSelection.view === 'CATALOG',
                 isHomepage = angular.isObject(state.page) && state.page.name === 'home' &&
-                    !state.map.isFullscreen &&
+                    !state.ui.isMapFullscreen &&
                     !angular.isObject(state.straatbeeld);
 
-            if ((isCardsView) ||
-                (state.detail && state.detail.endpoint.includes('/catalogus/api/'))) {
+            if (isCatalogView) {
                 // Search in datasets
                 vm.query = state.dataSelection && state.dataSelection.query;
                 vm.searchAction = ACTIONS.FETCH_DATA_SELECTION;
@@ -35,7 +34,7 @@
 
             vm.hasPrintButton = (!isDataSelection || isListView) && !isHomepage;
             vm.hasEmbedButton = !angular.isObject(state.straatbeeld) &&
-                angular.isObject(state.map) && state.map.isFullscreen;
+                angular.isObject(state.ui) && state.ui.isMapFullscreen;
         }
     }
 })();

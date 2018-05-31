@@ -1,0 +1,39 @@
+<div class="c-data-selection-catalog u-margin__bottom--1">
+    <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint" ng-repeat="row in vm.items" class-name="c-data-selection-catalog__list" inline="false">
+
+        <button class="c-data-selection-catalog__item qa-catalog-fetch-detail u-no-presentation">
+            <div class="c-data-selection-catalog__header">
+                <h2>
+                    {{row.header}}
+                </h2>
+                <div>Metadata {{row.modification | modificationDate}}</div>
+            </div>
+
+            <span class="c-data-selection-catalog__formats">
+                <div ng-repeat="format in row.formats" class="c-data-selection-file-type">
+                    <span class="c-data-selection-file-type__name c-data-selection-file-type__format-{{format.name | optionLabel:vm.catalogFilters.formatTypes| lowercase }}">
+                        {{format.name | optionLabel:vm.catalogFilters.formatTypes| lowercase }}
+                    </span>
+                    <span class="c-data-selection-file-type__x">x</span>
+                    <span class="c-data-selection-file-type__count ng-binding">{{format.count}}</span>
+                </div>
+            </span>
+
+            <span class="c-data-selection-catalog__tags">
+                <ul ng-repeat="tag in row.tags" class="u-inline">
+                    <li class="u-inline">
+                        <div class="dataset-tag-small">
+                            <i class="dataset-tag-small__arrow"></i>
+                            <span class="dataset-tag-small__label">{{tag | dpUppercaseFirstLetter}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </span>
+
+            <div class="c-data-selection-catalog__description">
+                {{row.description | truncateHtmlAsText}}
+            </div>
+        </button>
+    </dp-link>
+
+</div>

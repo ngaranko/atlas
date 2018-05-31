@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapDetailAdressenPand should render everything 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Pand label"
+  title="Pand"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Oorspronkelijk bouwjaar"
+      value="2020"
+    />
+    <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value=""
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;
+
+exports[`MapDetailAdressenPand should render unknown for empty year 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Pand label"
+  title="Pand"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Oorspronkelijk bouwjaar"
+      value="onbekend"
+    />
+    <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value=""
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;
+
+exports[`MapDetailAdressenPand should render unknown without year 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Pand label"
+  title="Pand"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Oorspronkelijk bouwjaar"
+      value="onbekend"
+    />
+    <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value=""
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;

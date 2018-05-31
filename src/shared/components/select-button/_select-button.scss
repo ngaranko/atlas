@@ -1,14 +1,16 @@
+@import "../../styles/config";
+
 .select-button {
-  background-color: #FFFFFF;
+  background-color: $primary-light;
   cursor: pointer;
   margin-bottom: 10px;
   position: relative;
 
   &__wrapper {
     align-items: center;
-    border: 1px solid #7E7E7E;
-    border-right: none;
+    border: 1px solid $secondary-gray52;
     border-radius: 0;
+    border-right: none;
     display: flex;
     height: 36px;
     justify-content: space-between;
@@ -17,18 +19,18 @@
     width: calc(100% - 32px);
 
     &:hover {
-      background-color: #FF0000;
-      border-color: #FF0000;
-      color: white;
+      background-color: $primary-contrast;
+      border-color: $primary-contrast;
+      color: $primary-light;
 
-      svg {
-        fill: #FFFFFF;
+      svg { // sass-lint:disable-line nesting-depth
+        fill: $primary-light;
       }
     }
   }
 
   &__icon-wrapper {
-    border: 1px solid #7E7E7E;
+    border: 1px solid $secondary-gray52;
     border-radius: 0;
     bottom: 0;
     height: 36px;
@@ -39,19 +41,21 @@
     width: 32px;
 
     &:hover {
-      background-color: #FF0000;
-      border-color: #FF0000;
-      color: #FFFFFF;
+      background-color: $primary-contrast;
+      border-color: $primary-contrast;
+      color: $primary-light;
 
-      svg {
-        fill: #FFFFFF;
+      svg { // sass-lint:disable-line nesting-depth
+        fill: $primary-light;
       }
     }
   }
 
-  &__icon svg {
-    height: 22px;
-    width: 22px;
+  &__icon {
+    svg {
+      height: 22px;
+      width: 22px;
+    }
   }
 
   &__icon--expand {
@@ -76,12 +80,12 @@
     }
 
     .select-button__icon-wrapper {
-      background-color: #FF0000;
-      border-color: #FF0000;
-      color: #FFFFFF;
+      background-color: $primary-contrast;
+      border-color: $primary-contrast;
+      color: $primary-light;
 
       svg {
-        fill: #FFFFFF;
+        fill: $primary-light;
       }
     }
   }
@@ -89,28 +93,28 @@
   &--disabled {
     .select-button__wrapper,
     .select-button__icon-wrapper {
-      border-color: #D2D2D2;
-      color: #666666;
+      border-color: $secondary-gray32;
+      color: $secondary-gray60;
 
       &:hover {
-        color: #FFFFFF;
-        background-color: #FF0000;
-        border-color: #FF0000;
+        background-color: $primary-contrast;
+        border-color: $primary-contrast;
+        color: $primary-light;
 
-        svg {
-          fill: #FFFFFF;
+        svg { // sass-lint:disable-line nesting-depth
+          fill: $primary-light;
         }
       }
     }
 
     &.select-button--expanded {
       .select-button__icon-wrapper {
-        border-color: #FF0000;
+        border-color: $primary-contrast;
       }
     }
 
     svg {
-      fill: #666666;
+      fill: $secondary-gray60;
     }
   }
 
@@ -121,10 +125,14 @@
   }
 
   &__drop-down {
-    background-color: #FFFFFF;
-    border: 1px solid #000000;
+    background-color: $primary-light;
+    border: 1px solid $primary-dark;
     border-top: none;
+    box-sizing: border-box;
     display: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     position: absolute;
     width: 100%;
     z-index: 700;
@@ -134,7 +142,7 @@
     width: inherit;
 
     &--selected {
-      background-color: #EEEEEE;
+      background-color: $secondary-gray10;
     }
   }
 
@@ -152,14 +160,18 @@
   }
 
   &__drop-down-button {
+    // TODO: Configure `autoprefixer` in Storybook build to prevent prefixing
+    -webkit-appearance: none; // sass-lint:disable-line no-vendor-prefixes
     appearance: none;
+    border: none;
     font-family: "Avenir LT W01 55 Roman";
     font-size: 16px;
+    margin: 0;
     outline: none;
-    padding: 7px 10px 7px 33px;
+    padding: 7px 10px 7px 40px;
 
     &:hover {
-      background-color: #F6F6F6;
+      background-color: $secondary-gray4;
     }
   }
 }

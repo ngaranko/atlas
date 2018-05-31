@@ -1,15 +1,6 @@
-.c-toggle-straatbeeld-fullscreen {
+dp-toggle-straatbeeld-fullscreen {
   position: absolute;
-  top: $base-whitespace;
-  left: $base-whitespace;
-  cursor: pointer;
+  top: $container-whitespace;
+  left: $container-whitespace;
   z-index: $on-top-z-index;
-}
-
-.c-toggle-straatbeeld-fullscreen--minimize {
-  @include icon-button-box("minimize");
-}
-
-.c-toggle-straatbeeld-fullscreen--maximize {
-  @include icon-button-box("maximize");
 }

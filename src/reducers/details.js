@@ -1,10 +1,20 @@
+import { endpointTypes } from '../map/services/map-detail';
+
+export const FETCH_DETAIL = 'FETCH_DETAIL';
+
 /* eslint-disable */
 // export default function detailReducer(state = {}, action) {
 /* istanbul ignore next */
 window.reducers = window.reducers || {};
 window.reducers.detailReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'FETCH_DETAIL':
+    case FETCH_DETAIL:
+
+      // If preview panel is available use that, otherwise show detail page aside.
+      const leaveMapFullscreen = action.payload && Object
+        .keys(endpointTypes)
+        .some((typeKey) => action.payload.includes(endpointTypes[typeKey]));
+
       return {
         ...state,
         dataSelection: null,
@@ -12,15 +22,11 @@ window.reducers.detailReducer = (state = {}, action) => {
           endpoint: action.payload,
           reload: Boolean(state.detail && state.detail.endpoint === action.payload),
           isLoading: true,
-          isFullscreen: action.payload && action.payload.includes('catalogus/api')
-        },
-        layerSelection: {
-          ...state.layerSelection,
-          isEnabled: false
+          isFullscreen: action.payload && action.payload.includes('dcatd/datasets'),
+          skippedSearchResults: Boolean(action.skippedSearchResults)
         },
         map: {
           ...state.map,
-          isFullscreen: false,
           isLoading: true
         },
         page: {
@@ -29,7 +35,11 @@ window.reducers.detailReducer = (state = {}, action) => {
           type: null
         },
         search: null,
-        straatbeeld: null
+        straatbeeld: null,
+        ui: {
+          ...state.ui,
+          isMapFullscreen: leaveMapFullscreen ? state.ui.isMapFullscreen : false,
+        }
       };
 
     case 'SHOW_DETAIL':
@@ -61,3 +71,8 @@ window.reducers.detailReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const fetchDetail = (endpoint) => ({
+  type: FETCH_DETAIL,
+  payload: endpoint
+});

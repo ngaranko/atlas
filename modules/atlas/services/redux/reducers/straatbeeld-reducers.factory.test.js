@@ -10,12 +10,7 @@ describe('Straatbeeld reducers factory', function () {
                 overlays: [],
                 viewCenter: [52.3719, 4.9012],
                 zoom: 9,
-                showActiveOverlays: false,
-                isFullscreen: false,
                 isLoading: false
-            },
-            layerSelection: {
-                isEnabled: false
             },
             search: null,
             page: {
@@ -24,7 +19,9 @@ describe('Straatbeeld reducers factory', function () {
             detail: null,
             straatbeeld: null,
             dataSelection: null,
-            atlas: {
+            ui: {
+                isMapFullscreen: false,
+                isMapPanelVisible: false,
                 isPrintMode: false
             }
         };
@@ -264,7 +261,7 @@ describe('Straatbeeld reducers factory', function () {
         });
 
         it('can set the straatbeeld to the new location', function () {
-            var state = { straatbeeld: {} },
+            var state = { straatbeeld: {}, ui: {} },
                 output;
 
             const location = [52.001, 4.002];
@@ -276,13 +273,14 @@ describe('Straatbeeld reducers factory', function () {
             expect(output.straatbeeld.targetLocation).toEqual(location);
         });
 
-        it('centers the map when layerselection or fullscreen map is active', function () {
+        it('centers the map when fullscreen map is active', function () {
             const state = {
-                'map': {
-                    isFullscreen: true
-                },
-                layerSelection: {},
-                page: {}
+                page: {},
+                map: {},
+                ui: {
+                    isMapPanelVisible: false,
+                    isMapFullscreen: true
+                }
             };
             const location = [52.001, 4.002];
 
@@ -291,7 +289,7 @@ describe('Straatbeeld reducers factory', function () {
         });
 
         it('can set the straatbeeld to the new location from scratch', function () {
-            var state = {},
+            var state = { ui: null },
                 output;
 
             const location = [52.001, 4.002];
@@ -304,7 +302,7 @@ describe('Straatbeeld reducers factory', function () {
         });
 
         it('removes a drawn line from the map', function () {
-            const state = { map: {} },
+            const state = { map: {}, ui: {} },
                 location = [52.001, 4.002],
                 output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
 

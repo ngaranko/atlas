@@ -20,6 +20,19 @@ describe('The aggregate filter', function () {
         ]);
     });
 
+    it('accepts empty tags', function () {
+        expect(aggregateFilter(['aap', undefined])).toEqual([
+            {
+                name: undefined,
+                count: 1
+            },
+            {
+                name: 'aap',
+                count: 1
+            }
+        ]);
+    });
+
     it('returns an empty array when supplied with an empty array', function () {
         expect(aggregateFilter([])).toEqual([]);
     });

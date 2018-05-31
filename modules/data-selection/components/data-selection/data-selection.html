@@ -1,7 +1,7 @@
 <div class="c-data-selection">
     <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
-    <div ng-if="!vm.isLoading">
+    <div ng-if="!vm.isLoading" class="qa-data-selection-content">
         <dp-tab-header ng-if="vm.showTabHeader()"
                        search-text="{{vm.state.query}}"
                        tab-header="vm.tabHeader"
@@ -64,7 +64,7 @@
                             content="vm.data"
                             dataset="vm.state.dataset"></dp-data-selection-table>
                         <dp-data-selection-list ng-if="vm.view === 'LIST'" content="vm.data"></dp-data-selection-list>
-                        <dp-data-selection-cards ng-if="vm.view === 'CARDS'" content="vm.data"></dp-data-selection-cards>
+                        <dp-data-selection-catalog ng-if="vm.view === 'CATALOG'" content="vm.data"></dp-data-selection-catalog>
                     </div>
 
                     <dp-data-selection-pagination
@@ -77,8 +77,7 @@
         </div>
 
         <dp-panel ng-if="vm.disabled" is-panel-visible="true" can-close="true" type="warning" class="qa-disabled-message">
-            <h2 class="c-panel__title">Vestigingen zichtbaar na inloggen</h2>
-            <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen (vestigingen en maatschappelijke activiteiten) te bekijken.</p>
+            <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke activiteiten en vestigingen te bekijken.</p>
             <p class="c-panel__paragraph">
                 Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
             </p>

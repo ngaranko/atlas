@@ -1,0 +1,153 @@
+$map-preview-panel-max-width: 440px;
+
+.map-preview-panel {
+  background-color: $secondary-gray5;
+  border: solid 1px $secondary-gray20;
+  box-shadow: 2px 2px 0 0 $secondary-gray40;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  font-family: "Avenir LT W01 55 Roman";
+  margin-bottom: $map-preview-panel-bottom;
+  margin-left: auto;
+  margin-right: $container-whitespace;
+  margin-top: $map-preview-panel-top;
+  max-height: calc(100% - #{$map-preview-panel-top + $map-preview-panel-bottom});
+  max-width: $map-preview-panel-max-width;
+  min-width: 285px;
+  position: relative;
+  width: 28%;
+  z-index: 100;
+
+  &--hidden {
+    display: none;
+  }
+
+  &__heading {
+    align-items: center;
+    background-color: $primary-light;
+    border-bottom: 1px solid $secondary-gray20;
+    display: flex;
+    justify-content: flex-end;
+    min-height: 33px;
+    padding: 4px;
+  }
+
+  &__heading-icon {
+    fill: $primary-dark;
+    height: 24px;
+    width: 24px;
+
+    .map-panel--collapsed & {
+      fill: $secondary-gray60;
+    }
+  }
+
+  &__button {
+    border-radius: 0;
+    height: 24px;
+    margin-left: 4px;
+    outline: none;
+    width: 24px;
+
+    &:hover {
+      background-color: $primary-contrast;
+    }
+
+    &--show-all {
+      align-items: center;
+      display: flex;
+      flex-grow: 1;
+
+      &:hover {
+        background-color: transparent;
+
+        .map-preview-panel__button-label {
+          color: $primary-contrast;
+          text-decoration: underline;
+        }
+
+        .map-preview-panel__button-icon {
+          fill: $primary-contrast;
+        }
+      }
+
+      .map-preview-panel__button-label {
+        color: $secondary-gray60;
+        font-family: "Avenir LT W01 85 Heavy";
+        font-size: 14px;
+      }
+
+      .map-preview-panel__button-icon {
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    &-icon {
+      fill: $secondary-gray60;
+      height: inherit;
+      width: inherit;
+
+      *:hover > & {
+        fill: $primary-light;
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    height: calc(100% - 33px);
+    min-height: 0; // NB: firefox fix https://stackoverflow.com/a/28639686
+
+    // IE FIX
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //sass-lint:disable-line no-vendor-prefixes
+      -ms-flex: 0 0 auto; //sass-lint:disable-line no-vendor-prefixes
+      -ms-flex-negative: 0; //sass-lint:disable-line no-vendor-prefixes
+    }
+
+    &--loading {
+      padding: 36px;
+    }
+  }
+
+  .is-print-mode & {
+    background-color: $primary-light;
+
+    // Make sure the width is fixed
+    width: $map-preview-panel-max-width;
+
+    // This hack makes sure IE also has a white background when printing
+    // https://stackoverflow.com/a/27822161
+    @media print {
+      &::before {
+        border-right: $map-preview-panel-max-width solid $primary-light;
+        bottom: 0;
+        content: "";
+        display: block;
+        left: 0;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+      }
+    }
+
+    &__heading {
+      display: none;
+    }
+
+    &__body {
+      height: 100%;
+    }
+  }
+}
+
+/* TODO: Should be removed after migration of the map component to react */
+.map-preview-panel-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}

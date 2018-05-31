@@ -1,9 +1,7 @@
 describe('The map reducers', function () {
     var mapReducers,
         ACTIONS,
-        DEFAULT_STATE,
-        DRAW_TOOL_CONFIG,
-        $timeout;
+        DEFAULT_STATE;
 
     DEFAULT_STATE = {
         map: {
@@ -11,14 +9,9 @@ describe('The map reducers', function () {
             overlays: [],
             viewCenter: [52.3719, 4.9012],
             zoom: 9,
-            showActiveOverlays: false,
-            isFullscreen: false,
             isLoading: false
         },
         filters: {},
-        layerSelection: {
-            isEnabled: false
-        },
         search: null,
         page: {
             name: 'home'
@@ -26,7 +19,9 @@ describe('The map reducers', function () {
         detail: null,
         straatbeeld: null,
         dataSelection: null,
-        atlas: {
+        ui: {
+            isMapFullscreen: false,
+            isMapPanelVisible: false,
             isPrintMode: false
         }
     };
@@ -34,11 +29,9 @@ describe('The map reducers', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_mapReducers_, _ACTIONS_, _DRAW_TOOL_CONFIG_, _$timeout_) {
+        angular.mock.inject(function (_mapReducers_, _ACTIONS_) {
             mapReducers = _mapReducers_;
             ACTIONS = _ACTIONS_;
-            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
-            $timeout = _$timeout_;
         });
     });
 
@@ -47,169 +40,18 @@ describe('The map reducers', function () {
             const inputState = angular.copy(DEFAULT_STATE);
             const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
 
-            expect(output.map.isFullscreen).toBe(true);
+            expect(output.ui.isMapFullscreen).toBe(true);
+            expect(output.ui.isMapPanelVisible).toBe(true);
         });
 
-        it('opens layerSelection', () => {
-            const inputState = angular.copy(DEFAULT_STATE);
-            const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
-
-            expect(output.layerSelection.isEnabled).toBe(true);
-        });
-
-        it('when map and layerSelection are not an object', function () {
+        it('when map and map panel are not an object', function () {
             const inputState = angular.copy(DEFAULT_STATE);
             inputState.map = null;
-            inputState.layerSelection = null;
+            inputState.ui = null;
 
             const output = mapReducers[ACTIONS.SHOW_MAP.id](inputState);
             expect(output.map).toBeNull();
-            expect(output.layerSelection).toBeNull();
-        });
-    });
-
-    describe('MAP_SET_BASELAYER', function () {
-        it('changes the baseLayer', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            output = mapReducers[ACTIONS.MAP_SET_BASELAYER.id](inputState, 'luchtfoto_1915');
-            expect(output.map.baseLayer).toBe('luchtfoto_1915');
-
-            output = mapReducers[ACTIONS.MAP_SET_BASELAYER.id](inputState, 'topografie');
-            expect(output.map.baseLayer).toBe('topografie');
-        });
-
-        it('when map is not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-
-            const output = mapReducers[ACTIONS.MAP_SET_BASELAYER.id](inputState, 'topografie');
-            expect(output.map).toBeNull();
-        });
-    });
-
-    describe('MAP_ADD_OVERLAY', function () {
-        it('adds an overlay', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
-
-            $timeout.flush();
-
-            expect(output.map.overlays.length).toBe(1);
-            expect(output.map.overlays[0].isVisible).toBe(true);
-            expect(output.map.overlays[0].id).toBe('meetbouten');
-
-            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](output, 'parkeren');
-            expect(output.map.overlays[1].isVisible).toBe(true);
-            expect(output.map.overlays[1].id).toBe('parkeren');
-
-            expect(output.map.overlays.length).toBe(2);
-        });
-
-        it('opens the active overlays panel if there were no active overlays before', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            // When there were no active overlays; open the active overlays panel
-            inputState.map.showActiveOverlays = false;
-            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
-            expect(output.map.showActiveOverlays).toBe(true);
-
-            // When there already were active overlays; do nothing
-            inputState.map.showActiveOverlays = false;
-            inputState.map.overlays = [{id: 'nap', isVisible: true}];
-            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
-            expect(output.map.showActiveOverlays).toBe(false);
-        });
-
-        it('opens the active overlays panel if there were only active pano overlays before', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            // When there is only a pano layer active; open the active overlays panel
-            inputState.map.showActiveOverlays = false;
-            inputState.map.overlays = [{id: 'pano', isVisible: true}];
-            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
-            expect(output.map.showActiveOverlays).toBe(true);
-
-            // When there is only another pano layer active; open the active overlays panel
-            inputState.map.showActiveOverlays = false;
-            inputState.map.overlays = [{id: 'pano2020', isVisible: true}];
-            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
-            expect(output.map.showActiveOverlays).toBe(true);
-
-            // When there are only multiple pano layers active; open the active overlays panel
-            inputState.map.showActiveOverlays = false;
-            inputState.map.overlays = [
-                {id: 'pano', isVisible: true},
-                {id: 'pano2020', isVisible: true}
-            ];
-            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
-            expect(output.map.showActiveOverlays).toBe(true);
-
-            // When there already were active (non-pano) overlays; do nothing
-            inputState.map.showActiveOverlays = false;
-            inputState.map.overlays = [
-                {id: 'pano', isVisible: true},
-                {id: 'pano2020', isVisible: true},
-                {id: 'nap', isVisible: true}
-            ];
-            output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
-            expect(output.map.showActiveOverlays).toBe(false);
-        });
-
-        it('when map is not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-
-            const output = mapReducers[ACTIONS.MAP_ADD_OVERLAY.id](inputState, 'meetbouten');
-            expect(output.map).toBeNull();
-        });
-    });
-
-    describe('MAP_REMOVE_OVERLAY', function () {
-        it('removes an overlay', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.map.overlays = [
-                {
-                    id: 'overlay_1',
-                    isVisible: true
-                }, {
-                    id: 'overlay_2',
-                    isVisible: true
-                }, {
-                    id: 'overlay_3',
-                    isVisible: true
-                }];
-
-            output = mapReducers[ACTIONS.MAP_REMOVE_OVERLAY.id](inputState, 'overlay_2');
-            expect(output.map.overlays).toEqual([
-                {id: 'overlay_1', isVisible: true},
-                {id: 'overlay_3', isVisible: true}
-            ]);
-        });
-
-        it('will always keep the overlays state property an array (instead of null)', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.map.overlays = [{id: 'parkeren', isVisible: true}];
-
-            output = mapReducers[ACTIONS.MAP_REMOVE_OVERLAY.id](inputState, 'parkeren');
-            expect(output.map.overlays).toEqual([]);
-        });
-
-        it('when map is not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-
-            const output = mapReducers[ACTIONS.MAP_REMOVE_OVERLAY.id](inputState, 'parkeren');
-            expect(output.map).toBeNull();
+            expect(output.ui).toBeNull();
         });
     });
 
@@ -447,64 +289,6 @@ describe('The map reducers', function () {
         });
     });
 
-    describe('MAP_TOGGLE_VISIBILITY_OVERLAY', function () {
-        it('hides an overlay', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.map.overlays = [
-                {
-                    id: 'overlay_1',
-                    isVisible: true
-                }, {
-                    id: 'overlay_2',
-                    isVisible: true
-                }, {
-                    id: 'overlay_3',
-                    isVisible: true
-                }];
-
-            output = mapReducers[ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY.id](inputState, 'overlay_2');
-            expect(output.map.overlays).toEqual([
-                {id: 'overlay_1', isVisible: true},
-                {id: 'overlay_2', isVisible: false},
-                {id: 'overlay_3', isVisible: true}
-            ]);
-        });
-
-        it('hides an overlay', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.map.overlays = [
-                {
-                    id: 'overlay_1',
-                    isVisible: false
-                }, {
-                    id: 'overlay_2',
-                    isVisible: true
-                }, {
-                    id: 'overlay_3',
-                    isVisible: true
-                }];
-
-            output = mapReducers[ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY.id](inputState, 'overlay_1');
-            expect(output.map.overlays).toEqual([
-                {id: 'overlay_1', isVisible: true},
-                {id: 'overlay_2', isVisible: true},
-                {id: 'overlay_3', isVisible: true}
-            ]);
-        });
-
-        it('when map is not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-
-            const output = mapReducers[ACTIONS.MAP_TOGGLE_VISIBILITY_OVERLAY.id](inputState);
-            expect(output.map).toBeNull();
-        });
-    });
-
     describe('MAP_PAN', function () {
         it('updates the viewCenter', function () {
             var inputState = angular.copy(DEFAULT_STATE),
@@ -592,322 +376,6 @@ describe('The map reducers', function () {
             inputState.map = null;
 
             const output = mapReducers[ACTIONS.MAP_HIGHLIGHT.id](inputState);
-            expect(output.map).toBeNull();
-        });
-    });
-
-    describe('MAP_FULLSCREEN', function () {
-        it('can toggle the fullscreen mode', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            let output;
-
-            // Enable fullscreen
-            output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, true);
-            expect(output.map.isFullscreen).toBe(true);
-
-            // Disable fullscreen
-            output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, false);
-            expect(output.map.isFullscreen).toBe(false);
-        });
-
-        it('disables layer selection when changing fullscreen', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            let output;
-
-            // Enable fullscreen
-            inputState.map.isFullscreen = false;
-            inputState.layerSelection.isEnabled = true;
-            output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, true);
-            expect(output.layerSelection.isEnabled).toBe(false);
-
-            // Disable fullscreen
-            inputState.map.isFullscreen = true;
-            inputState.layerSelection.isEnabled = true;
-            output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState, false);
-            expect(output.layerSelection.isEnabled).toBe(false);
-        });
-
-        it('when map and layerSelection are not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-            inputState.layerSelection = null;
-
-            const output = mapReducers[ACTIONS.MAP_FULLSCREEN.id](inputState);
-            expect(output.map).toBeNull();
-            expect(output.layerSelection).toBeNull();
-        });
-    });
-
-    describe('MAP_START_DRAWING', function () {
-        it('Set the map drawing mode to draw and not to reset dataSelection', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.dataSelection = 'leave this as it is';
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
-            expect(output.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
-            expect(output.dataSelection).toBe('leave this as it is');
-        });
-
-        it('Set the map drawing mode to edit and not to reset dataSelection', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.dataSelection = 'leave this as it is';
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
-            expect(output.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
-            expect(output.dataSelection).toBe('leave this as it is');
-        });
-
-        it('Should reset dataSelection state only when markers are on the map and draw mode is not edit', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.dataSelection = { geometryFilter: { markers: [1, 2] } };
-
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
-            expect(output.dataSelection.geometryFilter).toEqual({markers: []});
-            expect(output.dataSelection.page).toBe(1);
-            expect(output.dataSelection.isFullscreen).toBe(false);
-            expect(output.dataSelection.isLoading).toBe(true);
-            expect(output.dataSelection.view).toBe('LIST');
-            expect(output.dataSelection.markers).toEqual([]);
-            expect(output.dataSelection.reset).toBe(true);
-        });
-
-        it('Should not reset dataSelection state with markers on the map and draw mode is edit', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.dataSelection = { geometryFilter: { markers: [1] } };
-
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.EDIT);
-            expect(output.dataSelection.geometryFilter).toEqual({ markers: [1] });
-            expect(output.dataSelection.page).toBeUndefined();
-            expect(output.dataSelection.reset).toBeFalsy();
-        });
-
-        it('Should not reset dataSelection state with no markers on the map and draw mode is not edit', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.dataSelection = { geometryFilter: { markers: [] } };
-
-            output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState, DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW);
-            expect(output.dataSelection.page).toBeUndefined();
-            expect(output.dataSelection.reset).toBeFalsy();
-        });
-
-        it('when map is not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-
-            const output = mapReducers[ACTIONS.MAP_START_DRAWING.id](inputState);
-            expect(output.map).toBeNull();
-        });
-    });
-
-    describe('MAP_CLEAR_DRAWING', function () {
-        it('Clears the map geometry', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.map.geometry = 'aap';
-            output = mapReducers[ACTIONS.MAP_CLEAR_DRAWING.id](inputState);
-            expect(output.map.geometry).toEqual([]);
-        });
-
-        it('when map is not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-
-            const output = mapReducers[ACTIONS.MAP_CLEAR_DRAWING.id](inputState);
-            expect(output.map).toBeNull();
-        });
-    });
-
-    describe('MAP_END_DRAWING', function () {
-        it('Set the map drawing mode to false', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: []
-            });
-            expect(output.map.drawingMode).toBe(DRAW_TOOL_CONFIG.DRAWING_MODE.NONE);
-        });
-
-        it('resets the page with more than 2 markers', () => {
-            const inputState = angular.copy(DEFAULT_STATE);
-
-            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: ['noot', 'mies', 'teun']
-            });
-            expect(output.page.name).toBeNull();
-            expect(output.dataSelection.reset).toBeFalsy();
-        });
-
-        it('Leaves the dataSelection state untouched on an argument polygon with <= 1 markers', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.dataSelection = 'aap';
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: ['noot']
-            });
-            expect(output.dataSelection).toBe('aap');
-
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: []
-            });
-            expect(output.dataSelection).toBe('aap');
-        });
-
-        it('Sets the map geometry on a polygon with 2 markers', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: ['noot', 'mies']
-            });
-            expect(output.map.geometry).toEqual(['noot', 'mies']);
-            expect(output.page.name).toBe('home');
-        });
-
-        it('Initializes the dataSelection state when a payload is specified', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.dataSelection = null;
-            const geometryFilter = {
-                markers: ['noot', 'mies', 'teun'],
-                description: 'description'
-            };
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, geometryFilter);
-            expect(output.dataSelection).not.toBe(null);
-            expect(output.dataSelection.geometryFilter).toEqual(geometryFilter);
-        });
-
-        it('Does not initialize the dataSelection state when payload is missing', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.dataSelection = 'aap';
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState);
-            expect(output.dataSelection).toBe('aap');
-        });
-
-        it('Leaves dataset and filters of an existing dataSelection state untouched', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            inputState.dataSelection = {
-                dataset: 'aap'
-            };
-            inputState.filters = {
-                foo: 'noot'
-            };
-
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: ['noot', 'mies', 'teun']
-            });
-
-            expect(output.dataSelection.dataset).toEqual('aap');
-            expect(output.filters.foo).toEqual('noot');
-        });
-
-        it('Sets page, fullscreen, loading, view and markers of the dataSelection state', function () {
-            var inputState = angular.copy(DEFAULT_STATE),
-                output;
-
-            output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: ['noot', 'mies', 'teun']
-            });
-            expect(output.dataSelection.geometryFilter).toEqual({
-                markers: ['noot', 'mies', 'teun']
-            });
-            expect(output.dataSelection.page).toBe(1);
-            expect(output.dataSelection.isFullscreen).toBe(false);
-            expect(output.dataSelection.isLoading).toBe(true);
-            expect(output.dataSelection.view).toBe('LIST');
-            expect(output.dataSelection.markers).toEqual([]);
-        });
-
-        it('Closes the full screen map and layer selection on polygon and sets map to be loading', () => {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map.isLoading = false;
-            inputState.map.isFullscreen = true;
-            inputState.layerSelection.isEnabled = true;
-
-            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: ['p1', 'p2', 'p3']
-            });
-
-            expect(output.map.isFullscreen).toBe(false);
-            expect(output.map.isLoading).toBe(true);
-            expect(output.layerSelection.isEnabled).toBe(false);
-        });
-
-        it('Does not close full screen map and layer selection on line and does not set map to be loading', () => {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map.isLoading = false;
-            inputState.map.isFullscreen = true;
-            inputState.layerSelection.isEnabled = true;
-
-            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState, {
-                markers: ['p1', 'p2']
-            });
-
-            expect(output.map.isFullscreen).toBe(true);
-            expect(output.map.isLoading).toBe(false);
-            expect(output.layerSelection.isEnabled).toBe(true);
-        });
-
-        it('when map and layerSelection and page are not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-            inputState.layerSelection = null;
-            inputState.page = null;
-
-            const output = mapReducers[ACTIONS.MAP_END_DRAWING.id](inputState);
-            expect(output.map).toBeNull();
-            expect(output.layerSelection).toBeNull();
-            expect(output.page).toBeNull();
-        });
-    });
-
-    describe('SHOW_MAP_ACTIVE_OVERLAYS', function () {
-        it('sets the variable to true', function () {
-            var output;
-
-            output = mapReducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id](DEFAULT_STATE);
-            expect(output.map.showActiveOverlays).toBe(true);
-        });
-
-        it('when map is not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-
-            const output = mapReducers[ACTIONS.SHOW_MAP_ACTIVE_OVERLAYS.id](inputState);
-            expect(output.map).toBeNull();
-        });
-    });
-
-    describe('HIDE_MAP_ACTIVE_OVERLAYS', function () {
-        it('sets the variable to false', function () {
-            var output,
-                inputState = angular.copy(DEFAULT_STATE);
-
-            inputState.map.showActiveOverlays = true;
-            output = mapReducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id](DEFAULT_STATE);
-            expect(output.map.showActiveOverlays).toBe(false);
-        });
-
-        it('when map is not an object', function () {
-            const inputState = angular.copy(DEFAULT_STATE);
-            inputState.map = null;
-
-            const output = mapReducers[ACTIONS.HIDE_MAP_ACTIVE_OVERLAYS.id](inputState);
             expect(output.map).toBeNull();
         });
     });

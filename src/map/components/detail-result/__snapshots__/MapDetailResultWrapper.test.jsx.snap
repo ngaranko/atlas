@@ -1,0 +1,305 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapDetailResultWrapper should not render empty panoUrl 1`] = `
+<section
+  className="map-detail-result"
+>
+  <header
+    className="
+        map-detail-result__header
+        map-detail-result__header--no-pano
+      "
+  >
+    <button
+      className="
+          map-detail-result__header-pano-button
+          map-detail-result__header-pano-button--disabled
+        "
+      disabled={true}
+      onClick={[MockFunction]}
+      title="Geen Panoramabeeld beschikbaar"
+    >
+      <div
+        className="map-detail-result__header-container"
+      >
+        <h1
+          className="map-detail-result__header-title"
+        >
+          title
+        </h1>
+        <h2
+          className="map-detail-result__header-subtitle"
+        >
+          subTitle
+        </h2>
+      </div>
+    </button>
+  </header>
+  <div
+    className="map-detail-result__scroll-wrapper"
+  >
+    <ul>
+      <li>
+        Item 1
+      </li>
+      <li>
+        Item 2
+      </li>
+    </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+        onClick={[MockFunction]}
+        title="Volledig weergeven"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
+</section>
+`;
+
+exports[`MapDetailResultWrapper should not render empty sub title 1`] = `
+<section
+  className="map-detail-result"
+>
+  <header
+    className="
+        map-detail-result__header
+        map-detail-result__header--no-pano
+      "
+  >
+    <button
+      className="
+          map-detail-result__header-pano-button
+          map-detail-result__header-pano-button--disabled
+        "
+      disabled={true}
+      onClick={[MockFunction]}
+      title="Geen Panoramabeeld beschikbaar"
+    >
+      <div
+        className="map-detail-result__header-container"
+      >
+        <h1
+          className="map-detail-result__header-title"
+        >
+          title
+        </h1>
+      </div>
+    </button>
+  </header>
+  <div
+    className="map-detail-result__scroll-wrapper"
+  >
+    <ul>
+      <li>
+        Item 1
+      </li>
+      <li>
+        Item 2
+      </li>
+    </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+        onClick={[MockFunction]}
+        title="Volledig weergeven"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
+</section>
+`;
+
+exports[`MapDetailResultWrapper should not render missing children 1`] = `
+<section
+  className="map-detail-result"
+>
+  <header
+    className="
+        map-detail-result__header
+        map-detail-result__header--no-pano
+      "
+  >
+    <button
+      className="
+          map-detail-result__header-pano-button
+          map-detail-result__header-pano-button--disabled
+        "
+      disabled={true}
+      onClick={[MockFunction]}
+      title="Geen Panoramabeeld beschikbaar"
+    >
+      <div
+        className="map-detail-result__header-container"
+      >
+        <h1
+          className="map-detail-result__header-title"
+        >
+          title
+        </h1>
+      </div>
+    </button>
+  </header>
+  <div
+    className="map-detail-result__scroll-wrapper"
+  >
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+        onClick={[MockFunction]}
+        title="Volledig weergeven"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
+</section>
+`;
+
+exports[`MapDetailResultWrapper should not render missing sub title 1`] = `
+<section
+  className="map-detail-result"
+>
+  <header
+    className="
+        map-detail-result__header
+        map-detail-result__header--no-pano
+      "
+  >
+    <button
+      className="
+          map-detail-result__header-pano-button
+          map-detail-result__header-pano-button--disabled
+        "
+      disabled={true}
+      onClick={[MockFunction]}
+      title="Geen Panoramabeeld beschikbaar"
+    >
+      <div
+        className="map-detail-result__header-container"
+      >
+        <h1
+          className="map-detail-result__header-title"
+        >
+          title
+        </h1>
+      </div>
+    </button>
+  </header>
+  <div
+    className="map-detail-result__scroll-wrapper"
+  >
+    <ul>
+      <li>
+        Item 1
+      </li>
+      <li>
+        Item 2
+      </li>
+    </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+        onClick={[MockFunction]}
+        title="Volledig weergeven"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
+</section>
+`;
+
+exports[`MapDetailResultWrapper should render everything 1`] = `
+<section
+  className="map-detail-result"
+>
+  <header
+    className="
+        map-detail-result__header
+        map-detail-result__header--pano
+      "
+  >
+    <button
+      className="
+          map-detail-result__header-pano-button
+          map-detail-result__header-pano-button--enabled
+        "
+      disabled={false}
+      onClick={[MockFunction]}
+      title="Bekijk Panorama view"
+    >
+      <img
+        alt="Panoramabeeld"
+        className="map-detail-result__header-pano"
+        height="292"
+        src="panoUrl"
+        width="438"
+      />
+      <div
+        className="map-detail-result__header-container"
+      >
+        <h1
+          className="map-detail-result__header-title"
+        >
+          title
+        </h1>
+        <h2
+          className="map-detail-result__header-subtitle"
+        >
+          subTitle
+        </h2>
+      </div>
+    </button>
+  </header>
+  <div
+    className="map-detail-result__scroll-wrapper"
+  >
+    <ul>
+      <li>
+        Item 1
+      </li>
+      <li>
+        Item 2
+      </li>
+    </ul>
+    <footer
+      className="map-search-results__footer"
+    >
+      <button
+        className="map-search-results__button"
+        onClick={[MockFunction]}
+        title="Volledig weergeven"
+      >
+        <Component
+          className="map-search-results__button-icon"
+        />
+        Volledig weergeven
+      </button>
+    </footer>
+  </div>
+</section>
+`;

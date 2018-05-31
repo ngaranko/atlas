@@ -35,4 +35,11 @@ describe('The dpDetailDocumentTitle factory', () => {
         };
         expect(documentTitle.getTitle(mockedDetailState)).toBe('UNKNOWN: display');
     });
+
+    it('falls back to glossary key when no display can be found', () => {
+        const mockedDetailState = {
+            endpoint: 'http://api.example.com/wkpb/unknown/123/'
+        };
+        expect(documentTitle.getTitle(mockedDetailState)).toBe('UNKNOWN');
+    });
 });

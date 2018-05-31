@@ -28,11 +28,21 @@
         const vm = this,
             videoElement = $element.find('video')[0];
 
+        let canPlayPause = false;
+        videoElement.addEventListener('canplay', e => {
+            canPlayPause = true;
+        });
+
         vm.$onChanges = (changes) => {
-            if (angular.isUndefined(changes.play) || !videoElement || !videoElement.play || !videoElement.pause) {
+            if (angular.isUndefined(changes.play) ||
+                !videoElement ||
+                !videoElement.play ||
+                !videoElement.pause ||
+                !canPlayPause) {
                 return;
             }
 
+            // Only issue play/pause command after element canplay.
             if (changes.play.currentValue) {
                 videoElement.play();
             } else {

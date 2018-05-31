@@ -1,11 +1,17 @@
 // For now simply import everything we need, from here
 import './state';
 import './map/wrappers/panel/MapPanelWrapper';
+import './map/wrappers/preview-panel/MapPreviewPanelWrapper';
+import './map/wrappers/map/MapWrapper';
+import './map/wrappers/map-embed-button/MapEmbedButtonWrapper';
+import './detail/wrappers/DetailGrondexploitatieGraphTotalsWrapper';
+import './detail/wrappers/DetailGrondexploitatieGraphPhasedWrapper';
+import './header/wrappers/header-search/HeaderSearchWrapper';
 
 // All third party dependencies
 import './vendor';
 
-// All our sass
+// Legacy sass
 import '../modules/shared/shared.scss';
 import '../modules/atlas/atlas.scss';
 import '../modules/data-selection/data-selection.scss';
@@ -15,6 +21,9 @@ import '../modules/map/map.scss';
 import '../modules/page/page.scss';
 import '../modules/search-results/search-results.scss';
 import '../modules/straatbeeld/straatbeeld.scss';
+
+// New style sass
+import './_styles.scss';
 
 // Import this here, because `modules/atlas/services/redux%reducer.factory`
 // cannoct do, because that would break the grunt build...
@@ -44,15 +53,13 @@ import '../modules/atlas/services/piwik/piwik.factory';
 import '../modules/atlas/services/piwik/piwik.run';
 import '../modules/atlas/services/redux/middleware/context-middleware.factory';
 import '../modules/atlas/services/redux/middleware/state-to-url-middleware.factory';
+import '../modules/atlas/services/redux/deprecated-reducer.factory';
 import '../modules/atlas/services/redux/reducer.factory';
 import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory';
-import '../modules/atlas/services/redux/reducers/embed-reducers.factory';
 import '../modules/atlas/services/redux/reducers/filters-reducers.factory';
 import '../modules/atlas/services/redux/reducers/home-reducers.factory';
-import '../modules/atlas/services/redux/reducers/layer-selection-reducers.factory';
 import '../modules/atlas/services/redux/reducers/map-reducers.factory';
 import '../modules/atlas/services/redux/reducers/page-reducers.factory';
-import '../modules/atlas/services/redux/reducers/print-reducers.factory';
 import '../modules/atlas/services/redux/reducers/search-reducers.factory';
 import '../modules/atlas/services/redux/reducers/straatbeeld-reducers.factory';
 import '../modules/atlas/services/redux/reducers/url-reducers.factory';
@@ -83,11 +90,11 @@ import '../modules/data-selection/components/header/header.component';
 import '../modules/data-selection/components/header/toggle-view-button/toggle-view-button.component';
 import '../modules/data-selection/components/pagination/pagination-link.component';
 import '../modules/data-selection/components/pagination/pagination.component';
-import '../modules/data-selection/components/views/cards/cards.component';
+import '../modules/data-selection/components/views/catalog/catalog.component';
 import '../modules/data-selection/components/views/list/list.component';
 import '../modules/data-selection/components/views/table/table.component';
 import '../modules/data-selection/data-selection-config.constant';
-import '../modules/data-selection/services/api/data-selection-api-ckan.factory';
+import '../modules/data-selection/services/api/data-selection-api-dcatd.factory';
 import '../modules/data-selection/services/api/data-selection-api-data-selection.factory';
 import '../modules/data-selection/services/api/data-selection-api.factory';
 import '../modules/data-selection/services/api/data-selection-api.run';
@@ -104,7 +111,10 @@ import '../modules/detail/components/data-selection-links/data-selection-links.c
 import '../modules/detail/components/date/date.filter';
 import '../modules/detail/components/detail/detail.component';
 import '../modules/detail/components/detail/follow-link/follow-link.directive';
+import '../modules/detail/components/detail/templates/grondexploitatie/graph-totals/grondexploitatie-graph-totals.component';
+import '../modules/detail/components/detail/templates/grondexploitatie/graph-phased/grondexploitatie-graph-phased.component';
 import '../modules/detail/components/filename/filename.filter';
+import '../modules/detail/components/option-label/option-label.filter';
 import '../modules/detail/components/glossary/glossary.constant';
 import '../modules/detail/components/glossary/header/glossary-header.directive';
 import '../modules/detail/components/glossary/meta/glossary-meta.directive';
@@ -113,6 +123,7 @@ import '../modules/detail/components/parent-relations/parent-relations.constant'
 import '../modules/detail/components/parent-relations/parent-relations.directive';
 import '../modules/detail/components/partial-select/partial-compiler.factory';
 import '../modules/detail/components/partial-select/partial-select.directive';
+import '../modules/detail/components/time-period/time-period.filter';
 import '../modules/detail/components/wkpb-link/wkpb-link.component';
 import '../modules/detail/components/yes-no/yes-no.filter';
 import '../modules/detail/detail.vendor';
@@ -130,27 +141,15 @@ import '../modules/header/components/menu/dropdown/menu-dropdown.directive';
 import '../modules/header/components/menu/menu.component';
 import '../modules/header/components/print-button/print-button.component';
 import '../modules/header/components/print-header/print-header.component';
-import '../modules/header/components/search/autocomplete/autocomplete-data.factory';
-import '../modules/header/components/search/search.directive';
-import '../modules/header/components/search/suggestion-highlight/suggestion-highlight.filter';
 import '../modules/header/components/site-header/site-header.component';
 import '../modules/header/components/terugmelden-button/terugmelden-button.component';
 import '../modules/header/header-config.constant';
 import '../modules/header/header.constant';
 import '../modules/map/map.module';
-import '../modules/map/components/draw-tool/draw-tool.component';
-import '../modules/map/components/draw-tool/points-available/points-available.component';
-import '../modules/map/components/draw-tool/shape-summary/shape-summary.component';
-import '../modules/map/components/draw-tool/toggle-drawing-tool/toggle-drawing-tool.component';
-import '../modules/map/components/embed-button/embed-button.component';
 import '../modules/map/components/map/map.directive';
-import '../modules/map/components/toggle-fullscreen/toggle-fullscreen.component';
-import '../modules/map/components/toggle-layer-selection/toggle-layer-selection.component';
 import '../modules/map/map-config.factory';
 import '../modules/map/map.vendor';
 import '../modules/map/services/document-title/document-title.factory';
-import '../modules/map/services/draw-tool/draw-tool-config.constant';
-import '../modules/map/services/draw-tool/draw-tool.factory';
 import '../modules/map/services/highlight/clustered-markers-config.factory';
 import '../modules/map/services/highlight/highlight.factory';
 import '../modules/map/services/highlight/icon-config.constant';
@@ -159,7 +158,6 @@ import '../modules/map/services/leaflet-draw/leaflet-draw-translations.factory';
 import '../modules/map/services/leaflet-draw/leaflet-draw-translations.run';
 import '../modules/map/services/on-map-click.factory';
 import '../modules/map/services/panning.factory';
-import '../modules/map/services/suppress/suppress.factory';
 import '../modules/map/services/zoom.factory';
 import '../modules/page/page.module';
 import '../modules/page/components/homepage/catalogus-themes/catalogus-themes-config.constant';
@@ -192,6 +190,7 @@ import '../modules/shared/components/anchor-link/anchor-link.constant';
 import '../modules/shared/components/anchor-link/anchor-link.run';
 import '../modules/shared/components/api-error/api-error.component';
 import '../modules/shared/components/coordinates/coordinates.filter';
+import '../modules/shared/components/dcatd-button/dcatd-button.component';
 import '../modules/shared/components/expand-collapse/expand-collapse.directive';
 import '../modules/shared/components/link-to-page/link-to-page.component';
 import '../modules/shared/components/link/link.component';
@@ -209,7 +208,6 @@ import '../modules/shared/components/uppercase-first-letter/uppercase-first-lett
 import '../modules/shared/components/video/video.component';
 import '../modules/shared/filters/filesize.filter';
 import '../modules/shared/services/active-overlays/active-overlays.factory';
-import '../modules/shared/services/angle-conversion/angle-conversion.factory';
 import '../modules/shared/services/api/api.factory';
 import '../modules/shared/services/base-coder/base-coder.factory';
 import '../modules/shared/services/bounding-box/boundig-box.constant';
@@ -221,11 +219,10 @@ import '../modules/shared/services/environment/environment.factory';
 import '../modules/shared/services/geojson/geojson.factory';
 import '../modules/shared/services/google-sheet/google-sheet.constants';
 import '../modules/shared/services/google-sheet/google-sheet.factory';
+import '../modules/shared/services/window-error-handler/window-error-handler.factory';
+import '../modules/shared/services/window-error-handler/window-error-handler.run';
 import '../modules/shared/services/http-error-registrar/http-error-registrar.factory';
 import '../modules/shared/services/http-error-registrar/http-status.factory';
-import '../modules/shared/services/layers/base-layers.constant';
-import '../modules/shared/services/layers/overlays.constant';
-import '../modules/shared/services/layers/overlays.factory';
 import '../modules/shared/services/localization/localization.factory';
 import '../modules/shared/services/markdown-parser/markdown-parser.factory';
 import '../modules/shared/services/nearest-detail/nearest-detail.factory';
@@ -240,6 +237,7 @@ import '../modules/shared/services/user-settings/user-settings.constant';
 import '../modules/shared/services/user-settings/user-settings.factory';
 import '../modules/shared/shared-config.factory';
 import '../modules/shared/shared.vendor';
+import '../modules/shared/services/combined-document-title/combined-document-title.factory';
 import '../modules/straatbeeld/straatbeeld.module';
 import '../modules/straatbeeld/components/history/history.directive';
 import '../modules/straatbeeld/components/hotspot/hotspot.component';

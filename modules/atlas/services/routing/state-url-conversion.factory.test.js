@@ -1,6 +1,7 @@
+import DRAW_TOOL_CONFIG from '../../../../src/map/services/draw-tool/draw-tool-config';
+
 describe('The state url conversion definition', function () {
     let stateUrlConversion,
-        DRAW_TOOL_CONFIG,
         uriStripper;
 
     beforeEach(function () {
@@ -14,9 +15,8 @@ describe('The state url conversion definition', function () {
         spyOn(uriStripper, 'stripDomain');
         spyOn(uriStripper, 'restoreDomain');
 
-        angular.mock.inject(function (_stateUrlConversion_, _DRAW_TOOL_CONFIG_) {
+        angular.mock.inject(function (_stateUrlConversion_) {
             stateUrlConversion = _stateUrlConversion_;
-            DRAW_TOOL_CONFIG = _DRAW_TOOL_CONFIG_;
         });
     });
 
@@ -26,16 +26,8 @@ describe('The state url conversion definition', function () {
 
             state = stateUrlConversion.onCreate.DEFAULT({}, {}, {}, stateUrlConversion.initialValues);
             expect(state).toEqual({
-                atlas: {
-                    isPrintMode: false,
-                    isEmbedPreview: false,
-                    isEmbed: false
-                },
                 page: {
                     name: 'home'
-                },
-                layerSelection: {
-                    isEnabled: false
                 },
                 filters: {},
                 user: {
@@ -47,33 +39,50 @@ describe('The state url conversion definition', function () {
                 },
                 mapLayers: [],
                 mapBaseLayers: {},
-                isMapPanelVisible: false,
-                ui: {
-                    isMapPanelHandleVisible: true
+                mapSearchResults: [],
+                mapSearchResultsByLocation: {},
+                mapDetail: {
+                    isLoading: false,
+                    currentEndpoint: '',
+                    byEndpoint: {}
                 },
+                mapClickLocation: {},
+                isMapPreviewPanelVisible: false,
                 map: {
                     viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
                     zoom: 11,
                     overlays: [],
-                    isFullscreen: false,
                     isLoading: false,
-                    showActiveOverlays: false,
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
-                    highlight: true
+                    highlight: true,
+                    shapeMarkers: 0,
+                    shapeDistanceTxt: '',
+                    shapeAreaTxt: ''
+                },
+                ui: {
+                    isEmbed: false,
+                    isEmbedPreview: false,
+                    isMapFullscreen: false,
+                    isMapLayersVisible: true,
+                    isMapPanelVisible: false,
+                    isMapPanelHandleVisible: true,
+                    isPrintMode: false
                 }
             });
 
             state = stateUrlConversion.onCreate.DEFAULT({}, {}, {aap: 'noot'}, {});
             expect(state).toEqual({
-                atlas: undefined,
                 page: undefined,
-                layerSelection: undefined,
                 filters: undefined,
                 user: undefined,
                 mapLayers: undefined,
                 mapBaseLayers: undefined,
-                isMapPanelVisible: undefined,
+                mapSearchResults: undefined,
+                mapSearchResultsByLocation: undefined,
+                mapDetail: undefined,
+                mapClickLocation: undefined,
+                isMapPreviewPanelVisible: undefined,
                 ui: undefined
             });
         });
@@ -93,14 +102,13 @@ describe('The state url conversion definition', function () {
                     foo: 'bar'
                 };
 
-                stateUrlConversion.post.user(oldState, newState);
-                expect(newState).toEqual({
+                const result = stateUrlConversion.post.user(oldState, newState);
+                expect(result).toEqual({
                     authenticated: true,
                     accessToken: 'foo',
                     scopes: ['bar', 'baz'],
                     name: 'unit',
-                    error: 'test',
-                    foo: 'bar'
+                    error: 'test'
                 });
             });
         });
@@ -146,6 +154,9 @@ describe('The state url conversion definition', function () {
                 let oldState = {
                     highlight: false,
                     isLoading: true,
+                    shapeMarkers: 0,
+                    shapeDistanceTxt: '',
+                    shapeAreaTxt: '',
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW
                 };
                 let newState = {};
@@ -153,7 +164,10 @@ describe('The state url conversion definition', function () {
                 stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({
                     highlight: false,
-                    isLoading: true
+                    isLoading: true,
+                    shapeMarkers: 0,
+                    shapeDistanceTxt: '',
+                    shapeAreaTxt: ''
                 });
 
                 // only drawingMode
@@ -165,7 +179,10 @@ describe('The state url conversion definition', function () {
                 stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({
                     highlight: undefined,
-                    isLoading: undefined
+                    isLoading: undefined,
+                    shapeMarkers: undefined,
+                    shapeDistanceTxt: undefined,
+                    shapeAreaTxt: undefined
                 });
 
                 // only isLoading
@@ -177,7 +194,10 @@ describe('The state url conversion definition', function () {
                 stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({
                     highlight: undefined,
-                    isLoading: true
+                    isLoading: true,
+                    shapeMarkers: undefined,
+                    shapeDistanceTxt: undefined,
+                    shapeAreaTxt: undefined
                 });
 
                 // only highlight
@@ -189,7 +209,10 @@ describe('The state url conversion definition', function () {
                 stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({
                     highlight: true,
-                    isLoading: undefined
+                    isLoading: undefined,
+                    shapeMarkers: undefined,
+                    shapeDistanceTxt: undefined,
+                    shapeAreaTxt: undefined
                 });
 
                 // no map state at all
@@ -197,6 +220,46 @@ describe('The state url conversion definition', function () {
                 newState = {};
 
                 stateUrlConversion.post.map(oldState, newState);
+                expect(newState).toEqual({});
+            });
+        });
+
+        describe('The post processing for ui', function () {
+            it('copies highlight and isLoading from the previous state, but not the drawing mode ', function () {
+                // isMapPanelHandleVisible
+                let oldState = {
+                    isMapPanelHandleVisible: true
+                };
+                let newState = {};
+
+                stateUrlConversion.post.ui(oldState, newState);
+                expect(newState).toEqual({
+                    isMapPanelHandleVisible: true
+                });
+
+                oldState = {
+                    isMapPanelHandleVisible: false
+                };
+                newState = {};
+
+                stateUrlConversion.post.ui(oldState, newState);
+                expect(newState).toEqual({
+                    isMapPanelHandleVisible: false
+                });
+
+                oldState = {};
+                newState = {};
+
+                stateUrlConversion.post.ui(oldState, newState);
+                expect(newState).toEqual({
+                    isMapPanelHandleVisible: undefined
+                });
+
+                // no map state at all
+                oldState = null;
+                newState = {};
+
+                stateUrlConversion.post.ui(oldState, newState);
                 expect(newState).toEqual({});
             });
         });
@@ -249,28 +312,6 @@ describe('The state url conversion definition', function () {
             });
         });
 
-        describe('The post processing for isMapPanelVisible', function () {
-            it('copies booelan value from old state', function () {
-                let oldState = true;
-                let newState = false;
-
-                stateUrlConversion.post.isMapPanelVisible(oldState, newState);
-                expect(newState).toEqual(false);
-
-                oldState = false;
-                newState = true;
-
-                stateUrlConversion.post.isMapPanelVisible(oldState, newState);
-                expect(newState).toEqual(true);
-
-                oldState = [1];
-                newState = true;
-
-                stateUrlConversion.post.isMapPanelVisible(oldState, newState);
-                expect(newState).toEqual(true);
-            });
-        });
-
         describe('The post processing for detail', function () {
             it('copies display, geometry, isLoading and isFullscreen from old state if equal endpoint', function () {
                 let newState;
@@ -281,6 +322,7 @@ describe('The state url conversion definition', function () {
                     geometry: 'noot',
                     isLoading: 'mies',
                     isFullscreen: 'wim',
+                    skippedSearchResults: true,
                     something: 'else'
                 };
                 newState = {
@@ -293,7 +335,8 @@ describe('The state url conversion definition', function () {
                     display: 'aap',
                     geometry: 'noot',
                     isLoading: 'mies',
-                    isFullscreen: 'wim'
+                    isFullscreen: 'wim',
+                    skippedSearchResults: true
                 });
 
                 newState = {

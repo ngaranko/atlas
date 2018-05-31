@@ -1,11 +1,12 @@
-<dp-link ng-if="vm.geosearchButton" class-name="o-btn o-btn--plus c-detail__geosearch" type="FETCH_SEARCH_RESULTS_BY_LOCATION" payload="vm.geosearchButton" >Toon alle resultaten op deze locatie</dp-link>
+<dp-link ng-if="vm.geosearchButton" class-name="o-btn o-btn--plus c-detail__geosearch" type="FETCH_SEARCH_RESULTS_BY_LOCATION" payload="vm.geosearchButton" >Alle resultaten op deze locatie tonen</dp-link>
 
 <div class="c-detail">
     <div ng-if="vm.isLoading">
         <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
     </div>
 
-    <div ng-if="!vm.isLoading"
-        ng-include="vm.includeSrc">
+    <div ng-if="!vm.isLoading && vm.show"
+        ng-include="vm.includeSrc"
+        class="qa-detail-content">
     </div>
 </div>

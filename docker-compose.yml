@@ -1,7 +1,78 @@
-version: '3.0'
+version: '3.5'
 services:
-  atlas:
+  atlas_func: # NGINX
+    build:
+      args:
+        - BUILD_ENV=acc
+      context: .
+    ipc: host
+
+  atlas_aria: # NGINX
+    build:
+      args:
+        - BUILD_ENV=acc
+      context: .
+    ipc: host
+
+  test-lint:
     build:
       context: .
+      target: build-deps
+    command: npm run test-lint
+
+  test-unit-integration:
+    build:
+      context: .
+      target: build-deps
+    environment:
+      - NODE_ENV=development
+    command: npm run test
+
+  storybook:
+    build:
+      context: .
+      target: build-deps
     ports:
-      - "8099:80"
+      - 9001:9001
+    command: npm run storybook
+  test-e2e-visual:
+    build:
+      context: .
+      target: build-deps
+    links:
+      - storybook
+    environment:
+      - STORYBOOK_HOST=storybook
+      - STORYBOOK_PORT=9001
+      - STORYBOOK_URL=http://storybook:9001/
+    command: ./scripts/ci/test-e2e-visual.sh
+
+  test-e2e-functional:
+    build:
+      dockerfile: Dockerfile-e2e-functional
+      context: .
+    links:
+      - atlas_func:acc.data.amsterdam.nl
+    environment:
+      # Note that baseUrl must be formatted so
+      # calls to API pass CORS check!
+      - CYPRESS_baseUrl=http://acc.data.amsterdam.nl
+      - USERNAME_EMPLOYEE
+      - USERNAME_EMPLOYEE_PLUS
+      - PASSWORD_EMPLOYEE
+      - PASSWORD_EMPLOYEE_PLUS
+    command: ./scripts/ci/test-e2e-functional.sh
+
+  test-e2e-aria:
+    build:
+      dockerfile: Dockerfile-e2e-aria
+      context: .
+    links:
+      - atlas_aria:atlas
+    environment:
+      - BASE_URL=http://atlas:80
+      - USERNAME_EMPLOYEE
+      - USERNAME_EMPLOYEE_PLUS
+      - PASSWORD_EMPLOYEE
+      - PASSWORD_EMPLOYEE_PLUS
+    command: ./scripts/ci/test-e2e-aria.sh

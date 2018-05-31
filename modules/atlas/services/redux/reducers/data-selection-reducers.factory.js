@@ -39,8 +39,8 @@
             const mergeInto = angular.isString(payload) ? {
                 query: payload,
                 page: 1,
-                view: 'CARDS',
-                dataset: 'catalogus'
+                view: 'CATALOG',
+                dataset: 'dcatd'
             } : payload;
 
             const view = mergeInto.view || state.dataSelection && state.dataSelection.view || 'TABLE';
@@ -79,7 +79,6 @@
                 },
                 map: angular.isObject(state.map) ? {
                     ...state.map,
-                    isFullscreen: false,
                     // LIST loading might include markers => set map loading accordingly
                     isLoading: view === 'LIST'
                 } : state.map,
@@ -88,10 +87,11 @@
                     ...state.page,
                     name: null
                 } : state.page,
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: false
-                } : state.layerSelection,
+                ui: angular.isObject(state.ui) ? {
+                    ...state.ui,
+                    isMapPanelVisible: false,
+                    isMapFullscreen: false
+                } : state.ui,
                 search: null,
                 detail: null,
                 straatbeeld: null
@@ -169,7 +169,7 @@
          * @returns {Object} newState
          */
         function setDataSelectionViewReducer (state, payload) {
-            const views = ['LIST', 'TABLE', 'CARDS'],
+            const views = ['LIST', 'TABLE', 'CATALOG'],
                 viewFound = views.indexOf(payload) !== -1,
                 view = viewFound ? payload : undefined;
 

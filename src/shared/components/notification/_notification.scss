@@ -1,11 +1,31 @@
+@import "../../styles/config";
+
 .notification {
-  color: #FFFFFF;
+  color: $primary-light;
   display: flex;
+  font-family: "Avenir LT W01 65 Medium";
   justify-content: space-between;
-  padding: 4px;
+  margin: 0;
+  padding: 4px 8px;
+
+  @media screen and (min-width: $breakpoint-md) {
+    padding: 4px 12px;
+  }
 
   &--info {
-    background-color: #004699;
+    background-color: $thema-10;
+  }
+
+  &--message {
+    color: $secondary-gray40;
+    font-family: "Avenir LT W01 45 Book";
+    font-style: italic;
+    padding: 0;
+
+    &__content {
+      line-height: 1;
+      vertical-align: middle;
+    }
   }
 
   &__content {
@@ -14,24 +34,28 @@
   }
 
   &__button {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
     cursor: pointer;
     height: 24px;
     line-height: 0;
     width: 24px;
 
     &:hover {
-      background-color: #666666;
+      background-color: $secondary-gray60;
     }
   }
 
   a {
-    color: #FFFFFF;
+    color: $primary-light;
     text-decoration: underline;
   }
 
   svg {
-    fill: #FFFFFF;
-    height: 16px;
-    width: 16px;
+    fill: $primary-light;
+    height: 24px;
+    width: 24px;
   }
 }

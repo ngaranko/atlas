@@ -1,3 +1,6 @@
+import SOURCES from '../../../src/shared/services/layers/overlays.constant';
+import BASE_LAYERS from '../../../src/shared/services/layers/base-layers.constant';
+
 (() => {
     'use strict';
 
@@ -5,9 +8,9 @@
         .module('dpMap')
         .factory('layers', layersFactory);
 
-    layersFactory.$inject = ['$q', 'api', 'L', 'mapConfig', 'BASE_LAYERS', 'overlays'];
+    layersFactory.$inject = ['$q', 'api', 'L', 'mapConfig'];
 
-    function layersFactory ($q, api, L, mapConfig, BASE_LAYERS, overlays) {
+    function layersFactory ($q, api, L, mapConfig) {
         var baseLayer,
             wmsLayers = {};
 
@@ -25,7 +28,6 @@
             baseLayerTemplate = BASE_LAYERS.filter(function (layer) {
                 return layerName === layer.slug;
             })[0];
-
             return baseLayerTemplate.urlTemplate;
         }
 
@@ -77,7 +79,7 @@
 
         function getSubLayers (leafletMap, overlayName) {
             const wmsLayerId = leafletMap._leaflet_id + '_' + overlayName;
-            if (!overlays.SOURCES[overlayName]) {
+            if (!SOURCES[overlayName]) {
                 return $q.reject();
             }
 
@@ -85,7 +87,7 @@
                 wmsLayers[wmsLayerId] = getWmsUrl(overlayName).then(wmsUrl => {
                     return L.nonTiledLayer.wms(wmsUrl, {
                         ...mapConfig.OVERLAY_OPTIONS,
-                        layers: overlays.SOURCES[overlayName].layers
+                        layers: SOURCES[overlayName].layers
                     });
                 });
             }
@@ -94,7 +96,7 @@
         }
 
         function getWmsUrl (overlayName) {
-            const overlay = overlays.SOURCES[overlayName];
+            const overlay = SOURCES[overlayName];
             return overlay.external ? $q.resolve(overlay.url)
                 : api.createUrlWithToken(mapConfig.OVERLAY_ROOT + overlay.url);
         }

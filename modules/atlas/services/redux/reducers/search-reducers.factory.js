@@ -34,14 +34,11 @@
                     category: null,
                     numberOfResults: null
                 },
-                map: angular.isObject(state.map) ? {
-                    ...state.map,
-                    isFullscreen: false
-                } : state.map,
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: false
-                } : state.layerSelection,
+                ui: angular.isObject(state.ui) ? {
+                    ...state.ui,
+                    isMapPanelVisible: false,
+                    isMapFullscreen: false
+                } : state.ui,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null,
@@ -72,17 +69,8 @@
                 },
                 map: angular.isObject(state.map) ? {
                     ...state.map,
-                    showActiveOverlays: false,
-                    isFullscreen: false,
-                    geometry: [],
-                    viewCenter:
-                        state.layerSelection && state.layerSelection.isEnabled || (state.map && state.map.isFullscreen)
-                        ? payload : state.map.viewCenter
+                    geometry: []
                 } : state.map,
-                layerSelection: angular.isObject(state.layerSelection) ? {
-                    ...state.layerSelection,
-                    isEnabled: false
-                } : state.layerSelection,
                 page: angular.isObject(state.page) ? {
                     ...state.page,
                     name: null

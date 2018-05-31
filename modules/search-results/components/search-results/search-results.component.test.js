@@ -324,7 +324,7 @@ describe('The dp-search-results component', function () {
         spyOn(activeOverlays, 'getOverlaysWarning');
     });
 
-    function getComponent (numberOfResults, query, location, category) {
+    function getComponent (numberOfResults, query, location, category, isLoading = true, show = true) {
         element = document.createElement('dp-search-results');
         scope = $rootScope.$new();
 
@@ -346,17 +346,42 @@ describe('The dp-search-results component', function () {
             scope.numberOfResults = numberOfResults;
         }
 
+        element.setAttribute('show', 'show');
+        scope.show = show;
+
         element.setAttribute('user', 'user');
         scope.user = mockedUser;
 
         element.setAttribute('is-loading', 'isLoading');
-        scope.isLoading = true;
+        scope.isLoading = isLoading;
 
         const component = $compile(element)(scope);
         scope.$apply();
 
         return component;
     }
+
+    describe('visibility', () => {
+        it('is not visible when `show` is false while loading', () => {
+            const component = getComponent(22, 'Weesperstraat', null, 'adres', true, false);
+            expect(component.find('.qa-detail-content').length).toBe(0);
+        });
+
+        it('is not visible when `show` is false while not loading', () => {
+            const component = getComponent(22, 'Weesperstraat', null, 'adres', false, false);
+            expect(component.find('.qa-detail-content').length).toBe(0);
+        });
+
+        it('is not visible when `show` is true while loading', () => {
+            const component = getComponent(22, 'Weesperstraat');
+            expect(component.find('.qa-detail-content').length).toBe(0);
+        });
+
+        it('is visible when `show` is true while not loading', () => {
+            const component = getComponent(22, 'Weesperstraat', null, 'adres', false);
+            expect(component.find('.qa-search-results-content').length).toBe(1);
+        });
+    });
 
     describe('search by query', function () {
         it('shows search results', function () {

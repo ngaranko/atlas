@@ -3,10 +3,12 @@
         .module('dpDetail')
         .component('dpDetail', {
             bindings: {
+                show: '=',
                 endpoint: '@',
                 reload: '=',
                 isLoading: '=',
                 isMapHighlight: '=',
+                catalogFilters: '=',
                 user: '<'
             },
             templateUrl: 'modules/detail/components/detail/detail.html',
@@ -24,7 +26,8 @@
         'geojson',
         'crsConverter',
         'dataFormatter',
-        'nearestDetail'
+        'nearestDetail',
+        'markdownParser'
     ];
 
     /* eslint-disable max-params */
@@ -38,12 +41,11 @@
         geojson,
         crsConverter,
         dataFormatter,
-        nearestDetail
+        nearestDetail,
+        markdownParser
     ) {
         /* eslint-enable max-params */
         var vm = this;
-
-        store.dispatch({ type: 'HIDE_MAP_PANEL' });
 
         // Reload the data when the reload flag has been set (endpoint has not
         // changed)
@@ -55,6 +57,13 @@
 
         // (Re)load the data when the endpoint is set or gets changed
         $scope.$watch('vm.endpoint', getData);
+
+        // Ensure the catalog filters for dcatd endpoints
+        $scope.$watch('vm.catalogFilters', () => {
+            if (vm.catalogFilters) {
+                getData(vm.endpoint);
+            }
+        });
 
         // (Re)load the data when the user logs in or out or on a change of authorization level
         $scope.$watch('vm.user.scopes', (newValue, oldValue) => {
@@ -71,16 +80,32 @@
             vm.geosearchButton = vm.isMapHighlight ? false : nearestDetail.getLocation();
 
             const [category, subject] = endpointParser.getParts(endpoint);
+
             if ((category === 'brk' && subject === 'subject' && !vm.user.scopes.includes('BRK/RS')) ||
-                (category === 'handelsregister' && !vm.user.scopes.includes('HR/R'))
+                (category === 'handelsregister' && !vm.user.scopes.includes('HR/R')) ||
+                (category === 'grondexploitatie' && !vm.user.scopes.includes('GREX/R'))
             ) {
-                // User is not authorized to view BRK Kadastrale Subjecten, nor
-                // handelsregister, so do not fetch data
-                vm.isLoading = false;
+                // User is not authorized to view
+                //   BRK Kadastrale Subjecten, nor
+                //   handelsregister, nor
+                //   grondexploitatie
+                // so do not fetch data
                 delete vm.apiData;
+                errorHandler();
+            } else if (category === 'dcatd' && subject === 'datasets' && !vm.catalogFilters) {
+                // The catalogFilters data is not present so do not fetch data
+                delete vm.apiData;
+                errorHandler();
             } else {
-                api.getByUrl(endpoint).then(function (data) {
-                    data = dataFormatter.formatData(data, subject);
+                const endpointVersion = category === 'grondexploitatie' ? '?version=2' : '';
+                api.getByUrl(`${endpoint}${endpointVersion}`).then(function (data) {
+                    data = dataFormatter.formatData(data, subject, vm.catalogFilters);
+
+                    if (category === 'dcatd' && subject === 'datasets') {
+                        data['dct:description'] = data['dct:description'] &&
+                            markdownParser.parse(data['dct:description']);
+                        data.canEditDataset = vm.user.scopes.includes('CAT/W');
+                    }
 
                     vm.apiData = {
                         results: data

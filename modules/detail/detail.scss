@@ -7,8 +7,6 @@
 @import "components/bbga-graphs/bbga-graphs";
 
 @import "components/detail/detail";
-@import "components/detail/detail-catalogus-notes";
-@import "components/detail/detail-catalogus-table";
 @import "components/detail/detail-kadastraal-subject";
 @import "components/glossary/glossary";
 @import "components/meetbouten-graph/meetbouten-graph";
@@ -23,5 +21,6 @@
 .is-embed-preview,
 .is-embed {
   @import "components/detail/detail-print";
-  @import "components/detail/detail-catalogus-table-print";
 }
+
+@import "components/detail/templates/dcatd/datasets";

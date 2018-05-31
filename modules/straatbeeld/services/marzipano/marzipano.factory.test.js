@@ -14,11 +14,6 @@ describe('The marzipanoService factory', function () {
         angular.mock.module(
             'dpStraatbeeld',
             {
-                angleConversion: {
-                    degreesToRadians: function (input) {
-                        return input / 2;
-                    }
-                },
                 hotspotService: {
                     createHotspotTemplate: function () {
                         var q = $q.defer();
@@ -146,7 +141,7 @@ describe('The marzipanoService factory', function () {
                     cubeMapPreviewUrl: 'http://api.example.com/path/preview.jpg'
                 }
             );
-            expect(Marzipano.RectilinearView.limit.traditional).toHaveBeenCalledWith(1000, 50);
+            expect(Marzipano.RectilinearView.limit.traditional).toHaveBeenCalledWith(1000, 1.7453292519943295);
             expect(Marzipano.RectilinearView).toHaveBeenCalledWith({}, 'FAKE_VIEW_LIMITER');
             expect(Marzipano.CubeGeometry).toHaveBeenCalledWith(['FAKE_LEVEL', 'PROPERTIES_LIST']);
 
@@ -157,9 +152,9 @@ describe('The marzipanoService factory', function () {
                 pinFirstLevel: true
             });
 
-            expect(fakeView.setYaw).toHaveBeenCalledWith(89.5);
-            expect(fakeView.setPitch).toHaveBeenCalledWith(0.5);
-            expect(fakeView.setFov).toHaveBeenCalledWith(1);
+            expect(fakeView.setYaw).toHaveBeenCalledWith(3.12413936106985);
+            expect(fakeView.setPitch).toHaveBeenCalledWith(0.017453292519943295);
+            expect(fakeView.setFov).toHaveBeenCalledWith(0.03490658503988659);
             expect(fakeScene.switchTo).toHaveBeenCalled();
         });
 
@@ -190,15 +185,15 @@ describe('The marzipanoService factory', function () {
             expect(fakeHotspotContainer.createHotspot).toHaveBeenCalledWith(
                 'FAKE_HOTSPOT_TEMPLATE',
                 {
-                    yaw: 135,
-                    pitch: 0.19739555984988078
+                    yaw: 1.3962634015954636,
+                    pitch: 0.09065988720074511
                 }
             );
 
             expect(fakeHotspotContainer.createHotspot).toHaveBeenCalledWith(
                 'FAKE_HOTSPOT_TEMPLATE',
                 {
-                    yaw: 40,
+                    yaw: 1.3962634015954636,
                     pitch: 0.09065988720074511
                 }
             );

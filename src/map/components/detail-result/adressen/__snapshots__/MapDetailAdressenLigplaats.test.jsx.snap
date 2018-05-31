@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapDetailAdressenLigplaats should render everything 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Ligplaats label"
+  title="Ligplaats"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Status"
+      value="description"
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;

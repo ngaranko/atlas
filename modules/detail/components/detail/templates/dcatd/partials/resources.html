@@ -1,0 +1,37 @@
+<div class="resources">
+
+    <div class="resources-type" ng-repeat="resourceType in vm.apiData.results.resources">
+        <div class="resources-type__header">
+            <span class="resources-type__header-title">{{resourceType.type | optionLabel: vm.catalogFilters.resourceTypes}}</span>
+        </div>
+        <div class="resources-type__content" ng-repeat="resource in resourceType.rows">
+            <div class="resources-type__content-item">
+
+                <div class="resources-item piwik_download" dp-follow-link="{{ resource['dcat:accessURL'] }}">
+
+                        <div class="resources-item__left">
+                            <div class="resources-item__title">
+                                {{resource['dct:title']}}
+                            </div>
+
+                            <div class="resources-item__description">
+                                <span class="c-data-selection-file-type
+                                             c-data-selection-file-type__name
+                                             c-data-selection-file-type__format-{{resource['dct:format'] | optionLabel: vm.catalogFilters.formatTypes| lowercase }}">
+                                    <span ng-if="resource['dct:format']">{{resource['dct:format'] | optionLabel: vm.catalogFilters.formatTypes}}</span>
+                                </span>
+                                <div>{{resource['dct:description'] ? resource['dct:description'] : resource['dcat:accessURL'] }}</div>
+                            </div>
+                        </div>
+                        <div class="resources-item__right">
+                            <div class="resources-item__modified">{{resource['dct:modified'] | date:'dd MMMM yyyy' }}</div>
+                            <div class="resources-item__navigation">
+                                <div class="resources-item__navigation-file-size" ng-if="resource['dcat:byteSize'] > 0">{{resource['dcat:byteSize'] | filesize}}</div>
+                                <div class="resources-item__navigation-arrow"></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

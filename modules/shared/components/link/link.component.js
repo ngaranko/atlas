@@ -17,9 +17,9 @@
             controllerAs: 'vm'
         });
 
-    DpLinkController.$inject = ['$scope', '$location', 'store', 'ACTIONS', 'applicationState'];
+    DpLinkController.$inject = ['$scope', 'store', 'ACTIONS', 'applicationState'];
 
-    function DpLinkController ($scope, $location, store, ACTIONS, applicationState) {
+    function DpLinkController ($scope, store, ACTIONS, applicationState) {
         const vm = this;
 
         const BUTTON = 'button',
@@ -38,7 +38,7 @@
 
         function getAction (type, payload) {
             const action = {
-                type: ACTIONS[type]
+                type: ACTIONS[type] || type
             };
             if (angular.isDefined(payload)) {
                 action.payload = payload;
@@ -47,7 +47,7 @@
         }
 
         function getTagName (type, payload) {
-            if (ACTIONS[type].isButton) {
+            if (ACTIONS[type] && ACTIONS[type].isButton) {
                 return BUTTON;
             } else {
                 vm.href = getHref(type, payload);

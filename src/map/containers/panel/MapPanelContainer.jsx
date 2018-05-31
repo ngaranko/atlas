@@ -6,8 +6,7 @@ import { bindActionCreators } from 'redux';
 import { getMapBaseLayers, setMapBaseLayer } from '../../ducks/base-layers/map-base-layers';
 import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/map-overlays';
 import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
-import { toggleMapPanel } from '../../ducks/panel/map-panel';
-import { toggleMapPanelHandle } from '../../../shared/ducks/ui/ui';
+import { toggleMapPanel, toggleMapPanelHandle } from '../../../shared/ducks/ui/ui';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapPanelHandle from '../../components/panel-handle/MapPanelHandle';
@@ -20,10 +19,10 @@ const mapStateToProps = (state) => ({
   activeBaseLayer: state.map.baseLayer,
   activeMapLayers: selectActiveMapLayers(state),
   atlas: state.atlas,
-  layerSelection: state.layerSelection,
+  isMapPanelVisible: state.ui.isMapPanelVisible,
+  isMapLayersVisible: state.ui.isMapLayersVisible,
   isEachOverlayInvisible: state.map.overlays.every((overlay) => overlay.isVisible),
   isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,
-  isMapPanelVisible: state.isMapPanelVisible,
   mapBaseLayers: state.mapBaseLayers,
   mapLayers: state.mapLayers,
   overlays: state.map.overlays,
@@ -48,26 +47,34 @@ class MapPanelContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.isMapPanelVisible && prevProps.overlays.length < this.props.overlays.length) {
-      document.querySelector('.map-panel .map-legend').scrollIntoView({ behavior: 'smooth' });
+      const scrollEl = document.querySelector('.map-panel .map-legend');
+      if (scrollEl) {
+        scrollEl.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   }
 
   render() {
     return (
-      <section className={`
-        map-panel
-        map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
-        map-panel--has${this.props.activeMapLayers.length > 0 ? '' : '-no'}-active-layers
-        map-panel--has${this.props.isEachOverlayInvisible ? '-not' : ''}-just-invisible-layers
-      `}
+      <section
+        aria-label={this.props.isMapPanelVisible ? 'Kaartlagen legenda, Kaartlagen verbergen' :
+          'Kaartlagen legenda, Kaartlagen tonen'}
+        aria-expanded={this.props.isMapPanelVisible}
+        className={`
+          map-panel
+          map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
+          map-panel--has${this.props.activeMapLayers.length > 0 ? '' : '-no'}-active-layers
+          map-panel--has${this.props.isEachOverlayInvisible ? '-not' : ''}-just-invisible-layers
+        `}
       >
         <div className="map-panel__heading">
           <button
             className="map-panel__toggle"
             onClick={this.props.onMapPanelToggle}
+            title={this.props.isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
           >
             <MapLayersIcon className="map-panel__heading-icon" />
-            <h1 className="map-panel__heading-title">Kaartlagen</h1>
+            <h2 className="map-panel__heading-title" aria-hidden="true">Kaartlagen</h2>
             <CollapseIcon className="map-panel__toggle-icon map-panel__toggle-icon--expanded" />
             <ExpandIcon className="map-panel__toggle-icon map-panel__toggle-icon--collapsed" />
           </button>
@@ -79,6 +86,7 @@ class MapPanelContainer extends React.Component {
               onLayerToggle={this.props.onLayerToggle}
               onLayerVisibilityToggle={this.props.onLayerVisibilityToggle}
               overlays={this.props.overlays}
+              user={this.props.user}
               zoomLevel={this.props.zoomLevel}
             />
           )}
@@ -95,7 +103,6 @@ class MapPanelContainer extends React.Component {
               activeMapLayers={this.props.activeMapLayers}
               layers={this.props.mapLayers}
               onLayerToggle={this.props.onLayerToggle}
-              user={this.props.user}
             />
           </MapPanelHandle>
         </div>
@@ -112,7 +119,6 @@ MapPanelContainer.defaultProps = {
   activeMapLayers: [],
   atlas: {},
   isMapPanelVisible: false,
-  layerSelection: {},
   map: {},
   mapBaseLayers: {},
   mapLayers: [],

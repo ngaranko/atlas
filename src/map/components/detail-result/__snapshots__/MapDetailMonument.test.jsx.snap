@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapDetailMonument should render everything 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Monument label"
+  title="Monument"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Nummer"
+      value="123456"
+    />
+    <MapDetailResultItem
+      label="Type"
+      value="Monument type"
+    />
+    <MapDetailResultItem
+      label="Status"
+      value="Monument status"
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;

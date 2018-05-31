@@ -1,30 +1,48 @@
+import {
+    ERROR_TYPES,
+    resetGlobalError
+} from '../../../../src/shared/ducks/error-message';
+
 describe('The api-error component', function () {
     let $compile,
+        $timeout,
         $rootScope,
-        currentStatus;
-    const httpStatus = {
-            NOT_FOUND_ERROR: 'NOT_FOUND_ERROR',
-            LOGIN_ERROR: 'LOGIN_ERROR',
-            getStatus: () => currentStatus,
-            registerError: angular.noop
-        },
-        mockedUser = {
-            authenticated: true,
-            scopes: [],
-            name: '',
-            error: false
-        };
+        mockedState,
+        subcribeListener,
+        dispatch;
+
+    const mockedUser = {
+        authenticated: true,
+        scopes: [],
+        name: '',
+        error: false
+    };
 
     beforeEach(function () {
+        dispatch = jasmine.createSpy('dispatch');
         angular.mock.module('dpShared', {
-            httpStatus,
+            store: {
+                dispatch,
+                subscribe: (listener) => subcribeListener = listener,
+                getState: function () {
+                    return angular.copy(mockedState);
+                }
+            },
             dpPanelDirective: {}
         });
 
-        angular.mock.inject(function (_$compile_, _$rootScope_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$timeout_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            $timeout = _$timeout_;
         });
+
+        mockedState = {
+            error: {
+                hasErrors: false,
+                types: {}
+            }
+        };
     });
 
     function getComponent (user = mockedUser) {
@@ -37,75 +55,112 @@ describe('The api-error component', function () {
 
         scope = $rootScope.$new();
         component = $compile(element)(scope);
-        scope.$apply();
+        scope.$digest();
         scope.user = user;
 
         return component;
     }
 
-    it('is shown based on the httpStatus.hasErrors flag', function () {
-        currentStatus = {};
-        const component = getComponent();
-        expect(component.find('.qa-api-error').attr('is-panel-visible')).toBe('vm.httpStatus.hasErrors');
-    });
-
-    it('shows a server error message when LOGIN_ERROR is set', function () {
-        currentStatus = {
-            hasErrors: true,
-            LOGIN_ERROR: true,
-            NOT_FOUND_ERROR: false
+    it('shows login error message when LOGIN_ERROR is set', function () {
+        mockedState = {
+            error: {
+                hasErrors: true,
+                types: {
+                    [ERROR_TYPES.LOGIN_ERROR]: true
+                }
+            }
         };
 
         const component = getComponent();
+        $rootScope.$digest();
+        subcribeListener();
+        $timeout.flush();
+        $rootScope.$digest();
+
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
         expect(component.find('.qa-api-login-error').length).toBe(1);
-        expect(component.find('.qa-api-server-error').length).toBe(0);
+        expect(component.find('.qa-api-general-error').length).toBe(0);
     });
 
     it('shows a not-found error message when NOT_FOUND_ERROR is set', function () {
-        currentStatus = {
-            hasErrors: true,
-            NOT_FOUND_ERROR: true
+        mockedState = {
+            error: {
+                hasErrors: true,
+                types: {
+                    [ERROR_TYPES.NOT_FOUND_ERROR]: true
+                }
+            }
         };
 
         const component = getComponent();
+        $rootScope.$digest();
+        subcribeListener();
+        $timeout.flush();
+        $rootScope.$digest();
+
         expect(component.find('.qa-api-not-found-error').length).toBe(1);
         expect(component.find('.qa-api-login-error').length).toBe(0);
-        expect(component.find('.qa-api-server-error').length).toBe(0);
+        expect(component.find('.qa-api-general-error').length).toBe(0);
     });
 
-    it('defaults to a server error message without any error flags set', function () {
-        currentStatus = {
-            hasErrors: true
+    it('does nothing on normal store change', function () {
+        mockedState = {
+            error: {
+                hasErrors: false
+            }
         };
 
         const component = getComponent();
+        $rootScope.$digest();
+        subcribeListener();
+        $timeout.flush();
+        $rootScope.$digest();
+
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
         expect(component.find('.qa-api-login-error').length).toBe(0);
-        expect(component.find('.qa-api-server-error').length).toBe(1);
+        expect(component.find('.qa-api-general-error').length).toBe(0);
     });
 
-    it('defaults to a server error message with an erroneous error flag set', function () {
-        currentStatus = {
-            hasErrors: true,
-            FAULTY_ERROR_TYPE: true
+    it('shows the general error message', function () {
+        mockedState = {
+            error: {
+                hasErrors: true,
+                types: {
+                    [ERROR_TYPES.GENERAL_ERROR]: true
+                }
+            }
         };
 
         const component = getComponent();
+        $rootScope.$digest();
+        subcribeListener();
+        $timeout.flush();
+        $rootScope.$digest();
+
         expect(component.find('.qa-api-not-found-error').length).toBe(0);
         expect(component.find('.qa-api-login-error').length).toBe(0);
-        expect(component.find('.qa-api-server-error').length).toBe(1);
+        expect(component.find('.qa-api-general-error').length).toBe(1);
     });
 
-    it('triggers registerError when user error is detected', function () {
-        const spy = spyOn(httpStatus, 'registerError');
-
+    it('shows user login error', function () {
         const user = {...mockedUser};
-        getComponent(user);
-
+        const component = getComponent(user);
+        $rootScope.$digest();
         user.error = true;
         $rootScope.$digest();
 
-        expect(spy).toHaveBeenCalledWith(httpStatus.LOGIN_ERROR);
+        expect(component.find('.qa-api-not-found-error').length).toBe(0);
+        expect(component.find('.qa-api-login-error').length).toBe(1);
+        expect(component.find('.qa-api-general-error').length).toBe(0);
+    });
+
+    it('resets errors on hide panel', () => {
+        const component = getComponent();
+        const controller = component.controller('dpApiError');
+
+        controller.hide();
+
+        expect(component.find('.qa-api-error').attr('close-action')).toBe('vm.hide()');
+        expect(dispatch).toHaveBeenCalledWith(resetGlobalError());
     });
 });
