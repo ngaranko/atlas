@@ -78,6 +78,8 @@ describe('MapContainer', () => {
     mapContainer = mount(<MapContainer />, { context: { store } });
     await nextTick(100);
     updateContainer(mapContainer);
+    // TODO: fix error that htmlcanvas doesn't work in test
+    HTMLCanvasElement.prototype.getContext = () => '';
   });
 
   afterEach(() => {
