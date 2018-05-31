@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { createUrlWithToken } from '../../../shared/services/api/api';
+import { getMapOverlays } from '../map/map';
 import MAP_CONFIG from '../../services/map-config';
 
 export const FETCH_MAP_LAYERS_REQUEST = 'FETCH_MAP_LAYERS_REQUEST';
@@ -22,13 +23,11 @@ const generateLayer = (layers, overlay, url) => ({
     layers: findLayer(layers, overlay.id).layers
   }
 });
-
 const getMapLayers = (state) => state.mapLayers.layers.items;
-const getOverlays = (state) => state.map.overlays;
 const getAccessToken = (state) => state.user.accessToken;
 
 export const getLayers = createSelector(
-  [getOverlays, getAccessToken, getMapLayers],
+  [getMapOverlays, getAccessToken, getMapLayers],
   (overlays, token, layers) => (
     overlays.map((overlay) => {
       const layer = findLayer(layers, overlay.id);

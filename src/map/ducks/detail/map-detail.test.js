@@ -19,6 +19,7 @@ describe('reducer', () => {
   const initialState = {
     byEndpoint: {},
     isLoading: false,
+    currentEndpoint: '',
     error: ''
   };
 
