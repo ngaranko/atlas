@@ -12621,22 +12621,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 "category": "Geografie: onroerende zaken",
                 "legendItems": Array [
                   Object {
-                    "id": "gbgs",
-                    "layer": "beperking-GS",
+                    "id": "gbvv",
+                    "layer": "beperking-VV",
                     "selectable": true,
-                    "title": "Sluiting v. woning etc.",
-                  },
-                  Object {
-                    "id": "gbep",
-                    "layer": "beperking-EP",
-                    "selectable": true,
-                    "title": "Exploitatieplan",
-                  },
-                  Object {
-                    "id": "gbwu",
-                    "layer": "beperking-WU",
-                    "selectable": true,
-                    "title": "Woningwet",
+                    "title": "(voorlopige) aanwijzing WVG",
                   },
                   Object {
                     "id": "gbkw",
@@ -12645,22 +12633,16 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "title": "Wet bodembescherming",
                   },
                   Object {
+                    "id": "gbwu",
+                    "layer": "beperking-WU",
+                    "selectable": true,
+                    "title": "Woningwet",
+                  },
+                  Object {
                     "id": "gboh",
                     "layer": "beperking-OH",
                     "selectable": true,
                     "title": "WABO bestuursdwang / dwangsom",
-                  },
-                  Object {
-                    "id": "gbhv",
-                    "layer": "beperking-HV",
-                    "selectable": true,
-                    "title": "Vordering tot woonruimte",
-                  },
-                  Object {
-                    "id": "gbgg",
-                    "layer": "beperking-GG",
-                    "selectable": true,
-                    "title": "Gemeentelijk monument",
                   },
                   Object {
                     "id": "gbos",
@@ -12669,10 +12651,28 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "title": "Sluiting obv opiumwet",
                   },
                   Object {
-                    "id": "gbvv",
-                    "layer": "beperking-VV",
+                    "id": "gbgs",
+                    "layer": "beperking-GS",
                     "selectable": true,
-                    "title": "(voorlopige) aanwijzing WVG",
+                    "title": "Sluiting v. woning etc.",
+                  },
+                  Object {
+                    "id": "gbgg",
+                    "layer": "beperking-GG",
+                    "selectable": true,
+                    "title": "Gemeentelijk monument",
+                  },
+                  Object {
+                    "id": "gbep",
+                    "layer": "beperking-EP",
+                    "selectable": true,
+                    "title": "Exploitatieplan",
+                  },
+                  Object {
+                    "id": "gbhv",
+                    "layer": "beperking-HV",
+                    "selectable": true,
+                    "title": "Vordering tot woonruimte",
                   },
                 ],
                 "maxZoom": 16,
@@ -15418,22 +15418,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           "category": "Geografie: onroerende zaken",
                           "legendItems": Array [
                             Object {
-                              "id": "gbgs",
-                              "layer": "beperking-GS",
+                              "id": "gbvv",
+                              "layer": "beperking-VV",
                               "selectable": true,
-                              "title": "Sluiting v. woning etc.",
-                            },
-                            Object {
-                              "id": "gbep",
-                              "layer": "beperking-EP",
-                              "selectable": true,
-                              "title": "Exploitatieplan",
-                            },
-                            Object {
-                              "id": "gbwu",
-                              "layer": "beperking-WU",
-                              "selectable": true,
-                              "title": "Woningwet",
+                              "title": "(voorlopige) aanwijzing WVG",
                             },
                             Object {
                               "id": "gbkw",
@@ -15442,22 +15430,16 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                               "title": "Wet bodembescherming",
                             },
                             Object {
+                              "id": "gbwu",
+                              "layer": "beperking-WU",
+                              "selectable": true,
+                              "title": "Woningwet",
+                            },
+                            Object {
                               "id": "gboh",
                               "layer": "beperking-OH",
                               "selectable": true,
                               "title": "WABO bestuursdwang / dwangsom",
-                            },
-                            Object {
-                              "id": "gbhv",
-                              "layer": "beperking-HV",
-                              "selectable": true,
-                              "title": "Vordering tot woonruimte",
-                            },
-                            Object {
-                              "id": "gbgg",
-                              "layer": "beperking-GG",
-                              "selectable": true,
-                              "title": "Gemeentelijk monument",
                             },
                             Object {
                               "id": "gbos",
@@ -15466,10 +15448,28 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                               "title": "Sluiting obv opiumwet",
                             },
                             Object {
-                              "id": "gbvv",
-                              "layer": "beperking-VV",
+                              "id": "gbgs",
+                              "layer": "beperking-GS",
                               "selectable": true,
-                              "title": "(voorlopige) aanwijzing WVG",
+                              "title": "Sluiting v. woning etc.",
+                            },
+                            Object {
+                              "id": "gbgg",
+                              "layer": "beperking-GG",
+                              "selectable": true,
+                              "title": "Gemeentelijk monument",
+                            },
+                            Object {
+                              "id": "gbep",
+                              "layer": "beperking-EP",
+                              "selectable": true,
+                              "title": "Exploitatieplan",
+                            },
+                            Object {
+                              "id": "gbhv",
+                              "layer": "beperking-HV",
+                              "selectable": true,
+                              "title": "Vordering tot woonruimte",
                             },
                           ],
                           "maxZoom": 16,
