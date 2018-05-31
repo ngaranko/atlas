@@ -1,6 +1,4 @@
-import './util';
-import { isFunction, isString } from 'util';
-import { isDefined, cloneObject } from './util';
+import { isDefined, isFunction, isString, cloneObject } from './util';
 
 describe('util service', () => {
   const fn = () => { };

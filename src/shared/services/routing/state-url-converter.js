@@ -160,10 +160,10 @@ function setValueForKey(obj, oldObj, key, value) {
   // the old object is used for createObject() in case of any onCreate method for the state object
   const { mainKey, subKey } = getFullKey(key);
   if (subKey) {
-    obj[mainKey] = obj[mainKey] || createObject(oldObj[mainKey], mainKey);
+    obj[mainKey] = obj[mainKey] || createObject(oldObj[mainKey], mainKey); // eslint-disable-line
     setValueForKey(obj[mainKey], oldObj[mainKey] || {}, subKey, value);
   } else {
-    obj[mainKey] = value;
+    obj[mainKey] = value; // eslint-disable-line no-param-reassign
   }
 }
 
@@ -230,7 +230,7 @@ class StateUrlConverter {
         value = asUrlValue(value, attribute.type, attribute.precision);
         if (value) {
           const valuesRegEx = new RegExp(`(${FILTERS_WITH_POSSIBLE_NO_VALUE.join('|')}):::`, 'g');
-          result[key] = value.replace(valuesRegEx, `$1::${NO_VALUE}:`);
+          result[key] = value.replace(valuesRegEx, `$1::${NO_VALUE}:`); // eslint-disable-line no-param-reassign
         }
       }
       return result;
