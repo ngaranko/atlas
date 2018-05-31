@@ -7,7 +7,7 @@
         <div class="resources-type__content" ng-repeat="resource in resourceType.rows">
             <div class="resources-type__content-item">
 
-                <div class="resources-item piwik_download" dp-follow-link="{{ resource['dcat:accessURL'] }}">
+                <div class="resources-item" dp-follow-link="{{ resource['dcat:accessURL'] }}" dp-follow-link-resource-name={{vm.apiData.results["dct:title"]}}>
 
                         <div class="resources-item__left">
                             <div class="resources-item__title">
