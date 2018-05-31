@@ -119,17 +119,9 @@
 
   &__toggle {
     @extend %__toggle; // sass-lint:disable-line placeholder-name-format
+    @extend %hover-focus-button;
     margin-left: 10px;
     outline: none;
-
-    &:hover {
-      background-color: $primary-contrast;
-      border-color: $primary-contrast;
-
-      svg {
-        fill: $primary-light;
-      }
-    }
   }
 
   .is-embed &,

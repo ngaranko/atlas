@@ -34,6 +34,7 @@
   }
 
   &__button {
+    @extend %hover-focus-button;
     appearance: none;
     background-color: transparent;
     border: none;
@@ -42,10 +43,6 @@
     height: 24px;
     line-height: 0;
     width: 24px;
-
-    &:hover {
-      background-color: $secondary-gray60;
-    }
   }
 
   a {
