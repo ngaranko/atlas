@@ -1,10 +1,10 @@
-import getStore from '../../../../src/shared/services/redux/get-store';
+import applicationState from '../../../../src/shared/services/redux/application-state';
 (function () {
     angular
         .module('dpShared')
         .factory('store', storeFactory);
 
     function storeFactory () {
-        return getStore();
+        return applicationState.getStore();
     }
 })();
