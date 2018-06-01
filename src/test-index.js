@@ -74,7 +74,7 @@ import '../modules/data-selection/components/formatter/zip-code/zip-code.filter'
 import '../modules/data-selection/components/header/download-button/download-button.component';
 import '../modules/data-selection/components/header/header.component';
 import '../modules/data-selection/components/header/toggle-view-button/toggle-view-button.component';
-// import '../modules/data-selection/components/pagination/pagination-link.component';
+import '../modules/data-selection/components/pagination/pagination-link.component';
 import '../modules/data-selection/components/pagination/pagination.component';
 import '../modules/data-selection/components/views/catalog/catalog.component';
 import '../modules/data-selection/components/views/list/list.component';
