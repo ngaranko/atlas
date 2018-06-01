@@ -18,6 +18,11 @@
     outline: none;
     overflow: hidden;
     width: calc(100% - 32px);
+
+    &:hover,
+    &:focus {
+      border-right: 1px solid;
+    }
   }
 
   &__icon-wrapper {
@@ -77,6 +82,7 @@
     .select-button__icon-wrapper {
       @extend %hover-focus-button;
       border-color: $secondary-gray32;
+      color: $secondary-gray60;
     }
 
     &.select-button--expanded {
