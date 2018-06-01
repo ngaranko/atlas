@@ -103,22 +103,10 @@ export default [
     category: 'Geografie: onroerende zaken',
     legendItems: [
       {
-        id: 'gbgs',
-        layer: 'beperking-GS',
+        id: 'gbvv',
+        layer: 'beperking-VV',
         selectable: true,
-        title: 'Sluiting v. woning etc.'
-      },
-      {
-        id: 'gbep',
-        layer: 'beperking-EP',
-        selectable: true,
-        title: 'Exploitatieplan'
-      },
-      {
-        id: 'gbwu',
-        layer: 'beperking-WU',
-        selectable: true,
-        title: 'Woningwet'
+        title: '(voorlopige) aanwijzing WVG'
       },
       {
         id: 'gbkw',
@@ -127,16 +115,28 @@ export default [
         title: 'Wet bodembescherming'
       },
       {
+        id: 'gbwu',
+        layer: 'beperking-WU',
+        selectable: true,
+        title: 'Woningwet'
+      },
+      {
         id: 'gboh',
         layer: 'beperking-OH',
         selectable: true,
         title: 'WABO bestuursdwang / dwangsom'
       },
       {
-        id: 'gbhv',
-        layer: 'beperking-HV',
+        id: 'gbos',
+        layer: 'beperking-OS',
         selectable: true,
-        title: 'Vordering tot woonruimte'
+        title: 'Sluiting o.b.v. Opiumwet'
+      },
+      {
+        id: 'gbgs',
+        layer: 'beperking-GS',
+        selectable: true,
+        title: 'Sluiting v. woning/lokaal/erf'
       },
       {
         id: 'gbgg',
@@ -145,16 +145,16 @@ export default [
         title: 'Gemeentelijk monument'
       },
       {
-        id: 'gbos',
-        layer: 'beperking-OS',
+        id: 'gbep',
+        layer: 'beperking-EP',
         selectable: true,
-        title: 'Sluiting obv opiumwet'
+        title: 'Exploitatieplan'
       },
       {
-        id: 'gbvv',
-        layer: 'beperking-VV',
+        id: 'gbhv',
+        layer: 'beperking-HV',
         selectable: true,
-        title: '(voorlopige) aanwijzing WVG'
+        title: 'Vordering tot woonruimte'
       }
     ],
     maxZoom: 16,

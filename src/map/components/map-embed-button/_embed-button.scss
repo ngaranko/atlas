@@ -1,4 +1,5 @@
 .c-embed-button {
+  @extend %hover-focus-button;
   background-color: $primary-light;
   border: 1px solid $secondary-gray20;
   box-shadow: $button-shadow-size $button-shadow-size 0 0 $secondary-gray40;
@@ -23,20 +24,6 @@
     font-size: $s-font-size;
     line-height: 24px;
     margin: 4px;
-  }
-
-  &:focus {
-    background-color: $secondary-gray10;
-    color: $primary-dark;
-    fill: $primary-dark;
-    outline: none;
-  }
-
-  &:hover {
-    background-color: $primary-contrast;
-    border: 1px solid $primary-contrast;
-    color: $primary-light;
-    fill: $primary-light;
   }
 
   .is-embed-preview &,

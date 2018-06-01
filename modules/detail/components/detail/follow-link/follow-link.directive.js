@@ -17,7 +17,8 @@
         function linkFunction (scope, elem, attrs) {
             elem.on ('click', function () {
                 const url = attrs.dpFollowLink;
-                $window._paq.push(['trackEvent', 'Download', 'download']);
+                const resourceName = attrs.dpFollowLinkResourceName;
+                $window._paq.push(['trackEvent', 'Download', resourceName, url]);
                 $window.open(url, '_blank');
             });
         }

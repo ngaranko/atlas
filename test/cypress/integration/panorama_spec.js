@@ -31,13 +31,6 @@ describe('panorama module', () => {
   });
 
   describe('user should be able to use the panorama viewer', () => {
-    // TODO: activate, skipping now because canvas is never found when test runs from inside Docker
-    // container
-    it.skip('should render the marzipano viewer', () => {
-      // the canvas inside de marzipano viewer should exist and be visible
-      cy.get('.js-marzipano-viewer').find('canvas').should('exist').and('be.visible');
-    });
-
     it('should be able to click a hotspot and change the coordinates', () => {
       cy.get(statusBarInfo).first()
       .then((coordinatesEl) => {
@@ -74,7 +67,7 @@ describe('panorama module', () => {
         .should('exist').and('be.visible');
     });
 
-    it.skip('should set the layers in the leaflet map', () => {
+    it('should set the layers in the leaflet map', () => {
       // should contain the correct value
       cy.get('.leaflet-image-layer').should('exist').and('be.visible');
     });

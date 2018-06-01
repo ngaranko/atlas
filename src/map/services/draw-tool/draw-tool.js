@@ -477,4 +477,6 @@ function bindLastDrawnMarker() {
   }));
 }
 
+export const isDrawingActive = (drawingMode) => drawingMode !== drawToolConfig.DRAWING_MODE.NONE;
+
 /* eslint-enable no-use-before-define,no-underscore-dangle */
