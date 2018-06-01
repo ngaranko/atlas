@@ -1,3 +1,5 @@
+import stateUrlConverter from '../../../../../src/shared/services/routing/state-url-converter';
+
 describe('The homeReducers factory', function () {
     var homeReducers,
         DEFAULT_STATE,
@@ -10,10 +12,11 @@ describe('The homeReducers factory', function () {
     beforeEach(function () {
         angular.mock.module('atlas');
 
-        angular.mock.inject(function (_homeReducers_, _stateUrlConverter_) {
+        angular.mock.inject(function (_homeReducers_) {
             homeReducers = _homeReducers_;
-            DEFAULT_STATE = _stateUrlConverter_.getDefaultState();
         });
+
+        DEFAULT_STATE = stateUrlConverter.getDefaultState();
 
         mockedSearchState = angular.copy(DEFAULT_STATE);
         mockedSearchState.search = {

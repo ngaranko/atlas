@@ -1,7 +1,8 @@
+import stateUrlConverter from '../../../../src/shared/services/routing/state-url-converter';
+
 describe('The stateToUrl factory', function () {
     var $location,
         stateToUrl,
-        stateUrlConverter,
         mockedState;
 
     beforeEach(function () {
@@ -12,10 +13,9 @@ describe('The stateToUrl factory', function () {
             }
         });
 
-        angular.mock.inject(function (_$location_, _stateToUrl_, _stateUrlConverter_) {
+        angular.mock.inject(function (_$location_, _stateToUrl_) {
             $location = _$location_;
             stateToUrl = _stateToUrl_;
-            stateUrlConverter = _stateUrlConverter_;
             mockedState = {
                 aap: 'noot',
                 mies: 'teun'

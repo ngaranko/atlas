@@ -6,7 +6,7 @@ import ACTIONS from '../../../../src/shared/actions';
     angular
         .module('dpShared')
         .component('dpLinkReact', {
-            template: `<div class='route-link' >
+            template: `<div class='route-link'>
                          <ng-transclude></ng-transclude>
                        </div>`,
             transclude: true,
@@ -32,7 +32,7 @@ import ACTIONS from '../../../../src/shared/actions';
             LINK = 'a';
 
         vm.className = vm.className || 'o-btn o-btn--link';
-        vm.inline = vm.inline || false;
+        vm.inline = (vm.inline && (vm.inline === 'true')) || false;
         $scope.$watch('vm.payload', function () {
             vm.tagName = getTagName(vm.type, vm.payload);
         });
@@ -53,20 +53,18 @@ import ACTIONS from '../../../../src/shared/actions';
 
         function setRouteLinkComponent () {
             $timeout(() => {
-                const routeLinkContainer = $element[0].querySelector('.route-link');
-                if (routeLinkContainer) {
-                    const props = {
-                        className: vm.className,
-                        inline: vm.inline === 'false' ? false : true,
-                        hoverText: vm.hoverText,
-                        type: vm.type,
-                        payload: vm.payload
-                    };
+                const props = {
+                    className: vm.className,
+                    inline: vm.inline,
+                    hoverText: vm.hoverText,
+                    type: vm.type,
+                    payload: vm.payload
+                };
 
-                    const element = $element.find('ng-transclude').find('span')[0];
-                    const innerText = element && element.innerHTML;
-                    render(React.createElement(routeLinkWrapper, props, innerText), routeLinkContainer);
-                }
+                const element = $element.find('ng-transclude').find('span')[0];
+                const innerText = element && element.innerHTML;
+                const routeLinkContainer = $element[0].querySelector('.route-link');
+                render(React.createElement(routeLinkWrapper, props, innerText), routeLinkContainer);
             });
         }
     }

@@ -64,6 +64,8 @@ describe('The dp-link-react component', function () {
             element.setAttribute('hover-text', hoverText);
         }
 
+        element.setAttribute('inline', 'false');
+
         element.innerText = 'Transcluded text';
 
         const component = $compile(element)(scope);
