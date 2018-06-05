@@ -23,7 +23,6 @@ class MapLeaflet extends React.Component {
     this.handleResize = this.handleResize.bind(this);
     this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this);
     this.state = {
-      drawMode: false,
       previousElementBoundsId: ''
     };
 
@@ -31,7 +30,6 @@ class MapLeaflet extends React.Component {
       if (element && element.leafletElement) {
         this.MapElement = element.leafletElement;
         this.props.getLeafletInstance(this.MapElement);
-        this.onMapDraw(this.MapElement);
       }
     };
 
@@ -54,24 +52,10 @@ class MapLeaflet extends React.Component {
 
   onClick(event) {
     const { latlng, containerPoint, layerPoint } = event;
-    // needed for drawtool firefox finishing a shape
-    setTimeout(() => {
-      if (!this.state.drawMode) {
-        this.props.onClick({
-          latlng,
-          containerPoint,
-          layerPoint
-        });
-      }
-    });
-  }
-
-  onMapDraw(mapElement) {
-    mapElement.on('draw:drawstop', () => {
-      this.setState({ drawMode: false });
-    });
-    mapElement.on('draw:drawstart', () => {
-      this.setState({ drawMode: true });
+    this.props.onClick({
+      latlng,
+      containerPoint,
+      layerPoint
     });
   }
 

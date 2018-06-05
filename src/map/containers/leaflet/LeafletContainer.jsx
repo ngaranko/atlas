@@ -44,7 +44,8 @@ class LeafletContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      uiState: ''
+      uiState: '',
+      drawingMode: 'none'
     };
     this.setMapLeaflet = (element) => {
       this.MapLeaflet = element;
@@ -64,6 +65,17 @@ class LeafletContainer extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { drawingMode } = nextProps;
+    if (this.state.drawingMode !== drawingMode) {
+      // fixes race condition in firefox
+      // with ending a shape with the DrawTool and clicking in the mapLeaflet
+      setTimeout(() => {
+        this.setState({ drawingMode });
+      }, 300);
+    }
+  }
+
   handleZoom(event) {
     this.props.onUpdateZoom(event, isDrawingActive(this.props.drawingMode));
   }
@@ -73,7 +85,7 @@ class LeafletContainer extends React.Component {
   }
 
   handleClick(event) {
-    if (!isDrawingActive(this.props.drawingMode)) {
+    if (!isDrawingActive(this.state.drawingMode)) {
       this.props.onUpdateClick(event);
     }
   }
