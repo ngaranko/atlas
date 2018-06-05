@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { detailPointType } from '../../components/leaflet/services/icons.constant';
+import DRAWTOOL_CONFIG from '../../services/draw-tool/draw-tool-config';
 
 const generateMarkers = (markers) => (
   markers.map((markerLocation, index) => ({
@@ -25,9 +26,14 @@ const getGeometryFilter = createSelector(getDataSelection, (dataSelection) => (
 const getGeometryFilterMarkers = createSelector(getGeometryFilter, (geometryFilter) => (
   geometryFilter && geometryFilter.markers
 ));
+const getMap = (state) => state.map;
+const isDrawingActive = createSelector(getMap, (mapState) => (
+  mapState.drawingMode !== DRAWTOOL_CONFIG.DRAWING_MODE.NONE
+));
 
-export const getDrawShape = createSelector([getDataSelection, getGeometryFilterMarkers],
-  (active, markers) => (
-    active && markers ? { latLngList: [...markers] } : {}
+export const getDrawShape = createSelector(
+  [getDataSelection, isDrawingActive, getGeometryFilterMarkers],
+  (active, drawingActive, markers) => (
+    active && !drawingActive && markers ? { latLngList: [...markers] } : {}
   )
 );

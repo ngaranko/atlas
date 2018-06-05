@@ -54,26 +54,24 @@ class MapLeaflet extends React.Component {
 
   onClick(event) {
     const { latlng, containerPoint, layerPoint } = event;
-    if (!this.state.drawMode) {
-      this.props.onClick({
-        latlng,
-        containerPoint,
-        layerPoint
-      });
-    }
+    // needed for drawtool firefox finishing a shape
+    setTimeout(() => {
+      if (!this.state.drawMode) {
+        this.props.onClick({
+          latlng,
+          containerPoint,
+          layerPoint
+        });
+      }
+    });
   }
 
   onMapDraw(mapElement) {
-    // needed for firefox
     mapElement.on('draw:drawstop', () => {
-      setTimeout(() => {
-        this.setState({ drawMode: false });
-      });
+      this.setState({ drawMode: false });
     });
     mapElement.on('draw:drawstart', () => {
-      setTimeout(() => {
-        this.setState({ drawMode: true });
-      });
+      this.setState({ drawMode: true });
     });
   }
 
