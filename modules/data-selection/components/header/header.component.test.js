@@ -7,7 +7,6 @@ describe('The dp-data-selection-header', () => {
     let $compile,
         $rootScope,
         store,
-        ACTIONS,
         component,
         config,
         mockedViewInput,
@@ -58,11 +57,10 @@ describe('The dp-data-selection-header', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         mockedInputTable = {
@@ -353,16 +351,6 @@ describe('The dp-data-selection-header', () => {
             mockedInputList.state.dataset = 'hr';
             mockedInputList.state.page = 123;
             component = getComponent(mockedInputList);
-
-            component.find('.qa-tabs li:nth-child(1) dp-link .o-tabs__tab--link').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DATA_SELECTION,
-                payload: jasmine.objectContaining({
-                    dataset: 'bag',
-                    view: 'LIST',
-                    page: 1
-                })
-            });
         });
 
         it('active tabs are just text (instead of a link)', () => {

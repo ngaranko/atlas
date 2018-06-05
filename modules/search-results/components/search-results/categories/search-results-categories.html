@@ -24,19 +24,19 @@
             <dp-search-results-list class="qa-search-results-list" category="category" limit-results="true"></dp-search-results-list>
 
             <div ng-if="category.count > 10">
-                <dp-link ng-if="category.more"
+                <dp-link-react ng-if="category.more"
                          class="qa-show-more"
                          class-name="c-show-more o-list__separate-item"
                          type="FETCH_DETAIL"
                          payload="category.more.endpoint"
-                    >{{category.more.label}}</dp-link>
+                    >{{category.more.label}}</dp-link-react>
 
-                <dp-link ng-if="!category.more"
+                <dp-link-react ng-if="!category.more"
                          class="qa-show-more"
                          class-name="c-show-more o-list__separate-item"
                          type="FETCH_SEARCH_RESULTS_CATEGORY"
                          payload="category.slug"
-                    >Toon alle {{category.count | number}}</dp-link>
+                    >Toon alle {{category.count | number}}</dp-link-react>
             </div>
         </div>
 

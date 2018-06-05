@@ -1,3 +1,6 @@
+import applicationState from '../../../../src/shared/services/redux/application-state';
+import ACTIONS from '../../../../src/shared/actions';
+
 (function () {
     'use strict';
 
@@ -17,9 +20,10 @@
             controllerAs: 'vm'
         });
 
-    DpLinkController.$inject = ['$scope', 'store', 'ACTIONS', 'applicationState'];
+    DpLinkController.$inject = ['$scope'];
 
-    function DpLinkController ($scope, store, ACTIONS, applicationState) {
+    function DpLinkController ($scope) {
+        const store = applicationState.getStore();
         const vm = this;
 
         const BUTTON = 'button',

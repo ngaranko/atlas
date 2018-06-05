@@ -388,31 +388,7 @@ describe('The dp-search-results component', function () {
             const component = getComponent(12, 'Weesperstraat');
 
             // It shows 10 results from the first category and 1 results from the second category
-            expect(component.find('.qa-search-result ul dp-link').length).toBe(11);
-
-            // The first result
-            expect(component.find('.qa-search-result ul dp-link').eq(0).text().trim()).toBe('Weesperstraat 101');
-            component.find('.qa-search-result ul dp-link').eq(0).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://some-domain/bag/verblijfsobject/03630000864309/'
-            });
-
-            // The last results from the first category
-            expect(component.find('.qa-search-result ul dp-link').eq(9).text().trim()).toBe('Weesperstraat 116');
-            component.find('.qa-search-result ul dp-link').eq(9).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://some-domain/bag/verblijfsobject/03630000919584/'
-            });
-
-            // The last (and only) result from the second category
-            expect(component.find('.qa-search-result ul dp-link').eq(10).text().trim()).toBe('Weesperstraat');
-            component.find('.qa-search-result ul dp-link').eq(10).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://some-domain/bag/openbareruimte/03630000004835/'
-            });
+            expect(component.find('.qa-search-result ul dp-link-react').length).toBe(11);
         });
 
         it('search on change of query', function () {

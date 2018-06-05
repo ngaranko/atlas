@@ -1,8 +1,7 @@
 describe('The dp-data-selection-link component', () => {
     let $compile,
         $rootScope,
-        store,
-        ACTIONS;
+        store;
 
     beforeEach(() => {
         angular.mock.module(
@@ -14,11 +13,10 @@ describe('The dp-data-selection-link component', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         spyOn(store, 'dispatch');
@@ -51,28 +49,6 @@ describe('The dp-data-selection-link component', () => {
         const activeFilters = {stadsdeel_naam: 'Noord', buurt_naam: 'Ghetto C'};
         const component = getComponent(activeFilters);
 
-        component.find('dp-link button').click();
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
-            payload: {
-                dataset: 'bag',
-                view: 'LIST',
-                filters: activeFilters,
-                page: 1
-            }
-        });
-
-        store.dispatch.calls.reset();
-
-        component.find('dp-link button').click();
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
-            payload: {
-                dataset: 'hr',
-                view: 'LIST',
-                filters: activeFilters,
-                page: 1
-            }
-        });
+        expect(component.find('dp-link-react').length).toBe(2);
     });
 });

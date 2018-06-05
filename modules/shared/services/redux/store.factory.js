@@ -1,11 +1,10 @@
+import applicationState from '../../../../src/shared/services/redux/application-state';
 (function () {
     angular
         .module('dpShared')
         .factory('store', storeFactory);
 
-    storeFactory.$inject = ['applicationState'];
-
-    function storeFactory (applicationState) {
+    function storeFactory () {
         return applicationState.getStore();
     }
 })();

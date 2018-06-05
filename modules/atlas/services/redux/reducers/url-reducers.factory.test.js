@@ -1,20 +1,17 @@
+import stateUrlConverter from '../../../../../src/shared/services/routing/state-url-converter';
+
 describe('The urlReducers factory', function () {
-    var urlReducers,
-        stateUrlConverter;
+    var urlReducers;
 
     beforeEach(function () {
-        angular.mock.module('atlas',
-            {
-                stateUrlConverter: {
-                    params2state: (oldState, payload) => angular.merge({}, oldState, payload)
-                }
-            }
-        );
+        angular.mock.module('atlas');
 
-        angular.mock.inject(function (_urlReducers_, _stateUrlConverter_) {
+        angular.mock.inject(function (_urlReducers_) {
             urlReducers = _urlReducers_;
-            stateUrlConverter = _stateUrlConverter_;
         });
+
+        spyOn(stateUrlConverter, 'params2state').and.
+            callFake((oldState, payload) => angular.merge({}, oldState, payload));
     });
 
     describe('The URL_CHANGE reducer', function () {
