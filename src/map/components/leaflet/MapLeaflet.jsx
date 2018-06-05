@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResizeAware from 'react-resize-aware';
-import { Map, TileLayer, ZoomControl, ScaleControl, Polygon, Marker } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
 
 import CustomMarker from './custom/marker/CustomMarker';
 import ClusterGroup from './custom/cluster-group/ClusterGroup';
@@ -115,7 +115,6 @@ class MapLeaflet extends React.Component {
       center,
       clusterMarkers,
       baseLayer,
-      drawShape,
       geoJson,
       layers,
       mapOptions,
@@ -206,14 +205,6 @@ class MapLeaflet extends React.Component {
               />
             )
           }
-          {
-            drawShape.latLngList && (
-              <Polygon
-                positions={drawShape.latLngList}
-                ref={this.setActiveElement}
-              />
-            )
-          }
           <ScaleControl {...scaleControlOptions} />
           {
             this.props.isZoomControlVisible && (
@@ -236,7 +227,6 @@ MapLeaflet.defaultProps = {
   geoJson: {},
   layers: [],
   mapOptions: {},
-  drawShape: {},
   markers: [],
   scaleControlOptions: {},
   zoom: 11,
@@ -255,7 +245,6 @@ MapLeaflet.propTypes = {
   }),
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
-  drawShape: PropTypes.shape({}),
   geoJson: PropTypes.shape({}),
   getLeafletInstance: PropTypes.func.isRequired,
   isZoomControlVisible: PropTypes.bool,
