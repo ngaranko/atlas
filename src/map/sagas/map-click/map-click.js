@@ -7,10 +7,15 @@ import { getMapZoom } from '../../ducks/map/map';
 import ACTIONS from '../../../shared/actions';
 
 const getMapLayers = (state) => (
-  state.map.overlays.map((overlay) => (
-    state.mapLayers.layers.items.find((layer) => layer.id === overlay.id) || {}
-  )).filter((layer) => (
-   layer.detailUrl && !layer.noDetail &&
+  state.map.overlays.map((overlay) => {
+    const matchingMapLayer =
+      state.mapLayers.layers.items.find((layer) => layer.id === overlay.id) || {};
+    return {
+      ...matchingMapLayer,
+      isVisible: overlay.isVisible
+    };
+  }).filter((layer) => (
+   layer.isVisible === true && layer.detailUrl && !layer.noDetail &&
    (!layer.authScope || state.user.scopes.includes(layer.authScope))
  ))
 );
