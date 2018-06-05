@@ -13,8 +13,8 @@ const getMapLayers = (state) => (
       state.mapLayers.layers.items.find((layer) => layer.id === overlay.id) || {}
     ))
     .filter((layer) => (
-     layer.detailUrl && !layer.noDetail &&
-     (!layer.authScope || state.user.scopes.includes(layer.authScope))
+       layer.detailUrl && !layer.noDetail &&
+       (!layer.authScope || state.user.scopes.includes(layer.authScope))
     ))
 );
 
