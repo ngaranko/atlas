@@ -25,7 +25,9 @@ const HomepageBlock = (props) => (
         <span className="homepage-block__icon">
           <IconAddress />
         </span>
-        Adressentabel
+        <span className="homepage-block__label">
+          Adressentabel met een lange title
+        </span>
       </RouteLinkWrapper>
     </div>
     <div className={'homepage-block__item'}>
@@ -40,7 +42,9 @@ const HomepageBlock = (props) => (
         <span className="homepage-block__icon">
           <IconHr />
         </span>
-        Handelsregister-tabel
+        <span className="homepage-block__label">
+          Handelsregister-tabel
+        </span>
       </RouteLinkWrapper>
     </div>
 
