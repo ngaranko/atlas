@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import AddressBlock from '../../components/block/AddressBlock';
+import HomepageBlock from '../../components/block/HomepageBlock';
 
 const mapStateToProps = (state) => ({
 });
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => bindActionCreators({
 }, dispatch);
 
-class AddressBlockContainer extends React.Component {
+class HomepageBlockContainer extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -24,19 +24,19 @@ class AddressBlockContainer extends React.Component {
 
   render() {
     return (
-      <AddressBlock
+      <HomepageBlock
       />
     );
   }
 }
 
-AddressBlockContainer.contextTypes = {
+HomepageBlockContainer.contextTypes = {
 };
 
-AddressBlockContainer.defaultProps = {
+HomepageBlockContainer.defaultProps = {
 };
 
-AddressBlockContainer.propTypes = {
+HomepageBlockContainer.propTypes = {
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddressBlockContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HomepageBlockContainer);

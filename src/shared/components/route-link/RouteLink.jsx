@@ -66,7 +66,8 @@ RouteLink.propTypes = {
   ]),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.object
+    PropTypes.object,
+    PropTypes.node
   ])
 };
 
