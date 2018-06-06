@@ -138,7 +138,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
             ]
           }
           clusterMarkers={Array []}
-          drawShape={Object {}}
           drawingMode="none"
           geoJson={Object {}}
           getLeafletInstance={[Function]}
@@ -183,7 +182,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               ]
             }
             clusterMarkers={Array []}
-            drawShape={Object {}}
             geoJson={Object {}}
             getLeafletInstance={[Function]}
             isZoomControlVisible={true}
@@ -932,16 +930,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   "ctx": undefined,
                   "fn": [Function],
                 },
-                Object {
-                  "ctx": undefined,
-                  "fn": [Function],
-                },
               ],
               "draw:drawstop": Array [
-                Object {
-                  "ctx": undefined,
-                  "fn": [Function],
-                },
                 Object {
                   "ctx": undefined,
                   "fn": [Function],
@@ -3848,16 +3838,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "ctx": undefined,
                     "fn": [Function],
                   },
-                  Object {
-                    "ctx": undefined,
-                    "fn": [Function],
-                  },
                 ],
                 "draw:drawstop": Array [
-                  Object {
-                    "ctx": undefined,
-                    "fn": [Function],
-                  },
                   Object {
                     "ctx": undefined,
                     "fn": [Function],
@@ -6795,16 +6777,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "ctx": undefined,
                       "fn": [Function],
                     },
-                    Object {
-                      "ctx": undefined,
-                      "fn": [Function],
-                    },
                   ],
                   "draw:drawstop": Array [
-                    Object {
-                      "ctx": undefined,
-                      "fn": [Function],
-                    },
                     Object {
                       "ctx": undefined,
                       "fn": [Function],
@@ -9744,16 +9718,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "ctx": undefined,
                         "fn": [Function],
                       },
-                      Object {
-                        "ctx": undefined,
-                        "fn": [Function],
-                      },
                     ],
                     "draw:drawstop": Array [
-                      Object {
-                        "ctx": undefined,
-                        "fn": [Function],
-                      },
                       Object {
                         "ctx": undefined,
                         "fn": [Function],
