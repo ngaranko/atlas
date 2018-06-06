@@ -10,7 +10,7 @@
             query: query
         };
 
-        function query (config, activeFilters, page, search, geometryFilter) {
+        function query (config, view, activeFilters, page, search, geometryFilter) {
             let searchPage = page;
 
             const shape = (angular.isDefined(geometryFilter)) ? geometryFilter : [];
@@ -31,7 +31,9 @@
                 activeFilters
             );
 
-            return api.getByUri(config.ENDPOINT_PREVIEW, searchParams)
+            const uri = config.ENDPOINT_PREVIEW[view] || config.ENDPOINT_PREVIEW;
+
+            return api.getByUri(uri, searchParams)
                 .then(function (data) {
                     if (searchPage !== page) {
                         // Requested page was out of api reach, dumping data
