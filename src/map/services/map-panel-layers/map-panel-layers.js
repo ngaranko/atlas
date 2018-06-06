@@ -1933,5 +1933,25 @@ export default [
     minZoom: 8,
     title: 'Grondexploitaties - Projecten',
     url: '/maps/grondexploitatie?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'GREX/R',
+    id: 'grondexploitatie',
+    category: 'Stedelijke ontwikkeling',
+    layers: ['stadsdeel_polygons'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Actueel'
+      },
+      {
+        selectable: false,
+        title: 'Toekomstig'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Grondexploitaties - Stadsdelen',
+    url: '/maps/grondexploitatie?version=1.3.0&service=WMS'
   }
 ];

@@ -228,6 +228,15 @@ export default [
     detailIsShape: true
   },
   {
+    id: 'grondexploitatie',
+    authScope: 'GREX/R',
+    url: 'maps/grondexploitatie?service=wms',
+    layers: ['stadsdeel_polygons'],
+    detailUrl: 'geosearch/search/', // Geosearch URL
+    detailItem: 'grondexploitatie', // Geosearch name
+    detailIsShape: true
+  },
+  {
     id: 'bbn',
     url: 'maps/gebieden?service=wms',
     layers: ['bouwblok', 'bouwblok_label'],
