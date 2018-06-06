@@ -10,7 +10,7 @@ import { updateClick } from '../../ducks/click-location/map-click-location';
 import { fetchMapBaseLayers, getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { fetchMapLayers, getLayers } from '../../ducks/layers/map-layers';
 import { getGeoJson } from '../../ducks/detail/map-detail';
-import { getClusterMarkers, getDrawShape } from '../../ducks/data-selection/data-selection';
+import { getClusterMarkers } from '../../ducks/data-selection/data-selection';
 import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
 
@@ -29,7 +29,6 @@ const mapStateToProps = (state) => ({
   geoJson: getGeoJson(state),
   markers: getMarkers(state),
   layers: getLayers(state),
-  drawShape: getDrawShape(state),
   drawingMode: state.map.drawingMode,
   zoom: state.map.zoom
 });
@@ -44,7 +43,8 @@ class LeafletContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      uiState: ''
+      uiState: '',
+      drawingMode: 'none'
     };
     this.setMapLeaflet = (element) => {
       this.MapLeaflet = element;
@@ -64,6 +64,17 @@ class LeafletContainer extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { drawingMode } = nextProps;
+    if (this.state.drawingMode !== drawingMode) {
+      // fixes race condition in firefox
+      // with ending a shape with the DrawTool and clicking in the mapLeaflet
+      setTimeout(() => {
+        this.setState({ drawingMode });
+      }, 300);
+    }
+  }
+
   handleZoom(event) {
     this.props.onUpdateZoom(event, isDrawingActive(this.props.drawingMode));
   }
@@ -73,7 +84,7 @@ class LeafletContainer extends React.Component {
   }
 
   handleClick(event) {
-    if (!isDrawingActive(this.props.drawingMode)) {
+    if (!isDrawingActive(this.state.drawingMode)) {
       this.props.onUpdateClick(event);
     }
   }
@@ -83,7 +94,6 @@ class LeafletContainer extends React.Component {
       baseLayer,
       center,
       clusterMarkers,
-      drawShape,
       geoJson,
       getLeafletInstance,
       layers,
@@ -96,7 +106,6 @@ class LeafletContainer extends React.Component {
         baseLayer={baseLayer}
         center={center}
         clusterMarkers={clusterMarkers}
-        drawShape={drawShape}
         geoJson={geoJson}
         layers={layers}
         mapOptions={mapOptions}
@@ -122,7 +131,6 @@ LeafletContainer.defaultProps = {
   },
   center: [],
   clusterMarkers: [],
-  drawShape: {},
   geoJson: {},
   layers: [],
   markers: []
@@ -135,7 +143,6 @@ LeafletContainer.propTypes = {
   }),
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
-  drawShape: PropTypes.shape({}),
   drawingMode: PropTypes.string.isRequired,
   geoJson: PropTypes.shape({}),
   getLeafletInstance: PropTypes.func.isRequired,
