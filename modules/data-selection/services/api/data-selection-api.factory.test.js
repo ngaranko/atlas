@@ -219,13 +219,13 @@ describe('The dataSelectionApi factory', function () {
         it('calls the api factory with the configuration, (optional) active filters and page', function () {
             // Without active filters
             dataSelectionApi.query('zwembaden', 'TABLE', undefined, 1, [], {});
-            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {},
-                1, [], {}, undefined);
+            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden,
+                'TABLE', {}, 1, [], {}, undefined);
 
             // With active filters
             mockedApiService.query.calls.reset();
             dataSelectionApi.query('zwembaden', 'TABLE', { water: 'Verwarmd' }, 1, 'searchText', [], {});
-            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {
+            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, 'TABLE', {
                 water: 'Verwarmd'
             }, 1, 'searchText', [], {});
         });
@@ -592,6 +592,7 @@ describe('The dataSelectionApi factory', function () {
 
             expect(mockedApiService.query).toHaveBeenCalledWith(
                 mockedConfig.datasets.zwembaden,
+                'TABLE',
                 {
                     water: 'Verwarmd'
                     // Note that fake_filter is missing here
