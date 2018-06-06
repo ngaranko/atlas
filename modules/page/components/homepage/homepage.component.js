@@ -9,10 +9,13 @@
             controllerAs: 'vm'
         });
 
-    DpHomepageController.$inject = ['HOMEPAGE_CONFIG'];
+    DpHomepageController.$inject = ['HOMEPAGE_CONFIG', '$window', '$timeout'];
 
-    function DpHomepageController (HOMEPAGE_CONFIG) {
+    function DpHomepageController (HOMEPAGE_CONFIG, $window, $timeout) {
         const vm = this;
+        const React = $window.React;
+        const render = $window.render;
+        const addressBlockWrapper = $window.AddressBlockWrapper;
 
         vm.fetchStraatbeeldPayload = angular.merge(
             {},
@@ -22,5 +25,13 @@
                 isFullscreen: false
             }
         );
+        $timeout(setReactComponents);
+
+        function setReactComponents () {
+            const addressBlockContainer = $window.document.querySelector('#homepage-address-block');
+            if (addressBlockContainer) {
+                render(React.createElement(addressBlockWrapper, null), addressBlockContainer);
+            }
+        }
     }
 })();

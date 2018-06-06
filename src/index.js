@@ -8,6 +8,7 @@ import './detail/wrappers/DetailGrondexploitatieGraphTotalsWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphPhasedWrapper';
 import './header/wrappers/header-search/HeaderSearchWrapper';
 import './shared/wrappers/route-link/RouteLinkWrapper';
+import './homepage/wrappers/block/AddressBlockWrapper';
 
 // All third party dependencies
 import './vendor';
