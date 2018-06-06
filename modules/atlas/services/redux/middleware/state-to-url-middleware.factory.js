@@ -21,6 +21,9 @@
                         'SET_DATA_SELECTION_GEOMETRY_FILTER', 'RESET_DATA_SELECTION_GEOMETRY_FILTER',
                         'FETCH_CATALOG_FILTERS_REQUEST'];
 
+                    // vanilla (new actions) that don't need to be saved to the location history (replace)
+                    const replaceHistoryActions = ['MAP_ZOOM', 'MAP_PAN'];
+
                     // Update the state first
                     const returnValue = next(action);
 
@@ -28,7 +31,8 @@
                     if ((vanilla || !action.type.ignore) && !ignoredActions.includes(action.type)) {
                         stateToUrl.update(
                             store.getState(),
-                            !vanilla && Boolean(action.type.replace)
+                            !vanilla && Boolean(action.type.replace) || vanilla &&
+                              replaceHistoryActions.some((historyAction) => historyAction === action.type)
                         );
                     }
                     return returnValue;

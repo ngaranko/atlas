@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResizeAware from 'react-resize-aware';
-import { Map, TileLayer, ZoomControl, ScaleControl, Polygon, Marker } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
 
 import CustomMarker from './custom/marker/CustomMarker';
 import ClusterGroup from './custom/cluster-group/ClusterGroup';
@@ -23,7 +23,6 @@ class MapLeaflet extends React.Component {
     this.handleResize = this.handleResize.bind(this);
     this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this);
     this.state = {
-      drawMode: false,
       previousElementBoundsId: ''
     };
 
@@ -31,7 +30,6 @@ class MapLeaflet extends React.Component {
       if (element && element.leafletElement) {
         this.MapElement = element.leafletElement;
         this.props.getLeafletInstance(this.MapElement);
-        this.onMapDraw(this.MapElement);
       }
     };
 
@@ -54,26 +52,10 @@ class MapLeaflet extends React.Component {
 
   onClick(event) {
     const { latlng, containerPoint, layerPoint } = event;
-    if (!this.state.drawMode) {
-      this.props.onClick({
-        latlng,
-        containerPoint,
-        layerPoint
-      });
-    }
-  }
-
-  onMapDraw(mapElement) {
-    // needed for firefox
-    mapElement.on('draw:drawstop', () => {
-      setTimeout(() => {
-        this.setState({ drawMode: false });
-      });
-    });
-    mapElement.on('draw:drawstart', () => {
-      setTimeout(() => {
-        this.setState({ drawMode: true });
-      });
+    this.props.onClick({
+      latlng,
+      containerPoint,
+      layerPoint
     });
   }
 
@@ -133,7 +115,6 @@ class MapLeaflet extends React.Component {
       center,
       clusterMarkers,
       baseLayer,
-      drawShape,
       geoJson,
       layers,
       mapOptions,
@@ -224,14 +205,6 @@ class MapLeaflet extends React.Component {
               />
             )
           }
-          {
-            drawShape.latLngList && (
-              <Polygon
-                positions={drawShape.latLngList}
-                ref={this.setActiveElement}
-              />
-            )
-          }
           <ScaleControl {...scaleControlOptions} />
           {
             this.props.isZoomControlVisible && (
@@ -254,7 +227,6 @@ MapLeaflet.defaultProps = {
   geoJson: {},
   layers: [],
   mapOptions: {},
-  drawShape: {},
   markers: [],
   scaleControlOptions: {},
   zoom: 11,
@@ -273,7 +245,6 @@ MapLeaflet.propTypes = {
   }),
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
-  drawShape: PropTypes.shape({}),
   geoJson: PropTypes.shape({}),
   getLeafletInstance: PropTypes.func.isRequired,
   isZoomControlVisible: PropTypes.bool,
