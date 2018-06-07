@@ -15,7 +15,7 @@
         const vm = this;
         const React = $window.React;
         const render = $window.render;
-        const homepageBlockWrapper = $window.HomepageBlockWrapper;
+        const homepageAddressBlockWrapper = $window.HomepageAddressBlockWrapper;
 
         vm.fetchStraatbeeldPayload = angular.merge(
             {},
@@ -28,9 +28,9 @@
         $timeout(setReactComponents);
 
         function setReactComponents () {
-            const homepageBlockWrapperContainer = $window.document.querySelector('#homepage-address-block');
-            if (homepageBlockWrapperContainer) {
-                render(React.createElement(homepageBlockWrapper, null), homepageBlockWrapperContainer);
+            const homepageAddressBlockWrapperContainer = $window.document.querySelector('#homepage-address-block');
+            if (homepageAddressBlockWrapper && homepageAddressBlockWrapperContainer) {
+                render(React.createElement(homepageAddressBlockWrapper, null), homepageAddressBlockWrapperContainer);
             }
         }
     }

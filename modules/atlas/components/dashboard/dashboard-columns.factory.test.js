@@ -50,7 +50,7 @@ describe('The dashboardColumns factory', function () {
     describe('when determining component activity', function () {
         /**
          * Note; test-cases for map activity are listed below, map activity equals map visibility, all available
-         * scenarios are only listed once (at the visibility describe block)
+         * scenarios are only listed once (at the visibility describe address-block)
          */
         it('checks if page is a string', function () {
             activity = dashboardColumns.determineActivity(mockedState);
