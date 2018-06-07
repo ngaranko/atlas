@@ -138,7 +138,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
             ]
           }
           clusterMarkers={Array []}
-          drawShape={Object {}}
           drawingMode="none"
           geoJson={Object {}}
           getLeafletInstance={[Function]}
@@ -183,7 +182,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               ]
             }
             clusterMarkers={Array []}
-            drawShape={Object {}}
             geoJson={Object {}}
             getLeafletInstance={[Function]}
             isZoomControlVisible={true}
@@ -932,16 +930,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   "ctx": undefined,
                   "fn": [Function],
                 },
-                Object {
-                  "ctx": undefined,
-                  "fn": [Function],
-                },
               ],
               "draw:drawstop": Array [
-                Object {
-                  "ctx": undefined,
-                  "fn": [Function],
-                },
                 Object {
                   "ctx": undefined,
                   "fn": [Function],
@@ -3848,16 +3838,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "ctx": undefined,
                     "fn": [Function],
                   },
-                  Object {
-                    "ctx": undefined,
-                    "fn": [Function],
-                  },
                 ],
                 "draw:drawstop": Array [
-                  Object {
-                    "ctx": undefined,
-                    "fn": [Function],
-                  },
                   Object {
                     "ctx": undefined,
                     "fn": [Function],
@@ -6795,16 +6777,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "ctx": undefined,
                       "fn": [Function],
                     },
-                    Object {
-                      "ctx": undefined,
-                      "fn": [Function],
-                    },
                   ],
                   "draw:drawstop": Array [
-                    Object {
-                      "ctx": undefined,
-                      "fn": [Function],
-                    },
                     Object {
                       "ctx": undefined,
                       "fn": [Function],
@@ -9744,16 +9718,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "ctx": undefined,
                         "fn": [Function],
                       },
-                      Object {
-                        "ctx": undefined,
-                        "fn": [Function],
-                      },
                     ],
                     "draw:drawstop": Array [
-                      Object {
-                        "ctx": undefined,
-                        "fn": [Function],
-                      },
                       Object {
                         "ctx": undefined,
                         "fn": [Function],
@@ -19454,53 +19420,57 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
             }
           }
         >
-          <section
-            className="
-        map-preview-panel
-        map-preview-panel--hidden
-      "
+          <div
+            className="map-preview-panel-wrapper"
           >
-            <div
-              className="map-preview-panel__heading"
-            >
-              <button
-                className="map-preview-panel__button"
-                onClick={[Function]}
-                title="Volledige weergave tonen"
-              >
-                <Component
-                  className="map-preview-panel__button-icon"
-                >
-                  mock-svg
-                </Component>
-              </button>
-              <button
-                className="map-preview-panel__button"
-                onClick={[Function]}
-                title="Sluiten"
-              >
-                <Component
-                  className="map-preview-panel__button-icon"
-                >
-                  mock-svg
-                </Component>
-              </button>
-            </div>
-            <div
+            <section
               className="
-            map-preview-panel__body
-            map-preview-panel__body--loaded
-          "
+          map-preview-panel
+          map-preview-panel--hidden
+        "
             >
-              <MapDetailResult
-                endpoint=""
-                onMaximize={[Function]}
-                onPanoPreviewClick={[Function]}
-                panoUrl=""
-                result={Object {}}
-              />
-            </div>
-          </section>
+              <div
+                className="map-preview-panel__heading"
+              >
+                <button
+                  className="map-preview-panel__button"
+                  onClick={[Function]}
+                  title="Volledige weergave tonen"
+                >
+                  <Component
+                    className="map-preview-panel__button-icon"
+                  >
+                    mock-svg
+                  </Component>
+                </button>
+                <button
+                  className="map-preview-panel__button"
+                  onClick={[Function]}
+                  title="Sluiten"
+                >
+                  <Component
+                    className="map-preview-panel__button-icon"
+                  >
+                    mock-svg
+                  </Component>
+                </button>
+              </div>
+              <div
+                className="
+              map-preview-panel__body
+              map-preview-panel__body--loaded
+            "
+              >
+                <MapDetailResult
+                  endpoint=""
+                  onMaximize={[Function]}
+                  onPanoPreviewClick={[Function]}
+                  panoUrl=""
+                  result={Object {}}
+                />
+              </div>
+            </section>
+          </div>
         </MapPreviewPanelContainer>
       </Connect(MapPreviewPanelContainer)>
     </div>

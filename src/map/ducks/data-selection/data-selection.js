@@ -17,17 +17,3 @@ export const getClusterMarkers = createSelector([getDataSelection],
       generateMarkers(dataSelection.markers) : []
     )
   );
-
-const getGeometryFilter = createSelector(getDataSelection, (dataSelection) => (
-  dataSelection && dataSelection.geometryFilter
-));
-
-const getGeometryFilterMarkers = createSelector(getGeometryFilter, (geometryFilter) => (
-  geometryFilter && geometryFilter.markers
-));
-
-export const getDrawShape = createSelector([getDataSelection, getGeometryFilterMarkers],
-  (active, markers) => (
-    active && markers ? { latLngList: [...markers] } : {}
-  )
-);
