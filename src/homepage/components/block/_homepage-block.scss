@@ -5,14 +5,21 @@ $block-item-height: 40px;
 .homepage-block {
   padding: 8px 20px 20px 8px;
 
-  &__item {
-    margin: 5px;
+  &:hover {
+    cursor: auto;
+  }
+
+  &__link {
     height: $block-item-height;
-    display: flex;
-    align-items: center;
+    margin: 5px;
+    width: 100%;
 
     &:hover {
-      svg {
+      .homepage-block__label {
+        text-decoration: underline;
+      }
+
+      path {
         fill: $primary-contrast;
       }
     }
@@ -21,20 +28,20 @@ $block-item-height: 40px;
   &__icon {
     display: inline-block;
     height: $block-item-height;
-    width: $block-item-height;
     vertical-align: middle;
+    width: $block-item-height;
 
     svg {
-      width: $block-item-height;
       height: $block-item-height;
+      width: $block-item-height;
     }
   }
 
   &__label {
     @include font-weight($normal-weight);
     display: inline-block;
-    padding-left: 5px;
     max-width: calc(100% - #{$block-item-height});
+    padding-left: 5px;
     vertical-align: middle;
   }
 }

@@ -24,8 +24,7 @@ class HomepageBlockContainer extends React.Component {
 
   render() {
     return (
-      <HomepageBlock
-      />
+      <HomepageBlock />
     );
   }
 }

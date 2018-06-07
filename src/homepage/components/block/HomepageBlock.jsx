@@ -17,7 +17,7 @@ const HomepageBlock = (props) => (
       <RouteLinkWrapper
         inline={true}
         tagName={'a'}
-        className={'c-link'}
+        className={'c-link homepage-block__link'}
         hoverText={'Adressen'}
         type={'FETCH_DATA_SELECTION'}
         payload={{ dataset: 'bag', filters: {}, page: 1 }}
@@ -34,7 +34,7 @@ const HomepageBlock = (props) => (
       <RouteLinkWrapper
         inline={true}
         tagName={'a'}
-        className={'c-link'}
+        className={'c-link homepage-block__link'}
         hoverText={'Adressen'}
         type={'FETCH_DATA_SELECTION'}
         payload={{ dataset: 'hr', filters: {}, page: 1 }}
