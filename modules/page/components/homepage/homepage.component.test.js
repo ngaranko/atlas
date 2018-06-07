@@ -83,7 +83,6 @@ describe('The dp-homepage component', () => {
             };
         });
 
-
         it('does the react createElement call', () => {
             // if we don't use this fakeCandidate, the test will fail:
             // TypeError: undefined is not a constructor (evaluating 'candidate.getAttribute(name)') thrown
