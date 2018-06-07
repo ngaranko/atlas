@@ -14,7 +14,7 @@ const HomepageAddressBlock = (props) => (
       type: 'FETCH_DATA_SELECTION'
     }}
     title={'Adressentabel'}
-    description={'Selecteer adressen en download spreadsheet'}
+    description={'Selecteer en download als spreadsheet'}
     hasTallDescription={true}
   >
 
