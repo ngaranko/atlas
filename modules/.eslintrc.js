@@ -123,7 +123,7 @@ module.exports = {
         ],
         "new-cap": "error",                 // require constructor names to begin with a capital letter
         "no-caller": "error",               // disallow the use of arguments.caller or arguments.callee
-        "no-empty": "error",                // disallow empty address-block statements
+        "no-empty": "error",                // disallow empty block statements
         "no-irregular-whitespace": "error", // disallow irregular whitespace outside of strings and comments
         "no-new": "error",                  // disallow new operators outside of assignments or comparisons
         "quotes": ["error", "single"],      // enforce the consistent use of either backticks, double, or single quotes
