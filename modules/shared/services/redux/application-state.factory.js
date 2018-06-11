@@ -1,11 +1,26 @@
-import applicationState from '../../../../src/shared/services/redux/application-state';
-
 (function () {
     angular
         .module('dpShared')
         .factory('applicationState', applicationStateFactory);
 
-    function applicationStateFactory () {
-        return applicationState;
+    applicationStateFactory.$inject = ['$window', 'Redux'];
+
+    function applicationStateFactory ($window, Redux) {
+        let reducer,
+            stateUrlConverter;
+
+        return {
+            initialize,
+            getStore: () => $window.reduxStore,
+            getReducer: () => reducer,
+            getStateUrlConverter: () => stateUrlConverter
+        };
+
+        function initialize (_reducer_, _stateUrlConverter_, defaultState, ...middleware) {
+            reducer = _reducer_;
+            stateUrlConverter = _stateUrlConverter_;
+
+            $window.initializeState(Redux, _reducer_, _stateUrlConverter_, defaultState, ...middleware);
+        }
     }
 })();

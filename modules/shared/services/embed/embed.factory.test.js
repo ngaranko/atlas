@@ -1,22 +1,28 @@
-import stateUrlConverter from '../../../../src/shared/services/routing/state-url-converter';
-
 describe('The embed factory', function () {
     let embed,
         portSpy,
         $location;
 
     beforeEach(function () {
-        angular.mock.module('dpShared');
+        angular.mock.module('dpShared', {
+            stateUrlConverter: {
+                state2url: () => {
+                    return '#foo=1&bar=x';
+                }
+            }
+        });
 
-        angular.mock.inject(function (_$location_, _embed_) {
+        angular.mock.inject(function (_$location_) {
             $location = _$location_;
-            embed = _embed_;
         });
 
         spyOn($location, 'protocol').and.returnValue('https');
         spyOn($location, 'host').and.returnValue('data.amsterdam.nl');
         portSpy = spyOn($location, 'port').and.returnValue('443');
-        spyOn(stateUrlConverter, 'state2url').and.returnValue('#foo=1&bar=x');
+
+        angular.mock.inject(function (_embed_) {
+            embed = _embed_;
+        });
     });
 
     it('can create a embed link', function () {

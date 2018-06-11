@@ -1,5 +1,3 @@
-import BaseCoder from '../../../../../src/shared/services/routing/base-coder/base-coder';
-
 (function () {
     'use strict';
 
@@ -7,9 +5,9 @@ import BaseCoder from '../../../../../src/shared/services/routing/base-coder/bas
         .module('atlas')
         .factory('searchReducers', searchReducersFactory);
 
-    searchReducersFactory.$inject = ['ACTIONS'];
+    searchReducersFactory.$inject = ['ACTIONS', 'dpBaseCoder'];
 
-    function searchReducersFactory (ACTIONS) {
+    function searchReducersFactory (ACTIONS, dpBaseCoder) {
         var reducers = {};
 
         reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id] = fetchSearchResultsByQueryReducer;
@@ -65,7 +63,7 @@ import BaseCoder from '../../../../../src/shared/services/routing/base-coder/bas
                     isLoading: true,
                     isFullscreen: false,
                     query: null,
-                    location: BaseCoder.toPrecision(payload, 7),
+                    location: dpBaseCoder.toPrecision(payload, 7),
                     category: null,
                     numberOfResults: null
                 },

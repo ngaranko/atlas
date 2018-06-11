@@ -74,7 +74,7 @@ describe('The dp-menu-dropdown directive', () => {
         expect(directive.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive.find('dp-print-button').length).toBe(0);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
-        expect(directive.find('dp-link-react').length).toBe(0);
+        expect(directive.find('dp-link').length).toBe(0);
     });
 
     it('should toggle the visibility of the menu items when you click menu button', () => {
@@ -86,7 +86,7 @@ describe('The dp-menu-dropdown directive', () => {
         // print and  embed should be openend
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(1);
-        expect(directive.find('dp-link-react').length).toBe(2);
+        expect(directive.find('dp-link').length).toBe(2);
 
         // Click it again
         directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
@@ -94,7 +94,7 @@ describe('The dp-menu-dropdown directive', () => {
         // It should be closed again
         expect(directive.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
-        expect(directive.find('dp-link-react').length).toBe(0);
+        expect(directive.find('dp-link').length).toBe(0);
     });
 
     it('should also toggle when you click the title element inside the button', () => {
@@ -106,7 +106,7 @@ describe('The dp-menu-dropdown directive', () => {
         // print and  embed should be openend
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(1);
-        expect(directive.find('dp-link-react').length).toBe(2);
+        expect(directive.find('dp-link').length).toBe(2);
 
         // Click it again
         directive.find('.qa-menu__title').eq(0).click();
@@ -114,7 +114,7 @@ describe('The dp-menu-dropdown directive', () => {
         // It should be closed again
         expect(directive.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
-        expect(directive.find('dp-link-react').length).toBe(0);
+        expect(directive.find('dp-link').length).toBe(0);
     });
 
     it('changes the styling of the toggle button depending on the state of the dropdown', () => {
@@ -199,7 +199,7 @@ describe('The dp-menu-dropdown directive', () => {
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-logout-button').length).toBe(1);
-        expect(directive.find('dp-link-react').length).toBe(0);
+        expect(directive.find('dp-link').length).toBe(0);
 
         // Click it again
         directive.find('.qa-menu__toggle .qa-menu__link').eq(0).click();
@@ -208,7 +208,7 @@ describe('The dp-menu-dropdown directive', () => {
         expect(directive.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-logout-button').length).toBe(0);
-        expect(directive.find('dp-link-react').length).toBe(0);
+        expect(directive.find('dp-link').length).toBe(0);
     });
 
     it('aligns the dropdown', () => {
