@@ -1,5 +1,3 @@
-import stateUrlConverter from '../../../../src/shared/services/routing/state-url-converter';
-
 (function () {
     'use strict';
 
@@ -7,9 +5,9 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
         .module('dpShared')
         .factory('embed', EmbedFactory);
 
-    EmbedFactory.$inject = ['$location'];
+    EmbedFactory.$inject = ['stateUrlConverter', '$location'];
 
-    function EmbedFactory ($location) {
+    function EmbedFactory (stateUrlConverter, $location) {
         return {
             getLink: getLink,
             getHtml: getHtml

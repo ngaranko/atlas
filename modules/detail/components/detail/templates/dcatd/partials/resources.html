@@ -20,7 +20,7 @@
                                              c-data-selection-file-type__format-{{resource['dct:format'] | optionLabel: vm.catalogFilters.formatTypes| lowercase }}">
                                     <span ng-if="resource['dct:format']">{{resource['dct:format'] | optionLabel: vm.catalogFilters.formatTypes}}</span>
                                 </span>
-                                <div>{{resource['dct:description'] ? resource['dct:description'] : resource['dcat:accessURL'] }}</div>
+                                <div>{{ resource['dct:description'] ? vm.stripMarkdown(resource['dct:description']) : resource['dcat:accessURL'] }}</div>
                             </div>
                         </div>
                         <div class="resources-item__right">

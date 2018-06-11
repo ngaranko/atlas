@@ -1,5 +1,3 @@
-import stateUrlConverter from '../../../../../src/shared/services/routing/state-url-converter';
-
 (function () {
     'use strict';
 
@@ -7,9 +5,9 @@ import stateUrlConverter from '../../../../../src/shared/services/routing/state-
         .module('atlas')
         .factory('urlReducers', urlReducersFactory);
 
-    urlReducersFactory.$inject = ['ACTIONS'];
+    urlReducersFactory.$inject = ['ACTIONS', 'stateUrlConverter'];
 
-    function urlReducersFactory (ACTIONS) {
+    function urlReducersFactory (ACTIONS, stateUrlConverter) {
         return {
             [ACTIONS.URL_CHANGE.id]: urlChangeReducer
         };
