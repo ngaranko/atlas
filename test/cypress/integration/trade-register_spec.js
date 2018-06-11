@@ -11,11 +11,11 @@ describe('trade-register module', () => {
       // the homepage should be visible
       cy.get(homepage).should('exist').and('be.visible');
       // check if the link is in the dom and visible
-      cy.get('.c-homepage__block--vestigingen').should('exist').and('be.visible');
+      cy.get('#homepage-address-block').should('exist').and('be.visible');
       // the data-selection should not exist yet
       cy.get(dataSelection).should('not.exist');
       // click on the link to go to the datasets without a specified catalogus theme
-      cy.get('.c-homepage__block--vestigingen').click();
+      cy.get('.homepage-block__link').contains('Handelsregister-tabel').click();
       // the homepage should not be visible anymore
       cy.get(homepage).should('not.be.visible');
       // the data selection should exist
@@ -30,7 +30,7 @@ describe('trade-register module', () => {
       // go to the homepage
       cy.visit('/');
       // click on the link to go to the trade register
-      cy.get('.c-homepage__block--vestigingen').click();
+      cy.get('.homepage-block__link').contains('Handelsregister-tabel').click();
     });
 
     describe('user should not be able to view the trade register', () => {
@@ -62,7 +62,7 @@ describe('trade-register module', () => {
       // go to the homepage
       cy.visit('/');
       // click on the link to go to the trade register
-      cy.get('.c-homepage__block--vestigingen').click();
+      cy.get('.homepage-block__link').contains('Handelsregister-tabel').click();
 
       cy.wait('@getResults');
       cy.scrollTo('top');

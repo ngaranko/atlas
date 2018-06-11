@@ -61,7 +61,7 @@ const HomepageAddressBlock = (props) => (
         className={'c-link homepage-block__link'}
         hoverText={'Bekijk Kadaster-tabel'}
         type={'FETCH_DATA_SELECTION'}
-        payload={{ dataset: 'kd', filters: {}, page: 1 }}
+        payload={{ dataset: 'brk', filters: {}, page: 1 }}
       >
         <span className="homepage-block__icon">
           <IconKadaster />

@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomepageBlock should render with the children and default block-link 1`] = `
+<div
+  className="homepage-block c-homepage__block c-homepage__block--tall"
+>
+  <div>
+    <span>
+      This is a child of the homepageblock
+    </span>
+  </div>
+  <RouteLinkWrapper
+    className="c-homepage__block-button "
+    hoverText="Bekijk test block"
+    inline={false}
+    payload={
+      Object {
+        "dataset": "bag",
+        "filters": Object {},
+        "page": 1,
+      }
+    }
+    tagName="a"
+    type="FETCH_DATA_SELECTION"
+  >
+    <div
+      className="o-btn--transparent"
+    >
+      test block
+    </div>
+    <div
+      className="c-homepage__block-details"
+    >
+      click here for the test link in the block
+    </div>
+  </RouteLinkWrapper>
+</div>
+`;
+
+exports[`HomepageBlock should render with the default block-link 1`] = `
+<div
+  className="homepage-block c-homepage__block c-homepage__block--tall"
+>
+  <RouteLinkWrapper
+    className="c-homepage__block-button "
+    hoverText="Bekijk test block"
+    inline={false}
+    payload={
+      Object {
+        "dataset": "bag",
+        "filters": Object {},
+        "page": 1,
+      }
+    }
+    tagName="a"
+    type="FETCH_DATA_SELECTION"
+  >
+    <div
+      className="o-btn--transparent"
+    >
+      test block
+    </div>
+    <div
+      className="c-homepage__block-details"
+    >
+      click here for the test link in the block
+    </div>
+  </RouteLinkWrapper>
+</div>
+`;
