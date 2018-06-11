@@ -29,6 +29,7 @@
 
             return apiService.query(
                 DATA_SELECTION_CONFIG.datasets[dataset],
+                view,
                 filterUnavailableFilters(dataset, activeFilters),
                 page,
                 searchText,

@@ -22,6 +22,10 @@ describe('The dp-data-selection-header', () => {
                     MAX_AVAILABLE_PAGES: 50,
                     TITLE: 'BAG Adressen'
                 },
+                brk: {
+                    MAX_AVAILABLE_PAGES: 50,
+                    TITLE: 'Kadastrale objecten'
+                },
                 hr: {
                     MAX_AVAILABLE_PAGES: 50,
                     TITLE: 'HR Vestigingen'

@@ -44,7 +44,7 @@
             vm.canEditDataset = vm.user.scopes.includes('CAT/W');
             vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE;
 
-            vm.tabs = ['bag', 'hr'].map(dataset => {
+            vm.tabs = ['bag', 'hr', 'brk'].map(dataset => {
                 return {
                     dataset: dataset,
                     title: DATA_SELECTION_CONFIG.datasets[dataset].TITLE,
