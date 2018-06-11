@@ -117,7 +117,8 @@
 
                 const result = actions[action.type.id](oldState, action.payload);
                 if (environment.isDevelopment()) {
-                    freeze.deepFreeze(result);
+                    // freeze will break dp-link in data-selection
+                    // freeze.deepFreeze(result);
                 }
                 return result;
             }
