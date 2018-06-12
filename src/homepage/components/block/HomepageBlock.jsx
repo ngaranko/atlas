@@ -10,25 +10,21 @@ const HomepageBlock = (props) => (
 
     {props.children}
 
-    <RouteLinkWrapper
-      inline={false}
-      tagName={'a'}
-      className={`c-homepage__block-button ${props.hasTallDescription ? 'c-homepage__block-button--tall' : ''}`}
-      hoverText={`Bekijk ${props.title}`}
-      type={props.blockLink.type}
-      payload={props.blockLink.payload}
-    >
-      <div className="o-btn--transparent">{props.title}</div>
-      <div className="c-homepage__block-details">{props.description}</div>
-    </RouteLinkWrapper>
+    {!!props.onBlockLinkClick && (
+      <button
+        className={`c-homepage__block-button ${props.hasTallDescription ? 'c-homepage__block-button--tall' : ''}`}
+        title={`Bekijk ${props.title}`}
+        onClick={props.onBlockLinkClick}
+      >
+        <div className="o-btn--transparent">{props.title}</div>
+        <div className="c-homepage__block-details">{props.description}</div>
+      </button>
+    )}
   </div>
 );
 
 HomepageBlock.propTypes = {
-  blockLink: PropTypes.shape({
-    payload: PropTypes.object,
-    type: PropTypes.string
-  }),
+  onBlockLinkClick: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.object,
@@ -40,10 +36,7 @@ HomepageBlock.propTypes = {
 };
 
 HomepageBlock.defaultProps = {
-  blockLink: {
-    payload: {},
-    type: ''
-  },
+  onBlockLinkClick: undefined,
   children: '',
   description: '',
   hasTallDescription: false,

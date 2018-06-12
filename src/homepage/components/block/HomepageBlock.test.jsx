@@ -3,15 +3,13 @@ import { shallow } from 'enzyme';
 
 import HomepageBlock from './HomepageBlock';
 
+const mockFn = jest.fn();
 
 describe('HomepageBlock', () => {
   it('should render with the default block-link', () => {
     const wrapper = shallow(
       <HomepageBlock
-        blockLink={{
-          payload: { dataset: 'bag', filters: {}, page: 1 },
-          type: 'FETCH_DATA_SELECTION'
-        }}
+        onBlockLinkClick={mockFn}
         title={'test block'}
         description={'click here for the test link in the block'}
       />
@@ -23,10 +21,7 @@ describe('HomepageBlock', () => {
   it('should render with the children and default block-link', () => {
     const wrapper = shallow(
       <HomepageBlock
-        blockLink={{
-          payload: { dataset: 'bag', filters: {}, page: 1 },
-          type: 'FETCH_DATA_SELECTION'
-        }}
+        onBlockLinkClick={mockFn}
         title={'test block'}
         description={'click here for the test link in the block'}
       >

@@ -12,6 +12,7 @@ $block-item-height: 40px;
   &__link {
     height: $block-item-height;
     margin-bottom: 5px;
+    text-align: left;
     width: 100%;
 
     &:hover {
@@ -43,5 +44,9 @@ $block-item-height: 40px;
     max-width: calc(100% - #{$block-item-height});
     padding-left: 5px;
     vertical-align: middle;
+  }
+
+  .c-homepage__block-button {
+    text-align: left;
   }
 }

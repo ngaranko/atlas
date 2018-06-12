@@ -1,10 +1,13 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 
-import HomepageAddressBlock from '../../components/address-block/HomepageAddressBlock';
+import HomepageAddressBlockContainer from '../../containers/address-block/HomepageAddressBlockContainer';
 
 const HomepageAddressBlockWrapper = (props) => (
-  <HomepageAddressBlock {...props} />
+  <Provider store={window.reduxStore}>
+    <HomepageAddressBlockContainer {...props} />
+  </Provider>
 );
 
 export default HomepageAddressBlockWrapper;

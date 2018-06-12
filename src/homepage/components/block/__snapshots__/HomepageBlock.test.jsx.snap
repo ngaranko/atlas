@@ -9,19 +9,10 @@ exports[`HomepageBlock should render with the children and default block-link 1`
       This is a child of the homepageblock
     </span>
   </div>
-  <RouteLinkWrapper
+  <button
     className="c-homepage__block-button "
-    hoverText="Bekijk test block"
-    inline={false}
-    payload={
-      Object {
-        "dataset": "bag",
-        "filters": Object {},
-        "page": 1,
-      }
-    }
-    tagName="a"
-    type="FETCH_DATA_SELECTION"
+    onClick={[MockFunction]}
+    title="Bekijk test block"
   >
     <div
       className="o-btn--transparent"
@@ -33,7 +24,7 @@ exports[`HomepageBlock should render with the children and default block-link 1`
     >
       click here for the test link in the block
     </div>
-  </RouteLinkWrapper>
+  </button>
 </div>
 `;
 
@@ -41,19 +32,10 @@ exports[`HomepageBlock should render with the default block-link 1`] = `
 <div
   className="homepage-block c-homepage__block c-homepage__block--tall"
 >
-  <RouteLinkWrapper
+  <button
     className="c-homepage__block-button "
-    hoverText="Bekijk test block"
-    inline={false}
-    payload={
-      Object {
-        "dataset": "bag",
-        "filters": Object {},
-        "page": 1,
-      }
-    }
-    tagName="a"
-    type="FETCH_DATA_SELECTION"
+    onClick={[MockFunction]}
+    title="Bekijk test block"
   >
     <div
       className="o-btn--transparent"
@@ -65,6 +47,6 @@ exports[`HomepageBlock should render with the default block-link 1`] = `
     >
       click here for the test link in the block
     </div>
-  </RouteLinkWrapper>
+  </button>
 </div>
 `;
