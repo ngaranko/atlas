@@ -16,6 +16,10 @@
 
     </div>
 
+    <div ng-if="vm.apiData.results.code">
+        <dp-api-call add-api-root="true" endpoint="grondexploitatie/stadsdeel/{{vm.apiData.results.code}}/" partial="grex-stadsdelen" user="vm.test"></dp-api-call>
+    </div>
+
     <div ng-if="vm.apiData.results.buurtcombinaties.count"
          class="c-detail__block">
         <dp-glossary-header definition="BUURTCOMBINATIE" use-plural="true"></dp-glossary-header>
