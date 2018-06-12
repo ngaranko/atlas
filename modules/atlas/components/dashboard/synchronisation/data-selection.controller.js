@@ -18,6 +18,8 @@
 
             vm.dataSelectionState = state.dataSelection;
             vm.filters = state.filters;
+            vm.zoomLevel = state.map.zoom;
+            vm.boundingBox = state.map.boundingBox;
         }
     }
 })();
