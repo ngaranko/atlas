@@ -1939,7 +1939,13 @@ export default [
     id: 'grexStadsdelen',
     category: 'Stedelijke ontwikkeling',
     layers: ['stadsdeel_polygons'],
-    legendItems: [],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Totale begroting baten',
+        iconUrl: 'assets/images/map-legend/icon-grex-stadsdeel.svg'
+      }
+    ],
     maxZoom: 16,
     minZoom: 8,
     title: 'Grondexploitaties - Stadsdelen',
