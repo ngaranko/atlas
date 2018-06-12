@@ -16,9 +16,9 @@
         function update () {
             var state = store.getState();
 
-            vm.pageName = state.page && state.page.name;
-            vm.pageType = state.page && state.page.type;
-            vm.pageItem = state.page && state.page.item;
+            vm.pageName = state.page.name;
+            vm.pageType = state.page.type;
+            vm.pageItem = state.page.item;
         }
     }
 })();
