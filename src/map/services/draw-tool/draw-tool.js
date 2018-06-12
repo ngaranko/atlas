@@ -260,6 +260,10 @@ function registerDrawEvents() {
       });
     });
   });
+  setTimeout(() => {
+    // fix for firefox _onUpdateShape not fired
+    onChangePolygon();
+  });
 }
 
 // register any non-leaflet.draw events

@@ -2,6 +2,8 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
 
+import { MAP_HIGHLIGHT } from '../../ducks/map/map';
+
 import ACTIONS from '../../../shared/actions';
 
 export function* fetchNearestDetails(action) {
@@ -14,7 +16,7 @@ export function* fetchNearestDetails(action) {
     const uri = yield call(fetchNearestDetail, location, layers, zoom);
     if (uri) {
       yield put({
-        type: ACTIONS.MAP_HIGHLIGHT,
+        type: MAP_HIGHLIGHT,
         payload: false
       });
       yield put({
