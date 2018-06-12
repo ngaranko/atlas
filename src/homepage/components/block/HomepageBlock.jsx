@@ -10,7 +10,7 @@ const HomepageBlock = (props) => (
 
     {props.children}
 
-    {!!props.onBlockLinkClick && (
+    {props.onBlockLinkClick && (
       <button
         className={`c-homepage__block-button ${props.hasTallDescription ? 'c-homepage__block-button--tall' : ''}`}
         title={`Bekijk ${props.title}`}
