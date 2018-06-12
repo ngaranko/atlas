@@ -105,6 +105,7 @@
     "test-eslint": "eslint ./modules/ ./src/ ./test/cypress/",
     "test-integration": "NODE_ENV=development jest --config=./test/jest.integration.config.js",
     "test-integration-watch": "NODE_ENV=development jest --config=./test/jest.integration.config.js --watch",
+    "test-integration-update": "NODE_ENV=development jest --config=./test/jest.integration.config.js --updateSnapshot",
     "test-jest": "NODE_ENV=development jest --config=./test/jest.unit.config.js",
     "test-jest-update": "NODE_ENV=development jest --config=./test/jest.unit.config.js --updateSnapshot",
     "test-jest-watch": "NODE_ENV=development jest --config=./test/jest.unit.config.js --watch",
