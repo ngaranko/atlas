@@ -1916,7 +1916,7 @@ export default [
   },
   {
     authScope: 'GREX/R',
-    id: 'grex',
+    id: 'grexProjecten',
     category: 'Stedelijke ontwikkeling',
     layers: ['grondexploitatie_polygons'],
     legendItems: [
@@ -1936,19 +1936,10 @@ export default [
   },
   {
     authScope: 'GREX/R',
-    id: 'grondexploitatie',
+    id: 'grexStadsdelen',
     category: 'Stedelijke ontwikkeling',
     layers: ['stadsdeel_polygons'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Actueel'
-      },
-      {
-        selectable: false,
-        title: 'Toekomstig'
-      }
-    ],
+    legendItems: [],
     maxZoom: 16,
     minZoom: 8,
     title: 'Grondexploitaties - Stadsdelen',
