@@ -155,6 +155,10 @@
                                 variables: ['kadastrale_gemeentenaam']
                             },
                             {
+                                label: 'Gemeente',
+                                variables: ['woonplaats']
+                            },
+                            {
                                 label: 'Zakelijk recht: aard',
                                 variables: ['aard_zakelijk_recht']
                             },
@@ -163,11 +167,7 @@
                                 variables: ['zakelijk_recht_aandeel']
                             },
                             {
-                                label: 'Type subject',
-                                variables: ['sjt_type']
-                            },
-                            {
-                                label: 'Naam',
+                                label: 'Naam (natuurlijk persoon)',
                                 variables: ['sjt_naam']
                             },
                             {
@@ -175,24 +175,12 @@
                                 variables: ['sjt_datum_overlijden']
                             },
                             {
-                                label: 'Statutaire naam',
+                                label: 'Statutaire naam (niet-natuurlijk persoon)',
                                 variables: ['sjt_statutaire_naam']
-                            },
-                            {
-                                label: '-zetel',
-                                variables: ['sjt_statutaire_zetel']
                             },
                             {
                                 label: '-rechtsvorm',
                                 variables: ['sjt_statutaire_rechtsvorm']
-                            },
-                            {
-                                label: 'RSIN',
-                                variables: ['sjt_rsin']
-                            },
-                            {
-                                label: 'KvK-num.',
-                                variables: ['sjt_kvknummer']
                             }
                         ],
                         LIST: [
