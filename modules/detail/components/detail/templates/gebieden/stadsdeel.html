@@ -16,8 +16,16 @@
 
     </div>
 
-    <div ng-if="vm.apiData.results.code">
-        <dp-api-call add-api-root="true" endpoint="grondexploitatie/stadsdeel/{{vm.apiData.results.code}}/" partial="grex/grex-stadsdelen" user="vm.test"></dp-api-call>
+    <div class="grex-stadsdelen c-detail__block">
+      <h3 class="grex-stadsdelen__title">
+          Grondexploitaties
+      </h3>
+      <div ng-if="!vm.user.scopes.includes('GREX/R')"
+          ng-include="'modules/detail/components/detail/templates/grondexploitatie/unauthorized.html'">
+      </div>
+      <div ng-if="vm.apiData.results.code && vm.user.scopes.includes('GREX/R')">
+          <dp-api-call add-api-root="true" endpoint="grondexploitatie/stadsdeel/{{vm.apiData.results.code}}/" partial="grex/grex-stadsdelen" user="vm.user"></dp-api-call>
+      </div>
     </div>
 
     <div ng-if="vm.apiData.results.buurtcombinaties.count"
