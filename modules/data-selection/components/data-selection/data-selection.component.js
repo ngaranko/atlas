@@ -6,9 +6,11 @@
         .component('dpDataSelection', {
             templateUrl: 'modules/data-selection/components/data-selection/data-selection.html',
             bindings: {
-                state: '<',
+                boundingBox: '<',
                 filters: '<',
-                user: '<'
+                state: '<',
+                user: '<',
+                zoomLevel: '<'
             },
             controller: DpDataSelectionController,
             controllerAs: 'vm'
@@ -45,14 +47,16 @@
         $scope.$watch(function () {
             // Watching all state variables except markers and isLoading
             return [
-                vm.state.dataset,
-                vm.state.view,
+                store.getState().catalogFilters,
+                vm.boundingBox,
                 vm.filters,
+                vm.state.dataset,
                 vm.state.geometryFilter,
                 vm.state.page,
                 vm.state.query,
+                vm.state.view,
                 vm.user.scopes,
-                store.getState().catalogFilters
+                vm.zoomLevel
             ];
         }, fetchData, true);
 
@@ -95,14 +99,16 @@
 
             vm.isLoading = true;
 
-            dataSelectionApi.query(vm.state.dataset,
-                vm.state.view,
-                vm.filters,
-                vm.currentPage,
-                vm.state.query,
-                vm.state.geometryFilter.markers,
-                catalogFilters)
-                .then(data => {
+            dataSelectionApi
+                .query(
+                    vm.state.dataset,
+                    vm.state.view,
+                    vm.filters,
+                    vm.currentPage,
+                    vm.state.query,
+                    vm.state.geometryFilter.markers,
+                    catalogFilters
+                ).then(data => {
                     vm.availableFilters = data.filters;
                     vm.data = data.data;
                     vm.numberOfRecords = data.numberOfRecords;
@@ -114,7 +120,8 @@
                     vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
                     vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
 
-                    vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
+                    vm.maxNumberOfClusteredMarkers =
+                        DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_NUMBER_OF_CLUSTERED_MARKERS;
                     vm.showMessageClusteredMarkers = isListView && vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
                     updateTabHeader(vm.state.query, vm.numberOfRecords);
@@ -122,27 +129,25 @@
                     vm.showContent =
                         vm.numberOfRecords &&
                         (
-                            angular.isUndefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) ||
-                            vm.state.page <= DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES
+                            angular.isUndefined(vm.maxAvailablePages) ||
+                            vm.state.page <= vm.maxAvailablePages
                         );
 
                     const activeFilters = angular.extend({
                         shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
                     }, vm.filters);
 
-                    if (
-                        isListView &&
-                        isListView &&
-                        vm.numberOfRecords <= DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS
-                    ) {
+                    if (isListView && vm.numberOfRecords <= vm.maxNumberOfClusteredMarkers) {
                         // Get marker data and update the state to show the
                         // data
-                        dataSelectionApi.getMarkers(vm.state.dataset, activeFilters).then(markerData => {
-                            store.dispatch({
-                                type: ACTIONS.SHOW_DATA_SELECTION,
-                                payload: markerData
+                        dataSelectionApi
+                            .getMarkers(vm.state.dataset, activeFilters, vm.zoomLevel, vm.boundingBox)
+                            .then(markerData => {
+                                store.dispatch({
+                                    type: ACTIONS.SHOW_DATA_SELECTION,
+                                    payload: markerData
+                                });
                             });
-                        });
                     } else if (vm.state.reset) {
                         // Update the state to show the data, do not trigger a
                         // url state change however

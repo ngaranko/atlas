@@ -4,13 +4,11 @@
     angular
         .module('dpDataSelection')
         .constant('DATA_SELECTION_CONFIG', {
-            options: {
-                MAX_NUMBER_OF_CLUSTERED_MARKERS: 10000
-            },
             datasets: {
                 bag: {
                     CUSTOM_API: 'dataSelectionApiDataSelection',
                     MAX_AVAILABLE_PAGES: 100,
+                    MAX_NUMBER_OF_CLUSTERED_MARKERS: 10000,
                     ENDPOINT_PREVIEW: 'dataselectie/bag/',
                     ENDPOINT_MARKERS: 'dataselectie/bag/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/bag/export/',
@@ -127,8 +125,9 @@
                     }
                 },
                 brk: {
-                    CUSTOM_API: 'dataSelectionApiDataSelection',
+                    CUSTOM_API: 'dataSelectionApiBrk',
                     MAX_AVAILABLE_PAGES: 100,
+                    MAX_NUMBER_OF_CLUSTERED_MARKERS: Infinity,
                     ENDPOINT_PREVIEW: {
                         TABLE: 'dataselectie/brk/',
                         LIST: 'dataselectie/brk/kot/'
@@ -192,6 +191,7 @@
                     CUSTOM_API: 'dataSelectionApiDataSelection',
                     AUTH_SCOPE: 'HR/R',
                     MAX_AVAILABLE_PAGES: 100,
+                    MAX_NUMBER_OF_CLUSTERED_MARKERS: 10000,
                     ENDPOINT_PREVIEW: 'dataselectie/hr/',
                     ENDPOINT_MARKERS: 'dataselectie/hr/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/hr/export/',
