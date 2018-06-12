@@ -43,8 +43,8 @@ describe('The dp-wkpb-link directive', function () {
         var component = getComponent('abc789'),
             scope = component.isolateScope();
 
-        expect(component.find('dp-link-react').attr('type')).toBe('FETCH_DETAIL');
-        expect(component.find('dp-link-react').attr('payload')).toBe('vm.wkpbEndpoint');
+        expect(component.find('dp-link').attr('type')).toBe('FETCH_DETAIL');
+        expect(component.find('dp-link').attr('payload')).toBe('vm.wkpbEndpoint');
         expect(scope.vm.wkpbEndpoint).toBe('http://www.api-root.com/brk/object-wkpb/abc789/');
     });
 

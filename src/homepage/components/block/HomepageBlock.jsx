@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import RouteLinkWrapper from '../../../shared/wrappers/route-link/RouteLinkWrapper';
-
 import './_homepage-block.scss';
 
 const HomepageBlock = (props) => (

@@ -1,9 +1,9 @@
 <ul class="o-list">
     <li ng-repeat="link in vm.category.results | limitTo: (vm.limitResults ? 10 : null)">
-        <dp-link-react type="FETCH_DETAIL"
+        <dp-link type="FETCH_DETAIL"
                  payload="link.endpoint"
                  class="qa-list-item-link"
-            >{{link.label | longNameShortener}}</dp-link-react>
+            >{{link.label | longNameShortener}}</dp-link>
 
         <span class="qa-search-results__link-extra-info">
             {{vm.getExtraInfo(link)}}

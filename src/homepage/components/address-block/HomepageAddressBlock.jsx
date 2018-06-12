@@ -1,7 +1,6 @@
 import React from 'react';
 
 import HomepageBlock from '../block/HomepageBlock';
-import RouteLinkWrapper from '../../../shared/wrappers/route-link/RouteLinkWrapper';
 
 import IconAddress from '../../../../public/images/icon-adres.svg';
 import IconHr from '../../../../public/images/icon-hr.svg';
