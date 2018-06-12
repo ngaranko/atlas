@@ -129,11 +129,11 @@ describe('The dataSelectionApiDataSelection factory', function () {
 
     it('calls the api factory with the active filters, page and shape as searchParams', function () {
         // Without active filters
-        dataSelectionApiDataSelection.query(config, {}, 1, 'search', [[12, 3]]);
+        dataSelectionApiDataSelection.query(config, 'LIST', {}, 1, 'search', [[12, 3]]);
         expect(api.getByUri).toHaveBeenCalledWith('zwembaden/', { page: 1, dataset: 'ves', shape: '[[3,12]]' });
 
         // With active filters
-        dataSelectionApiDataSelection.query(config, {water: 'Verwarmd'}, 2);
+        dataSelectionApiDataSelection.query(config, 'TABLE', {water: 'Verwarmd'}, 2);
         expect(api.getByUri).toHaveBeenCalledWith('zwembaden/', {
             water: 'Verwarmd',
             page: 2,
@@ -143,7 +143,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
 
         // With yet another page
         let output;
-        dataSelectionApiDataSelection.query(config, {}, 9999).then(function (_output_) {
+        dataSelectionApiDataSelection.query(config, 'LIST', {}, 9999).then(function (_output_) {
             output = _output_;
         });
         $rootScope.$apply();
@@ -153,7 +153,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
     it('returns the total number of pages', function () {
         let output;
 
-        dataSelectionApiDataSelection.query(config, {}, 1).then(function (_output_) {
+        dataSelectionApiDataSelection.query(config, 'LIST', {}, 1).then(function (_output_) {
             output = _output_;
         });
         $rootScope.$apply();
@@ -165,7 +165,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
         it('orders the filters based on the configuration', function () {
             let output = {};
 
-            dataSelectionApiDataSelection.query(config, {}, 1).then(function (_output_) {
+            dataSelectionApiDataSelection.query(config, 'LIST', {}, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();
@@ -213,7 +213,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
             // With only one filter in the API response
             delete mockedApiResponse.aggs_list.type;
 
-            dataSelectionApiDataSelection.query(config, {}, 1).then(function (_output_) {
+            dataSelectionApiDataSelection.query(config, 'LIST', {}, 1).then(function (_output_) {
                 output = _output_;
             });
             $rootScope.$apply();
@@ -244,7 +244,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
     it('processes the results correctly', function () {
         let output = {};
 
-        dataSelectionApiDataSelection.query(config, {}, 1).then(function (_output_) {
+        dataSelectionApiDataSelection.query(config, 'LIST', {}, 1).then(function (_output_) {
             output = _output_;
         });
         $rootScope.$apply();

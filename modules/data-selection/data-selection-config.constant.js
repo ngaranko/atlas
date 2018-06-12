@@ -126,6 +126,80 @@
                         ]
                     }
                 },
+                brk: {
+                    CUSTOM_API: 'dataSelectionApiDataSelection',
+                    MAX_AVAILABLE_PAGES: 100,
+                    ENDPOINT_PREVIEW: {
+                        TABLE: 'dataselectie/brk/',
+                        LIST: 'dataselectie/brk/kot/'
+                    },
+                    ENDPOINT_MARKERS: 'dataselectie/brk/geolocation/',
+                    ENDPOINT_EXPORT: 'dataselectie/brk/export/',
+                    ENDPOINT_DETAIL: 'brk/object/',
+                    PRIMARY_KEY: 'kadastraal_object_id',
+                    TITLE: 'Kadastrale objecten',
+                    SORT_FILTERS: false,
+                    FILTERS: [],
+                    CONTENT: {
+                        TABLE: [
+                            {
+                                label: 'Kad. aanduiding',
+                                variables: ['aanduiding']
+                            },
+                            {
+                                label: 'Eerste adres',
+                                variables: ['eerste_adres']
+                            },
+                            {
+                                label: 'Kad. gemeente',
+                                variables: ['kadastrale_gemeentenaam']
+                            },
+                            {
+                                label: 'Zakelijk recht: aard',
+                                variables: ['aard_zakelijk_recht']
+                            },
+                            {
+                                label: '-aandeel',
+                                variables: ['zakelijk_recht_aandeel']
+                            },
+                            {
+                                label: 'Type subject',
+                                variables: ['sjt_type']
+                            },
+                            {
+                                label: 'Naam',
+                                variables: ['sjt_naam']
+                            },
+                            {
+                                label: 'Datum overleiden',
+                                variables: ['sjt_datum_overlijden']
+                            },
+                            {
+                                label: 'Statutaire naam',
+                                variables: ['sjt_statutaire_naam']
+                            },
+                            {
+                                label: '-zetel',
+                                variables: ['sjt_statutaire_zetel']
+                            },
+                            {
+                                label: '-rechtsvorm',
+                                variables: ['sjt_statutaire_rechtsvorm']
+                            },
+                            {
+                                label: 'RSIN',
+                                variables: ['sjt_rsin']
+                            },
+                            {
+                                label: 'KvK-num.',
+                                variables: ['sjt_kvknummer']
+                            }
+                        ],
+                        LIST: [
+                            { variables: ['aanduiding'] }
+                        ]
+                    }
+                },
                 hr: {
                     CUSTOM_API: 'dataSelectionApiDataSelection',
                     AUTH_SCOPE: 'HR/R',
