@@ -52,6 +52,7 @@ class LeafletContainer extends React.Component {
     };
     this.handleZoom = this.handleZoom.bind(this);
     this.handlePan = this.handlePan.bind(this);
+    this.handleResize = this.handleResize.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -86,6 +87,10 @@ class LeafletContainer extends React.Component {
     this.props.onUpdateBoundingBox(event);
   }
 
+  handleResize(event) {
+    this.props.onUpdateBoundingBox(event);
+  }
+
   handleClick(event) {
     if (!isDrawingActive(this.state.drawingMode)) {
       this.props.onUpdateClick(event);
@@ -116,6 +121,7 @@ class LeafletContainer extends React.Component {
         onClick={this.handleClick}
         onDragEnd={this.handlePan}
         onZoomEnd={this.handleZoom}
+        onResizeEnd={this.handleResize}
         ref={this.setMapLeaflet}
         scaleControlOptions={scaleControlOptions}
         zoom={zoom}

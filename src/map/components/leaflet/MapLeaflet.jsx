@@ -82,6 +82,9 @@ class MapLeaflet extends React.Component {
   }
 
   handleResize() {
+    this.props.onResizeEnd({
+      boundingBox: convertBounds(this.MapElement.getBounds())
+    });
     this.MapElement.invalidateSize();
     if (this.activeElement) {
       this.fitActiveElement(getBounds(this.activeElement));
@@ -239,6 +242,7 @@ MapLeaflet.defaultProps = {
   onClick: () => 'click',
   onDoubleClick: () => 'doubleclick',
   onDragEnd: () => 'dragend',
+  onResizeEnd: () => 'resizeend',
   onZoomEnd: () => 'zoomend'
 };
 
@@ -264,6 +268,7 @@ MapLeaflet.propTypes = {
   onClick: PropTypes.func,
   onDoubleClick: PropTypes.func,
   onDragEnd: PropTypes.func,
+  onResizeEnd: PropTypes.func,
   onZoomEnd: PropTypes.func,
   scaleControlOptions: PropTypes.shape({}),
   zoom: PropTypes.number

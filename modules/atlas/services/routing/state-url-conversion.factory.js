@@ -193,10 +193,6 @@
                 },
                 filters: {},
                 map: {
-                    boundingBox: {
-                        northEast: { latitude: 52.38157591725702, longitude: 4.913231280213124 },
-                        southWest: { latitude: 52.364649412584505, longitude: 4.873380177048652 }
-                    },
                     viewCenter: [52.3731081, 4.8932945],
                     baseLayer: 'topografie',
                     zoom: 11,
