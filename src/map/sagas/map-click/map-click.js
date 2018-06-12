@@ -7,12 +7,15 @@ import { getMapZoom } from '../../ducks/map/map';
 import ACTIONS from '../../../shared/actions';
 
 const getMapLayers = (state) => (
-  state.map.overlays.map((overlay) => (
-    state.mapLayers.layers.items.find((layer) => layer.id === overlay.id) || {}
-  )).filter((layer) => (
-   layer.detailUrl && !layer.noDetail &&
-   (!layer.authScope || state.user.scopes.includes(layer.authScope))
- ))
+  state.map.overlays
+    .filter((overlay) => overlay.isVisible)
+    .map((overlay) => (
+      state.mapLayers.layers.items.find((layer) => layer.id === overlay.id) || {}
+    ))
+    .filter((layer) => (
+       layer.detailUrl && !layer.noDetail &&
+       (!layer.authScope || state.user.scopes.includes(layer.authScope))
+    ))
 );
 
 export function* switchClickAction(payload) {

@@ -4,6 +4,8 @@ import watchFetchNearestDetails, { fetchNearestDetails } from './nearest-details
 
 import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
 
+import { MAP_HIGHLIGHT } from '../../ducks/map/map';
+
 import ACTIONS from '../../../shared/actions';
 
 describe('watchFetchNearestDetails', () => {
@@ -40,7 +42,7 @@ describe('fetchNearestDetails', () => {
         }
       })
       .put({
-        type: ACTIONS.MAP_HIGHLIGHT,
+        type: MAP_HIGHLIGHT,
         payload: false
       })
       .put({

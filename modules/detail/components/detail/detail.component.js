@@ -1,3 +1,5 @@
+import removeMd from 'remove-markdown';
+
 import { getMapClickLocation } from '../../../../src/map/ducks/click-location/map-click-location';
 
 (function () {
@@ -71,6 +73,8 @@ import { getMapClickLocation } from '../../../../src/map/ducks/click-location/ma
                 getData(vm.endpoint);
             }
         });
+
+        vm.stripMarkdown = (val) => removeMd(val);
 
         function getData (endpoint) {
             vm.location = null;

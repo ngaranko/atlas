@@ -110,7 +110,7 @@
 
     .dataset-detail__link {
       display: block;
-      padding: 8px 0;
+      padding: 5px 0;
     }
   }
 
@@ -145,12 +145,19 @@
     }
   }
 
-  .c-catalogus-theme {
+  .catalog-themes {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-left: -10px;
 
-    &>.c-catalogus-theme__icon {
-      width: auto;
-      padding: 10px 10px 10px 0;
+    .catalog-theme {
+      padding: 10px 10px 0;
+
+      &__label {
+        width: auto;
+      }
     }
   }
 

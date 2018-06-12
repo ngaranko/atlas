@@ -35,7 +35,6 @@ exports[`LeafletContainer should render 1`] = `
     ]
   }
   clusterMarkers={Array []}
-  drawShape={Object {}}
   geoJson={Object {}}
   getLeafletInstance={[Function]}
   isZoomControlVisible={true}
@@ -257,7 +256,6 @@ exports[`LeafletContainer should render different baseLayer, zoom, center and an
     ]
   }
   clusterMarkers={Array []}
-  drawShape={Object {}}
   geoJson={Object {}}
   getLeafletInstance={[Function]}
   isZoomControlVisible={true}
