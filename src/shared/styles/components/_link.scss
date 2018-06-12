@@ -41,12 +41,8 @@
 
 .c-link--inline {
   @extend %link--inline;
-}
+ }
 
 .c-link__wrapper--inine-block {
   display: inline-block;
-}
-
-.route-link {
-  display: inline;
 }

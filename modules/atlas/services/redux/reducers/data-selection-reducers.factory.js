@@ -6,10 +6,11 @@
         .factory('dataSelectionReducers', dataSelectionReducersFactory);
 
     dataSelectionReducersFactory.$inject = [
-        'ACTIONS'
+        'ACTIONS',
+        'stateUrlConverter'
     ];
 
-    function dataSelectionReducersFactory (ACTIONS) {
+    function dataSelectionReducersFactory (ACTIONS, stateUrlConverter) {
         const reducers = {};
 
         reducers[ACTIONS.FETCH_DATA_SELECTION.id] = fetchDataSelectionReducer;

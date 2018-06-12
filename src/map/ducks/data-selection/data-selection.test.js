@@ -1,4 +1,4 @@
-import { getDataSelection, getClusterMarkers, getDrawShape } from './data-selection';
+import { getDataSelection, getClusterMarkers } from './data-selection';
 
 describe('Data selection selectors', () => {
   const mockParameters = {
@@ -50,18 +50,6 @@ describe('Data selection selectors', () => {
       });
       expect(Array.isArray(selected)).toBe(true);
       expect(selected.length).toBe(0);
-    });
-  });
-
-  describe('getDrawShape', () => {
-    it('should return an object with a latLngList', () => {
-      const selected = getDrawShape.resultFunc(
-        mockParameters.dataSelection,
-        mockParameters.dataSelection.geometryFilter.markers
-      );
-      expect(selected).toEqual(
-        { latLngList: [[50000, 50000], [60000, 60000]] }
-      );
     });
   });
 });

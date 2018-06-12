@@ -621,4 +621,16 @@ describe('the dp-detail component', () => {
             expect(scope.vm.geosearchButton).toEqual([52.654, 4.987]);
         });
     });
+
+    describe('the stripMarkdown function', () => {
+        it('returns a value', () => {
+            const component = getComponent('http://www.fake-endpoint.com/dcatd/datasets/789/', false);
+
+            const scope = component.isolateScope();
+            const vm = scope.vm;
+            const description = vm.stripMarkdown('test description');
+
+            expect(description).toEqual('test description');
+        });
+    });
 });

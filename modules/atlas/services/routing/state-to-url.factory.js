@@ -1,5 +1,3 @@
-import stateUrlConverter from '../../../../src/shared/services/routing/state-url-converter';
-
 (function () {
     'use strict';
 
@@ -7,9 +5,9 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
         .module('atlas')
         .factory('stateToUrl', stateToUrlFactory);
 
-    stateToUrlFactory.$inject = ['$location'];
+    stateToUrlFactory.$inject = ['$location', 'stateUrlConverter'];
 
-    function stateToUrlFactory ($location) {
+    function stateToUrlFactory ($location, stateUrlConverter) {
         return {
             update
         };

@@ -3,8 +3,8 @@
 
     <ul class="o-list">
         <li ng-repeat="object in apiData.results">
-            <dp-link-react type="FETCH_DETAIL" payload="object.object_href"
-                >{{object._display}}</dp-link-react>
+            <dp-link type="FETCH_DETAIL" payload="object.object_href"
+                >{{object._display}}</dp-link>
         </li>
     </ul>
 
