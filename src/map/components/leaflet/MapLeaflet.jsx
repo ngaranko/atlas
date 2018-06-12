@@ -29,7 +29,6 @@ class MapLeaflet extends React.Component {
     super();
     this.onZoomEnd = this.onZoomEnd.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.onMoveEnd = this.onMoveEnd.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this);
@@ -68,13 +67,6 @@ class MapLeaflet extends React.Component {
       latlng,
       containerPoint,
       layerPoint
-    });
-  }
-
-  onMoveEnd(event) {
-    this.props.onMoveEnd({
-      center: event.target.getCenter(),
-      boundingBox: convertBounds(this.MapElement.getBounds())
     });
   }
 
@@ -152,7 +144,6 @@ class MapLeaflet extends React.Component {
           ref={this.setMapElement}
           onZoomEnd={this.onZoomEnd}
           onClick={this.onClick}
-          onMoveEnd={this.onMoveEnd}
           onDragEnd={this.onDragEnd}
           onDraw={this.draw}
           center={center}
@@ -248,7 +239,6 @@ MapLeaflet.defaultProps = {
   onClick: () => 'click',
   onDoubleClick: () => 'doubleclick',
   onDragEnd: () => 'dragend',
-  onMoveEnd: () => 'moveend',
   onZoomEnd: () => 'zoomend'
 };
 
@@ -274,7 +264,6 @@ MapLeaflet.propTypes = {
   onClick: PropTypes.func,
   onDoubleClick: PropTypes.func,
   onDragEnd: PropTypes.func,
-  onMoveEnd: PropTypes.func,
   onZoomEnd: PropTypes.func,
   scaleControlOptions: PropTypes.shape({}),
   zoom: PropTypes.number
