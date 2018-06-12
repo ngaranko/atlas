@@ -17,7 +17,7 @@
     </div>
 
     <div ng-if="vm.apiData.results.code">
-        <dp-api-call add-api-root="true" endpoint="grondexploitatie/stadsdeel/{{vm.apiData.results.code}}/" partial="grex-stadsdelen" user="vm.test"></dp-api-call>
+        <dp-api-call add-api-root="true" endpoint="grondexploitatie/stadsdeel/{{vm.apiData.results.code}}/" partial="grex/grex-stadsdelen" user="vm.test"></dp-api-call>
     </div>
 
     <div ng-if="vm.apiData.results.buurtcombinaties.count"

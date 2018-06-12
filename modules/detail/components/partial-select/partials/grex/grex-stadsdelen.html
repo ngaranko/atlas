@@ -1,0 +1,11 @@
+<div class="grex-stadsdelen c-detail__block">
+  <h3 class="grex-stadsdelen__title">
+      Grondexploitaties
+  </h3>
+  <div ng-if="apiData.results" class="">
+    <dp-grondexploitatie-graph-totals
+        has-secondary-title="true"
+        data="apiData.results">
+    </dp-grondexploitatie-graph-totals>
+  </div>
+</div>
