@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import MapLeaflet from '../../components/leaflet/MapLeaflet';
 import MAP_CONFIG from '../../services/map-config';
-import { updateZoom, updatePan, getMarkers, getCenter } from '../../ducks/map/map';
+import { updateZoom, updatePan, updateBoundingBox, getMarkers, getCenter } from '../../ducks/map/map';
 import { updateClick } from '../../ducks/click-location/map-click-location';
 import { fetchMapBaseLayers, getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { fetchMapLayers, getLayers } from '../../ducks/layers/map-layers';
@@ -36,7 +36,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onUpdateZoom: updateZoom,
   onUpdatePan: updatePan,
-  onUpdateClick: updateClick
+  onUpdateClick: updateClick,
+  onUpdateBoundingBox: updateBoundingBox
 }, dispatch);
 
 class LeafletContainer extends React.Component {
@@ -77,10 +78,12 @@ class LeafletContainer extends React.Component {
 
   handleZoom(event) {
     this.props.onUpdateZoom(event, isDrawingActive(this.props.drawingMode));
+    this.props.onUpdateBoundingBox(event);
   }
 
   handlePan(event) {
     this.props.onUpdatePan(event, isDrawingActive(this.props.drawingMode));
+    this.props.onUpdateBoundingBox(event);
   }
 
   handleClick(event) {
@@ -157,6 +160,7 @@ LeafletContainer.propTypes = {
   onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
+  onUpdateBoundingBox: PropTypes.func.isRequired,
   zoom: PropTypes.number.isRequired
 };
 

@@ -13,6 +13,17 @@ import { boundsToString, getBounds } from './services/bounds';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
+const convertBounds = (leafletBounds) => ({
+  northEast: {
+    latitude: leafletBounds._northEast.lat,
+    longitude: leafletBounds._northEast.lng
+  },
+  southWest: {
+    latitude: leafletBounds._southWest.lat,
+    longitude: leafletBounds._southWest.lng
+  }
+});
+
 class MapLeaflet extends React.Component {
   constructor() {
     super();
@@ -46,7 +57,8 @@ class MapLeaflet extends React.Component {
       zoom: event.target.getZoom(),
       maxZoom: event.target.getMaxZoom(),
       minZoom: event.target.getMinZoom(),
-      center: event.target.getCenter()
+      center: event.target.getCenter(),
+      boundingBox: convertBounds(this.MapElement.getBounds())
     });
   }
 
@@ -61,13 +73,15 @@ class MapLeaflet extends React.Component {
 
   onMoveEnd(event) {
     this.props.onMoveEnd({
-      center: event.target.getCenter()
+      center: event.target.getCenter(),
+      boundingBox: convertBounds(this.MapElement.getBounds())
     });
   }
 
   onDragEnd(event) {
     this.props.onDragEnd({
-      center: event.target.getCenter()
+      center: event.target.getCenter(),
+      boundingBox: convertBounds(this.MapElement.getBounds())
     });
   }
 
