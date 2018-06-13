@@ -14,6 +14,9 @@ const getEmbedLink = createSelector([getUi, getState], (ui) => {
   if (hash && hash.atep) {
     delete hash.atep;
   }
+  if (hash && hash.ate) {
+    delete hash.ate;
+  }
   const newQueryString = Object.keys(hash)
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(hash[key])}`)
     .join('&');
