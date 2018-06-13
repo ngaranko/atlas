@@ -1,0 +1,14 @@
+@import "../../../../../../../src/shared/styles/config/variables/colors";
+@import "../../../../../../../src/shared/styles/config/variables/typography";
+@import "../../../../../../../src/shared/styles/config/mixins/typography";
+
+.grex-stadsdelen {
+  margin-bottom: 40px;
+
+  &__title {
+    @include font-size-responsive($l-header-font);
+    @include font-weight($bold-weight);
+    margin-bottom: 8px;
+    color: $primary-contrast;
+  }
+}

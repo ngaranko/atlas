@@ -1916,7 +1916,7 @@ export default [
   },
   {
     authScope: 'GREX/R',
-    id: 'grex',
+    id: 'grexProjecten',
     category: 'Stedelijke ontwikkeling',
     layers: ['grondexploitatie_polygons'],
     legendItems: [
@@ -1932,6 +1932,23 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Grondexploitaties - Projecten',
+    url: '/maps/grondexploitatie?version=1.3.0&service=WMS'
+  },
+  {
+    authScope: 'GREX/R',
+    id: 'grexStadsdelen',
+    category: 'Stedelijke ontwikkeling',
+    layers: ['stadsdeel_polygons'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Totale begroting baten',
+        iconUrl: 'assets/images/map-legend/icon-grex-stadsdeel.svg'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Grondexploitaties - Stadsdelen',
     url: '/maps/grondexploitatie?version=1.3.0&service=WMS'
   }
 ];
