@@ -1,3 +1,5 @@
+import ReactDOM from 'react-dom';
+
 (function () {
     'use strict';
 
@@ -16,6 +18,7 @@
         const React = $window.React;
         const render = $window.render;
         const homepageAddressBlockWrapper = $window.HomepageAddressBlockWrapper;
+        let homepageAddressBlockWrapperContainer;
 
         vm.fetchStraatbeeldPayload = angular.merge(
             {},
@@ -28,10 +31,16 @@
         $timeout(setReactComponents);
 
         function setReactComponents () {
-            const homepageAddressBlockWrapperContainer = $window.document.querySelector('#homepage-address-block');
+            homepageAddressBlockWrapperContainer = $window.document.querySelector('#homepage-address-block');
             if (homepageAddressBlockWrapper && homepageAddressBlockWrapperContainer) {
                 render(React.createElement(homepageAddressBlockWrapper, null), homepageAddressBlockWrapperContainer);
             }
         }
+
+        this.$onDestroy = () => {
+            if (homepageAddressBlockWrapperContainer) {
+                ReactDOM.unmountComponentAtNode(homepageAddressBlockWrapperContainer);
+            }
+        };
     }
 })();

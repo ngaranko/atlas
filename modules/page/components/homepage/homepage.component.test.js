@@ -1,3 +1,5 @@
+import ReactDOM from 'react-dom';
+
 describe('The dp-homepage component', () => {
     let $compile,
         $rootScope,
@@ -81,6 +83,7 @@ describe('The dp-homepage component', () => {
             $window.React = {
                 createElement: () => 'fakeReactElement'
             };
+            ReactDOM.unmountComponentAtNode = () => angular.noop();
         });
 
         it('does the react createElement call', () => {
