@@ -53,7 +53,6 @@ describe('The state url conversion definition', function () {
                     overlays: [],
                     isLoading: false,
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
-                    highlight: true,
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
                     shapeAreaTxt: ''
@@ -145,10 +144,9 @@ describe('The state url conversion definition', function () {
         });
 
         describe('The post processing for map', function () {
-            it('copies highlight and isLoading from the previous state, but not the drawing mode ', function () {
-                // highlight and isLoading and drawingMode
+            it('copies  isLoading from the previous state, but not the drawing mode ', function () {
+                // isLoading and drawingMode
                 let oldState = {
-                    highlight: false,
                     isLoading: true,
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
@@ -159,7 +157,6 @@ describe('The state url conversion definition', function () {
 
                 stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({
-                    highlight: false,
                     isLoading: true,
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
@@ -174,7 +171,6 @@ describe('The state url conversion definition', function () {
 
                 stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({
-                    highlight: undefined,
                     isLoading: undefined,
                     shapeMarkers: undefined,
                     shapeDistanceTxt: undefined,
@@ -189,23 +185,7 @@ describe('The state url conversion definition', function () {
 
                 stateUrlConversion.post.map(oldState, newState);
                 expect(newState).toEqual({
-                    highlight: undefined,
                     isLoading: true,
-                    shapeMarkers: undefined,
-                    shapeDistanceTxt: undefined,
-                    shapeAreaTxt: undefined
-                });
-
-                // only highlight
-                oldState = {
-                    highlight: true
-                };
-                newState = {};
-
-                stateUrlConversion.post.map(oldState, newState);
-                expect(newState).toEqual({
-                    highlight: true,
-                    isLoading: undefined,
                     shapeMarkers: undefined,
                     shapeDistanceTxt: undefined,
                     shapeAreaTxt: undefined
@@ -221,7 +201,7 @@ describe('The state url conversion definition', function () {
         });
 
         describe('The post processing for ui', function () {
-            it('copies highlight and isLoading from the previous state, but not the drawing mode ', function () {
+            it('copies isLoading from the previous state, but not the drawing mode ', function () {
                 // isMapPanelHandleVisible
                 let oldState = {
                     isMapPanelHandleVisible: true

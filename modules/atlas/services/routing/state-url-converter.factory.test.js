@@ -23,7 +23,6 @@ describe('The state url conversion factory', function () {
                     zoom: 11,
                     isLoading: false,
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
-                    highlight: true,
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
                     shapeAreaTxt: ''

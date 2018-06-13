@@ -57,7 +57,6 @@ describe('The stateToUrlMiddleware factory', function () {
             ACTIONS.MAP_ADD_PANO_OVERLAY,
             ACTIONS.MAP_REMOVE_PANO_OVERLAY,
             ACTIONS.MAP_CLICK,
-            ACTIONS.MAP_HIGHLIGHT,
             ACTIONS.MAP_START_DRAWING,
             ACTIONS.FETCH_DETAIL,
             ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT,

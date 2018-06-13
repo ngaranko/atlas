@@ -107,7 +107,6 @@
                     if (angular.isObject(oldState)) {
                         // Do not keep the state of the drawing mode
 
-                        newState.highlight = oldState.highlight;
                         newState.isLoading = oldState.isLoading;
                         newState.shapeMarkers = oldState.shapeMarkers;
                         newState.shapeDistanceTxt = oldState.shapeDistanceTxt;
@@ -200,7 +199,6 @@
                     overlays: [],
                     isLoading: false,
                     drawingMode: 'none',
-                    highlight: true,
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
                     shapeAreaTxt: ''
