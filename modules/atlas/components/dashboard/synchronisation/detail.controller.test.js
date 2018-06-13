@@ -6,10 +6,8 @@ describe('The detail controller', function () {
             detail: {
                 endpoint: 'https://api.data.amsterdam.nl/bag/verblijfsobject/123/',
                 reload: false,
-                isLoading: false
-            },
-            map: {
-                highlight: true
+                isLoading: false,
+                skippedSearchResults: false
             }
         };
 
