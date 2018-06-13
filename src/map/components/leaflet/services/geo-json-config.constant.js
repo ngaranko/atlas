@@ -1,13 +1,17 @@
 const geoJsonConfig = {
   dataSelection: {
     style: {
-      color: '#FF0000'
+      color: '#ec0000',
+      fillOpacity: 0.33,
+      weight: 1
     }
   },
   dataSelectionAlternate: {
     style: {
-      color: '#0000FF',
-      dashArray: '10 10'
+      color: '#ec0000',
+      dashArray: '3 6',
+      fillOpacity: 0.17,
+      weight: 2
     }
   }
 };
