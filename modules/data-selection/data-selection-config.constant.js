@@ -143,11 +143,11 @@
                     CONTENT: {
                         TABLE: [
                             {
-                                label: 'Kad. aanduiding',
+                                label: 'Kad. object',
                                 variables: ['aanduiding']
                             },
                             {
-                                label: 'Eerste adres',
+                                label: 'Eerste adres bij -',
                                 variables: ['eerste_adres']
                             },
                             {
@@ -167,15 +167,15 @@
                                 variables: ['zakelijk_recht_aandeel']
                             },
                             {
-                                label: 'Naam (natuurlijk persoon)',
+                                label: 'Natuurlijk persoon: naam',
                                 variables: ['sjt_naam']
                             },
                             {
-                                label: 'Datum overleiden',
+                                label: '-datum overleiden',
                                 variables: ['sjt_datum_overlijden']
                             },
                             {
-                                label: 'Statutaire naam (niet-natuurlijk persoon)',
+                                label: 'Niet-natuurlijk persoon: statutaire naam',
                                 variables: ['sjt_statutaire_naam']
                             },
                             {
