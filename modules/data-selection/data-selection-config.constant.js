@@ -171,7 +171,7 @@
                                 variables: ['sjt_naam']
                             },
                             {
-                                label: '-datum overleiden',
+                                label: '-datum overlijden',
                                 variables: ['sjt_datum_overlijden']
                             },
                             {
