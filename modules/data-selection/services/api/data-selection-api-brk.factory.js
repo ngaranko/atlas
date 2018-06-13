@@ -33,13 +33,13 @@
                         }
                     }
                 )
-                .then(function (data) {
-                    return data.appartementen.map((appartement) => [
+                .then((data) => ({
+                    clusterMarkers: data.appartementen.map((appartement) => [
                         appartement.geometrie.coordinates[1],
                         appartement.geometrie.coordinates[0]
-                    ]);
-                })
-            : $q.resolve([]);
+                    ])
+                }))
+                : $q.resolve([]);
         }
     }
 })();

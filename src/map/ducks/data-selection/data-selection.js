@@ -7,13 +7,18 @@ const generateMarkers = (markers) => (
     position: markerLocation,
     type: detailPointType,
     index
-  })));
+  }))
+);
 
 export const getDataSelection = (state) => state.dataSelection;
 
-export const getClusterMarkers = createSelector([getDataSelection],
-  (dataSelection) => (
-    dataSelection && dataSelection.markers && dataSelection.markers.length ?
-      generateMarkers(dataSelection.markers) : []
-    )
-  );
+export const getMarkers = createSelector([getDataSelection],
+  (dataSelection) => dataSelection && dataSelection.markers
+);
+
+export const getClusterMarkers = createSelector([getMarkers],
+  (markers) => (
+    markers && markers.clusterMarkers && markers.clusterMarkers.length ?
+      generateMarkers(markers.clusterMarkers) : []
+  )
+);

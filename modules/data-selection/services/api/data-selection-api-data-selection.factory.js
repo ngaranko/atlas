@@ -90,12 +90,12 @@
         function getMarkers (config, activeFilters) {
             return api
                 .getByUri(config.ENDPOINT_MARKERS, activeFilters)
-                .then(function (data) {
-                    return data.object_list
+                .then((data) => ({
+                    clusterMarkers: data.object_list
                         .map(object => object._source.centroid)
                         .filter(angular.identity)
-                        .map(([lon, lat]) => [lat, lon]);
-                });
+                        .map(([lon, lat]) => [lat, lon])
+                }));
         }
     }
 })();
