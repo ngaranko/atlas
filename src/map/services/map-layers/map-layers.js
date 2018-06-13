@@ -219,12 +219,21 @@ export default [
     layers: ['buurt', 'buurt_label']
   },
   {
-    id: 'grex',
+    id: 'grexProjecten',
     authScope: 'GREX/R',
     url: 'maps/grondexploitatie?service=wms',
     layers: ['grondexploitatie_polygons'],
     detailUrl: 'geosearch/search/', // Geosearch URL
     detailItem: 'grondexploitatie', // Geosearch name
+    detailIsShape: true
+  },
+  {
+    id: 'grexStadsdelen',
+    authScope: 'GREX/R',
+    url: 'maps/grondexploitatie?service=wms',
+    layers: ['stadsdeel_polygons'],
+    detailUrl: 'geosearch/search/', // Geosearch URL
+    detailItem: 'stadsdeel', // Geosearch name
     detailIsShape: true
   },
   {
