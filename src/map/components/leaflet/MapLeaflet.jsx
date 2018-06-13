@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResizeAware from 'react-resize-aware';
-import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, ScaleControl, GeoJSON, Marker } from 'react-leaflet';
 
 import CustomMarker from './custom/marker/CustomMarker';
 import ClusterGroup from './custom/cluster-group/ClusterGroup';
 import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
+import geoJsonConfig from './services/geo-json-config.constant';
 import createClusterIcon from './services/cluster-icon';
 import { boundsToString, getBounds } from './services/bounds';
 
@@ -124,6 +125,7 @@ class MapLeaflet extends React.Component {
       center,
       clusterMarkers,
       baseLayer,
+      geoJsons,
       geoJson,
       layers,
       mapOptions,
@@ -168,7 +170,7 @@ class MapLeaflet extends React.Component {
             ))
           }
           {
-            clusterMarkers.length > 0 && (
+            clusterMarkers.length && (
               <ClusterGroup
                 showCoverageOnHover={false}
                 iconCreateFunction={createClusterIcon}
@@ -198,9 +200,18 @@ class MapLeaflet extends React.Component {
                 ref={this.setActiveElement}
                 position={marker.position}
                 key={marker.position.toString() + marker.type}
-                icon={icons[marker.type]}
+                icon={icons[marker.type](marker.iconData)}
                 zIndexOffset={100}
                 rotationAngle={marker.heading || 0}
+              />
+            ))
+          }
+          {
+            geoJsons.map((shape) => (
+              <GeoJSON
+                data={shape.geoJson}
+                key={shape.id}
+                style={geoJsonConfig[shape.type] && geoJsonConfig[shape.type].style}
               />
             ))
           }
@@ -232,6 +243,7 @@ MapLeaflet.defaultProps = {
   },
   center: [52.3731081, 4.8932945],
   clusterMarkers: [],
+  geoJsons: [],
   geoJson: {},
   layers: [],
   mapOptions: {},
@@ -253,6 +265,7 @@ MapLeaflet.propTypes = {
   }),
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
+  geoJsons: PropTypes.arrayOf(PropTypes.shape({})),
   geoJson: PropTypes.shape({}),
   getLeafletInstance: PropTypes.func.isRequired,
   isZoomControlVisible: PropTypes.bool,

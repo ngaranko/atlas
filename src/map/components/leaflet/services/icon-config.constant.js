@@ -9,6 +9,10 @@ const ICON_CONFIG = {
     iconSize: [21, 21],
     iconAnchor: [10, 10]
   },
+  DATA_SELECTION: {
+    iconSize: [39, 39],
+    iconAnchor: [19, 19]
+  },
   STRAATBEELD_ORIENTATION: {
     iconUrl: 'assets/images/map/straatbeeld-orientation.svg',
     iconSize: [70, 70],

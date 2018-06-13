@@ -1,3 +1,7 @@
+import identity from 'lodash.identity';
+
+import generateId from '../../../../src/shared/services/state-token-generator';
+
 (function () {
     angular
         .module('dpDataSelection')
@@ -34,10 +38,26 @@
                     }
                 )
                 .then((data) => ({
-                    clusterMarkers: data.appartementen.map((appartement) => [
-                        appartement.geometrie.coordinates[1],
-                        appartement.geometrie.coordinates[0]
-                    ])
+                    geoJsons: [
+                        data.eigenpercelen && {
+                            geoJson: data.eigenpercelen,
+                            id: generateId(),
+                            type: 'dataSelection'
+                        },
+                        data.niet_eigenpercelen && {
+                            geoJson: data.niet_eigenpercelen,
+                            id: generateId(),
+                            type: 'dataSelectionAlternate'
+                        }
+                    ].filter(identity),
+                    markers: data.appartementen.map((appartement) => ({
+                        iconData: appartement.aantal,
+                        position: [
+                            appartement.geometrie.coordinates[1],
+                            appartement.geometrie.coordinates[0]
+                        ],
+                        type: 'dataSelectionType'
+                    }))
                 }))
                 : $q.resolve([]);
         }
