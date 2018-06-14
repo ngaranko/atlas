@@ -147,7 +147,7 @@
                                 variables: ['aanduiding']
                             },
                             {
-                                label: 'Eerste adres bij -',
+                                label: '-eerste adres',
                                 variables: ['eerste_adres']
                             },
                             {
