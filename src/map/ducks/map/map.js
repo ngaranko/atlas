@@ -22,7 +22,6 @@ export const MAP_ADD_PANO_OVERLAY = 'MAP_ADD_PANO_OVERLAY';
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
-export const MAP_HIGHLIGHT = 'MAP_HIGHLIGHT';
 export const MAP_PAN = 'MAP_PAN';
 export const MAP_PAN_SILENT = 'MAP_PAN_SILENT';
 export const MAP_REMOVE_PANO_OVERLAY = 'MAP_REMOVE_PANO_OVERLAY';
@@ -43,7 +42,6 @@ const initialState = {
   overlays: [],
   isLoading: false,
   drawingMode: 'none',
-  highlight: true,
   shapeMarkers: 0,
   shapeDistanceTxt: '',
   shapeAreaTxt: ''
@@ -80,12 +78,6 @@ export default function MapReducer(state = initialState, action) {
         zoom: action.payload.zoom,
         viewCenter: Array.isArray(action.payload.viewCenter) ?
           action.payload.viewCenter : state.viewCenter
-      };
-
-    case MAP_HIGHLIGHT:
-      return {
-        ...state,
-        highlight: action.payload
       };
 
     case MAP_CLEAR_DRAWING:

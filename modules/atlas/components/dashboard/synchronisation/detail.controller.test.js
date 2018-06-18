@@ -64,7 +64,7 @@ describe('The detail controller', function () {
         expect(controller.endpoint).toBe('https://api.data.amsterdam.nl/bag/verblijfsobject/123/');
         expect(controller.reload).toBe(false);
         expect(controller.isLoading).toBe(false);
-        expect(controller.isMapHighlight).toBe(true);
+        expect(controller.skippedSearchResults).toBe(false);
     });
 
     it('doesn\'t break when detail is null', function () {
