@@ -125,6 +125,7 @@
                     }
                 },
                 brk: {
+                    AUTH_SCOPE: 'BRK/RSN',
                     CUSTOM_API: 'dataSelectionApiBrk',
                     MAX_AVAILABLE_PAGES: 100,
                     MAX_NUMBER_OF_CLUSTERED_MARKERS: Infinity,

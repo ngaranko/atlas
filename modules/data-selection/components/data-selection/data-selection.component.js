@@ -89,6 +89,8 @@
 
             if (config.AUTH_SCOPE && !vm.user.scopes.includes(config.AUTH_SCOPE)) {
                 vm.disabled = true;
+                vm.notAuthorizedMessageSrc =
+                    `modules/data-selection/components/data-selection/not-authorized-message/${vm.state.dataset}.html`;
                 vm.availableFilters = [];
                 store.dispatch({
                     type: ACTIONS.SHOW_DATA_SELECTION,
