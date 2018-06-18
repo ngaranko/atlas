@@ -13,11 +13,11 @@ describe('addresses module', () => {
     // the homepage should be visible
     cy.get(homepage).should('exist').and('be.visible');
     // check if the link is in the dom and visible
-    cy.get('.c-homepage__block--adressen').should('exist').and('be.visible');
+    cy.get('#homepage-address-block').should('exist').and('be.visible');
     // the data-selection should not exist yet
     cy.get(dataSelection).should('not.exist');
     // click on the link to go to the addresses
-    cy.get('.c-homepage__block--adressen').click();
+    cy.get('.c-homepage__block-button').contains('Adressentabel').click();
     // scroll to top so first item is in view
     cy.scrollTo('top');
 
