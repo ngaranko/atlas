@@ -5,11 +5,10 @@ import { bindActionCreators } from 'redux';
 
 import MapLeaflet from '../../components/leaflet/MapLeaflet';
 import MAP_CONFIG from '../../services/map-config';
-import { updateZoom, updatePan, updateBoundingBox, getMarkers, getCenter } from '../../ducks/map/map';
+import { updateZoom, updatePan, updateBoundingBox, getMarkers, getCenter, getRdGeoJsons } from '../../ducks/map/map';
 import { updateClick } from '../../ducks/click-location/map-click-location';
 import { fetchMapBaseLayers, getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { fetchMapLayers, getLayers } from '../../ducks/layers/map-layers';
-import { getGeoJson } from '../../ducks/detail/map-detail';
 import { getClusterMarkers, getGeoJsons } from '../../ducks/data-selection/data-selection';
 import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
@@ -27,7 +26,7 @@ const mapStateToProps = (state) => ({
   center: getCenter(state),
   clusterMarkers: getClusterMarkers(state),
   geoJsons: getGeoJsons(state),
-  geoJson: getGeoJson(state),
+  rdGeoJsons: getRdGeoJsons(state),
   markers: getMarkers(state),
   layers: getLayers(state),
   drawingMode: state.map.drawingMode,
@@ -104,7 +103,7 @@ class LeafletContainer extends React.Component {
       center,
       clusterMarkers,
       geoJsons,
-      geoJson,
+      rdGeoJsons,
       getLeafletInstance,
       layers,
       markers,
@@ -117,7 +116,7 @@ class LeafletContainer extends React.Component {
         center={center}
         clusterMarkers={clusterMarkers}
         geoJsons={geoJsons}
-        geoJson={geoJson}
+        rdGeoJsons={rdGeoJsons}
         layers={layers}
         mapOptions={mapOptions}
         markers={markers}
@@ -144,7 +143,7 @@ LeafletContainer.defaultProps = {
   center: [],
   clusterMarkers: [],
   geoJsons: [],
-  geoJson: {},
+  rdGeoJsons: [],
   layers: [],
   markers: []
 };
@@ -158,7 +157,7 @@ LeafletContainer.propTypes = {
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
   drawingMode: PropTypes.string.isRequired,
   geoJsons: PropTypes.arrayOf(PropTypes.shape({})),
-  geoJson: PropTypes.shape({}),
+  rdGeoJsons: PropTypes.arrayOf(PropTypes.shape({})),
   getLeafletInstance: PropTypes.func.isRequired,
   markers: PropTypes.arrayOf(PropTypes.shape({})),
   layers: PropTypes.arrayOf(PropTypes.shape({

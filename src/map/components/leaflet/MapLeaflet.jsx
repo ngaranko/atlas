@@ -126,7 +126,7 @@ class MapLeaflet extends React.Component {
       clusterMarkers,
       baseLayer,
       geoJsons,
-      geoJson,
+      rdGeoJsons,
       layers,
       mapOptions,
       markers,
@@ -195,7 +195,7 @@ class MapLeaflet extends React.Component {
             )
           }
           {
-            markers.map((marker) => (
+            markers.map((marker) => marker.position && (
               <CustomMarker
                 ref={this.setActiveElement}
                 position={marker.position}
@@ -207,7 +207,7 @@ class MapLeaflet extends React.Component {
             ))
           }
           {
-            geoJsons.map((shape) => (
+            geoJsons.map((shape) => shape.geoJson && (
               <GeoJSON
                 data={shape.geoJson}
                 key={shape.id}
@@ -216,13 +216,13 @@ class MapLeaflet extends React.Component {
             ))
           }
           {
-            geoJson.geometry && (
+            rdGeoJsons.map((shape) => shape.geoJson && (
               <RdGeoJson
+                data={shape.geoJson}
+                key={shape.id}
                 ref={this.setActiveElement}
-                key={geoJson.label}
-                data={geoJson}
               />
-            )
+            ))
           }
           <ScaleControl {...scaleControlOptions} />
           {
@@ -244,7 +244,7 @@ MapLeaflet.defaultProps = {
   center: [52.3731081, 4.8932945],
   clusterMarkers: [],
   geoJsons: [],
-  geoJson: {},
+  rdGeoJsons: [],
   layers: [],
   mapOptions: {},
   markers: [],
@@ -266,7 +266,7 @@ MapLeaflet.propTypes = {
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
   geoJsons: PropTypes.arrayOf(PropTypes.shape({})),
-  geoJson: PropTypes.shape({}),
+  rdGeoJsons: PropTypes.arrayOf(PropTypes.shape({})),
   getLeafletInstance: PropTypes.func.isRequired,
   isZoomControlVisible: PropTypes.bool,
   mapOptions: PropTypes.shape({}),

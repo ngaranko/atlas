@@ -1,11 +1,12 @@
 import {
- getMap,
- getActiveBaseLayer,
- getMapZoom,
- getMapOverlays,
- getMarkers,
- getMapCenter,
- getCenter
+  getMap,
+  getActiveBaseLayer,
+  getMapZoom,
+  getMapOverlays,
+  getMarkers,
+  getMapCenter,
+  getCenter,
+  getRdGeoJsons
 } from './map-selectors';
 
 export {
@@ -15,7 +16,8 @@ export {
   getMapOverlays,
   getMarkers,
   getMapCenter,
-  getCenter
+  getCenter,
+  getRdGeoJsons
 };
 
 export const MAP_ADD_PANO_OVERLAY = 'MAP_ADD_PANO_OVERLAY';

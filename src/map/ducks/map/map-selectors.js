@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import { getStraatbeeldMarkers, getStraatbeeldLocation } from '../straatbeeld/straatbeeld';
 import { getDataSelection, getMarkers as getDataSelectionMarkers } from '../data-selection/data-selection';
 import { getSearchMarker } from '../search-results/map-search-results';
+import { getGeoJson } from '../detail/map-detail';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
@@ -23,3 +24,5 @@ export const getCenter = createSelector([getMapCenter, getStraatbeeldLocation],
     straatbeeldLocation || mapCenter
   )
 );
+
+export const getRdGeoJsons = createSelector(getGeoJson, (geoJson) => [geoJson]);
