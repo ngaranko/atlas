@@ -1,0 +1,35 @@
+.nav {
+  position: fixed;
+  right: 0;
+  bottom: 0px;
+  z-index: 999;
+  background-color: #fff;
+
+  &__container {
+    align-items: center;
+    display: flex;
+    height: 60px;
+    justify-content: flex-end;
+    margin: auto;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  &__link {
+    margin-left: 15px;
+  }
+}
+
+.page {
+  height: 100%;
+  position: relative;
+}
+
+#root {
+  height: 100%;
+}
+
+.page-container {
+  height: calc(100% - 60px);
+  position: relative;
+}
