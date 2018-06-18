@@ -17,10 +17,11 @@
             controllerAs: 'vm'
         });
 
-    DpLinkController.$inject = ['$scope', 'store', 'ACTIONS', 'applicationState'];
+    DpLinkController.$inject = ['$scope', 'store', 'ACTIONS', 'applicationState', '$location'];
 
-    function DpLinkController ($scope, store, ACTIONS, applicationState) {
+    function DpLinkController ($scope, store, ACTIONS, applicationState, $location) {
         const vm = this;
+        vm.activeUrl = $location.url();
 
         const BUTTON = 'button',
             LINK = 'a';
@@ -35,6 +36,14 @@
         vm.dispatch = function () {
             store.dispatch(getAction(vm.type, vm.payload));
         };
+
+        applicationState.getStore().subscribe(() => {
+            const currentUrl = $location.url();
+            if (currentUrl !== vm.activeUrl) {
+                vm.href = getHref(vm.type, vm.payload);
+                vm.activeUrl = currentUrl;
+            }
+        });
 
         function getAction (type, payload) {
             const action = {
