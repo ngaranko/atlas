@@ -139,13 +139,19 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
           }
           clusterMarkers={Array []}
           drawingMode="none"
-          geoJson={Object {}}
+          geoJsons={Array []}
           getLeafletInstance={[Function]}
           layers={Array []}
           markers={Array []}
+          onUpdateBoundingBox={[Function]}
           onUpdateClick={[Function]}
           onUpdatePan={[Function]}
           onUpdateZoom={[Function]}
+          rdGeoJsons={
+            Array [
+              Object {},
+            ]
+          }
           zoom={11}
         >
           <MapLeaflet
@@ -182,7 +188,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               ]
             }
             clusterMarkers={Array []}
-            geoJson={Object {}}
+            geoJsons={Array []}
             getLeafletInstance={[Function]}
             isZoomControlVisible={true}
             layers={Array []}
@@ -355,8 +361,13 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
             onClick={[Function]}
             onDoubleClick={[Function]}
             onDragEnd={[Function]}
-            onMoveEnd={[Function]}
+            onResizeEnd={[Function]}
             onZoomEnd={[Function]}
+            rdGeoJsons={
+              Array [
+                Object {},
+              ]
+            }
             scaleControlOptions={
               Object {
                 "imperial": false,
@@ -587,7 +598,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   onClick={[Function]}
                   onDragEnd={[Function]}
                   onDraw={undefined}
-                  onMoveEnd={[Function]}
                   onZoomEnd={[Function]}
                   zoom={11}
                   zoomControl={false}
@@ -1217,10 +1227,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 },
               ],
               "moveend": Array [
-                Object {
-                  "ctx": undefined,
-                  "fn": [Function],
-                },
                 Object {
                   "ctx": undefined,
                   "fn": [Function],
@@ -3418,7 +3424,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               "onClick": [Function],
               "onDragEnd": [Function],
               "onDraw": undefined,
-              "onMoveEnd": [Function],
               "onZoomEnd": [Function],
               "zoom": 11,
               "zoomControl": false,
@@ -4125,10 +4130,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   },
                 ],
                 "moveend": Array [
-                  Object {
-                    "ctx": undefined,
-                    "fn": [Function],
-                  },
                   Object {
                     "ctx": undefined,
                     "fn": [Function],
@@ -6326,7 +6327,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 "onClick": [Function],
                 "onDragEnd": [Function],
                 "onDraw": undefined,
-                "onMoveEnd": [Function],
                 "onZoomEnd": [Function],
                 "zoom": 11,
                 "zoomControl": false,
@@ -7064,10 +7064,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     },
                   ],
                   "moveend": Array [
-                    Object {
-                      "ctx": undefined,
-                      "fn": [Function],
-                    },
                     Object {
                       "ctx": undefined,
                       "fn": [Function],
@@ -9265,7 +9261,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   "onClick": [Function],
                   "onDragEnd": [Function],
                   "onDraw": undefined,
-                  "onMoveEnd": [Function],
                   "onZoomEnd": [Function],
                   "zoom": 11,
                   "zoomControl": false,
@@ -10005,10 +10000,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       },
                     ],
                     "moveend": Array [
-                      Object {
-                        "ctx": undefined,
-                        "fn": [Function],
-                      },
                       Object {
                         "ctx": undefined,
                         "fn": [Function],
@@ -12206,7 +12197,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "onClick": [Function],
                     "onDragEnd": [Function],
                     "onDraw": undefined,
-                    "onMoveEnd": [Function],
                     "onZoomEnd": [Function],
                     "zoom": 11,
                     "zoomControl": false,
