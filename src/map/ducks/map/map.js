@@ -1,22 +1,26 @@
 import {
-  getMap,
   getActiveBaseLayer,
-  getMapZoom,
-  getMapOverlays,
-  getMarkers,
-  getMapCenter,
   getCenter,
+  getClusterMarkers,
+  getGeoJsons,
+  getMap,
+  getMapCenter,
+  getMapOverlays,
+  getMapZoom,
+  getMarkers,
   getRdGeoJsons
 } from './map-selectors';
 
 export {
-  getMap,
   getActiveBaseLayer,
-  getMapZoom,
-  getMapOverlays,
-  getMarkers,
-  getMapCenter,
   getCenter,
+  getClusterMarkers,
+  getGeoJsons,
+  getMap,
+  getMapCenter,
+  getMapOverlays,
+  getMapZoom,
+  getMarkers,
   getRdGeoJsons
 };
 

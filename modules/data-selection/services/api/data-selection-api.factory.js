@@ -129,9 +129,8 @@
         }
 
         function getMarkers (dataset, activeFilters, zoomLevel, boundingBox) {
-            const customApi = DATA_SELECTION_CONFIG.datasets[dataset].CUSTOM_API;
-            const apiService = $injector.get(customApi);
             const config = DATA_SELECTION_CONFIG.datasets[dataset];
+            const apiService = $injector.get(config.CUSTOM_API);
             const filteredFilters = filterUnavailableFilters(dataset, activeFilters);
 
             return apiService.getMarkers(config, filteredFilters, zoomLevel, boundingBox);

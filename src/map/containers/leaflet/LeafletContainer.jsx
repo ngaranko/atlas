@@ -5,11 +5,19 @@ import { bindActionCreators } from 'redux';
 
 import MapLeaflet from '../../components/leaflet/MapLeaflet';
 import MAP_CONFIG from '../../services/map-config';
-import { updateZoom, updatePan, updateBoundingBox, getMarkers, getCenter, getRdGeoJsons } from '../../ducks/map/map';
+import {
+  getCenter,
+  getClusterMarkers,
+  getGeoJsons,
+  getMarkers,
+  getRdGeoJsons,
+  updateBoundingBox,
+  updatePan,
+  updateZoom
+} from '../../ducks/map/map';
 import { updateClick } from '../../ducks/click-location/map-click-location';
 import { fetchMapBaseLayers, getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { fetchMapLayers, getLayers } from '../../ducks/layers/map-layers';
-import { getClusterMarkers, getGeoJsons } from '../../ducks/data-selection/data-selection';
 import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
 
