@@ -11,7 +11,7 @@ import { getMapClickLocation } from '../../../../src/map/ducks/click-location/ma
                 endpoint: '@',
                 reload: '=',
                 isLoading: '=',
-                isMapHighlight: '=',
+                skippedSearchResults: '=',
                 catalogFilters: '=',
                 user: '<'
             },
@@ -83,7 +83,7 @@ import { getMapClickLocation } from '../../../../src/map/ducks/click-location/ma
 
             const location = getMapClickLocation(store.getState());
 
-            vm.geosearchButton = vm.isMapHighlight ? false : [location.latitude, location.longitude];
+            vm.geosearchButton = vm.skippedSearchResults ? [location.latitude, location.longitude] : false;
 
             const [category, subject] = endpointParser.getParts(endpoint);
 
@@ -126,7 +126,7 @@ import { getMapClickLocation } from '../../../../src/map/ducks/click-location/ma
                             vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
                         }
 
-                        if (vm.isMapHighlight) {
+                        if (!vm.skippedSearchResults) {
                             store.dispatch({
                                 type: ACTIONS.DETAIL_FULLSCREEN,
                                 payload: subject === 'api' || !geoJSON

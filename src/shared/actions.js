@@ -2,8 +2,7 @@ import {
   MAP_ZOOM,
   MAP_PAN,
   MAP_ADD_PANO_OVERLAY,
-  MAP_REMOVE_PANO_OVERLAY,
-  MAP_HIGHLIGHT
+  MAP_REMOVE_PANO_OVERLAY
 } from '../map/ducks/map/map';
 //
 // ACTIONS are identified by their id
@@ -73,10 +72,6 @@ export default {
   MAP_ZOOM: {
     id: MAP_ZOOM,
     replace: true
-  },
-  MAP_HIGHLIGHT: {
-    id: MAP_HIGHLIGHT,
-    ignore: true
   },
   MAP_START_DRAWING: {
     id: 'MAP_START_DRAWING',

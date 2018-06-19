@@ -40,10 +40,6 @@ describe('fetchNearestDetails', () => {
         }
       })
       .put({
-        type: ACTIONS.MAP_HIGHLIGHT,
-        payload: false
-      })
-      .put({
         type: ACTIONS.FETCH_DETAIL,
         payload: 'uri',
         skippedSearchResults: true

@@ -9,10 +9,10 @@ describe('embed selectors', () => {
       isEmbed: true
     }
   };
-  global.location.hash = '#?atep=T&mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home';
+  global.location.hash = '#?atep=T&ate=T&mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home';
 
   describe('getEmbedLink', () => {
-    it('should return a generated string url without embed param', () => {
+    it('should return a generated string url without embed params "atep / ate"', () => {
       const selected = getEmbedLink.resultFunc(mockParameters.ui, mockParameters);
       expect(selected).toEqual(`${SHARED_CONFIG.ROOT}#?mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081%3A4.8932945&pgn=home`);
     });

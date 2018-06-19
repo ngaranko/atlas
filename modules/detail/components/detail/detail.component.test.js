@@ -196,15 +196,12 @@ describe('the dp-detail component', () => {
 
         spyOn(store, 'dispatch');
         spyOn(store, 'getState').and.returnValue({
-            mapClickLocation: { latitude: 52.654, longitude: 4.987 },
-            map: {
-                highlight: true
-            }
+            mapClickLocation: { latitude: 52.654, longitude: 4.987 }
         });
         spyOn(api, 'getByUrl').and.callThrough();
     });
 
-    function getComponent (endpoint, isLoading, isMapHighlight = true, show = true, catalogFilters = undefined) {
+    function getComponent (endpoint, isLoading, skippedSearchResults = false, show = true, catalogFilters = undefined) {
         var component,
             element,
             scope;
@@ -215,7 +212,7 @@ describe('the dp-detail component', () => {
         element.setAttribute('is-loading', 'isLoading');
         element.setAttribute('reload', 'reload');
         element.setAttribute('user', 'user');
-        element.setAttribute('is-map-highlight', 'isMapHighlight');
+        element.setAttribute('skipped-search-results', 'skippedSearchResults');
         element.setAttribute('catalog-filters', 'catalogFilters');
 
         scope = $rootScope.$new();
@@ -224,7 +221,7 @@ describe('the dp-detail component', () => {
         scope.isLoading = isLoading;
         scope.reload = false;
         scope.user = mockedUser;
-        scope.isMapHighlight = isMapHighlight;
+        scope.skippedSearchResults = skippedSearchResults;
         scope.catalogFilters = catalogFilters;
 
         component = $compile(element)(scope);
@@ -328,8 +325,8 @@ describe('the dp-detail component', () => {
         });
     });
 
-    it('triggers the SHOW_DETAIL and not DETAIL_FULLSCREEN action when highlight is off', () => {
-        getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, false);
+    it('triggers the SHOW_DETAIL and not DETAIL_FULLSCREEN action when skippedSearchResults is true', () => {
+        getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, true);
 
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
@@ -614,8 +611,8 @@ describe('the dp-detail component', () => {
             expect(scope.vm.geosearchButton).toBe(false);
         });
 
-        it('is shown when highlight is false', () => {
-            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, false);
+        it('is shown when skippedSearchResults is true', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, true);
 
             const scope = component.isolateScope();
             expect(scope.vm.geosearchButton).toEqual([52.654, 4.987]);

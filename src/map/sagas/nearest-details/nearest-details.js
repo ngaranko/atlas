@@ -14,10 +14,6 @@ export function* fetchNearestDetails(action) {
     const uri = yield call(fetchNearestDetail, location, layers, zoom);
     if (uri) {
       yield put({
-        type: ACTIONS.MAP_HIGHLIGHT,
-        payload: false
-      });
-      yield put({
         type: ACTIONS.FETCH_DETAIL,
         payload: uri,
         skippedSearchResults: true
