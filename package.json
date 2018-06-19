@@ -139,6 +139,7 @@
     "lodash.defer": "^4.1.0",
     "lodash.get": "^4.4.2",
     "lodash.has": "^4.5.2",
+    "lodash.identity": "^3.0.0",
     "lodash.isequal": "^4.5.0",
     "marked": "^0.3.6",
     "marzipano": "https://github.com/Amsterdam/marzipano.git#master",
