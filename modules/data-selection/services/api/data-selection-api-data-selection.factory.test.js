@@ -4,6 +4,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
         dataSelectionApiDataSelection,
         api,
         mockedApiResponse,
+        mockedApiMarkersResponse,
         config;
 
     beforeEach(function () {
@@ -11,10 +12,17 @@ describe('The dataSelectionApiDataSelection factory', function () {
             'dpDataSelection',
             {
                 api: {
-                    getByUri: function () {
+                    getByUri: function (uri) {
                         const q = $q.defer();
 
-                        q.resolve(mockedApiResponse);
+                        switch (uri) {
+                            case 'zwembaden/markers/':
+                                q.resolve(mockedApiMarkersResponse);
+                                break;
+                            default:
+                                q.resolve(mockedApiResponse);
+                                break;
+                        }
 
                         return q.promise;
                     }
@@ -35,6 +43,7 @@ describe('The dataSelectionApiDataSelection factory', function () {
         config = {
             MAX_AVAILABLE_PAGES: 100,
             ENDPOINT_PREVIEW: 'zwembaden/',
+            ENDPOINT_MARKERS: 'zwembaden/markers/',
             ENDPOINT_DETAIL: 'api_endpoint/zwembaden/',
             PRIMARY_KEY: 'id',
             FILTERS: [
@@ -312,6 +321,64 @@ describe('The dataSelectionApiDataSelection factory', function () {
             dataset: 'mac',
             kvk_nummer: '34392003',
             id: '4'
+        });
+    });
+
+    describe('the getMarkers function', function () {
+        beforeEach(function () {
+            mockedApiMarkersResponse = {
+                object_list: [
+                    {
+                        _source: {
+                            centroid: [4.1, 52.1]
+                        }
+                    }, {
+                        _source: {
+                            centroid: [4.2, 52.2]
+                        }
+                    }, {
+                        _source: {
+                            centroid: [4.3, 52.3]
+                        }
+                    }
+                ]
+            };
+        });
+
+        it('calls the api factory with the active filters as searchParams', function () {
+            // Without filters
+            dataSelectionApiDataSelection.getMarkers(config, {});
+            $rootScope.$apply();
+
+            expect(api.getByUri).toHaveBeenCalledWith('zwembaden/markers/', {});
+
+            // With filters
+            api.getByUri.calls.reset();
+            dataSelectionApiDataSelection.getMarkers(config, { water: 'Verwarmd' });
+
+            expect(api.getByUri).toHaveBeenCalledWith(
+                'zwembaden/markers/',
+                {
+                    water: 'Verwarmd'
+                }
+            );
+        });
+
+        it('returns an array of locations [lat, lon]', function () {
+            let output = {};
+
+            dataSelectionApiDataSelection.getMarkers(config, {}).then(function (_output_) {
+                output = _output_;
+            });
+            $rootScope.$apply();
+
+            expect(output).toEqual({
+                clusterMarkers: [
+                    [52.1, 4.1],
+                    [52.2, 4.2],
+                    [52.3, 4.3]
+                ]
+            });
         });
     });
 });

@@ -8,23 +8,21 @@ describe('The dataSelectionApi factory', function () {
         TabHeader;
 
     const mockedApiService = {
-            query: function () {
-                const q = $q.defer();
+        query: function () {
+            const q = $q.defer();
 
-                q.resolve(mockedApiPreviewResponse);
+            q.resolve(mockedApiPreviewResponse);
 
-                return q.promise;
-            }
+            return q.promise;
         },
-        api = {
-            getByUri: function (url) {
-                const q = $q.defer();
+        getMarkers: () => {
+            const q = $q.defer();
 
-                q.resolve(mockedApiMarkersResponse);
+            q.resolve(mockedApiMarkersResponse);
 
-                return q.promise;
-            }
-        };
+            return q.promise;
+        }
+    };
 
     beforeEach(function () {
         mockedConfig = {
@@ -81,10 +79,7 @@ describe('The dataSelectionApi factory', function () {
 
         angular.mock.module(
             'dpDataSelection',
-            {
-                api,
-                mockedApiService
-            },
+            { mockedApiService },
             function ($provide) {
                 $provide.constant('DATA_SELECTION_CONFIG', mockedConfig);
             }
@@ -98,7 +93,7 @@ describe('The dataSelectionApi factory', function () {
         });
 
         spyOn(mockedApiService, 'query').and.callThrough();
-        spyOn(api, 'getByUri').and.callThrough();
+        spyOn(mockedApiService, 'getMarkers').and.callThrough();
     });
 
     describe('query function', function () {
@@ -522,40 +517,45 @@ describe('The dataSelectionApi factory', function () {
     describe('the getMarkers function', function () {
         beforeEach(function () {
             mockedApiMarkersResponse = {
-                object_list: [
-                    {
-                        _source: {
-                            centroid: [4.1, 52.1]
-                        }
-                    }, {
-                        _source: {
-                            centroid: [4.2, 52.2]
-                        }
-                    }, {
-                        _source: {
-                            centroid: [4.3, 52.3]
-                        }
-                    }
+                clusterMarkers: [
+                    [52.1, 4.1],
+                    [52.2, 4.2],
+                    [52.3, 4.3]
                 ]
             };
         });
 
         it('calls the api factory with the active filters as searchParams', function () {
             // Without filters
-            dataSelectionApi.getMarkers('zwembaden', {});
+            dataSelectionApi.getMarkers(
+                'zwembaden',
+                {},
+                11,
+                { bounding: 'box' }
+            );
             $rootScope.$apply();
 
-            expect(api.getByUri).toHaveBeenCalledWith('zwembaden/markers/', {});
+            expect(mockedApiService.getMarkers).toHaveBeenCalledWith(
+                mockedConfig.datasets.zwembaden,
+                {},
+                11,
+                { bounding: 'box' }
+            );
 
             // With filters
-            api.getByUri.calls.reset();
-            dataSelectionApi.getMarkers('zwembaden', { water: 'Verwarmd' });
+            mockedApiService.getMarkers.calls.reset();
+            dataSelectionApi.getMarkers(
+                'zwembaden',
+                { water: 'Verwarmd' },
+                11,
+                { bounding: 'box' }
+            );
 
-            expect(api.getByUri).toHaveBeenCalledWith(
-                'zwembaden/markers/',
-                {
-                    water: 'Verwarmd'
-                }
+            expect(mockedApiService.getMarkers).toHaveBeenCalledWith(
+                mockedConfig.datasets.zwembaden,
+                { water: 'Verwarmd' },
+                11,
+                { bounding: 'box' }
             );
         });
 
@@ -567,11 +567,13 @@ describe('The dataSelectionApi factory', function () {
             });
             $rootScope.$apply();
 
-            expect(output).toEqual([
-                [52.1, 4.1],
-                [52.2, 4.2],
-                [52.3, 4.3]
-            ]);
+            expect(output).toEqual({
+                clusterMarkers: [
+                    [52.1, 4.1],
+                    [52.2, 4.2],
+                    [52.3, 4.3]
+                ]
+            });
         });
     });
 
@@ -608,17 +610,21 @@ describe('The dataSelectionApi factory', function () {
             dataSelectionApi.getMarkers(
                 'zwembaden',
                 {
-                    water: 'Verwarmd',
-                    fake_filter: 'woohoo'
-                }
+                    water: 'Verwarmd'
+                    // Note that fake_filter is missing here
+                },
+                11,
+                { bounding: 'box' }
             );
 
-            expect(api.getByUri).toHaveBeenCalledWith(
-                'zwembaden/markers/',
+            expect(mockedApiService.getMarkers).toHaveBeenCalledWith(
+                mockedConfig.datasets.zwembaden,
                 {
                     water: 'Verwarmd'
-                    // Not that fake_filter isn't part of the api call
-                }
+                    // Note that fake_filter isn't part of the api call
+                },
+                11,
+                { bounding: 'box' }
             );
         });
     });
