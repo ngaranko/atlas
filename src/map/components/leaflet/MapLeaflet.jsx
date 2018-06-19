@@ -170,7 +170,7 @@ class MapLeaflet extends React.Component {
             ))
           }
           {
-            clusterMarkers.length && (
+            Boolean(clusterMarkers.length) && (
               <ClusterGroup
                 showCoverageOnHover={false}
                 iconCreateFunction={createClusterIcon}
@@ -187,7 +187,7 @@ class MapLeaflet extends React.Component {
                     <Marker
                       position={marker.position}
                       key={marker.index}
-                      icon={icons[marker.type]}
+                      icon={icons[marker.type]()}
                     />
                   ))
                 }
@@ -195,7 +195,7 @@ class MapLeaflet extends React.Component {
             )
           }
           {
-            markers.map((marker) => marker.position && (
+            markers.map((marker) => Boolean(marker.position) && (
               <CustomMarker
                 ref={this.setActiveElement}
                 position={marker.position}
@@ -207,7 +207,7 @@ class MapLeaflet extends React.Component {
             ))
           }
           {
-            geoJsons.map((shape) => shape.geoJson && (
+            geoJsons.map((shape) => Boolean(shape.geoJson) && (
               <GeoJSON
                 data={shape.geoJson}
                 key={shape.id}
@@ -216,7 +216,7 @@ class MapLeaflet extends React.Component {
             ))
           }
           {
-            rdGeoJsons.map((shape) => shape.geoJson && (
+            rdGeoJsons.map((shape) => Boolean(shape.geoJson) && (
               <RdGeoJson
                 data={shape.geoJson}
                 key={shape.id}
