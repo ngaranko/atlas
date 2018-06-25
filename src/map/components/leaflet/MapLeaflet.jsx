@@ -83,10 +83,10 @@ class MapLeaflet extends React.Component {
   }
 
   handleResize() {
+    this.MapElement.invalidateSize();
     this.props.onResizeEnd({
       boundingBox: convertBounds(this.MapElement.getBounds())
     });
-    this.MapElement.invalidateSize();
     if (this.activeElement) {
       this.fitActiveElement(getBounds(this.activeElement));
     }

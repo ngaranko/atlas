@@ -55,7 +55,7 @@ describe('The state url conversion definition', function () {
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
-                    shapeAreaTxt: ''
+                    shapeAreaTxt: '',
                 },
                 ui: {
                     isEmbed: false,
@@ -151,7 +151,8 @@ describe('The state url conversion definition', function () {
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
                     shapeAreaTxt: '',
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW,
+                    boundingBox: {}
                 };
                 let newState = {};
 
@@ -160,7 +161,8 @@ describe('The state url conversion definition', function () {
                     isLoading: true,
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
-                    shapeAreaTxt: ''
+                    shapeAreaTxt: '',
+                    boundingBox: {}
                 });
 
                 // only drawingMode
@@ -174,7 +176,8 @@ describe('The state url conversion definition', function () {
                     isLoading: undefined,
                     shapeMarkers: undefined,
                     shapeDistanceTxt: undefined,
-                    shapeAreaTxt: undefined
+                    shapeAreaTxt: undefined,
+                    boundingBox: undefined
                 });
 
                 // only isLoading
@@ -188,7 +191,8 @@ describe('The state url conversion definition', function () {
                     isLoading: true,
                     shapeMarkers: undefined,
                     shapeDistanceTxt: undefined,
-                    shapeAreaTxt: undefined
+                    shapeAreaTxt: undefined,
+                    boundingBox: undefined
                 });
 
                 // no map state at all

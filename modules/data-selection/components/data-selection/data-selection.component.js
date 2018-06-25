@@ -7,6 +7,7 @@
             templateUrl: 'modules/data-selection/components/data-selection/data-selection.html',
             bindings: {
                 boundingBox: '<',
+                catalogFilters: '<',
                 filters: '<',
                 state: '<',
                 user: '<',
@@ -44,21 +45,19 @@
             userSettings.showCatalogusIntroduction.value = vm.showCatalogusIntroduction.toString();
         });
 
-        $scope.$watch(function () {
+        $scope.$watchGroup([
             // Watching all state variables except markers and isLoading
-            return [
-                store.getState().catalogFilters,
-                vm.boundingBox,
-                vm.filters,
-                vm.state.dataset,
-                vm.state.geometryFilter,
-                vm.state.page,
-                vm.state.query,
-                vm.state.view,
-                vm.user.scopes,
-                vm.zoomLevel
-            ];
-        }, fetchData, true);
+            'vm.boundingBox',
+            'vm.catalogFilters',
+            'vm.filters',
+            'vm.state.dataset',
+            'vm.state.geometryFilter',
+            'vm.state.page',
+            'vm.state.query',
+            'vm.state.view',
+            'vm.user.scopes',
+            'vm.zoomLevel'
+        ], fetchData);
 
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('datasets');
@@ -73,7 +72,6 @@
 
         function fetchData () {
             const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
-            const catalogFilters = store.getState().catalogFilters;
             const isListView = vm.state.view === 'LIST';
             vm.view = vm.state.view;
 
@@ -109,7 +107,7 @@
                     vm.currentPage,
                     vm.state.query,
                     vm.state.geometryFilter.markers,
-                    catalogFilters
+                    vm.catalogFilters
                 ).then(data => {
                     vm.availableFilters = data.filters;
                     vm.data = data.data;

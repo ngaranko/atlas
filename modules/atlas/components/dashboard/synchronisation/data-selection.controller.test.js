@@ -3,6 +3,7 @@ describe('The DataSelectionController', function () {
         $rootScope,
         store,
         mockedState = {
+            catalogFilters: ['catalog', 'filters'],
             dataSelection: {
                 mocked: 'things',
                 some: 'setting'
@@ -98,5 +99,13 @@ describe('The DataSelectionController', function () {
         expect(controller.boundingBox).toEqual({
             bounding: 'box'
         });
+    });
+
+    it('sets the catalog filters based on the state', function () {
+        var controller;
+
+        controller = getController();
+
+        expect(controller.catalogFilters).toEqual(['catalog', 'filters']);
     });
 });

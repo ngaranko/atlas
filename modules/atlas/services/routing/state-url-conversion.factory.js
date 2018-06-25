@@ -107,6 +107,7 @@
                     if (angular.isObject(oldState)) {
                         // Do not keep the state of the drawing mode
 
+                        newState.boundingBox = oldState.boundingBox;
                         newState.isLoading = oldState.isLoading;
                         newState.shapeMarkers = oldState.shapeMarkers;
                         newState.shapeDistanceTxt = oldState.shapeDistanceTxt;
