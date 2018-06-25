@@ -342,7 +342,66 @@ describe('MapLeaflet component', () => {
       {
         position: [52.37282671970952, 4.883399484657263],
         type: 'dataSelectionType',
-        iconData: 15
+        iconData: {
+          zoomLevel: 0,
+          count: 1
+        }
+      },
+      {
+        position: [52.37282671970952, 4.883399484657263],
+        type: 'dataSelectionType',
+        iconData: {
+          zoomLevel: 9,
+          count: 9
+        }
+      },
+      {
+        position: [52.37282671970952, 4.883399484657263],
+        type: 'dataSelectionType',
+        iconData: {
+          zoomLevel: 13,
+          count: 99
+        }
+      },
+      {
+        position: [52.37282671970952, 4.883399484657263],
+        type: 'dataSelectionType',
+        iconData: {
+          zoomLevel: 14,
+          count: 9999
+        }
+      },
+      {
+        position: [52.37282671970952, 4.883399484657263],
+        type: 'dataSelectionType',
+        iconData: {
+          zoomLevel: 15,
+          count: 100
+        }
+      },
+      {
+        position: [52.37282671970952, 4.883399484657263],
+        type: 'dataSelectionType',
+        iconData: {
+          zoomLevel: 16,
+          count: 10
+        }
+      },
+      {
+        position: [52.37282671970952, 4.883399484657263],
+        type: 'dataSelectionType',
+        iconData: {
+          zoomLevel: 19,
+          count: 2
+        }
+      },
+      {
+        position: [52.37282671970952, 4.883399484657263],
+        type: 'dataSelectionType',
+        iconData: {
+          zoomLevel: 99,
+          count: 1
+        }
       },
       {
         position: [52.37282671971952, 4.883399484657263],

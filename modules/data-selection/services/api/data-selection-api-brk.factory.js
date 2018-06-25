@@ -51,7 +51,10 @@ import generateId from '../../../../src/shared/services/state-token-generator';
                         }
                     ].filter(identity),
                     markers: data.appartementen.map((appartement) => ({
-                        iconData: appartement.aantal,
+                        iconData: {
+                            zoomLevel,
+                            count: appartement.aantal
+                        },
                         position: [
                             appartement.geometrie.coordinates[1],
                             appartement.geometrie.coordinates[0]

@@ -3833,22 +3833,290 @@ exports[`MapLeaflet component should render markers 1`] = `
         NewClass {
           "_initHooksCalled": true,
           "options": Object {
-            "className": "o-highlight-cluster",
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-out
+      data-selection-cluster--zoomed-out-point
+    ",
             "html": "
-    <div
-      aria-label=\\"Cluster met 15 appartementen\\"
-      class=\\"o-highlight-cluster__text\\"
-    >
-      15
-    </div>
-  ",
+      <div
+        aria-label=\\"Cluster met 1 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >1</div>
+    ",
             "iconAnchor": Array [
-              19,
-              19,
+              7,
+              7,
             ],
             "iconSize": Array [
-              39,
-              39,
+              15,
+              15,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-out
+      data-selection-cluster--zoomed-out-1
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 9 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >9</div>
+    ",
+            "iconAnchor": Array [
+              7,
+              7,
+            ],
+            "iconSize": Array [
+              15,
+              15,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-out
+      data-selection-cluster--zoomed-out-10
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 99 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >99</div>
+    ",
+            "iconAnchor": Array [
+              9,
+              9,
+            ],
+            "iconSize": Array [
+              18,
+              18,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-out
+      data-selection-cluster--zoomed-out-100
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 9999 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >9999</div>
+    ",
+            "iconAnchor": Array [
+              11,
+              11,
+            ],
+            "iconSize": Array [
+              23,
+              23,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-in
+      data-selection-cluster--zoomed-in-100
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 100 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >100</div>
+    ",
+            "iconAnchor": Array [
+              14,
+              14,
+            ],
+            "iconSize": Array [
+              29,
+              29,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-in
+      data-selection-cluster--zoomed-in-10
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 10 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >10</div>
+    ",
+            "iconAnchor": Array [
+              12,
+              12,
+            ],
+            "iconSize": Array [
+              24,
+              24,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-in
+      data-selection-cluster--zoomed-in-1
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 2 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >2</div>
+    ",
+            "iconAnchor": Array [
+              10,
+              10,
+            ],
+            "iconSize": Array [
+              21,
+              21,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-in
+      data-selection-cluster--zoomed-in-point
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 1 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >1</div>
+    ",
+            "iconAnchor": Array [
+              10,
+              10,
+            ],
+            "iconSize": Array [
+              21,
+              21,
             ],
             "popupAnchor": null,
           },
@@ -4227,22 +4495,290 @@ exports[`MapLeaflet component should render markers 2`] = `
         NewClass {
           "_initHooksCalled": true,
           "options": Object {
-            "className": "o-highlight-cluster",
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-out
+      data-selection-cluster--zoomed-out-point
+    ",
             "html": "
-    <div
-      aria-label=\\"Cluster met 15 appartementen\\"
-      class=\\"o-highlight-cluster__text\\"
-    >
-      15
-    </div>
-  ",
+      <div
+        aria-label=\\"Cluster met 1 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >1</div>
+    ",
             "iconAnchor": Array [
-              19,
-              19,
+              7,
+              7,
             ],
             "iconSize": Array [
-              39,
-              39,
+              15,
+              15,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-out
+      data-selection-cluster--zoomed-out-1
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 9 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >9</div>
+    ",
+            "iconAnchor": Array [
+              7,
+              7,
+            ],
+            "iconSize": Array [
+              15,
+              15,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-out
+      data-selection-cluster--zoomed-out-10
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 99 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >99</div>
+    ",
+            "iconAnchor": Array [
+              9,
+              9,
+            ],
+            "iconSize": Array [
+              18,
+              18,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-out
+      data-selection-cluster--zoomed-out-100
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 9999 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >9999</div>
+    ",
+            "iconAnchor": Array [
+              11,
+              11,
+            ],
+            "iconSize": Array [
+              23,
+              23,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-in
+      data-selection-cluster--zoomed-in-100
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 100 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >100</div>
+    ",
+            "iconAnchor": Array [
+              14,
+              14,
+            ],
+            "iconSize": Array [
+              29,
+              29,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-in
+      data-selection-cluster--zoomed-in-10
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 10 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >10</div>
+    ",
+            "iconAnchor": Array [
+              12,
+              12,
+            ],
+            "iconSize": Array [
+              24,
+              24,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-in
+      data-selection-cluster--zoomed-in-1
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 2 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >2</div>
+    ",
+            "iconAnchor": Array [
+              10,
+              10,
+            ],
+            "iconSize": Array [
+              21,
+              21,
+            ],
+            "popupAnchor": null,
+          },
+        }
+      }
+      key="52.37282671970952,4.883399484657263dataSelectionType"
+      position={
+        Array [
+          52.37282671970952,
+          4.883399484657263,
+        ]
+      }
+      rotationAngle={0}
+      zIndexOffset={100}
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "
+      data-selection-cluster
+      data-selection-cluster--zoomed-in
+      data-selection-cluster--zoomed-in-point
+    ",
+            "html": "
+      <div
+        aria-label=\\"Cluster met 1 appartementen\\"
+        class=\\"data-selection-cluster__text\\"
+      >1</div>
+    ",
+            "iconAnchor": Array [
+              10,
+              10,
+            ],
+            "iconSize": Array [
+              21,
+              21,
             ],
             "popupAnchor": null,
           },
