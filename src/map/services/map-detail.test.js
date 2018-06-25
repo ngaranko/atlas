@@ -17,11 +17,11 @@ describe('The map detail service', () => {
   it('calls the service fot the endpoint type specified', () => {
     adressenLigplaats.mockImplementation(() => 'ligplaats');
     expect(detail('https://acc.api.data.amsterdam.nl/bag/ligplaats/123')).toEqual('ligplaats');
-    expect(adressenLigplaats).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/ligplaats/123');
+    expect(adressenLigplaats).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/bag/ligplaats/123', undefined);
 
     napPeilmerk.mockImplementation(() => 'peilmerk');
     expect(detail('https://acc.api.data.amsterdam.nl/nap/peilmerk/123')).toEqual('peilmerk');
-    expect(napPeilmerk).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/nap/peilmerk/123');
+    expect(napPeilmerk).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/nap/peilmerk/123', undefined);
   });
 
   it('does not call the service when the user does not have the required auth scope', () => {
@@ -34,9 +34,10 @@ describe('The map detail service', () => {
 
   it('calls the service when the user has the required auth scope', () => {
     vestiging.mockImplementation(() => 'vestiging');
-    expect(detail('https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123', {
+    const user = {
       scopes: ['MON/R', 'HR/R']
-    })).toEqual('vestiging');
-    expect(vestiging).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123');
+    };
+    expect(detail('https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123', user)).toEqual('vestiging');
+    expect(vestiging).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123', user);
   });
 });
