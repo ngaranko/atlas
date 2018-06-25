@@ -197,7 +197,7 @@ class MapLeaflet extends React.Component {
           {
             markers.map((marker) => Boolean(marker.position) && (
               <CustomMarker
-                ref={this.setActiveElement}
+                ref={markers.length === 1 && this.setActiveElement}
                 position={marker.position}
                 key={marker.position.toString() + marker.type}
                 icon={icons[marker.type](marker.iconData)}
@@ -220,7 +220,7 @@ class MapLeaflet extends React.Component {
               <RdGeoJson
                 data={shape.geoJson}
                 key={shape.id}
-                ref={this.setActiveElement}
+                ref={rdGeoJsons.length === 1 && this.setActiveElement}
               />
             ))
           }
