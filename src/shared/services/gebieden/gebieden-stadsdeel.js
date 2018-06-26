@@ -27,10 +27,14 @@ const fetchGrexStadsdeel = async (stadsdeelCode) => {
 const fetchByUri = async (uri, user) => {
   const stadsdeel = await fetchStadsdeel(uri);
   if (user && user.scopes.includes('GREX/R')) {
-    const grexStadsdeel = await fetchGrexStadsdeel(stadsdeel.code);
+    const grex = await fetchGrexStadsdeel(stadsdeel.code);
     return {
       ...stadsdeel,
-      grexStadsdeel
+      grex: {
+        totalIncomeLabel: grex.totaal_baten_display,
+        totalExpenseLabel: grex.totaal_kosten_display,
+        totalResultLabel: grex.totaal_resultaat_display
+      }
     };
   }
   return stadsdeel;

@@ -12,21 +12,21 @@ const MapDetailGebiedenStadsdeel = ({ panoUrl, stadsdeel, onMaximize, onPanoPrev
     subTitle={stadsdeel.label}
     title="Stadsdeel"
   >
-    { stadsdeel.grexStadsdeel && (
+    { stadsdeel.grex && (
       <React.Fragment>
         <h4 className="map-detail-result__category-title">Grondexploitatie</h4>
         <ul className="map-detail-result__list">
-          { stadsdeel.grexStadsdeel.totaal_baten_display && <MapDetailResultItem
+          { stadsdeel.grex.totalIncomeLabel && <MapDetailResultItem
             label="Totale begroting baten"
-            value={stadsdeel.grexStadsdeel.totaal_baten_display}
+            value={stadsdeel.grex.totalIncomeLabel}
           /> }
-          { stadsdeel.grexStadsdeel.totaal_kosten_display && <MapDetailResultItem
+          { stadsdeel.grex.totalExpenseLabel && <MapDetailResultItem
             label="Totale begroting kosten"
-            value={stadsdeel.grexStadsdeel.totaal_kosten_display}
+            value={stadsdeel.grex.totalExpenseLabel}
           /> }
-          { stadsdeel.grexStadsdeel.totaal_resultaat_display && <MapDetailResultItem
+          { stadsdeel.grex.totalResultLabel && <MapDetailResultItem
             label="Verschil"
-            value={stadsdeel.grexStadsdeel.totaal_resultaat_display}
+            value={stadsdeel.grex.totalResultLabel}
           /> }
         </ul>
       </React.Fragment>
