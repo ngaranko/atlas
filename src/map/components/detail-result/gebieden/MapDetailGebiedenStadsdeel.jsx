@@ -13,20 +13,23 @@ const MapDetailGebiedenStadsdeel = ({ panoUrl, stadsdeel, onMaximize, onPanoPrev
     title="Stadsdeel"
   >
     { stadsdeel.grexStadsdeel && (
-      <ul className="map-detail-result__list">
-        { stadsdeel.grexStadsdeel.totaal_baten_display && <MapDetailResultItem
-          label="Totale begroting baten"
-          value={stadsdeel.grexStadsdeel.totaal_baten_display}
-        /> }
-        { stadsdeel.grexStadsdeel.totaal_kosten_display && <MapDetailResultItem
-          label="Totale begroting kosten"
-          value={stadsdeel.grexStadsdeel.totaal_kosten_display}
-        /> }
-        { stadsdeel.grexStadsdeel.totaal_resultaat_display && <MapDetailResultItem
-          label="Verschil"
-          value={stadsdeel.grexStadsdeel.totaal_resultaat_display}
-        /> }
-      </ul>
+      <React.Fragment>
+        <h4 className="map-detail-result__category-title">Grondexploitatie</h4>
+        <ul className="map-detail-result__list">
+          { stadsdeel.grexStadsdeel.totaal_baten_display && <MapDetailResultItem
+            label="Totale begroting baten"
+            value={stadsdeel.grexStadsdeel.totaal_baten_display}
+          /> }
+          { stadsdeel.grexStadsdeel.totaal_kosten_display && <MapDetailResultItem
+            label="Totale begroting kosten"
+            value={stadsdeel.grexStadsdeel.totaal_kosten_display}
+          /> }
+          { stadsdeel.grexStadsdeel.totaal_resultaat_display && <MapDetailResultItem
+            label="Verschil"
+            value={stadsdeel.grexStadsdeel.totaal_resultaat_display}
+          /> }
+        </ul>
+      </React.Fragment>
     )
   }
   </MapDetailResultWrapper>
