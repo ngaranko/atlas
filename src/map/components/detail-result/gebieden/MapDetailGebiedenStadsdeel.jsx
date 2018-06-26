@@ -14,7 +14,7 @@ const MapDetailGebiedenStadsdeel = ({ panoUrl, stadsdeel, onMaximize, onPanoPrev
   >
     { stadsdeel.grex && (
       <div>
-        <h4 className="map-detail-result__category-title">Grondexploitatie</h4>
+        <h4 className="map-detail-result__category-title">Grondexploitaties</h4>
         <ul className="map-detail-result__list">
           { stadsdeel.grex.totalIncomeLabel && <MapDetailResultItem
             label="Totale begroting baten"
