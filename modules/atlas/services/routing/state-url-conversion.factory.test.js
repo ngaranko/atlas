@@ -55,7 +55,7 @@ describe('The state url conversion definition', function () {
                     drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
-                    shapeAreaTxt: '',
+                    shapeAreaTxt: ''
                 },
                 ui: {
                     isEmbed: false,
