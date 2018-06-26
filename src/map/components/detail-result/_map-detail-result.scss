@@ -84,6 +84,19 @@ $below-list-height: 1px + $map-preview-panel-bottom;
     }
   }
 
+  &__category-title {
+    color: $primary-dark;
+    font-family: "Avenir LT W01 85 Heavy";
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1;
+    margin-top: 8px;
+    padding: 0 8px;
+    @media screen and (min-width: $breakpoint-md) {
+      padding: 0 12px;
+    }
+  }
+
   &__item {
     align-items: center;
     display: flex;
