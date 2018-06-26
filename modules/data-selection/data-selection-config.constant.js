@@ -139,7 +139,27 @@
                     PRIMARY_KEY: 'kadastraal_object_id',
                     TITLE: 'Kadastrale objecten',
                     SORT_FILTERS: false,
-                    FILTERS: [],
+                    FILTERS: [
+                        {
+                            slug: 'eigenaar_type',
+                            label: 'Type zakelijk gerechtigde'
+                        }, {
+                            slug: 'eigenaar_cat',
+                            label: 'Zakelijk gerechtigde'
+                        }, {
+                            slug: 'stadsdeel_naam',
+                            label: 'Stadsdeel'
+                        }, {
+                            slug: 'ggw_naam',
+                            label: 'GGW-gebied'
+                        }, {
+                            slug: 'buurtcombinatie_naam',
+                            label: 'Wijk'
+                        }, {
+                            slug: 'buurt_naam',
+                            label: 'Buurt'
+                        }
+                    ],
                     CONTENT: {
                         TABLE: [
                             {
