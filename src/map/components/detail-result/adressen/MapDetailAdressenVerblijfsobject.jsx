@@ -30,6 +30,9 @@ const MapDetailAdressenVerblijfsobject = ({
       { statusToCssModifier[verblijfsobject.status.code] && <li>
         <Notification level="alert">Status: {verblijfsobject.status.description}</Notification>
       </li> }
+      { verblijfsobject.isNevenadres && <li>
+        <Notification level="info">Dit is een nevenadres</Notification>
+      </li> }
       { verblijfsobject.gebruiksdoelen && <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
         gebruiksdoelen={verblijfsobject.gebruiksdoelen}
       /> }
