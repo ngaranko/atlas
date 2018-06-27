@@ -5,9 +5,9 @@ import ICON_CONFIG from './icon-config.constant';
 const dataSelectionIcon = ({ zoomLevel, count }) => {
   const zoomed = zoomLevel <= 14 ? 'out' : 'in';
   const size =
-    (Math.floor(count / 100) && 100) ||
-    (Math.floor(count / 10) && 10) ||
-    (count - 1 && 1) ||
+    (Math.floor(count / 100) && '100') ||
+    (Math.floor(count / 10) && '10') ||
+    (count - 1 && '1') ||
     'point';
 
   return new DivIcon({
