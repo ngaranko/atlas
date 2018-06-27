@@ -23,7 +23,7 @@ class MapLeaflet extends React.Component {
     this.handleResize = this.handleResize.bind(this);
     this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this);
     this.state = {
-      previousElementBoundsId: ''
+      previousFitBoundsId: ''
     };
 
     this.setMapElement = (element) => {
@@ -86,7 +86,7 @@ class MapLeaflet extends React.Component {
     const elementBounds = getBounds(element);
     const elementBoundsId = boundsToString(elementBounds);
     // check if the bounds are the same in that case we don't need to update
-    if (elementBoundsId !== this.state.previousElementBoundsId) {
+    if (elementBoundsId !== this.state.previousFitBoundsId) {
       this.fitActiveElement(elementBounds);
     }
   }
@@ -98,7 +98,7 @@ class MapLeaflet extends React.Component {
     const mapBounds = this.MapElement.getBounds();
     const elementFits = mapBounds.contains(bounds);
     if (!elementFits) {
-      this.setState({ previousElementBoundsId: boundsToString(bounds) });
+      this.setState({ previousFitBoundsId: boundsToString(bounds) });
       const elementZoom = this.MapElement.getBoundsZoom(bounds);
       if (elementZoom < this.props.zoom) {
         // pan and zoom to the geoJson element
