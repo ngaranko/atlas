@@ -16,6 +16,10 @@
     background-color: $thema-10;
   }
 
+  &--alert {
+    background-color: $primary-contrast;
+  }
+
   &--message {
     color: $secondary-gray40;
     font-family: "Avenir LT W01 45 Book";

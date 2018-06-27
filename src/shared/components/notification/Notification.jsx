@@ -51,7 +51,7 @@ Notification.propTypes = {
     PropTypes.node
   ]).isRequired,
   className: PropTypes.string,
-  level: PropTypes.oneOf(['error', 'info', 'message'])
+  level: PropTypes.oneOf(['alert', 'info', 'message'])
 };
 
 export default Notification;
