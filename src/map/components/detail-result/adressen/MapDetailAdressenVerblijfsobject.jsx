@@ -7,7 +7,12 @@ import MapDetailResultWrapper from '../MapDetailResultWrapper';
 import MapDetailAdressenVerblijfsobjectGebruiksdoelenItem from './MapDetailAdressenVerblijfsobjectGebruiksdoelenItem';
 
 const statusToCssModifier = {
-  18: 'alert'
+  18: 'alert',
+  19: 'alert',
+  20: '',
+  21: '',
+  22: 'alert',
+  23: 'alert'
 };
 
 const MapDetailAdressenVerblijfsobject = ({
@@ -37,6 +42,11 @@ const MapDetailAdressenVerblijfsobject = ({
         value={verblijfsobject.eigendomsverhouding}
       />
       <MapDetailResultStatusItem
+        label="Indicatie geconstateerd"
+        value={verblijfsobject.indicatieGeconstateerd ? 'Ja' : 'Nee'}
+        status={verblijfsobject.indicatieGeconstateerd ? 'alert' : ''}
+      />
+      <MapDetailResultStatusItem
         label="Indicatie hoofdadres"
         value={verblijfsobject.isNevenadres ? 'Nee' : 'Ja'}
         status={verblijfsobject.isNevenadres ? 'info' : ''}
@@ -46,14 +56,22 @@ const MapDetailAdressenVerblijfsobject = ({
         value={verblijfsobject.status.description}
         status={statusToCssModifier[verblijfsobject.status.code]}
       />
+      <MapDetailResultStatusItem
+        label="Aanduiding in onderzoek"
+        value={verblijfsobject.aanduidingInOnderzoek ? 'Ja' : 'Nee'}
+        status={verblijfsobject.aanduidingInOnderzoek ? 'alert' : ''}
+      />
     </ul>
   </MapDetailResultWrapper>
 );
 
 MapDetailAdressenVerblijfsobject.propTypes = {
   verblijfsobject: PropTypes.shape({
+    aanduidingInOnderzoek: PropTypes.boolean,
     eigendomsverhouding: PropTypes.string,
     gebruiksdoelen: PropTypes.array,
+    indicatieGeconstateerd: PropTypes.boolean,
+    isNevenadres: PropTypes.boolean,
     label: PropTypes.string,
     size: PropTypes.number,
     type: PropTypes.string,

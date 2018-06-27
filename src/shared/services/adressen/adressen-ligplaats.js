@@ -10,6 +10,8 @@ export default function fetchByUri(uri) {
 
       return {
         ...result,
+        aanduidingInOnderzoek: result.aanduiding_in_onderzoek,
+        indicatieGeconstateerd: result.indicatie_geconstateerd,
         label: result._display,
         location: result.location || wgs84Center,
         status: {

@@ -12,10 +12,10 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
-      statements: 24,
-      branches: 35.7,
-      functions: 38.7,
-      lines: 32
+      statements: 40,
+      branches: 43.2,
+      functions: 44.2,
+      lines: 51.6
     }
   },
   coverageReporters: process.env.CI ? [
