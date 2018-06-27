@@ -87,7 +87,7 @@ export default function fetchDetail(endpoint, user) {
   const fetchFn = endpointConfig && endpointConfig.fetch;
   const authScope = endpointConfig && endpointConfig.authScope;
   return fetchFn && (!authScope || user.scopes.includes(authScope)) &&
-    fetchFn(endpoint);
+    fetchFn(endpoint, user);
 }
 
 window.mapPreviewPanelDetailEndpointTypes = endpointTypes;
