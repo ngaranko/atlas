@@ -18,65 +18,70 @@ const statusToCssModifier = {
 
 const MapDetailAdressenVerblijfsobject = ({
   panoUrl, verblijfsobject, onMaximize, onPanoPreviewClick
-}) => (
-  <MapDetailResultWrapper
-    panoUrl={panoUrl}
-    onMaximize={onMaximize}
-    onPanoPreviewClick={onPanoPreviewClick}
-    subTitle={verblijfsobject.label}
-    title="Adres"
-  >
-    <ul className="map-detail-result__list">
-      { statusToCssModifier[verblijfsobject.status.code] && <li>
-        <Notification level="alert">Status: {verblijfsobject.status.description}</Notification>
-      </li> }
-      { verblijfsobject.isNevenadres && <li>
-        <Notification level="info">Dit is een nevenadres</Notification>
-      </li> }
-      { verblijfsobject.indicatieGeconstateerd && <li>
-        <Notification level="alert">Geconstateerd</Notification>
-      </li> }
-      { verblijfsobject.aanduidingInOnderzoek && <li>
-        <Notification level="alert">In onderzoek</Notification>
-      </li> }
-      { verblijfsobject.gebruiksdoelen && <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
-        gebruiksdoelen={verblijfsobject.gebruiksdoelen}
-      /> }
-      <MapDetailResultItem
-        label="Oppervlakte"
-        value={verblijfsobject.size ? `${verblijfsobject.size} m²` : 'onbekend'}
-      />
-      <MapDetailResultItem
-        label="Type woonobject"
-        value={verblijfsobject.type}
-      />
-      <MapDetailResultItem
-        label="Eigendomsverhouding"
-        value={verblijfsobject.eigendomsverhouding}
-      />
-      <MapDetailResultStatusItem
-        label="Indicatie geconstateerd"
-        value={verblijfsobject.indicatieGeconstateerd ? 'Ja' : 'Nee'}
-        status={verblijfsobject.indicatieGeconstateerd ? 'alert' : ''}
-      />
-      <MapDetailResultStatusItem
-        label="Indicatie hoofdadres"
-        value={verblijfsobject.isNevenadres ? 'Nee' : 'Ja'}
-        status={verblijfsobject.isNevenadres ? 'info' : ''}
-      />
-      <MapDetailResultStatusItem
-        label="Status"
-        value={verblijfsobject.status.description}
-        status={statusToCssModifier[verblijfsobject.status.code]}
-      />
-      <MapDetailResultStatusItem
-        label="Aanduiding in onderzoek"
-        value={verblijfsobject.aanduidingInOnderzoek ? 'Ja' : 'Nee'}
-        status={verblijfsobject.aanduidingInOnderzoek ? 'alert' : ''}
-      />
-    </ul>
-  </MapDetailResultWrapper>
-);
+}) => {
+  const statusLevel = statusToCssModifier[verblijfsobject.status.code];
+  return (
+    <MapDetailResultWrapper
+      panoUrl={panoUrl}
+      onMaximize={onMaximize}
+      onPanoPreviewClick={onPanoPreviewClick}
+      subTitle={verblijfsobject.label}
+      title="Adres"
+    >
+      <ul className="map-detail-result__list">
+        { statusLevel && <li>
+          <Notification
+            level={statusLevel}
+          >Status: {verblijfsobject.status.description}</Notification>
+        </li> }
+        { verblijfsobject.isNevenadres && <li>
+          <Notification level="info">Dit is een nevenadres</Notification>
+        </li> }
+        { verblijfsobject.indicatieGeconstateerd && <li>
+          <Notification level="alert">Geconstateerd</Notification>
+        </li> }
+        { verblijfsobject.aanduidingInOnderzoek && <li>
+          <Notification level="alert">In onderzoek</Notification>
+        </li> }
+        { verblijfsobject.gebruiksdoelen && <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
+          gebruiksdoelen={verblijfsobject.gebruiksdoelen}
+        /> }
+        <MapDetailResultItem
+          label="Oppervlakte"
+          value={verblijfsobject.size ? `${verblijfsobject.size} m²` : 'onbekend'}
+        />
+        <MapDetailResultItem
+          label="Type woonobject"
+          value={verblijfsobject.type}
+        />
+        <MapDetailResultItem
+          label="Eigendomsverhouding"
+          value={verblijfsobject.eigendomsverhouding}
+        />
+        <MapDetailResultStatusItem
+          label="Indicatie geconstateerd"
+          value={verblijfsobject.indicatieGeconstateerd ? 'Ja' : 'Nee'}
+          status={verblijfsobject.indicatieGeconstateerd ? 'alert' : ''}
+        />
+        <MapDetailResultStatusItem
+          label="Indicatie hoofdadres"
+          value={verblijfsobject.isNevenadres ? 'Nee' : 'Ja'}
+          status={verblijfsobject.isNevenadres ? 'info' : ''}
+        />
+        <MapDetailResultStatusItem
+          label="Status"
+          value={verblijfsobject.status.description}
+          status={statusLevel}
+        />
+        <MapDetailResultStatusItem
+          label="Aanduiding in onderzoek"
+          value={verblijfsobject.aanduidingInOnderzoek ? 'Ja' : 'Nee'}
+          status={verblijfsobject.aanduidingInOnderzoek ? 'alert' : ''}
+        />
+      </ul>
+    </MapDetailResultWrapper>
+  );
+};
 
 MapDetailAdressenVerblijfsobject.propTypes = {
   verblijfsobject: PropTypes.shape({
