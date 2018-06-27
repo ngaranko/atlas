@@ -11,14 +11,14 @@ exports[`MapDetailAdressenStandplaats should render \`Nee\` if aanduiding in ond
   <ul
     className="map-detail-result__list"
   >
-    <MapDetailResultItem
-      label="Status"
-      value="description"
-    />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
       status="alert"
       value="Ja"
+    />
+    <MapDetailResultItem
+      label="Status"
+      value="description"
     />
     <MapDetailResultStatusItem
       label="Aanduiding in onderzoek"
@@ -40,14 +40,14 @@ exports[`MapDetailAdressenStandplaats should render \`Nee\` if indicatie geconst
   <ul
     className="map-detail-result__list"
   >
-    <MapDetailResultItem
-      label="Status"
-      value="description"
-    />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
       status=""
       value="Nee"
+    />
+    <MapDetailResultItem
+      label="Status"
+      value="description"
     />
     <MapDetailResultStatusItem
       label="Aanduiding in onderzoek"
@@ -69,14 +69,14 @@ exports[`MapDetailAdressenStandplaats should render everything 1`] = `
   <ul
     className="map-detail-result__list"
   >
-    <MapDetailResultItem
-      label="Status"
-      value="description"
-    />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
       status="alert"
       value="Ja"
+    />
+    <MapDetailResultItem
+      label="Status"
+      value="description"
     />
     <MapDetailResultStatusItem
       label="Aanduiding in onderzoek"

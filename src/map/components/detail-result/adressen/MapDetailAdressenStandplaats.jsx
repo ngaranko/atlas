@@ -19,14 +19,14 @@ const MapDetailAdressenStandplaats = ({
     title="Standplaats"
   >
     <ul className="map-detail-result__list">
-      <MapDetailResultItem
-        label="Status"
-        value={standplaats.status.description}
-      />
       <MapDetailResultStatusItem
         label="Indicatie geconstateerd"
         value={standplaats.indicatieGeconstateerd ? 'Ja' : 'Nee'}
         status={standplaats.indicatieGeconstateerd ? 'alert' : ''}
+      />
+      <MapDetailResultItem
+        label="Status"
+        value={standplaats.status.description}
       />
       <MapDetailResultStatusItem
         label="Aanduiding in onderzoek"

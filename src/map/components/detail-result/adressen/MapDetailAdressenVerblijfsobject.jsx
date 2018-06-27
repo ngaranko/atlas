@@ -42,6 +42,11 @@ const MapDetailAdressenVerblijfsobject = ({
         value={verblijfsobject.eigendomsverhouding}
       />
       <MapDetailResultStatusItem
+        label="Indicatie geconstateerd"
+        value={verblijfsobject.indicatieGeconstateerd ? 'Ja' : 'Nee'}
+        status={verblijfsobject.indicatieGeconstateerd ? 'alert' : ''}
+      />
+      <MapDetailResultStatusItem
         label="Indicatie hoofdadres"
         value={verblijfsobject.isNevenadres ? 'Nee' : 'Ja'}
         status={verblijfsobject.isNevenadres ? 'info' : ''}
@@ -50,11 +55,6 @@ const MapDetailAdressenVerblijfsobject = ({
         label="Status"
         value={verblijfsobject.status.description}
         status={statusToCssModifier[verblijfsobject.status.code]}
-      />
-      <MapDetailResultStatusItem
-        label="Indicatie geconstateerd"
-        value={verblijfsobject.indicatieGeconstateerd ? 'Ja' : 'Nee'}
-        status={verblijfsobject.indicatieGeconstateerd ? 'alert' : ''}
       />
       <MapDetailResultStatusItem
         label="Aanduiding in onderzoek"
