@@ -23,7 +23,7 @@ import generateId from '../../../../src/shared/services/state-token-generator';
             return boundingBox ? api
                 .getByUri(
                     config.ENDPOINT_MARKERS, {
-                        activeFilters,
+                        ...activeFilters,
                         zoom: zoomLevel,
                         bbox: {
                             _northEast: {
