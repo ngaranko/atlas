@@ -36,6 +36,9 @@ const MapDetailAdressenVerblijfsobject = ({
       { verblijfsobject.indicatieGeconstateerd && <li>
         <Notification level="alert">Geconstateerd</Notification>
       </li> }
+      { verblijfsobject.aanduidingInOnderzoek && <li>
+        <Notification level="alert">In onderzoek</Notification>
+      </li> }
       { verblijfsobject.gebruiksdoelen && <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
         gebruiksdoelen={verblijfsobject.gebruiksdoelen}
       /> }
