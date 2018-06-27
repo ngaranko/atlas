@@ -5,6 +5,7 @@ import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultStatusItem from '../MapDetailResultStatusItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 import MapDetailAdressenVerblijfsobjectGebruiksdoelenItem from './MapDetailAdressenVerblijfsobjectGebruiksdoelenItem';
+import Notification from '../../../../shared/components/notification/Notification';
 
 const statusToCssModifier = {
   18: 'alert',
@@ -26,6 +27,9 @@ const MapDetailAdressenVerblijfsobject = ({
     title="Adres"
   >
     <ul className="map-detail-result__list">
+      { statusToCssModifier[verblijfsobject.status.code] && <li>
+        <Notification level="alert">Status: {verblijfsobject.status.description}</Notification>
+      </li> }
       { verblijfsobject.gebruiksdoelen && <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
         gebruiksdoelen={verblijfsobject.gebruiksdoelen}
       /> }
