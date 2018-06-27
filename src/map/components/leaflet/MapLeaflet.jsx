@@ -1,24 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResizeAware from 'react-resize-aware';
-import { Map, TileLayer, ZoomControl, ScaleControl, Marker } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, ScaleControl, GeoJSON, Marker } from 'react-leaflet';
 
 import CustomMarker from './custom/marker/CustomMarker';
 import ClusterGroup from './custom/cluster-group/ClusterGroup';
 import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
+import geoJsonConfig from './services/geo-json-config.constant';
 import createClusterIcon from './services/cluster-icon';
 import { boundsToString, getBounds } from './services/bounds';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
+
+const convertBounds = (leafletBounds) => ({
+  northEast: {
+    latitude: leafletBounds._northEast.lat,
+    longitude: leafletBounds._northEast.lng
+  },
+  southWest: {
+    latitude: leafletBounds._southWest.lat,
+    longitude: leafletBounds._southWest.lng
+  }
+});
 
 class MapLeaflet extends React.Component {
   constructor() {
     super();
     this.onZoomEnd = this.onZoomEnd.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.onMoveEnd = this.onMoveEnd.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this);
@@ -46,7 +57,8 @@ class MapLeaflet extends React.Component {
       zoom: event.target.getZoom(),
       maxZoom: event.target.getMaxZoom(),
       minZoom: event.target.getMinZoom(),
-      center: event.target.getCenter()
+      center: event.target.getCenter(),
+      boundingBox: convertBounds(this.MapElement.getBounds())
     });
   }
 
@@ -59,15 +71,10 @@ class MapLeaflet extends React.Component {
     });
   }
 
-  onMoveEnd(event) {
-    this.props.onMoveEnd({
-      center: event.target.getCenter()
-    });
-  }
-
   onDragEnd(event) {
     this.props.onDragEnd({
-      center: event.target.getCenter()
+      center: event.target.getCenter(),
+      boundingBox: convertBounds(this.MapElement.getBounds())
     });
   }
 
@@ -77,6 +84,9 @@ class MapLeaflet extends React.Component {
 
   handleResize() {
     this.MapElement.invalidateSize();
+    this.props.onResizeEnd({
+      boundingBox: convertBounds(this.MapElement.getBounds())
+    });
     if (this.activeElement) {
       this.fitActiveElement(getBounds(this.activeElement));
     }
@@ -115,7 +125,8 @@ class MapLeaflet extends React.Component {
       center,
       clusterMarkers,
       baseLayer,
-      geoJson,
+      geoJsons,
+      rdGeoJsons,
       layers,
       mapOptions,
       markers,
@@ -138,7 +149,6 @@ class MapLeaflet extends React.Component {
           ref={this.setMapElement}
           onZoomEnd={this.onZoomEnd}
           onClick={this.onClick}
-          onMoveEnd={this.onMoveEnd}
           onDragEnd={this.onDragEnd}
           onDraw={this.draw}
           center={center}
@@ -160,7 +170,7 @@ class MapLeaflet extends React.Component {
             ))
           }
           {
-            clusterMarkers.length > 0 && (
+            Boolean(clusterMarkers.length) && (
               <ClusterGroup
                 showCoverageOnHover={false}
                 iconCreateFunction={createClusterIcon}
@@ -177,7 +187,7 @@ class MapLeaflet extends React.Component {
                     <Marker
                       position={marker.position}
                       key={marker.index}
-                      icon={icons[marker.type]}
+                      icon={icons[marker.type]()}
                     />
                   ))
                 }
@@ -185,25 +195,34 @@ class MapLeaflet extends React.Component {
             )
           }
           {
-            markers.map((marker) => (
+            markers.map((marker) => Boolean(marker.position) && (
               <CustomMarker
-                ref={this.setActiveElement}
+                ref={markers.length === 1 && this.setActiveElement}
                 position={marker.position}
                 key={marker.position.toString() + marker.type}
-                icon={icons[marker.type]}
+                icon={icons[marker.type](marker.iconData)}
                 zIndexOffset={100}
                 rotationAngle={marker.heading || 0}
               />
             ))
           }
           {
-            geoJson.geometry && (
-              <RdGeoJson
-                ref={this.setActiveElement}
-                key={geoJson.label}
-                data={geoJson}
+            geoJsons.map((shape) => Boolean(shape.geoJson) && (
+              <GeoJSON
+                data={shape.geoJson}
+                key={shape.id}
+                style={geoJsonConfig[shape.type] && geoJsonConfig[shape.type].style}
               />
-            )
+            ))
+          }
+          {
+            rdGeoJsons.map((shape) => Boolean(shape.geoJson) && (
+              <RdGeoJson
+                data={shape.geoJson}
+                key={shape.id}
+                ref={rdGeoJsons.length === 1 && this.setActiveElement}
+              />
+            ))
           }
           <ScaleControl {...scaleControlOptions} />
           {
@@ -224,7 +243,8 @@ MapLeaflet.defaultProps = {
   },
   center: [52.3731081, 4.8932945],
   clusterMarkers: [],
-  geoJson: {},
+  geoJsons: [],
+  rdGeoJsons: [],
   layers: [],
   mapOptions: {},
   markers: [],
@@ -234,7 +254,7 @@ MapLeaflet.defaultProps = {
   onClick: () => 'click',
   onDoubleClick: () => 'doubleclick',
   onDragEnd: () => 'dragend',
-  onMoveEnd: () => 'moveend',
+  onResizeEnd: () => 'resizeend',
   onZoomEnd: () => 'zoomend'
 };
 
@@ -245,7 +265,8 @@ MapLeaflet.propTypes = {
   }),
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
-  geoJson: PropTypes.shape({}),
+  geoJsons: PropTypes.arrayOf(PropTypes.shape({})),
+  rdGeoJsons: PropTypes.arrayOf(PropTypes.shape({})),
   getLeafletInstance: PropTypes.func.isRequired,
   isZoomControlVisible: PropTypes.bool,
   mapOptions: PropTypes.shape({}),
@@ -260,7 +281,7 @@ MapLeaflet.propTypes = {
   onClick: PropTypes.func,
   onDoubleClick: PropTypes.func,
   onDragEnd: PropTypes.func,
-  onMoveEnd: PropTypes.func,
+  onResizeEnd: PropTypes.func,
   onZoomEnd: PropTypes.func,
   scaleControlOptions: PropTypes.shape({}),
   zoom: PropTypes.number

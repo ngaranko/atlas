@@ -30,12 +30,12 @@ exports[`LeafletContainer should render 1`] = `
   }
   center={
     Array [
-      52.4138254,
-      4.8728099,
+      0,
+      0,
     ]
   }
   clusterMarkers={Array []}
-  geoJson={Object {}}
+  geoJsons={Array []}
   getLeafletInstance={[Function]}
   isZoomControlVisible={true}
   layers={Array []}
@@ -208,8 +208,9 @@ exports[`LeafletContainer should render 1`] = `
   onClick={[Function]}
   onDoubleClick={[Function]}
   onDragEnd={[Function]}
-  onMoveEnd={[Function]}
+  onResizeEnd={[Function]}
   onZoomEnd={[Function]}
+  rdGeoJsons={Array []}
   scaleControlOptions={
     Object {
       "imperial": false,
@@ -246,7 +247,7 @@ exports[`LeafletContainer should render different baseLayer, zoom, center and an
         ],
         "tms": true,
       },
-      "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg",
+      "urlTemplate": "https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png",
     }
   }
   center={
@@ -255,8 +256,68 @@ exports[`LeafletContainer should render different baseLayer, zoom, center and an
       4.9108908,
     ]
   }
-  clusterMarkers={Array []}
-  geoJson={Object {}}
+  clusterMarkers={
+    Array [
+      Object {
+        "index": 0,
+        "position": Array [
+          52.37282671970971,
+          4.883399484657262,
+        ],
+        "type": "detailPointType",
+      },
+      Object {
+        "index": 1,
+        "position": Array [
+          52.37282671970951,
+          4.883399484657232,
+        ],
+        "type": "detailPointType",
+      },
+      Object {
+        "index": 2,
+        "position": Array [
+          52.37282671970952,
+          4.883399484657263,
+        ],
+        "type": "detailPointType",
+      },
+      Object {
+        "index": 3,
+        "position": Array [
+          52.37282671971952,
+          4.883399484657263,
+        ],
+        "type": "detailPointType",
+      },
+    ]
+  }
+  geoJsons={
+    Array [
+      Object {
+        "geoJson": Object {
+          "coordinates": Array [
+            120983,
+            487047,
+          ],
+          "type": "Point",
+        },
+        "id": "YE39",
+        "type": "dataSelection",
+      },
+      Object {
+        "geoJson": Object {
+          "coordinates": Array [
+            120983,
+            487047,
+          ],
+          "type": "Point",
+        },
+        "id": "YE39",
+        "type": "dataSelectionAlternate",
+      },
+    ]
+  }
   getLeafletInstance={[Function]}
   isZoomControlVisible={true}
   layers={
@@ -441,12 +502,66 @@ exports[`LeafletContainer should render different baseLayer, zoom, center and an
       "zoomControl": false,
     }
   }
-  markers={Array []}
+  markers={
+    Array [
+      Object {
+        "position": Array [
+          52.37282671970971,
+          4.883399484657262,
+        ],
+        "type": "geoSearchType",
+      },
+      Object {
+        "position": Array [
+          52.37282671970951,
+          4.883399484657232,
+        ],
+        "type": "detailPointType",
+      },
+      Object {
+        "iconData": 15,
+        "position": Array [
+          52.37282671970952,
+          4.883399484657263,
+        ],
+        "type": "dataSelectionType",
+      },
+      Object {
+        "position": Array [
+          52.37282671971952,
+          4.883399484657263,
+        ],
+        "type": "straatbeeldPersonType",
+      },
+      Object {
+        "heading": 45,
+        "position": Array [
+          52.37282671971952,
+          4.883399484657263,
+        ],
+        "type": "straatbeeldOrientationType",
+      },
+    ]
+  }
   onClick={[Function]}
   onDoubleClick={[Function]}
   onDragEnd={[Function]}
-  onMoveEnd={[Function]}
+  onResizeEnd={[Function]}
   onZoomEnd={[Function]}
+  rdGeoJsons={
+    Array [
+      Object {
+        "geoJson": Object {
+          "coordinates": Array [
+            120983,
+            487047,
+          ],
+          "type": "Point",
+        },
+        "id": "YE39",
+      },
+    ]
+  }
   scaleControlOptions={
     Object {
       "imperial": false,

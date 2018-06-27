@@ -201,28 +201,34 @@ describe('selectors', () => {
     const geometry = { id: '1' };
     const detail = { display: 'label' };
     it('should return empty object if geoJson should not be shown', () => {
-      const selected = getGeoJson.resultFunc(false, geometry, detail);
+      const selected = getGeoJson.resultFunc(false, geometry, detail, 'detailId');
       expect(selected).toEqual({});
     });
 
     it('should return empty object if geometry is empty', () => {
-      const selected = getGeoJson.resultFunc(true, '', detail);
+      const selected = getGeoJson.resultFunc(true, '', detail, 'detailId');
       expect(selected).toEqual({});
     });
 
     it('should return a geoJson object', () => {
-      const selected = getGeoJson.resultFunc(true, geometry, detail);
+      const selected = getGeoJson.resultFunc(true, geometry, detail, 'detailId');
       expect(selected).toEqual({
-        geometry,
-        label: detail.display
+        id: 'detailId',
+        geoJson: {
+          geometry,
+          label: detail.display
+        }
       });
     });
 
     it('should return a geoJson object with a empty string if detail.display is undefined', () => {
-      const selected = getGeoJson.resultFunc(true, geometry, {});
+      const selected = getGeoJson.resultFunc(true, geometry, {}, 'detailId');
       expect(selected).toEqual({
-        geometry,
-        label: ''
+        id: 'detailId',
+        geoJson: {
+          geometry,
+          label: ''
+        }
       });
     });
   });

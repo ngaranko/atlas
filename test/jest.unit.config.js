@@ -4,6 +4,7 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{js,jsx}',
+    '!**/*.test.js',
     '!**/*.constant.js',
     '!**/*.mock.js',
     "!**/index.js",
@@ -12,10 +13,10 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
-      statements: 24,
-      branches: 35.7,
-      functions: 38.7,
-      lines: 32
+      statements: 39.3,
+      branches: 41.5,
+      functions: 43.1,
+      lines: 51
     }
   },
   coverageReporters: process.env.CI ? [

@@ -128,18 +128,12 @@
             }
         }
 
-        function getMarkers (dataset, activeFilters) {
-            return api
-                .getByUri(
-                    DATA_SELECTION_CONFIG.datasets[dataset].ENDPOINT_MARKERS,
-                    filterUnavailableFilters(dataset, activeFilters)
-                )
-                .then(function (data) {
-                    return data.object_list
-                        .map(object => object._source.centroid)
-                        .filter(angular.identity)
-                        .map(([lon, lat]) => [lat, lon]);
-                });
+        function getMarkers (dataset, activeFilters, zoomLevel, boundingBox) {
+            const config = DATA_SELECTION_CONFIG.datasets[dataset];
+            const apiService = $injector.get(config.CUSTOM_API);
+            const filteredFilters = filterUnavailableFilters(dataset, activeFilters);
+
+            return apiService.getMarkers(config, filteredFilters, zoomLevel, boundingBox);
         }
 
         function filterUnavailableFilters (dataset, activeFilters = {}) {

@@ -7,7 +7,8 @@
 
     function dataSelectionApiDataSelectionFactory (sharedConfig, api) {
         return {
-            query: query
+            query,
+            getMarkers
         };
 
         function query (config, view, activeFilters, page, search, geometryFilter) {
@@ -84,6 +85,17 @@
             }
             return sharedConfig.API_ROOT + config.ENDPOINT_DETAIL +
                 rawDataRow[config.PRIMARY_KEY] + '/';
+        }
+
+        function getMarkers (config, activeFilters) {
+            return api
+                .getByUri(config.ENDPOINT_MARKERS, activeFilters)
+                .then((data) => ({
+                    clusterMarkers: data.object_list
+                        .map(object => object._source.centroid)
+                        .filter(angular.identity)
+                        .map(([lon, lat]) => [lat, lon])
+                }));
         }
     }
 })();

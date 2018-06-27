@@ -1,24 +1,31 @@
 import {
- getMap,
- getActiveBaseLayer,
- getMapZoom,
- getMapOverlays,
- getMarkers,
- getMapCenter,
- getCenter
+  getActiveBaseLayer,
+  getCenter,
+  getClusterMarkers,
+  getGeoJsons,
+  getMap,
+  getMapCenter,
+  getMapOverlays,
+  getMapZoom,
+  getMarkers,
+  getRdGeoJsons
 } from './map-selectors';
 
 export {
-  getMap,
   getActiveBaseLayer,
-  getMapZoom,
-  getMapOverlays,
-  getMarkers,
+  getCenter,
+  getClusterMarkers,
+  getGeoJsons,
+  getMap,
   getMapCenter,
-  getCenter
+  getMapOverlays,
+  getMapZoom,
+  getMarkers,
+  getRdGeoJsons
 };
 
 export const MAP_ADD_PANO_OVERLAY = 'MAP_ADD_PANO_OVERLAY';
+export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
@@ -64,6 +71,12 @@ const overlayExists = (state, newLayer) => (
 
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
+    case MAP_BOUNDING_BOX:
+      return {
+        ...state,
+        boundingBox: action.payload.boundingBox
+      };
+
     case MAP_PAN:
     case MAP_PAN_SILENT:
       return {
@@ -197,6 +210,12 @@ export const updatePan = (payload, isDrawingActive) =>
   ({
     type: isDrawingActive ? MAP_PAN_SILENT : MAP_PAN,
     payload: [payload.center.lat, payload.center.lng]
+  });
+
+export const updateBoundingBox = (payload) =>
+  ({
+    type: MAP_BOUNDING_BOX,
+    payload
   });
 
 window.reducers = window.reducers || {};

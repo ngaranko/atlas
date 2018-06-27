@@ -3,6 +3,22 @@ import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
 import LeafletContainer from './LeafletContainer';
+import {
+  getActiveBaseLayer,
+  getCenter,
+  getClusterMarkers,
+  getGeoJsons,
+  getMapOverlays,
+  getMarkers,
+  getRdGeoJsons,
+  updateBoundingBox,
+  updatePan,
+  updateZoom
+} from '../../ducks/map/map';
+import { getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
+
+jest.mock('../../ducks/map/map');
+jest.mock('../../ducks/base-layers/map-base-layers');
 
 let initialState;
 
@@ -64,6 +80,17 @@ describe('LeafletContainer', () => {
       },
       getLeafletInstance: () => ''
     };
+    getActiveBaseLayer.mockImplementation(() => 'topografie');
+    getCenter.mockImplementation(() => [0, 0]);
+    getClusterMarkers.mockImplementation(() => []);
+    getGeoJsons.mockImplementation(() => []);
+    getMapOverlays.mockImplementation(() => []);
+    getMarkers.mockImplementation(() => []);
+    getRdGeoJsons.mockImplementation(() => []);
+    updateBoundingBox.mockImplementation(() => ({}));
+    updatePan.mockImplementation(() => ({}));
+    updateZoom.mockImplementation(() => ({}));
+    getUrlTemplate.mockImplementation(() => 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png');
   });
 
   it('should render', () => {
@@ -98,6 +125,86 @@ describe('LeafletContainer', () => {
         drawingMode: 'none'
       }
     };
+    getCenter.mockImplementation(() => [52.4333137, 4.9108908]);
+    getClusterMarkers.mockImplementation(() => [
+      {
+        index: 0,
+        position: [52.37282671970971, 4.883399484657262],
+        type: 'detailPointType'
+      },
+      {
+        index: 1,
+        position: [52.37282671970951, 4.883399484657232],
+        type: 'detailPointType'
+      },
+      {
+        index: 2,
+        position: [52.37282671970952, 4.883399484657263],
+        type: 'detailPointType'
+      },
+      {
+        index: 3,
+        position: [52.37282671971952, 4.883399484657263],
+        type: 'detailPointType'
+      }
+    ]);
+    getGeoJsons.mockImplementation(() => [
+      {
+        geoJson: {
+          coordinates: [120983, 487047],
+          type: 'Point'
+        },
+        id: 'YE39',
+        type: 'dataSelection'
+      },
+      {
+        geoJson: {
+          coordinates: [120983, 487047],
+          type: 'Point'
+        },
+        id: 'YE39',
+        type: 'dataSelectionAlternate'
+      }
+    ]);
+    getMapOverlays.mockImplementation(() => [
+      {
+        id: 'biz',
+        isVisible: true
+      }
+    ]);
+    getMarkers.mockImplementation(() => [
+      {
+        position: [52.37282671970971, 4.883399484657262],
+        type: 'geoSearchType'
+      },
+      {
+        position: [52.37282671970951, 4.883399484657232],
+        type: 'detailPointType'
+      },
+      {
+        position: [52.37282671970952, 4.883399484657263],
+        type: 'dataSelectionType',
+        iconData: 15
+      },
+      {
+        position: [52.37282671971952, 4.883399484657263],
+        type: 'straatbeeldPersonType'
+      },
+      {
+        position: [52.37282671971952, 4.883399484657263],
+        type: 'straatbeeldOrientationType',
+        heading: 45
+      }
+    ]);
+    getRdGeoJsons.mockImplementation(() => [
+      {
+        geoJson: {
+          coordinates: [120983, 487047],
+          type: 'Point'
+        },
+        id: 'YE39'
+      }
+    ]);
     const store = configureMockStore()({ ...stateWithDifferentCenter });
     const wrapper = shallow(
       <LeafletContainer
