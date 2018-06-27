@@ -33,6 +33,9 @@ const MapDetailAdressenVerblijfsobject = ({
       { verblijfsobject.isNevenadres && <li>
         <Notification level="info">Dit is een nevenadres</Notification>
       </li> }
+      { verblijfsobject.indicatieGeconstateerd && <li>
+        <Notification level="alert">Geconstateerd</Notification>
+      </li> }
       { verblijfsobject.gebruiksdoelen && <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
         gebruiksdoelen={verblijfsobject.gebruiksdoelen}
       /> }
