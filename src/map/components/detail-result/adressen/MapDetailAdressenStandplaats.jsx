@@ -20,12 +20,12 @@ const MapDetailAdressenStandplaats = ({
     title="Standplaats"
   >
     <ul className="map-detail-result__list">
-      { standplaats.indicatieGeconstateerd && <li>
+      {standplaats.indicatieGeconstateerd && <li>
         <Notification level="alert">Geconstateerd</Notification>
-      </li> }
-      { standplaats.aanduidingInOnderzoek && <li>
+      </li>}
+      {standplaats.aanduidingInOnderzoek && <li>
         <Notification level="alert">In onderzoek</Notification>
-      </li> }
+      </li>}
       <MapDetailResultStatusItem
         label="Indicatie geconstateerd"
         value={standplaats.indicatieGeconstateerd ? 'Ja' : 'Nee'}

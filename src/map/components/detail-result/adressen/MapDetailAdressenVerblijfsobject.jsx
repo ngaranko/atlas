@@ -29,23 +29,23 @@ const MapDetailAdressenVerblijfsobject = ({
       title="Adres"
     >
       <ul className="map-detail-result__list">
-        { statusLevel && <li>
+        {statusLevel && <li>
           <Notification
             level={statusLevel}
           >Status: {verblijfsobject.status.description}</Notification>
-        </li> }
-        { verblijfsobject.isNevenadres && <li>
+        </li>}
+        {verblijfsobject.isNevenadres && <li>
           <Notification level="info">Dit is een nevenadres</Notification>
-        </li> }
-        { verblijfsobject.indicatieGeconstateerd && <li>
+        </li>}
+        {verblijfsobject.indicatieGeconstateerd && <li>
           <Notification level="alert">Geconstateerd</Notification>
-        </li> }
-        { verblijfsobject.aanduidingInOnderzoek && <li>
+        </li>}
+        {verblijfsobject.aanduidingInOnderzoek && <li>
           <Notification level="alert">In onderzoek</Notification>
-        </li> }
-        { verblijfsobject.gebruiksdoelen && <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
+        </li>}
+        {verblijfsobject.gebruiksdoelen && <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
           gebruiksdoelen={verblijfsobject.gebruiksdoelen}
-        /> }
+        />}
         <MapDetailResultItem
           label="Oppervlakte"
           value={verblijfsobject.size ? `${verblijfsobject.size} m²` : 'onbekend'}
