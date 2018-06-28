@@ -9,10 +9,11 @@ import MapDetailVestigingActiviteitenItem from './MapDetailVestigingActiviteiten
 import Notification from '../../../shared/components/notification/Notification';
 
 const MapDetailVestiging = ({ panoUrl, vestiging, onMaximize, onPanoPreviewClick }) => {
-  const special = vestiging.bijzondereRechtstoestand.faillissement ||
-    vestiging.bijzondereRechtstoestand.surseanceVanBetaling;
-  const specialLabel = vestiging.bijzondereRechtstoestand.faillissement ?
-    'Faillissement' : 'Surseance van betaling';
+  const special = vestiging.bijzondereRechtstoestand &&
+    (vestiging.bijzondereRechtstoestand.faillissement ||
+      vestiging.bijzondereRechtstoestand.surseanceVanBetaling);
+  const specialLabel = vestiging.bijzondereRechtstoestand &&
+    vestiging.bijzondereRechtstoestand.faillissement ? 'Faillissement' : 'Surseance van betaling';
 
   return (
     <MapDetailResultWrapper
