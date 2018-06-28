@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultStatusItem from '../MapDetailResultStatusItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
+import Notification from '../../../../shared/components/notification/Notification';
 
 const MapDetailAdressenStandplaats = ({
   panoUrl,
@@ -19,6 +20,12 @@ const MapDetailAdressenStandplaats = ({
     title="Standplaats"
   >
     <ul className="map-detail-result__list">
+      { standplaats.indicatieGeconstateerd && <li>
+        <Notification level="alert">Geconstateerd</Notification>
+      </li> }
+      { standplaats.aanduidingInOnderzoek && <li>
+        <Notification level="alert">In onderzoek</Notification>
+      </li> }
       <MapDetailResultStatusItem
         label="Indicatie geconstateerd"
         value={standplaats.indicatieGeconstateerd ? 'Ja' : 'Nee'}
