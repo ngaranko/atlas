@@ -17,12 +17,12 @@ describe('Notification', () => {
 
   it('should add the notification level as class name', () => {
     const notification = shallow(
-      <Notification level="error">
+      <Notification level="alert">
         Test message
       </Notification>
     );
 
-    expect(notification.find('.notification--error').length).toBe(1);
+    expect(notification.find('.notification--alert').length).toBe(1);
     expect(notification).toMatchSnapshot();
   });
 

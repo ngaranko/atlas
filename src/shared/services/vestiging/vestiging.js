@@ -24,7 +24,7 @@ export default function fetchByUri(uri) {
       return result.maatschappelijke_activiteit ?
         maatschappelijkeActiviteit(result.maatschappelijke_activiteit)
         .then((mac) => {
-          const special = vestigingResult._bijzondere_rechts_toestand;
+          const special = vestigingResult._bijzondere_rechts_toestand || {};
           return {
             ...vestigingResult,
             activities: (vestigingResult.activiteiten || []).map((activity) => ({

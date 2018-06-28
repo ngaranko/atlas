@@ -56,7 +56,11 @@ MapDetailVestiging.propTypes = {
   panoUrl: PropTypes.string.isRequired,
   vestiging: PropTypes.shape({
     activities: PropTypes.array,
-    bijzondereRechtstoestand: PropTypes.object,
+    bijzondereRechtstoestand: PropTypes.shape({
+      faillissement: PropTypes.boolean,
+      status: PropTypes.string,
+      surseanceVanBetaling: PropTypes.boolean
+    }),
     kvkNumber: PropTypes.string,
     label: PropTypes.string,
     visitingAddress: PropTypes.object

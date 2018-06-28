@@ -5,7 +5,7 @@ exports[`Notification should add the notification level as class name 1`] = `
   className="
         
         notification
-        notification--error
+        notification--alert
       "
 >
   <span
