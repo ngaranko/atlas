@@ -23,18 +23,24 @@ export default function fetchByUri(uri) {
 
       return result.maatschappelijke_activiteit ?
         maatschappelijkeActiviteit(result.maatschappelijke_activiteit)
-        .then((mac) => ({
-          ...vestigingResult,
-          activities: (vestigingResult.activiteiten || []).map((activity) => ({
-            ...activity,
-            sbiCode: activity.sbi_code,
-            sbiDescription: activity.sbi_omschrijving
-          })),
-          bijzondereRechtstoestand: vestigingResult._bijzondere_rechts_toestand,
-          kvkNumber: mac.kvk_nummer,
-          label: vestigingResult._display,
-          visitingAddress: vestigingResult.bezoekadres
-        })) : vestigingResult;
+        .then((mac) => {
+          const special = vestigingResult._bijzondere_rechts_toestand;
+          return {
+            ...vestigingResult,
+            activities: (vestigingResult.activiteiten || []).map((activity) => ({
+              ...activity,
+              sbiCode: activity.sbi_code,
+              sbiDescription: activity.sbi_omschrijving
+            })),
+            bijzondereRechtstoestand: {
+              ...special,
+              surseanceVanBetaling: special.status === 'Voorlopig' || special.status === 'Definitief'
+            },
+            kvkNumber: mac.kvk_nummer,
+            label: vestigingResult._display,
+            visitingAddress: vestigingResult.bezoekadres
+          };
+        }) : vestigingResult;
     });
 }
 

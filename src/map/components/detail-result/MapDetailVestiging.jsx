@@ -3,42 +3,54 @@ import PropTypes from 'prop-types';
 
 import MapDetailAddressItem from './MapDetailAddressItem';
 import MapDetailResultItem from './MapDetailResultItem';
+import MapDetailResultStatusItem from './MapDetailResultStatusItem';
 import MapDetailResultWrapper from './MapDetailResultWrapper';
 import MapDetailVestigingActiviteitenItem from './MapDetailVestigingActiviteitenItem';
-import MapDetailVestigingBijzondereRechtstoestand from './MapDetailVestigingBijzondereRechtstoestand';
 import Notification from '../../../shared/components/notification/Notification';
 
-const MapDetailVestiging = ({ panoUrl, vestiging, onMaximize, onPanoPreviewClick }) => (
-  <MapDetailResultWrapper
-    panoUrl={panoUrl}
-    onMaximize={onMaximize}
-    onPanoPreviewClick={onPanoPreviewClick}
-    subTitle={vestiging.label}
-    title="Vestiging"
-  >
-    {vestiging.label ? (
-      <ul className="map-detail-result__list">
-        <MapDetailResultItem
-          label="KvK-nummer"
-          value={vestiging.kvkNumber}
-        />
-        <MapDetailAddressItem
-          label="Bezoekadres"
-          values={vestiging.visitingAddress}
-        />
-        <MapDetailVestigingActiviteitenItem activities={vestiging.activities} />
-        <MapDetailVestigingBijzondereRechtstoestand
-          values={vestiging.bijzondereRechtstoestand}
-        />
-      </ul>
-    ) : (
-      <Notification>
-        Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om
-        maatschappelijke activiteiten en vestigingen te bekijken.
-      </Notification>
-    )}
-  </MapDetailResultWrapper>
-);
+const MapDetailVestiging = ({ panoUrl, vestiging, onMaximize, onPanoPreviewClick }) => {
+  const special = vestiging.bijzondereRechtstoestand.faillissement ||
+    vestiging.bijzondereRechtstoestand.surseanceVanBetaling;
+  const specialLabel = vestiging.bijzondereRechtstoestand.faillissement ?
+    'Faillissement' : 'Surseance van betaling';
+
+  return (
+    <MapDetailResultWrapper
+      panoUrl={panoUrl}
+      onMaximize={onMaximize}
+      onPanoPreviewClick={onPanoPreviewClick}
+      subTitle={vestiging.label}
+      title="Vestiging"
+    >
+      {vestiging.label ? (
+        <ul className="map-detail-result__list">
+          {special && <li>
+            <Notification level="alert">{specialLabel}</Notification>
+          </li>}
+          <MapDetailResultItem
+            label="KvK-nummer"
+            value={vestiging.kvkNumber}
+          />
+          <MapDetailAddressItem
+            label="Bezoekadres"
+            values={vestiging.visitingAddress}
+          />
+          <MapDetailVestigingActiviteitenItem activities={vestiging.activities} />
+          {special && (<MapDetailResultStatusItem
+            label="Soort bijzondere rechtstoestand"
+            value={specialLabel}
+            status="alert"
+          />)}
+        </ul>
+      ) : (
+        <Notification>
+          Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om
+          maatschappelijke activiteiten en vestigingen te bekijken.
+        </Notification>
+      )}
+    </MapDetailResultWrapper>
+  );
+};
 
 MapDetailVestiging.propTypes = {
   panoUrl: PropTypes.string.isRequired,
