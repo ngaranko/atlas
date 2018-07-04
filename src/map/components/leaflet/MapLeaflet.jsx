@@ -94,11 +94,20 @@ class MapLeaflet extends React.Component {
 
   zoomToActiveElement(bounds) {
     const { zoom } = this.props;
+    // if it is an array it means it will be a point in that case we never want to zoom in
+    if (Array.isArray(bounds)) {
+      return;
+    }
+    // check wat the zoomlevel will be of the bounds and devide it with some margin
     const elementBounds = this.MapElement.getBoundsZoom(bounds) / 1.25;
+    // if the elementBounds is still bigger then the current zoom level
     if (elementBounds > zoom) {
       this.setState({ previousFitBoundsId: boundsToString(bounds) });
-      const maxZoom = zoom + Math.round(elementBounds - this.props.zoom);
-      this.MapElement.fitBounds(bounds, { maxZoom });
+      // calculate the maxZoom we want to use
+      const maxZoom = zoom + Math.round(elementBounds - zoom);
+      if (maxZoom !== zoom) {
+        this.MapElement.fitBounds(bounds, { maxZoom });
+      }
     }
   }
 
