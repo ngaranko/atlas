@@ -88,6 +88,17 @@ class MapLeaflet extends React.Component {
     // check if the bounds are the same in that case we don't need to update
     if (elementBoundsId !== this.state.previousFitBoundsId) {
       this.fitActiveElement(elementBounds);
+      this.zoomToActiveElement(elementBounds);
+    }
+  }
+
+  zoomToActiveElement(bounds) {
+    const { zoom } = this.props;
+    const elementBounds = this.MapElement.getBoundsZoom(bounds) / 1.25;
+    if (elementBounds > zoom) {
+      this.setState({ previousFitBoundsId: boundsToString(bounds) });
+      const maxZoom = zoom + Math.round(elementBounds - this.props.zoom);
+      this.MapElement.fitBounds(bounds, { maxZoom });
     }
   }
 
@@ -95,12 +106,14 @@ class MapLeaflet extends React.Component {
     if (!bounds) {
       return;
     }
+    const { zoom } = this.props;
     const mapBounds = this.MapElement.getBounds();
     const elementFits = mapBounds.contains(bounds);
+
     if (!elementFits) {
-      this.setState({ previousFitBoundsId: boundsToString(bounds) });
       const elementZoom = this.MapElement.getBoundsZoom(bounds);
-      if (elementZoom < this.props.zoom) {
+      this.setState({ previousFitBoundsId: boundsToString(bounds) });
+      if (elementZoom < zoom) {
         // pan and zoom to the geoJson element
         this.MapElement.fitBounds(bounds);
       } else {
