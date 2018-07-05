@@ -13,6 +13,7 @@ exports[`MapDetailAdressenLigplaats should render \`Nee\` if aanduiding in onder
   >
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -50,6 +51,7 @@ exports[`MapDetailAdressenLigplaats should render \`Nee\` if indicatie geconstat
   >
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -87,6 +89,7 @@ exports[`MapDetailAdressenLigplaats should render everything 1`] = `
   >
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -95,6 +98,7 @@ exports[`MapDetailAdressenLigplaats should render everything 1`] = `
     </li>
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >

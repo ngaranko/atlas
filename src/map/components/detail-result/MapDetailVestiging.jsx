@@ -26,7 +26,10 @@ const MapDetailVestiging = ({ panoUrl, vestiging, onMaximize, onPanoPreviewClick
       {vestiging.label ? (
         <ul className="map-detail-result__list">
           {special && <li>
-            <Notification level="alert">{specialLabel}</Notification>
+            <Notification
+              level="alert"
+              canClose={false}
+            >{specialLabel}</Notification>
           </li>}
           <MapDetailResultItem
             label="KvK-nummer"

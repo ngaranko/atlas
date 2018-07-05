@@ -13,6 +13,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
   >
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -22,6 +23,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
     </li>
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -92,6 +94,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
   >
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -101,6 +104,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
     </li>
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -171,6 +175,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
   >
     <li>
       <Notification
+        canClose={false}
         className=""
         level="info"
       >
@@ -179,6 +184,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
     </li>
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -187,6 +193,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
     </li>
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -257,6 +264,7 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
   >
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -266,6 +274,7 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
     </li>
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -274,6 +283,7 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
     </li>
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -344,6 +354,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
   >
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -353,6 +364,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
     </li>
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -361,6 +373,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
     </li>
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -431,6 +444,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
   >
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >
@@ -439,6 +453,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
     </li>
     <li>
       <Notification
+        canClose={false}
         className=""
         level="alert"
       >

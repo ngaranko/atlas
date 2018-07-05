@@ -32,16 +32,26 @@ const MapDetailAdressenVerblijfsobject = ({
         {statusLevel && <li>
           <Notification
             level={statusLevel}
+            canClose={false}
           >Status: {verblijfsobject.status.description}</Notification>
         </li>}
         {verblijfsobject.isNevenadres && <li>
-          <Notification level="info">Dit is een nevenadres</Notification>
+          <Notification
+            level="info"
+            canClose={false}
+          >Dit is een nevenadres</Notification>
         </li>}
         {verblijfsobject.indicatieGeconstateerd && <li>
-          <Notification level="alert">Geconstateerd</Notification>
+          <Notification
+            level="alert"
+            canClose={false}
+          >Geconstateerd</Notification>
         </li>}
         {verblijfsobject.aanduidingInOnderzoek && <li>
-          <Notification level="alert">In onderzoek</Notification>
+          <Notification
+            level="alert"
+            canClose={false}
+          >In onderzoek</Notification>
         </li>}
         {verblijfsobject.gebruiksdoelen && <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
           gebruiksdoelen={verblijfsobject.gebruiksdoelen}

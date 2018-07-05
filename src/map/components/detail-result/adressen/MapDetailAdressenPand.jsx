@@ -32,6 +32,7 @@ const MapDetailAdressenPand = ({ panoUrl, pand, onMaximize, onPanoPreviewClick }
         {statusLevel && <li>
           <Notification
             level={statusLevel}
+            canClose={false}
           >{pand.status.description}</Notification>
         </li>}
         <MapDetailResultItem
