@@ -10,7 +10,7 @@ import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
 import geoJsonConfig from './services/geo-json-config.constant';
 import createClusterIcon from './services/cluster-icon';
-import { boundsToString, getBounds } from './services/bounds';
+import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
@@ -98,19 +98,38 @@ class MapLeaflet extends React.Component {
     // check if the bounds are the same in that case we don't need to update
     if (elementBoundsId !== this.state.previousFitBoundsId) {
       this.fitActiveElement(elementBounds);
+      this.zoomToActiveElement(elementBounds);
+    }
+  }
+
+  zoomToActiveElement(bounds) {
+    const { zoom } = this.props;
+    // if the bounds is not valid or is a point return
+    if (!isValidBounds(bounds) || isBoundsAPoint(bounds)) {
+      return;
+    }
+    // check wat the zoomlevel will be of the bounds and devide it with some margin
+    const maxZoom = Math.round(this.MapElement.getBoundsZoom(bounds) / 1.25);
+    // if the elementBounds is still bigger then the current zoom level
+    if (maxZoom > zoom) {
+      this.setState({ previousFitBoundsId: boundsToString(bounds) });
+      // zoom and pan the map to fit the bounds with a maxZoom
+      this.MapElement.fitBounds(bounds, { maxZoom });
     }
   }
 
   fitActiveElement(bounds) {
-    if (!bounds) {
+    if (!isValidBounds(bounds)) {
       return;
     }
+    const { zoom } = this.props;
     const mapBounds = this.MapElement.getBounds();
     const elementFits = mapBounds.contains(bounds);
+
     if (!elementFits) {
-      this.setState({ previousFitBoundsId: boundsToString(bounds) });
       const elementZoom = this.MapElement.getBoundsZoom(bounds);
-      if (elementZoom < this.props.zoom) {
+      this.setState({ previousFitBoundsId: boundsToString(bounds) });
+      if (elementZoom < zoom) {
         // pan and zoom to the geoJson element
         this.MapElement.fitBounds(bounds);
       } else {
