@@ -22,7 +22,7 @@ const dataSelectionIcon = ({ zoomLevel, count }) => {
       <div
         aria-label="Cluster met ${count} appartementen"
         class="data-selection-cluster__text"
-      >${count}</div>
+      >${count > 1 ? count : ''}</div>
     `
   });
 };
