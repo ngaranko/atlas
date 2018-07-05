@@ -24,7 +24,7 @@ const MapDetailAdressenStandplaats = ({
         <Notification
           level="alert"
           canClose={false}
-        >Geconstateerd</Notification>
+        >Indicatie geconstateerd</Notification>
       </li>}
       {standplaats.aanduidingInOnderzoek && <li className="map-detail-result__notification">
         <Notification

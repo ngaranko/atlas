@@ -19,7 +19,7 @@ exports[`MapDetailAdressenLigplaats should render \`Nee\` if aanduiding in onder
         className=""
         level="alert"
       >
-        Geconstateerd
+        Indicatie geconstateerd
       </Notification>
     </li>
     <MapDetailResultStatusItem
@@ -99,7 +99,7 @@ exports[`MapDetailAdressenLigplaats should render everything 1`] = `
         className=""
         level="alert"
       >
-        Geconstateerd
+        Indicatie geconstateerd
       </Notification>
     </li>
     <li

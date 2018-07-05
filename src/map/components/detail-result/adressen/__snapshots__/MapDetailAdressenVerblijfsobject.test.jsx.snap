@@ -31,7 +31,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
         className=""
         level="alert"
       >
-        Geconstateerd
+        Indicatie geconstateerd
       </Notification>
     </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
@@ -200,7 +200,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
         className=""
         level="alert"
       >
-        Geconstateerd
+        Indicatie geconstateerd
       </Notification>
     </li>
     <li
@@ -296,7 +296,7 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
         className=""
         level="alert"
       >
-        Geconstateerd
+        Indicatie geconstateerd
       </Notification>
     </li>
     <li
@@ -392,7 +392,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
         className=""
         level="alert"
       >
-        Geconstateerd
+        Indicatie geconstateerd
       </Notification>
     </li>
     <li
@@ -476,7 +476,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
         className=""
         level="alert"
       >
-        Geconstateerd
+        Indicatie geconstateerd
       </Notification>
     </li>
     <li
