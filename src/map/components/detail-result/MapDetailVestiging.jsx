@@ -25,7 +25,7 @@ const MapDetailVestiging = ({ panoUrl, vestiging, onMaximize, onPanoPreviewClick
     >
       {vestiging.label ? (
         <ul className="map-detail-result__list">
-          {special && <li>
+          {special && <li className="map-detail-result__notification">
             <Notification
               level="alert"
               canClose={false}

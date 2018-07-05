@@ -11,7 +11,9 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
   <ul
     className="map-detail-result__list"
   >
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -21,7 +23,9 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
         Status omschrijving
       </Notification>
     </li>
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -92,7 +96,9 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
   <ul
     className="map-detail-result__list"
   >
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -102,7 +108,9 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
         Status omschrijving
       </Notification>
     </li>
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -173,7 +181,9 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
   <ul
     className="map-detail-result__list"
   >
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -182,7 +192,9 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
         Dit is een nevenadres
       </Notification>
     </li>
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -191,7 +203,9 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
         Geconstateerd
       </Notification>
     </li>
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -262,7 +276,9 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
   <ul
     className="map-detail-result__list"
   >
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -272,7 +288,9 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
         Status omschrijving
       </Notification>
     </li>
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -281,7 +299,9 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
         Geconstateerd
       </Notification>
     </li>
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -352,7 +372,9 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
   <ul
     className="map-detail-result__list"
   >
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -362,7 +384,9 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
         Status omschrijving
       </Notification>
     </li>
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -371,7 +395,9 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
         Geconstateerd
       </Notification>
     </li>
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -442,7 +468,9 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
   <ul
     className="map-detail-result__list"
   >
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -451,7 +479,9 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
         Geconstateerd
       </Notification>
     </li>
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""

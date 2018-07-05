@@ -97,6 +97,10 @@ $below-list-height: 1px + $map-preview-panel-bottom;
     }
   }
 
+  &__notification {
+    margin-bottom: 1px;
+  }
+
   &__item {
     align-items: center;
     display: flex;

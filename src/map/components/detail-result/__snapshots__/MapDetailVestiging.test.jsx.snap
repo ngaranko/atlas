@@ -52,7 +52,9 @@ exports[`MapDetailVestiging should render \`bijzondere rechtstoestand\` when \`s
   <ul
     className="map-detail-result__list"
   >
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -107,7 +109,9 @@ exports[`MapDetailVestiging should render everything 1`] = `
   <ul
     className="map-detail-result__list"
   >
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""

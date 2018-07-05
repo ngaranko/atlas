@@ -11,7 +11,9 @@ exports[`MapDetailAdressenStandplaats should render \`Nee\` if aanduiding in ond
   <ul
     className="map-detail-result__list"
   >
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -49,7 +51,9 @@ exports[`MapDetailAdressenStandplaats should render \`Nee\` if indicatie geconst
   <ul
     className="map-detail-result__list"
   >
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -87,7 +91,9 @@ exports[`MapDetailAdressenStandplaats should render everything 1`] = `
   <ul
     className="map-detail-result__list"
   >
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""
@@ -96,7 +102,9 @@ exports[`MapDetailAdressenStandplaats should render everything 1`] = `
         Geconstateerd
       </Notification>
     </li>
-    <li>
+    <li
+      className="map-detail-result__notification"
+    >
       <Notification
         canClose={false}
         className=""

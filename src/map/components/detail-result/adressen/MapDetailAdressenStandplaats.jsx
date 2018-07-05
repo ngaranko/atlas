@@ -20,13 +20,13 @@ const MapDetailAdressenStandplaats = ({
     title="Standplaats"
   >
     <ul className="map-detail-result__list">
-      {standplaats.indicatieGeconstateerd && <li>
+      {standplaats.indicatieGeconstateerd && <li className="map-detail-result__notification">
         <Notification
           level="alert"
           canClose={false}
         >Geconstateerd</Notification>
       </li>}
-      {standplaats.aanduidingInOnderzoek && <li>
+      {standplaats.aanduidingInOnderzoek && <li className="map-detail-result__notification">
         <Notification
           level="alert"
           canClose={false}

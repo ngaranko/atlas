@@ -29,25 +29,25 @@ const MapDetailAdressenVerblijfsobject = ({
       title="Adres"
     >
       <ul className="map-detail-result__list">
-        {statusLevel && <li>
+        {statusLevel && <li className="map-detail-result__notification">
           <Notification
             level={statusLevel}
             canClose={false}
           >Status: {verblijfsobject.status.description}</Notification>
         </li>}
-        {verblijfsobject.isNevenadres && <li>
+        {verblijfsobject.isNevenadres && <li className="map-detail-result__notification">
           <Notification
             level="info"
             canClose={false}
           >Dit is een nevenadres</Notification>
         </li>}
-        {verblijfsobject.indicatieGeconstateerd && <li>
+        {verblijfsobject.indicatieGeconstateerd && <li className="map-detail-result__notification">
           <Notification
             level="alert"
             canClose={false}
           >Geconstateerd</Notification>
         </li>}
-        {verblijfsobject.aanduidingInOnderzoek && <li>
+        {verblijfsobject.aanduidingInOnderzoek && <li className="map-detail-result__notification">
           <Notification
             level="alert"
             canClose={false}
