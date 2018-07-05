@@ -36,6 +36,17 @@ describe('Notification', () => {
     expect(notification).toMatchSnapshot();
   });
 
+  it('should not show the close button when disabled', () => {
+    const notification = shallow(
+      <Notification
+        level="info"
+        canClose={false}
+      >Test message</Notification>
+    );
+
+    expect(notification).toMatchSnapshot();
+  });
+
   it('should be able to render `a` elements', () => {
     const notification = shallow(
       <Notification>
@@ -49,7 +60,7 @@ describe('Notification', () => {
 
   it('should hide notification on click', () => {
     const notification = shallow(
-      <Notification>
+      <Notification canClose>
         Test message
       </Notification>
     );
