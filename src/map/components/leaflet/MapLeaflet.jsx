@@ -94,8 +94,8 @@ class MapLeaflet extends React.Component {
 
   zoomToActiveElement(bounds) {
     const { zoom } = this.props;
-    // if the bounds are a point return
-    if (isBoundsAPoint(bounds)) {
+    // if the bounds is not valid or is a point return
+    if (!isValidBounds(bounds) || isBoundsAPoint(bounds)) {
       return;
     }
     // check wat the zoomlevel will be of the bounds and devide it with some margin
