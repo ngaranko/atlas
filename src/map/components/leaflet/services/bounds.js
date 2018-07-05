@@ -1,21 +1,30 @@
+import { latLngBounds } from 'leaflet';
+
+export const isValidBounds = (bounds) => (
+  bounds.isValid ? bounds.isValid() : false
+);
+
 export const getBounds = (element) => {
   // if activeElement is a shape
   if (element.getBounds) {
     const elementBounds = element.getBounds();
-    if (Object.keys(elementBounds).length) {
+    if (isValidBounds(elementBounds)) {
       return elementBounds;
     }
   // if activeElement is a point
   } else {
     const latLng = element.getLatLng();
-    return [
-      [latLng.lat, latLng.lng],
-      [latLng.lat, latLng.lng]
-    ];
+    return latLngBounds(latLng, latLng);
   }
-  return '';
+  // else return a empty object
+  return {};
 };
+
+export const isBoundsAPoint = (bounds) => (
+  bounds.getNorthEast().equals(bounds.getSouthWest())
+);
 
 export const boundsToString = (elementBounds) => (
   elementBounds.toBBoxString ?
-    elementBounds.toBBoxString() : elementBounds.toString());
+    elementBounds.toBBoxString() : elementBounds.toString()
+);

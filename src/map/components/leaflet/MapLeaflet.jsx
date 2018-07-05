@@ -9,7 +9,7 @@ import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
 import createClusterIcon from './services/cluster-icon';
-import { boundsToString, getBounds } from './services/bounds';
+import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
@@ -94,25 +94,22 @@ class MapLeaflet extends React.Component {
 
   zoomToActiveElement(bounds) {
     const { zoom } = this.props;
-    // if it is an array it means it will be a point in that case we never want to zoom in
-    if (Array.isArray(bounds)) {
+    // if the bounds are a point return
+    if (isBoundsAPoint(bounds)) {
       return;
     }
     // check wat the zoomlevel will be of the bounds and devide it with some margin
-    const elementBounds = this.MapElement.getBoundsZoom(bounds) / 1.25;
+    const maxZoom = Math.round(this.MapElement.getBoundsZoom(bounds) / 1.25);
     // if the elementBounds is still bigger then the current zoom level
-    if (elementBounds > zoom) {
+    if (maxZoom > zoom) {
       this.setState({ previousFitBoundsId: boundsToString(bounds) });
-      // calculate the maxZoom we want to use
-      const maxZoom = zoom + Math.round(elementBounds - zoom);
-      if (maxZoom !== zoom) {
-        this.MapElement.fitBounds(bounds, { maxZoom });
-      }
+      // zoom and pan the map to fit the bounds with a maxZoom
+      this.MapElement.fitBounds(bounds, { maxZoom });
     }
   }
 
   fitActiveElement(bounds) {
-    if (!bounds) {
+    if (!isValidBounds(bounds)) {
       return;
     }
     const { zoom } = this.props;
