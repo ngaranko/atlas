@@ -8,7 +8,7 @@ import ClusterGroup from './custom/cluster-group/ClusterGroup';
 import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
-import geoJsonConfig, { dataSelectionBounds } from './services/geo-json-config.constant';
+import geoJsonConfig from './services/geo-json-config.constant';
 import createClusterIcon from './services/cluster-icon';
 import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
 
@@ -96,19 +96,17 @@ class MapLeaflet extends React.Component {
     const elementBounds = getBounds(element);
     const elementBoundsId = boundsToString(elementBounds);
     // check if the bounds are the same in that case we don't need to update
-    if (elementBoundsId !== this.state.previousFitBoundsId) {
+    if (elementBoundsId !== this.state.previousFitBoundsId && isValidBounds(elementBounds)) {
       this.fitActiveElement(elementBounds);
       this.zoomToActiveElement(elementBounds);
-      if (isValidBounds(elementBounds)) {
-        this.setState({ previousFitBoundsId: boundsToString(elementBounds) });
-      }
+      this.setState({ previousFitBoundsId: elementBoundsId });
     }
   }
 
   zoomToActiveElement(bounds) {
     const { zoom } = this.props;
     // if the bounds is not valid or is a point return
-    if (!isValidBounds(bounds) || isBoundsAPoint(bounds)) {
+    if (isBoundsAPoint(bounds)) {
       return;
     }
     // check wat the zoomlevel will be of the bounds and devide it with some margin
@@ -232,7 +230,7 @@ class MapLeaflet extends React.Component {
                 data={shape.geoJson}
                 key={shape.id}
                 style={geoJsonConfig[shape.type] && geoJsonConfig[shape.type].style}
-                ref={shape.type === dataSelectionBounds && this.setActiveElement}
+                ref={geoJsonConfig[shape.type].requestFocus && this.setActiveElement}
               />
             ))
           }
