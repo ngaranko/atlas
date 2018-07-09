@@ -166,7 +166,6 @@ class MapLeaflet extends React.Component {
           ref={this.setMapElement}
           onZoomEnd={this.onZoomEnd}
           onClick={this.onClick}
-          onDragEnd={this.onDragEnd}
           onMoveEnd={this.onMoveEnd}
           onDraw={this.draw}
           center={center}

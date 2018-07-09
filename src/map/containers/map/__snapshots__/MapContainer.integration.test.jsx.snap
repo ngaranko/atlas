@@ -360,7 +360,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
             markers={Array []}
             onClick={[Function]}
             onDoubleClick={[Function]}
-            onDragEnd={[Function]}
+            onMoveEnd={[Function]}
             onResizeEnd={[Function]}
             onZoomEnd={[Function]}
             rdGeoJsons={
@@ -596,8 +596,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   }
                   maxBoundsViscosity={1}
                   onClick={[Function]}
-                  onDragEnd={[Function]}
                   onDraw={undefined}
+                  onMoveEnd={[Function]}
                   onZoomEnd={[Function]}
                   zoom={11}
                   zoomControl={false}
@@ -902,12 +902,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "_initHooksCalled": true,
                     "_map": [Circular],
                   },
-                  "fn": [Function],
-                },
-              ],
-              "dragend": Array [
-                Object {
-                  "ctx": undefined,
                   "fn": [Function],
                 },
               ],
@@ -1227,6 +1221,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 },
               ],
               "moveend": Array [
+                Object {
+                  "ctx": undefined,
+                  "fn": [Function],
+                },
                 Object {
                   "ctx": undefined,
                   "fn": [Function],
@@ -3422,8 +3420,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               },
               "maxBoundsViscosity": 1,
               "onClick": [Function],
-              "onDragEnd": [Function],
               "onDraw": undefined,
+              "onMoveEnd": [Function],
               "onZoomEnd": [Function],
               "zoom": 11,
               "zoomControl": false,
@@ -3808,12 +3806,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "fn": [Function],
                   },
                 ],
-                "dragend": Array [
-                  Object {
-                    "ctx": undefined,
-                    "fn": [Function],
-                  },
-                ],
                 "draw:created": Array [
                   Object {
                     "ctx": undefined,
@@ -4130,6 +4122,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   },
                 ],
                 "moveend": Array [
+                  Object {
+                    "ctx": undefined,
+                    "fn": [Function],
+                  },
                   Object {
                     "ctx": undefined,
                     "fn": [Function],
@@ -6325,8 +6321,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 },
                 "maxBoundsViscosity": 1,
                 "onClick": [Function],
-                "onDragEnd": [Function],
                 "onDraw": undefined,
+                "onMoveEnd": [Function],
                 "onZoomEnd": [Function],
                 "zoom": 11,
                 "zoomControl": false,
@@ -6742,12 +6738,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "fn": [Function],
                     },
                   ],
-                  "dragend": Array [
-                    Object {
-                      "ctx": undefined,
-                      "fn": [Function],
-                    },
-                  ],
                   "draw:created": Array [
                     Object {
                       "ctx": undefined,
@@ -7064,6 +7054,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     },
                   ],
                   "moveend": Array [
+                    Object {
+                      "ctx": undefined,
+                      "fn": [Function],
+                    },
                     Object {
                       "ctx": undefined,
                       "fn": [Function],
@@ -9259,8 +9253,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   },
                   "maxBoundsViscosity": 1,
                   "onClick": [Function],
-                  "onDragEnd": [Function],
                   "onDraw": undefined,
+                  "onMoveEnd": [Function],
                   "onZoomEnd": [Function],
                   "zoom": 11,
                   "zoomControl": false,
@@ -9678,12 +9672,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "fn": [Function],
                       },
                     ],
-                    "dragend": Array [
-                      Object {
-                        "ctx": undefined,
-                        "fn": [Function],
-                      },
-                    ],
                     "draw:created": Array [
                       Object {
                         "ctx": undefined,
@@ -10000,6 +9988,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       },
                     ],
                     "moveend": Array [
+                      Object {
+                        "ctx": undefined,
+                        "fn": [Function],
+                      },
                       Object {
                         "ctx": undefined,
                         "fn": [Function],
@@ -12195,8 +12187,8 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     },
                     "maxBoundsViscosity": 1,
                     "onClick": [Function],
-                    "onDragEnd": [Function],
                     "onDraw": undefined,
+                    "onMoveEnd": [Function],
                     "onZoomEnd": [Function],
                     "zoom": 11,
                     "zoomControl": false,
