@@ -30,7 +30,7 @@ class MapLeaflet extends React.Component {
     super();
     this.onZoomEnd = this.onZoomEnd.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.onDragEnd = this.onDragEnd.bind(this);
+    this.onMoveEnd = this.onMoveEnd.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this);
     this.state = {
@@ -71,8 +71,8 @@ class MapLeaflet extends React.Component {
     });
   }
 
-  onDragEnd(event) {
-    this.props.onDragEnd({
+  onMoveEnd(event) {
+    this.props.onMoveEnd({
       center: event.target.getCenter(),
       boundingBox: convertBounds(this.MapElement.getBounds())
     });
@@ -96,23 +96,23 @@ class MapLeaflet extends React.Component {
     const elementBounds = getBounds(element);
     const elementBoundsId = boundsToString(elementBounds);
     // check if the bounds are the same in that case we don't need to update
-    if (elementBoundsId !== this.state.previousFitBoundsId) {
+    if (elementBoundsId !== this.state.previousFitBoundsId && isValidBounds(elementBounds)) {
       this.fitActiveElement(elementBounds);
       this.zoomToActiveElement(elementBounds);
+      this.setState({ previousFitBoundsId: elementBoundsId });
     }
   }
 
   zoomToActiveElement(bounds) {
     const { zoom } = this.props;
     // if the bounds is not valid or is a point return
-    if (!isValidBounds(bounds) || isBoundsAPoint(bounds)) {
+    if (isBoundsAPoint(bounds)) {
       return;
     }
     // check wat the zoomlevel will be of the bounds and devide it with some margin
     const maxZoom = Math.round(this.MapElement.getBoundsZoom(bounds) / 1.25);
     // if the elementBounds is still bigger then the current zoom level
     if (maxZoom > zoom) {
-      this.setState({ previousFitBoundsId: boundsToString(bounds) });
       // zoom and pan the map to fit the bounds with a maxZoom
       this.MapElement.fitBounds(bounds, { maxZoom });
     }
@@ -125,10 +125,8 @@ class MapLeaflet extends React.Component {
     const { zoom } = this.props;
     const mapBounds = this.MapElement.getBounds();
     const elementFits = mapBounds.contains(bounds);
-
     if (!elementFits) {
       const elementZoom = this.MapElement.getBoundsZoom(bounds);
-      this.setState({ previousFitBoundsId: boundsToString(bounds) });
       if (elementZoom < zoom) {
         // pan and zoom to the geoJson element
         this.MapElement.fitBounds(bounds);
@@ -168,7 +166,7 @@ class MapLeaflet extends React.Component {
           ref={this.setMapElement}
           onZoomEnd={this.onZoomEnd}
           onClick={this.onClick}
-          onDragEnd={this.onDragEnd}
+          onMoveEnd={this.onMoveEnd}
           onDraw={this.draw}
           center={center}
           zoom={zoom}
@@ -231,6 +229,7 @@ class MapLeaflet extends React.Component {
                 data={shape.geoJson}
                 key={shape.id}
                 style={geoJsonConfig[shape.type] && geoJsonConfig[shape.type].style}
+                ref={geoJsonConfig[shape.type].requestFocus && this.setActiveElement}
               />
             ))
           }
@@ -272,7 +271,7 @@ MapLeaflet.defaultProps = {
   isZoomControlVisible: true,
   onClick: () => 'click',
   onDoubleClick: () => 'doubleclick',
-  onDragEnd: () => 'dragend',
+  onMoveEnd: () => 'moveend',
   onResizeEnd: () => 'resizeend',
   onZoomEnd: () => 'zoomend'
 };
@@ -299,7 +298,7 @@ MapLeaflet.propTypes = {
   })),
   onClick: PropTypes.func,
   onDoubleClick: PropTypes.func,
-  onDragEnd: PropTypes.func,
+  onMoveEnd: PropTypes.func,
   onResizeEnd: PropTypes.func,
   onZoomEnd: PropTypes.func,
   scaleControlOptions: PropTypes.shape({}),

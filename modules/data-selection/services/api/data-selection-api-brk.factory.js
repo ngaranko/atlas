@@ -48,6 +48,19 @@ import generateId from '../../../../src/shared/services/state-token-generator';
                             geoJson: data.niet_eigenpercelen,
                             id: generateId(),
                             type: 'dataSelectionAlternate'
+                        },
+                        {
+                            geoJson: {
+                                coordinates: [
+                                    [
+                                      [data.extent[0], data.extent[1]],
+                                      [data.extent[2], data.extent[3]]
+                                    ]
+                                ],
+                                type: 'Polygon'
+                            },
+                            id: generateId(),
+                            type: 'dataSelectionBounds'
                         }
                     ].filter(identity),
                     markers: data.appartementen.map((appartement) => ({

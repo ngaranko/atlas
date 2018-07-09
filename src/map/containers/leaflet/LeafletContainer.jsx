@@ -129,7 +129,7 @@ class LeafletContainer extends React.Component {
         mapOptions={mapOptions}
         markers={markers}
         onClick={this.handleClick}
-        onDragEnd={this.handlePan}
+        onMoveEnd={this.handlePan}
         onZoomEnd={this.handleZoom}
         onResizeEnd={this.handleResize}
         ref={this.setMapLeaflet}
