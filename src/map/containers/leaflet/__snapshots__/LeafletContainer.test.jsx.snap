@@ -207,7 +207,7 @@ exports[`LeafletContainer should render 1`] = `
   markers={Array []}
   onClick={[Function]}
   onDoubleClick={[Function]}
-  onDragEnd={[Function]}
+  onMoveEnd={[Function]}
   onResizeEnd={[Function]}
   onZoomEnd={[Function]}
   rdGeoJsons={Array []}
@@ -545,7 +545,7 @@ exports[`LeafletContainer should render different baseLayer, zoom, center and an
   }
   onClick={[Function]}
   onDoubleClick={[Function]}
-  onDragEnd={[Function]}
+  onMoveEnd={[Function]}
   onResizeEnd={[Function]}
   onZoomEnd={[Function]}
   rdGeoJsons={

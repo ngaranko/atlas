@@ -187,7 +187,7 @@ exports[`MapLeaflet component should render clusterer 1`] = `
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -549,7 +549,7 @@ exports[`MapLeaflet component should render clusterer 2`] = `
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={9}
     zoomControl={false}
@@ -911,7 +911,7 @@ exports[`MapLeaflet component should render map with base layer and update base 
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -1141,7 +1141,7 @@ exports[`MapLeaflet component should render map with base layer and update base 
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -1371,7 +1371,7 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 1`] 
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -1601,7 +1601,7 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 2`] 
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -1882,7 +1882,7 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 3`] 
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -2218,7 +2218,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -2448,7 +2448,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -2702,7 +2702,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -3031,7 +3031,7 @@ exports[`MapLeaflet component should render map with without layers and add/remo
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -3261,7 +3261,7 @@ exports[`MapLeaflet component should render map with without layers and add/remo
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -3503,7 +3503,7 @@ exports[`MapLeaflet component should render map with without layers and add/remo
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -3733,7 +3733,7 @@ exports[`MapLeaflet component should render markers 1`] = `
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={11}
     zoomControl={false}
@@ -4395,7 +4395,7 @@ exports[`MapLeaflet component should render markers 2`] = `
     }
     maxBoundsViscosity={1}
     onClick={[Function]}
-    onDragEnd={[Function]}
+    onMoveEnd={[Function]}
     onZoomEnd={[Function]}
     zoom={9}
     zoomControl={false}

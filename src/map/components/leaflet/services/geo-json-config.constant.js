@@ -13,9 +13,18 @@ const geoJsonConfig = {
       fillOpacity: 0.17,
       weight: 2
     }
+  },
+  dataSelectionBounds: {
+    style: {
+      color: '#ec0000',
+      fillOpacity: 0,
+      opacity: 0,
+      weight: 1
+    }
   }
 };
 
 export default geoJsonConfig;
 export const dataSelectionType = 'dataSelection';
 export const dataSelectionAlternateType = 'dataSelectionAlternate';
+export const dataSelectionBounds = 'dataSelectionBounds';
