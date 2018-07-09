@@ -3842,7 +3842,7 @@ exports[`MapLeaflet component should render markers 1`] = `
       <div
         aria-label=\\"Cluster met 1 appartementen\\"
         class=\\"data-selection-cluster__text\\"
-      >1</div>
+      ></div>
     ",
             "iconAnchor": Array [
               7,
@@ -4108,7 +4108,7 @@ exports[`MapLeaflet component should render markers 1`] = `
       <div
         aria-label=\\"Cluster met 1 appartementen\\"
         class=\\"data-selection-cluster__text\\"
-      >1</div>
+      ></div>
     ",
             "iconAnchor": Array [
               10,
@@ -4504,7 +4504,7 @@ exports[`MapLeaflet component should render markers 2`] = `
       <div
         aria-label=\\"Cluster met 1 appartementen\\"
         class=\\"data-selection-cluster__text\\"
-      >1</div>
+      ></div>
     ",
             "iconAnchor": Array [
               7,
@@ -4770,7 +4770,7 @@ exports[`MapLeaflet component should render markers 2`] = `
       <div
         aria-label=\\"Cluster met 1 appartementen\\"
         class=\\"data-selection-cluster__text\\"
-      >1</div>
+      ></div>
     ",
             "iconAnchor": Array [
               10,
