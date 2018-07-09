@@ -16,7 +16,6 @@ $sbi-filter-item-height: 32px;
 
 .c-sbi-filter__category-label {
   margin-bottom: $base-whitespace;
-  color: $primary-contrast;
 }
 
 .c-sbi-filter__form {
@@ -85,11 +84,24 @@ $sbi-filter-item-height: 32px;
   align-items: center;
 
   width: calc(100% - 5px);
+
+  &::before {
+    top: -5px;
+  }
+
+  &:hover {
+    text-decoration: underline;
+
+    .c-sbi-filter__item-label {
+      text-decoration: underline;
+    }
+  }
 }
 
 .c-sbi-filter__item-label {
   display: inline-block;
   width: inherit;
+  margin-top: 7px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
