@@ -20,7 +20,8 @@ const geoJsonConfig = {
       fillOpacity: 0,
       opacity: 0,
       weight: 1
-    }
+    },
+    requestFocus: true
   }
 };
 

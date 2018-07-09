@@ -60,7 +60,6 @@ import generateId from '../../../../src/shared/services/state-token-generator';
                                 type: 'Polygon'
                             },
                             id: generateId(),
-                            requestFocus: true,
                             type: 'dataSelectionBounds'
                         }
                     ].filter(identity),
