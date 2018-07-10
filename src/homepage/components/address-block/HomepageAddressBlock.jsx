@@ -15,7 +15,7 @@ const HomepageAddressBlock = (props) => {
       onBlockLinkClick={() => onLinkClick({ dataset: 'bag', filters: {}, page: 1 })}
       title={'Adressentabel'}
       description={'Selecteer en download als spreadsheet'}
-      hasTallDescription={true}
+      hasTallDescription
     >
       <div className={'homepage-block__item'}>
         <button

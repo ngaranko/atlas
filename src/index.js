@@ -1,9 +1,6 @@
 // For now simply import everything we need, from here
 import './state';
-import './map/wrappers/panel/MapPanelWrapper';
-import './map/wrappers/preview-panel/MapPreviewPanelWrapper';
 import './map/wrappers/map/MapWrapper';
-import './map/wrappers/map-embed-button/MapEmbedButtonWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphTotalsWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphPhasedWrapper';
 import './header/wrappers/header-search/HeaderSearchWrapper';

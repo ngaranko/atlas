@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { fetchDataSelection } from '../../../reducers/search';
 
-import HomepageAddressBlock from '../../components/address-block/HomepageAddressBlock'
+import HomepageAddressBlock from '../../components/address-block/HomepageAddressBlock';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onfetchDataSelection: fetchDataSelection
