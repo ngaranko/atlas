@@ -380,7 +380,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
           >
             <ResizeAware
               component="div"
-              heightPropName={undefined}
               onResize={[Function]}
               onlyEvent={true}
               style={
@@ -392,7 +391,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   "top": "0",
                 }
               }
-              widthPropName={undefined}
             >
               <div
                 style={
@@ -417,6 +415,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "pointerEvents": "none",
                       "position": "absolute",
                       "top": 0,
+                      "visibility": "hidden",
                       "width": "100%",
                       "zIndex": -1,
                     }
@@ -598,17 +597,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   maxBoundsViscosity={1}
                   onClick={[Function]}
                   onDragEnd={[Function]}
-                  onDraw={undefined}
                   onMoveEnd={[Function]}
                   onZoomEnd={[Function]}
                   zoom={11}
                   zoomControl={false}
                 >
-                  <div
-                    className={undefined}
-                    id={undefined}
-                    style={undefined}
-                  >
+                  <div>
                     <TileLayer
                       bounds={
                         Array [
@@ -3561,9 +3555,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
         }
       >
         <Component
-          dataSelection={undefined}
           drawingMode="none"
-          geometry={undefined}
           isEnabled={false}
           leafletInstance={
             NewClass {
@@ -6505,9 +6497,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 "type": null,
               }
             }
-            dataSelection={undefined}
             drawingMode="none"
-            geometry={undefined}
             initialize={[Function]}
             isEnabled={false}
             leafletInstance={
@@ -9452,9 +9442,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   "type": null,
                 }
               }
-              dataSelection={undefined}
               drawingMode="none"
-              geometry={undefined}
               initialize={[Function]}
               isEnabled={false}
               leafletInstance={
@@ -12435,7 +12423,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
           activeMapLayers={Array []}
           atlas={Object {}}
           isEachOverlayInvisible={true}
-          isMapLayersVisible={undefined}
           isMapPanelHandleVisible={true}
           isMapPanelVisible={false}
           map={Object {}}
