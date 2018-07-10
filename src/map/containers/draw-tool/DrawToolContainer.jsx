@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import isEqual from 'lodash.isequal';
 
 import DrawTool from '../../components/draw-tool/DrawTool';
-import drawToolConfig from '../../services/draw-tool/draw-tool-config';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 import { mapClearDrawing, mapEmptyGeometry, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../ducks/map/map';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';

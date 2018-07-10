@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ToggleDrawing from './ToggleDrawing';
-import drawToolConfig from '../../services/draw-tool/draw-tool-config';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 describe('ToggleDrawing', () => {
   let toggleDrawing;

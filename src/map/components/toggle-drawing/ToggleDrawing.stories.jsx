@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'; // eslint-disable-line import/no-e
 import { action } from '@storybook/addon-actions'; // eslint-disable-line import/no-extraneous-dependencies
 
 import ToggleDrawing from './ToggleDrawing';
-import drawToolConfig from '../../services/draw-tool/draw-tool-config';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 const toggleDrawing = action('toggleDrawing');
 

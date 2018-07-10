@@ -1,5 +1,5 @@
 import { initialize, currentShape } from './draw-tool';
-import drawToolConfig from './draw-tool-config';
+import drawToolConfig from './draw-tool.config';
 
 let leafletMap;
 let leafletOld;

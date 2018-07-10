@@ -8,7 +8,7 @@ import isEqual from 'lodash.isequal';
 import debounce from 'lodash.debounce';
 
 import { isBusy, start } from '../suppress/suppress';
-import drawToolConfig from './draw-tool-config';
+import drawToolConfig from './draw-tool.config';
 
   // holds all information about the state of the shape being created or edited
 const DEFAULTS = {

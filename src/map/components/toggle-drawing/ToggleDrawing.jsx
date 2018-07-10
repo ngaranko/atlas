@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import drawToolConfig from '../../services/draw-tool/draw-tool-config';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 import IconMeasure from '../../../../public/images/icon-measure.svg';
 
