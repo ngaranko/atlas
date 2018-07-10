@@ -17,12 +17,12 @@ describe('Notification', () => {
 
   it('should add the notification level as class name', () => {
     const notification = shallow(
-      <Notification level="error">
+      <Notification level="alert">
         Test message
       </Notification>
     );
 
-    expect(notification.find('.notification--error').length).toBe(1);
+    expect(notification.find('.notification--alert').length).toBe(1);
     expect(notification).toMatchSnapshot();
   });
 
@@ -31,6 +31,17 @@ describe('Notification', () => {
       <Notification level="message">
         Test message
       </Notification>
+    );
+
+    expect(notification).toMatchSnapshot();
+  });
+
+  it('should not show the close button when disabled', () => {
+    const notification = shallow(
+      <Notification
+        level="info"
+        canClose={false}
+      >Test message</Notification>
     );
 
     expect(notification).toMatchSnapshot();
@@ -49,7 +60,7 @@ describe('Notification', () => {
 
   it('should hide notification on click', () => {
     const notification = shallow(
-      <Notification>
+      <Notification canClose>
         Test message
       </Notification>
     );
