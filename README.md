@@ -1,14 +1,26 @@
 # City Data
 
 ## Requirements
-- npm
 
-## Installations
-- npm install
+- [npm](https://www.npmjs.com/)
+
+## Installation
+
+Install all dependencies:
+
+    npm install
+
+If the installation fails because a timeout with the `git://` protocol, configure git to use `https://` instead:
+
+    git config --global url."https://".insteadOf git://
 
 ## Development
-- NODE_ENV=development npm start
-- Open the server at http://localhost:8080/
+
+Start the application:
+
+    NODE_ENV=development npm start
+
+Then, open the application in your browser at [localhost:8080](http://localhost:8080/).
 
 ## Testing
 
@@ -103,4 +115,3 @@ _Currently not working in CI_
 - BEMIT (http://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/)
 - BEM namespaces (http://csswizardry.com/2015/03/more-transparent-ui-code-with-namespaces/)
 - [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) without tags and a release branch
-
