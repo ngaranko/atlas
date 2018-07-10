@@ -1046,6 +1046,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   "fn": [Function],
                 },
               ],
+              "layeradd": Array [
+                Object {
+                  "ctx": undefined,
+                  "fn": [Function],
+                },
+              ],
               "move": Array [
                 Object {
                   "ctx": undefined,
@@ -3946,6 +3952,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "61": 1,
                       },
                     },
+                    "fn": [Function],
+                  },
+                ],
+                "layeradd": Array [
+                  Object {
+                    "ctx": undefined,
                     "fn": [Function],
                   },
                 ],
@@ -6883,6 +6895,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "fn": [Function],
                     },
                   ],
+                  "layeradd": Array [
+                    Object {
+                      "ctx": undefined,
+                      "fn": [Function],
+                    },
+                  ],
                   "move": Array [
                     Object {
                       "ctx": undefined,
@@ -9816,6 +9834,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             "61": 1,
                           },
                         },
+                        "fn": [Function],
+                      },
+                    ],
+                    "layeradd": Array [
+                      Object {
+                        "ctx": undefined,
                         "fn": [Function],
                       },
                     ],
