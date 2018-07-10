@@ -7,8 +7,8 @@ module.exports = {
     '!**/*.constant.js',
     '!**/*.config.js',
     '!**/*.mock.js',
-    "!**/index.js",
-    "!src/*.js",
+    '!**/index.js',
+    '!src/*.js',
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
