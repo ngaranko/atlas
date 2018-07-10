@@ -6,6 +6,7 @@ module.exports = {
     'src/**/*.{js,jsx}',
     '!**/*.constant.js',
     '!**/*.config.js',
+    '!**/*.integration.test.{js,jsx}',
     '!**/*.mock.js',
     '!**/index.js',
     '!src/*.js',
