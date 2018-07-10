@@ -26,6 +26,7 @@ export {
 
 export const MAP_ADD_PANO_OVERLAY = 'MAP_ADD_PANO_OVERLAY';
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
+export const MAP_BOUNDING_BOX_SILENT = 'MAP_BOUNDING_BOX_SILENT';
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
@@ -72,6 +73,7 @@ const overlayExists = (state, newLayer) => (
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
     case MAP_BOUNDING_BOX:
+    case MAP_BOUNDING_BOX_SILENT:
       return {
         ...state,
         boundingBox: action.payload.boundingBox
@@ -212,9 +214,9 @@ export const updatePan = (payload, isDrawingActive) =>
     payload: [payload.center.lat, payload.center.lng]
   });
 
-export const updateBoundingBox = (payload) =>
+export const updateBoundingBox = (payload, isDrawingActive) =>
   ({
-    type: MAP_BOUNDING_BOX,
+    type: isDrawingActive ? MAP_BOUNDING_BOX_SILENT : MAP_BOUNDING_BOX,
     payload
   });
 
