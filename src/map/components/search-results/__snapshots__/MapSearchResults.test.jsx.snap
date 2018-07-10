@@ -229,6 +229,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
     >
       <li>
         <Notification
+          canClose={true}
           className=""
           level="info"
         >
@@ -446,6 +447,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
     >
       <li>
         <Notification
+          canClose={true}
           className=""
           level="info"
         >
