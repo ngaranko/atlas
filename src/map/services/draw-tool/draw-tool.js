@@ -8,7 +8,7 @@ import isEqual from 'lodash.isequal';
 import debounce from 'lodash.debounce';
 
 import { isBusy, start } from '../suppress/suppress';
-import drawToolConfig from './draw-tool-config';
+import drawToolConfig from './draw-tool.config';
 
   // holds all information about the state of the shape being created or edited
 const DEFAULTS = {
@@ -117,6 +117,7 @@ function deletePolygon() {
 function createPolygon(layer) {
   currentShape.layer = layer;
   drawTool.drawnItems.addLayer(layer);
+  drawTool.drawnItems.bringToFront();
   layer.on('click', toggleEditModeOnShapeClick);
 }
 
@@ -286,6 +287,14 @@ function registerMapEvents() {
       onFinishPolygon();
       disable();
     }
+  });
+
+  // When a new layer gets added to the map...
+  drawTool.map.on('layeradd', () => {
+    // ...make sure the layer of the drawn shape stays on top,
+    // so it can still be clicked to enter edit mode.
+    // This will not affect markers, they'll stay on top anyway.
+    drawTool.drawnItems.bringToFront();
   });
 }
 

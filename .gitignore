@@ -11,5 +11,7 @@ coverage/
 coverage-legacy/
 *.iml
 modules/shared/styles/config/mixins/_icons.scss
+src/shared/styles/config/mixins/_icons.scss
+src/shared/styles/config/mixins/_icons-thema.scss
 phantomjsdriver.log
 .vscode/

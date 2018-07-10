@@ -1,5 +1,5 @@
 import { initialize, currentShape } from './draw-tool';
-import drawToolConfig from './draw-tool-config';
+import drawToolConfig from './draw-tool.config';
 
 let leafletMap;
 let leafletOld;
@@ -117,8 +117,8 @@ describe('Draw-tool service', () => {
       expect(editToolbarMock().getModeHandlers()[0].handler).toBe('mock-handler');
       expect(leafletMap.addLayer).toHaveBeenCalledTimes(1);
 
-      // total of all draw events + 1 map click event
-      expect(leafletMap.on).toHaveBeenCalledTimes(Object.keys(window.L.Draw.Event).length + 1);
+      // total of all draw events + 1 map click event + 1 layeradd event
+      expect(leafletMap.on).toHaveBeenCalledTimes(Object.keys(window.L.Draw.Event).length + 2);
     });
   });
 });

@@ -1,6 +1,6 @@
-import mapLayers from './map-layers/map-layers';
-import mapPanelLayers from './map-panel-layers/map-panel-layers';
-import mapBaseLayers from './map-base-layers/map-base-layers';
+import mapLayers from './map-layers/map-layers.config';
+import mapPanelLayers from './map-panel-layers/map-panel-layers.config';
+import mapBaseLayers from './map-base-layers/map-base-layers.config';
 
 const TIMEOUT = 100;
 
