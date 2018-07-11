@@ -10,10 +10,6 @@ Install all dependencies:
 
     npm install
 
-If the installation fails because a timeout with the `git://` protocol, configure git to use `https://` instead:
-
-    git config --global url."https://".insteadOf git://
-
 ## Development
 
 Start the application:

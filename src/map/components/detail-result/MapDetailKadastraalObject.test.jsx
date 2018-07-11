@@ -31,7 +31,8 @@ describe('MapDetailKadastraalObject', () => {
     const kadastraalObject = {
       label: 'Kadastraal object label',
       objectNumber: '123ABC',
-      size: 115
+      size: 115,
+      kadastraleGemeente: {}
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(
@@ -49,7 +50,8 @@ describe('MapDetailKadastraalObject', () => {
     const kadastraalObject = {
       label: 'Kadastraal object label',
       objectNumber: '123ABC',
-      size: 0
+      size: 0,
+      kadastraleGemeente: {}
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(
@@ -66,7 +68,8 @@ describe('MapDetailKadastraalObject', () => {
   it('should not render size', () => {
     const kadastraalObject = {
       label: 'Kadastraal object label',
-      objectNumber: '123ABC'
+      objectNumber: '123ABC',
+      kadastraleGemeente: {}
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(

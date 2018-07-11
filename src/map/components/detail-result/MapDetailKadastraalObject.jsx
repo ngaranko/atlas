@@ -23,8 +23,7 @@ const MapDetailKadastraalObject = ({
       )}
       <MapDetailResultItem
         label="Gemeente"
-        value={kadastraalObject.kadastraleGemeente && kadastraalObject.kadastraleGemeente.gemeente &&
-          kadastraalObject.kadastraleGemeente.gemeente.gemeente || ''}
+        value={kadastraalObject.kadastraleGemeente.gemeente}
       />
       <MapDetailResultItem
         label="Grootte"

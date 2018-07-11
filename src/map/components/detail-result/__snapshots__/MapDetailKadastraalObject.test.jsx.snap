@@ -12,6 +12,10 @@ exports[`MapDetailKadastraalObject should not render size 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      label="Kadastrale gemeente"
+      value=""
+    />
+    <MapDetailResultItem
       label="Gemeente"
       value=""
     />
@@ -40,7 +44,7 @@ exports[`MapDetailKadastraalObject should render everything 1`] = `
     />
     <MapDetailResultItem
       label="Gemeente"
-      value=""
+      value="Gemeentenaam!"
     />
     <MapDetailResultItem
       label="Grootte"
@@ -61,6 +65,10 @@ exports[`MapDetailKadastraalObject should render with zero value for size 1`] = 
   <ul
     className="map-detail-result__list"
   >
+    <MapDetailResultItem
+      label="Kadastrale gemeente"
+      value=""
+    />
     <MapDetailResultItem
       label="Gemeente"
       value=""
@@ -84,6 +92,10 @@ exports[`MapDetailKadastraalObject should render without kadastrale gemeente 1`]
   <ul
     className="map-detail-result__list"
   >
+    <MapDetailResultItem
+      label="Kadastrale gemeente"
+      value=""
+    />
     <MapDetailResultItem
       label="Gemeente"
       value=""

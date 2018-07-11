@@ -13,7 +13,7 @@ exports[`MapDetailNapPeilmerk should not render empty height 1`] = `
   >
     <MapDetailResultItem
       label="Hoogte NAP"
-      value="0 m"
+      value=""
     />
     <MapDetailResultItem
       label="Omschrijving"
@@ -40,7 +40,7 @@ exports[`MapDetailNapPeilmerk should not render without height 1`] = `
   >
     <MapDetailResultItem
       label="Hoogte NAP"
-      value="0 m"
+      value=""
     />
     <MapDetailResultItem
       label="Omschrijving"
