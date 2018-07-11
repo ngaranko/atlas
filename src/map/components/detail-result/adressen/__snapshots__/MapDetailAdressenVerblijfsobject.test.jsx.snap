@@ -54,24 +54,24 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
       value="horeca"
     />
     <MapDetailResultStatusItem
-      label="Indicatie geconstateerd"
-      status="alert"
-      value="Ja"
-    />
-    <MapDetailResultStatusItem
-      label="Indicatie hoofdadres"
-      status=""
-      value="Ja"
-    />
-    <MapDetailResultStatusItem
       label="Status"
       status="alert"
       value="Status omschrijving"
     />
     <MapDetailResultStatusItem
+      label="Indicatie geconstateerd"
+      status="alert"
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
       label="Aanduiding in onderzoek"
       status=""
       value="Nee"
+    />
+    <MapDetailResultStatusItem
+      label="Indicatie hoofdadres"
+      status=""
+      value="Ja"
     />
     <MapDetailResultItem
       label="Oppervlakte"
@@ -135,23 +135,23 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
       value="horeca"
     />
     <MapDetailResultStatusItem
-      label="Indicatie geconstateerd"
-      status=""
-      value="Nee"
-    />
-    <MapDetailResultStatusItem
-      label="Indicatie hoofdadres"
-      status=""
-      value="Ja"
-    />
-    <MapDetailResultStatusItem
       label="Status"
       status="alert"
       value="Status omschrijving"
     />
     <MapDetailResultStatusItem
+      label="Indicatie geconstateerd"
+      status=""
+      value="Nee"
+    />
+    <MapDetailResultStatusItem
       label="Aanduiding in onderzoek"
       status="alert"
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Indicatie hoofdadres"
+      status=""
       value="Ja"
     />
     <MapDetailResultItem
@@ -226,7 +226,17 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
       value="horeca"
     />
     <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value="Status omschrijving"
+    />
+    <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
+      status="alert"
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
     />
@@ -234,16 +244,6 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
       label="Indicatie hoofdadres"
       status="info"
       value="Nee"
-    />
-    <MapDetailResultStatusItem
-      label="Status"
-      status=""
-      value="Status omschrijving"
-    />
-    <MapDetailResultStatusItem
-      label="Aanduiding in onderzoek"
-      status="alert"
-      value="Ja"
     />
     <MapDetailResultItem
       label="Oppervlakte"
@@ -318,23 +318,23 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
       value="horeca"
     />
     <MapDetailResultStatusItem
+      label="Status"
+      status="alert"
+      value="Status omschrijving"
+    />
+    <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
+      status="alert"
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
     />
     <MapDetailResultStatusItem
       label="Indicatie hoofdadres"
       status=""
-      value="Ja"
-    />
-    <MapDetailResultStatusItem
-      label="Status"
-      status="alert"
-      value="Status omschrijving"
-    />
-    <MapDetailResultStatusItem
-      label="Aanduiding in onderzoek"
-      status="alert"
       value="Ja"
     />
     <MapDetailResultItem
@@ -410,23 +410,23 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
       value="horeca"
     />
     <MapDetailResultStatusItem
+      label="Status"
+      status="alert"
+      value="Status omschrijving"
+    />
+    <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
+      status="alert"
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
     />
     <MapDetailResultStatusItem
       label="Indicatie hoofdadres"
       status=""
-      value="Ja"
-    />
-    <MapDetailResultStatusItem
-      label="Status"
-      status="alert"
-      value="Status omschrijving"
-    />
-    <MapDetailResultStatusItem
-      label="Aanduiding in onderzoek"
-      status="alert"
       value="Ja"
     />
     <MapDetailResultItem
@@ -490,23 +490,23 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
       value="horeca"
     />
     <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value="Status omschrijving"
+    />
+    <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
+      status="alert"
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
     />
     <MapDetailResultStatusItem
       label="Indicatie hoofdadres"
       status=""
-      value="Ja"
-    />
-    <MapDetailResultStatusItem
-      label="Status"
-      status=""
-      value="Status omschrijving"
-    />
-    <MapDetailResultStatusItem
-      label="Aanduiding in onderzoek"
-      status="alert"
       value="Ja"
     />
     <MapDetailResultItem
