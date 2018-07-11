@@ -15,10 +15,10 @@ export default function fetchByUri(uri) {
         label: result.peilmerkidentificatie,
         location: result.location || wgs84Center,
         wallCoordinates: ((result.x_muurvlak || result.x_muurvlak === 0) &&
-          (result.y_muurvlak || result.y_muurvlak === 0)) ? [
-          parseFloat(result.x_muurvlak),
-          parseFloat(result.y_muurvlak)
-        ] : undefined,
+            (result.y_muurvlak || result.y_muurvlak === 0)) ? [
+              parseFloat(result.x_muurvlak),
+              parseFloat(result.y_muurvlak)
+            ] : undefined,
         windDirection: result.windrichting,
         year: result.jaar
       };
