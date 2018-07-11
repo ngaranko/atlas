@@ -10,5 +10,5 @@
 export default function formatNumber(number, precision = 3) {
   return new Intl.NumberFormat('nl-NL', {
     maximumFractionDigits: precision
-  }).format(number)
+  }).format(number);
 }

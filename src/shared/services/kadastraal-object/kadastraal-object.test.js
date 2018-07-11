@@ -24,7 +24,7 @@ describe('The kadastraal object resource', () => {
           something: 'else',
           gemeente: {
             gemeente: 'Gemeentenaam'
-          },
+          }
         },
         objectnummer: '6444',
         something: 'abc123'
@@ -50,7 +50,7 @@ describe('The kadastraal object resource', () => {
             label: 'Kadastrale gemeente display name',
             name: 'Kadastrale gemeente name',
             naam: 'Kadastrale gemeente name',
-            gemeente: 'Gemeentenaam',            
+            gemeente: 'Gemeentenaam',
             something: 'else'
           },
           label: 'Kadastraal object display name 1',
