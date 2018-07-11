@@ -67,7 +67,7 @@ exports[`MapDetailNapPeilmerk should render everything 1`] = `
   >
     <MapDetailResultItem
       label="Hoogte NAP"
-      value="123 m"
+      value="123,323 m"
     />
     <MapDetailResultItem
       label="Omschrijving"
