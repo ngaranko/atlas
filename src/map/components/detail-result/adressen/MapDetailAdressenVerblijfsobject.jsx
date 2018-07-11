@@ -61,24 +61,24 @@ const MapDetailAdressenVerblijfsobject = ({
           value={verblijfsobject.use && verblijfsobject.use.description}
         />
         <MapDetailResultStatusItem
-          label="Indicatie geconstateerd"
-          value={verblijfsobject.indicatieGeconstateerd ? 'Ja' : 'Nee'}
-          status={verblijfsobject.indicatieGeconstateerd ? 'alert' : ''}
-        />
-        <MapDetailResultStatusItem
-          label="Indicatie hoofdadres"
-          value={verblijfsobject.isNevenadres ? 'Nee' : 'Ja'}
-          status={verblijfsobject.isNevenadres ? 'info' : ''}
-        />
-        <MapDetailResultStatusItem
           label="Status"
           value={verblijfsobject.status.description}
           status={statusLevel}
         />
         <MapDetailResultStatusItem
+          label="Indicatie geconstateerd"
+          value={verblijfsobject.indicatieGeconstateerd ? 'Ja' : 'Nee'}
+          status={verblijfsobject.indicatieGeconstateerd ? 'alert' : ''}
+        />
+        <MapDetailResultStatusItem
           label="Aanduiding in onderzoek"
           value={verblijfsobject.aanduidingInOnderzoek ? 'Ja' : 'Nee'}
           status={verblijfsobject.aanduidingInOnderzoek ? 'alert' : ''}
+        />
+        <MapDetailResultStatusItem
+          label="Indicatie hoofdadres"
+          value={verblijfsobject.isNevenadres ? 'Nee' : 'Ja'}
+          status={verblijfsobject.isNevenadres ? 'info' : ''}
         />
         <MapDetailResultItem
           label="Oppervlakte"
