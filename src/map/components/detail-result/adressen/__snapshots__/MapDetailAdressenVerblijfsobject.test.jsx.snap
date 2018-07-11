@@ -11,6 +11,29 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Status: 
+        Status omschrijving
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [
@@ -69,6 +92,29 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Status: 
+        Status omschrijving
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [
@@ -127,6 +173,39 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="info"
+      >
+        Dit is een nevenadres
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [
@@ -185,6 +264,40 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Status: 
+        Status omschrijving
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [
@@ -243,6 +356,40 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Status: 
+        Status omschrijving
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [
@@ -301,6 +448,28 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [

@@ -11,6 +11,17 @@ exports[`MapDetailAdressenLigplaats should render \`Nee\` if aanduiding in onder
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
       status="alert"
@@ -36,6 +47,17 @@ exports[`MapDetailAdressenLigplaats should render \`Nee\` if indicatie geconstat
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
       status=""
@@ -61,6 +83,28 @@ exports[`MapDetailAdressenLigplaats should render everything 1`] = `
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
       status="alert"
