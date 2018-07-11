@@ -47,7 +47,7 @@ describe('The gebieden gebiedsgericht werken resource', () => {
         expect(response).toEqual({
           label: undefined,
           code: undefined,
-          location: null          
+          location: null
         });
       });
 
