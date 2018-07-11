@@ -6,10 +6,12 @@ module.exports = {
     'src/**/*.{js,jsx}',
     '!**/*.constant.js',
     '!**/*.config.js',
-    '!**/*.integration.test.{js,jsx}',
+    '!**/*.{integration,visual}.test.{js,jsx}',
+    '!**/*.stories.jsx',
     '!**/*.mock.js',
     '!**/index.js',
     '!src/*.js',
+    '!src/.*.js',
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
