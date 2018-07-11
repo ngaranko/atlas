@@ -27,16 +27,8 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="onbekend"
-    />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
@@ -57,6 +49,10 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
       label="Aanduiding in onderzoek"
       status=""
       value="Nee"
+    />
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
     />
   </ul>
 </MapDetailResultWrapper>
@@ -89,16 +85,8 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="onbekend"
-    />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
@@ -119,6 +107,10 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
       label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
+    />
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
     />
   </ul>
 </MapDetailResultWrapper>
@@ -151,16 +143,8 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="onbekend"
-    />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
@@ -181,6 +165,10 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
       label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
+    />
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
     />
   </ul>
 </MapDetailResultWrapper>
@@ -213,16 +201,8 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="15 m²"
-    />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
@@ -243,6 +223,10 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
       label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
+    />
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="15 m²"
     />
   </ul>
 </MapDetailResultWrapper>
@@ -275,16 +259,8 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="onbekend"
-    />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
@@ -305,6 +281,10 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
       label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
+    />
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
     />
   </ul>
 </MapDetailResultWrapper>
@@ -337,16 +317,8 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="onbekend"
-    />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
@@ -367,6 +339,10 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
       label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
+    />
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
     />
   </ul>
 </MapDetailResultWrapper>

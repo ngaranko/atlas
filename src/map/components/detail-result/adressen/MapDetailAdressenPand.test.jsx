@@ -8,9 +8,10 @@ describe('MapDetailAdressenPand', () => {
     const pand = {
       label: 'Pand label',
       status: {
-        ommschrijving: 'Pand status',
+        omschrijving: 'Pand status',
         code: '31'
       },
+      name: 'Gebouw!',
       year: '2020'
     };
     const clickHandler = jest.fn();
@@ -25,14 +26,15 @@ describe('MapDetailAdressenPand', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render unknown for empty year', () => {
+  it('should render unknown for empty year and empty name', () => {
     const pand = {
       label: 'Pand label',
       status: {
-        ommschrijving: 'Pand status',
+        omschrijving: 'Pand status',
         code: '31'
       },
-      year: ''
+      year: '',
+      name: ''
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(
@@ -46,11 +48,11 @@ describe('MapDetailAdressenPand', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render unknown without year', () => {
+  it('should render unknown without year and name', () => {
     const pand = {
       label: 'Pand label',
       status: {
-        ommschrijving: 'Pand status',
+        omschrijving: 'Pand status',
         code: '31'
       }
     };

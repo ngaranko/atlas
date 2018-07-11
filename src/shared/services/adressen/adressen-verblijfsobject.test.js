@@ -27,6 +27,10 @@ describe('The adressen verblijfsobject resource', () => {
           code_plus: '0400',
           omschrijving_plus: 'Gebruiksdoel 2 description plus'
         }],
+        gebruik: {
+          code: 14,
+          omschrijving: 'horeca'
+        },
         geometrie: { type: 'Point' },
         indicatie_geconstateerd: false,
         oppervlakte: 23820,
@@ -59,6 +63,14 @@ describe('The adressen verblijfsobject resource', () => {
             description: 'Gebruiksdoel 2 description',
             descriptionPlus: 'Gebruiksdoel 2 description plus'
           }],
+          gebruik: {
+            code: 14,
+            omschrijving: 'horeca'
+          },
+          use: {
+            code: 14,
+            description: 'horeca'
+          },
           geometrie: { type: 'Point' },
           indicatieGeconstateerd: false,
           indicatie_geconstateerd: false,
@@ -123,6 +135,10 @@ describe('The adressen verblijfsobject resource', () => {
           location: null,
           size: 0,
           status: {
+            code: '',
+            description: ''
+          },
+          use: {
             code: '',
             description: ''
           },

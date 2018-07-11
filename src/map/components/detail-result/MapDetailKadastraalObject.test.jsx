@@ -8,7 +8,8 @@ describe('MapDetailKadastraalObject', () => {
     const kadastraalObject = {
       kadastraleGemeente: {
         label: 'Kadastrale gemeente label',
-        name: 'Kadastrale gemeente name'
+        name: 'Kadastrale gemeente name',
+        gemeente: 'Gemeentenaam!'
       },
       label: 'Kadastraal object label',
       objectNumber: '123ABC',

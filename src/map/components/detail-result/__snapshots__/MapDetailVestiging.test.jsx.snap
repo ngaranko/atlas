@@ -15,6 +15,10 @@ exports[`MapDetailVestiging should render everything 1`] = `
       label="KvK-nummer"
       value="123456"
     />
+    <MapDetailResultItem
+      label="Vestigingsnummer"
+      value="0001234"
+    />
     <MapDetailAddressItem
       label="Bezoekadres"
       values={
@@ -36,6 +40,66 @@ exports[`MapDetailVestiging should render everything 1`] = `
           },
         ]
       }
+    />
+    <MapDetailResultItem
+      label="Type vestiging"
+      value="Hoofdvestiging"
+    />
+    <MapDetailVestigingBijzondereRechtstoestand
+      values={
+        Object {
+          "status": "Bijzondere rechtstoestand",
+        }
+      }
+    />
+  </ul>
+</MapDetailResultWrapper>
+`;
+
+exports[`MapDetailVestiging should render everything with hoofdvestiging = false 1`] = `
+<MapDetailResultWrapper
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  subTitle="Vestiging label"
+  title="Vestiging"
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="KvK-nummer"
+      value="123456"
+    />
+    <MapDetailResultItem
+      label="Vestigingsnummer"
+      value="0001234"
+    />
+    <MapDetailAddressItem
+      label="Bezoekadres"
+      values={
+        Object {
+          "plaats": "Amsterdam",
+        }
+      }
+    />
+    <MapDetailVestigingActiviteitenItem
+      activities={
+        Array [
+          Object {
+            "sbiCode": "01",
+            "sbiDescription": "SBI Description 1",
+          },
+          Object {
+            "sbiCode": "02",
+            "sbiDescription": "SBI Description 2",
+          },
+        ]
+      }
+    />
+    <MapDetailResultItem
+      label="Type vestiging"
+      value="Nevenvestiging"
     />
     <MapDetailVestigingBijzondereRechtstoestand
       values={

@@ -14,6 +14,11 @@ export default function fetchByUri(uri) {
         height: result.hoogte_nap,
         label: result.peilmerkidentificatie,
         location: result.location || wgs84Center,
+        wallCoordinates: (result.x_muurvlak !== undefined && result.y_muurvlak !== undefined) ? [
+          result.x_muurvlak,
+          result.y_muurvlak
+        ] : undefined,
+        windDirection: result.windrichting,
         year: result.jaar
       };
     });

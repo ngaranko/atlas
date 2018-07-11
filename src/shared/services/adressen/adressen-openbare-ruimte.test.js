@@ -15,28 +15,31 @@ describe('The adressen openbare ruimte resource', () => {
       const uri = 'https://acc.api.data.amsterdam.nl/bag/openbareruimte/123456';
 
       fetch.mockResponseOnce(JSON.stringify({
-        _display: 'Openbare ruimte display name 1',
+        _display: 'Korte Oude Nieuwe Kromme Lange Hoogstraat',
         geometrie: { type: 'Point' },
         something: 'abc123',
         status: {
           code: '01',
           omschrijving: 'Status description'
-        }
+        },
+        naam_24_posities: 'Ko Ou Ni Kr La Hoogstr'
       }));
       getCenter.mockImplementation(() => ({ x: 1, y: 2 }));
       rdToWgs84.mockImplementation(() => ({ latitude: 3, longitude: 4 }));
 
       const promise = fetchByUri(uri).then((response) => {
         expect(response).toEqual({
-          _display: 'Openbare ruimte display name 1',
+          _display: 'Korte Oude Nieuwe Kromme Lange Hoogstraat',
           geometrie: { type: 'Point' },
-          label: 'Openbare ruimte display name 1',
+          label: 'Korte Oude Nieuwe Kromme Lange Hoogstraat',
           location: { latitude: 3, longitude: 4 },
           something: 'abc123',
           status: {
             code: '01',
             description: 'Status description'
-          }
+          },
+          naam_24_posities: 'Ko Ou Ni Kr La Hoogstr',
+          nenName: 'Ko Ou Ni Kr La Hoogstr'
         });
       });
 
@@ -56,7 +59,8 @@ describe('The adressen openbare ruimte resource', () => {
           status: {
             code: '',
             description: ''
-          }
+          },
+          nenName: ''
         });
       });
 

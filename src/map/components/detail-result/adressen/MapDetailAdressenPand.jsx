@@ -28,6 +28,10 @@ const MapDetailAdressenPand = ({ panoUrl, pand, onMaximize, onPanoPreviewClick }
         label="Oorspronkelijk bouwjaar"
         value={pand.year || 'onbekend'}
       />
+      <MapDetailResultItem
+        label="Naam"
+        value={pand.name}
+      />
       <MapDetailResultStatusItem
         label="Status"
         value={pand.status.description}
@@ -44,6 +48,7 @@ MapDetailAdressenPand.propTypes = {
       description: PropTypes.string,
       code: PropTypes.string
     }).isRequired,
+    name: PropTypes.string,
     year: PropTypes.string
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,

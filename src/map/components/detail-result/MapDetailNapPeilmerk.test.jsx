@@ -9,7 +9,9 @@ describe('MapDetailNapPeilmerk', () => {
       description: 'Peilmerk description',
       height: '123',
       label: 'Peilmerk label',
-      year: 1919
+      year: 1919,
+      windDirection: 'W',
+      wallCoordinates: [2, 3]
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(

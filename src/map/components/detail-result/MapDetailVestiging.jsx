@@ -22,11 +22,19 @@ const MapDetailVestiging = ({ panoUrl, vestiging, onMaximize, onPanoPreviewClick
           label="KvK-nummer"
           value={vestiging.kvkNumber}
         />
+        <MapDetailResultItem
+          label="Vestigingsnummer"
+          value={vestiging.vestigingsnummer}
+        />
         <MapDetailAddressItem
           label="Bezoekadres"
           values={vestiging.visitingAddress}
         />
         <MapDetailVestigingActiviteitenItem activities={vestiging.activities} />
+        <MapDetailResultItem
+          label="Type vestiging"
+          value={vestiging.hoofdvestiging ? 'Hoofdvestiging' : 'Nevenvestiging'}
+        />
         <MapDetailVestigingBijzondereRechtstoestand
           values={vestiging.bijzondereRechtstoestand}
         />
@@ -47,7 +55,9 @@ MapDetailVestiging.propTypes = {
     bijzondereRechtstoestand: PropTypes.object,
     kvkNumber: PropTypes.string,
     label: PropTypes.string,
-    visitingAddress: PropTypes.object
+    visitingAddress: PropTypes.object,
+    hoofdvestiging: PropTypes.bool,
+    vestigingsnummer: PropTypes.string
   }).isRequired,
   onMaximize: PropTypes.func.isRequired,
   onPanoPreviewClick: PropTypes.func.isRequired

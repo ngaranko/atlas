@@ -15,16 +15,17 @@ const MapDetailKadastraalObject = ({
     title="Kadastraal object"
   >
     <ul className="map-detail-result__list">
-      <MapDetailResultItem
-        label="Objectnummer"
-        value={kadastraalObject.objectNumber}
-      />
       {kadastraalObject.kadastraleGemeente && (
         <MapDetailResultItem
           label="Kadastrale gemeente"
-          value={`${kadastraalObject.kadastraleGemeente.label}: ${kadastraalObject.kadastraleGemeente.name}`}
+          value={kadastraalObject.kadastraleGemeente.name}
         />
       )}
+      <MapDetailResultItem
+        label="Gemeente"
+        value={kadastraalObject.kadastraleGemeente && kadastraalObject.kadastraleGemeente.gemeente &&
+          kadastraalObject.kadastraleGemeente.gemeente.gemeente || ''}
+      />
       <MapDetailResultItem
         label="Grootte"
         value={(kadastraalObject.size || kadastraalObject.size === 0) ? `${kadastraalObject.size} m²` : ''}
@@ -37,10 +38,10 @@ MapDetailKadastraalObject.propTypes = {
   kadastraalObject: PropTypes.shape({
     kadastraleGemeente: PropTypes.shape({
       label: PropTypes.string,
-      name: PropTypes.string
+      name: PropTypes.string,
+      gemeente: PropTypes.string
     }),
     label: PropTypes.string,
-    objectNumber: PropTypes.string,
     size: PropTypes.number
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,

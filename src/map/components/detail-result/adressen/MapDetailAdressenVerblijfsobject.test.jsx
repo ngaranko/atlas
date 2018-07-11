@@ -17,10 +17,13 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       }],
       label: 'Verblijfsobject label',
       size: 15,
-      type: 'Verblijfsobject type',
       status: {
         description: 'Status omschrijving',
         code: '18'
+      },
+      use: {
+        code: '100',
+        description: 'horeca'
       },
       isNevenadres: false,
       indicatieGeconstateerd: true,
@@ -50,11 +53,14 @@ describe('MapDetailAdressenVerblijfsobject', () => {
         descriptionPlus: 'Gebruiksdoel description plus'
       }],
       label: 'Verblijfsobject label',
-      size: 0,
-      type: 'Verblijfsobject type',
+      size: 0,      
       status: {
         description: 'Status omschrijving',
         code: '19'
+      },
+      use: {
+        code: '100',
+        description: 'horeca'
       },
       isNevenadres: false,
       indicatieGeconstateerd: true,
@@ -89,6 +95,10 @@ describe('MapDetailAdressenVerblijfsobject', () => {
         description: 'Status omschrijving',
         code: '20'
       },
+      use: {
+        code: '100',
+        description: 'horeca'
+      },
       isNevenadres: false,
       indicatieGeconstateerd: true,
       aanduidingInOnderzoek: true
@@ -121,6 +131,10 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       status: {
         description: 'Status omschrijving',
         code: '21'
+      },
+      use: {
+        code: '100',
+        description: 'horeca'
       },
       isNevenadres: true,
       indicatieGeconstateerd: true,
@@ -155,6 +169,10 @@ describe('MapDetailAdressenVerblijfsobject', () => {
         description: 'Status omschrijving',
         code: '22'
       },
+      use: {
+        code: '100',
+        description: 'horeca'
+      },
       isNevenadres: false,
       indicatieGeconstateerd: true,
       aanduidingInOnderzoek: false
@@ -187,6 +205,10 @@ describe('MapDetailAdressenVerblijfsobject', () => {
       status: {
         description: 'Status omschrijving',
         code: '23'
+      },
+      use: {
+        code: '100',
+        description: 'horeca'
       },
       isNevenadres: false,
       indicatieGeconstateerd: false,

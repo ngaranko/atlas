@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import formatNumber from '../../../shared/services/number-formatter/number-formatter';
+
 import MapDetailResultItem from './MapDetailResultItem';
 import MapDetailResultWrapper from './MapDetailResultWrapper';
 
@@ -15,16 +17,21 @@ const MapDetailNapPeilmerk = ({ panoUrl, peilmerk, onMaximize, onPanoPreviewClic
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Hoogte NAP"
-        value={peilmerk.height && `${peilmerk.height} m`}
-      />
-      <MapDetailResultItem
-        label="Jaar"
-        value={peilmerk.year && peilmerk.year.toString()}
+        value={(peilmerk.height !== undefined) ? `${formatNumber(peilmerk.height)} m` : ''}
       />
       <MapDetailResultItem
         label="Omschrijving"
         value={peilmerk.description}
       />
+      <MapDetailResultItem
+        label="Windrichting"
+        value={peilmerk.windDirection}
+      />
+      {peilmerk.wallCoordinates && <MapDetailResultItem
+        label="Muurvlakcoördinaten (cm)"
+        cm
+        value={`${peilmerk.wallCoordinates[0]}, ${peilmerk.wallCoordinates[1]}`}
+      />}
     </ul>
   </MapDetailResultWrapper>
 );
@@ -35,7 +42,8 @@ MapDetailNapPeilmerk.propTypes = {
     description: PropTypes.string,
     height: PropTypes.string,
     label: PropTypes.string,
-    year: PropTypes.number
+    windDirection: PropTypes.string,
+    wallCoordinates: PropTypes.array
   }).isRequired,
   onMaximize: PropTypes.func.isRequired,
   onPanoPreviewClick: PropTypes.func.isRequired

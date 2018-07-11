@@ -8,7 +8,8 @@ describe('MapDetailMeetbout', () => {
     const meetbout = {
       address: 'Meetbout address',
       label: 'Meetbout label',
-      status: 'Meetbout status'
+      status: 'Meetbout status',
+      zakkingssnelheid: 0.123
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(

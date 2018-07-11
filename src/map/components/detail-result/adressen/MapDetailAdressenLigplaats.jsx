@@ -24,10 +24,6 @@ const MapDetailAdressenLigplaats = ({
         value={ligplaats.indicatieGeconstateerd ? 'Ja' : 'Nee'}
         status={ligplaats.indicatieGeconstateerd ? 'alert' : ''}
       />
-      <MapDetailResultItem
-        label="Status"
-        value={ligplaats.status.description}
-      />
       <MapDetailResultStatusItem
         label="Aanduiding in onderzoek"
         value={ligplaats.aanduidingInOnderzoek ? 'Ja' : 'Nee'}
@@ -41,11 +37,7 @@ MapDetailAdressenLigplaats.propTypes = {
   ligplaats: PropTypes.shape({
     aanduidingInOnderzoek: PropTypes.boolean,
     indicatieGeconstateerd: PropTypes.boolean,
-    label: PropTypes.string,
-    status: PropTypes.shape({
-      description: PropTypes.string,
-      code: PropTypes.string
-    }).isRequired
+    label: PropTypes.string,    
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
