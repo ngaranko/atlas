@@ -67,7 +67,8 @@ MapDetailResultWrapper.propTypes = {
   panoUrl: PropTypes.string.isRequired,
   subTitle: PropTypes.string,
   title: PropTypes.string.isRequired,
-  onMaximize: PropTypes.func.isRequired
+  onMaximize: PropTypes.func.isRequired,
+  onPanoPreviewClick: PropTypes.func
 };
 
 export default MapDetailResultWrapper;
