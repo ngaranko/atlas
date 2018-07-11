@@ -4,7 +4,7 @@
  * E.g.: 3.14159265359 => '3,142'
  *
  * @param {Number} number Input number.
- * @param {Integer} precision Number of required decimal places.
+ * @param {Number} precision Number of required decimal places.
  * @returns {string} The Dutch decimal string.
  */
 export default function formatNumber(number, precision = 3) {

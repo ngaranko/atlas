@@ -21,7 +21,7 @@ const MapDetailMeetbout = ({ panoUrl, meetbout, onMaximize, onPanoPreviewClick }
       />
       <MapDetailResultItem
         label="Zaksnelheid (mm/j)"
-        value={(meetbout.zakkingssnelheid !== undefined) ? `${formatNumber(meetbout.zakkingssnelheid)}` : ''}
+        value={(meetbout.zakkingssnelheid || meetbout.zakkingssnelheid === 0) ? `${formatNumber(meetbout.zakkingssnelheid)}` : ''}
       />
     </ul>
   </MapDetailResultWrapper>

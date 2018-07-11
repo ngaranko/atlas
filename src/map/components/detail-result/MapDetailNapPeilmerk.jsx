@@ -17,7 +17,7 @@ const MapDetailNapPeilmerk = ({ panoUrl, peilmerk, onMaximize, onPanoPreviewClic
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Hoogte NAP"
-        value={(peilmerk.height !== undefined) ? `${formatNumber(peilmerk.height)} m` : ''}
+        value={(peilmerk.height || peilmerk.height === 0) ? `${formatNumber(peilmerk.height)} m` : ''}
       />
       <MapDetailResultItem
         label="Omschrijving"
