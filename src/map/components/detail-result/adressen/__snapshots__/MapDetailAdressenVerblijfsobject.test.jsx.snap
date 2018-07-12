@@ -11,6 +11,29 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Status: 
+        Status omschrijving
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [
@@ -27,26 +50,8 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="onbekend"
-    />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
-    />
-    <MapDetailResultStatusItem
-      label="Indicatie geconstateerd"
-      status="alert"
-      value="Ja"
-    />
-    <MapDetailResultStatusItem
-      label="Indicatie hoofdadres"
-      status=""
-      value="Ja"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
     <MapDetailResultStatusItem
       label="Status"
@@ -54,9 +59,23 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
       value="Status omschrijving"
     />
     <MapDetailResultStatusItem
+      label="Indicatie geconstateerd"
+      status="alert"
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
       label="Aanduiding in onderzoek"
       status=""
       value="Nee"
+    />
+    <MapDetailResultStatusItem
+      label="Indicatie hoofdadres"
+      status=""
+      value="Ja"
+    />
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
     />
   </ul>
 </MapDetailResultWrapper>
@@ -73,6 +92,29 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Status: 
+        Status omschrijving
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [
@@ -89,26 +131,8 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="onbekend"
-    />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
-    />
-    <MapDetailResultStatusItem
-      label="Indicatie geconstateerd"
-      status=""
-      value="Nee"
-    />
-    <MapDetailResultStatusItem
-      label="Indicatie hoofdadres"
-      status=""
-      value="Ja"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
     <MapDetailResultStatusItem
       label="Status"
@@ -116,9 +140,23 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
       value="Status omschrijving"
     />
     <MapDetailResultStatusItem
+      label="Indicatie geconstateerd"
+      status=""
+      value="Nee"
+    />
+    <MapDetailResultStatusItem
       label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Indicatie hoofdadres"
+      status=""
+      value="Ja"
+    />
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
     />
   </ul>
 </MapDetailResultWrapper>
@@ -135,6 +173,39 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="info"
+      >
+        Dit is een nevenadres
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [
@@ -151,19 +222,21 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="onbekend"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
+    <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value="Status omschrijving"
     />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
+      status="alert"
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
     />
@@ -172,15 +245,9 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
       status="info"
       value="Nee"
     />
-    <MapDetailResultStatusItem
-      label="Status"
-      status=""
-      value="Status omschrijving"
-    />
-    <MapDetailResultStatusItem
-      label="Aanduiding in onderzoek"
-      status="alert"
-      value="Ja"
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
     />
   </ul>
 </MapDetailResultWrapper>
@@ -197,6 +264,40 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Status: 
+        Status omschrijving
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [
@@ -213,19 +314,21 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="15 m²"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
+    <MapDetailResultStatusItem
+      label="Status"
+      status="alert"
+      value="Status omschrijving"
     />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
+      status="alert"
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
     />
@@ -234,15 +337,9 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
       status=""
       value="Ja"
     />
-    <MapDetailResultStatusItem
-      label="Status"
-      status="alert"
-      value="Status omschrijving"
-    />
-    <MapDetailResultStatusItem
-      label="Aanduiding in onderzoek"
-      status="alert"
-      value="Ja"
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="15 m²"
     />
   </ul>
 </MapDetailResultWrapper>
@@ -259,6 +356,40 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Status: 
+        Status omschrijving
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [
@@ -275,19 +406,21 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="onbekend"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
+    <MapDetailResultStatusItem
+      label="Status"
+      status="alert"
+      value="Status omschrijving"
     />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
+      status="alert"
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
     />
@@ -296,15 +429,9 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
       status=""
       value="Ja"
     />
-    <MapDetailResultStatusItem
-      label="Status"
-      status="alert"
-      value="Status omschrijving"
-    />
-    <MapDetailResultStatusItem
-      label="Aanduiding in onderzoek"
-      status="alert"
-      value="Ja"
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
     />
   </ul>
 </MapDetailResultWrapper>
@@ -321,6 +448,28 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
   <ul
     className="map-detail-result__list"
   >
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        Indicatie geconstateerd
+      </Notification>
+    </li>
+    <li
+      className="map-detail-result__notification"
+    >
+      <Notification
+        canClose={false}
+        className=""
+        level="alert"
+      >
+        In onderzoek
+      </Notification>
+    </li>
     <MapDetailAdressenVerblijfsobjectGebruiksdoelenItem
       gebruiksdoelen={
         Array [
@@ -337,19 +486,21 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
       }
     />
     <MapDetailResultItem
-      label="Oppervlakte"
-      value="onbekend"
+      label="Feitelijk gebruik"
+      value="horeca"
     />
-    <MapDetailResultItem
-      label="Type woonobject"
-      value="Verblijfsobject type"
-    />
-    <MapDetailResultItem
-      label="Eigendomsverhouding"
-      value="Verblijfsobject eigendomsverhouding"
+    <MapDetailResultStatusItem
+      label="Status"
+      status=""
+      value="Status omschrijving"
     />
     <MapDetailResultStatusItem
       label="Indicatie geconstateerd"
+      status="alert"
+      value="Ja"
+    />
+    <MapDetailResultStatusItem
+      label="Aanduiding in onderzoek"
       status="alert"
       value="Ja"
     />
@@ -358,15 +509,9 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
       status=""
       value="Ja"
     />
-    <MapDetailResultStatusItem
-      label="Status"
-      status=""
-      value="Status omschrijving"
-    />
-    <MapDetailResultStatusItem
-      label="Aanduiding in onderzoek"
-      status="alert"
-      value="Ja"
+    <MapDetailResultItem
+      label="Oppervlakte"
+      value="onbekend"
     />
   </ul>
 </MapDetailResultWrapper>

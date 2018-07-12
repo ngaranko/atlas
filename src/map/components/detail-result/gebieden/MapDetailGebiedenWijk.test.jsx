@@ -6,7 +6,8 @@ import MapDetailGebiedenWijk from './MapDetailGebiedenWijk';
 describe('MapDetailGebiedenWijk', () => {
   it('should render everything', () => {
     const wijk = {
-      label: 'Wijk label'
+      label: 'Wijk label',
+      volledigeCode: 'A'
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(

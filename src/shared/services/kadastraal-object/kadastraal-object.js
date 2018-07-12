@@ -15,7 +15,8 @@ export default function fetchByUri(uri) {
         kadastraleGemeente: {
           ...result.kadastrale_gemeente,
           label: get(result.kadastrale_gemeente, '_display'),
-          name: get(result.kadastrale_gemeente, 'naam')
+          name: get(result.kadastrale_gemeente, 'naam'),
+          gemeente: get(result.kadastrale_gemeente, ['gemeente', 'gemeente'])
         },
         label: result._display,
         location: result.location || wgs84Center,

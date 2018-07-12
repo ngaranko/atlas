@@ -13,16 +13,16 @@ const MapDetailResultWrapper = ({
         map-detail-result__header--${panoUrl ? 'pano' : 'no-pano'}
       `}
     >
-      <button
-        className={`
-          map-detail-result__header-pano-button
-          map-detail-result__header-pano-button--${panoUrl ? 'enabled' : 'disabled'}
-        `}
-        disabled={!panoUrl}
-        onClick={onPanoPreviewClick}
-        title={panoUrl ? 'Panoramabeeld tonen' : 'Geen Panoramabeeld beschikbaar'}
-      >
-        {panoUrl && (
+      {panoUrl && (
+        <button
+          className={`
+            map-detail-result__header-pano-button
+            map-detail-result__header-pano-button--${panoUrl ? 'enabled' : 'disabled'}
+          `}
+          disabled={!panoUrl}
+          title={panoUrl ? 'Panoramabeeld tonen' : 'Geen Panoramabeeld beschikbaar'}
+          onClick={onPanoPreviewClick}
+        >
           <img
             alt="Panoramabeeld"
             className="map-detail-result__header-pano"
@@ -30,14 +30,14 @@ const MapDetailResultWrapper = ({
             src={panoUrl}
             width="438"
           />
+        </button>
+      )}
+      <div className="map-detail-result__header-container">
+        <h1 className="map-detail-result__header-title">{title}</h1>
+        {subTitle && (
+          <h2 className="map-detail-result__header-subtitle">{subTitle}</h2>
         )}
-        <div className="map-detail-result__header-container">
-          <h1 className="map-detail-result__header-title">{title}</h1>
-          {subTitle && (
-            <h2 className="map-detail-result__header-subtitle">{subTitle}</h2>
-          )}
-        </div>
-      </button>
+      </div>
     </header>
     <div className="map-detail-result__scroll-wrapper">
       {children && (
