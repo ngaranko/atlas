@@ -7,5 +7,14 @@ exports[`MapDetailGebiedenWijk should render everything 1`] = `
   panoUrl="panoUrl"
   subTitle="Wijk label"
   title="Wijk"
-/>
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Volledige code"
+      value="A"
+    />
+  </ul>
+</MapDetailResultWrapper>
 `;

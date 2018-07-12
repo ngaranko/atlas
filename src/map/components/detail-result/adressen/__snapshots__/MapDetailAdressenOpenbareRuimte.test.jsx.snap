@@ -5,15 +5,15 @@ exports[`MapDetailAdressenOpenbareRuimte should render everything 1`] = `
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
-  subTitle="Openbare ruimte label"
+  subTitle="Korte Oude Nieuwe Kromme Lange Hoogstraat"
   title="Openbare ruimte type"
 >
   <ul
     className="map-detail-result__list"
   >
     <MapDetailResultItem
-      label="Status"
-      value="Openbare ruimte status"
+      label="Naam 24-posities (NEN)"
+      value="Ko Ou Ni Kr La Hoogstr"
     />
   </ul>
 </MapDetailResultWrapper>

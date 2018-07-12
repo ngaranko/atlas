@@ -57,26 +57,8 @@ const MapDetailAdressenVerblijfsobject = ({
           gebruiksdoelen={verblijfsobject.gebruiksdoelen}
         />}
         <MapDetailResultItem
-          label="Oppervlakte"
-          value={verblijfsobject.size ? `${verblijfsobject.size} m²` : 'onbekend'}
-        />
-        <MapDetailResultItem
-          label="Type woonobject"
-          value={verblijfsobject.type}
-        />
-        <MapDetailResultItem
-          label="Eigendomsverhouding"
-          value={verblijfsobject.eigendomsverhouding}
-        />
-        <MapDetailResultStatusItem
-          label="Indicatie geconstateerd"
-          value={verblijfsobject.indicatieGeconstateerd ? 'Ja' : 'Nee'}
-          status={verblijfsobject.indicatieGeconstateerd ? 'alert' : ''}
-        />
-        <MapDetailResultStatusItem
-          label="Indicatie hoofdadres"
-          value={verblijfsobject.isNevenadres ? 'Nee' : 'Ja'}
-          status={verblijfsobject.isNevenadres ? 'info' : ''}
+          label="Feitelijk gebruik"
+          value={verblijfsobject.use && verblijfsobject.use.description}
         />
         <MapDetailResultStatusItem
           label="Status"
@@ -84,9 +66,23 @@ const MapDetailAdressenVerblijfsobject = ({
           status={statusLevel}
         />
         <MapDetailResultStatusItem
+          label="Indicatie geconstateerd"
+          value={verblijfsobject.indicatieGeconstateerd ? 'Ja' : 'Nee'}
+          status={verblijfsobject.indicatieGeconstateerd ? 'alert' : ''}
+        />
+        <MapDetailResultStatusItem
           label="Aanduiding in onderzoek"
           value={verblijfsobject.aanduidingInOnderzoek ? 'Ja' : 'Nee'}
           status={verblijfsobject.aanduidingInOnderzoek ? 'alert' : ''}
+        />
+        <MapDetailResultStatusItem
+          label="Indicatie hoofdadres"
+          value={verblijfsobject.isNevenadres ? 'Nee' : 'Ja'}
+          status={verblijfsobject.isNevenadres ? 'info' : ''}
+        />
+        <MapDetailResultItem
+          label="Oppervlakte"
+          value={verblijfsobject.size ? `${verblijfsobject.size} m²` : 'onbekend'}
         />
       </ul>
     </MapDetailResultWrapper>
@@ -96,14 +92,16 @@ const MapDetailAdressenVerblijfsobject = ({
 MapDetailAdressenVerblijfsobject.propTypes = {
   verblijfsobject: PropTypes.shape({
     aanduidingInOnderzoek: PropTypes.boolean,
-    eigendomsverhouding: PropTypes.string,
     gebruiksdoelen: PropTypes.array,
     indicatieGeconstateerd: PropTypes.boolean,
     isNevenadres: PropTypes.boolean,
     label: PropTypes.string,
     size: PropTypes.number,
-    type: PropTypes.string,
     status: PropTypes.shape({
+      description: PropTypes.string,
+      code: PropTypes.string
+    }),
+    use: PropTypes.shape({
       description: PropTypes.string,
       code: PropTypes.string
     })

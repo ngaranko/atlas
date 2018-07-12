@@ -37,10 +37,6 @@ const MapDetailAdressenStandplaats = ({
         value={standplaats.indicatieGeconstateerd ? 'Ja' : 'Nee'}
         status={standplaats.indicatieGeconstateerd ? 'alert' : ''}
       />
-      <MapDetailResultItem
-        label="Status"
-        value={standplaats.status.description}
-      />
       <MapDetailResultStatusItem
         label="Aanduiding in onderzoek"
         value={standplaats.aanduidingInOnderzoek ? 'Ja' : 'Nee'}
@@ -54,11 +50,7 @@ MapDetailAdressenStandplaats.propTypes = {
   standplaats: PropTypes.shape({
     aanduidingInOnderzoek: PropTypes.boolean,
     indicatieGeconstateerd: PropTypes.boolean,
-    label: PropTypes.string,
-    status: PropTypes.shape({
-      description: PropTypes.string,
-      code: PropTypes.string
-    }).isRequired
+    label: PropTypes.string    
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,

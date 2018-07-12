@@ -18,6 +18,9 @@ describe('The NAP peilmerk resource', () => {
         geometrie: { type: 'Point' },
         hoogte_nap: '2.1502',
         jaar: 2007,
+        windrichting: 'W',
+        x_muurvlak: '1',
+        y_muurvlak: '2',
         omschrijving: 'NAP peilmerk description',
         peilmerkidentificatie: 'NAP peilmerk display name 1',
         something: 'abc123'
@@ -29,15 +32,22 @@ describe('The NAP peilmerk resource', () => {
         expect(response).toEqual({
           description: 'NAP peilmerk description',
           geometrie: { type: 'Point' },
-          height: '2.1502',
+          height: 2.1502,
           hoogte_nap: '2.1502',
           jaar: 2007,
+          windrichting: 'W',
+          x_muurvlak: '1',
+          y_muurvlak: '2',
           label: 'NAP peilmerk display name 1',
           location: { latitude: 3, longitude: 4 },
           omschrijving: 'NAP peilmerk description',
           peilmerkidentificatie: 'NAP peilmerk display name 1',
           something: 'abc123',
-          year: 2007
+          year: 2007,
+          windDirection: 'W',
+          wallCoordinates: [
+            1, 2
+          ]
         });
       });
 
@@ -53,10 +63,12 @@ describe('The NAP peilmerk resource', () => {
       const promise = fetchByUri(uri).then((response) => {
         expect(response).toEqual({
           description: undefined,
-          height: undefined,
+          height: NaN,
           label: undefined,
           location: null,
-          year: undefined
+          year: undefined,
+          windDirection: undefined,
+          wallCoordinates: undefined
         });
       });
 
