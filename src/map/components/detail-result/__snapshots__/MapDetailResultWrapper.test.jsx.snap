@@ -205,9 +205,9 @@ exports[`MapDetailResultWrapper should render everything 1`] = `
   >
     <button
       className="
-          map-detail-result__header-pano-button
-          map-detail-result__header-pano-button--enabled
-        "
+            map-detail-result__header-pano-button
+            map-detail-result__header-pano-button--enabled
+          "
       disabled={false}
       onClick={[MockFunction]}
       title="Panoramabeeld tonen"
