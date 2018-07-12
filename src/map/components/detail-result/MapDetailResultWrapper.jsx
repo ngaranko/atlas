@@ -15,21 +15,21 @@ const MapDetailResultWrapper = ({
     >
       {panoUrl && (
         <button
-        className={`
-          map-detail-result__header-pano-button
-          map-detail-result__header-pano-button--${panoUrl ? 'enabled' : 'disabled'}
-        `}
-        disabled={!panoUrl}
-        title={panoUrl ? 'Panoramabeeld tonen' : 'Geen Panoramabeeld beschikbaar'}
-        onClick={onPanoPreviewClick}
+          className={`
+            map-detail-result__header-pano-button
+            map-detail-result__header-pano-button--${panoUrl ? 'enabled' : 'disabled'}
+          `}
+          disabled={!panoUrl}
+          title={panoUrl ? 'Panoramabeeld tonen' : 'Geen Panoramabeeld beschikbaar'}
+          onClick={onPanoPreviewClick}
         >
-        <img
-          alt="Panoramabeeld"
-          className="map-detail-result__header-pano"
-          height="292"
-          src={panoUrl}
-          width="438"
-        />
+          <img
+            alt="Panoramabeeld"
+            className="map-detail-result__header-pano"
+            height="292"
+            src={panoUrl}
+            width="438"
+          />
         </button>
       )}
       <div className="map-detail-result__header-container">
@@ -59,7 +59,8 @@ const MapDetailResultWrapper = ({
 
 MapDetailResultWrapper.defaultProps = {
   children: null,
-  subTitle: ''
+  subTitle: '',
+  onPanoPreviewClick: () => null
 };
 
 MapDetailResultWrapper.propTypes = {
