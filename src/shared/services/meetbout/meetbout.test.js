@@ -18,7 +18,7 @@ describe('The meetbout resource', () => {
         adres: 'Meetbout address',
         geometrie: { type: 'Point' },
         meetboutidentificatie: 'Meetbout display name 1',
-        zakkingssnelheid: 0.123,
+        zakkingssnelheid: '0.12345',
         something: 'abc123'
       }));
       getCenter.mockImplementation(() => ({ x: 1, y: 2 }));
@@ -32,7 +32,8 @@ describe('The meetbout resource', () => {
           label: 'Meetbout display name 1',
           location: { latitude: 3, longitude: 4 },
           meetboutidentificatie: 'Meetbout display name 1',
-          zakkingssnelheid: 0.123,
+          zakkingssnelheid: '0.12345',
+          speed: 0.12345,
           something: 'abc123'
         });
       });
@@ -51,6 +52,7 @@ describe('The meetbout resource', () => {
           address: undefined,
           label: undefined,
           zakkingssnelheid: undefined,
+          speed: NaN,
           location: null
         });
       });

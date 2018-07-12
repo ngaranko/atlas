@@ -8,7 +8,8 @@
  * @returns {string} The Dutch decimal string.
  */
 export default function formatNumber(number, precision = 3) {
-  return new Intl.NumberFormat('nl-NL', {
-    maximumFractionDigits: precision
-  }).format(number);
+  // TODO: add thousands separator
+  const decimals = 10 ** precision;
+  const rounded = Math.round(number * decimals) / decimals;
+  return rounded.toString().replace('.', ',');
 }

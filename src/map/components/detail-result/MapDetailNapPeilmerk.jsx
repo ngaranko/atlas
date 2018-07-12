@@ -40,7 +40,7 @@ MapDetailNapPeilmerk.propTypes = {
   panoUrl: PropTypes.string.isRequired,
   peilmerk: PropTypes.shape({
     description: PropTypes.string,
-    height: PropTypes.string,
+    height: PropTypes.number,
     label: PropTypes.string,
     windDirection: PropTypes.string,
     wallCoordinates: PropTypes.array
