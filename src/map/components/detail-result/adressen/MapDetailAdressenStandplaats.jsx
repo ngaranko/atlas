@@ -16,7 +16,7 @@ const MapDetailAdressenStandplaats = ({
     onMaximize={onMaximize}
     onPanoPreviewClick={onPanoPreviewClick}
     subTitle={standplaats.label}
-    title="Standplaats"
+    title="Adres (standplaats)"
   >
     <ul className="map-detail-result__list">
       {standplaats.indicatieGeconstateerd && <li className="map-detail-result__notification">

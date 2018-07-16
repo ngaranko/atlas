@@ -16,7 +16,7 @@ const MapDetailAdressenLigplaats = ({
     onPanoPreviewClick={onPanoPreviewClick}
     panoUrl={panoUrl}
     subTitle={ligplaats.label}
-    title="Ligplaats"
+    title="Adres (ligplaats)"
   >
     <ul className="map-detail-result__list">
       {ligplaats.indicatieGeconstateerd && <li className="map-detail-result__notification">
