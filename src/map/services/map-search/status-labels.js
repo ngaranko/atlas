@@ -21,7 +21,7 @@ const statusCodes = [
 const shouldShowStatus = (result) => result.vbo_status &&
   statusCodes.indexOf(result.vbo_status.code) > -1;
 
-export const getStatusLabelAdress = (result) =>
+export const getStatusLabelAddress = (result) =>
   `${shouldShowStatus(result) ? `${result.vbo_status.omschrijving}` : ''}` +
   `${shouldShowStatus(result) && !result.hoofdadres ? ' ' : ''}` +
   `${!result.hoofdadres ? 'Nevenadres' : ''}`;

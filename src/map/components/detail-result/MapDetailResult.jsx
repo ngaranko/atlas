@@ -30,9 +30,19 @@ const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize, onPanoPreviewC
   const endpointTypeKey = Object
     .keys(endpointTypes)
     .find((typeKey) => endpoint.includes(endpointTypes[typeKey]));
-  const endpointType = endpointTypes[endpointTypeKey];
+  let resultType = endpointTypes[endpointTypeKey];
 
-  switch (endpointType) {
+  if (resultType === endpointTypes.adressenNummeraanduiding) {
+    if (result.ligplaats) {
+      resultType = endpointTypes.adressenLigplaats;
+    } else if (result.standplaats) {
+      resultType = endpointTypes.adressenStandplaats;
+    } else {
+      resultType = endpointTypes.adressenVerblijfsobject;
+    }
+  }
+
+  switch (resultType) {
     case endpointTypes.adressenLigplaats:
       return (
         <MapDetailAdressenLigplaats
