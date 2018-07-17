@@ -1,5 +1,5 @@
 import categoryLabelsByType from './category-labels-by-type';
-import { getStatusLabel, getStatusLabelAdress } from './status-labels';
+import { getStatusLabel, getStatusLabelAddress } from './status-labels';
 
 const getDefault = (feature) => ({
   categoryLabel: categoryLabelsByType[feature.properties.type].singular,
@@ -10,19 +10,24 @@ const getDefault = (feature) => ({
   statusLabel: ''
 });
 
-const getAddres = (item) => ({
+const getAddress = (item) => ({
   ...getDefault(item),
   isNevenadres: !item.hoofdadres,
   status: {
     code: item.vbo_status.code,
     description: item.vbo_status.omschrijving
   },
-  statusLabel: getStatusLabelAdress(item)
+  statusLabel: getStatusLabelAddress(item)
 });
 
 const getOpenbareRuimte = (item) => ({
   ...getDefault(item),
   statusLabel: item.properties.opr_type !== 'Weg' ? item.properties.opr_type : ''
+});
+
+const getPlaats = (item, type) => ({
+  ...getDefault(item),
+  statusLabel: type
 });
 
 const getGebied = (item) => ({
@@ -38,7 +43,13 @@ const getBom = (item) => ({
 const transformResultByType = (result) => {
   switch (result.properties.type) {
     case 'pand/address':
-      return getAddres(result);
+      return getAddress(result);
+
+    case 'bag/ligplaats':
+      return getPlaats(result, 'ligplaats');
+
+    case 'bag/standplaats':
+      return getPlaats(result, 'standplaats');
 
     case 'bag/openbareruimte':
       return getOpenbareRuimte(result);
