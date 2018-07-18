@@ -12,7 +12,7 @@
         </dp-glossary-header>
 
         <dp-panel
-            ng-if="apiData.results.status.code !== '20' && apiData.results.status.code !== '21'"
+            ng-if="apiData.results.verblijfsobjectidentificatie && apiData.results.status.code !== '20' && apiData.results.status.code !== '21'"
             is-panel-visible="true"
             class-name="c-panel--offsets-below-page-title"
             type="danger">
