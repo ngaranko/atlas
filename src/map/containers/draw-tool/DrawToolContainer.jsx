@@ -160,16 +160,10 @@ DrawToolContainer.propTypes = {
   drawingMode: PropTypes.string.isRequired,
   shapeMarkers: PropTypes.number.isRequired,
   shapeDistanceTxt: PropTypes.string.isRequired,
-  dataSelection: PropTypes.shape({
-    geometryFilter: PropTypes.shape({
-      markers: PropTypes.array
-    })
-  }).isRequired,
-  geometry: PropTypes.arrayOf(PropTypes.number).isRequired,
+  dataSelection: PropTypes.shape({}),
+  geometry: PropTypes.array,
 
-  currentShape: PropTypes.shape({
-    markers: PropTypes.array
-  }).isRequired,
+  currentShape: PropTypes.shape({}),
 
   leafletInstance: PropTypes.shape({}).isRequired,
 

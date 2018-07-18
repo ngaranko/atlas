@@ -26,7 +26,7 @@ const MapDetailAdressenOpenbareRuimte = ({
 MapDetailAdressenOpenbareRuimte.propTypes = {
   openbareRuimte: PropTypes.shape({
     label: PropTypes.string,
-    nenName: PropTypes.string
+    nenName: PropTypes.string    
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,

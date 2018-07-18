@@ -53,7 +53,7 @@ describe('MapDetailAdressenVerblijfsobject', () => {
         descriptionPlus: 'Gebruiksdoel description plus'
       }],
       label: 'Verblijfsobject label',
-      size: 0,
+      size: 0,      
       status: {
         description: 'Status omschrijving',
         code: '19'

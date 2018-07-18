@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultStatusItem from '../MapDetailResultStatusItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 import Notification from '../../../../shared/components/notification/Notification';
@@ -49,7 +50,7 @@ MapDetailAdressenLigplaats.propTypes = {
   ligplaats: PropTypes.shape({
     aanduidingInOnderzoek: PropTypes.boolean,
     indicatieGeconstateerd: PropTypes.boolean,
-    label: PropTypes.string
+    label: PropTypes.string,    
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
