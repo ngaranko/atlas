@@ -23,6 +23,7 @@ export default function fetchByUri(uri) {
         result
     ))
     .then((result) => {
+      // eslint-disable-next-line no-underscore-dangle
       const geometryCenter = result._geometrie && getCenter(result._geometrie);
       const wgs84Center = geometryCenter && rdToWgs84(geometryCenter);
 
@@ -30,7 +31,7 @@ export default function fetchByUri(uri) {
         ...result,
         location: result.location || wgs84Center
       };
-    })
+    });
 }
 
 export function fetchByPandId(pandId) {

@@ -31,7 +31,7 @@ MapDetailMeetbout.propTypes = {
   meetbout: PropTypes.shape({
     address: PropTypes.string,
     label: PropTypes.string,
-    speed: PropTypes.number,
+    speed: PropTypes.number
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
