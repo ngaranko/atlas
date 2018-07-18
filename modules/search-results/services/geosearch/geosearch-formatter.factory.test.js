@@ -80,12 +80,12 @@ describe('The geosearchFormatter factory', function () {
                 type: 'FeatureCollection',
                 features: [
                     {
-                      properties: {
-                          display: 'Zuider IJdijk 137',
-                          id: '0363020001017297',
-                          type: 'bag/ligplaats',
-                          uri: 'https://api.data.amsterdam.nl/bag/ligplaats/0363020001017297/'
-                      }
+                        properties: {
+                            display: 'Zuider IJdijk 137',
+                            id: '0363020001017297',
+                            type: 'bag/ligplaats',
+                            uri: 'https://api.data.amsterdam.nl/bag/ligplaats/0363020001017297/'
+                        }
                     }, {
                         properties: {
                             display: 'AK47',
@@ -160,21 +160,20 @@ describe('The geosearchFormatter factory', function () {
     it('formats and sorts the raw API data', function () {
         expect(geosearchFormatter.format(rawSearchResults)).toEqual([
             {
-              slug: 'ligplaats',
-              label_singular: 'Adres',
-              label_plural: 'Adressen',
-              count: 1,
-              results: [
-                  {
-                      label: 'Zuider IJdijk 137',
-                      subtype: 'ligplaats',
-                      subtypeLabel: 'ligplaats',
-                      endpoint: 'https://api.data.amsterdam.nl/bag/ligplaats/0363020001017297/'
-                  }
-              ],
-              useIndenting: false
-          },
-            {
+                slug: 'ligplaats',
+                label_singular: 'Adres',
+                label_plural: 'Adressen',
+                count: 1,
+                results: [
+                    {
+                        label: 'Zuider IJdijk 137',
+                        subtype: 'ligplaats',
+                        subtypeLabel: 'ligplaats',
+                        endpoint: 'https://api.data.amsterdam.nl/bag/ligplaats/0363020001017297/'
+                    }
+                ],
+                useIndenting: false
+            }, {
                 slug: 'pand',
                 label_singular: 'Pand',
                 label_plural: 'Panden',
