@@ -5,17 +5,17 @@
 
         <dl class="c-key-value-list">
             <dt>Hoogte NAP</dt>
-            <dd>{{ vm.apiData.results.hoogte_nap }} m</dd>
+            <dd>{{ vm.apiData.results.hoogte_nap | number:3 }} m</dd>
             <dt>Jaar</dt>
             <dd>{{ vm.apiData.results.jaar }}</dd>
-            <dt>Merk</dt>
-            <dd>{{ vm.apiData.results.merk }}</dd>
             <dt>Omschrijving</dt>
             <dd>{{ vm.apiData.results.omschrijving }}</dd>
             <dt>Windrichting</dt>
             <dd>{{ vm.apiData.results.windrichting }}</dd>
-            <dt>Muurvlak coördinaten</dt>
+            <dt>Muurvlakcoördinaten (cm)</dt>
             <dd>{{ vm.apiData.results.x_muurvlak }}, {{ vm.apiData.results.y_muurvlak }}</dd>
+            <dt>Merk</dt>
+            <dd>{{ vm.apiData.results.merk }}</dd>
             <dt>RWS nummer</dt>
             <dd>{{ vm.apiData.results.rws_nummer }}</dd>
         </dl>

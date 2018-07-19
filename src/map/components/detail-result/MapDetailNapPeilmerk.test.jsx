@@ -7,9 +7,11 @@ describe('MapDetailNapPeilmerk', () => {
   it('should render everything', () => {
     const peilmerk = {
       description: 'Peilmerk description',
-      height: '123',
+      height: 123.32313,
       label: 'Peilmerk label',
-      year: 1919
+      year: 1919,
+      windDirection: 'W',
+      wallCoordinates: [2, 3]
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(
@@ -26,7 +28,7 @@ describe('MapDetailNapPeilmerk', () => {
   it('should not render empty height', () => {
     const peilmerk = {
       description: 'Peilmerk description',
-      height: '',
+      height: null,
       label: 'Peilmerk label',
       year: 1919
     };
@@ -45,7 +47,7 @@ describe('MapDetailNapPeilmerk', () => {
   it('should not render without height', () => {
     const peilmerk = {
       description: 'Peilmerk description',
-      height: '',
+      height: null,
       label: 'Peilmerk label',
       year: 1919
     };

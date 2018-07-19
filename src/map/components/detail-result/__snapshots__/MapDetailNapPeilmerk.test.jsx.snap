@@ -16,12 +16,12 @@ exports[`MapDetailNapPeilmerk should not render empty height 1`] = `
       value=""
     />
     <MapDetailResultItem
-      label="Jaar"
-      value="1919"
-    />
-    <MapDetailResultItem
       label="Omschrijving"
       value="Peilmerk description"
+    />
+    <MapDetailResultItem
+      label="Windrichting"
+      value=""
     />
   </ul>
 </MapDetailResultWrapper>
@@ -43,12 +43,12 @@ exports[`MapDetailNapPeilmerk should not render without height 1`] = `
       value=""
     />
     <MapDetailResultItem
-      label="Jaar"
-      value="1919"
-    />
-    <MapDetailResultItem
       label="Omschrijving"
       value="Peilmerk description"
+    />
+    <MapDetailResultItem
+      label="Windrichting"
+      value=""
     />
   </ul>
 </MapDetailResultWrapper>
@@ -67,15 +67,20 @@ exports[`MapDetailNapPeilmerk should render everything 1`] = `
   >
     <MapDetailResultItem
       label="Hoogte NAP"
-      value="123 m"
-    />
-    <MapDetailResultItem
-      label="Jaar"
-      value="1919"
+      value="123,323 m"
     />
     <MapDetailResultItem
       label="Omschrijving"
       value="Peilmerk description"
+    />
+    <MapDetailResultItem
+      label="Windrichting"
+      value="W"
+    />
+    <MapDetailResultItem
+      cm={true}
+      label="Muurvlakcoördinaten (cm)"
+      value="2, 3"
     />
   </ul>
 </MapDetailResultWrapper>

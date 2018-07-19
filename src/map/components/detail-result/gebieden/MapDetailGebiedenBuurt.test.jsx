@@ -6,7 +6,8 @@ import MapDetailGebiedenBuurt from './MapDetailGebiedenBuurt';
 describe('MapDetailGebiedenBuurt', () => {
   it('should render everything', () => {
     const buurt = {
-      label: 'Buurt label'
+      label: 'Buurt label',
+      volledigeCode: 'A'
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(

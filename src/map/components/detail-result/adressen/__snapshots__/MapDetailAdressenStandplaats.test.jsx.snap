@@ -27,10 +27,6 @@ exports[`MapDetailAdressenStandplaats should render \`Nee\` if aanduiding in ond
       status="alert"
       value="Ja"
     />
-    <MapDetailResultItem
-      label="Status"
-      value="description"
-    />
     <MapDetailResultStatusItem
       label="Aanduiding in onderzoek"
       status=""
@@ -66,10 +62,6 @@ exports[`MapDetailAdressenStandplaats should render \`Nee\` if indicatie geconst
       label="Indicatie geconstateerd"
       status=""
       value="Nee"
-    />
-    <MapDetailResultItem
-      label="Status"
-      value="description"
     />
     <MapDetailResultStatusItem
       label="Aanduiding in onderzoek"
@@ -117,10 +109,6 @@ exports[`MapDetailAdressenStandplaats should render everything 1`] = `
       label="Indicatie geconstateerd"
       status="alert"
       value="Ja"
-    />
-    <MapDetailResultItem
-      label="Status"
-      value="description"
     />
     <MapDetailResultStatusItem
       label="Aanduiding in onderzoek"

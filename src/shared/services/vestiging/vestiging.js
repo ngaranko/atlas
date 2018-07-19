@@ -69,7 +69,7 @@ export function fetchByAddressId(addressId) {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&');
 
-  return fetch(`${SHARED_CONFIG.API_ROOT}}handelsregister/vestiging/?${queryString}`,
+  return fetch(`${SHARED_CONFIG.API_ROOT}handelsregister/vestiging/?${queryString}`,
     { headers: getAuthHeaders() }
   )
     .then((response) => response.json())

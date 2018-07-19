@@ -41,6 +41,7 @@ describe('The vestiging resource', () => {
         },
         _display: 'Vestiging display name 1',
         geometrie: { type: 'Point' },
+        vestigingsnummer: '0001',
         maatschappelijke_activiteit:
           'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
         something: 'abc123'
@@ -91,6 +92,7 @@ describe('The vestiging resource', () => {
           kvkNumber: 'KvK number',
           label: 'Vestiging display name 1',
           location: { latitude: 3, longitude: 4 },
+          vestigingsnummer: '0001',
           maatschappelijke_activiteit:
             'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
           something: 'abc123',
@@ -113,6 +115,7 @@ describe('The vestiging resource', () => {
           geometrie: { type: 'Point' },
           something: 'else'
         },
+        vestigingsnummer: '0001',
         maatschappelijke_activiteit:
           'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678'
       }));
@@ -137,6 +140,7 @@ describe('The vestiging resource', () => {
           kvkNumber: undefined,
           label: undefined,
           location: { latitude: 3, longitude: 4 },
+          vestigingsnummer: '0001',
           maatschappelijke_activiteit:
             'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
           visitingAddress: {
