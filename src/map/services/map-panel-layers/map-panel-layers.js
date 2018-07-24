@@ -723,6 +723,12 @@ export default [
         title: 'Algemeen overlastgebied'
       },
       {
+        id: 'oovoalco',
+        layer: 'alcoholverbodsgebied',
+        selectable: true,
+        title: 'Alcoholverbodsgebied'
+      },
+      {
         id: 'oovodlrs',
         layer: 'dealeroverlastgebied',
         selectable: true,
