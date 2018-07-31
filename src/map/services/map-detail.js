@@ -100,10 +100,13 @@ export default async function fetchDetail(endpoint, user) {
   const authScope = endpointConfig && endpointConfig.authScope;
   const detail = fetchFn && (!authScope || user.scopes.includes(authScope)) &&
     await fetchFn(endpoint, user);
+  const endpointTypeForResult = getEndpointTypeForResult(endpointType, detail);
 
-  return detail && {
+  return detail ? {
     ...detail,
-    endpointType: getEndpointTypeForResult(endpointType, detail)
+    endpointType: endpointTypeForResult
+  } : {
+    endpointType: endpointTypeForResult
   };
 }
 
