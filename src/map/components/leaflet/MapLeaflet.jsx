@@ -9,6 +9,7 @@ import NonTiledLayer from './custom/non-tiled-layer';
 import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
 import geoJsonConfig from './services/geo-json-config.constant';
+import markerConfig from './services/marker-config.constant';
 import createClusterIcon from './services/cluster-icon';
 import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
 
@@ -223,7 +224,7 @@ class MapLeaflet extends React.Component {
           {
             markers.map((marker) => Boolean(marker.position) && (
               <CustomMarker
-                ref={markers.length === 1 && this.setActiveElement}
+                ref={markerConfig[marker.type].requestFocus && this.setActiveElement}
                 position={marker.position}
                 key={marker.position.toString() + marker.type}
                 icon={icons[marker.type](marker.iconData)}
