@@ -26,23 +26,8 @@ import MapDetailMonument from './MapDetailMonument';
 import MapDetailNapPeilmerk from './MapDetailNapPeilmerk';
 import MapDetailVestiging from './MapDetailVestiging';
 
-const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize, onPanoPreviewClick }) => {
-  const endpointTypeKey = Object
-    .keys(endpointTypes)
-    .find((typeKey) => endpoint.includes(endpointTypes[typeKey]));
-  let resultType = endpointTypes[endpointTypeKey];
-
-  if (resultType === endpointTypes.adressenNummeraanduiding) {
-    if (result.ligplaats) {
-      resultType = endpointTypes.adressenLigplaats;
-    } else if (result.standplaats) {
-      resultType = endpointTypes.adressenStandplaats;
-    } else {
-      resultType = endpointTypes.adressenVerblijfsobject;
-    }
-  }
-
-  switch (resultType) {
+const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => {
+  switch (result.endpointType) {
     case endpointTypes.adressenLigplaats:
       return (
         <MapDetailAdressenLigplaats
@@ -261,7 +246,6 @@ MapDetailResult.defaultProps = {
 };
 
 MapDetailResult.propTypes = {
-  endpoint: PropTypes.string.isRequired,
   panoUrl: PropTypes.string,
   onMaximize: PropTypes.func.isRequired,
   onPanoPreviewClick: PropTypes.func.isRequired,
