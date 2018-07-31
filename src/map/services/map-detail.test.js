@@ -61,7 +61,7 @@ describe('The map detail service', () => {
     vestiging.mockImplementation(() => ({ type: 'vestiging' }));
     expect(await detail('https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123', {
       scopes: ['MON/R']
-    })).toEqual(false);
+    })).toEqual({ endpointType: 'handelsregister/vestiging/' });
     expect(vestiging).not.toHaveBeenCalled();
   });
 
