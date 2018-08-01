@@ -13322,6 +13322,23 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 "url": "/maps/overlastgebieden?version=1.3.0&service=WMS",
               },
               Object {
+                "category": "Openbare orde en veiligheid",
+                "id": "oovtig",
+                "layers": Array [
+                  "taxi-invloedsgebied",
+                ],
+                "legendItems": Array [
+                  Object {
+                    "selectable": false,
+                    "title": "Taxi-invloedsgebied",
+                  },
+                ],
+                "maxZoom": 16,
+                "minZoom": 8,
+                "title": "Taxi-invloedsgebieden",
+                "url": "/maps/overlastgebieden?version=1.3.0&service=WMS",
+              },
+              Object {
                 "category": "Toerisme en cultuur",
                 "id": "tcmnmt",
                 "legendItems": Array [
@@ -16144,6 +16161,23 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           "url": "/maps/overlastgebieden?version=1.3.0&service=WMS",
                         },
                         Object {
+                          "category": "Openbare orde en veiligheid",
+                          "id": "oovtig",
+                          "layers": Array [
+                            "taxi-invloedsgebied",
+                          ],
+                          "legendItems": Array [
+                            Object {
+                              "selectable": false,
+                              "title": "Taxi-invloedsgebied",
+                            },
+                          ],
+                          "maxZoom": 16,
+                          "minZoom": 8,
+                          "title": "Taxi-invloedsgebieden",
+                          "url": "/maps/overlastgebieden?version=1.3.0&service=WMS",
+                        },
+                        Object {
                           "category": "Toerisme en cultuur",
                           "id": "tcmnmt",
                           "legendItems": Array [
@@ -18062,6 +18096,37 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                   className="map-layers__toggle-title"
                                 >
                                   Cameratoezichtgebieden
+                                </span>
+                                <span
+                                  className="map-layers__toggle map-layers__toggle--remove"
+                                >
+                                  <Component>
+                                    mock-svg
+                                  </Component>
+                                </span>
+                                <span
+                                  className="map-layers__toggle map-layers__toggle--add"
+                                >
+                                  <Component>
+                                    mock-svg
+                                  </Component>
+                                </span>
+                              </button>
+                            </li>
+                            <li
+                              className="
+                      map-layers__title
+                      map-layers__title--inactive
+                    "
+                              key="Taxi-invloedsgebieden"
+                            >
+                              <button
+                                onClick={[Function]}
+                              >
+                                <span
+                                  className="map-layers__toggle-title"
+                                >
+                                  Taxi-invloedsgebieden
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"

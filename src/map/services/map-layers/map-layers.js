@@ -509,6 +509,11 @@ export default [
     url: 'maps/overlastgebieden',
     layers: ['cameratoezichtgebied', 'cameratoezichtgebied_label']
   },
+  {
+    id: 'oovtig',
+    url: 'maps/overlastgebieden',
+    layers: ['taxi-invloedsgebied', 'taxi-invloedsgebied_label']
+  },
   // Toerisme en cultuur
   {
     id: 'tcmnmt',
