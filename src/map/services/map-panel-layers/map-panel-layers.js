@@ -762,6 +762,21 @@ export default [
     url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
   },
   {
+    category: 'Openbare orde en veiligheid',
+    id: 'oovtig',
+    layers: ['taxi-invloedsgebied'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Taxi-invloedsgebied'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Taxi-invloedsgebieden',
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+  },
+  {
     category: 'Toerisme en cultuur',
     id: 'tcmnmt',
     legendItems: [
