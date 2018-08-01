@@ -50,8 +50,6 @@
                     <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
                 </dp-message>
             </dd>
-            <dt>Indicatie non-mailing</dt>
-            <dd>{{ vm.apiData.results.non_mailing?'Ja':'Nee' }}</dd>
             <dt>Datum aanvang</dt>
             <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
             <dt>Soort bijzondere rechtstoestand</dt>
