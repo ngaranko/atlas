@@ -61,6 +61,13 @@ export function initialize(map, onFinish, onDrawingMode, onUpdateShape) {
   registerMapEvents();
 }
 
+export function destroy() {
+  Object.keys(L.Draw.Event).forEach((eventName) => {
+    drawTool.map.off(L.Draw.Event[eventName]);
+  });
+  cancel();
+}
+
 // triggered when a polygon has finished drawing or editing
 function onFinishPolygon() {
   if (typeof _onFinishPolygon === 'function') {
@@ -372,6 +379,7 @@ export function disable() {
 export function cancel() {
   if (isEnabled()) {
     if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.DRAW) {
+      currentShape.layer = null;
       drawTool.drawShapeHandler.disable();
     } else {
       drawTool.editShapeHandler.disable();

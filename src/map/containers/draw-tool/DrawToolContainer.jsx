@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import isEqual from 'lodash.isequal';
 
 import DrawTool from '../../components/draw-tool/DrawTool';
-import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 import { mapClearDrawing, mapEmptyGeometry, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../ducks/map/map';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
@@ -18,9 +17,11 @@ import {
   cancel,
   currentShape,
   initialize,
+  destroy,
   setPolygon,
   isEnabled
 } from '../../services/draw-tool/draw-tool';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
 
 const mapStateToProps = (state) => ({
@@ -93,6 +94,17 @@ class DrawToolContainer extends React.Component {
       }
       this.setState({ drawingMode: props.drawingMode });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.destroy();
+    this.props.onMapUpdateShape({
+      shapeMarkers: 0,
+      shapeDistanceTxt: '',
+      shapeAreaTxt: ''
+    });
+    this.props.onEmptyGeometry();
+    this.props.onEndDrawing();
   }
 
   onFinishShape(polygon) {
@@ -170,6 +182,7 @@ DrawToolContainer.propTypes = {
   cancel: PropTypes.func.isRequired,
   setPolygon: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
+  destroy: PropTypes.func.isRequired,
 
   onClearDrawing: PropTypes.func.isRequired,
   onEmptyGeometry: PropTypes.func.isRequired,
@@ -189,6 +202,7 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => (
     toggleDrawing={toggleDrawing}
     cancel={cancel}
     initialize={initialize}
+    destroy={destroy}
     setPolygon={setPolygon}
     {...props}
   />
