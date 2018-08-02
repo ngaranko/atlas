@@ -13,7 +13,7 @@ const subTypesLabels = {
 export const getStatusLabel = (type) => {
   const semgents = type.split('/');
   const segment = semgents[1] ? semgents[1] : semgents[0];
-  return subTypesLabels[segment] ? subTypesLabels[segment] : segment;
+  return subTypesLabels[segment] ? subTypesLabels[segment] : '';
 };
 
 const statusCodes = [
