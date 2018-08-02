@@ -36,10 +36,20 @@
             </dd>
             <dt>KvK-nummer</dt>
             <dd> {{ vm.apiData.results.kvk_nummer }} </dd>
+            <dt>Postadres</dt>
+            <dd>
+                {{ vm.apiData.results.postadres.volledig_adres }}
+                <dp-message ng-if="vm.apiData.results.postadres.correctie">
+                    <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.postadres.query_string }}</span>
+                </dp-message>
+            </dd>
             <dt>Bezoekadres</dt>
-            <dd> {{ vm.apiData.results.bezoekadres.volledig_adres }} </dd>
-            <dt>Indicatie non-mailing</dt>
-            <dd>{{ vm.apiData.results.non_mailing?'Ja':'Nee' }}</dd>
+            <dd>
+                {{ vm.apiData.results.bezoekadres.volledig_adres }}
+                <dp-message ng-if="vm.apiData.results.bezoekadres.correctie">
+                    <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
+                </dp-message>
+            </dd>
             <dt>Datum aanvang</dt>
             <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
             <dt>Soort bijzondere rechtstoestand</dt>
