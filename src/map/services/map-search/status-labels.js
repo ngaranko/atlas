@@ -5,6 +5,7 @@ const subTypesLabels = {
   gevrijwaardgebied: 'gevrijwaard gebied',
   grootstedelijkgebied: 'grootstedelijk gebied',
   ligplaats: 'ligplaats',
+  stadsdeel: 'stadsdeel',
   standplaats: 'standplaats',
   uitgevoerdonderzoek: 'reeds uitgevoerd CE onderzoek',
   verdachtgebied: 'verdacht gebied'
