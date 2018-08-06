@@ -11,7 +11,7 @@ module.exports = {
     '!**/*.mock.js',
     '!**/index.js',
     '!src/*.js',
-    '!src/.*.js',
+    '!src/.*.js'
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
@@ -39,7 +39,7 @@ module.exports = {
     'enzyme-to-json/serializer'
   ],
   testMatch: [
-    '**/!(*.visual|*.integration).test.js?(x)',
+    '**/!(*.visual|*.integration).test.js?(x)'
     // Do match:
     // foo.test.jsx
     // barService.test.js
@@ -48,6 +48,7 @@ module.exports = {
     // foo.visual.test.jsx
     // foo.integration.test.jsx
   ],
+  testURL: 'http://localhost:8080/',
   testEnvironment: 'jest-environment-jsdom-global',
   testPathIgnorePatterns: [
     '/e2e/',
