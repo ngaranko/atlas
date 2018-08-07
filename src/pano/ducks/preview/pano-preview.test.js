@@ -19,7 +19,7 @@ const stateAfterRequest = {
   previews: {}
 };
 
-describe('FetchPanoPreviewReducer', () => {
+describe('FetchPanoPreview Reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });
