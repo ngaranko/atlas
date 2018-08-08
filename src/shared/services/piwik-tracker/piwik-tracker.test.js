@@ -16,7 +16,7 @@ describe('piwikTracker', () => {
   describe('trackPageNavigation', () => {
     it('should call piwikTracker 3 times', () => {
       trackPageNavigation();
-      expect(global.window._paq.push).toHaveBeenLastCalledWith(["trackPageView"]);
+      expect(global.window._paq.push).toHaveBeenLastCalledWith(['trackPageView']);
     });
   });
 });
