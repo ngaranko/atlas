@@ -42,7 +42,9 @@
             vm.showActiveFilters = Object.keys(vm.filters).length || vm.state.geometryFilter.markers.length;
 
             vm.canEditDataset = vm.user.scopes.includes('CAT/W');
-            vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE;
+            vm.showNumberOfRecords = vm.numberOfRecords > 0 &&
+                DATA_SELECTION_CONFIG.datasets[vm.state.dataset].SHOW_NUMBER_OF_RECORDS;
+            vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE_TABLE;
 
             vm.tabs = ['bag', 'hr', 'brk'].map(dataset => {
                 return {
