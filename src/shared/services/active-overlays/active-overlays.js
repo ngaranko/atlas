@@ -41,28 +41,11 @@ class ActiveOverlays {
     );
   }
 
-  setOverlays(newOverlays) {
-    this.allOverlays = newOverlays;
-  }
-
-  getVisibleOverlays(zoom) {
-    return this.getVisibleSources(zoom)
-      .filter((source) => source.detailUrl && source.detailItem)
-      .filter((a, index, self) => self.findIndex((b) => b.detailItem === a.detailItem === index));
-  }
-
   getOverlaysWarning(zoom) {
     return this.getVisibleSources(zoom)
       .filter((source) => source.noDetail)
       .map((a) => a.label_short)
       .join(', ');
-  }
-
-  getOverlaysLabels(zoom) {
-    const labels = this.getVisibleSources(zoom)
-      .map((a) => a.parent_label || a.label_short);
-
-    return [...new Set(labels)].join(', ');
   }
 
   getVisibleSources(zoom) {
