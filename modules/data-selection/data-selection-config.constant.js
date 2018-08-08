@@ -132,7 +132,7 @@
                     MAX_AVAILABLE_PAGES: 100,
                     MAX_NUMBER_OF_CLUSTERED_MARKERS: Infinity,
                     ENDPOINT_PREVIEW: {
-                        TABLE: 'dataselectie/brk/kot/',
+                        TABLE: 'dataselectie/brk/',
                         LIST: 'dataselectie/brk/kot/'
                     },
                     ENDPOINT_MARKERS: 'dataselectie/brk/geolocation/',
