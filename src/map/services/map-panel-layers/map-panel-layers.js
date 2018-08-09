@@ -723,12 +723,6 @@ export default [
         title: 'Algemeen overlastgebied'
       },
       {
-        id: 'oovoalco',
-        layer: 'alcoholverbodsgebied',
-        selectable: true,
-        title: 'Alcoholverbodsgebied'
-      },
-      {
         id: 'oovodlrs',
         layer: 'dealeroverlastgebied',
         selectable: true,
@@ -763,17 +757,33 @@ export default [
   },
   {
     category: 'Openbare orde en veiligheid',
-    id: 'oovtig',
-    layers: ['taxi-invloedsgebied'],
+    id: 'oovoalco',
+    layers: ['Alcoholverbodsgebied'],
     legendItems: [
       {
+        layer: 'alcoholverbodsgebied',
         selectable: false,
-        title: 'Taxi-invloedsgebied'
+        title: 'Alcoholverbodsgebied'
       }
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: 'Taxi-invloedsgebieden',
+    title: 'Alcoholverbodsgebieden',
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Openbare orde en veiligheid',
+    id: 'oovtig',
+    layers: ['taxi-standplaatsgebied'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Taxi-standplaatsgebied'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Taxi-standplaatsgebieden',
     url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
   },
   {

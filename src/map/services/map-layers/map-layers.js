@@ -512,7 +512,7 @@ export default [
   {
     id: 'oovtig',
     url: 'maps/overlastgebieden',
-    layers: ['taxi-invloedsgebied', 'taxi-invloedsgebied_label']
+    layers: ['taxi-standplaatsgebied', 'taxi-standplaatsgebied_label']
   },
   // Toerisme en cultuur
   {
