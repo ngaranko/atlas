@@ -7,7 +7,6 @@ export const DETAIL_FULLSCREEN = 'DETAIL_FULLSCREEN';
 /* eslint-disable */
 // export default function detailReducer(state = {}, action) {
 /* istanbul ignore next */
-window.reducers = window.reducers || {};
 const detailReducer = (state = {}, action) => {
   switch (action.type) {
     case FETCH_DETAIL:
@@ -74,11 +73,12 @@ const detailReducer = (state = {}, action) => {
   }
 };
 
-window.reducers.detailReducer = detailReducer;
-
 export default detailReducer
 
 export const fetchDetail = (endpoint) => ({
   type: FETCH_DETAIL,
   payload: endpoint
 });
+
+window.reducers = window.reducers || {};
+window.reducers.detailReducer = detailReducer;

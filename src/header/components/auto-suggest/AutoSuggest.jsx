@@ -7,20 +7,30 @@ import ClearIcon from '../../../../public/images/icon-clear.svg';
 import './_auto-suggest.scss';
 
 class AutoSuggest extends React.Component {
-  state = {
-    originalQuery: '',
-    showSuggestions: false
-  };
+  constructor(props) {
+    super(props);
+    this.clearQuery = this.clearQuery.bind(this);
+    this.navigateSuggestions = this.navigateSuggestions.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onInput = this.onInput.bind(this);
+    this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
+    this.state = {
+      originalQuery: '',
+      showSuggestions: false
+    };
+  }
 
-  onBlur = () => {
+  onBlur() {
     setTimeout(() => {
       this.setState({
         showSuggestions: false
       });
     }, 200);
-  };
+  }
 
-  onInput = (event) => {
+  onInput(event) {
     const {
       onTextInput,
       activeSuggestion
@@ -35,9 +45,9 @@ class AutoSuggest extends React.Component {
     this.setState({
       showSuggestions: true
     });
-  };
+  }
 
-  onFocus = () => {
+  onFocus() {
     const {
       onTextInput,
       suggestions,
@@ -50,9 +60,9 @@ class AutoSuggest extends React.Component {
     if (query.length && !suggestions.length) {
       onTextInput(query);
     }
-  };
+  }
 
-  onSuggestionSelection = (suggestion, event) => {
+  onSuggestionSelection(suggestion, event) {
     const {
       onSuggestionSelection
     } = this.props;
@@ -67,9 +77,9 @@ class AutoSuggest extends React.Component {
       this.clearQuery();
       this.textInput.blur();
     }
-  };
+  }
 
-  onFormSubmit = (event) => {
+  onFormSubmit(event) {
     const {
       onSubmit
     } = this.props;
@@ -94,7 +104,7 @@ class AutoSuggest extends React.Component {
       );
   }
 
-  navigateSuggestions = (event) => {
+  navigateSuggestions(event) {
     const {
       activeSuggestion,
       numberOfSuggestions,
@@ -150,9 +160,9 @@ class AutoSuggest extends React.Component {
       default:
         break;
     }
-  };
+  }
 
-  clearQuery = (shouldFocus = true) => {
+  clearQuery(shouldFocus = true) {
     const {
       onTextInput
     } = this.props;
@@ -165,7 +175,7 @@ class AutoSuggest extends React.Component {
       showSuggestions: false
     });
     onTextInput();
-  };
+  }
 
   resetActiveSuggestion() {
     // wrapper function to improve readability

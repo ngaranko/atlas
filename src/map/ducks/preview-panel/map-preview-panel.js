@@ -36,6 +36,13 @@ export default function MapPreviewPanelReducer(state = initialState, action) {
 export const openMapPreviewPanel = () => ({ type: OPEN_MAP_PREVIEW_PANEL });
 export const closeMapPreviewPanel = () => ({ type: CLOSE_MAP_PREVIEW_PANEL });
 export const maximizeMapPreviewPanel = () => ({ type: MAXIMIZE_MAP_PREVIEW_PANEL });
+export const fetchSearchResults = (location) => ({
+  type: {
+    id: 'FETCH_SEARCH_RESULTS_BY_LOCATION',
+    ignore: true
+  },
+  payload: [location.latitude, location.longitude]
+});
 
 window.reducers = window.reducers || {};
 window.reducers.MapPreviewPanelReducer = MapPreviewPanelReducer;
