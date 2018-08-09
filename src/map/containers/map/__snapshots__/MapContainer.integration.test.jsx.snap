@@ -13281,12 +13281,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "title": "Algemeen overlastgebied",
                   },
                   Object {
-                    "id": "oovoalco",
-                    "layer": "alcoholverbodsgebied",
-                    "selectable": true,
-                    "title": "Alcoholverbodsgebied",
-                  },
-                  Object {
                     "id": "oovodlrs",
                     "layer": "dealeroverlastgebied",
                     "selectable": true,
@@ -13323,19 +13317,37 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               },
               Object {
                 "category": "Openbare orde en veiligheid",
-                "id": "oovtig",
+                "id": "oovoalco",
                 "layers": Array [
-                  "taxi-invloedsgebied",
+                  "Alcoholverbodsgebied",
                 ],
                 "legendItems": Array [
                   Object {
+                    "layer": "alcoholverbodsgebied",
                     "selectable": false,
-                    "title": "Taxi-invloedsgebied",
+                    "title": "Alcoholverbodsgebied",
                   },
                 ],
                 "maxZoom": 16,
                 "minZoom": 8,
-                "title": "Taxi-invloedsgebieden",
+                "title": "Alcoholverbodsgebieden",
+                "url": "/maps/overlastgebieden?version=1.3.0&service=WMS",
+              },
+              Object {
+                "category": "Openbare orde en veiligheid",
+                "id": "oovtig",
+                "layers": Array [
+                  "taxi-standplaatsgebied",
+                ],
+                "legendItems": Array [
+                  Object {
+                    "selectable": false,
+                    "title": "Taxi-standplaatsgebied",
+                  },
+                ],
+                "maxZoom": 16,
+                "minZoom": 8,
+                "title": "Taxi-standplaatsgebieden",
                 "url": "/maps/overlastgebieden?version=1.3.0&service=WMS",
               },
               Object {
@@ -16120,12 +16132,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                               "title": "Algemeen overlastgebied",
                             },
                             Object {
-                              "id": "oovoalco",
-                              "layer": "alcoholverbodsgebied",
-                              "selectable": true,
-                              "title": "Alcoholverbodsgebied",
-                            },
-                            Object {
                               "id": "oovodlrs",
                               "layer": "dealeroverlastgebied",
                               "selectable": true,
@@ -16162,19 +16168,37 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         },
                         Object {
                           "category": "Openbare orde en veiligheid",
-                          "id": "oovtig",
+                          "id": "oovoalco",
                           "layers": Array [
-                            "taxi-invloedsgebied",
+                            "Alcoholverbodsgebied",
                           ],
                           "legendItems": Array [
                             Object {
+                              "layer": "alcoholverbodsgebied",
                               "selectable": false,
-                              "title": "Taxi-invloedsgebied",
+                              "title": "Alcoholverbodsgebied",
                             },
                           ],
                           "maxZoom": 16,
                           "minZoom": 8,
-                          "title": "Taxi-invloedsgebieden",
+                          "title": "Alcoholverbodsgebieden",
+                          "url": "/maps/overlastgebieden?version=1.3.0&service=WMS",
+                        },
+                        Object {
+                          "category": "Openbare orde en veiligheid",
+                          "id": "oovtig",
+                          "layers": Array [
+                            "taxi-standplaatsgebied",
+                          ],
+                          "legendItems": Array [
+                            Object {
+                              "selectable": false,
+                              "title": "Taxi-standplaatsgebied",
+                            },
+                          ],
+                          "maxZoom": 16,
+                          "minZoom": 8,
+                          "title": "Taxi-standplaatsgebieden",
                           "url": "/maps/overlastgebieden?version=1.3.0&service=WMS",
                         },
                         Object {
@@ -18118,7 +18142,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       map-layers__title
                       map-layers__title--inactive
                     "
-                              key="Taxi-invloedsgebieden"
+                              key="Alcoholverbodsgebieden"
                             >
                               <button
                                 onClick={[Function]}
@@ -18126,7 +18150,38 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 <span
                                   className="map-layers__toggle-title"
                                 >
-                                  Taxi-invloedsgebieden
+                                  Alcoholverbodsgebieden
+                                </span>
+                                <span
+                                  className="map-layers__toggle map-layers__toggle--remove"
+                                >
+                                  <Component>
+                                    mock-svg
+                                  </Component>
+                                </span>
+                                <span
+                                  className="map-layers__toggle map-layers__toggle--add"
+                                >
+                                  <Component>
+                                    mock-svg
+                                  </Component>
+                                </span>
+                              </button>
+                            </li>
+                            <li
+                              className="
+                      map-layers__title
+                      map-layers__title--inactive
+                    "
+                              key="Taxi-standplaatsgebieden"
+                            >
+                              <button
+                                onClick={[Function]}
+                              >
+                                <span
+                                  className="map-layers__toggle-title"
+                                >
+                                  Taxi-standplaatsgebieden
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
