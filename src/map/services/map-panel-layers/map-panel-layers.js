@@ -756,6 +756,37 @@ export default [
     url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
   },
   {
+    category: 'Openbare orde en veiligheid',
+    id: 'oovoalco',
+    layers: ['Alcoholverbodsgebied'],
+    legendItems: [
+      {
+        layer: 'alcoholverbodsgebied',
+        selectable: false,
+        title: 'Alcoholverbodsgebied'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Alcoholverbodsgebieden',
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Openbare orde en veiligheid',
+    id: 'oovtig',
+    layers: ['taxi-standplaatsgebied'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Taxi-standplaatsgebied'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Taxi-standplaatsgebieden',
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+  },
+  {
     category: 'Toerisme en cultuur',
     id: 'tcmnmt',
     legendItems: [
