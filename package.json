@@ -102,7 +102,7 @@
     "test-e2e-functional-prod": "API_ROOT=https://api.data.amsterdam.nl ./scripts/cypress-run.sh",
     "test-e2e-functional-prod-watch": "API_ROOT=https://api.data.amsterdam.nl ./scripts/cypress-watch.sh",
     "test-e2e-functional-watch": "API_ROOT=https://acc.api.data.amsterdam.nl ./scripts/cypress-watch.sh",
-    "test-eslint": "eslint ./modules/ ./src/ ./test/cypress/",
+    "test-eslint": "eslint --ext .js --ext .jsx ./modules/ ./src/ ./test/cypress/",
     "test-integration": "NODE_ENV=development jest --config=./test/jest.integration.config.js",
     "test-integration-watch": "NODE_ENV=development jest --config=./test/jest.integration.config.js --watch",
     "test-integration-update": "NODE_ENV=development jest --config=./test/jest.integration.config.js --updateSnapshot",

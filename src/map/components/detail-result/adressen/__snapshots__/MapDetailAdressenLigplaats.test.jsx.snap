@@ -6,7 +6,7 @@ exports[`MapDetailAdressenLigplaats should render \`Nee\` if aanduiding in onder
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Ligplaats label"
-  title="Ligplaats"
+  title="Adres (ligplaats)"
 >
   <ul
     className="map-detail-result__list"
@@ -42,7 +42,7 @@ exports[`MapDetailAdressenLigplaats should render \`Nee\` if indicatie geconstat
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Ligplaats label"
-  title="Ligplaats"
+  title="Adres (ligplaats)"
 >
   <ul
     className="map-detail-result__list"
@@ -78,7 +78,7 @@ exports[`MapDetailAdressenLigplaats should render everything 1`] = `
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Ligplaats label"
-  title="Ligplaats"
+  title="Adres (ligplaats)"
 >
   <ul
     className="map-detail-result__list"
