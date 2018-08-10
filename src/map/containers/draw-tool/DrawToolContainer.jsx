@@ -177,16 +177,15 @@ DrawToolContainer.propTypes = {
   shapeMarkers: PropTypes.number.isRequired,
   shapeDistanceTxt: PropTypes.string.isRequired,
   dataSelection: PropTypes.shape({
-    geometryFilter: PropTypes.shape({
-      markers: PropTypes.array.isRequired,
-      description: PropTypes.string.isRequired
-    })
-  }),
-  geometry: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    geometryFilter: PropTypes.array,
+    markers: PropTypes.array
+  }).isRequired,
+  // Todo: figure out what shape the array is
+  geometry: PropTypes.array.isRequired, // eslint-disable-line
 
   currentShape: PropTypes.shape({
-    markers: PropTypes.array.isRequired
-  }),
+    markers: PropTypes.array
+  }).isRequired,
 
   leafletInstance: PropTypes.shape({}).isRequired,
 
@@ -207,12 +206,6 @@ DrawToolContainer.propTypes = {
   onSetPageName: PropTypes.func.isRequired,
   onSetMapFullscreen: PropTypes.func.isRequired,
   onStraatbeeldOff: PropTypes.func.isRequired
-};
-
-DrawToolContainer.defaultProps = {
-  geometry: undefined,
-  dataSelection: undefined,
-  currentShape: undefined
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)((props) => (

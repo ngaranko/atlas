@@ -17,9 +17,7 @@ describe('Notification', () => {
   );
 
   beforeEach(async () => {
-    // eslint-disable-next-line no-underscore-dangle
     page = await global.__BROWSER__.newPage();
-    // eslint-disable-next-line no-underscore-dangle
     await page.goto(`${global.__HOST__}?selectedKind=Shared%2FNotification&selectedStory=with%20text&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel`);
     await page.waitFor(linkSelector([moduleName]));
     await page.click(linkSelector([moduleName]));

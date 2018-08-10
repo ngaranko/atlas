@@ -24,5 +24,3 @@ describe('Search actions', () => {
     });
   });
 });
-
-
