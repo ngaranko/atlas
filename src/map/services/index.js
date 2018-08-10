@@ -21,5 +21,3 @@ export function getPanelLayers() {
     setTimeout(() => resolve(mapPanelLayers), TIMEOUT);
   });
 }
-
-export default { getMapBaseLayers, getMapLayers, getPanelLayers };

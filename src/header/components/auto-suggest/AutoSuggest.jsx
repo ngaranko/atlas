@@ -7,6 +7,15 @@ import ClearIcon from '../../../../public/images/icon-clear.svg';
 import './_auto-suggest.scss';
 
 class AutoSuggest extends React.Component {
+  static getSuggestionByIndex(searchResults, suggestionIndex) {
+    return searchResults
+      .reduce((flatResults, category) =>
+        [...flatResults, ...category.content], [])
+      .find((flatSuggestion) =>
+        flatSuggestion.index === suggestionIndex
+      );
+  }
+
   constructor(props) {
     super(props);
     this.clearQuery = this.clearQuery.bind(this);
@@ -93,15 +102,6 @@ class AutoSuggest extends React.Component {
       this.resetActiveSuggestion();
       onSubmit();
     });
-  };
-
-  static getSuggestionByIndex(searchResults, suggestionIndex) {
-    return searchResults
-      .reduce((flatResults, category) =>
-        [...flatResults, ...category.content], [])
-      .find((flatSuggestion) =>
-        flatSuggestion.index === suggestionIndex
-      );
   }
 
   navigateSuggestions(event) {

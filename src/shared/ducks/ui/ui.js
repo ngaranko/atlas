@@ -90,12 +90,8 @@ export default function UiReducer(state = initialState, action) {
   }
 }
 
-export const hideEmbedPreview = () => ({ type: HIDE_EMBED_PREVIEW });
 export const hideMapPanel = () => ({ type: HIDE_MAP_PANEL });
-export const hidePrint = () => ({ type: HIDE_PRINT });
-export const showEmbedPreview = () => ({ type: SHOW_EMBED_PREVIEW });
 export const showMapPanel = () => ({ type: SHOW_MAP_PANEL });
-export const showPrint = () => ({ type: SHOW_PRINT });
 export const toggleMapFullscreen = () => ({ type: TOGGLE_MAP_FULLSCREEN });
 export const setMapFullscreen = (payload) => ({ type: SET_MAP_FULLSCREEN, payload });
 export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
