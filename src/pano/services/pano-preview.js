@@ -2,7 +2,7 @@ import SHARED_CONFIG from '../../shared/services/shared-config/shared-config';
 
 export default function fetchPano(location) {
   const searchParams = {
-    lat: location.latitude,
+    lat: location.c,
     lon: location.longitude,
     width: 438,
     radius: 180
@@ -19,6 +19,7 @@ export default function fetchPano(location) {
       } else if (response.status === 404) {
         return {};
       }
+      console.log('asdadsad')
       throw new Error('Error requesting a panoramic view');
     })
     .then((response) => ({
