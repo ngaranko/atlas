@@ -45,7 +45,11 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onUpdateZoom: updateZoom,
   onUpdatePan: updatePan,
   onUpdateClick: updateClick,
-  onUpdateBoundingBox: updateBoundingBox
+  onUpdateBoundingBox: updateBoundingBox,
+
+  onFetchMapBaseLayers: fetchMapBaseLayers,
+  onFetchMapLayers: fetchMapLayers,
+  onFetchPanelLayers: fetchPanelLayers
 }, dispatch);
 
 class LeafletContainer extends React.Component {
@@ -58,6 +62,7 @@ class LeafletContainer extends React.Component {
     this.setMapLeaflet = (element) => {
       this.MapLeaflet = element;
     };
+
     this.handleZoom = this.handleZoom.bind(this);
     this.handlePan = this.handlePan.bind(this);
     this.handleResize = this.handleResize.bind(this);
@@ -68,9 +73,12 @@ class LeafletContainer extends React.Component {
     // if the baseLayer.urlTemplate is set it means there are mapLayers
     // this way actions won't be dispatched if the mapLayers are already in the state
     if (!this.props.baseLayer.urlTemplate) {
-      this.context.store.dispatch(fetchMapBaseLayers());
-      this.context.store.dispatch(fetchMapLayers());
-      this.context.store.dispatch(fetchPanelLayers());
+      this.props.onFetchMapBaseLayers();
+      this.props.onFetchMapLayers();
+      this.props.onFetchPanelLayers();
+      // this.context.store.dispatch(fetchMapBaseLayers());
+      // this.context.store.dispatch(fetchMapLayers());
+      // this.context.store.dispatch(fetchPanelLayers());
     }
   }
 
@@ -184,7 +192,11 @@ LeafletContainer.propTypes = {
   onUpdatePan: PropTypes.func.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
   onUpdateBoundingBox: PropTypes.func.isRequired,
-  zoom: PropTypes.number.isRequired
+  zoom: PropTypes.number.isRequired,
+
+  onFetchMapBaseLayers: PropTypes.func.isRequired,
+  onFetchMapLayers: PropTypes.func.isRequired,
+  onFetchPanelLayers: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeafletContainer);

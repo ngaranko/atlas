@@ -280,7 +280,7 @@ MapLeaflet.defaultProps = {
   zoom: 11,
   isZoomControlVisible: true,
   onClick: () => 'click',
-  onDoubleClick: () => 'doubleclick',
+  // onDoubleClick: () => 'doubleclick',
   onMoveEnd: () => 'moveend',
   onDragEnd: () => 'dragend',
   onResizeEnd: () => 'resizeend',
@@ -308,7 +308,7 @@ MapLeaflet.propTypes = {
     url: PropTypes.string.isRequired
   })),
   onClick: PropTypes.func,
-  onDoubleClick: PropTypes.func,
+  // onDoubleClick: PropTypes.func,
   onMoveEnd: PropTypes.func,
   onDragEnd: PropTypes.func,
   onResizeEnd: PropTypes.func,

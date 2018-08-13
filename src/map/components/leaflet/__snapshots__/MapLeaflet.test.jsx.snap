@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapLeaflet component should render clusterer 1`] = `
+exports[`MapLeaflet component should render clusters 1`] = `
 <ResizeAware
   component="div"
   onResize={[Function]}
@@ -363,7 +363,7 @@ exports[`MapLeaflet component should render clusterer 1`] = `
 </ResizeAware>
 `;
 
-exports[`MapLeaflet component should render clusterer 2`] = `
+exports[`MapLeaflet component should render clusters 2`] = `
 <ResizeAware
   component="div"
   onResize={[Function]}
@@ -1689,6 +1689,96 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 2`] 
         }
       }
     />
+    <GeoJSON
+      data={
+        Object {
+          "coordinates": Array [
+            Array [
+              Array [
+                115689.261,
+                488181.641,
+              ],
+            ],
+            Array [
+              Array [
+                115697.26,
+                488181.8,
+              ],
+            ],
+            Array [
+              Array [
+                115705.37,
+                488181.959,
+              ],
+            ],
+            Array [
+              Array [
+                115705.522,
+                488173.844,
+              ],
+            ],
+            Array [
+              Array [
+                115705.67,
+                488165.845,
+              ],
+            ],
+            Array [
+              Array [
+                115705.819,
+                488157.847,
+              ],
+            ],
+            Array [
+              Array [
+                115705.969,
+                488149.729,
+              ],
+            ],
+            Array [
+              Array [
+                115697.865,
+                488149.576,
+              ],
+            ],
+            Array [
+              Array [
+                115689.866,
+                488149.424,
+              ],
+            ],
+            Array [
+              Array [
+                115681.759,
+                488149.269,
+              ],
+            ],
+            Array [
+              Array [
+                115681.15,
+                488181.479,
+              ],
+            ],
+            Array [
+              Array [
+                115689.261,
+                488181.641,
+              ],
+            ],
+          ],
+          "type": "Polygon",
+        }
+      }
+      key="YE39"
+      style={
+        Object {
+          "color": "#ec0000",
+          "fillOpacity": 0,
+          "opacity": 0,
+          "weight": 1,
+        }
+      }
+    />
     <ScaleControl
       imperial={false}
       metric={true}
@@ -2497,7 +2587,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
           "biz_polygons",
         ]
       }
-      opacity={100}
+      opacity={0}
       url="https://acc.map.data.amsterdam.nl/maps/biz"
     />
     <RdGeoJson

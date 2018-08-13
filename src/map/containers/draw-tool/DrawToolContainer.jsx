@@ -76,13 +76,13 @@ class DrawToolContainer extends React.Component {
 
   componentWillReceiveProps(props) {
     const markers = this.getMarkers();
-
     if (!isEqual(this.state.previousMarkers, markers)) {
       // if the markers have changed save the new markers as previous markers
       this.setPolygon();
       this.setState({ previousMarkers: [...markers] });
     }
-    if (!props.dataSelection && !props.geometry &&
+
+    if (!props.dataSelection && props.geometry && props.geometry.length === 0 &&
       props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
       // if dataSelection and geometry are empty then remove the drawn polygon
       this.props.setPolygon([]);
@@ -177,9 +177,10 @@ DrawToolContainer.propTypes = {
   shapeMarkers: PropTypes.number.isRequired,
   shapeDistanceTxt: PropTypes.string.isRequired,
   dataSelection: PropTypes.shape({
-    geometryFilter: PropTypes.array,
-    markers: PropTypes.array
-  }).isRequired,
+    geometryFilter: PropTypes.shape({
+      markers: PropTypes.array
+    })
+  }),
   // Todo: figure out what shape the array is
   geometry: PropTypes.array.isRequired, // eslint-disable-line
 
@@ -206,6 +207,12 @@ DrawToolContainer.propTypes = {
   onSetPageName: PropTypes.func.isRequired,
   onSetMapFullscreen: PropTypes.func.isRequired,
   onStraatbeeldOff: PropTypes.func.isRequired
+};
+
+DrawToolContainer.defaultProps = {
+  dataSelection: null,
+  geometry: [],
+  currentShape: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)((props) => (

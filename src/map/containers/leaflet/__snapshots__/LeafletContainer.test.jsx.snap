@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LeafletContainer should render 1`] = `
+exports[`LeafletContainer LeafletContainer snapshot should render 1`] = `
 <MapLeaflet
   baseLayer={
     Object {
@@ -206,7 +206,6 @@ exports[`LeafletContainer should render 1`] = `
   }
   markers={Array []}
   onClick={[Function]}
-  onDoubleClick={[Function]}
   onDragEnd={[Function]}
   onMoveEnd={[Function]}
   onResizeEnd={[Function]}
@@ -223,7 +222,7 @@ exports[`LeafletContainer should render 1`] = `
 />
 `;
 
-exports[`LeafletContainer should render different baseLayer, zoom, center and an active layer 1`] = `
+exports[`LeafletContainer LeafletContainer snapshot should render different baseLayer, zoom, center and an active layer 1`] = `
 <MapLeaflet
   baseLayer={
     Object {
@@ -321,23 +320,7 @@ exports[`LeafletContainer should render different baseLayer, zoom, center and an
   }
   getLeafletInstance={[Function]}
   isZoomControlVisible={true}
-  layers={
-    Array [
-      Object {
-        "id": "biz",
-        "isVisible": true,
-        "overlayOptions": Object {
-          "format": "image/png",
-          "identify": false,
-          "layers": Array [
-            "biz_polygons",
-          ],
-          "transparent": true,
-        },
-        "url": "https://acc.map.data.amsterdam.nl/maps/biz",
-      },
-    ]
-  }
+  layers={Array []}
   mapOptions={
     Object {
       "attributionControl": false,
@@ -545,7 +528,6 @@ exports[`LeafletContainer should render different baseLayer, zoom, center and an
     ]
   }
   onClick={[Function]}
-  onDoubleClick={[Function]}
   onDragEnd={[Function]}
   onMoveEnd={[Function]}
   onResizeEnd={[Function]}
