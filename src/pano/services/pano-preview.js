@@ -19,7 +19,6 @@ export default function fetchPano(location) {
       } else if (response.status === 404) {
         return {};
       }
-      console.log('asdadsad')
       throw new Error('Error requesting a panoramic view');
     })
     .then((response) => ({

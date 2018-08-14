@@ -13,7 +13,8 @@ const endpoints = [
   { uri: 'geosearch/atlas/' },
   { uri: 'geosearch/munitie/' },
   { uri: 'geosearch/bominslag/', radius: 25 },
-  { uri: 'geosearch/monumenten/',
+  {
+    uri: 'geosearch/monumenten/',
     radius: 25,
     extra_params: {
       monumenttype: 'isnot_pand_bouwblok'
@@ -57,7 +58,7 @@ const relatedResourcesByType = {
   ]
 };
 
-const fetchRelatedForUser = (user) => (data) => {
+export const fetchRelatedForUser = (user) => (data) => {
   const item = data.features.find((feature) => relatedResourcesByType[feature.properties.type]);
   if (!item) {
     return data.features;
@@ -69,23 +70,23 @@ const fetchRelatedForUser = (user) => (data) => {
       (!user.authenticated || !user.scopes.includes(resource.authScope))
     ) ? [] :
       resource.fetch(item.properties.id)
-        .then((results) => results
-          .map((result) => ({
-            ...result,
-            properties: {
-              uri: result._links.self.href,
-              display: result._display,
-              type: resource.type,
-              parent: item.properties.type
-            }
-          }))
-        )
+              .then((results) => results
+                .map((result) => ({
+                  ...result,
+                  properties: {
+                    uri: result._links.self.href,
+                    display: result._display,
+                    type: resource.type,
+                    parent: item.properties.type
+                  }
+                }))
+              )
   ));
 
   return Promise.all(requests)
-    .then((results) => results
-      .reduce((accumulator, subResults) => accumulator.concat(subResults),
-        data.features));
+                .then((results) => results
+                  .reduce((accumulator, subResults) => accumulator.concat(subResults),
+                    data.features));
 };
 
 export default function search(location, user) {
@@ -97,21 +98,19 @@ export default function search(location, user) {
       radius: endpoint.radius || 0
     };
 
-    const queryString = Object.keys(searchParams)
+    const queryString = Object
+      .keys(searchParams)
       .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
       .join('&');
 
     return fetch(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`)
       .then((response) => response.json())
       .then(fetchRelatedForUser(user))
-      .then((features) => features
-        .map((feature) => transformResultByType(feature))
-      );
+      .then((features) => features.map((feature) => transformResultByType(feature)));
   });
-  return Promise.all(allRequests
-    .map((p) => p
-      .then((result) => Promise.resolve(result))
-      .catch(() => Promise.resolve([]))))  // ignore the failing calls
+
+  return Promise
+    .all(allRequests)
     .then((results) => [].concat.apply([], [...results]))
     .then((results) => createMapSearchResultsModel(results));
 }

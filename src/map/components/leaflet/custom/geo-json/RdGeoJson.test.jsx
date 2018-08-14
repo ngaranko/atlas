@@ -43,7 +43,14 @@ function shallowRenderComponent() {
       }}
       key="https://acc.api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11450435870000/"
       ref={jest.fn()}
-    />, { disableLifecycleMethods: true }
+    />, {
+      context: {
+        layerContainer: {
+          removeLayer: jest.fn()
+        }
+      },
+      disableLifecycleMethods: true
+    }
   );
 }
 
@@ -52,14 +59,10 @@ describe('RdGeoJson component', () => {
     shallowRenderComponent();
     expect(leafletModule.Proj.geoJson.mock.calls).toMatchSnapshot();
   });
-  //
-  // it('should call super.componentWillUnmount', () => {
-  //   const component = shallowRenderComponent();
-  //   const removeLayerMock = jest.fn();
-  //   component.instance().layerContainer = {
-  //     removeLayer: removeLayerMock
-  //   };
-  //   component.instance().componentWillUnmount();
-  //   expect(removeLayerMock).toHaveBeenCalled();
-  // });
+
+  it('should call super.componentWillUnmount', () => {
+    const component = shallowRenderComponent();
+    component.instance().componentWillUnmount();
+    expect(component.instance().layerContainer.removeLayer).toHaveBeenCalled();
+  });
 });

@@ -243,6 +243,43 @@ describe('HeaderSearchContainer', () => {
     });
   });
 
+  describe('onSuggestionActivate', () => {
+    it('should call getSuggestions or setActiveSuggestion', () => {
+      const store = configureMockStore()({
+        ...initialState,
+        search: {
+          query: 'i\'m set'
+        }
+      });
+
+      const wrapper = shallow(
+        <HeaderSearchContainer />, { context: { store } }
+      ).dive();
+      wrapper.instance().onSuggestionActivate({ index: -1 });
+      expect(getSuggestions).toHaveBeenCalled();
+
+      wrapper.instance().onSuggestionActivate({ index: 0 });
+      expect(setActiveSuggestion).toHaveBeenCalled();
+    });
+  });
+
+  describe('onUserInput', () => {
+    it('should be called when window.suggestionToLoadUri and window.opener are true', () => {
+      const store = configureMockStore()({
+        ...initialState,
+        search: {
+          query: 'i\'m set'
+        }
+      });
+
+      const wrapper = shallow(
+        <HeaderSearchContainer />, { context: { store } }
+      ).dive();
+      wrapper.instance().onUserInput('query');
+      expect(getSuggestions).toHaveBeenCalledWith('query');
+    });
+  });
+
   describe('onGetSuggestions', () => {
     it('should be called on componentDidMount id prefillQuery prop is set', () => {
       const store = configureMockStore()({

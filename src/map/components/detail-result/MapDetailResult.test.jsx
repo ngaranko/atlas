@@ -1,8 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
-import MapDetailResult
-  from './MapDetailResult';
+import MapDetailResult from './MapDetailResult';
 
 jest.mock('../../services/map-detail');
 
@@ -328,6 +326,23 @@ describe('MapDetailResult', () => {
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
+        panoUrl={panoUrl}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
+        result={result}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render gebieden wijk', () => {
+    const endpoint = 'grondexploitatie/project/';
+    const panoUrl = 'panoUrl';
+    const result = { label: 'value' };
+    const clickHandler = jest.fn();
+    const wrapper = shallow(
+      <MapDetailResult
+        endpoint={endpoint}
         panoUrl={panoUrl}
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}

@@ -235,10 +235,6 @@ export function getReturnPath() {
   return returnPath;
 }
 
-export function isAuthenticated() {
-  return Boolean(getAccessToken());
-}
-
 export function getScopes() {
   return tokenData.scopes || [];
 }
@@ -264,7 +260,6 @@ window.auth = {
   logout,
   initAuth,
   getReturnPath,
-  isAuthenticated,
   getScopes,
   getName
 };

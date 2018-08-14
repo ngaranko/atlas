@@ -6,15 +6,15 @@ import { getMapZoom } from '../../ducks/map/map';
 
 import ACTIONS from '../../../shared/actions';
 
-const getMapLayers = (state) => (
+export const getActiveMapLayers = (state) => (
   state.map.overlays
     .filter((overlay) => overlay.isVisible)
     .map((overlay) => (
       state.mapLayers.layers.items.find((layer) => layer.id === overlay.id) || {}
     ))
     .filter((layer) => (
-       layer.detailUrl && !layer.noDetail &&
-       (!layer.authScope || state.user.scopes.includes(layer.authScope))
+      layer.detailUrl && !layer.noDetail &&
+      (!layer.authScope || state.user.scopes.includes(layer.authScope))
     ))
 );
 
@@ -22,7 +22,8 @@ export function* switchClickAction(payload) {
   const straatbeeld = yield select(getStraatbeeld);
   const zoom = yield select(getMapZoom);
   const panelLayers = yield select(getMapPanelLayers);
-  const activeMapLayers = yield select(getMapLayers);
+  const activeMapLayers = yield select(getActiveMapLayers);
+
   const layers = activeMapLayers.filter((layer) => {
     const matchingPanelLayer = panelLayers.find((panelLayer) => (
       panelLayer.id === layer.id ||

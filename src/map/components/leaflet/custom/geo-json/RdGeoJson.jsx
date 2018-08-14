@@ -22,8 +22,8 @@ class RdGeoJson extends GeoJSON {
       ...style
     };
     return L.Proj.geoJson(geometry, {
-      style: () => customStyle,
-      pointToLayer: (feature, latLng) => {
+      style: /* istanbul ignore next */ () => customStyle,
+      pointToLayer: /* istanbul ignore next */ (feature, latLng) => {
         const icon = L.icon(ICON_CONFIG.DETAIL);
         const rotationAngle = data.orientation || 0;
 

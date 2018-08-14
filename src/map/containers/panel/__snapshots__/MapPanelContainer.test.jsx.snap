@@ -47,7 +47,13 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
       }
       onLayerToggle={[Function]}
       onLayerVisibilityToggle={[Function]}
-      overlays={Array []}
+      overlays={
+        Array [
+          Object {
+            "isVisible": true,
+          },
+        ]
+      }
       user={Object {}}
       zoomLevel={0}
     />

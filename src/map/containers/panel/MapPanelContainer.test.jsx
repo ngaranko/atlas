@@ -15,7 +15,9 @@ describe('MapPanelContainer', () => {
     store = configureMockStore()({
       map: {
         baseLayer: '',
-        overlays: []
+        overlays: [{
+          isVisible: true
+        }]
       },
       mapLayers: {
         layers: {
@@ -45,5 +47,17 @@ describe('MapPanelContainer', () => {
     wrapper.setProps({ activeMapLayers: [{}] });
     expect(wrapper.find(MapLegend).length).toBe(1);
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should scroll the map-legend is map panel is visible and have more overlays', () => {
+    const scrollIntoViewMock = jest.fn();
+    document.querySelector = jest.fn().mockReturnValue({
+      scrollIntoView: scrollIntoViewMock
+    });
+    wrapper.setProps({
+      overlays: [{}, {}],
+      isMapPanelVisible: true
+    });
+    expect(scrollIntoViewMock).toHaveBeenCalled();
   });
 });

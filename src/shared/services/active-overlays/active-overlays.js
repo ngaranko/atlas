@@ -4,7 +4,7 @@ import mapLayers from '../../../map/services/map-layers/map-layers.config';
 
 const findLayer = (id) => mapLayers.find((mapLayer) => mapLayer.id === id);
 
-class ActiveOverlays {
+export class ActiveOverlays {
   constructor() {
     this.allOverlays = [];
   }
@@ -14,6 +14,7 @@ class ActiveOverlays {
       .filter((overlay) => ActiveOverlays.isAuthorised(overlay));
   }
 
+  // Todo: this always returns false: look into mapLayers, since it doesn't have a minZoom / maxZoom
   static isVisibleAtCurrentZoom(overlay, zoomLevel) {
     const layer = findLayer(overlay);
     if (!layer) {

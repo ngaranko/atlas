@@ -12,7 +12,7 @@ export const getBounds = (element) => {
       return elementBounds;
     }
   // if activeElement is a point
-  } else {
+  } else if (element.getLatLng) {
     const latLng = element.getLatLng();
     return latLngBounds(latLng, latLng);
   }

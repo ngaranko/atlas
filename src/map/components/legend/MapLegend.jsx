@@ -82,9 +82,15 @@ class MapLegend extends React.Component {
                 `}
               >
                 <Checkbox
-                  checked={() => this.determineLayerVisibility(mapLayer)}
+                  checked={
+                    /* istanbul ignore next */
+                    () => this.determineLayerVisibility(mapLayer)
+                  }
                   name={mapLayer.title}
-                  onChange={() => this.toggleLayerVisibility(mapLayer)}
+                  onChange={
+                    /* istanbul ignore next */
+                    () => this.toggleLayerVisibility(mapLayer)
+                  }
                 />
                 <h4 className="map-legend__category-title">{mapLayer.title}</h4>
                 <button
@@ -113,9 +119,17 @@ class MapLegend extends React.Component {
                     >
                       {legendItem.selectable && (
                         <Checkbox
-                          checked={() => this.determineLegendItemVisibility(legendItem)}
+                          checked={
+                            /* istanbul ignore next */
+                            () =>
+                            this.determineLegendItemVisibility(legendItem)
+                          }
                           name={legendItem.title}
-                          onChange={() => onLayerVisibilityToggle(legendItem.id)}
+                          onChange={
+                            /* istanbul ignore next */
+                            () =>
+                            onLayerVisibilityToggle(legendItem.id)
+                          }
                         />
                       )}
                       <div className={`

@@ -368,7 +368,6 @@ describe('The AutoSuggest component', () => {
       expect(onSuggestionSelection).toHaveBeenCalledWith(selectedSuggestion, true);
     });
 
-
     it('should not request to open in new window when no CTRL key is pressed.', () => {
       const autoSuggestComponent = mount(<AutoSuggest
         activeSuggestion={{ index: -1 }}
@@ -391,6 +390,97 @@ describe('The AutoSuggest component', () => {
       autoSuggestComponent.update();
       autoSuggestComponent.find('.auto-suggest__dropdown-item').at(2).simulate('click', mockEvent);
       expect(onSuggestionSelection).toHaveBeenCalledWith(selectedSuggestion, false);
+    });
+  });
+
+  describe('navigateSuggestions keydown events', () => {
+    let autoSuggestComponent;
+
+    beforeEach(() => {
+      autoSuggestComponent = mount(<AutoSuggest
+        activeSuggestion={{ index: 0 }}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+        numberOfSuggestions={1}
+      />);
+
+      onSuggestionActivate.mockClear();
+      autoSuggestComponent.instance().resetActiveSuggestion = jest.fn();
+      autoSuggestComponent.instance().onSuggestionSelection = jest.fn();
+    });
+
+    it('should handle arrow up key', () => {
+      const preventDefaultMock = jest.fn();
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 38,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(preventDefaultMock).toHaveBeenCalled();
+      expect(onSuggestionActivate).not.toHaveBeenCalled();
+
+      autoSuggestComponent.setState({ showSuggestions: true });
+
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 38,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(onSuggestionActivate).toHaveBeenCalled();
+      onSuggestionActivate.mockRestore();
+    });
+
+    it('should handle down up key', () => {
+      const preventDefaultMock = jest.fn();
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 40,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(preventDefaultMock).not.toHaveBeenCalled();
+      expect(onSuggestionActivate).not.toHaveBeenCalled();
+
+      autoSuggestComponent.setState({ showSuggestions: true });
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 40,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(onSuggestionActivate).toHaveBeenCalled();
+    });
+
+    it('should handle escape key', () => {
+      const preventDefaultMock = jest.fn();
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 27,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(preventDefaultMock).not.toHaveBeenCalled();
+      expect(autoSuggestComponent.instance().resetActiveSuggestion).toHaveBeenCalled();
+    });
+
+    it('should handle enter key', () => {
+      const preventDefaultMock = jest.fn();
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 13,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(preventDefaultMock).not.toHaveBeenCalled();
+      expect(autoSuggestComponent.instance().onSuggestionSelection).toHaveBeenCalled();
+    });
+
+    it('should handle any other key and do nothing', () => {
+      const preventDefaultMock = jest.fn();
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 44,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(preventDefaultMock).not.toHaveBeenCalled();
     });
   });
 });

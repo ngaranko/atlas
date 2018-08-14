@@ -18,6 +18,7 @@ let geometryFilter = {};
 export default function DataSelectionReducer(state = initialState, action) {
   switch (action.type) {
     case SET_DATA_SELECTION_GEOMETRY_FILTER:
+      // Todo: posible bug: if action.payload is undefined, geometryFilter = {}
       geometryFilter = { ...action.payload } || { markers: [] };
       return {
         ...{

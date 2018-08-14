@@ -18,4 +18,10 @@ describe('The access token parser service', () => {
       scopes: ['HR/R', 'BRK/RS']
     });
   });
+
+  it('should return an empty object', () => {
+    expect(
+      accessTokenParser([])
+    ).toEqual({});
+  });
 });

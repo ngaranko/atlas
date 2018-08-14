@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import HomepageAddressBlock from './HomepageAddressBlock';
 
@@ -14,5 +14,25 @@ describe('HomepageAddressBlock', () => {
     );
 
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should handle button click events', () => {
+    const wrapper = mount(
+      <HomepageAddressBlock
+        onLinkClick={mockFn}
+      />
+    );
+
+    wrapper.find('button').at(0).simulate('click');
+    expect(mockFn).toHaveBeenCalledWith({ dataset: 'bag', filters: {}, page: 1 });
+
+    wrapper.find('button').at(1).simulate('click');
+    expect(mockFn).toHaveBeenCalledWith({ dataset: 'hr', filters: {}, page: 1 });
+
+    wrapper.find('button').at(2).simulate('click');
+    expect(mockFn).toHaveBeenCalledWith({ dataset: 'brk', filters: {}, page: 1 });
+
+    wrapper.find('button').at(3).simulate('click');
+    expect(mockFn).toHaveBeenCalledWith({ dataset: 'brk', filters: {}, page: 1 });
   });
 });

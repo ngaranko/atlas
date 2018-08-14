@@ -264,6 +264,7 @@ class MapLeaflet extends React.Component {
   }
 }
 
+/* istanbul ignore next */
 MapLeaflet.defaultProps = {
   baseLayer: {
     urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
@@ -279,8 +280,7 @@ MapLeaflet.defaultProps = {
   scaleControlOptions: {},
   zoom: 11,
   isZoomControlVisible: true,
-  onClick: () => 'click',
-  // onDoubleClick: () => 'doubleclick',
+  onClick: () => 'click',  //
   onMoveEnd: () => 'moveend',
   onDragEnd: () => 'dragend',
   onResizeEnd: () => 'resizeend',
