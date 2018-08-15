@@ -6,7 +6,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
-  title="Adres"
+  title="Adres (verblijfsobject)"
 >
   <ul
     className="map-detail-result__list"
@@ -87,7 +87,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
-  title="Adres"
+  title="Adres (verblijfsobject)"
 >
   <ul
     className="map-detail-result__list"
@@ -168,7 +168,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
-  title="Adres"
+  title="Adres (verblijfsobject)"
 >
   <ul
     className="map-detail-result__list"
@@ -259,7 +259,7 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
-  title="Adres"
+  title="Adres (verblijfsobject)"
 >
   <ul
     className="map-detail-result__list"
@@ -351,7 +351,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
-  title="Adres"
+  title="Adres (verblijfsobject)"
 >
   <ul
     className="map-detail-result__list"
@@ -443,7 +443,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Verblijfsobject label"
-  title="Adres"
+  title="Adres (verblijfsobject)"
 >
   <ul
     className="map-detail-result__list"

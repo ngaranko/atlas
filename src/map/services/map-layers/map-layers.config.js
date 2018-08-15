@@ -490,6 +490,11 @@ export default [
     layers: ['algemeen_overlastgebied', 'algemeen_overlastgebied_label']
   },
   {
+    id: 'oovoalco',
+    url: 'maps/overlastgebieden',
+    layers: ['alcoholverbodsgebied', 'alcoholverbodsgebied_label']
+  },
+  {
     id: 'oovodlrs',
     url: 'maps/overlastgebieden',
     layers: ['dealeroverlastgebied', 'dealeroverlastgebied_label']
@@ -503,6 +508,11 @@ export default [
     id: 'oovctg',
     url: 'maps/overlastgebieden',
     layers: ['cameratoezichtgebied', 'cameratoezichtgebied_label']
+  },
+  {
+    id: 'oovtig',
+    url: 'maps/overlastgebieden',
+    layers: ['taxi-standplaatsgebied', 'taxi-standplaatsgebied_label']
   },
   // Toerisme en cultuur
   {

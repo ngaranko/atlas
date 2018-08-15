@@ -32,5 +32,12 @@ module.exports = {
       ]
     }],
     "linebreak-style": "off"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   }
 }

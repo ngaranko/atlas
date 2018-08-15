@@ -43,7 +43,6 @@ exports[`MapPreviewPanelContainer rendering should render detail 1`] = `
             "
     >
       <MapDetailResult
-        endpoint="https://acc.api.data.amsterdam.nl/fake/endpoint"
         onMaximize={[Function]}
         onPanoPreviewClick={[Function]}
         panoUrl="pano-url"
@@ -100,7 +99,6 @@ exports[`MapPreviewPanelContainer rendering should render detail 2`] = `
             "
     >
       <MapDetailResult
-        endpoint="https://acc.api.data.amsterdam.nl/fake/endpoint"
         onMaximize={[Function]}
         onPanoPreviewClick={[Function]}
         panoUrl=""
@@ -171,7 +169,6 @@ exports[`MapPreviewPanelContainer rendering should render detail with a button t
             "
     >
       <MapDetailResult
-        endpoint="https://acc.api.data.amsterdam.nl/fake/endpoint"
         onMaximize={[Function]}
         onPanoPreviewClick={[Function]}
         panoUrl="pano-url"
@@ -228,7 +225,6 @@ exports[`MapPreviewPanelContainer rendering should render detail without pano 1`
             "
     >
       <MapDetailResult
-        endpoint="https://acc.api.data.amsterdam.nl/fake/endpoint"
         onMaximize={[Function]}
         onPanoPreviewClick={[Function]}
         panoUrl=""
@@ -285,7 +281,6 @@ exports[`MapPreviewPanelContainer rendering should render detail without pano 2`
             "
     >
       <MapDetailResult
-        endpoint="https://acc.api.data.amsterdam.nl/fake/endpoint"
         onMaximize={[Function]}
         onPanoPreviewClick={[Function]}
         panoUrl="different-pano-url"

@@ -26,7 +26,7 @@ const MapDetailAdressenVerblijfsobject = ({
       onMaximize={onMaximize}
       onPanoPreviewClick={onPanoPreviewClick}
       subTitle={verblijfsobject.label}
-      title="Adres"
+      title="Adres (verblijfsobject)"
     >
       <ul className="map-detail-result__list">
         {statusLevel && <li className="map-detail-result__notification">

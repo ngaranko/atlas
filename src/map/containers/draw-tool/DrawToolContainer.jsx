@@ -158,10 +158,17 @@ DrawToolContainer.propTypes = {
   drawingMode: PropTypes.string.isRequired,
   shapeMarkers: PropTypes.number.isRequired,
   shapeDistanceTxt: PropTypes.string.isRequired,
-  dataSelection: PropTypes.shape({}),
-  geometry: PropTypes.array,
+  dataSelection: PropTypes.shape({
+    geometryFilter: PropTypes.shape({
+      markers: PropTypes.array.isRequired,
+      description: PropTypes.string.isRequired
+    })
+  }),
+  geometry: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
 
-  currentShape: PropTypes.shape({}),
+  currentShape: PropTypes.shape({
+    markers: PropTypes.array.isRequired
+  }),
 
   leafletInstance: PropTypes.shape({}).isRequired,
 
@@ -181,6 +188,12 @@ DrawToolContainer.propTypes = {
   onSetPageName: PropTypes.func.isRequired,
   onSetMapFullscreen: PropTypes.func.isRequired,
   onStraatbeeldOff: PropTypes.func.isRequired
+};
+
+DrawToolContainer.defaultProps = {
+  geometry: undefined,
+  dataSelection: undefined,
+  currentShape: undefined
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)((props) => (

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MapDetailResultItem from '../MapDetailResultItem';
 import MapDetailResultStatusItem from '../MapDetailResultStatusItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
 import Notification from '../../../../shared/components/notification/Notification';
@@ -17,7 +16,7 @@ const MapDetailAdressenLigplaats = ({
     onPanoPreviewClick={onPanoPreviewClick}
     panoUrl={panoUrl}
     subTitle={ligplaats.label}
-    title="Ligplaats"
+    title="Adres (ligplaats)"
   >
     <ul className="map-detail-result__list">
       {ligplaats.indicatieGeconstateerd && <li className="map-detail-result__notification">
@@ -50,7 +49,7 @@ MapDetailAdressenLigplaats.propTypes = {
   ligplaats: PropTypes.shape({
     aanduidingInOnderzoek: PropTypes.boolean,
     indicatieGeconstateerd: PropTypes.boolean,
-    label: PropTypes.string,    
+    label: PropTypes.string
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
