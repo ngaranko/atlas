@@ -1,8 +1,7 @@
 import search from './map-search';
 
 describe('mapSearch service', () => {
-  it('should ', async () => {
-
+  it('should sadsad', async () => {
     fetch.mockResponse(JSON.stringify({
       features: [
         {

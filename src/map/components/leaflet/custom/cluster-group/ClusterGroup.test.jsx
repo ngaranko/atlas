@@ -57,7 +57,7 @@ describe('ClusterGroup', () => {
       })
     };
 
-    wrapper.instance().tryToGetBounds()
+    wrapper.instance().tryToGetBounds();
     expect(setTimeout).toHaveBeenCalledTimes(2);
     jest.runOnlyPendingTimers();
     expect(getMarkerGroupBoundsMock).toHaveBeenCalled();

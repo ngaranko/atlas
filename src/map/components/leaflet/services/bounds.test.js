@@ -1,5 +1,5 @@
 import { latLngBounds } from 'leaflet';
-import { getBounds, isBoundsAPoint, isValidBounds, boundsToString } from './bounds';
+import { boundsToString, getBounds, isBoundsAPoint, isValidBounds } from './bounds';
 
 jest.mock('leaflet');
 
@@ -58,7 +58,7 @@ describe('bounds service', () => {
   describe('boundsToString', () => {
     it('should return the bounds in a string', () => {
       expect(boundsToString({
-        toBBoxString: jest.fn().mockReturnValue('12345'),
+        toBBoxString: jest.fn().mockReturnValue('12345')
       })).toEqual('12345');
 
       expect(boundsToString(12345)).toEqual('12345');

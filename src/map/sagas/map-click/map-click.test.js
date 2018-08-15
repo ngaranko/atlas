@@ -1,7 +1,7 @@
-import { testSaga, expectSaga } from 'redux-saga-test-plan';
+import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { composeProviders } from 'redux-saga-test-plan/providers';
 
-import watchMapClick, { switchClickAction, getActiveMapLayers } from './map-click';
+import watchMapClick, { getActiveMapLayers, switchClickAction } from './map-click';
 
 import ACTIONS from '../../../shared/actions';
 
@@ -39,8 +39,14 @@ describe('getActiveMapLayers', () => {
     const selected = getActiveMapLayers(state);
     expect(selected).toEqual([]);
   });
-});
 
+  it('should return the maplayers that matches the id with the visible overlays', () => {
+    state.map.overlays = [state.map.overlays, { id: 'id', isVisible: true }];
+    state.mapLayers = { layers: { items: [{ id: 'id', detailUrl: 'url' }] } };
+    const selected = getActiveMapLayers(state);
+    expect(selected).toEqual([{ id: 'id', detailUrl: 'url' }]);
+  });
+});
 
 describe('watchMapClick', () => {
   const action = { type: ACTIONS.SET_MAP_CLICK_LOCATION.id };

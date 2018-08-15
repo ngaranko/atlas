@@ -219,7 +219,7 @@ function autoClose() {
 }
 
 // handle any leaflet.draw event
-function handleDrawEvent(eventName, e) {
+export function handleDrawEvent(eventName, e) {
   const handlers = {
     // Triggered when the user has chosen to draw a particular vector or marker
     DRAWSTART: () => setDrawingMode(drawToolConfig.DRAWING_MODE.DRAW),

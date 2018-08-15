@@ -17,7 +17,7 @@ describe('CustomMarker', () => {
         }
       }
     );
-    const setRotationAngleMock = jest.fn()
+    const setRotationAngleMock = jest.fn();
 
     wrapper.instance().leafletElement = {
       setRotationAngle: setRotationAngleMock

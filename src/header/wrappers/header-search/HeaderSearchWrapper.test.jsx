@@ -61,7 +61,7 @@ describe('HeaderSearchWrapper', () => {
 
   it('should render', () => {
     const store = configureMockStore()({ ...initialState });
-    global.window.reduxStore = store
+    global.window.reduxStore = store;
     jest.spyOn(store, 'dispatch');
     const component = shallow(<HeaderSearchWrapper />, { context: { store } }).dive().dive();
 

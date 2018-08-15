@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
-
 import SelectButton from './SelectButton';
 import Icon from '../../../../public/images/icon-aerial.svg';
 
@@ -112,7 +111,7 @@ describe('SelectButton', () => {
     expect(wrapper.find('.select-button.select-button--expanded').exists()).toBe(true);
     // clicking on icon will not hide the drop down
     map.click({
-      target: ReactDOM.findDOMNode(wrapper.instance())
+      target: ReactDOM.findDOMNode(wrapper.instance()) // eslint-disable-line
     });
     expect(wrapper.instance().handleToggle).not.toHaveBeenCalled();
   });
