@@ -17,7 +17,7 @@ import {
   cancel,
   currentShape,
   initialize,
-  destroy,
+  destroy as destroyDrawTool,
   setPolygon,
   isEnabled
 } from '../../services/draw-tool/draw-tool';
@@ -97,7 +97,7 @@ class DrawToolContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.destroy();
+    this.props.destroyDrawTool();
     this.props.onMapUpdateShape({
       shapeMarkers: 0,
       shapeDistanceTxt: '',
@@ -182,7 +182,7 @@ DrawToolContainer.propTypes = {
   cancel: PropTypes.func.isRequired,
   setPolygon: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
-  destroy: PropTypes.func.isRequired,
+  destroyDrawTool: PropTypes.func.isRequired,
 
   onClearDrawing: PropTypes.func.isRequired,
   onEmptyGeometry: PropTypes.func.isRequired,
@@ -202,7 +202,7 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => (
     toggleDrawing={toggleDrawing}
     cancel={cancel}
     initialize={initialize}
-    destroy={destroy}
+    destroyDrawTool={destroyDrawTool}
     setPolygon={setPolygon}
     {...props}
   />
