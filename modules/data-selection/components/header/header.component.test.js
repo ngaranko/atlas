@@ -21,7 +21,9 @@ describe('The dp-data-selection-header', () => {
             datasets: {
                 bag: {
                     MAX_AVAILABLE_PAGES: 50,
-                    TITLE: 'BAG Adressen'
+                    TITLE: 'BAG Adressen',
+                    TITLE_TABLE: 'BAG Adressen',
+                    SHOW_NUMBER_OF_RECORDS: true
                 },
                 brk: {
                     MAX_AVAILABLE_PAGES: 50,
@@ -145,7 +147,6 @@ describe('The dp-data-selection-header', () => {
         scope.availableFilters = {};
         scope.numberOfRecords = mockedInput.numberOfRecords;
         scope.showHeader = mockedInput.showHeader;
-
         const compiledComponent = $compile(element)(scope);
         scope.$apply();
 
@@ -229,9 +230,9 @@ describe('The dp-data-selection-header', () => {
 
         it('in CATALOG view shows the number of results followed using \'Datasets(number)\'', () => {
             // Singular
-            mockedInputCatalog.numberOfRecords = 1;
+            mockedInputCatalog.numberOfRecords = 10;
             component = getComponent(mockedInputCatalog);
-            expect(component.find('.qa-title').text().trim()).toBe('Datasets (1)');
+            expect(component.find('.qa-title').text().trim()).toBe('Datasets (10)');
 
             // Plural, with thousand separator
             mockedInputCatalog.numberOfRecords = 1234;
