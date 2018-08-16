@@ -377,12 +377,13 @@
                     description: 'CE staat voor conventionele explosieven. Binnen dit gebied is al een ' +
                         'keer onderzoek gedaan naar mogelijk achtergebleven explosieven uit de Tweede Wereldoorlog. ' +
                         'Het resultaat van de onderzoeken leidt tot de conclusie wel of niet verdacht. Indien er ' +
-                        'sprake is van een conclusie ‘verdacht’ dan wordt dit als verdacht gebied op de kaart opgenomen.' +
+                        'sprake is van een conclusie ‘verdacht’ dan wordt dit als verdacht gebied op de kaart ' +
+                        'opgenomen.' +
                         '<ul class="c-panel__list"><li>Een Vooronderzoek betreft een historisch onderzoek op ' +
                         'basis van onder andere luchtfoto’s</li>' +
                         '<li>Een Projectgebonden risicoanalyse kijkt gericht naar het veilig kunnen ' +
-                        'uitvoeren van voorgenomen werkzaamheden binnen een verdacht gebied. De resultaten zeggen dus niet ' +
-                        'per definitie dat ook andere werkzaamheden (dieper, meer trillingen veroorzakend) ' +
+                        'uitvoeren van voorgenomen werkzaamheden binnen een verdacht gebied. De resultaten zeggen ' +
+                        'dus niet per definitie dat ook andere werkzaamheden (dieper, meer trillingen veroorzakend) ' +
                         'binnen het onderzoeksgebied veilig zijn uit te voeren zonder aanvullend onderzoek. ' +
                         'Daar is mogelijk een andere projectgebonden risicoanalyse voor nodig.</li>' +
                         '<li>Bij detectieonderzoek wordt de grond met radartechnieken onderzocht op verstoringen. ' +
@@ -421,9 +422,10 @@
                 VERDACHTGEBIED: {
                     label_singular: 'Verdacht gebied',
                     label_plural: ' Verdachte gebieden',
-                    description: 'Het gebied valt binnen een contour van een gebeurtenis in de Tweede Wereldoorlog, ' +
-                        'bijvoorbeeld een bombardement. Het is niet uit te sluiten dat niet-gesprongen- explosieven nog ' +
-                        'in de (water-)bodem aanwezig zijn. Bij grondroerende werkzaamheden (zoals heien) is mogelijk ' +
+                    description: 'Het gebied valt binnen een contour van een gebeurtenis in de ' +
+                        'Tweede Wereldoorlog, bijvoorbeeld een bombardement. Het is niet uit te ' +
+                        'sluiten dat niet-gesprongen- explosieven nog in de (water-)bodem aanwezig ' +
+                        'zijn. Bij grondroerende werkzaamheden (zoals heien) is mogelijk ' +
                         'aanvullend onderzoek nodig om veilig werken te kunnen waarborgen.',
                     url: null,
                     meta: []
