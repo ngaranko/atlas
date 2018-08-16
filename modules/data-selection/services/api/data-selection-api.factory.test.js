@@ -10,7 +10,6 @@ describe('The dataSelectionApi factory', function () {
     const mockedApiService = {
         query: function () {
             const q = $q.defer();
-
             q.resolve(mockedApiPreviewResponse);
 
             return q.promise;
@@ -37,7 +36,8 @@ describe('The dataSelectionApi factory', function () {
                             label: 'Type accomodatie'
                         }, {
                             slug: 'water',
-                            label: 'Watersoort'
+                            label: 'Watersoort',
+                            order: ['Verwarmd', 'Koud', 'Tropisch', 'Not present']
                         }
                     ],
                     CONTENT: {
@@ -119,12 +119,12 @@ describe('The dataSelectionApi factory', function () {
                         numberOfOptions: 2,
                         options: [
                             {
-                                count: 4,
-                                label: 'Buitenbad'
-                            },
-                            {
                                 count: 2,
                                 label: 'Overdekt'
+                            },
+                            {
+                                count: 4,
+                                label: 'Buitenbad'
                             },
                             {
                                 count: 666,
@@ -277,6 +277,7 @@ describe('The dataSelectionApi factory', function () {
         describe('it returns all available filters', function () {
             it('orders the filters based on the configuration', function () {
                 let output = {};
+                mockedConfig.datasets.zwembaden.SORT_FILTERS = false;
 
                 dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
                     output = _output_;
@@ -290,12 +291,12 @@ describe('The dataSelectionApi factory', function () {
                         numberOfOptions: 2,
                         options: [
                             {
-                                label: 'Buitenbad',
-                                count: 4
-                            },
-                            {
                                 label: 'Overdekt',
                                 count: 2
+                            },
+                            {
+                                label: 'Buitenbad',
+                                count: 4
                             },
                             {
                                 label: 'Overdekt',
@@ -308,15 +309,16 @@ describe('The dataSelectionApi factory', function () {
                         numberOfOptions: 3,
                         options: [
                             {
+                                label: 'Verwarmd',
+                                count: 4
+                            },
+                            {
                                 label: 'Koud',
                                 count: 1
                             },
                             {
                                 label: 'Tropisch',
                                 count: 1
-                            }, {
-                                label: 'Verwarmd',
-                                count: 4
                             }
                         ]
                     }
@@ -340,12 +342,12 @@ describe('The dataSelectionApi factory', function () {
                         numberOfOptions: 2,
                         options: [
                             {
-                                label: 'Buitenbad',
-                                count: 4
-                            },
-                            {
                                 label: 'Overdekt',
                                 count: 2
+                            },
+                            {
+                                label: 'Buitenbad',
+                                count: 4
                             },
                             {
                                 label: 'Overdekt',
@@ -358,13 +360,13 @@ describe('The dataSelectionApi factory', function () {
                         numberOfOptions: 3,
                         options: [
                             {
-                                label: 'Tropisch',
-                                count: 1
-                            }, {
                                 label: 'Verwarmd',
                                 count: 4
                             }, {
                                 label: 'Koud',
+                                count: 1
+                            }, {
+                                label: 'Tropisch',
                                 count: 1
                             }
                         ]

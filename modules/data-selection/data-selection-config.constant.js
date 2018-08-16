@@ -146,10 +146,27 @@
                     FILTERS: [
                         {
                             slug: 'eigenaar_type',
-                            label: 'Type zakelijk gerechtigde'
+                            label: 'Type zakelijk gerechtigde',
+                            order: [
+                                'Grondeigenaar',
+                                'Pandeigenaar',
+                                'Appartementseigenaar'
+                            ]
                         }, {
                             slug: 'eigenaar_cat',
-                            label: 'Zakelijk gerechtigde'
+                            label: 'Zakelijk gerechtigde',
+                            order: [
+                                'Gemeente Amsterdam',
+                                'Overige gemeenten',
+                                'Staat',
+                                'Provincies',
+                                'Waterschappen',
+                                'Woningbouwcorporaties',
+                                'Verenigingen van eigenaren',
+                                'Spoorwegen/ProRail',
+                                'Overige niet-natuurlijke personen',
+                                'Overig natuurlijke personen'
+                            ]
                         }, {
                             slug: 'stadsdeel_naam',
                             label: 'Stadsdeel'
