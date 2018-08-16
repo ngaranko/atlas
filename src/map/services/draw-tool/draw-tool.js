@@ -1,4 +1,4 @@
-// TODO: R: clean file, overly complex and contains state
+// TODO: R: clean file, overlay complex and contains state
 
 /* eslint-disable no-use-before-define,no-underscore-dangle */
 /* global L */

@@ -272,17 +272,7 @@ exports[`MapDetailResult should render gebieden wijk 1`] = `
 />
 `;
 
-exports[`MapDetailResult should render gebieden wijk 2`] = `
-<MapDetailGrondexploitatie
-  detail={
-    Object {
-      "label": "value",
-    }
-  }
-  onMaximize={[MockFunction]}
-  panoUrl="panoUrl"
-/>
-`;
+exports[`MapDetailResult should render gebieden wijk 2`] = `""`;
 
 exports[`MapDetailResult should render kadastraal object 1`] = `
 <MapDetailKadastraalObject
