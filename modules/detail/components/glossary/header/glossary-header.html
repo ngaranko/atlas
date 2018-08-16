@@ -25,7 +25,7 @@
 
     <dp-panel ng-if="vm.hasHelp" is-panel-visible="vm.isVisible.help" can-close="true" class-name="qa-glossary">
         <h3 class="c-panel__title">Uitleg over {{vm.glossaryLabel | lowercase}}</h3>
-        <p class="c-panel__paragraph">{{vm.glossaryDescription}}</p>
+        <p class="c-panel__paragraph" ng-bind-html="vm.glossaryDescription"></p>
         <p class="c-panel__paragraph">
             <a ng-if="vm.stelselpediaUrl"
                class="c-link c-link--arrow"
