@@ -15,7 +15,7 @@
                     ENDPOINT_DETAIL: 'bag/nummeraanduiding/',
                     PRIMARY_KEY: 'nummeraanduiding_id',
                     TITLE: 'Adressen',
-                    TITLE_TABLE: 'Adressen',
+                    TITLE_TAB: 'Adressen',
                     SHOW_NUMBER_OF_RECORDS: true,
                     SORT_FILTERS: false,
                     FILTERS: [
@@ -139,8 +139,8 @@
                     ENDPOINT_EXPORT: 'dataselectie/brk/export/',
                     ENDPOINT_DETAIL: 'brk/object/',
                     PRIMARY_KEY: 'kadastraal_object_id',
-                    TITLE: 'Kadastrale objecten',
-                    TITLE_TABLE: 'Kadastrale objecten met zakelijk rechthebbenden',
+                    TITLE: 'Kadastrale objecten met zakelijk rechthebbenden',
+                    TITLE_TAB: 'Kadastrale objecten',
                     SHOW_NUMBER_OF_RECORDS: false,
                     SORT_FILTERS: false,
                     FILTERS: [
@@ -241,7 +241,7 @@
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
                     PRIMARY_KEY: 'vestiging_id',
                     TITLE: 'Vestigingen',
-                    TITLE_TABLE: 'Vestigingen',
+                    TITLE_TAB: 'Vestigingen',
                     SHOW_NUMBER_OF_RECORDS: true,
                     SORT_FILTERS: false,
                     FILTERS: [
@@ -324,7 +324,7 @@
                     ENDPOINT_PREVIEW: 'dcatd/datasets',
                     ENDPOINT_DETAIL: 'dcatd/datasets',
                     TITLE: 'Catalogus',
-                    TITLE_TABLE: 'Catalogus',
+                    TITLE_TAB: 'Catalogus',
                     SHOW_NUMBER_OF_RECORDS: true,
                     PRIMARY_KEY: 'dct:identifier',
                     SHOW_FILTER_OPTION_COUNTS: false,

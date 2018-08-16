@@ -22,20 +22,23 @@ describe('The dp-data-selection-header', () => {
                 bag: {
                     MAX_AVAILABLE_PAGES: 50,
                     TITLE: 'BAG Adressen',
-                    TITLE_TABLE: 'BAG Adressen',
+                    TITLE_TAB: 'BAG Adressen',
                     SHOW_NUMBER_OF_RECORDS: true
                 },
                 brk: {
                     MAX_AVAILABLE_PAGES: 50,
-                    TITLE: 'Kadastrale objecten'
+                    TITLE: 'Kadastrale objecten',
+                    TITLE_TAB: 'Kadastrale objecten'
                 },
                 hr: {
                     MAX_AVAILABLE_PAGES: 50,
-                    TITLE: 'HR Vestigingen'
+                    TITLE: 'HR Vestigingen',
+                    TITLE_TAB: 'HR Vestigingen'
                 },
                 dcatd: {
                     MAX_AVAILABLE_PAGES: 50,
-                    TITLE: 'Datasets'
+                    TITLE: 'Datasets',
+                    TITLE_TAB: 'Datasets'
                 }
             }
         };
@@ -347,7 +350,7 @@ describe('The dp-data-selection-header', () => {
     });
 
     describe('the tabs in LIST view', () => {
-        it('use the TITLE values from DATA_SELECTION_CONFIG', () => {
+        it('use the TITLE_TAB values from DATA_SELECTION_CONFIG', () => {
             component = getComponent(mockedInputList);
 
             expect(component.find('.qa-tabs li:nth-child(1)').text().trim()).toBe('BAG Adressen');
