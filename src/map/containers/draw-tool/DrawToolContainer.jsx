@@ -140,7 +140,6 @@ class DrawToolContainer extends React.Component {
 
   setPolygon() {
     if (!isEnabled()) {
-      console.log('setPolygon');
       this.props.setPolygon(this.getMarkers());
     }
   }
