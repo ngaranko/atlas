@@ -778,12 +778,13 @@ export default [
     legendItems: [
       {
         selectable: false,
-        title: 'Taxi-standplaatsgebied'
+        title: 'Omgeving taxi-standplaats',
+        imageRule: 'Taxi-standplaatsgebied'
       }
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: 'Taxi-standplaatsgebieden',
+    title: 'Omgeving taxi-standplaatsen',
     url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
   },
   {
