@@ -157,7 +157,7 @@
                             slug: 'ggw_naam',
                             label: 'GGW-gebied'
                         }, {
-                            slug: 'buurtcombinatie_naam',
+                            slug: 'wijk_naam',
                             label: 'Wijk'
                         }, {
                             slug: 'buurt_naam',
