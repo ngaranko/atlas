@@ -44,7 +44,7 @@
         vm.glossaryDescription = $sce.trustAsHtml(GLOSSARY.DEFINITIONS[vm.definition].description);
         vm.stelselpediaUrl = GLOSSARY.DEFINITIONS[vm.definition].url;
 
-        vm.hasHelp = angular.isDefined(vm.glossaryDescription);
+        vm.hasHelp = !!vm.glossaryDescription;
         vm.hasMetaData = angular.isDefined(vm.metaData);
         vm.hasButton = vm.hasHelp || vm.hasMetaData;
 
