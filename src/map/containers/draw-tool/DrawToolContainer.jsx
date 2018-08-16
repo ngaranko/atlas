@@ -53,7 +53,8 @@ class DrawToolContainer extends React.Component {
 
     this.state = {
       drawingMode: props.drawingMode,
-      previousMarkers: []
+      previousMarkers: [],
+      dataSelection: {}
     };
 
     this.onFinishShape = this.onFinishShape.bind(this);
@@ -92,6 +93,11 @@ class DrawToolContainer extends React.Component {
         this.props.cancel();
       }
       this.setState({ drawingMode: props.drawingMode });
+    }
+
+    if (this.state.dataSelection !== props.dataSelection) {
+      this.setState({ dataSelection: props.dataSelection });
+      this.onUpdateShape(props.currentShape);
     }
   }
 
@@ -134,6 +140,7 @@ class DrawToolContainer extends React.Component {
 
   setPolygon() {
     if (!isEnabled()) {
+      console.log('setPolygon');
       this.props.setPolygon(this.getMarkers());
     }
   }
@@ -141,7 +148,7 @@ class DrawToolContainer extends React.Component {
   getMarkers() {
     return this.props.geometry && this.props.geometry.length > 0 ? this.props.geometry :
       ((this.props.dataSelection && this.props.dataSelection.geometryFilter &&
-      this.props.dataSelection.geometryFilter.markers) || []);
+        this.props.dataSelection.geometryFilter.markers) || []);
   }
 
   render() {
@@ -205,5 +212,5 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => (
     setPolygon={setPolygon}
     {...props}
   />
-  )
+)
 );
