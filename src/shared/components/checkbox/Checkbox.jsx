@@ -51,6 +51,7 @@ class Checkbox extends React.Component {
   }
 }
 
+/* istanbul ignore next */
 Checkbox.defaultProps = {
   checked: false,
   onChange: () => {}
