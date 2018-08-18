@@ -70,23 +70,23 @@ export const fetchRelatedForUser = (user) => (data) => {
       (!user.authenticated || !user.scopes.includes(resource.authScope))
     ) ? [] :
       resource.fetch(item.properties.id)
-              .then((results) => results
-                .map((result) => ({
-                  ...result,
-                  properties: {
-                    uri: result._links.self.href,
-                    display: result._display,
-                    type: resource.type,
-                    parent: item.properties.type
-                  }
-                }))
-              )
+        .then((results) => results
+            .map((result) => ({
+              ...result,
+              properties: {
+                uri: result._links.self.href,
+                display: result._display,
+                type: resource.type,
+                parent: item.properties.type
+              }
+            }))
+        )
   ));
 
   return Promise.all(requests)
-                .then((results) => results
-                  .reduce((accumulator, subResults) => accumulator.concat(subResults),
-                    data.features));
+    .then((results) => results
+        .reduce((accumulator, subResults) => accumulator.concat(subResults),
+          data.features));
 };
 
 export default function search(location, user) {

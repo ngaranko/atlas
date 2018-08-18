@@ -335,14 +335,15 @@ describe('MapDetailResult', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render gebieden wijk', () => {
-    const endpoint = 'grondexploitatie/project/';
+  it('should render grondexploitatie', () => {
     const panoUrl = 'panoUrl';
-    const result = { label: 'value' };
+    const result = {
+      endpointType: 'grondexploitatie/project/',
+      label: 'value'
+    };
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapDetailResult
-        endpoint={endpoint}
         panoUrl={panoUrl}
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}
