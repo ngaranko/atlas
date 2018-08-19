@@ -429,16 +429,19 @@ export function updateShape() {
   let intersects = false;
 
   if (currentShape.layer) {
+    // console.log('1');
     latLngs = currentShape.layer.getLatLngs()[0];
     distance = getDistance(latLngs, true);
     area = L.GeometryUtil.geodesicArea(latLngs);
     intersects = currentShape.layer.intersects();
   } else if (drawTool.drawShapeHandler._markers &&
     drawTool.drawShapeHandler._markers.length > 0) {
+    // console.log('2');
     latLngs = drawTool.drawShapeHandler._markers.map((m) => m._latlng);
     area = drawTool.drawShapeHandler._area;
     distance = getDistance(latLngs, false);
   } else if (currentShape.markersEdit.length > 0) {
+    // console.log('3');
     latLngs = currentShape.markersEdit;
     distance = getDistance(latLngs, true);
   }
