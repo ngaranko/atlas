@@ -10,7 +10,7 @@ import debounce from 'lodash.debounce';
 import { isBusy, start } from '../suppress/suppress';
 import drawToolConfig from './draw-tool.config';
 
-  // holds all information about the state of the shape being created or edited
+// holds all information about the state of the shape being created or edited
 const DEFAULTS = {
   isConsistent: true,
   type: null,
@@ -408,7 +408,7 @@ export function cancel() {
 // Shape method for shape.info
 // while drawing the polygon is not closed => distance is distance of the lines
 // When editing the polygon is closed => distance is surrounding
-// When only tow points => distance is line length
+// When only two points => distance is line length
 function getDistance(latLngs, isClosed) {
   return latLngs.reduce((total, latlng, i) => {
     if (i > 0) {
@@ -420,7 +420,7 @@ function getDistance(latLngs, isClosed) {
 }
 
 // Update the internal information about the current shape
-function updateShape() {
+export function updateShape() {
   const DISTANCE_IN_KILOMETERS = 1000; // Show in km starting from this #meters, else show in m
 
   let latLngs = [];
@@ -478,9 +478,9 @@ function updateShape() {
 function updateShapeInfo() {
   // Copy a set of properties of the current shape into the shapeInfo object
   ['type', 'markers', 'markersMaxCount', 'area', 'areaTxt', 'distance', 'distanceTxt']
-  .forEach((key) => {
-    shapeInfo[key] = currentShape[key];
-  });
+    .forEach((key) => {
+      shapeInfo[key] = currentShape[key];
+    });
 }
 
 // Delete all markers in DRAW mode
