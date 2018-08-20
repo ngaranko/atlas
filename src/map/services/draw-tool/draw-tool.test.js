@@ -505,6 +505,12 @@ describe('draw-tool service', () => {
         polygonMock.mockImplementation(() => ({ ...layer }));
       });
 
+      it('should ignore the unknown events', () => {
+        drawTool.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
+        handleDrawEvent('UNKNOWN_EVENT');
+        expect(drawTool.lastEvent).toEqual('UNKNOWN_EVENT');
+      });
+
       it('should handle the DRAWSTART event', () => {
         drawTool.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
         handleDrawEvent('DRAWSTART');
@@ -584,6 +590,19 @@ describe('draw-tool service', () => {
         drawTool.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
         handleDrawEvent('EDITSTART');
         expect(drawTool.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.EDIT);
+      });
+
+      describe('EDITVERTEX event', () => {
+        it('should add the selected vertex to the markers edit', () => {
+          const latLng = [52, 4];
+          const vertex = {
+            poly: {
+              _latlngs: [latLng]
+            }
+          };
+          handleDrawEvent('EDITVERTEX', vertex);
+          expect(currentShape.markersEdit).toEqual(latLng);
+        });
       });
 
       it('should handle the EDITSTOP event', () => {
