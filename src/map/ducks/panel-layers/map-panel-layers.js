@@ -35,7 +35,7 @@ export const selectActivePanelLayers =
         .sort((a, b) => {
           const aId = a.id || a.legendItems[0].id;
           const bId = b.id || b.legendItems[0].id;
-          return mapLayerIds.indexOf(aId) < mapLayerIds.indexOf(bId);
+          return mapLayerIds.indexOf(bId) - mapLayerIds.indexOf(aId);
         });
     });
 
