@@ -100,11 +100,11 @@
 
 .dataset-detail {
   .c-detail__block {
-    dl>dt {
+    dl>dt:not(.c-key-value-list__key--full-width) { // sass-lint:disable-line force-pseudo-nesting
       width: 34%;
     }
 
-    dl>dd {
+    dl>dd:not(.c-key-value-list__key--full-width) { // sass-lint:disable-line force-pseudo-nesting
       width: 66%;
     }
 
