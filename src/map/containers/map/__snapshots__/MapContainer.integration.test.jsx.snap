@@ -6507,7 +6507,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               }
             }
             dataSelection={undefined}
-            destroy={[Function]}
+            destroyDrawTool={[Function]}
             drawingMode="none"
             geometry={undefined}
             initialize={[Function]}
@@ -9456,7 +9456,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 }
               }
               dataSelection={undefined}
-              destroy={[Function]}
+              destroyDrawTool={[Function]}
               drawingMode="none"
               geometry={undefined}
               initialize={[Function]}
