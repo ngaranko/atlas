@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'; // eslint-disable-line import/no-e
 import { action } from '@storybook/addon-actions'; // eslint-disable-line import/no-extraneous-dependencies
 
 import MapLegend from './MapLegend';
-import layers from '../../services/map-layers/map-layers';
+import layers from '../../services/map-layers/map-layers.config';
 
 storiesOf('Map/MapLegend', module)
   .add('default', () => (

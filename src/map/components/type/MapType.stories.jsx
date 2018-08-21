@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'; // eslint-disable-line import/no-e
 import { action } from '@storybook/addon-actions'; // eslint-disable-line import/no-extraneous-dependencies
 
 import MapType from './MapType';
-import baseLayers from '../../services/map-base-layers/map-base-layers';
+import baseLayers from '../../services/map-base-layers/map-base-layers.config';
 
 storiesOf('Map/MapType', module)
   .add('default', () => (
