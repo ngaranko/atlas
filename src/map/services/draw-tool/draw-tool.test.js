@@ -1,4 +1,4 @@
-import { currentShape, disable, drawTool, enable, cancel, initialize, setPolygon, handleDrawEvent, isDrawingActive } from './draw-tool';
+import { currentShape, disable, drawTool, enable, cancel, initialize, setPolygon, handleDrawEvent, isDrawingActive, createPolygon, finishPolygon, autoClose, enforceLimits, updateShape } from './draw-tool';
 import drawToolConfig from './draw-tool.config';
 import { isBusy, start } from '../suppress/suppress';
 
@@ -135,8 +135,36 @@ describe('draw-tool service', () => {
   describe('methods', () => {
     let layer;
     const mapEvents = {};
+    let latLngsArray;
+    let latLngsPolygon;
 
     beforeEach(() => {
+      latLngsArray = [
+        [
+          52.374592413412294,
+          4.888771906266819
+        ],
+        [
+          52.374557014193066,
+          4.888724841471184
+        ],
+        [
+          52.37452381016258,
+          4.888778911181654
+        ],
+        [
+          52.37455608226589,
+          4.888835359085925
+        ]
+      ];
+
+      latLngsPolygon = latLngsArray.map((latLng) => ({
+        lat: latLng[0],
+        lng: latLng[1],
+        distanceTo: jest.fn(() => 1)
+      }));
+
+
       layer = {
         addLayer: jest.fn(),
         removeLayer: jest.fn(),
@@ -256,70 +284,44 @@ describe('draw-tool service', () => {
       });
 
       describe('draw events', () => {
+        afterEach(() => {
+          start.mockReset();
+          enableTextSelectionMock.mockReset();
+        });
+
         it('should call start on DELETED', () => {
           jest.useFakeTimers();
           mapEvents.DELETED();
-          expect(start).toHaveBeenCalledWith(300);
-
           jest.runAllTimers();
+          expect(start).toHaveBeenCalledWith(300);
           expect(enableTextSelectionMock).toHaveBeenCalledTimes(1);
         });
 
-        // it('should autoClose when the maximum markers is reached', () => {
-        //   jest.useFakeTimers();
-        //   drawTool.drawingMode =
-        //   mapEvents.DRAWVERTEX();
-        //   expect(start).toHaveBeenCalledWith(300);
-
-        //   jest.runAllTimers();
-        //   expect(enableTextSelectionMock).toHaveBeenCalledTimes(1);
-
-        // });
+        it('should call onChangePolygon when drawing in not consistent', () => {
+          jest.useFakeTimers();
+          drawTool.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
+          currentShape.isConsistent = false;
+          mapEvents.DRAWSTART();
+          expect(start).not.toHaveBeenCalled();
+          jest.runAllTimers();
+          expect(enableTextSelectionMock).toHaveBeenCalledTimes(1);
+        });
       });
     });
 
     describe('setPolygon', () => {
-      let latLngsArray;
-      beforeEach(() => {
-      });
-
       it('should set an empty polygon', () => {
         // Arrange
-        latLngsArray = [];
+        const emptyArray = [];
 
         // Act
-        setPolygon(latLngsArray);
+        setPolygon(emptyArray);
 
         // Assert
-        expect(currentShape.markers).toEqual(latLngsArray);
+        expect(currentShape.markers).toEqual(emptyArray);
       });
 
       it('should setPolygon', () => {
-        latLngsArray = [
-          [
-            52.374592413412294,
-            4.888771906266819
-          ],
-          [
-            52.374557014193066,
-            4.888724841471184
-          ],
-          [
-            52.37452381016258,
-            4.888778911181654
-          ],
-          [
-            52.37455608226589,
-            4.888835359085925
-          ]
-        ];
-
-        // Arrange
-        const latLngsPolygon = latLngsArray.map((latLng) => ({
-          lat: latLng[0],
-          lng: latLng[1],
-          distanceTo: jest.fn(() => 1)
-        }));
         drawTool.drawnItems = layer;
         layer.getLatLngs.mockImplementation(() => ([latLngsPolygon]));
         polygonMock.mockImplementation(() => ({ ...layer }));
@@ -332,27 +334,8 @@ describe('draw-tool service', () => {
       });
 
       it('should replace the old polygon when setPolygon', () => {
-        latLngsArray = [
-          [
-            52.374592413412294,
-            4.888771906266819
-          ],
-          [
-            52.374557014193066,
-            4.888724841471184
-          ],
-          [
-            52.37452381016258,
-            4.888778911181654
-          ],
-          [
-            52.37455608226589,
-            4.888835359085925
-          ]
-        ];
-
         // Arrange
-        const latLngsPolygon = latLngsArray.map((latLng) => ({
+        latLngsPolygon = latLngsArray.map((latLng) => ({
           lat: latLng[0],
           lng: latLng[1],
           distanceTo: jest.fn(() => 1000)
@@ -371,6 +354,110 @@ describe('draw-tool service', () => {
         setPolygon([]);
 
         expect(currentShape.markers).toEqual([]);
+      });
+    });
+
+    describe('createPolygon', () => {
+      it('should toggle edit mode ', () => {
+        drawTool.drawnItems = layer;
+        let eventHandler;
+        layer.on = (name, handler) => { eventHandler = handler; };
+        createPolygon(layer);
+        const e = new Event('test-event');
+
+        isBusy.mockImplementation(() => true);
+        eventHandler(e);
+        expect(domEventStopMock).not.toHaveBeenCalled();
+
+        isBusy.mockImplementation(() => false);
+        drawTool.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
+        eventHandler(e);
+        expect(domEventStopMock).toHaveBeenCalledWith(e);
+        // expect(drawTool.drawShapeHandler.enable).toHaveBeenCalledTimes(1);
+
+        drawTool.drawingMode = drawToolConfig.DRAWING_MODE.EDIT;
+        mapEvents.click(e);
+        expect(domEventStopMock).toHaveBeenCalledWith(e);
+        // expect(drawTool.drawShapeHandler.disable).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('finnishPolygon', () => {
+      latLngsArray = [
+        [
+          52.3745924,
+          4.8887719
+        ],
+        [
+          52.374557,
+          4.8887248
+        ]];
+      latLngsPolygon = latLngsArray.map((latLng) => ({
+        lat: latLng[0],
+        lng: latLng[1],
+        distanceTo: jest.fn(() => 1000)
+      }));
+
+      beforeEach(() => {
+        layer.getLatLngs.mockImplementation(() => ([latLngsPolygon]));
+        polygonMock.mockImplementation(() => ({ ...layer }));
+        drawTool.drawnItems = layer;
+      });
+
+      it('should restore the last shape when the current shape is not consistent', () => {
+        drawTool.drawingMode = drawToolConfig.DRAWING_MODE.EDIT;
+        currentShape.isConsistent = false;
+        currentShape.markersPrev = latLngsArray;
+
+        finishPolygon();
+
+        expect(drawTool.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.NONE);
+        expect(currentShape.markers).toEqual(latLngsArray);
+      });
+
+      it('should create the polygon from the selected geometry from previous layer', () => {
+        drawTool.drawingMode = drawToolConfig.DRAWING_MODE.DRAW;
+        currentShape.layerPrev = layer;
+        currentShape.markers = [];
+
+        finishPolygon();
+
+        expect(currentShape.markers).toEqual(latLngsArray);
+      });
+    });
+
+    describe('enforceLimits', () => {
+      beforeEach(() => {
+        layer.getLatLngs.mockImplementation(() => ([latLngsPolygon]));
+        polygonMock.mockImplementation(() => ({ ...layer }));
+        drawTool.drawnItems = layer;
+      });
+
+      it('should restore the last shape when the current shape is not consistent', () => {
+        drawTool.drawingMode = drawToolConfig.DRAWING_MODE.EDIT;
+        currentShape.isConsistent = false;
+        currentShape.markers = [];
+        currentShape.markersPrev = latLngsArray;
+
+        jest.useFakeTimers();
+        enforceLimits();
+        jest.runAllTimers();
+
+        expect(drawTool.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.EDIT);
+        expect(currentShape.markers).toEqual(latLngsArray);
+      });
+    });
+
+    describe('autoClose', () => {
+      it('should disable drawing mode when the markers count has reached maximum', () => {
+        currentShape.markers = latLngsArray;
+        currentShape.markersMaxCount = 4;
+        drawTool.drawingMode = drawToolConfig.DRAWING_MODE.DRAW;
+        jest.useFakeTimers();
+        autoClose();
+        expect(drawTool.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.DRAW);
+        jest.runAllTimers();
+        expect(drawTool.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.NONE);
       });
     });
 
@@ -452,50 +539,33 @@ describe('draw-tool service', () => {
       });
     });
 
+    describe('updateShape ', () => {
+      it('should use the edit markers when editing the drawing', () => {
+        currentShape.markersEdit = latLngsPolygon;
+        currentShape.layer = null;
+        updateShape();
+        expect(currentShape.markers).toEqual(latLngsArray);
+      });
+
+      it('should update the empty shape ', () => {
+        currentShape.markersEdit = [];
+        currentShape.layer = null;
+        updateShape();
+        expect(currentShape.markers).toEqual([]);
+      });
+    });
+
+
     describe('handleDrawEvent', () => {
       beforeEach(() => {
-        currentShape.markers = [
-          [
-            52.3745924,
-            4.8887719
-          ],
-          [
-            52.374557,
-            4.8887248
-          ],
-          [
-            52.3745238,
-            4.8887789
-          ],
-          [
-            52.374556,
-            4.8888392
-          ]
-        ];
+        currentShape.markers = latLngsArray;
         currentShape.markersEdit = [];
-        currentShape.markersPrev = [
-          [
-            52.3745924,
-            4.8887719
-          ],
-          [
-            52.374557,
-            4.8887248
-          ],
-          [
-            52.3745238,
-            4.8887789
-          ],
-          [
-            52.374556,
-            4.8888392
-          ]
-        ];
+        currentShape.markersPrev = latLngsArray;
         currentShape.layer = layer;
         currentShape.layerPrev = layer;
         drawTool.drawingMode = drawToolConfig.DRAWING_MODE.DRAW;
         drawTool.drawnItems = layer;
-        const latLngsPolygon = currentShape.markers.map((latLng) => ({
+        latLngsPolygon = latLngsArray.map((latLng) => ({
           lat: latLng[0],
           lng: latLng[1],
           distanceTo: jest.fn(() => 1)
@@ -549,7 +619,7 @@ describe('draw-tool service', () => {
             _latlng: { lat: 1, lng: 1 }
           }];
           currentShape.markers = [currentShape.markers.pop()];
-          const latLngsPolygon = currentShape.markers.map((latLng) => ({
+          latLngsPolygon = currentShape.markers.map((latLng) => ({
             lat: latLng[0],
             lng: latLng[1],
             distanceTo: jest.fn(() => 1)

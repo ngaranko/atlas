@@ -125,7 +125,7 @@ function deletePolygon() {
 
 // Create a new polygon by registering the layer, show the layer and register a click
 // handler to start/end edit
-function createPolygon(layer) {
+export function createPolygon(layer) {
   currentShape.layer = layer;
   drawTool.drawnItems.addLayer(layer);
   drawTool.drawnItems.bringToFront();
@@ -133,7 +133,7 @@ function createPolygon(layer) {
 }
 
 // Called when a polygon is finished (end draw or end edit)
-function finishPolygon() {
+export function finishPolygon() {
   currentShape.markersEdit = [];
   if (
     drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT &&
@@ -194,7 +194,7 @@ function initDrawTool(map) {
 }
 
 // enforce the maximum markers limit and the non-intersection of line segments limit
-function enforceLimits() {
+export function enforceLimits() {
   if (!currentShape.isConsistent) {
     const markersPrev = [...currentShape.markersPrev]; // restore previous state
 
@@ -211,7 +211,7 @@ function enforceLimits() {
 }
 
 // Auto close polygon when in drawing mode and max markers has been reached
-function autoClose() {
+export function autoClose() {
   if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.DRAW &&
     currentShape.markers.length === currentShape.markersMaxCount) {
     defer(() => disable());
@@ -429,19 +429,16 @@ export function updateShape() {
   let intersects = false;
 
   if (currentShape.layer) {
-    // console.log('1');
     latLngs = currentShape.layer.getLatLngs()[0];
     distance = getDistance(latLngs, true);
     area = L.GeometryUtil.geodesicArea(latLngs);
     intersects = currentShape.layer.intersects();
   } else if (drawTool.drawShapeHandler._markers &&
     drawTool.drawShapeHandler._markers.length > 0) {
-    // console.log('2');
     latLngs = drawTool.drawShapeHandler._markers.map((m) => m._latlng);
     area = drawTool.drawShapeHandler._area;
     distance = getDistance(latLngs, false);
   } else if (currentShape.markersEdit.length > 0) {
-    // console.log('3');
     latLngs = currentShape.markersEdit;
     distance = getDistance(latLngs, true);
   }
