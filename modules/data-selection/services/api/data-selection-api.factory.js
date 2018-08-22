@@ -48,11 +48,19 @@
         function formatFilters (dataset, rawData) {
             const formattedFilters = angular.copy(DATA_SELECTION_CONFIG.datasets[dataset].FILTERS);
             const sortFilters = DATA_SELECTION_CONFIG.datasets[dataset].SORT_FILTERS || false;
-
             const filters = formattedFilters.filter(function (filter) {
                 // Only show the filters that are returned by the API
                 return angular.isObject(rawData[filter.slug]);
             }).map(function (filter) {
+                // use the specific term order when defined
+                if (filter.order) {
+                    rawData[filter.slug].options = filter.order.map(term => {
+                        const found = rawData[filter.slug].options
+                            .filter(item => item.label === term);
+                        return found.length > 0 ? found[0] : null;
+                    }).filter(item => !!item);
+                    delete filter.order;
+                }
                 return angular.extend({}, filter, rawData[filter.slug]);
             });
 

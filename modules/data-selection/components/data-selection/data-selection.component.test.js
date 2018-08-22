@@ -18,6 +18,7 @@ describe('The dp-data-selection component', function () {
                 zwembaden: {
                     MAX_NUMBER_OF_CLUSTERED_MARKERS: 1000,
                     TITLE: 'Zwembaden',
+                    TITLE_TAB: 'Zwembaden',
                     MAX_AVAILABLE_PAGES: 5
                 }
             }

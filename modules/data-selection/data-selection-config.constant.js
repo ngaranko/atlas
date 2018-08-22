@@ -15,6 +15,8 @@
                     ENDPOINT_DETAIL: 'bag/nummeraanduiding/',
                     PRIMARY_KEY: 'nummeraanduiding_id',
                     TITLE: 'Adressen',
+                    TITLE_TAB: 'Adressen',
+                    SHOW_NUMBER_OF_RECORDS: true,
                     SORT_FILTERS: false,
                     FILTERS: [
                         {
@@ -137,15 +139,34 @@
                     ENDPOINT_EXPORT: 'dataselectie/brk/export/',
                     ENDPOINT_DETAIL: 'brk/object/',
                     PRIMARY_KEY: 'kadastraal_object_id',
-                    TITLE: 'Kadastrale objecten',
+                    TITLE: 'Kadastrale objecten met zakelijk rechthebbenden',
+                    TITLE_TAB: 'Kadastrale objecten',
+                    SHOW_NUMBER_OF_RECORDS: true,
                     SORT_FILTERS: false,
                     FILTERS: [
                         {
                             slug: 'eigenaar_type',
-                            label: 'Type zakelijk gerechtigde'
+                            label: 'Type zakelijk gerechtigde',
+                            order: [
+                                'Grondeigenaar',
+                                'Pandeigenaar',
+                                'Appartementseigenaar'
+                            ]
                         }, {
                             slug: 'eigenaar_cat',
-                            label: 'Zakelijk gerechtigde'
+                            label: 'Zakelijk gerechtigde',
+                            order: [
+                                'Gemeente Amsterdam',
+                                'Overige gemeenten',
+                                'Staat',
+                                'Provincies',
+                                'Waterschappen',
+                                'Woningbouwcorporaties',
+                                'Verenigingen van eigenaren',
+                                'Spoorwegen/ProRail',
+                                'Overige niet-natuurlijke personen',
+                                'Overig natuurlijke personen'
+                            ]
                         }, {
                             slug: 'stadsdeel_naam',
                             label: 'Stadsdeel'
@@ -153,7 +174,7 @@
                             slug: 'ggw_naam',
                             label: 'GGW-gebied'
                         }, {
-                            slug: 'buurtcombinatie_naam',
+                            slug: 'wijk_naam',
                             label: 'Wijk'
                         }, {
                             slug: 'buurt_naam',
@@ -220,6 +241,8 @@
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
                     PRIMARY_KEY: 'vestiging_id',
                     TITLE: 'Vestigingen',
+                    TITLE_TAB: 'Vestigingen',
+                    SHOW_NUMBER_OF_RECORDS: true,
                     SORT_FILTERS: false,
                     FILTERS: [
                         {
@@ -301,6 +324,8 @@
                     ENDPOINT_PREVIEW: 'dcatd/datasets',
                     ENDPOINT_DETAIL: 'dcatd/datasets',
                     TITLE: 'Catalogus',
+                    TITLE_TAB: 'Catalogus',
+                    SHOW_NUMBER_OF_RECORDS: true,
                     PRIMARY_KEY: 'dct:identifier',
                     SHOW_FILTER_OPTION_COUNTS: false,
                     SORT_FILTERS: true,
