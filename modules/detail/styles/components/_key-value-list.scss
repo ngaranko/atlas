@@ -24,6 +24,12 @@
     line-height: $base-line-height;
   }
 
+  .c-key-value-md {
+    p {
+      margin-bottom: 0;
+    }
+  }
+
   .c-key-value-list__key {
     @extend %description-list-key;
   }
