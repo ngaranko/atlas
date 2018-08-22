@@ -1,7 +1,7 @@
 <div class="qa-available-filters c-data-selection-available-filters">
     <div class="c-data-selection-available-filters__category"
          ng-show="vm.hasInactiveFilterOptions(filter)"
-         ng-if="!filter.slug.startsWith('sbi')"
+         ng-if="!filter.slug.startsWith('sbi') && filter.options.length"
          ng-repeat="filter in vm.availableFilters">
 
         <h2 class="c-data-selection-available-filters__category-label qa-category-header">{{filter.label}}</h2>
