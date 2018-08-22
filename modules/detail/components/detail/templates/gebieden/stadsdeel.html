@@ -17,9 +17,7 @@
     </div>
 
     <div class="grex-stadsdelen c-detail__block">
-      <h3 class="grex-stadsdelen__title">
-          Grondexploitaties
-      </h3>
+      <dp-glossary-header definition="GRONDEXPLOITATIE" use-plural="true"></dp-glossary-header>
       <div ng-if="!vm.user.scopes.includes('GREX/R')"
           ng-include="'modules/detail/components/detail/templates/grondexploitatie/unauthorized.html'">
       </div>
