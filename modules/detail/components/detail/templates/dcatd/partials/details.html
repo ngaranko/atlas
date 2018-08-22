@@ -1,8 +1,6 @@
 <dl class="c-key-value-list">
-    <dt class="c-key-value-list__key--full-width">Doel</dt>
-    <dd class="c-key-value-list__value--full-width">
-        <p class="c-key-value-list__content" ng-bind-html="vm.apiData.results['overheidds:doel']"></p>
-    </dd>
+    <dt>Doel</dt>
+    <dd class="c-key-value-md dataset-detail__description" ng-bind-html="vm.apiData.results['overheidds:doel']"></dd>
     <dt>Meer informatie</dt>
     <dd>
         <a ng-if="vm.apiData.results['dcat:landingPage']" href="{{vm.apiData.results['dcat:landingPage']}}" class="o-btn o-btn--link">{{vm.apiData.results['dcat:landingPage']}}</a>
@@ -23,10 +21,8 @@
     <dd>{{vm.apiData.results['dct:spatial']}}</dd>
     <dt>Gebiedseenheid</dt>
     <dd>{{vm.apiData.results['ams:spatialUnit'] | optionLabel: vm.catalogFilters.spatialUnits}}</dd>
-    <dt class="c-key-value-list__key--full-width">Juridische grondslag</dt>
-    <dd class="c-key-value-list__value--full-width">
-        <p class="c-key-value-list__content" ng-bind-html="vm.apiData.results['overheid:grondslag']"></p>
-    </dd>
+    <dt>Juridische grondslag</dt>
+    <dd class="c-key-value-md dataset-detail__description" ng-bind-html="vm.apiData.results['overheid:grondslag']"></dd>
     <dt>Taal</dt>
     <dd>{{vm.apiData.results['dct:language'] | optionLabel: vm.catalogFilters.languages:'lang1'}}</dd>
     <dt>Eigenaar</dt>
