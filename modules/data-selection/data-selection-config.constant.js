@@ -141,7 +141,7 @@
                     PRIMARY_KEY: 'kadastraal_object_id',
                     TITLE: 'Kadastrale objecten met zakelijk rechthebbenden',
                     TITLE_TAB: 'Kadastrale objecten',
-                    SHOW_NUMBER_OF_RECORDS: false,
+                    SHOW_NUMBER_OF_RECORDS: true,
                     SORT_FILTERS: false,
                     FILTERS: [
                         {
