@@ -61,6 +61,14 @@ export function initialize(map, onFinish, onDrawingMode, onUpdateShape) {
   registerMapEvents();
 }
 
+export function destroy() {
+  deRegisterMapEvents();
+  deRegisterDrawEvents();
+  deleteAllMarkers();
+  deletePolygon();
+  cancel();
+}
+
 // triggered when a polygon has finished drawing or editing
 function onFinishPolygon() {
   if (typeof _onFinishPolygon === 'function') {
@@ -286,35 +294,49 @@ function registerDrawEvents() {
   });
 }
 
+function deRegisterDrawEvents() {
+  Object.keys(L.Draw.Event).forEach((eventName) => {
+    drawTool.map.off(L.Draw.Event[eventName]);
+  });
+}
+
 // register any non-leaflet.draw events
 function registerMapEvents() {
-  // Click outside shape => delete shape
-  drawTool.map.on('click', () => {
-    if (isBusy()) {
-      return;
-    }
+  drawTool.map.on('click', onMapClick);
+  drawTool.map.on('layeradd', onMapLayerAdd);
+}
 
-    // In edit mode => disable()
-    if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT) {
-      disable();
-    } else if (drawTool.drawingMode !== drawToolConfig.DRAWING_MODE.DRAW && currentShape.layer) {
-      // If not in Draw or EDIT mode and a polygon exists
-      // then the current polygon gets deleted
-      // Note: In draw mode the click on map adds a new marker
-      deletePolygon();
-      updateShape();
-      onFinishPolygon();
-      disable();
-    }
-  });
+function deRegisterMapEvents() {
+  drawTool.map.off('layeradd', onMapLayerAdd);
+  drawTool.map.off('click', onMapClick);
+}
 
-  // When a new layer gets added to the map...
-  drawTool.map.on('layeradd', () => {
-    // ...make sure the layer of the drawn shape stays on top,
-    // so it can still be clicked to enter edit mode.
-    // This will not affect markers, they'll stay on top anyway.
-    drawTool.drawnItems.bringToFront();
-  });
+// Click outside shape => delete shape
+function onMapClick() {
+  if (isBusy()) {
+    return;
+  }
+
+  // In edit mode => disable()
+  if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT) {
+    disable();
+  } else if (drawTool.drawingMode !== drawToolConfig.DRAWING_MODE.DRAW && currentShape.layer) {
+    // If not in Draw or EDIT mode and a polygon exists
+    // then the current polygon gets deleted
+    // Note: In draw mode the click on map adds a new marker
+    deletePolygon();
+    updateShape();
+    onFinishPolygon();
+    disable();
+  }
+}
+
+// When a new layer gets added to the map...
+function onMapLayerAdd() {
+  // ...make sure the layer of the drawn shape stays on top,
+  // so it can still be clicked to enter edit mode.
+  // This will not affect markers, they'll stay on top anyway.
+  drawTool.drawnItems.bringToFront();
 }
 
 // Click on the shape toggles EDIT mode
@@ -357,6 +379,7 @@ export function disable() {
         // Close the polyline between the first and last points
         drawTool.drawShapeHandler.completeShape();
       } else {
+        deleteAllMarkers();
         drawTool.drawShapeHandler.disable();
       }
     } else {
@@ -372,6 +395,7 @@ export function disable() {
 export function cancel() {
   if (isEnabled()) {
     if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.DRAW) {
+      deleteAllMarkers();
       drawTool.drawShapeHandler.disable();
     } else {
       drawTool.editShapeHandler.disable();
@@ -459,6 +483,19 @@ function updateShapeInfo() {
   });
 }
 
+// Delete all markers in DRAW mode
+function deleteAllMarkers() {
+  if (!isEnabled()) {
+    return;
+  }
+
+  const firstMarker = drawTool.drawShapeHandler._markers[0];
+  if (firstMarker) {
+    currentShape.deleteMarker = firstMarker;
+    deleteMarker();
+  }
+}
+
 // delete a marker in DRAW mode
 function deleteMarker() {
   const marker = currentShape.deleteMarker;
@@ -469,6 +506,8 @@ function deleteMarker() {
   while (nDelete > 0) {
     // Remove the last vertex from the polyline, removes polyline from map if only one point
     // exists
+    markers[markers.length - 1].off('click');
+    markers[markers.length - 1].off('mousedown');
     drawShapeHandler.deleteLastVertex();
     nDelete -= 1;
   }

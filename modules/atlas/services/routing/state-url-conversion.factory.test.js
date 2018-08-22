@@ -144,7 +144,7 @@ describe('The state url conversion definition', function () {
         });
 
         describe('The post processing for map', function () {
-            it('copies  isLoading from the previous state, but not the drawing mode ', function () {
+            it('copies isLoading from the previous state', function () {
                 // isLoading and drawingMode
                 let oldState = {
                     isLoading: true,
@@ -162,6 +162,7 @@ describe('The state url conversion definition', function () {
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
                     shapeAreaTxt: '',
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW,
                     boundingBox: {}
                 });
 
@@ -177,6 +178,7 @@ describe('The state url conversion definition', function () {
                     shapeMarkers: undefined,
                     shapeDistanceTxt: undefined,
                     shapeAreaTxt: undefined,
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
                     boundingBox: undefined
                 });
 
@@ -192,6 +194,7 @@ describe('The state url conversion definition', function () {
                     shapeMarkers: undefined,
                     shapeDistanceTxt: undefined,
                     shapeAreaTxt: undefined,
+                    drawingMode: undefined,
                     boundingBox: undefined
                 });
 
