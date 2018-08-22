@@ -149,8 +149,8 @@ describe('addresses module', () => {
         totalCount = getCountFromHeader(title.text());
       });
 
-      // click on "Buitenveldert-West" in the left filter menu
-      cy.get('.c-data-selection-available-filters__item').contains('Buitenveldert-West').click();
+      // click on "AMC" in the left filter menu
+      cy.get('.c-data-selection-available-filters__item').contains('AMC').click();
       cy.wait('@getResults');
 
       // Expect the number in the title after filtering to be smaller than the number before
@@ -176,7 +176,7 @@ describe('addresses module', () => {
       cy.get('ul.o-list').should('exist').and('be.visible');
       // active filter should show
       cy.get('.c-data-selection-active-filters__listitem')
-        .contains('Buitenveldert-West')
+        .contains('AMC')
         .should('exist').and('be.visible');
     });
   });
