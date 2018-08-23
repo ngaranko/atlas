@@ -6,8 +6,7 @@ module.exports = {
     'src/**/*.{js,jsx}',
     '!**/*.constant.js',
     '!**/*.config.js',
-    '!**/*.{integration,visual}.test.{js,jsx}',
-    '!**/*.stories.jsx',
+    '!**/*.{integration}.test.{js,jsx}',
     '!**/*.mock.js',
     '!**/index.js',
     '!src/*.js',
@@ -39,13 +38,12 @@ module.exports = {
     'enzyme-to-json/serializer'
   ],
   testMatch: [
-    '**/!(*.visual|*.integration).test.js?(x)'
+    '**/!(*.integration).test.js?(x)'
     // Do match:
     // foo.test.jsx
     // barService.test.js
     // Do not match:
     // fooService.jsx
-    // foo.visual.test.jsx
     // foo.integration.test.jsx
   ],
   testURL: 'http://localhost:8080/',

@@ -28,25 +28,6 @@ services:
       - NODE_ENV=development
     command: npm run test
 
-  storybook:
-    build:
-      context: .
-      target: build-deps
-    ports:
-      - 9001:9001
-    command: npm run storybook
-  test-e2e-visual:
-    build:
-      context: .
-      target: build-deps
-    links:
-      - storybook
-    environment:
-      - STORYBOOK_HOST=storybook
-      - STORYBOOK_PORT=9001
-      - STORYBOOK_URL=http://storybook:9001/
-    command: ./scripts/ci/test-e2e-visual.sh
-
   test-e2e-functional:
     build:
       dockerfile: Dockerfile-e2e-functional

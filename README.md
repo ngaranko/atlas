@@ -85,13 +85,6 @@ Test using docker-compose:
 docker-compose up --build test-e2e-aria
 ```
 
-### E2E Visual testing
-
-_Currently not working in CI_
-
-`docker-compose up --build test-e2e-visual`
-
-
 ## Other useful commands
 
 - `npm run clean`

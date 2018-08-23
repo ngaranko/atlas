@@ -46,7 +46,6 @@ RUN echo "build= `date`" > /app/dist/version.txt
 COPY karma.conf.js \
       jest.config.js \
       /app/
-COPY .storybook /app/.storybook
 COPY test /app/test
 
 
