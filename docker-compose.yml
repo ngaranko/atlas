@@ -28,9 +28,9 @@ services:
       - NODE_ENV=development
     command: npm run test
 
-  test-e2e-functional:
+  test-e2e:
     build:
-      dockerfile: Dockerfile-e2e-functional
+      dockerfile: Dockerfile-e2e
       context: .
     links:
       - atlas_func:acc.data.amsterdam.nl
@@ -42,7 +42,7 @@ services:
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
       - PASSWORD_EMPLOYEE_PLUS
-    command: ./scripts/ci/test-e2e-functional.sh
+    command: ./scripts/ci/test-e2e.sh
 
   test-e2e-aria:
     build:
