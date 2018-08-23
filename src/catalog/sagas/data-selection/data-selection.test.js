@@ -1,23 +1,27 @@
-import { testSaga, expectSaga } from 'redux-saga-test-plan';
+import { expectSaga, testSaga } from 'redux-saga-test-plan';
 
 import watchFetchCatalogFilters, { fetchCatalogFilters } from './data-selection';
-
+import {
+  FETCH_CATALOG_FILTERS_FAILURE,
+  FETCH_CATALOG_FILTERS_REQUEST,
+  FETCH_CATALOG_FILTERS_SUCCESS
+} from '../../ducks/data-selection/data-selection-catalog';
 import fetchFilters from '../../services/catalog-filters';
 
 describe('watchFetchCatalogFilters', () => {
-  const action = { type: 'FETCH_CATALOG_FILTERS_REQUEST' };
+  const action = { type: FETCH_CATALOG_FILTERS_REQUEST };
 
-  it('should watch FETCH_CATALOG_FILTERS_REQUEST and call fetchFilters', () => {
+  it(`should watch ${FETCH_CATALOG_FILTERS_REQUEST} and call fetchFilters`, () => {
     testSaga(watchFetchCatalogFilters)
       .next()
-      .takeLatestEffect('FETCH_CATALOG_FILTERS_REQUEST', fetchCatalogFilters)
+      .takeLatestEffect(FETCH_CATALOG_FILTERS_REQUEST, fetchCatalogFilters)
       .next(action)
       .isDone();
   });
 });
 
 describe('fetchCatalogFilters', () => {
-  it('should call getMapBaseLayers and dispatch the correct action', () => (
+  it('should dispatch the correct action', () => (
     expectSaga(fetchCatalogFilters)
       .provide({
         call(effect, next) {
@@ -25,7 +29,7 @@ describe('fetchCatalogFilters', () => {
         }
       })
       .put({
-        type: 'FETCH_CATALOG_FILTERS_SUCCESS',
+        type: FETCH_CATALOG_FILTERS_SUCCESS,
         payload: 'payload'
       })
       .run()
@@ -36,7 +40,7 @@ describe('fetchCatalogFilters', () => {
     testSaga(fetchCatalogFilters)
       .next()
       .throw(error)
-      .put({ type: 'FETCH_CATALOG_FILTERS_FAILURE', error })
+      .put({ type: FETCH_CATALOG_FILTERS_FAILURE, error })
       .next()
       .isDone();
   });

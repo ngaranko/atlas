@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import AutoSuggest from './AutoSuggest';
 
@@ -76,10 +76,97 @@ const onSuggestionSelection = jest.fn();
 const onTextInput = jest.fn();
 
 describe('The AutoSuggest component', () => {
-  beforeEach(() => {
-  });
-
-  afterEach(() => {
+  describe('static getSuggestionByIndex method', () => {
+    it('should return content based on the index', () => {
+      const searchResults = [
+        {
+          label: 'Straatnamen',
+          content: [
+            {
+              category: 'Straatnamen',
+              index: 0,
+              label: 'Diemerparklaan',
+              uri: 'bag/openbareruimte/03630000001004/'
+            },
+            {
+              category: 'Straatnamen',
+              index: 1,
+              label: 'Diemerzeedijk',
+              uri: 'bag/openbareruimte/03630000003253/'
+            },
+            {
+              category: 'Straatnamen',
+              index: 2,
+              label: 'Van Diemenkade',
+              uri: 'bag/openbareruimte/03630000001210/'
+            }
+          ]
+        },
+        {
+          label: 'Gebieden',
+          content: [
+            {
+              category: 'Gebieden',
+              index: 3,
+              label: 'Nieuwe Diep/Diemerpark (buurt)',
+              uri: 'gebieden/buurt/03630000000596/'
+            }
+          ]
+        },
+        {
+          label: 'Monumenten',
+          content: [
+            {
+              category: 'Monumenten',
+              index: 4,
+              label: 'Van Diemenstraat 200',
+              uri: 'monumenten/monumenten/92e7f312-35d9-43a0-b0b8-d5c6671d7910/'
+            },
+            {
+              category: 'Monumenten',
+              index: 5,
+              label: 'Van Diemenstraat 206',
+              uri: 'monumenten/monumenten/7b892a93-37c6-402c-b009-43b021af92bc/'
+            },
+            {
+              category: 'Monumenten',
+              index: 6,
+              label: 'Van Diemenstraat 412',
+              uri: 'monumenten/monumenten/4f75caea-d198-4e9b-a962-7eb7f1bae4d7/'
+            }
+          ]
+        },
+        {
+          label: 'Datasets',
+          content: [
+            {
+              category: 'Datasets',
+              index: 7,
+              label: 'Registratie actueel hoogtebestand Nederland (AHN)',
+              uri: 'dcatd/datasets/registratie-actueel-hoogtebestand-nederland-ahn'
+            },
+            {
+              category: 'Datasets',
+              index: 8,
+              label: 'Registratie luchtfoto\'s',
+              uri: 'dcatd/datasets/registratie-luchtfoto-s'
+            },
+            {
+              category: 'Datasets',
+              index: 9,
+              label: 'Werk en inkomen (Vervoerregio Amsterdam)',
+              uri: 'dcatd/datasets/ois-34103'
+            }
+          ]
+        }
+      ];
+      expect(AutoSuggest.getSuggestionByIndex(searchResults, 5)).toEqual({
+        category: 'Monumenten',
+        index: 5,
+        label: 'Van Diemenstraat 206',
+        uri: 'monumenten/monumenten/7b892a93-37c6-402c-b009-43b021af92bc/'
+      });
+    });
   });
 
   it('optionally fills the searchbox with a query', () => {
@@ -109,7 +196,7 @@ describe('The AutoSuggest component', () => {
     expect(prefilledAutoSuggestComponent.instance().textInput.value).toBe('dam');
   });
 
-  it('calls the prop function "onTextInput" on text input', () => {
+  it('should call the prop function "onTextInput" on text input', () => {
     const autoSuggestComponent = mount(<AutoSuggest
       activeSuggestion={{ index: -1 }}
       onSubmit={onSubmit}
@@ -193,6 +280,69 @@ describe('The AutoSuggest component', () => {
     expect(autoSuggestComponent).toMatchSnapshot();
   });
 
+  it('should trigger the onTextInput prop on focus when there is a query but no suggestions', () => {
+    const autoSuggestComponent = mount(<AutoSuggest
+      activeSuggestion={{ index: -1 }}
+      onSubmit={onSubmit}
+      onSuggestionActivate={onSuggestionActivate}
+      onSuggestionSelection={onSuggestionSelection}
+      onTextInput={onTextInput}
+      suggestions={[]}
+    />, { disableLifecycleMethods: false });
+
+    // trigger the componentDidUpdate method
+    autoSuggestComponent.setProps({ query: mockFilledState.typedQuery });
+    autoSuggestComponent.update();
+
+    const inputField = autoSuggestComponent.find('input#auto-suggest__input');
+    autoSuggestComponent.update();
+    inputField.simulate('focus');
+    expect(onTextInput).toHaveBeenCalled();
+  });
+
+  describe('onFormSubmit', () => {
+    it('should be triggered if form is submitted', () => {
+      // Without a query
+      const autoSuggestComponent = shallow(<AutoSuggest
+        activeSuggestion={mockFilledState.activeSuggestion}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+      />);
+
+      const form = autoSuggestComponent.find('form').first();
+      form.simulate('submit', {
+        preventDefault: () => {
+        },
+        stopPropagation: () => {
+        }
+      });
+
+      expect(onSubmit).toHaveBeenCalled();
+    });
+  });
+
+  describe('resetActiveSuggestion', () => {
+    it('should be triggered if user is typing and there is a suggestion available', () => {
+      // Without a query
+      const autoSuggestComponent = mount(<AutoSuggest
+        activeSuggestion={mockFilledState.activeSuggestion}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+      />);
+
+      autoSuggestComponent.instance().resetActiveSuggestion = jest.fn();
+
+      const inputField = autoSuggestComponent.find('input#auto-suggest__input');
+      inputField.simulate('change', { target: { value: 'd' } });
+
+      expect(autoSuggestComponent.instance().resetActiveSuggestion).toHaveBeenCalled();
+    });
+  });
+
   describe('when selecting a suggestion', () => {
     it('should request to open in new window when CTRL key is pressed.', () => {
       const autoSuggestComponent = mount(<AutoSuggest
@@ -218,7 +368,6 @@ describe('The AutoSuggest component', () => {
       expect(onSuggestionSelection).toHaveBeenCalledWith(selectedSuggestion, true);
     });
 
-
     it('should not request to open in new window when no CTRL key is pressed.', () => {
       const autoSuggestComponent = mount(<AutoSuggest
         activeSuggestion={{ index: -1 }}
@@ -241,6 +390,97 @@ describe('The AutoSuggest component', () => {
       autoSuggestComponent.update();
       autoSuggestComponent.find('.auto-suggest__dropdown-item').at(2).simulate('click', mockEvent);
       expect(onSuggestionSelection).toHaveBeenCalledWith(selectedSuggestion, false);
+    });
+  });
+
+  describe('navigateSuggestions keydown events', () => {
+    let autoSuggestComponent;
+
+    beforeEach(() => {
+      autoSuggestComponent = mount(<AutoSuggest
+        activeSuggestion={{ index: 0 }}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+        numberOfSuggestions={1}
+      />);
+
+      onSuggestionActivate.mockClear();
+      autoSuggestComponent.instance().resetActiveSuggestion = jest.fn();
+      autoSuggestComponent.instance().onSuggestionSelection = jest.fn();
+    });
+
+    it('should handle arrow up key', () => {
+      const preventDefaultMock = jest.fn();
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 38,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(preventDefaultMock).toHaveBeenCalled();
+      expect(onSuggestionActivate).not.toHaveBeenCalled();
+
+      autoSuggestComponent.setState({ showSuggestions: true });
+
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 38,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(onSuggestionActivate).toHaveBeenCalled();
+      onSuggestionActivate.mockRestore();
+    });
+
+    it('should handle down up key', () => {
+      const preventDefaultMock = jest.fn();
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 40,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(preventDefaultMock).not.toHaveBeenCalled();
+      expect(onSuggestionActivate).not.toHaveBeenCalled();
+
+      autoSuggestComponent.setState({ showSuggestions: true });
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 40,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(onSuggestionActivate).toHaveBeenCalled();
+    });
+
+    it('should handle escape key', () => {
+      const preventDefaultMock = jest.fn();
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 27,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(preventDefaultMock).not.toHaveBeenCalled();
+      expect(autoSuggestComponent.instance().resetActiveSuggestion).toHaveBeenCalled();
+    });
+
+    it('should handle enter key', () => {
+      const preventDefaultMock = jest.fn();
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 13,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(preventDefaultMock).not.toHaveBeenCalled();
+      expect(autoSuggestComponent.instance().onSuggestionSelection).toHaveBeenCalled();
+    });
+
+    it('should handle any other key and do nothing', () => {
+      const preventDefaultMock = jest.fn();
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 44,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(preventDefaultMock).not.toHaveBeenCalled();
     });
   });
 });

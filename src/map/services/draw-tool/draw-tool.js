@@ -1,4 +1,4 @@
-// TODO: R: clean file, overly complex and contains state
+// TODO: R: clean file, overlay complex and contains state
 
 /* eslint-disable no-use-before-define,no-underscore-dangle */
 /* global L */
@@ -10,7 +10,7 @@ import debounce from 'lodash.debounce';
 import { isBusy, start } from '../suppress/suppress';
 import drawToolConfig from './draw-tool.config';
 
-  // holds all information about the state of the shape being created or edited
+// holds all information about the state of the shape being created or edited
 const DEFAULTS = {
   isConsistent: true,
   type: null,
@@ -125,7 +125,7 @@ function deletePolygon() {
 
 // Create a new polygon by registering the layer, show the layer and register a click
 // handler to start/end edit
-function createPolygon(layer) {
+export function createPolygon(layer) {
   currentShape.layer = layer;
   drawTool.drawnItems.addLayer(layer);
   drawTool.drawnItems.bringToFront();
@@ -133,7 +133,7 @@ function createPolygon(layer) {
 }
 
 // Called when a polygon is finished (end draw or end edit)
-function finishPolygon() {
+export function finishPolygon() {
   currentShape.markersEdit = [];
   if (
     drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT &&
@@ -194,7 +194,7 @@ function initDrawTool(map) {
 }
 
 // enforce the maximum markers limit and the non-intersection of line segments limit
-function enforceLimits() {
+export function enforceLimits() {
   if (!currentShape.isConsistent) {
     const markersPrev = [...currentShape.markersPrev]; // restore previous state
 
@@ -211,7 +211,7 @@ function enforceLimits() {
 }
 
 // Auto close polygon when in drawing mode and max markers has been reached
-function autoClose() {
+export function autoClose() {
   if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.DRAW &&
     currentShape.markers.length === currentShape.markersMaxCount) {
     defer(() => disable());
@@ -219,7 +219,7 @@ function autoClose() {
 }
 
 // handle any leaflet.draw event
-function handleDrawEvent(eventName, e) {
+export function handleDrawEvent(eventName, e) {
   const handlers = {
     // Triggered when the user has chosen to draw a particular vector or marker
     DRAWSTART: () => setDrawingMode(drawToolConfig.DRAWING_MODE.DRAW),
@@ -408,7 +408,7 @@ export function cancel() {
 // Shape method for shape.info
 // while drawing the polygon is not closed => distance is distance of the lines
 // When editing the polygon is closed => distance is surrounding
-// When only tow points => distance is line length
+// When only two points => distance is line length
 function getDistance(latLngs, isClosed) {
   return latLngs.reduce((total, latlng, i) => {
     if (i > 0) {
@@ -420,7 +420,7 @@ function getDistance(latLngs, isClosed) {
 }
 
 // Update the internal information about the current shape
-function updateShape() {
+export function updateShape() {
   const DISTANCE_IN_KILOMETERS = 1000; // Show in km starting from this #meters, else show in m
 
   let latLngs = [];
@@ -478,9 +478,9 @@ function updateShape() {
 function updateShapeInfo() {
   // Copy a set of properties of the current shape into the shapeInfo object
   ['type', 'markers', 'markersMaxCount', 'area', 'areaTxt', 'distance', 'distanceTxt']
-  .forEach((key) => {
-    shapeInfo[key] = currentShape[key];
-  });
+    .forEach((key) => {
+      shapeInfo[key] = currentShape[key];
+    });
 }
 
 // Delete all markers in DRAW mode

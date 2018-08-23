@@ -1,17 +1,18 @@
 import reducer, {
+  FETCH_MAP_DETAIL_FAILURE,
   FETCH_MAP_DETAIL_REQUEST,
   FETCH_MAP_DETAIL_SUCCESS,
-  FETCH_MAP_DETAIL_FAILURE,
-  getCurrentEndpoint,
-  getAllResults,
-  selectLatestMapDetail,
-  getMapDetailGeometry,
-  getGeometry,
-  shouldShowGeoJson,
-  getGeoJson,
-  getMapDetail,
   fetchMapDetailFailure,
-  fetchMapDetailSuccess
+  fetchMapDetailSuccess,
+  getAllResults,
+  getCurrentEndpoint,
+  getDetailId,
+  getGeoJson,
+  getGeometry,
+  getMapDetail,
+  getMapDetailGeometry,
+  selectLatestMapDetail,
+  shouldShowGeoJson
 } from './map-detail';
 
 // REDUCER
@@ -99,7 +100,8 @@ describe('selectors', () => {
       }
     },
     detail: {
-      geometry: {}
+      geometry: {},
+      endpoint: '123'
     }
   };
   describe('getCurrentEndpoint', () => {
@@ -115,6 +117,20 @@ describe('selectors', () => {
       const { byEndpoint } = mockParameters.mapDetail;
       const selected = getAllResults.resultFunc(mockParameters.mapDetail);
       expect(selected).toEqual(byEndpoint);
+    });
+  });
+
+  describe('getDetailId', () => {
+    it('should return the endpoint from mapDetail', () => {
+      const { currentEndpoint } = mockParameters.mapDetail;
+      const selected = getDetailId(mockParameters);
+      expect(selected).toEqual(currentEndpoint);
+    });
+
+    it('should return the endpoint from details', () => {
+      const { endpoint } = mockParameters.detail;
+      const selected = getDetailId(mockParameters);
+      expect(selected).toEqual(endpoint);
     });
   });
 

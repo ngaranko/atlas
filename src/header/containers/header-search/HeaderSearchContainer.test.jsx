@@ -3,12 +3,9 @@ import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
 import HeaderSearchContainer from './HeaderSearchContainer';
-import {
-  setActiveSuggestion,
-  getSuggestions
-} from '../../ducks/auto-suggest/auto-suggest';
+import { getSuggestions, setActiveSuggestion } from '../../ducks/auto-suggest/auto-suggest';
 
-import { fetchDataSelection, fetchSearchResultsByQuery } from '../../../reducers/search';
+import { fetchDataSelection, fetchSearchResultsByQuery } from '../../ducks/search/search';
 
 import { fetchDetail } from '../../../reducers/details';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
@@ -16,7 +13,7 @@ import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 jest.mock('../../ducks/auto-suggest/auto-suggest');
 jest.mock('../../../reducers/details');
 jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
-jest.mock('../../../reducers/search');
+jest.mock('../../ducks/search/search');
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
@@ -24,8 +21,14 @@ describe('HeaderSearchContainer', () => {
     getSuggestions.mockImplementation(() => ({ type: 'FETCH_SUGGESTIONS_REQUEST' }));
     fetchDetail.mockImplementation((endpoint) => ({ type: 'FETCH_DETAIL', payload: endpoint }));
     piwikTracker.mockImplementation(() => jest.fn());
-    fetchDataSelection.mockImplementation((query) => ({ type: 'FETCH_DATA_SELECTION', payload: query }));
-    fetchSearchResultsByQuery.mockImplementation((query) => ({ type: 'FETCH_SEARCH_RESULTS_BY_QUERY', payload: query }));
+    fetchDataSelection.mockImplementation((query) => ({
+      type: 'FETCH_DATA_SELECTION',
+      payload: query
+    }));
+    fetchSearchResultsByQuery.mockImplementation((query) => ({
+      type: 'FETCH_SEARCH_RESULTS_BY_QUERY',
+      payload: query
+    }));
   });
 
   afterEach(() => {
@@ -223,6 +226,137 @@ describe('HeaderSearchContainer', () => {
 
       expect(fetchDataSelection).toHaveBeenCalled();
       expect(fetchSearchResultsByQuery).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('openDetailOnLoad', () => {
+    it('should be called when window.suggestionToLoadUri and window.opener are true', () => {
+      global.suggestionToLoadUri = true;
+      global.opener = true;
+      const store = configureMockStore()({
+        ...initialState
+      });
+
+      shallow(<HeaderSearchContainer />, { context: { store } }).dive();
+
+      expect(fetchDetail).toHaveBeenCalled();
+    });
+  });
+
+  describe('onSuggestionActivate', () => {
+    it('should call getSuggestions or setActiveSuggestion', () => {
+      const store = configureMockStore()({
+        ...initialState,
+        search: {
+          query: 'i\'m set'
+        }
+      });
+
+      const wrapper = shallow(
+        <HeaderSearchContainer />, { context: { store } }
+      ).dive();
+      wrapper.instance().onSuggestionActivate({ index: -1 });
+      expect(getSuggestions).toHaveBeenCalled();
+
+      wrapper.instance().onSuggestionActivate({ index: 0 });
+      expect(setActiveSuggestion).toHaveBeenCalled();
+    });
+  });
+
+  describe('onUserInput', () => {
+    it('should be called when window.suggestionToLoadUri and window.opener are true', () => {
+      const store = configureMockStore()({
+        ...initialState,
+        search: {
+          query: 'i\'m set'
+        }
+      });
+
+      const wrapper = shallow(
+        <HeaderSearchContainer />, { context: { store } }
+      ).dive();
+      wrapper.instance().onUserInput('query');
+      expect(getSuggestions).toHaveBeenCalledWith('query');
+    });
+  });
+
+  describe('onGetSuggestions', () => {
+    it('should be called on componentDidMount id prefillQuery prop is set', () => {
+      const store = configureMockStore()({
+        ...initialState,
+        search: {
+          query: 'i\'m set'
+        }
+      });
+
+      shallow(
+        <HeaderSearchContainer />, { context: { store } }
+      ).dive();
+
+      expect(getSuggestions).toHaveBeenCalled();
+    });
+
+    it('should not be called on componentDidMount id prefillQuery prop is not set', () => {
+      const store = configureMockStore()({
+        ...initialState
+      });
+
+      shallow(
+        <HeaderSearchContainer />, { context: { store } }
+      ).dive();
+
+      expect(getSuggestions).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('componentDidUpdate', () => {
+    it('should be call onGetSuggestions without a query', () => {
+      global.suggestionToLoadUri = true;
+      global.opener = true;
+      const store = configureMockStore()({
+        ...initialState
+      });
+
+      const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
+      wrapper.setProps({
+        prefillQuery: '',
+        isMapFullscreen: true
+      });
+
+      expect(getSuggestions).toHaveBeenCalledWith();
+    });
+
+    it('should be call onGetSuggestions without a query', () => {
+      global.suggestionToLoadUri = true;
+      global.opener = true;
+      const store = configureMockStore()({
+        ...initialState
+      });
+
+      const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
+      wrapper.setProps({
+        prefillQuery: '123',
+        isMapFullscreen: true
+      });
+
+      expect(getSuggestions).toHaveBeenCalledWith('123');
+    });
+
+    it('should not call getSuggestions', () => {
+      global.suggestionToLoadUri = true;
+      global.opener = true;
+      const store = configureMockStore()({
+        ...initialState
+      });
+
+      const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
+      wrapper.setProps({
+        prefillQuery: '',
+        pageName: '',
+        isMapFullscreen: false
+      });
+
+      expect(getSuggestions).not.toHaveBeenCalledWith();
     });
   });
 });

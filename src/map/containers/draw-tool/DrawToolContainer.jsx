@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import isEqual from 'lodash.isequal';
 
 import DrawTool from '../../components/draw-tool/DrawTool';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 import { mapClearDrawing, mapEmptyGeometry, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../ducks/map/map';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
@@ -17,11 +18,9 @@ import {
   cancel,
   currentShape,
   initialize,
-  destroy as destroyDrawTool,
   setPolygon,
   isEnabled
 } from '../../services/draw-tool/draw-tool';
-import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
 
 const mapStateToProps = (state) => ({
@@ -55,7 +54,7 @@ class DrawToolContainer extends React.Component {
     this.state = {
       drawingMode: props.drawingMode,
       previousMarkers: [],
-      dataSelection: {}
+      dataSelection: null
     };
 
     this.onFinishShape = this.onFinishShape.bind(this);
@@ -76,13 +75,13 @@ class DrawToolContainer extends React.Component {
 
   componentWillReceiveProps(props) {
     const markers = this.getMarkers();
-
     if (!isEqual(this.state.previousMarkers, markers)) {
       // if the markers have changed save the new markers as previous markers
       this.setPolygon();
       this.setState({ previousMarkers: [...markers] });
     }
-    if (!props.dataSelection && !props.geometry &&
+
+    if (!props.dataSelection && props.geometry && props.geometry.length === 0 &&
       props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
       // if dataSelection and geometry are empty then remove the drawn polygon
       this.props.setPolygon([]);
@@ -100,17 +99,6 @@ class DrawToolContainer extends React.Component {
       this.setState({ dataSelection: props.dataSelection });
       this.onUpdateShape(props.currentShape);
     }
-  }
-
-  componentWillUnmount() {
-    this.props.destroyDrawTool();
-    this.props.onMapUpdateShape({
-      shapeMarkers: 0,
-      shapeDistanceTxt: '',
-      shapeAreaTxt: ''
-    });
-    this.props.onEmptyGeometry();
-    this.props.onEndDrawing();
   }
 
   onFinishShape(polygon) {
@@ -178,15 +166,15 @@ DrawToolContainer.propTypes = {
   shapeDistanceTxt: PropTypes.string.isRequired,
   dataSelection: PropTypes.shape({
     geometryFilter: PropTypes.shape({
-      markers: PropTypes.array.isRequired,
-      description: PropTypes.string.isRequired
+      markers: PropTypes.array
     })
   }),
-  geometry: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  // Todo: figure out what shape the array is
+  geometry: PropTypes.array.isRequired, // eslint-disable-line
 
   currentShape: PropTypes.shape({
-    markers: PropTypes.array.isRequired
-  }),
+    markers: PropTypes.array
+  }).isRequired,
 
   leafletInstance: PropTypes.shape({}).isRequired,
 
@@ -195,7 +183,6 @@ DrawToolContainer.propTypes = {
   cancel: PropTypes.func.isRequired,
   setPolygon: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
-  destroyDrawTool: PropTypes.func.isRequired,
 
   onClearDrawing: PropTypes.func.isRequired,
   onEmptyGeometry: PropTypes.func.isRequired,
@@ -210,9 +197,9 @@ DrawToolContainer.propTypes = {
 };
 
 DrawToolContainer.defaultProps = {
-  geometry: undefined,
-  dataSelection: undefined,
-  currentShape: undefined
+  dataSelection: null,
+  geometry: [],
+  currentShape: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)((props) => (
@@ -221,7 +208,6 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => (
     toggleDrawing={toggleDrawing}
     cancel={cancel}
     initialize={initialize}
-    destroyDrawTool={destroyDrawTool}
     setPolygon={setPolygon}
     {...props}
   />

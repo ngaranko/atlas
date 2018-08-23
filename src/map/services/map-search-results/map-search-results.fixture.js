@@ -14,7 +14,7 @@ export const basicDataModel = [
   {
     uri: 'https://acc.api.data.amsterdam.nl/',
     label: 'Warmoesstraat 178',
-    categoryLabel: 'Adress',
+    categoryLabel: 'Adres',
     type: 'pand/address',
     parent: 'bag/pand'
   },
@@ -45,10 +45,10 @@ export const expectedDataModel = [
     ],
     subCategories: [
       {
-        categoryLabel: 'Adress',
+        categoryLabel: 'Adres',
         results: [
           {
-            categoryLabel: 'Adress',
+            categoryLabel: 'Adres',
             label: 'Warmoesstraat 178',
             parent: 'bag/pand',
             type: 'pand/address',

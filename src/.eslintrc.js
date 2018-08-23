@@ -21,6 +21,8 @@ module.exports = {
     "no-nested-ternary": "off",
     "no-underscore-dangle": ["error", {
       "allow": [
+        "__BROWSER__",
+        "__HOST__",
         "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__",
         "_bijzondere_rechts_toestand",
         "_display",

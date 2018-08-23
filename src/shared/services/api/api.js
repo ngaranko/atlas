@@ -3,7 +3,7 @@ import SHARED_CONFIG from '../shared-config/shared-config';
 
 export const getAccessToken = () => getState().user.accessToken;
 
-const generateParams = (data) => Object.entries(data).map((pair) => pair.map(encodeURIComponent).join('=')).join('&');
+export const generateParams = (data) => Object.entries(data).map((pair) => pair.map(encodeURIComponent).join('=')).join('&');
 
 const handleErrors = (response) => {
   if (!response.ok) {

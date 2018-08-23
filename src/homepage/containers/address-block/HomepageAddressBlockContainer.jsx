@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchDataSelection } from '../../../reducers/search';
+import { fetchDataSelection } from '../../../header/ducks/search/search';
 
 import HomepageAddressBlock from '../../components/address-block/HomepageAddressBlock';
 

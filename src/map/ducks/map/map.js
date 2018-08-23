@@ -40,8 +40,6 @@ export const MAP_ZOOM_SILENT = 'MAP_ZOOM_SILENT';
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
-export const TOGGLE_MAP_OVERLAYS = 'TOGGLE_MAP_OVERLAYS';
-export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
 
 const initialState = {
   viewCenter: [52.3731081, 4.8932945],
@@ -197,7 +195,6 @@ export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
   mapLayerId,
   show
 });
-export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
 
 export const updateZoom = (payload, isDrawingActive) =>
   ({

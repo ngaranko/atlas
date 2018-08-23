@@ -28,7 +28,7 @@ const MapSearchResultsCategory = ({ category, onItemClick, onShowMoreClick, isSu
             key={result.uri}
             label={result.label}
             statusLabel={getStatusLabel(result)}
-            onClick={() => {
+            onClick={/* istanbul ignore next */ () => {
               onItemClick(result.uri);
             }}
           />
