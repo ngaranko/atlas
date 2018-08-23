@@ -1,4 +1,4 @@
-import { currentShape, disable, drawTool, enable, cancel, initialize, setPolygon, handleDrawEvent, isDrawingActive, createPolygon, finishPolygon, autoClose, enforceLimits, updateShape } from './draw-tool';
+import { currentShape, disable, drawTool, enable, cancel, initialize, setPolygon, handleDrawEvent, isDrawingActive, createPolygon, finishPolygon, autoClose, enforceLimits, updateShape, destroy } from './draw-tool';
 import drawToolConfig from './draw-tool.config';
 import { isBusy, start } from '../suppress/suppress';
 
@@ -134,7 +134,8 @@ describe('draw-tool service', () => {
 
   describe('methods', () => {
     let layer;
-    const mapEvents = {};
+    const mapEventsOn = {};
+    const mapEventsOff = {};
     let latLngsArray;
     let latLngsPolygon;
 
@@ -181,16 +182,15 @@ describe('draw-tool service', () => {
       const leafletMap = {
         addLayer: jest.fn(),
         on: (name, handler) => {
-          mapEvents[name] = handler;
-        }
+          mapEventsOn[name] = handler;
+        },
+        off: (name, handler) => {
+          mapEventsOff[name] = handler;
+        },
+        fire: jest.fn()
       };
 
       initialize(leafletMap, onFinish, onDrawingMode, onUpdateShape);
-
-      drawTool.map = {
-        ...drawTool.map,
-        fire: jest.fn()
-      };
 
       drawTool.drawShapeHandler = {
         ...drawTool.drawShapeHandler,
@@ -236,6 +236,15 @@ describe('draw-tool service', () => {
       });
     });
 
+    describe('distroy', () => {
+      it('should deregister all mapevents', async () => {
+        drawTool.drawnItems = layer;
+        currentShape.layer = layer;
+        destroy();
+        expect(currentShape.markers).toEqual([]);
+      });
+    });
+
     describe('events', () => {
       describe('map events', () => {
         describe('click event', () => {
@@ -245,20 +254,20 @@ describe('draw-tool service', () => {
 
           it('should do nothing when the map is busy', () => {
             isBusy.mockImplementation(() => true);
-            mapEvents.click();
+            mapEventsOn.click();
             expect(drawTool.drawShapeHandler.disable).not.toHaveBeenCalled();
           });
 
           it('should disable edit when in edit mode', () => {
             drawTool.drawingMode = drawToolConfig.DRAWING_MODE.EDIT;
-            mapEvents.click();
+            mapEventsOn.click();
             expect(drawTool.editShapeHandler.disable).toHaveBeenCalledTimes(1);
           });
 
           it('should do nothing when mode is none and the current layer is null', () => {
             drawTool.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
             currentShape.layer = null;
-            mapEvents.click();
+            mapEventsOn.click();
             expect(drawTool.drawShapeHandler.disable).not.toHaveBeenCalled();
             expect(drawTool.editShapeHandler.disable).not.toHaveBeenCalled();
           });
@@ -267,7 +276,7 @@ describe('draw-tool service', () => {
             drawTool.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
             currentShape.layer = layer;
             drawTool.drawnItems = layer;
-            mapEvents.click();
+            mapEventsOn.click();
             expect(drawTool.drawShapeHandler.disable).not.toHaveBeenCalled();
             expect(drawTool.editShapeHandler.disable).not.toHaveBeenCalled();
           });
@@ -277,7 +286,7 @@ describe('draw-tool service', () => {
           it('should bring the shape to front', () => {
             drawTool.drawnItems = layer;
 
-            mapEvents.layeradd();
+            mapEventsOn.layeradd();
             expect(drawTool.drawnItems.bringToFront).toHaveBeenCalled();
           });
         });
@@ -291,7 +300,7 @@ describe('draw-tool service', () => {
 
         it('should call start on DELETED', () => {
           jest.useFakeTimers();
-          mapEvents.DELETED();
+          mapEventsOn.DELETED();
           jest.runAllTimers();
           expect(start).toHaveBeenCalledWith(300);
           expect(enableTextSelectionMock).toHaveBeenCalledTimes(1);
@@ -301,7 +310,7 @@ describe('draw-tool service', () => {
           jest.useFakeTimers();
           drawTool.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
           currentShape.isConsistent = false;
-          mapEvents.DRAWSTART();
+          mapEventsOn.DRAWSTART();
           expect(start).not.toHaveBeenCalled();
           jest.runAllTimers();
           expect(enableTextSelectionMock).toHaveBeenCalledTimes(1);
@@ -376,7 +385,7 @@ describe('draw-tool service', () => {
         // expect(drawTool.drawShapeHandler.enable).toHaveBeenCalledTimes(1);
 
         drawTool.drawingMode = drawToolConfig.DRAWING_MODE.EDIT;
-        mapEvents.click(e);
+        mapEventsOn.click(e);
         expect(domEventStopMock).toHaveBeenCalledWith(e);
         // expect(drawTool.drawShapeHandler.disable).toHaveBeenCalledTimes(1);
       });
@@ -614,10 +623,11 @@ describe('draw-tool service', () => {
         });
 
         it('should initialize the polygon when is first marker and contains only one marker', () => {
-          drawTool.drawShapeHandler._markers = [{ // eslint-disable-line no-underscore-dangle
+          const marker = {
             ...layer,
             _latlng: { lat: 1, lng: 1 }
-          }];
+          };
+          drawTool.drawShapeHandler._markers = [marker]; // eslint-disable-line no-underscore-dangle
           currentShape.markers = [currentShape.markers.pop()];
           latLngsPolygon = currentShape.markers.map((latLng) => ({
             lat: latLng[0],
@@ -630,7 +640,7 @@ describe('draw-tool service', () => {
 
           drawTool.drawShapeHandler.enabled = () => true;
           eventHandler.click();
-          expect(currentShape.deleteMarker).toEqual({});
+          expect(currentShape.deleteMarker).toEqual(marker);
           expect(currentShape.markers).toEqual([[1, 1]]);
         });
 
