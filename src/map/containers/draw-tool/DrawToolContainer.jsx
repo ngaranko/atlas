@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import isEqual from 'lodash.isequal';
 
 import DrawTool from '../../components/draw-tool/DrawTool';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 import { mapClearDrawing, mapEmptyGeometry, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../ducks/map/map';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
@@ -17,11 +18,9 @@ import {
   cancel,
   currentShape,
   initialize,
-  destroy as destroyDrawTool,
   setPolygon,
   isEnabled
 } from '../../services/draw-tool/draw-tool';
-import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
 
 const mapStateToProps = (state) => ({
@@ -55,7 +54,7 @@ class DrawToolContainer extends React.Component {
     this.state = {
       drawingMode: props.drawingMode,
       previousMarkers: [],
-      dataSelection: {}
+      dataSelection: null
     };
 
     this.onFinishShape = this.onFinishShape.bind(this);
@@ -100,17 +99,6 @@ class DrawToolContainer extends React.Component {
       this.setState({ dataSelection: props.dataSelection });
       this.onUpdateShape(props.currentShape);
     }
-  }
-
-  componentWillUnmount() {
-    this.props.destroyDrawTool();
-    this.props.onMapUpdateShape({
-      shapeMarkers: 0,
-      shapeDistanceTxt: '',
-      shapeAreaTxt: ''
-    });
-    this.props.onEmptyGeometry();
-    this.props.onEndDrawing();
   }
 
   onFinishShape(polygon) {
@@ -195,7 +183,6 @@ DrawToolContainer.propTypes = {
   cancel: PropTypes.func.isRequired,
   setPolygon: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
-  destroyDrawTool: PropTypes.func.isRequired,
 
   onClearDrawing: PropTypes.func.isRequired,
   onEmptyGeometry: PropTypes.func.isRequired,
@@ -221,7 +208,6 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => (
     toggleDrawing={toggleDrawing}
     cancel={cancel}
     initialize={initialize}
-    destroyDrawTool={destroyDrawTool}
     setPolygon={setPolygon}
     {...props}
   />

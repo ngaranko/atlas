@@ -108,9 +108,10 @@ export default function search(location, user) {
       .then(fetchRelatedForUser(user))
       .then((features) => features.map((feature) => transformResultByType(feature)));
   });
-
-  return Promise
-    .all(allRequests)
+  return Promise.all(allRequests
+    .map((p) => p
+      .then((result) => Promise.resolve(result))
+      .catch(() => Promise.resolve([]))))  // ignore the failing calls
     .then((results) => [].concat.apply([], [...results]))
     .then((results) => createMapSearchResultsModel(results));
 }

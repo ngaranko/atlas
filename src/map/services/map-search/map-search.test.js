@@ -127,7 +127,7 @@ describe('mapSearch service', () => {
   });
 
   it('should return results from search ', async () => {
-    fetch.mockResponse(JSON.stringify({
+    const mockResponse = {
       features: [
         {
           properties: {
@@ -135,7 +135,16 @@ describe('mapSearch service', () => {
           }
         }
       ]
-    }));
+    };
+
+    global.fetch = jest.fn().mockImplementation(() => (
+        new Promise((resolve) => {
+          resolve({
+            ok: true,
+            json: () => mockResponse
+          });
+        })));
+
     const data = await search({ latitude: 1, longitude: 0 }, {
       authenticated: false,
       accessToken: '',
@@ -146,6 +155,54 @@ describe('mapSearch service', () => {
     expect(data).toEqual([{
       categoryLabel: 'Explosief',
       results: Array(7).fill({
+        categoryLabel: 'Explosief',
+        label: undefined,
+        parent: undefined,
+        statusLabel: 'verdacht gebied',
+        type: 'bommenkaart/verdachtgebied',
+        uri: undefined
+      }),
+      subCategories: [],
+      type: 'bommenkaart/verdachtgebied'
+    }]);
+  });
+
+  it('should return results and ignore the ignore the failing calls (http 500 errors)', async () => {
+    const mockResponse = {
+      features: [
+        {
+          properties: {
+            type: 'bommenkaart/verdachtgebied' // not in map-search
+          }
+        }
+      ]
+    };
+
+    global.fetch = jest.fn().mockImplementation((url) => {
+      if (url.indexOf('/nap/') > 0) {
+        return new Promise(() => {
+          throw new Error('nap api not available ');
+        });
+      }
+      return (
+        new Promise((resolve) => {
+          resolve({
+            ok: true,
+            json: () => mockResponse
+          });
+        }));
+    });
+
+    const data = await search({ latitude: 1, longitude: 0 }, {
+      authenticated: false,
+      accessToken: '',
+      scopes: [],
+      name: '',
+      error: false
+    });
+    expect(data).toEqual([{
+      categoryLabel: 'Explosief',
+      results: Array(6).fill({
         categoryLabel: 'Explosief',
         label: undefined,
         parent: undefined,

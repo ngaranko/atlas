@@ -32,7 +32,7 @@ describe('DrawToolContainer', () => {
       shapeMarkers: 0,
       shapeDistanceTxt: ''
     },
-    dataSelection: {},
+    dataSelection: null,
     ui: { isMapFullscreen: true }
   };
 
@@ -43,7 +43,8 @@ describe('DrawToolContainer', () => {
     toggleDrawing: jest.fn(),
     cancel: jest.fn(),
     initialize: jest.fn(),
-    setPolygon: jest.fn()
+    setPolygon: jest.fn(),
+    dataSelection: null
   };
 
   const markers = [
@@ -109,7 +110,8 @@ describe('DrawToolContainer', () => {
     expect(initializeMock).toHaveBeenCalled();
     expect(wrapperInstance.state).toEqual({
       drawingMode: drawToolConfig.DRAWING_MODE.NONE,
-      previousMarkers: []
+      previousMarkers: [],
+      dataSelection: null
     });
   });
 
@@ -132,7 +134,10 @@ describe('DrawToolContainer', () => {
         wrapperInstance.props.setPolygon.mockClear();
 
         wrapperInstance.componentWillReceiveProps({
-          drawingMode: drawToolConfig.DRAWING_MODE.NONE, geometry: [], dataSelection: null
+          ...props,
+          drawingMode: drawToolConfig.DRAWING_MODE.NONE,
+          geometry: [],
+          dataSelection: null
         });
 
         expect(wrapperInstance.props.setPolygon).toHaveBeenCalledWith([]);
@@ -145,6 +150,7 @@ describe('DrawToolContainer', () => {
         const oldState = wrapperInstance.state;
 
         wrapperInstance.componentWillReceiveProps({
+          ...props,
           geometry,
           drawingMode: drawToolConfig.DRAWING_MODE.NONE
         });
@@ -161,6 +167,7 @@ describe('DrawToolContainer', () => {
         wrapper.setState({ drawingMode: drawToolConfig.DRAWING_MODE.NONE });
         wrapperInstance.props.cancel.mockClear();
         wrapperInstance.componentWillReceiveProps({
+          ...props,
           drawingMode: drawToolConfig.DRAWING_MODE.DRAW
         });
         expect(wrapperInstance.props.cancel).not.toHaveBeenCalled();
@@ -171,6 +178,7 @@ describe('DrawToolContainer', () => {
         wrapper.setState({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW });
         wrapperInstance.props.cancel.mockClear();
         wrapperInstance.componentWillReceiveProps({
+          ...props,
           drawingMode: drawToolConfig.DRAWING_MODE.NONE
         });
         expect(wrapperInstance.props.cancel).toHaveBeenCalled();

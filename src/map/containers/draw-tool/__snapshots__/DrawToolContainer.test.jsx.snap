@@ -8,7 +8,7 @@ exports[`DrawToolContainer should render DrawToolContainer 1`] = `
       "markers": Array [],
     }
   }
-  dataSelection={Object {}}
+  dataSelection={null}
   drawingMode="none"
   geometry={Array []}
   initialize={
