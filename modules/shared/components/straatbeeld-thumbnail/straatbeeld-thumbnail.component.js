@@ -12,9 +12,9 @@
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldThumbnailController.$inject = ['$q', '$scope', 'sharedConfig', 'api', 'userSettings'];
+    DpStraatbeeldThumbnailController.$inject = ['$q', '$scope', 'sharedConfig', 'api'];
 
-    function DpStraatbeeldThumbnailController ($q, $scope, sharedConfig, api, userSettings) {
+    function DpStraatbeeldThumbnailController ($q, $scope, sharedConfig, api) {
         var vm = this,
             imageUrl,
             heading,

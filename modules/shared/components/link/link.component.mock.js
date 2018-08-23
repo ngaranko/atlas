@@ -1,3 +1,5 @@
+// This component is just an mock of the dp-link component
+// Is only used in the tests to simplify the test process
 (function () {
     'use strict';
 
@@ -38,3 +40,4 @@
         }
     }
 })();
+

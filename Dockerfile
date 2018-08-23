@@ -31,9 +31,7 @@ COPY grunt /app/grunt
 COPY public /app/public
 COPY scripts /app/scripts
 COPY .babelrc \
-      403-geen-toegang.html \
       Gruntfile.js \
-      index.html \
       webpack.* \
       index.ejs \
       favicon.png \

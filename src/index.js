@@ -183,7 +183,6 @@ import '../modules/shared/components/long-name-shortener/long-name-config.consta
 import '../modules/shared/components/long-name-shortener/long-name-shortener.filter';
 import '../modules/shared/components/message/message.component';
 import '../modules/shared/components/panel/panel.component';
-import '../modules/shared/components/straatbeeld-thumbnail/dp-alt.component';
 import '../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component';
 import '../modules/shared/components/tab-header/tab-header.component';
 import '../modules/shared/components/tab-header/tab-header.constant';
