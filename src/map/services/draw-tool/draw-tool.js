@@ -220,6 +220,7 @@ export function autoClose() {
 
 // handle any leaflet.draw event
 export function handleDrawEvent(eventName, e) {
+  // debugger;
   const handlers = {
     // Triggered when the user has chosen to draw a particular vector or marker
     DRAWSTART: () => setDrawingMode(drawToolConfig.DRAWING_MODE.DRAW),
@@ -247,6 +248,8 @@ export function handleDrawEvent(eventName, e) {
     // Triggered when layers have been removed (and saved) from the FeatureGroup
     DELETED: () => {
       currentShape.layer = null;
+      // cancel();
+      // setDrawingMode(drawToolConfig.DRAWING_MODE.NONE);
     }
   };
 
