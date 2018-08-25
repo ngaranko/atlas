@@ -56,3 +56,12 @@
 .c-panel--can-close {
   padding-right: $button-size;
 }
+
+.c-panel__list {
+  margin: 0 20px;
+  list-style: disc;
+
+  li {
+    margin-top: 10px;
+  }
+}

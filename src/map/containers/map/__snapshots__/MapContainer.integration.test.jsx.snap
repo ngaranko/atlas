@@ -13381,13 +13381,14 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 ],
                 "legendItems": Array [
                   Object {
+                    "imageRule": "Taxi-standplaatsgebied",
                     "selectable": false,
-                    "title": "Taxi-standplaatsgebied",
+                    "title": "Omgeving taxi-standplaats",
                   },
                 ],
                 "maxZoom": 16,
                 "minZoom": 8,
-                "title": "Taxi-standplaatsgebieden",
+                "title": "Omgeving taxi-standplaatsen",
                 "url": "/maps/overlastgebieden?version=1.3.0&service=WMS",
               },
               Object {
@@ -16232,13 +16233,14 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           ],
                           "legendItems": Array [
                             Object {
+                              "imageRule": "Taxi-standplaatsgebied",
                               "selectable": false,
-                              "title": "Taxi-standplaatsgebied",
+                              "title": "Omgeving taxi-standplaats",
                             },
                           ],
                           "maxZoom": 16,
                           "minZoom": 8,
-                          "title": "Taxi-standplaatsgebieden",
+                          "title": "Omgeving taxi-standplaatsen",
                           "url": "/maps/overlastgebieden?version=1.3.0&service=WMS",
                         },
                         Object {
@@ -18213,7 +18215,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       map-layers__title
                       map-layers__title--inactive
                     "
-                              key="Taxi-standplaatsgebieden"
+                              key="Omgeving taxi-standplaatsen"
                             >
                               <button
                                 onClick={[Function]}
@@ -18221,7 +18223,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 <span
                                   className="map-layers__toggle-title"
                                 >
-                                  Taxi-standplaatsgebieden
+                                  Omgeving taxi-standplaatsen
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"

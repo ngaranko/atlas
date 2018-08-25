@@ -108,8 +108,16 @@ import { getMapClickLocation } from '../../../../src/map/ducks/click-location/ma
                     data = dataFormatter.formatData(data, subject, vm.catalogFilters);
 
                     if (category === 'dcatd' && subject === 'datasets') {
-                        data['dct:description'] = data['dct:description'] &&
-                            markdownParser.parse(data['dct:description']);
+                        const fields = ['dct:description', 'overheid:grondslag', 'overheidds:doel'];
+                        const markdownFields = fields.reduce((acc, field) => {
+                            if (data[field]) {
+                                acc[field] = markdownParser.parse(data[field]);
+                            }
+                            return acc;
+                        }, {});
+
+                        data = { ...data, ...markdownFields };
+
                         data.canEditDataset = vm.user.scopes.includes('CAT/W');
                     }
 

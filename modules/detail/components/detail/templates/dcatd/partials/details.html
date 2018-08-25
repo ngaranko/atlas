@@ -1,6 +1,6 @@
 <dl class="c-key-value-list">
     <dt>Doel</dt>
-    <dd>{{vm.apiData.results['overheidds:doel']}}</dd>
+    <dd class="c-key-value-md dataset-detail__description" ng-bind-html="vm.apiData.results['overheidds:doel']"></dd>
     <dt>Meer informatie</dt>
     <dd>
         <a ng-if="vm.apiData.results['dcat:landingPage']" href="{{vm.apiData.results['dcat:landingPage']}}" class="o-btn o-btn--link">{{vm.apiData.results['dcat:landingPage']}}</a>
@@ -22,7 +22,7 @@
     <dt>Gebiedseenheid</dt>
     <dd>{{vm.apiData.results['ams:spatialUnit'] | optionLabel: vm.catalogFilters.spatialUnits}}</dd>
     <dt>Juridische grondslag</dt>
-    <dd>{{vm.apiData.results['overheid:grondslag']}}</dd>
+    <dd class="c-key-value-md dataset-detail__description" ng-bind-html="vm.apiData.results['overheid:grondslag']"></dd>
     <dt>Taal</dt>
     <dd>{{vm.apiData.results['dct:language'] | optionLabel: vm.catalogFilters.languages:'lang1'}}</dd>
     <dt>Eigenaar</dt>

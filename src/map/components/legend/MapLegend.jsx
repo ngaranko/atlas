@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Checkbox } from '../../../shared/components/checkbox';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
+import MAP_CONFIG from '../../services/map-config';
 
 import './_map-legend.scss';
 
@@ -19,15 +20,17 @@ class MapLegend extends React.Component {
     if (legendItem.iconUrl) {
       return legendItem.iconUrl;
     }
+
+    const url = MAP_CONFIG.OVERLAY_ROOT.slice(0, -1); // This removes last character '/'
+
     return [
-      'https://',
-      process.env.NODE_ENV !== 'production' ? 'acc.map.data.amsterdam.nl' : 'map.data.amsterdam.nl',
+      url,
       `${mapLayer.url}&`,
       'request=GetLegendGraphic&',
       'sld_version=1.1.0&',
       `layer=${legendItem.layer || mapLayer.layers[0]}&`,
       'format=image/svg%2Bxml&',
-      `rule=${encodeURIComponent(legendItem.title)}`
+      `rule=${encodeURIComponent(legendItem.imageRule || legendItem.title)}`
     ].join('');
   }
 
