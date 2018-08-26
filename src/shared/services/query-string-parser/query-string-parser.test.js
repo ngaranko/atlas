@@ -1,4 +1,4 @@
-import queryStringParser from './query-string-parser';
+import queryStringParser, { encodeQueryParams } from './query-string-parser';
 
 describe('The query string parser service', () => {
   it('turns a query string into an object', () => {
@@ -40,5 +40,16 @@ describe('The query string parser service', () => {
       three: '=',
       four: '==44'
     });
+  });
+});
+
+describe('encodeQueryParams', () => {
+  it('should generate the query string', () => {
+    const result = 'query=params&space=has%20space';
+    const params = {
+      query: 'params',
+      space: 'has space'
+    };
+    expect(encodeQueryParams(params)).toEqual(result);
   });
 });

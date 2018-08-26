@@ -1,3 +1,5 @@
+import { encodeQueryParams } from '../../../../src/shared/services/query-string-parser/query-string-parser';
+
 (function () {
     'use strict';
 
@@ -11,12 +13,6 @@
         return {
             update
         };
-
-        function encodeQueryParams (params) {
-            return (Object.keys(params).
-                map((param) => `${encodeURIComponent(param)}=${encodeURIComponent(params[param])}`).
-                join('&'));
-        }
 
         function update (state, useReplace) {
             // don't add the url to history when is the same url or when the action should skip that
