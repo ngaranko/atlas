@@ -47,7 +47,7 @@ const HomepageAddressBlock = (props) => {
         </button>
       </div>
 
-      <div className={'homepage-block__item'}>
+      <div className={'homepage-block__item homepage-block__item--invisible'}>
         <button
           className={'c-link homepage-block__link'}
           title={'Bekijk kadaster-tabel'}

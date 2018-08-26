@@ -49,4 +49,10 @@ $block-item-height: 40px;
   .c-homepage__block-button {
     text-align: left;
   }
+
+  &__item {
+    &--invisible {
+      display: none;
+    }
+  }
 }
