@@ -23,7 +23,7 @@ describe('The stateToUrl factory', function () {
         });
 
         spyOn($location, 'replace');
-        spyOn($location, 'search');
+        spyOn($location, 'search').and.returnValue({query: 'search', result: '%20space'});
         spyOn(stateUrlConverter, 'state2url');
     });
 
