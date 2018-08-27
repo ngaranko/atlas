@@ -139,13 +139,22 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
           }
           clusterMarkers={Array []}
           drawingMode="none"
-          geoJson={Object {}}
+          geoJsons={Array []}
           getLeafletInstance={[Function]}
           layers={Array []}
           markers={Array []}
+          onFetchMapBaseLayers={[Function]}
+          onFetchMapLayers={[Function]}
+          onFetchPanelLayers={[Function]}
+          onUpdateBoundingBox={[Function]}
           onUpdateClick={[Function]}
           onUpdatePan={[Function]}
           onUpdateZoom={[Function]}
+          rdGeoJsons={
+            Array [
+              Object {},
+            ]
+          }
           zoom={11}
         >
           <MapLeaflet
@@ -182,7 +191,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               ]
             }
             clusterMarkers={Array []}
-            geoJson={Object {}}
+            geoJsons={Array []}
             getLeafletInstance={[Function]}
             isZoomControlVisible={true}
             layers={Array []}
@@ -353,10 +362,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
             }
             markers={Array []}
             onClick={[Function]}
-            onDoubleClick={[Function]}
             onDragEnd={[Function]}
             onMoveEnd={[Function]}
+            onResizeEnd={[Function]}
             onZoomEnd={[Function]}
+            rdGeoJsons={
+              Array [
+                Object {},
+              ]
+            }
             scaleControlOptions={
               Object {
                 "imperial": false,
@@ -1033,6 +1047,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "61": 1,
                     },
                   },
+                  "fn": [Function],
+                },
+              ],
+              "layeradd": Array [
+                Object {
+                  "ctx": undefined,
                   "fn": [Function],
                 },
               ],
@@ -3944,6 +3964,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "fn": [Function],
                   },
                 ],
+                "layeradd": Array [
+                  Object {
+                    "ctx": undefined,
+                    "fn": [Function],
+                  },
+                ],
                 "move": Array [
                   Object {
                     "ctx": undefined,
@@ -6474,6 +6500,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 "distanceTxt": "",
                 "isConsistent": true,
                 "layer": null,
+                "layerPrev": null,
                 "markers": Array [],
                 "markersEdit": Array [],
                 "markersMaxCount": 40,
@@ -6481,9 +6508,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 "type": null,
               }
             }
-            dataSelection={undefined}
+            dataSelection={null}
             drawingMode="none"
-            geometry={undefined}
+            geometry={Array []}
             initialize={[Function]}
             isEnabled={false}
             leafletInstance={
@@ -6880,6 +6907,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           "61": 1,
                         },
                       },
+                      "fn": [Function],
+                    },
+                  ],
+                  "layeradd": Array [
+                    Object {
+                      "ctx": undefined,
                       "fn": [Function],
                     },
                   ],
@@ -9415,6 +9448,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   "distanceTxt": "",
                   "isConsistent": true,
                   "layer": null,
+                  "layerPrev": null,
                   "markers": Array [],
                   "markersEdit": Array [],
                   "markersMaxCount": 40,
@@ -9422,9 +9456,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   "type": null,
                 }
               }
-              dataSelection={undefined}
+              dataSelection={null}
               drawingMode="none"
-              geometry={undefined}
+              geometry={Array []}
               initialize={[Function]}
               isEnabled={false}
               leafletInstance={
@@ -9821,6 +9855,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             "61": 1,
                           },
                         },
+                        "fn": [Function],
+                      },
+                    ],
+                    "layeradd": Array [
+                      Object {
+                        "ctx": undefined,
                         "fn": [Function],
                       },
                     ],

@@ -58,22 +58,22 @@ In order to test authentication the following environment variables must be set:
 They can simply be added by using the `export` command from the command line, or by adding these
 variables to `.bash_profile`.
 
-### E2E Functional testing
+### E2E testing
 
 Make sure the app is running locally by running `npm start`.
-Then, in a second terminal, run `npm run test-e2e-functional` (single run).
-Or open the UI using `npm run test-e2e-functional-watch`.
+Then, in a second terminal, run `npm run test-e2e` (single run).
+Or open the UI using `npm run test-e2e-watch`.
 
 Test using docker-compose:
 ```
-docker-compose up --build test-e2e-functional
+docker-compose up --build test-e2e
 ```
 
 To test against production APIs you can use the same tasks, suffixed with `prod`:
 
 - Make sure the app is running locally by running `npm run start-prod`.
-- Then, in a second terminal, run `npm run test-e2e-functional-prod` (single run).
-- Or open the UI using `npm run test-e2e-functional-prod-watch`.
+- Then, in a second terminal, run `npm run test-e2e-prod` (single run).
+- Or open the UI using `npm run test-e2e-prod-watch`.
 
 ### E2E Aria testing
 
@@ -84,13 +84,6 @@ Test using docker-compose:
 ```
 docker-compose up --build test-e2e-aria
 ```
-
-### E2E Visual testing
-
-_Currently not working in CI_
-
-`docker-compose up --build test-e2e-visual`
-
 
 ## Other useful commands
 

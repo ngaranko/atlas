@@ -18,7 +18,8 @@
 
                     const ignoredActions = ['AUTHENTICATE_USER', 'MAP_START_DRAWING',
                         'MAP_EMPTY_GEOMETRY', 'MAP_UPDATE_SHAPE', 'MAP_ZOOM_SILENT', 'MAP_PAN_SILENT',
-                        'SET_DATA_SELECTION_GEOMETRY_FILTER', 'RESET_DATA_SELECTION_GEOMETRY_FILTER',
+                        'MAP_BOUNDING_BOX_SILENT', 'SET_DATA_SELECTION_GEOMETRY_FILTER',
+                        'RESET_DATA_SELECTION_GEOMETRY_FILTER',
                         'FETCH_CATALOG_FILTERS_REQUEST'];
 
                     // vanilla (new actions) that don't need to be saved to the location history (replace)

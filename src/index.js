@@ -1,12 +1,10 @@
 // For now simply import everything we need, from here
 import './state';
-import './map/wrappers/panel/MapPanelWrapper';
-import './map/wrappers/preview-panel/MapPreviewPanelWrapper';
 import './map/wrappers/map/MapWrapper';
-import './map/wrappers/map-embed-button/MapEmbedButtonWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphTotalsWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphPhasedWrapper';
 import './header/wrappers/header-search/HeaderSearchWrapper';
+import './homepage/wrappers/address-block/HomepageAddressBlockWrapper';
 
 // All third party dependencies
 import './vendor';
@@ -93,6 +91,7 @@ import '../modules/data-selection/components/views/catalog/catalog.component';
 import '../modules/data-selection/components/views/list/list.component';
 import '../modules/data-selection/components/views/table/table.component';
 import '../modules/data-selection/data-selection-config.constant';
+import '../modules/data-selection/services/api/data-selection-api-brk.factory';
 import '../modules/data-selection/services/api/data-selection-api-dcatd.factory';
 import '../modules/data-selection/services/api/data-selection-api-data-selection.factory';
 import '../modules/data-selection/services/api/data-selection-api.factory';
@@ -184,7 +183,6 @@ import '../modules/shared/components/long-name-shortener/long-name-config.consta
 import '../modules/shared/components/long-name-shortener/long-name-shortener.filter';
 import '../modules/shared/components/message/message.component';
 import '../modules/shared/components/panel/panel.component';
-import '../modules/shared/components/straatbeeld-thumbnail/dp-alt.component';
 import '../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component';
 import '../modules/shared/components/tab-header/tab-header.component';
 import '../modules/shared/components/tab-header/tab-header.constant';

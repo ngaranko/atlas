@@ -127,7 +127,6 @@ function commonConfig({ nodeEnv }) {
         { from: './node_modules/proj4leaflet/src/proj4leaflet.js' },
 
         // Dumb copy of all assets for now
-        { from: './403-geen-toegang.html' },
         // All root assets files
         {
           context: 'modules/shared/assets',

@@ -1,4 +1,5 @@
 import reducer, {
+  getMapClickLocation,
   SET_MAP_CLICK_LOCATION,
   setMapClickLocation,
   updateClick
@@ -51,6 +52,14 @@ describe('actions', () => {
         }
       };
       expect(updateClick(payload)).toEqual(expectedAction);
+    });
+  });
+});
+
+describe('selectors', () => {
+  describe('getMapClickLocation', () => {
+    it('should return mapClickLocation', () => {
+      expect(getMapClickLocation({ mapClickLocation: 123 })).toEqual(123);
     });
   });
 });

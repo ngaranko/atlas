@@ -1,9 +1,15 @@
 import UiReducer, {
   hideMapPanel,
+  setMapFullscreen,
   showMapPanel,
+  toggleMapFullscreen,
   toggleMapPanel,
   toggleMapPanelHandle,
-  toggleMapFullscreen
+  SHOW_MAP,
+  SHOW_PRINT,
+  HIDE_PRINT,
+  SHOW_EMBED_PREVIEW,
+  HIDE_EMBED_PREVIEW
 } from './ui';
 
 describe('UiReducer', () => {
@@ -48,6 +54,22 @@ describe('UiReducer', () => {
     });
   });
 
+  it('should set the fullscreen state of the map', () => {
+    const newState = UiReducer(state, setMapFullscreen({
+      isMapFullscreen: true
+    }));
+    expect(newState).toEqual({
+      ...state,
+      isMapFullscreen: true
+    });
+    expect(UiReducer(newState, setMapFullscreen({
+      isMapFullscreen: false
+    }))).toEqual({
+      ...state,
+      isMapFullscreen: false
+    });
+  });
+
   it('should toggle the map panel handle', () => {
     const newState = UiReducer(state, toggleMapPanelHandle());
     expect(newState).toEqual({
@@ -57,6 +79,52 @@ describe('UiReducer', () => {
     expect(UiReducer(newState, toggleMapPanelHandle())).toEqual({
       ...state,
       isMapPanelHandleVisible: true
+    });
+  });
+
+  it('should set the print mode to true', () => {
+    expect(UiReducer(state, {
+      type: SHOW_PRINT
+    })).toEqual({
+      ...state,
+      isPrintMode: true
+    });
+  });
+
+  it('should set the show embed preview state to true', () => {
+    expect(UiReducer(state, {
+      type: SHOW_EMBED_PREVIEW
+    })).toEqual({
+      ...state,
+      isEmbedPreview: true
+    });
+  });
+
+  it('should set the show embed preview state to false', () => {
+    expect(UiReducer(state, {
+      type: HIDE_EMBED_PREVIEW
+    })).toEqual({
+      ...state,
+      isEmbedPreview: false
+    });
+  });
+
+  it('should set the isPrint state to false', () => {
+    expect(UiReducer(state, {
+      type: HIDE_PRINT
+    })).toEqual({
+      ...state,
+      isPrintMode: false
+    });
+  });
+
+  it('should set the show map visibility and full screen state to true', () => {
+    expect(UiReducer(state, {
+      type: SHOW_MAP
+    })).toEqual({
+      ...state,
+      isMapPanelVisible: true,
+      isMapFullscreen: true
     });
   });
 

@@ -2,7 +2,7 @@ import { Icon } from 'leaflet';
 
 import ICON_CONFIG from './icon-config.constant';
 
-const detailIcon = new Icon({
+const detailIcon = () => new Icon({
   ...ICON_CONFIG.DETAIL,
   popupAnchor: null,
   shadowUrl: null,

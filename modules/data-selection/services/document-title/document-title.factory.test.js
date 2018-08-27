@@ -13,6 +13,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                     datasets: {
                         bag: {
                             TITLE: 'Adressen',
+                            TITLE_TAB: 'Adressen',
                             FILTERS: [
                                 {
                                     slug: 'stadsdeel_naam',
@@ -30,10 +31,12 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                         },
                         hr: {
                             TITLE: 'Handelsregister',
+                            TITLE_TAB: 'Handelsregister',
                             FILTERS: []
                         },
                         dcatd: {
                             TITLE: 'Catalogus',
+                            TITLE_TAB: 'Catalogus',
                             FILTERS: [
                                 {
                                     slug: 'groups',

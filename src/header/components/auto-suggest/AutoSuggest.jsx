@@ -222,37 +222,39 @@ class AutoSuggest extends React.Component {
               onChange={this.onInput}
               onKeyDown={this.navigateSuggestions}
               placeholder={placeHolder}
-              ref={(input) => { this.textInput = input; }}
+              ref={(input) => {
+                this.textInput = input;
+              }}
               spellCheck="false"
               type="text"
               value={query || ''}
             />
 
             {query &&
-              <button
-                type="button"
-                className="qa-search-form__clear auto-suggest__clear"
-                onClick={this.clearQuery}
-                title="Wis zoektekst"
-              >
-                <ClearIcon />
-                <span className="u-sr-only">Wis zoektekst</span>
-              </button>
+            <button
+              type="button"
+              className="qa-search-form__clear auto-suggest__clear"
+              onClick={this.clearQuery}
+              title="Wis zoektekst"
+            >
+              <ClearIcon />
+              <span className="u-sr-only">Wis zoektekst</span>
+            </button>
             }
           </div>
           {suggestions.length > 0 && showSuggestions &&
-            <div className="auto-suggest__dropdown">
-              <h3 className="auto-suggest__tip">Enkele suggesties</h3>
-              {suggestions.map((category) => (
-                <AutoSuggestCategory
-                  activeSuggestion={activeSuggestion}
-                  category={category}
-                  key={category.label}
-                  onSuggestionSelection={this.onSuggestionSelection}
-                  query={highlightQuery}
-                />
-              ))}
-            </div>
+          <div className="auto-suggest__dropdown">
+            <h3 className="auto-suggest__tip">Enkele suggesties</h3>
+            {suggestions.map((category) => (
+              <AutoSuggestCategory
+                activeSuggestion={activeSuggestion}
+                category={category}
+                key={category.label}
+                onSuggestionSelection={this.onSuggestionSelection}
+                query={highlightQuery}
+              />
+            ))}
+          </div>
           }
           <button
             className="auto-suggest__submit qa-search-form-submit"

@@ -1,16 +1,20 @@
-import { testSaga, expectSaga } from 'redux-saga-test-plan';
+import { expectSaga, testSaga } from 'redux-saga-test-plan';
 
 import watchFetchMapLayers, { fetchMapLayers } from './map-layers';
-
+import {
+  FETCH_MAP_LAYERS_FAILURE,
+  FETCH_MAP_LAYERS_REQUEST,
+  FETCH_MAP_LAYERS_SUCCESS
+} from '../../ducks/layers/map-layers';
 import { getMapLayers } from '../../services';
 
 describe('watchFetchMapLayers', () => {
-  const action = { type: 'FETCH_MAP_LAYERS_REQUEST' };
+  const action = { type: FETCH_MAP_LAYERS_REQUEST };
 
-  it('should watch FETCH_MAP_LAYERS_REQUEST and call fetchPanelLayers', () => {
+  it(`should watch ${FETCH_MAP_LAYERS_REQUEST} and call fetchPanelLayers`, () => {
     testSaga(watchFetchMapLayers)
       .next()
-      .takeLatestEffect('FETCH_MAP_LAYERS_REQUEST', fetchMapLayers)
+      .takeLatestEffect(FETCH_MAP_LAYERS_REQUEST, fetchMapLayers)
       .next(action)
       .isDone();
   });
@@ -25,7 +29,7 @@ describe('fetchMapLayers', () => {
         }
       })
       .put({
-        type: 'FETCH_MAP_LAYERS_SUCCESS',
+        type: FETCH_MAP_LAYERS_SUCCESS,
         mapLayers: 'mapLayers'
       })
       .run()
@@ -36,7 +40,7 @@ describe('fetchMapLayers', () => {
     testSaga(fetchMapLayers)
       .next()
       .throw(error)
-      .put({ type: 'FETCH_MAP_LAYERS_FAILURE', error })
+      .put({ type: FETCH_MAP_LAYERS_FAILURE, error })
       .next()
       .isDone();
   });

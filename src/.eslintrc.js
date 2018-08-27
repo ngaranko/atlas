@@ -21,12 +21,16 @@ module.exports = {
     "no-nested-ternary": "off",
     "no-underscore-dangle": ["error", {
       "allow": [
+        "__BROWSER__",
+        "__HOST__",
+        "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__",
         "_bijzondere_rechts_toestand",
         "_display",
         "_embedded",
         "_links",
-        "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__",
-        "_paq"
+        "_northEast",
+        "_paq",
+        "_southWest"
       ]
     }],
     "linebreak-style": "off"

@@ -60,7 +60,7 @@ const MapDetailResultWrapper = ({
 MapDetailResultWrapper.defaultProps = {
   children: null,
   subTitle: '',
-  onPanoPreviewClick: () => null
+  onPanoPreviewClick: /* istanbul ignore next */ () => null
 };
 
 MapDetailResultWrapper.propTypes = {

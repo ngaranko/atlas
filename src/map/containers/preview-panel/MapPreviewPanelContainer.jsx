@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import get from 'lodash.get';
 import has from 'lodash.has';
 
-import { maximizeMapPreviewPanel, closeMapPreviewPanel }
+import { maximizeMapPreviewPanel, closeMapPreviewPanel, fetchSearchResults }
   from '../../ducks/preview-panel/map-preview-panel';
 import { selectLatestMapSearchResults, getMapSearchResults }
   from '../../ducks/search-results/map-search-results';
@@ -13,7 +13,6 @@ import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map
 import { selectLatestMapDetail, getMapDetail } from '../../ducks/detail/map-detail';
 import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 import { fetchStraatbeeldById } from '../../ducks/straatbeeld/straatbeeld';
-import fetchSearchResults from '../../../reducers/search';
 import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';

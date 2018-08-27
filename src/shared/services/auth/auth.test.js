@@ -1,12 +1,15 @@
-import { initAuth, login, logout, getReturnPath, getAuthHeaders } from './auth';
+import { getAuthHeaders, getReturnPath, getScopes, initAuth, login, logout, getName } from './auth';
 import queryStringParser from '../query-string-parser/query-string-parser';
 import stateTokenGenerator from '../state-token-generator/state-token-generator';
+import parseAccessToken from '../access-token-parser/access-token-parser';
 
 jest.mock('../query-string-parser/query-string-parser');
 jest.mock('../state-token-generator/state-token-generator');
+jest.mock('../access-token-parser/access-token-parser');
 
 describe('The auth service', () => {
-  const noop = () => {};
+  const noop = () => {
+  };
 
   let origSessionStorage;
   let queryObject;
@@ -71,8 +74,8 @@ describe('The auth service', () => {
         expect(() => {
           initAuth();
         }).toThrow('Authorization service responded with error invalid_request [invalid request] ' +
-            '(The request is missing a required parameter, includes an invalid parameter value, ' +
-            'includes a parameter more than once, or is otherwise malformed.)');
+          '(The request is missing a required parameter, includes an invalid parameter value, ' +
+          'includes a parameter more than once, or is otherwise malformed.)');
         expect(queryStringParser).toHaveBeenCalledWith(queryString);
       });
 
@@ -276,6 +279,54 @@ describe('The auth service', () => {
       expect(authHeaders).toEqual({
         Authorization: 'Bearer 123AccessToken'
       });
+    });
+  });
+
+  describe('getScopes', () => {
+    it('should return a an empty array', () => {
+      parseAccessToken.mockImplementation(() => ({}));
+
+      savedAccessToken = '123AccessToken';
+      initAuth();
+      const authHeaders = getScopes();
+
+      expect(authHeaders).toEqual([]);
+    });
+
+    it('should return the scopes', () => {
+      parseAccessToken.mockImplementation(() => ({
+        scopes: 'scopes!'
+      }));
+
+      savedAccessToken = '123AccessToken';
+      initAuth();
+      const authHeaders = getScopes();
+
+      expect(authHeaders).toEqual('scopes!');
+    });
+  });
+
+  describe('getName', () => {
+    it('should return a an empty string', () => {
+      parseAccessToken.mockImplementation(() => ({}));
+
+      savedAccessToken = '123AccessToken';
+      initAuth();
+      const authHeaders = getName();
+
+      expect(authHeaders).toEqual('');
+    });
+
+    it('should return the scopes', () => {
+      parseAccessToken.mockImplementation(() => ({
+        name: 'name!'
+      }));
+
+      savedAccessToken = '123AccessToken';
+      initAuth();
+      const authHeaders = getName();
+
+      expect(authHeaders).toEqual('name!');
     });
   });
 });

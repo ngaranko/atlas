@@ -1,9 +1,11 @@
 import reducer, {
+  FETCH_MAP_LAYERS_FAILURE,
   FETCH_MAP_LAYERS_REQUEST,
   FETCH_MAP_LAYERS_SUCCESS,
-  FETCH_MAP_LAYERS_FAILURE,
+  fetchMapLayers,
+  getAccessToken,
   getLayers,
-  fetchMapLayers
+  getMapLayers
 } from './map-layers';
 
 const initialState = {
@@ -81,6 +83,17 @@ describe('selectors', () => {
   ];
   const token = 'abc123';
 
+  const state = {
+    mapLayers: {
+      layers: {
+        items: mapLayers
+      }
+    },
+    user: {
+      accessToken: token
+    }
+  };
+
   describe('getLayers', () => {
     it('should return an empty array if there are no overlays active', () => {
       const selected = getLayers.resultFunc([], token, mapLayers);
@@ -140,6 +153,14 @@ describe('selectors', () => {
         }
       ]);
     });
+  });
+
+  it('should return map layers', () => {
+    expect(getMapLayers(state)).toEqual(mapLayers);
+  });
+
+  it('should return the user access token', () => {
+    expect(getAccessToken(state)).toEqual(token);
   });
 });
 

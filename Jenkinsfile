@@ -60,14 +60,14 @@ pipeline {
         timeout(time: 30, unit: 'MINUTES')
       }
       environment {
-        PROJECT                = "${PROJECT_PREFIX}e2e-functional"
+        PROJECT                = "${PROJECT_PREFIX}e2e"
           USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
           USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
           PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
           PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
       }
       steps {
-        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-functional test-e2e-functional"
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e test-e2e"
       }
       post {
         always {
