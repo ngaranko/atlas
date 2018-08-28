@@ -11,9 +11,6 @@
   },
   "author": "Datapunt Amsterdam",
   "license": "MPL-2.0",
-  "lint-staged": {
-    "*.js": "lint:eslint"
-  },
   "pre-commit": "test-lint",
   "scripts": {
     "build": "npm run build-prod",
@@ -28,7 +25,6 @@
     "lint": "npm run lint:js && npm run lint:style",
     "lint:js": "eslint --format=node_modules/eslint-formatter-pretty src modules test/cypress --ext js,jsx",
     "lint:style": "sass-lint -c src/.sass-lint.yml 'src/**/*.scss' --verbose --no-exit && sass-lint -c modules/.sass-lint.yml 'modules/**/*.scss' --verbose --no-exit",
-    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts",
     "preinstall": "npm cache verify",
     "start": "grunt && webpack-dev-server --config webpack.dev.js",
     "start-prod": "grunt && webpack-dev-server --config webpack.prod-api-dev.js",
@@ -46,7 +42,8 @@
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run",
     "test-lint": "npm run lint",
-    "test-watch": "karma start --no-single-run & jest --watch"
+    "test-watch": "karma start --no-single-run & jest --watch",
+    "dyson:api": "nodemon --watch test/dyson/mock/api --exec babel-node --presets=latest test/dyson/mock/api"
   },
   "dependencies": {
     "angular": "~1.5.11",
@@ -110,6 +107,9 @@
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^0.28.7",
     "cypress": "^2.1.0",
+    "dyson": "^2.0.1",
+    "dyson-generators": "^0.2.0",
+    "dyson-image": "^0.2.0",
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-16": "^1.0.2",
     "enzyme-to-json": "^3.1.4",
