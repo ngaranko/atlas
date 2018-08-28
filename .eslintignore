@@ -1,0 +1,8 @@
+/test
+/internals
+/node_modules
+/scripts
+/test
+
+/*.js
+
