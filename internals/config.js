@@ -53,4 +53,6 @@ const ReactBoilerplate = {
   },
 };
 
+ReactBoilerplate.dllPlugin = false;
+
 module.exports = ReactBoilerplate;
