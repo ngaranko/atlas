@@ -2,7 +2,8 @@
 /internals
 /node_modules
 /scripts
-/test
+
+/test/dyson
 
 /*.js
 
