@@ -15,7 +15,7 @@ const checkEnvironmentVariablesSet = () => {
   });
 };
 
-export const USER_TOKENS = {
+export const USER_TOKENS = { // eslint-disable-line import/prefer-default-export
 };
 
 Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
