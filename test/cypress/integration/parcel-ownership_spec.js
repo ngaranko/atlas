@@ -170,6 +170,5 @@ describe('parcel-ownership (eigendommen) module', () => {
         cy.get('.leaflet-interactive').should('exist').and('be.visible');
       });
     });
-
   });
 });
