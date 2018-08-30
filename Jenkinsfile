@@ -22,6 +22,14 @@ pipeline {
         sh "scripts/bakkie.sh ${BRANCH_NAME}"
       }
     }
+    stage('API\'s health') {
+      options {
+        timeout(time: 2, unit: 'MINUTES')
+      }
+      steps {
+        sh "scripts/cypress/cypress-api-health.sh"
+      }
+    }
     stage('Linting') {
       options {
         timeout(time: 10, unit: 'MINUTES')
