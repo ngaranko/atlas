@@ -16,7 +16,7 @@ pipeline {
 
   stages {
 
-    stage('Deploy Bakkie') {
+    stage('Deploy feature branch (Bakkie)') {
       when { not { branch 'master' } }
       options {
         timeout(time: 5, unit: 'MINUTES')
@@ -26,16 +26,16 @@ pipeline {
       }
     }
 
-    stage('API\'s health') {
+    stage('Check API\'s health') {
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
       environment {
-        PROJECT                = "${PROJECT_PREFIX}e2e"
-          USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
-          USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
-          PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
-          PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
+        PROJECT                = "${PROJECT_PREFIX}e2e-api-health"
+        USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
+        USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
+        PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
+        PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
       }
       steps {
         sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-api-health test-e2e-api-health"
@@ -47,57 +47,61 @@ pipeline {
       }
     }
 
-    stage('Unit and Integration') {
-      options {
-        timeout(time: 10, unit: 'MINUTES')
-      }
-      environment {
-        PROJECT = "${PROJECT_PREFIX}unit"
-      }
-      steps {
-        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit-integration test-unit-integration"
-      }
-      post {
-        always {
-          sh "docker-compose -p ${PROJECT} down -v || true"
+    stage ('Run Tests') {
+      parallel {
+        stage('Unit tests') {
+          options {
+            timeout(time: 10, unit: 'MINUTES')
+          }
+          environment {
+            PROJECT = "${PROJECT_PREFIX}unit"
+          }
+          steps {
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit-integration test-unit-integration"
+          }
+          post {
+            always {
+              sh "docker-compose -p ${PROJECT} down -v || true"
+            }
+          }
         }
-      }
-    }
 
-    stage('Functional E2E') {
-      options {
-        timeout(time: 30, unit: 'MINUTES')
-      }
-      environment {
-        PROJECT                = "${PROJECT_PREFIX}e2e"
-          USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
-          USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
-          PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
-          PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
-      }
-      steps {
-        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e test-e2e"
-      }
-      post {
-        always {
-          sh "docker-compose -p ${PROJECT} down -v || true"
+        stage('E2E tests') {
+          options {
+            timeout(time: 30, unit: 'MINUTES')
+          }
+          environment {
+            PROJECT                = "${PROJECT_PREFIX}e2e"
+            USERNAME_EMPLOYEE      = 'atlas.employee@amsterdam.nl'
+            USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
+            PASSWORD_EMPLOYEE      = credentials('PASSWORD_EMPLOYEE')
+            PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
+          }
+          steps {
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e test-e2e"
+          }
+          post {
+            always {
+              sh "docker-compose -p ${PROJECT} down -v || true"
+            }
+          }
         }
-      }
-    }
 
-    stage('Aria E2E') {
-      options {
-        timeout(time: 20, unit: 'MINUTES')
-      }
-      environment {
-        PROJECT = "${PROJECT_PREFIX}e2e-aria"
-      }
-      steps {
-        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-aria test-e2e-aria"
-      }
-      post {
-        always {
-          sh "docker-compose -p ${PROJECT} down -v || true"
+        stage('E2E tests (Aria)') {
+          options {
+            timeout(time: 20, unit: 'MINUTES')
+          }
+          environment {
+            PROJECT = "${PROJECT_PREFIX}e2e-aria"
+          }
+          steps {
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-aria test-e2e-aria"
+          }
+          post {
+            always {
+              sh "docker-compose -p ${PROJECT} down -v || true"
+            }
+          }
         }
       }
     }
