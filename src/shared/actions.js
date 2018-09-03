@@ -150,8 +150,7 @@ export default {
     id: 'NAVIGATE_DATA_SELECTION'
   },
   SET_DATA_SELECTION_VIEW: {
-    id: 'SET_DATA_SELECTION_VIEW',
-    isButton: true
+    id: 'SET_DATA_SELECTION_VIEW'
   },
 
   SHOW_HOME: {
