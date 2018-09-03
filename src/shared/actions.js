@@ -78,7 +78,7 @@ export default {
   MAP_END_DRAWING: {
     id: 'MAP_END_DRAWING'
   },
-  
+
   FETCH_DETAIL: {
     id: 'FETCH_DETAIL',
     ignore: true
