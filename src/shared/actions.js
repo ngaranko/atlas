@@ -119,8 +119,7 @@ export default {
     replace: true
   },
   STRAATBEELD_FULLSCREEN: {
-    id: 'STRAATBEELD_FULLSCREEN',
-    isButton: true
+    id: 'STRAATBEELD_FULLSCREEN'
   },
   HIDE_STRAATBEELD: {
     id: 'HIDE_STRAATBEELD',

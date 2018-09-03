@@ -9,7 +9,7 @@
 
     dpButtonDirective.$inject = ['store', 'ACTIONS'];
 
-    function dpButtonDirective(store, ACTIONS) {
+    function dpButtonDirective (store, ACTIONS) {
         return {
             template: '<button ng-click="click()" class="{{className}}" title="{{hoverText}}">' +
                 '<ng-transclude></ng-transclude><span class="u-sr-only">{{hoverText}}</span></button>',
