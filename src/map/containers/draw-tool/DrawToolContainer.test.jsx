@@ -91,7 +91,6 @@ describe('DrawToolContainer', () => {
 
   beforeEach(() => {
     store = configureMockStore()({ ...initialState });
-    // mapEndDrawing.mockImplementation(() => ({ type: MAP_END_DRAWING }));
   });
 
   afterEach(() => {
