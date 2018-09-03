@@ -20,7 +20,6 @@
 
     function DpButtonController ($scope, store, ACTIONS) {
         const vm = this;
-        console.log(vm.type);
 
         vm.className = vm.className || 'o-btn o-btn--link';
 
