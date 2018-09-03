@@ -11,8 +11,6 @@ import {
 //   The action will not change the url
 // - replace: true
 //   The action will replace the url (not adding a new entry in the browser history)
-// - isButton: true
-//   The action will be triggered by a button instead of a link
 //
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -75,16 +73,10 @@ export default {
   },
   MAP_START_DRAWING: {
     id: 'MAP_START_DRAWING',
-    ignore: true,
-    isButton: true
-  },
-  MAP_CLEAR_DRAWING: {
-    id: 'MAP_CLEAR_DRAWING',
-    isButton: true
+    ignore: true
   },
   MAP_END_DRAWING: {
-    id: 'MAP_END_DRAWING',
-    isButton: true
+    id: 'MAP_END_DRAWING'
   },
 
   FETCH_DETAIL: {
