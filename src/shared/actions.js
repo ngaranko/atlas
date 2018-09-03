@@ -124,8 +124,7 @@ export default {
   },
   HIDE_STRAATBEELD: {
     id: 'HIDE_STRAATBEELD',
-    ignore: true,
-    isButton: true
+    ignore: true
   },
   SET_STRAATBEELD_ORIENTATION: {
     id: 'SET_STRAATBEELD_ORIENTATION',
