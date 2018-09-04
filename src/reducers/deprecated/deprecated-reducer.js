@@ -1,8 +1,11 @@
 import DetailReducer from '../details';
 
+import DataSelectionReducer from '../data-selection-reducers';
 import MapPreviewPanelReducer from '../../map/ducks/preview-panel/map-preview-panel';
 import PageReducer from '../page-reducers';
 import homeReducer from '../home-reducers';
+import filtersReducers from './filters-reducers';
+import straatbeeldReducers from './straatbeeld-reducers';
 
 export default (oldState, action) => {
   /**
@@ -40,28 +43,32 @@ export default (oldState, action) => {
     CLOSE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer,
     MAXIMIZE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer
   };
-  //
+
   // TODO: Redux: replace
   // Warning: angular.merge is deprecated
   // -- https://docs.angularjs.org/api/ng/function/angular.merge
   // var actions = angular.merge(
-  //   dataSelectionReducers,
-  //   detailReducers,
-  //   filtersReducers,
-  //   homeReducers,
-  //   mapPreviewPanelReducers,
+  //   dataSelectionReducers,   // Done
+  //   detailReducers,          // Done
+  //   filtersReducers,         // Done
+  //   homeReducers,            // Done
+  //   mapPreviewPanelReducers, // Done
   //   mapSearchResultsReducers,
   //   mapClickLocationReducers,
-  //   pageReducers,
+  //   pageReducers,            // Done
   //   searchReducers,
-  //   straatbeeldReducers,
-  //   urlReducers,
+  //   straatbeeldReducers,     // Done
+  //   urlReducers,             // Done
   //   environment
   // );
   const actions = {
+    ...DataSelectionReducer,
+    ...DetailReducer,
+    ...filtersReducers,
     ...homeReducer,
     ...mapPreviewPanelReducers,
     ...PageReducer,
+    ...straatbeeldReducers,
     ...UrlReducers,
   };
 

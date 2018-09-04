@@ -24,17 +24,10 @@ import rootReducer from '../../../../src/reducers/root';
         const urlDefaultState = stateUrlConverter.getDefaultState();
         const initialState = environment.isDevelopment() ? freeze.deepFreeze(urlDefaultState) : urlDefaultState;
 
-        // TODO: move this initialState to reducers
-        const initialStateB = {
-            ...initialState,
-            autoSuggest: {},
-            error: {}
-        };
-
         applicationState.initialize(
             rootReducer,
             stateUrlConverter,
-            initialStateB,
+            initialState,
             contextMiddleware,
             stateToUrlMiddleware);
     }

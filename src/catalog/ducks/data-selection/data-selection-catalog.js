@@ -37,6 +37,3 @@ export default function DataSelectionCatalogReducer(state = initialState, action
 export const fetchCatalogFilters = () => ({
   type: FETCH_CATALOG_FILTERS_REQUEST
 });
-
-window.reducers = window.reducers || {};
-window.reducers.DataSelectionCatalogReducer = DataSelectionCatalogReducer;
