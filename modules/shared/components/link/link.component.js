@@ -23,14 +23,13 @@
         const vm = this;
         vm.activeUrl = $location.url();
 
-        const BUTTON = 'button',
-            LINK = 'a';
-
         vm.className = vm.className || 'o-btn o-btn--link';
         vm.inline = vm.inline || false;
 
         $scope.$watch('vm.payload', function () {
-            vm.tagName = getTagName(vm.type, vm.payload);
+            vm.href = getHref(vm.type, vm.payload);
+            // Do not catch a click event and handle the state change
+            // internally, this prevents users from CTRL/CMD clicking!
         });
 
         vm.dispatch = function () {
@@ -53,17 +52,6 @@
                 action.payload = payload;
             }
             return action;
-        }
-
-        function getTagName (type, payload) {
-            if (ACTIONS[type] && ACTIONS[type].isButton) {
-                return BUTTON;
-            } else {
-                vm.href = getHref(type, payload);
-                // Do not catch a click event and handle the state change
-                // internally, this prevents users from CTRL/CMD clicking!
-                return LINK;
-            }
         }
 
         function getHref (type, payload) {
