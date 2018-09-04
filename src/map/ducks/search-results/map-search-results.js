@@ -57,6 +57,3 @@ export const getMapSearchResults = (location, user) => ({
   location,
   user
 });
-
-window.reducers = window.reducers || {};
-window.reducers.MapSearchResultsReducer = MapSearchResultsReducer;

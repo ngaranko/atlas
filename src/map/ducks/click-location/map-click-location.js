@@ -28,6 +28,3 @@ export const updateClick = (payload) => ({
     longitude: payload.latlng.lng
   }
 });
-
-window.reducers = window.reducers || {};
-window.reducers.MapClickLocationReducer = MapClickLocationReducer;
