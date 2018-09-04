@@ -368,7 +368,7 @@ describe('LeafletContainer', () => {
       it('should trigger updateZoom and updateBoundingBox', () => {
         const event = { center: { lat: 1, lon: 5 } };
 
-        wrapper.setProps({ onUpdateZoom: jest.fn(), onUpdateBoundingBox: jest.fn() }, false);
+        wrapper.setProps({ onUpdateZoom: jest.fn(), onUpdateBoundingBox: jest.fn() });
         wrapperInstance.handleZoom(event);
         expect(wrapperInstance.props.onUpdateZoom).toHaveBeenCalled();
         expect(wrapperInstance.props.onUpdateBoundingBox).toHaveBeenCalled();

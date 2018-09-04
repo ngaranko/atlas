@@ -72,6 +72,7 @@ const webpackConfig = {
 
 module.exports = function (config) {
   config.set({
+    plugins: ['@metahub/karma-jasmine-jquery', 'karma-*'],
     frameworks: ['jasmine-jquery', 'jasmine'],
     files: [
       { pattern: './node_modules/leaflet/dist/leaflet.js', watched: false },
