@@ -4,13 +4,10 @@ export const FETCH_DETAIL = 'FETCH_DETAIL';
 export const SHOW_DETAIL = 'SHOW_DETAIL';
 export const DETAIL_FULLSCREEN = 'DETAIL_FULLSCREEN';
 
-/* eslint-disable */
-// export default function detailReducer(state = {}, action) {
 /* istanbul ignore next */
 const detailReducer = (state = {}, action) => {
   switch (action.type) {
-    case FETCH_DETAIL:
-
+    case FETCH_DETAIL: {
       // If preview panel is available use that, otherwise show detail page aside.
       const leaveMapFullscreen = action.payload && Object
         .keys(endpointTypes)
@@ -39,10 +36,10 @@ const detailReducer = (state = {}, action) => {
         straatbeeld: null,
         ui: {
           ...state.ui,
-          isMapFullscreen: leaveMapFullscreen ? state.ui.isMapFullscreen : false,
+          isMapFullscreen: leaveMapFullscreen ? state.ui.isMapFullscreen : false
         }
       };
-
+    }
     case SHOW_DETAIL:
       return {
         ...state,
@@ -73,7 +70,7 @@ const detailReducer = (state = {}, action) => {
   }
 };
 
-export default detailReducer
+export default detailReducer;
 
 export const fetchDetail = (endpoint) => ({
   type: FETCH_DETAIL,
