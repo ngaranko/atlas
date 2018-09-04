@@ -100,6 +100,3 @@ export const fetchMapDetailSuccess = (endpoint, mapDetail) => ({
   endpoint,
   mapDetail
 });
-
-window.reducers = window.reducers || {};
-window.reducers.MapDetailReducer = MapDetailReducer;

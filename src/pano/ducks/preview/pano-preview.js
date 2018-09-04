@@ -43,6 +43,3 @@ export const getPanoPreview = (location) => ({
   type: FETCH_PANO_PREVIEW_REQUEST,
   location
 });
-
-window.reducers = window.reducers || {};
-window.reducers.PanoPreviewReducer = PanoPreviewReducer;

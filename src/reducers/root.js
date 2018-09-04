@@ -7,73 +7,62 @@ import ErrorMessageReducer from '../shared/ducks/error-message';
 import PageReducer from '../shared/ducks/page/page';
 import UiReducer from '../shared/ducks/ui/ui';
 import UserReducer from './user';
+import MapDetailReducer from '../map/ducks/detail/map-detail';
+import MapReducer from '../map/ducks/map/map';
+import MapLayersReducer from '../map/ducks/layers/map-layers';
+import MapBaseLayersReducer from '../map/ducks/base-layers/map-base-layers';
+import MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
 import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
+import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import deprecatedReducer from './deprecated/deprecated-reducer';
 
-// eslint-disable-next-line max-params
-
-const rootReducer = (oldState, action) => { // eslint-disable-line complexity
+const rootReducer = (oldState, action) => {
   // Run state changes based on old reducers
   const deprecatedState = deprecatedReducer(oldState, action);
 
-  // const MapPanelLayersReducer = $window.reducers.PanelLayersReducer;
-  // const MapLayersReducer = $window.reducers.MapLayersReducer;
-  // const MapBaseLayersReducer = $window.reducers.MapBaseLayersReducer;
-  // const MapReducer = $window.reducers.MapReducer;
-  //
-  // const mapLayers = combineReducers({
-  //     layers: MapLayersReducer,
-  //     baseLayers: MapBaseLayersReducer,
-  //     panelLayers: MapPanelLayersReducer
-  // });
-  //
-  // // Use combine reducer for new reducers
-  // const ErrorMessageReducer = $window.reducers.ErrorMessageReducer;
-  // const MapDetailReducer = $window.reducers.MapDetailReducer;
-  // const PanoPreviewReducer = $window.reducers.PanoPreviewReducer;
-  // const UiReducer = $window.reducers.UiReducer;                                      // DONE
-  // const DataSelectionReducer = $window.reducers.DataSelectionReducer;                // DONE
-  // const PageReducer = $window.reducers.PageReducer;                                  // DONE
-  // const StraatbeeldReducer = $window.reducers.StraatbeeldReducer;                    // DONE
-  // const UserReducer = $window.reducers.UserReducer;                                  // DONE
-  // const autoSuggestReducer = $window.reducers.AutoSuggestReducer;                    // DONE
-  // const DataSelectionCatalogReducer = $window.reducers.DataSelectionCatalogReducer;  // DONE
+  const mapLayers = combineReducers({
+    layers: MapLayersReducer,
+    baseLayers: MapBaseLayersReducer,
+    panelLayers: MapPanelLayersReducer
+  });
+
+  // Use combine reducer for new reducers
   const newRootReducer = combineReducers({
     dataSelection: DataSelectionReducer,
     page: PageReducer,
     error: ErrorMessageReducer,
-    //     map: MapReducer,
-    //     mapDetail: MapDetailReducer,
-    //     pano: PanoPreviewReducer,
+    map: MapReducer,
+    mapDetail: MapDetailReducer,
+    pano: PanoPreviewReducer,
     straatbeeld: StraatbeeldReducer,
     ui: UiReducer,
     user: UserReducer,
-    //     mapLayers,
+    mapLayers,
     autoSuggest: AutoSuggestReducer,
     catalogFilters: DataSelectionCatalogReducer
   });
   const filteredState = {
     dataSelection: deprecatedState.dataSelection,
     page: deprecatedState.page,
-    //     map: deprecatedState.map,
-    //     mapDetail: deprecatedState.mapDetail,
+    map: deprecatedState.map,
+    mapDetail: deprecatedState.mapDetail,
     straatbeeld: deprecatedState.straatbeeld,
     ui: deprecatedState.ui,
     user: deprecatedState.user,
 
-    //     // Using oldState instead of chaining deprecatedState from
-    //     // other reducer for the following fields.
-    //     // This is because these fields do not recide in the URL state,
-    //     // the URL resolution step in the deprecatedReducer would
-    //     // therefore reset these fields in the state.
+    // Using oldState instead of chaining deprecatedState from
+    // other reducer for the following fields.
+    // This is because these fields do not recide in the URL state,
+    // the URL resolution step in the deprecatedReducer would
+    // therefore reset these fields in the state.
     error: oldState.error,
-    //     pano: oldState.pano,
-    //     mapLayers: oldState.mapLayers,
+    pano: oldState.pano,
+    mapLayers: oldState.mapLayers,
     autoSuggest: oldState.autoSuggest,
     catalogFilters: oldState.catalogFilters
   };
 
-  // // Combine old and new reducer states
+  // Combine old and new reducer states
   const newState = {
     ...deprecatedState,
     ...newRootReducer(filteredState, action)
