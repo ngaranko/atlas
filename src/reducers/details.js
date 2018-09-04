@@ -77,5 +77,3 @@ export const fetchDetail = (endpoint) => ({
   payload: endpoint
 });
 
-window.reducers = window.reducers || {};
-window.reducers.detailReducer = detailReducer;

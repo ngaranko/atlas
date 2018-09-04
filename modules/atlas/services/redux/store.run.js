@@ -1,3 +1,5 @@
+import rootReducer from '../../../../src/reducers/root';
+
 (function () {
     angular
         .module('atlas')
@@ -6,7 +8,6 @@
     runBlock.$inject = [
         'applicationState',
         'freeze',
-        'reducer',
         'stateUrlConverter',
         'contextMiddleware',
         'stateToUrlMiddleware',
@@ -16,17 +17,24 @@
     function runBlock (
             applicationState,
             freeze,
-            reducer,
             stateUrlConverter,
             contextMiddleware,
             stateToUrlMiddleware,
             environment) {
         const urlDefaultState = stateUrlConverter.getDefaultState();
         const initialState = environment.isDevelopment() ? freeze.deepFreeze(urlDefaultState) : urlDefaultState;
+
+        // TODO: move this initialState to reducers
+        const initialStateB = {
+            ...initialState,
+            autoSuggest: {},
+            error: {}
+        };
+
         applicationState.initialize(
-            reducer,
+            rootReducer,
             stateUrlConverter,
-            initialState,
+            initialStateB,
             contextMiddleware,
             stateToUrlMiddleware);
     }

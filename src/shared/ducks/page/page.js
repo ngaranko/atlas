@@ -19,5 +19,3 @@ export default function PageReducer(state = initialState, action) {
 
 export const setPageName = (payload) => ({ type: SET_PAGE_NAME, payload });
 
-window.reducers = window.reducers || {};
-window.reducers.PageReducer = PageReducer;
