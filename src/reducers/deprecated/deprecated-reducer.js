@@ -9,6 +9,7 @@ import straatbeeldReducers from './straatbeeld-reducers';
 import MapSearchResultsReducer from '../../map/ducks/search-results/map-search-results';
 import MapClickLocationReducer from '../../map/ducks/click-location/map-click-location';
 import searchReducers from './search-reducers';
+import deepFreeze from '../../shared/services/freeze/freeze';
 
 export default (oldState, action) => {
   /**
@@ -21,9 +22,6 @@ export default (oldState, action) => {
    *
    */
   const UrlReducers = window.reducers.UrlReducers;
-  // const MapPreviewPanelReducer = $window.reducers.MapPreviewPanelReducer;      // DONE
-  // const MapSearchResultsReducer = $window.reducers.MapSearchResultsReducer;    // DONE
-  // const MapClickLocationReducer = $window.reducers.MapClickLocationReducer;    // DONE
 
   const detailReducers = { // TODO: try moving to root reducer
     FETCH_DETAIL: DetailsReducer,
@@ -47,20 +45,6 @@ export default (oldState, action) => {
     MAXIMIZE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer
   };
 
-  // var actions = angular.merge(
-  //   dataSelectionReducers,   // DONE
-  //   detailReducers,          // DONE
-  //   filtersReducers,         // DONE
-  //   homeReducers,            // DONE
-  //   mapPreviewPanelReducers, // DONE
-  //   mapSearchResultsReducers,// DONE
-  //   mapClickLocationReducers,// DONE
-  //   pageReducers,            // DONE
-  //   searchReducers,          // DONE
-  //   straatbeeldReducers,     // DONE
-  //   urlReducers,             // DONE
-  //   environment
-  // );
   const actions = {
     ...DataSelectionReducer,
     ...detailReducers,
@@ -72,7 +56,7 @@ export default (oldState, action) => {
     ...PageReducer,
     ...searchReducers,
     ...straatbeeldReducers,
-    ...UrlReducers,
+    ...UrlReducers
   };
 
   // Are we dealing with vanilla js reducers here (type is a
@@ -97,17 +81,20 @@ export default (oldState, action) => {
   if (vanilla) {
     return actions[action.type](oldState, action);
   } else if (legacy) {
-  //   if (detailReducers.hasOwnProperty(action.type.id)) {
-  //     action.payload = {
-  //       ...action,
-  //       type: action.type.id
-  //     };
-  //   }
-  //
+    // eslint-disable-next-line no-prototype-builtins
+
+    // if (detailReducers.hasOwnProperty(action.type.id)) { // TODO
+    //   // eslint-disable-next-line no-param-reassign
+    //   action.payload = {
+    //     ...action,
+    //     type: action.type.id
+    //   };
+    // }
     const result = actions[action.type.id](oldState, action.payload);
-  //   if (environment.isDevelopment()) {
-  //     freeze.deepFreeze(result);
-  //   }
+    // TODO make isDevelopment Vanilla JS
+    // if (environment.isDevelopment()) {
+    deepFreeze(result); // TODO
+    // }
     return result;
   }
   return oldState;
