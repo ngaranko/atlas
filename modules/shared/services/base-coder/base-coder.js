@@ -105,7 +105,8 @@ export default class BaseCoder {
      * @returns {number}
      */
     static toPrecision (input, decimals) {
-        if (angular.isArray(input)) {
+        // eslint-disable-next-line angular/typecheck-array
+        if (Array.isArray(input)) {
             return input.map(item => BaseCoder.toPrecision(item, decimals));
         } else {
             return Number(Math.round(input + `e${decimals}`) + `e-${decimals}`);

@@ -25,7 +25,7 @@ function emptyFiltersReducer(state) {
   };
 }
 
-var reducers = {};
+const reducers = {};
 
 reducers[ACTIONS.APPLY_FILTERS.id] = applyFiltersReducer;
 reducers[ACTIONS.EMPTY_FILTERS.id] = emptyFiltersReducer;

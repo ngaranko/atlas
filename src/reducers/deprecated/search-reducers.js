@@ -1,5 +1,6 @@
 import ACTIONS from '../../shared/actions';
 import BaseCoder from '../../../modules/shared/services/base-coder/base-coder';
+import isObject from '../../shared/services/is-object';
 
 /**
  * @param {Object} state
@@ -18,12 +19,12 @@ function fetchSearchResultsByQueryReducer(state, payload) {
       category: null,
       numberOfResults: null
     },
-    ui: typeof state.ui === 'object' ? {
+    ui: isObject(state.ui) ? {
       ...state.ui,
       isMapPanelVisible: false,
       isMapFullscreen: false
     } : state.ui,
-    page: typeof state.page === 'object' ? {
+    page: isObject(state.page) ? {
       ...state.page,
       name: null,
       type: null
@@ -51,11 +52,11 @@ function fetchSearchResultsByLocationReducer(state, payload) {
       category: null,
       numberOfResults: null
     },
-    map: typeof state.map === 'object' ? {
+    map: isObject(state.map) ? {
       ...state.map,
       geometry: []
     } : state.map,
-    page: typeof state.page === 'object' ? {
+    page: isObject(state.page) ? {
       ...state.page,
       name: null
     } : state.page,
@@ -74,7 +75,7 @@ function fetchSearchResultsByLocationReducer(state, payload) {
 function fetchSearchResultsCategoryReducer(state, payload) {
   return {
     ...state,
-    search: typeof state.search === 'object' ? {
+    search: isObject(state.search) ? {
       ...state.search,
       isLoading: true,
       category: payload,
@@ -92,12 +93,12 @@ function fetchSearchResultsCategoryReducer(state, payload) {
 function showSearchResultsReducer(state, payload) {
   return {
     ...state,
-    search: typeof state.search === 'object' ? {
+    search: isObject(state.search) ? {
       ...state.search,
       isLoading: false,
       numberOfResults: payload
     } : state.search,
-    map: typeof state.map === 'object' ? {
+    map: isObject(state.map) ? {
       ...state.map,
       isLoading: false
     } : state.map
