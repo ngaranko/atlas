@@ -1,4 +1,5 @@
 import DetailsReducer from '../details';
+import isObject from '../../shared/services/is-object';
 
 import DataSelectionReducer from '../data-selection-reducers';
 import MapPreviewPanelReducer from '../../map/ducks/preview-panel/map-preview-panel';
@@ -67,7 +68,7 @@ export default (stateUrlConverter) => (oldState, action) => {
     // {
     //      type: 'SHOW_DETAIL'
     // }
-  const vanilla = typeof action === 'object' &&
+  const vanilla = isObject(action) &&
       typeof action.type === 'string' &&
       typeof actions[action.type] === 'function';
 
@@ -76,8 +77,8 @@ export default (stateUrlConverter) => (oldState, action) => {
     //          id: 'FOO'
     //      }
     // }
-  const legacy = typeof action === 'object' &&
-      typeof action.type === 'object' &&
+  const legacy = isObject(action) &&
+      isObject(action.type) &&
       typeof actions[action.type.id] === 'function';
 
   if (vanilla) {
