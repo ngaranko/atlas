@@ -8,7 +8,7 @@ import isEqual from 'lodash.isequal';
 import DrawTool from '../../components/draw-tool/DrawTool';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
-import { mapClearDrawing, mapEmptyGeometry, mapUpdateShape, mapStartDrawing, mapEndDrawing } from '../../ducks/map/map';
+import { mapClearDrawing, mapEmptyGeometry, mapUpdateShape, mapStartDrawing, mapEndDrawing, mapClear } from '../../ducks/map/map';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
 import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
@@ -41,6 +41,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   resetGeometryFilter: resetDataSelectionGeometryFilter,
   onStartDrawing: mapStartDrawing,
   onEndDrawing: mapEndDrawing,
+  onMapClear: mapClear,
   onSetPageName: setPageName,
   onSetMapFullscreen: setMapFullscreen,
   onStraatbeeldOff: setStraatbeeldOff
@@ -100,6 +101,10 @@ class DrawToolContainer extends React.Component {
       this.setState({ dataSelection: props.dataSelection });
       this.onUpdateShape(props.currentShape);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.onMapClear();
   }
 
   onFinishShape(polygon) {
@@ -194,7 +199,8 @@ DrawToolContainer.propTypes = {
   onEndDrawing: PropTypes.func.isRequired,
   onSetPageName: PropTypes.func.isRequired,
   onSetMapFullscreen: PropTypes.func.isRequired,
-  onStraatbeeldOff: PropTypes.func.isRequired
+  onStraatbeeldOff: PropTypes.func.isRequired,
+  onMapClear: PropTypes.func.isRequired
 };
 
 DrawToolContainer.defaultProps = {
