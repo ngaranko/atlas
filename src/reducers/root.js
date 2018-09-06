@@ -16,59 +16,61 @@ import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import deprecatedReducer from './deprecated/deprecated-reducer';
 
-const rootReducer = (oldState, action) => {
-  // Run state changes based on old reducers
-  const deprecatedState = deprecatedReducer(oldState, action);
+export default ($timeout, $rootScope) => {
+  return (oldState, action) => {
+    // Run state changes based on old reducers
+    const deprecatedState = deprecatedReducer(oldState, action);
 
-  const mapLayers = combineReducers({
-    layers: MapLayersReducer,
-    baseLayers: MapBaseLayersReducer,
-    panelLayers: MapPanelLayersReducer
-  });
+    const mapLayers = combineReducers({
+      layers: MapLayersReducer,
+      baseLayers: MapBaseLayersReducer,
+      panelLayers: MapPanelLayersReducer
+    });
 
-  // Use combine reducer for new reducers
-  const newRootReducer = combineReducers({
-    dataSelection: DataSelectionReducer,
-    page: PageReducer,
-    error: ErrorMessageReducer,
-    map: MapReducer,
-    mapDetail: MapDetailReducer,
-    pano: PanoPreviewReducer,
-    straatbeeld: StraatbeeldReducer,
-    ui: UiReducer,
-    user: UserReducer,
-    mapLayers,
-    autoSuggest: AutoSuggestReducer,
-    catalogFilters: DataSelectionCatalogReducer
-  });
-  const filteredState = {
-    dataSelection: deprecatedState.dataSelection,
-    page: deprecatedState.page,
-    map: deprecatedState.map,
-    mapDetail: deprecatedState.mapDetail,
-    straatbeeld: deprecatedState.straatbeeld,
-    ui: deprecatedState.ui,
-    user: deprecatedState.user,
+    // Use combine reducer for new reducers
+    const newRootReducer = combineReducers({
+      dataSelection: DataSelectionReducer,
+      page: PageReducer,
+      error: ErrorMessageReducer,
+      map: MapReducer,
+      mapDetail: MapDetailReducer,
+      pano: PanoPreviewReducer,
+      straatbeeld: StraatbeeldReducer,
+      ui: UiReducer,
+      user: UserReducer,
+      mapLayers,
+      autoSuggest: AutoSuggestReducer,
+      catalogFilters: DataSelectionCatalogReducer
+    });
+    const filteredState = {
+      dataSelection: deprecatedState.dataSelection,
+      page: deprecatedState.page,
+      map: deprecatedState.map,
+      mapDetail: deprecatedState.mapDetail,
+      straatbeeld: deprecatedState.straatbeeld,
+      ui: deprecatedState.ui,
+      user: deprecatedState.user,
 
-    // Using oldState instead of chaining deprecatedState from
-    // other reducer for the following fields.
-    // This is because these fields do not recide in the URL state,
-    // the URL resolution step in the deprecatedReducer would
-    // therefore reset these fields in the state.
-    error: oldState.error,
-    pano: oldState.pano,
-    mapLayers: oldState.mapLayers,
-    autoSuggest: oldState.autoSuggest,
-    catalogFilters: oldState.catalogFilters
+      // Using oldState instead of chaining deprecatedState from
+      // other reducer for the following fields.
+      // This is because these fields do not recide in the URL state,
+      // the URL resolution step in the deprecatedReducer would
+      // therefore reset these fields in the state.
+      error: oldState.error,
+      pano: oldState.pano,
+      mapLayers: oldState.mapLayers,
+      autoSuggest: oldState.autoSuggest,
+      catalogFilters: oldState.catalogFilters
+    };
+
+    // Combine old and new reducer states
+    const newState = {
+      ...deprecatedState,
+      ...newRootReducer(filteredState, action)
+    };
+
+    $timeout(() => $rootScope.$digest());
+
+    return newState;
   };
-
-  // Combine old and new reducer states
-  const newState = {
-    ...deprecatedState,
-    ...newRootReducer(filteredState, action)
-  };
-
-  return newState;
 };
-
-export default rootReducer;

@@ -1,4 +1,4 @@
-import rootReducer from './root';
+import rootReducerInit from './root';
 
 import * as AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest';
 import * as DataSelectionReducer from '../shared/ducks/data-selection/data-selection';
@@ -18,36 +18,48 @@ import * as PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import * as deprecatedReducer from './deprecated/deprecated-reducer';
 
 describe('the root reducer', () => {
-  it('combines many reducers', () => {
-    const deprecatedOutput = {
-      dataSelection: 'dataSelection',
-      page: 'page',
-      map: 'map',
-      mapDetail: 'mapDetail',
-      straatbeeld: 'straatbeeld',
-      ui: 'ui',
-      user: 'user'
+  let $rootScope;
+  let $timeout;
+  let rootReducer;
+
+  const deprecatedOutput = {
+    dataSelection: 'dataSelection',
+    page: 'page',
+    map: 'map',
+    mapDetail: 'mapDetail',
+    straatbeeld: 'straatbeeld',
+    ui: 'ui',
+    user: 'user'
+  };
+
+  AutoSuggestReducer.default = () => 'autoSuggest';
+  DataSelectionReducer.default = () => 'dataSelection';
+  DataSelectionCatalogReducer.default = () => 'catalogFilters';
+  ErrorMessageReducer.default = () => 'error';
+  PageReducer.default = () => 'page';
+  UiReducer.default = () => 'ui';
+  UserReducer.default = () => 'user';
+  MapDetailReducer.default = () => 'mapDetail';
+  MapReducer.default = () => 'map';
+  MapLayersReducer.default = () => 'layers';
+  MapBaseLayersReducer.default = () => 'baseLayers';
+  MapPanelLayersReducer.default = () => 'panelLayers';
+  StraatbeeldReducer.default = () => 'straatbeeld';
+  PanoPreviewReducer.default = () => 'pano';
+  deprecatedReducer.default = jest.fn(() => deprecatedOutput);
+
+  beforeEach(() => {
+    $rootScope = {
+      $digest: jest.fn()
     };
+    $timeout = jest.fn((callback) => callback());
+    rootReducer = rootReducerInit($timeout, $rootScope);
+  });
 
-    AutoSuggestReducer.default = () => 'autoSuggest';
-    DataSelectionReducer.default = () => 'dataSelection';
-    DataSelectionCatalogReducer.default = () => 'catalogFilters';
-    ErrorMessageReducer.default = () => 'error';
-    PageReducer.default = () => 'page';
-    UiReducer.default = () => 'ui';
-    UserReducer.default = () => 'user';
-    MapDetailReducer.default = () => 'mapDetail';
-    MapReducer.default = () => 'map';
-    MapLayersReducer.default = () => 'layers';
-    MapBaseLayersReducer.default = () => 'baseLayers';
-    MapPanelLayersReducer.default = () => 'panelLayers';
-    StraatbeeldReducer.default = () => 'straatbeeld';
-    PanoPreviewReducer.default = () => 'pano';
-    deprecatedReducer.default = jest.fn(() => deprecatedOutput);
-
-
+  it('combines many reducers', () => {
     const state = {};
     const action = {};
+
     const output = rootReducer(state, action);
     expect(output)
       .toEqual({
@@ -69,5 +81,11 @@ describe('the root reducer', () => {
         autoSuggest: 'autoSuggest',
         catalogFilters: 'catalogFilters'
       });
+  });
+
+  it('fires angular digest', () => {
+    rootReducer({}, {});
+    expect($timeout).toHaveBeenCalled();
+    expect($rootScope.$digest).toHaveBeenCalled();
   });
 });

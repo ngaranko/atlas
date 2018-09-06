@@ -8,9 +8,7 @@ describe('The applicationState factory', function () {
         fakeMiddleware = 'I_AM_MIDDLEWARE',
         fakeEnhancer = 'I_AM_A_FAKE_ENHANCER',
         fakeComposedEnhancer = 'I_AM_A_FAKE_COMPOSED_ENHANCER',
-        fakeStore = {
-            subscribe: jasmine.createSpy('subscribe')
-        };
+        fakeStore = {};
 
     // `initializeState` mock
     $window.initializeState = (Redux_, reducer, stateUrlConverter, defaultState, ...middleware) => {
@@ -63,11 +61,6 @@ describe('The applicationState factory', function () {
     it('can return the store', function () {
         applicationState.initialize(fakeReducer, fakeStateUrlConverter, fakeDefaultState, fakeMiddleware);
         expect(applicationState.getStore()).toEqual(fakeStore);
-    });
-
-    it('subscribes to the store', function () {
-        applicationState.initialize(fakeReducer, fakeStateUrlConverter, fakeDefaultState, fakeMiddleware);
-        expect(fakeStore.subscribe).toHaveBeenCalled();
     });
 
     it('can return the reducer', function () {

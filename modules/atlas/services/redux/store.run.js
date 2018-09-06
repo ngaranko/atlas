@@ -1,4 +1,4 @@
-import rootReducer from '../../../../src/reducers/root';
+import rootReducerInit from '../../../../src/reducers/root';
 
 (function () {
     angular
@@ -6,6 +6,8 @@ import rootReducer from '../../../../src/reducers/root';
         .run(runBlock);
 
     runBlock.$inject = [
+        '$timeout',
+        '$rootScope',
         'applicationState',
         'freeze',
         'stateUrlConverter',
@@ -15,6 +17,8 @@ import rootReducer from '../../../../src/reducers/root';
     ];
 
     function runBlock (
+            $timeout,
+            $rootScope,
             applicationState,
             freeze,
             stateUrlConverter,
@@ -23,6 +27,8 @@ import rootReducer from '../../../../src/reducers/root';
             environment) {
         const urlDefaultState = stateUrlConverter.getDefaultState();
         const initialState = environment.isDevelopment() ? freeze.deepFreeze(urlDefaultState) : urlDefaultState;
+
+        const rootReducer = rootReducerInit($timeout, $rootScope);
 
         applicationState.initialize(
             rootReducer,

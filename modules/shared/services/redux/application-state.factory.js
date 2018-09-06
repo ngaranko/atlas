@@ -20,14 +20,7 @@
             reducer = _reducer_;
             stateUrlConverter = _stateUrlConverter_;
 
-            // Check if Angular component need to react to state change by subscribing to store.
-            const store = $window.initializeState(Redux, _reducer_, _stateUrlConverter_, defaultState, ...middleware);
-            store.subscribe(
-                // istanbul ignore next
-                () => {
-                    $timeout(() => $rootScope.$digest());
-                }
-            );
+            $window.initializeState(Redux, _reducer_, _stateUrlConverter_, defaultState, ...middleware);
         }
     }
 })();
