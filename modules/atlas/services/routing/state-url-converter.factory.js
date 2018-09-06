@@ -1,3 +1,5 @@
+import { encodeQueryParams } from '../../../../src/shared/services/query-string-parser/query-string-parser';
+
 (function () {
     'use strict';
 
@@ -138,12 +140,7 @@
 
         function state2url (state) {
             // Convert the url parameters object into a url parameter string
-            const params = state2params(state);
-            return '#' + Object.keys(params).reduce((result, key) => {
-                result += result ? '&' : '?';
-                result += `${key}=${(params[key])}`;
-                return result;
-            }, '');
+            return `#?${encodeQueryParams(state2params(state))}`;
         }
 
         function createObject (oldObj, key, params) {
