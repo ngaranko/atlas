@@ -327,7 +327,6 @@ import '../modules/detail/services/endpoint-parser/endpoint-parser.factory.test'
 import '../modules/detail/services/document-title/document-title.factory.test';
 import '../modules/detail/services/date-formatter/date-formatter.factory.test';
 import '../modules/detail/services/date-converter/date-converter.factory.test';
-import '../modules/detail/services/date-converter/date-converter.service.test';
 import '../modules/shared/shared-config.factory.test';
 import '../modules/shared/components/api-error/api-error.component.test';
 import '../modules/shared/components/link-to-page/link-to-page.component.test';
