@@ -1,4 +1,5 @@
 import ACTIONS from '../shared/actions';
+import isObject from '../shared/services/is-object';
 
 /**
  * @param {Object} state
@@ -48,7 +49,7 @@ function fetchDataSelectionReducer(state, payload) {
   return {
     ...state,
     dataSelection: {
-      ...(typeof state.dataSelection === 'object' ? state.dataSelection : ''),
+      ...(isObject(state.dataSelection) ? state.dataSelection : ''),
       ...mergeInto,
       markers: [],
       view: view,
@@ -56,17 +57,17 @@ function fetchDataSelectionReducer(state, payload) {
       isFullscreen: view !== 'LIST',
       geometryFilter: { ...geometryFilter }
     },
-    map: typeof state.map === 'object' ? {
+    map: isObject(state.map) ? {
       ...state.map,
       // LIST loading might include markers => set map loading accordingly
       isLoading: view === 'LIST'
     } : state.map,
     filters,
-    page: typeof state.page === 'object' ? {
+    page: isObject(state.page) ? {
       ...state.page,
       name: null
     } : state.page,
-    ui: typeof state.ui === 'object' ? {
+    ui: isObject(state.ui) ? {
       ...state.ui,
       isMapPanelVisible: false,
       isMapFullscreen: false
@@ -84,16 +85,15 @@ function fetchDataSelectionReducer(state, payload) {
  * @returns {Object} newState
  */
 function showDataSelectionReducer(state, payload) {
-  console.log('showDataSelectionReducer');
   return {
     ...state,
-    dataSelection: typeof state.dataSelection === 'object' ? {
+    dataSelection: isObject(state.dataSelection) ? {
       ...state.dataSelection,
       markers: payload,
       isLoading: false,
       isFullscreen: state.dataSelection.view !== 'LIST'
     } : state.dataSelection,
-    map: typeof state.map === 'object' ? {
+    map: isObject(state.map) ? {
       ...state.map,
       isLoading: false
     } : state.map
@@ -112,14 +112,14 @@ function showDataSelectionReducer(state, payload) {
 function resetDataSelectionReducer(state, payload) {
   return {
     ...state,
-    dataSelection: typeof state.dataSelection === 'object' ? {
+    dataSelection: isObject(state.dataSelection) ? {
       ...state.dataSelection,
       markers: payload,
       isLoading: false,
       isFullscreen: state.dataSelection.view !== 'LIST',
       reset: false
     } : state.dataSelection,
-    map: typeof state.map === 'object' ? {
+    map: isObject(state.map) ? {
       ...state.map,
       isLoading: false
     } : state.map
@@ -135,7 +135,7 @@ function resetDataSelectionReducer(state, payload) {
 function navigateDataSelectionReducer(state, payload) {
   return {
     ...state,
-    dataSelection: typeof state.dataSelection === 'object' ? {
+    dataSelection: isObject(state.dataSelection) ? {
       ...state.dataSelection,
       page: payload
     } : state.dataSelection
@@ -155,12 +155,12 @@ function setDataSelectionViewReducer(state, payload) {
 
   return {
     ...state,
-    dataSelection: typeof state.dataSelection === 'object' ? {
+    dataSelection: isObject(state.dataSelection) ? {
       ...state.dataSelection,
       view: view,
       isLoading: viewFound
     } : state.dataSelection,
-    map: typeof state.map === 'object' ? {
+    map: isObject(state.map) ? {
       ...state.map,
       isLoading: view === 'LIST'
     } : state.map

@@ -1,4 +1,5 @@
 import ACTIONS from '../shared/actions';
+import isObject from '../shared/services/is-object';
 
 /**
  * @param {Object} state
@@ -10,13 +11,13 @@ import ACTIONS from '../shared/actions';
 function showPageReducer(state, payload) {
   return {
     ...state,
-    page: typeof state.page === 'object' ? {
+    page: isObject(state.page) ? {
       ...state.page,
       name: payload.name,
       type: payload.type,
       item: payload.item
     } : state.page,
-    ui: typeof state.ui === 'object' ? {
+    ui: isObject(state.ui) ? {
       ...state.ui,
       isMapPanelVisible: false,
       isMapFullscreen: false

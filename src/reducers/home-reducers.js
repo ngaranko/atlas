@@ -20,7 +20,7 @@ function showHomeReducer(state) {
   };
 }
 
-var reducers = {};
+const reducers = {};
 
 reducers[ACTIONS.SHOW_HOME.id] = showHomeReducer;
 
