@@ -6,22 +6,15 @@ import {
 
 describe('zoom controls', () => {
   let leafletMap;
-  let store;
-  let dragEventHandler;
   const mockCenter = {
     lat: 1.3,
     lng: 3.7
   };
 
   beforeEach(() => {
-    store = {
-      dispatch: jest.fn()
-    };
-
     leafletMap = {
       getCenter: () => mockCenter,
-      panTo: jest.fn(),
-      on: (name, handler) => { dragEventHandler = handler; }
+      panTo: jest.fn()
     };
   });
 
