@@ -9,6 +9,6 @@ describe('is object', () => {
   });
   it('should be false for integer', () => {
     expect(isObject(5)).toBe(false);
-  })
+  });
 });
 

@@ -40,5 +40,5 @@ describe('MapDetailGebiedenStadsdeel', () => {
       />
     );
     expect(wrapper).toMatchSnapshot();
-  })
+  });
 });

@@ -3,7 +3,8 @@ import isObject from '../shared/services/is-object';
 
 /**
  * @param {Object} state
- * @param {String} payload - The name of the page, it should match the name of an HTML template from the page
+ * @param {String} payload - The name of the page, it should match the name
+ *                              of an HTML template from the page
  * module
  *
  * @returns {Object} newState
@@ -29,7 +30,7 @@ function showPageReducer(state, payload) {
   };
 }
 
-var reducers = {};
+const reducers = {};
 
 reducers[ACTIONS.SHOW_PAGE.id] = showPageReducer;
 

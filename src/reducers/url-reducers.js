@@ -8,5 +8,4 @@ export default (stateUrlConverter) => {
   return {
     [ACTIONS.URL_CHANGE.id]: urlChangeReducer
   };
-
-}
+};

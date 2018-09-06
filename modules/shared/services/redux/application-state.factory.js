@@ -3,9 +3,9 @@
         .module('dpShared')
         .factory('applicationState', applicationStateFactory);
 
-    applicationStateFactory.$inject = ['$window', 'Redux', '$timeout', '$rootScope'];
+    applicationStateFactory.$inject = ['$window', 'Redux'];
 
-    function applicationStateFactory($window, Redux, $timeout, $rootScope) {
+    function applicationStateFactory ($window, Redux) {
         let reducer,
             stateUrlConverter;
 
@@ -16,7 +16,7 @@
             getStateUrlConverter: () => stateUrlConverter
         };
 
-        function initialize(_reducer_, _stateUrlConverter_, defaultState, ...middleware) {
+        function initialize (_reducer_, _stateUrlConverter_, defaultState, ...middleware) {
             reducer = _reducer_;
             stateUrlConverter = _stateUrlConverter_;
 

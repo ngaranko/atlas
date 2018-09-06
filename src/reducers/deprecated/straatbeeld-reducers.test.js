@@ -325,11 +325,10 @@ describe('Straatbeeld reducers factory', () => {
     });
 
     it('can set the straatbeeld to the new location', () => {
-      var state = { straatbeeld: {}, ui: {} },
-        output;
+      const state = { straatbeeld: {}, ui: {} };
 
       const location = [52.001, 4.002];
-      output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
+      const output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
 
       expect(output.straatbeeld.id)
         .toBeNull();
@@ -358,11 +357,10 @@ describe('Straatbeeld reducers factory', () => {
     });
 
     it('can set the straatbeeld to the new location from scratch', () => {
-      var state = { ui: null },
-        output;
+      const state = { ui: null };
 
       const location = [52.001, 4.002];
-      output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
+      const output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
 
       expect(output.straatbeeld.id)
         .toBeNull();
@@ -375,9 +373,9 @@ describe('Straatbeeld reducers factory', () => {
     });
 
     it('removes a drawn line from the map', () => {
-      const state = { map: {}, ui: {} },
-        location = [52.001, 4.002],
-        output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
+      const state = { map: {}, ui: {} };
+      const location = [52.001, 4.002];
+      const output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION.id](state, location);
 
       expect(output.map.geometry)
         .toEqual([]);
@@ -406,11 +404,11 @@ describe('Straatbeeld reducers factory', () => {
 
     it('does not head towards a targetlocation when straatbeeld by location is reloaded', () => {
       // When a straatbeeld is reloaded, there is no target location available
-      // There is however a location available to denote that the straatbeeld origins from a location
+      // There is a location available to denote that the straatbeeld origins from a location
       // The heading has already been calculated and saved on the first show of the straatbeeld
       // and should not be repeated
       inputState.straatbeeld.location = [1, 2];
-      delete inputState.straatbeeld.targetLocation;   // not saved in state, so not present on reload
+      delete inputState.straatbeeld.targetLocation; // not saved in state, so not present on reload
       inputState.straatbeeld.heading = 'aap';
       const output = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
       expect(output.straatbeeld)
@@ -488,6 +486,7 @@ describe('Straatbeeld reducers factory', () => {
       inputState.straatbeeld = null;  // no straatbeeld is active
       const location = inputState.map.viewCenter;   // save location
       payload.location = [location[0] + 1, location[1] + 1];  // try to set to other location
+      // eslint-disable-next-line max-len
       const output = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id](inputState, payload);
       expect(output.map.viewCenter)
         .toEqual(location);  // location is not changed; equal to old location

@@ -1,7 +1,7 @@
 import {
   getEnvironment,
   isDevelopment,
-  ENVIRONMENTS, HOSTS
+  ENVIRONMENTS
 } from './environment';
 
 let nodeEnv;

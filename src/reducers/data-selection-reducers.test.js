@@ -2,10 +2,9 @@ import ACTIONS from '../shared/actions';
 import dataSelectionReducers from './data-selection-reducers';
 
 // deprecated!!! only used to quickly migrate away from Angular
-const deepCopy = oldObject => JSON.parse(JSON.stringify(oldObject));
+const deepCopy = (oldObject) => JSON.parse(JSON.stringify(oldObject));
 
 describe('The dataSelectionReducers', () => {
-
   const DEFAULT_STATE = {
     map: {
       baseLayer: 'topografie',
@@ -258,9 +257,9 @@ describe('The dataSelectionReducers', () => {
   });
 
   describe('SHOW_DATA_SELECTION', () => {
-    let mockedState,
-      payload,
-      output;
+    let mockedState;
+    let payload;
+    let output;
 
     beforeEach(() => {
       mockedState = {
@@ -320,9 +319,9 @@ describe('The dataSelectionReducers', () => {
   });
 
   describe('RESET_DATA_SELECTION', () => {
-    let mockedState,
-      payload,
-      output;
+    let mockedState;
+    let payload;
+    let output;
 
     beforeEach(() => {
       mockedState = {
@@ -390,9 +389,9 @@ describe('The dataSelectionReducers', () => {
   });
 
   describe('SET_DATA_SELECTION_VIEW', () => {
-    let mockedState,
-      payload,
-      output;
+    let mockedState;
+    let payload;
+    let output;
 
     beforeEach(() => {
       mockedState = {

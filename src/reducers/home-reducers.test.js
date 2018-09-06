@@ -23,7 +23,6 @@ describe('The homeReducers', () => {
 
   describe('SHOW_HOME', () => {
     it('resets the state to the default', () => {
-
       expect(homeReducers.SHOW_HOME(inputState))
         .toEqual({
           ...urlState,
@@ -44,7 +43,6 @@ describe('The homeReducers', () => {
     });
 
     it('keeps the isEmbedPreview setting', () => {
-
       inputState.ui.isEmbedPreview = true;
       expect(homeReducers.SHOW_HOME(inputState).ui.isEmbedPreview)
         .toBe(true);
@@ -52,7 +50,6 @@ describe('The homeReducers', () => {
       inputState.ui.isEmbedPreview = false;
       expect(homeReducers.SHOW_HOME(inputState).ui.isEmbedPreview)
         .toBe(false);
-
     });
   });
 });

@@ -105,7 +105,7 @@ function showSearchResultsReducer(state, payload) {
   };
 }
 
-var reducers = {};
+const reducers = {};
 
 reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id] = fetchSearchResultsByQueryReducer;
 reducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id] = fetchSearchResultsByLocationReducer;

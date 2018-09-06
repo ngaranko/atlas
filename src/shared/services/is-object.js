@@ -1,3 +1,1 @@
-export default (value) => {
-  return value !== null && typeof value === 'object';
-}
+export default (value) => value !== null && typeof value === 'object';

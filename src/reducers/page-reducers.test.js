@@ -1,7 +1,7 @@
 import pageReducers from './page-reducers';
 
 // deprecated!!! only used to quickly migrate away from Angular
-const deepCopy = oldObject => JSON.parse(JSON.stringify(oldObject));
+const deepCopy = (oldObject) => JSON.parse(JSON.stringify(oldObject));
 
 describe('The pageReducers', () => {
   const DEFAULT_STATE = {

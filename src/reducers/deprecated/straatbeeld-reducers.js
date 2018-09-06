@@ -2,6 +2,24 @@ import ACTIONS from '../../shared/actions';
 import STRAATBEELD_CONFIG from '../../../modules/straatbeeld/straatbeeld-config';
 import isObject from '../../shared/services/is-object';
 
+function getHeadingDegrees([x1, y1], [x2, y2]) {
+  return (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
+}
+
+function resetStraatbeeld() {
+  return {
+    id: null,
+    location: null,
+    isInitial: true,
+    date: null,
+    hotspots: [],
+    heading: null,
+    pitch: null,
+    fov: null,
+    image: null,
+    isLoading: true
+  };
+}
 
 /**
  * @description If the oldState had an active straatbeeld it will remember the heading.
@@ -72,21 +90,6 @@ function fetchStraatbeeldByLocationReducer(state, payload) {
     search: null,
     dataSelection: null,
     detail: null
-  };
-}
-
-function resetStraatbeeld() {
-  return {
-    id: null,
-    location: null,
-    isInitial: true,
-    date: null,
-    hotspots: [],
-    heading: null,
-    pitch: null,
-    fov: null,
-    image: null,
-    isLoading: true
   };
 }
 
@@ -172,11 +175,6 @@ function setStraatbeeldHistoryReducer(state, payload) {
     } : state.straatbeeld
   };
 }
-
-function getHeadingDegrees([x1, y1], [x2, y2]) {
-  return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-}
-
 
 const reducers = {};
 

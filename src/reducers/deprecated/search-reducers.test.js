@@ -36,6 +36,7 @@ describe('The search-reducers', () => {
         }
       };
 
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
       expect(output.search.isLoading)
@@ -51,8 +52,6 @@ describe('The search-reducers', () => {
     });
 
     it('sets query to null on empty string payload', () => {
-
-
       const inputState = {
         ...defaultState,
         search: {
@@ -86,7 +85,6 @@ describe('The search-reducers', () => {
     });
 
     it('hides the layer selection, page, detail, straatbeeld and dataSelection', () => {
-
       const inputState = {
         ...defaultState,
         ui: {
@@ -106,6 +104,7 @@ describe('The search-reducers', () => {
         }
       };
 
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
       expect(output.ui.isMapPanelVisible)
@@ -128,6 +127,7 @@ describe('The search-reducers', () => {
         straatbeeld: { some: 'text' }
       };
 
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
       expect(output.straatbeeld)
@@ -140,6 +140,7 @@ describe('The search-reducers', () => {
         straatbeeld: { id: 'object' }
       };
 
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
       expect(output.straatbeeld)
@@ -166,7 +167,7 @@ describe('The search-reducers', () => {
         }
       };
 
-
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY.id](inputState, 'linnaeus');
 
       expect(output.ui.isMapFullscreen)
@@ -204,6 +205,7 @@ describe('The search-reducers', () => {
         }
       };
 
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
       expect(output.search.isLoading)
@@ -229,15 +231,14 @@ describe('The search-reducers', () => {
         }
       };
 
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
       expect(output.search.isFullscreen)
         .toBe(false);
-
     });
 
     it('rounds the search location with a precision of 7 decimals', () => {
-
       const inputState = {
         ...defaultState,
         search: null
@@ -283,6 +284,7 @@ describe('The search-reducers', () => {
         }
       };
 
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
       expect(output.page.name)
@@ -310,6 +312,7 @@ describe('The search-reducers', () => {
       };
 
       // With fullscreen disabled, it doesn't change the viewCenter
+      // eslint-disable-next-line max-len
       output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
       expect(output.map.viewCenter)
@@ -317,6 +320,7 @@ describe('The search-reducers', () => {
 
       // With fullscreen enabled, it still doesn't the viewCenter
       inputState.ui.isMapFullscreen = true;
+      // eslint-disable-next-line max-len
       output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
       expect(output.map.viewCenter)
@@ -355,6 +359,7 @@ describe('The search-reducers', () => {
         straatbeeld: { id: 'object', location: [1, 2], some: 'abc' }
       };
 
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, 'linnaeus');
 
       expect(output.straatbeeld)
@@ -369,7 +374,7 @@ describe('The search-reducers', () => {
           isMapFullscreen: true
         }
       };
-
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
       expect(output.ui.isMapFullscreen)
@@ -377,6 +382,7 @@ describe('The search-reducers', () => {
     });
 
     it('removes a drawn line from the map', () => {
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](defaultState, [52.001, 4.002]);
 
       expect(output.map.geometry)
@@ -389,6 +395,7 @@ describe('The search-reducers', () => {
         map: null
       };
 
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
 
       expect(output.map)
@@ -402,6 +409,7 @@ describe('The search-reducers', () => {
         page: null
       };
 
+      // eslint-disable-next-line max-len
       const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION.id](inputState, [52.001, 4.002]);
       expect(output.page)
         .toBeNull();
@@ -447,7 +455,7 @@ describe('The search-reducers', () => {
     it('only updates the search state when a search is active', () => {
       // eslint-disable-next-line no-unused-vars
       const { search, ...state } = defaultState; // remove search
-      const output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY.id](state, 'adres');
+      output = searchReducers[ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY.id](state, 'adres');
       expect(output.search)
         .toBeUndefined();
     });
@@ -472,6 +480,7 @@ describe('The search-reducers', () => {
         }
       };
 
+      // eslint-disable-next-line max-len
       output = searchReducers[ACTIONS.SHOW_SEARCH_RESULTS.id](inputState, 23);
     });
 

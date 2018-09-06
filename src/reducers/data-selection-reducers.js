@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 import ACTIONS from '../shared/actions';
 import isObject from '../shared/services/is-object';
 
@@ -31,10 +32,10 @@ function fetchDataSelectionReducer(state, payload) {
       description: ''
     }
     : state.dataSelection && state.dataSelection.geometryFilter ||
-    {
-      markers: [],
-      description: ''
-    };
+      {
+        markers: [],
+        description: ''
+      };
 
   const filters = mergeInto.filters
     ? mergeInto.filters
@@ -52,7 +53,7 @@ function fetchDataSelectionReducer(state, payload) {
       ...(isObject(state.dataSelection) ? state.dataSelection : ''),
       ...mergeInto,
       markers: [],
-      view: view,
+      view,
       isLoading: true,
       isFullscreen: view !== 'LIST',
       geometryFilter: { ...geometryFilter }
@@ -149,15 +150,15 @@ function navigateDataSelectionReducer(state, payload) {
  * @returns {Object} newState
  */
 function setDataSelectionViewReducer(state, payload) {
-  const views = ['LIST', 'TABLE', 'CATALOG'],
-    viewFound = views.indexOf(payload) !== -1,
-    view = viewFound ? payload : undefined;
+  const views = ['LIST', 'TABLE', 'CATALOG'];
+  const viewFound = views.indexOf(payload) !== -1;
+  const view = viewFound ? payload : undefined;
 
   return {
     ...state,
     dataSelection: isObject(state.dataSelection) ? {
       ...state.dataSelection,
-      view: view,
+      view,
       isLoading: viewFound
     } : state.dataSelection,
     map: isObject(state.map) ? {

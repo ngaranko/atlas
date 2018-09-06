@@ -125,7 +125,7 @@ describe('The deprecated reducer', () => {
     const state = { foo: 'bar' };
     const payload = { abc: 'xyz' };
     DetailsReducer.default = jest.fn();
-    const action = { type: 'FETCH_DETAIL', payload }
+    const action = { type: 'FETCH_DETAIL', payload };
     reducer(state, action);
 
     expect(DetailsReducer.default.mock.calls[0])
