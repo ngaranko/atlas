@@ -1,33 +1,46 @@
 import reducer, {
+  FETCH_MAP_SEARCH_RESULTS_FAILURE,
+  FETCH_MAP_SEARCH_RESULTS_SUCCESS,
+  getMapResultsByLocation,
   getMapSearchResults,
   getSearch,
-  getMapResultsByLocation,
-  isSearchActive,
   getSearchMarker,
+  isSearchActive,
   selectLatestMapSearchResults
 } from './map-search-results';
 
-it('sets the initial state', () => {
-  expect(reducer(undefined, { type: 'UNKOWN' })).toMatchSnapshot();
-});
+describe('mapSearch reducer', () => {
+  it('sets the initial state', () => {
+    expect(reducer(undefined, { type: 'UNKOWN' })).toMatchSnapshot();
+  });
 
-it('handles search results request', () => {
-  const action = getMapSearchResults({
-    latitude: 52.3637006,
-    longitude: 4.7943446
-  }, { name: 'does not matter' });
-  expect(reducer({}, action)).toMatchSnapshot();
-});
-
-it('handles search results success', () => {
-  const action = {
-    type: 'FETCH_MAP_SEARCH_RESULTS_SUCCESS',
-    location: {
+  it('handles search results request', () => {
+    const action = getMapSearchResults({
       latitude: 52.3637006,
       longitude: 4.7943446
-    },
-    mapSearchResults: [{ foo: 'bar' }] };
-  expect(reducer({}, action)).toMatchSnapshot();
+    }, { name: 'does not matter' });
+    expect(reducer({}, action)).toMatchSnapshot();
+  });
+
+  it('handles search results success', () => {
+    const action = {
+      type: FETCH_MAP_SEARCH_RESULTS_SUCCESS,
+      location: {
+        latitude: 52.3637006,
+        longitude: 4.7943446
+      },
+      mapSearchResults: [{ foo: 'bar' }]
+    };
+    expect(reducer({}, action)).toMatchSnapshot();
+  });
+
+  it('should handle search failure', () => {
+    expect(reducer({}, {
+      type: FETCH_MAP_SEARCH_RESULTS_FAILURE
+    })).toEqual({
+      isLoading: false
+    });
+  });
 });
 
 describe('mapSearch Selectors', () => {
@@ -38,7 +51,7 @@ describe('mapSearch Selectors', () => {
     });
 
     it('should return state.search undefined', () => {
-      const mockParameters = { };
+      const mockParameters = {};
       expect(getSearch(mockParameters)).toEqual();
     });
   });

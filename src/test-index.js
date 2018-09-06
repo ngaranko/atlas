@@ -171,7 +171,6 @@ import '../modules/shared/components/long-name-shortener/long-name-config.consta
 import '../modules/shared/components/long-name-shortener/long-name-shortener.filter';
 import '../modules/shared/components/message/message.component';
 import '../modules/shared/components/panel/panel.component';
-import '../modules/shared/components/straatbeeld-thumbnail/dp-alt.component';
 import '../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component';
 import '../modules/shared/components/tab-header/tab-header.component';
 import '../modules/shared/components/tab-header/tab-header.constant';
@@ -225,7 +224,8 @@ import '../modules/straatbeeld/straatbeeld.vendor';
 
 // The mocks
 import 'angular-mocks';
-import '../modules/shared-mocks/shared-mocks.module.js';
+import '../modules/shared/components/button/button.component.mock';
+import '../modules/shared/components/link/link.component.mock';
 
 // All our modules' javascript tests
 import '../modules/shared/shared.module.test';
@@ -334,7 +334,6 @@ import '../modules/shared/components/link-to-page/link-to-page.component.test';
 import '../modules/shared/components/expand-collapse/expand-collapse.directive.test';
 import '../modules/shared/components/anchor-link/anchor-link.component.test';
 // import '../modules/shared/components/link/link.component.test';
-import '../modules/shared/components/straatbeeld-thumbnail/dp-alt.component.test';
 import '../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component.test';
 import '../modules/shared/components/panel/panel.component.test';
 import '../modules/shared/components/video/video.component.test';

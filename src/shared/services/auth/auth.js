@@ -70,13 +70,13 @@ export const AUTH_PATH = `oauth2/authorize?idp_id=datapunt&response_type=token&c
 //
 // `location.pathname` string at the moment we redirect to the
 // OAuth2 authorization service, and need to get back to afterwards
-const RETURN_PATH = 'returnPath';
+export const RETURN_PATH = 'returnPath';
 // The OAuth2 state(token) (OAuth terminology, has nothing to do with
 // our app state), which is a random string
-const STATE_TOKEN = 'stateToken';
+export const STATE_TOKEN = 'stateToken';
 // The access token returned by the OAuth2 authorization service
 // containing user scopes and name
-const ACCESS_TOKEN = 'accessToken';
+export const ACCESS_TOKEN = 'accessToken';
 
 let returnPath;
 let tokenData = {};
@@ -235,10 +235,6 @@ export function getReturnPath() {
   return returnPath;
 }
 
-export function isAuthenticated() {
-  return Boolean(getAccessToken());
-}
-
 export function getScopes() {
   return tokenData.scopes || [];
 }
@@ -264,7 +260,6 @@ window.auth = {
   logout,
   initAuth,
   getReturnPath,
-  isAuthenticated,
   getScopes,
   getName
 };

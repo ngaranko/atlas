@@ -11,7 +11,7 @@ import { fetchDetail } from '../../../reducers/details';
 import {
   fetchDataSelection,
   fetchSearchResultsByQuery
-} from '../../../reducers/search';
+} from '../../ducks/search/search';
 import emptyFilters from '../../../shared/ducks/filters/filters';
 
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';

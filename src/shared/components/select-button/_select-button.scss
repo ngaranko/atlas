@@ -138,7 +138,6 @@
   }
 
   &__drop-down-button {
-    // TODO: Configure `autoprefixer` in Storybook build to prevent prefixing
     -webkit-appearance: none; // sass-lint:disable-line no-vendor-prefixes
     appearance: none;
     border: none;

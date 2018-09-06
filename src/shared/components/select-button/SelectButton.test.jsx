@@ -1,6 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
-
 import SelectButton from './SelectButton';
 import Icon from '../../../../public/images/icon-aerial.svg';
 
@@ -90,6 +90,30 @@ describe('SelectButton', () => {
     wrapper.update();
 
     expect(wrapper.find('.select-button.select-button--expanded').exists()).toBe(false);
+  });
+
+  it('should not trigger handleToggle when user clicks on open icon and not outside', () => {
+    const map = {};
+    document.addEventListener = jest.fn((event, cb) => {
+      map[event] = cb;
+    });
+    const wrapper = mount(
+      <SelectButton
+        className="someclass"
+        icon={Icon}
+        isDisabled={false}
+        name="topography"
+        options={options}
+      />
+    );
+    wrapper.instance().handleToggle = jest.fn();
+    wrapper.find('button.select-button__icon-wrapper').simulate('click');
+    expect(wrapper.find('.select-button.select-button--expanded').exists()).toBe(true);
+    // clicking on icon will not hide the drop down
+    map.click({
+      target: ReactDOM.findDOMNode(wrapper.instance()) // eslint-disable-line
+    });
+    expect(wrapper.instance().handleToggle).not.toHaveBeenCalled();
   });
 });
 

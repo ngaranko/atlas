@@ -160,6 +160,7 @@ class SelectButton extends React.Component {
   }
 }
 
+/* istanbul ignore next */
 SelectButton.defaultProps = {
   className: '',
   handleChange: () => {},

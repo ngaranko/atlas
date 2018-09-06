@@ -18,7 +18,7 @@ function fetchStadsdeel(uri) {
     });
 }
 
-const fetchGrexStadsdeel = async (stadsdeelCode) => {
+export const fetchGrexStadsdeel = async (stadsdeelCode) => {
   const url = `${SHARED_CONFIG.API_ROOT}grondexploitatie/stadsdeel/${stadsdeelCode}/`;
   const grexStadsdeel = await getByUrl(url);
   return grexStadsdeel;

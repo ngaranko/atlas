@@ -1,4 +1,4 @@
-import DRAW_TOOL_CONFIG from '../../../../src/map/services/draw-tool/draw-tool-config';
+import DRAW_TOOL_CONFIG from '../../../../src/map/services/draw-tool/draw-tool.config';
 
 describe('The state url conversion definition', function () {
     let stateUrlConversion,
@@ -144,14 +144,15 @@ describe('The state url conversion definition', function () {
         });
 
         describe('The post processing for map', function () {
-            it('copies  isLoading from the previous state, but not the drawing mode ', function () {
+            it('copies isLoading from the previous state', function () {
                 // isLoading and drawingMode
                 let oldState = {
                     isLoading: true,
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
                     shapeAreaTxt: '',
-                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW,
+                    boundingBox: {}
                 };
                 let newState = {};
 
@@ -160,7 +161,9 @@ describe('The state url conversion definition', function () {
                     isLoading: true,
                     shapeMarkers: 0,
                     shapeDistanceTxt: '',
-                    shapeAreaTxt: ''
+                    shapeAreaTxt: '',
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.DRAW,
+                    boundingBox: {}
                 });
 
                 // only drawingMode
@@ -174,7 +177,9 @@ describe('The state url conversion definition', function () {
                     isLoading: undefined,
                     shapeMarkers: undefined,
                     shapeDistanceTxt: undefined,
-                    shapeAreaTxt: undefined
+                    shapeAreaTxt: undefined,
+                    drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
+                    boundingBox: undefined
                 });
 
                 // only isLoading
@@ -188,7 +193,9 @@ describe('The state url conversion definition', function () {
                     isLoading: true,
                     shapeMarkers: undefined,
                     shapeDistanceTxt: undefined,
-                    shapeAreaTxt: undefined
+                    shapeAreaTxt: undefined,
+                    drawingMode: undefined,
+                    boundingBox: undefined
                 });
 
                 // no map state at all

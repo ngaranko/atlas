@@ -161,8 +161,20 @@
                     </div>
 
                     <!-- Data selection -->
-                    <div ng-if="vm.activity.dataSelection" ng-show="vm.visibility.dataSelection" ng-controller="DataSelectionController as dataSelection" class="qa-data-selection">
-                        <dp-data-selection state="dataSelection.dataSelectionState" filters="dataSelection.filters" user="vm.user"></dp-data-selection>
+                    <div
+                        ng-if="vm.activity.dataSelection"
+                        ng-show="vm.visibility.dataSelection"
+                        ng-controller="DataSelectionController as dataSelection"
+                        class="qa-data-selection"
+                    >
+                        <dp-data-selection
+                            bounding-box="dataSelection.boundingBox"
+                            catalog-filters="dataSelection.catalogFilters"
+                            filters="dataSelection.filters"
+                            state="dataSelection.dataSelectionState"
+                            user="vm.user"
+                            zoom-level="dataSelection.zoomLevel"
+                        ></dp-data-selection>
                     </div>
                 </div>
             </div>

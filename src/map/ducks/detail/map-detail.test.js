@@ -1,17 +1,18 @@
 import reducer, {
+  FETCH_MAP_DETAIL_FAILURE,
   FETCH_MAP_DETAIL_REQUEST,
   FETCH_MAP_DETAIL_SUCCESS,
-  FETCH_MAP_DETAIL_FAILURE,
-  getCurrentEndpoint,
-  getAllResults,
-  selectLatestMapDetail,
-  getMapDetailGeometry,
-  getGeometry,
-  shouldShowGeoJson,
-  getGeoJson,
-  getMapDetail,
   fetchMapDetailFailure,
-  fetchMapDetailSuccess
+  fetchMapDetailSuccess,
+  getAllResults,
+  getCurrentEndpoint,
+  getDetailId,
+  getGeoJson,
+  getGeometry,
+  getMapDetail,
+  getMapDetailGeometry,
+  selectLatestMapDetail,
+  shouldShowGeoJson
 } from './map-detail';
 
 // REDUCER
@@ -99,7 +100,8 @@ describe('selectors', () => {
       }
     },
     detail: {
-      geometry: {}
+      geometry: {},
+      endpoint: '123'
     }
   };
   describe('getCurrentEndpoint', () => {
@@ -115,6 +117,20 @@ describe('selectors', () => {
       const { byEndpoint } = mockParameters.mapDetail;
       const selected = getAllResults.resultFunc(mockParameters.mapDetail);
       expect(selected).toEqual(byEndpoint);
+    });
+  });
+
+  describe('getDetailId', () => {
+    it('should return the endpoint from mapDetail', () => {
+      const { currentEndpoint } = mockParameters.mapDetail;
+      const selected = getDetailId(mockParameters);
+      expect(selected).toEqual(currentEndpoint);
+    });
+
+    it('should return the endpoint from details', () => {
+      const { endpoint } = mockParameters.detail;
+      const selected = getDetailId(mockParameters);
+      expect(selected).toEqual(endpoint);
     });
   });
 
@@ -201,28 +217,34 @@ describe('selectors', () => {
     const geometry = { id: '1' };
     const detail = { display: 'label' };
     it('should return empty object if geoJson should not be shown', () => {
-      const selected = getGeoJson.resultFunc(false, geometry, detail);
+      const selected = getGeoJson.resultFunc(false, geometry, detail, 'detailId');
       expect(selected).toEqual({});
     });
 
     it('should return empty object if geometry is empty', () => {
-      const selected = getGeoJson.resultFunc(true, '', detail);
+      const selected = getGeoJson.resultFunc(true, '', detail, 'detailId');
       expect(selected).toEqual({});
     });
 
     it('should return a geoJson object', () => {
-      const selected = getGeoJson.resultFunc(true, geometry, detail);
+      const selected = getGeoJson.resultFunc(true, geometry, detail, 'detailId');
       expect(selected).toEqual({
-        geometry,
-        label: detail.display
+        id: 'detailId',
+        geoJson: {
+          geometry,
+          label: detail.display
+        }
       });
     });
 
     it('should return a geoJson object with a empty string if detail.display is undefined', () => {
-      const selected = getGeoJson.resultFunc(true, geometry, {});
+      const selected = getGeoJson.resultFunc(true, geometry, {}, 'detailId');
       expect(selected).toEqual({
-        geometry,
-        label: ''
+        id: 'detailId',
+        geoJson: {
+          geometry,
+          label: ''
+        }
       });
     });
   });

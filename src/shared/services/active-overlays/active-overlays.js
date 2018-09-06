@@ -1,10 +1,10 @@
 import getState from '../redux/get-state';
 
-import mapLayers from '../../../map/services/map-layers/map-layers';
+import mapLayers from '../../../map/services/map-layers/map-layers.config';
 
 const findLayer = (id) => mapLayers.find((mapLayer) => mapLayer.id === id);
 
-class ActiveOverlays {
+export class ActiveOverlays {
   constructor() {
     this.allOverlays = [];
   }
@@ -14,6 +14,7 @@ class ActiveOverlays {
       .filter((overlay) => ActiveOverlays.isAuthorised(overlay));
   }
 
+  // Todo: this always returns false: look into mapLayers, since it doesn't have a minZoom / maxZoom
   static isVisibleAtCurrentZoom(overlay, zoomLevel) {
     const layer = findLayer(overlay);
     if (!layer) {
@@ -41,28 +42,11 @@ class ActiveOverlays {
     );
   }
 
-  setOverlays(newOverlays) {
-    this.allOverlays = newOverlays;
-  }
-
-  getVisibleOverlays(zoom) {
-    return this.getVisibleSources(zoom)
-      .filter((source) => source.detailUrl && source.detailItem)
-      .filter((a, index, self) => self.findIndex((b) => b.detailItem === a.detailItem === index));
-  }
-
   getOverlaysWarning(zoom) {
     return this.getVisibleSources(zoom)
       .filter((source) => source.noDetail)
       .map((a) => a.label_short)
       .join(', ');
-  }
-
-  getOverlaysLabels(zoom) {
-    const labels = this.getVisibleSources(zoom)
-      .map((a) => a.parent_label || a.label_short);
-
-    return [...new Set(labels)].join(', ');
   }
 
   getVisibleSources(zoom) {

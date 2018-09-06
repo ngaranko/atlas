@@ -16,7 +16,7 @@ exports[`MapContainer should render 1`] = `
 </div>
 `;
 
-exports[`MapContainer should render 2`] = `
+exports[`MapContainer should render with drawingmode: draw 1`] = `
 <div
   className="c-map c-map--drawing-mode-draw qa-map-container"
 >

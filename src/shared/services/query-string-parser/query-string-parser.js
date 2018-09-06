@@ -10,8 +10,7 @@
  * @returns {Object.<string, string>} A key-value map representation of
  * the query string, or null if `queryString` is falsy.
  */
-export default function (queryString) {
-  return queryString
+const queryStringParser = (queryString) => (queryString
     ? queryString
       .substring(1)
       .split('&')
@@ -25,5 +24,11 @@ export default function (queryString) {
           [decodeURIComponent(key)]: decodeURIComponent(value)
         };
       }, {})
-    : null;
-}
+    : null);
+
+export const encodeQueryParams = (params) => (Object.keys(params)
+      .map((param) => `${encodeURIComponent(param)}=${encodeURIComponent(params[param])}`)
+      .join('&'));
+
+
+export default queryStringParser;

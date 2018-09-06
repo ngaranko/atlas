@@ -31,9 +31,7 @@ COPY grunt /app/grunt
 COPY public /app/public
 COPY scripts /app/scripts
 COPY .babelrc \
-      403-geen-toegang.html \
       Gruntfile.js \
-      index.html \
       webpack.* \
       index.ejs \
       favicon.png \
@@ -48,7 +46,6 @@ RUN echo "build= `date`" > /app/dist/version.txt
 COPY karma.conf.js \
       jest.config.js \
       /app/
-COPY .storybook /app/.storybook
 COPY test /app/test
 
 

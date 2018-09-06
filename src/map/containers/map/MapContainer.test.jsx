@@ -25,10 +25,17 @@ describe('MapContainer', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render', () => {
+  it('should render with drawingmode: draw', () => {
     const store = configureMockStore()({ ...initialState, map: { drawingMode: 'draw' } });
     const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
 
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should set the leaflet instance state', () => {
+    const store = configureMockStore()({ ...initialState });
+    const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
+    wrapper.instance().setLeafletInstance('leafletInstance');
+    expect(wrapper.instance().state.leafletInstance).toBe('leafletInstance');
   });
 });

@@ -28,28 +28,9 @@ services:
       - NODE_ENV=development
     command: npm run test
 
-  storybook:
+  test-e2e:
     build:
-      context: .
-      target: build-deps
-    ports:
-      - 9001:9001
-    command: npm run storybook
-  test-e2e-visual:
-    build:
-      context: .
-      target: build-deps
-    links:
-      - storybook
-    environment:
-      - STORYBOOK_HOST=storybook
-      - STORYBOOK_PORT=9001
-      - STORYBOOK_URL=http://storybook:9001/
-    command: ./scripts/ci/test-e2e-visual.sh
-
-  test-e2e-functional:
-    build:
-      dockerfile: Dockerfile-e2e-functional
+      dockerfile: Dockerfile-e2e
       context: .
     links:
       - atlas_func:acc.data.amsterdam.nl
@@ -61,7 +42,7 @@ services:
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
       - PASSWORD_EMPLOYEE_PLUS
-    command: ./scripts/ci/test-e2e-functional.sh
+    command: ./scripts/ci/test-e2e.sh
 
   test-e2e-aria:
     build:

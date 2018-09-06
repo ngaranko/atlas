@@ -23,8 +23,8 @@ const generateLayer = (layers, overlay, url) => ({
     layers: findLayer(layers, overlay.id).layers
   }
 });
-const getMapLayers = (state) => state.mapLayers.layers.items;
-const getAccessToken = (state) => state.user.accessToken;
+export const getMapLayers = (state) => state.mapLayers.layers.items;
+export const getAccessToken = (state) => state.user.accessToken;
 
 export const getLayers = createSelector(
   [getMapOverlays, getAccessToken, getMapLayers],

@@ -1,4 +1,4 @@
-import DRAW_TOOL_CONFIG from '../../../../src/map/services/draw-tool/draw-tool-config';
+import DRAW_TOOL_CONFIG from '../../../../src/map/services/draw-tool/draw-tool.config';
 
 describe('The state url conversion factory', function () {
     let stateUrlConverter;

@@ -20,29 +20,32 @@ export const selectLatestMapDetail = createSelector([getCurrentEndpoint, getAllR
 export const getMapDetailGeometry = createSelector(selectLatestMapDetail,
   (activeMapDetail) => (
      activeMapDetail && activeMapDetail.geometrie
-));
+  ));
+
+export const getDetailId = createSelector(detailSelector, getCurrentEndpoint,
+  (detail, currentEndpoint) => (detail && detail.endpoint) || currentEndpoint);
 
 export const getGeometry = createSelector([detailSelector, getMapDetailGeometry],
   (detail, mapDetailGeometry) => (
     detail && detail.geometry ? detail.geometry : mapDetailGeometry
-  )
-);
+  ));
 
 export const shouldShowGeoJson = createSelector([detailSelector, isSearchActive, getDataSelection],
- (detailActive, searchActive, dataSelectionActive) => (
-   Boolean(detailActive && !searchActive && !dataSelectionActive)
- )
-);
+  (detailActive, searchActive, dataSelectionActive) => (
+    Boolean(detailActive && !searchActive && !dataSelectionActive)
+  ));
 
 export const getGeoJson = createSelector(
-  [shouldShowGeoJson, getGeometry, detailSelector],
-  (isGeoJsonActive, geometry, detail) => (
+  [shouldShowGeoJson, getGeometry, detailSelector, getDetailId],
+  (isGeoJsonActive, geometry, detail, detailId) => (
     (isGeoJsonActive && geometry) ? {
-      geometry,
-      label: detail && detail.display ? detail.display : ''
+      id: detailId,
+      geoJson: {
+        geometry,
+        label: detail && detail.display ? detail.display : ''
+      }
     } : {}
-  )
-);
+  ));
 
 export const FETCH_MAP_DETAIL_REQUEST = 'FETCH_MAP_DETAIL_REQUEST';
 export const FETCH_MAP_DETAIL_SUCCESS = 'FETCH_MAP_DETAIL_SUCCESS';

@@ -1,24 +1,32 @@
 import {
- getMap,
- getActiveBaseLayer,
- getMapZoom,
- getMapOverlays,
- getMarkers,
- getMapCenter,
- getCenter
+  getActiveBaseLayer,
+  getCenter,
+  getClusterMarkers,
+  getGeoJsons,
+  getMap,
+  getMapCenter,
+  getMapOverlays,
+  getMapZoom,
+  getMarkers,
+  getRdGeoJsons
 } from './map-selectors';
 
 export {
-  getMap,
   getActiveBaseLayer,
-  getMapZoom,
-  getMapOverlays,
-  getMarkers,
+  getCenter,
+  getClusterMarkers,
+  getGeoJsons,
+  getMap,
   getMapCenter,
-  getCenter
+  getMapOverlays,
+  getMapZoom,
+  getMarkers,
+  getRdGeoJsons
 };
 
 export const MAP_ADD_PANO_OVERLAY = 'MAP_ADD_PANO_OVERLAY';
+export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
+export const MAP_BOUNDING_BOX_SILENT = 'MAP_BOUNDING_BOX_SILENT';
 export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
@@ -32,8 +40,6 @@ export const MAP_ZOOM_SILENT = 'MAP_ZOOM_SILENT';
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
-export const TOGGLE_MAP_OVERLAYS = 'TOGGLE_MAP_OVERLAYS';
-export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
 
 const initialState = {
   viewCenter: [52.3731081, 4.8932945],
@@ -64,6 +70,13 @@ const overlayExists = (state, newLayer) => (
 
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
+    case MAP_BOUNDING_BOX:
+    case MAP_BOUNDING_BOX_SILENT:
+      return {
+        ...state,
+        boundingBox: action.payload.boundingBox
+      };
+
     case MAP_PAN:
     case MAP_PAN_SILENT:
       return {
@@ -182,7 +195,6 @@ export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
   mapLayerId,
   show
 });
-export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
 
 export const updateZoom = (payload, isDrawingActive) =>
   ({
@@ -197,6 +209,12 @@ export const updatePan = (payload, isDrawingActive) =>
   ({
     type: isDrawingActive ? MAP_PAN_SILENT : MAP_PAN,
     payload: [payload.center.lat, payload.center.lng]
+  });
+
+export const updateBoundingBox = (payload, isDrawingActive) =>
+  ({
+    type: isDrawingActive ? MAP_BOUNDING_BOX_SILENT : MAP_BOUNDING_BOX,
+    payload
   });
 
 window.reducers = window.reducers || {};

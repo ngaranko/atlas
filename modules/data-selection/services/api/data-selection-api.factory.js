@@ -29,6 +29,7 @@
 
             return apiService.query(
                 DATA_SELECTION_CONFIG.datasets[dataset],
+                view,
                 filterUnavailableFilters(dataset, activeFilters),
                 page,
                 searchText,
@@ -47,11 +48,19 @@
         function formatFilters (dataset, rawData) {
             const formattedFilters = angular.copy(DATA_SELECTION_CONFIG.datasets[dataset].FILTERS);
             const sortFilters = DATA_SELECTION_CONFIG.datasets[dataset].SORT_FILTERS || false;
-
             const filters = formattedFilters.filter(function (filter) {
                 // Only show the filters that are returned by the API
                 return angular.isObject(rawData[filter.slug]);
             }).map(function (filter) {
+                // use the specific term order when defined
+                if (filter.order) {
+                    rawData[filter.slug].options = filter.order.map(term => {
+                        const found = rawData[filter.slug].options
+                            .filter(item => item.label === term);
+                        return found.length > 0 ? found[0] : null;
+                    }).filter(item => !!item);
+                    delete filter.order;
+                }
                 return angular.extend({}, filter, rawData[filter.slug]);
             });
 
@@ -127,18 +136,12 @@
             }
         }
 
-        function getMarkers (dataset, activeFilters) {
-            return api
-                .getByUri(
-                    DATA_SELECTION_CONFIG.datasets[dataset].ENDPOINT_MARKERS,
-                    filterUnavailableFilters(dataset, activeFilters)
-                )
-                .then(function (data) {
-                    return data.object_list
-                        .map(object => object._source.centroid)
-                        .filter(angular.identity)
-                        .map(([lon, lat]) => [lat, lon]);
-                });
+        function getMarkers (dataset, activeFilters, zoomLevel, boundingBox) {
+            const config = DATA_SELECTION_CONFIG.datasets[dataset];
+            const apiService = $injector.get(config.CUSTOM_API);
+            const filteredFilters = filterUnavailableFilters(dataset, activeFilters);
+
+            return apiService.getMarkers(config, filteredFilters, zoomLevel, boundingBox);
         }
 
         function filterUnavailableFilters (dataset, activeFilters = {}) {
