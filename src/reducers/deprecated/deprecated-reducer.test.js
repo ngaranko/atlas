@@ -1,4 +1,4 @@
-import reducer from './deprecated-reducer';
+import reducerInit from './deprecated-reducer';
 import * as environment from '../../shared/environment';
 import * as homeReducer from '../home-reducers';
 import * as DetailsReducer from '../details';
@@ -13,19 +13,12 @@ import * as searchReducers from './search-reducers';
 import * as deepFreeze from '../../shared/services/freeze/freeze';
 
 describe('The deprecated reducer', () => {
-  let _window; // eslint-disable-line no-underscore-dangle
+  let reducer;
 
   beforeEach(() => {
-    _window = document.window;
-    window.reducers = {
-      UrlReducers: {}
-    };
+    reducer = reducerInit({});
     deepFreeze.default = jest.fn((value) => value); // identity function
     environment.isDevelopment = () => false;
-  });
-
-  afterEach(() => {
-    document.window = _window;
   });
 
   it('groups all separate reducers and calls the appropriate one depending on the action type', () => {

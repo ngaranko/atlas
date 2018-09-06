@@ -28,7 +28,7 @@ import rootReducerInit from '../../../../src/reducers/root';
         const urlDefaultState = stateUrlConverter.getDefaultState();
         const initialState = environment.isDevelopment() ? freeze.deepFreeze(urlDefaultState) : urlDefaultState;
 
-        const rootReducer = rootReducerInit($timeout, $rootScope);
+        const rootReducer = rootReducerInit($timeout, $rootScope, stateUrlConverter);
 
         applicationState.initialize(
             rootReducer,

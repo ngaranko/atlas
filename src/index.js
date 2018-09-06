@@ -51,8 +51,6 @@ import '../modules/atlas/services/piwik/piwik.factory';
 import '../modules/atlas/services/piwik/piwik.run';
 import '../modules/atlas/services/redux/middleware/context-middleware.factory';
 import '../modules/atlas/services/redux/middleware/state-to-url-middleware.factory';
-import '../modules/atlas/services/redux/reducers/url-reducers.factory';
-import '../modules/atlas/services/redux/reducers/url-reducers.run';
 import '../modules/atlas/services/redux/store.run';
 import '../modules/atlas/services/routing/state-to-url.factory';
 import '../modules/atlas/services/routing/state-url-conversion.factory';

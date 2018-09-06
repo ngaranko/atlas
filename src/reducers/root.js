@@ -14,9 +14,10 @@ import MapBaseLayersReducer from '../map/ducks/base-layers/map-base-layers';
 import MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
 import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
-import deprecatedReducer from './deprecated/deprecated-reducer';
+import deprecatedReducerInit from './deprecated/deprecated-reducer';
 
-export default ($timeout, $rootScope) => {
+export default ($timeout, $rootScope, stateUrlConverter) => {
+  const deprecatedReducer = deprecatedReducerInit(stateUrlConverter);
   return (oldState, action) => {
     // Run state changes based on old reducers
     const deprecatedState = deprecatedReducer(oldState, action);

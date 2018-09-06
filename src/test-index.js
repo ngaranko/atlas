@@ -42,7 +42,6 @@ import '../modules/atlas/services/piwik/piwik.factory';
 import '../modules/atlas/services/piwik/piwik.run';
 import '../modules/atlas/services/redux/middleware/context-middleware.factory';
 import '../modules/atlas/services/redux/middleware/state-to-url-middleware.factory';
-import '../modules/atlas/services/redux/reducers/url-reducers.factory';
 import '../modules/atlas/services/redux/store.run';
 import '../modules/atlas/services/routing/state-to-url.factory';
 import '../modules/atlas/services/routing/state-url-conversion.factory';
@@ -372,7 +371,6 @@ import '../modules/atlas/components/max-width-class/max-width-class.directive.te
 import '../modules/atlas/components/scrollable-content/scrollable-content.directive.test';
 import '../modules/atlas/services/redux/middleware/context-middleware.factory.test';
 import '../modules/atlas/services/redux/middleware/state-to-url-middleware.factory.test';
-import '../modules/atlas/services/redux/reducers/url-reducers.factory.test';
 import '../modules/atlas/services/piwik/piwik.factory.test';
 import '../modules/atlas/services/routing/url-to-state.factory.test';
 import '../modules/atlas/services/routing/state-url-conversion.factory.test';

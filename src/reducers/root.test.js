@@ -46,14 +46,14 @@ describe('the root reducer', () => {
   MapPanelLayersReducer.default = () => 'panelLayers';
   StraatbeeldReducer.default = () => 'straatbeeld';
   PanoPreviewReducer.default = () => 'pano';
-  deprecatedReducer.default = jest.fn(() => deprecatedOutput);
+  deprecatedReducer.default = jest.fn().mockReturnValue(() => deprecatedOutput);
 
   beforeEach(() => {
     $rootScope = {
       $digest: jest.fn()
     };
     $timeout = jest.fn((callback) => callback());
-    rootReducer = rootReducerInit($timeout, $rootScope);
+    rootReducer = rootReducerInit($timeout, $rootScope, () => {});
   });
 
   it('combines many reducers', () => {
