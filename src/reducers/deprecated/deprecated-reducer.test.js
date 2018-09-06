@@ -1,7 +1,7 @@
 import reducer from './deprecated-reducer';
+import * as environment from '../../shared/environment';
 import * as homeReducer from '../home-reducers';
 import * as DetailsReducer from '../details';
-
 import * as DataSelectionReducer from '../data-selection-reducers';
 import * as MapPreviewPanelReducer from '../../map/ducks/preview-panel/map-preview-panel';
 import * as PageReducer from '../page-reducers';
@@ -21,6 +21,7 @@ describe('The deprecated reducer', () => {
       UrlReducers: {}
     };
     deepFreeze.default = jest.fn((value) => value); // identity function
+    environment.isDevelopment = () => false;
   });
 
   afterEach(() => {
@@ -67,13 +68,14 @@ describe('The deprecated reducer', () => {
   });
 
   it('calls DetailsReducer', () => {
+    const payload = { abc: 'xyz' };
     const state = { foo: 'bar' };
 
     DetailsReducer.default = jest.fn();
-    reducer(state, { type: { id: 'FETCH_DETAIL' } });
+    reducer(state, { type: { id: 'FETCH_DETAIL' }, payload });
 
     expect(DetailsReducer.default.mock.calls[0])
-      .toEqual([state, undefined]);
+      .toEqual([state, { payload, type: 'FETCH_DETAIL' }]);
   });
 
   it('calls MapSearchResultsReducer', () => {
@@ -120,8 +122,7 @@ describe('The deprecated reducer', () => {
     const state = { foo: 'bar' };
     DataSelectionReducer.default = { FREEZE: (s) => s };
 
-      // environment.isDevelopment.and.returnValue(true);
-
+    environment.isDevelopment = () => true;
     reducer(state, { type: { id: 'FREEZE' } });
 
     expect(deepFreeze.default).toHaveBeenCalledWith(state);
@@ -129,15 +130,12 @@ describe('The deprecated reducer', () => {
 
   it('should call reducer for Vanilla action types', () => {
     const state = { foo: 'bar' };
+    const payload = { abc: 'xyz' };
     DetailsReducer.default = jest.fn();
-    reducer(state, { type: { id: 'FETCH_DETAIL' } });
+    const action = { type: 'FETCH_DETAIL', payload }
+    reducer(state, action);
 
-    reducer(state, {
-      type: {
-        id: 'FETCH_DETAIL'
-      }
-    });
     expect(DetailsReducer.default.mock.calls[0])
-      .toEqual([state, undefined]);
+      .toEqual([state, action]);
   });
 });

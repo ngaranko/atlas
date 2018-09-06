@@ -10,6 +10,7 @@ import MapSearchResultsReducer from '../../map/ducks/search-results/map-search-r
 import MapClickLocationReducer from '../../map/ducks/click-location/map-click-location';
 import searchReducers from './search-reducers';
 import deepFreeze from '../../shared/services/freeze/freeze';
+import { isDevelopment } from '../../shared/environment';
 
 export default (oldState, action) => {
   /**
@@ -82,19 +83,18 @@ export default (oldState, action) => {
     return actions[action.type](oldState, action);
   } else if (legacy) {
     // eslint-disable-next-line no-prototype-builtins
-
-    // if (detailReducers.hasOwnProperty(action.type.id)) { // TODO
-    //   // eslint-disable-next-line no-param-reassign
-    //   action.payload = {
-    //     ...action,
-    //     type: action.type.id
-    //   };
-    // }
+    if (detailReducers.hasOwnProperty(action.type.id)) {
+      // eslint-disable-next-line no-param-reassign
+      action.payload = {
+        ...action,
+        type: action.type.id
+      };
+    }
     const result = actions[action.type.id](oldState, action.payload);
     // TODO make isDevelopment Vanilla JS
-    // if (environment.isDevelopment()) {
-    deepFreeze(result); // TODO
-    // }
+    if (isDevelopment()) {
+      deepFreeze(result); // TODO
+    }
     return result;
   }
   return oldState;

@@ -487,8 +487,6 @@ describe('Straatbeeld reducers factory', () => {
     it('only sets the map viewcenter on a subsequent straatbeeld when straatbeeld active', () => {
       inputState.straatbeeld = null;  // no straatbeeld is active
       const location = inputState.map.viewCenter;   // save location
-      console.log(defaultState.map.viewCenter);
-      console.log(location);
       payload.location = [location[0] + 1, location[1] + 1];  // try to set to other location
       const output = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT.id](inputState, payload);
       expect(output.map.viewCenter)
