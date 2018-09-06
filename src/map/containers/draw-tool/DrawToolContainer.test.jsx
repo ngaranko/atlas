@@ -5,13 +5,14 @@ import { shallow } from 'enzyme';
 import DrawToolContainer from './DrawToolContainer';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
-import { // mapClearDrawing, mapEmptyGeometry,
-  mapUpdateShape, mapStartDrawing, mapEndDrawing
-} from '../../ducks/map/map';
 import {
-  setDataSelectionGeometryFilter
-  // resetDataSelectionGeometryFilter
-} from '../../../shared/ducks/data-selection/data-selection';
+  MAP_CLEAR,
+  mapClear,
+  mapEndDrawing,
+  mapStartDrawing,
+  mapUpdateShape
+} from '../../ducks/map/map';
+import { setDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
 import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
 import { setStraatbeeldOff } from '../../../shared/ducks/straatbeeld/straatbeeld';
@@ -39,7 +40,6 @@ describe('DrawToolContainer', () => {
   const props = {
     currentShape: { markers: [] },
     leafletInstance: {},
-
     toggleDrawing: jest.fn(),
     cancel: jest.fn(),
     initialize: jest.fn(),
@@ -91,7 +91,6 @@ describe('DrawToolContainer', () => {
 
   beforeEach(() => {
     store = configureMockStore()({ ...initialState });
-    // mapEndDrawing.mockImplementation(() => ({ type: MAP_END_DRAWING }));
   });
 
   afterEach(() => {
@@ -183,6 +182,13 @@ describe('DrawToolContainer', () => {
         });
         expect(wrapperInstance.props.cancel).toHaveBeenCalled();
         expect(wrapperInstance.state.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.NONE);
+      });
+    });
+
+    describe('componentWillUnmount', () => {
+      it(`should dispatch ${MAP_CLEAR}`, () => {
+        wrapper.unmount();
+        expect(store.dispatch).toHaveBeenCalledWith(mapClear());
       });
     });
 

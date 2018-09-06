@@ -224,6 +224,7 @@ import '../modules/straatbeeld/straatbeeld.vendor';
 
 // The mocks
 import 'angular-mocks';
+import '../modules/shared/components/button/button.component.mock';
 import '../modules/shared/components/link/link.component.mock';
 
 // All our modules' javascript tests

@@ -6,13 +6,14 @@ RUN apt-get update && \
 
 WORKDIR /home
 
-COPY package-lock.json /home/
+COPY package.json package-lock.json /home/
 
 # Install selected package (faster).
 # Use versions defined in package-lock.json.
+# `npm install` with `CI=true` is to stop cypress install progress from flooding the CI log
 RUN git config --global url."https://".insteadOf git:// && \
     git config --global url."https://github.com/".insteadOf git@github.com: && \
-    npm install \
+    CI=true npm install \
       cypress@`node -p -e "require('./package-lock.json').dependencies.cypress.version"` \
       bluebird@`node -p -e "require('./package-lock.json').dependencies.bluebird.version"`
 
