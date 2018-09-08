@@ -110,7 +110,7 @@ import '../modules/header/components/logout-button/logout-button.component';
 import '../modules/header/components/menu/dropdown/menu-dropdown.directive';
 import '../modules/header/components/menu/menu.component';
 import '../modules/header/components/print-button/print-button.component';
-import '../modules/header/components/print-header/print-header.component';
+import './app/angular/components/header/print-header/print-header.component';
 import '../modules/header/components/site-header/site-header.component';
 import '../modules/header/components/terugmelden-button/terugmelden-button.component';
 import '../modules/header/header-config.constant';
@@ -355,4 +355,3 @@ import '../modules/atlas/components/dashboard/synchronisation/data-selection.con
 import '../modules/atlas/components/document-title/document-title.directive.test';
 import '../modules/atlas/components/max-width-class/max-width-class.directive.test';
 import '../modules/atlas/components/scrollable-content/scrollable-content.directive.test';
-import '../modules/atlas/services/piwik/piwik.factory.test';

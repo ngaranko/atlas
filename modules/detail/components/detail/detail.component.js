@@ -7,7 +7,6 @@ import { getMapClickLocation } from '../../../../src/map/ducks/click-location/ma
         .module('dpDetail')
         .component('dpDetail', {
             bindings: {
-                show: '=',
                 endpoint: '@',
                 reload: '=',
                 isLoading: '=',

@@ -1,12 +1,45 @@
 import React from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import { Route, Switch } from 'react-router';
 import MapContainer from '../../map/containers/map/MapContainer';
+import Detail from '../containers/DetailContainer';
 
-const Map = () => (
-  <div className="page">
-    <h1>Map</h1>
-    <MapContainer />
-  </div>
-);
+const Map = ({ columnSizes }) => {
+  const classes = classNames({ 'u-page-break-after': columnSizes.middle && columnSizes.right });
+  return (
+    <div style={{ height: '100%' }}>
+      <div
+        className={`c-dashboard__column u-col-sm--${columnSizes.middle} qa-dashboard__column--middle ${classes}`}
+      >
+        <div className="qa-map">
+          <MapContainer />
+        </div>
+      </div>
+      <div
+        style={{ display: (columnSizes.right) ? 'block' : 'none' }}
+        className={`c-dashboard__column c-dashboard__content u-col-sm--${columnSizes.right} qa-dashboard__column--right`}
+      >
+        <Switch>
+          <Route path="/detail" component={Detail} />
+        </Switch>
+      </div>
+    </div>
+  );
+};
 
+Map.defaultProps = {
+  columnSizes: { // determineColumnSizes in dashboard-columns
+    right: 4,
+    middle: 12
+  }
+};
+
+Map.propTypes = {
+  columnSizes: PropTypes.shape({
+    right: PropTypes.number,
+    middle: PropTypes.number
+  })
+};
 
 export default Map;

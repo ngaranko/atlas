@@ -25,19 +25,18 @@ import getContents from '../../../../src/shared/services/google-sheet/google.she
         vm.entries = [];
         vm.entry = null;
 
-        $scope.$watchGroup(['vm.type', 'vm.item'], () => {
-            if (vm.type) {
-                vm.feed = null;
-                vm.entries = [];
-                vm.entry = null;
-                getContents(vm.type)
-                    .then(contents => {
-                        vm.feed = contents.feed;
-                        vm.entries = contents.entries;
-                        vm.entry = vm.entries.find(entry => entry.id === vm.item);
-                        $scope.$digest();
-                    });
-            }
-        });
+
+        if (vm.type) {
+            vm.feed = null;
+            vm.entries = [];
+            vm.entry = null;
+            getContents(vm.type)
+                .then(contents => {
+                    vm.feed = contents.feed;
+                    vm.entries = contents.entries;
+                    vm.entry = vm.entries.find(entry => entry.id === vm.item);
+                    $scope.$digest();
+                });
+        }
     }
 })();

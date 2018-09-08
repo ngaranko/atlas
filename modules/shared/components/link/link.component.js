@@ -6,13 +6,14 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
     angular
         .module('dpShared')
         .component('dpLink', {
-            templateUrl: 'modules/shared/components/link/link.html',
+            template: require('./link.html'),
             transclude: true,
             bindings: {
                 className: '@',
                 inline: '@',
                 hoverText: '@',
                 type: '@',
+                link: '@?',
                 payload: '<'
             },
             controller: DpLinkController,
@@ -38,6 +39,8 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
             store.dispatch(getAction(vm.type, vm.payload));
         };
 
+        vm.handleClick = $window.reactHistory.push;
+
         store.subscribe(() => {
             // exclude the zoom level (mpz) and the location (mpv) from the tests
             var regex = /mpz=\d*&mpv=\d*.\d*:\d*.\d*/gi;
@@ -48,7 +51,7 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
             }
         });
 
-        function getAction (type, payload) {
+        function getAction(type, payload) {
             const action = {
                 type: ACTIONS[type] || type
             };
@@ -58,7 +61,7 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
             return action;
         }
 
-        function getHref (type, payload) {
+        function getHref(type, payload) {
             // Remove state properties that do not relate to the url
             // by converting the state to a url and back
             // This prevents deep copying of large state objects in the reducer (eg dataSelection.markers)
