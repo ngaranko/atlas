@@ -13,5 +13,6 @@ const HomepageAddressBlockWrapper = (props) => (
 export default HomepageAddressBlockWrapper;
 
 window.React = window.React || React;
+// istanbul ignore next
 window.render = window.render || render;
 window.HomepageAddressBlockWrapper = HomepageAddressBlockWrapper;

@@ -13,5 +13,6 @@ const HeaderSearchWrapper = (props) => (
 export default HeaderSearchWrapper;
 
 window.React = window.React || React;
+// istanbul ignore next
 window.render = window.render || render;
 window.SearchWrapper = HeaderSearchWrapper;

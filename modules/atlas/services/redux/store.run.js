@@ -1,12 +1,15 @@
+import rootReducerInit from '../../../../src/reducers/root';
+
 (function () {
     angular
         .module('atlas')
         .run(runBlock);
 
     runBlock.$inject = [
+        '$timeout',
+        '$rootScope',
         'applicationState',
         'freeze',
-        'reducer',
         'stateUrlConverter',
         'contextMiddleware',
         'stateToUrlMiddleware',
@@ -14,17 +17,21 @@
     ];
 
     function runBlock (
+            $timeout,
+            $rootScope,
             applicationState,
             freeze,
-            reducer,
             stateUrlConverter,
             contextMiddleware,
             stateToUrlMiddleware,
             environment) {
         const urlDefaultState = stateUrlConverter.getDefaultState();
         const initialState = environment.isDevelopment() ? freeze.deepFreeze(urlDefaultState) : urlDefaultState;
+
+        const rootReducer = rootReducerInit($timeout, $rootScope, stateUrlConverter);
+
         applicationState.initialize(
-            reducer,
+            rootReducer,
             stateUrlConverter,
             initialState,
             contextMiddleware,
