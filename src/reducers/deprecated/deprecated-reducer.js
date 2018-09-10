@@ -82,7 +82,11 @@ export default (stateUrlConverter) => (oldState, action) => {
       typeof actions[action.type.id] === 'function';
 
   if (vanilla) {
-    return actions[action.type](oldState, action);
+    const result = actions[action.type](oldState, action);
+    if (isDevelopment()) {
+      deepFreeze(result);
+    }
+    return result;
   } else if (legacy) {
       // eslint-disable-next-line no-prototype-builtins
     if (detailReducers.hasOwnProperty(action.type.id)) {

@@ -111,7 +111,7 @@ describe('The deprecated reducer', () => {
       .toBe(state);
   });
 
-  it('deep freezes the state in development', () => {
+  it('deep freezes legacy state in development', () => {
     const state = { foo: 'bar' };
     DataSelectionReducer.default = { FREEZE: (s) => s };
 
@@ -130,5 +130,17 @@ describe('The deprecated reducer', () => {
 
     expect(DetailsReducer.default.mock.calls[0])
       .toEqual([state, action]);
+  });
+
+  it('deep freezes vanilla state in development', () => {
+    const state = { foo: 'bar' };
+    const payload = { abc: 'xyz' };
+    DetailsReducer.default = () => state;
+    environment.isDevelopment = () => true;
+    const action = { type: 'FETCH_DETAIL', payload };
+
+    reducer(state, action);
+
+    expect(deepFreeze.default).toHaveBeenCalledWith(state);
   });
 });
