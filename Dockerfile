@@ -1,5 +1,5 @@
 # Build
-FROM node:8.9 AS build-deps
+FROM node:10.10 AS build-deps
 MAINTAINER datapunt.ois@amsterdam.nl
 
 WORKDIR /app
