@@ -1,4 +1,4 @@
-import { getAuthHeaders, getReturnPath, getScopes, initAuth, login, logout, getName } from './auth';
+import { getAuthHeaders, getName, getReturnPath, getScopes, initAuth, login, logout } from './auth';
 import queryStringParser from '../query-string-parser/query-string-parser';
 import stateTokenGenerator from '../state-token-generator/state-token-generator';
 import parseAccessToken from '../access-token-parser/access-token-parser';
@@ -20,22 +20,24 @@ describe('The auth service', () => {
 
   beforeEach(() => {
     origSessionStorage = global.sessionStorage;
-    global.sessionStorage = {
-      getItem: (key) => {
-        switch (key) {
-          case 'accessToken':
-            return savedAccessToken;
-          case 'stateToken':
-            return savedStateToken;
-          case 'returnPath':
-            return savedReturnPath;
-          default:
-            return '';
-        }
-      },
-      setItem: noop,
-      removeItem: noop
-    };
+    Object.defineProperty(window, 'sessionStorage', {
+      value: {
+        getItem: (key) => {
+          switch (key) {
+            case 'accessToken':
+              return savedAccessToken;
+            case 'stateToken':
+              return savedStateToken;
+            case 'returnPath':
+              return savedReturnPath;
+            default:
+              return '';
+          }
+        },
+        setItem: noop,
+        removeItem: noop
+      }
+    });
 
     jest.spyOn(global.history, 'replaceState').mockImplementation(noop);
     jest.spyOn(global.location, 'assign').mockImplementation(noop);
@@ -58,7 +60,7 @@ describe('The auth service', () => {
     global.history.replaceState.mockRestore();
     global.location.assign.mockRestore();
     global.location.reload.mockRestore();
-    global.sessionStorage = origSessionStorage;
+    Object.defineProperty(window, 'sessionStorage', origSessionStorage);
   });
 
   describe('init funtion', () => {
@@ -106,7 +108,7 @@ describe('The auth service', () => {
         expect(() => {
           initAuth();
         }).not.toThrow();
-        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith('stateToken');
+        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith(['stateToken']);
       });
 
       it('does not handle any errors without a query string', () => {
@@ -115,7 +117,7 @@ describe('The auth service', () => {
         expect(() => {
           initAuth();
         }).not.toThrow();
-        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith('stateToken');
+        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith(['stateToken']);
       });
     });
 
@@ -184,9 +186,9 @@ describe('The auth service', () => {
         savedStateToken = '123StateToken';
 
         initAuth();
-        expect(global.sessionStorage.setItem).not.toHaveBeenCalledWith('accessToken', '123AccessToken');
-        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith('returnPath');
-        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith('stateToken');
+        expect(global.sessionStorage.setItem).not.toHaveBeenCalledWith(['accessToken', '123AccessToken']);
+        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith(['returnPath']);
+        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith(['stateToken']);
       });
     });
   });
