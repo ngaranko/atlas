@@ -8,7 +8,7 @@ import * as auth from './shared/services/auth/auth';
 import { authenticateUser } from './reducers/user';
 import { fetchCatalogFilters } from './catalog/ducks/data-selection/data-selection-catalog';
 
-export default function initialize(Redux, reducer, stateUrlConverter, defaultState, ...middleware) {
+export default function initialize(Redux, reducer, defaultState, ...middleware) {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const sagaMiddleware = createSagaMiddleware();
   const enhancer = composeEnhancers(

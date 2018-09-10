@@ -20,7 +20,7 @@
             reducer = _reducer_;
             stateUrlConverter = _stateUrlConverter_;
 
-            $window.initializeState(Redux, _reducer_, _stateUrlConverter_, defaultState, ...middleware);
+            $window.initializeState(Redux, _reducer_, defaultState, ...middleware);
         }
     }
 })();
