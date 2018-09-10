@@ -42,6 +42,7 @@
     "test-jest-watch": "cross-env NODE_ENV=development jest --config=./test/jest.unit.config.js --watch --onlyChanged --coverage",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run",
+    "test-lint": "npm run lint",
     "dyson:api": "nodemon --watch test/dyson/mock/api --exec babel-node --presets=latest test/dyson/mock/api"
   },
   "dependencies": {
