@@ -106,7 +106,11 @@
                 angular.isFunction(actions[action.type.id]);
 
             if (vanilla) {
-                return actions[action.type](oldState, action);
+                const result = actions[action.type](oldState, action);
+                if (environment.isDevelopment()) {
+                    freeze.deepFreeze(result);
+                }
+                return result;
             } else if (legacy) {
                 if (detailReducers.hasOwnProperty(action.type.id)) {
                     action.payload = {

@@ -152,7 +152,7 @@ describe('The deprecated reducer factory', function () {
         expect(output).toBe(inputState);
     });
 
-    it('deep freezes the state in development', () => {
+    it('deep freezes the legacy state in development', () => {
         const state = { foo: 'bar' };
         spyOn(urlReducers, 'ACTION_A').and.returnValue(state);
         environment.isDevelopment.and.returnValue(true);
@@ -160,6 +160,16 @@ describe('The deprecated reducer factory', function () {
         reducer(inputState, {type: {id: 'ACTION_A'}});
 
         expect(freeze.deepFreeze).toHaveBeenCalledWith(state);
+    });
+
+    it('does not deep freezes the new state outside development', () => {
+        const state = { foo: 'bar' };
+        spyOn(urlReducers, 'ACTION_A').and.returnValue(state);
+        environment.isDevelopment.and.returnValue(false);
+
+        reducer(inputState, {type: 'ACTION_A'});
+
+        expect(freeze.deepFreeze).not.toHaveBeenCalledWith(state);
     });
 
     describe('should map vanilla reducers for cross-compatibility', function () {
