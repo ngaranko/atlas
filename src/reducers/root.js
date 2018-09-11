@@ -16,7 +16,7 @@ import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import deprecatedReducer from './deprecated/deprecated-reducer';
 
-export default ($timeout, $rootScope) => (oldState, action) => {
+export default (oldState, action) => {
     // Run state changes based on old reducers
   const deprecatedState = deprecatedReducer(oldState, action);
 
@@ -67,8 +67,6 @@ export default ($timeout, $rootScope) => (oldState, action) => {
     ...deprecatedState,
     ...newRootReducer(filteredState, action)
   };
-
-  $timeout(() => $rootScope.$digest());
 
   return newState;
 };

@@ -20,7 +20,7 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
         function initialize (_reducer_, defaultState, ...middleware) {
             reducer = _reducer_;
 
-            $window.initializeState(Redux, _reducer_, defaultState, ...middleware);
+            return $window.initializeState(Redux, _reducer_, defaultState, ...middleware);
         }
     }
 })();
