@@ -50,13 +50,9 @@ module.exports = {
   testEnvironment: 'jest-environment-jsdom-global',
   testPathIgnorePatterns: [
     '/modules/',
-    '/node_modules/',
-    '/internals/',
-    '/server/'
+    '/node_modules/'
   ],
   watchPathIgnorePatterns: [
-    '/modules/',
-    '/internals/',
-    '/server/'
+    '/modules/'
   ]
 };

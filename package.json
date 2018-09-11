@@ -21,7 +21,6 @@
     "clean": "npm run clean-cache && npm run clean-dirs",
     "clean-cache": "npm cache verify",
     "clean-dirs": "rimraf ./node_modules ./coverage ./coverage-legacy ./dist ./build ./pa11y/*.png",
-    "generate": "plop --plopfile internals/generators/index.js",
     "lint": "npm run lint:js && npm run lint:style",
     "lint:js": "eslint --format=node_modules/eslint-formatter-pretty src modules test/cypress --ext js,jsx",
     "lint:style": "sass-lint -c src/.sass-lint.yml 'src/**/*.scss' --verbose --no-exit && sass-lint -c modules/.sass-lint.yml 'modules/**/*.scss' --verbose --no-exit",
@@ -43,7 +42,6 @@
     "test-jest-watch": "cross-env NODE_ENV=development jest --config=./test/jest.unit.config.js --watch --onlyChanged --coverage",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run",
-    "test-watch": "karma start --no-single-run & jest --watch",
     "dyson:api": "nodemon --watch test/dyson/mock/api --exec babel-node --presets=latest test/dyson/mock/api"
   },
   "dependencies": {
