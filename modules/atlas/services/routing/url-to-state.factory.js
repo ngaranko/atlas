@@ -13,15 +13,15 @@
         };
 
         function initialize () {
-            const unwatch = $rootScope.$on('$locationChangeSuccess', function (event) {
-                const params = $location.search();
-                store.dispatch({
-                    type: ACTIONS.URL_CHANGE,
-                    payload: params
-                });
-            });
-
-            $rootScope.$on('$destroy', unwatch);
+            // const unwatch = $rootScope.$on('$locationChangeSuccess', function (event) {
+            //     const params = $location.search();
+            //     store.dispatch({
+            //         type: ACTIONS.URL_CHANGE,
+            //         payload: params
+            //     });
+            // });
+            //
+            // $rootScope.$on('$destroy', unwatch);
         }
     }
 })();

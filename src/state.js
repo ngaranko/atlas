@@ -7,6 +7,9 @@ import './map/ducks/click-location/map-click-location';
 import * as auth from './shared/services/auth/auth';
 import { authenticateUser } from './reducers/user';
 import { fetchCatalogFilters } from './catalog/ducks/data-selection/data-selection-catalog';
+import locationListener from './location-listener';
+
+import createHistory from "history/createBrowserHistory"
 
 export default function initialize(Redux, reducer, defaultState, ...middleware) {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -15,7 +18,7 @@ export default function initialize(Redux, reducer, defaultState, ...middleware) 
     Redux.applyMiddleware(...middleware, sagaMiddleware)
   );
 
-  window.reduxStore = createStore(reducer, defaultState, enhancer);
+  const store = createStore(reducer, defaultState, enhancer);
 
   sagaMiddleware.run(rootSaga);
 
@@ -37,13 +40,18 @@ export default function initialize(Redux, reducer, defaultState, ...middleware) 
 
   const accessToken = auth.getAccessToken();
   if (accessToken) {
-    window.reduxStore.dispatch(authenticateUser(auth.getAccessToken(), auth.getName(),
+    store.dispatch(authenticateUser(auth.getAccessToken(), auth.getName(),
       auth.getScopes()));
   }
 
-  window.reduxStore.dispatch(fetchCatalogFilters());
+  store.dispatch(fetchCatalogFilters());
 
-  return window.reduxStore;
+  const history = createHistory()
+  locationListener(history, store);
+
+  window.reduxStore = store;
+
+  return store;
 }
 
 window.initializeState = initialize;
