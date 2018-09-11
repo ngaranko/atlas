@@ -96,6 +96,3 @@ export const toggleMapFullscreen = () => ({ type: TOGGLE_MAP_FULLSCREEN });
 export const setMapFullscreen = (payload) => ({ type: SET_MAP_FULLSCREEN, payload });
 export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
 export const toggleMapPanelHandle = () => ({ type: TOGGLE_MAP_PANEL_HANDLE });
-
-window.reducers = window.reducers || {};
-window.reducers.UiReducer = UiReducer;

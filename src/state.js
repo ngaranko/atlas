@@ -42,6 +42,8 @@ export default function initialize(Redux, reducer, stateUrlConverter, defaultSta
   }
 
   window.reduxStore.dispatch(fetchCatalogFilters());
+
+  return window.reduxStore;
 }
 
 window.initializeState = initialize;

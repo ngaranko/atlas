@@ -23,6 +23,7 @@ module.exports = {
     // foo.test.jsx
     // barService.test.js
   ],
+  testURL: 'http://localhost:8080/',
   testEnvironment: 'jest-environment-jsdom-global',
   testPathIgnorePatterns: [
     '/e2e/',

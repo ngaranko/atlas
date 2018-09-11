@@ -12,7 +12,8 @@ module.exports = {
     "jsx-a11y"
   ],
   "globals": {
-    "jsdom": true // Used in Jest unit test, made available by jest-environment-jsdom-global
+    "jsdom": true, // Used in Jest unit test, made available by jest-environment-jsdom-global
+    "jasmine": true  // Used in Jest, e.g.: jasmine.objectContaining
   },
   "root": true,
   "rules": {

@@ -29,5 +29,3 @@ export default function StraatbeeldReducer(state = initialState, action) {
 
 export const setStraatbeeldOff = () => ({ type: STRAATBEELD_OFF });
 
-window.reducers = window.reducers || {};
-window.reducers.StraatbeeldReducer = StraatbeeldReducer;
