@@ -1,16 +1,12 @@
-import DRAW_TOOL_CONFIG from '../../../../src/map/services/draw-tool/draw-tool.config';
+import DRAW_TOOL_CONFIG from '../../../map/services/draw-tool/draw-tool.config';
+
+import * as stateUrlConversion from './state-url-conversion';
+
+import stateUrlConverter from './state-url-converter';
 
 describe('The state url conversion factory', function () {
-    let stateUrlConverter;
-
+  let mockedStateUrlConversion;
     describe('The default state', function () {
-        beforeEach(function () {
-            angular.mock.module('atlas');
-
-            angular.mock.inject(function (_stateUrlConverter_) {
-                stateUrlConverter = _stateUrlConverter_;
-            });
-        });
 
         it('is exported as DEFAULT_STATE', function () {
             const DEFAULT_STATE = stateUrlConverter.getDefaultState();
@@ -66,10 +62,8 @@ describe('The state url conversion factory', function () {
     });
 
     describe('the translation methods', function () {
-        let mockedStateUrlConversion;
-
         beforeEach(function () {
-            mockedStateUrlConversion = {
+          mockedStateUrlConversion = {
                 onCreate: {},
                 post: {},
                 initialValues: {},
@@ -136,16 +130,7 @@ describe('The state url conversion factory', function () {
                     }
                 }
             };
-
-            angular.mock.module('atlas',
-                function ($provide) {
-                    $provide.constant('stateUrlConversion', mockedStateUrlConversion);
-                }
-            );
-
-            angular.mock.inject(function (_stateUrlConverter_) {
-                stateUrlConverter = _stateUrlConverter_;
-            });
+          stateUrlConversion.default = mockedStateUrlConversion;
         });
 
         describe('The state to params translation', function () {

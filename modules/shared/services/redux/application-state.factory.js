@@ -1,3 +1,5 @@
+import stateUrlConverter from '../../../../src/shared/services/routing/state-url-converter';
+
 (function () {
     angular
         .module('dpShared')
@@ -6,8 +8,7 @@
     applicationStateFactory.$inject = ['$window', 'Redux'];
 
     function applicationStateFactory ($window, Redux) {
-        let reducer,
-            stateUrlConverter;
+        let reducer;
 
         return {
             initialize,
@@ -16,9 +17,8 @@
             getStateUrlConverter: () => stateUrlConverter
         };
 
-        function initialize (_reducer_, _stateUrlConverter_, defaultState, ...middleware) {
+        function initialize (_reducer_, defaultState, ...middleware) {
             reducer = _reducer_;
-            stateUrlConverter = _stateUrlConverter_;
 
             $window.initializeState(Redux, _reducer_, defaultState, ...middleware);
         }

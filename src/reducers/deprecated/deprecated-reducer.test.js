@@ -1,4 +1,4 @@
-import reducerInit from './deprecated-reducer';
+import reducer from './deprecated-reducer';
 import * as environment from '../../shared/environment';
 import * as homeReducer from '../home-reducers';
 import * as DetailsReducer from '../details';
@@ -13,10 +13,7 @@ import * as searchReducers from './search-reducers';
 import * as deepFreeze from '../../shared/services/freeze/freeze';
 
 describe('The deprecated reducer', () => {
-  let reducer;
-
   beforeEach(() => {
-    reducer = reducerInit({});
     deepFreeze.default = jest.fn((value) => value); // identity function
     environment.isDevelopment = () => false;
   });

@@ -46,6 +46,7 @@
     "bbga_visualisatie_d3": "https://github.com/Amsterdam/bbga_visualisatie_d3.git#master",
     "cross-env": "5.2.0",
     "d3": "^3.5.17",
+    "deep-copy": "1.4.2",
     "escape-string-regexp": "1.0.5",
     "isomorphic-fetch": "2.2.1",
     "leaflet": "^1.3.1",

@@ -1,3 +1,4 @@
+import stateUrlConverter from '../shared/services/routing/state-url-converter';
 import ACTIONS from '../shared/actions';
 
 /**
@@ -6,8 +7,6 @@ import ACTIONS from '../shared/actions';
  * @returns {Object} newState
  */
 function showHomeReducer(state) {
-  const stateUrlConverter = window.StateUrlConverter;
-
   const defaultState = stateUrlConverter.getDefaultState();
   return {
     ...defaultState,
