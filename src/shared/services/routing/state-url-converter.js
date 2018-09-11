@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import deepCopy from 'deep-copy';  // Deprecated, added during Angular to Vanilla migration. Try ES6 Object.assign and the like where possible.
 import { encodeQueryParams } from '../../../../src/shared/services/query-string-parser/query-string-parser';
 import isObject from '../is-object';
@@ -18,7 +19,7 @@ const TYPENAME = {
   NUMBER: /^number$/,
   BASE62: /^base62$/,
   KEYVALUES: /^keyvalues$/,
-  OBJECT: /^object\((\w+:\w+[\[\]]*)(,\w+:\w+[\[\]]*)*\)$/,
+  OBJECT: /^object\((\w+:\w+[\[\]]*)(,\w+:\w+[\[\]]*)*\)$/, // eslint-disable-line no-useless-escape
   ARRAY: /\[\]$/
 };
 
@@ -75,7 +76,7 @@ class KeyValuesValue {
   static urlValue(kv, typeName, asValue, precision, separator) {
     // { key: value, key:value, ... } => key::value:key::value...
     return asValue(Object.keys(kv)
-      .map(key => [key, kv[key]]), 'string[][]', precision, separator);
+      .map((key) => [key, kv[key]]), 'string[][]', precision, separator);
   }
 
   static stateValue(s, typeName, asValue, precision, separator) {
@@ -98,7 +99,7 @@ class ObjectValue {
   static urlValue(o, typeName, asValue, precision, separator) {
     // { id:anyValue, ... } => anyValue:anyValue:...
     return ObjectValue.getKeyTypes(typeName)
-      .map(keyValue => {
+      .map((keyValue) => {
         const [key, keyType] = keyValue.split(':'); // key:type => key, type
         return asValue(o[key], keyType, precision, separator + URL_ARRAY_SEPARATOR);
       })
@@ -126,7 +127,7 @@ class ArrayValue {
     // [ x, y, z, ... ] => x:y:z:...
     const baseType = ArrayValue.getBaseType(typeName);
     return a
-      .map(v => asValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR))
+      .map((v) => asValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR))
       .join(separator);
   }
 
@@ -135,29 +136,20 @@ class ArrayValue {
     const baseType = ArrayValue.getBaseType(typeName);
     // Split the array, replace the split char by a tmp split char because org split char can repeat
     const TMP_SPLIT_CHAR = '|';
-    const surroundBy = '(^|[^' + URL_ARRAY_SEPARATOR + ']|$)';
+    const surroundBy = `(^|[^${URL_ARRAY_SEPARATOR}]|$)`;
     const splitOn = new RegExp(surroundBy + separator + surroundBy, 'g');
-    const splitValue = s.replace(splitOn, '$1' + TMP_SPLIT_CHAR + '$2');
+    const splitValue = s.replace(splitOn, `$1${TMP_SPLIT_CHAR}$2`);
     return splitValue
       .split(TMP_SPLIT_CHAR)
-      .map(v => asValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
+      .map((v) => asValue(v, baseType, precision, separator + URL_ARRAY_SEPARATOR));
   }
-}
-
-function getDefaultState() {
-  return params2state({}, {});
-}
-
-function state2url(state) {
-  // Convert the url parameters object into a url parameter string
-  return `#?${encodeQueryParams(state2params(state))}`;
 }
 
 function createObject(oldObj, key, params) {
   // create a state object by using its initial value (default {}) and onCreate method if defined
-  const initialValues = stateUrlConversion.initialValues,
-    initialValue = initialValues[key] || {},
-    onCreate = stateUrlConversion.onCreate[key];
+  const initialValues = stateUrlConversion.initialValues;
+  const initialValue = initialValues[key] || {};
+  const onCreate = stateUrlConversion.onCreate[key];
 
   let newObj = deepCopy(initialValue);
   if (typeof onCreate === 'function') {
@@ -175,11 +167,10 @@ function getFullKey(key) {
       mainKey: key.substr(0, dot),
       subKey: key.substr(dot + 1)
     };
-  } else {
-    return {
-      mainKey: key
-    };
   }
+  return {
+    mainKey: key
+  };
 }
 
 function getValueForKey(obj, key) {
@@ -188,9 +179,8 @@ function getValueForKey(obj, key) {
   const { mainKey, subKey } = getFullKey(key);
   if (subKey) {
     return isObject(obj[mainKey]) ? getValueForKey(obj[mainKey], subKey) : null;
-  } else {
-    return obj[mainKey] || null;
   }
+  return obj[mainKey] || null;
 }
 
 function setValueForKey(obj, oldObj, key, value) {
@@ -302,7 +292,7 @@ function params2state(oldState, params) {
 
   // Set any missing state objects to null
   Object.keys(stateUrlConversion.initialValues)
-    .forEach(key => {
+    .forEach((key) => {
       if (key !== MAIN_STATE && (typeof newState[key] !== 'boolean' && !isObject(newState[key]))) {
         newState[key] = null;
       }
@@ -310,7 +300,7 @@ function params2state(oldState, params) {
 
   // Execute the post processing methods
   Object.keys(stateUrlConversion.post)
-    .forEach(key => {
+    .forEach((key) => {
       if (typeof newState[key] === 'boolean' || isObject(newState[key])) {
         newState[key] = stateUrlConversion.post[key](oldState[key], newState[key]);
       }
@@ -318,13 +308,22 @@ function params2state(oldState, params) {
 
   if (newState.filters) {
     Object.keys(newState.filters)
-      .forEach(key => {
+      .forEach((key) => {
         if (newState.filters[key] === NO_VALUE) {
           newState.filters[key] = '';
         }
       });
   }
   return newState;
+}
+
+function getDefaultState() {
+  return params2state({}, {});
+}
+
+function state2url(state) {
+  // Convert the url parameters object into a url parameter string
+  return `#?${encodeQueryParams(state2params(state))}`;
 }
 
 export default {

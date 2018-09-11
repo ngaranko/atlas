@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import deepCopy from 'deep-copy';  // Deprecated, added during Angular to Vanilla migration. Try ES6 Object.assign and the like where possible.
 import { stripDomain, restoreDomain } from './uri-stripper';
 import isObject from '../is-object';
@@ -26,7 +27,8 @@ import isObject from '../is-object';
 // - string
 // - boolean
 // - number (precision van be specified in the precison property of the stateVariable)
-// - base62 (encode any number in base 62, 0-9A-Za-z, precision van be specified in the precison property)
+// - base62 (encode any number in base 62, 0-9A-Za-z, precision van be specified in the
+// precison property)
 // and the complex types:
 // - []
 //   eg number[] for a coordinate like [52, 4] which will store as '52:4' in the url
@@ -35,7 +37,8 @@ import isObject from '../is-object';
 //   like { aap: 'noot', mies: 'wim' } which will store as 'aap::noot:mies::wim' in the url
 // - object(key:typeName,key:typeName,...)
 //   for { key: valueOfType, key: valueOfType, ... } objects
-//   like object(aap:string,mies:number) for { aap: 'noot', mies: 5 } which will store as 'noot:5' in the url
+//   like object(aap:string,mies:number) for { aap: 'noot', mies: 5 } which will store as
+// 'noot:5' in the url
 //
 
 /**
@@ -44,13 +47,13 @@ import isObject from '../is-object';
 const deepEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 /* istanbul ignore next */
-const ofTypeArray = (oldState, newState) =>
+const ofTypeArray = (oldState, newState) => // eslint-disable-line no-confusing-arrow
   Array.isArray(oldState) ? oldState : newState;
 /* istanbul ignore next */
-const ofTypeObject = (oldState, newState) =>
+const ofTypeObject = (oldState, newState) => // eslint-disable-line no-confusing-arrow
   isObject(oldState) ? oldState : newState;
 /* istanbul ignore next */
-const ofTypeBoolean = (oldState, newState) =>
+const ofTypeBoolean = (oldState, newState) => // eslint-disable-line no-confusing-arrow
   oldState === true || oldState === false ? oldState : newState;
 
 export default {
@@ -68,7 +71,7 @@ export default {
         'page',
         'ui',
         'user'
-      ].forEach(s => {
+      ].forEach((s) => {
         const value = initialValues[s];
         newState[s] = typeof value !== 'undefined'
           ? (Array.isArray(value)

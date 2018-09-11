@@ -56,6 +56,7 @@ export function restoreDomain(parts) {
     result = sharedConfig.API_ROOT + parts[0];
   } else {
     // Check root based on white listing for security reasons
+    // eslint-disable-next-line no-lonely-if
     if (sharedConfig.ROOT_KEYS.indexOf(parts[0]) !== -1) {
       result = sharedConfig[parts[0]] + parts[1];
     } else {

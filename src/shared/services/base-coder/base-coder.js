@@ -1,7 +1,10 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable func-names */
 export default class BaseCoder {
   /**
    * Constructor for the BaseCoder class
-   * @param base the base to encode and decode numbers, or arrays of numbers to strings or arrays of strings
+   * @param base the base to encode and decode numbers, or arrays of numbers to strings or
+   * arrays of strings
    */
   constructor(base) {
     /**
@@ -60,8 +63,8 @@ export default class BaseCoder {
       if (len > 1) {
         const quotient = s.substr(0, len - 1);
         const remainder = s.charAt(len - 1);
-        return this._base *
-          this._decodeString(quotient, len - 1) +
+        return this._base * // eslint-disable-line no-mixed-operators
+          this._decodeString(quotient, len - 1) + // eslint-disable-line no-mixed-operators
           this._decodeString(remainder, 1);
       }
       return this._characterValue(s);
@@ -86,6 +89,7 @@ export default class BaseCoder {
   static precisionFactor(nDecimals) {
     if (BaseCoder.isInt(nDecimals) && nDecimals !== 0) {
       if (nDecimals > 0) {
+        // eslint-disable-next-line no-restricted-properties
         return Math.pow(10, nDecimals);
       }
       throw new RangeError(`Negative decimals ${nDecimals} not allowed`);
@@ -120,11 +124,12 @@ export default class BaseCoder {
   /**
    * Encodes a number or an array of numbers (to any depth) to base _base
    * It does so by calling the private method _encodeNumber
-   * @param {(number|number[])}expr the expression (number or array)
+   * @param {(number|number[])}expression the expression (number or array)
    * @param {number} nDecimals
    * @returns {(string|string[])}
    */
-  encode(expr, nDecimals = 0) {
+  encode(expression, nDecimals = 0) { // eslint-disable-line consistent-return
+    let expr = expression;
     if (typeof expr === 'number') {
       if (nDecimals === 0 && !BaseCoder.isInt(expr)) {
         return undefined;
@@ -151,11 +156,12 @@ export default class BaseCoder {
   /**
    * Decodes an string or an array of strings (to any depth) to decimals
    * It does so by calling decodeString
-   * @param {(string|string[])} expr the expression (string or array of strings)
+   * @param {(string|string[])} expression the expression (string or array of strings)
    * @param {number} nDecimals
    * @returns {number}
    */
-  decode(expr, nDecimals = 0) {
+  decode(expression, nDecimals = 0) { // eslint-disable-line consistent-return
+    let expr = expression;
     if (typeof expr === 'string') {
       let sign = 1;
 

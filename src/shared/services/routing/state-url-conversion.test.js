@@ -4,8 +4,8 @@ import DRAW_TOOL_CONFIG from '../../../../src/map/services/draw-tool/draw-tool.c
 import * as uriStripper from './uri-stripper';
 import stateUrlConversion from './state-url-conversion';
 
-describe('The state url conversion definition', function () {
-  describe('The registered state initialisation methods', function () {
+describe('The state url conversion definition', () => {
+  describe('The registered state initialisation methods', () => {
     it('initialize a state to the home page and it sets a default map, (only) on an empty payload', function () { // eslint-disable-line
       let state;
 
@@ -70,9 +70,9 @@ describe('The state url conversion definition', function () {
     });
   });
 
-  describe('The registered post processing methods', function () {
-    describe('The post processing for user', function () {
-      it('copies authenticated, accessToken, scopes, name and error from old state', function () {
+  describe('The registered post processing methods', () => {
+    describe('The post processing for user', () => {
+      it('copies authenticated, accessToken, scopes, name and error from old state', () => {
         const oldState = {
           authenticated: true,
           accessToken: 'foo',
@@ -96,10 +96,10 @@ describe('The state url conversion definition', function () {
       });
     });
 
-    describe('The post processing for dataSelection', function () {
-      it('copies markers and isLoading from old state and determines fullscreen mode', function () {
-        let oldState,
-          newState;
+    describe('The post processing for dataSelection', () => {
+      it('copies markers and isLoading from old state and determines fullscreen mode', () => {
+        let oldState;
+        let newState;
 
         oldState = {
           markers: 'aap',
@@ -133,8 +133,8 @@ describe('The state url conversion definition', function () {
       });
     });
 
-    describe('The post processing for map', function () {
-      it('copies isLoading from the previous state', function () {
+    describe('The post processing for map', () => {
+      it('copies isLoading from the previous state', () => {
         // isLoading and drawingMode
         let oldState = {
           isLoading: true,
@@ -201,8 +201,8 @@ describe('The state url conversion definition', function () {
       });
     });
 
-    describe('The post processing for ui', function () {
-      it('copies isLoading from the previous state, but not the drawing mode ', function () {
+    describe('The post processing for ui', () => {
+      it('copies isLoading from the previous state, but not the drawing mode ', () => {
         // isMapPanelHandleVisible
         let oldState = {
           isMapPanelHandleVisible: true
@@ -245,10 +245,10 @@ describe('The state url conversion definition', function () {
       });
     });
 
-    describe('The post processing for baseLayers', function () {
-      it('copies all baseLayers from old state', function () {
-        let oldState,
-          newState;
+    describe('The post processing for baseLayers', () => {
+      it('copies all baseLayers from old state', () => {
+        let oldState;
+        let newState;
 
         oldState = {
           foo: 'bar'
@@ -276,8 +276,8 @@ describe('The state url conversion definition', function () {
       });
     });
 
-    describe('The post processing for detail', function () {
-      it('copies display, geometry, isLoading and isFullscreen from old state if equal endpoint', function () {
+    describe('The post processing for detail', () => {
+      it('copies display, geometry, isLoading and isFullscreen from old state if equal endpoint', () => {
         let newState;
 
         const oldState = {
@@ -403,8 +403,8 @@ describe('The state url conversion definition', function () {
       });
     });
 
-    describe('The post processing for straatbeeld', function () {
-      it('copies image, hotspots, data, location, isInitial, isLoading from old state if equal id', function () {
+    describe('The post processing for straatbeeld', () => {
+      it('copies image, hotspots, data, location, isInitial, isLoading from old state if equal id', () => {
         let newState;
 
         const oldState = {
@@ -459,9 +459,9 @@ describe('The state url conversion definition', function () {
     });
   });
 
-  describe('The registered value getters and setters', function () {
+  describe('The registered value getters and setters', () => {
     describe('detail endpoint', () => {
-      beforeEach(function () {
+      beforeEach(() => {
         uriStripper.stripDomain = jest.fn();
         uriStripper.restoreDomain = jest.fn();
       });
