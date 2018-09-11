@@ -56,7 +56,7 @@ describe('The dp-data-selection-link component', () => {
             type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'bag',
-                view: 'LIST',
+                view: 'TABLE',
                 filters: activeFilters,
                 page: 1
             }
@@ -69,7 +69,7 @@ describe('The dp-data-selection-link component', () => {
             type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'hr',
-                view: 'LIST',
+                view: 'TABLE',
                 filters: activeFilters,
                 page: 1
             }
