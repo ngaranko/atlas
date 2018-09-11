@@ -85,23 +85,12 @@ describe('The dp-data-selection-link component', () => {
             type: ACTIONS.FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'brk',
-                view: 'LIST',
+                view: 'TABLE',
                 filters: activeFilters,
                 page: 1
             }
         });
 
         store.dispatch.calls.reset();
-
-        component.find('dp-link button').click();
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
-            payload: {
-                dataset: 'brk',
-                view: 'LIST',
-                filters: activeFilters,
-                page: 1
-            }
-        });
     });
 });
