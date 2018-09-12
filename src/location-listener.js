@@ -1,4 +1,4 @@
-import queryString from 'query-string';
+import queryStringParser from './shared/services/query-string-parser/query-string-parser';
 import ACTIONS from './shared/actions';
 
 export default (history, store) => {
@@ -8,7 +8,7 @@ export default (history, store) => {
     let params;
     if (hash.length > 0 && hash[0] === '#') {
       const search = hash.slice(1); // '?foo=bar&abc=xyz'
-      params = queryString.parse(search);
+      params = queryStringParser(search);
     } else {
       params = {};
     }
