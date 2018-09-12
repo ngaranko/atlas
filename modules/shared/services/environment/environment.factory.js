@@ -10,6 +10,7 @@ import { getEnvironment, ENVIRONMENTS } from '../../../../src/shared/environment
     environmentFactory.$inject = ['$location'];
 
     function environmentFactory ($location) {
+        console.log($location.host())
         const config = {
             NAME: getEnvironment($location.host())
         };
