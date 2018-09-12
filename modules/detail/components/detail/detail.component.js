@@ -149,11 +149,6 @@ import { getMapClickLocation } from '../../../../src/map/ducks/click-location/ma
                             }
                         });
                     }, errorHandler);
-
-                    // Ensure the links are redrawn in the children of the detail.
-                    // This is not a neat solution but it works for the moment.
-                    // To be solved when this will be refactored (bug DP-5836)
-                    setTimeout(() => $scope.digest(), 0); // eslint-disable-line angular/timeout-service
                 }, errorHandler);
             }
         }
