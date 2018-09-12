@@ -53,8 +53,6 @@ import '../modules/atlas/services/redux/middleware/context-middleware.factory';
 import '../modules/atlas/services/redux/middleware/state-to-url-middleware.factory';
 import '../modules/atlas/services/redux/store.run';
 import '../modules/atlas/services/routing/state-to-url.factory';
-import '../modules/atlas/services/routing/url-to-state.factory';
-import '../modules/atlas/services/routing/url-to-state.run';
 import '../modules/data-selection/data-selection.module';
 import '../modules/data-selection/components/active-filters/active-filters.component';
 import '../modules/data-selection/components/available-filters/available-filters.component';
