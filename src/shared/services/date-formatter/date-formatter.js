@@ -13,3 +13,8 @@ export default function formatDate(date) {
     year: 'numeric'
   });
 }
+
+export function dateToString(date) {
+  const month = (`0${date.getMonth() + 1}`).slice(-2);
+  return date && `${date.getDate()}-${month}-${date.getFullYear()}`;
+}

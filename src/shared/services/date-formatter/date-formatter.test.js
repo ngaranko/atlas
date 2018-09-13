@@ -1,4 +1,4 @@
-import formatDate from './date-formatter';
+import formatDate, { dateToString } from './date-formatter';
 
 describe('The date formatter service', () => {
   it('turns a date instance into a date string', () => {
@@ -15,5 +15,10 @@ describe('The date formatter service', () => {
       month: 'long',
       year: 'numeric'
     });
+  });
+
+  it('uses the Dutch locale to convert date to string', () => {
+    const date = new Date('2018-02-01');
+    expect(dateToString(date)).toEqual('1-02-2018');
   });
 });
