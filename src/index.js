@@ -1,5 +1,5 @@
 // For now simply import everything we need, from here
-import './state';
+import './store';
 import './map/wrappers/map/MapWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphTotalsWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphPhasedWrapper';
@@ -191,7 +191,6 @@ import '../modules/shared/services/http-error-registrar/http-status.factory';
 import '../modules/shared/services/localization/localization.factory';
 import '../modules/shared/services/markdown-parser/markdown-parser.factory';
 import '../modules/shared/services/redux/actions.constant';
-import '../modules/shared/services/redux/application-state.factory';
 import '../modules/shared/services/redux/store.factory';
 import '../modules/shared/services/storage/instance-storage.factory';
 import '../modules/shared/services/storage/storage.factory';

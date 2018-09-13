@@ -1,17 +1,17 @@
 describe('The store factory', function () {
-    var applicationState;
+    var $window;
 
     beforeEach(function () {
         angular.mock.module('dpShared');
 
-        angular.mock.inject(function (_applicationState_) {
-            applicationState = _applicationState_;
+        angular.mock.inject(function (_$window_) {
+            $window = _$window_;
         });
+
+        $window.reduxStore = 'I_AM_THE_STORE';
     });
 
     it('returns the store', function () {
-        spyOn(applicationState, 'getStore').and.returnValue('I_AM_THE_STORE');
-
         angular.mock.inject(function (store) {
             expect(store).toBe('I_AM_THE_STORE');
         });

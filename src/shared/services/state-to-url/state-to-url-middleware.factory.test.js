@@ -1,5 +1,4 @@
 import ACTIONS from '../../actions';
-import stateToUrl from './state-to-url';
 import stateToUrlMiddleware from './state-to-url-middleware';
 
 describe('The stateToUrlMiddleware factory', () => {
@@ -13,7 +12,10 @@ describe('The stateToUrlMiddleware factory', () => {
   };
 
   beforeEach(() => {
-    jest.spyOn(stateToUrl, 'update');
+    global.stateToUrl = {
+      update: jest.fn()
+    };
+    jest.spyOn(global.stateToUrl, 'update');
   });
 
   it('calls the next action', () => {
@@ -28,7 +30,7 @@ describe('The stateToUrlMiddleware factory', () => {
   it('and call the stateToUrl service', () => {
     stateToUrlMiddleware(mockedStore)(mockedNext)(mockedAction);
 
-    expect(stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', jasmine.anything());
+    expect(global.stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', jasmine.anything());
   });
 
   it('doesn\'t call stateToUrl.update for these actions', () => {
@@ -61,7 +63,7 @@ describe('The stateToUrlMiddleware factory', () => {
         payload: {}
       });
 
-      expect(stateToUrl.update).not.toHaveBeenCalledWith(['FAKE_STATE', jasmine.anything()]);
+      expect(global.stateToUrl.update).not.toHaveBeenCalledWith(['FAKE_STATE', jasmine.anything()]);
     });
   });
 
@@ -92,7 +94,7 @@ describe('The stateToUrlMiddleware factory', () => {
         payload: {}
       });
 
-      expect(stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', jasmine.anything());
+      expect(global.stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', jasmine.anything());
     });
   });
 
@@ -125,7 +127,7 @@ describe('The stateToUrlMiddleware factory', () => {
         payload: {}
       });
 
-      expect(stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', true);
+      expect(global.stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', true);
     });
 
     shouldNotUseReplace.forEach((action) => {
@@ -134,7 +136,7 @@ describe('The stateToUrlMiddleware factory', () => {
         payload: {}
       });
 
-      expect(stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', false);
+      expect(global.stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', false);
     });
   });
 
@@ -144,7 +146,7 @@ describe('The stateToUrlMiddleware factory', () => {
       payload: {}
     });
 
-    expect(stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', false);
+    expect(global.stateToUrl.update).toHaveBeenCalledWith('FAKE_STATE', false);
   });
 
   it('AUTHENTICATE_USER should not trigger new url', () => {
@@ -153,6 +155,6 @@ describe('The stateToUrlMiddleware factory', () => {
       payload: {}
     });
 
-    expect(stateToUrl.update).not.toHaveBeenCalledWith(['FAKE_STATE', false]);
+    expect(global.stateToUrl.update).not.toHaveBeenCalledWith(['FAKE_STATE', false]);
   });
 });
