@@ -1,28 +1,27 @@
-import locationLister from './location-listener';
+import locationHandlerCreator from './location-handler';
 import ACTIONS from './shared/actions';
 
-describe('the location listener', () => {
-  let history;
+describe('the location handler', () => {
   let store;
+  let locationHandler;
+
   beforeEach(() => {
-    history = {
-      listen: jest.fn()
-    };
     store = {
       dispatch: jest.fn()
     };
   });
 
-  it('should listen to route changes and fire an URL change', () => {
-    locationLister(history, store);
+  beforeEach(() => {
+    locationHandler = locationHandlerCreator(store);
+  });
 
-    expect(history.listen).toHaveBeenCalled();
-
+  it('should listen handle location hashed search params', () => {
     const location = {
       hash: '#?foo=bar&abc=xyz'
     };
-    // fire listener
-    history.listen.mock.calls[0][0](location);
+
+    locationHandler(location);
+
     expect(store.dispatch).toHaveBeenCalledWith({
       type: ACTIONS.URL_CHANGE,
       payload: {
@@ -33,15 +32,12 @@ describe('the location listener', () => {
   });
 
   it('should not parse misformed hash', () => {
-    locationLister(history, store);
-
-    expect(history.listen).toHaveBeenCalled();
-
     const location = {
       hash: '?foo=bar&abc=xyz' // Note: no hash prefix
     };
-    // fire listener
-    history.listen.mock.calls[0][0](location);
+
+    locationHandler(location);
+
     expect(store.dispatch).toHaveBeenCalledWith({
       type: ACTIONS.URL_CHANGE,
       payload: {}

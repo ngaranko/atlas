@@ -8,7 +8,7 @@ import './map/ducks/click-location/map-click-location';
 import * as auth from './shared/services/auth/auth';
 import { authenticateUser } from './reducers/user';
 import { fetchCatalogFilters } from './catalog/ducks/data-selection/data-selection-catalog';
-import locationListener from './location-listener';
+import locationHandlerCreator from './location-handler';
 
 
 export default function initialize(Redux, reducer, defaultState, ...middleware) {
@@ -47,7 +47,11 @@ export default function initialize(Redux, reducer, defaultState, ...middleware) 
   window.reduxStore.dispatch(fetchCatalogFilters());
 
   const history = createHistory();
-  locationListener(history, window.reduxStore);
+  const locationHandler = locationHandlerCreator(window.reduxStore);
+  // eslint-disable-next-line no-unused-vars
+  const unlisten = history.listen(locationHandler);
+  // Handle first page load URL
+  locationHandler(window.location);
 
   return window.reduxStore;
 }
