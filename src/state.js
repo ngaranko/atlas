@@ -8,7 +8,6 @@ import './map/ducks/click-location/map-click-location';
 import * as auth from './shared/services/auth/auth';
 import { authenticateUser } from './reducers/user';
 import { fetchCatalogFilters } from './catalog/ducks/data-selection/data-selection-catalog';
-import locationListener from './location-listener';
 import rootReducer from './reducers/root';
 import stateUrlConverter from './shared/services/routing/state-url-converter';
 import { ENVIRONMENTS, getEnvironment } from './shared/environment';
