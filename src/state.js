@@ -13,7 +13,7 @@ import rootReducer from './reducers/root';
 import stateUrlConverter from './shared/services/routing/state-url-converter';
 import { ENVIRONMENTS, getEnvironment } from './shared/environment';
 import freeze from './shared/services/freeze/freeze';
-import contextMiddleware from './shared/services/context-middleware/context-middleware';
+import contextMiddleware from './shared/services/context/context-middleware';
 import stateToUrlMiddleware
   from './shared/services/state-to-url/state-to-url-middleware';
 import locationHandlerCreator from './location-handler';
@@ -62,6 +62,11 @@ export default function initialize(reducer, defaultState, ...middleware) {
   // Handle first page load URL
   locationHandler(window.location);
 
+  const event = document.createEvent('Event');
+  event.initEvent('bootstrapAngular', false, true);
+  window.allowAngularToBootstrap = true;
+  document.body.dispatchEvent(event);
+
   return window.reduxStore;
 }
 
@@ -86,7 +91,3 @@ initialize(
   stateToUrlMiddleware
 );
 
-const event = document.createEvent('Event');
-event.initEvent('bootstrapAngular', false, true);
-window.allowAngularToBootstrap = true;
-document.body.dispatchEvent(event);

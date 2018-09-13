@@ -1,7 +1,3 @@
-import stateUrlConverter from '../../../../src/shared/services/routing/state-url-converter';
-
-import rootReducer from '../../../../src/reducers/root';
-
 (function () {
     angular
         .module('atlas')
@@ -14,13 +10,8 @@ import rootReducer from '../../../../src/reducers/root';
         'stateToUrl'
     ];
 
-    function runBlock (
-            $timeout,
-            $rootScope,
-            $window,
-            stateToUrl) {
-
-        window.stateToUrl = stateToUrl
+    function runBlock ($timeout, $rootScope, $window, stateToUrl) {
+        $window.stateToUrl = stateToUrl;
 
         $window.reduxStore.subscribe(() => {
             $timeout(() => $rootScope.$digest());

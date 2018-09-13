@@ -24,8 +24,8 @@ const stateToUrlMiddleware = (store) => (next) => (action) => {
   if ((vanilla || !action.type.ignore) && !ignoredActions.includes(action.type)) {
     stateToUrl.update(
       store.getState(),
-      !vanilla && Boolean(action.type.replace) || vanilla &&
-      replaceHistoryActions.some((historyAction) => historyAction === action.type)
+      ((!vanilla && Boolean(action.type.replace)) || (vanilla &&
+      replaceHistoryActions.some((historyAction) => historyAction === action.type)))
     );
   }
   return returnValue;
