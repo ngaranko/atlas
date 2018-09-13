@@ -8,7 +8,7 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
     applicationStateFactory.$inject = ['$window', 'Redux'];
 
     function applicationStateFactory ($window, Redux) {
-        let reducer;
+        let reducer = $window.reducer;
 
         return {
             initialize,

@@ -21,7 +21,6 @@ import '../modules/straatbeeld/straatbeeld.scss';
 
 // New style sass
 import './_styles.scss';
-
 // Import this here, because `modules/atlas/services/redux%reducer.factory`
 // cannoct do, because that would break the grunt build...
 import detailReducer from './reducers/details'; // eslint-disable-line
@@ -219,3 +218,4 @@ import '../modules/straatbeeld/services/orientation/orientation.factory';
 import '../modules/straatbeeld/services/straatbeeld-api/straatbeeld-api.factory';
 import '../modules/straatbeeld/straatbeeld-config.constant';
 import '../modules/straatbeeld/straatbeeld.vendor';
+import './bootstrap-angular';

@@ -1,5 +1,5 @@
 import stateToUrlMiddleware
-    from '../../../../../src/shared/services/state-to-url-middleware/state-to-url-middleware';
+    from '../../../../../src/shared/services/state-to-url/state-to-url-middleware';
 
 (() => {
     'use strict';

@@ -10,31 +10,19 @@ import rootReducer from '../../../../src/reducers/root';
     runBlock.$inject = [
         '$timeout',
         '$rootScope',
-        'applicationState',
-        'freeze',
-        'contextMiddleware',
-        'stateToUrlMiddleware',
-        'environment'
+        '$window',
+        'stateToUrl'
     ];
 
     function runBlock (
             $timeout,
             $rootScope,
-            applicationState,
-            freeze,
-            contextMiddleware,
-            stateToUrlMiddleware,
-            environment) {
-        const urlDefaultState = stateUrlConverter.getDefaultState();
-        const initialState = environment.isDevelopment() ? freeze.deepFreeze(urlDefaultState) : urlDefaultState;
+            $window,
+            stateToUrl) {
 
-        const store = applicationState.initialize(
-            rootReducer,
-            initialState,
-            contextMiddleware,
-            stateToUrlMiddleware);
+        window.stateToUrl = stateToUrl
 
-        store.subscribe(() => {
+        $window.reduxStore.subscribe(() => {
             $timeout(() => $rootScope.$digest());
         });
     }
