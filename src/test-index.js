@@ -212,6 +212,7 @@ import '../modules/shared/components/link/link.component.mock';
 import '../modules/shared/shared.module.test';
 import '../modules/search-results/search-results.module.test';
 import '../modules/data-selection/data-selection.module.test';
+import '../modules/atlas/services/routing/state-to-url.factory.test';
 import '../modules/straatbeeld/straatbeeld.module.test';
 import '../modules/header/header.module.test';
 import '../modules/page/page.module.test';
