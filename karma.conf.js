@@ -12,6 +12,7 @@ const webpackConfig = {
   resolve: {
     modules: ['./node_modules']
   },
+  mode: 'development',
   devtool: 'inline-source-map',
   module: {
     rules: [
