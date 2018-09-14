@@ -14,7 +14,13 @@ export default function formatDate(date) {
   });
 }
 
+function isValidDate(date) {
+  return date && Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date);
+}
+
 export function dateToString(date) {
+  if (!isValidDate(date)) return '';
+  const day = (`0${date.getDate()}`).slice(-2);
   const month = (`0${date.getMonth() + 1}`).slice(-2);
-  return date && `${date.getDate()}-${month}-${date.getFullYear()}`;
+  return date && `${day}-${month}-${date.getFullYear()}`;
 }

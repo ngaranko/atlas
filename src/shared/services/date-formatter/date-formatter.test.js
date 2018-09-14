@@ -17,8 +17,13 @@ describe('The date formatter service', () => {
     });
   });
 
+  it('returns aan emty string wehn the date is not valid', () => {
+    expect(dateToString('invalid date')).toEqual('');
+    expect(dateToString()).toEqual('');
+  });
+
   it('uses the Dutch locale to convert date to string', () => {
     const date = new Date('2018-02-01');
-    expect(dateToString(date)).toEqual('1-02-2018');
+    expect(dateToString(date)).toEqual('01-02-2018');
   });
 });
