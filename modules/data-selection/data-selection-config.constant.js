@@ -213,7 +213,8 @@
                             },
                             {
                                 label: '-datum overlijden',
-                                variables: ['sjt_datum_overlijden']
+                                variables: ['sjt_datum_overlijden'],
+                                formatter: 'date'
                             },
                             {
                                 label: 'Niet-natuurlijk persoon: statutaire naam',
