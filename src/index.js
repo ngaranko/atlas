@@ -66,6 +66,7 @@ import '../modules/data-selection/components/data-selection/data-selection.compo
 import '../modules/data-selection/components/formatter/aggregate/aggregate.filter';
 import '../modules/data-selection/components/formatter/align-right/align-right.filter';
 import '../modules/data-selection/components/formatter/bag-address/bag-address.filter';
+import '../modules/data-selection/components/formatter/date/date.filter';
 import '../modules/data-selection/components/formatter/formatter.component';
 import '../modules/data-selection/components/formatter/hr-bezoekadres/hr-bezoekadres.filter';
 import '../modules/data-selection/components/formatter/modification-date/modification-date.filter';
