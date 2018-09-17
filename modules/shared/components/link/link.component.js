@@ -37,8 +37,10 @@
         };
 
         applicationState.getStore().subscribe(() => {
+            // exclude the zoom level (mpz) and the location (mpv) from the tests
+            var regex = /mpz=\d*&mpv=\d*.\d*:\d*.\d*/gi;
             const currentUrl = $location.url();
-            if (currentUrl !== vm.activeUrl) {
+            if (currentUrl.replace(regex, '') !== vm.activeUrl.replace(regex, '')) {
                 vm.href = getHref(vm.type, vm.payload);
                 vm.activeUrl = currentUrl;
             }
@@ -63,7 +65,6 @@
                 params = applicationState.getStateUrlConverter().state2params(state),
                 sourceState = applicationState.getStateUrlConverter().params2state({}, params),
                 targetState = reducer(sourceState, getAction(type, payload));
-
             return applicationState.getStateUrlConverter().state2url(targetState);
         }
     }
