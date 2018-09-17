@@ -39,8 +39,10 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
         };
 
         store.subscribe(() => {
+            // exclude the zoom level (mpz) and the location (mpv) from the tests
+            var regex = /mpz=\d*&mpv=\d*.\d*:\d*.\d*/gi;
             const currentUrl = $location.url();
-            if (currentUrl !== vm.activeUrl) {
+            if (currentUrl.replace(regex, '') !== vm.activeUrl.replace(regex, '')) {
                 vm.href = getHref(vm.type, vm.payload);
                 vm.activeUrl = currentUrl;
             }

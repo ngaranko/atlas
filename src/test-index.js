@@ -49,6 +49,7 @@ import '../modules/data-selection/components/data-selection/data-selection.compo
 import '../modules/data-selection/components/formatter/aggregate/aggregate.filter';
 import '../modules/data-selection/components/formatter/align-right/align-right.filter';
 import '../modules/data-selection/components/formatter/bag-address/bag-address.filter';
+import '../modules/data-selection/components/formatter/date/date.filter';
 import '../modules/data-selection/components/formatter/formatter.component';
 import '../modules/data-selection/components/formatter/hr-bezoekadres/hr-bezoekadres.filter';
 import '../modules/data-selection/components/formatter/modification-date/modification-date.filter';
@@ -248,6 +249,7 @@ import '../modules/data-selection/components/formatter/truncate-html-as-text/tru
 import '../modules/data-selection/components/formatter/nevenadres/nevenadres.filter.test';
 import '../modules/data-selection/components/formatter/nummeraanduiding-type/nummeraanduiding-type.filter.test';
 import '../modules/data-selection/components/formatter/bag-address/bag-address.filter.test';
+import '../modules/data-selection/components/formatter/date/date.filter.test';
 import '../modules/data-selection/components/formatter/modification-date/modification-date.filter.test';
 import '../modules/data-selection/components/formatter/formatter.component.test';
 import '../modules/data-selection/components/formatter/aggregate/aggregate.filter.test';
