@@ -11,7 +11,9 @@ const glob = Promise.promisify(require('glob'))
 const started = new Date()
 let numFailed = 0
 
-return glob('test/cypress/integration/**/*', {
+const SCRIPTS_FOLDER =  process.env.SCRIPTS_FOLDER || 'test/cypress/integration';
+
+return glob(SCRIPTS_FOLDER + '/**/*', {
   nodir: true,
   realpath: true,
 })
@@ -23,6 +25,9 @@ return glob('test/cypress/integration/**/*', {
 
   return cypress.run({
     spec: spec,
+    config: {
+      integrationFolder: SCRIPTS_FOLDER
+    },
     env: {
       API_ROOT: process.env.API_ROOT,
       USERNAME_EMPLOYEE: process.env.USERNAME_EMPLOYEE,

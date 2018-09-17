@@ -1,7 +1,3 @@
-import stateUrlConverter from '../../../../src/shared/services/routing/state-url-converter';
-
-import rootReducer from '../../../../src/reducers/root';
-
 (function () {
     angular
         .module('atlas')
@@ -10,31 +6,14 @@ import rootReducer from '../../../../src/reducers/root';
     runBlock.$inject = [
         '$timeout',
         '$rootScope',
-        'applicationState',
-        'freeze',
-        'contextMiddleware',
-        'stateToUrlMiddleware',
-        'environment'
+        '$window',
+        'stateToUrl'
     ];
 
-    function runBlock (
-            $timeout,
-            $rootScope,
-            applicationState,
-            freeze,
-            contextMiddleware,
-            stateToUrlMiddleware,
-            environment) {
-        const urlDefaultState = stateUrlConverter.getDefaultState();
-        const initialState = environment.isDevelopment() ? freeze.deepFreeze(urlDefaultState) : urlDefaultState;
+    function runBlock ($timeout, $rootScope, $window, stateToUrl) {
+        $window.stateToUrl = stateToUrl;
 
-        const store = applicationState.initialize(
-            rootReducer,
-            initialState,
-            contextMiddleware,
-            stateToUrlMiddleware);
-
-        store.subscribe(() => {
+        $window.reduxStore.subscribe(() => {
             $timeout(() => $rootScope.$digest());
         });
     }

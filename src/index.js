@@ -1,5 +1,5 @@
 // For now simply import everything we need, from here
-import './state';
+import './store';
 import './map/wrappers/map/MapWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphTotalsWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphPhasedWrapper';
@@ -21,7 +21,6 @@ import '../modules/straatbeeld/straatbeeld.scss';
 
 // New style sass
 import './_styles.scss';
-
 // Import this here, because `modules/atlas/services/redux%reducer.factory`
 // cannoct do, because that would break the grunt build...
 import detailReducer from './reducers/details'; // eslint-disable-line
@@ -45,12 +44,9 @@ import '../modules/atlas/components/document-title/document-title.directive';
 import '../modules/atlas/components/max-width-class/max-width-class.directive';
 import '../modules/atlas/components/preview-state/preview-state.directive';
 import '../modules/atlas/components/scrollable-content/scrollable-content.directive';
-import '../modules/atlas/services/freeze/freeze.factory';
 import '../modules/atlas/services/piwik/piwik-config.constant';
 import '../modules/atlas/services/piwik/piwik.factory';
 import '../modules/atlas/services/piwik/piwik.run';
-import '../modules/atlas/services/redux/middleware/context-middleware.factory';
-import '../modules/atlas/services/redux/middleware/state-to-url-middleware.factory';
 import '../modules/atlas/services/redux/store.run';
 import '../modules/atlas/services/routing/state-to-url.factory';
 import '../modules/data-selection/data-selection.module';
@@ -61,6 +57,7 @@ import '../modules/data-selection/components/data-selection/data-selection.compo
 import '../modules/data-selection/components/formatter/aggregate/aggregate.filter';
 import '../modules/data-selection/components/formatter/align-right/align-right.filter';
 import '../modules/data-selection/components/formatter/bag-address/bag-address.filter';
+import '../modules/data-selection/components/formatter/date/date.filter';
 import '../modules/data-selection/components/formatter/formatter.component';
 import '../modules/data-selection/components/formatter/hr-bezoekadres/hr-bezoekadres.filter';
 import '../modules/data-selection/components/formatter/modification-date/modification-date.filter';
@@ -195,7 +192,6 @@ import '../modules/shared/services/http-error-registrar/http-status.factory';
 import '../modules/shared/services/localization/localization.factory';
 import '../modules/shared/services/markdown-parser/markdown-parser.factory';
 import '../modules/shared/services/redux/actions.constant';
-import '../modules/shared/services/redux/application-state.factory';
 import '../modules/shared/services/redux/store.factory';
 import '../modules/shared/services/storage/instance-storage.factory';
 import '../modules/shared/services/storage/storage.factory';
