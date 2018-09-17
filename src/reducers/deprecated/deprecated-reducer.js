@@ -13,8 +13,9 @@ import searchReducers from './search-reducers';
 import deepFreeze from '../../shared/services/freeze/freeze';
 import urlReducersInit from '../url-reducers';
 import { isDevelopment } from '../../shared/environment';
+import stateUrlConverter from '../../shared/services/routing/state-url-converter';
 
-export default (stateUrlConverter) => (oldState, action) => {
+export default (oldState, action) => {
     /**
      *
      *

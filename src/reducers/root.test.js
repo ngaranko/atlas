@@ -1,4 +1,4 @@
-import rootReducerInit from './root';
+import rootReducer from './root';
 
 import * as AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest';
 import * as DataSelectionReducer from '../shared/ducks/data-selection/data-selection';
@@ -18,10 +18,6 @@ import * as PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import * as deprecatedReducer from './deprecated/deprecated-reducer';
 
 describe('the root reducer', () => {
-  let $rootScope;
-  let $timeout;
-  let rootReducer;
-
   const deprecatedOutput = {
     dataSelection: 'dataSelection',
     page: 'page',
@@ -48,14 +44,6 @@ describe('the root reducer', () => {
   PanoPreviewReducer.default = () => 'pano';
   deprecatedReducer.default = jest.fn().mockReturnValue(() => deprecatedOutput);
 
-  beforeEach(() => {
-    $rootScope = {
-      $digest: jest.fn()
-    };
-    $timeout = jest.fn((callback) => callback());
-    rootReducer = rootReducerInit($timeout, $rootScope, () => {});
-  });
-
   it('combines many reducers', () => {
     const state = {};
     const action = {};
@@ -81,11 +69,5 @@ describe('the root reducer', () => {
         autoSuggest: 'autoSuggest',
         catalogFilters: 'catalogFilters'
       });
-  });
-
-  it('fires angular digest', () => {
-    rootReducer({}, {});
-    expect($timeout).toHaveBeenCalled();
-    expect($rootScope.$digest).toHaveBeenCalled();
   });
 });

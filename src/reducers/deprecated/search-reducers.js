@@ -1,5 +1,5 @@
 import ACTIONS from '../../shared/actions';
-import BaseCoder from '../../../modules/shared/services/base-coder/base-coder';
+import BaseCoder from '../../shared/services/base-coder/base-coder';
 import isObject from '../../shared/services/is-object';
 
 /**

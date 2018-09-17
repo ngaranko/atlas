@@ -1,5 +1,5 @@
 // For now simply import everything we need, from here
-import './state';
+import './store';
 import './map/wrappers/map/MapWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphTotalsWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphPhasedWrapper';
@@ -21,7 +21,6 @@ import '../modules/straatbeeld/straatbeeld.scss';
 
 // New style sass
 import './_styles.scss';
-
 // Import this here, because `modules/atlas/services/redux%reducer.factory`
 // cannoct do, because that would break the grunt build...
 import detailReducer from './reducers/details'; // eslint-disable-line
@@ -45,19 +44,11 @@ import '../modules/atlas/components/document-title/document-title.directive';
 import '../modules/atlas/components/max-width-class/max-width-class.directive';
 import '../modules/atlas/components/preview-state/preview-state.directive';
 import '../modules/atlas/components/scrollable-content/scrollable-content.directive';
-import '../modules/atlas/services/freeze/freeze.factory';
 import '../modules/atlas/services/piwik/piwik-config.constant';
 import '../modules/atlas/services/piwik/piwik.factory';
 import '../modules/atlas/services/piwik/piwik.run';
-import '../modules/atlas/services/redux/middleware/context-middleware.factory';
-import '../modules/atlas/services/redux/middleware/state-to-url-middleware.factory';
 import '../modules/atlas/services/redux/store.run';
 import '../modules/atlas/services/routing/state-to-url.factory';
-import '../modules/atlas/services/routing/state-url-conversion.factory';
-import '../modules/atlas/services/routing/state-url-converter.factory';
-import '../modules/atlas/services/routing/state-url-converter.run';
-import '../modules/atlas/services/routing/url-to-state.factory';
-import '../modules/atlas/services/routing/url-to-state.run';
 import '../modules/data-selection/data-selection.module';
 import '../modules/data-selection/components/active-filters/active-filters.component';
 import '../modules/data-selection/components/available-filters/available-filters.component';
@@ -186,7 +177,6 @@ import '../modules/shared/components/video/video.component';
 import '../modules/shared/filters/filesize.filter';
 import '../modules/shared/services/active-overlays/active-overlays.factory';
 import '../modules/shared/services/api/api.factory';
-import '../modules/shared/services/base-coder/base-coder.factory';
 import '../modules/shared/services/bounding-box/boundig-box.constant';
 import '../modules/shared/services/crs/crs-config.constant';
 import '../modules/shared/services/crs/crs-converter.factory';
@@ -202,11 +192,9 @@ import '../modules/shared/services/http-error-registrar/http-status.factory';
 import '../modules/shared/services/localization/localization.factory';
 import '../modules/shared/services/markdown-parser/markdown-parser.factory';
 import '../modules/shared/services/redux/actions.constant';
-import '../modules/shared/services/redux/application-state.factory';
 import '../modules/shared/services/redux/store.factory';
 import '../modules/shared/services/storage/instance-storage.factory';
 import '../modules/shared/services/storage/storage.factory';
-import '../modules/shared/services/uri-stripper/uri-stripper.factory';
 import '../modules/shared/services/user-settings/setting.factory';
 import '../modules/shared/services/user-settings/user-settings.constant';
 import '../modules/shared/services/user-settings/user-settings.factory';

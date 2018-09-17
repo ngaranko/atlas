@@ -1,9 +1,9 @@
 import homeReducers from './home-reducers';
+import * as stateUrlConverter from '../shared/services/routing/state-url-converter';
 
 describe('The homeReducers', () => {
   let urlState = {};
   let inputState;
-  let _window; // eslint-disable-line no-underscore-dangle
 
   beforeEach(() => {
     urlState = {
@@ -13,13 +13,11 @@ describe('The homeReducers', () => {
       ui: {}
     };
 
-    _window = document.window;
-    window.StateUrlConverter = { getDefaultState: () => urlState };
+    stateUrlConverter.default = {
+      getDefaultState: () => urlState
+    };
   });
 
-  afterEach(() => {
-    document.window = _window;
-  });
 
   describe('SHOW_HOME', () => {
     it('resets the state to the default', () => {
