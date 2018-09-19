@@ -12455,6 +12455,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 },
                 Object {
                   "category": "aerial",
+                  "label": "Infrarood 2018",
+                  "urlTemplate": "https://{s}.data.amsterdam.nl/infrarood2018_RD/{z}/{x}/{y}.jpeg",
+                  "value": "ir2018",
+                },
+                Object {
+                  "category": "aerial",
                   "label": "Luchtfoto 2017",
                   "selected": true,
                   "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg",
@@ -14776,6 +14782,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           },
                           Object {
                             "category": "aerial",
+                            "label": "Infrarood 2018",
+                            "urlTemplate": "https://{s}.data.amsterdam.nl/infrarood2018_RD/{z}/{x}/{y}.jpeg",
+                            "value": "ir2018",
+                          },
+                          Object {
+                            "category": "aerial",
                             "label": "Luchtfoto 2017",
                             "selected": true,
                             "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg",
@@ -15054,6 +15066,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             },
                             Object {
                               "category": "aerial",
+                              "label": "Infrarood 2018",
+                              "urlTemplate": "https://{s}.data.amsterdam.nl/infrarood2018_RD/{z}/{x}/{y}.jpeg",
+                              "value": "ir2018",
+                            },
+                            Object {
+                              "category": "aerial",
                               "label": "Luchtfoto 2017",
                               "selected": true,
                               "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg",
@@ -15215,6 +15233,21 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 value="lf2018"
                               >
                                 Luchtfoto 2018
+                              </button>
+                            </li>
+                            <li
+                              className="
+                select-button__drop-down-item
+                false
+              "
+                              key="ir2018"
+                            >
+                              <button
+                                className="select-button__drop-down-button"
+                                onClick={[Function]}
+                                value="ir2018"
+                              >
+                                Infrarood 2018
                               </button>
                             </li>
                             <li
