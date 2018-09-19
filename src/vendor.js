@@ -1,5 +1,4 @@
 /* eslint-disable */
-import 'babel-polyfill';
 import 'isomorphic-fetch'; // sets global variable fetch
 
 import 'angular';

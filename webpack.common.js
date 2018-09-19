@@ -15,7 +15,7 @@ function commonConfig ({ nodeEnv }) {
   return {
     context: root,
     entry: {
-      app: './src/index.js'
+      app: ['babel-polyfill', './src/index.js']
     },
     output: {
       filename: '[name].bundle.js',
