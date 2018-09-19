@@ -30,7 +30,6 @@ describe('MapType rendering', () => {
       }, {
         value: 'lf2017',
         label: 'Luchtfoto 2017',
-        selected: true,
         urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg'
       }, {
         value: 'lf2016',
