@@ -21,6 +21,14 @@ describe('The query string parser service', () => {
     });
   });
 
+  it('checks if it needs to ignore the first character', () => {
+    expect(
+      queryStringParser('a=b')
+    ).toEqual({
+      a: 'b'
+    });
+  });
+
   it('decodes keys and values', () => {
     expect(
       queryStringParser('?a=b%20c&one%2Ftwo=12')
