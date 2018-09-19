@@ -1,6 +1,18 @@
 import queryStringParser, { encodeQueryParams } from './query-string-parser';
 
 describe('The query string parser service', () => {
+  it('handles undefined input', () => {
+    expect(
+      queryStringParser(undefined)
+    ).toEqual(null);
+  });
+
+  it('handles empty string input', () => {
+    expect(
+      queryStringParser('')
+    ).toEqual(null);
+  });
+
   it('turns a query string into an object', () => {
     expect(
       queryStringParser('?a=b&one=1&bool=false')

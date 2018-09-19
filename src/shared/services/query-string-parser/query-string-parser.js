@@ -11,7 +11,7 @@
  * the query string, or null if `queryString` is falsy.
  */
 const queryStringParser = (queryString) => {
-  if (!queryString || queryString.length == 0) {
+  if (!queryString || queryString.length === 0) {
     return null;
   }
 
@@ -30,10 +30,8 @@ const queryStringParser = (queryString) => {
         ...params,
         [decodeURIComponent(key)]: decodeURIComponent(value)
       };
-    }, {})
-}
-
-
+    }, {});
+};
 
 export const encodeQueryParams = (params) => (Object.keys(params)
       .map((param) => `${encodeURIComponent(param)}=${encodeURIComponent(params[param])}`)
