@@ -14,7 +14,7 @@ import { isDevelopment } from './shared/environment';
 import freeze from './shared/services/freeze/freeze';
 import contextMiddleware from './shared/services/context/context-middleware';
 import stateToUrlMiddleware from './shared/services/state-to-url/state-to-url-middleware';
-import locationHandlerCreator from './location-handler';
+import locationHandler from './location-handler';
 
 window.reducer = rootReducer;
 
@@ -55,9 +55,15 @@ if (accessToken) {
 
 window.reduxStore.dispatch(fetchCatalogFilters());
 
-const history = createHistory();
-const locationHandler = locationHandlerCreator(window.reduxStore);
-// eslint-disable-next-line no-unused-vars
-const unlisten = history.listen(locationHandler);
+const history = createHistory({
+  hashType: 'noslash'
+});
+const storeLocationHandler = locationHandler(window.reduxStore);
+
+const unlisten = history.listen(storeLocationHandler); // eslint-disable-line no-unused-vars
+
 // Handle first page load URL
-locationHandler(window.location);
+storeLocationHandler(window.location);
+
+// Make history global accessible
+window.globalHistory = history;

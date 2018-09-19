@@ -7,7 +7,8 @@ import ACTIONS from './shared/actions';
  *
  */
 
-export default (store) => (location) => {
+const locationHandler = (store) => (location, action) => { // eslint-disable-line no-unused-vars
+  // console.log('location handler called, action =', action);
   const hash = location.hash; // '#?foo=bar&abc=xyz'
   let params;
   if (hash.length > 0 && hash[0] === '#') {
@@ -22,3 +23,5 @@ export default (store) => (location) => {
     payload: params
   });
 };
+
+export default locationHandler;
