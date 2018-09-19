@@ -23,7 +23,7 @@ Object {
     ],
     "tms": true,
   },
-  "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg",
+  "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2018_RD/{z}/{x}/{y}.jpeg",
 }
 `;
 
@@ -12448,6 +12448,13 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               "aerial": Array [
                 Object {
                   "category": "aerial",
+                  "label": "Luchtfoto 2018",
+                  "selected": true,
+                  "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2018_RD/{z}/{x}/{y}.jpeg",
+                  "value": "lf2018",
+                },
+                Object {
+                  "category": "aerial",
                   "label": "Luchtfoto 2017",
                   "selected": true,
                   "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg",
@@ -14762,6 +14769,13 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "aerial": Array [
                           Object {
                             "category": "aerial",
+                            "label": "Luchtfoto 2018",
+                            "selected": true,
+                            "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2018_RD/{z}/{x}/{y}.jpeg",
+                            "value": "lf2018",
+                          },
+                          Object {
+                            "category": "aerial",
                             "label": "Luchtfoto 2017",
                             "selected": true,
                             "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg",
@@ -15033,6 +15047,13 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           Array [
                             Object {
                               "category": "aerial",
+                              "label": "Luchtfoto 2018",
+                              "selected": true,
+                              "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2018_RD/{z}/{x}/{y}.jpeg",
+                              "value": "lf2018",
+                            },
+                            Object {
+                              "category": "aerial",
                               "label": "Luchtfoto 2017",
                               "selected": true,
                               "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg",
@@ -15146,7 +15167,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             <div
                               className="select-button__label"
                             >
-                              Luchtfoto 2017
+                              Luchtfoto 2018
                             </div>
                           </button>
                           <button
@@ -15185,6 +15206,21 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                               className="
                 select-button__drop-down-item
                 select-button__drop-down-item--selected
+              "
+                              key="lf2018"
+                            >
+                              <button
+                                className="select-button__drop-down-button"
+                                onClick={[Function]}
+                                value="lf2018"
+                              >
+                                Luchtfoto 2018
+                              </button>
+                            </li>
+                            <li
+                              className="
+                select-button__drop-down-item
+                false
               "
                               key="lf2017"
                             >
