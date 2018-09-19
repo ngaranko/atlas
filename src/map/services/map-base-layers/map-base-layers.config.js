@@ -16,10 +16,15 @@ const mapBaseLayers = [
     label: 'Topografie grijs',
     urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd_zw/{z}/{x}/{y}.png'
   }, {
+    value: 'lf2018',
+    label: 'Luchtfoto 2018',
+    category: 'aerial',
+    selected: true,
+    urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2018_RD/{z}/{x}/{y}.jpeg'
+  }, {
     value: 'lf2017',
     label: 'Luchtfoto 2017',
     category: 'aerial',
-    selected: true,
     urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg'
   }, {
     value: 'lf2016',
