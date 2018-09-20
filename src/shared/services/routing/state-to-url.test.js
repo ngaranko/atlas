@@ -1,45 +1,45 @@
 import stateToUrl from './state-to-url';
 import * as stateUrlConverter from './state-url-converter';
+import { history } from '../../../history';
 
-describe.only('The stateToUrl factory', () => {
+jest.mock('../../../history');
+
+describe('The stateToUrl', () => {
   let mockedState;
 
   beforeEach(() => {
-    const state2params = jasmine.createSpy('state2params');
-    state2params.and.returnValue('state2params mock');
     stateUrlConverter.default = {
-      state2params
+      state2params: jest.fn(() => 'state2params mock')
     };
-
 
     mockedState = {
       aap: 'noot',
       mies: 'teun'
     };
 
-    jest.spyOn(window.location, 'replace');
-    jest.spyOn(window.location, 'search').and.returnValue({ query: 'search', result: '%20space' });
+    jest.spyOn(history, 'replace');
+    jest.spyOn(history, 'push').mockImplementation(() => ({ query: 'search', result: '%20space' }));
   });
 
   describe('can update the url to reflect the state', () => {
     it('by calling window.location.search', () => {
       stateToUrl.update(mockedState);
-      expect(window.location.search).toHaveBeenCalledWith('state2params mock');
+      expect(history.push).toHaveBeenCalledWith('state2params mock');
     });
 
     it('has the option to replace the URL by setting useReplace flag to true', () => {
       // regular call
       stateToUrl.update(mockedState);
-      expect(window.location.replace).not.toHaveBeenCalled();
-      expect(window.location.search).toHaveBeenCalled();
+      expect(history.replace).not.toHaveBeenCalled();
+      expect(history.push).toHaveBeenCalled();
 
-      window.location.replace.calls.reset();
-      window.location.search.calls.reset();
+      history.replace.calls.reset();
+      history.search.calls.reset();
 
       // call with useReplace flag set
       stateToUrl.update(mockedState, true);
-      expect(window.location.replace).toHaveBeenCalled();
-      expect(window.location.search).toHaveBeenCalled();
+      expect(history.replace).toHaveBeenCalled();
+      expect(history.search).toHaveBeenCalled();
     });
   });
 });

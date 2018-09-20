@@ -1,5 +1,6 @@
 import stateUrlConverter from './state-url-converter';
 import queryStringParser from '../query-string-parser/query-string-parser';
+import { history } from '../../../history';
 
 export const paramsToQuery = (params) => (params ? Object.keys(params)
   .map((param) => `${param}=${params[param]}`)
@@ -21,7 +22,6 @@ const isHashChanged = (locationHash, hash) => {
 
 const stateToUrl = {
   update: (state, useReplace) => {
-    const history = window.globalHistory;
     const location = history.location;
 
     const params = stateUrlConverter.state2params(state);

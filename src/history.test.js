@@ -1,9 +1,8 @@
-import locationHandlerCreator from './location-handler';
+import historyInstance, { history, locationHandler } from './history';
 import ACTIONS from './shared/actions';
 
-describe('the location handler', () => {
+describe.only('the history object', () => {
   let store;
-  let locationHandler;
 
   beforeEach(() => {
     store = {
@@ -12,7 +11,7 @@ describe('the location handler', () => {
   });
 
   beforeEach(() => {
-    locationHandler = locationHandlerCreator(store);
+    historyInstance.initialize(store);
   });
 
   it('should listen handle location hashed search params', () => {
@@ -20,7 +19,7 @@ describe('the location handler', () => {
       hash: '#?foo=bar&abc=xyz'
     };
 
-    locationHandler(location);
+    history.locationHandler(location);
 
     expect(store.dispatch).toHaveBeenCalledWith({
       type: ACTIONS.URL_CHANGE,

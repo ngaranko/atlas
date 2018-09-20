@@ -1,6 +1,5 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import createHistory from 'history/createBrowserHistory';
 
 import rootSaga from './root-saga';
 import './shared/ducks/error-message';
@@ -14,7 +13,7 @@ import { isDevelopment } from './shared/environment';
 import freeze from './shared/services/freeze/freeze';
 import contextMiddleware from './shared/services/context/context-middleware';
 import stateToUrlMiddleware from './shared/services/state-to-url/state-to-url-middleware';
-import locationHandler from './location-handler';
+import historyInstance from './history';
 
 window.reducer = rootReducer;
 
@@ -55,15 +54,4 @@ if (accessToken) {
 
 window.reduxStore.dispatch(fetchCatalogFilters());
 
-const history = createHistory({
-  hashType: 'noslash'
-});
-const storeLocationHandler = locationHandler(window.reduxStore);
-
-const unlisten = history.listen(storeLocationHandler); // eslint-disable-line no-unused-vars
-
-// Handle first page load URL
-storeLocationHandler(window.location);
-
-// Make history global accessible
-window.globalHistory = history;
+historyInstance.initialize(window.reduxStore);
