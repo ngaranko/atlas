@@ -29,13 +29,9 @@ const stateToUrl = {
 
     if (!isHashChanged(location.hash, hash)) return;
 
-    // eslint-disable-next-line no-console
-    // console.log('updating url hash (location.hash and hash are different)');
     if (useReplace) {
-      console.log('replace', hash); // eslint-disable-line no-console
       history.replace(hash);
     } else {
-      console.log('push', hash); // eslint-disable-line no-console
       history.push(hash);
     }
   }
