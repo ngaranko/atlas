@@ -1,6 +1,5 @@
 import stateUrlConverter from './state-url-converter';
-// eslint-disable-next-line no-unused-vars
-import queryStringParser, { encodeQueryParams } from '../query-string-parser/query-string-parser';
+import queryStringParser from '../query-string-parser/query-string-parser';
 
 export const paramsToQuery = (params) => (params ? Object.keys(params)
   .map((param) => `${param}=${params[param]}`)
@@ -14,9 +13,6 @@ const getSanitizedHash = (params) => {
 };
 
 const isHashChanged = (locationHash, hash) => {
-  // console.log('isHashChanged');
-  // console.log(locationHash);
-  // console.log(hash);
   if (locationHash === hash) return false;
   const params = queryStringParser(locationHash.slice(1));
   const testHash = getSanitizedHash(params);
@@ -30,14 +26,12 @@ const stateToUrl = {
 
     const params = stateUrlConverter.state2params(state);
     const hash = getSanitizedHash(params);
-    // console.log('stateToUrl.update called');
-    // console.log(location.hash);
-    // console.log(hash);
 
     if (!isHashChanged(location.hash, hash)) return;
-    console.log('updating url hash (location.hash and hash are different)'); // eslint-disable-line no-console
+
+    // eslint-disable-next-line no-console
+    // console.log('updating url hash (location.hash and hash are different)');
     if (useReplace) {
-      // debugger;
       console.log('replace', hash); // eslint-disable-line no-console
       history.replace(hash);
     } else {
