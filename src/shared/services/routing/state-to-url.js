@@ -26,7 +26,6 @@ const stateToUrl = {
 
     const params = stateUrlConverter.state2params(state);
     const hash = getSanitizedHash(params);
-
     if (!isHashChanged(location.hash, hash)) return;
 
     if (useReplace) {

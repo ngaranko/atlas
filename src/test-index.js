@@ -1,7 +1,7 @@
  /* eslint-disable */
-// For now simply import everything we need, from here
+ import "babel-polyfill";
 
-// Import the templates and inject them into angular
+ // Import the templates and inject them into angular
 const templates = require.context('../modules', true, /\.html$/);
 const origInject = angular.mock.inject;
 angular.mock.inject = (callback) => {

@@ -1,7 +1,7 @@
-import historyInstance, { history, locationHandler } from './history';
+import historyInstance, { history } from './history';
 import ACTIONS from './shared/actions';
 
-describe.only('the history object', () => {
+describe('the history object', () => {
   let store;
 
   beforeEach(() => {
@@ -16,16 +16,16 @@ describe.only('the history object', () => {
 
   it('should listen handle location hashed search params', () => {
     const location = {
-      hash: '#?foo=bar&abc=xyz'
+      hash: '#?foo=bar%2Fwith%2Fslashes&abc=xyz:with:colons'
     };
 
-    history.locationHandler(location);
+    history.push(location.hash);
 
     expect(store.dispatch).toHaveBeenCalledWith({
       type: ACTIONS.URL_CHANGE,
       payload: {
-        foo: 'bar',
-        abc: 'xyz'
+        foo: 'bar/with/slashes',
+        abc: 'xyz:with:colons'
       }
     });
   });
@@ -35,7 +35,7 @@ describe.only('the history object', () => {
       hash: '?foo=bar&abc=xyz' // Note: no hash prefix
     };
 
-    locationHandler(location);
+    history.push(location.hash);
 
     expect(store.dispatch).toHaveBeenCalledWith({
       type: ACTIONS.URL_CHANGE,
