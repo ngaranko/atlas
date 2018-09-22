@@ -1,3 +1,10 @@
+import { HIDE_MAP_PANEL, SHOW_MAP_PANEL } from '../../../../src/shared/ducks/ui/ui';
+import { MAP_ADD_PANO_OVERLAY, MAP_REMOVE_PANO_OVERLAY } from '../../../../src/map/ducks/map/map';
+import {
+    OPEN_MAP_PREVIEW_PANEL,
+    CLOSE_MAP_PREVIEW_PANEL
+} from '../../../../src/map/ducks/preview-panel/map-preview-panel';
+
 describe('The dashboard component', function () {
     var $compile,
         $rootScope,
@@ -221,7 +228,7 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).not.toHaveBeenCalledWith({
-                type: 'HIDE_MAP_PANEL'
+                type: HIDE_MAP_PANEL
             });
         });
     });
@@ -253,7 +260,7 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: 'SHOW_MAP_PANEL'
+                type: SHOW_MAP_PANEL
             });
         });
 
@@ -266,7 +273,7 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: 'HIDE_MAP_PANEL'
+                type: HIDE_MAP_PANEL
             });
         });
 
@@ -280,10 +287,10 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).not.toHaveBeenCalledWith({
-                type: 'SHOW_MAP_PANEL'
+                type: SHOW_MAP_PANEL
             });
             expect(store.dispatch).not.toHaveBeenCalledWith({
-                type: 'HIDE_MAP_PANEL'
+                type: HIDE_MAP_PANEL
             });
         });
     });
@@ -425,7 +432,7 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: 'MAP_ADD_PANO_OVERLAY',
+                type: MAP_ADD_PANO_OVERLAY,
                 payload: {}
             });
         });
@@ -445,9 +452,11 @@ describe('The dashboard component', function () {
 
             $rootScope.$digest();
 
-            expect(store.dispatch.calls.mostRecent()).toEqual(jasmine.objectContaining({ args: [{
-                type: 'MAP_REMOVE_PANO_OVERLAY'
-            }] }));
+            expect(store.dispatch.calls.mostRecent()).toEqual(jasmine.objectContaining({
+                args: [{
+                    type: MAP_REMOVE_PANO_OVERLAY
+                }]
+            }));
         });
 
         it('are changed when the straatbeeld history selection changes', () => {
@@ -463,7 +472,7 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: 'MAP_ADD_PANO_OVERLAY',
+                type: MAP_ADD_PANO_OVERLAY,
                 payload: { history: 2020 }
             });
 
@@ -475,7 +484,7 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_ADD_PANO_OVERLAY.id,
+                type: ACTIONS.MAP_ADD_PANO_OVERLAY,
                 payload: { history: 2018 }
             });
 
@@ -487,7 +496,7 @@ describe('The dashboard component', function () {
             $rootScope.$digest();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.MAP_ADD_PANO_OVERLAY.id,
+                type: ACTIONS.MAP_ADD_PANO_OVERLAY,
                 payload: { history: null }
             });
         });
@@ -527,7 +536,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
 
                 expect(store.dispatch).toHaveBeenCalledWith({
-                    type: 'OPEN_MAP_PREVIEW_PANEL'
+                    type: OPEN_MAP_PREVIEW_PANEL
                 });
             });
 
@@ -545,7 +554,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
 
                 expect(store.dispatch).toHaveBeenCalledWith({
-                    type: 'OPEN_MAP_PREVIEW_PANEL'
+                    type: OPEN_MAP_PREVIEW_PANEL
                 });
             });
 
@@ -563,7 +572,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
 
                 expect(store.dispatch).toHaveBeenCalledWith({
-                    type: 'CLOSE_MAP_PREVIEW_PANEL'
+                    type: CLOSE_MAP_PREVIEW_PANEL
                 });
             });
 
@@ -579,7 +588,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
 
                 expect(store.dispatch).toHaveBeenCalledWith({
-                    type: 'CLOSE_MAP_PREVIEW_PANEL'
+                    type: CLOSE_MAP_PREVIEW_PANEL
                 });
             });
 
@@ -594,7 +603,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
 
                 expect(store.dispatch).toHaveBeenCalledWith({
-                    type: 'CLOSE_MAP_PREVIEW_PANEL'
+                    type: CLOSE_MAP_PREVIEW_PANEL
                 });
             });
 
@@ -614,7 +623,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
 
                 expect(store.dispatch).toHaveBeenCalledWith({
-                    type: 'CLOSE_MAP_PREVIEW_PANEL'
+                    type: CLOSE_MAP_PREVIEW_PANEL
                 });
             });
 
@@ -640,7 +649,7 @@ describe('The dashboard component', function () {
                 $rootScope.$digest();
 
                 expect(store.dispatch).toHaveBeenCalledWith({
-                    type: 'CLOSE_MAP_PREVIEW_PANEL'
+                    type: CLOSE_MAP_PREVIEW_PANEL
                 });
             });
         });
