@@ -39,7 +39,10 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
             store.dispatch(getAction(vm.type, vm.payload));
         };
 
-        vm.handleClick = $window.reactHistory.push;
+        vm.handleClick = (link) => {
+            $window.reactHistory.push(link);
+            vm.dispatch()
+        }
 
         store.subscribe(() => {
             // exclude the zoom level (mpz) and the location (mpv) from the tests

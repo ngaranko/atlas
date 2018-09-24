@@ -14,7 +14,6 @@ import '../../modules/atlas/components/max-width-class/max-width-class.directive
 import '../../modules/atlas/components/preview-state/preview-state.directive';
 import '../../modules/atlas/components/scrollable-content/scrollable-content.directive';
 import '../../modules/atlas/services/redux/store.run';
-import '../../modules/atlas/services/routing/state-to-url.factory';
 import '../../modules/data-selection/data-selection.module';
 import '../../modules/data-selection/components/active-filters/active-filters.component';
 import '../../modules/data-selection/components/available-filters/available-filters.component';

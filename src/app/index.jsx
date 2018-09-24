@@ -5,8 +5,11 @@ import { ConnectedRouter } from 'connected-react-router';
 import App from './App';
 import configureStore, { history } from '../store';
 import './angularModules';
+import reduxWatcher from '../shared/services/redux-watcher/redux-watcher';
 
 const store = configureStore();
+
+reduxWatcher(store);
 
 window.reactHistory = history;
 

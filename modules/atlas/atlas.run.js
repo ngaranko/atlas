@@ -1,5 +1,3 @@
-import reduxWatch from '../../src/shared/services/redux-watcher/redux-watcher';
-
 const templates = require.context('..', true, /\.html$/);
 
 (function () {
@@ -18,8 +16,6 @@ const templates = require.context('..', true, /\.html$/);
             const templateId = 'modules' + key.substr(1);
             $templateCache.put(templateId, templates(key));
         });
-
-        reduxWatch(store);
 
         console.log( // eslint-disable-line no-console, angular/log
             `CityData: version: ${atlasVersion.version}, build: ${atlasVersion.build}`

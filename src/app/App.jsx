@@ -3,13 +3,13 @@ import { Route, Switch, withRouter } from 'react-router';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
-import Home from './pages/Home';
 import Map from './pages/Map';
-import Help from './pages/Help';
 import Piwik from './components/Piwik/Piwik';
+import ContentPage, { PAGE_NAMES, PAGE_TYPES } from './pages/ContentPage';
+import routes from './routes';
 
 // TodoReactMigration: implement logic
-const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, location }) => {
+const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, location, columnSizes }) => {
   const isHomePage = location.pathname === '/';
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
@@ -49,9 +49,54 @@ const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, location })
         <div className="u-grid u-full-height">
           <div className="u-row u-full-height">
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route
+                exact
+                path={routes.home}
+                component={() =>
+                  <ContentPage name={PAGE_NAMES.home} showFooter columnSizes={columnSizes} />
+                }
+              />
               <Route path="/map" component={Map} />
-              <Route path="/help" component={Help} />
+              <Route
+                path={routes.help}
+                component={() => (
+                  <ContentPage
+                    name={PAGE_NAMES.contentOverview}
+                    type={PAGE_TYPES.help}
+                    columnSizes={columnSizes}
+                  />
+                )}
+              />
+              <Route
+                path={routes.bediening}
+                component={() => (
+                  <ContentPage
+                    name={PAGE_NAMES.contentOverview}
+                    type={PAGE_TYPES.howTo}
+                    columnSizes={columnSizes}
+                  />
+                )}
+              />
+              <Route
+                path={routes.apis}
+                component={() => (
+                  <ContentPage
+                    name={PAGE_NAMES.contentOverview}
+                    type={PAGE_TYPES.apis}
+                    columnSizes={columnSizes}
+                  />
+                )}
+              />
+              <Route
+                path={routes.gegevens}
+                component={() => (
+                  <ContentPage
+                    name={PAGE_NAMES.contentOverview}
+                    type={PAGE_TYPES.info}
+                    columnSizes={columnSizes}
+                  />
+                )}
+              />
             </Switch>
           </div>
         </div>
@@ -64,7 +109,11 @@ App.defaultProps = {
   hasMaxWidth: true,
   isFullHeight: true,
   pageType: '',
-  visibilityError: false
+  visibilityError: false,
+  columnSizes: { // determineColumnSizes in dashboard-columns
+    right: 12,
+    middle: 12
+  }
 };
 
 App.propTypes = {
@@ -74,7 +123,11 @@ App.propTypes = {
   visibilityError: PropTypes.bool, // vm.visibility.error
   location: PropTypes.shape({
     pathname: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  columnSizes: PropTypes.shape({
+    right: PropTypes.number,
+    middle: PropTypes.number
+  })
 };
 
 export default withRouter(App);

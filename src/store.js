@@ -12,7 +12,6 @@ import rootReducer from './reducers/root';
 import stateUrlConverter from './shared/services/routing/state-url-converter';
 import { isDevelopment } from './shared/environment';
 import freeze from './shared/services/freeze/freeze';
-import locationHandlerCreator from './location-handler';
 
 window.reducer = rootReducer;
 
@@ -59,12 +58,6 @@ const configureStore = () => {
   }
 
   window.reduxStore.dispatch(fetchCatalogFilters());
-
-  const locationHandler = locationHandlerCreator(window.reduxStore);
-// eslint-disable-next-line no-unused-vars
-  const unlisten = history.listen(locationHandler);
-// Handle first page load URL
-  locationHandler(window.location);
 
   return window.reduxStore;
 };
