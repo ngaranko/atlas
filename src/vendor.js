@@ -1,6 +1,4 @@
 /* eslint-disable */
-import 'isomorphic-fetch'; // sets global variable fetch
-
 import 'angular';
 import 'angular-aria';
 import 'angular-i18n/nl-nl';
