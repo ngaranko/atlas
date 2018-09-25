@@ -2,6 +2,10 @@ import {
     hideMapPanel,
     showMapPanel
 } from '../../../../src/shared/ducks/ui/ui';
+import {
+    OPEN_MAP_PREVIEW_PANEL,
+    CLOSE_MAP_PREVIEW_PANEL
+} from '../../../../src/map/ducks/preview-panel/map-preview-panel';
 
 (function () {
     'use strict';
@@ -27,9 +31,9 @@ import {
 
         $scope.$watchGroup(['vm.isStraatbeeldActive', 'vm.straatbeeldHistory'], () => {
             if (vm.isStraatbeeldActive) {
-                store.dispatch({ type: ACTIONS.MAP_ADD_PANO_OVERLAY.id, payload: store.getState().straatbeeld });
+                store.dispatch({ type: ACTIONS.MAP_ADD_PANO_OVERLAY, payload: store.getState().straatbeeld });
             } else {
-                $timeout(() => store.dispatch({ type: ACTIONS.MAP_REMOVE_PANO_OVERLAY.id }));
+                $timeout(() => store.dispatch({ type: ACTIONS.MAP_REMOVE_PANO_OVERLAY }));
             }
         });
 
@@ -67,9 +71,9 @@ import {
                 .some((typeKey) => vm.detailEndpoint.includes(endpointTypes[typeKey]));
 
             if (vm.activity.mapPreviewPanel && (vm.geosearchLocation || detailActive)) {
-                store.dispatch({ type: 'OPEN_MAP_PREVIEW_PANEL' });
+                store.dispatch({ type: OPEN_MAP_PREVIEW_PANEL });
             } else {
-                store.dispatch({ type: 'CLOSE_MAP_PREVIEW_PANEL' });
+                store.dispatch({ type: CLOSE_MAP_PREVIEW_PANEL });
             }
         });
 
