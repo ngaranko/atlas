@@ -16,15 +16,6 @@ import { isDevelopment } from '../../shared/environment';
 import stateUrlConverter from '../../shared/services/routing/state-url-converter';
 
 export default (oldState, action) => {
-  /**
-   *
-   *
-   *
-   * Try not to add new stuff to this file. DEPRECATED
-   *
-   *
-   *
-   */
   const UrlReducers = urlReducersInit(stateUrlConverter);
 
   const detailReducers = { // TODO: try moving to root reducer
@@ -62,14 +53,6 @@ export default (oldState, action) => {
     ...straatbeeldReducers,
     ...UrlReducers
   };
-
-
-  // Are we dealing with vanilla js reducers here (type is a
-  // string instead of an object with an ID and other
-  // optional attributes)? e.g.:
-  // {
-  //      type: 'SHOW_DETAIL'
-  // }
 
   // if the action type is found in the deprecated reducers handle the action here
   const handledByOldReducers = isObject(action) &&
