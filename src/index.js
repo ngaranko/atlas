@@ -9,6 +9,7 @@ import './homepage/wrappers/address-block/HomepageAddressBlockWrapper';
 // All third party dependencies
 import './vendor';
 
+
 // Legacy sass
 import '../modules/shared/shared.scss';
 import '../modules/atlas/atlas.scss';
@@ -48,7 +49,6 @@ import '../modules/atlas/services/piwik/piwik-config.constant';
 import '../modules/atlas/services/piwik/piwik.factory';
 import '../modules/atlas/services/piwik/piwik.run';
 import '../modules/atlas/services/redux/store.run';
-import '../modules/atlas/services/routing/state-to-url.factory';
 import '../modules/data-selection/data-selection.module';
 import '../modules/data-selection/components/active-filters/active-filters.component';
 import '../modules/data-selection/components/available-filters/available-filters.component';

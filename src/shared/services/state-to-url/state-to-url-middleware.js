@@ -1,3 +1,5 @@
+import stateToUrl from '../routing/state-to-url';
+
 const stateToUrlMiddleware = (store) => (next) => (action) => {
   // Are we dealing with vanilla js reducers here (type is a
   // string instead of an object with an ID and other
@@ -17,8 +19,6 @@ const stateToUrlMiddleware = (store) => (next) => (action) => {
   const returnValue = next(action);
 
   // Then update the URL
-  // window.stateToUrl is the angular factory that uses $location
-  const stateToUrl = window.stateToUrl;
   if ((vanilla || !action.type.ignore) && !ignoredActions.includes(action.type)) {
     stateToUrl.update(
       store.getState(),
