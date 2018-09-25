@@ -1,6 +1,7 @@
-import ACTIONS from '../../actions';
+import ACTIONS, { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../actions';
 import stateToUrlMiddleware from './state-to-url-middleware';
 import stateToUrl from '../routing/state-to-url';
+import { AUTHENTICATE_USER } from '../../../reducers/user';
 
 jest.mock('../routing/state-to-url');
 
@@ -41,7 +42,7 @@ describe.only('The stateToUrlMiddleware factory', () => {
       ACTIONS.SHOW_STRAATBEELD_INITIAL,
       ACTIONS.MAP_CLICK,
       ACTIONS.HIDE_STRAATBEELD,
-      ACTIONS.FETCH_SEARCH_RESULTS_BY_LOCATION,
+      FETCH_SEARCH_RESULTS_BY_LOCATION,
       ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY,
       ACTIONS.MAP_ADD_PANO_OVERLAY,
       ACTIONS.MAP_REMOVE_PANO_OVERLAY,
@@ -151,7 +152,7 @@ describe.only('The stateToUrlMiddleware factory', () => {
 
   it('AUTHENTICATE_USER should not trigger new url', () => {
     stateToUrlMiddleware(mockedStore)(mockedNext)({
-      type: 'AUTHENTICATE_USER',
+      type: AUTHENTICATE_USER,
       payload: {}
     });
 
