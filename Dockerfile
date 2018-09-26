@@ -1,6 +1,6 @@
 # Build
-FROM node:8.9 AS build-deps
-MAINTAINER datapunt.ois@amsterdam.nl
+FROM node:10.10 AS build-deps
+LABEL maintainer="datapunt@amsterdam.nl"
 
 WORKDIR /app
 
@@ -14,10 +14,10 @@ COPY package.json package-lock.json /app/
 
 # Install all NPM dependencies. Also:
 #  * Changing git URL because network is blocking git protocol...
-#  * Using `CYPRESS_SKIP_BINARY_INSTALL` to skip installing Cypress for it is not used here
+#  * Using `CYPRESS_INSTALL_BINARY` to skip installing Cypress for it is not used here
 RUN git config --global url."https://".insteadOf git:// && \
     git config --global url."https://github.com/".insteadOf git@github.com: && \
-    CYPRESS_SKIP_BINARY_INSTALL=1 \
+    CYPRESS_INSTALL_BINARY=0 \
     npm --production=false \
         --unsafe-perm \
         --verbose \
@@ -44,8 +44,8 @@ RUN echo "build= `date`" > /app/dist/version.txt
 
 # Test dependencies
 COPY karma.conf.js \
-      jest.config.js \
-      /app/
+     jest.config.js \
+     /app/
 COPY test /app/test
 
 

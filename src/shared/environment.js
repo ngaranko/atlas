@@ -27,6 +27,17 @@ export const getEnvironment = (host) => {
   }
 };
 
+// eslint-disable-next-line arrow-body-style
+export const isDevelopment = () => {
+  // istanbul ignore next // hard to test because window items are hard to mock
+  return getEnvironment(window.location.hostname) === ENVIRONMENTS.DEVELOPMENT;
+};
+
+// This object enables/disables features that are not yet released
+export const features = {
+  eigendommen: false
+};
+
 const ENVIRONMENT = (process.env.NODE_ENV).toUpperCase();
 
 export default ENVIRONMENT;

@@ -44,6 +44,3 @@ export const fetchSearchResults = (location) => ({
   },
   payload: [location.latitude, location.longitude]
 });
-
-window.reducers = window.reducers || {};
-window.reducers.MapPreviewPanelReducer = MapPreviewPanelReducer;

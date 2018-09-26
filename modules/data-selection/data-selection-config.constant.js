@@ -151,7 +151,8 @@
                                 'Grondeigenaar',
                                 'Pandeigenaar',
                                 'Appartementseigenaar'
-                            ]
+                            ],
+                            info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/'
                         }, {
                             slug: 'eigenaar_cat',
                             label: 'Zakelijk gerechtigde',
@@ -166,7 +167,8 @@
                                 'Spoorwegen/ProRail',
                                 'Overige niet-natuurlijke personen',
                                 'Overig natuurlijke personen'
-                            ]
+                            ],
+                            info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/'
                         }, {
                             slug: 'stadsdeel_naam',
                             label: 'Stadsdeel'
@@ -174,7 +176,7 @@
                             slug: 'ggw_naam',
                             label: 'GGW-gebied'
                         }, {
-                            slug: 'wijk_naam',
+                            slug: 'buurtcombinatie_naam',
                             label: 'Wijk'
                         }, {
                             slug: 'buurt_naam',
@@ -213,7 +215,8 @@
                             },
                             {
                                 label: '-datum overlijden',
-                                variables: ['sjt_datum_overlijden']
+                                variables: ['sjt_datum_overlijden'],
+                                formatter: 'date'
                             },
                             {
                                 label: 'Niet-natuurlijk persoon: statutaire naam',

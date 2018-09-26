@@ -40,6 +40,10 @@ export default function MapSearchResultsReducer(state = initialState, action) {
         mapSearchResultsByLocation: {
           ...state.mapSearchResultsByLocation,
           [locationId]: action.mapSearchResults
+        },
+        search: {
+          ...state.search,
+          isLoading: false
         }
       };
     }
@@ -57,6 +61,3 @@ export const getMapSearchResults = (location, user) => ({
   location,
   user
 });
-
-window.reducers = window.reducers || {};
-window.reducers.MapSearchResultsReducer = MapSearchResultsReducer;

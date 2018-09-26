@@ -1,29 +1,21 @@
 // eslint-disable
 const path = require('path');
-const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const root = path.resolve(__dirname);
 const src = path.resolve(root, 'src');
 const legacy = path.resolve(root, 'modules');
 const dist = path.resolve(root, 'dist');
 
-function isExternal(module) {
-  const context = module.context;
-  if (typeof context !== 'string') {
-    return false;
-  }
-  return context.indexOf('node_modules') !== -1;
-}
 
-function commonConfig({ nodeEnv }) {
+function commonConfig ({ nodeEnv }) {
   return {
     context: root,
     entry: {
-      app: './src/index.js'
+      app: ['isomorphic-fetch', 'babel-polyfill', './src/index.js']
     },
     output: {
       filename: '[name].bundle.js',
@@ -49,27 +41,28 @@ function commonConfig({ nodeEnv }) {
             src,
             legacy
           ],
-          use: ExtractTextPlugin.extract({
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  url: false // Disable URL parsing in css for now
-                }
-              },
-              {
-                loader: 'postcss-loader',
-                options: {
-                  plugins: (loader) => [
-                    require('autoprefixer')({browsers: ['last 3 versions']})
-                  ]
-                }
-              },
-              {
-                loader: 'sass-loader'
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                url: false // Disable URL parsing in css for now
               }
-            ]
-          })
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: (loader) => [
+                  require('autoprefixer')({ browsers: ['last 3 versions'] })
+                ]
+              }
+            },
+            {
+              loader: 'sass-loader'
+            }
+          ]
         },
         {
           test: /\.html$/,
@@ -101,12 +94,20 @@ function commonConfig({ nodeEnv }) {
         }
       ]
     },
+    optimization: {
+      runtimeChunk: "single",
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendor",
+            chunks: "all"
+          }
+        }
+      }
+    },
     plugins: [
       new CleanWebpackPlugin([dist]),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: module => isExternal(module) // see https://stackoverflow.com/a/38733864
-      }),
       new CopyWebpackPlugin([
         { from: './public/', to: './assets/' },
         // Simply copy the leaflet styling for now

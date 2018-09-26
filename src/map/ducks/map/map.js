@@ -222,5 +222,3 @@ export const updateBoundingBox = (payload, isDrawingActive) =>
     payload
   });
 
-window.reducers = window.reducers || {};
-window.reducers.MapReducer = MapReducer;

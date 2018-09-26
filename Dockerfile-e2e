@@ -1,4 +1,4 @@
-FROM cypress/base:8
+FROM cypress/base:10
 RUN apt-get update && \
     apt-get install -y \
       netcat && \
@@ -20,4 +20,4 @@ RUN git config --global url."https://".insteadOf git:// && \
 COPY src /home/src
 COPY test /home/test
 COPY scripts /home/scripts
-COPY package.json cypress.json /home/
+COPY package.json package-lock.json cypress.json /home/

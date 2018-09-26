@@ -74,6 +74,3 @@ export default function PanelLayersReducer(state = initialState, action) {
 }
 
 export const fetchPanelLayers = (panelLayers) => ({ type: FETCH_PANEL_ITEMS_REQUEST, panelLayers });
-
-window.reducers = window.reducers || {};
-window.reducers.PanelLayersReducer = PanelLayersReducer;

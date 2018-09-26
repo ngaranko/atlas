@@ -35,7 +35,7 @@ export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, get
   )
 );
 
-// related reducer /modules/atlas/services/redux/reducers/straatbeeld-reducers.factory.js
+// src/reducers/deprecated/straatbeeld-reducers.js
 export const fetchStraatbeeldById = (pano) => ({
   type: { id: FETCH_STRAATBEELD_BY_ID },
   payload: { id: pano.id, heading: pano.heading }

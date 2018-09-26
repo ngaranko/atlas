@@ -1,5 +1,6 @@
 import {
   getEnvironment,
+  isDevelopment,
   ENVIRONMENTS
 } from './environment';
 
@@ -37,5 +38,10 @@ describe('The environment service', () => {
   it('defaults to development', () => {
     process.env.NODE_ENV = '';
     expect(getEnvironment()).toBe(ENVIRONMENTS.DEVELOPMENT);
+  });
+
+  it('isDevelopment is true for default hostname', () => {
+    process.env.NODE_ENV = 'development';
+    expect(isDevelopment()).toBe(true);
   });
 });
