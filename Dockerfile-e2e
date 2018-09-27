@@ -14,8 +14,7 @@ COPY package.json package-lock.json /home/
 RUN git config --global url."https://".insteadOf git:// && \
     git config --global url."https://github.com/".insteadOf git@github.com: && \
     CI=true npm install \
-      cypress@`node -p -e "require('./package-lock.json').dependencies.cypress.version"` \
-      bluebird@`node -p -e "require('./package-lock.json').dependencies.bluebird.version"`
+      cypress@`node -p -e "require('./package-lock.json').dependencies.cypress.version"`
 
 COPY src /home/src
 COPY test /home/test
