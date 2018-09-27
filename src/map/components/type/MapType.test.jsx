@@ -28,6 +28,10 @@ describe('MapType rendering', () => {
         selected: true,
         urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2018_RD/{z}/{x}/{y}.jpeg'
       }, {
+        value: 'ir2018',
+        label: 'Infrarood 2018',
+        urlTemplate: 'https://{s}.data.amsterdam.nl/infrarood2018_RD/{z}/{x}/{y}.jpeg'
+      }, {
         value: 'lf2017',
         label: 'Luchtfoto 2017',
         urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg'
