@@ -4,7 +4,8 @@ const SCRIPTS_FOLDER =  process.env.SCRIPTS_FOLDER || 'test/cypress/integration'
 
 cypress.run({
   config: {
-    integrationFolder: SCRIPTS_FOLDER
+    integrationFolder: SCRIPTS_FOLDER,
+    numTestsKeptInMemory: 10
   },
   env: {
     API_ROOT: process.env.API_ROOT,
