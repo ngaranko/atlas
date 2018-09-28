@@ -13,8 +13,8 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
                 inline: '@',
                 hoverText: '@',
                 type: '@',
-                link: '@?',
-                payload: '<'
+                payload: '<',
+                query: '<'
             },
             controller: DpLinkController,
             controllerAs: 'vm'
@@ -36,13 +36,8 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
         });
 
         vm.dispatch = function () {
-            store.dispatch(getAction(vm.type, vm.payload));
+            store.dispatch(getAction(vm.type, vm.payload, vm.query));
         };
-
-        vm.handleClick = (link) => {
-            $window.reactHistory.push(link);
-            vm.dispatch()
-        }
 
         store.subscribe(() => {
             // exclude the zoom level (mpz) and the location (mpv) from the tests
@@ -54,12 +49,16 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
             }
         });
 
-        function getAction(type, payload) {
+        function getAction(type, payload, query) {
             const action = {
                 type: ACTIONS[type] || type
             };
             if (angular.isDefined(payload)) {
                 action.payload = payload;
+            }
+
+            if (angular.isDefined(query)) {
+                action.query = query;
             }
             return action;
         }

@@ -1,9 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router';
 import MapContainer from '../../map/containers/map/MapContainer';
-import Detail from '../containers/DetailContainer';
 
 const Map = ({ columnSizes }) => {
   const classes = classNames({ 'u-page-break-after': columnSizes.middle && columnSizes.right });
@@ -20,9 +18,6 @@ const Map = ({ columnSizes }) => {
         style={{ display: (columnSizes.right) ? 'block' : 'none' }}
         className={`c-dashboard__column c-dashboard__content u-col-sm--${columnSizes.right} qa-dashboard__column--right`}
       >
-        <Switch>
-          <Route path="/detail" component={Detail} />
-        </Switch>
       </div>
     </div>
   );

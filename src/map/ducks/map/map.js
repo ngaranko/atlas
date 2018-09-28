@@ -10,6 +10,7 @@ import {
   getMarkers,
   getRdGeoJsons
 } from './map-selectors';
+import { routing } from '../../../app/routes';
 
 export {
   getActiveBaseLayer,
@@ -62,7 +63,7 @@ const getNewLayer = (straatbeeld) => (
   straatbeeld && straatbeeld.history
     ? `pano${straatbeeld.history}`
     : 'pano'
-  );
+);
 
 const overlayExists = (state, newLayer) => (
   state.map && state.map.overlays.filter((overlay) =>
@@ -71,6 +72,16 @@ const overlayExists = (state, newLayer) => (
 
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
+    case routing.map.type: {
+      const { lat, long } = action.meta.query || {};
+      if (lat && long) {
+        return {
+          ...state,
+          viewBox: [lat, long]
+        };
+      }
+      return state;
+    }
     case MAP_BOUNDING_BOX:
     case MAP_BOUNDING_BOX_SILENT:
       return {
@@ -144,7 +155,7 @@ export default function MapReducer(state = initialState, action) {
         ...state,
         overlays: [
           ...(state.overlays.filter((overlay) =>
-            !overlay.id.startsWith('pano'))
+              !overlay.id.startsWith('pano'))
           ),
           { id: newLayer, isVisible: true }
         ]
@@ -153,7 +164,7 @@ export default function MapReducer(state = initialState, action) {
     case MAP_REMOVE_PANO_OVERLAY: //eslint-disable-line
       // Remove all active 'pano' layers
       const overlays = state && state.overlays
-          .filter((overlay) => !overlay.id.startsWith('pano'));
+                                     .filter((overlay) => !overlay.id.startsWith('pano'));
 
       return state && overlays.length === state.overlays.length ? state : {
         ...state,

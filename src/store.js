@@ -1,7 +1,7 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import createBrowserHistory from 'history/createBrowserHistory';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { connectRoutes } from 'redux-first-router';
+import queryString from 'querystring';
 import rootSaga from './root-saga';
 import './shared/ducks/error-message';
 import './map/ducks/click-location/map-click-location';
@@ -13,24 +13,31 @@ import stateUrlConverter from './shared/services/routing/state-url-converter';
 import { isDevelopment } from './shared/environment';
 import freeze from './shared/services/freeze/freeze';
 import contextMiddleware from './shared/services/context/context-middleware';
+
 window.reducer = rootReducer;
 
-export const history = createBrowserHistory();
-
-const configureStore = () => {
+const configureStore = (history, routes) => {
+  const {
+    reducer: routeReducer,
+    middleware: routeMiddleware,
+    enhancer: routeEnhancer
+  } = connectRoutes(history, routes, {
+    querySerializer: queryString
+  });
   const urlDefaultState = stateUrlConverter.getDefaultState();
   const defaultState = isDevelopment() ? freeze(urlDefaultState) : urlDefaultState;
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const sagaMiddleware = createSagaMiddleware();
   const enhancer = composeEnhancers(
+    routeEnhancer,
     applyMiddleware(
-      routerMiddleware(history),
       contextMiddleware,
-      sagaMiddleware)
+      sagaMiddleware,
+      routeMiddleware)
   );
 
-  window.reduxStore = createStore(connectRouter(history)(rootReducer), defaultState, enhancer);
+  window.reduxStore = createStore(rootReducer(routeReducer), defaultState, enhancer);
 
   sagaMiddleware.run(rootSaga);
 
