@@ -2,7 +2,7 @@ const cypress = require('cypress')
 
 const SCRIPTS_FOLDER =  process.env.SCRIPTS_FOLDER || 'test/cypress/integration';
 
-cypress.run({
+return cypress.run({
   config: {
     integrationFolder: SCRIPTS_FOLDER,
     numTestsKeptInMemory: 10
@@ -15,4 +15,10 @@ cypress.run({
     PASSWORD_EMPLOYEE_PLUS: process.env.PASSWORD_EMPLOYEE_PLUS
   }
 })
-
+.then((results) => {
+  console.log(results)
+})
+.catch((err) => {
+  console.error(err)
+  process.exit(numFailed)
+})
