@@ -58,7 +58,8 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
             }
 
             if (angular.isDefined(query)) {
-                action.query = query;
+                action.meta = {}
+                action.meta.query = query;
             }
             return action;
         }

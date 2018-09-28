@@ -30,11 +30,11 @@ const configureStore = (history, routes) => {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const sagaMiddleware = createSagaMiddleware();
   const enhancer = composeEnhancers(
-    routeEnhancer,
     applyMiddleware(
       contextMiddleware,
       sagaMiddleware,
-      routeMiddleware)
+      routeMiddleware),
+    routeEnhancer
   );
 
   window.reduxStore = createStore(rootReducer(routeReducer), defaultState, enhancer);
