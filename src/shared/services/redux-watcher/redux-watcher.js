@@ -7,13 +7,9 @@ import { MAP_ADD_PANO_OVERLAY, MAP_REMOVE_PANO_OVERLAY } from '../../../map/duck
 import {
   getDetailEndpoint,
   getGeosearchLocation,
-  isHomePageActive,
-  isMapFullscreen,
-  isMapOverlaysActive,
   isMapPreviewPanelActive,
   isStraatbeeldActive
 } from './redux-watch-selectors';
-import { hideMapPanel, showMapPanel } from '../../ducks/ui/ui';
 
 // mimics dashboard.component behavior:
 // $scope.$watchGroup(['vm.isStraatbeeldActive', 'vm.straatbeeldHistory'], () => {
@@ -35,8 +31,6 @@ import { hideMapPanel, showMapPanel } from '../../ducks/ui/ui';
 function ReduxWatcher(store) {
   const { getState, subscribe, dispatch } = store;
   const watchStraatbeeld = watch(() => isStraatbeeldActive(getState()));
-  const watchMapOverlays = watch(() => isMapOverlaysActive(getState()));
-  const watchMapFullscreen = watch(() => isMapFullscreen(getState()));
   const watchMapPreviewPanel = watch(() => isMapPreviewPanelActive(getState()));
   const watchGeosearchLocation = watch(() => getGeosearchLocation(getState()));
   const watchDetailEndpoint = watch(() => getDetailEndpoint(getState()));
@@ -47,25 +41,6 @@ function ReduxWatcher(store) {
       dispatch({ type: MAP_ADD_PANO_OVERLAY, payload: state.straatbeeld });
     } else {
       setTimeout(() => dispatch({ type: MAP_REMOVE_PANO_OVERLAY }));
-    }
-  }));
-
-  // Todo: probably obsolete, check if this can be removed
-  subscribe(watchMapOverlays((active) => {
-    const state = getState();
-    if (!active && (state.ui.isEmbed || state.ui.isEmbedPreview)) {
-      dispatch(hideMapPanel());
-    }
-  }));
-
-  // Show or hide React `MapPanel` app according to map fullscreen state
-  subscribe(watchMapFullscreen((active) => {
-    if (!active) {
-      // Always hide when map exits fullscreen mode
-      store.dispatch(hideMapPanel());
-    } else if (isHomePageActive) {
-      // Only show when coming from the home page
-      store.dispatch(showMapPanel());
     }
   }));
 

@@ -1,3 +1,5 @@
+import { routing } from '../../../app/routes';
+
 export const HIDE_EMBED_PREVIEW = 'HIDE_EMBED_PREVIEW';
 export const HIDE_MAP_PANEL = 'HIDE_MAP_PANEL';
 export const HIDE_PRINT = 'HIDE_PRINT';
@@ -49,6 +51,7 @@ export default function UiReducer(state = initialState, action) {
       };
 
     case SHOW_MAP:
+    case routing.map.type:
       return {
         ...state,
         isMapPanelVisible: true,
