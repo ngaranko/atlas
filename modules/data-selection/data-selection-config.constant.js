@@ -152,7 +152,7 @@
                                 'Pandeigenaar',
                                 'Appartementseigenaar'
                             ],
-                            info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/'
+                            info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadaster-tabel/#PagCls_14462665'
                         }, {
                             slug: 'eigenaar_cat',
                             label: 'Zakelijk gerechtigde',
@@ -168,7 +168,7 @@
                                 'Overige niet-natuurlijke personen',
                                 'Overig natuurlijke personen'
                             ],
-                            info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/'
+                            info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadaster-tabel/#PagCls_14466834'
                         }, {
                             slug: 'stadsdeel_naam',
                             label: 'Stadsdeel'
