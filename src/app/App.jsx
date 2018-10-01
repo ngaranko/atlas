@@ -6,11 +6,12 @@ import { connect } from 'react-redux';
 import Map from './pages/Map';
 import Piwik from './components/Piwik/Piwik';
 import ContentPage, { PAGE_NAMES, PAGE_TYPES } from './pages/ContentPage';
+import PAGES from './pages';
 // import DataSelection from './pages/DataSelection';
 
 // TodoReactMigration: implement logic
 const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes, currentPage }) => {
-  const isHomePage = currentPage === 'home';
+  const isHomePage = currentPage === PAGES.HOME;
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
     'c-dashboard--full-height': isFullHeight,
@@ -48,15 +49,15 @@ const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes
       <div className={`c-dashboard__body ${bodyClasses}`}>
         <div className="u-grid u-full-height">
           <div className="u-row u-full-height">
-            {currentPage.type === 'home' && (
+            {currentPage.type === PAGES.HOME && (
               <ContentPage name={PAGE_NAMES.home} showFooter columnSizes={columnSizes} />
             )}
 
-            {currentPage.type === 'map' && (
+            {currentPage.type === PAGES.KAART && (
               <Map />
             )}
 
-            {currentPage.type === 'help' && (
+            {currentPage.type === PAGES.HELP && (
               <ContentPage
                 name={PAGE_NAMES.contentOverview}
                 type={PAGE_TYPES.help}

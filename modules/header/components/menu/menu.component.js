@@ -18,9 +18,9 @@ import { routing } from '../../../../src/app/routes';
             controllerAs: 'vm'
         });
 
-    DpMenuController.$inject = ['$scope', '$window', 'store', 'ACTIONS'];
+    DpMenuController.$inject = ['$scope', '$window', 'store'];
 
-    function DpMenuController ($scope, $window, store, ACTIONS) {
+    function DpMenuController ($scope, $window, store) {
         const vm = this;
 
         vm.helpType = routing.help.type;
