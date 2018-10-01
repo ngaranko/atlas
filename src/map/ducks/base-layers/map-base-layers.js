@@ -32,7 +32,6 @@ export const getUrlTemplate = createSelector([getAllBaseLayers, getActiveBaseLay
 export default function MapBaseLayersReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_MAP_BASE_LAYERS_REQUEST:
-      console.log(state)
       return { ...state, isLoading: true, error: null };
 
     case FETCH_MAP_BASE_LAYERS_SUCCESS:

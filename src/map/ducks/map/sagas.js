@@ -1,4 +1,5 @@
-import { put, select, takeLatest, takeEvery } from 'redux-saga/effects';
+import { redirect } from 'redux-first-router';
+import { put, select, takeLatest } from 'redux-saga/effects';
 import { routing } from '../../../app/routes';
 
 /**
@@ -7,10 +8,10 @@ import { routing } from '../../../app/routes';
  * @param action
  * @returns {IterableIterator<*>}
  */
-function* updateMap(action) {
+function* updateMapQuery(action) {
   const state = yield select();
   try {
-    yield put({
+    yield put(redirect({
       type: routing.map.type, // Todo: get the type for the current page
       meta: {
         query: {
@@ -19,17 +20,12 @@ function* updateMap(action) {
           ...action.payload.query
         }
       }
-    });
+    }));
   } catch (error) {
     yield put({ type: 'MAP_UPDATE_ERROR', error });
   }
 }
 
-function* sanitizeUrl(action) {
-  // check here if params are allowed. otherwise replace url
-}
-
 export default function* watchMapUpdate() {
-  yield takeLatest('UPDATE_MAP', updateMap);
-  yield takeEvery(routing.map.type, sanitizeUrl); // Todo: figure out why this isn't called the first time
+  yield takeLatest('UPDATE_MAP', updateMapQuery);
 }

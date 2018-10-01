@@ -26,11 +26,10 @@ const newMapReducer = (state = { active: false, id: 0 }, action = {}) => {
         active: true
       };
 
-    case routing.mapId.type:
+    case routing.detail.type:
       return {
         ...state,
-        active: true,
-        id: action.payload.id
+        active: true
       };
     default:
       return state;

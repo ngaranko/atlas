@@ -1,37 +1,37 @@
-export const routerNamespace = 'atlasRouter';
+export const ROUTER_NAMESPACE = 'atlasRouter';
 
 export const routing = {
   home: {
     location: '/',
-    type: `${routerNamespace}/HOME`
+    type: `${ROUTER_NAMESPACE}/HOME`
   },
   map: {
     location: '/map',
-    type: `${routerNamespace}/MAP`
+    type: `${ROUTER_NAMESPACE}/MAP`
   },
-  mapId: {
-    location: '/map/:id',
-    type: `${routerNamespace}/MAP_ID`
+  detail: {
+    location: '/map/detail',
+    type: `${ROUTER_NAMESPACE}/MAP_DETAIL`
   },
   help: {
     location: '/help',
-    type: `${routerNamespace}/HELP`
+    type: `${ROUTER_NAMESPACE}/HELP`
   },
   gegevens: {
     location: '/gegevens',
-    type: `${routerNamespace}/GEGEVENS`
+    type: `${ROUTER_NAMESPACE}/GEGEVENS`
   },
   apis: {
     location: '/apis',
-    type: `${routerNamespace}/APIS`
+    type: `${ROUTER_NAMESPACE}/APIS`
   },
   bediening: {
     location: '/bediening',
-    type: `${routerNamespace}/BEDIENING`
+    type: `${ROUTER_NAMESPACE}/BEDIENING`
   },
   dataset: {
     location: '/dataset',
-    type: `${routerNamespace}/DATASET`
+    type: `${ROUTER_NAMESPACE}/DATASET`
   }
 };
 
