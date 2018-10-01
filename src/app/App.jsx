@@ -49,15 +49,15 @@ const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes
       <div className={`c-dashboard__body ${bodyClasses}`}>
         <div className="u-grid u-full-height">
           <div className="u-row u-full-height">
-            {currentPage.type === PAGES.HOME && (
+            {currentPage === PAGES.HOME && (
               <ContentPage name={PAGE_NAMES.home} showFooter columnSizes={columnSizes} />
             )}
 
-            {currentPage.type === PAGES.KAART && (
+            {currentPage === PAGES.KAART && (
               <Map />
             )}
 
-            {currentPage.type === PAGES.HELP && (
+            {currentPage === PAGES.HELP && (
               <ContentPage
                 name={PAGE_NAMES.contentOverview}
                 type={PAGE_TYPES.help}
@@ -86,6 +86,7 @@ App.propTypes = {
   hasMaxWidth: PropTypes.bool,
   isFullHeight: PropTypes.bool,
   pageType: PropTypes.string, // state.page && state.page.type ? state.page.type : '',
+  currentPage: PropTypes.string.isRequired,
   visibilityError: PropTypes.bool, // vm.visibility.error
   columnSizes: PropTypes.shape({
     right: PropTypes.number,

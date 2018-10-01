@@ -51,9 +51,4 @@ const routes = Object.keys(routing).reduce((acc, key) => {
   return acc;
 }, {});
 
-export const getCurrentPage = (actionType) => {
-  const key = Object.keys(routing).find((route) => routing[route].type === actionType);
-  return key && routing[key].page;
-};
-
 export default routes;
