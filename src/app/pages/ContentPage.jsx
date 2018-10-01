@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import connect from 'react-redux/es/connect/connect';
 import { AngularWrapper } from 'react-angular';
 import Footer from '../components/Footer/Footer';
-
-const mapStateToProps = (state) => ({
-  item: state.page.item || []
-});
 
 export const PAGE_NAMES = {
   home: 'home',
@@ -68,4 +63,4 @@ ContentPage.propTypes = {
   }).isRequired
 };
 
-export default connect(mapStateToProps, null)(ContentPage);
+export default ContentPage;

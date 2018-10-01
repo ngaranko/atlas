@@ -104,7 +104,7 @@ const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes
               <ContentPage
                 name={PAGE_NAMES.contentDetail}
                 type={PAGE_TYPES.beleid}
-                item={'item0'}
+                item="item0"
                 columnSizes={columnSizes}
               />
             )}
@@ -112,7 +112,7 @@ const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes
               <ContentPage
                 name={PAGE_NAMES.contentDetail}
                 type={PAGE_TYPES.beleid}
-                item={'item1'}
+                item="item1"
                 columnSizes={columnSizes}
               />
             )}
@@ -120,7 +120,7 @@ const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes
               <ContentPage
                 name={PAGE_NAMES.contentDetail}
                 type={PAGE_TYPES.beleid}
-                item={'item2'}
+                item="item2"
                 columnSizes={columnSizes}
               />
             )}

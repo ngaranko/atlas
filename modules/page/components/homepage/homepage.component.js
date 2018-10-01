@@ -25,6 +25,9 @@ import { routing } from '../../../../src/app/routes';
         vm.bedieningType = routing.bediening.type;
         vm.gegevensType = routing.gegevens.type;
         vm.apisType = routing.apis.type;
+        vm.privacyBeveilingType = routing.privacy_beveiliging.type;
+        vm.beschikbaarKwaliteitType = routing.beschikbaar_kwaliteit.type;
+        vm.beheerWerkwijzeType= routing.beheer_werkwijze.type;
 
         vm.fetchStraatbeeldPayload = angular.merge(
             {},

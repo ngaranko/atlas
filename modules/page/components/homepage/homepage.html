@@ -137,7 +137,30 @@
             <div class="u-col-sm--1">&nbsp;</div>
             <div class="u-col-sm--3">
                 <div class="u-margin__left--1 c-homepage__beleid">
-                    <dp-user-content-widget type="beleid"></dp-user-content-widget>
+                    <div>
+                        <div class="c-user-content-widget__beleid-zie-ook">Over</div>
+                        <div class="c-user-content-widget__entry">
+                            <dp-link type={{vm.privacyBeveilingType}}>
+                                <div class="c-user-content-widget__short s-cms-widget-content s-cms-widget-content--inline">
+                                    <p>Privacy en informatiebeveiliging</p>
+                                </div>
+                            </dp-link>
+                        </div>
+                        <div class="c-user-content-widget__entry">
+                            <dp-link type={{vm.beschikbaarKwaliteitType}}>
+                                <div class="c-user-content-widget__short s-cms-widget-content s-cms-widget-content--inline">
+                                    <p>Beschikbaarheid en kwaliteit data</p>
+                                </div>
+                            </dp-link>
+                        </div>
+                        <div class="c-user-content-widget__entry">
+                            <dp-link type={{vm.beheerWerkwijzeType}}>
+                                <div class="c-user-content-widget__short s-cms-widget-content s-cms-widget-content--inline">
+                                    <p>Technisch beheer en werkwijze</p>
+                                </div>
+                            </dp-link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
