@@ -1,4 +1,5 @@
 import { authenticateError } from '../../../../src/reducers/user';
+import { routing } from '../../../../src/app/routes';
 
 (function () {
     'use strict';
@@ -21,6 +22,8 @@ import { authenticateError } from '../../../../src/reducers/user';
 
     function DpMenuController ($scope, $window, store, ACTIONS) {
         const vm = this;
+
+        vm.helpType = routing.help.type;
 
         vm.login = () => {
             try {
