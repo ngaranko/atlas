@@ -1,9 +1,15 @@
-import { getCurrentPage } from '../app/routes';
+import { routing } from '../app/routes';
 import PAGES from '../app/pages';
 
-const currentPageReducer = (state = { type: PAGES.HOME, variant: null }, action = {}) => (
+
+const getCurrentPage = (actionType) => {
+  const key = Object.keys(routing).find((route) => routing[route].type === actionType);
+  return key && routing[key].page;
+};
+
+const currentPageReducer = (state = PAGES.HOME, action = {}) => (
   getCurrentPage(action.type) ?
-    { type: getCurrentPage(action.type), variant: action.payload.variant } :
+    getCurrentPage(action.type) :
     state
 );
 
