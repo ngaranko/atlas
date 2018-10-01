@@ -1,7 +1,5 @@
 import UiReducer, {
-  hideMapPanel,
   setMapFullscreen,
-  showMapPanel,
   toggleMapFullscreen,
   toggleMapPanel,
   toggleMapPanelHandle,
@@ -24,21 +22,6 @@ describe('UiReducer', () => {
       isMapPanelVisible: false,
       isMapPanelHandleVisible: true,
       isMapFullscreen: false
-    });
-  });
-
-  it('should show the map panel', () => {
-    expect(UiReducer(state, showMapPanel())).toEqual({
-      ...state,
-      isMapPanelVisible: true
-    });
-  });
-
-  it('should hide the map panel', () => {
-    const newState = UiReducer(state, showMapPanel());
-    expect(UiReducer(newState, hideMapPanel())).toEqual({
-      ...state,
-      isMapPanelVisible: false
     });
   });
 

@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom';
+import { routing } from '../../../../src/app/routes';
 
 (function () {
     'use strict';
@@ -20,6 +21,7 @@ import ReactDOM from 'react-dom';
         const homepageAddressBlockWrapper = $window.HomepageAddressBlockWrapper;
         let homepageAddressBlockWrapperContainer;
 
+        vm.mapType = routing.map.type;
         vm.fetchStraatbeeldPayload = angular.merge(
             {},
             HOMEPAGE_CONFIG.PANORAMA,

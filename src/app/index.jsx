@@ -1,33 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
+import createHistory from 'history/createBrowserHistory';
 import App from './App';
-import configureStore, { history } from '../store';
+import configureStore from '../store';
 import './angularModules';
 import reduxWatcher from '../shared/services/redux-watcher/redux-watcher';
+import routes from './routes';
 
-const store = configureStore();
-
-reduxWatcher(store);
+const history = createHistory();
+const store = configureStore(history, routes);
 
 window.reactHistory = history;
 
+reduxWatcher(store);
+
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App history={history} />
-    </ConnectedRouter>
+    <App />
   </Provider>,
   document.getElementById('root')
 );
-
-// (function (orig) {
-//   angular.modules = [];
-//   angular.module = function () {
-//     if (arguments.length > 1) {
-//       angular.modules.push(arguments[0]);
-//     }
-//     return orig.apply(null, arguments);
-//   };
-// })(angular.module);

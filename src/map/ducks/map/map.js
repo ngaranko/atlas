@@ -1,3 +1,4 @@
+import { put, takeLatest, select } from 'redux-saga/effects';
 import {
   getActiveBaseLayer,
   getCenter,
@@ -10,6 +11,7 @@ import {
   getMarkers,
   getRdGeoJsons
 } from './map-selectors';
+import { routing } from '../../../app/routes';
 
 export {
   getActiveBaseLayer,
@@ -62,7 +64,7 @@ const getNewLayer = (straatbeeld) => (
   straatbeeld && straatbeeld.history
     ? `pano${straatbeeld.history}`
     : 'pano'
-  );
+);
 
 const overlayExists = (state, newLayer) => (
   state.map && state.map.overlays.filter((overlay) =>
@@ -71,27 +73,19 @@ const overlayExists = (state, newLayer) => (
 
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
+    case routing.map.type: {
+      const { lat, lng, zoom } = action.meta.query || {};
+      return {
+        ...state,
+        viewCenter: [lat, lng],
+        zoom: zoom || state.zoom
+      };
+    }
     case MAP_BOUNDING_BOX:
     case MAP_BOUNDING_BOX_SILENT:
       return {
         ...state,
         boundingBox: action.payload.boundingBox
-      };
-
-    case MAP_PAN:
-    case MAP_PAN_SILENT:
-      return {
-        ...state,
-        viewCenter: action.payload
-      };
-
-    case MAP_ZOOM:
-    case MAP_ZOOM_SILENT:
-      return {
-        ...state,
-        zoom: action.payload.zoom,
-        viewCenter: Array.isArray(action.payload.viewCenter) ?
-          action.payload.viewCenter : state.viewCenter
       };
 
     case MAP_CLEAR_DRAWING:
@@ -144,7 +138,7 @@ export default function MapReducer(state = initialState, action) {
         ...state,
         overlays: [
           ...(state.overlays.filter((overlay) =>
-            !overlay.id.startsWith('pano'))
+              !overlay.id.startsWith('pano'))
           ),
           { id: newLayer, isVisible: true }
         ]
@@ -153,7 +147,7 @@ export default function MapReducer(state = initialState, action) {
     case MAP_REMOVE_PANO_OVERLAY: //eslint-disable-line
       // Remove all active 'pano' layers
       const overlays = state && state.overlays
-          .filter((overlay) => !overlay.id.startsWith('pano'));
+                                     .filter((overlay) => !overlay.id.startsWith('pano'));
 
       return state && overlays.length === state.overlays.length ? state : {
         ...state,
@@ -201,20 +195,31 @@ export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
   show
 });
 
-export const updateZoom = (payload, isDrawingActive) =>
+export const updateZoom = (payload, isDrawingActive) =>  // isDrawingActive = silent
   ({
-    type: isDrawingActive ? MAP_ZOOM_SILENT : MAP_ZOOM,
+    type: 'UPDATE_MAP',
     payload: {
-      ...payload,
-      viewCenter: [payload.center.lat, payload.center.lng]
+      query: {
+        zoom: payload.zoom,
+        lat: payload.center.lat,
+        lng: payload.center.lng
+      }
     }
   });
 
-export const updatePan = (payload, isDrawingActive) =>
+export const updatePan = (payload, isDrawingActive) => // isDrawingActive = silent
   ({
-    type: isDrawingActive ? MAP_PAN_SILENT : MAP_PAN,
-    payload: [payload.center.lat, payload.center.lng]
+    type: 'UPDATE_MAP',
+    payload: {
+      query: {
+        lat: payload.center.lat,
+        lng: payload.center.lng
+      }
+    }
   });
+
+
+
 
 export const updateBoundingBox = (payload, isDrawingActive) =>
   ({
