@@ -22,6 +22,9 @@ import { routing } from '../../../../src/app/routes';
         let homepageAddressBlockWrapperContainer;
 
         vm.mapType = routing.map.type;
+        vm.bedieningType = routing.bediening.type;
+        vm.gegevensType = routing.gegevens.type;
+        vm.apisType = routing.apis.type;
 
         vm.fetchStraatbeeldPayload = angular.merge(
             {},

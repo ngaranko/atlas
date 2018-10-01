@@ -10,14 +10,19 @@ const mapStateToProps = (state) => ({
 
 export const PAGE_NAMES = {
   home: 'home',
+  contentDetail: 'content-detail',
   contentOverview: 'content-overzicht'
 };
 
 export const PAGE_TYPES = {
+  nieuws: 'news',
   help: 'help',
-  howTo: 'snelwegwijs',
-  apis: 'apis',
-  info: 'info'
+  proclaimer: 'proclaimer',
+  bediening: 'snelwegwijs',
+  gegevens: 'info',
+  over_api: 'apis',
+  beleid: 'beleid',
+  statistieken: 'statistieken'
 };
 
 const ContentPage = ({ name, item, type, columnSizes, showFooter }) => (

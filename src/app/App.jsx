@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Map from './pages/Map';
 import Piwik from './components/Piwik/Piwik';
 import ContentPage, { PAGE_NAMES, PAGE_TYPES } from './pages/ContentPage';
-import PAGES from './pages';
+import PAGES, { isCmsPage } from './pages';
 // import DataSelection from './pages/DataSelection';
 
 // TodoReactMigration: implement logic
@@ -57,6 +57,14 @@ const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes
               <Map />
             )}
 
+            {currentPage === PAGES.NIEUWS && (
+              <ContentPage
+                name={PAGE_NAMES.contentDetail}
+                type={PAGE_TYPES.nieuws}
+                item={'item0'}
+                columnSizes={columnSizes}
+              />
+            )}
             {currentPage === PAGES.HELP && (
               <ContentPage
                 name={PAGE_NAMES.contentOverview}
@@ -64,6 +72,66 @@ const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes
                 columnSizes={columnSizes}
               />
             )}
+            {currentPage === PAGES.PROCLAIMER && (
+              <ContentPage
+                name={PAGE_NAMES.contentOverview}
+                type={PAGE_TYPES.proclaimer}
+                columnSizes={columnSizes}
+              />
+            )}
+            {currentPage === PAGES.BEDIENING && (
+              <ContentPage
+                name={PAGE_NAMES.contentOverview}
+                type={PAGE_TYPES.bediening}
+                columnSizes={columnSizes}
+              />
+            )}
+            {currentPage === PAGES.GEGEVENS && (
+              <ContentPage
+                name={PAGE_NAMES.contentOverview}
+                type={PAGE_TYPES.gegevens}
+                columnSizes={columnSizes}
+              />
+            )}
+            {currentPage === PAGES.OVER_API && (
+              <ContentPage
+                name={PAGE_NAMES.contentOverview}
+                type={PAGE_TYPES.over_api}
+                columnSizes={columnSizes}
+              />
+            )}
+            {currentPage === PAGES.PRIVACY_BEVEILIGING && (
+              <ContentPage
+                name={PAGE_NAMES.contentDetail}
+                type={PAGE_TYPES.beleid}
+                item={'item0'}
+                columnSizes={columnSizes}
+              />
+            )}
+            {currentPage === PAGES.BESCHIKBAAR_KWALITEIT && (
+              <ContentPage
+                name={PAGE_NAMES.contentDetail}
+                type={PAGE_TYPES.beleid}
+                item={'item1'}
+                columnSizes={columnSizes}
+              />
+            )}
+            {currentPage === PAGES.BEHEER_WERKWIJZE && (
+              <ContentPage
+                name={PAGE_NAMES.contentDetail}
+                type={PAGE_TYPES.beleid}
+                item={'item2'}
+                columnSizes={columnSizes}
+              />
+            )}
+            {currentPage === PAGES.STATISTIEKEN && (
+              <ContentPage
+                name={PAGE_NAMES.contentOverview}
+                type={PAGE_TYPES.statistieken}
+                columnSizes={columnSizes}
+              />
+            )}
+
           </div>
         </div>
       </div>
