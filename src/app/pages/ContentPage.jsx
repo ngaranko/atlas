@@ -55,7 +55,7 @@ ContentPage.defaultProps = {
 ContentPage.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string,
-  item: PropTypes.any.isRequired,
+  item: PropTypes.any,
   showFooter: PropTypes.bool,
   columnSizes: PropTypes.shape({
     right: PropTypes.number,
