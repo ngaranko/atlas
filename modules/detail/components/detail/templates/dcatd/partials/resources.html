@@ -15,11 +15,23 @@
                             </div>
 
                             <div class="resources-item__description">
-                                <span ng-if="resource['ams:distributionType'] !== 'web'">
+                                <span ng-if="resource['ams:distributionType'] === 'file'">
                                     <span class="c-data-selection-file-type
                                                  c-data-selection-file-type__name
                                                  c-data-selection-file-type__format-{{resource['dct:format'] | optionLabel: vm.catalogFilters.formatTypes| lowercase}}">
-                                                 {{(resource['dct:format']) ? resource['dct:format'] : 'n/a' | optionLabel: vm.catalogFilters.formatTypes}}</span>
+                                                 {{(resource['dct:format'] || 'n/a') | optionLabel: vm.catalogFilters.formatTypes}}</span>
+                                </span>
+                                <span ng-if="resource['ams:distributionType'] === 'api'">
+                                    <span class="c-data-selection-file-type
+                                                 c-data-selection-file-type__name
+                                                 c-data-selection-file-type__format-{{resource['ams:serviceType'] | optionLabel: vm.catalogFilters.serviceTypes| lowercase}}">
+                                                 {{(resource['ams:serviceType'] || 'other') | optionLabel: vm.catalogFilters.serviceTypes}}</span>
+                                </span>
+                                <span ng-if="resource['ams:distributionType'] === 'web'">
+                                    <span class="c-data-selection-file-type
+                                                 c-data-selection-file-type__name
+                                                 c-data-selection-file-type__format-{{resource['ams:distributionType'] | optionLabel: vm.catalogFilters.distributionTypes| lowercase}}">
+                                                 {{resource['ams:distributionType'] | optionLabel: vm.catalogFilters.distributionTypes}}</span>
                                 </span>
                                 <div>{{ resource['dct:description'] ? vm.stripMarkdown(resource['dct:description']) : resource['dcat:accessURL'] }}</div>
                             </div>

@@ -22,7 +22,30 @@ import removeMd from 'remove-markdown';
         var state = store.getState();
         vm.catalogFilters = state.catalogFilters;
 
+        const getFileType = function (mime, fieldSchema) {
+            const filters = $filter('filter')(fieldSchema, {'id': mime});
+            if (filters && filters.length > 0) {
+                return filters[0].label;
+            } else {
+                return 'Anders';
+            }
+        };
+
         vm.items = vm.content.map((item, index) => {
+            let formats = [];
+            item['dcat:distribution'].map(resource => {
+                if (resource['ams:distributionType'] === 'file') {
+                    const format = getFileType(resource['dct:format'], vm.catalogFilters.formatTypes);
+                    formats = [...formats, format];
+                } else if (resource['ams:distributionType'] === 'api') {
+                    const format = getFileType(resource['ams:serviceType'], vm.catalogFilters.serviceTypes);
+                    formats = [...formats, format];
+                } else {
+                    const format = getFileType(resource['ams:distributionType'], vm.catalogFilters.distributionTypes);
+                    formats = [...formats, format];
+                }
+            });
+
             return {
                 header: item['dct:title'],
                 description: removeMd(item['dct:description']),
@@ -30,7 +53,7 @@ import removeMd from 'remove-markdown';
                     'metadata_created': item['foaf:isPrimaryTopicOf']['dct:issued'],
                     'metadata_modified': item['foaf:isPrimaryTopicOf']['dct:modified']
                 },
-                formats: $filter('aggregate')(item['dcat:distribution'].map(resource => resource['dct:format'])),
+                formats: $filter('aggregate')(formats),
                 tags: item['dcat:keyword'],
                 detailEndpoint: item._links.self.href
             };
