@@ -1,3 +1,7 @@
+/* eslint-disable */
+import L from 'leaflet';
+import { MAP_LOADING } from '../../../../src/map/ducks/map/map';
+
 (function () {
     'use strict';
 
@@ -27,7 +31,7 @@
         'ACTIONS'
     ];
 
-    function DpDataSelectionController (
+    function DpDataSelectionController(
         $scope,
         userSettings,
         dataSelectionApi,
@@ -62,7 +66,7 @@
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('datasets');
 
-        function updateTabHeader (query, count) {
+        function updateTabHeader(query, count) {
             if (vm.showTabHeader()) {
                 vm.tabHeader.userScopes = vm.user.scopes;
                 vm.tabHeader.query = query;
@@ -70,7 +74,7 @@
             }
         }
 
-        function fetchData () {
+        function fetchData() {
             const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
             const isListView = vm.state.view === 'LIST';
             vm.view = vm.state.view;
@@ -140,12 +144,23 @@
                     if (isListView && vm.numberOfRecords <= vm.maxNumberOfClusteredMarkers) {
                         // Get marker data and update the state to show the
                         // data
+                        vm.isLoading = true;
+                        var map = L.Map;
+                        store.dispatch({
+                            type: MAP_LOADING,
+                            payload: true,
+                        });
                         dataSelectionApi
                             .getMarkers(vm.state.dataset, activeFilters, vm.zoomLevel, vm.boundingBox)
                             .then(markerData => {
                                 store.dispatch({
                                     type: ACTIONS.SHOW_DATA_SELECTION,
                                     payload: markerData
+                                });
+                            }).finally(() => {
+                                store.dispatch({
+                                    type: MAP_LOADING,
+                                    payload: false,
                                 });
                             });
                     } else if (vm.state.reset) {

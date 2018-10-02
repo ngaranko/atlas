@@ -41,13 +41,14 @@ export const MAP_CLEAR = 'MAP_CLEAR';
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
+export const MAP_LOADING = 'MAP_LOADING';
 
 const initialState = {
   viewCenter: [52.3731081, 4.8932945],
   baseLayer: 'topografie',
   zoom: 11,
   overlays: [],
-  isLoading: false,
+  mapBusy: false,
   drawingMode: 'none',
   shapeMarkers: 0,
   shapeDistanceTxt: '',
@@ -180,6 +181,13 @@ export default function MapReducer(state = initialState, action) {
 
     case MAP_CLEAR:
       return initialState;
+
+    case MAP_LOADING:
+      return {
+        ...state,
+        mapBusy: action.payload
+      };
+
 
     default:
       return state;
