@@ -21,14 +21,7 @@ import { routing } from '../../../../src/app/routes';
         const homepageAddressBlockWrapper = $window.HomepageAddressBlockWrapper;
         let homepageAddressBlockWrapperContainer;
 
-        vm.mapType = routing.map.type;
-        vm.bedieningType = routing.bediening.type;
-        vm.gegevensType = routing.gegevens.type;
-        vm.apisType = routing.apis.type;
-        vm.privacyBeveilingType = routing.privacy_beveiliging.type;
-        vm.beschikbaarKwaliteitType = routing.beschikbaar_kwaliteit.type;
-        vm.beheerWerkwijzeType = routing.beheer_werkwijze.type;
-        vm.nieuwsType = routing.nieuws.type;
+        vm.routing = routing;
 
         vm.fetchStraatbeeldPayload = angular.merge(
             {},
