@@ -12,7 +12,7 @@
                      ng-bind-html="entry.verkorteTitel.html"></div>
                 <dp-link ng-if="!entry.verkorteTitel.isHref"
                          class-name="c-link"
-                         type="atlasRouter/NIEUWS"
+                         type={{vm.routing.nieuws.type}}
                     ><div class="s-cms-widget-content s-cms-widget-content--inline"
                           ng-bind-html="entry.verkorteTitel.html"></div></dp-link>
             </h2>
