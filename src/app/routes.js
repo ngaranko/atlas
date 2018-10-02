@@ -74,7 +74,7 @@ export const routing = {
     location: '/statistieken',
     type: `${ROUTER_NAMESPACE}/${PAGES.STATISTIEKEN}`,
     page: PAGES.STATISTIEKEN
-  },
+  }
 };
 
 // e.g. { home: '/' }, to be used by redux-first-router/connectRoutes

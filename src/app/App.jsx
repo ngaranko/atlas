@@ -11,7 +11,6 @@ import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 
 // TodoReactMigration: implement logic
 const App = ({
-  hasMaxWidth,
   isFullHeight,
   pageType,
   visibilityError,
@@ -24,6 +23,7 @@ const App = ({
   if (isCmsPage) {
     cmsPageData = CMS_PAGE_MAPPING[currentPage];
   }
+  const hasMaxWidth = isHomePage || isCmsPage;
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
@@ -41,9 +41,7 @@ const App = ({
         component="dpHeader"
         dependencies={['atlas']}
         bindings={{
-          isHomePage
-        }}
-        interpolateBindings={{
+          isHomePage,
           hasMaxWidth
         }}
       />
@@ -90,7 +88,6 @@ const App = ({
 };
 
 App.defaultProps = {
-  hasMaxWidth: true,
   isFullHeight: true,
   pageType: '',
   visibilityError: false,
@@ -101,7 +98,6 @@ App.defaultProps = {
 };
 
 App.propTypes = {
-  hasMaxWidth: PropTypes.bool,
   isFullHeight: PropTypes.bool,
   pageType: PropTypes.string, // state.page && state.page.type ? state.page.type : '',
   currentPage: PropTypes.string.isRequired,
