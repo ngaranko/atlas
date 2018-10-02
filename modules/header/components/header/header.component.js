@@ -9,7 +9,7 @@
             controllerAs: 'vm',
             bindings: {
                 isHomePage: '<',
-                hasMaxWidth: '@'
+                hasMaxWidth: '<'
             }
         });
 
