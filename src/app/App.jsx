@@ -5,13 +5,26 @@ import { AngularWrapper } from 'react-angular';
 import { connect } from 'react-redux';
 import Map from './pages/Map';
 import Piwik from './components/Piwik/Piwik';
-import ContentPage, { PAGE_NAMES, PAGE_TYPES } from './pages/ContentPage';
-import PAGES from './pages';
+import ContentPage, { CMS_PAGE_MAPPING } from './pages/ContentPage';
+import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 // import DataSelection from './pages/DataSelection';
 
 // TodoReactMigration: implement logic
-const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes, currentPage }) => {
+const App = ({
+  hasMaxWidth,
+  isFullHeight,
+  pageType,
+  visibilityError,
+  columnSizes,
+  currentPage
+}) => {
   const isHomePage = currentPage === PAGES.HOME;
+  const isCmsPage = pageIsCmsPage(currentPage);
+  let cmsPageData;
+  if (isCmsPage) {
+    cmsPageData = CMS_PAGE_MAPPING[currentPage];
+  }
+
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
     'c-dashboard--full-height': isFullHeight,
@@ -50,88 +63,25 @@ const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes
         <div className="u-grid u-full-height">
           <div className="u-row u-full-height">
             {currentPage === PAGES.HOME && (
-              <ContentPage name={PAGE_NAMES.home} showFooter columnSizes={columnSizes} />
+              <ContentPage
+                name={CMS_PAGE_MAPPING[PAGES.HOME].template}
+                showFooter
+                columnSizes={columnSizes}
+              />
             )}
 
             {currentPage === PAGES.KAART && (
               <Map />
             )}
 
-            {currentPage === PAGES.NIEUWS && (
+            {isCmsPage && (
               <ContentPage
-                name={PAGE_NAMES.contentDetail}
-                type={PAGE_TYPES.nieuws}
-                item={'item0'}
+                name={cmsPageData.template}
+                type={cmsPageData.type}
+                item={cmsPageData.item}
                 columnSizes={columnSizes}
               />
             )}
-            {currentPage === PAGES.HELP && (
-              <ContentPage
-                name={PAGE_NAMES.contentOverview}
-                type={PAGE_TYPES.help}
-                columnSizes={columnSizes}
-              />
-            )}
-            {currentPage === PAGES.PROCLAIMER && (
-              <ContentPage
-                name={PAGE_NAMES.contentOverview}
-                type={PAGE_TYPES.proclaimer}
-                columnSizes={columnSizes}
-              />
-            )}
-            {currentPage === PAGES.BEDIENING && (
-              <ContentPage
-                name={PAGE_NAMES.contentOverview}
-                type={PAGE_TYPES.bediening}
-                columnSizes={columnSizes}
-              />
-            )}
-            {currentPage === PAGES.GEGEVENS && (
-              <ContentPage
-                name={PAGE_NAMES.contentOverview}
-                type={PAGE_TYPES.gegevens}
-                columnSizes={columnSizes}
-              />
-            )}
-            {currentPage === PAGES.OVER_API && (
-              <ContentPage
-                name={PAGE_NAMES.contentOverview}
-                type={PAGE_TYPES.over_api}
-                columnSizes={columnSizes}
-              />
-            )}
-            {currentPage === PAGES.PRIVACY_BEVEILIGING && (
-              <ContentPage
-                name={PAGE_NAMES.contentDetail}
-                type={PAGE_TYPES.beleid}
-                item="item0"
-                columnSizes={columnSizes}
-              />
-            )}
-            {currentPage === PAGES.BESCHIKBAAR_KWALITEIT && (
-              <ContentPage
-                name={PAGE_NAMES.contentDetail}
-                type={PAGE_TYPES.beleid}
-                item="item1"
-                columnSizes={columnSizes}
-              />
-            )}
-            {currentPage === PAGES.BEHEER_WERKWIJZE && (
-              <ContentPage
-                name={PAGE_NAMES.contentDetail}
-                type={PAGE_TYPES.beleid}
-                item="item2"
-                columnSizes={columnSizes}
-              />
-            )}
-            {currentPage === PAGES.STATISTIEKEN && (
-              <ContentPage
-                name={PAGE_NAMES.contentOverview}
-                type={PAGE_TYPES.statistieken}
-                columnSizes={columnSizes}
-              />
-            )}
-
           </div>
         </div>
       </div>

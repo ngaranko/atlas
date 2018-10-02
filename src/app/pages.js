@@ -27,3 +27,16 @@ const PAGES = {
 };
 
 export default PAGES;
+
+export const isCmsPage = (page) =>
+  page === PAGES.NIEUWS ||
+  page === PAGES.HELP ||
+  page === PAGES.PROCLAIMER ||
+  page === PAGES.BEDIENING ||
+  page === PAGES.BEDIENING ||
+  page === PAGES.GEGEVENS ||
+  page === PAGES.OVER_API ||
+  page === PAGES.PRIVACY_BEVEILIGING ||
+  page === PAGES.BESCHIKBAAR_KWALITEIT ||
+  page === PAGES.STATISTIEKEN ||
+  page === PAGES.BEHEER_WERKWIJZE;
