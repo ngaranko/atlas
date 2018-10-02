@@ -7,8 +7,6 @@ const initialState = {
     markers: []
   },
   isLoading: true
-  // view: 'TABLE',
-  // dataset: 'bag',
   // query: 'searchText',
   // page: 1,
   // isFullscreen: true,
@@ -21,15 +19,14 @@ export default function DataSelectionReducer(state = initialState, action) {
       // Todo: posible bug: if action.payload is undefined, geometryFilter = {}
       geometryFilter = { ...action.payload } || { markers: [] };
       return {
-        ...{
-          dataset: 'bag'
-        },
+        // ...{
+        //   dataset: 'bag'
+        // },
         ...state,
         geometryFilter,
         page: 1,
         isFullscreen: false,
         isLoading: true,
-        view: 'LIST',
         // No markers, the data selection goes back to its default state of
         // showing all data => make sure it will not trigger a url state
         // change
@@ -44,15 +41,14 @@ export default function DataSelectionReducer(state = initialState, action) {
         state.geometryFilter.markers &&
         state.geometryFilter.markers.length > 0) {
         return {
-          ...{
-            dataset: 'bag'
-          },
+          // ...{
+          //   dataset: 'bag'
+          // },
           ...state,
           geometryFilter,
           page: 1,
           isFullscreen: false,
           isLoading: true,
-          view: 'LIST',
           markers: [],
           // No markers, the data selection goes back to its default state of
           // showing all data => make sure it will not trigger a url state
@@ -71,6 +67,3 @@ export const setDataSelectionGeometryFilter = (payload) =>
   ({ type: SET_DATA_SELECTION_GEOMETRY_FILTER, payload });
 export const resetDataSelectionGeometryFilter = (payload) =>
     ({ type: RESET_DATA_SELECTION_GEOMETRY_FILTER, payload });
-
-window.reducers = window.reducers || {};
-window.reducers.DataSelectionReducer = DataSelectionReducer;

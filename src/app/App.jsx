@@ -7,7 +7,8 @@ import Map from './pages/Map';
 import Piwik from './components/Piwik/Piwik';
 import ContentPage, { CMS_PAGE_MAPPING } from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
-// import DataSelection from './pages/DataSelection';
+import DataSelection from './pages/DataSelection';
+import DATASETS from '../shared/ducks/data-selection/data-selection-datasets';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -72,6 +73,22 @@ const App = ({
               <Map />
             )}
 
+            {currentPage === PAGES.ADRESSEN && (
+              <DataSelection
+                columnSizes={columnSizes}
+                view={'TABLE'}
+                dataset={DATASETS.BAG}
+              />
+            )}
+
+            {currentPage === PAGES.VESTIGINGEN && (
+              <DataSelection
+                columnSizes={columnSizes}
+                view={'TABLE'}
+                dataset={DATASETS.HR}
+              />
+            )}
+
             {isCmsPage && (
               <ContentPage
                 name={cmsPageData.template}
@@ -88,7 +105,7 @@ const App = ({
 };
 
 App.defaultProps = {
-  isFullHeight: true,
+  isFullHeight: false,
   pageType: '',
   visibilityError: false,
   columnSizes: { // determineColumnSizes in dashboard-columns

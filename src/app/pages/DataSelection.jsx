@@ -8,7 +8,8 @@ const mapStateToProps = (state) => ({
   catalogFilters: state.catalogFilters,
   dataSelectionState: state.dataSelection,
   filters: state.filters,
-  zoomLevel: state.map.zoom
+  zoomLevel: state.map.zoom,
+  user: state.user
 });
 
 const DataSelection = ({
@@ -18,7 +19,9 @@ const DataSelection = ({
   filters,
   dataSelectionState,
   user,
-  zoomLevel
+  zoomLevel,
+  view,
+  dataset
 }) => (
   <div
     style={{ display: (columnSizes.right) ? 'block' : 'none' }}
@@ -35,7 +38,9 @@ const DataSelection = ({
           filters,
           state: dataSelectionState,
           user,
-          zoomLevel
+          zoomLevel,
+          view,
+          dataset
         }}
       />
     </div>
@@ -43,12 +48,11 @@ const DataSelection = ({
 );
 
 DataSelection.defaultProps = {
-  type: '',
   showFooter: false
 };
 
 DataSelection.propTypes = {
-  boundingBox: PropTypes.any.isRequired,
+  boundingBox: PropTypes.any,
   catalogFilters: PropTypes.any,
   filters: PropTypes.any.isRequired,
   user: PropTypes.any,
@@ -57,7 +61,9 @@ DataSelection.propTypes = {
   columnSizes: PropTypes.shape({
     right: PropTypes.number,
     middle: PropTypes.number
-  }).isRequired
+  }).isRequired,
+  view: PropTypes.string.isRequired,
+  dataset: PropTypes.string.isRequired
 };
 
 export default connect(mapStateToProps, null)(DataSelection);
