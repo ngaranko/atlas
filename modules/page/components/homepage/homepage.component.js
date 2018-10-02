@@ -21,7 +21,7 @@ import { routing } from '../../../../src/app/routes';
         const homepageAddressBlockWrapper = $window.HomepageAddressBlockWrapper;
         let homepageAddressBlockWrapperContainer;
 
-        vm.mapType = routing.map.type;
+        vm.routing = routing;
 
         vm.fetchStraatbeeldPayload = angular.merge(
             {},

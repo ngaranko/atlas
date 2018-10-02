@@ -5,13 +5,26 @@ import { AngularWrapper } from 'react-angular';
 import { connect } from 'react-redux';
 import Map from './pages/Map';
 import Piwik from './components/Piwik/Piwik';
-import ContentPage, { PAGE_NAMES, PAGE_TYPES } from './pages/ContentPage';
-import PAGES from './pages';
+import ContentPage, { CMS_PAGE_MAPPING } from './pages/ContentPage';
+import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 // import DataSelection from './pages/DataSelection';
 
 // TodoReactMigration: implement logic
-const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes, currentPage }) => {
+const App = ({
+  hasMaxWidth,
+  isFullHeight,
+  pageType,
+  visibilityError,
+  columnSizes,
+  currentPage
+}) => {
   const isHomePage = currentPage === PAGES.HOME;
+  const isCmsPage = pageIsCmsPage(currentPage);
+  let cmsPageData;
+  if (isCmsPage) {
+    cmsPageData = CMS_PAGE_MAPPING[currentPage];
+  }
+
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
     'c-dashboard--full-height': isFullHeight,
@@ -50,17 +63,22 @@ const App = ({ hasMaxWidth, isFullHeight, pageType, visibilityError, columnSizes
         <div className="u-grid u-full-height">
           <div className="u-row u-full-height">
             {currentPage === PAGES.HOME && (
-              <ContentPage name={PAGE_NAMES.home} showFooter columnSizes={columnSizes} />
+              <ContentPage
+                name={CMS_PAGE_MAPPING[PAGES.HOME].template}
+                showFooter
+                columnSizes={columnSizes}
+              />
             )}
 
             {currentPage === PAGES.KAART && (
               <Map />
             )}
 
-            {currentPage === PAGES.HELP && (
+            {isCmsPage && (
               <ContentPage
-                name={PAGE_NAMES.contentOverview}
-                type={PAGE_TYPES.help}
+                name={cmsPageData.template}
+                type={cmsPageData.type}
+                item={cmsPageData.item}
                 columnSizes={columnSizes}
               />
             )}

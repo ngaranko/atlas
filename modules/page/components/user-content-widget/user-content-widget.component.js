@@ -1,4 +1,5 @@
 import getContents from '../../../../src/shared/services/google-sheet/google.sheet';
+import { routing } from '../../../../src/app/routes';
 
 (function () {
     'use strict';
@@ -19,6 +20,8 @@ import getContents from '../../../../src/shared/services/google-sheet/google.she
 
     function DpUserContentWidgetController ($scope) {
         const vm = this;
+
+        vm.routing = routing;
 
         vm.feed = null;
         vm.entries = [];

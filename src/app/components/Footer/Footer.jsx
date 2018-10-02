@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from 'redux-first-router-link';
+import { routing } from '../../routes';
 
 const FooterComponent = () => (
   <footer className="c-dashboard__footer o-max-width">
@@ -17,10 +19,9 @@ const FooterComponent = () => (
               href="mailto:terugmelding.basisinformatie@amsterdam.nl">melden</a>.
           </p>
           <p className="c-dashboard__proclaimer-paragraph">
-            <a
+            <Link to={{ type: routing.proclaimer.type }}
               className="o-btn o-btn--link--inverse"
-              href="#?mpb=topografie&mpz=11&mpv=52.3731081:4.8932945&pgn=content-overzicht&pgt=proclaimer"
-            >Lees de hele proclaimer</a>
+            >Lees de hele proclaimer</Link>
           </p>
         </div>
       </div>

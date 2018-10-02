@@ -9,16 +9,16 @@
             controllerAs: 'vm',
             bindings: {
                 isHomePage: '<',
-                hasMaxWidth: '@',
+                hasMaxWidth: '@'
             }
         });
 
-    function DpHeaderController(store, dashboardColumns, HEADER) {
+    function DpHeaderController (store, dashboardColumns, HEADER) {
         const vm = this;
 
         vm.store = store;
 
-        function setLayout() { // eslint-disable-line complexity
+        function setLayout () { // eslint-disable-line complexity
             const state = store.getState();
 
             vm.user = state.user;
@@ -37,5 +37,4 @@
     }
 
     DpHeaderController.$inject = ['store', 'dashboardColumns', 'HEADER'];
-
 })();
