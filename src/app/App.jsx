@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Map from './pages/Map';
 import Piwik from './components/Piwik/Piwik';
 import ContentPage, { PAGE_NAMES, PAGE_TYPES } from './pages/ContentPage';
-import PAGES, { isCmsPage } from './pages';
+import PAGES from './pages';
 // import DataSelection from './pages/DataSelection';
 
 // TodoReactMigration: implement logic
