@@ -10,54 +10,7 @@ describe('The state url conversion factory', () => {
   describe('The default state', () => {
     it('is exported as DEFAULT_STATE', () => {
       const DEFAULT_STATE = stateUrlConverter.getDefaultState();
-
-      expect(DEFAULT_STATE).toEqual({
-        map: {
-          baseLayer: 'topografie',
-          overlays: [],
-          viewCenter: [52.3731081, 4.8932945],
-          zoom: 11,
-          isLoading: false,
-          drawingMode: DRAW_TOOL_CONFIG.DRAWING_MODE.NONE,
-          shapeMarkers: 0,
-          shapeDistanceTxt: '',
-          shapeAreaTxt: ''
-
-        },
-        user: {
-          authenticated: false,
-          accessToken: '',
-          scopes: [],
-          name: '',
-          error: false
-        },
-        mapSearchResults: [],
-        mapSearchResultsByLocation: {},
-        mapDetail: {
-          isLoading: false,
-          currentEndpoint: '',
-          byEndpoint: {}
-        },
-        mapClickLocation: {},
-        ui: {
-          isEmbed: false,
-          isEmbedPreview: false,
-          isMapFullscreen: false,
-          isMapPanelVisible: false,
-          isMapLayersVisible: true,
-          isMapPanelHandleVisible: true,
-          isPrintMode: false
-        },
-        isMapPreviewPanelVisible: false,
-        filters: {},
-        search: null,
-        page: {
-          name: 'home'
-        },
-        detail: null,
-        straatbeeld: null,
-        dataSelection: null
-      });
+      expect(DEFAULT_STATE).toMatchSnapshot();
     });
   });
 

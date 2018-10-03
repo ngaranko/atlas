@@ -8,7 +8,6 @@ import homeReducer from '../home-reducers';
 import filtersReducers from './filters-reducers';
 import straatbeeldReducers from './straatbeeld-reducers';
 import MapSearchResultsReducer from '../../map/ducks/search-results/map-search-results';
-import MapClickLocationReducer from '../../map/ducks/click-location/map-click-location';
 import searchReducers from './search-reducers';
 import deepFreeze from '../../shared/services/freeze/freeze';
 import urlReducersInit from '../url-reducers';
@@ -30,10 +29,6 @@ export default (oldState, action) => {
     FETCH_MAP_SEARCH_RESULTS_FAILURE: MapSearchResultsReducer
   };
 
-  const mapClickLocationReducers = { // TODO: try moving to root reducer
-    SET_MAP_CLICK_LOCATION: MapClickLocationReducer
-  };
-
   const mapPreviewPanelReducers = {
     OPEN_MAP_PREVIEW_PANEL: MapPreviewPanelReducer,
     CLOSE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer,
@@ -47,7 +42,6 @@ export default (oldState, action) => {
     ...homeReducer,
     ...mapPreviewPanelReducers,
     ...mapSearchResultsReducers,
-    ...mapClickLocationReducers,
     ...PageReducer,
     ...searchReducers,
     ...straatbeeldReducers,
@@ -66,7 +60,6 @@ export default (oldState, action) => {
 
     // reformat the action for the detailReducers
     if (handlesAction(detailReducers, action.type) ||
-      handlesAction(mapClickLocationReducers, action.type) ||
       handlesAction(mapSearchResultsReducers, action.type) ||
       handlesAction(mapPreviewPanelReducers, action.type)
     ) {

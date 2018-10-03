@@ -11,14 +11,23 @@ import { routing } from '../../../app/routes';
 function* updateMapQuery(action) {
   const state = yield select();
   try {
+    const query = {
+      ...state.location.query,
+      ...action.payload.query
+    };
+
+    // Remove keys with empty or false values
+    const sanitizedQuery = Object.keys(query).reduce((acc, key) => {
+      if (query[key]) {
+        acc[key] = query[key];
+      }
+      return acc;
+    }, {});
+
     yield put(redirect({
       type: routing.map.type, // Todo: get the type for the current page
       meta: {
-        query: {
-          // keep the other query params unless replace === true
-          ...(!action.payload.replace) ? state.location.query : {},
-          ...action.payload.query
-        }
+        query: sanitizedQuery
       }
     }));
   } catch (error) {

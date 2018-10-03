@@ -4,7 +4,6 @@ import { connectRoutes } from 'redux-first-router';
 import queryString from 'querystring';
 import rootSaga from './root-saga';
 import './shared/ducks/error-message';
-import './map/ducks/click-location/map-click-location';
 import * as auth from './shared/services/auth/auth';
 import { authenticateUser } from './reducers/user';
 import { fetchCatalogFilters } from './catalog/ducks/data-selection/data-selection-catalog';

@@ -1,13 +1,13 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { composeProviders } from 'redux-saga-test-plan/providers';
 
-import watchMapClick, { getActiveMapLayers, switchClickAction } from './map-click';
+import watchMapClick, { switchClickAction } from './map-click';
 
-import ACTIONS, { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../../../shared/actions';
+import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../../../shared/actions';
 
-import { getMapPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
+import { getMapPanelLayers, getActiveMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { getStraatbeeld } from '../../ducks/straatbeeld/straatbeeld';
-import { getMapZoom } from '../../ducks/map/map';
+import { getMapZoom, SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 
 describe('getActiveMapLayers', () => {
   const state = {
@@ -49,7 +49,7 @@ describe('getActiveMapLayers', () => {
 });
 
 describe('watchMapClick', () => {
-  const action = { type: ACTIONS.SET_MAP_CLICK_LOCATION };
+  const action = { type: SET_MAP_CLICK_LOCATION };
 
   const mockMapLayers = [
     {
@@ -110,7 +110,7 @@ describe('watchMapClick', () => {
   it('should watch "ACTIONS.SET_MAP_CLICK_LOCATION" and call switchClickAction', () => {
     testSaga(watchMapClick)
       .next()
-      .takeLatestEffect(ACTIONS.SET_MAP_CLICK_LOCATION, switchClickAction)
+      .takeLatestEffect(SET_MAP_CLICK_LOCATION, switchClickAction)
       .next(action)
       .isDone();
   });

@@ -8,7 +8,6 @@ import * as PageReducer from '../page-reducers';
 import * as filtersReducers from './filters-reducers';
 import * as straatbeeldReducers from './straatbeeld-reducers';
 import * as MapSearchResultsReducer from '../../map/ducks/search-results/map-search-results';
-import * as MapClickLocationReducer from '../../map/ducks/click-location/map-click-location';
 import * as searchReducers from './search-reducers';
 import * as deepFreeze from '../../shared/services/freeze/freeze';
 
@@ -78,16 +77,6 @@ describe.only('The deprecated reducer', () => {
     reducer(state, action);
 
     expect(MapSearchResultsReducer.default.mock.calls[0])
-      .toEqual([state, action]);
-  });
-
-  it('calls MapClickLocationReducer', () => {
-    const state = { foo: 'bar' };
-    const action = { type: MapClickLocationReducer.SET_MAP_CLICK_LOCATION };
-    MapClickLocationReducer.default = jest.fn();
-    reducer(state, action);
-
-    expect(MapClickLocationReducer.default.mock.calls[0])
       .toEqual([state, action]);
   });
 
