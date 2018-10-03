@@ -1,6 +1,7 @@
 import SHARED_CONFIG from '../../shared/services/shared-config/shared-config';
 import { getByUrl } from '../../shared/services/api/api';
 
+/** Matches the key (enum) of a type to a label (enumName) */
 function getOptions(propertyType) {
   return propertyType.enum.map(
     (item, i) => {

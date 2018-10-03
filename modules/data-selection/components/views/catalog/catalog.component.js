@@ -22,27 +22,18 @@ import removeMd from 'remove-markdown';
         var state = store.getState();
         vm.catalogFilters = state.catalogFilters;
 
-        const getFileType = function (mime, fieldSchema) {
-            const filters = $filter('filter')(fieldSchema, {'id': mime});
-            if (filters && filters.length > 0) {
-                return filters[0].label;
-            } else {
-                return 'Anders';
-            }
-        };
+        const formatMap = arrayToObject(vm.catalogFilters.formatTypes, 'id');
+        const serviceMap = arrayToObject(vm.catalogFilters.serviceTypes, 'id');
+        const distributionMap = arrayToObject(vm.catalogFilters.distributionTypes, 'id');
 
         vm.items = vm.content.map((item, index) => {
-            let formats = [];
-            item['dcat:distribution'].map(resource => {
+            const formats = item['dcat:distribution'].map(resource => {
                 if (resource['ams:distributionType'] === 'file') {
-                    const format = getFileType(resource['dct:format'], vm.catalogFilters.formatTypes);
-                    formats = [...formats, format];
+                    return formatMap[resource['dct:format']];
                 } else if (resource['ams:distributionType'] === 'api') {
-                    const format = getFileType(resource['ams:serviceType'], vm.catalogFilters.serviceTypes);
-                    formats = [...formats, format];
+                    return serviceMap[resource['ams:serviceType']];
                 } else {
-                    const format = getFileType(resource['ams:distributionType'], vm.catalogFilters.distributionTypes);
-                    formats = [...formats, format];
+                    return distributionMap[resource['ams:distributionType']];
                 }
             });
 
@@ -60,5 +51,12 @@ import removeMd from 'remove-markdown';
         });
 
         sessionStorage.setItem('DCATD_LIST_REDIRECT_URL', document.location.href);
+    }
+
+    function arrayToObject (array, keyField) {
+        return array.reduce((obj, item) => {
+            obj[item[keyField]] = item.label;
+            return obj;
+        }, {});
     }
 }) ();

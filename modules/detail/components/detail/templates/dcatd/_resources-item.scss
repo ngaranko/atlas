@@ -13,12 +13,6 @@
     margin-bottom: 2px;
   }
 
-  &__description {
-    &> * {
-      float: left;
-    }
-  }
-
   &__modified {
     color: $warm-grey;
     font-size: 14px;
