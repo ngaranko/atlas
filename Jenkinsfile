@@ -28,12 +28,11 @@ pipeline {
 
     stage('Check API\'s health') {
       options {
-        timeout(time: 5, unit: 'MINUTES')
+        timeout(time: 2, unit: 'MINUTES')
       }
       environment {
         PROJECT                = "${PROJECT_PREFIX}e2e-api-health"
         USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
-        PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
       }
       steps {
         sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-health-checks test-health-checks"
