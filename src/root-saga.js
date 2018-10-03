@@ -11,7 +11,7 @@ import watchMapClick from './map/sagas/map-click';
 import watchFetchNearestDetails from './map/sagas/nearest-details';
 import watchGeoSearchRequest from './map/sagas/geosearch';
 import watchFetchCatalogFilters from './catalog/sagas/data-selection/data-selection';
-import watchMapUpdate from './map/ducks/map/sagas';
+import watchMapUpdate from './map/sagas/map-update/map-update';
 
 export default function* rootSaga() {
   yield all([

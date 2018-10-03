@@ -1,30 +1,4 @@
-import { put, takeLatest, select } from 'redux-saga/effects';
-import {
-  getActiveBaseLayer,
-  getCenter,
-  getClusterMarkers,
-  getGeoJsons,
-  getMap,
-  getMapCenter,
-  getMapOverlays,
-  getMapZoom,
-  getMarkers,
-  getRdGeoJsons
-} from './map-selectors';
 import { routing } from '../../../app/routes';
-
-export {
-  getActiveBaseLayer,
-  getCenter,
-  getClusterMarkers,
-  getGeoJsons,
-  getMap,
-  getMapCenter,
-  getMapOverlays,
-  getMapZoom,
-  getMarkers,
-  getRdGeoJsons
-};
 
 export const MAP_ADD_PANO_OVERLAY = 'MAP_ADD_PANO_OVERLAY';
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
@@ -43,6 +17,8 @@ export const MAP_CLEAR = 'MAP_CLEAR';
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
+export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
+export const UPDATE_MAP = 'UPDATE_MAP';
 
 const initialState = {
   viewCenter: [52.3731081, 4.8932945],
@@ -53,7 +29,8 @@ const initialState = {
   drawingMode: 'none',
   shapeMarkers: 0,
   shapeDistanceTxt: '',
-  shapeAreaTxt: ''
+  shapeAreaTxt: '',
+  selectedLocation: null
 };
 
 let polygon = {};
@@ -74,13 +51,18 @@ const overlayExists = (state, newLayer) => (
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
     case routing.map.type: {
-      const { lat, lng, zoom } = action.meta.query || {};
+      const { lat, lng, zoom, selectedLocation } = action.meta.query || {};
       return {
         ...state,
-        viewCenter: [lat, lng],
-        zoom: zoom || state.zoom
+        viewCenter: [
+          parseFloat(lat) || initialState.viewCenter[0],
+          parseFloat(lng) || initialState.viewCenter[1]
+        ],
+        zoom: parseFloat(zoom) || initialState.zoom,
+        selectedLocation
       };
     }
+
     case MAP_BOUNDING_BOX:
     case MAP_BOUNDING_BOX_SILENT:
       return {
@@ -180,6 +162,7 @@ export default function MapReducer(state = initialState, action) {
   }
 }
 
+// Actions
 export const mapClearDrawing = () => ({ type: MAP_CLEAR_DRAWING });
 export const mapEmptyGeometry = () => ({ type: MAP_EMPTY_GEOMETRY });
 export const mapUpdateShape = (payload) => ({ type: MAP_UPDATE_SHAPE, payload });
@@ -187,17 +170,15 @@ export const mapStartDrawing = (payload) => ({ type: MAP_START_DRAWING, payload 
 export const mapEndDrawing = (payload) => ({ type: MAP_END_DRAWING, payload });
 export const mapClear = () => ({ type: MAP_CLEAR });
 export const setMapBaseLayer = (payload) => ({ type: SET_MAP_BASE_LAYER, payload });
-
 export const toggleMapOverlay = (mapLayerId) => ({ type: TOGGLE_MAP_OVERLAY, mapLayerId });
 export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
   type: TOGGLE_MAP_OVERLAY_VISIBILITY,
   mapLayerId,
   show
 });
-
-export const updateZoom = (payload, isDrawingActive) =>  // isDrawingActive = silent
+export const updateZoom = (payload) =>
   ({
-    type: 'UPDATE_MAP',
+    type: UPDATE_MAP,
     payload: {
       query: {
         zoom: payload.zoom,
@@ -206,10 +187,9 @@ export const updateZoom = (payload, isDrawingActive) =>  // isDrawingActive = si
       }
     }
   });
-
-export const updatePan = (payload, isDrawingActive) => // isDrawingActive = silent
+export const updatePan = (payload) =>
   ({
-    type: 'UPDATE_MAP',
+    type: UPDATE_MAP,
     payload: {
       query: {
         lat: payload.center.lat,
@@ -217,13 +197,23 @@ export const updatePan = (payload, isDrawingActive) => // isDrawingActive = sile
       }
     }
   });
-
-
-
-
+export const setSelectedLocation = (payload) => ({
+  type: SET_MAP_CLICK_LOCATION,
+  location: {
+    latitude: payload.latlng.lat,
+    longitude: payload.latlng.lng
+  }
+});
+export const clearSelectedLocation = () => ({
+  type: UPDATE_MAP,
+  payload: {
+    query: {
+      selectedLocation: null
+    }
+  }
+});
 export const updateBoundingBox = (payload, isDrawingActive) =>
   ({
     type: isDrawingActive ? MAP_BOUNDING_BOX_SILENT : MAP_BOUNDING_BOX,
     payload
   });
-
