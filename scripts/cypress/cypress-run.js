@@ -16,9 +16,11 @@ return cypress.run({
   }
 })
 .then((results) => {
-  console.log(results)
+  if(results.totalFailed > 0) {
+    process.exit(results.totalFailed)
+  }
 })
 .catch((err) => {
   console.error(err)
-  process.exit(numFailed)
+  process.exit(1)
 })
