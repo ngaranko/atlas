@@ -65,5 +65,12 @@
                 });
             }
         };
+
+        if (vm.currentPage > vm.numberOfPages) {
+            store.dispatch({
+                type: ACTIONS.NAVIGATE_DATA_SELECTION,
+                payload: 1
+            });
+        }
     }
 })();
