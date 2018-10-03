@@ -1,6 +1,4 @@
 /* eslint-disable no-param-reassign */
-import DRAW_TOOL_CONFIG from '../../../map/services/draw-tool/draw-tool.config';
-
 import * as stateUrlConversion from './state-url-conversion';
 
 import stateUrlConverter from './state-url-converter';

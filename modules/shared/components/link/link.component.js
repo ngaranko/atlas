@@ -49,7 +49,7 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
             }
         });
 
-        function getAction(type, payload, query) {
+        function getAction (type, payload, query) {
             const action = {
                 type: ACTIONS[type] || type
             };
@@ -58,13 +58,13 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
             }
 
             if (angular.isDefined(query)) {
-                action.meta = {}
+                action.meta = {};
                 action.meta.query = query;
             }
             return action;
         }
 
-        function getHref(type, payload) {
+        function getHref (type, payload) {
             // Remove state properties that do not relate to the url
             // by converting the state to a url and back
             // This prevents deep copying of large state objects in the reducer (eg dataSelection.markers)
