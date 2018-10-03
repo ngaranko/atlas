@@ -272,21 +272,3 @@ describe('Map Reducer', () => {
     });
   });
 });
-
-describe('actions', () => {
-  // describe('setSelectedLocation', () => {
-  //   it('should create an action for setting the map click location', () => {
-  //     const expectedAction = {
-  //       type: ACTIONS.SET_MAP_CLICK_LOCATION,
-  //       location
-  //     };
-  //     const payload = {
-  //       latlng: {
-  //         lat: location.latitude,
-  //         lng: location.longitude
-  //       }
-  //     };
-  //     expect(setSelectedLocation(payload)).toEqual(expectedAction);
-  //   });
-  // });
-});

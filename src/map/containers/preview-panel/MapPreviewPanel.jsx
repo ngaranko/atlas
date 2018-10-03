@@ -79,7 +79,7 @@ class MapPreviewPanel extends React.Component {
     const isLoading = get(props, 'search.isLoading') || get(props, 'mapDetail.isLoading');
     const isSearchLoaded = !isLoading && props.search && props.searchLocation;
     const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult;
-    const hidden = !(props.mapClickLocation) && !isLoading;
+    const hidden = !(props.mapClickLocation || isLoading);
 
     return !props.isEmbed && (
       <div className="map-preview-panel-wrapper">

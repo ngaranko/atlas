@@ -17,9 +17,7 @@ const FooterComponent = () => (
             aanvullingen op de gegevens kunt u <a
               className="c-link--inverse"
               href="mailto:terugmelding.basisinformatie@amsterdam.nl"
-            >
-              melden
-            </a>.
+            >melden</a>.
           </p>
           <p className="c-dashboard__proclaimer-paragraph">
             <Link
@@ -67,7 +65,7 @@ const FooterComponent = () => (
           </div>
         </div>
       </div>
-      <div className="u-clearfix"></div>
+      <div className="u-clearfix" />
     </div>
   </footer>
 );
