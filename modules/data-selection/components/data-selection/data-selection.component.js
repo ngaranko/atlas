@@ -130,7 +130,8 @@
                         vm.numberOfRecords &&
                         (
                             angular.isUndefined(vm.maxAvailablePages) ||
-                            vm.state.page <= vm.maxAvailablePages
+                            angular.isUndefined(vm.state.page) ||
+                            vm.state.page <= vm.maxAvailablePages // TODO refactor, get page through query parameter
                         );
 
                     const activeFilters = angular.extend({
