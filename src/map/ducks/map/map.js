@@ -1,27 +1,4 @@
-import {
-  getActiveBaseLayer,
-  getCenter,
-  getClusterMarkers,
-  getGeoJsons,
-  getMap,
-  getMapCenter,
-  getMapOverlays,
-  getMapZoom,
-  getRdGeoJsons
-} from './map-selectors';
 import { routing } from '../../../app/routes';
-
-export {
-  getActiveBaseLayer,
-  getCenter,
-  getClusterMarkers,
-  getGeoJsons,
-  getMap,
-  getMapCenter,
-  getMapOverlays,
-  getMapZoom,
-  getRdGeoJsons
-};
 
 export const MAP_ADD_PANO_OVERLAY = 'MAP_ADD_PANO_OVERLAY';
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';

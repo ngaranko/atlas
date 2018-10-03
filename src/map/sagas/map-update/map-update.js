@@ -1,5 +1,5 @@
+import { put, select, takeLatest } from 'redux-saga/es/internal/io';
 import { redirect } from 'redux-first-router';
-import { put, select, takeLatest } from 'redux-saga/effects';
 import { routing } from '../../../app/routes';
 
 /**

@@ -7,7 +7,8 @@ import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../../../shared/acti
 
 import { getMapPanelLayers, getActiveMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { getStraatbeeld } from '../../ducks/straatbeeld/straatbeeld';
-import { getMapZoom, SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
+import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
+import { getMapZoom } from '../../ducks/map/map-selectors';
 
 describe('getActiveMapLayers', () => {
   const state = {
