@@ -190,6 +190,7 @@ import '../modules/straatbeeld/components/toggle-straatbeeld-fullscreen/toggle-s
 import '../modules/straatbeeld/services/document-title/document-title.factory';
 import '../modules/straatbeeld/services/marzipano/marzipano.factory';
 import '../modules/straatbeeld/services/orientation/orientation.factory';
+import '../modules/straatbeeld/services/straatbeeld-api/straatbeeld-api.factory';
 import '../modules/straatbeeld/straatbeeld-config.constant';
 import '../modules/straatbeeld/straatbeeld.vendor';
 
@@ -253,6 +254,7 @@ import '../modules/straatbeeld/components/hotspot/touch/hotspot-touch.directive.
 import '../modules/straatbeeld/components/hotspot/hotspot.component.test';
 import '../modules/straatbeeld/components/hotspot/hotspot.factory.test';
 import '../modules/straatbeeld/components/status-bar/status-bar.component.test';
+import '../modules/straatbeeld/services/straatbeeld-api/straatbeeld-api.factory.test';
 import '../modules/straatbeeld/services/document-title/document-title.factory.test';
 import '../modules/straatbeeld/services/marzipano/marzipano.factory.test';
 import '../modules/straatbeeld/services/orientation/orientation.factory.test';
@@ -326,6 +328,7 @@ import '../modules/shared/services/api/api.factory.test';
 import '../modules/shared/services/localization/localization.factory.test';
 import '../modules/shared/services/embed/embed.factory.test';
 import '../modules/shared/services/crs/crs-converter.factory.test';
+import '../modules/shared/services/geojson/geojson.factory.test';
 import '../modules/shared/services/environment/environment.factory.test';
 import '../modules/shared/filters/filesize.filter.test';
 import '../modules/shared/services/combined-document-title/combined-document-title.factory.test';
