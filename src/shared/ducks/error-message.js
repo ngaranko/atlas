@@ -35,5 +35,3 @@ export default function ErrorMessageReducer(state = initialState, action) {
 export const resetGlobalError = () => ({ type: RESET_GLOBAL_ERROR });
 export const setGlobalError = (errorType) => ({ type: SET_GLOBAL_ERROR, payload: errorType });
 
-window.reducers = window.reducers || {};
-window.reducers.ErrorMessageReducer = ErrorMessageReducer;

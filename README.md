@@ -88,7 +88,11 @@ docker-compose up --build test-e2e-aria
 ## Other useful commands
 
 - `npm run clean`
-- `npm run test-lint`
+- `npm run lint`
+
+## Related projects
+
+- API health checks used in this project buid pipeline: https://github.com/Amsterdam/atlas-health-checks
 
 ## Techniques used
 - AngularJS

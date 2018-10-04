@@ -55,5 +55,3 @@ export const setActiveSuggestion = (suggestion = { index: -1 }) =>
 export const getSuggestions = (query = '') =>
   ({ type: FETCH_SUGGESTIONS_REQUEST, query });
 
-window.reducers = window.reducers || {};
-window.reducers.AutoSuggestReducer = AutoSuggestReducer;

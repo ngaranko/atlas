@@ -27,11 +27,6 @@ export default {
     ignore: true
   },
 
-  AUTHENTICATE_USER: {
-    id: 'AUTHENTICATE_USER',
-    ignore: true
-  },
-
   FETCH_SEARCH_RESULTS_BY_QUERY: {
     id: 'FETCH_SEARCH_RESULTS_BY_QUERY',
     ignore: true
