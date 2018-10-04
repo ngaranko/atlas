@@ -22,33 +22,35 @@ import removeMd from 'remove-markdown';
         var state = store.getState();
         vm.catalogFilters = state.catalogFilters;
 
-        const formatMap = arrayToObject(vm.catalogFilters.formatTypes, 'id');
-        const serviceMap = arrayToObject(vm.catalogFilters.serviceTypes, 'id');
-        const distributionMap = arrayToObject(vm.catalogFilters.distributionTypes, 'id');
+        vm.$onChanges = function () {
+            const formatMap = arrayToObject(vm.catalogFilters.formatTypes, 'id');
+            const serviceMap = arrayToObject(vm.catalogFilters.serviceTypes, 'id');
+            const distributionMap = arrayToObject(vm.catalogFilters.distributionTypes, 'id');
 
-        vm.items = vm.content.map((item, index) => {
-            const formats = item['dcat:distribution'].map(resource => {
-                if (resource['ams:distributionType'] === 'file') {
-                    return formatMap[resource['dct:format']];
-                } else if (resource['ams:distributionType'] === 'api') {
-                    return serviceMap[resource['ams:serviceType']];
-                } else {
-                    return distributionMap[resource['ams:distributionType']];
-                }
+            vm.items = vm.content.map((item, index) => {
+                const formats = item['dcat:distribution'].map(resource => {
+                    if (resource['ams:distributionType'] === 'file') {
+                        return formatMap[resource['dct:format']];
+                    } else if (resource['ams:distributionType'] === 'api') {
+                        return serviceMap[resource['ams:serviceType']];
+                    } else {
+                        return distributionMap[resource['ams:distributionType']];
+                    }
+                });
+
+                return {
+                    header: item['dct:title'],
+                    description: removeMd(item['dct:description']),
+                    modification: {
+                        'metadata_created': item['foaf:isPrimaryTopicOf']['dct:issued'],
+                        'metadata_modified': item['foaf:isPrimaryTopicOf']['dct:modified']
+                    },
+                    formats: $filter('aggregate')(formats),
+                    tags: item['dcat:keyword'],
+                    detailEndpoint: item._links.self.href
+                };
             });
-
-            return {
-                header: item['dct:title'],
-                description: removeMd(item['dct:description']),
-                modification: {
-                    'metadata_created': item['foaf:isPrimaryTopicOf']['dct:issued'],
-                    'metadata_modified': item['foaf:isPrimaryTopicOf']['dct:modified']
-                },
-                formats: $filter('aggregate')(formats),
-                tags: item['dcat:keyword'],
-                detailEndpoint: item._links.self.href
-            };
-        });
+        };
 
         sessionStorage.setItem('DCATD_LIST_REDIRECT_URL', document.location.href);
     }
