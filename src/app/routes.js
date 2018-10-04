@@ -13,6 +13,16 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART}`,
     page: PAGES.KAART
   },
+  adressen: {
+    location: '/adressen',
+    type: `${ROUTER_NAMESPACE}/${PAGES.ADRESSEN}`,
+    page: PAGES.ADRESSEN
+  },
+  vestigingen: {
+    location: '/vestigingen',
+    type: `${ROUTER_NAMESPACE}/${PAGES.VESTIGINGEN}`,
+    page: PAGES.VESTIGINGEN
+  },
   dataset: {
     location: '/dataset',
     type: `${ROUTER_NAMESPACE}/${PAGES.DATASETS}`,
