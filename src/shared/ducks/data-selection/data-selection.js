@@ -7,7 +7,6 @@ const initialState = {
     markers: []
   },
   isLoading: true
-  // query: 'searchText',
   // page: 1,
   // isFullscreen: true,
 };
@@ -19,9 +18,6 @@ export default function DataSelectionReducer(state = initialState, action) {
       // Todo: posible bug: if action.payload is undefined, geometryFilter = {}
       geometryFilter = { ...action.payload } || { markers: [] };
       return {
-        // ...{
-        //   dataset: 'bag'
-        // },
         ...state,
         geometryFilter,
         page: 1,
@@ -41,9 +37,6 @@ export default function DataSelectionReducer(state = initialState, action) {
         state.geometryFilter.markers &&
         state.geometryFilter.markers.length > 0) {
         return {
-          // ...{
-          //   dataset: 'bag'
-          // },
           ...state,
           geometryFilter,
           page: 1,
