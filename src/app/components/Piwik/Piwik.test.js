@@ -1,4 +1,9 @@
-// describe('The piwik service', function () {
+describe('The piwik service', () => {
+  it('should skip this test', () => {
+    // TODO refactor, test piwik code
+    expect(true).toBe(true);
+  });
+
 //   var $window,
 //     $document,
 //     piwik;
@@ -52,4 +57,4 @@
 //   function getScripts () {
 //     return $document[0].getElementsByTagName('script');
 //   }
-// });
+});
