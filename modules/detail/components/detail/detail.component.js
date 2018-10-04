@@ -1,6 +1,6 @@
 import removeMd from 'remove-markdown';
 
-import { getMapClickLocation } from '../../../../src/map/ducks/click-location/map-click-location';
+import { getSelectedLocation } from '../../../../src/map/ducks/map/map-selectors';
 
 (function () {
     angular
@@ -80,7 +80,7 @@ import { getMapClickLocation } from '../../../../src/map/ducks/click-location/ma
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
-            const location = getMapClickLocation(store.getState());
+            const location = getSelectedLocation(store.getState());
 
             vm.geosearchButton = vm.skippedSearchResults ? [location.latitude, location.longitude] : false;
 

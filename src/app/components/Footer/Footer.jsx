@@ -16,10 +16,13 @@ const FooterComponent = () => (
             voor de kwaliteit van hun gepubliceerde data. Opmerkingen en
             aanvullingen op de gegevens kunt u <a
               className="c-link--inverse"
-              href="mailto:terugmelding.basisinformatie@amsterdam.nl">melden</a>.
+              href="mailto:terugmelding.basisinformatie@amsterdam.nl"
+            >melden</a>.
           </p>
           <p className="c-dashboard__proclaimer-paragraph">
-            <Link to={{ type: routing.proclaimer.type }}
+            <Link
+              href={{ type: routing.proclaimer.type }}
+              to={{ type: routing.proclaimer.type }}
               className="o-btn o-btn--link--inverse"
             >Lees de hele proclaimer</Link>
           </p>
@@ -32,33 +35,37 @@ const FooterComponent = () => (
             <a
               className="o-btn--link--inverse"
               href="https://twitter.com/AmsterdamNL"
-              rel="external"
-              target="_blank" rel="noopener">Twitter</a>
+              rel="external noopener noreferrer"
+              target="_blank"
+            >Twitter</a>
           </div>
           <div className="c-dashboard__social-link">
             <a
               className="o-btn o-btn--link--inverse"
               href="https://www.facebook.com/gemeenteamsterdam"
-              rel="external"
-              target="_blank" rel="noopener">Facebook</a>
+              rel="external noopener noreferrer"
+              target="_blank"
+            >Facebook</a>
           </div>
           <div className="c-dashboard__social-link">
             <a
               className="o-btn o-btn--link--inverse"
               href="https://www.linkedin.com/company/gemeente-amsterdam"
-              rel="external"
-              target="_blank" rel="noopener">LinkedIn</a>
+              rel="external noopener noreferrer"
+              target="_blank"
+            >LinkedIn</a>
           </div>
           <div className="c-dashboard__social-link">
             <a
               className="o-btn o-btn--link--inverse"
               href="https://github.com/Amsterdam"
-              rel="external"
-              target="_blank" rel="noopener">GitHub</a>
+              rel="external noopener noreferrer"
+              target="_blank"
+            >GitHub</a>
           </div>
         </div>
       </div>
-      <div className="u-clearfix"></div>
+      <div className="u-clearfix" />
     </div>
   </footer>
 );

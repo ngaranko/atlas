@@ -3,7 +3,6 @@ import UiReducer, {
   toggleMapFullscreen,
   toggleMapPanel,
   toggleMapPanelHandle,
-  SHOW_MAP,
   SHOW_PRINT,
   HIDE_PRINT,
   SHOW_EMBED_PREVIEW,
@@ -98,16 +97,6 @@ describe('UiReducer', () => {
     })).toEqual({
       ...state,
       isPrintMode: false
-    });
-  });
-
-  it('should set the show map visibility and full screen state to true', () => {
-    expect(UiReducer(state, {
-      type: SHOW_MAP
-    })).toEqual({
-      ...state,
-      isMapPanelVisible: true,
-      isMapFullscreen: true
     });
   });
 

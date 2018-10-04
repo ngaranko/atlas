@@ -197,7 +197,8 @@ export default {
       drawingMode: 'none',
       shapeMarkers: 0,
       shapeDistanceTxt: '',
-      shapeAreaTxt: ''
+      shapeAreaTxt: '',
+      selectedLocation: null
     },
     mapSearchResults: [],
     mapSearchResultsByLocation: {},

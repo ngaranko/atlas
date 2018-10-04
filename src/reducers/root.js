@@ -15,26 +15,7 @@ import MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
 import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import deprecatedReducer from './deprecated/deprecated-reducer';
-import { routing } from '../app/routes';
 import CurrentPageReducer from './current-page-reducer';
-
-const newMapReducer = (state = { active: false, id: 0 }, action = {}) => {
-  switch (action.type) {
-    case routing.map.type:
-      return {
-        ...state,
-        active: true
-      };
-
-    case routing.detail.type:
-      return {
-        ...state,
-        active: true
-      };
-    default:
-      return state;
-  }
-};
 
 export default (routeReducer) => (oldState, action) => {
   // Run state changes based on old reducers
@@ -61,7 +42,6 @@ export default (routeReducer) => (oldState, action) => {
     autoSuggest: AutoSuggestReducer,
     catalogFilters: DataSelectionCatalogReducer,
     location: routeReducer,
-    newMap: newMapReducer,
     currentPage: CurrentPageReducer
   });
   const filteredState = {
@@ -84,7 +64,6 @@ export default (routeReducer) => (oldState, action) => {
     autoSuggest: oldState.autoSuggest,
     catalogFilters: oldState.catalogFilters,
     location: oldState.location,
-    newMap: oldState.newMap,
     currentPage: oldState.currentPage
   };
 

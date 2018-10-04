@@ -5,29 +5,44 @@ import { shallow } from 'enzyme';
 
 import MapPreviewPanelContainer from './MapPreviewPanelContainer';
 import {
-  getMapSearchResults,
-  selectLatestMapSearchResults,
-  FETCH_MAP_SEARCH_RESULTS_REQUEST
+  FETCH_MAP_SEARCH_RESULTS_REQUEST,
+  getMapSearchResults
 } from '../../ducks/search-results/map-search-results';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
-import { getMapDetail, selectLatestMapDetail, FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/map-detail';
-import { getPanoPreview, FETCH_PANO_PREVIEW_REQUEST } from '../../../pano/ducks/preview/pano-preview';
-import { MAXIMIZE_MAP_PREVIEW_PANEL, CLOSE_MAP_PREVIEW_PANEL } from '../../ducks/preview-panel/map-preview-panel';
+import {
+  FETCH_MAP_DETAIL_REQUEST,
+  getMapDetail,
+  selectLatestMapDetail
+} from '../../ducks/detail/map-detail';
+import {
+  FETCH_PANO_PREVIEW_REQUEST,
+  getPanoPreview
+} from '../../../pano/ducks/preview/pano-preview';
+import { MAXIMIZE_MAP_PREVIEW_PANEL } from '../../ducks/preview-panel/map-preview-panel';
 import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/actions';
 import { TOGGLE_MAP_FULLSCREEN } from '../../../shared/ducks/ui/ui';
 import { FETCH_STRAATBEELD_BY_ID } from '../../ducks/straatbeeld/straatbeeld';
+import {
+  getLocationId,
+  getSelectedLocation,
+  getShortSelectedLocation,
+  selectLatestMapSearchResults
+} from '../../ducks/map/map-selectors';
+
+import { clearSelectedLocation } from '../../ducks/map/map';
 
 jest.mock('../../ducks/search-results/map-search-results');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
 jest.mock('../../ducks/detail/map-detail');
+jest.mock('../../ducks/map/map-selectors');
 jest.mock('../../../pano/ducks/preview/pano-preview');
 
-describe.only('MapPreviewPanelContainer', () => {
+describe('MapPreviewPanelContainer', () => {
   const initialState = {
-    isMapPreviewPanelVisible: true,
     map: {
       zoom: 8,
-      overlays: []
+      overlays: [],
+      selectedLocation: '1,2'
     },
     mapLayers: {
       layers: {
@@ -95,6 +110,7 @@ describe.only('MapPreviewPanelContainer', () => {
     getMapDetail.mockImplementation(() => ({ type: FETCH_MAP_DETAIL_REQUEST }));
     getPanoPreview.mockImplementation(() => ({ type: FETCH_PANO_PREVIEW_REQUEST }));
     selectNotClickableVisibleMapLayers.mockImplementation(() => ([]));
+    getShortSelectedLocation.mockImplementation(() => null);
   });
 
   afterEach(() => {
@@ -136,6 +152,10 @@ describe.only('MapPreviewPanelContainer', () => {
 
     it('should dispatch actions to fetch search results and pano preview', () => {
       const store = configureMockStore()({ ...searchState });
+      getShortSelectedLocation.mockImplementation(() => ({
+        longitude: 0,
+        latitude: 1
+      }));
       jest.spyOn(store, 'dispatch');
       shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
 
@@ -169,7 +189,6 @@ describe.only('MapPreviewPanelContainer', () => {
       const store = configureMockStore()({ ...initialState });
       jest.spyOn(store, 'dispatch');
       const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
-
       getMapSearchResults.mockClear();
       getMapDetail.mockClear();
       getPanoPreview.mockClear();
@@ -340,6 +359,15 @@ describe.only('MapPreviewPanelContainer', () => {
   });
 
   describe('rendering', () => {
+    beforeEach(() => {
+      getLocationId.mockImplementation(() => '1,0');
+      getShortSelectedLocation.mockImplementation(() => ({
+        longitude: 0,
+        latitude: 1
+      }));
+      getSelectedLocation.mockImplementation(() => ({}));
+    });
+
     it('should render search results', () => {
       const store = configureMockStore()({ ...searchState });
       selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
@@ -477,10 +505,10 @@ describe.only('MapPreviewPanelContainer', () => {
       selectLatestMapSearchResults.mockImplementation(() => [{ item: 3 }]);
 
       const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
-      wrapper.setProps({ isMapPreviewPanelVisible: false });
+      wrapper.setProps({ mapClickLocation: null });
       expect(wrapper).toMatchSnapshot();
 
-      wrapper.setProps({ isMapPreviewPanelVisible: true });
+      wrapper.setProps({ mapClickLocation: {} });
       expect(wrapper).toMatchSnapshot();
     });
 
@@ -512,7 +540,7 @@ describe.only('MapPreviewPanelContainer', () => {
     const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
     wrapper.find('.map-preview-panel__button').at(1).simulate('click');
 
-    expect(store.dispatch).toHaveBeenCalledWith({ type: CLOSE_MAP_PREVIEW_PANEL });
+    expect(store.dispatch).toHaveBeenCalledWith(clearSelectedLocation());
   });
 
   it('should go from detail to all results', () => {

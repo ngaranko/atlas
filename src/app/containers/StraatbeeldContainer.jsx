@@ -10,12 +10,26 @@ const mapStateToProps = (state) => ({
   isEmbed: state.ui.isEmbed
 });
 
-const StraatBeeldContainer = ({ straatbeeldState, isPrintMode, isEmbedPreview, isEmbed, visibility, columnSizes }) => (
+const StraatBeeldContainer = ({
+  straatbeeldState,
+  isPrintMode,
+  isEmbedPreview,
+  isEmbed,
+  visibility,
+  columnSizes
+}) => (
   <AngularWrapper
     moduleName={'dpStraatbeeldWrapper'}
     bindings={{
       state: straatbeeldState,
-      resize: {[isPrintMode, isEmbedPreview, isEmbed, visibility.error, visibility.straatbeeld, columnSizes.right]}
+      resize: [
+        isPrintMode,
+        isEmbedPreview,
+        isEmbed,
+        visibility.error,
+        visibility.straatbeeld,
+        columnSizes.right
+      ]
     }}
   >
     <div className="u-full-height qa-straatbeeld">
@@ -38,7 +52,7 @@ StraatBeeldContainer.defaultProps = {
 };
 
 StraatBeeldContainer.propTypes = {
-  straatbeeldState: PropTypes.object.isRequired,
+  straatbeeldState: PropTypes.shape({}).isRequired,
   isPrintMode: PropTypes.bool.isRequired,
   isEmbedPreview: PropTypes.bool.isRequired,
   isEmbed: PropTypes.bool.isRequired,

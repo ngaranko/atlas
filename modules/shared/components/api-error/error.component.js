@@ -13,12 +13,12 @@
             }
         });
 
-    function DpErrorController(store) {
+    function DpErrorController (store) {
         const vm = this;
 
         vm.store = store;
 
-        function setLayout() { // eslint-disable-line complexity
+        function setLayout () { // eslint-disable-line complexity
             const state = store.getState();
 
             vm.user = state.user;
@@ -29,5 +29,4 @@
     }
 
     DpErrorController.$inject = ['store'];
-
 })();
