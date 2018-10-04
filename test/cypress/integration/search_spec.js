@@ -1,8 +1,6 @@
 import { getCountFromHeader } from '../support/helper-functions';
 
-// TODO reactivate, currently "monumenten" search results are empty because back-end import
-// process has failed
-describe.skip('search module', () => {
+describe('search module', () => {
   beforeEach(() => {
     // go to the homepage
     cy.visit('/');
