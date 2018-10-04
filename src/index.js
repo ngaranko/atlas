@@ -21,4 +21,5 @@ import '../modules/straatbeeld/straatbeeld.scss';
 // New style sass
 import './_styles.scss';
 
+// Actual app
 import './app/index';
