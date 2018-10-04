@@ -48,16 +48,17 @@ const DataSelection = ({
 );
 
 DataSelection.defaultProps = {
-  showFooter: false
+  boundingBox: undefined,
+  zoomLevel: undefined
 };
 
 DataSelection.propTypes = {
-  boundingBox: PropTypes.any,
-  catalogFilters: PropTypes.any,
-  filters: PropTypes.any.isRequired,
-  user: PropTypes.any,
-  dataSelectionState: PropTypes.any,
-  zoomLevel: PropTypes.any,
+  boundingBox: PropTypes.arrayOf(PropTypes.number),
+  catalogFilters: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  filters: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  dataSelectionState: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  zoomLevel: PropTypes.number,
   columnSizes: PropTypes.shape({
     right: PropTypes.number,
     middle: PropTypes.number
