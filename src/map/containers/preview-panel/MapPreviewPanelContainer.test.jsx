@@ -21,7 +21,7 @@ import {
 import { MAXIMIZE_MAP_PREVIEW_PANEL } from '../../ducks/preview-panel/map-preview-panel';
 import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/actions';
 import { TOGGLE_MAP_FULLSCREEN } from '../../../shared/ducks/ui/ui';
-import { FETCH_STRAATBEELD_BY_ID } from '../../ducks/straatbeeld/straatbeeld';
+import { FETCH_STRAATBEELD_BY_ID } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import {
   getLocationId,
   getSelectedLocation,
@@ -583,6 +583,7 @@ describe('MapPreviewPanelContainer', () => {
           }
         }
       });
+      getLocationId.mockImplementation(() => '123,321');
       jest.spyOn(store, 'dispatch');
       const wrapper = shallow(<MapPreviewPanelContainer />, {
         context: {

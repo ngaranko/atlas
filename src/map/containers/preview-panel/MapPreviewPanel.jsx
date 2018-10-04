@@ -57,9 +57,9 @@ class MapPreviewPanel extends React.Component {
   }
 
   onPanoPreviewClick() {
-    const { onOpenPanoById, search, pano } = this.props;
-    const location = search ? search.location.join(',') : `${pano.location.latitude},${pano.location.longitude}`;
-    const selectedPano = pano.previews[location];
+    const { onOpenPanoById, searchLocationId, pano } = this.props;
+    const selectedPano = pano.previews[searchLocationId];
+    console.log(searchLocationId)
     if (!selectedPano) {
       return;
     }

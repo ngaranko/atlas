@@ -44,38 +44,6 @@
                 }
             };
 
-            // Fetch scene by location
-            scope.$watchCollection('state.location', function (location) {
-                if (!scope.state.id && angular.isArray(location)) {
-                    straatbeeldApi.getImageDataByLocation(location, scope.state.history).then(showStraatbeeld);
-                }
-            });
-
-            // Fetch scene by id
-            scope.$watch('state.id', function (id) {
-                // Load straatbeeld on id when no location is set or no image is yet loaded
-                if (!(angular.isArray(scope.state.location) && scope.state.image) && angular.isString(id)) {
-                    straatbeeldApi.getImageDataById(id, scope.state.history).then(showStraatbeeld);
-                }
-            });
-
-            scope.$watch('state.history', function (history) {
-                if (angular.isArray(scope.state.location)) {
-                    straatbeeldApi.getImageDataByLocation(scope.state.location, history).then(showStraatbeeld);
-                }
-            });
-
-            function showStraatbeeld (straatbeeldData) {
-                var type = scope.state.isInitial ? ACTIONS.SHOW_STRAATBEELD_INITIAL
-                    : ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT;
-
-                // Update the scene
-                store.dispatch({
-                    type: type,
-                    payload: straatbeeldData
-                });
-            }
-
             // We need to watch for object equality instead of reference
             // equality for both the `image` and `hotspots` object/array. This
             // can be done with `$watch` (third and last parameter is true),

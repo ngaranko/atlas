@@ -25,9 +25,9 @@ import { isStraatbeeldActive } from './redux-watch-selectors';
 
 function ReduxWatcher(store) {
   const { getState, subscribe, dispatch } = store;
-  const watchStraatbeeld = watch(() => isStraatbeeldActive(getState()));
+  const watchStraatbeeldActive = watch(() => isStraatbeeldActive(getState()));
 
-  subscribe(watchStraatbeeld((active) => {
+  subscribe(watchStraatbeeldActive((active) => {
     const state = getState();
     if (active) {
       dispatch({ type: MAP_ADD_PANO_OVERLAY, payload: state.straatbeeld });
@@ -35,6 +35,15 @@ function ReduxWatcher(store) {
       setTimeout(() => dispatch({ type: MAP_REMOVE_PANO_OVERLAY }));
     }
   }));
+
+  // subscribe(straatbeeldLocationChanged((location) => {
+  //   console.log('location')
+  //   const history = getStraatbeeld(getState()).history;
+  //   const id = getStraatbeeld(getState()).id;
+  //   if (!id && Array.isArray(location)) {
+  //     getImageDataByLocation(location, history).then(showStraatbeeld);
+  //   }
+  // }));
 }
 
 export default ReduxWatcher;

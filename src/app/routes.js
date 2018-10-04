@@ -23,6 +23,11 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.VESTIGINGEN}`,
     page: PAGES.VESTIGINGEN
   },
+  panorama: {
+    location: '/panorama',
+    type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
+    page: PAGES.PANORAMA
+  },
   dataset: {
     location: '/dataset',
     type: `${ROUTER_NAMESPACE}/${PAGES.DATASETS}`,
@@ -33,7 +38,11 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART_DETAIL}`,
     page: PAGES.KAART_DETAIL
   },
-
+  mapPanorama: {
+    location: '/map/panorama',
+    type: `${ROUTER_NAMESPACE}/${PAGES.KAART_PANORAMA}`,
+    page: PAGES.KAART_PANORAMA
+  },
   nieuws: {
     location: '/nieuws',
     type: `${ROUTER_NAMESPACE}/${PAGES.NIEUWS}`,
