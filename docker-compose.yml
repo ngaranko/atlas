@@ -52,19 +52,10 @@ services:
       - PASSWORD_EMPLOYEE_PLUS
     command: ./scripts/ci/test-e2e-aria.sh
 
-  test-e2e-api-health:
-    build:
-      dockerfile: Dockerfile-e2e
-      context: .
-    links:
-      - atlas:acc.data.amsterdam.nl
+  test-health-checks:
+    image: build.datapunt.amsterdam.nl:5000/datapunt/atlas-health-checks:latest
     environment:
-      # Note that baseUrl must be formatted so
-      # calls to API pass CORS check!
-      - CYPRESS_baseUrl=http://acc.data.amsterdam.nl
-      - USERNAME_EMPLOYEE
+      - API_ROOT=https://acc.api.data.amsterdam.nl
       - USERNAME_EMPLOYEE_PLUS
-      - PASSWORD_EMPLOYEE
       - PASSWORD_EMPLOYEE_PLUS
-    command: ./scripts/ci/test-e2e-api-health.sh
 
