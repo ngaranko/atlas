@@ -26,9 +26,6 @@ import getContents from '../../../../src/shared/services/google-sheet/google.she
         vm.entry = null;
 
         if (vm.type) {
-            vm.feed = null;
-            vm.entries = [];
-            vm.entry = null;
             getContents(vm.type)
                 .then(contents => {
                     vm.feed = contents.feed;

@@ -2,7 +2,6 @@ import '../../modules/atlas/atlas.module';
 import '../../modules/atlas/atlas.run';
 import '../../modules/atlas/atlas.version';
 import '../../modules/atlas/components/dashboard/dashboard-columns.factory';
-import '../../modules/atlas/components/dashboard/dashboard.component';
 import '../../modules/atlas/components/dashboard/wrappers/map-wrapper/map-wrapper.component';
 import '../../modules/atlas/components/dashboard/synchronisation/data-selection.controller';
 import '../../modules/atlas/components/dashboard/synchronisation/header.controller';
