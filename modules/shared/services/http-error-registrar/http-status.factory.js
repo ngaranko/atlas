@@ -25,7 +25,7 @@ import {
         }
 
         function registerError (errorType) {
-            // $window.reduxStore.dispatch(setGlobalError(errorType));
+            $window.reduxStore.dispatch(setGlobalError(errorType));
         }
     }
 })();

@@ -163,6 +163,7 @@ export default function MapReducer(state = initialState, action) {
     case ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT:
       return {
         ...state,
+        viewCenter: action.payload.location || state.viewCenter,
         isLoading: true
       };
 

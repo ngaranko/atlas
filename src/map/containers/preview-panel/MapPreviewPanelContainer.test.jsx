@@ -21,7 +21,6 @@ import {
 import { MAXIMIZE_MAP_PREVIEW_PANEL } from '../../ducks/preview-panel/map-preview-panel';
 import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/actions';
 import { TOGGLE_MAP_FULLSCREEN } from '../../../shared/ducks/ui/ui';
-import { FETCH_STRAATBEELD_BY_ID } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import {
   getLocationId,
   getSelectedLocation,
@@ -593,11 +592,14 @@ describe('MapPreviewPanelContainer', () => {
       wrapper.instance().onPanoPreviewClick();
       expect(store.dispatch).toHaveBeenCalledWith({ type: TOGGLE_MAP_FULLSCREEN });
       expect(store.dispatch).toHaveBeenCalledWith({
-        type: FETCH_STRAATBEELD_BY_ID,
         payload: {
-          heading: undefined,
-          id: undefined
-        }
+          query: {
+            panoHeading: undefined,
+            panoId: undefined
+          },
+          route: 'atlasRouter/KAART_PANORAMA'
+        },
+        type: 'UPDATE_MAP'
       });
 
       wrapper.setProps({

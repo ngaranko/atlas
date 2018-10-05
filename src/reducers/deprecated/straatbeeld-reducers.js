@@ -2,7 +2,6 @@ import ACTIONS from '../../shared/actions';
 import isObject from '../../shared/services/is-object';
 import { routing } from '../../app/routes';
 
-
 /**
  * @description If the oldState had an active straatbeeld it will remember the heading.
  *
@@ -35,7 +34,7 @@ function fetchStraatbeeldByLocationReducer(state, payload) {
   return {
     ...state,
     map: {
-      ...map,
+      ...map
     },
     ui: isObject(state.ui) ? {
       ...state.ui,
@@ -86,7 +85,6 @@ function showStraatbeeldSubsequentReducer(oldState, payload) {
     } : state.map
   };
 }
-
 
 const reducers = {};
 

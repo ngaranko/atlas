@@ -3,7 +3,6 @@ module.exports = {
     "airbnb",
     "plugin:jsx-a11y/strict"
   ],
-  "parser": "babel-eslint",
   "env": {
     "browser": true,
     "jest": true,

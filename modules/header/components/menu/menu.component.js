@@ -24,7 +24,6 @@ import { routing } from '../../../../src/app/routes';
         const vm = this;
 
         vm.helpType = routing.help.type;
-        vm.panoramaType = routing.panorama.type;
 
         vm.login = () => {
             try {

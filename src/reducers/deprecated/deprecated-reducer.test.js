@@ -6,7 +6,6 @@ import * as DataSelectionReducer from '../data-selection-reducers';
 import * as MapPreviewPanelReducer from '../../map/ducks/preview-panel/map-preview-panel';
 import * as PageReducer from '../page-reducers';
 import * as filtersReducers from './filters-reducers';
-import * as straatbeeldReducers from './straatbeeld-reducers';
 import * as MapSearchResultsReducer from '../../map/ducks/search-results/map-search-results';
 import * as searchReducers from './search-reducers';
 import * as deepFreeze from '../../shared/services/freeze/freeze';
@@ -14,7 +13,7 @@ import * as deepFreeze from '../../shared/services/freeze/freeze';
 const ACTION_NO_REDUCER = 'ACTION_NO_REDUCER';
 const FREEZE = 'FREEZE';
 
-describe.only('The deprecated reducer', () => {
+describe('The deprecated reducer', () => {
   beforeEach(() => {
     deepFreeze.default = jest.fn((value) => value); // identity function
     environment.isDevelopment = () => false;
@@ -26,7 +25,6 @@ describe.only('The deprecated reducer', () => {
     const actionC = jest.fn();
     const actionF = jest.fn();
     const actionG = jest.fn();
-    const actionH = jest.fn();
     const actionI = jest.fn();
     const actionL = jest.fn();
 
@@ -36,12 +34,10 @@ describe.only('The deprecated reducer', () => {
     homeReducer.default = { ACTION_C: actionC };
     PageReducer.default = { ACTION_F: actionF };
     searchReducers.default = { ACTION_G: actionG };
-    straatbeeldReducers.default = { ACTION_H: actionH };
 
     reducer(state, { type: 'ACTION_C' });
     reducer(state, { type: 'ACTION_F' });
     reducer(state, { type: 'ACTION_G' });
-    reducer(state, { type: 'ACTION_H' });
     reducer(state, { type: 'ACTION_I' });
     reducer(state, { type: 'ACTION_L' });
 
@@ -50,8 +46,6 @@ describe.only('The deprecated reducer', () => {
     expect(actionF.mock.calls[0])
       .toEqual([state, undefined]);
     expect(actionG.mock.calls[0])
-      .toEqual([state, undefined]);
-    expect(actionH.mock.calls[0])
       .toEqual([state, undefined]);
     expect(actionI.mock.calls[0])
       .toEqual([state, undefined]);

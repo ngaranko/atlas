@@ -11,7 +11,7 @@ import {
   straatbeeldOrientationType,
   straatbeeldPersonType
 } from '../../../map/components/leaflet/services/icons.constant';
-// Sagas
+import { UPDATE_MAP } from '../../../map/ducks/map/map';
 
 export const STRAATBEELD_OFF = 'STRAATBEELD_OFF';
 
@@ -23,9 +23,9 @@ const initialState = {
   id: 'TMX7316010203-000719_pano_0000_000950',
   location: null, // eg: [52.8, 4.9]
   history: 0,     // eg: 2016
-  pitch: 0,       // eg: -10
+  pitch: null,       // eg: -10
   heading: 0,     // eg: 270
-  fov: 0,         // eg: 65
+  fov: null,         // eg: 65
   image: null,    // eg: {
                   //     pattern: 'http://www.example.com/path/some-id/{this}/{that}/{thingie}.jpg',
                   //     preview: 'http://www.example.com/path/some-id/preview.jpg'
@@ -45,10 +45,12 @@ export default function straatbeeldReducer(state = initialState, action) {
     case ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT:
       return {
         ...state,
-        id: action.payload.id || action.meta.query.panoId,
+        ...initialState,
+        id: action.payload.id || (action.meta && action.meta.query.panoId),
         heading: action.payload.heading ||
-          (state && state.heading) || action.meta.query.panoHeading ||
+          (state && state.heading) || (action.meta && action.meta.query.panoHeading) ||
           0,
+        isLoading: true,
         isInitial: action.payload.isInitial,
         isFullscreen: typeof action.payload.isFullscreen !== 'undefined' ? action.payload.isFullscreen
           : state && state.isFullscreen ? state.isFullscreen
@@ -58,15 +60,16 @@ export default function straatbeeldReducer(state = initialState, action) {
     case ACTIONS.FETCH_STRAATBEELD_BY_LOCATION:
       return {
         ...state,
+        isLoading: true,
         location: action.payload,
         targetLocation: action.payload
       };
 
     case ACTIONS.SET_STRAATBEELD_HISTORY:
-      return {
+      return (state !== null) ? {
         ...state,
         history: action.payload
-      };
+      } : state;
 
     case ACTIONS.STRAATBEELD_FULLSCREEN:
       return {
@@ -76,7 +79,7 @@ export default function straatbeeldReducer(state = initialState, action) {
 
     case ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT:
     case ACTIONS.SHOW_STRAATBEELD_INITIAL:
-      return {
+      return (state) ? {
         ...state,
         id: action.payload.id || state.id,
         date: action.payload.date,
@@ -90,15 +93,15 @@ export default function straatbeeldReducer(state = initialState, action) {
         isLoading: false,
         location: action.payload.location,
         image: action.payload.image
-      };
+      } : null;
 
     case ACTIONS.SET_STRAATBEELD_ORIENTATION:
-      return {
+      return (action.payload) ? {
         ...state,
         heading: action.payload.heading,
         pitch: action.payload.pitch,
         fov: action.payload.fov
-      };
+      } : null;
 
     case STRAATBEELD_OFF:
       return null;
@@ -123,13 +126,12 @@ export const setStraatbeeldOff = () => ({ type: STRAATBEELD_OFF });
 
 // Selectors
 export const getStraatbeeld = (state) => state.straatbeeld || {};
-export const getStraatbeeldId = createSelector(getStraatbeeld, (straatbeeld) => straatbeeld.id);
-export const getStraatbeeldHistory = createSelector(getStraatbeeld, (straatbeeld) => straatbeeld.history);
-export const isStraatbeeldInitiated = createSelector(getStraatbeeld, (straatbeeld) => !straatbeeld.isInitial);
-export const getStraatbeeldLocation = createSelector(getStraatbeeld,
+export const getStraatbeeldLocation = createSelector(
+  getStraatbeeld,
   (straatbeeld) => (
     straatbeeld ? straatbeeld.location : ''
-  ));
+  )
+);
 export const getStraatbeeldHeading = createSelector(getStraatbeeld,
   (straatbeeld) => (
     straatbeeld ? straatbeeld.heading : ''
@@ -153,16 +155,17 @@ export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, get
 // Sagas
 export function* fetchStraatbeeldImages({ type }) {
   const state = yield select();
-  const actionType = isStraatbeeldInitiated(state) ?
-    showStraatbeeldInitial :
-    showStraatbeeldSubsequent;
+  const { isInitial, history, id, location } = getStraatbeeld(state);
+  const actionType = isInitial ?
+    showStraatbeeldSubsequent :
+    showStraatbeeldInitial;
 
   const imageData = yield call(
     (type === ACTIONS.SET_STRAATBEELD_HISTORY) ? getImageDataByLocation : getImageDataById,
     (type === ACTIONS.SET_STRAATBEELD_HISTORY) ?
-      getStraatbeeldLocation(state) :
-      getStraatbeeldId(state),
-    getStraatbeeldHistory(state)
+      location :
+      id,
+    history
   );
   yield put(actionType(imageData));
 }
@@ -176,13 +179,13 @@ export function* watchStraatbeeld() {
   ], fetchStraatbeeldImages);
 }
 
-export const fetchStraatbeeldById = (pano) => ({
-  type: 'UPDATE_MAP',
+export const showStraatbeeld = ({ id, heading }) => ({
+  type: UPDATE_MAP,
   payload: {
     route: routing.mapPanorama.type,
     query: {
-      panoId: pano.id,
-      panoHeading: pano.heading
+      panoId: id,
+      panoHeading: heading
     }
   }
 });

@@ -1,6 +1,9 @@
 import { createSelector } from 'reselect';
 
-import { getStraatbeeldLocation} from '../../../shared/ducks/straatbeeld/straatbeeld';
+import {
+  getStraatbeeldLocation,
+  getStraatbeeldMarkers
+} from '../../../shared/ducks/straatbeeld/straatbeeld';
 import {
   getClusterMarkers as getDataSelectionClusterMarkers,
   getDataSelection,
@@ -10,7 +13,6 @@ import {
 import { detailSelector, getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
 import { getMapResultsByLocation } from '../search-results/map-search-results';
-import { getStraatbeeldMarkers } from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);

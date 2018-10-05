@@ -1,3 +1,5 @@
+import { routing } from '../../../../src/app/routes';
+
 (function () {
     'use strict';
 
@@ -38,11 +40,11 @@
             container = element[0].querySelector('.js-marzipano-viewer');
             viewer = marzipanoService.initialize(container);
 
-            scope.updateOrientation = function () {
-                if (!scope.state.isLoading) {
-                    orientation.update(viewer);
-                }
-            };
+            viewer.addEventListener('viewChange', () => {
+                orientation.update(viewer);
+            });
+
+            scope.backToMap = routing.map.type;
 
             // We need to watch for object equality instead of reference
             // equality for both the `image` and `hotspots` object/array. This
@@ -66,6 +68,10 @@
                 $rootScope.$applyAsync(function () {
                     viewer.updateSize();
                 });
+            });
+
+            scope.$on('$destroy', function () {
+                viewer.removeEventListener('viewChange');
             });
         }
     }

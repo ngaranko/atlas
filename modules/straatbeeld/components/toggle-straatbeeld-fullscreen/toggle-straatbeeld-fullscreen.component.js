@@ -1,4 +1,5 @@
 import { routing } from '../../../../src/app/routes';
+import { UPDATE_MAP } from '../../../../src/map/ducks/map/map';
 
 (function () {
     'use strict';
@@ -18,23 +19,23 @@ import { routing } from '../../../../src/app/routes';
 
     DpStraatbeeldFullscreenController.$inject = ['$scope', 'store'];
 
-    function DpStraatbeeldFullscreenController($scope, store) {
+    function DpStraatbeeldFullscreenController ($scope, store) {
         const vm = this;
 
         const deregistrationFn = $scope.$watch('vm.isFullscreen', setButtonText);
 
-        function setButtonText() {
+        function setButtonText () {
             vm.buttonText = 'Panoramabeeld ' + (vm.isFullscreen ? 'verkleinen' : 'vergroten');
         }
 
         vm.toggleFullscreen = function () {
             store.dispatch({
-                type: 'UPDATE_MAP',
+                type: UPDATE_MAP,
                 payload: {
                     noRedirect: true,
-                    route: (store.getState().location.type === routing.panorama.type) ?
-                        routing.mapPanorama.type :
-                        routing.panorama.type,
+                    route: (store.getState().location.type === routing.panorama.type)
+                        ? routing.mapPanorama.type
+                        : routing.panorama.type,
                     query: {
                         panoId: store.getState().straatbeeld.id,
                         panoHeading: store.getState().straatbeeld.heading

@@ -59,7 +59,6 @@ class MapPreviewPanel extends React.Component {
   onPanoPreviewClick() {
     const { onOpenPanoById, searchLocationId, pano } = this.props;
     const selectedPano = pano.previews[searchLocationId];
-    console.log(searchLocationId)
     if (!selectedPano) {
       return;
     }

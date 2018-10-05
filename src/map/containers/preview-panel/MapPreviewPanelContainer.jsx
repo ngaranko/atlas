@@ -9,7 +9,7 @@ import { clearSelectedLocation } from '../../ducks/map/map';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
 import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
-import { fetchStraatbeeldById } from '../../../shared/ducks/straatbeeld/straatbeeld';
+import { showStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
 import MapPreviewPanel from './MapPreviewPanel';
 import {
@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapPreviewPanelClose: clearSelectedLocation,
   onMapPreviewPanelMaximize: maximizeMapPreviewPanel,
   onMapSearchResultsItemClick: legacyFetchDetail,
-  onOpenPanoById: fetchStraatbeeldById,
+  onOpenPanoById: showStraatbeeld,
   closeMapFullScreen: toggleMapFullscreen
 }, dispatch);
 
