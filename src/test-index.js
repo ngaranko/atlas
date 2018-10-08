@@ -327,7 +327,6 @@ import '../modules/shared/services/api/api.factory.test';
 import '../modules/shared/services/localization/localization.factory.test';
 import '../modules/shared/services/embed/embed.factory.test';
 import '../modules/shared/services/crs/crs-converter.factory.test';
-// import '../modules/shared/services/geojson/geojson.factory.test';
 import '../modules/shared/services/environment/environment.factory.test';
 import '../modules/shared/filters/filesize.filter.test';
 import '../modules/shared/services/combined-document-title/combined-document-title.factory.test';

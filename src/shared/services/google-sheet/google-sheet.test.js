@@ -2,6 +2,11 @@ import getContents, { cache, GOOGLE_SHEET_CMS } from './google.sheet';
 import * as api from '../api/api';
 import * as environments from '../../environment';
 
+const mockedDate = new Date(2017, 11, 10);
+const originalDate = Date;
+global.Date = jest.fn(() => mockedDate);
+global.Date.UTC = originalDate.UTC;
+
 const result = {
   entries: [
     {
