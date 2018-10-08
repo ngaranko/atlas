@@ -158,7 +158,7 @@ export default function MapReducer(state = initialState, action) {
     case MAP_CLEAR:
       return initialState;
 
-    case ACTIONS.SHOW_STRAATBEELD_INITIAL:
+    case ACTIONS.SET_STRAATBEELD:
     case ACTIONS.FETCH_STRAATBEELD_BY_ID:
     case ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT:
       return {

@@ -77,8 +77,7 @@ export default function straatbeeldReducer(state = initialState, action) {
         isFullscreen: typeof action.payload !== 'undefined' ? action.payload : state.isFullscreen
       };
 
-    case ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT:
-    case ACTIONS.SHOW_STRAATBEELD_INITIAL:
+    case ACTIONS.SET_STRAATBEELD:
       return (state) ? {
         ...state,
         id: action.payload.id || state.id,
@@ -103,8 +102,9 @@ export default function straatbeeldReducer(state = initialState, action) {
         fov: action.payload.fov
       } : null;
 
+    case routing.map.type:
     case STRAATBEELD_OFF:
-      return null;
+      return {};
 
     default:
       return state;
@@ -112,13 +112,9 @@ export default function straatbeeldReducer(state = initialState, action) {
 }
 
 // Actions
-export const showStraatbeeldInitial = (straatbeeldData) => ({
-  type: ACTIONS.SHOW_STRAATBEELD_INITIAL,
-  payload: straatbeeldData
-});
 
-export const showStraatbeeldSubsequent = (straatbeeldData) => ({
-  type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
+export const setStraatbeeld = (straatbeeldData) => ({
+  type: ACTIONS.SET_STRAATBEELD,
   payload: straatbeeldData
 });
 
@@ -155,10 +151,7 @@ export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, get
 // Sagas
 export function* fetchStraatbeeldImages({ type }) {
   const state = yield select();
-  const { isInitial, history, id, location } = getStraatbeeld(state);
-  const actionType = isInitial ?
-    showStraatbeeldSubsequent :
-    showStraatbeeldInitial;
+  const { history, id, location } = getStraatbeeld(state);
 
   const imageData = yield call(
     (type === ACTIONS.SET_STRAATBEELD_HISTORY) ? getImageDataByLocation : getImageDataById,
@@ -167,7 +160,7 @@ export function* fetchStraatbeeldImages({ type }) {
       id,
     history
   );
-  yield put(actionType(imageData));
+  yield put(setStraatbeeld(imageData));
 }
 
 export function* watchStraatbeeld() {

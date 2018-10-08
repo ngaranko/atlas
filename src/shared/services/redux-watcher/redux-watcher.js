@@ -35,15 +35,6 @@ function ReduxWatcher(store) {
       setTimeout(() => dispatch({ type: MAP_REMOVE_PANO_OVERLAY }));
     }
   }));
-
-  // subscribe(straatbeeldLocationChanged((location) => {
-  //   console.log('location')
-  //   const history = getStraatbeeld(getState()).history;
-  //   const id = getStraatbeeld(getState()).id;
-  //   if (!id && Array.isArray(location)) {
-  //     getImageDataByLocation(location, history).then(showStraatbeeld);
-  //   }
-  // }));
 }
 
 export default ReduxWatcher;

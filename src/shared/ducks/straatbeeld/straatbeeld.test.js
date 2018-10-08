@@ -8,6 +8,7 @@ import reducer, {
 } from './straatbeeld';
 import * as STRAATBEELD_CONFIG from '../../../../modules/straatbeeld/straatbeeld-config';
 import ACTIONS from '../../actions';
+import { routing } from '../../../app/routes';
 
 describe('Straatbeeld Reducer', () => {
   let state;
@@ -146,12 +147,12 @@ describe('Straatbeeld Reducer', () => {
     });
 
     it('Adds the payload to the state', () => {
-      const newState = reducer(inputState, { type: ACTIONS.SHOW_STRAATBEELD_INITIAL, payload });
+      const newState = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
       expect(newState).toEqual(jasmine.objectContaining(payload));
     });
 
     it('set defaults for pitch, fov when oldstate is unknown', () => {
-      const newState = reducer(inputState, { type: ACTIONS.SHOW_STRAATBEELD_INITIAL, payload });
+      const newState = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
       expect(newState.pitch).toBe(0);
       expect(newState.fov).toBe(80);
     });
@@ -160,13 +161,13 @@ describe('Straatbeeld Reducer', () => {
       inputState.pitch = 1;
       inputState.fov = 2;
 
-      const newState = reducer(inputState, { type: ACTIONS.SHOW_STRAATBEELD_INITIAL, payload });
+      const newState = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
       expect(newState.pitch).toBe(1);
       expect(newState.fov).toBe(2);
     });
 
     it('do not overwrite isLoading, id, heading, isInitial', () => {
-      const newState = reducer(inputState, { type: ACTIONS.SHOW_STRAATBEELD_INITIAL, payload });
+      const newState = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
 
       expect(newState)
         .toEqual(jasmine.objectContaining({
@@ -206,7 +207,7 @@ describe('Straatbeeld Reducer', () => {
         inputState.location = inputState.targetLocation;
 
         output = reducer(inputState, {
-          type: ACTIONS.SHOW_STRAATBEELD_INITIAL,
+          type: ACTIONS.SET_STRAATBEELD,
           payload
         });
         expect(output)
@@ -225,7 +226,7 @@ describe('Straatbeeld Reducer', () => {
       delete inputState.targetLocation; // not saved in state, so not present on reload
       inputState.heading = 'aap';
       const output = reducer(inputState, {
-        type: ACTIONS.SHOW_STRAATBEELD_INITIAL,
+        type: ACTIONS.SET_STRAATBEELD,
         payload
       });
       expect(output)
@@ -236,7 +237,7 @@ describe('Straatbeeld Reducer', () => {
 
     it('Sets loading to false', () => {
       const output = reducer(inputState, {
-        type: ACTIONS.SHOW_STRAATBEELD_INITIAL,
+        type: ACTIONS.SET_STRAATBEELD,
         payload
       });
       expect(output.isLoading).toBe(false);
@@ -245,7 +246,7 @@ describe('Straatbeeld Reducer', () => {
     it('does nothing when straatbeeld is null', () => {
       inputState = null;
       const output = reducer(inputState, {
-        type: ACTIONS.SHOW_STRAATBEELD_INITIAL,
+        type: ACTIONS.SET_STRAATBEELD,
         payload
       });
 
@@ -343,8 +344,8 @@ describe('Straatbeeld Reducer', () => {
     });
   });
 
-  it(`should set the state to null when ${STRAATBEELD_OFF} is dispatched`, () => {
-    expect(reducer(state, setStraatbeeldOff())).toEqual(null);
+  it(`should set the state to null when ${STRAATBEELD_OFF} and ${routing.map.type} is dispatched`, () => {
+    expect(reducer(state, setStraatbeeldOff())).toEqual({});
   });
 });
 

@@ -128,7 +128,7 @@ describe('The dp-straatbeeld directive', function () {
             });
         });
 
-        it('Does call SHOW_STRAATBEELD_SUBSEQUENT', function () {
+        it('Does call SHOW_STRAATBEELD', function () {
             var state = {
                 id: 'ABC',
                 isInitial: false
@@ -137,7 +137,7 @@ describe('The dp-straatbeeld directive', function () {
             getDirective(state, false);
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
+                type: ACTIONS.SHOW_STRAATBEELD,
                 payload: {
                     foo: 'bar'
                 }
@@ -205,7 +205,7 @@ describe('The dp-straatbeeld directive', function () {
 
             expect(store.dispatch).toHaveBeenCalledTimes(1);   // show pano
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
+                type: ACTIONS.SHOW_STRAATBEELD,
                 payload: {
                     foo: 'bar'
                 }
@@ -415,7 +415,7 @@ describe('The dp-straatbeeld directive', function () {
 
             expect(store.dispatch).toHaveBeenCalledTimes(1);
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
+                type: ACTIONS.SHOW_STRAATBEELD,
                 payload: {
                     foo: 'bar'
                 }

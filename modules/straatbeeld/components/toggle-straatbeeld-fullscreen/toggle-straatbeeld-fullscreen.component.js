@@ -1,5 +1,6 @@
 import { routing } from '../../../../src/app/routes';
 import { UPDATE_MAP } from '../../../../src/map/ducks/map/map';
+import { getStraatbeeld } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
 
 (function () {
     'use strict';
@@ -37,8 +38,8 @@ import { UPDATE_MAP } from '../../../../src/map/ducks/map/map';
                         ? routing.mapPanorama.type
                         : routing.panorama.type,
                     query: {
-                        panoId: store.getState().straatbeeld.id,
-                        panoHeading: store.getState().straatbeeld.heading
+                        panoId: getStraatbeeld(store.getState()).id,
+                        panoHeading: getStraatbeeld(store.getState()).heading
                     }
                 }
             });

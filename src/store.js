@@ -20,7 +20,7 @@ const configureStore = (history, routes) => {
     reducer: routeReducer,
     middleware: routeMiddleware,
     enhancer: routeEnhancer,
-    initialDispatch
+    initialDispatch: initialRouteDispatch
   } = connectRoutes(history, routes, {
     querySerializer: queryString,
     initialDispatch: false
@@ -41,7 +41,7 @@ const configureStore = (history, routes) => {
   window.reduxStore = createStore(rootReducer(routeReducer), defaultState, enhancer);
 
   sagaMiddleware.run(rootSaga);
-  initialDispatch();
+  initialRouteDispatch();
 
   try {
     auth.initAuth();

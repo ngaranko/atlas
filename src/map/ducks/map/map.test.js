@@ -278,7 +278,7 @@ describe('Map Reducer', () => {
   });
 
   it('Sets loading indication for map and straatbeeld', () => {
-    const inputState = null;
+    const inputState = {};
     const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload: {} });
     expect(newState.isLoading).toBe(true);
   });
@@ -302,7 +302,7 @@ describe('Map Reducer', () => {
     let output;
 
     inputState.viewCenter = 'aap';
-    output = reducer(inputState, { type: ACTIONS.SHOW_STRAATBEELD_INITIAL, payload });
+    output = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
     expect(output)
       .toEqual(jasmine.objectContaining({
         viewCenter: payload.location    // center map on payload location
@@ -311,7 +311,7 @@ describe('Map Reducer', () => {
     delete inputState.location;
     inputState.targetLocation = [1, 2];
     inputState.viewCenter = 'aap';
-    output = reducer(inputState, { type: ACTIONS.SHOW_STRAATBEELD_INITIAL, payload });
+    output = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
     expect(output)
       .toEqual(jasmine.objectContaining({
         viewCenter: payload.location    // center map on payload location
@@ -325,7 +325,7 @@ describe('Map Reducer', () => {
     };
     inputState.viewCenter = null;
     payload.location = [5, 6];
-    const output = reducer(inputState, { type: ACTIONS.SHOW_STRAATBEELD_INITIAL, payload });
+    const output = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
     expect(output.viewCenter).toEqual([5, 6]);
   });
 });

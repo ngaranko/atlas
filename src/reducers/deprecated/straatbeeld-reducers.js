@@ -51,48 +51,11 @@ function fetchStraatbeeldByLocationReducer(state, payload) {
   };
 }
 
-/**
- * @param {Object} state
- * @param {Object} payload -  data from straatbeeld-api
- *
- * @returns {Object} newState
- */
-function showStraatbeeldReducer(state, payload) {
-  return {
-    ...state,
-    map: isObject(state.map) && isObject(state.straatbeeld) ? {
-      ...state.map,
-      viewCenter: isObject(state.straatbeeld) && !Array.isArray(state.straatbeeld.location)
-        ? payload.location : state.map.viewCenter
-    } : state.map
-  };
-}
-
-/**
- * @param {Object} oldState
- * @param {Object} payload -  data from straatbeeld-api
- *
- * @returns {Object} newState
- */
-function showStraatbeeldSubsequentReducer(oldState, payload) {
-  const state = showStraatbeeldReducer(oldState, payload);
-
-  return {
-    ...state,
-    map: isObject(state.map) ? {
-      ...state.map,
-      viewCenter: isObject(state.straatbeeld) ? payload.location : state.map.viewCenter
-    } : state.map
-  };
-}
-
 const reducers = {};
 
 reducers[routing.mapPanorama.type] = fetchStraatbeeldByIdReducer;
 reducers[ACTIONS.FETCH_STRAATBEELD_BY_ID] = fetchStraatbeeldByIdReducer;
 reducers[ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT] = fetchStraatbeeldByIdReducer;
 reducers[ACTIONS.FETCH_STRAATBEELD_BY_LOCATION] = fetchStraatbeeldByLocationReducer;
-reducers[ACTIONS.SHOW_STRAATBEELD_INITIAL] = showStraatbeeldReducer;
-reducers[ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT] = showStraatbeeldSubsequentReducer;
 
 export default reducers;

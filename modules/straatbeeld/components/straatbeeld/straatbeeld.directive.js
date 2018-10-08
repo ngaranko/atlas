@@ -40,7 +40,7 @@ import { routing } from '../../../../src/app/routes';
             container = element[0].querySelector('.js-marzipano-viewer');
             viewer = marzipanoService.initialize(container);
 
-            viewer.addEventListener('viewChange', () => {
+            var viewChangeHandler = viewer.addEventListener('viewChange', () => {
                 orientation.update(viewer);
             });
 
@@ -71,7 +71,7 @@ import { routing } from '../../../../src/app/routes';
             });
 
             scope.$on('$destroy', function () {
-                viewer.removeEventListener('viewChange');
+                viewer.removeEventListener(viewChangeHandler);
             });
         }
     }
