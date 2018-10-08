@@ -264,7 +264,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "_proj": Object {
                       "forward": [Function],
                       "inverse": [Function],
-                      "oProj": Projection {
+                      "oProj": Projection$1 {
                         "C": 1.0004758566842447,
                         "K": 1.0037810841627226,
                         "R2": 2.001645629371303,
@@ -313,7 +313,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           "Polar_Stereographic",
                           "sterea",
                           "Oblique Stereographic Alternative",
-                          "Double_Stereographic",
                         ],
                         "no_defs": true,
                         "phic0": 0.9096847567446857,
@@ -383,6 +382,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
           >
             <ResizeAware
               component="div"
+              heightPropName={undefined}
               onResize={[Function]}
               onlyEvent={true}
               style={
@@ -394,6 +394,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   "top": "0",
                 }
               }
+              widthPropName={undefined}
             >
               <div
                 style={
@@ -418,7 +419,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "pointerEvents": "none",
                       "position": "absolute",
                       "top": 0,
-                      "visibility": "hidden",
                       "width": "100%",
                       "zIndex": -1,
                     }
@@ -501,7 +501,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "_proj": Object {
                           "forward": [Function],
                           "inverse": [Function],
-                          "oProj": Projection {
+                          "oProj": Projection$1 {
                             "C": 1.0004758566842447,
                             "K": 1.0037810841627226,
                             "R2": 2.001645629371303,
@@ -550,7 +550,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                               "Polar_Stereographic",
                               "sterea",
                               "Oblique Stereographic Alternative",
-                              "Double_Stereographic",
                             ],
                             "no_defs": true,
                             "phic0": 0.9096847567446857,
@@ -601,12 +600,17 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   maxBoundsViscosity={1}
                   onClick={[Function]}
                   onDragEnd={[Function]}
+                  onDraw={undefined}
                   onMoveEnd={[Function]}
                   onZoomEnd={[Function]}
                   zoom={11}
                   zoomControl={false}
                 >
-                  <div>
+                  <div
+                    className={undefined}
+                    id={undefined}
+                    style={undefined}
+                  >
                     <TileLayer
                       bounds={
                         Array [
@@ -3338,7 +3342,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   "_proj": Object {
                     "forward": [Function],
                     "inverse": [Function],
-                    "oProj": Projection {
+                    "oProj": Projection$1 {
                       "C": 1.0004758566842447,
                       "K": 1.0037810841627226,
                       "R2": 2.001645629371303,
@@ -3387,7 +3391,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "Polar_Stereographic",
                         "sterea",
                         "Oblique Stereographic Alternative",
-                        "Double_Stereographic",
                       ],
                       "no_defs": true,
                       "phic0": 0.9096847567446857,
@@ -3560,7 +3563,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
         }
       >
         <Component
+          dataSelection={undefined}
           drawingMode="none"
+          geometry={undefined}
           isEnabled={false}
           leafletInstance={
             NewClass {
@@ -6251,7 +6256,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "_proj": Object {
                       "forward": [Function],
                       "inverse": [Function],
-                      "oProj": Projection {
+                      "oProj": Projection$1 {
                         "C": 1.0004758566842447,
                         "K": 1.0037810841627226,
                         "R2": 2.001645629371303,
@@ -6300,7 +6305,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           "Polar_Stereographic",
                           "sterea",
                           "Oblique Stereographic Alternative",
-                          "Double_Stereographic",
                         ],
                         "no_defs": true,
                         "phic0": 0.9096847567446857,
@@ -9199,7 +9203,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "_proj": Object {
                         "forward": [Function],
                         "inverse": [Function],
-                        "oProj": Projection {
+                        "oProj": Projection$1 {
                           "C": 1.0004758566842447,
                           "K": 1.0037810841627226,
                           "R2": 2.001645629371303,
@@ -9248,7 +9252,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             "Polar_Stereographic",
                             "sterea",
                             "Oblique Stereographic Alternative",
-                            "Double_Stereographic",
                           ],
                           "no_defs": true,
                           "phic0": 0.9096847567446857,
@@ -12149,7 +12152,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "_proj": Object {
                           "forward": [Function],
                           "inverse": [Function],
-                          "oProj": Projection {
+                          "oProj": Projection$1 {
                             "C": 1.0004758566842447,
                             "K": 1.0037810841627226,
                             "R2": 2.001645629371303,
@@ -12198,7 +12201,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                               "Polar_Stereographic",
                               "sterea",
                               "Oblique Stereographic Alternative",
-                              "Double_Stereographic",
                             ],
                             "no_defs": true,
                             "phic0": 0.9096847567446857,
@@ -12440,6 +12442,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
           activeMapLayers={Array []}
           atlas={Object {}}
           isEachOverlayInvisible={true}
+          isMapLayersVisible={undefined}
           isMapPanelHandleVisible={true}
           isMapPanelVisible={false}
           map={Object {}}
