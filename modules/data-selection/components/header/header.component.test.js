@@ -362,7 +362,7 @@ describe('The dp-data-selection-header', () => {
         });
 
         it('inactive tabs are links to the first page of other datasets', () => {
-            mockedInputList.state.dataset = 'hr';
+            mockedInputList.dataset = 'hr';
             mockedInputList.state.page = 123;
             component = getComponent(mockedInputList);
 
@@ -378,7 +378,7 @@ describe('The dp-data-selection-header', () => {
         });
 
         it('active tabs are just text (instead of a link)', () => {
-            mockedInputList.state.dataset = 'hr';
+            mockedInputList.dataset = 'hr';
             mockedInputList.state.page = 123;
             component = getComponent(mockedInputList);
             expect(store.dispatch).not.toHaveBeenCalled();
@@ -397,7 +397,7 @@ describe('The dp-data-selection-header', () => {
             expect(component.find('.qa-tabs li:nth-child(2)').text()).toContain(' (12.345)');
 
             // When BAG is active
-            mockedInputList.state.dataset = 'bag';
+            mockedInputList.dataset = 'bag';
             component = getComponent(mockedInputList);
 
             expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain('BAG Adressen');

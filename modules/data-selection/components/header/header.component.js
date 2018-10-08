@@ -34,7 +34,7 @@ import { features } from '../../../../src/shared/environment';
         ], setHeader);
 
         function setHeader () {
-            const isListView = vm.state.view === 'LIST';
+            const isListView = vm.view === 'LIST';
             const config = DATA_SELECTION_CONFIG.datasets[vm.dataset];
             const exportAuthScope = config.AUTH_SCOPE;
             vm.showButtons = vm.dataset !== 'dcatd';

@@ -53,6 +53,7 @@
             'vm.catalogFilters',
             'vm.filters',
             'vm.dataset',
+            'vm.view',
             'vm.state.geometryFilter',
             'vm.state.page',
             'vm.state.query',
