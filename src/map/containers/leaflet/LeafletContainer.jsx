@@ -39,7 +39,7 @@ const mapStateToProps = (state) => ({
   layers: getLayers(state),
   drawingMode: state.map.drawingMode,
   zoom: state.map.zoom,
-  loading: state.map.mapBusy
+  loading: state.map.loading
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

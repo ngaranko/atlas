@@ -142,6 +142,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
           geoJsons={Array []}
           getLeafletInstance={[Function]}
           layers={Array []}
+          loading={false}
           markers={Array []}
           onFetchMapBaseLayers={[Function]}
           onFetchMapLayers={[Function]}
@@ -195,6 +196,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
             getLeafletInstance={[Function]}
             isZoomControlVisible={true}
             layers={Array []}
+            loading={false}
             mapOptions={
               Object {
                 "attributionControl": false,
@@ -645,6 +647,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     <ZoomControl
                       position="bottomright"
                     />
+                    <MapBusyIndicator
+                      loading={false}
+                    />
                   </div>
                 </Map>
               </div>
@@ -706,7 +711,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               >
                 <div
                   class="leaflet-top leaflet-left"
-                />
+                >
+                  <div
+                    class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                  >
+                    <a
+                      class="leaflet-control-loading"
+                    />
+                  </div>
+                </div>
                 <div
                   class="leaflet-top leaflet-right"
                 />
@@ -757,7 +770,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
             >
               <div
                 class="leaflet-top leaflet-left"
-              />
+              >
+                <div
+                  class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                >
+                  <a
+                    class="leaflet-control-loading"
+                  />
+                </div>
+              </div>
               <div
                 class="leaflet-top leaflet-right"
               />
@@ -843,7 +864,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               </div>,
               "topleft": <div
                 class="leaflet-top leaflet-left"
-              />,
+              >
+                <div
+                  class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                >
+                  <a
+                    class="leaflet-control-loading"
+                  />
+                </div>
+              </div>,
               "topright": <div
                 class="leaflet-top leaflet-right"
               />,
@@ -896,6 +925,66 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 },
                 Object {
                   "ctx": undefined,
+                  "fn": [Function],
+                },
+              ],
+              "dataloaded": Array [
+                Object {
+                  "ctx": NewClass {
+                    "_container": <div
+                      class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                    >
+                      <a
+                        class="leaflet-control-loading"
+                      />
+                    </div>,
+                    "_initHooksCalled": true,
+                    "_map": [Circular],
+                    "dataLoaders": Object {},
+                    "indicator": <a
+                      class="leaflet-control-loading"
+                    />,
+                    "indicatorContainer": <div
+                      class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                    >
+                      <a
+                        class="leaflet-control-loading"
+                      />
+                    </div>,
+                    "options": Object {
+                      "loading": false,
+                    },
+                  },
+                  "fn": [Function],
+                },
+              ],
+              "dataloading": Array [
+                Object {
+                  "ctx": NewClass {
+                    "_container": <div
+                      class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                    >
+                      <a
+                        class="leaflet-control-loading"
+                      />
+                    </div>,
+                    "_initHooksCalled": true,
+                    "_map": [Circular],
+                    "dataLoaders": Object {},
+                    "indicator": <a
+                      class="leaflet-control-loading"
+                    />,
+                    "indicatorContainer": <div
+                      class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                    >
+                      <a
+                        class="leaflet-control-loading"
+                      />
+                    </div>,
+                    "options": Object {
+                      "loading": false,
+                    },
+                  },
                   "fn": [Function],
                 },
               ],
@@ -1450,7 +1539,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
-                        />
+                        >
+                          <div
+                            class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                          >
+                            <a
+                              class="leaflet-control-loading"
+                            />
+                          </div>
+                        </div>
                         <div
                           class="leaflet-top leaflet-right"
                         />
@@ -2117,7 +2214,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
-                    />
+                    >
+                      <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>
+                    </div>
                     <div
                       class="leaflet-top leaflet-right"
                     />
@@ -2229,7 +2334,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
-                      />
+                      >
+                        <div
+                          class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                        >
+                          <a
+                            class="leaflet-control-loading"
+                          />
+                        </div>
+                      </div>
                       <div
                         class="leaflet-top leaflet-right"
                       />
@@ -2450,7 +2563,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
-                    />
+                    >
+                      <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>
+                    </div>
                     <div
                       class="leaflet-top leaflet-right"
                     />
@@ -3000,7 +3121,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 >
                   <div
                     class="leaflet-top leaflet-left"
-                  />
+                  >
+                    <div
+                      class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                    >
+                      <a
+                        class="leaflet-control-loading"
+                      />
+                    </div>
+                  </div>
                   <div
                     class="leaflet-top leaflet-right"
                   />
@@ -3112,7 +3241,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
-                    />
+                    >
+                      <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>
+                    </div>
                     <div
                       class="leaflet-top leaflet-right"
                     />
@@ -3502,7 +3639,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 >
                   <div
                     class="leaflet-top leaflet-left"
-                  />
+                  >
+                    <div
+                      class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                    >
+                      <a
+                        class="leaflet-control-loading"
+                      />
+                    </div>
+                  </div>
                   <div
                     class="leaflet-top leaflet-right"
                   />
@@ -3620,7 +3765,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 >
                   <div
                     class="leaflet-top leaflet-left"
-                  />
+                  >
+                    <div
+                      class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                    >
+                      <a
+                        class="leaflet-control-loading"
+                      />
+                    </div>
+                  </div>
                   <div
                     class="leaflet-top leaflet-right"
                   />
@@ -3671,7 +3824,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               >
                 <div
                   class="leaflet-top leaflet-left"
-                />
+                >
+                  <div
+                    class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                  >
+                    <a
+                      class="leaflet-control-loading"
+                    />
+                  </div>
+                </div>
                 <div
                   class="leaflet-top leaflet-right"
                 />
@@ -3757,7 +3918,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 </div>,
                 "topleft": <div
                   class="leaflet-top leaflet-left"
-                />,
+                >
+                  <div
+                    class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                  >
+                    <a
+                      class="leaflet-control-loading"
+                    />
+                  </div>
+                </div>,
                 "topright": <div
                   class="leaflet-top leaflet-right"
                 />,
@@ -3810,6 +3979,66 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   },
                   Object {
                     "ctx": undefined,
+                    "fn": [Function],
+                  },
+                ],
+                "dataloaded": Array [
+                  Object {
+                    "ctx": NewClass {
+                      "_container": <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>,
+                      "_initHooksCalled": true,
+                      "_map": [Circular],
+                      "dataLoaders": Object {},
+                      "indicator": <a
+                        class="leaflet-control-loading"
+                      />,
+                      "indicatorContainer": <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>,
+                      "options": Object {
+                        "loading": false,
+                      },
+                    },
+                    "fn": [Function],
+                  },
+                ],
+                "dataloading": Array [
+                  Object {
+                    "ctx": NewClass {
+                      "_container": <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>,
+                      "_initHooksCalled": true,
+                      "_map": [Circular],
+                      "dataLoaders": Object {},
+                      "indicator": <a
+                        class="leaflet-control-loading"
+                      />,
+                      "indicatorContainer": <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>,
+                      "options": Object {
+                        "loading": false,
+                      },
+                    },
                     "fn": [Function],
                   },
                 ],
@@ -4364,7 +4593,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         >
                           <div
                             class="leaflet-top leaflet-left"
-                          />
+                          >
+                            <div
+                              class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                            >
+                              <a
+                                class="leaflet-control-loading"
+                              />
+                            </div>
+                          </div>
                           <div
                             class="leaflet-top leaflet-right"
                           />
@@ -5031,7 +5268,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
-                      />
+                      >
+                        <div
+                          class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                        >
+                          <a
+                            class="leaflet-control-loading"
+                          />
+                        </div>
+                      </div>
                       <div
                         class="leaflet-top leaflet-right"
                       />
@@ -5143,7 +5388,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
-                        />
+                        >
+                          <div
+                            class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                          >
+                            <a
+                              class="leaflet-control-loading"
+                            />
+                          </div>
+                        </div>
                         <div
                           class="leaflet-top leaflet-right"
                         />
@@ -5364,7 +5617,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
-                      />
+                      >
+                        <div
+                          class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                        >
+                          <a
+                            class="leaflet-control-loading"
+                          />
+                        </div>
+                      </div>
                       <div
                         class="leaflet-top leaflet-right"
                       />
@@ -5914,7 +6175,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
-                    />
+                    >
+                      <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>
+                    </div>
                     <div
                       class="leaflet-top leaflet-right"
                     />
@@ -6026,7 +6295,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
-                      />
+                      >
+                        <div
+                          class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                        >
+                          <a
+                            class="leaflet-control-loading"
+                          />
+                        </div>
+                      </div>
                       <div
                         class="leaflet-top leaflet-right"
                       />
@@ -6416,7 +6693,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
-                    />
+                    >
+                      <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>
+                    </div>
                     <div
                       class="leaflet-top leaflet-right"
                     />
@@ -6567,7 +6852,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
-                    />
+                    >
+                      <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>
+                    </div>
                     <div
                       class="leaflet-top leaflet-right"
                     />
@@ -6618,7 +6911,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 >
                   <div
                     class="leaflet-top leaflet-left"
-                  />
+                  >
+                    <div
+                      class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                    >
+                      <a
+                        class="leaflet-control-loading"
+                      />
+                    </div>
+                  </div>
                   <div
                     class="leaflet-top leaflet-right"
                   />
@@ -6704,7 +7005,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   </div>,
                   "topleft": <div
                     class="leaflet-top leaflet-left"
-                  />,
+                  >
+                    <div
+                      class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                    >
+                      <a
+                        class="leaflet-control-loading"
+                      />
+                    </div>
+                  </div>,
                   "topright": <div
                     class="leaflet-top leaflet-right"
                   />,
@@ -6757,6 +7066,66 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     },
                     Object {
                       "ctx": undefined,
+                      "fn": [Function],
+                    },
+                  ],
+                  "dataloaded": Array [
+                    Object {
+                      "ctx": NewClass {
+                        "_container": <div
+                          class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                        >
+                          <a
+                            class="leaflet-control-loading"
+                          />
+                        </div>,
+                        "_initHooksCalled": true,
+                        "_map": [Circular],
+                        "dataLoaders": Object {},
+                        "indicator": <a
+                          class="leaflet-control-loading"
+                        />,
+                        "indicatorContainer": <div
+                          class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                        >
+                          <a
+                            class="leaflet-control-loading"
+                          />
+                        </div>,
+                        "options": Object {
+                          "loading": false,
+                        },
+                      },
+                      "fn": [Function],
+                    },
+                  ],
+                  "dataloading": Array [
+                    Object {
+                      "ctx": NewClass {
+                        "_container": <div
+                          class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                        >
+                          <a
+                            class="leaflet-control-loading"
+                          />
+                        </div>,
+                        "_initHooksCalled": true,
+                        "_map": [Circular],
+                        "dataLoaders": Object {},
+                        "indicator": <a
+                          class="leaflet-control-loading"
+                        />,
+                        "indicatorContainer": <div
+                          class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                        >
+                          <a
+                            class="leaflet-control-loading"
+                          />
+                        </div>,
+                        "options": Object {
+                          "loading": false,
+                        },
+                      },
                       "fn": [Function],
                     },
                   ],
@@ -7311,7 +7680,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           >
                             <div
                               class="leaflet-top leaflet-left"
-                            />
+                            >
+                              <div
+                                class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                              >
+                                <a
+                                  class="leaflet-control-loading"
+                                />
+                              </div>
+                            </div>
                             <div
                               class="leaflet-top leaflet-right"
                             />
@@ -7978,7 +8355,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
-                        />
+                        >
+                          <div
+                            class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                          >
+                            <a
+                              class="leaflet-control-loading"
+                            />
+                          </div>
+                        </div>
                         <div
                           class="leaflet-top leaflet-right"
                         />
@@ -8090,7 +8475,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         >
                           <div
                             class="leaflet-top leaflet-left"
-                          />
+                          >
+                            <div
+                              class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                            >
+                              <a
+                                class="leaflet-control-loading"
+                              />
+                            </div>
+                          </div>
                           <div
                             class="leaflet-top leaflet-right"
                           />
@@ -8311,7 +8704,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
-                        />
+                        >
+                          <div
+                            class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                          >
+                            <a
+                              class="leaflet-control-loading"
+                            />
+                          </div>
+                        </div>
                         <div
                           class="leaflet-top leaflet-right"
                         />
@@ -8861,7 +9262,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
-                      />
+                      >
+                        <div
+                          class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                        >
+                          <a
+                            class="leaflet-control-loading"
+                          />
+                        </div>
+                      </div>
                       <div
                         class="leaflet-top leaflet-right"
                       />
@@ -8973,7 +9382,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
-                        />
+                        >
+                          <div
+                            class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                          >
+                            <a
+                              class="leaflet-control-loading"
+                            />
+                          </div>
+                        </div>
                         <div
                           class="leaflet-top leaflet-right"
                         />
@@ -9363,7 +9780,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
-                      />
+                      >
+                        <div
+                          class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                        >
+                          <a
+                            class="leaflet-control-loading"
+                          />
+                        </div>
+                      </div>
                       <div
                         class="leaflet-top leaflet-right"
                       />
@@ -9516,7 +9941,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
-                      />
+                      >
+                        <div
+                          class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                        >
+                          <a
+                            class="leaflet-control-loading"
+                          />
+                        </div>
+                      </div>
                       <div
                         class="leaflet-top leaflet-right"
                       />
@@ -9567,7 +10000,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
-                    />
+                    >
+                      <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>
+                    </div>
                     <div
                       class="leaflet-top leaflet-right"
                     />
@@ -9653,7 +10094,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     </div>,
                     "topleft": <div
                       class="leaflet-top leaflet-left"
-                    />,
+                    >
+                      <div
+                        class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                      >
+                        <a
+                          class="leaflet-control-loading"
+                        />
+                      </div>
+                    </div>,
                     "topright": <div
                       class="leaflet-top leaflet-right"
                     />,
@@ -9706,6 +10155,66 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       },
                       Object {
                         "ctx": undefined,
+                        "fn": [Function],
+                      },
+                    ],
+                    "dataloaded": Array [
+                      Object {
+                        "ctx": NewClass {
+                          "_container": <div
+                            class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                          >
+                            <a
+                              class="leaflet-control-loading"
+                            />
+                          </div>,
+                          "_initHooksCalled": true,
+                          "_map": [Circular],
+                          "dataLoaders": Object {},
+                          "indicator": <a
+                            class="leaflet-control-loading"
+                          />,
+                          "indicatorContainer": <div
+                            class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                          >
+                            <a
+                              class="leaflet-control-loading"
+                            />
+                          </div>,
+                          "options": Object {
+                            "loading": false,
+                          },
+                        },
+                        "fn": [Function],
+                      },
+                    ],
+                    "dataloading": Array [
+                      Object {
+                        "ctx": NewClass {
+                          "_container": <div
+                            class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                          >
+                            <a
+                              class="leaflet-control-loading"
+                            />
+                          </div>,
+                          "_initHooksCalled": true,
+                          "_map": [Circular],
+                          "dataLoaders": Object {},
+                          "indicator": <a
+                            class="leaflet-control-loading"
+                          />,
+                          "indicatorContainer": <div
+                            class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                          >
+                            <a
+                              class="leaflet-control-loading"
+                            />
+                          </div>,
+                          "options": Object {
+                            "loading": false,
+                          },
+                        },
                         "fn": [Function],
                       },
                     ],
@@ -10260,7 +10769,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             >
                               <div
                                 class="leaflet-top leaflet-left"
-                              />
+                              >
+                                <div
+                                  class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                                >
+                                  <a
+                                    class="leaflet-control-loading"
+                                  />
+                                </div>
+                              </div>
                               <div
                                 class="leaflet-top leaflet-right"
                               />
@@ -10927,7 +11444,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         >
                           <div
                             class="leaflet-top leaflet-left"
-                          />
+                          >
+                            <div
+                              class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                            >
+                              <a
+                                class="leaflet-control-loading"
+                              />
+                            </div>
+                          </div>
                           <div
                             class="leaflet-top leaflet-right"
                           />
@@ -11039,7 +11564,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           >
                             <div
                               class="leaflet-top leaflet-left"
-                            />
+                            >
+                              <div
+                                class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                              >
+                                <a
+                                  class="leaflet-control-loading"
+                                />
+                              </div>
+                            </div>
                             <div
                               class="leaflet-top leaflet-right"
                             />
@@ -11260,7 +11793,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         >
                           <div
                             class="leaflet-top leaflet-left"
-                          />
+                          >
+                            <div
+                              class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                            >
+                              <a
+                                class="leaflet-control-loading"
+                              />
+                            </div>
+                          </div>
                           <div
                             class="leaflet-top leaflet-right"
                           />
@@ -11810,7 +12351,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
-                        />
+                        >
+                          <div
+                            class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                          >
+                            <a
+                              class="leaflet-control-loading"
+                            />
+                          </div>
+                        </div>
                         <div
                           class="leaflet-top leaflet-right"
                         />
@@ -11922,7 +12471,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         >
                           <div
                             class="leaflet-top leaflet-left"
-                          />
+                          >
+                            <div
+                              class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                            >
+                              <a
+                                class="leaflet-control-loading"
+                              />
+                            </div>
+                          </div>
                           <div
                             class="leaflet-top leaflet-right"
                           />
@@ -12312,7 +12869,15 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
-                        />
+                        >
+                          <div
+                            class="leaflet-control-layer-container leaflet-bar leaflet-control"
+                          >
+                            <a
+                              class="leaflet-control-loading"
+                            />
+                          </div>
+                        </div>
                         <div
                           class="leaflet-top leaflet-right"
                         />
@@ -12685,6 +13250,85 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 "minZoom": 8,
                 "title": "Kadastrale perceelsgrenzen",
                 "url": "/maps/brk?version=1.3.0&service=WMS",
+              },
+              Object {
+                "category": "Geografie: onroerende zaken",
+                "legendItems": Array [
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-egdm-cat-1.svg",
+                    "id": "egga",
+                    "layer": "eigendommen",
+                    "selectable": true,
+                    "title": "Gemeente Amsterdam",
+                  },
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-egdm-cat-2.svg",
+                    "id": "egog",
+                    "layer": "eigendommen",
+                    "selectable": true,
+                    "title": "Overige gemeenten",
+                  },
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-egdm-cat-3.svg",
+                    "id": "egst",
+                    "layer": "eigendommen",
+                    "selectable": true,
+                    "title": "Staat",
+                  },
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-egdm-cat-4.svg",
+                    "id": "egpr",
+                    "layer": "eigendommen",
+                    "selectable": true,
+                    "title": "Provincies",
+                  },
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-egdm-cat-5.svg",
+                    "id": "egwa",
+                    "layer": "eigendommen",
+                    "selectable": true,
+                    "title": "Waterschappen",
+                  },
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-egdm-cat-6.svg",
+                    "id": "egwo",
+                    "layer": "eigendommen",
+                    "selectable": true,
+                    "title": "Woningbouwcorporaties",
+                  },
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-egdm-cat-7.svg",
+                    "id": "egve",
+                    "layer": "eigendommen",
+                    "selectable": true,
+                    "title": "Verenigingen van eigenaren",
+                  },
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-egdm-cat-8.svg",
+                    "id": "egsp",
+                    "layer": "eigendommen",
+                    "selectable": true,
+                    "title": "Spoorwegen/ProRail",
+                  },
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-egdm-cat-9.svg",
+                    "id": "egnnp",
+                    "layer": "eigendommen",
+                    "selectable": true,
+                    "title": "Overige niet-natuurlijke personen",
+                  },
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-egdm-cat-10.svg",
+                    "id": "egnp",
+                    "layer": "eigendommen",
+                    "selectable": true,
+                    "title": "Overige natuurlijke personen",
+                  },
+                ],
+                "maxZoom": 16,
+                "minZoom": 8,
+                "title": "Kadastrale eigenaren",
+                "url": "/maps/eigendommen?version=1.3.0&service=WMS",
               },
               Object {
                 "category": "Geografie: onroerende zaken",
@@ -15596,6 +16240,85 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           "category": "Geografie: onroerende zaken",
                           "legendItems": Array [
                             Object {
+                              "iconUrl": "assets/images/map-legend/icon-egdm-cat-1.svg",
+                              "id": "egga",
+                              "layer": "eigendommen",
+                              "selectable": true,
+                              "title": "Gemeente Amsterdam",
+                            },
+                            Object {
+                              "iconUrl": "assets/images/map-legend/icon-egdm-cat-2.svg",
+                              "id": "egog",
+                              "layer": "eigendommen",
+                              "selectable": true,
+                              "title": "Overige gemeenten",
+                            },
+                            Object {
+                              "iconUrl": "assets/images/map-legend/icon-egdm-cat-3.svg",
+                              "id": "egst",
+                              "layer": "eigendommen",
+                              "selectable": true,
+                              "title": "Staat",
+                            },
+                            Object {
+                              "iconUrl": "assets/images/map-legend/icon-egdm-cat-4.svg",
+                              "id": "egpr",
+                              "layer": "eigendommen",
+                              "selectable": true,
+                              "title": "Provincies",
+                            },
+                            Object {
+                              "iconUrl": "assets/images/map-legend/icon-egdm-cat-5.svg",
+                              "id": "egwa",
+                              "layer": "eigendommen",
+                              "selectable": true,
+                              "title": "Waterschappen",
+                            },
+                            Object {
+                              "iconUrl": "assets/images/map-legend/icon-egdm-cat-6.svg",
+                              "id": "egwo",
+                              "layer": "eigendommen",
+                              "selectable": true,
+                              "title": "Woningbouwcorporaties",
+                            },
+                            Object {
+                              "iconUrl": "assets/images/map-legend/icon-egdm-cat-7.svg",
+                              "id": "egve",
+                              "layer": "eigendommen",
+                              "selectable": true,
+                              "title": "Verenigingen van eigenaren",
+                            },
+                            Object {
+                              "iconUrl": "assets/images/map-legend/icon-egdm-cat-8.svg",
+                              "id": "egsp",
+                              "layer": "eigendommen",
+                              "selectable": true,
+                              "title": "Spoorwegen/ProRail",
+                            },
+                            Object {
+                              "iconUrl": "assets/images/map-legend/icon-egdm-cat-9.svg",
+                              "id": "egnnp",
+                              "layer": "eigendommen",
+                              "selectable": true,
+                              "title": "Overige niet-natuurlijke personen",
+                            },
+                            Object {
+                              "iconUrl": "assets/images/map-legend/icon-egdm-cat-10.svg",
+                              "id": "egnp",
+                              "layer": "eigendommen",
+                              "selectable": true,
+                              "title": "Overige natuurlijke personen",
+                            },
+                          ],
+                          "maxZoom": 16,
+                          "minZoom": 8,
+                          "title": "Kadastrale eigenaren",
+                          "url": "/maps/eigendommen?version=1.3.0&service=WMS",
+                        },
+                        Object {
+                          "category": "Geografie: onroerende zaken",
+                          "legendItems": Array [
+                            Object {
                               "id": "gbvv",
                               "layer": "beperking-VV",
                               "selectable": true,
@@ -17625,6 +18348,37 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                   className="map-layers__toggle-title"
                                 >
                                   Kadastrale perceelsgrenzen
+                                </span>
+                                <span
+                                  className="map-layers__toggle map-layers__toggle--remove"
+                                >
+                                  <Component>
+                                    mock-svg
+                                  </Component>
+                                </span>
+                                <span
+                                  className="map-layers__toggle map-layers__toggle--add"
+                                >
+                                  <Component>
+                                    mock-svg
+                                  </Component>
+                                </span>
+                              </button>
+                            </li>
+                            <li
+                              className="
+                      map-layers__title
+                      map-layers__title--inactive
+                    "
+                              key="Kadastrale eigenaren"
+                            >
+                              <button
+                                onClick={[Function]}
+                              >
+                                <span
+                                  className="map-layers__toggle-title"
+                                >
+                                  Kadastrale eigenaren
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"

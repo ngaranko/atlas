@@ -359,6 +359,9 @@ exports[`MapLeaflet component should render clusters 1`] = `
     <ZoomControl
       position="bottomright"
     />
+    <MapBusyIndicator
+      loading={false}
+    />
   </Map>
 </ResizeAware>
 `;
@@ -722,6 +725,9 @@ exports[`MapLeaflet component should render clusters 2`] = `
     <ZoomControl
       position="bottomright"
     />
+    <MapBusyIndicator
+      loading={false}
+    />
   </Map>
 </ResizeAware>
 `;
@@ -952,6 +958,9 @@ exports[`MapLeaflet component should render map with base layer and update base 
     />
     <ZoomControl
       position="bottomright"
+    />
+    <MapBusyIndicator
+      loading={false}
     />
   </Map>
 </ResizeAware>
@@ -1184,6 +1193,9 @@ exports[`MapLeaflet component should render map with base layer and update base 
     <ZoomControl
       position="bottomright"
     />
+    <MapBusyIndicator
+      loading={false}
+    />
   </Map>
 </ResizeAware>
 `;
@@ -1414,6 +1426,9 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 1`] 
     />
     <ZoomControl
       position="bottomright"
+    />
+    <MapBusyIndicator
+      loading={false}
     />
   </Map>
 </ResizeAware>
@@ -1787,6 +1802,9 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 2`] 
     <ZoomControl
       position="bottomright"
     />
+    <MapBusyIndicator
+      loading={false}
+    />
   </Map>
 </ResizeAware>
 `;
@@ -2124,6 +2142,9 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 3`] 
     <ZoomControl
       position="bottomright"
     />
+    <MapBusyIndicator
+      loading={false}
+    />
   </Map>
 </ResizeAware>
 `;
@@ -2354,6 +2375,9 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
     />
     <ZoomControl
       position="bottomright"
+    />
+    <MapBusyIndicator
+      loading={false}
     />
   </Map>
 </ResizeAware>
@@ -2609,6 +2633,9 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
     />
     <ZoomControl
       position="bottomright"
+    />
+    <MapBusyIndicator
+      loading={false}
     />
   </Map>
 </ResizeAware>
@@ -2940,6 +2967,9 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
     <ZoomControl
       position="bottomright"
     />
+    <MapBusyIndicator
+      loading={false}
+    />
   </Map>
 </ResizeAware>
 `;
@@ -3170,6 +3200,9 @@ exports[`MapLeaflet component should render map with without layers and add/remo
     />
     <ZoomControl
       position="bottomright"
+    />
+    <MapBusyIndicator
+      loading={false}
     />
   </Map>
 </ResizeAware>
@@ -3414,6 +3447,9 @@ exports[`MapLeaflet component should render map with without layers and add/remo
     <ZoomControl
       position="bottomright"
     />
+    <MapBusyIndicator
+      loading={false}
+    />
   </Map>
 </ResizeAware>
 `;
@@ -3644,6 +3680,9 @@ exports[`MapLeaflet component should render map with without layers and add/remo
     />
     <ZoomControl
       position="bottomright"
+    />
+    <MapBusyIndicator
+      loading={false}
     />
   </Map>
 </ResizeAware>
@@ -4308,6 +4347,9 @@ exports[`MapLeaflet component should render markers 1`] = `
     <ZoomControl
       position="bottomright"
     />
+    <MapBusyIndicator
+      loading={false}
+    />
   </Map>
 </ResizeAware>
 `;
@@ -4970,6 +5012,9 @@ exports[`MapLeaflet component should render markers 2`] = `
     />
     <ZoomControl
       position="bottomright"
+    />
+    <MapBusyIndicator
+      loading={false}
     />
   </Map>
 </ResizeAware>

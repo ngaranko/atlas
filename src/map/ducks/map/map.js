@@ -48,7 +48,7 @@ const initialState = {
   baseLayer: 'topografie',
   zoom: 11,
   overlays: [],
-  mapBusy: false,
+  loading: false,
   drawingMode: 'none',
   shapeMarkers: 0,
   shapeDistanceTxt: '',
@@ -129,8 +129,7 @@ export default function MapReducer(state = initialState, action) {
       return {
         ...state,
         drawingMode: 'none',
-        geometry: has2Markers ? polygon.markers : moreThan2Markers ? [] : state.geometry,
-        isLoading: moreThan2Markers ? true : state.isLoading
+        geometry: has2Markers ? polygon.markers : moreThan2Markers ? [] : state.geometry
       };
 
     case SET_MAP_BASE_LAYER:
@@ -185,7 +184,7 @@ export default function MapReducer(state = initialState, action) {
     case MAP_LOADING:
       return {
         ...state,
-        mapBusy: action.payload
+        loading: action.payload
       };
 
 

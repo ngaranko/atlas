@@ -12,7 +12,7 @@ import geoJsonConfig from './services/geo-json-config.constant';
 import markerConfig from './services/marker-config.constant';
 import createClusterIcon from './services/cluster-icon';
 import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
-import LoadingIndicator from './custom/loading-indicator/LoadingIndicator';
+import MapBusyIndicator from './custom/map-busy-indicator/MapBusyIndicator';
 
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
@@ -38,15 +38,13 @@ class MapLeaflet extends React.Component {
     this.handleResize = this.handleResize.bind(this);
     this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this);
     this.state = {
-      previousFitBoundsId: '',
-      map: null
+      previousFitBoundsId: ''
     };
 
     this.setMapElement = (element) => {
       if (element && element.leafletElement) {
         this.MapElement = element.leafletElement;
         this.props.getLeafletInstance(this.MapElement);
-        this.setState({ map: this.MapElement });
       }
     };
 
@@ -263,7 +261,7 @@ class MapLeaflet extends React.Component {
               <ZoomControl position="bottomright" />
             )
           }
-          <LoadingIndicator map={this.state.map} loading={loading} />
+          <MapBusyIndicator loading={loading} />
         </Map>
       </ResizeAware>
     );
