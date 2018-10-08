@@ -19,7 +19,7 @@ import removeMd from 'remove-markdown';
     function DpDataSelectionCatalogController (store, $filter) {
         const vm = this;
 
-        var state = store.getState();
+        const state = store.getState();
         vm.catalogFilters = state.catalogFilters;
 
         vm.$onChanges = function () {
