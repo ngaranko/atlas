@@ -73,6 +73,14 @@ const App = ({
               <Map />
             )}
 
+            {currentPage === PAGES.CATALOGUS && (
+              <DataSelection
+                columnSizes={columnSizes}
+                view={'CATALOG'}
+                dataset={DATASETS.CATALOG}
+              />
+            )}
+
             {currentPage === PAGES.ADRESSEN && (
               <DataSelection
                 columnSizes={columnSizes}
