@@ -41,34 +41,6 @@
     <link href="<%= htmlWebpackPlugin.files.css[key] %>" rel="stylesheet">
     <% } %>
 
-    <style type="text/css">
-      #root {
-        height: 100%;
-      }
-
-      #root-loading-indicator {
-        display: flex;
-        padding: 2em 1em;
-      }
-
-      #root-loading-indicator svg {
-        animation: rotating-spinner 1s linear infinite;
-        height: 36px;
-        margin: auto;
-        width: 36px;
-      }
-
-      @keyframes rotating-spinner {
-        0% {
-          transform: rotate(0deg);
-        }
-
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
-
   </head>
   <body dp-max-width-class="u-background-color__secondary--gray10" dp-scrollable-content>
     <% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
@@ -87,7 +59,7 @@
       </span>
     </dp-dashboard> -->
 
-    <div id="root"></div>
+    <div id="root" class="root"></div>
 
     <% if (htmlWebpackPlugin.options.appMountId) { %>
     <div id="<%= htmlWebpackPlugin.options.appMountId %>"></div>
