@@ -12,7 +12,7 @@ const result = {
         value: '[link link](http://link/)'
       },
       datum: {
-        date: new Date('2016-12-31T23:00:00.000Z'),
+        date: new Date(Date.UTC(2016, 11, 32, -1, 0, 0)),
         html: '<p>1-1-2017</p>',
         isDate: true,
         isHref: false,
@@ -28,7 +28,7 @@ const result = {
     },
     {
       datum: {
-        date: new Date('2017-01-09T23:00:00.000Z'),
+        date: new Date(Date.UTC(2017, 0, 10, -1, 0, 0)),
         html: '<p>10-1-2017</p>',
         isDate: true,
         isHref: false,
@@ -50,7 +50,7 @@ const result = {
     },
     {
       datum: {
-        date: new Date('2017-11-30T23:00:00.000Z'),
+        date: new Date(Date.UTC(2017, 10, 31, -1, 0, 0)),
         html: '<p>1-12-2017</p>',
         isDate: true,
         isHref: false,
@@ -72,7 +72,7 @@ const result = {
     },
     {
       datum: {
-        date: new Date('2017-12-11T23:00:00.000Z'),
+        date: new Date(Date.UTC(2017, 11, 12, -1, 0, 0)),
         html: '<p>12-12-2017</p>',
         isDate: true,
         isHref: false,
