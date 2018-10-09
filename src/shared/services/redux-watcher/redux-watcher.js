@@ -25,9 +25,9 @@ import { isStraatbeeldActive } from './redux-watch-selectors';
 
 function ReduxWatcher(store) {
   const { getState, subscribe, dispatch } = store;
-  const watchStraatbeeld = watch(() => isStraatbeeldActive(getState()));
+  const watchStraatbeeldActive = watch(() => isStraatbeeldActive(getState()));
 
-  subscribe(watchStraatbeeld((active) => {
+  subscribe(watchStraatbeeldActive((active) => {
     const state = getState();
     if (active) {
       dispatch({ type: MAP_ADD_PANO_OVERLAY, payload: state.straatbeeld });

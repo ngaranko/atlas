@@ -87,7 +87,7 @@
     "react-resize-aware": "^2.7.0",
     "recharts": "^1.2.0",
     "redux": "^3.7.2",
-    "redux-first-router": "0.0.16-next",
+    "redux-first-router": "1.9.19",
     "redux-first-router-link": "1.4.2",
     "redux-saga": "^0.16.0",
     "redux-watch": "1.1.1",

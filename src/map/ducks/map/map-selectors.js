@@ -1,6 +1,9 @@
 import { createSelector } from 'reselect';
 
-import { getStraatbeeldLocation, getStraatbeeldMarkers } from '../straatbeeld/straatbeeld';
+import {
+  getStraatbeeldLocation,
+  getStraatbeeldMarkers
+} from '../../../shared/ducks/straatbeeld/straatbeeld';
 import {
   getClusterMarkers as getDataSelectionClusterMarkers,
   getDataSelection,

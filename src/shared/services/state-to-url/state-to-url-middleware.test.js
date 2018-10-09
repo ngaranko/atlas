@@ -5,7 +5,7 @@ import { AUTHENTICATE_USER } from '../../../reducers/user';
 
 jest.mock('../routing/state-to-url');
 
-describe.only('The stateToUrlMiddleware factory', () => {
+describe('The stateToUrlMiddleware', () => {
   const mockedStore = {
     getState: () => 'FAKE_STATE'
   };
@@ -78,7 +78,7 @@ describe.only('The stateToUrlMiddleware factory', () => {
       ACTIONS.DETAIL_FULLSCREEN,
       ACTIONS.FETCH_STRAATBEELD_BY_ID,
       ACTIONS.FETCH_STRAATBEELD_BY_LOCATION,
-      ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
+      ACTIONS.SHOW_STRAATBEELD,
       ACTIONS.STRAATBEELD_FULLSCREEN,
       ACTIONS.SET_STRAATBEELD_ORIENTATION,
       ACTIONS.SET_STRAATBEELD_HISTORY,
@@ -104,7 +104,7 @@ describe.only('The stateToUrlMiddleware factory', () => {
       ACTIONS.MAP_PAN,
       ACTIONS.MAP_ZOOM,
       ACTIONS.DETAIL_FULLSCREEN,
-      ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
+      ACTIONS.SHOW_STRAATBEELD,
       ACTIONS.SET_STRAATBEELD_ORIENTATION
     ];
     const shouldNotUseReplace = [

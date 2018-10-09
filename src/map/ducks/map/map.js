@@ -1,4 +1,5 @@
 import { routing } from '../../../app/routes';
+import ACTIONS from '../../../shared/actions';
 
 export const MAP_ADD_PANO_OVERLAY = 'MAP_ADD_PANO_OVERLAY';
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
@@ -156,6 +157,21 @@ export default function MapReducer(state = initialState, action) {
 
     case MAP_CLEAR:
       return initialState;
+
+    case ACTIONS.SET_STRAATBEELD:
+    case ACTIONS.FETCH_STRAATBEELD_BY_ID:
+    case ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT:
+      return {
+        ...state,
+        viewCenter: action.payload.location || state.viewCenter,
+        isLoading: true
+      };
+
+    case ACTIONS.FETCH_STRAATBEELD_BY_LOCATION:
+      return {
+        ...state,
+        geometry: []
+      };
 
     default:
       return state;

@@ -19,9 +19,11 @@ const configureStore = (history, routes) => {
   const {
     reducer: routeReducer,
     middleware: routeMiddleware,
-    enhancer: routeEnhancer
+    enhancer: routeEnhancer,
+    initialDispatch: initialRouteDispatch
   } = connectRoutes(history, routes, {
-    querySerializer: queryString
+    querySerializer: queryString,
+    initialDispatch: false
   });
   const urlDefaultState = stateUrlConverter.getDefaultState();
   const defaultState = isDevelopment() ? freeze(urlDefaultState) : urlDefaultState;
@@ -29,16 +31,17 @@ const configureStore = (history, routes) => {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const sagaMiddleware = createSagaMiddleware();
   const enhancer = composeEnhancers(
+    routeEnhancer,
     applyMiddleware(
       contextMiddleware,
-      sagaMiddleware,
-      routeMiddleware),
-    routeEnhancer
+      routeMiddleware,
+      sagaMiddleware)
   );
 
   window.reduxStore = createStore(rootReducer(routeReducer), defaultState, enhancer);
 
   sagaMiddleware.run(rootSaga);
+  initialRouteDispatch();
 
   try {
     auth.initAuth();
