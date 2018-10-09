@@ -39,7 +39,7 @@ const mapStateToProps = (state) => ({
   layers: getLayers(state),
   drawingMode: state.map.drawingMode,
   zoom: state.map.zoom,
-  loading: state.map.loading
+  loading: state.map.loading ? state.map.loading : false
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -166,8 +166,7 @@ LeafletContainer.defaultProps = {
   geoJsons: [],
   rdGeoJsons: [],
   layers: [],
-  markers: [],
-  loading: false
+  markers: []
 };
 
 LeafletContainer.propTypes = {
@@ -190,7 +189,7 @@ LeafletContainer.propTypes = {
     url: PropTypes.string.isRequired
   })),
   zoom: PropTypes.number.isRequired,
-  loading: PropTypes.bool,
+  loading: PropTypes.bool.isRequired,
 
   onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,

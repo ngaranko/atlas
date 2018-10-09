@@ -33,7 +33,7 @@ describe('MapBusyIndicator', () => {
     wrapperInstance = wrapper.instance();
   });
 
-  it('should render an empty string', () => {
+  it('should render an empty component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -43,7 +43,7 @@ describe('MapBusyIndicator', () => {
   });
 
   it('should never update', () => {
-    expect(wrapperInstance.shouldComponentUpdate()).toBeFalsy();
+    expect(wrapperInstance.shouldComponentUpdate()).toBe(false);
   });
 
   it('should show the indicator when the loading prop is set', () => {
