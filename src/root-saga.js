@@ -13,6 +13,7 @@ import watchGeoSearchRequest from './map/sagas/geosearch';
 import watchFetchCatalogFilters from './catalog/sagas/data-selection/data-selection';
 import watchMapUpdate from './map/sagas/map-update/map-update';
 import { watchStraatbeeld } from './shared/ducks/straatbeeld/straatbeeld';
+import { watchCatalogList } from './shared/ducks/catalog/catalog';
 
 export default function* rootSaga() {
   yield all([
@@ -28,6 +29,7 @@ export default function* rootSaga() {
     fork(watchGeoSearchRequest),
     fork(watchFetchCatalogFilters),
     fork(watchMapUpdate),
-    fork(watchStraatbeeld)
+    fork(watchStraatbeeld),
+    fork(watchCatalogList)
   ]);
 }

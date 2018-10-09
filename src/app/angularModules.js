@@ -126,6 +126,7 @@ import '../../modules/shared/components/dcatd-button/dcatd-button.component';
 import '../../modules/shared/components/expand-collapse/expand-collapse.directive';
 import '../../modules/shared/components/link-to-page/link-to-page.component';
 import '../../modules/shared/components/link/link.component';
+import '../../modules/shared/components/redux-link/redux-link.component';
 import '../../modules/shared/components/loading-indicator/loading-indicator.component';
 import '../../modules/shared/components/long-name-shortener/long-name-config.constant';
 import '../../modules/shared/components/long-name-shortener/long-name-shortener.filter';
