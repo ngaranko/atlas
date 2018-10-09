@@ -589,5 +589,16 @@ export default [
     id: 'pano2020',
     url: 'maps/panorama',
     layers: ['panorama_recent_2020']
+  },
+  // Erfpachters
+  {
+    id: 'efga',
+    url: 'maps/erfpacht?categorie=1',
+    layers: ['erfpacht']
+  },
+  {
+    id: 'efov',
+    url: 'maps/erfpacht?categorie=2',
+    layers: ['erfpacht']
   }
 ];
