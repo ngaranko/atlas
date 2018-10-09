@@ -18,6 +18,11 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS}`,
     page: PAGES.CATALOGUS
   },
+  catalogusDetail: {
+    location: '/catalogus/detail/:id',
+    type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS_DETAIL}`,
+    page: PAGES.CATALOGUS_DETAIL
+  },
   adressen: {
     location: '/adressen',
     type: `${ROUTER_NAMESPACE}/${PAGES.ADRESSEN}`,
