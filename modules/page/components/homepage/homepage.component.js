@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom';
 import { routing } from '../../../../src/app/routes';
-import { fetchDataSelection } from '../../../../src/header/ducks/search/search';
 
 (function () {
     'use strict';
@@ -33,16 +32,7 @@ import { fetchDataSelection } from '../../../../src/header/ducks/search/search';
             }
         );
 
-        vm.openCatalogus = () => {
-            store.dispatch(fetchDataSelection({
-                dataset: 'dcatd',
-                view: 'CATALOG',
-                page: 1
-            }));
-            store.dispatch({
-                type: routing.catalogus.type
-            });
-        };
+        vm.toCatalogus = { type: routing.catalogus.type };
 
         $timeout(setReactComponents);
 
