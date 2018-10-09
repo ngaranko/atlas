@@ -1,4 +1,6 @@
 import removeMd from 'remove-markdown';
+import { fetchDetail } from '../../../../../src/reducers/details';
+import { routing } from '../../../../../src/app/routes';
 
 (function () {
     'use strict';
@@ -46,9 +48,15 @@ import removeMd from 'remove-markdown';
                 },
                 formats: $filter('aggregate')(formats),
                 tags: item['dcat:keyword'],
+                id: item['dct:identifier'],
                 detailEndpoint: item._links.self.href
             };
         });
+
+        vm.openDetail = (endPoint, id) => {
+            store.dispatch(fetchDetail(endPoint));
+            store.dispatch({ type: routing.catalogusDetail.type, payload: { id } });
+        };
 
         sessionStorage.setItem('DCATD_LIST_REDIRECT_URL', document.location.href);
     }

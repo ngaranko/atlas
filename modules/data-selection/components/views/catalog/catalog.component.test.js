@@ -1,4 +1,6 @@
 import mockedContentJson from './catalog.component.test.content';
+import * as details from '../../../../../src/reducers/details';
+import { routing } from '../../../../../src/app/routes';
 
 describe('The catalog component', function () {
     'use strict';
@@ -47,6 +49,8 @@ describe('The catalog component', function () {
             setItem: angular.noop
         };
 
+        store.dispatch = jasmine.createSpy('dispatch');
+
         spyOn($window.sessionStorage, 'setItem');
     });
 
@@ -67,7 +71,7 @@ describe('The catalog component', function () {
         return component;
     }
 
-    it('can load a detail page for a catalog', function () {
+    it('sets the redirect url', () => {
         spyOn(store, 'getState').and.returnValue({
             catalogFilters: {
                 formatTypes: [],
@@ -76,11 +80,28 @@ describe('The catalog component', function () {
             }
         });
 
+        getComponent();
+
+        expect($window.sessionStorage.setItem)
+            .toHaveBeenCalledWith('DCATD_LIST_REDIRECT_URL', jasmine.any(String));
+    });
+
+    it('can load a detail page for a catalog', function () {
+        spyOn(store, 'getState').and.returnValue({
+            catalogFilters: {
+                formatTypes: [],
+                serviceTypes: [],
+                distributionTypes: []
+            }
+        });
+        details.fetchDetail = () => 'fetchDetail';
+
         const component = getComponent();
 
         component.find('.qa-catalog-fetch-detail')[0].click();
 
-        expect($window.sessionStorage.setItem)
-            .toHaveBeenCalledWith('DCATD_LIST_REDIRECT_URL', jasmine.any(String));
+        const id = mockedContentJson['dcat:dataset'][0]['dct:identifier'];
+        expect(store.dispatch).toHaveBeenCalledWith('fetchDetail');
+        expect(store.dispatch).toHaveBeenCalledWith({ type: routing.catalogusDetail.type, payload: { id } });
     });
 });
