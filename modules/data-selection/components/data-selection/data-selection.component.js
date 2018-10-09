@@ -1,6 +1,6 @@
 /* eslint-disable */
 import L from 'leaflet';
-import { MAP_LOADING } from '../../../../src/map/ducks/map/map';
+import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
 
 (function () {
     'use strict';
@@ -146,10 +146,7 @@ import { MAP_LOADING } from '../../../../src/map/ducks/map/map';
                         // data
                         vm.isLoading = true;
                         var map = L.Map;
-                        store.dispatch({
-                            type: MAP_LOADING,
-                            payload: true,
-                        });
+                        store.dispatch(mapLoadingAction(true));
                         dataSelectionApi
                             .getMarkers(vm.state.dataset, activeFilters, vm.zoomLevel, vm.boundingBox)
                             .then(markerData => {
@@ -158,10 +155,7 @@ import { MAP_LOADING } from '../../../../src/map/ducks/map/map';
                                     payload: markerData
                                 });
                             }).finally(() => {
-                                store.dispatch({
-                                    type: MAP_LOADING,
-                                    payload: false,
-                                });
+                                store.dispatch(mapLoadingAction(false));
                             });
                     } else if (vm.state.reset) {
                         // Update the state to show the data, do not trigger a

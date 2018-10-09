@@ -1,9 +1,11 @@
+// inspired from https://github.com/ebrelsford/Leaflet.loading
+// and https://github.com/tumerorkun/react-leaflet-zoom-indicator
 import L from 'leaflet';
 import { MapControl } from 'react-leaflet';
 import './MapBusyIndicator.scss';
 
-const DATA_LOADING_EVENT = 'dataloading';
-const DATA_LOADED_EVENT = 'dataloaded';
+export const DATA_LOADING_EVENT = 'dataloading';
+export const DATA_LOADED_EVENT = 'dataloaded';
 
 export default class MapBusyIndicator extends MapControl {
 
@@ -32,7 +34,12 @@ export default class MapBusyIndicator extends MapControl {
   }
 
   createMapBusyIndicatorControl() { // eslint-disable-line class-methods-use-this
-    return L.Control.extend({
+    const controlExtension = this.createMapContolExtension();
+    return L.Control.extend(controlExtension);
+  }
+
+  createMapContolExtension() { // eslint-disable-line class-methods-use-this
+    return {
       options: {
         position: 'topleft'
       },
@@ -75,12 +82,8 @@ export default class MapBusyIndicator extends MapControl {
         this.updateIndicator(true);
       },
 
-      handleLoad() {
+      handleLoaded() {
         this.updateIndicator(false);
-      },
-
-      getEventId(e) {
-        return e.target._leaflet_id; // eslint-disable-line no-underscore-dangle
       },
 
       addMapListeners(map) {
@@ -89,16 +92,16 @@ export default class MapBusyIndicator extends MapControl {
         // reflected in the layer events.
         map.on({
           [DATA_LOADING_EVENT]: this.handleLoading,
-          [DATA_LOADED_EVENT]: this.handleLoad
+          [DATA_LOADED_EVENT]: this.handleLoaded
         }, this);
       },
 
       removeMapListeners(map) {
         map.off({
           [DATA_LOADING_EVENT]: this.handleLoading,
-          [DATA_LOADED_EVENT]: this.handleLoad
+          [DATA_LOADED_EVENT]: this.handleLoaded
         }, this);
       }
-    });
+    };
   }
 }

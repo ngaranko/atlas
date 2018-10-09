@@ -12,7 +12,8 @@ import reducer, {
   toggleMapOverlayVisibility,
   updateBoundingBox,
   updatePan,
-  updateZoom
+  updateZoom,
+  mapLoadingAction
 } from './map';
 
 describe('Map Reducer', () => {
@@ -285,6 +286,12 @@ describe('Map Reducer', () => {
       }
     })).toEqual({
       overlays: [{ id: 'notpano' }]
+    });
+  });
+
+  it('should set the loading flag when dispatching the mapLoadingAction', () => {
+    expect(reducer({ }, mapLoadingAction(true))).toEqual({
+      loading: true
     });
   });
 });

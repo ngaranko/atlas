@@ -229,3 +229,4 @@ export const updateBoundingBox = (payload, isDrawingActive) =>
     payload
   });
 
+export const mapLoadingAction = (loading) => ({ type: MAP_LOADING, payload: loading });
