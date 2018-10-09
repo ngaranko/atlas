@@ -18,6 +18,7 @@ describe('MapBusyIndicator', () => {
 
   beforeAll(() => {
     L.Control.extend.mockImplementation(() => jest.fn());
+    L.DomUtil.create.mockImplementation(() => ({}));
   });
 
   beforeEach(() => {

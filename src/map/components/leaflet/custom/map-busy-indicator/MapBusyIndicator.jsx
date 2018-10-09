@@ -56,6 +56,7 @@ export default class MapBusyIndicator extends MapControl {
 
         // Create the loading indicator
         this.indicator = L.DomUtil.create('a', 'leaflet-control-loading', container);
+        this.indicator.id = 'map-loading-id';
 
         return container;
       },
