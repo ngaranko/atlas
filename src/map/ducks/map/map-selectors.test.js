@@ -15,13 +15,16 @@ import {
   getDataSelection,
   getMarkers as getDataSelectionMarkers
 } from '../data-selection/data-selection';
-import { getStraatbeeldLocation, getStraatbeeldMarkers } from '../straatbeeld/straatbeeld';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
+import {
+  getStraatbeeldLocation,
+  getStraatbeeldMarkers
+} from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 jest.mock('../data-selection/data-selection');
 jest.mock('../search-results/map-search-results');
-jest.mock('../straatbeeld/straatbeeld');
+jest.mock('../../../shared/ducks/straatbeeld/straatbeeld');
 jest.mock('../detail/map-detail');
 describe('Map Selectors', () => {
   const map = {

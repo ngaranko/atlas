@@ -6,7 +6,7 @@ import watchMapClick, { switchClickAction } from './map-click';
 import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../../../shared/actions';
 
 import { getMapPanelLayers, getActiveMapLayers } from '../../ducks/panel-layers/map-panel-layers';
-import { getStraatbeeld } from '../../ducks/straatbeeld/straatbeeld';
+import { getStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
 

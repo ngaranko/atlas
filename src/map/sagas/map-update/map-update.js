@@ -1,8 +1,10 @@
 import { put, select, takeLatest } from 'redux-saga/es/internal/io';
 import { redirect } from 'redux-first-router';
 import { routing } from '../../../app/routes';
+import { UPDATE_MAP } from '../../ducks/map/map';
 
 /**
+ * Todo: improve this
  * This will set the url query. It will update by default (and keep the other arguments)
  * Unless when given payload: { replace: true }, this will replace the url query instead of updating
  * @param action
@@ -24,8 +26,12 @@ function* updateMapQuery(action) {
       return acc;
     }, {});
 
-    yield put(redirect({
-      type: routing.map.type, // Todo: get the type for the current page
+    const noop = (params) => params;
+    const routeWrapper = action.payload.noRedirect ? noop : redirect;
+
+    yield put(routeWrapper({
+      type: action.payload.route || state.location.type || routing.map.type,
+      payload: action.payload.query && action.payload.query.pano,
       meta: {
         query: sanitizedQuery
       }
@@ -36,5 +42,5 @@ function* updateMapQuery(action) {
 }
 
 export default function* watchMapUpdate() {
-  yield takeLatest('UPDATE_MAP', updateMapQuery);
+  yield takeLatest(UPDATE_MAP, updateMapQuery);
 }

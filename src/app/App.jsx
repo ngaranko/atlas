@@ -8,7 +8,9 @@ import Piwik from './components/Piwik/Piwik';
 import ContentPage, { CMS_PAGE_MAPPING } from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
+import Panorama from './containers/PanoramaContainer';
 import DATASETS from '../shared/ducks/data-selection/data-selection-datasets';
+import './_app.scss';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -69,8 +71,12 @@ const App = ({
               />
             )}
 
-            {currentPage === PAGES.KAART && (
-              <Map />
+            {(currentPage === PAGES.KAART || currentPage === PAGES.KAART_PANORAMA) && (
+              <Map showPanorama={(currentPage === PAGES.KAART_PANORAMA)} />
+            )}
+
+            {currentPage === PAGES.PANORAMA && (
+              <Panorama />
             )}
 
             {currentPage === PAGES.ADRESSEN && (

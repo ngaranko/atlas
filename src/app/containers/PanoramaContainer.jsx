@@ -2,15 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import connect from 'react-redux/es/connect/connect';
 import { AngularWrapper } from 'react-angular';
+import { getStraatbeeld } from '../../shared/ducks/straatbeeld/straatbeeld';
 
 const mapStateToProps = (state) => ({
-  straatbeeldState: state.straatbeeldState,
+  straatbeeldState: getStraatbeeld(state),
   isPrintMode: state.ui.isPrintMode,
   isEmbedPreview: state.ui.isEmbedPreview,
   isEmbed: state.ui.isEmbed
 });
 
-const StraatBeeldContainer = ({
+const PanoramaContainer = ({
   straatbeeldState,
   isPrintMode,
   isEmbedPreview,
@@ -20,6 +21,8 @@ const StraatBeeldContainer = ({
 }) => (
   <AngularWrapper
     moduleName={'dpStraatbeeldWrapper'}
+    component="dpStraatbeeld"
+    dependencies={['atlas']}
     bindings={{
       state: straatbeeldState,
       resize: [
@@ -31,27 +34,20 @@ const StraatBeeldContainer = ({
         columnSizes.right
       ]
     }}
-  >
-    <div className="u-full-height qa-straatbeeld">
-      <dp-straatbeeld
-        state="state"
-        resize="resize"
-      />
-    </div>
-  </AngularWrapper>
+  />
 );
 
-StraatBeeldContainer.defaultProps = {
+PanoramaContainer.defaultProps = {
   columnSizes: {
     right: 4
   },
-  visibility: PropTypes.shape({
+  visibility: {
     error: false,
     straatbeeld: true
-  })
+  }
 };
 
-StraatBeeldContainer.propTypes = {
+PanoramaContainer.propTypes = {
   straatbeeldState: PropTypes.shape({}).isRequired,
   isPrintMode: PropTypes.bool.isRequired,
   isEmbedPreview: PropTypes.bool.isRequired,
@@ -65,4 +61,4 @@ StraatBeeldContainer.propTypes = {
   })
 };
 
-export default connect(mapStateToProps, null)(StraatBeeldContainer);
+export default connect(mapStateToProps, null)(PanoramaContainer);
