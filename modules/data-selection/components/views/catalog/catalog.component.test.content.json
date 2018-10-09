@@ -11,7 +11,11 @@
       },
       "dcat:distribution": [
         {
+          "ams:distributionType": "file",
           "dct:format": "application/vnd.ms-excel"
+        },
+        {
+          "ams:distributionType": "web"
         }
       ],
       "dcat:keyword": [
@@ -30,10 +34,12 @@
       },
       "dcat:distribution": [
         {
+          "ams:distributionType": "file",
           "dct:format": "application/vnd.ms-excel"
         },
         {
-          "dct:format": "application/vnd.ms-excel"
+          "ams:distributionType": "api",
+          "dct:format": "rest"
         }
       ],
       "dcat:keyword": [
