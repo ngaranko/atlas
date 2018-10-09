@@ -1,5 +1,3 @@
-/* eslint-disable */
-import L from 'leaflet';
 import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
 
 (function () {
@@ -31,7 +29,7 @@ import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
         'ACTIONS'
     ];
 
-    function DpDataSelectionController(
+    function DpDataSelectionController (
         $scope,
         userSettings,
         dataSelectionApi,
@@ -66,7 +64,7 @@ import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('datasets');
 
-        function updateTabHeader(query, count) {
+        function updateTabHeader (query, count) {
             if (vm.showTabHeader()) {
                 vm.tabHeader.userScopes = vm.user.scopes;
                 vm.tabHeader.query = query;
@@ -74,7 +72,7 @@ import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
             }
         }
 
-        function fetchData() {
+        function fetchData () {
             const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
             const isListView = vm.state.view === 'LIST';
             vm.view = vm.state.view;
@@ -145,7 +143,6 @@ import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
                         // Get marker data and update the state to show the
                         // data
                         vm.isLoading = true;
-                        var map = L.Map;
                         store.dispatch(mapLoadingAction(true));
                         dataSelectionApi
                             .getMarkers(vm.state.dataset, activeFilters, vm.zoomLevel, vm.boundingBox)
