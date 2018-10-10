@@ -590,15 +590,21 @@ export default [
     url: 'maps/panorama',
     layers: ['panorama_recent_2020']
   },
-  // Erfpachters
+  // Erfpachtuitgevers
   {
     id: 'efga',
     url: 'maps/erfpacht?categorie=1',
-    layers: ['erfpacht']
+    layers: ['erfpacht'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   },
   {
     id: 'efov',
     url: 'maps/erfpacht?categorie=2',
-    layers: ['erfpacht']
+    layers: ['erfpacht'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   }
 ];
