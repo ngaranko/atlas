@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { routing } from '../../../app/routes';
 import { fetchDataSelection } from '../../../header/ducks/search/search';
+import ACTIONS from '../../actions';
 
 const initialState = {
   endpoint: undefined
@@ -17,7 +18,16 @@ export default (state = initialState, action) => {
   }
 };
 
-export function* fetchCatalogData() {
+export function* fetchCatalogData(action) {
+  const { query } = action.meta;
+  if (query.filter_theme) {
+    yield put({
+      type: ACTIONS.APPLY_FILTERS,
+      payload: {
+        groups: query.filter_theme
+      }
+    });
+  }
   yield put(fetchDataSelection({
     dataset: 'dcatd',
     view: 'CATALOG',

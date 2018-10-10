@@ -12,6 +12,7 @@ import { selectLocationState } from 'redux-first-router';
             transclude: true,
             bindings: {
                 to: '<',
+                linkClass: '@',
                 hoverText: '@'
             },
             controller: DpReduxLinkController,

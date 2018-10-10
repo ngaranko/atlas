@@ -146,6 +146,10 @@ $show-more-height: 70px;
   text-decoration: none;
   z-index: 10;
 
+  a {
+    text-decoration: none;
+  }
+
   .c-homepage__block--short & {
     height: $block-short-height;
     transform: translateY($block-short-height - (5 * $base-whitespace));

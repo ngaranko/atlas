@@ -1,5 +1,4 @@
 import { routing } from '../../../../../src/app/routes';
-import { fetchDataSelection } from '../../../../../src/header/ducks/search/search';
 
 (function () {
     'use strict';
@@ -12,31 +11,24 @@ import { fetchDataSelection } from '../../../../../src/header/ducks/search/searc
             controllerAs: 'vm'
         });
 
-    DpCatalogusThemes.$inject = ['CATALOGUS_THEMES_CONFIG', 'store', 'ACTIONS'];
+    DpCatalogusThemes.$inject = ['CATALOGUS_THEMES_CONFIG'];
 
-    function DpCatalogusThemes (CATALOGUS_THEMES_CONFIG, store, ACTIONS) {
+    function DpCatalogusThemes (CATALOGUS_THEMES_CONFIG) {
         const vm = this;
 
-        vm.onClick = (theme) => {
-            store.dispatch({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
-                    groups: theme
+        vm.themes = CATALOGUS_THEMES_CONFIG.map(theme => {
+            const linkTo = {
+                type: routing.catalogus.type,
+                query: {
+                    filter_theme: theme.slug
                 }
-            });
+            };
+            return {
+                ...theme,
+                linkTo
+            };
+        });
 
-            store.dispatch(fetchDataSelection({
-                dataset: 'dcatd',
-                view: 'CATALOG',
-                page: 1
-            }));
-
-            store.dispatch({
-                type: routing.catalogus.type
-            });
-        };
-
-        vm.themes = angular.copy(CATALOGUS_THEMES_CONFIG);
         vm.themesPerColumn = Math.ceil(vm.themes.length / 2);
     }
 })();
