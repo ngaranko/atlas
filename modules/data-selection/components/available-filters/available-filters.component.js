@@ -1,3 +1,5 @@
+import { applyFilters as applyFiltersActionCreator } from '../../../../src/reducers/filters-reducer';
+
 (function () {
     'use strict';
 
@@ -81,10 +83,7 @@
         }
 
         function applyFilters (filters) {
-            store.dispatch({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: filters
-            });
+            store.dispatch(applyFiltersActionCreator(filters));
         }
     }
 })();

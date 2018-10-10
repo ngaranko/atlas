@@ -1,3 +1,5 @@
+import { applyFilters } from '../../../../src/reducers/filters-reducer';
+
 describe('The dp-sbi-filter component', () => {
     var $compile,
         $rootScope,
@@ -183,12 +185,11 @@ describe('The dp-sbi-filter component', () => {
 
             component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(0).click();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
+            expect(store.dispatch).toHaveBeenCalledWith(
+                applyFilters({
                     sbi_code: '[\'01\']'
-                }
-            });
+                })
+            );
         });
 
         it('when adding another filter; all filter will be updated', () => {
@@ -199,12 +200,11 @@ describe('The dp-sbi-filter component', () => {
 
             component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(4).click();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
+            expect(store.dispatch).toHaveBeenCalledWith(
+                applyFilters({
                     sbi_code: '[\'42\']'
-                }
-            });
+                })
+            );
         });
     });
 
@@ -213,24 +213,24 @@ describe('The dp-sbi-filter component', () => {
             const component = getComponent();
 
             component.find('.qa-sbi-filter-form-input').val('888').triggerHandler('change');
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
+
+            expect(store.dispatch).toHaveBeenCalledWith(
+                applyFilters({
                     sbi_code: '[\'888\']'
-                }
-            });
+                })
+            );
         });
 
         it('when using input field to send multiple sbi-codes', () => {
             const component = getComponent();
 
             component.find('.qa-sbi-filter-form-input').val('   9999   ,  44,3').triggerHandler('change');
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
+
+            expect(store.dispatch).toHaveBeenCalledWith(
+                applyFilters({
                     sbi_code: '[\'9999\', \'44\', \'3\']'
-                }
-            });
+                })
+            );
         });
 
         it('when using input field to send empty the sbi-code', () => {
@@ -240,10 +240,7 @@ describe('The dp-sbi-filter component', () => {
                 component = getComponent(activeFilters);
 
             component.find('.qa-sbi-filter-form-input').val('').triggerHandler('change');
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {}
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(applyFilters({}));
         });
     });
 });

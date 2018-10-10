@@ -18,12 +18,12 @@ import { fetchDataSelection } from '../../../../../src/header/ducks/search/searc
         const vm = this;
 
         vm.onClick = (theme) => {
-            store.dispatch({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
-                    groups: theme
-                }
-            });
+            // store.dispatch({
+            //     type: ACTIONS.APPLY_FILTERS,
+            //     payload: {
+            //         groups: theme
+            //     }
+            // });
 
             store.dispatch(fetchDataSelection({
                 dataset: 'dcatd',

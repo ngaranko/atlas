@@ -54,8 +54,6 @@ describe('The stateToUrlMiddleware', () => {
       ACTIONS.HIDE_STRAATBEELD,
       ACTIONS.FETCH_DATA_SELECTION,
       ACTIONS.RESET_DATA_SELECTION,
-      ACTIONS.APPLY_FILTERS,
-      ACTIONS.EMPTY_FILTERS
     ];
 
     actionWithoutUrlUpdate.forEach((action) => {

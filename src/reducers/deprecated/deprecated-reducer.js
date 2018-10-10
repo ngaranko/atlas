@@ -5,7 +5,6 @@ import DataSelectionReducer from '../data-selection-reducers';
 import MapPreviewPanelReducer from '../../map/ducks/preview-panel/map-preview-panel';
 import PageReducer from '../page-reducers';
 import homeReducer from '../home-reducers';
-import filtersReducers from './filters-reducers';
 import straatbeeldReducers from './straatbeeld-reducers';
 import MapSearchResultsReducer from '../../map/ducks/search-results/map-search-results';
 import searchReducers from './search-reducers';
@@ -38,7 +37,6 @@ export default (oldState, action) => {
   const actions = {
     ...DataSelectionReducer,
     ...detailReducers,
-    ...filtersReducers,
     ...homeReducer,
     ...mapPreviewPanelReducers,
     ...mapSearchResultsReducers,

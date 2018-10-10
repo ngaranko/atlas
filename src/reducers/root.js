@@ -17,6 +17,7 @@ import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import deprecatedReducer from './deprecated/deprecated-reducer';
 import CurrentPageReducer from './current-page-reducer';
 import CatalogReducer from '../shared/ducks/catalog/catalog';
+import FiltersReducer from './filters-reducer';
 
 export default (routeReducer) => (oldState, action) => {
   // Run state changes based on old reducers
@@ -34,6 +35,7 @@ export default (routeReducer) => (oldState, action) => {
     dataSelection: DataSelectionReducer,
     page: PageReducer,
     error: ErrorMessageReducer,
+    filters: FiltersReducer,
     map: MapReducer,
     mapDetail: MapDetailReducer,
     pano: PanoPreviewReducer,
@@ -48,6 +50,7 @@ export default (routeReducer) => (oldState, action) => {
   });
   const filteredState = {
     dataSelection: deprecatedState.dataSelection,
+    filters: deprecatedState.filters,
     page: deprecatedState.page,
     map: deprecatedState.map,
     mapDetail: deprecatedState.mapDetail,
