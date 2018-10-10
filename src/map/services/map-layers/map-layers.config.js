@@ -590,55 +590,85 @@ export default [
     url: 'maps/panorama',
     layers: ['panorama_recent_2020']
   },
-  // Eigendommen
+  // Eigenaren
   {
     id: 'egga',
     url: 'maps/eigendommen?categorie=1',
-    layers: ['eigendommen']
+    layers: ['eigendommen'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   },
   {
     id: 'egog',
     url: 'maps/eigendommen?categorie=2',
-    layers: ['eigendommen']
+    layers: ['eigendommen'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   },
   {
     id: 'egst',
     url: 'maps/eigendommen?categorie=3',
-    layers: ['eigendommen']
+    layers: ['eigendommen'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   },
   {
     id: 'egpr',
     url: 'maps/eigendommen?categorie=4',
-    layers: ['eigendommen']
+    layers: ['eigendommen'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   },
   {
     id: 'egwa',
     url: 'maps/eigendommen?categorie=5',
-    layers: ['eigendommen']
+    layers: ['eigendommen'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   },
   {
     id: 'egwo',
     url: 'maps/eigendommen?categorie=6',
-    layers: ['eigendommen']
+    layers: ['eigendommen'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   },
   {
     id: 'egve',
     url: 'maps/eigendommen?categorie=7',
-    layers: ['eigendommen']
+    layers: ['eigendommen'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   },
   {
     id: 'egsp',
     url: 'maps/eigendommen?categorie=8',
-    layers: ['eigendommen']
+    layers: ['eigendommen'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   },
   {
     id: 'egnnp',
     url: 'maps/eigendommen?categorie=9',
-    layers: ['eigendommen']
+    layers: ['eigendommen'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   },
   {
     id: 'egnp',
     url: 'maps/eigendommen?categorie=10',
-    layers: ['eigendommen']
+    layers: ['eigendommen'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'kadastraal_object',
+    detailIsShape: true
   }
 ];
