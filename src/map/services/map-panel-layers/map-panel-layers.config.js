@@ -120,7 +120,7 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Kadastrale erfpachtuitgevers',
-    url: '/maps/private/erfpacht?version=1.3.0&service=WMS'
+    url: '/maps/erfpacht?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: onroerende zaken',
