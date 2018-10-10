@@ -5,8 +5,6 @@ import reducer, {
   fetchDetail,
   setDetailEndpointRoute
 } from './details';
-import { UPDATE_MAP } from '../map/ducks/map/map';
-import { routing } from '../app/routes';
 
 const initialState = {
   error: null,
@@ -109,10 +107,10 @@ describe('fetchDetail method', () => {
 describe('setDetailEndpointRoute action', () => {
   it('should return an object with action type and payload containing an endpoint', () => {
     expect(setDetailEndpointRoute('endpoint')).toEqual({
-      type: UPDATE_MAP,
+      type: 'UPDATE_MAP',
       payload: {
         noRedirect: true,
-        route: routing.map.type,
+        route: 'atlasRouter/KAART',
         query: {
           detailEndpoint: 'endpoint'
         }

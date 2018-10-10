@@ -35,11 +35,6 @@ exports[`Footer should render 1`] = `
         >
           <Connect(Link)
             className="o-btn o-btn--link--inverse"
-            href={
-              Object {
-                "type": "atlasRouter/PROCLAIMER",
-              }
-            }
             to={
               Object {
                 "type": "atlasRouter/PROCLAIMER",

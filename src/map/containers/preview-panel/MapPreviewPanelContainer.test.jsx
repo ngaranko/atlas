@@ -27,8 +27,7 @@ import {
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
 
-import { clearSelectedLocation, UPDATE_MAP } from '../../ducks/map/map';
-import { routing } from '../../../app/routes';
+import { clearSelectedLocation } from '../../ducks/map/map';
 
 jest.mock('../../ducks/search-results/map-search-results');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
@@ -533,9 +532,9 @@ describe('MapPreviewPanelContainer', () => {
     expect(store.dispatch).toHaveBeenCalledWith({
       payload: {
         noRedirect: true,
-        route: routing.detail.type
+        route: 'atlasRouter/KAART_DETAIL'
       },
-      type: UPDATE_MAP
+      type: 'UPDATE_MAP'
     });
   });
 
@@ -603,9 +602,9 @@ describe('MapPreviewPanelContainer', () => {
             panoHeading: undefined,
             panoId: undefined
           },
-          route: routing.mapPanorama.type
+          route: 'atlasRouter/KAART_PANORAMA'
         },
-        type: UPDATE_MAP
+        type: 'UPDATE_MAP'
       });
 
       wrapper.setProps({

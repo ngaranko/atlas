@@ -1,13 +1,10 @@
-import { UPDATE_MAP } from '../../../../src/map/ducks/map/map';
-import { routing } from '../../../../src/app/routes';
-
 describe('The dp-toggle-straatbeeld-fullscreen component', function () {
     var $compile,
         $rootScope,
         store,
         scope,
         currentLocation = {
-            type: routing.panorama.type
+            type: 'atlasRouter/PANORAMA'
         };
 
     beforeEach(function () {
@@ -62,10 +59,10 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             $rootScope.$apply();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: UPDATE_MAP,
+                type: 'UPDATE_MAP',
                 payload: {
                     noRedirect: true,
-                    route: routing.mapPanorama.type,
+                    route: 'atlasRouter/KAART_PANORAMA',
                     query: {
                         panoId: undefined,
                         panoHeading: undefined
@@ -74,7 +71,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             });
 
             currentLocation = {
-                type: routing.mapPanorama.type
+                type: 'atlasRouter/KAART_PANORAMA'
             };
             store.dispatch.calls.reset();
             // When straatbeeld is large
@@ -84,10 +81,10 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             $rootScope.$apply();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: UPDATE_MAP,
+                type: 'UPDATE_MAP',
                 payload: {
                     noRedirect: true,
-                    route: routing.panorama.type,
+                    route: 'atlasRouter/PANORAMA',
                     query: {
                         panoId: undefined,
                         panoHeading: undefined

@@ -7,10 +7,12 @@ import DetailContainer from '../containers/DetailContainer';
 import SearchContainer from '../containers/SearchContainer';
 import PAGES from '../pages';
 
-const Map = ({ columnSizes, subPage }) => {
-  const sizeMap = subPage ? 4 : 12;
-  const sizeSide = 12 - sizeMap;
-  const classes = classNames({ 'u-page-break-after': columnSizes.middle && columnSizes.right });
+const Map = ({ subPage }) => {
+  const leftColumnWidth = 4;
+  const totalColumnWidth = 12;
+  const sizeMap = subPage ? leftColumnWidth : totalColumnWidth;
+  const sizeSide = totalColumnWidth - sizeMap;
+  const classes = classNames({ 'u-page-break-after': totalColumnWidth && leftColumnWidth });
 
   return (
     <div style={{ height: '100%' }}>
@@ -35,19 +37,11 @@ const Map = ({ columnSizes, subPage }) => {
 };
 
 Map.defaultProps = {
-  subPage: false,
-  columnSizes: { // determineColumnSizes in dashboard-columns
-    right: 4,
-    middle: 12
-  }
+  subPage: false
 };
 
 Map.propTypes = {
-  subPage: PropTypes.oneOf([...Object.keys(PAGES).map((key) => PAGES[key]), false]),
-  columnSizes: PropTypes.shape({
-    right: PropTypes.number,
-    middle: PropTypes.number
-  })
+  subPage: PropTypes.oneOf([...Object.keys(PAGES).map((key) => PAGES[key]), false])
 };
 
 export default Map;

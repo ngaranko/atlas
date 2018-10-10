@@ -7,8 +7,6 @@ import reducer, {
   showSearchView
 } from './map-preview-panel';
 import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/actions';
-import { routing } from '../../../app/routes';
-import { UPDATE_MAP } from '../map/map';
 
 const initialState = {};
 describe('map preview reducer and actions', () => {
@@ -30,40 +28,34 @@ describe('map preview reducer and actions', () => {
     });
   });
 
-  describe('fetchSearchResults action', () => {
-    it('should return the proper action', () => {
-      const location = {
-        latitude: 123,
-        longitude: 321
-      };
-      expect(fetchSearchResults(location)).toEqual({
-        type: FETCH_SEARCH_RESULTS_BY_LOCATION,
-        payload: [location.latitude, location.longitude]
-      });
+  it('should return the proper action when calling fetchSearchResults', () => {
+    const location = {
+      latitude: 123,
+      longitude: 321
+    };
+    expect(fetchSearchResults(location)).toEqual({
+      type: FETCH_SEARCH_RESULTS_BY_LOCATION,
+      payload: [location.latitude, location.longitude]
     });
   });
 
-  describe('showDetailView action', () => {
-    it('should return the proper action', () => {
-      expect(showDetailView()).toEqual({
-        payload: {
-          noRedirect: true,
-          route: routing.detail.type
-        },
-        type: UPDATE_MAP
-      });
+  it('should return the proper action when calling showDetailView', () => {
+    expect(showDetailView()).toEqual({
+      payload: {
+        noRedirect: true,
+        route: 'atlasRouter/KAART_DETAIL'
+      },
+      type: 'UPDATE_MAP'
     });
   });
 
-  describe('showSearchView action', () => {
-    it('should return the proper action', () => {
-      expect(showSearchView()).toEqual({
-        payload: {
-          noRedirect: true,
-          route: routing.mapSearch.type
-        },
-        type: UPDATE_MAP
-      });
+  it('should return the proper action when calling showSearchView', () => {
+    expect(showSearchView()).toEqual({
+      payload: {
+        noRedirect: true,
+        route: 'atlasRouter/KAART_SEARCH'
+      },
+      type: 'UPDATE_MAP'
     });
   });
 });

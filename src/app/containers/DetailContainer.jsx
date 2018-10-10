@@ -46,7 +46,7 @@ DetailContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   skippedSearchResults: PropTypes.bool.isRequired,
   catalogFilters: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired, // eslint-disable-line
+  user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   endpoint: PropTypes.string.isRequired
 };
 

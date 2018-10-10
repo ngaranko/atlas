@@ -118,4 +118,6 @@ const routes = Object.keys(routing).reduce((acc, key) => {
   return acc;
 }, {});
 
+export const isMapSubPage = (page) => routing.map.children.includes(page);
+
 export default routes;

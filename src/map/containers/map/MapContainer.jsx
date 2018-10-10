@@ -14,7 +14,7 @@ import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewP
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 
 import getEmbedLink from '../../ducks/embed/embed';
-import { routing } from '../../../app/routes';
+import { isMapSubPage } from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
   isFullscreen: state.ui.isMapFullscreen,
@@ -42,7 +42,7 @@ class MapContainer extends React.Component {
 
   render() {
     const { currentPage } = this.props;
-    const isMapSubPage = routing.map.children.includes(currentPage);
+    const mapSubPage = isMapSubPage(currentPage);
     return (
       <div className={`c-map c-map--drawing-mode-${this.props.drawMode} qa-map-container`}>
         <LeafletContainer
@@ -59,13 +59,13 @@ class MapContainer extends React.Component {
           isFullscreen={this.props.isFullscreen}
           onToggleFullscreen={this.props.onToggleFullscreen}
         />
-        <MapPanelContainer isMapPanelVisible={!isMapSubPage} />
+        <MapPanelContainer isMapPanelVisible={!mapSubPage} />
         {
           this.props.embedLink.length ? (
             <MapEmbedButton link={this.props.embedLink} />
           ) : ''
         }
-        {!isMapSubPage && <MapPreviewPanelContainer />}
+        {!mapSubPage && <MapPreviewPanelContainer />}
       </div>
     );
   }
