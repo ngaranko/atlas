@@ -17,7 +17,7 @@
                 const daysToMiliseconds = 1000 * 60 * 60 * 24;
 
                 if (ago >= 2 * length) {
-                    ago = Math.ceil(ago / daysToMiliseconds);
+                    ago = Math.floor(ago / daysToMiliseconds);
                     ago = (ago === 0) ? 'vandaag' : (ago === 1) ? 'gisteren' : `${ago} dagen geleden`;
                 } else {
                     return 'in de toekomst';
