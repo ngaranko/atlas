@@ -20,7 +20,7 @@
                     ago = Math.floor(ago / daysToMiliseconds);
                     ago = (ago === 0) ? 'vandaag' : (ago === 1) ? 'gisteren' : `${ago} dagen geleden`;
                 } else {
-                    return 'in de toekomst';
+                    ago = 'in de toekomst';
                 }
 
                 return `${ago} gewijzigd`;
