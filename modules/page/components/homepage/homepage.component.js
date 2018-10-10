@@ -32,6 +32,7 @@ import { routing } from '../../../../src/app/routes';
             }
         );
 
+        vm.toMap = { type: vm.routing.map.type, query: { lat: 52.3931081, lng: 4.8932945 } };
         vm.toCatalogus = { type: routing.catalogus.type };
 
         $timeout(setReactComponents);

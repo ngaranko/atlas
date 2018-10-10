@@ -4,12 +4,11 @@
             <div class="u-col-sm--9">
                 <!-- Link to map -->
                 <div class="qa-map-link">
-                    <dp-link
-                        type="{{vm.routing.map.type}}"
-                        query="{ lat: 52.3931081, lng: 4.8932945 }"
+                    <dp-redux-link
+                        to="vm.toMap"
                         ng-mouseenter="vm.mapLinkHover=true;"
                         ng-mouseleave="vm.mapLinkHover=false;"
-                        class-name="c-homepage__block c-homepage__block--left c-homepage__block--tall"
+                        link-class="c-homepage__block c-homepage__block--left c-homepage__block--tall"
                         >
                         <dp-video
                             src="'assets/video/map.mp4'"
@@ -22,7 +21,7 @@
                             <div class="o-btn--transparent">Data op de kaart</div>
                             <div class="c-homepage__block-details">Selecteer kaartlagen, vind gegevens op een punt in de kaart, meet of teken een gebied</div>
                         </div>
-                    </dp-link>
+                    </dp-redux-link>
                 </div>
             </div>
             <div class="u-col-sm--3">
