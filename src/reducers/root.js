@@ -16,6 +16,7 @@ import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import deprecatedReducer from './deprecated/deprecated-reducer';
 import CurrentPageReducer from './current-page-reducer';
+import CatalogReducer from '../shared/ducks/catalog/catalog';
 
 export default (routeReducer) => (oldState, action) => {
   // Run state changes based on old reducers
@@ -29,6 +30,7 @@ export default (routeReducer) => (oldState, action) => {
 
   // Use combine reducer for new reducers
   const newRootReducer = combineReducers({
+    catalog: CatalogReducer,
     dataSelection: DataSelectionReducer,
     page: PageReducer,
     error: ErrorMessageReducer,
@@ -58,6 +60,7 @@ export default (routeReducer) => (oldState, action) => {
     // This is because these fields do not recide in the URL state,
     // the URL resolution step in the deprecatedReducer would
     // therefore reset these fields in the state.
+    catalog: oldState.catalog,
     error: oldState.error,
     pano: oldState.pano,
     mapLayers: oldState.mapLayers,

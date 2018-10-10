@@ -10,6 +10,7 @@ import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
 import Panorama from './containers/PanoramaContainer';
 import DATASETS from '../shared/ducks/data-selection/data-selection-datasets';
+import DetailContainer from './containers/DetailContainer';
 import './_app.scss';
 
 // TodoReactMigration: implement logic
@@ -77,6 +78,18 @@ const App = ({
 
             {currentPage === PAGES.PANORAMA && (
               <Panorama />
+            )}
+
+            {currentPage === PAGES.CATALOGUS && (
+              <DataSelection
+                columnSizes={columnSizes}
+                view={'CATALOG'}
+                dataset={DATASETS.CATALOG}
+              />
+            )}
+
+            {currentPage === PAGES.CATALOGUS_DETAIL && (
+              <DetailContainer />
             )}
 
             {currentPage === PAGES.ADRESSEN && (

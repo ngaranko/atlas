@@ -1,3 +1,6 @@
+import { routing } from '../../../../../src/app/routes';
+import { fetchDataSelection } from '../../../../../src/header/ducks/search/search';
+
 (function () {
     'use strict';
 
@@ -22,13 +25,14 @@
                 }
             });
 
+            store.dispatch(fetchDataSelection({
+                dataset: 'dcatd',
+                view: 'CATALOG',
+                page: 1
+            }));
+
             store.dispatch({
-                type: ACTIONS.FETCH_DATA_SELECTION,
-                payload: {
-                    dataset: 'dcatd',
-                    view: 'CATALOG',
-                    page: 1
-                }
+                type: routing.catalogus.type
             });
         };
 

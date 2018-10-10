@@ -15,6 +15,7 @@ import * as MapBaseLayersReducer from '../map/ducks/base-layers/map-base-layers'
 import * as MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
 import * as StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import * as PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
+import * as CatalogReducer from '../shared/ducks/catalog/catalog';
 import * as deprecatedReducer from './deprecated/deprecated-reducer';
 
 describe('the root reducer', () => {
@@ -42,6 +43,7 @@ describe('the root reducer', () => {
   MapPanelLayersReducer.default = () => 'panelLayers';
   StraatbeeldReducer.default = () => 'straatbeeld';
   PanoPreviewReducer.default = () => 'pano';
+  CatalogReducer.default = () => 'catalog';
   deprecatedReducer.default = jest.fn().mockReturnValue(() => deprecatedOutput);
 
   it('combines many reducers', () => {
@@ -58,6 +60,7 @@ describe('the root reducer', () => {
         map: 'map',
         mapDetail: 'mapDetail',
         pano: 'pano',
+        catalog: 'catalog',
         location: 'location',
         straatbeeld: 'straatbeeld',
         ui: 'ui',
