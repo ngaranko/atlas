@@ -12,9 +12,9 @@ import { routing } from '../../../../src/app/routes';
             controllerAs: 'vm'
         });
 
-    DpHomepageController.$inject = ['HOMEPAGE_CONFIG', '$window', '$timeout', 'store'];
+    DpHomepageController.$inject = ['HOMEPAGE_CONFIG', '$window', '$timeout'];
 
-    function DpHomepageController (HOMEPAGE_CONFIG, $window, $timeout, store) {
+    function DpHomepageController (HOMEPAGE_CONFIG, $window, $timeout) {
         const vm = this;
         const React = $window.React;
         const render = $window.render;
