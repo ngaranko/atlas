@@ -1,3 +1,5 @@
+import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
+
 (function () {
     'use strict';
 
@@ -150,6 +152,7 @@
             });
 
             if (isListView) { /** Load geolocation markers for clusters */
+                store.dispatch(mapLoadingAction(true));
                 dataSelectionApi.getMarkers(
                     vm.state.dataset,
                     activeFilters,
@@ -168,6 +171,8 @@
                             payload: []
                         });
                     }
+                }).finally(() => {
+                    store.dispatch(mapLoadingAction(false));
                 });
             } else {
                 store.dispatch({
