@@ -29,7 +29,8 @@ export default function* rootSaga() {
     fork(watchGeoSearchRequest),
     fork(watchFetchCatalogFilters),
     fork(watchMapUpdate),
-    fork(watchRoutes)
+    fork(watchRoutes),
+    fork(watchRoutes),
     fork(watchCatalogList)
   ]);
 }
