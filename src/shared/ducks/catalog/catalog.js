@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
 };
 
 export function* fetchCatalogData(action) {
-  const { query } = action.meta;
+  const { query = {} } = action.meta;
   if (query.filter_theme) {
     yield put({
       type: ACTIONS.APPLY_FILTERS,
