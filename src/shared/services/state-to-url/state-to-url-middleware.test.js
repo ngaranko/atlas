@@ -85,8 +85,7 @@ describe('The stateToUrlMiddleware', () => {
       ACTIONS.SHOW_DATA_SELECTION,
       ACTIONS.NAVIGATE_DATA_SELECTION,
       ACTIONS.SET_DATA_SELECTION_VIEW,
-      ACTIONS.SHOW_HOME,
-      ACTIONS.SHOW_PAGE
+      ACTIONS.SHOW_HOME
     ];
 
     actionsWithUrlUpdate.forEach((action) => {
@@ -118,8 +117,7 @@ describe('The stateToUrlMiddleware', () => {
       ACTIONS.SHOW_DATA_SELECTION,
       ACTIONS.NAVIGATE_DATA_SELECTION,
       ACTIONS.SET_DATA_SELECTION_VIEW,
-      ACTIONS.SHOW_HOME,
-      ACTIONS.SHOW_PAGE
+      ACTIONS.SHOW_HOME
     ];
 
     shouldUseReplace.forEach((action) => {
