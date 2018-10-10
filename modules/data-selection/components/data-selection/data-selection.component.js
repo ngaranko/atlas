@@ -70,21 +70,17 @@
             }
         }
 
-        async function fetchData () {
+        function fetchData () {
             const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
             const isListView = vm.state.view === 'LIST';
             vm.view = vm.state.view;
 
-            const isQueryView = angular.isDefined(vm.state.query) && vm.state.query.trim().length >= 0;
+            const isQueryView = angular.isDefined(vm.state.query) && vm.state.query.trim().length >= 1;
             vm.showTabHeader = () => (vm.view === 'CATALOG') && isQueryView;
             vm.currentPage = vm.state.page;
 
             vm.numberOfRecords = null;
             vm.numberOfPages = null;
-
-            vm.showContent = false;
-            vm.isLoading = !vm.showContent;
-            vm.disabled = false;
 
             if (config.AUTH_SCOPE && !vm.user.scopes.includes(config.AUTH_SCOPE)) {
                 vm.disabled = true;
@@ -98,11 +94,16 @@
                 return;
             }
 
+            vm.showContent = false;
+            vm.isLoading = !vm.showContent;
+            vm.disabled = false;
+
             const activeFilters = angular.extend({
                 shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
             }, vm.filters);
 
-            const getData = dataSelectionApi.query(
+            /** Load Basic BAG Information */
+            dataSelectionApi.query(
                 vm.state.dataset,
                 vm.state.view,
                 vm.filters,
@@ -110,18 +111,7 @@
                 vm.state.query,
                 vm.state.geometryFilter.markers,
                 vm.catalogFilters
-            );
-
-            const getMarkers = isListView && dataSelectionApi.getMarkers(
-                vm.state.dataset,
-                activeFilters,
-                vm.zoomLevel,
-                vm.boundingBox
-            );
-
-            const data = await getData;
-
-            if (data) {
+            ).then((data) => {
                 vm.showContent = true;
                 vm.isLoading = !vm.showContent;
 
@@ -132,37 +122,59 @@
 
                 vm.showFilters = !isListView && vm.numberOfRecords > 0;
 
+                updateTabHeader(vm.state.query, vm.numberOfRecords);
+
                 /** Determine if warning messages should be shown */
-                vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
-                vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
+                vm.maxAvailablePages =
+                    DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
+                vm.showMessageMaxPages = vm.maxAvailablePages &&
+                    vm.state.page > vm.maxAvailablePages;
+
+                vm.showContent = vm.numberOfRecords && (
+                    angular.isUndefined(vm.maxAvailablePages) ||
+                    vm.state.page <= vm.maxAvailablePages
+                );
 
                 vm.maxNumberOfClusteredMarkers =
                     DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_NUMBER_OF_CLUSTERED_MARKERS;
-                vm.showMessageClusteredMarkers = isListView && vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
+                vm.showMessageClusteredMarkers = isListView &&
+                    vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
-                updateTabHeader(vm.state.query, vm.numberOfRecords);
-
-                if (vm.numberOfRecords <= vm.maxNumberOfClusteredMarkers) {
-                    /** Update state  with clusters only when maximum records isnt exceeded */
-                    const markers = await getMarkers;
-
-                    store.dispatch({
-                        type: ACTIONS.SHOW_DATA_SELECTION,
-                        payload: markers
-                    });
-                } else if (vm.state.reset) {
+                if (vm.state.reset) {
                     /** Update state to show the data, do not trigger a url state change however */
                     store.dispatch({
                         type: ACTIONS.RESET_DATA_SELECTION,
                         payload: []
                     });
-                } else {
-                    store.dispatch({ /** Update state to show the data */
-                        type: ACTIONS.SHOW_DATA_SELECTION,
-                        payload: []
-                    });
                 }
+            });
+
+            if (isListView) { /** Load geolocation markers for clusters */
+                dataSelectionApi.getMarkers(
+                    vm.state.dataset,
+                    activeFilters,
+                    vm.zoomLevel,
+                    vm.boundingBox
+                ).then((data) => {
+                    if (vm.numberOfRecords <= vm.maxNumberOfClusteredMarkers) {
+                        /** Update state with clusters only when maximum records isnt exceeded */
+                        store.dispatch({
+                            type: ACTIONS.SHOW_DATA_SELECTION,
+                            payload: data
+                        });
+                    } else {
+                        store.dispatch({
+                            type: ACTIONS.SHOW_DATA_SELECTION,
+                            payload: []
+                        });
+                    }
+                });
+            } else {
+                store.dispatch({
+                    type: ACTIONS.SHOW_DATA_SELECTION,
+                    payload: []
+                });
             }
-      }
+        }
     }
 })();
