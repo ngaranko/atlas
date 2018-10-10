@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
 
 import HomepageBlock from '../block/HomepageBlock';
@@ -10,13 +9,12 @@ import IconKadaster from '../../../../public/images/icon-kadaster.svg';
 import { features } from '../../../shared/environment';
 import { routing } from '../../../app/routes';
 
-const HomepageAddressBlock = (props) => {
-  const { onLinkClick } = props;
+const HomepageAddressBlock = () => {
   const brkClassName = `homepage-block__item ${features.eigendommen ? '' : 'homepage-block__item--invisible'}`;
 
   return (
     <HomepageBlock
-      onBlockLinkClick={() => onLinkClick({ dataset: 'bag', filters: {}, page: 1 })}
+      linkAction={{ type: routing.adressen.type }}
       title={'Adressentabel'}
       description={'Selecteer en download als spreadsheet'}
       hasTallDescription
@@ -68,10 +66,6 @@ const HomepageAddressBlock = (props) => {
 
     </HomepageBlock>
   );
-};
-
-HomepageAddressBlock.propTypes = {
-  onLinkClick: PropTypes.func.isRequired
 };
 
 export default HomepageAddressBlock;

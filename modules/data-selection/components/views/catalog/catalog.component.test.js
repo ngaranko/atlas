@@ -97,11 +97,14 @@ describe('The catalog component', function () {
         details.fetchDetail = () => 'fetchDetail';
 
         const component = getComponent();
-
-        component.find('.qa-catalog-fetch-detail')[0].click();
+        const scope = component.isolateScope();
+        const link = component.find('.qa-catalog-fetch-detail')[0];
 
         const id = mockedContentJson['dcat:dataset'][0]['dct:identifier'];
-        expect(store.dispatch).toHaveBeenCalledWith('fetchDetail');
-        expect(store.dispatch).toHaveBeenCalledWith({ type: routing.catalogusDetail.type, payload: { id } });
+        expect(link).toHaveAttr('to', 'row.linkTo');
+        expect(scope.vm.items[0].linkTo).toEqual({
+            type: routing.catalogusDetail.type,
+            payload: { id }
+        });
     });
 });
