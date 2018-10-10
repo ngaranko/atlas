@@ -3,7 +3,6 @@ import isObject from '../../shared/services/is-object';
 
 import DataSelectionReducer from '../data-selection-reducers';
 import MapPreviewPanelReducer from '../../map/ducks/preview-panel/map-preview-panel';
-import PageReducer from '../page-reducers';
 import homeReducer from '../home-reducers';
 import straatbeeldReducers from './straatbeeld-reducers';
 import MapSearchResultsReducer from '../../map/ducks/search-results/map-search-results';
@@ -43,7 +42,6 @@ export default (oldState, action) => {
     ...homeReducer,
     ...mapPreviewPanelReducers,
     ...mapSearchResultsReducers,
-    ...PageReducer,
     ...straatbeeldReducers,
     ...UrlReducers
   };
