@@ -1,5 +1,3 @@
-import { routing } from '../../../app/routes';
-
 export const HIDE_EMBED_PREVIEW = 'HIDE_EMBED_PREVIEW';
 export const HIDE_PRINT = 'HIDE_PRINT';
 export const SET_MAP_FULLSCREEN = 'SET_MAP_FULLSCREEN';
@@ -33,13 +31,6 @@ export default function UiReducer(state = initialState, action) {
       return {
         ...state,
         isEmbedPreview: true
-      };
-
-    case routing.map.type:
-      return {
-        ...state,
-        isMapPanelVisible: true,
-        isMapFullscreen: true
       };
 
     case SHOW_PRINT:

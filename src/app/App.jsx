@@ -12,6 +12,7 @@ import Panorama from './containers/PanoramaContainer';
 import DATASETS from '../shared/ducks/data-selection/data-selection-datasets';
 import DetailContainer from './containers/DetailContainer';
 import './_app.scss';
+import { isMapSubPage } from './routes';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -72,8 +73,8 @@ const App = ({
               />
             )}
 
-            {(currentPage === PAGES.KAART || currentPage === PAGES.KAART_PANORAMA) && (
-              <Map showPanorama={(currentPage === PAGES.KAART_PANORAMA)} />
+            {(currentPage === PAGES.KAART || isMapSubPage(currentPage)) && (
+              <Map subPage={isMapSubPage(currentPage) && currentPage} />
             )}
 
             {currentPage === PAGES.PANORAMA && (

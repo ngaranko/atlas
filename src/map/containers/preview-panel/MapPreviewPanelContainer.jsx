@@ -1,16 +1,13 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {
-  fetchSearchResults,
-  maximizeMapPreviewPanel
-} from '../../ducks/preview-panel/map-preview-panel';
+import { fetchSearchResults, showSearchView } from '../../ducks/preview-panel/map-preview-panel';
 import { clearSelectedLocation } from '../../ducks/map/map';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
 import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 import { showStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
-import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
+import { setDetailEndpointRoute, toMapDetail } from '../../../reducers/details';
 import MapPreviewPanel from './MapPreviewPanel';
 import {
   getLocationId,
@@ -39,8 +36,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onSearch: fetchSearchResults,
   onMapPreviewPanelClose: clearSelectedLocation,
-  onMapPreviewPanelMaximize: maximizeMapPreviewPanel,
-  onMapSearchResultsItemClick: legacyFetchDetail,
+  onMapPreviewPanelMaximizeDetail: toMapDetail,
+  onMapPreviewPanelMaximizeSearch: showSearchView,
+  onMapSearchResultsItemClick: setDetailEndpointRoute,
   onOpenPanoById: showStraatbeeld,
   closeMapFullScreen: toggleMapFullscreen
 }, dispatch);

@@ -1,8 +1,9 @@
+import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
+
 describe('The dp-data-selection-available-filters component', function () {
     var $compile,
         $rootScope,
         store,
-        ACTIONS,
         availableFilters;
 
     beforeEach(function () {
@@ -30,11 +31,10 @@ describe('The dp-data-selection-available-filters component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         availableFilters = [
@@ -166,12 +166,11 @@ describe('The dp-data-selection-available-filters component', function () {
             component = getComponent(activeFilters, false);
             component.find('ul').eq(0).find('li').eq(1).find('button').click();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
+            expect(store.dispatch).toHaveBeenCalledWith(
+                applyFilters({
                     filter_a_new: 'optie-a-2'
-                }
-            });
+                })
+            );
         });
 
         it('when adding another filter; all filters are communicated', function () {
@@ -183,13 +182,12 @@ describe('The dp-data-selection-available-filters component', function () {
             component = getComponent(activeFilters, false);
             component.find('.qa-available-filters ul').eq(1).find('li').eq(0).find('button').click();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
+            expect(store.dispatch).toHaveBeenCalledWith(
+                applyFilters({
                     filter_a_new: 'optie-a-2',
                     filterb: 'optie-b-1'
-                }
-            });
+                })
+            );
         });
 
         it('can only have one option per filter', function () {
@@ -202,14 +200,13 @@ describe('The dp-data-selection-available-filters component', function () {
             component = getComponent(activeFilters, false);
             component.find('.qa-available-filters ul').eq(1).find('li').eq(1).find('button').click();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
+            expect(store.dispatch).toHaveBeenCalledWith(
+                applyFilters({
                     filter_a_new: 'optie-a-2',
                     // filterb: 'Optie B-1' is no longer active now
                     filterb: 'optie-b-2'
-                }
-            });
+                })
+            );
         });
     });
 

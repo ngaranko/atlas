@@ -1,3 +1,5 @@
+import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
+
 (function () {
     'use strict';
 
@@ -14,9 +16,9 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionAvailableFiltersController.$inject = ['$scope', 'store', 'ACTIONS', 'DATA_SELECTION_CONFIG'];
+    DpDataSelectionAvailableFiltersController.$inject = ['$scope', 'store', 'DATA_SELECTION_CONFIG'];
 
-    function DpDataSelectionAvailableFiltersController ($scope, store, ACTIONS, DATA_SELECTION_CONFIG) {
+    function DpDataSelectionAvailableFiltersController ($scope, store, DATA_SELECTION_CONFIG) {
         var vm = this,
             expandedFilters = [];
 
@@ -81,10 +83,7 @@
         }
 
         function applyFilters (filters) {
-            store.dispatch({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: filters
-            });
+            store.dispatch(applyFiltersActionCreator(filters));
         }
     }
 })();

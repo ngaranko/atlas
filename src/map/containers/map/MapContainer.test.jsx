@@ -9,6 +9,7 @@ let initialState;
 describe('MapContainer', () => {
   beforeEach(() => {
     initialState = {
+      currentPage: '',
       ui: {
         isMapFullscreen: false
       },

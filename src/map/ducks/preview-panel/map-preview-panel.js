@@ -1,6 +1,7 @@
 import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/actions';
+import { UPDATE_MAP } from '../map/map';
+import { routing } from '../../../app/routes';
 
-export const MAXIMIZE_MAP_PREVIEW_PANEL = 'MAXIMIZE_MAP_PREVIEW_PANEL';
 export const OPEN_MAP_PREVIEW_PANEL = 'OPEN_MAP_PREVIEW_PANEL';
 export const CLOSE_MAP_PREVIEW_PANEL = 'CLOSE_MAP_PREVIEW_PANEL';
 
@@ -20,26 +21,31 @@ export default function MapPreviewPanelReducer(state = initialState, action) {
         isMapPreviewPanelVisible: false
       };
 
-    case MAXIMIZE_MAP_PREVIEW_PANEL:
-      return {
-        ...state,
-        isMapPreviewPanelVisible: false,
-        ui: {
-          ...state.ui,
-          isMapFullscreen: false
-        }
-      };
-
     default:
       return state;
   }
 }
 
 export const closeMapPreviewPanel = () => ({ type: CLOSE_MAP_PREVIEW_PANEL });
-export const maximizeMapPreviewPanel = () => ({ type: MAXIMIZE_MAP_PREVIEW_PANEL });
 
 // Todo: is this used in a reducer?
 export const fetchSearchResults = (location) => ({
   type: FETCH_SEARCH_RESULTS_BY_LOCATION,
   payload: [location.latitude, location.longitude]
+});
+
+export const showDetailView = () => ({
+  type: UPDATE_MAP,
+  payload: {
+    noRedirect: true,
+    route: routing.detail.type
+  }
+});
+
+export const showSearchView = () => ({
+  type: UPDATE_MAP,
+  payload: {
+    noRedirect: true,
+    route: routing.mapSearch.type
+  }
 });

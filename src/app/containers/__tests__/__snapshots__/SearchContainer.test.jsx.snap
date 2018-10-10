@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchContainer should render 1`] = `
+<div
+  className="qa-search-results"
+>
+  <AngularWrapper
+    bindings={
+      Object {
+        "isLoading": false,
+        "location": Array [
+          321,
+          123,
+        ],
+        "numberOfResults": 12,
+        "user": Object {},
+      }
+    }
+    component="dpSearchResults"
+    dependencies={
+      Array [
+        "atlas",
+      ]
+    }
+    interpolateBindings={
+      Object {
+        "category": null,
+        "query": null,
+      }
+    }
+    moduleName="dpMapSearchWrapper"
+  />
+</div>
+`;

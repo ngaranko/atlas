@@ -2,9 +2,9 @@ import reducer, {
   CLOSE_MAP_PREVIEW_PANEL,
   closeMapPreviewPanel,
   fetchSearchResults,
-  MAXIMIZE_MAP_PREVIEW_PANEL,
-  maximizeMapPreviewPanel,
-  OPEN_MAP_PREVIEW_PANEL
+  OPEN_MAP_PREVIEW_PANEL,
+  showDetailView,
+  showSearchView
 } from './map-preview-panel';
 import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/actions';
 
@@ -28,25 +28,34 @@ describe('map preview reducer and actions', () => {
     });
   });
 
-  it(`should handle ${MAXIMIZE_MAP_PREVIEW_PANEL}`, () => {
-    expect(reducer({}, maximizeMapPreviewPanel())).toEqual({
-      isMapPreviewPanelVisible: false,
-      ui: {
-        isMapFullscreen: false
-      }
+  it('should return the proper action when calling fetchSearchResults', () => {
+    const location = {
+      latitude: 123,
+      longitude: 321
+    };
+    expect(fetchSearchResults(location)).toEqual({
+      type: FETCH_SEARCH_RESULTS_BY_LOCATION,
+      payload: [location.latitude, location.longitude]
     });
   });
 
-  describe('fetchSearchResults action', () => {
-    it('should return the proper action', () => {
-      const location = {
-        latitude: 123,
-        longitude: 321
-      };
-      expect(fetchSearchResults(location)).toEqual({
-        type: FETCH_SEARCH_RESULTS_BY_LOCATION,
-        payload: [location.latitude, location.longitude]
-      });
+  it('should return the proper action when calling showDetailView', () => {
+    expect(showDetailView()).toEqual({
+      payload: {
+        noRedirect: true,
+        route: 'atlasRouter/KAART_DETAIL'
+      },
+      type: 'UPDATE_MAP'
+    });
+  });
+
+  it('should return the proper action when calling showSearchView', () => {
+    expect(showSearchView()).toEqual({
+      payload: {
+        noRedirect: true,
+        route: 'atlasRouter/KAART_SEARCH'
+      },
+      type: 'UPDATE_MAP'
     });
   });
 });

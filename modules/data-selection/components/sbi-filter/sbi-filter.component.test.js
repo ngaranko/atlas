@@ -1,8 +1,9 @@
+import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
+
 describe('The dp-sbi-filter component', () => {
     var $compile,
         $rootScope,
         store,
-        ACTIONS,
         availableFilters;
 
     beforeEach(() => {
@@ -32,11 +33,10 @@ describe('The dp-sbi-filter component', () => {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         availableFilters = [
@@ -183,12 +183,11 @@ describe('The dp-sbi-filter component', () => {
 
             component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(0).click();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
+            expect(store.dispatch).toHaveBeenCalledWith(
+                applyFilters({
                     sbi_code: '[\'01\']'
-                }
-            });
+                })
+            );
         });
 
         it('when adding another filter; all filter will be updated', () => {
@@ -199,12 +198,11 @@ describe('The dp-sbi-filter component', () => {
 
             component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(4).click();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
+            expect(store.dispatch).toHaveBeenCalledWith(
+                applyFilters({
                     sbi_code: '[\'42\']'
-                }
-            });
+                })
+            );
         });
     });
 
@@ -213,24 +211,24 @@ describe('The dp-sbi-filter component', () => {
             const component = getComponent();
 
             component.find('.qa-sbi-filter-form-input').val('888').triggerHandler('change');
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
+
+            expect(store.dispatch).toHaveBeenCalledWith(
+                applyFilters({
                     sbi_code: '[\'888\']'
-                }
-            });
+                })
+            );
         });
 
         it('when using input field to send multiple sbi-codes', () => {
             const component = getComponent();
 
             component.find('.qa-sbi-filter-form-input').val('   9999   ,  44,3').triggerHandler('change');
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {
+
+            expect(store.dispatch).toHaveBeenCalledWith(
+                applyFilters({
                     sbi_code: '[\'9999\', \'44\', \'3\']'
-                }
-            });
+                })
+            );
         });
 
         it('when using input field to send empty the sbi-code', () => {
@@ -240,10 +238,7 @@ describe('The dp-sbi-filter component', () => {
                 component = getComponent(activeFilters);
 
             component.find('.qa-sbi-filter-form-input').val('').triggerHandler('change');
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: {}
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(applyFilters({}));
         });
     });
 });
