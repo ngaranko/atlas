@@ -5,7 +5,6 @@ import * as DetailsReducer from '../details';
 import * as DataSelectionReducer from '../data-selection-reducers';
 import * as MapPreviewPanelReducer from '../../map/ducks/preview-panel/map-preview-panel';
 import * as PageReducer from '../page-reducers';
-import * as filtersReducers from './filters-reducers';
 import * as MapSearchResultsReducer from '../../map/ducks/search-results/map-search-results';
 import * as searchReducers from './search-reducers';
 import * as deepFreeze from '../../shared/services/freeze/freeze';
@@ -26,11 +25,9 @@ describe('The deprecated reducer', () => {
     const actionF = jest.fn();
     const actionG = jest.fn();
     const actionI = jest.fn();
-    const actionL = jest.fn();
 
     DataSelectionReducer.default = { ACTION_I: actionI };
     DetailsReducer.default = {};
-    filtersReducers.default = { ACTION_L: actionL };
     homeReducer.default = { ACTION_C: actionC };
     PageReducer.default = { ACTION_F: actionF };
     searchReducers.default = { ACTION_G: actionG };
@@ -39,7 +36,6 @@ describe('The deprecated reducer', () => {
     reducer(state, { type: 'ACTION_F' });
     reducer(state, { type: 'ACTION_G' });
     reducer(state, { type: 'ACTION_I' });
-    reducer(state, { type: 'ACTION_L' });
 
     expect(actionC.mock.calls[0])
       .toEqual([state, undefined]);
@@ -48,8 +44,6 @@ describe('The deprecated reducer', () => {
     expect(actionG.mock.calls[0])
       .toEqual([state, undefined]);
     expect(actionI.mock.calls[0])
-      .toEqual([state, undefined]);
-    expect(actionL.mock.calls[0])
       .toEqual([state, undefined]);
   });
 

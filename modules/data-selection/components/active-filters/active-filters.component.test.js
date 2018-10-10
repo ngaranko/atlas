@@ -1,3 +1,5 @@
+import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
+
 describe('The dp-data-selection-active-filters component', () => {
     let $compile,
         $rootScope,
@@ -213,12 +215,11 @@ describe('The dp-data-selection-active-filters component', () => {
         // Remove 'Optie B2' (filterb)
         component.find('.qa-active-filters li').eq(1).find('button').click();
 
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.APPLY_FILTERS,
-            payload: {
+        expect(store.dispatch).toHaveBeenCalledWith(
+            applyFilters({
                 filter_a_new: 'optie-a-2'
-            }
-        });
+            })
+        );
     });
 
     it('a geometry filters can be removed, dispatching an action', () => {
