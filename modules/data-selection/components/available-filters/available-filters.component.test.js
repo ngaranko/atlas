@@ -1,10 +1,9 @@
-import { applyFilters } from '../../../../src/reducers/filters-reducer';
+import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
 
 describe('The dp-data-selection-available-filters component', function () {
     var $compile,
         $rootScope,
         store,
-        ACTIONS,
         availableFilters;
 
     beforeEach(function () {
@@ -32,11 +31,10 @@ describe('The dp-data-selection-available-filters component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         availableFilters = [

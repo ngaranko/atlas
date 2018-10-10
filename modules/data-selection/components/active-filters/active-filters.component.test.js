@@ -1,4 +1,4 @@
-import { applyFilters } from '../../../../src/reducers/filters-reducer';
+import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
 
 describe('The dp-data-selection-active-filters component', () => {
     let $compile,

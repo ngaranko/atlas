@@ -53,7 +53,7 @@ describe('The stateToUrlMiddleware', () => {
       ACTIONS.SHOW_STRAATBEELD_INITIAL,
       ACTIONS.HIDE_STRAATBEELD,
       ACTIONS.FETCH_DATA_SELECTION,
-      ACTIONS.RESET_DATA_SELECTION,
+      ACTIONS.RESET_DATA_SELECTION
     ];
 
     actionWithoutUrlUpdate.forEach((action) => {

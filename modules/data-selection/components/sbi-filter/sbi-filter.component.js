@@ -1,4 +1,4 @@
-import { applyFilters as applyFiltersActionCreator } from '../../../../src/reducers/filters-reducer';
+import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
 
 (() => {
     'use strict';
@@ -15,9 +15,9 @@ import { applyFilters as applyFiltersActionCreator } from '../../../../src/reduc
             controllerAs: 'vm'
         });
 
-    DpSbiFilterController.$inject = ['$scope', 'store', 'ACTIONS'];
+    DpSbiFilterController.$inject = ['$scope', 'store'];
 
-    function DpSbiFilterController ($scope, store, ACTIONS) {
+    function DpSbiFilterController ($scope, store) {
         const vm = this,
             sbiLevelFilters = vm.availableFilters.filter(filter => filter.slug.startsWith('sbi_l')),
             numberOfOptions = sbiLevelFilters

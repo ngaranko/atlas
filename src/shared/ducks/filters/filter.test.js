@@ -1,7 +1,6 @@
-import reducer, { applyFilters, emptyFilters } from './filters-reducer';
+import reducer, { applyFilters, emptyFilters } from './filters';
 
 describe('The filtersReducers', () => {
-
   it('APPLY FILTERS saves the current filters', () => {
     const filter = {
       filter: 'this'
@@ -11,7 +10,6 @@ describe('The filtersReducers', () => {
   });
 
   it('EMPTY FILTERS saves the current filters', () => {
-
     const state = {
       myfilter: 'something'
     };

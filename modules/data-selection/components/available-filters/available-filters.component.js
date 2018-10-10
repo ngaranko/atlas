@@ -1,4 +1,4 @@
-import { applyFilters as applyFiltersActionCreator } from '../../../../src/reducers/filters-reducer';
+import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
 
 (function () {
     'use strict';
@@ -16,9 +16,9 @@ import { applyFilters as applyFiltersActionCreator } from '../../../../src/reduc
             controllerAs: 'vm'
         });
 
-    DpDataSelectionAvailableFiltersController.$inject = ['$scope', 'store', 'ACTIONS', 'DATA_SELECTION_CONFIG'];
+    DpDataSelectionAvailableFiltersController.$inject = ['$scope', 'store', 'DATA_SELECTION_CONFIG'];
 
-    function DpDataSelectionAvailableFiltersController ($scope, store, ACTIONS, DATA_SELECTION_CONFIG) {
+    function DpDataSelectionAvailableFiltersController ($scope, store, DATA_SELECTION_CONFIG) {
         var vm = this,
             expandedFilters = [];
 

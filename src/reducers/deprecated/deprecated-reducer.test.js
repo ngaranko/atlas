@@ -25,7 +25,6 @@ describe('The deprecated reducer', () => {
     const actionF = jest.fn();
     const actionG = jest.fn();
     const actionI = jest.fn();
-    const actionL = jest.fn();
 
     DataSelectionReducer.default = { ACTION_I: actionI };
     DetailsReducer.default = {};

@@ -16,7 +16,7 @@ import {
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config';
-import { emptyFilters } from '../../../reducers/filters-reducer';
+import { emptyFilters } from '../../../shared/ducks/filters/filters';
 
 const mapStateToProps = (state) => ({
   activeSuggestion: state.autoSuggest.activeSuggestion,

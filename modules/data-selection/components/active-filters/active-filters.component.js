@@ -1,4 +1,4 @@
-import { applyFilters as applyFiltersActionCreator } from '../../../../src/reducers/filters-reducer';
+import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
 
 (function () {
     'use strict';

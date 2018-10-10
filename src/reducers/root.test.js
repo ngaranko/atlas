@@ -16,7 +16,7 @@ import * as MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-laye
 import * as StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import * as PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import * as CatalogReducer from '../shared/ducks/catalog/catalog';
-import * as FiltersReducer from './filters-reducer';
+import * as FiltersReducer from '../shared/ducks/filters/filters';
 import * as deprecatedReducer from './deprecated/deprecated-reducer';
 
 describe('the root reducer', () => {

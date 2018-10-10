@@ -17,7 +17,7 @@ import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import deprecatedReducer from './deprecated/deprecated-reducer';
 import CurrentPageReducer from './current-page-reducer';
 import CatalogReducer from '../shared/ducks/catalog/catalog';
-import FiltersReducer from './filters-reducer';
+import FiltersReducer from '../shared/ducks/filters/filters';
 
 export default (routeReducer) => (oldState, action) => {
   // Run state changes based on old reducers
