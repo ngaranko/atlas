@@ -24,6 +24,11 @@ import { routing } from '../../../../src/app/routes';
 
     function DpLinkToPageController () {
         const vm = this;
-        vm.linkAction = { type: routing.bediening.type };
+        vm.linkAction = {
+            type: routing.bediening.type,
+            payload: {
+                deeplink: 'snelwegwijsitem9'
+            }
+        };
     }
 })();

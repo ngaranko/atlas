@@ -1,6 +1,7 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { connectRoutes } from 'redux-first-router';
+import restoreScroll from 'redux-first-router-restore-scroll';
 import queryString from 'querystring';
 import rootSaga from './root-saga';
 import './shared/ducks/error-message';
@@ -14,16 +15,21 @@ import freeze from './shared/services/freeze/freeze';
 
 window.reducer = rootReducer;
 
-const configureStore = (history, routes) => {
+const configureStore = (history, routesMap) => {
   const {
     reducer: routeReducer,
     middleware: routeMiddleware,
     enhancer: routeEnhancer,
     initialDispatch: initialRouteDispatch
-  } = connectRoutes(history, routes, {
-    querySerializer: queryString,
-    initialDispatch: false
-  });
+  } = connectRoutes(
+    history,
+    routesMap,
+    {
+      querySerializer: queryString,
+      restoreScroll: restoreScroll(),
+      initialDispatch: false
+    }
+  );
   const urlDefaultState = stateUrlConverter.getDefaultState();
   const defaultState = isDevelopment() ? freeze(urlDefaultState) : urlDefaultState;
 
