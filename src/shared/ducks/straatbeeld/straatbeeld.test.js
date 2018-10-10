@@ -3,6 +3,7 @@ import reducer, {
   getStraatbeeldHeading,
   getStraatbeeldLocation,
   getStraatbeeldMarkers,
+  setStraatbeeld,
   setStraatbeeldOff,
   STRAATBEELD_OFF
 } from './straatbeeld';
@@ -147,12 +148,12 @@ describe('Straatbeeld Reducer', () => {
     });
 
     it('Adds the payload to the state', () => {
-      const newState = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
+      const newState = reducer(inputState, setStraatbeeld(payload));
       expect(newState).toEqual(jasmine.objectContaining(payload));
     });
 
     it('set defaults for pitch, fov when oldstate is unknown', () => {
-      const newState = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
+      const newState = reducer(inputState, setStraatbeeld(payload));
       expect(newState.pitch).toBe(0);
       expect(newState.fov).toBe(80);
     });
@@ -161,13 +162,13 @@ describe('Straatbeeld Reducer', () => {
       inputState.pitch = 1;
       inputState.fov = 2;
 
-      const newState = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
+      const newState = reducer(inputState, setStraatbeeld(payload));
       expect(newState.pitch).toBe(1);
       expect(newState.fov).toBe(2);
     });
 
     it('do not overwrite isLoading, id, heading, isInitial', () => {
-      const newState = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
+      const newState = reducer(inputState, setStraatbeeld(payload));
 
       expect(newState)
         .toEqual(jasmine.objectContaining({
@@ -346,6 +347,7 @@ describe('Straatbeeld Reducer', () => {
 
   it(`should set the state to null when ${STRAATBEELD_OFF} and ${routing.map.type} is dispatched`, () => {
     expect(reducer(state, setStraatbeeldOff())).toEqual({});
+    expect(reducer(state, { type: routing.map.type })).toEqual({});
   });
 });
 

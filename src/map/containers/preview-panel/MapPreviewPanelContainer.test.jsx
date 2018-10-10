@@ -18,7 +18,6 @@ import {
   FETCH_PANO_PREVIEW_REQUEST,
   getPanoPreview
 } from '../../../pano/ducks/preview/pano-preview';
-import { MAXIMIZE_MAP_PREVIEW_PANEL } from '../../ducks/preview-panel/map-preview-panel';
 import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/actions';
 import { TOGGLE_MAP_FULLSCREEN } from '../../../shared/ducks/ui/ui';
 import {
@@ -530,7 +529,13 @@ describe('MapPreviewPanelContainer', () => {
     const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
     wrapper.find('.map-preview-panel__button').at(0).simulate('click');
 
-    expect(store.dispatch).toHaveBeenCalledWith({ type: MAXIMIZE_MAP_PREVIEW_PANEL });
+    expect(store.dispatch).toHaveBeenCalledWith({
+      payload: {
+        noRedirect: true,
+        route: 'atlasRouter/KAART_DETAIL'
+      },
+      type: 'UPDATE_MAP'
+    });
   });
 
   it('should close the preview panel', () => {

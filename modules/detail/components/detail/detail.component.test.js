@@ -24,12 +24,16 @@ describe('the dp-detail component', () => {
 
     beforeEach(() => {
         mapSelectors.getSelectedLocation = jasmine.createSpy('getSelectedLocation')
-            .and.returnValue({ latitude: 52.654, longitude: 4.987 });
+            .and.returnValue({
+                latitude: 52.654,
+                longitude: 4.987
+            });
 
         angular.mock.module(
             'dpDetail', {
                 store: {
-                    dispatch: () => {},
+                    dispatch: () => {
+                    },
                     getState: angular.noop
                 },
                 api: {
@@ -80,7 +84,7 @@ describe('the dp-detail component', () => {
                         } else if (endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/subject/404/') {
                             q.reject();
                         } else if (endpoint === dcatdEndPoint) {
-                            q.resolve({'dct:description': 'description'});
+                            q.resolve({ 'dct:description': 'description' });
                         }
 
                         return q.promise;
@@ -155,7 +159,7 @@ describe('the dp-detail component', () => {
                 },
                 geojson: {
                     getCenter: () => {
-                        return [52.123, 4.123];
+                        return { x: 52.123, y: 4.123 };
                     }
                 },
                 crsConverter: {
@@ -382,7 +386,7 @@ describe('the dp-detail component', () => {
             payload: false
         });
 
-            // Change the endpoint
+        // Change the endpoint
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/object/789/';
         $rootScope.$apply();
 
@@ -415,12 +419,12 @@ describe('the dp-detail component', () => {
 
         expect(store.dispatch).not.toHaveBeenCalled();
 
-            // Set an initial endpoint
+        // Set an initial endpoint
         endpoint = 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/';
         component = getComponent(endpoint, false);
         scope = component.isolateScope();
 
-            // Turn on the reload flag
+        // Turn on the reload flag
         scope.vm.reload = true;
         $rootScope.$apply();
 

@@ -25,6 +25,8 @@ describe('CustomMarker', () => {
     wrapper.instance().updateLeafletElement({ rotationAngle: 0 }, { rotationAngle: 1 });
 
     expect(wrapper).toMatchSnapshot();
-    expect(setRotationAngleMock).toHaveBeenCalled();
+
+    wrapper.instance().updateLeafletElement({ rotationAngle: 1 }, { rotationAngle: 1 });
+    expect(setRotationAngleMock).toHaveBeenCalledTimes(1);
   });
 });

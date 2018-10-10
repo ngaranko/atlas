@@ -1,12 +1,7 @@
 import { createSelector } from 'reselect';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
 import ACTIONS from '../../actions';
 import { routing } from '../../../app/routes';
-import {
-  getImageDataById,
-  getImageDataByLocation,
-  STRAATBEELD_CONFIG
-} from '../../services/straatbeeld-api/straatbeeld-api';
+import { STRAATBEELD_CONFIG } from '../../services/straatbeeld-api/straatbeeld-api';
 import {
   straatbeeldOrientationType,
   straatbeeldPersonType
@@ -70,12 +65,6 @@ export default function straatbeeldReducer(state = initialState, action) {
         ...state,
         history: action.payload
       } : state;
-
-    case ACTIONS.STRAATBEELD_FULLSCREEN:
-      return {
-        ...state,
-        isFullscreen: typeof action.payload !== 'undefined' ? action.payload : state.isFullscreen
-      };
 
     case ACTIONS.SET_STRAATBEELD:
       return (state) ? {
@@ -147,30 +136,6 @@ export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, get
     ] : []
   )
 );
-
-// Sagas
-export function* fetchStraatbeeldImages({ type }) {
-  const state = yield select();
-  const { history, id, location } = getStraatbeeld(state);
-
-  const imageData = yield call(
-    (type === ACTIONS.SET_STRAATBEELD_HISTORY) ? getImageDataByLocation : getImageDataById,
-    (type === ACTIONS.SET_STRAATBEELD_HISTORY) ?
-      location :
-      id,
-    history
-  );
-  yield put(setStraatbeeld(imageData));
-}
-
-export function* watchStraatbeeld() {
-  yield takeLatest([
-    routing.mapPanorama.type,
-    routing.panorama.type,
-    ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT,
-    ACTIONS.SET_STRAATBEELD_HISTORY
-  ], fetchStraatbeeldImages);
-}
 
 export const showStraatbeeld = ({ id, heading }) => ({
   type: UPDATE_MAP,

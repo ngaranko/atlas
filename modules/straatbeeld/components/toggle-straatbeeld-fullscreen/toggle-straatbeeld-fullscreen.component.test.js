@@ -1,5 +1,3 @@
-import { UPDATE_MAP } from '../../../../src/map/ducks/map/map';
-
 describe('The dp-toggle-straatbeeld-fullscreen component', function () {
     var $compile,
         $rootScope,
@@ -61,7 +59,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             $rootScope.$apply();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: UPDATE_MAP,
+                type: 'UPDATE_MAP',
                 payload: {
                     noRedirect: true,
                     route: 'atlasRouter/KAART_PANORAMA',
@@ -83,7 +81,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             $rootScope.$apply();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: UPDATE_MAP,
+                type: 'UPDATE_MAP',
                 payload: {
                     noRedirect: true,
                     route: 'atlasRouter/PANORAMA',
