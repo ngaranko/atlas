@@ -130,7 +130,8 @@ import { getSelectedLocation } from '../../../../src/map/ducks/map/map-selectors
 
                     geometry.getGeoJSON(endpoint).then(function (geoJSON) {
                         if (geoJSON !== null) {
-                            vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
+                            const rd = geojson.getCenter(geoJSON);
+                            vm.location = crsConverter.rdToWgs84([rd.x, rd.y]);
                         }
 
                         if (!vm.skippedSearchResults) {

@@ -51,8 +51,10 @@ const overlayExists = (state, newLayer) => (
 
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
+    case routing.mapSearch.type:
+    case routing.detail.type:
     case routing.map.type: {
-      const { lat, lng, zoom, selectedLocation } = action.meta.query || {};
+      const { lat, lng, zoom, selectedLocation, detailEndpoint } = action.meta.query || {};
       return {
         ...state,
         viewCenter: [
@@ -60,7 +62,8 @@ export default function MapReducer(state = initialState, action) {
           parseFloat(lng) || initialState.viewCenter[1]
         ],
         zoom: parseFloat(zoom) || initialState.zoom,
-        selectedLocation
+        selectedLocation,
+        detailEndpoint
       };
     }
 

@@ -8,11 +8,11 @@ import homeReducer from '../home-reducers';
 import filtersReducers from './filters-reducers';
 import straatbeeldReducers from './straatbeeld-reducers';
 import MapSearchResultsReducer from '../../map/ducks/search-results/map-search-results';
-import searchReducers from './search-reducers';
 import deepFreeze from '../../shared/services/freeze/freeze';
 import urlReducersInit from '../url-reducers';
 import { isDevelopment } from '../../shared/environment';
 import stateUrlConverter from '../../shared/services/routing/state-url-converter';
+import ACTIONS, { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../shared/actions';
 
 export default (oldState, action) => {
   const UrlReducers = urlReducersInit(stateUrlConverter);
@@ -24,6 +24,10 @@ export default (oldState, action) => {
   };
 
   const mapSearchResultsReducers = { // TODO: try moving to root reducer
+    [ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY]: MapSearchResultsReducer,
+    [FETCH_SEARCH_RESULTS_BY_LOCATION]: MapSearchResultsReducer,
+    [ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY]: MapSearchResultsReducer,
+    [ACTIONS.SHOW_SEARCH_RESULTS]: MapSearchResultsReducer,
     FETCH_MAP_SEARCH_RESULTS_REQUEST: MapSearchResultsReducer,
     FETCH_MAP_SEARCH_RESULTS_SUCCESS: MapSearchResultsReducer,
     FETCH_MAP_SEARCH_RESULTS_FAILURE: MapSearchResultsReducer
@@ -31,8 +35,7 @@ export default (oldState, action) => {
 
   const mapPreviewPanelReducers = {
     OPEN_MAP_PREVIEW_PANEL: MapPreviewPanelReducer,
-    CLOSE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer,
-    MAXIMIZE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer
+    CLOSE_MAP_PREVIEW_PANEL: MapPreviewPanelReducer
   };
 
   const actions = {
@@ -43,7 +46,6 @@ export default (oldState, action) => {
     ...mapPreviewPanelReducers,
     ...mapSearchResultsReducers,
     ...PageReducer,
-    ...searchReducers,
     ...straatbeeldReducers,
     ...UrlReducers
   };

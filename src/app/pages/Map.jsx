@@ -3,10 +3,13 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import MapContainer from '../../map/containers/map/MapContainer';
 import Panorama from '../containers/PanoramaContainer';
+import DetailContainer from '../containers/DetailContainer';
+import SearchContainer from '../containers/SearchContainer';
+import PAGES from '../pages';
 
-const Map = ({ columnSizes, showPanorama }) => {
-  const sizeMap = showPanorama ? 4 : 12;
-  const sizePanorama = 12 - sizeMap;
+const Map = ({ columnSizes, subPage }) => {
+  const sizeMap = subPage ? 4 : 12;
+  const sizeSide = 12 - sizeMap;
   const classes = classNames({ 'u-page-break-after': columnSizes.middle && columnSizes.right });
 
   return (
@@ -18,12 +21,13 @@ const Map = ({ columnSizes, showPanorama }) => {
           <MapContainer />
         </div>
       </div>
-      {showPanorama && (
+      {subPage && (
         <div
-          style={{ display: (showPanorama) ? 'block' : 'none' }}
-          className={`c-dashboard__column c-dashboard__content u-col-sm--${sizePanorama} qa-dashboard__column--right`}
+          className={`c-dashboard__column c-dashboard__content u-col-sm--${sizeSide} qa-dashboard__column--right`}
         >
-          <Panorama />
+          {((subPage === PAGES.KAART_PANORAMA)) && <Panorama />}
+          {((subPage === PAGES.KAART_DETAIL)) && <DetailContainer />}
+          {((subPage === PAGES.KAART_SEARCH)) && <SearchContainer />}
         </div>
       )}
     </div>
@@ -31,7 +35,7 @@ const Map = ({ columnSizes, showPanorama }) => {
 };
 
 Map.defaultProps = {
-  showPanorama: false,
+  subPage: false,
   columnSizes: { // determineColumnSizes in dashboard-columns
     right: 4,
     middle: 12
@@ -39,7 +43,7 @@ Map.defaultProps = {
 };
 
 Map.propTypes = {
-  showPanorama: PropTypes.bool,
+  subPage: PropTypes.oneOf([...Object.keys(PAGES).map((key) => PAGES[key]), false]),
   columnSizes: PropTypes.shape({
     right: PropTypes.number,
     middle: PropTypes.number

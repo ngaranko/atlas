@@ -6,9 +6,7 @@ import {
 } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import {
   getClusterMarkers as getDataSelectionClusterMarkers,
-  getDataSelection,
-  getGeoJsons as getDataSelectionGeoJsons,
-  getMarkers as getDataSelectionMarkers
+  getGeoJsons as getDataSelectionGeoJsons
 } from '../data-selection/data-selection';
 import { detailSelector, getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
@@ -73,12 +71,10 @@ export const getSearchMarker = createSelector(
 );
 
 export const getMarkers = createSelector(
-  getDataSelection,
-  getDataSelectionMarkers,
   getSearchMarker,
   getStraatbeeldMarkers,
-  (dataSelectionActive, dataSelectionMarkers, searchMarkers, straatbeeldMarkers) => (
-    dataSelectionActive ? dataSelectionMarkers : [...searchMarkers, ...straatbeeldMarkers]
+  (searchMarkers, straatbeeldMarkers) => (
+    [...searchMarkers, ...straatbeeldMarkers]
   ));
 
 export const isMarkerActive = createSelector([detailSelector], (detail) => !detail);

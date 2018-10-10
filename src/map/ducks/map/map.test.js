@@ -114,7 +114,9 @@ describe('Map Reducer', () => {
       zoom: 1,
       viewCenter: [
         123, 321
-      ]
+      ],
+      detailEndpoint: undefined,
+      selectedLocation: undefined
     };
     expect(reducer({}, {
       type: routing.map.type,

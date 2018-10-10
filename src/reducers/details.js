@@ -1,4 +1,6 @@
 import { endpointTypes } from '../map/services/map-detail';
+import { UPDATE_MAP } from '../map/ducks/map/map';
+import { routing } from '../app/routes';
 
 export const FETCH_DETAIL = 'FETCH_DETAIL';
 export const SHOW_DETAIL = 'SHOW_DETAIL';
@@ -71,6 +73,25 @@ const detailReducer = (state = {}, action) => {
 };
 
 export default detailReducer;
+
+export const toMapDetail = () => ({
+  type: UPDATE_MAP,
+  payload: {
+    noRedirect: true,
+    route: routing.detail.type
+  }
+});
+
+export const setDetailEndpointRoute = (endpoint) => ({
+  type: UPDATE_MAP,
+  payload: {
+    noRedirect: true,
+    route: routing.map.type,
+    query: {
+      detailEndpoint: endpoint
+    }
+  }
+});
 
 export const fetchDetail = (endpoint) => ({
   type: FETCH_DETAIL,

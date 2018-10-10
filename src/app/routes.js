@@ -11,7 +11,8 @@ export const routing = {
   map: {
     location: '/map',
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART}`,
-    page: PAGES.KAART
+    page: PAGES.KAART,
+    children: [PAGES.KAART_SEARCH, PAGES.KAART_DETAIL, PAGES.KAART_PANORAMA]
   },
   catalogus: {
     location: '/catalogus',
@@ -52,6 +53,11 @@ export const routing = {
     location: '/map/panorama',
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART_PANORAMA}`,
     page: PAGES.KAART_PANORAMA
+  },
+  mapSearch: {
+    location: '/map/search',
+    type: `${ROUTER_NAMESPACE}/${PAGES.KAART_SEARCH}`,
+    page: PAGES.KAART_SEARCH
   },
   nieuws: {
     location: '/nieuws',

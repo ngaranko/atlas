@@ -2,8 +2,11 @@ import reducer, {
   DETAIL_FULLSCREEN,
   FETCH_DETAIL,
   SHOW_DETAIL,
-  fetchDetail
+  fetchDetail,
+  setDetailEndpointRoute
 } from './details';
+import { UPDATE_MAP } from '../map/ducks/map/map';
+import { routing } from '../app/routes';
 
 const initialState = {
   error: null,
@@ -99,6 +102,21 @@ describe('fetchDetail method', () => {
     expect(fetchDetail('endpoint')).toEqual({
       type: FETCH_DETAIL,
       payload: 'endpoint'
+    });
+  });
+});
+
+describe('setDetailEndpointRoute action', () => {
+  it('should return an object with action type and payload containing an endpoint', () => {
+    expect(setDetailEndpointRoute('endpoint')).toEqual({
+      type: UPDATE_MAP,
+      payload: {
+        noRedirect: true,
+        route: routing.map.type,
+        query: {
+          detailEndpoint: 'endpoint'
+        }
+      }
     });
   });
 });

@@ -1,4 +1,5 @@
 import { UPDATE_MAP } from '../../../../src/map/ducks/map/map';
+import { routing } from '../../../../src/app/routes';
 
 describe('The dp-toggle-straatbeeld-fullscreen component', function () {
     var $compile,
@@ -6,7 +7,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
         store,
         scope,
         currentLocation = {
-            type: 'atlasRouter/PANORAMA'
+            type: routing.panorama.type
         };
 
     beforeEach(function () {
@@ -64,7 +65,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
                 type: UPDATE_MAP,
                 payload: {
                     noRedirect: true,
-                    route: 'atlasRouter/KAART_PANORAMA',
+                    route: routing.mapPanorama.type,
                     query: {
                         panoId: undefined,
                         panoHeading: undefined
@@ -73,7 +74,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             });
 
             currentLocation = {
-                type: 'atlasRouter/KAART_PANORAMA'
+                type: routing.mapPanorama.type
             };
             store.dispatch.calls.reset();
             // When straatbeeld is large
@@ -86,7 +87,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
                 type: UPDATE_MAP,
                 payload: {
                     noRedirect: true,
-                    route: 'atlasRouter/PANORAMA',
+                    route: routing.panorama.type,
                     query: {
                         panoId: undefined,
                         panoHeading: undefined

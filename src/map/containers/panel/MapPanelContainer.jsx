@@ -19,7 +19,6 @@ const mapStateToProps = (state) => ({
   activeBaseLayer: state.map.baseLayer,
   activeMapLayers: selectActivePanelLayers(state),
   atlas: state.atlas,
-  isMapPanelVisible: state.ui.isMapPanelVisible,
   isMapLayersVisible: state.ui.isMapLayersVisible,
   isEachOverlayInvisible: state.map.overlays.every((overlay) => overlay.isVisible),
   isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,

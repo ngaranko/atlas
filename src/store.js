@@ -11,7 +11,6 @@ import rootReducer from './reducers/root';
 import stateUrlConverter from './shared/services/routing/state-url-converter';
 import { isDevelopment } from './shared/environment';
 import freeze from './shared/services/freeze/freeze';
-import contextMiddleware from './shared/services/context/context-middleware';
 
 window.reducer = rootReducer;
 
@@ -33,7 +32,6 @@ const configureStore = (history, routes) => {
   const enhancer = composeEnhancers(
     routeEnhancer,
     applyMiddleware(
-      contextMiddleware,
       routeMiddleware,
       sagaMiddleware)
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
 import { getStraatbeeld } from '../../shared/ducks/straatbeeld/straatbeeld';
 

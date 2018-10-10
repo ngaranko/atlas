@@ -12,8 +12,7 @@ import {
 
 import {
   getClusterMarkers as getDataSelectionClusterMarkers,
-  getDataSelection,
-  getMarkers as getDataSelectionMarkers
+  getDataSelection
 } from '../data-selection/data-selection';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
@@ -83,12 +82,6 @@ describe('Map Selectors', () => {
   });
 
   describe('getMarkers selector', () => {
-    it('should call getDataSelectionMarkers when dataSelection is true', () => {
-      getDataSelection.mockImplementation(() => true);
-      getDataSelectionMarkers.mockImplementation(() => ({}));
-      expect(getMarkers(state)).toEqual({});
-    });
-
     it('should return searchMarker and straatbeeldMarker data', () => {
       getDataSelection.mockImplementation(() => false);
       getStraatbeeldMarkers.mockImplementation(() => ['getStraatbeeldMarkersData']);

@@ -24,6 +24,7 @@ function fetchStraatbeeldByIdReducer(state) {
  *
  * @returns {Object} newState
  */
+// istanbul ignore next
 function fetchStraatbeeldByLocationReducer(state, payload) {
   const map = isObject(state.map) ? { ...state.map } : state.map;
 
