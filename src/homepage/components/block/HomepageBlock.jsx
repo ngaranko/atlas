@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'redux-first-router-link';
 
 import './_homepage-block.scss';
+import { routing } from '../../../app/routes';
 
 const HomepageBlock = (props) => (
   <div
@@ -11,14 +13,14 @@ const HomepageBlock = (props) => (
     {props.children}
 
     {props.onBlockLinkClick && (
-      <button
+      <Link // eslint-disable-line jsx-a11y/anchor-is-valid
         className={`c-homepage__block-button ${props.hasTallDescription ? 'c-homepage__block-button--tall' : ''}`}
         title={`Bekijk ${props.title}`}
-        onClick={props.onBlockLinkClick}
+        to={{ type: routing.adressen.type }}
       >
         <div className="o-btn--transparent">{props.title}</div>
         <div className="c-homepage__block-details">{props.description}</div>
-      </button>
+      </Link>
     )}
   </div>
 );

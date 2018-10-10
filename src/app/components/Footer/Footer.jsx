@@ -20,8 +20,7 @@ const FooterComponent = () => (
             >melden</a>.
           </p>
           <p className="c-dashboard__proclaimer-paragraph">
-            <Link
-              href={{ type: routing.proclaimer.type }}
+            <Link // eslint-disable-line jsx-a11y/anchor-is-valid
               to={{ type: routing.proclaimer.type }}
               className="o-btn o-btn--link--inverse"
             >Lees de hele proclaimer</Link>
