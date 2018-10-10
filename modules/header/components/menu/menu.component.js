@@ -23,7 +23,7 @@ import { routing } from '../../../../src/app/routes';
     function DpMenuController ($scope, $window, store) {
         const vm = this;
 
-        vm.helpType = routing.help.type;
+        vm.helpAction = { type: routing.help.type };
 
         vm.login = () => {
             try {
