@@ -1,7 +1,7 @@
 <div class="c-data-selection-catalog u-margin__bottom--1">
     <div ng-repeat="row in vm.items" class="c-data-selection-catalog__list">
-        <button class="c-data-selection-catalog__item qa-catalog-fetch-detail u-no-presentation"
-            ng-click="vm.openDetail(row.detailEndpoint, row.id)"
+        <dp-redux-link class="c-data-selection-catalog__item qa-catalog-fetch-detail u-no-presentation"
+            to="row.linkTo"
             >
             <div class="c-data-selection-catalog__header">
                 <h2>
@@ -34,7 +34,7 @@
             <div class="c-data-selection-catalog__description">
                 {{row.description | truncateHtmlAsText}}
             </div>
-        </button>
+        </dp-redux-link>
     </div>
 
 </div>
