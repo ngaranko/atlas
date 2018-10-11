@@ -17,7 +17,10 @@ describe('Catalog Reducer', () => {
   it('should dispatch fetch data on route change', () => {
     const watchGen = watchCatalogList();
     expect(watchGen.next().value).toEqual(
-      takeLatest(routing.catalogus.type, fetchCatalogData)
+      takeLatest([
+        routing.catalogus.type,
+        routing.searchCatalog.type
+      ], fetchCatalogData)
     );
 
     const fetchGen = fetchCatalogData();

@@ -13,6 +13,7 @@ const mapStateToProps = (state) => ({
   user: state.user
 });
 
+// TODO refactor, rename GeoSearchContainer
 const SearchContainer = ({
   isLoading,
   query,

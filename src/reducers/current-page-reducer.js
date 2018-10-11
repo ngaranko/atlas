@@ -13,4 +13,9 @@ const currentPageReducer = (state = PAGES.HOME, action = {}) => (
     state
 );
 
+
+export const isCatalogCurrentPage = (page) => page === PAGES.CATALOGUS
+  || page === PAGES.CATALOGUS_DETAIL
+  || page === PAGES.SEARCH_CATALOG;
+
 export default currentPageReducer;

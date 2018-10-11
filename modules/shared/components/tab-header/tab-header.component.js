@@ -1,3 +1,5 @@
+import { routing } from '../../../../src/app/routes';
+
 (function () {
     'use strict';
 
@@ -19,8 +21,20 @@
     function DpTabHeaderController () {
         const vm = this;
 
-        // show the tabHeader when any searchText is set and all counts are known
-        vm.show = () => vm.searchText.trim() && vm.totalCount() !== null;
+        vm.tabs = vm.tabHeader.tabs.map((tab) => {
+            const type = tab.id === 'datasets' ? routing.searchCatalog.type : routing.searchData.type;
+            tab.linkTo = {
+                type,
+                payload: {
+                    query: vm.searchText
+                }
+            };
+            return tab;
+        });
+
+        // show the tabHeader when any searchText is set
+        vm.show = () => vm.searchText.trim();
+
         // Should the reset button be visible
         vm.showReset = () => vm.searchText.trim() && vm.filtersActive;
 

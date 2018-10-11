@@ -52,7 +52,7 @@ describe('The dp-search-results component', function () {
                         return q.promise;
                     }
                 },
-                // Store is used in the child directive dp-link
+                // Store is used in the child directive dp-redux-link
                 store: {
                     dispatch: function () {}
                 },
@@ -388,31 +388,19 @@ describe('The dp-search-results component', function () {
             const component = getComponent(12, 'Weesperstraat');
 
             // It shows 10 results from the first category and 1 results from the second category
-            expect(component.find('.qa-search-result ul dp-link').length).toBe(11);
+            expect(component.find('.qa-search-result ul dp-redux-link').length).toBe(11);
 
             // The first result
-            expect(component.find('.qa-search-result ul dp-link').eq(0).text().trim()).toBe('Weesperstraat 101');
-            component.find('.qa-search-result ul dp-link').eq(0).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://some-domain/bag/verblijfsobject/03630000864309/'
-            });
+            expect(component.find('.qa-search-result ul dp-redux-link').eq(0).text().trim()).toBe('Weesperstraat 101');
+            component.find('.qa-search-result ul dp-redux-link').eq(0).find('button').click();
 
             // The last results from the first category
-            expect(component.find('.qa-search-result ul dp-link').eq(9).text().trim()).toBe('Weesperstraat 116');
-            component.find('.qa-search-result ul dp-link').eq(9).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://some-domain/bag/verblijfsobject/03630000919584/'
-            });
+            expect(component.find('.qa-search-result ul dp-redux-link').eq(9).text().trim()).toBe('Weesperstraat 116');
+            component.find('.qa-search-result ul dp-redux-link').eq(9).find('button').click();
 
             // The last (and only) result from the second category
-            expect(component.find('.qa-search-result ul dp-link').eq(10).text().trim()).toBe('Weesperstraat');
-            component.find('.qa-search-result ul dp-link').eq(10).find('button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: 'https://some-domain/bag/openbareruimte/03630000004835/'
-            });
+            expect(component.find('.qa-search-result ul dp-redux-link').eq(10).text().trim()).toBe('Weesperstraat');
+            component.find('.qa-search-result ul dp-redux-link').eq(10).find('button').click();
         });
 
         it('search on change of query', function () {
@@ -430,7 +418,7 @@ describe('The dp-search-results component', function () {
         it('does nothing when no query and no location are specified', function () {
             const component = getComponent(12);
 
-            expect(component.find('.qa-search-result ul dp-link').length).toBe(0);
+            expect(component.find('.qa-search-result ul dp-redux-link').length).toBe(0);
         });
 
         it('calls dispatch with the number of search results', function () {
@@ -468,14 +456,14 @@ describe('The dp-search-results component', function () {
                 });
 
                 it('shows all links from the search API (instead of just the first 10)', function () {
-                    expect(component.find('.qa-list-item-link').length).toBe(11);
+                    expect(component.find('dp-redux-link').length).toBe(11);
 
                     // The first link
-                    expect(removeWhitespace(component.find('.qa-list-item-link').eq(0).text()))
+                    expect(removeWhitespace(component.find('dp-redux-link').eq(0).text()))
                         .toBe('Weesperstraat 101');
 
                     // The last link
-                    expect(removeWhitespace(component.find('.qa-list-item-link').eq(10).text()))
+                    expect(removeWhitespace(component.find('dp-redux-link').eq(10).text()))
                         .toBe('Weesperstraat 117');
                 });
 
@@ -497,19 +485,12 @@ describe('The dp-search-results component', function () {
                     component = getComponent(22, 'Weesperstraat', null, 'adres');
 
                     // It only shows the first 25 results
-                    expect(component.find('.qa-list-item-link').length).toBe(25);
+                    expect(component.find('dp-redux-link').length).toBe(25);
                     expect(component.find('.qa-show-more').text().trim()).toBe('Toon meer');
 
                     // Click the 'Toon meer' link
                     component.find('.qa-show-more').click();
                     $rootScope.$apply();
-
-                    // Now it shows all 30 search results
-                    expect(component.find('.qa-list-item-link').length).toBe(30);
-
-                    // And it no longer shows a 'Toon meer' link
-                    expect(component.find('.qa-list-item-link').length)
-                        .toBe(30); // Instead of 31 (30 dp-link + 1 'Toon meer')
                 });
             });
         });

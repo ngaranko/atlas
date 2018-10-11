@@ -13,6 +13,8 @@ import DATASETS from '../shared/ducks/data-selection/data-selection-datasets';
 import './_app.scss';
 import { isMapSubPage } from './routes';
 import CatalogDetailContainer from './containers/CatalogDetailContainer';
+import CatalogSearchContainer from './containers/CatalogSearchContainer';
+import QuerySearchContainer from './containers/QuerySearchContainer';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -73,6 +75,10 @@ const App = ({
               />
             )}
 
+            { currentPage === PAGES.SEARCH_DATA && (
+              <QuerySearchContainer />
+            )}
+
             {(currentPage === PAGES.KAART || isMapSubPage(currentPage)) && (
               <Map subPage={isMapSubPage(currentPage) && currentPage} />
             )}
@@ -83,6 +89,14 @@ const App = ({
 
             {currentPage === PAGES.CATALOGUS && (
               <DataSelection
+                columnSizes={columnSizes}
+                view={'CATALOG'}
+                dataset={DATASETS.CATALOG}
+              />
+            )}
+
+            {currentPage === PAGES.SEARCH_CATALOG && (
+              <CatalogSearchContainer
                 columnSizes={columnSizes}
                 view={'CATALOG'}
                 dataset={DATASETS.CATALOG}

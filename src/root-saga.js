@@ -14,6 +14,7 @@ import watchFetchCatalogFilters from './catalog/sagas/data-selection/data-select
 import watchMapUpdate from './map/sagas/map-update/map-update';
 import watchRoutes from './map/sagas/routing/routing';
 import { watchCatalogList } from './shared/ducks/catalog/catalog';
+import { watchQuerySearch } from './map/sagas/query-search/query-search';
 
 export default function* rootSaga() {
   yield all([
@@ -30,7 +31,7 @@ export default function* rootSaga() {
     fork(watchFetchCatalogFilters),
     fork(watchMapUpdate),
     fork(watchRoutes),
-    fork(watchRoutes),
-    fork(watchCatalogList)
+    fork(watchCatalogList),
+    fork(watchQuerySearch)
   ]);
 }

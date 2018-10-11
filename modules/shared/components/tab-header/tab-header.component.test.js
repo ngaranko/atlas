@@ -48,7 +48,7 @@ describe('The tabHeader component', function () {
 
     it('accepts a title and an array of tabs', function () {
         const component = getComponent(mockedSearchText, []);
-        expect(component.find('ul dp-link').length).toBe(0);
+        expect(component.find('ul dp-redux-link').length).toBe(0);
         expect(component.find('.qa-tab-header__active').length).toBe(0);
     });
 
@@ -69,27 +69,21 @@ describe('The tabHeader component', function () {
         expect(component.text()).toContain('Tip: ');
     });
 
-    it('does not show the search text in the header when any count is null', function () {
-        const component = getComponent(mockedSearchText, mockedInactiveItems);
-        expect(component.find('.qa-tab-header__title').text().trim()).toBe('');
-    });
-
     it('shows a link with the title for each non-active tab', function () {
         mockedInactiveItems[0].count = 0;
         const component = getComponent(mockedSearchText, mockedInactiveItems);
-        expect(component.find('ul dp-link').length).toBe(mockedInactiveItems.length);
+        expect(component.find('ul dp-redux-link').length).toBe(mockedInactiveItems.length);
         mockedInactiveItems.forEach((item, i) => {
-            expect(component.find('ul dp-link').eq(i).text().trim())
+            expect(component.find('ul dp-redux-link').eq(i).text().trim())
                 .toBe(item.title + ' (' + item.count + ')');
-            expect(component.find('ul dp-link').eq(i).attr('type')).toBe(item.action);
-            expect(component.find('ul dp-link').eq(i).attr('payload')).toBe('tab.payload');
+            expect(component.find('ul dp-redux-link').eq(i).attr('to')).toBe('tab.linkTo');
         });
         expect(component.find('.qa-tab-header__active').length).toBe(0);
     });
 
     it('shows a tab with the title and number of items for the active tab', function () {
         const component = getComponent(mockedSearchText, mockedActiveItems);
-        expect(component.find('ul dp-link').length).toBe(0);
+        expect(component.find('ul dp-redux-link').length).toBe(0);
         expect(component.find('.qa-tab-header__active').length).toBe(mockedActiveItems.length);
         mockedActiveItems.forEach((item, i) => {
             expect(component.find('.qa-tab-header__active').eq(i).text().trim())
@@ -100,7 +94,7 @@ describe('The tabHeader component', function () {
     it('shows tabs for inactive and active items', function () {
         mockedInactiveItems[0].count = 0;
         const component = getComponent(mockedSearchText, mockedActiveItems.concat(mockedInactiveItems));
-        expect(component.find('ul dp-link').length).toBe(mockedInactiveItems.length);
+        expect(component.find('ul dp-redux-link').length).toBe(mockedInactiveItems.length);
         expect(component.find('.qa-tab-header__active').length).toBe(mockedActiveItems.length);
     });
 });

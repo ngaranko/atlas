@@ -1,9 +1,9 @@
 <ul class="o-list">
-    <li ng-repeat="link in vm.category.results | limitTo: (vm.limitResults ? 10 : null)">
-        <dp-link type="FETCH_DETAIL"
-                 payload="link.endpoint"
-                 class="qa-list-item-link"
-            >{{link.label | longNameShortener}}</dp-link>
+    <li ng-repeat="link in vm.results | limitTo: (vm.limitResults ? 10 : null)">
+        <dp-redux-link
+                 to="link.linkTo"
+                 link-class="o-btn o-btn--link qa-list-item-link"
+            >{{link.label | longNameShortener}}</dp-redux-link>
 
         <span class="qa-search-results__link-extra-info">
             {{vm.getExtraInfo(link)}}

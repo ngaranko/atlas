@@ -14,6 +14,10 @@ export default (state = initialState, action) => {
       return {
         detail: action.payload.id
       };
+    case routing.searchCatalog.type:
+      return {
+        query: action.payload.query
+      };
     default:
       return state;
   }
@@ -37,5 +41,8 @@ export function* fetchCatalogData(action) {
 }
 
 export function* watchCatalogList() {
-  yield takeLatest(routing.catalogus.type, fetchCatalogData);
+  yield takeLatest([
+    routing.catalogus.type,
+    routing.searchCatalog.type
+  ], fetchCatalogData);
 }

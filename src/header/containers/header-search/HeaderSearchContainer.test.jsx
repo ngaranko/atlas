@@ -9,6 +9,8 @@ import { fetchDataSelection, fetchSearchResultsByQuery, FETCH_DATA_SELECTION, FE
 
 import { fetchDetail, FETCH_DETAIL } from '../../../reducers/details';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
+import { routing } from '../../../app/routes';
+import PAGES from '../../../app/pages';
 
 jest.mock('../../ducks/auto-suggest/auto-suggest');
 jest.mock('../../../reducers/details');
@@ -111,7 +113,7 @@ describe('HeaderSearchContainer', () => {
       const store = configureMockStore()({ ...initialState });
       const shouldOpenInNewWindow = false;
       const selectedSuggestion = {
-        uri: 'bag/openbareruimte/03630000001038/',
+        uri: 'dcatd/datasets/GgCm07EqNVIpwQ',
         label: 'Damloperspad',
         index: 1,
         category: 'Straatnamen'
@@ -122,15 +124,14 @@ describe('HeaderSearchContainer', () => {
 
       headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
 
-      expect(fetchDetail).toHaveBeenCalled();
-
       expect(store.dispatch).toHaveBeenCalledWith({
-        type: FETCH_DETAIL,
-        payload: 'https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001038/'
+        type: routing.catalogusDetail.type,
+        payload: { id: 'GgCm07EqNVIpwQ' }
       });
     });
 
-    it('does call to open new window if shouldOpenInNewWindow is true', () => {
+    xit('does call to open new window if shouldOpenInNewWindow is true', () => {
+      // TODO: refactor, allow opening in new window.
       const store = configureMockStore()({ ...initialState });
       const shouldOpenInNewWindow = true;
       const selectedSuggestion = {
@@ -180,66 +181,55 @@ describe('HeaderSearchContainer', () => {
 
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
+      jest.spyOn(store, 'dispatch');
       headerSearch.instance().onFormSubmit();
 
-      expect(fetchDataSelection).not.toHaveBeenCalled();
-      expect(fetchSearchResultsByQuery).not.toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalled();
     });
 
-    it('does the "fetchSearchResultsByQuery" call', () => {
+    it('does data search', () => {
+      const query = 'foo';
       const store = configureMockStore()({
         ...initialState,
         autoSuggest: {
           activeSuggestion: {
             index: -1
-          }
+          },
+          typedQuery: query
         },
-        dataSelection: {
-          view: 'NOT_CARDS'
-        }
+        currentPage: PAGES.HOME
       });
+      jest.spyOn(store, 'dispatch');
 
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onFormSubmit();
 
-      expect(fetchDataSelection).not.toHaveBeenCalled();
-      expect(fetchSearchResultsByQuery).toHaveBeenCalled();
+      expect(store.dispatch).toHaveBeenCalledWith(
+        { type: routing.searchData.type, payload: { query } }
+      );
     });
 
-    it('does the "fetchDataSelection" call', () => {
+    it('does dataset search', () => {
+      const query = 'foo';
       const store = configureMockStore()({
         ...initialState,
         autoSuggest: {
           activeSuggestion: {
             index: -1
-          }
+          },
+          typedQuery: query
         },
-        dataSelection: {
-          view: 'CATALOG'
-        }
+        currentPage: PAGES.CATALOGUS
       });
+      jest.spyOn(store, 'dispatch');
 
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onFormSubmit();
-
-      expect(fetchDataSelection).toHaveBeenCalled();
-      expect(fetchSearchResultsByQuery).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('openDetailOnLoad', () => {
-    it('should be called when window.suggestionToLoadUri and window.opener are true', () => {
-      global.suggestionToLoadUri = true;
-      global.opener = true;
-      const store = configureMockStore()({
-        ...initialState
-      });
-
-      shallow(<HeaderSearchContainer />, { context: { store } }).dive();
-
-      expect(fetchDetail).toHaveBeenCalled();
+      expect(store.dispatch).toHaveBeenCalledWith(
+        { type: routing.searchCatalog.type, payload: { query } }
+      );
     });
   });
 
