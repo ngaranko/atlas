@@ -76,7 +76,7 @@ export const routing = {
   },
 
   bediening: {
-    location: '/bediening',
+    location: '/bediening#:deeplink?',
     type: `${ROUTER_NAMESPACE}/${PAGES.BEDIENING}`,
     page: PAGES.BEDIENING
   },

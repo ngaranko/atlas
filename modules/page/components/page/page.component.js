@@ -1,3 +1,4 @@
+import { updateScroll } from 'redux-first-router';
 import getContents from '../../../../src/shared/services/google-sheet/google.sheet';
 
 (function () {
@@ -32,6 +33,7 @@ import getContents from '../../../../src/shared/services/google-sheet/google.she
                     vm.entries = contents.entries;
                     vm.entry = vm.entries.find(entry => entry.id === vm.item);
                     $scope.$digest();
+                    updateScroll();
                 });
         }
     }
