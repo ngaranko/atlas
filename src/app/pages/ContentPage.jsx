@@ -21,6 +21,9 @@ const PAGE_TYPES = {
   statistieken: 'statistieken'
 };
 
+// Help > Bediening > Inloggen deeplink id
+export const BEDIENINING_LOGIN_DEEPLINK = 'snelwegwijsitem9';
+
 /**
  * Maps site page to CMS page variables
  */

@@ -1,4 +1,5 @@
 import { routing } from '../../../../src/app/routes';
+import { BEDIENINING_LOGIN_DEEPLINK } from '../../../../src/app/pages/ContentPage';
 
 /**
  * DEPRECATED component
@@ -27,7 +28,7 @@ import { routing } from '../../../../src/app/routes';
         vm.linkAction = {
             type: routing.bediening.type,
             payload: {
-                deeplink: 'snelwegwijsitem9'
+                deeplink: BEDIENINING_LOGIN_DEEPLINK
             }
         };
     }
