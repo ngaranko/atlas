@@ -4,17 +4,15 @@ import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
 
 const mapStateToProps = (state) => ({
-  reload: state.detail && state.detail.reload,
   isLoading: state.detail && state.detail.isLoading,
-  skippedSearchResults: state.detail && state.detail.skippedSearchResults,
+  catalogFilters: state.catalogFilters,
   user: state.user,
-  endpoint: state.detail && state.detail.endpoint
+  endpoint: `https://acc.api.data.amsterdam.nl/dcatd/datasets/${state.catalog.detail}` // TODO: refactor use API_ROOT and such
 });
 
-const DetailContainer = ({
-  reload,
+const CatalogDetailContainer = ({
   isLoading,
-  skippedSearchResults,
+  catalogFilters,
   user,
   endpoint
 }) => (
@@ -24,9 +22,8 @@ const DetailContainer = ({
       component="dpDetail"
       dependencies={['atlas']}
       bindings={{
-        reload,
         isLoading,
-        skippedSearchResults,
+        catalogFilters,
         user
       }}
       interpolateBindings={{
@@ -36,14 +33,15 @@ const DetailContainer = ({
   </div>
 );
 
-DetailContainer.defaultProps = {};
+CatalogDetailContainer.defaultProps = {
+  isLoading: false
+};
 
-DetailContainer.propTypes = {
-  reload: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  skippedSearchResults: PropTypes.bool.isRequired,
+CatalogDetailContainer.propTypes = {
+  isLoading: PropTypes.bool,
+  catalogFilters: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   endpoint: PropTypes.string.isRequired
 };
 
-export default connect(mapStateToProps, null)(DetailContainer);
+export default connect(mapStateToProps, null)(CatalogDetailContainer);

@@ -10,9 +10,9 @@ import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
 import Panorama from './containers/PanoramaContainer';
 import DATASETS from '../shared/ducks/data-selection/data-selection-datasets';
-import DetailContainer from './containers/DetailContainer';
 import './_app.scss';
 import { isMapSubPage } from './routes';
+import CatalogDetailContainer from './containers/CatalogDetailContainer';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -90,7 +90,7 @@ const App = ({
             )}
 
             {currentPage === PAGES.CATALOGUS_DETAIL && (
-              <DetailContainer />
+              <CatalogDetailContainer />
             )}
 
             {currentPage === PAGES.ADRESSEN && (
