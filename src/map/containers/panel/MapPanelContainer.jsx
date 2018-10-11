@@ -43,7 +43,13 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 
 class MapPanelContainer extends React.Component {
   componentDidUpdate(prevProps) {
-    const { activeBaseLayer, activeMapLayers, isMapPanelVisible, overlays } = this.props;
+    const {
+      activeBaseLayer,
+      activeMapLayers,
+      isMapPanelVisible,
+      mapBaseLayers,
+      overlays
+    } = this.props;
 
     if (isMapPanelVisible && prevProps.overlays.length < overlays.length) {
       const scrollEl = document.querySelector('.map-panel .map-legend');
@@ -51,15 +57,18 @@ class MapPanelContainer extends React.Component {
         scrollEl.scrollIntoView({ behavior: 'smooth' });
       }
     }
-    if (activeBaseLayer && prevProps.activeBaseLayer !== activeBaseLayer) {
-      piwikTracker(['trackEvent', 'achtergrond', activeBaseLayer, activeBaseLayer]);
+    if (activeBaseLayer &&
+      (prevProps.activeBaseLayer !== activeBaseLayer || !prevProps.activeBaseLayer)) {
+      const baseLayers = [...mapBaseLayers.aerial, ...mapBaseLayers.topography];
+      const newBaseLayer = baseLayers.find((b) => b.value === activeBaseLayer);
+      piwikTracker(['trackEvent', 'achtergrond', newBaseLayer.category, newBaseLayer.label]);
     }
     if (activeMapLayers) {
       const newMapLayer = activeMapLayers.filter((b) =>
         !prevProps.activeMapLayers.find((b2) => b.title === b2.title)
       );
       if (newMapLayer && newMapLayer.length > 0) {
-        piwikTracker(['trackEvent', 'kaartlagen', newMapLayer[0].title, newMapLayer[0].title]);
+        piwikTracker(['trackEvent', 'kaartlagen', newMapLayer[0].category, newMapLayer[0].title]);
       }
     }
   }
