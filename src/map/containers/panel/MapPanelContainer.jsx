@@ -15,6 +15,8 @@ import CollapseIcon from '../../../../public/images/icon-arrow-down.svg';
 import ExpandIcon from '../../../../public/images/icon-arrow-up.svg';
 import MapLayersIcon from '../../../../public/images/icon-map-layers.svg';
 
+import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
+
 const mapStateToProps = (state) => ({
   activeBaseLayer: state.map.baseLayer,
   activeMapLayers: selectActivePanelLayers(state),
@@ -41,11 +43,22 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 
 class MapPanelContainer extends React.Component {
   componentDidUpdate(prevProps) {
-    if (this.props.isMapPanelVisible && prevProps.overlays.length < this.props.overlays.length) {
+    const { activeBaseLayer, activeMapLayers, isMapPanelVisible, overlays } = this.props;
+
+    if (isMapPanelVisible && prevProps.overlays.length < overlays.length) {
       const scrollEl = document.querySelector('.map-panel .map-legend');
       if (scrollEl) {
         scrollEl.scrollIntoView({ behavior: 'smooth' });
       }
+    }
+    if (activeBaseLayer && prevProps.activeBaseLayer !== activeBaseLayer) {
+      piwikTracker(['trackEvent', 'achtergrond', activeBaseLayer, activeBaseLayer]);
+    }
+    if (activeMapLayers) {
+      const newMapLayer = activeMapLayers.filter((b) =>
+        prevProps.activeMapLayers.find((b2) => b.title !== b2.title)
+      );
+      piwikTracker(['trackEvent', 'kaartlagen', newMapLayer.title, newMapLayer.title]);
     }
   }
 
