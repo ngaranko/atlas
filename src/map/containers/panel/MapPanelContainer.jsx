@@ -56,9 +56,11 @@ class MapPanelContainer extends React.Component {
     }
     if (activeMapLayers) {
       const newMapLayer = activeMapLayers.filter((b) =>
-        prevProps.activeMapLayers.find((b2) => b.title !== b2.title)
+        !prevProps.activeMapLayers.find((b2) => b.title === b2.title)
       );
-      piwikTracker(['trackEvent', 'kaartlagen', newMapLayer.title, newMapLayer.title]);
+      if (newMapLayer && newMapLayer.length > 0) {
+        piwikTracker(['trackEvent', 'kaartlagen', newMapLayer[0].title, newMapLayer[0].title]);
+      }
     }
   }
 
