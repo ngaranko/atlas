@@ -3,12 +3,13 @@ import createSagaMiddleware from 'redux-saga';
 import { connectRoutes } from 'redux-first-router';
 import restoreScroll from 'redux-first-router-restore-scroll';
 import queryString from 'querystring';
-import rootSaga from './root-saga';
-import './shared/ducks/error-message';
-import * as auth from './shared/services/auth/auth';
-import { authenticateUser } from './reducers/user';
-import { fetchCatalogFilters } from './catalog/ducks/data-selection/data-selection-catalog';
-import rootReducer from './reducers/root';
+import rootSaga from '../root-saga';
+import '../shared/ducks/error-message';
+import * as auth from '../shared/services/auth/auth';
+import { authenticateUser } from '../reducers/user';
+import { fetchCatalogFilters } from '../catalog/ducks/data-selection/data-selection-catalog';
+import rootReducer from '../reducers/root';
+import documentHeadMiddleware from './middleware/documentHead';
 
 window.reducer = rootReducer;
 
@@ -27,8 +28,6 @@ const configureStore = (history, routesMap) => {
       initialDispatch: false
     }
   );
-  const urlDefaultState = stateUrlConverter.getDefaultState();
-  const defaultState = isDevelopment() ? freeze(urlDefaultState) : urlDefaultState;
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const sagaMiddleware = createSagaMiddleware();
@@ -36,7 +35,8 @@ const configureStore = (history, routesMap) => {
     routeEnhancer,
     applyMiddleware(
       routeMiddleware,
-      sagaMiddleware)
+      sagaMiddleware,
+      documentHeadMiddleware)
   );
 
   window.reduxStore = createStore(rootReducer(routeReducer), {}, enhancer);

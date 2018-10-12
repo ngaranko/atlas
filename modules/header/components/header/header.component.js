@@ -13,7 +13,7 @@
             }
         });
 
-    function DpHeaderController (store, dashboardColumns, HEADER) {
+    function DpHeaderController (store, HEADER) {
         const vm = this;
 
         vm.store = store;
@@ -28,7 +28,9 @@
             vm.isPrintMode = state.ui.isPrintMode;
             vm.isEmbedPreview = state.ui.isEmbedPreview;
             vm.isEmbed = state.ui.isEmbed;
-            vm.isPrintOrEmbedOrPreview = dashboardColumns.isPrintOrEmbedOrPreview(state);
+
+            // Todo: add logic for print or embed
+            vm.isPrintOrEmbedOrPreview = false; // dashboardColumns.isPrintOrEmbedOrPreview(state);
         }
 
         vm.$onChanges = setLayout;
@@ -36,5 +38,5 @@
         setLayout();
     }
 
-    DpHeaderController.$inject = ['store', 'dashboardColumns', 'HEADER'];
+    DpHeaderController.$inject = ['store', 'HEADER'];
 })();

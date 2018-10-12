@@ -10,7 +10,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
     }
     displayQuery="dijk"
     isDatasetView={false}
-    isMapFullscreen={false}
+    isMapActive={false}
     numberOfSuggestions={8}
     onCleanDatasetOverview={[Function]}
     onDatasetSearch={[Function]}
@@ -785,7 +785,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
     }
     displayQuery=""
     isDatasetView={false}
-    isMapFullscreen={false}
+    isMapActive={false}
     numberOfSuggestions={0}
     onCleanDatasetOverview={[Function]}
     onDatasetSearch={[Function]}
@@ -1111,7 +1111,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
     }
     displayQuery=""
     isDatasetView={false}
-    isMapFullscreen={false}
+    isMapActive={false}
     numberOfSuggestions={0}
     onCleanDatasetOverview={[Function]}
     onDatasetSearch={[Function]}
@@ -1352,7 +1352,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to dismiss 
     }
     displayQuery="dijk"
     isDatasetView={false}
-    isMapFullscreen={false}
+    isMapActive={false}
     numberOfSuggestions={8}
     onCleanDatasetOverview={[Function]}
     onDatasetSearch={[Function]}
@@ -1608,7 +1608,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
     }
     displayQuery=""
     isDatasetView={false}
-    isMapFullscreen={false}
+    isMapActive={false}
     numberOfSuggestions={0}
     onCleanDatasetOverview={[Function]}
     onDatasetSearch={[Function]}
@@ -1867,7 +1867,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
     }
     displayQuery="Dijkbraak"
     isDatasetView={false}
-    isMapFullscreen={false}
+    isMapActive={false}
     numberOfSuggestions={8}
     onCleanDatasetOverview={[Function]}
     onDatasetSearch={[Function]}
@@ -2575,7 +2575,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
     }
     displayQuery=""
     isDatasetView={false}
-    isMapFullscreen={false}
+    isMapActive={false}
     numberOfSuggestions={0}
     onCleanDatasetOverview={[Function]}
     onDatasetSearch={[Function]}

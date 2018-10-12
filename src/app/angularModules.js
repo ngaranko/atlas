@@ -1,17 +1,13 @@
 import '../../modules/atlas/atlas.module';
 import '../../modules/atlas/atlas.run';
 import '../../modules/atlas/atlas.version';
-import '../../modules/atlas/components/dashboard/dashboard-columns.factory';
 import '../../modules/atlas/components/dashboard/wrappers/map-wrapper/map-wrapper.component';
 import '../../modules/atlas/components/dashboard/synchronisation/data-selection.controller';
 import '../../modules/atlas/components/dashboard/synchronisation/header.controller';
 import '../../modules/atlas/components/dashboard/synchronisation/map.controller';
 import '../../modules/atlas/components/dashboard/synchronisation/page.controller';
 import '../../modules/atlas/components/dashboard/synchronisation/search-results.controller';
-import '../../modules/atlas/components/document-title/document-title.directive';
-import '../../modules/atlas/components/max-width-class/max-width-class.directive';
 import '../../modules/atlas/components/preview-state/preview-state.directive';
-import '../../modules/atlas/components/scrollable-content/scrollable-content.directive';
 import '../../modules/atlas/services/redux/store.run';
 import '../../modules/data-selection/data-selection.module';
 import '../../modules/data-selection/components/active-filters/active-filters.component';

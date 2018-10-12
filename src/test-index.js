@@ -28,10 +28,7 @@ import '../modules/atlas/components/dashboard/synchronisation/header.controller'
 import '../modules/atlas/components/dashboard/synchronisation/map.controller';
 import '../modules/atlas/components/dashboard/synchronisation/page.controller';
 import '../modules/atlas/components/dashboard/synchronisation/search-results.controller';
-import '../modules/atlas/components/document-title/document-title.directive';
-import '../modules/atlas/components/max-width-class/max-width-class.directive';
 import '../modules/atlas/components/preview-state/preview-state.directive';
-import '../modules/atlas/components/scrollable-content/scrollable-content.directive';
 import '../modules/atlas/services/redux/store.run';
 import '../modules/data-selection/data-selection.module';
 import '../modules/data-selection/components/active-filters/active-filters.component';
@@ -331,6 +328,3 @@ import '../modules/atlas/components/dashboard/synchronisation/search-results.con
 import '../modules/atlas/components/dashboard/synchronisation/page.controller.test';
 import '../modules/atlas/components/dashboard/synchronisation/header.controller.test';
 import '../modules/atlas/components/dashboard/synchronisation/data-selection.controller.test';
-import '../modules/atlas/components/document-title/document-title.directive.test';
-import '../modules/atlas/components/max-width-class/max-width-class.directive.test';
-import '../modules/atlas/components/scrollable-content/scrollable-content.directive.test';
