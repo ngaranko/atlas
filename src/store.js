@@ -9,9 +9,6 @@ import * as auth from './shared/services/auth/auth';
 import { authenticateUser } from './reducers/user';
 import { fetchCatalogFilters } from './catalog/ducks/data-selection/data-selection-catalog';
 import rootReducer from './reducers/root';
-import stateUrlConverter from './shared/services/routing/state-url-converter';
-import { isDevelopment } from './shared/environment';
-import freeze from './shared/services/freeze/freeze';
 
 window.reducer = rootReducer;
 
@@ -42,7 +39,7 @@ const configureStore = (history, routesMap) => {
       sagaMiddleware)
   );
 
-  window.reduxStore = createStore(rootReducer(routeReducer), defaultState, enhancer);
+  window.reduxStore = createStore(rootReducer(routeReducer), {}, enhancer);
 
   sagaMiddleware.run(rootSaga);
   initialRouteDispatch();

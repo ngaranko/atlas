@@ -64,7 +64,6 @@ describe('The dp-preview-state directive', function () {
         beforeEach(() => {
             mockedState = {
                 ui: {
-                    isMapFullscreen: false,
                     isPrintMode: true
                 }
             };
@@ -77,7 +76,7 @@ describe('The dp-preview-state directive', function () {
         });
 
         it('adds the class when at the map', () => {
-            mockedState.ui.isMapFullscreen = true;
+            mockedState.currentPage = 'KAART';
             const directive = getDirective();
             expect(directive.hasClass('is-print-mode--landscape')).toBe(true);
         });

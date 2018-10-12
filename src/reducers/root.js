@@ -15,7 +15,7 @@ import MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
 import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import deprecatedReducer from './deprecated/deprecated-reducer';
-import CurrentPageReducer from './current-page-reducer';
+import CurrentPageReducer, { REDUCER_KEY as CURRENT_PAGE } from './current-page-reducer';
 import CatalogReducer from '../shared/ducks/catalog/catalog';
 import FiltersReducer from '../shared/ducks/filters/filters';
 
@@ -46,7 +46,7 @@ export default (routeReducer) => (oldState, action) => {
     autoSuggest: AutoSuggestReducer,
     catalogFilters: DataSelectionCatalogReducer,
     location: routeReducer,
-    currentPage: CurrentPageReducer
+    [CURRENT_PAGE]: CurrentPageReducer
   });
   const filteredState = {
     dataSelection: deprecatedState.dataSelection,

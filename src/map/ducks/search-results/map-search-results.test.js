@@ -69,7 +69,7 @@ describe('mapSearch Selectors', () => {
     it('should return state.search.location as undefined', () => {
       const mockParameters = {};
       const selected = getMapResultsByLocation(mockParameters);
-      expect(selected).toEqual();
+      expect(selected).toEqual({});
     });
   });
 
@@ -170,8 +170,6 @@ describe('deprecated', () => {
     straatbeeld: null,
     dataSelection: null,
     ui: {
-      isMapFullscreen: false,
-      isMapPanelVisible: false,
       isPrintMode: false
     }
   };
@@ -247,10 +245,6 @@ describe('deprecated', () => {
     it('hides the layer selection, page, detail, straatbeeld and dataSelection', () => {
       const inputState = {
         ...defaultState,
-        ui: {
-          ...defaultState.ui,
-          isMapPanelVisible: true
-        },
         page: {
           ...defaultState.page,
           name: 'somePage',
@@ -270,8 +264,6 @@ describe('deprecated', () => {
         payload: 'linnaeus'
       });
 
-      expect(output.ui.isMapPanelVisible)
-        .toBe(false);
       expect(output.page.name)
         .toBeNull();
       expect(output.page.type)
@@ -328,25 +320,6 @@ describe('deprecated', () => {
 
       expect(output.straatbeeld)
         .toBeNull();
-    });
-
-    it('disables the fullscreen mode of the map', () => {
-      const inputState = {
-        ...defaultState,
-        ui: {
-          ...defaultState.ui,
-          isMapFullscreen: true
-        }
-      };
-
-      // eslint-disable-next-line max-len
-      const output = reducer(inputState, {
-        type: ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY,
-        payload: 'linnaeus'
-      });
-
-      expect(output.ui.isMapFullscreen)
-        .toBe(false);
     });
 
     it('when map and map panel and page are not an object', () => {
@@ -490,15 +463,9 @@ describe('deprecated', () => {
         map: {
           ...defaultState.map,
           viewCenter: [52.123, 4.789]
-        },
-        ui: {
-          ...defaultState.ui,
-          isMapFullscreen: false
         }
       };
 
-      // With fullscreen disabled, it doesn't change the viewCenter
-      // eslint-disable-next-line max-len
       output = reducer(inputState, {
         type: FETCH_SEARCH_RESULTS_BY_LOCATION,
         payload: [52.001, 4.002]
@@ -507,9 +474,6 @@ describe('deprecated', () => {
       expect(output.map.viewCenter)
         .toEqual([52.123, 4.789]);
 
-      // With fullscreen enabled, it still doesn't the viewCenter
-      inputState.ui.isMapFullscreen = true;
-      // eslint-disable-next-line max-len
       output = reducer(inputState, {
         type: FETCH_SEARCH_RESULTS_BY_LOCATION,
         payload: [52.001, 4.002]
@@ -565,26 +529,7 @@ describe('deprecated', () => {
         .toBeNull();
     });
 
-    it('does not disable the fullscreen mode of the map', () => {
-      const inputState = {
-        ...defaultState,
-        ui: {
-          ...defaultState.ui,
-          isMapFullscreen: true
-        }
-      };
-      // eslint-disable-next-line max-len
-      const output = reducer(inputState, {
-        type: FETCH_SEARCH_RESULTS_BY_LOCATION,
-        payload: [52.001, 4.002]
-      });
-
-      expect(output.ui.isMapFullscreen)
-        .toBe(true);
-    });
-
     it('removes a drawn line from the map', () => {
-      // eslint-disable-next-line max-len
       const output = reducer(defaultState, {
         type: FETCH_SEARCH_RESULTS_BY_LOCATION,
         payload: [52.001, 4.002]
@@ -600,7 +545,6 @@ describe('deprecated', () => {
         map: null
       };
 
-      // eslint-disable-next-line max-len
       const output = reducer(inputState, {
         type: FETCH_SEARCH_RESULTS_BY_LOCATION,
         payload: [52.001, 4.002]
@@ -617,7 +561,6 @@ describe('deprecated', () => {
         page: null
       };
 
-      // eslint-disable-next-line max-len
       const output = reducer(inputState, {
         type: FETCH_SEARCH_RESULTS_BY_LOCATION,
         payload: [52.001, 4.002]
@@ -667,7 +610,6 @@ describe('deprecated', () => {
     });
 
     it('only updates the search state when a search is active', () => {
-      // eslint-disable-next-line no-unused-vars
       const { search, ...state } = defaultState; // remove search
       output = reducer(state, { type: ACTIONS.FETCH_SEARCH_RESULTS_CATEGORY, payload: 'adres' });
       expect(output.search)
@@ -694,7 +636,6 @@ describe('deprecated', () => {
         }
       };
 
-      // eslint-disable-next-line max-len
       output = reducer(inputState, { type: ACTIONS.SHOW_SEARCH_RESULTS, payload: 23 });
     });
 

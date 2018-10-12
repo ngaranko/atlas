@@ -15,9 +15,10 @@ import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 
 import getEmbedLink from '../../ducks/embed/embed';
 import { isMapSubPage } from '../../../app/routes';
+import { isMapCurrentPage } from '../../../reducers/current-page-reducer';
 
 const mapStateToProps = (state) => ({
-  isFullscreen: state.ui.isMapFullscreen,
+  isFullscreen: isMapCurrentPage(state),
   drawMode: state.map.drawingMode,
   embedLink: getEmbedLink(state),
   currentPage: state.currentPage

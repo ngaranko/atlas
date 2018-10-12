@@ -17,6 +17,7 @@
  * </pre>
  *
 */
+import { isMapCurrentPage } from '../../../../src/reducers/current-page-reducer';
 
 (function () {
     angular
@@ -44,7 +45,7 @@
                     // Add the landscape modifier when we are at straatbeeld,
                     // fullscreen map, or data selection in list view
                     if (state.straatbeeld ||
-                            (state.ui && state.ui.isMapFullscreen) ||
+                            (isMapCurrentPage(state)) ||
                             (state.dataSelection && state.dataSelection.view === 'LIST')) {
                         element.addClass('is-print-mode--landscape');
                     } else {

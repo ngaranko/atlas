@@ -144,7 +144,6 @@ import '../../modules/shared/services/api/api.factory';
 import '../../modules/shared/services/bounding-box/boundig-box.constant';
 import '../../modules/shared/services/crs/crs-config.constant';
 import '../../modules/shared/services/crs/crs-converter.factory';
-import '../../modules/shared/services/embed/embed.factory';
 import '../../modules/shared/services/environment/environment.factory';
 import '../../modules/shared/services/geojson/geojson.factory';
 import '../../modules/shared/services/window-error-handler/window-error-handler.factory';

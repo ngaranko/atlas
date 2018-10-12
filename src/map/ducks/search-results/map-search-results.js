@@ -8,7 +8,9 @@ export const FETCH_MAP_SEARCH_RESULTS_SUCCESS = 'FETCH_MAP_SEARCH_RESULTS_SUCCES
 export const FETCH_MAP_SEARCH_RESULTS_FAILURE = 'FETCH_MAP_SEARCH_RESULTS_FAILURE';
 
 export const getSearch = (state) => state.search;
-export const getMapResultsByLocation = (state) => state.mapSearchResultsByLocation;
+
+// Todo: create a mapSearchResultsByLocation reducer or refactor
+export const getMapResultsByLocation = (state) => state.mapSearchResultsByLocation || {};
 
 export const isSearchActive = createSelector(getSearch, (geoSearch) => (
   geoSearch && geoSearch.location && geoSearch.location.length
@@ -67,11 +69,6 @@ export default function MapSearchResultsReducer(state = initialState, action) {
           category: null,
           numberOfResults: null
         },
-        ui: isObject(state.ui) ? {
-          ...state.ui,
-          isMapPanelVisible: false,
-          isMapFullscreen: false
-        } : state.ui,
         page: isObject(state.page) ? {
           ...state.page,
           name: null,

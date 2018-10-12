@@ -1,15 +1,10 @@
 export const HIDE_EMBED_PREVIEW = 'HIDE_EMBED_PREVIEW';
 export const HIDE_PRINT = 'HIDE_PRINT';
-export const SET_MAP_FULLSCREEN = 'SET_MAP_FULLSCREEN';
 export const SHOW_EMBED_PREVIEW = 'SHOW_EMBED_PREVIEW';
 export const SHOW_PRINT = 'SHOW_PRINT';
-export const TOGGLE_MAP_FULLSCREEN = 'TOGGLE_MAP_FULLSCREEN';
-export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
 export const TOGGLE_MAP_PANEL_HANDLE = 'TOGGLE_MAP_PANEL_HANDLE';
 
 const initialState = {
-  isMapFullscreen: false,
-  isMapPanelVisible: false,
   isMapPanelHandleVisible: true
 };
 
@@ -39,24 +34,6 @@ export default function UiReducer(state = initialState, action) {
         isPrintMode: true
       };
 
-    case TOGGLE_MAP_FULLSCREEN:
-      return {
-        ...state,
-        isMapFullscreen: !state.isMapFullscreen
-      };
-
-    case SET_MAP_FULLSCREEN:
-      return {
-        ...state,
-        isMapFullscreen: action.payload.isMapFullscreen
-      };
-
-    case TOGGLE_MAP_PANEL:
-      return {
-        ...state,
-        isMapPanelVisible: !state.isMapPanelVisible
-      };
-
     case TOGGLE_MAP_PANEL_HANDLE:
       return {
         ...state,
@@ -68,7 +45,7 @@ export default function UiReducer(state = initialState, action) {
   }
 }
 
-export const toggleMapFullscreen = () => ({ type: TOGGLE_MAP_FULLSCREEN });
-export const setMapFullscreen = (payload) => ({ type: SET_MAP_FULLSCREEN, payload });
-export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
-export const toggleMapPanelHandle = () => ({ type: TOGGLE_MAP_PANEL_HANDLE });
+// Todo: wire these actions properly when ui reducer is obsolete
+export const toggleMapFullscreen = () => ({ type: 'NOOP' });
+export const setMapFullscreen = () => ({ type: 'NOOP' });
+export const toggleMapPanelHandle = () => ({ type: 'NOOP' });

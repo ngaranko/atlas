@@ -34,7 +34,7 @@ describe('DrawToolContainer', () => {
       shapeDistanceTxt: ''
     },
     dataSelection: null,
-    ui: { isMapFullscreen: true }
+    currentPage: 'KAART'
   };
 
   const props = {
@@ -291,7 +291,7 @@ describe('DrawToolContainer', () => {
         expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldOff());
         expect(store.dispatch).toHaveBeenCalledWith(mapEndDrawing({ polygon }));
         expect(store.dispatch).toHaveBeenCalledWith(setPageName({ name: null }));
-        expect(store.dispatch).toHaveBeenCalledWith(setMapFullscreen({ isMapFullscreen: false }));
+        expect(store.dispatch).toHaveBeenCalledWith(setMapFullscreen());
       });
     });
 

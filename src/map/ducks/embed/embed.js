@@ -3,10 +3,9 @@ import { createSelector } from 'reselect';
 import QueryStringParser from '../../../shared/services/query-string-parser/query-string-parser';
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config';
 
-const getState = (state) => state;
 const getUi = (state) => state.ui;
 
-const getEmbedLink = createSelector([getUi, getState], (ui) => {
+const getEmbedLink = createSelector(getUi, (ui) => {
   if (!ui.isEmbed && !ui.isEmbedPreview) {
     return '';
   }

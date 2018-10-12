@@ -28,7 +28,7 @@ const mapStateToProps = (state) => ({
     .join(', '),
   detail: state.detail,
   mapDetail: state.mapDetail,
-  detailResult: selectLatestMapDetail(state) || {},
+  detailResult: selectLatestMapDetail(state) || null,
   user: state.user,
   isEmbed: state.ui && (state.ui.isEmbed || state.ui.isEmbedPreview)
 });
