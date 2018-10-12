@@ -51,14 +51,13 @@ export default class MapBusyIndicator extends MapControl {
 
       createContainer() {
         //  create a container for the indicator
-        const container = L.DomUtil.create('div', 'leaflet-control-layer-container leaflet-bar');
-        this.indicatorContainer = container;
+        this.indicatorContainer = L.DomUtil.create('div', 'leaflet-control-layer-container leaflet-bar');
 
         // Create the loading indicator
-        this.indicator = L.DomUtil.create('a', 'leaflet-control-loading', container);
-        this.indicator.id = 'map-loading-id';
+        const indicator = L.DomUtil.create('img', 'leaflet-control-loading', this.indicatorContainer);
+        indicator.src = 'assets/images/spinner.svg';
 
-        return container;
+        return this.indicatorContainer;
       },
 
       onAdd(map) {
@@ -73,9 +72,9 @@ export default class MapBusyIndicator extends MapControl {
 
       updateIndicator(isLoading) {
         if (isLoading) {
-          L.DomUtil.addClass(this.indicator, 'is-loading');
+          L.DomUtil.addClass(this.indicatorContainer, 'is-loading');
         } else {
-          L.DomUtil.removeClass(this.indicator, 'is-loading');
+          L.DomUtil.removeClass(this.indicatorContainer, 'is-loading');
         }
       },
 
@@ -88,7 +87,7 @@ export default class MapBusyIndicator extends MapControl {
       },
 
       addMapListeners(map) {
-        // Add listeners to the map for (custom) dataloading and dataload
+        // Add listeners to the map for (custom) DATA_LOADING_EVENT and DATA_LOADED_EVENT
         // events, for AJAX calls that affect the map but will not be
         // reflected in the layer events.
         map.on({
