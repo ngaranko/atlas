@@ -1,4 +1,4 @@
-import mockedApiResponseJson from './data-selection-api-dcatd.factory.test.response';
+import mockedApiResponseJson from './data-selection-api-dcatd.factory.test.response.json';
 
 describe('The dataSelectionApiDcatd factory', function () {
     let $rootScope,
