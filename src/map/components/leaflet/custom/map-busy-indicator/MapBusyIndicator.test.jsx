@@ -70,6 +70,8 @@ describe('MapBusyIndicator', () => {
     let mapControlExtension;
     beforeEach(() => {
       mapControlExtension = wrapperInstance.createMapContolExtension();
+      L.DomUtil.addClass.mockClear();
+      L.DomUtil.removeClass.mockClear();
     });
 
     it('should create mapControlExtension', () => {
@@ -80,7 +82,7 @@ describe('MapBusyIndicator', () => {
       const options = { foo: 'bar' };
       mapControlExtension.initialize(options);
       expect(L.setOptions).toHaveBeenLastCalledWith(mapControlExtension, options);
-      expect(mapControlExtension.dataLoaders).toEqual({});
+      expect(mapControlExtension.state).toEqual({ pendingCalls: 0 });
     });
 
     it('should hook the loading events and add the control to the map', () => {
@@ -94,14 +96,33 @@ describe('MapBusyIndicator', () => {
       expect(map.off).toHaveBeenCalled();
     });
 
-    it('should handleLoading', () => {
+    it('should handleLoading when no call is pending', () => {
+      mapControlExtension.state = { pendingCalls: 0 };
       mapControlExtension.handleLoading();
       expect(L.DomUtil.addClass).toHaveBeenCalled();
+      expect(mapControlExtension.state).toEqual({ pendingCalls: 1 });
     });
 
-    it('should handleLoaded', () => {
+    it('should handleLoading when calls are pending', () => {
+      mapControlExtension.state = { pendingCalls: 2 };
+      mapControlExtension.handleLoading();
+      expect(L.DomUtil.addClass).not.toHaveBeenCalled();
+      expect(L.DomUtil.removeClass).not.toHaveBeenCalled();
+      expect(mapControlExtension.state).toEqual({ pendingCalls: 3 });
+    });
+
+    it('should handleLoaded when one call is pending', () => {
+      mapControlExtension.state = { pendingCalls: 1 };
       mapControlExtension.handleLoaded();
       expect(L.DomUtil.removeClass).toHaveBeenCalled();
+      expect(mapControlExtension.state).toEqual({ pendingCalls: 0 });
+    });
+
+    it('should handleLoaded when more then one call is pending', () => {
+      mapControlExtension.state = { pendingCalls: 3 };
+      mapControlExtension.handleLoaded();
+      expect(L.DomUtil.removeClass).not.toHaveBeenCalled();
+      expect(mapControlExtension.state).toEqual({ pendingCalls: 2 });
     });
   });
 });

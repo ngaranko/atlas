@@ -46,7 +46,9 @@ export default class MapBusyIndicator extends MapControl {
 
       initialize(options) {
         L.setOptions(this, options);
-        this.dataLoaders = {};
+        this.state = {
+          pendingCalls: 0
+        };
       },
 
       createContainer() {
@@ -71,9 +73,19 @@ export default class MapBusyIndicator extends MapControl {
       },
 
       updateIndicator(isLoading) {
+        const oldState = this.state;
         if (isLoading) {
-          L.DomUtil.addClass(this.indicatorContainer, 'is-loading');
+          this.state = {
+            pendingCalls: this.state.pendingCalls + 1
+          };
         } else {
+          this.state = {
+            pendingCalls: this.state.pendingCalls > 0 ? this.state.pendingCalls - 1 : 0
+          };
+        }
+        if (oldState.pendingCalls === 0 && this.state.pendingCalls > 0) {
+          L.DomUtil.addClass(this.indicatorContainer, 'is-loading');
+        } else if (this.state.pendingCalls === 0) {
           L.DomUtil.removeClass(this.indicatorContainer, 'is-loading');
         }
       },
