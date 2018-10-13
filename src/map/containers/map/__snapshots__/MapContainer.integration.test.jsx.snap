@@ -715,8 +715,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   <div
                     class="leaflet-control-layer-container leaflet-bar leaflet-control"
                   >
-                    <a
+                    <img
                       class="leaflet-control-loading"
+                      src="assets/images/spinner.svg"
                     />
                   </div>
                 </div>
@@ -774,8 +775,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 <div
                   class="leaflet-control-layer-container leaflet-bar leaflet-control"
                 >
-                  <a
+                  <img
                     class="leaflet-control-loading"
+                    src="assets/images/spinner.svg"
                   />
                 </div>
               </div>
@@ -868,8 +870,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 <div
                   class="leaflet-control-layer-container leaflet-bar leaflet-control"
                 >
-                  <a
+                  <img
                     class="leaflet-control-loading"
+                    src="assets/images/spinner.svg"
                   />
                 </div>
               </div>,
@@ -934,21 +937,20 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "_container": <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <a
+                      <img
                         class="leaflet-control-loading"
+                        src="assets/images/spinner.svg"
                       />
                     </div>,
                     "_initHooksCalled": true,
                     "_map": [Circular],
                     "dataLoaders": Object {},
-                    "indicator": <a
-                      class="leaflet-control-loading"
-                    />,
                     "indicatorContainer": <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <a
+                      <img
                         class="leaflet-control-loading"
+                        src="assets/images/spinner.svg"
                       />
                     </div>,
                     "options": Object {
@@ -964,21 +966,20 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "_container": <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <a
+                      <img
                         class="leaflet-control-loading"
+                        src="assets/images/spinner.svg"
                       />
                     </div>,
                     "_initHooksCalled": true,
                     "_map": [Circular],
                     "dataLoaders": Object {},
-                    "indicator": <a
-                      class="leaflet-control-loading"
-                    />,
                     "indicatorContainer": <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <a
+                      <img
                         class="leaflet-control-loading"
+                        src="assets/images/spinner.svg"
                       />
                     </div>,
                     "options": Object {
@@ -1543,8 +1544,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <a
+                            <img
                               class="leaflet-control-loading"
+                              src="assets/images/spinner.svg"
                             />
                           </div>
                         </div>
@@ -2218,8 +2220,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>
                     </div>
@@ -2338,8 +2341,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <a
+                          <img
                             class="leaflet-control-loading"
+                            src="assets/images/spinner.svg"
                           />
                         </div>
                       </div>
@@ -2567,8 +2571,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>
                     </div>
@@ -3125,8 +3130,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <a
+                      <img
                         class="leaflet-control-loading"
+                        src="assets/images/spinner.svg"
                       />
                     </div>
                   </div>
@@ -3245,8 +3251,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>
                     </div>
@@ -3643,8 +3650,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <a
+                      <img
                         class="leaflet-control-loading"
+                        src="assets/images/spinner.svg"
                       />
                     </div>
                   </div>
@@ -3769,8 +3777,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <a
+                      <img
                         class="leaflet-control-loading"
+                        src="assets/images/spinner.svg"
                       />
                     </div>
                   </div>
@@ -3828,8 +3837,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   <div
                     class="leaflet-control-layer-container leaflet-bar leaflet-control"
                   >
-                    <a
+                    <img
                       class="leaflet-control-loading"
+                      src="assets/images/spinner.svg"
                     />
                   </div>
                 </div>
@@ -3922,8 +3932,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   <div
                     class="leaflet-control-layer-container leaflet-bar leaflet-control"
                   >
-                    <a
+                    <img
                       class="leaflet-control-loading"
+                      src="assets/images/spinner.svg"
                     />
                   </div>
                 </div>,
@@ -3988,21 +3999,20 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "_container": <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>,
                       "_initHooksCalled": true,
                       "_map": [Circular],
                       "dataLoaders": Object {},
-                      "indicator": <a
-                        class="leaflet-control-loading"
-                      />,
                       "indicatorContainer": <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>,
                       "options": Object {
@@ -4018,21 +4028,20 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "_container": <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>,
                       "_initHooksCalled": true,
                       "_map": [Circular],
                       "dataLoaders": Object {},
-                      "indicator": <a
-                        class="leaflet-control-loading"
-                      />,
                       "indicatorContainer": <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>,
                       "options": Object {
@@ -4597,8 +4606,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             <div
                               class="leaflet-control-layer-container leaflet-bar leaflet-control"
                             >
-                              <a
+                              <img
                                 class="leaflet-control-loading"
+                                src="assets/images/spinner.svg"
                               />
                             </div>
                           </div>
@@ -5272,8 +5282,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <a
+                          <img
                             class="leaflet-control-loading"
+                            src="assets/images/spinner.svg"
                           />
                         </div>
                       </div>
@@ -5392,8 +5403,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <a
+                            <img
                               class="leaflet-control-loading"
+                              src="assets/images/spinner.svg"
                             />
                           </div>
                         </div>
@@ -5621,8 +5633,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <a
+                          <img
                             class="leaflet-control-loading"
+                            src="assets/images/spinner.svg"
                           />
                         </div>
                       </div>
@@ -6179,8 +6192,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>
                     </div>
@@ -6299,8 +6313,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <a
+                          <img
                             class="leaflet-control-loading"
+                            src="assets/images/spinner.svg"
                           />
                         </div>
                       </div>
@@ -6697,8 +6712,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>
                     </div>
@@ -6856,8 +6872,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>
                     </div>
@@ -6915,8 +6932,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <a
+                      <img
                         class="leaflet-control-loading"
+                        src="assets/images/spinner.svg"
                       />
                     </div>
                   </div>
@@ -7009,8 +7027,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <a
+                      <img
                         class="leaflet-control-loading"
+                        src="assets/images/spinner.svg"
                       />
                     </div>
                   </div>,
@@ -7075,21 +7094,20 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "_container": <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <a
+                          <img
                             class="leaflet-control-loading"
+                            src="assets/images/spinner.svg"
                           />
                         </div>,
                         "_initHooksCalled": true,
                         "_map": [Circular],
                         "dataLoaders": Object {},
-                        "indicator": <a
-                          class="leaflet-control-loading"
-                        />,
                         "indicatorContainer": <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <a
+                          <img
                             class="leaflet-control-loading"
+                            src="assets/images/spinner.svg"
                           />
                         </div>,
                         "options": Object {
@@ -7105,21 +7123,20 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "_container": <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <a
+                          <img
                             class="leaflet-control-loading"
+                            src="assets/images/spinner.svg"
                           />
                         </div>,
                         "_initHooksCalled": true,
                         "_map": [Circular],
                         "dataLoaders": Object {},
-                        "indicator": <a
-                          class="leaflet-control-loading"
-                        />,
                         "indicatorContainer": <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <a
+                          <img
                             class="leaflet-control-loading"
+                            src="assets/images/spinner.svg"
                           />
                         </div>,
                         "options": Object {
@@ -7684,8 +7701,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                               <div
                                 class="leaflet-control-layer-container leaflet-bar leaflet-control"
                               >
-                                <a
+                                <img
                                   class="leaflet-control-loading"
+                                  src="assets/images/spinner.svg"
                                 />
                               </div>
                             </div>
@@ -8359,8 +8377,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <a
+                            <img
                               class="leaflet-control-loading"
+                              src="assets/images/spinner.svg"
                             />
                           </div>
                         </div>
@@ -8479,8 +8498,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             <div
                               class="leaflet-control-layer-container leaflet-bar leaflet-control"
                             >
-                              <a
+                              <img
                                 class="leaflet-control-loading"
+                                src="assets/images/spinner.svg"
                               />
                             </div>
                           </div>
@@ -8708,8 +8728,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <a
+                            <img
                               class="leaflet-control-loading"
+                              src="assets/images/spinner.svg"
                             />
                           </div>
                         </div>
@@ -9266,8 +9287,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <a
+                          <img
                             class="leaflet-control-loading"
+                            src="assets/images/spinner.svg"
                           />
                         </div>
                       </div>
@@ -9386,8 +9408,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <a
+                            <img
                               class="leaflet-control-loading"
+                              src="assets/images/spinner.svg"
                             />
                           </div>
                         </div>
@@ -9784,8 +9807,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <a
+                          <img
                             class="leaflet-control-loading"
+                            src="assets/images/spinner.svg"
                           />
                         </div>
                       </div>
@@ -9945,8 +9969,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <a
+                          <img
                             class="leaflet-control-loading"
+                            src="assets/images/spinner.svg"
                           />
                         </div>
                       </div>
@@ -10004,8 +10029,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>
                     </div>
@@ -10098,8 +10124,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <a
+                        <img
                           class="leaflet-control-loading"
+                          src="assets/images/spinner.svg"
                         />
                       </div>
                     </div>,
@@ -10164,21 +10191,20 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           "_container": <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <a
+                            <img
                               class="leaflet-control-loading"
+                              src="assets/images/spinner.svg"
                             />
                           </div>,
                           "_initHooksCalled": true,
                           "_map": [Circular],
                           "dataLoaders": Object {},
-                          "indicator": <a
-                            class="leaflet-control-loading"
-                          />,
                           "indicatorContainer": <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <a
+                            <img
                               class="leaflet-control-loading"
+                              src="assets/images/spinner.svg"
                             />
                           </div>,
                           "options": Object {
@@ -10194,21 +10220,20 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           "_container": <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <a
+                            <img
                               class="leaflet-control-loading"
+                              src="assets/images/spinner.svg"
                             />
                           </div>,
                           "_initHooksCalled": true,
                           "_map": [Circular],
                           "dataLoaders": Object {},
-                          "indicator": <a
-                            class="leaflet-control-loading"
-                          />,
                           "indicatorContainer": <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <a
+                            <img
                               class="leaflet-control-loading"
+                              src="assets/images/spinner.svg"
                             />
                           </div>,
                           "options": Object {
@@ -10773,8 +10798,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 <div
                                   class="leaflet-control-layer-container leaflet-bar leaflet-control"
                                 >
-                                  <a
+                                  <img
                                     class="leaflet-control-loading"
+                                    src="assets/images/spinner.svg"
                                   />
                                 </div>
                               </div>
@@ -11448,8 +11474,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             <div
                               class="leaflet-control-layer-container leaflet-bar leaflet-control"
                             >
-                              <a
+                              <img
                                 class="leaflet-control-loading"
+                                src="assets/images/spinner.svg"
                               />
                             </div>
                           </div>
@@ -11568,8 +11595,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                               <div
                                 class="leaflet-control-layer-container leaflet-bar leaflet-control"
                               >
-                                <a
+                                <img
                                   class="leaflet-control-loading"
+                                  src="assets/images/spinner.svg"
                                 />
                               </div>
                             </div>
@@ -11797,8 +11825,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             <div
                               class="leaflet-control-layer-container leaflet-bar leaflet-control"
                             >
-                              <a
+                              <img
                                 class="leaflet-control-loading"
+                                src="assets/images/spinner.svg"
                               />
                             </div>
                           </div>
@@ -12355,8 +12384,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <a
+                            <img
                               class="leaflet-control-loading"
+                              src="assets/images/spinner.svg"
                             />
                           </div>
                         </div>
@@ -12475,8 +12505,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             <div
                               class="leaflet-control-layer-container leaflet-bar leaflet-control"
                             >
-                              <a
+                              <img
                                 class="leaflet-control-loading"
+                                src="assets/images/spinner.svg"
                               />
                             </div>
                           </div>
@@ -12873,8 +12904,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <a
+                            <img
                               class="leaflet-control-loading"
+                              src="assets/images/spinner.svg"
                             />
                           </div>
                         </div>

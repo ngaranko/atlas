@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResizeAware from 'react-resize-aware';
-import { Map, TileLayer, ZoomControl, ScaleControl, GeoJSON, Marker } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, ScaleControl, GeoJSON } from 'react-leaflet';
 
 import CustomMarker from './custom/marker/CustomMarker';
 import ClusterGroup from './custom/cluster-group/ClusterGroup';
@@ -202,6 +202,7 @@ class MapLeaflet extends React.Component {
           {
             Boolean(clusterMarkers.length) && (
               <ClusterGroup
+                markers={clusterMarkers}
                 showCoverageOnHover={false}
                 iconCreateFunction={createClusterIcon}
                 spiderfyOnMaxZoom={false}
@@ -211,17 +212,7 @@ class MapLeaflet extends React.Component {
                 getMarkerGroupBounds={this.onClusterGroupBounds}
                 ref={this.setActiveElement}
                 disableClusteringAtZoom={baseLayer.baseLayerOptions.maxZoom}
-              >
-                {
-                  clusterMarkers.map((marker) => (
-                    <Marker
-                      position={marker.position}
-                      key={marker.index}
-                      icon={icons[marker.type]()}
-                    />
-                  ))
-                }
-              </ClusterGroup>
+              />
             )
           }
           {
