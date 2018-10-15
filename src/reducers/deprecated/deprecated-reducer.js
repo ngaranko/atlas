@@ -3,18 +3,13 @@ import isObject from '../../shared/services/is-object';
 
 import DataSelectionReducer from '../data-selection-reducers';
 import MapPreviewPanelReducer from '../../map/ducks/preview-panel/map-preview-panel';
-import homeReducer from '../home-reducers';
 import straatbeeldReducers from './straatbeeld-reducers';
 import MapSearchResultsReducer from '../../map/ducks/search-results/map-search-results';
 import deepFreeze from '../../shared/services/freeze/freeze';
-import urlReducersInit from '../url-reducers';
 import { isDevelopment } from '../../shared/environment';
-import stateUrlConverter from '../../shared/services/routing/state-url-converter';
 import ACTIONS, { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../shared/actions';
 
 export default (oldState, action) => {
-  const UrlReducers = urlReducersInit(stateUrlConverter);
-
   const detailReducers = { // TODO: try moving to root reducer
     FETCH_DETAIL: DetailsReducer,
     SHOW_DETAIL: DetailsReducer,
@@ -39,11 +34,9 @@ export default (oldState, action) => {
   const actions = {
     ...DataSelectionReducer,
     ...detailReducers,
-    ...homeReducer,
     ...mapPreviewPanelReducers,
     ...mapSearchResultsReducers,
-    ...straatbeeldReducers,
-    ...UrlReducers
+    ...straatbeeldReducers
   };
 
   // if the action type is found in the deprecated reducers handle the action here

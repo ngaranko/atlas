@@ -9,22 +9,12 @@
             controllerAs: 'vm'
         });
 
-    DpEmbedHeader.$inject = ['store', 'embed'];
+    DpEmbedHeader.$inject = ['$window'];
 
-    function DpEmbedHeader (store, embed) {
+    function DpEmbedHeader ($window) {
         const vm = this;
 
-        store.subscribe(update);
-        update();
-
-        function update () {
-            const ghostState = angular.copy(store.getState());
-
-            // create link and iframe without embed AND embed preview in href
-            ghostState.ui.isEmbedPreview = false;
-            ghostState.ui.isEmbed = true;
-            vm.link = embed.getLink(ghostState);
-            vm.html = embed.getHtml(ghostState);
-        }
+        vm.link = $window.location.href;
+        vm.html = `<iframe width="500" height="400" src="${vm.link}" frameborder="0"></iframe>`;
     }
 })();

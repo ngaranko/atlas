@@ -4,14 +4,6 @@ exports[`PanoramaContainer should render 1`] = `
 <AngularWrapper
   bindings={
     Object {
-      "resize": Array [
-        false,
-        false,
-        false,
-        false,
-        true,
-        4,
-      ],
       "state": Object {},
     }
   }

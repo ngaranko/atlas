@@ -1,19 +1,21 @@
-/* eslint-disable */
-import "babel-polyfill";
+/* eslint-disable import/first */
+/* eslint-disable import/no-extraneous-dependencies */
+import 'babel-polyfill';
+import angular from 'angular';
 
  // Import the templates and inject them into angular
 const templates = require.context('../modules', true, /\.html$/);
 const origInject = angular.mock.inject;
 angular.mock.inject = (callback) => {
-    origInject(($templateCache) => {
-        templates.keys().forEach((key) => {
-            // Remove the dot from './dir/template.html' and prepend with
-            // 'modules' to get 'modules/dir/template.html'.
-            const templateId = 'modules' + key.substr(1);
-            $templateCache.put(templateId, templates(key));
-        });
+  origInject(($templateCache) => {
+    templates.keys().forEach((key) => {
+      // Remove the dot from './dir/template.html' and prepend with
+      // 'modules' to get 'modules/dir/template.html'.
+      const templateId = `modules${key.substr(1)}`;
+      $templateCache.put(templateId, templates(key));
     });
-    origInject(callback);
+  });
+  origInject(callback);
 };
 
 // All third party dependencies
@@ -23,16 +25,11 @@ import './vendor';
 import '../modules/atlas/atlas.module';
 import '../modules/atlas/atlas.run';
 import '../modules/atlas/atlas.version';
-import '../modules/atlas/components/dashboard/dashboard-columns.factory';
 import '../modules/atlas/components/dashboard/synchronisation/data-selection.controller';
 import '../modules/atlas/components/dashboard/synchronisation/header.controller';
 import '../modules/atlas/components/dashboard/synchronisation/map.controller';
 import '../modules/atlas/components/dashboard/synchronisation/page.controller';
 import '../modules/atlas/components/dashboard/synchronisation/search-results.controller';
-import '../modules/atlas/components/document-title/document-title.directive';
-import '../modules/atlas/components/max-width-class/max-width-class.directive';
-import '../modules/atlas/components/preview-state/preview-state.directive';
-import '../modules/atlas/components/scrollable-content/scrollable-content.directive';
 import '../modules/atlas/services/redux/store.run';
 import '../modules/data-selection/data-selection.module';
 import '../modules/data-selection/components/active-filters/active-filters.component';
@@ -161,7 +158,6 @@ import '../modules/shared/services/api/api.factory';
 import '../modules/shared/services/bounding-box/boundig-box.constant';
 import '../modules/shared/services/crs/crs-config.constant';
 import '../modules/shared/services/crs/crs-converter.factory';
-import '../modules/shared/services/embed/embed.factory';
 import '../modules/shared/services/environment/environment.factory';
 import '../modules/shared/services/window-error-handler/window-error-handler.factory';
 import '../modules/shared/services/window-error-handler/window-error-handler.run';
@@ -323,18 +319,12 @@ import '../modules/shared/services/http-error-registrar/http-status.factory.test
 import '../modules/shared/services/user-settings/user-settings.factory.test';
 import '../modules/shared/services/api/api.factory.test';
 import '../modules/shared/services/localization/localization.factory.test';
-import '../modules/shared/services/embed/embed.factory.test';
 import '../modules/shared/services/crs/crs-converter.factory.test';
 import '../modules/shared/services/environment/environment.factory.test';
 import '../modules/shared/filters/filesize.filter.test';
 import '../modules/shared/services/combined-document-title/combined-document-title.factory.test';
-import '../modules/atlas/components/preview-state/preview-state.directive.test';
-import '../modules/atlas/components/dashboard/dashboard-columns.factory.test';
 import '../modules/atlas/components/dashboard/synchronisation/map.controller.test';
 import '../modules/atlas/components/dashboard/synchronisation/search-results.controller.test';
 import '../modules/atlas/components/dashboard/synchronisation/page.controller.test';
 import '../modules/atlas/components/dashboard/synchronisation/header.controller.test';
 import '../modules/atlas/components/dashboard/synchronisation/data-selection.controller.test';
-import '../modules/atlas/components/document-title/document-title.directive.test';
-import '../modules/atlas/components/max-width-class/max-width-class.directive.test';
-import '../modules/atlas/components/scrollable-content/scrollable-content.directive.test';

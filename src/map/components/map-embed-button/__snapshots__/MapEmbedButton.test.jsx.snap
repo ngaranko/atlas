@@ -1,12 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MapEmbedButton should render the link 1`] = `
-<a
+<Connect(Link)
   className="c-embed-button qa-embed-button"
-  href="foo/bar"
   rel="noopener noreferrer"
   target="_blank"
   title="Naar interactieve kaart (Amsterdam City Data)"
+  to={
+    Object {
+      "type": "atlasRouter/KAART",
+    }
+  }
 >
   <Component
     className="c-embed-button__icon"
@@ -16,5 +20,5 @@ exports[`MapEmbedButton should render the link 1`] = `
   >
     City Data
   </span>
-</a>
+</Connect(Link)>
 `;

@@ -320,7 +320,7 @@ describe('HeaderSearchContainer', () => {
       const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
       wrapper.setProps({
         prefillQuery: '',
-        isMapFullscreen: true
+        isMapActive: true
       });
 
       expect(getSuggestions).toHaveBeenCalledWith();
@@ -336,7 +336,7 @@ describe('HeaderSearchContainer', () => {
       const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
       wrapper.setProps({
         prefillQuery: '123',
-        isMapFullscreen: true
+        isMapActive: true
       });
 
       expect(getSuggestions).toHaveBeenCalledWith('123');
@@ -353,7 +353,7 @@ describe('HeaderSearchContainer', () => {
       wrapper.setProps({
         prefillQuery: '',
         pageName: '',
-        isMapFullscreen: false
+        isMapActive: false
       });
 
       expect(getSuggestions).not.toHaveBeenCalledWith();

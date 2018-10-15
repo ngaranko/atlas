@@ -78,3 +78,4 @@ export const getMarkers = createSelector(
   ));
 
 export const isMarkerActive = createSelector([detailSelector], (detail) => !detail);
+export const isMapPanelActive = createSelector([getMap], (map) => map.mapPanelActive);

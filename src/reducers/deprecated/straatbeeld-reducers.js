@@ -1,6 +1,7 @@
 import ACTIONS from '../../shared/actions';
 import isObject from '../../shared/services/is-object';
 import { routing } from '../../app/routes';
+import { isMapCurrentPage } from '../current-page-reducer';
 
 /**
  * @description If the oldState had an active straatbeeld it will remember the heading.
@@ -28,7 +29,7 @@ function fetchStraatbeeldByIdReducer(state) {
 function fetchStraatbeeldByLocationReducer(state, payload) {
   const map = isObject(state.map) ? { ...state.map } : state.map;
 
-  if (state.ui && (state.ui.isMapPanelVisible || state.ui.isMapFullscreen)) {
+  if (isMapCurrentPage(state)) {
     map.viewCenter = payload;
   }
 
@@ -37,11 +38,6 @@ function fetchStraatbeeldByLocationReducer(state, payload) {
     map: {
       ...map
     },
-    ui: isObject(state.ui) ? {
-      ...state.ui,
-      isMapPanelVisible: false,
-      isMapFullscreen: false
-    } : state.ui,
     page: isObject(state.page) ? {
       ...state.page,
       name: null

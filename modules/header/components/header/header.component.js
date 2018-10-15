@@ -9,32 +9,25 @@
             controllerAs: 'vm',
             bindings: {
                 isHomePage: '<',
-                hasMaxWidth: '<'
+                hasMaxWidth: '<',
+                isEmbed: '<',
+                isPrintMode: '<',
+                isEmbedPreview: '<',
+                user: '<',
+                isPrintOrEmbedOrPreview: '<'
             }
         });
 
-    function DpHeaderController (store, dashboardColumns, HEADER) {
+    function DpHeaderController ($scope, HEADER) {
         const vm = this;
+        $scope.$watch('vm.isHomePage', updateSize);
 
-        vm.store = store;
-
-        function setLayout () { // eslint-disable-line complexity
-            const state = store.getState();
-
-            vm.user = state.user;
-
+        function updateSize () {
             vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
-
-            vm.isPrintMode = state.ui.isPrintMode;
-            vm.isEmbedPreview = state.ui.isEmbedPreview;
-            vm.isEmbed = state.ui.isEmbed;
-            vm.isPrintOrEmbedOrPreview = dashboardColumns.isPrintOrEmbedOrPreview(state);
         }
 
-        vm.$onChanges = setLayout;
-        store.subscribe(setLayout);
-        setLayout();
+        updateSize();
     }
 
-    DpHeaderController.$inject = ['store', 'dashboardColumns', 'HEADER'];
+    DpHeaderController.$inject = ['$scope', 'HEADER'];
 })();

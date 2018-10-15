@@ -9,9 +9,9 @@ let initialState;
 describe('MapContainer', () => {
   beforeEach(() => {
     initialState = {
-      currentPage: '',
+      currentPage: 'KAART',
       ui: {
-        isMapFullscreen: false
+        isEmbed: false
       },
       map: {
         drawingMode: 'none'

@@ -22,6 +22,7 @@ import {
 } from '../../services/draw-tool/draw-tool';
 import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
 import { mapClear, mapEndDrawing, mapStartDrawing, mapUpdateShape, mapEmptyGeometry, mapClearDrawing } from '../../ducks/map/map';
+import { isMapCurrentPage } from '../../../reducers/current-page-reducer';
 
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,
@@ -30,7 +31,7 @@ const mapStateToProps = (state) => ({
   shapeDistanceTxt: state.map.shapeDistanceTxt,
   dataSelection: state.dataSelection,
   geometry: state.map.geometry,
-  uiMapFullscreen: state.ui.isMapFullscreen
+  uiMapFullscreen: isMapCurrentPage(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -121,7 +122,7 @@ class DrawToolContainer extends React.Component {
       this.props.onEndDrawing({ polygon });
       this.props.onSetPageName({ name: null });
 
-      this.props.onSetMapFullscreen({ isMapFullscreen: false });
+      this.props.onSetMapFullscreen();
     } else if (has2Markers) {
       this.props.onEndDrawing({ polygon });
     }

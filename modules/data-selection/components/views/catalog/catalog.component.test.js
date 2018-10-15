@@ -1,4 +1,4 @@
-import mockedContentJson from './catalog.component.test.content';
+import mockedContentJson from './catalog.component.test.content.json';
 import * as details from '../../../../../src/reducers/details';
 import { routing } from '../../../../../src/app/routes';
 

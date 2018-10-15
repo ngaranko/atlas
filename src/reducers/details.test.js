@@ -50,10 +50,7 @@ describe('DetailReducerReducer', () => {
       error: null,
       location: {},
       search: null,
-      straatbeeld: null,
-      ui: {
-        isMapFullscreen: false
-      }
+      straatbeeld: null
     });
   });
 
