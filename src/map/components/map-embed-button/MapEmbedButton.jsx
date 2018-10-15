@@ -5,7 +5,7 @@ import { routing } from '../../../app/routes';
 
 const MapEmbedButton = () => (
   <Link // eslint-disable-line jsx-a11y/anchor-is-valid
-    to={routing.map.type}
+    to={{ type: routing.map.type }}
     title="Naar interactieve kaart (Amsterdam City Data)"
     className="c-embed-button qa-embed-button"
     target="_blank"

@@ -6,7 +6,11 @@ exports[`MapEmbedButton should render the link 1`] = `
   rel="noopener noreferrer"
   target="_blank"
   title="Naar interactieve kaart (Amsterdam City Data)"
-  to="atlasRouter/KAART"
+  to={
+    Object {
+      "type": "atlasRouter/KAART",
+    }
+  }
 >
   <Component
     className="c-embed-button__icon"
