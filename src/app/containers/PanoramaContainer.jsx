@@ -5,60 +5,24 @@ import { AngularWrapper } from 'react-angular';
 import { getStraatbeeld } from '../../shared/ducks/straatbeeld/straatbeeld';
 
 const mapStateToProps = (state) => ({
-  straatbeeldState: getStraatbeeld(state),
-  isPrintMode: state.ui.isPrintMode,
-  isEmbedPreview: state.ui.isEmbedPreview,
-  isEmbed: state.ui.isEmbed
+  straatbeeldState: getStraatbeeld(state)
 });
 
 const PanoramaContainer = ({
-  straatbeeldState,
-  isPrintMode,
-  isEmbedPreview,
-  isEmbed,
-  visibility,
-  columnSizes
+  straatbeeldState
 }) => (
   <AngularWrapper
     moduleName={'dpStraatbeeldWrapper'}
     component="dpStraatbeeld"
     dependencies={['atlas']}
     bindings={{
-      state: straatbeeldState,
-      resize: [
-        isPrintMode,
-        isEmbedPreview,
-        isEmbed,
-        visibility.error,
-        visibility.straatbeeld,
-        columnSizes.right
-      ]
+      state: straatbeeldState
     }}
   />
 );
 
-PanoramaContainer.defaultProps = {
-  columnSizes: {
-    right: 4
-  },
-  visibility: {
-    error: false,
-    straatbeeld: true
-  }
-};
-
 PanoramaContainer.propTypes = {
-  straatbeeldState: PropTypes.shape({}).isRequired,
-  isPrintMode: PropTypes.bool.isRequired,
-  isEmbedPreview: PropTypes.bool.isRequired,
-  isEmbed: PropTypes.bool.isRequired,
-  columnSizes: PropTypes.shape({
-    right: PropTypes.number
-  }),
-  visibility: PropTypes.shape({
-    error: PropTypes.bool,
-    straatbeeld: PropTypes.bool
-  })
+  straatbeeldState: PropTypes.shape({}).isRequired
 };
 
 export default connect(mapStateToProps, null)(PanoramaContainer);

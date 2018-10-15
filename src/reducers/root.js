@@ -5,7 +5,7 @@ import DataSelectionReducer from '../shared/ducks/data-selection/data-selection'
 import DataSelectionCatalogReducer from '../catalog/ducks/data-selection/data-selection-catalog';
 import ErrorMessageReducer from '../shared/ducks/error-message';
 import PageReducer from '../shared/ducks/page/page';
-import UiReducer from '../shared/ducks/ui/ui';
+import UiReducer, { REDUCER_KEY as UI } from '../shared/ducks/ui/ui';
 import UserReducer from './user';
 import MapDetailReducer from '../map/ducks/detail/map-detail';
 import MapReducer from '../map/ducks/map/map';
@@ -19,9 +19,9 @@ import CurrentPageReducer, { REDUCER_KEY as CURRENT_PAGE } from './current-page-
 import CatalogReducer from '../shared/ducks/catalog/catalog';
 import FiltersReducer from '../shared/ducks/filters/filters';
 
-export default (routeReducer) => (oldState, action) => {
+export default (routeReducer) => (oldState = {}, action) => {
   // Run state changes based on old reducers
-  const deprecatedState = deprecatedReducer(oldState, action);
+  const deprecatedState = deprecatedReducer(oldState, action) || {};
 
   const mapLayers = combineReducers({
     layers: MapLayersReducer,
@@ -40,7 +40,7 @@ export default (routeReducer) => (oldState, action) => {
     mapDetail: MapDetailReducer,
     pano: PanoPreviewReducer,
     straatbeeld: StraatbeeldReducer,
-    ui: UiReducer,
+    [UI]: UiReducer,
     user: UserReducer,
     mapLayers,
     autoSuggest: AutoSuggestReducer,

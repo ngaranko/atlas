@@ -55,6 +55,7 @@ describe('MapPreviewPanelContainer', () => {
     mapDetail: null,
     detail: null,
     search: null,
+    ui: {},
     pano: {
       previews: {}
     },

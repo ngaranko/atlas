@@ -35,7 +35,7 @@ import { isMapCurrentPage } from '../../../../../src/reducers/current-page-reduc
             }
 
             vm.hasPrintButton = (!isDataSelection || isListView) && !isHomepage;
-            vm.hasEmbedButton = !angular.isObject(state.straatbeeld) && isMapCurrentPage(state);
+            vm.hasEmbedButton = isMapCurrentPage(state);
         }
     }
 })();

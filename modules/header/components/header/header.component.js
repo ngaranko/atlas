@@ -9,34 +9,20 @@
             controllerAs: 'vm',
             bindings: {
                 isHomePage: '<',
-                hasMaxWidth: '<'
+                hasMaxWidth: '<',
+                isEmbed: '<',
+                isPrintMode: '<',
+                isEmbedPreview: '<',
+                user: '<',
+                isPrintOrEmbedOrPreview: '<'
             }
         });
 
-    function DpHeaderController (store, HEADER) {
+    function DpHeaderController (HEADER) {
         const vm = this;
 
-        vm.store = store;
-
-        function setLayout () { // eslint-disable-line complexity
-            const state = store.getState();
-
-            vm.user = state.user;
-
-            vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
-
-            vm.isPrintMode = state.ui.isPrintMode;
-            vm.isEmbedPreview = state.ui.isEmbedPreview;
-            vm.isEmbed = state.ui.isEmbed;
-
-            // Todo: add logic for print or embed
-            vm.isPrintOrEmbedOrPreview = false; // dashboardColumns.isPrintOrEmbedOrPreview(state);
-        }
-
-        vm.$onChanges = setLayout;
-        store.subscribe(setLayout);
-        setLayout();
+        vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
     }
 
-    DpHeaderController.$inject = ['store', 'HEADER'];
+    DpHeaderController.$inject = ['HEADER'];
 })();

@@ -7,7 +7,6 @@ import '../../modules/atlas/components/dashboard/synchronisation/header.controll
 import '../../modules/atlas/components/dashboard/synchronisation/map.controller';
 import '../../modules/atlas/components/dashboard/synchronisation/page.controller';
 import '../../modules/atlas/components/dashboard/synchronisation/search-results.controller';
-import '../../modules/atlas/components/preview-state/preview-state.directive';
 import '../../modules/atlas/services/redux/store.run';
 import '../../modules/data-selection/data-selection.module';
 import '../../modules/data-selection/components/active-filters/active-filters.component';

@@ -1,19 +1,21 @@
-/* eslint-disable */
-import "babel-polyfill";
+/* eslint-disable import/first */
+/* eslint-disable import/no-extraneous-dependencies */
+import 'babel-polyfill';
+import angular from 'angular';
 
  // Import the templates and inject them into angular
 const templates = require.context('../modules', true, /\.html$/);
 const origInject = angular.mock.inject;
 angular.mock.inject = (callback) => {
-    origInject(($templateCache) => {
-        templates.keys().forEach((key) => {
-            // Remove the dot from './dir/template.html' and prepend with
-            // 'modules' to get 'modules/dir/template.html'.
-            const templateId = 'modules' + key.substr(1);
-            $templateCache.put(templateId, templates(key));
-        });
+  origInject(($templateCache) => {
+    templates.keys().forEach((key) => {
+      // Remove the dot from './dir/template.html' and prepend with
+      // 'modules' to get 'modules/dir/template.html'.
+      const templateId = `modules${key.substr(1)}`;
+      $templateCache.put(templateId, templates(key));
     });
-    origInject(callback);
+  });
+  origInject(callback);
 };
 
 // All third party dependencies
@@ -28,7 +30,6 @@ import '../modules/atlas/components/dashboard/synchronisation/header.controller'
 import '../modules/atlas/components/dashboard/synchronisation/map.controller';
 import '../modules/atlas/components/dashboard/synchronisation/page.controller';
 import '../modules/atlas/components/dashboard/synchronisation/search-results.controller';
-import '../modules/atlas/components/preview-state/preview-state.directive';
 import '../modules/atlas/services/redux/store.run';
 import '../modules/data-selection/data-selection.module';
 import '../modules/data-selection/components/active-filters/active-filters.component';
@@ -322,7 +323,6 @@ import '../modules/shared/services/crs/crs-converter.factory.test';
 import '../modules/shared/services/environment/environment.factory.test';
 import '../modules/shared/filters/filesize.filter.test';
 import '../modules/shared/services/combined-document-title/combined-document-title.factory.test';
-import '../modules/atlas/components/preview-state/preview-state.directive.test';
 import '../modules/atlas/components/dashboard/synchronisation/map.controller.test';
 import '../modules/atlas/components/dashboard/synchronisation/search-results.controller.test';
 import '../modules/atlas/components/dashboard/synchronisation/page.controller.test';

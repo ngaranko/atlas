@@ -30,7 +30,7 @@ describe('The header controller', function () {
         });
 
         mockedState = {
-            currentPage: 'PANORAMA',
+            currentPage: PAGES.PANORAMA,
             search: {
                 query: 'i am a search query'
             }
@@ -165,8 +165,7 @@ describe('The header controller', function () {
         });
 
         it('there is no embed button when both full screen map and straatbeeld are active', function () {
-            mockedState.currentPage = PAGES.KAART;
-            mockedState.straatbeeld = {};
+            mockedState.currentPage = PAGES.KAART_PANORAMA;
 
             spyOn(store, 'getState').and.returnValue(mockedState);
             const controller = getController();
@@ -175,9 +174,7 @@ describe('The header controller', function () {
         });
 
         it('there is no embed button on the homepage', () => {
-            mockedState.page = {
-                name: 'home'
-            };
+            mockedState.currentPage = PAGES.HOME;
 
             spyOn(store, 'getState').and.returnValue(mockedState);
             const controller = getController();

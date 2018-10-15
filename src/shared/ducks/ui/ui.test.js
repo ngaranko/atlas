@@ -9,7 +9,10 @@ describe('UiReducer', () => {
 
   it('should set the initial state', () => {
     expect(state).toEqual({
-      isMapPanelHandleVisible: true
+      isMapPanelHandleVisible: true,
+      isEmbedPreview: false,
+      isEmbed: false,
+      isPrintMode: false
     });
   });
 
@@ -27,6 +30,7 @@ describe('UiReducer', () => {
       type: SHOW_EMBED_PREVIEW
     })).toEqual({
       ...state,
+      isEmbed: true,
       isEmbedPreview: true
     });
   });

@@ -70,6 +70,12 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART_SEARCH}`,
     page: PAGES.KAART_SEARCH
   },
+  mapEmbed: {
+    title: 'Embed',
+    location: '/map/embed',
+    type: `${ROUTER_NAMESPACE}/${PAGES.KAART_EMBED}`,
+    page: PAGES.KAART_EMBED
+  },
   nieuws: {
     title: '',
     location: '/nieuws',

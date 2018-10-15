@@ -39,7 +39,7 @@ const configureStore = (history, routesMap) => {
       documentHeadMiddleware)
   );
 
-  window.reduxStore = createStore(rootReducer(routeReducer), {}, enhancer);
+  window.reduxStore = createStore(rootReducer(routeReducer), undefined, enhancer);
 
   sagaMiddleware.run(rootSaga);
   initialRouteDispatch();

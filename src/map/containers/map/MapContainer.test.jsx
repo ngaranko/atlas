@@ -10,7 +10,9 @@ describe('MapContainer', () => {
   beforeEach(() => {
     initialState = {
       currentPage: 'KAART',
-      ui: {},
+      ui: {
+        isEmbed: false
+      },
       map: {
         drawingMode: 'none'
       }
