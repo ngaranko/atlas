@@ -18,11 +18,16 @@
             }
         });
 
-    function DpHeaderController (HEADER) {
+    function DpHeaderController ($scope, HEADER) {
         const vm = this;
+        $scope.$watch('vm.isHomePage', updateSize);
 
-        vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
+        function updateSize () {
+            vm.headerSize = vm.isHomePage ? HEADER.SIZE.TALL : HEADER.SIZE.SHORT;
+        }
+
+        updateSize();
     }
 
-    DpHeaderController.$inject = ['HEADER'];
+    DpHeaderController.$inject = ['$scope', 'HEADER'];
 })();
