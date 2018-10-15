@@ -74,17 +74,18 @@ export const isInPrintorEmbedMode = createSelector(
     (embedded || print || preview));
 
 // Todo: move this to a dataSelection ducks file
-const getDataSelection = (state) => state.dataSelection;
+const getDataSelection = (state) => state.dataSelection || {};
 const getDataSelectionView = createSelector(
   getDataSelection,
   (dataSelection) => dataSelection.view
 );
 
 export const isPrintModeLandscape = createSelector(
+  isPrintMode,
   getStraatbeeld,
   isMapCurrentPage,
   getDataSelectionView,
-  (straatbeeldActive, mapPageActive, dataSelectionView) =>
-    (straatbeeldActive || mapPageActive || (dataSelectionView === 'LIST'))
+  (printMode, straatbeeldActive, mapPageActive, dataSelectionView) =>
+    (printMode && (!!straatbeeldActive || mapPageActive || (dataSelectionView === 'LIST')))
 );
 
