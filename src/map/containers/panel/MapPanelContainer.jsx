@@ -60,13 +60,10 @@ class MapPanelContainer extends React.Component {
 
     if (isMapPanelVisible && prevProps.overlays.length < overlays.length) {
       const scrollEl = document.querySelector('.map-panel .map-legend');
-      if (scrollEl) {
-        scrollEl.scrollIntoView({ behavior: 'smooth' });
-      }
+      scrollEl && scrollEl.scrollIntoView({ behavior: 'smooth' }); // eslint-disable-line
     }
     // TODO: Create Redux Middelware, map Piwik events to ACTIONS
-    if (activeBaseLayer &&
-      (prevProps.activeBaseLayer !== activeBaseLayer || !prevProps.activeBaseLayer)) {
+    if (activeBaseLayer && prevProps.activeBaseLayer !== activeBaseLayer) {
       const baseLayers = [...mapBaseLayers.aerial, ...mapBaseLayers.topography];
       const newBaseLayer = baseLayers.find((b) => b.value === activeBaseLayer);
       piwikTracker([piwik.TRACK_EVENT, piwik.ADD_BASE_LAYER,
