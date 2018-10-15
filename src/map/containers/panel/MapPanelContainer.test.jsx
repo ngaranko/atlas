@@ -7,6 +7,10 @@ import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapType from '../../components/type/MapType';
 
+import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
+
+jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
+
 describe('MapPanelContainer', () => {
   let store;
   let wrapper;
@@ -45,6 +49,7 @@ describe('MapPanelContainer', () => {
   it('should render MapLegend if store contains active map layers', () => {
     expect(wrapper.find(MapLegend).length).toBe(0);
     wrapper.setProps({ activeMapLayers: [{}] });
+    piwikTracker.mockImplementation(() => jest.fn());
     expect(wrapper.find(MapLegend).length).toBe(1);
     expect(wrapper).toMatchSnapshot();
   });

@@ -41,6 +41,13 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapPanelToggle: toggleMapPanel
 }, dispatch);
 
+// TODO: Create Redux Middelware, use ACTION_TYPE as constants
+const piwik = {
+  TRACK_EVENT: 'trackEvent',
+  ADD_BASE_LAYER: 'achtergrond',
+  ADD_MAP_LAYER: 'kaartlaag'
+};
+
 class MapPanelContainer extends React.Component {
   componentDidUpdate(prevProps) {
     const {
@@ -57,18 +64,21 @@ class MapPanelContainer extends React.Component {
         scrollEl.scrollIntoView({ behavior: 'smooth' });
       }
     }
+    // TODO: Create Redux Middelware, map Piwik events to ACTIONS
     if (activeBaseLayer &&
       (prevProps.activeBaseLayer !== activeBaseLayer || !prevProps.activeBaseLayer)) {
       const baseLayers = [...mapBaseLayers.aerial, ...mapBaseLayers.topography];
       const newBaseLayer = baseLayers.find((b) => b.value === activeBaseLayer);
-      piwikTracker(['trackEvent', 'achtergrond', newBaseLayer.category, newBaseLayer.label]);
+      piwikTracker([piwik.TRACK_EVENT, piwik.ADD_BASE_LAYER,
+        newBaseLayer.category, newBaseLayer.label]);
     }
-    if (activeMapLayers) {
+    if (activeMapLayers && prevProps.activeMapLayers !== activeMapLayers) {
       const newMapLayer = activeMapLayers.filter((b) =>
         !prevProps.activeMapLayers.find((b2) => b.title === b2.title)
       );
       if (newMapLayer && newMapLayer.length > 0) {
-        piwikTracker(['trackEvent', 'kaartlagen', newMapLayer[0].category, newMapLayer[0].title]);
+        piwikTracker([piwik.TRACK_EVENT, piwik.ADD_MAP_LAYER,
+          newMapLayer[0].category, newMapLayer[0].title]);
       }
     }
   }
