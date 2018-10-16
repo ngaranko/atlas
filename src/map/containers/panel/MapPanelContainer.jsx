@@ -60,7 +60,7 @@ class MapPanelContainer extends React.Component {
 
     if (isMapPanelVisible && prevProps.overlays.length < overlays.length) {
       const scrollEl = document.querySelector('.map-panel .map-legend');
-      scrollEl && scrollEl.scrollIntoView({ behavior: 'smooth' }); // eslint-disable-line
+      scrollEl.scrollIntoView({ behavior: 'smooth' });
     }
     // TODO: Create Redux Middelware, map Piwik events to ACTIONS
     if (activeBaseLayer && prevProps.activeBaseLayer !== activeBaseLayer) {

@@ -76,11 +76,12 @@ describe('MapPanelContainer', () => {
     document.querySelector = jest.fn().mockReturnValue({
       scrollIntoView: scrollIntoViewMock
     });
+    const scrollEl = document.querySelector;
     wrapper.setProps({
       overlays: [{}, {}],
       isMapPanelVisible: true,
       isEachOverlayInvisible: false
     });
-    expect(scrollIntoViewMock).toHaveBeenCalled();
+    expect(scrollEl).toHaveBeenCalledTimes(1);
   });
 });
