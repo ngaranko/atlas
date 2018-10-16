@@ -49,7 +49,11 @@ const DataSelection = ({
 
 DataSelection.defaultProps = {
   boundingBox: undefined,
-  zoomLevel: undefined
+  zoomLevel: undefined,
+  columnSizes: {
+    middle: 0,
+    right: 12
+  }
 };
 
 DataSelection.propTypes = {
@@ -62,7 +66,7 @@ DataSelection.propTypes = {
   columnSizes: PropTypes.shape({
     right: PropTypes.number,
     middle: PropTypes.number
-  }).isRequired,
+  }),
   view: PropTypes.string.isRequired,
   dataset: PropTypes.string.isRequired
 };

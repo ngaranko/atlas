@@ -11,14 +11,13 @@ import {
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
-import { isMapCurrentPage } from '../../../reducers/current-page-reducer';
+import { isMapCurrentPage, isCatalogCurrentPage } from '../../../reducers/current-page-reducer';
 import { extractIdEndpoint, routing } from '../../../app/routes';
-import { isCatalogCurrentPage } from '../../../reducers/current-page-reducer';
 
 const mapStateToProps = (state) => ({
   activeSuggestion: state.autoSuggest.activeSuggestion,
   displayQuery: state.autoSuggest.displayQuery,
-  isDatasetView: isCatalogCurrentPage(state.currentPage),
+  isDatasetView: isCatalogCurrentPage(state),
   isMapActive: isMapCurrentPage(state),
   numberOfSuggestions: state.autoSuggest.count,
   pageName: state.page ? state.page.name : '',

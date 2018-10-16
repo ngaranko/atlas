@@ -13,7 +13,6 @@ const mapStateToProps = (state) => ({
 });
 
 const CatalogSearchContainer = ({
-  columnSizes,
   boundingBox,
   catalogFilters,
   filters,
@@ -25,7 +24,7 @@ const CatalogSearchContainer = ({
   query
 }) => (
   <div
-    className={`c-dashboard__column c-dashboard__content u-col-sm--12 qa-dashboard__column--right`}
+    className={'c-dashboard__column c-dashboard__content u-col-sm--12 qa-dashboard__column--right'}
   >
     <div className="qa-data-selection">
       <AngularWrapper
@@ -52,11 +51,7 @@ CatalogSearchContainer.defaultProps = {
   boundingBox: undefined,
   zoomLevel: undefined,
   isLoading: true,
-  dataSelectionState: undefined,
-  columnSizes: {
-    middle: 0,
-    right: 12
-  }
+  dataSelectionState: undefined
 };
 
 CatalogSearchContainer.propTypes = {
@@ -66,10 +61,6 @@ CatalogSearchContainer.propTypes = {
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   dataSelectionState: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   zoomLevel: PropTypes.number,
-  columnSizes: PropTypes.shape({
-    right: PropTypes.number,
-    middle: PropTypes.number
-  }),
   view: PropTypes.string.isRequired,
   dataset: PropTypes.string.isRequired,
   query: PropTypes.string.isRequired
