@@ -5,7 +5,7 @@ import { AngularWrapper } from 'react-angular';
 import { connect } from 'react-redux';
 import Map from './pages/Map';
 import Piwik from './components/Piwik/Piwik';
-import ContentPage, { CMS_PAGE_MAPPING } from './pages/ContentPage';
+import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
 import Panorama from './containers/PanoramaContainer';
@@ -15,6 +15,7 @@ import { isMapSubPage } from './routes';
 import CatalogDetailContainer from './containers/CatalogDetailContainer';
 import { getCurrentPage } from '../reducers/current-page-reducer';
 import { isEmbedded, isEmbedPreview, isPrintMode, isPrintModeLandscape, isInPrintorEmbedMode } from '../shared/ducks/ui/ui';
+import { CMS_PAGE_MAPPING } from './pages/CMSPageMapping';
 
 // TodoReactMigration: implement logic
 const App = ({

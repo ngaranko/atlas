@@ -1,5 +1,5 @@
 import { routing } from '../../../../src/app/routes';
-import { BEDIENINING_LOGIN_DEEPLINK } from '../../../../src/app/pages/ContentPage';
+import { BEDIENINING_LOGIN_DEEPLINK } from '../../../../src/app/pages/CMSPageMapping';
 
 /**
  * DEPRECATED component

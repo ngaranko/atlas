@@ -10,8 +10,7 @@ const webpackConfig = {
     path: dist
   },
   resolve: {
-    modules: ['./node_modules'],
-    extensions: ['.js', '.jsx']
+    modules: ['./node_modules']
   },
   mode: 'development',
   devtool: 'inline-source-map',
