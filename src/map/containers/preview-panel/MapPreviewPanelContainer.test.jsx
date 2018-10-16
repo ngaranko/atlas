@@ -6,8 +6,9 @@ import { shallow } from 'enzyme';
 import MapPreviewPanelContainer from './MapPreviewPanelContainer';
 import {
   FETCH_MAP_SEARCH_RESULTS_REQUEST,
+  FETCH_SEARCH_RESULTS_BY_LOCATION,
   getMapSearchResults
-} from '../../ducks/search-results/map-search-results';
+} from '../../../shared/ducks/search/search';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import {
   FETCH_MAP_DETAIL_REQUEST,
@@ -18,7 +19,6 @@ import {
   FETCH_PANO_PREVIEW_REQUEST,
   getPanoPreview
 } from '../../../pano/ducks/preview/pano-preview';
-import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/actions';
 import {
   getLocationId,
   getSelectedLocation,
@@ -28,7 +28,7 @@ import {
 
 import { clearSelectedLocation } from '../../ducks/map/map';
 
-jest.mock('../../ducks/search-results/map-search-results');
+jest.mock('../../../shared/ducks/search/search');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
 jest.mock('../../ducks/detail/map-detail');
 jest.mock('../../ducks/map/map-selectors');

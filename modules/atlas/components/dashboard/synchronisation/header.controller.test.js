@@ -1,4 +1,5 @@
 import PAGES from '../../../../../src/app/pages';
+import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../../../src/shared/ducks/search/search';
 
 describe('The header controller', function () {
     var $controller,
@@ -67,7 +68,7 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBe('search query');
-        expect(controller.searchAction).toEqual(ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY);
+        expect(controller.searchAction).toEqual(FETCH_SEARCH_RESULTS_BY_QUERY);
     });
 
     it('sets the dataSelection query and action when datasets are active', function () {
@@ -106,7 +107,7 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBeUndefined();
-        expect(controller.searchAction).toEqual(ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY);
+        expect(controller.searchAction).toEqual(FETCH_SEARCH_RESULTS_BY_QUERY);
     });
 
     it('doesn\'t break when search is null', function () {

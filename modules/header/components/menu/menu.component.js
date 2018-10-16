@@ -1,4 +1,4 @@
-import { authenticateError } from '../../../../src/reducers/user';
+import { authenticateError } from '../../../../src/shared/ducks/user/user';
 import { routing } from '../../../../src/app/routes';
 
 (function () {

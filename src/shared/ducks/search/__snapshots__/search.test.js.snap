@@ -2,9 +2,7 @@
 
 exports[`mapSearch reducer handles search results request 1`] = `
 Object {
-  "search": Object {
-    "isLoading": true,
-  },
+  "isLoading": true,
 }
 `;
 
@@ -17,9 +15,6 @@ Object {
         "foo": "bar",
       },
     ],
-  },
-  "search": Object {
-    "isLoading": false,
   },
 }
 `;

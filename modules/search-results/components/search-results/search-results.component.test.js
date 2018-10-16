@@ -1,3 +1,5 @@
+import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/search/search';
+
 describe('The dp-search-results component', function () {
     let $compile,
         $rootScope,
@@ -425,7 +427,7 @@ describe('The dp-search-results component', function () {
             getComponent(12, 'Weesperstraat');
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_SEARCH_RESULTS,
+                type: SHOW_SEARCH_RESULTS,
                 payload: 12
             });
         });
@@ -505,7 +507,7 @@ describe('The dp-search-results component', function () {
 
         it('calls dispatch with the number of search results', function () {
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_SEARCH_RESULTS,
+                type: SHOW_SEARCH_RESULTS,
                 payload: 22
             });
         });

@@ -13,7 +13,7 @@ import MapPanelContainer from '../../containers/panel/MapPanelContainer';
 import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 import { isMapSubPage } from '../../../app/routes';
-import { isMapCurrentPage } from '../../../reducers/current-page-reducer';
+import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
 
 const mapStateToProps = (state) => ({
   isFullscreen: isMapCurrentPage(state),

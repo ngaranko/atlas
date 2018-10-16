@@ -5,9 +5,9 @@ import { fetchSearchResults, showSearchView } from '../../ducks/preview-panel/ma
 import { clearSelectedLocation } from '../../ducks/map/map';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
-import { toggleMapFullscreen, isEmbedPreview, isEmbedded } from '../../../shared/ducks/ui/ui';
+import { isEmbedded, isEmbedPreview, toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 import { showStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
-import { setDetailEndpointRoute, toMapDetail } from '../../../reducers/details';
+import { setDetailEndpointRoute, toMapDetail } from '../../../shared/ducks/detail/detail';
 import MapPreviewPanel from './MapPreviewPanel';
 import {
   getLocationId,
