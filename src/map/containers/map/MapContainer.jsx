@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
+import { isEmbedded, toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 
 import DrawTool from '../../containers/draw-tool/DrawToolContainer';
 import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
@@ -12,14 +12,13 @@ import LeafletContainer from '../leaflet/LeafletContainer';
 import MapPanelContainer from '../../containers/panel/MapPanelContainer';
 import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
-
-import getEmbedLink from '../../ducks/embed/embed';
 import { isMapSubPage } from '../../../app/routes';
+import { isMapCurrentPage } from '../../../reducers/current-page-reducer';
 
 const mapStateToProps = (state) => ({
-  isFullscreen: state.ui.isMapFullscreen,
+  isFullscreen: isMapCurrentPage(state),
   drawMode: state.map.drawingMode,
-  embedLink: getEmbedLink(state),
+  embedMode: isEmbedded(state),
   currentPage: state.currentPage
 });
 
@@ -41,10 +40,10 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    const { currentPage } = this.props;
+    const { currentPage, embedMode, isFullscreen, onToggleFullscreen, drawMode } = this.props;
     const mapSubPage = isMapSubPage(currentPage);
     return (
-      <div className={`c-map c-map--drawing-mode-${this.props.drawMode} qa-map-container`}>
+      <div className={`c-map c-map--drawing-mode-${drawMode} qa-map-container`}>
         <LeafletContainer
           getLeafletInstance={this.setLeafletInstance}
         />
@@ -56,13 +55,13 @@ class MapContainer extends React.Component {
           )
         }
         <ToggleFullscreen
-          isFullscreen={this.props.isFullscreen}
-          onToggleFullscreen={this.props.onToggleFullscreen}
+          isFullscreen={isFullscreen}
+          onToggleFullscreen={onToggleFullscreen}
         />
         <MapPanelContainer isMapPanelVisible={!mapSubPage} />
         {
-          this.props.embedLink.length ? (
-            <MapEmbedButton link={this.props.embedLink} />
+          embedMode ? (
+            <MapEmbedButton />
           ) : ''
         }
         {!mapSubPage && <MapPreviewPanelContainer />}
@@ -78,8 +77,7 @@ MapContainer.contextTypes = {
 MapContainer.defaultProps = {
   geometry: null,
   leafletInstance: null,
-  drawMode: 'none',
-  embedLink: ''
+  drawMode: 'none'
 };
 
 MapContainer.propTypes = {
@@ -87,7 +85,7 @@ MapContainer.propTypes = {
   onToggleFullscreen: PropTypes.func.isRequired,
   currentPage: PropTypes.string.isRequired,
   drawMode: PropTypes.string,
-  embedLink: PropTypes.string
+  embedMode: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapContainer);

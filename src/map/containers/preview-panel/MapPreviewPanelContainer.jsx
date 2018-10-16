@@ -5,7 +5,7 @@ import { fetchSearchResults, showSearchView } from '../../ducks/preview-panel/ma
 import { clearSelectedLocation } from '../../ducks/map/map';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
-import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
+import { toggleMapFullscreen, isEmbedPreview, isEmbedded } from '../../../shared/ducks/ui/ui';
 import { showStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import { setDetailEndpointRoute, toMapDetail } from '../../../reducers/details';
 import MapPreviewPanel from './MapPreviewPanel';
@@ -28,9 +28,9 @@ const mapStateToProps = (state) => ({
     .join(', '),
   detail: state.detail,
   mapDetail: state.mapDetail,
-  detailResult: selectLatestMapDetail(state) || {},
+  detailResult: selectLatestMapDetail(state) || null,
   user: state.user,
-  isEmbed: state.ui && (state.ui.isEmbed || state.ui.isEmbedPreview)
+  isEmbed: isEmbedPreview(state) || isEmbedded(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

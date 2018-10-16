@@ -22,8 +22,6 @@ describe('The dataSelectionReducers', () => {
     straatbeeld: null,
     dataSelection: null,
     ui: {
-      isMapFullscreen: false,
-      isMapPanelVisible: false,
       isPrintMode: false
     }
   };
@@ -49,16 +47,6 @@ describe('The dataSelectionReducers', () => {
         dataset: 'bag',
         page: 1
       };
-    });
-
-    it('makes the map small (!isFullscreen), relevant when navigating via dp-dropdown-menu', () => {
-      const mockedState = deepCopy(DEFAULT_STATE);
-      mockedState.ui.isMapFullscreen = true;
-
-      const output = dataSelectionReducers[ACTIONS.FETCH_DATA_SELECTION](mockedState, payload);
-
-      expect(output.ui.isMapFullscreen)
-        .toBe(false);
     });
 
     it('has a default table view and set map not to be loading', () => {

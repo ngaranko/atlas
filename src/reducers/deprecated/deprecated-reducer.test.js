@@ -1,6 +1,5 @@
 import reducer from './deprecated-reducer';
 import * as environment from '../../shared/environment';
-import * as homeReducer from '../home-reducers';
 import * as DetailsReducer from '../details';
 import * as DataSelectionReducer from '../data-selection-reducers';
 import * as MapPreviewPanelReducer from '../../map/ducks/preview-panel/map-preview-panel';
@@ -19,18 +18,13 @@ describe('The deprecated reducer', () => {
   it('groups all separate reducers and calls the appropriate one depending on the action type', () => {
     const state = { foo: 'bar' };
 
-    const actionC = jest.fn();
     const actionI = jest.fn();
 
     DataSelectionReducer.default = { ACTION_I: actionI };
     DetailsReducer.default = {};
-    homeReducer.default = { ACTION_C: actionC };
 
-    reducer(state, { type: 'ACTION_C' });
     reducer(state, { type: 'ACTION_I' });
 
-    expect(actionC.mock.calls[0])
-      .toEqual([state, undefined]);
     expect(actionI.mock.calls[0])
       .toEqual([state, undefined]);
   });

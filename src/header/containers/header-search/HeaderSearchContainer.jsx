@@ -11,6 +11,7 @@ import {
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
+import { isMapCurrentPage } from '../../../reducers/current-page-reducer';
 import { extractIdEndpoint, routing } from '../../../app/routes';
 import { isCatalogCurrentPage } from '../../../reducers/current-page-reducer';
 
@@ -18,7 +19,7 @@ const mapStateToProps = (state) => ({
   activeSuggestion: state.autoSuggest.activeSuggestion,
   displayQuery: state.autoSuggest.displayQuery,
   isDatasetView: isCatalogCurrentPage(state.currentPage),
-  isMapFullscreen: state.ui ? state.ui.isMapFullscreen : false,
+  isMapActive: isMapCurrentPage(state),
   numberOfSuggestions: state.autoSuggest.count,
   pageName: state.page ? state.page.name : '',
   prefillQuery: state.search ? state.search.query : state.dataSelection ? state.dataSelection.query : '',
@@ -65,14 +66,14 @@ class HeaderSearchContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     const {
-      isMapFullscreen,
+      isMapActive,
       onGetSuggestions,
       pageName,
       prefillQuery
     } = this.props;
 
     const doResetQuery =
-      prevProps.isMapFullscreen !== isMapFullscreen ||
+      prevProps.isMapActive !== isMapActive ||
       prevProps.pageName !== pageName;
 
     // on navigation, clear auto-suggest
@@ -196,7 +197,7 @@ HeaderSearchContainer.propTypes = {
   }),
   displayQuery: PropTypes.string,
   isDatasetView: PropTypes.bool,
-  isMapFullscreen: PropTypes.bool.isRequired,
+  isMapActive: PropTypes.bool.isRequired,
   numberOfSuggestions: PropTypes.number,
   onCleanDatasetOverview: PropTypes.func.isRequired,
   onDatasetSearch: PropTypes.func.isRequired,

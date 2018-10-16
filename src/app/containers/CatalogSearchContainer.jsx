@@ -25,8 +25,7 @@ const CatalogSearchContainer = ({
   query
 }) => (
   <div
-    style={{ display: (columnSizes.right) ? 'block' : 'none' }}
-    className={`c-dashboard__column c-dashboard__content u-col-sm--${columnSizes.right} qa-dashboard__column--right`}
+    className={`c-dashboard__column c-dashboard__content u-col-sm--12 qa-dashboard__column--right`}
   >
     <div className="qa-data-selection">
       <AngularWrapper
@@ -53,7 +52,11 @@ CatalogSearchContainer.defaultProps = {
   boundingBox: undefined,
   zoomLevel: undefined,
   isLoading: true,
-  dataSelectionState: undefined
+  dataSelectionState: undefined,
+  columnSizes: {
+    middle: 0,
+    right: 12
+  }
 };
 
 CatalogSearchContainer.propTypes = {
@@ -66,7 +69,7 @@ CatalogSearchContainer.propTypes = {
   columnSizes: PropTypes.shape({
     right: PropTypes.number,
     middle: PropTypes.number
-  }).isRequired,
+  }),
   view: PropTypes.string.isRequired,
   dataset: PropTypes.string.isRequired,
   query: PropTypes.string.isRequired

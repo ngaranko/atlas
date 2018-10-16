@@ -19,6 +19,7 @@ export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
 export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
+export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
 export const UPDATE_MAP = 'UPDATE_MAP';
 
 const initialState = {
@@ -31,23 +32,15 @@ const initialState = {
   shapeMarkers: 0,
   shapeDistanceTxt: '',
   shapeAreaTxt: '',
-  selectedLocation: null
+  selectedLocation: null,
+  mapPanelActive: true
 };
 
 let polygon = {};
 let has2Markers;
 let moreThan2Markers;
 
-const getNewLayer = (straatbeeld) => (
-  straatbeeld && straatbeeld.history
-    ? `pano${straatbeeld.history}`
-    : 'pano'
-);
-
-const overlayExists = (state, newLayer) => (
-  state.map && state.map.overlays.filter((overlay) =>
-    overlay.id === newLayer).length === 1
-);
+const getOverlaysWithoutPano = (overlays = []) => overlays.filter((overlay) => !overlay.id.startsWith('pano')) || [];
 
 export default function MapReducer(state = initialState, action) {
   switch (action.type) {
@@ -63,7 +56,8 @@ export default function MapReducer(state = initialState, action) {
         ],
         zoom: parseFloat(zoom) || initialState.zoom,
         selectedLocation,
-        detailEndpoint
+        detailEndpoint,
+        overlays: getOverlaysWithoutPano(state.overlays)
       };
     }
 
@@ -118,26 +112,30 @@ export default function MapReducer(state = initialState, action) {
         baseLayer: action.payload
       };
 
-    case MAP_ADD_PANO_OVERLAY: //eslint-disable-line
-      const newLayer = getNewLayer(action.payload);
-      return overlayExists(state, newLayer) ? state : {
+    case ACTIONS.SET_STRAATBEELD_HISTORY:
+    case routing.mapPanorama.type: {
+      const id = !isNaN(action.payload) ? `pano${action.payload}` : 'pano';
+      return {
         ...state,
         overlays: [
-          ...(state.overlays.filter((overlay) =>
-              !overlay.id.startsWith('pano'))
-          ),
-          { id: newLayer, isVisible: true }
-        ]
+          ...getOverlaysWithoutPano(state.overlays),
+          { id, isVisible: true }
+        ],
+        mapPanelActive: false
       };
+    }
 
-    case MAP_REMOVE_PANO_OVERLAY: //eslint-disable-line
-      // Remove all active 'pano' layers
-      const overlays = state && state.overlays
-                                     .filter((overlay) => !overlay.id.startsWith('pano'));
-
-      return state && overlays.length === state.overlays.length ? state : {
+    case MAP_REMOVE_PANO_OVERLAY: {
+      return {
         ...state,
-        overlays
+        overlays: getOverlaysWithoutPano(state.overlays)
+      };
+    }
+
+    case TOGGLE_MAP_PANEL:
+      return {
+        ...state,
+        mapPanelActive: !state.mapPanelActive
       };
 
     case TOGGLE_MAP_OVERLAY:
@@ -236,3 +234,7 @@ export const updateBoundingBox = (payload, isDrawingActive) =>
     type: isDrawingActive ? MAP_BOUNDING_BOX_SILENT : MAP_BOUNDING_BOX,
     payload
   });
+
+export const toggleMapPanel = () => ({
+  type: TOGGLE_MAP_PANEL
+});

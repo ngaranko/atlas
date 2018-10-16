@@ -1,3 +1,5 @@
+import { isMapCurrentPage } from '../../../../../src/reducers/current-page-reducer';
+
 (function () {
     'use strict';
 
@@ -19,7 +21,7 @@
                 isListView = isDataSelection && state.dataSelection.view === 'LIST',
                 isCatalogView = isDataSelection && state.dataSelection.view === 'CATALOG',
                 isHomepage = angular.isObject(state.page) && state.page.name === 'home' &&
-                    !state.ui.isMapFullscreen &&
+                    !isMapCurrentPage(state) &&
                     !angular.isObject(state.straatbeeld);
 
             if (isCatalogView) {
@@ -33,8 +35,7 @@
             }
 
             vm.hasPrintButton = (!isDataSelection || isListView) && !isHomepage;
-            vm.hasEmbedButton = !angular.isObject(state.straatbeeld) &&
-                angular.isObject(state.ui) && state.ui.isMapFullscreen;
+            vm.hasEmbedButton = isMapCurrentPage(state);
         }
     }
 })();

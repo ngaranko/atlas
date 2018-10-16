@@ -198,7 +198,8 @@ export default {
       shapeMarkers: 0,
       shapeDistanceTxt: '',
       shapeAreaTxt: '',
-      selectedLocation: null
+      selectedLocation: null,
+      mapPanelActive: true
     },
     mapSearchResults: [],
     mapSearchResultsByLocation: {},

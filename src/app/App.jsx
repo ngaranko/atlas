@@ -15,14 +15,21 @@ import { isMapSubPage } from './routes';
 import CatalogDetailContainer from './containers/CatalogDetailContainer';
 import CatalogSearchContainer from './containers/CatalogSearchContainer';
 import QuerySearchContainer from './containers/QuerySearchContainer';
+import { getCurrentPage } from '../reducers/current-page-reducer';
+import { isEmbedded, isEmbedPreview, isPrintMode, isPrintModeLandscape, isInPrintorEmbedMode } from '../shared/ducks/ui/ui';
 
 // TodoReactMigration: implement logic
 const App = ({
   isFullHeight,
   pageType,
   visibilityError,
-  columnSizes,
-  currentPage
+  currentPage,
+  embedMode,
+  printMode,
+  embedPreviewMode,
+  printModeLandscape,
+  printOrEmbedMode,
+  user
 }) => {
   const isHomePage = currentPage === PAGES.HOME;
   const isCmsPage = pageIsCmsPage(currentPage);
@@ -40,8 +47,18 @@ const App = ({
   const bodyClasses = classNames({
     'c-dashboard__body--error': visibilityError
   });
+
+  const printEmbedModeClasses = classNames({
+    'is-print-mode': printMode,
+    'is-print-mode--landscape': printModeLandscape, // Todo: implement
+    'is-embed': embedMode,
+    'is-embed-preview': embedPreviewMode
+  });
+
   return (
-    <div className={`c-dashboard c-dashboard--page-type-${pageType} ${rootClasses}`}>
+    <div
+      className={`c-dashboard c-dashboard--page-type-${pageType} ${rootClasses} ${printEmbedModeClasses}`}
+    >
       <Piwik />
       <AngularWrapper
         moduleName={'dpHeaderWrapper'}
@@ -49,7 +66,12 @@ const App = ({
         dependencies={['atlas']}
         bindings={{
           isHomePage,
-          hasMaxWidth
+          hasMaxWidth,
+          user,
+          isEmbed: embedMode,
+          isPrintMode: printMode,
+          isEmbedPreview: embedPreviewMode,
+          isPrintOrEmbedOrPreview: printOrEmbedMode
         }}
       />
       <AngularWrapper
@@ -71,7 +93,6 @@ const App = ({
               <ContentPage
                 name={CMS_PAGE_MAPPING[PAGES.HOME].template}
                 showFooter
-                columnSizes={columnSizes}
               />
             )}
 
@@ -89,7 +110,6 @@ const App = ({
 
             {currentPage === PAGES.CATALOGUS && (
               <DataSelection
-                columnSizes={columnSizes}
                 view={'CATALOG'}
                 dataset={DATASETS.CATALOG}
               />
@@ -97,7 +117,6 @@ const App = ({
 
             {currentPage === PAGES.SEARCH_CATALOG && (
               <CatalogSearchContainer
-                columnSizes={columnSizes}
                 view={'CATALOG'}
                 dataset={DATASETS.CATALOG}
               />
@@ -109,7 +128,6 @@ const App = ({
 
             {currentPage === PAGES.ADRESSEN && (
               <DataSelection
-                columnSizes={columnSizes}
                 view={'TABLE'}
                 dataset={DATASETS.BAG}
               />
@@ -117,7 +135,6 @@ const App = ({
 
             {currentPage === PAGES.VESTIGINGEN && (
               <DataSelection
-                columnSizes={columnSizes}
                 view={'TABLE'}
                 dataset={DATASETS.HR}
               />
@@ -128,7 +145,6 @@ const App = ({
                 name={cmsPageData.template}
                 type={cmsPageData.type}
                 item={cmsPageData.item}
-                columnSizes={columnSizes}
               />
             )}
           </div>
@@ -141,11 +157,7 @@ const App = ({
 App.defaultProps = {
   isFullHeight: false,
   pageType: '',
-  visibilityError: false,
-  columnSizes: { // determineColumnSizes in dashboard-columns
-    right: 12,
-    middle: 12
-  }
+  visibilityError: false
 };
 
 App.propTypes = {
@@ -153,13 +165,23 @@ App.propTypes = {
   pageType: PropTypes.string, // state.page && state.page.type ? state.page.type : '',
   currentPage: PropTypes.string.isRequired,
   visibilityError: PropTypes.bool, // vm.visibility.error
-  columnSizes: PropTypes.shape({
-    right: PropTypes.number,
-    middle: PropTypes.number
-  })
+  embedMode: PropTypes.bool.isRequired,
+  printMode: PropTypes.bool.isRequired,
+  printOrEmbedMode: PropTypes.bool.isRequired,
+  printModeLandscape: PropTypes.bool.isRequired,
+  embedPreviewMode: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
-const mapStateToProps = ({ currentPage }) => ({ currentPage });
+const mapStateToProps = (state) => ({
+  currentPage: getCurrentPage(state),
+  embedMode: isEmbedded(state),
+  printMode: isPrintMode(state),
+  printModeLandscape: isPrintModeLandscape(state),
+  embedPreviewMode: isEmbedPreview(state),
+  printOrEmbedMode: isInPrintorEmbedMode(state),
+  user: state.user
+});
 
 const AppContainer = connect(mapStateToProps, null)(App);
 

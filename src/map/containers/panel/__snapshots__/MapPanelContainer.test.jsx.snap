@@ -2,11 +2,11 @@
 
 exports[`MapPanelContainer should render MapLegend if store contains active map layers 1`] = `
 <section
-  aria-expanded={false}
-  aria-label="Kaartlagen legenda, Kaartlagen tonen"
+  aria-expanded={true}
+  aria-label="Kaartlagen legenda, Kaartlagen verbergen"
   className="
           map-panel
-          map-panel--collapsed
+          map-panel--expanded
           map-panel--has-active-layers
           map-panel--has-not-just-invisible-layers
         "
@@ -17,7 +17,7 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
     <button
       className="map-panel__toggle"
       onClick={[Function]}
-      title="Kaartlagen tonen"
+      title="Kaartlagen verbergen"
     >
       <Component
         className="map-panel__heading-icon"
@@ -82,11 +82,11 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
 
 exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
 <section
-  aria-expanded={false}
-  aria-label="Kaartlagen legenda, Kaartlagen tonen"
+  aria-expanded={true}
+  aria-label="Kaartlagen legenda, Kaartlagen verbergen"
   className="
           map-panel
-          map-panel--collapsed
+          map-panel--expanded
           map-panel--has-no-active-layers
           map-panel--has-not-just-invisible-layers
         "
@@ -97,7 +97,7 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
     <button
       className="map-panel__toggle"
       onClick={[Function]}
-      title="Kaartlagen tonen"
+      title="Kaartlagen verbergen"
     >
       <Component
         className="map-panel__heading-icon"

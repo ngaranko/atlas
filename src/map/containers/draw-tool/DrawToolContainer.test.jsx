@@ -18,6 +18,7 @@ import {
   mapStartDrawing,
   mapUpdateShape
 } from '../../ducks/map/map';
+import PAGES from '../../../app/pages';
 
 jest.mock('../../services/draw-tool/draw-tool');
 
@@ -34,7 +35,7 @@ describe('DrawToolContainer', () => {
       shapeDistanceTxt: ''
     },
     dataSelection: null,
-    ui: { isMapFullscreen: true }
+    currentPage: PAGES.KAART
   };
 
   const props = {
@@ -291,7 +292,7 @@ describe('DrawToolContainer', () => {
         expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldOff());
         expect(store.dispatch).toHaveBeenCalledWith(mapEndDrawing({ polygon }));
         expect(store.dispatch).toHaveBeenCalledWith(setPageName({ name: null }));
-        expect(store.dispatch).toHaveBeenCalledWith(setMapFullscreen({ isMapFullscreen: false }));
+        expect(store.dispatch).toHaveBeenCalledWith(setMapFullscreen());
       });
     });
 

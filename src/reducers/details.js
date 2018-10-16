@@ -1,4 +1,3 @@
-import { endpointTypes } from '../map/services/map-detail';
 import { UPDATE_MAP } from '../map/ducks/map/map';
 import { routing } from '../app/routes';
 
@@ -10,11 +9,6 @@ export const DETAIL_FULLSCREEN = 'DETAIL_FULLSCREEN';
 const detailReducer = (state = {}, action) => {
   switch (action.type) {
     case FETCH_DETAIL: {
-      // If preview panel is available use that, otherwise show detail page aside.
-      const leaveMapFullscreen = action.payload && Object
-        .keys(endpointTypes)
-        .some((typeKey) => action.payload.includes(endpointTypes[typeKey]));
-
       return {
         ...state,
         dataSelection: null,
@@ -35,11 +29,7 @@ const detailReducer = (state = {}, action) => {
           type: null
         },
         search: null,
-        straatbeeld: null,
-        ui: {
-          ...state.ui,
-          isMapFullscreen: leaveMapFullscreen ? state.ui.isMapFullscreen : false
-        }
+        straatbeeld: null
       };
     }
     case SHOW_DETAIL:

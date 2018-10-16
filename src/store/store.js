@@ -1,31 +1,33 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { connectRoutes } from 'redux-first-router';
+import restoreScroll from 'redux-first-router-restore-scroll';
 import queryString from 'querystring';
-import rootSaga from './root-saga';
-import './shared/ducks/error-message';
-import * as auth from './shared/services/auth/auth';
-import { authenticateUser } from './reducers/user';
-import { fetchCatalogFilters } from './catalog/ducks/data-selection/data-selection-catalog';
-import rootReducer from './reducers/root';
-import stateUrlConverter from './shared/services/routing/state-url-converter';
-import { isDevelopment } from './shared/environment';
-import freeze from './shared/services/freeze/freeze';
+import rootSaga from '../root-saga';
+import '../shared/ducks/error-message';
+import * as auth from '../shared/services/auth/auth';
+import { authenticateUser } from '../reducers/user';
+import { fetchCatalogFilters } from '../catalog/ducks/data-selection/data-selection-catalog';
+import rootReducer from '../reducers/root';
+import documentHeadMiddleware from './middleware/documentHead';
 
 window.reducer = rootReducer;
 
-const configureStore = (history, routes) => {
+const configureStore = (history, routesMap) => {
   const {
     reducer: routeReducer,
     middleware: routeMiddleware,
     enhancer: routeEnhancer,
     initialDispatch: initialRouteDispatch
-  } = connectRoutes(history, routes, {
-    querySerializer: queryString,
-    initialDispatch: false
-  });
-  const urlDefaultState = stateUrlConverter.getDefaultState();
-  const defaultState = isDevelopment() ? freeze(urlDefaultState) : urlDefaultState;
+  } = connectRoutes(
+    history,
+    routesMap,
+    {
+      querySerializer: queryString,
+      restoreScroll: restoreScroll(),
+      initialDispatch: false
+    }
+  );
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const sagaMiddleware = createSagaMiddleware();
@@ -33,10 +35,11 @@ const configureStore = (history, routes) => {
     routeEnhancer,
     applyMiddleware(
       routeMiddleware,
-      sagaMiddleware)
+      sagaMiddleware,
+      documentHeadMiddleware)
   );
 
-  window.reduxStore = createStore(rootReducer(routeReducer), defaultState, enhancer);
+  window.reduxStore = createStore(rootReducer(routeReducer), undefined, enhancer);
 
   sagaMiddleware.run(rootSaga);
   initialRouteDispatch();

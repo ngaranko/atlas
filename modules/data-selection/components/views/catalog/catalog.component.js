@@ -20,42 +20,44 @@ import { routing } from '../../../../../src/app/routes';
     function DpDataSelectionCatalogController (store, $filter) {
         const vm = this;
 
-        var state = store.getState();
+        const state = store.getState();
         vm.catalogFilters = state.catalogFilters;
 
-        const formatMap = arrayToObject(vm.catalogFilters.formatTypes, 'id');
-        const serviceMap = arrayToObject(vm.catalogFilters.serviceTypes, 'id');
-        const distributionMap = arrayToObject(vm.catalogFilters.distributionTypes, 'id');
+        vm.$onChanges = function () {
+            const formatMap = arrayToObject(vm.catalogFilters.formatTypes, 'id');
+            const serviceMap = arrayToObject(vm.catalogFilters.serviceTypes, 'id');
+            const distributionMap = arrayToObject(vm.catalogFilters.distributionTypes, 'id');
 
-        vm.items = vm.content.map((item, index) => {
-            const formats = item['dcat:distribution'].map(resource => {
-                if (resource['ams:distributionType'] === 'file') {
-                    return formatMap[resource['dct:format']];
-                } else if (resource['ams:distributionType'] === 'api') {
-                    return serviceMap[resource['ams:serviceType']];
-                } else {
-                    return distributionMap[resource['ams:distributionType']];
-                }
+            vm.items = vm.content.map((item, index) => {
+                const formats = item['dcat:distribution'].map(resource => {
+                    if (resource['ams:distributionType'] === 'file') {
+                        return formatMap[resource['dct:format']];
+                    } else if (resource['ams:distributionType'] === 'api') {
+                        return serviceMap[resource['ams:serviceType']];
+                    } else {
+                        return distributionMap[resource['ams:distributionType']];
+                    }
+                });
+
+                const id = item['dct:identifier'];
+                const linkTo = {
+                    type: routing.catalogusDetail.type,
+                    payload: { id }
+                };
+
+                return {
+                    header: item['dct:title'],
+                    description: removeMd(item['dct:description']),
+                    modification: {
+                        'metadata_created': item['foaf:isPrimaryTopicOf']['dct:issued'],
+                        'metadata_modified': item['foaf:isPrimaryTopicOf']['dct:modified']
+                    },
+                    formats: $filter('aggregate')(formats),
+                    tags: item['dcat:keyword'],
+                    linkTo
+                };
             });
-
-            const id = item['dct:identifier'];
-            const linkTo = {
-                type: routing.catalogusDetail.type,
-                payload: { id }
-            };
-
-            return {
-                header: item['dct:title'],
-                description: removeMd(item['dct:description']),
-                modification: {
-                    'metadata_created': item['foaf:isPrimaryTopicOf']['dct:issued'],
-                    'metadata_modified': item['foaf:isPrimaryTopicOf']['dct:modified']
-                },
-                formats: $filter('aggregate')(formats),
-                tags: item['dcat:keyword'],
-                linkTo
-            };
-        });
+        };
 
         sessionStorage.setItem('DCATD_LIST_REDIRECT_URL', document.location.href);
     }

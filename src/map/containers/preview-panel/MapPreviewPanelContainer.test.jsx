@@ -19,7 +19,6 @@ import {
   getPanoPreview
 } from '../../../pano/ducks/preview/pano-preview';
 import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/actions';
-import { TOGGLE_MAP_FULLSCREEN } from '../../../shared/ducks/ui/ui';
 import {
   getLocationId,
   getSelectedLocation,
@@ -56,6 +55,7 @@ describe('MapPreviewPanelContainer', () => {
     mapDetail: null,
     detail: null,
     search: null,
+    ui: {},
     pano: {
       previews: {}
     },
@@ -595,7 +595,16 @@ describe('MapPreviewPanelContainer', () => {
         }
       }).dive();
       wrapper.instance().onPanoPreviewClick();
-      expect(store.dispatch).toHaveBeenCalledWith({ type: TOGGLE_MAP_FULLSCREEN });
+      expect(store.dispatch).toHaveBeenCalledWith({
+        payload: {
+          query: {
+            panoHeading: undefined,
+            panoId: undefined
+          },
+          route: 'atlasRouter/KAART_PANORAMA'
+        },
+        type: 'UPDATE_MAP'
+      });
       expect(store.dispatch).toHaveBeenCalledWith({
         payload: {
           query: {

@@ -21,6 +21,9 @@ const PAGE_TYPES = {
   statistieken: 'statistieken'
 };
 
+// Help > Bediening > Inloggen deeplink id
+export const BEDIENINING_LOGIN_DEEPLINK = 'snelwegwijsitem9';
+
 /**
  * Maps site page to CMS page variables
  */
@@ -74,10 +77,10 @@ export const CMS_PAGE_MAPPING = {
   }
 };
 
-const ContentPage = ({ name, item, type, columnSizes, showFooter }) => (
+const ContentPage = ({ name, item, type, showFooter }) => (
   <div
-    style={{ display: (columnSizes.right) ? 'block' : 'none' }}
-    className={`c-dashboard__column c-dashboard__content u-col-sm--${columnSizes.right} qa-dashboard__column--right`}
+    style={{ display: 'block' }}
+    className="c-dashboard__column c-dashboard__content u-col-sm--12 qa-dashboard__column--right"
   >
     <div className="c-dashboard__page o-max-width">
       <div className="c-dashboard__page-inner o-max-width__inner u-gutter">
@@ -111,11 +114,7 @@ ContentPage.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string,
   item: PropTypes.any, // eslint-disable-line react/forbid-prop-types
-  showFooter: PropTypes.bool,
-  columnSizes: PropTypes.shape({
-    right: PropTypes.number,
-    middle: PropTypes.number
-  }).isRequired
+  showFooter: PropTypes.bool
 };
 
 export default ContentPage;

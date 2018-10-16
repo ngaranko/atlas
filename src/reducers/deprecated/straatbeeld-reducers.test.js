@@ -31,8 +31,6 @@ describe('Straatbeeld reducers factory', () => {
       straatbeeld: null,
       dataSelection: null,
       ui: {
-        isMapFullscreen: false,
-        isMapPanelVisible: false,
         isPrintMode: false
       }
     };

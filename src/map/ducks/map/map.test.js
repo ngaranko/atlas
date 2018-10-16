@@ -1,5 +1,4 @@
 import reducer, {
-  MAP_ADD_PANO_OVERLAY,
   MAP_REMOVE_PANO_OVERLAY,
   mapClear,
   mapClearDrawing,
@@ -26,7 +25,8 @@ describe('Map Reducer', () => {
     shapeMarkers: 0,
     viewCenter: [52.3731081, 4.8932945],
     zoom: 11,
-    selectedLocation: null
+    selectedLocation: null,
+    mapPanelActive: true
   };
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual(initialState);
@@ -116,7 +116,8 @@ describe('Map Reducer', () => {
         123, 321
       ],
       detailEndpoint: undefined,
-      selectedLocation: undefined
+      selectedLocation: undefined,
+      overlays: []
     };
     expect(reducer({}, {
       type: routing.map.type,
@@ -233,30 +234,20 @@ describe('Map Reducer', () => {
     });
   });
 
-  it(`should add a pano overlay when dispatching ${MAP_ADD_PANO_OVERLAY}`, () => {
+  it(`should add a pano overlay when dispatching ${ACTIONS.SET_STRAATBEELD_HISTORY} or ${routing.mapPanorama.type}`, () => {
     expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
-      type: MAP_ADD_PANO_OVERLAY,
-      payload: {
-        id: 'panob',
-        history: 'history'
-      }
+      type: ACTIONS.SET_STRAATBEELD_HISTORY,
+      payload: 2017
     })).toEqual({
-      overlays: [{ id: 'panohistory', isVisible: true }]
+      overlays: [{ id: 'pano2017', isVisible: true }], mapPanelActive: false
     });
 
     expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
-      type: MAP_ADD_PANO_OVERLAY,
+      type: routing.mapPanorama.type,
       payload: {}
     })).toEqual({
-      overlays: [{ id: 'pano', isVisible: true }]
+      overlays: [{ id: 'pano', isVisible: true }], mapPanelActive: false
     });
-
-    expect(reducer({ map: { overlays: [{ id: 'pano' }] } }, {
-      type: MAP_ADD_PANO_OVERLAY,
-      payload: {
-        id: 'panoaaa'
-      }
-    })).toEqual({ map: { overlays: [{ id: 'pano' }] } });
   });
 
   it(`should remove a pano overlay when dispatching ${MAP_REMOVE_PANO_OVERLAY}`, () => {

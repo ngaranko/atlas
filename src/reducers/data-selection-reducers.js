@@ -68,11 +68,6 @@ function fetchDataSelectionReducer(state, payload) {
       ...state.page,
       name: null
     } : state.page,
-    ui: isObject(state.ui) ? {
-      ...state.ui,
-      isMapPanelVisible: false,
-      isMapFullscreen: false
-    } : state.ui,
     search: null,
     detail: null,
     straatbeeld: null

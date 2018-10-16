@@ -143,7 +143,10 @@ describe('employee permissions', () => {
     });
     cy.get(queries.legendToggleItem).contains(values.vestigingenHoreca).click();
     cy.get(queries.legendNotification).should('not.exist');
+    /** Leave out visible for elements that could be hidden by overscroll
     cy.get(queries.legendItem).contains(values.legendCafeValue).should('exist').and('be.visible');
+    */
+    cy.get(queries.legendItem).contains(values.legendCafeValue).should('exist');
   });
 
   it('7A. Should allow an employee to view "Vestigingen"', () => {

@@ -1,3 +1,5 @@
+import PAGES from '../../../../../src/app/pages';
+
 describe('The header controller', function () {
     var $controller,
         $rootScope,
@@ -28,9 +30,7 @@ describe('The header controller', function () {
         });
 
         mockedState = {
-            ui: {
-                isMapFullscreen: false
-            },
+            currentPage: PAGES.PANORAMA,
             search: {
                 query: 'i am a search query'
             }
@@ -156,11 +156,7 @@ describe('The header controller', function () {
 
     describe('not all states have an embed version', function () {
         it('only in fullscreen map there is an embed button', function () {
-            mockedState.ui.isMapFullscreen = true;
-
-            mockedState.page = {
-                name: 'home'
-            };
+            mockedState.currentPage = PAGES.KAART;
 
             spyOn(store, 'getState').and.returnValue(mockedState);
             const controller = getController();
@@ -169,8 +165,7 @@ describe('The header controller', function () {
         });
 
         it('there is no embed button when both full screen map and straatbeeld are active', function () {
-            mockedState.ui.isMapFullscreen = true;
-            mockedState.straatbeeld = {};
+            mockedState.currentPage = PAGES.KAART_PANORAMA;
 
             spyOn(store, 'getState').and.returnValue(mockedState);
             const controller = getController();
@@ -179,9 +174,7 @@ describe('The header controller', function () {
         });
 
         it('there is no embed button on the homepage', () => {
-            mockedState.page = {
-                name: 'home'
-            };
+            mockedState.currentPage = PAGES.HOME;
 
             spyOn(store, 'getState').and.returnValue(mockedState);
             const controller = getController();
