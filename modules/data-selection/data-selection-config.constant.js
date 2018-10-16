@@ -167,7 +167,7 @@
                                 'Verenigingen van eigenaren',
                                 'Spoorwegen/ProRail',
                                 'Overige niet-natuurlijke personen',
-                                'Overig natuurlijke personen'
+                                'Overige natuurlijke personen'
                             ],
                             info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadaster-tabel/' +
                             '#PagCls_14466834'
