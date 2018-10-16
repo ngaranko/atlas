@@ -7,22 +7,17 @@ import {
   getSuggestions,
   setActiveSuggestion
 } from '../../ducks/auto-suggest/auto-suggest';
-import { fetchDetail } from '../../../reducers/details';
-import {
-  fetchDataSelection,
-  fetchSearchResultsByQuery
-} from '../../ducks/search/search';
 
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
-import { isMapCurrentPage } from '../../../reducers/current-page-reducer';
+import { isMapCurrentPage, isCatalogCurrentPage } from '../../../reducers/current-page-reducer';
+import { extractIdEndpoint, routing } from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
   activeSuggestion: state.autoSuggest.activeSuggestion,
   displayQuery: state.autoSuggest.displayQuery,
-  isDatasetView: state.dataSelection && state.dataSelection.view === 'CATALOG',
+  isDatasetView: isCatalogCurrentPage(state),
   isMapActive: isMapCurrentPage(state),
   numberOfSuggestions: state.autoSuggest.count,
   pageName: state.page ? state.page.name : '',
@@ -31,14 +26,22 @@ const mapStateToProps = (state) => ({
   typedQuery: state.autoSuggest.typedQuery
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onCleanDatasetOverview: emptyFilters,
-  onDatasetSearch: fetchDataSelection,
-  onDetailLoad: fetchDetail,
-  onGetSuggestions: getSuggestions,
-  onSearch: fetchSearchResultsByQuery,
-  onSuggestionActivate: setActiveSuggestion
-}, dispatch);
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({
+    onCleanDatasetOverview: emptyFilters,
+    onGetSuggestions: getSuggestions,
+    onSuggestionActivate: setActiveSuggestion
+  }, dispatch),
+  onDatasetSearch: (query) => dispatch({ type: routing.searchCatalog.type, payload: { query } }),
+  onSearch: (query) => dispatch({ type: routing.searchData.type, payload: { query } }),
+  openSuggestion: (suggestion) => { // eslint-disable-line consistent-return
+    if (suggestion.uri.match(/^dcatd\//)) {
+      const id = extractIdEndpoint(suggestion.uri);
+      return dispatch({ type: routing.catalogusDetail.type, payload: { id } });
+    }
+    console.log('unkown other suggestion type', suggestion.category); // eslint-disable-line no-console
+  }
+});
 
 class HeaderSearchContainer extends React.Component {
   constructor(props) {
@@ -47,12 +50,6 @@ class HeaderSearchContainer extends React.Component {
     this.onSuggestionActivate = this.onSuggestionActivate.bind(this);
     this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
     this.onUserInput = this.onUserInput.bind(this);
-
-    if (window.opener && window.suggestionToLoadUri) {
-      // if user is sent here with a ctrl+click action
-      // open the detail page
-      this.openDetailOnLoad();
-    }
   }
 
   componentDidMount() {
@@ -102,19 +99,18 @@ class HeaderSearchContainer extends React.Component {
 
   onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
     const {
-      onDetailLoad,
       typedQuery
     } = this.props;
 
     piwikTracker(['trackEvent', 'auto-suggest', suggestion.category, typedQuery]);
 
     if (shouldOpenInNewWindow) {
-      const newWindow = window.open(`${window.location.href}`, '_blank');
-      // setting uri to the window, as window.postMessage does not work for some reason
-      // (webpack overrides the data it seems)
-      newWindow.window.suggestionToLoadUri = suggestion.uri;
+      // const newWindow = window.open(`${window.location.href}`, '_blank');
+      // // setting uri to the window, as window.postMessage does not work for some reason
+      // // (webpack overrides the data it seems)
+      // newWindow.window.suggestionToLoadUri = suggestion.uri;
     } else {
-      onDetailLoad(`${SHARED_CONFIG.API_ROOT}${suggestion.uri}`);
+      this.props.openSuggestion(suggestion);
     }
   }
 
@@ -123,10 +119,10 @@ class HeaderSearchContainer extends React.Component {
       activeSuggestion,
       isDatasetView,
       numberOfSuggestions,
+      typedQuery,
       onCleanDatasetOverview,
       onDatasetSearch,
-      onSearch,
-      typedQuery
+      onSearch
     } = this.props;
 
     piwikTracker(['trackSiteSearch', typedQuery, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
@@ -148,17 +144,6 @@ class HeaderSearchContainer extends React.Component {
     } = this.props;
 
     onGetSuggestions(query);
-  }
-
-  openDetailOnLoad() {
-    const {
-      onDetailLoad
-    } = this.props;
-    // if user is sent here with a ctrl+click action
-    // open the detail page
-    const suggestionUri = window.suggestionToLoadUri;
-    onDetailLoad(`${SHARED_CONFIG.API_ROOT}${suggestionUri}`);
-    window.suggestionToLoadUri = undefined;
   }
 
   render() {
@@ -218,7 +203,7 @@ HeaderSearchContainer.propTypes = {
   numberOfSuggestions: PropTypes.number,
   onCleanDatasetOverview: PropTypes.func.isRequired,
   onDatasetSearch: PropTypes.func.isRequired,
-  onDetailLoad: PropTypes.func.isRequired,
+  openSuggestion: PropTypes.func.isRequired,
   onGetSuggestions: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   onSuggestionActivate: PropTypes.func.isRequired,

@@ -26,4 +26,11 @@ export const isPanoramaCurrentPage = createSelector(
   (currentPage) => currentPage === PAGES.PANORAMA
 );
 
+export const isCatalogCurrentPage = createSelector(
+  getCurrentPage,
+  (page) => page === PAGES.CATALOGUS
+    || page === PAGES.CATALOGUS_DETAIL
+    || page === PAGES.SEARCH_CATALOG
+);
+
 export default currentPageReducer;

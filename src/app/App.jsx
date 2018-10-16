@@ -13,6 +13,8 @@ import DATASETS from '../shared/ducks/data-selection/data-selection-datasets';
 import './_app.scss';
 import { isMapSubPage } from './routes';
 import CatalogDetailContainer from './containers/CatalogDetailContainer';
+import CatalogSearchContainer from './containers/CatalogSearchContainer';
+import QuerySearchContainer from './containers/QuerySearchContainer';
 import { getCurrentPage } from '../reducers/current-page-reducer';
 import { isEmbedded, isEmbedPreview, isPrintMode, isPrintModeLandscape, isInPrintorEmbedMode } from '../shared/ducks/ui/ui';
 import { CMS_PAGE_MAPPING } from './pages/CMSPageMapping';
@@ -95,6 +97,10 @@ const App = ({
               />
             )}
 
+            { currentPage === PAGES.SEARCH_DATA && (
+              <QuerySearchContainer />
+            )}
+
             {(currentPage === PAGES.KAART || isMapSubPage(currentPage)) && (
               <Map subPage={isMapSubPage(currentPage) && currentPage} />
             )}
@@ -105,6 +111,13 @@ const App = ({
 
             {currentPage === PAGES.CATALOGUS && (
               <DataSelection
+                view={'CATALOG'}
+                dataset={DATASETS.CATALOG}
+              />
+            )}
+
+            {currentPage === PAGES.SEARCH_CATALOG && (
+              <CatalogSearchContainer
                 view={'CATALOG'}
                 dataset={DATASETS.CATALOG}
               />

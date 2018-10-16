@@ -13,7 +13,8 @@
                 user: '<',
                 zoomLevel: '<',
                 view: '<',
-                dataset: '<'
+                dataset: '<',
+                query: '<'
             },
             controller: DpDataSelectionController,
             controllerAs: 'vm'
@@ -56,7 +57,7 @@
             'vm.view',
             'vm.state.geometryFilter',
             'vm.state.page',
-            'vm.state.query',
+            'vm.query',
             'vm.user.scopes',
             'vm.zoomLevel'
         ], fetchData);
@@ -76,7 +77,8 @@
             const config = DATA_SELECTION_CONFIG.datasets[vm.dataset];
             const isListView = vm.view === 'LIST';
 
-            const isQueryView = angular.isDefined(vm.state.query) && vm.state.query.trim().length >= 1;
+            const isQueryView = angular.isDefined(vm.query) && vm.query.trim().length >= 1;
+
             vm.showTabHeader = () => (vm.view === 'CATALOG') && isQueryView;
             vm.currentPage = vm.state.page;
 
@@ -106,7 +108,7 @@
                     vm.view,
                     vm.filters,
                     vm.currentPage,
-                    vm.state.query,
+                    vm.query,
                     vm.state.geometryFilter.markers,
                     vm.catalogFilters
                 ).then(data => {

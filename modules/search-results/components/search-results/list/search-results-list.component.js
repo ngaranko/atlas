@@ -1,3 +1,5 @@
+import { getPageActionEndpoint } from '../../../../../src/app/routes';
+
 (function () {
     'use strict';
 
@@ -17,6 +19,18 @@
         const STATUS_OBJECT_GEVORMD = 18;
 
         const vm = this;
+
+        if (vm.category && vm.category.results) {
+            vm.results = vm.category.results.map(result => {
+                return {
+                    ...result,
+                    // linkTo: getPageActionEndpoint(result.link)
+                    linkTo: getPageActionEndpoint(
+                        'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200003761447/'
+                    )
+                };
+            });
+        }
 
         vm.showSubtype = function (categorySlug, link) {
             return angular.isString(link.subtype) &&

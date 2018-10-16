@@ -40,6 +40,16 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.VESTIGINGEN}`,
     page: PAGES.VESTIGINGEN
   },
+  searchCatalog: {
+    location: '/search/catalog/:query',
+    type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_CATALOG}`,
+    page: PAGES.SEARCH_CATALOG
+  },
+  searchData: {
+    location: '/search/data/:query',
+    type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATA}`,
+    page: PAGES.SEARCH_DATA
+  },
   panorama: {
     title: '',
     location: '/panorama',
@@ -146,5 +156,18 @@ const routes = Object.keys(routing).reduce((acc, key) => {
 }, {});
 
 export const isMapSubPage = (page) => routing.map.children.includes(page);
+
+// TODO: refactor unit test or remove all together
+export const extractIdEndpoint = (endpoint) => {
+  const matches = endpoint.match(/\/(\w+)$/);
+  return matches[1];
+};
+
+export const getPageActionEndpoint = (endpoint) => ({
+  type: routing.detail.type,
+  query: {
+    detailEndpoint: endpoint
+  }
+});
 
 export default routes;

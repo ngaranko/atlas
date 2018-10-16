@@ -2,11 +2,11 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 
-import SearchContainer from '../../containers/header-search/HeaderSearchContainer';
+import HeaderSearchContainer from '../../containers/header-search/HeaderSearchContainer';
 
 const HeaderSearchWrapper = (props) => (
   <Provider store={window.reduxStore}>
-    <SearchContainer {...props} />
+    <HeaderSearchContainer {...props} />
   </Provider>
 );
 
@@ -15,4 +15,4 @@ export default HeaderSearchWrapper;
 window.React = window.React || React;
 // istanbul ignore next
 window.render = window.render || render;
-window.SearchWrapper = HeaderSearchWrapper;
+window.HeaderSearchWrapper = HeaderSearchWrapper;

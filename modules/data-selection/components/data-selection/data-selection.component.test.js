@@ -146,6 +146,7 @@ describe('The dp-data-selection component', function () {
         element.setAttribute('user', 'user');
         element.setAttribute('dataset', 'dataset');
         element.setAttribute('view', 'view');
+        element.setAttribute('query', 'query');
 
         const scope = $rootScope.$new();
         scope.state = state;
@@ -153,6 +154,7 @@ describe('The dp-data-selection component', function () {
         scope.user = user || mockedUser;
         scope.dataset = state.dataset;
         scope.view = state.view;
+        scope.query = state.query;
 
         const component = $compile(element)(scope);
         scope.$apply();

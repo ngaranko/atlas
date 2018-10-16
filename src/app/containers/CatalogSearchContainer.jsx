@@ -4,15 +4,15 @@ import connect from 'react-redux/es/connect/connect';
 import { AngularWrapper } from 'react-angular';
 
 const mapStateToProps = (state) => ({
-  boundingBox: state.map.boundingBox,
   catalogFilters: state.catalogFilters,
   dataSelectionState: state.dataSelection,
   filters: state.filters,
   zoomLevel: state.map.zoom,
-  user: state.user
+  user: state.user,
+  query: state.catalog.query
 });
 
-const DataSelection = ({
+const CatalogSearchContainer = ({
   boundingBox,
   catalogFilters,
   filters,
@@ -20,7 +20,8 @@ const DataSelection = ({
   user,
   zoomLevel,
   view,
-  dataset
+  dataset,
+  query
 }) => (
   <div
     className={'c-dashboard__column c-dashboard__content u-col-sm--12 qa-dashboard__column--right'}
@@ -38,27 +39,31 @@ const DataSelection = ({
           user,
           zoomLevel,
           view,
-          dataset
+          dataset,
+          query
         }}
       />
     </div>
   </div>
 );
 
-DataSelection.defaultProps = {
+CatalogSearchContainer.defaultProps = {
   boundingBox: undefined,
-  zoomLevel: undefined
+  zoomLevel: undefined,
+  isLoading: true,
+  dataSelectionState: undefined
 };
 
-DataSelection.propTypes = {
+CatalogSearchContainer.propTypes = {
   boundingBox: PropTypes.arrayOf(PropTypes.number),
   catalogFilters: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   filters: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  dataSelectionState: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  dataSelectionState: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   zoomLevel: PropTypes.number,
   view: PropTypes.string.isRequired,
-  dataset: PropTypes.string.isRequired
+  dataset: PropTypes.string.isRequired,
+  query: PropTypes.string.isRequired
 };
 
-export default connect(mapStateToProps, null)(DataSelection);
+export default connect(mapStateToProps, null)(CatalogSearchContainer);

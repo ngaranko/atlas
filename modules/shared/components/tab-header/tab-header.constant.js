@@ -1,6 +1,9 @@
+export const datasetsKey = 'datasets';
+
 (function () {
     'use strict';
 
+    // TODO: refactor, get rid of this file along with tab-header.factory and provideCounter magic
     angular
         .module('dpShared')
         .constant('TAB_HEADER_CONFIG', {
@@ -11,7 +14,7 @@
                     getPayload: query => query,
                     tip: 'maak de zoekcriteria minder specifiek (bijv. een straat i.p.v. specifiek adres)'
                 },
-                datasets: {
+                [datasetsKey]: {
                     title: 'Datasets',
                     action: 'FETCH_DATA_SELECTION',
                     getPayload: (query) => {
