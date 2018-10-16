@@ -119,18 +119,21 @@ class HeaderSearchContainer extends React.Component {
       activeSuggestion,
       isDatasetView,
       numberOfSuggestions,
-      typedQuery
+      typedQuery,
+      onCleanDatasetOverview,
+      onDatasetSearch,
+      onSearch
     } = this.props;
 
     piwikTracker(['trackSiteSearch', typedQuery, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
 
     if (activeSuggestion.index === -1) {
       // Load the search results
-      this.props.onCleanDatasetOverview();
+      onCleanDatasetOverview();
       if (isDatasetView) {
-        this.props.onDatasetSearch(typedQuery);
+        onDatasetSearch(typedQuery);
       } else {
-        this.props.onSearch(typedQuery);
+        onSearch(typedQuery);
       }
     }
   }

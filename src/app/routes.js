@@ -157,6 +157,7 @@ const routes = Object.keys(routing).reduce((acc, key) => {
 
 export const isMapSubPage = (page) => routing.map.children.includes(page);
 
+// TODO: refactor unit test or remove all together
 export const extractIdEndpoint = (endpoint) => {
   const matches = endpoint.match(/\/(\w+)$/);
   return matches[1];

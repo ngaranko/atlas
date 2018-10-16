@@ -1,3 +1,5 @@
+export const datasetsKey = 'datasets';
+
 (function () {
     'use strict';
 
@@ -12,7 +14,7 @@
                     getPayload: query => query,
                     tip: 'maak de zoekcriteria minder specifiek (bijv. een straat i.p.v. specifiek adres)'
                 },
-                datasets: {
+                [datasetsKey]: {
                     title: 'Datasets',
                     action: 'FETCH_DATA_SELECTION',
                     getPayload: (query) => {

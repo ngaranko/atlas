@@ -13,7 +13,6 @@ const mapStateToProps = (state) => ({
 });
 
 const DataSelection = ({
-  columnSizes,
   boundingBox,
   catalogFilters,
   filters,
@@ -24,8 +23,7 @@ const DataSelection = ({
   dataset
 }) => (
   <div
-    style={{ display: (columnSizes.right) ? 'block' : 'none' }}
-    className={`c-dashboard__column c-dashboard__content u-col-sm--${columnSizes.right} qa-dashboard__column--right`}
+    className={'c-dashboard__column c-dashboard__content u-col-sm--12 qa-dashboard__column--right'}
   >
     <div className="qa-data-selection">
       <AngularWrapper
@@ -49,11 +47,7 @@ const DataSelection = ({
 
 DataSelection.defaultProps = {
   boundingBox: undefined,
-  zoomLevel: undefined,
-  columnSizes: {
-    middle: 0,
-    right: 12
-  }
+  zoomLevel: undefined
 };
 
 DataSelection.propTypes = {
@@ -63,10 +57,6 @@ DataSelection.propTypes = {
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   dataSelectionState: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   zoomLevel: PropTypes.number,
-  columnSizes: PropTypes.shape({
-    right: PropTypes.number,
-    middle: PropTypes.number
-  }),
   view: PropTypes.string.isRequired,
   dataset: PropTypes.string.isRequired
 };

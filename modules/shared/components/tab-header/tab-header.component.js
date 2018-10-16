@@ -1,4 +1,5 @@
 import { routing } from '../../../../src/app/routes';
+import { datasetsKey } from './tab-header.constant';
 
 (function () {
     'use strict';
@@ -22,7 +23,7 @@ import { routing } from '../../../../src/app/routes';
         const vm = this;
 
         vm.tabs = vm.tabHeader.tabs.map((tab) => {
-            const type = tab.id === 'datasets' ? routing.searchCatalog.type : routing.searchData.type;
+            const type = tab.id === datasetsKey ? routing.searchCatalog.type : routing.searchData.type;
             tab.linkTo = {
                 type,
                 payload: {
