@@ -1,5 +1,3 @@
-import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
-
 (function () {
     'use strict';
 
@@ -104,7 +102,7 @@ import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
                 shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
             }, vm.filters);
 
-            /** Load Basic BAG Information */
+            // Load Basic BAG Information
             dataSelectionApi.query(
                 vm.state.dataset,
                 vm.state.view,
@@ -126,7 +124,7 @@ import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
 
                 updateTabHeader(vm.state.query, vm.numberOfRecords);
 
-                /** Determine if warning messages should be shown */
+                // Determine if warning messages should be shown
                 vm.maxAvailablePages =
                     DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
                 vm.showMessageMaxPages = vm.maxAvailablePages &&
@@ -142,44 +140,34 @@ import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
                 vm.showMessageClusteredMarkers = isListView &&
                     vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
+                // Load geolocation markers for clusters
+                if (isListView && vm.numberOfRecords && vm.numberOfRecords <= vm.maxNumberOfClusteredMarkers) {
+                    dataSelectionApi.getMarkers(
+                        vm.state.dataset,
+                        activeFilters,
+                        vm.zoomLevel,
+                        vm.boundingBox
+                    ).then((markerData) => {
+                        store.dispatch({
+                            type: ACTIONS.SHOW_DATA_SELECTION,
+                            payload: markerData
+                        });
+                    });
+                } else {
+                    store.dispatch({
+                        type: ACTIONS.SHOW_DATA_SELECTION,
+                        payload: []
+                    });
+                }
+
+                // Update state to show the data, do not trigger a url state change however
                 if (vm.state.reset) {
-                    /** Update state to show the data, do not trigger a url state change however */
                     store.dispatch({
                         type: ACTIONS.RESET_DATA_SELECTION,
                         payload: []
                     });
                 }
             });
-
-            if (isListView) { /** Load geolocation markers for clusters */
-                store.dispatch(mapLoadingAction(true));
-                dataSelectionApi.getMarkers(
-                    vm.state.dataset,
-                    activeFilters,
-                    vm.zoomLevel,
-                    vm.boundingBox
-                ).then((data) => {
-                    if (vm.numberOfRecords <= vm.maxNumberOfClusteredMarkers) {
-                        /** Update state with clusters only when maximum records isnt exceeded */
-                        store.dispatch({
-                            type: ACTIONS.SHOW_DATA_SELECTION,
-                            payload: data
-                        });
-                    } else {
-                        store.dispatch({
-                            type: ACTIONS.SHOW_DATA_SELECTION,
-                            payload: []
-                        });
-                    }
-                }).finally(() => {
-                    store.dispatch(mapLoadingAction(false));
-                });
-            } else {
-                store.dispatch({
-                    type: ACTIONS.SHOW_DATA_SELECTION,
-                    payload: []
-                });
-            }
         }
     }
 })();
