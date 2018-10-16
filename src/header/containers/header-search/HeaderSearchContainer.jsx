@@ -88,13 +88,13 @@ class HeaderSearchContainer extends React.Component {
 
   onSuggestionActivate(suggestion) {
     const {
-      onSuggestionActivate,
-      onGetSuggestions,
-      typedQuery
+      onSuggestionActivate
+      // onGetSuggestions,
+      // typedQuery
     } = this.props;
 
     if (suggestion && suggestion.index === -1) {
-      onGetSuggestions(typedQuery);
+      // onGetSuggestions(typedQuery);
     }
     onSuggestionActivate(suggestion);
   }
