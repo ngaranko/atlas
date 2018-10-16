@@ -8,7 +8,6 @@ describe('The dp-search-results component', function () {
         scope,
         element,
         search,
-        ACTIONS,
         activeOverlays,
         mockedSearchResults,
         mockedSearchResultsNextPage,
@@ -78,14 +77,13 @@ describe('The dp-search-results component', function () {
         );
 
         angular.mock.inject(function (
-            _$compile_, _$rootScope_, _$q_, _store_, _search_, _geosearch_, _ACTIONS_, _activeOverlays_
+            _$compile_, _$rootScope_, _$q_, _store_, _search_, _geosearch_, _activeOverlays_
         ) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
             store = _store_;
             search = _search_;
-            ACTIONS = _ACTIONS_;
             activeOverlays = _activeOverlays_;
         });
 
