@@ -162,15 +162,12 @@ class AutoSuggest extends React.Component {
     }
   }
 
-  clearQuery(shouldFocus = true) {
+  clearQuery() {
     const {
       onTextInput
     } = this.props;
 
-    if (shouldFocus) {
-      this.textInput.focus();
-    }
-    this.resetActiveSuggestion();
+    this.textInput.focus();
     this.setState({
       showSuggestions: false
     });
@@ -208,7 +205,7 @@ class AutoSuggest extends React.Component {
         }
       >
         <fieldset>
-          {legendTitle && <legend className="u-sr-only">legendTitle</legend>}
+          {legendTitle && <legend className="u-sr-only">{legendTitle}</legend>}
           <div className="auto-suggest-container">
             <label htmlFor="auto-suggest__input" className="u-sr-only">zoektekst</label>
             <input

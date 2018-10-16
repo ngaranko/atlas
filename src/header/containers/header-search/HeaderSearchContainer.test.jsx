@@ -175,6 +175,10 @@ describe('HeaderSearchContainer', () => {
         },
         dataSelection: {
           view: 'NOT_CARDS'
+        },
+        page: {},
+        ui: {
+          isMapFullscreen: true
         }
       });
 
