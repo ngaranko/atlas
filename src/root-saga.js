@@ -15,9 +15,12 @@ import watchMapUpdate from './map/sagas/map-update/map-update';
 import watchRoutes from './map/sagas/routing/routing';
 import { watchQuerySearch } from './map/sagas/query-search/query-search';
 import { watchCatalogList } from './catalog/sagas/catalog';
+import { watchPanoramaRoute } from './pano/sagas/panorama';
+import { watchDetailRoute } from './detail/sagas/detail';
 
 export default function* rootSaga() {
   yield all([
+    fork(watchPanoramaRoute),
     fork(watchFetchPanoPreview),
     fork(watchFetchSuggestions),
     fork(watchFetchMapSearchResults),
@@ -32,6 +35,7 @@ export default function* rootSaga() {
     fork(watchMapUpdate),
     fork(watchRoutes),
     fork(watchCatalogList),
-    fork(watchQuerySearch)
+    fork(watchQuerySearch),
+    fork(watchDetailRoute)
   ]);
 }

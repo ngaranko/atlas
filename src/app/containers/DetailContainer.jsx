@@ -36,12 +36,14 @@ const DetailContainer = ({
   </div>
 );
 
-DetailContainer.defaultProps = {};
+DetailContainer.defaultProps = {
+  skippedSearchResults: undefined
+};
 
 DetailContainer.propTypes = {
   reload: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  skippedSearchResults: PropTypes.bool.isRequired,
+  skippedSearchResults: PropTypes.bool,
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   endpoint: PropTypes.string.isRequired
 };

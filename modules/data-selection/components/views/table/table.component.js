@@ -1,3 +1,5 @@
+import { getPageActionEndpoint } from '../../../../../src/app/routes';
+
 (function () {
     'use strict';
 
@@ -13,16 +15,17 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionTableController.$inject = ['store', 'ACTIONS'];
+    DpDataSelectionTableController.$inject = ['store'];
 
-    function DpDataSelectionTableController (store, ACTIONS) {
+    function DpDataSelectionTableController (store) {
         const vm = this;
 
-        vm.followLink = function (endpoint) {
-            store.dispatch({
-                type: ACTIONS.FETCH_DETAIL,
-                payload: endpoint
-            });
-        };
+        vm.rows = vm.content.body.map(row => {
+            const linkTo = getPageActionEndpoint(row.detailEndpoint);
+            return {
+                ...row,
+                linkTo
+            };
+        });
     }
 })();

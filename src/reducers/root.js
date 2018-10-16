@@ -55,3 +55,7 @@ export default (routeReducer) => (oldState = {}, action) => {
   // Combine legacy and new reducer states
   return newRootReducer(legacyState, action);
 };
+
+// TODO: refactor, use or remove
+// export const CLEAR_SELECTION = 'CLEAR_SELECTION';
+// export const clearSelection = () => ({ type: CLEAR_SELECTION });

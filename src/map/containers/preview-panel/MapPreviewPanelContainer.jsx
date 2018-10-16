@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchSearchResults, showSearchView } from '../../ducks/preview-panel/map-preview-panel';
+import { fetchSearchResultsByLocation, showSearchView } from '../../ducks/preview-panel/map-preview-panel';
 import { clearSelectedLocation } from '../../ducks/map/map';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
@@ -15,6 +15,7 @@ import {
   getShortSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
+import { toMap } from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
   mapClickLocation: getSelectedLocation(state),
@@ -34,8 +35,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onSearch: fetchSearchResults,
-  onMapPreviewPanelClose: clearSelectedLocation,
+  onSearch: fetchSearchResultsByLocation,
+  onMapPreviewPanelClose: toMap,
   onMapPreviewPanelMaximizeDetail: toMapDetail,
   onMapPreviewPanelMaximizeSearch: showSearchView,
   onMapSearchResultsItemClick: setDetailEndpointRoute,

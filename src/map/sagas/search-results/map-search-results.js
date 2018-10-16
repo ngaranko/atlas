@@ -7,6 +7,7 @@ import {
 import search from '../../services/map-search/map-search';
 
 export function* fetchMapSearchResults(action) {
+  console.log('fetching: ', action);
   try {
     const mapSearchResults = yield call(search, action.location, action.user);
     yield put({

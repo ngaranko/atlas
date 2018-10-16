@@ -6,16 +6,18 @@ import { getMapZoom } from '../../ducks/map/map-selectors';
 
 import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../../../shared/actions';
 
-export function* switchClickAction(payload) {
+export function* switchClickAction(action) {
   const straatbeeld = yield select(getStraatbeeld);
   const zoom = yield select(getMapZoom);
   const layers = yield select(getLayers);
+
+  console.log('map-click, action: ', action);
 
   if (!straatbeeld && layers.length) {
     yield put({
       type: REQUEST_NEAREST_DETAILS,
       payload: {
-        location: payload.location,
+        location: action.location,
         layers,
         zoom
       }
@@ -23,7 +25,7 @@ export function* switchClickAction(payload) {
   } else {
     yield put({
       type: REQUEST_GEOSEARCH,
-      payload: [payload.location.latitude, payload.location.longitude]
+      payload: [action.location.latitude, action.location.longitude]
     });
   }
 
@@ -31,7 +33,7 @@ export function* switchClickAction(payload) {
     type: UPDATE_MAP,
     payload: {
       query: {
-        selectedLocation: `${payload.location.latitude},${payload.location.longitude}`
+        selectedLocation: `${action.location.latitude},${action.location.longitude}`
       }
     }
   });

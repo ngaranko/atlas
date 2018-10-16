@@ -113,7 +113,7 @@ export default function MapReducer(state = initialState, action) {
       };
 
     case ACTIONS.SET_STRAATBEELD_HISTORY:
-    case routing.mapPanorama.type: {
+    case routing.panorama.type: {
       const id = !isNaN(action.payload) ? `pano${action.payload}` : 'pano';
       return {
         ...state,

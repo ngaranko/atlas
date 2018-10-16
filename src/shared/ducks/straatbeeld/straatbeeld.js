@@ -14,8 +14,16 @@ function getHeadingDegrees([x1, y1], [x2, y2]) {
   return (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
 }
 
+const FETCH_STRAATBEELD_BY_ID = 'FETCH_STRAATBEELD_BY_ID';
+const FETCH_STRAATBEELD_BY_LOCATION = 'FETCH_STRAATBEELD_BY_LOCATION';
+
+export const PANORAMA_VIEW = {
+  MAP: 'MAP',
+  MAP_PANO: 'MAP_PANO',
+  PANO: 'PANO',
+};
+
 const initialState = {
-  id: 'TMX7316010203-000719_pano_0000_000950',
   location: null, // eg: [52.8, 4.9]
   history: 0,     // eg: 2016
   pitch: null,       // eg: -10
@@ -29,14 +37,34 @@ const initialState = {
   date: null,     // eg: new Date()
   isFullscreen: false,
   isInitial: true,
-  isLoading: true
+  isLoading: true,
 };
 
 export default function straatbeeldReducer(state = initialState, action) {
   switch (action.type) {
-    case routing.mapPanorama.type:
-    case routing.panorama.type:
-    case ACTIONS.FETCH_STRAATBEELD_BY_ID:
+    case routing.panorama.type: {
+      const { query = {} } = action.meta;
+      // console.log(action.meta);
+      // console.log(query);
+      // console.log('query.hasOwnProperty(\'kaart\')', query.hasOwnProperty('kaart'));
+      if (query.hasOwnProperty('kaart')) {
+        return {
+          ...state,
+          view: PANORAMA_VIEW.MAP
+        };
+      }
+      if (query.hasOwnProperty('panorama')) {
+        return {
+          ...state,
+          view: PANORAMA_VIEW.PANO
+        };
+      }
+      return {
+        ...state,
+        view: PANORAMA_VIEW.MAP_PANO
+      };
+    }
+    case FETCH_STRAATBEELD_BY_ID:
     case ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT:
       return {
         ...state,
@@ -52,7 +80,7 @@ export default function straatbeeldReducer(state = initialState, action) {
             : undefined
       };
 
-    case ACTIONS.FETCH_STRAATBEELD_BY_LOCATION:
+    case FETCH_STRAATBEELD_BY_LOCATION:
       return {
         ...state,
         isLoading: true,
@@ -102,6 +130,13 @@ export default function straatbeeldReducer(state = initialState, action) {
 
 // Actions
 
+export const fetchStraatbeeldById = (id) => ({
+  type: FETCH_STRAATBEELD_BY_ID,
+  payload: {
+    id
+  }
+});
+
 export const setStraatbeeld = (straatbeeldData) => ({
   type: ACTIONS.SET_STRAATBEELD,
   payload: straatbeeldData
@@ -140,7 +175,7 @@ export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, get
 export const showStraatbeeld = ({ id, heading }) => ({
   type: UPDATE_MAP,
   payload: {
-    route: routing.mapPanorama.type,
+    route: routing.panorama.type,
     query: {
       panoId: id,
       panoHeading: heading

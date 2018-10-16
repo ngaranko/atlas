@@ -37,7 +37,6 @@ export function* fetchStraatbeeldImages({ type }) {
 
 function* watchRoutes() {
   yield takeLatest([
-    routing.mapPanorama.type,
     routing.panorama.type,
 
     // Todo: remove these from routes saga

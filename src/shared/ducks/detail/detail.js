@@ -7,10 +7,38 @@ export const FETCH_DETAIL = 'FETCH_DETAIL';
 export const SHOW_DETAIL = 'SHOW_DETAIL';
 export const DETAIL_FULLSCREEN = 'DETAIL_FULLSCREEN';
 
+export const DETAIL_VIEW = {
+  MAP: 'MAP',
+  MAP_DETAIL: 'MAP_DETAIL',
+  DETAIL: 'DETAIL'
+};
+
 const initialState = null;
 
 export default function detailReducer(state = initialState, action) {
   switch (action.type) {
+    case routing.adresDetail.type: {
+      const { query = {} } = action.meta;
+      // console.log(action.meta);
+      // console.log(query);
+      // console.log('query.hasOwnProperty(\'kaart\')', query.hasOwnProperty('kaart'));
+      if (query.hasOwnProperty('kaart')) {
+        return {
+          ...state,
+          view: DETAIL_VIEW.MAP
+        };
+      }
+      if (query.hasOwnProperty('detail')) {
+        return {
+          ...state,
+          view: DETAIL_VIEW.DETAIL
+        };
+      }
+      return {
+        ...state,
+        view: DETAIL_VIEW.MAP_DETAIL
+      };
+    }
     case FETCH_DETAIL:
       return {
         ...state,

@@ -56,11 +56,11 @@
             <div class="u-col-sm--3">
                 <!-- Link to straatbeeld -->
                 <div class="qa-straatbeeld-link">
-                    <dp-link
-                        type="FETCH_STRAATBEELD_BY_ID"
+                    <dp-redux-link
+                        to="vm.panaramaTo"
                         ng-mouseenter="vm.panoramaLinkHover=true;"
                         ng-mouseleave="vm.panoramaLinkHover=false;"
-                        class-name="c-homepage__block c-homepage__block--right c-homepage__block--tall" payload="vm.fetchStraatbeeldPayload">
+                        link-class="c-homepage__block c-homepage__block--right c-homepage__block--tall">
                         <dp-video
                             src="'assets/video/panorama.mp4'"
                             poster="'assets/video/panorama.jpg'"
@@ -72,7 +72,7 @@
                             <div class="o-btn--transparent">Panoramabeelden</div>
                             <div class="c-homepage__block-details">Kijk rond ter plaatse</div>
                         </div>
-                    </dp-link>
+                    </dp-redux-link>
                 </div>
             </div>
         </div>

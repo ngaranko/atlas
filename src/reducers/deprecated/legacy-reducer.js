@@ -60,7 +60,6 @@ const legacyReducer = (state = {}, action) => {
       };
     }
 
-    case routing.mapPanorama.type:
     case ACTIONS.FETCH_STRAATBEELD_BY_ID:
     case ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT:
       return {

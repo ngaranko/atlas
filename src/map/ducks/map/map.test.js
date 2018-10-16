@@ -234,7 +234,7 @@ describe('Map Reducer', () => {
     });
   });
 
-  it(`should add a pano overlay when dispatching ${ACTIONS.SET_STRAATBEELD_HISTORY} or ${routing.mapPanorama.type}`, () => {
+  it(`should add a pano overlay when dispatching ${ACTIONS.SET_STRAATBEELD_HISTORY} or ${routing.panorama.type}`, () => {
     expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
       type: ACTIONS.SET_STRAATBEELD_HISTORY,
       payload: 2017
@@ -243,7 +243,7 @@ describe('Map Reducer', () => {
     });
 
     expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
-      type: routing.mapPanorama.type,
+      type: routing.panorama.type,
       payload: {}
     })).toEqual({
       overlays: [{ id: 'pano', isVisible: true }], mapPanelActive: false

@@ -3,21 +3,21 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
 import { connect } from 'react-redux';
-import Map from './pages/Map';
+import MapPage from './pages/MapPage';
 import Piwik from './components/Piwik/Piwik';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
-import Panorama from './containers/PanoramaContainer';
 import DATASETS from '../shared/ducks/data-selection/data-selection-datasets';
 import './_app.scss';
-import { isMapSubPage } from './routes';
 import CatalogDetailContainer from './containers/CatalogDetailContainer';
 import CatalogSearchContainer from './containers/CatalogSearchContainer';
 import QuerySearchContainer from './containers/QuerySearchContainer';
 import { getCurrentPage } from '../shared/ducks/current-page/current-page-reducer';
 import { isEmbedded, isEmbedPreview, isPrintMode, isPrintModeLandscape, isInPrintorEmbedMode } from '../shared/ducks/ui/ui';
 import { CMS_PAGE_MAPPING } from './pages/CMSPageMapping';
+import PanoramaPage from './pages/PanoramaPage';
+import DetailPage from './pages/DetailPage';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -101,13 +101,11 @@ const App = ({
               <QuerySearchContainer />
             )}
 
-            {(currentPage === PAGES.KAART || isMapSubPage(currentPage)) && (
-              <Map subPage={isMapSubPage(currentPage) && currentPage} />
-            )}
+            {currentPage === PAGES.KAART && <MapPage />}
 
-            {currentPage === PAGES.PANORAMA && (
-              <Panorama />
-            )}
+            {currentPage === PAGES.ADRES_DETAIL && <DetailPage />}
+
+            {currentPage === PAGES.PANORAMA && <PanoramaPage />}
 
             {currentPage === PAGES.CATALOGUS && (
               <DataSelection
