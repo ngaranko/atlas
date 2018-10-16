@@ -1,3 +1,5 @@
+import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
+
 (function () {
     'use strict';
 
@@ -142,6 +144,7 @@
 
                 // Load geolocation markers for clusters
                 if (isListView && vm.numberOfRecords && vm.numberOfRecords <= vm.maxNumberOfClusteredMarkers) {
+                    store.dispatch(mapLoadingAction(true));
                     dataSelectionApi.getMarkers(
                         vm.state.dataset,
                         activeFilters,
@@ -152,6 +155,8 @@
                             type: ACTIONS.SHOW_DATA_SELECTION,
                             payload: markerData
                         });
+                    }).finally(() => {
+                        store.dispatch(mapLoadingAction(false));
                     });
                 } else {
                     store.dispatch({
