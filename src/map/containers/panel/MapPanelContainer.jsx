@@ -59,10 +59,10 @@ class MapPanelContainer extends React.Component {
     } = this.props;
 
     if (isMapPanelVisible && prevProps.overlays.length < overlays.length) {
-      const scrollEl = document.querySelector('.map-panel .map-legend');
-      scrollEl.scrollIntoView({ behavior: 'smooth' });
+      const scrollElement = document.querySelector('.map-panel .map-legend');
+      scrollElement.scrollIntoView({ behavior: 'smooth' });
     }
-    // TODO: Create Redux Middelware, map Piwik events to ACTIONS
+    // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
     if (activeBaseLayer && prevProps.activeBaseLayer !== activeBaseLayer) {
       const baseLayers = [...mapBaseLayers.aerial, ...mapBaseLayers.topography];
       const newBaseLayer = baseLayers.find((b) => b.value === activeBaseLayer);
