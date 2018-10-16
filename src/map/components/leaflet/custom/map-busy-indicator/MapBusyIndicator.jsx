@@ -57,6 +57,7 @@ export default class MapBusyIndicator extends MapControl {
 
         // Create the loading indicator
         const indicator = L.DomUtil.create('img', 'leaflet-control-loading', this.indicatorContainer);
+        indicator.alt = 'laden...';
         indicator.src = 'assets/images/spinner.svg';
 
         return this.indicatorContainer;
