@@ -22,7 +22,7 @@ import {
 } from '../../services/draw-tool/draw-tool';
 import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
 import { mapClear, mapEndDrawing, mapStartDrawing, mapUpdateShape, mapEmptyGeometry, mapClearDrawing } from '../../ducks/map/map';
-import { isMapCurrentPage } from '../../../reducers/current-page-reducer';
+import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
 
 const mapStateToProps = (state) => ({
   drawingMode: state.map.drawingMode,

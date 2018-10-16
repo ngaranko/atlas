@@ -7,7 +7,7 @@ import * as DataSelectionCatalogReducer
 import * as ErrorMessageReducer from '../shared/ducks/error-message';
 import * as PageReducer from '../shared/ducks/page/page';
 import * as UiReducer from '../shared/ducks/ui/ui';
-import * as UserReducer from './user';
+import * as UserReducer from '../shared/ducks/user/user';
 import * as MapDetailReducer from '../map/ducks/detail/map-detail';
 import * as MapReducer from '../map/ducks/map/map';
 import * as MapLayersReducer from '../map/ducks/layers/map-layers';
@@ -17,7 +17,8 @@ import * as StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import * as PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import * as CatalogReducer from '../shared/ducks/catalog/catalog';
 import * as FiltersReducer from '../shared/ducks/filters/filters';
-import * as deprecatedReducer from './deprecated/deprecated-reducer';
+import * as SearchReducer from '../shared/ducks/search/search';
+import * as DetailReducer from '../shared/ducks/detail/detail';
 
 describe('the root reducer', () => {
   const deprecatedOutput = {
@@ -25,6 +26,7 @@ describe('the root reducer', () => {
     page: 'page',
     map: 'map',
     mapDetail: 'mapDetail',
+    detail: 'detail',
     straatbeeld: 'straatbeeld',
     ui: 'ui',
     user: 'user'
@@ -37,6 +39,7 @@ describe('the root reducer', () => {
   PageReducer.default = () => 'page';
   UiReducer.default = () => 'ui';
   UserReducer.default = () => 'user';
+  DetailReducer.default = () => 'detail';
   MapDetailReducer.default = () => 'mapDetail';
   MapReducer.default = () => 'map';
   MapLayersReducer.default = () => 'layers';
@@ -45,8 +48,8 @@ describe('the root reducer', () => {
   StraatbeeldReducer.default = () => 'straatbeeld';
   PanoPreviewReducer.default = () => 'pano';
   CatalogReducer.default = () => 'catalog';
+  SearchReducer.default = () => 'search';
   FiltersReducer.default = () => 'filters';
-  deprecatedReducer.default = jest.fn().mockReturnValue(() => deprecatedOutput);
 
   it('combines many reducers', () => {
     const state = {};
@@ -68,6 +71,7 @@ describe('the root reducer', () => {
         straatbeeld: 'straatbeeld',
         ui: 'ui',
         user: 'user',
+        search: 'search',
         currentPage: 'HOME',
         mapLayers: {
           baseLayers: 'baseLayers',

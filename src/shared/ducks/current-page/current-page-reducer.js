@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-import { routing } from '../app/routes';
-import PAGES from '../app/pages';
+import { routing } from '../../../app/routes';
+import PAGES from '../../../app/pages';
 
 export const REDUCER_KEY = 'currentPage';
 

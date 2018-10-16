@@ -1,3 +1,5 @@
+import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/search/search';
+
 (() => {
     'use strict';
 
@@ -134,7 +136,7 @@
             updateTabHeader(vm.query, numberOfResults);
 
             store.dispatch({
-                type: ACTIONS.SHOW_SEARCH_RESULTS,
+                type: SHOW_SEARCH_RESULTS,
                 payload: numberOfResults
             });
 

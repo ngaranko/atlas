@@ -11,7 +11,7 @@ import {
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
-import { isMapCurrentPage, isCatalogCurrentPage } from '../../../reducers/current-page-reducer';
+import { isMapCurrentPage, isCatalogCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
 import { extractIdEndpoint, routing } from '../../../app/routes';
 
 const mapStateToProps = (state) => ({

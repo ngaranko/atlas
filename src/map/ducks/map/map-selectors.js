@@ -10,7 +10,7 @@ import {
 } from '../data-selection/data-selection';
 import { detailSelector, getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
-import { getMapResultsByLocation } from '../search-results/map-search-results';
+import { getMapResultsByLocation } from '../../../shared/ducks/search/search';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);

@@ -4,7 +4,7 @@ import {
   FETCH_MAP_SEARCH_RESULTS_FAILURE,
   FETCH_MAP_SEARCH_RESULTS_REQUEST,
   FETCH_MAP_SEARCH_RESULTS_SUCCESS
-} from '../../ducks/search-results/map-search-results';
+} from '../../../shared/ducks/search/search';
 import search from '../../services/map-search/map-search';
 
 describe('watchFetchMapSearchResults', () => {

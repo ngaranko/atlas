@@ -1,6 +1,6 @@
 import mockedContentJson from './catalog.component.test.content.json';
-import * as details from '../../../../../src/reducers/details';
 import { routing } from '../../../../../src/app/routes';
+import * as detail from '../../../../../src/shared/ducks/detail/detail';
 
 describe('The catalog component', function () {
     'use strict';
@@ -94,7 +94,7 @@ describe('The catalog component', function () {
                 distributionTypes: []
             }
         });
-        details.fetchDetail = () => 'fetchDetail';
+        detail.fetchDetail = () => 'fetchDetail';
 
         const component = getComponent();
         const scope = component.isolateScope();

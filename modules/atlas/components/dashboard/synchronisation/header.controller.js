@@ -1,4 +1,5 @@
-import { isMapCurrentPage } from '../../../../../src/reducers/current-page-reducer';
+import { isMapCurrentPage } from '../../../../../src/shared/ducks/current-page/current-page-reducer';
+import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../../../src/shared/ducks/search/search';
 
 (function () {
     'use strict';
@@ -31,7 +32,7 @@ import { isMapCurrentPage } from '../../../../../src/reducers/current-page-reduc
             } else {
                 // Default action is to search in data
                 vm.query = state.search && state.search.query;
-                vm.searchAction = ACTIONS.FETCH_SEARCH_RESULTS_BY_QUERY;
+                vm.searchAction = FETCH_SEARCH_RESULTS_BY_QUERY;
             }
 
             vm.hasPrintButton = (!isDataSelection || isListView) && !isHomepage;

@@ -22,7 +22,7 @@ import {
 } from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 jest.mock('../data-selection/data-selection');
-jest.mock('../search-results/map-search-results');
+jest.mock('../../../shared/ducks/search/search');
 jest.mock('../../../shared/ducks/straatbeeld/straatbeeld');
 jest.mock('../detail/map-detail');
 describe('Map Selectors', () => {

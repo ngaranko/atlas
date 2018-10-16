@@ -6,7 +6,7 @@ import DataSelectionCatalogReducer from '../catalog/ducks/data-selection/data-se
 import ErrorMessageReducer from '../shared/ducks/error-message';
 import PageReducer from '../shared/ducks/page/page';
 import UiReducer, { REDUCER_KEY as UI } from '../shared/ducks/ui/ui';
-import UserReducer from './user';
+import UserReducer from '../shared/ducks/user/user';
 import MapDetailReducer from '../map/ducks/detail/map-detail';
 import MapReducer from '../map/ducks/map/map';
 import MapLayersReducer from '../map/ducks/layers/map-layers';
@@ -14,20 +14,21 @@ import MapBaseLayersReducer from '../map/ducks/base-layers/map-base-layers';
 import MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
 import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
-import deprecatedReducer from './deprecated/deprecated-reducer';
-import CurrentPageReducer, { REDUCER_KEY as CURRENT_PAGE } from './current-page-reducer';
+import CurrentPageReducer, { REDUCER_KEY as CURRENT_PAGE } from '../shared/ducks/current-page/current-page-reducer';
 import CatalogReducer from '../shared/ducks/catalog/catalog';
 import FiltersReducer from '../shared/ducks/filters/filters';
+import DetailReducer, { REDUCER_KEY as DETAIL } from '../shared/ducks/detail/detail';
+import SearchReducer, { REDUCER_KEY as SEARCH } from '../shared/ducks/search/search';
+import LegacyReducer from './deprecated/legacy-reducer';
 
 export default (routeReducer) => (oldState = {}, action) => {
-  // Run state changes based on old reducers
-  const deprecatedState = deprecatedReducer(oldState, action) || {};
-
   const mapLayers = combineReducers({
     layers: MapLayersReducer,
     baseLayers: MapBaseLayersReducer,
     panelLayers: MapPanelLayersReducer
   });
+
+  const legacyState = LegacyReducer(oldState, action);
 
   // Use combine reducer for new reducers
   const newRootReducer = combineReducers({
@@ -46,38 +47,11 @@ export default (routeReducer) => (oldState = {}, action) => {
     autoSuggest: AutoSuggestReducer,
     catalogFilters: DataSelectionCatalogReducer,
     location: routeReducer,
+    [DETAIL]: DetailReducer,
+    [SEARCH]: SearchReducer,
     [CURRENT_PAGE]: CurrentPageReducer
   });
-  const filteredState = {
-    dataSelection: deprecatedState.dataSelection,
-    filters: deprecatedState.filters,
-    page: deprecatedState.page,
-    map: deprecatedState.map,
-    mapDetail: deprecatedState.mapDetail,
-    straatbeeld: deprecatedState.straatbeeld,
-    ui: deprecatedState.ui,
-    user: deprecatedState.user,
 
-    // Using oldState instead of chaining deprecatedState from
-    // other reducer for the following fields.
-    // This is because these fields do not recide in the URL state,
-    // the URL resolution step in the deprecatedReducer would
-    // therefore reset these fields in the state.
-    catalog: oldState.catalog,
-    error: oldState.error,
-    pano: oldState.pano,
-    mapLayers: oldState.mapLayers,
-    autoSuggest: oldState.autoSuggest,
-    catalogFilters: oldState.catalogFilters,
-    location: oldState.location,
-    currentPage: oldState.currentPage
-  };
-
-  // Combine old and new reducer states
-  const newState = {
-    ...deprecatedState,
-    ...newRootReducer(filteredState, action)
-  };
-
-  return newState;
+  // Combine legacy and new reducer states
+  return newRootReducer(legacyState, action);
 };

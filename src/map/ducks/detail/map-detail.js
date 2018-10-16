@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { isSearchActive } from '../search-results/map-search-results';
+import { isSearchActive } from '../../../shared/ducks/search/search';
 import { getDataSelection } from '../data-selection/data-selection';
 
 export const detailSelector = (state) => state.detail;

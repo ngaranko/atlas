@@ -1,4 +1,4 @@
-import { AUTHENTICATE_ERROR } from '../../../../src/reducers/user';
+import { AUTHENTICATE_ERROR } from '../../../../src/shared/ducks/user/user';
 
 describe('The dp-menu component', () => {
     let $compile,

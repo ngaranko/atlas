@@ -1,7 +1,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import get from 'lodash.get';
 import { routing } from '../../../app/routes';
-import { FETCH_DETAIL } from '../../../reducers/details';
+import { FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
 import ACTIONS from '../../../shared/actions';
 import {
   getImageDataById,
