@@ -6,7 +6,6 @@ describe('the dp-detail component', () => {
         $rootScope,
         $q,
         store,
-        ACTIONS,
         api,
         mockedUser,
         mockedGeometryPoint = {
@@ -187,14 +186,12 @@ describe('the dp-detail component', () => {
             _$rootScope_,
             _$q_,
             _store_,
-            _ACTIONS_,
             _api_
         ) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
             api = _api_;
         });
 

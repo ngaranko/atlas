@@ -1,8 +1,9 @@
+import { NAVIGATE_DATA_SELECTION } from '../../../../src/shared/ducks/data-selection/data-selection';
+
 describe('The dp-data-selection-pagination component', function () {
     var $compile,
         $rootScope,
-        store,
-        ACTIONS;
+        store;
 
     beforeEach(function () {
         angular.mock.module(
@@ -14,11 +15,10 @@ describe('The dp-data-selection-pagination component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         spyOn(store, 'dispatch');
@@ -155,7 +155,7 @@ describe('The dp-data-selection-pagination component', function () {
         component.find('form').trigger('submit');
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.NAVIGATE_DATA_SELECTION,
+            type: NAVIGATE_DATA_SELECTION,
             payload: 2
         });
     });
@@ -189,7 +189,7 @@ describe('The dp-data-selection-pagination component', function () {
         getComponent(5, 2);
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.NAVIGATE_DATA_SELECTION,
+            type: NAVIGATE_DATA_SELECTION,
             payload: 1
         });
     });

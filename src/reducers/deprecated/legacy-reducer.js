@@ -1,7 +1,5 @@
-import ACTIONS from '../../shared/actions';
 import isObject from '../../shared/services/is-object';
 import { isMapCurrentPage } from '../../shared/ducks/current-page/current-page-reducer';
-import { routing } from '../../app/routes';
 import { FETCH_DETAIL, SHOW_DETAIL } from '../../shared/ducks/detail/detail';
 import {
   FETCH_SEARCH_RESULTS_BY_LOCATION,
@@ -9,6 +7,16 @@ import {
   SHOW_SEARCH_RESULTS
 } from '../../shared/ducks/search/search';
 import { FETCH_DATA_SELECTION } from '../../header/ducks/search/search';
+import {
+  RESET_DATA_SELECTION,
+  SET_DATA_SELECTION_VIEW,
+  SHOW_DATA_SELECTION
+} from '../../shared/ducks/data-selection/data-selection';
+import {
+  FETCH_STRAATBEELD_BY_HOTSPOT,
+  FETCH_STRAATBEELD_BY_ID,
+  FETCH_STRAATBEELD_BY_LOCATION
+} from '../../shared/ducks/straatbeeld/straatbeeld';
 
 /* istanbul ignore next */
 const legacyReducer = (state = {}, action) => {
@@ -39,7 +47,7 @@ const legacyReducer = (state = {}, action) => {
         }
       };
 
-    case ACTIONS.FETCH_STRAATBEELD_BY_LOCATION: {
+    case FETCH_STRAATBEELD_BY_LOCATION: {
       const map = isObject(state.map) ? { ...state.map } : state.map;
 
       if (isMapCurrentPage(state)) {
@@ -61,8 +69,8 @@ const legacyReducer = (state = {}, action) => {
       };
     }
 
-    case ACTIONS.FETCH_STRAATBEELD_BY_ID:
-    case ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT:
+    case FETCH_STRAATBEELD_BY_ID:
+    case FETCH_STRAATBEELD_BY_HOTSPOT:
       return {
         ...state,
         search: null,
@@ -103,8 +111,8 @@ const legacyReducer = (state = {}, action) => {
       };
     }
 
-    case ACTIONS.SHOW_DATA_SELECTION:
-    case ACTIONS.RESET_DATA_SELECTION:
+    case SHOW_DATA_SELECTION:
+    case RESET_DATA_SELECTION:
       return {
         ...state,
         map: isObject(state.map) ? {
@@ -113,7 +121,7 @@ const legacyReducer = (state = {}, action) => {
         } : state.map
       };
 
-    case ACTIONS.SET_DATA_SELECTION_VIEW: {
+    case SET_DATA_SELECTION_VIEW: {
       const views = ['LIST', 'TABLE', 'CATALOG'];
       const viewFound = views.indexOf(action.payload) !== -1;
       const view = viewFound ? action.payload : undefined;

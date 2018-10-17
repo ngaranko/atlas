@@ -15,7 +15,7 @@ export const routing = {
     title: 'Grote kaart',
     location: '/kaart',
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART}`,
-    page: PAGES.KAART,
+    page: PAGES.KAART
   },
   catalogus: {
     title: 'Datasets',
@@ -180,7 +180,7 @@ export const getPageActionEndpoint = (endpoint) => {
   };
 };
 
-export const pageActionToEndpoint = (action) => {
+export const pageActionToEndpoint = () => {
   const endpoint = 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/03630000261100/';
   // const endpoint = `https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/${id}/`;
 

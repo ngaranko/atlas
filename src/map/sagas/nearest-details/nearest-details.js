@@ -1,9 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-
 import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
-
-import ACTIONS, { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../../../shared/actions';
 import { FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
+import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 
 export function* fetchNearestDetails(action) {
   const {

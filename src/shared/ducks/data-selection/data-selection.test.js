@@ -1,8 +1,8 @@
 import reducer, {
-  resetDataSelectionGeometryFilter,
-  setDataSelectionGeometryFilter
+  NAVIGATE_DATA_SELECTION, RESET_DATA_SELECTION,
+  resetDataSelectionGeometryFilter, SET_DATA_SELECTION_VIEW,
+  setDataSelectionGeometryFilter, SHOW_DATA_SELECTION
 } from './data-selection';
-import ACTIONS from '../../actions';
 import { FETCH_DATA_SELECTION } from '../../../header/ducks/search/search';
 
 describe('DataSelection Reducer', () => {
@@ -204,7 +204,7 @@ describe('DataSelection Reducer', () => {
 
     function getReducerOutput(existingState = initialState, payload = initialPayload) {
       return reducer(existingState, {
-        type: ACTIONS.SHOW_DATA_SELECTION,
+        type: SHOW_DATA_SELECTION,
         payload
       });
     }
@@ -234,7 +234,7 @@ describe('DataSelection Reducer', () => {
 
     function getReducerOutput(existingState = initialState, payload = initialPayload) {
       return reducer(existingState, {
-        type: ACTIONS.RESET_DATA_SELECTION,
+        type: RESET_DATA_SELECTION,
         payload
       });
     }
@@ -270,7 +270,7 @@ describe('DataSelection Reducer', () => {
 
     function getReducerOutput(existingState = initialState, payload = initialPayload) {
       return reducer(existingState, {
-        type: ACTIONS.SET_DATA_SELECTION_VIEW,
+        type: SET_DATA_SELECTION_VIEW,
         payload
       });
     }
@@ -310,7 +310,7 @@ describe('DataSelection Reducer', () => {
 
     function getReducerOutput(existingState = initialState, payload = initialPayload) {
       return reducer(existingState, {
-        type: ACTIONS.NAVIGATE_DATA_SELECTION,
+        type: NAVIGATE_DATA_SELECTION,
         payload
       });
     }

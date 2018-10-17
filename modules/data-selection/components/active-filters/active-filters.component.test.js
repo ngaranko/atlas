@@ -5,7 +5,6 @@ describe('The dp-data-selection-active-filters component', () => {
     let $compile,
         $rootScope,
         store,
-        ACTIONS,
         availableFilters,
         geometryFilter;
 
@@ -19,11 +18,10 @@ describe('The dp-data-selection-active-filters component', () => {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         geometryFilter = {

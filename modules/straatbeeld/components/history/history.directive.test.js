@@ -1,9 +1,10 @@
+import { SET_STRAATBEELD_HISTORY } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+
 describe('The dp-straatbeeld-history component', function () {
     var $compile,
         $rootScope,
         $window,
-        store,
-        ACTIONS;
+        store;
 
     beforeEach(function () {
         angular.mock.module(
@@ -20,12 +21,11 @@ describe('The dp-straatbeeld-history component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $window = _$window_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         spyOn($window, 'open');
@@ -220,7 +220,7 @@ describe('The dp-straatbeeld-history component', function () {
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(1).click();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SET_STRAATBEELD_HISTORY,
+                type: SET_STRAATBEELD_HISTORY,
                 payload: 2018
             });
 
@@ -228,7 +228,7 @@ describe('The dp-straatbeeld-history component', function () {
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(2).click();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SET_STRAATBEELD_HISTORY,
+                type: SET_STRAATBEELD_HISTORY,
                 payload: 2017
             });
 
@@ -236,7 +236,7 @@ describe('The dp-straatbeeld-history component', function () {
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(3).click();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SET_STRAATBEELD_HISTORY,
+                type: SET_STRAATBEELD_HISTORY,
                 payload: 2016
             });
 
@@ -244,7 +244,7 @@ describe('The dp-straatbeeld-history component', function () {
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(0).click();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SET_STRAATBEELD_HISTORY,
+                type: SET_STRAATBEELD_HISTORY,
                 payload: 0
             });
         });

@@ -14,7 +14,6 @@ exports[`MapContainer should render 1`] = `
   <Connect(MapPanelContainer)
     isMapPanelVisible={true}
   />
-  <Connect(MapPreviewPanel) />
 </div>
 `;
 
@@ -32,6 +31,5 @@ exports[`MapContainer should render with drawingmode: draw 1`] = `
   <Connect(MapPanelContainer)
     isMapPanelVisible={true}
   />
-  <Connect(MapPreviewPanel) />
 </div>
 `;

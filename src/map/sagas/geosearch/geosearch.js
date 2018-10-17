@@ -1,13 +1,13 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-
-import ACTIONS, { REQUEST_GEOSEARCH } from '../../../shared/actions';
-import { getSelectedLocation } from '../../ducks/map/map-selectors';
 import { fetchSearchResultsByLocation } from '../../ducks/preview-panel/map-preview-panel';
 import { getMapSearchResults } from '../../../shared/ducks/search/search';
 
+export const REQUEST_GEOSEARCH = 'REQUEST_GEOSEARCH';
+export const REQUEST_NEAREST_DETAILS = 'REQUEST_NEAREST_DETAILS';
+
 export function* requestGeoSearch(action) {
   // yield put({
-  //   type: ACTIONS.MAP_CLICK,
+  //   type: MAP_CLICK,
   //   payload: action.payload
   // });
   // getCurrentLocation

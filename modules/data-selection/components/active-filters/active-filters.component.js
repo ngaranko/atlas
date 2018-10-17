@@ -18,9 +18,9 @@ import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search
             controllerAs: 'vm'
         });
 
-    DpDataSelectionActiveFilterController.$inject = ['$scope', 'store', 'ACTIONS'];
+    DpDataSelectionActiveFilterController.$inject = ['$scope', 'store'];
 
-    function DpDataSelectionActiveFilterController ($scope, store, ACTIONS) {
+    function DpDataSelectionActiveFilterController ($scope, store) {
         var vm = this;
 
         const GEOMETRY_FILTER = 'GEOMETRY_FILTER';  // Identification for a geometry filter

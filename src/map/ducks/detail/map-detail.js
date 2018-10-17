@@ -43,7 +43,10 @@ export const shouldShowGeoJson = createSelector([getDetail, isSearchActive, getD
   ));
 
 export const getGeoJson = createSelector(
-  [shouldShowGeoJson, getGeometry, getDetailDisplay, getDetailId],
+  shouldShowGeoJson,
+  getGeometry,
+  getDetailDisplay,
+  getDetailId,
   (isGeoJsonActive, geometry, detailDisplay, detailId) => (
     (isGeoJsonActive && geometry) ? {
       id: detailId,

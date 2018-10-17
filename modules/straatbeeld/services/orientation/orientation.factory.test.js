@@ -1,7 +1,8 @@
+import { SET_STRAATBEELD_ORIENTATION } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+
 describe('The orientation factory', function () {
     var orientation,
         store,
-        ACTIONS,
         mockedViewer;
 
     beforeEach(function () {
@@ -15,10 +16,9 @@ describe('The orientation factory', function () {
 
         );
 
-        angular.mock.inject(function (_orientation_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_orientation_, _store_) {
             orientation = _orientation_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         mockedViewer = {
@@ -44,7 +44,7 @@ describe('The orientation factory', function () {
         orientation.update(mockedViewer);
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SET_STRAATBEELD_ORIENTATION,
+            type: SET_STRAATBEELD_ORIENTATION,
             payload: {
                 heading: 5.729577951308232,
                 pitch: 11.459155902616464,

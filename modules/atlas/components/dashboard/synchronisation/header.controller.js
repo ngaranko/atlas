@@ -9,9 +9,9 @@ import { FETCH_DATA_SELECTION } from '../../../../../src/header/ducks/search/sea
         .module('atlas')
         .controller('HeaderController', HeaderController);
 
-    HeaderController.$inject = ['store', 'ACTIONS'];
+    HeaderController.$inject = ['store'];
 
-    function HeaderController (store, ACTIONS) {
+    function HeaderController (store) {
         const vm = this;
 
         store.subscribe(update);

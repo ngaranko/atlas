@@ -28,7 +28,6 @@ describe('Straatbeeld Reducer', () => {
 
   it('should set the initial state', () => {
     expect(state).toEqual({
-      id: 'TMX7316010203-000719_pano_0000_000950',
       date: null,
       fov: null,
       heading: 0,

@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom';
+import { FETCH_STRAATBEELD_BY_ID } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
 
 describe('The dp-homepage component', () => {
     let $compile,
         $rootScope,
         store,
-        ACTIONS,
         $window,
         $timeout,
         originalWindow;
@@ -27,11 +27,10 @@ describe('The dp-homepage component', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_, _$window_, _$timeout_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_, _$window_, _$timeout_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
             $window = _$window_;
             $timeout = _$timeout_;
         });
@@ -54,21 +53,6 @@ describe('The dp-homepage component', () => {
 
         return component;
     }
-
-    it('clicking on straatbeeld will dispatch FETCH_STRAATBEELD_BY_ID', () => {
-        const component = getComponent();
-        component.find('.qa-straatbeeld-link button').click();
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_STRAATBEELD_BY_ID,
-            payload: jasmine.objectContaining({
-                id: 'abc789',
-                heading: 45,
-                isInitial: true, // isInitial has to be true to make sure a new history entry is added
-                isFullscreen: false
-            })
-        });
-    });
 
     describe('setting search component', () => {
         // if we don't use this fakeCandidate, the test will fail:

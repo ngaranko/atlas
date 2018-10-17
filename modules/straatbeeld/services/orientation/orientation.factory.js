@@ -1,4 +1,5 @@
 import { radiansToDegrees } from '../../../../src/shared/services/angle-conversion/angle-conversion';
+import { SET_STRAATBEELD_ORIENTATION } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
 
 (function () {
     'use strict';
@@ -7,9 +8,9 @@ import { radiansToDegrees } from '../../../../src/shared/services/angle-conversi
         .module('dpStraatbeeld')
         .factory('orientation', orientationFactory);
 
-    orientationFactory.$inject = ['store', 'ACTIONS'];
+    orientationFactory.$inject = ['store'];
 
-    function orientationFactory (store, ACTIONS) {
+    function orientationFactory (store) {
         return {
             update: update
         };
@@ -24,7 +25,7 @@ import { radiansToDegrees } from '../../../../src/shared/services/angle-conversi
             heading = radiansToDegrees(viewer.view().yaw());
 
             store.dispatch({
-                type: ACTIONS.SET_STRAATBEELD_ORIENTATION,
+                type: SET_STRAATBEELD_ORIENTATION,
                 payload: {
                     heading: heading,
                     pitch: pitch,

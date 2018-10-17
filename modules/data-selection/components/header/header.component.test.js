@@ -9,7 +9,6 @@ describe('The dp-data-selection-header', () => {
     let $compile,
         $rootScope,
         store,
-        ACTIONS,
         component,
         config,
         mockedViewInput,
@@ -69,11 +68,10 @@ describe('The dp-data-selection-header', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         mockedInputTable = {

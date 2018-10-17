@@ -6,7 +6,6 @@ describe('The header controller', function () {
     var $controller,
         $rootScope,
         store,
-        ACTIONS,
         mockedState;
 
     beforeEach(function () {
@@ -24,11 +23,10 @@ describe('The header controller', function () {
             }
         );
 
-        angular.mock.inject(function (_$controller_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$controller_, _$rootScope_, _store_) {
             $controller = _$controller_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         mockedState = {

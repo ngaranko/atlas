@@ -7,9 +7,9 @@
         .module('dpShared')
         .directive('dpButton', dpButtonDirective);
 
-    dpButtonDirective.$inject = ['store', 'ACTIONS'];
+    dpButtonDirective.$inject = ['store'];
 
-    function dpButtonDirective (store, ACTIONS) {
+    function dpButtonDirective (store) {
         return {
             template: '<button ng-click="click()" class="{{className}}" title="{{hoverText}}">' +
                 '<ng-transclude></ng-transclude><span class="u-sr-only">{{hoverText}}</span></button>',
@@ -31,10 +31,10 @@
             function clickHandler () {
                 /* istanbul ignore next */
                 var action = angular.isDefined(scope.payload) ? {
-                    type: ACTIONS[scope.type],
+                    type: scope.type,
                     payload: scope.payload
                 } : {
-                    type: ACTIONS[scope.type]
+                    type: scope.type
                 };
 
                 store.dispatch(action);

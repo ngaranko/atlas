@@ -4,8 +4,7 @@ import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search
 describe('The dp-data-selection-link component', () => {
     let $compile,
         $rootScope,
-        store,
-        ACTIONS;
+        store;
 
     beforeEach(() => {
         angular.mock.module(
@@ -17,11 +16,10 @@ describe('The dp-data-selection-link component', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         spyOn(store, 'dispatch');

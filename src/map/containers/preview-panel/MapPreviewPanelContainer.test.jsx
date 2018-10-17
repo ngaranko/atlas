@@ -25,8 +25,7 @@ import {
   getShortSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
-
-import { clearSelectedLocation } from '../../ducks/map/map';
+import { toMap } from '../../../app/routes';
 
 jest.mock('../../../shared/ducks/search/search');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
@@ -544,7 +543,7 @@ describe('MapPreviewPanelContainer', () => {
     const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
     wrapper.find('.map-preview-panel__button').at(1).simulate('click');
 
-    expect(store.dispatch).toHaveBeenCalledWith(clearSelectedLocation());
+    expect(store.dispatch).toHaveBeenCalledWith(toMap());
   });
 
   it('should go from detail to all results', () => {
@@ -601,7 +600,7 @@ describe('MapPreviewPanelContainer', () => {
             panoHeading: undefined,
             panoId: undefined
           },
-          route: 'atlasRouter/KAART_PANORAMA'
+          route: 'atlasRouter/PANORAMA'
         },
         type: 'UPDATE_MAP'
       });
@@ -611,7 +610,7 @@ describe('MapPreviewPanelContainer', () => {
             panoHeading: undefined,
             panoId: undefined
           },
-          route: 'atlasRouter/KAART_PANORAMA'
+          route: 'atlasRouter/PANORAMA'
         },
         type: 'UPDATE_MAP'
       });

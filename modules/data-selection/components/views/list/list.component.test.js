@@ -1,8 +1,9 @@
+import { FETCH_DETAIL } from '../../../../../src/shared/ducks/detail/detail';
+
 describe('The dp-data-selection-list component', function () {
     let $compile,
         $rootScope,
         store,
-        ACTIONS,
         mockedContent;
 
     beforeEach(function () {
@@ -15,11 +16,10 @@ describe('The dp-data-selection-list component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         mockedContent = {
@@ -118,7 +118,7 @@ describe('The dp-data-selection-list component', function () {
         component.find('li:nth-child(1) dp-link button').click();
         expect(store.dispatch).toHaveBeenCalledTimes(1);
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DETAIL,
+            type: FETCH_DETAIL,
             payload: 'https://www.example.com/path/to/1/'
         });
 
@@ -129,7 +129,7 @@ describe('The dp-data-selection-list component', function () {
         component.find('li:nth-child(2) dp-link button').click();
         expect(store.dispatch).toHaveBeenCalledTimes(2);
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DETAIL,
+            type: FETCH_DETAIL,
             payload: 'https://www.example.com/path/to/2/'
         });
     });

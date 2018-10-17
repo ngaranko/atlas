@@ -1,10 +1,10 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
 
-import watchGeoSearchRequest, { requestGeoSearch } from './geosearch';
-import ACTIONS, { REQUEST_GEOSEARCH } from '../../../shared/actions';
+import watchGeoSearchRequest, { REQUEST_GEOSEARCH, requestGeoSearch } from './geosearch';
+import { MAP_CLICK } from '../../ducks/map/map';
 
 describe('watchFetchMapLayers', () => {
-  const action = { type: ACTIONS.MAP_CLICK };
+  const action = { type: MAP_CLICK };
 
   it('should watch REQUEST_GEOSEARCH and call fetchPanelLayers', () => {
     testSaga(watchGeoSearchRequest)
@@ -15,7 +15,7 @@ describe('watchFetchMapLayers', () => {
 
     expectSaga(requestGeoSearch, {})
       .put({
-        type: ACTIONS.MAP_CLICK,
+        type: MAP_CLICK,
         payload: undefined
       })
       .run();

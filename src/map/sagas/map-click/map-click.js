@@ -3,8 +3,7 @@ import { getLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { getStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import { SET_MAP_CLICK_LOCATION, UPDATE_MAP } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
-
-import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../../../shared/actions';
+import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 
 export function* switchClickAction(action) {
   const straatbeeld = yield select(getStraatbeeld);
