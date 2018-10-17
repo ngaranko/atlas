@@ -26,7 +26,8 @@ const mockFilledState = {
           category: 'Straatnamen'
         }
       ],
-      label: 'Straatnamen'
+      label: 'Straatnamen',
+      total_results: 6
     },
     {
       content: [
@@ -49,7 +50,8 @@ const mockFilledState = {
           category: 'Monumenten'
         }
       ],
-      label: 'Monumenten'
+      label: 'Monumenten',
+      total_results: 5
     }
   ],
   typedQuery: 'dam',
@@ -334,6 +336,25 @@ describe('The AutoSuggest component', () => {
       });
 
       expect(onSubmit).toHaveBeenCalled();
+    });
+
+    it('should be triggered when an ellipsis list item is selected', () => {
+      const autoSuggestComponent = shallow(<AutoSuggest
+        activeSuggestion={mockFilledState.activeSuggestion}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+      />);
+
+      const suggestion = { index: -1 };
+      const event = {
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn()
+      };
+      autoSuggestComponent.instance().onFormSubmit = jest.fn();
+      autoSuggestComponent.instance().onSuggestionSelection(suggestion, event);
+      expect(autoSuggestComponent.instance().onFormSubmit).toHaveBeenCalledWith(event);
     });
   });
 

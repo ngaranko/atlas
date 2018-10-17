@@ -38,15 +38,29 @@ describe.only('AutoSuggestCategory', () => {
     };
   });
 
-  it('should render with ellipsis', () => {
+  it('should render ellipsis when there are more then 3 results', () => {
     const wrapper = shallow(
       <AutoSuggestCategory {...props} />
-    ).dive();
+    );
 
     expect(wrapper).toMatchSnapshot();
     const items = wrapper.find('AutoSuggestItem');
     expect(items.length).toBe(4);
-    wrapper.find('AutoSuggestItem').at(3).simulate('click');
-    expect(props.onSuggestionSelection).toHaveBeenCalled();
+
+    const mockEvent = { event: 'event' };
+    const itemWrapper = wrapper.find('AutoSuggestItem').at(3).dive();
+    itemWrapper.find('button').simulate('click', mockEvent);
+    expect(props.onSuggestionSelection).toHaveBeenCalledWith({ index: -1 }, mockEvent);
+  });
+
+  it('should render no ellipsis when there are 3 or less results', () => {
+    props.category.total_results = 3;
+    const wrapper = shallow(
+      <AutoSuggestCategory {...props} />
+    );
+
+    expect(wrapper).toMatchSnapshot();
+    const items = wrapper.find('AutoSuggestItem');
+    expect(items.length).toBe(3);
   });
 });
