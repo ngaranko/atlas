@@ -1,6 +1,6 @@
 import React from 'react';
 import connect from 'react-redux/es/connect/connect';
-import { PANORAMA_VIEW } from '../../shared/ducks/straatbeeld/straatbeeld';
+import { getStraatbeeldView, PANORAMA_VIEW } from '../../shared/ducks/straatbeeld/straatbeeld';
 import PanoramaContainer from '../containers/PanoramaContainer';
 import MapContainer from '../../map/containers/map/MapContainer';
 
@@ -36,7 +36,7 @@ const PanoramaPage = ({ view }) => {
 };
 
 const mapStateToProps = (state) => ({
-  view: state.straatbeeld.view
+  view: getStraatbeeldView(state)
 });
 
 export default connect(mapStateToProps, null)(PanoramaPage);

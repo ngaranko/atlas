@@ -12,6 +12,7 @@ import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
 import { getMapResultsByLocation } from '../../../shared/ducks/search/search';
 import { getDetail } from '../../../shared/ducks/detail/detail';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
@@ -20,6 +21,17 @@ export const getMapZoom = createSelector(getMap, (mapState) => mapState.zoom);
 export const getMapOverlays = createSelector(getMap, (mapState) => mapState.overlays || []);
 
 export const getMapCenter = createSelector(getMap, (mapState) => mapState && mapState.viewCenter);
+export const getMapBoundingBox = createSelector(getMap, (mapState) => mapState.boundingBox);
+
+
+export const getDrawingMode = createSelector(getMap, (mapState) => mapState.drawingMode);
+export const isDrawingEnabled = createSelector(
+  getMap,
+  (mapState) => mapState.drawingMode !== drawToolConfig.DRAWING_MODE.NONE
+);
+export const getGeometry = createSelector(getMap, (mapState) => mapState.geometry);
+export const getShapeMarkers = createSelector(getMap, (mapState) => mapState.shapeMarkers);
+export const getShapeDistanceTxt = createSelector(getMap, (mapState) => mapState.shapeDistanceTxt);
 
 export const getCenter = createSelector([getMapCenter, getStraatbeeldLocation],
   (mapCenter, straatbeeldLocation) => (

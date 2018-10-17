@@ -23,14 +23,20 @@ import {
 import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
 import { mapClear, mapEndDrawing, mapStartDrawing, mapUpdateShape, mapEmptyGeometry, mapClearDrawing } from '../../ducks/map/map';
 import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
+import {
+  getDrawingMode,
+  getGeometry,
+  getShapeDistanceTxt, getShapeMarkers,
+  isDrawingEnabled
+} from '../../ducks/map/map-selectors';
 
 const mapStateToProps = (state) => ({
-  drawingMode: state.map.drawingMode,
-  isEnabled: state.map.drawingMode !== drawToolConfig.DRAWING_MODE.NONE,
-  shapeMarkers: state.map.shapeMarkers,
-  shapeDistanceTxt: state.map.shapeDistanceTxt,
+  drawingMode: getDrawingMode(state),
+  isEnabled: isDrawingEnabled(state),
+  shapeMarkers: getShapeMarkers(state),
+  shapeDistanceTxt: getShapeDistanceTxt(state),
   dataSelection: state.dataSelection,
-  geometry: state.map.geometry,
+  geometry: getGeometry(state),
   uiMapFullscreen: isMapCurrentPage(state)
 });
 

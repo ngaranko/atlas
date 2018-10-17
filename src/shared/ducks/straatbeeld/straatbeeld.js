@@ -174,6 +174,8 @@ export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, get
   )
 );
 
+export const getStraatbeeldView = createSelector(getStraatbeeld, (straatbeeld) => straatbeeld.view);
+
 export const showStraatbeeld = ({ id, heading }) => ({
   type: UPDATE_MAP,
   payload: {

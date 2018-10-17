@@ -75,6 +75,10 @@ export default function detailReducer(state = initialState, action) {
   }
 }
 
+
+export const getDetailView = (state) => state.detail.view;
+
+
 export const toMapDetail = () => ({
   type: UPDATE_MAP,
   payload: {

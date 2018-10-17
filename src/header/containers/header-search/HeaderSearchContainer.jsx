@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  getSuggestions,
+  getActiveSuggestions, getAutoSuggestSuggestions, getDisplayQuery, getNumberOfSuggestions,
+  getSuggestions, getTypedQuery,
   setActiveSuggestion
 } from '../../ducks/auto-suggest/auto-suggest';
 
@@ -15,15 +16,15 @@ import { isMapCurrentPage, isCatalogCurrentPage } from '../../../shared/ducks/cu
 import { extractIdEndpoint, routing } from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
-  activeSuggestion: state.autoSuggest.activeSuggestion,
-  displayQuery: state.autoSuggest.displayQuery,
+  activeSuggestion: getActiveSuggestions(state),
+  displayQuery: getDisplayQuery(state),
   isDatasetView: isCatalogCurrentPage(state),
   isMapActive: isMapCurrentPage(state),
-  numberOfSuggestions: state.autoSuggest.count,
+  numberOfSuggestions: getNumberOfSuggestions(state),
   pageName: state.page ? state.page.name : '',
   prefillQuery: state.search ? state.search.query : state.dataSelection ? state.dataSelection.query : '',
-  suggestions: state.autoSuggest.suggestions,
-  typedQuery: state.autoSuggest.typedQuery
+  suggestions: getAutoSuggestSuggestions(state),
+  typedQuery: getTypedQuery(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

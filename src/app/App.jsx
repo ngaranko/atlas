@@ -18,6 +18,7 @@ import { isEmbedded, isEmbedPreview, isPrintMode, isPrintModeLandscape, isInPrin
 import { CMS_PAGE_MAPPING } from './pages/CMSPageMapping';
 import PanoramaPage from './pages/PanoramaPage';
 import DetailPage from './pages/DetailPage';
+import { getUser } from '../shared/ducks/user/user';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -183,7 +184,7 @@ const mapStateToProps = (state) => ({
   printModeLandscape: isPrintModeLandscape(state),
   embedPreviewMode: isEmbedPreview(state),
   printOrEmbedMode: isInPrintorEmbedMode(state),
-  user: state.user
+  user: getUser(state)
 });
 
 const AppContainer = connect(mapStateToProps, null)(App);

@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { isMapCurrentPage } from '../current-page/current-page-reducer';
 import { getStraatbeeld } from '../straatbeeld/straatbeeld';
+import { getDataSelectionView } from '../../../map/ducks/data-selection/data-selection';
 
 export const REDUCER_KEY = 'ui';
 
@@ -72,13 +73,8 @@ export const isInPrintorEmbedMode = createSelector(
   isEmbedPreview,
   (embedded, print, preview) =>
     (embedded || print || preview));
-
-// Todo: move this to a dataSelection ducks file
-const getDataSelection = (state) => state.dataSelection || {};
-const getDataSelectionView = createSelector(
-  getDataSelection,
-  (dataSelection) => dataSelection.view
-);
+export const isMapLayersVisible = createSelector(getUIState, (ui) => ui.isMapLayersVisible);
+export const isMapPanelHandleVisible = createSelector(getUIState, (ui) => ui.isMapPanelHandleVisible);
 
 export const isPrintModeLandscape = createSelector(
   isPrintMode,

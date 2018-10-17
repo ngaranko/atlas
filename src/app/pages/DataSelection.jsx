@@ -2,14 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import connect from 'react-redux/es/connect/connect';
 import { AngularWrapper } from 'react-angular';
+import { getCatalogFilters } from '../../catalog/ducks/data-selection/data-selection-catalog';
+import { getMapBoundingBox, getMapZoom } from '../../map/ducks/map/map-selectors';
+import { getUser } from '../../shared/ducks/user/user';
+import { getFilters } from '../../shared/ducks/filters/filters';
 
 const mapStateToProps = (state) => ({
-  boundingBox: state.map.boundingBox,
-  catalogFilters: state.catalogFilters,
+  boundingBox: getMapBoundingBox(state),
+  catalogFilters: getCatalogFilters(state),
   dataSelectionState: state.dataSelection,
-  filters: state.filters,
-  zoomLevel: state.map.zoom,
-  user: state.user
+  filters: getFilters(state),
+  zoomLevel: getMapZoom(state),
+  user: getUser(state)
 });
 
 const DataSelection = ({

@@ -14,10 +14,11 @@ import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewP
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
 import { previewDataAvailable as previewDataAvailableSelector } from '../../ducks/preview-panel/map-preview-panel';
+import { getDrawingMode } from '../../ducks/map/map-selectors';
 
 const mapStateToProps = (state) => ({
   isFullscreen: isMapCurrentPage(state),
-  drawMode: state.map.drawingMode,
+  drawMode: getDrawingMode(state),
   embedMode: isEmbedded(state),
   previewDataAvailable: previewDataAvailableSelector(state)
 });

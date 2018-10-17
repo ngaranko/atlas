@@ -87,6 +87,11 @@ export default function MapSearchResultsReducer(state = initialState, action) {
   }
 }
 
+export const isSearchLoading = (state) => state[REDUCER_KEY].isLoading;
+export const getSearchQuery = (state) => state[REDUCER_KEY].query;
+export const getSearchCategory = (state) => state[REDUCER_KEY].category;
+export const getNumberOfResults = (state) => state[REDUCER_KEY].numberOfResults;
+
 export const getMapSearchResults = (location, user) => ({
   type: FETCH_MAP_SEARCH_RESULTS_REQUEST,
   location,

@@ -18,3 +18,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export const getCatalogQuery = (state) => state.catalog.query;

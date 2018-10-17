@@ -12,6 +12,8 @@ const reducer = (state = {}, action) => {
   }
 };
 
+export const getFilters = (state) => state.filters;
+
 export const applyFilters = (payload) => ({
   type: APPLY_FILTERS,
   payload

@@ -3,9 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { selectActivePanelLayers } from '../../ducks/panel-layers/map-panel-layers';
+import {
+  getMapPanelLayers,
+  selectActivePanelLayers
+} from '../../ducks/panel-layers/map-panel-layers';
 import { getBaseLayers } from '../../ducks/base-layers/map-base-layers';
-import { toggleMapPanelHandle } from '../../../shared/ducks/ui/ui';
+import {
+  isMapLayersVisible,
+  isMapPanelHandleVisible,
+  toggleMapPanelHandle
+} from '../../../shared/ducks/ui/ui';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapPanelHandle from '../../components/panel-handle/MapPanelHandle';
@@ -14,20 +21,25 @@ import CollapseIcon from '../../../../public/images/icon-arrow-down.svg';
 import ExpandIcon from '../../../../public/images/icon-arrow-up.svg';
 import MapLayersIcon from '../../../../public/images/icon-map-layers.svg';
 import { setMapBaseLayer, toggleMapOverlay, toggleMapOverlayVisibility, toggleMapPanel } from '../../ducks/map/map';
-import { isMapPanelActive } from '../../ducks/map/map-selectors';
+import {
+  getActiveBaseLayer,
+  getMapOverlays,
+  getMapZoom,
+  isMapPanelActive
+} from '../../ducks/map/map-selectors';
+import { getUser } from '../../../shared/ducks/user/user';
 
 const mapStateToProps = (state) => ({
-  activeBaseLayer: state.map.baseLayer,
+  activeBaseLayer: getActiveBaseLayer(state),
   activeMapLayers: selectActivePanelLayers(state),
-  atlas: state.atlas,
-  isMapLayersVisible: state.ui.isMapLayersVisible,
+  isMapLayersVisible: isMapLayersVisible(state),
   isEachOverlayInvisible: state.map.overlays.every((overlay) => overlay.isVisible),
-  isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,
+  isMapPanelHandleVisible: !state.map.overlays.length || isMapPanelHandleVisible(state),
   mapBaseLayers: getBaseLayers(state),
-  mapLayers: state.mapLayers.panelLayers.items,
-  overlays: state.map.overlays,
-  zoomLevel: state.map.zoom,
-  user: state.user,
+  mapLayers: getMapPanelLayers(state),
+  overlays: getMapOverlays(state),
+  zoomLevel: getMapZoom(state),
+  user: getUser(state),
   isMapPanelVisible: isMapPanelActive(state)
 });
 
@@ -113,7 +125,6 @@ MapPanelContainer.contextTypes = {
 
 MapPanelContainer.defaultProps = {
   activeMapLayers: [],
-  atlas: {},
   isMapPanelVisible: true,
   map: {},
   mapBaseLayers: {},
@@ -125,7 +136,6 @@ MapPanelContainer.defaultProps = {
 MapPanelContainer.propTypes = {
   activeBaseLayer: PropTypes.string.isRequired,
   activeMapLayers: PropTypes.array, // eslint-disable-line
-  atlas: PropTypes.object, // eslint-disable-line
   isEachOverlayInvisible: PropTypes.bool.isRequired,
   isMapPanelHandleVisible: PropTypes.bool.isRequired,
   isMapPanelVisible: PropTypes.bool,

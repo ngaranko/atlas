@@ -2,7 +2,7 @@ import React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import MapContainer from '../../map/containers/map/MapContainer';
 import DetailContainer from '../containers/DetailContainer';
-import { DETAIL_VIEW } from '../../shared/ducks/detail/detail';
+import { DETAIL_VIEW, getDetailView } from '../../shared/ducks/detail/detail';
 
 const DetailPage = ({ view }) => {
   switch (view) {
@@ -36,7 +36,7 @@ const DetailPage = ({ view }) => {
 };
 
 const mapStateToProps = (state) => ({
-  view: state.detail.view
+  view: getDetailView(state)
 });
 
 export default connect(mapStateToProps, null)(DetailPage);

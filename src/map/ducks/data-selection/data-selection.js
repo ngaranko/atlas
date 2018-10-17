@@ -10,6 +10,10 @@ const generateMarkers = (markers) => (
   })));
 
 export const getDataSelection = (state) => state.dataSelection;
+export const getDataSelectionView = createSelector(
+  getDataSelection,
+  (dataSelection) => dataSelection && dataSelection.view
+);
 
 export const getMapData = createSelector([getDataSelection],
   (dataSelection) => dataSelection && dataSelection.markers);

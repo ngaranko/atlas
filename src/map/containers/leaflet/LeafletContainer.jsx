@@ -12,8 +12,8 @@ import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
 import {
   getCenter,
-  getClusterMarkers,
-  getGeoJsons,
+  getClusterMarkers, getDrawingMode,
+  getGeoJsons, getMapZoom,
   getMarkers,
   getRdGeoJsons,
   isMarkerActive
@@ -35,8 +35,8 @@ const mapStateToProps = (state) => ({
   markers: getMarkers(state),
   layers: getLayers(state),
   showMarker: isMarkerActive(state),
-  drawingMode: state.map.drawingMode,
-  zoom: state.map.zoom
+  drawingMode: getDrawingMode(state),
+  zoom: getMapZoom(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
