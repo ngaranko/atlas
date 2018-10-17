@@ -290,7 +290,7 @@ describe('HeaderSearchContainer', () => {
         isMapFullscreen: true
       });
 
-      expect(getSuggestions).not.toHaveBeenCalledWith();
+      expect(getSuggestions).not.toHaveBeenCalled();
     });
 
     it('should call getSuggestions when navigated', () => {
@@ -307,7 +307,7 @@ describe('HeaderSearchContainer', () => {
         isMapFullscreen: false
       });
 
-      expect(getSuggestions).toHaveBeenCalledWith();
+      expect(getSuggestions).toHaveBeenCalled();
     });
   });
 });
