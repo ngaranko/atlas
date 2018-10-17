@@ -15,7 +15,7 @@ export const FETCH_SEARCH_RESULTS_BY_LOCATION = 'FETCH_SEARCH_RESULTS_BY_LOCATIO
 export const getSearch = (state) => state.search;
 
 // Todo: create a mapSearchResultsByLocation reducer or refactor
-export const getMapResultsByLocation = (state) => state.mapSearchResultsByLocation || {};
+export const getMapResultsByLocation = (state) => state.search.mapSearchResultsByLocation || {};
 
 export const isSearchActive = createSelector(getSearch, (geoSearch) => (
   geoSearch && geoSearch.location && geoSearch.location.length

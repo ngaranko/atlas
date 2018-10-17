@@ -103,7 +103,11 @@ const App = ({
 
             {currentPage === PAGES.KAART && <MapPage />}
 
-            {currentPage === PAGES.ADRES_DETAIL && <DetailPage />}
+            {(
+              currentPage === PAGES.ADRES_DETAIL
+              || currentPage === PAGES.PAND_DETAIL)
+              && <DetailPage />
+            }
 
             {currentPage === PAGES.PANORAMA && <PanoramaPage />}
 

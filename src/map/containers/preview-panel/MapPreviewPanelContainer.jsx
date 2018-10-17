@@ -15,7 +15,7 @@ import {
   getShortSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
-import { toMap } from '../../../app/routes';
+import { getPageActionEndpoint, toMap } from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
   mapClickLocation: getSelectedLocation(state),
@@ -34,15 +34,21 @@ const mapStateToProps = (state) => ({
   isEmbed: isEmbedPreview(state) || isEmbedded(state)
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onSearch: fetchSearchResultsByLocation,
-  onMapPreviewPanelClose: toMap,
-  onMapPreviewPanelMaximizeDetail: toMapDetail,
-  onMapPreviewPanelMaximizeSearch: showSearchView,
-  onMapSearchResultsItemClick: setDetailEndpointRoute,
-  onOpenPanoById: showStraatbeeld,
-  closeMapFullScreen: toggleMapFullscreen
-}, dispatch);
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({
+    onSearch: fetchSearchResultsByLocation,
+    onMapPreviewPanelClose: toMap,
+    onMapPreviewPanelMaximizeDetail: toMapDetail,
+    onMapPreviewPanelMaximizeSearch: showSearchView,
+    onMapSearchResultsItemClick: setDetailEndpointRoute,
+    onOpenPanoById: showStraatbeeld,
+    closeMapFullScreen: toggleMapFullscreen
+  }, dispatch),
+  onMapSearchResultsItemClick: (endpoint) => {
+    const action = getPageActionEndpoint(endpoint);
+    return dispatch(action);
+  }
+});
 
 /* eslint-enable react/no-unused-prop-types */
 export default connect(mapStateToProps, mapDispatchToProps)(MapPreviewPanel);

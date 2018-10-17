@@ -48,8 +48,6 @@ class MapContainer extends React.Component {
       showPreviewPanel,
       previewDataAvailable
     } = this.props;
-    console.log('showPreviewPanel: ', showPreviewPanel);
-    console.log('previewDataAvailable: ', previewDataAvailable);
     return (
       <div className={`c-map c-map--drawing-mode-${drawMode} qa-map-container`}>
         <LeafletContainer

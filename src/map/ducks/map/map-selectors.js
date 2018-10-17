@@ -61,7 +61,9 @@ export const getLocationId = createSelector(
 export const selectLatestMapSearchResults = createSelector(
   getLocationId,
   getMapResultsByLocation,
-  (locationString, mapResultsByLocation) => mapResultsByLocation[locationString]
+  (locationString, mapResultsByLocation) => {
+    return mapResultsByLocation[locationString]
+  }
 );
 
 export const getSearchMarker = createSelector(

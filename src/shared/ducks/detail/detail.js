@@ -13,10 +13,15 @@ export const DETAIL_VIEW = {
   DETAIL: 'DETAIL'
 };
 
-const initialState = null;
+const initialState = {
+  view: DETAIL_VIEW.MAP_DETAIL
+};
 
 export default function detailReducer(state = initialState, action) {
   switch (action.type) {
+    case routing.pandDetail.type: {
+      console.log(typeof action.payload.id);
+    }
     case routing.adresDetail.type: {
       const { query = {} } = action.meta;
       // console.log(action.meta);

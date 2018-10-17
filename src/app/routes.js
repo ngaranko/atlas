@@ -154,7 +154,13 @@ export const routing = {
     location: '/datasets/bag/adressen/:id',
     type: `${ROUTER_NAMESPACE}/${PAGES.ADRES_DETAIL}`,
     page: PAGES.ADRES_DETAIL
-  }
+  },
+  pandDetail: {
+    title: 'Pand',
+    location: '/datasets/bag/pand/:id',
+    type: `${ROUTER_NAMESPACE}/${PAGES.PAND_DETAIL}`,
+    page: PAGES.PAND_DETAIL
+  },
 };
 
 // e.g. { home: '/' }, to be used by redux-first-router/connectRoutes
@@ -165,24 +171,47 @@ const routes = Object.keys(routing).reduce((acc, key) => {
 
 // TODO: refactor unit test or remove all together
 export const extractIdEndpoint = (endpoint) => {
+  // console.log('routes extractIdEndpoint: ', endpoint);
   const matches = endpoint.match(/\/(\w+)\/?$/);
+  // console.log('routes extractIdEndpoint: ', matches[1]);
   return matches[1];
 };
 
+const getDetailPageType = (endpoint) => {
+  if (/\/bag\/pand/.test(endpoint)) {
+    return routing.pandDetail.type;
+  } else if (/\/bag\/nummeraanduiding/.test(endpoint)) {
+    return routing.adresDetail.type;
+  }
+};
+
 export const getPageActionEndpoint = (endpoint) => {
-  const type = routing.adresDetail.type;
+  const type = getDetailPageType(endpoint);
   const id = extractIdEndpoint(endpoint);
   return {
     type,
     payload: {
-      id
+      id: `id${id}`
     }
   };
 };
 
 export const pageActionToEndpoint = (action) => {
-  const endpoint = 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/03630000261100/';
+  console.log('routes pageActionToEndpoint: ', action);
+  // const endpoint = 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/03630000261100/';
   // const endpoint = `https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/${id}/`;
+  let endpoint = 'https://acc.api.data.amsterdam.nl/';
+  switch (action.type) {
+    case routing.adresDetail.type:
+      endpoint += 'bag/nummeraanduiding/';
+      break;
+    case routing.pandDetail.type:
+      endpoint += 'bag/pand/';
+      break;
+  }
+
+  const id = action.payload.id.substr(2,); // Change `id123` to `123`
+  endpoint += `${id}`;
 
   return fetchDetail(endpoint);
 };
