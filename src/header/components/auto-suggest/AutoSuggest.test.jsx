@@ -169,6 +169,20 @@ describe('The AutoSuggest component', () => {
     });
   });
 
+  it('shows a legend if a title is provided', () => {
+    const legendTitle = 'title';
+    const autoSuggestComponent = mount(<AutoSuggest
+      activeSuggestion={{ index: -1 }}
+      onSubmit={onSubmit}
+      onSuggestionActivate={onSuggestionActivate}
+      onSuggestionSelection={onSuggestionSelection}
+      onTextInput={onTextInput}
+      legendTitle={legendTitle}
+    />);
+    const legend = autoSuggestComponent.find('legend');
+    expect(legend.text()).toBe(legendTitle);
+  });
+
   it('optionally fills the searchbox with a query', () => {
     // Without a query
     const autoSuggestComponent = mount(<AutoSuggest
@@ -344,15 +358,20 @@ describe('The AutoSuggest component', () => {
   });
 
   describe('when selecting a suggestion', () => {
-    it('should request to open in new window when CTRL key is pressed.', () => {
-      const autoSuggestComponent = mount(<AutoSuggest
-        activeSuggestion={{ index: -1 }}
+    let autoSuggestComponent;
+
+    beforeEach(() => {
+      autoSuggestComponent = mount(<AutoSuggest
+        activeSuggestion={{ index: 0 }}
         onSubmit={onSubmit}
         onSuggestionActivate={onSuggestionActivate}
         onSuggestionSelection={onSuggestionSelection}
         onTextInput={onTextInput}
+        numberOfSuggestions={1}
       />);
+    });
 
+    it('should request to open in new window when CTRL key is pressed.', () => {
       const mockEvent = {
         preventDefault: jest.fn(),
         stopPropagation: jest.fn(),
@@ -369,14 +388,6 @@ describe('The AutoSuggest component', () => {
     });
 
     it('should not request to open in new window when no CTRL key is pressed.', () => {
-      const autoSuggestComponent = mount(<AutoSuggest
-        activeSuggestion={{ index: -1 }}
-        onSubmit={onSubmit}
-        onSuggestionActivate={onSuggestionActivate}
-        onSuggestionSelection={onSuggestionSelection}
-        onTextInput={onTextInput}
-      />);
-
       const mockEvent = {
         preventDefault: jest.fn(),
         stopPropagation: jest.fn(),
@@ -471,6 +482,22 @@ describe('The AutoSuggest component', () => {
 
       expect(preventDefaultMock).not.toHaveBeenCalled();
       expect(autoSuggestComponent.instance().onSuggestionSelection).toHaveBeenCalled();
+
+      onSuggestionActivate.mockRestore();
+    });
+
+    it('should not handle enter key when index for suggestions is below 0', () => {
+      const preventDefaultMock = jest.fn();
+      autoSuggestComponent.setProps({ activeSuggestion: { index: -1 } });
+      autoSuggestComponent.instance().navigateSuggestions({
+        keyCode: 13,
+        preventDefault: preventDefaultMock
+      });
+
+      expect(preventDefaultMock).not.toHaveBeenCalled();
+      expect(autoSuggestComponent.instance().onSuggestionSelection).not.toHaveBeenCalled();
+
+      onSuggestionActivate.mockRestore();
     });
 
     it('should handle any other key and do nothing', () => {
