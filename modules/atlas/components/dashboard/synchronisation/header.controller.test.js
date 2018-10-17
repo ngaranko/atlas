@@ -1,5 +1,6 @@
 import PAGES from '../../../../../src/app/pages';
 import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../../../src/shared/ducks/search/search';
+import { FETCH_DATA_SELECTION } from '../../../../../src/header/ducks/search/search';
 
 describe('The header controller', function () {
     var $controller,
@@ -82,7 +83,7 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBe('dataSelection query');
-        expect(controller.searchAction).toEqual(ACTIONS.FETCH_DATA_SELECTION);
+        expect(controller.searchAction).toEqual(FETCH_DATA_SELECTION);
     });
 
     it('sets the dataSelection query and action when catalog detail API view is active', function () {
@@ -98,7 +99,7 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBeUndefined();
-        expect(controller.searchAction).toEqual(ACTIONS.FETCH_DATA_SELECTION);
+        expect(controller.searchAction).toEqual(FETCH_DATA_SELECTION);
     });
 
     it('default sets the search query and search action', function () {

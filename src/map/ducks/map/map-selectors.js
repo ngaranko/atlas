@@ -8,9 +8,10 @@ import {
   getClusterMarkers as getDataSelectionClusterMarkers,
   getGeoJsons as getDataSelectionGeoJsons
 } from '../data-selection/data-selection';
-import { detailSelector, getGeoJson as getDetailGeoJson } from '../detail/map-detail';
+import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
 import { getMapResultsByLocation } from '../../../shared/ducks/search/search';
+import { getDetail } from '../../../shared/ducks/detail/detail';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
@@ -77,5 +78,5 @@ export const getMarkers = createSelector(
     [...searchMarkers, ...straatbeeldMarkers]
   ));
 
-export const isMarkerActive = createSelector([detailSelector], (detail) => !detail);
-export const isMapPanelActive = createSelector([getMap], (map) => map.mapPanelActive);
+export const isMarkerActive = createSelector(getDetail, (detail) => !detail);
+export const isMapPanelActive = createSelector(getMap, (map) => map.mapPanelActive);

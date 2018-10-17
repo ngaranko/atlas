@@ -5,6 +5,7 @@ import {
     initialize,
     setZoom
 } from './zoomControls';
+import { MAP_ZOOM } from '../ducks/map/map';
 
 describe('zoom controls', () => {
   let leafletOld;
@@ -121,7 +122,7 @@ describe('zoom controls', () => {
     zoomEventHandler();
 
     expect(store.dispatch.mock.calls[0][0]).toEqual({
-      type: ACTIONS.MAP_ZOOM,
+      type: MAP_ZOOM,
       payload: {
         viewCenter: [1.3, 3.7],
         zoom: 6

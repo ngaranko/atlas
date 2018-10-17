@@ -3,6 +3,7 @@ import reducer, {
   setDataSelectionGeometryFilter
 } from './data-selection';
 import ACTIONS from '../../actions';
+import { FETCH_DATA_SELECTION } from '../../../header/ducks/search/search';
 
 describe('DataSelection Reducer', () => {
   let state;
@@ -96,7 +97,7 @@ describe('DataSelection Reducer', () => {
 
     function getReducerOutput(existingState = initialState, payload = initialPayload) {
       return reducer(existingState, {
-        type: ACTIONS.FETCH_DATA_SELECTION,
+        type: FETCH_DATA_SELECTION,
         payload
       });
     }

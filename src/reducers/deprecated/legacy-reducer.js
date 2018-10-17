@@ -8,6 +8,7 @@ import {
   FETCH_SEARCH_RESULTS_BY_QUERY,
   SHOW_SEARCH_RESULTS
 } from '../../shared/ducks/search/search';
+import { FETCH_DATA_SELECTION } from '../../header/ducks/search/search';
 
 /* istanbul ignore next */
 const legacyReducer = (state = {}, action) => {
@@ -68,7 +69,7 @@ const legacyReducer = (state = {}, action) => {
         dataSelection: null
       };
 
-    case ACTIONS.FETCH_DATA_SELECTION: {
+    case FETCH_DATA_SELECTION: {
       const mergeInto = typeof payload === 'string' ? {
         query: action.payload,
         page: 1,

@@ -1,3 +1,4 @@
+import { createSelector } from 'reselect';
 import { UPDATE_MAP } from '../../../map/ducks/map/map';
 import { routing } from '../../../app/routes';
 
@@ -92,3 +93,14 @@ export const fetchDetail = (endpoint) => ({
   type: FETCH_DETAIL,
   payload: endpoint
 });
+
+export const getDetail = (state) => state[REDUCER_KEY];
+export const getDetailGeometry = createSelector(getDetail, (detail) => detail && detail.geometry);
+export const getDetailEndpoint = createSelector(getDetail, (detail) => detail && detail.endpoint);
+export const getDetailDisplay = createSelector(getDetail, (detail) => detail && detail.display);
+export const isDetailReloaded = createSelector(getDetail, (detail) => detail && detail.reload);
+export const getDetailSkippedSearchResults = createSelector(
+  getDetail,
+  (detail) => detail && detail.skippedSearchResults
+);
+export const isDetailLoading = createSelector(getDetail, (detail) => detail && detail.isLoading);

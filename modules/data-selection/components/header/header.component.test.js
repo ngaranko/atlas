@@ -1,3 +1,5 @@
+import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
+
 describe('The dp-data-selection-header', () => {
     const anonymousUser = {
         authenticated: false,
@@ -368,7 +370,7 @@ describe('The dp-data-selection-header', () => {
 
             component.find('.qa-tabs li:nth-child(1) dp-link .o-tabs__tab--link').click();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DATA_SELECTION,
+                type: FETCH_DATA_SELECTION,
                 payload: jasmine.objectContaining({
                     dataset: 'bag',
                     view: 'LIST',

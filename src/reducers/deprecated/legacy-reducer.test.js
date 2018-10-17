@@ -7,6 +7,7 @@ import {
   getMapSearchResults,
   SHOW_SEARCH_RESULTS
 } from '../../shared/ducks/search/search';
+import { FETCH_DATA_SELECTION } from '../../header/ducks/search/search';
 
 const deepCopy = (oldObject) => JSON.parse(JSON.stringify(oldObject));
 
@@ -104,7 +105,7 @@ describe('Former dataSelection Reducer', () => {
     it('has a default table view and set map not to be loading', () => {
       const mockedState = deepCopy(DEFAULT_STATE);
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.map.isLoading).toEqual(false);
     });
@@ -113,7 +114,7 @@ describe('Former dataSelection Reducer', () => {
       const mockedState = deepCopy(DEFAULT_STATE);
       payload.view = 'LIST';
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.map.isLoading).toEqual(true);
     });
@@ -124,7 +125,7 @@ describe('Former dataSelection Reducer', () => {
         view: 'LIST'
       };
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.map.isLoading).toEqual(true);
     });
@@ -139,7 +140,7 @@ describe('Former dataSelection Reducer', () => {
         filter: 'filterValue'
       };
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.filters).toEqual({
         filter: 'filterValue'
@@ -153,7 +154,7 @@ describe('Former dataSelection Reducer', () => {
         buurt: 'Trompbuurt'
       };
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.filters).toEqual({
         buurtcombinatie: 'Geuzenbuurt',
@@ -170,7 +171,7 @@ describe('Former dataSelection Reducer', () => {
 
       payload.emptyFilters = true;
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.filters).toEqual({});
     });
@@ -182,7 +183,7 @@ describe('Former dataSelection Reducer', () => {
       mockedState.detail = { some: 'object' };
       mockedState.straatbeeld = { some: 'object' };
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.search).toBeNull();
       expect(output.page.name).toBeNull();
@@ -196,12 +197,12 @@ describe('Former dataSelection Reducer', () => {
 
       // With print mode enabled
       mockedState.ui.isPrintMode = true;
-      output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
       expect(output.ui.isPrintMode).toBe(true);
 
       // With print mode disabled
       mockedState.ui.isPrintMode = false;
-      output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
       expect(output.ui.isPrintMode).toBe(false);
     });
 
@@ -211,7 +212,7 @@ describe('Former dataSelection Reducer', () => {
       mockedState.ui = null;
       mockedState.page = null;
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload: '' });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload: '' });
       expect(output.map).toBeNull();
       expect(output.ui).toBeNull();
       expect(output.page).toBeNull();

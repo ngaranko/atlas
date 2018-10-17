@@ -1,4 +1,5 @@
 import { features } from '../../../../src/shared/environment';
+import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
 
 describe('The dp-data-selection-link component', () => {
     let $compile,
@@ -59,7 +60,7 @@ describe('The dp-data-selection-link component', () => {
 
         component.find('dp-link button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
+            type: FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'bag',
                 view: 'TABLE',
@@ -75,7 +76,7 @@ describe('The dp-data-selection-link component', () => {
 
         component.find('dp-link button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
+            type: FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'hr',
                 view: 'TABLE',
@@ -92,7 +93,7 @@ describe('The dp-data-selection-link component', () => {
         if (features.eigendommen) {
             component.find('dp-link button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DATA_SELECTION,
+                type: FETCH_DATA_SELECTION,
                 payload: {
                     dataset: 'brk',
                     view: 'TABLE',

@@ -1,5 +1,6 @@
 import ACTIONS from '../../actions';
 import isObject from '../../services/is-object';
+import { FETCH_DATA_SELECTION } from '../../../header/ducks/search/search';
 
 export const SET_DATA_SELECTION_GEOMETRY_FILTER = 'SET_DATA_SELECTION_GEOMETRY_FILTER';
 export const RESET_DATA_SELECTION_GEOMETRY_FILTER = 'RESET_DATA_SELECTION_GEOMETRY_FILTER';
@@ -24,7 +25,7 @@ let geometryFilter = {};
 
 export default function DataSelectionReducer(state = initialState, action) {
   switch (action.type) {
-    case ACTIONS.FETCH_DATA_SELECTION: {
+    case FETCH_DATA_SELECTION: {
       const mergeInto = typeof payload === 'string' ? {
         query: action.payload,
         page: 1,

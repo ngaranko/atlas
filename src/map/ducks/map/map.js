@@ -1,5 +1,9 @@
 import { routing } from '../../../app/routes';
-import ACTIONS from '../../../shared/actions';
+import {
+  FETCH_STRAATBEELD_BY_HOTSPOT,
+  FETCH_STRAATBEELD_BY_ID, FETCH_STRAATBEELD_BY_LOCATION,
+  SET_STRAATBEELD, SET_STRAATBEELD_HISTORY
+} from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 export const MAP_ADD_PANO_OVERLAY = 'MAP_ADD_PANO_OVERLAY';
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
@@ -22,8 +26,11 @@ export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
 export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
 export const UPDATE_MAP = 'UPDATE_MAP';
 
+export const DEFAULT_LAT = 52.3731081;
+export const DEFAULT_LNG = 4.8932945;
+
 const initialState = {
-  viewCenter: [52.3731081, 4.8932945],
+  viewCenter: [DEFAULT_LAT, DEFAULT_LNG],
   baseLayer: 'topografie',
   zoom: 11,
   overlays: [],
@@ -112,7 +119,7 @@ export default function MapReducer(state = initialState, action) {
         baseLayer: action.payload
       };
 
-    case ACTIONS.SET_STRAATBEELD_HISTORY:
+    case SET_STRAATBEELD_HISTORY:
     case routing.panorama.type: {
       const id = !isNaN(action.payload) ? `pano${action.payload}` : 'pano';
       return {
@@ -159,16 +166,16 @@ export default function MapReducer(state = initialState, action) {
     case MAP_CLEAR:
       return initialState;
 
-    case ACTIONS.SET_STRAATBEELD:
-    case ACTIONS.FETCH_STRAATBEELD_BY_ID:
-    case ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT:
+    case SET_STRAATBEELD:
+    case FETCH_STRAATBEELD_BY_ID:
+    case FETCH_STRAATBEELD_BY_HOTSPOT:
       return {
         ...state,
         viewCenter: action.payload.location || state.viewCenter,
         isLoading: true
       };
 
-    case ACTIONS.FETCH_STRAATBEELD_BY_LOCATION:
+    case FETCH_STRAATBEELD_BY_LOCATION:
       return {
         ...state,
         geometry: []

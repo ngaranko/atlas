@@ -1,4 +1,5 @@
 import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
+import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
 
 describe('The dp-data-selection-active-filters component', () => {
     let $compile,
@@ -235,7 +236,7 @@ describe('The dp-data-selection-active-filters component', () => {
         component.find('.qa-active-filters li').eq(0).find('button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
+            type: FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'my_special_dataset',
                 resetGeometryFilter: true,

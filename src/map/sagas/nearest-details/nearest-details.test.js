@@ -5,6 +5,7 @@ import watchFetchNearestDetails, { fetchNearestDetails } from './nearest-details
 import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
 
 import ACTIONS, { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../../../shared/actions';
+import { FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
 
 describe('watchFetchNearestDetails', () => {
   const action = { type: REQUEST_NEAREST_DETAILS };
@@ -40,7 +41,7 @@ describe('fetchNearestDetails', () => {
         }
       })
       .put({
-        type: ACTIONS.FETCH_DETAIL,
+        type: FETCH_DETAIL,
         payload: 'uri',
         skippedSearchResults: true
       })

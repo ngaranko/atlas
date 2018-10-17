@@ -1,14 +1,18 @@
 import reducer, {
+  FETCH_STRAATBEELD_BY_ID,
+  FETCH_STRAATBEELD_BY_LOCATION,
   getStraatbeeld,
   getStraatbeeldHeading,
   getStraatbeeldLocation,
   getStraatbeeldMarkers,
+  SET_STRAATBEELD,
+  SET_STRAATBEELD_HISTORY,
+  SET_STRAATBEELD_ORIENTATION,
   setStraatbeeld,
   setStraatbeeldOff,
   STRAATBEELD_OFF
 } from './straatbeeld';
 import * as STRAATBEELD_CONFIG from '../../../../modules/straatbeeld/straatbeeld-config';
-import ACTIONS from '../../actions';
 import { routing } from '../../../app/routes';
 
 describe('Straatbeeld Reducer', () => {
@@ -66,7 +70,7 @@ describe('Straatbeeld Reducer', () => {
         image: 'http://example.com/example.png'
       };
 
-      const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload });
+      const newState = reducer(inputState, { type: FETCH_STRAATBEELD_BY_ID, payload });
       expect(newState.heading).toBe(179);
     });
 
@@ -74,7 +78,7 @@ describe('Straatbeeld Reducer', () => {
       const inputState = {
         ...defaultState
       };
-      const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload });
+      const newState = reducer(inputState, { type: FETCH_STRAATBEELD_BY_ID, payload });
       expect(newState.heading).toBe(123);
     });
 
@@ -82,7 +86,7 @@ describe('Straatbeeld Reducer', () => {
       const inputState = {
         ...defaultState
       };
-      const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload });
+      const newState = reducer(inputState, { type: FETCH_STRAATBEELD_BY_ID, payload });
       expect(newState).toEqual(jasmine.objectContaining(payload));
     });
 
@@ -97,7 +101,7 @@ describe('Straatbeeld Reducer', () => {
         image: 'http://example.com/example.png'
       };
 
-      const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload });
+      const newState = reducer(inputState, { type: FETCH_STRAATBEELD_BY_ID, payload });
 
       expect(newState.fov).toBeNull();
       expect(newState.pitch).toBeNull();
@@ -116,7 +120,7 @@ describe('Straatbeeld Reducer', () => {
         isInitial: true
       };
 
-      const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload });
+      const newState = reducer(inputState, { type: FETCH_STRAATBEELD_BY_ID, payload });
       expect(newState.heading).toBe(0);
     });
   });
@@ -184,7 +188,7 @@ describe('Straatbeeld Reducer', () => {
       const location = [52.001, 4.002];
 
       const newState = reducer(inputState, {
-        type: ACTIONS.FETCH_STRAATBEELD_BY_LOCATION,
+        type: FETCH_STRAATBEELD_BY_LOCATION,
         payload: location
       });
 
@@ -208,7 +212,7 @@ describe('Straatbeeld Reducer', () => {
         inputState.location = inputState.targetLocation;
 
         output = reducer(inputState, {
-          type: ACTIONS.SET_STRAATBEELD,
+          type: SET_STRAATBEELD,
           payload
         });
         expect(output)
@@ -227,7 +231,7 @@ describe('Straatbeeld Reducer', () => {
       delete inputState.targetLocation; // not saved in state, so not present on reload
       inputState.heading = 'aap';
       const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD,
+        type: SET_STRAATBEELD,
         payload
       });
       expect(output)
@@ -238,7 +242,7 @@ describe('Straatbeeld Reducer', () => {
 
     it('Sets loading to false', () => {
       const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD,
+        type: SET_STRAATBEELD,
         payload
       });
       expect(output.isLoading).toBe(false);
@@ -247,7 +251,7 @@ describe('Straatbeeld Reducer', () => {
     it('does nothing when straatbeeld is null', () => {
       inputState = null;
       const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD,
+        type: SET_STRAATBEELD,
         payload
       });
 
@@ -268,7 +272,7 @@ describe('Straatbeeld Reducer', () => {
         fov: 2
       };
       const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_ORIENTATION,
+        type: SET_STRAATBEELD_ORIENTATION,
         payload
       });
 
@@ -284,7 +288,7 @@ describe('Straatbeeld Reducer', () => {
       };
 
       const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_ORIENTATION
+        type: SET_STRAATBEELD_ORIENTATION
       });
       expect(output).toBeNull();
     });
@@ -296,7 +300,7 @@ describe('Straatbeeld Reducer', () => {
 
       const payload = 2020;
       const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_HISTORY,
+        type: SET_STRAATBEELD_HISTORY,
         payload
       });
 
@@ -311,7 +315,7 @@ describe('Straatbeeld Reducer', () => {
 
       const payload = 2020;
       const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_HISTORY,
+        type: SET_STRAATBEELD_HISTORY,
         payload
       });
 
@@ -326,7 +330,7 @@ describe('Straatbeeld Reducer', () => {
 
       const payload = 0;
       const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_HISTORY,
+        type: SET_STRAATBEELD_HISTORY,
         payload
       });
 
@@ -338,7 +342,7 @@ describe('Straatbeeld Reducer', () => {
 
       const payload = 2020;
       const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_HISTORY,
+        type: SET_STRAATBEELD_HISTORY,
         payload
       });
       expect(output).toBeNull();

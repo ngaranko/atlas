@@ -1,4 +1,5 @@
 import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
+import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
 
 (function () {
     'use strict';
@@ -82,7 +83,7 @@ import { applyFilters as applyFiltersActionCreator } from '../../../../src/share
 
         function removeGeometryFilter (filters) {
             store.dispatch({
-                type: ACTIONS.FETCH_DATA_SELECTION,
+                type: FETCH_DATA_SELECTION,
                 payload: {
                     dataset: vm.dataset,
                     resetGeometryFilter: true,

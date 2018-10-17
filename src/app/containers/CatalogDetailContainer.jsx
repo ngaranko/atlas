@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
+import { isDetailLoading } from '../../shared/ducks/detail/detail';
 
 const mapStateToProps = (state) => ({
-  isLoading: state.detail && state.detail.isLoading,
+  isLoading: isDetailLoading(state),
   catalogFilters: state.catalogFilters,
   user: state.user,
   endpoint: `https://acc.api.data.amsterdam.nl/dcatd/datasets/${state.catalog.detail}` // TODO: refactor use API_ROOT and such

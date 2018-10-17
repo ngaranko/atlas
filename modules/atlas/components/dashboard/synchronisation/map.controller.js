@@ -1,3 +1,5 @@
+import { getDetailGeometry } from '../../../../../src/shared/ducks/detail/detail';
+
 (function () {
     'use strict';
 
@@ -35,10 +37,10 @@
                 });
             }
 
-            if (state.detail && state.detail.geometry) {
+            if (getDetailGeometry(state)) {
                 vm.markers.regular.push({
                     id: 'detail',
-                    geometry: angular.copy(state.detail.geometry),
+                    geometry: angular.copy(getDetailGeometry(state)),
                     useAutoFocus: true
                 });
             }

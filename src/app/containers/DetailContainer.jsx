@@ -2,13 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
+import {
+  getDetailEndpoint,
+  getDetailSkippedSearchResults,
+  isDetailLoading,
+  isDetailReloaded
+} from '../../shared/ducks/detail/detail';
 
 const mapStateToProps = (state) => ({
-  reload: state.detail && state.detail.reload,
-  isLoading: state.detail && state.detail.isLoading,
-  skippedSearchResults: state.detail && state.detail.skippedSearchResults,
+  reload: isDetailReloaded(state),
+  isLoading: isDetailLoading(state),
+  skippedSearchResults: getDetailSkippedSearchResults(state),
   user: state.user,
-  endpoint: state.detail && state.detail.endpoint
+  endpoint: getDetailEndpoint(state)
 });
 
 const DetailContainer = ({
