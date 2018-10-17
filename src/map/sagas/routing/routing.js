@@ -2,12 +2,16 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import get from 'lodash.get';
 import { routing } from '../../../app/routes';
 import { FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
-import ACTIONS from '../../../shared/actions';
 import {
   getImageDataById,
   getImageDataByLocation
 } from '../../../shared/services/straatbeeld-api/straatbeeld-api';
-import { getStraatbeeld, setStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
+import {
+  FETCH_STRAATBEELD_BY_HOTSPOT,
+  getStraatbeeld,
+  SET_STRAATBEELD_HISTORY,
+  setStraatbeeld
+} from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 function* fetchDetail(action) {
   const state = yield select();
@@ -26,8 +30,8 @@ export function* fetchStraatbeeldImages({ type }) {
   const { history, id, location } = getStraatbeeld(state);
 
   const imageData = yield call(
-    (type === ACTIONS.SET_STRAATBEELD_HISTORY) ? getImageDataByLocation : getImageDataById,
-    (type === ACTIONS.SET_STRAATBEELD_HISTORY) ?
+    (type === SET_STRAATBEELD_HISTORY) ? getImageDataByLocation : getImageDataById,
+    (type === SET_STRAATBEELD_HISTORY) ?
       location :
       id,
     history
@@ -40,8 +44,8 @@ function* watchRoutes() {
     routing.panorama.type,
 
     // Todo: remove these from routes saga
-    ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT,
-    ACTIONS.SET_STRAATBEELD_HISTORY
+    FETCH_STRAATBEELD_BY_HOTSPOT,
+    SET_STRAATBEELD_HISTORY
   ], fetchStraatbeeldImages);
 
   yield takeLatest([routing.map.type, routing.detail.type], fetchDetail);

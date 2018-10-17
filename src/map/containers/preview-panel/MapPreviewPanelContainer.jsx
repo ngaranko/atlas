@@ -7,7 +7,11 @@ import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
 import { isEmbedded, isEmbedPreview, toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 import { showStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
-import { setDetailEndpointRoute, toMapDetail } from '../../../shared/ducks/detail/detail';
+import {
+  getDetail,
+  setDetailEndpointRoute,
+  toMapDetail
+} from '../../../shared/ducks/detail/detail';
 import MapPreviewPanel from './MapPreviewPanel';
 import {
   getLocationId,
@@ -27,7 +31,7 @@ const mapStateToProps = (state) => ({
   missingLayers: selectNotClickableVisibleMapLayers(state)
     .map((mapLayer) => mapLayer.title)
     .join(', '),
-  detail: state.detail,
+  detail: getDetail(state),
   mapDetail: state.mapDetail,
   detailResult: selectLatestMapDetail(state) || null,
   user: state.user,

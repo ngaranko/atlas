@@ -1,3 +1,5 @@
+import { NAVIGATE_DATA_SELECTION } from '../../../../src/shared/ducks/data-selection/data-selection';
+
 (function () {
     'use strict';
 
@@ -13,9 +15,9 @@
             controllerAs: 'vm'
         });
 
-    DpDataSelectionPaginationController.$inject = ['store', 'ACTIONS'];
+    DpDataSelectionPaginationController.$inject = ['store'];
 
-    function DpDataSelectionPaginationController (store, ACTIONS) {
+    function DpDataSelectionPaginationController (store) {
         const vm = this;
 
         vm.$onChanges = function () {
@@ -60,7 +62,7 @@
 
             if (angular.isNumber(vm.currentPage) && vm.currentPage >= 1 && vm.currentPage <= vm.numberOfPages) {
                 store.dispatch({
-                    type: ACTIONS.NAVIGATE_DATA_SELECTION,
+                    type: NAVIGATE_DATA_SELECTION,
                     payload: vm.currentPage
                 });
             }
@@ -68,7 +70,7 @@
 
         if (vm.currentPage > vm.numberOfPages) {
             store.dispatch({
-                type: ACTIONS.NAVIGATE_DATA_SELECTION,
+                type: NAVIGATE_DATA_SELECTION,
                 payload: 1
             });
         }

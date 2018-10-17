@@ -1,4 +1,5 @@
 import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
+import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
 
 (function () {
     'use strict';
@@ -17,9 +18,9 @@ import { applyFilters as applyFiltersActionCreator } from '../../../../src/share
             controllerAs: 'vm'
         });
 
-    DpDataSelectionActiveFilterController.$inject = ['$scope', 'store', 'ACTIONS'];
+    DpDataSelectionActiveFilterController.$inject = ['$scope', 'store'];
 
-    function DpDataSelectionActiveFilterController ($scope, store, ACTIONS) {
+    function DpDataSelectionActiveFilterController ($scope, store) {
         var vm = this;
 
         const GEOMETRY_FILTER = 'GEOMETRY_FILTER';  // Identification for a geometry filter
@@ -82,7 +83,7 @@ import { applyFilters as applyFiltersActionCreator } from '../../../../src/share
 
         function removeGeometryFilter (filters) {
             store.dispatch({
-                type: ACTIONS.FETCH_DATA_SELECTION,
+                type: FETCH_DATA_SELECTION,
                 payload: {
                     dataset: vm.dataset,
                     resetGeometryFilter: true,

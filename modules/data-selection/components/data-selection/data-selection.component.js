@@ -1,3 +1,8 @@
+import {
+    RESET_DATA_SELECTION,
+    SHOW_DATA_SELECTION
+} from '../../../../src/shared/ducks/data-selection/data-selection';
+
 (function () {
     'use strict';
 
@@ -26,8 +31,7 @@
         'dataSelectionApi',
         'DATA_SELECTION_CONFIG',
         'TabHeader',
-        'store',
-        'ACTIONS'
+        'store'
     ];
 
     function DpDataSelectionController (
@@ -36,8 +40,7 @@
         dataSelectionApi,
         DATA_SELECTION_CONFIG,
         TabHeader,
-        store,
-        ACTIONS
+        store
     ) {
         const vm = this;
 
@@ -94,7 +97,7 @@
                     `modules/data-selection/components/data-selection/not-authorized-message/${vm.dataset}.html`;
                 vm.availableFilters = [];
                 store.dispatch({
-                    type: ACTIONS.SHOW_DATA_SELECTION,
+                    type: SHOW_DATA_SELECTION,
                     payload: []
                 });
                 return;
@@ -148,7 +151,7 @@
                             .getMarkers(vm.dataset, activeFilters, vm.zoomLevel, vm.boundingBox)
                             .then(markerData => {
                                 store.dispatch({
-                                    type: ACTIONS.SHOW_DATA_SELECTION,
+                                    type: SHOW_DATA_SELECTION,
                                     payload: markerData
                                 });
                             });
@@ -156,13 +159,13 @@
                         // Update the state to show the data, do not trigger a
                         // url state change however
                         store.dispatch({
-                            type: ACTIONS.RESET_DATA_SELECTION,
+                            type: RESET_DATA_SELECTION,
                             payload: []
                         });
                     } else {
                         // Update the state to show the data
                         store.dispatch({
-                            type: ACTIONS.SHOW_DATA_SELECTION,
+                            type: SHOW_DATA_SELECTION,
                             payload: []
                         });
                     }

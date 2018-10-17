@@ -913,7 +913,7 @@ exports[`MapPreviewPanelContainer rendering should render visibility 1`] = `
   <section
     className="
           map-preview-panel
-          map-preview-panel--hidden
+          map-preview-panel--visible
         "
   >
     <div

@@ -10,7 +10,6 @@ import { routing } from '../../../../src/app/routes';
     dpStraatbeeldDirective.$inject = [
         '$rootScope',
         'store',
-        'ACTIONS',
         'marzipanoService',
         'straatbeeldApi',
         'orientation'
@@ -19,7 +18,6 @@ import { routing } from '../../../../src/app/routes';
     function dpStraatbeeldDirective (
         $rootScope,
         store,
-        ACTIONS,
         marzipanoService,
         straatbeeldApi,
         orientation) {

@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import ACTIONS from '../../actions';
 import { routing } from '../../../app/routes';
 import { STRAATBEELD_CONFIG } from '../../services/straatbeeld-api/straatbeeld-api';
 import {
@@ -8,19 +7,22 @@ import {
 } from '../../../map/components/leaflet/services/icons.constant';
 import { UPDATE_MAP } from '../../../map/ducks/map/map';
 
+export const FETCH_STRAATBEELD_BY_ID = 'FETCH_STRAATBEELD_BY_ID';
+export const FETCH_STRAATBEELD_BY_LOCATION = 'FETCH_STRAATBEELD_BY_LOCATION';
+export const FETCH_STRAATBEELD_BY_HOTSPOT = 'FETCH_STRAATBEELD_BY_HOTSPOT';
+export const SET_STRAATBEELD_ORIENTATION = 'SET_STRAATBEELD_ORIENTATION';
 export const STRAATBEELD_OFF = 'STRAATBEELD_OFF';
+export const SET_STRAATBEELD = 'SET_STRAATBEELD';
+export const SET_STRAATBEELD_HISTORY = 'SET_STRAATBEELD_HISTORY';
 
 function getHeadingDegrees([x1, y1], [x2, y2]) {
   return (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
 }
 
-const FETCH_STRAATBEELD_BY_ID = 'FETCH_STRAATBEELD_BY_ID';
-const FETCH_STRAATBEELD_BY_LOCATION = 'FETCH_STRAATBEELD_BY_LOCATION';
-
 export const PANORAMA_VIEW = {
   MAP: 'MAP',
   MAP_PANO: 'MAP_PANO',
-  PANO: 'PANO',
+  PANO: 'PANO'
 };
 
 const initialState = {
@@ -37,7 +39,7 @@ const initialState = {
   date: null,     // eg: new Date()
   isFullscreen: false,
   isInitial: true,
-  isLoading: true,
+  isLoading: true
 };
 
 export default function straatbeeldReducer(state = initialState, action) {
@@ -65,7 +67,7 @@ export default function straatbeeldReducer(state = initialState, action) {
       };
     }
     case FETCH_STRAATBEELD_BY_ID:
-    case ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT:
+    case FETCH_STRAATBEELD_BY_HOTSPOT:
       return {
         ...state,
         ...initialState,
@@ -88,13 +90,13 @@ export default function straatbeeldReducer(state = initialState, action) {
         targetLocation: action.payload
       };
 
-    case ACTIONS.SET_STRAATBEELD_HISTORY:
+    case SET_STRAATBEELD_HISTORY:
       return (state !== null) ? {
         ...state,
         history: action.payload
       } : state;
 
-    case ACTIONS.SET_STRAATBEELD:
+    case SET_STRAATBEELD:
       return (state) ? {
         ...state,
         id: action.payload.id || state.id,
@@ -111,7 +113,7 @@ export default function straatbeeldReducer(state = initialState, action) {
         image: action.payload.image
       } : null;
 
-    case ACTIONS.SET_STRAATBEELD_ORIENTATION:
+    case SET_STRAATBEELD_ORIENTATION:
       return (action.payload) ? {
         ...state,
         heading: action.payload.heading,
@@ -138,7 +140,7 @@ export const fetchStraatbeeldById = (id) => ({
 });
 
 export const setStraatbeeld = (straatbeeldData) => ({
-  type: ACTIONS.SET_STRAATBEELD,
+  type: SET_STRAATBEELD,
   payload: straatbeeldData
 });
 

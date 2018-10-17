@@ -1,10 +1,14 @@
+import {
+    RESET_DATA_SELECTION,
+    SHOW_DATA_SELECTION
+} from '../../../../src/shared/ducks/data-selection/data-selection';
+
 describe('The dp-data-selection component', function () {
     let $rootScope,
         $compile,
         $q,
         dataSelectionApi,
         store,
-        ACTIONS,
         config,
         mockedState,
         mockedFilters,
@@ -81,13 +85,12 @@ describe('The dp-data-selection component', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _dataSelectionApi_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _dataSelectionApi_, _store_) {
             $rootScope = _$rootScope_;
             $compile = _$compile_;
             $q = _$q_;
             dataSelectionApi = _dataSelectionApi_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         mockedState = {
@@ -279,7 +282,7 @@ describe('The dp-data-selection component', function () {
             getComponent(mockedState, mockedFilters);
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.RESET_DATA_SELECTION,
+                type: RESET_DATA_SELECTION,
                 payload: []
             });
 
@@ -290,7 +293,7 @@ describe('The dp-data-selection component', function () {
             // mockedApiPreviewData.data = [];
             // $rootScope.$apply();
             // expect(store.dispatch).toHaveBeenCalledWith({
-            //     type: ACTIONS.RESET_DATA_SELECTION,
+            //     type: RESET_DATA_SELECTION,
             //     payload: []
             // });
         });
@@ -300,7 +303,7 @@ describe('The dp-data-selection component', function () {
             getComponent(mockedState, mockedFilters);
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DATA_SELECTION,
+                type: SHOW_DATA_SELECTION,
                 payload: []
             });
 
@@ -312,7 +315,7 @@ describe('The dp-data-selection component', function () {
             // mockedApiPreviewData.data = [];
             // $rootScope.$apply();
             // expect(store.dispatch).toHaveBeenCalledWith({
-            //     type: ACTIONS.SHOW_DATA_SELECTION,
+            //     type: SHOW_DATA_SELECTION,
             //     payload: []
             // });
         });
@@ -326,7 +329,7 @@ describe('The dp-data-selection component', function () {
             getComponent(mockedState, mockedFilters);
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DATA_SELECTION,
+                type: SHOW_DATA_SELECTION,
                 payload: {
                     clusterMarkers: [
                         [52.1, 4.1],
@@ -342,7 +345,7 @@ describe('The dp-data-selection component', function () {
             getComponent(mockedState, mockedFilters);
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DATA_SELECTION,
+                type: SHOW_DATA_SELECTION,
                 payload: []
             });
         });
@@ -353,7 +356,7 @@ describe('The dp-data-selection component', function () {
             getComponent(mockedState, mockedFilters);
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DATA_SELECTION,
+                type: SHOW_DATA_SELECTION,
                 payload: {
                     clusterMarkers: [
                         [52.1, 4.1],

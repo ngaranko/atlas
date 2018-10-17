@@ -15,7 +15,7 @@ export const routing = {
     title: 'Grote kaart',
     location: '/kaart',
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART}`,
-    page: PAGES.KAART,
+    page: PAGES.KAART
   },
   catalogus: {
     title: 'Datasets',

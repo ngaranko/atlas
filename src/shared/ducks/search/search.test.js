@@ -69,7 +69,7 @@ describe('mapSearch Selectors', () => {
         mapSearchResultsByLocation: {}
       };
       const selected = getMapResultsByLocation(mockParameters);
-      expect(selected).toBe(mockParameters.mapSearchResultsByLocation);
+      expect(selected).toEqual(mockParameters.mapSearchResultsByLocation);
     });
 
     it('should return state.search.location as undefined', () => {

@@ -1,8 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-
 import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
-
-import ACTIONS, { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../../../shared/actions';
+import { FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
+import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 
 export function* fetchNearestDetails(action) {
   const {
@@ -14,7 +13,7 @@ export function* fetchNearestDetails(action) {
     const uri = yield call(fetchNearestDetail, location, layers, zoom);
     if (uri) {
       yield put({
-        type: ACTIONS.FETCH_DETAIL,
+        type: FETCH_DETAIL,
         payload: uri,
         skippedSearchResults: true
       });

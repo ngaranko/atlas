@@ -21,10 +21,10 @@ import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/search/search'
         });
 
     DpSearchResultsController.$inject = [
-        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'store', 'ACTIONS', 'activeOverlays'
+        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'store', 'activeOverlays'
     ];
 
-    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, store, ACTIONS,
+    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, store,
                                         activeOverlays) {
         const vm = this;
 

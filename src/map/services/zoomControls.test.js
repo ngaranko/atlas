@@ -1,10 +1,6 @@
-import ACTIONS from '../../shared/actions';
-
 import * as panControls from './panControls';
-import {
-    initialize,
-    setZoom
-} from './zoomControls';
+import { initialize, setZoom } from './zoomControls';
+import { MAP_ZOOM } from '../ducks/map/map';
 
 describe('zoom controls', () => {
   let leafletOld;
@@ -37,7 +33,9 @@ describe('zoom controls', () => {
       },
       getZoom: jest.fn(),
       setZoom: jest.fn(),
-      on: (name, handler) => { zoomEventHandler = handler; }
+      on: (name, handler) => {
+        zoomEventHandler = handler;
+      }
     };
 
     scaleNode = document.createElement('div');
@@ -46,13 +44,13 @@ describe('zoom controls', () => {
       getContainer: () => scaleNode
     };
     const scaleMock = jest.fn()
-      .mockReturnValue(scaleControl);
+                          .mockReturnValue(scaleControl);
 
     zoomControl = {
       addTo: jest.fn()
     };
     const zoomMock = jest.fn()
-      .mockReturnValue(zoomControl);
+                         .mockReturnValue(zoomControl);
 
     leafletOld = window.L;
     window.L = {
@@ -91,7 +89,6 @@ describe('zoom controls', () => {
     expect(zoomControl.addTo.mock.calls[0][0]).toBe(leafletMap);
   });
 
-
   describe('zoom', () => {
     it('sets the zoom level', () => {
       initialize(store, mapConfig, leafletMap);
@@ -112,7 +109,6 @@ describe('zoom controls', () => {
     });
   });
 
-
   it('fires action on Leaflet\'s zoomend event', () => {
     initialize(store, mapConfig, leafletMap);
     panControls.getCurrentLocation.mockReturnValue([1.3, 3.7]);
@@ -121,7 +117,7 @@ describe('zoom controls', () => {
     zoomEventHandler();
 
     expect(store.dispatch.mock.calls[0][0]).toEqual({
-      type: ACTIONS.MAP_ZOOM,
+      type: MAP_ZOOM,
       payload: {
         viewCenter: [1.3, 3.7],
         zoom: 6

@@ -1,4 +1,4 @@
-const APPLY_FILTERS = 'APPLY_FILTERS';
+export const APPLY_FILTERS = 'APPLY_FILTERS';
 const EMPTY_FILTERS = 'EMPTY_FILTERS';
 
 const reducer = (state = {}, action) => {

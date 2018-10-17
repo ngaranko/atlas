@@ -18,9 +18,9 @@
             controllerAs: 'vm'
         });
 
-    DpLinkController.$inject = ['$scope', 'store', 'ACTIONS', '$location', '$window'];
+    DpLinkController.$inject = ['$scope', 'store', '$location', '$window'];
 
-    function DpLinkController ($scope, store, ACTIONS, $location, $window) {
+    function DpLinkController ($scope, store, $location, $window) {
         const vm = this;
         vm.activeUrl = $location.url();
 
@@ -33,7 +33,7 @@
 
         function getAction (type, payload, query) {
             const action = {
-                type: ACTIONS[type] || type
+                type
             };
             if (angular.isDefined(payload)) {
                 action.payload = payload;

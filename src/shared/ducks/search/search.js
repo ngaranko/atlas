@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import get from 'lodash.get';
 import isObject from '../../services/is-object';
 import BaseCoder from '../../services/base-coder/base-coder';
 
@@ -13,9 +14,7 @@ export const SHOW_SEARCH_RESULTS = 'SHOW_SEARCH_RESULTS';
 export const FETCH_SEARCH_RESULTS_BY_LOCATION = 'FETCH_SEARCH_RESULTS_BY_LOCATION';
 
 export const getSearch = (state) => state.search;
-
-// Todo: create a mapSearchResultsByLocation reducer or refactor
-export const getMapResultsByLocation = (state) => state.search.mapSearchResultsByLocation || {};
+export const getMapResultsByLocation = (state) => get(state, 'search.mapSearchResultsByLocation', {});
 
 export const isSearchActive = createSelector(getSearch, (geoSearch) => (
   geoSearch && geoSearch.location && geoSearch.location.length

@@ -1,5 +1,6 @@
 import { isMapCurrentPage } from '../../../../../src/shared/ducks/current-page/current-page-reducer';
 import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../../../src/shared/ducks/search/search';
+import { FETCH_DATA_SELECTION } from '../../../../../src/header/ducks/search/search';
 
 (function () {
     'use strict';
@@ -8,9 +9,9 @@ import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../../../src/shared/ducks/s
         .module('atlas')
         .controller('HeaderController', HeaderController);
 
-    HeaderController.$inject = ['store', 'ACTIONS'];
+    HeaderController.$inject = ['store'];
 
-    function HeaderController (store, ACTIONS) {
+    function HeaderController (store) {
         const vm = this;
 
         store.subscribe(update);
@@ -28,7 +29,7 @@ import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../../../src/shared/ducks/s
             if (isCatalogView) {
                 // Search in datasets
                 vm.query = state.dataSelection && state.dataSelection.query;
-                vm.searchAction = ACTIONS.FETCH_DATA_SELECTION;
+                vm.searchAction = FETCH_DATA_SELECTION;
             } else {
                 // Default action is to search in data
                 vm.query = state.search && state.search.query;

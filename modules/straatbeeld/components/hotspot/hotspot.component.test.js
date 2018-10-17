@@ -1,8 +1,9 @@
+import { FETCH_STRAATBEELD_BY_HOTSPOT } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+
 describe('The dp-hotspot directive', function () {
     var $compile,
         $rootScope,
-        store,
-        ACTIONS;
+        store;
 
     beforeEach(function () {
         angular.mock.module(
@@ -14,11 +15,10 @@ describe('The dp-hotspot directive', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
     });
 
@@ -106,7 +106,7 @@ describe('The dp-hotspot directive', function () {
         directive.find('button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT,
+            type: FETCH_STRAATBEELD_BY_HOTSPOT,
             payload: {
                 id: 'ABC',
                 isInitial: false

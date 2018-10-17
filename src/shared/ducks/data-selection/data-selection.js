@@ -1,8 +1,12 @@
-import ACTIONS from '../../actions';
 import isObject from '../../services/is-object';
+import { FETCH_DATA_SELECTION } from '../../../header/ducks/search/search';
 
 export const SET_DATA_SELECTION_GEOMETRY_FILTER = 'SET_DATA_SELECTION_GEOMETRY_FILTER';
 export const RESET_DATA_SELECTION_GEOMETRY_FILTER = 'RESET_DATA_SELECTION_GEOMETRY_FILTER';
+export const SHOW_DATA_SELECTION = 'SHOW_DATA_SELECTION';
+export const NAVIGATE_DATA_SELECTION = 'NAVIGATE_DATA_SELECTION';
+export const SET_DATA_SELECTION_VIEW = 'SET_DATA_SELECTION_VIEW';
+export const RESET_DATA_SELECTION = 'RESET_DATA_SELECTION';
 
 const initialState = {
   markers: [], // eg: [[52.1, 4.1], [52.2, 4.0]],
@@ -24,7 +28,7 @@ let geometryFilter = {};
 
 export default function DataSelectionReducer(state = initialState, action) {
   switch (action.type) {
-    case ACTIONS.FETCH_DATA_SELECTION: {
+    case FETCH_DATA_SELECTION: {
       const mergeInto = typeof payload === 'string' ? {
         query: action.payload,
         page: 1,
@@ -57,7 +61,7 @@ export default function DataSelectionReducer(state = initialState, action) {
       };
     }
 
-    case ACTIONS.SHOW_DATA_SELECTION:
+    case SHOW_DATA_SELECTION:
       return !isObject(state) ? state : {
         ...state,
         markers: action.payload,
@@ -65,7 +69,7 @@ export default function DataSelectionReducer(state = initialState, action) {
         isFullscreen: state.view !== VIEWS.LIST
       };
 
-    case ACTIONS.RESET_DATA_SELECTION:
+    case RESET_DATA_SELECTION:
       return !isObject(state) ? state : {
         ...state,
         markers: action.payload,
@@ -74,13 +78,13 @@ export default function DataSelectionReducer(state = initialState, action) {
         reset: false
       };
 
-    case ACTIONS.NAVIGATE_DATA_SELECTION:
+    case NAVIGATE_DATA_SELECTION:
       return !isObject(state) ? state : {
         ...state,
         page: action.payload
       };
 
-    case ACTIONS.SET_DATA_SELECTION_VIEW: {
+    case SET_DATA_SELECTION_VIEW: {
       const views = [VIEWS.LIST, VIEWS.TABLE, VIEWS.CATALOG];
       const viewFound = views.includes(action.payload);
       const view = viewFound ? action.payload : undefined;

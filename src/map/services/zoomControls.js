@@ -1,6 +1,6 @@
 /* globals L */
-import ACTIONS from '../../shared/actions';
 import { getCurrentLocation } from './panControls';
+import { MAP_ZOOM } from '../ducks/map/map';
 
 const addHeading = (element, text) => {
   const headingNode = document.createElement('H3');
@@ -35,7 +35,7 @@ export const initialize = (store, mapConfig, leafletMap) => {
     setDoubleClickZoom(leafletMap, maxZoom);
 
     store.dispatch({
-      type: ACTIONS.MAP_ZOOM,
+      type: MAP_ZOOM,
       payload: {
         viewCenter: getCurrentLocation(leafletMap),
         zoom: leafletMap.getZoom()
