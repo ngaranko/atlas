@@ -41,11 +41,13 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapPanelToggle: toggleMapPanel
 }, dispatch);
 
-// TODO: Create Redux Middelware, use ACTION_TYPE as constants
+// TODO DP-6031: Create Redux Middelware, use ACTION_TYPE as constants
 const piwik = {
   TRACK_EVENT: 'trackEvent',
   ADD_BASE_LAYER: 'achtergrond',
-  ADD_MAP_LAYER: 'kaartlaag'
+  ADD_MAP_LAYER: 'kaartlaag',
+  BASE_LAYER_aerial: 'luchtfoto',
+  BASE_LAYER_topography: 'topografie'
 };
 
 class MapPanelContainer extends React.Component {
@@ -66,16 +68,20 @@ class MapPanelContainer extends React.Component {
     if (activeBaseLayer && prevProps.activeBaseLayer !== activeBaseLayer) {
       const baseLayers = [...mapBaseLayers.aerial, ...mapBaseLayers.topography];
       const newBaseLayer = baseLayers.find((b) => b.value === activeBaseLayer);
+      const baseLayerCategory = newBaseLayer.category &&
+        piwik[`BASE_LAYER_${newBaseLayer.category}`];
       piwikTracker([piwik.TRACK_EVENT, piwik.ADD_BASE_LAYER,
-        newBaseLayer.category, newBaseLayer.label]);
+        baseLayerCategory, newBaseLayer.label]);
     }
     if (activeMapLayers && prevProps.activeMapLayers !== activeMapLayers) {
       const newMapLayer = activeMapLayers.filter((b) =>
         !prevProps.activeMapLayers.find((b2) => b.title === b2.title)
       );
       if (newMapLayer && newMapLayer.length > 0) {
+        const mapLayerCategory = newMapLayer[0].category &&
+          newMapLayer[0].category.toLowerCase().replace(/[: ][ ]*/g, '_');
         piwikTracker([piwik.TRACK_EVENT, piwik.ADD_MAP_LAYER,
-          newMapLayer[0].category, newMapLayer[0].title]);
+          mapLayerCategory, newMapLayer[0].title]);
       }
     }
   }

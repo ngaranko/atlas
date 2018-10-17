@@ -55,7 +55,7 @@ describe('MapPanelContainer', () => {
 
   it('should send a piwik event if baseLayer changes', () => {
     wrapper.setProps({ activeBaseLayer: 'lf2018',
-      mapBaseLayers: { aerial: [{ value: 'lf2018' }], topography: [] } });
+      mapBaseLayers: { aerial: [{ category: 'aerial', value: 'lf2018' }], topography: [] } });
     piwikTracker.mockImplementation(() => jest.fn());
     expect(piwikTracker).toHaveBeenCalled();
   });
@@ -63,11 +63,11 @@ describe('MapPanelContainer', () => {
   it('should only send a piwik event if mapLayers change', () => {
     wrapper.setProps({ activeMapLayers: [{}] });
     expect(wrapper.find(MapLegend).length).toBe(1);
-    wrapper.setProps({ activeMapLayers: [{ title: 'title' }] });
+    wrapper.setProps({ activeMapLayers: [{ title: 'title', category: 'category' }] });
     piwikTracker.mockImplementation(() => jest.fn());
     expect(piwikTracker).toHaveBeenCalledTimes(4);
     // Check if not extra call is made if layer stay the same
-    wrapper.setProps({ activeMapLayers: [{ title: 'title' }] });
+    wrapper.setProps({ activeMapLayers: [{ title: 'title', category: 'category' }] });
     expect(piwikTracker).toHaveBeenCalledTimes(4);
   });
 
