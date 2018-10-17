@@ -2,5 +2,6 @@
     'use strict';
 
     angular
-        .module('dpShared', ['ngRaven']);
+        // .module('dpShared', ['ngRaven']); // TODO: refactor, reactivate
+        .module('dpShared', []);
 })();

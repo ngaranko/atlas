@@ -12,14 +12,15 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
         '$rootScope',
         '$window',
         'httpStatus',
-        'Raven'];
+        // 'Raven' // TODO: refactor, restore
+    ];
 
     function windowErrorHandlerFactory (
         $log,
         $rootScope,
         $window,
         httpStatus,
-        Raven
+        // Raven // TODO: refactor, restore
     ) {
         return () => {
             $window.addEventListener('error', function (event) {
@@ -48,9 +49,9 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
 
                 // Log exception in Sentry, use error object if available
                 if (event.error) {
-                    Raven.captureException(event.error, {
-                        extra: { message }
-                    });
+                    // Raven.captureException(event.error, { // TODO: refactor, restore
+                    //     extra: { message }
+                    // });
                 } else {
                     httpStatus.logResponse(message);
                 }
