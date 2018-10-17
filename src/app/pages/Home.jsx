@@ -39,26 +39,42 @@ const ABOUT_LINKS = {
   }
 };
 
+const STATES = {
+  MAP: 'mapPlayer',
+  PANO: 'panoPlayer'
+};
+
 class Home extends React.Component {
-  static togglePlay(ref, play) {
-    if (play) {
-      ref.play();
-    } else {
-      ref.pause();
-      ref.currentTime = 0; // eslint-disable-line no-param-reassign
-    }
-  }
   constructor(...options) {
     super(...options);
 
-    this.panoramaPlayer = null;
-    this.mapPlayer = null;
+    const playerState = {
+      play: false,
+      position: 0
+    };
+
+    this.state = {
+      [STATES.MAP]: playerState,
+      [STATES.PANO]: playerState
+    };
+
+    this.togglePlay = this.togglePlay.bind(this);
+  }
+
+  togglePlay(key, currentState, play) {
+    this.setState({
+      [key]: {
+        ...currentState,
+        play,
+        position: !play ? 0 : currentState.position
+      }
+    });
   }
 
   render() {
+    const { togglePlay } = this;
     const { showFooter } = this.props;
-    const { togglePlay } = this.constructor;
-
+    const { mapPlayer, panoPlayer } = this.state;
     return (
       <div
         className={`c-dashboard__column
@@ -79,16 +95,15 @@ class Home extends React.Component {
                           className={`c-homepage__block
                           c-homepage__block--left
                           c-homepage__block--tall`}
-                          onMouseOver={() => togglePlay(this.mapPlayer, true)}
-                          onMouseOut={() => togglePlay(this.mapPlayer, false)}
-                          onBlur={() => togglePlay(this.mapPlayer, false)}
-                          onFocus={() => togglePlay(this.mapPlayer, true)}
+                          onMouseOver={() => togglePlay(STATES.MAP, mapPlayer, true)}
+                          onMouseOut={() => togglePlay(STATES.MAP, mapPlayer, false)}
+                          onBlur={() => togglePlay(STATES.MAP, mapPlayer, false)}
+                          onFocus={() => togglePlay(STATES.MAP, mapPlayer, true)}
                         >
                           <div className="c-video">
                             <Video
-                              setRef={(element) => {
-                                this.mapPlayer = element;
-                              }}
+                              play={mapPlayer.play}
+                              position={mapPlayer.position}
                               poster="/assets/video/map.png"
                               src="/assets/video/map.mp4"
                               type="video/mp4"
@@ -168,15 +183,14 @@ class Home extends React.Component {
                           className={`c-homepage__block
                           c-homepage__block--right
                           c-homepage__block--tall`}
-                          onMouseOver={() => togglePlay(this.panoramaPlayer, true)}
-                          onMouseOut={() => togglePlay(this.panoramaPlayer, false)}
-                          onBlur={() => togglePlay(this.panoramaPlayer, false)}
-                          onFocus={() => togglePlay(this.panoramaPlayer, true)}
+                          onMouseOver={() => togglePlay(STATES.PANO, panoPlayer, true)}
+                          onMouseOut={() => togglePlay(STATES.PANO, panoPlayer, false)}
+                          onBlur={() => togglePlay(STATES.PANO, panoPlayer, false)}
+                          onFocus={() => togglePlay(STATES.PANO, panoPlayer, true)}
                         >
                           <Video
-                            setRef={(element) => {
-                              this.panoramaPlayer = element;
-                            }}
+                            play={panoPlayer.play}
+                            position={panoPlayer.position}
                             poster="/assets/video/panorama.jpg"
                             src="/assets/video/panorama.mp4"
                             type="video/mp4"
