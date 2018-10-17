@@ -89,9 +89,7 @@ class AutoSuggest extends React.Component {
   }
 
   onFormSubmit(event) {
-    const {
-      onSubmit
-    } = this.props;
+    const { onSubmit } = this.props;
 
     event.preventDefault();
     event.stopPropagation();
@@ -168,6 +166,7 @@ class AutoSuggest extends React.Component {
     } = this.props;
 
     this.textInput.focus();
+    this.resetActiveSuggestion();
     this.setState({
       showSuggestions: false
     });

@@ -83,20 +83,24 @@ describe('AutoSuggestReducer Reducer', () => {
   });
 });
 
-describe('authenticateUser method', () => {
-  it('should return the right action', () => {
+describe('should set the active hence highlighted suggestion', () => {
+  it('should set the active hence highlighted suggestion', () => {
     expect(setActiveSuggestion('123', 'name', ['scope'])).toEqual({
       type: SET_ACTIVE_SUGGESTION,
       suggestion: '123'
     });
   });
+  it('should set the index to -1 if no suggestion is given', () => {
+    expect(setActiveSuggestion()).toEqual({
+      type: SET_ACTIVE_SUGGESTION,
+      suggestion: { index: -1 }
+    });
+  });
 });
 
-describe('authenticateError method', () => {
-  it('should return the right action', () => {
-    expect(getSuggestions()).toEqual({
-      query: '',
-      type: FETCH_SUGGESTIONS_REQUEST
-    });
+it('should return the right action', () => {
+  expect(getSuggestions()).toEqual({
+    query: '',
+    type: FETCH_SUGGESTIONS_REQUEST
   });
 });

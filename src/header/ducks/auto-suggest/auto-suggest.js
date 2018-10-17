@@ -18,10 +18,10 @@ export default function AutoSuggestReducer(state = initialState, action) {
       return {
         ...state,
         count: 0,
-        displayQuery: action.query || '', // if action.query is null, put an empty string
+        displayQuery: action.query,
         error: '',
         isLoading: true,
-        typedQuery: action.query || '' // if action.query is null, put an empty string
+        typedQuery: action.query
       };
     case FETCH_SUGGESTIONS_SUCCESS:
       return {
@@ -54,4 +54,3 @@ export const setActiveSuggestion = (suggestion = { index: -1 }) =>
 
 export const getSuggestions = (query = '') =>
   ({ type: FETCH_SUGGESTIONS_REQUEST, query });
-
