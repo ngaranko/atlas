@@ -86,7 +86,8 @@
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
     "remove-markdown": "^0.2.2",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "svg-spritemap-webpack-plugin": "^2.7.1"
   },
   "devDependencies": {
     "@metahub/karma-jasmine-jquery": "^2.0.0",

@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 
 const root = path.resolve(__dirname);
 const src = path.resolve(root, 'src');
@@ -186,6 +187,13 @@ function commonConfig ({ nodeEnv }) {
           'proj4.js',
           'proj4leaflet.js'
         ]
+      }),
+      new SVGSpritemapPlugin({
+        src: path.resolve(src, 'shared/assets/icons/*.svg'),
+        gutter: 2,
+        filename: 'sprite.svg',
+        chunk: 'sprite',
+        styles: path.resolve(src, 'shared/styles/config/mixins/_sprites.scss')
       })
     ]
   };
