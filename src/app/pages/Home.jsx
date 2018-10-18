@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
 import { AngularWrapper } from 'react-angular';
 import { routing, toPanorama } from '../routes';
-import HomepageAddressBlockWrapper
-  from '../../homepage/wrappers/address-block/HomepageAddressBlockWrapper';
-import Video from '../components/Video/Video';
 import Footer from '../components/Footer/Footer';
 import HOMEPAGE_CONFIG from '../pages';
+import PreviewVideo from '../components/PreviewVideo/PreviewVideo';
+import HomepageAddressBlock from '../../homepage/components/address-block/HomepageAddressBlock';
+import HomepageBlock from '../../homepage/components/block/HomepageBlock';
 
 const INSTRUCTION_LINKS = {
   BEDIENING: {
@@ -39,311 +39,239 @@ const ABOUT_LINKS = {
   }
 };
 
-const STATES = {
-  MAP: 'mapPlayer',
-  PANO: 'panoPlayer'
-};
-
-class Home extends React.Component {
-  constructor(...options) {
-    super(...options);
-
-    const playerState = {
-      play: false,
-      position: 0
-    };
-
-    this.state = {
-      [STATES.MAP]: playerState,
-      [STATES.PANO]: playerState
-    };
-
-    this.togglePlay = this.togglePlay.bind(this);
-  }
-
-  togglePlay(key, currentState, play) {
-    this.setState({
-      [key]: {
-        ...currentState,
-        play,
-        position: !play ? 0 : currentState.position
-      }
-    });
-  }
-
-  render() {
-    const { togglePlay } = this;
-    const { showFooter } = this.props;
-    const { mapPlayer, panoPlayer } = this.state;
-    return (
-      <div
-        className={`c-dashboard__column
+const Home = ({ showFooter }) => (
+  <div
+    className={`c-dashboard__column
         c-dashboard__content
         u-col-sm--12
         qa-dashboard__column--right`}
-      >
-        <div className="c-dashboard__page o-max-width">
-          <div className="c-dashboard__page-inner o-max-width__inner u-gutter">
-            <div className="qa-page">
-              <div className="c-homepage u-padding__top--4">
-                <div className="u-grid">
-                  <div className="u-row">
-                    <div className="u-col-sm--9">
-                      <div className="qa-map-link">
-                        <Link
-                          to={{ type: routing.map.type }}
-                          className={`c-homepage__block
-                          c-homepage__block--left
-                          c-homepage__block--tall`}
-                          onMouseOver={() => togglePlay(STATES.MAP, mapPlayer, true)}
-                          onMouseOut={() => togglePlay(STATES.MAP, mapPlayer, false)}
-                          onBlur={() => togglePlay(STATES.MAP, mapPlayer, false)}
-                          onFocus={() => togglePlay(STATES.MAP, mapPlayer, true)}
-                        >
-                          <div className="c-video">
-                            <Video
-                              play={mapPlayer.play}
-                              position={mapPlayer.position}
-                              poster="/assets/video/map.png"
-                              src="/assets/video/map.mp4"
-                              type="video/mp4"
-                            />
-                          </div>
-                          <div className="c-homepage__block-button">
-                            <div className="o-btn--transparent">Data op de kaart</div>
-                            <div className="c-homepage__block-details">Selecteer kaartlagen, vind
-                              gegevens op
-                              een punt in de kaart, meet of teken een gebied
-                            </div>
-                          </div>
-                        </Link>
+  >
+    <div className="c-dashboard__page o-max-width">
+      <div className="c-dashboard__page-inner o-max-width__inner u-gutter">
+        <div className="qa-page">
+          <div className="c-homepage u-padding__top--4">
+            <div className="u-grid">
+              <div className="u-row">
+                <div className="u-col-sm--9">
+                  <div className="qa-map-link">
+                    <Link
+                      to={{ type: routing.map.type }}
+                      className="c-homepage__block c-homepage__block--left c-homepage__block--tall"
+                    >
+                      <PreviewVideo
+                        poster="/assets/video/map.png"
+                        src="/assets/video/map.mp4"
+                        type="video/mp4"
+                      />
+                      <div className="c-homepage__block-button">
+                        <div className="o-btn--transparent">Data op de kaart</div>
+                        <div className="c-homepage__block-details">Selecteer kaartlagen, vind
+                          gegevens op
+                          een punt in de kaart, meet of teken een gebied
+                        </div>
                       </div>
-                    </div>
-                    <div className="u-col-sm--3">
-                      <div>
-                        <a
-                          href="https://maps.amsterdam.nl"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`c-homepage__block
+                    </Link>
+                  </div>
+                </div>
+                <div className="u-col-sm--3">
+                  <div>
+                    <a
+                      href="https://maps.amsterdam.nl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`c-homepage__block
                           c-homepage__block--right
                           c-homepage__block--tall
                           c-homepage__block--amsterdam-maps`}
-                        >
-                          <div className="c-homepage__block-button c-homepage__block-button--tall">
-                            <div className="c-homepage__block-details-title o-btn--transparent">Meer
-                              op Maps
-                              Amsterdam
-                            </div>
-                            <div className="c-homepage__block-details">Ruimtelijke themakaarten (nog
-                              te
-                              integreren)
-                            </div>
-                          </div>
-                        </a>
+                    >
+                      <div className="c-homepage__block-button c-homepage__block-button--tall">
+                        <div className="c-homepage__block-details-title o-btn--transparent">
+                          Meer op Maps Amsterdam
+                        </div>
+                        <div className="c-homepage__block-details">
+                          Ruimtelijke themakaarten (nog te integreren)
+                        </div>
                       </div>
-                    </div>
+                    </a>
                   </div>
-                  <div className="u-row">
-                    <div className="u-col-sm--6 c-homepage__block--data-selection">
-                      <div
-                        className={`c-homepage__block
-                        c-homepage__block--left
-                        c-homepage__block--tall c-homepage__block--datasets`}
-                      >
-                        <Link
-                          className="c-homepage__block-button"
-                          to={{ type: routing.catalogus.type }}
-                        >
-                          <div className="o-btn--transparent">Datasetcatalogus</div>
-                          <div className="c-homepage__block-details">Blader door datasets
-                            (verzamelingen
-                            gegevens)
-                          </div>
-                        </Link>
+                </div>
+              </div>
+              <div className="u-row">
+                <div className="u-col-sm--6 c-homepage__block--data-selection">
+                  <HomepageBlock
+                    classes="c-homepage__block--left c-homepage__block--datasets"
+                    linkAction={{ type: routing.catalogus.type }}
+                    title="Datasetcatalogus"
+                    description="Blader door datasets (verzamelingen gegevens)"
+                  >
+                    <AngularWrapper
+                      moduleName="dpCatalogusThemesWrapper"
+                      component="dpCatalogusThemes"
+                      dependencies={['atlas']}
+                    />
+                  </HomepageBlock>
+                </div>
+
+                <div
+                  className="u-col-sm--3 c-homepage__block--address"
+                  id="homepage-address-block"
+                >
+                  <HomepageAddressBlock />
+                </div>
+
+                <div className="u-col-sm--3">
+                  <div className="qa-straatbeeld-link">
+                    <HomepageBlock
+                      classes="c-homepage__block--right"
+                      linkAction={toPanorama(HOMEPAGE_CONFIG.PANORAMA.id)}
+                      title="Panoramabeelden"
+                      description="Kijk rond ter plaatse"
+                    >
+                      <PreviewVideo
+                        poster="/assets/video/panorama.jpg"
+                        src="/assets/video/panorama.mp4"
+                        type="video/mp4"
+                      />
+                    </HomepageBlock>
+                  </div>
+                </div>
+              </div>
+              <div className="u-row">
+                <div className="c-homepage__news">
+                  <div className="u-col-sm--9">
+                    <div>
+                      <h1 className="u-padding__left--3 c-homepage__news-header">Nieuws</h1>
+                      <div>
                         <AngularWrapper
-                          moduleName="dpCatalogusThemesWrapper"
-                          component="dpCatalogusThemes"
+                          moduleName="dpUserContentWidgetWrapper"
+                          component="dpUserContentWidget"
                           dependencies={['atlas']}
+                          bindings={{
+                            limitTo: 3
+                          }}
+                          interpolateBindings={{
+                            type: 'news'
+                          }}
                         />
                       </div>
-                    </div>
-
-                    <div
-                      className="u-col-sm--3 c-homepage__block--address"
-                      id="homepage-address-block"
-                    >
-                      <HomepageAddressBlockWrapper />
-                    </div>
-
-                    <div className="u-col-sm--3">
-                      <div className="qa-straatbeeld-link">
+                      <div className="u-padding__left--3 c-homepage__news-show-more">
                         <Link
-                          to={toPanorama(HOMEPAGE_CONFIG.PANORAMA.id)}
-                          className={`c-homepage__block
-                          c-homepage__block--right
-                          c-homepage__block--tall`}
-                          onMouseOver={() => togglePlay(STATES.PANO, panoPlayer, true)}
-                          onMouseOut={() => togglePlay(STATES.PANO, panoPlayer, false)}
-                          onBlur={() => togglePlay(STATES.PANO, panoPlayer, false)}
-                          onFocus={() => togglePlay(STATES.PANO, panoPlayer, true)}
+                          to={{ type: routing.nieuws.type }}
+                          className="o-btn o-btn--link"
                         >
-                          <Video
-                            play={panoPlayer.play}
-                            position={panoPlayer.position}
-                            poster="/assets/video/panorama.jpg"
-                            src="/assets/video/panorama.mp4"
-                            type="video/mp4"
-                          />
-                          <div className="c-homepage__block-button">
-                            <div className="o-btn--transparent">Panoramabeelden</div>
-                            <div className="c-homepage__block-details">Kijk rond ter plaatse</div>
-                          </div>
+                          Nieuwsoverzicht
                         </Link>
                       </div>
                     </div>
                   </div>
-                  <div className="u-row">
-                    <div className="c-homepage__news">
-                      <div className="u-col-sm--9">
-                        <div>
-                          <h1 className="u-padding__left--3 c-homepage__news-header">Nieuws</h1>
-                          <div>
-                            <AngularWrapper
-                              moduleName="dpUserContentWidgetWrapper"
-                              component="dpUserContentWidget"
-                              dependencies={['atlas']}
-                              bindings={{
-                                limitTo: 3
-                              }}
-                              interpolateBindings={{
-                                type: 'news'
-                              }}
-                            />
-                          </div>
-                          <div className="u-padding__left--3 c-homepage__news-show-more">
-                            <Link
-                              to={{ type: routing.nieuws.type }}
-                              className="o-btn o-btn--link"
-                            >Nieuwsoverzicht
-                            </Link>
-                          </div>
+                  <div className="u-col-sm--3">
+                    <div className="u-margin__left--1 c-homepage__news-instructions">
+                      <h2 className="c-homepage__news-instructions-title">Instructies</h2>
+                      {Object.keys(INSTRUCTION_LINKS).map((key) => (
+                        <div key={key} className="c-user-content-widget__entry">
+                          <Link
+                            to={INSTRUCTION_LINKS[key].route}
+                            className="o-btn o-btn--link"
+                          >{INSTRUCTION_LINKS[key].title}
+                          </Link>
                         </div>
-                      </div>
-                      <div className="u-col-sm--3">
-                        <div className="u-margin__left--1 c-homepage__news-instructions">
-                          <h2 className="c-homepage__news-instructions-title">Instructies</h2>
-                          {Object.keys(INSTRUCTION_LINKS).map((key) => (
-                            <div key={key} className="c-user-content-widget__entry">
-                              <Link
-                                to={INSTRUCTION_LINKS[key].route}
-                                className="o-btn o-btn--link"
-                              >{INSTRUCTION_LINKS[key].title}
-                              </Link>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="u-clearfix" />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="u-clearfix" />
+                </div>
+              </div>
+            </div>
+            <div className="u-row">
+              <div className="c-homepage__text">
+                <div className="u-col-sm--8">
+                  <div className="u-margin__left--3 c-homepage__visie">
+                    <h1 className="c-homepage__visie-header">Amsterdam City Data</h1>
+                    <p className="c-homepage__visie-paragraph">
+                      Amsterdam beschikt over een schat
+                      aan gegevens over de stad. Via dit dataportaal stellen wij, in samenwerking
+                      met onze partners, deze gegevens beschikbaar. Samen met u willen wij werken
+                      aan vernieuwende datatoepassingen voor Amsterdam als leefbare stad.
+                    </p>
+                    <p className="c-homepage__visie-paragraph">
+                      Amsterdam City Data blijft zich ontwikkelen. Het aantal beschikbare gegevens
+                      en functionaliteiten van dit dataportaal zal verder groeien. Dit stemmen we af
+                      op de behoefte in de stad.
+                    </p>
+                    <p className="c-homepage__visie-paragraph">
+                      Op dit moment is het dataportaal met name geschikt voor professionals, zoals
+                      onderzoekers en uiteraard de medewerkers en ketenpartners van
+                      Gemeente Amsterdam. Daarnaast ondersteunen we ontwikkelaars die gegevens
+                      gebruiken in eigen toepassingen.
+                    </p>
+                    <div className="c-homepage__visie-panel">
+                      <AngularWrapper
+                        moduleName={'dpPanelWrapper'}
+                        component="dpPanel"
+                        dependencies={['atlas']}
+                        bindings={{
+                          isPanelVisible: true,
+                          canClose: false
+                        }}
+                        interpolateBindings={{
+                          type: 'info'
+                        }}
+                      >
+                        <p
+                          className={`c-homepage__visie-paragraph
+                              c-homepage__visie-paragraph--panel`}
+                        >
+                          Meer weten over data en de gemeente Amsterdam? Informatie over beleid,
+                          samenwerkingsverbanden, inspirerende voorbeelden van toepassingen en
+                          informatie voor de pers vindt u op:
+                        </p>
+                        <a
+                          className="c-link c-link--arrow"
+                          href="https://amsterdam.nl/data"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          amsterdam.nl/data
+                        </a>
+                      </AngularWrapper>
                     </div>
                   </div>
                 </div>
-                <div className="u-row">
-                  <div className="c-homepage__text">
-                    <div className="u-col-sm--8">
-                      <div className="u-margin__left--3 c-homepage__visie">
-                        <h1 className="c-homepage__visie-header">Amsterdam City Data</h1>
-                        <p className="c-homepage__visie-paragraph">Amsterdam beschikt over een schat
-                          aan
-                          gegevens over de stad. Via dit dataportaal stellen wij, in samenwerking
-                          met
-                          onze
-                          partners, deze gegevens beschikbaar. Samen met u willen wij werken aan
-                          vernieuwende
-                          datatoepassingen voor Amsterdam als leefbare stad.</p>
-                        <p className="c-homepage__visie-paragraph">Amsterdam City Data blijft zich
-                          ontwikkelen. Het aantal beschikbare gegevens en functionaliteiten van dit
-                          dataportaal zal verder groeien. Dit stemmen we af op de behoefte in de
-                          stad.</p>
-                        <p className="c-homepage__visie-paragraph">Op dit moment is het dataportaal
-                          met name
-                          geschikt voor professionals, zoals onderzoekers en uiteraard de
-                          medewerkers
-                          en
-                          ketenpartners van Gemeente Amsterdam. Daarnaast ondersteunen we
-                          ontwikkelaars die
-                          gegevens gebruiken in eigen toepassingen.</p>
-                        <div className="c-homepage__visie-panel">
-                          <AngularWrapper
-                            moduleName={'dpPanelWrapper'}
-                            component="dpPanel"
-                            dependencies={['atlas']}
-                            bindings={{
-                              isPanelVisible: true,
-                              canClose: false
-                            }}
-                            interpolateBindings={{
-                              type: 'info'
-                            }}
+                <div className="u-col-sm--1">&nbsp;</div>
+                <div className="u-col-sm--3">
+                  <div className="u-margin__left--1 c-homepage__beleid">
+                    <div>
+                      <div className="c-user-content-widget__beleid-zie-ook">Over</div>
+                      {Object.keys(ABOUT_LINKS).map((key) => (
+                        <div key={key} className="c-user-content-widget__entry">
+                          <Link
+                            to={ABOUT_LINKS[key].route}
+                            className="o-btn o-btn--link"
                           >
-                            <p
-                              className={`c-homepage__visie-paragraph
-                              c-homepage__visie-paragraph--panel`}
-                            >
-                              Meer weten over data en de gemeente Amsterdam? Informatie over beleid,
-                              samenwerkingsverbanden, inspirerende voorbeelden van toepassingen en
-                              informatie
-                              voor de pers vindt u op:
-                            </p>
-                            <a
-                              className="c-link c-link--arrow"
-                              href="https://amsterdam.nl/data"
-                              rel="noopener noreferrer"
-                              target="_blank"
-                            >
-                              amsterdam.nl/data
-                            </a>
-                          </AngularWrapper>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="u-col-sm--1">&nbsp;</div>
-                    <div className="u-col-sm--3">
-                      <div className="u-margin__left--1 c-homepage__beleid">
-                        <div>
-                          <div className="c-user-content-widget__beleid-zie-ook">Over</div>
-                          {Object.keys(ABOUT_LINKS).map((key) => (
-                            <div key={key} className="c-user-content-widget__entry">
-                              <Link
-                                to={ABOUT_LINKS[key].route}
-                                className="o-btn o-btn--link"
-                              >
-                                <div
-                                  className={`c-user-content-widget__short
+                            <div
+                              className={`c-user-content-widget__short
                                   s-cms-widget-content
                                   s-cms-widget-content--inline`}
-                                >
-                                  <p>{ABOUT_LINKS[key].title}</p>
-                                </div>
-                              </Link>
+                            >
+                              <p>{ABOUT_LINKS[key].title}</p>
                             </div>
-                          ))}
+                          </Link>
                         </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          {showFooter &&
-          <Footer />
-          }
         </div>
       </div>
-    );
-  }
-}
+      {showFooter &&
+      <Footer />
+      }
+    </div>
+  </div>
+);
 
 Home.propTypes = {
   showFooter: PropTypes.bool
