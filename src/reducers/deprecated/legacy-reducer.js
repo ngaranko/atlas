@@ -1,5 +1,4 @@
 import isObject from '../../shared/services/is-object';
-import { isMapCurrentPage } from '../../shared/ducks/current-page/current-page-reducer';
 import { FETCH_DETAIL, SHOW_DETAIL } from '../../shared/ducks/detail/detail';
 import {
   FETCH_SEARCH_RESULTS_BY_LOCATION,
@@ -29,7 +28,7 @@ const legacyReducer = (state = {}, action) => {
           name: null,
           type: null
         },
-        search: null,
+        search: null
       };
     }
     case SHOW_DETAIL:
@@ -40,35 +39,6 @@ const legacyReducer = (state = {}, action) => {
           isLoading: false
         }
       };
-
-    // case FETCH_STRAATBEELD_BY_LOCATION: {
-    //   const map = isObject(state.map) ? { ...state.map } : state.map;
-    //
-    //   if (isMapCurrentPage(state)) {
-    //     map.viewCenter = action.payload;
-    //   }
-    //
-    //   return {
-    //     ...state,
-    //     map: {
-    //       ...map
-    //     },
-    //     page: isObject(state.page) ? {
-    //       ...state.page,
-    //       name: null
-    //     } : state.page,
-    //     search: null,
-    //     dataSelection: null,
-    //     detail: null
-    //   };
-    // }
-
-    // case FETCH_STRAATBEELD_BY_ID:
-    //   return {
-    //     ...state,
-    //     search: null,
-    //     dataSelection: null
-    //   };
 
     case FETCH_DATA_SELECTION: {
       const mergeInto = typeof payload === 'string' ? {
@@ -100,7 +70,6 @@ const legacyReducer = (state = {}, action) => {
         } : state.page,
         search: null,
         detail: null,
-        straatbeeld: null
       };
     }
 

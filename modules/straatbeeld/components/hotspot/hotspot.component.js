@@ -1,5 +1,6 @@
 import { radiansToDegrees } from '../../../../src/shared/services/angle-conversion/angle-conversion';
-import { toPanorama } from '../../../../src/app/routes';
+import {
+    toPanorama } from '../../../../src/app/routes';
 
 (function () {
     'use strict';

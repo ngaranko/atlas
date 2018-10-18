@@ -1,3 +1,5 @@
+import { toPanorama } from '../../../../src/app/routes';
+
 describe('The dp-hotspot directive', function () {
     var $compile,
         $rootScope,
@@ -96,20 +98,13 @@ describe('The dp-hotspot directive', function () {
     });
 
     it('clicking the hotspot will trigger the page change action', function () {
-        var directive;
+        const id = 'ABC';
 
         spyOn(store, 'dispatch');
-
-        directive = getComponent('ABC', 20, 0.5, 2016);
+        const directive = getComponent(id, 20, 0.5, 2016);
         directive.find('button').click();
 
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: FETCH_STRAATBEELD_BY_HOTSPOT,
-            payload: {
-                id: 'ABC',
-                isInitial: false
-            }
-        });
+        expect(store.dispatch).toHaveBeenCalledWith(toPanorama(id));
     });
 
     it('has a screen reader fallback text', function () {

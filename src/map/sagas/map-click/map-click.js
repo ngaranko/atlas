@@ -24,15 +24,15 @@ export function* switchClickAction(action) {
   const selectionType = yield select(getSelectionType);
 
   if (selectionType === SELECTION_TYPE.PANORAMA) {
-      const year = yield select(getStraatbeeldYear);
-      const { location } = action.payload;
-      const locationArray = latitudeLongitudeToArray(location);
-      const imageData = yield call(getImageDataByLocation, locationArray, year);
+    const year = yield select(getStraatbeeldYear);
+    const { location } = action.payload;
+    const locationArray = latitudeLongitudeToArray(location);
+    const imageData = yield call(getImageDataByLocation, locationArray, year);
 
       // The view direction should be towards the location that the user clicked
-      const heading = getHeadingDegrees(imageData.location, locationArray);
+    const heading = getHeadingDegrees(imageData.location, locationArray);
 
-      yield put(toPanorama(imageData.id, heading));
+    yield put(toPanorama(imageData.id, heading));
   } else {
     if (layers.length) {
       yield put({

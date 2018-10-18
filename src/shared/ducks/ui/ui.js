@@ -74,7 +74,8 @@ export const isInPrintorEmbedMode = createSelector(
   (embedded, print, preview) =>
     (embedded || print || preview));
 export const isMapLayersVisible = createSelector(getUIState, (ui) => ui.isMapLayersVisible);
-export const isMapPanelHandleVisible = createSelector(getUIState, (ui) => ui.isMapPanelHandleVisible);
+export const isMapPanelHandleVisible =
+  createSelector(getUIState, (ui) => ui.isMapPanelHandleVisible);
 
 export const isPrintModeLandscape = createSelector(
   isPrintMode,

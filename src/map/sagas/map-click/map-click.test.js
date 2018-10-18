@@ -8,6 +8,31 @@ import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
 import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 
+//  it('heads towards a targetlocation when straatbeeld is loaded by location', () => {
+//       let output;
+//
+//       [
+//         { target: [52, 4], heading: 0 },
+//         { target: [52, 5], heading: 90 },
+//         { target: [52, 3], heading: -90 },
+//         { target: [53, 5], heading: 45 },
+//         { target: [51, 3], heading: -135 },
+//         { target: [51, 5], heading: 135 }
+//       ].forEach(({ target, heading }) => {
+//         inputState.targetLocation = target;
+//         inputState.location = inputState.targetLocation;
+//
+//         output = reducer(inputState, {
+//           type: SET_STRAATBEELD,
+//           payload
+//         });
+//         expect(output)
+//           .toEqual(jasmine.objectContaining({
+//             heading
+//           }));
+//       });
+//     });
+
 describe('getActiveMapLayers', () => {
   const state = {
     map: {

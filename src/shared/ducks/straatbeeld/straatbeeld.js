@@ -19,7 +19,7 @@ export const PANORAMA_VIEW = {
 
 const initialState = {
   location: null, // eg: [52.8, 4.9]
-  year: undefined,// eg: 2016
+  year: undefined, // eg: 2016
   pitch: null,    // eg: -10
   heading: 0,     // eg: 270
   fov: null,      // eg: 65
@@ -57,7 +57,7 @@ export default function straatbeeldReducer(state = initialState, action) {
       return {
         ...state,
         id: action.payload.id,
-        heading: action.payload.heading || 0,
+        heading: action.payload.heading || state.heading,
         isLoading: true
       };
 
@@ -68,7 +68,7 @@ export default function straatbeeldReducer(state = initialState, action) {
       };
 
     case SET_STRAATBEELD:
-      return (state) ? {
+      return {
         ...state,
         id: action.payload.id || state.id,
         date: action.payload.date,
@@ -78,15 +78,15 @@ export default function straatbeeldReducer(state = initialState, action) {
         isLoading: false,
         location: action.payload.location,
         image: action.payload.image
-      } : null;
+      };
 
     case SET_STRAATBEELD_ORIENTATION:
-      return (action.payload) ? {
+      return {
         ...state,
         heading: action.payload.heading,
         pitch: action.payload.pitch,
         fov: action.payload.fov
-      } : null;
+      };
 
     default:
       return state;
@@ -112,8 +112,31 @@ export const setStraatbeeldYear = (year) => ({
   payload: year
 });
 
+export const setStraatbeeldOrientation = ({heading, pitch, fov}) => ({
+  type: SET_STRAATBEELD_ORIENTATION,
+  payload: {
+    heading,
+    pitch,
+    fov
+  }
+});
+
 // Selectors
+/**
+ * @deprecated Don't use getStraatbeeld outside reducer,
+ * use specific selector. e.g.: getStraatbeeldHeading()
+ */
 export const getStraatbeeld = (state) => state.straatbeeld || {};
+export const getHotspots = createSelector(getStraatbeeld, (straatbeeld) => {
+  const { year, hotspots } = straatbeeld;
+  if (year) {
+    // TODO: refactor: refire hotspots search request. Not everything is returned from back-end.
+    // TODO: refactor: test hotspots are filtered by year
+    return hotspots.filter((hotspot) => hotspot.year === year);
+  }
+  return hotspots;
+});
+
 export const getStraatbeeldLocation = createSelector(
   getStraatbeeld,
   (straatbeeld) => (

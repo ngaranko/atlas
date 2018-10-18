@@ -1,7 +1,7 @@
-import { SET_STRAATBEELD_ORIENTATION } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+import { setStraatbeeldOrientation } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
 
 describe('The orientation factory', function () {
-    var orientation,
+    let orientation,
         store,
         mockedViewer;
 
@@ -43,13 +43,10 @@ describe('The orientation factory', function () {
     it('dispatches an ACTION based on orientation from the Marzipano viewer', function () {
         orientation.update(mockedViewer);
 
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: SET_STRAATBEELD_ORIENTATION,
-            payload: {
-                heading: 5.729577951308232,
-                pitch: 11.459155902616464,
-                fov: 17.188733853924695
-            }
-        });
+        expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldOrientation({
+            heading: 5.729577951308232,
+            pitch: 11.459155902616464,
+            fov: 17.188733853924695
+        }));
     });
 });

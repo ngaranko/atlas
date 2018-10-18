@@ -25,9 +25,6 @@ export default function detailReducer(state = initialState, action) {
     }
     case routing.adresDetail.type: {
       const { query = {} } = action.meta;
-      // console.log(action.meta);
-      // console.log(query);
-      // console.log('query.hasOwnProperty(\'kaart\')', query.hasOwnProperty('kaart'));
       if (query.hasOwnProperty('kaart')) {
         return {
           ...state,

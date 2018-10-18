@@ -1,7 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { fetchSearchResultsByLocation } from '../../ducks/preview-panel/map-preview-panel';
 import { getMapSearchResults } from '../../../shared/ducks/search/search';
-import { getStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import { getUser } from '../../../shared/ducks/user/user';
 
 export const REQUEST_GEOSEARCH = 'REQUEST_GEOSEARCH';
@@ -14,7 +13,6 @@ export function* requestGeoSearch(action) {
   //   payload: action.payload
   // });
   // getCurrentLocation
-  console.log('geosearch.js', action);
   const locationArray = action.payload || {};
   const location = {
     latitude: locationArray[0],
@@ -24,7 +22,6 @@ export function* requestGeoSearch(action) {
   const newAction = fetchSearchResultsByLocation(location);
   yield put(newAction);
   yield put(getMapSearchResults(location, user));
-    // fetchSearchResultsByLocation
 }
 
 export default function* watchGeoSearchRequest() {

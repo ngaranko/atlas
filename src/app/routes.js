@@ -154,7 +154,7 @@ export const routing = {
     location: '/datasets/bag/pand/:id',
     type: `${ROUTER_NAMESPACE}/${PAGES.PAND_DETAIL}`,
     page: PAGES.PAND_DETAIL
-  },
+  }
 };
 
 // e.g. { home: '/' }, to be used by redux-first-router/connectRoutes
@@ -211,7 +211,7 @@ export const pageActionToEndpoint = (action) => {
 };
 
 export const toMap = () => ({
-  type: routing.map.type,
+  type: routing.map.type
 });
 
 export const toPanorama = (id, heading) => ({

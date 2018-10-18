@@ -77,7 +77,7 @@ export const getSelectedLocation = createSelector(
 //     }) : null
 //   ));
 
-export const getShortSelectedLocation  = (state) => state.selection && state.selection.location;
+export const getShortSelectedLocation = (state) => state.selection && state.selection.location;
 
 export const getLocationId = createSelector(
   getShortSelectedLocation,
@@ -89,9 +89,7 @@ export const getLocationId = createSelector(
 
 export const selectLatestMapSearchResults = createSelector(
   getMapResultsByLocation,
-  (mapResultsByLocation) => {
-    return mapResultsByLocation;
-  }
+  (mapResultsByLocation) => mapResultsByLocation
 );
 
 // export const getSearchMarker = createSelector(

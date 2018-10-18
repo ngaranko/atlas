@@ -1,7 +1,7 @@
-import { SET_STRAATBEELD_YEAR } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+import { setStraatbeeldYear } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
 
 describe('The dp-straatbeeld-history component', function () {
-    var $compile,
+    let $compile,
         $rootScope,
         $window,
         store;
@@ -219,34 +219,22 @@ describe('The dp-straatbeeld-history component', function () {
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(1).click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: SET_STRAATBEELD_YEAR,
-                payload: 2018
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldYear(2018));
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(2).click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: SET_STRAATBEELD_YEAR,
-                payload: 2017
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldYear(2017));
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(3).click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: SET_STRAATBEELD_YEAR,
-                payload: 2016
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldYear(2016));
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(0).click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: SET_STRAATBEELD_YEAR,
-                payload: 0
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldYear(undefined));
         });
 
         it('can have its selection initialized', () => {

@@ -10,14 +10,14 @@ export const SELECTION_TYPE = {
   NONE: 'NONE',
   POINT: 'POINT',
   OBJECT: 'OBJECT',
-  PANORAMA: 'PANORAMA',
+  PANORAMA: 'PANORAMA'
 };
 
 const initialState = {
   type: SELECTION_TYPE.NONE
 };
 
-const reducer = (state=initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case routing.map.type: {
       const locationString = get(action, 'meta.query.selectedLocation');
@@ -51,10 +51,9 @@ const reducer = (state=initialState, action) => {
         return {
           type: action.payload.selectionType,
           location: action.payload.object
-        }
-      } else {
-        return state;
+        };
       }
+      return state;
     }
     default:
       return state;
@@ -62,13 +61,13 @@ const reducer = (state=initialState, action) => {
 };
 
 // Selectors
-export const previewDataAvailable = (state) => {
+export const previewDataAvailable = (state) =>
   // If either an object is selected or a point search is in progress, show preview panel
-  return state.selection.type === SELECTION_TYPE.POINT
-    || state.selection.type === SELECTION_TYPE.OBJECT;
+   state.selection.type === SELECTION_TYPE.POINT
+    || state.selection.type === SELECTION_TYPE.OBJECT
   // return Boolean(state.detail && state.detail.endpoint)
   //   || Boolean(state.search && state.search.mapSearchResultsByLocation && Object.keys(state.search.mapSearchResultsByLocation).length);
-};
+;
 
 export const getSelectionType = (state) => (state[REDUCER_KEY].type);
 
