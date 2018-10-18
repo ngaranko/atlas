@@ -45,4 +45,14 @@
 
 .c-link__wrapper--inine-block {
   display: inline-block;
+
+  a {
+    color: $primary-contrast-blue;
+    text-decoration: underline;
+
+    &:hover {
+      color: $primary-contrast;
+      text-decoration: underline;
+    }
+  }
 }
