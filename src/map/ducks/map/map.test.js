@@ -1,5 +1,5 @@
 import reducer, {
-  MAP_REMOVE_PANO_OVERLAY,
+  // MAP_REMOVE_PANO_OVERLAY,
   mapClear,
   mapClearDrawing,
   mapEmptyGeometry,
@@ -14,7 +14,7 @@ import reducer, {
 import { routing } from '../../../app/routes';
 import {
   FETCH_STRAATBEELD_BY_ID,
-  FETCH_STRAATBEELD_BY_LOCATION, SET_STRAATBEELD, SET_STRAATBEELD_HISTORY
+  FETCH_STRAATBEELD_BY_LOCATION, SET_STRAATBEELD, SET_STRAATBEELD_YEAR
 } from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 describe('Map Reducer', () => {
@@ -237,9 +237,9 @@ describe('Map Reducer', () => {
     });
   });
 
-  it(`should add a pano overlay when dispatching ${SET_STRAATBEELD_HISTORY} or ${routing.panorama.type}`, () => {
+  it(`should add a pano overlay when dispatching ${SET_STRAATBEELD_YEAR} or ${routing.panorama.type}`, () => {
     expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
-      type: SET_STRAATBEELD_HISTORY,
+      type: SET_STRAATBEELD_YEAR,
       payload: 2017
     })).toEqual({
       overlays: [{ id: 'pano2017', isVisible: true }], mapPanelActive: false
@@ -250,26 +250,6 @@ describe('Map Reducer', () => {
       payload: {}
     })).toEqual({
       overlays: [{ id: 'pano', isVisible: true }], mapPanelActive: false
-    });
-  });
-
-  it(`should remove a pano overlay when dispatching ${MAP_REMOVE_PANO_OVERLAY}`, () => {
-    expect(reducer({ overlays: [{ id: 'panob' }] }, {
-      type: MAP_REMOVE_PANO_OVERLAY,
-      payload: {
-        id: 'panoa'
-      }
-    })).toEqual({
-      overlays: []
-    });
-
-    expect(reducer({ overlays: [{ id: 'notpano' }] }, {
-      type: MAP_REMOVE_PANO_OVERLAY,
-      payload: {
-        id: 'panoa'
-      }
-    })).toEqual({
-      overlays: [{ id: 'notpano' }]
     });
   });
 

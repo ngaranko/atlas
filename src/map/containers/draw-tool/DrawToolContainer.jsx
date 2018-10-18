@@ -11,7 +11,7 @@ import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
 import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
-import { setStraatbeeldOff } from '../../../shared/ducks/straatbeeld/straatbeeld';
+// import { setStraatbeeldOff } from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 import {
   cancel,
@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapClear: mapClear,
   onSetPageName: setPageName,
   onSetMapFullscreen: setMapFullscreen,
-  onStraatbeeldOff: setStraatbeeldOff
+  // onStraatbeeldOff: setStraatbeeldOff
 }, dispatch);
 
 // TODO: Get all business logic out of this file, probably to Redux!
@@ -124,7 +124,7 @@ class DrawToolContainer extends React.Component {
         description: `${polygon.distanceTxt} en ${polygon.areaTxt}`
       });
 
-      this.props.onStraatbeeldOff();
+      // this.props.onStraatbeeldOff();
       this.props.onEndDrawing({ polygon });
       this.props.onSetPageName({ name: null });
 
@@ -206,7 +206,7 @@ DrawToolContainer.propTypes = {
   onEndDrawing: PropTypes.func.isRequired,
   onSetPageName: PropTypes.func.isRequired,
   onSetMapFullscreen: PropTypes.func.isRequired,
-  onStraatbeeldOff: PropTypes.func.isRequired,
+  // onStraatbeeldOff: PropTypes.func.isRequired,
   onMapClear: PropTypes.func.isRequired
 };
 

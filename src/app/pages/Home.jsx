@@ -4,10 +4,16 @@ import Link from 'redux-first-router-link';
 import { AngularWrapper } from 'react-angular';
 import { routing, toPanorama } from '../routes';
 import Footer from '../components/Footer/Footer';
-import HOMEPAGE_CONFIG from '../pages';
 import PreviewVideo from '../components/PreviewVideo/PreviewVideo';
 import HomepageAddressBlock from '../../homepage/components/address-block/HomepageAddressBlock';
 import HomepageBlock from '../../homepage/components/block/HomepageBlock';
+
+const HOMEPAGE_CONFIG = {
+  PANORAMA: {
+    id: 'TMX7316010203-000719_pano_0000_000950',
+    heading: 226
+  }
+};
 
 const INSTRUCTION_LINKS = {
   BEDIENING: {
@@ -123,7 +129,7 @@ const Home = ({ showFooter }) => (
                   <div className="qa-straatbeeld-link">
                     <HomepageBlock
                       classes="c-homepage__block--right"
-                      linkAction={toPanorama(HOMEPAGE_CONFIG.PANORAMA.id)}
+                      linkAction={toPanorama(HOMEPAGE_CONFIG.PANORAMA.id, HOMEPAGE_CONFIG.PANORAMA.heading)}
                       title="Panoramabeelden"
                       description="Kijk rond ter plaatse"
                     >

@@ -2,6 +2,7 @@ import { put, select, takeLatest } from 'redux-saga/es/internal/io';
 import { redirect } from 'redux-first-router';
 import { routing } from '../../../app/routes';
 import { UPDATE_MAP } from '../../ducks/map/map';
+import { SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 
 /**
  * Todo: improve this
@@ -12,6 +13,16 @@ import { UPDATE_MAP } from '../../ducks/map/map';
  */
 function* updateMapQuery(action) {
   const state = yield select();
+
+  if (
+    state.selection.type === SELECTION_TYPE.PANORAMA
+    || state.selection.type === SELECTION_TYPE.OBJECT) {
+    // Do not update querystrings using this method because it will break the router,
+    // resulting in a `not-found` route resolution.
+    // TODO: refactor, remove this early exit
+    return;
+  }
+
   try {
     const query = {
       ...state.location.query,

@@ -1,4 +1,4 @@
-import { SET_STRAATBEELD_HISTORY } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+import { SET_STRAATBEELD_YEAR } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
 
 describe('The dp-straatbeeld-history component', function () {
     var $compile,
@@ -220,7 +220,7 @@ describe('The dp-straatbeeld-history component', function () {
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(1).click();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: SET_STRAATBEELD_HISTORY,
+                type: SET_STRAATBEELD_YEAR,
                 payload: 2018
             });
 
@@ -228,7 +228,7 @@ describe('The dp-straatbeeld-history component', function () {
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(2).click();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: SET_STRAATBEELD_HISTORY,
+                type: SET_STRAATBEELD_YEAR,
                 payload: 2017
             });
 
@@ -236,7 +236,7 @@ describe('The dp-straatbeeld-history component', function () {
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(3).click();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: SET_STRAATBEELD_HISTORY,
+                type: SET_STRAATBEELD_YEAR,
                 payload: 2016
             });
 
@@ -244,7 +244,7 @@ describe('The dp-straatbeeld-history component', function () {
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(0).click();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: SET_STRAATBEELD_HISTORY,
+                type: SET_STRAATBEELD_YEAR,
                 payload: 0
             });
         });

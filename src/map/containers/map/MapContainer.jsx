@@ -13,7 +13,7 @@ import MapPanelContainer from '../../containers/panel/MapPanelContainer';
 import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
-import { previewDataAvailable as previewDataAvailableSelector } from '../../ducks/preview-panel/map-preview-panel';
+import { previewDataAvailable as previewDataAvailableSelector } from '../../../shared/ducks/selection/selection';
 import { getDrawingMode } from '../../ducks/map/map-selectors';
 
 const mapStateToProps = (state) => ({

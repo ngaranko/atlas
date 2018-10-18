@@ -12,11 +12,6 @@ import {
   SET_DATA_SELECTION_VIEW,
   SHOW_DATA_SELECTION
 } from '../../shared/ducks/data-selection/data-selection';
-import {
-  FETCH_STRAATBEELD_BY_HOTSPOT,
-  FETCH_STRAATBEELD_BY_ID,
-  FETCH_STRAATBEELD_BY_LOCATION
-} from '../../shared/ducks/straatbeeld/straatbeeld';
 
 /* istanbul ignore next */
 const legacyReducer = (state = {}, action) => {
@@ -35,7 +30,6 @@ const legacyReducer = (state = {}, action) => {
           type: null
         },
         search: null,
-        straatbeeld: null
       };
     }
     case SHOW_DETAIL:
@@ -47,35 +41,34 @@ const legacyReducer = (state = {}, action) => {
         }
       };
 
-    case FETCH_STRAATBEELD_BY_LOCATION: {
-      const map = isObject(state.map) ? { ...state.map } : state.map;
+    // case FETCH_STRAATBEELD_BY_LOCATION: {
+    //   const map = isObject(state.map) ? { ...state.map } : state.map;
+    //
+    //   if (isMapCurrentPage(state)) {
+    //     map.viewCenter = action.payload;
+    //   }
+    //
+    //   return {
+    //     ...state,
+    //     map: {
+    //       ...map
+    //     },
+    //     page: isObject(state.page) ? {
+    //       ...state.page,
+    //       name: null
+    //     } : state.page,
+    //     search: null,
+    //     dataSelection: null,
+    //     detail: null
+    //   };
+    // }
 
-      if (isMapCurrentPage(state)) {
-        map.viewCenter = action.payload;
-      }
-
-      return {
-        ...state,
-        map: {
-          ...map
-        },
-        page: isObject(state.page) ? {
-          ...state.page,
-          name: null
-        } : state.page,
-        search: null,
-        dataSelection: null,
-        detail: null
-      };
-    }
-
-    case FETCH_STRAATBEELD_BY_ID:
-    case FETCH_STRAATBEELD_BY_HOTSPOT:
-      return {
-        ...state,
-        search: null,
-        dataSelection: null
-      };
+    // case FETCH_STRAATBEELD_BY_ID:
+    //   return {
+    //     ...state,
+    //     search: null,
+    //     dataSelection: null
+    //   };
 
     case FETCH_DATA_SELECTION: {
       const mergeInto = typeof payload === 'string' ? {
@@ -147,7 +140,6 @@ const legacyReducer = (state = {}, action) => {
           name: null
         } : state.page,
         detail: null,
-        straatbeeld: null,
         dataSelection: null
       };
 
@@ -160,7 +152,6 @@ const legacyReducer = (state = {}, action) => {
           type: null
         } : state.page,
         detail: null,
-        straatbeeld: null,
         dataSelection: null
       };
 

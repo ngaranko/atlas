@@ -1,4 +1,6 @@
-import { SET_STRAATBEELD_HISTORY } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+import {
+    setStraatbeeldYear
+} from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
 
 (function () {
     'use strict';
@@ -39,7 +41,7 @@ import { SET_STRAATBEELD_HISTORY } from '../../../../src/shared/ducks/straatbeel
                 });
 
             scope.selectedOption = {
-                year: 0,
+                year: undefined,
                 label: 'Meest recent'
             };
 
@@ -53,10 +55,7 @@ import { SET_STRAATBEELD_HISTORY } from '../../../../src/shared/ducks/straatbeel
             scope.toggleMenu = () => scope.menuActive = !scope.menuActive;
             scope.setSelectedOption = (option) => {
                 scope.selectedOption = option;
-                store.dispatch({
-                    type: SET_STRAATBEELD_HISTORY,
-                    payload: option.year
-                });
+                store.dispatch(setStraatbeeldYear(option.year));
             };
 
             scope.$watchCollection('location', updateLocation, true);

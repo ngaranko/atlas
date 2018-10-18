@@ -1,5 +1,5 @@
 import { radiansToDegrees } from '../../../../src/shared/services/angle-conversion/angle-conversion';
-import { FETCH_STRAATBEELD_BY_HOTSPOT } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+import { toPanorama } from '../../../../src/app/routes';
 
 (function () {
     'use strict';
@@ -49,13 +49,7 @@ import { FETCH_STRAATBEELD_BY_HOTSPOT } from '../../../../src/shared/ducks/straa
         vm.transform = 'rotateX(' + angle + 'deg)';
 
         vm.loadScene = function () {
-            store.dispatch({
-                type: FETCH_STRAATBEELD_BY_HOTSPOT,
-                payload: {
-                    id: vm.sceneId,
-                    isInitial: false
-                }
-            });
+            store.dispatch(toPanorama(vm.sceneId));
         };
     }
 })();

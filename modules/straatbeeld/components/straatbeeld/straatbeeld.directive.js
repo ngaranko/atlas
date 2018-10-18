@@ -32,13 +32,10 @@ import { routing } from '../../../../src/app/routes';
         };
 
         function linkFunction (scope, element) {
-            var container,
-                viewer;
+            const container = element[0].querySelector('.js-marzipano-viewer');
+            const viewer = marzipanoService.initialize(container);
 
-            container = element[0].querySelector('.js-marzipano-viewer');
-            viewer = marzipanoService.initialize(container);
-
-            var viewChangeHandler = viewer.addEventListener('viewChange', () => {
+            const viewChangeHandler = viewer.addEventListener('viewChange', () => {
                 orientation.update(viewer);
             });
 

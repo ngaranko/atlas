@@ -19,7 +19,7 @@ import {
   getShortSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
-import { getPageActionEndpoint, toMap } from '../../../app/routes';
+import { getPageActionEndpoint, toMap, toPanorama } from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
   mapClickLocation: getSelectedLocation(state),
@@ -45,9 +45,13 @@ const mapDispatchToProps = (dispatch) => ({
     onMapPreviewPanelMaximizeDetail: toMapDetail,
     onMapPreviewPanelMaximizeSearch: showSearchView,
     onMapSearchResultsItemClick: setDetailEndpointRoute,
-    onOpenPanoById: showStraatbeeld,
     closeMapFullScreen: toggleMapFullscreen
   }, dispatch),
+  onOpenPanoById: (pano) => {
+    // showStraatbeeld
+    const action = toPanorama(pano.id);
+    return dispatch(action);
+  },
   onMapSearchResultsItemClick: (endpoint) => {
     const action = getPageActionEndpoint(endpoint);
     return dispatch(action);

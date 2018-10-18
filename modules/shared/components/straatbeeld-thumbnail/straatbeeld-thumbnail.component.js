@@ -1,3 +1,5 @@
+import { toPanorama } from '../../../../src/app/routes';
+
 (function () {
     'use strict';
 
@@ -44,12 +46,7 @@
                 if (!angular.isArray(thumbnailData)) {
                     vm.imageUrl = thumbnailData.url;
                     vm.hasThumbnail = true;
-                    vm.payload = {
-                        id: id,
-                        heading: heading,
-                        isInitial: true,
-                        isFullscreen: false
-                    };
+                    vm.linkTo = toPanorama(id); // TODO refactor, use hading
                 } else {
                     vm.hasThumbnail = false;
                 }

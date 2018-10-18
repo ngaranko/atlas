@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import {
   getStraatbeeldLocation,
-  getStraatbeeldMarkers
+  getStraatbeeldMarkers, getStraatbeeldYear
 } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import {
   getClusterMarkers as getDataSelectionClusterMarkers,
@@ -13,12 +13,24 @@ import { geoSearchType } from '../../components/leaflet/services/icons.constant'
 import { getMapResultsByLocation } from '../../../shared/ducks/search/search';
 import { getDetail } from '../../../shared/ducks/detail/detail';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
+import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
 export const getMapZoom = createSelector(getMap, (mapState) => mapState.zoom);
 
-export const getMapOverlays = createSelector(getMap, (mapState) => mapState.overlays || []);
+export const getMapOverlays = createSelector(
+  [getSelectionType, getMap, getStraatbeeldYear],
+  (selectionType, mapState, year) => {
+    if (selectionType === SELECTION_TYPE.PANORAMA) {
+      const layerId = year ? `pano${year}` : 'pano';
+      return [
+        ...mapState.overlays,
+        { id: layerId, isVisible: true }
+      ];
+    }
+    return mapState.overlays;
+  });
 
 export const getMapCenter = createSelector(getMap, (mapState) => mapState && mapState.viewCenter);
 export const getMapBoundingBox = createSelector(getMap, (mapState) => mapState.boundingBox);
@@ -45,23 +57,27 @@ export const getRdGeoJsons = createSelector(getDetailGeoJson, (geoJson) => [geoJ
 // Selected location
 export const getSelectedLocationString = (state) => state.map.selectedLocation;
 
+export const parseLocationString = (location) => ({
+  lat: parseFloat(location.split(',')[0]),
+  lng: parseFloat(location.split(',')[1])
+});
+
 export const getSelectedLocation = createSelector(
   getSelectedLocationString,
   (location) => (
-    (location) ? {
-      lat: parseFloat(location.split(',')[0]),
-      lng: parseFloat(location.split(',')[1])
-    } : null
+    (location) ? parseLocationString(location) : null
   ));
 
-export const getShortSelectedLocation = createSelector(
-  getSelectedLocation,
-  (selectedLocation) => (
-    (selectedLocation) ? ({
-      latitude: +parseFloat(selectedLocation.lat).toFixed(7),
-      longitude: +parseFloat(selectedLocation.lng).toFixed(7)
-    }) : null
-  ));
+// export const getShortSelectedLocation = createSelector(
+//   getSelectedLocation,
+//   (selectedLocation) => (
+//     (selectedLocation) ? ({
+//       latitude: +parseFloat(selectedLocation.lat).toFixed(7),
+//       longitude: +parseFloat(selectedLocation.lng).toFixed(7)
+//     }) : null
+//   ));
+
+export const getShortSelectedLocation  = (state) => state.selection && state.selection.location;
 
 export const getLocationId = createSelector(
   getShortSelectedLocation,
@@ -72,18 +88,21 @@ export const getLocationId = createSelector(
   ));
 
 export const selectLatestMapSearchResults = createSelector(
-  getLocationId,
   getMapResultsByLocation,
-  (locationString, mapResultsByLocation) => {
-    return mapResultsByLocation[locationString]
+  (mapResultsByLocation) => {
+    return mapResultsByLocation;
   }
 );
 
-export const getSearchMarker = createSelector(
-  getShortSelectedLocation,
-  (location) =>
-    ((location) ? [{ position: [location.latitude, location.longitude], type: geoSearchType }] : [])
-);
+// export const getSearchMarker = createSelector(
+//   getShortSelectedLocation,
+//   (location) =>
+//     ((location) ? [{ position: [location.latitude, location.longitude], type: geoSearchType }] : [])
+// );
+export const getSearchMarker = (state) => {
+  const location = state.selection.location;
+  return ((location) ? [{ position: [location.latitude, location.longitude], type: geoSearchType }] : []);
+};
 
 export const getMarkers = createSelector(
   getSearchMarker,

@@ -1,5 +1,3 @@
-import { FETCH_STRAATBEELD_BY_HOTSPOT } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
-
 describe('The dp-hotspot directive', function () {
     var $compile,
         $rootScope,
@@ -97,7 +95,7 @@ describe('The dp-hotspot directive', function () {
         expect(directive.find('.qa-hotspot-button').attr('class')).toContain('c-hotspot--year-2017');
     });
 
-    it('clicking the hotspot will trigger the FETCH_STRAATBEELD_BY_HOTSPOT action', function () {
+    it('clicking the hotspot will trigger the page change action', function () {
         var directive;
 
         spyOn(store, 'dispatch');

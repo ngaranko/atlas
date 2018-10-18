@@ -51,12 +51,6 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATA}`,
     page: PAGES.SEARCH_DATA
   },
-  // panorama: {
-  //   title: '',
-  //   location: '/panorama',
-  //   type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
-  //   page: PAGES.PANORAMA
-  // },
   dataset: {
     title: '',
     location: '/dataset',
@@ -70,7 +64,7 @@ export const routing = {
     page: PAGES.KAART_DETAIL
   },
   panorama: {
-    title: '',
+    title: 'Panorama',
     location: '/datasets/panorama/:id',
     type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
     page: PAGES.PANORAMA
@@ -218,21 +212,18 @@ export const pageActionToEndpoint = (action) => {
 
 export const toMap = () => ({
   type: routing.map.type,
-  query: {
-    kaart: true
-  }
 });
 
-// export const toGeoSearch = () => ({
-//
-// });
-
-export const toPanorama = (id, view = PANORAMA_VIEW.MAP_PANO) => ({
+export const toPanorama = (id, heading) => ({
   type: routing.panorama.type,
   payload: {
     id
   },
-  query: {}
+  meta: {
+    query: {
+      heading
+    }
+  }
 });
 
 export default routes;
