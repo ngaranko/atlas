@@ -182,6 +182,29 @@ export default [
     category: 'Geografie: onroerende zaken',
     legendItems: [
       {
+        id: 'efga',
+        layer: 'erfpacht',
+        selectable: true,
+        title: 'Gemeente Amsterdam',
+        iconUrl: 'assets/images/map-legend/icon-erf-cat-1.svg'
+      },
+      {
+        id: 'efov',
+        layer: 'erfpacht',
+        selectable: true,
+        title: 'Overig',
+        iconUrl: 'assets/images/map-legend/icon-erf-cat-2.svg'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Kadastrale erfpachtuitgevers',
+    url: '/maps/erfpacht?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Geografie: onroerende zaken',
+    legendItems: [
+      {
         id: 'gbvv',
         layer: 'beperking-VV',
         selectable: true,
