@@ -60,9 +60,13 @@ const Home = ({ showFooter }) => (
               <div className="u-row">
                 <div className="u-col-sm--9">
                   <div className="qa-map-link">
-                    <Link
-                      to={{ type: routing.map.type }}
-                      className="c-homepage__block c-homepage__block--left c-homepage__block--tall"
+                    <HomepageBlock
+                      classes="c-homepage__block--left"
+                      linkAction={{ type: routing.map.type }}
+                      title="Data op de kaart"
+                      description="Selecteer kaartlagen, vind gegevens op een punt in de kaart,
+                        meet of teken een gebied"
+                      blockIsLink
                     >
                       <PreviewVideo
                         poster="/assets/video/map.png"
@@ -76,7 +80,7 @@ const Home = ({ showFooter }) => (
                           een punt in de kaart, meet of teken een gebied
                         </div>
                       </div>
-                    </Link>
+                    </HomepageBlock>
                   </div>
                 </div>
                 <div className="u-col-sm--3">
@@ -129,9 +133,12 @@ const Home = ({ showFooter }) => (
                   <div className="qa-straatbeeld-link">
                     <HomepageBlock
                       classes="c-homepage__block--right"
-                      linkAction={toPanorama(HOMEPAGE_CONFIG.PANORAMA.id, HOMEPAGE_CONFIG.PANORAMA.heading)}
+                      linkAction={
+                        toPanorama(HOMEPAGE_CONFIG.PANORAMA.id, HOMEPAGE_CONFIG.PANORAMA.heading)
+                      }
                       title="Panoramabeelden"
                       description="Kijk rond ter plaatse"
+                      blockIsLink
                     >
                       <PreviewVideo
                         poster="/assets/video/panorama.jpg"

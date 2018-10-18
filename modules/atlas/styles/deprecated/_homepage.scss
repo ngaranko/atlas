@@ -11,6 +11,10 @@ $show-more-height: 70px;
   margin-left: -$base-whitespace;
 }
 
+.c-homepage__block-link {
+  cursor: pointer !important;
+}
+
 .c-homepage__block {
   @extend %link--arrow;
   display: block;
