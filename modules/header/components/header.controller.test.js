@@ -1,6 +1,6 @@
-import PAGES from '../../../../../src/app/pages';
-import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../../../src/shared/ducks/search/search';
-import { FETCH_DATA_SELECTION } from '../../../../../src/header/ducks/search/search';
+import PAGES from '../../../src/app/pages';
+import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/search/search';
+import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
 
 describe('The header controller', function () {
     var $controller,

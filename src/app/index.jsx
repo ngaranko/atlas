@@ -12,6 +12,10 @@ const store = configureStore(history, routes);
 
 window.reactHistory = history;
 
+console.log( // eslint-disable-line no-console, angular/log
+  `CityData: version: ${VERSION}, build: ${__BUILD_ID__}` // eslint-disable-line no-undef
+);
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

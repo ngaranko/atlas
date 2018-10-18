@@ -1,4 +1,4 @@
-import { routing } from '../../../../../src/app/routes';
+import { routing } from '../../../../src/app/routes';
 
 (function () {
     'use strict';
@@ -6,7 +6,7 @@ import { routing } from '../../../../../src/app/routes';
     angular
         .module('dpPage')
         .component('dpCatalogusThemes', {
-            templateUrl: 'modules/page/components/homepage/catalogus-themes/catalogus-themes.html',
+            templateUrl: 'modules/page/components/catalogus-themes/catalogus-themes.html',
             controller: DpCatalogusThemes,
             controllerAs: 'vm'
         });

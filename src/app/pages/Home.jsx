@@ -176,7 +176,7 @@ const Home = ({ showFooter }) => (
                       {Object.keys(INSTRUCTION_LINKS).map((key) => (
                         <div key={key} className="c-user-content-widget__entry">
                           <Link
-                            to={INSTRUCTION_LINKS[key].route}
+                            to={{ type: INSTRUCTION_LINKS[key].route }}
                             className="o-btn o-btn--link"
                           >{INSTRUCTION_LINKS[key].title}
                           </Link>
@@ -251,7 +251,7 @@ const Home = ({ showFooter }) => (
                       {Object.keys(ABOUT_LINKS).map((key) => (
                         <div key={key} className="c-user-content-widget__entry">
                           <Link
-                            to={ABOUT_LINKS[key].route}
+                            to={{ type: ABOUT_LINKS[key].route }}
                             className="o-btn o-btn--link"
                           >
                             <div
