@@ -79,6 +79,7 @@ class AutoSuggest extends React.Component {
     event.stopPropagation();
 
     if (suggestion.index === -1) {
+      this.resetActiveSuggestion();
       this.onFormSubmit(event);
     } else {
       const shouldOpenInNewWindow = event.ctrlKey || event.metaKey;
