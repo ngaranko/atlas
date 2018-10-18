@@ -241,7 +241,7 @@ class AutoSuggest extends React.Component {
               </button>
             }
           </div>
-          {// suggestions.length > 0 && showSuggestions &&
+          {suggestions.length > 0 && showSuggestions &&
             <div className="auto-suggest__dropdown">
               <h3 className="auto-suggest__tip">Enkele suggesties</h3>
               {suggestions.map((category) => (
