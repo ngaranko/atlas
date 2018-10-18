@@ -22,10 +22,10 @@ export function* switchClickAction(action) {
   const zoom = yield select(getMapZoom);
   const layers = yield select(getLayers);
   const selectionType = yield select(getSelectionType);
+  const { location } = action.payload;
 
   if (selectionType === SELECTION_TYPE.PANORAMA) {
     const year = yield select(getStraatbeeldYear);
-    const { location } = action.payload;
     const locationArray = latitudeLongitudeToArray(location);
     const imageData = yield call(getImageDataByLocation, locationArray, year);
 
@@ -38,16 +38,16 @@ export function* switchClickAction(action) {
       yield put({
         type: REQUEST_NEAREST_DETAILS,
         payload: {
-          location: action.location,
+          location: location,
           layers,
           zoom
         }
       });
     } else {
-      yield put(setSelection(SELECTION_TYPE.POINT, action.location));
+      yield put(setSelection(SELECTION_TYPE.POINT, location));
       yield put({
         type: REQUEST_GEOSEARCH,
-        payload: [action.location.latitude, action.location.longitude]
+        payload: [location.latitude, location.longitude]
       });
     }
 
@@ -55,7 +55,7 @@ export function* switchClickAction(action) {
       type: UPDATE_MAP,
       payload: {
         query: {
-          selectedLocation: `${action.location.latitude},${action.location.longitude}`
+          selectedLocation: `${location.latitude},${location.longitude}`
         }
       }
     });
