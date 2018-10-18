@@ -12,6 +12,9 @@ const store = configureStore(history, routes);
 
 window.reactHistory = history;
 
+// eslint-disable-next-line no-undef,no-console
+console.log(`CityData: version: ${VERSION}, build: ${__BUILD_ID__}`);
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

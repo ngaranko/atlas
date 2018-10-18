@@ -1,6 +1,6 @@
-import { isMapCurrentPage } from '../../../../../src/shared/ducks/current-page/current-page-reducer';
-import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../../../src/shared/ducks/search/search';
-import { FETCH_DATA_SELECTION } from '../../../../../src/header/ducks/search/search';
+import { isMapCurrentPage } from '../../../src/shared/ducks/current-page/current-page-reducer';
+import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/search/search';
+import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
 
 (function () {
     'use strict';

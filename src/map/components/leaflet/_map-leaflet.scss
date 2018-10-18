@@ -14,14 +14,6 @@
   @import "assets/styles/map-embed";
 }
 
-
-// temporary fix remove if dp-map-wrapper is deprecated
-dp-map-wrapper {
-  > div {
-    height: 100%;
-  }
-}
-
 .test-cx {
   height: 100%;
 }

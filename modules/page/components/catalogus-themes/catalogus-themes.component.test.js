@@ -1,4 +1,4 @@
-import { routing } from '../../../../../src/app/routes';
+import { routing } from '../../../../src/app/routes';
 
 describe('The dp-catalogus-themes', () => {
     let $compile,
