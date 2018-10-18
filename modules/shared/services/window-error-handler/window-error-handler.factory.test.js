@@ -56,7 +56,7 @@ describe('The window error handler', function () {
         );
     });
 
-    fit('captures message exception if provided', () => {
+    it('captures message exception if provided', () => {
         const message = 'my message';
         const error = new Error('my error');
         onError({

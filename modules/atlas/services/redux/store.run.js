@@ -11,7 +11,7 @@
 
     function runBlock ($timeout, $rootScope, $window) {
         $window.reduxStore.subscribe(() => {
-            // $timeout(() => $rootScope.$digest());
+            $timeout(() => $rootScope.$digest());
         });
     }
 })();
