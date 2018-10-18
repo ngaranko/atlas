@@ -26,13 +26,13 @@ export default function MapPreviewPanelReducer(state = initialState, action) {
   }
 }
 
-
 // selectors
-export const previewDataAvailable = (state) => {
-  // If either an object is selected or a point search is in progress, show preview panel
-  return Boolean(state.detail && state.detail.endpoint)
-          || Boolean(state.search && state.search.mapSearchResultsByLocation && Object.keys(state.search.mapSearchResultsByLocation).length);
-};
+export const previewDataAvailable = (state) => (
+  Boolean(state.detail && state.detail.endpoint) ||
+  Boolean(state.search &&
+    state.search.mapSearchResultsByLocation &&
+    Object.keys(state.search.mapSearchResultsByLocation).length)
+);
 
 export const closeMapPreviewPanel = () => ({ type: CLOSE_MAP_PREVIEW_PANEL });
 

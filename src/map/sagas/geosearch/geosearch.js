@@ -12,7 +12,7 @@ export function* requestGeoSearch(action) {
   // });
   // getCurrentLocation
   console.log('geosearch.js', action);
-  const locationArray = action.payload;
+  const locationArray = action.payload || {};
   const location = {
     latitude: locationArray[0],
     longitude: locationArray[1]

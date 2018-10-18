@@ -14,10 +14,17 @@ import CatalogDetailContainer from './containers/CatalogDetailContainer';
 import CatalogSearchContainer from './containers/CatalogSearchContainer';
 import QuerySearchContainer from './containers/QuerySearchContainer';
 import { getCurrentPage } from '../shared/ducks/current-page/current-page-reducer';
-import { isEmbedded, isEmbedPreview, isPrintMode, isPrintModeLandscape, isInPrintorEmbedMode } from '../shared/ducks/ui/ui';
+import {
+  isEmbedded,
+  isEmbedPreview,
+  isInPrintorEmbedMode,
+  isPrintMode,
+  isPrintModeLandscape
+} from '../shared/ducks/ui/ui';
 import { CMS_PAGE_MAPPING } from './pages/CMSPageMapping';
 import PanoramaPage from './pages/PanoramaPage';
 import DetailPage from './pages/DetailPage';
+import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
 
 // TodoReactMigration: implement logic
@@ -92,13 +99,12 @@ const App = ({
         <div className="u-grid u-full-height">
           <div className="u-row u-full-height">
             {currentPage === PAGES.HOME && (
-              <ContentPage
-                name={CMS_PAGE_MAPPING[PAGES.HOME].template}
+              <Home
                 showFooter
               />
             )}
 
-            { currentPage === PAGES.SEARCH_DATA && (
+            {currentPage === PAGES.SEARCH_DATA && (
               <QuerySearchContainer />
             )}
 

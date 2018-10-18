@@ -88,8 +88,6 @@ import '../../modules/header/header.constant';
 import '../../modules/page/page.module';
 import '../../modules/page/components/homepage/catalogus-themes/catalogus-themes-config.constant';
 import '../../modules/page/components/homepage/catalogus-themes/catalogus-themes.component';
-import '../../modules/page/components/homepage/homepage-config.constant';
-import '../../modules/page/components/homepage/homepage.component';
 import '../../modules/page/components/metadata/metadata.component';
 import '../../modules/page/components/page-name/page-name.filter';
 import '../../modules/page/components/page/page.component';
