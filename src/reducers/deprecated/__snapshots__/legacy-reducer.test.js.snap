@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Former mapSearch reducer handles search results request 1`] = `Object {}`;
-
-exports[`Former mapSearch reducer sets the initial state 1`] = `Object {}`;

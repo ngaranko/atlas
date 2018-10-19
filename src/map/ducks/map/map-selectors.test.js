@@ -112,7 +112,7 @@ describe('Map Selectors', () => {
       selection.location = {
         latitude: 123,
         longitude: 456
-      }
+      };
       expect(getMarkers({
         ...state,
         some: 'state' // force the state to change so it clears the cache

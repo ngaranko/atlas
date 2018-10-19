@@ -12,7 +12,8 @@ import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
 import {
   getCenter,
-  getClusterMarkers, getDrawingMode,
+  getClusterMarkers,
+  getDrawingMode,
   getGeoJsons, getMapZoom,
   getMarkers,
   getRdGeoJsons
