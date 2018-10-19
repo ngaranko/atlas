@@ -24,7 +24,6 @@ import './vendor';
 // All our modules' javascript
 import '../modules/atlas/atlas.module';
 import '../modules/atlas/atlas.run';
-import '../modules/atlas/atlas.version';
 import '../modules/header/components/header.controller';
 import '../modules/atlas/services/redux/store.run';
 import '../modules/data-selection/data-selection.module';

@@ -9,19 +9,17 @@ Object {
 exports[`mapSearch reducer handles search results success 1`] = `
 Object {
   "isLoading": false,
-  "mapSearchResultsByLocation": Object {
-    "52.3637006,4.7943446": Array [
-      Object {
-        "foo": "bar",
-      },
-    ],
-  },
+  "mapSearchResultsByLocation": Array [
+    Object {
+      "foo": "bar",
+    },
+  ],
 }
 `;
 
 exports[`mapSearch reducer sets the initial state 1`] = `
 Object {
   "isLoading": false,
-  "mapSearchResultsByLocation": Object {},
+  "mapSearchResultsByLocation": Array [],
 }
 `;

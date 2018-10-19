@@ -1,4 +1,4 @@
-import { getEnvironment, ENVIRONMENTS } from '../../src/shared/environment';
+// import { getEnvironment, ENVIRONMENTS } from '../../src/shared/environment';
 
 (function () {
     'use strict';
@@ -23,20 +23,21 @@ import { getEnvironment, ENVIRONMENTS } from '../../src/shared/environment';
     ];
 
     /* eslint-disable angular/window-service */
-    const Raven = window.Raven;
+    // const Raven = window.Raven;
 
-    const environment = getEnvironment(window.location.hostname);
+    // const environment = getEnvironment(window.location.hostname);
 
-    const ravenConfig = {
-        environment,
-        sentryEndpoint: 'https://e787d53c011243b59ae368a912ee6d3f@sentry.datapunt.amsterdam.nl/2'
-    };
+    // const ravenConfig = {
+    //     environment,
+    //     sentryEndpoint: 'https://e787d53c011243b59ae368a912ee6d3f@sentry.datapunt.amsterdam.nl/2'
+    // };
 
     /* istanbul ignore next */
-    if (environment === ENVIRONMENTS.DEVELOPMENT) {
-        Raven.setShouldSendCallback(() => false);
-        Raven.isSetup = () => true;
-    }
+    // TODO: refactor, reactivate
+    // if (environment === ENVIRONMENTS.DEVELOPMENT) {
+    //     Raven.setShouldSendCallback(() => false);
+    //     Raven.isSetup = () => true;
+    // }
     /* eslint-enable angular/window-service */
 
     // Configure Raven (client library for Sentry) and register the ngRaven

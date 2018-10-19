@@ -14,6 +14,7 @@ import {
 } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
 import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
+
 import {
   cancel,
   currentShape,
@@ -60,7 +61,6 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapClear: mapClear,
   onSetPageName: setPageName,
   onSetMapFullscreen: setMapFullscreen
-  // onStraatbeeldOff: setStraatbeeldOff
 }, dispatch);
 
 // TODO: Get all business logic out of this file, probably to Redux!

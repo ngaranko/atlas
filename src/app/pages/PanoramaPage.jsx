@@ -41,7 +41,7 @@ const mapStateToProps = (state) => ({
 });
 
 PanoramaPage.propTypes = {
-  view: PropTypes.string.isRequired
+  view: PropTypes.oneOf(Object.keys(PANORAMA_VIEW)).isRequired
 };
 
 export default connect(mapStateToProps, null)(PanoramaPage);

@@ -20,7 +20,9 @@ import {
   getStraatbeeldLocation,
   getStraatbeeldMarkers
 } from '../../../shared/ducks/straatbeeld/straatbeeld';
+import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 
+jest.mock('../../../shared/ducks/selection/selection');
 jest.mock('../data-selection/data-selection');
 jest.mock('../../../shared/ducks/search/search');
 jest.mock('../../../shared/ducks/straatbeeld/straatbeeld');
@@ -36,17 +38,18 @@ describe('Map Selectors', () => {
   const straatbeeld = {
     location: 'sss'
   };
+  const selection = {};
 
   const state = {
     map,
-    straatbeeld
+    straatbeeld,
+    selection
   };
 
   describe('simple selectors', () => {
     it('should return the proper result', () => {
       expect(getActiveBaseLayer(state)).toEqual(map.baseLayer);
       expect(getMapZoom(state)).toEqual(map.zoom);
-      expect(getMapOverlays(state)).toEqual(map.overlays);
       expect(getMapCenter(state)).toEqual(map.viewCenter);
 
       getClusterMarkers(state);
@@ -54,6 +57,27 @@ describe('Map Selectors', () => {
 
       getRdGeoJsons(state);
       expect(getDetailGeoJson).toHaveBeenCalledWith(state);
+    });
+  });
+
+  describe('getMapOverlays', () => {
+    it('should return selected layers', () => {
+      getSelectionType.mockImplementation(() => SELECTION_TYPE.NONE);
+      expect(getMapOverlays({
+        ...state,
+        some: 'state' // force the state to change so it clears the cache
+      })).toEqual(map.overlays);
+    });
+
+    it('should add pano layer if selection type is panorama', () => {
+      getSelectionType.mockImplementation(() => SELECTION_TYPE.PANORAMA);
+      expect(getMapOverlays({
+        ...state,
+        some: 'state' // force the state to change so it clears the cache
+      })).toEqual([
+        ...map.overlays,
+        { id: 'pano', isVisible: true }
+      ]);
     });
   });
 
@@ -85,6 +109,10 @@ describe('Map Selectors', () => {
     it('should return searchMarker and straatbeeldMarker data', () => {
       getDataSelection.mockImplementation(() => false);
       getStraatbeeldMarkers.mockImplementation(() => ['getStraatbeeldMarkersData']);
+      selection.location = {
+        latitude: 123,
+        longitude: 456
+      }
       expect(getMarkers({
         ...state,
         some: 'state' // force the state to change so it clears the cache

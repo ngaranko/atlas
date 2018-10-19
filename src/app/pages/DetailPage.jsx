@@ -41,7 +41,7 @@ const mapStateToProps = (state) => ({
 });
 
 DetailPage.propTypes = {
-  view: PropTypes.string.isRequired
+  view: PropTypes.oneOf(Object.keys(DETAIL_VIEW)).isRequired
 };
 
 export default connect(mapStateToProps, null)(DetailPage);

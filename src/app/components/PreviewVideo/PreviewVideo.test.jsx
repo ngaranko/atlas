@@ -24,7 +24,6 @@ describe('PreviewVideo', () => {
   });
 
   it('should call togglePlay when hover, focus, mouseover and mouseout', () => {
-
     component.find('div').simulate('mouseover');
     component.find('div').simulate('mouseout');
     component.find('div').simulate('focus');

@@ -67,10 +67,6 @@ describe('Map Reducer', () => {
     expect(reducer({}, mapStartDrawing(payloadAndResult))).toEqual(payloadAndResult);
   });
 
-  it('removes a drawn line from the map', () => {
-    expect(reducer({}, { type: FETCH_STRAATBEELD_BY_LOCATION })).toEqual({ geometry: [] });
-  });
-
   it('should set the geometry and drawing mode when dispatching mapEndDrawing', () => {
     expect(reducer(initialState, mapEndDrawing({
       polygon: {
@@ -119,8 +115,7 @@ describe('Map Reducer', () => {
         123, 321
       ],
       detailEndpoint: undefined,
-      selectedLocation: undefined,
-      overlays: []
+      selectedLocation: undefined
     };
     expect(reducer({}, {
       type: routing.map.type,
@@ -235,73 +230,5 @@ describe('Map Reducer', () => {
         }
       ]
     });
-  });
-
-  it(`should add a pano overlay when dispatching ${SET_STRAATBEELD_YEAR} or ${routing.panorama.type}`, () => {
-    expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
-      type: SET_STRAATBEELD_YEAR,
-      payload: 2017
-    })).toEqual({
-      overlays: [{ id: 'pano2017', isVisible: true }], mapPanelActive: false
-    });
-
-    expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
-      type: routing.panorama.type,
-      payload: {}
-    })).toEqual({
-      overlays: [{ id: 'pano', isVisible: true }], mapPanelActive: false
-    });
-  });
-
-  it('Sets loading indication for map and straatbeeld', () => {
-    const inputState = {};
-    const newState = reducer(inputState, { type: FETCH_STRAATBEELD_BY_ID, payload: {} });
-    expect(newState.isLoading).toBe(true);
-  });
-
-  it('removes a drawn line from the map', () => {
-    const inputState = {};
-    const payload = [52.001, 4.002];
-    const output = reducer(inputState, { type: FETCH_STRAATBEELD_BY_LOCATION, payload });
-
-    expect(output.geometry).toEqual([]);
-  });
-
-  it('Sets the map viewCenter when straatbeeld is loaded by id', () => {
-    const inputState = {};
-    const payload = {
-      location: [12, 21]
-    };
-    // When a straatbeeld is loaded by id the map should be centered on the location
-    // Load by id is indicated by the absence of a location
-    // The map center should not be set when the straatbeeld is loaded by location
-    let output;
-
-    inputState.viewCenter = 'aap';
-    output = reducer(inputState, { type: SET_STRAATBEELD, payload });
-    expect(output)
-      .toEqual(jasmine.objectContaining({
-        viewCenter: payload.location    // center map on payload location
-      }));
-
-    delete inputState.location;
-    inputState.targetLocation = [1, 2];
-    inputState.viewCenter = 'aap';
-    output = reducer(inputState, { type: SET_STRAATBEELD, payload });
-    expect(output)
-      .toEqual(jasmine.objectContaining({
-        viewCenter: payload.location    // center map on payload location
-      }));
-  });
-
-  it('sets the map viewcenter on first and every subsequent straatbeeld', () => {
-    const inputState = {};
-    const payload = {
-      location: [12, 21]
-    };
-    inputState.viewCenter = null;
-    payload.location = [5, 6];
-    const output = reducer(inputState, { type: SET_STRAATBEELD, payload });
-    expect(output.viewCenter).toEqual([5, 6]);
   });
 });

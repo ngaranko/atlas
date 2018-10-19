@@ -18,6 +18,7 @@ import * as PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import * as CatalogReducer from '../shared/ducks/catalog/catalog';
 import * as FiltersReducer from '../shared/ducks/filters/filters';
 import * as SearchReducer from '../shared/ducks/search/search';
+import * as SelectionReducer from '../shared/ducks/selection/selection';
 import * as DetailReducer from '../shared/ducks/detail/detail';
 
 describe('the root reducer', () => {
@@ -49,6 +50,7 @@ describe('the root reducer', () => {
   PanoPreviewReducer.default = () => 'pano';
   CatalogReducer.default = () => 'catalog';
   SearchReducer.default = () => 'search';
+  SelectionReducer.default = () => 'selection';
   FiltersReducer.default = () => 'filters';
 
   it('combines many reducers', () => {
@@ -72,6 +74,7 @@ describe('the root reducer', () => {
         ui: 'ui',
         user: 'user',
         search: 'search',
+        selection: 'selection',
         currentPage: 'HOME',
         mapLayers: {
           baseLayers: 'baseLayers',

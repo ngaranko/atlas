@@ -15,6 +15,7 @@ import { getMapResultsByLocation } from '../../../shared/ducks/search/search';
 import { getDetail } from '../../../shared/ducks/detail/detail';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
+import { parseLocationString } from './location-parse';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
@@ -56,11 +57,6 @@ export const getRdGeoJsons = createSelector(getDetailGeoJson, (geoJson) => [geoJ
 
 // Selected location
 export const getSelectedLocationString = (state) => state.map.selectedLocation;
-
-export const parseLocationString = (location) => ({
-  lat: parseFloat(location.split(',')[0]),
-  lng: parseFloat(location.split(',')[1])
-});
 
 export const getSelectedLocation = createSelector(
   getSelectedLocationString,

@@ -49,7 +49,6 @@ const mapDispatchToProps = (dispatch) => ({
     closeMapFullScreen: toggleMapFullscreen
   }, dispatch),
   onOpenPanoById: (pano) => {
-    // showStraatbeeld
     const action = toPanorama(pano.id);
     return dispatch(action);
   },
