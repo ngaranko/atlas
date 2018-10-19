@@ -1,5 +1,5 @@
 import PAGES from './pages';
-import { PANORAMA_VIEW } from '../shared/ducks/straatbeeld/straatbeeld';
+import { PANORAMA_VIEW } from '../shared/ducks/straatbeeld/straatbeeld'; // eslint-disable-line no-unused-vars
 import { fetchDetail } from '../shared/ducks/detail/detail';
 
 export const ROUTER_NAMESPACE = 'atlasRouter';
@@ -175,6 +175,7 @@ const getDetailPageType = (endpoint) => {
   } else if (/\/bag\/nummeraanduiding/.test(endpoint)) {
     return routing.adresDetail.type;
   }
+  return routing.adresDetail.type; // TODO: refactor, always return sensible route type
 };
 
 export const getPageActionEndpoint = (endpoint) => {

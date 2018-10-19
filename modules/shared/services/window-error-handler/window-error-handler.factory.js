@@ -11,7 +11,7 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
         '$log',
         '$rootScope',
         '$window',
-        'httpStatus',
+        'httpStatus'
         // 'Raven' // TODO: refactor, restore
     ];
 
@@ -19,7 +19,7 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
         $log,
         $rootScope,
         $window,
-        httpStatus,
+        httpStatus
         // Raven // TODO: refactor, restore
     ) {
         return () => {

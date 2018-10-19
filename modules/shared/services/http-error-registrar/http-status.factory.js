@@ -10,7 +10,7 @@ import {
         .factory('httpStatus', httpStatusFactory);
 
     httpStatusFactory.inject = [
-        '$window',
+        '$window'
         // 'Raven' // TODO: refactor, restore
     ];
 
