@@ -62,11 +62,14 @@ const reducer = (state = initialState, action) => {
 
 // Selectors
 export const previewDataAvailable = (state) =>
-  // If either an object is selected or a point search is in progress, show preview panel
-   state.selection.type === SELECTION_TYPE.POINT
-    || state.selection.type === SELECTION_TYPE.OBJECT
+    // If either an object is selected or a point search is in progress, show preview panel
+  state.selection.type === SELECTION_TYPE.POINT
+  || state.selection.type === SELECTION_TYPE.OBJECT
   // return Boolean(state.detail && state.detail.endpoint)
-  //   || Boolean(state.search && state.search.mapSearchResultsByLocation && Object.keys(state.search.mapSearchResultsByLocation).length);
+  //   || Boolean(state.search &&
+  // state.search.mapSearchResultsByLocation &&
+  // Object.keys(state.search.mapSearchResultsByLocation).length
+  // );
 ;
 
 export const getSelectionType = (state) => (state[REDUCER_KEY].type);

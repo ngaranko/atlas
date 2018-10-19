@@ -23,20 +23,14 @@ describe('PreviewVideo', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('should toggle the play state on mouseover and mouseout', () => {
-    instance.togglePlay = jest.fn();
+  it('should call togglePlay when hover, focus, mouseover and mouseout', () => {
+    jest.spyOn(instance, 'togglePlay');
     component.find('div').simulate('mouseover');
-    expect(instance.togglePlay).toHaveBeenCalledWith(true);
     component.find('div').simulate('mouseout');
-    expect(instance.togglePlay).toHaveBeenCalledWith(false);
-  });
-
-  it('should toggle the play state on focus and blur', () => {
-    instance.togglePlay = jest.fn();
     component.find('div').simulate('focus');
-    expect(instance.togglePlay).toHaveBeenCalledWith(true);
     component.find('div').simulate('blur');
-    expect(instance.togglePlay).toHaveBeenCalledWith(false);
+    component.update();
+    expect(instance.togglePlay).toHaveBeenCalledTimes(4);
   });
 
   describe('togglePlay method', () => {
@@ -45,7 +39,7 @@ describe('PreviewVideo', () => {
     });
 
     it('should set the playing state to true', () => {
-      instance.togglePlay(true);
+      instance.togglePlay();
       expect(instance.setState).toHaveBeenCalledWith({
         play: true,
         position: 0
@@ -53,8 +47,9 @@ describe('PreviewVideo', () => {
     });
 
     it('should set the playing state to false', () => {
+      instance.state.play = true;
       instance.state.position = 12;
-      instance.togglePlay(false);
+      instance.togglePlay();
       expect(instance.setState).toHaveBeenCalledWith({
         play: false,
         position: 0

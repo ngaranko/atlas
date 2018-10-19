@@ -2,7 +2,8 @@ import { createSelector } from 'reselect';
 
 import {
   getStraatbeeldLocation,
-  getStraatbeeldMarkers, getStraatbeeldYear
+  getStraatbeeldMarkers,
+  getStraatbeeldYear
 } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import {
   getClusterMarkers as getDataSelectionClusterMarkers,
@@ -34,7 +35,6 @@ export const getMapOverlays = createSelector(
 
 export const getMapCenter = createSelector(getMap, (mapState) => mapState && mapState.viewCenter);
 export const getMapBoundingBox = createSelector(getMap, (mapState) => mapState.boundingBox);
-
 
 export const getDrawingMode = createSelector(getMap, (mapState) => mapState.drawingMode);
 export const isDrawingEnabled = createSelector(
@@ -92,14 +92,12 @@ export const selectLatestMapSearchResults = createSelector(
   (mapResultsByLocation) => mapResultsByLocation
 );
 
-// export const getSearchMarker = createSelector(
-//   getShortSelectedLocation,
-//   (location) =>
-//     ((location) ? [{ position: [location.latitude, location.longitude], type: geoSearchType }] : [])
-// );
 export const getSearchMarker = (state) => {
   const location = state.selection.location;
-  return ((location) ? [{ position: [location.latitude, location.longitude], type: geoSearchType }] : []);
+  return ((location) ?
+      [{ position: [location.latitude, location.longitude], type: geoSearchType }] :
+      []
+  );
 };
 
 export const getMarkers = createSelector(

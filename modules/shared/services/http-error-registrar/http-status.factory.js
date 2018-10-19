@@ -21,7 +21,8 @@ import {
         };
 
         function logResponse (message, statusCode) {
-            // Raven.captureMessage(new Error(message), { tags: { statusCode } }); // TODO: refactor, restore
+            // TODO: refactor, restore
+            // Raven.captureMessage(new Error(message), { tags: { statusCode } });
         }
 
         function registerError (errorType) {

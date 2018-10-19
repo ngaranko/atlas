@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchSearchResultsByLocation, showSearchView } from '../../ducks/preview-panel/map-preview-panel';
-import { clearSelectedLocation } from '../../ducks/map/map';
+import {
+  fetchSearchResultsByLocation,
+  showSearchView
+} from '../../ducks/preview-panel/map-preview-panel';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
 import { isEmbedded, isEmbedPreview, toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
-import { showStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import {
   getDetail,
   setDetailEndpointRoute,

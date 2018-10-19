@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import connect from 'react-redux/es/connect/connect';
 import MapContainer from '../../map/containers/map/MapContainer';
 import DetailContainer from '../containers/DetailContainer';
@@ -38,5 +39,9 @@ const DetailPage = ({ view }) => {
 const mapStateToProps = (state) => ({
   view: getDetailView(state)
 });
+
+DetailPage.propTypes = {
+  view: PropTypes.string.isRequired
+};
 
 export default connect(mapStateToProps, null)(DetailPage);

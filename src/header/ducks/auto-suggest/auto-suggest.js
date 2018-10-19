@@ -1,8 +1,3 @@
-import {
-  isCatalogCurrentPage,
-  isMapCurrentPage
-} from '../../../shared/ducks/current-page/current-page-reducer';
-
 export const SET_ACTIVE_SUGGESTION = 'SET_ACTIVE_SUGGESTION';
 export const FETCH_SUGGESTIONS_REQUEST = 'FETCH_SUGGESTIONS_REQUEST';
 export const FETCH_SUGGESTIONS_SUCCESS = 'FETCH_SUGGESTIONS_SUCCESS';

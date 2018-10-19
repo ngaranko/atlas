@@ -165,9 +165,7 @@ const routes = Object.keys(routing).reduce((acc, key) => {
 
 // TODO: refactor unit test or remove all together
 export const extractIdEndpoint = (endpoint) => {
-  // console.log('routes extractIdEndpoint: ', endpoint);
   const matches = endpoint.match(/\/(\w+)\/?$/);
-  // console.log('routes extractIdEndpoint: ', matches[1]);
   return matches[1];
 };
 
@@ -191,9 +189,6 @@ export const getPageActionEndpoint = (endpoint) => {
 };
 
 export const pageActionToEndpoint = (action) => {
-  console.log('routes pageActionToEndpoint: ', action);
-  // const endpoint = 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/03630000261100/';
-  // const endpoint = `https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/${id}/`;
   let endpoint = 'https://acc.api.data.amsterdam.nl/';
   switch (action.type) {
     case routing.adresDetail.type:
@@ -202,9 +197,11 @@ export const pageActionToEndpoint = (action) => {
     case routing.pandDetail.type:
       endpoint += 'bag/pand/';
       break;
+
+    default:
   }
 
-  const id = action.payload.id.substr(2,); // Change `id123` to `123`
+  const id = action.payload.id.substr(2); // Change `id123` to `123`
   endpoint += `${id}`;
 
   return fetchDetail(endpoint);

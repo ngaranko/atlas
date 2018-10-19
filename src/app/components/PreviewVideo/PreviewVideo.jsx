@@ -14,10 +14,12 @@ class PreviewVideo extends React.Component {
     this.togglePlay = this.togglePlay.bind(this);
   }
 
-  togglePlay(play) {
+  togglePlay() {
+    const { play, position } = this.state;
+    const newPlayState = !play;
     this.setState({
-      play,
-      position: !play ? 0 : this.state.position
+      play: newPlayState,
+      position: newPlayState ? position : 0
     });
   }
 
@@ -27,10 +29,10 @@ class PreviewVideo extends React.Component {
     return (
       <div
         className="c-video"
-        onMouseOut={() => this.togglePlay(false)}
-        onBlur={() => this.togglePlay(false)}
-        onMouseOver={() => this.togglePlay(true)}
-        onFocus={() => this.togglePlay(true)}
+        onMouseOut={this.togglePlay}
+        onBlur={this.togglePlay}
+        onMouseOver={this.togglePlay}
+        onFocus={this.togglePlay}
       >
         <Video
           {...{

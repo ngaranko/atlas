@@ -21,17 +21,19 @@ const initialState = {
 export default function detailReducer(state = initialState, action) {
   switch (action.type) {
     case routing.pandDetail.type: {
-      console.log(typeof action.payload.id);
+      return {
+
+      };
     }
     case routing.adresDetail.type: {
       const { query = {} } = action.meta;
-      if (query.hasOwnProperty('kaart')) {
+      if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {
         return {
           ...state,
           view: DETAIL_VIEW.MAP
         };
       }
-      if (query.hasOwnProperty('detail')) {
+      if (Object.prototype.hasOwnProperty.call(query, 'detail')) {
         return {
           ...state,
           view: DETAIL_VIEW.DETAIL

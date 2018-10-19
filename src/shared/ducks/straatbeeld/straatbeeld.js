@@ -36,13 +36,13 @@ export default function straatbeeldReducer(state = initialState, action) {
   switch (action.type) {
     case routing.panorama.type: {
       const { query = {} } = action.meta;
-      if (query.hasOwnProperty('kaart')) {
+      if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {
         return {
           ...state,
           view: PANORAMA_VIEW.MAP
         };
       }
-      if (query.hasOwnProperty('panorama')) {
+      if (Object.prototype.hasOwnProperty.call(query, 'panorama')) {
         return {
           ...state,
           view: PANORAMA_VIEW.PANO
@@ -112,7 +112,7 @@ export const setStraatbeeldYear = (year) => ({
   payload: year
 });
 
-export const setStraatbeeldOrientation = ({heading, pitch, fov}) => ({
+export const setStraatbeeldOrientation = ({ heading, pitch, fov }) => ({
   type: SET_STRAATBEELD_ORIENTATION,
   payload: {
     heading,

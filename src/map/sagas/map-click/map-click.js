@@ -38,7 +38,7 @@ export function* switchClickAction(action) {
       yield put({
         type: REQUEST_NEAREST_DETAILS,
         payload: {
-          location: location,
+          location,
           layers,
           zoom
         }

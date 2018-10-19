@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import connect from 'react-redux/es/connect/connect';
 import { getStraatbeeldView, PANORAMA_VIEW } from '../../shared/ducks/straatbeeld/straatbeeld';
 import PanoramaContainer from '../containers/PanoramaContainer';
@@ -38,5 +39,9 @@ const PanoramaPage = ({ view }) => {
 const mapStateToProps = (state) => ({
   view: getStraatbeeldView(state)
 });
+
+PanoramaPage.propTypes = {
+  view: PropTypes.string.isRequired
+};
 
 export default connect(mapStateToProps, null)(PanoramaPage);

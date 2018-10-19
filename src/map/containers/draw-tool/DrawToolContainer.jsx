@@ -8,25 +8,34 @@ import isEqual from 'lodash.isequal';
 import DrawTool from '../../components/draw-tool/DrawTool';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
-import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
+import {
+  resetDataSelectionGeometryFilter,
+  setDataSelectionGeometryFilter
+} from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
 import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
-// import { setStraatbeeldOff } from '../../../shared/ducks/straatbeeld/straatbeeld';
-
 import {
   cancel,
   currentShape,
   initialize,
-  setPolygon,
-  isEnabled
+  isEnabled,
+  setPolygon
 } from '../../services/draw-tool/draw-tool';
 import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
-import { mapClear, mapEndDrawing, mapStartDrawing, mapUpdateShape, mapEmptyGeometry, mapClearDrawing } from '../../ducks/map/map';
+import {
+  mapClear,
+  mapClearDrawing,
+  mapEmptyGeometry,
+  mapEndDrawing,
+  mapStartDrawing,
+  mapUpdateShape
+} from '../../ducks/map/map';
 import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
 import {
   getDrawingMode,
   getGeometry,
-  getShapeDistanceTxt, getShapeMarkers,
+  getShapeDistanceTxt,
+  getShapeMarkers,
   isDrawingEnabled
 } from '../../ducks/map/map-selectors';
 
@@ -50,7 +59,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onEndDrawing: mapEndDrawing,
   onMapClear: mapClear,
   onSetPageName: setPageName,
-  onSetMapFullscreen: setMapFullscreen,
+  onSetMapFullscreen: setMapFullscreen
   // onStraatbeeldOff: setStraatbeeldOff
 }, dispatch);
 
@@ -225,5 +234,4 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => (
     setPolygon={setPolygon}
     {...props}
   />
-)
-);
+));

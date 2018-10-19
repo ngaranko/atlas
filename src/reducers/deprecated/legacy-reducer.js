@@ -69,7 +69,7 @@ const legacyReducer = (state = {}, action) => {
           name: null
         } : state.page,
         search: null,
-        detail: null,
+        detail: null
       };
     }
 
