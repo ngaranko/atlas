@@ -10,7 +10,6 @@ import { routing } from '../../../../src/app/routes';
     dpStraatbeeldDirective.$inject = [
         '$rootScope',
         'store',
-        'ACTIONS',
         'marzipanoService',
         'straatbeeldApi',
         'orientation'
@@ -19,7 +18,6 @@ import { routing } from '../../../../src/app/routes';
     function dpStraatbeeldDirective (
         $rootScope,
         store,
-        ACTIONS,
         marzipanoService,
         straatbeeldApi,
         orientation) {
@@ -27,20 +25,18 @@ import { routing } from '../../../../src/app/routes';
             restrict: 'E',
             scope: {
                 state: '=',
-                resize: '<'
+                resize: '<',
+                hotspots: '<'
             },
             templateUrl: 'modules/straatbeeld/components/straatbeeld/straatbeeld.html',
             link: linkFunction
         };
 
         function linkFunction (scope, element) {
-            var container,
-                viewer;
+            const container = element[0].querySelector('.js-marzipano-viewer');
+            const viewer = marzipanoService.initialize(container);
 
-            container = element[0].querySelector('.js-marzipano-viewer');
-            viewer = marzipanoService.initialize(container);
-
-            var viewChangeHandler = viewer.addEventListener('viewChange', () => {
+            const viewChangeHandler = viewer.addEventListener('viewChange', () => {
                 orientation.update(viewer);
             });
 
@@ -51,14 +47,14 @@ import { routing } from '../../../../src/app/routes';
             // can be done with `$watch` (third and last parameter is true),
             // but not with `$watchGroup`. Therefor we return an array
             // containing both `image` and `hotspots`.
-            scope.$watch((newScope) => [newScope.state.image, newScope.state.hotspots], () => {
+            scope.$watch((newScope) => [newScope.state.image, newScope.hotspots], () => {
                 if (angular.isObject(scope.state.image)) {
                     marzipanoService.loadScene(
                         scope.state.image,
                         scope.state.heading,
                         scope.state.pitch,
                         scope.state.fov,
-                        scope.state.hotspots
+                        scope.hotspots
                     );
                 }
             }, true);

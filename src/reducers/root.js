@@ -19,6 +19,7 @@ import CatalogReducer from '../shared/ducks/catalog/catalog';
 import FiltersReducer from '../shared/ducks/filters/filters';
 import DetailReducer, { REDUCER_KEY as DETAIL } from '../shared/ducks/detail/detail';
 import SearchReducer, { REDUCER_KEY as SEARCH } from '../shared/ducks/search/search';
+import SelectionReducer, { REDUCER_KEY as SELECTION } from '../shared/ducks/selection/selection';
 import LegacyReducer from './deprecated/legacy-reducer';
 
 export default (routeReducer) => (oldState = {}, action) => {
@@ -49,9 +50,11 @@ export default (routeReducer) => (oldState = {}, action) => {
     location: routeReducer,
     [DETAIL]: DetailReducer,
     [SEARCH]: SearchReducer,
-    [CURRENT_PAGE]: CurrentPageReducer
+    [CURRENT_PAGE]: CurrentPageReducer,
+    [SELECTION]: SelectionReducer
   });
 
   // Combine legacy and new reducer states
   return newRootReducer(legacyState, action);
 };
+

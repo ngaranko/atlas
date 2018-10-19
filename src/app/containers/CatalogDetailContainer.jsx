@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
+import { isDetailLoading } from '../../shared/ducks/detail/detail';
+import { getUser } from '../../shared/ducks/user/user';
+import { getCatalogFilters } from '../../catalog/ducks/data-selection/data-selection-catalog';
 
 const mapStateToProps = (state) => ({
-  isLoading: state.detail && state.detail.isLoading,
-  catalogFilters: state.catalogFilters,
-  user: state.user,
+  isLoading: isDetailLoading(state),
+  catalogFilters: getCatalogFilters(state),
+  user: getUser(state),
   endpoint: `https://acc.api.data.amsterdam.nl/dcatd/datasets/${state.catalog.detail}` // TODO: refactor use API_ROOT and such
 });
 

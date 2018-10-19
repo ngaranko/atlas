@@ -2,8 +2,13 @@ import { createSelector } from 'reselect';
 
 import { isSearchActive } from '../../../shared/ducks/search/search';
 import { getDataSelection } from '../data-selection/data-selection';
+import {
+  getDetail,
+  getDetailDisplay,
+  getDetailEndpoint,
+  getDetailGeometry
+} from '../../../shared/ducks/detail/detail';
 
-export const detailSelector = (state) => state.detail;
 const mapDetailSelector = (state) => state.mapDetail;
 
 export const getCurrentEndpoint = createSelector(mapDetailSelector,
@@ -19,30 +24,35 @@ export const selectLatestMapDetail = createSelector([getCurrentEndpoint, getAllR
 
 export const getMapDetailGeometry = createSelector(selectLatestMapDetail,
   (activeMapDetail) => (
-     activeMapDetail && activeMapDetail.geometrie
+    activeMapDetail && activeMapDetail.geometrie
   ));
 
-export const getDetailId = createSelector(detailSelector, getCurrentEndpoint,
-  (detail, currentEndpoint) => (detail && detail.endpoint) || currentEndpoint);
+export const getDetailId = createSelector(getDetailEndpoint, getCurrentEndpoint,
+  (detailEndpoint, currentEndpoint) => detailEndpoint || currentEndpoint);
 
-export const getGeometry = createSelector([detailSelector, getMapDetailGeometry],
-  (detail, mapDetailGeometry) => (
-    detail && detail.geometry ? detail.geometry : mapDetailGeometry
+export const getGeometry = createSelector(
+  getDetailGeometry,
+  getMapDetailGeometry,
+  (detailGeometry, mapDetailGeometry) => (
+    detailGeometry || mapDetailGeometry
   ));
 
-export const shouldShowGeoJson = createSelector([detailSelector, isSearchActive, getDataSelection],
+export const shouldShowGeoJson = createSelector([getDetail, isSearchActive, getDataSelection],
   (detailActive, searchActive, dataSelectionActive) => (
     Boolean(detailActive && !searchActive && !dataSelectionActive)
   ));
 
 export const getGeoJson = createSelector(
-  [shouldShowGeoJson, getGeometry, detailSelector, getDetailId],
-  (isGeoJsonActive, geometry, detail, detailId) => (
+  shouldShowGeoJson,
+  getGeometry,
+  getDetailDisplay,
+  getDetailId,
+  (isGeoJsonActive, geometry, detailDisplay, detailId) => (
     (isGeoJsonActive && geometry) ? {
       id: detailId,
       geoJson: {
-        geometry,
-        label: detail && detail.display ? detail.display : ''
+        geometry: geometry || '',
+        label: detailDisplay || ''
       }
     } : {}
   ));

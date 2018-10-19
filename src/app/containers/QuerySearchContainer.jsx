@@ -2,13 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
+import {
+  getNumberOfResults,
+  getSearchCategory,
+  getSearchQuery,
+  isSearchLoading
+} from '../../shared/ducks/search/search';
+import { getUser } from '../../shared/ducks/user/user';
 
 const mapStateToProps = (state) => ({
-  isLoading: state.search && state.search.isLoading,
-  query: state.search && state.search.query,
-  category: state.search && state.search.category,
-  numberOfResults: state.search && state.search.numberOfResults,
-  user: state.user
+  isLoading: isSearchLoading(state),
+  query: getSearchQuery(state),
+  category: getSearchCategory(state),
+  numberOfResults: getNumberOfResults(state),
+  user: getUser(state)
 });
 
 // TODO refactor, rename GeoSearchContainer

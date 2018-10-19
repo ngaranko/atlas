@@ -12,14 +12,15 @@ import LeafletContainer from '../leaflet/LeafletContainer';
 import MapPanelContainer from '../../containers/panel/MapPanelContainer';
 import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
-import { isMapSubPage } from '../../../app/routes';
 import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
+import { previewDataAvailable as previewDataAvailableSelector } from '../../../shared/ducks/selection/selection';
+import { getDrawingMode } from '../../ducks/map/map-selectors';
 
 const mapStateToProps = (state) => ({
   isFullscreen: isMapCurrentPage(state),
-  drawMode: state.map.drawingMode,
+  drawMode: getDrawingMode(state),
   embedMode: isEmbedded(state),
-  currentPage: state.currentPage
+  previewDataAvailable: previewDataAvailableSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -40,8 +41,14 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    const { currentPage, embedMode, isFullscreen, onToggleFullscreen, drawMode } = this.props;
-    const mapSubPage = isMapSubPage(currentPage);
+    const {
+      embedMode,
+      isFullscreen,
+      onToggleFullscreen,
+      drawMode,
+      showPreviewPanel,
+      previewDataAvailable
+    } = this.props;
     return (
       <div className={`c-map c-map--drawing-mode-${drawMode} qa-map-container`}>
         <LeafletContainer
@@ -58,13 +65,13 @@ class MapContainer extends React.Component {
           isFullscreen={isFullscreen}
           onToggleFullscreen={onToggleFullscreen}
         />
-        <MapPanelContainer isMapPanelVisible={!mapSubPage} />
+        <MapPanelContainer isMapPanelVisible />
         {
           embedMode ? (
             <MapEmbedButton />
           ) : ''
         }
-        {!mapSubPage && <MapPreviewPanelContainer />}
+        { showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer /> }
       </div>
     );
   }
@@ -77,15 +84,17 @@ MapContainer.contextTypes = {
 MapContainer.defaultProps = {
   geometry: null,
   leafletInstance: null,
+  showPreviewPanel: false,
   drawMode: 'none'
 };
 
 MapContainer.propTypes = {
   isFullscreen: PropTypes.bool.isRequired,
   onToggleFullscreen: PropTypes.func.isRequired,
-  currentPage: PropTypes.string.isRequired,
   drawMode: PropTypes.string,
-  embedMode: PropTypes.bool.isRequired
+  embedMode: PropTypes.bool.isRequired,
+  showPreviewPanel: PropTypes.bool,
+  previewDataAvailable: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapContainer);

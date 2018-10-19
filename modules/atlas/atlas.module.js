@@ -17,7 +17,7 @@ import { getEnvironment, ENVIRONMENTS } from '../../src/shared/environment';
 
         // Third party modules
         'angulartics.piwik',
-        'ngRaven',
+        // 'ngRaven', // TODO: refactor, reactivate
 
         'ngAria'
     ];
@@ -44,12 +44,12 @@ import { getEnvironment, ENVIRONMENTS } from '../../src/shared/environment';
     // module can include ngRaven
 
     /* istanbul ignore next */
-    if (Raven) {
-        Raven
-            .config(ravenConfig.sentryEndpoint, ravenConfig)
-            .addPlugin(Raven.Plugins.Angular)
-            .install();
-    }
+    // if (Raven) { // TODO: refactor, restore
+    //     Raven
+    //         .config(ravenConfig.sentryEndpoint, ravenConfig)
+    //         .addPlugin(Raven.Plugins.Angular)
+    //         .install();
+    // }
 
     // eslint-disable-next-line angular/di
     angular.module('atlas', moduleDependencies)

@@ -1,8 +1,9 @@
+import { toPanorama } from '../../../../src/app/routes';
+
 describe('The dp-hotspot directive', function () {
     var $compile,
         $rootScope,
-        store,
-        ACTIONS;
+        store;
 
     beforeEach(function () {
         angular.mock.module(
@@ -14,11 +15,10 @@ describe('The dp-hotspot directive', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
     });
 
@@ -97,21 +97,14 @@ describe('The dp-hotspot directive', function () {
         expect(directive.find('.qa-hotspot-button').attr('class')).toContain('c-hotspot--year-2017');
     });
 
-    it('clicking the hotspot will trigger the FETCH_STRAATBEELD_BY_HOTSPOT action', function () {
-        var directive;
+    it('clicking the hotspot will trigger the page change action', function () {
+        const id = 'ABC';
 
         spyOn(store, 'dispatch');
-
-        directive = getComponent('ABC', 20, 0.5, 2016);
+        const directive = getComponent(id, 20, 0.5, 2016);
         directive.find('button').click();
 
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT,
-            payload: {
-                id: 'ABC',
-                isInitial: false
-            }
-        });
+        expect(store.dispatch).toHaveBeenCalledWith(toPanorama(id));
     });
 
     it('has a screen reader fallback text', function () {

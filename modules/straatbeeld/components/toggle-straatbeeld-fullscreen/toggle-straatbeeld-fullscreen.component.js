@@ -35,7 +35,7 @@ import { getStraatbeeld } from '../../../../src/shared/ducks/straatbeeld/straatb
                 payload: {
                     noRedirect: true,
                     route: (store.getState().location.type === routing.panorama.type)
-                        ? routing.mapPanorama.type
+                        ? routing.panorama.type
                         : routing.panorama.type,
                     query: {
                         panoId: getStraatbeeld(store.getState()).id,

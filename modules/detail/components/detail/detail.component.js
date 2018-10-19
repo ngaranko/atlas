@@ -1,6 +1,7 @@
 import removeMd from 'remove-markdown';
 
 import { getSelectedLocation } from '../../../../src/map/ducks/map/map-selectors';
+import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
 
 (function () {
     angular
@@ -22,7 +23,6 @@ import { getSelectedLocation } from '../../../../src/map/ducks/map/map-selectors
     DpDetailController.$inject = [
         '$scope',
         'store',
-        'ACTIONS',
         'api',
         'endpointParser',
         'geometry',
@@ -36,7 +36,6 @@ import { getSelectedLocation } from '../../../../src/map/ducks/map/map-selectors
     function DpDetailController (
         $scope,
         store,
-        ACTIONS,
         api,
         endpointParser,
         geometry,
@@ -136,13 +135,13 @@ import { getSelectedLocation } from '../../../../src/map/ducks/map/map-selectors
 
                         if (!vm.skippedSearchResults) {
                             store.dispatch({
-                                type: ACTIONS.DETAIL_FULLSCREEN,
+                                type: DETAIL_FULLSCREEN,
                                 payload: subject === 'api' || !geoJSON
                             });
                         }
 
                         store.dispatch({
-                            type: ACTIONS.SHOW_DETAIL,
+                            type: SHOW_DETAIL,
                             payload: {
                                 display: data._display,
                                 geometry: geoJSON
@@ -155,7 +154,7 @@ import { getSelectedLocation } from '../../../../src/map/ducks/map/map-selectors
 
         function errorHandler () {
             store.dispatch({
-                type: ACTIONS.SHOW_DETAIL,
+                type: SHOW_DETAIL,
                 payload: {}
             });
         }

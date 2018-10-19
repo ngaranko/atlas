@@ -1,4 +1,6 @@
 import PAGES from './pages';
+import { PANORAMA_VIEW } from '../shared/ducks/straatbeeld/straatbeeld';
+import { fetchDetail } from '../shared/ducks/detail/detail';
 
 export const ROUTER_NAMESPACE = 'atlasRouter';
 
@@ -11,26 +13,25 @@ export const routing = {
   },
   map: {
     title: 'Grote kaart',
-    location: '/map',
+    location: '/kaart',
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART}`,
-    page: PAGES.KAART,
-    children: [PAGES.KAART_SEARCH, PAGES.KAART_DETAIL, PAGES.KAART_PANORAMA]
+    page: PAGES.KAART
   },
   catalogus: {
-    title: 'Catalogus',
-    location: '/catalogus',
+    title: 'Datasets',
+    location: '/datasets',
     type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS}`,
     page: PAGES.CATALOGUS
   },
   catalogusDetail: {
     title: '',
-    location: '/catalogus/detail/:id',
+    location: '/datasets/detail/:id',
     type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS_DETAIL}`,
     page: PAGES.CATALOGUS_DETAIL
   },
   adressen: {
     title: '',
-    location: '/adressen',
+    location: '/datasets/bag/adressen',
     type: `${ROUTER_NAMESPACE}/${PAGES.ADRESSEN}`,
     page: PAGES.ADRESSEN
   },
@@ -50,12 +51,6 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATA}`,
     page: PAGES.SEARCH_DATA
   },
-  panorama: {
-    title: '',
-    location: '/panorama',
-    type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
-    page: PAGES.PANORAMA
-  },
   dataset: {
     title: '',
     location: '/dataset',
@@ -68,11 +63,11 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART_DETAIL}`,
     page: PAGES.KAART_DETAIL
   },
-  mapPanorama: {
-    title: '',
-    location: '/map/panorama',
-    type: `${ROUTER_NAMESPACE}/${PAGES.KAART_PANORAMA}`,
-    page: PAGES.KAART_PANORAMA
+  panorama: {
+    title: 'Panorama',
+    location: '/datasets/panorama/:id',
+    type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
+    page: PAGES.PANORAMA
   },
   mapSearch: {
     title: '',
@@ -146,6 +141,19 @@ export const routing = {
     location: '/statistieken',
     type: `${ROUTER_NAMESPACE}/${PAGES.STATISTIEKEN}`,
     page: PAGES.STATISTIEKEN
+  },
+
+  adresDetail: {
+    title: 'Adres',
+    location: '/datasets/bag/adressen/:id',
+    type: `${ROUTER_NAMESPACE}/${PAGES.ADRES_DETAIL}`,
+    page: PAGES.ADRES_DETAIL
+  },
+  pandDetail: {
+    title: 'Pand',
+    location: '/datasets/bag/pand/:id',
+    type: `${ROUTER_NAMESPACE}/${PAGES.PAND_DETAIL}`,
+    page: PAGES.PAND_DETAIL
   }
 };
 
@@ -155,18 +163,66 @@ const routes = Object.keys(routing).reduce((acc, key) => {
   return acc;
 }, {});
 
-export const isMapSubPage = (page) => routing.map.children.includes(page);
-
 // TODO: refactor unit test or remove all together
 export const extractIdEndpoint = (endpoint) => {
-  const matches = endpoint.match(/\/(\w+)$/);
+  // console.log('routes extractIdEndpoint: ', endpoint);
+  const matches = endpoint.match(/\/(\w+)\/?$/);
+  // console.log('routes extractIdEndpoint: ', matches[1]);
   return matches[1];
 };
 
-export const getPageActionEndpoint = (endpoint) => ({
-  type: routing.detail.type,
-  query: {
-    detailEndpoint: endpoint
+const getDetailPageType = (endpoint) => {
+  if (/\/bag\/pand/.test(endpoint)) {
+    return routing.pandDetail.type;
+  } else if (/\/bag\/nummeraanduiding/.test(endpoint)) {
+    return routing.adresDetail.type;
+  }
+};
+
+export const getPageActionEndpoint = (endpoint) => {
+  const type = getDetailPageType(endpoint);
+  const id = extractIdEndpoint(endpoint);
+  return {
+    type,
+    payload: {
+      id: `id${id}`
+    }
+  };
+};
+
+export const pageActionToEndpoint = (action) => {
+  console.log('routes pageActionToEndpoint: ', action);
+  // const endpoint = 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/03630000261100/';
+  // const endpoint = `https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/${id}/`;
+  let endpoint = 'https://acc.api.data.amsterdam.nl/';
+  switch (action.type) {
+    case routing.adresDetail.type:
+      endpoint += 'bag/nummeraanduiding/';
+      break;
+    case routing.pandDetail.type:
+      endpoint += 'bag/pand/';
+      break;
+  }
+
+  const id = action.payload.id.substr(2,); // Change `id123` to `123`
+  endpoint += `${id}`;
+
+  return fetchDetail(endpoint);
+};
+
+export const toMap = () => ({
+  type: routing.map.type
+});
+
+export const toPanorama = (id, heading) => ({
+  type: routing.panorama.type,
+  payload: {
+    id
+  },
+  meta: {
+    query: {
+      heading
+    }
   }
 });
 

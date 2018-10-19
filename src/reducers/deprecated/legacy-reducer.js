@@ -1,13 +1,16 @@
-import ACTIONS from '../../shared/actions';
 import isObject from '../../shared/services/is-object';
-import { isMapCurrentPage } from '../../shared/ducks/current-page/current-page-reducer';
-import { routing } from '../../app/routes';
 import { FETCH_DETAIL, SHOW_DETAIL } from '../../shared/ducks/detail/detail';
 import {
   FETCH_SEARCH_RESULTS_BY_LOCATION,
   FETCH_SEARCH_RESULTS_BY_QUERY,
   SHOW_SEARCH_RESULTS
 } from '../../shared/ducks/search/search';
+import { FETCH_DATA_SELECTION } from '../../header/ducks/search/search';
+import {
+  RESET_DATA_SELECTION,
+  SET_DATA_SELECTION_VIEW,
+  SHOW_DATA_SELECTION
+} from '../../shared/ducks/data-selection/data-selection';
 
 /* istanbul ignore next */
 const legacyReducer = (state = {}, action) => {
@@ -25,8 +28,7 @@ const legacyReducer = (state = {}, action) => {
           name: null,
           type: null
         },
-        search: null,
-        straatbeeld: null
+        search: null
       };
     }
     case SHOW_DETAIL:
@@ -38,38 +40,7 @@ const legacyReducer = (state = {}, action) => {
         }
       };
 
-    case ACTIONS.FETCH_STRAATBEELD_BY_LOCATION: {
-      const map = isObject(state.map) ? { ...state.map } : state.map;
-
-      if (isMapCurrentPage(state)) {
-        map.viewCenter = action.payload;
-      }
-
-      return {
-        ...state,
-        map: {
-          ...map
-        },
-        page: isObject(state.page) ? {
-          ...state.page,
-          name: null
-        } : state.page,
-        search: null,
-        dataSelection: null,
-        detail: null
-      };
-    }
-
-    case routing.mapPanorama.type:
-    case ACTIONS.FETCH_STRAATBEELD_BY_ID:
-    case ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT:
-      return {
-        ...state,
-        search: null,
-        dataSelection: null
-      };
-
-    case ACTIONS.FETCH_DATA_SELECTION: {
+    case FETCH_DATA_SELECTION: {
       const mergeInto = typeof payload === 'string' ? {
         query: action.payload,
         page: 1,
@@ -99,12 +70,11 @@ const legacyReducer = (state = {}, action) => {
         } : state.page,
         search: null,
         detail: null,
-        straatbeeld: null
       };
     }
 
-    case ACTIONS.SHOW_DATA_SELECTION:
-    case ACTIONS.RESET_DATA_SELECTION:
+    case SHOW_DATA_SELECTION:
+    case RESET_DATA_SELECTION:
       return {
         ...state,
         map: isObject(state.map) ? {
@@ -113,7 +83,7 @@ const legacyReducer = (state = {}, action) => {
         } : state.map
       };
 
-    case ACTIONS.SET_DATA_SELECTION_VIEW: {
+    case SET_DATA_SELECTION_VIEW: {
       const views = ['LIST', 'TABLE', 'CATALOG'];
       const viewFound = views.indexOf(action.payload) !== -1;
       const view = viewFound ? action.payload : undefined;
@@ -139,7 +109,6 @@ const legacyReducer = (state = {}, action) => {
           name: null
         } : state.page,
         detail: null,
-        straatbeeld: null,
         dataSelection: null
       };
 
@@ -152,7 +121,6 @@ const legacyReducer = (state = {}, action) => {
           type: null
         } : state.page,
         detail: null,
-        straatbeeld: null,
         dataSelection: null
       };
 

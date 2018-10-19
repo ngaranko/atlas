@@ -11,7 +11,7 @@ import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
 import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
-import { setStraatbeeldOff } from '../../../shared/ducks/straatbeeld/straatbeeld';
+// import { setStraatbeeldOff } from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 import {
   cancel,
@@ -23,14 +23,20 @@ import {
 import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
 import { mapClear, mapEndDrawing, mapStartDrawing, mapUpdateShape, mapEmptyGeometry, mapClearDrawing } from '../../ducks/map/map';
 import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
+import {
+  getDrawingMode,
+  getGeometry,
+  getShapeDistanceTxt, getShapeMarkers,
+  isDrawingEnabled
+} from '../../ducks/map/map-selectors';
 
 const mapStateToProps = (state) => ({
-  drawingMode: state.map.drawingMode,
-  isEnabled: state.map.drawingMode !== drawToolConfig.DRAWING_MODE.NONE,
-  shapeMarkers: state.map.shapeMarkers,
-  shapeDistanceTxt: state.map.shapeDistanceTxt,
+  drawingMode: getDrawingMode(state),
+  isEnabled: isDrawingEnabled(state),
+  shapeMarkers: getShapeMarkers(state),
+  shapeDistanceTxt: getShapeDistanceTxt(state),
   dataSelection: state.dataSelection,
-  geometry: state.map.geometry,
+  geometry: getGeometry(state),
   uiMapFullscreen: isMapCurrentPage(state)
 });
 
@@ -45,7 +51,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapClear: mapClear,
   onSetPageName: setPageName,
   onSetMapFullscreen: setMapFullscreen,
-  onStraatbeeldOff: setStraatbeeldOff
+  // onStraatbeeldOff: setStraatbeeldOff
 }, dispatch);
 
 // TODO: Get all business logic out of this file, probably to Redux!
@@ -118,7 +124,7 @@ class DrawToolContainer extends React.Component {
         description: `${polygon.distanceTxt} en ${polygon.areaTxt}`
       });
 
-      this.props.onStraatbeeldOff();
+      // this.props.onStraatbeeldOff();
       this.props.onEndDrawing({ polygon });
       this.props.onSetPageName({ name: null });
 
@@ -200,7 +206,7 @@ DrawToolContainer.propTypes = {
   onEndDrawing: PropTypes.func.isRequired,
   onSetPageName: PropTypes.func.isRequired,
   onSetMapFullscreen: PropTypes.func.isRequired,
-  onStraatbeeldOff: PropTypes.func.isRequired,
+  // onStraatbeeldOff: PropTypes.func.isRequired,
   onMapClear: PropTypes.func.isRequired
 };
 

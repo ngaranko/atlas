@@ -1,10 +1,10 @@
 import { features } from '../../../../src/shared/environment';
+import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
 
 describe('The dp-data-selection-link component', () => {
     let $compile,
         $rootScope,
-        store,
-        ACTIONS;
+        store;
 
     beforeEach(() => {
         angular.mock.module(
@@ -16,11 +16,10 @@ describe('The dp-data-selection-link component', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         spyOn(store, 'dispatch');
@@ -59,7 +58,7 @@ describe('The dp-data-selection-link component', () => {
 
         component.find('dp-link button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
+            type: FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'bag',
                 view: 'TABLE',
@@ -75,7 +74,7 @@ describe('The dp-data-selection-link component', () => {
 
         component.find('dp-link button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
+            type: FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'hr',
                 view: 'TABLE',
@@ -92,7 +91,7 @@ describe('The dp-data-selection-link component', () => {
         if (features.eigendommen) {
             component.find('dp-link button').click();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DATA_SELECTION,
+                type: FETCH_DATA_SELECTION,
                 payload: {
                     dataset: 'brk',
                     view: 'TABLE',

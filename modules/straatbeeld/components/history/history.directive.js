@@ -1,3 +1,7 @@
+import {
+    setStraatbeeldYear
+} from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+
 (function () {
     'use strict';
 
@@ -5,9 +9,9 @@
         .module('dpStraatbeeld')
         .directive('dpStraatbeeldHistory', DpStraatbeeldHistoryDirective);
 
-    DpStraatbeeldHistoryDirective.$inject = ['store', 'ACTIONS'];
+    DpStraatbeeldHistoryDirective.$inject = ['store'];
 
-    function DpStraatbeeldHistoryDirective (store, ACTIONS) {
+    function DpStraatbeeldHistoryDirective (store) {
         return {
             restrict: 'E',
             scope: {
@@ -37,7 +41,7 @@
                 });
 
             scope.selectedOption = {
-                year: 0,
+                year: undefined,
                 label: 'Meest recent'
             };
 
@@ -51,10 +55,7 @@
             scope.toggleMenu = () => scope.menuActive = !scope.menuActive;
             scope.setSelectedOption = (option) => {
                 scope.selectedOption = option;
-                store.dispatch({
-                    type: ACTIONS.SET_STRAATBEELD_HISTORY,
-                    payload: option.year
-                });
+                store.dispatch(setStraatbeeldYear(option.year));
             };
 
             scope.$watchCollection('location', updateLocation, true);

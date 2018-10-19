@@ -26,10 +26,11 @@ export default function MapPreviewPanelReducer(state = initialState, action) {
   }
 }
 
+// Selectors
 export const closeMapPreviewPanel = () => ({ type: CLOSE_MAP_PREVIEW_PANEL });
 
-// Todo: is this used in a reducer?
-export const fetchSearchResults = (location) => ({
+// Action creators
+export const fetchSearchResultsByLocation = (location) => ({
   type: FETCH_SEARCH_RESULTS_BY_LOCATION,
   payload: [location.latitude, location.longitude]
 });

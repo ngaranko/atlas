@@ -1,3 +1,8 @@
+import {
+  isCatalogCurrentPage,
+  isMapCurrentPage
+} from '../../../shared/ducks/current-page/current-page-reducer';
+
 export const SET_ACTIVE_SUGGESTION = 'SET_ACTIVE_SUGGESTION';
 export const FETCH_SUGGESTIONS_REQUEST = 'FETCH_SUGGESTIONS_REQUEST';
 export const FETCH_SUGGESTIONS_SUCCESS = 'FETCH_SUGGESTIONS_SUCCESS';
@@ -49,6 +54,14 @@ export default function AutoSuggestReducer(state = initialState, action) {
   }
 }
 
+// Selectors
+export const getActiveSuggestions = (state) => state.autoSuggest.activeSuggestion;
+export const getDisplayQuery = (state) => state.autoSuggest.displayQuery;
+export const getNumberOfSuggestions = (state) => state.autoSuggest.count;
+export const getAutoSuggestSuggestions = (state) => state.autoSuggest.suggestions;
+export const getTypedQuery = (state) => state.autoSuggest.typedQuery;
+
+// Action creators
 export const setActiveSuggestion = (suggestion = { index: -1 }) =>
   ({ type: SET_ACTIVE_SUGGESTION, suggestion });
 

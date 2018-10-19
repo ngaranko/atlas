@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import get from 'lodash.get';
 import isObject from '../../services/is-object';
 import BaseCoder from '../../services/base-coder/base-coder';
 
@@ -13,16 +14,14 @@ export const SHOW_SEARCH_RESULTS = 'SHOW_SEARCH_RESULTS';
 export const FETCH_SEARCH_RESULTS_BY_LOCATION = 'FETCH_SEARCH_RESULTS_BY_LOCATION';
 
 export const getSearch = (state) => state.search;
-
-// Todo: create a mapSearchResultsByLocation reducer or refactor
-export const getMapResultsByLocation = (state) => state.mapSearchResultsByLocation || {};
+export const getMapResultsByLocation = (state) => get(state, 'search.mapSearchResultsByLocation', []);
 
 export const isSearchActive = createSelector(getSearch, (geoSearch) => (
   geoSearch && geoSearch.location && geoSearch.location.length
 ));
 
 const initialState = {
-  mapSearchResultsByLocation: {},
+  mapSearchResultsByLocation: [],
   isLoading: false
 };
 
@@ -69,14 +68,10 @@ export default function MapSearchResultsReducer(state = initialState, action) {
       };
 
     case FETCH_MAP_SEARCH_RESULTS_SUCCESS: {
-      const locationId = Object.values(action.location).toString();
       return {
         ...state,
         isLoading: false,
-        mapSearchResultsByLocation: {
-          ...state.mapSearchResultsByLocation,
-          [locationId]: action.mapSearchResults
-        }
+        mapSearchResultsByLocation: action.mapSearchResults
       };
     }
 
@@ -87,6 +82,11 @@ export default function MapSearchResultsReducer(state = initialState, action) {
       return state;
   }
 }
+
+export const isSearchLoading = (state) => state[REDUCER_KEY].isLoading;
+export const getSearchQuery = (state) => state[REDUCER_KEY].query;
+export const getSearchCategory = (state) => state[REDUCER_KEY].category;
+export const getNumberOfResults = (state) => state[REDUCER_KEY].numberOfResults;
 
 export const getMapSearchResults = (location, user) => ({
   type: FETCH_MAP_SEARCH_RESULTS_REQUEST,

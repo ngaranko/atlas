@@ -11,17 +11,17 @@ import {
 
     httpStatusFactory.inject = [
         '$window',
-        'Raven'
+        // 'Raven' // TODO: refactor, restore
     ];
 
-    function httpStatusFactory ($window, Raven) {
+    function httpStatusFactory ($window) {
         return {
             logResponse,
             registerError
         };
 
         function logResponse (message, statusCode) {
-            Raven.captureMessage(new Error(message), { tags: { statusCode } });
+            // Raven.captureMessage(new Error(message), { tags: { statusCode } }); // TODO: refactor, restore
         }
 
         function registerError (errorType) {

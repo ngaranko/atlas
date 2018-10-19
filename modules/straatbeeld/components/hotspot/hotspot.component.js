@@ -1,4 +1,6 @@
 import { radiansToDegrees } from '../../../../src/shared/services/angle-conversion/angle-conversion';
+import {
+    toPanorama } from '../../../../src/app/routes';
 
 (function () {
     'use strict';
@@ -17,9 +19,9 @@ import { radiansToDegrees } from '../../../../src/shared/services/angle-conversi
             controllerAs: 'vm'
         });
 
-    DpHotspotController.$inject = ['store', 'ACTIONS', 'STRAATBEELD_CONFIG'];
+    DpHotspotController.$inject = ['store', 'STRAATBEELD_CONFIG'];
 
-    function DpHotspotController (store, ACTIONS, STRAATBEELD_CONFIG) {
+    function DpHotspotController (store, STRAATBEELD_CONFIG) {
         var vm = this,
             realLifeHotspotSize = 0.6,
             minDistance = 4,
@@ -48,13 +50,7 @@ import { radiansToDegrees } from '../../../../src/shared/services/angle-conversi
         vm.transform = 'rotateX(' + angle + 'deg)';
 
         vm.loadScene = function () {
-            store.dispatch({
-                type: ACTIONS.FETCH_STRAATBEELD_BY_HOTSPOT,
-                payload: {
-                    id: vm.sceneId,
-                    isInitial: false
-                }
-            });
+            store.dispatch(toPanorama(vm.sceneId));
         };
     }
 })();

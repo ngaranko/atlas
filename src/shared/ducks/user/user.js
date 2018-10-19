@@ -31,6 +31,8 @@ export default function userReducer(state = initialState, action) {
   }
 }
 
+export const getUser = (state) => state.user;
+
 export const authenticateUser = (accessToken, name, scopes) =>
   ({ type: AUTHENTICATE_USER, accessToken, name, scopes });
 

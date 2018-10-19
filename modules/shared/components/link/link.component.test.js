@@ -54,9 +54,6 @@ describe('The dp-link component', function () {
                         };
                     }
                 }
-            },
-            $provide => {
-                $provide.constant('ACTIONS', mockedActions);
             }
         );
 

@@ -16,9 +16,9 @@
             controllerAs: 'vm'
         });
 
-    DpButtonController.$inject = ['$scope', 'store', 'ACTIONS'];
+    DpButtonController.$inject = ['$scope', 'store'];
 
-    function DpButtonController ($scope, store, ACTIONS) {
+    function DpButtonController ($scope, store) {
         const vm = this;
 
         vm.className = vm.className || 'o-btn o-btn--link';
@@ -29,7 +29,7 @@
 
         function getAction (type, payload) {
             const action = {
-                type: ACTIONS[type] || type
+                type
             };
             if (angular.isDefined(payload)) {
                 action.payload = payload;

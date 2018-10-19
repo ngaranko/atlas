@@ -62,7 +62,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
                 type: 'UPDATE_MAP',
                 payload: {
                     noRedirect: true,
-                    route: 'atlasRouter/KAART_PANORAMA',
+                    route: 'atlasRouter/PANORAMA',
                     query: {
                         panoId: undefined,
                         panoHeading: undefined
@@ -71,7 +71,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             });
 
             currentLocation = {
-                type: 'atlasRouter/KAART_PANORAMA'
+                type: 'atlasRouter/PANORAMA'
             };
             store.dispatch.calls.reset();
             // When straatbeeld is large

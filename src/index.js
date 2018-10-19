@@ -1,9 +1,7 @@
 // For now simply import everything we need, from here
-import './map/wrappers/map/MapWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphTotalsWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphPhasedWrapper';
 import './header/wrappers/header-search/HeaderSearchWrapper';
-import './homepage/wrappers/address-block/HomepageAddressBlockWrapper';
 
 // All third party dependencies
 import './vendor';

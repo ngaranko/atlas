@@ -78,14 +78,14 @@ function getStraatbeeld(url) {
  * @param {Number[]} location The center location.
  * @param {Number} radius The distance from the location within to
  *   search for a straatbeeld.
- * @param {Number} history The year to featch hotspots for, queries all
+ * @param {Number} year The year to featch hotspots for, queries all
  *   years when falsy.
  *
  * @returns {Promise.imageData} The fetched straatbeeld, or null on failure.
  */
-function searchWithinRadius(location, radius, history) {
-  const endpoint = history
-    ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${history}/`
+function searchWithinRadius(location, radius, year) {
+  const endpoint = year
+    ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${year}/`
     : STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL;
 
   return getStraatbeeld(`${sharedConfig.API_ROOT}${endpoint}?lat=${location[0]}&lon=${location[1]}&radius=${radius}`)
@@ -99,17 +99,17 @@ function searchWithinRadius(location, radius, history) {
 
 /**
  * @param {Number[]} location The center location.
- * @param {Number} history The year to featch hotspots for, queries all
+ * @param {Number} year The year to featch hotspots for, queries all
  *   years when falsy.
  * @returns {Promise.imageData} The fetched straatbeeld, or null on failure.
  */
-export function getImageDataByLocation(location, history) {
-  return searchWithinRadius(location, MAX_RADIUS_KM * 1000, history);
+export function getImageDataByLocation(location, year) {
+  return searchWithinRadius(location, MAX_RADIUS_KM * 1000, year);
 }
 
-export function getImageDataById(id, history) {
-  const endpoint = history
-    ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${history}/`
+export function getImageDataById(id, year) {
+  const endpoint = year
+    ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${year}/`
     : STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL;
 
   return getStraatbeeld(`${sharedConfig.API_ROOT}${endpoint}${id}/`);

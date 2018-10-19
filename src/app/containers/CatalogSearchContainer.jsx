@@ -2,14 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import connect from 'react-redux/es/connect/connect';
 import { AngularWrapper } from 'react-angular';
+import { getUser } from '../../shared/ducks/user/user';
+import { getFilters } from '../../shared/ducks/filters/filters';
+import { getCatalogFilters } from '../../catalog/ducks/data-selection/data-selection-catalog';
+import { getMapZoom } from '../../map/ducks/map/map-selectors';
+import { getCatalogQuery } from '../../shared/ducks/catalog/catalog';
 
 const mapStateToProps = (state) => ({
-  catalogFilters: state.catalogFilters,
+  catalogFilters: getCatalogFilters(state),
   dataSelectionState: state.dataSelection,
-  filters: state.filters,
-  zoomLevel: state.map.zoom,
-  user: state.user,
-  query: state.catalog.query
+  filters: getFilters(state),
+  zoomLevel: getMapZoom(state),
+  user: getUser(state),
+  query: getCatalogQuery(state)
 });
 
 const CatalogSearchContainer = ({

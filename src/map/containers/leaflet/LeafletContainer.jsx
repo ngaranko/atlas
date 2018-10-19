@@ -12,11 +12,10 @@ import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
 import {
   getCenter,
-  getClusterMarkers,
-  getGeoJsons,
+  getClusterMarkers, getDrawingMode,
+  getGeoJsons, getMapZoom,
   getMarkers,
-  getRdGeoJsons,
-  isMarkerActive
+  getRdGeoJsons
 } from '../../ducks/map/map-selectors';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
@@ -34,9 +33,8 @@ const mapStateToProps = (state) => ({
   rdGeoJsons: getRdGeoJsons(state),
   markers: getMarkers(state),
   layers: getLayers(state),
-  showMarker: isMarkerActive(state),
-  drawingMode: state.map.drawingMode,
-  zoom: state.map.zoom
+  drawingMode: getDrawingMode(state),
+  zoom: getMapZoom(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -126,9 +124,10 @@ class LeafletContainer extends React.Component {
       getLeafletInstance,
       layers,
       markers,
-      showMarker,
       zoom
     } = this.props;
+
+    const showMarker = markers.length > 0;
 
     return baseLayer.urlTemplate && (
       <MapLeaflet
@@ -181,7 +180,6 @@ LeafletContainer.propTypes = {
   rdGeoJsons: PropTypes.arrayOf(PropTypes.shape({})),
   getLeafletInstance: PropTypes.func.isRequired,
   markers: PropTypes.arrayOf(PropTypes.shape({})),
-  showMarker: PropTypes.bool.isRequired,
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,

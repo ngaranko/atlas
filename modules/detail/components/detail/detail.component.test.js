@@ -1,11 +1,11 @@
 import * as mapSelectors from '../../../../src/map/ducks/map/map-selectors';
+import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
 
 describe('the dp-detail component', () => {
     var $compile,
         $rootScope,
         $q,
         store,
-        ACTIONS,
         api,
         mockedUser,
         mockedGeometryPoint = {
@@ -186,14 +186,12 @@ describe('the dp-detail component', () => {
             _$rootScope_,
             _$q_,
             _store_,
-            _ACTIONS_,
             _api_
         ) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
             api = _api_;
         });
 
@@ -322,7 +320,7 @@ describe('the dp-detail component', () => {
         getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
+            type: SHOW_DETAIL,
             payload: {
                 display: 'Adresstraat 1A',
                 geometry: mockedGeometryPoint
@@ -330,7 +328,7 @@ describe('the dp-detail component', () => {
         });
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.DETAIL_FULLSCREEN,
+            type: DETAIL_FULLSCREEN,
             payload: false
         });
     });
@@ -339,7 +337,7 @@ describe('the dp-detail component', () => {
         getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, true);
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
+            type: SHOW_DETAIL,
             payload: {
                 display: 'Adresstraat 1A',
                 geometry: mockedGeometryPoint
@@ -347,7 +345,7 @@ describe('the dp-detail component', () => {
         });
 
         expect(store.dispatch).not.toHaveBeenCalledWith({
-            type: ACTIONS.DETAIL_FULLSCREEN,
+            type: DETAIL_FULLSCREEN,
             payload: false
         });
     });
@@ -375,14 +373,14 @@ describe('the dp-detail component', () => {
         });
         expect(store.dispatch).toHaveBeenCalledTimes(2);
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
+            type: SHOW_DETAIL,
             payload: {
                 display: 'Adresstraat 1A',
                 geometry: mockedGeometryPoint
             }
         });
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.DETAIL_FULLSCREEN,
+            type: DETAIL_FULLSCREEN,
             payload: false
         });
 
@@ -399,14 +397,14 @@ describe('the dp-detail component', () => {
         });
         expect(store.dispatch).toHaveBeenCalledTimes(4);
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
+            type: SHOW_DETAIL,
             payload: {
                 display: 'Een of ander kadastraal object',
                 geometry: mockedGeometryMultiPolygon
             }
         });
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.DETAIL_FULLSCREEN,
+            type: DETAIL_FULLSCREEN,
             payload: false
         });
     });
@@ -438,14 +436,14 @@ describe('the dp-detail component', () => {
         });
         expect(store.dispatch).toHaveBeenCalledTimes(4);
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
+            type: SHOW_DETAIL,
             payload: {
                 display: 'Adresstraat 1A',
                 geometry: mockedGeometryPoint
             }
         });
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.DETAIL_FULLSCREEN,
+            type: DETAIL_FULLSCREEN,
             payload: false
         });
     });
@@ -456,7 +454,7 @@ describe('the dp-detail component', () => {
         getComponent(naturalPersonEndPoint);
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
+            type: SHOW_DETAIL,
             payload: jasmine.objectContaining({
                 geometry: null
             })
@@ -468,7 +466,7 @@ describe('the dp-detail component', () => {
             getComponent('http://fake-endpoint.amsterdam.nl/api/subject/123/');
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.DETAIL_FULLSCREEN,
+                type: DETAIL_FULLSCREEN,
                 payload: true
             });
         });
@@ -479,7 +477,7 @@ describe('the dp-detail component', () => {
             getComponent('http://www.fake-endpoint.com/brk/subject/123/');
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.DETAIL_FULLSCREEN,
+                type: DETAIL_FULLSCREEN,
                 payload: true
             });
         });
@@ -488,7 +486,7 @@ describe('the dp-detail component', () => {
             getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/');
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.DETAIL_FULLSCREEN,
+                type: DETAIL_FULLSCREEN,
                 payload: false
             });
         });
@@ -513,7 +511,7 @@ describe('the dp-detail component', () => {
         getComponent('http://www.fake-endpoint.amsterdam.nl/brk/subject/404/');
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
+            type: SHOW_DETAIL,
             payload: {}
         });
     });
@@ -522,7 +520,7 @@ describe('the dp-detail component', () => {
         getComponent('http://www.fake-endpoint.amsterdam.nl/brk/geo/404/');
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
+            type: SHOW_DETAIL,
             payload: {}
         });
     });
@@ -534,7 +532,7 @@ describe('the dp-detail component', () => {
             getComponent(naturalPersonEndPoint);
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DETAIL,
+                type: SHOW_DETAIL,
                 payload: jasmine.objectContaining({
                     geometry: null
                 })
@@ -546,7 +544,7 @@ describe('the dp-detail component', () => {
             const scope = component.isolateScope();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DETAIL,
+                type: SHOW_DETAIL,
                 payload: {}
             });
 
@@ -566,7 +564,7 @@ describe('the dp-detail component', () => {
 
             expect(scope.vm.apiData).toBeUndefined();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DETAIL,
+                type: SHOW_DETAIL,
                 payload: {}
             });
         });
@@ -585,7 +583,7 @@ describe('the dp-detail component', () => {
             const scope = component.isolateScope();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DETAIL,
+                type: SHOW_DETAIL,
                 payload: {}
             });
 

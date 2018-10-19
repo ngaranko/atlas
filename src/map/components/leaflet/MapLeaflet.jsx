@@ -12,6 +12,7 @@ import geoJsonConfig from './services/geo-json-config.constant';
 import markerConfig from './services/marker-config.constant';
 import createClusterIcon from './services/cluster-icon';
 import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
+import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/map';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
@@ -270,7 +271,7 @@ MapLeaflet.defaultProps = {
     urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
     baseLayerOptions: {}
   },
-  center: [52.3731081, 4.8932945],
+  center: [DEFAULT_LAT, DEFAULT_LNG],
   clusterMarkers: [],
   geoJsons: [],
   rdGeoJsons: [],

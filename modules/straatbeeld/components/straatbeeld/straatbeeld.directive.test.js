@@ -70,11 +70,13 @@ describe('The dp-straatbeeld directive', function () {
         var el = document.createElement('dp-straatbeeld');
         el.setAttribute('state', 'state');
         el.setAttribute('resize', 'resize');
+        el.setAttribute('hotspots', 'hotspots');
 
         scope = $rootScope.$new();
 
         scope.state = state;
         scope.resize = resize;
+        scope.hotspots = state.hotspots;
         scope.backToMap = 'SOME_ACTION';
 
         var directive = $compile(el)(scope);
@@ -156,7 +158,7 @@ describe('The dp-straatbeeld directive', function () {
         it('Triggers marzipano to load the scene', function () {
             marzipanoService.loadScene.calls.reset();
 
-            directive.isolateScope().state.hotspots = [{
+            directive.isolateScope().hotspots = [{
                 id: 'TMX7316010203-000224_pano_0000_000852',
                 year: 2020
             }, {
@@ -168,8 +170,8 @@ describe('The dp-straatbeeld directive', function () {
             expect(marzipanoService.loadScene).toHaveBeenCalledTimes(1);
             marzipanoService.loadScene.calls.reset();
 
-            directive.isolateScope().state.hotspots[0].year = 2017;
-            directive.isolateScope().state.hotspots[1].year = 2017;
+            directive.isolateScope().hotspots[0].year = 2017;
+            directive.isolateScope().hotspots[1].year = 2017;
             directive.isolateScope().$apply();
 
             expect(marzipanoService.loadScene).toHaveBeenCalledTimes(1);
@@ -178,7 +180,7 @@ describe('The dp-straatbeeld directive', function () {
         it('Triggers load scene on entire new array', function () {
             marzipanoService.loadScene.calls.reset();
 
-            directive.isolateScope().state.hotspots = [{
+            directive.isolateScope().hotspots = [{
                 id: 'TMX7316010203-000224_pano_0000_000852',
                 year: 2020
             }, {
@@ -190,7 +192,7 @@ describe('The dp-straatbeeld directive', function () {
             expect(marzipanoService.loadScene).toHaveBeenCalledTimes(1);
             marzipanoService.loadScene.calls.reset();
 
-            directive.isolateScope().state.hotspots = [{
+            directive.isolateScope().hotspots = [{
                 id: 'TMX7316010203-000224_pano_0000_000852',
                 year: 2017
             }, {
@@ -205,7 +207,7 @@ describe('The dp-straatbeeld directive', function () {
         it('Does not trigger load scene on entire new array with the exact same data', function () {
             marzipanoService.loadScene.calls.reset();
 
-            directive.isolateScope().state.hotspots = [{
+            directive.isolateScope().hotspots = [{
                 id: 'TMX7316010203-000224_pano_0000_000852',
                 year: 2020
             }, {
@@ -217,7 +219,7 @@ describe('The dp-straatbeeld directive', function () {
             expect(marzipanoService.loadScene).toHaveBeenCalledTimes(1);
             marzipanoService.loadScene.calls.reset();
 
-            directive.isolateScope().state.hotspots = [{
+            directive.isolateScope().hotspots = [{
                 id: 'TMX7316010203-000224_pano_0000_000852',
                 year: 2020
             }, {

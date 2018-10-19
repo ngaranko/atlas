@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
 import { getShortSelectedLocation } from '../../map/ducks/map/map-selectors';
+import { getNumberOfResults } from '../../shared/ducks/search/search';
+import { getUser } from '../../shared/ducks/user/user';
 
 const mapStateToProps = (state) => ({
   isLoading: false,
   query: null,
   location: getShortSelectedLocation(state) || {},
   category: null,
-  numberOfResults: (state.search) ? state.search.numberOfResults : 0,
-  user: state.user
+  numberOfResults: getNumberOfResults(state),
+  user: getUser(state)
 });
 
 // TODO refactor, rename GeoSearchContainer

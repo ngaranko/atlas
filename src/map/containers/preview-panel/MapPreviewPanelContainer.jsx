@@ -1,13 +1,17 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchSearchResults, showSearchView } from '../../ducks/preview-panel/map-preview-panel';
+import { fetchSearchResultsByLocation, showSearchView } from '../../ducks/preview-panel/map-preview-panel';
 import { clearSelectedLocation } from '../../ducks/map/map';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
 import { isEmbedded, isEmbedPreview, toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 import { showStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
-import { setDetailEndpointRoute, toMapDetail } from '../../../shared/ducks/detail/detail';
+import {
+  getDetail,
+  setDetailEndpointRoute,
+  toMapDetail
+} from '../../../shared/ducks/detail/detail';
 import MapPreviewPanel from './MapPreviewPanel';
 import {
   getLocationId,
@@ -15,6 +19,7 @@ import {
   getShortSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
+import { getPageActionEndpoint, toMap, toPanorama } from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
   mapClickLocation: getSelectedLocation(state),
@@ -26,22 +31,32 @@ const mapStateToProps = (state) => ({
   missingLayers: selectNotClickableVisibleMapLayers(state)
     .map((mapLayer) => mapLayer.title)
     .join(', '),
-  detail: state.detail,
+  detail: getDetail(state),
   mapDetail: state.mapDetail,
   detailResult: selectLatestMapDetail(state) || null,
   user: state.user,
   isEmbed: isEmbedPreview(state) || isEmbedded(state)
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onSearch: fetchSearchResults,
-  onMapPreviewPanelClose: clearSelectedLocation,
-  onMapPreviewPanelMaximizeDetail: toMapDetail,
-  onMapPreviewPanelMaximizeSearch: showSearchView,
-  onMapSearchResultsItemClick: setDetailEndpointRoute,
-  onOpenPanoById: showStraatbeeld,
-  closeMapFullScreen: toggleMapFullscreen
-}, dispatch);
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({
+    onSearch: fetchSearchResultsByLocation,
+    onMapPreviewPanelClose: toMap,
+    onMapPreviewPanelMaximizeDetail: toMapDetail,
+    onMapPreviewPanelMaximizeSearch: showSearchView,
+    onMapSearchResultsItemClick: setDetailEndpointRoute,
+    closeMapFullScreen: toggleMapFullscreen
+  }, dispatch),
+  onOpenPanoById: (pano) => {
+    // showStraatbeeld
+    const action = toPanorama(pano.id);
+    return dispatch(action);
+  },
+  onMapSearchResultsItemClick: (endpoint) => {
+    const action = getPageActionEndpoint(endpoint);
+    return dispatch(action);
+  }
+});
 
 /* eslint-enable react/no-unused-prop-types */
 export default connect(mapStateToProps, mapDispatchToProps)(MapPreviewPanel);

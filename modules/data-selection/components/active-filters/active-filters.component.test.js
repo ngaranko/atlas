@@ -1,10 +1,10 @@
 import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
+import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
 
 describe('The dp-data-selection-active-filters component', () => {
     let $compile,
         $rootScope,
         store,
-        ACTIONS,
         availableFilters,
         geometryFilter;
 
@@ -18,11 +18,10 @@ describe('The dp-data-selection-active-filters component', () => {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         geometryFilter = {
@@ -235,7 +234,7 @@ describe('The dp-data-selection-active-filters component', () => {
         component.find('.qa-active-filters li').eq(0).find('button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
+            type: FETCH_DATA_SELECTION,
             payload: {
                 dataset: 'my_special_dataset',
                 resetGeometryFilter: true,

@@ -1,5 +1,5 @@
 import reducer, {
-  MAP_REMOVE_PANO_OVERLAY,
+  // MAP_REMOVE_PANO_OVERLAY,
   mapClear,
   mapClearDrawing,
   mapEmptyGeometry,
@@ -12,7 +12,10 @@ import reducer, {
   updateBoundingBox
 } from './map';
 import { routing } from '../../../app/routes';
-import ACTIONS from '../../../shared/actions';
+import {
+  FETCH_STRAATBEELD_BY_ID,
+  FETCH_STRAATBEELD_BY_LOCATION, SET_STRAATBEELD, SET_STRAATBEELD_YEAR
+} from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 describe('Map Reducer', () => {
   const initialState = {
@@ -65,7 +68,7 @@ describe('Map Reducer', () => {
   });
 
   it('removes a drawn line from the map', () => {
-    expect(reducer({}, { type: ACTIONS.FETCH_STRAATBEELD_BY_LOCATION })).toEqual({ geometry: [] });
+    expect(reducer({}, { type: FETCH_STRAATBEELD_BY_LOCATION })).toEqual({ geometry: [] });
   });
 
   it('should set the geometry and drawing mode when dispatching mapEndDrawing', () => {
@@ -234,52 +237,32 @@ describe('Map Reducer', () => {
     });
   });
 
-  it(`should add a pano overlay when dispatching ${ACTIONS.SET_STRAATBEELD_HISTORY} or ${routing.mapPanorama.type}`, () => {
+  it(`should add a pano overlay when dispatching ${SET_STRAATBEELD_YEAR} or ${routing.panorama.type}`, () => {
     expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
-      type: ACTIONS.SET_STRAATBEELD_HISTORY,
+      type: SET_STRAATBEELD_YEAR,
       payload: 2017
     })).toEqual({
       overlays: [{ id: 'pano2017', isVisible: true }], mapPanelActive: false
     });
 
     expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
-      type: routing.mapPanorama.type,
+      type: routing.panorama.type,
       payload: {}
     })).toEqual({
       overlays: [{ id: 'pano', isVisible: true }], mapPanelActive: false
     });
   });
 
-  it(`should remove a pano overlay when dispatching ${MAP_REMOVE_PANO_OVERLAY}`, () => {
-    expect(reducer({ overlays: [{ id: 'panob' }] }, {
-      type: MAP_REMOVE_PANO_OVERLAY,
-      payload: {
-        id: 'panoa'
-      }
-    })).toEqual({
-      overlays: []
-    });
-
-    expect(reducer({ overlays: [{ id: 'notpano' }] }, {
-      type: MAP_REMOVE_PANO_OVERLAY,
-      payload: {
-        id: 'panoa'
-      }
-    })).toEqual({
-      overlays: [{ id: 'notpano' }]
-    });
-  });
-
   it('Sets loading indication for map and straatbeeld', () => {
     const inputState = {};
-    const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload: {} });
+    const newState = reducer(inputState, { type: FETCH_STRAATBEELD_BY_ID, payload: {} });
     expect(newState.isLoading).toBe(true);
   });
 
   it('removes a drawn line from the map', () => {
     const inputState = {};
     const payload = [52.001, 4.002];
-    const output = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_LOCATION, payload });
+    const output = reducer(inputState, { type: FETCH_STRAATBEELD_BY_LOCATION, payload });
 
     expect(output.geometry).toEqual([]);
   });
@@ -295,7 +278,7 @@ describe('Map Reducer', () => {
     let output;
 
     inputState.viewCenter = 'aap';
-    output = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
+    output = reducer(inputState, { type: SET_STRAATBEELD, payload });
     expect(output)
       .toEqual(jasmine.objectContaining({
         viewCenter: payload.location    // center map on payload location
@@ -304,7 +287,7 @@ describe('Map Reducer', () => {
     delete inputState.location;
     inputState.targetLocation = [1, 2];
     inputState.viewCenter = 'aap';
-    output = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
+    output = reducer(inputState, { type: SET_STRAATBEELD, payload });
     expect(output)
       .toEqual(jasmine.objectContaining({
         viewCenter: payload.location    // center map on payload location
@@ -318,7 +301,7 @@ describe('Map Reducer', () => {
     };
     inputState.viewCenter = null;
     payload.location = [5, 6];
-    const output = reducer(inputState, { type: ACTIONS.SET_STRAATBEELD, payload });
+    const output = reducer(inputState, { type: SET_STRAATBEELD, payload });
     expect(output.viewCenter).toEqual([5, 6]);
   });
 });

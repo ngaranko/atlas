@@ -1,7 +1,7 @@
 import reducer, {
   CLOSE_MAP_PREVIEW_PANEL,
   closeMapPreviewPanel,
-  fetchSearchResults,
+  fetchSearchResultsByLocation,
   OPEN_MAP_PREVIEW_PANEL,
   showDetailView,
   showSearchView
@@ -28,12 +28,12 @@ describe('map preview reducer and actions', () => {
     });
   });
 
-  it('should return the proper action when calling fetchSearchResults', () => {
+  it('should return the proper action when calling fetchSearchResultsByLocation', () => {
     const location = {
       latitude: 123,
       longitude: 321
     };
-    expect(fetchSearchResults(location)).toEqual({
+    expect(fetchSearchResultsByLocation(location)).toEqual({
       type: FETCH_SEARCH_RESULTS_BY_LOCATION,
       payload: [location.latitude, location.longitude]
     });

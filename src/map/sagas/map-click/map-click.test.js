@@ -2,13 +2,36 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { composeProviders } from 'redux-saga-test-plan/providers';
 
 import watchMapClick, { switchClickAction } from './map-click';
-
-import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../../../shared/actions';
-
 import { getMapPanelLayers, getActiveMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { getStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
+import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
+
+//  it('heads towards a targetlocation when straatbeeld is loaded by location', () => {
+//       let output;
+//
+//       [
+//         { target: [52, 4], heading: 0 },
+//         { target: [52, 5], heading: 90 },
+//         { target: [52, 3], heading: -90 },
+//         { target: [53, 5], heading: 45 },
+//         { target: [51, 3], heading: -135 },
+//         { target: [51, 5], heading: 135 }
+//       ].forEach(({ target, heading }) => {
+//         inputState.targetLocation = target;
+//         inputState.location = inputState.targetLocation;
+//
+//         output = reducer(inputState, {
+//           type: SET_STRAATBEELD,
+//           payload
+//         });
+//         expect(output)
+//           .toEqual(jasmine.objectContaining({
+//             heading
+//           }));
+//       });
+//     });
 
 describe('getActiveMapLayers', () => {
   const state = {
@@ -108,7 +131,7 @@ describe('watchMapClick', () => {
     url: '/maps/brk?version=1.3.0&service=WMS'
   };
 
-  it('should watch "ACTIONS.SET_MAP_CLICK_LOCATION" and call switchClickAction', () => {
+  it('should watch "SET_MAP_CLICK_LOCATION" and call switchClickAction', () => {
     testSaga(watchMapClick)
       .next()
       .takeLatestEffect(SET_MAP_CLICK_LOCATION, switchClickAction)

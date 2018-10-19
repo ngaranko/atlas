@@ -4,58 +4,42 @@ import reducer, {
   getStraatbeeldLocation,
   getStraatbeeldMarkers,
   setStraatbeeld,
-  setStraatbeeldOff,
-  STRAATBEELD_OFF
+  setStraatbeeldYear, fetchStraatbeeldById, setStraatbeeldOrientation
 } from './straatbeeld';
 import * as STRAATBEELD_CONFIG from '../../../../modules/straatbeeld/straatbeeld-config';
-import ACTIONS from '../../actions';
-import { routing } from '../../../app/routes';
 
 describe('Straatbeeld Reducer', () => {
-  let state;
-  const defaultState = null;
-
   beforeAll(() => {
-    state = reducer(undefined, {});
     STRAATBEELD_CONFIG.default = {
       DEFAULT_FOV: 79
     };
   });
 
   it('should set the initial state', () => {
+    const state = reducer(undefined, {});
     expect(state).toEqual({
-      id: 'TMX7316010203-000719_pano_0000_000950',
       date: null,
       fov: null,
       heading: 0,
-      history: 0,
       hotspots: [],
       image: null,
-      isFullscreen: false,
-      isInitial: true,
       isLoading: true,
       location: null,
-      pitch: null
+      pitch: null,
+      year: undefined
     });
   });
 
-  describe('FETCH_STRAATBEELD_BY_ID', () => {
-    let payload;
-
-    beforeEach(() => {
-      payload = {
-        id: 'ABC',
-        heading: 123,
-        isInitial: true
-      };
+  describe('fetchStraatbeeldById', () => {
+    it('when heading is in payload, use the payload heading', () => {
+      const inputState = {};
+      const id = 'ABC';
+      const heading = 123;
+      const newState = reducer(inputState, fetchStraatbeeldById(id, heading));
+      expect(newState.heading).toBe(123);
     });
 
     it('when heading is not in payload, use oldstate heading', () => {
-      payload = {
-        id: 'ABC',
-        isInitial: true
-      };
-
       const inputState = {
         fov: 1,
         pitch: 2,
@@ -65,63 +49,24 @@ describe('Straatbeeld Reducer', () => {
         location: ['lat', 'lon'],
         image: 'http://example.com/example.png'
       };
-
-      const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload });
-      expect(newState.heading).toBe(179);
-    });
-
-    it('when heading is in payload, use the payload heading', () => {
-      const inputState = {
-        ...defaultState
-      };
-      const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload });
-      expect(newState.heading).toBe(123);
-    });
-
-    it('Set INITIAL id, heading, isInitial', () => {
-      const inputState = {
-        ...defaultState
-      };
-      const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload });
-      expect(newState).toEqual(jasmine.objectContaining(payload));
-    });
-
-    it('resets previous straatbeeld variables', () => {
-      const inputState = {
-        ...defaultState,
-        fov: 1,
-        pitch: 2,
-        date: 'today',
-        hotspots: ['a', 'b'],
-        location: ['lat', 'lon'],
-        image: 'http://example.com/example.png'
-      };
-
-      const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload });
-
-      expect(newState.fov).toBeNull();
-      expect(newState.pitch).toBeNull();
-      expect(newState.date).toBeNull();
-      expect(newState.hotspots).toEqual([]);
-      expect(newState.location).toBeNull();
-      expect(newState.image).toBeNull();
-    });
-
-    it('has a default heading of 0', () => {
-      const inputState = {
-        ...defaultState
-      };
-      payload = {
-        id: 'ABC',
-        isInitial: true
-      };
-
-      const newState = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload });
-      expect(newState.heading).toBe(0);
+      const id = 'ABC';
+      const newState = reducer(inputState, fetchStraatbeeldById(id));
+      expect(newState.id).toBe(id);
+      expect(newState.heading).toBe(inputState.heading);
     });
   });
 
-  describe('SHOW_STRAATBEELD', () => {
+  describe('setStraatbeeldYear', () => {
+    it('sets the year', () => {
+      expect(
+        reducer({ year: 2010 }, setStraatbeeldYear(2020))
+      ).toEqual({
+        year: 2020
+      });
+    });
+  });
+
+  describe('setStraatbeeld', () => {
     const payload = {
       date: new Date('2016-05-19T13:04:15.341110Z'),
       hotspots: [{
@@ -139,11 +84,9 @@ describe('Straatbeeld Reducer', () => {
     let inputState;
     beforeEach(() => {
       inputState = {
-        ...defaultState,
         isLoading: true,
         id: 'ABC',
-        heading: 123,
-        isInitial: true
+        heading: 123
       };
     });
 
@@ -167,98 +110,15 @@ describe('Straatbeeld Reducer', () => {
       expect(newState.fov).toBe(2);
     });
 
-    it('do not overwrite isLoading, id, heading, isInitial', () => {
-      const newState = reducer(inputState, setStraatbeeld(payload));
-
-      expect(newState)
-        .toEqual(jasmine.objectContaining({
-          isLoading: false,
-          id: 'ABC',
-          heading: 123,
-          isInitial: true
-        }));
-    });
-
-    it('can set the straatbeeld to the new location', () => {
-      inputState = {};
-      const location = [52.001, 4.002];
-
-      const newState = reducer(inputState, {
-        type: ACTIONS.FETCH_STRAATBEELD_BY_LOCATION,
-        payload: location
-      });
-
-      expect(newState.isLoading).toBe(true);
-      expect(newState.location).toEqual(location);
-      expect(newState.targetLocation).toEqual(location);
-    });
-
-    it('heads towards a targetlocation when straatbeeld is loaded by location', () => {
-      let output;
-
-      [
-        { target: [52, 4], heading: 0 },
-        { target: [52, 5], heading: 90 },
-        { target: [52, 3], heading: -90 },
-        { target: [53, 5], heading: 45 },
-        { target: [51, 3], heading: -135 },
-        { target: [51, 5], heading: 135 }
-      ].forEach(({ target, heading }) => {
-        inputState.targetLocation = target;
-        inputState.location = inputState.targetLocation;
-
-        output = reducer(inputState, {
-          type: ACTIONS.SET_STRAATBEELD,
-          payload
-        });
-        expect(output)
-          .toEqual(jasmine.objectContaining({
-            heading
-          }));
-      });
-    });
-
-    it('does not head towards a targetlocation when straatbeeld by location is reloaded', () => {
-      // When a straatbeeld is reloaded, there is no target location available
-      // There is a location available to denote that the straatbeeld origins from a location
-      // The heading has already been calculated and saved on the first show of the straatbeeld
-      // and should not be repeated
-      inputState.location = [1, 2];
-      delete inputState.targetLocation; // not saved in state, so not present on reload
-      inputState.heading = 'aap';
-      const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD,
-        payload
-      });
-      expect(output)
-        .toEqual(jasmine.objectContaining({
-          heading: inputState.heading // keep original heading
-        }));
-    });
-
     it('Sets loading to false', () => {
-      const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD,
-        payload
-      });
+      const output = reducer(inputState, setStraatbeeld(payload));
       expect(output.isLoading).toBe(false);
-    });
-
-    it('does nothing when straatbeeld is null', () => {
-      inputState = null;
-      const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD,
-        payload
-      });
-
-      expect(output).toBeNull();
     });
   });
 
-  describe('setOrientationReducer', () => {
-    it('updates the orientation with pitch and fov', () => {
+  describe('setStraatbeeldOrientation', () => {
+    it('updates the orientation', () => {
       const inputState = {
-        ...defaultState,
         pitch: 1,
         fov: 2
       };
@@ -267,87 +127,15 @@ describe('Straatbeeld Reducer', () => {
         pitch: 1,
         fov: 2
       };
-      const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_ORIENTATION,
-        payload
-      });
+      const output = reducer(inputState, setStraatbeeldOrientation(payload));
 
+      expect(output.heading)
+        .toEqual(payload.heading);
       expect(output.pitch)
         .toEqual(payload.pitch);
       expect(output.fov)
         .toEqual(payload.fov);
     });
-
-    it('when straatbeeld is not an object', () => {
-      const inputState = {
-        ...defaultState
-      };
-
-      const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_ORIENTATION
-      });
-      expect(output).toBeNull();
-    });
-  });
-
-  describe('setStraatbeeldHistoryReducer', () => {
-    it('sets the straatbeeld history selection', () => {
-      const inputState = {};
-
-      const payload = 2020;
-      const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_HISTORY,
-        payload
-      });
-
-      expect(output.history).toEqual(payload);
-    });
-
-    it('updates the straatbeeld history selection', () => {
-      const inputState = {
-        ...defaultState,
-        history: 0
-      };
-
-      const payload = 2020;
-      const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_HISTORY,
-        payload
-      });
-
-      expect(output.history).toEqual(payload);
-    });
-
-    it('can set the history selection to zero', () => {
-      const inputState = {
-        ...defaultState,
-        history: 2020
-      };
-
-      const payload = 0;
-      const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_HISTORY,
-        payload
-      });
-
-      expect(output.history).toEqual(payload);
-    });
-
-    it('when straatbeeld is not an object', () => {
-      const inputState = defaultState;
-
-      const payload = 2020;
-      const output = reducer(inputState, {
-        type: ACTIONS.SET_STRAATBEELD_HISTORY,
-        payload
-      });
-      expect(output).toBeNull();
-    });
-  });
-
-  it(`should set the state to null when ${STRAATBEELD_OFF} and ${routing.map.type} is dispatched`, () => {
-    expect(reducer(state, setStraatbeeldOff())).toEqual({});
-    expect(reducer(state, { type: routing.map.type })).toEqual({});
   });
 });
 
@@ -425,20 +213,4 @@ describe('straatbeeld selectors', () => {
       ]);
     });
   });
-});
-
-// ACTION CREATORS
-describe('actions', () => {
-  // describe('fetchMapBaseLayers', () => {
-  //   it('should create an action to request straatbeeld by id', () => {
-  //     const expectedAction = {
-  //       type: FETCH_STRAATBEELD_BY_ID,
-  //       payload: {
-  //         id: 'id',
-  //         heading: -130
-  //       }
-  //     };
-  //     expect(showStraatbeeld(expectedAction.payload)).toEqual(expectedAction);
-  //   });
-  // });
 });

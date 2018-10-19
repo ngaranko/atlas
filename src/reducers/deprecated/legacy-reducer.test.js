@@ -1,12 +1,17 @@
 import * as STRAATBEELD_CONFIG from '../../../modules/straatbeeld/straatbeeld-config';
 import reducer from './legacy-reducer';
-import ACTIONS from '../../shared/actions';
 import {
   FETCH_SEARCH_RESULTS_BY_LOCATION,
   FETCH_SEARCH_RESULTS_BY_QUERY,
   getMapSearchResults,
   SHOW_SEARCH_RESULTS
 } from '../../shared/ducks/search/search';
+import { FETCH_DATA_SELECTION } from '../../header/ducks/search/search';
+import {
+  RESET_DATA_SELECTION,
+  SET_DATA_SELECTION_VIEW, SHOW_DATA_SELECTION
+} from '../../shared/ducks/data-selection/data-selection';
+import { FETCH_STRAATBEELD_BY_ID } from '../../shared/ducks/straatbeeld/straatbeeld';
 
 const deepCopy = (oldObject) => JSON.parse(JSON.stringify(oldObject));
 
@@ -63,7 +68,7 @@ describe('Former straatbeeld reducer', () => {
         }
       };
 
-      const output = reducer(inputState, { type: ACTIONS.FETCH_STRAATBEELD_BY_ID, payload });
+      const output = reducer(inputState, { type: FETCH_STRAATBEELD_BY_ID, payload });
       expect(output.search).toBeNull();
     });
   });
@@ -104,7 +109,7 @@ describe('Former dataSelection Reducer', () => {
     it('has a default table view and set map not to be loading', () => {
       const mockedState = deepCopy(DEFAULT_STATE);
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.map.isLoading).toEqual(false);
     });
@@ -113,7 +118,7 @@ describe('Former dataSelection Reducer', () => {
       const mockedState = deepCopy(DEFAULT_STATE);
       payload.view = 'LIST';
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.map.isLoading).toEqual(true);
     });
@@ -124,7 +129,7 @@ describe('Former dataSelection Reducer', () => {
         view: 'LIST'
       };
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.map.isLoading).toEqual(true);
     });
@@ -139,7 +144,7 @@ describe('Former dataSelection Reducer', () => {
         filter: 'filterValue'
       };
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.filters).toEqual({
         filter: 'filterValue'
@@ -153,7 +158,7 @@ describe('Former dataSelection Reducer', () => {
         buurt: 'Trompbuurt'
       };
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.filters).toEqual({
         buurtcombinatie: 'Geuzenbuurt',
@@ -170,7 +175,7 @@ describe('Former dataSelection Reducer', () => {
 
       payload.emptyFilters = true;
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.filters).toEqual({});
     });
@@ -182,7 +187,7 @@ describe('Former dataSelection Reducer', () => {
       mockedState.detail = { some: 'object' };
       mockedState.straatbeeld = { some: 'object' };
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
 
       expect(output.search).toBeNull();
       expect(output.page.name).toBeNull();
@@ -196,12 +201,12 @@ describe('Former dataSelection Reducer', () => {
 
       // With print mode enabled
       mockedState.ui.isPrintMode = true;
-      output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
       expect(output.ui.isPrintMode).toBe(true);
 
       // With print mode disabled
       mockedState.ui.isPrintMode = false;
-      output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload });
+      output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload });
       expect(output.ui.isPrintMode).toBe(false);
     });
 
@@ -211,7 +216,7 @@ describe('Former dataSelection Reducer', () => {
       mockedState.ui = null;
       mockedState.page = null;
 
-      const output = reducer(mockedState, { type: ACTIONS.FETCH_DATA_SELECTION, payload: '' });
+      const output = reducer(mockedState, { type: FETCH_DATA_SELECTION, payload: '' });
       expect(output.map).toBeNull();
       expect(output.ui).toBeNull();
       expect(output.page).toBeNull();
@@ -243,7 +248,7 @@ describe('Former dataSelection Reducer', () => {
     });
 
     it('sets map isLoading to false', () => {
-      output = reducer(mockedState, { type: ACTIONS.SHOW_DATA_SELECTION, payload });
+      output = reducer(mockedState, { type: SHOW_DATA_SELECTION, payload });
 
       expect(output.map.isLoading).toEqual(false);
     });
@@ -251,7 +256,7 @@ describe('Former dataSelection Reducer', () => {
     it('when map is not an object', () => {
       mockedState.map = null;
 
-      output = reducer(mockedState, { type: ACTIONS.SHOW_DATA_SELECTION, payload });
+      output = reducer(mockedState, { type: SHOW_DATA_SELECTION, payload });
       expect(output.map).toBeNull();
     });
   });
@@ -281,7 +286,7 @@ describe('Former dataSelection Reducer', () => {
     });
 
     it('sets map isLoading to false', () => {
-      output = reducer(mockedState, { type: ACTIONS.RESET_DATA_SELECTION, payload });
+      output = reducer(mockedState, { type: RESET_DATA_SELECTION, payload });
 
       expect(output.map.isLoading).toEqual(false);
     });
@@ -289,7 +294,7 @@ describe('Former dataSelection Reducer', () => {
     it('when map is not an object', () => {
       mockedState.map = null;
 
-      output = reducer(mockedState, { type: ACTIONS.RESET_DATA_SELECTION, payload });
+      output = reducer(mockedState, { type: RESET_DATA_SELECTION, payload });
       expect(output.map).toBeNull();
     });
   });
@@ -314,7 +319,7 @@ describe('Former dataSelection Reducer', () => {
 
     it('can set the view to list view and set map to be loading', () => {
       const output = reducer(mockedState, {
-        type: ACTIONS.SET_DATA_SELECTION_VIEW,
+        type: SET_DATA_SELECTION_VIEW,
         payload: 'LIST'
       });
 
@@ -323,7 +328,7 @@ describe('Former dataSelection Reducer', () => {
 
     it('can set the view to table view and set map not to be loading', () => {
       const output = reducer(mockedState, {
-        type: ACTIONS.SET_DATA_SELECTION_VIEW,
+        type: SET_DATA_SELECTION_VIEW,
         payload: 'TABLE'
       });
 
@@ -335,7 +340,7 @@ describe('Former dataSelection Reducer', () => {
       mockedState.map = null;
 
       const output = reducer(mockedState, {
-        type: ACTIONS.SET_DATA_SELECTION_VIEW,
+        type: SET_DATA_SELECTION_VIEW,
         payload: 'LIST'
       });
       expect(output.map).toBeNull();

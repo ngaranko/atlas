@@ -4,21 +4,39 @@ import Link from 'redux-first-router-link';
 
 import './_homepage-block.scss';
 
-const HomepageBlock = (props) => (
-  <div className="homepage-block c-homepage__block c-homepage__block--tall">
+const HomepageBlock = ({
+  classes,
+  children,
+  hasTallDescription,
+  title,
+  linkAction,
+  description,
+  blockIsLink
+}) => {
+  const className = `c-homepage__block-link homepage-block c-homepage__block c-homepage__block--tall ${classes}`;
+  const linkProps = { title: `Bekijk ${title}`, to: linkAction };
 
-    {props.children}
+  const Block = blockIsLink ? Link : 'div';
+  const blockProps = blockIsLink ? linkProps : {};
 
-    <Link // eslint-disable-line jsx-a11y/anchor-is-valid
-      className={`c-homepage__block-button ${props.hasTallDescription ? 'c-homepage__block-button--tall' : ''}`}
-      title={`Bekijk ${props.title}`}
-      to={props.linkAction}
+  const BlockButton = blockIsLink ? 'div' : Link;
+  const blockButtonProps = blockIsLink ? {} : linkProps;
+  return (
+    <Block
+      {...blockProps}
+      className={className}
     >
-      <div className="o-btn--transparent">{props.title}</div>
-      <div className="c-homepage__block-details">{props.description}</div>
-    </Link>
-  </div>
-);
+      {children}
+      <BlockButton
+        {...blockButtonProps}
+        className={`c-homepage__block-button ${hasTallDescription ? 'c-homepage__block-button--tall' : ''}`}
+      >
+        <div className="o-btn--transparent">{title}</div>
+        <div className="c-homepage__block-details">{description}</div>
+      </BlockButton>
+    </Block>
+  );
+};
 
 HomepageBlock.propTypes = {
   linkAction: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
@@ -29,14 +47,18 @@ HomepageBlock.propTypes = {
   ]),
   description: PropTypes.string,
   hasTallDescription: PropTypes.bool,
-  title: PropTypes.string
+  title: PropTypes.string,
+  classes: PropTypes.string,
+  blockIsLink: PropTypes.bool
 };
 
 HomepageBlock.defaultProps = {
   children: '',
   description: '',
   hasTallDescription: false,
-  title: ''
+  title: '',
+  classes: '',
+  blockIsLink: false
 };
 
 export default HomepageBlock;

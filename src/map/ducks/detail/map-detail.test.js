@@ -170,7 +170,10 @@ describe('selectors', () => {
   describe('getGeometry', () => {
     it('should return geometry from detail', () => {
       const { currentEndpoint, byEndpoint } = mockParameters.mapDetail;
-      const selected = getGeometry.resultFunc(mockParameters.detail, byEndpoint[currentEndpoint]);
+      const selected = getGeometry.resultFunc(
+        mockParameters.detail.geometry,
+        byEndpoint[currentEndpoint]
+      );
       expect(selected).toEqual(mockParameters.detail.geometry);
     });
 
@@ -227,7 +230,7 @@ describe('selectors', () => {
     });
 
     it('should return a geoJson object', () => {
-      const selected = getGeoJson.resultFunc(true, geometry, detail, 'detailId');
+      const selected = getGeoJson.resultFunc(true, geometry, detail.display, 'detailId');
       expect(selected).toEqual({
         id: 'detailId',
         geoJson: {
@@ -238,7 +241,7 @@ describe('selectors', () => {
     });
 
     it('should return a geoJson object with a empty string if detail.display is undefined', () => {
-      const selected = getGeoJson.resultFunc(true, geometry, {}, 'detailId');
+      const selected = getGeoJson.resultFunc(true, geometry, '', 'detailId');
       expect(selected).toEqual({
         id: 'detailId',
         geoJson: {
