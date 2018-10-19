@@ -1,5 +1,5 @@
 import reducer, {
-  DETAIL_FULLSCREEN,
+  DETAIL_FULLSCREEN, DETAIL_VIEW,
   FETCH_DETAIL,
   fetchDetail,
   setDetailEndpointRoute,
@@ -13,7 +13,9 @@ describe('DetailReducerReducer', () => {
   };
 
   it('should return the initial state', () => {
-    expect(reducer(undefined, {})).toEqual(null);
+    expect(reducer(undefined, {})).toEqual({
+      view: DETAIL_VIEW.MAP_DETAIL
+    });
   });
 
   it(`should set the location when ${FETCH_DETAIL} is dispatched`, () => {

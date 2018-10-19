@@ -4,6 +4,7 @@ exports[`PanoramaContainer should render 1`] = `
 <AngularWrapper
   bindings={
     Object {
+      "hotspots": Array [],
       "state": Object {},
     }
   }

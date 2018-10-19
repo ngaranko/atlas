@@ -64,18 +64,12 @@ describe('mapSearch Selectors', () => {
   });
 
   describe('getMapResultsByLocation', () => {
-    it('should return state.mapSearchResultsByLocation as a object', () => {
+    it('should return state.mapSearchResultsByLocation as a array', () => {
       const mockParameters = {
-        mapSearchResultsByLocation: {}
+        mapSearchResultsByLocation: []
       };
       const selected = getMapResultsByLocation(mockParameters);
       expect(selected).toEqual(mockParameters.mapSearchResultsByLocation);
-    });
-
-    it('should return state.search.location as undefined', () => {
-      const mockParameters = {};
-      const selected = getMapResultsByLocation(mockParameters);
-      expect(selected).toEqual({});
     });
   });
 
@@ -97,66 +91,66 @@ describe('mapSearch Selectors', () => {
     });
   });
 
-  describe('getSearchMarker', () => {
-    it('should return an array of searchMarkers', () => {
-      const getShortSelectedLocationMock = { latitude: 10, longitude: 10 };
-      const selected = getSearchMarker.resultFunc(getShortSelectedLocationMock);
-      expect(selected).toEqual([{ position: [10, 10], type: 'geoSearchType' }]);
-    });
+  // describe('getSearchMarker', () => { // TODO: refactor, move and use or remove
+  //   it('should return an array of searchMarkers', () => {
+  //     const getShortSelectedLocationMock = { latitude: 10, longitude: 10 };
+  //     const selected = getSearchMarker.resultFunc(getShortSelectedLocationMock);
+  //     expect(selected).toEqual([{ position: [10, 10], type: 'geoSearchType' }]);
+  //   });
+  //
+  //   it('should return an empty array', () => {
+  //     const isSearchActiveMock = 0;
+  //     const getSearchMock = {
+  //       location: []
+  //     };
+  //     const selected = getSearchMarker.resultFunc(isSearchActiveMock, getSearchMock);
+  //     expect(selected).toEqual([]);
+  //   });
+  // });
 
-    it('should return an empty array', () => {
-      const isSearchActiveMock = 0;
-      const getSearchMock = {
-        location: []
-      };
-      const selected = getSearchMarker.resultFunc(isSearchActiveMock, getSearchMock);
-      expect(selected).toEqual([]);
-    });
-  });
-
-  describe('selectLatestMapSearchResults', () => {
-    it('should return an array of results', () => {
-      const getMapResultsByLocationMock = {
-        '123,456': [
-          { id: 'resultMock1' }
-        ],
-        '789,1011': [
-          { id: 'resultMock2' }
-        ]
-      };
-      const getLocationIdMock = '123,456';
-      const selected = selectLatestMapSearchResults.resultFunc(
-        getLocationIdMock, getMapResultsByLocationMock
-      );
-      expect(selected).toBe(getMapResultsByLocationMock['123,456']);
-    });
-
-    it('should return undefined', () => {
-      const getMapResultsByLocationMock = {};
-      const getSearchMock = {
-        location: [10, 10]
-      };
-      const selected = selectLatestMapSearchResults.resultFunc(
-        getSearchMock, getMapResultsByLocationMock
-      );
-      expect(selected).toEqual();
-    });
-
-    it('should return undefined', () => {
-      const getMapResultsByLocationMock = {
-        '10,10': [
-          { id: 'resultMock' }
-        ]
-      };
-      const getSearchMock = {
-        location: [20, 20]
-      };
-      const selected = selectLatestMapSearchResults.resultFunc(
-        getSearchMock, getMapResultsByLocationMock
-      );
-      expect(selected).toEqual();
-    });
-  });
+//   describe('selectLatestMapSearchResults', () => { // TODO: refactor, move and use or remove
+//     it('should return an array of results', () => {
+//       const getMapResultsByLocationMock = {
+//         '123,456': [
+//           { id: 'resultMock1' }
+//         ],
+//         '789,1011': [
+//           { id: 'resultMock2' }
+//         ]
+//       };
+//       const getLocationIdMock = '123,456';
+//       const selected = selectLatestMapSearchResults.resultFunc(
+//         getLocationIdMock, getMapResultsByLocationMock
+//       );
+//       expect(selected).toBe(getMapResultsByLocationMock['123,456']);
+//     });
+//
+//     it('should return undefined', () => {
+//       const getMapResultsByLocationMock = {};
+//       const getSearchMock = {
+//         location: [10, 10]
+//       };
+//       const selected = selectLatestMapSearchResults.resultFunc(
+//         getSearchMock, getMapResultsByLocationMock
+//       );
+//       expect(selected).toEqual();
+//     });
+//
+//     it('should return undefined', () => {
+//       const getMapResultsByLocationMock = {
+//         '10,10': [
+//           { id: 'resultMock' }
+//         ]
+//       };
+//       const getSearchMock = {
+//         location: [20, 20]
+//       };
+//       const selected = selectLatestMapSearchResults.resultFunc(
+//         getSearchMock, getMapResultsByLocationMock
+//       );
+//       expect(selected).toEqual();
+//     });
+//   });
 });
 
 describe('deprecated', () => {

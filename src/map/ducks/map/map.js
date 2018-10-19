@@ -143,14 +143,6 @@ export default function MapReducer(state = initialState, action) {
     case MAP_CLEAR:
       return initialState;
 
-    // case SET_STRAATBEELD:
-    // case FETCH_STRAATBEELD_BY_ID:
-    //   return {
-    //     ...state,
-    //     viewCenter: action.payload.location || state.viewCenter,
-    //     isLoading: true
-    //   };
-
     default:
       return state;
   }

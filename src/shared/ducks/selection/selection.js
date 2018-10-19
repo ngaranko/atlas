@@ -1,6 +1,6 @@
 import get from 'lodash.get';
 import { routing } from '../../../app/routes';
-import { parseLocationString } from '../../../map/ducks/map/map-selectors';
+import { parseLocationString } from '../../../map/ducks/map/location-parse';
 
 export const REDUCER_KEY = 'selection';
 
