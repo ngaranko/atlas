@@ -5,9 +5,10 @@ import PreviewVideo from './PreviewVideo';
 describe('PreviewVideo', () => {
   let component;
   let instance;
-  let state;
 
   beforeEach(() => {
+    jest.spyOn(PreviewVideo.prototype, 'togglePlay');
+
     component = shallow(
       <PreviewVideo
         src="/video.mp4"
@@ -16,7 +17,6 @@ describe('PreviewVideo', () => {
       />
     );
     instance = component.instance();
-    state = instance.state;
   });
 
   it('should render', () => {
@@ -24,13 +24,12 @@ describe('PreviewVideo', () => {
   });
 
   it('should call togglePlay when hover, focus, mouseover and mouseout', () => {
-    jest.spyOn(instance, 'togglePlay');
+
     component.find('div').simulate('mouseover');
     component.find('div').simulate('mouseout');
     component.find('div').simulate('focus');
     component.find('div').simulate('blur');
-    component.update();
-    expect(instance.togglePlay).toHaveBeenCalledTimes(4);
+    expect(PreviewVideo.prototype.togglePlay).toHaveBeenCalledTimes(4);
   });
 
   describe('togglePlay method', () => {
