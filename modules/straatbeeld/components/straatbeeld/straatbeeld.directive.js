@@ -26,7 +26,8 @@ import { routing } from '../../../../src/app/routes';
             scope: {
                 state: '=',
                 resize: '<',
-                hotspots: '<'
+                hotspots: '<',
+                isFullscreen: '<'
             },
             templateUrl: 'modules/straatbeeld/components/straatbeeld/straatbeeld.html',
             link: linkFunction

@@ -1,11 +1,15 @@
+import { toPanorama } from '../../../../src/app/routes';
+import PANORAMA_VIEW from '../../../../src/shared/ducks/straatbeeld/panorama-view';
+
+import * as straatbeeld from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+
 describe('The dp-toggle-straatbeeld-fullscreen component', function () {
-    var $compile,
+    let $compile,
         $rootScope,
         store,
         scope,
-        currentLocation = {
-            type: 'atlasRouter/PANORAMA'
-        };
+        id,
+        heading;
 
     beforeEach(function () {
         angular.mock.module(
@@ -13,11 +17,7 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             {
                 store: {
                     dispatch: function () { },
-                    getState: function () {
-                        return {
-                            location: currentLocation
-                        };
-                    }
+                    getState: () => ({})
                 }
             }
         );
@@ -27,6 +27,11 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
             $rootScope = _$rootScope_;
             store = _store_;
         });
+
+        id = 42;
+        heading = 99;
+        straatbeeld.getStraatbeeldId = () => id;
+        straatbeeld.getStraatbeeldHeading = () => heading;
 
         spyOn(store, 'dispatch');
     });
@@ -49,48 +54,21 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
     }
 
     describe ('The fullscreen button for panorama', function () {
-        it('can change a window-view straatbeeld to fullscreen', function () {
-            let directive;
-
+        it('can open fullscreen', function () {
             // When straatbeeld is small
-            directive = getDirective(false);
+            const directive = getDirective(false);
 
             directive.find('.qa-toggle-straatbeeld-fullscreen').click();
-            $rootScope.$apply();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: 'UPDATE_MAP',
-                payload: {
-                    noRedirect: true,
-                    route: 'atlasRouter/PANORAMA',
-                    query: {
-                        panoId: undefined,
-                        panoHeading: undefined
-                    }
-                }
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(toPanorama(id, heading, PANORAMA_VIEW.PANO));
+        });
 
-            currentLocation = {
-                type: 'atlasRouter/PANORAMA'
-            };
-            store.dispatch.calls.reset();
-            // When straatbeeld is large
-            directive = getDirective(true);
+        it('can close fullscreen view', () => {
+            const directive = getDirective(true);
 
             directive.find('.qa-toggle-straatbeeld-fullscreen').click();
-            $rootScope.$apply();
 
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: 'UPDATE_MAP',
-                payload: {
-                    noRedirect: true,
-                    route: 'atlasRouter/PANORAMA',
-                    query: {
-                        panoId: undefined,
-                        panoHeading: undefined
-                    }
-                }
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(toPanorama(id, heading, PANORAMA_VIEW.MAP_PANO));
         });
 
         it('sets a screen reader text', () => {

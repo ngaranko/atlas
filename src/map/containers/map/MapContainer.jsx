@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import { isEmbedded, toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
+import { isEmbedded } from '../../../shared/ducks/ui/ui';
 
 import DrawTool from '../../containers/draw-tool/DrawToolContainer';
 import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
@@ -12,20 +11,14 @@ import LeafletContainer from '../leaflet/LeafletContainer';
 import MapPanelContainer from '../../containers/panel/MapPanelContainer';
 import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
-import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
 import { previewDataAvailable as previewDataAvailableSelector } from '../../../shared/ducks/selection/selection';
 import { getDrawingMode } from '../../ducks/map/map-selectors';
 
 const mapStateToProps = (state) => ({
-  isFullscreen: isMapCurrentPage(state),
   drawMode: getDrawingMode(state),
   embedMode: isEmbedded(state),
   previewDataAvailable: previewDataAvailableSelector(state)
 });
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onToggleFullscreen: toggleMapFullscreen
-}, dispatch);
 
 class MapContainer extends React.Component {
   constructor(props) {
@@ -44,7 +37,7 @@ class MapContainer extends React.Component {
     const {
       embedMode,
       isFullscreen,
-      onToggleFullscreen,
+      toggleFullscreen,
       drawMode,
       showPreviewPanel,
       previewDataAvailable
@@ -63,7 +56,7 @@ class MapContainer extends React.Component {
         }
         <ToggleFullscreen
           isFullscreen={isFullscreen}
-          onToggleFullscreen={onToggleFullscreen}
+          onToggleFullscreen={toggleFullscreen}
         />
         <MapPanelContainer isMapPanelVisible />
         {
@@ -90,11 +83,11 @@ MapContainer.defaultProps = {
 
 MapContainer.propTypes = {
   isFullscreen: PropTypes.bool.isRequired,
-  onToggleFullscreen: PropTypes.func.isRequired,
+  toggleFullscreen: PropTypes.func.isRequired,
   drawMode: PropTypes.string,
   embedMode: PropTypes.bool.isRequired,
   showPreviewPanel: PropTypes.bool,
   previewDataAvailable: PropTypes.bool.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapContainer);
+export default connect(mapStateToProps)(MapContainer);

@@ -58,7 +58,6 @@ export default function UiReducer(state = initialState, action) {
 }
 
 // Todo: wire these actions properly when ui reducer is obsolete
-export const toggleMapFullscreen = () => ({ type: 'NOOP' });
 export const setMapFullscreen = () => ({ type: 'NOOP' });
 export const toggleMapPanelHandle = () => ({ type: 'NOOP' });
 

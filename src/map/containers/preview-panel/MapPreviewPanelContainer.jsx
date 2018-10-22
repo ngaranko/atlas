@@ -7,7 +7,7 @@ import {
 } from '../../ducks/preview-panel/map-preview-panel';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
-import { isEmbedded, isEmbedPreview, toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
+import { isEmbedded, isEmbedPreview } from '../../../shared/ducks/ui/ui';
 import {
   getDetail,
   setDetailEndpointRoute,
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch) => ({
     onMapPreviewPanelMaximizeDetail: toMapDetail,
     onMapPreviewPanelMaximizeSearch: showSearchView,
     onMapSearchResultsItemClick: setDetailEndpointRoute,
-    closeMapFullScreen: toggleMapFullscreen
+    closeMapFullScreen: () => {} // TODO: refactor, use or remove
   }, dispatch),
   onOpenPanoById: (pano) => {
     const action = toPanorama(pano.id);

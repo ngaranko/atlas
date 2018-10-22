@@ -1,5 +1,6 @@
 import PAGES from './pages';
-import { PANORAMA_VIEW } from '../shared/ducks/straatbeeld/straatbeeld'; // eslint-disable-line no-unused-vars
+import '../shared/ducks/straatbeeld/straatbeeld'; // eslint-disable-line no-unused-vars
+import PANORAMA_VIEW from '../shared/ducks/straatbeeld/panorama-view';
 import { fetchDetail } from '../shared/ducks/detail/detail';
 
 export const ROUTER_NAMESPACE = 'atlasRouter';
@@ -208,20 +209,32 @@ export const pageActionToEndpoint = (action) => {
   return fetchDetail(endpoint);
 };
 
+
+// Action creators
+
 export const toMap = () => ({
   type: routing.map.type
 });
 
-export const toPanorama = (id, heading) => ({
-  type: routing.panorama.type,
-  payload: {
-    id
-  },
-  meta: {
-    query: {
-      heading
+export const toPanorama = (id, heading, view) => {
+  const action = {
+    type: routing.panorama.type,
+    payload: {
+      id
+    },
+    meta: {
+      query: {
+        heading
+      }
     }
+  };
+  if (view === PANORAMA_VIEW.MAP) {
+    action.meta.query.kaart = '';
   }
-});
+  if (view === PANORAMA_VIEW.PANO) {
+    action.meta.query.panorama = '';
+  }
+  return action;
+};
 
 export default routes;

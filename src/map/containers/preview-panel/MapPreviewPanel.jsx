@@ -2,7 +2,6 @@ import React from 'react';
 import get from 'lodash.get';
 import PropTypes from 'prop-types';
 import has from 'lodash.has';
-import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 import PlusIcon from '../../../../public/images/icon-plus.svg';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
@@ -63,7 +62,6 @@ class MapPreviewPanel extends React.Component {
       return;
     }
     this.context.store.dispatch(onOpenPanoById(selectedPano));
-    this.context.store.dispatch(toggleMapFullscreen());
   }
 
   render() {

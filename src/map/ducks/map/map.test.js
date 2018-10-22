@@ -12,10 +12,6 @@ import reducer, {
   updateBoundingBox
 } from './map';
 import { routing } from '../../../app/routes';
-import {
-  FETCH_STRAATBEELD_BY_ID,
-  FETCH_STRAATBEELD_BY_LOCATION, SET_STRAATBEELD, SET_STRAATBEELD_YEAR
-} from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 describe('Map Reducer', () => {
   const initialState = {
