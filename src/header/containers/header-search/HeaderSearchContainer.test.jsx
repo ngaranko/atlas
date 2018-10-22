@@ -175,6 +175,10 @@ describe('HeaderSearchContainer', () => {
         },
         dataSelection: {
           view: 'NOT_CARDS'
+        },
+        page: {},
+        ui: {
+          isMapFullscreen: true
         }
       });
 
@@ -243,43 +247,6 @@ describe('HeaderSearchContainer', () => {
     });
   });
 
-  describe('onSuggestionActivate', () => {
-    it('should call getSuggestions or setActiveSuggestion', () => {
-      const store = configureMockStore()({
-        ...initialState,
-        search: {
-          query: 'i\'m set'
-        }
-      });
-
-      const wrapper = shallow(
-        <HeaderSearchContainer />, { context: { store } }
-      ).dive();
-      wrapper.instance().onSuggestionActivate({ index: -1 });
-      expect(getSuggestions).toHaveBeenCalled();
-
-      wrapper.instance().onSuggestionActivate({ index: 0 });
-      expect(setActiveSuggestion).toHaveBeenCalled();
-    });
-  });
-
-  describe('onUserInput', () => {
-    it('should be called when window.suggestionToLoadUri and window.opener are true', () => {
-      const store = configureMockStore()({
-        ...initialState,
-        search: {
-          query: 'i\'m set'
-        }
-      });
-
-      const wrapper = shallow(
-        <HeaderSearchContainer />, { context: { store } }
-      ).dive();
-      wrapper.instance().onUserInput('query');
-      expect(getSuggestions).toHaveBeenCalledWith('query');
-    });
-  });
-
   describe('onGetSuggestions', () => {
     it('should be called on componentDidMount id prefillQuery prop is set', () => {
       const store = configureMockStore()({
@@ -310,23 +277,7 @@ describe('HeaderSearchContainer', () => {
   });
 
   describe('componentDidUpdate', () => {
-    it('should be call onGetSuggestions without a query', () => {
-      global.suggestionToLoadUri = true;
-      global.opener = true;
-      const store = configureMockStore()({
-        ...initialState
-      });
-
-      const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
-      wrapper.setProps({
-        prefillQuery: '',
-        isMapFullscreen: true
-      });
-
-      expect(getSuggestions).toHaveBeenCalledWith();
-    });
-
-    it('should be call onGetSuggestions without a query', () => {
+    it('should not call onGetSuggestions without a query', () => {
       global.suggestionToLoadUri = true;
       global.opener = true;
       const store = configureMockStore()({
@@ -339,10 +290,10 @@ describe('HeaderSearchContainer', () => {
         isMapFullscreen: true
       });
 
-      expect(getSuggestions).toHaveBeenCalledWith('123');
+      expect(getSuggestions).not.toHaveBeenCalled();
     });
 
-    it('should not call getSuggestions', () => {
+    it('should call getSuggestions when navigated', () => {
       global.suggestionToLoadUri = true;
       global.opener = true;
       const store = configureMockStore()({
@@ -352,11 +303,11 @@ describe('HeaderSearchContainer', () => {
       const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
       wrapper.setProps({
         prefillQuery: '',
-        pageName: '',
+        pageName: 'test',
         isMapFullscreen: false
       });
 
-      expect(getSuggestions).not.toHaveBeenCalledWith();
+      expect(getSuggestions).toHaveBeenCalled();
     });
   });
 });
