@@ -189,7 +189,7 @@ function commonConfig ({ nodeEnv }) {
         ]
       }),
       new SVGSpritemapPlugin({
-        src: path.resolve(src, 'shared/assets/icons/*.svg'),
+        src: path.resolve(src, 'shared/assets/icons/*/*.svg'),
         gutter: 2,
         filename: 'sprite.svg',
         chunk: 'sprite',

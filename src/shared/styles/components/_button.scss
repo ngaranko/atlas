@@ -20,7 +20,7 @@
   color: $primary-light;
 
   &::before {
-    @include icon-button("link-arrow", "white", "white");
+    @include icon-button("link-arrow", "white");
     height: $icon-size;
     width: $icon-size;
   }
@@ -29,6 +29,14 @@
   &:visited,
   &:active {
     color: $primary-light;
+  }
+
+  &:hover {
+    &::before {
+      @include icon-button("link-arrow", "white");
+      height: $icon-size;
+      width: $icon-size;
+    }
   }
 }
 
@@ -114,21 +122,22 @@
 .o-btn--close {
   @extend %btn-close;
   @include icon-button("close");
-}
 
-.o-btn--close--info {
-  @extend %btn-close;
-  @include icon-button("close", "info", "");
-}
+  &:hover {
+    @include icon-button("close", "red");
+  }
 
-.o-btn--close--warning {
-  @extend %btn-close;
-  @include icon-button("close", "warning", "");
-}
+  &--info {
+    @include icon-button("close", "info");
+  }
 
-.o-btn--close--danger {
-  @extend %btn-close;
-  @include icon-button("close", "danger", "");
+  &--danger {
+    @include icon-button("close", "danger");
+  }
+
+  &--warning {
+    @include icon-button("close", "warning");
+  }
 }
 
 .s-btn--nested {

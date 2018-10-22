@@ -16,11 +16,15 @@
 }
 
 .c-data-selection-active-filters--remove-filter {
-  @include icon-button("close", "info", "");
+  @include icon-button("close", "info");
 
   position: absolute;
   top: 0;
   right: 0;
+
+  &:hover {
+    @include icon-button("close", "");
+  }
 }
 
 .c-data-selection-active-filters--empty-value {

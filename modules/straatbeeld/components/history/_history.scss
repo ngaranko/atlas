@@ -18,7 +18,7 @@
   cursor: pointer;
 
   &::before {
-    @extend %dp-clock-black-icon;
+    @include sprite('clock-black');
     @extend %icon-button-text-extra;
 
     position: absolute;
@@ -27,7 +27,7 @@
   }
 
   &::after {
-    @extend %dp-up-black-icon;
+    @include sprite('up-black');
     @extend %icon-button-text-extra;
 
     position: absolute;
@@ -41,7 +41,7 @@
     @extend %active-button;
 
     &::after {
-      @extend %dp-down-black-icon;
+      @include sprite('down-black');
     }
   }
 }

@@ -6,11 +6,15 @@ $embed-header-padding: 46px;
 }
 
 .c-embed-header__close {
-  @include icon-button("close", "transparent", "red");
+  @include icon-button("close", "transparent");
 
   position: absolute;
   top: -($embed-header-padding - $base-whitespace);
   right: -($embed-header-padding - $base-whitespace);
+
+  &:hover {
+    @include icon-button("close", "red");
+  }
 }
 
 .c-embed-header-form__input {
