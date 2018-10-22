@@ -1,4 +1,6 @@
 import { features } from '../../../../src/shared/environment';
+import DATA_SELECTION_CONFIG
+    from '../../../../src/shared/services/data-selection/data-selection-config';
 
 (function () {
     'use strict';
@@ -21,9 +23,9 @@ import { features } from '../../../../src/shared/environment';
             controller: DpDataSelectionHeaderController
         });
 
-    DpDataSelectionHeaderController.$inject = ['$scope', 'DATA_SELECTION_CONFIG'];
+    DpDataSelectionHeaderController.$inject = ['$scope'];
 
-    function DpDataSelectionHeaderController ($scope, DATA_SELECTION_CONFIG) {
+    function DpDataSelectionHeaderController ($scope) {
         const vm = this;
 
         $scope.$watchGroup([

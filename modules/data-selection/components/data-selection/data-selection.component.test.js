@@ -2,12 +2,15 @@ import {
     RESET_DATA_SELECTION,
     SHOW_DATA_SELECTION
 } from '../../../../src/shared/ducks/data-selection/data-selection';
+import * as dataSelectionConfig
+    from '../../../../src/shared/services/data-selection/data-selection-config';
+import * as dataSelectionApi
+    from '../../../../src/shared/services/data-selection/data-selection-api';
 
 describe('The dp-data-selection component', function () {
     let $rootScope,
         $compile,
         $q,
-        dataSelectionApi,
         store,
         config,
         mockedState,
@@ -31,30 +34,12 @@ describe('The dp-data-selection component', function () {
         angular.mock.module(
             'dpDataSelection',
             {
-                dataSelectionApi: {
-                    query: function () {
-                        const q = $q.defer();
-
-                        q.resolve(mockedApiPreviewData);
-
-                        return q.promise;
-                    },
-                    getMarkers: function () {
-                        const q = $q.defer();
-
-                        q.resolve(mockedApiMarkersData);
-
-                        return q.promise;
-                    }
-                },
                 store: {
                     dispatch: angular.noop,
                     getState: angular.noop
                 }
             },
             function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', config);
-
                 $provide.factory('dpLoadingIndicatorDirective', function () {
                     return {};
                 });
@@ -85,11 +70,12 @@ describe('The dp-data-selection component', function () {
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _dataSelectionApi_, _store_) {
+        dataSelectionConfig.default = config;
+
+        angular.mock.inject(function (_$rootScope_, _$compile_, _$q_, _store_) {
             $rootScope = _$rootScope_;
             $compile = _$compile_;
             $q = _$q_;
-            dataSelectionApi = _dataSelectionApi_;
             store = _store_;
         });
 
@@ -136,13 +122,26 @@ describe('The dp-data-selection component', function () {
             ]
         };
 
-        spyOn(dataSelectionApi, 'query').and.callThrough();
-        spyOn(dataSelectionApi, 'getMarkers').and.callThrough();
+        spyOn(dataSelectionApi, 'query').and.callFake(() => {
+            const q = $q.defer();
+
+            q.resolve(mockedApiPreviewData);
+
+            return q.promise;
+        });
+
+        spyOn(dataSelectionApi, 'getMarkers').and.callFake(() => {
+            const q = $q.defer();
+
+            q.resolve(mockedApiMarkersData);
+
+            return q.promise;
+        });
         spyOn(store, 'dispatch');
         spyOn(store, 'getState').and.returnValue(mockedState);
     });
 
-    function getComponent (state, filters, user) {
+    function getComponent(state, filters, user) {
         const element = document.createElement('dp-data-selection');
         element.setAttribute('state', 'state');
         element.setAttribute('filters', 'filters');
@@ -220,7 +219,7 @@ describe('The dp-data-selection component', function () {
 
     it('hides the tab header in any other than CATALOG view', function () {
         ['TABLE', 'LIST'].forEach(view => {
-            [{}, {filter: 'any filter'}].forEach(filters => {
+            [{}, { filter: 'any filter' }].forEach(filters => {
                 mockedState.view = view;
                 mockedState.filters = filters;
                 const component = getComponent(mockedState, mockedFilters);

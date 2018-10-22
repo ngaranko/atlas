@@ -26,6 +26,7 @@ import PanoramaPage from './pages/PanoramaPage';
 import DetailPage from './pages/DetailPage';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
+import AddressPage from './pages/AddressPage';
 import MapSearchPage from './pages/MapSearchPage';
 
 // TodoReactMigration: implement logic
@@ -136,10 +137,7 @@ const App = ({
             )}
 
             {currentPage === PAGES.ADRESSEN && (
-              <DataSelection
-                view={'TABLE'}
-                dataset={DATASETS.BAG}
-              />
+              <AddressPage />
             )}
 
             {currentPage === PAGES.VESTIGINGEN && (

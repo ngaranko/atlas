@@ -1,4 +1,5 @@
 import { SET_DATA_SELECTION_VIEW } from '../../../../../src/shared/ducks/data-selection/data-selection';
+import { routing } from '../../../../../src/app/routes';
 
 describe('The dp-data-selection-toggle-view-button component', function () {
     let $compile,
@@ -47,8 +48,7 @@ describe('The dp-data-selection-toggle-view-button component', function () {
         component.find('button').click();
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: SET_DATA_SELECTION_VIEW,
-            payload: 'LIST'
+            type: routing.adressen.type
         });
     });
 
@@ -61,8 +61,7 @@ describe('The dp-data-selection-toggle-view-button component', function () {
 
         component.find('button').click();
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: SET_DATA_SELECTION_VIEW,
-            payload: 'TABLE'
+            type: routing.adressen.type
         });
     });
 });

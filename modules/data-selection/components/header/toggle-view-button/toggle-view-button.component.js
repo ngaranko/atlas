@@ -1,3 +1,5 @@
+import { routing } from '../../../../../src/app/routes';
+
 (function () {
     'use strict';
 
@@ -12,10 +14,13 @@
             controllerAs: 'vm'
         });
 
-    DpToggleViewButtonController.$inject = ['$scope'];
+    DpToggleViewButtonController.$inject = ['$scope', 'store'];
 
-    function DpToggleViewButtonController ($scope) {
+    function DpToggleViewButtonController($scope, store) {
         const vm = this;
+
+        vm.type = routing.adressen.type;
+        vm.query = { kaart: true };
 
         $scope.$watch('vm.view', function () {
             if (vm.view === 'TABLE') {

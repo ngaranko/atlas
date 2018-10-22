@@ -1,4 +1,6 @@
 import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
+import * as dataSelectionConfig
+    from '../../../../src/shared/services/data-selection/data-selection-config';
 
 describe('The dp-sbi-filter component', () => {
     var $compile,
@@ -7,29 +9,28 @@ describe('The dp-sbi-filter component', () => {
         availableFilters;
 
     beforeEach(() => {
+        dataSelectionConfig.default = {
+            datasets: {
+                my_special_dataset: {
+                    FILTERS: [
+                        {
+                            slug: 'sbi_code'
+                        }, {
+                            slug: 'sbi_l1'
+                        }, {
+                            slug: 'sbi_l2'
+                        }
+                    ]
+                }
+            }
+        };
+
         angular.mock.module(
             'dpDataSelection',
             {
                 store: {
                     dispatch: () => {}
                 }
-            },
-            function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', {
-                    datasets: {
-                        my_special_dataset: {
-                            FILTERS: [
-                                {
-                                    slug: 'sbi_code'
-                                }, {
-                                    slug: 'sbi_l1'
-                                }, {
-                                    slug: 'sbi_l2'
-                                }
-                            ]
-                        }
-                    }
-                });
             }
         );
 

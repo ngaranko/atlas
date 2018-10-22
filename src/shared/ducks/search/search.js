@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import get from 'lodash.get';
 import isObject from '../../services/is-object';
 import BaseCoder from '../../services/base-coder/base-coder';
+import { routing } from '../../../app/routes';
 
 export const REDUCER_KEY = 'search';
 
@@ -25,8 +26,26 @@ const initialState = {
   isLoading: false
 };
 
+export const SEARCH_VIEW = {
+  MAP_SEARCH: 'MAP_SEARCH',
+  SEARCH: 'SEARCH'
+};
+
 export default function MapSearchResultsReducer(state = initialState, action) {
   switch (action.type) {
+    case routing.adressen.type: {
+      const { query = {} } = action.meta;
+      if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {
+        return {
+          ...state,
+          view: SEARCH_VIEW.MAP_SEARCH
+        };
+      }
+      return {
+        ...state,
+        view: SEARCH_VIEW.SEARCH
+      };
+    }
     case FETCH_SEARCH_RESULTS_CATEGORY:
       return isObject(state) ? {
         ...state,
@@ -84,6 +103,7 @@ export default function MapSearchResultsReducer(state = initialState, action) {
 }
 
 export const isSearchLoading = (state) => state[REDUCER_KEY].isLoading;
+export const getSearchView = (state) => state[REDUCER_KEY].view;
 export const getSearchQuery = (state) => state[REDUCER_KEY].query;
 export const getSearchCategory = (state) => state[REDUCER_KEY].category;
 export const getNumberOfResults = (state) => state[REDUCER_KEY].numberOfResults;

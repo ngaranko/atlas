@@ -16,6 +16,12 @@ const mapStateToProps = (state) => ({
   user: getUser(state)
 });
 
+export const VIEW_TYPES = {
+  CATALOG: 'CATALOG',
+  LIST: 'LIST',
+  TABLE: 'TABLE'
+};
+
 const DataSelection = ({
   boundingBox,
   catalogFilters,

@@ -1,4 +1,6 @@
 import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
+import * as dataSelectionConfig
+    from '../../../../src/shared/services/data-selection/data-selection-config';
 
 describe('The dp-data-selection-header', () => {
     const anonymousUser = {
@@ -52,8 +54,6 @@ describe('The dp-data-selection-header', () => {
                 }
             },
             function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', config);
-
                 $provide.factory('dpDataSelectionToggleViewButtonDirective', () => {
                     return {};
                 });
@@ -67,6 +67,8 @@ describe('The dp-data-selection-header', () => {
                 });
             }
         );
+
+        dataSelectionConfig.default = config;
 
         angular.mock.inject((_$compile_, _$rootScope_, _store_) => {
             $compile = _$compile_;
