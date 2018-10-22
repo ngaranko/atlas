@@ -1,3 +1,4 @@
+
 describe('the legacy reducer should be gone', () => {
   it('should pass', () => {
     expect(true).toBe(true); // TODO: refactor, remove test and legacy reducer!
@@ -32,7 +33,8 @@ describe('the legacy reducer should be gone', () => {
 //
 //   beforeEach(() => {
 //     // eslint-disable-next-line max-len
-//     // TODO: Note: before each required because somewhere in the reducer the map.viewCenter is mutated (not pure function).
+//     // TODO: Note: before each required because somewhere in the reducer
+//     // the map.viewCenter is mutated (not pure function).
 //     // Not fixing it with this refactor step.
 //     defaultState = {
 //       map: {
@@ -475,7 +477,8 @@ describe('the legacy reducer should be gone', () => {
 //   });
 //
 //   describe('FETCH_SEARCH_RESULTS_BY_LOCATION', () => {
-//     it('hides the layer selection, active overlays, page, detail, straatbeeld and dataSelection', () => {
+//     it('hides the layer selection, active overlays, page, detail, straatbeeld and dataSelection',
+// () => {
 //       const inputState = {
 //         ...defaultState,
 //         ui: {

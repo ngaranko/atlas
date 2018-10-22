@@ -2,6 +2,7 @@
 
 exports[`HomepageAddressBlock should render links 1`] = `
 <HomepageBlock
+  blockIsLink={false}
   classes=""
   description="Selecteer en download als spreadsheet"
   hasTallDescription={true}

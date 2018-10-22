@@ -6,12 +6,14 @@ import LeafletContainer from './LeafletContainer';
 import {
   getActiveBaseLayer,
   getCenter,
+  getDrawingMode,
   getClusterMarkers,
   getGeoJsons,
   getMapOverlays,
   getMarkers,
   getRdGeoJsons,
-  isMarkerActive
+  isMarkerActive,
+  getMapZoom
 } from '../../ducks/map/map-selectors';
 
 import {
@@ -80,6 +82,24 @@ describe('LeafletContainer', () => {
     }
   };
 
+  beforeEach(() => {
+    getActiveBaseLayer.mockImplementation(() => 'topografie');
+    getCenter.mockImplementation(() => [0, 0]);
+    getMapZoom.mockImplementation(() => 8);
+    getDrawingMode.mockImplementation(() => 'none');
+    getClusterMarkers.mockImplementation(() => []);
+    getGeoJsons.mockImplementation(() => []);
+    getMapOverlays.mockImplementation(() => []);
+    getMarkers.mockImplementation(() => []);
+    getRdGeoJsons.mockImplementation(() => []);
+    isMarkerActive.mockImplementation(() => true);
+    updateBoundingBox.mockImplementation(() => ({}));
+    updatePan.mockImplementation(() => ({}));
+    setSelectedLocation.mockImplementation(() => ({}));
+    updateZoom.mockImplementation(() => ({}));
+    getUrlTemplate.mockImplementation(() => 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png');
+  });
+
   describe('LeafletContainer snapshot', () => {
     beforeEach(() => {
       initialState = {
@@ -105,19 +125,6 @@ describe('LeafletContainer', () => {
         },
         getLeafletInstance: () => ''
       };
-      getActiveBaseLayer.mockImplementation(() => 'topografie');
-      getCenter.mockImplementation(() => [0, 0]);
-      getClusterMarkers.mockImplementation(() => []);
-      getGeoJsons.mockImplementation(() => []);
-      getMapOverlays.mockImplementation(() => []);
-      getMarkers.mockImplementation(() => []);
-      getRdGeoJsons.mockImplementation(() => []);
-      isMarkerActive.mockImplementation(() => true);
-      updateBoundingBox.mockImplementation(() => ({}));
-      updatePan.mockImplementation(() => ({}));
-      setSelectedLocation.mockImplementation(() => ({}));
-      updateZoom.mockImplementation(() => ({}));
-      getUrlTemplate.mockImplementation(() => 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png');
     });
 
     afterEach(() => {
@@ -156,6 +163,7 @@ describe('LeafletContainer', () => {
         }
       };
       getCenter.mockImplementation(() => [52.4333137, 4.9108908]);
+      getMapZoom.mockImplementation(() => 10);
       getClusterMarkers.mockImplementation(() => [
         {
           index: 0,

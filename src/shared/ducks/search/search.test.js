@@ -11,11 +11,6 @@ import reducer, {
   SHOW_SEARCH_RESULTS
 } from './search';
 
-import {
-  getSearchMarker,
-  selectLatestMapSearchResults
-} from '../../../map/ducks/map/map-selectors';
-
 describe('mapSearch reducer', () => {
   it('sets the initial state', () => {
     expect(reducer(undefined, { type: 'UNKOWN' })).toMatchSnapshot();

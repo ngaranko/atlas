@@ -3,7 +3,13 @@ import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
 import HeaderSearchContainer from './HeaderSearchContainer';
-import { getSuggestions, setActiveSuggestion, FETCH_SUGGESTIONS_REQUEST, SET_ACTIVE_SUGGESTION } from '../../ducks/auto-suggest/auto-suggest';
+import {
+  getSuggestions,
+  getTypedQuery,
+  setActiveSuggestion,
+  FETCH_SUGGESTIONS_REQUEST,
+  SET_ACTIVE_SUGGESTION
+} from '../../ducks/auto-suggest/auto-suggest';
 
 import { fetchDataSelection, fetchSearchResultsByQuery, FETCH_DATA_SELECTION, FETCH_SEARCH_RESULTS_BY_QUERY } from '../../ducks/search/search';
 
@@ -11,6 +17,7 @@ import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { fetchDetail, FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
 import { routing } from '../../../app/routes';
 import PAGES from '../../../app/pages';
+import { emptyFilters } from '../../../shared/ducks/filters/filters';
 
 jest.mock('../../ducks/auto-suggest/auto-suggest');
 jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
@@ -189,6 +196,7 @@ describe('HeaderSearchContainer', () => {
 
     it('does data search', () => {
       const query = 'foo';
+      getTypedQuery.mockImplementation(() => query);
       const store = configureMockStore()({
         ...initialState,
         autoSuggest: {
@@ -205,6 +213,7 @@ describe('HeaderSearchContainer', () => {
 
       headerSearch.instance().onFormSubmit();
 
+      expect(store.dispatch).toHaveBeenCalledWith(emptyFilters());
       expect(store.dispatch).toHaveBeenCalledWith(
         { type: routing.searchData.type, payload: { query } }
       );

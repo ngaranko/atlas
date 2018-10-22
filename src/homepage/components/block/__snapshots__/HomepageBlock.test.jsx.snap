@@ -2,7 +2,7 @@
 
 exports[`HomepageBlock should render with the children and default link 1`] = `
 <div
-  className="homepage-block c-homepage__block c-homepage__block--tall "
+  className="c-homepage__block-link homepage-block c-homepage__block c-homepage__block--tall "
 >
   <div>
     <span>
@@ -34,7 +34,7 @@ exports[`HomepageBlock should render with the children and default link 1`] = `
 
 exports[`HomepageBlock should render with the default link 1`] = `
 <div
-  className="homepage-block c-homepage__block c-homepage__block--tall "
+  className="c-homepage__block-link homepage-block c-homepage__block c-homepage__block--tall "
 >
   <Connect(Link)
     className="c-homepage__block-button "

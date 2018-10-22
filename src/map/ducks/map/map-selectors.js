@@ -15,7 +15,7 @@ import { getMapResultsByLocation } from '../../../shared/ducks/search/search';
 import { getDetail } from '../../../shared/ducks/detail/detail';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
-import { parseLocationString } from './location-parse';
+import parseLocationString from './location-parse';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
