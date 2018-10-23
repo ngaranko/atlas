@@ -54,10 +54,12 @@ class MapContainer extends React.Component {
             />
           )
         }
-        <ToggleFullscreen
-          isFullscreen={isFullscreen}
-          onToggleFullscreen={toggleFullscreen}
-        />
+        { toggleFullscreen && (
+          <ToggleFullscreen
+            isFullscreen={isFullscreen}
+            onToggleFullscreen={toggleFullscreen}
+          />
+        )}
         <MapPanelContainer isMapPanelVisible />
         {
           embedMode ? (
@@ -78,12 +80,13 @@ MapContainer.defaultProps = {
   geometry: null,
   leafletInstance: null,
   showPreviewPanel: false,
-  drawMode: 'none'
+  drawMode: 'none',
+  toggleFullscreen: undefined
 };
 
 MapContainer.propTypes = {
   isFullscreen: PropTypes.bool.isRequired,
-  toggleFullscreen: PropTypes.func.isRequired,
+  toggleFullscreen: PropTypes.func,
   drawMode: PropTypes.string,
   embedMode: PropTypes.bool.isRequired,
   showPreviewPanel: PropTypes.bool,

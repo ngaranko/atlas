@@ -164,53 +164,14 @@ const routes = Object.keys(routing).reduce((acc, key) => {
   return acc;
 }, {});
 
-// TODO: refactor unit test or remove all together
-export const extractIdEndpoint = (endpoint) => {
-  const matches = endpoint.match(/\/(\w+)\/?$/);
-  return matches[1];
-};
-
-const getDetailPageType = (endpoint) => {
-  if (/\/bag\/pand/.test(endpoint)) {
-    return routing.pandDetail.type;
-  } else if (/\/bag\/nummeraanduiding/.test(endpoint)) {
-    return routing.adresDetail.type;
-  }
-  return routing.adresDetail.type; // TODO: refactor, always return sensible route type
-};
-
-export const getPageActionEndpoint = (endpoint) => {
-  const type = getDetailPageType(endpoint);
-  const id = extractIdEndpoint(endpoint);
-  return {
-    type,
-    payload: {
-      id: `id${id}`
-    }
-  };
-};
-
-export const pageActionToEndpoint = (action) => {
-  let endpoint = 'https://acc.api.data.amsterdam.nl/';
-  switch (action.type) {
-    case routing.adresDetail.type:
-      endpoint += 'bag/nummeraanduiding/';
-      break;
-    case routing.pandDetail.type:
-      endpoint += 'bag/pand/';
-      break;
-
-    default:
-  }
-
-  const id = action.payload.id.substr(2); // Change `id123` to `123`
-  endpoint += `${id}`;
-
-  return fetchDetail(endpoint);
-};
-
 
 // Action creators
+export const toDetail = (id, type) => ({
+  type,
+  payload: {
+    id: `id${id}`
+  }
+});
 
 export const toMap = () => ({
   type: routing.map.type
@@ -235,6 +196,47 @@ export const toPanorama = (id, heading, view) => {
     action.meta.query.panorama = '';
   }
   return action;
+};
+
+// Detail page logic
+// TODO: refactor unit test or remove all together
+export const extractIdEndpoint = (endpoint) => {
+  const matches = endpoint.match(/\/(\w+)\/?$/);
+  return matches[1];
+};
+
+const getDetailPageType = (endpoint) => {
+  if (/\/bag\/pand/.test(endpoint)) {
+    return routing.pandDetail.type;
+  } else if (/\/bag\/nummeraanduiding/.test(endpoint)) {
+    return routing.adresDetail.type;
+  }
+  return routing.adresDetail.type; // TODO: refactor, always return sensible route type
+};
+
+export const getPageActionEndpoint = (endpoint) => {
+  const type = getDetailPageType(endpoint);
+  const id = extractIdEndpoint(endpoint);
+  return toDetail(id, type);
+};
+
+export const pageActionToEndpoint = (action) => {
+  let endpoint = 'https://acc.api.data.amsterdam.nl/';
+  switch (action.type) {
+    case routing.adresDetail.type:
+      endpoint += 'bag/nummeraanduiding/';
+      break;
+    case routing.pandDetail.type:
+      endpoint += 'bag/pand/';
+      break;
+
+    default:
+  }
+
+  const id = action.payload.id.substr(2); // Change `id123` to `123`
+  endpoint += `${id}`;
+
+  return fetchDetail(endpoint);
 };
 
 export default routes;

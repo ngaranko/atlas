@@ -22,7 +22,8 @@ export default function detailReducer(state = initialState, action) {
   switch (action.type) {
     case routing.pandDetail.type: {
       return {
-
+        ...state,
+        view: DETAIL_VIEW.MAP_DETAIL
       };
     }
     case routing.adresDetail.type: {
