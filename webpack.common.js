@@ -189,11 +189,10 @@ function commonConfig ({ nodeEnv }) {
         ]
       }),
       new SVGSpritemapPlugin({
-        src: path.resolve(src, 'shared/assets/icons/*/*.svg'),
-        gutter: 2,
+        src: path.resolve(src, 'shared/assets/icons/*.svg'),
         filename: 'sprite.svg',
         chunk: 'sprite',
-        styles: path.resolve(src, 'shared/styles/config/mixins/_sprites.scss')
+        styles: path.resolve(src, 'shared/styles/config/mixins/_sprites.scss'),
       })
     ]
   };
