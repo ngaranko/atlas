@@ -1,5 +1,4 @@
 import reducer, {
-  // MAP_REMOVE_PANO_OVERLAY,
   mapClear,
   mapClearDrawing,
   mapEmptyGeometry,

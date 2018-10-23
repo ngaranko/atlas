@@ -130,7 +130,7 @@ class HeaderSearchContainer extends React.Component {
 
     if (activeSuggestion.index === -1) {
       // Load the search results
-      onCleanDatasetOverview();
+      onCleanDatasetOverview(); // TODO, refactor: don't clean dataset on search
       if (isDatasetView) {
         onDatasetSearch(typedQuery);
       } else {

@@ -25,7 +25,7 @@ import {
   getShortSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
-import { toMap } from '../../../app/routes';
+import { toMap, toPanorama } from '../../../app/routes';
 
 jest.mock('../../../shared/ducks/search/search');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
@@ -594,36 +594,7 @@ describe('MapPreviewPanelContainer', () => {
         }
       }).dive();
       wrapper.instance().onPanoPreviewClick();
-      expect(store.dispatch).toHaveBeenCalledWith({
-        payload: {
-          query: {
-            panoHeading: undefined,
-            panoId: undefined
-          },
-          route: 'atlasRouter/PANORAMA'
-        },
-        type: 'UPDATE_MAP'
-      });
-      expect(store.dispatch).toHaveBeenCalledWith({
-        payload: {
-          query: {
-            panoHeading: undefined,
-            panoId: undefined
-          },
-          route: 'atlasRouter/PANORAMA'
-        },
-        type: 'UPDATE_MAP'
-      });
-
-      wrapper.setProps({
-        pano: {
-          location: {},
-          previews: {}
-        }
-      });
-      store.dispatch.mockClear();
-      wrapper.instance().onPanoPreviewClick();
-      expect(store.dispatch).toHaveBeenCalledTimes(0);
+      expect(store.dispatch).toHaveBeenCalledWith(toPanorama());
     });
   });
 });

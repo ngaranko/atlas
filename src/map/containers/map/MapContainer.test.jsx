@@ -4,19 +4,25 @@ import { shallow } from 'enzyme';
 
 import MapContainer from './MapContainer';
 
-let initialState;
+import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
+import { previewDataAvailable } from '../../../shared/ducks/selection/selection';
+import { isEmbedded } from '../../../shared/ducks/ui/ui';
+import { getDrawingMode } from '../../ducks/map/map-selectors';
+
+jest.mock('../../../shared/ducks/current-page/current-page-reducer');
+jest.mock('../../../shared/ducks/selection/selection');
+jest.mock('../../../shared/ducks/ui/ui');
+jest.mock('../../ducks/map/map-selectors');
 
 describe('MapContainer', () => {
+  let initialState;
   beforeEach(() => {
-    initialState = {
-      currentPage: 'KAART',
-      ui: {
-        isEmbed: false
-      },
-      map: {
-        drawingMode: 'none'
-      }
-    };
+    initialState = {};
+
+    isMapCurrentPage.mockImplementation(() => true);
+    getDrawingMode.mockImplementation(() => 'none');
+    isEmbedded.mockImplementation(() => false);
+    previewDataAvailable.mockImplementation(() => false);
   });
 
   it('should render', () => {
@@ -27,7 +33,8 @@ describe('MapContainer', () => {
   });
 
   it('should render with drawingmode: draw', () => {
-    const store = configureMockStore()({ ...initialState, map: { drawingMode: 'draw' } });
+    getDrawingMode.mockImplementation(() => 'draw');
+    const store = configureMockStore()({ ...initialState });
     const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
 
     expect(wrapper).toMatchSnapshot();
