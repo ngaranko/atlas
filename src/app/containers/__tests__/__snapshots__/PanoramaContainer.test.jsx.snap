@@ -5,6 +5,7 @@ exports[`PanoramaContainer should render 1`] = `
   bindings={
     Object {
       "hotspots": Array [],
+      "isFullscreen": false,
       "state": Object {},
     }
   }
