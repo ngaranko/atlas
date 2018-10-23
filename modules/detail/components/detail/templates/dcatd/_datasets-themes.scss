@@ -1,8 +1,8 @@
 @mixin icon-detail-text-right($icon) {
 
   &::before {
-    @include sprite(#{$icon});
     @extend %icon-button-text-extra;
+    @include sprite(#{$icon});
 
     margin-right: $base-whitespace;
   }
