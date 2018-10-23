@@ -1,4 +1,5 @@
 import { routing } from '../../../../src/app/routes';
+import throttle from 'lodash.throttle';
 
 (function () {
     'use strict';
@@ -37,9 +38,24 @@ import { routing } from '../../../../src/app/routes';
             const container = element[0].querySelector('.js-marzipano-viewer');
             const viewer = marzipanoService.initialize(container);
 
-            const viewChangeHandler = viewer.addEventListener('viewChange', () => {
-                orientation.update(viewer);
-            });
+            // Throttle viewChange event because to many small insignificant updates
+            // are being dispatched as actions.
+            // Making sure function is called no more than once in a 300ms period.
+            // AND update is fired at start and end of this 300ms period. So directly
+            // when first call is made, and additional calls are merged into single call after
+            // period.
+            const viewChangeHandler = viewer.addEventListener('viewChange',
+                throttle(
+                    () => {
+                        orientation.update(viewer);
+                    },
+                    300,
+                    {
+                        leading: true,
+                        trailing: true
+                    }
+                )
+            );
 
             scope.backToMap = routing.map.type;
 
