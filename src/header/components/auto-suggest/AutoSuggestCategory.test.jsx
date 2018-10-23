@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import AutoSuggestCategory from './AutoSuggestCategory';
 
-describe.only('AutoSuggestCategory', () => {
+describe('AutoSuggestCategory', () => {
   let props;
   beforeEach(() => {
     props = {
@@ -46,6 +46,12 @@ describe.only('AutoSuggestCategory', () => {
     expect(wrapper).toMatchSnapshot();
     const items = wrapper.find('AutoSuggestItem');
     expect(items.length).toBe(4);
+  });
+
+  it('should handle the click on an ellipsis option', () => {
+    const wrapper = shallow(
+      <AutoSuggestCategory {...props} />
+    );
 
     const mockEvent = { event: 'event' };
     const itemWrapper = wrapper.find('AutoSuggestItem').at(3).dive();

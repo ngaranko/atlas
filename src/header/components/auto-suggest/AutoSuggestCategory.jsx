@@ -5,7 +5,7 @@ import AutoSuggestItem from './AutoSuggestItem';
 const AutoSuggestCategory = (props) => {
   const { category, activeSuggestion, query, onSuggestionSelection } = props;
   const showEllipsis = category.total_results > 3;
-  const ellipsis = '...';
+  const content = '...';
 
   return (
     <div className="auto-suggest__dropdown-category">
@@ -26,11 +26,11 @@ const AutoSuggestCategory = (props) => {
         ))}
         {showEllipsis ?
           <AutoSuggestItem
-            key={`${category.label}${ellipsis}`}
+            key={`${category.label}${content}`}
             onSuggestionSelection={(e) => {
               onSuggestionSelection({ index: -1 }, e);
             }}
-            content={ellipsis}
+            content={content}
             query={query}
           /> : ''
         }
