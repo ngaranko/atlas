@@ -45,8 +45,7 @@ const mapDispatchToProps = (dispatch) => ({
     onMapPreviewPanelClose: toMap,
     onMapPreviewPanelMaximizeDetail: toMapDetail,
     onMapPreviewPanelMaximizeSearch: showSearchView,
-    onMapSearchResultsItemClick: setDetailEndpointRoute,
-    closeMapFullScreen: () => {} // TODO: refactor, use or remove
+    onMapSearchResultsItemClick: setDetailEndpointRoute
   }, dispatch),
   onOpenPanoById: (pano) => {
     const action = toPanorama(pano.id);

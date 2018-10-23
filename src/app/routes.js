@@ -1,5 +1,4 @@
 import PAGES from './pages';
-import '../shared/ducks/straatbeeld/straatbeeld'; // eslint-disable-line no-unused-vars
 import PANORAMA_VIEW from '../shared/ducks/straatbeeld/panorama-view';
 import { fetchDetail } from '../shared/ducks/detail/detail';
 
