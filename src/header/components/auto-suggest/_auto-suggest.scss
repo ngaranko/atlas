@@ -61,23 +61,19 @@ $clear-button-margin: 3px;
   }
 
   &__clear {
+    @include icon-sprite("icon-clear", $primary-dark, $primary-contrast);
     cursor: pointer;
-    height: 25px;
+    height: $button-size - 1px;
     outline: none;
     position: absolute;
     right: $clear-button-margin;
     top: $clear-button-margin;
-    width: 25px;
-
-    &:hover {
-      svg {
-        fill: $primary-contrast;
-      }
-    }
+    width: $button-size - 1px;
   }
 
   &__submit {
     @include font-size($s-font);
+    @include icon-sprite("icon-search", $primary-light, $primary-light, $button-size);
     background-color: $primary-contrast;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -86,15 +82,9 @@ $clear-button-margin: 3px;
     margin-left: $base-whitespace * .5;
     width: $site-header-search-form-height;
 
-    svg {
-      fill: $primary-light;
-      height: $site-header-search-form-height;
-      padding: 3px;
-      width: $site-header-search-form-height;
-    }
-
     &:hover {
       background-color: $primary-contrast-hover;
+      background-size: $button-size;
     }
   }
 
@@ -186,4 +176,3 @@ $clear-button-margin: 3px;
     }
   }
 }
-

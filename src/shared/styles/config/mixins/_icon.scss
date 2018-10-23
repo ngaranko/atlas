@@ -120,3 +120,17 @@
 %icon--shadow {
   box-shadow: $button-shadow-size $button-shadow-size 0 0 $secondary-gray40;
 }
+
+@mixin icon-sprite($icon, $fill: "#FFF", $hover-fill: "", $size: "") {
+  @include sprite($icon, ( fill: $fill ));
+
+  @if $size {
+    background-size: $size;
+  }
+
+  @if $hover-fill {
+    &:hover {
+      @include sprite($icon, ( fill: $hover-fill ));
+    }
+  }
+}

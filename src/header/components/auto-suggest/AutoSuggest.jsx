@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AutoSuggestCategory from './AutoSuggestCategory';
-import SearchIcon from '../../../../public/images/icon-search.svg';
-import ClearIcon from '../../../../public/images/icon-clear.svg';
 
 import './_auto-suggest.scss';
 
@@ -237,7 +235,6 @@ class AutoSuggest extends React.Component {
               onClick={this.clearQuery}
               title="Wis zoektekst"
             >
-              <ClearIcon />
               <span className="u-sr-only">Wis zoektekst</span>
             </button>
             }
@@ -262,7 +259,6 @@ class AutoSuggest extends React.Component {
             title="Zoeken"
             type="submit"
           >
-            <SearchIcon />
             <span className="u-sr-only">Zoeken</span>
           </button>
         </fieldset>
