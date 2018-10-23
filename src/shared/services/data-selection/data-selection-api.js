@@ -7,20 +7,22 @@ const isObject = (value) => value !== null && typeof value === 'object';
 function formatFilters(dataset, rawData) {
   const formattedFilters = DATA_SELECTION_CONFIG.datasets[dataset].FILTERS;
   const sortFilters = DATA_SELECTION_CONFIG.datasets[dataset].SORT_FILTERS || false;
+  const newRawData = { ...rawData };
   const filters =
     formattedFilters
       .filter((filter) => isObject(rawData[filter.slug]))
       .map((filter) => {
+        const newFilter = { ...filter };
         // use the specific term order when defined
-        if (filter.order) {
-          rawData[filter.slug].options = filter.order.map((term) => {
-            const found = rawData[filter.slug].options
-                                              .filter((item) => item.label === term);
+        if (newFilter.order) {
+          newRawData[newFilter.slug].options = newFilter.order.map((term) => {
+            const found = newRawData[newFilter.slug].options
+                                                    .filter((item) => item.label === term);
             return found.length > 0 ? found[0] : null;
-          }).filter(item => !!item);
-          delete filter.order;
+          }).filter((item) => !!item);
+          delete newFilter.order;
         }
-        return Object.assign({}, filter, rawData[filter.slug]);
+        return Object.assign({}, newFilter, newRawData[newFilter.slug]);
       });
 
   if (sortFilters) {

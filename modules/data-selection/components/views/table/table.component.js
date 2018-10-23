@@ -15,9 +15,7 @@ import { getPageActionEndpoint } from '../../../../../src/app/routes';
             controllerAs: 'vm'
         });
 
-    DpDataSelectionTableController.$inject = ['store'];
-
-    function DpDataSelectionTableController (store) {
+    function DpDataSelectionTableController () {
         const vm = this;
 
         vm.rows = vm.content.body.map(row => {

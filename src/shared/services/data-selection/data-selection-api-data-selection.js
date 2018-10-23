@@ -4,8 +4,8 @@ import { getByUrl } from '../api/api';
 const isDefined = (value) => typeof value !== 'undefined';
 
 const formatFilters = (rawData) => (
-  Object.keys(rawData).reduce((filters, key) => {
-    filters[key] = {
+  Object.keys(rawData).reduce((acc, key) => {
+    acc[key] = {
       numberOfOptions: rawData[key].doc_count,
       options: rawData[key].buckets.map((option) => ({
         id: option.key,
@@ -13,7 +13,7 @@ const formatFilters = (rawData) => (
         count: option.doc_count
       }))
     };
-    return filters;
+    return acc;
   }, {})
 );
 
@@ -25,12 +25,13 @@ const getDetailEndpoint = (config, rawDataRow) => (
 
 const formatData = (config, rawData) => (
   rawData.map((rawDataRow) => {
-    rawDataRow._links = {
+    const newDataRow = { ...rawDataRow };
+    newDataRow._links = {
       self: {
-        href: getDetailEndpoint(config, rawDataRow)
+        href: getDetailEndpoint(config, newDataRow)
       }
     };
-    return rawDataRow;
+    return newDataRow;
   })
 );
 
@@ -38,6 +39,7 @@ export function getMarkers(config, activeFilters) {
   return getByUrl(sharedConfig.API_ROOT + config.ENDPOINT_MARKERS, activeFilters)
     .then((data) => ({
       clusterMarkers: data.object_list
+                          // eslint-disable-next-line no-underscore-dangle
                           .map((object) => object._source.centroid)
                           .filter((x) => x)
                           .map(([lon, lat]) => [lat, lon])
@@ -67,17 +69,18 @@ export function query(config, view, activeFilters, page, search, geometryFilter)
 
   return getByUrl(sharedConfig.API_ROOT + uri, searchParams)
     .then((data) => {
+      const newData = { ...data };
       if (searchPage !== page) {
         // Requested page was out of api reach, dumping data
         // and saving only the filters
-        data.object_list = [];
+        newData.object_list = [];
       }
 
       return {
-        numberOfPages: data.page_count,
-        numberOfRecords: data.object_count,
-        filters: formatFilters(data.aggs_list),
-        data: formatData(config, data.object_list)
+        numberOfPages: newData.page_count,
+        numberOfRecords: newData.object_count,
+        filters: formatFilters(newData.aggs_list),
+        data: formatData(config, newData.object_list)
       };
     });
 }

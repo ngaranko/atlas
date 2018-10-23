@@ -26,32 +26,36 @@ const getFacetOptions = (facet, filterCatalog, namespace) => (
 );
 
 function formatFilters(filters, catalogFilters) {
-  filters[propertyName.theme] = filters[propertyName.theme] || {};
-  filters[propertyName.format] = filters[propertyName.format] || {};
-  filters[propertyName.owner] = filters[propertyName.owner] || {};
-  filters[propertyName.distributionType] = filters[propertyName.distributionType] || {};
-  filters[propertyName.serviceType] = filters[propertyName.serviceType] || {};
+  const newFilters = { ...filters };
+  newFilters[propertyName.theme] = newFilters[propertyName.theme] || {};
+  newFilters[propertyName.format] = newFilters[propertyName.format] || {};
+  newFilters[propertyName.owner] = newFilters[propertyName.owner] || {};
+  newFilters[propertyName.distributionType] = newFilters[propertyName.distributionType] || {};
+  newFilters[propertyName.serviceType] = newFilters[propertyName.serviceType] || {};
 
   const resultFilters = {
     groups: {
-      numberOfOptions: Object.keys(filters[propertyName.theme]).length,
-      options: getFacetOptions(filters[propertyName.theme], catalogFilters.groupTypes, 'theme')
+      numberOfOptions: Object.keys(newFilters[propertyName.theme]).length,
+      options: getFacetOptions(newFilters[propertyName.theme], catalogFilters.groupTypes, 'theme')
     },
     formats: {
-      numberOfOptions: Object.keys(filters[propertyName.format]).length,
-      options: getFacetOptions(filters[propertyName.format], catalogFilters.formatTypes)
+      numberOfOptions: Object.keys(newFilters[propertyName.format]).length,
+      options: getFacetOptions(newFilters[propertyName.format], catalogFilters.formatTypes)
     },
     owners: {
-      numberOfOptions: Object.keys(filters[propertyName.owner]).length,
-      options: getFacetOptions(filters[propertyName.owner], catalogFilters.ownerTypes)
+      numberOfOptions: Object.keys(newFilters[propertyName.owner]).length,
+      options: getFacetOptions(newFilters[propertyName.owner], catalogFilters.ownerTypes)
     },
     distributionTypes: {
-      numberOfOptions: Object.keys(filters[propertyName.distributionType]).length,
-      options: getFacetOptions(filters[propertyName.distributionType], catalogFilters.distributionTypes)
+      numberOfOptions: Object.keys(newFilters[propertyName.distributionType]).length,
+      options: getFacetOptions(
+        newFilters[propertyName.distributionType],
+        catalogFilters.distributionTypes
+      )
     },
     serviceTypes: {
-      numberOfOptions: Object.keys(filters[propertyName.serviceType]).length,
-      options: getFacetOptions(filters[propertyName.serviceType], catalogFilters.serviceTypes)
+      numberOfOptions: Object.keys(newFilters[propertyName.serviceType]).length,
+      options: getFacetOptions(newFilters[propertyName.serviceType], catalogFilters.serviceTypes)
     }
   };
 
@@ -65,25 +69,26 @@ function formatFilters(filters, catalogFilters) {
 
 function formatData(config, rawData) {
   return rawData.map((rawDataRow) => {
-    rawDataRow._links = {
+    const newDataRow = { ...rawDataRow };
+    newDataRow._links = {
       self: {
-        href: getDetailEndpoint(config, rawDataRow)
+        href: getDetailEndpoint(config, newDataRow)
       }
     };
-    return rawDataRow;
+    return newDataRow;
   });
 }
 
 export function query(config, view, activeFilters, page, searchText = '', geometryFilter = undefined, catalogFilters = {}) {
   const searchParams = {
-      offset: (page - 1) * config.MAX_ITEMS_PER_PAGE,
-      limit: config.MAX_ITEMS_PER_PAGE
-    },
-    queryTheme = activeFilters.groups && `eq=theme:${activeFilters.groups}`,
-    queryFormat = activeFilters.formats && `eq=${activeFilters.formats}`,
-    queryOwner = activeFilters.owners && `eq=${activeFilters.owners}`,
-    queryDistributionType = activeFilters.distributionTypes && `eq=${activeFilters.distributionTypes}`,
-    queryServiceType = activeFilters.serviceTypes && `eq=${activeFilters.serviceTypes}`;
+    offset: (page - 1) * config.MAX_ITEMS_PER_PAGE,
+    limit: config.MAX_ITEMS_PER_PAGE
+  };
+  const queryTheme = activeFilters.groups && `eq=theme:${activeFilters.groups}`;
+  const queryFormat = activeFilters.formats && `eq=${activeFilters.formats}`;
+  const queryOwner = activeFilters.owners && `eq=${activeFilters.owners}`;
+  const queryDistributionType = activeFilters.distributionTypes && `eq=${activeFilters.distributionTypes}`;
+  const queryServiceType = activeFilters.serviceTypes && `eq=${activeFilters.serviceTypes}`;
 
   if (searchText) {
     // Optional search text

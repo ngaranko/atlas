@@ -141,7 +141,7 @@ describe('The dp-data-selection component', function () {
         spyOn(store, 'getState').and.returnValue(mockedState);
     });
 
-    function getComponent(state, filters, user) {
+    function getComponent (state, filters, user) {
         const element = document.createElement('dp-data-selection');
         element.setAttribute('state', 'state');
         element.setAttribute('filters', 'filters');

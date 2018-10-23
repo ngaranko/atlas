@@ -13,7 +13,6 @@ import {
   setDataSelectionGeometryFilter
 } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
-import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
 
 import {
   cancel,
@@ -59,8 +58,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onStartDrawing: mapStartDrawing,
   onEndDrawing: mapEndDrawing,
   onMapClear: mapClear,
-  onSetPageName: setPageName,
-  onSetMapFullscreen: setMapFullscreen
+  onSetPageName: setPageName
 }, dispatch);
 
 // TODO: Get all business logic out of this file, probably to Redux!
@@ -136,8 +134,6 @@ class DrawToolContainer extends React.Component {
       // this.props.onStraatbeeldOff();
       this.props.onEndDrawing({ polygon });
       this.props.onSetPageName({ name: null });
-
-      this.props.onSetMapFullscreen();
     } else if (has2Markers) {
       this.props.onEndDrawing({ polygon });
     }
@@ -214,7 +210,6 @@ DrawToolContainer.propTypes = {
   onStartDrawing: PropTypes.func.isRequired,
   onEndDrawing: PropTypes.func.isRequired,
   onSetPageName: PropTypes.func.isRequired,
-  onSetMapFullscreen: PropTypes.func.isRequired,
   // onStraatbeeldOff: PropTypes.func.isRequired,
   onMapClear: PropTypes.func.isRequired
 };

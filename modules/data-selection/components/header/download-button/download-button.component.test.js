@@ -33,7 +33,8 @@ describe('The dp-data-selection-download-button component', function () {
                 ]
             }
         }
-    }
+    };
+
     beforeEach(function () {
         angular.mock.module(
             'dpDataSelection',

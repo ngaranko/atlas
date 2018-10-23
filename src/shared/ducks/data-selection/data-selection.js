@@ -18,7 +18,7 @@ const initialState = {
   // isFullscreen: true,
 };
 
-const VIEWS = {
+export const VIEWS = {
   LIST: 'LIST',
   TABLE: 'TABLE',
   CATALOG: 'CATALOG'

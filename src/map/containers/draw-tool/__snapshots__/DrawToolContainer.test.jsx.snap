@@ -31,7 +31,6 @@ exports[`DrawToolContainer should render DrawToolContainer 1`] = `
   onEndDrawing={[Function]}
   onMapClear={[Function]}
   onMapUpdateShape={[Function]}
-  onSetMapFullscreen={[Function]}
   onSetPageName={[Function]}
   onStartDrawing={[Function]}
   resetGeometryFilter={[Function]}

@@ -14,9 +14,9 @@ import { routing } from '../../../../../src/app/routes';
             controllerAs: 'vm'
         });
 
-    DpToggleViewButtonController.$inject = ['$scope', 'store'];
+    DpToggleViewButtonController.$inject = ['$scope'];
 
-    function DpToggleViewButtonController($scope, store) {
+    function DpToggleViewButtonController ($scope) {
         const vm = this;
 
         vm.type = routing.adressen.type;

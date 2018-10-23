@@ -45,7 +45,7 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
                     ]
                 }
             }
-        }
+        };
 
         dataSelectionConfig.default = config;
         angular.mock.module(

@@ -7,7 +7,6 @@ import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 import { setDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
-import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
 
 import { isEnabled } from '../../services/draw-tool/draw-tool';
 import {
@@ -290,7 +289,6 @@ describe('DrawToolContainer', () => {
         expect(store.dispatch).toHaveBeenCalledWith(setDataSelectionGeometryFilter(geometryFilter));
         expect(store.dispatch).toHaveBeenCalledWith(mapEndDrawing({ polygon }));
         expect(store.dispatch).toHaveBeenCalledWith(setPageName({ name: null }));
-        expect(store.dispatch).toHaveBeenCalledWith(setMapFullscreen());
       });
     });
 
