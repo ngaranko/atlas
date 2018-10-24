@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
 import HeaderSearchContainer from './HeaderSearchContainer';
-import { getSuggestions, setActiveSuggestion } from '../../ducks/auto-suggest/auto-suggest';
+import { getSuggestionsAction, setActiveSuggestionAction } from '../../ducks/auto-suggest/auto-suggest';
 
 import { fetchDataSelection, fetchSearchResultsByQuery } from '../../ducks/search/search';
 
@@ -17,8 +17,8 @@ jest.mock('../../ducks/search/search');
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
-    setActiveSuggestion.mockImplementation(() => ({ type: 'SET_ACTIVE_SUGGESTION' }));
-    getSuggestions.mockImplementation(() => ({ type: 'FETCH_SUGGESTIONS_REQUEST' }));
+    setActiveSuggestionAction.mockImplementation(() => ({ type: 'SET_ACTIVE_SUGGESTION' }));
+    getSuggestionsAction.mockImplementation(() => ({ type: 'FETCH_SUGGESTIONS_REQUEST' }));
     fetchDetail.mockImplementation((endpoint) => ({ type: 'FETCH_DETAIL', payload: endpoint }));
     piwikTracker.mockImplementation(() => jest.fn());
     fetchDataSelection.mockImplementation((query) => ({
@@ -32,8 +32,8 @@ describe('HeaderSearchContainer', () => {
   });
 
   afterEach(() => {
-    setActiveSuggestion.mockReset();
-    getSuggestions.mockReset();
+    setActiveSuggestionAction.mockReset();
+    getSuggestionsAction.mockReset();
     fetchDetail.mockReset();
     piwikTracker.mockReset();
     fetchDataSelection.mockReset();
@@ -100,8 +100,8 @@ describe('HeaderSearchContainer', () => {
     jest.spyOn(store, 'dispatch');
     shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
-    expect(setActiveSuggestion).not.toHaveBeenCalled();
-    expect(getSuggestions).not.toHaveBeenCalled();
+    expect(setActiveSuggestionAction).not.toHaveBeenCalled();
+    expect(getSuggestionsAction).not.toHaveBeenCalled();
     expect(fetchDetail).not.toHaveBeenCalled();
     expect(store.dispatch).not.toHaveBeenCalled();
   });
@@ -260,7 +260,7 @@ describe('HeaderSearchContainer', () => {
         <HeaderSearchContainer />, { context: { store } }
       ).dive();
 
-      expect(getSuggestions).toHaveBeenCalled();
+      expect(getSuggestionsAction).toHaveBeenCalled();
     });
 
     it('should not be called on componentDidMount id prefillQuery prop is not set', () => {
@@ -272,7 +272,7 @@ describe('HeaderSearchContainer', () => {
         <HeaderSearchContainer />, { context: { store } }
       ).dive();
 
-      expect(getSuggestions).not.toHaveBeenCalled();
+      expect(getSuggestionsAction).not.toHaveBeenCalled();
     });
   });
 
@@ -290,7 +290,7 @@ describe('HeaderSearchContainer', () => {
         isMapFullscreen: true
       });
 
-      expect(getSuggestions).not.toHaveBeenCalled();
+      expect(getSuggestionsAction).not.toHaveBeenCalled();
     });
 
     it('should call getSuggestions when navigated', () => {
@@ -307,7 +307,7 @@ describe('HeaderSearchContainer', () => {
         isMapFullscreen: false
       });
 
-      expect(getSuggestions).toHaveBeenCalled();
+      expect(getSuggestionsAction).toHaveBeenCalled();
     });
   });
 });

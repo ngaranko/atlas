@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  getSuggestions,
-  setActiveSuggestion
+  getSuggestionsAction,
+  setActiveSuggestionAction
 } from '../../ducks/auto-suggest/auto-suggest';
 import { fetchDetail } from '../../../reducers/details';
 import {
@@ -34,9 +34,9 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onCleanDatasetOverview: emptyFilters,
   onDatasetSearch: fetchDataSelection,
   onDetailLoad: fetchDetail,
-  onGetSuggestions: getSuggestions,
+  onGetSuggestions: getSuggestionsAction,
   onSearch: fetchSearchResultsByQuery,
-  onSuggestionActivate: setActiveSuggestion
+  onSuggestionActivate: setActiveSuggestionAction
 }, dispatch);
 
 class HeaderSearchContainer extends React.Component {

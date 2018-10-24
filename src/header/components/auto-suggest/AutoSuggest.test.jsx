@@ -26,7 +26,8 @@ const mockFilledState = {
           category: 'Straatnamen'
         }
       ],
-      label: 'Straatnamen'
+      label: 'Straatnamen',
+      total_results: 6
     },
     {
       content: [
@@ -49,7 +50,8 @@ const mockFilledState = {
           category: 'Monumenten'
         }
       ],
-      label: 'Monumenten'
+      label: 'Monumenten',
+      total_results: 5
     }
   ],
   typedQuery: 'dam',
@@ -335,6 +337,25 @@ describe('The AutoSuggest component', () => {
 
       expect(onSubmit).toHaveBeenCalled();
     });
+
+    it('should be triggered when an ellipsis list item is selected', () => {
+      const autoSuggestComponent = shallow(<AutoSuggest
+        activeSuggestion={mockFilledState.activeSuggestion}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+      />);
+
+      const suggestion = { index: -1 };
+      const event = {
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn()
+      };
+      autoSuggestComponent.instance().onFormSubmit = jest.fn();
+      autoSuggestComponent.instance().onSuggestionSelection(suggestion, event);
+      expect(autoSuggestComponent.instance().onFormSubmit).toHaveBeenCalledWith(event);
+    });
   });
 
   describe('resetActiveSuggestion', () => {
@@ -358,17 +379,16 @@ describe('The AutoSuggest component', () => {
   });
 
   describe('when selecting a suggestion', () => {
-    let autoSuggestComponent;
+    const autoSuggestComponent = mount(<AutoSuggest
+      activeSuggestion={{ index: 0 }}
+      onSubmit={onSubmit}
+      onSuggestionActivate={onSuggestionActivate}
+      onSuggestionSelection={onSuggestionSelection}
+      onTextInput={onTextInput}
+      numberOfSuggestions={1}
+    />);
 
     beforeEach(() => {
-      autoSuggestComponent = mount(<AutoSuggest
-        activeSuggestion={{ index: 0 }}
-        onSubmit={onSubmit}
-        onSuggestionActivate={onSuggestionActivate}
-        onSuggestionSelection={onSuggestionSelection}
-        onTextInput={onTextInput}
-        numberOfSuggestions={1}
-      />);
     });
 
     it('should request to open in new window when CTRL key is pressed.', () => {
@@ -482,8 +502,6 @@ describe('The AutoSuggest component', () => {
 
       expect(preventDefaultMock).not.toHaveBeenCalled();
       expect(autoSuggestComponent.instance().onSuggestionSelection).toHaveBeenCalled();
-
-      onSuggestionActivate.mockRestore();
     });
 
     it('should not handle enter key when index for suggestions is below 0', () => {
@@ -496,8 +514,6 @@ describe('The AutoSuggest component', () => {
 
       expect(preventDefaultMock).not.toHaveBeenCalled();
       expect(autoSuggestComponent.instance().onSuggestionSelection).not.toHaveBeenCalled();
-
-      onSuggestionActivate.mockRestore();
     });
 
     it('should handle any other key and do nothing', () => {

@@ -2,9 +2,9 @@ import reducer, {
   FETCH_SUGGESTIONS_FAILURE,
   FETCH_SUGGESTIONS_REQUEST,
   FETCH_SUGGESTIONS_SUCCESS,
-  getSuggestions,
+  getSuggestionsAction,
   SET_ACTIVE_SUGGESTION,
-  setActiveSuggestion
+  setActiveSuggestionAction
 } from './auto-suggest';
 
 const initialState = {
@@ -83,15 +83,16 @@ describe('AutoSuggestReducer Reducer', () => {
   });
 });
 
-describe('should set the active hence highlighted suggestion', () => {
+describe('The set active suggestion action', () => {
   it('should set the active hence highlighted suggestion', () => {
-    expect(setActiveSuggestion('123', 'name', ['scope'])).toEqual({
+    expect(setActiveSuggestionAction('123', 'name', ['scope'])).toEqual({
       type: SET_ACTIVE_SUGGESTION,
       suggestion: '123'
     });
   });
+
   it('should set the index to -1 if no suggestion is given', () => {
-    expect(setActiveSuggestion()).toEqual({
+    expect(setActiveSuggestionAction()).toEqual({
       type: SET_ACTIVE_SUGGESTION,
       suggestion: { index: -1 }
     });
@@ -99,7 +100,7 @@ describe('should set the active hence highlighted suggestion', () => {
 });
 
 it('should return the right action', () => {
-  expect(getSuggestions()).toEqual({
+  expect(getSuggestionsAction()).toEqual({
     query: '',
     type: FETCH_SUGGESTIONS_REQUEST
   });
