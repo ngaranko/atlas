@@ -15,18 +15,13 @@ export const DETAIL_VIEW = {
 };
 
 const initialState = {
-  view: DETAIL_VIEW.MAP_DETAIL
+  view: DETAIL_VIEW.MAP_DETAIL,
+  isLoading: false
 };
 
 export default function detailReducer(state = initialState, action) {
   switch (action.type) {
-    case routing.pandDetail.type: {
-      return {
-        ...state,
-        view: DETAIL_VIEW.MAP_DETAIL
-      };
-    }
-    case routing.adresDetail.type: {
+    case routing.dataDetail.type: {
       const { query = {} } = action.meta;
       if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {
         return {
@@ -49,7 +44,6 @@ export default function detailReducer(state = initialState, action) {
       return {
         ...state,
         endpoint: action.payload,
-        reload: Boolean(state && state.endpoint === action.payload),
         isLoading: true,
         isFullscreen: action.payload && action.payload.includes('dcatd/datasets'),
         skippedSearchResults: Boolean(action.skippedSearchResults)
@@ -60,8 +54,7 @@ export default function detailReducer(state = initialState, action) {
         ...state,
         display: action.payload.display,
         geometry: action.payload.geometry,
-        isLoading: false,
-        reload: false
+        isLoading: false
       };
 
     case DETAIL_FULLSCREEN:
@@ -107,7 +100,6 @@ export const getDetail = (state) => state[REDUCER_KEY];
 export const getDetailGeometry = createSelector(getDetail, (detail) => detail && detail.geometry);
 export const getDetailEndpoint = createSelector(getDetail, (detail) => detail && detail.endpoint);
 export const getDetailDisplay = createSelector(getDetail, (detail) => detail && detail.display);
-export const isDetailReloaded = createSelector(getDetail, (detail) => detail && detail.reload);
 export const getDetailSkippedSearchResults = createSelector(
   getDetail,
   (detail) => detail && detail.skippedSearchResults

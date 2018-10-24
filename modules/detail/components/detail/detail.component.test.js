@@ -217,7 +217,6 @@ describe('the dp-detail component', () => {
         element.setAttribute('show', 'show');
         element.setAttribute('endpoint', '{{endpoint}}');
         element.setAttribute('is-loading', 'isLoading');
-        element.setAttribute('reload', 'reload');
         element.setAttribute('user', 'user');
         element.setAttribute('skipped-search-results', 'skippedSearchResults');
         element.setAttribute('catalog-filters', 'catalogFilters');
@@ -226,7 +225,6 @@ describe('the dp-detail component', () => {
         scope.show = show;
         scope.endpoint = endpoint;
         scope.isLoading = isLoading;
-        scope.reload = false;
         scope.user = mockedUser;
         scope.skippedSearchResults = skippedSearchResults;
         scope.catalogFilters = catalogFilters;
@@ -401,45 +399,6 @@ describe('the dp-detail component', () => {
             payload: {
                 display: 'Een of ander kadastraal object',
                 geometry: mockedGeometryMultiPolygon
-            }
-        });
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: DETAIL_FULLSCREEN,
-            payload: false
-        });
-    });
-
-    it('loads new API data and triggers a new SHOW_DETAIL and DETAIL_FULLSCREEN action when the reload flag has been ' +
-        'set', () => {
-        var component,
-            scope,
-            endpoint;
-
-        expect(store.dispatch).not.toHaveBeenCalled();
-
-        // Set an initial endpoint
-        endpoint = 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/';
-        component = getComponent(endpoint, false);
-        scope = component.isolateScope();
-
-        // Turn on the reload flag
-        scope.vm.reload = true;
-        $rootScope.$apply();
-
-        expect(scope.vm.apiData).toEqual({
-            results: {
-                _display: 'Adresstraat 1A',
-                dummy: 'A',
-                something: 3,
-                naam: 'naam'
-            }
-        });
-        expect(store.dispatch).toHaveBeenCalledTimes(4);
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: SHOW_DETAIL,
-            payload: {
-                display: 'Adresstraat 1A',
-                geometry: mockedGeometryPoint
             }
         });
         expect(store.dispatch).toHaveBeenCalledWith({

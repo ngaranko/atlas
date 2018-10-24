@@ -143,17 +143,11 @@ export const routing = {
     page: PAGES.STATISTIEKEN
   },
 
-  adresDetail: {
-    title: 'Adres',
-    location: '/datasets/bag/adressen/:id',
-    type: `${ROUTER_NAMESPACE}/${PAGES.ADRES_DETAIL}`,
-    page: PAGES.ADRES_DETAIL
-  },
-  pandDetail: {
-    title: 'Pand',
-    location: '/datasets/bag/pand/:id',
-    type: `${ROUTER_NAMESPACE}/${PAGES.PAND_DETAIL}`,
-    page: PAGES.PAND_DETAIL
+  dataDetail: {
+    title: 'Data detail',
+    location: '/datasets/:type/:subtype/:id',
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_DETAIL}`,
+    page: PAGES.DATA_DETAIL
   }
 };
 
@@ -165,9 +159,11 @@ const routes = Object.keys(routing).reduce((acc, key) => {
 
 
 // Action creators
-export const toDetail = (id, type) => ({
-  type,
+export const toDetail = (id, type, subtype) => ({
+  type: routing.dataDetail.type,
   payload: {
+    type,
+    subtype,
     id: `id${id}`
   }
 });
@@ -200,40 +196,48 @@ export const toPanorama = (id, heading, view) => {
 // Detail page logic
 // TODO: refactor unit test or remove all together
 export const extractIdEndpoint = (endpoint) => {
-  const matches = endpoint.match(/\/(\w+)\/?$/);
+  const matches = endpoint.match(/\/([\w-]+)\/?$/);
   return matches[1];
 };
 
-const getDetailPageType = (endpoint) => {
+const getDetailPageData = (endpoint) => {
   if (/\/bag\/pand/.test(endpoint)) {
-    return routing.pandDetail.type;
+    return {
+      type: 'bag',
+      subtype: 'pand'
+    };
   } else if (/\/bag\/nummeraanduiding/.test(endpoint)) {
-    return routing.adresDetail.type;
+    return {
+      type: 'bag',
+      subtype: 'nummeraanduiding'
+    };
+  } else if (/\/handelsregister\/vestiging/.test(endpoint)) {
+    return {
+      type: 'handelsregister',
+      subtype: 'vestiging'
+    };
   }
-  return routing.adresDetail.type; // TODO: refactor, always return sensible route type
+  const matches = endpoint.match(/(\w+)\/([\w]+)\/[\w-]+\/?$/);
+  console.log('generic matching endpoint: ', endpoint);
+  return {
+    type: matches[1],
+    subtype: matches[2]
+  }; // TODO: refactor, always return sensible route type
 };
 
 export const getPageActionEndpoint = (endpoint) => {
-  const type = getDetailPageType(endpoint);
+  const { type, subtype } = getDetailPageData(endpoint);
   const id = extractIdEndpoint(endpoint);
-  return toDetail(id, type);
+  return toDetail(id, type, subtype);
 };
 
 export const pageActionToEndpoint = (action) => {
   let endpoint = 'https://acc.api.data.amsterdam.nl/';
-  switch (action.type) {
-    case routing.adresDetail.type:
-      endpoint += 'bag/nummeraanduiding/';
-      break;
-    case routing.pandDetail.type:
-      endpoint += 'bag/pand/';
-      break;
-
-    default:
-  }
+  const { type, subtype } = action.payload;
+  endpoint += `${type}/${subtype}/`;
 
   const id = action.payload.id.substr(2); // Change `id123` to `123`
-  endpoint += `${id}`;
+  endpoint += `${id}/`; // TODO: refactor, get back-end to return detail as detail GET not listing!
 
   return fetchDetail(endpoint);
 };

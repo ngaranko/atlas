@@ -5,13 +5,11 @@ import { AngularWrapper } from 'react-angular';
 import {
   getDetailEndpoint,
   getDetailSkippedSearchResults,
-  isDetailLoading,
-  isDetailReloaded
+  isDetailLoading
 } from '../../shared/ducks/detail/detail';
 import { getUser } from '../../shared/ducks/user/user';
 
 const mapStateToProps = (state) => ({
-  reload: isDetailReloaded(state),
   isLoading: isDetailLoading(state),
   skippedSearchResults: getDetailSkippedSearchResults(state),
   user: getUser(state),
@@ -19,7 +17,6 @@ const mapStateToProps = (state) => ({
 });
 
 const DetailContainer = ({
-  reload,
   isLoading,
   skippedSearchResults,
   user,
@@ -31,7 +28,6 @@ const DetailContainer = ({
       component="dpDetail"
       dependencies={['atlas']}
       bindings={{
-        reload,
         isLoading,
         skippedSearchResults,
         user
@@ -48,7 +44,6 @@ DetailContainer.defaultProps = {
 };
 
 DetailContainer.propTypes = {
-  reload: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   skippedSearchResults: PropTypes.bool,
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types

@@ -31,7 +31,7 @@ export default function* rootSaga() {
     fork(watchFetchNearestDetails),
     fork(watchGeoSearchRequest),
     fork(watchFetchCatalogFilters),
-    fork(watchMapUpdate),
+    // fork(watchMapUpdate), // TODO: reactivate
 
     // route change watchers
     fork(watchCatalogList),

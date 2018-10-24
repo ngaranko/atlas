@@ -6,7 +6,7 @@ import reducer, {
   SHOW_DETAIL
 } from './detail';
 
-describe('DetailReducerReducer', () => {
+describe('DetailReducer', () => {
   const initialState = {};
   const stateAfterRequest = {
     some: 'data'
@@ -24,7 +24,6 @@ describe('DetailReducerReducer', () => {
       payload: 'payload'
     })).toEqual({
       endpoint: 'payload',
-      reload: false,
       isLoading: true,
       isFullscreen: false,
       skippedSearchResults: false
@@ -42,8 +41,7 @@ describe('DetailReducerReducer', () => {
       some: 'data',
       display: 'display',
       geometry: 'geometry',
-      isLoading: false,
-      reload: false
+      isLoading: false
     });
   });
 

@@ -8,7 +8,6 @@ exports[`DetailContainer should render 1`] = `
     bindings={
       Object {
         "isLoading": false,
-        "reload": false,
         "skippedSearchResults": false,
         "user": Object {},
       }

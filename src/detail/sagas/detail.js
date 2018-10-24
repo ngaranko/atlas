@@ -8,7 +8,6 @@ export function* fetchDetail(action) {
 
 export function* watchDetailRoute() {
   yield takeLatest([
-    routing.adresDetail.type,
-    routing.pandDetail.type
+    routing.dataDetail.type,
   ], fetchDetail);
 }

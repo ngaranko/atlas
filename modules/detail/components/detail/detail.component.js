@@ -9,7 +9,6 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
         .component('dpDetail', {
             bindings: {
                 endpoint: '@',
-                reload: '=',
                 isLoading: '=',
                 skippedSearchResults: '=',
                 catalogFilters: '=',
@@ -46,14 +45,6 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
     ) {
         /* eslint-enable max-params */
         var vm = this;
-
-        // Reload the data when the reload flag has been set (endpoint has not
-        // changed)
-        $scope.$watch('vm.reload', reload => {
-            if (reload) {
-                getData(vm.endpoint);
-            }
-        });
 
         // (Re)load the data when the endpoint is set or gets changed
         $scope.$watch('vm.endpoint', getData);

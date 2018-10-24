@@ -35,8 +35,7 @@ const reducer = (state = initialState, action) => {
         type: SELECTION_TYPE.NONE
       };
     }
-    case routing.adresDetail.type:
-    case routing.pandDetail.type:
+    case routing.dataDetail.type:
       return {
         type: SELECTION_TYPE.OBJECT,
         id: action.payload.id
