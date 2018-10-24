@@ -1,5 +1,5 @@
 import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
-import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
+import { FETCH_DATA_SELECION_REQUEST } from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
 
 (function () {
     'use strict';
@@ -41,7 +41,7 @@ import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search
         function updateFilters () {
             vm.formattedActiveFilters = [];
 
-            if (vm.geometryFilter.markers.length > 2) {
+            if (vm.geometryFilter && vm.geometryFilter.markers && vm.geometryFilter.markers.length > 2) {
                 vm.formattedActiveFilters.push({
                     slug: GEOMETRY_FILTER,
                     label: 'Locatie',
@@ -51,25 +51,25 @@ import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search
 
             if (angular.isObject(vm.availableFilters)) {
                 const textFilters = vm.availableFilters
-                    .filter(filter => angular.isString(vm.textFilters[filter.slug]))
-                    .map(filter => {
-                        // If there are no options but the filter is active, adding the filtered
-                        // value as an option with 0 values available
-                        if (filter.numberOfOptions === 0) {
-                            filter.numberOfOptions = 1;
-                            filter.options = [{
-                                id: vm.textFilters[filter.slug],
-                                label: vm.textFilters[filter.slug],
-                                count: 0
-                            }];
-                        }
+                                      .filter(filter => angular.isString(vm.textFilters[filter.slug]))
+                                      .map(filter => {
+                                          // If there are no options but the filter is active, adding the filtered
+                                          // value as an option with 0 values available
+                                          if (filter.numberOfOptions === 0) {
+                                              filter.numberOfOptions = 1;
+                                              filter.options = [{
+                                                  id: vm.textFilters[filter.slug],
+                                                  label: vm.textFilters[filter.slug],
+                                                  count: 0
+                                              }];
+                                          }
 
-                        return {
-                            slug: filter.slug,
-                            label: filter.label,
-                            option: getValue(filter)
-                        };
-                    });
+                                          return {
+                                              slug: filter.slug,
+                                              label: filter.label,
+                                              option: getValue(filter)
+                                          };
+                                      });
                 vm.formattedActiveFilters = vm.formattedActiveFilters.concat(textFilters);
             }
         }
@@ -81,9 +81,9 @@ import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search
             return value.match(/^\[.*\]$/) ? value.replace(/['\[\]]/g, '') : option && option.label;
         }
 
-        function removeGeometryFilter (filters) {
+        function removeGeometryFilter () {
             store.dispatch({
-                type: FETCH_DATA_SELECTION,
+                type: FETCH_DATA_SELECION_REQUEST,
                 payload: {
                     dataset: vm.dataset,
                     resetGeometryFilter: true,

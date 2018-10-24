@@ -4,7 +4,7 @@
             <dp-data-selection-toggle-view-button view="vm.view"></dp-data-selection-toggle-view-button>
         </div>
         <div ng-if="vm.showDownloadButton" class="u-inline-block qa-download-button">
-            <dp-data-selection-download-button dataset="{{vm.dataset}}" active-filters="vm.filters" geometry-filter="vm.state.geometryFilter">
+            <dp-data-selection-download-button dataset="{{vm.dataset}}" active-filters="vm.filters" geometry-filter="vm.geometryFilter">
             </dp-data-selection-download-button>
         </div>
     </div>
@@ -27,9 +27,9 @@
 <div ng-if="vm.showTabs" class="o-tabs qa-tabs u-margin__bottom--2">
     <ul>
         <li ng-repeat="tab in vm.tabs" ng-class="{'is-active': tab.isActive}">
-            <dp-link ng-if="!tab.isActive" type="FETCH_DATA_SELECTION" payload="{dataset: tab.dataset, filters: vm.filters, page: 1, view: 'LIST'}" class-name="o-tabs__tab o-tabs__tab--link">
+            <dp-redux-link ng-if="!tab.isActive" to="tab.tabAction" class-name="o-tabs__tab o-tabs__tab--link">
                 {{tab.title}}
-            </dp-link>
+            </dp-redux-link>
 
             <span ng-if="tab.isActive" class="o-tabs__tab o-tabs__tab--active">
                 {{tab.title}}
@@ -44,7 +44,7 @@
         dataset="{{vm.dataset}}",
         available-filters="vm.availableFilters"
         text-filters="vm.filters",
-        geometry-filter="vm.state.geometryFilter">
+        geometry-filter="vm.geometryFilter">
     </dp-data-selection-active-filters>
 </div>
 

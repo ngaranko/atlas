@@ -1,7 +1,6 @@
 import {
   getActiveBaseLayer,
   getCenter,
-  getClusterMarkers,
   getMapCenter,
   getMapOverlays,
   getMapZoom,
@@ -9,10 +8,7 @@ import {
   getRdGeoJsons
 } from './map-selectors';
 
-import {
-  getClusterMarkers as getDataSelectionClusterMarkers,
-  getDataSelection
-} from '../data-selection/data-selection';
+import { getDataSelection } from './map-selectors';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
 import {
@@ -50,9 +46,6 @@ describe('Map Selectors', () => {
       expect(getActiveBaseLayer(state)).toEqual(map.baseLayer);
       expect(getMapZoom(state)).toEqual(map.zoom);
       expect(getMapCenter(state)).toEqual(map.viewCenter);
-
-      getClusterMarkers(state);
-      expect(getDataSelectionClusterMarkers).toHaveBeenCalledWith(state);
 
       getRdGeoJsons(state);
       expect(getDetailGeoJson).toHaveBeenCalledWith(state);

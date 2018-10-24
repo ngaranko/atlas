@@ -1,11 +1,6 @@
 import isObject from '../../shared/services/is-object';
 import { FETCH_DETAIL } from '../../shared/ducks/detail/detail';
 import { FETCH_DATA_SELECTION } from '../../header/ducks/search/search';
-import {
-  RESET_DATA_SELECTION,
-  SET_DATA_SELECTION_VIEW,
-  SHOW_DATA_SELECTION
-} from '../../shared/ducks/data-selection/data-selection';
 
 /* istanbul ignore next */
 const legacyReducer = (state = {}, action) => {
@@ -67,30 +62,30 @@ const legacyReducer = (state = {}, action) => {
         // detail: null
       };
     }
-
-    case SHOW_DATA_SELECTION:
-    case RESET_DATA_SELECTION:
-      return {
-        ...state,
-        map: isObject(state.map) ? {
-          ...state.map,
-          isLoading: false
-        } : state.map
-      };
-
-    case SET_DATA_SELECTION_VIEW: {
-      const views = ['LIST', 'TABLE', 'CATALOG'];
-      const viewFound = views.indexOf(action.payload) !== -1;
-      const view = viewFound ? action.payload : undefined;
-
-      return {
-        ...state,
-        map: isObject(state.map) ? {
-          ...state.map,
-          isLoading: view === 'LIST'
-        } : state.map
-      };
-    }
+    //
+    // case SHOW_DATA_SELECTION:
+    // case RESET_DATA_SELECTION:
+    //   return {
+    //     ...state,
+    //     map: isObject(state.map) ? {
+    //       ...state.map,
+    //       isLoading: false
+    //     } : state.map
+    //   };
+    //
+    // case SET_DATA_SELECTION_VIEW: {
+    //   const views = ['LIST', 'TABLE', 'CATALOG'];
+    //   const viewFound = views.indexOf(action.payload) !== -1;
+    //   const view = viewFound ? action.payload : undefined;
+    //
+    //   return {
+    //     ...state,
+    //     map: isObject(state.map) ? {
+    //       ...state.map,
+    //       isLoading: view === 'LIST'
+    //     } : state.map
+    //   };
+    // }
 
     // case FETCH_SEARCH_RESULTS_BY_LOCATION:
     //   return {

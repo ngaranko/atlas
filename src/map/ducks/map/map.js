@@ -32,7 +32,8 @@ export const initialState = {
   shapeDistanceTxt: '',
   shapeAreaTxt: '',
   selectedLocation: null,
-  mapPanelActive: true
+  mapPanelActive: true,
+  markers: []
 };
 
 let polygon = {};
@@ -206,3 +207,4 @@ export const updateBoundingBox = (payload, isDrawingActive) =>
 export const toggleMapPanel = () => ({
   type: TOGGLE_MAP_PANEL
 });
+

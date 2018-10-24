@@ -1,6 +1,8 @@
 import { features } from '../../../../src/shared/environment';
 import DATA_SELECTION_CONFIG
     from '../../../../src/shared/services/data-selection/data-selection-config';
+import { routing } from '../../../../src/app/routes';
+import { VIEWS } from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
 
 (function () {
     'use strict';
@@ -9,7 +11,7 @@ import DATA_SELECTION_CONFIG
         .module('dpDataSelection')
         .component('dpDataSelectionHeader', {
             bindings: {
-                state: '<',
+                geometryFilter: '<',
                 dataset: '<',
                 availableFilters: '<',
                 filters: '<',
@@ -30,22 +32,22 @@ import DATA_SELECTION_CONFIG
 
         $scope.$watchGroup([
             'vm.dataset',
-            'vm.state.geometryFilter',
-            'vm.state.view',
+            'vm.geometryFilter',
+            'vm.view',
             'vm.numberOfRecords'
         ], setHeader);
 
         function setHeader () {
-            const isListView = vm.view === 'LIST';
+            const isListView = vm.view === VIEWS.LIST;
             const config = DATA_SELECTION_CONFIG.datasets[vm.dataset];
             const exportAuthScope = config.AUTH_SCOPE;
             vm.showButtons = vm.dataset !== 'dcatd';
-            vm.showDownloadButton = vm.state.view !== 'LIST' &&
+            vm.showDownloadButton = vm.view !== VIEWS.LIST &&
                 vm.numberOfRecords > 0 &&
                 (!exportAuthScope || vm.user.scopes.includes(exportAuthScope));
             vm.showTabs = isListView;
             vm.showNoResultsFound = vm.numberOfRecords === 0;
-            vm.showActiveFilters = Object.keys(vm.filters).length || vm.state.geometryFilter.markers.length;
+            vm.showActiveFilters = !!(Object.keys(vm.filters).length || (vm.geometryFilter && vm.geometryFilter.markers && vm.geometryFilter.markers.length));
 
             vm.canEditDataset = vm.user.scopes.includes('CAT/W');
             vm.showNumberOfRecords = vm.numberOfRecords > 0 &&
@@ -59,10 +61,14 @@ import DATA_SELECTION_CONFIG
                 tabs.push('brk');
             }
 
-            vm.tabs = tabs.map(dataset => {
+            vm.tabs = tabs.map((dataset) => {
                 return {
-                    dataset: dataset,
+                    dataset,
                     title: DATA_SELECTION_CONFIG.datasets[dataset].TITLE_TAB,
+                    tabAction: {
+                        type: routing.establishmentResults.type,
+                        payload: { dataset, filters: vm.filters, page: 1, view: VIEWS.LIST }
+                    },
                     isActive: vm.dataset === dataset
                 };
             });

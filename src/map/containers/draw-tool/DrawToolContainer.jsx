@@ -8,10 +8,6 @@ import isEqual from 'lodash.isequal';
 import DrawTool from '../../components/draw-tool/DrawTool';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
-import {
-  resetDataSelectionGeometryFilter,
-  setDataSelectionGeometryFilter
-} from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
 
 import {
@@ -30,7 +26,6 @@ import {
   mapStartDrawing,
   mapUpdateShape
 } from '../../ducks/map/map';
-import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
 import {
   getDrawingMode,
   getGeometry,
@@ -38,15 +33,20 @@ import {
   getShapeMarkers,
   isDrawingEnabled
 } from '../../ducks/map/map-selectors';
+import {
+  getNewDataSelection,
+  setDataSelectionGeometryFilter
+} from '../../../shared/ducks/new-data-selection/new-data-selection';
+import { isMapPage } from '../../../shared/ducks/location/location';
 
 const mapStateToProps = (state) => ({
   drawingMode: getDrawingMode(state),
   isEnabled: isDrawingEnabled(state),
   shapeMarkers: getShapeMarkers(state),
   shapeDistanceTxt: getShapeDistanceTxt(state),
-  dataSelection: state.dataSelection,
+  dataSelection: getNewDataSelection(state),
   geometry: getGeometry(state),
-  uiMapFullscreen: isMapCurrentPage(state)
+  uiMapFullscreen: isMapPage(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -54,7 +54,6 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onEmptyGeometry: mapEmptyGeometry,
   onMapUpdateShape: mapUpdateShape,
   setGeometryFilter: setDataSelectionGeometryFilter,
-  resetGeometryFilter: resetDataSelectionGeometryFilter,
   onStartDrawing: mapStartDrawing,
   onEndDrawing: mapEndDrawing,
   onMapClear: mapClear,
@@ -206,7 +205,6 @@ DrawToolContainer.propTypes = {
   onEmptyGeometry: PropTypes.func.isRequired,
   onMapUpdateShape: PropTypes.func.isRequired,
   setGeometryFilter: PropTypes.func.isRequired,
-  resetGeometryFilter: PropTypes.func.isRequired,
   onStartDrawing: PropTypes.func.isRequired,
   onEndDrawing: PropTypes.func.isRequired,
   onSetPageName: PropTypes.func.isRequired,

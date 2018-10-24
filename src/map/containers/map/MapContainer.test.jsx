@@ -4,12 +4,12 @@ import { shallow } from 'enzyme';
 
 import MapContainer from './MapContainer';
 
-import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
+import { isMapActive } from '../../../shared/ducks/location/location';
 import { previewDataAvailable } from '../../../shared/ducks/selection/selection';
 import { isEmbedded } from '../../../shared/ducks/ui/ui';
 import { getDrawingMode } from '../../ducks/map/map-selectors';
 
-jest.mock('../../../shared/ducks/current-page/current-page-reducer');
+jest.mock('../../../shared/ducks/location/location');
 jest.mock('../../../shared/ducks/selection/selection');
 jest.mock('../../../shared/ducks/ui/ui');
 jest.mock('../../ducks/map/map-selectors');
@@ -19,7 +19,7 @@ describe('MapContainer', () => {
   beforeEach(() => {
     initialState = {};
 
-    isMapCurrentPage.mockImplementation(() => true);
+    isMapActive.mockImplementation(() => true);
     getDrawingMode.mockImplementation(() => 'none');
     isEmbedded.mockImplementation(() => false);
     previewDataAvailable.mockImplementation(() => false);

@@ -29,11 +29,17 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS_DETAIL}`,
     page: PAGES.CATALOGUS_DETAIL
   },
-  adressen: {
+  addressResults: {
     title: '',
     path: '/datasets/bag/adressen',
     type: `${ROUTER_NAMESPACE}/${PAGES.ADRESSEN}`,
     page: PAGES.ADRESSEN
+  },
+  establishmentResults: {
+    title: '',
+    path: '/datasets/hr/vestigingen',
+    type: `${ROUTER_NAMESPACE}/${PAGES.RESULTS_ESTABLISHMENT}`,
+    page: PAGES.RESULTS_ESTABLISHMENT
   },
   vestigingen: {
     title: '',
@@ -234,5 +240,16 @@ export const pageTypeToEndpoint = (type, subtype, id) => {
   endpoint += `${type}/${subtype}/${id}/`; // TODO: refactor, get back-end to return detail as detail GET not listing!
   return endpoint;
 };
+
+export const toAddressResults = (payload, meta = {}) => ({
+  type: routing.addressResults.type,
+  meta: {
+    query: {
+      kaart: ''
+    },
+    ...meta
+  },
+  payload
+});
 
 export default routes;

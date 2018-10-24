@@ -7,8 +7,6 @@ import {
   getActiveBaseLayer,
   getCenter,
   getDrawingMode,
-  getClusterMarkers,
-  getGeoJsons,
   getMapOverlays,
   getMarkers,
   getRdGeoJsons,
@@ -37,6 +35,10 @@ import {
 } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
+import {
+  getClusterMarkers,
+  getGeoJsons
+} from '../../../shared/ducks/new-data-selection/new-data-selection';
 
 jest.mock('../../ducks/base-layers/map-base-layers');
 jest.mock('../../ducks/map/map');

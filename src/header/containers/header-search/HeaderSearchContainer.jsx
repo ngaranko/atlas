@@ -12,7 +12,7 @@ import {
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
-import { isMapCurrentPage, isCatalogCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
+import { isCatalogCurrentPage, isMapPage } from '../../../shared/ducks/location/location';
 import {
   extractIdEndpoint,
   getPageActionEndpoint,
@@ -23,7 +23,7 @@ const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),
   displayQuery: getDisplayQuery(state),
   isDatasetView: isCatalogCurrentPage(state),
-  isMapActive: isMapCurrentPage(state),
+  isMapActive: isMapPage(state),
   numberOfSuggestions: getNumberOfSuggestions(state),
   pageName: state.page ? state.page.name : '',
   prefillQuery: state.search ? state.search.query : state.dataSelection ? state.dataSelection.query : '',

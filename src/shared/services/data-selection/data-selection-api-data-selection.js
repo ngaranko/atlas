@@ -1,8 +1,6 @@
 import sharedConfig from '../shared-config/shared-config';
 import { getByUrl } from '../api/api';
 
-const isDefined = (value) => typeof value !== 'undefined';
-
 const formatFilters = (rawData) => (
   Object.keys(rawData).reduce((acc, key) => {
     acc[key] = {
@@ -49,8 +47,9 @@ export function getMarkers(config, activeFilters) {
 export function query(config, view, activeFilters, page, search, geometryFilter) {
   let searchPage = page;
 
-  const shape = (isDefined(geometryFilter)) ? geometryFilter : [];
-
+  const shape = (geometryFilter && Array.isArray(geometryFilter.markers)) ?
+    geometryFilter.markers :
+    [];
   // Making sure to not request pages higher then max allowed.
   // If that is the case requesting for page 1, to obtain filters.
   // In the response the data will be dumped.

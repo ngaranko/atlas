@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
-import { isMapCurrentPage } from '../current-page/current-page-reducer';
 import { getStraatbeeld } from '../straatbeeld/straatbeeld';
-import { getDataSelectionView } from '../../../map/ducks/data-selection/data-selection';
+import { getDataSelectionView, VIEWS } from '../new-data-selection/new-data-selection';
+import { isMapPage } from '../location/location';
 
 export const REDUCER_KEY = 'ui';
 
@@ -79,9 +79,9 @@ export const isMapPanelHandleVisible =
 export const isPrintModeLandscape = createSelector(
   isPrintMode,
   getStraatbeeld,
-  isMapCurrentPage,
+  isMapPage,
   getDataSelectionView,
   (printMode, straatbeeldActive, mapPageActive, dataSelectionView) =>
-    (printMode && (!!straatbeeldActive || mapPageActive || (dataSelectionView === 'LIST')))
+    (printMode && (!!straatbeeldActive || mapPageActive || (dataSelectionView === VIEWS.LIST)))
 );
 

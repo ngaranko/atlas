@@ -1,4 +1,7 @@
-import { NAVIGATE_DATA_SELECTION } from '../../../../src/shared/ducks/data-selection/data-selection';
+import {
+    fetchDataSelection,
+    getNewDataSelection
+} from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
 
 (function () {
     'use strict';
@@ -61,18 +64,18 @@ import { NAVIGATE_DATA_SELECTION } from '../../../../src/shared/ducks/data-selec
             event.preventDefault();
 
             if (angular.isNumber(vm.currentPage) && vm.currentPage >= 1 && vm.currentPage <= vm.numberOfPages) {
-                store.dispatch({
-                    type: NAVIGATE_DATA_SELECTION,
-                    payload: vm.currentPage
-                });
+                store.dispatch(fetchDataSelection({
+                    ...getNewDataSelection(store.getState()),
+                    page: vm.currentPage
+                }));
             }
         };
 
         if (vm.currentPage > vm.numberOfPages) {
-            store.dispatch({
-                type: NAVIGATE_DATA_SELECTION,
-                payload: 1
-            });
+            store.dispatch(fetchDataSelection({
+                ...getNewDataSelection(store.getState()),
+                page: 1
+            }));
         }
     }
 })();

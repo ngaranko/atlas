@@ -1,11 +1,11 @@
 import {
-    RESET_DATA_SELECTION,
     SHOW_DATA_SELECTION
-} from '../../../../src/shared/ducks/data-selection/data-selection';
+} from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
 import * as dataSelectionConfig
     from '../../../../src/shared/services/data-selection/data-selection-config';
 import * as dataSelectionApi
     from '../../../../src/shared/services/data-selection/data-selection-api';
+import { RESET_DATA_SELECTION } from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
 
 describe('The dp-data-selection component', function () {
     let $rootScope,
@@ -130,13 +130,7 @@ describe('The dp-data-selection component', function () {
             return q.promise;
         });
 
-        spyOn(dataSelectionApi, 'getMarkers').and.callFake(() => {
-            const q = $q.defer();
-
-            q.resolve(mockedApiMarkersData);
-
-            return q.promise;
-        });
+        spyOn(dataSelectionApi, 'getMarkers').and.callFake(() => $q.resolve(mockedApiMarkersData));
         spyOn(store, 'dispatch');
         spyOn(store, 'getState').and.returnValue(mockedState);
     });

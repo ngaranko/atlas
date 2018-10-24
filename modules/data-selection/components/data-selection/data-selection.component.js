@@ -1,13 +1,15 @@
 import {
-    RESET_DATA_SELECTION,
-    SHOW_DATA_SELECTION
-} from '../../../../src/shared/ducks/data-selection/data-selection';
+    SHOW_DATA_SELECTION} from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
 import DATA_SELECTION_CONFIG
     from '../../../../src/shared/services/data-selection/data-selection-config';
 import {
     getMarkers,
     query
 } from '../../../../src/shared/services/data-selection/data-selection-api';
+import {
+    RESET_DATA_SELECTION,
+    VIEWS
+} from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
 
 (function () {
     'use strict';
@@ -45,13 +47,8 @@ import {
         store
     ) {
         const vm = this;
-        const VIEW_TYPES = {
-            CATALOG: 'CATALOG',
-            LIST: 'LIST',
-            TABLE: 'TABLE'
-        };
 
-        vm.showCatalogusIntroduction = vm.view === VIEW_TYPES.CATALOG &&
+        vm.showCatalogusIntroduction = vm.view === VIEWS.CATALOG &&
             userSettings.showCatalogusIntroduction.value === true.toString();
 
         $scope.$watch('vm.showCatalogusIntroduction', function () {
@@ -85,11 +82,11 @@ import {
 
         function fetchData () {
             const config = DATA_SELECTION_CONFIG.datasets[vm.dataset];
-            const isListView = vm.view === VIEW_TYPES.LIST;
+            const isListView = vm.view === VIEWS.LIST;
 
             const isQueryView = angular.isDefined(vm.query) && vm.query.trim().length >= 1;
 
-            vm.showTabHeader = () => (vm.view === VIEW_TYPES.CATALOG) && isQueryView;
+            vm.showTabHeader = () => (vm.view === VIEWS.CATALOG) && isQueryView;
             vm.currentPage = vm.state.page;
 
             vm.numberOfRecords = null;

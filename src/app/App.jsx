@@ -8,12 +8,11 @@ import Piwik from './components/Piwik/Piwik';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
-import DATASETS from '../shared/ducks/data-selection/data-selection-datasets';
+import DATASETS from '../shared/ducks/new-data-selection/new-data-selection';
 import './_app.scss';
 import CatalogDetailContainer from './containers/CatalogDetailContainer';
 import CatalogSearchContainer from './containers/CatalogSearchContainer';
 import QuerySearchContainer from './containers/QuerySearchContainer';
-import { getCurrentPage } from '../shared/ducks/current-page/current-page-reducer';
 import {
   isEmbedded,
   isEmbedPreview,
@@ -28,6 +27,7 @@ import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
 import AddressPage from './pages/AddressPage';
 import MapSearchPage from './pages/MapSearchPage';
+import { getCurrentPage } from '../shared/ducks/location/location';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -127,7 +127,7 @@ const App = ({
 
             {currentPage === PAGES.SEARCH_CATALOG && (
               <CatalogSearchContainer
-                view={'CATALOG'}
+                component="dpDataSelectionCatalog"
                 dataset={DATASETS.CATALOG}
               />
             )}
@@ -136,8 +136,11 @@ const App = ({
               <CatalogDetailContainer />
             )}
 
-            {currentPage === PAGES.ADRESSEN && (
-              <AddressPage />
+            {(currentPage === PAGES.ADRESSEN
+              || currentPage === PAGES.RESULTS_ADDRESS
+            || currentPage === PAGES.RESULTS_ESTABLISHMENT)
+            && (
+              <DataSelection />
             )}
 
             {currentPage === PAGES.VESTIGINGEN && (

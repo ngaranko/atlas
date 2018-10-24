@@ -1,4 +1,4 @@
-import { NAVIGATE_DATA_SELECTION } from '../../../../src/shared/ducks/data-selection/data-selection';
+import { NAVIGATE_DATA_SELECTION } from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
 
 describe('The dp-data-selection-pagination-link component', function () {
     var $compile,
