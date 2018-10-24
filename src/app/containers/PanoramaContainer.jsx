@@ -11,7 +11,8 @@ const mapStateToProps = (state) => ({
 
 const PanoramaContainer = ({
   straatbeeldState,
-  hotspots
+  hotspots,
+  isFullscreen
 }) => (
   <AngularWrapper
     moduleName={'dpStraatbeeldWrapper'}
@@ -19,14 +20,16 @@ const PanoramaContainer = ({
     dependencies={['atlas']}
     bindings={{
       state: straatbeeldState,
-      hotspots
+      hotspots,
+      isFullscreen
     }}
   />
 );
 
 PanoramaContainer.propTypes = {
   straatbeeldState: PropTypes.shape({}).isRequired,
-  hotspots: PropTypes.array.isRequired // eslint-disable-line react/forbid-prop-types
+  hotspots: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  isFullscreen: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps, null)(PanoramaContainer);

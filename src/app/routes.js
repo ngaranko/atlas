@@ -1,5 +1,5 @@
 import PAGES from './pages';
-import { PANORAMA_VIEW } from '../shared/ducks/straatbeeld/straatbeeld'; // eslint-disable-line no-unused-vars
+import PANORAMA_VIEW from '../shared/ducks/straatbeeld/panorama-view';
 import { fetchDetail } from '../shared/ducks/detail/detail';
 
 export const ROUTER_NAMESPACE = 'atlasRouter';
@@ -163,6 +163,41 @@ const routes = Object.keys(routing).reduce((acc, key) => {
   return acc;
 }, {});
 
+
+// Action creators
+export const toDetail = (id, type) => ({
+  type,
+  payload: {
+    id: `id${id}`
+  }
+});
+
+export const toMap = () => ({
+  type: routing.map.type
+});
+
+export const toPanorama = (id, heading, view) => {
+  const action = {
+    type: routing.panorama.type,
+    payload: {
+      id
+    },
+    meta: {
+      query: {
+        heading
+      }
+    }
+  };
+  if (view === PANORAMA_VIEW.MAP) {
+    action.meta.query.kaart = '';
+  }
+  if (view === PANORAMA_VIEW.PANO) {
+    action.meta.query.panorama = '';
+  }
+  return action;
+};
+
+// Detail page logic
 // TODO: refactor unit test or remove all together
 export const extractIdEndpoint = (endpoint) => {
   const matches = endpoint.match(/\/(\w+)\/?$/);
@@ -181,12 +216,7 @@ const getDetailPageType = (endpoint) => {
 export const getPageActionEndpoint = (endpoint) => {
   const type = getDetailPageType(endpoint);
   const id = extractIdEndpoint(endpoint);
-  return {
-    type,
-    payload: {
-      id: `id${id}`
-    }
-  };
+  return toDetail(id, type);
 };
 
 export const pageActionToEndpoint = (action) => {
@@ -207,21 +237,5 @@ export const pageActionToEndpoint = (action) => {
 
   return fetchDetail(endpoint);
 };
-
-export const toMap = () => ({
-  type: routing.map.type
-});
-
-export const toPanorama = (id, heading) => ({
-  type: routing.panorama.type,
-  payload: {
-    id
-  },
-  meta: {
-    query: {
-      heading
-    }
-  }
-});
 
 export default routes;

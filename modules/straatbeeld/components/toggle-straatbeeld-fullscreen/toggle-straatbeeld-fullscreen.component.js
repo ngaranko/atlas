@@ -1,6 +1,9 @@
-import { routing } from '../../../../src/app/routes';
-import { UPDATE_MAP } from '../../../../src/map/ducks/map/map';
-import { getStraatbeeld } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+import { toPanorama } from '../../../../src/app/routes';
+import {
+    getStraatbeeldHeading,
+    getStraatbeeldId
+} from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+import PANORAMA_VIEW from '../../../../src/shared/ducks/straatbeeld/panorama-view';
 
 (function () {
     'use strict';
@@ -30,19 +33,29 @@ import { getStraatbeeld } from '../../../../src/shared/ducks/straatbeeld/straatb
         }
 
         vm.toggleFullscreen = function () {
-            store.dispatch({
-                type: UPDATE_MAP,
-                payload: {
-                    noRedirect: true,
-                    route: (store.getState().location.type === routing.panorama.type)
-                        ? routing.panorama.type
-                        : routing.panorama.type,
-                    query: {
-                        panoId: getStraatbeeld(store.getState()).id,
-                        panoHeading: getStraatbeeld(store.getState()).heading
-                    }
-                }
-            });
+            // TODO: refactor, make component unaware of store
+            // (wrap in smart component like connect in React).
+            const state = store.getState();
+            const id = getStraatbeeldId(state);
+            const heading = getStraatbeeldHeading(state);
+            if (vm.isFullscreen) {
+                store.dispatch(toPanorama(id, heading, PANORAMA_VIEW.MAP_PANO));
+            } else {
+                store.dispatch(toPanorama(id, heading, PANORAMA_VIEW.PANO));
+            }
+            // store.dispatch({ // TODO: refactor, use or remove
+            //     type: UPDATE_MAP,
+            //     payload: {
+            //         noRedirect: true,
+            //         route: (store.getState().location.type === routing.panorama.type)
+            //             ? routing.panorama.type
+            //             : routing.panorama.type,
+            //         query: {
+            //             panoId: getStraatbeeld(store.getState()).id,
+            //             panoHeading: getStraatbeeld(store.getState()).heading
+            //         }
+            //     }
+            // });
         };
 
         $scope.$on('$destroy', deregistrationFn);

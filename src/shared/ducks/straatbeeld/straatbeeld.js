@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { routing } from '../../../app/routes';
 import { STRAATBEELD_CONFIG } from '../../services/straatbeeld-api/straatbeeld-api';
+import PANORAMA_VIEW from './panorama-view';
 import {
   straatbeeldOrientationType,
   straatbeeldPersonType
@@ -10,12 +11,6 @@ export const FETCH_STRAATBEELD_BY_ID = 'FETCH_STRAATBEELD_BY_ID';
 export const SET_STRAATBEELD_ORIENTATION = 'SET_STRAATBEELD_ORIENTATION';
 export const SET_STRAATBEELD = 'SET_STRAATBEELD';
 export const SET_STRAATBEELD_YEAR = 'SET_STRAATBEELD_YEAR';
-
-export const PANORAMA_VIEW = {
-  MAP: 'MAP',
-  MAP_PANO: 'MAP_PANO',
-  PANO: 'PANO'
-};
 
 const initialState = {
   location: null, // eg: [52.8, 4.9]
@@ -143,6 +138,7 @@ export const getStraatbeeldLocation = createSelector(
     straatbeeld ? straatbeeld.location : ''
   )
 );
+export const getStraatbeeldId = createSelector(getStraatbeeld, (straatbeeld) => straatbeeld.id);
 export const getStraatbeeldHeading = createSelector(getStraatbeeld,
   (straatbeeld) => (
     straatbeeld ? straatbeeld.heading : ''

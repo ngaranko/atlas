@@ -11,7 +11,10 @@ describe('PanoramaContainer', () => {
     const store = configureMockStore()();
     getStraatbeeld.mockImplementation(() => ({}));
     getHotspots.mockImplementation(() => []);
-    const component = shallow(<PanoramaContainer />, { context: { store } }).dive();
+    const component = shallow(
+      <PanoramaContainer isFullscreen={false} />,
+      { context: { store } }
+    ).dive();
     expect(component).toMatchSnapshot();
   });
 });
