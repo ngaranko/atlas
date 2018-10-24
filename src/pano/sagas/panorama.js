@@ -2,15 +2,15 @@ import get from 'lodash.get';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { routing } from '../../app/routes';
 import {
-  FETCH_STRAATBEELD_BY_ID,
+  FETCH_STRAATBEELD,
   fetchStraatbeeldById, getStraatbeeld, setStraatbeeld
 } from '../../shared/ducks/straatbeeld/straatbeeld';
 import { getImageDataById } from '../../shared/services/straatbeeld-api/straatbeeld-api';
 
 export function* fireFetchPanormaRequest(action) {
   const id = action.payload.id;
-  const heading = get(action, 'meta.query.heading');
-  yield put(fetchStraatbeeldById(id, heading));
+  // const heading = get(action, 'meta.query.heading');
+  yield put(fetchStraatbeeldById(id));
 }
 
 export function* watchPanoramaRoute() {
@@ -24,5 +24,5 @@ export function* fetchPanorama() {
 }
 
 export function* watchFetchStraatbeeld() {
-  yield takeLatest(FETCH_STRAATBEELD_BY_ID, fetchPanorama);
+  yield takeLatest(FETCH_STRAATBEELD, fetchPanorama);
 }

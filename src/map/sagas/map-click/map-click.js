@@ -51,14 +51,14 @@ export function* switchClickAction(action) {
       });
     }
 
-    yield put({
-      type: UPDATE_MAP,
-      payload: {
-        query: {
-          selectedLocation: `${location.latitude},${location.longitude}`
-        }
-      }
-    });
+    // yield put({
+    //   type: UPDATE_MAP,
+    //   payload: {
+    //     query: {
+    //       selectedLocation: `${location.latitude},${location.longitude}`
+    //     }
+    //   }
+    // });
   }
 }
 

@@ -20,7 +20,8 @@ import {
   getShortSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
-import { getPageActionEndpoint, toMap, toPanorama } from '../../../app/routes';
+import { getPageActionEndpoint, toPanorama } from '../../../app/routes';
+import { clearSelection } from '../../../shared/ducks/selection/selection';
 
 const mapStateToProps = (state) => ({
   mapClickLocation: getSelectedLocation(state),
@@ -42,7 +43,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     onSearch: fetchSearchResultsByLocation,
-    onMapPreviewPanelClose: toMap,
+    onMapPreviewPanelClose: clearSelection,
     onMapPreviewPanelMaximizeDetail: toMapDetail,
     onMapPreviewPanelMaximizeSearch: showSearchView,
     onMapSearchResultsItemClick: setDetailEndpointRoute

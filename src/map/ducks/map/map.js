@@ -22,7 +22,7 @@ export const MAP_CLICK = 'MAP_CLICK';
 export const DEFAULT_LAT = 52.3731081;
 export const DEFAULT_LNG = 4.8932945;
 
-const initialState = {
+export const initialState = {
   viewCenter: [DEFAULT_LAT, DEFAULT_LNG],
   baseLayer: 'topografie',
   zoom: 11,
@@ -51,7 +51,7 @@ export default function MapReducer(state = initialState, action) {
     case routing.mapSearch.type:
     case routing.detail.type:
     case routing.map.type: {
-      const { lat, lng, zoom, selectedLocation, detailEndpoint } = action.meta.query || {};
+      const { lat, lng, zoom, detailEndpoint } = action.meta.query || {};
       return {
         ...state,
         viewCenter: [
@@ -59,11 +59,25 @@ export default function MapReducer(state = initialState, action) {
           parseFloat(lng) || initialState.viewCenter[1]
         ],
         zoom: parseFloat(zoom) || initialState.zoom,
-        selectedLocation,
+        // selectedLocation,
         detailEndpoint,
         overlays: state.overlays
       };
     }
+
+    case MAP_PAN:
+      return {
+        ...state,
+        viewCenter: [
+          action.payload.latitude,
+          action.payload.longitude
+        ]
+      };
+    case MAP_ZOOM:
+      return {
+        ...state,
+        zoom: action.payload
+      };
 
     case MAP_BOUNDING_BOX:
     case MAP_BOUNDING_BOX_SILENT:
@@ -164,24 +178,31 @@ export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
 });
 export const updateZoom = (payload) =>
   ({
-    type: UPDATE_MAP,
-    payload: {
-      query: {
-        zoom: payload.zoom,
-        lat: payload.center.lat,
-        lng: payload.center.lng
-      }
-    }
+    type: MAP_ZOOM,
+    payload
+    // type: UPDATE_MAP,
+    // payload: {
+    //   query: {
+    //     zoom: payload.zoom,
+    //     lat: payload.center.lat,
+    //     lng: payload.center.lng
+    //   }
+    // }
   });
 export const updatePan = (payload) =>
   ({
-    type: UPDATE_MAP,
+    type: MAP_PAN,
     payload: {
-      query: {
-        lat: payload.center.lat,
-        lng: payload.center.lng
-      }
+      latitude: payload.lat,
+      longitude: payload.lng
     }
+    // type: UPDATE_MAP,
+    // payload: {
+    //   query: {
+    //     lat: payload.center.lat,
+    //     lng: payload.center.lng
+    //   }
+    // }
   });
 export const setSelectedLocation = (payload) => ({
   type: SET_MAP_CLICK_LOCATION,

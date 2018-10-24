@@ -59,9 +59,9 @@ export const getRdGeoJsons = createSelector(getDetailGeoJson, (geoJson) => [geoJ
 export const getSelectedLocationString = (state) => state.map.selectedLocation;
 
 export const getSelectedLocation = createSelector(
-  getSelectedLocationString,
-  (location) => (
-    (location) ? parseLocationString(location) : null
+  getSelection,
+  (selection) => (
+    (selection.location) ? { lat: selection.location.latitude, lng: selection.location.longitude} : null
   ));
 
 // export const getShortSelectedLocation = createSelector(

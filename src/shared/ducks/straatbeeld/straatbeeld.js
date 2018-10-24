@@ -7,12 +7,12 @@ import {
   straatbeeldPersonType
 } from '../../../map/components/leaflet/services/icons.constant';
 
-export const FETCH_STRAATBEELD_BY_ID = 'FETCH_STRAATBEELD_BY_ID';
+export const FETCH_STRAATBEELD = 'FETCH_STRAATBEELD';
+export const FETCH_STRAATBEELD_SUCCESS = 'FETCH_STRAATBEELD_SUCCESS';
 export const SET_STRAATBEELD_ORIENTATION = 'SET_STRAATBEELD_ORIENTATION';
-export const SET_STRAATBEELD = 'SET_STRAATBEELD';
 export const SET_STRAATBEELD_YEAR = 'SET_STRAATBEELD_YEAR';
 
-const initialState = {
+export const initialState = {
   location: null, // eg: [52.8, 4.9]
   year: undefined, // eg: 2016
   pitch: null,    // eg: -10
@@ -31,28 +31,26 @@ export default function straatbeeldReducer(state = initialState, action) {
   switch (action.type) {
     case routing.panorama.type: {
       const { query = {} } = action.meta;
+      let view;
       if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {
-        return {
-          ...state,
-          view: PANORAMA_VIEW.MAP
-        };
-      }
-      if (Object.prototype.hasOwnProperty.call(query, 'panorama')) {
-        return {
-          ...state,
-          view: PANORAMA_VIEW.PANO
-        };
+        view= PANORAMA_VIEW.MAP;
+      } else if (Object.prototype.hasOwnProperty.call(query, 'panorama')) {
+        view= PANORAMA_VIEW.PANO;
+      } else {
+        view= PANORAMA_VIEW.MAP_PANO;
       }
       return {
         ...state,
-        view: PANORAMA_VIEW.MAP_PANO
+        view,
+        heading: query.heading || state.heading,
+        pitch: query.pitch || state.pitch
       };
     }
-    case FETCH_STRAATBEELD_BY_ID:
+
+    case FETCH_STRAATBEELD:
       return {
         ...state,
         id: action.payload.id,
-        heading: action.payload.heading || state.heading,
         isLoading: true
       };
 
@@ -62,7 +60,7 @@ export default function straatbeeldReducer(state = initialState, action) {
         year: action.payload
       };
 
-    case SET_STRAATBEELD:
+    case FETCH_STRAATBEELD_SUCCESS:
       return {
         ...state,
         id: action.payload.id || state.id,
@@ -89,16 +87,15 @@ export default function straatbeeldReducer(state = initialState, action) {
 }
 
 // Actions creators
-export const fetchStraatbeeldById = (id, heading) => ({
-  type: FETCH_STRAATBEELD_BY_ID,
+export const fetchStraatbeeldById = (id) => ({
+  type: FETCH_STRAATBEELD,
   payload: {
-    id,
-    heading
+    id
   }
 });
 
 export const setStraatbeeld = (straatbeeldData) => ({
-  type: SET_STRAATBEELD,
+  type: FETCH_STRAATBEELD_SUCCESS,
   payload: straatbeeldData
 });
 
