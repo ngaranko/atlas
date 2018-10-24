@@ -138,7 +138,7 @@ function commonConfig ({ nodeEnv }) {
         // All assets in sub folders
         {
           context: 'modules/shared/assets',
-          from: '/**/*',
+          from: '**/*',
           to: 'assets'
         },
         { from: './node_modules/bbga_visualisatie_d3/liberation-sans.eot' },
