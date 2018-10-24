@@ -41,10 +41,7 @@ import removeMd from 'remove-markdown';
                 return {
                     header: item['dct:title'],
                     description: removeMd(item['dct:description']),
-                    modification: {
-                        'metadata_created': item['foaf:isPrimaryTopicOf']['dct:issued'],
-                        'metadata_modified': item['foaf:isPrimaryTopicOf']['dct:modified']
-                    },
+                    modified: item['ams:sort_modified'],
                     formats: $filter('aggregate')(formats),
                     tags: item['dcat:keyword'],
                     detailEndpoint: item._links.self.href
