@@ -1,8 +1,34 @@
+import { routing } from '../../../app/routes';
+
 export const APPLY_FILTERS = 'APPLY_FILTERS';
-const EMPTY_FILTERS = 'EMPTY_FILTERS';
+export const EMPTY_FILTERS = 'EMPTY_FILTERS';
+
+const parseFiltersString = (string) => {
+  if (!string) {
+    return {};
+  }
+  // console.log(string);
+  const filterStrings = string.split(',');
+  // console.log(filterStrings);
+
+  const filters = filterStrings.reduce((acc, singleFilterString) => {
+    const [key, value] = singleFilterString.split(':');
+    return {
+      ...acc,
+      [key]: value
+    };
+  }, {});
+  // console.log(filters);
+  return filters;
+};
 
 const reducer = (state = {}, action) => {
   switch (action.type) {
+    case routing.adressen.type:
+    case routing.vestigingen.type:
+      const { filters: filterString } = action.meta.query || {};
+      const filters = parseFiltersString(filterString);
+      return filters;
     case APPLY_FILTERS:
       return { ...action.payload };
     case EMPTY_FILTERS:

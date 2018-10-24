@@ -149,9 +149,11 @@ export const getStraatbeeldLocation = createSelector(
 );
 export const getStraatbeeldId = createSelector(getStraatbeeld, (straatbeeld) => straatbeeld.id);
 export const getStraatbeeldHeading = createSelector(getStraatbeeld,
-  (straatbeeld) => (
-    straatbeeld ? straatbeeld.heading : ''
-  ));
+  (straatbeeld) => straatbeeld.heading
+);
+export const getStraatbeeldPitch = createSelector(getStraatbeeld,
+  (straatbeeld) => straatbeeld.pitch
+);
 export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, getStraatbeeldHeading],
   (location, heading) => (
     location ? [

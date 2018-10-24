@@ -79,6 +79,7 @@ export const previewDataAvailable = (state) =>
 ;
 
 export const getSelectionType = (state) => (state[REDUCER_KEY].type);
+export const getSelectionLocation = (state) => (state[REDUCER_KEY].location);
 
 // Action creators
 export const setSelection = (selectionType, object) => ({
