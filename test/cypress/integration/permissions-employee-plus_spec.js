@@ -193,7 +193,7 @@ describe('employee PLUS permissions', () => {
     cy.wait('@getNummeraanduidingen');
     cy.wait('@getVestigingen');
     cy.wait('@getPanorama');
-    cy.get('h2.o-header__subtitle').contains('121393');
+    cy.get('.qa-search-header').contains('121393');
     cy.get(queries.warningPanel).should('not.exist');
     cy.get(queries.headerSubTitle).contains(values.vestigingen);
     cy.get('button.toggle-fullscreen').click();

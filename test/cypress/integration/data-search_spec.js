@@ -71,7 +71,7 @@ describe('data search module', () => {
     // click in map (there is a marker on this position)
     cy.get('.qa-map-container').click(166, 304);
 
-    // check that the adcress is open in right column
+    // check that the address is open in right column
     cy.waitForGeoSearch();
     cy.get('.c-search-results__block-content')
       .contains('Ad Windighof 2')
