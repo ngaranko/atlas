@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ExpandIcon from '../../../../public/images/icon-arrow-down.svg';
-import CollapseIcon from '../../../../public/images/icon-arrow-up.svg';
-
 import './_select-button.scss';
 
 class SelectButton extends React.Component {
@@ -126,13 +123,12 @@ class SelectButton extends React.Component {
           className="select-button__icon-wrapper"
           onClick={this.handleToggle}
         >
-          <span className="select-button__icon select-button__icon--expand">
-            <span className="u-sr-only">Uitklappen</span>
-            <ExpandIcon />
-          </span>
-          <span className="select-button__icon select-button__icon--collapse">
-            <span className="u-sr-only">Inklappen</span>
-            <CollapseIcon />
+          <span className={`
+            select-button__icon
+            select-button__icon-${this.state.isExpanded ? 'collapse' : 'expand'}
+          `}
+          >
+            <span className="u-sr-only">${this.state.isExpanded ? 'Inklappen' : 'Uitklappen'}</span>
           </span>
         </button>
 

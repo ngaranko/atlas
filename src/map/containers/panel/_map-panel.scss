@@ -2,6 +2,7 @@
 $map-panel-heading-height: 33px;
 $map-panel-offset: 130px;
 $map-panel-max-width: 444px;
+$handle-height: 24px;
 
 .map-panel {
   background-color: $primary-light;
@@ -79,23 +80,28 @@ $map-panel-max-width: 444px;
     .map-panel--collapsed & {
       border: solid 1px $secondary-gray20;
     }
-  }
 
-  &__toggle-icon {
-    fill: $secondary-gray60;
-    height: 24px;
-    width: 24px;
+    &--icon {
+      height: $handle-height;
+      width: $handle-height;
 
-    .map-panel--collapsed & {
-      fill: $secondary-gray60;
+      &-collapse {
+        @include icon-sprite("icon-arrow-down", $secondary-gray60, $primary-dark, $handle-height);
+      }
+
+      &-expand {
+        @include icon-sprite("icon-arrow-up", $secondary-gray60, $primary-dark, $handle-height);
+      }
     }
 
-    .map-panel--collapsed &--expanded {
-      display: none;
-    }
+    &:hover {
+      .map-panel__toggle--icon-collapse {
+        @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height);
+      }
 
-    .map-panel--expanded &--collapsed {
-      display: none;
+      .map-panel__toggle--icon-expand {
+        @include icon-sprite("icon-arrow-up", $primary-dark, $primary-dark, $handle-height);
+      }
     }
   }
 
@@ -211,12 +217,7 @@ $map-panel-max-width: 444px;
   display: flex;
   flex-shrink: 0;
   font-size: 0;
-  height: 26px;
+  height: $handle-height + 2px;
   justify-content: center;
-  width: 26px;
-
-  svg {
-    height: 24px;
-    width: 24px;
-  }
+  width: $handle-height + 2px;
 }

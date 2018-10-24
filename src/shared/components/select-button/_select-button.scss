@@ -1,4 +1,5 @@
 @import "../../styles/config";
+$handle-height: 24px;
 
 .select-button {
   background-color: $primary-light;
@@ -39,18 +40,27 @@
   }
 
   &__icon {
-    svg {
-      height: 22px;
-      width: 22px;
+    display: block;
+    height: $handle-height - 2px;
+    width: $handle-height - 2px;
+
+    &-collapse {
+      @include icon-sprite("icon-arrow-up", $secondary-gray60, $primary-dark, $handle-height - 2px);
+    }
+
+    &-expand {
+      @include icon-sprite("icon-arrow-down", $secondary-gray60, $primary-dark, $handle-height - 2px);
     }
   }
 
-  &__icon--expand {
-    display: inline;
-  }
+  &:hover {
+    .select-button__icon-collapse {
+      @include icon-sprite("icon-arrow-up", $primary-dark, $primary-dark, $handle-height - 2px);
+    }
 
-  &__icon--collapse {
-    display: none;
+    .select-button__icon-expand {
+      @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height - 2px);
+    }
   }
 
   &--expanded {
@@ -58,22 +68,10 @@
       display: block;
     }
 
-    .select-button__icon--expand {
-      display: none;
-    }
-
-    .select-button__icon--collapse {
-      display: inline;
-    }
-
     .select-button__icon-wrapper {
       background-color: $secondary-gray20;
       border-color: $primary-dark;
       color: $primary-dark;
-
-      svg {
-        fill: $primary-dark;
-      }
     }
   }
 
