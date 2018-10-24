@@ -90,7 +90,7 @@ describe('map module', () => {
         .should('exist').and('be.visible');
     });
 
-    it.only('should remember the state when navigating back', () => {
+    it('should remember the state when navigating back', () => {
       cy.server();
       cy.route('/geosearch/search/?*').as('getSearchResults');
       cy.route('/meetbouten/meetbout/*').as('getMeetbout');
