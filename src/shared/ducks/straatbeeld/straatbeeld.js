@@ -9,6 +9,7 @@ import {
 
 export const FETCH_STRAATBEELD = 'FETCH_STRAATBEELD';
 export const FETCH_STRAATBEELD_SUCCESS = 'FETCH_STRAATBEELD_SUCCESS';
+export const FETCH_STRAATBEELD_ERROR = 'FETCH_STRAATBEELD_ERROR';
 export const SET_STRAATBEELD_ORIENTATION = 'SET_STRAATBEELD_ORIENTATION';
 export const SET_STRAATBEELD_YEAR = 'SET_STRAATBEELD_YEAR';
 
@@ -72,6 +73,12 @@ export default function straatbeeldReducer(state = initialState, action) {
         location: action.payload.location,
         image: action.payload.image
       };
+    case FETCH_STRAATBEELD_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true // TODO: refactor, show error
+      };
 
     case SET_STRAATBEELD_ORIENTATION:
       return {
@@ -87,16 +94,21 @@ export default function straatbeeldReducer(state = initialState, action) {
 }
 
 // Actions creators
-export const fetchStraatbeeldById = (id) => ({
+export const fetchStraatbeeld = (id) => ({
   type: FETCH_STRAATBEELD,
   payload: {
     id
   }
 });
 
-export const setStraatbeeld = (straatbeeldData) => ({
+export const fetchStraatbeeldSuccess = (straatbeeldData) => ({
   type: FETCH_STRAATBEELD_SUCCESS,
   payload: straatbeeldData
+});
+
+export const fetchStraatbeeldError = (error) => ({
+  type: FETCH_STRAATBEELD_ERROR,
+  payload: error
 });
 
 export const setStraatbeeldYear = (year) => ({
