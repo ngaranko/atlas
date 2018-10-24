@@ -43,7 +43,7 @@ describe('map module', () => {
       cy.get('.qa-map-link').click();
       cy.get('#auto-suggest__input').focus().type('dam 1');
 
-      // TODO: remove wait(500) and enably the route-wait
+      // TODO: remove wait(500) and enable the route-wait (DP-6088)
       cy.wait(500);
       // cy.wait('@getResults');
       cy.get('.auto-suggest').contains('Dam 1').click();

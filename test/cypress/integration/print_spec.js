@@ -17,7 +17,7 @@ describe('print module', () => {
 
     cy.get('#auto-suggest__input').type('10581111');
 
-    // TODO: remove wait(500) and enably the route-wait
+    // TODO: remove wait(500) and enable the route-wait (DP-6088)
     cy.wait(500);
     // cy.wait('@getTypeAhead');
     cy.get('.auto-suggest').contains('10581111').click();
