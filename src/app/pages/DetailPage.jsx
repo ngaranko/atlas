@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import connect from 'react-redux/es/connect/connect';
 import MapContainer from '../../map/containers/map/MapContainer';
 import DetailContainer from '../containers/DetailContainer';
-import { DETAIL_VIEW, getDetailView } from '../../shared/ducks/detail/detail';
+import { DETAIL_VIEW, getDetailGeometry, getDetailView } from '../../shared/ducks/detail/detail';
 
-const DetailPage = ({ view }) => {
+const DetailPage = ({ view: routeView, hasGeometry }) => {
+  const view = hasGeometry ? routeView : DETAIL_VIEW.DETAIL;
+
   switch (view) {
     case DETAIL_VIEW.DETAIL:
       return (
@@ -37,10 +39,12 @@ const DetailPage = ({ view }) => {
 };
 
 const mapStateToProps = (state) => ({
+  hasGeometry: Boolean(getDetailGeometry(state)),
   view: getDetailView(state)
 });
 
 DetailPage.propTypes = {
+  hasGeometry: PropTypes.bool.isRequired,
   view: PropTypes.oneOf(Object.keys(DETAIL_VIEW)).isRequired
 };
 
