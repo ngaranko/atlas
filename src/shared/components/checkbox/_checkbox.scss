@@ -1,15 +1,18 @@
 @import "../../styles/config";
 
+$checkbox-height: 24px;
+
 .checkbox {
+  @include icon-sprite("icon-tick", $primary-dark, $primary-dark, $checkbox-height);
   background-color: $primary-light;
   border: 1px solid $primary-dark;
   box-sizing: border-box;
   cursor: pointer;
   display: block;
-  height: 24px;
+  height: $checkbox-height;
   margin-right: 10px;
   position: relative;
-  width: 24px;
+  width: $checkbox-height;
 
   // NB: Fix width for IE11
   @media screen and (-ms-high-contrast: active), // sass-lint:disable-line no-vendor-prefixes
@@ -18,6 +21,7 @@
   }
 
   &:hover {
+    background-size: $checkbox-height;
     border: 2px solid $primary-dark;
   }
 
@@ -27,29 +31,6 @@
     opacity: 0;
     outline: none;
     width: inherit;
-
-    &:checked + svg {
-      display: block;
-    }
-
-    &:focus,
-    &:hover {
-      &:not(:checked) + svg {
-        display: block;
-        fill: transparent;
-      }
-    }
-  }
-
-  svg {
-    display: none;
-    fill: $primary-dark;
-    height: 100%;
-    left: 0;
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    width: 100%;
   }
 
   * {

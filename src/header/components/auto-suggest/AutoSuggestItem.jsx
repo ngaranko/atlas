@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import escapeStringRegexp from 'escape-string-regexp';
-import ArrowRightIcon from '../../../../public/images/icon-arrow-right.svg';
 
 const AutoSuggestItem = (props) => {
   const { isActive, onSuggestionSelection, query, content } = props;
@@ -14,9 +13,7 @@ const AutoSuggestItem = (props) => {
   const listItem = ellipsis ?
     (<div>{content}</div>) :
     (<div>
-      <span className="icon" >
-        <ArrowRightIcon />
-      </span>
+      <span className="icon" />
       <span
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{

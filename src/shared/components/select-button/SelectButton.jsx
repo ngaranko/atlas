@@ -113,7 +113,7 @@ class SelectButton extends React.Component {
           className="select-button__wrapper"
           onClick={this.handleClick}
         >
-          <this.props.icon className="select-button__custom-icon" />
+          {this.props.icon}
           <div className="select-button__label">
             {this.state.label}
           </div>
@@ -170,7 +170,7 @@ SelectButton.defaultProps = {
 SelectButton.propTypes = {
   className: PropTypes.string,
   handleChange: PropTypes.func,
-  icon: PropTypes.func.isRequired,
+  icon: PropTypes.arrayOf(PropTypes.object).isRequired,
   isDisabled: PropTypes.bool,
   isExpanded: PropTypes.bool,
   label: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
