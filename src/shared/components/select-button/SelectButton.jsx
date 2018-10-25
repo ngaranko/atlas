@@ -160,6 +160,7 @@ class SelectButton extends React.Component {
 SelectButton.defaultProps = {
   className: '',
   handleChange: () => {},
+  icon: null,
   isDisabled: false,
   isExpanded: false,
   label: '',
@@ -170,7 +171,7 @@ SelectButton.defaultProps = {
 SelectButton.propTypes = {
   className: PropTypes.string,
   handleChange: PropTypes.func,
-  icon: PropTypes.arrayOf(PropTypes.object).isRequired,
+  icon: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   isDisabled: PropTypes.bool,
   isExpanded: PropTypes.bool,
   label: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
