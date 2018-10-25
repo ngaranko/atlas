@@ -56,12 +56,12 @@ class MapPreviewPanel extends React.Component {
   }
 
   onPanoPreviewClick() {
-    const { onOpenPanoById, searchLocationId, pano } = this.props;
+    const { openPanoById, searchLocationId, pano } = this.props;
     const selectedPano = pano.previews[searchLocationId];
     if (!selectedPano) {
       return;
     }
-    this.context.store.dispatch(onOpenPanoById(selectedPano));
+    openPanoById(selectedPano);
   }
 
   render() {
@@ -77,7 +77,9 @@ class MapPreviewPanel extends React.Component {
     const isSearchLoaded = !isLoading && props.search && props.searchLocation;
     const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult;
     // const hidden = !(props.mapClickLocation || isLoading);
-    const hidden = false;
+    const hidden = false; // TODO: refactor, toggle visibility or remove logic all together
+
+    const openDetailEndpoint = () => props.openDetail(props.detail.endpoint);
 
     return !props.isEmbed && (
       <div className="map-preview-panel-wrapper">
@@ -99,14 +101,14 @@ class MapPreviewPanel extends React.Component {
             )}
             <button
               className="map-preview-panel__button"
-              onClick={props.onMapPreviewPanelMaximizeDetail}
+              onClick={openDetailEndpoint}
               title="Volledige weergave tonen"
             >
               <MaximizeIcon className="map-preview-panel__button-icon" />
             </button>
             <button
               className="map-preview-panel__button"
-              onClick={props.onMapPreviewPanelClose}
+              onClick={props.closePanel}
               title="Sluiten"
             >
               <CloseIcon className="map-preview-panel__button-icon" />
@@ -121,20 +123,20 @@ class MapPreviewPanel extends React.Component {
             {isLoading && (
               <LoadingIndicator />
             )}
-            {isDetailLoaded && (
+            {!props.isSearchPreview && isDetailLoaded && (
               <MapDetailResult
                 panoUrl={panoDetailPreview.url}
-                onMaximize={props.onMapPreviewPanelMaximizeDetail}
+                onMaximize={openDetailEndpoint}
                 onPanoPreviewClick={this.onPanoPreviewClick}
                 result={props.detailResult}
               />
             )}
-            {!isDetailLoaded && isSearchLoaded && (
+            {props.isSearchPreview && isSearchLoaded && (
               <MapSearchResults
                 location={props.searchLocation}
                 missingLayers={props.missingLayers}
-                onItemClick={props.onMapSearchResultsItemClick}
-                onMaximize={props.onMapPreviewPanelMaximizeSearch}
+                onItemClick={props.openPreviewDetail}
+                onMaximize={props.onSearchMaximize}
                 onPanoPreviewClick={this.onPanoPreviewClick}
                 panoUrl={panoSearchPreview.url}
                 resultLimit={previewPanelSearchResultLimit}
@@ -173,11 +175,11 @@ MapPreviewPanel.propTypes = {
   isEmbed: PropTypes.bool,
   mapDetail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   missingLayers: PropTypes.string,
-  onMapPreviewPanelClose: PropTypes.func.isRequired,
-  onMapPreviewPanelMaximizeDetail: PropTypes.func.isRequired,
-  onMapPreviewPanelMaximizeSearch: PropTypes.func.isRequired,
-  onMapSearchResultsItemClick: PropTypes.func.isRequired,
-  onOpenPanoById: PropTypes.func.isRequired,
+  closePanel: PropTypes.func.isRequired,
+  openDetail: PropTypes.func.isRequired,
+  // onMapPreviewPanelMaximizeSearch: PropTypes.func.isRequired,
+  // onMapSearchResultsItemClick: PropTypes.func.isRequired,
+  openPanoById: PropTypes.func.isRequired,
   pano: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   results: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   search: PropTypes.object, // eslint-disable-line react/forbid-prop-types

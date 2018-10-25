@@ -34,19 +34,3 @@ export const fetchSearchResultsByLocation = (location) => ({
   type: FETCH_SEARCH_RESULTS_BY_LOCATION,
   payload: [location.latitude, location.longitude]
 });
-
-export const showDetailView = () => ({
-  type: UPDATE_MAP,
-  payload: {
-    noRedirect: true,
-    route: routing.detail.type
-  }
-});
-
-export const showSearchView = () => ({
-  type: UPDATE_MAP,
-  payload: {
-    noRedirect: true,
-    route: routing.mapSearch.type
-  }
-});

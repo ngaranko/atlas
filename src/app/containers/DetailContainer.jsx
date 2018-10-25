@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
 import {
   getDetailEndpoint,
-  getDetailSkippedSearchResults,
+  // getDetailSkippedSearchResults,
   isDetailLoading
 } from '../../shared/ducks/detail/detail';
 import { getUser } from '../../shared/ducks/user/user';
 
 const mapStateToProps = (state) => ({
   isLoading: isDetailLoading(state),
-  skippedSearchResults: getDetailSkippedSearchResults(state),
+  // skippedSearchResults: getDetailSkippedSearchResults(state),
   user: getUser(state),
   endpoint: getDetailEndpoint(state)
 });

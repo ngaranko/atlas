@@ -12,7 +12,7 @@ const DetailPage = ({ view }) => {
         <DetailContainer />
       );
     case DETAIL_VIEW.MAP:
-      return <MapContainer showPreviewPanel />;
+      return <MapContainer isFullscreen showPreviewPanel />;
     default: {
       const sizeMap = 4;
       const sizeDetail = 8;

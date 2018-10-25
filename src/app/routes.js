@@ -1,6 +1,7 @@
 import PAGES from './pages';
 import PANORAMA_VIEW from '../shared/ducks/straatbeeld/panorama-view';
-import { fetchDetail } from '../shared/ducks/detail/detail';
+import { DETAIL_VIEW, fetchDetail } from '../shared/ducks/detail/detail';
+import { UPDATE_MAP } from '../map/ducks/map/map';
 
 export const ROUTER_NAMESPACE = 'atlasRouter';
 
@@ -159,13 +160,27 @@ const routes = Object.keys(routing).reduce((acc, key) => {
 
 
 // Action creators
-export const toDetail = (id, type, subtype) => ({
-  type: routing.dataDetail.type,
-  payload: {
-    type,
-    subtype,
-    id: `id${id}`
+export const toDetail = (id, type, subtype, view) => {
+  const action = {
+    type: routing.dataDetail.type,
+    payload: {
+      type,
+      subtype,
+      id: `id${id}`
+    },
+    meta: {
+      query: {
+      }
+    }
+  };
+  if (view === DETAIL_VIEW.MAP) {
+    action.meta.query.kaart = '';
   }
+  return action;
+};
+
+export const toGeoSearchView = () => ({
+  type: routing.mapSearch.type
 });
 
 export const toMap = () => ({
@@ -201,34 +216,18 @@ export const extractIdEndpoint = (endpoint) => {
 };
 
 const getDetailPageData = (endpoint) => {
-  if (/\/bag\/pand/.test(endpoint)) {
-    return {
-      type: 'bag',
-      subtype: 'pand'
-    };
-  } else if (/\/bag\/nummeraanduiding/.test(endpoint)) {
-    return {
-      type: 'bag',
-      subtype: 'nummeraanduiding'
-    };
-  } else if (/\/handelsregister\/vestiging/.test(endpoint)) {
-    return {
-      type: 'handelsregister',
-      subtype: 'vestiging'
-    };
-  }
   const matches = endpoint.match(/(\w+)\/([\w]+)\/[\w-]+\/?$/);
-  console.log('generic matching endpoint: ', endpoint);
+  // console.log('generic matching endpoint: ', endpoint);
   return {
     type: matches[1],
     subtype: matches[2]
-  }; // TODO: refactor, always return sensible route type
+  };
 };
 
-export const getPageActionEndpoint = (endpoint) => {
+export const getPageActionEndpoint = (endpoint, view) => {
   const { type, subtype } = getDetailPageData(endpoint);
   const id = extractIdEndpoint(endpoint);
-  return toDetail(id, type, subtype);
+  return toDetail(id, type, subtype, view);
 };
 
 export const pageActionToEndpoint = (action) => {

@@ -2,16 +2,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  fetchSearchResultsByLocation,
-  showSearchView
+  fetchSearchResultsByLocation
 } from '../../ducks/preview-panel/map-preview-panel';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
 import { isEmbedded, isEmbedPreview } from '../../../shared/ducks/ui/ui';
 import {
-  getDetail,
-  setDetailEndpointRoute,
-  toMapDetail
+  DETAIL_VIEW,
+  getDetail
 } from '../../../shared/ducks/detail/detail';
 import MapPreviewPanel from './MapPreviewPanel';
 import {
@@ -20,7 +18,8 @@ import {
   getShortSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
-import { getPageActionEndpoint, toMap, toPanorama } from '../../../app/routes';
+import { getPageActionEndpoint, toGeoSearchView, toMap, toPanorama } from '../../../app/routes';
+import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 
 const mapStateToProps = (state) => ({
   mapClickLocation: getSelectedLocation(state),
@@ -36,24 +35,27 @@ const mapStateToProps = (state) => ({
   mapDetail: state.mapDetail,
   detailResult: selectLatestMapDetail(state) || null,
   user: state.user,
-  isEmbed: isEmbedPreview(state) || isEmbedded(state)
+  isEmbed: isEmbedPreview(state) || isEmbedded(state),
+  isSearchPreview: isGeoSearch(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
-    onSearch: fetchSearchResultsByLocation,
-    onMapPreviewPanelClose: toMap,
-    onMapPreviewPanelMaximizeDetail: toMapDetail,
-    onMapPreviewPanelMaximizeSearch: showSearchView,
-    onMapSearchResultsItemClick: setDetailEndpointRoute
+    closePanel: toMap,
+    onSearchMaximize: toGeoSearchView
   }, dispatch),
-  onOpenPanoById: (pano) => {
+  openPanoById: (pano) => {
     const action = toPanorama(pano.id);
     return dispatch(action);
   },
-  onMapSearchResultsItemClick: (endpoint) => {
-    const action = getPageActionEndpoint(endpoint);
-    return dispatch(action);
+  openPreviewDetail: (endpoint) => {
+    return dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP));
+  },
+  openDetail: (endpoint) => {
+    return dispatch(getPageActionEndpoint(endpoint));
+  },
+  openPreviewSearch: () => {
+    // TODO: refactor, merge in query string solution first
   }
 });
 

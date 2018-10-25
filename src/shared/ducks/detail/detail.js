@@ -22,21 +22,25 @@ const initialState = {
 export default function detailReducer(state = initialState, action) {
   switch (action.type) {
     case routing.dataDetail.type: {
+      const { id } = action.payload;
       const { query = {} } = action.meta;
       if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {
         return {
           ...state,
+          id,
           view: DETAIL_VIEW.MAP
         };
       }
       if (Object.prototype.hasOwnProperty.call(query, 'detail')) {
         return {
           ...state,
+          id,
           view: DETAIL_VIEW.DETAIL
         };
       }
       return {
         ...state,
+        id,
         view: DETAIL_VIEW.MAP_DETAIL
       };
     }
@@ -70,15 +74,6 @@ export default function detailReducer(state = initialState, action) {
 
 
 export const getDetailView = (state) => state.detail.view;
-
-
-export const toMapDetail = () => ({
-  type: UPDATE_MAP,
-  payload: {
-    noRedirect: true,
-    route: routing.detail.type
-  }
-});
 
 export const setDetailEndpointRoute = (endpoint) => ({
   type: UPDATE_MAP,
