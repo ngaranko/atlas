@@ -16,10 +16,8 @@ exports[`HomepageAddressBlock should render with the default block-link 1`] = `
       title="Bekijk Adressentabel"
     >
       <span
-        className="homepage-block__icon"
-      >
-        <Component />
-      </span>
+        className="homepage-block__icon homepage-block__icon--bag"
+      />
       <span
         className="homepage-block__label"
       >
@@ -36,10 +34,8 @@ exports[`HomepageAddressBlock should render with the default block-link 1`] = `
       title="Bekijk handelsregister-tabel"
     >
       <span
-        className="homepage-block__icon"
-      >
-        <Component />
-      </span>
+        className="homepage-block__icon homepage-block__icon--hr"
+      />
       <span
         className="homepage-block__label"
       >
@@ -56,10 +52,8 @@ exports[`HomepageAddressBlock should render with the default block-link 1`] = `
       title="Bekijk kadaster-tabel"
     >
       <span
-        className="homepage-block__icon"
-      >
-        <Component />
-      </span>
+        className="homepage-block__icon homepage-block__icon--brk"
+      />
       <span
         className="homepage-block__label"
       >
