@@ -38,6 +38,12 @@ $handle-height: 24px;
     background-color: $primary-light;
     border-bottom: 1px solid $secondary-gray40;
 
+    &:hover {
+      .map-panel__heading-icon {
+        @include icon-sprite("icon-map-layers", $primary-dark, $primary-dark, $handle-height);
+      }
+    }
+
     .map-panel--collapsed & {
       border-bottom: none;
 
@@ -46,12 +52,12 @@ $handle-height: 24px;
         cursor: pointer;
       }
     }
-  }
 
-  &__heading-icon {
-    fill: $secondary-gray60;
-    height: 24px;
-    width: 24px;
+    &-icon {
+      @include icon-sprite("icon-map-layers", $secondary-gray60, $primary-dark, $handle-height);
+      height: $handle-height;
+      width: $handle-height;
+    }
   }
 
   &__heading-title {

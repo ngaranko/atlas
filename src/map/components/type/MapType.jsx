@@ -17,7 +17,7 @@ const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (
     <SelectButton
       className="map-type__select map-type__select--topography"
       handleChange={onBaseLayerToggle}
-      icon={<span className="icon--topography" />}
+      icon={<span className="icon icon--topography" />}
       isDisabled={!hasLayer(activeBaseLayer, baseLayers.topography)}
       name="topography"
       options={baseLayers.topography}
@@ -27,7 +27,7 @@ const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (
     <SelectButton
       className="map-type__select map-type__select--aerial"
       handleChange={onBaseLayerToggle}
-      icon={<span className="icon--aerial" />}
+      icon={<span className="icon icon--aerial" />}
       isDisabled={!hasLayer(activeBaseLayer, baseLayers.aerial)}
       name="aerial"
       options={baseLayers.aerial}

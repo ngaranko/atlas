@@ -1,5 +1,7 @@
 @import "../../../shared/styles/config";
 
+$icon-height: 24px;
+
 .toggle-fullscreen {
   @extend %hover-focus-button;
   background-color: $primary-light;
@@ -15,9 +17,16 @@
 
   .toggle-fullscreen__icon {
     display: block;
-    fill: $secondary-gray60;
-    height: 24px;
-    width: 24px;
+    height: $icon-height;
+    width: $icon-height;
+
+    &--maximize {
+      @include icon-sprite("icon-maximize", $secondary-gray60, $primary-dark, $icon-height);
+    }
+
+    &--minimize {
+      @include icon-sprite("icon-minimize", $secondary-gray60, $primary-dark, $icon-height);
+    }
   }
 
   .is-embed &,

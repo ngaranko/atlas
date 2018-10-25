@@ -113,7 +113,7 @@ class SelectButton extends React.Component {
           className="select-button__wrapper"
           onClick={this.handleClick}
         >
-          {this.props.icon}
+          {this.props.icon && <span className="select-button__custom-icon">{this.props.icon}</span>}
           <div className="select-button__label">
             {this.state.label}
           </div>
