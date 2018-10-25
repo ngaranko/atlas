@@ -104,6 +104,7 @@ describe('map module', () => {
         .contains('Zichtbaar bij verder inzoomen')
         .and('is.visible');
       cy.get('.leaflet-control-zoom-in').click();
+
       // wait for the second click
       cy.wait(250);
       cy.get('.leaflet-control-zoom-in').click();
@@ -111,6 +112,7 @@ describe('map module', () => {
       cy.get('.map-legend__items').should('exist').and('be.visible');
 
       // click on the map
+      cy.wait(250);
       cy.get('.qa-map-container').click(702, 517);
 
       cy.wait('@getSearchResults');
