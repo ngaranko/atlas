@@ -17,6 +17,9 @@ import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 import getEmbedLink from '../../ducks/embed/embed';
 
 export const overrideLeafletGetBounds = (map) => {
+  // We override here the getBounds method of Leaflet
+  // To ensure the full coverage of the visible area
+  // of the NonTiledLayer layer types
   map.getBounds = () => { // eslint-disable-line no-param-reassign
     const bounds = map.getPixelBounds();
     const sw = map.unproject(bounds.getBottomLeft());
