@@ -2,7 +2,6 @@ import reducer, {
   DETAIL_FULLSCREEN, DETAIL_VIEW,
   FETCH_DETAIL,
   fetchDetail,
-  setDetailEndpointRoute,
   SHOW_DETAIL
 } from './detail';
 
@@ -26,8 +25,7 @@ describe('DetailReducerReducer', () => {
       endpoint: 'payload',
       reload: false,
       isLoading: true,
-      isFullscreen: false,
-      skippedSearchResults: false
+      isFullscreen: false
     });
   });
 
@@ -64,21 +62,6 @@ describe('Detail Actions', () => {
       expect(fetchDetail('endpoint')).toEqual({
         type: FETCH_DETAIL,
         payload: 'endpoint'
-      });
-    });
-  });
-
-  describe('setDetailEndpointRoute action', () => {
-    it('should return an object with action type and payload containing an endpoint', () => {
-      expect(setDetailEndpointRoute('endpoint')).toEqual({
-        type: 'UPDATE_MAP',
-        payload: {
-          noRedirect: true,
-          route: 'atlasRouter/KAART',
-          query: {
-            detailEndpoint: 'endpoint'
-          }
-        }
       });
     });
   });

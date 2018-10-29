@@ -12,6 +12,7 @@ import PanoramaContainer from '../containers/PanoramaContainer';
 import MapContainer from '../../map/containers/map/MapContainer';
 import { toPanorama as toPanoramaActionCreator } from '../routes';
 
+/* istanbul ignore next */ // TODO: refactor, test
 const PanoramaPage = ({ id, heading, view, toPanorama }) => {
   const openPanoView = (newView) => toPanorama(id, heading, newView);
 

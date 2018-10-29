@@ -16,7 +16,6 @@ export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
 export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
 export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
-export const UPDATE_MAP = 'UPDATE_MAP';
 export const MAP_CLICK = 'MAP_CLICK';
 
 export const DEFAULT_LAT = 52.3731081;
@@ -180,14 +179,6 @@ export const updateZoom = (payload) =>
   ({
     type: MAP_ZOOM,
     payload
-    // type: UPDATE_MAP,
-    // payload: {
-    //   query: {
-    //     zoom: payload.zoom,
-    //     lat: payload.center.lat,
-    //     lng: payload.center.lng
-    //   }
-    // }
   });
 export const updatePan = (payload) =>
   ({
@@ -196,13 +187,6 @@ export const updatePan = (payload) =>
       latitude: payload.lat,
       longitude: payload.lng
     }
-    // type: UPDATE_MAP,
-    // payload: {
-    //   query: {
-    //     lat: payload.center.lat,
-    //     lng: payload.center.lng
-    //   }
-    // }
   });
 export const setSelectedLocation = (payload) => ({
   type: SET_MAP_CLICK_LOCATION,
@@ -210,14 +194,6 @@ export const setSelectedLocation = (payload) => ({
     location: {
       latitude: payload.latlng.lat,
       longitude: payload.latlng.lng
-    }
-  }
-});
-export const clearSelectedLocation = () => ({
-  type: UPDATE_MAP,
-  payload: {
-    query: {
-      selectedLocation: null
     }
   }
 });

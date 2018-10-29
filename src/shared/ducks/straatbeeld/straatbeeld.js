@@ -34,11 +34,11 @@ export default function straatbeeldReducer(state = initialState, action) {
       const { query = {} } = action.meta;
       let view;
       if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {
-        view= PANORAMA_VIEW.MAP;
+        view = PANORAMA_VIEW.MAP;
       } else if (Object.prototype.hasOwnProperty.call(query, 'panorama')) {
-        view= PANORAMA_VIEW.PANO;
+        view = PANORAMA_VIEW.PANO;
       } else {
-        view= PANORAMA_VIEW.MAP_PANO;
+        view = PANORAMA_VIEW.MAP_PANO;
       }
       return {
         ...state,

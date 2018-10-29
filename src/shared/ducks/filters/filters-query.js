@@ -1,5 +1,6 @@
-import { getFilters } from './filters';
+import { APPLY_FILTERS, EMPTY_FILTERS, getFilters } from './filters';
 
+/* istanbul ignore next */ // TODO: refactor, test
 const getFiltersString = (state) => {
   const filters = getFilters(state);
   const string = Object.entries(filters).map(([key, value]) => `${key}:${value}`);
@@ -12,3 +13,5 @@ export default [
     selector: getFiltersString
   }
 ];
+
+export const ACTIONS = [APPLY_FILTERS, EMPTY_FILTERS];

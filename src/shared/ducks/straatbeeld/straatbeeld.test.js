@@ -31,14 +31,6 @@ describe('Straatbeeld Reducer', () => {
   });
 
   describe('fetchStraatbeeldById', () => {
-    it('when heading is in payload, use the payload heading', () => {
-      const inputState = {};
-      const id = 'ABC';
-      const heading = 123;
-      const newState = reducer(inputState, fetchStraatbeeld(id, heading));
-      expect(newState.heading).toBe(123);
-    });
-
     it('when heading is not in payload, use oldstate heading', () => {
       const inputState = {
         fov: 1,
@@ -168,11 +160,6 @@ describe('straatbeeld selectors', () => {
     it('should return the location from the straatbeeld', () => {
       const selected = getStraatbeeldHeading.resultFunc(straatbeeld);
       expect(selected).toEqual(straatbeeld.heading);
-    });
-
-    it('should return an empty string if straatbeeld is empty', () => {
-      const selected = getStraatbeeldHeading.resultFunc('');
-      expect(selected).toEqual('');
     });
   });
 

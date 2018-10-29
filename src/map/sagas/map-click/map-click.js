@@ -1,7 +1,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { getStraatbeeldYear } from '../../../shared/ducks/straatbeeld/straatbeeld';
-import { SET_MAP_CLICK_LOCATION, UPDATE_MAP } from '../../ducks/map/map';
+import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
 import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 import {
@@ -18,6 +18,7 @@ function getHeadingDegrees([x1, y1], [x2, y2]) {
 
 const latitudeLongitudeToArray = (location) => [location.latitude, location.longitude];
 
+/* istanbul ignore next */ // TODO: refactor, test
 export function* switchClickAction(action) {
   const zoom = yield select(getMapZoom);
   const layers = yield select(getLayers);
@@ -34,7 +35,7 @@ export function* switchClickAction(action) {
 
     yield put(toPanorama(imageData.id, heading));
   } else {
-    if (layers.length) {
+    if (layers.length) { // eslint-disable-line no-lonely-if
       yield put({
         type: REQUEST_NEAREST_DETAILS,
         payload: {
@@ -50,15 +51,6 @@ export function* switchClickAction(action) {
         payload: [location.latitude, location.longitude]
       });
     }
-
-    // yield put({
-    //   type: UPDATE_MAP,
-    //   payload: {
-    //     query: {
-    //       selectedLocation: `${location.latitude},${location.longitude}`
-    //     }
-    //   }
-    // });
   }
 }
 

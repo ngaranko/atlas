@@ -1,6 +1,5 @@
-import { getLatitude, getLongitude } from './map-selectors';
-import { initialState} from './map';
-import { getMapZoom } from './map-selectors';
+import { getLatitude, getLongitude, getMapZoom } from './map-selectors';
+import { initialState, MAP_PAN, MAP_ZOOM } from './map';
 
 export default [
   {
@@ -19,3 +18,5 @@ export default [
     defaultValue: initialState.zoom
   }
 ];
+
+export const ACTIONS = [MAP_PAN, MAP_ZOOM];

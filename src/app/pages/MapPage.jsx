@@ -1,6 +1,7 @@
 import React from 'react';
 import MapContainer from '../../map/containers/map/MapContainer';
 
+/* istanbul ignore next */ // TODO: refactor, test
 const Map = () => (
   <div style={{ height: '100%' }}>
     <div

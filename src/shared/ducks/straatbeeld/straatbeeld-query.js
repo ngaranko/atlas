@@ -1,4 +1,8 @@
-import { getStraatbeeldHeading, getStraatbeeldPitch } from './straatbeeld';
+import {
+  getStraatbeeldHeading,
+  getStraatbeeldPitch,
+  SET_STRAATBEELD_ORIENTATION
+} from './straatbeeld';
 
 export default [
   {
@@ -10,3 +14,5 @@ export default [
     selector: getStraatbeeldPitch
   }
 ];
+
+export const ACTIONS = [SET_STRAATBEELD_ORIENTATION];

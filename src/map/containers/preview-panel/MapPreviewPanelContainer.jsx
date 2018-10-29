@@ -2,16 +2,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  fetchSearchResultsByLocation,
-  showSearchView
+  fetchSearchResultsByLocation
 } from '../../ducks/preview-panel/map-preview-panel';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
 import { isEmbedded, isEmbedPreview } from '../../../shared/ducks/ui/ui';
 import {
-  getDetail,
-  setDetailEndpointRoute,
-  toMapDetail
+  getDetail
 } from '../../../shared/ducks/detail/detail';
 import MapPreviewPanel from './MapPreviewPanel';
 import {
@@ -43,11 +40,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     onSearch: fetchSearchResultsByLocation,
-    onMapPreviewPanelClose: clearSelection,
-    onMapPreviewPanelMaximizeDetail: toMapDetail,
-    onMapPreviewPanelMaximizeSearch: showSearchView,
-    onMapSearchResultsItemClick: setDetailEndpointRoute
+    onMapPreviewPanelClose: clearSelection
   }, dispatch),
+  onMapPreviewPanelMaximizeDetail: () => {}, // TODO: Refactor, fix
+  onMapPreviewPanelMaximizeSearch: () => {}, // TODO: Refactor, fix
   onOpenPanoById: (pano) => {
     const action = toPanorama(pano.id);
     return dispatch(action);
