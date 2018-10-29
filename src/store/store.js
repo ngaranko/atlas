@@ -10,6 +10,7 @@ import { authenticateUser } from '../shared/ducks/user/user';
 import { fetchCatalogFilters } from '../catalog/ducks/data-selection/data-selection-catalog';
 import rootReducer from '../reducers/root';
 import documentHeadMiddleware from './middleware/documentHead';
+import piwikMiddleware from './middleware/piwikMiddleware';
 
 window.reducer = rootReducer;
 
@@ -34,9 +35,11 @@ const configureStore = (history, routesMap) => {
   const enhancer = composeEnhancers(
     routeEnhancer,
     applyMiddleware(
+      documentHeadMiddleware,
+      piwikMiddleware,
       routeMiddleware,
-      sagaMiddleware,
-      documentHeadMiddleware)
+      sagaMiddleware
+    )
   );
 
   window.reduxStore = createStore(rootReducer(routeReducer), undefined, enhancer);
