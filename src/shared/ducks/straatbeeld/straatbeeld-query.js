@@ -4,15 +4,13 @@ import {
   SET_STRAATBEELD_ORIENTATION
 } from './straatbeeld';
 
-export default [
-  {
-    param: 'heading',
+export default {
+  heading: {
     selector: getStraatbeeldHeading
   },
-  {
-    param: 'pitch',
+  pitch: {
     selector: getStraatbeeldPitch
   }
-];
+};
 
 export const ACTIONS = [SET_STRAATBEELD_ORIENTATION];

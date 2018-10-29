@@ -8,12 +8,11 @@ const getLocationString = (state) => {
   return undefined;
 };
 
-export default [
-  {
-    param: 'selectedLocation',
+export default {
+  selectedLocation: {
     selector: getLocationString,
     addHistory: true
   }
-];
+};
 
 export const ACTIONS = [SET_SELECTION, CLEAR_SELECTION];

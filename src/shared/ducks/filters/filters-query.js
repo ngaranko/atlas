@@ -7,11 +7,11 @@ const getFiltersString = (state) => {
   return string.join(',');
 };
 
-export default [
-  {
+export default {
+  filters: {
     param: 'filters',
     selector: getFiltersString
   }
-];
+};
 
 export const ACTIONS = [APPLY_FILTERS, EMPTY_FILTERS];

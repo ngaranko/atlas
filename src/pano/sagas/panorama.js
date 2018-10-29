@@ -7,9 +7,7 @@ import {
 import { getImageDataById } from '../../shared/services/straatbeeld-api/straatbeeld-api';
 
 export function* fireFetchPanormaRequest(action) {
-  const id = action.payload.id;
-  // const heading = get(action, 'meta.query.heading');
-  yield put(fetchStraatbeeld(id));
+  yield put(fetchStraatbeeld(action.payload.id));
 }
 
 export function* watchPanoramaRoute() {

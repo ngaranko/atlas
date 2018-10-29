@@ -13,12 +13,12 @@ const watchedActions = [
   ...FILTERS_ACTIONS
 ];
 
-const queryMappings = [
+const queryMappings = {
   ...mapQuery,
   ...filtersQuery,
   ...selectionQuery,
   ...straatbeeldQuery
-];
+};
 
 function* updateQuery() {
   const state = yield select();
@@ -26,8 +26,8 @@ function* updateQuery() {
   const query = { ...currentQuery };
 
   let addHistory = false;
-  queryMappings.forEach((mapping) => {
-    const { param, selector, defaultValue } = mapping;
+  Object.entries(queryMappings).forEach(([param, mapping]) => {
+    const { selector, defaultValue } = mapping;
     const selectedState = selector(state);
 
     if (selectedState && selectedState !== defaultValue) {
