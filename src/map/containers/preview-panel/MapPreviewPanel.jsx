@@ -2,7 +2,6 @@ import React from 'react';
 import get from 'lodash.get';
 import PropTypes from 'prop-types';
 import has from 'lodash.has';
-import PlusIcon from '../../../../public/images/icon-plus.svg';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
@@ -72,7 +71,6 @@ class MapPreviewPanel extends React.Component {
       .toString();
     const panoSearchPreview = get(props, `pano.previews['${props.searchLocationId}']`, {});
     const panoDetailPreview = get(props, `pano.previews['${detailLocationId}']`, {});
-    const showDisplayAllResultsButton = get(props, 'detail.skippedSearchResults');
     const isLoading = get(props, 'search.isLoading') || get(props, 'mapDetail.isLoading');
     const isSearchLoaded = !isLoading && props.search && props.searchLocation;
     const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult;
@@ -89,16 +87,6 @@ class MapPreviewPanel extends React.Component {
         `}
         >
           <div className="map-preview-panel__heading">
-            {showDisplayAllResultsButton && (
-              <button
-                className="map-preview-panel__button map-preview-panel__button--show-all"
-                onClick={() => props.onSearch(props.mapClickLocation)}
-                title="Alle resultaten tonen"
-              >
-                <PlusIcon className="map-preview-panel__button-icon" />
-                <span className="map-preview-panel__button-label">Alle resultaten tonen</span>
-              </button>
-            )}
             <button
               className="map-preview-panel__button"
               onClick={openDetailEndpoint}

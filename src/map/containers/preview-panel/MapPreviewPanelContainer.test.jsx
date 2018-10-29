@@ -446,23 +446,6 @@ describe('MapPreviewPanelContainer', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should render detail with a button to show all results', () => {
-      const store = configureMockStore()({ ...detailState });
-      selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
-      selectLatestMapDetail.mockImplementation(() => ({ location: { latitude: 1, longitude: 0 } }));
-
-      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
-
-      // Flag it skipped search results
-      wrapper.setProps({
-        detail: {
-          ...detailState.detail,
-          skippedSearchResults: true
-        }
-      });
-      expect(wrapper).toMatchSnapshot();
-    });
-
     it('should render one missing layer', () => {
       const store = configureMockStore()({ ...searchState });
       selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
@@ -544,32 +527,6 @@ describe('MapPreviewPanelContainer', () => {
     wrapper.find('.map-preview-panel__button').at(1).simulate('click');
 
     expect(store.dispatch).toHaveBeenCalledWith(toMap());
-  });
-
-  it('should go from detail to all results', () => {
-    const store = configureMockStore()({ ...initialState });
-    jest.spyOn(store, 'dispatch');
-    const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
-
-    selectLatestMapDetail.mockImplementation(() => ({ location: { latitude: 1, longitude: 0 } }));
-    // Mock detail result and flag it skipped search results
-    wrapper.setProps({
-      mapClickLocation: {
-        latitude: 15,
-        longitude: 39
-      },
-      detail: {
-        ...detailState.detail,
-        skippedSearchResults: true
-      }
-    });
-
-    wrapper.find('.map-preview-panel__button--show-all').at(0).simulate('click');
-
-    expect(store.dispatch).toHaveBeenCalledWith({
-      type: FETCH_SEARCH_RESULTS_BY_LOCATION,
-      payload: [15, 39]
-    });
   });
 
   describe('onPanoPreviewClick', () => {

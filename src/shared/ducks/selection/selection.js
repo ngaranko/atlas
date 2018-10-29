@@ -37,7 +37,7 @@ const reducer = (state = initialState, action) => {
     }
     case routing.dataDetail.type:
       return {
-        type: SELECTION_TYPE.OBJECT,
+        type: SELECTION_TYPE.OBJECT
       };
     case routing.panorama.type:
       return {

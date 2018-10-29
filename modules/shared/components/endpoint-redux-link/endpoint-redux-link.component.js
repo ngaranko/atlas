@@ -1,4 +1,7 @@
 // Converts endpoint to redux-link component
+import { selectLocationState } from 'redux-first-router';
+import { toUrl } from 'redux-first-router-link';
+
 (function () {
     'use strict';
 

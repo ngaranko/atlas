@@ -208,7 +208,7 @@ describe('the dp-detail component', () => {
         spyOn(api, 'getByUrl').and.callThrough();
     });
 
-    function getComponent (endpoint, isLoading, skippedSearchResults = false, show = true, catalogFilters = undefined) {
+    function getComponent (endpoint, isLoading, show = true, catalogFilters = undefined) {
         var component,
             element,
             scope;
@@ -218,7 +218,6 @@ describe('the dp-detail component', () => {
         element.setAttribute('endpoint', '{{endpoint}}');
         element.setAttribute('is-loading', 'isLoading');
         element.setAttribute('user', 'user');
-        element.setAttribute('skipped-search-results', 'skippedSearchResults');
         element.setAttribute('catalog-filters', 'catalogFilters');
 
         scope = $rootScope.$new();
@@ -226,7 +225,6 @@ describe('the dp-detail component', () => {
         scope.endpoint = endpoint;
         scope.isLoading = isLoading;
         scope.user = mockedUser;
-        scope.skippedSearchResults = skippedSearchResults;
         scope.catalogFilters = catalogFilters;
 
         component = $compile(element)(scope);
@@ -326,23 +324,6 @@ describe('the dp-detail component', () => {
         });
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: DETAIL_FULLSCREEN,
-            payload: false
-        });
-    });
-
-    it('triggers the SHOW_DETAIL and not DETAIL_FULLSCREEN action when skippedSearchResults is true', () => {
-        getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, true);
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: SHOW_DETAIL,
-            payload: {
-                display: 'Adresstraat 1A',
-                geometry: mockedGeometryPoint
-            }
-        });
-
-        expect(store.dispatch).not.toHaveBeenCalledWith({
             type: DETAIL_FULLSCREEN,
             payload: false
         });
@@ -567,22 +548,6 @@ describe('the dp-detail component', () => {
 
             expect(scope.vm.apiData).not.toBeUndefined();
             expect(api.getByUrl).toHaveBeenCalled();
-        });
-    });
-
-    describe('the geosearch button', () => {
-        it('is not shown by default', () => {
-            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
-
-            const scope = component.isolateScope();
-            expect(scope.vm.geosearchButton).toBe(false);
-        });
-
-        it('is shown when skippedSearchResults is true', () => {
-            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, true);
-
-            const scope = component.isolateScope();
-            expect(scope.vm.geosearchButton).toEqual([52.654, 4.987]);
         });
     });
 

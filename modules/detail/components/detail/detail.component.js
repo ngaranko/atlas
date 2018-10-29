@@ -10,7 +10,6 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
             bindings: {
                 endpoint: '@',
                 isLoading: '=',
-                skippedSearchResults: '=',
                 catalogFilters: '=',
                 user: '<'
             },
@@ -72,8 +71,6 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
 
             const location = getSelectedLocation(store.getState());
 
-            vm.geosearchButton = vm.skippedSearchResults ? [location.latitude, location.longitude] : false;
-
             const [category, subject] = endpointParser.getParts(endpoint);
 
             if ((category === 'brk' && subject === 'subject' && !vm.user.scopes.includes('BRK/RS')) ||
@@ -124,12 +121,10 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
                             vm.location = crsConverter.rdToWgs84([rd.x, rd.y]);
                         }
 
-                        if (!vm.skippedSearchResults) {
-                            store.dispatch({
-                                type: DETAIL_FULLSCREEN,
-                                payload: subject === 'api' || !geoJSON
-                            });
-                        }
+                        store.dispatch({
+                            type: DETAIL_FULLSCREEN,
+                            payload: subject === 'api' || !geoJSON
+                        });
 
                         store.dispatch({
                             type: SHOW_DETAIL,

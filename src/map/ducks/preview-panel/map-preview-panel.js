@@ -1,6 +1,4 @@
 import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/ducks/search/search';
-import { UPDATE_MAP } from '../map/map';
-import { routing } from '../../../app/routes';
 
 export const OPEN_MAP_PREVIEW_PANEL = 'OPEN_MAP_PREVIEW_PANEL';
 export const CLOSE_MAP_PREVIEW_PANEL = 'CLOSE_MAP_PREVIEW_PANEL';

@@ -1,7 +1,6 @@
 import PAGES from './pages';
 import PANORAMA_VIEW from '../shared/ducks/straatbeeld/panorama-view';
 import { DETAIL_VIEW, fetchDetail } from '../shared/ducks/detail/detail';
-import { UPDATE_MAP } from '../map/ducks/map/map';
 
 export const ROUTER_NAMESPACE = 'atlasRouter';
 

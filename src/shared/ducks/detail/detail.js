@@ -94,8 +94,4 @@ export const getDetail = (state) => state[REDUCER_KEY];
 export const getDetailGeometry = createSelector(getDetail, (detail) => detail && detail.geometry);
 export const getDetailEndpoint = createSelector(getDetail, (detail) => detail && detail.endpoint);
 export const getDetailDisplay = createSelector(getDetail, (detail) => detail && detail.display);
-export const getDetailSkippedSearchResults = createSelector(
-  getDetail,
-  (detail) => detail && detail.skippedSearchResults
-);
 export const isDetailLoading = createSelector(getDetail, (detail) => detail && detail.isLoading);
