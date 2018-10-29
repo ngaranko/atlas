@@ -62,11 +62,12 @@ function imageData(response) {
 }
 
 function getStraatbeeld(url) {
-  const promise = new Promise((resolve) => {
+  const promise = new Promise((resolve, reject) => {
     getByUrl(url)
       .then((data) => {
         resolve(imageData(data));
-      });
+      })
+      .catch((error) => reject(error));
   });
 
   return promise;

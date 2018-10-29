@@ -3,8 +3,8 @@ import reducer, {
   getStraatbeeldHeading,
   getStraatbeeldLocation,
   getStraatbeeldMarkers,
-  setStraatbeeld,
-  setStraatbeeldYear, fetchStraatbeeldById, setStraatbeeldOrientation
+  fetchStraatbeeldSuccess,
+  setStraatbeeldYear, fetchStraatbeeld, setStraatbeeldOrientation
 } from './straatbeeld';
 import * as STRAATBEELD_CONFIG from '../../../../modules/straatbeeld/straatbeeld-config';
 
@@ -31,14 +31,6 @@ describe('Straatbeeld Reducer', () => {
   });
 
   describe('fetchStraatbeeldById', () => {
-    it('when heading is in payload, use the payload heading', () => {
-      const inputState = {};
-      const id = 'ABC';
-      const heading = 123;
-      const newState = reducer(inputState, fetchStraatbeeldById(id, heading));
-      expect(newState.heading).toBe(123);
-    });
-
     it('when heading is not in payload, use oldstate heading', () => {
       const inputState = {
         fov: 1,
@@ -50,7 +42,7 @@ describe('Straatbeeld Reducer', () => {
         image: 'http://example.com/example.png'
       };
       const id = 'ABC';
-      const newState = reducer(inputState, fetchStraatbeeldById(id));
+      const newState = reducer(inputState, fetchStraatbeeld(id));
       expect(newState.id).toBe(id);
       expect(newState.heading).toBe(inputState.heading);
     });
@@ -91,12 +83,12 @@ describe('Straatbeeld Reducer', () => {
     });
 
     it('Adds the payload to the state', () => {
-      const newState = reducer(inputState, setStraatbeeld(payload));
+      const newState = reducer(inputState, fetchStraatbeeldSuccess(payload));
       expect(newState).toEqual(jasmine.objectContaining(payload));
     });
 
     it('set defaults for pitch, fov when oldstate is unknown', () => {
-      const newState = reducer(inputState, setStraatbeeld(payload));
+      const newState = reducer(inputState, fetchStraatbeeldSuccess(payload));
       expect(newState.pitch).toBe(0);
       expect(newState.fov).toBe(80);
     });
@@ -105,13 +97,13 @@ describe('Straatbeeld Reducer', () => {
       inputState.pitch = 1;
       inputState.fov = 2;
 
-      const newState = reducer(inputState, setStraatbeeld(payload));
+      const newState = reducer(inputState, fetchStraatbeeldSuccess(payload));
       expect(newState.pitch).toBe(1);
       expect(newState.fov).toBe(2);
     });
 
     it('Sets loading to false', () => {
-      const output = reducer(inputState, setStraatbeeld(payload));
+      const output = reducer(inputState, fetchStraatbeeldSuccess(payload));
       expect(output.isLoading).toBe(false);
     });
   });
@@ -168,11 +160,6 @@ describe('straatbeeld selectors', () => {
     it('should return the location from the straatbeeld', () => {
       const selected = getStraatbeeldHeading.resultFunc(straatbeeld);
       expect(selected).toEqual(straatbeeld.heading);
-    });
-
-    it('should return an empty string if straatbeeld is empty', () => {
-      const selected = getStraatbeeldHeading.resultFunc('');
-      expect(selected).toEqual('');
     });
   });
 

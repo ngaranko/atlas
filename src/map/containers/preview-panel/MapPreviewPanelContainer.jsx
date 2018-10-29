@@ -20,6 +20,7 @@ import {
 } from '../../ducks/map/map-selectors';
 import { getPageActionEndpoint, toGeoSearchView, toMap, toPanorama } from '../../../app/routes';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
+import { clearSelection } from '../../../shared/ducks/selection/selection';
 
 const mapStateToProps = (state) => ({
   mapClickLocation: getSelectedLocation(state),
@@ -41,7 +42,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
-    closePanel: toMap,
+    closePanel: clearSelection,
     onSearchMaximize: toGeoSearchView
   }, dispatch),
   openPanoById: (pano) => {

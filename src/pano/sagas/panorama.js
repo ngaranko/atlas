@@ -1,16 +1,13 @@
-import get from 'lodash.get';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { routing } from '../../app/routes';
 import {
-  FETCH_STRAATBEELD_BY_ID,
-  fetchStraatbeeldById, getStraatbeeld, setStraatbeeld
+  FETCH_STRAATBEELD,
+  fetchStraatbeeld, getStraatbeeld, fetchStraatbeeldSuccess, fetchStraatbeeldError
 } from '../../shared/ducks/straatbeeld/straatbeeld';
 import { getImageDataById } from '../../shared/services/straatbeeld-api/straatbeeld-api';
 
 export function* fireFetchPanormaRequest(action) {
-  const id = action.payload.id;
-  const heading = get(action, 'meta.query.heading');
-  yield put(fetchStraatbeeldById(id, heading));
+  yield put(fetchStraatbeeld(action.payload.id));
 }
 
 export function* watchPanoramaRoute() {
@@ -19,10 +16,14 @@ export function* watchPanoramaRoute() {
 
 export function* fetchPanorama() {
   const { id, year } = yield select(getStraatbeeld);
-  const imageData = yield call(getImageDataById, id, year);
-  yield put(setStraatbeeld(imageData));
+  try {
+    const imageData = yield call(getImageDataById, id, year);
+    yield put(fetchStraatbeeldSuccess(imageData));
+  } catch (error) {
+    yield put(fetchStraatbeeldError(error));
+  }
 }
 
 export function* watchFetchStraatbeeld() {
-  yield takeLatest(FETCH_STRAATBEELD_BY_ID, fetchPanorama);
+  yield takeLatest(FETCH_STRAATBEELD, fetchPanorama);
 }

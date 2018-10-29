@@ -15,6 +15,7 @@ import { watchQuerySearch } from './map/sagas/query-search/query-search';
 import { watchCatalogList } from './catalog/sagas/catalog';
 import { watchFetchStraatbeeld, watchPanoramaRoute } from './pano/sagas/panorama';
 import { watchDetailRoute } from './detail/sagas/detail';
+import watchQueryActions from './store/query-synchronization';
 
 export default function* rootSaga() {
   yield all([
@@ -30,6 +31,7 @@ export default function* rootSaga() {
     fork(watchFetchNearestDetails),
     fork(watchGeoSearchRequest),
     fork(watchFetchCatalogFilters),
+    fork(watchQueryActions),
 
     // route change watchers
     fork(watchCatalogList),

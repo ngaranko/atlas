@@ -5,6 +5,7 @@ import MapContainer from '../../map/containers/map/MapContainer';
 import DetailContainer from '../containers/DetailContainer';
 import { DETAIL_VIEW, getDetailGeometry, getDetailView } from '../../shared/ducks/detail/detail';
 
+/* istanbul ignore next */ // TODO: refactor, test
 const DetailPage = ({ view: routeView, hasGeometry }) => {
   const view = hasGeometry ? routeView : DETAIL_VIEW.DETAIL;
 

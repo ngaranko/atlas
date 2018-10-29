@@ -45,6 +45,7 @@ const ABOUT_LINKS = {
   }
 };
 
+/* istanbul ignore next */ // TODO: refactor, test
 const Home = ({ showFooter }) => (
   <div
     className={`c-dashboard__column
