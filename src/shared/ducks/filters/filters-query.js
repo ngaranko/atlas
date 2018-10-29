@@ -9,7 +9,6 @@ const getFiltersString = (state) => {
 
 export default {
   filters: {
-    param: 'filters',
     selector: getFiltersString
   }
 };
