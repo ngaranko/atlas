@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { LatLngBounds } from 'leaflet';
 
 import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 
@@ -14,6 +15,17 @@ import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewP
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 
 import getEmbedLink from '../../ducks/embed/embed';
+
+export const overrideLeafletGetBounds = (map) => {
+  map.getBounds = () => { // eslint-disable-line no-param-reassign
+    const bounds = map.getPixelBounds();
+    const sw = map.unproject(bounds.getBottomLeft());
+    const ne = map.unproject(bounds.getTopRight());
+
+    const latLngBounds = (new LatLngBounds(sw, ne)).pad(0.1);
+    return latLngBounds;
+  };
+};
 
 const mapStateToProps = (state) => ({
   isFullscreen: state.ui.isMapFullscreen,
@@ -35,6 +47,7 @@ class MapContainer extends React.Component {
   }
 
   setLeafletInstance(leafletInstance) {
+    overrideLeafletGetBounds(leafletInstance);
     this.setState({ leafletInstance });
   }
 
