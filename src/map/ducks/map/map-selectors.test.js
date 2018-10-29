@@ -6,8 +6,7 @@ import {
   getMapOverlays,
   getMapZoom,
   getMarkers,
-  getRdGeoJsons,
-  getSelectedLocation
+  getRdGeoJsons
 } from './map-selectors';
 
 import {
@@ -96,12 +95,6 @@ describe('Map Selectors', () => {
         ...state,
         some: 'state' // force the state to change so it clears the cache
       })).toEqual('straatbeeld location');
-    });
-  });
-
-  describe('getSelectedLocation', () => {
-    it('should return mapClickLocation', () => {
-      expect(getSelectedLocation(state)).toEqual({ lat: 123, lng: 456 });
     });
   });
 

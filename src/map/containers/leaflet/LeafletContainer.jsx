@@ -93,14 +93,14 @@ class LeafletContainer extends React.Component {
   handleZoom(event) {
     const { drawingMode, onUpdateZoom, onUpdateBoundingBox } = this.props;
     const drawingActive = isDrawingActive(drawingMode);
-    onUpdateZoom(event, drawingActive);
+    onUpdateZoom(event.zoom, drawingActive);
     onUpdateBoundingBox(event, drawingActive);
   }
 
   handlePan(event) {
     const { drawingMode, onUpdateBoundingBox, onUpdatePan } = this.props;
     const drawingActive = isDrawingActive(drawingMode);
-    onUpdatePan(event, drawingActive);
+    onUpdatePan(event.center, drawingActive);
     onUpdateBoundingBox(event, drawingActive);
   }
 

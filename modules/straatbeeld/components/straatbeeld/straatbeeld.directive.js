@@ -44,6 +44,8 @@ import throttle from 'lodash.throttle';
             // AND update is fired at start and end of this 300ms period. So directly
             // when first call is made, and additional calls are merged into single call after
             // period.
+            // NOTE: throttle is done for performance reasons. If store changes are less of a
+            // performance hit, then we may remove this or reduce the period length.
             const viewChangeHandler = viewer.addEventListener('viewChange',
                 throttle(
                     () => {

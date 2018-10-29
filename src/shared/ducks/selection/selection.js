@@ -4,7 +4,8 @@ import parseLocationString from '../../../map/ducks/map/location-parse';
 
 export const REDUCER_KEY = 'selection';
 
-const SET_SELECTION = 'SET_SELECTION';
+export const SET_SELECTION = 'SET_SELECTION';
+export const CLEAR_SELECTION = 'CLEAR_SELECTION';
 
 export const SELECTION_TYPE = {
   NONE: 'NONE',
@@ -55,6 +56,11 @@ const reducer = (state = initialState, action) => {
       }
       return state;
     }
+    case CLEAR_SELECTION: {
+      return {
+        TYPE: SELECTION_TYPE.NONE
+      };
+    }
     default:
       return state;
   }
@@ -73,6 +79,7 @@ export const previewDataAvailable = (state) =>
 ;
 
 export const getSelectionType = (state) => (state[REDUCER_KEY].type);
+export const getSelectionLocation = (state) => (state[REDUCER_KEY].location);
 
 // Action creators
 export const setSelection = (selectionType, object) => ({
@@ -82,5 +89,6 @@ export const setSelection = (selectionType, object) => ({
     object
   }
 });
+export const clearSelection = () => ({ type: CLEAR_SELECTION });
 
 export default reducer;

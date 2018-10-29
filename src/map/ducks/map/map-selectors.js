@@ -14,8 +14,11 @@ import { geoSearchType } from '../../components/leaflet/services/icons.constant'
 import { getMapResultsByLocation } from '../../../shared/ducks/search/search';
 import { getDetail } from '../../../shared/ducks/detail/detail';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
-import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
-import parseLocationString from './location-parse';
+import {
+  getSelectionLocation,
+  getSelectionType,
+  SELECTION_TYPE
+} from '../../../shared/ducks/selection/selection';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
@@ -51,27 +54,20 @@ export const getCenter = createSelector([getMapCenter, getStraatbeeldLocation],
     straatbeeldLocation || mapCenter
   ));
 
+export const getLatitude = createSelector(getCenter, (center) => center[0]);
+export const getLongitude = createSelector(getCenter, (center) => center[1]);
+
 export const getClusterMarkers = getDataSelectionClusterMarkers;
 export const getGeoJsons = getDataSelectionGeoJsons;
 export const getRdGeoJsons = createSelector(getDetailGeoJson, (geoJson) => [geoJson]);
 
-// Selected location
-export const getSelectedLocationString = (state) => state.map.selectedLocation;
-
 export const getSelectedLocation = createSelector(
-  getSelectedLocationString,
+  getSelectionLocation,
   (location) => (
-    (location) ? parseLocationString(location) : null
+    (location)
+      ? { lat: location.latitude, lng: location.longitude }
+      : null
   ));
-
-// export const getShortSelectedLocation = createSelector(
-//   getSelectedLocation,
-//   (selectedLocation) => (
-//     (selectedLocation) ? ({
-//       latitude: +parseFloat(selectedLocation.lat).toFixed(7),
-//       longitude: +parseFloat(selectedLocation.lng).toFixed(7)
-//     }) : null
-//   ));
 
 export const getShortSelectedLocation = (state) => state.selection && state.selection.location;
 

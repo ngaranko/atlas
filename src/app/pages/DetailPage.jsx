@@ -5,6 +5,7 @@ import MapContainer from '../../map/containers/map/MapContainer';
 import DetailContainer from '../containers/DetailContainer';
 import { DETAIL_VIEW, getDetailView } from '../../shared/ducks/detail/detail';
 
+/* istanbul ignore next */ // TODO: refactor, test
 const DetailPage = ({ view }) => {
   switch (view) {
     case DETAIL_VIEW.DETAIL:

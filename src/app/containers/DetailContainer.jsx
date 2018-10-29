@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
 import {
   getDetailEndpoint,
-  getDetailSkippedSearchResults,
   isDetailLoading,
   isDetailReloaded
 } from '../../shared/ducks/detail/detail';
@@ -13,7 +12,6 @@ import { getUser } from '../../shared/ducks/user/user';
 const mapStateToProps = (state) => ({
   reload: isDetailReloaded(state),
   isLoading: isDetailLoading(state),
-  skippedSearchResults: getDetailSkippedSearchResults(state),
   user: getUser(state),
   endpoint: getDetailEndpoint(state)
 });
@@ -21,7 +19,6 @@ const mapStateToProps = (state) => ({
 const DetailContainer = ({
   reload,
   isLoading,
-  skippedSearchResults,
   user,
   endpoint
 }) => (
@@ -33,7 +30,6 @@ const DetailContainer = ({
       bindings={{
         reload,
         isLoading,
-        skippedSearchResults,
         user
       }}
       interpolateBindings={{
@@ -50,7 +46,6 @@ DetailContainer.defaultProps = {
 DetailContainer.propTypes = {
   reload: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  skippedSearchResults: PropTypes.bool,
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   endpoint: PropTypes.string.isRequired
 };

@@ -2,9 +2,7 @@ import reducer, {
   CLOSE_MAP_PREVIEW_PANEL,
   closeMapPreviewPanel,
   fetchSearchResultsByLocation,
-  OPEN_MAP_PREVIEW_PANEL,
-  showDetailView,
-  showSearchView
+  OPEN_MAP_PREVIEW_PANEL
 } from './map-preview-panel';
 import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/ducks/search/search';
 
@@ -36,26 +34,6 @@ describe('map preview reducer and actions', () => {
     expect(fetchSearchResultsByLocation(location)).toEqual({
       type: FETCH_SEARCH_RESULTS_BY_LOCATION,
       payload: [location.latitude, location.longitude]
-    });
-  });
-
-  it('should return the proper action when calling showDetailView', () => {
-    expect(showDetailView()).toEqual({
-      payload: {
-        noRedirect: true,
-        route: 'atlasRouter/KAART_DETAIL'
-      },
-      type: 'UPDATE_MAP'
-    });
-  });
-
-  it('should return the proper action when calling showSearchView', () => {
-    expect(showSearchView()).toEqual({
-      payload: {
-        noRedirect: true,
-        route: 'atlasRouter/KAART_SEARCH'
-      },
-      type: 'UPDATE_MAP'
     });
   });
 });

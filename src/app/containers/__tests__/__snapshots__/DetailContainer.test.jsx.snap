@@ -9,7 +9,6 @@ exports[`DetailContainer should render 1`] = `
       Object {
         "isLoading": false,
         "reload": false,
-        "skippedSearchResults": false,
         "user": Object {},
       }
     }
