@@ -129,14 +129,26 @@
 
   &--info {
     @include icon-button("close", "info");
+
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   &--danger {
     @include icon-button("close", "danger");
+
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   &--warning {
     @include icon-button("close", "warning");
+
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
 
