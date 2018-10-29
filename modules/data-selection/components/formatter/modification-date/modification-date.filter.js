@@ -7,10 +7,8 @@
 
     function modificationDateFilter () {
         return function (input) {
-            if (angular.isObject(input)) {
-                const modified = input.metadata_modified;
-
-                const last = new Date(modified);
+            if (angular.isString(input)) {
+                const last = new Date(input);
                 const now = new Date();
 
                 let ago = now - last;
