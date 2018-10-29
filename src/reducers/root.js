@@ -19,7 +19,7 @@ import DetailReducer, { REDUCER_KEY as DETAIL } from '../shared/ducks/detail/det
 import SearchReducer, { REDUCER_KEY as SEARCH } from '../shared/ducks/search/search';
 import SelectionReducer, { REDUCER_KEY as SELECTION } from '../shared/ducks/selection/selection';
 import LegacyReducer from './deprecated/legacy-reducer';
-import NewDataSelectionReducer, { REDUCER_KEY as NEW_DATA_SELECTION } from '../shared/ducks/new-data-selection/new-data-selection';
+import NewDataSelectionReducer, { REDUCER_KEY as NEW_DATA_SELECTION } from '../shared/ducks/data-selection/data-selection';
 
 export default (routeReducer) => (oldState = {}, action) => {
   const mapLayers = combineReducers({

@@ -27,7 +27,7 @@
 <div ng-if="vm.showTabs" class="o-tabs qa-tabs u-margin__bottom--2">
     <ul>
         <li ng-repeat="tab in vm.tabs" ng-class="{'is-active': tab.isActive}">
-            <dp-redux-link ng-if="!tab.isActive" to="tab.tabAction" class-name="o-tabs__tab o-tabs__tab--link">
+            <dp-redux-link ng-if="!tab.isActive" to="tab.tabAction" link-class="o-tabs__tab o-tabs__tab--link">
                 {{tab.title}}
             </dp-redux-link>
 

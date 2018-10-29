@@ -38,7 +38,7 @@ import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import {
   getClusterMarkers,
   getGeoJsons
-} from '../../../shared/ducks/new-data-selection/new-data-selection';
+} from '../../../shared/ducks/data-selection/data-selection';
 
 jest.mock('../../ducks/base-layers/map-base-layers');
 jest.mock('../../ducks/map/map');

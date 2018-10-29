@@ -1,5 +1,5 @@
 import {
-    SHOW_DATA_SELECTION} from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
+    SHOW_DATA_SELECTION} from '../../../../src/shared/ducks/data-selection/data-selection';
 import DATA_SELECTION_CONFIG
     from '../../../../src/shared/services/data-selection/data-selection-config';
 import {
@@ -9,7 +9,7 @@ import {
 import {
     RESET_DATA_SELECTION,
     VIEWS
-} from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
+} from '../../../../src/shared/ducks/data-selection/data-selection';
 
 (function () {
     'use strict';

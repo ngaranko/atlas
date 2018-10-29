@@ -1,5 +1,5 @@
 import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
-import { FETCH_DATA_SELECION_REQUEST } from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
+import { FETCH_DATA_SELECION_REQUEST } from '../../../../src/shared/ducks/data-selection/data-selection';
 
 (function () {
     'use strict';

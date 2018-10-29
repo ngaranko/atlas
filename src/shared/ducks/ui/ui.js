@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { getStraatbeeld } from '../straatbeeld/straatbeeld';
-import { getDataSelectionView, VIEWS } from '../new-data-selection/new-data-selection';
+import { getDataSelectionView, VIEWS } from '../data-selection/data-selection';
 import { isMapPage } from '../location/location';
 
 export const REDUCER_KEY = 'ui';

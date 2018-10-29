@@ -8,7 +8,7 @@ import Piwik from './components/Piwik/Piwik';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
-import DATASETS from '../shared/ducks/new-data-selection/new-data-selection';
+import DATASETS from '../shared/ducks/data-selection/data-selection';
 import './_app.scss';
 import CatalogDetailContainer from './containers/CatalogDetailContainer';
 import CatalogSearchContainer from './containers/CatalogSearchContainer';

@@ -5,13 +5,13 @@ import {
   DATASETS,
   FETCH_DATA_SELECTION_REQUEST,
   fetchDataSelection,
-  getNewDataSelection,
+  getDataSelection,
   NAVIGATE_DATA_SELECTION,
   receiveDataSelectionFailure,
   receiveDataSelectionSuccess,
   setMarkers,
   VIEWS
-} from '../../ducks/new-data-selection/new-data-selection';
+} from '../../ducks/data-selection/data-selection';
 import { routing } from '../../../app/routes';
 import dataselectionConfig from '../../services/data-selection/data-selection-config';
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
@@ -43,10 +43,16 @@ function* fetchDefaultBagTable(action) {
   if (action.meta.query && action.meta.query.filters) {
     activeFilters = JSON.parse(action.meta.query.filters);
   }
-  yield put(fetchDataSelection({ dataset: DATASETS.BAG, view, activeFilters }));
+
+  let page = 1;
+  console.log(action)
+  if (action.meta.query && action.meta.query.page) {
+    page = parseInt(action.meta.query.page);
+  }
+  yield put(fetchDataSelection({ dataset: DATASETS.BAG, view, activeFilters, page }));
 }
 
-function* doQuery(action) {
+function* retrieveDataSelection(action) {
   const { dataset, view, activeFilters, page, searchText, geometryFilter, catalogFilters } =
     action.payload;
   try {
@@ -78,7 +84,7 @@ function* handleRoutes(action) {
   try {
     const { geoFilter } = action.meta.query;
     const markers = geoFilter.split('|').map((latLng) => latLng.split(':').map((str) => parseFloat(str)));
-    yield call(doQuery, {
+    yield call(retrieveDataSelection, {
       payload: {
         ...defaultParams,
         dataset: ROUTE_DATASET_MAPPER[action.type],
@@ -98,43 +104,44 @@ function* handleRoutes(action) {
 
 // Legacy shit
 
-function* handleLegacyRequest(action) {
-  const mergeInto = typeof action.payload === 'string' ? {
-    searchText: action.payload,
-    page: 1,
-    view: VIEWS.CATALOG,
-    dataset: DATASETS.CATALOG
-  } : action.payload;
-
-  const newView = mergeInto.view || action.payload.view || VIEWS.TABLE;
-
-  const emptyGeometryFilters = {
-    markers: [],
-    description: ''
-  };
-
-  const geoFilter = mergeInto.resetGeometryFilter
-    ? emptyGeometryFilters
-    : action.payload.geometryFilter || emptyGeometryFilters;
-
-  delete mergeInto.resetGeometryFilter;
-  delete mergeInto.emptyFilters;
-  delete mergeInto.filters;
-
-  const payload = {
-    ...mergeInto,
-    view: newView,
-    geometryFilter: { ...geoFilter }
-  };
-
-  yield call(doQuery, {
-    payload
-  });
-}
+// Todo: move this
+// function* handleLegacyRequest(action) {
+//   const mergeInto = typeof action.payload === 'string' ? {
+//     searchText: action.payload,
+//     page: 1,
+//     view: VIEWS.CATALOG,
+//     dataset: DATASETS.CATALOG
+//   } : action.payload;
+//
+//   const newView = mergeInto.view || action.payload.view || VIEWS.TABLE;
+//
+//   const emptyGeometryFilters = {
+//     markers: [],
+//     description: ''
+//   };
+//
+//   const geoFilter = mergeInto.resetGeometryFilter
+//     ? emptyGeometryFilters
+//     : action.payload.geometryFilter || emptyGeometryFilters;
+//
+//   delete mergeInto.resetGeometryFilter;
+//   delete mergeInto.emptyFilters;
+//   delete mergeInto.filters;
+//
+//   const payload = {
+//     ...mergeInto,
+//     view: newView,
+//     geometryFilter: { ...geoFilter }
+//   };
+//
+//   yield call(doQuery, {
+//     payload
+//   });
+// }
 
 function* legacyHandleNavigation(action) {
-  const dataSelection = yield select(getNewDataSelection);
-  yield call(doQuery, {
+  const dataSelection = yield select(retrieveDataSelection);
+  yield call(retrieveDataSelection, {
     payload: {
       ...dataSelection,
       page: action.payload
@@ -158,14 +165,13 @@ function* updateUrlQuery(action) {
 }
 
 export function* watchFetchDataSelection() {
-  yield takeLatest([FETCH_DATA_SELECTION_REQUEST], doQuery);
+  yield takeLatest([FETCH_DATA_SELECTION_REQUEST], retrieveDataSelection);
   yield takeLatest([routing.addressResults.type, routing.establishmentResults.type], handleRoutes);
   yield takeLatest(routing.adressen.type, fetchDefaultBagTable);
 
   // Legacy shit
   yield takeLatest(APPLY_FILTERS, updateUrlQuery);
-  yield takeLatest(FETCH_DATA_SELECTION, handleLegacyRequest);
-  yield takeLatest(FETCH_DATA_SELECTION, handleLegacyRequest);
+  // yield takeLatest(FETCH_DATA_SELECTION, handleLegacyRequest);
   yield takeLatest(NAVIGATE_DATA_SELECTION, legacyHandleNavigation);
   yield takeLatest(MAP_START_DRAWING, clearResults);
 }

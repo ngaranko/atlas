@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { detailPointType } from '../../../map/components/leaflet/services/icons.constant';
 import { toAddressResults } from '../../../app/routes';
 
-export const REDUCER_KEY = 'newDataSelection';
+export const REDUCER_KEY = 'dataSelection';
 export const FETCH_DATA_SELECTION_REQUEST = `${REDUCER_KEY}/FETCH_DATA_SELECTION_REQUEST`;
 export const FETCH_DATA_SELECTION_SUCCESS = `${REDUCER_KEY}/FETCH_DATA_SELECTION_SUCCESS`;
 export const FETCH_DATA_SELECTION_FAILURE = `${REDUCER_KEY}/FETCH_DATA_SELECTION_FAILURE`;
@@ -33,13 +33,18 @@ const initialState = {
   geometryFilter: {
     markers: []
   },
-  dataset: DATASETS.BAG
+  dataset: DATASETS.BAG,
+  view: VIEWS.LIST,
+  authError: false,
+  errorMessage: '',
+  page: 1,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_DATA_SELECTION_REQUEST:
       return {
+        ...state,
         isLoading: true,
         markers: []
       };
@@ -57,10 +62,13 @@ export default function reducer(state = initialState, action) {
 
     case FETCH_DATA_SELECTION_FAILURE:
       return {
+        ...state,
         isLoading: false,
         authError: (action.payload.error === 'Unauthorized'),
         errorMessage: action.payload.error,
-        dataset: action.payload.dataset
+        dataset: action.payload.dataset,
+        results: {},
+        markers: []
       };
 
     case SET_MARKERS:
@@ -78,8 +86,10 @@ export default function reducer(state = initialState, action) {
   }
 }
 // Action creators
-export const fetchDataSelection = (payload) =>
-  ({ type: FETCH_DATA_SELECTION_REQUEST, payload });
+export const fetchDataSelection = (payload) => ({
+  type: FETCH_DATA_SELECTION_REQUEST,
+  payload
+});
 
 export const setMarkers = (payload) => ({
   type: SET_MARKERS,
@@ -110,13 +120,13 @@ export const setDataSelectionGeometryFilter = (payload) => {
 };
 
 // Selectors
-export const getNewDataSelection = (state) => state[REDUCER_KEY];
-export const getNewDataSelectionResult = createSelector(
-  getNewDataSelection,
+export const getDataSelection = (state) => state[REDUCER_KEY];
+export const getDataSelectionResult = createSelector(
+  getDataSelection,
   (dataSelection) => dataSelection.result || {});
 
 export const getDataSelectionView = createSelector(
-  getNewDataSelection,
+  getDataSelection,
   (dataSelection) => dataSelection && dataSelection.view
 );
 
@@ -127,7 +137,7 @@ const generateMarkers = (markers) => (
     index
   })));
 
-const getMapMarkers = createSelector([getNewDataSelection],
+const getMapMarkers = createSelector([getDataSelection],
   (dataSelection) => dataSelection.markers);
 
 export const getClusterMarkers = createSelector([getMapMarkers],

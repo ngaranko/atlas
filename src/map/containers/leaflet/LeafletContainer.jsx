@@ -17,8 +17,8 @@ import {
   getMarkers,
   getRdGeoJsons
 } from '../../ducks/map/map-selectors';
-import { getClusterMarkers } from '../../../shared/ducks/new-data-selection/new-data-selection';
-import { getGeoJsons } from '../../../shared/ducks/new-data-selection/new-data-selection';
+import { getClusterMarkers } from '../../../shared/ducks/data-selection/data-selection';
+import { getGeoJsons } from '../../../shared/ducks/data-selection/data-selection';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;

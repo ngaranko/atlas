@@ -1,7 +1,7 @@
 import get from 'lodash.get';
 import { put, takeLatest } from 'redux-saga/effects';
 import { routing } from '../../app/routes';
-import { fetchDataSelection } from '../../shared/ducks/new-data-selection/new-data-selection';
+import { fetchDataSelection } from '../../shared/ducks/data-selection/data-selection';
 import { applyFilters } from '../../shared/ducks/filters/filters';
 
 export function* fetchCatalogData(action) {

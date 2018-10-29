@@ -34,9 +34,9 @@ import {
   isDrawingEnabled
 } from '../../ducks/map/map-selectors';
 import {
-  getNewDataSelection,
+  getDataSelection,
   setDataSelectionGeometryFilter
-} from '../../../shared/ducks/new-data-selection/new-data-selection';
+} from '../../../shared/ducks/data-selection/data-selection';
 import { isMapPage } from '../../../shared/ducks/location/location';
 
 const mapStateToProps = (state) => ({
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => ({
   isEnabled: isDrawingEnabled(state),
   shapeMarkers: getShapeMarkers(state),
   shapeDistanceTxt: getShapeDistanceTxt(state),
-  dataSelection: getNewDataSelection(state),
+  dataSelection: getDataSelection(state),
   geometry: getGeometry(state),
   uiMapFullscreen: isMapPage(state)
 });

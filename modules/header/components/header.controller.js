@@ -1,6 +1,6 @@
 import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/search/search';
 import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
-import { getNewDataSelection } from '../../../src/shared/ducks/new-data-selection/new-data-selection';
+import { getDataSelection } from '../../../src/shared/ducks/data-selection/data-selection';
 import { isMapPage } from '../../../src/shared/ducks/location/location';
 
 (function () {
@@ -20,9 +20,9 @@ import { isMapPage } from '../../../src/shared/ducks/location/location';
 
         function update () {
             const state = store.getState(),
-                isDataSelection = angular.isObject(getNewDataSelection(state)),
-                isListView = isDataSelection && getNewDataSelection(state).view === 'LIST',
-                isCatalogView = isDataSelection && getNewDataSelection(state).view === 'CATALOG',
+                isDataSelection = angular.isObject(getDataSelection(state)),
+                isListView = isDataSelection && getDataSelection(state).view === 'LIST',
+                isCatalogView = isDataSelection && getDataSelection(state).view === 'CATALOG',
                 isHomepage = angular.isObject(state.page) && state.page.name === 'home' &&
                     !isMapPage(state) &&
                     !angular.isObject(state.straatbeeld);

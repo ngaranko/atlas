@@ -252,4 +252,10 @@ export const toAddressResults = (payload, meta = {}) => ({
   payload
 });
 
+export const toAddress = (payload, meta = {}) => ({
+  type: routing.adressen.type,
+  meta,
+  payload
+});
+
 export default routes;

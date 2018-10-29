@@ -2,7 +2,7 @@ import { features } from '../../../../src/shared/environment';
 import DATA_SELECTION_CONFIG
     from '../../../../src/shared/services/data-selection/data-selection-config';
 import { routing } from '../../../../src/app/routes';
-import { VIEWS } from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
+import { VIEWS } from '../../../../src/shared/ducks/data-selection/data-selection';
 
 (function () {
     'use strict';

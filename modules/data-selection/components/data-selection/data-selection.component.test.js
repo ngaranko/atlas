@@ -1,11 +1,11 @@
 import {
     SHOW_DATA_SELECTION
-} from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
+} from '../../../../src/shared/ducks/data-selection/data-selection';
 import * as dataSelectionConfig
     from '../../../../src/shared/services/data-selection/data-selection-config';
 import * as dataSelectionApi
     from '../../../../src/shared/services/data-selection/data-selection-api';
-import { RESET_DATA_SELECTION } from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
+import { RESET_DATA_SELECTION } from '../../../../src/shared/ducks/data-selection/data-selection';
 
 describe('The dp-data-selection component', function () {
     let $rootScope,

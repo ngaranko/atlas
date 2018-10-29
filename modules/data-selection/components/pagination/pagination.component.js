@@ -1,7 +1,8 @@
 import {
     fetchDataSelection,
-    getNewDataSelection
-} from '../../../../src/shared/ducks/new-data-selection/new-data-selection';
+    getDataSelection
+} from '../../../../src/shared/ducks/data-selection/data-selection';
+import { toAddress } from '../../../../src/app/routes';
 
 (function () {
     'use strict';
@@ -33,28 +34,36 @@ import {
                 vm.firstPage = {
                     label: 'Eerste',
                     class_name: 'c-data-selection-pagination-link--first',
-                    page: 1,
+                    action: toAddress({
+                        query: { page: 1 }
+                    }),
                     enabled: !isFirstPage
                 };
 
                 vm.previousPage = {
                     label: 'Vorige',
                     class_name: 'c-data-selection-pagination-link--previous',
-                    page: isFirstPage ? null : vm.currentPage - 1,
+                    action: toAddress({
+                        query: { page: isFirstPage ? null : vm.currentPage - 1 }
+                    }),
                     enabled: !isFirstPage
                 };
 
                 vm.nextPage = {
                     label: 'Volgende',
                     class_name: 'c-data-selection-pagination-link--next',
-                    page: isLastPage ? null : vm.currentPage + 1,
+                    action: toAddress({
+                        query: { page: isLastPage ? null : vm.currentPage + 1 }
+                    }),
                     enabled: !isLastPage
                 };
 
                 vm.lastPage = {
                     label: 'Laatste',
                     class_name: 'c-data-selection-pagination-link--last',
-                    page: vm.numberOfPages,
+                    action: toAddress({
+                        query: { page: vm.numberOfPages }
+                    }),
                     enabled: !isLastPage
                 };
             }
@@ -64,8 +73,8 @@ import {
             event.preventDefault();
 
             if (angular.isNumber(vm.currentPage) && vm.currentPage >= 1 && vm.currentPage <= vm.numberOfPages) {
-                store.dispatch(fetchDataSelection({
-                    ...getNewDataSelection(store.getState()),
+                store.dispatch(toAddress({
+                    ...getDataSelection(store.getState()),
                     page: vm.currentPage
                 }));
             }
@@ -73,7 +82,7 @@ import {
 
         if (vm.currentPage > vm.numberOfPages) {
             store.dispatch(fetchDataSelection({
-                ...getNewDataSelection(store.getState()),
+                ...getDataSelection(store.getState()),
                 page: 1
             }));
         }
