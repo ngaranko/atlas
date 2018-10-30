@@ -4,6 +4,10 @@ import { shallow } from 'enzyme';
 
 import MapContainer from './MapContainer';
 
+import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
+
+jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
+
 let initialState;
 
 describe('MapContainer', () => {
@@ -37,5 +41,17 @@ describe('MapContainer', () => {
     const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
     wrapper.instance().setLeafletInstance('leafletInstance');
     expect(wrapper.instance().state.leafletInstance).toBe('leafletInstance');
+  });
+
+  it('should hide the fullscreen and send piwik action', () => {
+    const store = configureMockStore()({ ...initialState, ui: { isMapFullscreen: true } });
+    const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
+    wrapper.instance().onToggleFullscreen();
+    piwikTracker.mockImplementation(() => jest.fn());
+    expect(piwikTracker).toHaveBeenCalled();
+    // should not send another piwik event if map is maximized
+    wrapper.setProps({ isFullscreen: false });
+    wrapper.instance().onToggleFullscreen();
+    expect(piwikTracker).toHaveBeenCalledTimes(1);
   });
 });
