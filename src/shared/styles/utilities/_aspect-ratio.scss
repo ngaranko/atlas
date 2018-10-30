@@ -1,7 +1,13 @@
 .u-aspect-ratio {
   height: auto;
   max-width: 100%;
+  padding: 2px;
   position: relative;
+
+  &:hover {
+    border: 2px solid $primary-dark;
+    padding: 0;
+  }
 }
 
 .u-aspect-ratio > * {
