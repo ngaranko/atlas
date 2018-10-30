@@ -279,7 +279,7 @@ export const getPageActionEndpoint = (endpoint, view) => {
 
 export const pageTypeToEndpoint = (type, subtype, id) => {
   let endpoint = 'https://acc.api.data.amsterdam.nl/';
-  endpoint += `${type}/${subtype}/${id}`; // TODO: refactor, get back-end to return detail as detail GET not listing!
+  endpoint += `${type}/${subtype}/${id}/`; // TODO: refactor, get back-end to return detail as detail GET not listing!
   return endpoint;
 };
 
