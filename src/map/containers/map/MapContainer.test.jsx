@@ -23,13 +23,13 @@ describe('overrideLeafletGetBounds', () => {
 
     const resultBounds = {
       _northEast: {
-        lat: 52.369370600896495,
-        lng: 4.9016796504400535
+        lat: 52.36860534110108,
+        lng: 4.899952830201715
       },
 
       _southWest: {
-        lat: 52.35789170396524,
-        lng: 4.875777346864972
+        lat: 52.35865696376065,
+        lng: 4.877504167103311
       }
     };
     const map = {
