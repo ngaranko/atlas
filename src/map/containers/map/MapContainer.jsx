@@ -15,6 +15,7 @@ import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewP
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 
 import getEmbedLink from '../../ducks/embed/embed';
+import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 
 export const overrideLeafletGetBounds = (map) => {
   // We override here the getBounds method of Leaflet
@@ -47,6 +48,24 @@ class MapContainer extends React.Component {
       leafletInstance: null
     };
     this.setLeafletInstance = this.setLeafletInstance.bind(this);
+    this.onToggleFullscreen = this.onToggleFullscreen.bind(this);
+  }
+
+  // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
+  onToggleFullscreen() {
+    const { isFullscreen, onToggleFullscreen } = this.props;
+    const piwik = {
+      TRACK_EVENT: 'trackEvent',
+      MINIMIZE_MAP: 'map-minimize',
+      NAVIGATION: 'navigation'
+    };
+
+    if (isFullscreen) {
+      piwikTracker([piwik.TRACK_EVENT, piwik.NAVIGATION,
+        piwik.MINIMIZE_MAP, window.document.title]);
+    }
+
+    return onToggleFullscreen();
   }
 
   setLeafletInstance(leafletInstance) {
@@ -69,7 +88,7 @@ class MapContainer extends React.Component {
         }
         <ToggleFullscreen
           isFullscreen={this.props.isFullscreen}
-          onToggleFullscreen={this.props.onToggleFullscreen}
+          onToggleFullscreen={this.onToggleFullscreen}
         />
         <MapPanelContainer />
         {
