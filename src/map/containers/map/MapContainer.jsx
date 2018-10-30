@@ -25,7 +25,7 @@ export const overrideLeafletGetBounds = (map) => {
     const sw = map.unproject(bounds.getBottomLeft());
     const ne = map.unproject(bounds.getTopRight());
 
-    const latLngBounds = (new LatLngBounds(sw, ne)).pad(0.1);
+    const latLngBounds = (new LatLngBounds(sw, ne)).pad(0.02);
     return latLngBounds;
   };
 };
