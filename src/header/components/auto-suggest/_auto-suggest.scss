@@ -68,10 +68,8 @@ $clear-button-margin: 3px;
     top: $clear-button-margin;
     width: 25px;
 
-    &:hover {
-      svg {
-        fill: $primary-contrast;
-      }
+    svg {
+      fill: $primary-contrast;
     }
   }
 
