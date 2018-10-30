@@ -6,7 +6,8 @@ export const EMPTY_FILTERS = 'EMPTY_FILTERS';
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case routing.addresses.type:
-    case routing.establishments.type: {
+    case routing.establishments.type:
+    case routing.cadastralObjects.type: {
       const { filters: queryFilters } = action.meta.query || {};
       const filterToParse = queryFilters || '{}';
       return JSON.parse(filterToParse);

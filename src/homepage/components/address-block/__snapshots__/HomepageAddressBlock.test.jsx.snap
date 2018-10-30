@@ -8,7 +8,7 @@ exports[`HomepageAddressBlock should render links 1`] = `
   hasTallDescription={true}
   linkAction={
     Object {
-      "type": "atlasRouter/RESULTS_ADDRESS",
+      "type": "atlasRouter/ADDRESSES",
     }
   }
   title="Adressentabel"
@@ -22,7 +22,7 @@ exports[`HomepageAddressBlock should render links 1`] = `
       title="Bekijk Adressentabel"
       to={
         Object {
-          "type": "atlasRouter/RESULTS_ADDRESS",
+          "type": "atlasRouter/ADDRESSES",
         }
       }
     >
@@ -47,7 +47,7 @@ exports[`HomepageAddressBlock should render links 1`] = `
       title="Bekijk handelsregister-tabel"
       to={
         Object {
-          "type": "atlasRouter/RESULTS_ESTABLISHMENT",
+          "type": "atlasRouter/ESTABLISHMENTS",
         }
       }
     >
@@ -72,7 +72,7 @@ exports[`HomepageAddressBlock should render links 1`] = `
       title="Bekijk kadaster-tabel"
       to={
         Object {
-          "type": "atlasRouter/RESULTS_ESTABLISHMENT",
+          "type": "atlasRouter/CADASTRAL_OBJECTS",
         }
       }
     >

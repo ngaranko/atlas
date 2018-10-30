@@ -136,18 +136,11 @@ const App = ({
               <CatalogDetailContainer />
             )}
 
-            {(currentPage === PAGES.ADRESSEN
-              || currentPage === PAGES.RESULTS_ADDRESS
-            || currentPage === PAGES.RESULTS_ESTABLISHMENT)
+            {(currentPage === PAGES.ADDRESSES
+            || currentPage === PAGES.ESTABLISHMENTS
+            || currentPage === PAGES.CADASTRAL_OBJECTS)
             && (
               <DataSelection />
-            )}
-
-            {currentPage === PAGES.VESTIGINGEN && (
-              <DataSelection
-                view={'TABLE'}
-                dataset={DATASETS.HR}
-              />
             )}
 
             {isCmsPage && (

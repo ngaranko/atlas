@@ -25,7 +25,7 @@ const BLOCK_ITEMS = {
   KADASTER: {
     label: 'Kadaster-tabel',
     icon: IconKadaster,
-    route: routing.establishments.type,
+    route: routing.cadastralObjects.type,
     title: 'Bekijk kadaster-tabel'
   }
 };

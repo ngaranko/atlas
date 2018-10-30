@@ -6,7 +6,8 @@ import {
   fetchDataSelection,
   getDataSelection,
   receiveDataSelectionFailure,
-  receiveDataSelectionSuccess, SET_DATASET,
+  receiveDataSelectionSuccess,
+  SET_DATASET,
   SET_GEOMETRY_FILTERS,
   setMarkers,
   VIEWS
@@ -83,7 +84,7 @@ function* handleRoutes() {
 const DATASET_ROUTE_MAPPER = {
   hr: routing.establishments.type,
   bag: routing.addresses.type,
-  brk: routing.addresses.type
+  brk: routing.cadastralObjects.type
 };
 
 function* switchPage(action) {
@@ -110,7 +111,10 @@ function* clearResults() {
 
 export default function* watchFetchDataSelection() {
   yield takeLatest(FETCH_DATA_SELECTION_REQUEST, retrieveDataSelection);
-  yield takeLatest([routing.addresses.type, routing.establishments.type], handleRoutes);
+  yield takeLatest(
+    [routing.addresses.type, routing.establishments.type, routing.cadastralObjects.type],
+    handleRoutes
+  );
   yield takeLatest(SET_GEOMETRY_FILTERS, goToAddressResults);
   yield takeLatest(SET_DATASET, switchPage);
 

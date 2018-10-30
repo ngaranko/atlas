@@ -22,6 +22,7 @@ export const NAVIGATE_DATA_SELECTION = 'NAVIGATE_DATA_SELECTION';
 export const RESET_DATA_SELECTION = 'RESET_DATA_SELECTION';
 
 const ROUTE_DATASET_MAPPER = {
+  [routing.cadastralObjects.type]: 'brk',
   [routing.establishments.type]: 'hr',
   [routing.addresses.type]: 'bag'
 };
@@ -55,7 +56,8 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case routing.addresses.type:
-    case routing.establishments.type: {
+    case routing.establishments.type:
+    case routing.cadastralObjects.type: {
       if (action.meta.query) {
         const { geoFilter, geoFilterDescription, listView } = action.meta.query;
         const markers = geoFilter && geoFilter.length

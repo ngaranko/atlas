@@ -30,7 +30,6 @@ import '../modules/data-selection/data-selection.module';
 import '../modules/data-selection/components/active-filters/active-filters.component';
 import '../modules/data-selection/components/available-filters/available-filters.component';
 import '../modules/data-selection/components/sbi-filter/sbi-filter.component';
-import '../modules/data-selection/components/data-selection/data-selection.component';
 import '../modules/data-selection/components/formatter/aggregate/aggregate.filter';
 import '../modules/data-selection/components/formatter/align-right/align-right.filter';
 import '../modules/data-selection/components/formatter/bag-address/bag-address.filter';
@@ -206,7 +205,6 @@ import '../modules/data-selection/components/pagination/pagination-link.componen
 import '../modules/data-selection/components/views/table/table.component.test';
 import '../modules/data-selection/components/views/list/list.component.test';
 import '../modules/data-selection/components/views/catalog/catalog.component.test';
-import '../modules/data-selection/components/data-selection/data-selection.component.test';
 import '../modules/data-selection/components/active-filters/active-filters.component.test';
 import '../modules/data-selection/components/header/download-button/download-button.component.test';
 import '../modules/data-selection/components/header/toggle-view-button/toggle-view-button.component.test';

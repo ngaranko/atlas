@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Link from 'redux-first-router-link';
 import { AngularWrapper } from 'react-angular';
+import { routing } from '../../routes';
 
-const NotAuthorizedPanel = ({ dataset }) => (
+const NotAuthorizedPanel = () => (
   <AngularWrapper
     moduleName={'dpPanelWrapper'}
     component="dpPanel"
@@ -22,14 +23,10 @@ const NotAuthorizedPanel = ({ dataset }) => (
         rechthebbenden te bekijken.
       </p>
       <p className="c-panel__paragraph">
-        Zie {dataset}
+        Zie <Link className="c-link--light qa-link-to-page-button qa-dp-link" to={{ type: routing.bediening.type, payload: { deeplink: 'inloggen' } }}>Help &#62; Bediening &#62; Inloggen</Link>
       </p>
     </div>
   </AngularWrapper>
 );
-
-NotAuthorizedPanel.propTypes = {
-  dataset: PropTypes.string.isRequired
-};
 
 export default NotAuthorizedPanel;

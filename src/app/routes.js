@@ -32,14 +32,20 @@ export const routing = {
   addresses: {
     title: '',
     path: '/datasets/bag/adressen',
-    type: `${ROUTER_NAMESPACE}/${PAGES.ADRESSEN}`,
-    page: PAGES.ADRESSEN
+    type: `${ROUTER_NAMESPACE}/${PAGES.ADDRESSES}`,
+    page: PAGES.ADDRESSES
   },
   establishments: {
     title: '',
     path: '/datasets/hr/vestigingen',
-    type: `${ROUTER_NAMESPACE}/${PAGES.RESULTS_ESTABLISHMENT}`,
-    page: PAGES.RESULTS_ESTABLISHMENT
+    type: `${ROUTER_NAMESPACE}/${PAGES.ESTABLISHMENTS}`,
+    page: PAGES.ESTABLISHMENTS
+  },
+  cadastralObjects: {
+    title: '',
+    path: '/datasets/brk/kadastrale-objecten',
+    type: `${ROUTER_NAMESPACE}/${PAGES.CADASTRAL_OBJECTS}`,
+    page: PAGES.CADASTRAL_OBJECTS
   },
   searchCatalog: {
     path: '/search/catalog/:query',

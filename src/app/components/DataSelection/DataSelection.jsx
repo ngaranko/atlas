@@ -31,7 +31,7 @@ const DataSelection = ({
     data
   } = results;
 
-  if (isLoading || !numberOfRecords) {
+  if (isLoading || (!numberOfRecords && !authError)) {
     return <LoadingIndicator />;
   }
 
