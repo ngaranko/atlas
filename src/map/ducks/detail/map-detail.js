@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 
 import { isSearchActive } from '../../../shared/ducks/search/search';
-import { getDataSelection } from '../data-selection/data-selection';
 import {
   getDetail,
   getDetailDisplay,
@@ -37,9 +36,9 @@ export const getGeometry = createSelector(
     detailGeometry || mapDetailGeometry
   ));
 
-export const shouldShowGeoJson = createSelector([getDetail, isSearchActive, getDataSelection],
-  (detailActive, searchActive, dataSelectionActive) => (
-    Boolean(detailActive && !searchActive && !dataSelectionActive)
+export const shouldShowGeoJson = createSelector([getDetail, isSearchActive],
+  (detailActive, searchActive) => (
+    Boolean(detailActive && !searchActive)
   ));
 
 export const getGeoJson = createSelector(
