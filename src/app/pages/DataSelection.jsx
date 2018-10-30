@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import connect from 'react-redux/es/connect/connect';
 import MapContainer from '../../map/containers/map/MapContainer';
 import NewDataSelection from '../components/DataSelection/DataSelection';
-import { isMapView } from '../../shared/ducks/location/location';
+import { isListView } from '../../shared/ducks/data-selection/data-selection';
 
-const DataSelection = ({ isMapViewActive }) => {
-  if (!isMapViewActive) {
+const DataSelection = ({ showMap }) => {
+  if (!showMap) {
     return (
       <NewDataSelection />
     );
@@ -32,11 +32,11 @@ const DataSelection = ({ isMapViewActive }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isMapViewActive: isMapView(state)
+  showMap: isListView(state)
 });
 
 DataSelection.propTypes = {
-  isMapViewActive: PropTypes.bool.isRequired
+  showMap: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps, null)(DataSelection);

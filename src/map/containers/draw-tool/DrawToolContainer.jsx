@@ -35,9 +35,8 @@ import {
 } from '../../ducks/map/map-selectors';
 import {
   getDataSelection,
-  setDataSelectionGeometryFilter
+  setGeometryFilter
 } from '../../../shared/ducks/data-selection/data-selection';
-import { isMapPage } from '../../../shared/ducks/location/location';
 
 const mapStateToProps = (state) => ({
   drawingMode: getDrawingMode(state),
@@ -45,15 +44,14 @@ const mapStateToProps = (state) => ({
   shapeMarkers: getShapeMarkers(state),
   shapeDistanceTxt: getShapeDistanceTxt(state),
   dataSelection: getDataSelection(state),
-  geometry: getGeometry(state),
-  uiMapFullscreen: isMapPage(state)
+  geometry: getGeometry(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onClearDrawing: mapClearDrawing,
   onEmptyGeometry: mapEmptyGeometry,
   onMapUpdateShape: mapUpdateShape,
-  setGeometryFilter: setDataSelectionGeometryFilter,
+  setGeometryFilter,
   onStartDrawing: mapStartDrawing,
   onEndDrawing: mapEndDrawing,
   onMapClear: mapClear,

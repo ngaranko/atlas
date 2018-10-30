@@ -1,5 +1,5 @@
 import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
-import { FETCH_DATA_SELECION_REQUEST } from '../../../../src/shared/ducks/data-selection/data-selection';
+import { clearGeometryFilter } from '../../../../src/shared/ducks/data-selection/data-selection';
 
 (function () {
     'use strict';
@@ -82,14 +82,7 @@ import { FETCH_DATA_SELECION_REQUEST } from '../../../../src/shared/ducks/data-s
         }
 
         function removeGeometryFilter () {
-            store.dispatch({
-                type: FETCH_DATA_SELECION_REQUEST,
-                payload: {
-                    dataset: vm.dataset,
-                    resetGeometryFilter: true,
-                    page: 1
-                }
-            });
+            store.dispatch(clearGeometryFilter());
         }
 
         function applyFilters (filters) {

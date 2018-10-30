@@ -33,7 +33,7 @@ export const SEARCH_VIEW = {
 
 export default function MapSearchResultsReducer(state = initialState, action) {
   switch (action.type) {
-    case routing.adressen.type: {
+    case routing.addresses.type: {
       const { query = {} } = action.meta;
       if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {
         return {

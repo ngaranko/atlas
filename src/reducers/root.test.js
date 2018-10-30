@@ -75,7 +75,6 @@ describe('the root reducer', () => {
         user: 'user',
         search: 'search',
         selection: 'selection',
-        currentPage: 'HOME',
         mapLayers: {
           baseLayers: 'baseLayers',
           layers: 'layers',

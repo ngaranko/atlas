@@ -32,8 +32,7 @@ export const initialState = {
   shapeDistanceTxt: '',
   shapeAreaTxt: '',
   selectedLocation: null,
-  mapPanelActive: true,
-  markers: []
+  mapPanelActive: true
 };
 
 let polygon = {};
@@ -171,16 +170,13 @@ export const mapEndDrawing = (payload) => ({ type: MAP_END_DRAWING, payload });
 export const mapClear = () => ({ type: MAP_CLEAR });
 export const setMapBaseLayer = (payload) => ({ type: SET_MAP_BASE_LAYER, payload });
 export const toggleMapOverlay = (mapLayerId) => ({ type: TOGGLE_MAP_OVERLAY, mapLayerId });
+export const updateZoom = (payload) => ({ type: MAP_ZOOM, payload });
+export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
 export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
   type: TOGGLE_MAP_OVERLAY_VISIBILITY,
   mapLayerId,
   show
 });
-export const updateZoom = (payload) =>
-  ({
-    type: MAP_ZOOM,
-    payload
-  });
 export const updatePan = (payload) =>
   ({
     type: MAP_PAN,
@@ -203,8 +199,3 @@ export const updateBoundingBox = (payload, isDrawingActive) =>
     type: isDrawingActive ? MAP_BOUNDING_BOX_SILENT : MAP_BOUNDING_BOX,
     payload
   });
-
-export const toggleMapPanel = () => ({
-  type: TOGGLE_MAP_PANEL
-});
-

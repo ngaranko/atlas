@@ -12,15 +12,16 @@
                 hoverText: '@',
                 type: '@',
                 payload: '<',
-                query: '<'
+                query: '<',
+                action: '<'
             },
             controller: DpLinkController,
             controllerAs: 'vm'
         });
 
-    DpLinkController.$inject = ['$scope', 'store', '$location', '$window'];
+    DpLinkController.$inject = ['$scope', 'store', '$location'];
 
-    function DpLinkController ($scope, store, $location, $window) {
+    function DpLinkController ($scope, store, $location) {
         const vm = this;
         vm.activeUrl = $location.url();
 
@@ -28,7 +29,11 @@
         vm.inline = vm.inline || false;
 
         vm.dispatch = function () {
-            store.dispatch(getAction(vm.type, vm.payload, vm.query));
+            if (vm.action) {
+                store.dispatch(vm.action);
+            } else {
+                store.dispatch(getAction(vm.type, vm.payload, vm.query));
+            }
         };
 
         function getAction (type, payload, query) {

@@ -1,21 +1,24 @@
 import { createSelector } from 'reselect';
-import { routing } from '../../../app/routes';
-import PAGES from '../../../app/pages';
+import { routing } from '../app/routes';
+import PAGES from '../app/pages';
 
 export const REDUCER_KEY = 'location';
 
 // selectors
 const getLocation = (state) => state[REDUCER_KEY];
 
-export const getCurrentPage = createSelector(getLocation, (location) => {
+export const getLocationQuery = createSelector(getLocation, (location) => location.query || {});
+export const getLocationType = createSelector(getLocation, (location) => location.type);
+
+export const getCurrentPage = createSelector(getLocation, (location = {}) => {
   const key = Object.keys(routing).find((route) => routing[route].type === location.type);
   return key && routing[key].page;
 });
 
 export const isMapView = createSelector(
-  getLocation,
-  (location) => (
-    (location.query && Object.prototype.hasOwnProperty.call(location.query, 'kaart')) || false
+  getLocationQuery,
+  (query) => (
+    Object.prototype.hasOwnProperty.call(query, 'kaart') || false
   )
 );
 

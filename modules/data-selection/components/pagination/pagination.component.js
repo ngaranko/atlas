@@ -1,8 +1,4 @@
-import {
-    fetchDataSelection,
-    getDataSelection
-} from '../../../../src/shared/ducks/data-selection/data-selection';
-import { toAddress } from '../../../../src/app/routes';
+import { setPage } from '../../../../src/shared/ducks/data-selection/data-selection';
 
 (function () {
     'use strict';
@@ -34,36 +30,28 @@ import { toAddress } from '../../../../src/app/routes';
                 vm.firstPage = {
                     label: 'Eerste',
                     class_name: 'c-data-selection-pagination-link--first',
-                    action: toAddress({
-                        query: { page: 1 }
-                    }),
+                    action: setPage(1),
                     enabled: !isFirstPage
                 };
 
                 vm.previousPage = {
                     label: 'Vorige',
                     class_name: 'c-data-selection-pagination-link--previous',
-                    action: toAddress({
-                        query: { page: isFirstPage ? null : vm.currentPage - 1 }
-                    }),
+                    action: setPage(isFirstPage ? null : vm.currentPage - 1),
                     enabled: !isFirstPage
                 };
 
                 vm.nextPage = {
                     label: 'Volgende',
                     class_name: 'c-data-selection-pagination-link--next',
-                    action: toAddress({
-                        query: { page: isLastPage ? null : vm.currentPage + 1 }
-                    }),
+                    action: setPage(isLastPage ? null : vm.currentPage + 1),
                     enabled: !isLastPage
                 };
 
                 vm.lastPage = {
                     label: 'Laatste',
                     class_name: 'c-data-selection-pagination-link--last',
-                    action: toAddress({
-                        query: { page: vm.numberOfPages }
-                    }),
+                    action: setPage(vm.numberOfPages),
                     enabled: !isLastPage
                 };
             }
@@ -73,18 +61,12 @@ import { toAddress } from '../../../../src/app/routes';
             event.preventDefault();
 
             if (angular.isNumber(vm.currentPage) && vm.currentPage >= 1 && vm.currentPage <= vm.numberOfPages) {
-                store.dispatch(toAddress({
-                    ...getDataSelection(store.getState()),
-                    page: vm.currentPage
-                }));
+                store.dispatch(setPage(vm.currentPage));
             }
         };
 
         if (vm.currentPage > vm.numberOfPages) {
-            store.dispatch(fetchDataSelection({
-                ...getDataSelection(store.getState()),
-                page: 1
-            }));
+            store.dispatch(setPage(1));
         }
     }
 })();

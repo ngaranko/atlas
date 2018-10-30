@@ -40,6 +40,7 @@ import {
   getGeoJsons
 } from '../../../shared/ducks/data-selection/data-selection';
 
+jest.mock('../../../shared/ducks/data-selection/data-selection');
 jest.mock('../../ducks/base-layers/map-base-layers');
 jest.mock('../../ducks/map/map');
 jest.mock('../../ducks/map/map-selectors');

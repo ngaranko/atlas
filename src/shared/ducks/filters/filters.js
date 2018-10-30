@@ -3,28 +3,13 @@ import { routing } from '../../../app/routes';
 export const APPLY_FILTERS = 'APPLY_FILTERS';
 export const EMPTY_FILTERS = 'EMPTY_FILTERS';
 
-const parseFiltersString = (string) => {
-  if (!string) {
-    return {};
-  }
-  const filterStrings = string.split(',');
-  const filters = filterStrings.reduce((acc, singleFilterString) => {
-    const [key, value] = singleFilterString.split(':');
-    return {
-      ...acc,
-      [key]: value
-    };
-  }, {});
-  return filters;
-};
-
 const reducer = (state = {}, action) => {
   switch (action.type) {
-    case routing.adressen.type:
-    case routing.vestigingen.type: {
-      const { filters: filterString } = action.meta.query || {};
-      const filters = parseFiltersString(filterString);
-      return filters;
+    case routing.addresses.type:
+    case routing.establishments.type: {
+      const { filters: queryFilters } = action.meta.query || {};
+      const filterToParse = queryFilters || '{}';
+      return JSON.parse(filterToParse);
     }
     case APPLY_FILTERS:
       return { ...action.payload };

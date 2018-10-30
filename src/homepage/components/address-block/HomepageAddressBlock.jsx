@@ -13,26 +13,26 @@ const BLOCK_ITEMS = {
   ADRESSEN: {
     label: 'Adressentabel',
     icon: IconAddress,
-    route: routing.adressen.type,
+    route: routing.addresses.type,
     title: 'Bekijk Adressentabel'
   },
   HANDELSREGISTER: {
     label: 'Handelsregister-tabel',
     icon: IconHr,
-    route: routing.vestigingen.type,
+    route: routing.establishments.type,
     title: 'Bekijk handelsregister-tabel'
   },
   KADASTER: {
     label: 'Kadaster-tabel',
     icon: IconKadaster,
-    route: routing.vestigingen.type,
+    route: routing.establishments.type,
     title: 'Bekijk kadaster-tabel'
   }
 };
 
 const HomepageAddressBlock = () => (
   <HomepageBlock
-    linkAction={{ type: routing.adressen.type }}
+    linkAction={{ type: routing.addresses.type }}
     title="Adressentabel"
     description="Selecteer en download als spreadsheet"
     hasTallDescription

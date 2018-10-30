@@ -15,7 +15,7 @@ import { watchQuerySearch } from './map/sagas/query-search/query-search';
 import { watchCatalogList } from './catalog/sagas/catalog';
 import { watchFetchStraatbeeld, watchPanoramaRoute } from './pano/sagas/panorama';
 import { watchDetailRoute } from './detail/sagas/detail';
-import {watchFetchDataSelection} from './shared/sagas/data-selection/data-selection';
+import watchFetchDataSelection from './shared/sagas/data-selection/data-selection';
 import watchQueryActions from './store/query-synchronization';
 
 export default function* rootSaga() {

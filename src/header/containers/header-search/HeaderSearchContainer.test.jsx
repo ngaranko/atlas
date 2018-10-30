@@ -15,7 +15,7 @@ import { fetchDataSelection, fetchSearchResultsByQuery, FETCH_DATA_SELECTION, FE
 
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { fetchDetail, FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
-import { routing } from '../../../app/routes';
+import { ROUTER_NAMESPACE, routing } from '../../../app/routes';
 import PAGES from '../../../app/pages';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
 
@@ -221,6 +221,7 @@ describe('HeaderSearchContainer', () => {
 
     it('does dataset search', () => {
       const query = 'foo';
+      getTypedQuery.mockImplementation(() => query);
       const store = configureMockStore()({
         ...initialState,
         autoSuggest: {
@@ -229,7 +230,9 @@ describe('HeaderSearchContainer', () => {
           },
           typedQuery: query
         },
-        currentPage: PAGES.CATALOGUS
+        location: {
+          type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS}`
+        }
       });
       jest.spyOn(store, 'dispatch');
 

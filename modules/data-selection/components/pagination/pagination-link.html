@@ -1,7 +1,6 @@
-<dp-redux-link
+<dp-link
     ng-if="vm.link.enabled"
-    to="vm.link.action"
-    link-class="{{ vm.link.class_name }} c-data-selection-pagination-link"
->
-    <span class="c-data-selection-pagination-link-label">{{vm.link.label}}</span>
-</dp-redux-link>
+    class-name="{{ vm.link.class_name }} c-data-selection-pagination-link"
+    hover-text="{{vm.link.label}}"
+    action="vm.link.action"
+    ><span class="c-data-selection-pagination-link-label">{{vm.link.label}}</span></dp-link>

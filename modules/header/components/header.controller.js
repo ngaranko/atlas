@@ -1,7 +1,7 @@
 import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/search/search';
 import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
 import { getDataSelection } from '../../../src/shared/ducks/data-selection/data-selection';
-import { isMapPage } from '../../../src/shared/ducks/location/location';
+import { isMapPage } from '../../../src/store/redux-first-router';
 
 (function () {
     'use strict';

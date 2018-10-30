@@ -4,12 +4,12 @@ import { shallow } from 'enzyme';
 
 import MapContainer from './MapContainer';
 
-import { isMapActive } from '../../../shared/ducks/location/location';
+import { isMapActive } from '../../../store/redux-first-router';
 import { previewDataAvailable } from '../../../shared/ducks/selection/selection';
 import { isEmbedded } from '../../../shared/ducks/ui/ui';
 import { getDrawingMode } from '../../ducks/map/map-selectors';
 
-jest.mock('../../../shared/ducks/location/location');
+jest.mock('../../../store/redux-first-router');
 jest.mock('../../../shared/ducks/selection/selection');
 jest.mock('../../../shared/ducks/ui/ui');
 jest.mock('../../ducks/map/map-selectors');

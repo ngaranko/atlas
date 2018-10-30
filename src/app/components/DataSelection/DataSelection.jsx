@@ -13,7 +13,6 @@ import { getUser } from '../../../shared/ducks/user/user';
 import NotAuthorizedPanel from '../NotAuthorizedMessage/NotAuthorizedMessage';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 
-/* istanbul ignore next */ // TODO: refactor, test
 const DataSelection = ({
   view,
   isLoading,
@@ -31,10 +30,6 @@ const DataSelection = ({
     numberOfPages,
     data
   } = results;
-
-  if (authError) {
-    return <NotAuthorizedPanel dataset={dataset} />;
-  }
 
   if (isLoading || !numberOfRecords) {
     return <LoadingIndicator />;
@@ -58,147 +53,147 @@ const DataSelection = ({
   return (
     <div className="c-data-selection">
       <div className="qa-data-selection-content">
-        {(
-          <AngularWrapper
-            moduleName={'dpDataSelectionHeaderWrapper'}
-            component="dpDataSelectionHeader"
-            dependencies={['atlas']}
-            bindings={{
-              geometryFilter,
-              dataset,
-              availableFilters,
-              filters,
-              numberOfRecords,
-              showHeader,
-              user,
-              view
-            }}
-          />
-        )}
-        <div className="u-grid qa-data-grid">
-          <div className="u-row">
-            {showFilters && (
-              <div className="u-col-sm--3 c-data-selection__available-filters">
-                {(dataset === 'hr') && (
+        <AngularWrapper
+          moduleName={'dpDataSelectionHeaderWrapper'}
+          component="dpDataSelectionHeader"
+          dependencies={['atlas']}
+          bindings={{
+            geometryFilter,
+            dataset,
+            availableFilters,
+            filters,
+            numberOfRecords,
+            showHeader,
+            user,
+            view
+          }}
+        />
+        {(!authError) && (
+          <div className="u-grid qa-data-grid">
+            <div className="u-row">
+              {showFilters && (
+                <div className="u-col-sm--3 c-data-selection__available-filters">
+                  {(dataset === 'hr') && (
+                    <AngularWrapper
+                      moduleName="dpSbiFilterWrapper"
+                      component="dpSbiFilter"
+                      dependencies={['atlas']}
+                      bindings={{
+                        availableFilters,
+                        filters
+                      }}
+                    />
+                  )}
+
                   <AngularWrapper
-                    moduleName="dpSbiFilterWrapper"
-                    component="dpSbiFilter"
+                    moduleName="dpDataSelectionAvailableFiltersWrapper"
+                    component="dpDataSelectionAvailableFilters"
                     dependencies={['atlas']}
                     bindings={{
                       availableFilters,
-                      filters
+                      activeFilters: filters
                     }}
-                  />
-                )}
-
-                <AngularWrapper
-                  moduleName="dpDataSelectionAvailableFiltersWrapper"
-                  component="dpDataSelectionAvailableFilters"
-                  dependencies={['atlas']}
-                  bindings={{
-                    availableFilters,
-                    activeFilters: filters
-                  }}
-                  interpolateBindings={{
-                    dataset
-                  }}
-                />
-              </div>
-            )}
-            <div className={widthClass}>
-              {showMessageMaxPages && (
-                <AngularWrapper
-                  moduleName={'dpPanelWrapper'}
-                  component="dpPanel"
-                  dependencies={['atlas']}
-                  bindings={{
-                    isPanelVisible: true,
-                    canClose: true
-                  }}
-                  interpolateBindings={{
-                    type: 'warning'
-                  }}
-                >
-                  <div className="qa-message-max-pages">
-                    <h2 className="c-panel__title">Deze pagina kan niet worden getoond</h2>
-                    <p className="c-panel__paragraph">
-                      Alleen de eerste {MAX_AVAILABLE_PAGES} pagina&apos;s kunnen
-                      worden
-                      weergegeven (om technische redenen). Bij
-                      downloaden worden wel alle resultaten opgenomen.
-                    </p>
-                    <p className="c-panel__paragraph">
-                      Tip: Gebruik de download-knop om alle resultaten te bekijken. Of voeg
-                      meer
-                      filtercriteria
-                      toe voor specifiekere resultaten.
-                    </p>
-                  </div>
-                </AngularWrapper>
-              )}
-
-              {showMessageClusteredMarkers && (
-                <AngularWrapper
-                  moduleName={'dpPanelWrapper'}
-                  component="dpPanel"
-                  dependencies={['atlas']}
-                  bindings={{
-                    isPanelVisible: true,
-                    canClose: true
-                  }}
-                  interpolateBindings={{
-                    type: 'warning'
-                  }}
-                >
-                  <div className="qa-message-clustered-markers">
-                    <p className="c-panel__paragraph">Deze resultaten worden niet getoond op
-                      de
-                      kaart, omdat deze niet meer
-                      dan {MAX_NUMBER_OF_CLUSTERED_MARKERS} resultaten tegelijk kan
-                      weergeven (om technische redenen).</p>
-                    <p className="c-panel__paragraph">Tip: Bekijk de lijst resultaten in
-                      kleinere delen. Dit kan door een voor een filtercriteria toe te voegen
-                      (bijv. de verschillende wijken uit de selectie).</p>
-                  </div>
-                </AngularWrapper>
-              )}
-
-
-              <div>
-                {view === VIEWS.TABLE && (
-                  <AngularWrapper
-                    moduleName={'dpDataSelectionTableWrapper'}
-                    component="dpDataSelectionTable"
-                    dependencies={['atlas']}
-                    bindings={{
-                      content: data,
+                    interpolateBindings={{
                       dataset
                     }}
                   />
-                )}
-                {view === VIEWS.LIST && (
+                </div>
+              )}
+              <div className={widthClass}>
+                {showMessageMaxPages && (
                   <AngularWrapper
-                    moduleName={'dpDataSelectionListWrapper'}
-                    component="dpDataSelectionList"
+                    moduleName={'dpPanelWrapper'}
+                    component="dpPanel"
                     dependencies={['atlas']}
                     bindings={{
-                      content: data
+                      isPanelVisible: true,
+                      canClose: true
                     }}
-                  />
+                    interpolateBindings={{
+                      type: 'warning'
+                    }}
+                  >
+                    <div className="qa-message-max-pages">
+                      <h2 className="c-panel__title">Deze pagina kan niet worden getoond</h2>
+                      <p className="c-panel__paragraph">
+                        Alleen de eerste {MAX_AVAILABLE_PAGES} pagina&apos;s kunnen
+                        worden
+                        weergegeven (om technische redenen). Bij
+                        downloaden worden wel alle resultaten opgenomen.
+                      </p>
+                      <p className="c-panel__paragraph">
+                        Tip: Gebruik de download-knop om alle resultaten te bekijken. Of voeg
+                        meer
+                        filtercriteria
+                        toe voor specifiekere resultaten.
+                      </p>
+                    </div>
+                  </AngularWrapper>
                 )}
+
+                {showMessageClusteredMarkers && (
+                  <AngularWrapper
+                    moduleName={'dpPanelWrapper'}
+                    component="dpPanel"
+                    dependencies={['atlas']}
+                    bindings={{
+                      isPanelVisible: true,
+                      canClose: true
+                    }}
+                    interpolateBindings={{
+                      type: 'warning'
+                    }}
+                  >
+                    <div className="qa-message-clustered-markers">
+                      <p className="c-panel__paragraph">Deze resultaten worden niet getoond op
+                        de
+                        kaart, omdat deze niet meer
+                        dan {MAX_NUMBER_OF_CLUSTERED_MARKERS} resultaten tegelijk kan
+                        weergeven (om technische redenen).</p>
+                      <p className="c-panel__paragraph">Tip: Bekijk de lijst resultaten in
+                        kleinere delen. Dit kan door een voor een filtercriteria toe te voegen
+                        (bijv. de verschillende wijken uit de selectie).</p>
+                    </div>
+                  </AngularWrapper>
+                )}
+
+
+                <div>
+                  {view === VIEWS.TABLE && (
+                    <AngularWrapper
+                      moduleName={'dpDataSelectionTableWrapper'}
+                      component="dpDataSelectionTable"
+                      dependencies={['atlas']}
+                      bindings={{
+                        content: data,
+                        dataset
+                      }}
+                    />
+                  )}
+                  {view === VIEWS.LIST && (
+                    <AngularWrapper
+                      moduleName={'dpDataSelectionListWrapper'}
+                      component="dpDataSelectionList"
+                      dependencies={['atlas']}
+                      bindings={{
+                        content: data
+                      }}
+                    />
+                  )}
+                </div>
+                <AngularWrapper
+                  moduleName={'dpDataSelectionPaginationWrapper'}
+                  component="dpDataSelectionPagination"
+                  dependencies={['atlas']}
+                  bindings={{
+                    currentPage,
+                    numberOfPages
+                  }}
+                />
               </div>
-              <AngularWrapper
-                moduleName={'dpDataSelectionPaginationWrapper'}
-                component="dpDataSelectionPagination"
-                dependencies={['atlas']}
-                bindings={{
-                  currentPage,
-                  numberOfPages
-                }}
-              />
             </div>
           </div>
-        </div>
+        )}
 
         {authError && (
           <NotAuthorizedPanel dataset={dataset} />

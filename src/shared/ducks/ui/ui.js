@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { getStraatbeeld } from '../straatbeeld/straatbeeld';
 import { getDataSelectionView, VIEWS } from '../data-selection/data-selection';
-import { isMapPage } from '../location/location';
+import { isMapPage } from '../../../store/redux-first-router';
 
 export const REDUCER_KEY = 'ui';
 

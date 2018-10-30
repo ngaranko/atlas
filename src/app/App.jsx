@@ -8,7 +8,7 @@ import Piwik from './components/Piwik/Piwik';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
-import DATASETS from '../shared/ducks/data-selection/data-selection';
+import { DATASETS } from '../shared/ducks/data-selection/data-selection';
 import './_app.scss';
 import CatalogDetailContainer from './containers/CatalogDetailContainer';
 import CatalogSearchContainer from './containers/CatalogSearchContainer';
@@ -27,7 +27,7 @@ import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
 import AddressPage from './pages/AddressPage';
 import MapSearchPage from './pages/MapSearchPage';
-import { getCurrentPage } from '../shared/ducks/location/location';
+import { getCurrentPage } from '../store/redux-first-router';
 
 // TodoReactMigration: implement logic
 const App = ({

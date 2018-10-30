@@ -4,25 +4,29 @@ import mapQuery, { ACTIONS as MAP_ACTIONS } from '../map/ducks/map/map-query';
 import filtersQuery, { ACTIONS as FILTERS_ACTIONS } from '../shared/ducks/filters/filters-query';
 import selectionQuery, { ACTIONS as SELECTION_ACTIONS } from '../shared/ducks/selection/selection-query';
 import straatbeeldQuery, { ACTIONS as STRAATBEELD_ACTIONS } from '../shared/ducks/straatbeeld/straatbeeld-query';
-import { getLocationQuery } from './redux-first-router-selectors';
+import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/data-selection-query';
+import { getLocationQuery, getLocationType } from './redux-first-router';
 
 const watchedActions = [
   ...MAP_ACTIONS,
   ...SELECTION_ACTIONS,
   ...STRAATBEELD_ACTIONS,
-  ...FILTERS_ACTIONS
+  ...FILTERS_ACTIONS,
+  ...DATA_SELECTION_ACTIONS
 ];
 
 const queryMappings = {
   ...mapQuery,
   ...filtersQuery,
   ...selectionQuery,
-  ...straatbeeldQuery
+  ...straatbeeldQuery,
+  ...dataSelectionQuery
 };
 
 function* updateQuery() {
   const state = yield select();
   const currentQuery = yield select(getLocationQuery);
+  const currentLocationType = yield select(getLocationType);
   const query = { ...currentQuery };
 
   let addHistory = false;
@@ -44,13 +48,18 @@ function* updateQuery() {
     }
   });
 
+  const orderedQuery = Object.keys(query).sort().reduce((acc, key) => {
+    acc[key] = query[key];
+    return acc;
+  }, {});
+
   const noop = (params) => params;
   const routeWrapper = addHistory ? noop : redirect;
   yield put(routeWrapper({
-    type: state.location.type,
+    type: currentLocationType,
     payload: state.location.payload,
     meta: {
-      query
+      query: orderedQuery
     }
   }));
 }

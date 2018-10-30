@@ -1,4 +1,4 @@
-import { routing } from '../../../../../src/app/routes';
+import { setView, VIEWS } from '../../../../../src/shared/ducks/data-selection/data-selection';
 
 (function () {
     'use strict';
@@ -19,18 +19,17 @@ import { routing } from '../../../../../src/app/routes';
     function DpToggleViewButtonController ($scope) {
         const vm = this;
 
-        vm.type = routing.adressen.type;
-        vm.query = { kaart: true };
-
         $scope.$watch('vm.view', function () {
-            if (vm.view === 'TABLE') {
-                vm.targetView = 'LIST';
+            if (vm.view === VIEWS.TABLE) {
+                vm.targetView = VIEWS.LIST;
                 vm.targetLabel = 'Kaart weergeven';
                 vm.targetHover = 'Resultaten op de kaart weergeven';
+                vm.action = setView(VIEWS.LIST);
             } else {
-                vm.targetView = 'TABLE';
+                vm.targetView = VIEWS.TABLE;
                 vm.targetLabel = 'Tabel weergeven';
                 vm.targetHover = 'Resultaten in tabel weergeven';
+                vm.action = setView(VIEWS.TABLE);
             }
         });
     }

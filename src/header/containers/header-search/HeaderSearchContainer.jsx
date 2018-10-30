@@ -12,7 +12,7 @@ import {
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
-import { isCatalogCurrentPage, isMapPage } from '../../../shared/ducks/location/location';
+import { isCatalogCurrentPage, isMapPage } from '../../../store/redux-first-router';
 import {
   extractIdEndpoint,
   getPageActionEndpoint,

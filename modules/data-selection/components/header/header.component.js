@@ -1,8 +1,11 @@
 import { features } from '../../../../src/shared/environment';
 import DATA_SELECTION_CONFIG
     from '../../../../src/shared/services/data-selection/data-selection-config';
-import { routing } from '../../../../src/app/routes';
-import { VIEWS } from '../../../../src/shared/ducks/data-selection/data-selection';
+import {
+    DATASETS,
+    setDataset,
+    VIEWS
+} from '../../../../src/shared/ducks/data-selection/data-selection';
 
 (function () {
     'use strict';
@@ -47,31 +50,29 @@ import { VIEWS } from '../../../../src/shared/ducks/data-selection/data-selectio
                 (!exportAuthScope || vm.user.scopes.includes(exportAuthScope));
             vm.showTabs = isListView;
             vm.showNoResultsFound = vm.numberOfRecords === 0;
-            vm.showActiveFilters = !!(Object.keys(vm.filters).length || (vm.geometryFilter && vm.geometryFilter.markers && vm.geometryFilter.markers.length));
+            vm.showActiveFilters = !!(
+                Object.keys(vm.filters).length ||
+                (vm.geometryFilter && vm.geometryFilter.markers && vm.geometryFilter.markers.length)
+            );
 
             vm.canEditDataset = vm.user.scopes.includes('CAT/W');
             vm.showNumberOfRecords = vm.numberOfRecords > 0 &&
                 DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_NUMBER_OF_RECORDS;
             vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.dataset].TITLE;
 
-            const tabs = ['bag', 'hr'];
+            const tabs = [DATASETS.BAG, DATASETS.HR];
 
             /* istanbul ignore next */
             if (features.eigendommen) {
-                tabs.push('brk');
+                tabs.push(DATASETS.BRK);
             }
 
-            vm.tabs = tabs.map((dataset) => {
-                return {
-                    dataset,
-                    title: DATA_SELECTION_CONFIG.datasets[dataset].TITLE_TAB,
-                    tabAction: {
-                        type: routing.establishmentResults.type,
-                        payload: { dataset, filters: vm.filters, page: 1, view: VIEWS.LIST }
-                    },
-                    isActive: vm.dataset === dataset
-                };
-            });
+            vm.tabs = tabs.map((dataset) => ({
+                dataset,
+                title: DATA_SELECTION_CONFIG.datasets[dataset].TITLE_TAB,
+                tabAction: setDataset(dataset),
+                isActive: vm.dataset === dataset
+            }));
         }
     }
 })();

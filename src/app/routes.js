@@ -29,23 +29,17 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS_DETAIL}`,
     page: PAGES.CATALOGUS_DETAIL
   },
-  addressResults: {
+  addresses: {
     title: '',
     path: '/datasets/bag/adressen',
     type: `${ROUTER_NAMESPACE}/${PAGES.ADRESSEN}`,
     page: PAGES.ADRESSEN
   },
-  establishmentResults: {
+  establishments: {
     title: '',
     path: '/datasets/hr/vestigingen',
     type: `${ROUTER_NAMESPACE}/${PAGES.RESULTS_ESTABLISHMENT}`,
     page: PAGES.RESULTS_ESTABLISHMENT
-  },
-  vestigingen: {
-    title: '',
-    path: '/vestigingen',
-    type: `${ROUTER_NAMESPACE}/${PAGES.VESTIGINGEN}`,
-    page: PAGES.VESTIGINGEN
   },
   searchCatalog: {
     path: '/search/catalog/:query',
@@ -242,7 +236,7 @@ export const pageTypeToEndpoint = (type, subtype, id) => {
 };
 
 export const toAddressResults = (payload, meta = {}) => ({
-  type: routing.addressResults.type,
+  type: routing.addresses.type,
   meta: {
     query: {
       kaart: ''
