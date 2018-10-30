@@ -11,7 +11,7 @@
   }
 
   &::before {
-    @extend %#{"dp-" + $icon + if(str-length($state) > 0, "-", "") + $state + "-icon"};
+    @include sprite(#{$icon + if(str-length($state) > 0, "-", "") + $state});
 
     content: "";
     display: block;
@@ -21,7 +21,7 @@
 
   &:hover {
     &::before {
-      @extend %#{"dp-" + $icon + if(str-length($hover-state) > 0, "-", "") + $hover-state + "-icon"};
+      @include sprite(#{$icon + if(str-length($hover-state) > 0, "-", "") + $hover-state});
     }
   }
 }
@@ -119,4 +119,18 @@
 
 %icon--shadow {
   box-shadow: $button-shadow-size $button-shadow-size 0 0 $secondary-gray40;
+}
+
+@mixin icon-sprite($icon, $fill: "#FFF", $hover-fill: "", $size: "") {
+  @include sprite($icon, ( fill: $fill ));
+
+  @if $size {
+    background-size: $size;
+  }
+
+  @if $hover-fill {
+    &:hover {
+      @include sprite($icon, ( fill: $hover-fill ));
+    }
+  }
 }

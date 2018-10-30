@@ -15,9 +15,7 @@ exports[`AutoSuggestItem should render the item 1`] = `
     <div>
       <span
         className="icon"
-      >
-        <Component />
-      </span>
+      />
       <span
         dangerouslySetInnerHTML={
           Object {

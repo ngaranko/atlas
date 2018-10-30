@@ -6,11 +6,15 @@ $print-header-padding: 46px;
 }
 
 .c-print-header__close {
-  @include icon-button("close", "transparent", "red");
+  @include icon-button("close", "transparent");
 
   position: absolute;
   top: -($print-header-padding - $base-whitespace);
   right: -($print-header-padding - $base-whitespace);
+
+  &:hover {
+    @include icon-button("close", "red");
+  }
 }
 
 .c-print-header__print {

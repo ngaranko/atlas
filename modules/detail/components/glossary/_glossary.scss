@@ -6,4 +6,6 @@
 .c-metadata__button {
   @extend %icon--border-hover;
   @include icon("metadata", "", "white");
+  border: 1px solid  $primary-dark;
+  background-color: $secondary-gray20;
 }

@@ -120,9 +120,6 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
           title="Wis zoektekst"
           type="button"
         >
-          <Component>
-            mock-svg
-          </Component>
           <span
             className="u-sr-only"
           >
@@ -204,11 +201,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -241,11 +234,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -278,11 +267,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -384,11 +369,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -421,11 +402,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -458,11 +435,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -505,9 +478,6 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
         title="Zoeken"
         type="submit"
       >
-        <Component>
-          mock-svg
-        </Component>
         <span
           className="u-sr-only"
         >
@@ -642,9 +612,6 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
           title="Wis zoektekst"
           type="button"
         >
-          <Component>
-            mock-svg
-          </Component>
           <span
             className="u-sr-only"
           >
@@ -729,11 +696,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -766,11 +729,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -803,11 +762,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -912,11 +867,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -949,11 +900,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -986,11 +933,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -1033,9 +976,6 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
         title="Zoeken"
         type="submit"
       >
-        <Component>
-          mock-svg
-        </Component>
         <span
           className="u-sr-only"
         >
@@ -1167,9 +1107,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           title="Wis zoektekst"
           type="button"
         >
-          <Component>
-            mock-svg
-          </Component>
           <span
             className="u-sr-only"
           >
@@ -1183,9 +1120,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
         title="Zoeken"
         type="submit"
       >
-        <Component>
-          mock-svg
-        </Component>
         <span
           className="u-sr-only"
         >
@@ -1317,9 +1251,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           title="Wis zoektekst"
           type="button"
         >
-          <Component>
-            mock-svg
-          </Component>
           <span
             className="u-sr-only"
           >
@@ -1401,11 +1332,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -1438,11 +1365,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -1475,11 +1398,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -1581,11 +1500,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -1618,11 +1533,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -1655,11 +1566,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
                     <div>
                       <span
                         className="icon"
-                      >
-                        <Component>
-                          mock-svg
-                        </Component>
-                      </span>
+                      />
                       <span
                         dangerouslySetInnerHTML={
                           Object {
@@ -1702,9 +1609,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
         title="Zoeken"
         type="submit"
       >
-        <Component>
-          mock-svg
-        </Component>
         <span
           className="u-sr-only"
         >
@@ -1836,9 +1740,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           title="Wis zoektekst"
           type="button"
         >
-          <Component>
-            mock-svg
-          </Component>
           <span
             className="u-sr-only"
           >
@@ -1852,9 +1753,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
         title="Zoeken"
         type="submit"
       >
-        <Component>
-          mock-svg
-        </Component>
         <span
           className="u-sr-only"
         >

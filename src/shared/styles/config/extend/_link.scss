@@ -53,7 +53,7 @@ $link-offset: 3px;
   }
 
   &::after {
-    @include icon-button("link-arrow", "light-gray", "");
+    @include icon-button("link-arrow", "light-gray");
     display: none;
   }
 
@@ -61,6 +61,18 @@ $link-offset: 3px;
     @include icon-button("link-arrow");
     height: $icon-size;
     width: $icon-size;
+  }
+
+  &:hover {
+    &::after {
+      @include icon-button("link-arrow");
+    }
+
+    &::before {
+      @include icon-button("link-arrow", "red");
+      height: $icon-size;
+      width: $icon-size;
+    }
   }
 }
 

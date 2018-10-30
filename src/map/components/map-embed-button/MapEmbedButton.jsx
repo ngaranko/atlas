@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
-
 const MapEmbedButton = ({ link }) => (
   <a
     href={link}
@@ -11,7 +9,7 @@ const MapEmbedButton = ({ link }) => (
     target="_blank"
     rel="noopener noreferrer"
   >
-    <MaximizeIcon className="c-embed-button__icon" />
+    <span className="c-embed-button__icon c-embed-button__icon--maximize" />
     <span className="c-embed-button__label">City Data</span>
   </a>
 );
