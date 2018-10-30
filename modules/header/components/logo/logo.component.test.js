@@ -55,7 +55,7 @@ describe('The dp-logo component', () => {
             expect(component.find('.qa-logo__image')[0].getAttribute('src')).toContain('logo-short');
         });
 
-        it('is handles piwik on ng-click', () => {
+        it('it handles piwik on ng-click', () => {
             component.find('.c-logo__link').click();
             expect(piwik.default).toHaveBeenCalledWith(['trackEvent', 'navigation', 'home', '']);
         });
