@@ -28,8 +28,8 @@ const isUpdated = (props, prevProps, paths) => {
 
 const update = (dispatch, props, prevProps = {}) => {
   // Don't just copy this. It's an anti-pattern.
-  if (isUpdated(props, prevProps, 'detail.endpoint')) {
-    dispatch(getMapDetail(props.detail.endpoint, props.user));
+  if (isUpdated(props, prevProps, 'detailEndpoint')) {
+    dispatch(getMapDetail(props.detailEndpoint, props.user));
   } else if (isUpdated(props, prevProps, 'detailResult.location')) {
     dispatch(getPanoPreview(props.detailResult.location));
   } else if (isUpdated(props, prevProps, ['searchLocation.latitude', 'searchLocation.longitude'])) {
@@ -74,10 +74,9 @@ class MapPreviewPanel extends React.Component {
     const isLoading = get(props, 'search.isLoading') || get(props, 'mapDetail.isLoading');
     const isSearchLoaded = !isLoading && props.search && props.searchLocation;
     const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult;
-    // const hidden = !(props.mapClickLocation || isLoading);
     const hidden = false; // TODO: refactor, toggle visibility or remove logic all together
 
-    const openDetailEndpoint = () => props.openDetail(props.detail.endpoint);
+    const openDetailEndpoint = () => props.openDetail(props.detailEndpoint);
 
     return !props.isEmbed && (
       <div className="map-preview-panel-wrapper">
@@ -89,7 +88,7 @@ class MapPreviewPanel extends React.Component {
           <div className="map-preview-panel__heading">
             <button
               className="map-preview-panel__button"
-              onClick={openDetailEndpoint}
+              onClick={props.isSearchPreview ? props.onSearchMaximize : openDetailEndpoint}
               title="Volledige weergave tonen"
             >
               <MaximizeIcon className="map-preview-panel__button-icon" />
@@ -145,6 +144,7 @@ MapPreviewPanel.contextTypes = {
 MapPreviewPanel.defaultProps = {
   detail: {},
   detailResult: {},
+  detailEndpoint: undefined,
   isEmbed: false,
   mapDetail: {},
   missingLayers: '',
@@ -160,6 +160,7 @@ MapPreviewPanel.defaultProps = {
 MapPreviewPanel.propTypes = {
   detail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   detailResult: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  detailEndpoint: PropTypes.string,
   isEmbed: PropTypes.bool,
   mapDetail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   missingLayers: PropTypes.string,

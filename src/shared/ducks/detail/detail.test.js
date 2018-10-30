@@ -1,5 +1,5 @@
 import reducer, {
-  DETAIL_FULLSCREEN, DETAIL_VIEW,
+  DETAIL_VIEW,
   FETCH_DETAIL,
   fetchDetail,
   SHOW_DETAIL
@@ -23,9 +23,7 @@ describe('DetailReducer', () => {
       type: FETCH_DETAIL,
       payload: 'payload'
     })).toEqual({
-      endpoint: 'payload',
-      isLoading: true,
-      isFullscreen: false
+      isLoading: true
     });
   });
 
@@ -41,16 +39,6 @@ describe('DetailReducer', () => {
       display: 'display',
       geometry: 'geometry',
       isLoading: false
-    });
-  });
-
-  it(`should set the previews when ${DETAIL_FULLSCREEN} is dispatched`, () => {
-    expect(reducer(stateAfterRequest, {
-      type: DETAIL_FULLSCREEN,
-      payload: true
-    })).toEqual({
-      some: 'data',
-      isFullscreen: true
     });
   });
 });

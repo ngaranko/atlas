@@ -1,7 +1,6 @@
 import removeMd from 'remove-markdown';
 
-import { getSelectedLocation } from '../../../../src/map/ducks/map/map-selectors';
-import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
+import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
 
 (function () {
     angular
@@ -43,7 +42,7 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
         markdownParser
     ) {
         /* eslint-enable max-params */
-        var vm = this;
+        const vm = this;
 
         // (Re)load the data when the endpoint is set or gets changed
         $scope.$watch('vm.endpoint', getData);
@@ -68,8 +67,6 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
             vm.location = null;
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
-
-            const location = getSelectedLocation(store.getState());
 
             const [category, subject] = endpointParser.getParts(endpoint);
 
@@ -120,11 +117,6 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
                             const rd = geojson.getCenter(geoJSON);
                             vm.location = crsConverter.rdToWgs84([rd.x, rd.y]);
                         }
-
-                        store.dispatch({
-                            type: DETAIL_FULLSCREEN,
-                            payload: subject === 'api' || !geoJSON
-                        });
 
                         store.dispatch({
                             type: SHOW_DETAIL,

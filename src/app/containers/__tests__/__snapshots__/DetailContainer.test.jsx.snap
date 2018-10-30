@@ -19,7 +19,7 @@ exports[`DetailContainer should render 1`] = `
     }
     interpolateBindings={
       Object {
-        "endpoint": "",
+        "endpoint": "myEndpoint",
       }
     }
     moduleName="dpDetailWrapper"

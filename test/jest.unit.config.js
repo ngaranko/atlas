@@ -18,7 +18,7 @@ module.exports = {
       statements: 75,
       branches: 82, // TODO refactor, get coverage up
       lines: 80,
-      functions: 88
+      functions: 87
     }
   },
   coverageReporters: process.env.CI ? [

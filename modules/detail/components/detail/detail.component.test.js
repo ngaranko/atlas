@@ -312,7 +312,7 @@ describe('the dp-detail component', () => {
         });
     });
 
-    it('triggers the SHOW_DETAIL and DETAIL_FULLSCREEN action with the display and geometry as its payload', () => {
+    it('triggers the SHOW_DETAIL action with the display and geometry as its payload', () => {
         getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
 
         expect(store.dispatch).toHaveBeenCalledWith({
@@ -321,11 +321,6 @@ describe('the dp-detail component', () => {
                 display: 'Adresstraat 1A',
                 geometry: mockedGeometryPoint
             }
-        });
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: DETAIL_FULLSCREEN,
-            payload: false
         });
     });
 
@@ -398,37 +393,6 @@ describe('the dp-detail component', () => {
             payload: jasmine.objectContaining({
                 geometry: null
             })
-        });
-    });
-
-    describe('the DETAIL_FULLSCREEN payload', () => {
-        it('sets it to true when the subject is \'api\'', () => {
-            getComponent('http://fake-endpoint.amsterdam.nl/api/subject/123/');
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: DETAIL_FULLSCREEN,
-                payload: true
-            });
-        });
-
-        it('sets it to true when there is no geometry', () => {
-            mockedUser.scopes = ['BRK/RS'];
-
-            getComponent('http://www.fake-endpoint.com/brk/subject/123/');
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: DETAIL_FULLSCREEN,
-                payload: true
-            });
-        });
-
-        it('sets it to false otherwise', () => {
-            getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/');
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: DETAIL_FULLSCREEN,
-                payload: false
-            });
         });
     });
 

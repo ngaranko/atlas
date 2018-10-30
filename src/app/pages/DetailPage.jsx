@@ -1,13 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import connect from 'react-redux/es/connect/connect';
 import MapContainer from '../../map/containers/map/MapContainer';
 import DetailContainer from '../containers/DetailContainer';
-import { DETAIL_VIEW, getDetailGeometry, getDetailView } from '../../shared/ducks/detail/detail';
+import {
+DETAIL_VIEW,
+getDetailEndpoint,
+getDetailGeometry,
+getDetailView
+} from '../../shared/ducks/detail/detail';
+import { getPageActionEndpoint as endpointActionCreator } from '../routes';
 
 /* istanbul ignore next */ // TODO: refactor, test
-const DetailPage = ({ view: routeView, hasGeometry }) => {
+const DetailPage = ({ view: routeView, hasGeometry, endpoint, getPageActionEndpoint }) => {
   const view = hasGeometry ? routeView : DETAIL_VIEW.DETAIL;
+  const toMap = () => getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP);
 
   switch (view) {
     case DETAIL_VIEW.DETAIL:
@@ -25,7 +33,7 @@ const DetailPage = ({ view: routeView, hasGeometry }) => {
             className={`c-dashboard__column u-col-sm--${sizeMap} qa-dashboard__column--middle u-page-break-after`}
           >
             <div className="qa-map">
-              <MapContainer isFullscreen={false} toggleFullscreen={() => {}} />
+              <MapContainer isFullscreen={false} toggleFullscreen={toMap} />
             </div>
           </div>
           <div
@@ -41,12 +49,19 @@ const DetailPage = ({ view: routeView, hasGeometry }) => {
 
 const mapStateToProps = (state) => ({
   hasGeometry: Boolean(getDetailGeometry(state)),
-  view: getDetailView(state)
+  view: getDetailView(state),
+  endpoint: getDetailEndpoint(state)
 });
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  getPageActionEndpoint: endpointActionCreator
+}, dispatch);
 
 DetailPage.propTypes = {
   hasGeometry: PropTypes.bool.isRequired,
-  view: PropTypes.oneOf(Object.keys(DETAIL_VIEW)).isRequired
+  view: PropTypes.oneOf(Object.keys(DETAIL_VIEW)).isRequired,
+  endpoint: PropTypes.string.isRequired,
+  getPageActionEndpoint: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, null)(DetailPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailPage);

@@ -1,11 +1,10 @@
 import { createSelector } from 'reselect';
-import { routing } from '../../../app/routes';
+import { pageTypeToEndpoint, routing } from '../../../app/routes';
 
 export const REDUCER_KEY = 'detail';
 
 export const FETCH_DETAIL = 'FETCH_DETAIL';
 export const SHOW_DETAIL = 'SHOW_DETAIL';
-export const DETAIL_FULLSCREEN = 'DETAIL_FULLSCREEN';
 
 export const DETAIL_VIEW = {
   MAP: 'MAP',
@@ -21,12 +20,15 @@ const initialState = {
 export default function detailReducer(state = initialState, action) {
   switch (action.type) {
     case routing.dataDetail.type: {
-      const { id } = action.payload;
+      const { id: idString, type, subtype } = action.payload;
+      const id = idString.substr(2); // Change `id123` to `123`
       const { query = {} } = action.meta;
       if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {
         return {
           ...state,
           id,
+          type,
+          subtype,
           view: DETAIL_VIEW.MAP
         };
       }
@@ -34,21 +36,23 @@ export default function detailReducer(state = initialState, action) {
         return {
           ...state,
           id,
+          type,
+          subtype,
           view: DETAIL_VIEW.DETAIL
         };
       }
       return {
         ...state,
         id,
+        type,
+        subtype,
         view: DETAIL_VIEW.MAP_DETAIL
       };
     }
     case FETCH_DETAIL:
       return {
         ...state,
-        endpoint: action.payload,
-        isLoading: true,
-        isFullscreen: action.payload && action.payload.includes('dcatd/datasets')
+        isLoading: true
       };
 
     case SHOW_DETAIL:
@@ -57,12 +61,6 @@ export default function detailReducer(state = initialState, action) {
         display: action.payload.display,
         geometry: action.payload.geometry,
         isLoading: false
-      };
-
-    case DETAIL_FULLSCREEN:
-      return {
-        ...state,
-        isFullscreen: action.payload
       };
 
     default:
@@ -80,7 +78,11 @@ export const fetchDetail = (endpoint) => ({
 export const getDetail = (state) => state[REDUCER_KEY];
 export const getDetailView = (state) => state.detail.view;
 export const getDetailGeometry = createSelector(getDetail, (detail) => detail && detail.geometry);
-export const getDetailEndpoint = createSelector(getDetail, (detail) => detail && detail.endpoint);
+export const getDetailEndpoint = createSelector(getDetail, (detail) => {
+  if (detail && detail.type && detail.subtype && detail.id) {
+    return pageTypeToEndpoint(detail.type, detail.subtype, detail.id);
+  }
+  return undefined;
+});
 export const getDetailDisplay = createSelector(getDetail, (detail) => detail && detail.display);
-export const isDetailReloaded = createSelector(getDetail, (detail) => detail && detail.reload);
 export const isDetailLoading = createSelector(getDetail, (detail) => detail && detail.isLoading);
