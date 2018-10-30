@@ -1,5 +1,5 @@
 import * as mapSelectors from '../../../../src/map/ducks/map/map-selectors';
-import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
+import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
 
 describe('the dp-detail component', () => {
     var $compile,
@@ -324,7 +324,7 @@ describe('the dp-detail component', () => {
         });
     });
 
-    it('loads new API data and triggers a new SHOW_DETAIL and DETAIL_FULLSCREEN action when the endpoint ' +
+    it('loads new API data and triggers a new SHOW_DETAIL action when the endpoint ' +
         'changes', () => {
         var component,
             scope,
@@ -345,17 +345,13 @@ describe('the dp-detail component', () => {
                 naam: 'naam'
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(2);
+        expect(store.dispatch).toHaveBeenCalledTimes(1);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: SHOW_DETAIL,
             payload: {
                 display: 'Adresstraat 1A',
                 geometry: mockedGeometryPoint
             }
-        });
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: DETAIL_FULLSCREEN,
-            payload: false
         });
 
         // Change the endpoint
@@ -369,17 +365,13 @@ describe('the dp-detail component', () => {
                 something: -90
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(4);
+        expect(store.dispatch).toHaveBeenCalledTimes(2);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: SHOW_DETAIL,
             payload: {
                 display: 'Een of ander kadastraal object',
                 geometry: mockedGeometryMultiPolygon
             }
-        });
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: DETAIL_FULLSCREEN,
-            payload: false
         });
     });
 
