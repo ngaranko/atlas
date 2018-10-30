@@ -49,7 +49,7 @@ pipeline {
       parallel {
         stage('Unit tests') {
           options {
-            timeout(time: 15, unit: 'MINUTES')
+            timeout(time: 30, unit: 'MINUTES')
           }
           environment {
             PROJECT = "${PROJECT_PREFIX}unit"
@@ -66,7 +66,7 @@ pipeline {
 
         stage('Linting') {
           options {
-            timeout(time: 15, unit: 'MINUTES')
+            timeout(time: 30, unit: 'MINUTES')
           }
           environment {
             PROJECT = "${PROJECT_PREFIX}linting"
@@ -104,7 +104,7 @@ pipeline {
 
         stage('E2E tests (Aria)') {
           options {
-            timeout(time: 20, unit: 'MINUTES')
+            timeout(time: 30, unit: 'MINUTES')
           }
           environment {
             PROJECT = "${PROJECT_PREFIX}e2e-aria"
