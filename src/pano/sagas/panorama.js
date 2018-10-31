@@ -1,12 +1,16 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { routing } from '../../app/routes';
+import { routing, toMap } from '../../app/routes';
 import {
   FETCH_STRAATBEELD,
-  fetchStraatbeeld, getStraatbeeld, fetchStraatbeeldSuccess, fetchStraatbeeldError
+  fetchStraatbeeld,
+  getStraatbeeld,
+  fetchStraatbeeldSuccess,
+  fetchStraatbeeldError,
+  CLOSE_STRAATBEELD
 } from '../../shared/ducks/straatbeeld/straatbeeld';
 import { getImageDataById } from '../../shared/services/straatbeeld-api/straatbeeld-api';
 
-export function* fireFetchPanormaRequest(action) {
+function* fireFetchPanormaRequest(action) {
   yield put(fetchStraatbeeld(action.payload.id));
 }
 
@@ -14,7 +18,7 @@ export function* watchPanoramaRoute() {
   yield takeLatest(routing.panorama.type, fireFetchPanormaRequest);
 }
 
-export function* fetchPanorama() {
+function* fetchPanorama() {
   const { id, year } = yield select(getStraatbeeld);
   try {
     const imageData = yield call(getImageDataById, id, year);
@@ -26,4 +30,12 @@ export function* fetchPanorama() {
 
 export function* watchFetchStraatbeeld() {
   yield takeLatest(FETCH_STRAATBEELD, fetchPanorama);
+}
+
+function* doCloseStraatbeeld() {
+  yield put(toMap());
+}
+
+export function* watchCloseStraatbeeld() {
+  yield takeLatest(CLOSE_STRAATBEELD, doCloseStraatbeeld);
 }
