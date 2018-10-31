@@ -8,10 +8,8 @@ import Piwik from './components/Piwik/Piwik';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
-import { DATASETS } from '../shared/ducks/data-selection/data-selection';
 import './_app.scss';
 import CatalogDetailContainer from './containers/CatalogDetailContainer';
-import CatalogSearchContainer from './containers/CatalogSearchContainer';
 import QuerySearchContainer from './containers/QuerySearchContainer';
 import {
   isEmbedded,
@@ -116,20 +114,6 @@ const App = ({
             {currentPage === PAGES.DATA_DETAIL && <DetailPage />}
 
             {currentPage === PAGES.PANORAMA && <PanoramaPage />}
-
-            {currentPage === PAGES.CATALOGUS && (
-              <DataSelection
-                view={'CATALOG'}
-                dataset={DATASETS.CATALOG}
-              />
-            )}
-
-            {currentPage === PAGES.SEARCH_CATALOG && (
-              <CatalogSearchContainer
-                component="dpDataSelectionCatalog"
-                dataset={DATASETS.CATALOG}
-              />
-            )}
 
             {currentPage === PAGES.CATALOGUS_DETAIL && (
               <CatalogDetailContainer />

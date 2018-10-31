@@ -28,7 +28,8 @@
         vm.className = vm.className || 'o-btn o-btn--link';
         vm.inline = vm.inline || false;
 
-        vm.dispatch = function () {
+        vm.dispatch = function (e) {
+            e.preventDefault();
             if (vm.action) {
                 store.dispatch(vm.action);
             } else {
