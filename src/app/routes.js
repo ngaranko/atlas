@@ -7,193 +7,145 @@ export const ROUTER_NAMESPACE = 'atlasRouter';
 export const routing = {
   home: {
     title: 'Home',
-    reduxRouter: {
-      path: '/'
-    },
+    path: '/',
     type: `${ROUTER_NAMESPACE}/${PAGES.HOME}`,
     page: PAGES.HOME
   },
   map: {
     title: 'Grote kaart',
-    reduxRouter: {
-      path: '/kaart'
-    },
+    path: '/kaart',
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART}`,
     page: PAGES.KAART
   },
   catalogus: {
     title: 'Datasets',
-    reduxRouter: {
-      path: '/datasets'
-    },
+    path: '/datasets',
     type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS}`,
     page: PAGES.CATALOGUS
   },
   catalogusDetail: {
     title: '',
-    reduxRouter: {
-      path: '/datasets/detail/:id'
-    },
+    path: '/datasets/detail/:id',
     type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS_DETAIL}`,
     page: PAGES.CATALOGUS_DETAIL
   },
   adressen: {
     title: '',
-    reduxRouter: {
-      path: '/datasets/bag/adressen'
-    },
+    path: '/datasets/bag/adressen',
     type: `${ROUTER_NAMESPACE}/${PAGES.ADRESSEN}`,
     page: PAGES.ADRESSEN
   },
   vestigingen: {
     title: '',
-    reduxRouter: {
-      path: '/vestigingen'
-    },
+    path: '/vestigingen',
     type: `${ROUTER_NAMESPACE}/${PAGES.VESTIGINGEN}`,
     page: PAGES.VESTIGINGEN
   },
   searchCatalog: {
-    reduxRouter: {
-      path: '/search/catalog/:query'
-    },
+    path: '/search/catalog/:query',
     type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_CATALOG}`,
     page: PAGES.SEARCH_CATALOG
   },
   searchData: {
-    reduxRouter: {
-      path: '/search/data/:query'
-    },
+    path: '/search/data/:query',
     type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATA}`,
     page: PAGES.SEARCH_DATA
   },
   dataset: {
     title: '',
-    reduxRouter: {
-      path: '/dataset'
-    },
+    path: '/dataset',
     type: `${ROUTER_NAMESPACE}/${PAGES.DATASETS}`,
     page: PAGES.DATASETS
   },
   detail: {
     title: '',
-    reduxRouter: {
-      path: '/map/detail'
-    },
+    path: '/map/detail',
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART_DETAIL}`,
     page: PAGES.KAART_DETAIL
   },
   panorama: {
     title: 'Panorama',
-    reduxRouter: {
-      path: '/datasets/panorama/:id'
-    },
+    path: '/datasets/panorama/:id',
     type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
     page: PAGES.PANORAMA
   },
   mapSearch: {
     title: 'Map search',
-    reduxRouter: {
-      path: '/data'
-    },
+    path: '/data',
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART_SEARCH}`,
     page: PAGES.KAART_SEARCH
   },
   mapEmbed: {
     title: 'Embed',
-    reduxRouter: {
-      path: '/map/embed'
-    },
+    path: '/map/embed',
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART_EMBED}`,
     page: PAGES.KAART_EMBED
   },
   nieuws: {
     title: '',
-    reduxRouter: {
-      path: '/nieuws'
-    },
+    path: '/nieuws',
     type: `${ROUTER_NAMESPACE}/${PAGES.NIEUWS}`,
     page: PAGES.NIEUWS
   },
   help: {
     title: '',
-    reduxRouter: {
-      path: '/help'
-    },
+    path: '/help',
     type: `${ROUTER_NAMESPACE}/${PAGES.HELP}`,
     page: PAGES.HELP
   },
   proclaimer: {
     title: '',
-    reduxRouter: {
-      path: '/proclaimer'
-    },
+    path: '/proclaimer',
     type: `${ROUTER_NAMESPACE}/${PAGES.PROCLAIMER}`,
     page: PAGES.PROCLAIMER
   },
 
   bediening: {
     title: '',
-    reduxRouter: {
-      path: '/bediening#:deeplink?'
-    },
+    path: '/bediening#:deeplink?',
     type: `${ROUTER_NAMESPACE}/${PAGES.BEDIENING}`,
     page: PAGES.BEDIENING
   },
   gegevens: {
     title: '',
-    reduxRouter: {
-      path: '/gegevens'
-    },
+    path: '/gegevens',
     type: `${ROUTER_NAMESPACE}/${PAGES.GEGEVENS}`,
     page: PAGES.GEGEVENS
   },
   apis: {
     title: '',
-    reduxRouter: {
-      path: '/apis'
-    },
+    path: '/apis',
     type: `${ROUTER_NAMESPACE}/${PAGES.OVER_API}`,
     page: PAGES.OVER_API
   },
   privacy_beveiliging: {
     title: '',
-    reduxRouter: {
-      path: '/privacy-en-informatiebeveiliging'
-    },
+    path: '/privacy-en-informatiebeveiliging',
     type: `${ROUTER_NAMESPACE}/${PAGES.PRIVACY_BEVEILIGING}`,
     page: PAGES.PRIVACY_BEVEILIGING
   },
   beschikbaar_kwaliteit: {
     title: '',
-    reduxRouter: {
-      path: '/beschikbaarheid-en-kwaliteit-data'
-    },
+    path: '/beschikbaarheid-en-kwaliteit-data',
     type: `${ROUTER_NAMESPACE}/${PAGES.BESCHIKBAAR_KWALITEIT}`,
     page: PAGES.BESCHIKBAAR_KWALITEIT
   },
   beheer_werkwijze: {
     title: '',
-    reduxRouter: {
-      path: '/technisch-beheer-en-werkwijze'
-    },
+    path: '/technisch-beheer-en-werkwijze',
     type: `${ROUTER_NAMESPACE}/${PAGES.BEHEER_WERKWIJZE}`,
     page: PAGES.BEHEER_WERKWIJZE
   },
   statistieken: {
     title: '',
-    reduxRouter: {
-      path: '/statistieken'
-    },
+    path: '/statistieken',
     type: `${ROUTER_NAMESPACE}/${PAGES.STATISTIEKEN}`,
     page: PAGES.STATISTIEKEN
   },
 
   dataDetail: {
     title: 'Data detail',
-    reduxRouter: {
-      path: '/datasets/:type/:subtype/:id'
-    },
+    path: '/datasets/:type/:subtype/:id',
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA_DETAIL}`,
     page: PAGES.DATA_DETAIL
   }
@@ -201,7 +153,7 @@ export const routing = {
 
 // e.g. { home: '/' }, to be used by redux-first-router/connectRoutes
 const routes = Object.keys(routing).reduce((acc, key) => {
-  acc[routing[key].type] = routing[key].reduxRouter;
+  acc[routing[key].type] = routing[key].path;
   return acc;
 }, {});
 
