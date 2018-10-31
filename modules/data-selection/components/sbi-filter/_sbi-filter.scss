@@ -67,10 +67,12 @@ $sbi-filter-item-height: 32px;
   background-color: $primary-light;
   color: $secondary-gray60;
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: $primary-contrast;
     background-color: $primary-contrast;
     color: $primary-light;
+    outline: none;
   }
 }
 
@@ -89,8 +91,10 @@ $sbi-filter-item-height: 32px;
     top: -5px;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     text-decoration: underline;
+    outline: none;
 
     .c-sbi-filter__item-label {
       text-decoration: underline;

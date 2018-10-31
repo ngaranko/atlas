@@ -17,7 +17,8 @@
     text-decoration: none;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: $primary-contrast;
     background-color: $primary-contrast;
     color: $primary-light;

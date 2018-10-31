@@ -22,7 +22,8 @@
   top: 0;
   right: 0;
 
-  &:hover {
+  &:hover,
+  &:focus {
     @include icon-button("close", "");
   }
 }

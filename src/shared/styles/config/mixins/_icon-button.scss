@@ -4,8 +4,10 @@
   height: $button-size;
   width: $button-size;
 
-  &:hover {
+  &:hover,
+  &:focus {
     @include sprite(#{$icon + if(str-length($hover-state) > 0, "-", "") + $hover-state});
+    outline: none;
   }
 }
 
@@ -36,7 +38,8 @@
     margin-left: $base-whitespace;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     &::after {
       @include sprite(#{$icon + if(str-length($hover-state) > 0, "-", "") + $hover-state});
     }
@@ -53,7 +56,8 @@
     margin-right: $base-whitespace;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     &::before {
       @include sprite(#{$icon + if(str-length($hover-state) > 0, "-", "") + $hover-state});
     }

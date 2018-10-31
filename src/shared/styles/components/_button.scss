@@ -30,6 +30,7 @@
   &:active,
   &:focus {
     color: $primary-light;
+    outline: none;
   }
 
   &:hover,
@@ -52,6 +53,7 @@
   &:hover,
   &:focus {
     color: $secondary-gray60;
+    outline: none;
   }
 }
 
@@ -126,8 +128,10 @@
   @extend %btn-close;
   @include icon-button("close");
 
-  &:hover {
+  &:hover,
+  &:focus {
     @include icon-button("close", "red");
+    outline: none;
   }
 
   &--info {

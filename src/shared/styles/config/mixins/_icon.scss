@@ -19,7 +19,8 @@
     width: $button-size;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     &::before {
       @include sprite(#{$icon + if(str-length($hover-state) > 0, "-", "") + $hover-state});
     }
@@ -70,7 +71,8 @@
   color: $secondary-gray60;
   text-decoration: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     text-decoration: none;
   }
 
@@ -88,9 +90,11 @@
 %icon--border-hover {
   @extend %icon--border;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: $primary-contrast;
     color: $primary-light;
+    outline: none;
 
     &::after {
       border-color: $primary-contrast;
@@ -107,7 +111,8 @@
     border-color: $primary-contrast;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: $primary-light;
     color: $secondary-gray60;
 
@@ -129,7 +134,8 @@
   }
 
   @if $hover-fill {
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       @include sprite($icon, ( fill: $hover-fill ));
     }
   }

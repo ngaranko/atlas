@@ -1,5 +1,11 @@
 .u-block {
   display: block;
+
+  &:focus {
+    border: 2px solid $primary-dark;
+    padding: 0;
+    outline: none;
+  }
 }
 
 .u-inline {
