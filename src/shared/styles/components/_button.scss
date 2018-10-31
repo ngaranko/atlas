@@ -27,11 +27,13 @@
 
   &:hover,
   &:visited,
-  &:active {
+  &:active,
+  &:focus {
     color: $primary-light;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     &::before {
       @include icon-button("link-arrow", "white");
       height: $icon-size;
@@ -47,7 +49,8 @@
 .o-btn--contrast {
   color: $primary-contrast;
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: $secondary-gray60;
   }
 }

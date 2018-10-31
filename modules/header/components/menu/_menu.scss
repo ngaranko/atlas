@@ -77,8 +77,11 @@
   text-align: left;
   white-space: nowrap;
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: $primary-contrast;
+    outline: none;
+    text-decoration: underline;
   }
 }
 
