@@ -70,9 +70,6 @@ export default function reducer(state = initialState, action) {
           geometryFilter: {
             markers,
             description: geoFilterDescription
-          },
-          activeFilters: {
-            shape: JSON.stringify(markers.map(([lat, lng]) => [lng, lat]))
           }
         };
       }

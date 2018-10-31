@@ -8,9 +8,18 @@ const reducer = (state = {}, action) => {
     case routing.addresses.type:
     case routing.establishments.type:
     case routing.cadastralObjects.type: {
-      const { filters: queryFilters } = action.meta.query || {};
+      const { filters: queryFilters, geoFilter } = action.meta.query || {};
       const filterToParse = queryFilters || '{}';
-      return JSON.parse(filterToParse);
+      let shapeFilter = {};
+
+      // Todo: move this logic, as this is also being used in data-selection
+      if (geoFilter) {
+        const markers = geoFilter && geoFilter.length
+          ? geoFilter.split('|').map((latLng) => latLng.split(':').map((str) => parseFloat(str)))
+          : [];
+        shapeFilter = { shape: JSON.stringify(markers.map(([lat, lng]) => [lng, lat])) };
+      }
+      return Object.assign({}, JSON.parse(filterToParse), shapeFilter);
     }
     case APPLY_FILTERS:
       return { ...action.payload };
