@@ -8,7 +8,7 @@ exports[`MapContainer should render 1`] = `
     getLeafletInstance={[Function]}
   />
   <ToggleFullscreen
-    isFullscreen={true}
+    isFullscreen={false}
     onToggleFullscreen={[Function]}
   />
   <Connect(MapPanelContainer)
@@ -25,7 +25,7 @@ exports[`MapContainer should render with drawingmode: draw 1`] = `
     getLeafletInstance={[Function]}
   />
   <ToggleFullscreen
-    isFullscreen={true}
+    isFullscreen={false}
     onToggleFullscreen={[Function]}
   />
   <Connect(MapPanelContainer)

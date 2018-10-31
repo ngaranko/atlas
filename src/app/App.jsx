@@ -25,7 +25,6 @@ import PanoramaPage from './pages/PanoramaPage';
 import DetailPage from './pages/DetailPage';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
-import AddressPage from './pages/AddressPage';
 import MapSearchPage from './pages/MapSearchPage';
 import { getCurrentPage } from '../store/redux-first-router';
 

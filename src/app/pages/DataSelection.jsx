@@ -19,7 +19,7 @@ const DataSelection = ({ showMap }) => {
         className={`c-dashboard__column u-col-sm--${sizeMap} qa-dashboard__column--middle u-page-break-after`}
       >
         <div className="qa-map">
-          <MapContainer />
+          <MapContainer isFullscreen={false} />
         </div>
       </div>
       <div

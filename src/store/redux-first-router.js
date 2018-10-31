@@ -27,6 +27,11 @@ export const isMapPage = createSelector(
   (currentPage) => currentPage === PAGES.KAART
 );
 
+export const isDataDetailCurrentPage = createSelector(
+  getCurrentPage,
+  (currentPage) => currentPage === PAGES.DATA_DETAIL
+);
+
 export const isMapActive = createSelector(
   isMapView, isMapPage,
   (isMap, isMapPageActive) => isMap || isMapPageActive

@@ -4,7 +4,7 @@ import {
   getDetailEndpoint,
   getDetailGeometry
 } from '../../../shared/ducks/detail/detail';
-import { isDataDetailCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
+import { isDataDetailCurrentPage } from '../../../store/redux-first-router';
 
 const mapDetailSelector = (state) => state.mapDetail;
 

@@ -53,8 +53,6 @@ export const getCenter = createSelector([getMapCenter, getStraatbeeldLocation],
 export const getLatitude = createSelector(getCenter, (center) => center[0]);
 export const getLongitude = createSelector(getCenter, (center) => center[1]);
 
-export const getClusterMarkers = getDataSelectionClusterMarkers;
-export const getGeoJsons = getDataSelectionGeoJsons;
 export const getRdGeoJsons = createSelector(getDetailGeoJson, (geoJson) => [geoJson]);
 
 export const getSelectedLocation = createSelector(

@@ -189,28 +189,6 @@ describe('selectors', () => {
     });
   });
 
-  describe('shouldShowGeoJson', () => {
-    it('should return true if detail is defined and search and dataselection are undefined', () => {
-      const selected = shouldShowGeoJson.resultFunc(mockParameters.detail, '', '');
-      expect(selected).toBe(true);
-    });
-
-    it('should return false if detail is undefined ', () => {
-      const selected = shouldShowGeoJson.resultFunc('', '', '');
-      expect(selected).toBe(false);
-    });
-
-    it('should return false if detail is defined and search is defined ', () => {
-      const selected = shouldShowGeoJson.resultFunc(mockParameters.detail, 'searchActive', '');
-      expect(selected).toBe(false);
-    });
-
-    it('should return false if all params are defined ', () => {
-      const selected = shouldShowGeoJson.resultFunc(mockParameters.detail, 'searchActive', 'dataSelectionActive');
-      expect(selected).toBe(false);
-    });
-  });
-
   describe('getGeoJson', () => {
     const geometry = { id: '1' };
     const detail = { display: 'label' };
