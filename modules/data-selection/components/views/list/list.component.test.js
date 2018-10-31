@@ -1,5 +1,3 @@
-import { FETCH_DETAIL } from '../../../../../src/shared/ducks/detail/detail';
-
 describe('The dp-data-selection-list component', function () {
     let $compile,
         $rootScope,

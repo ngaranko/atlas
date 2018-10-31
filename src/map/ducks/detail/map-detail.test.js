@@ -11,8 +11,7 @@ import reducer, {
   getGeometry,
   getMapDetail,
   getMapDetailGeometry,
-  selectLatestMapDetail,
-  shouldShowGeoJson
+  selectLatestMapDetail
 } from './map-detail';
 
 // REDUCER
