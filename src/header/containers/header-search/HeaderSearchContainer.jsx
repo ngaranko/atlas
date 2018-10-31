@@ -13,7 +13,11 @@ import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
 import { isMapCurrentPage, isCatalogCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
-import { extractIdEndpoint, routing } from '../../../app/routes';
+import {
+  extractIdEndpoint,
+  getPageActionEndpoint,
+  routing
+} from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),
@@ -35,12 +39,13 @@ const mapDispatchToProps = (dispatch) => ({
   }, dispatch),
   onDatasetSearch: (query) => dispatch({ type: routing.searchCatalog.type, payload: { query } }),
   onSearch: (query) => dispatch({ type: routing.searchData.type, payload: { query } }),
-  openSuggestion: (suggestion) => { // eslint-disable-line consistent-return
+  openSuggestion: (suggestion) => {
     if (suggestion.uri.match(/^dcatd\//)) {
+      // Suggestion of type catalog, a.k.a. "dataset"
       const id = extractIdEndpoint(suggestion.uri);
       return dispatch({ type: routing.catalogusDetail.type, payload: { id } });
     }
-    console.log('unkown other suggestion type', suggestion.category); // eslint-disable-line no-console
+    return dispatch(getPageActionEndpoint(suggestion.uri));
   }
 });
 

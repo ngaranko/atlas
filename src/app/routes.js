@@ -1,175 +1,233 @@
 import PAGES from './pages';
 import PANORAMA_VIEW from '../shared/ducks/straatbeeld/panorama-view';
-import { fetchDetail } from '../shared/ducks/detail/detail';
+import { DETAIL_VIEW } from '../shared/ducks/detail/detail';
 
 export const ROUTER_NAMESPACE = 'atlasRouter';
 
 export const routing = {
   home: {
     title: 'Home',
-    location: '/',
+    reduxRouter: {
+      path: '/'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.HOME}`,
     page: PAGES.HOME
   },
   map: {
     title: 'Grote kaart',
-    location: '/kaart',
+    reduxRouter: {
+      path: '/kaart'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART}`,
     page: PAGES.KAART
   },
   catalogus: {
     title: 'Datasets',
-    location: '/datasets',
+    reduxRouter: {
+      path: '/datasets'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS}`,
     page: PAGES.CATALOGUS
   },
   catalogusDetail: {
     title: '',
-    location: '/datasets/detail/:id',
+    reduxRouter: {
+      path: '/datasets/detail/:id'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS_DETAIL}`,
     page: PAGES.CATALOGUS_DETAIL
   },
   adressen: {
     title: '',
-    location: '/datasets/bag/adressen',
+    reduxRouter: {
+      path: '/datasets/bag/adressen'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.ADRESSEN}`,
     page: PAGES.ADRESSEN
   },
   vestigingen: {
     title: '',
-    location: '/vestigingen',
+    reduxRouter: {
+      path: '/vestigingen'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.VESTIGINGEN}`,
     page: PAGES.VESTIGINGEN
   },
   searchCatalog: {
-    location: '/search/catalog/:query',
+    reduxRouter: {
+      path: '/search/catalog/:query'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_CATALOG}`,
     page: PAGES.SEARCH_CATALOG
   },
   searchData: {
-    location: '/search/data/:query',
+    reduxRouter: {
+      path: '/search/data/:query'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATA}`,
     page: PAGES.SEARCH_DATA
   },
   dataset: {
     title: '',
-    location: '/dataset',
+    reduxRouter: {
+      path: '/dataset'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.DATASETS}`,
     page: PAGES.DATASETS
   },
   detail: {
     title: '',
-    location: '/map/detail',
+    reduxRouter: {
+      path: '/map/detail'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART_DETAIL}`,
     page: PAGES.KAART_DETAIL
   },
   panorama: {
     title: 'Panorama',
-    location: '/datasets/panorama/:id',
+    reduxRouter: {
+      path: '/datasets/panorama/:id'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
     page: PAGES.PANORAMA
   },
   mapSearch: {
-    title: '',
-    location: '/map/search',
+    title: 'Map search',
+    reduxRouter: {
+      path: '/data'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART_SEARCH}`,
     page: PAGES.KAART_SEARCH
   },
   mapEmbed: {
     title: 'Embed',
-    location: '/map/embed',
+    reduxRouter: {
+      path: '/map/embed'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART_EMBED}`,
     page: PAGES.KAART_EMBED
   },
   nieuws: {
     title: '',
-    location: '/nieuws',
+    reduxRouter: {
+      path: '/nieuws'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.NIEUWS}`,
     page: PAGES.NIEUWS
   },
   help: {
     title: '',
-    location: '/help',
+    reduxRouter: {
+      path: '/help'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.HELP}`,
     page: PAGES.HELP
   },
   proclaimer: {
     title: '',
-    location: '/proclaimer',
+    reduxRouter: {
+      path: '/proclaimer'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.PROCLAIMER}`,
     page: PAGES.PROCLAIMER
   },
 
   bediening: {
     title: '',
-    location: '/bediening#:deeplink?',
+    reduxRouter: {
+      path: '/bediening#:deeplink?'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.BEDIENING}`,
     page: PAGES.BEDIENING
   },
   gegevens: {
     title: '',
-    location: '/gegevens',
+    reduxRouter: {
+      path: '/gegevens'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.GEGEVENS}`,
     page: PAGES.GEGEVENS
   },
   apis: {
     title: '',
-    location: '/apis',
+    reduxRouter: {
+      path: '/apis'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.OVER_API}`,
     page: PAGES.OVER_API
   },
   privacy_beveiliging: {
     title: '',
-    location: '/privacy-en-informatiebeveiliging',
+    reduxRouter: {
+      path: '/privacy-en-informatiebeveiliging'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.PRIVACY_BEVEILIGING}`,
     page: PAGES.PRIVACY_BEVEILIGING
   },
   beschikbaar_kwaliteit: {
     title: '',
-    location: '/beschikbaarheid-en-kwaliteit-data',
+    reduxRouter: {
+      path: '/beschikbaarheid-en-kwaliteit-data'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.BESCHIKBAAR_KWALITEIT}`,
     page: PAGES.BESCHIKBAAR_KWALITEIT
   },
   beheer_werkwijze: {
     title: '',
-    location: '/technisch-beheer-en-werkwijze',
+    reduxRouter: {
+      path: '/technisch-beheer-en-werkwijze'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.BEHEER_WERKWIJZE}`,
     page: PAGES.BEHEER_WERKWIJZE
   },
   statistieken: {
     title: '',
-    location: '/statistieken',
+    reduxRouter: {
+      path: '/statistieken'
+    },
     type: `${ROUTER_NAMESPACE}/${PAGES.STATISTIEKEN}`,
     page: PAGES.STATISTIEKEN
   },
 
-  adresDetail: {
-    title: 'Adres',
-    location: '/datasets/bag/adressen/:id',
-    type: `${ROUTER_NAMESPACE}/${PAGES.ADRES_DETAIL}`,
-    page: PAGES.ADRES_DETAIL
-  },
-  pandDetail: {
-    title: 'Pand',
-    location: '/datasets/bag/pand/:id',
-    type: `${ROUTER_NAMESPACE}/${PAGES.PAND_DETAIL}`,
-    page: PAGES.PAND_DETAIL
+  dataDetail: {
+    title: 'Data detail',
+    reduxRouter: {
+      path: '/datasets/:type/:subtype/:id'
+    },
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_DETAIL}`,
+    page: PAGES.DATA_DETAIL
   }
 };
 
 // e.g. { home: '/' }, to be used by redux-first-router/connectRoutes
 const routes = Object.keys(routing).reduce((acc, key) => {
-  acc[routing[key].type] = routing[key].location;
+  acc[routing[key].type] = routing[key].reduxRouter;
   return acc;
 }, {});
 
 
 // Action creators
-export const toDetail = (id, type) => ({
-  type,
-  payload: {
-    id: `id${id}`
+export const toDetail = (id, type, subtype, view) => {
+  const action = {
+    type: routing.dataDetail.type,
+    payload: {
+      type,
+      subtype,
+      id: `id${id}`
+    },
+    meta: {
+      query: {
+      }
+    }
+  };
+  if (view === DETAIL_VIEW.MAP) {
+    action.meta.query.kaart = '';
   }
+  return action;
+};
+
+export const toDataLocationSearch = () => ({
+  type: routing.mapSearch.type
 });
 
 export const toMap = () => ({
@@ -200,42 +258,29 @@ export const toPanorama = (id, heading, view) => {
 // Detail page logic
 // TODO: refactor unit test or remove all together
 export const extractIdEndpoint = (endpoint) => {
-  const matches = endpoint.match(/\/(\w+)\/?$/);
+  const matches = endpoint.match(/\/([\w-]+)\/?$/);
   return matches[1];
 };
 
-const getDetailPageType = (endpoint) => {
-  if (/\/bag\/pand/.test(endpoint)) {
-    return routing.pandDetail.type;
-  } else if (/\/bag\/nummeraanduiding/.test(endpoint)) {
-    return routing.adresDetail.type;
-  }
-  return routing.adresDetail.type; // TODO: refactor, always return sensible route type
+const getDetailPageData = (endpoint) => {
+  const matches = endpoint.match(/(\w+)\/([\w]+)\/([\w\.-]+)\/?$/); // eslint-disable-line no-useless-escape
+  return {
+    type: matches[1],
+    subtype: matches[2],
+    id: matches[3]
+  };
 };
 
-export const getPageActionEndpoint = (endpoint) => {
-  const type = getDetailPageType(endpoint);
-  const id = extractIdEndpoint(endpoint);
-  return toDetail(id, type);
+export const getPageActionEndpoint = (endpoint, view) => {
+  const { type, subtype, id } = getDetailPageData(endpoint);
+  return toDetail(id, type, subtype, view);
 };
 
-export const pageActionToEndpoint = (action) => {
+
+export const pageTypeToEndpoint = (type, subtype, id) => {
   let endpoint = 'https://acc.api.data.amsterdam.nl/';
-  switch (action.type) {
-    case routing.adresDetail.type:
-      endpoint += 'bag/nummeraanduiding/';
-      break;
-    case routing.pandDetail.type:
-      endpoint += 'bag/pand/';
-      break;
-
-    default:
-  }
-
-  const id = action.payload.id.substr(2); // Change `id123` to `123`
-  endpoint += `${id}`;
-
-  return fetchDetail(endpoint);
+  endpoint += `${type}/${subtype}/${id}/`; // TODO: refactor, get back-end to return detail as detail GET not listing!
+  return endpoint;
 };
 
 export default routes;

@@ -26,6 +26,7 @@ import PanoramaPage from './pages/PanoramaPage';
 import DetailPage from './pages/DetailPage';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
+import MapSearchPage from './pages/MapSearchPage';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -110,11 +111,9 @@ const App = ({
 
             {currentPage === PAGES.KAART && <MapPage />}
 
-            {(
-              currentPage === PAGES.ADRES_DETAIL
-              || currentPage === PAGES.PAND_DETAIL)
-              && <DetailPage />
-            }
+            {currentPage === PAGES.KAART_SEARCH && <MapSearchPage />}
+
+            {currentPage === PAGES.DATA_DETAIL && <DetailPage />}
 
             {currentPage === PAGES.PANORAMA && <PanoramaPage />}
 

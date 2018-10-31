@@ -122,6 +122,7 @@ import '../../modules/shared/components/tab-header/tab-header.component';
 import '../../modules/shared/components/tab-header/tab-header.constant';
 import '../../modules/shared/components/tab-header/tab-header.factory';
 import '../../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter';
+import '../../modules/shared/filters/detail-endpoint-action.filter';
 import '../../modules/shared/filters/filesize.filter';
 import '../../modules/shared/services/active-overlays/active-overlays.factory';
 import '../../modules/shared/services/api/api.factory';

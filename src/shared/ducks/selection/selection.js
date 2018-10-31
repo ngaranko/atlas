@@ -36,11 +36,9 @@ const reducer = (state = initialState, action) => {
         type: SELECTION_TYPE.NONE
       };
     }
-    case routing.adresDetail.type:
-    case routing.pandDetail.type:
+    case routing.dataDetail.type:
       return {
-        type: SELECTION_TYPE.OBJECT,
-        id: action.payload.id
+        type: SELECTION_TYPE.OBJECT
       };
     case routing.panorama.type:
       return {
@@ -80,6 +78,7 @@ export const previewDataAvailable = (state) =>
 
 export const getSelectionType = (state) => (state[REDUCER_KEY].type);
 export const getSelectionLocation = (state) => (state[REDUCER_KEY].location);
+export const isGeoSearch = (state) => state[REDUCER_KEY].type === SELECTION_TYPE.POINT;
 
 // Action creators
 export const setSelection = (selectionType, object) => ({

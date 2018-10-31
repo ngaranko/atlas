@@ -3,8 +3,10 @@
 
     <ul class="o-list">
         <li ng-repeat="object in apiData.results">
-            <dp-link type="FETCH_DETAIL" payload="object.object_href"
-                >{{object._display}}</dp-link>
+            <dp-redux-link
+                to="object.object_href | detailEndpointAction"
+                link-class="o-btn o-btn--link"
+            >{{ object._display }}</dp-redux-link>
         </li>
     </ul>
 

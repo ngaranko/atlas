@@ -22,7 +22,6 @@
   position: relative;
   top: $dashboard-heading-height;
   height: calc(100% - #{$dashboard-heading-height});
-  background-color: $primary-light;
   z-index: $body-z-index;
 }
 
@@ -33,7 +32,6 @@
 
 .c-dashboard__column {
   height: 100%;
-  overflow-y: auto;
 }
 
 .c-dashboard__page {

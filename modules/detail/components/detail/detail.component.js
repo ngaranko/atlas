@@ -1,7 +1,6 @@
 import removeMd from 'remove-markdown';
 
-import { getSelectedLocation } from '../../../../src/map/ducks/map/map-selectors';
-import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
+import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
 
 (function () {
     angular
@@ -9,9 +8,7 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
         .component('dpDetail', {
             bindings: {
                 endpoint: '@',
-                reload: '=',
                 isLoading: '=',
-                skippedSearchResults: '=',
                 catalogFilters: '=',
                 user: '<'
             },
@@ -45,15 +42,7 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
         markdownParser
     ) {
         /* eslint-enable max-params */
-        var vm = this;
-
-        // Reload the data when the reload flag has been set (endpoint has not
-        // changed)
-        $scope.$watch('vm.reload', reload => {
-            if (reload) {
-                getData(vm.endpoint);
-            }
-        });
+        const vm = this;
 
         // (Re)load the data when the endpoint is set or gets changed
         $scope.$watch('vm.endpoint', getData);
@@ -78,10 +67,6 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
             vm.location = null;
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
-
-            const location = getSelectedLocation(store.getState());
-
-            vm.geosearchButton = vm.skippedSearchResults ? [location.latitude, location.longitude] : false;
 
             const [category, subject] = endpointParser.getParts(endpoint);
 
@@ -131,13 +116,6 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
                         if (geoJSON !== null) {
                             const rd = geojson.getCenter(geoJSON);
                             vm.location = crsConverter.rdToWgs84([rd.x, rd.y]);
-                        }
-
-                        if (!vm.skippedSearchResults) {
-                            store.dispatch({
-                                type: DETAIL_FULLSCREEN,
-                                payload: subject === 'api' || !geoJSON
-                            });
                         }
 
                         store.dispatch({

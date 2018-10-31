@@ -205,11 +205,6 @@ describe('selectors', () => {
       expect(selected).toBe(false);
     });
 
-    it('should return false if detail is defined and dataselection is defined ', () => {
-      const selected = shouldShowGeoJson.resultFunc(mockParameters.detail, '', 'dataSelectionActive');
-      expect(selected).toBe(false);
-    });
-
     it('should return false if all params are defined ', () => {
       const selected = shouldShowGeoJson.resultFunc(mockParameters.detail, 'searchActive', 'dataSelectionActive');
       expect(selected).toBe(false);
