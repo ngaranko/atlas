@@ -4,6 +4,7 @@
   padding-bottom: 0;
   border-top: 2px solid $secondary-gray40;
   background-color: $primary-light;
+
 }
 
 .c-data-selection-pagination__controls {
@@ -55,6 +56,17 @@
   position: absolute;
   right: 0;
   z-index: 2;
+}
+
+.c-data-selection-pagination-link {
+  border: 1px solid $primary-dark;
+  background-color: $secondary-gray20;
+  color: $primary-dark;
+
+  &:hover,
+  &:focus {
+    color: $primary-light;
+  }
 }
 
 .c-data-selection-pagination-link--first {

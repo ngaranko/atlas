@@ -80,9 +80,11 @@
   padding-left: $base-whitespace * 2;
   border-bottom: 1px solid $secondary-gray20;
 
-  &:hover {
+  &:hover,
+  &:focus {
     @include o-tag;
     background-color: $secondary-gray10;
+    outline: none;
   }
 
   &__formats {

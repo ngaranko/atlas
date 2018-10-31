@@ -13,7 +13,8 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
                 inline: '@',
                 hoverText: '@',
                 type: '@',
-                payload: '<'
+                payload: '<',
+                tabIndex: '@'
             },
             controller: DpLinkController,
             controllerAs: 'vm'
@@ -27,6 +28,7 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
 
         vm.className = vm.className || 'o-btn o-btn--link';
         vm.inline = vm.inline || false;
+        vm.tabIndex = vm.tabIndex || '0';
 
         $scope.$watch('vm.payload', function () {
             vm.href = getHref(vm.type, vm.payload);

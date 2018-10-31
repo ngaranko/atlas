@@ -3,16 +3,17 @@
   margin-left: 8px;
   padding: 5px 8px;
   float: right;
-  border: 1px solid $secondary-gray20;
-  color: $secondary-gray60;
+  border: 1px solid $primary-dark;
+  color: $primary-dark;
+  background-color: $secondary-gray20;
 
   &::before {
     width: 12px;
     height: 12px;
   }
 
-  &:hover {
-    border-color: $primary-contrast;
+  &:hover,
+  &:focus {
     background-color: $primary-contrast;
     color: $primary-light;
     text-decoration: none;
