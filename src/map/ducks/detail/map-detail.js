@@ -1,12 +1,11 @@
 import { createSelector } from 'reselect';
 
-import { isSearchActive } from '../../../shared/ducks/search/search';
 import {
-  getDetail,
   getDetailDisplay,
   getDetailEndpoint,
   getDetailGeometry
 } from '../../../shared/ducks/detail/detail';
+import { isDataDetailCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
 
 const mapDetailSelector = (state) => state.mapDetail;
 
@@ -36,10 +35,7 @@ export const getGeometry = createSelector(
     detailGeometry || mapDetailGeometry
   ));
 
-export const shouldShowGeoJson = createSelector([getDetail, isSearchActive],
-  (detailActive, searchActive) => (
-    Boolean(detailActive && !searchActive)
-  ));
+export const shouldShowGeoJson = isDataDetailCurrentPage;
 
 export const getGeoJson = createSelector(
   shouldShowGeoJson,
