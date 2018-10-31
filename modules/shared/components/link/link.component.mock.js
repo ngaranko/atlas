@@ -18,6 +18,7 @@
             scope: {
                 className: '@',
                 hoverText: '@',
+                action: '<',
                 type: '@',
                 payload: '='
             }
@@ -27,7 +28,7 @@
             scope.className = scope.className || 'o-btn o-btn--link';
             scope.click = clickHandler;
 
-            function clickHandler () {
+            function getAction () {
                 var action = angular.isDefined(scope.payload) ? {
                     type: scope.type,
                     payload: scope.payload
@@ -35,7 +36,15 @@
                     type: scope.type
                 };
 
-                store.dispatch(action);
+                return action;
+            }
+
+            function clickHandler () {
+                if (scope.action) {
+                    store.dispatch(scope.action);
+                } else {
+                    store.dispatch(getAction());
+                }
             }
         }
     }

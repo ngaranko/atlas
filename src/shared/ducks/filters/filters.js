@@ -3,28 +3,23 @@ import { routing } from '../../../app/routes';
 export const APPLY_FILTERS = 'APPLY_FILTERS';
 export const EMPTY_FILTERS = 'EMPTY_FILTERS';
 
-const parseFiltersString = (string) => {
-  if (!string) {
-    return {};
-  }
-  const filterStrings = string.split(',');
-  const filters = filterStrings.reduce((acc, singleFilterString) => {
-    const [key, value] = singleFilterString.split(':');
-    return {
-      ...acc,
-      [key]: value
-    };
-  }, {});
-  return filters;
-};
-
 const reducer = (state = {}, action) => {
   switch (action.type) {
-    case routing.adressen.type:
-    case routing.vestigingen.type: {
-      const { filters: filterString } = action.meta.query || {};
-      const filters = parseFiltersString(filterString);
-      return filters;
+    case routing.addresses.type:
+    case routing.establishments.type:
+    case routing.cadastralObjects.type: {
+      const { filters: queryFilters, geoFilter } = action.meta.query || {};
+      const filterToParse = queryFilters || '{}';
+      let shapeFilter = {};
+
+      // Todo: move this logic, as this is also being used in data-selection
+      if (geoFilter) {
+        const markers = geoFilter && geoFilter.length
+          ? geoFilter.split('|').map((latLng) => latLng.split(':').map((str) => parseFloat(str)))
+          : [];
+        shapeFilter = { shape: JSON.stringify(markers.map(([lat, lng]) => [lng, lat])) };
+      }
+      return Object.assign({}, JSON.parse(filterToParse), shapeFilter);
     }
     case APPLY_FILTERS:
       return { ...action.payload };

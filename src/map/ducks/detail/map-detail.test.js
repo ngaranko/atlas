@@ -11,8 +11,7 @@ import reducer, {
   getGeometry,
   getMapDetail,
   getMapDetailGeometry,
-  selectLatestMapDetail,
-  shouldShowGeoJson
+  selectLatestMapDetail
 } from './map-detail';
 
 // REDUCER
@@ -186,28 +185,6 @@ describe('selectors', () => {
     it('should return an empty string if there is no geometry', () => {
       const selected = getGeometry.resultFunc('', '');
       expect(selected).toEqual('');
-    });
-  });
-
-  describe('shouldShowGeoJson', () => {
-    it('should return true if detail is defined and search and dataselection are undefined', () => {
-      const selected = shouldShowGeoJson.resultFunc(mockParameters.detail, '', '');
-      expect(selected).toBe(true);
-    });
-
-    it('should return false if detail is undefined ', () => {
-      const selected = shouldShowGeoJson.resultFunc('', '', '');
-      expect(selected).toBe(false);
-    });
-
-    it('should return false if detail is defined and search is defined ', () => {
-      const selected = shouldShowGeoJson.resultFunc(mockParameters.detail, 'searchActive', '');
-      expect(selected).toBe(false);
-    });
-
-    it('should return false if all params are defined ', () => {
-      const selected = shouldShowGeoJson.resultFunc(mockParameters.detail, 'searchActive', 'dataSelectionActive');
-      expect(selected).toBe(false);
     });
   });
 

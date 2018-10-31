@@ -4,6 +4,7 @@ exports[`PanoramaContainer should render 1`] = `
 <AngularWrapper
   bindings={
     Object {
+      "doClose": [Function],
       "hotspots": Array [],
       "isFullscreen": false,
       "state": Object {},

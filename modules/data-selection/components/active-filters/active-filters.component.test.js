@@ -1,5 +1,5 @@
 import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
-import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
+import { clearGeometryFilter } from '../../../../src/shared/ducks/data-selection/data-selection';
 
 describe('The dp-data-selection-active-filters component', () => {
     let $compile,
@@ -233,14 +233,7 @@ describe('The dp-data-selection-active-filters component', () => {
 
         component.find('.qa-active-filters li').eq(0).find('button').click();
 
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: FETCH_DATA_SELECTION,
-            payload: {
-                dataset: 'my_special_dataset',
-                resetGeometryFilter: true,
-                page: 1
-            }
-        });
+        expect(store.dispatch).toHaveBeenCalledWith(clearGeometryFilter());
     });
 
     it('shows active filters correctly when filter has no options', () => {

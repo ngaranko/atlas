@@ -5,10 +5,6 @@ import { shallow } from 'enzyme';
 import DrawToolContainer from './DrawToolContainer';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
-import { setDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
-import { setPageName } from '../../../shared/ducks/page/page';
-import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
-
 import { isEnabled } from '../../services/draw-tool/draw-tool';
 import {
   MAP_CLEAR,
@@ -276,21 +272,6 @@ describe('DrawToolContainer', () => {
         };
         wrapperInstance.onFinishShape(polygon);
         expect(store.dispatch).toHaveBeenCalledWith(mapEndDrawing({ polygon }));
-      });
-
-      it('should set the geometry filter when the polygon is changed', () => {
-        const polygon = { ...polygonMock };
-        const geometryFilter = {
-          markers: polygon.markers,
-          description: `${polygon.distanceTxt} en ${polygon.areaTxt}`
-        };
-
-        wrapperInstance.onFinishShape(polygon);
-
-        expect(store.dispatch).toHaveBeenCalledWith(setDataSelectionGeometryFilter(geometryFilter));
-        expect(store.dispatch).toHaveBeenCalledWith(mapEndDrawing({ polygon }));
-        expect(store.dispatch).toHaveBeenCalledWith(setPageName({ name: null }));
-        expect(store.dispatch).toHaveBeenCalledWith(setMapFullscreen());
       });
     });
 

@@ -1,3 +1,6 @@
+import DATA_SELECTION_CONFIG
+    from '../../../../../src/shared/services/data-selection/data-selection-config';
+
 (function () {
     'use strict';
 
@@ -18,16 +21,14 @@
         '$window',
         '$scope',
         'api',
-        'sharedConfig',
-        'DATA_SELECTION_CONFIG'
+        'sharedConfig'
     ];
 
     function DpDataSelectionDownloadButtonController (
         $window,
         $scope,
         api,
-        sharedConfig,
-        DATA_SELECTION_CONFIG
+        sharedConfig
     ) {
         const vm = this,
             filterParams = [];

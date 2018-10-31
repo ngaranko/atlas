@@ -29,17 +29,23 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS_DETAIL}`,
     page: PAGES.CATALOGUS_DETAIL
   },
-  adressen: {
+  addresses: {
     title: '',
     path: '/datasets/bag/adressen',
-    type: `${ROUTER_NAMESPACE}/${PAGES.ADRESSEN}`,
-    page: PAGES.ADRESSEN
+    type: `${ROUTER_NAMESPACE}/${PAGES.ADDRESSES}`,
+    page: PAGES.ADDRESSES
   },
-  vestigingen: {
+  establishments: {
     title: '',
-    path: '/vestigingen',
-    type: `${ROUTER_NAMESPACE}/${PAGES.VESTIGINGEN}`,
-    page: PAGES.VESTIGINGEN
+    path: '/datasets/hr/vestigingen',
+    type: `${ROUTER_NAMESPACE}/${PAGES.ESTABLISHMENTS}`,
+    page: PAGES.ESTABLISHMENTS
+  },
+  cadastralObjects: {
+    title: '',
+    path: '/datasets/brk/kadastrale-objecten',
+    type: `${ROUTER_NAMESPACE}/${PAGES.CADASTRAL_OBJECTS}`,
+    page: PAGES.CADASTRAL_OBJECTS
   },
   searchCatalog: {
     path: '/search/catalog/:query',
@@ -234,5 +240,22 @@ export const pageTypeToEndpoint = (type, subtype, id) => {
   endpoint += `${type}/${subtype}/${id}/`; // TODO: refactor, get back-end to return detail as detail GET not listing!
   return endpoint;
 };
+
+export const toAddressResults = (payload, meta = {}) => ({
+  type: routing.addresses.type,
+  meta: {
+    query: {
+      kaart: ''
+    },
+    ...meta
+  },
+  payload
+});
+
+export const toAddress = (payload, meta = {}) => ({
+  type: routing.adressen.type,
+  meta,
+  payload
+});
 
 export default routes;

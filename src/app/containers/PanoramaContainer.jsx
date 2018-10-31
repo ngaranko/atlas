@@ -23,8 +23,7 @@ const PanoramaContainer = ({
   doClose,
   hotspots,
   isFullscreen
-}) => {
-  return (
+}) => (
   <AngularWrapper
     moduleName={'dpStraatbeeldWrapper'}
     component="dpStraatbeeld"
@@ -36,7 +35,7 @@ const PanoramaContainer = ({
       isFullscreen
     }}
   />
-)};
+);
 
 PanoramaContainer.propTypes = {
   straatbeeldState: PropTypes.shape({}).isRequired,

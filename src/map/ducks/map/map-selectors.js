@@ -5,10 +5,6 @@ import {
   getStraatbeeldMarkers,
   getStraatbeeldYear
 } from '../../../shared/ducks/straatbeeld/straatbeeld';
-import {
-  getClusterMarkers as getDataSelectionClusterMarkers,
-  getGeoJsons as getDataSelectionGeoJsons
-} from '../data-selection/data-selection';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
 import { getMapResultsByLocation } from '../../../shared/ducks/search/search';
@@ -57,8 +53,6 @@ export const getCenter = createSelector([getMapCenter, getStraatbeeldLocation],
 export const getLatitude = createSelector(getCenter, (center) => center[0]);
 export const getLongitude = createSelector(getCenter, (center) => center[1]);
 
-export const getClusterMarkers = getDataSelectionClusterMarkers;
-export const getGeoJsons = getDataSelectionGeoJsons;
 export const getRdGeoJsons = createSelector(getDetailGeoJson, (geoJson) => [geoJson]);
 
 export const getSelectedLocation = createSelector(
@@ -101,3 +95,6 @@ export const getMarkers = createSelector(
 
 export const isMarkerActive = createSelector(getDetail, (detail) => !detail);
 export const isMapPanelActive = createSelector(getMap, (map) => map.mapPanelActive);
+
+// Todo: remove this
+export const getDataSelection = (state) => state.dataSelection;

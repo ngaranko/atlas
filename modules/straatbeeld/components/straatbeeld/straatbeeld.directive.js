@@ -1,4 +1,3 @@
-import { routing } from '../../../../src/app/routes';
 import throttle from 'lodash.throttle';
 
 (function () {

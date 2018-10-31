@@ -1,5 +1,3 @@
-import { getPageActionEndpoint } from '../../../../../src/app/routes';
-
 (function () {
     'use strict';
 
@@ -11,21 +9,6 @@ import { getPageActionEndpoint } from '../../../../../src/app/routes';
                 dataset: '<'
             },
             templateUrl: 'modules/data-selection/components/views/table/table.html',
-            controller: DpDataSelectionTableController,
             controllerAs: 'vm'
         });
-
-    DpDataSelectionTableController.$inject = ['store'];
-
-    function DpDataSelectionTableController (store) {
-        const vm = this;
-
-        vm.rows = vm.content.body.map(row => {
-            const linkTo = getPageActionEndpoint(row.detailEndpoint);
-            return {
-                ...row,
-                linkTo
-            };
-        });
-    }
 })();

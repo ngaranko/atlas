@@ -19,6 +19,7 @@ import {
   watchPanoramaRoute
 } from './pano/sagas/panorama';
 import { watchDetailRoute } from './detail/sagas/detail';
+import watchFetchDataSelection from './shared/sagas/data-selection/data-selection';
 import watchQueryActions from './store/query-synchronization';
 
 export default function* rootSaga() {
@@ -42,6 +43,7 @@ export default function* rootSaga() {
     fork(watchCatalogList),
     fork(watchQuerySearch),
     fork(watchDetailRoute),
-    fork(watchPanoramaRoute)
+    fork(watchPanoramaRoute),
+    fork(watchFetchDataSelection)
   ]);
 }

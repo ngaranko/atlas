@@ -1,8 +1,39 @@
+import * as dataSelectionConfig
+    from '../../../../../src/shared/services/data-selection/data-selection-config';
+
 describe('The dp-data-selection-download-button component', function () {
     let $compile,
         $q,
         $rootScope,
         api;
+
+    const config = {
+        datasets: {
+            dataset_a: {
+                ENDPOINT: 'datasets/a/',
+                ENDPOINT_EXPORT: 'datasets/a/download/',
+                FILTERS: [
+                    {
+                        slug: 'filter_a'
+                    }, {
+                        slug: 'filter_b'
+                    }
+                ]
+            },
+            dataset_b: {
+                ENDPOINT: 'datasets/b/',
+                ENDPOINT_EXPORT: 'datasets/b/download/',
+                ENDPOINT_EXPORT_PARAM: 'dataset=ves',
+                FILTERS: [
+                    {
+                        slug: 'filter_a'
+                    }, {
+                        slug: 'filter_b'
+                    }
+                ]
+            }
+        }
+    };
 
     beforeEach(function () {
         angular.mock.module(
@@ -11,37 +42,10 @@ describe('The dp-data-selection-download-button component', function () {
                 sharedConfig: {
                     API_ROOT: 'http://www.example.com/'
                 }
-            },
-            function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', {
-                    datasets: {
-                        dataset_a: {
-                            ENDPOINT: 'datasets/a/',
-                            ENDPOINT_EXPORT: 'datasets/a/download/',
-                            FILTERS: [
-                                {
-                                    slug: 'filter_a'
-                                }, {
-                                    slug: 'filter_b'
-                                }
-                            ]
-                        },
-                        dataset_b: {
-                            ENDPOINT: 'datasets/b/',
-                            ENDPOINT_EXPORT: 'datasets/b/download/',
-                            ENDPOINT_EXPORT_PARAM: 'dataset=ves',
-                            FILTERS: [
-                                {
-                                    slug: 'filter_a'
-                                }, {
-                                    slug: 'filter_b'
-                                }
-                            ]
-                        }
-                    }
-                });
             }
         );
+
+        dataSelectionConfig.default = config;
 
         angular.mock.inject(function (_$compile_, _$q_, _$rootScope_, _api_) {
             $compile = _$compile_;

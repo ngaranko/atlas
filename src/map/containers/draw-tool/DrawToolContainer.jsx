@@ -8,12 +8,7 @@ import isEqual from 'lodash.isequal';
 import DrawTool from '../../components/draw-tool/DrawTool';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
-import {
-  resetDataSelectionGeometryFilter,
-  setDataSelectionGeometryFilter
-} from '../../../shared/ducks/data-selection/data-selection';
 import { setPageName } from '../../../shared/ducks/page/page';
-import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
 
 import {
   cancel,
@@ -31,7 +26,6 @@ import {
   mapStartDrawing,
   mapUpdateShape
 } from '../../ducks/map/map';
-import { isMapCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
 import {
   getDrawingMode,
   getGeometry,
@@ -39,28 +33,29 @@ import {
   getShapeMarkers,
   isDrawingEnabled
 } from '../../ducks/map/map-selectors';
+import {
+  getDataSelection,
+  setGeometryFilter
+} from '../../../shared/ducks/data-selection/data-selection';
 
 const mapStateToProps = (state) => ({
   drawingMode: getDrawingMode(state),
   isEnabled: isDrawingEnabled(state),
   shapeMarkers: getShapeMarkers(state),
   shapeDistanceTxt: getShapeDistanceTxt(state),
-  dataSelection: state.dataSelection,
-  geometry: getGeometry(state),
-  uiMapFullscreen: isMapCurrentPage(state)
+  dataSelection: getDataSelection(state),
+  geometry: getGeometry(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onClearDrawing: mapClearDrawing,
   onEmptyGeometry: mapEmptyGeometry,
   onMapUpdateShape: mapUpdateShape,
-  setGeometryFilter: setDataSelectionGeometryFilter,
-  resetGeometryFilter: resetDataSelectionGeometryFilter,
+  setGeometryFilter,
   onStartDrawing: mapStartDrawing,
   onEndDrawing: mapEndDrawing,
   onMapClear: mapClear,
-  onSetPageName: setPageName,
-  onSetMapFullscreen: setMapFullscreen
+  onSetPageName: setPageName
 }, dispatch);
 
 // TODO: Get all business logic out of this file, probably to Redux!
@@ -136,8 +131,6 @@ class DrawToolContainer extends React.Component {
       // this.props.onStraatbeeldOff();
       this.props.onEndDrawing({ polygon });
       this.props.onSetPageName({ name: null });
-
-      this.props.onSetMapFullscreen();
     } else if (has2Markers) {
       this.props.onEndDrawing({ polygon });
     }
@@ -210,11 +203,9 @@ DrawToolContainer.propTypes = {
   onEmptyGeometry: PropTypes.func.isRequired,
   onMapUpdateShape: PropTypes.func.isRequired,
   setGeometryFilter: PropTypes.func.isRequired,
-  resetGeometryFilter: PropTypes.func.isRequired,
   onStartDrawing: PropTypes.func.isRequired,
   onEndDrawing: PropTypes.func.isRequired,
   onSetPageName: PropTypes.func.isRequired,
-  onSetMapFullscreen: PropTypes.func.isRequired,
   // onStraatbeeldOff: PropTypes.func.isRequired,
   onMapClear: PropTypes.func.isRequired
 };

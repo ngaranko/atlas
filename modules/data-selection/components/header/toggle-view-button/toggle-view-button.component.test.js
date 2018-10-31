@@ -1,9 +1,6 @@
-import { SET_DATA_SELECTION_VIEW } from '../../../../../src/shared/ducks/data-selection/data-selection';
-
 describe('The dp-data-selection-toggle-view-button component', function () {
     let $compile,
-        $rootScope,
-        store;
+        $rootScope;
 
     beforeEach(function () {
         angular.mock.module(
@@ -15,13 +12,10 @@ describe('The dp-data-selection-toggle-view-button component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            store = _store_;
         });
-
-        spyOn(store, 'dispatch');
     });
 
     function getComponent (view) {
@@ -43,13 +37,6 @@ describe('The dp-data-selection-toggle-view-button component', function () {
 
         expect(component.find('ng-transclude').text().trim()).toBe('Kaart weergeven');
         expect(component.find('button').attr('title').trim()).toBe('Resultaten op de kaart weergeven');
-
-        component.find('button').click();
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: SET_DATA_SELECTION_VIEW,
-            payload: 'LIST'
-        });
     });
 
     it('when in list view: it shows a link to the table view', function () {
@@ -58,11 +45,5 @@ describe('The dp-data-selection-toggle-view-button component', function () {
 
         expect(component.find('ng-transclude').text().trim()).toBe('Tabel weergeven');
         expect(component.find('button').attr('title').trim()).toBe('Resultaten in tabel weergeven');
-
-        component.find('button').click();
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: SET_DATA_SELECTION_VIEW,
-            payload: 'TABLE'
-        });
     });
 });

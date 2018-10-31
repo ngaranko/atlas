@@ -12,12 +12,12 @@ import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
 import {
   getCenter,
-  getClusterMarkers,
   getDrawingMode,
-  getGeoJsons, getMapZoom,
+  getMapZoom,
   getMarkers,
   getRdGeoJsons
 } from '../../ducks/map/map-selectors';
+import { getClusterMarkers, getGeoJsons } from '../../../shared/ducks/data-selection/data-selection';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
