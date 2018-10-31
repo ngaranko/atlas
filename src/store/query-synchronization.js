@@ -1,11 +1,14 @@
-import { put, select, takeLatest } from 'redux-saga/es/internal/io';
-import { redirect } from 'redux-first-router';
+import querystring from 'querystring';
+import createHistory from 'history/createBrowserHistory';
+import { select, takeLatest } from 'redux-saga/es/internal/io';
 import mapQuery, { ACTIONS as MAP_ACTIONS } from '../map/ducks/map/map-query';
 import filtersQuery, { ACTIONS as FILTERS_ACTIONS } from '../shared/ducks/filters/filters-query';
 import selectionQuery, { ACTIONS as SELECTION_ACTIONS } from '../shared/ducks/selection/selection-query';
 import straatbeeldQuery, { ACTIONS as STRAATBEELD_ACTIONS } from '../shared/ducks/straatbeeld/straatbeeld-query';
 import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/data-selection-query';
 import { getLocationQuery, getLocationType } from './redux-first-router';
+
+const separateHistory = createHistory();
 
 const watchedActions = [
   ...MAP_ACTIONS,
@@ -53,15 +56,13 @@ function* updateQuery() {
     return acc;
   }, {});
 
-  const noop = (params) => params;
-  const routeWrapper = addHistory ? noop : redirect;
-  yield put(routeWrapper({
-    type: currentLocationType,
-    payload: state.location.payload,
-    meta: {
-      query: orderedQuery
-    }
-  }));
+  const searchQuery = querystring.stringify(orderedQuery);
+  const currentPath = window.location.pathname;
+  if (addHistory) {
+    separateHistory.push(`${currentPath}?${searchQuery}`);
+  } else {
+    separateHistory.replace(`${currentPath}?${searchQuery}`);
+  }
 }
 
 export default function* watchQueryActions() {
