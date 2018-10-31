@@ -68,10 +68,6 @@ $clear-button-margin: 3px;
     right: $clear-button-margin;
     top: $clear-button-margin;
     width: $button-size - 1px;
-
-    svg {
-      fill: $primary-contrast;
-    }
   }
 
   &__submit {
@@ -85,7 +81,8 @@ $clear-button-margin: 3px;
     margin-left: $base-whitespace * .5;
     width: $site-header-search-form-height;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: $primary-contrast-hover;
       background-size: $button-size;
     }

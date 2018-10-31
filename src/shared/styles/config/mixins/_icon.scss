@@ -129,7 +129,7 @@
   }
 
   @if $hover-fill {
-    &:hover {
+    &:hover, &:focus {
       @include sprite($icon, ( fill: $hover-fill ));
     }
   }

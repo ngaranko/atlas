@@ -19,7 +19,7 @@
   text-decoration: none;
   cursor: pointer;
 
-  &:hover {
+  &:hover, &:focus {
     .c-menu__title {
       border-bottom: 2px solid $primary-contrast !important;
       color: $primary-contrast !important;
