@@ -240,13 +240,15 @@ class MapLeaflet extends React.Component {
             ))
           }
           {
-            rdGeoJsons.map((shape) => (Boolean(shape.geoJson) && shape.geoJson.label) && (
-              <RdGeoJson
-                data={shape.geoJson}
-                key={shape.id}
-                ref={rdGeoJsons.length === 1 && this.setActiveElement}
-              />
-            ))
+            rdGeoJsons.map((shape) =>
+              (Boolean(shape.geoJson) && Boolean(shape.geoJson.label)) && (
+                <RdGeoJson
+                  data={shape.geoJson}
+                  key={shape.id}
+                  ref={rdGeoJsons.length === 1 && this.setActiveElement}
+                />
+              )
+            )
           }
           <ScaleControl {...scaleControlOptions} />
           {
