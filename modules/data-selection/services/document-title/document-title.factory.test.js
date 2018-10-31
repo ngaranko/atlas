@@ -1,3 +1,6 @@
+import * as dataSelectionConfig
+    from '../../../../src/shared/services/data-selection/data-selection-config';
+
 describe('The dpDataSelectionDocumentTitle factory', function () {
     let dpDataSelectionDocumentTitle,
         mockedBagState,
@@ -6,47 +9,47 @@ describe('The dpDataSelectionDocumentTitle factory', function () {
         mockedFilters;
 
     beforeEach(function () {
-        angular.mock.module(
-            'dpDataSelection',
-            function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', {
-                    datasets: {
-                        bag: {
-                            TITLE: 'Adressen',
-                            TITLE_TAB: 'Adressen',
-                            FILTERS: [
-                                {
-                                    slug: 'stadsdeel_naam',
-                                    label: 'Stadsdeel'
-                                },
-                                {
-                                    slug: 'buurt_naam',
-                                    label: 'Buurt'
-                                },
-                                {
-                                    slug: 'postcode',
-                                    label: 'Postcode'
-                                }
-                            ]
+        const config = {
+            datasets: {
+                bag: {
+                    TITLE: 'Adressen',
+                    TITLE_TAB: 'Adressen',
+                    FILTERS: [
+                        {
+                            slug: 'stadsdeel_naam',
+                            label: 'Stadsdeel'
                         },
-                        hr: {
-                            TITLE: 'Handelsregister',
-                            TITLE_TAB: 'Handelsregister',
-                            FILTERS: []
+                        {
+                            slug: 'buurt_naam',
+                            label: 'Buurt'
                         },
-                        dcatd: {
-                            TITLE: 'Catalogus',
-                            TITLE_TAB: 'Catalogus',
-                            FILTERS: [
-                                {
-                                    slug: 'groups',
-                                    label: 'Thema\'s'
-                                }
-                            ]
+                        {
+                            slug: 'postcode',
+                            label: 'Postcode'
                         }
-                    }
-                });
+                    ]
+                },
+                hr: {
+                    TITLE: 'Handelsregister',
+                    TITLE_TAB: 'Handelsregister',
+                    FILTERS: []
+                },
+                dcatd: {
+                    TITLE: 'Catalogus',
+                    TITLE_TAB: 'Catalogus',
+                    FILTERS: [
+                        {
+                            slug: 'groups',
+                            label: 'Thema\'s'
+                        }
+                    ]
+                }
             }
+        };
+
+        dataSelectionConfig.default = config;
+        angular.mock.module(
+            'dpDataSelection'
         );
 
         angular.mock.inject(function (_dpDataSelectionDocumentTitle_) {

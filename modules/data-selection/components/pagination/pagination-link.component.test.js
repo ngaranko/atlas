@@ -1,5 +1,3 @@
-import { NAVIGATE_DATA_SELECTION } from '../../../../src/shared/ducks/data-selection/data-selection';
-
 describe('The dp-data-selection-pagination-link component', function () {
     var $compile,
         $rootScope,
@@ -44,7 +42,7 @@ describe('The dp-data-selection-pagination-link component', function () {
     it('shows a button for each enabled link', function () {
         var component = getComponent({
             label: 'Ik ben een knopske',
-            page: 27,
+            action: { type: 'SOME_ACTION' },
             enabled: true
         });
 
@@ -55,25 +53,10 @@ describe('The dp-data-selection-pagination-link component', function () {
         expect(component.find('> span').length).toBe(0);
     });
 
-    it('triggers NAVIGATE_DATA_SELECTION when clicking a link', function () {
-        var component = getComponent({
-            label: 'Ik ben een knopske',
-            page: 27,
-            enabled: true
-        });
-
-        component.find('button').click();
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: NAVIGATE_DATA_SELECTION,
-            payload: 27
-        });
-    });
-
     it('hides the button if the link is disabled', function () {
         var component = getComponent({
             label: 'Ik ben een knopske',
-            page: 27,
+            action: { type: 'SOME_ACTION' },
             enabled: false
         });
 

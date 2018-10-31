@@ -8,12 +8,9 @@ import Piwik from './components/Piwik/Piwik';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
-import DATASETS from '../shared/ducks/data-selection/data-selection-datasets';
 import './_app.scss';
 import CatalogDetailContainer from './containers/CatalogDetailContainer';
-import CatalogSearchContainer from './containers/CatalogSearchContainer';
 import QuerySearchContainer from './containers/QuerySearchContainer';
-import { getCurrentPage } from '../shared/ducks/current-page/current-page-reducer';
 import {
   isEmbedded,
   isEmbedPreview,
@@ -27,6 +24,7 @@ import DetailPage from './pages/DetailPage';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
 import MapSearchPage from './pages/MapSearchPage';
+import { getCurrentPage } from '../store/redux-first-router';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -117,36 +115,15 @@ const App = ({
 
             {currentPage === PAGES.PANORAMA && <PanoramaPage />}
 
-            {currentPage === PAGES.CATALOGUS && (
-              <DataSelection
-                view={'CATALOG'}
-                dataset={DATASETS.CATALOG}
-              />
-            )}
-
-            {currentPage === PAGES.SEARCH_CATALOG && (
-              <CatalogSearchContainer
-                view={'CATALOG'}
-                dataset={DATASETS.CATALOG}
-              />
-            )}
-
             {currentPage === PAGES.CATALOGUS_DETAIL && (
               <CatalogDetailContainer />
             )}
 
-            {currentPage === PAGES.ADRESSEN && (
-              <DataSelection
-                view={'TABLE'}
-                dataset={DATASETS.BAG}
-              />
-            )}
-
-            {currentPage === PAGES.VESTIGINGEN && (
-              <DataSelection
-                view={'TABLE'}
-                dataset={DATASETS.HR}
-              />
+            {(currentPage === PAGES.ADDRESSES
+            || currentPage === PAGES.ESTABLISHMENTS
+            || currentPage === PAGES.CADASTRAL_OBJECTS)
+            && (
+              <DataSelection />
             )}
 
             {isCmsPage && (

@@ -1,10 +1,26 @@
 import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
+import * as dataSelectionConfig
+    from '../../../../src/shared/services/data-selection/data-selection-config';
 
 describe('The dp-data-selection-available-filters component', function () {
     var $compile,
         $rootScope,
         store,
         availableFilters;
+
+    const config = {
+        datasets: {
+            my_special_dataset: {
+                FILTERS: [
+                    {
+                        slug: 'filter_a_new'
+                    }, {
+                        slug: 'filterb'
+                    }
+                ]
+            }
+        }
+    };
 
     beforeEach(function () {
         angular.mock.module(
@@ -13,21 +29,6 @@ describe('The dp-data-selection-available-filters component', function () {
                 store: {
                     dispatch: function () {}
                 }
-            },
-            function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', {
-                    datasets: {
-                        my_special_dataset: {
-                            FILTERS: [
-                                {
-                                    slug: 'filter_a_new'
-                                }, {
-                                    slug: 'filterb'
-                                }
-                            ]
-                        }
-                    }
-                });
             }
         );
 
@@ -36,6 +37,8 @@ describe('The dp-data-selection-available-filters component', function () {
             $rootScope = _$rootScope_;
             store = _store_;
         });
+
+        dataSelectionConfig.default = config;
 
         availableFilters = [
             {

@@ -16,5 +16,4 @@ export default {
   }
 };
 
-
 export const ACTIONS = [MAP_PAN, MAP_ZOOM];

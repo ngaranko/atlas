@@ -1,4 +1,6 @@
-import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
+import * as dataSelectionConfig
+    from '../../../../src/shared/services/data-selection/data-selection-config';
+import { setDataset } from '../../../../src/shared/ducks/data-selection/data-selection';
 
 describe('The dp-data-selection-header', () => {
     const anonymousUser = {
@@ -52,8 +54,6 @@ describe('The dp-data-selection-header', () => {
                 }
             },
             function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', config);
-
                 $provide.factory('dpDataSelectionToggleViewButtonDirective', () => {
                     return {};
                 });
@@ -67,6 +67,8 @@ describe('The dp-data-selection-header', () => {
                 });
             }
         );
+
+        dataSelectionConfig.default = config;
 
         angular.mock.inject((_$compile_, _$rootScope_, _store_) => {
             $compile = _$compile_;
@@ -367,14 +369,7 @@ describe('The dp-data-selection-header', () => {
             component = getComponent(mockedInputList);
 
             component.find('.qa-tabs li:nth-child(1) dp-link .o-tabs__tab--link').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: FETCH_DATA_SELECTION,
-                payload: jasmine.objectContaining({
-                    dataset: 'bag',
-                    view: 'LIST',
-                    page: 1
-                })
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(setDataset('bag'));
         });
 
         it('active tabs are just text (instead of a link)', () => {

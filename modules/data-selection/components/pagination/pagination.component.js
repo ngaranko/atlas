@@ -1,4 +1,4 @@
-import { NAVIGATE_DATA_SELECTION } from '../../../../src/shared/ducks/data-selection/data-selection';
+import { setPage } from '../../../../src/shared/ducks/data-selection/data-selection';
 
 (function () {
     'use strict';
@@ -30,28 +30,28 @@ import { NAVIGATE_DATA_SELECTION } from '../../../../src/shared/ducks/data-selec
                 vm.firstPage = {
                     label: 'Eerste',
                     class_name: 'c-data-selection-pagination-link--first',
-                    page: 1,
+                    action: setPage(1),
                     enabled: !isFirstPage
                 };
 
                 vm.previousPage = {
                     label: 'Vorige',
                     class_name: 'c-data-selection-pagination-link--previous',
-                    page: isFirstPage ? null : vm.currentPage - 1,
+                    action: setPage(isFirstPage ? null : vm.currentPage - 1),
                     enabled: !isFirstPage
                 };
 
                 vm.nextPage = {
                     label: 'Volgende',
                     class_name: 'c-data-selection-pagination-link--next',
-                    page: isLastPage ? null : vm.currentPage + 1,
+                    action: setPage(isLastPage ? null : vm.currentPage + 1),
                     enabled: !isLastPage
                 };
 
                 vm.lastPage = {
                     label: 'Laatste',
                     class_name: 'c-data-selection-pagination-link--last',
-                    page: vm.numberOfPages,
+                    action: setPage(vm.numberOfPages),
                     enabled: !isLastPage
                 };
             }
@@ -61,18 +61,12 @@ import { NAVIGATE_DATA_SELECTION } from '../../../../src/shared/ducks/data-selec
             event.preventDefault();
 
             if (angular.isNumber(vm.currentPage) && vm.currentPage >= 1 && vm.currentPage <= vm.numberOfPages) {
-                store.dispatch({
-                    type: NAVIGATE_DATA_SELECTION,
-                    payload: vm.currentPage
-                });
+                store.dispatch(setPage(vm.currentPage));
             }
         };
 
         if (vm.currentPage > vm.numberOfPages) {
-            store.dispatch({
-                type: NAVIGATE_DATA_SELECTION,
-                payload: 1
-            });
+            store.dispatch(setPage(1));
         }
     }
 })();

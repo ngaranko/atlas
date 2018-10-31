@@ -1,15 +1,14 @@
 import { APPLY_FILTERS, EMPTY_FILTERS, getFilters } from './filters';
 
 /* istanbul ignore next */ // TODO: refactor, test
-const getFiltersString = (state) => {
-  const filters = getFilters(state);
-  const string = Object.entries(filters).map(([key, value]) => `${key}:${value}`);
-  return string.join(',');
-};
+const getFiltersString = (state) => (
+  Object.keys(getFilters(state)).length ? JSON.stringify(getFilters(state)) : null
+);
 
 export default {
   filters: {
-    selector: getFiltersString
+    selector: getFiltersString,
+    addHistory: true
   }
 };
 

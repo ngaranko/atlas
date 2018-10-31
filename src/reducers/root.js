@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 
 import AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest';
-import DataSelectionReducer from '../shared/ducks/data-selection/data-selection';
 import DataSelectionCatalogReducer from '../catalog/ducks/data-selection/data-selection-catalog';
 import ErrorMessageReducer from '../shared/ducks/error-message';
 import PageReducer from '../shared/ducks/page/page';
@@ -14,13 +13,13 @@ import MapBaseLayersReducer from '../map/ducks/base-layers/map-base-layers';
 import MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
 import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
-import CurrentPageReducer, { REDUCER_KEY as CURRENT_PAGE } from '../shared/ducks/current-page/current-page-reducer';
 import CatalogReducer from '../shared/ducks/catalog/catalog';
 import FiltersReducer from '../shared/ducks/filters/filters';
 import DetailReducer, { REDUCER_KEY as DETAIL } from '../shared/ducks/detail/detail';
 import SearchReducer, { REDUCER_KEY as SEARCH } from '../shared/ducks/search/search';
 import SelectionReducer, { REDUCER_KEY as SELECTION } from '../shared/ducks/selection/selection';
 import LegacyReducer from './deprecated/legacy-reducer';
+import NewDataSelectionReducer, { REDUCER_KEY as NEW_DATA_SELECTION } from '../shared/ducks/data-selection/data-selection';
 
 export default (routeReducer) => (oldState = {}, action) => {
   const mapLayers = combineReducers({
@@ -34,7 +33,6 @@ export default (routeReducer) => (oldState = {}, action) => {
   // Use combine reducer for new reducers
   const newRootReducer = combineReducers({
     catalog: CatalogReducer,
-    dataSelection: DataSelectionReducer,
     page: PageReducer,
     error: ErrorMessageReducer,
     filters: FiltersReducer,
@@ -50,8 +48,8 @@ export default (routeReducer) => (oldState = {}, action) => {
     location: routeReducer,
     [DETAIL]: DetailReducer,
     [SEARCH]: SearchReducer,
-    [CURRENT_PAGE]: CurrentPageReducer,
-    [SELECTION]: SelectionReducer
+    [SELECTION]: SelectionReducer,
+    [NEW_DATA_SELECTION]: NewDataSelectionReducer
   });
 
   // Combine legacy and new reducer states
