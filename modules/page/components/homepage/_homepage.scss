@@ -39,8 +39,10 @@ $show-more-height: 70px;
     pointer-events: none;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     box-shadow: $primary-dark 2px 2px, $primary-dark 2px 0;
+    outline: none;
 
     .c-homepage__block-button {
       height: $button-height;
@@ -140,6 +142,7 @@ $show-more-height: 70px;
   left: 0;
   width: 100%;
   padding-left: 2 * $base-whitespace;
+  outline: none;
   transition: transform .2s;
   background-color: $secondary-gray4;
   text-decoration: none;
@@ -173,3 +176,4 @@ $show-more-height: 70px;
     max-width: 280px;
   }
 }
+

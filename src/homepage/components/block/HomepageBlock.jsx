@@ -4,14 +4,17 @@ import PropTypes from 'prop-types';
 import './_homepage-block.scss';
 
 const HomepageBlock = (props) => (
-  <div
+  <div // eslint-disable-line jsx-a11y/no-static-element-interactions
+    tabIndex="0"  // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
     className="homepage-block c-homepage__block c-homepage__block--tall"
+    onKeyDown={(event) => { if (event.key === 'Enter') props.onBlockLinkClick(); }}
   >
 
     {props.children}
 
     {props.onBlockLinkClick && (
       <button
+        tabIndex="-1"
         className={`c-homepage__block-button ${props.hasTallDescription ? 'c-homepage__block-button--tall' : ''}`}
         title={`Bekijk ${props.title}`}
         onClick={props.onBlockLinkClick}
