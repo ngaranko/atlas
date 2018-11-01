@@ -11,7 +11,8 @@ export default {
     defaultValue: initialState.heading
   },
   pitch: {
-    selector: getStraatbeeldPitch
+    selector: getStraatbeeldPitch,
+    defaultValue: initialState.pitch
   }
 };
 
