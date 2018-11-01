@@ -25,7 +25,7 @@ describe('Straatbeeld Reducer', () => {
       image: null,
       isLoading: true,
       location: null,
-      pitch: null,
+      pitch: 0,
       year: undefined
     });
   });
