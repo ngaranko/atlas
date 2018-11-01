@@ -12,6 +12,7 @@ export const FETCH_STRAATBEELD_SUCCESS = 'FETCH_STRAATBEELD_SUCCESS';
 export const FETCH_STRAATBEELD_ERROR = 'FETCH_STRAATBEELD_ERROR';
 export const SET_STRAATBEELD_ORIENTATION = 'SET_STRAATBEELD_ORIENTATION';
 export const SET_STRAATBEELD_YEAR = 'SET_STRAATBEELD_YEAR';
+export const CLOSE_STRAATBEELD = 'CLOSE_STRAATBEELD';
 
 export const initialState = {
   location: null, // eg: [52.8, 4.9]
@@ -43,6 +44,7 @@ export default function straatbeeldReducer(state = initialState, action) {
       return {
         ...state,
         view,
+        id: action.payload.id,
         heading: query.heading || state.heading,
         pitch: query.pitch || state.pitch
       };
@@ -64,7 +66,6 @@ export default function straatbeeldReducer(state = initialState, action) {
     case FETCH_STRAATBEELD_SUCCESS:
       return {
         ...state,
-        id: action.payload.id || state.id,
         date: action.payload.date,
         pitch: state.pitch || 0,
         fov: state.fov || STRAATBEELD_CONFIG.DEFAULT_FOV,
@@ -124,6 +125,8 @@ export const setStraatbeeldOrientation = ({ heading, pitch, fov }) => ({
     fov
   }
 });
+
+export const closeStraatbeeld = () => ({ type: CLOSE_STRAATBEELD });
 
 // Selectors
 /**

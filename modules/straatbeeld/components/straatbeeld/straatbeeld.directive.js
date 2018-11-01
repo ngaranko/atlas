@@ -1,4 +1,3 @@
-import { routing } from '../../../../src/app/routes';
 import throttle from 'lodash.throttle';
 
 (function () {
@@ -28,7 +27,8 @@ import throttle from 'lodash.throttle';
                 state: '=',
                 resize: '<',
                 hotspots: '<',
-                isFullscreen: '<'
+                isFullscreen: '<',
+                doClose: '&'
             },
             templateUrl: 'modules/straatbeeld/components/straatbeeld/straatbeeld.html',
             link: linkFunction
@@ -58,8 +58,6 @@ import throttle from 'lodash.throttle';
                     }
                 )
             );
-
-            scope.backToMap = routing.map.type;
 
             // We need to watch for object equality instead of reference
             // equality for both the `image` and `hotspots` object/array. This

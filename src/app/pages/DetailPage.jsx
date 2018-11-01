@@ -14,7 +14,12 @@ import { getPageActionEndpoint as endpointActionCreator } from '../routes';
 
 /* istanbul ignore next */ // TODO: refactor, test
 const DetailPage = ({ view: routeView, hasGeometry, endpoint, getPageActionEndpoint }) => {
-  const view = hasGeometry ? routeView : DETAIL_VIEW.DETAIL;
+  let view;
+  if (view === DETAIL_VIEW.DETAIL) {
+    view = hasGeometry ? routeView : DETAIL_VIEW.DETAIL;
+  } else {
+    view = routeView;
+  }
   const toMap = () => getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP);
 
   switch (view) {
