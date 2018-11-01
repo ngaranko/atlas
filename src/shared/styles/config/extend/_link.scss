@@ -20,8 +20,8 @@ $link-offset: 3px;
   &:hover,
   &:focus {
     color: $primary-contrast;
-    text-decoration: underline;
     outline: none;
+    text-decoration: underline;
   }
 
   &:active {
@@ -74,8 +74,8 @@ $link-offset: 3px;
     &::before {
       @include icon-button("link-arrow", "red");
       height: $icon-size;
-      width: $icon-size;
       outline: none;
+      width: $icon-size;
     }
   }
 }

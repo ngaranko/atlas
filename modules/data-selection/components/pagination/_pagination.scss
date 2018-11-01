@@ -20,7 +20,8 @@
   @include font-weight($normal-weight);
   width: 3rem;
   height: $button-size;
-  border: 1px solid $secondary-gray20;
+  border: 2px solid $primary-dark;
+  outline: none;
   text-align: center;
   vertical-align: middle;
 }
@@ -56,17 +57,6 @@
   position: absolute;
   right: 0;
   z-index: 2;
-}
-
-.c-data-selection-pagination-link {
-  border: 1px solid $primary-dark;
-  background-color: $secondary-gray20;
-  color: $primary-dark;
-
-  &:hover,
-  &:focus {
-    color: $primary-light;
-  }
 }
 
 .c-data-selection-pagination-link--first {

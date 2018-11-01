@@ -83,8 +83,8 @@
   &:hover,
   &:focus {
     @include o-tag;
-    background-color: $secondary-gray10;
     outline: none;
+    background-color: $secondary-gray10;
   }
 
   &__formats {

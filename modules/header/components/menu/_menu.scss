@@ -19,7 +19,8 @@
   text-decoration: none;
   cursor: pointer;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     .c-menu__title {
       border-bottom: 2px solid $primary-contrast !important;
       color: $primary-contrast !important;
@@ -79,8 +80,8 @@
 
   &:hover,
   &:focus {
-    color: $primary-contrast;
     outline: none;
+    color: $primary-contrast;
     text-decoration: underline;
   }
 }

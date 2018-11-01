@@ -87,15 +87,26 @@
   }
 }
 
-%icon--border-hover {
-  @extend %icon--border;
+%base-button {
+  background-color: $secondary-gray20;
+  border: 1px solid $primary-dark;
+  color: $primary-dark;
 
   &:hover,
   &:focus {
     background-color: $primary-contrast;
     color: $primary-light;
     outline: none;
+  }
+}
 
+
+%icon--border-hover {
+  @extend %icon--border;
+  @extend %base-button;
+
+  &:hover,
+  &:focus {
     &::after {
       border-color: $primary-contrast;
     }

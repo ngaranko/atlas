@@ -41,8 +41,8 @@ $show-more-height: 70px;
 
   &:hover,
   &:focus {
-    box-shadow: $primary-dark 2px 2px, $primary-dark 2px 0;
     outline: none;
+    box-shadow: $primary-dark 2px 2px, $primary-dark 2px 0;
 
     .c-homepage__block-button {
       height: $button-height;
@@ -142,8 +142,8 @@ $show-more-height: 70px;
   left: 0;
   width: 100%;
   padding-left: 2 * $base-whitespace;
-  outline: none;
   transition: transform .2s;
+  outline: none;
   background-color: $secondary-gray4;
   text-decoration: none;
   z-index: 10;
