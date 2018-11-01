@@ -1,7 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import queryString from 'querystring';
 import {
-  clearState,
-  DATASETS,
   FETCH_DATA_SELECTION_REQUEST,
   fetchDataSelection,
   getDataSelection,
@@ -9,6 +8,7 @@ import {
   receiveDataSelectionSuccess,
   SET_DATASET,
   SET_GEOMETRY_FILTERS,
+  SET_VIEW,
   setMarkers,
   VIEWS
 } from '../../ducks/data-selection/data-selection';
@@ -16,14 +16,13 @@ import { routing } from '../../../app/routes';
 import dataselectionConfig from '../../services/data-selection/data-selection-config';
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
 import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
-import { MAP_START_DRAWING } from '../../../map/ducks/map/map';
-import { getLocationQuery } from '../../../store/redux-first-router';
-import { getFilters } from '../../ducks/filters/filters';
-
-const defaultParams = {
-  dataset: DATASETS.BAG,
-  view: VIEWS.LIST
-};
+import {
+  ADD_FILTER,
+  APPLY_FILTERS,
+  EMPTY_FILTERS,
+  getFilters,
+  REMOVE_FILTER
+} from '../../ducks/filters/filters';
 
 function* getMapMarkers(dataset, activeFilters) {
   const state = yield select();
@@ -61,24 +60,17 @@ function* retrieveDataSelection(action) {
   }
 }
 
-function* handleRoutes() {
+function* fireRequest() {
   const state = yield select();
   const dataSelection = getDataSelection(state);
   const activeFilters = getFilters(state);
-  try {
-    yield put(
-      fetchDataSelection({
-        ...defaultParams,
-        ...dataSelection,
-        activeFilters
-      })
-    );
-  } catch (e) {
-    yield put(receiveDataSelectionFailure({
-      error: e.message,
-      dataset: dataSelection.dataset
-    }));
-  }
+
+  yield put(
+    fetchDataSelection({
+      ...dataSelection,
+      activeFilters
+    })
+  );
 }
 
 const DATASET_ROUTE_MAPPER = {
@@ -87,37 +79,29 @@ const DATASET_ROUTE_MAPPER = {
   brk: routing.cadastralObjects.type
 };
 
-function* switchPage(action) {
+function* switchPage() {
   const state = yield select();
-  const queryParams = getLocationQuery(state);
+  const dataSelection = getDataSelection(state);
   yield put({
-    type: DATASET_ROUTE_MAPPER[action.payload],
+    type: DATASET_ROUTE_MAPPER[dataSelection.dataset],
     meta: {
       query: {
         listView: true,
-        ...queryParams
+        ...queryString.decode(location.search) // Todo: temporary solution to pass existing query
       }
     }
   });
 }
 
-function* goToAddressResults() {
-  yield call(switchPage, { payload: DATASETS.BAG });
-}
-
-function* clearResults() {
-  yield put(clearState());
-}
-
 export default function* watchFetchDataSelection() {
-  yield takeLatest(FETCH_DATA_SELECTION_REQUEST, retrieveDataSelection);
   yield takeLatest(
-    [routing.addresses.type, routing.establishments.type, routing.cadastralObjects.type],
-    handleRoutes
+    [SET_VIEW, APPLY_FILTERS, ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS,
+      routing.addresses.type, routing.establishments.type, routing.cadastralObjects.type
+    ],
+    fireRequest
   );
-  yield takeLatest(SET_GEOMETRY_FILTERS, goToAddressResults);
-  yield takeLatest(SET_DATASET, switchPage);
 
-  // Legacy shit
-  yield takeLatest(MAP_START_DRAWING, clearResults);
+  // Actions
+  yield takeLatest(FETCH_DATA_SELECTION_REQUEST, retrieveDataSelection);
+  yield takeLatest([SET_DATASET, SET_GEOMETRY_FILTERS], switchPage);
 }

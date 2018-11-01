@@ -1,4 +1,4 @@
-import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
+import { addFilter } from '../../../../src/shared/ducks/filters/filters';
 import DATA_SELECTION_CONFIG from '../../../../src/shared/services/data-selection/data-selection-config';
 
 (function () {
@@ -36,11 +36,9 @@ import DATA_SELECTION_CONFIG from '../../../../src/shared/services/data-selectio
         };
 
         vm.addFilter = function (filterSlug, optionId) {
-            var filters = {...vm.activeFilters};
-
-            filters[filterSlug] = optionId;
-
-            applyFilters(filters);
+            store.dispatch(addFilter({
+                [filterSlug]: optionId
+            }));
         };
 
         vm.showExpandButton = function (filterSlug) {
@@ -81,10 +79,6 @@ import DATA_SELECTION_CONFIG from '../../../../src/shared/services/data-selectio
         function updateConfig () {
             vm.showOptionCounts = DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
             vm.stelselpediaUrl = DATA_SELECTION_CONFIG.datasets[vm.dataset].STELSELPEDIA_URL;
-        }
-
-        function applyFilters (filters) {
-            store.dispatch(applyFiltersActionCreator(filters));
         }
     }
 })();

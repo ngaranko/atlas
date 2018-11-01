@@ -1,4 +1,4 @@
-import reducer, { applyFilters, emptyFilters } from './filters';
+import reducer, { addFilter, applyFilters, emptyFilters, removeFilter } from './filters';
 
 describe('The filtersReducers', () => {
   it('APPLY FILTERS saves the current filters', () => {
@@ -15,5 +15,28 @@ describe('The filtersReducers', () => {
     };
 
     expect(reducer(state, emptyFilters())).toEqual({});
+  });
+
+  it('ADD_FILTER adds a filter to the current state', () => {
+    const state = {
+      myfilter: 'something'
+    };
+
+    const newFilter = { new_filter: 'foo' };
+    expect(reducer(state, addFilter(newFilter))).toEqual({
+      ...state,
+      ...newFilter
+    });
+  });
+
+  it('REMOVE_FILTER removes a filter from the current state', () => {
+    const state = {
+      foo: 'bar',
+      myfilter: 'something'
+    };
+
+    expect(reducer(state, removeFilter('myfilter'))).toEqual({
+      foo: 'bar'
+    });
   });
 });

@@ -331,30 +331,6 @@ describe('The dp-data-selection-header', () => {
         });
     });
 
-    it('the active filters are only shown when at least one filter is active', () => {
-        const mockedInput = {
-            TABLE: mockedInputTable,
-            LIST: mockedInputList,
-            CATALOG: mockedInputCatalog
-        };
-
-        // With one active filter
-        ['TABLE', 'LIST', 'CATALOG'].forEach(viewName => {
-            component = getComponent(mockedInput[viewName]);
-            expect(component.find('.qa-active-filters').length).toBe(1);
-        });
-
-        // Without any active filter
-        mockedInput.TABLE.filters = {};
-        mockedInput.LIST.filters = {};
-        mockedInput.CATALOG.filters = {};
-
-        ['TABLE', 'LIST', 'CATALOG'].forEach(viewName => {
-            component = getComponent(mockedInput[viewName]);
-            expect(component.find('.qa-active-filters').length).toBe(0);
-        });
-    });
-
     describe('the tabs in LIST view', () => {
         it('use the TITLE_TAB values from DATA_SELECTION_CONFIG', () => {
             component = getComponent(mockedInputList);
