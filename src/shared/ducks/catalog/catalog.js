@@ -1,3 +1,4 @@
+import get from 'lodash.get';
 import { routing } from '../../../app/routes';
 
 const initialState = {
@@ -12,7 +13,7 @@ export default (state = initialState, action) => {
       };
     case routing.searchCatalog.type:
       return {
-        query: action.payload.query
+        query: get(action, 'meta.query.zoekterm')
       };
     default:
       return state;
