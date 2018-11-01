@@ -37,7 +37,8 @@ import {
             'vm.dataset',
             'vm.geometryFilter',
             'vm.view',
-            'vm.numberOfRecords'
+            'vm.numberOfRecords',
+            'vm.filters'
         ], setHeader);
 
         function setHeader () {

@@ -1,4 +1,4 @@
-import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
+import { addFilter, removeFilter } from '../../../../src/shared/ducks/filters/filters';
 import * as dataSelectionConfig
     from '../../../../src/shared/services/data-selection/data-selection-config';
 
@@ -185,7 +185,7 @@ describe('The dp-sbi-filter component', () => {
             component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(0).click();
 
             expect(store.dispatch).toHaveBeenCalledWith(
-                applyFilters({
+                addFilter({
                     sbi_code: '[\'01\']'
                 })
             );
@@ -200,7 +200,7 @@ describe('The dp-sbi-filter component', () => {
             component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(4).click();
 
             expect(store.dispatch).toHaveBeenCalledWith(
-                applyFilters({
+                addFilter({
                     sbi_code: '[\'42\']'
                 })
             );
@@ -214,7 +214,7 @@ describe('The dp-sbi-filter component', () => {
             component.find('.qa-sbi-filter-form-input').val('888').triggerHandler('change');
 
             expect(store.dispatch).toHaveBeenCalledWith(
-                applyFilters({
+                addFilter({
                     sbi_code: '[\'888\']'
                 })
             );
@@ -226,7 +226,7 @@ describe('The dp-sbi-filter component', () => {
             component.find('.qa-sbi-filter-form-input').val('   9999   ,  44,3').triggerHandler('change');
 
             expect(store.dispatch).toHaveBeenCalledWith(
-                applyFilters({
+                addFilter({
                     sbi_code: '[\'9999\', \'44\', \'3\']'
                 })
             );
@@ -239,7 +239,7 @@ describe('The dp-sbi-filter component', () => {
                 component = getComponent(activeFilters);
 
             component.find('.qa-sbi-filter-form-input').val('').triggerHandler('change');
-            expect(store.dispatch).toHaveBeenCalledWith(applyFilters({}));
+            expect(store.dispatch).toHaveBeenCalledWith(removeFilter('sbi_code'));
         });
     });
 });

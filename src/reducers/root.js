@@ -14,12 +14,12 @@ import MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
 import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import CatalogReducer from '../shared/ducks/catalog/catalog';
-import FiltersReducer from '../shared/ducks/filters/filters';
+import FiltersReducer, { REDUCER_KEY as FILTER } from '../shared/ducks/filters/filters';
 import DetailReducer, { REDUCER_KEY as DETAIL } from '../shared/ducks/detail/detail';
 import SearchReducer, { REDUCER_KEY as SEARCH } from '../shared/ducks/search/search';
 import SelectionReducer, { REDUCER_KEY as SELECTION } from '../shared/ducks/selection/selection';
 import LegacyReducer from './deprecated/legacy-reducer';
-import NewDataSelectionReducer, { REDUCER_KEY as NEW_DATA_SELECTION } from '../shared/ducks/data-selection/data-selection';
+import DataSelectionReducer, { REDUCER_KEY as DATA_SELECTION } from '../shared/ducks/data-selection/data-selection';
 
 export default (routeReducer) => (oldState = {}, action) => {
   const mapLayers = combineReducers({
@@ -35,7 +35,7 @@ export default (routeReducer) => (oldState = {}, action) => {
     catalog: CatalogReducer,
     page: PageReducer,
     error: ErrorMessageReducer,
-    filters: FiltersReducer,
+    [FILTER]: FiltersReducer,
     map: MapReducer,
     mapDetail: MapDetailReducer,
     pano: PanoPreviewReducer,
@@ -49,7 +49,7 @@ export default (routeReducer) => (oldState = {}, action) => {
     [DETAIL]: DetailReducer,
     [SEARCH]: SearchReducer,
     [SELECTION]: SelectionReducer,
-    [NEW_DATA_SELECTION]: NewDataSelectionReducer
+    [DATA_SELECTION]: DataSelectionReducer
   });
 
   // Combine legacy and new reducer states

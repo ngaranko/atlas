@@ -35,8 +35,8 @@ export const DATASETS = {
   HR: 'hr'
 };
 
-export const initialState = {
-  isLoading: true,
+const initialState = {
+  isLoading: false,
   markers: [], // eg: [[52.1, 4.1], [52.2, 4.0]],
   geometryFilter: {
     markers: []
@@ -213,3 +213,7 @@ export const getGeoJsons = createSelector([getMapMarkers],
     markers && markers.geoJsons && markers.geoJsons.length ?
       markers.geoJsons : []
   ));
+
+export const getFilters = createSelector(
+  getDataSelectionResult, (result) => result.filters || []
+);

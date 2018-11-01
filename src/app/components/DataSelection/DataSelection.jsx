@@ -12,12 +12,14 @@ import DATA_SELECTION_CONFIG from '../../../shared/services/data-selection/data-
 import { getUser } from '../../../shared/ducks/user/user';
 import NotAuthorizedPanel from '../NotAuthorizedMessage/NotAuthorizedMessage';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
+import { getActiveFilters } from '../../../shared/ducks/filters/filters';
+import DataSelectionActiveFilters from '../../containers/DataSelectionActiveFiltersContainer';
 
 const DataSelection = ({
   view,
   isLoading,
   dataset,
-  filters,
+  activeFilters,
   geometryFilter,
   user,
   authError,
@@ -61,13 +63,16 @@ const DataSelection = ({
             geometryFilter,
             dataset,
             availableFilters,
-            filters,
+            filters: activeFilters,
             numberOfRecords,
             showHeader,
             user,
             view
           }}
         />
+
+        <DataSelectionActiveFilters />
+
         {(!authError) && (
           <div className="u-grid qa-data-grid">
             <div className="u-row">
@@ -80,7 +85,7 @@ const DataSelection = ({
                       dependencies={['atlas']}
                       bindings={{
                         availableFilters,
-                        filters
+                        filters: activeFilters
                       }}
                     />
                   )}
@@ -91,7 +96,7 @@ const DataSelection = ({
                     dependencies={['atlas']}
                     bindings={{
                       availableFilters,
-                      activeFilters: filters
+                      activeFilters
                     }}
                     interpolateBindings={{
                       dataset
@@ -211,7 +216,7 @@ DataSelection.propTypes = {
   view: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   dataset: PropTypes.string.isRequired,
-  filters: PropTypes.shape({}).isRequired,
+  activeFilters: PropTypes.shape({}).isRequired,
   geometryFilter: PropTypes.shape({}).isRequired,
   user: PropTypes.shape({}).isRequired,
   authError: PropTypes.bool.isRequired,
@@ -233,7 +238,7 @@ const mapStateToProps = (state) => {
     geometryFilter,
     authError,
     page,
-    filters: state.filters,
+    activeFilters: getActiveFilters(state),
     results: getDataSelectionResult(state),
     user: getUser(state)
   });
