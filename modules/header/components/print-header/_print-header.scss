@@ -11,6 +11,7 @@ $print-header-padding: 46px;
   position: absolute;
   top: -($print-header-padding - $base-whitespace);
   right: -($print-header-padding - $base-whitespace);
+  background-color: $secondary-gray20;
 
   &:hover {
     @include icon-button("close", "red");
