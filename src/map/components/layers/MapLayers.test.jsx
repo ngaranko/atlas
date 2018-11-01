@@ -112,13 +112,7 @@ const activeLayers = [
         notClickable: true,
         layer: 'kadastrale_sectie',
         selectable: true,
-        title: 'Kadastrale sectie'
-      },
-      {
-        id: 'kot',
-        layer: 'kadastraal_object',
-        selectable: true,
-        title: 'Kadastraal object'
+        title: 'Kadastrale sectie 1'
       }
     ],
     maxZoom: 16,
@@ -133,6 +127,19 @@ describe('MapLayer', () => {
     const component = shallow(
       <MapLayers
         activeMapLayers={activeLayers}
+        layers={layers}
+        onLayerToggle={() => {
+        }}
+      />
+    );
+
+    expect(component).toMatchSnapshot();
+  });
+
+  it('should render without active layers', () => {
+    const component = shallow(
+      <MapLayers
+        activeMapLayers={[]}
         layers={layers}
         onLayerToggle={() => {
         }}
