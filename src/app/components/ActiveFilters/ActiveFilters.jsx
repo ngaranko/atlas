@@ -12,9 +12,7 @@ const ActiveFilters = ({ removeFilter, filters }) => (
 
           <button
             type="button"
-            onClick={() => {
-              removeFilter(slug);
-            }}
+            onClick={() => removeFilter(slug)}
             className="c-data-selection-active-filters--remove-filter o-btn"
             title="Filter verwijderen"
           >

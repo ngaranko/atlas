@@ -65,9 +65,9 @@ export const addFilter = (payload) => ({
   payload
 });
 
-export const removeFilter = (payload) => ({
+export const removeFilter = (filterKey) => ({
   type: REMOVE_FILTER,
-  payload
+  payload: filterKey
 });
 
 export const emptyFilters = () => ({ type: EMPTY_FILTERS });

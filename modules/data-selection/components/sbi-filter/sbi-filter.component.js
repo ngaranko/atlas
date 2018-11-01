@@ -44,10 +44,10 @@ import { addFilter, removeFilter } from '../../../../src/shared/ducks/filters/fi
         };
 
         vm.onSubmit = () => {
-            vm.addFilter(vm.sbiCode);
+            vm.addOrRemoveFilter(vm.sbiCode);
         };
 
-        vm.addFilter = (value) => {
+        vm.addOrRemoveFilter = (value) => {
             const formattedValue = value.split(',').map(data => `'${data.trim()}'`).join(', ');
 
             if (value === '') {
@@ -60,7 +60,7 @@ import { addFilter, removeFilter } from '../../../../src/shared/ducks/filters/fi
         };
 
         vm.clickFilter = (string) => {
-            vm.addFilter(string.replace(/: .*$/g, ''));
+            vm.addOrRemoveFilter(string.replace(/: .*$/g, ''));
         };
 
         vm.showExpandButton = function () {
