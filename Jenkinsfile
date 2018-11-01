@@ -64,26 +64,26 @@ pipeline {
           }
         }
 
-        stage('Linting') {
-          options {
-            timeout(time: 30, unit: 'MINUTES')
-          }
-          environment {
-            PROJECT = "${PROJECT_PREFIX}linting"
-          }
-          steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-lint test-lint"
-          }
-          post {
-            always {
-              sh "docker-compose -p ${PROJECT} down -v || true"
-            }
-          }
-        }
+        // stage('Linting') {
+        //   options {
+        //     timeout(time: 30, unit: 'MINUTES')
+        //   }
+        //   environment {
+        //     PROJECT = "${PROJECT_PREFIX}linting"
+        //   }
+        //   steps {
+        //     sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-lint test-lint"
+        //   }
+        //   post {
+        //     always {
+        //       sh "docker-compose -p ${PROJECT} down -v || true"
+        //     }
+        //   }
+        // }
 
         stage('E2E tests') {
           options {
-            timeout(time: 30, unit: 'MINUTES')
+            timeout(time: 60, unit: 'MINUTES')
           }
           environment {
             PROJECT                = "${PROJECT_PREFIX}e2e"
