@@ -1,4 +1,4 @@
-import { routing } from '../../../../src/app/routes';
+import { toDataSearch, toDatasetSearch } from '../../../../src/app/routes';
 import { datasetsKey } from './tab-header.constant';
 
 (function () {
@@ -9,7 +9,7 @@ import { datasetsKey } from './tab-header.constant';
         .component('dpTabHeader', {
             templateUrl: 'modules/shared/components/tab-header/tab-header.html',
             bindings: {
-                searchText: '@',
+                searchText: '<',
                 tabHeader: '<',
                 filtersActive: '<'
             },
@@ -23,13 +23,10 @@ import { datasetsKey } from './tab-header.constant';
         const vm = this;
 
         vm.tabs = vm.tabHeader.tabs.map((tab) => {
-            const type = tab.id === datasetsKey ? routing.searchCatalog.type : routing.searchData.type;
-            tab.linkTo = {
-                type,
-                payload: {
-                    query: vm.searchText
-                }
-            };
+            const linkTo = tab.id === datasetsKey
+                ? toDatasetSearch(vm.searchText)
+                : toDataSearch(vm.searchText);
+            tab.linkTo = linkTo;
             return tab;
         });
 

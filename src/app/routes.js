@@ -48,12 +48,12 @@ export const routing = {
     page: PAGES.CADASTRAL_OBJECTS
   },
   searchCatalog: {
-    path: '/search/catalog/:query',
+    path: '/datasets/zoek',
     type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_CATALOG}`,
     page: PAGES.SEARCH_CATALOG
   },
-  searchData: {
-    path: '/search/data/:query',
+  dataSearch: {
+    path: '/data/',
     type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATA}`,
     page: PAGES.SEARCH_DATA
   },
@@ -256,6 +256,24 @@ export const toAddress = (payload, meta = {}) => ({
   type: routing.adressen.type,
   meta,
   payload
+});
+
+export const toDataSearch = (searchQuery) => ({
+  type: routing.dataSearch.type,
+  meta: {
+    query: {
+      zoekterm: searchQuery
+    }
+  }
+});
+
+export const toDatasetSearch = (searchQuery) => ({
+  type: routing.searchCatalog.type,
+  meta: {
+    query: {
+      zoekterm: searchQuery
+    }
+  }
 });
 
 export default routes;

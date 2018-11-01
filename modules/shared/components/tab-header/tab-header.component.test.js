@@ -33,11 +33,12 @@ describe('The tabHeader component', function () {
 
     function getComponent (title, tabs) {
         const element = document.createElement('dp-tab-header');
-        element.setAttribute('search-text', title);
+        element.setAttribute('search-text', 'searchText');
         element.setAttribute('tab-header', 'tabHeader');
 
         const scope = $rootScope.$new();
 
+        scope.searchText = title;
         scope.tabHeader = {tabs};
 
         const component = $compile(element)(scope);

@@ -33,6 +33,12 @@ export const SEARCH_VIEW = {
 
 export default function MapSearchResultsReducer(state = initialState, action) {
   switch (action.type) {
+    case routing.dataSearch.type: {
+      return {
+        ...state,
+        query: get(action, 'meta.query.zoekterm')
+      };
+    }
     case routing.addresses.type: {
       const { query = {} } = action.meta;
       if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {

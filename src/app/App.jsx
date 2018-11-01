@@ -103,9 +103,7 @@ const App = ({
               />
             )}
 
-            {currentPage === PAGES.SEARCH_DATA && (
-              <QuerySearchContainer />
-            )}
+            {currentPage === PAGES.SEARCH_DATA && <QuerySearchContainer />}
 
             {currentPage === PAGES.KAART && <MapPage />}
 

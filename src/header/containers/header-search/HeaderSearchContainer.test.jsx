@@ -15,7 +15,7 @@ import { fetchDataSelection, fetchSearchResultsByQuery, FETCH_DATA_SELECTION, FE
 
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { fetchDetail, FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
-import { ROUTER_NAMESPACE, routing } from '../../../app/routes';
+import { ROUTER_NAMESPACE, routing, toDataSearch, toDatasetSearch } from '../../../app/routes';
 import PAGES from '../../../app/pages';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
 
@@ -214,9 +214,7 @@ describe('HeaderSearchContainer', () => {
       headerSearch.instance().onFormSubmit();
 
       expect(store.dispatch).toHaveBeenCalledWith(emptyFilters());
-      expect(store.dispatch).toHaveBeenCalledWith(
-        { type: routing.searchData.type, payload: { query } }
-      );
+      expect(store.dispatch).toHaveBeenCalledWith(toDataSearch(query));
     });
 
     it('does dataset search', () => {
@@ -239,9 +237,7 @@ describe('HeaderSearchContainer', () => {
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onFormSubmit();
-      expect(store.dispatch).toHaveBeenCalledWith(
-        { type: routing.searchCatalog.type, payload: { query } }
-      );
+      expect(store.dispatch).toHaveBeenCalledWith(toDatasetSearch(query));
     });
   });
 

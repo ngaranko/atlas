@@ -16,7 +16,7 @@ import { isCatalogCurrentPage, isMapPage } from '../../../store/redux-first-rout
 import {
   extractIdEndpoint,
   getPageActionEndpoint,
-  routing
+  routing, toDataSearch, toDatasetSearch
 } from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
@@ -37,8 +37,8 @@ const mapDispatchToProps = (dispatch) => ({
     onGetSuggestions: getSuggestions,
     onSuggestionActivate: setActiveSuggestion
   }, dispatch),
-  onDatasetSearch: (query) => dispatch({ type: routing.searchCatalog.type, payload: { query } }),
-  onSearch: (query) => dispatch({ type: routing.searchData.type, payload: { query } }),
+  onDatasetSearch: (query) => dispatch(toDatasetSearch(query)),
+  onDataSearch: (query) => dispatch(toDataSearch(query)),
   openSuggestion: (suggestion) => {
     if (suggestion.uri.match(/^dcatd\//)) {
       // Suggestion of type catalog, a.k.a. "dataset"
@@ -128,7 +128,7 @@ class HeaderSearchContainer extends React.Component {
       typedQuery,
       onCleanDatasetOverview,
       onDatasetSearch,
-      onSearch
+      onDataSearch
     } = this.props;
 
     piwikTracker(['trackSiteSearch', typedQuery, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
@@ -139,7 +139,7 @@ class HeaderSearchContainer extends React.Component {
       if (isDatasetView) {
         onDatasetSearch(typedQuery);
       } else {
-        onSearch(typedQuery);
+        onDataSearch(typedQuery);
       }
     }
   }
@@ -211,7 +211,7 @@ HeaderSearchContainer.propTypes = {
   onDatasetSearch: PropTypes.func.isRequired,
   openSuggestion: PropTypes.func.isRequired,
   onGetSuggestions: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
+  onDataSearch: PropTypes.func.isRequired,
   onSuggestionActivate: PropTypes.func.isRequired,
   pageName: PropTypes.string,
   prefillQuery: PropTypes.string,
