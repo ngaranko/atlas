@@ -15,17 +15,17 @@ export const SET_STRAATBEELD_YEAR = 'SET_STRAATBEELD_YEAR';
 export const CLOSE_STRAATBEELD = 'CLOSE_STRAATBEELD';
 
 export const initialState = {
-  location: null, // eg: [52.8, 4.9]
-  year: undefined,// eg: 2016
-  pitch: 0,       // eg: -10
-  heading: 0,     // eg: 270
-  fov: null,      // eg: 65
-  image: null,    // eg: {
-                  //     pattern: 'http://www.example.com/path/some-id/{this}/{that}/{thingie}.jpg',
-                  //     preview: 'http://www.example.com/path/some-id/preview.jpg'
-                  // }
-  hotspots: [],   // eg: [{id: 'ABC124', heading: 90, distance: 18}],
-  date: null,     // eg: new Date()
+  location: null,   // eg: [52.8, 4.9]
+  year: undefined,  // eg: 2016
+  pitch: 0,         // eg: -10
+  heading: 0,       // eg: 270
+  fov: null,        // eg: 65
+  image: null,      // eg: {
+                    //     pattern: 'http://www.example.com/path/some-id/{this}/{that}/{thingie}.jpg',
+                    //     preview: 'http://www.example.com/path/some-id/preview.jpg'
+                    // }
+  hotspots: [],     // eg: [{id: 'ABC124', heading: 90, distance: 18}],
+  date: null,       // eg: new Date()
   isLoading: true
 };
 
