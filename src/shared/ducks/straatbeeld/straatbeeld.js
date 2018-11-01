@@ -17,7 +17,7 @@ export const CLOSE_STRAATBEELD = 'CLOSE_STRAATBEELD';
 export const initialState = {
   location: null, // eg: [52.8, 4.9]
   year: undefined, // eg: 2016
-  pitch: null,    // eg: -10
+  pitch: undefined,    // eg: -10
   heading: 0,     // eg: 270
   fov: null,      // eg: 65
   image: null,    // eg: {

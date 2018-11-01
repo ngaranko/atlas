@@ -1,5 +1,5 @@
-import { getLatitude, getLongitude, getMapZoom } from './map-selectors';
-import { initialState, MAP_PAN, MAP_ZOOM } from './map';
+import { getLatitude, getLongitude, getMapZoom, isMapPanelActive } from './map-selectors';
+import { initialState, MAP_PAN, MAP_ZOOM, TOGGLE_MAP_PANEL } from './map';
 
 export default {
   lat: {
@@ -13,7 +13,11 @@ export default {
   zoom: {
     selector: getMapZoom,
     defaultValue: initialState.zoom
+  },
+  legend: {
+    selector: isMapPanelActive,
+    defaultValue: initialState.mapPanelActive
   }
 };
 
-export const ACTIONS = [MAP_PAN, MAP_ZOOM];
+export const ACTIONS = [MAP_PAN, MAP_ZOOM, TOGGLE_MAP_PANEL];

@@ -1,4 +1,5 @@
 import {
+  initialState,
   CLEAR_GEOMETRY_FILTERS,
   getDataSelectionPage,
   getGeometryFilters, isListView,
@@ -14,7 +15,8 @@ const getGeometryFilterDescription = (state) => getGeometryFilters(state).descri
 
 export default {
   page: {
-    selector: getDataSelectionPage
+    selector: getDataSelectionPage,
+    defaultValue: initialState.page
   },
   geoFilter: {
     selector: getEncodedGeometryFilters

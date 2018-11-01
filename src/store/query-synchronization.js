@@ -36,7 +36,7 @@ function* updateQuery() {
     const { selector, defaultValue } = mapping;
     const selectedState = selector(state);
 
-    if (selectedState && selectedState !== defaultValue) {
+    if (typeof selectedState !== 'undefined' && selectedState !== defaultValue) {
       query[param] = selectedState;
       if (mapping.addHistory) {
         addHistory = true;

@@ -1,4 +1,5 @@
 import {
+  initialState,
   getStraatbeeldHeading,
   getStraatbeeldPitch,
   SET_STRAATBEELD_ORIENTATION
@@ -6,7 +7,8 @@ import {
 
 export default {
   heading: {
-    selector: getStraatbeeldHeading
+    selector: getStraatbeeldHeading,
+    defaultValue: initialState.heading
   },
   pitch: {
     selector: getStraatbeeldPitch
