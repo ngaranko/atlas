@@ -33,6 +33,10 @@ const DataSelection = ({
     data
   } = results;
 
+  if (isLoading || (!numberOfRecords && !authError)) {
+    return <LoadingIndicator />;
+  }
+
   // Local state
   const showHeader = (view === VIEWS.LIST || !isLoading);
   const showFilters = (view !== VIEWS.LIST) && numberOfRecords > 0;
@@ -69,8 +73,7 @@ const DataSelection = ({
 
         <DataSelectionActiveFilters />
 
-        {(isLoading || (!numberOfRecords && !authError)) && <LoadingIndicator />}
-        {(!authError && !isLoading) && (
+        {(!authError) && (
           <div className="u-grid qa-data-grid">
             <div className="u-row">
               {showFilters && (
