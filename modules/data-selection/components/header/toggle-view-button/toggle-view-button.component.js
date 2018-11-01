@@ -21,12 +21,10 @@ import { setView, VIEWS } from '../../../../../src/shared/ducks/data-selection/d
 
         $scope.$watch('vm.view', function () {
             if (vm.view === VIEWS.TABLE) {
-                vm.targetView = VIEWS.LIST;
                 vm.targetLabel = 'Kaart weergeven';
                 vm.targetHover = 'Resultaten op de kaart weergeven';
                 vm.action = setView(VIEWS.LIST);
             } else {
-                vm.targetView = VIEWS.TABLE;
                 vm.targetLabel = 'Tabel weergeven';
                 vm.targetHover = 'Resultaten in tabel weergeven';
                 vm.action = setView(VIEWS.TABLE);

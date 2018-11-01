@@ -2,7 +2,6 @@ import '../../modules/atlas/atlas.module';
 import '../../modules/atlas/atlas.run';
 import '../../modules/atlas/services/redux/store.run';
 import '../../modules/data-selection/data-selection.module';
-import '../../modules/data-selection/components/active-filters/active-filters.component';
 import '../../modules/data-selection/components/available-filters/available-filters.component';
 import '../../modules/data-selection/components/sbi-filter/sbi-filter.component';
 import '../../modules/data-selection/components/formatter/aggregate/aggregate.filter';
