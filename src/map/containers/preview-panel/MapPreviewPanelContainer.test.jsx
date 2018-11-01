@@ -36,6 +36,8 @@ jest.mock('../../ducks/map/map-selectors');
 jest.mock('../../../pano/ducks/preview/pano-preview');
 jest.mock('../../../shared/ducks/selection/selection');
 
+jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
+
 describe('MapPreviewPanelContainer', () => {
   const initialState = {
     map: {

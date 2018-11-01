@@ -15,7 +15,7 @@ function getOptions(propertyType) {
 }
 
 function getCatalogFilters(data) {
-  const dcatDocProperties = data.components.schemas['dcat-doc'].properties;
+  const dcatDocProperties = data.components.schemas['dcat-dataset'].properties;
   const themaProperties = dcatDocProperties['dcat:theme'].items;
   const distributionProperties = dcatDocProperties['dcat:distribution'].items.properties;
   const ownerProperties = dcatDocProperties['ams:owner'].examples;
