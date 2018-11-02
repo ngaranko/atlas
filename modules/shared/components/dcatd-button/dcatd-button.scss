@@ -1,23 +1,5 @@
 .dcatd-button {
-  height: auto;
-  margin-left: 8px;
-  padding: 5px 8px;
-  float: right;
-  border: 1px solid $primary-dark;
-  background-color: $secondary-gray20;
-  color: $primary-dark;
-
-  &::before {
-    width: 12px;
-    height: 12px;
-  }
-
-  &:hover,
-  &:focus {
-    background-color: $primary-contrast;
-    color: $primary-light;
-    text-decoration: none;
-  }
+  @extend %tab-header-button;
 
   &--wijzigen {
     @include icon-button-text-right("edit", "", "white");
@@ -25,5 +7,11 @@
 
   &--toevoegen {
     @include icon-button-text-right("add", "", "white");
+  }
+
+  &::before {
+    width: $base-whitespace + 2px;
+    height: $base-whitespace + 2px;
+    margin-right: 0;
   }
 }
