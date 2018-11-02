@@ -11,8 +11,10 @@ $embed-header-padding: 46px;
   position: absolute;
   top: -($embed-header-padding - $base-whitespace);
   right: -($embed-header-padding - $base-whitespace);
+  background-color: $secondary-gray20;
 
-  &:hover {
+  &:hover,
+  &:focus {
     @include icon-button("close", "red");
   }
 }

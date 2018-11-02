@@ -13,7 +13,8 @@ $print-header-padding: 46px;
   right: -($print-header-padding - $base-whitespace);
   background-color: $secondary-gray20;
 
-  &:hover {
+  &:hover,
+  &:focus {
     @include icon-button("close", "red");
   }
 }
