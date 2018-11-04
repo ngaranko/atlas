@@ -1,18 +1,14 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-
 import MapContainer, { overrideLeafletGetBounds } from './MapContainer';
-
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
-
-jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
-
 import { isMapActive } from '../../../store/redux-first-router';
 import { previewDataAvailable } from '../../../shared/ducks/selection/selection';
 import { isEmbedded } from '../../../shared/ducks/ui/ui';
 import { getDrawingMode } from '../../ducks/map/map-selectors';
 
+jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
 jest.mock('../../../store/redux-first-router');
 jest.mock('../../../shared/ducks/selection/selection');
 jest.mock('../../../shared/ducks/ui/ui');
@@ -101,7 +97,7 @@ describe('MapContainer', () => {
   it('should hide the fullscreen and send piwik action', () => {
     const store = configureMockStore()({ ...initialState, ui: { isMapFullscreen: true } });
     const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
-    wrapper.instance().onToggleFullscreen();
+    wrapper.instance().toggleFullscreen();
     piwikTracker.mockImplementation(() => jest.fn());
     expect(piwikTracker).toHaveBeenCalled();
     // should not send another piwik event if map is maximized

@@ -141,6 +141,7 @@ import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
         }
 
         // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
+        /* istanbul ignore next */
         function sendPiwikEvent () {
             const piwik = {
                 TRACK_EVENT: 'trackEvent',

@@ -56,6 +56,13 @@ describe('MapPreviewPanelContainer', () => {
         items: []
       }
     },
+    selection: {
+      type: 'MAP',
+      location: {
+        latitude: '11',
+        longitude: '11'
+      }
+    },
     mapDetail: null,
     detail: null,
     search: null,

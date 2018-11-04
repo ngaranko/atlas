@@ -122,8 +122,7 @@ class LeafletContainer extends React.Component {
       getLeafletInstance,
       layers,
       markers,
-      zoom,
-      loading
+      zoom
     } = this.props;
 
     const showMarker = markers.length > 0;
@@ -146,7 +145,6 @@ class LeafletContainer extends React.Component {
         ref={this.setMapLeaflet}
         scaleControlOptions={scaleControlOptions}
         zoom={zoom}
-        loading={loading}
       />
     );
   }
@@ -188,7 +186,6 @@ LeafletContainer.propTypes = {
     url: PropTypes.string.isRequired
   })),
   zoom: PropTypes.number.isRequired,
-  loading: PropTypes.bool.isRequired,
 
   onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,

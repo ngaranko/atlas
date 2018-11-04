@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux';
 
 import {
   getActiveSuggestions, getAutoSuggestSuggestions, getDisplayQuery, getNumberOfSuggestions,
-  getSuggestions, getTypedQuery,
-  setActiveSuggestion
+  getSuggestionsAction, getTypedQuery,
+  setActiveSuggestionAction
 } from '../../ducks/auto-suggest/auto-suggest';
 
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
@@ -34,8 +34,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     onCleanDatasetOverview: emptyFilters,
-    onGetSuggestions: getSuggestions,
-    onSuggestionActivate: setActiveSuggestion
+    onGetSuggestions: getSuggestionsAction,
+    onSuggestionActivate: setActiveSuggestionAction
   }, dispatch),
   onDatasetSearch: (query) => dispatch(toDatasetSearch(query)),
   onDataSearch: (query) => dispatch(toDataSearch(query)),

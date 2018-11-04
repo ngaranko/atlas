@@ -35,18 +35,21 @@ describe('MapPanelContainer', () => {
         }
       },
       overlays: [{}],
+      selection: {
+        type: 'none'
+      },
       ui: { isMapPanelHandleVisible: true }
     });
     wrapper = shallow(<MapPanelContainer />, { context: { store } }).dive();
   });
 
-  xit('should render MapType and MapLayers', () => {
+  it('should render MapType and MapLayers', () => {
     expect(wrapper.find(MapType).length).toBe(1);
     expect(wrapper.find(MapLayers).length).toBe(1);
     expect(wrapper).toMatchSnapshot();
   });
 
-  xit('should render MapLegend if store contains active map layers', () => {
+  it('should render MapLegend if store contains active map layers', () => {
     expect(wrapper.find(MapLegend).length).toBe(0);
     wrapper.setProps({ activeMapLayers: [{}] });
     expect(wrapper.find(MapLegend).length).toBe(1);

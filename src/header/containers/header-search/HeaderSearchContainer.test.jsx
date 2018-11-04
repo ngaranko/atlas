@@ -4,9 +4,9 @@ import { shallow } from 'enzyme';
 
 import HeaderSearchContainer from './HeaderSearchContainer';
 import {
-  getSuggestions,
+  getSuggestionsAction,
   getTypedQuery,
-  setActiveSuggestion,
+  setActiveSuggestionAction,
   FETCH_SUGGESTIONS_REQUEST,
   SET_ACTIVE_SUGGESTION
 } from '../../ducks/auto-suggest/auto-suggest';
@@ -26,8 +26,8 @@ jest.mock('../../ducks/search/search');
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
-    setActiveSuggestion.mockImplementation(() => ({ type: SET_ACTIVE_SUGGESTION }));
-    getSuggestions.mockImplementation(() => ({ type: FETCH_SUGGESTIONS_REQUEST }));
+    setActiveSuggestionAction.mockImplementation(() => ({ type: SET_ACTIVE_SUGGESTION }));
+    getSuggestionsAction.mockImplementation(() => ({ type: FETCH_SUGGESTIONS_REQUEST }));
     fetchDetail.mockImplementation((endpoint) => ({ type: FETCH_DETAIL, payload: endpoint }));
     piwikTracker.mockImplementation(() => jest.fn());
     fetchDataSelection.mockImplementation((query) => ({
@@ -305,7 +305,7 @@ describe('HeaderSearchContainer', () => {
         isMapActive: false
       });
 
-      expect(getSuggestions).not.toHaveBeenCalledWith();
+      expect(getSuggestionsAction).not.toHaveBeenCalledWith();
     });
   });
 });

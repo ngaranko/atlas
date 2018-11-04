@@ -1,5 +1,6 @@
 // This component is just an mock of the dp-link component
 // Is only used in the tests to simplify the test process
+/* istanbul ignore next */
 (function () {
     'use strict';
 
@@ -24,12 +25,10 @@
         };
 
         function linkFn (scope, element) {
-            /* istanbul ignore next */
             scope.className = scope.className || 'o-btn o-btn--link qa-button-mock';
             scope.click = clickHandler;
 
             function clickHandler () {
-                /* istanbul ignore next */
                 var action = angular.isDefined(scope.payload) ? {
                     type: scope.type,
                     payload: scope.payload

@@ -2,6 +2,7 @@ import React from 'react';
 import get from 'lodash.get';
 import PropTypes from 'prop-types';
 import has from 'lodash.has';
+import PlusIcon from '../../../../public/images/icon-plus.svg';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
@@ -68,7 +69,7 @@ class MapPreviewPanel extends React.Component {
     piwikTracker([piwik.TRACK_EVENT, piwik.NAVIGATION,
       piwik.SHOW_ALL_RESULTS, window.document.title]);
 
-    return this.props.onSearch(mapClickLocation);
+    return this.props.openDetail(mapClickLocation);
   }
 
   onPanoPreviewClick() {
@@ -103,16 +104,14 @@ class MapPreviewPanel extends React.Component {
         `}
         >
           <div className="map-preview-panel__heading">
-            {showDisplayAllResultsButton && (
-              <button
-                className="map-preview-panel__button map-preview-panel__button--show-all"
-                onClick={() => this.onDisplayAllResults(props.mapClickLocation)}
-                title="Alle resultaten tonen"
-              >
-                <PlusIcon className="map-preview-panel__button-icon" />
-                <span className="map-preview-panel__button-label">Alle resultaten tonen</span>
-              </button>
-            )}
+            <button
+              className="map-preview-panel__button map-preview-panel__button--show-all"
+              onClick={() => this.onDisplayAllResults(props.mapClickLocation)}
+              title="Alle resultaten tonen"
+            >
+              <PlusIcon className="map-preview-panel__button-icon" />
+              <span className="map-preview-panel__button-label">Alle resultaten tonen</span>
+            </button>
             <button
               className="map-preview-panel__button"
               onClick={props.isSearchPreview ? props.onSearchMaximize : openDetailEndpoint}
@@ -196,7 +195,6 @@ MapPreviewPanel.propTypes = {
   // onMapPreviewPanelMaximizeSearch: PropTypes.func.isRequired,
   // onMapSearchResultsItemClick: PropTypes.func.isRequired,
   openPanoById: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
   pano: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   results: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   search: PropTypes.object, // eslint-disable-line react/forbid-prop-types
