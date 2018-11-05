@@ -2,7 +2,6 @@ import React from 'react';
 import get from 'lodash.get';
 import PropTypes from 'prop-types';
 import has from 'lodash.has';
-import PlusIcon from '../../../../public/images/icon-plus.svg';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
@@ -11,8 +10,6 @@ import MapSearchResults from '../../components/search-results/MapSearchResults';
 import { getMapDetail } from '../../ducks/detail/map-detail';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 import { getMapSearchResults } from '../../../shared/ducks/search/search';
-
-import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 
 const previewPanelSearchResultLimit = 3;
 

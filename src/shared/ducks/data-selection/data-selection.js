@@ -69,7 +69,9 @@ export default function reducer(state = initialState, action) {
         };
       }
       return {
-        ...state
+        ...state,
+        dataset: ROUTE_DATASET_MAPPER[action.type],
+        view: VIEWS.TABLE
       };
     }
 
