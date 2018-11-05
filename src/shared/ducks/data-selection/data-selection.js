@@ -39,7 +39,7 @@ export const initialState = {
   isLoading: false,
   markers: [], // eg: [[52.1, 4.1], [52.2, 4.0]],
   geometryFilter: {
-    markers: []
+    markers: undefined
   },
   dataset: DATASETS.BAG,
   view: VIEWS.TABLE,

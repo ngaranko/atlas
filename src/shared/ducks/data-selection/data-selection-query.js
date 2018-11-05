@@ -8,7 +8,7 @@ import {
   RESET_DATA_SELECTION,
   SET_GEOMETRY_FILTERS,
   SET_PAGE,
-  SET_VIEW
+  SET_VIEW, VIEWS
 } from './data-selection';
 
 const getEncodedGeometryFilters = (state) => {
@@ -33,7 +33,8 @@ export default {
     selector: getGeometryFilterDescription
   },
   listView: {
-    selector: isListView
+    selector: isListView,
+    defaultValue: initialState.view === VIEWS.LIST
   }
 };
 
