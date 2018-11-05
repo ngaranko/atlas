@@ -13,8 +13,13 @@ import watchGeoSearchRequest from './map/sagas/geosearch';
 import watchFetchCatalogFilters from './catalog/sagas/data-selection/data-selection';
 import { watchQuerySearch } from './map/sagas/query-search/query-search';
 import { watchCatalogList } from './catalog/sagas/catalog';
-import { watchFetchStraatbeeld, watchPanoramaRoute } from './pano/sagas/panorama';
+import {
+  watchCloseStraatbeeld,
+  watchFetchStraatbeeld,
+  watchPanoramaRoute
+} from './pano/sagas/panorama';
 import { watchDetailRoute } from './detail/sagas/detail';
+import watchFetchDataSelection from './shared/sagas/data-selection/data-selection';
 import watchQueryActions from './store/query-synchronization';
 
 export default function* rootSaga() {
@@ -27,6 +32,7 @@ export default function* rootSaga() {
     fork(watchFetchMapPanelLayers),
     fork(watchFetchMapDetail),
     fork(watchFetchStraatbeeld),
+    fork(watchCloseStraatbeeld),
     fork(watchMapClick),
     fork(watchFetchNearestDetails),
     fork(watchGeoSearchRequest),
@@ -37,6 +43,7 @@ export default function* rootSaga() {
     fork(watchCatalogList),
     fork(watchQuerySearch),
     fork(watchDetailRoute),
-    fork(watchPanoramaRoute)
+    fork(watchPanoramaRoute),
+    fork(watchFetchDataSelection)
   ]);
 }

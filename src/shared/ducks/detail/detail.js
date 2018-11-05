@@ -1,11 +1,10 @@
 import { createSelector } from 'reselect';
-import { routing } from '../../../app/routes';
+import { pageTypeToEndpoint, routing } from '../../../app/routes';
 
 export const REDUCER_KEY = 'detail';
 
 export const FETCH_DETAIL = 'FETCH_DETAIL';
 export const SHOW_DETAIL = 'SHOW_DETAIL';
-export const DETAIL_FULLSCREEN = 'DETAIL_FULLSCREEN';
 
 export const DETAIL_VIEW = {
   MAP: 'MAP',
@@ -14,43 +13,46 @@ export const DETAIL_VIEW = {
 };
 
 const initialState = {
-  view: DETAIL_VIEW.MAP_DETAIL
+  view: DETAIL_VIEW.MAP_DETAIL,
+  isLoading: false
 };
 
 export default function detailReducer(state = initialState, action) {
   switch (action.type) {
-    case routing.pandDetail.type: {
-      return {
-        ...state,
-        view: DETAIL_VIEW.MAP_DETAIL
-      };
-    }
-    case routing.adresDetail.type: {
+    case routing.dataDetail.type: {
+      const { id: idString, type, subtype } = action.payload;
+      const id = idString.substr(2); // Change `id123` to `123`
       const { query = {} } = action.meta;
       if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {
         return {
           ...state,
+          id,
+          type,
+          subtype,
           view: DETAIL_VIEW.MAP
         };
       }
       if (Object.prototype.hasOwnProperty.call(query, 'detail')) {
         return {
           ...state,
+          id,
+          type,
+          subtype,
           view: DETAIL_VIEW.DETAIL
         };
       }
       return {
         ...state,
+        id,
+        type,
+        subtype,
         view: DETAIL_VIEW.MAP_DETAIL
       };
     }
     case FETCH_DETAIL:
       return {
         ...state,
-        endpoint: action.payload,
-        reload: Boolean(state && state.endpoint === action.payload),
-        isLoading: true,
-        isFullscreen: action.payload && action.payload.includes('dcatd/datasets')
+        isLoading: true
       };
 
     case SHOW_DETAIL:
@@ -58,14 +60,7 @@ export default function detailReducer(state = initialState, action) {
         ...state,
         display: action.payload.display,
         geometry: action.payload.geometry,
-        isLoading: false,
-        reload: false
-      };
-
-    case DETAIL_FULLSCREEN:
-      return {
-        ...state,
-        isFullscreen: action.payload
+        isLoading: false
       };
 
     default:
@@ -73,17 +68,21 @@ export default function detailReducer(state = initialState, action) {
   }
 }
 
-// action creators
+// Action creators
 export const fetchDetail = (endpoint) => ({
   type: FETCH_DETAIL,
   payload: endpoint
 });
 
-// selectors
+// Selectors
 export const getDetail = (state) => state[REDUCER_KEY];
 export const getDetailView = (state) => state.detail.view;
 export const getDetailGeometry = createSelector(getDetail, (detail) => detail && detail.geometry);
-export const getDetailEndpoint = createSelector(getDetail, (detail) => detail && detail.endpoint);
+export const getDetailEndpoint = createSelector(getDetail, (detail) => {
+  if (detail && detail.type && detail.subtype && detail.id) {
+    return pageTypeToEndpoint(detail.type, detail.subtype, detail.id);
+  }
+  return undefined;
+});
 export const getDetailDisplay = createSelector(getDetail, (detail) => detail && detail.display);
-export const isDetailReloaded = createSelector(getDetail, (detail) => detail && detail.reload);
 export const isDetailLoading = createSelector(getDetail, (detail) => detail && detail.isLoading);

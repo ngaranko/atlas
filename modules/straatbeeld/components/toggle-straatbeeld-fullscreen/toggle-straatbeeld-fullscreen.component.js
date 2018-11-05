@@ -43,19 +43,6 @@ import PANORAMA_VIEW from '../../../../src/shared/ducks/straatbeeld/panorama-vie
             } else {
                 store.dispatch(toPanorama(id, heading, PANORAMA_VIEW.PANO));
             }
-            // store.dispatch({ // TODO: refactor, use or remove
-            //     type: UPDATE_MAP,
-            //     payload: {
-            //         noRedirect: true,
-            //         route: (store.getState().location.type === routing.panorama.type)
-            //             ? routing.panorama.type
-            //             : routing.panorama.type,
-            //         query: {
-            //             panoId: getStraatbeeld(store.getState()).id,
-            //             panoHeading: getStraatbeeld(store.getState()).heading
-            //         }
-            //     }
-            // });
         };
 
         $scope.$on('$destroy', deregistrationFn);

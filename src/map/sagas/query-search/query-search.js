@@ -3,10 +3,11 @@ import { fetchSearchResultsByQuery } from '../../../header/ducks/search/search';
 import { routing } from '../../../app/routes';
 
 export function* fetchSearchResults(action) {
-  const { query } = action.payload;
-  yield put(fetchSearchResultsByQuery(query));
+  const { meta = {} } = action;
+  const { zoekterm } = meta.query;
+  yield put(fetchSearchResultsByQuery(zoekterm));
 }
 
 export function* watchQuerySearch() {
-  yield takeLatest(routing.searchData.type, fetchSearchResults);
+  yield takeLatest(routing.dataSearch.type, fetchSearchResults);
 }

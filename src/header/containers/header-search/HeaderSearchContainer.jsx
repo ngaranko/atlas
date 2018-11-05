@@ -5,21 +5,25 @@ import { bindActionCreators } from 'redux';
 
 import {
   getActiveSuggestions, getAutoSuggestSuggestions, getDisplayQuery, getNumberOfSuggestions,
-  getSuggestions, getTypedQuery,
-  setActiveSuggestion
+  getSuggestionsAction, getTypedQuery,
+  setActiveSuggestionAction
 } from '../../ducks/auto-suggest/auto-suggest';
 
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
-import { isMapCurrentPage, isCatalogCurrentPage } from '../../../shared/ducks/current-page/current-page-reducer';
-import { extractIdEndpoint, routing } from '../../../app/routes';
+import { isCatalogCurrentPage, isMapPage } from '../../../store/redux-first-router';
+import {
+  extractIdEndpoint,
+  getPageActionEndpoint,
+  routing, toDataSearch, toDatasetSearch
+} from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),
   displayQuery: getDisplayQuery(state),
   isDatasetView: isCatalogCurrentPage(state),
-  isMapActive: isMapCurrentPage(state),
+  isMapActive: isMapPage(state),
   numberOfSuggestions: getNumberOfSuggestions(state),
   pageName: state.page ? state.page.name : '',
   prefillQuery: state.search ? state.search.query : state.dataSelection ? state.dataSelection.query : '',
@@ -30,17 +34,18 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     onCleanDatasetOverview: emptyFilters,
-    onGetSuggestions: getSuggestions,
-    onSuggestionActivate: setActiveSuggestion
+    onGetSuggestions: getSuggestionsAction,
+    onSuggestionActivate: setActiveSuggestionAction
   }, dispatch),
-  onDatasetSearch: (query) => dispatch({ type: routing.searchCatalog.type, payload: { query } }),
-  onSearch: (query) => dispatch({ type: routing.searchData.type, payload: { query } }),
-  openSuggestion: (suggestion) => { // eslint-disable-line consistent-return
+  onDatasetSearch: (query) => dispatch(toDatasetSearch(query)),
+  onDataSearch: (query) => dispatch(toDataSearch(query)),
+  openSuggestion: (suggestion) => {
     if (suggestion.uri.match(/^dcatd\//)) {
+      // Suggestion of type catalog, a.k.a. "dataset"
       const id = extractIdEndpoint(suggestion.uri);
       return dispatch({ type: routing.catalogusDetail.type, payload: { id } });
     }
-    console.log('unkown other suggestion type', suggestion.category); // eslint-disable-line no-console
+    return dispatch(getPageActionEndpoint(suggestion.uri));
   }
 });
 
@@ -48,16 +53,12 @@ class HeaderSearchContainer extends React.Component {
   constructor(props) {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.onSuggestionActivate = this.onSuggestionActivate.bind(this);
     this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
     this.onUserInput = this.onUserInput.bind(this);
   }
 
   componentDidMount() {
-    const {
-      onGetSuggestions,
-      prefillQuery
-    } = this.props;
+    const { onGetSuggestions, prefillQuery } = this.props;
 
     if (prefillQuery) {
       onGetSuggestions(prefillQuery);
@@ -79,25 +80,10 @@ class HeaderSearchContainer extends React.Component {
     // on navigation, clear auto-suggest
     if (doResetQuery && !prefillQuery) {
       onGetSuggestions();
-    } else if (prevProps.prefillQuery !== prefillQuery) {
-      // if the user ends up on a search page, set prefillQuery
-      onGetSuggestions(prefillQuery);
     }
   }
 
-  onSuggestionActivate(suggestion) {
-    const {
-      onSuggestionActivate,
-      onGetSuggestions,
-      typedQuery
-    } = this.props;
-
-    if (suggestion && suggestion.index === -1) {
-      onGetSuggestions(typedQuery);
-    }
-    onSuggestionActivate(suggestion);
-  }
-
+  // Opens suggestion on mouseclick or enter
   onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
     const {
       typedQuery
@@ -123,7 +109,7 @@ class HeaderSearchContainer extends React.Component {
       typedQuery,
       onCleanDatasetOverview,
       onDatasetSearch,
-      onSearch
+      onDataSearch
     } = this.props;
 
     piwikTracker(['trackSiteSearch', typedQuery, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
@@ -134,7 +120,7 @@ class HeaderSearchContainer extends React.Component {
       if (isDatasetView) {
         onDatasetSearch(typedQuery);
       } else {
-        onSearch(typedQuery);
+        onDataSearch(typedQuery);
       }
     }
   }
@@ -152,6 +138,8 @@ class HeaderSearchContainer extends React.Component {
       activeSuggestion,
       displayQuery,
       numberOfSuggestions,
+      onGetSuggestions,
+      onSuggestionActivate,
       suggestions,
       typedQuery
     } = this.props;
@@ -163,9 +151,9 @@ class HeaderSearchContainer extends React.Component {
         legendTitle={'Data zoeken'}
         numberOfSuggestions={numberOfSuggestions}
         onSubmit={this.onFormSubmit}
-        onSuggestionActivate={this.onSuggestionActivate}
+        onSuggestionActivate={onSuggestionActivate}
         onSuggestionSelection={this.onSuggestionSelection}
-        onTextInput={this.onUserInput}
+        onTextInput={onGetSuggestions}
         placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
         query={displayQuery || typedQuery}
         suggestions={suggestions}
@@ -206,7 +194,7 @@ HeaderSearchContainer.propTypes = {
   onDatasetSearch: PropTypes.func.isRequired,
   openSuggestion: PropTypes.func.isRequired,
   onGetSuggestions: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
+  onDataSearch: PropTypes.func.isRequired,
   onSuggestionActivate: PropTypes.func.isRequired,
   pageName: PropTypes.string,
   prefillQuery: PropTypes.string,

@@ -1,6 +1,7 @@
 import PAGES from '../../../src/app/pages';
 import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/search/search';
 import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
+import { ROUTER_NAMESPACE } from '../../../src/app/routes';
 
 describe('The header controller', function () {
     var $controller,
@@ -30,7 +31,9 @@ describe('The header controller', function () {
         });
 
         mockedState = {
-            currentPage: PAGES.PANORAMA,
+            location: {
+                type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`
+            },
             search: {
                 query: 'i am a search query'
             }
@@ -156,7 +159,9 @@ describe('The header controller', function () {
 
     describe('not all states have an embed version', function () {
         it('only in fullscreen map there is an embed button', function () {
-            mockedState.currentPage = PAGES.KAART;
+            mockedState.location = {
+                type: `${ROUTER_NAMESPACE}/${PAGES.KAART}`
+            };
 
             spyOn(store, 'getState').and.returnValue(mockedState);
             const controller = getController();
@@ -165,7 +170,9 @@ describe('The header controller', function () {
         });
 
         it('there is no embed button when both full screen map and straatbeeld are active', function () {
-            mockedState.currentPage = PAGES.KAART_PANORAMA;
+            mockedState.location = {
+                type: `${ROUTER_NAMESPACE}/${PAGES.KAART_PANORAMA}`
+            };
 
             spyOn(store, 'getState').and.returnValue(mockedState);
             const controller = getController();
@@ -174,7 +181,9 @@ describe('The header controller', function () {
         });
 
         it('there is no embed button on the homepage', () => {
-            mockedState.currentPage = PAGES.HOME;
+            mockedState.location = {
+                type: `${ROUTER_NAMESPACE}/${PAGES.HOME}`
+            };
 
             spyOn(store, 'getState').and.returnValue(mockedState);
             const controller = getController();

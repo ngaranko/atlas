@@ -1,3 +1,6 @@
+import DATA_SELECTION_CONFIG
+    from '../../../../src/shared/services/data-selection/data-selection-config';
+
 (function () {
     'use strict';
 
@@ -6,9 +9,9 @@
         .module('dpDataSelection')
         .factory('dpDataSelectionDocumentTitle', dpDataSelectionDocumentTitleFactory);
 
-    dpDataSelectionDocumentTitleFactory.$inject = ['DATA_SELECTION_CONFIG', 'lowercaseFilter'];
+    dpDataSelectionDocumentTitleFactory.$inject = ['lowercaseFilter'];
 
-    function dpDataSelectionDocumentTitleFactory (DATA_SELECTION_CONFIG, lowercaseFilter) {
+    function dpDataSelectionDocumentTitleFactory (lowercaseFilter) {
         return {
             getTitle: getTitle
         };

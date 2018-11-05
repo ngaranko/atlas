@@ -1,7 +1,6 @@
 import removeMd from 'remove-markdown';
-
-import { getSelectedLocation } from '../../../../src/map/ducks/map/map-selectors';
-import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
+import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
 
 (function () {
     angular
@@ -9,9 +8,7 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
         .component('dpDetail', {
             bindings: {
                 endpoint: '@',
-                reload: '=',
                 isLoading: '=',
-                skippedSearchResults: '=',
                 catalogFilters: '=',
                 user: '<'
             },
@@ -45,15 +42,7 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
         markdownParser
     ) {
         /* eslint-enable max-params */
-        var vm = this;
-
-        // Reload the data when the reload flag has been set (endpoint has not
-        // changed)
-        $scope.$watch('vm.reload', reload => {
-            if (reload) {
-                getData(vm.endpoint);
-            }
-        });
+        const vm = this;
 
         // (Re)load the data when the endpoint is set or gets changed
         $scope.$watch('vm.endpoint', getData);
@@ -74,14 +63,13 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
 
         vm.stripMarkdown = (val) => removeMd(val);
 
+        // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
+        vm.geosearchButtonClick = () => sendPiwikEvent();
+
         function getData (endpoint) {
             vm.location = null;
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
-
-            const location = getSelectedLocation(store.getState());
-
-            vm.geosearchButton = vm.skippedSearchResults ? [location.latitude, location.longitude] : false;
 
             const [category, subject] = endpointParser.getParts(endpoint);
 
@@ -133,13 +121,6 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
                             vm.location = crsConverter.rdToWgs84([rd.x, rd.y]);
                         }
 
-                        if (!vm.skippedSearchResults) {
-                            store.dispatch({
-                                type: DETAIL_FULLSCREEN,
-                                payload: subject === 'api' || !geoJSON
-                            });
-                        }
-
                         store.dispatch({
                             type: SHOW_DETAIL,
                             payload: {
@@ -157,6 +138,19 @@ import { DETAIL_FULLSCREEN, SHOW_DETAIL } from '../../../../src/shared/ducks/det
                 type: SHOW_DETAIL,
                 payload: {}
             });
+        }
+
+        // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
+        /* istanbul ignore next */
+        function sendPiwikEvent () {
+            const piwik = {
+                TRACK_EVENT: 'trackEvent',
+                SHOW_ALL_RESULTS: 'show-all-results',
+                NAVIGATION: 'navigation'
+            };
+
+            piwikTracker([piwik.TRACK_EVENT, piwik.NAVIGATION,
+                piwik.SHOW_ALL_RESULTS, window.document.title]);
         }
     }
 })();

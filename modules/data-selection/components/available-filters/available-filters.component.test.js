@@ -1,10 +1,26 @@
-import { applyFilters } from '../../../../src/shared/ducks/filters/filters';
+import { addFilter } from '../../../../src/shared/ducks/filters/filters';
+import * as dataSelectionConfig
+    from '../../../../src/shared/services/data-selection/data-selection-config';
 
 describe('The dp-data-selection-available-filters component', function () {
     var $compile,
         $rootScope,
         store,
         availableFilters;
+
+    const config = {
+        datasets: {
+            my_special_dataset: {
+                FILTERS: [
+                    {
+                        slug: 'filter_a_new'
+                    }, {
+                        slug: 'filterb'
+                    }
+                ]
+            }
+        }
+    };
 
     beforeEach(function () {
         angular.mock.module(
@@ -13,21 +29,6 @@ describe('The dp-data-selection-available-filters component', function () {
                 store: {
                     dispatch: function () {}
                 }
-            },
-            function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', {
-                    datasets: {
-                        my_special_dataset: {
-                            FILTERS: [
-                                {
-                                    slug: 'filter_a_new'
-                                }, {
-                                    slug: 'filterb'
-                                }
-                            ]
-                        }
-                    }
-                });
             }
         );
 
@@ -36,6 +37,8 @@ describe('The dp-data-selection-available-filters component', function () {
             $rootScope = _$rootScope_;
             store = _store_;
         });
+
+        dataSelectionConfig.default = config;
 
         availableFilters = [
             {
@@ -167,44 +170,8 @@ describe('The dp-data-selection-available-filters component', function () {
             component.find('ul').eq(0).find('li').eq(1).find('button').click();
 
             expect(store.dispatch).toHaveBeenCalledWith(
-                applyFilters({
+                addFilter({
                     filter_a_new: 'optie-a-2'
-                })
-            );
-        });
-
-        it('when adding another filter; all filters are communicated', function () {
-            var component,
-                activeFilters = {
-                    filter_a_new: 'optie-a-2'
-                };
-
-            component = getComponent(activeFilters, false);
-            component.find('.qa-available-filters ul').eq(1).find('li').eq(0).find('button').click();
-
-            expect(store.dispatch).toHaveBeenCalledWith(
-                applyFilters({
-                    filter_a_new: 'optie-a-2',
-                    filterb: 'optie-b-1'
-                })
-            );
-        });
-
-        it('can only have one option per filter', function () {
-            var component,
-                activeFilters = {
-                    filter_a_new: 'optie-a-2',
-                    filterb: 'optie-b-1'
-                };
-
-            component = getComponent(activeFilters, false);
-            component.find('.qa-available-filters ul').eq(1).find('li').eq(1).find('button').click();
-
-            expect(store.dispatch).toHaveBeenCalledWith(
-                applyFilters({
-                    filter_a_new: 'optie-a-2',
-                    // filterb: 'Optie B-1' is no longer active now
-                    filterb: 'optie-b-2'
                 })
             );
         });

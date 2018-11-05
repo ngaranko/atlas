@@ -1,13 +1,10 @@
 import { createSelector } from 'reselect';
-
-import { isSearchActive } from '../../../shared/ducks/search/search';
-import { getDataSelection } from '../data-selection/data-selection';
 import {
-  getDetail,
   getDetailDisplay,
   getDetailEndpoint,
   getDetailGeometry
 } from '../../../shared/ducks/detail/detail';
+import { isDataDetailCurrentPage } from '../../../store/redux-first-router';
 
 const mapDetailSelector = (state) => state.mapDetail;
 
@@ -37,10 +34,7 @@ export const getGeometry = createSelector(
     detailGeometry || mapDetailGeometry
   ));
 
-export const shouldShowGeoJson = createSelector([getDetail, isSearchActive, getDataSelection],
-  (detailActive, searchActive, dataSelectionActive) => (
-    Boolean(detailActive && !searchActive && !dataSelectionActive)
-  ));
+export const shouldShowGeoJson = isDataDetailCurrentPage;
 
 export const getGeoJson = createSelector(
   shouldShowGeoJson,

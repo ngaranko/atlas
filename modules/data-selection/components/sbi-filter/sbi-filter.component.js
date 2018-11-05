@@ -1,4 +1,4 @@
-import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
+import { addFilter, removeFilter } from '../../../../src/shared/ducks/filters/filters';
 
 (() => {
     'use strict';
@@ -44,24 +44,23 @@ import { applyFilters as applyFiltersActionCreator } from '../../../../src/share
         };
 
         vm.onSubmit = () => {
-            vm.addFilter(vm.sbiCode);
+            vm.addOrRemoveFilter(vm.sbiCode);
         };
 
-        vm.addFilter = (value) => {
-            const filters = {...vm.activeFilters},
-                formattedValue = value.split(',').map(data => `'${data.trim()}'`).join(', ');
+        vm.addOrRemoveFilter = (value) => {
+            const formattedValue = value.split(',').map(data => `'${data.trim()}'`).join(', ');
 
             if (value === '') {
-                delete filters[vm.filterSlug];
+                store.dispatch(removeFilter(vm.filterSlug));
             } else {
-                filters[vm.filterSlug] = `[${formattedValue}]`;
+                store.dispatch(addFilter({
+                    [vm.filterSlug]: `[${formattedValue}]`
+                }));
             }
-
-            applyFilters(filters);
         };
 
         vm.clickFilter = (string) => {
-            vm.addFilter(string.replace(/: .*$/g, ''));
+            vm.addOrRemoveFilter(string.replace(/: .*$/g, ''));
         };
 
         vm.showExpandButton = function () {
@@ -83,9 +82,5 @@ import { applyFilters as applyFiltersActionCreator } from '../../../../src/share
         vm.canExpandImplode = function () {
             return vm.filter.options.length > vm.showMoreThreshold;
         };
-
-        function applyFilters (filters) {
-            store.dispatch(applyFiltersActionCreator(filters));
-        }
     }
 })();

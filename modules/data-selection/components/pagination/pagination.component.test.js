@@ -1,4 +1,6 @@
-import { NAVIGATE_DATA_SELECTION } from '../../../../src/shared/ducks/data-selection/data-selection';
+import {
+    SET_PAGE, setPage
+} from '../../../../src/shared/ducks/data-selection/data-selection';
 
 describe('The dp-data-selection-pagination component', function () {
     var $compile,
@@ -73,14 +75,14 @@ describe('The dp-data-selection-pagination component', function () {
         expect(scope.vm.firstPage).toEqual({
             label: 'Eerste',
             class_name: 'c-data-selection-pagination-link--first',
-            page: 1,
+            action: setPage(1),
             enabled: false
         });
 
         expect(scope.vm.previousPage).toEqual({
             label: 'Vorige',
             class_name: 'c-data-selection-pagination-link--previous',
-            page: null,
+            action: setPage(null),
             enabled: false
         });
 
@@ -91,14 +93,14 @@ describe('The dp-data-selection-pagination component', function () {
         expect(scope.vm.firstPage).toEqual({
             label: 'Eerste',
             class_name: 'c-data-selection-pagination-link--first',
-            page: 1,
+            action: setPage(1),
             enabled: true
         });
 
         expect(scope.vm.previousPage).toEqual({
             label: 'Vorige',
             class_name: 'c-data-selection-pagination-link--previous',
-            page: 12,
+            action: setPage(12),
             enabled: true
         });
     });
@@ -114,14 +116,14 @@ describe('The dp-data-selection-pagination component', function () {
         expect(scope.vm.nextPage).toEqual({
             label: 'Volgende',
             class_name: 'c-data-selection-pagination-link--next',
-            page: null,
+            action: setPage(null),
             enabled: false
         });
 
         expect(scope.vm.lastPage).toEqual({
             label: 'Laatste',
             class_name: 'c-data-selection-pagination-link--last',
-            page: 14,
+            action: setPage(14),
             enabled: false
         });
 
@@ -132,14 +134,14 @@ describe('The dp-data-selection-pagination component', function () {
         expect(scope.vm.nextPage).toEqual({
             label: 'Volgende',
             class_name: 'c-data-selection-pagination-link--next',
-            page: 14,
+            action: setPage(14),
             enabled: true
         });
 
         expect(scope.vm.lastPage).toEqual({
             label: 'Laatste',
             class_name: 'c-data-selection-pagination-link--last',
-            page: 14,
+            action: setPage(14),
             enabled: true
         });
     });
@@ -155,7 +157,7 @@ describe('The dp-data-selection-pagination component', function () {
         component.find('form').trigger('submit');
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: NAVIGATE_DATA_SELECTION,
+            type: SET_PAGE,
             payload: 2
         });
     });
@@ -189,7 +191,7 @@ describe('The dp-data-selection-pagination component', function () {
         getComponent(5, 2);
 
         expect(store.dispatch).toHaveBeenCalledWith({
-            type: NAVIGATE_DATA_SELECTION,
+            type: SET_PAGE,
             payload: 1
         });
     });

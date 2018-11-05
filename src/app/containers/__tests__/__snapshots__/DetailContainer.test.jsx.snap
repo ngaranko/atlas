@@ -8,7 +8,6 @@ exports[`DetailContainer should render 1`] = `
     bindings={
       Object {
         "isLoading": false,
-        "reload": false,
         "user": Object {},
       }
     }
@@ -20,7 +19,7 @@ exports[`DetailContainer should render 1`] = `
     }
     interpolateBindings={
       Object {
-        "endpoint": "",
+        "endpoint": "myEndpoint",
       }
     }
     moduleName="dpDetailWrapper"

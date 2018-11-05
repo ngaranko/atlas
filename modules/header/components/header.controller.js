@@ -1,6 +1,7 @@
-import { isMapCurrentPage } from '../../../src/shared/ducks/current-page/current-page-reducer';
 import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/search/search';
 import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
+import { getDataSelection } from '../../../src/shared/ducks/data-selection/data-selection';
+import { isMapPage } from '../../../src/store/redux-first-router';
 
 (function () {
     'use strict';
@@ -19,11 +20,11 @@ import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
 
         function update () {
             const state = store.getState(),
-                isDataSelection = angular.isObject(state.dataSelection),
-                isListView = isDataSelection && state.dataSelection.view === 'LIST',
-                isCatalogView = isDataSelection && state.dataSelection.view === 'CATALOG',
+                isDataSelection = angular.isObject(getDataSelection(state)),
+                isListView = isDataSelection && getDataSelection(state).view === 'LIST',
+                isCatalogView = isDataSelection && getDataSelection(state).view === 'CATALOG',
                 isHomepage = angular.isObject(state.page) && state.page.name === 'home' &&
-                    !isMapCurrentPage(state) &&
+                    !isMapPage(state) &&
                     !angular.isObject(state.straatbeeld);
 
             if (isCatalogView) {
@@ -37,7 +38,7 @@ import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
             }
 
             vm.hasPrintButton = (!isDataSelection || isListView) && !isHomepage;
-            vm.hasEmbedButton = isMapCurrentPage(state);
+            vm.hasEmbedButton = isMapPage(state);
         }
     }
 })();

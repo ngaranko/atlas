@@ -1,11 +1,11 @@
 import reducer, {
-  DETAIL_FULLSCREEN, DETAIL_VIEW,
+  DETAIL_VIEW,
   FETCH_DETAIL,
   fetchDetail,
   SHOW_DETAIL
 } from './detail';
 
-describe('DetailReducerReducer', () => {
+describe('DetailReducer', () => {
   const initialState = {};
   const stateAfterRequest = {
     some: 'data'
@@ -13,6 +13,7 @@ describe('DetailReducerReducer', () => {
 
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
+      isLoading: false,
       view: DETAIL_VIEW.MAP_DETAIL
     });
   });
@@ -22,10 +23,7 @@ describe('DetailReducerReducer', () => {
       type: FETCH_DETAIL,
       payload: 'payload'
     })).toEqual({
-      endpoint: 'payload',
-      reload: false,
-      isLoading: true,
-      isFullscreen: false
+      isLoading: true
     });
   });
 
@@ -40,18 +38,7 @@ describe('DetailReducerReducer', () => {
       some: 'data',
       display: 'display',
       geometry: 'geometry',
-      isLoading: false,
-      reload: false
-    });
-  });
-
-  it(`should set the previews when ${DETAIL_FULLSCREEN} is dispatched`, () => {
-    expect(reducer(stateAfterRequest, {
-      type: DETAIL_FULLSCREEN,
-      payload: true
-    })).toEqual({
-      some: 'data',
-      isFullscreen: true
+      isLoading: false
     });
   });
 });

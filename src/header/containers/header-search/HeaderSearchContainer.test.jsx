@@ -4,9 +4,9 @@ import { shallow } from 'enzyme';
 
 import HeaderSearchContainer from './HeaderSearchContainer';
 import {
-  getSuggestions,
+  getSuggestionsAction,
   getTypedQuery,
-  setActiveSuggestion,
+  setActiveSuggestionAction,
   FETCH_SUGGESTIONS_REQUEST,
   SET_ACTIVE_SUGGESTION
 } from '../../ducks/auto-suggest/auto-suggest';
@@ -15,7 +15,7 @@ import { fetchDataSelection, fetchSearchResultsByQuery, FETCH_DATA_SELECTION, FE
 
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { fetchDetail, FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
-import { routing } from '../../../app/routes';
+import { ROUTER_NAMESPACE, routing, toDataSearch, toDatasetSearch } from '../../../app/routes';
 import PAGES from '../../../app/pages';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
 
@@ -26,8 +26,8 @@ jest.mock('../../ducks/search/search');
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
-    setActiveSuggestion.mockImplementation(() => ({ type: SET_ACTIVE_SUGGESTION }));
-    getSuggestions.mockImplementation(() => ({ type: FETCH_SUGGESTIONS_REQUEST }));
+    setActiveSuggestionAction.mockImplementation(() => ({ type: SET_ACTIVE_SUGGESTION }));
+    getSuggestionsAction.mockImplementation(() => ({ type: FETCH_SUGGESTIONS_REQUEST }));
     fetchDetail.mockImplementation((endpoint) => ({ type: FETCH_DETAIL, payload: endpoint }));
     piwikTracker.mockImplementation(() => jest.fn());
     fetchDataSelection.mockImplementation((query) => ({
@@ -41,8 +41,8 @@ describe('HeaderSearchContainer', () => {
   });
 
   afterEach(() => {
-    setActiveSuggestion.mockReset();
-    getSuggestions.mockReset();
+    setActiveSuggestionAction.mockReset();
+    getSuggestionsAction.mockReset();
     fetchDetail.mockReset();
     piwikTracker.mockReset();
     fetchDataSelection.mockReset();
@@ -109,8 +109,8 @@ describe('HeaderSearchContainer', () => {
     jest.spyOn(store, 'dispatch');
     shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
-    expect(setActiveSuggestion).not.toHaveBeenCalled();
-    expect(getSuggestions).not.toHaveBeenCalled();
+    expect(setActiveSuggestionAction).not.toHaveBeenCalled();
+    expect(getSuggestionsAction).not.toHaveBeenCalled();
     expect(fetchDetail).not.toHaveBeenCalled();
     expect(store.dispatch).not.toHaveBeenCalled();
   });
@@ -183,6 +183,10 @@ describe('HeaderSearchContainer', () => {
         },
         dataSelection: {
           view: 'NOT_CARDS'
+        },
+        page: {},
+        ui: {
+          isMapFullscreen: true
         }
       });
 
@@ -214,13 +218,12 @@ describe('HeaderSearchContainer', () => {
       headerSearch.instance().onFormSubmit();
 
       expect(store.dispatch).toHaveBeenCalledWith(emptyFilters());
-      expect(store.dispatch).toHaveBeenCalledWith(
-        { type: routing.searchData.type, payload: { query } }
-      );
+      expect(store.dispatch).toHaveBeenCalledWith(toDataSearch(query));
     });
 
     it('does dataset search', () => {
       const query = 'foo';
+      getTypedQuery.mockImplementation(() => query);
       const store = configureMockStore()({
         ...initialState,
         autoSuggest: {
@@ -229,53 +232,16 @@ describe('HeaderSearchContainer', () => {
           },
           typedQuery: query
         },
-        currentPage: PAGES.CATALOGUS
+        location: {
+          type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS}`
+        }
       });
       jest.spyOn(store, 'dispatch');
 
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onFormSubmit();
-      expect(store.dispatch).toHaveBeenCalledWith(
-        { type: routing.searchCatalog.type, payload: { query } }
-      );
-    });
-  });
-
-  describe('onSuggestionActivate', () => {
-    it('should call getSuggestions or setActiveSuggestion', () => {
-      const store = configureMockStore()({
-        ...initialState,
-        search: {
-          query: 'i\'m set'
-        }
-      });
-
-      const wrapper = shallow(
-        <HeaderSearchContainer />, { context: { store } }
-      ).dive();
-      wrapper.instance().onSuggestionActivate({ index: -1 });
-      expect(getSuggestions).toHaveBeenCalled();
-
-      wrapper.instance().onSuggestionActivate({ index: 0 });
-      expect(setActiveSuggestion).toHaveBeenCalled();
-    });
-  });
-
-  describe('onUserInput', () => {
-    it('should be called when window.suggestionToLoadUri and window.opener are true', () => {
-      const store = configureMockStore()({
-        ...initialState,
-        search: {
-          query: 'i\'m set'
-        }
-      });
-
-      const wrapper = shallow(
-        <HeaderSearchContainer />, { context: { store } }
-      ).dive();
-      wrapper.instance().onUserInput('query');
-      expect(getSuggestions).toHaveBeenCalledWith('query');
+      expect(store.dispatch).toHaveBeenCalledWith(toDatasetSearch(query));
     });
   });
 
@@ -292,7 +258,7 @@ describe('HeaderSearchContainer', () => {
         <HeaderSearchContainer />, { context: { store } }
       ).dive();
 
-      expect(getSuggestions).toHaveBeenCalled();
+      expect(getSuggestionsAction).toHaveBeenCalled();
     });
 
     it('should not be called on componentDidMount id prefillQuery prop is not set', () => {
@@ -304,28 +270,12 @@ describe('HeaderSearchContainer', () => {
         <HeaderSearchContainer />, { context: { store } }
       ).dive();
 
-      expect(getSuggestions).not.toHaveBeenCalled();
+      expect(getSuggestionsAction).not.toHaveBeenCalled();
     });
   });
 
   describe('componentDidUpdate', () => {
-    it('should be call onGetSuggestions without a query', () => {
-      global.suggestionToLoadUri = true;
-      global.opener = true;
-      const store = configureMockStore()({
-        ...initialState
-      });
-
-      const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
-      wrapper.setProps({
-        prefillQuery: '',
-        isMapActive: true
-      });
-
-      expect(getSuggestions).toHaveBeenCalledWith();
-    });
-
-    it('should be call onGetSuggestions without a query', () => {
+    it('should not call onGetSuggestions without a query', () => {
       global.suggestionToLoadUri = true;
       global.opener = true;
       const store = configureMockStore()({
@@ -338,7 +288,7 @@ describe('HeaderSearchContainer', () => {
         isMapActive: true
       });
 
-      expect(getSuggestions).toHaveBeenCalledWith('123');
+      expect(getSuggestionsAction).not.toHaveBeenCalled();
     });
 
     it('should not call getSuggestions', () => {
@@ -355,7 +305,7 @@ describe('HeaderSearchContainer', () => {
         isMapActive: false
       });
 
-      expect(getSuggestions).not.toHaveBeenCalledWith();
+      expect(getSuggestionsAction).not.toHaveBeenCalledWith();
     });
   });
 });

@@ -6,7 +6,6 @@ import { shallow } from 'enzyme';
 import MapPreviewPanelContainer from './MapPreviewPanelContainer';
 import {
   FETCH_MAP_SEARCH_RESULTS_REQUEST,
-  FETCH_SEARCH_RESULTS_BY_LOCATION,
   getMapSearchResults
 } from '../../../shared/ducks/search/search';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
@@ -25,14 +24,19 @@ import {
   getShortSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
-import { toPanorama } from '../../../app/routes';
-import { clearSelection } from '../../../shared/ducks/selection/selection';
+import { getDetailEndpoint } from '../../../shared/ducks/detail/detail';
+import { toMap, toPanorama } from '../../../app/routes';
+import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 
+jest.mock('../../../shared/ducks/detail/detail');
 jest.mock('../../../shared/ducks/search/search');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
 jest.mock('../../ducks/detail/map-detail');
 jest.mock('../../ducks/map/map-selectors');
 jest.mock('../../../pano/ducks/preview/pano-preview');
+jest.mock('../../../shared/ducks/selection/selection');
+
+jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
 
 describe('MapPreviewPanelContainer', () => {
   const initialState = {
@@ -50,6 +54,13 @@ describe('MapPreviewPanelContainer', () => {
       },
       panelLayers: {
         items: []
+      }
+    },
+    selection: {
+      type: 'MAP',
+      location: {
+        latitude: '11',
+        longitude: '11'
       }
     },
     mapDetail: null,
@@ -109,6 +120,8 @@ describe('MapPreviewPanelContainer', () => {
     getPanoPreview.mockImplementation(() => ({ type: FETCH_PANO_PREVIEW_REQUEST }));
     selectNotClickableVisibleMapLayers.mockImplementation(() => ([]));
     getShortSelectedLocation.mockImplementation(() => null);
+    isGeoSearch.mockImplementation((state) => !(state.detail && state.detail.endpoint));
+    getDetailEndpoint.mockImplementation((state) => state.detail && state.detail.endpoint);
   });
 
   afterEach(() => {
@@ -264,7 +277,7 @@ describe('MapPreviewPanelContainer', () => {
       getPanoPreview.mockClear();
       store.dispatch.mockClear();
 
-      wrapper.setProps({ detail: { endpoint: 'https://acc.api.data.amsterdam.nl/fake/endpoint' } });
+      wrapper.setProps({ detailEndpoint: 'https://acc.api.data.amsterdam.nl/fake/endpoint' });
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
       expect(getMapDetail).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/fake/endpoint', { name: 'User name' });
@@ -284,7 +297,7 @@ describe('MapPreviewPanelContainer', () => {
       getPanoPreview.mockClear();
       store.dispatch.mockClear();
 
-      wrapper.setProps({ detail: { endpoint: 'https://acc.api.data.amsterdam.nl/fake/endpoint' } });
+      wrapper.setProps({ detailEndpoint: 'https://acc.api.data.amsterdam.nl/fake/endpoint' });
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
       expect(getMapDetail).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/fake/endpoint', { name: 'User name' });
@@ -304,7 +317,7 @@ describe('MapPreviewPanelContainer', () => {
       getPanoPreview.mockClear();
       store.dispatch.mockClear();
 
-      wrapper.setProps({ detail: { endpoint: 'https://acc.api.data.amsterdam.nl/fake/other-endpoint' } });
+      wrapper.setProps({ detailEndpoint: 'https://acc.api.data.amsterdam.nl/fake/other-endpoint' });
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
       expect(getMapDetail).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/fake/other-endpoint', { name: 'User name' });
@@ -447,23 +460,6 @@ describe('MapPreviewPanelContainer', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should render detail with a button to show all results', () => {
-      const store = configureMockStore()({ ...detailState });
-      selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
-      selectLatestMapDetail.mockImplementation(() => ({ location: { latitude: 1, longitude: 0 } }));
-
-      const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
-
-      // Flag it skipped search results
-      wrapper.setProps({
-        detail: {
-          ...detailState.detail,
-          skippedSearchResults: true
-        }
-      });
-      expect(wrapper).toMatchSnapshot();
-    });
-
     it('should render one missing layer', () => {
       const store = configureMockStore()({ ...searchState });
       selectLatestMapSearchResults.mockImplementation(() => [{ item: 1 }, { item: 2 }]);
@@ -538,33 +534,7 @@ describe('MapPreviewPanelContainer', () => {
     const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
     wrapper.find('.map-preview-panel__button').at(1).simulate('click');
 
-    expect(store.dispatch).toHaveBeenCalledWith(clearSelection());
-  });
-
-  it('should go from detail to all results', () => {
-    const store = configureMockStore()({ ...initialState });
-    jest.spyOn(store, 'dispatch');
-    const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
-
-    selectLatestMapDetail.mockImplementation(() => ({ location: { latitude: 1, longitude: 0 } }));
-    // Mock detail result and flag it skipped search results
-    wrapper.setProps({
-      mapClickLocation: {
-        latitude: 15,
-        longitude: 39
-      },
-      detail: {
-        ...detailState.detail,
-        skippedSearchResults: true
-      }
-    });
-
-    wrapper.find('.map-preview-panel__button--show-all').at(0).simulate('click');
-
-    expect(store.dispatch).toHaveBeenCalledWith({
-      type: FETCH_SEARCH_RESULTS_BY_LOCATION,
-      payload: [15, 39]
-    });
+    expect(store.dispatch).toHaveBeenCalledWith(toMap());
   });
 
   describe('onPanoPreviewClick', () => {

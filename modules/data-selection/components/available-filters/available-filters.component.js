@@ -1,4 +1,5 @@
-import { applyFilters as applyFiltersActionCreator } from '../../../../src/shared/ducks/filters/filters';
+import { addFilter } from '../../../../src/shared/ducks/filters/filters';
+import DATA_SELECTION_CONFIG from '../../../../src/shared/services/data-selection/data-selection-config';
 
 (function () {
     'use strict';
@@ -16,9 +17,9 @@ import { applyFilters as applyFiltersActionCreator } from '../../../../src/share
             controllerAs: 'vm'
         });
 
-    DpDataSelectionAvailableFiltersController.$inject = ['$scope', 'store', 'DATA_SELECTION_CONFIG'];
+    DpDataSelectionAvailableFiltersController.$inject = ['$scope', 'store'];
 
-    function DpDataSelectionAvailableFiltersController ($scope, store, DATA_SELECTION_CONFIG) {
+    function DpDataSelectionAvailableFiltersController ($scope, store) {
         var vm = this,
             expandedFilters = [];
 
@@ -35,11 +36,9 @@ import { applyFilters as applyFiltersActionCreator } from '../../../../src/share
         };
 
         vm.addFilter = function (filterSlug, optionId) {
-            var filters = {...vm.activeFilters};
-
-            filters[filterSlug] = optionId;
-
-            applyFilters(filters);
+            store.dispatch(addFilter({
+                [filterSlug]: optionId
+            }));
         };
 
         vm.showExpandButton = function (filterSlug) {
@@ -80,10 +79,6 @@ import { applyFilters as applyFiltersActionCreator } from '../../../../src/share
         function updateConfig () {
             vm.showOptionCounts = DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
             vm.stelselpediaUrl = DATA_SELECTION_CONFIG.datasets[vm.dataset].STELSELPEDIA_URL;
-        }
-
-        function applyFilters (filters) {
-            store.dispatch(applyFiltersActionCreator(filters));
         }
     }
 })();

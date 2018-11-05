@@ -12,12 +12,12 @@ import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
 import {
   getCenter,
-  getClusterMarkers,
   getDrawingMode,
-  getGeoJsons, getMapZoom,
+  getMapZoom,
   getMarkers,
   getRdGeoJsons
 } from '../../ducks/map/map-selectors';
+import { getClusterMarkers, getGeoJsons } from '../../../shared/ducks/data-selection/data-selection';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
@@ -73,9 +73,6 @@ class LeafletContainer extends React.Component {
       this.props.onFetchMapBaseLayers();
       this.props.onFetchMapLayers();
       this.props.onFetchPanelLayers();
-      // this.context.store.dispatch(fetchMapBaseLayers());
-      // this.context.store.dispatch(fetchMapLayers());
-      // this.context.store.dispatch(fetchPanelLayers());
     }
   }
 
@@ -188,11 +185,13 @@ LeafletContainer.propTypes = {
     transparent: PropTypes.bool,
     url: PropTypes.string.isRequired
   })),
+  zoom: PropTypes.number.isRequired,
+
   onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
   onUpdateBoundingBox: PropTypes.func.isRequired,
-  zoom: PropTypes.number.isRequired,
+
 
   onFetchMapBaseLayers: PropTypes.func.isRequired,
   onFetchMapLayers: PropTypes.func.isRequired,

@@ -12,19 +12,20 @@ export const FETCH_STRAATBEELD_SUCCESS = 'FETCH_STRAATBEELD_SUCCESS';
 export const FETCH_STRAATBEELD_ERROR = 'FETCH_STRAATBEELD_ERROR';
 export const SET_STRAATBEELD_ORIENTATION = 'SET_STRAATBEELD_ORIENTATION';
 export const SET_STRAATBEELD_YEAR = 'SET_STRAATBEELD_YEAR';
+export const CLOSE_STRAATBEELD = 'CLOSE_STRAATBEELD';
 
 export const initialState = {
-  location: null, // eg: [52.8, 4.9]
-  year: undefined, // eg: 2016
-  pitch: null,    // eg: -10
-  heading: 0,     // eg: 270
-  fov: null,      // eg: 65
-  image: null,    // eg: {
-                  //     pattern: 'http://www.example.com/path/some-id/{this}/{that}/{thingie}.jpg',
-                  //     preview: 'http://www.example.com/path/some-id/preview.jpg'
-                  // }
-  hotspots: [],   // eg: [{id: 'ABC124', heading: 90, distance: 18}],
-  date: null,     // eg: new Date()
+  location: null,   // eg: [52.8, 4.9]
+  year: undefined,  // eg: 2016
+  pitch: 0,         // eg: -10
+  heading: 0,       // eg: 270
+  fov: null,        // eg: 65
+  image: null,      // eg: {
+                    //     pattern: 'http://www.example.com/path/some-id/{this}/{that}/{thingie}.jpg',
+                    //     preview: 'http://www.example.com/path/some-id/preview.jpg'
+                    // }
+  hotspots: [],     // eg: [{id: 'ABC124', heading: 90, distance: 18}],
+  date: null,       // eg: new Date()
   isLoading: true
 };
 
@@ -43,6 +44,7 @@ export default function straatbeeldReducer(state = initialState, action) {
       return {
         ...state,
         view,
+        id: action.payload.id,
         heading: query.heading || state.heading,
         pitch: query.pitch || state.pitch
       };
@@ -64,9 +66,8 @@ export default function straatbeeldReducer(state = initialState, action) {
     case FETCH_STRAATBEELD_SUCCESS:
       return {
         ...state,
-        id: action.payload.id || state.id,
         date: action.payload.date,
-        pitch: state.pitch || 0,
+        pitch: state.pitch || initialState.pitch,
         fov: state.fov || STRAATBEELD_CONFIG.DEFAULT_FOV,
         hotspots: action.payload.hotspots,
         isLoading: false,
@@ -124,6 +125,8 @@ export const setStraatbeeldOrientation = ({ heading, pitch, fov }) => ({
     fov
   }
 });
+
+export const closeStraatbeeld = () => ({ type: CLOSE_STRAATBEELD });
 
 // Selectors
 /**

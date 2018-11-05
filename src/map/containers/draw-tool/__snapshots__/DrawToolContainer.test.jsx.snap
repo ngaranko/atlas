@@ -31,10 +31,8 @@ exports[`DrawToolContainer should render DrawToolContainer 1`] = `
   onEndDrawing={[Function]}
   onMapClear={[Function]}
   onMapUpdateShape={[Function]}
-  onSetMapFullscreen={[Function]}
   onSetPageName={[Function]}
   onStartDrawing={[Function]}
-  resetGeometryFilter={[Function]}
   setGeometryFilter={[Function]}
   setPolygon={
     [MockFunction] {
@@ -48,6 +46,5 @@ exports[`DrawToolContainer should render DrawToolContainer 1`] = `
   shapeDistanceTxt=""
   shapeMarkers={0}
   toggleDrawing={[MockFunction]}
-  uiMapFullscreen={true}
 />
 `;
