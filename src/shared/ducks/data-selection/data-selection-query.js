@@ -5,11 +5,17 @@ import {
   getGeometryFilters, isListView,
   RESET_DATA_SELECTION,
   SET_GEOMETRY_FILTERS,
-  SET_PAGE, SET_VIEW
+  SET_PAGE, SET_VIEW,
+  getGeometryFiltersMarkers
 } from './data-selection';
 
-const getEncodedGeometryFilters = (state) =>
-  getGeometryFilters(state).markers.map((latLong) => `${latLong[0]}:${latLong[1]}`).join('|');
+const getEncodedGeometryFilters = (state) => {
+  const markers = getGeometryFiltersMarkers(state);
+  if (markers) {
+    return markers.map((latLong) => `${latLong[0]}:${latLong[1]}`).join('|');
+  }
+  return undefined;
+}
 
 const getGeometryFilterDescription = (state) => getGeometryFilters(state).description;
 

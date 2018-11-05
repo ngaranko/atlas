@@ -177,6 +177,9 @@ export const getDataSelectionPage = createSelector(
 export const getGeometryFilters = createSelector(
   getDataSelection,
   (dataSelection) => dataSelection.geometryFilter);
+export const getGeometryFiltersMarkers = createSelector(
+  getGeometryFilters,
+  (filters) => filters && filters.markers);
 
 export const getDataSelectionResult = createSelector(
   getDataSelection,
