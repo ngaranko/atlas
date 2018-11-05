@@ -73,9 +73,6 @@ class LeafletContainer extends React.Component {
       this.props.onFetchMapBaseLayers();
       this.props.onFetchMapLayers();
       this.props.onFetchPanelLayers();
-      // this.context.store.dispatch(fetchMapBaseLayers());
-      // this.context.store.dispatch(fetchMapLayers());
-      // this.context.store.dispatch(fetchPanelLayers());
     }
   }
 
@@ -188,11 +185,13 @@ LeafletContainer.propTypes = {
     transparent: PropTypes.bool,
     url: PropTypes.string.isRequired
   })),
+  zoom: PropTypes.number.isRequired,
+
   onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
   onUpdateBoundingBox: PropTypes.func.isRequired,
-  zoom: PropTypes.number.isRequired,
+
 
   onFetchMapBaseLayers: PropTypes.func.isRequired,
   onFetchMapLayers: PropTypes.func.isRequired,

@@ -1,5 +1,5 @@
 import removeMd from 'remove-markdown';
-
+import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
 import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
 
 (function () {
@@ -62,6 +62,9 @@ import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
         });
 
         vm.stripMarkdown = (val) => removeMd(val);
+
+        // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
+        vm.geosearchButtonClick = () => sendPiwikEvent();
 
         function getData (endpoint) {
             vm.location = null;
@@ -135,6 +138,19 @@ import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
                 type: SHOW_DETAIL,
                 payload: {}
             });
+        }
+
+        // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
+        /* istanbul ignore next */
+        function sendPiwikEvent () {
+            const piwik = {
+                TRACK_EVENT: 'trackEvent',
+                SHOW_ALL_RESULTS: 'show-all-results',
+                NAVIGATION: 'navigation'
+            };
+
+            piwikTracker([piwik.TRACK_EVENT, piwik.NAVIGATION,
+                piwik.SHOW_ALL_RESULTS, window.document.title]);
         }
     }
 })();

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { LatLngBounds } from 'leaflet';
 
 import { isEmbedded } from '../../../shared/ducks/ui/ui';
 
@@ -13,6 +14,20 @@ import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewP
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 import { previewDataAvailable as previewDataAvailableSelector } from '../../../shared/ducks/selection/selection';
 import { getDrawingMode } from '../../ducks/map/map-selectors';
+
+export const overrideLeafletGetBounds = (map) => {
+  // We override here the getBounds method of Leaflet
+  // To ensure the full coverage of the visible area
+  // of the NonTiledLayer layer types
+  map.getBounds = () => { // eslint-disable-line no-param-reassign
+    const bounds = map.getPixelBounds();
+    const sw = map.unproject(bounds.getBottomLeft());
+    const ne = map.unproject(bounds.getTopRight());
+
+    const latLngBounds = (new LatLngBounds(sw, ne)).pad(0.02);
+    return latLngBounds;
+  };
+};
 
 const mapStateToProps = (state) => ({
   drawMode: getDrawingMode(state),
@@ -30,6 +45,7 @@ class MapContainer extends React.Component {
   }
 
   setLeafletInstance(leafletInstance) {
+    overrideLeafletGetBounds(leafletInstance);
     this.setState({ leafletInstance });
   }
 

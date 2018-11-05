@@ -35,7 +35,7 @@ export const DATASETS = {
   HR: 'hr'
 };
 
-const initialState = {
+export const initialState = {
   isLoading: false,
   markers: [], // eg: [[52.1, 4.1], [52.2, 4.0]],
   geometryFilter: {
@@ -69,7 +69,9 @@ export default function reducer(state = initialState, action) {
         };
       }
       return {
-        ...state
+        ...state,
+        dataset: ROUTE_DATASET_MAPPER[action.type],
+        view: VIEWS.TABLE
       };
     }
 
@@ -177,6 +179,9 @@ export const getDataSelectionPage = createSelector(
 export const getGeometryFilters = createSelector(
   getDataSelection,
   (dataSelection) => dataSelection.geometryFilter);
+export const getGeometryFiltersMarkers = createSelector(
+  getGeometryFilters,
+  (filters) => filters && filters.markers);
 
 export const getDataSelectionResult = createSelector(
   getDataSelection,
