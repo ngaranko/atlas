@@ -23,31 +23,40 @@ const getMapBaseLayer = (payload, { map, mapLayers }) => {
   return newBaseLayer || null;
 };
 
+/** Retrieve panelLayer information from the State */
+const getPanelLayer = (panelLayerId, panelLayers) => {
+  let panelLayer;
+
+  panelLayer = panelLayers.find((b) => b.id === panelLayerId);
+
+  // No panelLayer found, check legendItems for matching ID
+  if (!panelLayer) {
+    panelLayer = panelLayers.map((layer) => {
+      const isParent = layer.legendItems.some((b) => (b.id === panelLayerId));
+
+      return (!!isParent) && layer;
+    }).filter(Boolean);
+  }
+
+  return Array.isArray(panelLayer) ? panelLayer[0] : panelLayer;
+};
+
 /** Match the PanelLayer from the Action to the State */
 const getMapPanelLayer = (payload, { map, mapLayers }) => {
   const { panelLayers } = mapLayers;
   const { overlays: activePanelLayers } = map;
   const newPanelLayerId = payload;
 
-  let newPanelLayer;
-  let parentPanelLayer;
 
-  // Check if layer isn't already activated
-  if (!activePanelLayers.filter((b) => b.id === newPanelLayerId).length) {
-    // Get layer info from the store
-    newPanelLayer = panelLayers.items.find((b) => b.id === newPanelLayerId);
+  const newPanelLayer = getPanelLayer(newPanelLayerId, panelLayers.items);
+  const isActive = activePanelLayers.some((b) =>
+    getPanelLayer(b.id, panelLayers.items) === newPanelLayer
+  );
 
-    // Look through legendItems if not found
-    // Return object with info about parentPanelLayer
-    parentPanelLayer = (!newPanelLayer) ? panelLayers.items.map(
-        (panelLayer) => (panelLayer.legendItems.filter(
-          (b) => b.id === newPanelLayerId)).length && panelLayer
-      ).filter((obj) => obj) : false;
-  }
-
-  return newPanelLayer || parentPanelLayer ? parentPanelLayer[0] : null;
+  return (!isActive) ? newPanelLayer : null;
 };
 
+/** Execute Piwik actions */
 const piwikMiddleware = (store) => (next) => (action) => {
   const nextAction = action;
 
@@ -60,15 +69,19 @@ const piwikMiddleware = (store) => (next) => (action) => {
     if (action.type === SET_MAP_BASE_LAYER && action.payload) {
       const newBaseLayer = getMapBaseLayer(action.payload, state);
 
-      event = newBaseLayer.category;
-      value = newBaseLayer.label;
+      if (newBaseLayer) {
+        event = newBaseLayer.category;
+        value = newBaseLayer.label;
+      }
     }
 
     if (action.type === TOGGLE_MAP_OVERLAY && action.mapLayerId) {
       const newPanelLayer = getMapPanelLayer(action.mapLayerId, state);
 
-      event = newPanelLayer.category;
-      value = newPanelLayer.title;
+      if (newPanelLayer) {
+        event = newPanelLayer.category;
+        value = newPanelLayer.title;
+      }
     }
 
     // Information for piwik
