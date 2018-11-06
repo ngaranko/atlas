@@ -135,6 +135,8 @@ describe('Map Reducer', () => {
   });
 
   it('should set the overlays except the overlay matching the id from payload', () => {
+    let newOverlay;
+
     const state = {
       overlays: [
         {
@@ -152,7 +154,12 @@ describe('Map Reducer', () => {
       ]
     };
 
-    expect(reducer(state, toggleMapOverlay(3))).toEqual({
+    newOverlay = {
+      legendItems: [
+        { id: 3 }
+      ]
+    };
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
       overlays: [
         {
           id: 1
@@ -166,7 +173,12 @@ describe('Map Reducer', () => {
       ]
     });
 
-    expect(reducer(state, toggleMapOverlay(10))).toEqual({
+    newOverlay = {
+      legendItems: [
+        { id: 10 }
+      ]
+    };
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
       overlays: [
         {
           id: 1
@@ -183,6 +195,21 @@ describe('Map Reducer', () => {
         {
           id: 10,
           isVisible: true
+        }
+      ]
+    });
+
+    newOverlay = { id: 3 };
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
+      overlays: [
+        {
+          id: 1
+        },
+        {
+          id: 2
+        },
+        {
+          id: 4
         }
       ]
     });

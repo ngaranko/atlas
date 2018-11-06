@@ -124,6 +124,27 @@ exports[`MapLegend should render the component 1`] = `
             legendTitle
           </span>
         </li>
+        <li
+          className="map-legend__item"
+          key="legendTitle"
+        >
+          <div
+            className="
+                        map-legend__image
+                        map-legend__image--not-selectable
+                      "
+          >
+            <img
+              alt=""
+              src="https://acc.map.data.amsterdam.nlurl&request=GetLegendGraphic&sld_version=1.1.0&layer=maplayer2&format=image/svg%2Bxml&rule=legendTitle"
+            />
+          </div>
+          <span
+            className="map-legend__title"
+          >
+            legendTitle
+          </span>
+        </li>
       </ul>
     </li>
   </ul>

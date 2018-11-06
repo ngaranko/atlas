@@ -34,13 +34,6 @@ class MapLegend extends React.Component {
     ].join('');
   }
 
-  static mapLayersLegendItemsToIds(mapLayer) {
-    return [
-      mapLayer.id,
-      ...mapLayer.legendItems.map((legendItem) => legendItem.id)
-    ].filter((mapLayerId) => !!mapLayerId);
-  }
-
   determineLayerVisibility(mapLayer) {
     return this.props.overlays.some((overlay) => [
       { id: mapLayer.id },
@@ -149,7 +142,7 @@ class MapLegend extends React.Component {
 
 MapLegend.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
-  onLayerToggle: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  onLayerToggle: PropTypes.func, // eslint-disable-line
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
   overlays: PropTypes.array, // eslint-disable-line
   user: PropTypes.object, // eslint-disable-line

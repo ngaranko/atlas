@@ -7,7 +7,12 @@ describe('MapLegend', () => {
     zoomLevel: 2,
     overlays: [
       {
-        id: 2
+        id: 2,
+        isVisible: false
+      },
+      {
+        id: 3,
+        isVisible: true
       }
     ],
     user: {
@@ -25,6 +30,7 @@ describe('MapLegend', () => {
         layers: ['maplayer1'],
         legendItems: [
           {
+            id: 1,
             title: 'legendTitle',
             layer: 'layer',
             iconUrl: 'iconUrl',
@@ -42,10 +48,18 @@ describe('MapLegend', () => {
         layers: ['maplayer2'],
         legendItems: [
           {
+            id: 2,
             title: 'legendTitle',
             layer: false,
             iconUrl: false,
             selectable: true
+          },
+          {
+            id: 3,
+            title: 'legendTitle',
+            layer: false,
+            iconUrl: false,
+            selectable: false
           }
         ]
       }
@@ -69,10 +83,10 @@ describe('MapLegend', () => {
       />
     );
     component.find('button').at(0).simulate('click');
-    expect(onLayerToggleMock).toHaveBeenCalledWith(1);
+    expect(onLayerToggleMock).toHaveBeenCalledWith(props.activeMapLayers[0]);
 
     component.find('button').at(1).simulate('click');
-    expect(onLayerToggleMock).toHaveBeenCalledWith(2);
+    expect(onLayerToggleMock).toHaveBeenCalledWith(props.activeMapLayers[1]);
   });
 
   it('should handle the checkbox click', () => {
@@ -85,8 +99,12 @@ describe('MapLegend', () => {
     );
 
     expect(
-      component.instance().determineLegendItemVisibility(props.activeMapLayers[1].legendItems)
+      component.instance().determineLegendItemVisibility(props.activeMapLayers[1].legendItems[0])
     ).toBe(false);
+
+    expect(
+      component.instance().determineLegendItemVisibility(props.activeMapLayers[1].legendItems[1])
+    ).toBe(true);
   });
 
   it('should handle the checkbox onchange', () => {
