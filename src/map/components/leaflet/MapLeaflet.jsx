@@ -241,7 +241,7 @@ class MapLeaflet extends React.Component {
           }
           {
             rdGeoJsons.map((shape) =>
-              (Boolean(shape.geoJson) && Boolean(shape.geoJson.label)) && (
+              Boolean(shape.geoJson) && (
                 <RdGeoJson
                   data={shape.geoJson}
                   key={shape.id}
