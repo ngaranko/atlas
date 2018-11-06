@@ -52,15 +52,9 @@ class MapLegend extends React.Component {
     return this.props.overlays.some((overlay) => overlay.id === legendItem.id && overlay.isVisible);
   }
 
-  toggleLayer(mapLayer) {
-    MapLegend.mapLayersLegendItemsToIds(mapLayer).forEach((mapLayerId) =>
-      this.props.onLayerToggle(mapLayerId));
-  }
-
   toggleLayerVisibility(mapLayer) {
     const isVisible = this.determineLayerVisibility(mapLayer);
-    MapLegend.mapLayersLegendItemsToIds(mapLayer).forEach((mapLayerId) =>
-      this.props.onLayerVisibilityToggle(mapLayerId, !isVisible));
+    this.props.onLayerVisibilityToggle(mapLayer, !isVisible);
   }
 
   render() {
@@ -95,7 +89,7 @@ class MapLegend extends React.Component {
                 <h4 className="map-legend__category-title">{mapLayer.title}</h4>
                 <button
                   className="map-legend__toggle map-legend__toggle--remove"
-                  onClick={() => this.toggleLayer(mapLayer)}
+                  onClick={() => this.props.onLayerToggle(mapLayer)}
                 >
                   <RemoveIcon />
                 </button>
@@ -121,14 +115,12 @@ class MapLegend extends React.Component {
                         <Checkbox
                           checked={
                             /* istanbul ignore next */
-                            () =>
-                            this.determineLegendItemVisibility(legendItem)
+                            () => this.determineLegendItemVisibility(legendItem)
                           }
                           name={legendItem.title}
                           onChange={
                             /* istanbul ignore next */
-                            () =>
-                            onLayerVisibilityToggle(legendItem.id)
+                            () => onLayerVisibilityToggle(legendItem.id)
                           }
                         />
                       )}
@@ -157,7 +149,7 @@ class MapLegend extends React.Component {
 
 MapLegend.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
-  onLayerToggle: PropTypes.func, // eslint-disable-line
+  onLayerToggle: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
   overlays: PropTypes.array, // eslint-disable-line
   user: PropTypes.object, // eslint-disable-line
