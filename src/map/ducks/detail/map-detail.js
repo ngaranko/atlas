@@ -2,7 +2,8 @@ import { createSelector } from 'reselect';
 import {
   getDetailDisplay,
   getDetailEndpoint,
-  getDetailGeometry, isDetailKaartView
+  getDetailGeometry,
+  isDetailMapView
 } from '../../../shared/ducks/detail/detail';
 import { isDataDetailCurrentPage } from '../../../store/redux-first-router';
 
@@ -28,7 +29,7 @@ export const getDetailId = createSelector(getDetailEndpoint, getCurrentEndpoint,
   (detailEndpoint, currentEndpoint) => detailEndpoint || currentEndpoint);
 
 export const getGeometry = createSelector(
-  isDetailKaartView,
+  isDetailMapView,
   getDetailGeometry,
   getMapDetailGeometry,
   (kaartView, detailGeometry, mapDetailGeometry) => {
