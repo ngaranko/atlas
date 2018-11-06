@@ -156,7 +156,7 @@ describe('MapLeaflet component', () => {
           geoJson: {
             geometry: {
               coordinates: [120983, 487047],
-              type: 'Point',
+              type: 'Point'
             },
             label: 'Adres YE39'
           },
@@ -202,7 +202,7 @@ describe('MapLeaflet component', () => {
                   ]
                 ]
               ],
-              type: 'MultiPolygon',
+              type: 'MultiPolygon'
             },
             label: 'Object YE39'
           },

@@ -32,11 +32,10 @@ export const getGeometry = createSelector(
   getDetailGeometry,
   getMapDetailGeometry,
   (kaartView, detailGeometry, mapDetailGeometry) => {
-    if (kaartView ) {
+    if (kaartView) {
       return mapDetailGeometry;
-    } else {
-      return detailGeometry;
     }
+    return detailGeometry;
   }
 );
 

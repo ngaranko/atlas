@@ -52,6 +52,8 @@ export default function detailReducer(state = initialState, action) {
     case FETCH_DETAIL:
       return {
         ...state,
+        display: undefined,
+        geometry: undefined,
         isLoading: true
       };
 

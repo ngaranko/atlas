@@ -13,7 +13,7 @@ import createClusterIcon from './services/cluster-icon';
 import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
 import MapBusyIndicator from './custom/map-busy-indicator/MapBusyIndicator';
 import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/map';
-import RdGeoJsonWrapper from './custom/geo-json/RdGeoJsonWrapper';
+import RdGeoJson from './custom/geo-json/RdGeoJson';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
@@ -242,12 +242,10 @@ class MapLeaflet extends React.Component {
           {
             rdGeoJsons.map((shape) =>
               Boolean(shape.geoJson) && (
-                <RdGeoJsonWrapper
+                <RdGeoJson
                   data={shape.geoJson}
                   key={shape.id}
-                  setActiveElement={
-                    (element) => rdGeoJsons.length === 1 && this.setActiveElement(element)
-                  }
+                  ref={rdGeoJsons.length === 1 && this.setActiveElement}
                 />
               )
             )

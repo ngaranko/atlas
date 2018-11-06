@@ -2488,7 +2488,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       opacity={0}
       url="https://acc.map.data.amsterdam.nl/maps/biz"
     />
-    <RdGeoJsonWrapper
+    <RdGeoJson
       data={
         Object {
           "geometry": Object {
@@ -2501,7 +2501,6 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
         }
       }
       key="YE39"
-      setActiveElement={[Function]}
     />
     <ScaleControl
       imperial={false}
@@ -2749,7 +2748,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       opacity={0}
       url="https://acc.map.data.amsterdam.nl/maps/biz"
     />
-    <RdGeoJsonWrapper
+    <RdGeoJson
       data={
         Object {
           "geometry": Object {
@@ -2763,7 +2762,6 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
         }
       }
       key="YE39"
-      setActiveElement={[Function]}
     />
     <ScaleControl
       imperial={false}
@@ -3012,7 +3010,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       opacity={100}
       url="https://acc.map.data.amsterdam.nl/maps/gebieden?service=wms"
     />
-    <RdGeoJsonWrapper
+    <RdGeoJson
       data={
         Object {
           "geometry": Object {
@@ -3100,7 +3098,6 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
         }
       }
       key="YE39"
-      setActiveElement={[Function]}
     />
     <ScaleControl
       imperial={false}
