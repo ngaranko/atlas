@@ -21,6 +21,7 @@ RUN git config --global url."https://".insteadOf git:// && \
     npm --production=false \
         --unsafe-perm \
         --verbose \
+        --registry=https://repo.datapunt.amsterdam.nl/repository/npm-group/ \
         install && \
     npm cache clean --force
 
