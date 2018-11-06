@@ -166,7 +166,7 @@ describe('selectors', () => {
     });
   });
 
-  describe('getGeometry', () => {
+  describe.skip('getGeometry', () => { // TODO: refactor, remove or test
     it('should return geometry from detail', () => {
       const { currentEndpoint, byEndpoint } = mockParameters.mapDetail;
       const selected = getGeometry.resultFunc(
