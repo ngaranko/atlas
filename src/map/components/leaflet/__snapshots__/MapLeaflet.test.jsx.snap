@@ -2488,6 +2488,21 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       opacity={0}
       url="https://acc.map.data.amsterdam.nl/maps/biz"
     />
+    <RdGeoJsonWrapper
+      data={
+        Object {
+          "geometry": Object {
+            "coordinates": Array [
+              120983,
+              487047,
+            ],
+            "type": "Point",
+          },
+        }
+      }
+      key="YE39"
+      setActiveElement={[Function]}
+    />
     <ScaleControl
       imperial={false}
       metric={true}
@@ -2734,18 +2749,21 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       opacity={0}
       url="https://acc.map.data.amsterdam.nl/maps/biz"
     />
-    <RdGeoJson
+    <RdGeoJsonWrapper
       data={
         Object {
-          "coordinates": Array [
-            120983,
-            487047,
-          ],
+          "geometry": Object {
+            "coordinates": Array [
+              120983,
+              487047,
+            ],
+            "type": "Point",
+          },
           "label": "Adres YE39",
-          "type": "Point",
         }
       }
       key="YE39"
+      setActiveElement={[Function]}
     />
     <ScaleControl
       imperial={false}
@@ -2994,92 +3012,95 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       opacity={100}
       url="https://acc.map.data.amsterdam.nl/maps/gebieden?service=wms"
     />
-    <RdGeoJson
+    <RdGeoJsonWrapper
       data={
         Object {
-          "coordinates": Array [
-            Array [
+          "geometry": Object {
+            "coordinates": Array [
               Array [
                 Array [
                   Array [
-                    115689.261,
-                    488181.641,
+                    Array [
+                      115689.261,
+                      488181.641,
+                    ],
                   ],
-                ],
-                Array [
                   Array [
-                    115697.26,
-                    488181.8,
+                    Array [
+                      115697.26,
+                      488181.8,
+                    ],
                   ],
-                ],
-                Array [
                   Array [
-                    115705.37,
-                    488181.959,
+                    Array [
+                      115705.37,
+                      488181.959,
+                    ],
                   ],
-                ],
-                Array [
                   Array [
-                    115705.522,
-                    488173.844,
+                    Array [
+                      115705.522,
+                      488173.844,
+                    ],
                   ],
-                ],
-                Array [
                   Array [
-                    115705.67,
-                    488165.845,
+                    Array [
+                      115705.67,
+                      488165.845,
+                    ],
                   ],
-                ],
-                Array [
                   Array [
-                    115705.819,
-                    488157.847,
+                    Array [
+                      115705.819,
+                      488157.847,
+                    ],
                   ],
-                ],
-                Array [
                   Array [
-                    115705.969,
-                    488149.729,
+                    Array [
+                      115705.969,
+                      488149.729,
+                    ],
                   ],
-                ],
-                Array [
                   Array [
-                    115697.865,
-                    488149.576,
+                    Array [
+                      115697.865,
+                      488149.576,
+                    ],
                   ],
-                ],
-                Array [
                   Array [
-                    115689.866,
-                    488149.424,
+                    Array [
+                      115689.866,
+                      488149.424,
+                    ],
                   ],
-                ],
-                Array [
                   Array [
-                    115681.759,
-                    488149.269,
+                    Array [
+                      115681.759,
+                      488149.269,
+                    ],
                   ],
-                ],
-                Array [
                   Array [
-                    115681.15,
-                    488181.479,
+                    Array [
+                      115681.15,
+                      488181.479,
+                    ],
                   ],
-                ],
-                Array [
                   Array [
-                    115689.261,
-                    488181.641,
+                    Array [
+                      115689.261,
+                      488181.641,
+                    ],
                   ],
                 ],
               ],
             ],
-          ],
+            "type": "MultiPolygon",
+          },
           "label": "Object YE39",
-          "type": "MultiPolygon",
         }
       }
       key="YE39"
+      setActiveElement={[Function]}
     />
     <ScaleControl
       imperial={false}
