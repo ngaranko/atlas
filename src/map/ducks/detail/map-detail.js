@@ -2,7 +2,8 @@ import { createSelector } from 'reselect';
 import {
   getDetailDisplay,
   getDetailEndpoint,
-  getDetailGeometry
+  getDetailGeometry,
+  isDetailMapView
 } from '../../../shared/ducks/detail/detail';
 import { isDataDetailCurrentPage } from '../../../store/redux-first-router';
 
@@ -28,11 +29,16 @@ export const getDetailId = createSelector(getDetailEndpoint, getCurrentEndpoint,
   (detailEndpoint, currentEndpoint) => detailEndpoint || currentEndpoint);
 
 export const getGeometry = createSelector(
+  isDetailMapView,
   getDetailGeometry,
   getMapDetailGeometry,
-  (detailGeometry, mapDetailGeometry) => (
-    detailGeometry || mapDetailGeometry
-  ));
+  (kaartView, detailGeometry, mapDetailGeometry) => {
+    if (kaartView) {
+      return mapDetailGeometry;
+    }
+    return detailGeometry;
+  }
+);
 
 export const shouldShowGeoJson = isDataDetailCurrentPage;
 

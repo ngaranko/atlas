@@ -52,6 +52,8 @@ export default function detailReducer(state = initialState, action) {
     case FETCH_DETAIL:
       return {
         ...state,
+        display: undefined,
+        geometry: undefined,
         isLoading: true
       };
 
@@ -86,3 +88,4 @@ export const getDetailEndpoint = createSelector(getDetail, (detail) => {
 });
 export const getDetailDisplay = createSelector(getDetail, (detail) => detail && detail.display);
 export const isDetailLoading = createSelector(getDetail, (detail) => detail && detail.isLoading);
+export const isDetailMapView = createSelector(getDetailView, (view) => view === DETAIL_VIEW.MAP);

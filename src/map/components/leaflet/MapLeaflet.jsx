@@ -6,7 +6,6 @@ import { Map, TileLayer, ZoomControl, ScaleControl, GeoJSON } from 'react-leafle
 import CustomMarker from './custom/marker/CustomMarker';
 import ClusterGroup from './custom/cluster-group/ClusterGroup';
 import NonTiledLayer from './custom/non-tiled-layer';
-import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
 import geoJsonConfig from './services/geo-json-config.constant';
 import markerConfig from './services/marker-config.constant';
@@ -14,6 +13,7 @@ import createClusterIcon from './services/cluster-icon';
 import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
 import MapBusyIndicator from './custom/map-busy-indicator/MapBusyIndicator';
 import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/map';
+import RdGeoJson from './custom/geo-json/RdGeoJson';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
@@ -241,7 +241,7 @@ class MapLeaflet extends React.Component {
           }
           {
             rdGeoJsons.map((shape) =>
-              (Boolean(shape.geoJson) && Boolean(shape.geoJson.label)) && (
+              Boolean(shape.geoJson) && (
                 <RdGeoJson
                   data={shape.geoJson}
                   key={shape.id}
