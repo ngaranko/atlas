@@ -86,3 +86,4 @@ export const getDetailEndpoint = createSelector(getDetail, (detail) => {
 });
 export const getDetailDisplay = createSelector(getDetail, (detail) => detail && detail.display);
 export const isDetailLoading = createSelector(getDetail, (detail) => detail && detail.isLoading);
+export const isDetailKaartView = createSelector(getDetailView, (view) => view === DETAIL_VIEW.MAP);
