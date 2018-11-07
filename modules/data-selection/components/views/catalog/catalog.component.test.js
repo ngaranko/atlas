@@ -50,7 +50,7 @@ describe('The catalog component', function () {
 
     function getComponent () {
         const element = document.createElement('dp-data-selection-catalog');
-        element.setAttribute('catalogFilters', 'catalogFilters');
+        element.setAttribute('catalog-filters', 'catalogFilters');
         element.setAttribute('content', 'content');
 
         const scope = $rootScope.$new();
