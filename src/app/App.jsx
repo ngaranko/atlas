@@ -9,7 +9,7 @@ import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
 import './_app.scss';
-import CatalogDetailContainer from './containers/DatasetsDetailContainer';
+import DatasetDetailContainer from './containers/DatasetsDetailContainer';
 import QuerySearchContainer from './containers/QuerySearchContainer';
 import {
   isEmbedded,
@@ -117,7 +117,7 @@ const App = ({
             {currentPage === PAGES.DATASETS && <Dataset />}
 
             {currentPage === PAGES.DATASETS_DETAIL && (
-              <CatalogDetailContainer />
+              <DatasetDetailContainer />
             )}
 
             {(currentPage === PAGES.ADDRESSES

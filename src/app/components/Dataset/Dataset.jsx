@@ -17,7 +17,7 @@ import {
 import MaxPageMessage from '../PanelMessages/MaxPageMessage';
 import {
   dataIsLoading,
-  getAuthError,
+  getAuthError, getDatasetApiSpecification,
   getPage,
   getResults
 } from '../../../shared/ducks/datasets/datasets';
@@ -34,7 +34,8 @@ const Dataset = ({
   isLoading,
   user,
   authError,
-  page: currentPage
+  page: currentPage,
+  apiSpecification
 }) => {
   if (isLoading || (!numberOfRecords && !authError)) {
     return <LoadingIndicator />;
@@ -119,7 +120,8 @@ const Dataset = ({
                     component="dpDataSelectionCatalog"
                     dependencies={['atlas']}
                     bindings={{
-                      content: data
+                      content: data,
+                      catalogFilters: apiSpecification
                     }}
                   />
                 </div>
@@ -153,6 +155,7 @@ Dataset.propTypes = {
   page: PropTypes.number.isRequired,
   user: PropTypes.shape({}).isRequired,
   setPage: PropTypes.func.isRequired,
+  apiSpecification: PropTypes.shape().isRequired,
   results: PropTypes.shape({
     numberOfRecords: PropTypes.number,
     numberOfPages: PropTypes.number,
@@ -167,7 +170,8 @@ const mapStateToProps = (state) => ({
   page: getPage(state),
   activeFilters: getActiveFilters(state),
   results: getResults(state),
-  user: getUser(state)
+  user: getUser(state),
+  apiSpecification: getDatasetApiSpecification(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
