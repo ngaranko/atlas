@@ -125,10 +125,10 @@
 
 .o-btn--close {
   @extend %btn-close;
-  @include icon-button("close", "#000", "#fff");
+  @include icon-button("close", $primary-dark, $primary-light);
 
   &--info {
-    @include icon-button("close-info", "#000", "#fff");
+    @include icon-button("close", $secondary-gray60, $primary-dark);
 
     position: absolute;
     right: 0;
@@ -136,7 +136,7 @@
 
     &:hover,
     &:focus {
-      background-color: $secondary-gray60;
+      background-color: $secondary-gray20;
     }
   }
 

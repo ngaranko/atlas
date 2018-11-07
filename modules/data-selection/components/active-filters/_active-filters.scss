@@ -16,7 +16,7 @@
 }
 
 .c-data-selection-active-filters--remove-filter {
-  @include icon-button("close", "#000", "#fff");
+  @include icon-button("close", $secondary-gray60, $primary-dark);
 
   position: absolute;
   top: 0;
@@ -24,7 +24,7 @@
 
   &:hover,
   &:focus {
-    background-color: $secondary-gray60;
+    background-color: $secondary-gray20;
   }
 }
 

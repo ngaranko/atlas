@@ -6,16 +6,16 @@ $embed-header-padding: 46px;
 }
 
 .c-embed-header__close {
-  @include icon-button("close", "#000", "#fff");
+  @include icon-button("close", $secondary-gray60, $primary-dark);
 
   position: absolute;
   top: -($embed-header-padding - $base-whitespace);
   right: -($embed-header-padding - $base-whitespace);
-  background-color: $secondary-gray20;
+  background-color: $primary-light;
 
   &:hover,
   &:focus {
-    background-color: $secondary-gray60;
+    background-color: $secondary-gray20;
   }
 }
 
