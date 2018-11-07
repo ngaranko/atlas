@@ -1,4 +1,5 @@
 .dcatd-button {
+  float: right;
 
   &--wijzigen {
     @include header-button("edit", 14px);

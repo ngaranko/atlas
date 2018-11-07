@@ -1,6 +1,6 @@
 $tab-height: 36px;
 $tab-border-radius: 2px;
-$tab-v-padding: 8px;
+$tab-v-padding: 7px;
 
 .o-tabs {
   position: relative;
@@ -37,10 +37,14 @@ $tab-v-padding: 8px;
     height: $tab-height;
 
     &:not(.is-active) {
-      background-color: $secondary-gray4;
+      a {
+        background-color: $secondary-gray4;
 
-      &:hover {
-        background-color: $secondary-gray10;
+        &:hover,
+        &:focus {
+          background-color: $secondary-gray10;
+          outline: none;
+        }
       }
     }
 
@@ -57,6 +61,11 @@ $tab-v-padding: 8px;
         right: 0;
         z-index: 1;
       }
+
+      &:hover,
+      &:focus {
+        outline: none;
+      }
     }
   }
 }
@@ -65,6 +74,7 @@ $tab-v-padding: 8px;
   display: block;
   padding: $tab-v-padding (2 * $base-whitespace);
 }
+
 
 .o-tabs__tab--link {
   color: $primary-dark;

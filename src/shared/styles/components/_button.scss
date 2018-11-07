@@ -141,7 +141,7 @@
   width: 100%;
 
   &::after {
-    display: inline-block;
+    // display: inline-block;
     float: right;
     margin: 7px 16px;
   }
@@ -175,19 +175,30 @@
   }
 
   &--danger {
-    @include icon-button("close-danger", "#000", "#fff");
+    @include icon-button("close-danger", $primary-light, $primary-light);
 
     position: absolute;
     right: 0;
     top: 0;
+
+    &:hover,
+    &:focus {
+      background-color: $secondary-gray60;
+    }
   }
 
   &--warning {
-    @include icon-button("close-warning", "#000", "#fff");
+    @include icon-button("close-warning", $primary-light, $primary-light);
 
     position: absolute;
     right: 0;
     top: 0;
+
+    &:hover,
+    &:focus {
+      background-color: $secondary-gray60;
+    }
+
   }
 }
 
@@ -195,4 +206,3 @@
   margin-bottom: $base-whitespace !important;
   margin-top: $base-whitespace !important;
 }
-
