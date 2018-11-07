@@ -9,7 +9,7 @@ import reducer, {
   getSearch,
   isSearchActive,
   SHOW_SEARCH_RESULTS
-} from './search';
+} from './data-search';
 
 describe('mapSearch reducer', () => {
   it('sets the initial state', () => {

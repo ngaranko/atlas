@@ -1,5 +1,5 @@
 import PAGES from '../../../src/app/pages';
-import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/search/search';
+import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/data-search/data-search';
 import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
 import { ROUTER_NAMESPACE } from '../../../src/app/routes';
 

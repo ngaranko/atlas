@@ -1,4 +1,4 @@
-import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/search/search';
+import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/data-search/data-search';
 
 describe('The dp-search-results component', function () {
     let $compile,

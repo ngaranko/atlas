@@ -12,7 +12,7 @@ import MapDetailReducer from '../../ducks/detail/map-detail';
 import MapLayersReducer from '../../ducks/layers/map-layers';
 import MapReducer from '../../ducks/map/map';
 import PanelLayersReducer from '../../ducks/panel-layers/map-panel-layers';
-import MapSearchResultsReducer from '../../../shared/ducks/search/search';
+import MapSearchResultsReducer from '../../../shared/ducks/data-search/data-search';
 
 import UiReducer from '../../../shared/ducks/ui/ui';
 import UserReducer from '../../../shared/ducks/user/user';

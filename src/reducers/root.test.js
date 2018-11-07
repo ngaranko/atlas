@@ -17,7 +17,7 @@ import * as StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import * as PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import * as CatalogReducer from '../shared/ducks/catalog/catalog';
 import * as FiltersReducer from '../shared/ducks/filters/filters';
-import * as SearchReducer from '../shared/ducks/search/search';
+import * as DataSearchReducer from '../shared/ducks/data-search/data-search';
 import * as SelectionReducer from '../shared/ducks/selection/selection';
 import * as DetailReducer from '../shared/ducks/detail/detail';
 
@@ -49,7 +49,7 @@ describe('the root reducer', () => {
   StraatbeeldReducer.default = () => 'straatbeeld';
   PanoPreviewReducer.default = () => 'pano';
   CatalogReducer.default = () => 'catalog';
-  SearchReducer.default = () => 'search';
+  DataSearchReducer.default = () => 'dataSearch';
   SelectionReducer.default = () => 'selection';
   FiltersReducer.default = () => 'filters';
 
@@ -73,7 +73,7 @@ describe('the root reducer', () => {
         straatbeeld: 'straatbeeld',
         ui: 'ui',
         user: 'user',
-        search: 'search',
+        dataSearch: 'dataSearch',
         selection: 'selection',
         mapLayers: {
           baseLayers: 'baseLayers',

@@ -16,9 +16,8 @@ import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
 import CatalogReducer from '../shared/ducks/catalog/catalog';
 import FiltersReducer, { REDUCER_KEY as FILTER } from '../shared/ducks/filters/filters';
 import DetailReducer, { REDUCER_KEY as DETAIL } from '../shared/ducks/detail/detail';
-import SearchReducer, { REDUCER_KEY as SEARCH } from '../shared/ducks/search/search';
+import DataSearchReducer, { REDUCER_KEY as DATA_SEARCH } from '../shared/ducks/data-search/data-search';
 import SelectionReducer, { REDUCER_KEY as SELECTION } from '../shared/ducks/selection/selection';
-import LegacyReducer from './deprecated/legacy-reducer';
 import DataSelectionReducer, { REDUCER_KEY as DATA_SELECTION } from '../shared/ducks/data-selection/data-selection';
 
 export default (routeReducer) => (oldState = {}, action) => {
@@ -27,8 +26,6 @@ export default (routeReducer) => (oldState = {}, action) => {
     baseLayers: MapBaseLayersReducer,
     panelLayers: MapPanelLayersReducer
   });
-
-  const legacyState = LegacyReducer(oldState, action);
 
   // Use combine reducer for new reducers
   const newRootReducer = combineReducers({
@@ -47,12 +44,12 @@ export default (routeReducer) => (oldState = {}, action) => {
     catalogFilters: DataSelectionCatalogReducer,
     location: routeReducer,
     [DETAIL]: DetailReducer,
-    [SEARCH]: SearchReducer,
+    [DATA_SEARCH]: DataSearchReducer,
     [SELECTION]: SelectionReducer,
     [DATA_SELECTION]: DataSelectionReducer
   });
 
   // Combine legacy and new reducer states
-  return newRootReducer(legacyState, action);
+  return newRootReducer(oldState, action);
 };
 

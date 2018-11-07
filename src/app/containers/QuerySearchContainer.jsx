@@ -7,7 +7,7 @@ import {
   getSearchCategory,
   getSearchQuery,
   isSearchLoading
-} from '../../shared/ducks/search/search';
+} from '../../shared/ducks/data-search/data-search';
 import { getUser } from '../../shared/ducks/user/user';
 
 const mapStateToProps = (state) => ({

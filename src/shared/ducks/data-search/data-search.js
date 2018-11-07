@@ -4,7 +4,7 @@ import isObject from '../../services/is-object';
 import BaseCoder from '../../services/base-coder/base-coder';
 import { routing } from '../../../app/routes';
 
-export const REDUCER_KEY = 'search';
+export const REDUCER_KEY = 'dataSearch';
 
 export const FETCH_MAP_SEARCH_RESULTS_REQUEST = 'FETCH_MAP_SEARCH_RESULTS_REQUEST';
 export const FETCH_MAP_SEARCH_RESULTS_SUCCESS = 'FETCH_MAP_SEARCH_RESULTS_SUCCESS';

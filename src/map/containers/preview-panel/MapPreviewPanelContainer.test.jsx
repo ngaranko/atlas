@@ -7,7 +7,7 @@ import MapPreviewPanelContainer from './MapPreviewPanelContainer';
 import {
   FETCH_MAP_SEARCH_RESULTS_REQUEST,
   getMapSearchResults
-} from '../../../shared/ducks/search/search';
+} from '../../../shared/ducks/data-search/data-search';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import {
   FETCH_MAP_DETAIL_REQUEST,
@@ -29,7 +29,7 @@ import { toMap, toPanorama } from '../../../app/routes';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 
 jest.mock('../../../shared/ducks/detail/detail');
-jest.mock('../../../shared/ducks/search/search');
+jest.mock('../../../shared/ducks/data-search/data-search');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
 jest.mock('../../ducks/detail/map-detail');
 jest.mock('../../ducks/map/map-selectors');
