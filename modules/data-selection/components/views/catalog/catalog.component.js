@@ -30,7 +30,7 @@ import removeMd from 'remove-markdown';
             vm.items = vm.content.map((item, index) => {
                 const formats = item['dcat:distribution'].map(resource => {
                     if (resource['ams:distributionType'] === 'file') {
-                        return formatMap[resource['dct:format']];
+                        return (resource['dct:format']) ? formatMap[resource['dct:format']] : formatMap['n/a'];
                     } else if (resource['ams:distributionType'] === 'api') {
                         return serviceMap[resource['ams:serviceType']];
                     } else {

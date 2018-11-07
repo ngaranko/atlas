@@ -12,6 +12,9 @@
           "dct:format": "application/vnd.ms-excel"
         },
         {
+          "ams:distributionType": "file"
+        },
+        {
           "ams:distributionType": "web"
         }
       ],
