@@ -1,4 +1,9 @@
 .c-toggle-view-button {
-  @extend %icon--border-hover;
-  @include icon-label-left("forward", "", "white", "tall");
+  @include header-button("forward", 26px, right);
+
+  padding-right: 0;
+
+  &::before {
+    margin-right: 0;
+  }
 }

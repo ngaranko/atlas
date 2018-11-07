@@ -1,3 +1,37 @@
+@mixin header-button($name, $icon-size: 12px, $icon-position: left) {
+  @extend %icon--border-hover;
+  @include icon-label-right($name, $primary-light, $secondary-gray20);
+
+  height: 32px;
+  margin-left: .5 * $base-whitespace;
+  padding: 4px 8px;
+
+  &::before {
+    @include icon($name, $secondary-gray60);
+    float: $icon-position;
+    height: $icon-size;
+    width: $icon-size;
+  }
+
+  span {
+    color: $secondary-gray60;
+  }
+
+  &:hover,
+  &:focus {
+    &::before {
+      @include icon($name, $primary-dark);
+      background-color: $secondary-gray20;
+      height: $icon-size;
+      width: $icon-size;
+    }
+
+    span {
+      color: $primary-dark;
+    }
+  }
+}
+
 .o-btn {
   /*
   @name Button w/ link styling
@@ -20,7 +54,7 @@
   color: $primary-light;
 
   &::before {
-    @include icon-button("link-arrow", "#000", $primary-light);
+    @include icon-button("link-arrow", $primary-dark, $primary-light);
     height: $icon-size;
     width: $icon-size;
   }
@@ -160,39 +194,5 @@
 .s-btn--nested {
   margin-bottom: $base-whitespace !important;
   margin-top: $base-whitespace !important;
-}
-
-@mixin header-button($name, $icon-size: 12px) {
-  @extend %icon--border-hover;
-  @include icon-label-right($name, $primary-light, $secondary-gray20);
-
-  float: right;
-  height: 32px;
-  margin-left: .5 * $base-whitespace;
-  padding: 4px 8px;
-
-  &::before {
-    @include icon($name, $secondary-gray60);
-    height: $icon-size;
-    width: $icon-size;
-  }
-
-  span {
-    color: $secondary-gray60;
-  }
-
-  &:hover,
-  &:focus {
-    &::before {
-      @include icon($name, $primary-dark);
-      background-color: $secondary-gray20;
-      height: $icon-size;
-      width: $icon-size;
-    }
-
-    span {
-      color: $primary-dark;
-    }
-  }
 }
 
