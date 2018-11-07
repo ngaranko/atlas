@@ -3,7 +3,7 @@ import {
   FETCH_MAP_SEARCH_RESULTS_FAILURE,
   FETCH_MAP_SEARCH_RESULTS_REQUEST,
   FETCH_MAP_SEARCH_RESULTS_SUCCESS
-} from '../../../shared/ducks/search/search';
+} from '../../../shared/ducks/data-search/data-search';
 import search from '../../services/map-search/map-search';
 
 export function* fetchMapSearchResults(action) {

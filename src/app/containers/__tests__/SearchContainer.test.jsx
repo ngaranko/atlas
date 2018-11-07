@@ -8,7 +8,7 @@ import { getShortSelectedLocation } from '../../../map/ducks/map/map-selectors';
 jest.mock('../../../map/ducks/map/map-selectors');
 
 const initialState = {
-  search: {
+  dataSearch: {
     isLoading: false,
     numberOfResults: 12
   },

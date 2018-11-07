@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
 import { getShortSelectedLocation } from '../../map/ducks/map/map-selectors';
-import { getNumberOfResults } from '../../shared/ducks/search/search';
+import { getNumberOfResults } from '../../shared/ducks/data-search/data-search';
 import { getUser } from '../../shared/ducks/user/user';
 
 const mapStateToProps = (state) => ({

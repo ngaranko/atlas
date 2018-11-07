@@ -9,7 +9,7 @@ import MapDetailResult from '../../components/detail-result/MapDetailResult';
 import MapSearchResults from '../../components/search-results/MapSearchResults';
 import { getMapDetail } from '../../ducks/detail/map-detail';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
-import { getMapSearchResults } from '../../../shared/ducks/search/search';
+import { getMapSearchResults } from '../../../shared/ducks/data-search/data-search';
 
 const previewPanelSearchResultLimit = 3;
 

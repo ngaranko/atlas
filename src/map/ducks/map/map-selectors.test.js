@@ -11,7 +11,7 @@ import { getStraatbeeldLocation } from '../../../shared/ducks/straatbeeld/straat
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 
 jest.mock('../../../shared/ducks/selection/selection');
-jest.mock('../../../shared/ducks/search/search');
+jest.mock('../../../shared/ducks/data-search/data-search');
 jest.mock('../../../shared/ducks/straatbeeld/straatbeeld');
 jest.mock('../detail/map-detail');
 describe('Map Selectors', () => {

@@ -7,7 +7,7 @@ import {
 } from '../../../shared/ducks/straatbeeld/straatbeeld';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
-import { getMapResultsByLocation } from '../../../shared/ducks/search/search';
+import { getMapResultsByLocation } from '../../../shared/ducks/data-search/data-search';
 import { getDetail } from '../../../shared/ducks/detail/detail';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import {

@@ -1,4 +1,4 @@
-import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/search/search';
+import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/data-search/data-search';
 
 (() => {
     'use strict';

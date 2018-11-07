@@ -1,6 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { fetchSearchResultsByLocation } from '../../ducks/preview-panel/map-preview-panel';
-import { getMapSearchResults } from '../../../shared/ducks/search/search';
+import { getMapSearchResults } from '../../../shared/ducks/data-search/data-search';
 import { getUser } from '../../../shared/ducks/user/user';
 
 export const REQUEST_GEOSEARCH = 'REQUEST_GEOSEARCH';
