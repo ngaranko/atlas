@@ -6,7 +6,7 @@ $embed-header-padding: 46px;
 }
 
 .c-embed-header__close {
-  @include icon-button("close", "transparent");
+  @include icon-button("close", "#000", "#fff");
 
   position: absolute;
   top: -($embed-header-padding - $base-whitespace);
@@ -15,7 +15,7 @@ $embed-header-padding: 46px;
 
   &:hover,
   &:focus {
-    @include icon-button("close", "red");
+    background-color: $secondary-gray60;
   }
 }
 
