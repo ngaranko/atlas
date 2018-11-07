@@ -2,28 +2,6 @@
   margin-bottom: 3 * $base-whitespace;
 }
 
-%tab-header-button {
-  @extend %icon--border-hover;
-  height: 32px;
-  margin-left: .5 * $base-whitespace;
-  padding: 5px 8px;
-  float: right;
-
-  &:hover,
-  &:focus {
-    outline: none;
-    color: $primary-light;
-    text-decoration: none;
-  }
-}
-
 .c-tab-header__reset-button {
-  @extend %tab-header-button;
-  @include icon-button-text-right("datasets", "", "");
-
-  &::before {
-    width: 2 * $base-whitespace + 4px;
-    height: 2 * $base-whitespace + 4px;
-    margin-right: 0;
-  }
+  @include header-button("datasets", 24px);
 }

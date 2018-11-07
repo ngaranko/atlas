@@ -161,3 +161,38 @@
   margin-bottom: $base-whitespace !important;
   margin-top: $base-whitespace !important;
 }
+
+@mixin header-button($name, $icon-size: 12px) {
+  @extend %icon--border-hover;
+  @include icon-label-right($name, $primary-light, $secondary-gray20);
+
+  float: right;
+  height: 32px;
+  margin-left: .5 * $base-whitespace;
+  padding: 4px 8px;
+
+  &::before {
+    @include icon($name, $secondary-gray60);
+    height: $icon-size;
+    width: $icon-size;
+  }
+
+  span {
+    color: $secondary-gray60;
+  }
+
+  &:hover,
+  &:focus {
+    &::before {
+      @include icon($name, $primary-dark);
+      background-color: $secondary-gray20;
+      height: $icon-size;
+      width: $icon-size;
+    }
+
+    span {
+      color: $primary-dark;
+    }
+  }
+}
+

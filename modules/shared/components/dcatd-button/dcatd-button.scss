@@ -1,17 +1,20 @@
 .dcatd-button {
-  @extend %tab-header-button;
 
   &--wijzigen {
-    @include icon-button-text-right("edit", "", "white");
+    @include header-button("edit", 14px);
+
+    &::before {
+      margin-top: 6px;
+      margin-right: 5px;
+    }
   }
 
   &--toevoegen {
-    @include icon-button-text-right("add", "", "white");
-  }
+    @include header-button("add", 14px);
 
-  &::before {
-    width: $base-whitespace + 2px;
-    height: $base-whitespace + 2px;
-    margin-right: 0;
+    &::before {
+      margin-top: 6px;
+      margin-right: 5px;
+    }
   }
 }
