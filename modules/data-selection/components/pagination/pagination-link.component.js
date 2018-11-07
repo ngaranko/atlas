@@ -1,3 +1,4 @@
+// Todo: move to react
 /* istanbul ignore next */
 (function () {
     'use strict';
