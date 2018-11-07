@@ -2,15 +2,15 @@ import { all, fork } from 'redux-saga/effects';
 
 import watchFetchPanoPreview from './pano/sagas/preview/pano-preview';
 import watchFetchSuggestions from './header/sagas/auto-suggest/auto-suggest';
-import watchFetchMapSearchResults from './map/sagas/search-results/map-search-results';
+import watchDataSearch from './shared/sagas/data-search/data-search';
 import watchFetchMapBaseLayers from './map/sagas/map-base-layers';
 import watchFetchMapLayers from './map/sagas/map-layers';
 import watchFetchMapPanelLayers from './map/sagas/map-panel-layers';
 import watchFetchMapDetail from './map/sagas/detail';
 import watchMapClick from './map/sagas/map-click';
 import watchFetchNearestDetails from './map/sagas/nearest-details';
-import watchGeoSearchRequest from './map/sagas/geosearch';
-import { watchQuerySearch } from './map/sagas/query-search/query-search';
+// import watchGeoSearchRequest from './map/sagas/geosearch';
+// import { watchQuerySearch } from './map/sagas/query-search/query-search';
 import {
   watchCloseStraatbeeld,
   watchFetchStraatbeeld,
@@ -25,7 +25,7 @@ export default function* rootSaga() {
   yield all([
     fork(watchFetchPanoPreview),
     fork(watchFetchSuggestions),
-    fork(watchFetchMapSearchResults),
+    fork(watchDataSearch),
     fork(watchFetchMapBaseLayers),
     fork(watchFetchMapLayers),
     fork(watchFetchMapPanelLayers),
@@ -34,11 +34,11 @@ export default function* rootSaga() {
     fork(watchCloseStraatbeeld),
     fork(watchMapClick),
     fork(watchFetchNearestDetails),
-    fork(watchGeoSearchRequest),
+    // fork(watchGeoSearchRequest),
     fork(watchQueryActions),
 
     // route change watchers
-    fork(watchQuerySearch),
+    // fork(watchQuerySearch),
     fork(watchDetailRoute),
     fork(watchPanoramaRoute),
     fork(watchFetchDataSelection),

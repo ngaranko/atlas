@@ -12,7 +12,6 @@ import MapPreviewPanel from './MapPreviewPanel';
 import {
   getLocationId,
   getSelectedLocation,
-  getShortSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
 import {
@@ -22,14 +21,19 @@ import {
   toPanorama
 } from '../../../app/routes';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
+import {
+  getDataSearch, getDataSearchLocation,
+  getMapResultsByLocation, isSearchLoading
+} from '../../../shared/ducks/data-search/data-search';
 
 const mapStateToProps = (state) => ({
   mapClickLocation: getSelectedLocation(state),
   pano: state.pano,
-  results: selectLatestMapSearchResults(state),
-  search: state.search,
-  searchLocation: getShortSelectedLocation(state),
+  searchResults: selectLatestMapSearchResults(state),
+  dataSearch: getDataSearch(state),
+  searchLocation: getDataSearchLocation(state),
   searchLocationId: getLocationId(state),
+  isSearchLoaded: !isSearchLoading(state) && getMapResultsByLocation(state),
   missingLayers: selectNotClickableVisibleMapLayers(state)
     .map((mapLayer) => mapLayer.title)
     .join(', '),
@@ -47,7 +51,7 @@ const mapDispatchToProps = (dispatch) => ({
     closePanel: toMap,
     onSearchMaximize: toDataLocationSearch
   }, dispatch),
-  openPanoById: (pano) => {
+  openPano: (pano) => {
     const action = toPanorama(pano.id);
     return dispatch(action);
   },

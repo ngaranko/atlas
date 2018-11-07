@@ -11,7 +11,7 @@ import MapLayersReducer from '../map/ducks/layers/map-layers';
 import MapBaseLayersReducer from '../map/ducks/base-layers/map-base-layers';
 import MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
 import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
-import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
+import PanoPreviewReducer, { REDUCER_KEY as PANO_PREVIEW } from '../pano/ducks/preview/pano-preview';
 import FiltersReducer, { REDUCER_KEY as FILTER } from '../shared/ducks/filters/filters';
 import DetailReducer, { REDUCER_KEY as DETAIL } from '../shared/ducks/detail/detail';
 import DataSearchReducer, { REDUCER_KEY as DATA_SEARCH } from '../shared/ducks/data-search/data-search';
@@ -33,7 +33,7 @@ export default (routeReducer) => (oldState = {}, action) => {
     [FILTER]: FiltersReducer,
     map: MapReducer,
     mapDetail: MapDetailReducer,
-    pano: PanoPreviewReducer,
+    [PANO_PREVIEW]: PanoPreviewReducer,
     straatbeeld: StraatbeeldReducer,
     [UI]: UiReducer,
     user: UserReducer,

@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
-import { getShortSelectedLocation } from '../../map/ducks/map/map-selectors';
-import { getNumberOfResults } from '../../shared/ducks/data-search/data-search';
+import {
+  getDataSearchLocation,
+  getNumberOfResults
+} from '../../shared/ducks/data-search/data-search';
 import { getUser } from '../../shared/ducks/user/user';
 
 const mapStateToProps = (state) => ({
   isLoading: false,
   query: null,
-  location: getShortSelectedLocation(state) || {},
+  location: getDataSearchLocation(state),
   category: null,
   numberOfResults: getNumberOfResults(state),
   user: getUser(state)
@@ -45,18 +47,19 @@ const SearchContainer = ({
 
 SearchContainer.defaultProps = {
   query: '',
-  category: null
+  category: null,
+  numberOfResults: undefined
 };
 
 SearchContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   query: PropTypes.string,
   location: PropTypes.shape({
-    latitude: PropTypes.number,
-    longitude: PropTypes.number
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired
   }).isRequired,
   category: PropTypes.string,
-  numberOfResults: PropTypes.number.isRequired,
+  numberOfResults: PropTypes.number,
   user: PropTypes.object.isRequired // eslint-disable-line
 };
 

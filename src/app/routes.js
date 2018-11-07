@@ -1,3 +1,5 @@
+import get from 'lodash.get';
+import queryString from "querystring";
 import PAGES from './pages';
 import PANORAMA_VIEW from '../shared/ducks/straatbeeld/panorama-view';
 import { DETAIL_VIEW } from '../shared/ducks/detail/detail';
@@ -52,16 +54,11 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATASETS}`,
     page: PAGES.SEARCH_DATASETS
   },
-  panorama: {
-    title: 'Panorama',
-    path: '/datasets/panorama/:id',
-    type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
-    page: PAGES.PANORAMA
-  },
   dataSearch: {
+    title: 'Data zoeken',
     path: '/data/',
-    type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATA}`,
-    page: PAGES.SEARCH_DATA
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH}`,
+    page: PAGES.DATA_SEARCH
   },
   detail: {
     title: '',
@@ -69,11 +66,11 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART_DETAIL}`,
     page: PAGES.KAART_DETAIL
   },
-  mapSearch: {
-    title: 'Map search',
-    path: '/data',
-    type: `${ROUTER_NAMESPACE}/${PAGES.KAART_SEARCH}`,
-    page: PAGES.KAART_SEARCH
+  panorama: {
+    title: 'Panorama',
+    path: '/datasets/panorama/:id',
+    type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
+    page: PAGES.PANORAMA
   },
   mapEmbed: {
     title: 'Embed',
@@ -159,7 +156,20 @@ const routes = Object.keys(routing).reduce((acc, key) => {
 
 
 // Action creators
-export const toDetail = (id, type, subtype, view) => {
+const preserveQuery = (action) => {
+  const search = location.search && location.search.substr(1);
+  return {
+    ...action,
+    meta: {
+      query: {
+        ...queryString.decode(search), // Todo: temporary solution to pass existing query
+        ...get(action, 'meta.query')
+      }
+    }
+  }
+}
+
+export const toDataDetail = (id, type, subtype, view) => {
   const action = {
     type: routing.dataDetail.type,
     payload: {
@@ -178,13 +188,24 @@ export const toDetail = (id, type, subtype, view) => {
   return action;
 };
 
-export const toDataLocationSearch = () => ({
-  type: routing.mapSearch.type
+export const toDataLocationSearch = () => preserveQuery({ // TODO rename
+  type: routing.dataSearch.type
 });
 
-export const toMap = () => ({
-  type: routing.map.type
-});
+export const toMap = () => preserveQuery({ type: routing.map.type });
+// export const toMap = (location) => {
+//   if (location) {
+//     return {
+//       type: routing.map.type,
+//       meta: {
+//         query: {
+//           locatie: `${location.latitude},${location.longitude}`
+//         }
+//       }
+//     };
+//   }
+//   return { type: routing.map.type };
+// };
 
 export const toPanorama = (id, heading, view) => {
   const action = {
@@ -225,7 +246,7 @@ const getDetailPageData = (endpoint) => {
 
 export const getPageActionEndpoint = (endpoint, view) => {
   const { type, subtype, id } = getDetailPageData(endpoint);
-  return toDetail(id, type, subtype, view);
+  return toDataDetail(id, type, subtype, view);
 };
 
 
@@ -234,23 +255,6 @@ export const pageTypeToEndpoint = (type, subtype, id) => {
   endpoint += `${type}/${subtype}/${id}/`; // TODO: refactor, get back-end to return detail as detail GET not listing!
   return endpoint;
 };
-
-export const toAddressResults = (payload, meta = {}) => ({
-  type: routing.addresses.type,
-  meta: {
-    query: {
-      kaart: ''
-    },
-    ...meta
-  },
-  payload
-});
-
-export const toAddress = (payload, meta = {}) => ({
-  type: routing.adressen.type,
-  meta,
-  payload
-});
 
 export const toDataSearch = (searchQuery) => ({
   type: routing.dataSearch.type,

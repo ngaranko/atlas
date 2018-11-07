@@ -3,6 +3,7 @@ import get from 'lodash.get';
 import isObject from '../../services/is-object';
 import BaseCoder from '../../services/base-coder/base-coder';
 import { routing } from '../../../app/routes';
+import parseLocationString from '../../../map/ducks/map/location-parse';
 
 export const REDUCER_KEY = 'dataSearch';
 
@@ -14,15 +15,8 @@ export const FETCH_SEARCH_RESULTS_BY_QUERY = 'FETCH_SEARCH_RESULTS_BY_QUERY';
 export const SHOW_SEARCH_RESULTS = 'SHOW_SEARCH_RESULTS';
 export const FETCH_SEARCH_RESULTS_BY_LOCATION = 'FETCH_SEARCH_RESULTS_BY_LOCATION';
 
-export const getSearch = (state) => state.search;
-export const getMapResultsByLocation = (state) => get(state, 'search.mapSearchResultsByLocation', []);
-
-export const isSearchActive = createSelector(getSearch, (geoSearch) => (
-  geoSearch && geoSearch.location && geoSearch.location.length
-));
-
 const initialState = {
-  mapSearchResultsByLocation: [],
+  mapSearchResultsByLocation: [], // TODO: refactor, rename
   isLoading: false
 };
 
@@ -32,13 +26,34 @@ export const SEARCH_VIEW = {
 };
 
 export default function MapSearchResultsReducer(state = initialState, action) {
+  const locationString = get(action, 'meta.query.locatie');
+  let location;
+  if (locationString) {
+    const latLngObj = parseLocationString(locationString);
+    location = {
+      latitude: latLngObj.lat,
+      longitude: latLngObj.lng
+    };
+  }
+
   switch (action.type) {
     case routing.dataSearch.type: {
       return {
         ...state,
-        query: get(action, 'meta.query.zoekterm')
+        query: get(action, 'meta.query.zoekterm'),
+        geoSearch: location
       };
     }
+    case routing.map.type: {
+      if (location) {
+        return {
+          ...state,
+          geoSearch: location
+        };
+      }
+      return state;
+    }
+
     case routing.addresses.type: {
       const { query = {} } = action.meta;
       if (Object.prototype.hasOwnProperty.call(query, 'kaart')) {
@@ -63,9 +78,8 @@ export default function MapSearchResultsReducer(state = initialState, action) {
     case FETCH_SEARCH_RESULTS_BY_LOCATION:
       return {
         isLoading: true,
-        isFullscreen: false,
         query: null,
-        location: BaseCoder.toPrecision(action.payload, 7),
+        location: action.payload,
         category: null,
         numberOfResults: null
       };
@@ -73,8 +87,7 @@ export default function MapSearchResultsReducer(state = initialState, action) {
     case FETCH_SEARCH_RESULTS_BY_QUERY:
       return {
         isLoading: true,
-        isFullscreen: true,
-        query: action.payload || null,
+        query: action.payload,
         location: null,
         category: null,
         numberOfResults: null
@@ -86,17 +99,19 @@ export default function MapSearchResultsReducer(state = initialState, action) {
         isLoading: false,
         numberOfResults: action.payload
       };
+
     case FETCH_MAP_SEARCH_RESULTS_REQUEST:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        geoSearch: action.payload
       };
 
     case FETCH_MAP_SEARCH_RESULTS_SUCCESS: {
       return {
         ...state,
         isLoading: false,
-        mapSearchResultsByLocation: action.mapSearchResults
+        mapSearchResultsByLocation: action.payload
       };
     }
 
@@ -108,14 +123,42 @@ export default function MapSearchResultsReducer(state = initialState, action) {
   }
 }
 
+// Selectors
+/**
+ * @deprecated Don't use getDataSearch outside reducer,
+ * use specific selector. e.g.: getNumberOfResults()
+ */
+export const getDataSearch = (state) => state[REDUCER_KEY];
+export const isSearchActive = createSelector(getDataSearch, (geoSearch) => (
+  geoSearch && geoSearch.location && geoSearch.location.length
+));
+export const getDataSearchLocation = (state) => state[REDUCER_KEY].geoSearch;
+export const getMapResultsByLocation = (state) => get(state, [REDUCER_KEY, 'mapSearchResultsByLocation'], []); // TODO: rename, no location required
 export const isSearchLoading = (state) => state[REDUCER_KEY].isLoading;
-export const getSearchView = (state) => state[REDUCER_KEY].view;
 export const getSearchQuery = (state) => state[REDUCER_KEY].query;
 export const getSearchCategory = (state) => state[REDUCER_KEY].category;
 export const getNumberOfResults = (state) => state[REDUCER_KEY].numberOfResults;
 
-export const getMapSearchResults = (location, user) => ({
+// Action creators
+export const fetchMapSearchResultsRequest = (location) => ({
   type: FETCH_MAP_SEARCH_RESULTS_REQUEST,
-  location,
-  user
+  payload: location
+});
+export const fetchMapSearchResultsSuccess = (results) => ({
+  type: FETCH_MAP_SEARCH_RESULTS_SUCCESS,
+  payload: results
+});
+export const fetchMapSearchResultsFailure = (error) => ({
+  type: FETCH_MAP_SEARCH_RESULTS_FAILURE,
+  payload: error
+});
+// export const getMapSearchResults = (location, user) => ({
+//   type: FETCH_MAP_SEARCH_RESULTS_REQUEST,
+//   location,
+//   user
+// }); // TODO: user or remove
+
+export const fetchSearchResultsByQuery = (query) => ({
+  type: FETCH_SEARCH_RESULTS_BY_QUERY,
+  payload: query
 });

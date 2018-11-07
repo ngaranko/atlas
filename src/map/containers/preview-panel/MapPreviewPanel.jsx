@@ -9,7 +9,6 @@ import MapDetailResult from '../../components/detail-result/MapDetailResult';
 import MapSearchResults from '../../components/search-results/MapSearchResults';
 import { getMapDetail } from '../../ducks/detail/map-detail';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
-import { getMapSearchResults } from '../../../shared/ducks/data-search/data-search';
 
 const previewPanelSearchResultLimit = 3;
 
@@ -32,9 +31,6 @@ const update = (dispatch, props, prevProps = {}) => {
     dispatch(getMapDetail(props.detailEndpoint, props.user));
   } else if (isUpdated(props, prevProps, 'detailResult.location')) {
     dispatch(getPanoPreview(props.detailResult.location));
-  } else if (isUpdated(props, prevProps, ['searchLocation.latitude', 'searchLocation.longitude'])) {
-    dispatch(getMapSearchResults(props.searchLocation, props.user));
-    dispatch(getPanoPreview(props.searchLocation));
   }
 };
 
@@ -55,12 +51,12 @@ class MapPreviewPanel extends React.Component {
   }
 
   onPanoPreviewClick() {
-    const { openPanoById, searchLocationId, pano } = this.props;
+    const { openPano, searchLocationId, pano } = this.props;
     const selectedPano = pano.previews[searchLocationId];
     if (!selectedPano) {
       return;
     }
-    openPanoById(selectedPano);
+    openPano(selectedPano);
   }
 
   render() {
@@ -71,8 +67,7 @@ class MapPreviewPanel extends React.Component {
       .toString();
     const panoSearchPreview = get(props, `pano.previews['${props.searchLocationId}']`, {});
     const panoDetailPreview = get(props, `pano.previews['${detailLocationId}']`, {});
-    const isLoading = get(props, 'search.isLoading') || get(props, 'mapDetail.isLoading');
-    const isSearchLoaded = !isLoading && props.search && props.searchLocation;
+    const isLoading = get(props, 'dataSearch.isLoading') || get(props, 'mapDetail.isLoading');
     const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult;
     const hidden = false; // TODO: refactor, toggle visibility or remove logic all together
 
@@ -118,7 +113,7 @@ class MapPreviewPanel extends React.Component {
                 result={props.detailResult}
               />
             )}
-            {props.isSearchPreview && isSearchLoaded && (
+            {props.isSearchPreview && props.isSearchLoaded && props.searchLocation && (
               <MapSearchResults
                 location={props.searchLocation}
                 missingLayers={props.missingLayers}
@@ -127,7 +122,7 @@ class MapPreviewPanel extends React.Component {
                 onPanoPreviewClick={this.onPanoPreviewClick}
                 panoUrl={panoSearchPreview.url}
                 resultLimit={previewPanelSearchResultLimit}
-                results={props.results}
+                results={props.searchResults}
               />
             )}
           </div>
@@ -149,7 +144,7 @@ MapPreviewPanel.defaultProps = {
   mapDetail: {},
   missingLayers: '',
   pano: {},
-  results: [],
+  searchResults: [],
   search: {},
   searchLocation: null,
   searchLocationId: '',
@@ -168,9 +163,9 @@ MapPreviewPanel.propTypes = {
   openDetail: PropTypes.func.isRequired,
   // onMapPreviewPanelMaximizeSearch: PropTypes.func.isRequired,
   // onMapSearchResultsItemClick: PropTypes.func.isRequired,
-  openPanoById: PropTypes.func.isRequired,
+  openPano: PropTypes.func.isRequired,
   pano: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  results: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  searchResults: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   search: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   searchLocation: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   searchLocationId: PropTypes.string,

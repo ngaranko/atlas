@@ -2,6 +2,8 @@ export const FETCH_PANO_PREVIEW_REQUEST = 'FETCH_PANO_PREVIEW_REQUEST';
 export const FETCH_PANO_PREVIEW_SUCCESS = 'FETCH_PANO_PREVIEW_SUCCESS';
 export const FETCH_PANO_PREVIEW_FAILURE = 'FETCH_PANO_PREVIEW_FAILURE';
 
+export const REDUCER_KEY = 'pano';
+
 const initialState = {
   error: null,
   location: {},

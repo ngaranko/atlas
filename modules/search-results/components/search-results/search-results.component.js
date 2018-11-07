@@ -1,3 +1,5 @@
+// import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/data-search/data-search';
+
 import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/data-search/data-search';
 
 (() => {
@@ -138,7 +140,7 @@ import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/data-search/da
             store.dispatch({
                 type: SHOW_SEARCH_RESULTS,
                 payload: numberOfResults
-            });
+            }); // TODO: refactor, really consider moving all business logic out of this view and into redux!
 
             // @TODO remove the exception when backend uses correct sub type name tg-3551
             searchResults = replaceBuurtcombinatie(searchResults);

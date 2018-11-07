@@ -16,6 +16,9 @@ const MapSearchResults = ({
   onMaximize,
   onPanoPreviewClick
 }) => {
+  if (!location) {
+    return null; // TODO: refactor, remove quick return hack
+  }
   const rdCoordinates = wgs84ToRd(location);
 
   const limitResults = (categories) => categories.map((category) => ({
@@ -97,7 +100,7 @@ MapSearchResults.defaultProps = {
 };
 
 MapSearchResults.propTypes = {
-  location: PropTypes.object, // eslint-disable-line
+  location: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   missingLayers: PropTypes.string, // eslint-disable-line
   onItemClick: PropTypes.func.isRequired,
   onMaximize: PropTypes.func.isRequired,

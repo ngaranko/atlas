@@ -10,7 +10,6 @@ import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
 import './_app.scss';
 import DatasetDetailContainer from './containers/DatasetsDetailContainer';
-import QuerySearchContainer from './containers/QuerySearchContainer';
 import {
   isEmbedded,
   isEmbedPreview,
@@ -23,7 +22,7 @@ import PanoramaPage from './pages/PanoramaPage';
 import DetailPage from './pages/DetailPage';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
-import MapSearchPage from './pages/MapSearchPage';
+import SearchPage from './pages/SearchPage';
 import { getCurrentPage } from '../store/redux-first-router';
 import Dataset from './components/Dataset/Dataset';
 
@@ -104,11 +103,9 @@ const App = ({
               />
             )}
 
-            {currentPage === PAGES.SEARCH_DATA && <QuerySearchContainer />}
+            {currentPage === PAGES.DATA_SEARCH && <SearchPage />}
 
             {currentPage === PAGES.KAART && <MapPage />}
-
-            {currentPage === PAGES.KAART_SEARCH && <MapSearchPage />}
 
             {currentPage === PAGES.DATA_DETAIL && <DetailPage />}
 
