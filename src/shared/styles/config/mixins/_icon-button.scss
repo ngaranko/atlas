@@ -1,12 +1,11 @@
-@mixin icon-button($icon, $state: "", $hover-state: "red") {
-  @include sprite(#{$icon + if(str-length($state) > 0, "-", "") + $state});
+@mixin icon-button($name, $state: "", $hover-state: "") {
+  @include icon-sprite($name, $state, $hover-state);
 
   height: $button-size;
   width: $button-size;
 
   &:hover,
   &:focus {
-    @include sprite(#{$icon + if(str-length($hover-state) > 0, "-", "") + $hover-state});
     outline: none;
   }
 }

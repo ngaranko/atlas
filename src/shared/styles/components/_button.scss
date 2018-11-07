@@ -126,24 +126,23 @@
 
 .o-btn--close {
   @extend %btn-close;
-  @include icon-button("close");
-
-  &:hover,
-  &:focus {
-    @include icon-button("close", "red");
-    outline: none;
-  }
+  @include icon-button("close", "#000", "#fff");
 
   &--info {
-    @include icon-button("close", "info");
+    @include icon-button("close-info", "#000", "#fff");
 
     position: absolute;
     right: 0;
     top: 0;
+
+    &:hover,
+    &:focus {
+      background-color: $secondary-gray60;
+    }
   }
 
   &--danger {
-    @include icon-button("close", "danger");
+    @include icon-button("close-danger", "#000", "#fff");
 
     position: absolute;
     right: 0;
@@ -151,7 +150,7 @@
   }
 
   &--warning {
-    @include icon-button("close", "warning");
+    @include icon-button("close-warning", "#000", "#fff");
 
     position: absolute;
     right: 0;
