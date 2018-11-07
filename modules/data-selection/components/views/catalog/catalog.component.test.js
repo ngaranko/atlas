@@ -73,10 +73,14 @@ describe('The catalog component', function () {
 
     it('sets the redirect url', () => {
         spyOn(store, 'getState').and.returnValue({
-            catalogFilters: {
-                formatTypes: [{}],
-                serviceTypes: [{}],
-                distributionTypes: [{}]
+            datasets: {
+                datasetApiSpecification: {
+                    data: {
+                        formatTypes: [{}],
+                        serviceTypes: [{}],
+                        distributionTypes: [{}]
+                    }
+                }
             }
         });
 
@@ -88,10 +92,14 @@ describe('The catalog component', function () {
 
     it('can load a detail page for a catalog', function () {
         spyOn(store, 'getState').and.returnValue({
-            catalogFilters: {
-                formatTypes: [],
-                serviceTypes: [],
-                distributionTypes: []
+            datasets: {
+                datasetApiSpecification: {
+                    data: {
+                        formatTypes: [{}],
+                        serviceTypes: [{}],
+                        distributionTypes: [{}]
+                    }
+                }
             }
         });
         detail.fetchDetail = () => 'fetchDetail';
@@ -103,7 +111,7 @@ describe('The catalog component', function () {
         const id = mockedContentJson['dcat:dataset'][0]['dct:identifier'];
         expect(link).toHaveAttr('to', 'row.linkTo');
         expect(scope.vm.items[0].linkTo).toEqual({
-            type: routing.catalogusDetail.type,
+            type: routing.datasetsDetail.type,
             payload: { id }
         });
     });

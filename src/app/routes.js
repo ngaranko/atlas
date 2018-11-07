@@ -17,17 +17,17 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.KAART}`,
     page: PAGES.KAART
   },
-  catalogus: {
+  datasets: {
     title: 'Datasets',
     path: '/datasets',
-    type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS}`,
-    page: PAGES.CATALOGUS
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATASETS}`,
+    page: PAGES.DATASETS
   },
-  catalogusDetail: {
+  datasetsDetail: {
     title: '',
     path: '/datasets/detail/:id',
-    type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS_DETAIL}`,
-    page: PAGES.CATALOGUS_DETAIL
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATASETS_DETAIL}`,
+    page: PAGES.DATASETS_DETAIL
   },
   addresses: {
     title: '',
@@ -47,33 +47,27 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.CADASTRAL_OBJECTS}`,
     page: PAGES.CADASTRAL_OBJECTS
   },
-  searchCatalog: {
+  searchDatasets: {
     path: '/datasets/zoek',
-    type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_CATALOG}`,
-    page: PAGES.SEARCH_CATALOG
-  },
-  dataSearch: {
-    path: '/data/',
-    type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATA}`,
-    page: PAGES.SEARCH_DATA
-  },
-  dataset: {
-    title: '',
-    path: '/dataset',
-    type: `${ROUTER_NAMESPACE}/${PAGES.DATASETS}`,
-    page: PAGES.DATASETS
-  },
-  detail: {
-    title: '',
-    path: '/map/detail',
-    type: `${ROUTER_NAMESPACE}/${PAGES.KAART_DETAIL}`,
-    page: PAGES.KAART_DETAIL
+    type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATASETS}`,
+    page: PAGES.SEARCH_DATASETS
   },
   panorama: {
     title: 'Panorama',
     path: '/datasets/panorama/:id',
     type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
     page: PAGES.PANORAMA
+  },
+  dataSearch: {
+    path: '/data/',
+    type: `${ROUTER_NAMESPACE}/${PAGES.SEARCH_DATA}`,
+    page: PAGES.SEARCH_DATA
+  },
+  detail: {
+    title: '',
+    path: '/map/detail',
+    type: `${ROUTER_NAMESPACE}/${PAGES.KAART_DETAIL}`,
+    page: PAGES.KAART_DETAIL
   },
   mapSearch: {
     title: 'Map search',
@@ -268,7 +262,7 @@ export const toDataSearch = (searchQuery) => ({
 });
 
 export const toDatasetSearch = (searchQuery) => ({
-  type: routing.searchCatalog.type,
+  type: routing.searchDatasets.type,
   meta: {
     query: {
       zoekterm: searchQuery

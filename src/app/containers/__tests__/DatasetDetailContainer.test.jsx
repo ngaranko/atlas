@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
-import CatalogDetailContainer from '../CatalogDetailContainer';
+import CatalogDetailContainer from '../DatasetsDetailContainer';
 
 const initialState = {
   detail: {
@@ -10,8 +10,17 @@ const initialState = {
   catalog: {
     detail: 'foo'
   },
-  catalogFilters: {},
-  user: {}
+  datasets: {
+    datasetApiSpecification: {
+      data: {}
+    }
+  },
+  user: {},
+  location: {
+    payload: {
+      id: 1
+    }
+  }
 };
 
 describe('CatalogDetailContainer', () => {

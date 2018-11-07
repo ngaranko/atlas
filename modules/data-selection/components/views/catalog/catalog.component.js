@@ -1,5 +1,6 @@
 import removeMd from 'remove-markdown';
 import { routing } from '../../../../../src/app/routes';
+import { getDatasetApiSpecification } from '../../../../../src/shared/ducks/datasets/datasets';
 
 (function () {
     'use strict';
@@ -21,7 +22,7 @@ import { routing } from '../../../../../src/app/routes';
         const vm = this;
 
         const state = store.getState();
-        vm.catalogFilters = state.catalogFilters;
+        vm.catalogFilters = getDatasetApiSpecification(state);
 
         vm.$onChanges = function () {
             const formatMap = arrayToObject(vm.catalogFilters.formatTypes, 'id');
@@ -41,7 +42,7 @@ import { routing } from '../../../../../src/app/routes';
 
                 const id = item['dct:identifier'];
                 const linkTo = {
-                    type: routing.catalogusDetail.type,
+                    type: routing.datasetsDetail.type,
                     payload: { id }
                 };
 

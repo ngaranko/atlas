@@ -1,7 +1,7 @@
-import fetchFilters from './catalog-filters';
-import mockApiData from './catalog-filters.mock';
+import fetchApiSpecification from './datasets-filters';
+import mockApiData from './datasets-filters.mock';
 
-describe('fetchFilters', () => {
+describe('fetchApiSpecification', () => {
   const state = {
     user: {
       accessToken: null
@@ -13,7 +13,7 @@ describe('fetchFilters', () => {
 
   it('should return the correct data', async () => {
     fetch.mockResponseOnce(JSON.stringify(mockApiData));
-    const result = await fetchFilters();
+    const result = await fetchApiSpecification();
     expect(result).toMatchSnapshot();
   });
 });

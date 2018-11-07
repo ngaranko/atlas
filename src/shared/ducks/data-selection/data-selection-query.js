@@ -1,5 +1,5 @@
 import {
-  CLEAR_GEOMETRY_FILTERS,
+  CLEAR_GEOMETRY_FILTERS, FETCH_DATA_SELECTION_SUCCESS,
   getDataSelectionPage,
   getGeometryFilters,
   getGeometryFiltersMarkers,
@@ -43,5 +43,6 @@ export const ACTIONS = [
   SET_GEOMETRY_FILTERS,
   RESET_DATA_SELECTION,
   CLEAR_GEOMETRY_FILTERS,
+  FETCH_DATA_SELECTION_SUCCESS,
   SET_VIEW
 ];

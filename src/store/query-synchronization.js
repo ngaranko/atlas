@@ -6,6 +6,7 @@ import filtersQuery, { ACTIONS as FILTERS_ACTIONS } from '../shared/ducks/filter
 import selectionQuery, { ACTIONS as SELECTION_ACTIONS } from '../shared/ducks/selection/selection-query';
 import straatbeeldQuery, { ACTIONS as STRAATBEELD_ACTIONS } from '../shared/ducks/straatbeeld/straatbeeld-query';
 import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/data-selection-query';
+import datasetQuery, { ACTIONS as DATASET_ACTIONS } from '../shared/ducks/datasets/datasets-query';
 import { getLocationQuery } from './redux-first-router';
 
 const separateHistory = createHistory();
@@ -15,7 +16,8 @@ const watchedActions = [
   ...SELECTION_ACTIONS,
   ...STRAATBEELD_ACTIONS,
   ...FILTERS_ACTIONS,
-  ...DATA_SELECTION_ACTIONS
+  ...DATA_SELECTION_ACTIONS,
+  ...DATASET_ACTIONS
 ];
 
 const queryMappings = {
@@ -23,7 +25,8 @@ const queryMappings = {
   ...filtersQuery,
   ...selectionQuery,
   ...straatbeeldQuery,
-  ...dataSelectionQuery
+  ...dataSelectionQuery,
+  ...datasetQuery
 };
 
 function* updateQuery() {
@@ -61,7 +64,7 @@ function* updateQuery() {
   // We need to work with a different history object to prevent redux-first-router from reacting to
   // query changes. If we were to use the same history object, a route change would fire for every
   // query change.
-  // TODO: refactor, fix hack or start resolution trajectory for redux-first-routerß
+  // TODO: refactor, fix hack or start resolution trajectory for redux-first-router
   if (addHistory) {
     separateHistory.push(`${currentPath}?${searchQuery}`);
   } else {

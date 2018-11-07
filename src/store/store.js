@@ -7,7 +7,6 @@ import rootSaga from '../root-saga';
 import '../shared/ducks/error-message';
 import * as auth from '../shared/services/auth/auth';
 import { authenticateUser } from '../shared/ducks/user/user';
-import { fetchCatalogFilters } from '../catalog/ducks/data-selection/data-selection-catalog';
 import rootReducer from '../reducers/root';
 import documentHeadMiddleware from './middleware/documentHead';
 
@@ -65,8 +64,6 @@ const configureStore = (history, routesMap) => {
     window.reduxStore.dispatch(authenticateUser(auth.getAccessToken(), auth.getName(),
       auth.getScopes()));
   }
-
-  window.reduxStore.dispatch(fetchCatalogFilters());
 
   return window.reduxStore;
 };

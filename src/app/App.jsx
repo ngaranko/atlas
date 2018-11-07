@@ -9,7 +9,7 @@ import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
 import './_app.scss';
-import CatalogDetailContainer from './containers/CatalogDetailContainer';
+import CatalogDetailContainer from './containers/DatasetsDetailContainer';
 import QuerySearchContainer from './containers/QuerySearchContainer';
 import {
   isEmbedded,
@@ -25,6 +25,7 @@ import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
 import MapSearchPage from './pages/MapSearchPage';
 import { getCurrentPage } from '../store/redux-first-router';
+import Dataset from './components/Dataset/Dataset';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -113,7 +114,9 @@ const App = ({
 
             {currentPage === PAGES.PANORAMA && <PanoramaPage />}
 
-            {currentPage === PAGES.CATALOGUS_DETAIL && (
+            {currentPage === PAGES.DATASETS && <Dataset />}
+
+            {currentPage === PAGES.DATASETS_DETAIL && (
               <CatalogDetailContainer />
             )}
 
