@@ -22,7 +22,6 @@ describe('MapLegend', () => {
     activeMapLayers: [
       {
         title: 'title',
-        id: 1,
         maxZoom: 3,
         minZoom: 1,
         authScope: 'authscope1',
@@ -40,7 +39,7 @@ describe('MapLegend', () => {
       },
       {
         title: 'title',
-        id: 2,
+        id: 1,
         maxZoom: 3,
         minZoom: 1,
         authScope: false,
@@ -115,8 +114,14 @@ describe('MapLegend', () => {
         onLayerVisibilityToggle={onLayerVisibilityToggleMock}
       />
     );
-    component.instance().toggleLayerVisibility(props.activeMapLayers[1]);
+
+    // With legendaItems
+    component.instance().toggleLayerVisibility(props.activeMapLayers[0]);
     expect(onLayerVisibilityToggleMock).toHaveBeenCalled();
+
+    // Without legendaItems
+    component.instance().toggleLayerVisibility(props.activeMapLayers[1]);
+    expect(onLayerVisibilityToggleMock).toHaveBeenCalledTimes(2);
   });
 })
 ;

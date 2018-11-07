@@ -16,12 +16,12 @@ exports[`MapLegend should render the component 1`] = `
     >
       <div
         className="
-                  map-legend__category
-                  map-legend__category--selectable-legend
-                "
+                    map-legend__category
+                    map-legend__category--selectable-legend
+                  "
       >
         <Checkbox
-          checked={[Function]}
+          checked={false}
           name="title"
           onChange={[Function]}
         />
@@ -45,15 +45,15 @@ exports[`MapLegend should render the component 1`] = `
           key="legendTitle"
         >
           <Checkbox
-            checked={[Function]}
+            checked={false}
             name="legendTitle"
             onChange={[Function]}
           />
           <div
             className="
-                        map-legend__image
-                        map-legend__image--selectable
-                      "
+                            map-legend__image
+                            map-legend__image--selectable
+                          "
           >
             <img
               alt=""
@@ -74,12 +74,12 @@ exports[`MapLegend should render the component 1`] = `
     >
       <div
         className="
-                  map-legend__category
-                  map-legend__category--selectable-legend
-                "
+                    map-legend__category
+                    map-legend__category--selectable-legend
+                  "
       >
         <Checkbox
-          checked={[Function]}
+          checked={true}
           name="title"
           onChange={[Function]}
         />
@@ -103,15 +103,15 @@ exports[`MapLegend should render the component 1`] = `
           key="legendTitle"
         >
           <Checkbox
-            checked={[Function]}
+            checked={false}
             name="legendTitle"
             onChange={[Function]}
           />
           <div
             className="
-                        map-legend__image
-                        map-legend__image--selectable
-                      "
+                            map-legend__image
+                            map-legend__image--selectable
+                          "
           >
             <img
               alt=""
@@ -130,9 +130,9 @@ exports[`MapLegend should render the component 1`] = `
         >
           <div
             className="
-                        map-legend__image
-                        map-legend__image--not-selectable
-                      "
+                            map-legend__image
+                            map-legend__image--not-selectable
+                          "
           >
             <img
               alt=""

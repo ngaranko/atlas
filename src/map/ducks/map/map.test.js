@@ -134,122 +134,89 @@ describe('Map Reducer', () => {
     expect(reducer({}, updateBoundingBox(expectedResult, false))).toEqual(expectedResult);
   });
 
-  it('should set the overlays except the overlay matching the id from payload', () => {
-    let newOverlay;
-
+  it('should remove toggled overlays from the active ones', () => {
     const state = {
       overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 3
-        },
-        {
-          id: 4
-        }
+        { id: 1 },
+        { id: 2 },
+        { id: 3 }
       ]
     };
 
-    newOverlay = {
+    const newOverlay = {
       legendItems: [
         { id: 3 }
       ]
     };
     expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
       overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 4
-        }
-      ]
-    });
-
-    newOverlay = {
-      legendItems: [
-        { id: 10 }
-      ]
-    };
-    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
-      overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 3
-        },
-        {
-          id: 4
-        },
-        {
-          id: 10,
-          isVisible: true
-        }
-      ]
-    });
-
-    newOverlay = { id: 3 };
-    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
-      overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 4
-        }
+        { id: 1 },
+        { id: 2 }
       ]
     });
   });
 
-  it('should toggle the overlay visibility', () => {
+  it('should add toggled overlays from to active ones', () => {
     const state = {
       overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 3
-        },
-        {
-          id: 4
-        }
+        { id: 2 },
+        { id: 3 }
+      ]
+    };
+
+    const newOverlay = {
+      legendItems: [
+        { id: 4 }
+      ]
+    };
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
+      overlays: [
+        { id: 2 },
+        { id: 3 },
+        { id: 4, isVisible: true }
+      ]
+    });
+  });
+
+  it('should handle toggling overlays without legend items', () => {
+    const state = {
+      overlays: [
+        { id: 2 },
+        { id: 3 }
+      ]
+    };
+
+    const newOverlay = { id: 4 };
+
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
+      overlays: [
+        { id: 2 },
+        { id: 3 },
+        { id: 4, isVisible: true }
+      ]
+    });
+  });
+
+  it('should toggle the overlay visibility with and without show action', () => {
+    const state = {
+      overlays: [
+        { id: 1 },
+        { id: 2 },
+        { id: 3 }
       ]
     };
     expect(reducer(state, toggleMapOverlayVisibility(1, true))).toEqual({
       overlays: [
-        {
-          id: 1,
-          isVisible: true
-        },
-        {
-          id: 2,
-          isVisible: undefined
-        },
-        {
-          id: 3,
-          isVisible: undefined
-        },
-        {
-          id: 4,
-          isVisible: undefined
-        }
+        { id: 1, isVisible: true },
+        { id: 2, isVisible: undefined },
+        { id: 3, isVisible: undefined }
+      ]
+    });
+    expect(reducer(state, toggleMapOverlayVisibility(2))).toEqual({
+      overlays: [
+        { id: 1, isVisible: undefined },
+        { id: 2, isVisible: true },
+        { id: 3, isVisible: undefined }
       ]
     });
   });
