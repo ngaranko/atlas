@@ -17,10 +17,9 @@
   }
 }
 
-
 .c-tab-header__reset-button {
   @extend %tab-header-button;
-  @include icon-button-text-right("datasets", "", "red");
+  @include icon-button-text-right("datasets", "", "");
 
   &::before {
     width: 2 * $base-whitespace + 4px;

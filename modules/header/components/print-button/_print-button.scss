@@ -1,6 +1,6 @@
 .c-print-button {
   @extend %icon--border-hover;
-  @include icon-label-left("print", "transparent", "red");
+  @include icon-label-left("print", "", "");
 
   &::before {
     width: 24px;

@@ -1,9 +1,9 @@
 .c-stelselpedia__button {
   @extend %icon--border-hover;
-  @include icon("stelselpedia", "", "white");
+  @include icon("stelselpedia", "#666", "#000");
 }
 
 .c-metadata__button {
   @extend %icon--border-hover;
-  @include icon("metadata", "", "white");
+  @include icon("metadata", "#666", "#000");
 }

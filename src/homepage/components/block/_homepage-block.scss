@@ -22,7 +22,8 @@ $block-item-height: 40px;
       }
 
       .homepage-block__icon--bag {
-        @include icon-sprite("icon-bag", $primary-contrast, $primary-contrast, $block-item-height);
+        @include icon-sprite("icon-bag", "blue", "green", "100px");
+        // @include icon-sprite("icon-bag", $primary-contrast, $primary-contrast, $block-item-height);
       }
 
       .homepage-block__icon--brk {
