@@ -54,25 +54,16 @@ $link-offset: 3px;
     vertical-align: text-bottom;
   }
 
-  &::after {
-    @include icon-button("link-arrow", "light-gray");
-    display: none;
-  }
-
   &::before {
-    @include icon-button("link-arrow");
+    @include icon-button("link-arrow", $primary-dark);
     height: $icon-size;
     width: $icon-size;
   }
 
   &:hover,
   &:focus {
-    &::after {
-      @include icon-button("link-arrow");
-    }
-
     &::before {
-      @include icon-button("link-arrow", "red");
+      @include icon-button("link-arrow", $primary-contrast);
       height: $icon-size;
       outline: none;
       width: $icon-size;
