@@ -71,6 +71,29 @@ $link-offset: 3px;
   }
 }
 
+%link--arrow-right {
+  @extend %link;
+
+  &::after {
+    @include icon-button("link-arrow", $secondary-gray20);
+    content: "";
+    display: inline-block;
+    // Move the arrow icon left of the link text by the width of the icon plus
+    // the space needed between the icon and the link
+    margin-left: calc(-#{$icon-size} - #{$link-offset});
+    margin-right: $link-offset;
+    position: relative;
+    vertical-align: text-bottom;
+  }
+
+  &:hover,
+  &:focus {
+    &::after {
+      @include icon-button("link-arrow", $primary-dark);
+    }
+  }
+}
+
 %link--plus {
   @extend %link;
 
