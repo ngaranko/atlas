@@ -14,7 +14,8 @@ $icon-height: 24px;
   top: $container-whitespace;
   z-index: $fixed-position-z-index;
 
-  &:hover {
+  &:hover,
+  &:focus {
     .c-embed-button__icon--maximize {
       @include icon-sprite("icon-maximize", $primary-dark, $primary-dark, $icon-height);
     }
