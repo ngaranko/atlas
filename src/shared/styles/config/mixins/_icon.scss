@@ -7,6 +7,7 @@
   padding: 0;
   position: relative;
   width: $button-size;
+
   @if $tall == "tall" {
     height: $button-tall-size;
   } @else {
@@ -66,6 +67,16 @@
   }
 }
 
+%border-after {
+  border: 1px solid $secondary-gray20;
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 %icon--border {
   text-decoration: none;
 
@@ -75,26 +86,30 @@
   }
 
   &::after {
-    border: 1px solid $secondary-gray20;
-    bottom: 0;
-    content: "";
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
+    @extend %border-after;
   }
 }
 
 %base-button {
-  background-color: $primary-contrast;
+  background-color: $primary-light;
+  color: $secondary-gray60;
+  position: relative;
+
+  &::after {
+    @extend %border-after;
+  }
 
   &:hover,
   &:focus {
-    background-color: $primary-dark;
+    background-color: $secondary-gray20;
+    color: $primary-dark;
     outline: none;
+
+    &::after {
+      border: 1px solid $primary-dark;
+    }
   }
 }
-
 
 %icon--border-hover {
   @extend %icon--border;
@@ -133,7 +148,7 @@
 }
 
 @mixin icon-sprite($name, $fill: "#FFF", $hover-fill: "", $size: "") {
-  @include sprite($name, ( fill: $fill ));
+  @include sprite($name, ( fill: $fill));
 
   @if $size {
     background-size: $size;
@@ -142,7 +157,7 @@
   @if $hover-fill {
     &:hover,
     &:focus {
-      @include sprite($name, ( fill: $hover-fill ));
+      @include sprite($name, ( fill: $hover-fill));
     }
   }
 }

@@ -30,13 +30,14 @@ $tab-v-padding: 7px;
   }
 
   li {
+    // sass-lint:disable-line force-pseudo-nesting
     border-right: 1px solid $secondary-gray20;
     border-top: 1px solid $secondary-gray20;
     display: block;
     float: left;
     height: $tab-height;
 
-    &:not(.is-active) {
+    &:not(.is-active) { // sass-lint:disable-line nesting-depth
       a {
         background-color: $secondary-gray4;
 
