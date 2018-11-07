@@ -132,7 +132,7 @@ describe('HeaderSearchContainer', () => {
       headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
 
       expect(store.dispatch).toHaveBeenCalledWith({
-        type: routing.catalogusDetail.type,
+        type: routing.datasetsDetail.type,
         payload: { id: 'GgCm07EqNVIpwQ' }
       });
     });
@@ -233,7 +233,7 @@ describe('HeaderSearchContainer', () => {
           typedQuery: query
         },
         location: {
-          type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS}`
+          type: `${ROUTER_NAMESPACE}/${PAGES.DATASETS}`
         }
       });
       jest.spyOn(store, 'dispatch');

@@ -1,9 +1,9 @@
 import reducer, {
-  FETCH_CATALOG_FILTERS_FAILURE,
-  FETCH_CATALOG_FILTERS_REQUEST,
-  FETCH_CATALOG_FILTERS_SUCCESS,
-  fetchCatalogFilters
-} from './data-selection-catalog';
+  FETCH_API_SPECIFICATION_FAILURE,
+  FETCH_API_SPECIFICATION_REQUEST,
+  FETCH_API_SPECIFICATION_SUCCESS,
+  fetchApiSpecification
+} from './apiSpecification';
 
 const initialState = {
   isLoading: false,
@@ -14,9 +14,9 @@ describe('data-selection-catalog reducer', () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });
 
-  it('should handle FETCH_CATALOG_FILTERS_REQUEST', () => {
+  it('should handle FETCH_API_SPECIFICATION_REQUEST', () => {
     const startAction = {
-      type: FETCH_CATALOG_FILTERS_REQUEST
+      type: FETCH_API_SPECIFICATION_REQUEST
     };
     expect(reducer({}, startAction)).toEqual({
       isLoading: true,
@@ -24,21 +24,21 @@ describe('data-selection-catalog reducer', () => {
     });
   });
 
-  it('should handle FETCH_CATALOG_FILTERS_SUCCESS', () => {
+  it('should handle FETCH_API_SPECIFICATION_SUCCESS', () => {
     const successAction = {
-      type: FETCH_CATALOG_FILTERS_SUCCESS,
+      type: FETCH_API_SPECIFICATION_SUCCESS,
       payload: { items: [{ id: 1 }] }
     };
     expect(reducer({}, successAction)).toEqual({
       isLoading: false,
       error: null,
-      items: [{ id: 1 }]
+      data: { items: [{ id: 1 }] }
     });
   });
 
-  it('should handle FETCH_CATALOG_FILTERS_FAILURE', () => {
+  it('should handle FETCH_API_SPECIFICATION_FAILURE', () => {
     const updateAction = {
-      type: FETCH_CATALOG_FILTERS_FAILURE,
+      type: FETCH_API_SPECIFICATION_FAILURE,
       payload: 'Error'
     };
     expect(reducer({}, updateAction)).toEqual({
@@ -53,9 +53,9 @@ describe('data-selection-catalog actions', () => {
   describe('fetchMapBaseLayers', () => {
     it('should create an action to request map baseLayers', () => {
       const expectedAction = {
-        type: FETCH_CATALOG_FILTERS_REQUEST
+        type: FETCH_API_SPECIFICATION_REQUEST
       };
-      expect(fetchCatalogFilters()).toEqual(expectedAction);
+      expect(fetchApiSpecification()).toEqual(expectedAction);
     });
   });
 });

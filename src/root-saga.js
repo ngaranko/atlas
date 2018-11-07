@@ -10,9 +10,7 @@ import watchFetchMapDetail from './map/sagas/detail';
 import watchMapClick from './map/sagas/map-click';
 import watchFetchNearestDetails from './map/sagas/nearest-details';
 import watchGeoSearchRequest from './map/sagas/geosearch';
-import watchFetchCatalogFilters from './catalog/sagas/data-selection/data-selection';
 import { watchQuerySearch } from './map/sagas/query-search/query-search';
-import { watchCatalogList } from './catalog/sagas/catalog';
 import {
   watchCloseStraatbeeld,
   watchFetchStraatbeeld,
@@ -21,6 +19,7 @@ import {
 import { watchDetailRoute } from './detail/sagas/detail';
 import watchFetchDataSelection from './shared/sagas/data-selection/data-selection';
 import watchQueryActions from './store/query-synchronization';
+import watchFetchDatasets from './shared/sagas/dataset/dataset';
 
 export default function* rootSaga() {
   yield all([
@@ -36,14 +35,13 @@ export default function* rootSaga() {
     fork(watchMapClick),
     fork(watchFetchNearestDetails),
     fork(watchGeoSearchRequest),
-    fork(watchFetchCatalogFilters),
     fork(watchQueryActions),
 
     // route change watchers
-    fork(watchCatalogList),
     fork(watchQuerySearch),
     fork(watchDetailRoute),
     fork(watchPanoramaRoute),
-    fork(watchFetchDataSelection)
+    fork(watchFetchDataSelection),
+    fork(watchFetchDatasets)
   ]);
 }

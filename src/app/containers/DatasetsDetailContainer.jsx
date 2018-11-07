@@ -4,16 +4,17 @@ import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
 import { isDetailLoading } from '../../shared/ducks/detail/detail';
 import { getUser } from '../../shared/ducks/user/user';
-import { getCatalogFilters } from '../../catalog/ducks/data-selection/data-selection-catalog';
+import { getDatasetApiSpecification } from '../../shared/ducks/datasets/datasets';
+import { getLocationPayload } from '../../store/redux-first-router';
 
 const mapStateToProps = (state) => ({
   isLoading: isDetailLoading(state),
-  catalogFilters: getCatalogFilters(state),
+  catalogFilters: getDatasetApiSpecification(state),
   user: getUser(state),
-  endpoint: `https://acc.api.data.amsterdam.nl/dcatd/datasets/${state.catalog.detail}` // TODO: refactor use API_ROOT and such
+  endpoint: `https://acc.api.data.amsterdam.nl/dcatd/datasets/${getLocationPayload(state).id}` // TODO: refactor use API_ROOT and such
 });
 
-const CatalogDetailContainer = ({
+const DatasetsDetailContainer = ({
   isLoading,
   catalogFilters,
   user,
@@ -36,15 +37,15 @@ const CatalogDetailContainer = ({
   </div>
 );
 
-CatalogDetailContainer.defaultProps = {
+DatasetsDetailContainer.defaultProps = {
   isLoading: false
 };
 
-CatalogDetailContainer.propTypes = {
+DatasetsDetailContainer.propTypes = {
   isLoading: PropTypes.bool,
   catalogFilters: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   endpoint: PropTypes.string.isRequired
 };
 
-export default connect(mapStateToProps, null)(CatalogDetailContainer);
+export default connect(mapStateToProps, null)(DatasetsDetailContainer);

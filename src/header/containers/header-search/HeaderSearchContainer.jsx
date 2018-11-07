@@ -12,7 +12,7 @@ import {
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
-import { isCatalogCurrentPage, isMapPage } from '../../../store/redux-first-router';
+import { isDatasetCurrentPage, isMapPage } from '../../../store/redux-first-router';
 import {
   extractIdEndpoint,
   getPageActionEndpoint,
@@ -22,7 +22,7 @@ import {
 const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),
   displayQuery: getDisplayQuery(state),
-  isDatasetView: isCatalogCurrentPage(state),
+  isDatasetView: isDatasetCurrentPage(state),
   isMapActive: isMapPage(state),
   numberOfSuggestions: getNumberOfSuggestions(state),
   pageName: state.page ? state.page.name : '',
@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
     if (suggestion.uri.match(/^dcatd\//)) {
       // Suggestion of type catalog, a.k.a. "dataset"
       const id = extractIdEndpoint(suggestion.uri);
-      return dispatch({ type: routing.catalogusDetail.type, payload: { id } });
+      return dispatch({ type: routing.datasetsDetail.type, payload: { id } });
     }
     return dispatch(getPageActionEndpoint(suggestion.uri));
   }

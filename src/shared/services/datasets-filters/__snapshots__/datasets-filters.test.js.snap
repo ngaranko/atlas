@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchFilters should return the correct data 1`] = `
+exports[`fetchApiSpecification should return the correct data 1`] = `
 Object {
   "accrualPeriodicities": Array [
     Object {

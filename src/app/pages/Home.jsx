@@ -111,7 +111,7 @@ const Home = ({ showFooter }) => (
                 <div className="u-col-sm--6 c-homepage__block--data-selection">
                   <HomepageBlock
                     classes="c-homepage__block--left c-homepage__block--datasets"
-                    linkAction={{ type: routing.catalogus.type }}
+                    linkAction={{ type: routing.datasets.type }}
                     title="Datasetcatalogus"
                     description="Blader door datasets (verzamelingen gegevens)"
                   >

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CatalogDetailContainer should render 1`] = `
+exports[`DatasetsDetailContainer should render 1`] = `
 <div
   className="qa-detail"
 >
@@ -20,7 +20,7 @@ exports[`CatalogDetailContainer should render 1`] = `
     }
     interpolateBindings={
       Object {
-        "endpoint": "https://acc.api.data.amsterdam.nl/dcatd/datasets/foo",
+        "endpoint": "https://acc.api.data.amsterdam.nl/dcatd/datasets/1",
       }
     }
     moduleName="dpDetailWrapper"

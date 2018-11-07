@@ -1,6 +1,5 @@
-<dp-link
-    ng-if="vm.link.enabled"
-    class-name="{{ vm.link.class_name }} c-data-selection-pagination-link"
-    hover-text="{{vm.link.label}}"
-    action="vm.link.action"
-    ><span class="c-data-selection-pagination-link-label">{{vm.link.label}}</span></dp-link>
+<span class="c-link__wrapper">
+    <button type="button" ng-click="vm.link.action()" class="{{ vm.link.class_name }} c-data-selection-pagination-link qa-dp-link" title="{{vm.link.label}}">
+        <span class="c-data-selection-pagination-link-label">{{vm.link.label}}</span>
+    </button>
+</span>

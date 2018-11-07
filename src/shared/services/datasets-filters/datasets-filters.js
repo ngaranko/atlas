@@ -1,5 +1,5 @@
-import SHARED_CONFIG from '../../shared/services/shared-config/shared-config';
-import { getByUrl } from '../../shared/services/api/api';
+import SHARED_CONFIG from '../shared-config/shared-config';
+import { getByUrl } from '../api/api';
 
 /** Matches the key (enum) of a type to a label (enumName) */
 function getOptions(propertyType) {
@@ -20,7 +20,7 @@ function getCatalogFilters(data) {
   const distributionProperties = dcatDocProperties['dcat:distribution'].items.properties;
   const ownerProperties = dcatDocProperties['ams:owner'].examples;
 
-  const catalogFilters = {
+  const datasetsFilters = {
     groupTypes: getOptions(themaProperties),
     formatTypes: getOptions(distributionProperties['dct:format']),
     serviceTypes: getOptions(distributionProperties['ams:serviceType']),
@@ -37,10 +37,10 @@ function getCatalogFilters(data) {
     distributionTypes: getOptions(distributionProperties['ams:distributionType'])
   };
 
-  return catalogFilters;
+  return datasetsFilters;
 }
 
-export default function fetchFilters() {
+export default function fetchApiSpecification() {
   return getByUrl(`${SHARED_CONFIG.API_ROOT}dcatd/openapi`)
     .then((data) => getCatalogFilters(data));
 }
