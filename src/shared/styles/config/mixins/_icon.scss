@@ -147,7 +147,7 @@
   box-shadow: $button-shadow-size $button-shadow-size 0 0 $secondary-gray40;
 }
 
-@mixin icon-sprite($name, $fill: "#FFF", $hover-fill: "", $size: "") {
+@mixin icon-sprite($name, $fill: "#FFF", $hover-fill: "", $size: auto 100%) {
   @include sprite($name, ( fill: $fill));
 
   @if $size {

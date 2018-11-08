@@ -54,7 +54,7 @@
   color: $primary-light;
 
   &::before {
-    @include icon-button("link-arrow", $primary-dark, $primary-light);
+    @include icon-button("link-arrow", $primary-light);
     height: $icon-size;
     width: $icon-size;
   }
@@ -70,6 +70,7 @@
   &:hover,
   &:focus {
     &::before {
+      @include icon-button("link-arrow", $primary-light);
       height: $icon-size;
       width: $icon-size;
     }
