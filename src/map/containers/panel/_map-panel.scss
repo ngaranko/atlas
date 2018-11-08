@@ -38,12 +38,6 @@ $handle-height: 24px;
     background-color: $primary-light;
     border-bottom: 1px solid $secondary-gray40;
 
-    &:hover {
-      .map-panel__heading-icon {
-        @include icon-sprite("icon-map-layers", $primary-dark, $primary-dark, $handle-height);
-      }
-    }
-
     .map-panel--collapsed & {
       border-bottom: none;
 
@@ -100,7 +94,12 @@ $handle-height: 24px;
       }
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
+      .map-panel__heading-icon {
+        @include icon-sprite("icon-map-layers", $primary-dark, $primary-dark, $handle-height);
+      }
+
       .map-panel__toggle--icon-collapse {
         @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height);
       }
@@ -114,8 +113,7 @@ $handle-height: 24px;
   .scroll-wrapper {
     max-height: calc(100% - #{$dashboard-heading-height} - #{$map-panel-offset} - #{$map-panel-heading-height});
     overflow-x: hidden;
-    overflow-y: auto;
-    // NB: Workaround to force smooth scrolling on Chrome
+    overflow-y: auto; // NB: Workaround to force smooth scrolling on Chrome
     will-change: transform;
 
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //sass-lint:disable-line no-vendor-prefixes
@@ -127,8 +125,7 @@ $handle-height: 24px;
   .is-print-mode & {
     height: auto;
     max-height: none;
-    position: absolute;
-    // Make sure the width is fixed
+    position: absolute; // Make sure the width is fixed
     width: $map-panel-max-width;
 
 
@@ -142,9 +139,7 @@ $handle-height: 24px;
 
     .scroll-wrapper {
       height: auto;
-    }
-
-    // This hack makes sure IE also has a white background when printing
+    } // This hack makes sure IE also has a white background when printing
     // https://stackoverflow.com/a/27822161
     @media print {
       &::before {
