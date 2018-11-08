@@ -18,6 +18,14 @@ $title-short-hover-height: 40px;
   height: 100%;
   color: $primary-dark;
   cursor: pointer;
+
+
+
+  &__link:focus {  // sass-lint:disable-line force-pseudo-nesting
+    .c-logo__container {
+      border-bottom: 2px solid $primary-contrast;
+    }
+  }
 }
 
 .c-logo__container {
@@ -33,10 +41,6 @@ $title-short-hover-height: 40px;
   .c-logo--tall & {
     width: $title-tall-hover-width;
     height: $title-tall-hover-height;
-  }
-
-  &:hover {
-    border-bottom: 2px solid $primary-contrast;
   }
 }
 
