@@ -226,7 +226,6 @@ class AutoSuggest extends React.Component {
               spellCheck="false"
               type="text"
               value={query || ''}
-              autoFocus="true" // eslint-disable-line jsx-a11y/no-autofocus
             />
 
             {query &&
