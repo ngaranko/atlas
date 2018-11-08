@@ -175,10 +175,7 @@ export const setMapBaseLayer = (payload) => ({
   type: SET_MAP_BASE_LAYER,
   payload,
   meta: {
-    piwikPayload: {
-      event: payload,
-      value: payload
-    }
+    tracking: payload
   }
 });
 export const toggleMapOverlay = (payload) => ({
@@ -187,10 +184,7 @@ export const toggleMapOverlay = (payload) => ({
     mapLayers: (payload.id) ? [payload.id] : payload.legendItems.map((overlay) => overlay.id)
   },
   meta: {
-    piwikPayload: {
-      event: payload.category,
-      value: payload.title
-    }
+    tracking: payload
   }
 });
 export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
