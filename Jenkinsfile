@@ -16,15 +16,15 @@ pipeline {
 
   stages {
 
-    // stage('Deploy feature branch (Bakkie)') {
-    //   when { not { branch 'master' } }
-    //   options {
-    //     timeout(time: 5, unit: 'MINUTES')
-    //   }
-    //   steps {
-    //     sh "scripts/bakkie.sh ${BRANCH_NAME}"
-    //   }
-    // }
+    stage('Deploy feature branch (Bakkie)') {
+      when { not { branch 'master' } }
+      options {
+        timeout(time: 5, unit: 'MINUTES')
+      }
+      steps {
+        sh "scripts/bakkie.sh ${BRANCH_NAME}"
+      }
+    }
 
     stage('Check API\'s health') {
       options {
@@ -45,22 +45,22 @@ pipeline {
       }
     }
 
-    // stage('Unit tests') {
-    //   options {
-    //     timeout(time: 30, unit: 'MINUTES')
-    //   }
-    //   environment {
-    //     PROJECT = "${PROJECT_PREFIX}unit"
-    //   }
-    //   steps {
-    //     sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit-integration test-unit-integration"
-    //   }
-    //   post {
-    //     always {
-    //       sh "docker-compose -p ${PROJECT} down -v || true"
-    //     }
-    //   }
-    // }
+    stage('Unit tests') {
+      options {
+        timeout(time: 30, unit: 'MINUTES')
+      }
+      environment {
+        PROJECT = "${PROJECT_PREFIX}unit"
+      }
+      steps {
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit-integration test-unit-integration"
+      }
+      post {
+        always {
+          sh "docker-compose -p ${PROJECT} down -v || true"
+        }
+      }
+    }
 
     stage('E2E tests') {
       options {

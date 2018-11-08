@@ -159,7 +159,6 @@
     "rimraf": "^2.6.2",
     "sass-lint": "1.12.1",
     "sass-loader": "^7.1.0",
-    "stijl": "Amsterdam/stijl.git",
     "svg-react-loader": "^0.4.5",
     "uglifyjs-webpack-plugin": "^2.0.0",
     "webpack": "^4.19.0",
