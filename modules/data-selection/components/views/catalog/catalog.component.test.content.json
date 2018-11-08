@@ -9,7 +9,7 @@
       "dcat:distribution": [
         {
           "ams:distributionType": "file",
-          "dct:format": "application/vnd.ms-excel"
+          "dcat:mediaType": "application/vnd.ms-excel"
         },
         {
           "ams:distributionType": "web"
@@ -29,11 +29,11 @@
       "dcat:distribution": [
         {
           "ams:distributionType": "file",
-          "dct:format": "application/vnd.ms-excel"
+          "dcat:mediaType": "application/vnd.ms-excel"
         },
         {
           "ams:distributionType": "api",
-          "dct:format": "rest"
+          "dcat:mediaType": "rest"
         }
       ],
       "dcat:keyword": [
