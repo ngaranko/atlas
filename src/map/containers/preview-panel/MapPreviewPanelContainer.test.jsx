@@ -16,7 +16,7 @@ import {
 } from '../../ducks/detail/map-detail';
 import {
   FETCH_PANO_PREVIEW_REQUEST,
-  getPanoPreview
+  fetchPanoPreview
 } from '../../../pano/ducks/preview/pano-preview';
 import {
   getLocationId,
@@ -117,7 +117,7 @@ describe('MapPreviewPanelContainer', () => {
   beforeEach(() => {
     getMapSearchResults.mockImplementation(() => ({ type: FETCH_MAP_SEARCH_RESULTS_REQUEST }));
     getMapDetail.mockImplementation(() => ({ type: FETCH_MAP_DETAIL_REQUEST }));
-    getPanoPreview.mockImplementation(() => ({ type: FETCH_PANO_PREVIEW_REQUEST }));
+    fetchPanoPreview.mockImplementation(() => ({ type: FETCH_PANO_PREVIEW_REQUEST }));
     selectNotClickableVisibleMapLayers.mockImplementation(() => ([]));
     getShortSelectedLocation.mockImplementation(() => null);
     isGeoSearch.mockImplementation((state) => !(state.detail && state.detail.endpoint));
@@ -127,7 +127,7 @@ describe('MapPreviewPanelContainer', () => {
   afterEach(() => {
     getMapSearchResults.mockReset();
     getMapDetail.mockReset();
-    getPanoPreview.mockReset();
+    fetchPanoPreview.mockReset();
     selectLatestMapSearchResults.mockReset();
     selectLatestMapDetail.mockReset();
     selectNotClickableVisibleMapLayers.mockReset();
@@ -141,7 +141,7 @@ describe('MapPreviewPanelContainer', () => {
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
       expect(getMapDetail).not.toHaveBeenCalled();
-      expect(getPanoPreview).not.toHaveBeenCalled();
+      expect(fetchPanoPreview).not.toHaveBeenCalled();
       expect(store.dispatch).not.toHaveBeenCalled();
     });
 
@@ -157,7 +157,7 @@ describe('MapPreviewPanelContainer', () => {
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
       expect(getMapDetail).not.toHaveBeenCalled();
-      expect(getPanoPreview).not.toHaveBeenCalled();
+      expect(fetchPanoPreview).not.toHaveBeenCalled();
       expect(store.dispatch).not.toHaveBeenCalled();
     });
 
@@ -175,7 +175,7 @@ describe('MapPreviewPanelContainer', () => {
         longitude: 0
       }, { name: 'User name' });
       expect(getMapDetail).not.toHaveBeenCalled();
-      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 1, longitude: 0 });
+      expect(fetchPanoPreview).toHaveBeenCalledWith({ latitude: 1, longitude: 0 });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_MAP_SEARCH_RESULTS_REQUEST });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_DETAIL_REQUEST });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_PANO_PREVIEW_REQUEST });
@@ -188,7 +188,7 @@ describe('MapPreviewPanelContainer', () => {
 
       expect(getMapSearchResults).not.toHaveBeenCalledWith();
       expect(getMapDetail).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/fake/endpoint', { name: 'User name' });
-      expect(getPanoPreview).not.toHaveBeenCalled();
+      expect(fetchPanoPreview).not.toHaveBeenCalled();
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_SEARCH_RESULTS_REQUEST });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_MAP_DETAIL_REQUEST });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_PANO_PREVIEW_REQUEST });
@@ -202,7 +202,7 @@ describe('MapPreviewPanelContainer', () => {
       const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
       getMapSearchResults.mockClear();
       getMapDetail.mockClear();
-      getPanoPreview.mockClear();
+      fetchPanoPreview.mockClear();
       store.dispatch.mockClear();
 
       wrapper.setProps({ searchLocation: { latitude: 1, longitude: 0 } });
@@ -212,7 +212,7 @@ describe('MapPreviewPanelContainer', () => {
         longitude: 0
       }, { name: 'User name' });
       expect(getMapDetail).not.toHaveBeenCalled();
-      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 1, longitude: 0 });
+      expect(fetchPanoPreview).toHaveBeenCalledWith({ latitude: 1, longitude: 0 });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_MAP_SEARCH_RESULTS_REQUEST });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_DETAIL_REQUEST });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_PANO_PREVIEW_REQUEST });
@@ -228,7 +228,7 @@ describe('MapPreviewPanelContainer', () => {
 
       getMapSearchResults.mockClear();
       getMapDetail.mockClear();
-      getPanoPreview.mockClear();
+      fetchPanoPreview.mockClear();
       store.dispatch.mockClear();
 
       wrapper.setProps({ searchLocation: { latitude: 0, longitude: 1 } });
@@ -238,7 +238,7 @@ describe('MapPreviewPanelContainer', () => {
         longitude: 1
       }, { name: 'User name' });
       expect(getMapDetail).not.toHaveBeenCalled();
-      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 0, longitude: 1 });
+      expect(fetchPanoPreview).toHaveBeenCalledWith({ latitude: 0, longitude: 1 });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_MAP_SEARCH_RESULTS_REQUEST });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_DETAIL_REQUEST });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_PANO_PREVIEW_REQUEST });
@@ -251,7 +251,7 @@ describe('MapPreviewPanelContainer', () => {
 
       getMapSearchResults.mockClear();
       getMapDetail.mockClear();
-      getPanoPreview.mockClear();
+      fetchPanoPreview.mockClear();
       store.dispatch.mockClear();
 
       wrapper.setProps({ searchLocation: { latitude: 0, longitude: 1 } });
@@ -261,7 +261,7 @@ describe('MapPreviewPanelContainer', () => {
         longitude: 1
       }, { name: 'User name' });
       expect(getMapDetail).not.toHaveBeenCalled();
-      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 0, longitude: 1 });
+      expect(fetchPanoPreview).toHaveBeenCalledWith({ latitude: 0, longitude: 1 });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_MAP_SEARCH_RESULTS_REQUEST });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_DETAIL_REQUEST });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_PANO_PREVIEW_REQUEST });
@@ -274,14 +274,14 @@ describe('MapPreviewPanelContainer', () => {
 
       getMapSearchResults.mockClear();
       getMapDetail.mockClear();
-      getPanoPreview.mockClear();
+      fetchPanoPreview.mockClear();
       store.dispatch.mockClear();
 
       wrapper.setProps({ detailEndpoint: 'https://acc.api.data.amsterdam.nl/fake/endpoint' });
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
       expect(getMapDetail).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/fake/endpoint', { name: 'User name' });
-      expect(getPanoPreview).not.toHaveBeenCalled();
+      expect(fetchPanoPreview).not.toHaveBeenCalled();
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_SEARCH_RESULTS_REQUEST });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_MAP_DETAIL_REQUEST });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_PANO_PREVIEW_REQUEST });
@@ -294,14 +294,14 @@ describe('MapPreviewPanelContainer', () => {
 
       getMapSearchResults.mockClear();
       getMapDetail.mockClear();
-      getPanoPreview.mockClear();
+      fetchPanoPreview.mockClear();
       store.dispatch.mockClear();
 
       wrapper.setProps({ detailEndpoint: 'https://acc.api.data.amsterdam.nl/fake/endpoint' });
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
       expect(getMapDetail).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/fake/endpoint', { name: 'User name' });
-      expect(getPanoPreview).not.toHaveBeenCalled();
+      expect(fetchPanoPreview).not.toHaveBeenCalled();
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_SEARCH_RESULTS_REQUEST });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_MAP_DETAIL_REQUEST });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_PANO_PREVIEW_REQUEST });
@@ -314,14 +314,14 @@ describe('MapPreviewPanelContainer', () => {
 
       getMapSearchResults.mockClear();
       getMapDetail.mockClear();
-      getPanoPreview.mockClear();
+      fetchPanoPreview.mockClear();
       store.dispatch.mockClear();
 
       wrapper.setProps({ detailEndpoint: 'https://acc.api.data.amsterdam.nl/fake/other-endpoint' });
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
       expect(getMapDetail).toHaveBeenCalledWith('https://acc.api.data.amsterdam.nl/fake/other-endpoint', { name: 'User name' });
-      expect(getPanoPreview).not.toHaveBeenCalled();
+      expect(fetchPanoPreview).not.toHaveBeenCalled();
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_SEARCH_RESULTS_REQUEST });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_MAP_DETAIL_REQUEST });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_PANO_PREVIEW_REQUEST });
@@ -334,14 +334,14 @@ describe('MapPreviewPanelContainer', () => {
 
       getMapSearchResults.mockClear();
       getMapDetail.mockClear();
-      getPanoPreview.mockClear();
+      fetchPanoPreview.mockClear();
       store.dispatch.mockClear();
 
       wrapper.setProps({ detailResult: { location: { latitude: 1, longitude: 2 } } });
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
       expect(getMapDetail).not.toHaveBeenCalled();
-      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 1, longitude: 2 });
+      expect(fetchPanoPreview).toHaveBeenCalledWith({ latitude: 1, longitude: 2 });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_SEARCH_RESULTS_REQUEST });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_DETAIL_REQUEST });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_PANO_PREVIEW_REQUEST });
@@ -355,14 +355,14 @@ describe('MapPreviewPanelContainer', () => {
 
       getMapSearchResults.mockClear();
       getMapDetail.mockClear();
-      getPanoPreview.mockClear();
+      fetchPanoPreview.mockClear();
       store.dispatch.mockClear();
 
       wrapper.setProps({ detailResult: { location: { latitude: 2, longitude: 1 } } });
 
       expect(getMapSearchResults).not.toHaveBeenCalled();
       expect(getMapDetail).not.toHaveBeenCalled();
-      expect(getPanoPreview).toHaveBeenCalledWith({ latitude: 2, longitude: 1 });
+      expect(fetchPanoPreview).toHaveBeenCalledWith({ latitude: 2, longitude: 1 });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_SEARCH_RESULTS_REQUEST });
       expect(store.dispatch).not.toHaveBeenCalledWith({ type: FETCH_MAP_DETAIL_REQUEST });
       expect(store.dispatch).toHaveBeenCalledWith({ type: FETCH_PANO_PREVIEW_REQUEST });

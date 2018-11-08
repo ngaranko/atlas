@@ -1,6 +1,6 @@
 import { testSaga, expectSaga } from 'redux-saga-test-plan';
 
-import watchFetchMapDetail, { fetchMapDetail } from './map-detail';
+import watchMapDetail, { fetchMapDetail } from './map-detail';
 import * as fetchDetail from '../../services/map-detail';
 import { fetchMapDetailFailure, FETCH_MAP_DETAIL_REQUEST, FETCH_MAP_DETAIL_SUCCESS } from '../../ducks/detail/map-detail';
 
@@ -9,7 +9,7 @@ describe('watchFetchMapDetail', () => {
   const action = { type: FETCH_MAP_DETAIL_REQUEST };
 
   it('should watch REQUEST_NEAREST_DETAILS and call fetchPanelLayers', () => {
-    testSaga(watchFetchMapDetail)
+    testSaga(watchMapDetail)
       .next()
       .takeLatestEffect(FETCH_MAP_DETAIL_REQUEST, fetchMapDetail)
       .next(action)

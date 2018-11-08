@@ -23,6 +23,11 @@ export const isMapView = createSelector(
   )
 );
 
+// export const isPanoramaActive = createSelector(
+//   getCurrentPage,
+//   (currentPage) => currentPage === PAGES.PANORAMA
+// ); // TODO use or remove
+
 export const isMapPage = createSelector(
   getCurrentPage,
   (currentPage) => currentPage === PAGES.KAART

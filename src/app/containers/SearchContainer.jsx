@@ -7,6 +7,7 @@ import {
   getNumberOfResults
 } from '../../shared/ducks/data-search/data-search';
 import { getUser } from '../../shared/ducks/user/user';
+import { getPanoPreview, isPanoPreviewLoading } from '../../pano/ducks/preview/pano-preview';
 
 const mapStateToProps = (state) => ({
   isLoading: false,
@@ -14,7 +15,9 @@ const mapStateToProps = (state) => ({
   location: getDataSearchLocation(state),
   category: null,
   numberOfResults: getNumberOfResults(state),
-  user: getUser(state)
+  user: getUser(state),
+  previewPanorama: getPanoPreview(state),
+  isPreviewPanoramaLoading: isPanoPreviewLoading(state)
 });
 
 // TODO refactor, rename GeoSearchContainer
@@ -24,7 +27,9 @@ const SearchContainer = ({
   location,
   category,
   user,
-  numberOfResults
+  numberOfResults,
+  previewPanorama,
+  isPreviewPanoramaLoading
 }) => (
   <div className="qa-search-results">
     <AngularWrapper
@@ -35,7 +40,9 @@ const SearchContainer = ({
         isLoading,
         location: [location.latitude, location.longitude],
         user,
-        numberOfResults
+        numberOfResults,
+        previewPanorama,
+        isPreviewPanoramaLoading
       }}
       interpolateBindings={{
         query,
@@ -48,7 +55,9 @@ const SearchContainer = ({
 SearchContainer.defaultProps = {
   query: '',
   category: null,
-  numberOfResults: undefined
+  numberOfResults: undefined,
+  previewPanorama: undefined,
+  isPreviewPanoramaLoading: undefined
 };
 
 SearchContainer.propTypes = {
@@ -60,7 +69,9 @@ SearchContainer.propTypes = {
   }).isRequired,
   category: PropTypes.string,
   numberOfResults: PropTypes.number,
-  user: PropTypes.object.isRequired // eslint-disable-line
+  user: PropTypes.object.isRequired, // eslint-disable-line
+  previewPanorama: PropTypes.object,
+  isPreviewPanoramaLoading: PropTypes.bool
 };
 
 export default connect(mapStateToProps, null)(SearchContainer);

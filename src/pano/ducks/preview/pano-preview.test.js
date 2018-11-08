@@ -2,7 +2,7 @@ import reducer, {
   FETCH_PANO_PREVIEW_FAILURE,
   FETCH_PANO_PREVIEW_REQUEST,
   FETCH_PANO_PREVIEW_SUCCESS,
-  getPanoPreview
+  fetchPanoPreview
 } from './pano-preview';
 
 const initialState = {
@@ -89,7 +89,7 @@ describe('FetchPanoPreview Reducer', () => {
 
 describe('getPanoPreview method', () => {
   it('should return an object with action type and location', () => {
-    expect(getPanoPreview('some location')).toEqual({
+    expect(fetchPanoPreview('some location')).toEqual({
       type: FETCH_PANO_PREVIEW_REQUEST,
       location: 'some location'
     });

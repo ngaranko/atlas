@@ -89,6 +89,13 @@ export default function straatbeeldReducer(state = initialState, action) {
         fov: action.payload.fov
       };
 
+    case CLOSE_STRAATBEELD:
+      return {
+        ...state,
+        location: initialState.location,
+        image: initialState.image
+      };
+
     default:
       return state;
   }

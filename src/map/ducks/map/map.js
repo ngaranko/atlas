@@ -157,7 +157,13 @@ export default function MapReducer(state = initialState, action) {
       };
 
     case MAP_CLEAR:
-      return initialState;
+      return {
+        ...state,
+        drawingMode: initialState.drawingMode,
+        shapeMarkers: initialState.shapeMarkers,
+        shapeDistanceTxt: initialState.shapeDistanceTxt,
+        shapeAreaTxt: initialState.shapeAreaTxt
+      };
 
     default:
       return enrichedState;

@@ -1,5 +1,5 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
-import watchFetchMapPano, { fetchMapPano } from './pano-preview';
+import watchPanoPreview, { fetchMapPano } from './pano-preview';
 import {
   FETCH_PANO_PREVIEW_FAILURE,
   FETCH_PANO_PREVIEW_REQUEST,
@@ -10,7 +10,7 @@ import panoPreview from '../../services/pano-preview';
 describe('watchFetchMapPano', () => {
   it(`should watch ${FETCH_PANO_PREVIEW_REQUEST} and call fetchFilters`, () => {
     const action = { type: FETCH_PANO_PREVIEW_SUCCESS };
-    testSaga(watchFetchMapPano)
+    testSaga(watchPanoPreview)
       .next()
       .takeLatestEffect(FETCH_PANO_PREVIEW_REQUEST, fetchMapPano)
       .next(action)

@@ -390,21 +390,6 @@ describe('the dp-detail component', () => {
         });
     });
 
-    it('sets the center location of the geometry on the scope (for the straatbeeld thumbnail)', () => {
-        var component,
-            scope;
-
-        // Something with geometry (converted from RD to WGS84)
-        component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/');
-        scope = component.isolateScope();
-        expect(scope.vm.location).toEqual([51.123, 3.123]);
-
-        // Something without geometry
-        scope.vm.endpoint = naturalPersonEndPoint;
-        scope.$apply();
-        expect(scope.vm.location).toBeNull();
-    });
-
     it('gracefully handles a 404 with no data', () => {
         getComponent('http://www.fake-endpoint.amsterdam.nl/brk/subject/404/');
 

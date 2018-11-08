@@ -22,13 +22,16 @@ import {
 } from '../../../app/routes';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 import {
-  getDataSearch, getDataSearchLocation,
-  getMapResultsByLocation, isSearchLoading
+  getDataSearch,
+  getDataSearchLocation,
+  getMapResultsByLocation,
+  isSearchLoading
 } from '../../../shared/ducks/data-search/data-search';
+import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 
 const mapStateToProps = (state) => ({
   mapClickLocation: getSelectedLocation(state),
-  pano: state.pano,
+  panoPreview: getPanoPreview(state),
   searchResults: selectLatestMapSearchResults(state),
   dataSearch: getDataSearch(state),
   searchLocation: getDataSearchLocation(state),
@@ -51,16 +54,12 @@ const mapDispatchToProps = (dispatch) => ({
     closePanel: toMap,
     onSearchMaximize: toDataLocationSearch
   }, dispatch),
-  openPano: (pano) => {
-    const action = toPanorama(pano.id);
+  openPano: (id, heading) => {
+    const action = toPanorama(id, heading);
     return dispatch(action);
   },
   openPreviewDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP)),
-  openDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint)),
-  openPreviewSearch: () => {
-    // TODO: refactor, merge in query string solution first
-    // return dispatch(toGeoSearchView());
-  }
+  openDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint))
 });
 
 /* eslint-enable react/no-unused-prop-types */

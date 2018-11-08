@@ -1,47 +1,60 @@
 export const FETCH_PANO_PREVIEW_REQUEST = 'FETCH_PANO_PREVIEW_REQUEST';
-export const FETCH_PANO_PREVIEW_SUCCESS = 'FETCH_PANO_PREVIEW_SUCCESS';
-export const FETCH_PANO_PREVIEW_FAILURE = 'FETCH_PANO_PREVIEW_FAILURE';
+const FETCH_PANO_PREVIEW_SUCCESS = 'FETCH_PANO_PREVIEW_SUCCESS';
+const FETCH_PANO_PREVIEW_FAILURE = 'FETCH_PANO_PREVIEW_FAILURE';
 
 export const REDUCER_KEY = 'pano';
 
 const initialState = {
-  error: null,
-  location: {},
-  previews: {}
+  isLoading: false,
+  error: undefined,
+  preview: undefined
 };
 
 export default function PanoPreviewReducer(state = initialState, action) {
-  const locationId = Object
-    .keys(state.location)
-    .map((key) => state.location[key])
-    .toString();
-
   switch (action.type) {
     case FETCH_PANO_PREVIEW_REQUEST:
       return {
         ...state,
-        error: null,
-        location: action.location
+        isLoading: true,
+        error: undefined,
+        preview: undefined
       };
 
     case FETCH_PANO_PREVIEW_SUCCESS:
       return {
         ...state,
-        previews: {
-          ...state.previews,
-          [locationId]: action.panoResult
-        }
+        isLoading: false,
+        preview: action.payload
       };
 
     case FETCH_PANO_PREVIEW_FAILURE:
-      return { ...state, error: action.error };
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
 
     default:
       return state;
   }
 }
 
-export const getPanoPreview = (location) => ({
+// action creators
+export const fetchPanoPreview = (location) => ({
   type: FETCH_PANO_PREVIEW_REQUEST,
-  location
+  payload: location
 });
+
+export const fetchPanoPreviewSuccess = (payload) => ({
+  type: FETCH_PANO_PREVIEW_SUCCESS,
+  payload
+});
+
+export const fetchPanoPreviewFailure = (error) => ({
+  type: FETCH_PANO_PREVIEW_FAILURE,
+  payload: error
+});
+
+// selectors
+export const getPanoPreview = (state) => state[REDUCER_KEY].preview;
+export const isPanoPreviewLoading = (state) => state[REDUCER_KEY].isLoading;

@@ -12,6 +12,8 @@ import {
 import { getImageDataByLocation } from '../../../shared/services/straatbeeld-api/straatbeeld-api';
 import { toMap, toPanorama } from '../../../app/routes';
 import { fetchMapSearchResultsRequest } from '../../../shared/ducks/data-search/data-search';
+import { getCurrentPage } from '../../../store/redux-first-router';
+import PAGES from '../../../app/pages';
 
 function getHeadingDegrees([x1, y1], [x2, y2]) {
   return (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
@@ -21,8 +23,6 @@ const latitudeLongitudeToArray = (location) => [location.latitude, location.long
 
 /* istanbul ignore next */ // TODO: refactor, test
 export function* switchClickAction(action) {
-  const zoom = yield select(getMapZoom);
-  const layers = yield select(getLayers);
   const selectionType = yield select(getSelectionType);
   const { location } = action.payload;
 
@@ -36,6 +36,8 @@ export function* switchClickAction(action) {
 
     yield put(toPanorama(imageData.id, heading));
   } else {
+    const zoom = yield select(getMapZoom);
+    const layers = yield select(getLayers);
     if (layers.length) { // eslint-disable-line no-lonely-if
       yield put({
         type: REQUEST_NEAREST_DETAILS,
@@ -46,8 +48,14 @@ export function* switchClickAction(action) {
         }
       });
     } else {
+      const currentPage = yield select(getCurrentPage);
       yield put(setSelection(SELECTION_TYPE.POINT, location));
-      yield put(toMap());
+
+      if (currentPage === PAGES.DATA_SEARCH) {
+        // already on search page, don't switch pages
+      } else {
+        yield put(toMap());
+      }
       yield put(fetchMapSearchResultsRequest(location));
     }
   }

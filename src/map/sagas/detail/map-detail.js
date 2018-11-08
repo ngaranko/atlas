@@ -1,12 +1,15 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import {
   FETCH_MAP_DETAIL_REQUEST,
   fetchMapDetailSuccess,
-  fetchMapDetailFailure
+  fetchMapDetailFailure,
+  getMapDetail
 } from '../../ducks/detail/map-detail';
 
 import fetchDetail from '../../services/map-detail';
+import { getDetailEndpoint } from '../../../shared/ducks/detail/detail';
+import { routing } from '../../../app/routes';
 
 export function* fetchMapDetail(action) {
   try {
@@ -17,6 +20,15 @@ export function* fetchMapDetail(action) {
   }
 }
 
-export default function* watchFetchMapDetail() {
+function* fireFetchMapDetail() {
+  const endpoint = yield select(getDetailEndpoint);
+  yield put(getMapDetail(endpoint));
+}
+
+export default function* watchMapDetail() {
   yield takeLatest(FETCH_MAP_DETAIL_REQUEST, fetchMapDetail);
+
+  yield takeLatest([
+    routing.dataDetail.type
+  ], fireFetchMapDetail);
 }

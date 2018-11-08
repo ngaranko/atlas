@@ -1,21 +1,46 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import {
-  FETCH_PANO_PREVIEW_FAILURE,
   FETCH_PANO_PREVIEW_REQUEST,
-  FETCH_PANO_PREVIEW_SUCCESS
+  fetchPanoPreviewSuccess,
+  fetchPanoPreviewFailure, fetchPanoPreview
 } from '../../ducks/preview/pano-preview';
 
 import panoPreview from '../../services/pano-preview';
+import {
+  FETCH_MAP_SEARCH_RESULTS_REQUEST,
+  getDataSearchLocation
+} from '../../../shared/ducks/data-search/data-search';
+import { routing } from '../../../app/routes';
+import { FETCH_MAP_DETAIL_SUCCESS } from '../../../map/ducks/detail/map-detail';
 
-export function* fetchMapPano(action) {
+function* fetchMapPano(action) {
   try {
-    const panoResult = yield call(panoPreview, action.location);
-    yield put({ type: FETCH_PANO_PREVIEW_SUCCESS, panoResult });
+    const location = action.payload;
+    const panoramaResult = yield call(panoPreview, location);
+    yield put(fetchPanoPreviewSuccess(panoramaResult));
   } catch (error) {
-    yield put({ type: FETCH_PANO_PREVIEW_FAILURE, error });
+    yield put(fetchPanoPreviewFailure(error));
   }
 }
 
-export default function* watchFetchMapPano() {
+function* possiblyFirePanoPreview() {
+  const location = yield select(getDataSearchLocation);
+  if (location) {
+    yield put(fetchPanoPreview(location));
+  }
+}
+
+function* fireFetchPanoPreview(action) {
+  const location = action.mapDetail.location;
+  yield put(fetchPanoPreview(location));
+}
+
+export default function* watchPanoPreview() {
   yield takeLatest(FETCH_PANO_PREVIEW_REQUEST, fetchMapPano);
+  yield takeLatest([
+    routing.map.type,
+    routing.dataSearch.type,
+    FETCH_MAP_SEARCH_RESULTS_REQUEST,
+  ], possiblyFirePanoPreview);
+  yield takeLatest(FETCH_MAP_DETAIL_SUCCESS, fireFetchPanoPreview);
 }

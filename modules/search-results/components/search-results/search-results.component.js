@@ -15,7 +15,9 @@ import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/data-search/da
                 location: '=',
                 category: '@',
                 numberOfResults: '=',
-                user: '<'
+                user: '<',
+                previewPanorama: '<',
+                isPreviewPanoramaLoading: '<',
             },
             templateUrl: 'modules/search-results/components/search-results/search-results.html',
             controller: DpSearchResultsController,

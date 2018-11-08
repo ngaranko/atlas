@@ -1,5 +1,5 @@
 import get from 'lodash.get';
-import queryString from "querystring";
+import queryString from 'querystring';
 import PAGES from './pages';
 import PANORAMA_VIEW from '../shared/ducks/straatbeeld/panorama-view';
 import { DETAIL_VIEW } from '../shared/ducks/detail/detail';
@@ -193,19 +193,6 @@ export const toDataLocationSearch = () => preserveQuery({ // TODO rename
 });
 
 export const toMap = () => preserveQuery({ type: routing.map.type });
-// export const toMap = (location) => {
-//   if (location) {
-//     return {
-//       type: routing.map.type,
-//       meta: {
-//         query: {
-//           locatie: `${location.latitude},${location.longitude}`
-//         }
-//       }
-//     };
-//   }
-//   return { type: routing.map.type };
-// };
 
 export const toPanorama = (id, heading, view) => {
   const action = {
