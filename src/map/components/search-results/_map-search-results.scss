@@ -106,7 +106,8 @@ $icon-height: 24px;
     padding: 6px 16px 6px 8px;
     width: auto;
 
-    &:hover {
+    &:hover,
+    &:focus {
       .map-search-results__button-icon--maximize {
         @include icon-sprite("icon-maximize", $primary-dark, $primary-dark, $icon-height);
       }

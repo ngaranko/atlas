@@ -42,6 +42,22 @@ $button-height: 24px;
     outline: none;
     width: $button-height;
 
+
+    &:hover,
+    &:focus {
+      .map-preview-panel__button-icon--close { //sass-lint:disable-line nesting-depth
+        @include icon-sprite("icon-clear", $primary-dark, $primary-dark, $button-height);
+      }
+
+      .map-preview-panel__button-icon--maximize { //sass-lint:disable-line nesting-depth
+        @include icon-sprite("icon-maximize", $primary-dark, $primary-dark, $button-height);
+      }
+
+      .map-preview-panel__button-icon--plus { //sass-lint:disable-line nesting-depth
+        @include icon-sprite("icon-plus", $primary-dark, $primary-dark, $button-height);
+      }
+    }
+
     &--show-all {
       align-items: center;
       display: flex;
@@ -54,10 +70,6 @@ $button-height: 24px;
         .map-preview-panel__button-label { //sass-lint:disable-line nesting-depth
           color: $primary-contrast;
           text-decoration: underline;
-        }
-
-        .map-preview-panel__button-icon--plus { //sass-lint:disable-line nesting-depth
-          @include icon-sprite("icon-plus", $primary-contrast, $primary-dark, $button-height);
         }
       }
 

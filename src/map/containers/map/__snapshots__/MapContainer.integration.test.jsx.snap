@@ -711,20 +711,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               >
                 <div
                   class="leaflet-top leaflet-left"
+                />
+                <div
+                  class="leaflet-top leaflet-right"
                 >
                   <div
                     class="leaflet-control-layer-container leaflet-bar leaflet-control"
                   >
-                    <img
-                      alt="laden..."
-                      class="leaflet-control-loading"
-                      src="assets/images/spinner.svg"
-                    />
+                    
+          
+                    <div
+                      class="c-loading-indicator c-loading-indicator--box"
+                    >
+                      
+              
+                      <img
+                        alt=""
+                        class="c-loading-indicator__icon"
+                        src="assets/images/spinner.svg"
+                      />
+                      
+              
+                      <span
+                        class="c-loading-indicator__text"
+                      >
+                        Bezig met laden...
+                      </span>
+                      
+          
+                    </div>
+                    
+        
                   </div>
                 </div>
-                <div
-                  class="leaflet-top leaflet-right"
-                />
                 <div
                   class="leaflet-bottom leaflet-left"
                 />
@@ -772,20 +791,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
             >
               <div
                 class="leaflet-top leaflet-left"
+              />
+              <div
+                class="leaflet-top leaflet-right"
               >
                 <div
                   class="leaflet-control-layer-container leaflet-bar leaflet-control"
                 >
-                  <img
-                    alt="laden..."
-                    class="leaflet-control-loading"
-                    src="assets/images/spinner.svg"
-                  />
+                  
+          
+                  <div
+                    class="c-loading-indicator c-loading-indicator--box"
+                  >
+                    
+              
+                    <img
+                      alt=""
+                      class="c-loading-indicator__icon"
+                      src="assets/images/spinner.svg"
+                    />
+                    
+              
+                    <span
+                      class="c-loading-indicator__text"
+                    >
+                      Bezig met laden...
+                    </span>
+                    
+          
+                  </div>
+                  
+        
                 </div>
               </div>
-              <div
-                class="leaflet-top leaflet-right"
-              />
               <div
                 class="leaflet-bottom leaflet-left"
               />
@@ -868,20 +906,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               </div>,
               "topleft": <div
                 class="leaflet-top leaflet-left"
+              />,
+              "topright": <div
+                class="leaflet-top leaflet-right"
               >
                 <div
                   class="leaflet-control-layer-container leaflet-bar leaflet-control"
                 >
-                  <img
-                    alt="laden..."
-                    class="leaflet-control-loading"
-                    src="assets/images/spinner.svg"
-                  />
+                  
+          
+                  <div
+                    class="c-loading-indicator c-loading-indicator--box"
+                  >
+                    
+              
+                    <img
+                      alt=""
+                      class="c-loading-indicator__icon"
+                      src="assets/images/spinner.svg"
+                    />
+                    
+              
+                    <span
+                      class="c-loading-indicator__text"
+                    >
+                      Bezig met laden...
+                    </span>
+                    
+          
+                  </div>
+                  
+        
                 </div>
               </div>,
-              "topright": <div
-                class="leaflet-top leaflet-right"
-              />,
             },
             "_enforcingBounds": false,
             "_events": Object {
@@ -940,22 +997,60 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "_container": <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <img
-                        alt="laden..."
-                        class="leaflet-control-loading"
-                        src="assets/images/spinner.svg"
-                      />
+                      
+          
+                      <div
+                        class="c-loading-indicator c-loading-indicator--box"
+                      >
+                        
+              
+                        <img
+                          alt=""
+                          class="c-loading-indicator__icon"
+                          src="assets/images/spinner.svg"
+                        />
+                        
+              
+                        <span
+                          class="c-loading-indicator__text"
+                        >
+                          Bezig met laden...
+                        </span>
+                        
+          
+                      </div>
+                      
+        
                     </div>,
                     "_initHooksCalled": true,
                     "_map": [Circular],
                     "indicatorContainer": <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <img
-                        alt="laden..."
-                        class="leaflet-control-loading"
-                        src="assets/images/spinner.svg"
-                      />
+                      
+          
+                      <div
+                        class="c-loading-indicator c-loading-indicator--box"
+                      >
+                        
+              
+                        <img
+                          alt=""
+                          class="c-loading-indicator__icon"
+                          src="assets/images/spinner.svg"
+                        />
+                        
+              
+                        <span
+                          class="c-loading-indicator__text"
+                        >
+                          Bezig met laden...
+                        </span>
+                        
+          
+                      </div>
+                      
+        
                     </div>,
                     "options": Object {
                       "loading": false,
@@ -973,22 +1068,60 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "_container": <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <img
-                        alt="laden..."
-                        class="leaflet-control-loading"
-                        src="assets/images/spinner.svg"
-                      />
+                      
+          
+                      <div
+                        class="c-loading-indicator c-loading-indicator--box"
+                      >
+                        
+              
+                        <img
+                          alt=""
+                          class="c-loading-indicator__icon"
+                          src="assets/images/spinner.svg"
+                        />
+                        
+              
+                        <span
+                          class="c-loading-indicator__text"
+                        >
+                          Bezig met laden...
+                        </span>
+                        
+          
+                      </div>
+                      
+        
                     </div>,
                     "_initHooksCalled": true,
                     "_map": [Circular],
                     "indicatorContainer": <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <img
-                        alt="laden..."
-                        class="leaflet-control-loading"
-                        src="assets/images/spinner.svg"
-                      />
+                      
+          
+                      <div
+                        class="c-loading-indicator c-loading-indicator--box"
+                      >
+                        
+              
+                        <img
+                          alt=""
+                          class="c-loading-indicator__icon"
+                          src="assets/images/spinner.svg"
+                        />
+                        
+              
+                        <span
+                          class="c-loading-indicator__text"
+                        >
+                          Bezig met laden...
+                        </span>
+                        
+          
+                      </div>
+                      
+        
                     </div>,
                     "options": Object {
                       "loading": false,
@@ -1551,20 +1684,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
+                        />
+                        <div
+                          class="leaflet-top leaflet-right"
                         >
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <img
-                              alt="laden..."
-                              class="leaflet-control-loading"
-                              src="assets/images/spinner.svg"
-                            />
+                            
+          
+                            <div
+                              class="c-loading-indicator c-loading-indicator--box"
+                            >
+                              
+              
+                              <img
+                                alt=""
+                                class="c-loading-indicator__icon"
+                                src="assets/images/spinner.svg"
+                              />
+                              
+              
+                              <span
+                                class="c-loading-indicator__text"
+                              >
+                                Bezig met laden...
+                              </span>
+                              
+          
+                            </div>
+                            
+        
                           </div>
                         </div>
-                        <div
-                          class="leaflet-top leaflet-right"
-                        />
                         <div
                           class="leaflet-bottom leaflet-left"
                         />
@@ -2228,20 +2380,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
+                    />
+                    <div
+                      class="leaflet-top leaflet-right"
                     >
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>
                     </div>
-                    <div
-                      class="leaflet-top leaflet-right"
-                    />
                     <div
                       class="leaflet-bottom leaflet-left"
                     />
@@ -2350,20 +2521,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
+                      />
+                      <div
+                        class="leaflet-top leaflet-right"
                       >
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <img
-                            alt="laden..."
-                            class="leaflet-control-loading"
-                            src="assets/images/spinner.svg"
-                          />
+                          
+          
+                          <div
+                            class="c-loading-indicator c-loading-indicator--box"
+                          >
+                            
+              
+                            <img
+                              alt=""
+                              class="c-loading-indicator__icon"
+                              src="assets/images/spinner.svg"
+                            />
+                            
+              
+                            <span
+                              class="c-loading-indicator__text"
+                            >
+                              Bezig met laden...
+                            </span>
+                            
+          
+                          </div>
+                          
+        
                         </div>
                       </div>
-                      <div
-                        class="leaflet-top leaflet-right"
-                      />
                       <div
                         class="leaflet-bottom leaflet-left"
                       />
@@ -2581,20 +2771,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
+                    />
+                    <div
+                      class="leaflet-top leaflet-right"
                     >
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>
                     </div>
-                    <div
-                      class="leaflet-top leaflet-right"
-                    />
                     <div
                       class="leaflet-bottom leaflet-left"
                     />
@@ -3141,20 +3350,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 >
                   <div
                     class="leaflet-top leaflet-left"
+                  />
+                  <div
+                    class="leaflet-top leaflet-right"
                   >
                     <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <img
-                        alt="laden..."
-                        class="leaflet-control-loading"
-                        src="assets/images/spinner.svg"
-                      />
+                      
+          
+                      <div
+                        class="c-loading-indicator c-loading-indicator--box"
+                      >
+                        
+              
+                        <img
+                          alt=""
+                          class="c-loading-indicator__icon"
+                          src="assets/images/spinner.svg"
+                        />
+                        
+              
+                        <span
+                          class="c-loading-indicator__text"
+                        >
+                          Bezig met laden...
+                        </span>
+                        
+          
+                      </div>
+                      
+        
                     </div>
                   </div>
-                  <div
-                    class="leaflet-top leaflet-right"
-                  />
                   <div
                     class="leaflet-bottom leaflet-left"
                   />
@@ -3263,20 +3491,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
+                    />
+                    <div
+                      class="leaflet-top leaflet-right"
                     >
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>
                     </div>
-                    <div
-                      class="leaflet-top leaflet-right"
-                    />
                     <div
                       class="leaflet-bottom leaflet-left"
                     />
@@ -3397,6 +3644,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               "_positions": Array [],
               "_times": Array [],
             },
+            "getBounds": [Function],
             "keyboard": NewClass {
               "_enabled": true,
               "_initHooksCalled": true,
@@ -3663,20 +3911,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 >
                   <div
                     class="leaflet-top leaflet-left"
+                  />
+                  <div
+                    class="leaflet-top leaflet-right"
                   >
                     <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <img
-                        alt="laden..."
-                        class="leaflet-control-loading"
-                        src="assets/images/spinner.svg"
-                      />
+                      
+          
+                      <div
+                        class="c-loading-indicator c-loading-indicator--box"
+                      >
+                        
+              
+                        <img
+                          alt=""
+                          class="c-loading-indicator__icon"
+                          src="assets/images/spinner.svg"
+                        />
+                        
+              
+                        <span
+                          class="c-loading-indicator__text"
+                        >
+                          Bezig met laden...
+                        </span>
+                        
+          
+                      </div>
+                      
+        
                     </div>
                   </div>
-                  <div
-                    class="leaflet-top leaflet-right"
-                  />
                   <div
                     class="leaflet-bottom leaflet-left"
                   />
@@ -3791,20 +4058,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 >
                   <div
                     class="leaflet-top leaflet-left"
+                  />
+                  <div
+                    class="leaflet-top leaflet-right"
                   >
                     <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <img
-                        alt="laden..."
-                        class="leaflet-control-loading"
-                        src="assets/images/spinner.svg"
-                      />
+                      
+          
+                      <div
+                        class="c-loading-indicator c-loading-indicator--box"
+                      >
+                        
+              
+                        <img
+                          alt=""
+                          class="c-loading-indicator__icon"
+                          src="assets/images/spinner.svg"
+                        />
+                        
+              
+                        <span
+                          class="c-loading-indicator__text"
+                        >
+                          Bezig met laden...
+                        </span>
+                        
+          
+                      </div>
+                      
+        
                     </div>
                   </div>
-                  <div
-                    class="leaflet-top leaflet-right"
-                  />
                   <div
                     class="leaflet-bottom leaflet-left"
                   />
@@ -3852,20 +4138,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
               >
                 <div
                   class="leaflet-top leaflet-left"
+                />
+                <div
+                  class="leaflet-top leaflet-right"
                 >
                   <div
                     class="leaflet-control-layer-container leaflet-bar leaflet-control"
                   >
-                    <img
-                      alt="laden..."
-                      class="leaflet-control-loading"
-                      src="assets/images/spinner.svg"
-                    />
+                    
+          
+                    <div
+                      class="c-loading-indicator c-loading-indicator--box"
+                    >
+                      
+              
+                      <img
+                        alt=""
+                        class="c-loading-indicator__icon"
+                        src="assets/images/spinner.svg"
+                      />
+                      
+              
+                      <span
+                        class="c-loading-indicator__text"
+                      >
+                        Bezig met laden...
+                      </span>
+                      
+          
+                    </div>
+                    
+        
                   </div>
                 </div>
-                <div
-                  class="leaflet-top leaflet-right"
-                />
                 <div
                   class="leaflet-bottom leaflet-left"
                 />
@@ -3948,20 +4253,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 </div>,
                 "topleft": <div
                   class="leaflet-top leaflet-left"
+                />,
+                "topright": <div
+                  class="leaflet-top leaflet-right"
                 >
                   <div
                     class="leaflet-control-layer-container leaflet-bar leaflet-control"
                   >
-                    <img
-                      alt="laden..."
-                      class="leaflet-control-loading"
-                      src="assets/images/spinner.svg"
-                    />
+                    
+          
+                    <div
+                      class="c-loading-indicator c-loading-indicator--box"
+                    >
+                      
+              
+                      <img
+                        alt=""
+                        class="c-loading-indicator__icon"
+                        src="assets/images/spinner.svg"
+                      />
+                      
+              
+                      <span
+                        class="c-loading-indicator__text"
+                      >
+                        Bezig met laden...
+                      </span>
+                      
+          
+                    </div>
+                    
+        
                   </div>
                 </div>,
-                "topright": <div
-                  class="leaflet-top leaflet-right"
-                />,
               },
               "_enforcingBounds": false,
               "_events": Object {
@@ -4020,22 +4344,60 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "_container": <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>,
                       "_initHooksCalled": true,
                       "_map": [Circular],
                       "indicatorContainer": <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>,
                       "options": Object {
                         "loading": false,
@@ -4053,22 +4415,60 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       "_container": <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>,
                       "_initHooksCalled": true,
                       "_map": [Circular],
                       "indicatorContainer": <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>,
                       "options": Object {
                         "loading": false,
@@ -4631,20 +5031,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         >
                           <div
                             class="leaflet-top leaflet-left"
+                          />
+                          <div
+                            class="leaflet-top leaflet-right"
                           >
                             <div
                               class="leaflet-control-layer-container leaflet-bar leaflet-control"
                             >
-                              <img
-                                alt="laden..."
-                                class="leaflet-control-loading"
-                                src="assets/images/spinner.svg"
-                              />
+                              
+          
+                              <div
+                                class="c-loading-indicator c-loading-indicator--box"
+                              >
+                                
+              
+                                <img
+                                  alt=""
+                                  class="c-loading-indicator__icon"
+                                  src="assets/images/spinner.svg"
+                                />
+                                
+              
+                                <span
+                                  class="c-loading-indicator__text"
+                                >
+                                  Bezig met laden...
+                                </span>
+                                
+          
+                              </div>
+                              
+        
                             </div>
                           </div>
-                          <div
-                            class="leaflet-top leaflet-right"
-                          />
                           <div
                             class="leaflet-bottom leaflet-left"
                           />
@@ -5308,20 +5727,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
+                      />
+                      <div
+                        class="leaflet-top leaflet-right"
                       >
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <img
-                            alt="laden..."
-                            class="leaflet-control-loading"
-                            src="assets/images/spinner.svg"
-                          />
+                          
+          
+                          <div
+                            class="c-loading-indicator c-loading-indicator--box"
+                          >
+                            
+              
+                            <img
+                              alt=""
+                              class="c-loading-indicator__icon"
+                              src="assets/images/spinner.svg"
+                            />
+                            
+              
+                            <span
+                              class="c-loading-indicator__text"
+                            >
+                              Bezig met laden...
+                            </span>
+                            
+          
+                          </div>
+                          
+        
                         </div>
                       </div>
-                      <div
-                        class="leaflet-top leaflet-right"
-                      />
                       <div
                         class="leaflet-bottom leaflet-left"
                       />
@@ -5430,20 +5868,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
+                        />
+                        <div
+                          class="leaflet-top leaflet-right"
                         >
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <img
-                              alt="laden..."
-                              class="leaflet-control-loading"
-                              src="assets/images/spinner.svg"
-                            />
+                            
+          
+                            <div
+                              class="c-loading-indicator c-loading-indicator--box"
+                            >
+                              
+              
+                              <img
+                                alt=""
+                                class="c-loading-indicator__icon"
+                                src="assets/images/spinner.svg"
+                              />
+                              
+              
+                              <span
+                                class="c-loading-indicator__text"
+                              >
+                                Bezig met laden...
+                              </span>
+                              
+          
+                            </div>
+                            
+        
                           </div>
                         </div>
-                        <div
-                          class="leaflet-top leaflet-right"
-                        />
                         <div
                           class="leaflet-bottom leaflet-left"
                         />
@@ -5661,20 +6118,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
+                      />
+                      <div
+                        class="leaflet-top leaflet-right"
                       >
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <img
-                            alt="laden..."
-                            class="leaflet-control-loading"
-                            src="assets/images/spinner.svg"
-                          />
+                          
+          
+                          <div
+                            class="c-loading-indicator c-loading-indicator--box"
+                          >
+                            
+              
+                            <img
+                              alt=""
+                              class="c-loading-indicator__icon"
+                              src="assets/images/spinner.svg"
+                            />
+                            
+              
+                            <span
+                              class="c-loading-indicator__text"
+                            >
+                              Bezig met laden...
+                            </span>
+                            
+          
+                          </div>
+                          
+        
                         </div>
                       </div>
-                      <div
-                        class="leaflet-top leaflet-right"
-                      />
                       <div
                         class="leaflet-bottom leaflet-left"
                       />
@@ -6221,20 +6697,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
+                    />
+                    <div
+                      class="leaflet-top leaflet-right"
                     >
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>
                     </div>
-                    <div
-                      class="leaflet-top leaflet-right"
-                    />
                     <div
                       class="leaflet-bottom leaflet-left"
                     />
@@ -6343,20 +6838,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
+                      />
+                      <div
+                        class="leaflet-top leaflet-right"
                       >
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <img
-                            alt="laden..."
-                            class="leaflet-control-loading"
-                            src="assets/images/spinner.svg"
-                          />
+                          
+          
+                          <div
+                            class="c-loading-indicator c-loading-indicator--box"
+                          >
+                            
+              
+                            <img
+                              alt=""
+                              class="c-loading-indicator__icon"
+                              src="assets/images/spinner.svg"
+                            />
+                            
+              
+                            <span
+                              class="c-loading-indicator__text"
+                            >
+                              Bezig met laden...
+                            </span>
+                            
+          
+                          </div>
+                          
+        
                         </div>
                       </div>
-                      <div
-                        class="leaflet-top leaflet-right"
-                      />
                       <div
                         class="leaflet-bottom leaflet-left"
                       />
@@ -6477,6 +6991,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 "_positions": Array [],
                 "_times": Array [],
               },
+              "getBounds": [Function],
               "keyboard": NewClass {
                 "_enabled": true,
                 "_initHooksCalled": true,
@@ -6743,20 +7258,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
+                    />
+                    <div
+                      class="leaflet-top leaflet-right"
                     >
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>
                     </div>
-                    <div
-                      class="leaflet-top leaflet-right"
-                    />
                     <div
                       class="leaflet-bottom leaflet-left"
                     />
@@ -6904,20 +7438,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
+                    />
+                    <div
+                      class="leaflet-top leaflet-right"
                     >
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>
                     </div>
-                    <div
-                      class="leaflet-top leaflet-right"
-                    />
                     <div
                       class="leaflet-bottom leaflet-left"
                     />
@@ -6965,20 +7518,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 >
                   <div
                     class="leaflet-top leaflet-left"
+                  />
+                  <div
+                    class="leaflet-top leaflet-right"
                   >
                     <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <img
-                        alt="laden..."
-                        class="leaflet-control-loading"
-                        src="assets/images/spinner.svg"
-                      />
+                      
+          
+                      <div
+                        class="c-loading-indicator c-loading-indicator--box"
+                      >
+                        
+              
+                        <img
+                          alt=""
+                          class="c-loading-indicator__icon"
+                          src="assets/images/spinner.svg"
+                        />
+                        
+              
+                        <span
+                          class="c-loading-indicator__text"
+                        >
+                          Bezig met laden...
+                        </span>
+                        
+          
+                      </div>
+                      
+        
                     </div>
                   </div>
-                  <div
-                    class="leaflet-top leaflet-right"
-                  />
                   <div
                     class="leaflet-bottom leaflet-left"
                   />
@@ -7061,20 +7633,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   </div>,
                   "topleft": <div
                     class="leaflet-top leaflet-left"
+                  />,
+                  "topright": <div
+                    class="leaflet-top leaflet-right"
                   >
                     <div
                       class="leaflet-control-layer-container leaflet-bar leaflet-control"
                     >
-                      <img
-                        alt="laden..."
-                        class="leaflet-control-loading"
-                        src="assets/images/spinner.svg"
-                      />
+                      
+          
+                      <div
+                        class="c-loading-indicator c-loading-indicator--box"
+                      >
+                        
+              
+                        <img
+                          alt=""
+                          class="c-loading-indicator__icon"
+                          src="assets/images/spinner.svg"
+                        />
+                        
+              
+                        <span
+                          class="c-loading-indicator__text"
+                        >
+                          Bezig met laden...
+                        </span>
+                        
+          
+                      </div>
+                      
+        
                     </div>
                   </div>,
-                  "topright": <div
-                    class="leaflet-top leaflet-right"
-                  />,
                 },
                 "_enforcingBounds": false,
                 "_events": Object {
@@ -7133,22 +7724,60 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "_container": <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <img
-                            alt="laden..."
-                            class="leaflet-control-loading"
-                            src="assets/images/spinner.svg"
-                          />
+                          
+          
+                          <div
+                            class="c-loading-indicator c-loading-indicator--box"
+                          >
+                            
+              
+                            <img
+                              alt=""
+                              class="c-loading-indicator__icon"
+                              src="assets/images/spinner.svg"
+                            />
+                            
+              
+                            <span
+                              class="c-loading-indicator__text"
+                            >
+                              Bezig met laden...
+                            </span>
+                            
+          
+                          </div>
+                          
+        
                         </div>,
                         "_initHooksCalled": true,
                         "_map": [Circular],
                         "indicatorContainer": <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <img
-                            alt="laden..."
-                            class="leaflet-control-loading"
-                            src="assets/images/spinner.svg"
-                          />
+                          
+          
+                          <div
+                            class="c-loading-indicator c-loading-indicator--box"
+                          >
+                            
+              
+                            <img
+                              alt=""
+                              class="c-loading-indicator__icon"
+                              src="assets/images/spinner.svg"
+                            />
+                            
+              
+                            <span
+                              class="c-loading-indicator__text"
+                            >
+                              Bezig met laden...
+                            </span>
+                            
+          
+                          </div>
+                          
+        
                         </div>,
                         "options": Object {
                           "loading": false,
@@ -7166,22 +7795,60 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         "_container": <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <img
-                            alt="laden..."
-                            class="leaflet-control-loading"
-                            src="assets/images/spinner.svg"
-                          />
+                          
+          
+                          <div
+                            class="c-loading-indicator c-loading-indicator--box"
+                          >
+                            
+              
+                            <img
+                              alt=""
+                              class="c-loading-indicator__icon"
+                              src="assets/images/spinner.svg"
+                            />
+                            
+              
+                            <span
+                              class="c-loading-indicator__text"
+                            >
+                              Bezig met laden...
+                            </span>
+                            
+          
+                          </div>
+                          
+        
                         </div>,
                         "_initHooksCalled": true,
                         "_map": [Circular],
                         "indicatorContainer": <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <img
-                            alt="laden..."
-                            class="leaflet-control-loading"
-                            src="assets/images/spinner.svg"
-                          />
+                          
+          
+                          <div
+                            class="c-loading-indicator c-loading-indicator--box"
+                          >
+                            
+              
+                            <img
+                              alt=""
+                              class="c-loading-indicator__icon"
+                              src="assets/images/spinner.svg"
+                            />
+                            
+              
+                            <span
+                              class="c-loading-indicator__text"
+                            >
+                              Bezig met laden...
+                            </span>
+                            
+          
+                          </div>
+                          
+        
                         </div>,
                         "options": Object {
                           "loading": false,
@@ -7744,20 +8411,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           >
                             <div
                               class="leaflet-top leaflet-left"
+                            />
+                            <div
+                              class="leaflet-top leaflet-right"
                             >
                               <div
                                 class="leaflet-control-layer-container leaflet-bar leaflet-control"
                               >
-                                <img
-                                  alt="laden..."
-                                  class="leaflet-control-loading"
-                                  src="assets/images/spinner.svg"
-                                />
+                                
+          
+                                <div
+                                  class="c-loading-indicator c-loading-indicator--box"
+                                >
+                                  
+              
+                                  <img
+                                    alt=""
+                                    class="c-loading-indicator__icon"
+                                    src="assets/images/spinner.svg"
+                                  />
+                                  
+              
+                                  <span
+                                    class="c-loading-indicator__text"
+                                  >
+                                    Bezig met laden...
+                                  </span>
+                                  
+          
+                                </div>
+                                
+        
                               </div>
                             </div>
-                            <div
-                              class="leaflet-top leaflet-right"
-                            />
                             <div
                               class="leaflet-bottom leaflet-left"
                             />
@@ -8421,20 +9107,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
+                        />
+                        <div
+                          class="leaflet-top leaflet-right"
                         >
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <img
-                              alt="laden..."
-                              class="leaflet-control-loading"
-                              src="assets/images/spinner.svg"
-                            />
+                            
+          
+                            <div
+                              class="c-loading-indicator c-loading-indicator--box"
+                            >
+                              
+              
+                              <img
+                                alt=""
+                                class="c-loading-indicator__icon"
+                                src="assets/images/spinner.svg"
+                              />
+                              
+              
+                              <span
+                                class="c-loading-indicator__text"
+                              >
+                                Bezig met laden...
+                              </span>
+                              
+          
+                            </div>
+                            
+        
                           </div>
                         </div>
-                        <div
-                          class="leaflet-top leaflet-right"
-                        />
                         <div
                           class="leaflet-bottom leaflet-left"
                         />
@@ -8543,20 +9248,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         >
                           <div
                             class="leaflet-top leaflet-left"
+                          />
+                          <div
+                            class="leaflet-top leaflet-right"
                           >
                             <div
                               class="leaflet-control-layer-container leaflet-bar leaflet-control"
                             >
-                              <img
-                                alt="laden..."
-                                class="leaflet-control-loading"
-                                src="assets/images/spinner.svg"
-                              />
+                              
+          
+                              <div
+                                class="c-loading-indicator c-loading-indicator--box"
+                              >
+                                
+              
+                                <img
+                                  alt=""
+                                  class="c-loading-indicator__icon"
+                                  src="assets/images/spinner.svg"
+                                />
+                                
+              
+                                <span
+                                  class="c-loading-indicator__text"
+                                >
+                                  Bezig met laden...
+                                </span>
+                                
+          
+                              </div>
+                              
+        
                             </div>
                           </div>
-                          <div
-                            class="leaflet-top leaflet-right"
-                          />
                           <div
                             class="leaflet-bottom leaflet-left"
                           />
@@ -8774,20 +9498,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
+                        />
+                        <div
+                          class="leaflet-top leaflet-right"
                         >
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <img
-                              alt="laden..."
-                              class="leaflet-control-loading"
-                              src="assets/images/spinner.svg"
-                            />
+                            
+          
+                            <div
+                              class="c-loading-indicator c-loading-indicator--box"
+                            >
+                              
+              
+                              <img
+                                alt=""
+                                class="c-loading-indicator__icon"
+                                src="assets/images/spinner.svg"
+                              />
+                              
+              
+                              <span
+                                class="c-loading-indicator__text"
+                              >
+                                Bezig met laden...
+                              </span>
+                              
+          
+                            </div>
+                            
+        
                           </div>
                         </div>
-                        <div
-                          class="leaflet-top leaflet-right"
-                        />
                         <div
                           class="leaflet-bottom leaflet-left"
                         />
@@ -9334,20 +10077,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
+                      />
+                      <div
+                        class="leaflet-top leaflet-right"
                       >
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <img
-                            alt="laden..."
-                            class="leaflet-control-loading"
-                            src="assets/images/spinner.svg"
-                          />
+                          
+          
+                          <div
+                            class="c-loading-indicator c-loading-indicator--box"
+                          >
+                            
+              
+                            <img
+                              alt=""
+                              class="c-loading-indicator__icon"
+                              src="assets/images/spinner.svg"
+                            />
+                            
+              
+                            <span
+                              class="c-loading-indicator__text"
+                            >
+                              Bezig met laden...
+                            </span>
+                            
+          
+                          </div>
+                          
+        
                         </div>
                       </div>
-                      <div
-                        class="leaflet-top leaflet-right"
-                      />
                       <div
                         class="leaflet-bottom leaflet-left"
                       />
@@ -9456,20 +10218,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
+                        />
+                        <div
+                          class="leaflet-top leaflet-right"
                         >
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <img
-                              alt="laden..."
-                              class="leaflet-control-loading"
-                              src="assets/images/spinner.svg"
-                            />
+                            
+          
+                            <div
+                              class="c-loading-indicator c-loading-indicator--box"
+                            >
+                              
+              
+                              <img
+                                alt=""
+                                class="c-loading-indicator__icon"
+                                src="assets/images/spinner.svg"
+                              />
+                              
+              
+                              <span
+                                class="c-loading-indicator__text"
+                              >
+                                Bezig met laden...
+                              </span>
+                              
+          
+                            </div>
+                            
+        
                           </div>
                         </div>
-                        <div
-                          class="leaflet-top leaflet-right"
-                        />
                         <div
                           class="leaflet-bottom leaflet-left"
                         />
@@ -9590,6 +10371,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   "_positions": Array [],
                   "_times": Array [],
                 },
+                "getBounds": [Function],
                 "keyboard": NewClass {
                   "_enabled": true,
                   "_initHooksCalled": true,
@@ -9856,20 +10638,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
+                      />
+                      <div
+                        class="leaflet-top leaflet-right"
                       >
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <img
-                            alt="laden..."
-                            class="leaflet-control-loading"
-                            src="assets/images/spinner.svg"
-                          />
+                          
+          
+                          <div
+                            class="c-loading-indicator c-loading-indicator--box"
+                          >
+                            
+              
+                            <img
+                              alt=""
+                              class="c-loading-indicator__icon"
+                              src="assets/images/spinner.svg"
+                            />
+                            
+              
+                            <span
+                              class="c-loading-indicator__text"
+                            >
+                              Bezig met laden...
+                            </span>
+                            
+          
+                          </div>
+                          
+        
                         </div>
                       </div>
-                      <div
-                        class="leaflet-top leaflet-right"
-                      />
                       <div
                         class="leaflet-bottom leaflet-left"
                       />
@@ -10019,20 +10820,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     >
                       <div
                         class="leaflet-top leaflet-left"
+                      />
+                      <div
+                        class="leaflet-top leaflet-right"
                       >
                         <div
                           class="leaflet-control-layer-container leaflet-bar leaflet-control"
                         >
-                          <img
-                            alt="laden..."
-                            class="leaflet-control-loading"
-                            src="assets/images/spinner.svg"
-                          />
+                          
+          
+                          <div
+                            class="c-loading-indicator c-loading-indicator--box"
+                          >
+                            
+              
+                            <img
+                              alt=""
+                              class="c-loading-indicator__icon"
+                              src="assets/images/spinner.svg"
+                            />
+                            
+              
+                            <span
+                              class="c-loading-indicator__text"
+                            >
+                              Bezig met laden...
+                            </span>
+                            
+          
+                          </div>
+                          
+        
                         </div>
                       </div>
-                      <div
-                        class="leaflet-top leaflet-right"
-                      />
                       <div
                         class="leaflet-bottom leaflet-left"
                       />
@@ -10080,20 +10900,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   >
                     <div
                       class="leaflet-top leaflet-left"
+                    />
+                    <div
+                      class="leaflet-top leaflet-right"
                     >
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>
                     </div>
-                    <div
-                      class="leaflet-top leaflet-right"
-                    />
                     <div
                       class="leaflet-bottom leaflet-left"
                     />
@@ -10176,20 +11015,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     </div>,
                     "topleft": <div
                       class="leaflet-top leaflet-left"
+                    />,
+                    "topright": <div
+                      class="leaflet-top leaflet-right"
                     >
                       <div
                         class="leaflet-control-layer-container leaflet-bar leaflet-control"
                       >
-                        <img
-                          alt="laden..."
-                          class="leaflet-control-loading"
-                          src="assets/images/spinner.svg"
-                        />
+                        
+          
+                        <div
+                          class="c-loading-indicator c-loading-indicator--box"
+                        >
+                          
+              
+                          <img
+                            alt=""
+                            class="c-loading-indicator__icon"
+                            src="assets/images/spinner.svg"
+                          />
+                          
+              
+                          <span
+                            class="c-loading-indicator__text"
+                          >
+                            Bezig met laden...
+                          </span>
+                          
+          
+                        </div>
+                        
+        
                       </div>
                     </div>,
-                    "topright": <div
-                      class="leaflet-top leaflet-right"
-                    />,
                   },
                   "_enforcingBounds": false,
                   "_events": Object {
@@ -10248,22 +11106,60 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           "_container": <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <img
-                              alt="laden..."
-                              class="leaflet-control-loading"
-                              src="assets/images/spinner.svg"
-                            />
+                            
+          
+                            <div
+                              class="c-loading-indicator c-loading-indicator--box"
+                            >
+                              
+              
+                              <img
+                                alt=""
+                                class="c-loading-indicator__icon"
+                                src="assets/images/spinner.svg"
+                              />
+                              
+              
+                              <span
+                                class="c-loading-indicator__text"
+                              >
+                                Bezig met laden...
+                              </span>
+                              
+          
+                            </div>
+                            
+        
                           </div>,
                           "_initHooksCalled": true,
                           "_map": [Circular],
                           "indicatorContainer": <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <img
-                              alt="laden..."
-                              class="leaflet-control-loading"
-                              src="assets/images/spinner.svg"
-                            />
+                            
+          
+                            <div
+                              class="c-loading-indicator c-loading-indicator--box"
+                            >
+                              
+              
+                              <img
+                                alt=""
+                                class="c-loading-indicator__icon"
+                                src="assets/images/spinner.svg"
+                              />
+                              
+              
+                              <span
+                                class="c-loading-indicator__text"
+                              >
+                                Bezig met laden...
+                              </span>
+                              
+          
+                            </div>
+                            
+        
                           </div>,
                           "options": Object {
                             "loading": false,
@@ -10281,22 +11177,60 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           "_container": <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <img
-                              alt="laden..."
-                              class="leaflet-control-loading"
-                              src="assets/images/spinner.svg"
-                            />
+                            
+          
+                            <div
+                              class="c-loading-indicator c-loading-indicator--box"
+                            >
+                              
+              
+                              <img
+                                alt=""
+                                class="c-loading-indicator__icon"
+                                src="assets/images/spinner.svg"
+                              />
+                              
+              
+                              <span
+                                class="c-loading-indicator__text"
+                              >
+                                Bezig met laden...
+                              </span>
+                              
+          
+                            </div>
+                            
+        
                           </div>,
                           "_initHooksCalled": true,
                           "_map": [Circular],
                           "indicatorContainer": <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <img
-                              alt="laden..."
-                              class="leaflet-control-loading"
-                              src="assets/images/spinner.svg"
-                            />
+                            
+          
+                            <div
+                              class="c-loading-indicator c-loading-indicator--box"
+                            >
+                              
+              
+                              <img
+                                alt=""
+                                class="c-loading-indicator__icon"
+                                src="assets/images/spinner.svg"
+                              />
+                              
+              
+                              <span
+                                class="c-loading-indicator__text"
+                              >
+                                Bezig met laden...
+                              </span>
+                              
+          
+                            </div>
+                            
+        
                           </div>,
                           "options": Object {
                             "loading": false,
@@ -10859,20 +11793,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             >
                               <div
                                 class="leaflet-top leaflet-left"
+                              />
+                              <div
+                                class="leaflet-top leaflet-right"
                               >
                                 <div
                                   class="leaflet-control-layer-container leaflet-bar leaflet-control"
                                 >
-                                  <img
-                                    alt="laden..."
-                                    class="leaflet-control-loading"
-                                    src="assets/images/spinner.svg"
-                                  />
+                                  
+          
+                                  <div
+                                    class="c-loading-indicator c-loading-indicator--box"
+                                  >
+                                    
+              
+                                    <img
+                                      alt=""
+                                      class="c-loading-indicator__icon"
+                                      src="assets/images/spinner.svg"
+                                    />
+                                    
+              
+                                    <span
+                                      class="c-loading-indicator__text"
+                                    >
+                                      Bezig met laden...
+                                    </span>
+                                    
+          
+                                  </div>
+                                  
+        
                                 </div>
                               </div>
-                              <div
-                                class="leaflet-top leaflet-right"
-                              />
                               <div
                                 class="leaflet-bottom leaflet-left"
                               />
@@ -11536,20 +12489,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         >
                           <div
                             class="leaflet-top leaflet-left"
+                          />
+                          <div
+                            class="leaflet-top leaflet-right"
                           >
                             <div
                               class="leaflet-control-layer-container leaflet-bar leaflet-control"
                             >
-                              <img
-                                alt="laden..."
-                                class="leaflet-control-loading"
-                                src="assets/images/spinner.svg"
-                              />
+                              
+          
+                              <div
+                                class="c-loading-indicator c-loading-indicator--box"
+                              >
+                                
+              
+                                <img
+                                  alt=""
+                                  class="c-loading-indicator__icon"
+                                  src="assets/images/spinner.svg"
+                                />
+                                
+              
+                                <span
+                                  class="c-loading-indicator__text"
+                                >
+                                  Bezig met laden...
+                                </span>
+                                
+          
+                              </div>
+                              
+        
                             </div>
                           </div>
-                          <div
-                            class="leaflet-top leaflet-right"
-                          />
                           <div
                             class="leaflet-bottom leaflet-left"
                           />
@@ -11658,20 +12630,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           >
                             <div
                               class="leaflet-top leaflet-left"
+                            />
+                            <div
+                              class="leaflet-top leaflet-right"
                             >
                               <div
                                 class="leaflet-control-layer-container leaflet-bar leaflet-control"
                               >
-                                <img
-                                  alt="laden..."
-                                  class="leaflet-control-loading"
-                                  src="assets/images/spinner.svg"
-                                />
+                                
+          
+                                <div
+                                  class="c-loading-indicator c-loading-indicator--box"
+                                >
+                                  
+              
+                                  <img
+                                    alt=""
+                                    class="c-loading-indicator__icon"
+                                    src="assets/images/spinner.svg"
+                                  />
+                                  
+              
+                                  <span
+                                    class="c-loading-indicator__text"
+                                  >
+                                    Bezig met laden...
+                                  </span>
+                                  
+          
+                                </div>
+                                
+        
                               </div>
                             </div>
-                            <div
-                              class="leaflet-top leaflet-right"
-                            />
                             <div
                               class="leaflet-bottom leaflet-left"
                             />
@@ -11889,20 +12880,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         >
                           <div
                             class="leaflet-top leaflet-left"
+                          />
+                          <div
+                            class="leaflet-top leaflet-right"
                           >
                             <div
                               class="leaflet-control-layer-container leaflet-bar leaflet-control"
                             >
-                              <img
-                                alt="laden..."
-                                class="leaflet-control-loading"
-                                src="assets/images/spinner.svg"
-                              />
+                              
+          
+                              <div
+                                class="c-loading-indicator c-loading-indicator--box"
+                              >
+                                
+              
+                                <img
+                                  alt=""
+                                  class="c-loading-indicator__icon"
+                                  src="assets/images/spinner.svg"
+                                />
+                                
+              
+                                <span
+                                  class="c-loading-indicator__text"
+                                >
+                                  Bezig met laden...
+                                </span>
+                                
+          
+                              </div>
+                              
+        
                             </div>
                           </div>
-                          <div
-                            class="leaflet-top leaflet-right"
-                          />
                           <div
                             class="leaflet-bottom leaflet-left"
                           />
@@ -12449,20 +13459,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
+                        />
+                        <div
+                          class="leaflet-top leaflet-right"
                         >
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <img
-                              alt="laden..."
-                              class="leaflet-control-loading"
-                              src="assets/images/spinner.svg"
-                            />
+                            
+          
+                            <div
+                              class="c-loading-indicator c-loading-indicator--box"
+                            >
+                              
+              
+                              <img
+                                alt=""
+                                class="c-loading-indicator__icon"
+                                src="assets/images/spinner.svg"
+                              />
+                              
+              
+                              <span
+                                class="c-loading-indicator__text"
+                              >
+                                Bezig met laden...
+                              </span>
+                              
+          
+                            </div>
+                            
+        
                           </div>
                         </div>
-                        <div
-                          class="leaflet-top leaflet-right"
-                        />
                         <div
                           class="leaflet-bottom leaflet-left"
                         />
@@ -12571,20 +13600,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                         >
                           <div
                             class="leaflet-top leaflet-left"
+                          />
+                          <div
+                            class="leaflet-top leaflet-right"
                           >
                             <div
                               class="leaflet-control-layer-container leaflet-bar leaflet-control"
                             >
-                              <img
-                                alt="laden..."
-                                class="leaflet-control-loading"
-                                src="assets/images/spinner.svg"
-                              />
+                              
+          
+                              <div
+                                class="c-loading-indicator c-loading-indicator--box"
+                              >
+                                
+              
+                                <img
+                                  alt=""
+                                  class="c-loading-indicator__icon"
+                                  src="assets/images/spinner.svg"
+                                />
+                                
+              
+                                <span
+                                  class="c-loading-indicator__text"
+                                >
+                                  Bezig met laden...
+                                </span>
+                                
+          
+                              </div>
+                              
+        
                             </div>
                           </div>
-                          <div
-                            class="leaflet-top leaflet-right"
-                          />
                           <div
                             class="leaflet-bottom leaflet-left"
                           />
@@ -12705,6 +13753,7 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     "_positions": Array [],
                     "_times": Array [],
                   },
+                  "getBounds": [Function],
                   "keyboard": NewClass {
                     "_enabled": true,
                     "_initHooksCalled": true,
@@ -12971,20 +14020,39 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       >
                         <div
                           class="leaflet-top leaflet-left"
+                        />
+                        <div
+                          class="leaflet-top leaflet-right"
                         >
                           <div
                             class="leaflet-control-layer-container leaflet-bar leaflet-control"
                           >
-                            <img
-                              alt="laden..."
-                              class="leaflet-control-loading"
-                              src="assets/images/spinner.svg"
-                            />
+                            
+          
+                            <div
+                              class="c-loading-indicator c-loading-indicator--box"
+                            >
+                              
+              
+                              <img
+                                alt=""
+                                class="c-loading-indicator__icon"
+                                src="assets/images/spinner.svg"
+                              />
+                              
+              
+                              <span
+                                class="c-loading-indicator__text"
+                              >
+                                Bezig met laden...
+                              </span>
+                              
+          
+                            </div>
+                            
+        
                           </div>
                         </div>
-                        <div
-                          class="leaflet-top leaflet-right"
-                        />
                         <div
                           class="leaflet-bottom leaflet-left"
                         />
@@ -13074,11 +14142,9 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                     onClick={[Function]}
                     title="Begin meten en intekenen"
                   >
-                    <Component
+                    <span
                       className="toggle-drawing__icon"
-                    >
-                      mock-svg
-                    </Component>
+                    />
                     <span
                       className="toggle-drawing__label"
                     />
@@ -13098,11 +14164,12 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
           onClick={[Function]}
           title="Kaart vergroten"
         >
-          <Component
-            className="toggle-fullscreen__icon"
-          >
-            mock-svg
-          </Component>
+          <span
+            className="
+      toggle-fullscreen__icon
+      toggle-fullscreen__icon--maximize
+    "
+          />
         </button>
       </ToggleFullscreen>
       <Connect(MapPanelContainer)>
@@ -13433,6 +14500,29 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 "minZoom": 8,
                 "title": "Kadastrale eigenaren",
                 "url": "/maps/eigendommen?version=1.3.0&service=WMS",
+              },
+              Object {
+                "category": "Geografie: onroerende zaken",
+                "legendItems": Array [
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-erf-cat-1.svg",
+                    "id": "efga",
+                    "layer": "erfpacht",
+                    "selectable": true,
+                    "title": "Gemeente Amsterdam",
+                  },
+                  Object {
+                    "iconUrl": "assets/images/map-legend/icon-erf-cat-2.svg",
+                    "id": "efov",
+                    "layer": "erfpacht",
+                    "selectable": true,
+                    "title": "Overig",
+                  },
+                ],
+                "maxZoom": 16,
+                "minZoom": 8,
+                "title": "Kadastrale erfpachtuitgevers",
+                "url": "/maps/erfpacht?version=1.3.0&service=WMS",
               },
               Object {
                 "category": "Geografie: onroerende zaken",
@@ -15467,27 +16557,21 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                 onClick={[Function]}
                 title="Kaartlagen tonen"
               >
-                <Component
+                <span
                   className="map-panel__heading-icon"
-                >
-                  mock-svg
-                </Component>
+                />
                 <h2
                   aria-hidden="true"
                   className="map-panel__heading-title"
                 >
                   Kaartlagen
                 </h2>
-                <Component
-                  className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
-                >
-                  mock-svg
-                </Component>
-                <Component
-                  className="map-panel__toggle-icon map-panel__toggle-icon--collapsed"
-                >
-                  mock-svg
-                </Component>
+                <span
+                  className="
+              map-panel__toggle--icon
+              map-panel__toggle--icon-expand
+            "
+                />
               </button>
             </div>
             <div
@@ -15504,18 +16588,16 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
   "
                 >
                   <button
-                    className="map-panel-handle__toggle"
+                    className="
+        map-panel-handle__toggle
+        map-panel-handle__toggle--icon-collapse
+      "
                     onClick={[Function]}
                   >
-                    <span>
-                      <Component>
-                        mock-svg
-                      </Component>
-                      <span
-                        className="u-sr-only"
-                      >
-                        Kaartlagen verbergen
-                      </span>
+                    <span
+                      className="u-sr-only"
+                    >
+                      Kaartlagen verbergen
                     </span>
                   </button>
                   <MapType
@@ -15663,7 +16745,11 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       <SelectButton
                         className="map-type__select map-type__select--topography"
                         handleChange={[Function]}
-                        icon={[Function]}
+                        icon={
+                          <span
+                            className="icon icon--topography"
+                          />
+                        }
                         isDisabled={false}
                         isExpanded={false}
                         label=""
@@ -15705,11 +16791,13 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             className="select-button__wrapper"
                             onClick={[Function]}
                           >
-                            <Component
+                            <span
                               className="select-button__custom-icon"
                             >
-                              mock-svg
-                            </Component>
+                              <span
+                                className="icon icon--topography"
+                              />
+                            </span>
                             <div
                               className="select-button__label"
                             >
@@ -15721,28 +16809,17 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             onClick={[Function]}
                           >
                             <span
-                              className="select-button__icon select-button__icon--expand"
+                              className="
+            select-button__icon
+            select-button__icon-expand
+          "
                             >
                               <span
                                 className="u-sr-only"
                               >
+                                $
                                 Uitklappen
                               </span>
-                              <Component>
-                                mock-svg
-                              </Component>
-                            </span>
-                            <span
-                              className="select-button__icon select-button__icon--collapse"
-                            >
-                              <span
-                                className="u-sr-only"
-                              >
-                                Inklappen
-                              </span>
-                              <Component>
-                                mock-svg
-                              </Component>
                             </span>
                           </button>
                           <ul
@@ -15799,7 +16876,11 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                       <SelectButton
                         className="map-type__select map-type__select--aerial"
                         handleChange={[Function]}
-                        icon={[Function]}
+                        icon={
+                          <span
+                            className="icon icon--aerial"
+                          />
+                        }
                         isDisabled={true}
                         isExpanded={false}
                         label=""
@@ -15925,11 +17006,13 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             className="select-button__wrapper"
                             onClick={[Function]}
                           >
-                            <Component
+                            <span
                               className="select-button__custom-icon"
                             >
-                              mock-svg
-                            </Component>
+                              <span
+                                className="icon icon--aerial"
+                              />
+                            </span>
                             <div
                               className="select-button__label"
                             >
@@ -15941,28 +17024,17 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             onClick={[Function]}
                           >
                             <span
-                              className="select-button__icon select-button__icon--expand"
+                              className="
+            select-button__icon
+            select-button__icon-expand
+          "
                             >
                               <span
                                 className="u-sr-only"
                               >
+                                $
                                 Uitklappen
                               </span>
-                              <Component>
-                                mock-svg
-                              </Component>
-                            </span>
-                            <span
-                              className="select-button__icon select-button__icon--collapse"
-                            >
-                              <span
-                                className="u-sr-only"
-                              >
-                                Inklappen
-                              </span>
-                              <Component>
-                                mock-svg
-                              </Component>
                             </span>
                           </button>
                           <ul
@@ -16418,6 +17490,29 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                           "minZoom": 8,
                           "title": "Kadastrale eigenaren",
                           "url": "/maps/eigendommen?version=1.3.0&service=WMS",
+                        },
+                        Object {
+                          "category": "Geografie: onroerende zaken",
+                          "legendItems": Array [
+                            Object {
+                              "iconUrl": "assets/images/map-legend/icon-erf-cat-1.svg",
+                              "id": "efga",
+                              "layer": "erfpacht",
+                              "selectable": true,
+                              "title": "Gemeente Amsterdam",
+                            },
+                            Object {
+                              "iconUrl": "assets/images/map-legend/icon-erf-cat-2.svg",
+                              "id": "efov",
+                              "layer": "erfpacht",
+                              "selectable": true,
+                              "title": "Overig",
+                            },
+                          ],
+                          "maxZoom": 16,
+                          "minZoom": 8,
+                          "title": "Kadastrale erfpachtuitgevers",
+                          "url": "/maps/erfpacht?version=1.3.0&service=WMS",
                         },
                         Object {
                           "category": "Geografie: onroerende zaken",
@@ -18455,18 +19550,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18486,18 +19573,33 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
+                                />
+                              </button>
+                            </li>
+                            <li
+                              className="
+                      map-layers__title
+                      map-layers__title--inactive
+                    "
+                              key="Kadastrale erfpachtuitgevers"
+                            >
+                              <button
+                                onClick={[Function]}
+                              >
+                                <span
+                                  className="map-layers__toggle-title"
                                 >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
+                                  Kadastrale erfpachtuitgevers
                                 </span>
+                                <span
+                                  className="map-layers__toggle map-layers__toggle--remove"
+                                />
+                                <span
+                                  className="map-layers__toggle map-layers__toggle--add"
+                                />
                               </button>
                             </li>
                             <li
@@ -18517,18 +19619,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                           </ul>
@@ -18560,18 +19654,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18591,18 +19677,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18622,18 +19700,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18653,18 +19723,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                           </ul>
@@ -18696,18 +19758,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18727,18 +19781,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18758,18 +19804,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18789,18 +19827,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18820,18 +19850,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18851,18 +19873,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                           </ul>
@@ -18894,18 +19908,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18925,18 +19931,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18956,18 +19954,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -18987,18 +19977,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19018,18 +20000,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                           </ul>
@@ -19061,18 +20035,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19092,18 +20058,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19123,18 +20081,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19154,18 +20104,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                           </ul>
@@ -19197,18 +20139,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                           </ul>
@@ -19240,18 +20174,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19271,18 +20197,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19302,18 +20220,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19333,18 +20243,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19364,18 +20266,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19395,18 +20289,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19426,18 +20312,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                           </ul>
@@ -19469,18 +20347,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19500,18 +20370,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19531,18 +20393,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19562,18 +20416,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19593,18 +20439,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19624,18 +20462,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19655,18 +20485,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19686,18 +20508,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19717,18 +20531,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19748,18 +20554,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19779,18 +20577,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19810,18 +20600,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                           </ul>
@@ -19853,18 +20635,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19884,18 +20658,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19915,18 +20681,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19946,18 +20704,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -19977,18 +20727,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20008,18 +20750,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20039,18 +20773,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                           </ul>
@@ -20082,18 +20808,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20113,18 +20831,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20144,18 +20854,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20175,18 +20877,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20206,18 +20900,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20237,18 +20923,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20268,18 +20946,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20299,18 +20969,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20330,18 +20992,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20361,18 +21015,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20392,18 +21038,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20423,18 +21061,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20454,18 +21084,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                           </ul>
@@ -20497,18 +21119,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                             <li
@@ -20528,18 +21142,10 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                                 </span>
                                 <span
                                   className="map-layers__toggle map-layers__toggle--remove"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                                 <span
                                   className="map-layers__toggle map-layers__toggle--add"
-                                >
-                                  <Component>
-                                    mock-svg
-                                  </Component>
-                                </span>
+                                />
                               </button>
                             </li>
                           </ul>
@@ -20607,22 +21213,18 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   onClick={[Function]}
                   title="Volledige weergave tonen"
                 >
-                  <Component
-                    className="map-preview-panel__button-icon"
-                  >
-                    mock-svg
-                  </Component>
+                  <span
+                    className=" map-preview-panel__button-icon map-preview-panel__button-icon--maximize"
+                  />
                 </button>
                 <button
                   className="map-preview-panel__button"
                   onClick={[Function]}
                   title="Sluiten"
                 >
-                  <Component
-                    className="map-preview-panel__button-icon"
-                  >
-                    mock-svg
-                  </Component>
+                  <span
+                    className=" map-preview-panel__button-icon map-preview-panel__button-icon--close"
+                  />
                 </button>
               </div>
               <div

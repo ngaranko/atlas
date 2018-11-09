@@ -103,6 +103,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
           autoCapitalize="off"
           autoComplete="off"
           autoCorrect="off"
+          autoFocus="true"
           className="auto-suggest__input"
           id="auto-suggest__input"
           onBlur={[Function]}
@@ -595,6 +596,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
           autoCapitalize="off"
           autoComplete="off"
           autoCorrect="off"
+          autoFocus="true"
           className="auto-suggest__input"
           id="auto-suggest__input"
           onBlur={[Function]}
@@ -1090,6 +1092,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           autoCapitalize="off"
           autoComplete="off"
           autoCorrect="off"
+          autoFocus="true"
           className="auto-suggest__input"
           id="auto-suggest__input"
           onBlur={[Function]}
@@ -1234,6 +1237,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           autoCapitalize="off"
           autoComplete="off"
           autoCorrect="off"
+          autoFocus="true"
           className="auto-suggest__input"
           id="auto-suggest__input"
           onBlur={[Function]}
@@ -1723,6 +1727,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           autoCapitalize="off"
           autoComplete="off"
           autoCorrect="off"
+          autoFocus="true"
           className="auto-suggest__input"
           id="auto-suggest__input"
           onBlur={[Function]}
