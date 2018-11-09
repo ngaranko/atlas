@@ -55,6 +55,7 @@ $handle-height: 24px;
   }
 
   &__heading-title {
+    color: $secondary-gray60;
     flex-grow: 1;
     font-family: "Avenir LT W01 85 Heavy";
     font-size: 16px;
@@ -96,6 +97,10 @@ $handle-height: 24px;
 
     &:hover,
     &:focus {
+      .map-panel__heading-title {
+        color: $primary-dark;
+      }
+
       .map-panel__heading-icon {
         @include icon-sprite("icon-map-layers", $primary-dark, $primary-dark, $handle-height);
       }
