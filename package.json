@@ -29,7 +29,6 @@
     "start-prod": "grunt && webpack-dev-server --config webpack.prod-api-dev.js",
     "test": "cross-env karma start && jest --config=./test/jest.unit.config.js",
     "test-e2e-aria": "babel-node ./test/pa11y.js",
-    "test-e2e-api-health-watch": "cross-env API_ROOT=https://acc.api.data.amsterdam.nl SCRIPTS_FOLDER='test/cypress/health' node ./scripts/cypress/cypress-watch.js",
     "test-e2e": "cross-env API_ROOT=https://acc.api.data.amsterdam.nl node ./scripts/cypress/cypress-run.js",
     "test-e2e-prod": "cross-env API_ROOT=https://api.data.amsterdam.nl node ./scripts/cypress/cypress-run.js",
     "test-e2e-prod-watch": "cross-env API_ROOT=https://api.data.amsterdam.nl node ./scripts/cypress/cypress-watch.js",
@@ -41,7 +40,7 @@
     "test-jest-watch": "cross-env NODE_ENV=development jest --config=./test/jest.unit.config.js --watch --onlyChanged --coverage",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run",
-    "test-lint": "npm run lint",
+    "pretest": "npm run lint",
     "dyson:api": "nodemon --watch test/dyson/mock/api --exec babel-node --presets=latest test/dyson/mock/api"
   },
   "dependencies": {
