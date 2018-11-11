@@ -58,8 +58,6 @@ In order to test authentication the following environment variables must be set:
 They can simply be added by using the `export` command from the command line, or by adding these
 variables to `.bash_profile`.
 
-### E2E testing
-
 Make sure the app is running locally by running `npm start`.
 Then, in a second terminal, run `npm run test-e2e` (single run).
 Or open the UI using `npm run test-e2e-watch`.
@@ -108,3 +106,8 @@ docker-compose up --build test-e2e-aria
 - BEMIT (http://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/)
 - BEM namespaces (http://csswizardry.com/2015/03/more-transparent-ui-code-with-namespaces/)
 - [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) without tags and a release branch
+
+## Known issues
+- on windows there is a bug in sass-lint that prevents `npm run lint` to fail when there are linting errors.
+  work-around: install sass-lint globally and run commands specified in the  `lint:style` script direct in a bash
+  terminal
