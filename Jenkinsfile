@@ -16,34 +16,34 @@ pipeline {
 
   stages {
 
-    // stage('Deploy feature branch (Bakkie)') {
-    //   when { not { branch 'master' } }
-    //   options {
-    //     timeout(time: 5, unit: 'MINUTES')
-    //   }
-    //   steps {
-    //     sh "scripts/bakkie.sh ${BRANCH_NAME}"
-    //   }
-    // }
+    stage('Deploy feature branch (Bakkie)') {
+      when { not { branch 'master' } }
+      options {
+        timeout(time: 5, unit: 'MINUTES')
+      }
+      steps {
+        sh "scripts/bakkie.sh ${BRANCH_NAME}"
+      }
+    }
 
-    // stage('Check API\'s health') {
-    //   options {
-    //     timeout(time: 2, unit: 'MINUTES')
-    //   }
-    //   environment {
-    //     PROJECT                = "${PROJECT_PREFIX}e2e-api-health"
-    //     USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
-    //     PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
-    //   }
-    //   steps {
-    //     sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-health-checks test-health-checks"
-    //   }
-    //   post {
-    //     always {
-    //       sh "docker-compose -p ${PROJECT} down -v || true"
-    //     }
-    //   }
-    // }
+    stage('Check API\'s health') {
+      options {
+        timeout(time: 2, unit: 'MINUTES')
+      }
+      environment {
+        PROJECT                = "${PROJECT_PREFIX}e2e-api-health"
+        USERNAME_EMPLOYEE_PLUS = 'atlas.employee.plus@amsterdam.nl'
+        PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
+      }
+      steps {
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-health-checks test-health-checks"
+      }
+      post {
+        always {
+          sh "docker-compose -p ${PROJECT} down -v || true"
+        }
+      }
+    }
 
     stage('Unit tests') {
       options {
