@@ -1,6 +1,7 @@
 import removeMd from 'remove-markdown';
 import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
 import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
+import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/data/data';
 
 (function () {
     angular
@@ -65,6 +66,8 @@ import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
 
         // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
         vm.geosearchButtonClick = () => sendPiwikEvent();
+
+        vm.downloadResource = (dataset, resourceUrl) => store.dispatch(downloadDatasetResource({dataset, resourceUrl}));
 
         function getData (endpoint) {
             vm.location = null;

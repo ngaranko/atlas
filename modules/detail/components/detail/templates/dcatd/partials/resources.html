@@ -7,7 +7,7 @@
         <div class="resources-type__content" ng-repeat="resource in resourceType.rows">
             <div class="resources-type__content-item">
 
-                <div class="resources-item" dp-follow-link="{{ resource['ams:purl'] }}" dp-follow-link-resource-name={{vm.apiData.results["dct:title"]}}>
+                <a class="resources-item" href="{{resource['ams:purl']}}" target="_blank" ng-click="vm.downloadResource(vm.apiData.results['dct:title'], resource['ams:purl'])">
 
                         <div class="resources-item__left">
                             <div class="resources-item__title">
@@ -31,7 +31,7 @@
                                                  c-data-selection-file-type__format-{{resource['ams:distributionType'] | optionLabel: vm.catalogFilters.distributionTypes| lowercase}}">
                                                  {{resource['ams:distributionType'] | optionLabel: vm.catalogFilters.distributionTypes}}</span>
                                 </span>
-                                <div>{{ resource['dct:description'] ? vm.stripMarkdown(resource['dct:description']) : resource['ams:purl'] }}</div>
+                                <div>{{resource['dct:description'] ? vm.stripMarkdown(resource['dct:description']) : resource['ams:purl']}}</div>
                             </div>
                         </div>
                         <div class="resources-item__right">
@@ -41,7 +41,7 @@
                                 <div class="resources-item__navigation-arrow"></div>
                             </div>
                         </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
