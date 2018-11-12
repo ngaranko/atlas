@@ -1,5 +1,3 @@
-import * as querySync from '../../../../src/store/query-synchronization';
-
 describe('The dp-embed-header component', () => {
     let $compile,
         $rootScope,
@@ -28,7 +26,6 @@ describe('The dp-embed-header component', () => {
         var component,
             element;
 
-        querySync.getEmbedButtonLink = () => 'https://fakeurl.com/';
         document.getElementById = () => ({
             contentWindow: {
                 location: {

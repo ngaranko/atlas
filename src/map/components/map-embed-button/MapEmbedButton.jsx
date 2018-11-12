@@ -1,6 +1,6 @@
 import React from 'react';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
-import { getEmbedButtonLink } from '../../../store/query-synchronization';
+import { getEmbedButtonLink } from '../../../shared/services/embed-url/embed-url';
 
 const MapEmbedButton = () => (
   <button

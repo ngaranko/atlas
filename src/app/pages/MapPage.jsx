@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MapContainer from '../../map/containers/map/MapContainer';
 import { isEmbedPreview } from '../../shared/ducks/ui/ui';
-import { getIframeUrl } from '../../store/query-synchronization';
+import { getIframeUrl } from '../../shared/services/embed-url/embed-url';
 
 /* istanbul ignore next */ // TODO: refactor, test
 const Map = ({ embedPreview }) => (

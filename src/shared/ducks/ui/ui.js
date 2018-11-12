@@ -80,7 +80,7 @@ export const isInPrintorEmbedMode = createSelector(
   isPrintMode,
   isEmbedPreview,
   (embedded, print, preview) =>
-    !!(embedded || print || preview));
+    Boolean(embedded || print || preview));
 export const isMapLayersVisible = createSelector(getUIState, (ui) => ui.isMapLayersVisible);
 export const isMapPanelHandleVisible =
   createSelector(getUIState, (ui) => ui.isMapPanelHandleVisible);

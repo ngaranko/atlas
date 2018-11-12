@@ -1,5 +1,3 @@
-import { getEmbedButtonLink } from '../../../../src/store/query-synchronization';
-
 (() => {
     'use strict';
 
@@ -18,18 +16,18 @@ import { getEmbedButtonLink } from '../../../../src/store/query-synchronization'
 
         const iframe = window.document.getElementById('atlas-iframe-map');
 
-        function seturlFromIframe () {
+        function setUrlFromIframe () {
             const { location: { href } } = iframe.contentWindow;
-            vm.link = getEmbedButtonLink(location);
+            vm.link = href;
             vm.html = `<iframe width="500" height="400" src="${href}" frameborder="0"></iframe>`;
         }
 
-        seturlFromIframe();
+        setUrlFromIframe();
 
         // Todo: figure out a better way to embed a map
         // (e.g. by only sharing locations / results instead of just any state of the map)
         // Now we need to check the URL of the iFrame, as this can change
-        const iframeChecker = $interval(seturlFromIframe, 500);
+        const iframeChecker = $interval(setUrlFromIframe, 500);
 
         $scope.$on('$destroy', function () {
             $interval.cancel(iframeChecker);

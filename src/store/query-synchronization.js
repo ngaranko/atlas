@@ -75,20 +75,6 @@ function* updateQuery() {
   }
 }
 
-export const getUrlQuery = () => (queryString.decode(window.location.search.slice(1)));
-export const getIframeUrl = (location = window.location) => {
-  const query = { ...getUrlQuery(), embed: true };
-  delete query.embedPreview;
-  return `${location.origin}${location.pathname}?${queryString.encode(query)}`;
-};
-
-export const getEmbedButtonLink = (location = window.location) => {
-  const query = { ...getUrlQuery() };
-  delete query.embed;
-  delete query.embedPreview;
-  return `${location.origin}${location.pathname}?${queryString.encode(query)}`;
-};
-
 export default function* watchQueryActions() {
   yield takeLatest(watchedActions, updateQuery);
 }
