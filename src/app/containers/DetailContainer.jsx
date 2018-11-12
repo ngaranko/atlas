@@ -51,7 +51,7 @@ DetailContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   endpoint: PropTypes.string.isRequired,
-  previewPanorama: PropTypes.object,
+  previewPanorama: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   isPreviewPanoramaLoading: PropTypes.bool
 };
 

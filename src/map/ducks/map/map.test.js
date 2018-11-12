@@ -23,7 +23,6 @@ describe('Map Reducer', () => {
     shapeMarkers: 0,
     viewCenter: [52.3731081, 4.8932945],
     zoom: 11,
-    selectedLocation: null,
     mapPanelActive: true
   };
   it('should return the initial state', () => {
@@ -31,7 +30,14 @@ describe('Map Reducer', () => {
   });
 
   it('should clear the map state', () => {
-    expect(reducer({ shapeMarkers: 2 }, mapClear())).toEqual(initialState);
+    const state = { shapeMarkers: 2 };
+    expect(reducer(state, mapClear())).toEqual({
+      ...state,
+      drawingMode: initialState.drawingMode,
+      shapeMarkers: initialState.shapeMarkers,
+      shapeDistanceTxt: initialState.shapeDistanceTxt,
+      shapeAreaTxt: initialState.shapeAreaTxt
+    });
   });
 
   it('should clear the map drawing when dispatching mapClearDrawing', () => {

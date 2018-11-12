@@ -1,50 +1,18 @@
 import React from 'react';
 import get from 'lodash.get';
 import PropTypes from 'prop-types';
-import has from 'lodash.has';
 import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 import MapDetailResult from '../../components/detail-result/MapDetailResult';
 import MapSearchResults from '../../components/search-results/MapSearchResults';
-import { getMapDetail } from '../../ducks/detail/map-detail';
 
 const previewPanelSearchResultLimit = 3;
-
-const isUpdated = (props, prevProps, paths) => {
-  if (typeof paths === 'string') {
-    const newValue = get(props, paths);
-    const oldValue = get(prevProps, paths);
-    return newValue && oldValue !== newValue;
-  }
-
-  // Every path must exist in props
-  return paths.every((path) => has(props, path)) &&
-    // Some paths must have been updated
-    paths.some((path) => isUpdated(props, prevProps, path));
-};
-
-const update = (dispatch, props, prevProps = {}) => { // TODO: remove anti-pattern
-  // // Don't just copy this. It's an anti-pattern.
-  // if (isUpdated(props, prevProps, 'detailEndpoint')) {
-  //   dispatch(getMapDetail(props.detailEndpoint, props.user));
-  // }
-};
 
 class MapPreviewPanel extends React.Component {
   constructor() {
     super();
     this.onPanoPreviewClick = this.onPanoPreviewClick.bind(this);
-  }
-
-  componentDidMount() {
-    // Don't just copy this. It's an anti-pattern.
-    update(this.context.store.dispatch, this.props);
-  }
-
-  componentDidUpdate(prevProps) {
-    // Don't just copy this. It's an anti-pattern.
-    update(this.context.store.dispatch, this.props, prevProps);
   }
 
   onPanoPreviewClick() {
@@ -56,17 +24,12 @@ class MapPreviewPanel extends React.Component {
     const props = this.props;
     const isLoading = get(props, 'dataSearch.isLoading') || get(props, 'mapDetail.isLoading');
     const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult;
-    const hidden = false; // TODO: refactor, toggle visibility or remove logic all together
 
     const openDetailEndpoint = () => props.openDetail(props.detailEndpoint);
 
     return !props.isEmbed && (
       <div className="map-preview-panel-wrapper">
-        <section className={`
-          map-preview-panel
-          map-preview-panel--${hidden ? 'hidden' : 'visible'}
-        `}
-        >
+        <section className="map-preview-panel map-preview-panel--visible">
           <div className="map-preview-panel__heading">
             <button
               className="map-preview-panel__button"

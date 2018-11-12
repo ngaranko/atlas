@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 import get from 'lodash.get';
 import isObject from '../../services/is-object';
-import BaseCoder from '../../services/base-coder/base-coder';
 import { routing } from '../../../app/routes';
 import parseLocationString from '../../../map/ducks/map/location-parse';
 
@@ -116,7 +115,11 @@ export default function MapSearchResultsReducer(state = initialState, action) {
     }
 
     case FETCH_MAP_SEARCH_RESULTS_FAILURE:
-      return { ...state, isLoading: false };
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
+      };
 
     default:
       return state;
@@ -152,11 +155,11 @@ export const fetchMapSearchResultsFailure = (error) => ({
   type: FETCH_MAP_SEARCH_RESULTS_FAILURE,
   payload: error
 });
-// export const getMapSearchResults = (location, user) => ({
-//   type: FETCH_MAP_SEARCH_RESULTS_REQUEST,
-//   location,
-//   user
-// }); // TODO: user or remove
+
+export const showSearchResults = (numberOfResults) => ({
+  type: SHOW_SEARCH_RESULTS,
+  payload: numberOfResults
+});
 
 export const fetchSearchResultsByQuery = (query) => ({
   type: FETCH_SEARCH_RESULTS_BY_QUERY,

@@ -7,7 +7,8 @@ import {
   fetchMapSearchResultsRequest,
   fetchMapSearchResultsSuccess,
   fetchSearchResultsByQuery,
-  getDataSearchLocation, getSearchQuery
+  getDataSearchLocation,
+  getSearchQuery
 } from '../../ducks/data-search/data-search';
 import { routing } from '../../../app/routes';
 

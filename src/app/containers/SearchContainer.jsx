@@ -20,7 +20,6 @@ const mapStateToProps = (state) => ({
   isPreviewPanoramaLoading: isPanoPreviewLoading(state)
 });
 
-// TODO refactor, rename GeoSearchContainer
 const SearchContainer = ({
   isLoading,
   query,
@@ -70,7 +69,7 @@ SearchContainer.propTypes = {
   category: PropTypes.string,
   numberOfResults: PropTypes.number,
   user: PropTypes.object.isRequired, // eslint-disable-line
-  previewPanorama: PropTypes.object,
+  previewPanorama: PropTypes.object, // eslint-disable-line
   isPreviewPanoramaLoading: PropTypes.bool
 };
 

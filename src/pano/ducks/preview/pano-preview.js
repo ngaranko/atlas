@@ -31,7 +31,7 @@ export default function PanoPreviewReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        error: action.error
+        error: action.payload
       };
 
     default:

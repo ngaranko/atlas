@@ -8,6 +8,8 @@ exports[`DetailContainer should render 1`] = `
     bindings={
       Object {
         "isLoading": false,
+        "isPreviewPanoramaLoading": false,
+        "previewPanorama": Object {},
         "user": Object {},
       }
     }

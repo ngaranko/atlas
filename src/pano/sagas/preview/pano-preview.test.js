@@ -1,22 +1,10 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
-import watchPanoPreview, { fetchMapPano } from './pano-preview';
+import { fetchMapPano } from './pano-preview';
 import {
-  FETCH_PANO_PREVIEW_FAILURE,
-  FETCH_PANO_PREVIEW_REQUEST,
-  FETCH_PANO_PREVIEW_SUCCESS
+  fetchPanoPreviewFailure,
+  fetchPanoPreviewSuccess
 } from '../../ducks/preview/pano-preview';
 import panoPreview from '../../services/pano-preview';
-
-describe('watchFetchMapPano', () => {
-  it(`should watch ${FETCH_PANO_PREVIEW_REQUEST} and call fetchFilters`, () => {
-    const action = { type: FETCH_PANO_PREVIEW_SUCCESS };
-    testSaga(watchPanoPreview)
-      .next()
-      .takeLatestEffect(FETCH_PANO_PREVIEW_REQUEST, fetchMapPano)
-      .next(action)
-      .isDone();
-  });
-});
 
 describe('fetchMapPano', () => {
   it('should dispatch the correct action', () => (
@@ -26,10 +14,7 @@ describe('fetchMapPano', () => {
           return effect.fn === panoPreview ? 'payload' : next();
         }
       })
-      .put({
-        type: FETCH_PANO_PREVIEW_SUCCESS,
-        panoResult: 'payload'
-      })
+      .put(fetchPanoPreviewSuccess('payload'))
       .run()
   ));
 
@@ -38,7 +23,7 @@ describe('fetchMapPano', () => {
     testSaga(fetchMapPano, {})
       .next()
       .throw(error)
-      .put({ type: FETCH_PANO_PREVIEW_FAILURE, error })
+      .put(fetchPanoPreviewFailure(error))
       .next()
       .isDone();
   });

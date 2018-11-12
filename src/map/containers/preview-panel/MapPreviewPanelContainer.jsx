@@ -11,7 +11,6 @@ import {
 import MapPreviewPanel from './MapPreviewPanel';
 import {
   getLocationId,
-  getSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
 import {
@@ -30,7 +29,6 @@ import {
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 
 const mapStateToProps = (state) => ({
-  mapClickLocation: getSelectedLocation(state),
   panoPreview: getPanoPreview(state),
   searchResults: selectLatestMapSearchResults(state),
   dataSearch: getDataSearch(state),

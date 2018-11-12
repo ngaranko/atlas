@@ -16,9 +16,6 @@ const MapSearchResults = ({
   onMaximize,
   onPanoPreviewClick
 }) => {
-  if (!location) {
-    return null; // TODO: refactor, remove quick return hack
-  }
   const rdCoordinates = wgs84ToRd(location);
 
   const limitResults = (categories) => categories.map((category) => ({

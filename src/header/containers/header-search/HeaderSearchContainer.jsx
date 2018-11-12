@@ -4,8 +4,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  getActiveSuggestions, getAutoSuggestSuggestions, getDisplayQuery, getNumberOfSuggestions,
-  getSuggestionsAction, getTypedQuery,
+  getActiveSuggestions,
+  getAutoSuggestSuggestions,
+  getDisplayQuery,
+  getNumberOfSuggestions,
+  getSuggestionsAction,
+  getTypedQuery,
   setActiveSuggestionAction
 } from '../../ducks/auto-suggest/auto-suggest';
 
@@ -41,7 +45,7 @@ const mapDispatchToProps = (dispatch) => ({
   onDataSearch: (query) => dispatch(toDataSearch(query)),
   openSuggestion: (suggestion) => {
     if (suggestion.uri.match(/^dcatd\//)) {
-      // Suggestion of type catalog, a.k.a. "dataset"
+      // Suggestion of type dataset, formerly known as "catalog"
       const id = extractIdEndpoint(suggestion.uri);
       return dispatch({ type: routing.datasetsDetail.type, payload: { id } });
     }

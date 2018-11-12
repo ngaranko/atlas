@@ -13,7 +13,7 @@ import {
 import { routing } from '../../../app/routes';
 import { FETCH_MAP_DETAIL_SUCCESS } from '../../../map/ducks/detail/map-detail';
 
-function* fetchMapPano(action) {
+export function* fetchMapPano(action) {
   try {
     const location = action.payload;
     const panoramaResult = yield call(panoPreview, location);
@@ -40,7 +40,7 @@ export default function* watchPanoPreview() {
   yield takeLatest([
     routing.map.type,
     routing.dataSearch.type,
-    FETCH_MAP_SEARCH_RESULTS_REQUEST,
+    FETCH_MAP_SEARCH_RESULTS_REQUEST
   ], possiblyFirePanoPreview);
   yield takeLatest(FETCH_MAP_DETAIL_SUCCESS, fireFetchPanoPreview);
 }

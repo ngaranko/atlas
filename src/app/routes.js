@@ -166,8 +166,8 @@ const preserveQuery = (action) => {
         ...get(action, 'meta.query')
       }
     }
-  }
-}
+  };
+};
 
 export const toDataDetail = (id, type, subtype, view) => {
   const action = {

@@ -9,8 +9,6 @@ import watchFetchMapPanelLayers from './map/sagas/map-panel-layers';
 import watchFetchMapDetail from './map/sagas/detail';
 import watchMapClick from './map/sagas/map-click';
 import watchFetchNearestDetails from './map/sagas/nearest-details';
-// import watchGeoSearchRequest from './map/sagas/geosearch';
-// import { watchQuerySearch } from './map/sagas/query-search/query-search';
 import {
   watchCloseStraatbeeld,
   watchFetchStraatbeeld,
@@ -34,11 +32,9 @@ export default function* rootSaga() {
     fork(watchCloseStraatbeeld),
     fork(watchMapClick),
     fork(watchFetchNearestDetails),
-    // fork(watchGeoSearchRequest),
     fork(watchQueryActions),
 
     // route change watchers
-    // fork(watchQuerySearch),
     fork(watchDetailRoute),
     fork(watchPanoramaRoute),
     fork(watchFetchDataSelection),
