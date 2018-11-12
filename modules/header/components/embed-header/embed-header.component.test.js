@@ -1,3 +1,5 @@
+import * as querySync from '../../../../src/store/query-synchronization';
+
 describe('The dp-embed-header component', () => {
     let $compile,
         $rootScope,
@@ -12,12 +14,6 @@ describe('The dp-embed-header component', () => {
                         callbackFn();
                     },
                     getState: angular.noop
-                },
-                $window: {
-                    ...window,
-                    location: {
-                        href: 'https://fakeurl.com/'
-                    }
                 }
             }
         );
@@ -32,6 +28,14 @@ describe('The dp-embed-header component', () => {
         var component,
             element;
 
+        querySync.getEmbedButtonLink = () => 'https://fakeurl.com/';
+        document.getElementById = () => ({
+            contentWindow: {
+                location: {
+                    href: 'https://fakeurl.com/'
+                }
+            }
+        });
         element = document.createElement('dp-embed-header');
 
         scope = $rootScope.$new();

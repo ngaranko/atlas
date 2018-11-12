@@ -68,20 +68,21 @@ const App = ({
       className={`c-dashboard c-dashboard--page-type-${pageType} ${rootClasses} ${printEmbedModeClasses}`}
     >
       <Piwik />
-      <AngularWrapper
-        moduleName={'dpHeaderWrapper'}
-        component="dpHeader"
-        dependencies={['atlas']}
-        bindings={{
-          isHomePage,
-          hasMaxWidth,
-          user,
-          isEmbed: embedMode,
-          isPrintMode: printMode,
-          isEmbedPreview: embedPreviewMode,
-          isPrintOrEmbedOrPreview: printOrEmbedMode
-        }}
-      />
+      {!embedMode &&
+        <AngularWrapper
+          moduleName={'dpHeaderWrapper'}
+          component="dpHeader"
+          dependencies={['atlas']}
+          bindings={{
+            isHomePage,
+            hasMaxWidth,
+            user,
+            isPrintMode: printMode,
+            isEmbedPreview: embedPreviewMode,
+            isPrintOrEmbedOrPreview: printOrEmbedMode
+          }}
+        />
+      }
       <AngularWrapper
         moduleName={'dpErrorWrapper'}
         component="dpError"

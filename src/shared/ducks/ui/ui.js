@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { getStraatbeeld } from '../straatbeeld/straatbeeld';
 import { getDataSelectionView, VIEWS } from '../data-selection/data-selection';
 import { isMapPage } from '../../../store/redux-first-router';
+import { routing } from '../../../app/routes';
 
 export const REDUCER_KEY = 'ui';
 
@@ -11,7 +12,7 @@ export const SHOW_EMBED_PREVIEW = 'SHOW_EMBED_PREVIEW';
 export const SHOW_PRINT = 'SHOW_PRINT';
 export const TOGGLE_MAP_PANEL_HANDLE = 'TOGGLE_MAP_PANEL_HANDLE';
 
-const initialState = {
+export const initialState = {
   isMapPanelHandleVisible: true,
   isEmbedPreview: false,
   isEmbed: false,
@@ -20,6 +21,14 @@ const initialState = {
 
 export default function UiReducer(state = initialState, action) {
   switch (action.type) {
+    case routing.map.type: {
+      const { embedPreview, embed } = action.meta.query || {};
+      return {
+        ...state,
+        isEmbedPreview: (embedPreview === 'true') || initialState.isEmbedPreview,
+        isEmbed: (embed === 'true') || initialState.isEmbed
+      };
+    }
     case HIDE_EMBED_PREVIEW:
       return {
         ...state,
@@ -36,8 +45,7 @@ export default function UiReducer(state = initialState, action) {
     case SHOW_EMBED_PREVIEW:
       return {
         ...state,
-        isEmbedPreview: true,
-        isEmbed: true
+        isEmbedPreview: true
       };
 
     case SHOW_PRINT:
@@ -58,7 +66,8 @@ export default function UiReducer(state = initialState, action) {
 }
 
 // Todo: wire these actions properly when ui reducer is obsolete
-export const setMapFullscreen = () => ({ type: 'NOOP' });
+export const showEmbedPreview = () => ({ type: SHOW_EMBED_PREVIEW });
+export const showPrintMode = () => ({ type: SHOW_PRINT });
 export const toggleMapPanelHandle = () => ({ type: 'NOOP' });
 
 // Selectors
@@ -71,7 +80,7 @@ export const isInPrintorEmbedMode = createSelector(
   isPrintMode,
   isEmbedPreview,
   (embedded, print, preview) =>
-    (embedded || print || preview));
+    !!(embedded || print || preview));
 export const isMapLayersVisible = createSelector(getUIState, (ui) => ui.isMapLayersVisible);
 export const isMapPanelHandleVisible =
   createSelector(getUIState, (ui) => ui.isMapPanelHandleVisible);

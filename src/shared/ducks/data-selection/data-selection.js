@@ -222,3 +222,4 @@ export const getGeoJsons = createSelector([getMapMarkers],
 export const getFilters = createSelector(
   getDataSelectionResult, (result) => result.filters || []
 );
+export const getGeometryFilterDescription = (state) => getGeometryFilters(state).description;

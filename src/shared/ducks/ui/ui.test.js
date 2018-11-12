@@ -30,7 +30,6 @@ describe('UiReducer', () => {
       type: SHOW_EMBED_PREVIEW
     })).toEqual({
       ...state,
-      isEmbed: true,
       isEmbedPreview: true
     });
   });

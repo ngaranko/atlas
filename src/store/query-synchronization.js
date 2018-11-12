@@ -1,4 +1,4 @@
-import querystring from 'querystring';
+import queryString from 'querystring';
 import createHistory from 'history/createBrowserHistory';
 import { select, takeLatest } from 'redux-saga/es/internal/io';
 import mapQuery, { ACTIONS as MAP_ACTIONS } from '../map/ducks/map/map-query';
@@ -7,6 +7,7 @@ import selectionQuery, { ACTIONS as SELECTION_ACTIONS } from '../shared/ducks/se
 import straatbeeldQuery, { ACTIONS as STRAATBEELD_ACTIONS } from '../shared/ducks/straatbeeld/straatbeeld-query';
 import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/data-selection-query';
 import datasetQuery, { ACTIONS as DATASET_ACTIONS } from '../shared/ducks/datasets/datasets-query';
+import uiQuery, { ACTIONS as UI_ACTIONS } from '../shared/ducks/ui/ui-query';
 import { getLocationQuery } from './redux-first-router';
 
 const separateHistory = createHistory();
@@ -17,7 +18,8 @@ const watchedActions = [
   ...STRAATBEELD_ACTIONS,
   ...FILTERS_ACTIONS,
   ...DATA_SELECTION_ACTIONS,
-  ...DATASET_ACTIONS
+  ...DATASET_ACTIONS,
+  ...UI_ACTIONS
 ];
 
 const queryMappings = {
@@ -26,7 +28,8 @@ const queryMappings = {
   ...selectionQuery,
   ...straatbeeldQuery,
   ...dataSelectionQuery,
-  ...datasetQuery
+  ...datasetQuery,
+  ...uiQuery
 };
 
 function* updateQuery() {
@@ -58,7 +61,7 @@ function* updateQuery() {
     return acc;
   }, {});
 
-  const searchQuery = querystring.stringify(orderedQuery);
+  const searchQuery = queryString.stringify(orderedQuery);
   const currentPath = window.location.pathname;
   // NOTE: changing history using different history wrapper than the one used in redux-first-router!
   // We need to work with a different history object to prevent redux-first-router from reacting to
@@ -71,6 +74,20 @@ function* updateQuery() {
     separateHistory.replace(`${currentPath}?${searchQuery}`);
   }
 }
+
+export const getUrlQuery = () => (queryString.decode(window.location.search.slice(1)));
+export const getIframeUrl = (location = window.location) => {
+  const query = { ...getUrlQuery(), embed: true };
+  delete query.embedPreview;
+  return `${location.origin}${location.pathname}?${queryString.encode(query)}`;
+};
+
+export const getEmbedButtonLink = (location = window.location) => {
+  const query = { ...getUrlQuery() };
+  delete query.embed;
+  delete query.embedPreview;
+  return `${location.origin}${location.pathname}?${queryString.encode(query)}`;
+};
 
 export default function* watchQueryActions() {
   yield takeLatest(watchedActions, updateQuery);

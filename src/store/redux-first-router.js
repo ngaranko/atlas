@@ -22,6 +22,11 @@ export const isMapView = createSelector(
   )
 );
 
+export const isHomepage = createSelector(
+  getCurrentPage,
+  (currentPage) => currentPage === PAGES.HOME
+);
+
 export const isMapPage = createSelector(
   getCurrentPage,
   (currentPage) => currentPage === PAGES.KAART
