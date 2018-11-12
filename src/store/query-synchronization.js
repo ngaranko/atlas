@@ -1,6 +1,6 @@
 import queryString from 'querystring';
 import createHistory from 'history/createBrowserHistory';
-import { select, takeLatest } from 'redux-saga/es/internal/io';
+import { select, takeLatest } from 'redux-saga/effects';
 import mapQuery, { ACTIONS as MAP_ACTIONS } from '../map/ducks/map/map-query';
 import filtersQuery, { ACTIONS as FILTERS_ACTIONS } from '../shared/ducks/filters/filters-query';
 import selectionQuery, { ACTIONS as SELECTION_ACTIONS } from '../shared/ducks/selection/selection-query';
