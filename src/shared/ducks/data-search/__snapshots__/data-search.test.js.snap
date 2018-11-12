@@ -2,6 +2,10 @@
 
 exports[`mapSearch reducer handles search results request 1`] = `
 Object {
+  "geoSearch": Object {
+    "latitude": 52.3637006,
+    "longitude": 4.7943446,
+  },
   "isLoading": true,
 }
 `;

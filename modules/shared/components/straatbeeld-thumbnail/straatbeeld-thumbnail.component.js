@@ -7,58 +7,32 @@ import { toPanorama } from '../../../../src/app/routes';
         .module('dpShared')
         .component('dpStraatbeeldThumbnail', {
             bindings: {
-                location: '='
+                panorama: '<',
+                isLoading: '<'
             },
             templateUrl: 'modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.html',
             controller: DpStraatbeeldThumbnailController,
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldThumbnailController.$inject = ['$q', '$scope', 'sharedConfig', 'api'];
+    DpStraatbeeldThumbnailController.$inject = ['sharedConfig'];
 
-    function DpStraatbeeldThumbnailController ($q, $scope, sharedConfig, api) {
-        var vm = this,
-            imageUrl,
-            heading,
-            id;
+    function DpStraatbeeldThumbnailController (sharedConfig) {
+        const vm = this;
+        vm.radius = sharedConfig.RADIUS;
 
-        $scope.$watchCollection('vm.location', loc => {
-            if (angular.isArray(loc)) {
-                loadThumbnail();
+        function setLinkTo (panorama) {
+            if (panorama) {
+                vm.linkTo = toPanorama(panorama.id, panorama.heading);
             }
-        });
-
-        function loadThumbnail () {
-            imageUrl = sharedConfig.API_ROOT +
-                sharedConfig.STRAATBEELD_THUMB_URL +
-                '?lat=' + vm.location[0] +
-                '&lon=' + vm.location[1] +
-                '&width=' + sharedConfig.THUMBNAIL_WIDTH +
-                '&radius=' + sharedConfig.RADIUS;
-
-            vm.isLoading = true;
-            vm.radius = sharedConfig.RADIUS;
-
-            api.getByUrl(imageUrl).then(function (thumbnailData) {
-                heading = thumbnailData.heading;
-                id = thumbnailData.pano_id;
-
-                if (!angular.isArray(thumbnailData)) {
-                    vm.imageUrl = thumbnailData.url;
-                    vm.hasThumbnail = true;
-                    vm.linkTo = toPanorama(id, heading);
-                } else {
-                    vm.hasThumbnail = false;
-                }
-            }, (rejection) => {
-                if (rejection.status === 404) {
-                    rejection.errorHandled = true;
-                }
-
-                vm.hasThumbnail = false;
-            }).finally(() => {
-                vm.isLoading = false;
-            });
         }
+
+        this.$onInit = function () {
+            setLinkTo(vm.panorama);
+        };
+
+        this.$onChanges = function () {
+            setLinkTo(vm.panorama);
+        };
     }
 })();

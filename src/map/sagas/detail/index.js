@@ -1,3 +1,3 @@
-import watchFetchMapDetail from './map-detail';
+import watchMapDetail from './map-detail';
 
-export default watchFetchMapDetail;
+export default watchMapDetail;

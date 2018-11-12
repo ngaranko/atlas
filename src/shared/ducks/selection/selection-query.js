@@ -8,8 +8,8 @@ const getLocationString = (state) => {
   return undefined;
 };
 
-export default {
-  selectedLocation: {
+export default { // TODO: track location from data-search reducer
+  locatie: {
     selector: getLocationString,
     addHistory: true
   }

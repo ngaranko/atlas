@@ -8,6 +8,8 @@ import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
         .component('dpDetail', {
             bindings: {
                 endpoint: '@',
+                previewPanorama: '<',
+                isPreviewPanoramaLoading: '<',
                 isLoading: '=',
                 catalogFilters: '=',
                 user: '<'
@@ -67,8 +69,6 @@ import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
         vm.geosearchButtonClick = () => sendPiwikEvent();
 
         function getData (endpoint) {
-            vm.location = null;
-
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
             const [category, subject] = endpointParser.getParts(endpoint);

@@ -97,7 +97,7 @@ MapSearchResults.defaultProps = {
 };
 
 MapSearchResults.propTypes = {
-  location: PropTypes.object, // eslint-disable-line
+  location: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   missingLayers: PropTypes.string, // eslint-disable-line
   onItemClick: PropTypes.func.isRequired,
   onMaximize: PropTypes.func.isRequired,

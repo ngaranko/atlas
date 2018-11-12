@@ -14,7 +14,7 @@ export default {
     selector: getMapZoom,
     defaultValue: initialState.zoom
   },
-  legend: {
+  legenda: {
     selector: isMapPanelActive,
     defaultValue: initialState.mapPanelActive
   }

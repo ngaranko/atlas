@@ -1,4 +1,4 @@
-import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/data-search/data-search';
+import { showSearchResults } from '../../../../src/shared/ducks/data-search/data-search';
 
 (() => {
     'use strict';
@@ -13,7 +13,9 @@ import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/data-search/da
                 location: '=',
                 category: '@',
                 numberOfResults: '=',
-                user: '<'
+                user: '<',
+                previewPanorama: '<',
+                isPreviewPanoramaLoading: '<'
             },
             templateUrl: 'modules/search-results/components/search-results/search-results.html',
             controller: DpSearchResultsController,
@@ -135,10 +137,8 @@ import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/data-search/da
 
             updateTabHeader(vm.query, numberOfResults);
 
-            store.dispatch({
-                type: SHOW_SEARCH_RESULTS,
-                payload: numberOfResults
-            });
+            store.dispatch(showSearchResults(numberOfResults));
+            // TODO: refactor, really consider moving all business logic out of this view and into redux!
 
             // @TODO remove the exception when backend uses correct sub type name tg-3551
             searchResults = replaceBuurtcombinatie(searchResults);
