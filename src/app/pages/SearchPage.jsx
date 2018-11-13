@@ -25,7 +25,9 @@ const SearchPage = ({ query, toMap }) => {
         </div>
       </div>
       <div
-        className={`c-dashboard__column c-dashboard__content u-col-sm--${sizeDetail} qa-dashboard__column--right`}
+        className={
+          `c-dashboard__column c-dashboard__content u-col-sm--${sizeDetail} c-dashboard__content u-overflow--y-auto qa-dashboard__column--right`
+        }
       >
         <SearchContainer />
       </div>

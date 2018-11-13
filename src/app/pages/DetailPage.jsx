@@ -42,7 +42,7 @@ const DetailPage = ({ view: routeView, hasGeometry, endpoint, getPageActionEndpo
             </div>
           </div>
           <div
-            className={`c-dashboard__column c-dashboard__content u-col-sm--${sizeDetail} qa-dashboard__column--right`}
+            className={`c-dashboard__column c-dashboard__content u-col-sm--${sizeDetail} u-overflow--y-auto qa-dashboard__column--right`}
           >
             <DetailContainer />
           </div>

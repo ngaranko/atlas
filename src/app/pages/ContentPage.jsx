@@ -7,10 +7,10 @@ import Footer from '../components/Footer/Footer';
 const ContentPage = ({ name, item, type, showFooter }) => (
   <div
     style={{ display: 'block' }}
-    className="c-dashboard__column c-dashboard__content u-col-sm--12 qa-dashboard__column--right"
+    className="c-dashboard__column  u-col-sm--12 qa-dashboard__column--right"
   >
     <div className="c-dashboard__page o-max-width">
-      <div className="c-dashboard__page-inner o-max-width__inner u-gutter">
+      <div className="c-dashboard__page-inner c-dashboard__content o-max-width__inner u-gutter">
         <div className="qa-page">
           <AngularWrapper
             moduleName="dpPageWrapper"
