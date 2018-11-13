@@ -9,7 +9,7 @@
             controllerAs: 'vm'
         });
 
-    DpEmbedHeader.$inject = ['$interval', '$scope', '$document'];
+    DpEmbedHeader.$inject = ['$interval', '$scope'];
 
     function DpEmbedHeader ($interval, $scope) {
         const vm = this;

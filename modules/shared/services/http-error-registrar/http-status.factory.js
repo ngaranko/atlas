@@ -9,7 +9,7 @@ import {
         .module('dpShared')
         .factory('httpStatus', httpStatusFactory);
 
-    httpStatusFactory.inject = [
+    httpStatusFactory.$inject = [
         '$window'
         // 'Raven' // TODO: refactor, restore
     ];

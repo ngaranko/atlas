@@ -141,9 +141,13 @@ export default function MapReducer(state = initialState, action) {
     case TOGGLE_MAP_OVERLAY:
       return {
         ...enrichedState,
-        overlays: enrichedState.overlays.some((overlay) => overlay.id === action.mapLayerId) ?
-          [...enrichedState.overlays.filter((overlay) => overlay.id !== action.mapLayerId)] :
-          [...enrichedState.overlays, { id: action.mapLayerId, isVisible: true }]
+        overlays: enrichedState.overlays.some(
+          (overlay) => action.payload.mapLayers.includes(overlay.id)
+        ) ? [...enrichedState.overlays.filter(
+          (overlay) => !action.payload.mapLayers.includes(overlay.id)
+        )] : [...enrichedState.overlays, ...action.payload.mapLayers.map(
+          (mapLayerId) => ({ id: mapLayerId, isVisible: true })
+        )]
       };
 
     case TOGGLE_MAP_OVERLAY_VISIBILITY:
@@ -177,23 +181,36 @@ export const mapUpdateShape = (payload) => ({ type: MAP_UPDATE_SHAPE, payload })
 export const mapStartDrawing = (payload) => ({ type: MAP_START_DRAWING, payload });
 export const mapEndDrawing = (payload) => ({ type: MAP_END_DRAWING, payload });
 export const mapClear = () => ({ type: MAP_CLEAR });
-export const setMapBaseLayer = (payload) => ({ type: SET_MAP_BASE_LAYER, payload });
-export const toggleMapOverlay = (mapLayerId) => ({ type: TOGGLE_MAP_OVERLAY, mapLayerId });
 export const updateZoom = (payload) => ({ type: MAP_ZOOM, payload });
 export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
+export const setMapBaseLayer = (payload) => ({
+  type: SET_MAP_BASE_LAYER,
+  payload,
+  meta: {
+    tracking: payload
+  }
+});
+export const toggleMapOverlay = (payload) => ({
+  type: TOGGLE_MAP_OVERLAY,
+  payload: {
+    mapLayers: (payload.id) ? [payload.id] : payload.legendItems.map((overlay) => overlay.id)
+  },
+  meta: {
+    tracking: payload
+  }
+});
 export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
   type: TOGGLE_MAP_OVERLAY_VISIBILITY,
   mapLayerId,
   show
 });
-export const updatePan = (payload) =>
-  ({
-    type: MAP_PAN,
-    payload: {
-      latitude: payload.lat,
-      longitude: payload.lng
-    }
-  });
+export const updatePan = (payload) => ({
+  type: MAP_PAN,
+  payload: {
+    latitude: payload.lat,
+    longitude: payload.lng
+  }
+});
 export const setSelectedLocation = (payload) => ({
   type: SET_MAP_CLICK_LOCATION,
   payload: {
@@ -203,8 +220,7 @@ export const setSelectedLocation = (payload) => ({
     }
   }
 });
-export const updateBoundingBox = (payload, isDrawingActive) =>
-  ({
-    type: isDrawingActive ? MAP_BOUNDING_BOX_SILENT : MAP_BOUNDING_BOX,
-    payload
-  });
+export const updateBoundingBox = (payload, isDrawingActive) => ({
+  type: isDrawingActive ? MAP_BOUNDING_BOX_SILENT : MAP_BOUNDING_BOX,
+  payload
+});

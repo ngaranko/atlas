@@ -20,7 +20,8 @@ import throttle from 'lodash.throttle';
         store,
         marzipanoService,
         straatbeeldApi,
-        orientation) {
+        orientation
+    ) {
         return {
             restrict: 'E',
             scope: {
