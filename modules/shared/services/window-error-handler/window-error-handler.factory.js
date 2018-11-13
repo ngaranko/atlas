@@ -7,7 +7,7 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
         .module('dpShared')
         .factory('windowErrorHandler', windowErrorHandlerFactory);
 
-    windowErrorHandlerFactory.inject = [
+    windowErrorHandlerFactory.$inject = [
         '$log',
         '$rootScope',
         '$window',

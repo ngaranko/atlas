@@ -13,6 +13,8 @@
             }
         });
 
+    DpErrorController.$inject = ['store'];
+
     function DpErrorController (store) {
         const vm = this;
 
