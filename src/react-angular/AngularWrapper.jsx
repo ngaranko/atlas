@@ -14,14 +14,12 @@ class AngularWrapper extends Component {
   componentWillMount() {
     const { component } = this.props;
     if (component) {
-      // this.buildAngularComponent();
+      this.buildAngularComponent();
     }
   }
 
   componentDidMount() {
     const { moduleName, dependencies } = this.props;
-    console.log(dependencies)
-    console.log('reactAngularModule(false).name', reactAngularModule(false).name);
     angular
       .module(moduleName, [...dependencies, reactAngularModule(false).name])
       .directive('exposeScope', () => ensureScopeAvailable())
@@ -32,49 +30,48 @@ class AngularWrapper extends Component {
           this.setState({ angularActive: true });
         }
       ]);
-    console.log(moduleName);
     angular.bootstrap(this.rootRef, [moduleName], {
       strictDi: true
     });
   }
 
-  // componentDidUpdate() {
-  //   const { bindings, interpolateBindings } = this.props;
-  //   if (!this.angularRef) {
-  //     return;
-  //   }
-  //   const allBindings = { ...bindings, ...interpolateBindings };
-  //   Object.keys(allBindings).forEach((key) => {
-  //     this.angularRef.$scope[key] = allBindings[key];
-  //   });
-  //   setTimeout(() => {
-  //     this.angularRef.$scope.$digest();
-  //   });
-  // }
-  //
-  // componentWillUnmount() {
-  //   if (this.angularRef.$scope.$root) {
-  //     this.setState({ angularActive: false });
-  //     this.angularRef.$scope.$root.$destroy();
-  //   }
-  // }
-  //
-  // buildAngularComponent = () => {
-  //   const {
-  //     bindings,
-  //     interpolateBindings,
-  //     component,
-  //     children,
-  //   } = this.props;
-  //
-  //   const allBindings = { ...bindings, ...interpolateBindings };
-  //   const angularAttributes = Object.keys(allBindings).reduce((acc, key) => {
-  //     acc[camelCaseToDash(key)] = (key in interpolateBindings) ? `{{${key}}}` : key;
-  //     return acc;
-  //   }, {});
-  //
-  //   this.angularComponent = createElement(camelCaseToDash(component), angularAttributes, children);
-  // };
+  componentDidUpdate() {
+    const { bindings, interpolateBindings } = this.props;
+    if (!this.angularRef) {
+      return;
+    }
+    const allBindings = { ...bindings, ...interpolateBindings };
+    Object.keys(allBindings).forEach((key) => {
+      this.angularRef.$scope[key] = allBindings[key];
+    });
+    setTimeout(() => {
+      this.angularRef.$scope.$digest();
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.angularRef.$scope.$root) {
+      this.setState({ angularActive: false });
+      this.angularRef.$scope.$root.$destroy();
+    }
+  }
+
+  buildAngularComponent = () => {
+    const {
+      bindings,
+      interpolateBindings,
+      component,
+      children,
+    } = this.props;
+
+    const allBindings = { ...bindings, ...interpolateBindings };
+    const angularAttributes = Object.keys(allBindings).reduce((acc, key) => {
+      acc[camelCaseToDash(key)] = (key in interpolateBindings) ? `{{${key}}}` : key;
+      return acc;
+    }, {});
+
+    this.angularComponent = createElement(camelCaseToDash(component), angularAttributes, children);
+  };
 
   setRootRef = (angularApp) => {
     if (angularApp) {

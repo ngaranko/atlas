@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AngularWrapper } from 'react-angular';
+
 import {
   getDetailEndpoint,
   isDetailLoading
 } from '../../shared/ducks/detail/detail';
 import { getUser } from '../../shared/ducks/user/user';
 import { getPanoPreview, isPanoPreviewLoading } from '../../pano/ducks/preview/pano-preview';
+import AngularWrapper from '../../react-angular/AngularWrapper';
 
 const mapStateToProps = (state) => ({
   isLoading: isDetailLoading(state),
