@@ -54,7 +54,7 @@ $button-height: 24px;
       }
 
       .map-preview-panel__button-icon--plus { //sass-lint:disable-line nesting-depth
-        @include icon-sprite("icon-plus", $primary-dark, $primary-dark, $button-height);
+        @include icon-sprite("icon-plus", $primary-contrast, $primary-contrast, $button-height);
       }
     }
 

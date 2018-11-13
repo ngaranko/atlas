@@ -158,6 +158,10 @@
     &:hover,
     &:focus {
       @include sprite($name, ( fill: $hover-fill));
+
+      @if $size {
+        background-size: $size;
+      }
     }
   }
 }
