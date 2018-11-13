@@ -25,13 +25,16 @@ class AngularWrapper extends Component {
     angular
       .module(moduleName, [...dependencies, reactAngularModule(false).name])
       .directive('exposeScope', () => ensureScopeAvailable())
-      .run((reactAngularProductionReady) => {
-        reactAngularProductionReady();
-        this.setState({ angularActive: true });
-      });
+      .run([
+        'reactAngularProductionReady',
+        (reactAngularProductionReady) => {
+          reactAngularProductionReady();
+          this.setState({ angularActive: true });
+        }
+      ]);
     console.log(moduleName);
     angular.bootstrap(this.rootRef, [moduleName], {
-      // strictDi: true
+      strictDi: true
     });
   }
 
