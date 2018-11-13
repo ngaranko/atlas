@@ -11,8 +11,6 @@ import {
 import MapPreviewPanel from './MapPreviewPanel';
 import {
   getLocationId,
-  getSelectedLocation,
-  getShortSelectedLocation,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
 import {
@@ -22,14 +20,21 @@ import {
   toPanorama
 } from '../../../app/routes';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
+import {
+  getDataSearch,
+  getDataSearchLocation,
+  getMapResultsByLocation,
+  isSearchLoading
+} from '../../../shared/ducks/data-search/data-search';
+import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
 
 const mapStateToProps = (state) => ({
-  mapClickLocation: getSelectedLocation(state),
-  pano: state.pano,
-  results: selectLatestMapSearchResults(state),
-  search: state.search,
-  searchLocation: getShortSelectedLocation(state),
+  panoPreview: getPanoPreview(state),
+  searchResults: selectLatestMapSearchResults(state),
+  dataSearch: getDataSearch(state),
+  searchLocation: getDataSearchLocation(state),
   searchLocationId: getLocationId(state),
+  isSearchLoaded: !isSearchLoading(state) && getMapResultsByLocation(state),
   missingLayers: selectNotClickableVisibleMapLayers(state)
     .map((mapLayer) => mapLayer.title)
     .join(', '),
@@ -47,16 +52,12 @@ const mapDispatchToProps = (dispatch) => ({
     closePanel: toMap,
     onSearchMaximize: toDataLocationSearch
   }, dispatch),
-  openPanoById: (pano) => {
-    const action = toPanorama(pano.id);
+  openPano: (id, heading) => {
+    const action = toPanorama(id, heading);
     return dispatch(action);
   },
   openPreviewDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP)),
-  openDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint)),
-  openPreviewSearch: () => {
-    // TODO: refactor, merge in query string solution first
-    // return dispatch(toGeoSearchView());
-  }
+  openDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint))
 });
 
 /* eslint-enable react/no-unused-prop-types */

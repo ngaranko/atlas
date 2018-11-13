@@ -8,7 +8,6 @@ export const REDUCER_KEY = 'location';
 const getLocation = (state) => state[REDUCER_KEY];
 
 export const getLocationQuery = createSelector(getLocation, (location) => location.query || {});
-export const getLocationType = createSelector(getLocation, (location) => location.type);
 export const getLocationPayload = createSelector(getLocation, (location) => location.payload);
 
 export const getCurrentPage = createSelector(getLocation, (location = {}) => {
@@ -21,6 +20,11 @@ export const isMapView = createSelector(
   (query) => (
     Object.prototype.hasOwnProperty.call(query, 'kaart') || false
   )
+);
+
+export const isHomepage = createSelector(
+  getCurrentPage,
+  (currentPage) => currentPage === PAGES.HOME
 );
 
 export const isMapPage = createSelector(

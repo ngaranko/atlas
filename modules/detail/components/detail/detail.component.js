@@ -9,6 +9,8 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
         .component('dpDetail', {
             bindings: {
                 endpoint: '@',
+                previewPanorama: '<',
+                isPreviewPanoramaLoading: '<',
                 isLoading: '=',
                 catalogFilters: '=',
                 user: '<'
@@ -70,8 +72,6 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
         vm.downloadResource = (dataset, resourceUrl) => store.dispatch(downloadDatasetResource({dataset, resourceUrl}));
 
         function getData (endpoint) {
-            vm.location = null;
-
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
             const [category, subject] = endpointParser.getParts(endpoint);

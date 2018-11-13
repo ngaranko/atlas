@@ -31,7 +31,6 @@ export const initialState = {
   shapeMarkers: 0,
   shapeDistanceTxt: '',
   shapeAreaTxt: '',
-  selectedLocation: null,
   mapPanelActive: true
 };
 
@@ -40,33 +39,37 @@ let has2Markers;
 let moreThan2Markers;
 
 export default function MapReducer(state = initialState, action) {
+  const enrichedState = {
+    ...state
+  };
+  const { meta = {} } = action;
+  const { query = {} } = meta;
+  const { lat, lng, zoom, legenda } = query;
+  if (lat && lng) {
+    enrichedState.viewCenter = [
+      parseFloat(lat) || initialState.viewCenter[0],
+      parseFloat(lng) || initialState.viewCenter[1]
+    ];
+  }
+  if (zoom) {
+    enrichedState.zoom = parseFloat(zoom) || initialState.zoom;
+  }
+  if (legenda) {
+    enrichedState.mapPanelActive = legenda === 'true';
+  }
+
   switch (action.type) {
-    case routing.panorama.type: {
+    case routing.dataDetail.type:
+    case routing.panorama.type:
+      // When opening these pages, close legend
       return {
-        ...state,
+        ...enrichedState,
         mapPanelActive: false
       };
-    }
-    case routing.mapSearch.type:
-    case routing.detail.type:
-    case routing.map.type: {
-      const { lat, lng, zoom, detailEndpoint } = action.meta.query || {};
-      return {
-        ...state,
-        viewCenter: [
-          parseFloat(lat) || initialState.viewCenter[0],
-          parseFloat(lng) || initialState.viewCenter[1]
-        ],
-        zoom: parseFloat(zoom) || initialState.zoom,
-        // selectedLocation,
-        detailEndpoint,
-        overlays: state.overlays
-      };
-    }
 
     case MAP_PAN:
       return {
-        ...state,
+        ...enrichedState,
         viewCenter: [
           action.payload.latitude,
           action.payload.longitude
@@ -74,32 +77,32 @@ export default function MapReducer(state = initialState, action) {
       };
     case MAP_ZOOM:
       return {
-        ...state,
+        ...enrichedState,
         zoom: action.payload
       };
 
     case MAP_BOUNDING_BOX:
     case MAP_BOUNDING_BOX_SILENT:
       return {
-        ...state,
+        ...enrichedState,
         boundingBox: action.payload.boundingBox
       };
 
     case MAP_CLEAR_DRAWING:
       return {
-        ...state,
+        ...enrichedState,
         geometry: []
       };
 
     case MAP_EMPTY_GEOMETRY:
       return {
-        ...state,
+        ...enrichedState,
         geometry: []
       };
 
     case MAP_UPDATE_SHAPE:
       return {
-        ...state,
+        ...enrichedState,
         shapeMarkers: action.payload.shapeMarkers,
         shapeDistanceTxt: action.payload.shapeDistanceTxt,
         shapeAreaTxt: action.payload.shapeAreaTxt
@@ -107,7 +110,7 @@ export default function MapReducer(state = initialState, action) {
 
     case MAP_START_DRAWING:
       return {
-        ...state,
+        ...enrichedState,
         drawingMode: action.payload.drawingMode
       };
 
@@ -117,36 +120,36 @@ export default function MapReducer(state = initialState, action) {
       moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
 
       return {
-        ...state,
+        ...enrichedState,
         drawingMode: 'none',
-        geometry: has2Markers ? polygon.markers : moreThan2Markers ? [] : state.geometry,
-        isLoading: moreThan2Markers ? true : state.isLoading
+        geometry: has2Markers ? polygon.markers : moreThan2Markers ? [] : enrichedState.geometry,
+        isLoading: moreThan2Markers ? true : enrichedState.isLoading
       };
 
     case SET_MAP_BASE_LAYER:
       return {
-        ...state,
+        ...enrichedState,
         baseLayer: action.payload
       };
 
     case TOGGLE_MAP_PANEL:
       return {
-        ...state,
-        mapPanelActive: !state.mapPanelActive
+        ...enrichedState,
+        mapPanelActive: !enrichedState.mapPanelActive
       };
 
     case TOGGLE_MAP_OVERLAY:
       return {
-        ...state,
-        overlays: state.overlays.some((overlay) => overlay.id === action.mapLayerId) ?
-          [...state.overlays.filter((overlay) => overlay.id !== action.mapLayerId)] :
-          [...state.overlays, { id: action.mapLayerId, isVisible: true }]
+        ...enrichedState,
+        overlays: enrichedState.overlays.some((overlay) => overlay.id === action.mapLayerId) ?
+          [...enrichedState.overlays.filter((overlay) => overlay.id !== action.mapLayerId)] :
+          [...enrichedState.overlays, { id: action.mapLayerId, isVisible: true }]
       };
 
     case TOGGLE_MAP_OVERLAY_VISIBILITY:
       return {
-        ...state,
-        overlays: state.overlays.map((overlay) => ({
+        ...enrichedState,
+        overlays: enrichedState.overlays.map((overlay) => ({
           ...overlay,
           isVisible: overlay.id !== action.mapLayerId ? overlay.isVisible :
             (action.show !== undefined ? action.show : !overlay.isVisible)
@@ -154,10 +157,16 @@ export default function MapReducer(state = initialState, action) {
       };
 
     case MAP_CLEAR:
-      return initialState;
+      return {
+        ...state,
+        drawingMode: initialState.drawingMode,
+        shapeMarkers: initialState.shapeMarkers,
+        shapeDistanceTxt: initialState.shapeDistanceTxt,
+        shapeAreaTxt: initialState.shapeAreaTxt
+      };
 
     default:
-      return state;
+      return enrichedState;
   }
 }
 

@@ -21,7 +21,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case routing.map.type: {
-      const locationString = get(action, 'meta.query.selectedLocation');
+      const locationString = get(action, 'meta.query.locatie');
       if (locationString) {
         const latLngObj = parseLocationString(locationString);
         return {
