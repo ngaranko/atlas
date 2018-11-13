@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { AngularWrapper } from 'react-angular';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
@@ -17,7 +17,6 @@ import LoadingIndicator from '../../../shared/components/loading-indicator/Loadi
 import { getActiveFilters } from '../../../shared/ducks/filters/filters';
 import DataSelectionActiveFilters from '../../containers/DataSelectionActiveFiltersContainer';
 import MaxPageMessage from '../PanelMessages/MaxPageMessage';
-import AngularWrapper from '../../../react-angular/AngularWrapper';
 
 const DataSelection = ({
   view,

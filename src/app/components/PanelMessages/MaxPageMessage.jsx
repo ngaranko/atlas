@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AngularWrapper from '../../../react-angular/AngularWrapper';
-
+import { AngularWrapper } from 'react-angular';
 
 const MaxPageMessage = ({ maxAvailablePages }) => (
   <AngularWrapper

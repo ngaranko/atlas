@@ -1,8 +1,7 @@
 import React from 'react';
 import Link from 'redux-first-router-link';
-
+import { AngularWrapper } from 'react-angular';
 import { routing } from '../../routes';
-import AngularWrapper from '../../../react-angular/AngularWrapper';
 
 const NotAuthorizedPanel = () => (
   <AngularWrapper

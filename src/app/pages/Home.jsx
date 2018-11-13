@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
+import { AngularWrapper } from 'react-angular';
 import { routing, toPanorama } from '../routes';
 import Footer from '../components/Footer/Footer';
 import PreviewVideo from '../components/PreviewVideo/PreviewVideo';
 import HomepageAddressBlock from '../../homepage/components/address-block/HomepageAddressBlock';
 import HomepageBlock from '../../homepage/components/block/HomepageBlock';
-import AngularWrapper from '../../react-angular/AngularWrapper';
 
 const HOMEPAGE_CONFIG = {
   PANORAMA: {

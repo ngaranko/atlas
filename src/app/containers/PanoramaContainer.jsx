@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { AngularWrapper } from 'react-angular';
 import {
 closeStraatbeeld,
 getHotspots,
 getStraatbeeld
 } from '../../shared/ducks/straatbeeld/straatbeeld';
-import AngularWrapper from '../../react-angular/AngularWrapper';
 
 const mapStateToProps = (state) => ({
   straatbeeldState: getStraatbeeld(state),

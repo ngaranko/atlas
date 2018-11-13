@@ -1,4 +1,5 @@
 import React from 'react';
+import { AngularWrapper } from 'react-angular';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -20,7 +21,6 @@ import {
   getPage,
   getResults
 } from '../../../shared/ducks/datasets/datasets';
-import AngularWrapper from '../../../react-angular/AngularWrapper';
 
 const Dataset = ({
   setPage,

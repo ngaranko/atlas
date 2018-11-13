@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AngularWrapper } from 'react-angular';
 import Footer from '../components/Footer/Footer';
-import AngularWrapper from '../../react-angular/AngularWrapper';
 
 /* istanbul ignore next */ // TODO: refactor, test
 const ContentPage = ({ name, item, type, showFooter }) => (

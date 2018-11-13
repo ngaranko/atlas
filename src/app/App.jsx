@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { AngularWrapper } from 'react-angular';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MapPage from './pages/MapPage';
@@ -24,7 +25,6 @@ import { getUser } from '../shared/ducks/user/user';
 import SearchPage from './pages/SearchPage';
 import { getCurrentPage } from '../store/redux-first-router';
 import Dataset from './components/Dataset/Dataset';
-import AngularWrapper from '../react-angular/AngularWrapper';
 
 // TodoReactMigration: implement logic
 const App = ({

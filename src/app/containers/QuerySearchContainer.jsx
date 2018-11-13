@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import { AngularWrapper } from 'react-angular';
 import {
   getNumberOfResults,
   getSearchCategory,
@@ -9,7 +9,6 @@ import {
   isSearchLoading
 } from '../../shared/ducks/data-search/data-search';
 import { getUser } from '../../shared/ducks/user/user';
-import AngularWrapper from '../../react-angular/AngularWrapper';
 
 const mapStateToProps = (state) => ({
   isLoading: isSearchLoading(state),
