@@ -55,7 +55,8 @@ $icon-height: 20px;
 
 .select-button__wrapper {
 
-  &:hover {
+  &:hover,
+  &:focus {
 
     .icon--topography {
       @include icon-sprite("icon-topography", $primary-dark, $primary-dark, $icon-height);

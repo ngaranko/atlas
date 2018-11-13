@@ -23,6 +23,10 @@ $handle-height: 24px;
     &:hover,
     &:focus {
       border-right: 1px solid;
+
+      .select-button__label {
+        color: $primary-dark;
+      }
     }
   }
 
@@ -37,6 +41,17 @@ $handle-height: 24px;
     position: absolute;
     right: 0;
     width: 32px;
+
+    &:hover,
+    &:focus {
+      .select-button__icon-collapse {
+        @include icon-sprite("icon-arrow-up", $primary-dark, $primary-dark, $handle-height - 2px);
+      }
+
+      .select-button__icon-expand {
+        @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height - 2px);
+      }
+    }
   }
 
   &__icon {
@@ -50,16 +65,6 @@ $handle-height: 24px;
 
     &-expand {
       @include icon-sprite("icon-arrow-down", $secondary-gray60, $primary-dark, $handle-height - 2px);
-    }
-  }
-
-  &:hover {
-    .select-button__icon-collapse {
-      @include icon-sprite("icon-arrow-up", $primary-dark, $primary-dark, $handle-height - 2px);
-    }
-
-    .select-button__icon-expand {
-      @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height - 2px);
     }
   }
 
