@@ -6,9 +6,13 @@ import reducer, {
   mapStartDrawing,
   mapUpdateShape,
   setMapBaseLayer,
+  setSelectedLocation,
   toggleMapOverlay,
   toggleMapOverlayVisibility,
-  updateBoundingBox
+  toggleMapPanel,
+  updateBoundingBox,
+  updatePan,
+  updateZoom
 } from './map';
 import { routing } from '../../../app/routes';
 
@@ -109,6 +113,60 @@ describe('Map Reducer', () => {
     });
   });
 
+  it('should update zoom when dispatching updateZoom', () => {
+    expect(reducer(initialState, updateZoom({
+      zoom: 12
+    }))).toEqual({
+      ...initialState,
+      zoom: {
+        zoom: 12
+      }
+    });
+  });
+
+  it('should update panorama when dispatching updatePan', () => {
+    expect(reducer(initialState, updatePan({
+      lat: 51.3731081,
+      lng: 5.8932945
+    }))).toEqual({
+      ...initialState,
+      viewCenter: [51.3731081, 5.8932945]
+    });
+  });
+
+  it('should toggle mapPanel when dispatching toggleMapPanel', () => {
+    expect(reducer(initialState, toggleMapPanel()
+    )).toEqual({
+      ...initialState,
+      mapPanelActive: !initialState.mapPanelActive
+    });
+  });
+
+  it('should toggle mapPanel when opening detailPage or Panorama', () => {
+    expect(reducer({}, {
+      type: routing.dataDetail.type
+    })).toEqual({
+      mapPanelActive: false
+    });
+
+    expect(reducer({}, {
+      type: routing.panorama.type
+    })).toEqual({
+      mapPanelActive: false
+    });
+  });
+
+  it('should set a marker when location is selected', () => {
+    expect(reducer(initialState, setSelectedLocation({
+      latlng: {
+        lat: 51.3731081,
+        lng: 5.8932945
+      }
+    }))).toEqual({
+      ...initialState,
+    });
+  });
+
   it('should set the viewCenter and zoom state', () => {
     const expectedResult = {
       zoom: 1,
@@ -128,6 +186,24 @@ describe('Map Reducer', () => {
         }
       }
     })).toEqual(expectedResult);
+
+    // Should also set viewCenter and Zoomstate when values cannot be parsed
+    const expectedResultInitial = {
+      zoom: initialState.zoom,
+      viewCenter: initialState.viewCenter,
+      mapPanelActive: false
+    };
+    expect(reducer({}, {
+      type: routing.map.type,
+      meta: {
+        query: {
+          zoom: 'test123',
+          lat: 'test123',
+          lng: 'test123',
+          legenda: true
+        }
+      }
+    })).toEqual(expectedResultInitial);
   });
 
   it('should set the boundingBox state when dispatching updateBoundingBox', () => {
