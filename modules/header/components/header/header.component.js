@@ -17,6 +17,8 @@
             }
         });
 
+    DpHeaderController.$inject = ['$scope', 'HEADER'];
+
     function DpHeaderController ($scope, HEADER) {
         const vm = this;
         $scope.$watch('vm.isHomePage', updateSize);
