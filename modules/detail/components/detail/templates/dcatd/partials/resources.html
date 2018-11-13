@@ -4,10 +4,10 @@
         <div class="resources-type__header">
             <span class="resources-type__header-title">{{resourceType.type | optionLabel: vm.catalogFilters.resourceTypes}}</span>
         </div>
-        <div class="resources-type__content" ng-repeat="resource in resourceType.rows">
-            <div class="resources-type__content-item">
+        <div class="resources-type__content" ng-repeat="resource in resourceType.rows" tabindex="0" dp-follow-link="{{ resource['ams:purl'] }}" dp-follow-link-resource-name={{vm.apiData.results["dct:title"]}}>
+            <div class="resources-type__content-item" >
 
-                <div class="resources-item" dp-follow-link="{{ resource['ams:purl'] }}" dp-follow-link-resource-name={{vm.apiData.results["dct:title"]}}>
+                <div class="resources-item" >
 
                         <div class="resources-item__left">
                             <div class="resources-item__title">
