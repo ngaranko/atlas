@@ -6,9 +6,12 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
     angular
         .module('dpShared')
         .factory('httpErrorRegistrar', httpErrorRegistrarFactory)
-        .config($httpProvider => $httpProvider.interceptors.push('httpErrorRegistrar'));
+        .config([
+            '$httpProvider',
+            $httpProvider => $httpProvider.interceptors.push('httpErrorRegistrar')
+        ]);
 
-    httpErrorRegistrarFactory.inject = [
+    httpErrorRegistrarFactory.$inject = [
         '$interval',
         '$q',
         '$window',

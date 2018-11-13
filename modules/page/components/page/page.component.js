@@ -17,7 +17,7 @@ import getContents from '../../../../src/shared/services/google-sheet/google.she
             controllerAs: 'vm'
         });
 
-    DpPageComponent.inject = ['$scope'];
+    DpPageComponent.$inject = ['$scope'];
 
     function DpPageComponent ($scope) {
         const vm = this;

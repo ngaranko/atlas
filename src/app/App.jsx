@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MapPage from './pages/MapPage';
 import Piwik from './components/Piwik/Piwik';
