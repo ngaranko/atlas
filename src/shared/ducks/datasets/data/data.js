@@ -59,10 +59,8 @@ export default function reducer(state = initialState, action) {
 // Actions
 export const downloadDatasetResource = (payload) => ({
   type: DOWNLOAD_DATASET_RESOURCE,
-  payload: {
-    meta: {
-      tracking: payload
-    }
+  meta: {
+    tracking: payload
   }
 });
 

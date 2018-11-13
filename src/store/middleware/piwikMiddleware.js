@@ -13,6 +13,12 @@ const actionsToPiwik = {
     'achtergrond',
     (tracking.startsWith('lf') ? 'luchtfoto' : 'topografie'),
     tracking
+  ],
+  'datasetData/DOWNLOAD_DATASET_RESOURCE': (tracking) => [
+    'trackEvent',
+    'Download',
+    tracking.dataset,
+    tracking.resourceUrl
   ]
 };
 
