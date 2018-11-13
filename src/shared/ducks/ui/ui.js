@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
-import { getStraatbeeld } from '../straatbeeld/straatbeeld';
 import { getDataSelectionView, VIEWS } from '../data-selection/data-selection';
-import { isMapPage } from '../../../store/redux-first-router';
+import { isMapPage, isPanoPage } from '../../../store/redux-first-router';
 import { routing } from '../../../app/routes';
 
 export const REDUCER_KEY = 'ui';
@@ -21,12 +20,16 @@ export const initialState = {
 
 export default function UiReducer(state = initialState, action) {
   switch (action.type) {
+    case routing.panorama.type:
+    case routing.dataDetail.type:
+    case routing.detail.type:
     case routing.map.type: {
-      const { embedPreview, embed } = action.meta.query || {};
+      const { embedPreview, embed, print } = action.meta.query || {};
       return {
         ...state,
         isEmbedPreview: (embedPreview === 'true') || initialState.isEmbedPreview,
-        isEmbed: (embed === 'true') || initialState.isEmbed
+        isEmbed: (embed === 'true') || initialState.isEmbed,
+        isPrintMode: (print === 'true') || initialState.isPrintMode
       };
     }
     case HIDE_EMBED_PREVIEW:
@@ -87,10 +90,10 @@ export const isMapPanelHandleVisible =
 
 export const isPrintModeLandscape = createSelector(
   isPrintMode,
-  getStraatbeeld,
+  isPanoPage,
   isMapPage,
   getDataSelectionView,
-  (printMode, straatbeeldActive, mapPageActive, dataSelectionView) =>
-    (printMode && (!!straatbeeldActive || mapPageActive || (dataSelectionView === VIEWS.LIST)))
+  (printMode, panoPageActive, mapPageActive, dataSelectionView) =>
+    (printMode && (panoPageActive || mapPageActive || (dataSelectionView === VIEWS.LIST)))
 );
 
