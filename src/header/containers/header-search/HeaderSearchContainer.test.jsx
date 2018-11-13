@@ -5,13 +5,10 @@ import { shallow } from 'enzyme';
 import HeaderSearchContainer from './HeaderSearchContainer';
 import {
   getSuggestionsAction,
-  getTypedQuery,
-  setActiveSuggestionAction,
-  FETCH_SUGGESTIONS_REQUEST,
-  SET_ACTIVE_SUGGESTION
+  getTypedQuery
 } from '../../ducks/auto-suggest/auto-suggest';
 
-import { fetchDataSelection, fetchSearchResultsByQuery, FETCH_DATA_SELECTION, FETCH_SEARCH_RESULTS_BY_QUERY } from '../../ducks/search/search';
+import { fetchDataSelection } from '../../ducks/search/search';
 
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { fetchDetail, FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
@@ -26,27 +23,16 @@ jest.mock('../../ducks/search/search');
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
-    setActiveSuggestionAction.mockImplementation(() => ({ type: SET_ACTIVE_SUGGESTION }));
-    getSuggestionsAction.mockImplementation(() => ({ type: FETCH_SUGGESTIONS_REQUEST }));
+    getSuggestionsAction.mockImplementation(() => ({ type: 'getSuggestionsAction' }));
     fetchDetail.mockImplementation((endpoint) => ({ type: FETCH_DETAIL, payload: endpoint }));
     piwikTracker.mockImplementation(() => jest.fn());
-    fetchDataSelection.mockImplementation((query) => ({
-      type: FETCH_DATA_SELECTION,
-      payload: query
-    }));
-    fetchSearchResultsByQuery.mockImplementation((query) => ({
-      type: FETCH_SEARCH_RESULTS_BY_QUERY,
-      payload: query
-    }));
   });
 
   afterEach(() => {
-    setActiveSuggestionAction.mockReset();
     getSuggestionsAction.mockReset();
     fetchDetail.mockReset();
     piwikTracker.mockReset();
     fetchDataSelection.mockReset();
-    fetchSearchResultsByQuery.mockReset();
   });
 
   const initialState = {
@@ -109,7 +95,6 @@ describe('HeaderSearchContainer', () => {
     jest.spyOn(store, 'dispatch');
     shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
-    expect(setActiveSuggestionAction).not.toHaveBeenCalled();
     expect(getSuggestionsAction).not.toHaveBeenCalled();
     expect(fetchDetail).not.toHaveBeenCalled();
     expect(store.dispatch).not.toHaveBeenCalled();
@@ -132,7 +117,7 @@ describe('HeaderSearchContainer', () => {
       headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
 
       expect(store.dispatch).toHaveBeenCalledWith({
-        type: routing.catalogusDetail.type,
+        type: routing.datasetsDetail.type,
         payload: { id: 'GgCm07EqNVIpwQ' }
       });
     });
@@ -233,7 +218,7 @@ describe('HeaderSearchContainer', () => {
           typedQuery: query
         },
         location: {
-          type: `${ROUTER_NAMESPACE}/${PAGES.CATALOGUS}`
+          type: `${ROUTER_NAMESPACE}/${PAGES.DATASETS}`
         }
       });
       jest.spyOn(store, 'dispatch');

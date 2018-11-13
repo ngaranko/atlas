@@ -4,15 +4,19 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  getActiveSuggestions, getAutoSuggestSuggestions, getDisplayQuery, getNumberOfSuggestions,
-  getSuggestionsAction, getTypedQuery,
+  getActiveSuggestions,
+  getAutoSuggestSuggestions,
+  getDisplayQuery,
+  getNumberOfSuggestions,
+  getSuggestionsAction,
+  getTypedQuery,
   setActiveSuggestionAction
 } from '../../ducks/auto-suggest/auto-suggest';
 
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
-import { isCatalogCurrentPage, isMapPage } from '../../../store/redux-first-router';
+import { isDatasetCurrentPage, isMapPage } from '../../../store/redux-first-router';
 import {
   extractIdEndpoint,
   getPageActionEndpoint,
@@ -22,7 +26,7 @@ import {
 const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),
   displayQuery: getDisplayQuery(state),
-  isDatasetView: isCatalogCurrentPage(state),
+  isDatasetView: isDatasetCurrentPage(state),
   isMapActive: isMapPage(state),
   numberOfSuggestions: getNumberOfSuggestions(state),
   pageName: state.page ? state.page.name : '',
@@ -41,9 +45,9 @@ const mapDispatchToProps = (dispatch) => ({
   onDataSearch: (query) => dispatch(toDataSearch(query)),
   openSuggestion: (suggestion) => {
     if (suggestion.uri.match(/^dcatd\//)) {
-      // Suggestion of type catalog, a.k.a. "dataset"
+      // Suggestion of type dataset, formerly known as "catalog"
       const id = extractIdEndpoint(suggestion.uri);
-      return dispatch({ type: routing.catalogusDetail.type, payload: { id } });
+      return dispatch({ type: routing.datasetsDetail.type, payload: { id } });
     }
     return dispatch(getPageActionEndpoint(suggestion.uri));
   }

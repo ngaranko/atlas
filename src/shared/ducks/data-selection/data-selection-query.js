@@ -1,7 +1,7 @@
 import {
-  CLEAR_GEOMETRY_FILTERS,
+  CLEAR_GEOMETRY_FILTERS, FETCH_DATA_SELECTION_SUCCESS,
   getDataSelectionPage,
-  getGeometryFilters,
+  getGeometryFilterDescription,
   getGeometryFiltersMarkers,
   initialState,
   isListView,
@@ -18,8 +18,6 @@ const getEncodedGeometryFilters = (state) => {
   }
   return undefined;
 };
-
-const getGeometryFilterDescription = (state) => getGeometryFilters(state).description;
 
 export default {
   page: {
@@ -43,5 +41,6 @@ export const ACTIONS = [
   SET_GEOMETRY_FILTERS,
   RESET_DATA_SELECTION,
   CLEAR_GEOMETRY_FILTERS,
+  FETCH_DATA_SELECTION_SUCCESS,
   SET_VIEW
 ];

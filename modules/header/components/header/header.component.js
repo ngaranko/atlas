@@ -10,7 +10,6 @@
             bindings: {
                 isHomePage: '<',
                 hasMaxWidth: '<',
-                isEmbed: '<',
                 isPrintMode: '<',
                 isEmbedPreview: '<',
                 user: '<',

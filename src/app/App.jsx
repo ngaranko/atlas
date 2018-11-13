@@ -9,8 +9,7 @@ import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
 import './_app.scss';
-import CatalogDetailContainer from './containers/CatalogDetailContainer';
-import QuerySearchContainer from './containers/QuerySearchContainer';
+import DatasetDetailContainer from './containers/DatasetsDetailContainer';
 import {
   isEmbedded,
   isEmbedPreview,
@@ -23,8 +22,9 @@ import PanoramaPage from './pages/PanoramaPage';
 import DetailPage from './pages/DetailPage';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
-import MapSearchPage from './pages/MapSearchPage';
+import SearchPage from './pages/SearchPage';
 import { getCurrentPage } from '../store/redux-first-router';
+import Dataset from './components/Dataset/Dataset';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -68,20 +68,21 @@ const App = ({
       className={`c-dashboard c-dashboard--page-type-${pageType} ${rootClasses} ${printEmbedModeClasses}`}
     >
       <Piwik />
-      <AngularWrapper
-        moduleName={'dpHeaderWrapper'}
-        component="dpHeader"
-        dependencies={['atlas']}
-        bindings={{
-          isHomePage,
-          hasMaxWidth,
-          user,
-          isEmbed: embedMode,
-          isPrintMode: printMode,
-          isEmbedPreview: embedPreviewMode,
-          isPrintOrEmbedOrPreview: printOrEmbedMode
-        }}
-      />
+      {!embedMode &&
+        <AngularWrapper
+          moduleName={'dpHeaderWrapper'}
+          component="dpHeader"
+          dependencies={['atlas']}
+          bindings={{
+            isHomePage,
+            hasMaxWidth,
+            user,
+            isPrintMode: printMode,
+            isEmbedPreview: embedPreviewMode,
+            isPrintOrEmbedOrPreview: printOrEmbedMode
+          }}
+        />
+      }
       <AngularWrapper
         moduleName={'dpErrorWrapper'}
         component="dpError"
@@ -103,18 +104,18 @@ const App = ({
               />
             )}
 
-            {currentPage === PAGES.SEARCH_DATA && <QuerySearchContainer />}
+            {currentPage === PAGES.DATA_SEARCH && <SearchPage />}
 
             {currentPage === PAGES.KAART && <MapPage />}
-
-            {currentPage === PAGES.KAART_SEARCH && <MapSearchPage />}
 
             {currentPage === PAGES.DATA_DETAIL && <DetailPage />}
 
             {currentPage === PAGES.PANORAMA && <PanoramaPage />}
 
-            {currentPage === PAGES.CATALOGUS_DETAIL && (
-              <CatalogDetailContainer />
+            {currentPage === PAGES.DATASETS && <Dataset />}
+
+            {currentPage === PAGES.DATASETS_DETAIL && (
+              <DatasetDetailContainer />
             )}
 
             {(currentPage === PAGES.ADDRESSES

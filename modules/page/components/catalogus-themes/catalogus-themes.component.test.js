@@ -71,7 +71,7 @@ describe('The dp-catalogus-themes', () => {
         const link = component.find('.qa-theme-link').eq(4);
         expect(link).toHaveAttr('to', 'theme.linkTo');
         expect(scope.vm.themes[4].linkTo).toEqual({
-            type: routing.catalogus.type,
+            type: routing.datasets.type,
             query: {
                 filter_theme: 'thema-e'
             }

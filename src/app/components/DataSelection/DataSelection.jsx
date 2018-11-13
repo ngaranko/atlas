@@ -3,36 +3,37 @@ import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { bindActionCreators } from 'redux';
 import {
-  getDataSelection,
-  getDataSelectionResult,
-  VIEWS
+getDataSelection,
+getDataSelectionResult,
+setPage as setDatasetPage,
+VIEWS
 } from '../../../shared/ducks/data-selection/data-selection';
 import DATA_SELECTION_CONFIG from '../../../shared/services/data-selection/data-selection-config';
 import { getUser } from '../../../shared/ducks/user/user';
-import NotAuthorizedPanel from '../NotAuthorizedMessage/NotAuthorizedMessage';
+import NotAuthorizedPanel from '../PanelMessages/NotAuthorizedMessage';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 import { getActiveFilters } from '../../../shared/ducks/filters/filters';
 import DataSelectionActiveFilters from '../../containers/DataSelectionActiveFiltersContainer';
+import MaxPageMessage from '../PanelMessages/MaxPageMessage';
 
 const DataSelection = ({
   view,
   isLoading,
   dataset,
   activeFilters,
-  geometryFilter,
   user,
+  setPage,
   authError,
-  results,
-  page: currentPage
-}) => {
-  const {
+  results: {
     numberOfRecords,
     filters: availableFilters,
     numberOfPages,
     data
-  } = results;
-
+  },
+  page: currentPage
+}) => {
   if (isLoading || (!numberOfRecords && !authError)) {
     return <LoadingIndicator />;
   }
@@ -60,7 +61,6 @@ const DataSelection = ({
           component="dpDataSelectionHeader"
           dependencies={['atlas']}
           bindings={{
-            geometryFilter,
             dataset,
             availableFilters,
             filters: activeFilters,
@@ -106,36 +106,8 @@ const DataSelection = ({
               )}
               <div className={widthClass}>
                 {showMessageMaxPages && (
-                  <AngularWrapper
-                    moduleName={'dpPanelWrapper'}
-                    component="dpPanel"
-                    dependencies={['atlas']}
-                    bindings={{
-                      isPanelVisible: true,
-                      canClose: true
-                    }}
-                    interpolateBindings={{
-                      type: 'warning'
-                    }}
-                  >
-                    <div className="qa-message-max-pages">
-                      <h2 className="c-panel__title">Deze pagina kan niet worden getoond</h2>
-                      <p className="c-panel__paragraph">
-                        Alleen de eerste {MAX_AVAILABLE_PAGES} pagina&apos;s kunnen
-                        worden
-                        weergegeven (om technische redenen). Bij
-                        downloaden worden wel alle resultaten opgenomen.
-                      </p>
-                      <p className="c-panel__paragraph">
-                        Tip: Gebruik de download-knop om alle resultaten te bekijken. Of voeg
-                        meer
-                        filtercriteria
-                        toe voor specifiekere resultaten.
-                      </p>
-                    </div>
-                  </AngularWrapper>
+                  <MaxPageMessage maxAvailablePages={MAX_AVAILABLE_PAGES} />
                 )}
-
                 {showMessageClusteredMarkers && (
                   <AngularWrapper
                     moduleName={'dpPanelWrapper'}
@@ -192,7 +164,8 @@ const DataSelection = ({
                   dependencies={['atlas']}
                   bindings={{
                     currentPage,
-                    numberOfPages
+                    numberOfPages,
+                    setPage
                   }}
                 />
               </div>
@@ -201,7 +174,7 @@ const DataSelection = ({
         )}
 
         {authError && (
-          <NotAuthorizedPanel dataset={dataset} />
+          <NotAuthorizedPanel />
         )}
       </div>
     </div>
@@ -217,10 +190,10 @@ DataSelection.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   dataset: PropTypes.string.isRequired,
   activeFilters: PropTypes.shape({}).isRequired,
-  geometryFilter: PropTypes.shape({}).isRequired,
   user: PropTypes.shape({}).isRequired,
   authError: PropTypes.bool.isRequired,
   page: PropTypes.number.isRequired,
+  setPage: PropTypes.func.isRequired,
   results: PropTypes.shape({
     numberOfRecords: PropTypes.number,
     filters: PropTypes.arrayOf(PropTypes.object),
@@ -230,12 +203,11 @@ DataSelection.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { view, isLoading, dataset, geometryFilter, authError, page } = getDataSelection(state);
+  const { view, isLoading, dataset, authError, page } = getDataSelection(state);
   return ({
     view,
     isLoading,
     dataset,
-    geometryFilter,
     authError,
     page,
     activeFilters: getActiveFilters(state),
@@ -244,4 +216,8 @@ const mapStateToProps = (state) => {
   });
 };
 
-export default connect(mapStateToProps, null)(DataSelection);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  setPage: setDatasetPage
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataSelection);

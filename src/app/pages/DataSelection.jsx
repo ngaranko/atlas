@@ -5,6 +5,7 @@ import MapContainer from '../../map/containers/map/MapContainer';
 import NewDataSelection from '../components/DataSelection/DataSelection';
 import { isListView } from '../../shared/ducks/data-selection/data-selection';
 
+/* istanbul ignore next */ // TODO: refactor, test
 const DataSelection = ({ showMap }) => {
   if (!showMap) {
     return (

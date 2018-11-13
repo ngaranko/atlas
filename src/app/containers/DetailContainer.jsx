@@ -7,17 +7,22 @@ import {
   isDetailLoading
 } from '../../shared/ducks/detail/detail';
 import { getUser } from '../../shared/ducks/user/user';
+import { getPanoPreview, isPanoPreviewLoading } from '../../pano/ducks/preview/pano-preview';
 
 const mapStateToProps = (state) => ({
   isLoading: isDetailLoading(state),
   user: getUser(state),
-  endpoint: getDetailEndpoint(state)
+  endpoint: getDetailEndpoint(state),
+  previewPanorama: getPanoPreview(state),
+  isPreviewPanoramaLoading: isPanoPreviewLoading(state)
 });
 
 const DetailContainer = ({
   isLoading,
   user,
-  endpoint
+  endpoint,
+  previewPanorama,
+  isPreviewPanoramaLoading
 }) => (
   <div className="qa-detail">
     <AngularWrapper
@@ -26,7 +31,9 @@ const DetailContainer = ({
       dependencies={['atlas']}
       bindings={{
         isLoading,
-        user
+        user,
+        previewPanorama,
+        isPreviewPanoramaLoading
       }}
       interpolateBindings={{
         endpoint
@@ -36,12 +43,16 @@ const DetailContainer = ({
 );
 
 DetailContainer.defaultProps = {
+  previewPanorama: undefined,
+  isPreviewPanoramaLoading: undefined
 };
 
 DetailContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  endpoint: PropTypes.string.isRequired
+  endpoint: PropTypes.string.isRequired,
+  previewPanorama: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  isPreviewPanoramaLoading: PropTypes.bool
 };
 
 export default connect(mapStateToProps, null)(DetailContainer);

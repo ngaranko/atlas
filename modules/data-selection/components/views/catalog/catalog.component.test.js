@@ -8,12 +8,7 @@ describe('The catalog component', function () {
     let $rootScope,
         $compile,
         $window,
-        store,
         origSessionStorage;
-
-    const mockedStore = {
-        getState: angular.noop
-    };
 
     const mockedContent =
         mockedContentJson['dcat:dataset'].map(item => {
@@ -29,27 +24,22 @@ describe('The catalog component', function () {
     const mockedOptionLabelFilter = () => 'label';
 
     beforeEach(function () {
-        angular.mock.module('dpDataSelection', {
-            store: mockedStore
-        },
+        angular.mock.module('dpDataSelection', {},
             function ($provide) {
                 $provide.value('optionLabelFilter', mockedOptionLabelFilter);
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$compile_, _$window_, _store_) {
+        angular.mock.inject(function (_$rootScope_, _$compile_, _$window_) {
             $rootScope = _$rootScope_;
             $compile = _$compile_;
             $window = _$window_;
-            store = _store_;
         });
 
         origSessionStorage = $window.sessionStorage;
         $window.sessionStorage = {
             setItem: angular.noop
         };
-
-        store.dispatch = jasmine.createSpy('dispatch');
 
         spyOn($window.sessionStorage, 'setItem');
     });
@@ -58,11 +48,17 @@ describe('The catalog component', function () {
         $window.sessionStorage = origSessionStorage;
     });
 
-    function getComponent (filterFormatter) {
+    function getComponent () {
         const element = document.createElement('dp-data-selection-catalog');
+        element.setAttribute('catalog-filters', 'catalogFilters');
         element.setAttribute('content', 'content');
 
         const scope = $rootScope.$new();
+        scope.catalogFilters = {
+            formatTypes: [{}],
+            serviceTypes: [{}],
+            distributionTypes: [{}]
+        };
         scope.content = mockedContent;
 
         const component = $compile(element)(scope);
@@ -72,14 +68,6 @@ describe('The catalog component', function () {
     }
 
     it('sets the redirect url', () => {
-        spyOn(store, 'getState').and.returnValue({
-            catalogFilters: {
-                formatTypes: [{}],
-                serviceTypes: [{}],
-                distributionTypes: [{}]
-            }
-        });
-
         getComponent();
 
         expect($window.sessionStorage.setItem)
@@ -87,13 +75,6 @@ describe('The catalog component', function () {
     });
 
     it('can load a detail page for a catalog', function () {
-        spyOn(store, 'getState').and.returnValue({
-            catalogFilters: {
-                formatTypes: [],
-                serviceTypes: [],
-                distributionTypes: []
-            }
-        });
         detail.fetchDetail = () => 'fetchDetail';
 
         const component = getComponent();
@@ -103,7 +84,7 @@ describe('The catalog component', function () {
         const id = mockedContentJson['dcat:dataset'][0]['dct:identifier'];
         expect(link).toHaveAttr('to', 'row.linkTo');
         expect(scope.vm.items[0].linkTo).toEqual({
-            type: routing.catalogusDetail.type,
+            type: routing.datasetsDetail.type,
             payload: { id }
         });
     });

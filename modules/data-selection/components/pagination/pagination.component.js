@@ -1,5 +1,5 @@
-import { setPage } from '../../../../src/shared/ducks/data-selection/data-selection';
-
+// Todo: move to react
+/* istanbul ignore next */
 (function () {
     'use strict';
 
@@ -8,16 +8,15 @@ import { setPage } from '../../../../src/shared/ducks/data-selection/data-select
         .component('dpDataSelectionPagination', {
             bindings: {
                 currentPage: '<',
-                numberOfPages: '<'
+                numberOfPages: '<',
+                setPage: '&'
             },
             templateUrl: 'modules/data-selection/components/pagination/pagination.html',
             controller: DpDataSelectionPaginationController,
             controllerAs: 'vm'
         });
 
-    DpDataSelectionPaginationController.$inject = ['store'];
-
-    function DpDataSelectionPaginationController (store) {
+    function DpDataSelectionPaginationController () {
         const vm = this;
 
         vm.$onChanges = function () {
@@ -30,28 +29,28 @@ import { setPage } from '../../../../src/shared/ducks/data-selection/data-select
                 vm.firstPage = {
                     label: 'Eerste',
                     class_name: 'c-data-selection-pagination-link--first',
-                    action: setPage(1),
+                    action: () => vm.setPage()(1),
                     enabled: !isFirstPage
                 };
 
                 vm.previousPage = {
                     label: 'Vorige',
                     class_name: 'c-data-selection-pagination-link--previous',
-                    action: setPage(isFirstPage ? null : vm.currentPage - 1),
+                    action: () => vm.setPage()(isFirstPage ? null : vm.currentPage - 1),
                     enabled: !isFirstPage
                 };
 
                 vm.nextPage = {
                     label: 'Volgende',
                     class_name: 'c-data-selection-pagination-link--next',
-                    action: setPage(isLastPage ? null : vm.currentPage + 1),
+                    action: () => vm.setPage()(isLastPage ? null : vm.currentPage + 1),
                     enabled: !isLastPage
                 };
 
                 vm.lastPage = {
                     label: 'Laatste',
                     class_name: 'c-data-selection-pagination-link--last',
-                    action: setPage(vm.numberOfPages),
+                    action: () => vm.setPage()(vm.numberOfPages),
                     enabled: !isLastPage
                 };
             }
@@ -61,12 +60,12 @@ import { setPage } from '../../../../src/shared/ducks/data-selection/data-select
             event.preventDefault();
 
             if (angular.isNumber(vm.currentPage) && vm.currentPage >= 1 && vm.currentPage <= vm.numberOfPages) {
-                store.dispatch(setPage(vm.currentPage));
+                vm.setPage()(vm.currentPage);
             }
         };
 
         if (vm.currentPage > vm.numberOfPages) {
-            store.dispatch(setPage(1));
+            vm.setPage()(1);
         }
     }
 })();

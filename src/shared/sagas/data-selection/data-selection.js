@@ -16,13 +16,8 @@ import { routing } from '../../../app/routes';
 import dataselectionConfig from '../../services/data-selection/data-selection-config';
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
 import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
-import {
-  ADD_FILTER,
-  APPLY_FILTERS,
-  EMPTY_FILTERS,
-  getFilters,
-  REMOVE_FILTER
-} from '../../ducks/filters/filters';
+import { ADD_FILTER, EMPTY_FILTERS, getFilters, REMOVE_FILTER } from '../../ducks/filters/filters';
+import { isDataSelectionCurrentPage } from '../../../store/redux-first-router';
 
 function* getMapMarkers(dataset, activeFilters) {
   const state = yield select();
@@ -62,15 +57,19 @@ function* retrieveDataSelection(action) {
 
 function* fireRequest() {
   const state = yield select();
-  const dataSelection = getDataSelection(state);
-  const activeFilters = getFilters(state);
 
-  yield put(
-    fetchDataSelection({
-      ...dataSelection,
-      activeFilters
-    })
-  );
+  // Always ensure we are on the right page, otherwise this can be called unintentionally
+  if (isDataSelectionCurrentPage(state)) {
+    const dataSelection = getDataSelection(state);
+    const activeFilters = getFilters(state);
+
+    yield put(
+      fetchDataSelection({
+        ...dataSelection,
+        activeFilters
+      })
+    );
+  }
 }
 
 const DATASET_ROUTE_MAPPER = {
@@ -95,7 +94,7 @@ function* switchPage() {
 
 export default function* watchFetchDataSelection() {
   yield takeLatest(
-    [SET_VIEW, APPLY_FILTERS, ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS,
+    [SET_VIEW, ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS,
       routing.addresses.type, routing.establishments.type, routing.cadastralObjects.type
     ],
     fireRequest

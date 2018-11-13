@@ -1,9 +1,9 @@
 <ul>
     <li ng-if="hasPrintButton">
-        <dp-link type="SHOW_PRINT" class-name="c-menu__subitem">Printen</dp-link>
+        <dp-link action="printAction" class-name="c-menu__subitem">Printen</dp-link>
     </li>
     <li ng-if="hasEmbedButton">
-        <dp-link type="SHOW_EMBED_PREVIEW" class-name="c-menu__subitem">Embedden</dp-link>
+        <dp-link action="embedAction" class-name="c-menu__subitem">Embedden</dp-link>
     </li>
     <li>
         <dp-terugmelden-button class-name="c-menu__subitem">Terugmelden</dp-terugmelden-button>

@@ -1,4 +1,7 @@
-import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/search/search';
+import {
+    SHOW_SEARCH_RESULTS,
+    showSearchResults
+} from '../../../../src/shared/ducks/data-search/data-search';
 
 describe('The dp-search-results component', function () {
     let $compile,
@@ -14,6 +17,8 @@ describe('The dp-search-results component', function () {
         mockedGeosearchResults,
         mockedNoResults,
         mockedUser,
+        mockedPreviewPanorama,
+        mockedPreviewPanoramaIsLoading,
         i;
 
     beforeEach(function () {
@@ -319,6 +324,8 @@ describe('The dp-search-results component', function () {
             scopes: [],
             name: ''
         };
+        mockedPreviewPanorama = {};
+        mockedPreviewPanoramaIsLoading = false;
 
         spyOn(store, 'dispatch');
         spyOn(activeOverlays, 'getOverlaysWarning');
@@ -354,6 +361,12 @@ describe('The dp-search-results component', function () {
 
         element.setAttribute('is-loading', 'isLoading');
         scope.isLoading = isLoading;
+
+        element.setAttribute('preview-panorama', 'previewPanorama');
+        scope.previewPanorama = mockedPreviewPanorama;
+
+        element.setAttribute('is-preview-panorama-loading', 'isPreviewPanoramaLoading');
+        scope.isPreviewPanoramaLoading = mockedPreviewPanoramaIsLoading;
 
         const component = $compile(element)(scope);
         scope.$apply();
@@ -430,12 +443,6 @@ describe('The dp-search-results component', function () {
             });
         });
 
-        it('doesn\'t show the dp-straatbeeld-thumbnail component', function () {
-            const component = getComponent(12, 'Weesperstraat');
-
-            expect(component.find('dp-straatbeeld-thumbnail').length).toBe(0);
-        });
-
         describe('has category support', function () {
             it('categories with more than 1000 results use a thousand separator in the show more button', function () {
                 // This link shows numbers with a thousand separator
@@ -497,21 +504,12 @@ describe('The dp-search-results component', function () {
     });
 
     describe('search by location', function () {
-        let component;
-
         beforeEach(function () {
-            component = getComponent(22, null, [51.123, 4.789]);
+            getComponent(22, null, [51.123, 4.789]);
         });
 
         it('calls dispatch with the number of search results', function () {
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: SHOW_SEARCH_RESULTS,
-                payload: 22
-            });
-        });
-
-        it('shows the dp-straatbeeld-thumbnail component', function () {
-            expect(component.find('dp-straatbeeld-thumbnail').length).toBe(1);
+            expect(store.dispatch).toHaveBeenCalledWith(showSearchResults(22));
         });
     });
 

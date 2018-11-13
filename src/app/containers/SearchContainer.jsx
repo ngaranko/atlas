@@ -2,27 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
-import { getShortSelectedLocation } from '../../map/ducks/map/map-selectors';
-import { getNumberOfResults } from '../../shared/ducks/search/search';
+import {
+  getDataSearchLocation,
+  getNumberOfResults
+} from '../../shared/ducks/data-search/data-search';
 import { getUser } from '../../shared/ducks/user/user';
+import { getPanoPreview, isPanoPreviewLoading } from '../../pano/ducks/preview/pano-preview';
 
 const mapStateToProps = (state) => ({
   isLoading: false,
   query: null,
-  location: getShortSelectedLocation(state) || {},
+  location: getDataSearchLocation(state),
   category: null,
   numberOfResults: getNumberOfResults(state),
-  user: getUser(state)
+  user: getUser(state),
+  previewPanorama: getPanoPreview(state),
+  isPreviewPanoramaLoading: isPanoPreviewLoading(state)
 });
 
-// TODO refactor, rename GeoSearchContainer
 const SearchContainer = ({
   isLoading,
   query,
   location,
   category,
   user,
-  numberOfResults
+  numberOfResults,
+  previewPanorama,
+  isPreviewPanoramaLoading
 }) => (
   <div className="qa-search-results">
     <AngularWrapper
@@ -33,7 +39,9 @@ const SearchContainer = ({
         isLoading,
         location: [location.latitude, location.longitude],
         user,
-        numberOfResults
+        numberOfResults,
+        previewPanorama,
+        isPreviewPanoramaLoading
       }}
       interpolateBindings={{
         query,
@@ -45,19 +53,24 @@ const SearchContainer = ({
 
 SearchContainer.defaultProps = {
   query: '',
-  category: null
+  category: null,
+  numberOfResults: undefined,
+  previewPanorama: undefined,
+  isPreviewPanoramaLoading: undefined
 };
 
 SearchContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   query: PropTypes.string,
   location: PropTypes.shape({
-    latitude: PropTypes.number,
-    longitude: PropTypes.number
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired
   }).isRequired,
   category: PropTypes.string,
-  numberOfResults: PropTypes.number.isRequired,
-  user: PropTypes.object.isRequired // eslint-disable-line
+  numberOfResults: PropTypes.number,
+  user: PropTypes.object.isRequired, // eslint-disable-line
+  previewPanorama: PropTypes.object, // eslint-disable-line
+  isPreviewPanoramaLoading: PropTypes.bool
 };
 
 export default connect(mapStateToProps, null)(SearchContainer);

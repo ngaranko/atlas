@@ -8,27 +8,25 @@ import { routing } from '../../../../../src/app/routes';
         .module('dpDataSelection')
         .component('dpDataSelectionCatalog', {
             bindings: {
-                content: '<'
+                content: '<',
+                catalogFilters: '<'
             },
             controller: DpDataSelectionCatalogController,
             templateUrl: 'modules/data-selection/components/views/catalog/catalog.html',
             controllerAs: 'vm'
         });
 
-    DpDataSelectionCatalogController.$inject = ['store', '$filter'];
+    DpDataSelectionCatalogController.$inject = ['$filter'];
 
-    function DpDataSelectionCatalogController (store, $filter) {
+    function DpDataSelectionCatalogController ($filter) {
         const vm = this;
-
-        const state = store.getState();
-        vm.catalogFilters = state.catalogFilters;
 
         vm.$onChanges = function () {
             const formatMap = arrayToObject(vm.catalogFilters.formatTypes, 'id');
             const serviceMap = arrayToObject(vm.catalogFilters.serviceTypes, 'id');
             const distributionMap = arrayToObject(vm.catalogFilters.distributionTypes, 'id');
 
-            vm.items = vm.content.map((item, index) => {
+            vm.items = vm.content.map((item) => {
                 const formats = item['dcat:distribution'].map(resource => {
                     if (resource['ams:distributionType'] === 'file') {
                         return formatMap[resource['dct:format']];
@@ -41,7 +39,7 @@ import { routing } from '../../../../../src/app/routes';
 
                 const id = item['dct:identifier'];
                 const linkTo = {
-                    type: routing.catalogusDetail.type,
+                    type: routing.datasetsDetail.type,
                     payload: { id }
                 };
 

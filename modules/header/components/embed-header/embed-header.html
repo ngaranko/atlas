@@ -18,6 +18,7 @@
                 <input
                     class="c-embed-header-form__input qa-embed-header-form-input"
                     type="text"
+                    onClick="this.setSelectionRange(0, this.value.length) // Select the whole input on click"
                     ng-model="vm.link"
                     autocapitalize="off"
                     autocorrect="off"
@@ -31,9 +32,11 @@
                HTML-code
             </label>
             <div class="u-col-sm--10 c-embed-header__field-value">
+                <!-- Select the whole input on click -->
                 <input
                     class="c-embed-header-form__input qa-embed-header-form-input"
                     type="text"
+                    onClick="this.setSelectionRange(0, this.value.length) // Select the whole input on click"
                     ng-model="vm.html"
                     autocapitalize="off"
                     autocorrect="off"

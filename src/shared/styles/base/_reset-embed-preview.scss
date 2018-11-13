@@ -3,8 +3,17 @@ body {
   height: auto;
 }
 
-body {
+& {
   margin-left: auto;
   margin-right: auto;
   width: 1280px;
+
+  .c-map-page {
+    height: 100%;
+
+    iframe {
+      height: 100%;
+      width: 100%;
+    }
+  }
 }

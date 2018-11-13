@@ -3,14 +3,12 @@ body {
   height: auto;
 }
 
-body {
+& {
   margin-left: auto;
   margin-right: auto;
   width: 660px;
 }
 
 &.is-print-mode--landscape {
-  body {
-    width: 1280px;
-  }
+  width: 1280px;
 }

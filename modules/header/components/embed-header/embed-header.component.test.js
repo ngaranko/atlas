@@ -12,12 +12,6 @@ describe('The dp-embed-header component', () => {
                         callbackFn();
                     },
                     getState: angular.noop
-                },
-                $window: {
-                    ...window,
-                    location: {
-                        href: 'https://fakeurl.com/'
-                    }
                 }
             }
         );
@@ -32,6 +26,13 @@ describe('The dp-embed-header component', () => {
         var component,
             element;
 
+        document.getElementById = () => ({
+            contentWindow: {
+                location: {
+                    href: 'https://fakeurl.com/'
+                }
+            }
+        });
         element = document.createElement('dp-embed-header');
 
         scope = $rootScope.$new();

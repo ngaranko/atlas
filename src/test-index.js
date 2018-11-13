@@ -199,8 +199,6 @@ import '../modules/search-results/services/geosearch/geosearch-formatter.factory
 import '../modules/search-results/services/geosearch/geosearch.factory.test';
 import '../modules/data-selection/components/available-filters/available-filters.component.test';
 import '../modules/data-selection/components/sbi-filter/sbi-filter.component.test';
-import '../modules/data-selection/components/pagination/pagination.component.test';
-import '../modules/data-selection/components/pagination/pagination-link.component.test';
 import '../modules/data-selection/components/views/table/table.component.test';
 import '../modules/data-selection/components/views/list/list.component.test';
 import '../modules/data-selection/components/views/catalog/catalog.component.test';

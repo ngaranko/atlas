@@ -1,7 +1,9 @@
 import PAGES from '../../../src/app/pages';
-import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/search/search';
+import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/data-search/data-search';
 import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
 import { ROUTER_NAMESPACE } from '../../../src/app/routes';
+import * as routerSelectors from '../../../src/store/redux-first-router';
+import * as dataSelection from '../../../src/shared/ducks/data-selection/data-selection';
 
 describe('The header controller', function () {
     var $controller,
@@ -38,6 +40,12 @@ describe('The header controller', function () {
                 query: 'i am a search query'
             }
         };
+
+        routerSelectors.isDataSelectionCurrentPage = () => true;
+        routerSelectors.isDatasetCurrentPage = () => true;
+        routerSelectors.isHomepage = () => true;
+        routerSelectors.isMapPage = () => true;
+        dataSelection.isListView = () => true;
     });
 
     function getController () {
@@ -61,6 +69,7 @@ describe('The header controller', function () {
     });
 
     it('sets the search query and action when search is active', function () {
+        routerSelectors.isDatasetCurrentPage = () => false;
         spyOn(store, 'getState').and.returnValue({
             search: {
                 query: 'search query'
@@ -104,6 +113,7 @@ describe('The header controller', function () {
     });
 
     it('default sets the search query and search action', function () {
+        routerSelectors.isDatasetCurrentPage = () => false;
         spyOn(store, 'getState').and.returnValue({});
 
         const controller = getController();
@@ -113,6 +123,7 @@ describe('The header controller', function () {
     });
 
     it('doesn\'t break when search is null', function () {
+        routerSelectors.isDatasetCurrentPage = () => false;
         mockedState = {
             search: null
         };
@@ -135,22 +146,15 @@ describe('The header controller', function () {
         });
 
         it('there is no print button on the homepage', () => {
-            mockedState.page = {
-                name: 'home'
-            };
-
-            spyOn(store, 'getState').and.returnValue(mockedState);
             const controller = getController();
 
             expect(controller.hasPrintButton).toBe(false);
         });
 
         it('all other pages and non dataSelection content has a printButton', function () {
-            mockedState.page = {
-                name: 'snel-wegwijs'
-            };
+            routerSelectors.isDataSelectionCurrentPage = () => false;
+            routerSelectors.isHomepage = () => false;
 
-            spyOn(store, 'getState').and.returnValue(mockedState);
             const controller = getController();
 
             expect(controller.hasPrintButton).toBe(true);
@@ -159,33 +163,13 @@ describe('The header controller', function () {
 
     describe('not all states have an embed version', function () {
         it('only in fullscreen map there is an embed button', function () {
-            mockedState.location = {
-                type: `${ROUTER_NAMESPACE}/${PAGES.KAART}`
-            };
-
-            spyOn(store, 'getState').and.returnValue(mockedState);
             const controller = getController();
 
             expect(controller.hasEmbedButton).toBe(true);
         });
 
-        it('there is no embed button when both full screen map and straatbeeld are active', function () {
-            mockedState.location = {
-                type: `${ROUTER_NAMESPACE}/${PAGES.KAART_PANORAMA}`
-            };
-
-            spyOn(store, 'getState').and.returnValue(mockedState);
-            const controller = getController();
-
-            expect(controller.hasEmbedButton).toBe(false);
-        });
-
-        it('there is no embed button on the homepage', () => {
-            mockedState.location = {
-                type: `${ROUTER_NAMESPACE}/${PAGES.HOME}`
-            };
-
-            spyOn(store, 'getState').and.returnValue(mockedState);
+        it('should not show when map page is not active', function () {
+            routerSelectors.isMapPage = () => false;
             const controller = getController();
 
             expect(controller.hasEmbedButton).toBe(false);

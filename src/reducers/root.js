@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 
 import AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest';
-import DataSelectionCatalogReducer from '../catalog/ducks/data-selection/data-selection-catalog';
 import ErrorMessageReducer from '../shared/ducks/error-message';
 import PageReducer from '../shared/ducks/page/page';
 import UiReducer, { REDUCER_KEY as UI } from '../shared/ducks/ui/ui';
@@ -12,14 +11,13 @@ import MapLayersReducer from '../map/ducks/layers/map-layers';
 import MapBaseLayersReducer from '../map/ducks/base-layers/map-base-layers';
 import MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
 import StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
-import PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
-import CatalogReducer from '../shared/ducks/catalog/catalog';
+import PanoPreviewReducer, { REDUCER_KEY as PANO_PREVIEW } from '../pano/ducks/preview/pano-preview';
 import FiltersReducer, { REDUCER_KEY as FILTER } from '../shared/ducks/filters/filters';
 import DetailReducer, { REDUCER_KEY as DETAIL } from '../shared/ducks/detail/detail';
-import SearchReducer, { REDUCER_KEY as SEARCH } from '../shared/ducks/search/search';
+import DataSearchReducer, { REDUCER_KEY as DATA_SEARCH } from '../shared/ducks/data-search/data-search';
 import SelectionReducer, { REDUCER_KEY as SELECTION } from '../shared/ducks/selection/selection';
-import LegacyReducer from './deprecated/legacy-reducer';
 import DataSelectionReducer, { REDUCER_KEY as DATA_SELECTION } from '../shared/ducks/data-selection/data-selection';
+import DatasetReducer, { REDUCER_KEY as DATASET } from '../shared/ducks/datasets/datasets';
 
 export default (routeReducer) => (oldState = {}, action) => {
   const mapLayers = combineReducers({
@@ -28,31 +26,28 @@ export default (routeReducer) => (oldState = {}, action) => {
     panelLayers: MapPanelLayersReducer
   });
 
-  const legacyState = LegacyReducer(oldState, action);
-
   // Use combine reducer for new reducers
   const newRootReducer = combineReducers({
-    catalog: CatalogReducer,
     page: PageReducer,
     error: ErrorMessageReducer,
     [FILTER]: FiltersReducer,
     map: MapReducer,
     mapDetail: MapDetailReducer,
-    pano: PanoPreviewReducer,
+    [PANO_PREVIEW]: PanoPreviewReducer,
     straatbeeld: StraatbeeldReducer,
     [UI]: UiReducer,
     user: UserReducer,
     mapLayers,
     autoSuggest: AutoSuggestReducer,
-    catalogFilters: DataSelectionCatalogReducer,
     location: routeReducer,
     [DETAIL]: DetailReducer,
-    [SEARCH]: SearchReducer,
+    [DATA_SEARCH]: DataSearchReducer,
     [SELECTION]: SelectionReducer,
-    [DATA_SELECTION]: DataSelectionReducer
+    [DATA_SELECTION]: DataSelectionReducer,
+    [DATASET]: DatasetReducer
   });
 
   // Combine legacy and new reducer states
-  return newRootReducer(legacyState, action);
+  return newRootReducer(oldState, action);
 };
 

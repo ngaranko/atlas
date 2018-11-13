@@ -2,8 +2,9 @@ import rootReducer from './root';
 
 import * as AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest';
 import * as DataSelectionReducer from '../shared/ducks/data-selection/data-selection';
+import * as Datasets from '../shared/ducks/datasets/datasets';
 import * as DataSelectionCatalogReducer
-  from '../catalog/ducks/data-selection/data-selection-catalog';
+  from '../shared/ducks/datasets/apiSpecification/apiSpecification';
 import * as ErrorMessageReducer from '../shared/ducks/error-message';
 import * as PageReducer from '../shared/ducks/page/page';
 import * as UiReducer from '../shared/ducks/ui/ui';
@@ -15,9 +16,8 @@ import * as MapBaseLayersReducer from '../map/ducks/base-layers/map-base-layers'
 import * as MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
 import * as StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
 import * as PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
-import * as CatalogReducer from '../shared/ducks/catalog/catalog';
 import * as FiltersReducer from '../shared/ducks/filters/filters';
-import * as SearchReducer from '../shared/ducks/search/search';
+import * as DataSearchReducer from '../shared/ducks/data-search/data-search';
 import * as SelectionReducer from '../shared/ducks/selection/selection';
 import * as DetailReducer from '../shared/ducks/detail/detail';
 
@@ -48,10 +48,10 @@ describe('the root reducer', () => {
   MapPanelLayersReducer.default = () => 'panelLayers';
   StraatbeeldReducer.default = () => 'straatbeeld';
   PanoPreviewReducer.default = () => 'pano';
-  CatalogReducer.default = () => 'catalog';
-  SearchReducer.default = () => 'search';
+  DataSearchReducer.default = () => 'dataSearch';
   SelectionReducer.default = () => 'selection';
   FiltersReducer.default = () => 'filters';
+  Datasets.default = () => 'datasets';
 
   it('combines many reducers', () => {
     const state = {};
@@ -62,26 +62,25 @@ describe('the root reducer', () => {
       .toEqual({
         ...deprecatedOutput,
         dataSelection: 'dataSelection',
+        datasets: 'datasets',
         page: 'page',
         error: 'error',
         filters: 'filters',
         map: 'map',
         mapDetail: 'mapDetail',
         pano: 'pano',
-        catalog: 'catalog',
         location: 'location',
         straatbeeld: 'straatbeeld',
         ui: 'ui',
         user: 'user',
-        search: 'search',
+        dataSearch: 'dataSearch',
         selection: 'selection',
         mapLayers: {
           baseLayers: 'baseLayers',
           layers: 'layers',
           panelLayers: 'panelLayers'
         },
-        autoSuggest: 'autoSuggest',
-        catalogFilters: 'catalogFilters'
+        autoSuggest: 'autoSuggest'
       });
   });
 });

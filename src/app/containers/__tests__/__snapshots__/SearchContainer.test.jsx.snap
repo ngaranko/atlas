@@ -8,11 +8,17 @@ exports[`SearchContainer should render 1`] = `
     bindings={
       Object {
         "isLoading": false,
+        "isPreviewPanoramaLoading": false,
         "location": Array [
           321,
           123,
         ],
         "numberOfResults": 12,
+        "previewPanorama": Object {
+          "heading": 99,
+          "id": 42,
+          "url": "testUrl",
+        },
         "user": Object {},
       }
     }
