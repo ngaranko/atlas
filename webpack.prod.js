@@ -15,14 +15,14 @@ module.exports = function(env) {
     mode: 'production',
     devtool: 'source-map',
     optimization: {
-      // minimizer:[
-      //   new UglifyJSPlugin({
-      //     // Do not minify our legacy code (app.bundle.js); this doesn't work with
-      //     // angular dependancy injection
-      //     exclude: /modules/,
-      //     sourceMap: true
-      //   }),
-      // ]
+      minimizer:[
+        new UglifyJSPlugin({
+          // Do not minify our legacy code (app.bundle.js); this doesn't work with
+          // angular dependancy injection
+          exclude: /modules/,
+          sourceMap: true
+        }),
+      ]
     },
     plugins: [
       new webpack.DefinePlugin({

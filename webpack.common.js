@@ -158,9 +158,9 @@ function commonConfig ({ nodeEnv }) {
       new HtmlWebpackPlugin({
         inject: false,
         template: './index.ejs',
-        // minify: {
-        //   collapseWhitespace: nodeEnv === 'production' || nodeEnv === 'acceptance'
-        // },
+        minify: {
+          collapseWhitespace: nodeEnv === 'production' || nodeEnv === 'acceptance'
+        },
         lang: 'nl',
         title: 'Dataportaal',
         favicon: './favicon.png',
