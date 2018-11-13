@@ -6,9 +6,13 @@ import reducer, {
   mapStartDrawing,
   mapUpdateShape,
   setMapBaseLayer,
+  setSelectedLocation,
   toggleMapOverlay,
   toggleMapOverlayVisibility,
-  updateBoundingBox
+  toggleMapPanel,
+  updateBoundingBox,
+  updatePan,
+  updateZoom
 } from './map';
 import { routing } from '../../../app/routes';
 
@@ -109,6 +113,60 @@ describe('Map Reducer', () => {
     });
   });
 
+  it('should update zoom when dispatching updateZoom', () => {
+    expect(reducer(initialState, updateZoom({
+      zoom: 12
+    }))).toEqual({
+      ...initialState,
+      zoom: {
+        zoom: 12
+      }
+    });
+  });
+
+  it('should update panorama when dispatching updatePan', () => {
+    expect(reducer(initialState, updatePan({
+      lat: 51.3731081,
+      lng: 5.8932945
+    }))).toEqual({
+      ...initialState,
+      viewCenter: [51.3731081, 5.8932945]
+    });
+  });
+
+  it('should toggle mapPanel when dispatching toggleMapPanel', () => {
+    expect(reducer(initialState, toggleMapPanel()
+    )).toEqual({
+      ...initialState,
+      mapPanelActive: !initialState.mapPanelActive
+    });
+  });
+
+  it('should toggle mapPanel when opening detailPage or Panorama', () => {
+    expect(reducer({}, {
+      type: routing.dataDetail.type
+    })).toEqual({
+      mapPanelActive: false
+    });
+
+    expect(reducer({}, {
+      type: routing.panorama.type
+    })).toEqual({
+      mapPanelActive: false
+    });
+  });
+
+  it('should set a marker when location is selected', () => {
+    expect(reducer(initialState, setSelectedLocation({
+      latlng: {
+        lat: 51.3731081,
+        lng: 5.8932945
+      }
+    }))).toEqual({
+      ...initialState
+    });
+  });
+
   it('should set the viewCenter and zoom state', () => {
     const expectedResult = {
       zoom: 1,
@@ -128,6 +186,24 @@ describe('Map Reducer', () => {
         }
       }
     })).toEqual(expectedResult);
+
+    // Should also set viewCenter and Zoomstate when values cannot be parsed
+    const expectedResultInitial = {
+      zoom: initialState.zoom,
+      viewCenter: initialState.viewCenter,
+      mapPanelActive: false
+    };
+    expect(reducer({}, {
+      type: routing.map.type,
+      meta: {
+        query: {
+          zoom: 'test123',
+          lat: 'test123',
+          lng: 'test123',
+          legenda: true
+        }
+      }
+    })).toEqual(expectedResultInitial);
   });
 
   it('should set the boundingBox state when dispatching updateBoundingBox', () => {
@@ -140,95 +216,89 @@ describe('Map Reducer', () => {
     expect(reducer({}, updateBoundingBox(expectedResult, false))).toEqual(expectedResult);
   });
 
-  it('should set the overlays except the overlay matching the id from payload', () => {
+  it('should remove toggled overlays from the active ones', () => {
     const state = {
       overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 3
-        },
-        {
-          id: 4
-        }
+        { id: 1 },
+        { id: 2 },
+        { id: 3 }
       ]
     };
 
-    expect(reducer(state, toggleMapOverlay(3))).toEqual({
-      overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 4
-        }
+    const newOverlay = {
+      legendItems: [
+        { id: 3 }
       ]
-    });
-
-    expect(reducer(state, toggleMapOverlay(10))).toEqual({
+    };
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
       overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 3
-        },
-        {
-          id: 4
-        },
-        {
-          id: 10,
-          isVisible: true
-        }
+        { id: 1 },
+        { id: 2 }
       ]
     });
   });
 
-  it('should toggle the overlay visibility', () => {
+  it('should add toggled overlays from to active ones', () => {
     const state = {
       overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 3
-        },
-        {
-          id: 4
-        }
+        { id: 2 },
+        { id: 3 }
+      ]
+    };
+
+    const newOverlay = {
+      legendItems: [
+        { id: 4 }
+      ]
+    };
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
+      overlays: [
+        { id: 2 },
+        { id: 3 },
+        { id: 4, isVisible: true }
+      ]
+    });
+  });
+
+  it('should handle toggling overlays without legend items', () => {
+    const state = {
+      overlays: [
+        { id: 2 },
+        { id: 3 }
+      ]
+    };
+
+    const newOverlay = { id: 4 };
+
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
+      overlays: [
+        { id: 2 },
+        { id: 3 },
+        { id: 4, isVisible: true }
+      ]
+    });
+  });
+
+  it('should toggle the overlay visibility with and without show action', () => {
+    const state = {
+      overlays: [
+        { id: 1 },
+        { id: 2 },
+        { id: 3 }
       ]
     };
     expect(reducer(state, toggleMapOverlayVisibility(1, true))).toEqual({
       overlays: [
-        {
-          id: 1,
-          isVisible: true
-        },
-        {
-          id: 2,
-          isVisible: undefined
-        },
-        {
-          id: 3,
-          isVisible: undefined
-        },
-        {
-          id: 4,
-          isVisible: undefined
-        }
+        { id: 1, isVisible: true },
+        { id: 2, isVisible: undefined },
+        { id: 3, isVisible: undefined }
+      ]
+    });
+    expect(reducer(state, toggleMapOverlayVisibility(2))).toEqual({
+      overlays: [
+        { id: 1, isVisible: undefined },
+        { id: 2, isVisible: true },
+        { id: 3, isVisible: undefined }
       ]
     });
   });
