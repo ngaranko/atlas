@@ -35,7 +35,6 @@ export const isMapPage = createSelector(
 export const isPanoPage = createSelector(
   getCurrentPage,
   (currentPage) => currentPage === PAGES.PANORAMA
-    || currentPage === PAGES.KAART_PANORAMA
 );
 
 export const isDataDetailCurrentPage = createSelector(

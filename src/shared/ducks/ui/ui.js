@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { getDataSelectionView, VIEWS } from '../data-selection/data-selection';
 import { isMapPage, isPanoPage } from '../../../store/redux-first-router';
-import { routing } from '../../../app/routes';
+import { ROUTER_NAMESPACE } from '../../../app/routes';
 
 export const REDUCER_KEY = 'ui';
 
@@ -19,19 +19,17 @@ export const initialState = {
 };
 
 export default function UiReducer(state = initialState, action) {
+  if (action.type && action.type.startsWith(ROUTER_NAMESPACE)) {
+    const { embedPreview, embed, print } = action.meta.query || {};
+    return {
+      ...state,
+      isEmbedPreview: (embedPreview === 'true') || initialState.isEmbedPreview,
+      isEmbed: (embed === 'true') || initialState.isEmbed,
+      isPrintMode: (print === 'true') || initialState.isPrintMode
+    };
+  }
+
   switch (action.type) {
-    case routing.panorama.type:
-    case routing.dataDetail.type:
-    case routing.detail.type:
-    case routing.map.type: {
-      const { embedPreview, embed, print } = action.meta.query || {};
-      return {
-        ...state,
-        isEmbedPreview: (embedPreview === 'true') || initialState.isEmbedPreview,
-        isEmbed: (embed === 'true') || initialState.isEmbed,
-        isPrintMode: (print === 'true') || initialState.isPrintMode
-      };
-    }
     case HIDE_EMBED_PREVIEW:
       return {
         ...state,
