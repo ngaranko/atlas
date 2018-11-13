@@ -163,7 +163,7 @@ describe('Map Reducer', () => {
         lng: 5.8932945
       }
     }))).toEqual({
-      ...initialState,
+      ...initialState
     });
   });
 
