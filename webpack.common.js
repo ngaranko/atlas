@@ -160,6 +160,7 @@ function commonConfig ({ nodeEnv }) {
         minify: {
           collapseWhitespace: nodeEnv === 'production' || nodeEnv === 'acceptance'
         },
+        baseHref: '/',
         lang: 'nl',
         title: 'Dataportaal',
         favicon: 'favicon.png',
