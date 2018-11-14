@@ -37,7 +37,7 @@ return glob(SCRIPTS_FOLDER + '/**/*', {
     }
   })
   .then((results) => {
-    numFailed += results.failures
+    numFailed += results.totalFailed
   })
 })
 .then(() => {
