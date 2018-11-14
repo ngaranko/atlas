@@ -111,9 +111,7 @@ const App = ({
         <div className="u-grid u-full-height">
           <div className="u-row u-full-height">
             {currentPage === PAGES.HOME && (
-              <Home
-                showFooter
-              />
+              <Home showFooter />
             )}
 
             {currentPage === PAGES.DATA_SEARCH && <SearchPage />}

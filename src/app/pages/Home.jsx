@@ -47,14 +47,9 @@ const ABOUT_LINKS = {
 
 /* istanbul ignore next */ // TODO: refactor, test
 const Home = ({ showFooter }) => (
-  <div
-    className={`c-dashboard__column
-        c-dashboard__content
-        u-col-sm--12
-        qa-dashboard__column--right`}
-  >
+  <div className="c-dashboard__column u-col-sm--12 qa-dashboard__column--right">
     <div className="c-dashboard__page o-max-width">
-      <div className="c-dashboard__page-inner o-max-width__inner u-gutter">
+      <div className="c-dashboard__page-inner c-dashboard__content o-max-width__inner u-gutter">
         <div className="qa-page">
           <div className="c-homepage u-padding__top--4">
             <div className="u-grid">

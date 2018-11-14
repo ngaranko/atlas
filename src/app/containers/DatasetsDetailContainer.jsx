@@ -20,7 +20,7 @@ const DatasetsDetailContainer = ({
   user,
   endpoint
 }) => (
-  <div className="qa-detail">
+  <div className="c-dashboard__content qa-detail">
     <AngularWrapper
       moduleName={'dpDetailWrapper'}
       component="dpDetail"

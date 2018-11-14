@@ -11,7 +11,10 @@ const SplitScreen = ({ leftComponent, rightComponent }) => (
       {leftComponent}
     </div>
     <div
-      className="c-dashboard__column c-dashboard__content u-col-sm--8
+      className="c-dashboard__column
+        c-dashboard__content
+        u-overflow--y-auto
+        u-col-sm--8
         qa-dashboard__column--right"
     >
       {rightComponent}
