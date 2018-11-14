@@ -22,7 +22,8 @@ pipeline {
         timeout(time: 5, unit: 'MINUTES')
       }
       steps {
-        sh "scripts/bakkie.sh ${BRANCH_NAME}"
+//        sh "scripts/bakkie.sh ${BRANCH_NAME}"
+        sh "echo \"Skipped bakkie, using Netlify at the moment!\""
       }
     }
 
