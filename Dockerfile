@@ -18,12 +18,11 @@ COPY package.json package-lock.json /app/
 RUN git config --global url."https://".insteadOf git:// && \
     git config --global url."https://github.com/".insteadOf git@github.com: && \
     npm config set registry https://repo.datapunt.amsterdam.nl/repository/npm-group/ && \
-    CYPRESS_INSTALL_BINARY=0 \
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     npm --production=false \
         --unsafe-perm \
         --verbose \
-        install && \
+        ci && \
     npm cache clean --force
 
 # Build dependencies
