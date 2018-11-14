@@ -142,7 +142,19 @@ describe('MapLayer', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('should call onLayerToggle 4 times when user clicks on button', () => {
+  it('should render without active layers', () => {
+    const component = shallow(
+      <MapLayers
+        activeMapLayers={[]}
+        layers={layers}
+        onLayerToggle={() => {
+        }}
+      />
+    );
+    expect(component).toMatchSnapshot();
+  });
+
+  it('should call onLayerToggle when user clicks on button', () => {
     const onLayerToggleMock = jest.fn();
     const component = shallow(
       <MapLayers
@@ -155,6 +167,6 @@ describe('MapLayer', () => {
     const button = component.find('button');
     button.simulate('click');
 
-    expect(onLayerToggleMock).toHaveBeenCalledTimes(4);
+    expect(onLayerToggleMock).toHaveBeenCalled();
   });
 });

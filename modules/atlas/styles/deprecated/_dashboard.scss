@@ -30,6 +30,7 @@
   height: calc(100% - #{$dashboard-heading-height + $dashboard-error-height});
 }
 
+.c-dashboard__column-holder,
 .c-dashboard__column {
   height: 100%;
 }

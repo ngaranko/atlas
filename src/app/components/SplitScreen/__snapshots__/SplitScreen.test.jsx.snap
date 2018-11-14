@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SplitScreen should render 1`] = `
+<div
+  className="c-dashboard__column-holder"
+>
+  <div
+    className="c-dashboard__column u-col-sm--4 qa-dashboard__column--middle u-page-break-after"
+  >
+    <p>
+      Hello
+    </p>
+  </div>
+  <div
+    className="c-dashboard__column c-dashboard__content u-col-sm--8 qa-dashboard__column--right"
+  >
+    <span>
+      World
+    </span>
+  </div>
+</div>
+`;

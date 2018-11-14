@@ -2,7 +2,7 @@ $dashboard-heading-height-embed-version: 211px;
 $dashboard-heading-padding-embed-version: 46px;
 
 .is-embed-preview {
-  &.c-dashboard {
+  .c-dashboard {
     padding: 0;
     border: solid $secondary-gray20 1px;
     border-top: none;

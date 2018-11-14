@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MapLegend from '../legend/MapLegend';
 import AddIcon from '../../../../public/images/icon-plus.svg';
 import RemoveIcon from '../../../../public/images/icon-cross.svg';
 
@@ -30,11 +29,7 @@ const MapLayers = (props) => (
                     `}
                     key={layer.title}
                   >
-                    <button onClick={() => {
-                      MapLegend.mapLayersLegendItemsToIds(layer).forEach((mapLayerId) =>
-                        props.onLayerToggle(mapLayerId));
-                    }}
-                    >
+                    <button onClick={() => props.onLayerToggle(layer)}>
                       <span className="map-layers__toggle-title">
                         {layer.title}
                       </span>

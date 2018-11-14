@@ -7,19 +7,6 @@ services:
       context: .
     ipc: host
 
-  atlas_aria: # NGINX
-    build:
-      args:
-        - BUILD_ENV=acc
-      context: .
-    ipc: host
-
-  test-lint:
-    build:
-      context: .
-      target: build-deps
-    command: npm run test-lint
-
   test-unit-integration:
     build:
       context: .
@@ -28,11 +15,10 @@ services:
     - NODE_ENV=development
     command: npm run test
 
-
   test-e2e:
     build:
-      dockerfile: Dockerfile-e2e
-      context: .
+      dockerfile: Dockerfile
+      context: ./test/e2e/
     links:
       - atlas:acc.data.amsterdam.nl
     environment:
@@ -43,14 +29,14 @@ services:
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
       - PASSWORD_EMPLOYEE_PLUS
-    command: ./scripts/ci/test-e2e.sh
+    command: npm run test-e2e
 
   test-e2e-aria:
     build:
       dockerfile: Dockerfile-e2e-aria
       context: .
     links:
-      - atlas_aria:atlas
+      - atlas:atlas
     environment:
       - BASE_URL=http://atlas:80
       - USERNAME_EMPLOYEE

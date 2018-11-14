@@ -72,12 +72,6 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
     page: PAGES.PANORAMA
   },
-  mapEmbed: {
-    title: 'Embed',
-    path: '/map/embed',
-    type: `${ROUTER_NAMESPACE}/${PAGES.KAART_EMBED}`,
-    page: PAGES.KAART_EMBED
-  },
   nieuws: {
     title: '',
     path: '/nieuws',

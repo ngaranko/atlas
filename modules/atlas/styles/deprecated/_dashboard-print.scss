@@ -1,7 +1,7 @@
 $dashboard-heading-height-print-version: 118px;
 $dashboard-heading-padding-print-version: 46px;
 
-&.c-dashboard {
+.c-dashboard {
   padding: 0;
   border: solid $secondary-gray20 1px;
   border-top: none;
@@ -32,6 +32,7 @@ $dashboard-heading-padding-print-version: 46px;
 }
 
 .c-dashboard__column {
+  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -50,3 +51,30 @@ $dashboard-heading-padding-print-version: 46px;
     border: none;
   }
 }
+
+// Todo: move this logic to js
+// sass-lint:disable nesting-depth
+.c-dashboard--page-type {
+  &-search-data {
+    .c-dashboard__column-holder {
+      .c-dashboard__column {
+        width: 100%;
+
+        // Hide map
+        &:nth-child(1) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &-data-detail,
+  &-panorama {
+    .c-dashboard__column-holder {
+      .c-dashboard__column {
+        width: 100%;
+      }
+    }
+  }
+}
+// sass-lint:enable nesting-depth

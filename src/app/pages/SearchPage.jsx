@@ -7,31 +7,24 @@ import MapContainer from '../../map/containers/map/MapContainer';
 import QuerySearchContainer from '../containers/QuerySearchContainer';
 import { getSearchQuery } from '../../shared/ducks/data-search/data-search';
 import { toMap as toMapActionCreator } from '../routes';
+import SplitScreen from '../components/SplitScreen/SplitScreen';
 
 /* istanbul ignore next */ // TODO: refactor, test
 const SearchPage = ({ query, toMap }) => {
   if (query) {
     return <QuerySearchContainer />;
   }
-  const sizeMap = 4;
-  const sizeDetail = 8;
   return (
-    <div style={{ height: '100%' }}>
-      <div
-        className={`c-dashboard__column u-col-sm--${sizeMap} qa-dashboard__column--middle u-page-break-after`}
-      >
+    <SplitScreen
+      leftComponent={(
         <div className="qa-map">
           <MapContainer isFullscreen={false} toggleFullscreen={toMap} />
         </div>
-      </div>
-      <div
-        className={
-          `c-dashboard__column c-dashboard__content u-col-sm--${sizeDetail} c-dashboard__content u-overflow--y-auto qa-dashboard__column--right`
-        }
-      >
+      )}
+      rightComponent={(
         <SearchContainer />
-      </div>
-    </div>
+      )}
+    />
   );
 };
 
