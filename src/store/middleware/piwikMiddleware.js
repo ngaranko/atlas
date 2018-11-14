@@ -2,11 +2,11 @@ import piwikTracker from '../../shared/services/piwik-tracker/piwik-tracker';
 
 /** Set Piwik variable */
 const actionsToPiwik = {
-  TOGGLE_MAP_OVERLAY: (tracking) => [
+  'datasetData/DOWNLOAD_DATASET_RESOURCE': (tracking) => [
     'trackEvent',
-    'kaartlaag',
-    tracking.category.toLowerCase().replace(/[: ][ ]*/g, '_'),
-    tracking.title
+    'Download',
+    tracking.dataset,
+    tracking.resourceUrl
   ],
   SET_MAP_BASE_LAYER: (tracking) => [
     'trackEvent',
@@ -14,11 +14,17 @@ const actionsToPiwik = {
     (tracking.startsWith('lf') ? 'luchtfoto' : 'topografie'),
     tracking
   ],
-  'datasetData/DOWNLOAD_DATASET_RESOURCE': (tracking) => [
+  SHOW_SEARCH_RESULTS: (tracking) => [
+    'trackSiteSearch',
+    tracking.query,
+    'data',
+    tracking.numberOfResults
+  ],
+  TOGGLE_MAP_OVERLAY: (tracking) => [
     'trackEvent',
-    'Download',
-    tracking.dataset,
-    tracking.resourceUrl
+    'kaartlaag',
+    tracking.category.toLowerCase().replace(/[: ][ ]*/g, '_'),
+    tracking.title
   ]
 };
 
