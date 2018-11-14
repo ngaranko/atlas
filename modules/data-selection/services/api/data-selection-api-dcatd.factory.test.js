@@ -140,7 +140,7 @@ describe('The dataSelectionApiDcatd factory', function () {
             limit: config.MAX_ITEMS_PER_PAGE,
             q: 'searchText',
             '/properties/dcat:theme/items': 'eq=theme:energie',
-            '/properties/dcat:distribution/items/properties/dct:format': 'eq=application/pdf'
+            '/properties/dcat:distribution/items/properties/dcat:mediaType': 'eq=application/pdf'
         });
 
         api.getByUri.calls.reset();

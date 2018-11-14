@@ -22,7 +22,7 @@ function getCatalogFilters(data) {
 
   const catalogFilters = {
     groupTypes: getOptions(themaProperties),
-    formatTypes: getOptions(distributionProperties['dct:format']),
+    formatTypes: getOptions(distributionProperties['dcat:mediaType']),
     serviceTypes: getOptions(distributionProperties['ams:serviceType']),
     resourceTypes: getOptions(distributionProperties['ams:resourceType']),
     ownerTypes: ownerProperties.map((item) => ({
