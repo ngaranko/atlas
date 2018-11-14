@@ -27,7 +27,7 @@ export const CMS_PAGE_MAPPING = {
   [PAGES.HOME]: {
     template: PAGE_TEMPLATE.home
   },
-  [PAGES.NIEUWS]: {
+  [PAGES.NEWS]: {
     template: PAGE_TEMPLATE.contentDetail,
     type: PAGE_TYPES.nieuws,
     item: 'item0'
@@ -40,34 +40,34 @@ export const CMS_PAGE_MAPPING = {
     template: PAGE_TEMPLATE.contentOverview,
     type: PAGE_TYPES.proclaimer
   },
-  [PAGES.BEDIENING]: {
+  [PAGES.CONTROLS]: {
     template: PAGE_TEMPLATE.contentOverview,
     type: PAGE_TYPES.bediening
   },
-  [PAGES.GEGEVENS]: {
+  [PAGES.DATA_INFO]: {
     template: PAGE_TEMPLATE.contentOverview,
     type: PAGE_TYPES.gegevens
   },
-  [PAGES.OVER_API]: {
+  [PAGES.ABOUT_API]: {
     template: PAGE_TEMPLATE.contentOverview,
     type: PAGE_TYPES.over_api
   },
-  [PAGES.PRIVACY_BEVEILIGING]: {
+  [PAGES.PRIVACY_SECURITY]: {
     template: PAGE_TEMPLATE.contentDetail,
     type: PAGE_TYPES.beleid,
     item: 'item0'
   },
-  [PAGES.BESCHIKBAAR_KWALITEIT]: {
+  [PAGES.AVAILABILITY_QUALITY]: {
     template: PAGE_TEMPLATE.contentDetail,
     type: PAGE_TYPES.beleid,
     item: 'item1'
   },
-  [PAGES.BEHEER_WERKWIJZE]: {
+  [PAGES.MANAGEMENT]: {
     template: PAGE_TEMPLATE.contentDetail,
     type: PAGE_TYPES.beleid,
     item: 'item2'
   },
-  [PAGES.STATISTIEKEN]: {
+  [PAGES.STATISTICS]: {
     template: PAGE_TEMPLATE.contentOverview,
     type: PAGE_TYPES.statistieken
   }

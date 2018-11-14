@@ -13,7 +13,6 @@ import {
   mapStartDrawing,
   mapUpdateShape
 } from '../../ducks/map/map';
-import PAGES from '../../../app/pages';
 
 jest.mock('../../services/draw-tool/draw-tool');
 
@@ -29,8 +28,7 @@ describe('DrawToolContainer', () => {
       shapeMarkers: 0,
       shapeDistanceTxt: ''
     },
-    dataSelection: null,
-    currentPage: PAGES.KAART
+    dataSelection: null
   };
 
   const props = {

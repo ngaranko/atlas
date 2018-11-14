@@ -29,7 +29,7 @@ export const isHomepage = createSelector(
 
 export const isMapPage = createSelector(
   getCurrentPage,
-  (currentPage) => currentPage === PAGES.KAART
+  (currentPage) => currentPage === PAGES.MAP
 );
 
 export const isPanoPage = createSelector(
