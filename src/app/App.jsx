@@ -29,7 +29,6 @@ import Dataset from './components/Dataset/Dataset';
 // TodoReactMigration: implement logic
 const App = ({
   isFullHeight,
-  pageType,
   visibilityError,
   currentPage,
   embedMode,
@@ -56,32 +55,45 @@ const App = ({
     'c-dashboard__body--error': visibilityError
   });
 
+  // Todo: preferably don't modify html class, now needed since these classes add height: auto to
+  // html and body
+  const printAndEmbedClasses = [
+    'is-print-mode', 'is-print-mode--landscape', 'is-embed', 'is-embed-preview'
+  ];
   const printEmbedModeClasses = classNames({
-    'is-print-mode': printMode,
-    'is-print-mode--landscape': printModeLandscape, // Todo: implement
-    'is-embed': embedMode,
-    'is-embed-preview': embedPreviewMode
+    [printAndEmbedClasses[0]]: printMode,
+    [printAndEmbedClasses[1]]: printModeLandscape, // Todo: implement
+    [printAndEmbedClasses[2]]: embedMode,
+    [printAndEmbedClasses[3]]: embedPreviewMode
   });
+
+  document.documentElement.classList.remove(...printAndEmbedClasses);
+  if (printEmbedModeClasses) {
+    document.documentElement.classList.add(...printEmbedModeClasses.split(' '));
+  }
+
+  // Todo: don't use page types, this will be used
+  const pageTypeClass = currentPage.toLowerCase().replace('_', '-');
 
   return (
     <div
-      className={`c-dashboard c-dashboard--page-type-${pageType} ${rootClasses} ${printEmbedModeClasses}`}
+      className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
     >
       <Piwik />
       {!embedMode &&
-        <AngularWrapper
-          moduleName={'dpHeaderWrapper'}
-          component="dpHeader"
-          dependencies={['atlas']}
-          bindings={{
-            isHomePage,
-            hasMaxWidth,
-            user,
-            isPrintMode: printMode,
-            isEmbedPreview: embedPreviewMode,
-            isPrintOrEmbedOrPreview: printOrEmbedMode
-          }}
-        />
+      <AngularWrapper
+        moduleName={'dpHeaderWrapper'}
+        component="dpHeader"
+        dependencies={['atlas']}
+        bindings={{
+          isHomePage,
+          hasMaxWidth,
+          user,
+          isPrintMode: printMode,
+          isEmbedPreview: embedPreviewMode,
+          isPrintOrEmbedOrPreview: printOrEmbedMode
+        }}
+      />
       }
       <AngularWrapper
         moduleName={'dpErrorWrapper'}
@@ -119,8 +131,8 @@ const App = ({
             )}
 
             {(currentPage === PAGES.ADDRESSES
-            || currentPage === PAGES.ESTABLISHMENTS
-            || currentPage === PAGES.CADASTRAL_OBJECTS)
+              || currentPage === PAGES.ESTABLISHMENTS
+              || currentPage === PAGES.CADASTRAL_OBJECTS)
             && (
               <DataSelection />
             )}
@@ -141,13 +153,11 @@ const App = ({
 
 App.defaultProps = {
   isFullHeight: false,
-  pageType: '',
   visibilityError: false
 };
 
 App.propTypes = {
   isFullHeight: PropTypes.bool,
-  pageType: PropTypes.string, // state.page && state.page.type ? state.page.type : '',
   currentPage: PropTypes.string.isRequired,
   visibilityError: PropTypes.bool, // vm.visibility.error
   embedMode: PropTypes.bool.isRequired,
