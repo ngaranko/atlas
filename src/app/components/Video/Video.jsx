@@ -5,6 +5,12 @@ import PropTypes from 'prop-types';
 import './Video.scss';
 
 class Video extends React.Component {
+  constructor(...options) {
+    super(...options);
+
+    this.playPromise = undefined;
+  }
+
   componentDidUpdate(prevProps) {
     const { videoPlayer, props } = this;
     const { play, position } = props;
@@ -12,9 +18,11 @@ class Video extends React.Component {
     // Determine to play or pause the player
     if (prevProps.play !== play) {
       if (play) {
-        videoPlayer.play();
-      } else {
-        videoPlayer.pause();
+        this.playPromise = videoPlayer.play();
+      } else if (this.playPromise !== undefined) {
+        this.playPromise.then(() => {
+          videoPlayer.pause();
+        });
       }
     }
 
