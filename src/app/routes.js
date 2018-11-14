@@ -261,4 +261,35 @@ export const toDatasetSearch = (searchQuery) => ({
   }
 });
 
+export const toDataSuggestion = (payload) => {
+  const { type, subtype, id } = getDetailPageData(payload.endpoint);
+  const action = {
+    type: routing.dataDetail.type,
+    payload: {
+      type,
+      subtype,
+      id: `id${id}`
+    },
+    meta: {
+      tracking: {
+        category: payload.category,
+        event: 'auto-suggest',
+        query: payload.typedQuery
+      }
+    }
+  };
+  return action;
+};
+
+export const toDatasetSuggestion = (payload) => ({
+  type: routing.datasetsDetail.type,
+  payload,
+  meta: {
+    tracking: {
+      event: 'auto-suggest',
+      query: payload.typedQuery
+    }
+  }
+});
+
 export default routes;

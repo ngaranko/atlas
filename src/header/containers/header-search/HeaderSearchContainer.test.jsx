@@ -12,7 +12,9 @@ import { fetchDataSelection } from '../../ducks/search/search';
 
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { fetchDetail, FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
-import { ROUTER_NAMESPACE, routing, toDataSearch, toDatasetSearch } from '../../../app/routes';
+import {
+  ROUTER_NAMESPACE, toDataSearch, toDatasetSearch, toDataSuggestion, toDatasetSuggestion
+} from '../../../app/routes';
 import PAGES from '../../../app/pages';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
 
@@ -101,7 +103,27 @@ describe('HeaderSearchContainer', () => {
   });
 
   describe('onSuggestionSelection', () => {
-    it('does the fetch detail dispatch upon called', () => {
+    it('opens data from the suggestions', () => {
+      const store = configureMockStore()({ ...initialState });
+      const shouldOpenInNewWindow = false;
+      const selectedSuggestion = {
+        uri: 'bag/openbareruimte/GgCm07EqNVIpwQ',
+        label: 'Damloperspad',
+        index: 1,
+        category: 'Straatnamen'
+      };
+
+      jest.spyOn(store, 'dispatch');
+      const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
+
+      headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
+
+      expect(store.dispatch).toHaveBeenCalledWith(
+        toDataSuggestion({ endpoint: selectedSuggestion.uri, category: selectedSuggestion.category, typedQuery: '' })
+      );
+    });
+
+    it('opens a dataset from the suggestions', () => {
       const store = configureMockStore()({ ...initialState });
       const shouldOpenInNewWindow = false;
       const selectedSuggestion = {
@@ -116,10 +138,9 @@ describe('HeaderSearchContainer', () => {
 
       headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
 
-      expect(store.dispatch).toHaveBeenCalledWith({
-        type: routing.datasetsDetail.type,
-        payload: { id: 'GgCm07EqNVIpwQ' }
-      });
+      expect(store.dispatch).toHaveBeenCalledWith(
+        toDatasetSuggestion({ id: 'GgCm07EqNVIpwQ', typedQuery: '' })
+      );
     });
 
     xit('does call to open new window if shouldOpenInNewWindow is true', () => {

@@ -2,6 +2,18 @@ import piwikTracker from '../../shared/services/piwik-tracker/piwik-tracker';
 
 /** Set Piwik variable */
 const actionsToPiwik = {
+  'atlasRouter/DATA_DETAIL': (tracking) => [
+    'trackEvent',
+    tracking.event,
+    tracking.category,
+    tracking.query
+  ],
+  'atlasRouter/DATASETS_DETAIL': (tracking) => [
+    'trackEvent',
+    tracking.event,
+    'Datasets',
+    tracking.query
+  ],
   'datasetData/DOWNLOAD_DATASET_RESOURCE': (tracking) => [
     'trackEvent',
     'Download',
@@ -36,7 +48,10 @@ const piwikMiddleware = () => (next) => (action) => {
 
   if (actionMap) {
     const { tracking } = action.meta;
-    piwikTracker(actionMap(tracking));
+
+    if (tracking) {
+      piwikTracker(actionMap(tracking));
+    }
   }
 
   next(nextAction);
