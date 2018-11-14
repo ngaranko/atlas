@@ -147,8 +147,6 @@
     "mini-css-extract-plugin": "^0.4.2",
     "node-sass": "^4.9.3",
     "p-all": "1.0.0",
-    "pa11y": "5.0.4",
-    "pa11y-reporter-cli": "^1.0.0",
     "phantomjs-prebuilt": "^2.1.8",
     "postcss-loader": "^3.0.0",
     "pre-commit": "^1.2.2",
