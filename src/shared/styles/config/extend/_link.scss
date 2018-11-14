@@ -42,21 +42,17 @@ $link-offset: 3px;
   // the left side of the image.
   margin-left: calc(#{$icon-size - $icon-offset} + #{$link-offset});
 
-  &::after,
   &::before {
+    @include icon-button("link-arrow", $primary-dark);
     content: "";
     display: inline-block;
+    height: $icon-size;
     // Move the arrow icon left of the link text by the width of the icon plus
     // the space needed between the icon and the link
     margin-left: calc(-#{$icon-size} - #{$link-offset});
     margin-right: $link-offset;
     position: relative;
     vertical-align: text-bottom;
-  }
-
-  &::before {
-    @include icon-button("link-arrow", $primary-dark);
-    height: $icon-size;
     width: $icon-size;
   }
 
