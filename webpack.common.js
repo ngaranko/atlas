@@ -170,23 +170,23 @@ function commonConfig ({ nodeEnv }) {
             rel: 'stylesheet'
           },
           {
-            href: '/leaflet.css',
+            href: 'leaflet.css',
             rel: 'stylesheet'
           },
           {
-            href: '/leaflet.draw.css',
+            href: 'leaflet.draw.css',
             rel: 'stylesheet'
           },
           {
-            href: '/bbga.css',
+            href: 'bbga.css',
             rel: 'stylesheet'
           }
         ],
         scripts: [
-          '/leaflet.js',
-          '/NonTiledLayer.js',
-          '/proj4.js',
-          '/proj4leaflet.js'
+          'leaflet.js',
+          'NonTiledLayer.js',
+          'proj4.js',
+          'proj4leaflet.js'
         ]
       })
     ]
