@@ -19,7 +19,6 @@ function commonConfig ({ nodeEnv }) {
     },
     output: {
       filename: '[name].bundle.js',
-      publicPath: '/',
       path: dist
     },
     resolve: {
@@ -163,7 +162,7 @@ function commonConfig ({ nodeEnv }) {
         },
         lang: 'nl',
         title: 'Dataportaal',
-        favicon: './favicon.png',
+        favicon: 'favicon.png',
         links: [
           {
             href: 'https://fast.fonts.net/cssapi/3680cf49-2b05-4b8a-af28-fa9e27d2bed0.css',
