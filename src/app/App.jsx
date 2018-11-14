@@ -118,7 +118,7 @@ const App = ({
 
             {currentPage === PAGES.DATA_SEARCH && <SearchPage />}
 
-            {currentPage === PAGES.KAART && <MapPage />}
+            {currentPage === PAGES.MAP && <MapPage />}
 
             {currentPage === PAGES.DATA_DETAIL && <DetailPage />}
 
