@@ -12,10 +12,10 @@
                         query="{{header.query}}"></dp-site-header>
       </div>
       <div ng-if="vm.isPrintMode" class="qa-dashboard__print-header">
-        <dp-print-header></dp-print-header>
+        <dp-print-header close-action="vm.hidePrintAction"></dp-print-header>
       </div>
       <div ng-if="vm.isEmbedPreview" class="qa-dashboard__embed-header">
-        <dp-embed-header></dp-embed-header>
+        <dp-embed-header close-action="vm.hideEmbedMode"></dp-embed-header>
       </div>
     </div>
   </div>

@@ -33,12 +33,10 @@ const PanoramaPage = ({ id, heading, view, toPanorama }) => {
       return (
         <SplitScreen
           leftComponent={(
-            <div className="qa-map">
-              <MapContainer
-                isFullscreen={false}
-                toggleFullscreen={() => openPanoView(PANORAMA_VIEW.MAP)}
-              />
-            </div>
+            <MapContainer
+              isFullscreen={false}
+              toggleFullscreen={() => openPanoView(PANORAMA_VIEW.MAP)}
+            />
           )}
           rightComponent={(
             <PanoramaContainer isFullscreen={false} />

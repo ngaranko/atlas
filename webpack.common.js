@@ -49,6 +49,9 @@ function commonConfig ({ nodeEnv }) {
             {
               loader: 'css-loader',
               options: {
+                // Todo: eventually turn on modules: true
+                // For now we explicitly tell classnames to be local
+                localIdentName: '[name]__[local]--[hash:base64:5]',
                 url: false // Disable URL parsing in css for now
               }
             },

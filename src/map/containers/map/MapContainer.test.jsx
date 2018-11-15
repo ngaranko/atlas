@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import MapContainer, { overrideLeafletGetBounds } from './MapContainer';
 import { isMapActive } from '../../../store/redux-first-router';
 import { previewDataAvailable } from '../../../shared/ducks/selection/selection';
-import { isEmbedded } from '../../../shared/ducks/ui/ui';
+import { isEmbedded, isEmbedPreview } from '../../../shared/ducks/ui/ui';
 import { getDrawingMode } from '../../ducks/map/map-selectors';
 
 jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
@@ -58,10 +58,11 @@ describe('MapContainer', () => {
   beforeEach(() => {
     initialState = {};
 
-    isMapActive.mockImplementation(() => true);
-    getDrawingMode.mockImplementation(() => 'none');
-    isEmbedded.mockImplementation(() => false);
-    previewDataAvailable.mockImplementation(() => false);
+    isMapActive.mockReturnValue(true);
+    getDrawingMode.mockReturnValue('none');
+    isEmbedded.mockReturnValue(false);
+    isEmbedPreview.mockReturnValue(false);
+    previewDataAvailable.mockReturnValue(false);
   });
 
   it('should render', () => {

@@ -3,14 +3,10 @@
 exports[`SearchPage shows map search results if no query is provided 1`] = `
 <SplitScreen
   leftComponent={
-    <div
-      className="qa-map"
-    >
-      <Connect(MapContainer)
-        isFullscreen={false}
-        toggleFullscreen={[Function]}
-      />
-    </div>
+    <Connect(MapContainer)
+      isFullscreen={false}
+      toggleFullscreen={[Function]}
+    />
   }
   rightComponent={<Connect(SearchContainer) />}
 />

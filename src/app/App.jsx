@@ -25,6 +25,7 @@ import { getUser } from '../shared/ducks/user/user';
 import SearchPage from './pages/SearchPage';
 import { getPage } from '../store/redux-first-router';
 import Dataset from './components/Dataset/Dataset';
+import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -108,42 +109,45 @@ const App = ({
         }}
       />
       <div className={`c-dashboard__body ${bodyClasses}`}>
-        <div className="u-grid u-full-height">
-          <div className="u-row u-full-height">
-            {currentPage === PAGES.HOME && (
-              <Home showFooter />
-            )}
+        {embedPreviewMode ?
+          <EmbedIframeComponent /> :
+          <div className="u-grid u-full-height">
+            <div className="u-row u-full-height">
+              {currentPage === PAGES.HOME && (
+                <Home showFooter />
+              )}
 
-            {currentPage === PAGES.DATA_SEARCH && <SearchPage />}
+              {currentPage === PAGES.DATA_SEARCH && <SearchPage />}
 
-            {currentPage === PAGES.MAP && <MapPage />}
+              {currentPage === PAGES.MAP && <MapPage />}
 
-            {currentPage === PAGES.DATA_DETAIL && <DetailPage />}
+              {currentPage === PAGES.DATA_DETAIL && <DetailPage />}
 
-            {currentPage === PAGES.PANORAMA && <PanoramaPage />}
+              {currentPage === PAGES.PANORAMA && <PanoramaPage />}
 
-            {currentPage === PAGES.DATASETS && <Dataset />}
+              {currentPage === PAGES.DATASETS && <Dataset />}
 
-            {currentPage === PAGES.DATASETS_DETAIL && (
-              <DatasetDetailContainer />
-            )}
+              {currentPage === PAGES.DATASETS_DETAIL && (
+                <DatasetDetailContainer />
+              )}
 
-            {(currentPage === PAGES.ADDRESSES
-              || currentPage === PAGES.ESTABLISHMENTS
-              || currentPage === PAGES.CADASTRAL_OBJECTS)
-            && (
-              <DataSelection />
-            )}
+              {(currentPage === PAGES.ADDRESSES
+                || currentPage === PAGES.ESTABLISHMENTS
+                || currentPage === PAGES.CADASTRAL_OBJECTS)
+              && (
+                <DataSelection />
+              )}
 
-            {isCmsPage && (
-              <ContentPage
-                name={cmsPageData.template}
-                type={cmsPageData.type}
-                item={cmsPageData.item}
-              />
-            )}
+              {isCmsPage && (
+                <ContentPage
+                  name={cmsPageData.template}
+                  type={cmsPageData.type}
+                  item={cmsPageData.item}
+                />
+              )}
+            </div>
           </div>
-        </div>
+        }
       </div>
     </div>
   );

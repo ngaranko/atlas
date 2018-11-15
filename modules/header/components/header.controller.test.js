@@ -44,7 +44,7 @@ describe('The header controller', function () {
         routerSelectors.isDataSelectionPage = () => true;
         routerSelectors.isDatasetPage = () => true;
         routerSelectors.isHomepage = () => true;
-        routerSelectors.isMapPage = () => true;
+        routerSelectors.isMapActive = () => true;
         dataSelection.isListView = () => true;
     });
 
@@ -169,7 +169,7 @@ describe('The header controller', function () {
         });
 
         it('should not show when map page is not active', function () {
-            routerSelectors.isMapPage = () => false;
+            routerSelectors.isMapActive = () => false;
             const controller = getController();
 
             expect(controller.hasEmbedButton).toBe(false);

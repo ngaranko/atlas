@@ -16,9 +16,7 @@ const DataSelection = ({ showMap }) => {
   return (
     <SplitScreen
       leftComponent={(
-        <div className="qa-map">
-          <MapContainer isFullscreen={false} />
-        </div>
+        <MapContainer isFullscreen={false} />
       )}
       rightComponent={(
         <NewDataSelection />
