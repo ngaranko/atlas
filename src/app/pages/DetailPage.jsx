@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import DetailContainer from '../containers/DetailContainer';
 import {
@@ -10,7 +10,7 @@ import {
   getDetailGeometry,
   getDetailView
 } from '../../shared/ducks/detail/detail';
-import { getPageActionEndpoint as endpointActionCreator } from '../routes';
+import { getPageActionEndpoint as endpointActionCreator } from '../../store/redux-first-router';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 
 /* istanbul ignore next */ // TODO: refactor, test

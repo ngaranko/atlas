@@ -24,7 +24,7 @@ import {
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/detail';
-import { toMap, toPanorama } from '../../../app/routes';
+import { toMap, toPanorama } from '../../../store/redux-first-router';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 
 jest.mock('../../../shared/ducks/detail/detail');

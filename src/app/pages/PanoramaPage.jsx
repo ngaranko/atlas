@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import {
   getStraatbeeldHeading,
   getStraatbeeldId,
@@ -10,7 +10,7 @@ import {
 import PANORAMA_VIEW from '../../shared/ducks/straatbeeld/panorama-view';
 import PanoramaContainer from '../containers/PanoramaContainer';
 import MapContainer from '../../map/containers/map/MapContainer';
-import { toPanorama as toPanoramaActionCreator } from '../routes';
+import { toPanorama as toPanoramaActionCreator } from '../../store/redux-first-router';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 
 /* istanbul ignore next */ // TODO: refactor, test

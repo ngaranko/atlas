@@ -1,4 +1,4 @@
-import { toPanorama } from '../../../../src/app/routes';
+import { toPanorama } from '../../../../src/store/redux-first-router';
 import PANORAMA_VIEW from '../../../../src/shared/ducks/straatbeeld/panorama-view';
 
 import * as straatbeeld from '../../../../src/shared/ducks/straatbeeld/straatbeeld';

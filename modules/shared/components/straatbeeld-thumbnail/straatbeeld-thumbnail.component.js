@@ -1,4 +1,4 @@
-import { toPanorama } from '../../../../src/app/routes';
+import { toPanorama } from '../../../../src/store/redux-first-router';
 
 (function () {
     'use strict';
