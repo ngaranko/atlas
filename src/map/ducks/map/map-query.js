@@ -16,10 +16,8 @@ import {
 
 const compressOverlays = (state) => (
   btoa(
-    getMapOverlays(state).reduce((acc, overlay) => (
-      `${acc}|${overlay.id}:${overlay.isVisible ? 1 : 0}`
-    ), '').slice(1) // remove first "-"
-  ) || initialState.overlays
+    getMapOverlays(state).map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
+  )
 );
 
 export default {
@@ -41,7 +39,7 @@ export default {
   },
   lagen: {
     selector: compressOverlays,
-    defaultValue: initialState.overlays
+    defaultValue: ''
   }
 };
 

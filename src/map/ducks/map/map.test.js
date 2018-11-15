@@ -206,6 +206,20 @@ describe('Map Reducer', () => {
     })).toEqual(expectedResultInitial);
   });
 
+  it('should set the overlays state', () => {
+    const expectedResult = {
+      overlays: [{ id: 'bag', isVisible: true }, { id: 'beg', isVisible: false }]
+    };
+    expect(reducer({}, {
+      type: routing.map.type,
+      meta: {
+        query: {
+          lagen: btoa('bag:1|beg:0')
+        }
+      }
+    })).toEqual(expectedResult);
+  });
+
   it('should set the boundingBox state when dispatching updateBoundingBox', () => {
     const expectedResult = {
       boundingBox: [
