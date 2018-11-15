@@ -14,7 +14,7 @@ import tests from './pa11y-tests';
 
 const DEBUG = true;
 const CONCURRENT_TESTS = 1;
-const CAPTURE_DIR = path.join(__dirname, 'pa11y');
+const CAPTURE_DIR = path.join(__dirname, 'screen-captures');
 
 
 console.log('Pa11y test script started');
