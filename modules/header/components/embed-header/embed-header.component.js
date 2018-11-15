@@ -1,5 +1,3 @@
-import { hideEmbedMode } from '../../../../src/shared/ducks/ui/ui';
-
 (() => {
     'use strict';
 
@@ -8,6 +6,9 @@ import { hideEmbedMode } from '../../../../src/shared/ducks/ui/ui';
         .component('dpEmbedHeader', {
             controller: DpEmbedHeader,
             templateUrl: 'modules/header/components/embed-header/embed-header.html',
+            bindings: {
+                closeAction: '<'
+            },
             controllerAs: 'vm'
         });
 
@@ -16,7 +17,6 @@ import { hideEmbedMode } from '../../../../src/shared/ducks/ui/ui';
     function DpEmbedHeader ($interval, $scope) {
         const vm = this;
 
-        vm.hideEmbedMode = hideEmbedMode();
         const iframe = window.document.getElementById('atlas-iframe-map');
 
         function setUrlFromIframe () {

@@ -1,3 +1,5 @@
+import { hideEmbedMode, hidePrintMode } from '../../../../src/shared/ducks/ui/ui';
+
 (function () {
     'use strict';
 
@@ -21,6 +23,10 @@
 
     function DpHeaderController ($scope, HEADER) {
         const vm = this;
+
+        vm.hidePrintAction = hidePrintMode();
+        vm.hideEmbedMode = hideEmbedMode();
+
         $scope.$watch('vm.isHomePage', updateSize);
 
         function updateSize () {
