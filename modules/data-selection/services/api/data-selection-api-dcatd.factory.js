@@ -8,7 +8,7 @@
     function dataSelectionApiDcatdFactory ($window, $q, $filter, sharedConfig, api) {
         const propertyName = {
             theme: '/properties/dcat:theme/items',
-            format: '/properties/dcat:distribution/items/properties/dct:format',
+            format: '/properties/dcat:distribution/items/properties/dcat:mediaType',
             owner: '/properties/ams:owner',
             distributionType: '/properties/dcat:distribution/items/properties/ams:distributionType',
             serviceType: '/properties/dcat:distribution/items/properties/ams:serviceType'

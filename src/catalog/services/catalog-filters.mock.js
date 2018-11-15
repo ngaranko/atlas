@@ -309,7 +309,7 @@ const mockApiData = {
                   title: 'Beschrijving',
                   type: 'string'
                 },
-                'dct:format': {
+                'dcat:mediaType': {
                   enum: [
                     'n/a',
                     'text/csv',
@@ -409,7 +409,7 @@ const mockApiData = {
                 'ams:resourceType',
                 'ams:distributionType',
                 'ams:serviceType',
-                'dct:format',
+                'dcat:mediaType',
                 'ams:layerIdentifier',
                 'dct:modified',
                 'ams:classification',

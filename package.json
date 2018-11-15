@@ -1,6 +1,6 @@
 {
   "name": "atlas",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Amsterdam/atlas.git"
@@ -27,9 +27,8 @@
     "preinstall": "npm cache verify",
     "start": "grunt && webpack-dev-server --config webpack.dev.js",
     "start-prod": "grunt && webpack-dev-server --config webpack.prod-api-dev.js",
-    "test": "cross-env karma start && jest --config=./test/jest.unit.config.js",
+    "test": "npm run lint && cross-env karma start && jest --config=./test/jest.unit.config.js",
     "test-e2e-aria": "babel-node ./test/pa11y.js",
-    "test-e2e-api-health-watch": "cross-env API_ROOT=https://acc.api.data.amsterdam.nl SCRIPTS_FOLDER='test/cypress/health' node ./scripts/cypress/cypress-watch.js",
     "test-e2e": "cross-env API_ROOT=https://acc.api.data.amsterdam.nl node ./scripts/cypress/cypress-run.js",
     "test-e2e-prod": "cross-env API_ROOT=https://api.data.amsterdam.nl node ./scripts/cypress/cypress-run.js",
     "test-e2e-prod-watch": "cross-env API_ROOT=https://api.data.amsterdam.nl node ./scripts/cypress/cypress-watch.js",
@@ -41,7 +40,6 @@
     "test-jest-watch": "cross-env NODE_ENV=development jest --config=./test/jest.unit.config.js --watch --onlyChanged --coverage",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run",
-    "test-lint": "npm run lint",
     "dyson:api": "nodemon --watch test/dyson/mock/api --exec babel-node --presets=latest test/dyson/mock/api"
   },
   "dependencies": {
@@ -100,12 +98,10 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "bluebird": "3.5.1",
     "chalk": "2.3.0",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
-    "cypress": "^3.1.0",
     "dyson": "^2.0.1",
     "dyson-generators": "^0.2.0",
     "dyson-image": "^0.2.0",
@@ -161,7 +157,6 @@
     "rimraf": "^2.6.2",
     "sass-lint": "1.12.1",
     "sass-loader": "^7.1.0",
-    "stijl": "Amsterdam/stijl.git",
     "svg-react-loader": "^0.4.5",
     "uglifyjs-webpack-plugin": "^2.0.0",
     "webpack": "^4.19.0",
