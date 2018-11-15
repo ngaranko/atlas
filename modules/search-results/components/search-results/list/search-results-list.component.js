@@ -1,4 +1,4 @@
-import { getPageActionEndpoint } from '../../../../../src/app/routes';
+import { getPageActionEndpoint } from '../../../../../src/store/redux-first-router';
 
 (function () {
     'use strict';

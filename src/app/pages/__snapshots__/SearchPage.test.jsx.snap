@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchPage shows map search results if no query is provided 1`] = `
+<SplitScreen
+  leftComponent={
+    <div
+      className="qa-map"
+    >
+      <Connect(MapContainer)
+        isFullscreen={false}
+        toggleFullscreen={[Function]}
+      />
+    </div>
+  }
+  rightComponent={<Connect(SearchContainer) />}
+/>
+`;
+
+exports[`SearchPage shows text search result if query is provided 1`] = `<Connect(QuerySearchContainer) />`;

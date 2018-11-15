@@ -54,7 +54,7 @@ const DataSelection = ({
   });
 
   return (
-    <div className="c-data-selection">
+    <div className="c-data-selection c-dashboard__content">
       <div className="qa-data-selection-content">
         <AngularWrapper
           moduleName={'dpDataSelectionHeaderWrapper'}

@@ -5,7 +5,7 @@ import {
   getDetailGeometry,
   isDetailMapView
 } from '../../../shared/ducks/detail/detail';
-import { isDataDetailCurrentPage } from '../../../store/redux-first-router';
+import { isDataDetailPage } from '../../../store/redux-first-router';
 
 const mapDetailSelector = (state) => state.mapDetail;
 
@@ -40,7 +40,7 @@ export const getGeometry = createSelector(
   }
 );
 
-export const shouldShowGeoJson = isDataDetailCurrentPage;
+export const shouldShowGeoJson = isDataDetailPage;
 
 export const getGeoJson = createSelector(
   shouldShowGeoJson,

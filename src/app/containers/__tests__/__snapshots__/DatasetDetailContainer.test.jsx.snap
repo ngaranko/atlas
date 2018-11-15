@@ -2,7 +2,7 @@
 
 exports[`DatasetsDetailContainer should render 1`] = `
 <div
-  className="qa-detail"
+  className="c-dashboard__content qa-detail"
 >
   <AngularWrapper
     bindings={

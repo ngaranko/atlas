@@ -17,7 +17,7 @@ import dataselectionConfig from '../../services/data-selection/data-selection-co
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
 import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
 import { ADD_FILTER, EMPTY_FILTERS, getFilters, REMOVE_FILTER } from '../../ducks/filters/filters';
-import { isDataSelectionCurrentPage } from '../../../store/redux-first-router';
+import { isDataSelectionPage } from '../../../store/redux-first-router';
 
 function* getMapMarkers(dataset, activeFilters) {
   const state = yield select();
@@ -59,7 +59,7 @@ function* fireRequest() {
   const state = yield select();
 
   // Always ensure we are on the right page, otherwise this can be called unintentionally
-  if (isDataSelectionCurrentPage(state)) {
+  if (isDataSelectionPage(state)) {
     const dataSelection = getDataSelection(state);
     const activeFilters = getFilters(state);
 

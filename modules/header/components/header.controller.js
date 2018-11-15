@@ -2,8 +2,8 @@ import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/data-se
 import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
 import { isListView } from '../../../src/shared/ducks/data-selection/data-selection';
 import {
-    isDataSelectionCurrentPage,
-    isDatasetCurrentPage,
+    isDataSelectionPage,
+    isDatasetPage,
     isHomepage,
     isMapPage
 } from '../../../src/store/redux-first-router';
@@ -26,7 +26,7 @@ import {
         function update () {
             const state = store.getState();
 
-            if (isDatasetCurrentPage(state)) {
+            if (isDatasetPage(state)) {
                 // Search in datasets
                 vm.query = state.dataSelection && state.dataSelection.query;
                 vm.searchAction = FETCH_DATA_SELECTION;
@@ -36,7 +36,7 @@ import {
                 vm.searchAction = FETCH_SEARCH_RESULTS_BY_QUERY;
             }
 
-            vm.hasPrintButton = (!isDataSelectionCurrentPage(state) || isListView(state)) && !isHomepage(state);
+            vm.hasPrintButton = (!isDataSelectionPage(state) || isListView(state)) && !isHomepage(state);
             vm.hasEmbedButton = isMapPage(state);
         }
     }

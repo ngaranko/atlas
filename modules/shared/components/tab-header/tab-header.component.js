@@ -1,5 +1,6 @@
-import { toDataSearch, toDatasetSearch } from '../../../../src/app/routes';
+import { toDataSearch } from '../../../../src/store/redux-first-router';
 import { datasetsKey } from './tab-header.constant';
+import { toDatasetSearch } from '../../../../src/store/redux-first-router';
 
 (function () {
     'use strict';

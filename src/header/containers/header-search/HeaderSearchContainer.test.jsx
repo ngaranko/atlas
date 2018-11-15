@@ -12,9 +12,10 @@ import { fetchDataSelection } from '../../ducks/search/search';
 
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { fetchDetail, FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
-import { ROUTER_NAMESPACE, routing, toDataSearch, toDatasetSearch } from '../../../app/routes';
+import { ROUTER_NAMESPACE, routing } from '../../../app/routes';
 import PAGES from '../../../app/pages';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
+import { toDataSearch, toDatasetSearch } from '../../../store/redux-first-router';
 
 jest.mock('../../ducks/auto-suggest/auto-suggest');
 jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
