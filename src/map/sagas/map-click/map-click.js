@@ -10,9 +10,8 @@ import {
   setSelection
 } from '../../../shared/ducks/selection/selection';
 import { getImageDataByLocation } from '../../../shared/services/straatbeeld-api/straatbeeld-api';
-import { toMap, toPanorama } from '../../../app/routes';
+import { getPage, toPanorama, toMap } from '../../../store/redux-first-router';
 import { fetchMapSearchResultsRequest } from '../../../shared/ducks/data-search/data-search';
-import { getPage } from '../../../store/redux-first-router';
 import PAGES from '../../../app/pages';
 
 function getHeadingDegrees([x1, y1], [x2, y2]) {

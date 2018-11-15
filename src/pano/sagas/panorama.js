@@ -1,5 +1,5 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { routing, toMap } from '../../app/routes';
+import { routing } from '../../app/routes';
 import {
   FETCH_STRAATBEELD,
   fetchStraatbeeld,
@@ -9,6 +9,7 @@ import {
   CLOSE_STRAATBEELD
 } from '../../shared/ducks/straatbeeld/straatbeeld';
 import { getImageDataById } from '../../shared/services/straatbeeld-api/straatbeeld-api';
+import { toMap } from '../../store/redux-first-router';
 
 function* fireFetchPanormaRequest(action) {
   yield put(fetchStraatbeeld(action.payload.id));

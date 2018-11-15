@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { pageTypeToEndpoint, routing } from '../../../app/routes';
+import { routing } from '../../../app/routes';
+import { pageTypeToEndpoint } from '../../../store/redux-first-router';
 
 export const REDUCER_KEY = 'detail';
 

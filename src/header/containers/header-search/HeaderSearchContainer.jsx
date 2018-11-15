@@ -16,12 +16,15 @@ import {
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
-import { isDatasetPage, isMapPage } from '../../../store/redux-first-router';
 import {
   extractIdEndpoint,
   getPageActionEndpoint,
-  routing, toDataSearch, toDatasetSearch
-} from '../../../app/routes';
+  isDatasetPage,
+  isMapPage,
+  toDataSearch,
+  toDatasetSearch
+} from '../../../store/redux-first-router';
+import { routing } from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),

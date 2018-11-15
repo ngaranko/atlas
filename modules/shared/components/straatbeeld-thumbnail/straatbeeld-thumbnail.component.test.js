@@ -1,4 +1,4 @@
-import { toPanorama } from '../../../../src/app/routes';
+import { toPanorama } from '../../../../src/store/redux-first-router';
 
 describe('The dp-straatbeeld-thumbnail component', function () {
     let $compile,

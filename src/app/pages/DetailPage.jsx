@@ -10,7 +10,7 @@ import {
   getDetailGeometry,
   getDetailView
 } from '../../shared/ducks/detail/detail';
-import { getPageActionEndpoint as endpointActionCreator } from '../routes';
+import { getPageActionEndpoint as endpointActionCreator } from '../../store/redux-first-router';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 
 /* istanbul ignore next */ // TODO: refactor, test

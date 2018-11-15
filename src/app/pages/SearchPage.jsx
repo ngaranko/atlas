@@ -6,7 +6,7 @@ import SearchContainer from '../containers/SearchContainer';
 import MapContainer from '../../map/containers/map/MapContainer';
 import QuerySearchContainer from '../containers/QuerySearchContainer';
 import { getSearchQuery } from '../../shared/ducks/data-search/data-search';
-import { toMap as toMapActionCreator } from '../routes';
+import { toMap as toMapActionCreator } from '../../store/redux-first-router';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 
 /* istanbul ignore next */ // TODO: refactor, test
