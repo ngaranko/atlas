@@ -14,7 +14,6 @@ import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewP
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
 import { previewDataAvailable as previewDataAvailableSelector } from '../../../shared/ducks/selection/selection';
 import { getDrawingMode } from '../../ducks/map/map-selectors';
-import { getIframeUrl } from '../../../shared/services/embed-url/embed-url';
 
 export const overrideLeafletGetBounds = (map) => {
   // We override here the getBounds method of Leaflet
@@ -62,10 +61,8 @@ class MapContainer extends React.Component {
       previewDataAvailable
     } = this.props;
     return (
-      <div style={{ height: '100%' }} className="c-map-page">
-        {/* We need to 'hide' the map when showing the embed preview. display:'none' introduces */}
-        {/* a bug: leaflet will reset the zoomlevel to 8 */}
-        <div className="qa-map" style={embedPreview ? { visibility: 'hidden', height: 0 } : {}}>
+      !embedPreview && (
+        <div className="qa-map">
           {/* Note: map must not be unmounted when showing the iframe */}
           {/* as it will reset the map's state */}
           <div className={`c-map c-map--drawing-mode-${drawMode} qa-map-container`}>
@@ -94,17 +91,7 @@ class MapContainer extends React.Component {
             {showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer />}
           </div>
         </div>
-        {embedPreview &&
-        <iframe
-          title="Grote kaart | Dataportaal"
-          id="atlas-iframe-map"
-          width="500"
-          height="400"
-          src={getIframeUrl()}
-          frameBorder="0"
-        />
-        }
-      </div>
+      )
     );
   }
 }

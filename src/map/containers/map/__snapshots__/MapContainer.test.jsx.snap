@@ -2,62 +2,42 @@
 
 exports[`MapContainer should render 1`] = `
 <div
-  className="c-map-page"
-  style={
-    Object {
-      "height": "100%",
-    }
-  }
+  className="qa-map"
 >
   <div
-    className="qa-map"
-    style={Object {}}
+    className="c-map c-map--drawing-mode-none qa-map-container"
   >
-    <div
-      className="c-map c-map--drawing-mode-none qa-map-container"
-    >
-      <Connect(LeafletContainer)
-        getLeafletInstance={[Function]}
-      />
-      <ToggleFullscreen
-        isFullscreen={false}
-        onToggleFullscreen={[Function]}
-      />
-      <Connect(MapPanelContainer)
-        isMapPanelVisible={true}
-      />
-    </div>
+    <Connect(LeafletContainer)
+      getLeafletInstance={[Function]}
+    />
+    <ToggleFullscreen
+      isFullscreen={false}
+      onToggleFullscreen={[Function]}
+    />
+    <Connect(MapPanelContainer)
+      isMapPanelVisible={true}
+    />
   </div>
 </div>
 `;
 
 exports[`MapContainer should render with drawingmode: draw 1`] = `
 <div
-  className="c-map-page"
-  style={
-    Object {
-      "height": "100%",
-    }
-  }
+  className="qa-map"
 >
   <div
-    className="qa-map"
-    style={Object {}}
+    className="c-map c-map--drawing-mode-draw qa-map-container"
   >
-    <div
-      className="c-map c-map--drawing-mode-draw qa-map-container"
-    >
-      <Connect(LeafletContainer)
-        getLeafletInstance={[Function]}
-      />
-      <ToggleFullscreen
-        isFullscreen={false}
-        onToggleFullscreen={[Function]}
-      />
-      <Connect(MapPanelContainer)
-        isMapPanelVisible={true}
-      />
-    </div>
+    <Connect(LeafletContainer)
+      getLeafletInstance={[Function]}
+    />
+    <ToggleFullscreen
+      isFullscreen={false}
+      onToggleFullscreen={[Function]}
+    />
+    <Connect(MapPanelContainer)
+      isMapPanelVisible={true}
+    />
   </div>
 </div>
 `;

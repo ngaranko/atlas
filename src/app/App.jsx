@@ -25,6 +25,7 @@ import { getUser } from '../shared/ducks/user/user';
 import SearchPage from './pages/SearchPage';
 import { getPage } from '../store/redux-first-router';
 import Dataset from './components/Dataset/Dataset';
+import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -108,6 +109,9 @@ const App = ({
         }}
       />
       <div className={`c-dashboard__body ${bodyClasses}`}>
+        {embedPreviewMode &&
+        <EmbedIframeComponent />
+        }
         <div className="u-grid u-full-height">
           <div className="u-row u-full-height">
             {currentPage === PAGES.HOME && (
