@@ -1,5 +1,4 @@
 import { routing } from '../../../../src/app/routes';
-import { BEDIENINING_LOGIN_DEEPLINK } from '../../../../src/app/pages/CMSPageMapping';
 
 /**
  * DEPRECATED component
@@ -26,10 +25,11 @@ import { BEDIENINING_LOGIN_DEEPLINK } from '../../../../src/app/pages/CMSPageMap
     function DpLinkToPageController () {
         const vm = this;
         vm.linkAction = {
-            type: routing.bediening.type,
-            meta: {
-                hash: BEDIENINING_LOGIN_DEEPLINK
-            }
+            type: routing.bediening.type
+            // Todo: put this back if redux-first-router supports this
+            // meta: {
+            //     hash: BEDIENINING_LOGIN_DEEPLINK
+            // }
         };
     }
 })();
