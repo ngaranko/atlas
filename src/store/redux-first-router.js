@@ -122,7 +122,7 @@ export const isMapView = createSelector(
 
 export const isHomepage = createSelector(getPage, (page) => page === PAGES.HOME);
 
-export const isMapPage = createSelector(getPage, (page) => page === PAGES.KAART);
+export const isMapPage = createSelector(getPage, (page) => page === PAGES.MAP);
 
 export const isPanoPage = createSelector(getPage, (page) => page === PAGES.PANORAMA);
 
