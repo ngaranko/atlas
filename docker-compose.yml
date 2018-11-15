@@ -6,8 +6,6 @@ services:
         - BUILD_ENV=acc
       context: .
     ipc: host
-    ports:
-    - 8080:80
 
   test-unit-integration:
     build:
