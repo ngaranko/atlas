@@ -89,7 +89,7 @@ export const routing = {
 
   bediening: {
     title: '',
-    path: '/bediening#:deeplink?',
+    path: '/bediening',
     type: `${ROUTER_NAMESPACE}/${PAGES.CONTROLS}`,
     page: PAGES.CONTROLS
   },
