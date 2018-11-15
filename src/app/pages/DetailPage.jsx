@@ -15,11 +15,10 @@ import SplitScreen from '../components/SplitScreen/SplitScreen';
 
 /* istanbul ignore next */ // TODO: refactor, test
 const DetailPage = ({ view: routeView, hasGeometry, endpoint, getPageActionEndpoint }) => {
-  let view;
-  if (view === DETAIL_VIEW.DETAIL) {
-    view = hasGeometry ? routeView : DETAIL_VIEW.DETAIL;
-  } else {
-    view = routeView;
+  let view = routeView;
+  if (routeView === DETAIL_VIEW.MAP_DETAIL) {
+    // Hide map if no geometry is available
+    view = hasGeometry ? DETAIL_VIEW.MAP_DETAIL : DETAIL_VIEW.DETAIL;
   }
   const toMap = () => getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP);
 
