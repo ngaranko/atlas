@@ -12,7 +12,7 @@
   "author": "Datapunt Amsterdam",
   "license": "MPL-2.0",
   "scripts": {
-    "test-e2e-aria": "babel-node ./pa11y.js"
+    "test-e2e-aria": "babel-node ./test/pa11y.js"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
@@ -22,6 +22,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
     "babel-preset-env": "^1.7.0",
     "chalk": "2.3.0",
     "p-all": "1.0.0",
