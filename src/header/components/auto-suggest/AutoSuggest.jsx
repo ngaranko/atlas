@@ -61,9 +61,6 @@ class AutoSuggest extends React.Component {
       query
     } = this.props;
 
-    this.setState({
-      showSuggestions: true
-    });
     if (query.length && !suggestions.length) {
       onTextInput(query);
     }

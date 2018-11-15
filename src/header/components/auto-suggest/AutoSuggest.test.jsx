@@ -402,6 +402,7 @@ describe('The AutoSuggest component', () => {
       autoSuggestComponent.find('input#auto-suggest__input').simulate('focus');
       autoSuggestComponent.find('input#auto-suggest__input').type('Dam');
       autoSuggestComponent.setProps({ suggestions: mockFilledState.suggestions });
+      autoSuggestComponent.setState({ showSuggestions: true });
       autoSuggestComponent.update();
       autoSuggestComponent.find('.auto-suggest__dropdown-item').at(2).simulate('click', mockEvent);
       expect(onSuggestionSelection).toHaveBeenCalledWith(selectedSuggestion, true);
@@ -418,6 +419,7 @@ describe('The AutoSuggest component', () => {
       autoSuggestComponent.find('input#auto-suggest__input').simulate('focus');
       autoSuggestComponent.find('input#auto-suggest__input').type('Dam');
       autoSuggestComponent.setProps({ suggestions: mockFilledState.suggestions });
+      autoSuggestComponent.setState({ showSuggestions: true });
       autoSuggestComponent.update();
       autoSuggestComponent.find('.auto-suggest__dropdown-item').at(2).simulate('click', mockEvent);
       expect(onSuggestionSelection).toHaveBeenCalledWith(selectedSuggestion, false);
