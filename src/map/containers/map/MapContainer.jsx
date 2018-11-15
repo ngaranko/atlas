@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { LatLngBounds } from 'leaflet';
 
-import { isEmbedded, isEmbedPreview } from '../../../shared/ducks/ui/ui';
+import { isEmbedded } from '../../../shared/ducks/ui/ui';
 
 import DrawTool from '../../containers/draw-tool/DrawToolContainer';
 import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
@@ -32,8 +32,7 @@ export const overrideLeafletGetBounds = (map) => {
 const mapStateToProps = (state) => ({
   drawMode: getDrawingMode(state),
   embedMode: isEmbedded(state),
-  previewDataAvailable: previewDataAvailableSelector(state),
-  embedPreview: isEmbedPreview(state)
+  previewDataAvailable: previewDataAvailableSelector(state)
 });
 
 class MapContainer extends React.Component {
@@ -57,41 +56,38 @@ class MapContainer extends React.Component {
       toggleFullscreen,
       drawMode,
       showPreviewPanel,
-      embedPreview,
       previewDataAvailable
     } = this.props;
     return (
-      !embedPreview && (
-        <div className="qa-map">
-          {/* Note: map must not be unmounted when showing the iframe */}
-          {/* as it will reset the map's state */}
-          <div className={`c-map c-map--drawing-mode-${drawMode} qa-map-container`}>
-            <LeafletContainer
-              getLeafletInstance={this.setLeafletInstance}
-            />
-            {
-              this.state.leafletInstance && (
-                <DrawTool
-                  leafletInstance={this.state.leafletInstance}
-                />
-              )
-            }
-            {toggleFullscreen && (
-              <ToggleFullscreen
-                isFullscreen={isFullscreen}
-                onToggleFullscreen={toggleFullscreen}
+      <div className="qa-map">
+        {/* Note: map must not be unmounted when showing the iframe */}
+        {/* as it will reset the map's state */}
+        <div className={`c-map c-map--drawing-mode-${drawMode} qa-map-container`}>
+          <LeafletContainer
+            getLeafletInstance={this.setLeafletInstance}
+          />
+          {
+            this.state.leafletInstance && (
+              <DrawTool
+                leafletInstance={this.state.leafletInstance}
               />
-            )}
-            <MapPanelContainer isMapPanelVisible />
-            {
-              embedMode ? (
-                <MapEmbedButton />
-              ) : ''
-            }
-            {showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer />}
-          </div>
+            )
+          }
+          {toggleFullscreen && (
+            <ToggleFullscreen
+              isFullscreen={isFullscreen}
+              onToggleFullscreen={toggleFullscreen}
+            />
+          )}
+          <MapPanelContainer isMapPanelVisible />
+          {
+            embedMode ? (
+              <MapEmbedButton />
+            ) : ''
+          }
+          {showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer />}
         </div>
-      )
+      </div>
     );
   }
 }
@@ -114,8 +110,7 @@ MapContainer.propTypes = {
   drawMode: PropTypes.string,
   embedMode: PropTypes.bool.isRequired,
   showPreviewPanel: PropTypes.bool,
-  previewDataAvailable: PropTypes.bool.isRequired,
-  embedPreview: PropTypes.bool.isRequired
+  previewDataAvailable: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps)(MapContainer);
