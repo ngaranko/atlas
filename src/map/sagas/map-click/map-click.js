@@ -12,7 +12,7 @@ import {
 import { getImageDataByLocation } from '../../../shared/services/straatbeeld-api/straatbeeld-api';
 import { toMap, toPanorama } from '../../../app/routes';
 import { fetchMapSearchResultsRequest } from '../../../shared/ducks/data-search/data-search';
-import { getCurrentPage } from '../../../store/redux-first-router';
+import { getPage } from '../../../store/redux-first-router';
 import PAGES from '../../../app/pages';
 
 function getHeadingDegrees([x1, y1], [x2, y2]) {
@@ -48,7 +48,7 @@ export function* switchClickAction(action) {
         }
       });
     } else {
-      const currentPage = yield select(getCurrentPage);
+      const currentPage = yield select(getPage);
       yield put(setSelection(SELECTION_TYPE.POINT, location));
 
       if (currentPage === PAGES.DATA_SEARCH) {

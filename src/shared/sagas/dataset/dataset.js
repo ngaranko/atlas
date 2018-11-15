@@ -19,7 +19,7 @@ import {
 } from '../../ducks/datasets/apiSpecification/apiSpecification';
 import { getDatasetApiSpecification, getPage } from '../../ducks/datasets/datasets';
 import getApiSpecification from '../../services/datasets-filters/datasets-filters';
-import { isDatasetCurrentPage } from '../../../store/redux-first-router';
+import { isDatasetPage } from '../../../store/redux-first-router';
 
 function* retrieveDataset(action) {
   const { activeFilters, page, searchText, geometryFilter, catalogFilters } =
@@ -48,7 +48,7 @@ function* fireRequest(action) {
   const state = yield select();
 
   // Always ensure we are on the right page, otherwise this can be called unintentionally
-  if (isDatasetCurrentPage(state)) {
+  if (isDatasetPage(state)) {
     const activeFilters = getFilters(state);
     const catalogFilters = getDatasetApiSpecification(state);
     const page = getPage(state);

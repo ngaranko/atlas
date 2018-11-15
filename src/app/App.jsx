@@ -23,7 +23,7 @@ import DetailPage from './pages/DetailPage';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
 import SearchPage from './pages/SearchPage';
-import { getCurrentPage } from '../store/redux-first-router';
+import { getPage } from '../store/redux-first-router';
 import Dataset from './components/Dataset/Dataset';
 
 // TodoReactMigration: implement logic
@@ -167,7 +167,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentPage: getCurrentPage(state),
+  currentPage: getPage(state),
   embedMode: isEmbedded(state),
   printMode: isPrintMode(state),
   printModeLandscape: isPrintModeLandscape(state),

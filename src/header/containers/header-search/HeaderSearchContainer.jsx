@@ -16,7 +16,7 @@ import {
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
-import { isDatasetCurrentPage, isMapPage } from '../../../store/redux-first-router';
+import { isDatasetPage, isMapPage } from '../../../store/redux-first-router';
 import {
   extractIdEndpoint,
   getPageActionEndpoint,
@@ -26,7 +26,7 @@ import {
 const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),
   displayQuery: getDisplayQuery(state),
-  isDatasetView: isDatasetCurrentPage(state),
+  isDatasetView: isDatasetPage(state),
   isMapActive: isMapPage(state),
   numberOfSuggestions: getNumberOfSuggestions(state),
   pageName: state.page ? state.page.name : '',

@@ -41,8 +41,8 @@ describe('The header controller', function () {
             }
         };
 
-        routerSelectors.isDataSelectionCurrentPage = () => true;
-        routerSelectors.isDatasetCurrentPage = () => true;
+        routerSelectors.isDataSelectionPage = () => true;
+        routerSelectors.isDatasetPage = () => true;
         routerSelectors.isHomepage = () => true;
         routerSelectors.isMapPage = () => true;
         dataSelection.isListView = () => true;
@@ -69,7 +69,7 @@ describe('The header controller', function () {
     });
 
     it('sets the search query and action when search is active', function () {
-        routerSelectors.isDatasetCurrentPage = () => false;
+        routerSelectors.isDatasetPage = () => false;
         spyOn(store, 'getState').and.returnValue({
             search: {
                 query: 'search query'
@@ -113,7 +113,7 @@ describe('The header controller', function () {
     });
 
     it('default sets the search query and search action', function () {
-        routerSelectors.isDatasetCurrentPage = () => false;
+        routerSelectors.isDatasetPage = () => false;
         spyOn(store, 'getState').and.returnValue({});
 
         const controller = getController();
@@ -123,7 +123,7 @@ describe('The header controller', function () {
     });
 
     it('doesn\'t break when search is null', function () {
-        routerSelectors.isDatasetCurrentPage = () => false;
+        routerSelectors.isDatasetPage = () => false;
         mockedState = {
             search: null
         };
@@ -152,7 +152,7 @@ describe('The header controller', function () {
         });
 
         it('all other pages and non dataSelection content has a printButton', function () {
-            routerSelectors.isDataSelectionCurrentPage = () => false;
+            routerSelectors.isDataSelectionPage = () => false;
             routerSelectors.isHomepage = () => false;
 
             const controller = getController();

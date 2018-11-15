@@ -10,7 +10,7 @@ const getLocation = (state) => state[REDUCER_KEY];
 export const getLocationQuery = createSelector(getLocation, (location) => location.query || {});
 export const getLocationPayload = createSelector(getLocation, (location) => location.payload);
 
-export const getCurrentPage = createSelector(getLocation, (location = {}) => {
+export const getPage = createSelector(getLocation, (location = {}) => {
   const key = Object.keys(routing).find((route) => routing[route].type === location.type);
   return key && routing[key].page;
 });
@@ -22,40 +22,28 @@ export const isMapView = createSelector(
   )
 );
 
-export const isHomepage = createSelector(
-  getCurrentPage,
-  (currentPage) => currentPage === PAGES.HOME
-);
+export const isHomepage = createSelector(getPage, (page) => page === PAGES.HOME);
 
-export const isMapPage = createSelector(
-  getCurrentPage,
-  (currentPage) => currentPage === PAGES.KAART
-);
+export const isMapPage = createSelector(getPage, (page) => page === PAGES.KAART);
 
-export const isPanoPage = createSelector(
-  getCurrentPage,
-  (currentPage) => currentPage === PAGES.PANORAMA
-);
+export const isPanoPage = createSelector(getPage, (page) => page === PAGES.PANORAMA);
 
-export const isDataDetailCurrentPage = createSelector(
-  getCurrentPage,
-  (currentPage) => currentPage === PAGES.DATA_DETAIL
-);
+export const isDataDetailPage = createSelector(getPage, (page) => page === PAGES.DATA_DETAIL);
 
 export const isMapActive = createSelector(
   isMapView, isMapPage,
   (isMap, isMapPageActive) => isMap || isMapPageActive
 );
 
-export const isDatasetCurrentPage = createSelector(
-  getCurrentPage,
+export const isDatasetPage = createSelector(
+  getPage,
   (page) => page === PAGES.DATASETS
     || page === PAGES.DATASETS_DETAIL
     || page === PAGES.SEARCH_DATASETS
 );
 
-export const isDataSelectionCurrentPage = createSelector(
-  getCurrentPage,
+export const isDataSelectionPage = createSelector(
+  getPage,
   (page) => page === PAGES.ADDRESSES
     || page === PAGES.CADASTRAL_OBJECTS
     || page === PAGES.ESTABLISHMENTS
