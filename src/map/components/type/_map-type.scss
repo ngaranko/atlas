@@ -53,11 +53,21 @@ $icon-height: 20px;
   }
 }
 
-.select-button__wrapper {
+.select-button--enabled {
+  .icon {
+    &--topography {
+      @include icon-sprite("icon-topography", $primary-dark, $primary-dark, $icon-height);
+    }
 
+    &--aerial {
+      @include icon-sprite("icon-aerial", $primary-dark, $primary-dark, $icon-height);
+    }
+  }
+}
+
+.select-button__wrapper {
   &:hover,
   &:focus {
-
     .icon--topography {
       @include icon-sprite("icon-topography", $primary-dark, $primary-dark, $icon-height);
     }

@@ -22,8 +22,9 @@ $handle-height: 24px;
 
     &:hover,
     &:focus {
-      border-right: 1px solid;
+      border-right: none;
 
+      // sass-lint:disable nesting-depth
       .select-button__label {
         color: $primary-dark;
       }
@@ -44,11 +45,11 @@ $handle-height: 24px;
 
     &:hover,
     &:focus {
-      .select-button__icon-collapse {
+      .select-button__icon-collapse { // sass-lint:disable nesting-depth
         @include icon-sprite("icon-arrow-up", $primary-dark, $primary-dark, $handle-height - 2px);
       }
 
-      .select-button__icon-expand {
+      .select-button__icon-expand { // sass-lint:disable nesting-depth
         @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height - 2px);
       }
     }
@@ -65,6 +66,12 @@ $handle-height: 24px;
 
     &-expand {
       @include icon-sprite("icon-arrow-down", $secondary-gray60, $primary-dark, $handle-height - 2px);
+    }
+  }
+
+  &--enabled {
+    .select-button__icon-expand {
+      @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height - 2px);
     }
   }
 

@@ -5,8 +5,6 @@ $checkbox-height: 24px;
 .checkbox {
   @include icon-sprite("icon-tick", $primary-dark, $primary-dark, $checkbox-height);
   background-color: $primary-light;
-  border: 1px solid $primary-dark;
-  box-sizing: border-box;
   cursor: pointer;
   display: block;
   height: $checkbox-height;
@@ -20,17 +18,21 @@ $checkbox-height: 24px;
     width: 32px;
   }
 
-  &:hover {
-    background-size: $checkbox-height;
-    border: 2px solid $primary-dark;
-  }
-
   input {
     appearance: none;
+    border: 1px solid $primary-dark;
     height: inherit;
-    opacity: 0;
     outline: none;
     width: inherit;
+
+    &:not(:checked) {
+      background-color: $primary-light;
+    }
+
+    &:hover,
+    &:focus {
+      border: 2px solid $primary-dark;
+    }
   }
 
   * {

@@ -41,8 +41,8 @@ $tab-v-padding: 7px;
       a {
         background-color: $secondary-gray4;
 
-        &:hover,
-        &:focus { // sass-lint:disable-line nesting-depth
+        &:hover, // sass-lint:disable-line nesting-depth
+        &:focus {
           background-color: $secondary-gray10;
           outline: none;
         }
