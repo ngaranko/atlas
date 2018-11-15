@@ -120,6 +120,7 @@ $clear-button-margin: 3px;
     background-color: $primary-light;
     border: 2px solid $primary-dark;
     border-top: 1px solid $primary-dark;
+    display: block;
     left: 0;
     padding-bottom: $base-whitespace * .5;
     position: absolute;
@@ -186,6 +187,13 @@ $clear-button-margin: 3px;
         vertical-align: sub;
         width: 2 * $base-whitespace + 2px;
       }
+
+      div > span {
+        &:only-child {
+          padding-left: 3 * $base-whitespace - 2px;
+        }
+      }
+
     }
 
     &__highlight {
