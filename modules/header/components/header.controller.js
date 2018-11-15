@@ -5,7 +5,7 @@ import {
     isDataSelectionPage,
     isDatasetPage,
     isHomepage,
-    isMapPage
+    isMapActive
 } from '../../../src/store/redux-first-router';
 
 (function () {
@@ -37,7 +37,7 @@ import {
             }
 
             vm.hasPrintButton = (!isDataSelectionPage(state) || isListView(state)) && !isHomepage(state);
-            vm.hasEmbedButton = isMapPage(state);
+            vm.hasEmbedButton = isMapActive(state);
         }
     }
 })();

@@ -69,6 +69,8 @@ export default function UiReducer(state = initialState, action) {
 // Todo: wire these actions properly when ui reducer is obsolete
 export const showEmbedPreview = () => ({ type: SHOW_EMBED_PREVIEW });
 export const showPrintMode = () => ({ type: SHOW_PRINT });
+export const hidePrintMode = () => ({ type: HIDE_PRINT });
+export const hideEmbedMode = () => ({ type: HIDE_EMBED_PREVIEW });
 export const toggleMapPanelHandle = () => ({ type: 'NOOP' });
 
 // Selectors
@@ -94,4 +96,3 @@ export const isPrintModeLandscape = createSelector(
   (printMode, panoPageActive, mapPageActive, dataSelectionView) =>
     (printMode && (panoPageActive || mapPageActive || (dataSelectionView === VIEWS.LIST)))
 );
-

@@ -34,9 +34,7 @@ const DetailPage = ({ view: routeView, hasGeometry, endpoint, getPageActionEndpo
       return (
         <SplitScreen
           leftComponent={(
-            <div className="qa-map">
-              <MapContainer isFullscreen={false} toggleFullscreen={toMap} />
-            </div>
+            <MapContainer isFullscreen={false} toggleFullscreen={toMap} />
           )}
           rightComponent={(
             <DetailContainer />

@@ -1,3 +1,5 @@
+import { hideEmbedMode } from '../../../../src/shared/ducks/ui/ui';
+
 (() => {
     'use strict';
 
@@ -14,6 +16,7 @@
     function DpEmbedHeader ($interval, $scope) {
         const vm = this;
 
+        vm.hideEmbedMode = hideEmbedMode();
         const iframe = window.document.getElementById('atlas-iframe-map');
 
         function setUrlFromIframe () {
