@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import NewDataSelection from '../components/DataSelection/DataSelection';
 import { isListView } from '../../shared/ducks/data-selection/data-selection';

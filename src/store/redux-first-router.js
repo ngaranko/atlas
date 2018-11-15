@@ -10,7 +10,7 @@ export const REDUCER_KEY = 'location';
 
 // TODO: refactor unit test or remove all together
 // Action creators
-const preserveQuery = (action) => {
+export const preserveQuery = (action) => {
   const search = location.search && location.search.substr(1);
   return {
     ...action,

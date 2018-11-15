@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import connect from 'react-redux/es/connect/connect';
 import SearchContainer from '../containers/SearchContainer';
 import MapContainer from '../../map/containers/map/MapContainer';
 import QuerySearchContainer from '../containers/QuerySearchContainer';
@@ -9,7 +9,6 @@ import { getSearchQuery } from '../../shared/ducks/data-search/data-search';
 import { toMap as toMapActionCreator } from '../../store/redux-first-router';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 
-/* istanbul ignore next */ // TODO: refactor, test
 const SearchPage = ({ query, toMap }) => {
   if (query) {
     return <QuerySearchContainer />;
