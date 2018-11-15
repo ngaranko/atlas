@@ -48,3 +48,56 @@ exports[`MapLayer should render 1`] = `
   </ul>
 </div>
 `;
+
+exports[`MapLayer should render without active layers 1`] = `
+<div
+  className="map-layers"
+>
+  <h3
+    className="u-sr-only"
+  >
+    Beschikbare kaartlagen
+  </h3>
+  <ul>
+    <li
+      className="map-layers__category"
+      key="Geografie: onroerende zaken"
+    >
+      <h4
+        className="map-layers__category-text"
+      >
+        Geografie: onroerende zaken
+      </h4>
+      <ul>
+        <li
+          className="
+                      map-layers__title
+                      map-layers__title--inactive
+                    "
+          key="Kadastrale perceelsgrenzen"
+        >
+          <button
+            onClick={[Function]}
+          >
+            <span
+              className="map-layers__toggle-title"
+            >
+              Kadastrale perceelsgrenzen
+            </span>
+            <span
+              className="map-layers__toggle map-layers__toggle--remove"
+            >
+              <Component />
+            </span>
+            <span
+              className="map-layers__toggle map-layers__toggle--add"
+            >
+              <Component />
+            </span>
+          </button>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+`;

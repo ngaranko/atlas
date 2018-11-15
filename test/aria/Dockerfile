@@ -17,16 +17,18 @@ WORKDIR /home
 
 COPY .babelrc package.json package-lock.json ./
 
-# Install all NPM dependencies. Also:
+# Install all NPM dependencies, and:
 #  * Changing git URL because network is blocking git protocol...
-#  * Using `CYPRESS_INSTALL_BINARY` to skip installing Cypress for it is not used here
 RUN git config --global url."https://".insteadOf git:// && \
     git config --global url."https://github.com/".insteadOf git@github.com: && \
+    npm config set registry https://repo.datapunt.amsterdam.nl/repository/npm-group/ && \
     npm --production=false \
         --unsafe-perm \
+        --no-audit \
         install && \
     npm cache clean --force
 
-COPY pa11y-config.js pa11y.js test-e2e-aria.sh ./
+COPY test-e2e-aria.sh ./
+COPY test ./test
 
 ENV NODE_ENV=production

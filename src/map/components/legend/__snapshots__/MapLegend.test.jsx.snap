@@ -11,7 +11,10 @@ exports[`MapLegend should render the component 1`] = `
     className="map-legend"
   >
     <li
-      className="map-legend__map-layer"
+      className="
+                map-legend__map-layer
+                map-legend__map-layer--hidden
+              "
       key="title"
     >
       <div
@@ -21,7 +24,7 @@ exports[`MapLegend should render the component 1`] = `
                 "
       >
         <Checkbox
-          checked={[Function]}
+          checked={false}
           name="title"
           onChange={[Function]}
         />
@@ -39,11 +42,14 @@ exports[`MapLegend should render the component 1`] = `
         className="map-legend__items"
       >
         <li
-          className="map-legend__item"
+          className="
+                        map-legend__item
+                        map-legend__item--hidden
+                      "
           key="legendTitle"
         >
           <Checkbox
-            checked={[Function]}
+            checked={false}
             name="legendTitle"
             onChange={[Function]}
           />
@@ -67,7 +73,10 @@ exports[`MapLegend should render the component 1`] = `
       </ul>
     </li>
     <li
-      className="map-legend__map-layer"
+      className="
+                map-legend__map-layer
+                map-legend__map-layer--visible
+              "
       key="title"
     >
       <div
@@ -77,7 +86,7 @@ exports[`MapLegend should render the component 1`] = `
                 "
       >
         <Checkbox
-          checked={[Function]}
+          checked={true}
           name="title"
           onChange={[Function]}
         />
@@ -95,11 +104,14 @@ exports[`MapLegend should render the component 1`] = `
         className="map-legend__items"
       >
         <li
-          className="map-legend__item"
+          className="
+                        map-legend__item
+                        map-legend__item--hidden
+                      "
           key="legendTitle"
         >
           <Checkbox
-            checked={[Function]}
+            checked={false}
             name="legendTitle"
             onChange={[Function]}
           />
@@ -107,6 +119,30 @@ exports[`MapLegend should render the component 1`] = `
             className="
                         map-legend__image
                         map-legend__image--selectable
+                      "
+          >
+            <img
+              alt=""
+              src="https://acc.map.data.amsterdam.nlurl&request=GetLegendGraphic&sld_version=1.1.0&layer=maplayer2&format=image/svg%2Bxml&rule=legendTitle"
+            />
+          </div>
+          <span
+            className="map-legend__title"
+          >
+            legendTitle
+          </span>
+        </li>
+        <li
+          className="
+                        map-legend__item
+                        map-legend__item--visible
+                      "
+          key="legendTitle"
+        >
+          <div
+            className="
+                        map-legend__image
+                        map-legend__image--not-selectable
                       "
           >
             <img

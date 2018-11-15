@@ -48,7 +48,9 @@ class MapLegend extends React.Component {
   }
 
   determineLegendItemVisibility(legendItem) {
-    return this.props.overlays.some((overlay) => overlay.id === legendItem.id && overlay.isVisible);
+    return this.props.overlays.some((overlay) =>
+      (overlay.id === legendItem.id && overlay.isVisible) || !legendItem.selectable
+    );
   }
 
   toggleLayer(mapLayer) {
@@ -71,7 +73,10 @@ class MapLegend extends React.Component {
         <ul className="map-legend">
           {activeMapLayers.map((mapLayer) => (
             <li
-              className="map-legend__map-layer"
+              className={`
+                map-legend__map-layer
+                map-legend__map-layer--${this.determineLayerVisibility(mapLayer) ? 'visible' : 'hidden'}
+              `}
               key={mapLayer.title}
             >
               <div
@@ -81,10 +86,7 @@ class MapLegend extends React.Component {
                 `}
               >
                 <Checkbox
-                  checked={
-                    /* istanbul ignore next */
-                    () => this.determineLayerVisibility(mapLayer)
-                  }
+                  checked={this.determineLayerVisibility(mapLayer)}
                   name={mapLayer.title}
                   onChange={
                     /* istanbul ignore next */
@@ -111,21 +113,19 @@ class MapLegend extends React.Component {
                 <ul className="map-legend__items">
                   {mapLayer.legendItems.map((legendItem) => (
                     <li
-                      className="map-legend__item"
+                      className={`
+                        map-legend__item
+                        map-legend__item--${this.determineLegendItemVisibility(legendItem) ? 'visible' : 'hidden'}
+                      `}
                       key={legendItem.title}
                     >
                       {legendItem.selectable && (
                         <Checkbox
-                          checked={
-                            /* istanbul ignore next */
-                            () =>
-                            this.determineLegendItemVisibility(legendItem)
-                          }
+                          checked={this.determineLegendItemVisibility(legendItem)}
                           name={legendItem.title}
                           onChange={
                             /* istanbul ignore next */
-                            () =>
-                            onLayerVisibilityToggle(legendItem.id)
+                            () => onLayerVisibilityToggle(legendItem.id)
                           }
                         />
                       )}

@@ -20,7 +20,7 @@ const mapStateToProps = (state) => ({
   atlas: state.atlas,
   isMapPanelVisible: state.ui.isMapPanelVisible,
   isMapLayersVisible: state.ui.isMapLayersVisible,
-  isEachOverlayInvisible: state.map.overlays.every((overlay) => overlay.isVisible),
+  isEachOverlayInvisible: state.map.overlays.every((overlay) => !overlay.isVisible),
   isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,
   mapBaseLayers: getBaseLayers(state),
   mapLayers: state.mapLayers.panelLayers.items,
@@ -93,7 +93,7 @@ class MapPanelContainer extends React.Component {
           map-panel
           map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
           map-panel--has${this.props.activeMapLayers.length > 0 ? '' : '-no'}-active-layers
-          map-panel--has${this.props.isEachOverlayInvisible ? '-not' : ''}-just-invisible-layers
+          map-panel--has${this.props.isEachOverlayInvisible ? '' : '-not'}-just-invisible-layers
         `}
       >
         <div className="map-panel__heading">
