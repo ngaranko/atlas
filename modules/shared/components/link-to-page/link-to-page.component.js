@@ -27,8 +27,8 @@ import { BEDIENINING_LOGIN_DEEPLINK } from '../../../../src/app/pages/CMSPageMap
         const vm = this;
         vm.linkAction = {
             type: routing.bediening.type,
-            payload: {
-                deeplink: BEDIENINING_LOGIN_DEEPLINK
+            meta: {
+                hash: BEDIENINING_LOGIN_DEEPLINK
             }
         };
     }

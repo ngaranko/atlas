@@ -14,19 +14,19 @@ import piwikMiddleware from './middleware/piwikMiddleware';
 window.reducer = rootReducer;
 
 const configureStore = (history, routesMap) => {
+  const routingOptions = {
+    querySerializer: queryString,
+    restoreScroll: restoreScroll(),
+    initialDispatch: false
+  };
   const {
     reducer: routeReducer,
     middleware: routeMiddleware,
     enhancer: routeEnhancer,
     initialDispatch: initialRouteDispatch
   } = connectRoutes(
-    history,
     routesMap,
-    {
-      querySerializer: queryString,
-      restoreScroll: restoreScroll(),
-      initialDispatch: false
-    }
+    routingOptions
   );
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
