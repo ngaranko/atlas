@@ -6,9 +6,13 @@ import {
   getStraatbeeld,
   fetchStraatbeeldSuccess,
   fetchStraatbeeldError,
-  CLOSE_STRAATBEELD
+  CLOSE_STRAATBEELD,
+  SET_STRAATBEELD_YEAR
 } from '../../shared/ducks/straatbeeld/straatbeeld';
-import { getImageDataById } from '../../shared/services/straatbeeld-api/straatbeeld-api';
+import {
+  getImageDataById,
+  getImageDataByLocation
+} from '../../shared/services/straatbeeld-api/straatbeeld-api';
 import { toMap } from '../../store/redux-first-router';
 
 function* fireFetchPanormaRequest(action) {
@@ -29,8 +33,22 @@ function* fetchPanorama() {
   }
 }
 
+function* fetchPanoramaYear() {
+  const { location, year } = yield select(getStraatbeeld);
+  try {
+    const imageData = yield call(getImageDataByLocation, location, year);
+    yield put(fetchStraatbeeldSuccess(imageData));
+  } catch (error) {
+    yield put(fetchStraatbeeldError(error));
+  }
+}
+
 export function* watchFetchStraatbeeld() {
   yield takeLatest(FETCH_STRAATBEELD, fetchPanorama);
+}
+
+export function* watchSetStraatbeeldYear() {
+  yield takeLatest(SET_STRAATBEELD_YEAR, fetchPanoramaYear);
 }
 
 function* doCloseStraatbeeld() {

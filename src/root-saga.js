@@ -12,7 +12,8 @@ import watchFetchNearestDetails from './map/sagas/nearest-details';
 import {
   watchCloseStraatbeeld,
   watchFetchStraatbeeld,
-  watchPanoramaRoute
+  watchPanoramaRoute,
+  watchSetStraatbeeldYear
 } from './pano/sagas/panorama';
 import { watchDetailRoute } from './detail/sagas/detail';
 import watchFetchDataSelection from './shared/sagas/data-selection/data-selection';
@@ -29,6 +30,7 @@ export default function* rootSaga() {
     fork(watchFetchMapPanelLayers),
     fork(watchFetchMapDetail),
     fork(watchFetchStraatbeeld),
+    fork(watchSetStraatbeeldYear),
     fork(watchCloseStraatbeeld),
     fork(watchMapClick),
     fork(watchFetchNearestDetails),
