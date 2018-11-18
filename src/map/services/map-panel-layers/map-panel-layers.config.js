@@ -330,6 +330,16 @@ export default [
   },
   {
     category: 'Geografie: gebieden',
+    id: 'ggwp',
+    layers: ['gebiedsgerichtwerkenpraktijkgebieden'],
+    selectable: false,
+    maxZoom: 16,
+    minZoom: 10,
+    title: 'Gebeidsgerichtwerken praktijkgebieden',
+    url: '/maps/gebieden?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Geografie: gebieden',
     id: 'unesco',
     layers: ['unesco'],
     legendItems: [
