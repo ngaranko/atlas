@@ -47,7 +47,7 @@ describe('MapPanelContainer', () => {
 
   it('should render MapLegend if store contains active map layers', () => {
     expect(wrapper.find(MapLegend).length).toBe(0);
-    wrapper.setProps({ activeMapLayers: [{}] });
+    wrapper.setProps({ activeMapLayers: [{}], isEachOverlayInvisible: true });
     expect(wrapper.find(MapLegend).length).toBe(1);
     expect(wrapper).toMatchSnapshot();
   });

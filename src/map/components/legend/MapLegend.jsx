@@ -42,7 +42,9 @@ class MapLegend extends React.Component {
   }
 
   determineLegendItemVisibility(legendItem) {
-    return this.props.overlays.some((overlay) => overlay.id === legendItem.id && overlay.isVisible);
+    return this.props.overlays.some((overlay) =>
+      (overlay.id === legendItem.id && overlay.isVisible) || !legendItem.selectable
+    );
   }
 
   toggleLayerVisibility(mapLayer, isVisible) {
