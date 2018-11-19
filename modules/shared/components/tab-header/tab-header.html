@@ -11,15 +11,8 @@
         </dp-dcatd-button>
 
         <dp-link ng-if="vm.showReset()"
-                 type="FETCH_DATA_SELECTION"
-                 class-name="c-tab-header__reset qa-go-to-catalogus"
-                 payload="{
-                     dataset: 'dcatd',
-                     emptyFilters: true,
-                     query: '',
-                     view: 'CATALOG',
-                     page: 1
-                 }">
+                 action="vm.resetAction"
+                 class-name="c-tab-header__reset qa-go-to-catalogus">
                  <span>Alle datasets tonen</span>
         </dp-link>
     </h1>

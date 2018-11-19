@@ -8,8 +8,6 @@ import {
   getTypedQuery
 } from '../../ducks/auto-suggest/auto-suggest';
 
-import { fetchDataSelection } from '../../ducks/search/search';
-
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { fetchDetail, FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
 import { ROUTER_NAMESPACE, routing } from '../../../app/routes';
@@ -20,7 +18,6 @@ import { toDataSearch, toDatasetSearch } from '../../../store/redux-first-router
 jest.mock('../../ducks/auto-suggest/auto-suggest');
 jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
 jest.mock('../../../shared/ducks/detail/detail');
-jest.mock('../../ducks/search/search');
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
@@ -33,7 +30,6 @@ describe('HeaderSearchContainer', () => {
     getSuggestionsAction.mockReset();
     fetchDetail.mockReset();
     piwikTracker.mockReset();
-    fetchDataSelection.mockReset();
   });
 
   const initialState = {
