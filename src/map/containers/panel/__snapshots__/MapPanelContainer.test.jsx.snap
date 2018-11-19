@@ -88,7 +88,7 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
           map-panel
           map-panel--expanded
           map-panel--has-no-active-layers
-          map-panel--has-not-just-invisible-layers
+          map-panel--has-just-invisible-layers
         "
 >
   <div

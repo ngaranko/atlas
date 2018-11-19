@@ -11,10 +11,7 @@ exports[`MapLegend should render the component 1`] = `
     className="map-legend"
   >
     <li
-      className="
-                map-legend__map-layer
-                map-legend__map-layer--hidden
-              "
+      className="map-legend__map-layer"
       key="title"
     >
       <div
@@ -44,10 +41,7 @@ exports[`MapLegend should render the component 1`] = `
         className="map-legend__items"
       >
         <li
-          className="
-                        map-legend__item
-                        map-legend__item--hidden
-                      "
+          className="map-legend__item"
           key="legendTitle"
         >
           <Checkbox
@@ -75,10 +69,7 @@ exports[`MapLegend should render the component 1`] = `
       </ul>
     </li>
     <li
-      className="
-                map-legend__map-layer
-                map-legend__map-layer--visible
-              "
+      className="map-legend__map-layer"
       key="title"
     >
       <div
@@ -108,10 +99,7 @@ exports[`MapLegend should render the component 1`] = `
         className="map-legend__items"
       >
         <li
-          className="
-                        map-legend__item
-                        map-legend__item--hidden
-                      "
+          className="map-legend__item"
           key="legendTitle"
         >
           <Checkbox
@@ -145,30 +133,6 @@ exports[`MapLegend should render the component 1`] = `
                             map-legend__image
                             map-legend__image--not-selectable
                           "
-          >
-            <img
-              alt=""
-              src="https://acc.map.data.amsterdam.nlurl&request=GetLegendGraphic&sld_version=1.1.0&layer=maplayer2&format=image/svg%2Bxml&rule=legendTitle"
-            />
-          </div>
-          <span
-            className="map-legend__title"
-          >
-            legendTitle
-          </span>
-        </li>
-        <li
-          className="
-                        map-legend__item
-                        map-legend__item--visible
-                      "
-          key="legendTitle"
-        >
-          <div
-            className="
-                        map-legend__image
-                        map-legend__image--not-selectable
-                      "
           >
             <img
               alt=""
