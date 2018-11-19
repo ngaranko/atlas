@@ -5,7 +5,7 @@ const actionsToPiwik = {
   TOGGLE_MAP_OVERLAY: (tracking) => [
     'trackEvent',
     'kaartlaag',
-    tracking.category.toLowerCase().replace(/[: ][ ]*/g, '_'),
+    (tracking.category) ? tracking.category.toLowerCase().replace(/[: ][ ]*/g, '_') : 'panorama',
     tracking.title
   ],
   SET_MAP_BASE_LAYER: (tracking) => [
@@ -24,7 +24,10 @@ const piwikMiddleware = () => (next) => (action) => {
 
   if (actionMap) {
     const { tracking } = action.meta;
-    piwikTracker(actionMap(tracking));
+
+    if (tracking) {
+      piwikTracker(actionMap(tracking));
+    }
   }
 
   next(nextAction);
