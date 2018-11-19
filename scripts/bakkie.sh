@@ -10,8 +10,8 @@ echo Build distribution of this branch
 export NODE_ENV=test
 
 rm -rf node_modules
-# No need to install Cypress for it is not being used here
-CYPRESS_INSTALL_BINARY=0 npm install
+npm install
+
 npm run build-test
 
 echo Publish distribution in web-dir
