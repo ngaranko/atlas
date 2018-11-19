@@ -8,7 +8,7 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
           map-panel
           map-panel--expanded
           map-panel--has-active-layers
-          map-panel--has-not-just-invisible-layers
+          map-panel--has-just-invisible-layers
         "
 >
   <div

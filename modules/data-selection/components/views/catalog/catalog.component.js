@@ -29,7 +29,7 @@ import { routing } from '../../../../../src/app/routes';
             vm.items = vm.content.map((item) => {
                 const formats = item['dcat:distribution'].map(resource => {
                     if (resource['ams:distributionType'] === 'file') {
-                        return formatMap[resource['dct:format']];
+                        return formatMap[resource['dcat:mediaType']];
                     } else if (resource['ams:distributionType'] === 'api') {
                         return serviceMap[resource['ams:serviceType']];
                     } else {

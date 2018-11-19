@@ -121,6 +121,12 @@
   .is-print-mode & {
     margin-bottom: 12px;
 
+    &__map-layer {
+      &--hidden {
+        display: none;
+      }
+    }
+
     &__category {
       font-size: 14px;
       padding-bottom: 0;
@@ -141,6 +147,10 @@
 
       & + .map-legend__item {
         margin-top: 6px;
+      }
+
+      &--hidden {
+        display: none;
       }
     }
 
