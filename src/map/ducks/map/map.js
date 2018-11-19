@@ -64,7 +64,7 @@ export default function MapReducer(state = initialState, action) {
         return { id: layerInfo[0], isVisible: !!parseInt(layerInfo[1], 0) };
       });
     } catch (e) {
-      console.warn(e);
+      // console.warn(e);
     }
   }
 

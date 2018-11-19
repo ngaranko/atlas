@@ -1,9 +1,11 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { routing } from '../../app/routes';
 import {
   FETCH_STRAATBEELD,
   fetchStraatbeeld,
-  getStraatbeeld,
+  getStraatbeeldId,
+  getStraatbeeldLocation,
+  getStraatbeeldYear,
   fetchStraatbeeldSuccess,
   fetchStraatbeeldError,
   CLOSE_STRAATBEELD,
@@ -24,7 +26,11 @@ export function* watchPanoramaRoute() {
 }
 
 function* fetchPanorama() {
-  const { id, year } = yield select(getStraatbeeld);
+  const [id, year] = yield all([
+    select(getStraatbeeldId),
+    select(getStraatbeeldYear)
+  ]);
+
   try {
     const imageData = yield call(getImageDataById, id, year);
     yield put(fetchStraatbeeldSuccess(imageData));
@@ -34,7 +40,11 @@ function* fetchPanorama() {
 }
 
 function* fetchPanoramaYear() {
-  const { location, year } = yield select(getStraatbeeld);
+  const [location, year] = yield all([
+    select(getStraatbeeldLocation),
+    select(getStraatbeeldYear)
+  ]);
+
   try {
     const imageData = yield call(getImageDataByLocation, location, year);
     yield put(fetchStraatbeeldSuccess(imageData));
@@ -44,11 +54,10 @@ function* fetchPanoramaYear() {
 }
 
 export function* watchFetchStraatbeeld() {
-  yield takeLatest(FETCH_STRAATBEELD, fetchPanorama);
-}
-
-export function* watchSetStraatbeeldYear() {
-  yield takeLatest(SET_STRAATBEELD_YEAR, fetchPanoramaYear);
+  yield [
+    takeLatest(FETCH_STRAATBEELD, fetchPanorama),
+    takeLatest(SET_STRAATBEELD_YEAR, fetchPanoramaYear)
+  ];
 }
 
 function* doCloseStraatbeeld() {
