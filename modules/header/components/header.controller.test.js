@@ -1,6 +1,5 @@
 import PAGES from '../../../src/app/pages';
 import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/data-search/data-search';
-import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
 import { ROUTER_NAMESPACE } from '../../../src/app/routes';
 import * as routerSelectors from '../../../src/store/redux-first-router';
 import * as dataSelection from '../../../src/shared/ducks/data-selection/data-selection';
@@ -93,7 +92,7 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBe('dataSelection query');
-        expect(controller.searchAction).toEqual(FETCH_DATA_SELECTION);
+        expect(controller.searchAction).toEqual(dataSelection.FETCH_DATA_SELECTION_REQUEST);
     });
 
     it('sets the dataSelection query and action when catalog detail API view is active', function () {
@@ -109,7 +108,7 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBeUndefined();
-        expect(controller.searchAction).toEqual(FETCH_DATA_SELECTION);
+        expect(controller.searchAction).toEqual(dataSelection.FETCH_DATA_SELECTION_REQUEST);
     });
 
     it('default sets the search query and search action', function () {

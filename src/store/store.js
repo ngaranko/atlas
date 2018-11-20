@@ -49,7 +49,8 @@ const configureStore = (history, routesMap) => {
   try {
     auth.initAuth();
   } catch (error) {
-    window.Raven.captureMessage(error);
+    // Todo: DP-6286 - Add sentry back, log to sentry
+    console.warn(error); // eslint-disable-line no-console
   }
 
   const returnPath = auth.getReturnPath();

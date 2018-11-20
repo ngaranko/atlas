@@ -1,6 +1,6 @@
-import { toDataSearch } from '../../../../src/store/redux-first-router';
+import { toDataSearch, toDatasetSearch } from '../../../../src/store/redux-first-router';
 import { datasetsKey } from './tab-header.constant';
-import { toDatasetSearch } from '../../../../src/store/redux-first-router';
+import { fetchDatasets } from '../../../../src/shared/ducks/datasets/data/data';
 
 (function () {
     'use strict';
@@ -36,6 +36,12 @@ import { toDatasetSearch } from '../../../../src/store/redux-first-router';
 
         // Should the reset button be visible
         vm.showReset = () => vm.searchText.trim() && vm.filtersActive;
+
+        vm.resetAction = fetchDatasets({
+            emptyFilters: true,
+            query: '',
+            page: 1
+        });
 
         // sum of all tabCounts, null when any tab.count is null
         vm.totalCount = () => vm.tabHeader.tabs.reduce(
