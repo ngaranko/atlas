@@ -49,7 +49,6 @@ import '../modules/data-selection/components/pagination/pagination.component';
 import '../modules/data-selection/components/views/catalog/catalog.component';
 import '../modules/data-selection/components/views/list/list.component';
 import '../modules/data-selection/components/views/table/table.component';
-import '../modules/data-selection/services/api/data-selection-api.run';
 import '../modules/data-selection/services/document-title/document-title.factory';
 import '../modules/detail/detail.module';
 import '../modules/detail/components/api-call/api-call.component';
