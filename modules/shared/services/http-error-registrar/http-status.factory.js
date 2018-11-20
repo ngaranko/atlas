@@ -11,7 +11,6 @@ import {
 
     httpStatusFactory.$inject = [
         '$window'
-        // 'Raven' // TODO: refactor, restore
     ];
 
     function httpStatusFactory ($window) {
@@ -21,8 +20,8 @@ import {
         };
 
         function logResponse (message, statusCode) {
-            // TODO: refactor, restore
-            // Raven.captureMessage(new Error(message), { tags: { statusCode } });
+            // Todo: log to sentry
+            console.warn(message, statusCode); // eslint-disable-line no-console,angular/log
         }
 
         function registerError (errorType) {

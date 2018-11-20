@@ -177,15 +177,6 @@ import '../modules/shared/components/button/button.component.mock';
 import '../modules/shared/components/link/link.component.mock';
 
 // All our modules' javascript tests
-import '../modules/shared/shared.module.test';
-import '../modules/search-results/search-results.module.test';
-import '../modules/data-selection/data-selection.module.test';
-import '../modules/straatbeeld/straatbeeld.module.test';
-import '../modules/header/header.module.test';
-import '../modules/page/page.module.test';
-import '../modules/detail/detail.module.test';
-import '../modules/atlas/atlas.module.test';
-
 import '../modules/search-results/components/search-results/search-results.component.test';
 import '../modules/search-results/components/search-results/header/search-results-header.component.test';
 import '../modules/search-results/components/search-results/categories/search-results-categories.component.test';

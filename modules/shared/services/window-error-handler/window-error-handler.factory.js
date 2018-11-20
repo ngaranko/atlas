@@ -12,7 +12,6 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
         '$rootScope',
         '$window',
         'httpStatus'
-        // 'Raven' // TODO: refactor, restore
     ];
 
     function windowErrorHandlerFactory (
@@ -20,7 +19,6 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
         $rootScope,
         $window,
         httpStatus
-        // Raven // TODO: refactor, restore
     ) {
         return () => {
             $window.addEventListener('error', function (event) {
@@ -47,11 +45,10 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
                     });
                 }
 
-                // Log exception in Sentry, use error object if available
+                // Todo: log to sentry
                 if (event.error) {
-                    // Raven.captureException(event.error, { // TODO: refactor, restore
-                    //     extra: { message }
-                    // });
+                    // eslint-disable-next-line no-console,angular/log
+                    console.warn(message, event.error);
                 } else {
                     httpStatus.logResponse(message);
                 }
