@@ -1,14 +1,14 @@
 import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/data-search/data-search';
 import {
-    FETCH_DATA_SELECTION_REQUEST,
     isListView
-} from '../../../src/shared/ducks/data-selection/data-selection';
+} from '../../../src/shared/ducks/data-selection/data-selection-selectors';
 import {
     isDataSelectionPage,
     isDatasetPage,
     isHomepage,
     isMapActive
 } from '../../../src/store/redux-first-router';
+import { FETCH_DATA_SELECTION_REQUEST } from '../../../src/shared/ducks/data-selection/data-selection-constants';
 
 (function () {
     'use strict';

@@ -8,10 +8,10 @@ import {
   getCenter,
   getDrawingMode,
   getMapOverlays,
+  getMapZoom,
   getMarkers,
   getRdGeoJsons,
-  isMarkerActive,
-  getMapZoom
+  isMarkerActive
 } from '../../ducks/map/map-selectors';
 
 import {
@@ -38,7 +38,7 @@ import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import {
   getClusterMarkers,
   getGeoJsons
-} from '../../../shared/ducks/data-selection/data-selection';
+} from '../../../shared/ducks/data-selection/data-selection-selectors';
 
 jest.mock('../../../shared/ducks/data-selection/data-selection');
 jest.mock('../../ducks/base-layers/map-base-layers');

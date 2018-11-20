@@ -1,52 +1,19 @@
-import { createSelector } from 'reselect';
-import { detailPointType } from '../../../map/components/leaflet/services/icons.constant';
 import { routing } from '../../../app/routes';
-
-export const REDUCER_KEY = 'dataSelection';
-export const FETCH_DATA_SELECTION_REQUEST = `${REDUCER_KEY}/FETCH_DATA_SELECTION_REQUEST`;
-export const FETCH_DATA_SELECTION_SUCCESS = `${REDUCER_KEY}/FETCH_DATA_SELECTION_SUCCESS`;
-export const FETCH_DATA_SELECTION_FAILURE = `${REDUCER_KEY}/FETCH_DATA_SELECTION_FAILURE`;
-export const CLEAR_STATE = `${REDUCER_KEY}/CLEAR_STATE`;
-export const RESET_DATA_SELECTION = 'RESET_DATA_SELECTION';
-
-export const SET_GEOMETRY_FILTERS = `${REDUCER_KEY}/SET_GEO_FILTERS`;
-export const CLEAR_GEOMETRY_FILTERS = `${REDUCER_KEY}/CLEAR_GEOMETRY_FILTERS`;
-
-export const SET_VIEW = `${REDUCER_KEY}/SET_VIEW`;
-export const SET_PAGE = `${REDUCER_KEY}/SET_PAGE`;
-export const SET_DATASET = `${REDUCER_KEY}/SET_DATASET`;
-const SET_MARKERS = `${REDUCER_KEY}/SET_MARKERS`;
-
-const ROUTE_DATASET_MAPPER = {
-  [routing.cadastralObjects.type]: 'brk',
-  [routing.establishments.type]: 'hr',
-  [routing.addresses.type]: 'bag'
-};
-
-export const VIEWS = {
-  LIST: 'LIST',
-  TABLE: 'TABLE',
-  CATALOG: 'CATALOG'
-};
-
-export const DATASETS = {
-  BAG: 'bag',
-  BRK: 'brk',
-  HR: 'hr'
-};
-
-export const initialState = {
-  isLoading: false,
-  markers: [], // eg: [[52.1, 4.1], [52.2, 4.0]],
-  geometryFilter: {
-    markers: undefined
-  },
-  dataset: DATASETS.BAG,
-  view: VIEWS.TABLE,
-  authError: false,
-  errorMessage: '',
-  page: 1
-};
+import {
+  FETCH_DATA_SELECTION_FAILURE,
+  FETCH_DATA_SELECTION_REQUEST,
+  FETCH_DATA_SELECTION_SUCCESS,
+  initialState,
+  ROUTE_DATASET_MAPPER,
+  SET_DATASET,
+  SET_GEOMETRY_FILTERS,
+  SET_MARKERS,
+  SET_PAGE,
+  SET_VIEW,
+  VIEWS
+} from './data-selection-constants';
+import query from './data-selection-query';
+import { getStateFromQuery } from '../../../store/query-synchronization';
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -54,18 +21,11 @@ export default function reducer(state = initialState, action) {
     case routing.establishments.type:
     case routing.cadastralObjects.type: {
       if (action.meta.query) {
-        const { geoFilter, geoFilterDescription, listView } = action.meta.query;
-        const markers = geoFilter && geoFilter.length
-          ? geoFilter.split('|').map((latLng) => latLng.split(':').map((str) => parseFloat(str)))
-          : [];
+        const stateFromQuery = getStateFromQuery(query, action.meta.query);
         return {
           ...state,
-          dataset: ROUTE_DATASET_MAPPER[action.type],
-          view: listView ? VIEWS.LIST : VIEWS.TABLE,
-          geometryFilter: {
-            markers,
-            description: geoFilterDescription
-          }
+          ...stateFromQuery,
+          dataset: ROUTE_DATASET_MAPPER[action.type]
         };
       }
       return {
@@ -123,14 +83,6 @@ export default function reducer(state = initialState, action) {
         geometryFilter: action.payload
       };
 
-    case CLEAR_GEOMETRY_FILTERS:
-      return {
-        ...state,
-        geometryFilter: {
-          markers: []
-        }
-      };
-
     case SET_PAGE:
       return {
         ...state,
@@ -143,9 +95,6 @@ export default function reducer(state = initialState, action) {
         view: action.payload
       };
 
-    case CLEAR_STATE:
-      return initialState;
-
     default:
       return state;
   }
@@ -156,9 +105,7 @@ export const setMarkers = (payload) => ({ type: SET_MARKERS, payload });
 export const setPage = (payload) => ({ type: SET_PAGE, payload });
 export const setView = (payload) => ({ type: SET_VIEW, payload });
 export const setDataset = (payload) => ({ type: SET_DATASET, payload });
-export const clearState = () => ({ type: CLEAR_STATE });
 export const setGeometryFilter = (payload) => ({ type: SET_GEOMETRY_FILTERS, payload });
-export const clearGeometryFilter = () => ({ type: CLEAR_GEOMETRY_FILTERS });
 
 export const receiveDataSelectionSuccess = (payload) => ({
   type: FETCH_DATA_SELECTION_SUCCESS,
@@ -170,56 +117,3 @@ export const receiveDataSelectionFailure = (error) => ({
   payload: error
 });
 
-// Selectors
-export const getDataSelection = (state) => state[REDUCER_KEY];
-export const getDataSelectionPage = createSelector(
-  getDataSelection,
-  (dataSelection) => dataSelection.page);
-
-export const getGeometryFilters = createSelector(
-  getDataSelection,
-  (dataSelection) => dataSelection.geometryFilter);
-export const getGeometryFiltersMarkers = createSelector(
-  getGeometryFilters,
-  (filters) => filters && filters.markers);
-
-export const getDataSelectionResult = createSelector(
-  getDataSelection,
-  (dataSelection) => dataSelection.result || {});
-
-export const getDataSelectionView = createSelector(
-  getDataSelection,
-  (dataSelection) => dataSelection && dataSelection.view
-);
-
-export const isListView = createSelector(
-  getDataSelectionView,
-  (view) => view === VIEWS.LIST
-);
-
-const generateMarkers = (markers) => (
-  markers.map((markerLocation, index) => ({
-    position: markerLocation,
-    type: detailPointType,
-    index
-  })));
-
-const getMapMarkers = createSelector([getDataSelection],
-  (dataSelection) => dataSelection.markers);
-
-export const getClusterMarkers = createSelector([getMapMarkers],
-  (markers) => (
-    markers && markers.clusterMarkers && markers.clusterMarkers.length ?
-      generateMarkers(markers.clusterMarkers) : []
-  ));
-
-export const getGeoJsons = createSelector([getMapMarkers],
-  (markers) => (
-    markers && markers.geoJsons && markers.geoJsons.length ?
-      markers.geoJsons : []
-  ));
-
-export const getFilters = createSelector(
-  getDataSelectionResult, (result) => result.filters || []
-);
-export const getGeometryFilterDescription = (state) => getGeometryFilters(state).description;

@@ -75,6 +75,16 @@ function* updateQuery() {
   }
 }
 
+export const getStateFromQuery = (definitions, query) => (
+  Object.keys(definitions).reduce((acc, key) => {
+    const decodedValue = definitions[key].decode(query[key]);
+    if (decodedValue) {
+      acc[definitions[key].stateKey] = decodedValue;
+    }
+    return acc;
+  }, {})
+);
+
 export default function* watchQueryActions() {
   yield takeLatest(watchedActions, updateQuery);
 }

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { routing } from '../../../app/routes';
-import { getFilters as getDataSelectionFilters } from '../data-selection/data-selection';
+import { getFilters as getDataSelectionFilters } from '../data-selection/data-selection-selectors';
 import { getFilters as getDatasetFilters } from '../datasets/datasets';
 
 export const REDUCER_KEY = 'filters';
@@ -16,7 +16,10 @@ const reducer = (state = {}, action) => {
     case routing.establishments.type:
     case routing.cadastralObjects.type: {
       const { filters: queryFilters, geoFilter, geoFilterDescription } = action.meta.query || {};
-      const filterToParse = queryFilters || '{}';
+      let filterToParse = '{}';
+      if (queryFilters) {
+        filterToParse = atob(queryFilters);
+      }
       let shapeFilter = {};
 
       if (geoFilter) {

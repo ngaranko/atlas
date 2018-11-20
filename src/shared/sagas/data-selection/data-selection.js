@@ -1,16 +1,10 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import queryString from 'querystring';
 import {
-  FETCH_DATA_SELECTION_REQUEST,
   fetchDataSelection,
-  getDataSelection,
   receiveDataSelectionFailure,
   receiveDataSelectionSuccess,
-  SET_DATASET,
-  SET_GEOMETRY_FILTERS,
-  SET_VIEW,
-  setMarkers,
-  VIEWS
+  setMarkers
 } from '../../ducks/data-selection/data-selection';
 import { routing } from '../../../app/routes';
 import dataselectionConfig from '../../services/data-selection/data-selection-config';
@@ -18,6 +12,18 @@ import { getMarkers, query } from '../../services/data-selection/data-selection-
 import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
 import { ADD_FILTER, EMPTY_FILTERS, getFilters, REMOVE_FILTER } from '../../ducks/filters/filters';
 import { isDataSelectionPage } from '../../../store/redux-first-router';
+import {
+  FETCH_DATA_SELECTION_REQUEST,
+  SET_DATASET,
+  SET_GEOMETRY_FILTERS,
+  SET_PAGE,
+  SET_VIEW,
+  VIEWS
+} from '../../ducks/data-selection/data-selection-constants';
+import {
+  getDataSelection,
+  getGeomarkersShape
+} from '../../ducks/data-selection/data-selection-selectors';
 
 function* getMapMarkers(dataset, activeFilters) {
   const state = yield select();
@@ -27,15 +33,22 @@ function* getMapMarkers(dataset, activeFilters) {
 }
 
 function* retrieveDataSelection(action) {
-  const { dataset, view, activeFilters, page, searchText, geometryFilter, catalogFilters } =
-    action.payload;
+  const {
+    dataset,
+    view,
+    activeFilters,
+    page,
+    searchText,
+    shape,
+    catalogFilters
+  } = action.payload;
   try {
     const result = yield call(query,
-      dataset, view, activeFilters, page, searchText, geometryFilter, catalogFilters);
+      dataset, view, activeFilters, page, searchText, shape, catalogFilters);
 
     // Put the results in the reducer
     yield put(receiveDataSelectionSuccess({
-      dataset, view, activeFilters, page, geometryFilter, result
+      dataset, view, activeFilters, page, shape, result
     }));
 
     // Check if markers need to be fetched
@@ -45,7 +58,10 @@ function* retrieveDataSelection(action) {
     );
 
     if (markersShouldBeFetched) {
-      yield call(getMapMarkers, dataset, activeFilters);
+      yield call(getMapMarkers, dataset, {
+        ...activeFilters,
+        shape
+      });
     }
   } catch (e) {
     yield put(receiveDataSelectionFailure({
@@ -62,11 +78,13 @@ function* fireRequest() {
   if (isDataSelectionPage(state)) {
     const dataSelection = getDataSelection(state);
     const activeFilters = getFilters(state);
+    const shape = getGeomarkersShape(state);
 
     yield put(
       fetchDataSelection({
         ...dataSelection,
-        activeFilters
+        activeFilters,
+        shape
       })
     );
   }
@@ -86,7 +104,8 @@ function* switchPage() {
     meta: {
       query: {
         listView: true,
-        ...queryString.decode(location.search) // Todo: temporary solution to pass existing query
+        // Todo: temporary solution to pass existing query
+        ...queryString.decode(location.search.slice(1))
       }
     }
   });
@@ -102,5 +121,5 @@ export default function* watchFetchDataSelection() {
 
   // Actions
   yield takeLatest(FETCH_DATA_SELECTION_REQUEST, retrieveDataSelection);
-  yield takeLatest([SET_DATASET, SET_GEOMETRY_FILTERS], switchPage);
+  yield takeLatest([SET_DATASET, SET_GEOMETRY_FILTERS, SET_PAGE], switchPage);
 }

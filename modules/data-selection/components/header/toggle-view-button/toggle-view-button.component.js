@@ -1,4 +1,5 @@
-import { setView, VIEWS } from '../../../../../src/shared/ducks/data-selection/data-selection';
+import { setView } from '../../../../../src/shared/ducks/data-selection/data-selection';
+import { VIEWS } from '../../../../../src/shared/ducks/data-selection/data-selection-constants';
 
 (function () {
     'use strict';

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 import DataSelection from './DataSelection';
-import { DATASETS, VIEWS } from '../../../shared/ducks/data-selection/data-selection';
+import { DATASETS, VIEWS } from '../../../shared/ducks/data-selection/data-selection-constants';
 
 const initialState = {
   filters: {},
