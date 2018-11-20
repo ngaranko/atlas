@@ -2,8 +2,8 @@ import { Icon } from 'leaflet';
 
 import ICON_CONFIG from './icon-config.constant';
 
-export const straatbeeldPersonIcon = () => new Icon({
-  ...ICON_CONFIG.STRAATBEELD_PERSON,
+export const panoramaPersonIcon = () => new Icon({
+  ...ICON_CONFIG.PANORAMA_PERSON,
   popupAnchor: null,
   shadowUrl: null,
   shadowSize: null,
@@ -11,8 +11,8 @@ export const straatbeeldPersonIcon = () => new Icon({
   className: 'straatbeeld_person'
 });
 
-export const straatbeeldOrientationIcon = () => new Icon({
-  ...ICON_CONFIG.STRAATBEELD_ORIENTATION,
+export const panoramaOrientationIcon = () => new Icon({
+  ...ICON_CONFIG.PANORAMA_ORIENTATION,
   popupAnchor: null,
   shadowUrl: null,
   shadowSize: null,

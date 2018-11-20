@@ -1,9 +1,9 @@
 import { toPanorama } from '../../../../src/store/redux-first-router';
 import {
-    getStraatbeeldHeading,
-    getStraatbeeldId
-} from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
-import PANORAMA_VIEW from '../../../../src/shared/ducks/straatbeeld/panorama-view';
+    getPanoramaHeading,
+    getPanoramaId
+} from '../../../../src/shared/ducks/panorama/panorama';
+import PANORAMA_VIEW from '../../../../src/shared/ducks/panorama/panorama-view';
 
 (function () {
     'use strict';
@@ -36,8 +36,8 @@ import PANORAMA_VIEW from '../../../../src/shared/ducks/straatbeeld/panorama-vie
             // TODO: refactor, make component unaware of store
             // (wrap in smart component like connect in React).
             const state = store.getState();
-            const id = getStraatbeeldId(state);
-            const heading = getStraatbeeldHeading(state);
+            const id = getPanoramaId(state);
+            const heading = getPanoramaHeading(state);
             if (vm.isFullscreen) {
                 store.dispatch(toPanorama(id, heading, PANORAMA_VIEW.MAP_PANO));
             } else {

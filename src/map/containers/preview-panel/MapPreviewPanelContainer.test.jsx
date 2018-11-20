@@ -15,9 +15,9 @@ import {
   selectLatestMapDetail
 } from '../../ducks/detail/map-detail';
 import {
-  FETCH_PANO_PREVIEW_REQUEST,
-  fetchPanoPreview
-} from '../../../pano/ducks/preview/pano-preview';
+  FETCH_PANORAMA_PREVIEW_REQUEST,
+  fetchPanoramaPreview
+} from '../../../shared/ducks/panorama/preview/panorama-preview';
 import {
   getLocationId,
   getShortSelectedLocation,
@@ -32,7 +32,7 @@ jest.mock('../../../shared/ducks/data-search/data-search');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
 jest.mock('../../ducks/detail/map-detail');
 jest.mock('../../ducks/map/map-selectors');
-jest.mock('../../../pano/ducks/preview/pano-preview');
+jest.mock('../../../shared/ducks/panorama/preview/panorama-preview');
 jest.mock('../../../shared/ducks/selection/selection');
 jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
 
@@ -95,7 +95,7 @@ describe('MapPreviewPanelContainer', () => {
       longitude: 0
     });
     getMapDetail.mockImplementation(() => ({ type: FETCH_MAP_DETAIL_REQUEST }));
-    fetchPanoPreview.mockImplementation(() => ({ type: FETCH_PANO_PREVIEW_REQUEST }));
+    fetchPanoramaPreview.mockImplementation(() => ({ type: FETCH_PANORAMA_PREVIEW_REQUEST }));
     selectNotClickableVisibleMapLayers.mockImplementation(() => ([]));
     getShortSelectedLocation.mockImplementation(() => null);
     isGeoSearch.mockImplementation((state) => !(state.detail && state.detail.endpoint));
@@ -105,7 +105,7 @@ describe('MapPreviewPanelContainer', () => {
 
   afterEach(() => {
     getMapDetail.mockReset();
-    fetchPanoPreview.mockReset();
+    fetchPanoramaPreview.mockReset();
     selectLatestMapSearchResults.mockReset();
     selectLatestMapDetail.mockReset();
     selectNotClickableVisibleMapLayers.mockReset();

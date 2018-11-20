@@ -1,7 +1,7 @@
 import {
     getImageDataById,
     getImageDataByLocation
-} from '../../../../src/shared/services/straatbeeld-api/straatbeeld-api';
+} from '../../../../src/shared/services/panorama-api/panorama-api';
 
 (function () {
     'use strict';

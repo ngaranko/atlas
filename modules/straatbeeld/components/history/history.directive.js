@@ -1,6 +1,6 @@
 import {
-    setStraatbeeldYear
-} from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+    setPanoramaYear
+} from '../../../../src/shared/ducks/panorama/panorama';
 
 (function () {
     'use strict';
@@ -55,7 +55,7 @@ import {
             scope.toggleMenu = () => scope.menuActive = !scope.menuActive;
             scope.setSelectedOption = (option) => {
                 scope.selectedOption = option;
-                store.dispatch(setStraatbeeldYear(option.year));
+                store.dispatch(setPanoramaYear(option.year));
             };
 
             scope.$watchCollection('location', updateLocation, true);

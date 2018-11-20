@@ -3,35 +3,10 @@ import { composeProviders } from 'redux-saga-test-plan/providers';
 
 import watchMapClick, { switchClickAction } from './map-click';
 import { getMapPanelLayers, getActiveMapLayers } from '../../ducks/panel-layers/map-panel-layers';
-import { getStraatbeeld } from '../../../shared/ducks/straatbeeld/straatbeeld';
+import { getPanorama } from '../../../shared/ducks/panorama/panorama';
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
 import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
-
-//  it('heads towards a targetlocation when straatbeeld is loaded by location', () => {
-//       let output;
-//
-//       [
-//         { target: [52, 4], heading: 0 },
-//         { target: [52, 5], heading: 90 },
-//         { target: [52, 3], heading: -90 },
-//         { target: [53, 5], heading: 45 },
-//         { target: [51, 3], heading: -135 },
-//         { target: [51, 5], heading: 135 }
-//       ].forEach(({ target, heading }) => {
-//         inputState.targetLocation = target;
-//         inputState.location = inputState.targetLocation;
-//
-//         output = reducer(inputState, {
-//           type: SET_STRAATBEELD,
-//           payload
-//         });
-//         expect(output)
-//           .toEqual(jasmine.objectContaining({
-//             heading
-//           }));
-//       });
-//     });
 
 describe('getActiveMapLayers', () => {
   const state = {
@@ -149,8 +124,8 @@ describe('watchMapClick', () => {
 
     const mapPanelLayersWithSelection = [...mockPanelLayers, matchingPanelLayer];
 
-    const provideStraatbeeld = ({ selector }, next) => (
-      selector === getStraatbeeld ? null : next()
+    const providePanorama = ({ selector }, next) => (
+      selector === getPanorama ? null : next()
     );
 
     const provideMapLayers = ({ selector }, next) => (
@@ -162,14 +137,14 @@ describe('watchMapClick', () => {
       selector === getMapZoom ? 8 : next()
     );
 
-    it('should dispatch the REQUEST_NEAREST_DETAILS when the straatbeeld is not enabled', () => {
+    it('should dispatch the REQUEST_NEAREST_DETAILS when the panorama is not enabled', () => {
       const provideMapPanelLayers = ({ selector }, next) => (
         selector === getMapPanelLayers ? mapPanelLayersWithSelection : next()
       );
       expectSaga(switchClickAction, payload)
         .provide({
           select: composeProviders(
-            provideStraatbeeld,
+            providePanorama,
             provideMapLayers,
             provideMapZoom,
             provideMapPanelLayers
@@ -186,7 +161,7 @@ describe('watchMapClick', () => {
         .run();
     });
 
-    it('should dispatch the REQUEST_GEOSEARCH when the straatbeeld is not enabled and there is not panelLayer found ', () => {
+    it('should dispatch the REQUEST_GEOSEARCH when the panorama is not enabled and there is not panelLayer found ', () => {
       const provideMapPanelLayers = ({ selector }, next) => (
         selector === getMapPanelLayers ? [...mockPanelLayers] : next()
       );
@@ -194,7 +169,7 @@ describe('watchMapClick', () => {
       expectSaga(switchClickAction, payload)
         .provide({
           select: composeProviders(
-            provideStraatbeeld,
+            providePanorama,
             provideMapLayers,
             provideMapZoom,
             provideMapPanelLayers

@@ -14,25 +14,14 @@ import * as MapReducer from '../map/ducks/map/map';
 import * as MapLayersReducer from '../map/ducks/layers/map-layers';
 import * as MapBaseLayersReducer from '../map/ducks/base-layers/map-base-layers';
 import * as MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';
-import * as StraatbeeldReducer from '../shared/ducks/straatbeeld/straatbeeld';
-import * as PanoPreviewReducer from '../pano/ducks/preview/pano-preview';
+import * as PanoramaReducer from '../shared/ducks/panorama/panorama';
+import * as PanoPreviewReducer from '../shared/ducks/panorama/preview/panorama-preview';
 import * as FiltersReducer from '../shared/ducks/filters/filters';
 import * as DataSearchReducer from '../shared/ducks/data-search/data-search';
 import * as SelectionReducer from '../shared/ducks/selection/selection';
 import * as DetailReducer from '../shared/ducks/detail/detail';
 
 describe('the root reducer', () => {
-  const deprecatedOutput = {
-    dataSelection: 'dataSelection',
-    page: 'page',
-    map: 'map',
-    mapDetail: 'mapDetail',
-    detail: 'detail',
-    straatbeeld: 'straatbeeld',
-    ui: 'ui',
-    user: 'user'
-  };
-
   AutoSuggestReducer.default = () => 'autoSuggest';
   DataSelectionReducer.default = () => 'dataSelection';
   DataSelectionCatalogReducer.default = () => 'catalogFilters';
@@ -46,8 +35,8 @@ describe('the root reducer', () => {
   MapLayersReducer.default = () => 'layers';
   MapBaseLayersReducer.default = () => 'baseLayers';
   MapPanelLayersReducer.default = () => 'panelLayers';
-  StraatbeeldReducer.default = () => 'straatbeeld';
-  PanoPreviewReducer.default = () => 'pano';
+  PanoramaReducer.default = () => 'panorama';
+  PanoPreviewReducer.default = () => 'panoramaPreview';
   DataSearchReducer.default = () => 'dataSearch';
   SelectionReducer.default = () => 'selection';
   FiltersReducer.default = () => 'filters';
@@ -60,17 +49,17 @@ describe('the root reducer', () => {
     const output = rootReducer(() => 'location')(state, action);
     expect(output)
       .toEqual({
-        ...deprecatedOutput,
         dataSelection: 'dataSelection',
         datasets: 'datasets',
         page: 'page',
         error: 'error',
         filters: 'filters',
         map: 'map',
+        detail: 'detail',
         mapDetail: 'mapDetail',
-        pano: 'pano',
         location: 'location',
-        straatbeeld: 'straatbeeld',
+        panoramaPreview: 'panoramaPreview',
+        panorama: 'panorama',
         ui: 'ui',
         user: 'user',
         dataSearch: 'dataSearch',

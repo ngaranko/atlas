@@ -1,5 +1,5 @@
 import { radiansToDegrees } from '../../../../src/shared/services/angle-conversion/angle-conversion';
-import { setStraatbeeldOrientation } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+import { setPanoramaOrientation } from '../../../../src/shared/ducks/panorama/panorama';
 
 (function () {
     'use strict';
@@ -20,7 +20,7 @@ import { setStraatbeeldOrientation } from '../../../../src/shared/ducks/straatbe
             const fov = radiansToDegrees(viewer.view().fov());
             const heading = radiansToDegrees(viewer.view().yaw());
 
-            store.dispatch(setStraatbeeldOrientation({
+            store.dispatch(setPanoramaOrientation({
                 heading,
                 pitch,
                 fov

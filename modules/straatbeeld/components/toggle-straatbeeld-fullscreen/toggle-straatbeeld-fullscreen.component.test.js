@@ -1,7 +1,7 @@
 import { toPanorama } from '../../../../src/store/redux-first-router';
-import PANORAMA_VIEW from '../../../../src/shared/ducks/straatbeeld/panorama-view';
+import PANORAMA_VIEW from '../../../../src/shared/ducks/panorama/panorama-view';
 
-import * as straatbeeld from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+import * as straatbeeld from '../../../../src/shared/ducks/panorama/panorama';
 
 describe('The dp-toggle-straatbeeld-fullscreen component', function () {
     let $compile,
@@ -30,8 +30,8 @@ describe('The dp-toggle-straatbeeld-fullscreen component', function () {
 
         id = 42;
         heading = 99;
-        straatbeeld.getStraatbeeldId = () => id;
-        straatbeeld.getStraatbeeldHeading = () => heading;
+        straatbeeld.getPanoramaId = () => id;
+        straatbeeld.getPanoramaHeading = () => heading;
 
         spyOn(store, 'dispatch');
     });

@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 
 import {
-  getStraatbeeldLocation,
-  getStraatbeeldMarkers,
-  getStraatbeeldYear
-} from '../../../shared/ducks/straatbeeld/straatbeeld';
+  getPanoramaLocation,
+  getPanoramaMarkers,
+  getPanoramaYear
+} from '../../../shared/ducks/panorama/panorama';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
 import { getMapResultsByLocation } from '../../../shared/ducks/data-search/data-search';
@@ -21,7 +21,7 @@ export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.
 export const getMapZoom = createSelector(getMap, (mapState) => mapState.zoom);
 
 export const getMapOverlays = createSelector(
-  [getSelectionType, getMap, getStraatbeeldYear],
+  [getSelectionType, getMap, getPanoramaYear],
   (selectionType, mapState, year) => {
     if (selectionType === SELECTION_TYPE.PANORAMA) {
       const layerId = year ? `pano${year}` : 'pano';
@@ -45,9 +45,9 @@ export const getGeometry = createSelector(getMap, (mapState) => mapState.geometr
 export const getShapeMarkers = createSelector(getMap, (mapState) => mapState.shapeMarkers);
 export const getShapeDistanceTxt = createSelector(getMap, (mapState) => mapState.shapeDistanceTxt);
 
-export const getCenter = createSelector([getMapCenter, getStraatbeeldLocation],
-  (mapCenter, straatbeeldLocation) => (
-    straatbeeldLocation || mapCenter
+export const getCenter = createSelector([getMapCenter, getPanoramaLocation],
+  (mapCenter, panoramaLocation) => (
+    panoramaLocation || mapCenter
   ));
 
 export const getLatitude = createSelector(getCenter, (center) => center[0]);
@@ -88,9 +88,9 @@ export const getSearchMarker = (state) => {
 
 export const getMarkers = createSelector(
   getSearchMarker,
-  getStraatbeeldMarkers,
-  (searchMarkers, straatbeeldMarkers) => (
-    [...searchMarkers, ...straatbeeldMarkers]
+  getPanoramaMarkers,
+  (searchMarkers, panoramaMarkers) => (
+    [...searchMarkers, ...panoramaMarkers]
   ));
 
 export const isMarkerActive = createSelector(getDetail, (detail) => !detail);

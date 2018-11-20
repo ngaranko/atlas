@@ -1,4 +1,4 @@
-import SHARED_CONFIG from '../../shared/services/shared-config/shared-config';
+import SHARED_CONFIG from '../shared-config/shared-config';
 
 export default function fetchPano(location) {
   const searchParams = {

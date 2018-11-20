@@ -1,16 +1,16 @@
 import reducer, {
-  getStraatbeeld,
-  getStraatbeeldHeading,
-  getStraatbeeldLocation,
-  getStraatbeeldMarkers,
-  fetchStraatbeeldSuccess,
-  setStraatbeeldYear, fetchStraatbeeld, setStraatbeeldOrientation
-} from './straatbeeld';
-import * as STRAATBEELD_CONFIG from '../../../../modules/straatbeeld/straatbeeld-config';
+  getPanorama,
+  getPanoramaHeading,
+  getPanoramaLocation,
+  getPanoramaMarkers,
+  fetchPanoramaSuccess,
+  setPanoramaYear, fetchPanoramaRequest, setPanoramaOrientation
+} from './panorama';
+import * as PANORAMA_CONFIG from '../../../../modules/straatbeeld/straatbeeld-config';
 
-describe('Straatbeeld Reducer', () => {
+describe('Panorama Reducer', () => {
   beforeAll(() => {
-    STRAATBEELD_CONFIG.default = {
+    PANORAMA_CONFIG.default = {
       DEFAULT_FOV: 79
     };
   });
@@ -30,7 +30,7 @@ describe('Straatbeeld Reducer', () => {
     });
   });
 
-  describe('fetchStraatbeeldById', () => {
+  describe('fetchPanoramaById', () => {
     it('when heading is not in payload, use oldstate heading', () => {
       const inputState = {
         fov: 1,
@@ -42,23 +42,23 @@ describe('Straatbeeld Reducer', () => {
         image: 'http://example.com/example.png'
       };
       const id = 'ABC';
-      const newState = reducer(inputState, fetchStraatbeeld(id));
+      const newState = reducer(inputState, fetchPanoramaRequest(id));
       expect(newState.id).toBe(id);
       expect(newState.heading).toBe(inputState.heading);
     });
   });
 
-  describe('setStraatbeeldYear', () => {
+  describe('setPanoramaYear', () => {
     it('sets the year', () => {
       expect(
-        reducer({ year: 2010 }, setStraatbeeldYear(2020))
+        reducer({ year: 2010 }, setPanoramaYear(2020))
       ).toEqual({
         year: 2020
       });
     });
   });
 
-  describe('setStraatbeeld', () => {
+  describe('setPanorama', () => {
     const payload = {
       date: new Date('2016-05-19T13:04:15.341110Z'),
       hotspots: [{
@@ -83,12 +83,12 @@ describe('Straatbeeld Reducer', () => {
     });
 
     it('Adds the payload to the state', () => {
-      const newState = reducer(inputState, fetchStraatbeeldSuccess(payload));
+      const newState = reducer(inputState, fetchPanoramaSuccess(payload));
       expect(newState).toEqual(jasmine.objectContaining(payload));
     });
 
     it('set defaults for pitch, fov when oldstate is unknown', () => {
-      const newState = reducer(inputState, fetchStraatbeeldSuccess(payload));
+      const newState = reducer(inputState, fetchPanoramaSuccess(payload));
       expect(newState.pitch).toBe(0);
       expect(newState.fov).toBe(80);
     });
@@ -97,18 +97,18 @@ describe('Straatbeeld Reducer', () => {
       inputState.pitch = 1;
       inputState.fov = 2;
 
-      const newState = reducer(inputState, fetchStraatbeeldSuccess(payload));
+      const newState = reducer(inputState, fetchPanoramaSuccess(payload));
       expect(newState.pitch).toBe(1);
       expect(newState.fov).toBe(2);
     });
 
     it('Sets loading to false', () => {
-      const output = reducer(inputState, fetchStraatbeeldSuccess(payload));
+      const output = reducer(inputState, fetchPanoramaSuccess(payload));
       expect(output.isLoading).toBe(false);
     });
   });
 
-  describe('setStraatbeeldOrientation', () => {
+  describe('setPanoramaOrientation', () => {
     it('updates the orientation', () => {
       const inputState = {
         pitch: 1,
@@ -119,7 +119,7 @@ describe('Straatbeeld Reducer', () => {
         pitch: 1,
         fov: 2
       };
-      const output = reducer(inputState, setStraatbeeldOrientation(payload));
+      const output = reducer(inputState, setPanoramaOrientation(payload));
 
       expect(output.heading)
         .toEqual(payload.heading);
@@ -132,70 +132,70 @@ describe('Straatbeeld Reducer', () => {
 });
 
 // SELECTORS
-describe('straatbeeld selectors', () => {
-  const straatbeeld = {
+describe('panorama selectors', () => {
+  const panorama = {
     location: [10, 10],
     heading: -134
   };
-  describe('getStraatbeeld', () => {
-    it('should return straatbeeld from the state', () => {
-      const selected = getStraatbeeld({ straatbeeld });
-      expect(selected).toEqual(straatbeeld);
+  describe('getPanorama', () => {
+    it('should return panorama from the state', () => {
+      const selected = getPanorama({ panorama });
+      expect(selected).toEqual(panorama);
     });
   });
 
-  describe('getStraatbeeldLocation', () => {
-    it('should return the location from the straatbeeld', () => {
-      const selected = getStraatbeeldLocation.resultFunc(straatbeeld);
-      expect(selected).toEqual(straatbeeld.location);
+  describe('getPanoramaLocation', () => {
+    it('should return the location from the panorama', () => {
+      const selected = getPanoramaLocation.resultFunc(panorama);
+      expect(selected).toEqual(panorama.location);
     });
 
-    it('should return an empty string if straatbeeld is empty', () => {
-      const selected = getStraatbeeldLocation.resultFunc('');
+    it('should return an empty string if panorama is empty', () => {
+      const selected = getPanoramaLocation.resultFunc('');
       expect(selected).toEqual('');
     });
   });
 
-  describe('getStraatbeeldHeading', () => {
-    it('should return the location from the straatbeeld', () => {
-      const selected = getStraatbeeldHeading.resultFunc(straatbeeld);
-      expect(selected).toEqual(straatbeeld.heading);
+  describe('getPanoramaHeading', () => {
+    it('should return the location from the panorama', () => {
+      const selected = getPanoramaHeading.resultFunc(panorama);
+      expect(selected).toEqual(panorama.heading);
     });
   });
 
-  describe('getStraatbeeldMarkers', () => {
-    const { location, heading } = straatbeeld;
+  describe('getPanoramaMarkers', () => {
+    const { location, heading } = panorama;
     it('should return an array of with 2 markers', () => {
-      const selected = getStraatbeeldMarkers.resultFunc(location, heading);
+      const selected = getPanoramaMarkers.resultFunc(location, heading);
       expect(selected).toEqual([
         {
           position: location,
-          type: 'straatbeeldOrientationType',
+          type: 'panoramaOrientationType',
           heading
         },
         {
           position: location,
-          type: 'straatbeeldPersonType'
+          type: 'panoramaPersonType'
         }
       ]);
     });
 
     it('should return an empty array if there is no location', () => {
-      const selected = getStraatbeeldMarkers.resultFunc('', heading);
+      const selected = getPanoramaMarkers.resultFunc('', heading);
       expect(selected).toEqual([]);
     });
 
     it('should return an array of with 2 markers with a default heading of 0 if there is no heading', () => {
-      const selected = getStraatbeeldMarkers.resultFunc(location, '');
+      const selected = getPanoramaMarkers.resultFunc(location, '');
       expect(selected).toEqual([
         {
           position: location,
-          type: 'straatbeeldOrientationType',
+          type: 'panoramaOrientationType',
           heading: 0
         },
         {
           position: location,
-          type: 'straatbeeldPersonType'
+          type: 'panoramaPersonType'
         }
       ]);
     });

@@ -4,24 +4,24 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { AngularWrapper } from 'react-angular';
 import {
-closeStraatbeeld,
+closePanorama,
 getHotspots,
-getStraatbeeld
-} from '../../shared/ducks/straatbeeld/straatbeeld';
+getPanorama
+} from '../../shared/ducks/panorama/panorama';
 import { isPrintMode } from '../../shared/ducks/ui/ui';
 
 const mapStateToProps = (state) => ({
-  straatbeeldState: getStraatbeeld(state),
+  panoramaState: getPanorama(state),
   hotspots: getHotspots(state),
   isPrint: isPrintMode(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  doClose: closeStraatbeeld
+  doClose: closePanorama
 }, dispatch);
 
 const PanoramaContainer = ({
-  straatbeeldState,
+  panoramaState,
   doClose,
   hotspots,
   isFullscreen,
@@ -32,7 +32,7 @@ const PanoramaContainer = ({
     component="dpStraatbeeld"
     dependencies={['atlas']}
     bindings={{
-      state: straatbeeldState,
+      state: panoramaState,
       doClose,
       hotspots,
       isFullscreen,
@@ -44,7 +44,7 @@ const PanoramaContainer = ({
 );
 
 PanoramaContainer.propTypes = {
-  straatbeeldState: PropTypes.shape({}).isRequired,
+  panoramaState: PropTypes.shape({}).isRequired,
   hotspots: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   isFullscreen: PropTypes.bool.isRequired,
   doClose: PropTypes.func.isRequired,

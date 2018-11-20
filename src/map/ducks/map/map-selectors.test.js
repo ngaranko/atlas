@@ -7,12 +7,12 @@ import {
   getRdGeoJsons
 } from './map-selectors';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
-import { getStraatbeeldLocation } from '../../../shared/ducks/straatbeeld/straatbeeld';
+import { getPanoramaLocation } from '../../../shared/ducks/panorama/panorama';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 
 jest.mock('../../../shared/ducks/selection/selection');
 jest.mock('../../../shared/ducks/data-search/data-search');
-jest.mock('../../../shared/ducks/straatbeeld/straatbeeld');
+jest.mock('../../../shared/ducks/panorama/panorama');
 jest.mock('../detail/map-detail');
 describe('Map Selectors', () => {
   const map = {
@@ -22,14 +22,14 @@ describe('Map Selectors', () => {
     zoom: 2,
     selectedLocation: '123,456'
   };
-  const straatbeeld = {
+  const panorama = {
     location: 'sss'
   };
   const selection = {};
 
   const state = {
     map,
-    straatbeeld,
+    panorama,
     selection
   };
 
@@ -74,12 +74,12 @@ describe('Map Selectors', () => {
       expect(getCenter(state)).toEqual(map.viewCenter);
     });
 
-    it('should return straatbeeldLocation when it\'s defined', () => {
-      getStraatbeeldLocation.mockImplementation(() => 'straatbeeld location');
+    it('should return panoramaLocation when it\'s defined', () => {
+      getPanoramaLocation.mockImplementation(() => 'panorama location');
       expect(getCenter({
         ...state,
         some: 'state' // force the state to change so it clears the cache
-      })).toEqual('straatbeeld location');
+      })).toEqual('panorama location');
     });
   });
 });

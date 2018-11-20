@@ -1,4 +1,4 @@
-import { setStraatbeeldOrientation } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+import { setPanoramaOrientation } from '../../../../src/shared/ducks/panorama/panorama';
 
 describe('The orientation factory', function () {
     let orientation,
@@ -43,7 +43,7 @@ describe('The orientation factory', function () {
     it('dispatches an ACTION based on orientation from the Marzipano viewer', function () {
         orientation.update(mockedViewer);
 
-        expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldOrientation({
+        expect(store.dispatch).toHaveBeenCalledWith(setPanoramaOrientation({
             heading: 5.729577951308232,
             pitch: 11.459155902616464,
             fov: 17.188733853924695
