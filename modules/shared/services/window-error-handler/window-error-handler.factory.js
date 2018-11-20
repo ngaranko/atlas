@@ -45,7 +45,7 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
                     });
                 }
 
-                // Todo: log to sentry
+                // Todo: DP-6286 - Add sentry back, log to sentry
                 if (event.error) {
                     // eslint-disable-next-line no-console,angular/log
                     console.warn(message, event.error);

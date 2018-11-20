@@ -49,7 +49,7 @@ const configureStore = (history, routesMap) => {
   try {
     auth.initAuth();
   } catch (error) {
-    // Todo: log to sentry
+    // Todo: DP-6286 - Add sentry back, log to sentry
     console.warn(error); // eslint-disable-line no-console
   }
 

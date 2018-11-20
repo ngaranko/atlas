@@ -20,7 +20,7 @@ import {
         };
 
         function logResponse (message, statusCode) {
-            // Todo: log to sentry
+            // Todo: DP-6286 - Add sentry back, log to sentry
             console.warn(message, statusCode); // eslint-disable-line no-console,angular/log
         }
 
