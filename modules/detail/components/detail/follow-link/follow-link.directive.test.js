@@ -60,7 +60,7 @@ describe('The follow link directive', function () {
         directive = getDirective ('http://www.linktofollow.link');
         expect(directive.attr('dp-follow-link')).toBe('http://www.linktofollow.link');
 
-        var e = $.Event("keypress");
+        var e = $.Event('keypress');
         e.key = 'Enter';
 
         directive.triggerHandler(e);
