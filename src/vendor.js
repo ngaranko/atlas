@@ -9,8 +9,6 @@ import 'leaflet.markercluster';
 import 'leaflet-draw';
 import 'leaflet-rotatedmarker';
 import 'objectFitPolyfill';
-import 'imports-loader?exports=>false,define=>false!raven-js/dist/raven';
-import 'imports-loader?exports=>false,define=>false!raven-js/dist/plugins/angular';
 
 import Marzipano from 'marzipano';
 import 'imports-loader?d3!bbga_visualisatie_d3';
