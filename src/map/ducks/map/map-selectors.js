@@ -2,36 +2,33 @@ import { createSelector } from 'reselect';
 
 import {
   getPanoramaLocation,
-  getPanoramaMarkers,
-  getPanoramaYear
+  getPanoramaMarkers
 } from '../../../shared/ducks/panorama/panorama';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
 import { getMapResultsByLocation } from '../../../shared/ducks/data-search/data-search';
 import { getDetail } from '../../../shared/ducks/detail/detail';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
-import {
-  getSelectionLocation,
-  getSelectionType,
-  SELECTION_TYPE
-} from '../../../shared/ducks/selection/selection';
+import { getSelectionLocation } from '../../../shared/ducks/selection/selection';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
 export const getMapZoom = createSelector(getMap, (mapState) => mapState.zoom);
 
-export const getMapOverlays = createSelector(
-  [getSelectionType, getMap, getPanoramaYear],
-  (selectionType, mapState, year) => {
-    if (selectionType === SELECTION_TYPE.PANORAMA) {
-      const layerId = year ? `pano${year}` : 'pano';
-      return [
-        ...mapState.overlays,
-        { id: layerId, isVisible: true }
-      ];
-    }
-    return mapState.overlays;
-  });
+// export const getMapOverlays = createSelector(
+//   [getSelectionType, getMap, getPanoramaYear],
+//   (selectionType, mapState, year) => {
+//     if (selectionType === SELECTION_TYPE.PANORAMA) {
+//       const layerId = year ? `pano${year}` : 'pano';
+//       return [
+//         ...mapState.overlays,
+//         { id: layerId, isVisible: true }
+//       ];
+//     }
+//     return mapState.overlays;
+//   });
+
+export const getMapOverlays = createSelector(getMap, (mapState) => mapState && mapState.overlays);
 
 export const getMapCenter = createSelector(getMap, (mapState) => mapState && mapState.viewCenter);
 export const getMapBoundingBox = createSelector(getMap, (mapState) => mapState.boundingBox);

@@ -13,6 +13,7 @@ export const MAP_ZOOM = 'MAP_ZOOM';
 export const MAP_CLEAR = 'MAP_CLEAR';
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
+export const TOGGLE_MAP_OVERLAY_PANORAMA = 'TOGGLE_MAP_OVERLAY_PANORAMA';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
 export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
 export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
@@ -160,6 +161,15 @@ export default function MapReducer(state = initialState, action) {
         )]
       };
 
+    case TOGGLE_MAP_OVERLAY_PANORAMA:
+      return {
+        ...enrichedState,
+        overlays: enrichedState.overlays.filter(
+          (overlay) => action.payload !== overlay.id
+        ) ? [...enrichedState.overlays, { id: action.payload, isVisible: true }]
+        : ''
+      };
+
     case TOGGLE_MAP_OVERLAY_VISIBILITY:
       return {
         ...enrichedState,
@@ -208,6 +218,10 @@ export const toggleMapOverlay = (payload) => ({
   meta: {
     tracking: payload
   }
+});
+export const toggleMapOverlayPanorama = (payload) => ({
+  type: TOGGLE_MAP_OVERLAY_PANORAMA,
+  payload: (payload) ? `pano${payload}` : 'pano'
 });
 export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
   type: TOGGLE_MAP_OVERLAY_VISIBILITY,

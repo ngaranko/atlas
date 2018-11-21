@@ -11,6 +11,7 @@ import {
   CLOSE_PANORAMA,
   SET_PANORAMA_YEAR
 } from '../../ducks/panorama/panorama';
+import { toggleMapOverlayPanorama } from '../../../map/ducks/map/map';
 import {
   getImageDataById,
   getImageDataByLocation
@@ -34,6 +35,7 @@ function* fetchPanorama() {
   try {
     const imageData = yield call(getImageDataById, id, year);
     yield put(fetchPanoramaSuccess(imageData));
+    yield put(toggleMapOverlayPanorama());
   } catch (error) {
     yield put(fetchPanoramaError(error));
   }
@@ -48,6 +50,7 @@ function* fetchPanoramaYear() {
   try {
     const imageData = yield call(getImageDataByLocation, location, year);
     yield put(fetchPanoramaSuccess(imageData));
+    yield put(toggleMapOverlayPanorama(year));
   } catch (error) {
     yield put(fetchPanoramaError(error));
   }
