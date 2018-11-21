@@ -332,7 +332,12 @@ export default [
     category: 'Geografie: gebieden',
     id: 'ggwp',
     layers: ['gebiedsgerichtwerkenpraktijkgebieden'],
-    selectable: false,
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Gebiedsgerichtwerken-praktijkgebieden'
+      }
+    ],
     maxZoom: 16,
     minZoom: 10,
     title: 'Gebeidsgerichtwerken praktijkgebieden',
