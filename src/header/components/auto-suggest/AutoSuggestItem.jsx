@@ -10,15 +10,17 @@ const AutoSuggestItem = (props) => {
   );
   const ellipsis = content === '...';
 
-  const listItem = (<div>
-    {!ellipsis ? <span className="icon" /> : ''}
-    <span
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{
-        __html: highlightedSuggestion
-      }}
-    />
-  </div>);
+  const listItem = (
+    <div className={`${ellipsis ? 'auto-suggest__dropdown-item--row-height' : ''}`}>
+      {!ellipsis ? <span className="icon" /> : ''}
+      <span
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: highlightedSuggestion
+        }}
+      />
+    </div>
+  );
 
   return (
     <li>

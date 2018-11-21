@@ -165,7 +165,9 @@ $clear-button-margin: 3px;
 
 
       &--row-height {
-        height: 10px;
+        display: table-cell;
+        line-height: 1px;
+        vertical-align: super;
       }
 
       &-button {
