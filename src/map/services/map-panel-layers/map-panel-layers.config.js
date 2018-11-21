@@ -340,7 +340,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 10,
-    title: 'Gebeidsgerichtwerken praktijkgebieden',
+    title: 'Gebiedsgerichtwerken-praktijkgebieden',
     url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
   {
