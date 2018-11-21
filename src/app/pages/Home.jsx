@@ -181,7 +181,7 @@ const Home = ({ showFooter }) => (
                         <div key={key} className="c-user-content-widget__entry">
                           <Link
                             to={{ type: INSTRUCTION_LINKS[key].route }}
-                            className="o-btn o-btn--link"
+                            className="o-btn o-btn--link qa-btn--link"
                           >{INSTRUCTION_LINKS[key].title}
                           </Link>
                         </div>
