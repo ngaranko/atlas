@@ -5,8 +5,8 @@ import {
   SET_GEOMETRY_FILTERS,
   SET_PAGE,
   SET_VIEW, VIEWS
-} from './data-selection-constants';
-import { getDataSelectionPage, getGeometryFilters, isListView } from './data-selection-selectors';
+} from './constants';
+import { getDataSelectionPage, getGeometryFilters, isListView } from './selectors';
 
 const getEncodedGeometryFilters = (state) => {
   const { markers, description } = getGeometryFilters(state);

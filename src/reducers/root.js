@@ -16,9 +16,8 @@ import FiltersReducer, { REDUCER_KEY as FILTER } from '../shared/ducks/filters/f
 import DetailReducer, { REDUCER_KEY as DETAIL } from '../shared/ducks/detail/detail';
 import DataSearchReducer, { REDUCER_KEY as DATA_SEARCH } from '../shared/ducks/data-search/data-search';
 import SelectionReducer, { REDUCER_KEY as SELECTION } from '../shared/ducks/selection/selection';
-import DataSelectionReducer from '../shared/ducks/data-selection/data-selection';
+import DataSelectionReducer, { REDUCER_KEY as DATA_SELECTION } from '../shared/ducks/data-selection/reducer';
 import DatasetReducer, { REDUCER_KEY as DATASET } from '../shared/ducks/datasets/datasets';
-import { REDUCER_KEY as DATA_SELECTION } from '../shared/ducks/data-selection/data-selection-constants';
 
 export default (routeReducer) => (oldState = {}, action) => {
   const mapLayers = combineReducers({

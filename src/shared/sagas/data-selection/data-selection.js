@@ -5,7 +5,7 @@ import {
   receiveDataSelectionFailure,
   receiveDataSelectionSuccess,
   setMarkers
-} from '../../ducks/data-selection/data-selection';
+} from '../../ducks/data-selection/actions';
 import { routing } from '../../../app/routes';
 import dataselectionConfig from '../../services/data-selection/data-selection-config';
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
@@ -19,11 +19,8 @@ import {
   SET_PAGE,
   SET_VIEW,
   VIEWS
-} from '../../ducks/data-selection/data-selection-constants';
-import {
-  getDataSelection,
-  getGeomarkersShape
-} from '../../ducks/data-selection/data-selection-selectors';
+} from '../../ducks/data-selection/constants';
+import { getDataSelection, getGeomarkersShape } from '../../ducks/data-selection/selectors';
 
 function* getMapMarkers(dataset, activeFilters) {
   const state = yield select();

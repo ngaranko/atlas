@@ -72,9 +72,9 @@ export default function detailReducer(state = initialState, action) {
 }
 
 // Action creators
-export const fetchDetail = (endpoint) => ({
+export const fetchDetail = (payload) => ({
   type: FETCH_DETAIL,
-  payload: endpoint
+  payload
 });
 
 // Selectors

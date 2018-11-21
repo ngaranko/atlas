@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { routing } from '../../../app/routes';
-import { getFilters as getDataSelectionFilters } from '../data-selection/data-selection-selectors';
+import { getFilters as getDataSelectionFilters } from '../data-selection/selectors';
 import { getFilters as getDatasetFilters } from '../datasets/datasets';
 
 export const REDUCER_KEY = 'filters';

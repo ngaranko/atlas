@@ -2,11 +2,11 @@ import { features } from '../../../../src/shared/environment';
 import DATA_SELECTION_CONFIG
     from '../../../../src/shared/services/data-selection/data-selection-config';
 import {
-    setDataset} from '../../../../src/shared/ducks/data-selection/data-selection';
+    setDataset} from '../../../../src/shared/ducks/data-selection/actions';
 import {
     DATASETS,
     VIEWS
-} from '../../../../src/shared/ducks/data-selection/data-selection-constants';
+} from '../../../../src/shared/ducks/data-selection/constants';
 
 (function () {
     'use strict';

@@ -1,4 +1,3 @@
-import { routing } from '../../../app/routes';
 import {
   FETCH_DATA_SELECTION_FAILURE,
   FETCH_DATA_SELECTION_REQUEST,
@@ -11,9 +10,12 @@ import {
   SET_PAGE,
   SET_VIEW,
   VIEWS
-} from './data-selection-constants';
-import query from './data-selection-query';
+} from './constants';
+import { routing } from '../../../app/routes';
 import { getStateFromQuery } from '../../../store/query-synchronization';
+import query from './query';
+
+export { REDUCER_KEY } from './constants';
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -99,21 +101,3 @@ export default function reducer(state = initialState, action) {
       return state;
   }
 }
-// Action creators
-export const fetchDataSelection = (payload) => ({ type: FETCH_DATA_SELECTION_REQUEST, payload });
-export const setMarkers = (payload) => ({ type: SET_MARKERS, payload });
-export const setPage = (payload) => ({ type: SET_PAGE, payload });
-export const setView = (payload) => ({ type: SET_VIEW, payload });
-export const setDataset = (payload) => ({ type: SET_DATASET, payload });
-export const setGeometryFilter = (payload) => ({ type: SET_GEOMETRY_FILTERS, payload });
-
-export const receiveDataSelectionSuccess = (payload) => ({
-  type: FETCH_DATA_SELECTION_SUCCESS,
-  payload
-});
-
-export const receiveDataSelectionFailure = (error) => ({
-  type: FETCH_DATA_SELECTION_FAILURE,
-  payload: error
-});
-

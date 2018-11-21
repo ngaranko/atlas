@@ -34,8 +34,8 @@ import {
 } from '../../ducks/map/map-selectors';
 import {
   setGeometryFilter
-} from '../../../shared/ducks/data-selection/data-selection';
-import { getDataSelection } from '../../../shared/ducks/data-selection/data-selection-selectors';
+} from '../../../shared/ducks/data-selection/actions';
+import { getDataSelection } from '../../../shared/ducks/data-selection/selectors';
 
 const mapStateToProps = (state) => ({
   drawingMode: getDrawingMode(state),

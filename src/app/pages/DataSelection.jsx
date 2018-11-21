@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import NewDataSelection from '../components/DataSelection/DataSelection';
-import { isListView } from '../../shared/ducks/data-selection/data-selection-selectors';
+import { isListView } from '../../shared/ducks/data-selection/selectors';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 
 /* istanbul ignore next */ // TODO: refactor, test

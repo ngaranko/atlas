@@ -20,7 +20,7 @@ import {
 import {
   getClusterMarkers,
   getGeoJsons
-} from '../../../shared/ducks/data-selection/data-selection-selectors';
+} from '../../../shared/ducks/data-selection/selectors';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;

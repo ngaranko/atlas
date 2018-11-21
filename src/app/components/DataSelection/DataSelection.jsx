@@ -4,7 +4,7 @@ import { AngularWrapper } from 'react-angular';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
-import { setPage as setDatasetPage } from '../../../shared/ducks/data-selection/data-selection';
+import { setPage as setDatasetPage } from '../../../shared/ducks/data-selection/actions';
 import DATA_SELECTION_CONFIG from '../../../shared/services/data-selection/data-selection-config';
 import { getUser } from '../../../shared/ducks/user/user';
 import NotAuthorizedPanel from '../PanelMessages/NotAuthorizedMessage';
@@ -15,8 +15,8 @@ import MaxPageMessage from '../PanelMessages/MaxPageMessage';
 import {
   getDataSelection,
   getDataSelectionResult
-} from '../../../shared/ducks/data-selection/data-selection-selectors';
-import { VIEWS } from '../../../shared/ducks/data-selection/data-selection-constants';
+} from '../../../shared/ducks/data-selection/selectors';
+import { VIEWS } from '../../../shared/ducks/data-selection/constants';
 
 const DataSelection = ({
   view,

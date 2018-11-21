@@ -5,7 +5,7 @@ import mapQuery, { ACTIONS as MAP_ACTIONS } from '../map/ducks/map/map-query';
 import filtersQuery, { ACTIONS as FILTERS_ACTIONS } from '../shared/ducks/filters/filters-query';
 import selectionQuery, { ACTIONS as SELECTION_ACTIONS } from '../shared/ducks/selection/selection-query';
 import straatbeeldQuery, { ACTIONS as STRAATBEELD_ACTIONS } from '../shared/ducks/straatbeeld/straatbeeld-query';
-import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/data-selection-query';
+import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/query';
 import datasetQuery, { ACTIONS as DATASET_ACTIONS } from '../shared/ducks/datasets/datasets-query';
 import uiQuery, { ACTIONS as UI_ACTIONS } from '../shared/ducks/ui/ui-query';
 import { getLocationQuery } from './redux-first-router';

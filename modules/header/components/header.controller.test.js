@@ -2,7 +2,7 @@ import PAGES from '../../../src/app/pages';
 import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/data-search/data-search';
 import { ROUTER_NAMESPACE } from '../../../src/app/routes';
 import * as routerSelectors from '../../../src/store/redux-first-router';
-import { FETCH_DATA_SELECTION_REQUEST } from '../../../src/shared/ducks/data-selection/data-selection-constants';
+import { FETCH_DATA_SELECTION_REQUEST } from '../../../src/shared/ducks/data-selection/constants';
 
 describe('The header controller', function () {
     var $controller,

@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
-import { VIEWS } from '../data-selection/data-selection-constants';
+import { VIEWS } from '../data-selection/constants';
 import { isMapPage, isPanoPage } from '../../../store/redux-first-router';
 import { ROUTER_NAMESPACE } from '../../../app/routes';
-import { getDataSelectionView } from '../data-selection/data-selection-selectors';
+import { getDataSelectionView } from '../data-selection/selectors';
 
 export const REDUCER_KEY = 'ui';
 

@@ -1,6 +1,6 @@
 // Selectors
 import { createSelector } from 'reselect';
-import { REDUCER_KEY, VIEWS } from './data-selection-constants';
+import { REDUCER_KEY, VIEWS } from './constants';
 import { detailPointType } from '../../../map/components/leaflet/services/icons.constant';
 
 export const getDataSelection = (state) => state[REDUCER_KEY];
