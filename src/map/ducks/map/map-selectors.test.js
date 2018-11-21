@@ -52,17 +52,6 @@ describe('Map Selectors', () => {
         some: 'state' // force the state to change so it clears the cache
       })).toEqual(map.overlays);
     });
-
-    it('should add pano layer if selection type is panorama', () => {
-      getSelectionType.mockImplementation(() => SELECTION_TYPE.PANORAMA);
-      expect(getMapOverlays({
-        ...state,
-        some: 'state' // force the state to change so it clears the cache
-      })).toEqual([
-        ...map.overlays,
-        { id: 'pano', isVisible: true }
-      ]);
-    });
   });
 
   describe('getCenter selector', () => {

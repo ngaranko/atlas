@@ -15,19 +15,6 @@ export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
 export const getMapZoom = createSelector(getMap, (mapState) => mapState.zoom);
 
-// export const getMapOverlays = createSelector(
-//   [getSelectionType, getMap, getPanoramaYear],
-//   (selectionType, mapState, year) => {
-//     if (selectionType === SELECTION_TYPE.PANORAMA) {
-//       const layerId = year ? `pano${year}` : 'pano';
-//       return [
-//         ...mapState.overlays,
-//         { id: layerId, isVisible: true }
-//       ];
-//     }
-//     return mapState.overlays;
-//   });
-
 export const getMapOverlays = createSelector(getMap, (mapState) => mapState && mapState.overlays);
 
 export const getMapCenter = createSelector(getMap, (mapState) => mapState && mapState.viewCenter);

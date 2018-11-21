@@ -20,6 +20,7 @@ export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
 
 export const DEFAULT_LAT = 52.3731081;
 export const DEFAULT_LNG = 4.8932945;
+export const PANORAMA = 'pano';
 
 export const initialState = {
   viewCenter: [DEFAULT_LAT, DEFAULT_LNG],
@@ -164,10 +165,12 @@ export default function MapReducer(state = initialState, action) {
     case TOGGLE_MAP_OVERLAY_PANORAMA:
       return {
         ...enrichedState,
-        overlays: enrichedState.overlays.filter(
+        overlays: enrichedState.overlays.some(
           (overlay) => action.payload !== overlay.id
-        ) ? [...enrichedState.overlays, { id: action.payload, isVisible: true }]
-        : ''
+        ) ? [...enrichedState.overlays.filter(
+          (overlay) => !overlay.id.startsWith(PANORAMA)
+        ), { id: action.payload, isVisible: true }]
+        : [...enrichedState.overlays, { id: action.payload, isVisible: true }]
       };
 
     case TOGGLE_MAP_OVERLAY_VISIBILITY:
@@ -221,7 +224,7 @@ export const toggleMapOverlay = (payload) => ({
 });
 export const toggleMapOverlayPanorama = (payload) => ({
   type: TOGGLE_MAP_OVERLAY_PANORAMA,
-  payload: (payload) ? `pano${payload}` : 'pano'
+  payload: `${PANORAMA}${payload}`
 });
 export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
   type: TOGGLE_MAP_OVERLAY_VISIBILITY,

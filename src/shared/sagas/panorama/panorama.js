@@ -27,7 +27,7 @@ export function* watchPanoramaRoute() {
 }
 
 function* fetchPanorama() {
-  const [id, year] = yield all([
+  const [id, year = ''] = yield all([
     select(getPanoramaId),
     select(getPanoramaYear)
   ]);
@@ -35,7 +35,7 @@ function* fetchPanorama() {
   try {
     const imageData = yield call(getImageDataById, id, year);
     yield put(fetchPanoramaSuccess(imageData));
-    yield put(toggleMapOverlayPanorama());
+    yield put(toggleMapOverlayPanorama(year));
   } catch (error) {
     yield put(fetchPanoramaError(error));
   }
