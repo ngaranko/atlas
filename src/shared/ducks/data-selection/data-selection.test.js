@@ -5,10 +5,7 @@ import { getStateFromQuery } from '../../../store/query-synchronization';
 
 jest.mock('../../../store/query-synchronization');
 
-// Todo: discuss if we should simplify this and make it less "magic".
-// Handy for now, as we do not need to copy-paste almost the same tests
-
-describe('Reducer', () => {
+describe('Data Selection Reducer', () => {
   beforeEach(() => {
     getStateFromQuery.mockImplementation(() => ({
       foo: 'bar'
@@ -16,125 +13,104 @@ describe('Reducer', () => {
   });
 
   /**
-   * Create the expectations what the actions would do here:
-   * - the key: this should be the name of the actionCreator function,
+   * Use this helper to build an object that we can iterate the tests with.
+   * @param actionCreatorName, this should be the name of the actionCreator function,
    * derived from the actionCreators you imported. use actionCreators[actionCreator].name to bind
    * the actionCreator to it's function name
-   *
-   * - expectedKeysToChange: the keys in the reducer you expect to change
-   * - payload
-   * - [initialState]: used to pass the initial reducer state to test
-  */
-  const customExpectations = {
-    [routing.addresses.type]: {
-      expectedKeysToChange: ['dataset', 'foo'],
-      payload: [
-        {
-          meta: {
-            query: {}
-          }
-        }
-      ]
-    },
-    [routing.establishments.type]: {
-      expectedKeysToChange: ['dataset', 'view'],
-      payload: [
-        {
-          meta: {}
-        }
-      ]
-    },
-    [routing.cadastralObjects.type]: {
-      expectedKeysToChange: ['dataset', 'view'],
-      payload: [
-        {
-          meta: {}
-        }
-      ]
+   * @param expectedKeysToChange, used to pass the initial reducer state to test
+   * @param [payload]: this must be an array, as action creators could accept more arguments.
+   * @param [initialState], used to pass the initial reducer state to test, eg. if we conditionally
+   * change a value of a state in the reducer.
+   * @returns {{}}
+   */
+  const getExpectations = (
+    actionCreatorName,
+    expectedKeysToChange,
+    payload = [],
+    initialState = {}
+  ) => ({
+    [actionCreatorName]: {
+      expectedKeysToChange,
+      payload,
+      initialState
     }
-  };
+  });
 
+  // Create the expectations what the actions would do here
   const expectations = {
-    [actionCreators.fetchDataSelection.name]: { // action creator
-      expectedKeysToChange: ['isLoading', 'markers'],
-      payload: [],
-      initialState: {
-        isLoading: true
-      }
-    },
-    [actionCreators.setMarkers.name]: {
-      expectedKeysToChange: ['markers', 'isLoading'],
-      payload: [
-        [{ markers: [] }]
-      ]
-    },
-    [actionCreators.setPage.name]: {
-      expectedKeysToChange: ['page'],
-      payload: [
-        1
-      ]
-    },
-    [actionCreators.setView.name]: {
-      expectedKeysToChange: ['view'],
-      payload: [
-        'map'
-      ]
-    },
-    [actionCreators.setDataset.name]: {
-      expectedKeysToChange: ['dataset'],
-      payload: [
-        'foobar'
-      ]
-    },
-    [actionCreators.setGeometryFilter.name]: {
-      expectedKeysToChange: ['geometryFilter'],
-      payload: [
-        [{ filter: 'foo' }]
-      ]
-    },
-    [actionCreators.receiveDataSelectionSuccess.name]: {
-      expectedKeysToChange: ['isLoading', 'markers', 'errorMessage', 'authError', 'data'],
-      payload: [
-        { data: { some: 'data' } }
-      ]
-    },
-    [actionCreators.receiveDataSelectionFailure.name]: {
-      expectedKeysToChange: [
-        'isLoading',
-        'authError',
-        'errorMessage',
-        'dataset',
-        'results',
-        'markers'
-      ],
-      payload: [{
-        error: 'error message'
-      }]
-    },
-    ...customExpectations
+    ...getExpectations(
+      actionCreators.fetchDataSelection.name,
+      ['isLoading', 'markers']
+    ),
+    ...getExpectations(
+      actionCreators.setMarkers.name,
+      ['markers', 'isLoading'],
+      [[{ markers: [] }]]
+    ),
+    ...getExpectations(
+      actionCreators.setPage.name,
+      ['page'],
+      [1]
+    ),
+    ...getExpectations(
+      actionCreators.setView.name,
+      ['view'],
+      ['map']
+    ),
+    ...getExpectations(
+      actionCreators.setDataset.name,
+      ['dataset'],
+      ['foobar']
+    ),
+    ...getExpectations(
+      actionCreators.setGeometryFilter.name,
+      ['geometryFilter'],
+      [[{ filter: 'foo' }]]
+    ),
+    ...getExpectations(
+      actionCreators.receiveDataSelectionSuccess.name,
+      ['isLoading', 'markers', 'errorMessage', 'authError', 'data'],
+      [{ data: { some: 'data' } }]
+    ),
+    ...getExpectations(
+      actionCreators.receiveDataSelectionFailure.name,
+      ['isLoading', 'authError', 'errorMessage', 'dataset', 'results', 'markers'],
+      [{ error: 'error message' }]
+    )
   };
 
-  // Note: from here we do not need to customize our test
-  const otherActionCreators = Object.keys(customExpectations).reduce((acc, type) => ({
-    ...acc,
-    [type]: (args) => ({
-      type,
-      ...args
-    })
-  }), {});
-
-  const actions = { ...actionCreators, ...otherActionCreators };
-
-  Object.keys(actions).forEach((actionCreator) => {
+  Object.keys(actionCreators).forEach((actionCreator) => {
     const { payload, expectedKeysToChange, initialState = {} } = expectations[actionCreator];
     it(`should set ${expectedKeysToChange.join(', ')} state when dispatching ${actionCreator}`, () => {
-      const action = actions[actionCreator](...payload);
+      const action = actionCreators[actionCreator](...payload);
       const result = reducer(initialState, action);
       expect(result).toMatchSnapshot();
 
       // Check if every key is changed, not more or less than the expected keys to change
-      expect(expectedKeysToChange.every((key) => Object.keys(result).includes(key))).toBe(true);
-      expect(Object.keys(result).every((key) => expectedKeysToChange.includes(key))).toBe(true);
+      expect(expectedKeysToChange.sort().toString()).toEqual(Object.keys(result).sort().toString());
+    });
+  });
+
+  describe('when a route type is dispatched', () => {
+    it('should set dataset and an object from getStateFromQuery if meta.query is set', () => {
+      const expectedKeysToChange = ['dataset', 'foo'];
+      const result = reducer({}, {
+        type: routing.addresses.type,
+        meta: {
+          query: {}
+        }
+      });
+      expect(result).toMatchSnapshot();
+      expect(expectedKeysToChange.sort().toString()).toEqual(Object.keys(result).sort().toString());
+    });
+
+    it('should set the dataset and view if meta.query is not set', () => {
+      const expectedKeysToChange = ['dataset', 'view'];
+      const result = reducer({}, {
+        type: routing.establishments.type
+      });
+      expect(result).toMatchSnapshot();
+      expect(expectedKeysToChange.sort().toString()).toEqual(Object.keys(result).sort().toString());
     });
   });
 });

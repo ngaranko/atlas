@@ -22,7 +22,7 @@ export default function reducer(state = initialState, action) {
     case routing.addresses.type:
     case routing.establishments.type:
     case routing.cadastralObjects.type: {
-      if (action.meta.query) {
+      if (action.meta && action.meta.query) {
         const stateFromQuery = getStateFromQuery(query, action.meta.query);
         return {
           ...state,
