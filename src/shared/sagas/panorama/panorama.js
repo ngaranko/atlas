@@ -18,7 +18,7 @@ import {
 } from '../../services/panorama-api/panorama-api';
 import { toMap } from '../../../store/redux-first-router';
 
-function* fireFetchPanormaRequest(action) {
+export function* fireFetchPanormaRequest(action) {
   yield put(fetchPanoramaRequest(action.payload.id));
 }
 
@@ -26,7 +26,7 @@ export function* watchPanoramaRoute() {
   yield takeLatest(routing.panorama.type, fireFetchPanormaRequest);
 }
 
-function* fetchPanorama() {
+export function* fetchPanorama() {
   const [id, year = ''] = yield all([
     select(getPanoramaId),
     select(getPanoramaYear)
@@ -41,7 +41,7 @@ function* fetchPanorama() {
   }
 }
 
-function* fetchPanoramaYear() {
+export function* fetchPanoramaYear() {
   const [location, year] = yield all([
     select(getPanoramaLocation),
     select(getPanoramaYear)
@@ -63,7 +63,7 @@ export function* watchFetchPanorama() {
   ];
 }
 
-function* doClosePanorama() {
+export function* doClosePanorama() {
   yield put(toMap());
 }
 
