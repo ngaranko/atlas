@@ -8,7 +8,7 @@ import headerSearchMock from './HeaderSearch.integration.mock';
 
 import watchFetchSuggestions from '../../../header/sagas/auto-suggest/auto-suggest';
 import AutoSuggestReducer from '../../ducks/auto-suggest/auto-suggest';
-import DataSelectionReducer from '../../../shared/ducks/data-selection/data-selection';
+import DataSelectionReducer from '../../../shared/ducks/data-selection/reducer';
 
 import * as search from '../../../shared/ducks/data-search/data-search';
 import * as details from '../../../shared/ducks/detail/detail';

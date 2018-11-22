@@ -44,12 +44,9 @@ export function getMarkers(config, activeFilters) {
     }));
 }
 
-export function query(config, view, activeFilters, page, search, geometryFilter) {
+export function query(config, view, activeFilters, page, search, shape = '[]') {
   let searchPage = page;
 
-  const shape = (geometryFilter && Array.isArray(geometryFilter.markers)) ?
-    geometryFilter.markers :
-    [];
   // Making sure to not request pages higher then max allowed.
   // If that is the case requesting for page 1, to obtain filters.
   // In the response the data will be dumped.
@@ -60,7 +57,7 @@ export function query(config, view, activeFilters, page, search, geometryFilter)
   const searchParams = {
     page: searchPage,
     dataset: 'ves',
-    shape: JSON.stringify(shape.map(([lat, lng]) => [lng, lat])),
+    shape,
     ...activeFilters
   };
 

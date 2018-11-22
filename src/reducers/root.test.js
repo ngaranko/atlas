@@ -1,7 +1,7 @@
 import rootReducer from './root';
 
 import * as AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest';
-import * as DataSelectionReducer from '../shared/ducks/data-selection/data-selection';
+import * as DataSelectionReducer from '../shared/ducks/data-selection/reducer';
 import * as Datasets from '../shared/ducks/datasets/datasets';
 import * as DataSelectionCatalogReducer
   from '../shared/ducks/datasets/apiSpecification/apiSpecification';

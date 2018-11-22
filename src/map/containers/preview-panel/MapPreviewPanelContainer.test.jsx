@@ -5,8 +5,9 @@ import { shallow } from 'enzyme';
 
 import MapPreviewPanelContainer from './MapPreviewPanelContainer';
 import {
-  isSearchLoading,
-  getDataSearchLocation, getMapResultsByLocation
+  getDataSearchLocation,
+  getMapResultsByLocation,
+  isSearchLoading
 } from '../../../shared/ducks/data-search/data-search';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import {

@@ -20,7 +20,6 @@ import {
 import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
 import {
   mapClear,
-  mapClearDrawing,
   mapEmptyGeometry,
   mapEndDrawing,
   mapStartDrawing,
@@ -34,9 +33,9 @@ import {
   isDrawingEnabled
 } from '../../ducks/map/map-selectors';
 import {
-  getDataSelection,
   setGeometryFilter
-} from '../../../shared/ducks/data-selection/data-selection';
+} from '../../../shared/ducks/data-selection/actions';
+import { getDataSelection } from '../../../shared/ducks/data-selection/selectors';
 
 const mapStateToProps = (state) => ({
   drawingMode: getDrawingMode(state),
@@ -48,7 +47,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onClearDrawing: mapClearDrawing,
+  onClearDrawing: mapEmptyGeometry,
   onEmptyGeometry: mapEmptyGeometry,
   onMapUpdateShape: mapUpdateShape,
   setGeometryFilter,

@@ -1,11 +1,10 @@
-import { testSaga, expectSaga } from 'redux-saga-test-plan';
+import { expectSaga, testSaga } from 'redux-saga-test-plan';
 
 import watchFetchNearestDetails, { fetchNearestDetails } from './nearest-details';
 
 import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
-
-import { FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
 import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
+import { routing as routes } from '../../../app/routes';
 
 describe('watchFetchNearestDetails', () => {
   const action = { type: REQUEST_NEAREST_DETAILS };
@@ -35,15 +34,19 @@ describe('fetchNearestDetails', () => {
       .provide({
         call(effect, next) {
           if (effect.fn === fetchNearestDetail) {
-            return 'uri';
+            return { uri: 'uri', id: '123' };
           }
           return next();
         }
       })
       .put({
-        type: FETCH_DETAIL,
-        payload: 'uri',
-        skippedSearchResults: true
+        type: routes.dataDetail.type,
+        payload: { type: 'brk', subtype: 'object', id: 'id123' },
+        meta: {
+          query: {
+            kaart: ''
+          }
+        }
       })
       .run()
   ));

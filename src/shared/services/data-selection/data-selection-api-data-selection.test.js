@@ -112,7 +112,7 @@ describe('DataSelection api', () => {
 
   it('calls the api factory with the active filters, page and shape as searchParams', async () => {
     // Without active filters
-    query(config, 'LIST', {}, 1, 'search', { markers: [[12, 3]] });
+    query(config, 'LIST', {}, 1, 'search', '[[3,12]]');
     expect(api.getByUrl).toHaveBeenCalledWith(`${sharedConfig.API_ROOT}zwembaden/`, {
       page: 1,
       dataset: 'ves',
