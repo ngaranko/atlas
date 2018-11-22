@@ -1,8 +1,4 @@
-import get from 'lodash.get';
-import queryString from 'querystring';
 import PAGES from './pages';
-import PANORAMA_VIEW from '../shared/ducks/straatbeeld/panorama-view';
-import { DETAIL_VIEW } from '../shared/ducks/detail/detail';
 
 export const ROUTER_NAMESPACE = 'atlasRouter';
 
@@ -16,8 +12,8 @@ export const routing = {
   map: {
     title: 'Grote kaart',
     path: '/kaart',
-    type: `${ROUTER_NAMESPACE}/${PAGES.KAART}`,
-    page: PAGES.KAART
+    type: `${ROUTER_NAMESPACE}/${PAGES.MAP}`,
+    page: PAGES.MAP
   },
   datasets: {
     title: 'Datasets',
@@ -72,17 +68,11 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
     page: PAGES.PANORAMA
   },
-  mapEmbed: {
-    title: 'Embed',
-    path: '/map/embed',
-    type: `${ROUTER_NAMESPACE}/${PAGES.KAART_EMBED}`,
-    page: PAGES.KAART_EMBED
-  },
   nieuws: {
     title: '',
     path: '/nieuws',
-    type: `${ROUTER_NAMESPACE}/${PAGES.NIEUWS}`,
-    page: PAGES.NIEUWS
+    type: `${ROUTER_NAMESPACE}/${PAGES.NEWS}`,
+    page: PAGES.NEWS
   },
   help: {
     title: '',
@@ -99,45 +89,45 @@ export const routing = {
 
   bediening: {
     title: '',
-    path: '/bediening#:deeplink?',
-    type: `${ROUTER_NAMESPACE}/${PAGES.BEDIENING}`,
-    page: PAGES.BEDIENING
+    path: '/bediening',
+    type: `${ROUTER_NAMESPACE}/${PAGES.CONTROLS}`,
+    page: PAGES.CONTROLS
   },
   gegevens: {
     title: '',
     path: '/gegevens',
-    type: `${ROUTER_NAMESPACE}/${PAGES.GEGEVENS}`,
-    page: PAGES.GEGEVENS
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_INFO}`,
+    page: PAGES.DATA_INFO
   },
   apis: {
     title: '',
     path: '/apis',
-    type: `${ROUTER_NAMESPACE}/${PAGES.OVER_API}`,
-    page: PAGES.OVER_API
+    type: `${ROUTER_NAMESPACE}/${PAGES.ABOUT_API}`,
+    page: PAGES.ABOUT_API
   },
   privacy_beveiliging: {
     title: '',
     path: '/privacy-en-informatiebeveiliging',
-    type: `${ROUTER_NAMESPACE}/${PAGES.PRIVACY_BEVEILIGING}`,
-    page: PAGES.PRIVACY_BEVEILIGING
+    type: `${ROUTER_NAMESPACE}/${PAGES.PRIVACY_SECURITY}`,
+    page: PAGES.PRIVACY_SECURITY
   },
   beschikbaar_kwaliteit: {
     title: '',
     path: '/beschikbaarheid-en-kwaliteit-data',
-    type: `${ROUTER_NAMESPACE}/${PAGES.BESCHIKBAAR_KWALITEIT}`,
-    page: PAGES.BESCHIKBAAR_KWALITEIT
+    type: `${ROUTER_NAMESPACE}/${PAGES.AVAILABILITY_QUALITY}`,
+    page: PAGES.AVAILABILITY_QUALITY
   },
   beheer_werkwijze: {
     title: '',
     path: '/technisch-beheer-en-werkwijze',
-    type: `${ROUTER_NAMESPACE}/${PAGES.BEHEER_WERKWIJZE}`,
-    page: PAGES.BEHEER_WERKWIJZE
+    type: `${ROUTER_NAMESPACE}/${PAGES.MANAGEMENT}`,
+    page: PAGES.MANAGEMENT
   },
   statistieken: {
     title: '',
     path: '/statistieken',
-    type: `${ROUTER_NAMESPACE}/${PAGES.STATISTIEKEN}`,
-    page: PAGES.STATISTIEKEN
+    type: `${ROUTER_NAMESPACE}/${PAGES.STATISTICS}`,
+    page: PAGES.STATISTICS
   },
 
   dataDetail: {
@@ -153,143 +143,5 @@ const routes = Object.keys(routing).reduce((acc, key) => {
   acc[routing[key].type] = routing[key].path;
   return acc;
 }, {});
-
-
-// Action creators
-const preserveQuery = (action) => {
-  const search = location.search && location.search.substr(1);
-  return {
-    ...action,
-    meta: {
-      query: {
-        ...queryString.decode(search), // Todo: temporary solution to pass existing query
-        ...get(action, 'meta.query')
-      }
-    }
-  };
-};
-
-export const toDataDetail = (id, type, subtype, view) => {
-  const action = {
-    type: routing.dataDetail.type,
-    payload: {
-      type,
-      subtype,
-      id: `id${id}`
-    },
-    meta: {
-      query: {
-      }
-    }
-  };
-  if (view === DETAIL_VIEW.MAP) {
-    action.meta.query.kaart = '';
-  }
-  return action;
-};
-
-export const toDataLocationSearch = () => preserveQuery({ // TODO rename
-  type: routing.dataSearch.type
-});
-
-export const toMap = () => preserveQuery({ type: routing.map.type });
-
-export const toPanorama = (id, heading, view) => {
-  const action = {
-    type: routing.panorama.type,
-    payload: {
-      id
-    },
-    meta: {
-      query: {
-        heading
-      }
-    }
-  };
-  if (view === PANORAMA_VIEW.MAP) {
-    action.meta.query.kaart = '';
-  }
-  if (view === PANORAMA_VIEW.PANO) {
-    action.meta.query.panorama = '';
-  }
-  return action;
-};
-
-// Detail page logic
-// TODO: refactor unit test or remove all together
-export const extractIdEndpoint = (endpoint) => {
-  const matches = endpoint.match(/\/([\w-]+)\/?$/);
-  return matches[1];
-};
-
-const getDetailPageData = (endpoint) => {
-  const matches = endpoint.match(/(\w+)\/([\w]+)\/([\w\.-]+)\/?$/); // eslint-disable-line no-useless-escape
-  return {
-    type: matches[1],
-    subtype: matches[2],
-    id: matches[3]
-  };
-};
-
-export const getPageActionEndpoint = (endpoint, view) => {
-  const { type, subtype, id } = getDetailPageData(endpoint);
-  return toDataDetail(id, type, subtype, view);
-};
-
-
-export const pageTypeToEndpoint = (type, subtype, id) => {
-  let endpoint = 'https://acc.api.data.amsterdam.nl/';
-  endpoint += `${type}/${subtype}/${id}/`; // TODO: refactor, get back-end to return detail as detail GET not listing!
-  return endpoint;
-};
-
-export const toDataSearch = (searchQuery) => ({
-  type: routing.dataSearch.type,
-  meta: {
-    query: {
-      zoekterm: searchQuery
-    }
-  }
-});
-
-export const toDatasetSearch = (searchQuery) => ({
-  type: routing.searchDatasets.type,
-  meta: {
-    query: {
-      zoekterm: searchQuery
-    }
-  }
-});
-
-export const toDataSuggestion = (payload) => {
-  const { type, subtype, id } = getDetailPageData(payload.endpoint);
-  const action = {
-    type: routing.dataDetail.type,
-    payload: {
-      type,
-      subtype,
-      id: `id${id}`
-    },
-    meta: {
-      tracking: {
-        category: payload.category,
-        event: 'auto-suggest',
-        query: payload.typedQuery
-      }
-    }
-  };
-  return action;
-};
-
-export const toDatasetSuggestion = (payload) => ({
-  type: routing.datasetsDetail.type,
-  payload,
-  meta: {
-    tracking: {
-      event: 'auto-suggest',
-      query: payload.typedQuery
-    }
-  }
-});
 
 export default routes;

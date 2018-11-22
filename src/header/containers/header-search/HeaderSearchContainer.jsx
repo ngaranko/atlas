@@ -15,17 +15,20 @@ import {
 
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
-import { isDatasetCurrentPage, isMapPage } from '../../../store/redux-first-router';
 import {
   extractIdEndpoint,
-  toDataSearch, toDatasetSearch,
-  toDataSuggestion, toDatasetSuggestion
-} from '../../../app/routes';
+  isDatasetPage,
+  isMapPage,
+  toDataSearch,
+  toDatasetSearch,
+  toDataSuggestion,
+  toDatasetSuggestion
+} from '../../../store/redux-first-router';
 
 const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),
   displayQuery: getDisplayQuery(state),
-  isDatasetView: isDatasetCurrentPage(state),
+  isDatasetView: isDatasetPage(state),
   isMapActive: isMapPage(state),
   numberOfSuggestions: getNumberOfSuggestions(state),
   pageName: state.page ? state.page.name : '',

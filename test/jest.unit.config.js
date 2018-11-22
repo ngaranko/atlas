@@ -15,10 +15,10 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
-      statements: 75,
-      branches: 75, // TODO refactor, get coverage up
-      lines: 75,
-      functions: 75
+      statements: 76,
+      branches: 76, // TODO refactor, get coverage up
+      lines: 77,
+      functions: 82
     }
   },
   coverageReporters: process.env.CI ? [

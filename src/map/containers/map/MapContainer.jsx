@@ -59,30 +59,34 @@ class MapContainer extends React.Component {
       previewDataAvailable
     } = this.props;
     return (
-      <div className={`c-map c-map--drawing-mode-${drawMode} qa-map-container`}>
-        <LeafletContainer
-          getLeafletInstance={this.setLeafletInstance}
-        />
-        {
-          this.state.leafletInstance && (
-            <DrawTool
-              leafletInstance={this.state.leafletInstance}
-            />
-          )
-        }
-        { toggleFullscreen && (
-          <ToggleFullscreen
-            isFullscreen={isFullscreen}
-            onToggleFullscreen={toggleFullscreen}
+      <div className="qa-map">
+        {/* Note: map must not be unmounted when showing the iframe */}
+        {/* as it will reset the map's state */}
+        <div className={`c-map c-map--drawing-mode-${drawMode} qa-map-container`}>
+          <LeafletContainer
+            getLeafletInstance={this.setLeafletInstance}
           />
-        )}
-        <MapPanelContainer isMapPanelVisible />
-        {
-          embedMode ? (
-            <MapEmbedButton />
-          ) : ''
-        }
-        { showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer /> }
+          {
+            this.state.leafletInstance && (
+              <DrawTool
+                leafletInstance={this.state.leafletInstance}
+              />
+            )
+          }
+          {toggleFullscreen && (
+            <ToggleFullscreen
+              isFullscreen={isFullscreen}
+              onToggleFullscreen={toggleFullscreen}
+            />
+          )}
+          <MapPanelContainer isMapPanelVisible />
+          {
+            embedMode ? (
+              <MapEmbedButton />
+            ) : ''
+          }
+          {showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer />}
+        </div>
       </div>
     );
   }

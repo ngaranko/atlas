@@ -1,6 +1,5 @@
 import PAGES from '../../../src/app/pages';
 import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/data-search/data-search';
-import { FETCH_DATA_SELECTION } from '../../../src/header/ducks/search/search';
 import { ROUTER_NAMESPACE } from '../../../src/app/routes';
 import * as routerSelectors from '../../../src/store/redux-first-router';
 import * as dataSelection from '../../../src/shared/ducks/data-selection/data-selection';
@@ -41,10 +40,10 @@ describe('The header controller', function () {
             }
         };
 
-        routerSelectors.isDataSelectionCurrentPage = () => true;
-        routerSelectors.isDatasetCurrentPage = () => true;
+        routerSelectors.isDataSelectionPage = () => true;
+        routerSelectors.isDatasetPage = () => true;
         routerSelectors.isHomepage = () => true;
-        routerSelectors.isMapPage = () => true;
+        routerSelectors.isMapActive = () => true;
         dataSelection.isListView = () => true;
     });
 
@@ -69,7 +68,7 @@ describe('The header controller', function () {
     });
 
     it('sets the search query and action when search is active', function () {
-        routerSelectors.isDatasetCurrentPage = () => false;
+        routerSelectors.isDatasetPage = () => false;
         spyOn(store, 'getState').and.returnValue({
             search: {
                 query: 'search query'
@@ -93,7 +92,7 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBe('dataSelection query');
-        expect(controller.searchAction).toEqual(FETCH_DATA_SELECTION);
+        expect(controller.searchAction).toEqual(dataSelection.FETCH_DATA_SELECTION_REQUEST);
     });
 
     it('sets the dataSelection query and action when catalog detail API view is active', function () {
@@ -109,11 +108,11 @@ describe('The header controller', function () {
         const controller = getController();
 
         expect(controller.query).toBeUndefined();
-        expect(controller.searchAction).toEqual(FETCH_DATA_SELECTION);
+        expect(controller.searchAction).toEqual(dataSelection.FETCH_DATA_SELECTION_REQUEST);
     });
 
     it('default sets the search query and search action', function () {
-        routerSelectors.isDatasetCurrentPage = () => false;
+        routerSelectors.isDatasetPage = () => false;
         spyOn(store, 'getState').and.returnValue({});
 
         const controller = getController();
@@ -123,7 +122,7 @@ describe('The header controller', function () {
     });
 
     it('doesn\'t break when search is null', function () {
-        routerSelectors.isDatasetCurrentPage = () => false;
+        routerSelectors.isDatasetPage = () => false;
         mockedState = {
             search: null
         };
@@ -152,7 +151,7 @@ describe('The header controller', function () {
         });
 
         it('all other pages and non dataSelection content has a printButton', function () {
-            routerSelectors.isDataSelectionCurrentPage = () => false;
+            routerSelectors.isDataSelectionPage = () => false;
             routerSelectors.isHomepage = () => false;
 
             const controller = getController();
@@ -169,7 +168,7 @@ describe('The header controller', function () {
         });
 
         it('should not show when map page is not active', function () {
-            routerSelectors.isMapPage = () => false;
+            routerSelectors.isMapActive = () => false;
             const controller = getController();
 
             expect(controller.hasEmbedButton).toBe(false);

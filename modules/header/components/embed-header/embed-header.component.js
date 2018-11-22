@@ -6,6 +6,9 @@
         .component('dpEmbedHeader', {
             controller: DpEmbedHeader,
             templateUrl: 'modules/header/components/embed-header/embed-header.html',
+            bindings: {
+                closeAction: '<'
+            },
             controllerAs: 'vm'
         });
 

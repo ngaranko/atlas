@@ -57,7 +57,7 @@ const Dataset = ({
   });
 
   return (
-    <div className="c-data-selection">
+    <div className="c-data-selection c-dashboard__content">
       {!isLoading && numberOfRecords && (
         <div className="qa-data-selection-content">
           <AngularWrapper

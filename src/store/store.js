@@ -14,19 +14,19 @@ import piwikMiddleware from './middleware/piwikMiddleware';
 window.reducer = rootReducer;
 
 const configureStore = (history, routesMap) => {
+  const routingOptions = {
+    querySerializer: queryString,
+    restoreScroll: restoreScroll(),
+    initialDispatch: false
+  };
   const {
     reducer: routeReducer,
     middleware: routeMiddleware,
     enhancer: routeEnhancer,
     initialDispatch: initialRouteDispatch
   } = connectRoutes(
-    history,
     routesMap,
-    {
-      querySerializer: queryString,
-      restoreScroll: restoreScroll(),
-      initialDispatch: false
-    }
+    routingOptions
   );
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -49,17 +49,13 @@ const configureStore = (history, routesMap) => {
   try {
     auth.initAuth();
   } catch (error) {
-    window.Raven.captureMessage(error);
+    // Todo: DP-6286 - Add sentry back, log to sentry
+    console.warn(error); // eslint-disable-line no-console
   }
 
   const returnPath = auth.getReturnPath();
   if (returnPath) {
-    // Timeout needed because the change is otherwise not being handled in
-    // Firefox browsers. This is possibly due to AngularJS changing the
-    // `location.hash` at the same time.
-    window.setTimeout(() => {
-      location.hash = returnPath;
-    });
+    location.href = returnPath;
   }
 
   const accessToken = auth.getAccessToken();

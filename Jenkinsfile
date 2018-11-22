@@ -22,7 +22,8 @@ pipeline {
         timeout(time: 5, unit: 'MINUTES')
       }
       steps {
-        sh "scripts/bakkie.sh ${BRANCH_NAME}"
+//        sh "scripts/bakkie.sh ${BRANCH_NAME}"
+        sh "echo \"Skipped bakkie, using Netlify at the moment!\""
       }
     }
 
@@ -45,42 +46,25 @@ pipeline {
       }
     }
 
-    stage ('Run Tests') {
-      parallel {
-        stage('Unit tests') {
-          options {
-            timeout(time: 30, unit: 'MINUTES')
-          }
-          environment {
-            PROJECT = "${PROJECT_PREFIX}unit"
-          }
-          steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit-integration test-unit-integration"
-          }
-          post {
-            always {
-              sh "docker-compose -p ${PROJECT} down -v || true"
-            }
-          }
+    stage('Unit tests') {
+      options {
+        timeout(time: 30, unit: 'MINUTES')
+      }
+      environment {
+        PROJECT = "${PROJECT_PREFIX}unit"
+      }
+      steps {
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit-integration test-unit-integration"
+      }
+      post {
+        always {
+          sh "docker-compose -p ${PROJECT} down -v || true"
         }
+      }
+    }
 
-        // stage('Linting') {
-        //   options {
-        //     timeout(time: 30, unit: 'MINUTES')
-        //   }
-        //   environment {
-        //     PROJECT = "${PROJECT_PREFIX}linting"
-        //   }
-        //   steps {
-        //     sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-lint test-lint"
-        //   }
-        //   post {
-        //     always {
-        //       sh "docker-compose -p ${PROJECT} down -v || true"
-        //     }
-        //   }
-        // }
-
+    stage('Run tests') {
+      parallel {
         stage('E2E tests') {
           options {
             timeout(time: 60, unit: 'MINUTES')

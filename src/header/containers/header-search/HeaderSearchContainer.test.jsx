@@ -8,20 +8,16 @@ import {
   getTypedQuery
 } from '../../ducks/auto-suggest/auto-suggest';
 
-import { fetchDataSelection } from '../../ducks/search/search';
-
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { fetchDetail, FETCH_DETAIL } from '../../../shared/ducks/detail/detail';
-import {
-  ROUTER_NAMESPACE, toDataSearch, toDatasetSearch, toDataSuggestion, toDatasetSuggestion
-} from '../../../app/routes';
+import { ROUTER_NAMESPACE } from '../../../app/routes';
 import PAGES from '../../../app/pages';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
+import { toDataSearch, toDatasetSearch, toDataSuggestion, toDatasetSuggestion } from '../../../store/redux-first-router';
 
 jest.mock('../../ducks/auto-suggest/auto-suggest');
 jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
 jest.mock('../../../shared/ducks/detail/detail');
-jest.mock('../../ducks/search/search');
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
@@ -34,7 +30,6 @@ describe('HeaderSearchContainer', () => {
     getSuggestionsAction.mockReset();
     fetchDetail.mockReset();
     piwikTracker.mockReset();
-    fetchDataSelection.mockReset();
   });
 
   const initialState = {

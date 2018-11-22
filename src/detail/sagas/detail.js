@@ -1,6 +1,7 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { pageTypeToEndpoint, routing } from '../../app/routes';
+import { routing } from '../../app/routes';
 import { getDetail, fetchDetail as fetchDetailActionCreator } from '../../shared/ducks/detail/detail';
+import { pageTypeToEndpoint } from '../../store/redux-first-router';
 
 /* istanbul ignore next */ // TODO: refactor, test
 export function* fetchDetail() {

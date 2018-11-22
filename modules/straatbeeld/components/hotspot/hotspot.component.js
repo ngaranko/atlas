@@ -1,6 +1,6 @@
 import { radiansToDegrees } from '../../../../src/shared/services/angle-conversion/angle-conversion';
 import {
-    toPanorama } from '../../../../src/app/routes';
+    toPanorama } from '../../../../src/store/redux-first-router';
 
 (function () {
     'use strict';

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dataset should render the inital state 1`] = `<LoadingIndicator />`;

@@ -1,3 +1,6 @@
+import { FETCH_DATASETS_REQUEST } from '../../../../src/shared/ducks/datasets/data/data';
+import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../../src/shared/ducks/data-search/data-search';
+
 export const datasetsKey = 'datasets';
 
 (function () {
@@ -10,15 +13,15 @@ export const datasetsKey = 'datasets';
             'data-datasets': {
                 data: {
                     title: 'Data',
-                    action: 'FETCH_SEARCH_RESULTS_BY_QUERY',
-                    getPayload: query => query,
+                    action: FETCH_SEARCH_RESULTS_BY_QUERY,
+                    getPayload: (query) => query,
                     tip: 'maak de zoekcriteria minder specifiek (bijv. een straat i.p.v. specifiek adres)'
                 },
                 [datasetsKey]: {
                     title: 'Datasets',
-                    action: 'FETCH_DATA_SELECTION',
+                    action: FETCH_DATASETS_REQUEST,
                     getPayload: (query) => {
-                        return {dataset: 'dcatd', view: 'CATALOG', query, page: 1};
+                        return { query, page: 1 };
                     },
                     tip: `maak de zoekcriteria minder specifiek. Of probeer in plaats van zoeken eens de
                           optie 'Alle datasets tonen' en filter vervolgens op thema.`

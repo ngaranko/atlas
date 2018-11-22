@@ -3,12 +3,14 @@ body {
   height: auto;
 }
 
-& {
+body {
   margin-left: auto;
   margin-right: auto;
-  width: 660px;
+  max-width: 660px;
 }
 
 &.is-print-mode--landscape {
-  width: 1280px;
+  body {
+    max-width: 1280px;
+  }
 }

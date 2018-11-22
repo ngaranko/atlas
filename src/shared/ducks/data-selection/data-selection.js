@@ -165,9 +165,9 @@ export const receiveDataSelectionSuccess = (payload) => ({
   payload
 });
 
-export const receiveDataSelectionFailure = (payload) => ({
+export const receiveDataSelectionFailure = (error) => ({
   type: FETCH_DATA_SELECTION_FAILURE,
-  payload
+  payload: error
 });
 
 // Selectors

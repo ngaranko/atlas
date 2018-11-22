@@ -16,8 +16,6 @@ describe('The TAB_HEADER_CONFIG', function () {
     it('the data-datasets tab header configuration provides for a getPayload method for each tab', function () {
         expect(TAB_HEADER_CONFIG['data-datasets'].data.getPayload('payload')).toBe('payload');
         expect(TAB_HEADER_CONFIG['data-datasets'].datasets.getPayload('payload')).toEqual({
-            dataset: 'dcatd',
-            view: 'CATALOG',
             query: 'payload',
             page: 1
         });

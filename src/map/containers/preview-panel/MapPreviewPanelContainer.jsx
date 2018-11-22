@@ -13,12 +13,6 @@ import {
   getLocationId,
   selectLatestMapSearchResults
 } from '../../ducks/map/map-selectors';
-import {
-  getPageActionEndpoint,
-  toDataLocationSearch,
-  toMap,
-  toPanorama
-} from '../../../app/routes';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 import {
   getDataSearch,
@@ -27,6 +21,7 @@ import {
   isSearchLoading
 } from '../../../shared/ducks/data-search/data-search';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
+import { getPageActionEndpoint, toMap, toPanorama, toDataLocationSearch } from '../../../store/redux-first-router';
 
 const mapStateToProps = (state) => ({
   panoPreview: getPanoPreview(state),

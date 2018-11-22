@@ -23,13 +23,13 @@ import DetailPage from './pages/DetailPage';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
 import SearchPage from './pages/SearchPage';
-import { getCurrentPage } from '../store/redux-first-router';
+import { getPage } from '../store/redux-first-router';
 import Dataset from './components/Dataset/Dataset';
+import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe';
 
 // TodoReactMigration: implement logic
 const App = ({
   isFullHeight,
-  pageType,
   visibilityError,
   currentPage,
   embedMode,
@@ -56,32 +56,45 @@ const App = ({
     'c-dashboard__body--error': visibilityError
   });
 
+  // Todo: preferably don't modify html class, now needed since these classes add height: auto to
+  // html and body
+  const printAndEmbedClasses = [
+    'is-print-mode', 'is-print-mode--landscape', 'is-embed', 'is-embed-preview'
+  ];
   const printEmbedModeClasses = classNames({
-    'is-print-mode': printMode,
-    'is-print-mode--landscape': printModeLandscape, // Todo: implement
-    'is-embed': embedMode,
-    'is-embed-preview': embedPreviewMode
+    [printAndEmbedClasses[0]]: printMode,
+    [printAndEmbedClasses[1]]: printModeLandscape, // Todo: implement
+    [printAndEmbedClasses[2]]: embedMode,
+    [printAndEmbedClasses[3]]: embedPreviewMode
   });
+
+  document.documentElement.classList.remove(...printAndEmbedClasses);
+  if (printEmbedModeClasses) {
+    document.documentElement.classList.add(...printEmbedModeClasses.split(' '));
+  }
+
+  // Todo: don't use page types, this will be used
+  const pageTypeClass = currentPage.toLowerCase().replace('_', '-');
 
   return (
     <div
-      className={`c-dashboard c-dashboard--page-type-${pageType} ${rootClasses} ${printEmbedModeClasses}`}
+      className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
     >
       <Piwik />
       {!embedMode &&
-        <AngularWrapper
-          moduleName={'dpHeaderWrapper'}
-          component="dpHeader"
-          dependencies={['atlas']}
-          bindings={{
-            isHomePage,
-            hasMaxWidth,
-            user,
-            isPrintMode: printMode,
-            isEmbedPreview: embedPreviewMode,
-            isPrintOrEmbedOrPreview: printOrEmbedMode
-          }}
-        />
+      <AngularWrapper
+        moduleName={'dpHeaderWrapper'}
+        component="dpHeader"
+        dependencies={['atlas']}
+        bindings={{
+          isHomePage,
+          hasMaxWidth,
+          user,
+          isPrintMode: printMode,
+          isEmbedPreview: embedPreviewMode,
+          isPrintOrEmbedOrPreview: printOrEmbedMode
+        }}
+      />
       }
       <AngularWrapper
         moduleName={'dpErrorWrapper'}
@@ -96,44 +109,45 @@ const App = ({
         }}
       />
       <div className={`c-dashboard__body ${bodyClasses}`}>
-        <div className="u-grid u-full-height">
-          <div className="u-row u-full-height">
-            {currentPage === PAGES.HOME && (
-              <Home
-                showFooter
-              />
-            )}
+        {embedPreviewMode ?
+          <EmbedIframeComponent /> :
+          <div className="u-grid u-full-height">
+            <div className="u-row u-full-height">
+              {currentPage === PAGES.HOME && (
+                <Home showFooter />
+              )}
 
-            {currentPage === PAGES.DATA_SEARCH && <SearchPage />}
+              {currentPage === PAGES.DATA_SEARCH && <SearchPage />}
 
-            {currentPage === PAGES.KAART && <MapPage />}
+              {currentPage === PAGES.MAP && <MapPage />}
 
-            {currentPage === PAGES.DATA_DETAIL && <DetailPage />}
+              {currentPage === PAGES.DATA_DETAIL && <DetailPage />}
 
-            {currentPage === PAGES.PANORAMA && <PanoramaPage />}
+              {currentPage === PAGES.PANORAMA && <PanoramaPage />}
 
-            {currentPage === PAGES.DATASETS && <Dataset />}
+              {currentPage === PAGES.DATASETS && <Dataset />}
 
-            {currentPage === PAGES.DATASETS_DETAIL && (
-              <DatasetDetailContainer />
-            )}
+              {currentPage === PAGES.DATASETS_DETAIL && (
+                <DatasetDetailContainer />
+              )}
 
-            {(currentPage === PAGES.ADDRESSES
-            || currentPage === PAGES.ESTABLISHMENTS
-            || currentPage === PAGES.CADASTRAL_OBJECTS)
-            && (
-              <DataSelection />
-            )}
+              {(currentPage === PAGES.ADDRESSES
+                || currentPage === PAGES.ESTABLISHMENTS
+                || currentPage === PAGES.CADASTRAL_OBJECTS)
+              && (
+                <DataSelection />
+              )}
 
-            {isCmsPage && (
-              <ContentPage
-                name={cmsPageData.template}
-                type={cmsPageData.type}
-                item={cmsPageData.item}
-              />
-            )}
+              {isCmsPage && (
+                <ContentPage
+                  name={cmsPageData.template}
+                  type={cmsPageData.type}
+                  item={cmsPageData.item}
+                />
+              )}
+            </div>
           </div>
-        </div>
+        }
       </div>
     </div>
   );
@@ -141,13 +155,11 @@ const App = ({
 
 App.defaultProps = {
   isFullHeight: false,
-  pageType: '',
   visibilityError: false
 };
 
 App.propTypes = {
   isFullHeight: PropTypes.bool,
-  pageType: PropTypes.string, // state.page && state.page.type ? state.page.type : '',
   currentPage: PropTypes.string.isRequired,
   visibilityError: PropTypes.bool, // vm.visibility.error
   embedMode: PropTypes.bool.isRequired,
@@ -159,7 +171,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentPage: getCurrentPage(state),
+  currentPage: getPage(state),
   embedMode: isEmbedded(state),
   printMode: isPrintMode(state),
   printModeLandscape: isPrintModeLandscape(state),

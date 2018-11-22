@@ -1,5 +1,5 @@
 import { features } from '../../../../src/shared/environment';
-import { FETCH_DATA_SELECTION } from '../../../../src/header/ducks/search/search';
+import { fetchDataSelection } from '../../../../src/shared/ducks/data-selection/data-selection';
 
 describe('The dp-data-selection-link component', () => {
     let $compile,
@@ -57,48 +57,36 @@ describe('The dp-data-selection-link component', () => {
         const component = getComponent(activeFilters);
 
         component.find('dp-link button').click();
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: FETCH_DATA_SELECTION,
-            payload: {
-                dataset: 'bag',
-                view: 'TABLE',
-                filters: activeFilters,
-                page: 1
-            }
-        });
+        expect(store.dispatch).toHaveBeenCalledWith(fetchDataSelection({
+            dataset: 'bag',
+            activeFilters,
+            page: 1
+        }));
     });
 
-    it('has links to the TABLE view of data-selection for HR', () => {
+    it('has links to the data-selection for HR', () => {
         const activeFilters = { stadsdeel_naam: 'Noord', buurt_naam: 'Ghetto C' };
         const component = getComponent(activeFilters);
 
         component.find('dp-link button').click();
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: FETCH_DATA_SELECTION,
-            payload: {
-                dataset: 'hr',
-                view: 'TABLE',
-                filters: activeFilters,
-                page: 1
-            }
-        });
+        expect(store.dispatch).toHaveBeenCalledWith(fetchDataSelection({
+            dataset: 'hr',
+            activeFilters,
+            page: 1
+        }));
     });
 
-    it('has links to the TABLE view of data-selection for BRK', () => {
+    it('has links to the data-selection for BRK', () => {
         const activeFilters = { stadsdeel_naam: 'Noord', buurt_naam: 'Ghetto C' };
         const component = getComponent(activeFilters);
 
         if (features.eigendommen) {
             component.find('dp-link button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: FETCH_DATA_SELECTION,
-                payload: {
-                    dataset: 'brk',
-                    view: 'TABLE',
-                    filters: activeFilters,
-                    page: 1
-                }
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(fetchDataSelection({
+                dataset: 'brk',
+                activeFilters,
+                page: 1
+            }));
         }
     });
 });

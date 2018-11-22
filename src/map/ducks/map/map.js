@@ -16,7 +16,6 @@ export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
 export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
 export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
-export const MAP_CLICK = 'MAP_CLICK';
 
 export const DEFAULT_LAT = 52.3731081;
 export const DEFAULT_LNG = 4.8932945;
@@ -44,7 +43,7 @@ export default function MapReducer(state = initialState, action) {
   };
   const { meta = {} } = action;
   const { query = {} } = meta;
-  const { lat, lng, zoom, legenda } = query;
+  const { lat, lng, zoom, legenda, lagen } = query;
   if (lat && lng) {
     enrichedState.viewCenter = [
       parseFloat(lat) || initialState.viewCenter[0],
@@ -56,6 +55,17 @@ export default function MapReducer(state = initialState, action) {
   }
   if (legenda) {
     enrichedState.mapPanelActive = legenda === 'true';
+  }
+
+  if (lagen) {
+    try {
+      enrichedState.overlays = atob(lagen).split('|').map((obj) => {
+        const layerInfo = obj.split(':');
+        return { id: layerInfo[0], isVisible: !!parseInt(layerInfo[1], 0) };
+      });
+    } catch (e) {
+      console.warn(e); // eslint-disable-line no-console
+    }
   }
 
   switch (action.type) {

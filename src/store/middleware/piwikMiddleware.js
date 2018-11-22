@@ -1,20 +1,22 @@
 import piwikTracker from '../../shared/services/piwik-tracker/piwik-tracker';
+import { routing } from '../../app/routes';
+import { DOWNLOAD_DATASET_RESOURCE } from '../../shared/ducks/datasets/data/data';
 
 /** Set Piwik variable */
 const actionsToPiwik = {
-  'atlasRouter/DATA_DETAIL': (tracking) => [
+  [routing.dataDetail.type]: (tracking) => [
     'trackEvent',
     tracking.event,
     tracking.category,
     tracking.query
   ],
-  'atlasRouter/DATASETS_DETAIL': (tracking) => [
+  [routing.datasetsDetail.type]: (tracking) => [
     'trackEvent',
     tracking.event,
     'Datasets',
     tracking.query
   ],
-  'datasetData/DOWNLOAD_DATASET_RESOURCE': (tracking) => [
+  [DOWNLOAD_DATASET_RESOURCE]: (tracking) => [
     'trackEvent',
     'Download',
     tracking.dataset,
