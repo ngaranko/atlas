@@ -1,5 +1,5 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
-import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import { select, takeLatest } from 'redux-saga/effects';
 import {
   doClosePanorama,
   watchFetchPanorama,
@@ -41,7 +41,7 @@ describe('watchPanoramaRoute', () => {
   });
 
   it('should dispatch the correct action', () => (
-    expectSaga(fireFetchPanormaRequest, { payload} )
+    expectSaga(fireFetchPanormaRequest, { payload })
       .provide({
         call(effect, next) {
           return effect.fn === fetchPanoramaRequest ? 'payload' : next();
@@ -82,14 +82,14 @@ describe('watchClosePanorama', () => {
   });
 
   it('should call doClosePanorama and dispatch the correct action', () => {
-     expectSaga(doClosePanorama)
-       .provide({
-         call(effect, next) {
-           return effect.fn === toMap();
-         }
-       })
-       .run();
-   });
+    expectSaga(doClosePanorama)
+     .provide({
+       call(effect) {
+         return effect.fn === toMap();
+       }
+     })
+     .run();
+  });
 });
 
 describe('fetchPanorma and fetchPanoramaYear', () => {
@@ -97,8 +97,8 @@ describe('fetchPanorma and fetchPanoramaYear', () => {
     testSaga(fetchPanorama)
       .next()
       .all([
-          select(getPanoramaId),
-          select(getPanoramaYear),
+        select(getPanoramaId),
+        select(getPanoramaYear)
       ])
       .next(['id', 'year'])
       .call(getImageDataById, 'id', 'year')
@@ -110,7 +110,7 @@ describe('fetchPanorma and fetchPanoramaYear', () => {
       .next()
       .put({
         type: TOGGLE_MAP_OVERLAY_PANORAMA,
-        payload: 'pano' + 'year'
+        payload: `pano${'year'}`
       })
       .next()
       .isDone();
@@ -120,8 +120,8 @@ describe('fetchPanorma and fetchPanoramaYear', () => {
     testSaga(fetchPanorama)
       .next()
       .all([
-          select(getPanoramaId),
-          select(getPanoramaYear),
+        select(getPanoramaId),
+        select(getPanoramaYear)
       ])
       .next(['id', 'year'])
       .call(getImageDataById, 'id', 'year')
@@ -138,8 +138,8 @@ describe('fetchPanorma and fetchPanoramaYear', () => {
     testSaga(fetchPanoramaYear)
       .next()
       .all([
-          select(getPanoramaLocation),
-          select(getPanoramaYear),
+        select(getPanoramaLocation),
+        select(getPanoramaYear)
       ])
       .next(['location', 'year'])
       .call(getImageDataByLocation, 'location', 'year')
@@ -151,7 +151,7 @@ describe('fetchPanorma and fetchPanoramaYear', () => {
       .next()
       .put({
         type: TOGGLE_MAP_OVERLAY_PANORAMA,
-        payload: 'pano' + 'year'
+        payload: `pano${'year'}`
       })
       .next()
       .isDone();
@@ -161,8 +161,8 @@ describe('fetchPanorma and fetchPanoramaYear', () => {
     testSaga(fetchPanoramaYear)
       .next()
       .all([
-          select(getPanoramaLocation),
-          select(getPanoramaYear),
+        select(getPanoramaLocation),
+        select(getPanoramaYear)
       ])
       .next(['location', 'year'])
       .call(getImageDataByLocation, 'location', 'year')
