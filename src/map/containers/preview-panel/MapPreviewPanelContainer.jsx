@@ -4,15 +4,9 @@ import { bindActionCreators } from 'redux';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
 import { isEmbedded, isEmbedPreview } from '../../../shared/ducks/ui/ui';
-import {
-  DETAIL_VIEW,
-  getDetail, getDetailEndpoint
-} from '../../../shared/ducks/detail/detail';
+import { DETAIL_VIEW, getDetail, getDetailEndpoint } from '../../../shared/ducks/detail/detail';
 import MapPreviewPanel from './MapPreviewPanel';
-import {
-  getLocationId,
-  selectLatestMapSearchResults
-} from '../../ducks/map/map-selectors';
+import { getLocationId, selectLatestMapSearchResults } from '../../ducks/map/map-selectors';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 import {
   getDataSearch,
@@ -21,7 +15,12 @@ import {
   isSearchLoading
 } from '../../../shared/ducks/data-search/data-search';
 import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
-import { getPageActionEndpoint, toMap, toPanorama, toDataLocationSearch } from '../../../store/redux-first-router';
+import {
+  getPageActionEndpoint,
+  toDataLocationSearch,
+  toMap,
+  toPanorama
+} from '../../../store/redux-first-router';
 
 const mapStateToProps = (state) => ({
   panoPreview: getPanoPreview(state),

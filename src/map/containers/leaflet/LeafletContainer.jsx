@@ -17,7 +17,10 @@ import {
   getMarkers,
   getRdGeoJsons
 } from '../../ducks/map/map-selectors';
-import { getClusterMarkers, getGeoJsons } from '../../../shared/ducks/data-selection/data-selection';
+import {
+  getClusterMarkers,
+  getGeoJsons
+} from '../../../shared/ducks/data-selection/selectors';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
@@ -191,7 +194,6 @@ LeafletContainer.propTypes = {
   onUpdatePan: PropTypes.func.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
   onUpdateBoundingBox: PropTypes.func.isRequired,
-
 
   onFetchMapBaseLayers: PropTypes.func.isRequired,
   onFetchMapLayers: PropTypes.func.isRequired,

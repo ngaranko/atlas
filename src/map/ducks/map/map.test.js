@@ -1,6 +1,5 @@
 import reducer, {
   mapClear,
-  mapClearDrawing,
   mapEmptyGeometry,
   mapEndDrawing,
   mapStartDrawing,
@@ -41,12 +40,6 @@ describe('Map Reducer', () => {
       shapeMarkers: initialState.shapeMarkers,
       shapeDistanceTxt: initialState.shapeDistanceTxt,
       shapeAreaTxt: initialState.shapeAreaTxt
-    });
-  });
-
-  it('should clear the map drawing when dispatching mapClearDrawing', () => {
-    expect(reducer({ geometry: ['foo'] }, mapClearDrawing())).toEqual({
-      geometry: []
     });
   });
 

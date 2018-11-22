@@ -2,7 +2,7 @@ import { ADD_FILTER, EMPTY_FILTERS, getFilters } from './filters';
 
 /* istanbul ignore next */ // TODO: refactor, test
 const getFiltersString = (state) => (
-  Object.keys(getFilters(state)).length ? JSON.stringify(getFilters(state)) : undefined
+  Object.keys(getFilters(state)).length ? btoa(JSON.stringify(getFilters(state))) : undefined
 );
 
 export default {

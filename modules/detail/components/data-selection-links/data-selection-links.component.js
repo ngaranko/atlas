@@ -1,8 +1,8 @@
 import { features } from '../../../../src/shared/environment';
 import {
-    DATASETS,
     fetchDataSelection
-} from '../../../../src/shared/ducks/data-selection/data-selection';
+} from '../../../../src/shared/ducks/data-selection/actions';
+import { DATASETS } from '../../../../src/shared/ducks/data-selection/constants';
 
 (function () {
     'use strict';

@@ -119,7 +119,7 @@ function getMarkers(dataset, activeFilters, zoomLevel, boundingBox) {
   return apiService.getMarkers(config, filteredFilters, zoomLevel, boundingBox);
 }
 
-function query(dataset, view, activeFilters, page, searchText, geometryFilter, catalogFilters) {
+function query(dataset, view, activeFilters, page, searchText, shape, catalogFilters) {
   const customApi = DATA_SELECTION_CONFIG.datasets[dataset].CUSTOM_API;
 
   return customApi.query(
@@ -128,7 +128,7 @@ function query(dataset, view, activeFilters, page, searchText, geometryFilter, c
     filterUnavailableFilters(dataset, activeFilters),
     page,
     searchText,
-    geometryFilter,
+    shape,
     catalogFilters
   ).then((data) => ({
     numberOfPages: data.numberOfPages,

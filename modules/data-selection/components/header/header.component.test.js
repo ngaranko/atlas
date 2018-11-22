@@ -1,6 +1,6 @@
 import * as dataSelectionConfig
     from '../../../../src/shared/services/data-selection/data-selection-config';
-import { setDataset } from '../../../../src/shared/ducks/data-selection/data-selection';
+import { setDataset } from '../../../../src/shared/ducks/data-selection/actions';
 
 describe('The dp-data-selection-header', () => {
     const anonymousUser = {

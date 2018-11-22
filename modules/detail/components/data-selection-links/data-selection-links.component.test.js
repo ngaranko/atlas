@@ -1,5 +1,5 @@
 import { features } from '../../../../src/shared/environment';
-import { fetchDataSelection } from '../../../../src/shared/ducks/data-selection/data-selection';
+import { fetchDataSelection } from '../../../../src/shared/ducks/data-selection/actions';
 
 describe('The dp-data-selection-link component', () => {
     let $compile,

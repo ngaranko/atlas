@@ -2,7 +2,6 @@ import { routing } from '../../../app/routes';
 
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
 export const MAP_BOUNDING_BOX_SILENT = 'MAP_BOUNDING_BOX_SILENT';
-export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
 export const MAP_PAN = 'MAP_PAN';
@@ -71,6 +70,10 @@ export default function MapReducer(state = initialState, action) {
   switch (action.type) {
     case routing.dataDetail.type:
     case routing.panorama.type:
+    case routing.dataSearch.type:
+    case routing.addresses.type:
+    case routing.cadastralObjects.type:
+    case routing.establishments.type:
       // When opening these pages, close legend
       return {
         ...enrichedState,
@@ -96,12 +99,6 @@ export default function MapReducer(state = initialState, action) {
       return {
         ...enrichedState,
         boundingBox: action.payload.boundingBox
-      };
-
-    case MAP_CLEAR_DRAWING:
-      return {
-        ...enrichedState,
-        geometry: []
       };
 
     case MAP_EMPTY_GEOMETRY:
@@ -185,7 +182,6 @@ export default function MapReducer(state = initialState, action) {
 }
 
 // Actions
-export const mapClearDrawing = () => ({ type: MAP_CLEAR_DRAWING });
 export const mapEmptyGeometry = () => ({ type: MAP_EMPTY_GEOMETRY });
 export const mapUpdateShape = (payload) => ({ type: MAP_UPDATE_SHAPE, payload });
 export const mapStartDrawing = (payload) => ({ type: MAP_START_DRAWING, payload });
