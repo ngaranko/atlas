@@ -9,7 +9,7 @@ import {
   CLOSE_STRAATBEELD
 } from '../../shared/ducks/straatbeeld/straatbeeld';
 import { getImageDataById } from '../../shared/services/straatbeeld-api/straatbeeld-api';
-import { toMap } from '../../store/redux-first-router';
+import { toMapAndPreserveQuery } from '../../store/redux-first-router';
 
 function* fireFetchPanormaRequest(action) {
   yield put(fetchStraatbeeld(action.payload.id));
@@ -34,7 +34,7 @@ export function* watchFetchStraatbeeld() {
 }
 
 function* doCloseStraatbeeld() {
-  yield put(toMap());
+  yield put(toMapAndPreserveQuery());
 }
 
 export function* watchCloseStraatbeeld() {

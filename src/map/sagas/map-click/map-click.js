@@ -10,7 +10,7 @@ import {
   setSelection
 } from '../../../shared/ducks/selection/selection';
 import { getImageDataByLocation } from '../../../shared/services/straatbeeld-api/straatbeeld-api';
-import { getPage, toPanorama, toMap } from '../../../store/redux-first-router';
+import { getPage, toPanorama, toMapAndPreserveQuery } from '../../../store/redux-first-router';
 import { fetchMapSearchResultsRequest } from '../../../shared/ducks/data-search/data-search';
 import PAGES from '../../../app/pages';
 
@@ -53,7 +53,7 @@ export function* switchClickAction(action) {
       if (currentPage === PAGES.DATA_SEARCH) {
         // already on search page, don't switch pages
       } else {
-        yield put(toMap());
+        yield put(toMapAndPreserveQuery());
       }
       yield put(fetchMapSearchResultsRequest(location));
     }
