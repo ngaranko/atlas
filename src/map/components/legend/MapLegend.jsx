@@ -55,7 +55,9 @@ class MapLegend extends React.Component {
   }
 
   render() {
-    const { activeMapLayers, onLayerVisibilityToggle, user, zoomLevel } = this.props;
+    const {
+      activeMapLayers, onLayerVisibilityToggle, user, zoomLevel, isEmbedOrPrint
+    } = this.props;
 
     return (
       <div>
@@ -101,7 +103,7 @@ class MapLegend extends React.Component {
                   <ul className="map-legend__items">
                     {mapLayer.legendItems.map((legendItem) => {
                       const legendItemIsVisible = this.determineLegendItemVisibility(legendItem);
-                      return (
+                      return (!legendItemIsVisible && isEmbedOrPrint) ? null : (
                         <li className="map-legend__item" key={legendItem.title}>
                           {legendItem.selectable && (
                             <Checkbox
@@ -141,6 +143,7 @@ class MapLegend extends React.Component {
 MapLegend.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
+  isEmbedOrPrint: PropTypes.bool.isRequired,
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
   overlays: PropTypes.array, // eslint-disable-line
   user: PropTypes.object, // eslint-disable-line
