@@ -19,8 +19,10 @@ import {
   dataIsLoading,
   getAuthError, getDatasetApiSpecification,
   getPage,
-  getResults
+  getResults,
+  getSearchText
 } from '../../../shared/ducks/datasets/datasets';
+import TabHeader from '../../../shared/services/tab-header/tab-header';
 
 const Dataset = ({
   setPage,
@@ -35,21 +37,22 @@ const Dataset = ({
   user,
   authError,
   page: currentPage,
-  apiSpecification
+  apiSpecification,
+  searchText
 }) => {
   if (isLoading || (!numberOfRecords && !authError)) {
     return <LoadingIndicator />;
   }
 
   // Todo: move query and showTabbHeader logic to search page
-  const query = ''; // ?
+  const query = searchText || '';
   const showTabHeader = query.trim().length >= 1;
 
   const showFilters = numberOfRecords > 0;
   const { MAX_AVAILABLE_PAGES } = DATA_SELECTION_CONFIG.datasets[DEFAULT_DATASET];
   const showMessageMaxPages = MAX_AVAILABLE_PAGES && currentPage > MAX_AVAILABLE_PAGES;
 
-  const tabHeader = {}; // new TabHeader('data-datasets')
+  const tabHeader = new TabHeader('data-datasets');
 
   const widthClass = classNames({
     'u-col-sm--12': !showFilters,
@@ -81,7 +84,8 @@ const Dataset = ({
               dependencies={['atlas']}
               bindings={{
                 tabHeader,
-                filtersActive: true
+                filtersActive: true,
+                searchText: query
               }}
               interpolateBinding={{
                 searchText: query
@@ -161,7 +165,8 @@ Dataset.propTypes = {
     numberOfPages: PropTypes.number,
     filters: PropTypes.arrayOf(PropTypes.object),
     data: PropTypes.arrayOf(PropTypes.object)
-  }).isRequired
+  }).isRequired,
+  searchText: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -171,7 +176,8 @@ const mapStateToProps = (state) => ({
   activeFilters: getActiveFilters(state),
   results: getResults(state),
   user: getUser(state),
-  apiSpecification: getDatasetApiSpecification(state)
+  apiSpecification: getDatasetApiSpecification(state),
+  searchText: getSearchText(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

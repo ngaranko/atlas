@@ -21,7 +21,8 @@ import { routing } from '../../../../src/app/routes';
                 type: routing.datasets.type,
                 meta: {
                     query: {
-                        filters: btoa(JSON.stringify({groups: theme.slug})) // eslint-disable-line angular/json-functions
+                        // eslint-disable-next-line angular/json-functions
+                        filters: btoa(JSON.stringify({ groups: theme.slug }))
                     }
                 }
             };
