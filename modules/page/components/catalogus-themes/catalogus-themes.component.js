@@ -19,8 +19,11 @@ import { routing } from '../../../../src/app/routes';
         vm.themes = CATALOGUS_THEMES_CONFIG.map(theme => {
             const linkTo = {
                 type: routing.datasets.type,
-                query: {
-                    filter_theme: theme.slug
+                meta: {
+                    query: {
+                        // eslint-disable-next-line angular/json-functions
+                        filters: btoa(JSON.stringify({ groups: theme.slug }))
+                    }
                 }
             };
             return {
