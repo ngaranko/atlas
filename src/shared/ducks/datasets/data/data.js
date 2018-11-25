@@ -1,4 +1,5 @@
 import { routing } from '../../../../app/routes';
+import { SET_ACTIVE_SUGGESTION } from '../../../../header/ducks/auto-suggest/auto-suggest';
 
 export const REDUCER_KEY = 'datasetData';
 export const FETCH_DATASETS_REQUEST = `${REDUCER_KEY}/FETCH_DATASETS_REQUEST`;
@@ -13,16 +14,18 @@ export const DEFAULT_VIEW = 'CATALOG';
 export const initialState = {
   isLoading: false,
   page: 1,
-  authError: false
+  authError: false,
+  searchText: ''
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case routing.datasets.type: {
-      const { page } = action.meta.query || {};
+      const { page, zoekterm } = action.meta.query || {};
       return {
         ...state,
-        page: parseInt(page, 0) || initialState.page
+        page: parseInt(page, 0) || initialState.page,
+        searchText: zoekterm || ''
       };
     }
     case FETCH_DATASETS_REQUEST:
@@ -48,6 +51,12 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         page: action.payload
+      };
+
+    case SET_ACTIVE_SUGGESTION:
+      return {
+        ...state,
+        searchText: action.suggestion.index === -1 ? '' : state.searchText
       };
 
     default:

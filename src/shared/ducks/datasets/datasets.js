@@ -18,6 +18,10 @@ export const getResults = createSelector(getDatasetsData, (datasets) => datasets
 export const getFilters = createSelector(getResults, (result) => result.filters || []);
 export const getAuthError = createSelector(getDatasetsData, (resultState) => resultState.authError);
 export const getPage = createSelector(getDatasetsData, (resultState) => resultState.page);
+export const getSearchText = createSelector(
+  getDatasetsData,
+  (resultState) => resultState.searchText
+);
 export const dataIsLoading = createSelector(
   getDatasetsData,
   (resultState) => resultState.isLoading
