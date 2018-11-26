@@ -335,11 +335,11 @@ export default [
     legendItems: [
       {
         selectable: false,
-        title: 'Gebiedsgerichtwerken-praktijkgebieden'
+        title: 'Gebiedsgerichtwerken-praktijkgebied'
       }
     ],
     maxZoom: 16,
-    minZoom: 10,
+    minZoom: 6,
     title: 'Gebeidsgerichtwerken praktijkgebieden',
     url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
