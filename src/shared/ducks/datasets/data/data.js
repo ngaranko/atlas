@@ -1,5 +1,6 @@
 import { routing } from '../../../../app/routes';
 import { SET_ACTIVE_SUGGESTION } from '../../../../header/ducks/auto-suggest/auto-suggest';
+import { EMPTY_FILTERS } from '../../filters/filters';
 
 export const REDUCER_KEY = 'datasetData';
 export const FETCH_DATASETS_REQUEST = `${REDUCER_KEY}/FETCH_DATASETS_REQUEST`;
@@ -58,6 +59,13 @@ export default function reducer(state = initialState, action) {
         ...state,
         searchText: action.suggestion.index === -1 ? '' : state.searchText
       };
+
+    case EMPTY_FILTERS: {
+      return {
+        ...state,
+        searchText: ''
+      };
+    }
 
     default:
       return state;
