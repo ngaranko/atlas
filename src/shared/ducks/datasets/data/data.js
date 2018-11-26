@@ -1,6 +1,7 @@
 import { routing } from '../../../../app/routes';
 
 export const REDUCER_KEY = 'datasetData';
+export const DOWNLOAD_DATASET_RESOURCE = `${REDUCER_KEY}/DOWNLOAD_DATASET_RESOURCE`;
 export const FETCH_DATASETS_REQUEST = `${REDUCER_KEY}/FETCH_DATASETS_REQUEST`;
 export const FETCH_DATASETS_SUCCESS = `${REDUCER_KEY}/FETCH_DATASETS_SUCCESS`;
 export const FETCH_DATASETS_FAILURE = `${REDUCER_KEY}/FETCH_DATASETS_FAILURE`;
@@ -56,6 +57,13 @@ export default function reducer(state = initialState, action) {
 }
 
 // Actions
+export const downloadDatasetResource = (payload) => ({
+  type: DOWNLOAD_DATASET_RESOURCE,
+  meta: {
+    tracking: payload
+  }
+});
+
 export const fetchDatasets = (payload) => ({
   type: FETCH_DATASETS_REQUEST,
   payload
@@ -72,4 +80,3 @@ export const receiveDatasetsFailure = (payload) => ({
 });
 
 export const setPage = (payload) => ({ type: SET_PAGE, payload });
-

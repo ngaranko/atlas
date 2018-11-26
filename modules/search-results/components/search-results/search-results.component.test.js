@@ -439,7 +439,13 @@ describe('The dp-search-results component', function () {
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: SHOW_SEARCH_RESULTS,
-                payload: 12
+                payload: 12,
+                meta: {
+                    tracking: {
+                        query: 'Weesperstraat',
+                        numberOfResults: 12
+                    }
+                }
             });
         });
 
@@ -509,7 +515,7 @@ describe('The dp-search-results component', function () {
         });
 
         it('calls dispatch with the number of search results', function () {
-            expect(store.dispatch).toHaveBeenCalledWith(showSearchResults(22));
+            expect(store.dispatch).toHaveBeenCalledWith(showSearchResults({numberOfResults: 22}));
         });
     });
 

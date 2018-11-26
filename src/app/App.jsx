@@ -13,7 +13,7 @@ import DatasetDetailContainer from './containers/DatasetsDetailContainer';
 import {
   isEmbedded,
   isEmbedPreview,
-  isInPrintorEmbedMode,
+  isPrintOrEmbedMode,
   isPrintMode,
   isPrintModeLandscape
 } from '../shared/ducks/ui/ui';
@@ -176,7 +176,7 @@ const mapStateToProps = (state) => ({
   printMode: isPrintMode(state),
   printModeLandscape: isPrintModeLandscape(state),
   embedPreviewMode: isEmbedPreview(state),
-  printOrEmbedMode: isInPrintorEmbedMode(state),
+  printOrEmbedMode: isPrintOrEmbedMode(state),
   user: getUser(state)
 });
 

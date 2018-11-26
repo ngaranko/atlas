@@ -14,17 +14,16 @@ import {
 } from '../../ducks/auto-suggest/auto-suggest';
 
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
-import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
 import {
   extractIdEndpoint,
-  getPageActionEndpoint,
   isDatasetPage,
   isMapPage,
   toDataSearch,
-  toDatasetSearch
+  toDatasetSearch,
+  toDataSuggestion,
+  toDatasetSuggestion
 } from '../../../store/redux-first-router';
-import { routing } from '../../../app/routes';
 
 const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),
@@ -46,14 +45,8 @@ const mapDispatchToProps = (dispatch) => ({
   }, dispatch),
   onDatasetSearch: (query) => dispatch(toDatasetSearch(query)),
   onDataSearch: (query) => dispatch(toDataSearch(query)),
-  openSuggestion: (suggestion) => {
-    if (suggestion.uri.match(/^dcatd\//)) {
-      // Suggestion of type dataset, formerly known as "catalog"
-      const id = extractIdEndpoint(suggestion.uri);
-      return dispatch({ type: routing.datasetsDetail.type, payload: { id } });
-    }
-    return dispatch(getPageActionEndpoint(suggestion.uri));
-  }
+  openDataSuggestion: (suggestion) => dispatch(toDataSuggestion(suggestion)),
+  openDatasetSuggestion: (suggestion) => dispatch(toDatasetSuggestion(suggestion))
 });
 
 class HeaderSearchContainer extends React.Component {
@@ -93,18 +86,24 @@ class HeaderSearchContainer extends React.Component {
   // Opens suggestion on mouseclick or enter
   onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
     const {
+      openDataSuggestion,
+      openDatasetSuggestion,
       typedQuery
     } = this.props;
-
-    piwikTracker(['trackEvent', 'auto-suggest', suggestion.category, typedQuery]);
 
     if (shouldOpenInNewWindow) {
       // const newWindow = window.open(`${window.location.href}`, '_blank');
       // // setting uri to the window, as window.postMessage does not work for some reason
       // // (webpack overrides the data it seems)
       // newWindow.window.suggestionToLoadUri = suggestion.uri;
+    }
+
+    if (suggestion.uri.match(/^dcatd\//)) {
+      // Suggestion of type dataset, formerly known as "catalog"
+      const id = extractIdEndpoint(suggestion.uri);
+      openDatasetSuggestion({ id, typedQuery });
     } else {
-      this.props.openSuggestion(suggestion);
+      openDataSuggestion({ endpoint: suggestion.uri, category: suggestion.category, typedQuery });
     }
   }
 
@@ -112,14 +111,11 @@ class HeaderSearchContainer extends React.Component {
     const {
       activeSuggestion,
       isDatasetView,
-      numberOfSuggestions,
       typedQuery,
       onCleanDatasetOverview,
       onDatasetSearch,
       onDataSearch
     } = this.props;
-
-    piwikTracker(['trackSiteSearch', typedQuery, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
 
     if (activeSuggestion.index === -1) {
       // Load the search results
@@ -199,9 +195,10 @@ HeaderSearchContainer.propTypes = {
   numberOfSuggestions: PropTypes.number,
   onCleanDatasetOverview: PropTypes.func.isRequired,
   onDatasetSearch: PropTypes.func.isRequired,
-  openSuggestion: PropTypes.func.isRequired,
-  onGetSuggestions: PropTypes.func.isRequired,
   onDataSearch: PropTypes.func.isRequired,
+  openDataSuggestion: PropTypes.func.isRequired,
+  openDatasetSuggestion: PropTypes.func.isRequired,
+  onGetSuggestions: PropTypes.func.isRequired,
   onSuggestionActivate: PropTypes.func.isRequired,
   pageName: PropTypes.string,
   prefillQuery: PropTypes.string,
