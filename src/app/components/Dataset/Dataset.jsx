@@ -54,6 +54,7 @@ const Dataset = ({
   const showMessageMaxPages = MAX_AVAILABLE_PAGES && currentPage > MAX_AVAILABLE_PAGES;
 
   const tabHeader = new TabHeader('data-datasets');
+  tabHeader.getTab(datasetsKey).count = numberOfRecords;
   tabHeader.activeTab = tabHeader.getTab(datasetsKey);
 
   const widthClass = classNames({
