@@ -34,7 +34,7 @@ describe('MapPanelContainer', () => {
       selection: {
         type: 'none'
       },
-      ui: { isMapPanelHandleVisible: true }
+      ui: { isMapPanelHandleVisible: true, isEmbed: false, isPrint: false }
     });
     wrapper = shallow(<MapPanelContainer />, { context: { store } }).dive();
   });

@@ -79,7 +79,7 @@ const getUIState = (state) => state.ui;
 export const isEmbedded = createSelector(getUIState, (ui) => ui.isEmbed);
 export const isEmbedPreview = createSelector(getUIState, (ui) => ui.isEmbedPreview);
 export const isPrintMode = createSelector(getUIState, (ui) => ui.isPrintMode);
-export const isInPrintorEmbedMode = createSelector(
+export const isPrintOrEmbedMode = createSelector(
   isEmbedded,
   isPrintMode,
   isEmbedPreview,
