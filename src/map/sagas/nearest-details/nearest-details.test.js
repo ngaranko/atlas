@@ -4,7 +4,6 @@ import watchFetchNearestDetails, { fetchNearestDetails } from './nearest-details
 
 import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
 import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
-import { routing as routes } from '../../../app/routes';
 
 describe('watchFetchNearestDetails', () => {
   const action = { type: REQUEST_NEAREST_DETAILS };
@@ -40,13 +39,8 @@ describe('fetchNearestDetails', () => {
         }
       })
       .put({
-        type: routes.dataDetail.type,
-        payload: { type: 'brk', subtype: 'object', id: 'id123' },
-        meta: {
-          query: {
-            kaart: ''
-          }
-        }
+        type: REQUEST_GEOSEARCH,
+        payload: [action.payload.location.latitude, action.payload.location.longitude]
       })
       .run()
   ));
