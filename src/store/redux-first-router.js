@@ -39,8 +39,16 @@ export const toDataDetail = (id, type, subtype, view) => {
   }
   return action;
 };
-export const toDataLocationSearch = () => preserveQuery({ // TODO rename
+export const toDataSearchLocationAndPreserveQuery = () => preserveQuery({ // TODO rename
   type: routing.dataSearch.type
+});
+export const toDataSearchLocation = (payload) => ({ // TODO rename
+  type: routing.dataSearch.type,
+  meta: {
+    query: {
+      locatie: payload
+    }
+  }
 });
 export const toMapAndPreserveQuery = () => preserveQuery({ type: routing.map.type });
 export const toMap = () => ({ type: routing.map.type });
