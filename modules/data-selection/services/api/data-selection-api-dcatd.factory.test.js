@@ -60,6 +60,10 @@ describe('The dataSelectionApiDcatd factory', function () {
         };
 
         catalogFilters = {
+            statusTypes: [{
+                id: 'id',
+                label: 'label'
+            }],
             groupTypes: [{
                 id: 'milieu-water',
                 label: 'Thema\'s'
