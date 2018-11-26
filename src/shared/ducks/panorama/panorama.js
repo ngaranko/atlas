@@ -1,18 +1,20 @@
 import { createSelector } from 'reselect';
 import { routing } from '../../../app/routes';
-import { STRAATBEELD_CONFIG } from '../../services/straatbeeld-api/straatbeeld-api';
+import { PANORAMA_CONFIG } from '../../services/panorama-api/panorama-api';
 import PANORAMA_VIEW from './panorama-view';
 import {
-  straatbeeldOrientationType,
-  straatbeeldPersonType
+  panoramaOrientationType,
+  panoramaPersonType
 } from '../../../map/components/leaflet/services/icons.constant';
 
-export const FETCH_STRAATBEELD = 'FETCH_STRAATBEELD';
-export const FETCH_STRAATBEELD_SUCCESS = 'FETCH_STRAATBEELD_SUCCESS';
-export const FETCH_STRAATBEELD_ERROR = 'FETCH_STRAATBEELD_ERROR';
-export const SET_STRAATBEELD_ORIENTATION = 'SET_STRAATBEELD_ORIENTATION';
-export const SET_STRAATBEELD_YEAR = 'SET_STRAATBEELD_YEAR';
-export const CLOSE_STRAATBEELD = 'CLOSE_STRAATBEELD';
+export const REDUCER_KEY = 'panorama';
+
+export const FETCH_PANORAMA_REQUEST = `${REDUCER_KEY}/FETCH_PANORAMA_REQUEST`;
+export const FETCH_PANORAMA_SUCCESS = `${REDUCER_KEY}/FETCH_PANORAMA_SUCCESS`;
+export const FETCH_PANORAMA_ERROR = `${REDUCER_KEY}/FETCH_PANORAMA_ERROR`;
+export const SET_PANORAMA_ORIENTATION = `${REDUCER_KEY}/SET_PANORAMA_ORIENTATION`;
+export const SET_PANORAMA_YEAR = `${REDUCER_KEY}/SET_PANORAMA_YEAR`;
+export const CLOSE_PANORAMA = `${REDUCER_KEY}/CLOSE_PANORAMA`;
 
 export const initialState = {
   location: null,   // eg: [52.8, 4.9]
@@ -29,7 +31,7 @@ export const initialState = {
   isLoading: true
 };
 
-export default function straatbeeldReducer(state = initialState, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case routing.panorama.type: {
       const { query = {} } = action.meta;
@@ -50,38 +52,38 @@ export default function straatbeeldReducer(state = initialState, action) {
       };
     }
 
-    case FETCH_STRAATBEELD:
+    case FETCH_PANORAMA_REQUEST:
       return {
         ...state,
         id: action.payload.id,
         isLoading: true
       };
 
-    case SET_STRAATBEELD_YEAR:
+    case SET_PANORAMA_YEAR:
       return {
         ...state,
         year: action.payload
       };
 
-    case FETCH_STRAATBEELD_SUCCESS:
+    case FETCH_PANORAMA_SUCCESS:
       return {
         ...state,
         date: action.payload.date,
         pitch: state.pitch || initialState.pitch,
-        fov: state.fov || STRAATBEELD_CONFIG.DEFAULT_FOV,
+        fov: state.fov || PANORAMA_CONFIG.DEFAULT_FOV,
         hotspots: action.payload.hotspots,
         isLoading: false,
         location: action.payload.location,
         image: action.payload.image
       };
-    case FETCH_STRAATBEELD_ERROR:
+    case FETCH_PANORAMA_ERROR:
       return {
         ...state,
         isLoading: false,
         isError: true // TODO: refactor, show error
       };
 
-    case SET_STRAATBEELD_ORIENTATION:
+    case SET_PANORAMA_ORIENTATION:
       return {
         ...state,
         heading: action.payload.heading,
@@ -89,7 +91,7 @@ export default function straatbeeldReducer(state = initialState, action) {
         fov: action.payload.fov
       };
 
-    case CLOSE_STRAATBEELD:
+    case CLOSE_PANORAMA:
       return {
         ...state,
         location: initialState.location,
@@ -102,30 +104,30 @@ export default function straatbeeldReducer(state = initialState, action) {
 }
 
 // Actions creators
-export const fetchStraatbeeld = (id) => ({
-  type: FETCH_STRAATBEELD,
+export const fetchPanoramaRequest = (id) => ({
+  type: FETCH_PANORAMA_REQUEST,
   payload: {
     id
   }
 });
 
-export const fetchStraatbeeldSuccess = (straatbeeldData) => ({
-  type: FETCH_STRAATBEELD_SUCCESS,
-  payload: straatbeeldData
+export const fetchPanoramaSuccess = (payload) => ({
+  type: FETCH_PANORAMA_SUCCESS,
+  payload
 });
 
-export const fetchStraatbeeldError = (error) => ({
-  type: FETCH_STRAATBEELD_ERROR,
+export const fetchPanoramaError = (error) => ({
+  type: FETCH_PANORAMA_ERROR,
   payload: error
 });
 
-export const setStraatbeeldYear = (year) => ({
-  type: SET_STRAATBEELD_YEAR,
+export const setPanoramaYear = (year) => ({
+  type: SET_PANORAMA_YEAR,
   payload: year
 });
 
-export const setStraatbeeldOrientation = ({ heading, pitch, fov }) => ({
-  type: SET_STRAATBEELD_ORIENTATION,
+export const setPanoramaOrientation = ({ heading, pitch, fov }) => ({
+  type: SET_PANORAMA_ORIENTATION,
   payload: {
     heading,
     pitch,
@@ -133,16 +135,16 @@ export const setStraatbeeldOrientation = ({ heading, pitch, fov }) => ({
   }
 });
 
-export const closeStraatbeeld = () => ({ type: CLOSE_STRAATBEELD });
+export const closePanorama = () => ({ type: CLOSE_PANORAMA });
 
 // Selectors
 /**
- * @deprecated Don't use getStraatbeeld outside reducer,
- * use specific selector. e.g.: getStraatbeeldHeading()
+ * @deprecated Don't use getPanorama outside reducer,
+ * use specific selector. e.g.: getPanoramaHeading()
  */
-export const getStraatbeeld = (state) => state.straatbeeld || {};
-export const getHotspots = createSelector(getStraatbeeld, (straatbeeld) => {
-  const { year, hotspots } = straatbeeld;
+export const getPanorama = (state) => state[REDUCER_KEY] || {};
+export const getHotspots = createSelector(getPanorama, (panorama) => {
+  const { year, hotspots } = panorama;
   if (year) {
     // TODO: refactor: refire hotspots search request. Not everything is returned from back-end.
     // TODO: refactor: test hotspots are filtered by year
@@ -151,34 +153,34 @@ export const getHotspots = createSelector(getStraatbeeld, (straatbeeld) => {
   return hotspots;
 });
 
-export const getStraatbeeldLocation = createSelector(
-  getStraatbeeld,
-  (straatbeeld) => (
-    straatbeeld ? straatbeeld.location : ''
+export const getPanoramaLocation = createSelector(
+  getPanorama,
+  (panorama) => (
+    panorama ? panorama.location : ''
   )
 );
-export const getStraatbeeldId = createSelector(getStraatbeeld, (straatbeeld) => straatbeeld.id);
-export const getStraatbeeldHeading = createSelector(getStraatbeeld,
-  (straatbeeld) => straatbeeld.heading
+export const getPanoramaId = createSelector(getPanorama, (panorama) => panorama.id);
+export const getPanoramaHeading = createSelector(getPanorama,
+  (panorama) => panorama.heading
 );
-export const getStraatbeeldPitch = createSelector(getStraatbeeld,
-  (straatbeeld) => straatbeeld.pitch
+export const getPanoramaPitch = createSelector(getPanorama,
+  (panorama) => panorama.pitch
 );
-export const getStraatbeeldMarkers = createSelector([getStraatbeeldLocation, getStraatbeeldHeading],
+export const getPanoramaMarkers = createSelector([getPanoramaLocation, getPanoramaHeading],
   (location, heading) => (
     location ? [
       {
         position: location,
-        type: straatbeeldOrientationType,
+        type: panoramaOrientationType,
         heading: heading || 0
       },
       {
         position: location,
-        type: straatbeeldPersonType
+        type: panoramaPersonType
       }
     ] : []
   )
 );
 
-export const getStraatbeeldView = createSelector(getStraatbeeld, (straatbeeld) => straatbeeld.view);
-export const getStraatbeeldYear = createSelector(getStraatbeeld, (straatbeeld) => straatbeeld.year);
+export const getPanoramaView = createSelector(getPanorama, (panorama) => panorama.view);
+export const getPanoramaYear = createSelector(getPanorama, (panorama) => panorama.year);

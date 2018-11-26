@@ -1,10 +1,10 @@
 import { getByUrl } from '../api/api';
-import { getImageDataById, getImageDataByLocation, STRAATBEELD_CONFIG } from './straatbeeld-api';
+import { getImageDataById, getImageDataByLocation, PANORAMA_CONFIG } from './panorama-api';
 import sharedConfig from '../shared-config/shared-config';
 
 jest.mock('../api/api');
 
-describe('The straatbeeldApi Factory', () => {
+describe('The panoramaApi Factory', () => {
   beforeEach(() => {
     getByUrl.mockImplementation(() => Promise.resolve({
       image_sets: {
@@ -41,12 +41,12 @@ describe('The straatbeeldApi Factory', () => {
 
   it('calls the API factory with the correct endpoint for id', () => {
     getImageDataById('ABC');
-    expect(getByUrl).toHaveBeenCalledWith(`${sharedConfig.API_ROOT}${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL}ABC/`); // Test the last argument for being a promise lateron
+    expect(getByUrl).toHaveBeenCalledWith(`${sharedConfig.API_ROOT}${PANORAMA_CONFIG.PANORAMA_ENDPOINT_ALL}ABC/`); // Test the last argument for being a promise lateron
   });
 
   it('calls the API factory with the correct endpoint for location', () => {
     getImageDataByLocation([52, 4]);
-    expect(getByUrl).toHaveBeenCalledWith(`${sharedConfig.API_ROOT}${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL}?lat=52&lon=4&radius=100000`);
+    expect(getByUrl).toHaveBeenCalledWith(`${sharedConfig.API_ROOT}${PANORAMA_CONFIG.PANORAMA_ENDPOINT_ALL}?lat=52&lon=4&radius=100000`);
   });
 
   it('return null when no straatbeeld is found', async () => {
@@ -102,7 +102,7 @@ describe('The straatbeeldApi Factory', () => {
       const year = 2020;
       getImageDataByLocation([52, 4], year);
 
-      expect(getByUrl).toHaveBeenCalledWith(`${sharedConfig.API_ROOT}${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${year}/?lat=52&lon=4&radius=100000`);
+      expect(getByUrl).toHaveBeenCalledWith(`${sharedConfig.API_ROOT}${PANORAMA_CONFIG.PANORAMA_ENDPOINT_YEAR}${year}/?lat=52&lon=4&radius=100000`);
     });
 
     it('will make \'getImageDataById\' use another endpoint', () => {
@@ -110,7 +110,7 @@ describe('The straatbeeldApi Factory', () => {
       getImageDataById('ABC', year);
 
       expect(getByUrl).toHaveBeenCalledWith(
-        `${sharedConfig.API_ROOT}${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${year}/ABC/`
+        `${sharedConfig.API_ROOT}${PANORAMA_CONFIG.PANORAMA_ENDPOINT_YEAR}${year}/ABC/`
       );
     });
 
@@ -118,13 +118,13 @@ describe('The straatbeeldApi Factory', () => {
       getImageDataByLocation([52, 4], 0);
 
       expect(getByUrl).toHaveBeenCalledWith(
-        `${sharedConfig.API_ROOT}${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL}?lat=52&lon=4&radius=100000`
+        `${sharedConfig.API_ROOT}${PANORAMA_CONFIG.PANORAMA_ENDPOINT_ALL}?lat=52&lon=4&radius=100000`
       );
 
       getImageDataById('ABC', 0);
 
       expect(getByUrl).toHaveBeenCalledWith(
-        `${sharedConfig.API_ROOT}${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL}ABC/`
+        `${sharedConfig.API_ROOT}${PANORAMA_CONFIG.PANORAMA_ENDPOINT_ALL}ABC/`
       );
     });
   });

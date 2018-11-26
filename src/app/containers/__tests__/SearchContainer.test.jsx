@@ -7,13 +7,13 @@ import {
   getDataSearchLocation,
   getNumberOfResults
 } from '../../../shared/ducks/data-search/data-search';
-import { getPanoPreview, isPanoPreviewLoading } from '../../../pano/ducks/preview/pano-preview';
+import { getPanoramaPreview, isPanoramaPreviewLoading } from '../../../shared/ducks/panorama/preview/panorama-preview';
 import { getShortSelectedLocation } from '../../../map/ducks/map/map-selectors';
 import { getUser } from '../../../shared/ducks/user/user';
 
 jest.mock('../../../shared/ducks/user/user');
 jest.mock('../../../map/ducks/map/map-selectors');
-jest.mock('../../../pano/ducks/preview/pano-preview');
+jest.mock('../../../shared/ducks/panorama/preview/panorama-preview');
 jest.mock('../../../shared/ducks/data-search/data-search');
 
 describe('SearchContainer', () => {
@@ -28,12 +28,12 @@ describe('SearchContainer', () => {
       latitude: 321,
       longitude: 123
     });
-    getPanoPreview.mockReturnValue({
+    getPanoramaPreview.mockReturnValue({
       url: 'testUrl',
       id: 42,
       heading: 99
     });
-    isPanoPreviewLoading.mockReturnValue(false);
+    isPanoramaPreviewLoading.mockReturnValue(false);
     const store = configureMockStore()();
     const component = shallow(<SearchContainer />, { context: { store } }).dive();
     expect(component).toMatchSnapshot();

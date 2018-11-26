@@ -63,10 +63,14 @@ class MapLegend extends React.Component {
       <div>
         <h3 className="u-sr-only">Actieve kaartlagen</h3>
         <ul className="map-legend">
-          {activeMapLayers.map((mapLayer) => {
+          {activeMapLayers.map((mapLayer, mapLayerIndex) => {
             const layerIsVisible = this.determineLayerVisibility(mapLayer);
             return (
-              <li className="map-legend__map-layer" key={mapLayer.title}>
+              <li
+                className="map-legend__map-layer"
+                // eslint-disable-next-line react/no-array-index-key
+                key={mapLayerIndex}
+              >
                 <div
                   className={`
                     map-legend__category
@@ -101,10 +105,14 @@ class MapLegend extends React.Component {
                 )}
                 {isAuthorised(mapLayer, user) && isInsideZoomLevel(mapLayer, zoomLevel) && (
                   <ul className="map-legend__items">
-                    {mapLayer.legendItems.map((legendItem) => {
+                    {mapLayer.legendItems.map((legendItem, legendItemIndex) => {
                       const legendItemIsVisible = this.determineLegendItemVisibility(legendItem);
                       return (!legendItemIsVisible && isEmbedOrPrint) ? null : (
-                        <li className="map-legend__item" key={legendItem.title}>
+                        <li
+                          className="map-legend__item"
+                          // eslint-disable-next-line react/no-array-index-key
+                          key={legendItemIndex}
+                        >
                           {legendItem.selectable && (
                             <Checkbox
                               checked={legendItemIsVisible}

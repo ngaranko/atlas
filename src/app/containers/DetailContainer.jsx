@@ -7,14 +7,14 @@ import {
   isDetailLoading
 } from '../../shared/ducks/detail/detail';
 import { getUser } from '../../shared/ducks/user/user';
-import { getPanoPreview, isPanoPreviewLoading } from '../../pano/ducks/preview/pano-preview';
+import { getPanoramaPreview, isPanoramaPreviewLoading } from '../../shared/ducks/panorama/preview/panorama-preview';
 
 const mapStateToProps = (state) => ({
   isLoading: isDetailLoading(state),
   user: getUser(state),
   endpoint: getDetailEndpoint(state),
-  previewPanorama: getPanoPreview(state),
-  isPreviewPanoramaLoading: isPanoPreviewLoading(state)
+  previewPanorama: getPanoramaPreview(state),
+  isPreviewPanoramaLoading: isPanoramaPreviewLoading(state)
 });
 
 const DetailContainer = ({

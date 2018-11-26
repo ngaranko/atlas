@@ -229,11 +229,11 @@ describe('LeafletContainer', () => {
         },
         {
           position: [52.37282671971952, 4.883399484657263],
-          type: 'straatbeeldPersonType'
+          type: 'panoramaPersonType'
         },
         {
           position: [52.37282671971952, 4.883399484657263],
-          type: 'straatbeeldOrientationType',
+          type: 'panoramaOrientationType',
           heading: 45
         }
       ]);

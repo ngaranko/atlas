@@ -4,7 +4,7 @@ import get from 'lodash.get';
 import { routing } from '../app/routes';
 import PAGES from '../app/pages';
 import { DETAIL_VIEW } from '../shared/ducks/detail/detail';
-import PANORAMA_VIEW from '../shared/ducks/straatbeeld/panorama-view';
+import PANORAMA_VIEW from '../shared/ducks/panorama/panorama-view';
 
 export const REDUCER_KEY = 'location';
 

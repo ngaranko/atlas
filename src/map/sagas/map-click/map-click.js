@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getLayers } from '../../ducks/panel-layers/map-panel-layers';
-import { getStraatbeeldYear } from '../../../shared/ducks/straatbeeld/straatbeeld';
+import { getPanoramaYear } from '../../../shared/ducks/panorama/panorama';
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
 import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
@@ -9,7 +9,7 @@ import {
   SELECTION_TYPE,
   setSelection
 } from '../../../shared/ducks/selection/selection';
-import { getImageDataByLocation } from '../../../shared/services/straatbeeld-api/straatbeeld-api';
+import { getImageDataByLocation } from '../../../shared/services/panorama-api/panorama-api';
 import { getPage, toPanorama, toMapAndPreserveQuery } from '../../../store/redux-first-router';
 import { fetchMapSearchResultsRequest } from '../../../shared/ducks/data-search/data-search';
 import PAGES from '../../../app/pages';
@@ -26,7 +26,7 @@ export function* switchClickAction(action) {
   const { location } = action.payload;
 
   if (selectionType === SELECTION_TYPE.PANORAMA) {
-    const year = yield select(getStraatbeeldYear);
+    const year = yield select(getPanoramaYear);
     const locationArray = latitudeLongitudeToArray(location);
     const imageData = yield call(getImageDataByLocation, locationArray, year);
 

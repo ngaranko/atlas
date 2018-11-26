@@ -14,7 +14,7 @@ import {
   getMapResultsByLocation,
   isSearchLoading
 } from '../../../shared/ducks/data-search/data-search';
-import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
+import { getPanoramaPreview } from '../../../shared/ducks/panorama/preview/panorama-preview';
 import {
   getPageActionEndpoint,
   toDataLocationSearch,
@@ -23,7 +23,7 @@ import {
 } from '../../../store/redux-first-router';
 
 const mapStateToProps = (state) => ({
-  panoPreview: getPanoPreview(state),
+  panoPreview: getPanoramaPreview(state),
   searchResults: selectLatestMapSearchResults(state),
   dataSearch: getDataSearch(state),
   searchLocation: getDataSearchLocation(state),

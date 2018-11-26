@@ -12,7 +12,7 @@ exports[`MapLegend should render the component 1`] = `
   >
     <li
       className="map-legend__map-layer"
-      key="title"
+      key="0"
     >
       <div
         className="
@@ -42,7 +42,7 @@ exports[`MapLegend should render the component 1`] = `
       >
         <li
           className="map-legend__item"
-          key="legendTitle"
+          key="0"
         >
           <Checkbox
             checked={false}
@@ -70,7 +70,7 @@ exports[`MapLegend should render the component 1`] = `
     </li>
     <li
       className="map-legend__map-layer"
-      key="title"
+      key="1"
     >
       <div
         className="
@@ -100,7 +100,7 @@ exports[`MapLegend should render the component 1`] = `
       >
         <li
           className="map-legend__item"
-          key="legendTitle"
+          key="0"
         >
           <Checkbox
             checked={false}
@@ -126,7 +126,7 @@ exports[`MapLegend should render the component 1`] = `
         </li>
         <li
           className="map-legend__item"
-          key="legendTitle"
+          key="1"
         >
           <div
             className="
