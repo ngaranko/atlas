@@ -1,5 +1,5 @@
 import { toDataSearch, toDatasetSearch } from '../../../../src/store/redux-first-router';
-import { datasetsKey } from './tab-header.constant';
+import { datasetsKey } from '../../../../src/shared/services/tab-header/tab-header';
 import { fetchDatasets } from '../../../../src/shared/ducks/datasets/data/data';
 
 (function () {
@@ -22,7 +22,6 @@ import { fetchDatasets } from '../../../../src/shared/ducks/datasets/data/data';
 
     function DpTabHeaderController () {
         const vm = this;
-
         vm.tabs = vm.tabHeader.tabs.map((tab) => {
             const linkTo = tab.id === datasetsKey
                 ? toDatasetSearch(vm.searchText)

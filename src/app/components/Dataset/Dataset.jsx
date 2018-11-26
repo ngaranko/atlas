@@ -22,7 +22,7 @@ import {
   getResults,
   getSearchText
 } from '../../../shared/ducks/datasets/datasets';
-import TabHeader from '../../../shared/services/tab-header/tab-header';
+import TabHeader, { datasetsKey } from '../../../shared/services/tab-header/tab-header';
 
 const Dataset = ({
   setPage,
@@ -47,12 +47,14 @@ const Dataset = ({
   // Todo: move query and showTabbHeader logic to search page
   const query = searchText || '';
   const showTabHeader = query.trim().length >= 1;
+  const showHeader = query === '';
 
   const showFilters = numberOfRecords > 0;
   const { MAX_AVAILABLE_PAGES } = DATA_SELECTION_CONFIG.datasets[DEFAULT_DATASET];
   const showMessageMaxPages = MAX_AVAILABLE_PAGES && currentPage > MAX_AVAILABLE_PAGES;
 
   const tabHeader = new TabHeader('data-datasets');
+  tabHeader.activeTab = tabHeader.getTab(datasetsKey);
 
   const widthClass = classNames({
     'u-col-sm--12': !showFilters,
@@ -72,7 +74,7 @@ const Dataset = ({
               availableFilters,
               filters: activeFilters,
               numberOfRecords,
-              showHeader: true,
+              showHeader,
               user,
               view: DEFAULT_VIEW
             }}
