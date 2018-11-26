@@ -8,7 +8,6 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
           map-panel
           map-panel--expanded
           map-panel--has-active-layers
-          map-panel--has-just-invisible-layers
         "
 >
   <div
@@ -45,6 +44,7 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
           Object {},
         ]
       }
+      isEmbedOrPrint={false}
       onLayerToggle={[Function]}
       onLayerVisibilityToggle={[Function]}
       overlays={
@@ -88,7 +88,6 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
           map-panel
           map-panel--expanded
           map-panel--has-no-active-layers
-          map-panel--has-just-invisible-layers
         "
 >
   <div

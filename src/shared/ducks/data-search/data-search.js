@@ -156,9 +156,15 @@ export const fetchMapSearchResultsFailure = (error) => ({
   payload: error
 });
 
-export const showSearchResults = (numberOfResults) => ({
+export const showSearchResults = ({ query, numberOfResults }) => ({
   type: SHOW_SEARCH_RESULTS,
-  payload: numberOfResults
+  payload: numberOfResults,
+  meta: {
+    tracking: {
+      query,
+      numberOfResults
+    }
+  }
 });
 
 export const fetchSearchResultsByQuery = (query) => ({
