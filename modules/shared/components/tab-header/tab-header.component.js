@@ -1,6 +1,5 @@
 import { toDataSearch, toDatasetSearch } from '../../../../src/store/redux-first-router';
 import { datasetsKey } from '../../../../src/shared/services/tab-header/tab-header';
-import { fetchDatasets } from '../../../../src/shared/ducks/datasets/data/data';
 import { emptyFilters } from '../../../../src/shared/ducks/filters/filters';
 
 (function () {
