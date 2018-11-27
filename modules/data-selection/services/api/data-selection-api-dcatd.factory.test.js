@@ -60,6 +60,10 @@ describe('The dataSelectionApiDcatd factory', function () {
         };
 
         catalogFilters = {
+            statusTypes: [{
+                id: 'id',
+                label: 'label'
+            }],
             groupTypes: [{
                 id: 'milieu-water',
                 label: 'Thema\'s'
@@ -190,6 +194,19 @@ describe('The dataSelectionApiDcatd factory', function () {
             limit: config.MAX_ITEMS_PER_PAGE,
             q: 'searchText',
             '/properties/dcat:distribution/items/properties/ams:distributionType': 'eq=file'
+        });
+    });
+
+    it('calls the api factory with status parameter and searchText', function () {
+        // With an active filter and search text
+        dataSelectionApiDcatd.query(config, 'CATALOG', {
+            status: 'beschikbaar'
+        }, 1, 'searchText', undefined, catalogFilters);
+        expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
+            offset: 0,
+            limit: config.MAX_ITEMS_PER_PAGE,
+            q: 'searchText',
+            '/properties/ams:status': 'eq=beschikbaar'
         });
     });
 
