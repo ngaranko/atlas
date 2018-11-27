@@ -101,6 +101,14 @@ export const toDatasetSearch = (searchQuery) => ({
     }
   }
 });
+export const toDatasetsWithFilter = (themeSlug) => ({
+  type: routing.datasets.type,
+  meta: {
+    query: {
+      filters: btoa(JSON.stringify({ groups: themeSlug }))
+    }
+  }
+});
 
 
 // Selectors
