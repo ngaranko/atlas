@@ -15369,10 +15369,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   },
                   Object {
                     "selectable": false,
-                    "title": "Bominslag",
-                  },
-                  Object {
-                    "selectable": false,
                     "title": "Crashlocatie",
                   },
                   Object {
@@ -15382,10 +15378,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                   Object {
                     "selectable": false,
                     "title": "Geruimd explosief",
-                  },
-                  Object {
-                    "selectable": false,
-                    "title": "Krater",
                   },
                   Object {
                     "selectable": false,
@@ -18359,10 +18351,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             },
                             Object {
                               "selectable": false,
-                              "title": "Bominslag",
-                            },
-                            Object {
-                              "selectable": false,
                               "title": "Crashlocatie",
                             },
                             Object {
@@ -18372,10 +18360,6 @@ exports[`MapContainer should render all the components in MapContainer 1`] = `
                             Object {
                               "selectable": false,
                               "title": "Geruimd explosief",
-                            },
-                            Object {
-                              "selectable": false,
-                              "title": "Krater",
                             },
                             Object {
                               "selectable": false,
