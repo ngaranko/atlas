@@ -21,7 +21,7 @@ const AutoSuggestCategory = (props) => {
             key={suggestion.label + suggestion.index}
             isActive={activeSuggestion && activeSuggestion.index === suggestion.index}
             onSuggestionSelection={(e) => {
-              onSuggestionSelection((!suggestion.index ? { index: -1 } : suggestion), e);
+              onSuggestionSelection(suggestion, e);
             }}
             content={suggestion.label}
             query={query}
