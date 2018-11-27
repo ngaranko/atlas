@@ -197,6 +197,19 @@ describe('The dataSelectionApiDcatd factory', function () {
         });
     });
 
+    it('calls the api factory with status parameter and searchText', function () {
+        // With an active filter and search text
+        dataSelectionApiDcatd.query(config, 'CATALOG', {
+            status: 'beschikbaar'
+        }, 1, 'searchText', undefined, catalogFilters);
+        expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
+            offset: 0,
+            limit: config.MAX_ITEMS_PER_PAGE,
+            q: 'searchText',
+            '/properties/ams:status': 'eq=beschikbaar'
+        });
+    });
+
     it('returns the total number of pages', function () {
         let output;
 
