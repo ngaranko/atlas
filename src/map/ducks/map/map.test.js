@@ -36,6 +36,7 @@ describe('Map Reducer', () => {
     const state = { shapeMarkers: 2 };
     expect(reducer(state, mapClear())).toEqual({
       ...state,
+      overlays: [],
       drawingMode: initialState.drawingMode,
       shapeMarkers: initialState.shapeMarkers,
       shapeDistanceTxt: initialState.shapeDistanceTxt,
