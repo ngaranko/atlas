@@ -7,7 +7,7 @@ const AutoSuggestCategory = (props) => {
 
   let suggestions = category.content;
   if (category.total_results > 3) {
-    suggestions = [...category.content, { label: '...', index: null }];
+    suggestions = [...category.content, { label: '...', index: -1 }];
   }
 
   return (

@@ -57,7 +57,7 @@ describe('AutoSuggestCategory', () => {
     const itemWrapper = wrapper.find('AutoSuggestItem').at(3).dive();
     itemWrapper.find('button').simulate('click', mockEvent);
     expect(props.onSuggestionSelection).toHaveBeenCalledWith({
-      index: null,
+      index: -1,
       label: '...'
     }, mockEvent);
   });
