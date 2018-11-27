@@ -3,9 +3,6 @@ import get from 'lodash.get';
 import PropTypes from 'prop-types';
 import has from 'lodash.has';
 import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
-import PlusIcon from '../../../../public/images/icon-plus.svg';
-import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
-import CloseIcon from '../../../../public/images/icon-cross-big.svg';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 import MapDetailResult from '../../components/detail-result/MapDetailResult';
 import MapSearchResults from '../../components/search-results/MapSearchResults';
@@ -111,7 +108,10 @@ class MapPreviewPanel extends React.Component {
                 onClick={() => this.onDisplayAllResults(props.mapClickLocation)}
                 title="Alle resultaten tonen"
               >
-                <PlusIcon className="map-preview-panel__button-icon" />
+                <span className="
+                  map-preview-panel__button-icon
+                  map-preview-panel__button-icon--plus"
+                />
                 <span className="map-preview-panel__button-label">Alle resultaten tonen</span>
               </button>
             )}
@@ -120,14 +120,20 @@ class MapPreviewPanel extends React.Component {
               onClick={props.onMapPreviewPanelMaximize}
               title="Volledige weergave tonen"
             >
-              <MaximizeIcon className="map-preview-panel__button-icon" />
+              <span className="
+                map-preview-panel__button-icon
+                map-preview-panel__button-icon--maximize"
+              />
             </button>
             <button
               className="map-preview-panel__button"
               onClick={props.onMapPreviewPanelClose}
               title="Sluiten"
             >
-              <CloseIcon className="map-preview-panel__button-icon" />
+              <span className="
+                map-preview-panel__button-icon
+                map-preview-panel__button-icon--close"
+              />
             </button>
           </div>
           <div

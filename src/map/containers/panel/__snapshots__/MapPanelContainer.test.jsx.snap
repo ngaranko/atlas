@@ -19,7 +19,7 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
       onClick={[Function]}
       title="Kaartlagen tonen"
     >
-      <Component
+      <span
         className="map-panel__heading-icon"
       />
       <h2
@@ -28,11 +28,11 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
       >
         Kaartlagen
       </h2>
-      <Component
-        className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
-      />
-      <Component
-        className="map-panel__toggle-icon map-panel__toggle-icon--collapsed"
+      <span
+        className="
+              map-panel__toggle--icon
+              map-panel__toggle--icon-expand
+            "
       />
     </button>
   </div>
@@ -99,7 +99,7 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
       onClick={[Function]}
       title="Kaartlagen tonen"
     >
-      <Component
+      <span
         className="map-panel__heading-icon"
       />
       <h2
@@ -108,11 +108,11 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
       >
         Kaartlagen
       </h2>
-      <Component
-        className="map-panel__toggle-icon map-panel__toggle-icon--expanded"
-      />
-      <Component
-        className="map-panel__toggle-icon map-panel__toggle-icon--collapsed"
+      <span
+        className="
+              map-panel__toggle--icon
+              map-panel__toggle--icon-expand
+            "
       />
     </button>
   </div>

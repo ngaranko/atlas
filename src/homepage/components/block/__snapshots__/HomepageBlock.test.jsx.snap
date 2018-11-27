@@ -3,6 +3,8 @@
 exports[`HomepageBlock should render with the children and default block-link 1`] = `
 <div
   className="homepage-block c-homepage__block c-homepage__block--tall"
+  onKeyDown={[Function]}
+  tabIndex="0"
 >
   <div>
     <span>
@@ -12,6 +14,7 @@ exports[`HomepageBlock should render with the children and default block-link 1`
   <button
     className="c-homepage__block-button "
     onClick={[MockFunction]}
+    tabIndex="-1"
     title="Bekijk test block"
   >
     <div
@@ -31,10 +34,13 @@ exports[`HomepageBlock should render with the children and default block-link 1`
 exports[`HomepageBlock should render with the default block-link 1`] = `
 <div
   className="homepage-block c-homepage__block c-homepage__block--tall"
+  onKeyDown={[Function]}
+  tabIndex="0"
 >
   <button
     className="c-homepage__block-button "
     onClick={[MockFunction]}
+    tabIndex="-1"
     title="Bekijk test block"
   >
     <div
