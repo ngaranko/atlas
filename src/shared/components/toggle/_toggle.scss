@@ -17,15 +17,5 @@
   &:hover {
     background-color: $primary-contrast;
     border-color: $primary-contrast;
-
-    svg {
-      fill: $primary-light;
-    }
-  }
-
-  svg {
-    fill: $secondary-gray60;
-    height: 24px;
-    width: 24px;
   }
 }

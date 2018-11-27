@@ -56,7 +56,10 @@ describe('AutoSuggestCategory', () => {
     const mockEvent = { event: 'event' };
     const itemWrapper = wrapper.find('AutoSuggestItem').at(3).dive();
     itemWrapper.find('button').simulate('click', mockEvent);
-    expect(props.onSuggestionSelection).toHaveBeenCalledWith({ index: -1 }, mockEvent);
+    expect(props.onSuggestionSelection).toHaveBeenCalledWith({
+      index: null,
+      label: '...'
+    }, mockEvent);
   });
 
   it('should render no ellipsis when there are 3 or less results', () => {

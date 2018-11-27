@@ -27,10 +27,8 @@ exports[`HomepageAddressBlock should render links 1`] = `
       }
     >
       <span
-        className="homepage-block__icon"
-      >
-        <Component />
-      </span>
+        className="homepage-block__icon homepage-block__icon--bag"
+      />
       <span
         className="homepage-block__label"
       >
@@ -52,10 +50,8 @@ exports[`HomepageAddressBlock should render links 1`] = `
       }
     >
       <span
-        className="homepage-block__icon"
-      >
-        <Component />
-      </span>
+        className="homepage-block__icon homepage-block__icon--hr"
+      />
       <span
         className="homepage-block__label"
       >
@@ -77,10 +73,8 @@ exports[`HomepageAddressBlock should render links 1`] = `
       }
     >
       <span
-        className="homepage-block__icon"
-      >
-        <Component />
-      </span>
+        className="homepage-block__icon homepage-block__icon--brk"
+      />
       <span
         className="homepage-block__label"
       >
