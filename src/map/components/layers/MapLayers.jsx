@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AddIcon from '../../../../public/images/icon-plus.svg';
-import RemoveIcon from '../../../../public/images/icon-cross.svg';
-
 import './_map-layers.scss';
 
 const getCategories = (layers) => (
@@ -33,12 +30,8 @@ const MapLayers = (props) => (
                       <span className="map-layers__toggle-title">
                         {layer.title}
                       </span>
-                      <span className="map-layers__toggle map-layers__toggle--remove">
-                        <RemoveIcon />
-                      </span>
-                      <span className="map-layers__toggle map-layers__toggle--add">
-                        <AddIcon />
-                      </span>
+                      <span className="map-layers__toggle map-layers__toggle--remove" />
+                      <span className="map-layers__toggle map-layers__toggle--add" />
                     </button>
                   </li>
               ))}

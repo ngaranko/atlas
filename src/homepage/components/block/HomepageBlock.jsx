@@ -25,11 +25,14 @@ const HomepageBlock = ({
     <Block
       {...blockProps}
       className={className}
+      tabIndex="0"  // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+      onKeyDown={(event) => event.key === 'Enter' && linkAction}
     >
       {children}
       <BlockButton
         {...blockButtonProps}
         className={`c-homepage__block-button ${hasTallDescription ? 'c-homepage__block-button--tall' : ''}`}
+        tabIndex="-1"
       >
         <div className="o-btn--transparent">{title}</div>
         <div className="c-homepage__block-details">{description}</div>
