@@ -8,6 +8,7 @@ import straatbeeldQuery, { ACTIONS as STRAATBEELD_ACTIONS } from '../shared/duck
 import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/query';
 import datasetQuery, { ACTIONS as DATASET_ACTIONS } from '../shared/ducks/datasets/datasets-query';
 import uiQuery, { ACTIONS as UI_ACTIONS } from '../shared/ducks/ui/ui-query';
+import dataSearchQuery, { ACTIONS as DATASEARCH_ACTIONS } from '../shared/ducks/data-search/data-search-query';
 import { getLocationQuery } from './redux-first-router';
 
 const separateHistory = createHistory();
@@ -19,7 +20,8 @@ const watchedActions = [
   ...FILTERS_ACTIONS,
   ...DATA_SELECTION_ACTIONS,
   ...DATASET_ACTIONS,
-  ...UI_ACTIONS
+  ...UI_ACTIONS,
+  ...DATASEARCH_ACTIONS
 ];
 
 const queryMappings = {
@@ -29,7 +31,8 @@ const queryMappings = {
   ...straatbeeldQuery,
   ...dataSelectionQuery,
   ...datasetQuery,
-  ...uiQuery
+  ...uiQuery,
+  ...dataSearchQuery
 };
 
 function* updateQuery() {

@@ -3,6 +3,8 @@ import get from 'lodash.get';
 import isObject from '../../services/is-object';
 import { routing } from '../../../app/routes';
 import parseLocationString from '../../../map/ducks/map/location-parse';
+import { SET_ACTIVE_SUGGESTION } from '../../../header/ducks/auto-suggest/auto-suggest';
+import { EMPTY_FILTERS } from '../filters/filters';
 
 export const REDUCER_KEY = 'dataSearch';
 
@@ -14,9 +16,10 @@ export const FETCH_SEARCH_RESULTS_BY_QUERY = 'FETCH_SEARCH_RESULTS_BY_QUERY';
 export const SHOW_SEARCH_RESULTS = 'SHOW_SEARCH_RESULTS';
 export const FETCH_SEARCH_RESULTS_BY_LOCATION = 'FETCH_SEARCH_RESULTS_BY_LOCATION';
 
-const initialState = {
+export const initialState = {
   mapSearchResultsByLocation: [], // TODO: refactor, rename
-  isLoading: false
+  isLoading: false,
+  query: ''
 };
 
 export const SEARCH_VIEW = {
@@ -39,8 +42,15 @@ export default function MapSearchResultsReducer(state = initialState, action) {
     case routing.dataSearch.type: {
       return {
         ...state,
-        query: get(action, 'meta.query.zoekterm'),
+        query: get(action, 'meta.query.zoekterm', ''),
         geoSearch: location
+      };
+    }
+    case routing.datasets.type: {
+      const { zoekterm } = action.meta.query || {};
+      return {
+        ...state,
+        query: zoekterm || ''
       };
     }
     case routing.map.type: {
@@ -120,6 +130,20 @@ export default function MapSearchResultsReducer(state = initialState, action) {
         isLoading: false,
         error: action.payload
       };
+
+    case SET_ACTIVE_SUGGESTION:
+      return {
+        ...state,
+        query: action.suggestion.index === -1 ? '' : state.query
+      };
+
+    case EMPTY_FILTERS: {
+      return {
+        ...state,
+        query: ''
+      };
+    }
+
 
     default:
       return state;

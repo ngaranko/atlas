@@ -54,7 +54,7 @@ function* fireRequest(action) {
     const catalogFilters = getDatasetApiSpecification(state);
     const page = getPage(state);
     const searchText = get(action, 'meta.query.zoekterm') || getSearchText(state);
-
+    console.log('fireRequest, searchText:', action, searchText);
     // Todo: make it possible to fetch both api specification and dataset data simultaneously
     // This can be done by refactoring the datasets-filters service
     if (!getDatasetApiSpecification(state)) {

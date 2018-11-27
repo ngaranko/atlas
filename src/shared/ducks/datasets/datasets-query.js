@@ -1,15 +1,11 @@
 import { FETCH_DATASETS_SUCCESS, initialState, SET_PAGE } from './data/data';
-import { getPage, getSearchText } from './datasets';
+import { getPage } from './datasets';
 import { EMPTY_FILTERS } from '../filters/filters';
 
 export default {
   page: {
     selector: getPage,
     defaultValue: initialState.page
-  },
-  zoekterm: {
-    selector: getSearchText,
-    defaultValue: initialState.searchText
   }
 };
 
