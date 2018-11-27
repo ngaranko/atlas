@@ -27,7 +27,7 @@ export const SEARCH_VIEW = {
   SEARCH: 'SEARCH'
 };
 
-export default function MapSearchResultsReducer(state = initialState, action) {
+export default function reducer(state = initialState, action) {
   const locationString = get(action, 'meta.query.locatie');
   let location;
   if (locationString) {
@@ -46,11 +46,11 @@ export default function MapSearchResultsReducer(state = initialState, action) {
         geoSearch: location
       };
     }
+    case routing.searchDatasets.type:
     case routing.datasets.type: {
-      const { zoekterm } = action.meta.query || {};
       return {
         ...state,
-        query: zoekterm || ''
+        query: get(action, 'meta.query.zoekterm', '')
       };
     }
     case routing.map.type: {

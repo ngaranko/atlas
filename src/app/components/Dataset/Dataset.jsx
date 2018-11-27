@@ -19,10 +19,10 @@ import {
   dataIsLoading,
   getAuthError, getDatasetApiSpecification,
   getPage,
-  getResults,
-  getSearchText
+  getResults
 } from '../../../shared/ducks/datasets/datasets';
 import TabHeader, { datasetsKey } from '../../../shared/services/tab-header/tab-header';
+import { getSearchQuery } from '../../../shared/ducks/data-search/data-search';
 
 const Dataset = ({
   setPage,
@@ -62,6 +62,7 @@ const Dataset = ({
     'u-col-sm--9': showFilters
   });
 
+  console.log(numberOfRecords)
   return (
     <div className="c-data-selection c-dashboard__content">
       {!isLoading && numberOfRecords && (
@@ -180,7 +181,7 @@ const mapStateToProps = (state) => ({
   results: getResults(state),
   user: getUser(state),
   apiSpecification: getDatasetApiSpecification(state),
-  searchText: getSearchText(state)
+  searchText: getSearchQuery(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
