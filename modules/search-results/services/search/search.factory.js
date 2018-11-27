@@ -40,8 +40,12 @@
                     endpoint.uri &&
                     (!endpoint.authScope || user.scopes.includes(endpoint.authScope))
                 ) {
+                    const options = endpoint.options || {};
                     queries.push(
-                        api.getByUri(endpoint.uri, params).then(data => data, () => [])
+                        api.getByUri(
+                            endpoint.uri,
+                            { ...params, ...options }
+                        ).then(data => data, () => [])
                     );
                 }
             });
