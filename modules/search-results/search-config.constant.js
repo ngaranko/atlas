@@ -21,7 +21,7 @@
                 }, {
                     // The slug variable is used to identify this category in list.component.js
                     slug: 'openbareruimte',
-                    label_singular: 'Openbare ruimtea',
+                    label_singular: 'Openbare ruimte',
                     label_plural: 'Openbare ruimtes',
                     uri: 'atlas/search/openbareruimte/',
                     options: { subtype: 'not_weg' }
