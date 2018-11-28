@@ -4,7 +4,7 @@ import get from 'lodash.get';
 import { routing } from '../app/routes';
 import PAGES from '../app/pages';
 import { DETAIL_VIEW } from '../shared/ducks/detail/detail';
-import PANORAMA_VIEW from '../shared/ducks/straatbeeld/panorama-view';
+import PANORAMA_VIEW from '../shared/ducks/panorama/panorama-view';
 
 export const REDUCER_KEY = 'location';
 
@@ -39,8 +39,16 @@ export const toDataDetail = (id, type, subtype, view) => {
   }
   return action;
 };
-export const toDataLocationSearch = () => preserveQuery({ // TODO rename
+export const toDataSearchLocationAndPreserveQuery = () => preserveQuery({ // TODO rename
   type: routing.dataSearch.type
+});
+export const toDataSearchLocation = (payload) => ({ // TODO rename
+  type: routing.dataSearch.type,
+  meta: {
+    query: {
+      locatie: payload
+    }
+  }
 });
 export const toMapAndPreserveQuery = () => preserveQuery({ type: routing.map.type });
 export const toMap = () => ({ type: routing.map.type });
@@ -101,6 +109,7 @@ export const toDatasetSearch = (searchQuery) => ({
     }
   }
 });
+
 export const toDatasetsWithFilter = (themeSlug) => ({
   type: routing.datasets.type,
   meta: {
@@ -110,6 +119,35 @@ export const toDatasetsWithFilter = (themeSlug) => ({
   }
 });
 
+export const toDataSuggestion = (payload) => {
+  const { type, subtype, id } = getDetailPageData(payload.endpoint);
+  const action = {
+    type: routing.dataDetail.type,
+    payload: {
+      type,
+      subtype,
+      id: `id${id}`
+    },
+    meta: {
+      tracking: {
+        category: payload.category,
+        event: 'auto-suggest',
+        query: payload.typedQuery
+      }
+    }
+  };
+  return action;
+};
+export const toDatasetSuggestion = (payload) => ({
+  type: routing.datasetsDetail.type,
+  payload,
+  meta: {
+    tracking: {
+      event: 'auto-suggest',
+      query: payload.typedQuery
+    }
+  }
+});
 
 // Selectors
 const getLocation = (state) => state[REDUCER_KEY];

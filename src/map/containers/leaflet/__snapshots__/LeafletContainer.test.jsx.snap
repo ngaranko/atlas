@@ -517,7 +517,7 @@ exports[`LeafletContainer LeafletContainer snapshot should render different base
           52.37282671971952,
           4.883399484657263,
         ],
-        "type": "straatbeeldPersonType",
+        "type": "panoramaPersonType",
       },
       Object {
         "heading": 45,
@@ -525,7 +525,7 @@ exports[`LeafletContainer LeafletContainer snapshot should render different base
           52.37282671971952,
           4.883399484657263,
         ],
-        "type": "straatbeeldOrientationType",
+        "type": "panoramaOrientationType",
       },
     ]
   }

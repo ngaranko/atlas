@@ -55,16 +55,22 @@ class MapLegend extends React.Component {
   }
 
   render() {
-    const { activeMapLayers, onLayerVisibilityToggle, user, zoomLevel } = this.props;
+    const {
+      activeMapLayers, onLayerVisibilityToggle, user, zoomLevel, isEmbedOrPrint
+    } = this.props;
 
     return (
       <div>
         <h3 className="u-sr-only">Actieve kaartlagen</h3>
         <ul className="map-legend">
-          {activeMapLayers.map((mapLayer) => {
+          {activeMapLayers.map((mapLayer, mapLayerIndex) => {
             const layerIsVisible = this.determineLayerVisibility(mapLayer);
             return (
-              <li className="map-legend__map-layer" key={mapLayer.title}>
+              <li
+                className="map-legend__map-layer"
+                // eslint-disable-next-line react/no-array-index-key
+                key={mapLayerIndex}
+              >
                 <div
                   className={`
                     map-legend__category
@@ -99,10 +105,14 @@ class MapLegend extends React.Component {
                 )}
                 {isAuthorised(mapLayer, user) && isInsideZoomLevel(mapLayer, zoomLevel) && (
                   <ul className="map-legend__items">
-                    {mapLayer.legendItems.map((legendItem) => {
+                    {mapLayer.legendItems.map((legendItem, legendItemIndex) => {
                       const legendItemIsVisible = this.determineLegendItemVisibility(legendItem);
-                      return (
-                        <li className="map-legend__item" key={legendItem.title}>
+                      return (!legendItemIsVisible && isEmbedOrPrint) ? null : (
+                        <li
+                          className="map-legend__item"
+                          // eslint-disable-next-line react/no-array-index-key
+                          key={legendItemIndex}
+                        >
                           {legendItem.selectable && (
                             <Checkbox
                               checked={legendItemIsVisible}
@@ -141,6 +151,7 @@ class MapLegend extends React.Component {
 MapLegend.propTypes = {
   activeMapLayers: PropTypes.array, // eslint-disable-line
   onLayerToggle: PropTypes.func, // eslint-disable-line
+  isEmbedOrPrint: PropTypes.bool.isRequired,
   onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
   overlays: PropTypes.array, // eslint-disable-line
   user: PropTypes.object, // eslint-disable-line

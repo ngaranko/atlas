@@ -1,10 +1,10 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
-import { fetchMapPano } from './pano-preview';
+import { fetchMapPano } from './panorama-preview';
 import {
-  fetchPanoPreviewFailure,
-  fetchPanoPreviewSuccess
-} from '../../ducks/preview/pano-preview';
-import panoPreview from '../../services/pano-preview';
+  fetchPanoramaPreviewFailure,
+  fetchPanoramaPreviewSuccess
+} from '../../../ducks/panorama/preview/panorama-preview';
+import panoPreview from '../../../services/panorama-preview/pano-preview';
 
 describe('fetchMapPano', () => {
   it('should dispatch the correct action', () => (
@@ -14,7 +14,7 @@ describe('fetchMapPano', () => {
           return effect.fn === panoPreview ? 'payload' : next();
         }
       })
-      .put(fetchPanoPreviewSuccess('payload'))
+      .put(fetchPanoramaPreviewSuccess('payload'))
       .run()
   ));
 
@@ -23,7 +23,7 @@ describe('fetchMapPano', () => {
     testSaga(fetchMapPano, {})
       .next()
       .throw(error)
-      .put(fetchPanoPreviewFailure(error))
+      .put(fetchPanoramaPreviewFailure(error))
       .next()
       .isDone();
   });

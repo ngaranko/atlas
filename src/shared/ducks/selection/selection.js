@@ -20,6 +20,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case routing.dataSearch.type:
     case routing.map.type: {
       const locationString = get(action, 'meta.query.locatie');
       if (locationString) {

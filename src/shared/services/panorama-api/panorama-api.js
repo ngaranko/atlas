@@ -2,11 +2,11 @@ import sharedConfig from '../shared-config/shared-config';
 import { getByUrl } from '../api/api';
 import getCenter from '../geo-json/geo-json';
 
-const MAX_RADIUS_KM = 100; // The maximum search radius straatbeeld in KM
+const MAX_RADIUS_KM = 100; // The maximum search radius panorama in KM
 
-export const STRAATBEELD_CONFIG = {
-  STRAATBEELD_ENDPOINT_ALL: 'panorama/recente_opnames/alle/',
-  STRAATBEELD_ENDPOINT_YEAR: 'panorama/recente_opnames/',
+export const PANORAMA_CONFIG = {
+  PANORAMA_ENDPOINT_ALL: 'panorama/recente_opnames/alle/',
+  PANORAMA_ENDPOINT_YEAR: 'panorama/recente_opnames/',
   DEFAULT_FOV: 80,
   MAX_FOV: 90,
   MAX_RESOLUTION: 12 * 1024,
@@ -61,7 +61,7 @@ function imageData(response) {
   return null;
 }
 
-function getStraatbeeld(url) {
+function fetchPanorama(url) {
   const promise = new Promise((resolve, reject) => {
     getByUrl(url)
       .then((data) => {
@@ -86,10 +86,10 @@ function getStraatbeeld(url) {
  */
 function searchWithinRadius(location, radius, year) {
   const endpoint = year
-    ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${year}/`
-    : STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL;
+    ? `${PANORAMA_CONFIG.PANORAMA_ENDPOINT_YEAR}${year}/`
+    : PANORAMA_CONFIG.PANORAMA_ENDPOINT_ALL;
 
-  return getStraatbeeld(`${sharedConfig.API_ROOT}${endpoint}?lat=${location[0]}&lon=${location[1]}&radius=${radius}`)
+  return fetchPanorama(`${sharedConfig.API_ROOT}${endpoint}?lat=${location[0]}&lon=${location[1]}&radius=${radius}`)
     .then((data) => {
       if (data) {
         return data;
@@ -110,8 +110,8 @@ export function getImageDataByLocation(location, year) {
 
 export function getImageDataById(id, year) {
   const endpoint = year
-    ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${year}/`
-    : STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL;
+    ? `${PANORAMA_CONFIG.PANORAMA_ENDPOINT_YEAR}${year}/`
+    : PANORAMA_CONFIG.PANORAMA_ENDPOINT_ALL;
 
-  return getStraatbeeld(`${sharedConfig.API_ROOT}${endpoint}${id}/`);
+  return fetchPanorama(`${sharedConfig.API_ROOT}${endpoint}${id}/`);
 }

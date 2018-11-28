@@ -3,11 +3,11 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  getStraatbeeldHeading,
-  getStraatbeeldId,
-  getStraatbeeldView
-} from '../../shared/ducks/straatbeeld/straatbeeld';
-import PANORAMA_VIEW from '../../shared/ducks/straatbeeld/panorama-view';
+  getPanoramaHeading,
+  getPanoramaId,
+  getPanoramaView
+} from '../../shared/ducks/panorama/panorama';
+import PANORAMA_VIEW from '../../shared/ducks/panorama/panorama-view';
 import PanoramaContainer from '../containers/PanoramaContainer';
 import MapContainer from '../../map/containers/map/MapContainer';
 import { toPanorama as toPanoramaActionCreator } from '../../store/redux-first-router';
@@ -58,9 +58,9 @@ PanoramaPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  heading: getStraatbeeldHeading(state),
-  id: getStraatbeeldId(state),
-  view: getStraatbeeldView(state)
+  heading: getPanoramaHeading(state),
+  id: getPanoramaId(state),
+  view: getPanoramaView(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

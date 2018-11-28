@@ -47,12 +47,12 @@ const ICON_CONFIG = {
       }
     }
   },
-  STRAATBEELD_ORIENTATION: {
+  PANORAMA_ORIENTATION: {
     iconUrl: '/assets/images/map/straatbeeld-orientation.svg',
     iconSize: [70, 70],
     iconAnchor: [35, 35]
   },
-  STRAATBEELD_PERSON: {
+  PANORAMA_PERSON: {
     iconUrl: '/assets/images/map/straatbeeld-person.svg',
     iconSize: [18, 31],
     iconAnchor: [9, 22]

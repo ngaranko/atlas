@@ -1,4 +1,4 @@
-import { setStraatbeeldYear } from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+import { setPanoramaYear } from '../../../../src/shared/ducks/panorama/panorama';
 
 describe('The dp-straatbeeld-history component', function () {
     let $compile,
@@ -219,22 +219,22 @@ describe('The dp-straatbeeld-history component', function () {
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(1).click();
-            expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldYear(2018));
+            expect(store.dispatch).toHaveBeenCalledWith(setPanoramaYear(2018));
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(2).click();
-            expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldYear(2017));
+            expect(store.dispatch).toHaveBeenCalledWith(setPanoramaYear(2017));
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(3).click();
-            expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldYear(2016));
+            expect(store.dispatch).toHaveBeenCalledWith(setPanoramaYear(2016));
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(0).click();
-            expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldYear(undefined));
+            expect(store.dispatch).toHaveBeenCalledWith(setPanoramaYear(undefined));
         });
 
         it('can have its selection initialized', () => {

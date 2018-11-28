@@ -62,7 +62,6 @@ const Dataset = ({
     'u-col-sm--9': showFilters
   });
 
-  console.log(numberOfRecords)
   return (
     <div className="c-data-selection c-dashboard__content">
       {!isLoading && numberOfRecords && (

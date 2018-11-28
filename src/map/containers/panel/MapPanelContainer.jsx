@@ -9,6 +9,7 @@ import {
 } from '../../ducks/panel-layers/map-panel-layers';
 import { getBaseLayers } from '../../ducks/base-layers/map-base-layers';
 import {
+  isPrintOrEmbedMode,
   isMapLayersVisible,
   isMapPanelHandleVisible,
   toggleMapPanelHandle
@@ -20,7 +21,12 @@ import MapType from '../../components/type/MapType';
 import CollapseIcon from '../../../../public/images/icon-arrow-down.svg';
 import ExpandIcon from '../../../../public/images/icon-arrow-up.svg';
 import MapLayersIcon from '../../../../public/images/icon-map-layers.svg';
-import { setMapBaseLayer, toggleMapOverlay, toggleMapOverlayVisibility, toggleMapPanel } from '../../ducks/map/map';
+import {
+  setMapBaseLayer,
+  toggleMapOverlay,
+  toggleMapOverlayVisibility,
+  toggleMapPanel
+} from '../../ducks/map/map';
 import {
   getActiveBaseLayer,
   getMapOverlays,
@@ -33,13 +39,13 @@ const mapStateToProps = (state) => ({
   activeBaseLayer: getActiveBaseLayer(state),
   activeMapLayers: selectActivePanelLayers(state),
   isMapLayersVisible: isMapLayersVisible(state),
-  isEachOverlayInvisible: state.map.overlays.every((overlay) => overlay.isVisible),
   isMapPanelHandleVisible: !state.map.overlays.length || isMapPanelHandleVisible(state),
   mapBaseLayers: getBaseLayers(state),
   mapLayers: getMapPanelLayers(state),
   overlays: getMapOverlays(state),
   zoomLevel: getMapZoom(state),
   user: getUser(state),
+  isEmbedOrPrint: isPrintOrEmbedMode(state),
   isMapPanelVisible: isMapPanelActive(state)
 });
 
@@ -66,23 +72,28 @@ class MapPanelContainer extends React.Component {
   }
 
   render() {
+    const {
+      isMapPanelVisible, activeBaseLayer, mapBaseLayers, onBaseLayerToggle, mapLayers,
+      onMapPanelHandleToggle, activeMapLayers, onMapPanelToggle, onLayerToggle,
+      onLayerVisibilityToggle, overlays, user, isEmbedOrPrint, zoomLevel,
+      isMapPanelHandleVisible: mapPanelHandleVisisble
+    } = this.props;
     return (
       <section
-        aria-label={this.props.isMapPanelVisible ? 'Kaartlagen legenda, Kaartlagen verbergen' :
+        aria-label={isMapPanelVisible ? 'Kaartlagen legenda, Kaartlagen verbergen' :
           'Kaartlagen legenda, Kaartlagen tonen'}
-        aria-expanded={this.props.isMapPanelVisible}
+        aria-expanded={isMapPanelVisible}
         className={`
           map-panel
-          map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
-          map-panel--has${this.props.activeMapLayers.length > 0 ? '' : '-no'}-active-layers
-          map-panel--has${this.props.isEachOverlayInvisible ? '' : '-not'}-just-invisible-layers
+          map-panel--${isMapPanelVisible ? 'expanded' : 'collapsed'}
+          map-panel--has${activeMapLayers.length > 0 ? '' : '-no'}-active-layers
         `}
       >
         <div className="map-panel__heading">
           <button
             className="map-panel__toggle"
-            onClick={this.props.onMapPanelToggle}
-            title={this.props.isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
+            onClick={onMapPanelToggle}
+            title={isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
           >
             <MapLayersIcon className="map-panel__heading-icon" />
             <h2 className="map-panel__heading-title" aria-hidden="true">Kaartlagen</h2>
@@ -91,29 +102,30 @@ class MapPanelContainer extends React.Component {
           </button>
         </div>
         <div className="scroll-wrapper">
-          {this.props.activeMapLayers.length > 0 && (
+          {activeMapLayers.length > 0 && (
             <MapLegend
-              activeMapLayers={this.props.activeMapLayers}
-              onLayerToggle={this.props.onLayerToggle}
-              onLayerVisibilityToggle={this.props.onLayerVisibilityToggle}
-              overlays={this.props.overlays}
-              user={this.props.user}
-              zoomLevel={this.props.zoomLevel}
+              activeMapLayers={activeMapLayers}
+              onLayerToggle={onLayerToggle}
+              onLayerVisibilityToggle={onLayerVisibilityToggle}
+              overlays={overlays}
+              user={user}
+              zoomLevel={zoomLevel}
+              isEmbedOrPrint={isEmbedOrPrint}
             />
           )}
           <MapPanelHandle
-            isMapPanelHandleVisible={this.props.isMapPanelHandleVisible}
-            onMapPanelHandleToggle={this.props.onMapPanelHandleToggle}
+            isMapPanelHandleVisible={mapPanelHandleVisisble}
+            onMapPanelHandleToggle={onMapPanelHandleToggle}
           >
             <MapType
-              activeBaseLayer={this.props.activeBaseLayer}
-              baseLayers={this.props.mapBaseLayers}
-              onBaseLayerToggle={this.props.onBaseLayerToggle}
+              activeBaseLayer={activeBaseLayer}
+              baseLayers={mapBaseLayers}
+              onBaseLayerToggle={onBaseLayerToggle}
             />
             <MapLayers
-              activeMapLayers={this.props.activeMapLayers}
-              layers={this.props.mapLayers}
-              onLayerToggle={this.props.onLayerToggle}
+              activeMapLayers={activeMapLayers}
+              layers={mapLayers}
+              onLayerToggle={onLayerToggle}
             />
           </MapPanelHandle>
         </div>
@@ -139,19 +151,19 @@ MapPanelContainer.defaultProps = {
 MapPanelContainer.propTypes = {
   activeBaseLayer: PropTypes.string.isRequired,
   activeMapLayers: PropTypes.array, // eslint-disable-line
-  isEachOverlayInvisible: PropTypes.bool.isRequired,
   isMapPanelHandleVisible: PropTypes.bool.isRequired,
   isMapPanelVisible: PropTypes.bool,
+  isEmbedOrPrint: PropTypes.bool.isRequired,
   map: PropTypes.object, // eslint-disable-line
   mapBaseLayers: PropTypes.object, // eslint-disable-line
-  mapLayers: PropTypes.array, // eslint-disable-line
-  onBaseLayerToggle: PropTypes.func, // eslint-disable-line
-  onLayerToggle: PropTypes.func, // eslint-disable-line
-  onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
-  onMapPanelHandleToggle: PropTypes.func, // eslint-disable-line
+  mapLayers: PropTypes.arrayOf(PropTypes.object),
+  onBaseLayerToggle: PropTypes.func.isRequired,
+  onLayerToggle: PropTypes.func.isRequired,
+  onLayerVisibilityToggle: PropTypes.func.isRequired,
+  onMapPanelHandleToggle: PropTypes.func.isRequired,
   onMapPanelToggle: PropTypes.func.isRequired,
-  overlays: PropTypes.array, // eslint-disable-line
-  user: PropTypes.object, // eslint-disable-line
+  overlays: PropTypes.arrayOf(PropTypes.object).isRequired,
+  user: PropTypes.shape({}),
   zoomLevel: PropTypes.number
 };
 

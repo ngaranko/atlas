@@ -14,16 +14,16 @@ import {
   getMapResultsByLocation,
   isSearchLoading
 } from '../../../shared/ducks/data-search/data-search';
-import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
+import { getPanoramaPreview } from '../../../shared/ducks/panorama/preview/panorama-preview';
 import {
   getPageActionEndpoint,
-  toDataLocationSearch,
+  toDataSearchLocationAndPreserveQuery,
   toMap,
   toPanorama
 } from '../../../store/redux-first-router';
 
 const mapStateToProps = (state) => ({
-  panoPreview: getPanoPreview(state),
+  panoPreview: getPanoramaPreview(state),
   searchResults: selectLatestMapSearchResults(state),
   dataSearch: getDataSearch(state),
   searchLocation: getDataSearchLocation(state),
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     closePanel: toMap,
-    onSearchMaximize: toDataLocationSearch
+    onSearchMaximize: toDataSearchLocationAndPreserveQuery
   }, dispatch),
   openPano: (id, heading) => {
     const action = toPanorama(id, heading);

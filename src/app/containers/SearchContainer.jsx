@@ -7,7 +7,7 @@ import {
   getNumberOfResults
 } from '../../shared/ducks/data-search/data-search';
 import { getUser } from '../../shared/ducks/user/user';
-import { getPanoPreview, isPanoPreviewLoading } from '../../pano/ducks/preview/pano-preview';
+import { getPanoramaPreview, isPanoramaPreviewLoading } from '../../shared/ducks/panorama/preview/panorama-preview';
 
 const mapStateToProps = (state) => ({
   isLoading: false,
@@ -16,8 +16,8 @@ const mapStateToProps = (state) => ({
   category: null,
   numberOfResults: getNumberOfResults(state),
   user: getUser(state),
-  previewPanorama: getPanoPreview(state),
-  isPreviewPanoramaLoading: isPanoPreviewLoading(state)
+  previewPanorama: getPanoramaPreview(state),
+  isPreviewPanoramaLoading: isPanoramaPreviewLoading(state)
 });
 
 const SearchContainer = ({

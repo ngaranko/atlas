@@ -137,7 +137,7 @@ import { showSearchResults } from '../../../../src/shared/ducks/data-search/data
 
             updateTabHeader(vm.query, numberOfResults);
 
-            store.dispatch(showSearchResults(numberOfResults));
+            store.dispatch(showSearchResults({query: vm.query, numberOfResults}));
             // TODO: refactor, really consider moving all business logic out of this view and into redux!
 
             // @TODO remove the exception when backend uses correct sub type name tg-3551
