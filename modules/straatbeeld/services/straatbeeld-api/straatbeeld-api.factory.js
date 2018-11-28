@@ -57,11 +57,13 @@
         }
 
         function getImageDataById (id, history) {
-            const endpoint = history
-                ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${history}/`
-                : STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL;
+            const prefix = STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_PREFIX;
+            const suffix = STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_SUFFIX;
 
-            return getStraatbeeld(`${sharedConfig.API_ROOT}${endpoint}${id}/`);
+            const yearRange = (history) ? `timestamp_before=${history}-12-31&timestamp_after=${history}-01-01`
+              : 'newest_in_range=true';
+
+            return getStraatbeeld(`${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}&${yearRange}`);
         }
 
         function getStraatbeeld (url) {
@@ -69,35 +71,43 @@
                 // Cancel any outstanding requests
                 cancel.resolve();
             }
-            cancel = $q.defer();
+            // cancel = $q.defer();
             return api.getByUrl(url, undefined, cancel)
+                .then((json) => json._embedded)
                 .then(imageData)
                 .finally(() => cancel = null);
         }
 
         function imageData (response) {
-            if (angular.isObject(response.geometrie)) {
-                const formattedGeometrie = {
+            const panorama = response && response.adjacencies[0];
+            const adjacencies = response && response.adjacencies.filter((adjacency) => adjacency !== panorama);
+
+            if (panorama && angular.isObject(panorama.geometry)) {
+                const formattedGeometry = {
                     coordinates: [
-                        response.geometrie.coordinates[1],
-                        response.geometrie.coordinates[0]
+                        panorama.geometry.coordinates[1],
+                        panorama.geometry.coordinates[0]
                     ],
-                    type: response.geometrie.type
+                    type: panorama.geometry.type
                 };
 
                 return {
-                    date: new Date(response.timestamp),
-                    id: response.pano_id,
-                    hotspots: response.adjacent.map(function (item) {
+                    date: new Date(panorama.timestamp),
+                    id: panorama.pano_id,
+                    hotspots: adjacencies.map(function (adjacency) {
                         return {
-                            id: item.pano_id,
-                            heading: item.heading,
-                            distance: item.distance,
-                            year: item.year
+                            id: adjacency.pano_id,
+                            heading: adjacency.direction,
+                            distance: adjacency.distance,
+                            year: adjacency.timestamp.substring(1, 4)
                         };
                     }),
-                    location: geojson.getCenter(formattedGeometrie),
-                    image: response.image_sets.cubic
+                    location: geojson.getCenter(formattedGeometry),
+                    image: {
+                        baseurl: panorama.cubic_img_baseurl,
+                        pattern: panorama.cubic_img_pattern,
+                        preview: panorama.cubic_img_baseurl
+                    }
                 };
             }
         }
