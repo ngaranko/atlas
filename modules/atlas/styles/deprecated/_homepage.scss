@@ -16,7 +16,7 @@ $show-more-height: 70px;
 }
 
 .c-homepage__block {
-  @extend %link--arrow;
+  @extend %link--arrow-right;
   display: block;
   position: relative;
   margin-right: $base-whitespace;
@@ -43,7 +43,9 @@ $show-more-height: 70px;
     pointer-events: none;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
+    outline: none;
     box-shadow: $primary-dark 2px 2px, $primary-dark 2px 0;
 
     .c-homepage__block-button {
@@ -145,6 +147,7 @@ $show-more-height: 70px;
   width: 100%;
   padding-left: 2 * $base-whitespace;
   transition: transform .2s;
+  outline: none;
   background-color: $secondary-gray4;
   text-align: left;
   text-decoration: none;
@@ -182,3 +185,4 @@ $show-more-height: 70px;
     max-width: 280px;
   }
 }
+
