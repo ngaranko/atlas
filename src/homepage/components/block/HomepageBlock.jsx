@@ -25,8 +25,8 @@ const HomepageBlock = ({
     <Block
       {...blockProps}
       className={className}
-      tabIndex="0"  // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       onKeyDown={(event) => event.key === 'Enter' && linkAction}
+      tabIndex="0"  // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
     >
       {children}
       <BlockButton

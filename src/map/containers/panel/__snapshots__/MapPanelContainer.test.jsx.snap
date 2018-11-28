@@ -30,7 +30,7 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
       <span
         className="
               map-panel__toggle--icon
-              map-panel__toggle--icon-expand
+              map-panel__toggle--icon-collapse
             "
       />
     </button>
@@ -110,7 +110,7 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
       <span
         className="
               map-panel__toggle--icon
-              map-panel__toggle--icon-expand
+              map-panel__toggle--icon-collapse
             "
       />
     </button>
