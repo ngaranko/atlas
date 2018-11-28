@@ -81,7 +81,7 @@ class MapLegend extends React.Component {
                     name={mapLayer.title}
                     onChange={
                       /* istanbul ignore next */
-                      () => this.toggleLayerVisibility(mapLayer, layerIsVisible)
+                      () => this.toggleLayerVisibility(mapLayer)
                     }
                   />
                   <h4 className="map-legend__category-title">{mapLayer.title}</h4>

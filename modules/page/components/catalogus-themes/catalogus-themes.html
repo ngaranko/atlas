@@ -9,9 +9,12 @@
                     <ul>
                         <li ng-repeat="theme in vm.themes | limitTo : vm.themesPerColumn : (column * vm.themesPerColumn)">
                             <dp-redux-link to="theme.linkTo"
-                                class="c-catalogus-theme__icon c-catalogus-theme__icon--{{theme.icon}} qa-theme-link"
+                                class="qa-theme-link"
                                 link-class="{{'c-catalogus-theme__link'}}"
-                                ><div class="c-catalogus-theme__link__text">{{theme.name}}</div></dp-redux-link>
+                                >
+                                <span class="c-catalogus-theme__icon c-catalogus-theme__icon--{{theme.icon}}">
+                                </span><span class="c-catalogus-theme__link__text">{{theme.name}}</span>
+                            </dp-redux-link>
                         </li>
                     </ul>
                 </div>

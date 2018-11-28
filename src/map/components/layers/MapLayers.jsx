@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './_map-layers.scss';
-
 const getCategories = (layers) => (
   layers.filter((layer) => layer.category).map((layer) => layer.category)
 );

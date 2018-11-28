@@ -13,7 +13,7 @@ const HomepageBlock = ({
   description,
   blockIsLink
 }) => {
-  const className = `c-homepage__block-link homepage-block c-homepage__block c-homepage__block--tall ${classes}`;
+  const className = `c-homepage__block-link c-homepage__block c-homepage__block--tall ${classes}`;
   const linkProps = { title: `Bekijk ${title}`, to: linkAction };
 
   const Block = blockIsLink ? Link : 'div';

@@ -207,6 +207,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"
+              autoFocus="true"
               className="auto-suggest__input"
               id="auto-suggest__input"
               onBlur={[Function]}
@@ -224,9 +225,6 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
               title="Wis zoektekst"
               type="button"
             >
-              <Component>
-                mock-svg
-              </Component>
               <span
                 className="u-sr-only"
               >
@@ -307,11 +305,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -344,11 +338,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -381,11 +371,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -453,11 +439,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -537,11 +519,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -574,11 +552,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -611,11 +585,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -683,11 +653,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -709,9 +675,6 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
             title="Zoeken"
             type="submit"
           >
-            <Component>
-              mock-svg
-            </Component>
             <span
               className="u-sr-only"
             >
@@ -872,6 +835,7 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"
+              autoFocus="true"
               className="auto-suggest__input"
               id="auto-suggest__input"
               onBlur={[Function]}
@@ -890,9 +854,6 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
             title="Zoeken"
             type="submit"
           >
-            <Component>
-              mock-svg
-            </Component>
             <span
               className="u-sr-only"
             >
@@ -1129,6 +1090,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"
+              autoFocus="true"
               className="auto-suggest__input"
               id="auto-suggest__input"
               onBlur={[Function]}
@@ -1147,9 +1109,6 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user click on a 
             title="Zoeken"
             type="submit"
           >
-            <Component>
-              mock-svg
-            </Component>
             <span
               className="u-sr-only"
             >
@@ -1370,6 +1329,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to dismiss 
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"
+              autoFocus="true"
               className="auto-suggest__input"
               id="auto-suggest__input"
               onBlur={[Function]}
@@ -1387,9 +1347,6 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to dismiss 
               title="Wis zoektekst"
               type="button"
             >
-              <Component>
-                mock-svg
-              </Component>
               <span
                 className="u-sr-only"
               >
@@ -1403,9 +1360,6 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to dismiss 
             title="Zoeken"
             type="submit"
           >
-            <Component>
-              mock-svg
-            </Component>
             <span
               className="u-sr-only"
             >
@@ -1626,6 +1580,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"
+              autoFocus="true"
               className="auto-suggest__input"
               id="auto-suggest__input"
               onBlur={[Function]}
@@ -1643,9 +1598,6 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               title="Wis zoektekst"
               type="button"
             >
-              <Component>
-                mock-svg
-              </Component>
               <span
                 className="u-sr-only"
               >
@@ -1659,9 +1611,6 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
             title="Zoeken"
             type="submit"
           >
-            <Component>
-              mock-svg
-            </Component>
             <span
               className="u-sr-only"
             >
@@ -1888,6 +1837,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"
+              autoFocus="true"
               className="auto-suggest__input"
               id="auto-suggest__input"
               onBlur={[Function]}
@@ -1905,9 +1855,6 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               title="Wis zoektekst"
               type="button"
             >
-              <Component>
-                mock-svg
-              </Component>
               <span
                 className="u-sr-only"
               >
@@ -1991,11 +1938,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -2028,11 +1971,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -2065,11 +2004,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -2140,11 +2075,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -2227,11 +2158,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -2264,11 +2191,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -2301,11 +2224,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -2376,11 +2295,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                         <div>
                           <span
                             className="icon"
-                          >
-                            <Component>
-                              mock-svg
-                            </Component>
-                          </span>
+                          />
                           <span
                             dangerouslySetInnerHTML={
                               Object {
@@ -2402,9 +2317,6 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
             title="Zoeken"
             type="submit"
           >
-            <Component>
-              mock-svg
-            </Component>
             <span
               className="u-sr-only"
             >
@@ -2625,6 +2537,7 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"
+              autoFocus="true"
               className="auto-suggest__input"
               id="auto-suggest__input"
               onBlur={[Function]}
@@ -2643,9 +2556,6 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
             title="Zoeken"
             type="submit"
           >
-            <Component>
-              mock-svg
-            </Component>
             <span
               className="u-sr-only"
             >

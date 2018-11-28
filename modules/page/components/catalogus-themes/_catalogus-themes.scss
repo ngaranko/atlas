@@ -1,14 +1,7 @@
-$base-padding: calc(#{$base-whitespace} * 2);
-
-.c-catalogus-themes {
-  padding-top: ($base-whitespace * .8);
-  padding-right: $base-padding;
-  padding-bottom: $base-padding;
-  padding-left: $base-padding;
-}
+$icon-height: 30px;
 
 .c-catalogus-themes__column {
-  margin: 6px 0 17px; // to position the button links under the themes
+  margin-right: 17px; // to position the button links under the theme
   font-size: 0;
 }
 
@@ -16,79 +9,106 @@ $base-padding: calc(#{$base-whitespace} * 2);
   margin-left: 3 * $base-whitespace;
 }
 
-.c-catalogus-theme__icon {
-  width: 100%;
-  height: 40px;
-  margin-bottom: ($base-whitespace / 2);
-
-  &::before {
-    display: block;
-    margin-top: 7px;
-    float: left;
-  }
-}
-
 .c-catalogus-theme__link {
   @extend %link;
   @include font-weight($normal-weight);
+  width: 100%;
   height: 40px;
+  margin-bottom: ($base-whitespace / 2);
+  text-align: left;
+
+  &__text {
+    display: inline-block;
+    padding-left: ($base-whitespace / 2);
+    line-height: 20px;
+    vertical-align: middle;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+
+    .c-catalogus-theme__icon--parkeren-beheer {
+      @include icon-sprite("parkeren-beheer", $primary-contrast, $primary-contrast, $icon-height);
+    }
+
+    .c-catalogus-theme__icon--toerisme {
+      @include icon-sprite("toerisme", $primary-contrast, $primary-contrast, $icon-height);
+    }
+
+    .c-catalogus-theme__icon--kaart {
+      @include icon-sprite("kaart", $primary-contrast, $primary-contrast, $icon-height);
+    }
+
+    .c-catalogus-theme__icon--bevolking {
+      @include icon-sprite("bevolking", $primary-contrast, $primary-contrast, $icon-height);
+    }
+
+    .c-catalogus-theme__icon--openbare-ruimte {
+      @include icon-sprite("openbare-ruimte", $primary-contrast, $primary-contrast, $icon-height);
+    }
+
+    .c-catalogus-theme__icon--stedelijke-ontwikkeling {
+      @include icon-sprite("stedelijke-ontwikkeling", $primary-contrast, $primary-contrast, $icon-height);
+    }
+
+    .c-catalogus-theme__icon--gezondheid-zorg-welzijn {
+      @include icon-sprite("gezondheid-zorg-welzijn", $primary-contrast, $primary-contrast, $icon-height);
+    }
+
+    .c-catalogus-theme__icon--energie {
+      @include icon-sprite("energie", $primary-contrast, $primary-contrast, $icon-height);
+    }
+
+    .c-catalogus-theme__link__text {
+      text-decoration: underline;
+    }
+  }
 }
 
-.c-catalogus-theme__link__text {
-  padding-top: 10px;
-  padding-right: $base-whitespace;
-  line-height: 20px;
+.c-catalogus-theme__icon {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-bottom: ($base-whitespace / 2);
+  padding-top: ($base-whitespace / 2);
+  padding-bottom: ($base-whitespace / 2);
   vertical-align: middle;
-}
 
-.c-catalogus-theme__icon--parkeren-beheer {
-  @include icon-button-text-right("parkeren-beheer", "", "red");
-}
+  &--parkeren-beheer {
+    @include icon-sprite("parkeren-beheer", $primary-dark, $primary-contrast, $icon-height);
+  }
 
-.c-catalogus-theme__icon--toerisme {
-  @include icon-button-text-right("toerisme", "", "red");
-}
+  &--toerisme {
+    @include icon-sprite("toerisme", $primary-dark, $primary-contrast, $icon-height);
+  }
 
-.c-catalogus-theme__icon--kaart {
-  @include icon-button-text-right("kaart", "", "red");
-}
+  &--kaart {
+    @include icon-sprite("kaart", $primary-dark, $primary-contrast, $icon-height);
+  }
 
-.c-catalogus-theme__icon--bevolking {
-  @include icon-button-text-right("bevolking", "", "red");
-}
+  &--bevolking {
+    @include icon-sprite("bevolking", $primary-dark, $primary-contrast, $icon-height);
+  }
 
-.c-catalogus-theme__icon--openbare-ruimte {
-  @include icon-button-text-right("openbare-ruimte", "", "red");
-}
+  &--openbare-ruimte {
+    @include icon-sprite("openbare-ruimte", $primary-dark, $primary-contrast, $icon-height);
+  }
 
-.c-catalogus-theme__icon--stedelijke-ontwikkeling {
-  @include icon-button-text-right("stedelijke-ontwikkeling", "", "red");
-}
+  &--stedelijke-ontwikkeling {
+    @include icon-sprite("stedelijke-ontwikkeling", $primary-dark, $primary-contrast, $icon-height);
+  }
 
-.c-catalogus-theme__icon--gezondheid-zorg-welzijn {
-  @include icon-button-text-right("gezondheid-zorg-welzijn", "", "red");
-}
+  &--gezondheid-zorg-welzijn {
+    @include icon-sprite("gezondheid-zorg-welzijn", $primary-dark, $primary-contrast, $icon-height);
+  }
 
-.c-catalogus-theme__icon--energie {
-  @include icon-button-text-right("energie", "", "red");
-}
-
-.c-catalogus-theme__icon--wonen-leefomgeving {
-  @include icon-button-text-right("wonen-leefomgeving", "", "red");
-}
-
-.c-catalogus-theme__icon--werk-en-inkomen {
-  @include icon-button-text-right("werk-en-inkomen", "", "red");
-}
-
-.c-catalogus-theme__icon--dienstverlening {
-  @include icon-button-text-right("dienstverlening", "", "red");
-}
-
-.c-catalogus-theme__icon--bestuur-organisatie {
-  @include icon-button-text-right("bestuur-organisatie", "", "red");
-}
-
-.c-catalogus-theme__icon--educatie-jeugd-diversiteit {
-  @include icon-button-text-right("educatie-jeugd-diversiteit", "", "red");
+  &--energie {
+    @include icon-sprite("energie", $primary-dark, $primary-contrast, $icon-height);
+  }
 }
