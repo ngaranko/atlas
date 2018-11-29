@@ -8,10 +8,10 @@ WORKDIR /home
 
 COPY package.json package-lock.json  /home/
 
-# Install selected package (faster).
-# Use versions defined in package-lock.json.
-# `npm install` with `CI=true` is to stop cypress install progress from flooding the CI log
+# Install all NPM dependencies, and:
+#  * Setting `CI=true` to stop cypress install progress from flooding the CI log
 RUN npm config set registry https://repo.datapunt.amsterdam.nl/repository/npm-group/ && \
-    CI=true npm ci
+    CI=true npm ci && \
+     npm cache clean --force
 
 COPY . /home/

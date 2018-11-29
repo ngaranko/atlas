@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 
 import HomepageBlock from '../block/HomepageBlock';
 
-import IconAddress from '../../../../public/images/icon-adres.svg';
-import IconHr from '../../../../public/images/icon-hr.svg';
-import IconKadaster from '../../../../public/images/icon-kadaster.svg';
 import { features } from '../../../shared/environment';
 
 const HomepageAddressBlock = (props) => {
@@ -25,9 +22,7 @@ const HomepageAddressBlock = (props) => {
           title={'Bekijk Adressentabel'}
           onClick={() => onLinkClick({ dataset: 'bag', filters: {}, page: 1 })}
         >
-          <span className="homepage-block__icon">
-            <IconAddress />
-          </span>
+          <span className="homepage-block__icon homepage-block__icon--bag" />
           <span className="homepage-block__label">
             Adressentabel
           </span>
@@ -40,9 +35,7 @@ const HomepageAddressBlock = (props) => {
           title={'Bekijk handelsregister-tabel'}
           onClick={() => onLinkClick({ dataset: 'hr', filters: {}, page: 1 })}
         >
-          <span className="homepage-block__icon">
-            <IconHr />
-          </span>
+          <span className="homepage-block__icon homepage-block__icon--hr" />
           <span className="homepage-block__label">
             Handelsregister-tabel
           </span>
@@ -55,9 +48,7 @@ const HomepageAddressBlock = (props) => {
           title={'Bekijk kadaster-tabel'}
           onClick={() => onLinkClick({ dataset: 'brk', filters: {}, page: 1 })}
         >
-          <span className="homepage-block__icon">
-            <IconKadaster />
-          </span>
+          <span className="homepage-block__icon homepage-block__icon--brk" />
           <span className="homepage-block__label">
             Kadaster-tabel
           </span>

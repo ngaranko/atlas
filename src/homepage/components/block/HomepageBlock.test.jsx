@@ -33,4 +33,22 @@ describe('HomepageBlock', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('should navigate on enter ', () => {
+    const wrapper = shallow(
+      <HomepageBlock
+        onBlockLinkClick={mockFn}
+        title={'test block'}
+        description={'click here for the test link in the block'}
+      >
+        <div>
+          <span>This is a child of the homepageblock</span>
+        </div>
+      </HomepageBlock>
+    );
+
+    const mockEvent = { key: 'Enter' };
+    wrapper.find('.homepage-block').simulate('keydown', mockEvent);
+    expect(mockFn).toHaveBeenCalled();
+  });
 });

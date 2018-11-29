@@ -12,28 +12,24 @@ RUN apt-get update && \
 
 COPY package.json package-lock.json /app/
 
-# Install all NPM dependencies. Also:
+# Install all NPM dependencies, and:
 #  * Changing git URL because network is blocking git protocol...
-#  * Using `CYPRESS_INSTALL_BINARY` to skip installing Cypress for it is not used here
 RUN git config --global url."https://".insteadOf git:// && \
     git config --global url."https://github.com/".insteadOf git@github.com: && \
     npm config set registry https://repo.datapunt.amsterdam.nl/repository/npm-group/ && \
-    CYPRESS_INSTALL_BINARY=0 \
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     npm --production=false \
         --unsafe-perm \
         --verbose \
-        install && \
+        ci && \
     npm cache clean --force
 
 # Build dependencies
 COPY src /app/src
 COPY modules /app/modules
-COPY grunt /app/grunt
 COPY public /app/public
 COPY scripts /app/scripts
 COPY .babelrc \
-      Gruntfile.js \
       webpack.* \
       index.ejs \
       favicon.png \

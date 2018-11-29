@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Checkbox } from '../../../shared/components/checkbox';
-import RemoveIcon from '../../../../public/images/icon-cross.svg';
 import MAP_CONFIG from '../../services/map-config';
 
 import './_map-legend.scss';
@@ -98,9 +97,7 @@ class MapLegend extends React.Component {
                 <button
                   className="map-legend__toggle map-legend__toggle--remove"
                   onClick={() => this.toggleLayer(mapLayer)}
-                >
-                  <RemoveIcon />
-                </button>
+                />
               </div>
               {!isAuthorised(mapLayer, user) && (
                 <div className="map-legend__notification">

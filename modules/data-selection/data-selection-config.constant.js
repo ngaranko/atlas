@@ -336,6 +336,9 @@
                     SORT_FILTERS: true,
                     FILTERS: [
                         {
+                            slug: 'status',
+                            label: 'Status'
+                        }, {
                             slug: 'groups',
                             label: 'Thema\'s'
                         }, {

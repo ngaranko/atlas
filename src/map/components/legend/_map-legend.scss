@@ -1,6 +1,8 @@
 @import "../../../shared/components/toggle/toggle";
 @import "../../../shared/styles/utilities/screen-reader";
 
+$icon-height: 24px;
+
 .map-legend {
   background-color: $primary-light;
   border: 1px solid $secondary-gray40;
@@ -114,6 +116,10 @@
     @extend %hover-focus-button;
     margin-left: 10px;
     outline: none;
+
+    &--remove {
+      @include icon-sprite("icon-cross", $secondary-gray60, $primary-dark, $icon-height);
+    }
   }
 
   .is-embed &,

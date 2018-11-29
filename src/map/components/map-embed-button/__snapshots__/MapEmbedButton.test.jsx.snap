@@ -8,8 +8,8 @@ exports[`MapEmbedButton should render the link 1`] = `
   target="_blank"
   title="Naar interactieve kaart (Amsterdam City Data)"
 >
-  <Component
-    className="c-embed-button__icon"
+  <span
+    className="c-embed-button__icon c-embed-button__icon--maximize"
   />
   <span
     className="c-embed-button__label"

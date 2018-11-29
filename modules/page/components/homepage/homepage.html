@@ -39,14 +39,18 @@
         <div class="u-row">
             <div class="u-col-sm--6 c-homepage__block--data-selection">
                 <!-- Links to data selection themes -->
-                <div class="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--datasets" ng-class="{ 'c-homepage__block--shadow': datasetsHover }">
-                    <dp-link class-name="c-homepage__block-button" type="FETCH_DATA_SELECTION" payload="{
+                <div class="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--datasets"
+                     ng-class="{ 'c-homepage__block--shadow': datasetsHover }"
+                >
+                    <dp-link tabindex="-1" class-name="c-homepage__block-button" type="FETCH_DATA_SELECTION" payload="{
                              dataset: 'dcatd',
                              filters: {},
                              view: 'CATALOG',
                              page: 1
                          }" ng-mouseover="datasetsHover = true" ng-mouseout="datasetsHover = false">
-                        <div class-name="c-homepage__block-button" ng-mouseover="datasetsHover = true" ng-mouseout="datasetsHover = false">
+                        <div class-name="c-homepage__block-button" ng-mouseover="datasetsHover = true" ng-mouseout="datasetsHover = false"
+                             tabindex="-1"
+                        >
                             <div class="o-btn--transparent">Datasetcatalogus</div>
                             <div class="c-homepage__block-details">Blader door datasets (verzamelingen gegevens)</div>
                         </div>
