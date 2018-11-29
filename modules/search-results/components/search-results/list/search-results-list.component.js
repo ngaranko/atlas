@@ -24,10 +24,7 @@ import { getPageActionEndpoint } from '../../../../../src/store/redux-first-rout
             vm.results = vm.category.results.map(result => {
                 return {
                     ...result,
-                    // linkTo: getPageActionEndpoint(result.link)
-                    linkTo: getPageActionEndpoint(
-                        'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200003761447/'
-                    )
+                    linkTo: getPageActionEndpoint(result.endpoint)
                 };
             });
         }
