@@ -110,6 +110,7 @@ const Home = ({ showFooter }) => (
                     linkAction={{ type: routing.datasets.type }}
                     title="Datasetcatalogus"
                     description="Blader door datasets (verzamelingen gegevens)"
+                    blockIsLink
                   >
                     <AngularWrapper
                       moduleName="dpCatalogusThemesWrapper"

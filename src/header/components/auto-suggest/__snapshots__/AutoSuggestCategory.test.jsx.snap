@@ -34,7 +34,7 @@ exports[`AutoSuggestCategory should render ellipsis when there are more then 3 r
     <AutoSuggestItem
       content="..."
       isActive={false}
-      key="Straatnamen..."
+      key="...null"
       onSuggestionSelection={[Function]}
       query="dam"
     />

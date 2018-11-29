@@ -1004,10 +1004,6 @@ export default [
       },
       {
         selectable: false,
-        title: 'Bominslag'
-      },
-      {
-        selectable: false,
         title: 'Crashlocatie'
       },
       {
@@ -1017,10 +1013,6 @@ export default [
       {
         selectable: false,
         title: 'Geruimd explosief'
-      },
-      {
-        selectable: false,
-        title: 'Krater'
       },
       {
         selectable: false,
