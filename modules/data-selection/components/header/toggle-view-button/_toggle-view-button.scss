@@ -1,6 +1,7 @@
 .c-toggle-view-button--kaart {
   @include header-button("kaart-small", 24px);
 
+  padding-top: 3px;
   padding-right: 12px;
 
   &::before {
@@ -12,6 +13,7 @@
 .c-toggle-view-button--list {
   @include header-button("list", 24px);
 
+  padding-top: 3px;
   padding-right: 12px;
 
   &::before {
