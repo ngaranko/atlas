@@ -22,7 +22,7 @@ import {
   getResults
 } from '../../../shared/ducks/datasets/datasets';
 import TabHeader, { datasetsKey } from '../../../shared/services/tab-header/tab-header';
-import { getSearchQuery } from '../../../shared/ducks/data-search/data-search';
+import { getSearchQuery, getNumberOfResults } from '../../../shared/ducks/data-search/data-search';
 
 const Dataset = ({
   setPage,
@@ -38,7 +38,8 @@ const Dataset = ({
   authError,
   page: currentPage,
   apiSpecification,
-  searchText
+  searchText,
+  numberOfDataResults
 }) => {
   if (isLoading || (!numberOfRecords && !authError)) {
     return <LoadingIndicator />;
@@ -55,6 +56,7 @@ const Dataset = ({
 
   const tabHeader = new TabHeader('data-datasets');
   tabHeader.getTab(datasetsKey).count = numberOfRecords;
+  tabHeader.getTab('data').count = numberOfDataResults;
   tabHeader.activeTab = tabHeader.getTab(datasetsKey);
 
   const widthClass = classNames({
@@ -169,7 +171,8 @@ Dataset.propTypes = {
     filters: PropTypes.arrayOf(PropTypes.object),
     data: PropTypes.arrayOf(PropTypes.object)
   }).isRequired,
-  searchText: PropTypes.string.isRequired
+  searchText: PropTypes.string.isRequired,
+  numberOfDataResults: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -180,7 +183,8 @@ const mapStateToProps = (state) => ({
   results: getResults(state),
   user: getUser(state),
   apiSpecification: getDatasetApiSpecification(state),
-  searchText: getSearchQuery(state)
+  searchText: getSearchQuery(state),
+  numberOfDataResults: getNumberOfResults(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

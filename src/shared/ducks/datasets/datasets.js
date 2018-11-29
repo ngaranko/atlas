@@ -16,6 +16,10 @@ export const getDatasetApiSpecification = (state) => state[REDUCER_KEY][API_SPEC
 
 export const getResults = createSelector(getDatasetsData, (datasets) => datasets.result || {});
 export const getFilters = createSelector(getResults, (result) => result.filters || []);
+export const getNumberOfDatasetResuts = createSelector(
+  getResults,
+  (result) => result.numberOfRecords || 0
+);
 export const getAuthError = createSelector(getDatasetsData, (resultState) => resultState.authError);
 export const getPage = createSelector(getDatasetsData, (resultState) => resultState.page);
 export const dataIsLoading = createSelector(
