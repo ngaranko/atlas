@@ -3,9 +3,9 @@
 
     angular
         .module('dpShared')
-        .filter('removespaces', removeSpaces);
+        .filter('kebabcase', kebabCase);
 
-    function removeSpaces () {
+    function kebabCase () {
         return function (input) {
             return (input) ? input.toLowerCase().replace(/[: ][ ]*/g, '-') : '';
         };

@@ -1,21 +1,21 @@
-describe('The removespaces filter', function () {
+describe('The kebabcase filter', function () {
     'use strict';
 
-    var removeSpacesFilter;
+    var kebabCaseFilter;
 
     beforeEach(function () {
         angular.mock.module('dpShared');
 
         angular.mock.inject(function ($filter) {
-            removeSpacesFilter = $filter('removespaces');
+            kebabCaseFilter = $filter('kebabcase');
         });
     });
 
     it('return a string in lower case and with bars instead of spaces/colons', function () {
-        expect(removeSpacesFilter('Rest: Atom Feed')).toEqual('rest-atom-feed');
+        expect(kebabCaseFilter('Rest: Atom Feed')).toEqual('rest-atom-feed');
     });
 
     it('return an empty string when there is no input', function () {
-        expect(removeSpacesFilter(null)).toEqual('');
+        expect(kebabCaseFilter(null)).toEqual('');
     });
 });
