@@ -1,7 +1,12 @@
 .c-download-button {
-  @include header-button("download", 24px, right);
+  @include header-button("download", 24px);
+
+  margin-left: 0;
+  padding-top: 3px;
+  padding-right: 12px;
 
   &::before {
-    margin-left: 5px;
+    margin-top: 1px;
+    margin-right: 5px;
   }
 }

@@ -115,7 +115,7 @@ function commonConfig ({ nodeEnv }) {
     plugins: [
       new CleanWebpackPlugin([dist]),
       new SVGSpritemapPlugin({
-        src: 'src/shared/assets/icons/*.svg',
+        src: 'src/shared/assets/icons/**/*.svg',
         filename: 'sprite.svg',
         chunk: 'sprite',
         styles: 'src/shared/styles/config/mixins/_sprites.scss',

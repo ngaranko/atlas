@@ -194,6 +194,11 @@ export default [
     layers: ['grootstedelijkgebied', 'grootstedelijkgebied_label']
   },
   {
+    id: 'ggwp',
+    url: 'maps/gebieden?service=wms',
+    layers: ['gebiedsgerichtwerkenpraktijkgebieden', 'gebiedsgerichtwerkenpraktijkgebieden_label']
+  },
+  {
     id: 'unesco',
     url: 'maps/gebieden?service=wms',
     layers: ['unesco', 'unesco_label']
