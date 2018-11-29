@@ -25,5 +25,6 @@ exports[`mapSearch reducer sets the initial state 1`] = `
 Object {
   "isLoading": false,
   "mapSearchResultsByLocation": Array [],
+  "query": "",
 }
 `;

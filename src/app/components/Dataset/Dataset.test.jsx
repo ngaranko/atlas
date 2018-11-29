@@ -17,11 +17,14 @@ const initialState = {
       error: null,
       data: {}
     }
+  },
+  dataSearch: {
+    query: ''
   }
 };
 
 // Todo: properly test this
-describe('Dataset', () => {
+describe.only('Dataset', () => {
   it('should render the inital state', () => {
     const store = configureMockStore()({ ...initialState });
     const component = shallow(<Dataset />, { context: { store } }).dive();
