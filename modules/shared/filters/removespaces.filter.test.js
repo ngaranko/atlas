@@ -1,4 +1,4 @@
-describe('The removeSpaces filter', function () {
+describe('The removespaces filter', function () {
     'use strict';
 
     var removeSpacesFilter;
@@ -7,7 +7,7 @@ describe('The removeSpaces filter', function () {
         angular.mock.module('dpShared');
 
         angular.mock.inject(function ($filter) {
-            removeSpacesFilter = $filter('removeSpaces');
+            removeSpacesFilter = $filter('removespaces');
         });
     });
 

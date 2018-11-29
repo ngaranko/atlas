@@ -3,7 +3,7 @@
 
     angular
         .module('dpShared')
-        .filter('removeSpaces', removeSpaces);
+        .filter('removespaces', removeSpaces);
 
     function removeSpaces () {
         return function (input) {
