@@ -21,6 +21,7 @@ import {
   VIEWS
 } from '../../ducks/data-selection/constants';
 import { getDataSelection, getGeomarkersShape } from '../../ducks/data-selection/selectors';
+import get from 'lodash.get';
 
 function* getMapMarkers(dataset, activeFilters) {
   const state = yield select();
@@ -68,11 +69,11 @@ function* retrieveDataSelection(action) {
   }
 }
 
-function* fireRequest() {
+function* fireRequest(action) {
   const state = yield select();
 
   // Always ensure we are on the right page, otherwise this can be called unintentionally
-  if (isDataSelectionPage(state)) {
+  if (isDataSelectionPage(state) && !get(action, 'meta.skipFetch')) {
     const dataSelection = getDataSelection(state);
     const activeFilters = getFilters(state);
     const shape = getGeomarkersShape(state);

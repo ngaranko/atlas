@@ -4,12 +4,11 @@ import configureMockStore from 'redux-mock-store';
 import SearchContainer from '../SearchContainer';
 
 import {
-  getDataSearchLocation,
-  getNumberOfResults
-} from '../../../shared/ducks/data-search/data-search';
+  getDataSearchLocation} from '../../../shared/ducks/data-search/selectors';
 import { getPanoramaPreview, isPanoramaPreviewLoading } from '../../../shared/ducks/panorama/preview/panorama-preview';
 import { getShortSelectedLocation } from '../../../map/ducks/map/map-selectors';
 import { getUser } from '../../../shared/ducks/user/user';
+import { getNumberOfResults } from '../../../shared/ducks/data-search/selectors';
 
 jest.mock('../../../shared/ducks/user/user');
 jest.mock('../../../map/ducks/map/map-selectors');

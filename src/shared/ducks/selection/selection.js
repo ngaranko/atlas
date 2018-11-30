@@ -4,8 +4,8 @@ import parseLocationString from '../../../map/ducks/map/location-parse';
 
 export const REDUCER_KEY = 'selection';
 
-export const SET_SELECTION = 'SET_SELECTION';
-export const CLEAR_SELECTION = 'CLEAR_SELECTION';
+export const SET_SELECTION = `${REDUCER_KEY}/SET_SELECTION`;
+export const CLEAR_SELECTION = `${REDUCER_KEY}/CLEAR_SELECTION`;
 
 export const SELECTION_TYPE = {
   NONE: 'NONE',

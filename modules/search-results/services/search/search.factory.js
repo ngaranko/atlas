@@ -5,9 +5,9 @@
         .module('dpSearchResults')
         .factory('search', searchFactory);
 
-    searchFactory.$inject = ['$injector', '$q', 'SEARCH_CONFIG', 'api', 'searchFormatter', 'TabHeader'];
+    searchFactory.$inject = ['$injector', '$q', 'SEARCH_CONFIG', 'api', 'searchFormatter'];
 
-    function searchFactory ($injector, $q, SEARCH_CONFIG, api, searchFormatter, TabHeader) {
+    function searchFactory ($injector, $q, SEARCH_CONFIG, api, searchFormatter) {
         let store;
 
         return {
@@ -17,7 +17,6 @@
         };
 
         function initialize () {
-            TabHeader.provideCounter('FETCH_SEARCH_RESULTS_BY_QUERY', searchCount);
         }
 
         function getStore () {

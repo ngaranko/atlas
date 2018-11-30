@@ -4,7 +4,7 @@ import reducer, {
   fetchSearchResultsByLocation,
   OPEN_MAP_PREVIEW_PANEL
 } from './map-preview-panel';
-import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/ducks/data-search/data-search';
+import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/ducks/data-search/constants';
 
 const initialState = {};
 describe('map preview reducer and actions', () => {

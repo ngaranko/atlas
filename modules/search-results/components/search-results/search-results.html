@@ -2,7 +2,6 @@
     <dp-loading-indicator is-loading="vm.isLoading" use-delay="true" show-inline="true"></dp-loading-indicator>
 
     <div ng-if="!vm.isLoading" class="qa-search-results-content">
-        <dp-tab-header ng-if="vm.showTabHeader()" search-text="vm.query" tab-header="vm.tabHeader"></dp-tab-header>
 
         <div ng-if="vm.numberOfResults" class="qa-search-result">
             <div ng-if="!vm.category">

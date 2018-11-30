@@ -1,4 +1,4 @@
-import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/data-search/data-search';
+import { FETCH_SEARCH_RESULTS_BY_QUERY } from '../../../src/shared/ducks/data-search/constants';
 import {
     isListView
 } from '../../../src/shared/ducks/data-selection/selectors';

@@ -1,28 +1,13 @@
 import React from 'react';
 import { AngularWrapper } from 'react-angular';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import DATA_SELECTION_CONFIG from '../../../shared/services/data-selection/data-selection-config';
 import NotAuthorizedPanel from '../PanelMessages/NotAuthorizedMessage';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
-import { getActiveFilters } from '../../../shared/ducks/filters/filters';
-import { getUser } from '../../../shared/ducks/user/user';
 import DatasetActiveFilters from '../../containers/DatasetActiveFiltersContainer';
-import {
-  DEFAULT_DATASET, DEFAULT_VIEW,
-  setPage as setPageAction
-} from '../../../shared/ducks/datasets/data/data';
+import { DEFAULT_DATASET, DEFAULT_VIEW } from '../../../shared/ducks/datasets/data/data';
 import MaxPageMessage from '../PanelMessages/MaxPageMessage';
-import {
-  dataIsLoading,
-  getAuthError, getDatasetApiSpecification,
-  getPage,
-  getResults
-} from '../../../shared/ducks/datasets/datasets';
-import TabHeader, { datasetsKey } from '../../../shared/services/tab-header/tab-header';
-import { getSearchQuery, getNumberOfResults } from '../../../shared/ducks/data-search/data-search';
 
 const Dataset = ({
   setPage,
@@ -37,27 +22,15 @@ const Dataset = ({
   user,
   authError,
   page: currentPage,
-  apiSpecification,
-  searchText,
-  numberOfDataResults
+  apiSpecification
 }) => {
   if (isLoading || (!numberOfRecords && !authError)) {
     return <LoadingIndicator />;
   }
 
-  // Todo: move query and showTabbHeader logic to search page
-  const query = searchText || '';
-  const showTabHeader = query.trim().length >= 1;
-  const showHeader = query === '';
-
   const showFilters = numberOfRecords > 0;
   const { MAX_AVAILABLE_PAGES } = DATA_SELECTION_CONFIG.datasets[DEFAULT_DATASET];
   const showMessageMaxPages = MAX_AVAILABLE_PAGES && currentPage > MAX_AVAILABLE_PAGES;
-
-  const tabHeader = new TabHeader('data-datasets');
-  tabHeader.getTab(datasetsKey).count = numberOfRecords;
-  tabHeader.getTab('data').count = numberOfDataResults;
-  tabHeader.activeTab = tabHeader.getTab(datasetsKey);
 
   const widthClass = classNames({
     'u-col-sm--12': !showFilters,
@@ -77,26 +50,11 @@ const Dataset = ({
               availableFilters,
               filters: activeFilters,
               numberOfRecords,
-              showHeader,
+              showHeader: true,
               user,
               view: DEFAULT_VIEW
             }}
           />
-          {showTabHeader && (
-            <AngularWrapper
-              moduleName={'dpTabHeaderWrapper'}
-              component="dpTabHeader"
-              dependencies={['atlas']}
-              bindings={{
-                tabHeader,
-                filtersActive: true,
-                searchText: query
-              }}
-              interpolateBinding={{
-                searchText: query
-              }}
-            />
-          )}
 
           <DatasetActiveFilters />
 
@@ -170,25 +128,7 @@ Dataset.propTypes = {
     numberOfPages: PropTypes.number,
     filters: PropTypes.arrayOf(PropTypes.object),
     data: PropTypes.arrayOf(PropTypes.object)
-  }).isRequired,
-  searchText: PropTypes.string.isRequired,
-  numberOfDataResults: PropTypes.number.isRequired
+  }).isRequired
 };
 
-const mapStateToProps = (state) => ({
-  isLoading: dataIsLoading(state),
-  authError: getAuthError(state),
-  page: getPage(state),
-  activeFilters: getActiveFilters(state),
-  results: getResults(state),
-  user: getUser(state),
-  apiSpecification: getDatasetApiSpecification(state),
-  searchText: getSearchQuery(state),
-  numberOfDataResults: getNumberOfResults(state)
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  setPage: setPageAction
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dataset);
+export default Dataset;

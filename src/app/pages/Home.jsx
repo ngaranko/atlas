@@ -7,7 +7,7 @@ import Footer from '../components/Footer/Footer';
 import PreviewVideo from '../components/PreviewVideo/PreviewVideo';
 import HomepageAddressBlock from '../../homepage/components/address-block/HomepageAddressBlock';
 import HomepageBlock from '../../homepage/components/block/HomepageBlock';
-import { toPanorama } from '../../store/redux-first-router';
+import { toDatasets, toPanorama } from '../../store/redux-first-router';
 
 const HOMEPAGE_CONFIG = {
   PANORAMA: {
@@ -107,7 +107,7 @@ const Home = ({ showFooter }) => (
                 <div className="u-col-sm--6 c-homepage__block--data-selection">
                   <HomepageBlock
                     classes="c-homepage__block--left c-homepage__block--datasets"
-                    linkAction={{ type: routing.datasets.type }}
+                    linkAction={toDatasets()}
                     title="Datasetcatalogus"
                     description="Blader door datasets (verzamelingen gegevens)"
                     blockIsLink

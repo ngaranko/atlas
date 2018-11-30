@@ -5,10 +5,7 @@ import { shallow } from 'enzyme';
 
 import MapPreviewPanelContainer from './MapPreviewPanelContainer';
 import {
-  getDataSearchLocation,
-  getMapResultsByLocation,
-  isSearchLoading
-} from '../../../shared/ducks/data-search/data-search';
+  getDataSearchLocation} from '../../../shared/ducks/data-search/selectors';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import {
   FETCH_MAP_DETAIL_REQUEST,
@@ -27,6 +24,10 @@ import {
 import { getDetailEndpoint } from '../../../shared/ducks/detail/detail';
 import { toMap, toPanorama } from '../../../store/redux-first-router';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
+import {
+  getMapResultsByLocation,
+  isSearchLoading
+} from '../../../shared/ducks/data-search/selectors';
 
 jest.mock('../../../shared/ducks/detail/detail');
 jest.mock('../../../shared/ducks/data-search/data-search');

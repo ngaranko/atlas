@@ -131,8 +131,6 @@ import '../modules/shared/components/long-name-shortener/long-name-shortener.fil
 import '../modules/shared/components/message/message.component';
 import '../modules/shared/components/panel/panel.component';
 import '../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component';
-import '../modules/shared/components/tab-header/tab-header.component';
-import '../modules/shared/components/tab-header/tab-header.factory';
 import '../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter';
 import '../modules/shared/filters/filesize.filter';
 import '../modules/shared/services/combined-document-title/combined-document-title.factory';
@@ -267,8 +265,6 @@ import '../modules/shared/components/panel/panel.component.test';
 import '../modules/shared/components/message/message.component.test';
 import '../modules/shared/components/loading-indicator/loading-indicator.component.test';
 import '../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter.test';
-import '../modules/shared/components/tab-header/tab-header.factory.test';
-import '../modules/shared/components/tab-header/tab-header.component.test';
 import '../modules/shared/components/long-name-shortener/long-name-shortener.filter.test';
 import '../modules/shared/components/coordinates/coordinates.filter.test';
 import '../modules/shared/components/dcatd-button/dcatd-button.component.test';

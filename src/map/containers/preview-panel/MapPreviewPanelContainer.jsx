@@ -13,7 +13,7 @@ import {
   getDataSearchLocation,
   getMapResultsByLocation,
   isSearchLoading
-} from '../../../shared/ducks/data-search/data-search';
+} from '../../../shared/ducks/data-search/selectors';
 import { getPanoramaPreview } from '../../../shared/ducks/panorama/preview/panorama-preview';
 import {
   getPageActionEndpoint,

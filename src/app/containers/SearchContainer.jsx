@@ -2,17 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
-import {
-  getDataSearchLocation,
-  getNumberOfResults
-} from '../../shared/ducks/data-search/data-search';
+import { getNumberOfResults } from '../../shared/ducks/data-search/selectors';
 import { getUser } from '../../shared/ducks/user/user';
-import { getPanoramaPreview, isPanoramaPreviewLoading } from '../../shared/ducks/panorama/preview/panorama-preview';
+import {
+  getPanoramaPreview,
+  isPanoramaPreviewLoading
+} from '../../shared/ducks/panorama/preview/panorama-preview';
+import { getSelectionLocation } from '../../shared/ducks/selection/selection';
 
 const mapStateToProps = (state) => ({
   isLoading: false,
   query: null,
-  location: getDataSearchLocation(state),
+  location: getSelectionLocation(state),
   category: null,
   numberOfResults: getNumberOfResults(state),
   user: getUser(state),

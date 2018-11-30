@@ -1,11 +1,10 @@
-import reducer, {
-  REDUCER_KEY,
-  getMapResultsByLocation,
-  getSearchQuery,
-  isSearchActive,
+import {
   fetchMapSearchResultsRequest,
   fetchMapSearchResultsSuccess, fetchMapSearchResultsFailure
-} from './data-search';
+} from './actions';
+import { REDUCER_KEY } from './constants';
+import reducer from './reducer';
+import { getMapResultsByLocation, getSearchQuery, isSearchActive } from './selectors';
 
 describe('mapSearch reducer', () => {
   it('sets the initial state', () => {

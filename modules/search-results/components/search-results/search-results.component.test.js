@@ -1,7 +1,7 @@
 import {
-    SHOW_SEARCH_RESULTS,
     showSearchResults
-} from '../../../../src/shared/ducks/data-search/data-search';
+} from '../../../../src/shared/ducks/data-search/actions';
+import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/data-search/constants';
 
 describe('The dp-search-results component', function () {
     let $compile,

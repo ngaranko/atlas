@@ -1,4 +1,4 @@
-import { showSearchResults } from '../../../../src/shared/ducks/data-search/data-search';
+import { showSearchResults } from '../../../../src/shared/ducks/data-search/actions';
 
 (() => {
     'use strict';
@@ -23,10 +23,10 @@ import { showSearchResults } from '../../../../src/shared/ducks/data-search/data
         });
 
     DpSearchResultsController.$inject = [
-        '$rootScope', '$scope', 'search', 'geosearch', 'TabHeader', 'store', 'activeOverlays'
+        '$rootScope', '$scope', 'search', 'geosearch', 'store', 'activeOverlays'
     ];
 
-    function DpSearchResultsController ($rootScope, $scope, search, geosearch, TabHeader, store,
+    function DpSearchResultsController ($rootScope, $scope, search, geosearch, store,
                                         activeOverlays) {
         const vm = this;
 
@@ -72,17 +72,6 @@ import { showSearchResults } from '../../../../src/shared/ducks/data-search/data
         vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
 
         vm.layerWarning = '';
-
-        vm.tabHeader = new TabHeader('data-datasets');
-        vm.tabHeader.activeTab = vm.tabHeader.getTab('data');
-
-        function updateTabHeader (query, count) {
-            if (vm.showTabHeader()) {
-                vm.tabHeader.userScopes = vm.user.scopes;
-                vm.tabHeader.query = query;
-                vm.tabHeader.getTab('data').count = count;
-            }
-        }
 
         function searchByQuery (query, category) {
             const isQuery = angular.isString(query);
@@ -134,8 +123,6 @@ import { showSearchResults } from '../../../../src/shared/ducks/data-search/data
                         }, 0)
                         : 0);
             }, 0);
-
-            updateTabHeader(vm.query, numberOfResults);
 
             store.dispatch(showSearchResults({query: vm.query, numberOfResults}));
             // TODO: refactor, really consider moving all business logic out of this view and into redux!

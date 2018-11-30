@@ -1,4 +1,4 @@
-import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/ducks/data-search/data-search';
+import { FETCH_SEARCH_RESULTS_BY_LOCATION } from '../../../shared/ducks/data-search/constants';
 
 export const OPEN_MAP_PREVIEW_PANEL = 'OPEN_MAP_PREVIEW_PANEL';
 export const CLOSE_MAP_PREVIEW_PANEL = 'CLOSE_MAP_PREVIEW_PANEL';

@@ -9,23 +9,24 @@ import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
 import './_app.scss';
-import DatasetDetailContainer from './containers/DatasetsDetailContainer';
+import DatasetDetailContainer from './containers/DatasetDetailContainer';
 import {
   isEmbedded,
   isEmbedPreview,
-  isPrintOrEmbedMode,
   isPrintMode,
-  isPrintModeLandscape
+  isPrintModeLandscape,
+  isPrintOrEmbedMode
 } from '../shared/ducks/ui/ui';
 import { CMS_PAGE_MAPPING } from './pages/CMSPageMapping';
 import PanoramaPage from './pages/PanoramaPage';
 import DetailPage from './pages/DetailPage';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
-import SearchPage from './pages/SearchPage';
 import { getPage } from '../store/redux-first-router';
-import Dataset from './components/Dataset/Dataset';
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe';
+import QuerySearchContainer from './containers/QuerySearchContainer';
+import DatasetContainer from './containers/DatasetContainer';
+import SearchPage from './pages/SearchPage';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -117,7 +118,10 @@ const App = ({
                 <Home showFooter />
               )}
 
-              {currentPage === PAGES.DATA_SEARCH && <SearchPage />}
+              {(currentPage === PAGES.DATA_SEARCH ||
+                currentPage === PAGES.SEARCH_DATASETS) &&
+                <SearchPage />
+              }
 
               {currentPage === PAGES.MAP && <MapPage />}
 
@@ -125,8 +129,7 @@ const App = ({
 
               {currentPage === PAGES.PANORAMA && <PanoramaPage />}
 
-              {(currentPage === PAGES.DATASETS
-                || currentPage === PAGES.SEARCH_DATASETS) && <Dataset />}
+              {currentPage === PAGES.DATASETS && <DatasetContainer />}
 
               {currentPage === PAGES.DATASETS_DETAIL && (
                 <DatasetDetailContainer />

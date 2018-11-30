@@ -7,6 +7,10 @@ export const getDataSelection = (state) => state[REDUCER_KEY];
 export const getDataSelectionPage = createSelector(
   getDataSelection,
   (dataSelection) => dataSelection.page);
+
+export const isDataSelectionLoading = createSelector(
+  getDataSelection,
+  (dataSelection) => dataSelection.isLoading);
 export const getGeometryFilters = createSelector(
   getDataSelection,
   (dataSelection) => dataSelection.geometryFilter);

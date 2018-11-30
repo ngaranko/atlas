@@ -93,17 +93,20 @@ export const pageTypeToEndpoint = (type, subtype, id) => {
   endpoint += `${type}/${subtype}/${id}/`; // TODO: refactor, get back-end to return detail as detail GET not listing!
   return endpoint;
 };
-export const toDataSearch = (searchQuery) => ({
+export const toDataSearch = (searchQuery, skipFetch = false) => ({
   type: routing.dataSearch.type,
   meta: {
+    skipFetch,
     query: {
       zoekterm: searchQuery
     }
   }
 });
-export const toDatasetSearch = (searchQuery) => ({
+export const toDatasets = () => ({ type: routing.datasets.type })
+export const toDatasetSearch = (searchQuery, skipFetch = false) => ({
   type: routing.searchDatasets.type,
   meta: {
+    skipFetch,
     query: {
       zoekterm: searchQuery
     }
@@ -147,6 +150,9 @@ export const toDatasetSuggestion = (payload) => ({
       query: payload.typedQuery
     }
   }
+});
+export const toControlPage = () => ({
+  type: routing.bediening.type
 });
 
 // Selectors

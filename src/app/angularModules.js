@@ -110,8 +110,6 @@ import '../../modules/shared/components/long-name-shortener/long-name-shortener.
 import '../../modules/shared/components/message/message.component';
 import '../../modules/shared/components/panel/panel.component';
 import '../../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component';
-import '../../modules/shared/components/tab-header/tab-header.component';
-import '../../modules/shared/components/tab-header/tab-header.factory';
 import '../../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter';
 import '../../modules/shared/filters/detail-endpoint-action.filter';
 import '../../modules/shared/filters/filesize.filter';

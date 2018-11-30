@@ -14,7 +14,7 @@ import PanoramaReducer, { REDUCER_KEY as PANORAMA } from '../shared/ducks/panora
 import PanoPreviewReducer, { REDUCER_KEY as PANO_PREVIEW } from '../shared/ducks/panorama/preview/panorama-preview';
 import FiltersReducer, { REDUCER_KEY as FILTER } from '../shared/ducks/filters/filters';
 import DetailReducer, { REDUCER_KEY as DETAIL } from '../shared/ducks/detail/detail';
-import DataSearchReducer, { REDUCER_KEY as DATA_SEARCH } from '../shared/ducks/data-search/data-search';
+import DataSearchReducer, { REDUCER_KEY as DATA_SEARCH } from '../shared/ducks/data-search/reducer';
 import SelectionReducer, { REDUCER_KEY as SELECTION } from '../shared/ducks/selection/selection';
 import DataSelectionReducer, { REDUCER_KEY as DATA_SELECTION } from '../shared/ducks/data-selection/reducer';
 import DatasetReducer, { REDUCER_KEY as DATASET } from '../shared/ducks/datasets/datasets';

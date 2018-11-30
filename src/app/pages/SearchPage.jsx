@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import SearchContainer from '../containers/SearchContainer';
 import MapContainer from '../../map/containers/map/MapContainer';
 import QuerySearchContainer from '../containers/QuerySearchContainer';
-import { getSearchQuery } from '../../shared/ducks/data-search/data-search';
+import { getSearchQuery } from '../../shared/ducks/data-search/selectors';
 import { toMapAndPreserveQuery as toMapActionCreator } from '../../store/redux-first-router';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 

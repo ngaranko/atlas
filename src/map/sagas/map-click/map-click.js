@@ -11,7 +11,7 @@ import {
 } from '../../../shared/ducks/selection/selection';
 import { getImageDataByLocation } from '../../../shared/services/panorama-api/panorama-api';
 import { getPage, toPanorama, toMapAndPreserveQuery } from '../../../store/redux-first-router';
-import { fetchMapSearchResultsRequest } from '../../../shared/ducks/data-search/data-search';
+import { fetchMapSearchResultsRequest } from '../../../shared/ducks/data-search/actions';
 import PAGES from '../../../app/pages';
 
 function getHeadingDegrees([x1, y1], [x2, y2]) {

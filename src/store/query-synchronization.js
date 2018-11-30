@@ -1,3 +1,4 @@
+import get from 'lodash.get';
 import queryString from 'querystring';
 import createHistory from 'history/createBrowserHistory';
 import { select, takeLatest } from 'redux-saga/effects';
@@ -6,10 +7,11 @@ import filtersQuery, { ACTIONS as FILTERS_ACTIONS } from '../shared/ducks/filter
 import selectionQuery, { ACTIONS as SELECTION_ACTIONS } from '../shared/ducks/selection/selection-query';
 import panoramaQuery, { ACTIONS as PANORAMA_ACTIONS } from '../shared/ducks/panorama/panorama-query';
 import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/query';
+import dataSearchQuery, { ACTIONS as DATA_SEARCH_ACTIONS } from '../shared/ducks/data-search/query';
 import datasetQuery, { ACTIONS as DATASET_ACTIONS } from '../shared/ducks/datasets/datasets-query';
 import uiQuery, { ACTIONS as UI_ACTIONS } from '../shared/ducks/ui/ui-query';
-import dataSearchQuery, { ACTIONS as DATASEARCH_ACTIONS } from '../shared/ducks/data-search/data-search-query';
 import { getLocationQuery } from './redux-first-router';
+import { ROUTER_NAMESPACE } from '../app/routes';
 
 const separateHistory = createHistory();
 
@@ -21,7 +23,7 @@ const watchedActions = [
   ...DATA_SELECTION_ACTIONS,
   ...DATASET_ACTIONS,
   ...UI_ACTIONS,
-  ...DATASEARCH_ACTIONS
+  ...DATA_SEARCH_ACTIONS
 ];
 
 const queryMappings = {
@@ -78,14 +80,14 @@ function* updateQuery() {
   }
 }
 
-export const getStateFromQuery = (definitions, query) => (
-  Object.keys(definitions).reduce((acc, key) => {
-    const decodedValue = definitions[key].decode(query[key]);
-    if (decodedValue) {
-      acc[definitions[key].stateKey] = decodedValue;
-    }
-    return acc;
-  }, {})
+export const getStateFromQuery = (definitions, action) => (
+  (action.type && action.type.startsWith(ROUTER_NAMESPACE)) ?
+    Object.keys(definitions).reduce((acc, key) => {
+      acc[definitions[key].stateKey] =
+        definitions[key].decode(get(action, `meta.query[${key}]`, undefined));
+      return acc;
+    }, {}) :
+    {}
 );
 
 export default function* watchQueryActions() {
