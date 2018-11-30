@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AutoSuggestCategory from './AutoSuggestCategory';
+import AutoSuggestCategory, { MORE_RESULTS_INDEX } from './AutoSuggestCategory';
 
 import './_auto-suggest.scss';
 
@@ -72,7 +72,7 @@ class AutoSuggest extends React.Component {
     event.preventDefault();
     event.stopPropagation();
 
-    if (suggestion.index === -1) {
+    if (suggestion.index === MORE_RESULTS_INDEX) {
       this.resetActiveSuggestion();
       this.onFormSubmit(event);
     } else {
@@ -172,12 +172,9 @@ class AutoSuggest extends React.Component {
   }
 
   resetActiveSuggestion() {
-    // wrapper function to improve readability
-    const {
-      onSuggestionActivate
-    } = this.props;
+    const { onSuggestionActivate } = this.props;
 
-    onSuggestionActivate({ index: -1 });
+    onSuggestionActivate();
   }
 
   render() {

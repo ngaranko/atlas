@@ -2,7 +2,7 @@
 
   &::before {
     @extend %icon-button-text-extra;
-    @include sprite(#{$icon});
+    @include icon-sprite($icon, $primary-dark);
 
     margin-right: $base-whitespace;
   }
@@ -25,7 +25,7 @@
 }
 
 .catalog-theme__detail-icon--educatie-jeugd-diversiteit {
-  @include icon-detail-text-right("educatie-jeugd-diversiteit");
+  @include icon-detail-text-right("thema-educatie-jeugd-diversiteit");
 }
 
 .catalog-theme__detail-icon--energie {

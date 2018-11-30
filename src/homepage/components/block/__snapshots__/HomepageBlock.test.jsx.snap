@@ -12,7 +12,7 @@ exports[`HomepageBlock should render with the children and default link 1`] = `
     </span>
   </div>
   <Connect(Link)
-    className="c-homepage__block-button  qa-button-datasets"
+    className="c-homepage__block-button "
     tabIndex="-1"
     title="Bekijk test block"
     to={
@@ -42,7 +42,7 @@ exports[`HomepageBlock should render with the default link 1`] = `
   tabIndex="0"
 >
   <Connect(Link)
-    className="c-homepage__block-button  qa-button-datasets"
+    className="c-homepage__block-button "
     tabIndex="-1"
     title="Bekijk test block"
     to={

@@ -2,6 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import AutoSuggest from './AutoSuggest';
+import { MORE_RESULTS_INDEX } from './AutoSuggestCategory';
 
 const mockFilledState = {
   suggestions: [
@@ -254,7 +255,7 @@ describe('The AutoSuggest component', () => {
         onTextInput={onTextInput}
       />);
 
-      const suggestion = { index: -1 };
+      const suggestion = { index: MORE_RESULTS_INDEX };
       const event = {
         preventDefault: jest.fn(),
         stopPropagation: jest.fn()
