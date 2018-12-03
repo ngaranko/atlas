@@ -48,6 +48,7 @@ import throttle from 'lodash.throttle';
             // NOTE: throttle is done for performance reasons. If store changes are less of a
             // performance hit, then we may remove this or reduce the period length.
             const viewChangeHandler = viewer.addEventListener('viewChange',
+                /* istanbul ignore next */
                 throttle(
                     () => {
                         orientation.update(viewer);
