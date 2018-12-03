@@ -1,6 +1,5 @@
 import * as mapSelectors from '../../../../src/map/ducks/map/map-selectors';
 import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
-import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
 
 describe('the dp-detail component', () => {
     var $compile,
@@ -207,7 +206,6 @@ describe('the dp-detail component', () => {
             mapClickLocation: { latitude: 52.654, longitude: 4.987 }
         });
         spyOn(api, 'getByUrl').and.callThrough();
-        spyOn(piwik, 'default').and.callFake(angular.noop);
     });
 
     function getComponent (endpoint, isLoading, show = true, catalogFilters = undefined) {
