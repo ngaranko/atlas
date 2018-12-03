@@ -262,7 +262,7 @@ import '../modules/shared/components/api-error/api-error.component.test';
 import '../modules/shared/components/link-to-page/link-to-page.component.test';
 import '../modules/shared/components/expand-collapse/expand-collapse.directive.test';
 import '../modules/shared/components/anchor-link/anchor-link.component.test';
-// import '../modules/shared/components/link/link.component.test';
+import '../modules/shared/components/link/link.component.test';
 import '../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component.test';
 import '../modules/shared/components/panel/panel.component.test';
 import '../modules/shared/components/message/message.component.test';

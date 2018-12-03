@@ -1,3 +1,5 @@
+import * as reduxFirstRouter from '../../../../../src/store/redux-first-router';
+
 describe('The dp-search-results-list component', function () {
     var $compile,
         $rootScope,
@@ -100,6 +102,7 @@ describe('The dp-search-results-list component', function () {
         };
 
         spyOn(store, 'dispatch');
+        spyOn(reduxFirstRouter, 'getPageActionEndpoint').and.returnValue({ });
     });
 
     function getComponent (category, limitResults) {
