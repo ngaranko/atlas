@@ -325,54 +325,53 @@ describe('the dp-detail component', () => {
         });
     });
 
-    it('loads new API data and triggers a new SHOW_DETAIL action when the endpoint ' +
-        'changes', () => {
+    it('loads new API data and triggers a new SHOW_DETAIL action when the endpoint changes', () => {
         var component,
             scope,
             endpoint;
 
         expect(store.dispatch).not.toHaveBeenCalled();
 
-            // Set an initial endpoint
+        // Set an initial endpoint
         endpoint = 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/';
         component = getComponent(endpoint, false);
         scope = component.isolateScope();
 
         expect(scope.vm.apiData).toEqual({
             results: {
-                    _display: 'Adresstraat 1A',
-                    dummy: 'A',
-                    something: 3,
-                    naam: 'naam'
-                }
+                _display: 'Adresstraat 1A',
+                dummy: 'A',
+                something: 3,
+                naam: 'naam'
+            }
         });
         expect(store.dispatch).toHaveBeenCalledTimes(1);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: SHOW_DETAIL,
             payload: {
-                    display: 'Adresstraat 1A',
-                    geometry: mockedGeometryPoint
-                }
+                display: 'Adresstraat 1A',
+                geometry: mockedGeometryPoint
+            }
         });
 
-            // Change the endpoint
+        // Change the endpoint
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/object/789/';
         $rootScope.$apply();
 
         expect(scope.vm.apiData).toEqual({
             results: {
-                    _display: 'Een of ander kadastraal object',
-                    dummy: 'B',
-                    something: -90
-                }
+                _display: 'Een of ander kadastraal object',
+                dummy: 'B',
+                something: -90
+            }
         });
         expect(store.dispatch).toHaveBeenCalledTimes(2);
         expect(store.dispatch).toHaveBeenCalledWith({
             type: SHOW_DETAIL,
             payload: {
-                    display: 'Een of ander kadastraal object',
-                    geometry: mockedGeometryMultiPolygon
-                }
+                display: 'Een of ander kadastraal object',
+                geometry: mockedGeometryMultiPolygon
+            }
         });
     });
 
