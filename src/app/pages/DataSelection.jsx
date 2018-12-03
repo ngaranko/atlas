@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import NewDataSelection from '../components/DataSelection/DataSelection';
 import { isListView } from '../../shared/ducks/data-selection/selectors';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
+import { toMapAndPreserveQuery } from '../../store/redux-first-router';
+
 
 /* istanbul ignore next */ // TODO: refactor, test
-const DataSelection = ({ showMap }) => {
+const DataSelection = ({ showMap, toggleFullscreen }) => {
   if (!showMap) {
     return (
       <NewDataSelection />
@@ -16,7 +19,7 @@ const DataSelection = ({ showMap }) => {
   return (
     <SplitScreen
       leftComponent={(
-        <MapContainer isFullscreen={false} />
+        <MapContainer isFullscreen={false} toggleFullscreen={toggleFullscreen} />
       )}
       rightComponent={(
         <NewDataSelection />
@@ -25,12 +28,17 @@ const DataSelection = ({ showMap }) => {
   );
 };
 
+DataSelection.propTypes = {
+  showMap: PropTypes.bool.isRequired,
+  toggleFullscreen: PropTypes.func.isRequired
+};
+
 const mapStateToProps = (state) => ({
   showMap: isListView(state)
 });
 
-DataSelection.propTypes = {
-  showMap: PropTypes.bool.isRequired
-};
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  toggleFullscreen: toMapAndPreserveQuery
+}, dispatch);
 
-export default connect(mapStateToProps, null)(DataSelection);
+export default connect(mapStateToProps, mapDispatchToProps)(DataSelection);
