@@ -18,22 +18,23 @@
             getImageDataById
         };
 
-        function getImageDataByLocation (location, history) {
-            const locationRange = angular.isArray(location)
-                ? `near=${location[1]},${location[0]}&srid=${STRAATBEELD_CONFIG.SRID}`
-                : '';
+        function getImageDataByLocation (location, history, key = 'panoramas') {
+            if (!angular.isArray(location)) {
+                return null;
+            }
+            const locationRange = `near=${location[1]},${location[0]}&srid=${STRAATBEELD_CONFIG.SRID}`;
             const yearRange = (history)
                 ? `timestamp_before=${history}-12-31&timestamp_after=${history}-01-01`
-                : '';
+                : 'newest_in_range=true';
             const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 
             return getStraatbeeld(
                 `${sharedConfig.API_ROOT}${prefix}?${locationRange}&${yearRange}&${radius}`,
-                'panoramas'
+                key
             );
         }
 
-        function getImageDataById (id, history) {
+        function getImageDataById (id, history, key = 'adjacencies') {
             const yearRange = (history)
                 ? `timestamp_before=${history}-12-31&timestamp_after=${history}-01-01`
                 : 'newest_in_range=true';
@@ -41,7 +42,7 @@
 
             return getStraatbeeld(
                 `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}?${yearRange}&${radius}`,
-                'adjacencies'
+                key
             );
         }
 
@@ -50,10 +51,11 @@
                 // Cancel any outstanding requests
                 cancel.resolve();
             }
-            // cancel = $q.defer();
+            cancel = $q.defer();
             return api.getByUrl(url, undefined, cancel)
                 .then((json) => json._embedded)
-                .then((data) => imageData(data[key]))
+                .then((data) => (data) ? data[key] : null)
+                .then(imageData)
                 .finally(() => cancel = null);
         }
 
@@ -78,7 +80,7 @@
                             id: adjacency.pano_id,
                             heading: adjacency.direction,
                             distance: adjacency.distance,
-                            year: adjacency.timestamp.substring(1, 4)
+                            year: parseInt(adjacency.timestamp.substring(0, 4))
                         };
                     }),
                     location: geojson.getCenter(formattedGeometry),
@@ -89,6 +91,7 @@
                     }
                 };
             }
+            return null;
         }
     }
 })();

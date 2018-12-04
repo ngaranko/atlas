@@ -26,33 +26,76 @@ describe('The straatbeeldApi Factory', () => {
                         const q = $q.defer();
 
                         q.resolve({
-                            image_sets: {
-                                cubic: {
-                                    pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
-                                    preview: 'http://pano.amsterdam.nl/all/cubic/abf123/preview.jpg'
-                                }
-                            },
-                            geometrie: {
-                                type: 'Point',
-                                coordinates: [
-                                    4.91359770418102,
-                                    52.3747994036985,
-                                    46.9912552172318
-                                ]
-                            },
-                            adjacent: [{
-                                pano_id: 'TMX7315120208-000054_pano_0002_000177',
-                                heading: 116.48,
-                                distance: 10.14,
-                                year: 2016
-                            },
-                            {
-                                pano_id: 'TMX7315120208-000054_pano_0002_000178',
-                                heading: 127.37,
-                                distance: 5.25,
-                                year: 2017
-                            }],
-                            timestamp: '2016-05-19T13:04:15.341110Z'
+                            _embedded: {
+                                adjacencies: [{
+                                    pano_id: 'TMX7315120208-000054_pano_0002_000177',
+                                    direction: 116.48,
+                                    distance: 10.14,
+                                    year: 2016,
+                                    cubic_img_baseurl: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
+                                    cubic_img_pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [
+                                            4.91359770418102,
+                                            52.3747994036985,
+                                            46.9912552172318
+                                        ]
+                                    },
+                                    timestamp: '2016-05-19T13:04:15.341110Z'
+                                },
+                                {
+                                    pano_id: 'TMX7315120208-000054_pano_0002_000178',
+                                    direction: 127.37,
+                                    distance: 5.25,
+                                    year: 2017,
+                                    cubic_img_baseurl: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
+                                    cubic_img_pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [
+                                            4.91359770418102,
+                                            52.3747994036985,
+                                            46.9912552172318
+                                        ]
+                                    },
+                                    timestamp: '2017-05-19T13:04:15.341110Z'
+                                }],
+                                panoramas: [{
+                                    pano_id: 'TMX7315120208-000054_pano_0002_000177',
+                                    direction: 116.48,
+                                    distance: 10.14,
+                                    year: 2016,
+                                    cubic_img_baseurl: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
+                                    cubic_img_pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [
+                                            4.91359770418102,
+                                            52.3747994036985,
+                                            46.9912552172318
+                                        ]
+                                    },
+                                    timestamp: '2016-05-19T13:04:15.341110Z'
+                                },
+                                {
+                                    pano_id: 'TMX7315120208-000054_pano_0002_000178',
+                                    direction: 127.37,
+                                    distance: 5.25,
+                                    year: 2017,
+                                    cubic_img_baseurl: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
+                                    cubic_img_pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [
+                                            4.91359770418102,
+                                            52.3747994036985,
+                                            46.9912552172318
+                                        ]
+                                    },
+                                    timestamp: '2017-05-19T13:04:15.341110Z'
+                                }]
+                            }
                         });
 
                         return q.promise;
@@ -61,8 +104,10 @@ describe('The straatbeeldApi Factory', () => {
             },
             function ($provide) {
                 $provide.constant('STRAATBEELD_CONFIG', {
-                    STRAATBEELD_ENDPOINT_ALL: 'all/',
-                    STRAATBEELD_ENDPOINT_YEAR: 'year/'
+                    STRAATBEELD_ENDPOINT_PREFIX: 'panorama/panoramas',
+                    STRAATBEELD_ENDPOINT_SUFFIX: 'adjacencies',
+                    MAX_RADIUS: 250,
+                    SRID: 4326
                 });
             }
         );
@@ -81,8 +126,11 @@ describe('The straatbeeldApi Factory', () => {
 
         straatbeeldApi.getImageDataById('ABC');
 
-        expect(api.getByUrl).toHaveBeenCalledWith('http://pano.amsterdam.nl/all/ABC/',
-            undefined, jasmine.anything()); // Test the last argument for being a promise lateron
+        expect(api.getByUrl).toHaveBeenCalledWith(
+            'http://pano.amsterdam.nl/panorama/panoramas/ABC/adjacencies?newest_in_range=true&radius=250',
+            undefined,
+            jasmine.anything()
+        ); // Test the last argument for being a promise lateron
     });
 
     it('cancels any outstanding call to the API factory when loading a new straatbeeld by id', () => {
@@ -106,13 +154,35 @@ describe('The straatbeeldApi Factory', () => {
         expect(cancelled).toBe(true);
     });
 
-    it('calls the API factory with the correct endpoint for location', () => {
-        spyOn(api, 'getByUrl').and.callThrough();
+    describe('calls the API factory with the correct endpoint for location', () => {
+        beforeEach(() => {
+            spyOn(api, 'getByUrl').and.callThrough();
+        });
 
-        straatbeeldApi.getImageDataByLocation([52, 4]);
+        it('with geolocation', () => {
+            straatbeeldApi.getImageDataByLocation([52, 4]);
 
-        expect(api.getByUrl).toHaveBeenCalledWith('http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=100000',
-            undefined, jasmine.anything());
+            expect(api.getByUrl).toHaveBeenCalledWith(
+                'http://pano.amsterdam.nl/panorama/panoramas?near=4,52&srid=4326&newest_in_range=true&radius=250',
+                undefined,
+                jasmine.anything()
+            );
+        });
+
+        it('with geolocation and history', () => {
+            straatbeeldApi.getImageDataByLocation([52, 4], 2017);
+
+            expect(api.getByUrl).toHaveBeenCalledWith(
+                'http://pano.amsterdam.nl/panorama/panoramas?near=4,52&srid=4326&timestamp_before=2017-12-31&timestamp_after=2017-01-01&radius=250',
+                undefined,
+                jasmine.anything()
+            );
+        });
+
+        it('doesnt call without geolocation', () => {
+            straatbeeldApi.getImageDataByLocation(null);
+            expect(api.getByUrl).not.toHaveBeenCalled();
+        });
     });
 
     it('stops calling the API factory when no straatbeeld is found', () => {
@@ -175,11 +245,6 @@ describe('The straatbeeldApi Factory', () => {
         it('maps hotspot data to proper subset', () => {
             expect(response.hotspots).toEqual(
                 [{
-                    id: 'TMX7315120208-000054_pano_0002_000177',
-                    heading: 116.48,
-                    distance: 10.14,
-                    year: 2016
-                }, {
                     id: 'TMX7315120208-000054_pano_0002_000178',
                     heading: 127.37,
                     distance: 5.25,
@@ -202,8 +267,9 @@ describe('The straatbeeldApi Factory', () => {
 
         it('fetches the cubic image', () => {
             expect(response.image).toEqual({
+                baseurl: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
                 pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
-                preview: 'http://pano.amsterdam.nl/all/cubic/abf123/preview.jpg'
+                preview: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg'
             });
         });
     });
@@ -213,21 +279,11 @@ describe('The straatbeeldApi Factory', () => {
             spyOn(api, 'getByUrl').and.callThrough();
         });
 
-        it('will make \'getImageDataByLocation\' use another endpoint', () => {
-            straatbeeldApi.getImageDataByLocation([52, 4], 2020);
-
-            expect(api.getByUrl).toHaveBeenCalledWith(
-                'http://pano.amsterdam.nl/year/2020/?lat=52&lon=4&radius=100000',
-                undefined,
-                jasmine.anything()
-            );
-        });
-
         it('will make \'getImageDataById\' use another endpoint', () => {
             straatbeeldApi.getImageDataById('ABC', 2020);
 
             expect(api.getByUrl).toHaveBeenCalledWith(
-                'http://pano.amsterdam.nl/year/2020/ABC/',
+                'http://pano.amsterdam.nl/panorama/panoramas/ABC/adjacencies?timestamp_before=2020-12-31&timestamp_after=2020-01-01&radius=250',
                 undefined,
                 jasmine.anything()
             );
@@ -237,7 +293,7 @@ describe('The straatbeeldApi Factory', () => {
             straatbeeldApi.getImageDataByLocation([52, 4], 0);
 
             expect(api.getByUrl).toHaveBeenCalledWith(
-                'http://pano.amsterdam.nl/all/?lat=52&lon=4&radius=100000',
+                'http://pano.amsterdam.nl/panorama/panoramas?near=4,52&srid=4326&newest_in_range=true&radius=250',
                 undefined,
                 jasmine.anything()
             );
@@ -247,7 +303,7 @@ describe('The straatbeeldApi Factory', () => {
             straatbeeldApi.getImageDataById('ABC', 0);
 
             expect(api.getByUrl).toHaveBeenCalledWith(
-                'http://pano.amsterdam.nl/all/ABC/',
+                'http://pano.amsterdam.nl/panorama/panoramas/ABC/adjacencies?newest_in_range=true&radius=250',
                 undefined,
                 jasmine.anything()
             );
