@@ -1,6 +1,6 @@
 export default [
   {
-    id: 'pano',
+    id: 'panorama_recent',
     layers: ['panorama_recent'],
     legendItems: [
       {
@@ -19,49 +19,91 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
+    url: '/maps/panorama&version=1.3.0&service=WMS'
   },
   {
-    id: 'pano2018',
+    id: 'panorama_recent_2018',
     layers: ['panorama_recent_2018'],
     legendItems: [
       {
         selectable: false,
-        title: '2018'
+        title: '2018 (regulier)'
       }
     ],
     maxZoom: 16,
     minZoom: 11,
     title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
+    url: '/maps/panorama&version=1.3.0&service=WMS'
   },
   {
-    id: 'pano2017',
+    id: 'panorama_bi_2018',
+    layers: ['panorama_bi_2018'],
+    legendItems: [
+      {
+        selectable: false,
+        title: '2018 (WOZ)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Panoramabeelden',
+    url: '/maps/panorama&version=1.3.0&service=WMS'
+  },
+  {
+    id: 'panorama_recent_2017',
     layers: ['panorama_recent_2017'],
     legendItems: [
       {
         selectable: false,
-        title: '2017'
+        title: '2017 (regulier)'
       }
     ],
     maxZoom: 16,
     minZoom: 11,
     title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
+    url: '/maps/panorama&version=1.3.0&service=WMS'
   },
   {
-    id: 'pano2016',
+    id: 'panorama_bi_2017',
+    layers: ['panorama_bi_2017'],
+    legendItems: [
+      {
+        selectable: false,
+        title: '2017 (WOZ)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Panoramabeelden',
+    url: '/maps/panorama&version=1.3.0&service=WMS'
+  },
+  {
+    id: 'panorama_recent_2016',
     layers: ['panorama_recent_2016'],
     legendItems: [
       {
         selectable: false,
-        title: '2016'
+        title: '2016 (regulier)'
       }
     ],
     maxZoom: 16,
     minZoom: 11,
     title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
+    url: '/maps/panorama&version=1.3.0&service=WMS'
+  },
+  {
+    id: 'panorama_bi_2016',
+    layers: ['panorama_bi_2016'],
+    legendItems: [
+      {
+        selectable: false,
+        title: '2016 (WOZ)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Panoramabeelden',
+    url: '/maps/panorama&version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: onroerende zaken',

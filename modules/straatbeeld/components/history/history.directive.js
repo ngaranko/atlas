@@ -26,15 +26,27 @@
             const total = lastYear - firstYear + 1;
             const everywhere = angular.element(window.document);
 
-            scope.options = Array(total)
+            const years = Array(total)
                 .fill(0)
                 .map((value, index) => {
-                    const year = lastYear - index;
-                    return {
-                        year: year,
-                        label: 'Alleen ' + year
-                    };
+                    return lastYear - index;
                 });
+
+            scope.options = years.reduce((array, year) => {
+                array.push(
+                    {
+                        year: year,
+                        missonType: null,
+                        label: `Alleen ${year} regulier`
+                    },
+                    {
+                        year: year,
+                        missonType: 'bi',
+                        label: `Alleen ${year} WKZ`
+                    }
+                );
+                return array;
+            }, []);
 
             scope.selectedOption = {
                 year: 0,

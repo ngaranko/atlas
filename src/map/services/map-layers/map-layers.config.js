@@ -566,34 +566,85 @@ export default [
   },
   // Panoramabeelden
   {
-    id: 'pano',
+    id: 'panorama_recent',
     url: 'maps/panorama',
     layers: ['panorama_recent']
   },
   {
-    id: 'pano2016',
+    id: 'panorama_recent_2016',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2016']
+    layers: ['panorama_recent_2016'],
+    params: {
+      after: '2016-01-01',
+      before: '2016-12-31'
+    }
   },
   {
-    id: 'pano2017',
+    id: 'panorama_bi_2016',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2017']
+    layers: ['panorama_bi_2016'],
+    params: {
+      after: '2016-01-01',
+      before: '2016-12-31',
+      mission_type: 'bi'
+    }
   },
   {
-    id: 'pano2018',
+    id: 'panorama_recent_2017',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2018']
+    layers: ['panorama_recent_2017'],
+    params: {
+      after: '2017-01-01',
+      before: '2017-12-31'
+    }
   },
   {
-    id: 'pano2019',
+    id: 'panorama_bi_2017',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2019']
+    layers: ['panorama_bi_2017'],
+    params: {
+      after: '2017-01-01',
+      before: '2017-12-31',
+      mission_type: 'bi'
+    }
   },
   {
-    id: 'pano2020',
+    id: 'panorama_recent_2018',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2020']
+    layers: ['panorama_recent_2018'],
+    params: {
+      after: '2018-01-01',
+      before: '2018-12-31'
+    }
+  },
+  {
+    id: 'panorama_bi_2018',
+    url: 'maps/panorama',
+    layers: ['panorama_bi_2018'],
+    params: {
+      after: '2018-01-01',
+      before: '2018-12-31',
+      mission_type: 'bi'
+    }
+  },
+  {
+    id: 'panorama_recent_2019',
+    url: 'maps/panorama',
+    layers: ['panorama_recent_2019'],
+    params: {
+      after: '2019-01-01',
+      before: '2019-12-31'
+    }
+  },
+  {
+    id: 'panorama_bi_2019',
+    url: 'maps/panorama',
+    layers: ['panorama_bi_2019'],
+    params: {
+      after: '2019-01-01',
+      before: '2019-12-31',
+      mission_type: 'bi'
+    }
   },
   // Eigenaren
   {
