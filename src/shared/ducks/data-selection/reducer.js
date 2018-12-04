@@ -14,6 +14,7 @@ import {
 import { routing } from '../../../app/routes';
 import { getStateFromQuery } from '../../../store/query-synchronization';
 import query from './query';
+import { SET_SELECTION } from '../selection/selection';
 
 export { REDUCER_KEY } from './constants';
 
@@ -37,7 +38,8 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    case routing.home.type: {
+    case routing.home.type:
+    case SET_SELECTION: {
       return {
         ...initialState
       };

@@ -1,6 +1,7 @@
 import get from 'lodash.get';
 import { routing } from '../../../app/routes';
 import parseLocationString from '../../../map/ducks/map/location-parse';
+import { SET_GEOMETRY_FILTERS } from '../data-selection/constants';
 
 export const REDUCER_KEY = 'selection';
 
@@ -37,16 +38,20 @@ const reducer = (state = initialState, action) => {
         type: SELECTION_TYPE.NONE
       };
     }
+
     case routing.dataDetail.type:
       return {
         type: SELECTION_TYPE.OBJECT
       };
+
     case routing.panorama.type:
       return {
         type: SELECTION_TYPE.PANORAMA,
         id: action.payload.id
       };
+
     case routing.home.type:
+    case SET_GEOMETRY_FILTERS:
       return {
         ...initialState
       };
@@ -62,7 +67,7 @@ const reducer = (state = initialState, action) => {
     }
     case CLEAR_SELECTION: {
       return {
-        TYPE: SELECTION_TYPE.NONE
+        type: SELECTION_TYPE.NONE
       };
     }
     default:
