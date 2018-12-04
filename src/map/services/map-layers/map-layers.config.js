@@ -566,23 +566,23 @@ export default [
   },
   // Panoramabeelden
   {
-    id: 'panorama_recent',
+    id: 'pano',
     url: 'maps/panorama',
-    layers: ['panorama_recent']
+    layers: ['panorama_new']
   },
   {
-    id: 'panorama_recent_2016',
+    id: 'pano2016',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2016'],
+    layers: ['panorama_new'],
     params: {
       after: '2016-01-01',
       before: '2016-12-31'
     }
   },
   {
-    id: 'panorama_bi_2016',
+    id: 'pano2016bi',
     url: 'maps/panorama',
-    layers: ['panorama_bi_2016'],
+    layers: ['panorama_new'],
     params: {
       after: '2016-01-01',
       before: '2016-12-31',
@@ -590,18 +590,18 @@ export default [
     }
   },
   {
-    id: 'panorama_recent_2017',
+    id: 'pano2017',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2017'],
+    layers: ['panorama_new'],
     params: {
       after: '2017-01-01',
       before: '2017-12-31'
     }
   },
   {
-    id: 'panorama_bi_2017',
+    id: 'pano2017bi',
     url: 'maps/panorama',
-    layers: ['panorama_bi_2017'],
+    layers: ['panorama_new'],
     params: {
       after: '2017-01-01',
       before: '2017-12-31',
@@ -609,18 +609,18 @@ export default [
     }
   },
   {
-    id: 'panorama_recent_2018',
+    id: 'pano2018',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2018'],
+    layers: ['panorama_new'],
     params: {
       after: '2018-01-01',
       before: '2018-12-31'
     }
   },
   {
-    id: 'panorama_bi_2018',
+    id: 'pano2018bi',
     url: 'maps/panorama',
-    layers: ['panorama_bi_2018'],
+    layers: ['panorama_new'],
     params: {
       after: '2018-01-01',
       before: '2018-12-31',
@@ -628,18 +628,18 @@ export default [
     }
   },
   {
-    id: 'panorama_recent_2019',
+    id: 'pano2019',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2019'],
+    layers: ['panorama_new'],
     params: {
       after: '2019-01-01',
       before: '2019-12-31'
     }
   },
   {
-    id: 'panorama_bi_2019',
+    id: 'pano2019bi',
     url: 'maps/panorama',
-    layers: ['panorama_bi_2019'],
+    layers: ['panorama_new'],
     params: {
       after: '2019-01-01',
       before: '2019-12-31',

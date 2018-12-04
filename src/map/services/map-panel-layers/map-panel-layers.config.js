@@ -1,7 +1,7 @@
 export default [
   {
-    id: 'panorama_recent',
-    layers: ['panorama_recent'],
+    id: 'pano',
+    layers: ['panorama_new'],
     legendItems: [
       {
         selectable: false,
@@ -22,12 +22,12 @@ export default [
     url: '/maps/panorama&version=1.3.0&service=WMS'
   },
   {
-    id: 'panorama_recent_2018',
+    id: 'pano2018',
     layers: ['panorama_recent_2018'],
     legendItems: [
       {
         selectable: false,
-        title: '2018 (regulier)'
+        title: '2018'
       }
     ],
     maxZoom: 16,
@@ -36,12 +36,12 @@ export default [
     url: '/maps/panorama&version=1.3.0&service=WMS'
   },
   {
-    id: 'panorama_bi_2018',
+    id: 'pano2018bi',
     layers: ['panorama_bi_2018'],
     legendItems: [
       {
         selectable: false,
-        title: '2018 (WOZ)'
+        title: '2018'
       }
     ],
     maxZoom: 16,
@@ -50,12 +50,12 @@ export default [
     url: '/maps/panorama&version=1.3.0&service=WMS'
   },
   {
-    id: 'panorama_recent_2017',
+    id: 'pano2017',
     layers: ['panorama_recent_2017'],
     legendItems: [
       {
         selectable: false,
-        title: '2017 (regulier)'
+        title: '2017'
       }
     ],
     maxZoom: 16,
@@ -64,12 +64,12 @@ export default [
     url: '/maps/panorama&version=1.3.0&service=WMS'
   },
   {
-    id: 'panorama_bi_2017',
+    id: 'pano2017bi',
     layers: ['panorama_bi_2017'],
     legendItems: [
       {
         selectable: false,
-        title: '2017 (WOZ)'
+        title: '2017'
       }
     ],
     maxZoom: 16,
@@ -78,12 +78,12 @@ export default [
     url: '/maps/panorama&version=1.3.0&service=WMS'
   },
   {
-    id: 'panorama_recent_2016',
+    id: 'pano2016',
     layers: ['panorama_recent_2016'],
     legendItems: [
       {
         selectable: false,
-        title: '2016 (regulier)'
+        title: '2016'
       }
     ],
     maxZoom: 16,
@@ -92,12 +92,12 @@ export default [
     url: '/maps/panorama&version=1.3.0&service=WMS'
   },
   {
-    id: 'panorama_bi_2016',
+    id: 'pano2016bi',
     layers: ['panorama_bi_2016'],
     legendItems: [
       {
         selectable: false,
-        title: '2016 (WOZ)'
+        title: '2016'
       }
     ],
     maxZoom: 16,
