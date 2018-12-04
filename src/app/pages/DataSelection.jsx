@@ -4,41 +4,50 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import NewDataSelection from '../components/DataSelection/DataSelection';
-import { isListView } from '../../shared/ducks/data-selection/selectors';
+import { isListView, isMapView } from '../../shared/ducks/data-selection/selectors';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
-import { toMapAndPreserveQuery } from '../../store/redux-first-router';
+import { VIEWS } from '../../shared/ducks/data-selection/constants';
+import { setView } from '../../shared/ducks/data-selection/actions';
 
 
 /* istanbul ignore next */ // TODO: refactor, test
-const DataSelection = ({ showMap, toggleFullscreen }) => {
-  if (!showMap) {
+const DataSelection = ({ showList, showMap, toggleList, toggleMap }) => {
+  if (showMap) {
+    return (<MapContainer isFullscreen toggleFullscreen={toggleList} />);
+  }
+  if (showList) {
     return (
-      <NewDataSelection />
+      <SplitScreen
+        leftComponent={(
+          <MapContainer isFullscreen={false} toggleFullscreen={toggleMap} />
+        )}
+        rightComponent={(
+          <NewDataSelection />
+        )}
+      />
     );
   }
+
   return (
-    <SplitScreen
-      leftComponent={(
-        <MapContainer isFullscreen={false} toggleFullscreen={toggleFullscreen} />
-      )}
-      rightComponent={(
-        <NewDataSelection />
-      )}
-    />
+    <NewDataSelection />
   );
 };
 
 DataSelection.propTypes = {
+  showList: PropTypes.bool.isRequired,
   showMap: PropTypes.bool.isRequired,
-  toggleFullscreen: PropTypes.func.isRequired
+  toggleList: PropTypes.func.isRequired,
+  toggleMap: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  showMap: isListView(state)
+  showList: isListView(state),
+  showMap: isMapView(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  toggleFullscreen: toMapAndPreserveQuery
+  toggleList: () => setView(VIEWS.LIST),
+  toggleMap: () => setView(VIEWS.MAP)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataSelection);

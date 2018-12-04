@@ -24,6 +24,10 @@ export const isListView = createSelector(
   getDataSelectionView,
   (view) => view === VIEWS.LIST
 );
+export const isMapView = createSelector(
+  getDataSelectionView,
+  (view) => view === VIEWS.MAP
+);
 const generateMarkers = (markers) => (
   markers.map((markerLocation, index) => ({
     position: markerLocation,

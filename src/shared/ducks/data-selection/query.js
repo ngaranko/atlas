@@ -6,7 +6,7 @@ import {
   SET_PAGE,
   SET_VIEW, VIEWS
 } from './constants';
-import { getDataSelectionPage, getGeometryFilters, isListView } from './selectors';
+import { getDataSelectionPage, getGeometryFilters, isListView, isMapView } from './selectors';
 
 const getEncodedGeometryFilters = (state) => {
   const { markers, description } = getGeometryFilters(state);
@@ -51,6 +51,12 @@ export default {
     selector: isListView,
     decode: (listView) => (listView ? VIEWS.LIST : VIEWS.TABLE),
     defaultValue: initialState.view === VIEWS.LIST
+  },
+  mapView: {
+    stateKey: 'view',
+    selector: isMapView,
+    decode: (val) => val,
+    defaultValue: false
   }
 };
 

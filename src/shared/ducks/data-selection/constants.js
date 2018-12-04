@@ -19,7 +19,8 @@ export const ROUTE_DATASET_MAPPER = {
 export const VIEWS = {
   LIST: 'LIST',
   TABLE: 'TABLE',
-  CATALOG: 'CATALOG'
+  CATALOG: 'CATALOG',
+  MAP: 'MAP'
 };
 
 export const DATASETS = {
