@@ -173,7 +173,8 @@ describe('The straatbeeldApi Factory', () => {
             straatbeeldApi.getImageDataByLocation([52, 4], 2017);
 
             expect(api.getByUrl).toHaveBeenCalledWith(
-                'http://pano.amsterdam.nl/panorama/panoramas?near=4,52&srid=4326&timestamp_before=2017-12-31&timestamp_after=2017-01-01&radius=250',
+                'http://pano.amsterdam.nl/panorama/panoramas' +
+                '?near=4,52&srid=4326&timestamp_before=2017-12-31&timestamp_after=2017-01-01&radius=250',
                 undefined,
                 jasmine.anything()
             );
@@ -283,7 +284,8 @@ describe('The straatbeeldApi Factory', () => {
             straatbeeldApi.getImageDataById('ABC', 2020);
 
             expect(api.getByUrl).toHaveBeenCalledWith(
-                'http://pano.amsterdam.nl/panorama/panoramas/ABC/adjacencies?timestamp_before=2020-12-31&timestamp_after=2020-01-01&radius=250',
+                'http://pano.amsterdam.nl/panorama/panoramas/ABC/adjacencies' +
+                '?timestamp_before=2020-12-31&timestamp_after=2020-01-01&radius=250',
                 undefined,
                 jasmine.anything()
             );
