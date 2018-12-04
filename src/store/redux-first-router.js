@@ -10,6 +10,8 @@ export const REDUCER_KEY = 'location';
 
 // TODO: refactor unit test or remove all together
 // Action creators
+export const toHome = () => ({ type: routing.home.type });
+
 export const preserveQuery = (action) => {
   const search = location.search && location.search.substr(1);
   return {
