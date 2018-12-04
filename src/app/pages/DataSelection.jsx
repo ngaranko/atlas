@@ -15,7 +15,7 @@ const DataSelection = ({ view, toggleList, toggleMap }) => {
   if (view === VIEWS.MAP) {
     return (<MapContainer isFullscreen toggleFullscreen={toggleList} />);
   }
-  if (view == VIEWS.LIST) {
+  if (view === VIEWS.LIST) {
     return (
       <SplitScreen
         leftComponent={(
