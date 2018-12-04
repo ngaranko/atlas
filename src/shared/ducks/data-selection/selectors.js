@@ -1,4 +1,5 @@
 // Selectors
+import get from 'lodash.get';
 import { createSelector } from 'reselect';
 import { REDUCER_KEY, VIEWS } from './constants';
 import { detailPointType } from '../../../map/components/leaflet/services/icons.constant';
@@ -51,4 +52,8 @@ export const getGeomarkersShape = createSelector(
   (markers) => JSON.stringify(
     markers.map(([lat, lng]) => [lng, lat])
   )
+);
+export const hasGeometryFilter = createSelector(
+  getDataSelection,
+  (dataSelection) => get(dataSelection, 'geometryFilter.markers', null)
 );

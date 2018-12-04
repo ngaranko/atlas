@@ -17,7 +17,8 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
     onDatasetSearch={[Function]}
     onGetSuggestions={[Function]}
     onSuggestionActivate={[Function]}
-    openSuggestion={[Function]}
+    openDataSuggestion={[Function]}
+    openDatasetSuggestion={[Function]}
     pageName=""
     prefillQuery=""
     suggestions={
@@ -291,18 +292,18 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -324,18 +325,18 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -357,18 +358,18 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -425,18 +426,18 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -505,18 +506,18 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -538,18 +539,18 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -571,18 +572,18 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -639,18 +640,18 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -787,7 +788,8 @@ exports[`HeaderSearchContainer allows the user to clear the query and suggestion
     onDatasetSearch={[Function]}
     onGetSuggestions={[Function]}
     onSuggestionActivate={[Function]}
-    openSuggestion={[Function]}
+    openDataSuggestion={[Function]}
+    openDatasetSuggestion={[Function]}
     pageName=""
     prefillQuery=""
     suggestions={Array []}
@@ -1139,7 +1141,8 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to dismiss 
     onDatasetSearch={[Function]}
     onGetSuggestions={[Function]}
     onSuggestionActivate={[Function]}
-    openSuggestion={[Function]}
+    openDataSuggestion={[Function]}
+    openDatasetSuggestion={[Function]}
     pageName=""
     prefillQuery=""
     suggestions={
@@ -1390,7 +1393,8 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
     onDatasetSearch={[Function]}
     onGetSuggestions={[Function]}
     onSuggestionActivate={[Function]}
-    openSuggestion={[Function]}
+    openDataSuggestion={[Function]}
+    openDatasetSuggestion={[Function]}
     pageName=""
     prefillQuery=""
     suggestions={
@@ -1644,7 +1648,8 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
     onDatasetSearch={[Function]}
     onGetSuggestions={[Function]}
     onSuggestionActivate={[Function]}
-    openSuggestion={[Function]}
+    openDataSuggestion={[Function]}
+    openDatasetSuggestion={[Function]}
     pageName=""
     prefillQuery=""
     suggestions={
@@ -1924,18 +1929,18 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--active
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -1957,18 +1962,18 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -1990,18 +1995,18 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -2061,18 +2066,18 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -2144,18 +2149,18 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -2177,18 +2182,18 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -2210,18 +2215,18 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />
@@ -2281,18 +2286,18 @@ exports[`HeaderSearchContainer auto-suggest dropdown allows the user to use the 
                     onSuggestionSelection={[Function]}
                     query="dijk"
                   >
-                    <li
-                      className=""
-                    >
+                    <li>
                       <button
                         className="
-        auto-suggest__dropdown-item
+          auto-suggest__dropdown-item
           auto-suggest__dropdown-item--inactive
         "
                         onClick={[Function]}
                         type="button"
                       >
-                        <div>
+                        <div
+                          className=""
+                        >
                           <span
                             className="icon"
                           />

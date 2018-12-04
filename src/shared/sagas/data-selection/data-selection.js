@@ -100,7 +100,7 @@ function* switchPage() {
     type: DATASET_ROUTE_MAPPER[dataSelection.dataset],
     meta: {
       query: {
-        listView: true,
+        view: VIEWS.LIST,
         // Todo: temporary solution to pass existing query
         ...queryString.decode(location.search.slice(1))
       }
