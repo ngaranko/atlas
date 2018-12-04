@@ -4,9 +4,9 @@ import {
   RESET_DATA_SELECTION,
   SET_GEOMETRY_FILTERS,
   SET_PAGE,
-  SET_VIEW, VIEWS
+  SET_VIEW
 } from './constants';
-import { getDataSelectionPage, getGeometryFilters, isListView, isMapView } from './selectors';
+import { getDataSelectionPage, getGeometryFilters, getDataSelectionView } from './selectors';
 
 const getEncodedGeometryFilters = (state) => {
   const { markers, description } = getGeometryFilters(state);
@@ -46,17 +46,11 @@ export default {
     selector: getEncodedGeometryFilters,
     decode: getDecodedGeometryFilters
   },
-  listView: {
+  view: {
     stateKey: 'view',
-    selector: isListView,
-    decode: (listView) => (listView ? VIEWS.LIST : VIEWS.TABLE),
-    defaultValue: initialState.view === VIEWS.LIST
-  },
-  mapView: {
-    stateKey: 'view',
-    selector: isMapView,
+    selector: getDataSelectionView,
     decode: (val) => val,
-    defaultValue: false
+    defaultValue: initialState.view
   }
 };
 

@@ -4,18 +4,18 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import NewDataSelection from '../components/DataSelection/DataSelection';
-import { isListView, isMapView } from '../../shared/ducks/data-selection/selectors';
+import { getDataSelectionView } from '../../shared/ducks/data-selection/selectors';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 import { VIEWS } from '../../shared/ducks/data-selection/constants';
 import { setView } from '../../shared/ducks/data-selection/actions';
 
 
 /* istanbul ignore next */ // TODO: refactor, test
-const DataSelection = ({ showList, showMap, toggleList, toggleMap }) => {
-  if (showMap) {
+const DataSelection = ({ view, toggleList, toggleMap }) => {
+  if (view === VIEWS.MAP) {
     return (<MapContainer isFullscreen toggleFullscreen={toggleList} />);
   }
-  if (showList) {
+  if (view == VIEWS.LIST) {
     return (
       <SplitScreen
         leftComponent={(
@@ -34,15 +34,13 @@ const DataSelection = ({ showList, showMap, toggleList, toggleMap }) => {
 };
 
 DataSelection.propTypes = {
-  showList: PropTypes.bool.isRequired,
-  showMap: PropTypes.bool.isRequired,
+  view: PropTypes.string.isRequired,
   toggleList: PropTypes.func.isRequired,
   toggleMap: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  showList: isListView(state),
-  showMap: isMapView(state)
+  view: getDataSelectionView(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
