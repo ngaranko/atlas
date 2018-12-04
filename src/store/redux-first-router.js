@@ -88,7 +88,7 @@ const getDetailPageData = (endpoint) => {
 };
 export const getPageActionEndpoint = (endpoint, view) => {
   const { type, subtype, id } = getDetailPageData(endpoint);
-  return toDataDetail(id, type, subtype, view);
+  return preserveQuery(toDataDetail(id, type, subtype, view));
 };
 export const pageTypeToEndpoint = (type, subtype, id) => {
   let endpoint = 'https://acc.api.data.amsterdam.nl/';
