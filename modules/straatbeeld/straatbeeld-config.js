@@ -7,6 +7,7 @@ export default {
     MAX_FOV: 90,
     MAX_RADIUS: 250,
     MAX_RESOLUTION: 12 * 1024,
+    SRID: 4326, // For latitude, longitude
     CAMERA_HEIGHT: 1.8,
     LEVEL_PROPERTIES_LIST: [
         {

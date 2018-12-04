@@ -8,7 +8,8 @@
     straatbeeldApiFactory.$inject = ['$q', 'STRAATBEELD_CONFIG', 'sharedConfig', 'geojson', 'api'];
 
     function straatbeeldApiFactory ($q, STRAATBEELD_CONFIG, sharedConfig, geojson, api) {
-        const MAX_RADIUS_KM = 100; // The maximum search radius straatbeeld in KM
+        const prefix = STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_PREFIX;
+        const suffix = STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_SUFFIX;
 
         let cancel; // Promise to cancel any outstanding http requests
 
@@ -17,57 +18,34 @@
             getImageDataById
         };
 
-        /**
-         * @param {Number[]} location The center location.
-         * @param {Number} history The year to featch hotspots for, queries all
-         *   years when falsy.
-         * @returns {Promise.imageData} The fetched straatbeeld, or null on failure.
-         */
         function getImageDataByLocation (location, history) {
-            return searchWithinRadius(location, MAX_RADIUS_KM * 1000, history);
-        }
+            const locationRange = angular.isArray(location)
+                ? `near=${location[1]},${location[0]}&srid=${STRAATBEELD_CONFIG.SRID}`
+                : '';
+            const yearRange = (history)
+                ? `timestamp_before=${history}-12-31&timestamp_after=${history}-01-01`
+                : '';
+            const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 
-        /**
-         * Search for a straatbeeld.
-         *
-         * @param {Number[]} location The center location.
-         * @param {Number} radius The distance from the location within to
-         *   search for a straatbeeld.
-         * @param {Number} history The year to featch hotspots for, queries all
-         *   years when falsy.
-         *
-         * @returns {Promise.imageData} The fetched straatbeeld, or null on failure.
-         */
-        function searchWithinRadius (location, radius, history) {
-            const endpoint = history
-                ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${history}/`
-                : STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL;
-
-            return getStraatbeeld(`${sharedConfig.API_ROOT}${endpoint}` +
-                `?lat=${location[0]}&lon=${location[1]}&radius=${radius}`)
-                .then(
-                    data => {
-                        if (data) {
-                            return data;
-                        } else {
-                            return null;
-                        }
-                    }
-                );
+            return getStraatbeeld(
+                `${sharedConfig.API_ROOT}${prefix}?${locationRange}&${yearRange}&${radius}`,
+                'panoramas'
+            );
         }
 
         function getImageDataById (id, history) {
-            const prefix = STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_PREFIX;
-            const suffix = STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_SUFFIX;
-
-            const yearRange = (history) ? `timestamp_before=${history}-12-31&timestamp_after=${history}-01-01`
-              : 'newest_in_range=true';
+            const yearRange = (history)
+                ? `timestamp_before=${history}-12-31&timestamp_after=${history}-01-01`
+                : 'newest_in_range=true';
             const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 
-            return getStraatbeeld(`${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}?${yearRange}&${radius}`);
+            return getStraatbeeld(
+                `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}?${yearRange}&${radius}`,
+                'adjacencies'
+            );
         }
 
-        function getStraatbeeld (url) {
+        function getStraatbeeld (url, key) {
             if (cancel) {
                 // Cancel any outstanding requests
                 cancel.resolve();
@@ -75,13 +53,13 @@
             // cancel = $q.defer();
             return api.getByUrl(url, undefined, cancel)
                 .then((json) => json._embedded)
-                .then(imageData)
+                .then((data) => imageData(data[key]))
                 .finally(() => cancel = null);
         }
 
         function imageData (response) {
-            const panorama = response && response.adjacencies[0];
-            const adjacencies = response && response.adjacencies.filter((adjacency) => adjacency !== panorama);
+            const panorama = response && response[0];
+            const adjacencies = response && response.filter((adjacency) => adjacency !== panorama);
 
             if (panorama && angular.isObject(panorama.geometry)) {
                 const formattedGeometry = {
