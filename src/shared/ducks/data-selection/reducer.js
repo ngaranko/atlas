@@ -37,6 +37,12 @@ export default function reducer(state = initialState, action) {
       };
     }
 
+    case routing.home.type: {
+      return {
+        ...initialState
+      };
+    }
+
     case FETCH_DATA_SELECTION_REQUEST:
       return {
         ...state,
