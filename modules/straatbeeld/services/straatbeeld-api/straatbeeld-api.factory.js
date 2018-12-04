@@ -62,8 +62,9 @@
 
             const yearRange = (history) ? `timestamp_before=${history}-12-31&timestamp_after=${history}-01-01`
               : 'newest_in_range=true';
+            const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 
-            return getStraatbeeld(`${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}&${yearRange}`);
+            return getStraatbeeld(`${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}?${yearRange}&${radius}`);
         }
 
         function getStraatbeeld (url) {
