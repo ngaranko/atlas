@@ -52,3 +52,7 @@ export const getGeomarkersShape = createSelector(
     markers.map(([lat, lng]) => [lng, lat])
   )
 );
+export const hasGeometryFilter = createSelector(
+  getDataSelection,
+  (dataSelection) => dataSelection.geometryFilter && dataSelection.geometryFilter.markers
+);
