@@ -141,14 +141,8 @@ export const toDatasetSuggestion = (payload) => ({
   }
 });
 
-export const toDatasets = (payload) => ({
-  type: routing.addresses.type, // routing.establishments.type, routing.cadastralObjects.type
-  payload
-  // meta: {
-  //   query: {
-  //     listView: true
-  //   }
-  // }
+export const toDatasets = () => preserveQuery({
+  type: routing.addresses.type
 });
 
 // Selectors
