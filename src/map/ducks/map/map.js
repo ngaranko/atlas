@@ -1,4 +1,5 @@
 import { routing } from '../../../app/routes';
+import { FETCH_MAP_DETAIL_SUCCESS } from '../detail/constants';
 
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
 export const MAP_BOUNDING_BOX_SILENT = 'MAP_BOUNDING_BOX_SILENT';
@@ -105,6 +106,7 @@ export default function MapReducer(state = initialState, action) {
       };
 
     case MAP_EMPTY_GEOMETRY:
+    case FETCH_MAP_DETAIL_SUCCESS:
       return {
         ...enrichedState,
         geometry: []

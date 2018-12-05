@@ -2,10 +2,10 @@ import { createSelector } from 'reselect';
 import {
   getDetailDisplay,
   getDetailEndpoint,
-  getDetailGeometry,
-  isDetailMapView
+  getDetailGeometry
 } from '../../../shared/ducks/detail/detail';
 import { isDataDetailPage } from '../../../store/redux-first-router';
+import { FETCH_MAP_DETAIL_REQUEST, FETCH_MAP_DETAIL_SUCCESS, FETCH_MAP_DETAIL_FAILURE } from './constants';
 
 const mapDetailSelector = (state) => state.mapDetail;
 
@@ -29,15 +29,8 @@ export const getDetailId = createSelector(getDetailEndpoint, getCurrentEndpoint,
   (detailEndpoint, currentEndpoint) => detailEndpoint || currentEndpoint);
 
 export const getGeometry = createSelector(
-  isDetailMapView,
   getDetailGeometry,
-  getMapDetailGeometry,
-  (kaartView, detailGeometry, mapDetailGeometry) => {
-    if (kaartView) {
-      return mapDetailGeometry;
-    }
-    return detailGeometry;
-  }
+  (detailGeometry) => detailGeometry
 );
 
 export const shouldShowGeoJson = isDataDetailPage;
@@ -56,10 +49,6 @@ export const getGeoJson = createSelector(
       }
     } : {}
   ));
-
-export const FETCH_MAP_DETAIL_REQUEST = 'FETCH_MAP_DETAIL_REQUEST';
-export const FETCH_MAP_DETAIL_SUCCESS = 'FETCH_MAP_DETAIL_SUCCESS';
-export const FETCH_MAP_DETAIL_FAILURE = 'FETCH_MAP_DETAIL_FAILURE';
 
 const initialState = {
   byEndpoint: {},

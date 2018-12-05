@@ -11,7 +11,7 @@ import {
   getDataSearchLocation
 } from '../../../ducks/data-search/data-search';
 import { routing } from '../../../../app/routes';
-import { FETCH_MAP_DETAIL_SUCCESS } from '../../../../map/ducks/detail/map-detail';
+import { FETCH_MAP_DETAIL_SUCCESS } from '../../../../map/ducks/detail/constants';
 
 export function* fetchMapPano(action) {
   try {
