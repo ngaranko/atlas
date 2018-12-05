@@ -4,7 +4,6 @@ import createHistory from 'history/createBrowserHistory';
 import { select, takeLatest } from 'redux-saga/effects';
 import mapQuery, { ACTIONS as MAP_ACTIONS } from '../map/ducks/map/map-query';
 import filtersQuery, { ACTIONS as FILTERS_ACTIONS } from '../shared/ducks/filters/filters-query';
-import selectionQuery, { ACTIONS as SELECTION_ACTIONS } from '../shared/ducks/selection/selection-query';
 import panoramaQuery, { ACTIONS as PANORAMA_ACTIONS } from '../shared/ducks/panorama/panorama-query';
 import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/query';
 import dataSearchQuery, { ACTIONS as DATA_SEARCH_ACTIONS } from '../shared/ducks/data-search/query';
@@ -17,7 +16,6 @@ const separateHistory = createHistory();
 
 const watchedActions = [
   ...MAP_ACTIONS,
-  ...SELECTION_ACTIONS,
   ...PANORAMA_ACTIONS,
   ...FILTERS_ACTIONS,
   ...DATA_SELECTION_ACTIONS,
@@ -29,7 +27,6 @@ const watchedActions = [
 const queryMappings = {
   ...mapQuery,
   ...filtersQuery,
-  ...selectionQuery,
   ...panoramaQuery,
   ...dataSelectionQuery,
   ...datasetQuery,

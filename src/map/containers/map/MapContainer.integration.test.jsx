@@ -25,7 +25,7 @@ const mapLayersReducer = combineReducers({
 
 const mainReducer = combineReducers({
   mapDetail: MapDetailReducer,
-  mapSearchResultsByLocation: reducer,
+  resultsMap: reducer,
   user: UserReducer,
   ui: UiReducer,
   map: MapReducer,

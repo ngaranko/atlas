@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import SearchContainer from '../containers/SearchContainer';
 import MapContainer from '../../map/containers/map/MapContainer';
 import QuerySearchContainer from '../containers/QuerySearchContainer';
 import { getSearchQuery } from '../../shared/ducks/data-search/selectors';
 import { toMapAndPreserveQuery as toMapActionCreator } from '../../store/redux-first-router';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
+import LocationSearchContainer from '../containers/LocationSearchContainer';
 
 const SearchPage = ({ query, toMap }) => {
   if (query) {
@@ -19,7 +19,7 @@ const SearchPage = ({ query, toMap }) => {
         <MapContainer isFullscreen={false} toggleFullscreen={toMap} />
       )}
       rightComponent={(
-        <SearchContainer />
+        <LocationSearchContainer />
       )}
     />
   );

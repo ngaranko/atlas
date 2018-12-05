@@ -20,7 +20,7 @@ import {
   fetchApiSpecificationFailure,
   fetchApiSpecificationSuccess
 } from '../../ducks/datasets/apiSpecification/apiSpecification';
-import { getDatasetApiSpecification, getPage } from '../../ducks/datasets/datasets';
+import { getApiSpecificationData, getPage } from '../../ducks/datasets/datasets';
 import getApiSpecification from '../../services/datasets-filters/datasets-filters';
 import { getSearchQuery } from '../../ducks/data-search/selectors';
 
@@ -51,12 +51,12 @@ function* fireRequest(action) {
   const state = yield select();
 
   const activeFilters = getFilters(state);
-  const catalogFilters = getDatasetApiSpecification(state);
+  const catalogFilters = getApiSpecificationData(state);
   const page = getPage(state);
   const searchText = get(action, 'meta.query.zoekterm') || getSearchQuery(state);
   // Todo: make it possible to fetch both api specification and dataset data simultaneously
   // This can be done by refactoring the datasets-filters service
-  if (!Object.keys(getDatasetApiSpecification(state) || {}).length) {
+  if (!Object.keys(getApiSpecificationData(state) || {}).length) {
     yield put(fetchApiSpecification());
   } else if (!get(action, 'meta.skipFetch')) {
     yield put(

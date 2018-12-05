@@ -1,4 +1,13 @@
-import { showSearchResults } from '../../../../src/shared/ducks/data-search/actions';
+import {
+    getNumberOfResults,
+    loadMore,
+    replaceBuurtcombinatie
+} from '../../../../src/shared/services/search/search';
+import geosearch from '../../../../src/shared/services/search/geosearch';
+import {
+    fetchMapSearchResultsSuccessPanel,
+    showSearchResults
+} from '../../../../src/shared/ducks/data-search/actions';
 
 (() => {
     'use strict';
@@ -23,32 +32,11 @@ import { showSearchResults } from '../../../../src/shared/ducks/data-search/acti
         });
 
     DpSearchResultsController.$inject = [
-        '$rootScope', '$scope', 'search', 'geosearch', 'store', 'activeOverlays'
+        '$rootScope', '$scope', 'store', 'activeOverlays'
     ];
 
-    function DpSearchResultsController ($rootScope, $scope, search, geosearch, store,
-                                        activeOverlays) {
+    function DpSearchResultsController ($rootScope, $scope, store, activeOverlays) {
         const vm = this;
-
-        /**
-         * watch isLoading and the query and location parameters of the state
-         * if isLoading becomes true then find out what has te be loaded and get it
-         */
-        $scope.$watch('vm.isLoading', () => {
-            if (vm.isLoading) {
-                // First try to search on location
-                // Test on isArray(location) is more precise than isString(query) because null maps to empty string (@)
-                if (!searchByLocation(vm.location)) {
-                    searchByQuery(vm.query, vm.category);
-                }
-            }
-        });
-
-        $scope.$watchGroup(['vm.query', 'vm.category'], () => {
-            if (!vm.isLoading) {
-                searchByQuery(vm.query, vm.category);
-            }
-        });
 
         $scope.$watchCollection('vm.location', () => {
             if (!vm.isLoading) {
@@ -62,38 +50,14 @@ import { showSearchResults } from '../../../../src/shared/ducks/data-search/acti
         vm.loadMore = function () {
             vm.isLoadMoreLoading = true;
 
-            search.loadMore(vm.searchResults[0]).then(function (searchResults) {
+            loadMore(vm.searchResults[0]).then(function (searchResults) {
                 vm.searchResults[0] = searchResults;
             }).finally(() => {
                 vm.isLoadMoreLoading = false;
             });
         };
 
-        vm.showTabHeader = () => !angular.isArray(vm.location) && !vm.category;
-
         vm.layerWarning = '';
-
-        function searchByQuery (query, category) {
-            const isQuery = angular.isString(query);
-            if (isQuery) {
-                if (angular.isString(category) && category.length) {
-                    search.search(query, category).then(setSearchResults).then(updateWarningMessage);
-                } else {
-                    search.search(query).then(setSearchResults).then(updateWarningMessage);
-                }
-            }
-            return isQuery;
-        }
-
-        function searchByLocation (location) {
-            const isLocation = angular.isArray(location);
-
-            if (isLocation) {
-                geosearch.search(location).then(setSearchResults).then(updateWarningMessage);
-            }
-
-            return isLocation;
-        }
 
         function updateWarningMessage () {
             const kadastraleSubject = vm.searchResults &&
@@ -115,16 +79,9 @@ import { showSearchResults } from '../../../../src/shared/ducks/data-search/acti
          * For both SEARCH BY QUERY (with and without category) and GEOSEARCH
          */
         function setSearchResults (searchResults) {
-            const numberOfResults = searchResults.reduce((previous, current) => {
-                return previous + current.count +
-                    (current.subResults
-                        ? current.subResults.reduce((subPrevious, subCurrent) => {
-                            return subPrevious + subCurrent.count;
-                        }, 0)
-                        : 0);
-            }, 0);
+            const numberOfResults = getNumberOfResults(searchResults);
 
-            store.dispatch(showSearchResults({query: vm.query, numberOfResults}));
+            store.dispatch(fetchMapSearchResultsSuccessPanel(searchResults));
             // TODO: refactor, really consider moving all business logic out of this view and into redux!
 
             // @TODO remove the exception when backend uses correct sub type name tg-3551
@@ -137,21 +94,6 @@ import { showSearchResults } from '../../../../src/shared/ducks/data-search/acti
                     vm.searchResults[0].count > vm.searchResults[0].results.length &&
                     !vm.isLoadMoreLoading;
             };
-        }
-
-        // @TODO remove the exception when backend uses correct sub type name tg-3551
-        function replaceBuurtcombinatie (searchResults) {
-            const results = angular.copy(searchResults);
-
-            results.forEach((result) => {
-                result.results.forEach((item) => {
-                    if (item.subtype === 'buurtcombinatie') {
-                        item.subtypeLabel = 'wijk';
-                    }
-                });
-            });
-
-            return results;
         }
     }
 })();

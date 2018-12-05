@@ -16,6 +16,7 @@ class MapPreviewPanel extends React.Component {
   onPanoPreviewClick() {
     const { openPano, panoPreview } = this.props;
     openPano(panoPreview.id, panoPreview.heading);
+
   }
 
   render() {

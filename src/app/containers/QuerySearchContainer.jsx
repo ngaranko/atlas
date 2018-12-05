@@ -2,10 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Link from 'redux-first-router-link';
-import { getNumberOfResults, getSearchQuery } from '../../shared/ducks/data-search/selectors';
 import {
-  dataIsLoading,
-  getNumberOfResults as datasetNumberOfResults
+  getNumberOfResults,
+  getSearchQuery,
+  isSearchLoading
+} from '../../shared/ducks/data-search/selectors';
+import {
+  getNumberOfResults as datasetNumberOfResults,
+  isLoading as isDatasetsLoading
 } from '../../shared/ducks/datasets/datasets';
 import PAGES from '../pages';
 import {
@@ -14,15 +18,15 @@ import {
   toDataSearch,
   toDatasetSearch
 } from '../../store/redux-first-router';
-import TabBar from '../components/TabBar/TabBarContainer';
+import TabBar from './TabBarContainer';
 import Tabs from '../components/Tabs/Tabs';
 import Tab from '../components/Tab/Tab';
-import { isDataSelectionLoading } from '../../shared/ducks/data-selection/selectors';
-import DataSearchContainer from './DataSearchContainer';
 import DatasetContainer from './DatasetContainer';
+import LoadingIndicator from '../../shared/components/loading-indicator/LoadingIndicator';
+import DataSearchContainer from './DataSearchContainer';
 
 const mapStateToProps = (state) => ({
-  isLoading: dataIsLoading(state) || isDataSelectionLoading(state),
+  isLoading: isDatasetsLoading(state) || isSearchLoading(state),
   query: getSearchQuery(state),
   numberOfDataResults: getNumberOfResults(state),
   numberOfDatasetResults: datasetNumberOfResults(state),
@@ -47,6 +51,7 @@ const QuerySearchContainer = ({
   const someResults = true; // !!(numberOfDataResults || numberOfDatasetResults);
   return (
     <div className="c-data-selection c-dashboard__content">
+      {(isLoading) && <LoadingIndicator />}
       {!isLoading && someResults && (
         <div className="qa-data-selection-content">
           <TabBar showDatasetsButton={currentPage === PAGES.SEARCH_DATASETS}>

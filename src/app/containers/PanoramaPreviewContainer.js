@@ -1,0 +1,13 @@
+import connect from 'react-redux/es/connect/connect';
+import PanoramaPreview from '../components/PanoramaPreview/PanoramaPreview';
+import {
+  getPanoramaPreview,
+  isPanoramaPreviewLoading
+} from '../../shared/ducks/panorama/preview/panorama-preview';
+
+const mapStateToProps = (state) => ({
+  panoramaPreview: getPanoramaPreview(state),
+  isLoading: isPanoramaPreviewLoading(state)
+});
+
+export default connect(mapStateToProps, null)(PanoramaPreview);

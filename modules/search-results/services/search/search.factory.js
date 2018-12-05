@@ -5,13 +5,12 @@
         .module('dpSearchResults')
         .factory('search', searchFactory);
 
-    searchFactory.$inject = ['$injector', '$q', 'SEARCH_CONFIG', 'api', 'searchFormatter'];
+    searchFactory.$inject = ['$injector', 'api', 'searchFormatter'];
 
-    function searchFactory ($injector, $q, SEARCH_CONFIG, api, searchFormatter) {
+    function searchFactory ($injector, api, searchFormatter) {
         let store;
 
         return {
-            search,
             loadMore,
             initialize
         };
@@ -21,43 +20,6 @@
 
         function getStore () {
             store = store || $injector.get('store');
-        }
-
-        function searchCount (payload) {
-            return search(payload).then(results => results.reduce((count, current) => count + current.count, 0));
-        }
-
-        function search (query, categorySlug) {
-            getStore();
-
-            const queries = [];
-            const params = { q: query };
-            const user = store.getState().user;
-
-            SEARCH_CONFIG.QUERY_ENDPOINTS.forEach(function (endpoint) {
-                if ((!angular.isString(categorySlug) || categorySlug === endpoint.slug) &&
-                    endpoint.uri &&
-                    (!endpoint.authScope || user.scopes.includes(endpoint.authScope))
-                ) {
-                    const options = endpoint.options || {};
-                    queries.push(
-                        api.getByUri(
-                            endpoint.uri,
-                            { ...params, ...options }
-                        ).then(data => data, () => [])
-                    );
-                }
-            });
-
-            if (angular.isString(categorySlug)) {
-                // A single category
-                return $q.all(queries).then(function (searchResults) {
-                    return [searchFormatter.formatCategory(categorySlug, searchResults[0])];
-                });
-            } else {
-                // All search results
-                return $q.all(queries).then(searchFormatter.formatCategories);
-            }
         }
 
         function loadMore (category) {

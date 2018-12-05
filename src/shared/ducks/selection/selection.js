@@ -89,6 +89,5 @@ export const setSelection = (selectionType, object) => ({
     object
   }
 });
-export const clearSelection = () => ({ type: CLEAR_SELECTION });
 
 export default reducer;

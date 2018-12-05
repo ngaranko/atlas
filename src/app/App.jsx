@@ -24,9 +24,8 @@ import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
 import { getPage } from '../store/redux-first-router';
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe';
-import QuerySearchContainer from './containers/QuerySearchContainer';
-import DatasetContainer from './containers/DatasetContainer';
 import SearchPage from './pages/SearchPage';
+import DatasetPage from './pages/DatasetPage';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -118,9 +117,8 @@ const App = ({
                 <Home showFooter />
               )}
 
-              {(currentPage === PAGES.DATA_SEARCH ||
-                currentPage === PAGES.SEARCH_DATASETS) &&
-                <SearchPage />
+              {(currentPage === PAGES.DATA_SEARCH || currentPage === PAGES.SEARCH_DATASETS) &&
+              <SearchPage />
               }
 
               {currentPage === PAGES.MAP && <MapPage />}
@@ -129,7 +127,7 @@ const App = ({
 
               {currentPage === PAGES.PANORAMA && <PanoramaPage />}
 
-              {currentPage === PAGES.DATASETS && <DatasetContainer />}
+              {currentPage === PAGES.DATASETS && <DatasetPage />}
 
               {currentPage === PAGES.DATASETS_DETAIL && (
                 <DatasetDetailContainer />

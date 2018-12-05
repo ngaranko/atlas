@@ -1,7 +1,7 @@
 import {
     showSearchResults
 } from '../../../../src/shared/ducks/data-search/actions';
-import { SHOW_SEARCH_RESULTS } from '../../../../src/shared/ducks/data-search/constants';
+import { FETCH_QUERY_SEARCH_RESULTS_SUCCESS } from '../../../../src/shared/ducks/data-search/constants';
 
 describe('The dp-search-results component', function () {
     let $compile,
@@ -438,7 +438,7 @@ describe('The dp-search-results component', function () {
             getComponent(12, 'Weesperstraat');
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: SHOW_SEARCH_RESULTS,
+                type: FETCH_QUERY_SEARCH_RESULTS_SUCCESS,
                 payload: 12,
                 meta: {
                     tracking: {

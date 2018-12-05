@@ -1,7 +1,7 @@
 import { testSaga } from 'redux-saga-test-plan';
 import {
   fetchMapSearchResultsFailure,
-  fetchMapSearchResultsSuccess
+  fetchMapSearchResultsSuccessPanel
 } from '../../ducks/data-search/actions';
 import { fetchMapSearchResults } from './data-search';
 import search from '../../../map/services/map-search/map-search';
@@ -14,7 +14,7 @@ describe('fetchMapSearchResults', () => {
       .next('location')
       .call(search, 'location', 'user')
       .next('results')
-      .put(fetchMapSearchResultsSuccess('results'))
+      .put(fetchMapSearchResultsSuccessPanel('results'))
       .next()
       .isDone();
   });

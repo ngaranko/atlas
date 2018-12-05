@@ -1,20 +1,21 @@
 import { createSelector } from 'reselect';
-import get from 'lodash.get';
 import { REDUCER_KEY } from './constants';
 
-/**
- * @deprecated Don't use getDataSearch outside reducer,
- * use specific selector. e.g.: getNumberOfResults()
- */
 export const getDataSearch = (state) => state[REDUCER_KEY];
-export const isSearchActive = createSelector(getDataSearch, (geoSearch) => (
-  geoSearch && geoSearch.location && geoSearch.location.length
-));
-export const getDataSearchLocation = (state) => state[REDUCER_KEY].geoSearch;
-export const getDataSearchView = (state) => state[REDUCER_KEY].view;
-export const getMapResultsByLocation = (state) => get(state, [REDUCER_KEY, 'mapSearchResultsByLocation'], []);
-export const isSearchLoading = (state) => state[REDUCER_KEY].isLoading;
-export const getSearchQuery = (state) => state[REDUCER_KEY].query;
-export const getLocation = (state) => state[REDUCER_KEY].location;
-export const getSearchCategory = (state) => state[REDUCER_KEY].category;
-export const getNumberOfResults = (state) => state[REDUCER_KEY].numberOfResults;
+const getStateOfKey = (key) =>
+  (state) => createSelector(getDataSearch, (data) => (data[key]))(state);
+
+// Data to search for
+export const getDataSearchLocation = getStateOfKey('geoSearch');
+export const isSearchLoading = getStateOfKey('isLoading');
+export const getSearchQuery = getStateOfKey('query');
+export const getSearchCategory = getStateOfKey('category');
+
+// Results
+export const getSearchQueryResults = getStateOfKey('resultsQuery');
+export const getMapPanelResults = getStateOfKey('resultsMapPanel');
+export const getMapListResults = getStateOfKey('resultsMap');
+
+// Misc
+export const getDataSearchView = getStateOfKey('view');
+export const getNumberOfResults = getStateOfKey('numberOfResults');

@@ -1,7 +1,7 @@
 import connect from 'react-redux/es/connect/connect';
-import TabBar from './TabBar';
-import { getSearchQuery } from '../../../shared/ducks/data-search/selectors';
-import { toDatasets } from '../../../store/redux-first-router';
+import TabBar from '../components/TabBar/TabBar';
+import { getSearchQuery } from '../../shared/ducks/data-search/selectors';
+import { toDatasets } from '../../store/redux-first-router';
 
 const mapStateToProps = (state) => ({
   searchQuery: getSearchQuery(state)

@@ -10,8 +10,16 @@ import {
   setSelection
 } from '../../../shared/ducks/selection/selection';
 import { getImageDataByLocation } from '../../../shared/services/panorama-api/panorama-api';
-import { getPage, toPanorama, toMapAndPreserveQuery } from '../../../store/redux-first-router';
-import { fetchMapSearchResultsRequest } from '../../../shared/ducks/data-search/actions';
+import {
+  getPage,
+  isMapPage,
+  toMapAndPreserveQuery,
+  toPanorama
+} from '../../../store/redux-first-router';
+import {
+  fetchMapSearchResultsRequest,
+  setGeoLocation
+} from '../../../shared/ducks/data-search/actions';
 import PAGES from '../../../app/pages';
 
 function getHeadingDegrees([x1, y1], [x2, y2]) {
@@ -48,14 +56,15 @@ export function* switchClickAction(action) {
       });
     } else {
       const currentPage = yield select(getPage);
+      const isMap = yield select(isMapPage);
       yield put(setSelection(SELECTION_TYPE.POINT, location));
 
       if (currentPage === PAGES.DATA_SEARCH) {
         // already on search page, don't switch pages
-      } else {
+      } else if (!isMap) {
         yield put(toMapAndPreserveQuery());
       }
-      yield put(fetchMapSearchResultsRequest(location));
+      yield put(setGeoLocation(location));
     }
   }
 }

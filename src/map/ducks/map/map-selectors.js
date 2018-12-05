@@ -1,15 +1,11 @@
 import { createSelector } from 'reselect';
 
-import {
-  getPanoramaLocation,
-  getPanoramaMarkers
-} from '../../../shared/ducks/panorama/panorama';
+import { getPanoramaLocation, getPanoramaMarkers } from '../../../shared/ducks/panorama/panorama';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
-import { getMapResultsByLocation } from '../../../shared/ducks/data-search/selectors';
 import { getDetail } from '../../../shared/ducks/detail/detail';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
-import { getSelectionLocation } from '../../../shared/ducks/selection/selection';
+import { getDataSearchLocation } from '../../../shared/ducks/data-search/selectors';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
@@ -39,23 +35,16 @@ export const getLongitude = createSelector(getCenter, (center) => center[1]);
 
 export const getRdGeoJsons = createSelector(getDetailGeoJson, (geoJson) => [geoJson]);
 
-export const getShortSelectedLocation = (state) => state.selection && state.selection.location;
-
 export const getLocationId = createSelector(
-  getShortSelectedLocation,
+  getDataSearchLocation,
   (shortSelectedLocation) => (
     (shortSelectedLocation) ?
       `${shortSelectedLocation.latitude},${shortSelectedLocation.longitude}` :
       null
   ));
 
-export const selectLatestMapSearchResults = createSelector(
-  getMapResultsByLocation,
-  (mapResultsByLocation) => mapResultsByLocation
-);
-
 export const getSearchMarker = (state) => {
-  const location = state.selection.location;
+  const location = getDataSearchLocation(state);
   return ((location) ?
       [{ position: [location.latitude, location.longitude], type: geoSearchType }] :
       []
@@ -71,6 +60,3 @@ export const getMarkers = createSelector(
 
 export const isMarkerActive = createSelector(getDetail, (detail) => !detail);
 export const isMapPanelActive = createSelector(getMap, (map) => map.mapPanelActive);
-
-// Todo: remove this
-export const getDataSelection = (state) => state.dataSelection;

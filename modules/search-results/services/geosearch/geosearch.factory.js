@@ -10,6 +10,8 @@
             search
         };
 
+        window.BLADIESEARCH = search;
+
         function search (location) {
             const allRequests = [];
 

@@ -80,7 +80,6 @@ import '../../modules/page/components/user-content-widget/user-content-widget.co
 import '../../modules/page/page-config.constant';
 import '../../modules/page/services/page-name/page-name.factory';
 import '../../modules/search-results/search-results.module';
-import '../../modules/search-results/components/search-results/categories/search-results-categories.component';
 import '../../modules/search-results/components/search-results/header/search-results-header.component';
 import '../../modules/search-results/components/search-results/list/search-results-list.component';
 import '../../modules/search-results/components/search-results/search-results.component';

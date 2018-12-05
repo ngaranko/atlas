@@ -1,80 +1,86 @@
 import {
   FETCH_MAP_SEARCH_RESULTS_FAILURE,
   FETCH_MAP_SEARCH_RESULTS_REQUEST,
-  FETCH_MAP_SEARCH_RESULTS_SUCCESS,
-  FETCH_SEARCH_RESULTS_BY_LOCATION,
-  FETCH_SEARCH_RESULTS_BY_QUERY,
-  FETCH_SEARCH_RESULTS_CATEGORY,
+  FETCH_MAP_SEARCH_RESULTS_SUCCESS_LIST,
+  FETCH_MAP_SEARCH_RESULTS_SUCCESS_PANEL,
+  FETCH_QUERY_SEARCH_RESULTS_FAILURE,
+  FETCH_QUERY_SEARCH_RESULTS_REQUEST,
+  FETCH_QUERY_SEARCH_RESULTS_SUCCESS,
   initialState,
   REDUCER_KEY,
-  SHOW_SEARCH_RESULTS
+  SET_GEO_LOCATION,
+  SET_QUERY_CATEGORY
 } from './constants';
-import isObject from '../../services/is-object';
 import { getStateFromQuery } from '../../../store/query-synchronization';
-import query from './query';
+import urlParams from './query';
 
 export { REDUCER_KEY };
 
 export default function reducer(state = initialState, action) {
   const enrichedState = {
     ...state,
-    ...getStateFromQuery(query, action)
+    ...getStateFromQuery(urlParams, action)
   };
 
   switch (action.type) {
-    case FETCH_SEARCH_RESULTS_CATEGORY:
-      return isObject(enrichedState) ? {
-        ...enrichedState,
-        isLoading: true,
-        category: action.payload,
-        numberOfResults: null
-      } : enrichedState;
-
-    case FETCH_SEARCH_RESULTS_BY_LOCATION:
+    case FETCH_QUERY_SEARCH_RESULTS_REQUEST:
       return {
+        ...initialState,
         isLoading: true,
-        query: null,
-        location: action.payload,
-        category: null,
-        numberOfResults: null
+        query: action.payload
       };
 
-    case FETCH_SEARCH_RESULTS_BY_QUERY:
-      return {
-        isLoading: true,
-        query: action.payload,
-        location: null,
-        category: null,
-        numberOfResults: null
-      };
-
-    case SHOW_SEARCH_RESULTS:
+    case FETCH_QUERY_SEARCH_RESULTS_SUCCESS: {
+      const { results, numberOfResults } = action.payload;
       return {
         ...enrichedState,
         isLoading: false,
-        numberOfResults: action.payload
+        numberOfResults,
+        resultsQuery: results
       };
+    }
 
     case FETCH_MAP_SEARCH_RESULTS_REQUEST:
       return {
-        ...enrichedState,
+        ...initialState,
         isLoading: true,
         geoSearch: action.payload
       };
 
-    case FETCH_MAP_SEARCH_RESULTS_SUCCESS: {
+    case FETCH_MAP_SEARCH_RESULTS_SUCCESS_PANEL: {
       return {
         ...enrichedState,
         isLoading: false,
-        mapSearchResultsByLocation: action.payload
+        resultsMapPanel: action.payload
       };
     }
 
+    case FETCH_MAP_SEARCH_RESULTS_SUCCESS_LIST: {
+      return {
+        ...enrichedState,
+        isLoading: false,
+        resultsMap: action.payload
+      };
+    }
+
+    case FETCH_QUERY_SEARCH_RESULTS_FAILURE:
     case FETCH_MAP_SEARCH_RESULTS_FAILURE:
       return {
         ...enrichedState,
         isLoading: false,
         error: action.payload
+      };
+
+    case SET_QUERY_CATEGORY:
+      return {
+        ...enrichedState,
+        category: action.payload
+      };
+
+    case SET_GEO_LOCATION:
+      return {
+        ...enrichedState,
+        geoSearch: action.payload
       };
 
     default:
