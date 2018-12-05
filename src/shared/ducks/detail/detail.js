@@ -15,7 +15,7 @@ export const DETAIL_VIEW = {
 };
 
 const initialState = {
-  view: DETAIL_VIEW.MAP_DETAIL,
+  view: DETAIL_VIEW.MAP,
   isLoading: false
 };
 
