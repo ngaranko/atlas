@@ -10,9 +10,11 @@ import {
   setSelection
 } from '../../../shared/ducks/selection/selection';
 import { getImageDataByLocation } from '../../../shared/services/panorama-api/panorama-api';
-import { getPage, toPanorama, toMapAndPreserveQuery } from '../../../store/redux-first-router';
+import { getPage, toPanorama, toMapAndPreserveQuery, toDataSearchLocationAndPreserveQuery, isDataSelectionPage } from '../../../store/redux-first-router';
 import { fetchMapSearchResultsRequest } from '../../../shared/ducks/data-search/data-search';
 import PAGES from '../../../app/pages';
+import { VIEWS } from '../../../shared/ducks/data-selection/constants';
+import { getDataSelectionView } from '../../../shared/ducks/data-selection/selectors';
 
 function getHeadingDegrees([x1, y1], [x2, y2]) {
   return (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
@@ -47,11 +49,15 @@ export function* switchClickAction(action) {
         }
       });
     } else {
-      const currentPage = yield select(getPage);
       yield put(setSelection(SELECTION_TYPE.POINT, location));
-
+      const currentPage = yield select(getPage);
+      const isDataSelection = yield select(isDataSelectionPage);
+      const currentView = yield select(getDataSelectionView);
       if (currentPage === PAGES.DATA_SEARCH) {
         // already on search page, don't switch pages
+      } else if (isDataSelection && currentView !== VIEWS.MAP) {
+        // we are in the dataselection route and not in the fullscreen map view
+        yield put(toDataSearchLocationAndPreserveQuery());
       } else {
         yield put(toMapAndPreserveQuery());
       }
