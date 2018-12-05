@@ -2,7 +2,7 @@
 import deepCopy from 'deep-copy';  // Deprecated, added during Angular to Vanilla migration. Try ES6 Object.assign and the like where possible.
 import { stripDomain, restoreDomain } from './uri-stripper';
 import isObject from '../is-object';
-
+import { historyOptions } from '../../../shared/ducks/straatbeeld/straatbeeld';
 
 //
 // This constant holds the configuration of all state variables that are stored in the url
@@ -232,7 +232,7 @@ export default {
     },
     straatbeeld: {
       location: null, // eg: [52.8, 4.9]
-      history: 0,     // eg: 2016
+      history: historyOptions[0],
       pitch: 0,       // eg: -10
       heading: 0,     // eg: 270
       fov: 0,         // eg: 65
@@ -406,9 +406,17 @@ export default {
       precision: 1
     },
     sby: {
-      name: 'straatbeeld.history',
+      name: 'straatbeeld.history.year',
       type: 'base62',
       precision: 1
+    },
+    sbmt: {
+      name: 'straatbeeld.history.missionType',
+      type: 'string'
+    },
+    sbln: {
+      name: 'straatbeeld.history.layerName',
+      type: 'string'
     },
     // UI visibility (uv)
     uvm: {

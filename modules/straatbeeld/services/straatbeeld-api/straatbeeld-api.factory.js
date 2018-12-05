@@ -23,8 +23,8 @@
                 return null;
             }
             const locationRange = `near=${location[1]},${location[0]}&srid=${STRAATBEELD_CONFIG.SRID}`;
-            const yearRange = (history)
-                ? `timestamp_before=${history}-12-31&timestamp_after=${history}-01-01`
+            const yearRange = (history.year)
+                ? `mission_year=${history.year}&mission_type=${history.missionType}`
                 : 'newest_in_range=true';
             const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 
@@ -35,8 +35,8 @@
         }
 
         function getImageDataById (id, history, key = 'adjacencies') {
-            const yearRange = (history)
-                ? `timestamp_before=${history}-12-31&timestamp_after=${history}-01-01`
+            const yearRange = (history.year)
+                ? `mission_year=${history.year}&mission_type=${history.missionType}`
                 : 'newest_in_range=true';
             const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 

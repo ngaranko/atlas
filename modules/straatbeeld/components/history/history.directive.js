@@ -1,3 +1,5 @@
+import {historyOptions} from '../../../../src/shared/ducks/straatbeeld/straatbeeld';
+
 (function () {
     'use strict';
 
@@ -13,51 +15,21 @@
             scope: {
                 location: '<',
                 heading: '<',
-                history: '<'
+                history: '='
             },
             templateUrl: 'modules/straatbeeld/components/history/history.html',
             link: linkFunction
         };
 
         function linkFunction (scope, element) {
-            const firstYear = 2016;
-            // Update the lastYear manually if there are straatbeelden available for that year
-            const lastYear = 2018;
-            const total = lastYear - firstYear + 1;
-            const everywhere = angular.element(window.document);
+            const total = historyOptions.length;
 
-            const years = Array(total)
-                .fill(0)
-                .map((value, index) => {
-                    return lastYear - index;
-                });
+            scope.options = historyOptions;
 
-            scope.options = years.reduce((array, year) => {
-                array.push(
-                    {
-                        year: year,
-                        missonType: null,
-                        label: `Alleen ${year} regulier`
-                    },
-                    {
-                        year: year,
-                        missonType: 'bi',
-                        label: `Alleen ${year} WOZ`
-                    }
-                );
-                return array;
-            }, []);
-
-            scope.selectedOption = {
-                year: 0,
-                label: 'Meest recent'
-            };
-
-            scope.options.unshift(scope.selectedOption);
-
+            scope.selectedOption = historyOptions[0];
             if (scope.history) {
                 scope.selectedOption = scope.options.find(
-                    (option) => option.year === scope.history);
+                    (option) => option.year === scope.history.year && option.missionType === scope.history.missionType);
             }
 
             scope.toggleMenu = () => scope.menuActive = !scope.menuActive;
@@ -65,12 +37,13 @@
                 scope.selectedOption = option;
                 store.dispatch({
                     type: ACTIONS.SET_STRAATBEELD_HISTORY,
-                    payload: option.year
+                    payload: option
                 });
             };
 
             scope.$watchCollection('location', updateLocation, true);
 
+            const everywhere = angular.element(window.document);
             everywhere.bind('click', (event) => {
                 const container = element.find('div').eq(0);
                 const button = container.find('div');

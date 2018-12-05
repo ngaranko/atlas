@@ -19,6 +19,7 @@ import { radiansToDegrees } from '../../../../src/shared/services/angle-conversi
                 fov,
                 heading;
 
+            if (!viewer.view()) return;
             pitch = radiansToDegrees(viewer.view().pitch());
             fov = radiansToDegrees(viewer.view().fov());
             heading = radiansToDegrees(viewer.view().yaw());
