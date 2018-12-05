@@ -25,20 +25,20 @@ export const preserveQuery = (action) => {
   };
 };
 export const toDataDetail = (id, type, subtype, view) => {
-  const action = {
+  const action = preserveQuery({
     type: routing.dataDetail.type,
     payload: {
       type,
       subtype,
       id: `id${id}`
-    },
-    meta: {
-      query: {}
     }
-  };
+  });
   if (view === DETAIL_VIEW.MAP) {
     action.meta.query.kaart = '';
+  } else {
+    delete (action.meta.query.kaart);
   }
+
   return action;
 };
 export const toDataSearchLocationAndPreserveQuery = () => preserveQuery({ // TODO rename
@@ -88,7 +88,7 @@ const getDetailPageData = (endpoint) => {
 };
 export const getPageActionEndpoint = (endpoint, view) => {
   const { type, subtype, id } = getDetailPageData(endpoint);
-  return preserveQuery(toDataDetail(id, type, subtype, view));
+  return toDataDetail(id, type, subtype, view);
 };
 export const pageTypeToEndpoint = (type, subtype, id) => {
   let endpoint = 'https://acc.api.data.amsterdam.nl/';

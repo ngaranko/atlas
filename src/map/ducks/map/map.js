@@ -79,7 +79,8 @@ export default function MapReducer(state = initialState, action) {
       // When opening these pages, close legend
       return {
         ...enrichedState,
-        mapPanelActive: false
+        mapPanelActive: false,
+        overlays: enrichedState.overlays
       };
 
     case MAP_PAN:

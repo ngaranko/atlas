@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch) => ({
     return dispatch(action);
   },
   openPreviewDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP)),
-  openDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint))
+  openDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP_DETAIL))
 });
 
 /* eslint-enable react/no-unused-prop-types */
