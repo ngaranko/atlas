@@ -42,7 +42,7 @@
                     {
                         year: year,
                         missonType: 'bi',
-                        label: `Alleen ${year} WKZ`
+                        label: `Alleen ${year} WOZ`
                     }
                 );
                 return array;
