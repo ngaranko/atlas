@@ -1,5 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import queryString from 'querystring';
+import get from 'lodash.get';
 import {
   fetchDataSelection,
   receiveDataSelectionFailure,
@@ -21,7 +22,6 @@ import {
   VIEWS
 } from '../../ducks/data-selection/constants';
 import { getDataSelection, getGeomarkersShape } from '../../ducks/data-selection/selectors';
-import get from 'lodash.get';
 
 function* getMapMarkers(dataset, activeFilters) {
   const state = yield select();

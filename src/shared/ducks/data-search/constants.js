@@ -17,7 +17,8 @@ export const initialState = {
   resultsQuery: [],
   isLoading: false,
   numberOfResults: 0,
-  category: null
+  category: null,
+  error: null
 };
 
 export const SEARCH_VIEW = {

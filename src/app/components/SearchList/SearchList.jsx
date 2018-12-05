@@ -3,12 +3,13 @@ import { AngularWrapper } from 'react-angular';
 import PropTypes from 'prop-types';
 import Panel from '../Panel/Panel';
 
-const SearchList = ({ user, searchResults, setSearchCategory, fetchDetailPage, category }) => (
+const SearchList = ({ user, searchResults, setSearchCategory, fetchDetailPage }) => (
   <div>
     {searchResults && searchResults.map((result) => (
       (result.count >= 1 || result.warning) &&
       (!result.authScope || user.scopes.includes(result.authScope)) && (
         <div
+          key={result.label_plural}
           className={`c-search-results__block qa-search-results-category ${!!(result.subResults) && 'c-search-results__block--container'}`}
         >
           <div className="c-search-results__block-content">
@@ -99,8 +100,8 @@ SearchList.defaultProps = {
 };
 
 SearchList.propTypes = {
-  user: PropTypes.object.isRequired,
-  category: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+  user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  // category: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   setSearchCategory: PropTypes.func.isRequired,
   fetchDetailPage: PropTypes.func.isRequired,
   searchResults: PropTypes.arrayOf(PropTypes.object).isRequired

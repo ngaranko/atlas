@@ -85,12 +85,7 @@ import '../../modules/search-results/components/search-results/list/search-resul
 import '../../modules/search-results/components/search-results/search-results.component';
 import '../../modules/search-results/search-config.constant';
 import '../../modules/search-results/services/document-title/document-title.factory';
-import '../../modules/search-results/services/geosearch/geosearch-formatter.factory';
-import '../../modules/search-results/services/geosearch/geosearch.factory';
 import '../../modules/search-results/services/search-title/search-title.factory';
-import '../../modules/search-results/services/search/search-formatter.factory';
-import '../../modules/search-results/services/search/search.factory';
-import '../../modules/search-results/services/search/search.run';
 import '../../modules/shared/shared.module';
 import '../../modules/shared/components/anchor-link/anchor-link.component';
 import '../../modules/shared/components/anchor-link/anchor-link.constant';

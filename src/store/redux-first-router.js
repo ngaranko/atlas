@@ -104,7 +104,7 @@ export const toDataSearch = (searchQuery, skipFetch = false) => ({
     }
   }
 });
-export const toDatasets = () => ({ type: routing.datasets.type })
+export const toDatasets = () => ({ type: routing.datasets.type });
 export const toDatasetSearch = (searchQuery, skipFetch = false) => ({
   type: routing.searchDatasets.type,
   meta: {
@@ -155,10 +155,6 @@ export const toDatasetSuggestion = (payload) => ({
 });
 export const toControlPage = () => ({
   type: routing.bediening.type
-});
-
-export const toDatasets = () => preserveQuery({
-  type: routing.addresses.type
 });
 
 // Selectors

@@ -1,4 +1,3 @@
-import get from 'lodash.get';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getUser } from '../../../shared/ducks/user/user';
 import search from '../../../map/services/map-search/map-search';
@@ -8,12 +7,12 @@ import {
   fetchMapSearchResultsRequest,
   fetchMapSearchResultsSuccessList,
   fetchMapSearchResultsSuccessPanel,
-  fetchSearchResultsByQuery,
   showSearchResults
 } from '../../ducks/data-search/actions';
 import { routing } from '../../../app/routes';
 import {
-  FETCH_MAP_SEARCH_RESULTS_REQUEST, SET_GEO_LOCATION,
+  FETCH_MAP_SEARCH_RESULTS_REQUEST,
+  SET_GEO_LOCATION,
   SET_QUERY_CATEGORY
 } from '../../ducks/data-search/constants';
 import {
@@ -27,21 +26,26 @@ import {
   search as vanillaSearch
 } from '../../services/search/search';
 import { isMapPage } from '../../../store/redux-first-router';
+import { getMapZoom } from '../../../map/ducks/map/map-selectors';
+import ActiveOverlaysClass from '../../services/active-overlays/active-overlays';
 
-export function* fetchMapSearchResults(action) {
+export function* fetchMapSearchResults() {
+  const zoom = yield select(getMapZoom);
   const user = yield select(getUser);
   const location = yield select(getDataSearchLocation);
+  const isMap = yield select(isMapPage);
   try {
-    if (get(action, 'meta.isMap')) {
+    if (isMap) {
       const mapSearchResults = yield call(search, location, user);
       yield put(fetchMapSearchResultsSuccessPanel(mapSearchResults));
     } else {
-      const otherGeoSearchResults = yield call(geosearch, location, user);
-      const otherResults = replaceBuurtcombinatie(otherGeoSearchResults);
-      yield put(fetchMapSearchResultsSuccessList(otherResults, '', getNrOfSearchResults(otherGeoSearchResults)));
+      const geoSearchResults = yield call(geosearch, location, user);
+      const results = replaceBuurtcombinatie(geoSearchResults);
+      yield put(fetchMapSearchResultsSuccessList(results, getNrOfSearchResults(geoSearchResults)));
     }
   } catch (error) {
-    yield put(fetchMapSearchResultsFailure(error));
+    const payload = ActiveOverlaysClass.getOverlaysWarning(zoom);
+    yield put(fetchMapSearchResultsFailure(payload));
   }
 }
 
@@ -60,13 +64,12 @@ function* setSearchResults(searchResults) {
 function* fetchQuerySearchResults(query, category) {
   const isQuery = isString(query);
   const user = yield select(getUser);
-  const userAuthScope = undefined; // user.scopes.includes(endpoint.authScope);
   if (isQuery) {
     if (isString(category) && category.length) {
-      const results = yield vanillaSearch(query, category, userAuthScope);
+      const results = yield vanillaSearch(query, category, user);
       yield call(setSearchResults, results);
     } else {
-      const results = yield vanillaSearch(query);
+      const results = yield vanillaSearch(query, undefined, user);
       yield call(setSearchResults, results);
     }
   }
@@ -77,17 +80,11 @@ export function* fireSearchResultsRequest() {
   const query = yield select(getSearchQuery);
   const category = yield select(getSearchCategory);
   const isMap = yield select(isMapPage);
+  // Todo: refactor the reducer, so we don't have this conditional statement
   if (location) {
     yield put(fetchMapSearchResultsRequest(location, isMap));
   } else if (query) {
     yield call(fetchQuerySearchResults, query, category);
-  }
-}
-
-export function* fireFetchSearchResultsByQuery(action) {
-  const query = yield select(getSearchQuery);
-  if (query && !get(action, 'meta.skipFetch')) {
-    yield put(fetchSearchResultsByQuery(query));
   }
 }
 
@@ -97,11 +94,9 @@ export default function* watchDataSearch() {
   ], fetchMapSearchResults);
 
   yield takeLatest([
-    SET_QUERY_CATEGORY,
     SET_GEO_LOCATION,
+    SET_QUERY_CATEGORY,
     routing.map.type,
     routing.dataSearch.type
   ], fireSearchResultsRequest);
-
-  yield takeLatest(routing.dataSearch.type, fireFetchSearchResultsByQuery);
 }

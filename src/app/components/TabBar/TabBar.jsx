@@ -5,10 +5,14 @@ const TabBar = ({ totalCount, goToDatasets, searchQuery, children, showDatasetsB
   <div>
     <h1 className="qa-tab-header__title c-tab-header__title">
       {(totalCount !== 0) && (
-        <span className="c-tab-header__title__text">Resultaten met '{searchQuery}'</span>
+        <span className="c-tab-header__title__text">
+          Resultaten met &quote;{searchQuery}&quote;
+        </span>
       )}
       {(totalCount === 0) && (
-        <span className="c-tab-header__title__text">Geen resultaten met '{searchQuery}'</span>
+        <span className="c-tab-header__title__text">
+          Geen resultaten met &quote;{searchQuery}&quote;
+        </span>
       )}
 
       {/* Todo: reset the dataset filter action */}

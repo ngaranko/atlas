@@ -1,4 +1,4 @@
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUser } from '../../shared/ducks/user/user';
 import { getSearchCategory } from '../../shared/ducks/data-search/selectors';

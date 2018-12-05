@@ -47,10 +47,10 @@ describe('data-search selectors', () => {
     it('should return state.resultsMap as a array', () => {
       const state = {
         [REDUCER_KEY]: {
-          resultsMap: []
+          resultsMapPanel: []
         }
       };
-      expect(getMapPanelResults(state)).toEqual(state[REDUCER_KEY].resultsMap);
+      expect(getMapPanelResults(state)).toEqual(state[REDUCER_KEY].resultsMapPanel);
     });
   });
 });

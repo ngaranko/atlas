@@ -1,8 +1,6 @@
 import PAGES from '../../../src/app/pages';
-import { FETCH_QUERY_SEARCH_RESULTS_REQUEST } from '../../../src/shared/ducks/data-search/constants';
 import { ROUTER_NAMESPACE } from '../../../src/app/routes';
 import * as routerSelectors from '../../../src/store/redux-first-router';
-import { FETCH_DATA_SELECTION_REQUEST } from '../../../src/shared/ducks/data-selection/constants';
 
 describe('The header controller', function () {
     var $controller,
@@ -76,7 +74,7 @@ describe('The header controller', function () {
 
         const controller = getController();
 
-        expect(controller.query).toBeNull();
+        expect(controller.query).toBeUndefined();
     });
 
     describe('not all states have a print version', function () {

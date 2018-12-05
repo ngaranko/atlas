@@ -108,12 +108,7 @@ import '../modules/search-results/components/search-results/list/search-results-
 import '../modules/search-results/components/search-results/search-results.component';
 import '../modules/search-results/search-config.constant';
 import '../modules/search-results/services/document-title/document-title.factory';
-import '../modules/search-results/services/geosearch/geosearch-formatter.factory';
-import '../modules/search-results/services/geosearch/geosearch.factory';
 import '../modules/search-results/services/search-title/search-title.factory';
-import '../modules/search-results/services/search/search-formatter.factory';
-import '../modules/search-results/services/search/search.factory';
-import '../modules/search-results/services/search/search.run';
 import '../modules/shared/shared.module';
 import '../modules/shared/components/anchor-link/anchor-link.component';
 import '../modules/shared/components/anchor-link/anchor-link.constant';
@@ -178,10 +173,6 @@ import '../modules/search-results/components/search-results/header/search-result
 import '../modules/search-results/components/search-results/list/search-results-list.component.test';
 import '../modules/search-results/services/document-title/document-title.factory.test';
 import '../modules/search-results/services/search-title/search-title.factory.test';
-import '../modules/search-results/services/search/search-formatter.factory.test';
-import '../modules/search-results/services/search/search.factory.test';
-import '../modules/search-results/services/geosearch/geosearch-formatter.factory.test';
-import '../modules/search-results/services/geosearch/geosearch.factory.test';
 import '../modules/data-selection/components/available-filters/available-filters.component.test';
 import '../modules/data-selection/components/sbi-filter/sbi-filter.component.test';
 import '../modules/data-selection/components/views/table/table.component.test';

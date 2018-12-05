@@ -26,7 +26,7 @@ export default {
     defaultValue: SEARCH_VIEW.SEARCH
   },
   locatie: {
-    stateKey: 'location',
+    stateKey: 'geoSearch',
     selector: getLocationString,
     decode: (val) => {
       if (val) {

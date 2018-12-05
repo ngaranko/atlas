@@ -27,15 +27,18 @@ const Tabs = ({ children: childrenProp, noResults, tip, currentTab }) => {
       {noResults ? (
         <div>
           <div className="u-margin__bottom--1">Geen resultaten van deze soort</div>
-          <div>Tip: {tip}</div>
+          {tip && <div>Tip: {tip}</div>}
         </div>
       ) : null}
     </div>
   );
 };
 
-Tabs.defaulProps = {
-  currentTab: false
+Tabs.defaultProps = {
+  children: null,
+  currentTab: false,
+  tip: false,
+  noResults: false
 };
 
 Tabs.propTypes = {

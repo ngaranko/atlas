@@ -1,4 +1,4 @@
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import PanoramaPreview from '../components/PanoramaPreview/PanoramaPreview';
 import {
   getPanoramaPreview,

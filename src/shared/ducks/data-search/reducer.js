@@ -48,18 +48,22 @@ export default function reducer(state = initialState, action) {
       };
 
     case FETCH_MAP_SEARCH_RESULTS_SUCCESS_PANEL: {
+      const { results, numberOfResults } = action.payload;
       return {
         ...enrichedState,
         isLoading: false,
-        resultsMapPanel: action.payload
+        numberOfResults,
+        resultsMapPanel: results
       };
     }
 
     case FETCH_MAP_SEARCH_RESULTS_SUCCESS_LIST: {
+      const { results, numberOfResults } = action.payload;
       return {
         ...enrichedState,
         isLoading: false,
-        resultsMap: action.payload
+        numberOfResults,
+        resultsMap: results
       };
     }
 

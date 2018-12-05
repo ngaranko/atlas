@@ -4,7 +4,7 @@ import AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest';
 import ErrorMessageReducer from '../shared/ducks/error-message';
 import PageReducer from '../shared/ducks/page/page';
 import UiReducer, { REDUCER_KEY as UI } from '../shared/ducks/ui/ui';
-import UserReducer from '../shared/ducks/user/user';
+import UserReducer, { REDUCER_KEY as USER } from '../shared/ducks/user/user';
 import MapDetailReducer from '../map/ducks/detail/map-detail';
 import MapReducer from '../map/ducks/map/map';
 import MapLayersReducer from '../map/ducks/layers/map-layers';
@@ -36,7 +36,7 @@ export default (routeReducer) => (oldState = {}, action) => {
     [PANO_PREVIEW]: PanoPreviewReducer,
     [PANORAMA]: PanoramaReducer,
     [UI]: UiReducer,
-    user: UserReducer,
+    [USER]: UserReducer,
     mapLayers,
     autoSuggest: AutoSuggestReducer,
     location: routeReducer,

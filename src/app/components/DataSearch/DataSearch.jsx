@@ -18,7 +18,7 @@ const DataSearch = ({ user, searchResults }) => (
 );
 
 DataSearch.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   searchResults: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 

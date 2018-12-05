@@ -23,13 +23,12 @@ const Tab = ({ label, count, onClick, isCurrentTab }) => (
 Tab.defaultProps = {
   count: null,
   isCurrentTab: false
-}
+};
 
 Tab.propTypes = {
   label: PropTypes.string.isRequired,
   count: PropTypes.number,
   isCurrentTab: PropTypes.bool,
-  page: PropTypes.string,
   onClick: PropTypes.func.isRequired
 };
 

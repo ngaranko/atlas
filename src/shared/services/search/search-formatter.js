@@ -1,3 +1,5 @@
+// Todo: fix / add tests
+/* istanbul ignore file */
 import SEARCH_CONFIG from './search-config';
 
 function isObject(value) {
@@ -43,19 +45,19 @@ export function formatLinks(slug, links) {
 export function formatCategory(slug, endpointSearchResults) {
   const endpointConfig = SEARCH_CONFIG.QUERY_ENDPOINTS
                                       .filter((endpoint) => endpoint.slug === slug)[0];
-  const links = isObject(endpointSearchResults) && endpointSearchResults.results || [];
+  const links = (isObject(endpointSearchResults) && endpointSearchResults.results) || [];
 
   return {
     label_singular: endpointConfig.label_singular,
     label_plural: endpointConfig.label_plural,
     slug: endpointConfig.slug,
-    count: isObject(endpointSearchResults) && endpointSearchResults.count || 0,
+    count: (isObject(endpointSearchResults) && endpointSearchResults.count) || 0,
     results: formatLinks(slug, links),
     useIndenting: false,
     authScope: endpointConfig.authScope || null,
-    next: isObject(endpointSearchResults) &&
+    next: (isObject(endpointSearchResults) &&
       endpointSearchResults._links &&
-      endpointSearchResults._links.next.href || null
+      endpointSearchResults._links.next.href) || null
   };
 }
 

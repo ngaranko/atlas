@@ -1,5 +1,6 @@
-export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
-export const AUTHENTICATE_ERROR = 'AUTHENTICATE_ERROR';
+export const REDUCER_KEY = 'user';
+export const AUTHENTICATE_USER = `${REDUCER_KEY}/AUTHENTICATE_USER`;
+export const AUTHENTICATE_ERROR = `${REDUCER_KEY}/AUTHENTICATE_ERROR`;
 
 const initialState = {
   authenticated: false,
@@ -31,7 +32,7 @@ export default function userReducer(state = initialState, action) {
   }
 }
 
-export const getUser = (state) => state.user;
+export const getUser = (state) => state[REDUCER_KEY];
 
 export const authenticateUser = (accessToken, name, scopes) =>
   ({ type: AUTHENTICATE_USER, accessToken, name, scopes });

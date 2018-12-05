@@ -1,4 +1,3 @@
-import * as mapSelectors from '../../../../src/map/ducks/map/map-selectors';
 import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
 import { DOWNLOAD_DATASET_RESOURCE } from '../../../../src/shared/ducks/datasets/data/data';
 

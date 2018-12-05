@@ -1,4 +1,4 @@
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import TabBar from '../components/TabBar/TabBar';
 import { getSearchQuery } from '../../shared/ducks/data-search/selectors';
 import { toDatasets } from '../../store/redux-first-router';

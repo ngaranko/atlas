@@ -50,7 +50,6 @@ import throttle from 'lodash.throttle';
             const viewChangeHandler = viewer.addEventListener('viewChange', /* istanbul ignore next */ () => {
                 throttle(
                     () => {
-                        console.log(viewer)
                         orientation.update(viewer);
                     },
                     300,

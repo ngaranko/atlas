@@ -5,7 +5,7 @@ import configureMockStore from 'redux-mock-store';
 import { getSearchQuery } from '../../shared/ducks/data-search/selectors';
 import SearchPage from './SearchPage';
 
-jest.mock('../../shared/ducks/data-search/data-search');
+jest.mock('../../shared/ducks/data-search/selectors');
 
 const initialState = {
 };

@@ -12,15 +12,11 @@ import {
 import { getImageDataByLocation } from '../../../shared/services/panorama-api/panorama-api';
 import {
   getPage,
-  isMapPage,
-  toMapAndPreserveQuery,
-  toPanorama,
-  toDataSearchLocationAndPreserveQuery, isDataSelectionPage
+  isDataSelectionPage,
+  toDataSearchLocationAndPreserveQuery,
+  toPanorama
 } from '../../../store/redux-first-router';
-import {
-  fetchMapSearchResultsRequest,
-  setGeoLocation
-} from '../../../shared/ducks/data-search/actions';
+import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
 import PAGES from '../../../app/pages';
 import { VIEWS } from '../../../shared/ducks/data-selection/constants';
 import { getDataSelectionView } from '../../../shared/ducks/data-selection/selectors';
@@ -58,21 +54,19 @@ export function* switchClickAction(action) {
         }
       });
     } else {
-      const currentPage = yield select(getPage);
-      const isMap = yield select(isMapPage);
       yield put(setSelection(SELECTION_TYPE.POINT, location));
       const currentPage = yield select(getPage);
       const isDataSelection = yield select(isDataSelectionPage);
       const currentView = yield select(getDataSelectionView);
       if (currentPage === PAGES.DATA_SEARCH) {
         // already on search page, don't switch pages
+        yield put(setGeoLocation(location));
       } else if (isDataSelection && currentView !== VIEWS.MAP) {
         // we are in the dataselection route and not in the fullscreen map view
         yield put(toDataSearchLocationAndPreserveQuery());
       } else {
-        yield put(toMapAndPreserveQuery());
+        yield put(setGeoLocation(location));
       }
-      yield put(setGeoLocation(location));
     }
   }
 }

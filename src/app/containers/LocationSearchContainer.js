@@ -1,6 +1,7 @@
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import { getUser } from '../../shared/ducks/user/user';
 import {
+  getDataSearchError,
   getDataSearchLocation,
   getMapListResults,
   getNumberOfResults,
@@ -14,9 +15,9 @@ const mapStateToProps = (state) => ({
   user: getUser(state),
   searchResults: getMapListResults(state),
   numberOfResults: getNumberOfResults(state),
-  panoramaPreview: getPanoramaPreview(state),
+  panoramaPreview: !!getPanoramaPreview(state),
   location: getDataSearchLocation(state),
-  layerWarning: null
+  layerWarning: getDataSearchError(state)
 });
 
 export default connect(mapStateToProps, null)(LocationSearch);

@@ -1,3 +1,5 @@
+// Todo: fix / add tests
+/* istanbul ignore file */
 /* eslint-disable no-underscore-dangle,no-param-reassign */
 import identity from 'lodash.identity';
 import SEARCH_CONFIG from './search-config';
@@ -75,9 +77,9 @@ function getRelatedObjects(geosearchResults, user) {
           getByUrl(pand._adressen.href).then((objecten) => {
             // In verblijfsobjecten the status field is really a vbo_status field
             // Rename this field to allow for tranparant processing of the search results
-            objecten.results.forEach((result) =>
-              result.vbo_status = result.vbo_status || result.status
-            );
+            objecten.results.forEach((result) => {
+              result.vbo_status = result.vbo_status || result.status;
+            });
             const formatted = (objecten && objecten.count)
               ? formatCategory('adres', objecten) : null;
             const extended = formatted ? {
@@ -89,9 +91,9 @@ function getRelatedObjects(geosearchResults, user) {
             } : null;
             return extended;
           }),
-          getByUrl(pand._monumenten.href).then((objecten) => {
-            return (objecten && objecten.count) ? formatCategory('monument', objecten) : null;
-          })
+          getByUrl(pand._monumenten.href).then((objecten) => (
+            (objecten && objecten.count) ? formatCategory('monument', objecten) : null
+          ))
         ];
 
         if (user.scopes.includes('HR/R')) {
@@ -129,7 +131,6 @@ function getRelatedObjects(geosearchResults, user) {
 
 export default function search(location, user) {
   const allRequests = [];
-  console.log(location)
 
   SEARCH_CONFIG.COORDINATES_ENDPOINTS.forEach((endpoint) => {
     const searchParams = {

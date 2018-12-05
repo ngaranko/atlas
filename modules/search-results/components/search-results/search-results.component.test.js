@@ -3,7 +3,7 @@ import {
 } from '../../../../src/shared/ducks/data-search/actions';
 import { FETCH_QUERY_SEARCH_RESULTS_SUCCESS } from '../../../../src/shared/ducks/data-search/constants';
 
-describe('The dp-search-results component', function () {
+xdescribe('The dp-search-results component', function () {
     let $compile,
         $rootScope,
         $q,

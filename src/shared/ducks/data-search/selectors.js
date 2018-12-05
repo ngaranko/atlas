@@ -18,4 +18,5 @@ export const getMapListResults = getStateOfKey('resultsMap');
 
 // Misc
 export const getDataSearchView = getStateOfKey('view');
+export const getDataSearchError = getStateOfKey('error');
 export const getNumberOfResults = getStateOfKey('numberOfResults');

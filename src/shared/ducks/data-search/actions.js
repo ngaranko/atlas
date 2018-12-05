@@ -4,7 +4,8 @@ import {
   FETCH_MAP_SEARCH_RESULTS_SUCCESS_LIST,
   FETCH_MAP_SEARCH_RESULTS_SUCCESS_PANEL,
   FETCH_QUERY_SEARCH_RESULTS_REQUEST,
-  FETCH_QUERY_SEARCH_RESULTS_SUCCESS, SET_GEO_LOCATION,
+  FETCH_QUERY_SEARCH_RESULTS_SUCCESS,
+  SET_GEO_LOCATION,
   SET_QUERY_CATEGORY
 } from './constants';
 
@@ -16,14 +17,14 @@ export const fetchMapSearchResultsRequest = (payload, isMap) => ({
     isMap
   }
 });
-export const fetchMapSearchResultsSuccessPanel = (payload) => ({
+export const fetchMapSearchResultsSuccessPanel = (results, numberOfResults) => ({
   type: FETCH_MAP_SEARCH_RESULTS_SUCCESS_PANEL,
-  payload
+  payload: { results, numberOfResults }
 });
 
-export const fetchMapSearchResultsSuccessList = (payload) => ({
+export const fetchMapSearchResultsSuccessList = (results, numberOfResults) => ({
   type: FETCH_MAP_SEARCH_RESULTS_SUCCESS_LIST,
-  payload
+  payload: { results, numberOfResults }
 });
 
 export const fetchMapSearchResultsFailure = (payload) => ({

@@ -56,12 +56,6 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH}`,
     page: PAGES.DATA_SEARCH
   },
-  detail: {
-    title: '',
-    path: '/map/detail',
-    type: `${ROUTER_NAMESPACE}/${PAGES.KAART_DETAIL}`,
-    page: PAGES.KAART_DETAIL
-  },
   panorama: {
     title: 'Panorama',
     path: '/datasets/panorama/:id',

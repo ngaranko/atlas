@@ -1,3 +1,5 @@
+// Todo: fix / add tests
+/* istanbul ignore file */
 import SEARCH_CONFIG from './search-config';
 import { getByUrl } from '../api/api';
 import SHARED_CONFIG from '../shared-config/shared-config';
@@ -8,14 +10,13 @@ function isString(value) {
 }
 
 // Todo: user.scopes.includes(endpoint.authScope)
-export function search(query, categorySlug, userAuthScope) {
-  console.log(categorySlug, '!!!!!!!!')
+export function search(query, categorySlug, user) {
   const queries = [];
   const params = { q: query };
   SEARCH_CONFIG.QUERY_ENDPOINTS.forEach((endpoint) => {
     if ((!isString(categorySlug) || categorySlug === endpoint.slug) &&
       endpoint.uri &&
-      (!endpoint.authScope || userAuthScope)
+      (!endpoint.authScope || user.scopes.includes(endpoint.authScope))
     ) {
       const options = endpoint.options || {};
       queries.push(
@@ -65,7 +66,7 @@ export function replaceBuurtcombinatie(searchResults) {
   results.forEach((result) => {
     result.results.forEach((item) => {
       if (item.subtype === 'buurtcombinatie') {
-        item.subtypeLabel = 'wijk';
+        item.subtypeLabel = 'wijk'; // eslint-disable-line no-param-reassign
       }
     });
   });
@@ -80,12 +81,12 @@ export function hasLoadMore(category, searchResults, isLoadMoreLoading) {
 }
 
 export function getNumberOfResults(searchResults) {
-  return searchResults.reduce((previous, current) => {
-    return previous + current.count +
-      (current.subResults
-        ? current.subResults.reduce((subPrevious, subCurrent) => {
-          return subPrevious + subCurrent.count;
-        }, 0)
-        : 0);
-  }, 0);
+  return searchResults.reduce((previous, current) => (
+    previous + current.count +
+    (current.subResults
+      ? current.subResults.reduce((subPrevious, subCurrent) => (
+        subPrevious + subCurrent.count
+      ), 0)
+      : 0)
+  ), 0);
 }

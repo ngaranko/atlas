@@ -1,13 +1,11 @@
+/* eslint-disable */
+// Todo: remove this file.
 import {
     getNumberOfResults,
     loadMore,
     replaceBuurtcombinatie
 } from '../../../../src/shared/services/search/search';
-import geosearch from '../../../../src/shared/services/search/geosearch';
-import {
-    fetchMapSearchResultsSuccessPanel,
-    showSearchResults
-} from '../../../../src/shared/ducks/data-search/actions';
+import { fetchMapSearchResultsSuccessPanel } from '../../../../src/shared/ducks/data-search/actions';
 
 (() => {
     'use strict';

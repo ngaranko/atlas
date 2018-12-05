@@ -25,7 +25,7 @@ import { toMap, toPanorama } from '../../../store/redux-first-router';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 
 jest.mock('../../../shared/ducks/detail/detail');
-jest.mock('../../../shared/ducks/data-search/data-search');
+jest.mock('../../../shared/ducks/data-search/selectors');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
 jest.mock('../../ducks/detail/map-detail');
 jest.mock('../../ducks/map/map-selectors');
@@ -86,7 +86,7 @@ describe('MapPreviewPanelContainer', () => {
   };
 
   beforeEach(() => {
-    getMapPanelResults.mockReturnValue({});
+    getMapPanelResults.mockReturnValue([]);
     getDataSearchLocation.mockReturnValue({
       latitude: 1,
       longitude: 0
