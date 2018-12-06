@@ -19,7 +19,7 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Panoramabeelden',
-    url: '/maps/panorama&version=1.3.0&service=WMS'
+    url: '/maps/panorama?version=1.3.0&service=WMS'
   },
   {
     category: 'Geografie: onroerende zaken',
