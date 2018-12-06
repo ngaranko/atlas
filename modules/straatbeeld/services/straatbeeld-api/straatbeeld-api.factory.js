@@ -22,16 +22,29 @@
             if (!angular.isArray(location)) {
                 return null;
             }
-            const locationRange = `near=${location[1]},${location[0]}&srid=${STRAATBEELD_CONFIG.SRID}`;
+            const locationRange =
+                `near=${location[1]},${location[0]}&srid=${STRAATBEELD_CONFIG.SRID}&newest_in_range=true`;
             const yearRange = (history.year)
                 ? `mission_year=${history.year}&mission_type=${history.missionType}`
-                : 'newest_in_range=true';
+                : '';
             const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 
-            return getStraatbeeld(
-                `${sharedConfig.API_ROOT}${prefix}/?${locationRange}&${yearRange}&${radius}`,
-                key
-            );
+            const q = $q.defer();
+            const url = `${sharedConfig.API_ROOT}${prefix}/?${locationRange}&${yearRange}&${radius}`;
+            api.getByUrl(url, undefined, cancel)
+                .then((json) => json._embedded)
+                .then((data) => (data && data[key]) ? data[key][0] : null)
+                .then((item) => {
+                    q.resolve(
+                        getStraatbeeld(
+                            `${item._links.adjacencies.href}?${yearRange}&newest_in_range=true`,
+                            'adjacencies'
+                        )
+                    );
+                })
+                .finally(() => cancel = null);
+
+            return q.promise;
         }
 
         function getImageDataById (id, history, key = 'adjacencies') {
@@ -87,7 +100,7 @@
                     image: {
                         baseurl: panorama.cubic_img_baseurl,
                         pattern: panorama.cubic_img_pattern,
-                        preview: panorama.cubic_img_baseurl
+                        preview: panorama.cubic_img_preview
                     }
                 };
             }
