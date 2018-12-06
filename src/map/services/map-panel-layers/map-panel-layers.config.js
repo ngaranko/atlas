@@ -334,8 +334,8 @@ export default [
       },
       {
         id: 'ggwpg',
+        layer: 'gebiedsgerichtwerkenpraktijkgebieden',
         selectable: true,
-        layer: 'gebiedsgerichtwerkenpraktijkgebieden'
         title: 'Gebiedsgerichtwerken-praktijkgebied'
       }
     ],
