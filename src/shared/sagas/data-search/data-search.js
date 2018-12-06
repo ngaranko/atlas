@@ -29,13 +29,14 @@ import { isMapPage } from '../../../store/redux-first-router';
 import { getMapZoom } from '../../../map/ducks/map/map-selectors';
 import ActiveOverlaysClass from '../../services/active-overlays/active-overlays';
 import { waitForAuthentication } from '../user/user';
+import { SELECTION_TYPE, setSelection } from '../../ducks/selection/selection';
 
 export function* fetchMapSearchResults() {
   const zoom = yield select(getMapZoom);
   const isMap = yield select(isMapPage);
   const location = yield select(getDataSearchLocation);
-
   try {
+    yield put(setSelection(SELECTION_TYPE.POINT));
     yield call(waitForAuthentication);
     const user = yield select(getUser);
     if (isMap) {
@@ -84,6 +85,7 @@ export function* fireSearchResultsRequest() {
   const query = yield select(getSearchQuery);
   const category = yield select(getSearchCategory);
   const isMap = yield select(isMapPage);
+
   // Todo: refactor the reducer, so we don't have this conditional statement
   if (location) {
     yield put(fetchMapSearchResultsRequest(location, isMap));

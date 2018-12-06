@@ -7,7 +7,6 @@ import { fetchMapSearchResults } from './data-search';
 import search from '../../../map/services/map-search/map-search';
 import geosearch from '../../services/search/geosearch';
 
-// Todo: unskip
 describe('fetchMapSearchResults', () => {
   it('should do a location search', () => {
     testSaga(fetchMapSearchResults, {})
@@ -15,6 +14,7 @@ describe('fetchMapSearchResults', () => {
       .next(12) // zoom
       .next(true) // isMap
       .next('location')
+      .next()
       .next()
       .next('user')
       .call(search, 'location', 'user')
@@ -31,6 +31,7 @@ describe('fetchMapSearchResults', () => {
       .next(false) // isMap
       .next('location')
       .next()
+      .next()
       .next('user')
       .call(geosearch, 'location', 'user')
       .next([])
@@ -42,6 +43,7 @@ describe('fetchMapSearchResults', () => {
   it('should throw error and put error', () => {
     const error = new Error('My Error');
     testSaga(fetchMapSearchResults, {})
+      .next()
       .next()
       .next()
       .next()

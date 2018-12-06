@@ -1,6 +1,4 @@
-import get from 'lodash.get';
 import { routing } from '../../../app/routes';
-import parseLocationString from '../../../map/ducks/map/location-parse';
 import { SET_GEOMETRY_FILTERS } from '../data-selection/constants';
 
 export const REDUCER_KEY = 'selection';
@@ -21,24 +19,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case routing.dataSearch.type:
-    case routing.map.type: {
-      const locationString = get(action, 'meta.query.locatie');
-      if (locationString) {
-        const latLngObj = parseLocationString(locationString);
-        return {
-          type: SELECTION_TYPE.POINT,
-          location: {
-            latitude: latLngObj.lat,
-            longitude: latLngObj.lng
-          }
-        };
-      }
-      return {
-        type: SELECTION_TYPE.NONE
-      };
-    }
-
     case routing.dataDetail.type:
       return {
         type: SELECTION_TYPE.OBJECT
@@ -56,15 +36,11 @@ const reducer = (state = initialState, action) => {
         ...initialState
       };
 
-    case SET_SELECTION: {
-      if (action.payload.selectionType === SELECTION_TYPE.POINT) {
-        return {
-          type: action.payload.selectionType,
-          location: action.payload.object
-        };
-      }
-      return state;
-    }
+    case SET_SELECTION:
+      return {
+        type: action.payload
+      };
+
     case CLEAR_SELECTION: {
       return {
         type: SELECTION_TYPE.NONE
@@ -80,24 +56,15 @@ export const previewDataAvailable = (state) =>
   // If either an object is selected or a point search is in progress, show preview panel
   state.selection.type === SELECTION_TYPE.POINT
   || state.selection.type === SELECTION_TYPE.OBJECT
-  // return Boolean(state.detail && state.detail.endpoint)
-  //   || Boolean(state.search &&
-  // state.search.mapSearchResultsByLocation &&
-  // Object.keys(state.search.mapSearchResultsByLocation).length
-  // );
-  ;
+;
 
 export const getSelectionType = (state) => (state[REDUCER_KEY].type);
-export const getSelectionLocation = (state) => (state[REDUCER_KEY].location);
 export const isGeoSearch = (state) => state[REDUCER_KEY].type === SELECTION_TYPE.POINT;
 
 // Action creators
-export const setSelection = (selectionType, object) => ({
+export const setSelection = (payload) => ({
   type: SET_SELECTION,
-  payload: {
-    selectionType,
-    object
-  }
+  payload
 });
 
 export default reducer;

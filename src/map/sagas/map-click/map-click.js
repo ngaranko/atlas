@@ -4,20 +4,14 @@ import { getPanoramaYear } from '../../../shared/ducks/panorama/panorama';
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
 import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
-import {
-  getSelectionType,
-  SELECTION_TYPE,
-  setSelection
-} from '../../../shared/ducks/selection/selection';
+import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 import { getImageDataByLocation } from '../../../shared/services/panorama-api/panorama-api';
 import {
-  getPage,
   isDataSelectionPage,
   toDataSearchLocationAndPreserveQuery,
   toPanorama
 } from '../../../store/redux-first-router';
 import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
-import PAGES from '../../../app/pages';
 import { VIEWS } from '../../../shared/ducks/data-selection/constants';
 import { getDataSelectionView } from '../../../shared/ducks/data-selection/selectors';
 
@@ -54,14 +48,9 @@ export function* switchClickAction(action) {
         }
       });
     } else {
-      yield put(setSelection(SELECTION_TYPE.POINT, location));
-      const currentPage = yield select(getPage);
       const isDataSelection = yield select(isDataSelectionPage);
       const currentView = yield select(getDataSelectionView);
-      if (currentPage === PAGES.DATA_SEARCH) {
-        // already on search page, don't switch pages
-        yield put(setGeoLocation(location));
-      } else if (isDataSelection && currentView !== VIEWS.MAP) {
+      if (isDataSelection && currentView !== VIEWS.MAP) {
         // we are in the dataselection route and not in the fullscreen map view
         yield put(toDataSearchLocationAndPreserveQuery());
       } else {
