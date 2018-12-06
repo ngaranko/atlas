@@ -28,13 +28,16 @@ import {
 import { isMapPage } from '../../../store/redux-first-router';
 import { getMapZoom } from '../../../map/ducks/map/map-selectors';
 import ActiveOverlaysClass from '../../services/active-overlays/active-overlays';
+import { waitForAuthentication } from '../user/user';
 
 export function* fetchMapSearchResults() {
   const zoom = yield select(getMapZoom);
-  const user = yield select(getUser);
-  const location = yield select(getDataSearchLocation);
   const isMap = yield select(isMapPage);
+  const location = yield select(getDataSearchLocation);
+
   try {
+    yield call(waitForAuthentication);
+    const user = yield select(getUser);
     if (isMap) {
       const mapSearchResults = yield call(search, location, user);
       yield put(fetchMapSearchResultsSuccessPanel(mapSearchResults));
@@ -63,6 +66,7 @@ function* setSearchResults(searchResults) {
 
 function* fetchQuerySearchResults(query, category) {
   const isQuery = isString(query);
+  yield call(waitForAuthentication);
   const user = yield select(getUser);
   if (isQuery) {
     if (isString(category) && category.length) {
@@ -97,6 +101,7 @@ export default function* watchDataSearch() {
     SET_GEO_LOCATION,
     SET_QUERY_CATEGORY,
     routing.map.type,
-    routing.dataSearch.type
+    routing.dataSearch.type,
+    routing.searchDatasets.type
   ], fireSearchResultsRequest);
 }

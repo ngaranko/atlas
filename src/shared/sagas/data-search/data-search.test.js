@@ -1,18 +1,22 @@
 import { testSaga } from 'redux-saga-test-plan';
 import {
-  fetchMapSearchResultsFailure,
+  fetchMapSearchResultsFailure, fetchMapSearchResultsSuccessList,
   fetchMapSearchResultsSuccessPanel
 } from '../../ducks/data-search/actions';
 import { fetchMapSearchResults } from './data-search';
 import search from '../../../map/services/map-search/map-search';
+import geosearch from '../../services/search/geosearch';
 
 // Todo: unskip
-describe.skip('fetchMapSearchResults', () => {
-  it('should dispatch the correct action', () => {
+describe('fetchMapSearchResults', () => {
+  it('should do a location search', () => {
     testSaga(fetchMapSearchResults, {})
       .next()
-      .next('user')
+      .next(12) // zoom
+      .next(true) // isMap
       .next('location')
+      .next()
+      .next('user')
       .call(search, 'location', 'user')
       .next('results')
       .put(fetchMapSearchResultsSuccessPanel('results'))
@@ -20,14 +24,30 @@ describe.skip('fetchMapSearchResults', () => {
       .isDone();
   });
 
+  it('should do a geolocation search', () => {
+    testSaga(fetchMapSearchResults, {})
+      .next()
+      .next(12) // zoom
+      .next(false) // isMap
+      .next('location')
+      .next()
+      .next('user')
+      .call(geosearch, 'location', 'user')
+      .next([])
+      .put(fetchMapSearchResultsSuccessList([], 0))
+      .next()
+      .isDone();
+  });
+
   it('should throw error and put error', () => {
     const error = new Error('My Error');
     testSaga(fetchMapSearchResults, {})
-      .next() // skip select
-      .next() // skip select
+      .next()
+      .next()
+      .next()
       .next()
       .throw(error)
-      .put(fetchMapSearchResultsFailure(error))
+      .put(fetchMapSearchResultsFailure(''))
       .next()
       .isDone();
   });

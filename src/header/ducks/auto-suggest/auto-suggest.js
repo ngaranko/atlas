@@ -47,6 +47,7 @@ export default function AutoSuggestReducer(state = initialState, action) {
         displayQuery: action.suggestion.label,
         typedQuery: action.suggestion === -1 ? '' : state.typedQuery
       };
+    case routing.dataSearch.type:
     case routing.searchDatasets.type:
       return {
         ...state,

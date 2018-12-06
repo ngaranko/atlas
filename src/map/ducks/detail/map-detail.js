@@ -73,7 +73,7 @@ export default function MapDetailReducer(state = initialState, action) {
     case FETCH_MAP_DETAIL_REQUEST:
       return {
         ...state,
-        currentEndpoint: action.endpoint,
+        currentEndpoint: action.payload,
         isLoading: true
       };
 
@@ -99,10 +99,9 @@ export default function MapDetailReducer(state = initialState, action) {
   }
 }
 
-export const getMapDetail = (endpoint, user) => ({
+export const getMapDetail = (payload) => ({
   type: FETCH_MAP_DETAIL_REQUEST,
-  endpoint,
-  user
+  payload
 });
 export const fetchMapDetailFailure = (error) => ({ type: FETCH_MAP_DETAIL_FAILURE, error });
 export const fetchMapDetailSuccess = (endpoint, mapDetail) => ({

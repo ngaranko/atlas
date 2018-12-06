@@ -35,7 +35,7 @@ export function search(query, categorySlug, user) {
     );
   }
   // All search results
-  return Promise.all(queries).then(formatCategories);
+  return Promise.all(queries).then((results) => formatCategories(results, user));
 }
 
 export function loadMore(category) {

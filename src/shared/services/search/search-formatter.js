@@ -61,12 +61,13 @@ export function formatCategory(slug, endpointSearchResults) {
   };
 }
 
-// Todo: user.scopes.includes(endpoint.authScope)
-export function formatCategories(allSearchResults, userAuthScope) {
+export function formatCategories(allSearchResults, user) {
   return allSearchResults
     .map((endpointSearchResults, index) =>
       formatCategory(SEARCH_CONFIG.QUERY_ENDPOINTS.filter(
-        (endpoint) => (!endpoint.authScope || userAuthScope))[index].slug, endpointSearchResults
+        (endpoint) => (
+          !endpoint.authScope || user.scopes.includes(endpoint.authScope))
+        )[index].slug, endpointSearchResults
       )
     );
 }

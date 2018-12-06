@@ -22,6 +22,7 @@ import {
   VIEWS
 } from '../../ducks/data-selection/constants';
 import { getDataSelection, getGeomarkersShape } from '../../ducks/data-selection/selectors';
+import { waitForAuthentication } from '../user/user';
 
 function* getMapMarkers(dataset, activeFilters) {
   const state = yield select();
@@ -41,6 +42,7 @@ function* retrieveDataSelection(action) {
     catalogFilters
   } = action.payload;
   try {
+    yield call(waitForAuthentication);
     const result = yield call(query,
       dataset, view, activeFilters, page, searchText, shape, catalogFilters);
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 import PanoramaPreview from '../../containers/PanoramaPreviewContainer';
 import MoreResultsWhenLoggedIn from '../PanelMessages/MoreResultsWhenLoggedIn';
-import SearchList from '../SearchList/SearchList';
+import SearchList from '../../containers/SearchListContainer';
 import NoDetailsAvailable from '../PanelMessages/NoDetailsAvailable';
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
 

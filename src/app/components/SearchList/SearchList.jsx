@@ -1,4 +1,5 @@
 import React from 'react';
+import get from 'lodash.get';
 import { AngularWrapper } from 'react-angular';
 import PropTypes from 'prop-types';
 import Panel from '../Panel/Panel';
@@ -7,7 +8,7 @@ const SearchList = ({ user, searchResults, setSearchCategory, fetchDetailPage })
   <div>
     {searchResults && searchResults.map((result) => (
       (result.count >= 1 || result.warning) &&
-      (!result.authScope || user.scopes.includes(result.authScope)) && (
+      (!result.authScope || get(user, 'scopes', []).includes(result.authScope)) && (
         <div
           key={result.label_plural}
           className={`c-search-results__block qa-search-results-category ${!!(result.subResults) && 'c-search-results__block--container'}`}
