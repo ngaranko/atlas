@@ -1,3 +1,5 @@
+import throttle from 'lodash.throttle';
+
 (function () {
     'use strict';
 
@@ -40,7 +42,16 @@
 
             scope.updateOrientation = function () {
                 if (!scope.state.isLoading) {
+                    // throttle(
+                    //     () => {
                     orientation.update(viewer);
+                    //     },
+                    //     300,
+                    //     {
+                    //         leading: true,
+                    //         trailing: true
+                    //     }
+                    // );
                 }
             };
 

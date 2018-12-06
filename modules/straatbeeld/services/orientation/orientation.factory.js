@@ -15,21 +15,16 @@ import { radiansToDegrees } from '../../../../src/shared/services/angle-conversi
         };
 
         function update (viewer) {
-            var pitch,
-                fov,
-                heading;
-
-            if (!viewer.view()) return;
-            pitch = radiansToDegrees(viewer.view().pitch());
-            fov = radiansToDegrees(viewer.view().fov());
-            heading = radiansToDegrees(viewer.view().yaw());
+            const heading = radiansToDegrees(viewer.view().yaw());
+            const pitch = radiansToDegrees(viewer.view().pitch());
+            const fov = radiansToDegrees(viewer.view().fov());
 
             store.dispatch({
                 type: ACTIONS.SET_STRAATBEELD_ORIENTATION,
                 payload: {
-                    heading: heading,
-                    pitch: pitch,
-                    fov: fov
+                    heading,
+                    pitch,
+                    fov
                 }
             });
         }
