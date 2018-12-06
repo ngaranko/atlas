@@ -114,7 +114,7 @@ function showStraatbeeldReducer(state, payload) {
     ...state,
     straatbeeld: isObject(state.straatbeeld) ? {
       ...state.straatbeeld,
-      id: payload && payload.id || state.straatbeeld.id,
+      id: (payload && payload.id) || state.straatbeeld.id,
       date: payload && payload.date,
       pitch: state.straatbeeld.pitch || 0,
       fov: state.straatbeeld.fov || STRAATBEELD_CONFIG.DEFAULT_FOV,

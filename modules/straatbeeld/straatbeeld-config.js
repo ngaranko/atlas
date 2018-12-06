@@ -1,6 +1,4 @@
 export default {
-    STRAATBEELD_ENDPOINT_ALL: 'panorama/recente_opnames/alle/',
-    STRAATBEELD_ENDPOINT_YEAR: 'panorama/recente_opnames/',
     STRAATBEELD_ENDPOINT_PREFIX: 'panorama/panoramas',
     STRAATBEELD_ENDPOINT_SUFFIX: 'adjacencies',
     DEFAULT_FOV: 80,

@@ -141,7 +141,6 @@ export default function MapReducer(state = initialState, action) {
 
     case MAP_ADD_PANO_OVERLAY: //eslint-disable-line
       const newLayer = getNewLayer(action.payload);
-      console.log('getnewlayer', newLayer);
       return overlayExists(state, newLayer) ? state : {
         ...state,
         overlays: [

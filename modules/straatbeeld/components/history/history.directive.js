@@ -27,7 +27,7 @@ import {historyOptions} from '../../../../src/shared/ducks/straatbeeld/straatbee
             scope.options = historyOptions;
 
             scope.selectedOption = historyOptions[0];
-            if (scope.history) {
+            if (scope.history && scope.history.year) {
                 scope.selectedOption = scope.options.find(
                     (option) => option.year === scope.history.year && option.missionType === scope.history.missionType);
             }

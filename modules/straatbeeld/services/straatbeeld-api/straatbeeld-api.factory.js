@@ -29,7 +29,7 @@
             const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 
             return getStraatbeeld(
-                `${sharedConfig.API_ROOT}${prefix}?${locationRange}&${yearRange}&${radius}`,
+                `${sharedConfig.API_ROOT}${prefix}/?${locationRange}&${yearRange}&${radius}`,
                 key
             );
         }
@@ -41,7 +41,7 @@
             const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 
             return getStraatbeeld(
-                `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}?${yearRange}&${radius}`,
+                `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}/?${yearRange}&${radius}`,
                 key
             );
         }
