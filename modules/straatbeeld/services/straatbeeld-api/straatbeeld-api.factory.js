@@ -18,58 +18,81 @@
             getImageDataById
         };
 
-        function getImageDataByLocation (location, history, key = 'panoramas') {
+        function getLocationHistoryParams (location, history) {
+            const yearTypeMission = (history.year)
+                ? `&mission_year=${history.year}&mission_type=${history.missionType}`
+                : '';
+            const newestInRange = 'newest_in_range=true';
+            return {
+                locationRange: `near=${location[1]},${location[0]}&srid=${STRAATBEELD_CONFIG.SRID}&page_size=1`,
+                newestInRange,
+                standardRadius: `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`,
+                largeRadius: `radius=${STRAATBEELD_CONFIG.LARGE_RADIUS}`,
+                yearTypeMission,
+                adjacenciesParams: `${newestInRange}${yearTypeMission}`
+            };
+        }
+
+        function getImageDataByLocation (location, history) {
             if (!angular.isArray(location)) {
                 return null;
             }
-            const locationRange =
-                `near=${location[1]},${location[0]}&srid=${STRAATBEELD_CONFIG.SRID}&newest_in_range=true`;
-            const yearRange = (history.year)
-                ? `mission_year=${history.year}&mission_type=${history.missionType}`
-                : '';
-            const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 
             const q = $q.defer();
-            const url = `${sharedConfig.API_ROOT}${prefix}/?${locationRange}&${yearRange}&${radius}`;
-            api.getByUrl(url, undefined, cancel)
-                .then((json) => json._embedded)
-                .then((data) => (data && data[key]) ? data[key][0] : null)
-                .then((item) => {
-                    const params = 'newest_in_range=true' +
-                        (history.year ? `&${yearRange}` : '');
-                    q.resolve(
-                        getStraatbeeld(
-                            `${item._links.adjacencies.href}?${params}`,
-                            'adjacencies'
-                        )
-                    );
+
+            const params = getLocationHistoryParams(location, history);
+            const getLocationUrl = `${sharedConfig.API_ROOT}${prefix}/?` +
+                `${params.locationRange}${params.yearTypeMission}`;
+
+            api.getByUrl(`${getLocationUrl}&${params.standardRadius}&${params.newestInRange}`, undefined, cancel)
+                .then((json) => json._embedded.panoramas[0])
+                .then((data) => {
+                    if (data) {
+                        // we found a pano nearby go to it
+                        q.resolve(
+                            getAdjaciencies(data._links.adjacencies.href, params.adjacenciesParams)
+                        );
+                    } else {
+                        // there is no pano nearby search with a large radius and go to it
+                        api.getByUrl(`${getLocationUrl}&${params.largeRadius}`, undefined, cancel)
+                            .then((json) => json._embedded.panoramas[0])
+                            .then((pano) => {
+                                q.resolve(
+                                    getAdjaciencies(pano._links.adjacencies.href, params.adjacenciesParams)
+                                );
+                            });
+                    }
                 })
                 .finally(() => cancel = null);
 
             return q.promise;
         }
 
-        function getImageDataById (id, history, key = 'adjacencies') {
+        function getAdjaciencies (url, adjacenciesParams) {
+            const getAdjacenciesUrl = `${url}?${adjacenciesParams}`;
+            return getStraatbeeld(getAdjacenciesUrl);
+        }
+
+        function getImageDataById (id, history) {
             const yearRange = (history.year)
                 ? `mission_year=${history.year}&mission_type=${history.missionType}`
                 : 'newest_in_range=true';
             const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 
             return getStraatbeeld(
-                `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}/?${yearRange}&${radius}`,
-                key
+                `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}/?${yearRange}&${radius}`
             );
         }
 
-        function getStraatbeeld (url, key) {
+        function getStraatbeeld (url) {
             if (cancel) {
                 // Cancel any outstanding requests
+                console.log('cancel call: ', url);
                 cancel.resolve();
             }
             cancel = $q.defer();
             return api.getByUrl(url, undefined, cancel)
-                .then((json) => json._embedded)
-                .then((data) => (data) ? data[key] : null)
+                .then((json) => json._embedded.adjacencies)
                 .then(imageData)
                 .finally(() => cancel = null);
         }
@@ -102,7 +125,7 @@
                     image: {
                         baseurl: panorama.cubic_img_baseurl,
                         pattern: panorama.cubic_img_pattern,
-                        preview: panorama.cubic_img_preview
+                        preview: panorama._links.cubic_img_preview.href
                     }
                 };
             }

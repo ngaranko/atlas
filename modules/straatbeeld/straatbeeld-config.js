@@ -3,7 +3,8 @@ export default {
     STRAATBEELD_ENDPOINT_SUFFIX: 'adjacencies',
     DEFAULT_FOV: 80,
     MAX_FOV: 90,
-    MAX_RADIUS: 25,
+    MAX_RADIUS: 50,
+    LARGE_RADIUS: 100000,
     MAX_RESOLUTION: 12 * 1024,
     SRID: 4326, // For latitude, longitude
     CAMERA_HEIGHT: 1.8,

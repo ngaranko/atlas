@@ -114,24 +114,24 @@ function showStraatbeeldReducer(state, payload) {
     ...state,
     straatbeeld: isObject(state.straatbeeld) ? {
       ...state.straatbeeld,
-      id: (payload && payload.id) || state.straatbeeld.id,
-      date: payload && payload.date,
+      id: payload.id || state.straatbeeld.id,
+      date: payload.date,
       pitch: state.straatbeeld.pitch || 0,
       fov: state.straatbeeld.fov || STRAATBEELD_CONFIG.DEFAULT_FOV,
       heading: Array.isArray(state.straatbeeld.location) &&
       Array.isArray(state.straatbeeld.targetLocation)
-        ? getHeadingDegrees(payload && payload.location, state.straatbeeld.targetLocation)
+        ? getHeadingDegrees(payload.location, state.straatbeeld.targetLocation)
         : state.straatbeeld.heading,
-      hotspots: payload && payload.hotspots,
+      hotspots: payload.hotspots,
       isLoading: false,
-      location: payload && payload.location,
-      image: payload && payload.image
+      location: payload.location,
+      image: payload.image
     } : state.straatbeeld,
     map: isObject(state.map) && isObject(state.straatbeeld) ? {
       ...state.map,
       isLoading: false,
       viewCenter: isObject(state.straatbeeld) && !Array.isArray(state.straatbeeld.location)
-        ? payload && payload.location : state.map.viewCenter
+        ? payload.location : state.map.viewCenter
     } : state.map
   };
 }
@@ -149,7 +149,7 @@ function showStraatbeeldSubsequentReducer(oldState, payload) {
     ...state,
     map: isObject(state.map) ? {
       ...state.map,
-      viewCenter: isObject(state.straatbeeld) ? payload && payload.location : state.map.viewCenter
+      viewCenter: isObject(state.straatbeeld) ? payload.location : state.map.viewCenter
     } : state.map
   };
 }
@@ -171,7 +171,7 @@ function setStraatbeeldHistoryReducer(state, payload) {
     ...state,
     straatbeeld: isObject(state.straatbeeld) ? {
       ...state.straatbeeld,
-      history: { ...payload }
+      history: payload
     } : state.straatbeeld
   };
 }

@@ -38,18 +38,19 @@
             container = element[0].querySelector('.js-marzipano-viewer');
             viewer = marzipanoService.initialize(container);
 
+            scope.shouldUpdate = false;
+
+            scope.startUpdating = function () {
+                scope.shouldUpdate = true;
+            };
+
+            scope.stopUpdating = function () {
+                scope.shouldUpdate = false;
+            };
+
             scope.updateOrientation = function () {
-                if (!scope.state.isLoading) {
-                    // throttle(
-                    //     () => {
+                if (!scope.state.isLoading && scope.shouldUpdate) {
                     orientation.update(viewer);
-                    //     },
-                    //     300,
-                    //     {
-                    //         leading: true,
-                    //         trailing: true
-                    //     }
-                    // );
                 }
             };
 
