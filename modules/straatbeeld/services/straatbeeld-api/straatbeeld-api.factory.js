@@ -35,9 +35,11 @@
                 .then((json) => json._embedded)
                 .then((data) => (data && data[key]) ? data[key][0] : null)
                 .then((item) => {
+                    const params = 'newest_in_range=true' +
+                        (history.year ? `&${yearRange}` : '');
                     q.resolve(
                         getStraatbeeld(
-                            `${item._links.adjacencies.href}?${yearRange}&newest_in_range=true`,
+                            `${item._links.adjacencies.href}?${params}`,
                             'adjacencies'
                         )
                     );

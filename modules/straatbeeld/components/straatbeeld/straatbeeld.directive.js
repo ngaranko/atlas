@@ -1,5 +1,3 @@
-import throttle from 'lodash.throttle';
-
 (function () {
     'use strict';
 
