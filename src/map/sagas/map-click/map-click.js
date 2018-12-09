@@ -6,14 +6,8 @@ import { getMapZoom } from '../../ducks/map/map-selectors';
 import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 import { getImageDataByLocation } from '../../../shared/services/panorama-api/panorama-api';
-import {
-  isDataSelectionPage,
-  toDataSearchLocationAndPreserveQuery,
-  toPanorama
-} from '../../../store/redux-first-router';
+import { toPanorama } from '../../../store/redux-first-router';
 import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
-import { VIEWS } from '../../../shared/ducks/data-selection/constants';
-import { getDataSelectionView } from '../../../shared/ducks/data-selection/selectors';
 
 function getHeadingDegrees([x1, y1], [x2, y2]) {
   return (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
@@ -48,14 +42,7 @@ export function* switchClickAction(action) {
         }
       });
     } else {
-      const isDataSelection = yield select(isDataSelectionPage);
-      const currentView = yield select(getDataSelectionView);
-      if (isDataSelection && currentView !== VIEWS.MAP) {
-        // we are in the dataselection route and not in the fullscreen map view
-        yield put(toDataSearchLocationAndPreserveQuery());
-      } else {
-        yield put(setGeoLocation(location));
-      }
+      yield put(setGeoLocation(location));
     }
   }
 }

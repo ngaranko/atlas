@@ -86,9 +86,9 @@ const getDetailPageData = (endpoint) => {
     id: matches[3]
   };
 };
-export const getPageActionEndpoint = (endpoint, view) => {
+export const getPageActionEndpoint = (endpoint) => {
   const { type, subtype, id } = getDetailPageData(endpoint);
-  return toDataDetail(id, type, subtype, view);
+  return toDataDetail(id, type, subtype);
 };
 export const pageTypeToEndpoint = (type, subtype, id) => {
   let endpoint = 'https://acc.api.data.amsterdam.nl/';
@@ -99,6 +99,17 @@ export const toDataSearch = (searchQuery, skipFetch = false) => ({
   type: routing.dataSearch.type,
   meta: {
     skipFetch,
+    query: {
+      zoekterm: searchQuery
+    }
+  }
+});
+export const toDataSearchCategory = (searchQuery, category) => ({
+  type: routing.dataSearchCategory.type,
+  payload: {
+    category
+  },
+  meta: {
     query: {
       zoekterm: searchQuery
     }
@@ -175,6 +186,13 @@ export const isMapView = createSelector(
   )
 );
 
+export const isLocationSelected = createSelector(
+  getLocationQuery,
+  (query) => (
+    Object.prototype.hasOwnProperty.call(query, 'locatie') || false
+  )
+);
+
 export const isHomepage = createSelector(getPage, (page) => page === PAGES.HOME);
 
 export const isMapPage = createSelector(getPage, (page) => page === PAGES.MAP);
@@ -200,4 +218,12 @@ export const isDataSelectionPage = createSelector(
   (page) => page === PAGES.ADDRESSES
     || page === PAGES.CADASTRAL_OBJECTS
     || page === PAGES.ESTABLISHMENTS
+);
+
+export const isDataSearch = createSelector(
+  getPage,
+  isMapActive,
+  isLocationSelected,
+  (page, mapActive, locationSelected) =>
+    (page === PAGES.DATA_SEARCH || (mapActive && locationSelected))
 );

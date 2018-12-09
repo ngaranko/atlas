@@ -9,19 +9,19 @@ const Tab = ({ label, count, onClick, isCurrentTab }) => (
       onClick={onClick}
       className="o-tabs__tab o-tabs__tab--link"
     >
-      {label} {(count) ? <span>({count})</span> : null}
+      {label} {(count !== null) && <span>({count})</span>}
     </button>
     }
     {isCurrentTab &&
     <span className="qa-tab-header__active o-tabs__tab o-tabs__tab--active">
-      {label} {(count) ? <span>({count})</span> : null}
+      {label} {(count !== null) && <span>({count})</span>}
     </span>
     }
   </li>
 );
 
 Tab.defaultProps = {
-  count: null,
+  count: 0,
   isCurrentTab: false
 };
 

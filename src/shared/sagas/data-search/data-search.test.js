@@ -13,6 +13,8 @@ describe('fetchMapSearchResults', () => {
       .next()
       .next(12) // zoom
       .next(true) // isMap
+      .next(true) // isMapActive
+      .next(true) // isDataSearch
       .next('location')
       .next()
       .next()
@@ -29,6 +31,8 @@ describe('fetchMapSearchResults', () => {
       .next()
       .next(12) // zoom
       .next(false) // isMap
+      .next(false) // isMapActive
+      .next(true) // isDataSearch
       .next('location')
       .next()
       .next()
@@ -43,6 +47,8 @@ describe('fetchMapSearchResults', () => {
   it('should throw error and put error', () => {
     const error = new Error('My Error');
     testSaga(fetchMapSearchResults, {})
+      .next()
+      .next()
       .next()
       .next()
       .next()

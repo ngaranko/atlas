@@ -3,6 +3,8 @@ import {
   FETCH_MAP_SEARCH_RESULTS_REQUEST,
   FETCH_MAP_SEARCH_RESULTS_SUCCESS_LIST,
   FETCH_MAP_SEARCH_RESULTS_SUCCESS_PANEL,
+  FETCH_QUERY_SEARCH_MORE_RESULTS_REQUEST,
+  FETCH_QUERY_SEARCH_MORE_RESULTS_SUCCESS,
   FETCH_QUERY_SEARCH_RESULTS_REQUEST,
   FETCH_QUERY_SEARCH_RESULTS_SUCCESS,
   SET_GEO_LOCATION,
@@ -43,8 +45,20 @@ export const showSearchResults = (results, query, numberOfResults) => ({
   }
 });
 
-export const fetchSearchResultsByQuery = (payload) => ({
+export const fetchSearchResultsByQuery = (payload, loadMore = false) => ({
   type: FETCH_QUERY_SEARCH_RESULTS_REQUEST,
+  payload,
+  meta: {
+    loadMore
+  }
+});
+
+export const fetchMoreResults = () => ({
+  type: FETCH_QUERY_SEARCH_MORE_RESULTS_REQUEST
+});
+
+export const fetchMoreResultsSuccess = (payload) => ({
+  type: FETCH_QUERY_SEARCH_MORE_RESULTS_SUCCESS,
   payload
 });
 

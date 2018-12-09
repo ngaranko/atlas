@@ -26,6 +26,7 @@ import { getPage } from '../store/redux-first-router';
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe';
 import SearchPage from './pages/SearchPage';
 import DatasetPage from './pages/DatasetPage';
+import { DataSearchQuery } from './components/DataSearch';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -120,6 +121,13 @@ const App = ({
               {(currentPage === PAGES.DATA_SEARCH || currentPage === PAGES.SEARCH_DATASETS) &&
               <SearchPage />
               }
+
+              {/* Todo: DP-6391 */}
+              {(currentPage === PAGES.DATA_SEARCH_CATEGORY) && (
+              <div className="c-search-results u-grid">
+                <DataSearchQuery />
+              </div>
+              )}
 
               {currentPage === PAGES.MAP && <MapPage />}
 

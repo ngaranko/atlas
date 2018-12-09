@@ -11,7 +11,7 @@ import {
 } from '../../shared/ducks/datasets/datasets';
 import { getActiveFilters } from '../../shared/ducks/filters/filters';
 import { getUser } from '../../shared/ducks/user/user';
-import Dataset from '../containers/DatasetContainer';
+import Dataset from '../components/Dataset';
 
 const DatasetPage = ({
   activeFilters,

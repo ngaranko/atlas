@@ -1,5 +1,10 @@
-import { getDataSearchLocation, getDataSearchView, getSearchQuery } from './selectors';
-import { SEARCH_VIEW, SET_GEO_LOCATION } from './constants';
+import {
+  getDataSearchLocation,
+  getDataSearchView,
+  getSearchCategory,
+  getSearchQuery
+} from './selectors';
+import { SEARCH_VIEW, SET_GEO_LOCATION, SET_QUERY_CATEGORY, initialState } from './constants';
 import parseLocationString from '../../../map/ducks/map/location-parse';
 
 const getLocationString = (state) => {
@@ -25,6 +30,13 @@ export default {
     decode: (val) => ((val) ? SEARCH_VIEW.MAP_SEARCH : SEARCH_VIEW.SEARCH),
     defaultValue: SEARCH_VIEW.SEARCH
   },
+  categorie: {
+    stateKey: 'category',
+    selector: getSearchCategory,
+    decode: (val) => val,
+    defaultValue: initialState.category,
+    addHistory: true
+  },
   locatie: {
     stateKey: 'geoSearch',
     selector: getLocationString,
@@ -42,4 +54,4 @@ export default {
   }
 };
 
-export const ACTIONS = [SET_GEO_LOCATION];
+export const ACTIONS = [SET_GEO_LOCATION, SET_QUERY_CATEGORY];

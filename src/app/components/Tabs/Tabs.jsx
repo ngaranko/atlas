@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Tabs = ({ children: childrenProp, noResults, tip, currentTab }) => {
+const Tabs = ({ children: childrenProp, currentTab }) => {
   let childIndex = 0;
   const children = React.Children.map(childrenProp, (child) => {
     if (!React.isValidElement(child)) {
@@ -23,29 +23,18 @@ const Tabs = ({ children: childrenProp, noResults, tip, currentTab }) => {
           {children}
         </ul>
       </div>
-
-      {noResults ? (
-        <div>
-          <div className="u-margin__bottom--1">Geen resultaten van deze soort</div>
-          {tip && <div>Tip: {tip}</div>}
-        </div>
-      ) : null}
     </div>
   );
 };
 
 Tabs.defaultProps = {
   children: null,
-  currentTab: false,
-  tip: false,
-  noResults: false
+  currentTab: false
 };
 
 Tabs.propTypes = {
   children: PropTypes.node,
-  tip: PropTypes.string,
-  currentTab: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-  noResults: PropTypes.bool
+  currentTab: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool])
 };
 
 export default Tabs;

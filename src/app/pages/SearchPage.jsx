@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MapContainer from '../../map/containers/map/MapContainer';
-import QuerySearchContainer from '../containers/QuerySearchContainer';
+import QuerySearch from '../components/QuerySearch';
 import { getSearchQuery } from '../../shared/ducks/data-search/selectors';
 import { toMapAndPreserveQuery as toMapActionCreator } from '../../store/redux-first-router';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
@@ -11,7 +11,7 @@ import LocationSearchContainer from '../containers/LocationSearchContainer';
 
 const SearchPage = ({ query, toMap }) => {
   if (query) {
-    return <QuerySearchContainer />;
+    return <QuerySearch />;
   }
   return (
     <SplitScreen

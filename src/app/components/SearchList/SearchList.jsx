@@ -1,111 +1,51 @@
 import React from 'react';
-import get from 'lodash.get';
-import { AngularWrapper } from 'react-angular';
 import PropTypes from 'prop-types';
-import Panel from '../Panel/Panel';
+import { getPageActionEndpoint } from '../../../store/redux-first-router';
+import SearchListItem from '../SearchListItem/SearchListItem';
 
-const SearchList = ({ user, searchResults, setSearchCategory, fetchDetailPage }) => (
-  <div>
-    {searchResults && searchResults.map((result) => (
-      (result.count >= 1 || result.warning) &&
-      (!result.authScope || get(user, 'scopes', []).includes(result.authScope)) && (
-        <div
-          key={result.label_plural}
-          className={`c-search-results__block qa-search-results-category ${!!(result.subResults) && 'c-search-results__block--container'}`}
-        >
-          <div className="c-search-results__block-content">
-            <h2 className="o-header__subtitle qa-search-header">
-              {(result.count > 1) && (
-                <span>{result.label_plural} (
-                  <span className="qa-search-header-count">{result.count}</span>
-                  )
-                </span>
-              )}
-
-              {(result.count === 1) && (
-                <span>{result.label_singular}</span>
-              )}
-              {(result.count === 0) && (
-                <span>{result.label_plural}</span>
-              )}
-            </h2>
-
-            {(!!result.warning) &&
-            <Panel
-              isPanelVisible={result.warning}
-              canClose
-              type="warning"
-            >
-              {result.warning}
-              {/* TODO: */}
-              Zie LINK
-            </Panel>
-            }
-            <div className="qa-search-results-list">
-              <AngularWrapper
-                moduleName={'dpSearchResultsListWrapper'}
-                component="dpSearchResultsList"
-                dependencies={['atlas']}
-                bindings={{
-                  limitResults: true,
-                  category: result
-                }}
-              />
-            </div>
-
-            {(result.count > 10) &&
-            <div>
-              {(result.more) ?
-                <button
-                  className="qa-show-more c-show-more o-list__separate-item"
-                  type="button"
-                  onClick={() => fetchDetailPage(result.more.endpoint)}
-                >
-                  {result.more.label}
-                </button>
-                :
-                <button
-                  type="button"
-                  className="qa-show-more c-show-more o-list__separate-item"
-                  onClick={() => setSearchCategory(result.slug)}
-                >
-                  Toon alle {result.count}
-                </button>
-              }
-            </div>
-            }
-          </div>
-
-          <div className="s-indented-list">
-            {!!result.subResults &&
-            <SearchList
-              searchResults={result.subResults}
-              {...{
-                fetchDetailPage,
-                setSearchCategory,
-                user
-              }}
-            />
-            }
-          </div>
-        </div>
-      )
-    ))}
-
-  </div>
-
-);
+const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults }) => {
+  const results = (categoryResults && categoryResults.results) ?
+    categoryResults.results.map((result) => ({
+      ...result,
+      linkTo: getPageActionEndpoint(result.endpoint)
+    })) : [];
+  return (
+    <div className="qa-search-results-list">
+      <ul className="o-list">
+        {results.slice(0, limit).map((result, i) => (
+          <SearchListItem
+            key={`${result.label}-${i}`} // eslint-disable-line react/no-array-index-key
+            {...{
+              category: categoryResults,
+              result
+            }}
+          />
+        ))}
+      </ul>
+      {hasLoadMore &&
+      <button
+        type="button"
+        className="c-show-more c-show-more--gray qa-show-more"
+        onClick={fetchMoreResults}
+        tabIndex="0"
+      >
+        Toon meer
+      </button>
+      }
+    </div>
+  );
+};
 
 SearchList.defaultProps = {
-  numberOfResults: 0
+  hasLoadMore: false,
+  limit: undefined
 };
 
 SearchList.propTypes = {
-  user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  // category: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
-  setSearchCategory: PropTypes.func.isRequired,
-  fetchDetailPage: PropTypes.func.isRequired,
-  searchResults: PropTypes.arrayOf(PropTypes.object).isRequired
+  categoryResults: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  hasLoadMore: PropTypes.bool,
+  fetchMoreResults: PropTypes.func.isRequired,
+  limit: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
 };
 
 export default SearchList;

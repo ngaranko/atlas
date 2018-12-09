@@ -7,6 +7,7 @@ import NotAuthorizedPanel from '../PanelMessages/NotAuthorizedMessage';
 import DatasetActiveFilters from '../../containers/DatasetActiveFiltersContainer';
 import { DEFAULT_DATASET } from '../../../shared/ducks/datasets/data/data';
 import MaxPageMessage from '../PanelMessages/MaxPageMessage';
+import NoResultsForSearchType from '../Messages/NoResultsForSearchType';
 
 const Dataset = ({
   setPage,
@@ -29,6 +30,15 @@ const Dataset = ({
     'u-col-sm--12': !showFilters,
     'u-col-sm--9': showFilters
   });
+
+  if (numberOfRecords === 0) {
+    return (
+      <NoResultsForSearchType
+        tip={`maak de zoekcriteria minder specifiek. Of probeer in plaats van zoeken eens de
+              optie 'Alle datasets tonen' en filter vervolgens op thema.`}
+      />
+    );
+  }
 
   return (
     <div>

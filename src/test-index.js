@@ -102,13 +102,6 @@ import '../modules/page/components/page/page.component';
 import '../modules/page/components/user-content-widget/user-content-widget.component';
 import '../modules/page/page-config.constant';
 import '../modules/page/services/page-name/page-name.factory';
-import '../modules/search-results/search-results.module';
-import '../modules/search-results/components/search-results/header/search-results-header.component';
-import '../modules/search-results/components/search-results/list/search-results-list.component';
-import '../modules/search-results/components/search-results/search-results.component';
-import '../modules/search-results/search-config.constant';
-import '../modules/search-results/services/document-title/document-title.factory';
-import '../modules/search-results/services/search-title/search-title.factory';
 import '../modules/shared/shared.module';
 import '../modules/shared/components/anchor-link/anchor-link.component';
 import '../modules/shared/components/anchor-link/anchor-link.constant';
@@ -168,11 +161,6 @@ import '../modules/shared/components/button/button.component.mock';
 import '../modules/shared/components/link/link.component.mock';
 
 // All our modules' javascript tests
-import '../modules/search-results/components/search-results/search-results.component.test';
-import '../modules/search-results/components/search-results/header/search-results-header.component.test';
-import '../modules/search-results/components/search-results/list/search-results-list.component.test';
-import '../modules/search-results/services/document-title/document-title.factory.test';
-import '../modules/search-results/services/search-title/search-title.factory.test';
 import '../modules/data-selection/components/available-filters/available-filters.component.test';
 import '../modules/data-selection/components/sbi-filter/sbi-filter.component.test';
 import '../modules/data-selection/components/views/table/table.component.test';

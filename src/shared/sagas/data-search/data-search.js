@@ -7,42 +7,62 @@ import {
   fetchMapSearchResultsRequest,
   fetchMapSearchResultsSuccessList,
   fetchMapSearchResultsSuccessPanel,
+  fetchMoreResultsSuccess,
   showSearchResults
 } from '../../ducks/data-search/actions';
 import { routing } from '../../../app/routes';
 import {
   FETCH_MAP_SEARCH_RESULTS_REQUEST,
+  FETCH_QUERY_SEARCH_MORE_RESULTS_REQUEST,
   SET_GEO_LOCATION,
   SET_QUERY_CATEGORY
 } from '../../ducks/data-search/constants';
 import {
   getDataSearchLocation,
   getSearchCategory,
-  getSearchQuery
+  getSearchQuery,
+  getSearchQueryResults
 } from '../../ducks/data-search/selectors';
 import {
   getNumberOfResults as getNrOfSearchResults,
+  loadMore as vanillaLoadMore,
   replaceBuurtcombinatie,
   search as vanillaSearch
 } from '../../services/search/search';
-import { isMapPage } from '../../../store/redux-first-router';
+import {
+  isDataSearch,
+  isMapActive,
+  isMapPage,
+  toDataSearchLocationAndPreserveQuery,
+  toMapAndPreserveQuery
+} from '../../../store/redux-first-router';
 import { getMapZoom } from '../../../map/ducks/map/map-selectors';
 import ActiveOverlaysClass from '../../services/active-overlays/active-overlays';
 import { waitForAuthentication } from '../user/user';
 import { SELECTION_TYPE, setSelection } from '../../ducks/selection/selection';
 
+// Todo: DP-6390
 export function* fetchMapSearchResults() {
   const zoom = yield select(getMapZoom);
   const isMap = yield select(isMapPage);
+  const mapActive = yield select(isMapActive);
+  const isDataSearchPage = yield select(isDataSearch);
   const location = yield select(getDataSearchLocation);
   try {
     yield put(setSelection(SELECTION_TYPE.POINT));
     yield call(waitForAuthentication);
     const user = yield select(getUser);
-    if (isMap) {
+
+    if (!isDataSearchPage) { // User is not on a search page so go to data-search page
+      if (mapActive) {
+        yield put(toMapAndPreserveQuery());
+      } else {
+        yield put(toDataSearchLocationAndPreserveQuery());
+      }
+    } else if (isMap) { // if user is on the map page, fetch request for map-panel
       const mapSearchResults = yield call(search, location, user);
       yield put(fetchMapSearchResultsSuccessPanel(mapSearchResults));
-    } else {
+    } else { // user is on data-search page
       const geoSearchResults = yield call(geosearch, location, user);
       const results = replaceBuurtcombinatie(geoSearchResults);
       yield put(fetchMapSearchResultsSuccessList(results, getNrOfSearchResults(geoSearchResults)));
@@ -65,10 +85,12 @@ function* setSearchResults(searchResults) {
   yield put(showSearchResults(result, query, numberOfResults));
 }
 
-function* fetchQuerySearchResults(query, category) {
-  const isQuery = isString(query);
+function* fetchQuerySearchResults() {
+  const query = yield select(getSearchQuery);
+  const category = yield select(getSearchCategory);
   yield call(waitForAuthentication);
   const user = yield select(getUser);
+  const isQuery = isString(query);
   if (isQuery) {
     if (isString(category) && category.length) {
       const results = yield vanillaSearch(query, category, user);
@@ -86,12 +108,17 @@ export function* fireSearchResultsRequest() {
   const category = yield select(getSearchCategory);
   const isMap = yield select(isMapPage);
 
-  // Todo: refactor the reducer, so we don't have this conditional statement
   if (location) {
     yield put(fetchMapSearchResultsRequest(location, isMap));
   } else if (query) {
     yield call(fetchQuerySearchResults, query, category);
   }
+}
+
+function* loadMore() {
+  const storedResults = yield select(getSearchQueryResults);
+  const results = yield vanillaLoadMore(storedResults[0]);
+  yield put(fetchMoreResultsSuccess([results]));
 }
 
 export default function* watchDataSearch() {
@@ -100,10 +127,15 @@ export default function* watchDataSearch() {
   ], fetchMapSearchResults);
 
   yield takeLatest([
+    FETCH_QUERY_SEARCH_MORE_RESULTS_REQUEST
+  ], loadMore);
+
+  yield takeLatest([
     SET_GEO_LOCATION,
     SET_QUERY_CATEGORY,
     routing.map.type,
     routing.dataSearch.type,
-    routing.searchDatasets.type
+    routing.searchDatasets.type,
+    routing.dataSearchCategory.type
   ], fireSearchResultsRequest);
 }

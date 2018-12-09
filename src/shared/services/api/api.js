@@ -1,18 +1,22 @@
 import getState from '../redux/get-state';
 import SHARED_CONFIG from '../shared-config/shared-config';
 import { encodeQueryParams } from '../query-string-parser/query-string-parser';
+import { logout } from '../auth/auth';
 
 export const getAccessToken = () => getState().user.accessToken;
 
 export const generateParams = (data) => Object.entries(data).map((pair) => pair.map(encodeURIComponent).join('=')).join('&');
 
 const handleErrors = (response) => {
+  // Todo:
+  if (response.status >= 400 && response.status <= 401) {
+    logout();
+  }
   if (!response.ok) {
     throw Error(response.statusText);
   }
   return response;
 };
-
 
 // TODO: This function is not used yet because it is not finished
 // cancel functionality doesn't work yet and is needed for the straatbeeld-api.js

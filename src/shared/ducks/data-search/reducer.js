@@ -3,6 +3,7 @@ import {
   FETCH_MAP_SEARCH_RESULTS_REQUEST,
   FETCH_MAP_SEARCH_RESULTS_SUCCESS_LIST,
   FETCH_MAP_SEARCH_RESULTS_SUCCESS_PANEL,
+  FETCH_QUERY_SEARCH_MORE_RESULTS_SUCCESS,
   FETCH_QUERY_SEARCH_RESULTS_FAILURE,
   FETCH_QUERY_SEARCH_RESULTS_REQUEST,
   FETCH_QUERY_SEARCH_RESULTS_SUCCESS,
@@ -13,6 +14,7 @@ import {
 } from './constants';
 import { getStateFromQuery } from '../../../store/query-synchronization';
 import urlParams from './query';
+import { routing } from '../../../app/routes';
 
 export { REDUCER_KEY };
 
@@ -23,6 +25,11 @@ export default function reducer(state = initialState, action) {
   };
 
   switch (action.type) {
+    case routing.dataSearchCategory.type:
+      return {
+        ...enrichedState,
+        category: action.payload.category
+      };
     case FETCH_QUERY_SEARCH_RESULTS_REQUEST:
       return {
         ...initialState,
@@ -37,6 +44,18 @@ export default function reducer(state = initialState, action) {
         isLoading: false,
         numberOfResults,
         resultsQuery: results
+      };
+    }
+
+    case FETCH_QUERY_SEARCH_MORE_RESULTS_SUCCESS: {
+      return {
+        ...enrichedState,
+        isLoading: false,
+        numberOfResults: 999,
+        resultsQuery: [{
+          ...state.resultsQuery[0],
+          ...action.payload[0]
+        }]
       };
     }
 

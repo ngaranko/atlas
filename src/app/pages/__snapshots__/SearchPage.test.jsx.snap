@@ -12,4 +12,4 @@ exports[`SearchPage shows map search results if no query is provided 1`] = `
 />
 `;
 
-exports[`SearchPage shows text search result if query is provided 1`] = `<Connect(QuerySearchContainer) />`;
+exports[`SearchPage shows text search result if query is provided 1`] = `<Connect(QuerySearch) />`;

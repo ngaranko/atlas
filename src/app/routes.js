@@ -56,6 +56,12 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH}`,
     page: PAGES.DATA_SEARCH
   },
+  dataSearchCategory: {
+    title: 'Data zoeken',
+    path: '/data/:category',
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATA_SEARCH_CATEGORY}`,
+    page: PAGES.DATA_SEARCH_CATEGORY
+  },
   panorama: {
     title: 'Panorama',
     path: '/datasets/panorama/:id',

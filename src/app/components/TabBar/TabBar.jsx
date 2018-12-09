@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Todo: DP-6389
 const TabBar = ({ totalCount, goToDatasets, searchQuery, children, showDatasetsButton }) => (
   <div>
     <h1 className="qa-tab-header__title c-tab-header__title">
@@ -14,8 +15,6 @@ const TabBar = ({ totalCount, goToDatasets, searchQuery, children, showDatasetsB
           Geen resultaten met &apos;{searchQuery}&apos;
         </span>
       )}
-
-      {/* Todo: reset the dataset filter action */}
       {(showDatasetsButton) && (
         <button
           onClick={goToDatasets}
