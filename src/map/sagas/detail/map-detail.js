@@ -1,9 +1,8 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import {
-  FETCH_MAP_DETAIL_REQUEST,
-  fetchMapDetailFailure,
   fetchMapDetailSuccess,
+  fetchMapDetailFailure,
   getCurrentEndpoint,
   getMapDetail
 } from '../../ducks/detail/map-detail';
@@ -11,6 +10,7 @@ import {
 import fetchDetail from '../../services/map-detail';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/detail';
 import { routing } from '../../../app/routes';
+import { FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/constants';
 import { getUser } from '../../../shared/ducks/user/user';
 import { waitForAuthentication } from '../../../shared/sagas/user/user';
 

@@ -14,7 +14,7 @@ describe('DetailReducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       isLoading: false,
-      view: DETAIL_VIEW.MAP_DETAIL
+      view: DETAIL_VIEW.MAP
     });
   });
 

@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { routing } from '../../../app/routes';
 import { pageTypeToEndpoint } from '../../../store/redux-first-router';
+import { FETCH_MAP_DETAIL_SUCCESS } from '../../../map/ducks/detail/constants';
 
 export const REDUCER_KEY = 'detail';
 
@@ -14,7 +15,7 @@ export const DETAIL_VIEW = {
 };
 
 const initialState = {
-  view: DETAIL_VIEW.MAP_DETAIL,
+  view: DETAIL_VIEW.MAP,
   isLoading: false
 };
 
@@ -66,6 +67,12 @@ export default function detailReducer(state = initialState, action) {
         isLoading: false
       };
 
+    case FETCH_MAP_DETAIL_SUCCESS:
+      return {
+        ...state,
+        geometry: action.mapDetail.geometrie
+      };
+
     default:
       return state;
   }
@@ -89,4 +96,3 @@ export const getDetailEndpoint = createSelector(getDetail, (detail) => {
 });
 export const getDetailDisplay = createSelector(getDetail, (detail) => detail && detail.display);
 export const isDetailLoading = createSelector(getDetail, (detail) => detail && detail.isLoading);
-export const isDetailMapView = createSelector(getDetailView, (view) => view === DETAIL_VIEW.MAP);

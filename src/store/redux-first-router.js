@@ -25,20 +25,20 @@ export const preserveQuery = (action) => {
   };
 };
 export const toDataDetail = (id, type, subtype, view) => {
-  const action = {
+  const action = preserveQuery({
     type: routing.dataDetail.type,
     payload: {
       type,
       subtype,
       id: `id${id}`
-    },
-    meta: {
-      query: {}
     }
-  };
+  });
   if (view === DETAIL_VIEW.MAP) {
     action.meta.query.kaart = '';
+  } else {
+    delete (action.meta.query.kaart);
   }
+
   return action;
 };
 export const toDataSearchLocationAndPreserveQuery = () => preserveQuery({ // TODO rename

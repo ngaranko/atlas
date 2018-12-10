@@ -13,6 +13,7 @@ import { routing } from '../../../app/routes';
 import { getStateFromQuery } from '../../../store/query-synchronization';
 import urlParams from './query';
 import { SET_SELECTION } from '../selection/selection';
+import { FETCH_MAP_DETAIL_SUCCESS } from '../../../map/ducks/detail/constants';
 
 export { REDUCER_KEY } from './constants';
 
@@ -25,6 +26,7 @@ export default function reducer(state = initialState, action) {
 
   switch (action.type) {
     case routing.home.type:
+    case FETCH_MAP_DETAIL_SUCCESS:
     case SET_SELECTION: {
       return {
         ...initialState

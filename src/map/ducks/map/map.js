@@ -1,4 +1,5 @@
 import { routing } from '../../../app/routes';
+import { FETCH_MAP_DETAIL_SUCCESS } from '../detail/constants';
 
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
@@ -77,7 +78,8 @@ export default function MapReducer(state = initialState, action) {
       // When opening these pages, close legend
       return {
         ...enrichedState,
-        mapPanelActive: false
+        mapPanelActive: false,
+        overlays: enrichedState.overlays
       };
 
     case MAP_PAN:
@@ -101,6 +103,7 @@ export default function MapReducer(state = initialState, action) {
       };
 
     case MAP_EMPTY_GEOMETRY:
+    case FETCH_MAP_DETAIL_SUCCESS:
       return {
         ...enrichedState,
         geometry: []

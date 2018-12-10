@@ -109,7 +109,8 @@ class DrawToolContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.onMapClear();
+    // TODO DP-6340: side effect. this resets the visible layers after featching data?
+    // this.props.onMapClear();
   }
 
   onFinishShape(polygon) {
