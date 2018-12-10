@@ -62,9 +62,10 @@
             });
 
             // Fetch scene by id
-            scope.$watch('state.id', function (id) {
+            scope.$watch('state.id', function (id, oldId) {
                 // Load straatbeeld on id when no location is set or no image is yet loaded
-                if (!(angular.isArray(scope.state.location) && scope.state.image) && angular.isString(id)) {
+                if ((angular.isString(id) && id !== oldId) &&
+                    !(angular.isArray(scope.state.location) && scope.state.image)) {
                     straatbeeldApi.getImageDataById(id, scope.state.history).then(showStraatbeeld);
                 }
             });

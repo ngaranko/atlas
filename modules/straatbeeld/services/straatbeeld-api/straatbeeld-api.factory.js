@@ -44,7 +44,9 @@
             const getLocationUrl = `${sharedConfig.API_ROOT}${prefix}/?` +
                 `${params.locationRange}${params.yearTypeMission}`;
 
-            api.getByUrl(`${getLocationUrl}&${params.standardRadius}&${params.newestInRange}`, undefined, cancel)
+            api.getByUrl(
+              `${getLocationUrl}&${params.standardRadius}&${params.newestInRange}&limit_results=1`, undefined, cancel
+            )
                 .then((json) => json._embedded.panoramas[0])
                 .then((data) => {
                     if (data) {
@@ -90,6 +92,7 @@
                 // console.log('cancel call: ', url);
                 cancel.resolve();
             }
+
             cancel = $q.defer();
             return api.getByUrl(url, undefined, cancel)
                 .then((json) => json._embedded.adjacencies)
