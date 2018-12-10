@@ -2,8 +2,7 @@ describe('The dp-straatbeeld-history component', function () {
     var $compile,
         $rootScope,
         $window,
-        store,
-        ACTIONS;
+        store;
 
     beforeEach(function () {
         angular.mock.module(
@@ -20,12 +19,11 @@ describe('The dp-straatbeeld-history component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $window = _$window_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         spyOn($window, 'open');
@@ -172,14 +170,12 @@ describe('The dp-straatbeeld-history component', function () {
 
             const items = component.find('.qa-straatbeeld-history__item');
 
-            expect(items.length).toBe(7);
+            expect(items.length).toBe(5);
             expect(items.eq(0).text()).toContain('recent');
             expect(items.eq(1).text()).toContain('2018');
-            expect(items.eq(2).text()).toContain('2018');
+            expect(items.eq(2).text()).toContain('2017');
             expect(items.eq(3).text()).toContain('2017');
-            expect(items.eq(4).text()).toContain('2017');
-            expect(items.eq(5).text()).toContain('2016');
-            expect(items.eq(6).text()).toContain('2016');
+            expect(items.eq(4).text()).toContain('2016');
         });
 
         it('sets the selection', () => {
@@ -197,12 +193,12 @@ describe('The dp-straatbeeld-history component', function () {
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
-            items.eq(3).click();
+            items.eq(2).click();
             expect(button.text()).toContain('2017');
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
-            items.eq(5).click();
+            items.eq(4).click();
             expect(button.text()).toContain('2016');
 
             button.click();
@@ -220,38 +216,26 @@ describe('The dp-straatbeeld-history component', function () {
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(1).click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SET_STRAATBEELD_HISTORY,
-                payload: 2018
-            });
+            expect(store.dispatch).toHaveBeenCalled();
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(3).click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SET_STRAATBEELD_HISTORY,
-                payload: 2017
-            });
+            expect(store.dispatch).toHaveBeenCalledTimes(2);
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
-            items.eq(5).click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SET_STRAATBEELD_HISTORY,
-                payload: 2016
-            });
+            items.eq(4).click();
+            expect(store.dispatch).toHaveBeenCalledTimes(3);
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
             items.eq(0).click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SET_STRAATBEELD_HISTORY,
-                payload: 0
-            });
+            expect(store.dispatch).toHaveBeenCalledTimes(4);
         });
 
         it('can have its selection initialized', () => {
-            const component = getComponent(null, null, 2017);
+            const component = getComponent(null, null, { year: 2017, missionType: 'bi' });
             const button = component.find('.qa-straatbeeld-history__button');
 
             expect(button.text()).toContain('2017');
@@ -261,11 +245,9 @@ describe('The dp-straatbeeld-history component', function () {
 
             expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBe(false);
             expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBe(false);
-            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBe(false);
-            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBe(true);
+            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBe(true);
+            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBe(false);
             expect(items.eq(4).hasClass('c-straatbeeld-history__item--active')).toBe(false);
-            expect(items.eq(5).hasClass('c-straatbeeld-history__item--active')).toBe(false);
-            expect(items.eq(6).hasClass('c-straatbeeld-history__item--active')).toBe(false);
         });
 
         it('highlights the selection', () => {

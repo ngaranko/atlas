@@ -66,13 +66,18 @@ function fetchStraatbeeldByLocationReducer(state, payload) {
     map.viewCenter = payload;
   }
 
+  const coordinates = [
+    Number(payload[0].toFixed(6)),
+    Number(payload[1].toFixed(6))
+  ];
+
   return {
     ...state,
     straatbeeld: {
       ...(state.straatbeeld || {}),
       ...resetStraatbeeld(),
-      location: payload,
-      targetLocation: payload
+      location: coordinates,
+      targetLocation: coordinates
     },
     map: {
       ...map,

@@ -19,7 +19,7 @@
         };
 
         function getLocationHistoryParams (location, history) {
-            const yearTypeMission = (history.year)
+            const yearTypeMission = (history && history.year)
                 ? `&mission_year=${history.year}&mission_type=${history.missionType}`
                 : '';
             const newestInRange = 'newest_in_range=true';
@@ -56,7 +56,7 @@
                         );
                     } else {
                         // there is no pano nearby search with a large radius and go to it
-                        api.getByUrl(`${getLocationUrl}&${params.largeRadius}`, undefined, cancel)
+                        api.getByUrl(`${getLocationUrl}&${params.largeRadius}&limit_results=1`, undefined, cancel)
                             .then((json) => json._embedded.panoramas[0])
                             .then((pano) => {
                                 q.resolve(
@@ -70,19 +70,18 @@
             return q.promise;
         }
 
-        function getAdjaciencies (url, adjacenciesParams) {
-            const getAdjacenciesUrl = `${url}?${adjacenciesParams}`;
+        function getAdjaciencies (url, params) {
+            const getAdjacenciesUrl = `${url}?${params}`;
             return getStraatbeeld(getAdjacenciesUrl);
         }
 
         function getImageDataById (id, history) {
-            const yearRange = (history.year)
+            const yearRange = (history && history.year)
                 ? `mission_year=${history.year}&mission_type=${history.missionType}`
                 : 'newest_in_range=true';
-            const radius = `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`;
 
             return getStraatbeeld(
-                `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}/?${yearRange}&${radius}`
+                `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}/?${yearRange}`
             );
         }
 

@@ -55,24 +55,27 @@
             };
 
             // Fetch scene by location
-            scope.$watchCollection('state.location', function (location) {
-                if (!scope.state.id && angular.isArray(location)) {
-                    straatbeeldApi.getImageDataByLocation(location, scope.state.history).then(showStraatbeeld);
+            scope.$watchCollection('state.location', function (location, oldLocation) {
+                if (!scope.state.id && angular.toJSON(location) !== angular.toJSON(oldLocation)) {
+                    if (angular.isArray(location)) {
+                        straatbeeldApi.getImageDataByLocation(location, scope.state.history).then(showStraatbeeld);
+                    }
                 }
             });
 
             // Fetch scene by id
-            scope.$watch('state.id', function (id, oldId) {
+            scope.$watch('state.id', function (id) {
                 // Load straatbeeld on id when no location is set or no image is yet loaded
-                if ((angular.isString(id) && id !== oldId) &&
-                    !(angular.isArray(scope.state.location) && scope.state.image)) {
+                if (angular.isString(id)) {
                     straatbeeldApi.getImageDataById(id, scope.state.history).then(showStraatbeeld);
                 }
             });
 
-            scope.$watch('state.history', function (history) {
-                if (angular.isArray(scope.state.location)) {
-                    straatbeeldApi.getImageDataByLocation(scope.state.location, history).then(showStraatbeeld);
+            scope.$watch('state.history', function (history, oldHistory) {
+                if (history.year !== oldHistory.year || history.missionType !== oldHistory.missionType) {
+                    if (angular.isArray(scope.state.location)) {
+                        straatbeeldApi.getImageDataByLocation(scope.state.location, history).then(showStraatbeeld);
+                    }
                 }
             });
 
