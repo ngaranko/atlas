@@ -31,7 +31,7 @@ const HomepageBlock = ({
       {children}
       <BlockButton
         {...blockButtonProps}
-        className={`c-homepage__block-button ${hasTallDescription ? 'c-homepage__block-button--tall' : ''}`}
+        className={`c-homepage__block-button ${hasTallDescription ? 'c-homepage__block-button--tall' : ''} qa-button-datasets`}
         tabIndex="-1"
       >
         <div className="o-btn--transparent">{title}</div>

@@ -39,7 +39,7 @@ export default {
     stateKey: 'page',
     selector: getDataSelectionPage,
     decode: (val) => val,
-    defaultValue: 1
+    defaultValue: initialState.page
   },
   geo: {
     stateKey: 'geometryFilter',

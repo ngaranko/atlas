@@ -6,14 +6,14 @@ import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
 import { isEmbedded, isEmbedPreview } from '../../../shared/ducks/ui/ui';
 import { DETAIL_VIEW, getDetail, getDetailEndpoint } from '../../../shared/ducks/detail/detail';
 import MapPreviewPanel from './MapPreviewPanel';
-import { getLocationId, selectLatestMapSearchResults } from '../../ducks/map/map-selectors';
+import { getLocationId } from '../../ducks/map/map-selectors';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 import {
   getDataSearch,
   getDataSearchLocation,
-  getMapResultsByLocation,
+  getMapPanelResults,
   isSearchLoading
-} from '../../../shared/ducks/data-search/data-search';
+} from '../../../shared/ducks/data-search/selectors';
 import { getPanoramaPreview } from '../../../shared/ducks/panorama/preview/panorama-preview';
 import {
   getPageActionEndpoint,
@@ -24,11 +24,11 @@ import {
 
 const mapStateToProps = (state) => ({
   panoPreview: getPanoramaPreview(state),
-  searchResults: selectLatestMapSearchResults(state),
+  searchResults: getMapPanelResults(state),
   dataSearch: getDataSearch(state),
   searchLocation: getDataSearchLocation(state),
   searchLocationId: getLocationId(state),
-  isSearchLoaded: !isSearchLoading(state) && getMapResultsByLocation(state),
+  isSearchLoaded: !isSearchLoading(state) && getMapPanelResults(state),
   missingLayers: selectNotClickableVisibleMapLayers(state)
     .map((mapLayer) => mapLayer.title)
     .join(', '),

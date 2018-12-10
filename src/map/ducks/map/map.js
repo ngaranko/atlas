@@ -2,11 +2,9 @@ import { routing } from '../../../app/routes';
 import { FETCH_MAP_DETAIL_SUCCESS } from '../detail/constants';
 
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
-export const MAP_BOUNDING_BOX_SILENT = 'MAP_BOUNDING_BOX_SILENT';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
 export const MAP_PAN = 'MAP_PAN';
-export const MAP_PAN_SILENT = 'MAP_PAN_SILENT';
 export const MAP_START_DRAWING = 'MAP_START_DRAWING';
 export const MAP_UPDATE_SHAPE = 'MAP_UPDATE_SHAPE';
 export const MAP_ZOOM = 'MAP_ZOOM';
@@ -99,7 +97,6 @@ export default function MapReducer(state = initialState, action) {
       };
 
     case MAP_BOUNDING_BOX:
-    case MAP_BOUNDING_BOX_SILENT:
       return {
         ...enrichedState,
         boundingBox: action.payload.boundingBox
@@ -247,7 +244,7 @@ export const setSelectedLocation = (payload) => ({
     }
   }
 });
-export const updateBoundingBox = (payload, isDrawingActive) => ({
-  type: isDrawingActive ? MAP_BOUNDING_BOX_SILENT : MAP_BOUNDING_BOX,
+export const updateBoundingBox = (payload) => ({
+  type: MAP_BOUNDING_BOX,
   payload
 });
