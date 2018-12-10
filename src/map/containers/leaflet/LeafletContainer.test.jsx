@@ -16,6 +16,7 @@ import {
 
 import {
   MAP_BOUNDING_BOX,
+  MAP_PAN,
   setSelectedLocation,
   updateBoundingBox,
   updatePan,
@@ -400,6 +401,7 @@ describe('LeafletContainer', () => {
       it('should trigger updatePan and updateBoundingBox', () => {
         const event = { center: { lat: 1, lon: 5 } };
 
+        updatePan.mockImplementation(() => ({ type: MAP_PAN }));
         updateBoundingBox.mockImplementation(() => ({ type: MAP_BOUNDING_BOX }));
 
         wrapperInstance.handlePan(event);
