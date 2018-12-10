@@ -59,5 +59,5 @@ export const getGeomarkersShape = createSelector(
 );
 export const hasGeometryFilter = createSelector(
   getDataSelection,
-  (dataSelection) => get(dataSelection, 'geometryFilter.markers', false)
+  (dataSelection) => !!get(dataSelection, 'geometryFilter.markers', false)
 );

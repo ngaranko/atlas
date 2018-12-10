@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'redux-first-router-link';
 import get from 'lodash.get';
-import NoResultsForSearchType from '../Messages/NoResultsForSearchType';
 import Panel from '../Panel/Panel';
 import SearchList from '../SearchList';
+import { routing } from '../../routes';
 
 const DataSearch = ({
   user,
@@ -15,9 +16,17 @@ const DataSearch = ({
 }) => {
   if (numberOfResults === 0) {
     return (
-      <NoResultsForSearchType
-        tip="maak de zoekcriteria minder specifiek (bijv. een straat i.p.v. specifiek adres)"
-      />
+      <div>
+        Tip: maak de zoekcriteria minder specifiek. Medewerkers/ketenpartners van Gemeente Amsterdam
+        kunnen inloggen om meer gegevens te zien, zie <Link
+          to={{
+            type: routing.bediening.type,
+            payload: { deeplink: 'inloggen' }
+          }}
+        >
+        Help &#62; Bediening &#62; Inloggen
+      </Link>
+      </div>
     );
   }
   return (
@@ -54,8 +63,6 @@ const DataSearch = ({
                     type="warning"
                   >
                     {result.warning}
-                    {/* TODO: */}
-                    Zie LINK
                   </Panel>
                   }
 
@@ -105,7 +112,6 @@ const DataSearch = ({
               </div>
             )
           ))}
-
         </div>
       </div>
     </div>

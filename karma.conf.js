@@ -100,10 +100,10 @@ module.exports = function (config) {
       thresholds: {
         emitWarning: false,
         global: {
-          statements: 97, // TODO refactor, get coverage up
-          lines: 97,
-          branches: 96,
-          functions: 97
+          statements: 99,
+          lines: 99,
+          branches: 98,
+          functions: 99
         }
       }
     },

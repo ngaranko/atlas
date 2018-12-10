@@ -6,6 +6,7 @@ import { geoSearchType } from '../../components/leaflet/services/icons.constant'
 import { getDetail } from '../../../shared/ducks/detail/detail';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { getDataSearchLocation } from '../../../shared/ducks/data-search/selectors';
+import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
@@ -43,13 +44,13 @@ export const getLocationId = createSelector(
       null
   ));
 
-export const getSearchMarker = (state) => {
-  const location = getDataSearchLocation(state);
-  return ((location) ?
+export const getSearchMarker = createSelector(
+  getDataSearchLocation, isGeoSearch,
+  (location, geoSearch) => ((location && geoSearch) ?
       [{ position: [location.latitude, location.longitude], type: geoSearchType }] :
       []
-  );
-};
+  )
+);
 
 export const getMarkers = createSelector(
   getSearchMarker,

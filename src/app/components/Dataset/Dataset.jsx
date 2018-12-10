@@ -3,7 +3,6 @@ import { AngularWrapper } from 'react-angular';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import DATA_SELECTION_CONFIG from '../../../shared/services/data-selection/data-selection-config';
-import NotAuthorizedPanel from '../PanelMessages/NotAuthorizedMessage';
 import DatasetActiveFilters from '../../containers/DatasetActiveFiltersContainer';
 import { DEFAULT_DATASET } from '../../../shared/ducks/datasets/data/data';
 import MaxPageMessage from '../PanelMessages/MaxPageMessage';
@@ -18,7 +17,6 @@ const Dataset = ({
     data,
     filters: availableFilters
   },
-  authError,
   page: currentPage,
   apiSpecification
 }) => {
@@ -34,8 +32,8 @@ const Dataset = ({
   if (numberOfRecords === 0) {
     return (
       <NoResultsForSearchType
-        tip={`maak de zoekcriteria minder specifiek. Of probeer in plaats van zoeken eens de
-              optie 'Alle datasets tonen' en filter vervolgens op thema.`}
+        message={`Tip: maak de zoekcriteria minder specifiek. Of probeer in plaats van zoeken eens
+        de optie 'Alle datasets tonen' en filter vervolgens op thema.`}
       />
     );
   }
@@ -91,17 +89,12 @@ const Dataset = ({
           </div>
         </div>
       </div>
-
-      {authError && (
-        <NotAuthorizedPanel />
-      )}
     </div>
   );
 };
 
 Dataset.propTypes = {
   activeFilters: PropTypes.shape({}).isRequired,
-  authError: PropTypes.bool.isRequired,
   page: PropTypes.number.isRequired,
   setPage: PropTypes.func.isRequired,
   apiSpecification: PropTypes.shape().isRequired,

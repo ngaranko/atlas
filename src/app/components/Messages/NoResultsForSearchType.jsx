@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const NoResultsForSearchType = ({ tip }) => (
+const NoResultsForSearchType = ({ message }) => (
   <div>
     <div className="u-margin__bottom--1">Geen resultaten van deze soort</div>
-    {tip && <div>Tip: {tip}</div>}
+    {message}
   </div>
 );
 
 NoResultsForSearchType.propTypes = {
-  tip: PropTypes.string.isRequired
+  message: PropTypes.string.isRequired
 };
 
 export default NoResultsForSearchType;

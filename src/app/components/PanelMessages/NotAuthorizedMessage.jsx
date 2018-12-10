@@ -1,12 +1,10 @@
 import React from 'react';
 import Link from 'redux-first-router-link';
 import { routing } from '../../routes';
-import Panel from '../Panel/Panel';
+import Notification from '../../../shared/components/notification/Notification';
 
 const NotAuthorizedPanel = () => (
-  <Panel
-    isPanelVisible
-    canClose
+  <Notification
     type="warning"
   >
     <div>
@@ -15,8 +13,7 @@ const NotAuthorizedPanel = () => (
         rechthebbenden te bekijken.
       </p>
       <p className="c-panel__paragraph">
-        Zie
-        <Link
+        Zie <Link
           className="c-link--light qa-link-to-page-button qa-dp-link"
           to={{
             type: routing.bediening.type,
@@ -27,7 +24,7 @@ const NotAuthorizedPanel = () => (
         </Link>
       </p>
     </div>
-  </Panel>
+  </Notification>
 );
 
 export default NotAuthorizedPanel;

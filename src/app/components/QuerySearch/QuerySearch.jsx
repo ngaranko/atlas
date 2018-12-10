@@ -23,7 +23,10 @@ const QuerySearch = ({
     {(isLoading) && <LoadingIndicator />}
     {!isLoading && (
       <div className="qa-data-selection-content">
-        <TabBar showDatasetsButton={currentPage === PAGES.SEARCH_DATASETS}>
+        <TabBar
+          totalNumberOfResults={numberOfDataResults + numberOfDatasetResults}
+          showDatasetsButton={currentPage === PAGES.SEARCH_DATASETS}
+        >
           <Tabs
             currentTab={(currentPage === PAGES.DATA_SEARCH) ? 'Data' : 'Datasets'}
           >
@@ -41,15 +44,17 @@ const QuerySearch = ({
         </TabBar>
         <div className="qa-search-results">
           {(currentPage === PAGES.DATA_SEARCH &&
-            <DataSearchQuery />
+            <div>
+              <DataSearchQuery />
+              {(!!numberOfDataResults && (!user.scopes.includes('HR/R') || !user.scopes.includes('BRK/RS'))) &&
+              <MoreResultsWhenLoggedIn />
+              }
+            </div>
           )}
           {(currentPage === PAGES.SEARCH_DATASETS &&
             <Dataset />
           )}
         </div>
-        {(!user.scopes.includes('HR/R') || !user.scopes.includes('BRK/RS')) &&
-        <MoreResultsWhenLoggedIn />
-        }
       </div>
     )}
   </div>
@@ -61,12 +66,12 @@ QuerySearch.defaultProps = {
 };
 
 QuerySearch.propTypes = {
+  user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   isLoading: PropTypes.bool,
   query: PropTypes.string,
   currentPage: PropTypes.string.isRequired,
   toDatasetPage: PropTypes.func.isRequired,
   toDataPage: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   numberOfDataResults: PropTypes.number.isRequired,
   numberOfDatasetResults: PropTypes.number.isRequired
 };

@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   getApiSpecificationData,
-  getAuthError,
   getPage,
   getResults
 } from '../../../shared/ducks/datasets/datasets';
@@ -11,7 +10,6 @@ import { setPage as setPageAction } from '../../../shared/ducks/datasets/data/da
 import Dataset from './Dataset';
 
 const mapStateToProps = (state) => ({
-  authError: getAuthError(state),
   page: getPage(state),
   activeFilters: getActiveFilters(state),
   results: getResults(state),

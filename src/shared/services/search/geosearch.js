@@ -143,7 +143,7 @@ export default function search(location, user) {
       searchParams.radius = endpoint.radius;
     }
 
-    const request = getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}`, searchParams)
+    const request = getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}`, searchParams, false, true)
       .then((data) => data, () => ({ features: [] })); // empty features on failure of api call
 
     allRequests.push(request);

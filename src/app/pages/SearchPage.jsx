@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import QuerySearch from '../components/QuerySearch';
-import { getSearchQuery } from '../../shared/ducks/data-search/selectors';
+import { getDataSearchLocation } from '../../shared/ducks/data-search/selectors';
 import { toMapAndPreserveQuery as toMapActionCreator } from '../../store/redux-first-router';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 import LocationSearchContainer from '../containers/LocationSearchContainer';
 
-const SearchPage = ({ query, toMap }) => {
-  if (query) {
+const SearchPage = ({ geoSearch, toMap }) => {
+  if (!geoSearch) {
     return <QuerySearch />;
   }
   return (
@@ -26,19 +26,15 @@ const SearchPage = ({ query, toMap }) => {
 };
 
 const mapStateToProps = (state) => ({
-  query: getSearchQuery(state)
+  geoSearch: !!getDataSearchLocation(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   toMap: toMapActionCreator
 }, dispatch);
 
-SearchPage.defaultProps = {
-  query: undefined
-};
-
 SearchPage.propTypes = {
-  query: PropTypes.string,
+  geoSearch: PropTypes.bool.isRequired,
   toMap: PropTypes.func.isRequired
 };
 

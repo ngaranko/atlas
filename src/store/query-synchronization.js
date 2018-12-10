@@ -81,7 +81,7 @@ export const getStateFromQuery = (definitions, action) => (
   (action.type && action.type.startsWith(ROUTER_NAMESPACE)) ?
     Object.keys(definitions).reduce((acc, key) => {
       acc[definitions[key].stateKey] =
-        definitions[key].decode(get(action, `meta.query[${key}]`, undefined));
+        definitions[key].decode(get(action, `meta.query[${key}]`, definitions[key].defaultValue));
       return acc;
     }, {}) :
     {}

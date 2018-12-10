@@ -1,10 +1,9 @@
 import {
   getDataSearchLocation,
-  getDataSearchView,
   getSearchCategory,
   getSearchQuery
 } from './selectors';
-import { SEARCH_VIEW, SET_GEO_LOCATION, SET_QUERY_CATEGORY, initialState } from './constants';
+import { initialState, SET_GEO_LOCATION, SET_QUERY_CATEGORY } from './constants';
 import parseLocationString from '../../../map/ducks/map/location-parse';
 
 const getLocationString = (state) => {
@@ -15,20 +14,12 @@ const getLocationString = (state) => {
   return undefined;
 };
 
-
 export default {
   zoekterm: {
     stateKey: 'query',
     selector: getSearchQuery,
     decode: (val) => val,
     defaultValue: null
-  },
-  // Todo: move kaart to map duck
-  kaart: {
-    stateKey: 'view',
-    selector: getDataSearchView,
-    decode: (val) => ((val) ? SEARCH_VIEW.MAP_SEARCH : SEARCH_VIEW.SEARCH),
-    defaultValue: SEARCH_VIEW.SEARCH
   },
   categorie: {
     stateKey: 'category',

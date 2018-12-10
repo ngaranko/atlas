@@ -24,8 +24,3 @@ export const initialState = {
   category: null,
   error: null
 };
-
-export const SEARCH_VIEW = {
-  MAP_SEARCH: 'MAP_SEARCH',
-  SEARCH: 'SEARCH'
-};

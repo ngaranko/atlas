@@ -59,7 +59,7 @@ describe('The dp-catalogus-themes', () => {
         return component;
     }
 
-    // Todo: fix / add tests
+    // Todo: DP-6235
     xit('list all themes as links to data selection', () => {
         const component = getComponent();
 
