@@ -87,7 +87,7 @@
         function getStraatbeeld (url) {
             if (cancel) {
                 // Cancel any outstanding requests
-                console.log('cancel call: ', url);
+                // console.log('cancel call: ', url);
                 cancel.resolve();
             }
             cancel = $q.defer();
