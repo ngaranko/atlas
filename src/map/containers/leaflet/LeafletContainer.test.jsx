@@ -15,8 +15,8 @@ import {
 } from '../../ducks/map/map-selectors';
 
 import {
-  MAP_BOUNDING_BOX_SILENT,
-  MAP_PAN_SILENT,
+  MAP_BOUNDING_BOX,
+  MAP_PAN,
   setSelectedLocation,
   updateBoundingBox,
   updatePan,
@@ -404,8 +404,8 @@ describe('LeafletContainer', () => {
       it('should trigger updatePan and updateBoundingBox', () => {
         const event = { center: { lat: 1, lon: 5 } };
 
-        updatePan.mockImplementation(() => ({ type: MAP_PAN_SILENT }));
-        updateBoundingBox.mockImplementation(() => ({ type: MAP_BOUNDING_BOX_SILENT }));
+        updatePan.mockImplementation(() => ({ type: MAP_PAN }));
+        updateBoundingBox.mockImplementation(() => ({ type: MAP_BOUNDING_BOX }));
 
         wrapperInstance.handlePan(event);
         expect(store.dispatch).toHaveBeenCalledWith(updatePan());
@@ -419,11 +419,11 @@ describe('LeafletContainer', () => {
       it('should trigger updateBoundingBox', () => {
         const event = {};
         const action = {
-          type: MAP_BOUNDING_BOX_SILENT,
+          type: MAP_BOUNDING_BOX,
           payload: event
         };
         isDrawingActive.mockImplementation(() => true);
-        updateBoundingBox.mockImplementation(() => ({ type: MAP_BOUNDING_BOX_SILENT }));
+        updateBoundingBox.mockImplementation(() => ({ type: MAP_BOUNDING_BOX }));
 
         wrapperInstance.handleResize(event);
         expect(store.dispatch).toHaveBeenCalledWith(updateBoundingBox(action, true));

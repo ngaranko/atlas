@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select, take, takeLatest } from 'redux-saga/effects';
 import queryString from 'querystring';
 import get from 'lodash.get';
 import {
@@ -23,11 +23,18 @@ import {
 } from '../../ducks/data-selection/constants';
 import { getDataSelection, getGeomarkersShape } from '../../ducks/data-selection/selectors';
 import { waitForAuthentication } from '../user/user';
+import { MAP_BOUNDING_BOX } from '../../../map/ducks/map/map';
 
 function* getMapMarkers(dataset, activeFilters) {
-  const state = yield select();
+  // Since bounding box can be set later, we check if we have to wait for the boundingbox to get set
+  let boundingBox = yield select(getMapBoundingBox);
+  if (!boundingBox) {
+    yield take(MAP_BOUNDING_BOX);
+    boundingBox = yield select(getMapBoundingBox);
+  }
+  const mapZoom = yield select(getMapZoom);
   const markerData = yield call(getMarkers,
-    dataset, activeFilters, getMapZoom(state), getMapBoundingBox(state));
+    dataset, activeFilters, mapZoom, boundingBox);
   yield put(setMarkers(markerData));
 }
 
@@ -58,10 +65,7 @@ function* retrieveDataSelection(action) {
     );
 
     if (markersShouldBeFetched) {
-      yield call(getMapMarkers, dataset, {
-        ...activeFilters,
-        shape
-      });
+      yield call(getMapMarkers, dataset, { ...activeFilters, shape });
     }
   } catch (e) {
     yield put(receiveDataSelectionFailure({
