@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
-import { getSelectionLocation } from '../../shared/ducks/selection/selection';
-import { hasGeometryFilter as test } from '../../shared/ducks/data-selection/selectors';
+import { hasGeometryFilter as geometryFilterActive } from '../../shared/ducks/data-selection/selectors';
 import { setView } from '../../shared/ducks/data-selection/actions';
 import { VIEWS } from '../../shared/ducks/data-selection/constants';
+import { getDataSearchLocation } from '../../shared/ducks/data-search/selectors';
 
 /* istanbul ignore next */ // TODO: refactor, test
 const MapPage = ({
@@ -28,8 +28,8 @@ MapPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  hasSelectionLocation: getSelectionLocation(state),
-  hasGeometryFilter: test(state)
+  hasSelectionLocation: getDataSearchLocation(state),
+  hasGeometryFilter: geometryFilterActive(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

@@ -1,5 +1,6 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select, take, takeLatest } from 'redux-saga/effects';
 import queryString from 'querystring';
+import get from 'lodash.get';
 import {
   fetchDataSelection,
   receiveDataSelectionFailure,
@@ -21,11 +22,19 @@ import {
   VIEWS
 } from '../../ducks/data-selection/constants';
 import { getDataSelection, getGeomarkersShape } from '../../ducks/data-selection/selectors';
+import { waitForAuthentication } from '../user/user';
+import { MAP_BOUNDING_BOX } from '../../../map/ducks/map/map';
 
 function* getMapMarkers(dataset, activeFilters) {
-  const state = yield select();
+  // Since bounding box can be set later, we check if we have to wait for the boundingbox to get set
+  let boundingBox = yield select(getMapBoundingBox);
+  if (!boundingBox) {
+    yield take(MAP_BOUNDING_BOX);
+    boundingBox = yield select(getMapBoundingBox);
+  }
+  const mapZoom = yield select(getMapZoom);
   const markerData = yield call(getMarkers,
-    dataset, activeFilters, getMapZoom(state), getMapBoundingBox(state));
+    dataset, activeFilters, mapZoom, boundingBox);
   yield put(setMarkers(markerData));
 }
 
@@ -40,6 +49,7 @@ function* retrieveDataSelection(action) {
     catalogFilters
   } = action.payload;
   try {
+    yield call(waitForAuthentication);
     const result = yield call(query,
       dataset, view, activeFilters, page, searchText, shape, catalogFilters);
 
@@ -55,10 +65,7 @@ function* retrieveDataSelection(action) {
     );
 
     if (markersShouldBeFetched) {
-      yield call(getMapMarkers, dataset, {
-        ...activeFilters,
-        shape
-      });
+      yield call(getMapMarkers, dataset, { ...activeFilters, shape });
     }
   } catch (e) {
     yield put(receiveDataSelectionFailure({
@@ -68,11 +75,11 @@ function* retrieveDataSelection(action) {
   }
 }
 
-function* fireRequest() {
+function* fireRequest(action) {
   const state = yield select();
 
   // Always ensure we are on the right page, otherwise this can be called unintentionally
-  if (isDataSelectionPage(state)) {
+  if (isDataSelectionPage(state) && !get(action, 'meta.skipFetch')) {
     const dataSelection = getDataSelection(state);
     const activeFilters = getFilters(state);
     const shape = getGeomarkersShape(state);

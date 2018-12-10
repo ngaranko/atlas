@@ -1,4 +1,3 @@
-import * as mapSelectors from '../../../../src/map/ducks/map/map-selectors';
 import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
 import { DOWNLOAD_DATASET_RESOURCE } from '../../../../src/shared/ducks/datasets/data/data';
 
@@ -24,12 +23,6 @@ describe('the dp-detail component', () => {
     const dcatdEndPoint = 'http://www.fake-endpoint.com/dcatd/datasets/789/';
 
     beforeEach(() => {
-        mapSelectors.getSelectedLocation = jasmine.createSpy('getSelectedLocation')
-            .and.returnValue({
-                latitude: 52.654,
-                longitude: 4.987
-            });
-
         angular.mock.module(
             'dpDetail', {
                 store: {

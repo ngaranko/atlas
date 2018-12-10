@@ -2,19 +2,25 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import {
   FETCH_MAP_DETAIL_REQUEST,
-  fetchMapDetailSuccess,
   fetchMapDetailFailure,
+  fetchMapDetailSuccess,
+  getCurrentEndpoint,
   getMapDetail
 } from '../../ducks/detail/map-detail';
 
 import fetchDetail from '../../services/map-detail';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/detail';
 import { routing } from '../../../app/routes';
+import { getUser } from '../../../shared/ducks/user/user';
+import { waitForAuthentication } from '../../../shared/sagas/user/user';
 
-export function* fetchMapDetail(action) {
+export function* fetchMapDetail() {
   try {
-    const mapDetail = yield call(fetchDetail, action.endpoint, action.user);
-    yield put(fetchMapDetailSuccess(action.endpoint, mapDetail || {}));
+    yield call(waitForAuthentication);
+    const user = yield select(getUser);
+    const endpoint = yield select(getCurrentEndpoint);
+    const mapDetail = yield call(fetchDetail, endpoint, user);
+    yield put(fetchMapDetailSuccess(endpoint, mapDetail || {}));
   } catch (error) {
     yield put(fetchMapDetailFailure);
   }

@@ -106,11 +106,6 @@ class DrawToolContainer extends React.Component {
       }
       this.setState({ drawingMode: props.drawingMode });
     }
-
-    if (this.state.dataSelection !== props.dataSelection) {
-      this.setState({ dataSelection: props.dataSelection });
-      this.onUpdateShape(props.currentShape);
-    }
   }
 
   componentWillUnmount() {
