@@ -56,10 +56,9 @@
 
             // Fetch scene by location
             scope.$watchCollection('state.location', function (location, oldLocation) {
-                if (!scope.state.id && angular.toJSON(location) !== angular.toJSON(oldLocation)) {
-                    if (angular.isArray(location)) {
-                        straatbeeldApi.getImageDataByLocation(location, scope.state.history).then(showStraatbeeld);
-                    }
+                // eslint-disable-next-line
+                if (!scope.state.id && angular.isArray(location) && JSON.stringify(location) !== JSON.stringify(oldLocation)) {
+                    straatbeeldApi.getImageDataByLocation(location, scope.state.history).then(showStraatbeeld);
                 }
             });
 

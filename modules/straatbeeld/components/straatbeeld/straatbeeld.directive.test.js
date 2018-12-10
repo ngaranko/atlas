@@ -81,6 +81,7 @@ describe('The dp-straatbeeld directive', function () {
         scope = $rootScope.$new();
 
         scope.state = state;
+        scope.state.history = { year: 0 };
         scope.resize = resize;
 
         var directive = $compile(el)(scope);
@@ -182,18 +183,17 @@ describe('The dp-straatbeeld directive', function () {
         });
 
         it('Listens to changes on scope for location', function () {
-            var directive = getDirective({}, false);
+            var directive = getDirective({ location: null }, false);
             expect(store.dispatch).not.toHaveBeenCalled();
 
             directive.isolateScope().state.location = [52, 4];
             directive.isolateScope().$apply();
-
             expect(store.dispatch).toHaveBeenCalledTimes(1);   // show pano
 
-            directive.isolateScope().state.location = [52, 5];
+            directive.isolateScope().state.location = [52, 4];
             directive.isolateScope().$apply();
 
-            expect(store.dispatch).toHaveBeenCalledTimes(2);
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
         });
 
         it('triggers show action', function () {
@@ -203,7 +203,7 @@ describe('The dp-straatbeeld directive', function () {
             directive.isolateScope().state.id = 'ABC';
             directive.isolateScope().$apply();
 
-            expect(store.dispatch).toHaveBeenCalledTimes(1);   // show pano
+            expect(store.dispatch).toHaveBeenCalled();   // show pano
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_STRAATBEELD_SUBSEQUENT,
                 payload: {
