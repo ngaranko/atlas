@@ -1,7 +1,4 @@
 import reducer, {
-  FETCH_MAP_DETAIL_FAILURE,
-  FETCH_MAP_DETAIL_REQUEST,
-  FETCH_MAP_DETAIL_SUCCESS,
   fetchMapDetailFailure,
   fetchMapDetailSuccess,
   getAllResults,
@@ -13,6 +10,7 @@ import reducer, {
   getMapDetailGeometry,
   selectLatestMapDetail
 } from './map-detail';
+import { FETCH_MAP_DETAIL_REQUEST, FETCH_MAP_DETAIL_SUCCESS, FETCH_MAP_DETAIL_FAILURE } from './constants';
 
 // REDUCER
 describe('reducer', () => {

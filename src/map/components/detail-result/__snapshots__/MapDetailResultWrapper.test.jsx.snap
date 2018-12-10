@@ -45,9 +45,7 @@ exports[`MapDetailResultWrapper should not render empty panoUrl 1`] = `
         title="Volledig weergeven"
       >
         <span
-          className="
- map-search-results__button-icon
- map-search-results__button-icon--maximize"
+          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
         />
         Volledig weergeven
       </button>
@@ -96,9 +94,7 @@ exports[`MapDetailResultWrapper should not render empty sub title 1`] = `
         title="Volledig weergeven"
       >
         <span
-          className="
- map-search-results__button-icon
- map-search-results__button-icon--maximize"
+          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
         />
         Volledig weergeven
       </button>
@@ -139,9 +135,7 @@ exports[`MapDetailResultWrapper should not render missing children 1`] = `
         title="Volledig weergeven"
       >
         <span
-          className="
- map-search-results__button-icon
- map-search-results__button-icon--maximize"
+          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
         />
         Volledig weergeven
       </button>
@@ -190,9 +184,7 @@ exports[`MapDetailResultWrapper should not render missing sub title 1`] = `
         title="Volledig weergeven"
       >
         <span
-          className="
- map-search-results__button-icon
- map-search-results__button-icon--maximize"
+          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
         />
         Volledig weergeven
       </button>
@@ -263,9 +255,7 @@ exports[`MapDetailResultWrapper should render everything 1`] = `
         title="Volledig weergeven"
       >
         <span
-          className="
- map-search-results__button-icon
- map-search-results__button-icon--maximize"
+          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
         />
         Volledig weergeven
       </button>
