@@ -1,4 +1,4 @@
-import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
+import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/constants';
 import { DOWNLOAD_DATASET_RESOURCE } from '../../../../src/shared/ducks/datasets/data/data';
 
 describe('the dp-detail component', () => {

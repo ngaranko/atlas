@@ -2,7 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
 import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 import { getPageActionEndpoint } from '../../../store/redux-first-router';
-import { getDetailView } from '../../../shared/ducks/detail/detail';
+import { getDetailView } from '../../../shared/ducks/detail/selectors';
 
 export function* fetchNearestDetails(action) {
   const {

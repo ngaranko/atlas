@@ -8,6 +8,7 @@ import panoramaQuery, { ACTIONS as PANORAMA_ACTIONS } from '../shared/ducks/pano
 import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/query';
 import dataSearchQuery, { ACTIONS as DATA_SEARCH_ACTIONS } from '../shared/ducks/data-search/query';
 import datasetQuery, { ACTIONS as DATASET_ACTIONS } from '../shared/ducks/datasets/datasets-query';
+import detailQuery, { ACTIONS as DETAIL_ACTIONS } from '../shared/ducks/detail/query';
 import uiQuery, { ACTIONS as UI_ACTIONS } from '../shared/ducks/ui/ui-query';
 import { getLocationQuery } from './redux-first-router';
 import { ROUTER_NAMESPACE } from '../app/routes';
@@ -21,18 +22,39 @@ const watchedActions = [
   ...DATA_SELECTION_ACTIONS,
   ...DATASET_ACTIONS,
   ...UI_ACTIONS,
-  ...DATA_SEARCH_ACTIONS
+  ...DATA_SEARCH_ACTIONS,
+  ...DETAIL_ACTIONS
 ];
 
-const queryMappings = {
-  ...mapQuery,
-  ...filtersQuery,
-  ...panoramaQuery,
-  ...dataSelectionQuery,
-  ...datasetQuery,
-  ...uiQuery,
-  ...dataSearchQuery
-};
+const querieObjects = [
+  mapQuery,
+  filtersQuery,
+  panoramaQuery,
+  dataSelectionQuery,
+  datasetQuery,
+  uiQuery,
+  dataSearchQuery,
+  detailQuery
+];
+
+/**
+ * This is introduced to check if the query key's are unique, otherwise throw a warning and don't
+ * override the key in the object.
+ */
+const queryMappings = querieObjects.reduce((acc, queryObject) => ({
+  ...acc,
+  ...Object.keys(queryObject).reduce((cleanedQueryObject, ie) => {
+    if (ie in acc) {
+      // eslint-disable-next-line no-console
+      console.warn(`Warning: query key "${ie}" is already registered in another file`);
+      return cleanedQueryObject;
+    }
+    return {
+      ...cleanedQueryObject,
+      [ie]: queryObject[ie]
+    };
+  }, {})
+}), {});
 
 function* updateQuery() {
   const state = yield select();

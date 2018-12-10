@@ -8,7 +8,7 @@ import {
 } from '../../ducks/detail/map-detail';
 
 import fetchDetail from '../../services/map-detail';
-import { getDetailEndpoint } from '../../../shared/ducks/detail/detail';
+import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import { routing } from '../../../app/routes';
 import { FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/constants';
 import { getUser } from '../../../shared/ducks/user/user';

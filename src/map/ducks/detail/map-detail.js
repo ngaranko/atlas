@@ -3,7 +3,7 @@ import {
   getDetailDisplay,
   getDetailEndpoint,
   getDetailGeometry
-} from '../../../shared/ducks/detail/detail';
+} from '../../../shared/ducks/detail/selectors';
 import { isDataDetailPage } from '../../../store/redux-first-router';
 import { FETCH_MAP_DETAIL_REQUEST, FETCH_MAP_DETAIL_SUCCESS, FETCH_MAP_DETAIL_FAILURE } from './constants';
 

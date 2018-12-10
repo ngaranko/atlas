@@ -3,7 +3,6 @@ import queryString from 'querystring';
 import get from 'lodash.get';
 import { routing } from '../app/routes';
 import PAGES from '../app/pages';
-import { DETAIL_VIEW } from '../shared/ducks/detail/detail';
 import PANORAMA_VIEW from '../shared/ducks/panorama/panorama-view';
 
 export const REDUCER_KEY = 'location';
@@ -24,23 +23,19 @@ export const preserveQuery = (action) => {
     }
   };
 };
-export const toDataDetail = (id, type, subtype, view) => {
-  const action = preserveQuery({
-    type: routing.dataDetail.type,
-    payload: {
-      type,
-      subtype,
-      id: `id${id}`
+export const toDataDetail = (id, type, subtype, view) => (preserveQuery({
+  type: routing.dataDetail.type,
+  payload: {
+    type,
+    subtype,
+    id: `id${id}`
+  },
+  meta: {
+    query: {
+      ...view ? { detailModus: view } : {}
     }
-  });
-  if (view === DETAIL_VIEW.MAP) {
-    action.meta.query.kaart = '';
-  } else {
-    delete (action.meta.query.kaart);
   }
-
-  return action;
-};
+}));
 export const toDataSearchLocationAndPreserveQuery = () => preserveQuery({ // TODO rename
   type: routing.dataSearch.type
 });
@@ -66,9 +61,6 @@ export const toPanorama = (id, heading, view) => {
       }
     }
   };
-  if (view === PANORAMA_VIEW.MAP) {
-    action.meta.query.kaart = '';
-  }
   if (view === PANORAMA_VIEW.PANO) {
     action.meta.query.panorama = '';
   }
@@ -86,9 +78,9 @@ const getDetailPageData = (endpoint) => {
     id: matches[3]
   };
 };
-export const getPageActionEndpoint = (endpoint) => {
+export const getPageActionEndpoint = (endpoint, view) => {
   const { type, subtype, id } = getDetailPageData(endpoint);
-  return toDataDetail(id, type, subtype);
+  return toDataDetail(id, type, subtype, view);
 };
 export const pageTypeToEndpoint = (type, subtype, id) => {
   let endpoint = 'https://acc.api.data.amsterdam.nl/';

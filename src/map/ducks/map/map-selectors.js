@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import { getPanoramaLocation, getPanoramaMarkers } from '../../../shared/ducks/panorama/panorama';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
-import { getDetail } from '../../../shared/ducks/detail/detail';
+import { getDetail } from '../../../shared/ducks/detail/selectors';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { getDataSearchLocation } from '../../../shared/ducks/data-search/selectors';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';

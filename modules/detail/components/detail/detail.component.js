@@ -1,6 +1,6 @@
 import removeMd from 'remove-markdown';
-import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/detail';
 import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/data/data';
+import { showDetail } from '../../../../src/shared/ducks/detail/actions';
 
 (function () {
     angular
@@ -120,23 +120,17 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
                             vm.location = crsConverter.rdToWgs84([rd.x, rd.y]);
                         }
 
-                        store.dispatch({
-                            type: SHOW_DETAIL,
-                            payload: {
-                                display: data._display,
-                                geometry: geoJSON
-                            }
-                        });
+                        store.dispatch(showDetail({
+                            display: data._display,
+                            geometry: geoJSON
+                        }));
                     }, errorHandler);
                 }, errorHandler);
             }
         }
 
         function errorHandler () {
-            store.dispatch({
-                type: SHOW_DETAIL,
-                payload: {}
-            });
+            store.dispatch(showDetail({}));
         }
     }
 })();

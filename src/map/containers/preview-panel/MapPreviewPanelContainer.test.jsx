@@ -20,11 +20,11 @@ import {
   fetchPanoramaPreview
 } from '../../../shared/ducks/panorama/preview/panorama-preview';
 import { getLocationId } from '../../ducks/map/map-selectors';
-import { getDetailEndpoint } from '../../../shared/ducks/detail/detail';
+import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import { toMap, toPanorama } from '../../../store/redux-first-router';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 
-jest.mock('../../../shared/ducks/detail/detail');
+jest.mock('../../../shared/ducks/detail/selectors');
 jest.mock('../../../shared/ducks/data-search/selectors');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
 jest.mock('../../ducks/detail/map-detail');

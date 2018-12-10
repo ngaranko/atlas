@@ -35,7 +35,7 @@ const getDecodedGeometryFilters = (geo) => {
 };
 
 export default {
-  page: {
+  dsPage: {
     stateKey: 'page',
     selector: getDataSelectionPage,
     decode: (val) => val,
