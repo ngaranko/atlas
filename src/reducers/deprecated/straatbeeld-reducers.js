@@ -158,6 +158,7 @@ function setOrientationReducer(state, payload) {
   return {
     ...state,
     straatbeeld: isObject(state.straatbeeld) ? {
+      ...state.straatbeeld,
       heading: payload.heading,
       pitch: payload.pitch,
       fov: payload.fov

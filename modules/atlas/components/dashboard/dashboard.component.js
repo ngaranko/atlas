@@ -25,9 +25,9 @@ import {
         store.subscribe(setLayout);
         setLayout();
 
-        $scope.$watchGroup(['vm.isStraatbeeldActive'], () => {
+        $scope.$watchGroup(['vm.isStraatbeeldActive', 'vm.straatbeeldHistory'], () => {
             if (vm.isStraatbeeldActive) {
-                store.dispatch({ type: ACTIONS.MAP_ADD_PANO_OVERLAY.id, payload: store.getState().straatbeeld });
+                store.dispatch({ type: ACTIONS.MAP_ADD_PANO_OVERLAY.id, payload: {...store.getState().straatbeeld} });
             } else {
                 $timeout(() => store.dispatch({ type: ACTIONS.MAP_REMOVE_PANO_OVERLAY.id }));
             }
