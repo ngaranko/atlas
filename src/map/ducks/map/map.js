@@ -215,7 +215,7 @@ export const toggleMapOverlay = (payload) => ({
     mapLayers: (payload.id) ? [payload.id] : payload.legendItems.map((overlay) => overlay.id)
   },
   meta: {
-    tracking: payload
+    tracking: !payload.id.startsWith(PANORAMA) ? payload : null
   }
 });
 export const toggleMapOverlayPanorama = (payload) => ({
