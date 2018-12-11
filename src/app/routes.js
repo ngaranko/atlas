@@ -129,6 +129,13 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.STATISTICS}`,
     page: PAGES.STATISTICS
   },
+  oldversion: {
+    title: '',
+    path: '/oldversion',
+    type: `${ROUTER_NAMESPACE}/${PAGES.OLD_VERSION}`,
+    page: PAGES.CONTROLS
+  },
+
 
   dataDetail: {
     title: 'Data detail',

@@ -14,7 +14,8 @@ const PAGE_TYPES = {
   gegevens: 'info',
   over_api: 'apis',
   beleid: 'beleid',
-  statistieken: 'statistieken'
+  statistieken: 'statistieken',
+  oldversion: 'snelwegwijs'
 };
 
 // Help > Bediening > Inloggen deeplink id
@@ -70,5 +71,9 @@ export const CMS_PAGE_MAPPING = {
   [PAGES.STATISTICS]: {
     template: PAGE_TEMPLATE.contentOverview,
     type: PAGE_TYPES.statistieken
+  },
+  [PAGES.OLD_VERSION]: {
+    template: PAGE_TEMPLATE.contentOverview,
+    type: PAGE_TYPES.oldversion
   }
 };
