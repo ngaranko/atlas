@@ -23,8 +23,10 @@
                 ? `&mission_year=${history.year}&mission_type=${history.missionType}`
                 : '';
             const newestInRange = 'newest_in_range=true';
+            const pageSize = 'page_size=1';
+
             return {
-                locationRange: `near=${location[1]},${location[0]}&srid=${STRAATBEELD_CONFIG.SRID}&page_size=1`,
+                locationRange: `near=${location[1]},${location[0]}&srid=${STRAATBEELD_CONFIG.SRID}&${pageSize}`,
                 newestInRange,
                 standardRadius: `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`,
                 largeRadius: `radius=${STRAATBEELD_CONFIG.LARGE_RADIUS}`,
@@ -44,9 +46,10 @@
             const params = getLocationHistoryParams(location, history);
             const getLocationUrl = `${sharedConfig.API_ROOT}${prefix}/?` +
                 `${params.locationRange}${params.yearTypeMission}`;
+            const limitResults = 'limit_results=1';
 
             api.getByUrl(
-              `${getLocationUrl}&${params.standardRadius}&${params.newestInRange}&limit_results=1`, undefined, cancel
+              `${getLocationUrl}&${params.standardRadius}&${params.newestInRange}&${limitResults}`, undefined, cancel
             )
                 .then((json) => json._embedded.panoramas[0])
                 .then((data) => {
@@ -57,7 +60,7 @@
                         );
                     } else {
                         // there is no pano nearby search with a large radius and go to it
-                        api.getByUrl(`${getLocationUrl}&${params.largeRadius}&limit_results=1`, undefined, cancel)
+                        api.getByUrl(`${getLocationUrl}&${params.largeRadius}&${limitResults}`, undefined, cancel)
                             .then((json) => json._embedded.panoramas[0])
                             .then((pano) => {
                                 q.resolve(
