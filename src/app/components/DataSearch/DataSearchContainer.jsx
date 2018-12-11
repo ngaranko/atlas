@@ -4,7 +4,7 @@ import { getUser } from '../../../shared/ducks/user/user';
 import { getNumberOfResults, getSearchCategory } from '../../../shared/ducks/data-search/selectors';
 import DataSearch from './DataSearch';
 import { toDataSearchCategory } from '../../../store/redux-first-router';
-import { fetchDetail } from '../../../shared/ducks/detail/detail';
+import { fetchDetail } from '../../../shared/ducks/detail/actions';
 
 const mapStateToProps = (state) => ({
   user: getUser(state),

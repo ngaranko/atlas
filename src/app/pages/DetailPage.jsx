@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import DetailContainer from '../containers/DetailContainer';
 import {
-  DETAIL_VIEW,
   getDetailEndpoint,
   getDetailGeometry,
   getDetailView
-} from '../../shared/ducks/detail/detail';
+} from '../../shared/ducks/detail/selectors';
 import { getPageActionEndpoint as endpointActionCreator } from '../../store/redux-first-router';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
+import { DETAIL_VIEW } from '../../shared/ducks/detail/constants';
 
 /* istanbul ignore next */ // TODO: refactor, test
 const DetailPage = ({ view: routeView, hasGeometry, endpoint, getPageActionEndpoint }) => {

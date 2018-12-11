@@ -19,7 +19,7 @@ import * as PanoPreviewReducer from '../shared/ducks/panorama/preview/panorama-p
 import * as FiltersReducer from '../shared/ducks/filters/filters';
 import * as DataSearchReducer from '../shared/ducks/data-search/reducer';
 import * as SelectionReducer from '../shared/ducks/selection/selection';
-import * as DetailReducer from '../shared/ducks/detail/detail';
+import * as DetailReducer from '../shared/ducks/detail/reducer';
 
 describe('the root reducer', () => {
   AutoSuggestReducer.default = () => 'autoSuggest';

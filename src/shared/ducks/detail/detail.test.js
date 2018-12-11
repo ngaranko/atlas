@@ -1,9 +1,6 @@
-import reducer, {
-  DETAIL_VIEW,
-  FETCH_DETAIL,
-  fetchDetail,
-  SHOW_DETAIL
-} from './detail';
+import reducer from './reducer';
+import { DETAIL_VIEW, FETCH_DETAIL, SHOW_DETAIL } from './constants';
+import { fetchDetail } from './actions';
 
 describe('DetailReducer', () => {
   const initialState = {};
@@ -14,7 +11,7 @@ describe('DetailReducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       isLoading: false,
-      view: DETAIL_VIEW.MAP
+      view: DETAIL_VIEW.MAP_DETAIL
     });
   });
 

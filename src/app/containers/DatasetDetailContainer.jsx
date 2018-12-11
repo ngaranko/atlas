@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AngularWrapper } from 'react-angular';
-import { isDetailLoading } from '../../shared/ducks/detail/detail';
+import { isDetailLoading } from '../../shared/ducks/detail/selectors';
 import { getUser } from '../../shared/ducks/user/user';
 import { getApiSpecificationData } from '../../shared/ducks/datasets/datasets';
 import { getLocationPayload } from '../../store/redux-first-router';
