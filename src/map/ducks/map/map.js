@@ -162,12 +162,11 @@ export default function MapReducer(state = initialState, action) {
     case TOGGLE_MAP_OVERLAY_PANORAMA:
       return {
         ...enrichedState,
-        overlays: enrichedState.overlays.some(
-          (overlay) => action.payload !== overlay.id
-        ) ? [...enrichedState.overlays.filter(
-          (overlay) => !overlay.id.startsWith(PANORAMA)
-        ), { id: action.payload, isVisible: true }]
-        : [...enrichedState.overlays, { id: action.payload, isVisible: true }]
+        overlays: [
+          { id: action.payload, isVisible: true },
+          ...enrichedState.overlays.filter(
+            (overlay) => !overlay.id.startsWith(PANORAMA)
+          )]
       };
 
     case TOGGLE_MAP_OVERLAY_VISIBILITY:
