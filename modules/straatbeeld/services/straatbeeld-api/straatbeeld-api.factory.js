@@ -123,7 +123,7 @@
                         id: adjacency.pano_id,
                         heading: adjacency.direction,
                         distance: adjacency.distance,
-                        year: parseInt(adjacency.timestamp.substring(0, 4))
+                        year: adjacency.mission_year
                     };
                 }),
                 location: geojson.getCenter(formattedGeometry),
