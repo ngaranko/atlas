@@ -39,6 +39,7 @@
             }
 
             const q = $q.defer();
+            cancel = $q.defer();
 
             const params = getLocationHistoryParams(location, history);
             const getLocationUrl = `${sharedConfig.API_ROOT}${prefix}/?` +
@@ -103,35 +104,32 @@
             const panorama = response && response[0];
             const adjacencies = response && response.filter((adjacency) => adjacency !== panorama);
 
-            if (panorama && angular.isObject(panorama.geometry)) {
-                const formattedGeometry = {
-                    coordinates: [
-                        panorama.geometry.coordinates[1],
-                        panorama.geometry.coordinates[0]
-                    ],
-                    type: panorama.geometry.type
-                };
+            const formattedGeometry = {
+                coordinates: [
+                    panorama.geometry.coordinates[1],
+                    panorama.geometry.coordinates[0]
+                ],
+                type: panorama.geometry.type
+            };
 
-                return {
-                    date: new Date(panorama.timestamp),
-                    id: panorama.pano_id,
-                    hotspots: adjacencies.map(function (adjacency) {
-                        return {
-                            id: adjacency.pano_id,
-                            heading: adjacency.direction,
-                            distance: adjacency.distance,
-                            year: parseInt(adjacency.timestamp.substring(0, 4))
-                        };
-                    }),
-                    location: geojson.getCenter(formattedGeometry),
-                    image: {
-                        baseurl: panorama.cubic_img_baseurl,
-                        pattern: panorama.cubic_img_pattern,
-                        preview: panorama._links.cubic_img_preview.href
-                    }
-                };
-            }
-            return null;
+            return {
+                date: new Date(panorama.timestamp),
+                id: panorama.pano_id,
+                hotspots: adjacencies.map(function (adjacency) {
+                    return {
+                        id: adjacency.pano_id,
+                        heading: adjacency.direction,
+                        distance: adjacency.distance,
+                        year: parseInt(adjacency.timestamp.substring(0, 4))
+                    };
+                }),
+                location: geojson.getCenter(formattedGeometry),
+                image: {
+                    baseurl: panorama.cubic_img_baseurl,
+                    pattern: panorama.cubic_img_pattern,
+                    preview: panorama._links.cubic_img_preview.href
+                }
+            };
         }
     }
 })();

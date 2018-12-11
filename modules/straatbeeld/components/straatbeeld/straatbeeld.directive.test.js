@@ -374,9 +374,14 @@ describe('The dp-straatbeeld directive', function () {
 
             expect(orientation.update).not.toHaveBeenCalled();
 
-            triggerMousemove(directive.find('.js-marzipano-viewer'));
+            directive.isolateScope().startUpdating();
+            directive.isolateScope().$apply();
 
+            triggerMousemove(directive.find('.js-marzipano-viewer'));
             expect(orientation.update).toHaveBeenCalledWith(mockedMarzipanoViewer);
+
+            directive.isolateScope().stopUpdating();
+            directive.isolateScope().$apply();
         });
 
         it('doesn\'t call the orientation factory before the scene is done loading', function () {
@@ -397,12 +402,32 @@ describe('The dp-straatbeeld directive', function () {
 
             // When it is done loading
             mockedState.isLoading = false;
+
+            directive.isolateScope().startUpdating();
+            directive.isolateScope().$apply();
+
             triggerMousemove(directive.find('.js-marzipano-viewer'));
             expect(orientation.update).toHaveBeenCalled();
+
+            directive.isolateScope().stopUpdating();
+            directive.isolateScope().$apply();
         });
     });
 
     describe('Changing history selection', () => {
+        it('doesnt dispatch an action without location state being an array', () => {
+            const directive = getDirective({
+                location: '1'
+            }, false);
+
+            store.dispatch.calls.reset();
+
+            directive.isolateScope().state.history = 2020;
+            directive.isolateScope().$apply();
+
+            expect(store.dispatch).not.toHaveBeenCalled();
+        });
+
         it('dispatches an action with new data', () => {
             const directive = getDirective({
                 location: [52, 4]

@@ -146,6 +146,7 @@ export default {
 
         if (oldState.id === newState.id) {
           newState.image = oldState.image;
+          newState.history = oldState.history;
           newState.hotspots = oldState.hotspots;
           newState.date = oldState.date;
           newState.location = oldState.location;
@@ -418,6 +419,10 @@ export default {
       name: 'straatbeeld.history.layerName',
       type: 'string'
     },
+    sblb: {
+      name: 'straatbeeld.history.label',
+      type: 'string'
+    },
     // UI visibility (uv)
     uvm: {
       name: 'ui.isMapPanelVisible',
@@ -425,4 +430,3 @@ export default {
     }
   }
 };
-
