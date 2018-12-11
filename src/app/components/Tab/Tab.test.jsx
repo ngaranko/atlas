@@ -65,5 +65,5 @@ describe('Tab', () => {
       );
       expect(tab.text()).toContain(42);
     });
-  })
+  });
 });
