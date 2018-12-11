@@ -21,7 +21,7 @@ const Tab = ({ label, count, onClick, isCurrentTab }) => (
 );
 
 Tab.defaultProps = {
-  count: 0,
+  count: 0, // TODO: default waarde is undefined toch? Anders heeft die guard hierboven ook geen zin!
   isCurrentTab: false
 };
 
