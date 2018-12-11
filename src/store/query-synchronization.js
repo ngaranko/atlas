@@ -43,15 +43,15 @@ const querieObjects = [
  */
 const queryMappings = querieObjects.reduce((acc, queryObject) => ({
   ...acc,
-  ...Object.keys(queryObject).reduce((cleanedQueryObject, ie) => {
-    if (ie in acc) {
+  ...Object.keys(queryObject).reduce((cleanedQueryObject, key) => {
+    if (key in acc) {
       // eslint-disable-next-line no-console
-      console.warn(`Warning: query key "${ie}" is already registered in another file`);
+      console.warn(`Warning: query key "${key}" is already registered in another file`);
       return cleanedQueryObject;
     }
     return {
       ...cleanedQueryObject,
-      [ie]: queryObject[ie]
+      [key]: queryObject[key]
     };
   }, {})
 }), {});
