@@ -1,7 +1,7 @@
 export default [
   {
     id: 'pano',
-    layers: ['panorama_recent'],
+    layers: ['panorama_new'],
     legendItems: [
       {
         selectable: false,
@@ -11,48 +11,6 @@ export default [
         selectable: false,
         title: '2017'
       },
-      {
-        selectable: false,
-        title: '2016'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
-  },
-  {
-    id: 'pano2018',
-    layers: ['panorama_recent_2018'],
-    legendItems: [
-      {
-        selectable: false,
-        title: '2018'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
-  },
-  {
-    id: 'pano2017',
-    layers: ['panorama_recent_2017'],
-    legendItems: [
-      {
-        selectable: false,
-        title: '2017'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
-  },
-  {
-    id: 'pano2016',
-    layers: ['panorama_recent_2016'],
-    legendItems: [
       {
         selectable: false,
         title: '2016'

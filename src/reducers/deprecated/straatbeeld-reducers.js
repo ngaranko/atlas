@@ -38,7 +38,8 @@ function fetchStraatbeeldByIdReducer(state, payload) {
       id: payload.id,
       heading: payload.heading ||
         (state.straatbeeld && state.straatbeeld.heading) ||
-        0,
+        null,
+      location: (state.straatbeeld && state.straatbeeld.location) || null,
       isInitial: payload.isInitial,
       isFullscreen: typeof payload.isFullscreen !== 'undefined' ? payload.isFullscreen
         : state.straatbeeld && state.straatbeeld.isFullscreen ? state.straatbeeld.isFullscreen
@@ -66,13 +67,18 @@ function fetchStraatbeeldByLocationReducer(state, payload) {
     map.viewCenter = payload;
   }
 
+  const coordinates = [
+    Number(payload[0].toFixed(6)),
+    Number(payload[1].toFixed(6))
+  ];
+
   return {
     ...state,
     straatbeeld: {
       ...(state.straatbeeld || {}),
       ...resetStraatbeeld(),
-      location: payload,
-      targetLocation: payload
+      location: coordinates,
+      targetLocation: coordinates
     },
     map: {
       ...map,
@@ -116,12 +122,13 @@ function showStraatbeeldReducer(state, payload) {
       ...state.straatbeeld,
       id: payload.id || state.straatbeeld.id,
       date: payload.date,
-      pitch: state.straatbeeld.pitch || 0,
-      fov: state.straatbeeld.fov || STRAATBEELD_CONFIG.DEFAULT_FOV,
-      heading: Array.isArray(state.straatbeeld.location) &&
-      Array.isArray(state.straatbeeld.targetLocation)
-        ? getHeadingDegrees(payload.location, state.straatbeeld.targetLocation)
-        : state.straatbeeld.heading,
+      pitch: state.straatbeeld.pitch || null,
+      fov: STRAATBEELD_CONFIG.DEFAULT_FOV,
+      heading: state.straatbeeld.heading
+          ? state.straatbeeld.heading
+          : ((Array.isArray(payload.location) &&
+              Array.isArray(state.straatbeeld.targetLocation))
+              ? getHeadingDegrees(payload.location, state.straatbeeld.targetLocation) : null),
       hotspots: payload.hotspots,
       isLoading: false,
       location: payload.location,
