@@ -129,6 +129,19 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.STATISTICS}`,
     page: PAGES.STATISTICS
   },
+  verplaatst: {
+    title: '',
+    path: '/verplaatst',
+    type: `${ROUTER_NAMESPACE}/${PAGES.MOVED}`,
+    page: PAGES.MOVED
+  },
+  niet_gevonden: {
+    title: '',
+    path: '/niet-gevonden',
+    type: `${ROUTER_NAMESPACE}/${PAGES.NOT_FOUND}`,
+    page: PAGES.NOT_FOUND
+  },
+
 
   dataDetail: {
     title: 'Data detail',
