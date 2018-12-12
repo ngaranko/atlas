@@ -3,7 +3,8 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import watchFetchNearestDetails, { fetchNearestDetails } from './nearest-details';
 
 import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
-import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
+import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
+import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
 
 describe('watchFetchNearestDetails', () => {
   const action = { type: REQUEST_NEAREST_DETAILS };
@@ -38,10 +39,7 @@ describe('fetchNearestDetails', () => {
           return next();
         }
       })
-      .put({
-        type: REQUEST_GEOSEARCH,
-        payload: [action.payload.location.latitude, action.payload.location.longitude]
-      })
+      .put(setGeoLocation(action.payload.location))
       .run()
   ));
 
@@ -55,10 +53,7 @@ describe('fetchNearestDetails', () => {
           return next();
         }
       })
-      .put({
-        type: REQUEST_GEOSEARCH,
-        payload: [action.payload.location.latitude, action.payload.location.longitude]
-      })
+      .put(setGeoLocation(action.payload.location))
       .run()
   ));
 
@@ -67,10 +62,7 @@ describe('fetchNearestDetails', () => {
     testSaga(fetchNearestDetails, action)
       .next()
       .throw(error)
-      .put({
-        type: REQUEST_GEOSEARCH,
-        payload: [action.payload.location.latitude, action.payload.location.longitude]
-      })
+      .put(setGeoLocation(action.payload.location))
       .next()
       .isDone();
   });

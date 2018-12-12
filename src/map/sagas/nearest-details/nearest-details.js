@@ -1,8 +1,9 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
-import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
+import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 import { getPageActionEndpoint } from '../../../store/redux-first-router';
 import { getDetailView } from '../../../shared/ducks/detail/selectors';
+import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
 
 export function* fetchNearestDetails(action) {
   const {
@@ -16,16 +17,10 @@ export function* fetchNearestDetails(action) {
       const view = yield select(getDetailView);
       yield put(getPageActionEndpoint(uri, view));
     } else {
-      yield put({
-        type: REQUEST_GEOSEARCH,
-        payload: [location.latitude, location.longitude]
-      });
+      yield put(setGeoLocation(location));
     }
   } catch (error) {
-    yield put({
-      type: REQUEST_GEOSEARCH,
-      payload: [location.latitude, location.longitude]
-    });
+    yield put(setGeoLocation(location));
   }
 }
 
