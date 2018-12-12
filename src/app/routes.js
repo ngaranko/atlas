@@ -129,11 +129,11 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.STATISTICS}`,
     page: PAGES.STATISTICS
   },
-  oldversion: {
+  verplaatst: {
     title: '',
-    path: '/oldversion',
-    type: `${ROUTER_NAMESPACE}/${PAGES.OLD_VERSION}`,
-    page: PAGES.CONTROLS
+    path: '/verplaatst',
+    type: `${ROUTER_NAMESPACE}/${PAGES.VERPLAATST}`,
+    page: PAGES.VERPLAATST
   },
 
 

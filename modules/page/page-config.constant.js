@@ -13,6 +13,7 @@
             apis: 'API\'s gebruiken',
             proclaimer: 'Proclaimer',
             inloggen: 'Na inloggen',
-            statistieken: 'Statistieken'
+            statistieken: 'Statistieken',
+            verplaatst: 'Pagina verplaatst'
         });
 })();
