@@ -132,14 +132,14 @@ export const routing = {
   verplaatst: {
     title: '',
     path: '/verplaatst',
-    type: `${ROUTER_NAMESPACE}/${PAGES.VERPLAATST}`,
-    page: PAGES.VERPLAATST
+    type: `${ROUTER_NAMESPACE}/${PAGES.MOVED}`,
+    page: PAGES.MOVED
   },
   niet_gevonden: {
     title: '',
     path: '/niet-gevonden',
-    type: `${ROUTER_NAMESPACE}/${PAGES.NIET_GEVONDEN}`,
-    page: PAGES.NIET_GEVONDEN
+    type: `${ROUTER_NAMESPACE}/${PAGES.NOT_FOUND}`,
+    page: PAGES.NOT_FOUND
   },
 
 
