@@ -38,15 +38,26 @@
             container = element[0].querySelector('.js-marzipano-viewer');
             viewer = marzipanoService.initialize(container);
 
+            scope.shouldUpdate = false;
+
+            scope.startUpdating = function () {
+                scope.shouldUpdate = true;
+            };
+
+            scope.stopUpdating = function () {
+                scope.shouldUpdate = false;
+            };
+
             scope.updateOrientation = function () {
-                if (!scope.state.isLoading) {
+                if (!scope.state.isLoading && scope.shouldUpdate) {
                     orientation.update(viewer);
                 }
             };
 
             // Fetch scene by location
-            scope.$watchCollection('state.location', function (location) {
-                if (!scope.state.id && angular.isArray(location)) {
+            scope.$watchCollection('state.location', function (location, oldLocation) {
+                // eslint-disable-next-line
+                if (!scope.state.id && angular.isArray(location) && JSON.stringify(location) !== JSON.stringify(oldLocation)) {
                     straatbeeldApi.getImageDataByLocation(location, scope.state.history).then(showStraatbeeld);
                 }
             });
@@ -54,14 +65,16 @@
             // Fetch scene by id
             scope.$watch('state.id', function (id) {
                 // Load straatbeeld on id when no location is set or no image is yet loaded
-                if (!(angular.isArray(scope.state.location) && scope.state.image) && angular.isString(id)) {
+                if (angular.isString(id)) {
                     straatbeeldApi.getImageDataById(id, scope.state.history).then(showStraatbeeld);
                 }
             });
 
-            scope.$watch('state.history', function (history) {
-                if (angular.isArray(scope.state.location)) {
-                    straatbeeldApi.getImageDataByLocation(scope.state.location, history).then(showStraatbeeld);
+            scope.$watch('state.history', function (history, oldHistory) {
+                if (history.year !== oldHistory.year || history.missionType !== oldHistory.missionType) {
+                    if (angular.isArray(scope.state.location)) {
+                        straatbeeldApi.getImageDataByLocation(scope.state.location, history).then(showStraatbeeld);
+                    }
                 }
             });
 

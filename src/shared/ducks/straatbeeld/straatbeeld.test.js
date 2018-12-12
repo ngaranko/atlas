@@ -12,7 +12,12 @@ describe('Straatbeeld Reducer', () => {
       date: null,
       fov: 0,
       heading: 0,
-      history: 0,
+      history: {
+        label: 'Meest recent',
+        layerName: 'pano',
+        missionType: '',
+        year: 0
+      },
       hotspots: [],
       image: null,
       isFullscreen: false,
