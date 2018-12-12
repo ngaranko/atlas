@@ -244,14 +244,17 @@ describe('Map Reducer', () => {
   });
 
   it(`should add a pano overlay when dispatching ${MAP_ADD_PANO_OVERLAY}`, () => {
-    expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
+    expect(reducer({ overlays: [] }, {
       type: MAP_ADD_PANO_OVERLAY,
       payload: {
         id: 'panob',
-        history: 'history'
+        history: {
+          year: 0,
+          layerName: 'pano'
+        }
       }
     })).toEqual({
-      overlays: [{ id: 'panohistory', isVisible: true }]
+      overlays: [{ id: 'pano', isVisible: true }]
     });
 
     expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
