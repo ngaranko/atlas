@@ -271,7 +271,8 @@ describe('Straatbeeld reducers factory', () => {
           isLoading: true,
           id: 'ABC',
           heading: 123,
-          isInitial: true
+          isInitial: true,
+          targetLocation: [2, 2]
         },
         detail: null
       };
