@@ -8,7 +8,8 @@
     straatbeeldApiFactory.$inject = ['$q', 'STRAATBEELD_CONFIG', 'sharedConfig', 'geojson', 'api'];
 
     function straatbeeldApiFactory ($q, STRAATBEELD_CONFIG, sharedConfig, geojson, api) {
-        const MAX_RADIUS_KM = 100; // The maximum search radius straatbeeld in KM
+        const prefix = STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_PREFIX;
+        const suffix = STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_SUFFIX;
 
         let cancel; // Promise to cancel any outstanding http requests
 
@@ -17,89 +18,126 @@
             getImageDataById
         };
 
-        /**
-         * @param {Number[]} location The center location.
-         * @param {Number} history The year to featch hotspots for, queries all
-         *   years when falsy.
-         * @returns {Promise.imageData} The fetched straatbeeld, or null on failure.
-         */
-        function getImageDataByLocation (location, history) {
-            return searchWithinRadius(location, MAX_RADIUS_KM * 1000, history);
+        function getLocationHistoryParams (location, history) {
+            const yearTypeMission = (history && history.year)
+                ? `&mission_year=${history.year}&mission_type=${history.missionType}`
+                : '';
+            const newestInRange = 'newest_in_range=true';
+            const pageSize = 'page_size=1';
+
+            return {
+                locationRange: (location)
+                    ? `near=${location[1]},${location[0]}&srid=${STRAATBEELD_CONFIG.SRID}&${pageSize}` : '',
+                newestInRange,
+                standardRadius: `radius=${STRAATBEELD_CONFIG.MAX_RADIUS}`,
+                largeRadius: `radius=${STRAATBEELD_CONFIG.LARGE_RADIUS}`,
+                yearTypeMission,
+                adjacenciesParams: `${newestInRange}${yearTypeMission}`
+            };
         }
 
-        /**
-         * Search for a straatbeeld.
-         *
-         * @param {Number[]} location The center location.
-         * @param {Number} radius The distance from the location within to
-         *   search for a straatbeeld.
-         * @param {Number} history The year to featch hotspots for, queries all
-         *   years when falsy.
-         *
-         * @returns {Promise.imageData} The fetched straatbeeld, or null on failure.
-         */
-        function searchWithinRadius (location, radius, history) {
-            const endpoint = history
-                ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${history}/`
-                : STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL;
+        function getImageDataByLocation (location, history) {
+            if (!angular.isArray(location)) {
+                return null;
+            }
 
-            return getStraatbeeld(`${sharedConfig.API_ROOT}${endpoint}` +
-                `?lat=${location[0]}&lon=${location[1]}&radius=${radius}`)
-                .then(
-                    data => {
-                        if (data) {
-                            return data;
-                        } else {
-                            return null;
-                        }
+            const q = $q.defer();
+            cancel = $q.defer();
+
+            const {
+              adjacenciesParams,
+              largeRadius,
+              locationRange,
+              newestInRange,
+              standardRadius,
+              yearTypeMission
+            } = getLocationHistoryParams(location, history);
+            const getLocationUrl = `${sharedConfig.API_ROOT}${prefix}/?${locationRange}${yearTypeMission}`;
+            const limitResults = 'limit_results=1';
+
+            api.getByUrl(
+              `${getLocationUrl}&${standardRadius}&${newestInRange}&${limitResults}`, undefined, cancel
+            )
+                .then((json) => json._embedded.panoramas[0])
+                .then((data) => {
+                    if (data) {
+                        // we found a pano nearby go to it
+                        q.resolve(
+                            getAdjaciencies(data._links.adjacencies.href, adjacenciesParams)
+                        );
+                    } else {
+                        // there is no pano nearby search with a large radius and go to it
+                        api.getByUrl(`${getLocationUrl}&${largeRadius}&${limitResults}`, undefined, cancel)
+                            .then((json) => json._embedded.panoramas[0])
+                            .then((pano) => {
+                                q.resolve(
+                                    getAdjaciencies(pano._links.adjacencies.href, adjacenciesParams)
+                                );
+                            });
                     }
-                );
+                })
+                .finally(() => cancel = null);
+
+            return q.promise;
+        }
+
+        function getAdjaciencies (url, params) {
+            const getAdjacenciesUrl = `${url}?${params}`;
+            return getStraatbeeld(getAdjacenciesUrl);
         }
 
         function getImageDataById (id, history) {
-            const endpoint = history
-                ? `${STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_YEAR}${history}/`
-                : STRAATBEELD_CONFIG.STRAATBEELD_ENDPOINT_ALL;
+            const { adjacenciesParams } = getLocationHistoryParams(null, history);
 
-            return getStraatbeeld(`${sharedConfig.API_ROOT}${endpoint}${id}/`);
+            return getStraatbeeld(
+                `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}/?${adjacenciesParams}`
+            );
         }
 
         function getStraatbeeld (url) {
             if (cancel) {
                 // Cancel any outstanding requests
+                // console.log('cancel call: ', url);
                 cancel.resolve();
             }
+
             cancel = $q.defer();
             return api.getByUrl(url, undefined, cancel)
+                .then((json) => json._embedded.adjacencies)
                 .then(imageData)
                 .finally(() => cancel = null);
         }
 
         function imageData (response) {
-            if (angular.isObject(response.geometrie)) {
-                const formattedGeometrie = {
-                    coordinates: [
-                        response.geometrie.coordinates[1],
-                        response.geometrie.coordinates[0]
-                    ],
-                    type: response.geometrie.type
-                };
+            const panorama = response && response[0];
+            const adjacencies = response && response.filter((adjacency) => adjacency !== panorama);
 
-                return {
-                    date: new Date(response.timestamp),
-                    id: response.pano_id,
-                    hotspots: response.adjacent.map(function (item) {
-                        return {
-                            id: item.pano_id,
-                            heading: item.heading,
-                            distance: item.distance,
-                            year: item.year
-                        };
-                    }),
-                    location: geojson.getCenter(formattedGeometrie),
-                    image: response.image_sets.cubic
-                };
-            }
+            const formattedGeometry = {
+                coordinates: [
+                    panorama.geometry.coordinates[1],
+                    panorama.geometry.coordinates[0]
+                ],
+                type: panorama.geometry.type
+            };
+
+            return {
+                date: new Date(panorama.timestamp),
+                id: panorama.pano_id,
+                hotspots: adjacencies.map(function (adjacency) {
+                    return {
+                        id: adjacency.pano_id,
+                        heading: adjacency.direction,
+                        distance: adjacency.distance,
+                        year: adjacency.mission_year
+                    };
+                }),
+                location: geojson.getCenter(formattedGeometry),
+                image: {
+                    baseurl: panorama.cubic_img_baseurl,
+                    pattern: panorama.cubic_img_pattern,
+                    preview: panorama._links.cubic_img_preview.href
+                }
+            };
         }
     }
 })();

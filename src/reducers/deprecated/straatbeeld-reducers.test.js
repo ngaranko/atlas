@@ -127,7 +127,7 @@ describe('Straatbeeld reducers factory', () => {
       expect(output.straatbeeld.hotspots)
         .toEqual([]);
       expect(output.straatbeeld.location)
-        .toBeNull();
+        .toBe(inputState.straatbeeld.location); // Keeps location if available
       expect(output.straatbeeld.image)
         .toBeNull();
     });
@@ -145,7 +145,7 @@ describe('Straatbeeld reducers factory', () => {
         .toBeNull();
     });
 
-    it('has a default heading of 0', () => {
+    it('has a default heading of null', () => {
       const inputState = {
         ...defaultState,
         search: {
@@ -160,7 +160,7 @@ describe('Straatbeeld reducers factory', () => {
 
       const output = straatbeeldReducers[ACTIONS.FETCH_STRAATBEELD_BY_ID.id](inputState, payload);
       expect(output.straatbeeld.heading)
-        .toBe(0);
+        .toBeNull();
     });
 
     it('optionally sets straatbeeld to fullscreen', () => {
@@ -271,7 +271,8 @@ describe('Straatbeeld reducers factory', () => {
           isLoading: true,
           id: 'ABC',
           heading: 123,
-          isInitial: true
+          isInitial: true,
+          targetLocation: [2, 2]
         },
         detail: null
       };
@@ -287,20 +288,19 @@ describe('Straatbeeld reducers factory', () => {
     it('set defaults for pitch, fov when oldstate is unknown', () => {
       const output = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
       expect(output.straatbeeld.pitch)
-        .toBe(0);
+        .toBeNull();
       expect(output.straatbeeld.fov)
         .toBe(79);
     });
 
     it('set Pitch and fov to output when oldstate is known', () => {
       inputState.straatbeeld.pitch = 1;
-      inputState.straatbeeld.fov = 2;
 
       const output = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
       expect(output.straatbeeld.pitch)
         .toBe(1);
       expect(output.straatbeeld.fov)
-        .toBe(2);
+        .toBe(79);
     });
 
     it('sets viewcenter when no heading is known', () => {
@@ -384,21 +384,31 @@ describe('Straatbeeld reducers factory', () => {
     it('heads towards a targetlocation when straatbeeld is loaded by location', () => {
       let output;
 
-      [
-        { target: [52, 4], heading: 0 },
-        { target: [52, 5], heading: 90 },
-        { target: [52, 3], heading: -90 },
-        { target: [53, 5], heading: 45 },
-        { target: [51, 3], heading: -135 },
-        { target: [51, 5], heading: 135 }
-      ].forEach(({ target, heading }) => {
+      [{ target: [52, 4] }].forEach(({ target }) => {
         inputState.straatbeeld.targetLocation = target;
         inputState.straatbeeld.location = inputState.straatbeeld.targetLocation;
         output = straatbeeldReducers[ACTIONS.SHOW_STRAATBEELD_INITIAL.id](inputState, payload);
         expect(output.straatbeeld)
-          .toEqual(jasmine.objectContaining({
-            heading
-          }));
+          .toEqual({
+            date: new Date('2016-05-19T13:04:15.341Z'),
+            fov: 79,
+            heading: 123,
+            hotspots: [{
+              distance: 3,
+              heading: 179,
+              id: 'ABC'
+            }],
+            id: 'ABC',
+            image: {
+              pattern: 'http://example.com/example/{this}/{that}/{whatever}.png',
+              preview: 'http://example.com/example/preview.png'
+            },
+            isInitial: true,
+            isLoading: false,
+            location: [52, 4],
+            pitch: null,
+            targetLocation: [52, 4]
+          });
       });
     });
 

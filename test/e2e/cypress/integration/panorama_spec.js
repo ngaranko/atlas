@@ -5,7 +5,7 @@ const straatbeeld = '.c-straatbeeld';
 describe('panorama module', () => {
   beforeEach(() => {
     cy.server();
-    cy.route('/panorama/recente_opnames/alle/*').as('getResults');
+    cy.route('/panorama/panoramas/*/adjacencies/?newest_in_range=true').as('getResults');
 
     // go to the homepage
     cy.visit('/');
@@ -95,7 +95,7 @@ describe('panorama module', () => {
 
   describe('user should be able to interact with the panorama', () => {
     it('should remember the state when closing the pano, and update to search results when clicked in map', () => {
-      const panoUrl = '/#?dte=bag%2Fopenbareruimte%2F03630000004153%2F&mpb=topografie&mpz=11&mpo=pano::T&mpv=52.3663002:4.883519&sbf=Cu&sbh=qQ&sbi=TMX7316010203-000714_pano_0001_002608&sbl=ZREfS:3IuGM';
+      const panoUrl = '/#?dte=bag%2Fopenbareruimte%2F03630000004153%2F&mpb=topografie&mpz=11&mpo=pano::T&mpv=52.3663002:4.883519&sbf=Cu&sbh=qQ&sbi=TMX7316010203-000714_pano_0001_002608&sbl=ZREfS:3IuGM&sbln=pano&sblb=Meest%2520recent';
       let newUrl;
 
       cy.defineGeoSearchRoutes();
@@ -156,7 +156,7 @@ describe('panorama module', () => {
       // verify that something happened by comparing the url
       cy.location().then((loc) => {
         const thisUrl = loc.pathname + loc.hash;
-        expect(thisUrl).to.not.equal(newUrl);
+        expect(thisUrl).not.to.equal(newUrl);
       });
       cy.get('button.c-straatbeeld__close').click();
 
