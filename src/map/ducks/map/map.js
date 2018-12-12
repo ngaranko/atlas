@@ -36,6 +36,7 @@ export const initialState = {
 let polygon = {};
 let has2Markers;
 let moreThan2Markers;
+export const isPanoLayer = (layer) => layer.id.startsWith(PANORAMA);
 
 export default function MapReducer(state = initialState, action) {
   const enrichedState = {
@@ -70,11 +71,20 @@ export default function MapReducer(state = initialState, action) {
 
   switch (action.type) {
     case routing.dataDetail.type:
-    case routing.panorama.type:
     case routing.dataSearch.type:
     case routing.addresses.type:
     case routing.cadastralObjects.type:
     case routing.establishments.type:
+      // When opening these pages, close legend, remove pano layer
+      return {
+        ...enrichedState,
+        mapPanelActive: false,
+        overlays: [...enrichedState.overlays.filter(
+          (overlay) => !isPanoLayer(overlay)
+        )]
+      };
+
+    case routing.panorama.type:
       // When opening these pages, close legend
       return {
         ...enrichedState,
@@ -151,7 +161,7 @@ export default function MapReducer(state = initialState, action) {
       return {
         ...enrichedState,
         overlays: enrichedState.overlays.some(
-          (overlay) => action.payload.mapLayers.includes(overlay.id)
+          (overlay) => !isPanoLayer(overlay) && action.payload.mapLayers.includes(overlay.id)
         ) ? [...enrichedState.overlays.filter(
           (overlay) => !action.payload.mapLayers.includes(overlay.id)
         )] : [...enrichedState.overlays, ...action.payload.mapLayers.map(
@@ -165,7 +175,7 @@ export default function MapReducer(state = initialState, action) {
         overlays: [
           { id: action.payload, isVisible: true },
           ...enrichedState.overlays.filter(
-            (overlay) => !overlay.id.startsWith(PANORAMA)
+            (overlay) => !isPanoLayer(overlay)
           )]
       };
 
@@ -215,7 +225,7 @@ export const toggleMapOverlay = (payload) => ({
     mapLayers: (payload.id) ? [payload.id] : payload.legendItems.map((overlay) => overlay.id)
   },
   meta: {
-    tracking: !payload.id.startsWith(PANORAMA) ? payload : null
+    tracking: (payload && payload.id && !isPanoLayer(payload)) ? payload : null
   }
 });
 export const toggleMapOverlayPanorama = (payload) => ({
