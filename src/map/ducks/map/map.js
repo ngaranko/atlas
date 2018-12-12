@@ -62,7 +62,7 @@ let moreThan2Markers;
 
 const getNewLayer = (straatbeeld) => (
   straatbeeld && straatbeeld.history
-    ? `pano${straatbeeld.history}`
+    ? straatbeeld.history.layerName
     : 'pano'
   );
 

@@ -194,9 +194,14 @@ export default [
     layers: ['grootstedelijkgebied', 'grootstedelijkgebied_label']
   },
   {
-    id: 'ggwp',
+    id: 'ggwpg',
     url: 'maps/gebieden?service=wms',
     layers: ['gebiedsgerichtwerkenpraktijkgebieden', 'gebiedsgerichtwerkenpraktijkgebieden_label']
+  },
+  {
+    id: 'ggwg',
+    url: 'maps/gebieden?service=wms',
+    layers: ['gebiedsgerichtwerken', 'gebiedsgerichtwerken_label']
   },
   {
     id: 'unesco',
@@ -207,11 +212,6 @@ export default [
     id: 'sd',
     url: 'maps/gebieden?service=wms',
     layers: ['stadsdeel', 'stadsdeel_label']
-  },
-  {
-    id: 'ggw',
-    url: 'maps/gebieden?service=wms',
-    layers: ['gebiedsgerichtwerken', 'gebiedsgerichtwerken_label']
   },
   {
     id: 'bc',
@@ -568,32 +568,70 @@ export default [
   {
     id: 'pano',
     url: 'maps/panorama',
-    layers: ['panorama_recent']
+    layers: ['panorama_new']
   },
   {
-    id: 'pano2016',
+    id: 'pano2016bi',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2016']
+    layers: ['panorama_new'],
+    params: {
+      mission_year: 2016,
+      mission_type: 'bi'
+    }
   },
   {
-    id: 'pano2017',
+    id: 'pano2017bi',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2017']
+    layers: ['panorama_new'],
+    params: {
+      mission_year: 2017,
+      mission_type: 'bi'
+    }
   },
   {
-    id: 'pano2018',
+    id: 'pano2017woz',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2018']
+    layers: ['panorama_new'],
+    params: {
+      mission_year: 2017,
+      mission_type: 'woz'
+    }
   },
   {
-    id: 'pano2019',
+    id: 'pano2018bi',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2019']
+    layers: ['panorama_new'],
+    params: {
+      mission_year: 2018,
+      mission_type: 'bi'
+    }
   },
   {
-    id: 'pano2020',
+    id: 'pano2018woz',
     url: 'maps/panorama',
-    layers: ['panorama_recent_2020']
+    layers: ['panorama_new'],
+    params: {
+      mission_year: 2018,
+      mission_type: 'woz'
+    }
+  },
+  {
+    id: 'pano2019bi',
+    url: 'maps/panorama',
+    layers: ['panorama_new'],
+    params: {
+      mission_year: 2019,
+      mission_type: 'bi'
+    }
+  },
+  {
+    id: 'pano2019woz',
+    url: 'maps/panorama',
+    layers: ['panorama_new'],
+    params: {
+      mission_year: 2019,
+      mission_type: 'woz'
+    }
   },
   // Eigenaren
   {

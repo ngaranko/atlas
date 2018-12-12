@@ -1,7 +1,7 @@
 export default [
   {
     id: 'pano',
-    layers: ['panorama_recent'],
+    layers: ['panorama_new'],
     legendItems: [
       {
         selectable: false,
@@ -11,48 +11,6 @@ export default [
         selectable: false,
         title: '2017'
       },
-      {
-        selectable: false,
-        title: '2016'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
-  },
-  {
-    id: 'pano2018',
-    layers: ['panorama_recent_2018'],
-    legendItems: [
-      {
-        selectable: false,
-        title: '2018'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
-  },
-  {
-    id: 'pano2017',
-    layers: ['panorama_recent_2017'],
-    legendItems: [
-      {
-        selectable: false,
-        title: '2017'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 11,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
-  },
-  {
-    id: 'pano2016',
-    layers: ['panorama_recent_2016'],
-    legendItems: [
       {
         selectable: false,
         title: '2016'
@@ -275,12 +233,6 @@ export default [
         title: 'Stadsdeel'
       },
       {
-        id: 'ggw',
-        layer: 'gebiedsgerichtwerken',
-        selectable: true,
-        title: 'Gebiedsgerichtwerken-gebied'
-      },
-      {
         id: 'bc',
         layer: 'buurtcombinatie',
         selectable: true,
@@ -315,6 +267,28 @@ export default [
   },
   {
     category: 'Geografie: gebieden',
+    id: 'ggw',
+    legendItems: [
+      {
+        id: 'ggwg',
+        layer: 'gebiedsgerichtwerken',
+        selectable: true,
+        title: 'Gebiedsgerichtwerken-gebied'
+      },
+      {
+        id: 'ggwpg',
+        layer: 'gebiedsgerichtwerkenpraktijkgebieden',
+        selectable: true,
+        title: 'Gebiedsgerichtwerken-praktijkgebied'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 6,
+    title: 'Gebiedsgericht werken',
+    url: '/maps/gebieden?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Geografie: gebieden',
     id: 'gsg',
     layers: ['grootstedelijkgebied'],
     legendItems: [
@@ -326,21 +300,6 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Grootstedelijke gebieden',
-    url: '/maps/gebieden?version=1.3.0&service=WMS'
-  },
-  {
-    category: 'Geografie: gebieden',
-    id: 'ggwp',
-    layers: ['gebiedsgerichtwerkenpraktijkgebieden'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Gebiedsgerichtwerken-praktijkgebied'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 6,
-    title: 'Gebiedsgerichtwerken-praktijkgebieden',
     url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
   {
