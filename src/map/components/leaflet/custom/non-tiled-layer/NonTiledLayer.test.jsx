@@ -6,6 +6,7 @@ function renderComponent() {
   return shallow(
     <NonTiledLayer
       url="url"
+      params={{ test: '123' }}
     />, {
       context: {
         layerContainer: {
