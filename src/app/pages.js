@@ -25,7 +25,8 @@ const PAGES = {
   AVAILABILITY_QUALITY: 'AVAILABILITY_QUALITY',
   MANAGEMENT: 'MANAGEMENT',
   STATISTICS: 'STATISTICS',
-  VERPLAATST: 'VERPLAATST'
+  MOVED: 'MOVED',
+  NOT_FOUND: 'NOT_FOUND'
 };
 
 export default PAGES;
@@ -41,5 +42,6 @@ export const isCmsPage = (page) =>
   page === PAGES.PRIVACY_SECURITY ||
   page === PAGES.AVAILABILITY_QUALITY ||
   page === PAGES.STATISTICS ||
-  page === PAGES.VERPLAATST ||
+  page === PAGES.MOVED ||
+  page === PAGES.NOT_FOUND ||
   page === PAGES.MANAGEMENT;
