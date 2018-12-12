@@ -127,7 +127,7 @@ describe('Straatbeeld reducers factory', () => {
       expect(output.straatbeeld.hotspots)
         .toEqual([]);
       expect(output.straatbeeld.location)
-        .toBeNull();
+        .toBe(inputState.straatbeeld.location); // Keeps location if available
       expect(output.straatbeeld.image)
         .toBeNull();
     });

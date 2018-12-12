@@ -39,6 +39,7 @@ function fetchStraatbeeldByIdReducer(state, payload) {
       heading: payload.heading ||
         (state.straatbeeld && state.straatbeeld.heading) ||
         null,
+      location: (state.straatbeeld && state.straatbeeld.location) || null,
       isInitial: payload.isInitial,
       isFullscreen: typeof payload.isFullscreen !== 'undefined' ? payload.isFullscreen
         : state.straatbeeld && state.straatbeeld.isFullscreen ? state.straatbeeld.isFullscreen
