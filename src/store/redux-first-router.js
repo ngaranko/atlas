@@ -176,7 +176,7 @@ export const getLocationPayload = createSelector(getLocation, (location) => loca
 
 export const getPage = createSelector(getLocation, (location = {}) => {
   const key = Object.keys(routing).find((route) => routing[route].type === location.type);
-  return key && routing[key].page;
+  return (key && routing[key].page) || routing.niet_gevonden.page;
 });
 
 export const isMapView = createSelector(

@@ -14,6 +14,7 @@
             proclaimer: 'Proclaimer',
             inloggen: 'Na inloggen',
             statistieken: 'Statistieken',
-            verplaatst: 'Pagina verplaatst'
+            verplaatst: 'Pagina verplaatst',
+            nietgevonden: 'Niet gevonden'
         });
 })();

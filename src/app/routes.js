@@ -135,6 +135,12 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.VERPLAATST}`,
     page: PAGES.VERPLAATST
   },
+  niet_gevonden: {
+    title: '',
+    path: '/niet-gevonden',
+    type: `${ROUTER_NAMESPACE}/${PAGES.NIET_GEVONDEN}`,
+    page: PAGES.NIET_GEVONDEN
+  },
 
 
   dataDetail: {
