@@ -79,9 +79,9 @@ export default function MapReducer(state = initialState, action) {
       return {
         ...enrichedState,
         mapPanelActive: false,
-        overlays: [...enrichedState.overlays.filter(
+        overlays: enrichedState.overlays ? [...enrichedState.overlays.filter(
           (overlay) => !isPanoLayer(overlay)
-        )]
+        )] : []
       };
 
     case routing.panorama.type:
