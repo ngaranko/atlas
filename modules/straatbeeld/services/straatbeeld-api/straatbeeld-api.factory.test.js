@@ -66,7 +66,7 @@ describe('The straatbeeldApi Factory', () => {
                                         pano_id: 'TMX7315120208-000054_pano_0002_000177',
                                         direction: 116.48,
                                         distance: 10.14,
-                                        year: 2016,
+                                        mission_year: 2016,
                                         cubic_img_baseurl: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
                                         cubic_img_pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
                                         geometry: {
@@ -88,7 +88,7 @@ describe('The straatbeeldApi Factory', () => {
                                         pano_id: 'TMX7315120208-000054_pano_0002_000178',
                                         direction: 127.37,
                                         distance: 5.25,
-                                        year: 2017,
+                                        mission_year: 2017,
                                         cubic_img_baseurl: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
                                         cubic_img_pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
                                         geometry: {
@@ -111,7 +111,7 @@ describe('The straatbeeldApi Factory', () => {
                                             pano_id: 'TMX7315120208-000054_pano_0002_000177',
                                             direction: 116.48,
                                             distance: 10.14,
-                                            year: 2016,
+                                            mission_year: 2016,
                                             cubic_img_baseurl:
                                                 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
                                             cubic_img_pattern:
@@ -136,7 +136,7 @@ describe('The straatbeeldApi Factory', () => {
                                             pano_id: 'TMX7315120208-000054_pano_0002_000178',
                                             direction: 127.37,
                                             distance: 5.25,
-                                            year: 2017,
+                                            mission_year: 2017,
                                             cubic_img_baseurl:
                                                 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
                                             cubic_img_pattern:
@@ -207,7 +207,8 @@ describe('The straatbeeldApi Factory', () => {
         straatbeeldApi.getImageDataById('ABC', { year: 2017, missionType: 'woz' });
 
         expect(api.getByUrl).toHaveBeenCalledWith(
-            'http://pano.amsterdam.nl/panorama/panoramas/ABC/adjacencies/?mission_year=2017&mission_type=woz',
+            'http://pano.amsterdam.nl/panorama/panoramas/ABC/adjacencies/' +
+            '?newest_in_range=true&mission_year=2017&mission_type=woz',
             undefined,
             jasmine.anything()
         );
