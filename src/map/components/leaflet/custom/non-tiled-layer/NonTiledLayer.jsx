@@ -7,6 +7,14 @@ class NonTiledLayer extends TileLayer {
     const { url, ...params } = props;
     return L.nonTiledLayer.wms(url, this.getOptions(params));
   }
+
+  updateLeafletElement(fromProps, toProps) {
+    if (toProps.url !== fromProps.url) {
+      // eslint-disable-next-line no-underscore-dangle
+      this.leafletElement._wmsUrl = toProps.url;
+      this.leafletElement.wmsParams.layers = toProps.layers;
+    }
+  }
 }
 
 export default NonTiledLayer;
