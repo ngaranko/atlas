@@ -41,6 +41,7 @@ const reducer = (state = initialState, action) => {
         type: action.payload
       };
 
+    case routing.map.type:
     case CLEAR_SELECTION: {
       return {
         type: SELECTION_TYPE.NONE
@@ -56,7 +57,7 @@ export const previewDataAvailable = (state) =>
   // If either an object is selected or a point search is in progress, show preview panel
   state.selection.type === SELECTION_TYPE.POINT
   || state.selection.type === SELECTION_TYPE.OBJECT
-;
+  ;
 
 export const getSelectionType = (state) => (state[REDUCER_KEY].type);
 export const isGeoSearch = (state) => state[REDUCER_KEY].type === SELECTION_TYPE.POINT;
