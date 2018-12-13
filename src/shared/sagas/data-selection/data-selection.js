@@ -61,7 +61,7 @@ function* retrieveDataSelection(action) {
     // Check if markers need to be fetched
     const { MAX_NUMBER_OF_CLUSTERED_MARKERS } = dataselectionConfig.datasets[dataset];
     const markersShouldBeFetched = (
-      view === VIEWS.LIST && result.numberOfRecords <= MAX_NUMBER_OF_CLUSTERED_MARKERS
+      view !== VIEWS.TABLE && result.numberOfRecords <= MAX_NUMBER_OF_CLUSTERED_MARKERS
     );
 
     if (markersShouldBeFetched) {
