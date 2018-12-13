@@ -12,6 +12,7 @@ jest.mock('./services/bounds');
 describe('MapLeaflet component', () => {
   const mapOptions = MAP_CONFIG.MAP_OPTIONS;
   const scaleControlOptions = MAP_CONFIG.SCALE_OPTIONS;
+  const zoomControlOptions = MAP_CONFIG.ZOOM_OPTIONS;
 
   const getLeafletInstance = () => '';
   const baseLayer = {
@@ -37,6 +38,7 @@ describe('MapLeaflet component', () => {
         onMoveEnd={clickHandler}
         onZoomEnd={clickHandler}
         scaleControlOptions={scaleControlOptions}
+        zoomControlOptions={zoomControlOptions}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -64,6 +66,7 @@ describe('MapLeaflet component', () => {
         onMoveEnd={clickHandler}
         onZoomEnd={clickHandler}
         scaleControlOptions={scaleControlOptions}
+        zoomControlOptions={zoomControlOptions}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -105,6 +108,7 @@ describe('MapLeaflet component', () => {
         onMoveEnd={clickHandler}
         onZoomEnd={clickHandler}
         scaleControlOptions={scaleControlOptions}
+        zoomControlOptions={zoomControlOptions}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -223,6 +227,7 @@ describe('MapLeaflet component', () => {
         onMoveEnd={clickHandler}
         onZoomEnd={clickHandler}
         scaleControlOptions={scaleControlOptions}
+        zoomControlOptions={zoomControlOptions}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -367,6 +372,7 @@ describe('MapLeaflet component', () => {
         onMoveEnd={clickHandler}
         onZoomEnd={clickHandler}
         scaleControlOptions={scaleControlOptions}
+        zoomControlOptions={zoomControlOptions}
         zoom={zoom}
       />
     );
@@ -478,6 +484,7 @@ describe('MapLeaflet component', () => {
         onMoveEnd={clickHandler}
         onZoomEnd={clickHandler}
         scaleControlOptions={scaleControlOptions}
+        zoomControlOptions={zoomControlOptions}
         zoom={zoom}
       />
     );
@@ -540,6 +547,7 @@ describe('MapLeaflet component', () => {
           getLeafletInstance={getLeafletInstance}
           mapOptions={mapOptions}
           scaleControlOptions={scaleControlOptions}
+          zoomControlOptions={zoomControlOptions}
           {...props}
         />
       );
