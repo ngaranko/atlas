@@ -14,6 +14,7 @@ describe('watchFetchNearestDetails', () => {
       .next()
       .takeLatestEffect(REQUEST_NEAREST_DETAILS, fetchNearestDetails)
       .next(action)
+      .next()
       .isDone();
   });
 });
@@ -43,7 +44,7 @@ describe('fetchNearestDetails', () => {
       .run()
   ));
 
-  it('should call fetchNearestDetails and dispatch geosearch', () => (
+  it('should call fetchNearestDetails and dispatch setGeolocation', () => (
     expectSaga(fetchNearestDetails, action)
       .provide({
         call(effect, next) {
@@ -57,7 +58,7 @@ describe('fetchNearestDetails', () => {
       .run()
   ));
 
-  it('should throw error and dispatch geosearch', () => {
+  it('should throw error and dispatch setGeolocation', () => {
     const error = new Error('My Error');
     testSaga(fetchNearestDetails, action)
       .next()
