@@ -17,7 +17,8 @@ import { getSelectionType } from '../../shared/ducks/selection/selection';
 /* istanbul ignore next */ // TODO: refactor, test
 const DetailPage = ({
   view: routeView,
-  hasGeometry, endpoint,
+  hasGeometry,
+  endpoint,
   hasSelection,
   getPageActionEndpoint
 }) => {
