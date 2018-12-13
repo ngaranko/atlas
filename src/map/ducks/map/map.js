@@ -180,6 +180,7 @@ export default function MapReducer(state = initialState, action) {
         }))
       };
 
+    case routing.home.type:
     case MAP_CLEAR:
       return {
         ...state,
