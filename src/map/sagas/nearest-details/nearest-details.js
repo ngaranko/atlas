@@ -1,8 +1,11 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
-import { REQUEST_GEOSEARCH, REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
+import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 import { getPageActionEndpoint } from '../../../store/redux-first-router';
 import { getDetailView } from '../../../shared/ducks/detail/selectors';
+import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
+import { showDetail } from '../../../shared/ducks/detail/actions';
+import { FETCH_MAP_DETAIL_SUCCESS } from '../../ducks/detail/constants';
 
 export function* fetchNearestDetails(action) {
   const {
@@ -16,19 +19,21 @@ export function* fetchNearestDetails(action) {
       const view = yield select(getDetailView);
       yield put(getPageActionEndpoint(uri, view));
     } else {
-      yield put({
-        type: REQUEST_GEOSEARCH,
-        payload: [location.latitude, location.longitude]
-      });
+      yield put(setGeoLocation(location));
     }
   } catch (error) {
-    yield put({
-      type: REQUEST_GEOSEARCH,
-      payload: [location.latitude, location.longitude]
-    });
+    yield put(setGeoLocation(location));
   }
+}
+
+export function* fireShowDetail(action) {
+  yield put(showDetail({
+    display: action.mapDetail._display,
+    geometry: action.mapDetail.geometrie
+  }));
 }
 
 export default function* watchFetchNearestDetails() {
   yield takeLatest(REQUEST_NEAREST_DETAILS, fetchNearestDetails);
+  yield takeLatest(FETCH_MAP_DETAIL_SUCCESS, fireShowDetail);
 }
