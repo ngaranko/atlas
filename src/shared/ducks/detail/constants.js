@@ -4,7 +4,7 @@ export const SHOW_DETAIL = 'SHOW_DETAIL';
 export const SET_VIEW = 'SET_VIEW';
 export const DETAIL_VIEW = {
   MAP: 'map',
-  MAP_DETAIL: 'map_detail',
+  MAP_DETAIL: 'MAP_DETAIL',
   DETAIL: 'detail'
 };
 export const initialState = {
