@@ -169,7 +169,7 @@ describe('watchMapClick', () => {
         .run();
     });
 
-    it.skip('should dispatch setGeolocation when the panorama is not enabled and there is no panelLayer found ', () => {
+    it('should dispatch setGeolocation when the panorama is not enabled and there is no panelLayer found ', () => {
       const provideMapPanelLayers = ({ selector }, next) => (
         selector === getMapPanelLayers ? [] : next()
       );
