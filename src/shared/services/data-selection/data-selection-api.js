@@ -72,7 +72,7 @@ function formatData(dataset, view, rawData) {
 
   // For the catalog or when there is no format definition return the data unformatted.
   // The formatting is complex an will be done in the catalog view component
-  if (!fields) {
+  if (!fields || view === 'CATALOG') {
     return rawData;
   }
   return {
