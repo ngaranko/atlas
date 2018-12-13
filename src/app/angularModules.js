@@ -100,6 +100,7 @@ import '../../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbn
 import '../../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter';
 import '../../modules/shared/filters/detail-endpoint-action.filter';
 import '../../modules/shared/filters/filesize.filter';
+import '../../modules/shared/filters/kebabcase.filter';
 import '../../modules/shared/services/active-overlays/active-overlays.factory';
 import '../../modules/shared/services/api/api.factory';
 import '../../modules/shared/services/bounding-box/boundig-box.constant';
