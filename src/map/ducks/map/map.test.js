@@ -298,7 +298,7 @@ describe('Map Reducer', () => {
     };
     expect(reducer(state, toggleMapOverlayVisibility('1', true))).toEqual({
       overlays: [
-        { id: '1', isVisible: true },
+        { id: '1', isVisible: false },
         { id: '2', isVisible: undefined },
         { id: '3', isVisible: undefined }
       ]
