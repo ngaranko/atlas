@@ -266,7 +266,6 @@ export default [
   },
   {
     category: 'Geografie: gebieden',
-    id: 'bsg',
     legendItems: [
       {
         id: 'sd',
@@ -309,7 +308,6 @@ export default [
   },
   {
     category: 'Geografie: gebieden',
-    id: 'ggw',
     legendItems: [
       {
         id: 'ggwg',
