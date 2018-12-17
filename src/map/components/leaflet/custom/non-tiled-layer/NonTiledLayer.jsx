@@ -14,6 +14,10 @@ class NonTiledLayer extends TileLayer {
       this.leafletElement._wmsUrl = toProps.url;
       this.leafletElement.wmsParams.layers = toProps.layers;
     }
+
+    if (toProps.opacity !== fromProps.opacity) {
+      this.leafletElement.setOpacity(toProps.opacity);
+    }
   }
 }
 
