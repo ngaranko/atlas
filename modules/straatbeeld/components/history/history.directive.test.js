@@ -170,12 +170,13 @@ describe('The dp-straatbeeld-history component', function () {
 
             const items = component.find('.qa-straatbeeld-history__item');
 
-            expect(items.length).toBe(5);
+            expect(items.length).toBe(6);
             expect(items.eq(0).text()).toContain('recent');
             expect(items.eq(1).text()).toContain('2018');
-            expect(items.eq(2).text()).toContain('2017');
+            expect(items.eq(2).text()).toContain('2018');
             expect(items.eq(3).text()).toContain('2017');
-            expect(items.eq(4).text()).toContain('2016');
+            expect(items.eq(4).text()).toContain('2017');
+            expect(items.eq(5).text()).toContain('2016');
         });
 
         it('sets the selection', () => {
@@ -193,12 +194,12 @@ describe('The dp-straatbeeld-history component', function () {
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
-            items.eq(2).click();
+            items.eq(3).click();
             expect(button.text()).toContain('2017');
 
             button.click();
             items = component.find('.qa-straatbeeld-history__item');
-            items.eq(4).click();
+            items.eq(5).click();
             expect(button.text()).toContain('2016');
 
             button.click();
@@ -245,9 +246,10 @@ describe('The dp-straatbeeld-history component', function () {
 
             expect(items.eq(0).hasClass('c-straatbeeld-history__item--active')).toBe(false);
             expect(items.eq(1).hasClass('c-straatbeeld-history__item--active')).toBe(false);
-            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBe(true);
-            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(2).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(3).hasClass('c-straatbeeld-history__item--active')).toBe(true);
             expect(items.eq(4).hasClass('c-straatbeeld-history__item--active')).toBe(false);
+            expect(items.eq(5).hasClass('c-straatbeeld-history__item--active')).toBe(false);
         });
 
         it('highlights the selection', () => {
