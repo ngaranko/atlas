@@ -21,6 +21,7 @@ import {
   getClusterMarkers,
   getGeoJsons
 } from '../../../shared/ducks/data-selection/selectors';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
@@ -57,7 +58,7 @@ class LeafletContainer extends React.Component {
     super(props);
     this.state = {
       uiState: '',
-      drawingMode: 'none'
+      drawingMode: drawToolConfig.DRAWING_MODE.NONE
     };
     this.setMapLeaflet = (element) => {
       this.MapLeaflet = element;
