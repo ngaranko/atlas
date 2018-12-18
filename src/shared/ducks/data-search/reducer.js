@@ -15,6 +15,7 @@ import {
 import { getStateFromQuery } from '../../../store/query-synchronization';
 import urlParams from './query';
 import { routing } from '../../../app/routes';
+import { FETCH_DATA_SELECTION_REQUEST } from '../data-selection/constants';
 
 export { REDUCER_KEY };
 
@@ -104,6 +105,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...enrichedState,
         geoSearch: action.payload
+      };
+
+    case FETCH_DATA_SELECTION_REQUEST:
+      return {
+        ...initialState
       };
 
     default:
