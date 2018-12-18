@@ -5,7 +5,8 @@ import {
   fetchDataSelection,
   receiveDataSelectionFailure,
   receiveDataSelectionSuccess,
-  setMarkers
+  setMarkers,
+  setGeometryFilter
 } from '../../ducks/data-selection/actions';
 import { routing } from '../../../app/routes';
 import dataselectionConfig from '../../services/data-selection/data-selection-config';
@@ -50,8 +51,16 @@ function* retrieveDataSelection(action) {
   } = action.payload;
   try {
     yield call(waitForAuthentication);
+
+    // exclude the geometryFilter from the attribute filters
+    const activeAttributeFilters = Object.keys(activeFilters)
+      .filter((key) => key !== 'shape')
+      .reduce((result, key) => ({
+        ...result,
+        [key]: activeFilters[key]
+      }), {});
     const result = yield call(query,
-      dataset, view, activeFilters, page, searchText, shape, catalogFilters);
+      dataset, view, activeAttributeFilters, page, searchText, shape, catalogFilters);
 
     // Put the results in the reducer
     yield put(receiveDataSelectionSuccess({
@@ -94,6 +103,12 @@ function* fireRequest(action) {
   }
 }
 
+function* clearShapeFilter(action) {
+  if (action.payload === 'shape') {
+    yield put(setGeometryFilter({ markers: undefined, description: '' }));
+  }
+}
+
 const DATASET_ROUTE_MAPPER = {
   hr: routing.establishments.type,
   bag: routing.addresses.type,
@@ -116,6 +131,7 @@ function* switchPage() {
 }
 
 export default function* watchFetchDataSelection() {
+  yield takeLatest(REMOVE_FILTER, clearShapeFilter);
   yield takeLatest(
     [SET_VIEW, ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS,
       routing.addresses.type, routing.establishments.type, routing.cadastralObjects.type

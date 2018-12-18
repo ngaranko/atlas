@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { routing } from '../../../app/routes';
 import { getFilters as getDataSelectionFilters } from '../data-selection/selectors';
 import { getFilters as getDatasetFilters } from '../datasets/datasets';
+import { SET_GEOMETRY_FILTERS } from '../data-selection/constants';
 
 export const REDUCER_KEY = 'filters';
 export const EMPTY_FILTERS = `${REDUCER_KEY}/EMPTY_FILTERS`;
@@ -47,6 +48,16 @@ const reducer = (state = {}, action) => {
         ...newState
       };
     }
+
+    case SET_GEOMETRY_FILTERS:
+      return {
+        ...state,
+        shape: action.payload.description === '' ? undefined : {
+          slug: 'shape',
+          label: 'Locatie',
+          option: `ingetekend (${action.payload.description})`
+        }
+      };
 
     case EMPTY_FILTERS:
       return {};
