@@ -184,8 +184,9 @@ export default function MapReducer(state = initialState, action) {
         ...enrichedState,
         overlays: enrichedState.overlays.map((overlay) => ({
           ...overlay,
-          isVisible: overlay.id !== action.mapLayerId ? overlay.isVisible :
-            (action.show !== undefined ? action.show : !overlay.isVisible)
+          isVisible: overlay.id === action.mapLayerId ?
+            action.isVisible :
+            overlay.isVisible
         }))
       };
 
@@ -233,10 +234,10 @@ export const toggleMapOverlayPanorama = (payload) => ({
   type: TOGGLE_MAP_OVERLAY_PANORAMA,
   payload: `${PANORAMA}${payload}`
 });
-export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
+export const toggleMapOverlayVisibility = (mapLayerId, isVisible) => ({
   type: TOGGLE_MAP_OVERLAY_VISIBILITY,
   mapLayerId,
-  show
+  isVisible: !isVisible
 });
 export const updatePan = (payload) => ({
   type: MAP_PAN,
