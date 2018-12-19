@@ -5,8 +5,8 @@ export const historyOptions = [
   { year: 2018, missionType: 'bi', label: 'Alleen 2018', layerName: 'pano2018bi' },
   { year: 2017, missionType: 'bi', label: 'Alleen 2017', layerName: 'pano2017bi' },
   { year: 2016, missionType: 'bi', label: 'Alleen 2016', layerName: 'pano2016bi' },
-  { year: 2018, missionType: 'woz', label: 'T.b.v. 2018 WOZ', layerName: 'pano2018woz' },
-  { year: 2017, missionType: 'woz', label: 'T.b.v. 2017 WOZ', layerName: 'pano2017woz' }
+  { year: 2018, missionType: 'woz', label: 'T.b.v. WOZ 2018', layerName: 'pano2018woz' },
+  { year: 2017, missionType: 'woz', label: 'T.b.v. WOZ 2017', layerName: 'pano2017woz' }
 ];
 
 const initialState = {
