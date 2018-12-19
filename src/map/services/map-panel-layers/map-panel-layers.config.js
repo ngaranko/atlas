@@ -1096,7 +1096,8 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: 'Geotechnische sonderingen (BRO CPT)'
+    title: 'Geotechnische sonderingen (BRO CPT)',
+    url: 'http://geodata.nationaalgeoregister.nl/brocpt/wms?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
