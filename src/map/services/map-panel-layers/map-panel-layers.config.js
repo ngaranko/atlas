@@ -1090,7 +1090,7 @@ export default [
     legendItems: [
       {
         selectable: false,
-        title: 'Geotechnische sondering'
+        title: 'Geotechnische sondering',
         imageRule: ''
       }
     ],
