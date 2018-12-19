@@ -1091,13 +1091,12 @@ export default [
       {
         selectable: false,
         title: 'Geotechnische sondering',
-        imageRule: ''
+        iconUrl: 'assets/images/map-legend/down-black.svg'
       }
     ],
     maxZoom: 16,
     minZoom: 8,
     title: 'Geotechnische sonderingen (BRO CPT)',
-    url: 'http://geodata.nationaalgeoregister.nl/brocpt/wms?version=1.3.0&service=WMS'
   },
   {
     category: 'Milieu: externe veiligheid',
