@@ -20,7 +20,6 @@ describe('NonTiledLayer', () => {
       wms: jest.fn()
     };
 
-
     wrapper = shallow(
       <NonTiledLayer
         {...props}
@@ -50,7 +49,8 @@ describe('NonTiledLayer', () => {
   it('should update the layers when the property is changed', () => {
     wrapperInstance.leafletElement = {
       _wmsUrl: 'http://old-wms-url',
-      wmsParams: { layers: ['old-layer'] }
+      wmsParams: { layers: ['old-layer'] },
+      setUrl: jest.fn()
     };
 
     const fromProps = {
@@ -63,10 +63,8 @@ describe('NonTiledLayer', () => {
     };
 
     wrapperInstance.updateLeafletElement(fromProps, toProps);
-    expect(wrapperInstance.leafletElement).toEqual({
-      _wmsUrl: 'http://new-wms-url',
-      wmsParams: { layers: ['new-layer'] }
-    });
+    // eslint-disable-next-line no-underscore-dangle
+    expect(wrapperInstance.leafletElement._wmsUrl).toEqual(toProps.url);
   });
 
   it('should hide the layer', () => {
@@ -83,5 +81,49 @@ describe('NonTiledLayer', () => {
 
     wrapperInstance.updateLeafletElement(fromProps, toProps);
     expect(wrapperInstance.leafletElement.setOpacity).toHaveBeenCalledWith(toProps.opacity);
+  });
+});
+
+function renderComponent() {
+  return shallow(
+    <NonTiledLayer
+      url="url"
+      params={{ test: '123' }}
+    />, {
+      context: {
+        layerContainer: {
+          addLayer: jest.fn()
+        }
+      }
+    }
+  );
+}
+
+describe('NonTiledLayer', () => {
+  const props = {
+    opacity: 100,
+    url: 'https://pano.amsterdam.nl',
+    params: {
+      mission_type: 'bi',
+      mission_year: 2017
+    }
+  };
+
+  it('should rerender everything when props change', () => {
+    const wrapper = renderComponent();
+    const setParamsMock = jest.fn();
+
+    wrapper.instance().leafletElement = {
+      setParams: setParamsMock,
+      setOpacity: jest.fn(),
+      setUrl: jest.fn(),
+      wmsParams: {}
+    };
+
+    wrapper.instance().updateLeafletElement({ props }, { props });
+    expect(setParamsMock).not.toHaveBeenCalled();
+
+    wrapper.instance().updateLeafletElement({ props }, { ...props, params: { mission_type: 'WOZ', mission_year: 2018 } });
+    expect(setParamsMock).toHaveBeenCalled();
   });
 });
