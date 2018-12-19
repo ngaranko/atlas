@@ -871,6 +871,7 @@ export default [
       {
         selectable: false,
         title: 'Vuurwerkvrije zone',
+        imageRule: 'vuurwerkvrijezone'
       }
     ],
     maxZoom: 16,
