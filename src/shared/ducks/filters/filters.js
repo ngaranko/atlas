@@ -10,29 +10,28 @@ export const EMPTY_FILTERS = `${REDUCER_KEY}/EMPTY_FILTERS`;
 export const ADD_FILTER = `${REDUCER_KEY}/ADD_FILTER`;
 export const REMOVE_FILTER = `${REDUCER_KEY}/REMOVE_FILTER`;
 
+export const createShapeFilter = (geometryFilter) =>
+  (geometryFilter.markers === undefined
+    ? {}
+    : {
+      slug: 'shape',
+      label: 'Locatie',
+      option: `ingetekend (${geometryFilter.description})`
+    });
+
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case routing.datasets.type:
     case routing.addresses.type:
     case routing.establishments.type:
     case routing.cadastralObjects.type: {
-      const { filters: queryFilters, geoFilter, geoFilterDescription } = action.meta.query || {};
+      const { filters: queryFilters } = action.meta.query || {};
       let filterToParse = '{}';
       if (queryFilters) {
         filterToParse = atob(queryFilters);
       }
-      let shapeFilter = {};
 
-      if (geoFilter) {
-        shapeFilter = {
-          shape: {
-            slug: 'shape',
-            label: 'Locatie',
-            option: `ingetekend (${geoFilterDescription})`
-          }
-        };
-      }
-      return Object.assign({}, JSON.parse(filterToParse), shapeFilter);
+      return Object.assign({}, JSON.parse(filterToParse));
     }
 
     case ADD_FILTER:
@@ -52,11 +51,7 @@ const reducer = (state = {}, action) => {
     case SET_GEOMETRY_FILTERS:
       return {
         ...state,
-        shape: action.payload.description === '' ? undefined : {
-          slug: 'shape',
-          label: 'Locatie',
-          option: `ingetekend (${action.payload.description})`
-        }
+        shape: { ...createShapeFilter(action.payload) }
       };
 
     case EMPTY_FILTERS:

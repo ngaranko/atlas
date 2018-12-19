@@ -53,6 +53,7 @@ function* retrieveDataSelection(action) {
     yield call(waitForAuthentication);
 
     // exclude the geometryFilter from the attribute filters
+    // TODO DP-6442 improve the geometryFilter handling
     const activeAttributeFilters = Object.keys(activeFilters)
       .filter((key) => key !== 'shape')
       .reduce((result, key) => ({
@@ -105,6 +106,7 @@ function* fireRequest(action) {
 
 function* clearShapeFilter(action) {
   if (action.payload === 'shape') {
+    yield put(setGeometryFilter({ markers: undefined, description: '' }));
     yield put(setGeometryFilter({ markers: undefined, description: '' }));
   }
 }
