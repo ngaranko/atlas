@@ -1097,7 +1097,8 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Geotechnische sonderingen (BRO CPT)'
-  },  {
+  },
+  {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpgv',
     notClickable: true,
