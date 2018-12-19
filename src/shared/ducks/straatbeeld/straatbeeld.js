@@ -1,7 +1,7 @@
 export const STRAATBEELD_OFF = 'STRAATBEELD_OFF';
 
 export const historyOptions = [
-  { year: 0, missionType: '', label: 'Meest recent', layerName: 'pano' },
+  { year: 0, missionType: 'bi', label: 'Meest recent', layerName: 'pano' },
   { year: 2018, missionType: 'bi', label: 'Alleen 2018', layerName: 'pano2018bi' },
   { year: 2017, missionType: 'bi', label: 'Alleen 2017', layerName: 'pano2017bi' },
   { year: 2016, missionType: 'bi', label: 'Alleen 2016', layerName: 'pano2016bi' },
