@@ -12,7 +12,7 @@ import { routing } from '../../../app/routes';
 import dataselectionConfig from '../../services/data-selection/data-selection-config';
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
 import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
-import { ADD_FILTER, EMPTY_FILTERS, getFilters, REMOVE_FILTER } from '../../ducks/filters/filters';
+import { ADD_FILTER, EMPTY_FILTERS, getFilters, REMOVE_FILTER, setShapeFilter } from '../../ducks/filters/filters';
 import { isDataSelectionPage } from '../../../store/redux-first-router';
 import {
   FETCH_DATA_SELECTION_REQUEST,
@@ -25,6 +25,15 @@ import {
 import { getDataSelection, getGeomarkersShape } from '../../ducks/data-selection/selectors';
 import { waitForAuthentication } from '../user/user';
 import { MAP_BOUNDING_BOX } from '../../../map/ducks/map/map';
+
+export const createShapeFilter = (geometryFilter) =>
+  (geometryFilter.markers === undefined
+    ? {}
+    : {
+      slug: 'shape',
+      label: 'Locatie',
+      option: `ingetekend (${geometryFilter.description})`
+    });
 
 function* getMapMarkers(dataset, activeFilters) {
   // Since bounding box can be set later, we check if we have to wait for the boundingbox to get set
@@ -107,8 +116,11 @@ function* fireRequest(action) {
 function* clearShapeFilter(action) {
   if (action.payload === 'shape') {
     yield put(setGeometryFilter({ markers: undefined, description: '' }));
-    yield put(setGeometryFilter({ markers: undefined, description: '' }));
   }
+}
+
+function* setGeometryFilters(action) {
+  yield put(setShapeFilter(createShapeFilter(action.payload)));
 }
 
 const DATASET_ROUTE_MAPPER = {
@@ -134,6 +146,7 @@ function* switchPage() {
 
 export default function* watchFetchDataSelection() {
   yield takeLatest(REMOVE_FILTER, clearShapeFilter);
+  yield takeLatest(SET_GEOMETRY_FILTERS, setGeometryFilters);
   yield takeLatest(
     [SET_VIEW, ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS,
       routing.addresses.type, routing.establishments.type, routing.cadastralObjects.type

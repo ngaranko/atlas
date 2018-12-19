@@ -2,22 +2,13 @@ import { createSelector } from 'reselect';
 import { routing } from '../../../app/routes';
 import { getFilters as getDataSelectionFilters } from '../data-selection/selectors';
 import { getFilters as getDatasetFilters } from '../datasets/datasets';
-import { SET_GEOMETRY_FILTERS } from '../data-selection/constants';
 
 export const REDUCER_KEY = 'filters';
 export const EMPTY_FILTERS = `${REDUCER_KEY}/EMPTY_FILTERS`;
 
 export const ADD_FILTER = `${REDUCER_KEY}/ADD_FILTER`;
 export const REMOVE_FILTER = `${REDUCER_KEY}/REMOVE_FILTER`;
-
-export const createShapeFilter = (geometryFilter) =>
-  (geometryFilter.markers === undefined
-    ? {}
-    : {
-      slug: 'shape',
-      label: 'Locatie',
-      option: `ingetekend (${geometryFilter.description})`
-    });
+export const SET_SHAPE_FILTER = `${REDUCER_KEY}/SET_SHAPE_FILTER`;
 
 const reducer = (state = {}, action) => {
   switch (action.type) {
@@ -48,10 +39,10 @@ const reducer = (state = {}, action) => {
       };
     }
 
-    case SET_GEOMETRY_FILTERS:
+    case SET_SHAPE_FILTER:
       return {
         ...state,
-        shape: { ...createShapeFilter(action.payload) }
+        shape: { ...action.payload }
       };
 
     case EMPTY_FILTERS:
@@ -73,6 +64,7 @@ export const removeFilter = (filterKey) => ({
   payload: filterKey
 });
 
+export const setShapeFilter = (payload) => ({ type: SET_SHAPE_FILTER, payload });
 export const emptyFilters = () => ({ type: EMPTY_FILTERS });
 
 // Selectors
