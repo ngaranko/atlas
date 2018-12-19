@@ -1091,7 +1091,7 @@ export default [
       {
         selectable: false,
         title: 'Geotechnische sondering',
-        iconUrl: 'assets/images/map-legend/down-black.svg'
+        iconUrl: 'assets/images/map-legend/icon-bro-sondering.svg'
       }
     ],
     maxZoom: 16,
