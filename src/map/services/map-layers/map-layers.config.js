@@ -568,7 +568,8 @@ export default [
   {
     id: 'pano',
     url: 'maps/panorama',
-    layers: ['panorama_new']
+    layers: ['panorama_new'],
+    mission_type: 'bi'
   },
   {
     id: 'pano2016bi',
