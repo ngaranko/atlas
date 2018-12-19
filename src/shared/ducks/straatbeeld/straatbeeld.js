@@ -2,11 +2,11 @@ export const STRAATBEELD_OFF = 'STRAATBEELD_OFF';
 
 export const historyOptions = [
   { year: 0, missionType: '', label: 'Meest recent', layerName: 'pano' },
-  { year: 2018, missionType: 'bi', label: 'Alleen 2018 regulier', layerName: 'pano2018bi' },
-  { year: 2018, missionType: 'woz', label: 'Alleen 2018 WOZ', layerName: 'pano2018woz' },
-  { year: 2017, missionType: 'bi', label: 'Alleen 2017 regulier', layerName: 'pano2017bi' },
-  { year: 2017, missionType: 'woz', label: 'Alleen 2017 WOZ', layerName: 'pano2017woz' },
-  { year: 2016, missionType: 'bi', label: 'Alleen 2016 regulier', layerName: 'pano2016bi' }
+  { year: 2018, missionType: 'bi', label: 'Alleen 2018', layerName: 'pano2018bi' },
+  { year: 2017, missionType: 'bi', label: 'Alleen 2017', layerName: 'pano2017bi' },
+  { year: 2016, missionType: 'bi', label: 'Alleen 2016', layerName: 'pano2016bi' },
+  { year: 2018, missionType: 'woz', label: 'T.b.v. 2018 WOZ', layerName: 'pano2018woz' },
+  { year: 2017, missionType: 'woz', label: 'T.b.v. 2017 WOZ', layerName: 'pano2017woz' }
 ];
 
 const initialState = {
