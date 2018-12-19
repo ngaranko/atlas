@@ -10,7 +10,6 @@ import { toPanorama } from '../../../store/redux-first-router';
 import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
 
 function getHeadingDegrees([x1, y1], [x2, y2]) {
-  console.log('getHeadingDegreees', [x1, y1], [x2, y2]);
   return (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
 }
 
@@ -23,19 +22,15 @@ export function* switchClickAction(action) {
 
   if (selectionType === SELECTION_TYPE.PANORAMA) {
     const history = yield select(getPanoramaHistory);
-    console.log(history);
     const locationArray = latitudeLongitudeToArray(location);
-    console.log(locationArray);
     const imageData = yield call(getImageDataByLocation, locationArray, history);
-    console.log('imageData', imageData);
     // The view direction should be towards the location that the user clicked
     const heading = getHeadingDegrees(imageData.location, locationArray);
-    console.log('heading', heading);
     yield put(toPanorama(imageData.id, heading));
   } else {
     const zoom = yield select(getMapZoom);
     const layers = yield select(getLayers);
-    if (layers.length) { // eslint-disable-line no-lonely-if
+    if (layers.length) {
       yield put({
         type: REQUEST_NEAREST_DETAILS,
         payload: {
