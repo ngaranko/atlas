@@ -1084,6 +1084,19 @@ export default [
     url: '/maps/bommenkaart?version=1.3.0&service=WMS'
   },
   {
+    category: 'Milieu: bodem',
+    id: 'bros',
+    layers: ['cpt'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Geotechnische sondering'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Geotechnische sonderingen (BRO CPT)'
+  },  {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpgv',
     notClickable: true,

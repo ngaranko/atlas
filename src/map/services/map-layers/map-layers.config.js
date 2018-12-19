@@ -333,6 +333,13 @@ export default [
     url: 'maps/bommenkaart',
     layers: ['uitgevoerde_CE_onderzoeken']
   },
+  {
+    id: 'bros',
+    url: 'http://geodata.nationaalgeoregister.nl/brocpt/wms?',
+    layers: ['cpt'],
+    external: true,
+    noDetail: true
+  },
   // milieu: veiligheid
   {
     id: 'mvlpgv',
