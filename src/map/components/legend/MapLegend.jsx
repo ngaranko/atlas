@@ -47,9 +47,9 @@ class MapLegend extends React.Component {
   }
 
   toggleLayerVisibility(mapLayer, isVisible) {
-    return (mapLayer.id) ? this.props.onLayerVisibilityToggle(mapLayer.id) :
+    return (mapLayer.id) ? this.props.onLayerVisibilityToggle(mapLayer.id, isVisible) :
       mapLayer.legendItems.map(
-        (legendItem) => this.props.onLayerVisibilityToggle(legendItem.id, !isVisible)
+        (legendItem) => this.props.onLayerVisibilityToggle(legendItem.id, isVisible)
       );
   }
 
@@ -81,7 +81,7 @@ class MapLegend extends React.Component {
                     name={mapLayer.title}
                     onChange={
                       /* istanbul ignore next */
-                      () => this.toggleLayerVisibility(mapLayer)
+                      () => this.toggleLayerVisibility(mapLayer, layerIsVisible)
                     }
                   />
                   <h4 className="map-legend__category-title">{mapLayer.title}</h4>
@@ -116,7 +116,7 @@ class MapLegend extends React.Component {
                               name={legendItem.title}
                               onChange={
                                 /* istanbul ignore next */
-                                () => onLayerVisibilityToggle(legendItem.id)
+                                () => onLayerVisibilityToggle(legendItem.id, legendItemIsVisible)
                               }
                             />
                           )}

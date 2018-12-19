@@ -1,5 +1,7 @@
 import { routing } from '../../../app/routes';
 import { FETCH_MAP_DETAIL_SUCCESS } from '../detail/constants';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
+import { SET_SELECTION } from '../../../shared/ducks/selection/selection';
 
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
@@ -26,7 +28,7 @@ export const initialState = {
   zoom: 11,
   overlays: [],
   isLoading: false,
-  drawingMode: 'none',
+  drawingMode: drawToolConfig.DRAWING_MODE.NONE,
   shapeMarkers: 0,
   shapeDistanceTxt: '',
   shapeAreaTxt: '',
@@ -140,7 +142,7 @@ export default function MapReducer(state = initialState, action) {
 
       return {
         ...enrichedState,
-        drawingMode: 'none',
+        drawingMode: drawToolConfig.DRAWING_MODE.NONE,
         geometry: has2Markers ? polygon.markers : moreThan2Markers ? [] : enrichedState.geometry,
         isLoading: moreThan2Markers ? true : enrichedState.isLoading
       };
@@ -184,8 +186,9 @@ export default function MapReducer(state = initialState, action) {
         ...enrichedState,
         overlays: enrichedState.overlays.map((overlay) => ({
           ...overlay,
-          isVisible: overlay.id !== action.mapLayerId ? overlay.isVisible :
-            (action.show !== undefined ? action.show : !overlay.isVisible)
+          isVisible: overlay.id === action.mapLayerId ?
+            action.isVisible :
+            overlay.isVisible
         }))
       };
 
@@ -194,6 +197,15 @@ export default function MapReducer(state = initialState, action) {
       return {
         ...state,
         overlays: initialState.overlays,
+        drawingMode: initialState.drawingMode,
+        shapeMarkers: initialState.shapeMarkers,
+        shapeDistanceTxt: initialState.shapeDistanceTxt,
+        shapeAreaTxt: initialState.shapeAreaTxt
+      };
+
+    case SET_SELECTION:
+      return {
+        ...state,
         drawingMode: initialState.drawingMode,
         shapeMarkers: initialState.shapeMarkers,
         shapeDistanceTxt: initialState.shapeDistanceTxt,
@@ -231,12 +243,12 @@ export const toggleMapOverlay = (payload) => ({
 });
 export const toggleMapOverlayPanorama = (payload) => ({
   type: TOGGLE_MAP_OVERLAY_PANORAMA,
-  payload: `${PANORAMA}${payload}`
+  payload: (payload.year) ? `${PANORAMA}${payload.year}${payload.missionType}` : PANORAMA
 });
-export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
+export const toggleMapOverlayVisibility = (mapLayerId, isVisible) => ({
   type: TOGGLE_MAP_OVERLAY_VISIBILITY,
   mapLayerId,
-  show
+  isVisible: !isVisible
 });
 export const updatePan = (payload) => ({
   type: MAP_PAN,
