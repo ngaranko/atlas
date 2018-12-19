@@ -1096,7 +1096,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: 'Geotechnische sonderingen (BRO CPT)',
+    title: 'Geotechnische sonderingen (BRO CPT)'
   },
   {
     category: 'Milieu: externe veiligheid',
