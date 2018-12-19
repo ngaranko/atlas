@@ -1091,6 +1091,7 @@ export default [
       {
         selectable: false,
         title: 'Geotechnische sondering'
+        imageRule: ''
       }
     ],
     maxZoom: 16,
