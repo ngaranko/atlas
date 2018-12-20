@@ -5,7 +5,7 @@ const straatbeeld = '.c-straatbeeld';
 describe('panorama module', () => {
   beforeEach(() => {
     cy.server();
-    cy.route('/panorama/panoramas/*/adjacencies/?newest_in_range=true').as('getResults');
+    cy.route('/panorama/panoramas/*/adjacencies/?newest_in_range=true&mission_type=bi').as('getResults');
 
     // go to the homepage
     cy.visit('/');
