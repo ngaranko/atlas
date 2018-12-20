@@ -257,7 +257,17 @@ describe('The straatbeeldApi Factory', () => {
             expect(api.getByUrl).toHaveBeenCalledWith(
                 'http://pano.amsterdam.nl/panorama/panoramas/' +
                 '?near=4,52&srid=4326&page_size=1&mission_year=2017' +
-                '&mission_type=undefined&radius=250&newest_in_range=true&limit_results=1',
+                '&radius=250&newest_in_range=true&limit_results=1',
+                undefined,
+                jasmine.anything()
+            );
+
+            straatbeeldApi.getImageDataByLocation([52, 4], { year: 2017, missionType: 'ABC' });
+
+            expect(api.getByUrl).toHaveBeenCalledWith(
+                'http://pano.amsterdam.nl/panorama/panoramas/' +
+                '?near=4,52&srid=4326&page_size=1&mission_year=2017' +
+                '&mission_type=ABC&radius=250&newest_in_range=true&limit_results=1',
                 undefined,
                 jasmine.anything()
             );

@@ -19,9 +19,9 @@
         };
 
         function getLocationHistoryParams (location, history) {
-            const yearTypeMission = (history && history.year)
-                ? `&mission_year=${history.year}&mission_type=${history.missionType}`
-                : '';
+            const missionYear = (history && history.year) ? `&mission_year=${history.year}` : '';
+            const missionType = (history && history.missionType) ? `&mission_type=${history.missionType}` : '';
+            const yearTypeMission = `${missionYear}${missionType}`;
             const newestInRange = 'newest_in_range=true';
             const pageSize = 'page_size=1';
 
