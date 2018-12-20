@@ -335,7 +335,7 @@ export default [
   },
   {
     id: 'bros',
-    url: 'http://geodata.nationaalgeoregister.nl/brocpt/wms?',
+    url: 'https://geodata.nationaalgeoregister.nl/brocpt/wms?',
     layers: ['cpt'],
     external: true,
     noDetail: true
