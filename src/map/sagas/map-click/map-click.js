@@ -24,15 +24,13 @@ export function* switchClickAction(action) {
     const history = yield select(getPanoramaHistory);
     const locationArray = latitudeLongitudeToArray(location);
     const imageData = yield call(getImageDataByLocation, locationArray, history);
-
     // The view direction should be towards the location that the user clicked
     const heading = getHeadingDegrees(imageData.location, locationArray);
-
     yield put(toPanorama(imageData.id, heading));
   } else {
     const zoom = yield select(getMapZoom);
     const layers = yield select(getLayers);
-    if (layers.length) { // eslint-disable-line no-lonely-if
+    if (layers.length) {
       yield put({
         type: REQUEST_NEAREST_DETAILS,
         payload: {
