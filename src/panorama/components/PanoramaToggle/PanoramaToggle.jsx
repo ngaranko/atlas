@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import './PanoramaToggle.scss';
-import { fetchPanoramaRequestToggle } from '../../ducks/panorama';
+import { fetchPanoramaRequestToggle } from '../../ducks/actions';
 
 const getStreetViewUrl = (location, heading) => {
   const [latitude, longitude] = location;

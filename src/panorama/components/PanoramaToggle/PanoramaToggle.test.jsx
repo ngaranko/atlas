@@ -2,11 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 
-import { fetchPanoramaRequestToggle } from '../../ducks/panorama';
+import { fetchPanoramaRequestToggle } from '../../ducks/actions';
 
 import PanoramaToggle from './PanoramaToggle';
 
-jest.mock('../../ducks/panorama');
+jest.mock('../../ducks/actions');
 
 describe('PanoramaToggle', () => {
   const store = configureMockStore()();

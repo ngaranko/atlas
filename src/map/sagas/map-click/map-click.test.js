@@ -3,13 +3,15 @@ import { composeProviders } from 'redux-saga-test-plan/providers';
 
 import watchMapClick, { switchClickAction } from './map-click';
 import { getMapPanelLayers, getActiveMapLayers, getLayers } from '../../ducks/panel-layers/map-panel-layers';
+import { getPanorama } from '../../../panorama/ducks/selectors';
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
 import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 import { toPanorama } from '../../../store/redux-first-router';
-import { getPanorama, getPanoramaHistory } from '../../../panorama/ducks/panorama';
+import { 
+  anorama, getPanoramaHistory } from '../../../panorama/ducks/panorama';
 import { getImageDataByLocation } from '../../../panorama/services/panorama-api/panorama-api';
 
 describe('watchMapClick', () => {
