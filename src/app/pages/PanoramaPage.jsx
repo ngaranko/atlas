@@ -2,20 +2,16 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getPanoramaHeading,
-  getPanoramaId,
-  getPanoramaView
-} from '../../panorama/ducks/panorama';
-import PANORAMA_VIEW from '../../panorama/ducks/panorama-view';
-import PanoramaContainer from '../../panorama/containers/PanoramaContainer';
+import { getPanoramaView } from '../../panorama/ducks/selectors';
 import MapContainer from '../../map/containers/map/MapContainer';
-import { toPanorama as toPanoramaActionCreator } from '../../store/redux-first-router';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
+import { setView } from '../../panorama/ducks/actions';
+import PanoramaContainer from '../../panorama/containers/PanoramaContainer';
+import PANORAMA_VIEW from '../../panorama/ducks/panorama-view';
 
 /* istanbul ignore next */ // TODO: refactor, test
-const PanoramaPage = ({ id, heading, view, toPanorama }) => {
-  const openPanoView = (newView) => toPanorama(id, heading, newView);
+const PanoramaPage = ({ view, setPanoramaView }) => {
+  const openPanoView = (newView) => setPanoramaView(newView);
 
   switch (view) {
     case PANORAMA_VIEW.PANO:
@@ -49,22 +45,15 @@ const PanoramaPage = ({ id, heading, view, toPanorama }) => {
 
 PanoramaPage.propTypes = {
   view: PropTypes.oneOf(Object.keys(PANORAMA_VIEW)).isRequired,
-  id: PropTypes.string.isRequired,
-  heading: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]).isRequired,
-  toPanorama: PropTypes.func.isRequired
+  setPanoramaView: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  heading: getPanoramaHeading(state),
-  id: getPanoramaId(state),
   view: getPanoramaView(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  toPanorama: toPanoramaActionCreator
+  setPanoramaView: setView
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PanoramaPage);

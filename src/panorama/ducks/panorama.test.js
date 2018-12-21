@@ -1,13 +1,13 @@
-import reducer, {
-  getPanorama,
-  getPanoramaHeading,
-  getPanoramaLocation,
-  getPanoramaMarkers,
-  fetchPanoramaSuccess,
+import reducer from './reducer';
+
+import * as selectors from './selectors';
+import {
   fetchPanoramaRequest,
   fetchPanoramaRequestToggle,
+  fetchPanoramaSuccess,
   setPanoramaOrientation
-} from './panorama';
+} from './actions';
+import PANORAMA_VIEW from './panorama-view';
 import { PANORAMA_CONFIG } from '../services/panorama-api/panorama-api';
 
 describe('Panorama Reducer', () => {
@@ -21,6 +21,7 @@ describe('Panorama Reducer', () => {
     const state = reducer(undefined, {});
     expect(state).toEqual({
       date: null,
+      view: PANORAMA_VIEW.MAP_PANO,
       fov: null,
       heading: 0,
       history: {
@@ -32,6 +33,7 @@ describe('Panorama Reducer', () => {
       hotspots: [],
       image: null,
       isLoading: true,
+      reference: [],
       location: null,
       pitch: 0
     });
@@ -146,36 +148,30 @@ describe('panorama selectors', () => {
     location: [10, 10],
     heading: -134
   };
+
   describe('getPanorama', () => {
     it('should return panorama from the state', () => {
-      const selected = getPanorama({ panorama });
+      const selected = selectors.getPanorama({ panorama });
       expect(selected).toEqual(panorama);
     });
   });
 
   describe('getPanoramaLocation', () => {
     it('should return the location from the panorama', () => {
-      const selected = getPanoramaLocation.resultFunc(panorama);
+      const selected = selectors.getPanoramaLocation.resultFunc(panorama);
       expect(selected).toEqual(panorama.location);
     });
 
     it('should return an empty string if panorama is empty', () => {
-      const selected = getPanoramaLocation.resultFunc('');
-      expect(selected).toEqual('');
-    });
-  });
-
-  describe('getPanoramaHeading', () => {
-    it('should return the location from the panorama', () => {
-      const selected = getPanoramaHeading.resultFunc(panorama);
-      expect(selected).toEqual(panorama.heading);
+      const selected = selectors.getPanoramaLocation.resultFunc('');
+      expect(selected).toEqual([]);
     });
   });
 
   describe('getPanoramaMarkers', () => {
     const { location, heading } = panorama;
     it('should return an array of with 2 markers', () => {
-      const selected = getPanoramaMarkers.resultFunc(location, heading);
+      const selected = selectors.getPanoramaMarkers.resultFunc(location, heading);
       expect(selected).toEqual([
         {
           position: location,
@@ -190,12 +186,12 @@ describe('panorama selectors', () => {
     });
 
     it('should return an empty array if there is no location', () => {
-      const selected = getPanoramaMarkers.resultFunc('', heading);
+      const selected = selectors.getPanoramaMarkers.resultFunc('', heading);
       expect(selected).toEqual([]);
     });
 
     it('should return an array of with 2 markers with a default heading of 0 if there is no heading', () => {
-      const selected = getPanoramaMarkers.resultFunc(location, '');
+      const selected = selectors.getPanoramaMarkers.resultFunc(location, '');
       expect(selected).toEqual([
         {
           position: location,
