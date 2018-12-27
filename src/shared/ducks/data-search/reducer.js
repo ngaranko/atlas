@@ -16,13 +16,14 @@ import { getStateFromQuery } from '../../../store/query-synchronization';
 import urlParams from './query';
 import { routing } from '../../../app/routes';
 import { FETCH_DATA_SELECTION_REQUEST } from '../data-selection/constants';
+import paramsRegistry from '../../../store/params-registry';
 
-export { REDUCER_KEY };
+export { REDUCER_KEY as DATA_SEARCH_REDUCER };
 
 export default function reducer(state = initialState, action) {
   const enrichedState = {
     ...state,
-    ...getStateFromQuery(urlParams, action)
+    ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action)
   };
 
   switch (action.type) {

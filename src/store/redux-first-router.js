@@ -162,6 +162,7 @@ export const toDatasetSuggestion = (payload) => ({
 // Selectors
 const getLocation = (state) => state[REDUCER_KEY];
 
+export const getLocationType = (state) => state[REDUCER_KEY].type;
 export const getLocationQuery = createSelector(getLocation, (location) => location.query || {});
 export const getLocationPayload = createSelector(getLocation, (location) => location.payload);
 export const getDetailLocation = createSelector(

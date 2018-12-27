@@ -5,13 +5,14 @@ import { select, takeLatest } from 'redux-saga/effects';
 import mapQuery, { ACTIONS as MAP_ACTIONS } from '../map/ducks/map/map-query';
 import filtersQuery, { ACTIONS as FILTERS_ACTIONS } from '../shared/ducks/filters/filters-query';
 import panoramaQuery, { ACTIONS as PANORAMA_ACTIONS } from '../panorama/ducks/query';
-import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/query';
-import dataSearchQuery, { ACTIONS as DATA_SEARCH_ACTIONS } from '../shared/ducks/data-search/query';
+// import dataSelectionQuery, { ACTIONS as DATA_SELECTION_ACTIONS } from '../shared/ducks/data-selection/query';
+// import dataSearchQuery, { ACTIONS as DATA_SEARCH_ACTIONS } from '../shared/ducks/data-search/query';
 import datasetQuery, { ACTIONS as DATASET_ACTIONS } from '../shared/ducks/datasets/datasets-query';
 import detailQuery, { ACTIONS as DETAIL_ACTIONS } from '../shared/ducks/detail/query';
 import uiQuery, { ACTIONS as UI_ACTIONS } from '../shared/ducks/ui/ui-query';
-import { getLocationQuery } from './redux-first-router';
+import { getLocationQuery, getLocationType } from './redux-first-router';
 import { ROUTE_ACTIONS, ROUTER_NAMESPACE } from '../app/routes';
+import paramsRegistry from './params-registry';
 
 const separateHistory = createHistory();
 
@@ -19,10 +20,10 @@ const watchedActions = [
   ...MAP_ACTIONS,
   ...PANORAMA_ACTIONS,
   ...FILTERS_ACTIONS,
-  ...DATA_SELECTION_ACTIONS,
+  // ...DATA_SELECTION_ACTIONS,
   ...DATASET_ACTIONS,
   ...UI_ACTIONS,
-  ...DATA_SEARCH_ACTIONS,
+  // ...DATA_SEARCH_ACTIONS,
   ...DETAIL_ACTIONS,
   ...ROUTE_ACTIONS
 ];
@@ -31,10 +32,10 @@ const querieObjects = [
   mapQuery,
   filtersQuery,
   panoramaQuery,
-  dataSelectionQuery,
+  // dataSelectionQuery,
   datasetQuery,
   uiQuery,
-  dataSearchQuery,
+  // dataSearchQuery,
   detailQuery
 ];
 
@@ -109,7 +110,13 @@ export const getStateFromQuery = (definitions, action) => (
     }, {}) :
     {}
 );
+//
+// function* bla() {
+//   const state = yield select();
+//   const locationType = yield select(getLocationType);
+//   paramsRegistry.setQueriesFromState(locationType, state);
+// }
 
 export default function* watchQueryActions() {
-  yield takeLatest(watchedActions, updateQuery);
+  // yield takeLatest(watchedActions, bla);
 }

@@ -10,6 +10,9 @@ import { authenticateRequest } from '../shared/ducks/user/user';
 import rootReducer from '../reducers/root';
 import documentHeadMiddleware from './middleware/documentHead';
 import piwikMiddleware from './middleware/piwikMiddleware';
+import urlParamsMiddleware from './middleware/urlParamsMiddleware';
+
+import './queryParameters'
 
 window.reducer = rootReducer;
 const configureStore = (history, routesMap) => {
@@ -36,6 +39,7 @@ const configureStore = (history, routesMap) => {
       documentHeadMiddleware,
       piwikMiddleware,
       routeMiddleware,
+      urlParamsMiddleware,
       sagaMiddleware
     )
   );

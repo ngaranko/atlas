@@ -14,9 +14,9 @@ import PanoramaReducer, { REDUCER_KEY as PANORAMA } from '../panorama/ducks/redu
 import PanoPreviewReducer, { REDUCER_KEY as PANO_PREVIEW } from '../panorama/ducks/preview/panorama-preview';
 import FiltersReducer, { REDUCER_KEY as FILTER } from '../shared/ducks/filters/filters';
 import DetailReducer, { REDUCER_KEY as DETAIL } from '../shared/ducks/detail/reducer';
-import DataSearchReducer, { REDUCER_KEY as DATA_SEARCH } from '../shared/ducks/data-search/reducer';
+import DataSearchReducer, { DATA_SEARCH_REDUCER } from '../shared/ducks/data-search/reducer';
 import SelectionReducer, { REDUCER_KEY as SELECTION } from '../shared/ducks/selection/selection';
-import DataSelectionReducer, { REDUCER_KEY as DATA_SELECTION } from '../shared/ducks/data-selection/reducer';
+import DataSelectionReducer, { DATA_SELECTION } from '../shared/ducks/data-selection/reducer';
 import DatasetReducer, { REDUCER_KEY as DATASET } from '../shared/ducks/datasets/datasets';
 
 export default (routeReducer) => (oldState = {}, action) => {
@@ -41,7 +41,7 @@ export default (routeReducer) => (oldState = {}, action) => {
     autoSuggest: AutoSuggestReducer,
     location: routeReducer,
     [DETAIL]: DetailReducer,
-    [DATA_SEARCH]: DataSearchReducer,
+    [DATA_SEARCH_REDUCER]: DataSearchReducer,
     [SELECTION]: SelectionReducer,
     [DATA_SELECTION]: DataSelectionReducer,
     [DATASET]: DatasetReducer

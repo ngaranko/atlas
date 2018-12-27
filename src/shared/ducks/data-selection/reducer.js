@@ -7,20 +7,20 @@ import {
   SET_GEOMETRY_FILTERS,
   SET_MARKERS,
   SET_PAGE,
-  SET_VIEW
+  SET_VIEW,
+  REDUCER_KEY
 } from './constants';
 import { routing } from '../../../app/routes';
-import { getStateFromQuery } from '../../../store/query-synchronization';
-import urlParams from './query';
 import { SET_SELECTION } from '../selection/selection';
 import { FETCH_MAP_DETAIL_SUCCESS } from '../../../map/ducks/detail/constants';
+import paramsRegistry from '../../../store/params-registry';
 
-export { REDUCER_KEY } from './constants';
+export { REDUCER_KEY as DATA_SELECTION };
 
 export default function reducer(state = initialState, action) {
   const enrichedState = {
     ...state,
-    ...getStateFromQuery(urlParams, action),
+    ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action),
     ...(ROUTE_DATASET_MAPPER[action.type]) ? { dataset: ROUTE_DATASET_MAPPER[action.type] } : {}
   };
 
