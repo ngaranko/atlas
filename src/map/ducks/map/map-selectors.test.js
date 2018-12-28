@@ -7,12 +7,12 @@ import {
   getRdGeoJsons
 } from './map-selectors';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
-import { getPanoramaLocation } from '../../../panorama/ducks/panorama';
+import { getPanoramaLocation } from '../../../panorama/ducks/selectors';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 
 jest.mock('../../../shared/ducks/selection/selection');
 jest.mock('../../../shared/ducks/data-search/selectors');
-jest.mock('../../../panorama/ducks/panorama');
+jest.mock('../../../panorama/ducks/selectors');
 jest.mock('../detail/map-detail');
 describe('Map Selectors', () => {
   const map = {

@@ -16,6 +16,7 @@ import {
 } from '../../../shared/ducks/data-search/selectors';
 import { getPanoramaPreview } from '../../../panorama/ducks/preview/panorama-preview';
 import {
+  getDetailLocation,
   getPageActionEndpoint,
   toDataSearchLocationAndPreserveQuery,
   toMap,
@@ -27,6 +28,7 @@ const mapStateToProps = (state) => ({
   panoPreview: getPanoramaPreview(state),
   searchResults: getMapPanelResults(state),
   dataSearch: getDataSearch(state),
+  detailLocation: getDetailLocation(state),
   searchLocation: getDataSearchLocation(state),
   searchLocationId: getLocationId(state),
   isSearchLoaded: !isSearchLoading(state) && getMapPanelResults(state),
@@ -45,12 +47,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     closePanel: toMap,
-    onSearchMaximize: toDataSearchLocationAndPreserveQuery
+    onSearchMaximize: toDataSearchLocationAndPreserveQuery,
+    openPano: toPanorama
   }, dispatch),
-  openPano: (id, heading) => {
-    const action = toPanorama(id, heading);
-    return dispatch(action);
-  },
   openPreviewDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP)),
   openDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP_DETAIL))
 });

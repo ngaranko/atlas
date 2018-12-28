@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DataSearch should render 1`] = `
+exports[`DataSearch should render with search results 1`] = `
 <div
   className="qa-search-results-content"
 >
@@ -10,4 +10,11 @@ exports[`DataSearch should render 1`] = `
     <div />
   </div>
 </div>
+`;
+
+exports[`DataSearch should render without search results 1`] = `
+<NoResultsForSearchType
+  message="Tip: maak de zoekcriteria minder specifiek. Of probeer in plaats van zoeken eens
+        de optie 'Alle datasets tonen' en filter vervolgens op thema."
+/>
 `;

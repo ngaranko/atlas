@@ -2,14 +2,17 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { composeProviders } from 'redux-saga-test-plan/providers';
 
 import watchMapClick, { switchClickAction } from './map-click';
-import { getMapPanelLayers, getActiveMapLayers, getLayers } from '../../ducks/panel-layers/map-panel-layers';
+import {
+  getActiveMapLayers,
+  getLayers,
+  getMapPanelLayers
+} from '../../ducks/panel-layers/map-panel-layers';
+import { getPanorama, getPanoramaHistory } from '../../../panorama/ducks/selectors';
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
 import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
-import { toPanorama } from '../../../store/redux-first-router';
-import { getPanorama, getPanoramaHistory } from '../../../panorama/ducks/panorama';
 import { getImageDataByLocation } from '../../../panorama/services/panorama-api/panorama-api';
 
 describe('watchMapClick', () => {
@@ -96,7 +99,7 @@ describe('switchClickAction', () => {
 
   const provideMapLayers = ({ selector }, next) => (
     selector === getActiveMapLayers ||
-      selector === getLayers
+    selector === getLayers
       ? mockMapLayers : next()
   );
 
@@ -140,7 +143,7 @@ describe('switchClickAction', () => {
   it('should dispatch setGeolocation when the panorama is not enabled and there is no panelLayer found ', () => {
     const provideMapPanelLayers = ({ selector }, next) => (
       selector === getActiveMapLayers ||
-        selector === getLayers
+      selector === getLayers
         ? [] : next()
     );
 
@@ -157,10 +160,13 @@ describe('switchClickAction', () => {
       .run();
   });
 
-  it('should open the panorama when in pano mode', () => {
+  it('should get panorama by location when in pano mode', () => {
     const provideCallGetImageDataByLocation = ({ fn }, next) => {
       if (fn === getImageDataByLocation) {
-        return { id: '123', location: Object.keys(payload.location).map((key) => payload.location[key]) };
+        return {
+          id: '123',
+          location: Object.keys(payload.location).map((key) => payload.location[key])
+        };
       }
       return next();
     };
@@ -177,10 +183,7 @@ describe('switchClickAction', () => {
           provideSelectPanoramaHistory
         ),
         call: provideCallGetImageDataByLocation
-      }
-      )
-      .put(toPanorama('123', 0))
+      })
       .run();
   });
 });
-
