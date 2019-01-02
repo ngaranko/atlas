@@ -13,7 +13,7 @@ export function* fetchDetail() {
 }
 
 /* istanbul ignore next */ // TODO: refactor, test
-export function* watchDetailRoute() {
+export default function* watchDetailRoute() {
   yield takeLatest([
     routing.dataDetail.type
   ], fetchDetail);

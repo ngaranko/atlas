@@ -14,7 +14,6 @@ import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 import { getImageDataByLocation } from '../../../panorama/services/panorama-api/panorama-api';
-import { setPanoramaLocation } from '../../../panorama/ducks/actions';
 
 describe('watchMapClick', () => {
   const action = { type: SET_MAP_CLICK_LOCATION };
@@ -161,7 +160,7 @@ describe('switchClickAction', () => {
       .run();
   });
 
-  it('should open the panorama when in pano mode', () => {
+  it('should get panorama by location when in pano mode', () => {
     const provideCallGetImageDataByLocation = ({ fn }, next) => {
       if (fn === getImageDataByLocation) {
         return {
@@ -177,13 +176,14 @@ describe('switchClickAction', () => {
         ? { year: 2018, missionType: 'woz' } : next()
     );
 
-    return expectSaga(switchClickAction, { payload }).provide({
-      select: composeProviders(
-        provideSelectionTypePanorama,
-        provideSelectPanoramaHistory
-      ),
-      call: provideCallGetImageDataByLocation
-    }).put(setPanoramaLocation([52.11, 4.11])).run();
+    return expectSaga(switchClickAction, { payload })
+      .provide({
+        select: composeProviders(
+          provideSelectionTypePanorama,
+          provideSelectPanoramaHistory
+        ),
+        call: provideCallGetImageDataByLocation
+      })
+      .run();
   });
 });
-
