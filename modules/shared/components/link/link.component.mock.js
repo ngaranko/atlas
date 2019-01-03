@@ -1,3 +1,5 @@
+import isDefined from '../../../../src/shared/services/is-defined';
+
 // This component is just an mock of the dp-link component
 // Is only used in the tests to simplify the test process
 (function () {
@@ -30,7 +32,7 @@
             scope.click = clickHandler;
 
             function getAction () {
-                var action = angular.isDefined(scope.payload) ? {
+                var action = isDefined(scope.payload) ? {
                     type: scope.type,
                     payload: scope.payload
                 } : {

@@ -1,5 +1,6 @@
 import * as dataSelectionConfig
     from '../../../../../src/shared/services/data-selection/data-selection-config';
+import isDefined from '../../../../../src/shared/services/is-defined';
 
 describe('The dp-data-selection-download-button component', function () {
     let $compile,
@@ -62,7 +63,7 @@ describe('The dp-data-selection-download-button component', function () {
         element.setAttribute('dataset', dataset);
         element.setAttribute('active-filters', 'activeFilters');
 
-        if (angular.isDefined(geometryMarkers)) {
+        if (isDefined(geometryMarkers)) {
             element.setAttribute('geometry-filter', 'geometryFilter');
         }
 

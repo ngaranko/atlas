@@ -1,3 +1,5 @@
+import isDefined from '../../../../../src/shared/services/is-defined';
+
 (function () {
     'use strict';
 
@@ -36,6 +38,7 @@
 
         $scope.$watch('vm.heading', function (heading) {
             vm.htmlHeading = $sce.trustAsHtml(heading);
+            vm.hasMetaData = isDefined(vm.metaData);
         });
 
         vm.glossaryLabel = vm.usePlural
@@ -45,7 +48,7 @@
         vm.stelselpediaUrl = GLOSSARY.DEFINITIONS[vm.definition].url;
 
         vm.hasHelp = !!vm.glossaryDescription;
-        vm.hasMetaData = angular.isDefined(vm.metaData);
+        vm.hasMetaData = isDefined(vm.metaData);
         vm.hasButton = vm.hasHelp || vm.hasMetaData;
 
         vm.helpTitle = 'Uitleg tonen';

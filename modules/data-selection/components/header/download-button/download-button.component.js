@@ -1,5 +1,6 @@
 import DATA_SELECTION_CONFIG
     from '../../../../../src/shared/services/data-selection/data-selection-config';
+import isDefined from '../../../../../src/shared/services/is-defined';
 
 (function () {
     'use strict';
@@ -50,7 +51,7 @@ import DATA_SELECTION_CONFIG
                 }
             });
 
-            if (angular.isDefined(vm.geometryFilter)) {
+            if (isDefined(vm.geometryFilter)) {
                 filterParams.push('shape=' + angular.toJson(vm.geometryFilter.markers.map(([lat, lng]) => [lng, lat])));
             }
 

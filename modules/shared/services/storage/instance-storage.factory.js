@@ -1,3 +1,5 @@
+import isDefined from '../../../../src/shared/services/is-defined';
+
 (function () {
     'use strict';
 
@@ -31,7 +33,7 @@
              */
             getItem (key) {
                 const value = this._keys[key];
-                return angular.isDefined(value) ? value : null;
+                return isDefined(value) ? value : null;
             }
             /**
              * When passed a key name, will remove that key from the storage

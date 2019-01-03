@@ -1,3 +1,5 @@
+import isDefined from '../../../../src/shared/services/is-defined';
+
 describe('The dp-panel component', function () {
     let $compile,
         $rootScope,
@@ -20,7 +22,7 @@ describe('The dp-panel component', function () {
         element = document.createElement('dp-panel');
         element.setAttribute('is-panel-visible', 'isPanelVisible');
 
-        if (angular.isDefined(canClose)) {
+        if (isDefined(canClose)) {
             element.setAttribute('can-close', 'canClose');
         }
 
