@@ -9,7 +9,7 @@ import {
 } from '../../ducks/user/user';
 import * as auth from '../../services/auth/auth';
 
-function* authenticateUser() {
+export function* authenticateUser() {
   const accessToken = auth.getAccessToken();
   if (accessToken) {
     yield put(authenticateUserSuccess(auth.getAccessToken(), auth.getName(), auth.getScopes()));
