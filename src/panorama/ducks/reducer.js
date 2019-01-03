@@ -10,12 +10,12 @@ import {
   SET_PANORAMA_ORIENTATION,
   SET_PANORAMA_VIEW,
   SET_PANORAMA_YEAR,
-  FETCH_PANORAMA_REQUEST_TOGGLE
+  FETCH_PANORAMA_REQUEST_TOGGLE,
+  REDUCER_KEY
 } from './constants';
-import { getStateFromQuery } from '../../store/query-synchronization';
-import urlParams from './query';
+import paramsRegistry from '../../store/params-registry';
 
-export { REDUCER_KEY } from './constants';
+export { REDUCER_KEY as PANORAMA };
 
 export default function reducer(state = initialState, action) {
   if (action.type &&
@@ -27,7 +27,7 @@ export default function reducer(state = initialState, action) {
 
   const enrichedState = {
     ...state,
-    ...getStateFromQuery(urlParams, action)
+    ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action)
   };
   switch (action.type) {
     case routing.panorama.type: {

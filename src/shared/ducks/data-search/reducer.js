@@ -12,8 +12,6 @@ import {
   SET_GEO_LOCATION,
   SET_QUERY_CATEGORY
 } from './constants';
-import { getStateFromQuery } from '../../../store/query-synchronization';
-import urlParams from './query';
 import { routing } from '../../../app/routes';
 import { FETCH_DATA_SELECTION_REQUEST } from '../data-selection/constants';
 import paramsRegistry from '../../../store/params-registry';

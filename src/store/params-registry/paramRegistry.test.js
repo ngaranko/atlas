@@ -7,21 +7,16 @@ describe('ParamsRegistery singleton', () => {
     paramsRegistry = new ParamsRegistery();
   });
 
-  describe('Result object', function () {
+  describe('Result object', () => {
     it('should return an object with a parameter and 2 routes, each bound to a reducer', () => {
       paramsRegistry
         .addParameter('map', (routes) => {
           routes
-            .add('/bar', {
-              reducerKey: 'reducerKey',
-              stateKey: 'foo',
+            .add('/bar', 'reducerKey', 'foo', {
               decode: jest.fn(),
               encode: jest.fn()
             })
-            .add('/foo/bar', {
-              reducerKey: 'dataSearch',
-              stateKey: 'bar'
-            });
+            .add('/foo/bar', 'dataSearch', 'bar');
         });
 
       const result = paramsRegistry.result;
@@ -52,18 +47,10 @@ describe('ParamsRegistery singleton', () => {
     it('should return an object with 2 parameters with each one route, each bound to a reducer', () => {
       const result = paramsRegistry
         .addParameter('map', (routes) => {
-          routes
-            .add('/bar', {
-              reducerKey: 'reducerKey',
-              stateKey: 'foo'
-            }, true);
+          routes.add('/bar', 'reducerKey', 'foo', {}, true);
         })
         .addParameter('foobar', (routes) => {
-          routes
-            .add('/foo', {
-              reducerKey: 'reducerKey',
-              stateKey: 'foo'
-            });
+          routes.add('/foo', 'reducerKey', 'foo');
         }).result;
 
       const expectation = {
@@ -96,26 +83,9 @@ describe('ParamsRegistery singleton', () => {
     it('should also accept an array of routes', () => {
       const result = paramsRegistry
         .addParameter('map', (routes) => {
-          routes
-            .add(['/bar', '/foo'], {
-              reducerKey: 'reducerKey',
-              stateKey: 'foo'
-            }, true);
+          routes.add(['/bar', '/foo'], 'reducerKey', 'foo', {}, true);
         }).result;
       expect(Object.keys(result.map.routes)).toEqual(['/bar', '/foo']);
-    });
-
-    it('should set the default value of the parameter', () => {
-      const result = paramsRegistry
-        .addParameter('map', (routes, setDefaultValue) => {
-          setDefaultValue(false);
-          routes
-            .add('/bar', {
-              reducerKey: 'reducerKey',
-              stateKey: 'foo'
-            });
-        }).result;
-      expect(result.map.defaultValue).toEqual(false);
     });
   });
 
@@ -123,18 +93,10 @@ describe('ParamsRegistery singleton', () => {
     it('should throw an error when there is a duplicate parameter', () => {
       expect(() => paramsRegistry
         .addParameter('map', (routes) => {
-          routes
-            .add('/bar', {
-              reducerKey: 'reducerKey',
-              stateKey: 'foo'
-            });
+          routes.add('/bar', 'reducerKey', 'foo');
         })
         .addParameter('map', (routes) => {
-          routes
-            .add('/bara', {
-              reducerKey: 'reducerKey2',
-              stateKey: 'bar'
-            });
+          routes.add('/bara', 'reducerKey2', 'bar');
         })).toThrow('Parameter is already registered: map');
     });
 
@@ -142,14 +104,8 @@ describe('ParamsRegistery singleton', () => {
       expect(() => paramsRegistry
         .addParameter('map', (routes) => {
           routes
-            .add('/bar', {
-              reducerKey: 'reducerKey',
-              stateKey: 'foo'
-            })
-            .add('/bar', {
-              reducerKey: 'reducerKey2',
-              stateKey: 'bar'
-            });
+            .add('/bar', 'reducerKey', 'foo')
+            .add('/bar', 'reducerKey2', 'bar');
         })).toThrow('Route is already registered for parameter "map" with route "/bar"');
     });
   });
@@ -157,24 +113,17 @@ describe('ParamsRegistery singleton', () => {
   describe('setQueriesFromState method', () => {
     beforeEach(() => {
       paramsRegistry
-        .addParameter('map', (routes, setDefaultValue) => {
-          setDefaultValue('123');
+        .addParameter('map', (routes) => {
           routes
-            .add('ROUTER/bar', {
-              reducerKey: 'reducerKey',
-              stateKey: 'foo'
+            .add('ROUTER/bar', 'reducerKey', 'foo', {
+              defaultValue: '123'
             }, true)
-            .add('ROUTER/foo', {
-              reducerKey: 'reducerKey2',
-              stateKey: 'foo'
-            });
+            .add('ROUTER/foo', 'reducerKey2', 'foo');
         })
         .addParameter('anotherParam', (routes) => {
           routes
-            .add('ROUTER/bar', {
-              defaultValue: '321',
-              reducerKey: 'reducerKey',
-              stateKey: 'bar'
+            .add('ROUTER/bar', 'reducerKey', 'bar', {
+              defaultValue: '321'
             });
         });
 
@@ -213,26 +162,15 @@ describe('ParamsRegistery singleton', () => {
       paramsRegistry
         .addParameter('map', (routes) => {
           routes
-            .add('ROUTER/bar', {
-              reducerKey: 'reducerKey',
-              stateKey: 'foo'
-            })
-            .add('ROUTER/foo', {
-              reducerKey: 'reducerKey2',
-              stateKey: 'foo'
-            });
+            .add('ROUTER/bar', 'reducerKey', 'foo')
+            .add('ROUTER/foo', 'reducerKey2', 'foo');
         })
         .addParameter('page', (routes) => {
           routes
-            .add('ROUTER/bar', {
-              reducerKey: 'reducerKey3',
-              stateKey: 'pageNumber',
+            .add('ROUTER/bar', 'reducerKey3', 'pageNumber', {
               decode: jest.fn()
             })
-            .add('ROUTER/foo', {
-              reducerKey: 'reducerKey4',
-              stateKey: 'fooBar'
-            });
+            .add('ROUTER/foo', 'reducerKey4', 'fooBar');
         });
     });
 
@@ -264,9 +202,7 @@ describe('ParamsRegistery singleton', () => {
       const decodeMock = jest.fn();
       paramsRegistry.addParameter('fu', (routes) => {
         routes
-          .add('ROUTER/foo', {
-            reducerKey: 'reducerKey4',
-            stateKey: 'fooBar',
+          .add('ROUTER/foo', 'reducerKey4', 'fooBar', {
             decode: decodeMock
           });
       }).getStateFromQueries('reducerKey4', {
@@ -282,28 +218,21 @@ describe('ParamsRegistery singleton', () => {
       expect(() => paramsRegistry
         .addParameter('foo', (routes) => {
           routes
-            .add('/bar', {
-              stateKey: 'bar'
-            });
-        })).toThrow('Reducer settings passed to the route is missing a key: "reducerKey"');
+            .add('/bar');
+        })).toThrow('Param "foo" with route "/bar" must contain a reducerKey and stateKe');
 
       expect(() => paramsRegistry
         .addParameter('foo', (routes) => {
           routes
-            .add('/bar', {
-              reducerKey: 'reducerKey'
-            });
-        })).toThrow('Reducer settings passed to the route is missing a key: "stateKey"');
+            .add('/bar', 'reducerKey');
+        })).toThrow('Param "foo" with route "/bar" must contain a reducerKey and stateKe');
     });
 
     it('should not throw an error when reducerKey and stateKey are set', () => {
       expect(() => paramsRegistry
         .addParameter('foo', (routes) => {
           routes
-            .add('/bar', {
-              reducerKey: 'reducerKey',
-              stateKey: 'stateKey'
-            });
+            .add('/bar', 'reducerKey', 'stateKey');
         })).not.toThrow();
     });
 
@@ -311,10 +240,8 @@ describe('ParamsRegistery singleton', () => {
       expect(() => paramsRegistry
         .addParameter('foo', (routes) => {
           routes
-            .add('/bar', {
-              foo: 'reducerKey',
-              reducerKey: 'reducerKey',
-              stateKey: 'stateKey'
+            .add('/bar', 'reducerKey', 'stateKey', {
+              foo: 'reducerKey'
             });
         })).toThrow('Key given to reducer settings is not allowed: "foo"');
     });

@@ -12,34 +12,27 @@ import createHistory from 'history/createBrowserHistory';
  * reducer B also updates, as it is in sync with the url param.
  */
 class ParamsRegistery {
-  static getDefaultReducerSettings(obj) {
+  static getDefaultReducerSettings(reducerKey, stateKey, overrideOptions = {}) {
     const reducerSettingsKeys = {
       encode: 'encode',
       decode: 'decode',
-      stateKey: 'stateKey',
-      defaultValue: 'defaultValue',
-      reducerKey: 'reducerKey'
+      defaultValue: 'defaultValue'
     };
-    const { encode, decode, stateKey, reducerKey, defaultValue } = reducerSettingsKeys;
-    const allowedKeys = [encode, decode, stateKey, reducerKey, defaultValue];
-    const requiredKeys = [stateKey, reducerKey];
+    const { encode, decode, defaultValue } = reducerSettingsKeys;
+    const allowedKeys = [encode, decode, defaultValue];
 
-    requiredKeys.forEach((value) => {
-      if (!Object.prototype.hasOwnProperty.call(obj, value)) {
-        throw new Error(`Reducer settings passed to the route is missing a key: "${value}"`);
-      }
-    });
-
-    Object.keys(obj).forEach((value) => {
+    Object.keys(overrideOptions).forEach((value) => {
       if (!allowedKeys.includes(value)) {
         throw new Error(`Key given to reducer settings is not allowed: "${value}"`);
       }
     });
 
     return {
-      encode: (state) => get(state, `[${obj.reducerKey}][${obj.stateKey}]`),
+      encode: (state) => get(state, `[${reducerKey}][${stateKey}]`),
       decode: (val) => val,
-      ...obj
+      reducerKey,
+      stateKey,
+      ...overrideOptions
     };
   }
 
@@ -82,36 +75,34 @@ class ParamsRegistery {
       throw new Error(`Parameter is already registered: ${param}`);
     }
     const routeApi = {
-      add: (routes, reducerObject, addHistory = false) => {
+      add: (routes, reducerKey, stateKey, reducerObject, addHistory = false) => {
         [...Array.isArray(routes) ? [...routes] : [routes]].forEach((route) => {
-          this.bindRouteToReducerSettings(param, route, reducerObject, addHistory);
+          if (!reducerKey || (typeof stateKey === 'undefined')) {
+            throw new Error(`Param "${param}" with route "${route}" must contain a reducerKey and stateKey`);
+          }
+          this.bindRouteToReducerSettings(
+            param, route, reducerKey, stateKey, reducerObject, addHistory
+          );
         });
         return routeApi;
       }
     };
 
-    const setDefaultValue = (defaultValue) => {
-      this.result = {
-        [param]: {
-          ...this.result[param],
-          defaultValue
-        }
-      };
-    };
-
-    callback(routeApi, setDefaultValue);
+    callback(routeApi);
 
     return this;
   }
 
   /**
    *
-   * @param param String
-   * @param route String
-   * @param reducerObject Object
-   * @param addHistory Boolean
+   * @param param
+   * @param route
+   * @param reducerKey
+   * @param stateKey
+   * @param reducerObject
+   * @param addHistory
    */
-  bindRouteToReducerSettings(param, route, reducerObject, addHistory) {
+  bindRouteToReducerSettings(param, route, reducerKey, stateKey, reducerObject, addHistory) {
     let paramRouteReducerSettings = get(this.result, `[${param}].routes`, {});
     if (paramRouteReducerSettings[route]) {
       throw new Error(`Route is already registered for parameter "${param}" with route "${route}"`);
@@ -120,7 +111,7 @@ class ParamsRegistery {
     paramRouteReducerSettings = {
       ...paramRouteReducerSettings,
       [route]: {
-        ...ParamsRegistery.getDefaultReducerSettings(reducerObject),
+        ...ParamsRegistery.getDefaultReducerSettings(reducerKey, stateKey, reducerObject),
         addHistory
       }
     };
@@ -137,24 +128,35 @@ class ParamsRegistery {
     let addHistory = false;
     const query = Object.entries(this.result).reduce((acc, [key, value]) => {
       const reducerObject = get(value, `[routes][${locationType}]`, null);
-      const encodedValue = reducerObject && reducerObject.encode(state);
+      if (reducerObject) {
+        const encodedValue = reducerObject.encode(state);
 
-      // We need to set addHistory to true if even one route needs to change the history
-      if (!addHistory && (reducerObject && reducerObject.addHistory)) {
-        addHistory = reducerObject.addHistory;
+        // We need to set addHistory to true if even one route needs to change the history
+        if (!addHistory && (reducerObject && reducerObject.addHistory)) {
+          addHistory = reducerObject.addHistory;
+        }
+        let newQuery = {};
+
+        // we need to use JSON.stringify here to also check if arrays and objects are equal
+        const isDefaultValue = (
+          reducerObject && (
+            JSON.stringify(reducerObject.decode(encodedValue)) ===
+            JSON.stringify(reducerObject.defaultValue)
+          )
+        );
+        if (
+          encodedValue &&
+          !isDefaultValue
+        ) {
+          newQuery = { [key]: encodedValue };
+        }
+        return {
+          ...acc,
+          ...newQuery
+        };
       }
-      let newQuery = {};
-      if (
-        encodedValue &&
-        encodedValue !== value.defaultValue &&
-        encodedValue !== reducerObject.defaultValue
-      ) {
-        newQuery = { [key]: encodedValue };
-      }
-      return {
-        ...acc,
-        ...newQuery
-      };
+
+      return acc;
     }, {});
     const orderedQuery = Object.entries(query).sort().reduce((acc, [key, value]) => ({
       ...acc,
@@ -171,7 +173,6 @@ class ParamsRegistery {
     if (addHistory) {
       this.separateHistory.push(`${currentPath}?${searchQuery}`);
     } else {
-      // console.log(`${currentPath}?${searchQuery}`);
       this.separateHistory.replace(`${currentPath}?${searchQuery}`);
     }
 

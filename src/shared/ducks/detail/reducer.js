@@ -1,14 +1,14 @@
 import { routing } from '../../../app/routes';
 import { FETCH_DETAIL, initialState, SET_VIEW, SHOW_DETAIL } from './constants';
-import { getStateFromQuery } from '../../../store/query-synchronization';
-import urlParams from './query';
+import paramsRegistry from '../../../store/params-registry';
+import { REDUCER_KEY } from '../data-search/constants';
 
-export { REDUCER_KEY } from './constants';
+export { REDUCER_KEY as DETAIL } from './constants';
 
 export default function detailReducer(state = initialState, action) {
   const enrichedState = {
     ...state,
-    ...getStateFromQuery(urlParams, action)
+    ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action)
   };
   switch (action.type) {
     case routing.dataDetail.type: {

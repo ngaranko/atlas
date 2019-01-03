@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
-import { routing } from '../../../app/routes';
 import { getFilters as getDataSelectionFilters } from '../data-selection/selectors';
 import { getFilters as getDatasetFilters } from '../datasets/datasets';
+import paramsRegistry from '../../../store/params-registry';
 
 export const REDUCER_KEY = 'filters';
 export const EMPTY_FILTERS = `${REDUCER_KEY}/EMPTY_FILTERS`;
@@ -11,28 +11,19 @@ export const REMOVE_FILTER = `${REDUCER_KEY}/REMOVE_FILTER`;
 export const SET_SHAPE_FILTER = `${REDUCER_KEY}/SET_SHAPE_FILTER`;
 
 const reducer = (state = {}, action) => {
+  const enrichedState = {
+    ...state,
+    ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action)
+  };
   switch (action.type) {
-    case routing.datasets.type:
-    case routing.addresses.type:
-    case routing.establishments.type:
-    case routing.cadastralObjects.type: {
-      const { filters: queryFilters } = action.meta.query || {};
-      let filterToParse = '{}';
-      if (queryFilters) {
-        filterToParse = atob(queryFilters);
-      }
-
-      return Object.assign({}, JSON.parse(filterToParse));
-    }
-
     case ADD_FILTER:
       return {
-        ...state,
+        ...enrichedState,
         ...action.payload
       };
 
     case REMOVE_FILTER: {
-      const newState = { ...state };
+      const newState = { ...enrichedState };
       delete newState[action.payload];
       return {
         ...newState
@@ -41,14 +32,14 @@ const reducer = (state = {}, action) => {
 
     case SET_SHAPE_FILTER:
       return {
-        ...state,
+        ...enrichedState,
         shape: { ...action.payload }
       };
 
     case EMPTY_FILTERS:
       return {};
     default:
-      return state;
+      return enrichedState;
   }
 };
 

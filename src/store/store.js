@@ -12,7 +12,7 @@ import documentHeadMiddleware from './middleware/documentHead';
 import piwikMiddleware from './middleware/piwikMiddleware';
 import urlParamsMiddleware from './middleware/urlParamsMiddleware';
 
-import './queryParameters'
+import './queryParameters';
 
 window.reducer = rootReducer;
 const configureStore = (history, routesMap) => {

@@ -1,15 +1,8 @@
 import reducer from './reducer';
 import * as actionCreators from './actions';
 import { routing } from '../../../app/routes';
-import { getStateFromQuery } from '../../../store/query-synchronization';
-
-jest.mock('../../../store/query-synchronization');
 
 describe('Data Selection Reducer', () => {
-  beforeEach(() => {
-    getStateFromQuery.mockImplementation(() => ({}));
-  });
-
   /**
    * Use this helper to build an object that we can iterate the tests with.
    * @param actionCreatorName, this should be the name of the actionCreator function,
