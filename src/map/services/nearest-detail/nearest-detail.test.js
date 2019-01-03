@@ -41,16 +41,16 @@ describe('fetchNearestDetail', () => {
       },
       {
         detailIsShape: true,
-        distance: 10
+        distance: 9
       },
       {
         detailIsShape: true,
-        distance: 9
+        distance: 10
       }
     ]);
   });
 
-  it('should return the right results when calling fetchNearestDetail', async () => {
+  it('should sadsa', async () => {
     getByUrl.mockImplementation(() => Promise.resolve({
       features: [
         {

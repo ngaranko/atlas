@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`QueryParameters should create a 1`] = `
+exports[`QueryParameters should match the snapshot 1`] = `
 Object {
   "category": Object {
     "routes": Object {
