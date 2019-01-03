@@ -12,7 +12,6 @@ import documentHeadMiddleware from './middleware/documentHead';
 import piwikMiddleware from './middleware/piwikMiddleware';
 
 window.reducer = rootReducer;
-
 const configureStore = (history, routesMap) => {
   const routingOptions = {
     querySerializer: queryString,
@@ -44,7 +43,6 @@ const configureStore = (history, routesMap) => {
   window.reduxStore = createStore(rootReducer(routeReducer), undefined, enhancer);
 
   sagaMiddleware.run(rootSaga);
-  initialRouteDispatch();
 
   try {
     auth.initAuth();
@@ -53,11 +51,13 @@ const configureStore = (history, routesMap) => {
     console.warn(error); // eslint-disable-line no-console
   }
 
+
   const returnPath = auth.getReturnPath();
   if (returnPath) {
     location.href = returnPath;
   }
 
+  initialRouteDispatch();
   window.reduxStore.dispatch(authenticateRequest());
 
   return window.reduxStore;
