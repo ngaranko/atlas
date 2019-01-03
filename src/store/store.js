@@ -21,7 +21,8 @@ const configureStore = (history, routesMap) => {
   const {
     reducer: routeReducer,
     middleware: routeMiddleware,
-    enhancer: routeEnhancer
+    enhancer: routeEnhancer,
+    initialDispatch: initialRouteDispatch
   } = connectRoutes(
     routesMap,
     routingOptions
@@ -50,11 +51,13 @@ const configureStore = (history, routesMap) => {
     console.warn(error); // eslint-disable-line no-console
   }
 
+
   const returnPath = auth.getReturnPath();
   if (returnPath) {
     location.href = returnPath;
   }
 
+  initialRouteDispatch();
   window.reduxStore.dispatch(authenticateRequest());
 
   return window.reduxStore;
