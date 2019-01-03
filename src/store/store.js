@@ -12,7 +12,6 @@ import documentHeadMiddleware from './middleware/documentHead';
 import piwikMiddleware from './middleware/piwikMiddleware';
 
 window.reducer = rootReducer;
-
 const configureStore = (history, routesMap) => {
   const routingOptions = {
     querySerializer: queryString,
@@ -22,8 +21,7 @@ const configureStore = (history, routesMap) => {
   const {
     reducer: routeReducer,
     middleware: routeMiddleware,
-    enhancer: routeEnhancer,
-    initialDispatch: initialRouteDispatch
+    enhancer: routeEnhancer
   } = connectRoutes(
     routesMap,
     routingOptions
@@ -44,7 +42,6 @@ const configureStore = (history, routesMap) => {
   window.reduxStore = createStore(rootReducer(routeReducer), undefined, enhancer);
 
   sagaMiddleware.run(rootSaga);
-  initialRouteDispatch();
 
   try {
     auth.initAuth();

@@ -158,7 +158,6 @@ function handleCallback() {
     returnPath = sessionStorage.getItem(RETURN_PATH);
     sessionStorage.removeItem(RETURN_PATH);
     sessionStorage.removeItem(STATE_TOKEN);
-
     // Clean up URL; remove query and hash
     // https://stackoverflow.com/questions/4508574/remove-hash-from-url
     history.replaceState('', document.title, window.location.pathname);
@@ -201,7 +200,6 @@ export function login() {
   sessionStorage.removeItem(ACCESS_TOKEN);
   sessionStorage.setItem(RETURN_PATH, location.href);
   sessionStorage.setItem(STATE_TOKEN, stateToken);
-
   location.assign(`${API_ROOT}${AUTH_PATH}&state=${encodedStateToken}&redirect_uri=${callback}`);
 }
 
