@@ -1,11 +1,7 @@
 // Todo: fix / add tests
 /* istanbul ignore file */
 import SEARCH_CONFIG from './search-config';
-
-function isObject(value) {
-  // http://jsperf.com/isobject4
-  return value !== null && typeof value === 'object';
-}
+import isObject from '../is-object';
 
 function formatLabel(item) {
   let label = item._display;

@@ -1,3 +1,5 @@
+import isDefined from '../../../../src/shared/services/is-defined';
+
 // This test is never run because the problems that dp-link gives.
 // In the test configuration is the link.component.mock used
 //    instead of link.component
@@ -82,7 +84,7 @@ describe('The dp-link component', function () {
 
         const scope = $rootScope.$new();
 
-        if (angular.isDefined(payload)) {
+        if (isDefined(payload)) {
             element.setAttribute('payload', 'payload');
             scope.payload = payload;
         }

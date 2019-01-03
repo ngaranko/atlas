@@ -1,3 +1,5 @@
+import isDefined from '../../../../src/shared/services/is-defined';
+
 (function () {
     'use strict';
 
@@ -43,7 +45,7 @@
             const action = {
                 type
             };
-            if (angular.isDefined(payload)) {
+            if (isDefined(payload)) {
                 action.payload = payload;
             }
 
