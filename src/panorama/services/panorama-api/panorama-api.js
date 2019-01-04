@@ -37,9 +37,9 @@ const prefix = PANORAMA_CONFIG.PANORAMA_ENDPOINT_PREFIX;
 const suffix = PANORAMA_CONFIG.PANORAMA_ENDPOINT_SUFFIX;
 
 export const getLocationHistoryParams = (location, history) => {
-  const yearTypeMission = (history && history.year)
-    ? `&mission_year=${history.year}&mission_type=${history.missionType}`
-    : '';
+  const missionYear = (history && history.year) ? `&mission_year=${history.year}` : '';
+  const missionType = (history && history.missionType) ? `&mission_type=${history.missionType}` : '';
+  const yearTypeMission = `${missionYear}${missionType}`;
   const newestInRange = 'newest_in_range=true';
   const pageSize = 'page_size=1';
 
