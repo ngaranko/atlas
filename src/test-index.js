@@ -117,7 +117,7 @@ import '../modules/shared/components/long-name-shortener/long-name-config.consta
 import '../modules/shared/components/long-name-shortener/long-name-shortener.filter';
 import '../modules/shared/components/message/message.component';
 import '../modules/shared/components/panel/panel.component';
-import '../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component';
+import '../modules/shared/components/panorama-thumbnail/panorama-thumbnail.component';
 import '../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter';
 import '../modules/shared/filters/filesize.filter';
 import '../modules/shared/filters/kebabcase.filter';
@@ -215,7 +215,7 @@ import '../modules/shared/components/link-to-page/link-to-page.component.test';
 import '../modules/shared/components/expand-collapse/expand-collapse.directive.test';
 import '../modules/shared/components/anchor-link/anchor-link.component.test';
 import '../modules/shared/components/link/link.component.test';
-import '../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component.test';
+import '../modules/shared/components/panorama-thumbnail/panorama-thumbnail.component.test';
 import '../modules/shared/components/panel/panel.component.test';
 import '../modules/shared/components/message/message.component.test';
 import '../modules/shared/components/loading-indicator/loading-indicator.component.test';

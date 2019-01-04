@@ -77,7 +77,7 @@ describe('addresses module', () => {
   });
 
   describe('user should be able to navigate to the address detail view', () => {
-    it('should open the detail view with the correct address', () => {
+    it('should open the preview view with the correct address', () => {
       cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
       cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject');
       cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden');
@@ -91,8 +91,17 @@ describe('addresses module', () => {
           cy.get('.c-table__content-row').first().find('td:nth-child(1)')
             .then((firstValue) => {
               const selectedValue = firstValue[0].innerText.trim();
-              // click on the firstItem
+              // click on the firstItem to open address preview panel
               cy.get('.c-table__content-row').first().click();
+
+              cy.wait('@getNummeraanduiding');
+              cy.wait('@getVerblijfsobject');
+
+              // the show more button should exist and be clickable
+              cy.get('.map-search-results__button').should('exist');
+              cy.get('.map-search-results__button').scrollIntoView()
+              // click on the show more button to open address detail view
+              cy.get('.map-search-results__button').click();
 
               cy.wait('@getNummeraanduiding');
               cy.wait('@getVerblijfsobject');
@@ -128,12 +137,24 @@ describe('addresses module', () => {
 
       cy.wait('@getNummeraanduiding');
       cy.wait('@getVerblijfsobject');
+
+      // the cursor should be rendered inside the leaflet map
+      cy.get('.leaflet-marker-icon').should('exist').and('be.visible');
+
+      // the show more button should exist and be clickable
+      cy.get('.map-search-results__button').should('exist');
+      cy.get('.map-search-results__button').scrollIntoView()
+      // click on the show more button to open address detail view
+      cy.get('.map-search-results__button').click();
+
+      cy.wait('@getNummeraanduiding');
+      cy.wait('@getVerblijfsobject');
       cy.wait('@getPanden');
       cy.wait('@getObjectExpand');
       cy.wait('@getSitueringen');
       cy.wait('@getMonument');
 
-      // the cursor should be rendered inside the leaflet map
+      // the cursor should still be rendered inside the leaflet map
       cy.get('.leaflet-marker-icon').should('exist').and('be.visible');
     });
   });

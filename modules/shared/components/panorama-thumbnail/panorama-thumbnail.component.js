@@ -5,19 +5,19 @@ import { getDetailLocation, toPanorama } from '../../../../src/store/redux-first
 
     angular
         .module('dpShared')
-        .component('dpStraatbeeldThumbnail', {
+        .component('dpPanoramaThumbnail', {
             bindings: {
                 panorama: '<',
                 isLoading: '<'
             },
-            templateUrl: 'modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.html',
-            controller: DpStraatbeeldThumbnailController,
+            templateUrl: 'modules/shared/components/panorama-thumbnail/panorama-thumbnail.html',
+            controller: DpPanoramaThumbnailController,
             controllerAs: 'vm'
         });
 
-    DpStraatbeeldThumbnailController.$inject = ['sharedConfig', 'store'];
+    DpPanoramaThumbnailController.$inject = ['sharedConfig', 'store'];
 
-    function DpStraatbeeldThumbnailController (sharedConfig, store) {
+    function DpPanoramaThumbnailController (sharedConfig, store) {
         const vm = this;
         const state = store.getState();
 
