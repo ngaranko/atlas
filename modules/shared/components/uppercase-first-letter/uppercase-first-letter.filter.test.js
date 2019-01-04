@@ -6,7 +6,7 @@ describe('The dpUppercaseFirstLetter filter', function () {
             'dpShared',
             {
                 detailConfig: {
-                    STRAATBEELD_THUMB_URL: 'http://fake.straatbeeld.url/path/'
+                    PANORAMA_THUMBNAIL_URL: 'http://fake.panorama.url/path/'
                 },
                 store: {
                     dispatch: function () {}
