@@ -2,19 +2,36 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Dataset from './Dataset';
 
-// Todo: DP-6235
-describe.only('Dataset', () => {
-  it('should render the inital state', () => {
+describe('Dataset', () => {
+  const props = {
+    activeFilters: {},
+    authError: false,
+    page: 1,
+    results: {
+      numberOfRecords: 0
+    },
+    apiSpecification: {},
+    setPage: jest.fn
+  };
+
+  it('should render without search results', () => {
     const component = shallow(
-      <Dataset
-        activeFilters={{}}
-        authError={false}
-        page={1}
-        results={{}}
-        apiSpecification={{}}
-        setPage={() => {
-        }}
-      />);
+      <Dataset {...props} />
+    );
+    expect(component).toMatchSnapshot();
+  });
+
+  it('should render with search results', () => {
+    const extendedProps = {
+      ...props,
+      results: {
+        ...props.results,
+        numberOfRecords: 2
+      }
+    };
+    const component = shallow(
+      <Dataset {...extendedProps} />
+    );
     expect(component).toMatchSnapshot();
   });
 });

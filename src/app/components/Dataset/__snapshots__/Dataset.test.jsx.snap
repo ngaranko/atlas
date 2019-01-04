@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Dataset should render the inital state 1`] = `
+exports[`Dataset should render with search results 1`] = `
 <div>
   <Connect(DatasetActiveFilters) />
   <div
@@ -10,7 +10,31 @@ exports[`Dataset should render the inital state 1`] = `
       className="u-row"
     >
       <div
-        className="u-col-sm--12"
+        className="u-col-sm--3 c-data-selection__available-filters"
+      >
+        <AngularWrapper
+          bindings={
+            Object {
+              "activeFilters": Object {},
+              "availableFilters": undefined,
+            }
+          }
+          component="dpDataSelectionAvailableFilters"
+          dependencies={
+            Array [
+              "atlas",
+            ]
+          }
+          interpolateBindings={
+            Object {
+              "dataset": "dcatd",
+            }
+          }
+          moduleName="dpDataSelectionAvailableFiltersWrapper"
+        />
+      </div>
+      <div
+        className="u-col-sm--9"
       >
         <div>
           <AngularWrapper
@@ -51,4 +75,11 @@ exports[`Dataset should render the inital state 1`] = `
     </div>
   </div>
 </div>
+`;
+
+exports[`Dataset should render without search results 1`] = `
+<NoResultsForSearchType
+  message="Tip: maak de zoekcriteria minder specifiek. Of probeer in plaats van zoeken eens
+        de optie 'Alle datasets tonen' en filter vervolgens op thema."
+/>
 `;
