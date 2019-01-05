@@ -1,5 +1,5 @@
 import proj4 from 'proj4';
-import { wgs84ToRd, rdToWgs84 } from './crs-converter';
+import { wgs84ToRd, rdToWgs84, parseLocationString, normalizeCoordinate, normalizeLocation } from './crs-converter';
 
 jest.mock('proj4');
 
@@ -32,5 +32,28 @@ describe('The CRS converter service', () => {
       latitude: 4,
       longitude: 3
     });
+  });
+
+  it('should parse the location string', () => {
+    expect(parseLocationString('52.11,4.22')).toEqual({
+      lat: 52.11,
+      lng: 4.22
+    });
+  });
+
+  it('should correct normalize coordinates', () => {
+    expect(normalizeCoordinate(5.12345678, 4)).toEqual(5.1235);
+  });
+
+  it('should correct normalize locations', () => {
+    expect(normalizeLocation(
+      {
+        latitude: 52.12345678,
+        longitude: 4.222222323
+      }, 5)).toEqual(
+      {
+        latitude: 52.12346,
+        longitude: 4.22222
+      });
   });
 });
