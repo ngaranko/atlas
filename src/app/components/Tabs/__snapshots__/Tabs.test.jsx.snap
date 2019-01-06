@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs should handle component when there are invalid children 1`] = `
+<div>
+  <div
+    className="o-tabs qa-tabs u-margin__bottom--2"
+  >
+    <ul>
+      <bound fn
+        isCurrentTab={false}
+        key=".1"
+      />
+      <li
+        isCurrentTab={false}
+        key=".$Data"
+        label="test-label"
+      >
+        <span>
+          This is a tab child
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Tabs should render the component 1`] = `
+<div>
+  <div
+    className="o-tabs qa-tabs u-margin__bottom--2"
+  >
+    <ul>
+      <li
+        isCurrentTab={false}
+        key=".$Dataset"
+      >
+        <span>
+          This is a tab child
+        </span>
+      </li>
+      <li
+        isCurrentTab={false}
+        key=".$Data"
+        label="test-label"
+      >
+        <span>
+          This is a tab child
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
