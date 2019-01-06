@@ -33,6 +33,7 @@ describe('Tab', () => {
       expect(tab.text()).toContain(42);
     });
   });
+
   describe('not the current tab', () => {
     it('should render', () => {
       const tab = shallow(
