@@ -6,7 +6,7 @@ import {
   getResults
 } from '../../../shared/ducks/datasets/datasets';
 import { getActiveFilters } from '../../../shared/ducks/filters/filters';
-import { setPage as setPageActions } from '../../../shared/ducks/datasets/data/data';
+import { setPage as setPageAction } from '../../../shared/ducks/datasets/data/data';
 import Dataset from './Dataset';
 
 const mapStateToProps = (state) => ({
@@ -17,7 +17,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  setPage: setPageActions
+  setPage: setPageAction
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dataset);
