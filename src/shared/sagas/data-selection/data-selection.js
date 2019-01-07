@@ -12,8 +12,18 @@ import { routing } from '../../../app/routes';
 import dataselectionConfig from '../../services/data-selection/data-selection-config';
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
 import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
-import { ADD_FILTER, EMPTY_FILTERS, getFilters, REMOVE_FILTER, setShapeFilter } from '../../ducks/filters/filters';
-import { isDataSelectionPage } from '../../../store/redux-first-router';
+import {
+  ADD_FILTER,
+  EMPTY_FILTERS,
+  getFilters,
+  REMOVE_FILTER,
+  setShapeFilter
+} from '../../ducks/filters/filters';
+import {
+  isDataSelectionPage,
+  preserveQuery,
+  toDatasetPage
+} from '../../../store/redux-first-router';
 import {
   FETCH_DATA_SELECTION_REQUEST,
   SET_DATASET,
@@ -22,7 +32,11 @@ import {
   SET_VIEW,
   VIEWS
 } from '../../ducks/data-selection/constants';
-import { getDataSelection, getGeomarkersShape } from '../../ducks/data-selection/selectors';
+import {
+  getDataSelection,
+  getGeomarkersShape,
+  getGeometryFilters
+} from '../../ducks/data-selection/selectors';
 import { waitForAuthentication } from '../user/user';
 import { MAP_BOUNDING_BOX } from '../../../map/ducks/map/map';
 
@@ -64,11 +78,11 @@ function* retrieveDataSelection(action) {
     // exclude the geometryFilter from the attribute filters
     // TODO DP-6442 improve the geometryFilter handling
     const activeAttributeFilters = Object.keys(activeFilters)
-      .filter((key) => key !== 'shape')
-      .reduce((result, key) => ({
-        ...result,
-        [key]: activeFilters[key]
-      }), {});
+                                         .filter((key) => key !== 'shape')
+                                         .reduce((result, key) => ({
+                                           ...result,
+                                           [key]: activeFilters[key]
+                                         }), {});
     const result = yield call(query,
       dataset, view, activeAttributeFilters, page, searchText, shape, catalogFilters);
 
@@ -121,6 +135,14 @@ function* clearShapeFilter(action) {
 
 function* setGeometryFilters(action) {
   yield put(setShapeFilter(createShapeFilter(action.payload)));
+
+  const dataSelection = yield select(getDataSelection);
+  const geometryFilters = yield select(getGeometryFilters);
+
+  yield put(preserveQuery(toDatasetPage(dataSelection.dataset), {
+    geo: geometryFilters,
+    view: VIEWS.LIST
+  }));
 }
 
 const DATASET_ROUTE_MAPPER = {
@@ -156,5 +178,5 @@ export default function* watchFetchDataSelection() {
 
   // Actions
   yield takeLatest(FETCH_DATA_SELECTION_REQUEST, retrieveDataSelection);
-  yield takeLatest([SET_DATASET, SET_GEOMETRY_FILTERS, SET_PAGE], switchPage);
+  yield takeLatest([SET_DATASET, SET_PAGE], switchPage);
 }

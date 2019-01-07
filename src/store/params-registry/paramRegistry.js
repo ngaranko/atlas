@@ -16,10 +16,11 @@ class ParamsRegistery {
     const reducerSettingsKeys = {
       encode: 'encode',
       decode: 'decode',
+      selector: 'selector',
       defaultValue: 'defaultValue'
     };
-    const { encode, decode, defaultValue } = reducerSettingsKeys;
-    const allowedKeys = [encode, decode, defaultValue];
+    const { encode, decode, selector, defaultValue } = reducerSettingsKeys;
+    const allowedKeys = [encode, decode, defaultValue, selector];
 
     Object.keys(overrideOptions).forEach((value) => {
       if (!allowedKeys.includes(value)) {
@@ -28,8 +29,9 @@ class ParamsRegistery {
     });
 
     return {
-      encode: (state) => get(state, `[${reducerKey}][${stateKey}]`),
+      selector: (state) => get(state, `[${reducerKey}][${stateKey}]`),
       decode: (val) => val,
+      encode: (val) => val,
       reducerKey,
       stateKey,
       ...overrideOptions
@@ -129,7 +131,7 @@ class ParamsRegistery {
     const query = Object.entries(this.result).reduce((acc, [key, value]) => {
       const reducerObject = get(value, `[routes][${locationType}]`, null);
       if (reducerObject) {
-        const encodedValue = reducerObject.encode(state);
+        const encodedValue = reducerObject.encode(reducerObject.selector(state));
 
         // We need to set addHistory to true if even one route needs to change the history
         if (!addHistory && (reducerObject && reducerObject.addHistory)) {
@@ -187,15 +189,32 @@ class ParamsRegistery {
    */
   getStateFromQueries(reducerKey, action) {
     return ((action.type && action.type.startsWith(this.settings.routerNamespace)) ?
-      Object.entries(this.result).reduce((acc, [key, value]) => {
-        const reducerObject = get(value, `[routes][${action.type}]`, {});
+      Object.entries(this.result).reduce((acc, [parameter, object]) => {
+        const reducerObject = get(object, `[routes][${action.type}]`, {});
+        const urlParam = get(action, `meta.query[${parameter}]`);
         return (reducerObject.reducerKey === reducerKey) ? {
           ...acc,
-          [reducerObject.stateKey]: reducerObject.decode(
-            get(action, `meta.query[${key}]`, this.result[key].defaultValue)
-          )
+          [reducerObject.stateKey]: reducerObject.decode(urlParam)
         } : acc;
       }, {}) : {});
+  }
+
+  /**
+   * If we need to go to a route and also set a new URL param, this method can be used to retrieve
+   * the encoded value
+   * @param additionalParams
+   * @param route
+   * @returns {*}
+   */
+  getNextQueries(additionalParams, route) {
+    return Object.entries(additionalParams).reduce((acc, [parameter, value]) => {
+      const encode = get(this.result, `${parameter}.routes[${route}].encode`, {});
+      const encodedValue = encode(value);
+      return encodedValue ? {
+        ...acc,
+        [parameter]: encodedValue
+      } : acc;
+    }, {});
   }
 
   set result(result) {

@@ -3,6 +3,8 @@ import queryString from 'querystring';
 import get from 'lodash.get';
 import { routing } from '../app/routes';
 import PAGES from '../app/pages';
+import { VIEWS } from '../shared/ducks/data-selection/constants';
+import paramsRegistry from './params-registry';
 
 export const REDUCER_KEY = 'location';
 
@@ -10,14 +12,16 @@ export const REDUCER_KEY = 'location';
 // Action creators
 export const toHome = () => ({ type: routing.home.type });
 
-export const preserveQuery = (action) => {
+export const preserveQuery = (action, additionalParams = {}) => {
   const search = location.search && location.search.substr(1);
+  console.log(paramsRegistry.getNextQueries(additionalParams, action.type))
   return {
     ...action,
     meta: {
       query: {
         ...queryString.decode(search), // Todo: temporary solution to pass existing query
-        ...get(action, 'meta.query')
+        ...get(action, 'meta.query'),
+        ...paramsRegistry.getNextQueries(additionalParams, action.type)
       }
     }
   };
@@ -224,3 +228,13 @@ export const isDataSearch = createSelector(
   (page, mapActive, locationSelected) =>
     (page === PAGES.DATA_SEARCH || (mapActive && locationSelected))
 );
+
+const DATASET_ROUTE_MAPPER = {
+  hr: routing.establishments.type,
+  bag: routing.addresses.type,
+  brk: routing.cadastralObjects.type
+};
+
+export const toDatasetPage = (dataset) => ({
+  type: DATASET_ROUTE_MAPPER[dataset]
+});

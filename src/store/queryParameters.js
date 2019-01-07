@@ -42,8 +42,7 @@ import {
   UI
 } from '../shared/ducks/ui/ui';
 
-const getEncodedGeometryFilters = (state) => {
-  const { markers, description } = getGeometryFilters(state);
+const getEncodedGeometryFilters = ({ markers, description }) => {
   if (markers && description) {
     return btoa(JSON.stringify({
       markers: markers.map((latLong) => `${latLong[0]}:${latLong[1]}`).join('|'),
@@ -75,17 +74,19 @@ export default paramsRegistry
     });
   })
   .addParameter('page', (routes) => {
-    routes.add([
-      routing.addresses.type,
-      routing.establishments.type,
-      routing.cadastralObjects.type
-    ], DATA_SELECTION, 'page', {
-      encode: getDataSelectionPage
-    }).add(routing.datasets.type, `${DATASETS}.${DATA}`, 'page', {
-      defaultValue: datasetsDataInitialState.page,
-      encode: getPage,
-      decode: (value) => parseInt(value, 0) || datasetsDataInitialState.page
-    });
+    routes
+      .add([
+        routing.addresses.type,
+        routing.establishments.type,
+        routing.cadastralObjects.type
+      ], DATA_SELECTION, 'page', {
+        selector: getDataSelectionPage
+      })
+      .add(routing.datasets.type, `${DATASETS}.${DATA}`, 'page', {
+        defaultValue: datasetsDataInitialState.page,
+        selector: getPage,
+        decode: (value) => parseInt(value, 0) || datasetsDataInitialState.page
+      });
   })
   .addParameter('geo', (routes) => {
     routes.add([
@@ -93,6 +94,7 @@ export default paramsRegistry
       routing.establishments.type,
       routing.cadastralObjects.type
     ], DATA_SELECTION, 'geometryFilter', {
+      selector: getGeometryFilters,
       encode: getEncodedGeometryFilters,
       decode: getDecodedGeometryFilters
     });
@@ -104,56 +106,56 @@ export default paramsRegistry
         routing.establishments.type,
         routing.cadastralObjects.type
       ], DATA_SELECTION, 'view', {
-        encode: getDataSelectionView,
+        selector: getDataSelectionView,
         decode: (val) => val
       })
       .add(routing.dataDetail.type, DETAIL, 'view', {
-        encode: getDetailView,
-        decode: (val) => val,
+        selector: getDetailView,
         defaultValue: detailInitialState.view
       })
       .add(routing.panorama.type, PANORAMA, 'view', {
         defaultValue: panoramaInitialState.view,
-        encode: getPanoramaView
+        selector: getPanoramaView
       });
   })
   .addParameter('category', (routes) => {
     routes.add(routing.dataSearch.type, DATA_SEARCH_REDUCER, 'category', {
       defaultValue: dataSelectionInitialState.category,
-      encode: getSearchCategory
+      selector: getSearchCategory
     });
   })
   .addParameter('viewCenter', (routes) => {
     routes.add(routing.map.type, MAP, 'viewCenter', {
       defaultValue: mapInitialState.viewCenter,
       decode: (val = mapInitialState.viewCenter.join(',')) => val.split(',').map((ltLng) => parseFloat(ltLng)),
-      encode: (state) => getCenter(state).join(',')
+      encode: (selectorResult) => selectorResult.join(','),
+      selector: getCenter
     });
   })
   .addParameter('zoom', (routes) => {
     routes.add([routing.map.type, routing.dataSearch.type], MAP, 'zoom', {
       defaultValue: mapInitialState.zoom,
       decode: (val) => parseFloat(val) || mapInitialState.zoom,
-      encode: getMapZoom
+      selector: getMapZoom
     });
   })
   .addParameter('legenda', (routes) => {
     routes.add(routing.map.type, MAP, 'mapPanelActive', {
       defaultValue: mapInitialState.mapPanelActive,
       decode: (val) => val === 'true',
-      encode: isMapPanelActive
+      selector: isMapPanelActive
     });
   })
   .addParameter('heading', (routes) => {
     routes.add(routing.panorama.type, PANORAMA, 'heading', {
       defaultValue: panoramaInitialState.heading,
-      encode: getPanoramaHeading
+      selector: getPanoramaHeading
     });
   })
   .addParameter('pitch', (routes) => {
     routes.add(routing.panorama.type, PANORAMA, 'pitch', {
       defaultValue: panoramaInitialState.pitch,
-      encode: getPanoramaPitch
+      selector: getPanoramaPitch
     });
   })
   .addParameter('filters', (routes) => {
@@ -170,8 +172,9 @@ export default paramsRegistry
         }
         Object.assign({}, JSON.parse(queryToParse));
       },
-      encode: (state) => (
-        Object.keys(getFilters(state)).length ? btoa(JSON.stringify(getFilters(state))) : undefined
+      selector: getFilters,
+      encode: (selectorResult) => (
+        Object.keys(selectorResult).length ? btoa(JSON.stringify(selectorResult)) : undefined
       )
     });
   })
@@ -179,8 +182,9 @@ export default paramsRegistry
     routes.add(routing.panorama.type, PANORAMA, 'reference', {
       defaultValue: panoramaInitialState.reference,
       decode: (val) => (val && val.length ? val.split(',') : panoramaInitialState.reference),
-      encode: (state) => (getReference(state).length ?
-          getReference(state).join() :
+      selector: getReference,
+      encode: (selectorResult) => (selectorResult.length ?
+          selectorResult.join() :
           panoramaInitialState.reference
       )
     });
@@ -188,21 +192,24 @@ export default paramsRegistry
   .addParameter('embedPreview', (routes) => {
     routes.add(routing.map.type, UI, 'isEmbedPreview', {
       defaultValue: UIInitialState.isEmbedPreview,
-      encode: (state) => (isEmbedPreview(state) ? 'true' : 'false'),
+      selector: isEmbedPreview,
+      encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
       decode: (val) => val === 'true'
     }, true);
   })
   .addParameter('embed', (routes) => {
     routes.add(routing.map.type, UI, 'isEmbed', {
       defaultValue: UIInitialState.isEmbed,
-      encode: (state) => (isEmbedded(state) ? 'true' : 'false'),
+      selector: isEmbedded,
+      encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
       decode: (val) => val === 'true'
     });
   })
   .addParameter('print', (routes) => {
     routes.add(routing.map.type, UI, 'isPrintMode', {
       defaultValue: UIInitialState.isPrintMode,
-      encode: (state) => (isPrintMode(state) ? 'true' : 'false'),
+      selector: isPrintMode,
+      encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
       decode: (val) => val === 'true'
     }, true);
   })
@@ -219,9 +226,10 @@ export default paramsRegistry
           return mapInitialState.overlays;
         }
       },
-      encode: (state) => (
+      selector: getMapOverlays,
+      encode: (selectorResult) => (
         btoa(
-          getMapOverlays(state).map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
+          selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
         )
       )
     });
@@ -231,18 +239,19 @@ export default paramsRegistry
       .add(routing.panorama.type, PANORAMA, 'location', {
         decode: (val) => (val ? val.split(',').map((string) => parseFloat(string)) : panoramaInitialState.location),
         defaultValue: panoramaInitialState.location,
-        encode: (state) => (
-          getPanoramaLocation(state) ?
-            getPanoramaLocation(state).join() :
+        selector: getPanoramaLocation,
+        encode: (selectorResult) => (
+          selectorResult ?
+            selectorResult.join() :
             panoramaInitialState.location
         )
       })
       .add([routing.map.type, routing.dataSearch.type], DATA_SEARCH_REDUCER, 'geoSearch', {
         defaultValue: null,
-        encode: (state) => {
-          const location = getDataSearchLocation(state);
-          if (location) {
-            return `${location.latitude},${location.longitude}`;
+        selector: getDataSearchLocation,
+        encode: (selectorResult) => {
+          if (selectorResult) {
+            return `${selectorResult.latitude},${selectorResult.longitude}`;
           }
           return undefined;
         },
