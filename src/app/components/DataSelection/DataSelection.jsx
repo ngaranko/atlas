@@ -36,10 +36,6 @@ const DataSelection = ({
   },
   page: currentPage
 }) => {
-  if (isLoading) {
-    return <LoadingIndicator />;
-  }
-
   // Local state
   const showHeader = (view === VIEWS.LIST || !isLoading);
   const showFilters = (view !== VIEWS.LIST) && numberOfRecords > 0;
@@ -50,7 +46,8 @@ const DataSelection = ({
   const showMessageClusteredMarkers =
     (view === VIEWS.LIST) && numberOfRecords > MAX_NUMBER_OF_CLUSTERED_MARKERS;
 
-  const authScopeError = !userScopes.includes(DATA_SELECTION_CONFIG.datasets[dataset].AUTH_SCOPE);
+  const datasetScope = DATA_SELECTION_CONFIG.datasets[dataset].AUTH_SCOPE;
+  const authScopeError = datasetScope ? !userScopes.includes(datasetScope) : false;
 
   const widthClass = classNames({
     'u-col-sm--12': !showFilters,
@@ -68,6 +65,7 @@ const DataSelection = ({
             dataset,
             availableFilters,
             filters: activeFilters,
+            isLoading,
             numberOfRecords,
             showHeader,
             user,
@@ -77,14 +75,16 @@ const DataSelection = ({
 
         <DataSelectionActiveFilters />
 
-        {(!numberOfRecords && !authError && !authScopeError) ?
+        {(isLoading) && <LoadingIndicator /> }
+
+        {(!isLoading && !numberOfRecords && !authError && !authScopeError) ?
           <NoResultsForSearchType
             message={'Tip: verwijder een of meer criteria'}
           />
           : ''
         }
 
-        {(!authError) && (
+        {(!isLoading && !authError) && (
           <div className="u-grid qa-data-grid">
             <div className="u-row">
               {showFilters && (
@@ -185,8 +185,8 @@ const DataSelection = ({
             </div>
           </div>
         )}
-        {(authError || authScopeError) && (
-          <NotAuthorizedMessage scopeError={!!authScopeError} />
+        {(!isLoading && (authError || authScopeError)) && (
+          <NotAuthorizedMessage scopeError={datasetScope} />
         )}
       </div>
     </div>
