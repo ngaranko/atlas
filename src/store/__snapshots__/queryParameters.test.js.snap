@@ -46,34 +46,38 @@ Object {
       "atlasRouter/ADDRESSES": Object {
         "addHistory": false,
         "decode": [Function],
+        "defaultValue": Object {},
         "encode": [Function],
-        "reducerKey": "filters",
+        "reducerKey": "filter",
         "selector": [Function],
-        "stateKey": "",
+        "stateKey": "filters",
       },
       "atlasRouter/CADASTRAL_OBJECTS": Object {
         "addHistory": false,
         "decode": [Function],
+        "defaultValue": Object {},
         "encode": [Function],
-        "reducerKey": "filters",
+        "reducerKey": "filter",
         "selector": [Function],
-        "stateKey": "",
+        "stateKey": "filters",
       },
       "atlasRouter/DATASETS": Object {
         "addHistory": false,
         "decode": [Function],
+        "defaultValue": Object {},
         "encode": [Function],
-        "reducerKey": "filters",
+        "reducerKey": "filter",
         "selector": [Function],
-        "stateKey": "",
+        "stateKey": "filters",
       },
       "atlasRouter/ESTABLISHMENTS": Object {
         "addHistory": false,
         "decode": [Function],
+        "defaultValue": Object {},
         "encode": [Function],
-        "reducerKey": "filters",
+        "reducerKey": "filter",
         "selector": [Function],
-        "stateKey": "",
+        "stateKey": "filters",
       },
     },
   },
@@ -238,6 +242,28 @@ Object {
       },
     },
   },
+  "q": Object {
+    "routes": Object {
+      "atlasRouter/SEARCH_DATA": Object {
+        "addHistory": false,
+        "decode": [Function],
+        "defaultValue": undefined,
+        "encode": [Function],
+        "reducerKey": "dataSearch",
+        "selector": [Function],
+        "stateKey": "query",
+      },
+      "atlasRouter/SEARCH_DATASETS": Object {
+        "addHistory": false,
+        "decode": [Function],
+        "defaultValue": undefined,
+        "encode": [Function],
+        "reducerKey": "dataSearch",
+        "selector": [Function],
+        "stateKey": "query",
+      },
+    },
+  },
   "reference": Object {
     "routes": Object {
       "atlasRouter/PANORAMA": Object {
@@ -299,7 +325,7 @@ Object {
   },
   "viewCenter": Object {
     "routes": Object {
-      "atlasRouter/MAP": Object {
+      "atlasRouter/ADDRESSES": Object {
         "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [
@@ -311,17 +337,41 @@ Object {
         "selector": [Function],
         "stateKey": "viewCenter",
       },
-    },
-  },
-  "zoekterm": Object {
-    "routes": Object {
-      "atlasRouter/SEARCH_DATA": Object {
+      "atlasRouter/CADASTRAL_OBJECTS": Object {
         "addHistory": false,
         "decode": [Function],
+        "defaultValue": Array [
+          52.3731081,
+          4.8932945,
+        ],
         "encode": [Function],
-        "reducerKey": "dataSearch",
+        "reducerKey": "map",
         "selector": [Function],
-        "stateKey": "query",
+        "stateKey": "viewCenter",
+      },
+      "atlasRouter/ESTABLISHMENTS": Object {
+        "addHistory": false,
+        "decode": [Function],
+        "defaultValue": Array [
+          52.3731081,
+          4.8932945,
+        ],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "viewCenter",
+      },
+      "atlasRouter/MAP": Object {
+        "addHistory": false,
+        "decode": [Function],
+        "defaultValue": Array [
+          52.3731081,
+          4.8932945,
+        ],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "viewCenter",
       },
     },
   },

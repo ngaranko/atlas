@@ -59,6 +59,10 @@ describe('Data Selection Reducer', () => {
       [[{ filter: 'foo' }]]
     ),
     ...getExpectations(
+      actionCreators.removeGeometryFilter.name,
+      ['geometryFilter']
+    ),
+    ...getExpectations(
       actionCreators.receiveDataSelectionSuccess.name,
       ['isLoading', 'markers', 'errorMessage', 'authError', 'data'],
       [{ data: { some: 'data' } }]

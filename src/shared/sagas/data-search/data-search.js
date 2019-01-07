@@ -57,7 +57,7 @@ export function* fetchMapSearchResults() {
         const mapSearchResults = yield call(search, location, user);
         yield put(fetchMapSearchResultsSuccessPanel(mapSearchResults));
       } else {
-        yield put(toDataSearchLocationAndPreserveQuery());
+        yield put(toDataSearchLocationAndPreserveQuery(location));
       }
     } else if (isMap) { // if user is on the map page, fetch request for map-panel
       const mapSearchResults = yield call(search, location, user);

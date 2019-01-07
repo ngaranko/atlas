@@ -1,11 +1,18 @@
-import { routing } from '../../../app/routes';
-import { FETCH_DETAIL, initialState, SET_VIEW, SHOW_DETAIL } from './constants';
+import { ROUTER_NAMESPACE, routing } from '../../../app/routes';
+import { FETCH_DETAIL, initialState, SET_VIEW, SHOW_DETAIL, REDUCER_KEY } from './constants';
 import paramsRegistry from '../../../store/params-registry';
-import { REDUCER_KEY } from '../data-search/constants';
+import PAGES from '../../../app/pages';
 
-export { REDUCER_KEY as DETAIL } from './constants';
+export { REDUCER_KEY as DETAIL };
 
 export default function detailReducer(state = initialState, action) {
+  if (action.type &&
+    action.type.startsWith(ROUTER_NAMESPACE) &&
+    !action.type.includes(PAGES.DATA_DETAIL)
+  ) {
+    return initialState;
+  }
+
   const enrichedState = {
     ...state,
     ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action)
@@ -25,6 +32,7 @@ export default function detailReducer(state = initialState, action) {
         subtype
       };
     }
+
     case FETCH_DETAIL:
       return {
         ...enrichedState,
@@ -43,6 +51,7 @@ export default function detailReducer(state = initialState, action) {
 
     case SET_VIEW:
       return {
+        ...enrichedState,
         view: action.payload
       };
 

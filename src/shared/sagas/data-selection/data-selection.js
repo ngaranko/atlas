@@ -6,7 +6,7 @@ import {
   receiveDataSelectionFailure,
   receiveDataSelectionSuccess,
   setMarkers,
-  setGeometryFilter
+  setGeometryFilter, removeGeometryFilter
 } from '../../ducks/data-selection/actions';
 import { routing } from '../../../app/routes';
 import dataselectionConfig from '../../services/data-selection/data-selection-config';
@@ -27,7 +27,7 @@ import {
 import {
   FETCH_DATA_SELECTION_REQUEST,
   SET_DATASET,
-  SET_GEOMETRY_FILTERS,
+  SET_GEOMETRY_FILTER,
   SET_PAGE,
   SET_VIEW,
   VIEWS
@@ -39,6 +39,7 @@ import {
 } from '../../ducks/data-selection/selectors';
 import { waitForAuthentication } from '../user/user';
 import { MAP_BOUNDING_BOX } from '../../../map/ducks/map/map';
+import PARAMETERS from '../../../store/parameters';
 
 export const createShapeFilter = (geometryFilter) =>
   (geometryFilter.markers === undefined
@@ -129,46 +130,33 @@ function* fireRequest(action) {
 
 function* clearShapeFilter(action) {
   if (action.payload === 'shape') {
-    yield put(setGeometryFilter({ markers: undefined, description: '' }));
+    yield put(removeGeometryFilter());
   }
 }
 
-function* setGeometryFilters(action) {
-  yield put(setShapeFilter(createShapeFilter(action.payload)));
-
-  const dataSelection = yield select(getDataSelection);
-  const geometryFilters = yield select(getGeometryFilters);
-
-  yield put(preserveQuery(toDatasetPage(dataSelection.dataset), {
-    geo: geometryFilters,
-    view: VIEWS.LIST
-  }));
-}
-
-const DATASET_ROUTE_MAPPER = {
-  hr: routing.establishments.type,
-  bag: routing.addresses.type,
-  brk: routing.cadastralObjects.type
-};
-
-function* switchPage() {
+function* switchPage(additionalParams = {}) {
   const state = yield select();
   const dataSelection = getDataSelection(state);
-  yield put({
-    type: DATASET_ROUTE_MAPPER[dataSelection.dataset],
-    meta: {
-      query: {
-        view: VIEWS.LIST,
-        // Todo: temporary solution to pass existing query
-        ...queryString.decode(location.search.slice(1))
-      }
-    }
+  yield put(preserveQuery(toDatasetPage(dataSelection.dataset), additionalParams));
+}
+
+function* setGeometryFilters(action) {
+  console.log(action.payload);
+  if (action.payload) {
+    yield put(setShapeFilter(createShapeFilter(action.payload)));
+  }
+
+  const geometryFilters = yield select(getGeometryFilters);
+
+  yield call(switchPage, {
+    [PARAMETERS.GEO]: geometryFilters,
+    [PARAMETERS.VIEW]: VIEWS.LIST
   });
 }
 
 export default function* watchFetchDataSelection() {
   yield takeLatest(REMOVE_FILTER, clearShapeFilter);
-  yield takeLatest(SET_GEOMETRY_FILTERS, setGeometryFilters);
+  yield takeLatest(SET_GEOMETRY_FILTER, setGeometryFilters);
   yield takeLatest(
     [SET_VIEW, ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS,
       routing.addresses.type, routing.establishments.type, routing.cadastralObjects.type

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest';
+import AutoSuggestReducer, { AUTO_SUGGEST } from '../header/ducks/auto-suggest/auto-suggest';
 import ErrorMessageReducer from '../shared/ducks/error-message';
 import PageReducer from '../shared/ducks/page/page';
 import UiReducer, { UI } from '../shared/ducks/ui/ui';

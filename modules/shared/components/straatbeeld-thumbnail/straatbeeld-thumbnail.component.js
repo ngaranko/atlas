@@ -1,4 +1,8 @@
-import { getDetailLocation, toPanorama } from '../../../../src/store/redux-first-router';
+import {
+    getDetailLocation,
+    toPanorama,
+    toPanoramaAndPreserveQuery
+} from '../../../../src/store/redux-first-router';
 
 (function () {
     'use strict';
@@ -26,7 +30,7 @@ import { getDetailLocation, toPanorama } from '../../../../src/store/redux-first
 
         function setLinkTo (panorama) {
             if (panorama) {
-                vm.linkTo = toPanorama(
+                vm.linkTo = toPanoramaAndPreserveQuery(
                     panorama.id,
                     panorama.heading,
                     reference

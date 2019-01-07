@@ -3,14 +3,18 @@ import { getFilters as getDataSelectionFilters } from '../data-selection/selecto
 import { getFilters as getDatasetFilters } from '../datasets/datasets';
 import paramsRegistry from '../../../store/params-registry';
 
-export const REDUCER_KEY = 'filters';
+export const REDUCER_KEY = 'filter';
 export const EMPTY_FILTERS = `${REDUCER_KEY}/EMPTY_FILTERS`;
 
 export const ADD_FILTER = `${REDUCER_KEY}/ADD_FILTER`;
 export const REMOVE_FILTER = `${REDUCER_KEY}/REMOVE_FILTER`;
 export const SET_SHAPE_FILTER = `${REDUCER_KEY}/SET_SHAPE_FILTER`;
 
-const reducer = (state = {}, action) => {
+export const initialState = {
+  filters: {}
+};
+
+const reducer = (state = initialState, action) => {
   const enrichedState = {
     ...state,
     ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action)
@@ -19,12 +23,12 @@ const reducer = (state = {}, action) => {
     case ADD_FILTER:
       return {
         ...enrichedState,
-        ...action.payload
+        filters: { ...enrichedState.filters, ...action.payload }
       };
 
     case REMOVE_FILTER: {
       const newState = { ...enrichedState };
-      delete newState[action.payload];
+      delete newState.filters[action.payload];
       return {
         ...newState
       };
@@ -33,17 +37,21 @@ const reducer = (state = {}, action) => {
     case SET_SHAPE_FILTER:
       return {
         ...enrichedState,
-        shape: { ...action.payload }
+        filters: {
+          ...enrichedState.filters,
+          shape: { ...action.payload }
+        }
       };
 
     case EMPTY_FILTERS:
-      return {};
+      return initialState;
+
     default:
       return enrichedState;
   }
 };
 
-export const getFilters = (state) => state[REDUCER_KEY];
+export const getFilters = (state) => state[REDUCER_KEY].filters;
 
 export const addFilter = (payload) => ({
   type: ADD_FILTER,
@@ -59,9 +67,8 @@ export const setShapeFilter = (payload) => ({ type: SET_SHAPE_FILTER, payload })
 export const emptyFilters = () => ({ type: EMPTY_FILTERS });
 
 // Selectors
-export const getActiveFilters = (state) => state[REDUCER_KEY];
 export const selectDataSelectionFilters = createSelector(
-  getActiveFilters, getDataSelectionFilters,
+  getFilters, getDataSelectionFilters,
   (activeFilters, availableFilters) => {
     const formattedFilters = availableFilters
       .filter((filterSet) => activeFilters[filterSet.slug])
@@ -93,7 +100,7 @@ export const selectDataSelectionFilters = createSelector(
   });
 
 export const selectDatasetFilters = createSelector(
-  getActiveFilters, getDatasetFilters,
+  getFilters, getDatasetFilters,
   (activeFilters, availableFilters) => {
     const formattedFilters = availableFilters
       .filter((filterSet) => activeFilters[filterSet.slug])

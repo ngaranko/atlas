@@ -4,7 +4,8 @@ import {
   FETCH_DATA_SELECTION_SUCCESS,
   initialState, ROUTE_DATASET_MAPPER,
   SET_DATASET,
-  SET_GEOMETRY_FILTERS,
+  REMOVE_GEOMETRY_FILTER,
+  SET_GEOMETRY_FILTER,
   SET_MARKERS,
   SET_PAGE,
   SET_VIEW,
@@ -75,10 +76,16 @@ export default function reducer(state = initialState, action) {
         dataset: action.payload
       };
 
-    case SET_GEOMETRY_FILTERS:
+    case SET_GEOMETRY_FILTER:
       return {
         ...enrichedState,
         geometryFilter: action.payload
+      };
+
+    case REMOVE_GEOMETRY_FILTER:
+      return {
+        ...enrichedState,
+        geometryFilter: {}
       };
 
     case SET_PAGE:

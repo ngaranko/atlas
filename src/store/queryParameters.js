@@ -1,6 +1,7 @@
 import paramsRegistry from './params-registry';
 import { routing } from '../app/routes';
 import { DATA_SEARCH_REDUCER } from '../shared/ducks/data-search/reducer';
+import { initialState as dataSearchInitialState } from '../shared/ducks/data-search/constants';
 import {
   getDataSearchLocation,
   getSearchCategory,
@@ -29,51 +30,34 @@ import {
 import { PANORAMA } from '../panorama/ducks/reducer';
 import { initialState as panoramaInitialState } from '../panorama/ducks/constants';
 import {
-  getPanoramaHeading, getPanoramaLocation,
+  getPanoramaHeading,
+  getPanoramaLocation,
   getPanoramaPitch,
   getPanoramaView,
   getReference
 } from '../panorama/ducks/selectors';
-import { getFilters, REDUCER_KEY as FILTER } from '../shared/ducks/filters/filters';
 import {
-  initialState as UIInitialState, isEmbedded,
+  getFilters,
+  initialState as filterInitialState,
+  REDUCER_KEY as FILTER
+} from '../shared/ducks/filters/filters';
+import {
+  initialState as UIInitialState,
+  isEmbedded,
   isEmbedPreview,
   isPrintMode,
   UI
 } from '../shared/ducks/ui/ui';
-
-const getEncodedGeometryFilters = ({ markers, description }) => {
-  if (markers && description) {
-    return btoa(JSON.stringify({
-      markers: markers.map((latLong) => `${latLong[0]}:${latLong[1]}`).join('|'),
-      description
-    }));
-  }
-  return undefined;
-};
-
-const getDecodedGeometryFilters = (geo) => {
-  let geometryFilter = dataSelectionInitialState.geometryFilter;
-  if (geo) {
-    const { markers, description } = JSON.parse(atob(geo));
-    geometryFilter = {
-      markers: markers && markers.length
-        ? markers.split('|').map((latLng) => latLng.split(':').map((str) => parseFloat(str)))
-        : [],
-      description
-    };
-  }
-
-  return geometryFilter;
-};
+import PARAMETERS from './parameters';
 
 export default paramsRegistry
-  .addParameter('zoekterm', (routes) => {
-    routes.add(routing.dataSearch.type, DATA_SEARCH_REDUCER, 'query', {
-      encode: getSearchQuery
+  .addParameter(PARAMETERS.QUERY, (routes) => {
+    routes.add([routing.dataSearch.type, routing.searchDatasets.type], DATA_SEARCH_REDUCER, 'query', {
+      selector: getSearchQuery,
+      defaultValue: dataSearchInitialState.query
     });
   })
-  .addParameter('page', (routes) => {
+  .addParameter(PARAMETERS.PAGE, (routes) => {
     routes
       .add([
         routing.addresses.type,
@@ -88,18 +72,39 @@ export default paramsRegistry
         decode: (value) => parseInt(value, 0) || datasetsDataInitialState.page
       });
   })
-  .addParameter('geo', (routes) => {
+  .addParameter(PARAMETERS.GEO, (routes) => {
     routes.add([
       routing.addresses.type,
       routing.establishments.type,
       routing.cadastralObjects.type
     ], DATA_SELECTION, 'geometryFilter', {
       selector: getGeometryFilters,
-      encode: getEncodedGeometryFilters,
-      decode: getDecodedGeometryFilters
+      encode: ({ markers, description }) => {
+        if (markers && description) {
+          return btoa(JSON.stringify({
+            markers: markers.map((latLong) => `${latLong[0]}:${latLong[1]}`).join('|'),
+            description
+          }));
+        }
+        return undefined;
+      },
+      decode: (geo) => {
+        let geometryFilter = dataSelectionInitialState.geometryFilter;
+        if (geo) {
+          const { markers, description } = JSON.parse(atob(geo));
+          geometryFilter = {
+            markers: markers && markers.length
+              ? markers.split('|').map((latLng) => latLng.split(':').map((str) => parseFloat(str)))
+              : [],
+            description
+          };
+        }
+
+        return geometryFilter;
+      }
     });
   })
-  .addParameter('view', (routes) => {
+  .addParameter(PARAMETERS.VIEW, (routes) => {
     routes
       .add([
         routing.addresses.type,
@@ -118,59 +123,65 @@ export default paramsRegistry
         selector: getPanoramaView
       });
   })
-  .addParameter('category', (routes) => {
+  .addParameter(PARAMETERS.CATEGORY, (routes) => {
     routes.add(routing.dataSearch.type, DATA_SEARCH_REDUCER, 'category', {
       defaultValue: dataSelectionInitialState.category,
       selector: getSearchCategory
     });
   })
-  .addParameter('viewCenter', (routes) => {
-    routes.add(routing.map.type, MAP, 'viewCenter', {
+  .addParameter(PARAMETERS.VIEW_CENTER, (routes) => {
+    routes.add([
+      routing.map.type,
+      routing.addresses.type,
+      routing.establishments.type,
+      routing.cadastralObjects.type
+    ], MAP, 'viewCenter', {
       defaultValue: mapInitialState.viewCenter,
       decode: (val = mapInitialState.viewCenter.join(',')) => val.split(',').map((ltLng) => parseFloat(ltLng)),
       encode: (selectorResult) => selectorResult.join(','),
       selector: getCenter
     });
   })
-  .addParameter('zoom', (routes) => {
+  .addParameter(PARAMETERS.ZOOM, (routes) => {
     routes.add([routing.map.type, routing.dataSearch.type], MAP, 'zoom', {
       defaultValue: mapInitialState.zoom,
       decode: (val) => parseFloat(val) || mapInitialState.zoom,
       selector: getMapZoom
     });
   })
-  .addParameter('legenda', (routes) => {
+  .addParameter(PARAMETERS.LEGEND, (routes) => {
     routes.add(routing.map.type, MAP, 'mapPanelActive', {
       defaultValue: mapInitialState.mapPanelActive,
       decode: (val) => val === 'true',
       selector: isMapPanelActive
     });
   })
-  .addParameter('heading', (routes) => {
+  .addParameter(PARAMETERS.HEADING, (routes) => {
     routes.add(routing.panorama.type, PANORAMA, 'heading', {
       defaultValue: panoramaInitialState.heading,
       selector: getPanoramaHeading
     });
   })
-  .addParameter('pitch', (routes) => {
+  .addParameter(PARAMETERS.PITCH, (routes) => {
     routes.add(routing.panorama.type, PANORAMA, 'pitch', {
       defaultValue: panoramaInitialState.pitch,
       selector: getPanoramaPitch
     });
   })
-  .addParameter('filters', (routes) => {
+  .addParameter(PARAMETERS.FILTERS, (routes) => {
     routes.add([
       routing.datasets.type,
       routing.addresses.type,
       routing.cadastralObjects.type,
       routing.establishments.type
-    ], FILTER, '', {
+    ], FILTER, 'filters', {
+      defaultValue: filterInitialState.filters,
       decode: (val) => {
-        let queryToParse = '{}';
-        if (val) {
-          queryToParse = atob(val);
+        try {
+          return Object.assign({}, JSON.parse(atob(val)));
+        } catch (e) {
+          return {};
         }
-        Object.assign({}, JSON.parse(queryToParse));
       },
       selector: getFilters,
       encode: (selectorResult) => (
@@ -178,7 +189,7 @@ export default paramsRegistry
       )
     });
   })
-  .addParameter('reference', (routes) => {
+  .addParameter(PARAMETERS.REFERENCE, (routes) => {
     routes.add(routing.panorama.type, PANORAMA, 'reference', {
       defaultValue: panoramaInitialState.reference,
       decode: (val) => (val && val.length ? val.split(',') : panoramaInitialState.reference),
@@ -189,7 +200,7 @@ export default paramsRegistry
       )
     });
   })
-  .addParameter('embedPreview', (routes) => {
+  .addParameter(PARAMETERS.EMBED_PREVIEW, (routes) => {
     routes.add(routing.map.type, UI, 'isEmbedPreview', {
       defaultValue: UIInitialState.isEmbedPreview,
       selector: isEmbedPreview,
@@ -197,7 +208,7 @@ export default paramsRegistry
       decode: (val) => val === 'true'
     }, true);
   })
-  .addParameter('embed', (routes) => {
+  .addParameter(PARAMETERS.EMBED, (routes) => {
     routes.add(routing.map.type, UI, 'isEmbed', {
       defaultValue: UIInitialState.isEmbed,
       selector: isEmbedded,
@@ -205,7 +216,7 @@ export default paramsRegistry
       decode: (val) => val === 'true'
     });
   })
-  .addParameter('print', (routes) => {
+  .addParameter(PARAMETERS.PRINT, (routes) => {
     routes.add(routing.map.type, UI, 'isPrintMode', {
       defaultValue: UIInitialState.isPrintMode,
       selector: isPrintMode,
@@ -213,7 +224,7 @@ export default paramsRegistry
       decode: (val) => val === 'true'
     }, true);
   })
-  .addParameter('lagen', (routes) => {
+  .addParameter(PARAMETERS.LAYERS, (routes) => {
     routes.add(routing.map.type, MAP, 'overlays', {
       defaultValue: mapInitialState.overlays,
       decode: (val) => {
@@ -234,7 +245,7 @@ export default paramsRegistry
       )
     });
   })
-  .addParameter('locatie', (routes) => {
+  .addParameter(PARAMETERS.LOCATION, (routes) => {
     routes
       .add(routing.panorama.type, PANORAMA, 'location', {
         decode: (val) => (val ? val.split(',').map((string) => parseFloat(string)) : panoramaInitialState.location),

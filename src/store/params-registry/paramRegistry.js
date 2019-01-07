@@ -128,8 +128,8 @@ class ParamsRegistery {
 
   setQueriesFromState(locationType, state) {
     let addHistory = false;
-    const query = Object.entries(this.result).reduce((acc, [key, value]) => {
-      const reducerObject = get(value, `[routes][${locationType}]`, null);
+    const query = Object.entries(this.result).reduce((acc, [parameter, paramObject]) => {
+      const reducerObject = get(paramObject, `[routes][${locationType}]`, null);
       if (reducerObject) {
         const encodedValue = reducerObject.encode(reducerObject.selector(state));
 
@@ -140,7 +140,7 @@ class ParamsRegistery {
         let newQuery = {};
 
         // we need to use JSON.stringify here to also check if arrays and objects are equal
-        const isDefaultValue = (
+        const isDefaultValue = !!(
           reducerObject && (
             JSON.stringify(reducerObject.decode(encodedValue)) ===
             JSON.stringify(reducerObject.defaultValue)
@@ -150,7 +150,7 @@ class ParamsRegistery {
           encodedValue &&
           !isDefaultValue
         ) {
-          newQuery = { [key]: encodedValue };
+          newQuery = { [parameter]: encodedValue };
         }
         return {
           ...acc,
@@ -195,12 +195,23 @@ class ParamsRegistery {
   getStateFromQueries(reducerKey, action) {
     return ((action.type && action.type.startsWith(this.settings.routerNamespace)) ?
       Object.entries(this.result).reduce((acc, [parameter, object]) => {
-        const reducerObject = get(object, `[routes][${action.type}]`, {});
-        const urlParam = get(action, `meta.query[${parameter}]`);
-        return (reducerObject.reducerKey === reducerKey) ? {
+        const reducerObject = get(object, `routes[${action.type}]`);
+
+        if (reducerObject && reducerObject.reducerKey === reducerKey) {
+          const urlParam = get(action, `meta.query[${parameter}]`);
+          return (reducerObject.reducerKey === reducerKey) ? {
+            ...acc,
+            [reducerObject.stateKey]: reducerObject.decode(urlParam)
+          } : acc;
+        }
+        const reducerObj = Object
+          .values(object.routes)
+          .find((obj) => obj.reducerKey === reducerKey);
+
+        return {
           ...acc,
-          [reducerObject.stateKey]: reducerObject.decode(urlParam)
-        } : acc;
+          ...reducerObj ? { [reducerObj.stateKey]: reducerObj.defaultValue } : {}
+        };
       }, {}) : {});
   }
 
@@ -213,11 +224,10 @@ class ParamsRegistery {
    */
   getNextQueries(additionalParams, route) {
     return Object.entries(additionalParams).reduce((acc, [parameter, value]) => {
-      const encode = get(this.result, `${parameter}.routes[${route}].encode`, {});
-      const encodedValue = encode(value);
-      return encodedValue ? {
+      const encode = get(this.result, `${parameter}.routes[${route}].encode`);
+      return encode ? {
         ...acc,
-        [parameter]: encodedValue
+        [parameter]: encode(value)
       } : acc;
     }, {});
   }

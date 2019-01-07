@@ -3,18 +3,16 @@ import queryString from 'querystring';
 import get from 'lodash.get';
 import { routing } from '../app/routes';
 import PAGES from '../app/pages';
-import { VIEWS } from '../shared/ducks/data-selection/constants';
 import paramsRegistry from './params-registry';
+import PARAMETERS from './parameters';
 
 export const REDUCER_KEY = 'location';
 
 // TODO: refactor unit test or remove all together
 // Action creators
-export const toHome = () => ({ type: routing.home.type });
 
 export const preserveQuery = (action, additionalParams = {}) => {
   const search = location.search && location.search.substr(1);
-  console.log(paramsRegistry.getNextQueries(additionalParams, action.type))
   return {
     ...action,
     meta: {
@@ -26,52 +24,47 @@ export const preserveQuery = (action, additionalParams = {}) => {
     }
   };
 };
-export const toDataDetail = (id, type, subtype, view) => (preserveQuery({
+export const toDataDetail = (id, type, subtype) => ({
   type: routing.dataDetail.type,
   payload: {
     type,
     subtype,
     id: `id${id}`
-  },
-  meta: {
-    query: {
-      ...view ? { detailModus: view } : {}
-    }
   }
-}));
-export const toDataSearchLocationAndPreserveQuery = () => preserveQuery({ // TODO rename
+});
+
+const toDataSearch_ = () => ({
   type: routing.dataSearch.type
 });
+
+export const toDataSearchLocationAndPreserveQuery = (location) => preserveQuery(
+  toDataSearch_(), {
+    [PARAMETERS.LOCATION]: location
+  }
+);
+
 export const toDataSearchLocation = (payload) => ({ // TODO rename
   type: routing.dataSearch.type,
   meta: {
     query: {
-      locatie: payload
+      [PARAMETERS.LOCATION]: payload
     }
   }
 });
-export const toMapAndPreserveQuery = () => preserveQuery({ type: routing.map.type });
 export const toMap = () => ({ type: routing.map.type });
-export const toPanorama = (id, heading, reference = []) => {
-  const action = {
-    type: routing.panorama.type,
-    payload: {
-      id
-    },
-    meta: {
-      query: {
-        heading,
-        ...(reference.length === 3 ? { reference: reference.join(',') } : {})
-      }
-    }
-  };
-  return action;
-};
-
-export const toPanoramaAndPreserveQuery = (id) => preserveQuery({
+export const toPanorama = (id) => ({
   type: routing.panorama.type,
-  payload: id
+  payload: {
+    id
+  }
 });
+
+export const toPanoramaAndPreserveQuery = (id, heading, reference = []) => preserveQuery(
+  toPanorama(id), {
+    heading,
+    ...(reference.length === 3 ? { [PARAMETERS.REFERENCE]: reference } : {})
+  }
+);
 
 export const extractIdEndpoint = (endpoint) => {
   const matches = endpoint.match(/\/([\w-]+)\/?$/);
@@ -87,7 +80,9 @@ const getDetailPageData = (endpoint) => {
 };
 export const getPageActionEndpoint = (endpoint, view) => {
   const { type, subtype, id } = getDetailPageData(endpoint);
-  return toDataDetail(id, type, subtype, view);
+  return preserveQuery(toDataDetail(id, type, subtype), {
+    [PARAMETERS.VIEW]: view
+  });
 };
 export const pageTypeToEndpoint = (type, subtype, id) => {
   let endpoint = 'https://acc.api.data.amsterdam.nl/';
@@ -99,7 +94,7 @@ export const toDataSearch = (searchQuery, skipFetch = false) => ({
   meta: {
     skipFetch,
     query: {
-      zoekterm: searchQuery
+      [PARAMETERS.QUERY]: searchQuery
     }
   }
 });
@@ -110,7 +105,7 @@ export const toDataSearchCategory = (searchQuery, category) => ({
   },
   meta: {
     query: {
-      zoekterm: searchQuery
+      [PARAMETERS.QUERY]: searchQuery
     }
   }
 });
@@ -120,18 +115,13 @@ export const toDatasetSearch = (searchQuery, skipFetch = false) => ({
   meta: {
     skipFetch,
     query: {
-      zoekterm: searchQuery
+      [PARAMETERS.QUERY]: searchQuery
     }
   }
 });
 
-export const toDatasetsWithFilter = (themeSlug) => ({
-  type: routing.datasets.type,
-  meta: {
-    query: {
-      filters: btoa(JSON.stringify({ groups: themeSlug }))
-    }
-  }
+export const toDatasetsWithFilter = () => ({
+  type: routing.datasets.type
 });
 
 export const toDataSuggestion = (payload) => {
@@ -190,7 +180,7 @@ export const isMapView = createSelector(
 export const isLocationSelected = createSelector(
   getLocationQuery,
   (query) => (
-    Object.prototype.hasOwnProperty.call(query, 'locatie') || false
+    Object.prototype.hasOwnProperty.call(query, PARAMETERS.LOCATION) || false
   )
 );
 

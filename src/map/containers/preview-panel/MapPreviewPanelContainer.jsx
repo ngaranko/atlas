@@ -20,7 +20,7 @@ import {
   getPageActionEndpoint,
   toDataSearchLocationAndPreserveQuery,
   toMap,
-  toPanorama
+  toPanoramaAndPreserveQuery
 } from '../../../store/redux-first-router';
 import { DETAIL_VIEW } from '../../../shared/ducks/detail/constants';
 
@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     closePanel: toMap,
     onSearchMaximize: toDataSearchLocationAndPreserveQuery,
-    openPano: toPanorama
+    openPano: toPanoramaAndPreserveQuery
   }, dispatch),
   openPreviewDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP)),
   openDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP_DETAIL))

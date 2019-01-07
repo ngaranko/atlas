@@ -24,6 +24,7 @@ import {
   toDataSuggestion,
   toDatasetSuggestion
 } from '../../../store/redux-first-router';
+import { getSearchQuery } from '../../../shared/ducks/data-search/selectors';
 
 const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),
@@ -34,7 +35,8 @@ const mapStateToProps = (state) => ({
   pageName: state.page ? state.page.name : '',
   prefillQuery: state.search ? state.search.query : state.dataSelection ? state.dataSelection.query : '',
   suggestions: getAutoSuggestSuggestions(state),
-  typedQuery: getTypedQuery(state)
+  typedQuery: getTypedQuery(state),
+  searchQuery: getSearchQuery(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -162,7 +164,8 @@ class HeaderSearchContainer extends React.Component {
       onGetSuggestions,
       onSuggestionActivate,
       suggestions,
-      typedQuery
+      typedQuery,
+      searchQuery
     } = this.props;
 
     return (
@@ -176,7 +179,7 @@ class HeaderSearchContainer extends React.Component {
         onSuggestionSelection={this.onSuggestionSelection}
         onTextInput={onGetSuggestions}
         placeHolder={'Zoek data op adres, postcode, kadastrale aanduiding, etc. Of datasets op trefwoord.'}
-        query={displayQuery || typedQuery}
+        query={displayQuery || searchQuery}
         suggestions={suggestions}
       />
     );
@@ -208,6 +211,7 @@ HeaderSearchContainer.propTypes = {
     uri: PropTypes.string
   }),
   displayQuery: PropTypes.string,
+  searchQuery: PropTypes.string.isRequired,
   isDatasetView: PropTypes.bool,
   isMapActive: PropTypes.bool.isRequired,
   numberOfSuggestions: PropTypes.number,

@@ -1,6 +1,10 @@
 import get from 'lodash.get';
 import { routing } from '../../../app/routes';
+import paramsRegistry from '../../../store/params-registry';
+import PARAMETERS from '../../../store/parameters';
 
+const REDUCER_KEY = 'autoSuggest';
+export { REDUCER_KEY as AUTO_SUGGEST };
 export const SET_ACTIVE_SUGGESTION = 'SET_ACTIVE_SUGGESTION';
 export const FETCH_SUGGESTIONS_REQUEST = 'FETCH_SUGGESTIONS_REQUEST';
 export const FETCH_SUGGESTIONS_SUCCESS = 'FETCH_SUGGESTIONS_SUCCESS';
@@ -16,10 +20,14 @@ const initialState = {
 };
 
 export default function AutoSuggestReducer(state = initialState, action) {
+  const enrichedState = {
+    ...state,
+    ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action)
+  };
   switch (action.type) {
     case FETCH_SUGGESTIONS_REQUEST:
       return {
-        ...state,
+        ...enrichedState,
         count: 0,
         displayQuery: action.query,
         error: '',
@@ -28,30 +36,32 @@ export default function AutoSuggestReducer(state = initialState, action) {
       };
     case FETCH_SUGGESTIONS_SUCCESS:
       return {
-        ...state,
+        ...enrichedState,
         count: action.suggestions.count,
         isLoading: false,
         suggestions: action.suggestions.data
       };
     case FETCH_SUGGESTIONS_FAILURE:
       return {
-        ...state,
+        ...enrichedState,
         error: action.error,
         isLoading: false,
         suggestions: []
       };
     case SET_ACTIVE_SUGGESTION:
       return {
-        ...state,
+        ...enrichedState,
         activeSuggestion: action.suggestion,
         displayQuery: action.suggestion.label,
         typedQuery: action.suggestion === -1 ? '' : state.typedQuery
       };
+
+    // Todo: DP-6480 Refactor this: conflict with other queryParam in data-search reducer
     case routing.dataSearch.type:
     case routing.searchDatasets.type:
       return {
-        ...state,
-        typedQuery: get(action, 'meta.query.zoekterm')
+        ...enrichedState,
+        typedQuery: get(action, `meta.query${PARAMETERS.QUERY}`)
       };
 
     default:
