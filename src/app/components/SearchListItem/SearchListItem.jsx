@@ -22,17 +22,16 @@ const showSubtype = (categorySlug, link) => (
   )
 );
 
-const getExtraInfo = (link) => {
+const getExtraInfo = (result) => {
   let extraInfo = '';
-  if (isObject(link)) {
-    if (link.hoofdadres === false) {
-      extraInfo += ' (nevenadres)';
-    }
-
-    if (isObject(link.vbo_status) && Number(link.vbo_status.code) === STATUS_OBJECT_GEVORMD) {
-      extraInfo += ` (${link.vbo_status.omschrijving.toLowerCase()})`;
-    }
+  if (result.hoofdadres === false) {
+    extraInfo += ' (nevenadres)';
   }
+
+  if (isObject(result.vbo_status) && Number(result.vbo_status.code) === STATUS_OBJECT_GEVORMD) {
+    extraInfo += ` (${result.vbo_status.omschrijving.toLowerCase()})`;
+  }
+
   return extraInfo;
 };
 
@@ -60,6 +59,8 @@ const SearchListItem = ({ result, category }) => (
 SearchListItem.propTypes = {
   result: PropTypes.shape({
     label: PropTypes.string,
+    subtype: PropTypes.string,
+    subtypeLabel: PropTypes.string,
     linkTo: PropTypes.shape()
   }).isRequired,
   category: PropTypes.shape().isRequired

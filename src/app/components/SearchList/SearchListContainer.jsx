@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   getSearchCategory,
   getSearchQueryResults
@@ -11,8 +12,8 @@ const mapStateToProps = (state) => ({
   searchResults: getSearchQueryResults(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchMoreResults: () => dispatch(fetchMoreResults())
-});
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  fetchMoreResults
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchList);
