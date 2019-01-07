@@ -165,15 +165,20 @@ class ParamsRegistery {
 
     const searchQuery = queryString.stringify(orderedQuery);
     const currentPath = window.location.pathname;
-    // NOTE: changing history using different history wrapper than the one used in
-    // redux-first-router! We need to work with a different history object to prevent
-    // redux-first-router from reacting to query changes. If we were to use the same history object,
-    // a route change would fire for every query change.
-    // TODO: refactor, fix hack or start resolution trajectory for redux-first-router
-    if (addHistory) {
-      this.separateHistory.push(`${currentPath}?${searchQuery}`);
-    } else {
-      this.separateHistory.replace(`${currentPath}?${searchQuery}`);
+
+    // the history should be changed only when the url string is changed
+    // this check prevents recording history changes on every action.
+    const recordHistory = searchQuery !== window.location.search.substring(1);
+    if (recordHistory) {
+      // NOTE: changing history using different history wrapper than the one used in
+      // redux-first-router! We need to work with a different history object to prevent
+      // redux-first-router from reacting to query changes. If we were to use the same
+      // history object, a route change would fire for every query change.
+      if (addHistory) {
+        this.separateHistory.push(`${currentPath}?${searchQuery}`);
+      } else {
+        this.separateHistory.replace(`${currentPath}?${searchQuery}`);
+      }
     }
 
     return searchQuery;
