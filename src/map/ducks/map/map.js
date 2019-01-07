@@ -2,6 +2,8 @@ import { routing } from '../../../app/routes';
 import { FETCH_MAP_DETAIL_SUCCESS } from '../detail/constants';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { SET_SELECTION } from '../../../shared/ducks/selection/selection';
+import { normalizeCoordinate } from '../../../shared/services/coordinate-reference-system';
+
 
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
@@ -48,8 +50,8 @@ export default function MapReducer(state = initialState, action) {
   const { lat, lng, zoom, legenda, lagen } = query;
   if (lat && lng) {
     enrichedState.viewCenter = [
-      parseFloat(lat) || initialState.viewCenter[0],
-      parseFloat(lng) || initialState.viewCenter[1]
+      normalizeCoordinate(parseFloat(lat), 7),
+      normalizeCoordinate(parseFloat(lng), 7)
     ];
   }
   if (zoom) {
@@ -249,16 +251,16 @@ export const toggleMapOverlayVisibility = (mapLayerId, isVisible) => ({
 export const updatePan = (payload) => ({
   type: MAP_PAN,
   payload: {
-    latitude: payload.lat,
-    longitude: payload.lng
+    latitude: normalizeCoordinate(payload.lat, 7),
+    longitude: normalizeCoordinate(payload.lng, 7)
   }
 });
 export const setSelectedLocation = (payload) => ({
   type: SET_MAP_CLICK_LOCATION,
   payload: {
     location: {
-      latitude: payload.latlng.lat,
-      longitude: payload.latlng.lng
+      latitude: normalizeCoordinate(payload.latlng.lat, 7),
+      longitude: normalizeCoordinate(payload.latlng.lng, 7)
     }
   }
 });

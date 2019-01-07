@@ -4,7 +4,7 @@ import {
   getSearchQuery
 } from './selectors';
 import { initialState, SET_GEO_LOCATION, SET_QUERY_CATEGORY } from './constants';
-import parseLocationString from '../../../map/ducks/map/location-parse';
+import { parseLocationString } from '../../services/coordinate-reference-system';
 
 const getLocationString = (state) => {
   const location = getDataSearchLocation(state);
