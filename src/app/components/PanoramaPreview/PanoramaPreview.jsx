@@ -19,7 +19,7 @@ const PanoramaPreview = ({ panoramaPreview, isLoading }) => (
 );
 
 PanoramaPreview.defaultProps = {
-  panoramaPreview: false
+  panoramaPreview: null
 };
 
 PanoramaPreview.propTypes = {

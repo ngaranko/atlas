@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapEmbedButton should render the link 1`] = `
+exports[`MapEmbedButton should render the component 1`] = `
 <button
   className="c-embed-button qa-embed-button"
   onClick={[Function]}
