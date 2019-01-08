@@ -29,14 +29,14 @@ describe('ParamsRegistery singleton', () => {
               encode: jest.fn(),
               reducerKey: 'reducerKey',
               stateKey: 'foo',
-              addHistory: false
+              addHistory: true
             },
             '/foo/bar': {
               decode: (val) => val,
               encode: (val) => val,
               reducerKey: 'dataSearch',
               stateKey: 'bar',
-              addHistory: false
+              addHistory: true
             }
           }
         }
@@ -47,7 +47,7 @@ describe('ParamsRegistery singleton', () => {
     it('should return an object with 2 parameters with each one route, each bound to a reducer', () => {
       const result = paramsRegistry
         .addParameter('map', (routes) => {
-          routes.add('/bar', 'reducerKey', 'foo', {}, true);
+          routes.add('/bar', 'reducerKey', 'foo', {}, false);
         })
         .addParameter('foobar', (routes) => {
           routes.add('/foo', 'reducerKey', 'foo');
@@ -61,7 +61,7 @@ describe('ParamsRegistery singleton', () => {
               encode: (val) => val,
               reducerKey: 'reducerKey',
               stateKey: 'foo',
-              addHistory: true
+              addHistory: false
             }
           }
         },
@@ -72,7 +72,7 @@ describe('ParamsRegistery singleton', () => {
               encode: (val) => val,
               reducerKey: 'reducerKey',
               stateKey: 'foo',
-              addHistory: false
+              addHistory: true
             }
           }
         }
@@ -117,7 +117,7 @@ describe('ParamsRegistery singleton', () => {
           routes
             .add('ROUTER/bar', 'reducerKey', 'foo', {
               defaultValue: '123'
-            }, true)
+            }, false)
             .add('ROUTER/foo', 'reducerKey2', 'foo');
         })
         .addParameter('anotherParam', (routes) => {
@@ -135,25 +135,25 @@ describe('ParamsRegistery singleton', () => {
     it('should call history.replace with the right querystring', () => {
       const state = { reducerKey2: { foo: 'hello!' } };
       paramsRegistry.setQueriesFromState('ROUTER/foo', state);
-      expect(paramsRegistry.separateHistory.replace).toHaveBeenCalledWith('/?map=hello!');
+      expect(paramsRegistry.separateHistory.push).toHaveBeenCalledWith('/?map=hello!');
     });
 
     it('should call history.push with the right querystring', () => {
       const state = { reducerKey: { foo: 'hello!' } };
       paramsRegistry.setQueriesFromState('ROUTER/bar', state);
-      expect(paramsRegistry.separateHistory.push).toHaveBeenCalledWith('/?map=hello!');
+      expect(paramsRegistry.separateHistory.replace).toHaveBeenCalledWith('/?map=hello!');
     });
 
     it('should not set the query if the general defaultValue is set and equal to the encoded value', () => {
       const state = { reducerKey: { foo: '123', bar: 'bla' } };
       paramsRegistry.setQueriesFromState('ROUTER/bar', state);
-      expect(paramsRegistry.separateHistory.push).toHaveBeenCalledWith('/?anotherParam=bla');
+      expect(paramsRegistry.separateHistory.replace).toHaveBeenCalledWith('/?anotherParam=bla');
     });
 
     it('should not set the query if the defaultValue per route is set and equal to the encoded value', () => {
       const state = { reducerKey: { foo: '1234', bar: '321' } };
       paramsRegistry.setQueriesFromState('ROUTER/bar', state);
-      expect(paramsRegistry.separateHistory.push).toHaveBeenCalledWith('/?map=1234');
+      expect(paramsRegistry.separateHistory.replace).toHaveBeenCalledWith('/?map=1234');
     });
   });
 

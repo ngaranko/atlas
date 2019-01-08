@@ -148,7 +148,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
-    closePanorama: toDataSearchLocation,
     setOrientation: setPanoramaOrientation,
     setView: setPanoramaView,
     fetchPanoramaById: fetchPanoramaRequest
@@ -157,7 +156,7 @@ const mapDispatchToProps = (dispatch) => ({
     if (reference.length) {
       dispatch(preserveQuery(toDataDetail(...reference)));
     } else {
-      dispatch(toDataSearchLocation(panoramaLocation.join()));
+      dispatch(toDataSearchLocation(panoramaLocation));
     }
   }
 });

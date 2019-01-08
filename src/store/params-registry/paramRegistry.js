@@ -77,7 +77,7 @@ class ParamsRegistery {
       throw new Error(`Parameter is already registered: ${param}`);
     }
     const routeApi = {
-      add: (routes, reducerKey, stateKey, reducerObject, addHistory = false) => {
+      add: (routes, reducerKey, stateKey, reducerObject, addHistory = true) => {
         [...Array.isArray(routes) ? [...routes] : [routes]].forEach((route) => {
           if (!reducerKey || (typeof stateKey === 'undefined')) {
             throw new Error(`Param "${param}" with route "${route}" must contain a reducerKey and stateKey`);
@@ -127,15 +127,15 @@ class ParamsRegistery {
   }
 
   setQueriesFromState(locationType, state) {
-    let addHistory = false;
+    let addHistory = true;
     const query = Object.entries(this.result).reduce((acc, [parameter, paramObject]) => {
       const reducerObject = get(paramObject, `[routes][${locationType}]`, null);
       if (reducerObject) {
         const encodedValue = reducerObject.encode(reducerObject.selector(state));
 
         // We need to set addHistory to true if even one route needs to change the history
-        if (!addHistory && (reducerObject && reducerObject.addHistory)) {
-          addHistory = reducerObject.addHistory;
+        if (addHistory && (reducerObject && !reducerObject.addHistory)) {
+          addHistory = false;
         }
         let newQuery = {};
 

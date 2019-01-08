@@ -67,12 +67,14 @@ export default paramsRegistry
         routing.establishments.type,
         routing.cadastralObjects.type
       ], DATA_SELECTION, 'page', {
-        selector: getDataSelectionPage
+        defaultValue: dataSelectionInitialState.page,
+        selector: getDataSelectionPage,
+        decode: (value) => parseFloat(value)
       })
       .add(routing.datasets.type, `${DATASETS}.${DATA}`, 'page', {
         defaultValue: datasetsDataInitialState.page,
         selector: getPage,
-        decode: (value) => parseInt(value, 0) || datasetsDataInitialState.page
+        decode: (value) => parseInt(value, 0)
       });
   })
   .addParameter(PARAMETERS.GEO, (routes) => {
@@ -201,7 +203,7 @@ export default paramsRegistry
           selectorResult.join() :
           panoramaInitialState.reference
       )
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.EMBED_PREVIEW, (routes) => {
     routes.add(routing.map.type, UI, 'isEmbedPreview', {
@@ -209,7 +211,7 @@ export default paramsRegistry
       selector: isEmbedPreview,
       encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
       decode: (val) => val === 'true'
-    }, true);
+    });
   })
   .addParameter(PARAMETERS.EMBED, (routes) => {
     routes.add(routing.map.type, UI, 'isEmbed', {
@@ -225,7 +227,7 @@ export default paramsRegistry
       selector: isPrintMode,
       encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
       decode: (val) => val === 'true'
-    }, true);
+    });
   })
   .addParameter(PARAMETERS.LAYERS, (routes) => {
     routes.add(routing.map.type, MAP, 'overlays', {
@@ -264,8 +266,10 @@ export default paramsRegistry
         defaultValue: null,
         selector: getDataSearchLocation,
         encode: (selectorResult) => {
-          if (selectorResult) {
+          if (selectorResult && selectorResult.latitude) {
             return `${selectorResult.latitude},${selectorResult.longitude}`;
+          } else if (Array.isArray(selectorResult)) {
+            return selectorResult.join();
           }
           return undefined;
         },

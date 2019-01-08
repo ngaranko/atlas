@@ -156,7 +156,7 @@ export default function* watchFetchDataSelection() {
   yield takeLatest(REMOVE_FILTER, clearShapeFilter);
   yield takeLatest(SET_GEOMETRY_FILTER, setGeometryFilters);
   yield takeLatest(
-    [SET_VIEW, ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS,
+    [SET_VIEW, SET_PAGE, ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS,
       routing.addresses.type, routing.establishments.type, routing.cadastralObjects.type
     ],
     fireRequest
@@ -164,5 +164,5 @@ export default function* watchFetchDataSelection() {
 
   // Actions
   yield takeLatest(FETCH_DATA_SELECTION_REQUEST, retrieveDataSelection);
-  yield takeLatest([SET_DATASET, SET_PAGE], switchPage);
+  yield takeLatest([SET_DATASET], switchPage);
 }

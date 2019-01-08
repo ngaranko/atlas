@@ -64,7 +64,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 
 DetailPage.propTypes = {
   hasGeometry: PropTypes.bool.isRequired,
-  view: PropTypes.oneOf(Object.keys(DETAIL_VIEW)).isRequired,
+  view: PropTypes.oneOf(Object.values(DETAIL_VIEW)).isRequired,
   endpoint: PropTypes.string.isRequired,
   hasSelection: PropTypes.bool.isRequired,
   getPageActionEndpoint: PropTypes.func.isRequired
