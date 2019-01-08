@@ -1,6 +1,5 @@
 import {
     getDetailLocation,
-    toPanorama,
     toPanoramaAndPreserveQuery
 } from '../../../../src/store/redux-first-router';
 

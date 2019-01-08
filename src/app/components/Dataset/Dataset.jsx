@@ -37,7 +37,7 @@ const Dataset = ({
       />
     );
   }
-console.log(activeFilters)
+
   return (
     <div>
       <DatasetActiveFilters />

@@ -5,6 +5,7 @@ import { routing } from '../app/routes';
 import PAGES from '../app/pages';
 import paramsRegistry from './params-registry';
 import PARAMETERS from './parameters';
+import { VIEWS } from '../shared/ducks/data-selection/constants';
 
 export const REDUCER_KEY = 'location';
 
@@ -153,6 +154,17 @@ export const toDatasetSuggestion = (payload) => ({
     }
   }
 });
+
+export const toDatasetsTable = (route) =>
+  ({
+    type: route,
+    meta: {
+      query: {
+        [PARAMETERS.VIEW]: VIEWS.TABLE
+      }
+    }
+  });
+
 // Selectors
 const getLocation = (state) => state[REDUCER_KEY];
 

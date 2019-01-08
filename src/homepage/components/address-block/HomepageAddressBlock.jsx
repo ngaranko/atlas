@@ -5,6 +5,8 @@ import HomepageBlock from '../block/HomepageBlock';
 
 import { features } from '../../../shared/environment';
 import { routing } from '../../../app/routes';
+import { toDatasetsTable } from '../../../store/redux-first-router';
+
 
 const BLOCK_ITEMS = {
   ADRESSEN: {
@@ -44,7 +46,7 @@ const HomepageAddressBlock = () => (
             <Link
               className="c-link homepage-block__link"
               title={title}
-              to={{ type: route }}
+              to={toDatasetsTable(route)}
             >
               <span className={`homepage-block__icon homepage-block__icon--${icon}`} />
               <span className="homepage-block__label">

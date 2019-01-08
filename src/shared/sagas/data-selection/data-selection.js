@@ -1,12 +1,11 @@
 import { call, put, select, take, takeLatest } from 'redux-saga/effects';
-import queryString from 'querystring';
 import get from 'lodash.get';
 import {
   fetchDataSelection,
   receiveDataSelectionFailure,
   receiveDataSelectionSuccess,
   setMarkers,
-  setGeometryFilter, removeGeometryFilter
+  removeGeometryFilter
 } from '../../ducks/data-selection/actions';
 import { routing } from '../../../app/routes';
 import dataselectionConfig from '../../services/data-selection/data-selection-config';

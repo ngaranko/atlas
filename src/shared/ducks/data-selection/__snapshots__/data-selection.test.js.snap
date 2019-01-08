@@ -6,6 +6,12 @@ Object {
 }
 `;
 
+exports[`Data Selection Reducer should set geometryFilter state when dispatching removeGeometryFilter 1`] = `
+Object {
+  "geometryFilter": Object {},
+}
+`;
+
 exports[`Data Selection Reducer should set geometryFilter state when dispatching setGeometryFilter 1`] = `
 Object {
   "geometryFilter": Array [
@@ -16,9 +22,32 @@ Object {
 }
 `;
 
+exports[`Data Selection Reducer should set isLoading, authError, errorMessage, dataset, result, markers state when dispatching receiveDataSelectionFailure 1`] = `
+Object {
+  "authError": false,
+  "dataset": undefined,
+  "errorMessage": "error message",
+  "isLoading": false,
+  "markers": Array [],
+  "result": Object {},
+}
+`;
+
 exports[`Data Selection Reducer should set isLoading, markers state when dispatching fetchDataSelection 1`] = `
 Object {
   "isLoading": true,
+  "markers": Array [],
+}
+`;
+
+exports[`Data Selection Reducer should set isLoading, markers, errorMessage, authError, data state when dispatching receiveDataSelectionSuccess 1`] = `
+Object {
+  "authError": false,
+  "data": Object {
+    "some": "data",
+  },
+  "errorMessage": "",
+  "isLoading": false,
   "markers": Array [],
 }
 `;
@@ -43,5 +72,17 @@ Object {
 exports[`Data Selection Reducer should set view state when dispatching setView 1`] = `
 Object {
   "view": "map",
+}
+`;
+
+exports[`Data Selection Reducer when a route type is dispatched should set dataset and an object from getStateFromQuery if meta.query is set 1`] = `
+Object {
+  "dataset": "bag",
+}
+`;
+
+exports[`Data Selection Reducer when a route type is dispatched should set the dataset and view if meta.query is not set 1`] = `
+Object {
+  "dataset": "hr",
 }
 `;
