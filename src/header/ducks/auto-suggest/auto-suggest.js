@@ -53,7 +53,7 @@ export default function AutoSuggestReducer(state = initialState, action) {
         ...enrichedState,
         activeSuggestion: action.suggestion,
         displayQuery: action.suggestion.label,
-        typedQuery: action.suggestion === -1 ? '' : state.typedQuery
+        typedQuery: enrichedState.typedQuery
       };
 
     // Todo: DP-6480 Refactor this: conflict with other queryParam in data-search reducer
