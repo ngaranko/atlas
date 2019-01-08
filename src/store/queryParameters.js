@@ -176,6 +176,8 @@ export default paramsRegistry
   .addParameter(PARAMETERS.FILTERS, (routes) => {
     routes.add([
       routing.datasets.type,
+      routing.searchDatasets.type,
+      routing.dataSearch.type,
       routing.addresses.type,
       routing.cadastralObjects.type,
       routing.establishments.type

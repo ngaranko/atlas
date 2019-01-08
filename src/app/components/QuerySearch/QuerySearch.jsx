@@ -8,6 +8,7 @@ import Dataset from '../Dataset';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 import { DataSearchQuery } from '../DataSearch';
 import MoreResultsWhenLoggedIn from '../PanelMessages/MoreResultsWhenLoggedIn';
+import { preserveQuery } from '../../../store/redux-first-router';
 
 const QuerySearch = ({
   isLoading,
@@ -33,12 +34,12 @@ const QuerySearch = ({
             <Tab
               label="Data"
               count={numberOfDataResults}
-              onClick={() => toDataPage(query, true)}
+              onClick={() => preserveQuery(toDataPage(query, true))}
             />
             <Tab
               label="Datasets"
               count={numberOfDatasetResults}
-              onClick={() => toDatasetPage(query, true)}
+              onClick={() => preserveQuery(toDatasetPage(query, true))}
             />
           </Tabs>
         </TabBar>
