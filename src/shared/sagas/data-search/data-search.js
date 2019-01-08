@@ -33,8 +33,7 @@ import {
   isDataSearch,
   isMapActive,
   isMapPage,
-  toDataSearchLocationAndPreserveQuery,
-  toMapAndPreserveQuery
+  toDataSearchLocation
 } from '../../../store/redux-first-router';
 import { getMapZoom } from '../../../map/ducks/map/map-selectors';
 import ActiveOverlaysClass from '../../services/active-overlays/active-overlays';
@@ -55,9 +54,10 @@ export function* fetchMapSearchResults() {
 
     if (!isDataSearchPage) { // User is not on a search page so go to data-search page
       if (mapActive) {
-        yield put(toMapAndPreserveQuery());
+        const mapSearchResults = yield call(search, location, user);
+        yield put(fetchMapSearchResultsSuccessPanel(mapSearchResults));
       } else {
-        yield put(toDataSearchLocationAndPreserveQuery());
+        yield put(toDataSearchLocation(location));
       }
     } else if (isMap) { // if user is on the map page, fetch request for map-panel
       const mapSearchResults = yield call(search, location, user);

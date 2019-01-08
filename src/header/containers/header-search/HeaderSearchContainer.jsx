@@ -19,7 +19,7 @@ import {
   extractIdEndpoint,
   isDatasetPage,
   isMapPage,
-  toDataSearch,
+  toDataSearchQuery,
   toDatasetSearch,
   toDataSuggestion,
   toDatasetSuggestion
@@ -44,7 +44,7 @@ const mapDispatchToProps = (dispatch) => ({
     onSuggestionActivate: setActiveSuggestionAction
   }, dispatch),
   onDatasetSearch: (query) => dispatch(toDatasetSearch(query)),
-  onDataSearch: (query) => dispatch(toDataSearch(query)),
+  onDataSearch: (query) => dispatch(toDataSearchQuery(query)),
   openDataSuggestion: (suggestion) => dispatch(toDataSuggestion(suggestion)),
   openDatasetSuggestion: (suggestion) => dispatch(toDatasetSuggestion(suggestion))
 });

@@ -11,7 +11,7 @@ import {
   setView as setPanoramaView
 } from '../ducks/actions';
 import PANORAMA_VIEW from '../ducks/panorama-view';
-import { toDataDetail, toDataSearchLocation } from '../../store/redux-first-router';
+import { preserveQuery, toDataDetail, toDataSearchLocation } from '../../store/redux-first-router';
 
 import { getOrientation, initialize, loadScene } from '../services/marzipano/marzipano';
 
@@ -148,16 +148,15 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
-    closePanorama: toDataSearchLocation,
     setOrientation: setPanoramaOrientation,
     setView: setPanoramaView,
     fetchPanoramaById: fetchPanoramaRequest
   }, dispatch),
   onClose: (panoramaLocation, reference) => {
     if (reference.length) {
-      dispatch(toDataDetail(...reference));
+      dispatch(preserveQuery(toDataDetail(...reference)));
     } else {
-      dispatch(toDataSearchLocation(panoramaLocation.join()));
+      dispatch(toDataSearchLocation(panoramaLocation));
     }
   }
 });

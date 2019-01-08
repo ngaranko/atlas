@@ -11,7 +11,7 @@ import { ROUTER_NAMESPACE } from '../../../app/routes';
 import PAGES from '../../../app/pages';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
 import {
-  toDataSearch,
+  toDataSearchQuery,
   toDatasetSearch,
   toDatasetSuggestion,
   toDataSuggestion
@@ -36,6 +36,9 @@ describe('HeaderSearchContainer', () => {
   });
 
   const initialState = {
+    dataSearch: {
+      query: 'dam'
+    },
     autoSuggest: {
       count: 6,
       suggestions: [
@@ -226,7 +229,7 @@ describe('HeaderSearchContainer', () => {
       headerSearch.instance().onFormSubmit();
 
       expect(store.dispatch).toHaveBeenCalledWith(emptyFilters());
-      expect(store.dispatch).toHaveBeenCalledWith(toDataSearch(query));
+      expect(store.dispatch).toHaveBeenCalledWith(toDataSearchQuery(query));
     });
 
     it('does dataset search', () => {

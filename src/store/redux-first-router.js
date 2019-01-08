@@ -1,79 +1,78 @@
-import { createSelector } from 'reselect';
-import queryString from 'querystring';
 import get from 'lodash.get';
-import { routing } from '../app/routes';
+import queryString from 'querystring';
+import { createSelector } from 'reselect';
 import PAGES from '../app/pages';
+import { routing } from '../app/routes';
+import { DATASETS } from '../shared/ducks/data-selection/constants';
+import PARAMETERS from './parameters';
+import paramsRegistry from './params-registry';
 
 export const REDUCER_KEY = 'location';
 
 // TODO: refactor unit test or remove all together
 // Action creators
-export const toHome = () => ({ type: routing.home.type });
-
-export const preserveQuery = (action) => {
-  const search = location.search && location.search.substr(1);
-  return {
-    ...action,
-    meta: {
-      query: {
-        ...queryString.decode(search), // Todo: temporary solution to pass existing query
-        ...get(action, 'meta.query')
-      }
+const actionWithQueries = (action, additionalParams, extraQueries = {}) => ({
+  ...action,
+  meta: {
+    ...(action.meta) ? action.meta : {},
+    query: {
+      ...extraQueries,
+      ...paramsRegistry.getNextQueries(additionalParams, action.type)
     }
-  };
+  }
+});
+
+export const preserveQuery = (action, additionalParams = {}) => {
+  const search = location.search && location.search.substr(1);
+  return actionWithQueries(action, additionalParams, {
+    ...queryString.decode(search), // Todo: temporary solution to pass existing query
+    ...get(action, 'meta.query')
+  });
 };
 
-export const toDataDetail = (id, type, subtype, view) => (preserveQuery({
+export const toDataDetail = (id, type, subtype) => ({
   type: routing.dataDetail.type,
   payload: {
     type,
     subtype,
     id: `id${id}`
-  },
-  meta: {
-    query: {
-      ...view ? { detailModus: view } : {}
-    }
   }
-}));
+});
 
-export const toDataSearchLocationAndPreserveQuery = () => preserveQuery({ // TODO rename
+const toDataSearch = () => ({
   type: routing.dataSearch.type
 });
 
-export const toDataSearchLocation = (payload) => ({ // TODO rename
+export const toDataSearchLocation = (location) => actionWithQueries(
+  toDataSearch(), {
+    [PARAMETERS.LOCATION]: location
+  }
+);
+
+export const toDataSearchQuery = (searchQuery, filters, skipFetch = false) => actionWithQueries({
   type: routing.dataSearch.type,
   meta: {
-    query: {
-      locatie: payload
-    }
+    skipFetch
+  }
+}, {
+  [PARAMETERS.QUERY]: searchQuery,
+  [PARAMETERS.FILTERS]: filters
+});
+
+export const toMap = () => ({ type: routing.map.type });
+export const toPanorama = (id) => ({
+  type: routing.panorama.type,
+  payload: {
+    id
   }
 });
 
-export const toMapAndPreserveQuery = () => preserveQuery({ type: routing.map.type });
-
-export const toMap = () => ({ type: routing.map.type });
-
-export const toPanorama = (id, heading, reference = []) => {
-  const action = {
-    type: routing.panorama.type,
-    payload: {
-      id
-    },
-    meta: {
-      query: {
-        heading,
-        ...(reference.length === 3 ? { reference: reference.join(',') } : {})
-      }
-    }
-  };
-  return action;
-};
-
-export const toPanoramaAndPreserveQuery = (id) => preserveQuery({
-  type: routing.panorama.type,
-  payload: id
-});
+export const toPanoramaAndPreserveQuery = (id, heading, reference = []) => preserveQuery(
+  toPanorama(id), {
+    heading,
+    ...(reference.length === 3 ? { [PARAMETERS.REFERENCE]: reference } : {})
+  }
+);
 
 export const extractIdEndpoint = (endpoint) => {
   const matches = endpoint.match(/\/([\w-]+)\/?$/);
@@ -91,7 +90,9 @@ const getDetailPageData = (endpoint) => {
 
 export const getPageActionEndpoint = (endpoint, view) => {
   const { type, subtype, id } = getDetailPageData(endpoint);
-  return toDataDetail(id, type, subtype, view);
+  return preserveQuery(toDataDetail(id, type, subtype), {
+    [PARAMETERS.VIEW]: view
+  });
 };
 
 export const pageTypeToEndpoint = (type, subtype, id) => {
@@ -100,47 +101,28 @@ export const pageTypeToEndpoint = (type, subtype, id) => {
   return endpoint;
 };
 
-export const toDataSearch = (searchQuery, skipFetch = false) => ({
-  type: routing.dataSearch.type,
-  meta: {
-    skipFetch,
-    query: {
-      zoekterm: searchQuery
+export const toDataSearchCategory = (searchQuery, category) => actionWithQueries(
+  {
+    type: routing.dataSearchCategory.type,
+    payload: {
+      category
     }
+  }, {
+    [PARAMETERS.QUERY]: searchQuery
   }
-});
-
-export const toDataSearchCategory = (searchQuery, category) => ({
-  type: routing.dataSearchCategory.type,
-  payload: {
-    category
-  },
-  meta: {
-    query: {
-      zoekterm: searchQuery
-    }
-  }
-});
-
+);
 export const toDatasets = () => ({ type: routing.datasets.type });
-
-export const toDatasetSearch = (searchQuery, skipFetch = false) => ({
+export const toDatasetSearch = (searchQuery, skipFetch = false) => preserveQuery({
   type: routing.searchDatasets.type,
   meta: {
-    skipFetch,
-    query: {
-      zoekterm: searchQuery
-    }
+    skipFetch
   }
+}, {
+  [PARAMETERS.QUERY]: searchQuery
 });
 
-export const toDatasetsWithFilter = (themeSlug) => ({
-  type: routing.datasets.type,
-  meta: {
-    query: {
-      filters: btoa(JSON.stringify({ groups: themeSlug }))
-    }
-  }
+export const toDatasetsWithFilter = () => ({
+  type: routing.datasets.type
 });
 
 export const toDataSuggestion = (payload) => {
@@ -174,22 +156,27 @@ export const toDatasetSuggestion = (payload) => ({
   }
 });
 
-export const toDatasetsTableWithFilter = (datasetType, filter) => {
-  const ret = {
-    type: datasetType,
-    meta: {
-      query: {
-        filters: btoa(JSON.stringify(filter))
-      }
-    }
-  };
-  return ret;
+const DATASET_ROUTE_MAPPER = {
+  [DATASETS.HR]: routing.establishments.type,
+  [DATASETS.BAG]: routing.addresses.type,
+  [DATASETS.BRK]: routing.cadastralObjects.type
 };
+
+export const toDatasetPage = (dataset) => ({
+  type: DATASET_ROUTE_MAPPER[dataset]
+});
+
+export const toDatasetsTableWithFilter = (datasetType, filter) => actionWithQueries({
+  type: datasetType
+}, {
+  [PARAMETERS.FILTERS]: btoa(JSON.stringify(filter))
+});
 
 
 // Selectors
 const getLocation = (state) => state[REDUCER_KEY];
 
+export const getLocationType = (state) => state[REDUCER_KEY].type;
 export const getLocationQuery = createSelector(getLocation, (location) => location.query || {});
 export const getLocationPayload = createSelector(getLocation, (location) => location.payload);
 export const getDetailLocation = createSelector(
@@ -213,7 +200,7 @@ export const isMapView = createSelector(
 export const isLocationSelected = createSelector(
   getLocationQuery,
   (query) => (
-    Object.prototype.hasOwnProperty.call(query, 'locatie') || false
+    Object.prototype.hasOwnProperty.call(query, PARAMETERS.LOCATION) || false
   )
 );
 

@@ -8,13 +8,15 @@ import {
   getNumberOfResults as datasetNumberOfResults,
   isLoading as isDatasetsLoading
 } from '../../../shared/ducks/datasets/datasets';
-import { getPage, toDataSearch, toDatasetSearch } from '../../../store/redux-first-router';
+import { getFilters } from '../../../shared/ducks/filters/filters';
+import { getPage, toDataSearchQuery, toDatasetSearch } from '../../../store/redux-first-router';
 import QuerySearch from './QuerySearch';
 import { getUser } from '../../../shared/ducks/user/user';
 
 const mapStateToProps = (state) => ({
   isLoading: isDatasetsLoading(state) || isSearchLoading(state),
   query: getSearchQuery(state),
+  filters: getFilters(state),
   user: getUser(state),
   numberOfDataResults: getNumberOfResults(state),
   numberOfDatasetResults: datasetNumberOfResults(state),
@@ -22,7 +24,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toDataPage: (...args) => dispatch(toDataSearch(...args)),
+  toDataPage: (...args) => dispatch(toDataSearchQuery(...args)),
   toDatasetPage: (...args) => dispatch(toDatasetSearch(...args))
 });
 

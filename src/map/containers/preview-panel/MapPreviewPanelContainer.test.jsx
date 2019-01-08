@@ -23,9 +23,9 @@ import { getLocationId } from '../../ducks/map/map-selectors';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import {
   getDetailLocation,
-  toDataSearchLocationAndPreserveQuery,
+  toDataSearchLocation,
   toMap,
-  toPanorama
+  toPanoramaAndPreserveQuery
 } from '../../../store/redux-first-router';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 
@@ -99,9 +99,9 @@ describe('MapPreviewPanelContainer', () => {
     });
     getMapDetail.mockImplementation(() => ({ type: FETCH_MAP_DETAIL_REQUEST }));
     getDetailLocation.mockImplementation(() => (['123', '321']));
-    toPanorama.mockImplementation(() => ({ type: 'sometype' }));
+    toPanoramaAndPreserveQuery.mockImplementation(() => ({ type: 'sometype' }));
     toMap.mockImplementation(() => ({ type: 'sometype' }));
-    toDataSearchLocationAndPreserveQuery.mockImplementation(() => ({ type: 'sometype' }));
+    toDataSearchLocation.mockImplementation(() => ({ type: 'sometype' }));
     fetchPanoramaPreview.mockImplementation(() => ({ type: FETCH_PANORAMA_PREVIEW_REQUEST }));
     selectNotClickableVisibleMapLayers.mockImplementation(() => ([]));
     isGeoSearch.mockImplementation((state) => !(state.detail && state.detail.endpoint));
@@ -156,7 +156,7 @@ describe('MapPreviewPanelContainer', () => {
         }
       }).dive();
       wrapper.instance().onPanoPreviewClick();
-      expect(store.dispatch).toHaveBeenCalledWith(toPanorama());
+      expect(store.dispatch).toHaveBeenCalledWith(toPanoramaAndPreserveQuery());
     });
   });
 });
