@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabBar should render the component with no results 1`] = `
+<div>
+  <h1
+    className="qa-tab-header__title c-tab-header__title"
+  >
+    <span
+      className="c-tab-header__title__text"
+    >
+      Geen resultaten met '
+      dam
+      '
+    </span>
+  </h1>
+</div>
+`;
+
+exports[`TabBar should render the component with results 1`] = `
+<div>
+  <h1
+    className="qa-tab-header__title c-tab-header__title"
+  >
+    <span
+      className="c-tab-header__title__text"
+    >
+      Resultaten met '
+      dam
+      '
+    </span>
+    <button
+      className="c-tab-header__reset-button qa-go-to-catalogus"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="c-tab-header__reset-button--color"
+      >
+        Alle datasets tonen
+      </span>
+    </button>
+  </h1>
+</div>
+`;

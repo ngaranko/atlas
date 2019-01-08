@@ -1,3 +1,7 @@
+import {
+  normalizeCoordinate,
+  parseLocationString
+} from '../shared/services/coordinate-reference-system';
 import paramsRegistry from './params-registry';
 import { routing } from '../app/routes';
 import { DATA_SEARCH_REDUCER } from '../shared/ducks/data-search/reducer';
@@ -7,7 +11,6 @@ import {
   getSearchCategory,
   getSearchQuery
 } from '../shared/ducks/data-search/selectors';
-import parseLocationString from '../map/ducks/map/location-parse';
 import {
   getDataSelectionPage,
   getDataSelectionView,
@@ -137,7 +140,7 @@ export default paramsRegistry
       routing.cadastralObjects.type
     ], MAP, 'viewCenter', {
       defaultValue: mapInitialState.viewCenter,
-      decode: (val = mapInitialState.viewCenter.join(',')) => val.split(',').map((ltLng) => parseFloat(ltLng)),
+      decode: (val = mapInitialState.viewCenter.join(',')) => val.split(',').map((ltLng) => normalizeCoordinate(parseFloat(ltLng), 7)),
       encode: (selectorResult) => selectorResult.join(','),
       selector: getCenter
     });

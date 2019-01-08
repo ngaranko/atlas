@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatasetContainer should render 1`] = `
+<Dataset
+  activeFilters={Object {}}
+  apiSpecification={Object {}}
+  page={1}
+  results={Object {}}
+  setPage={[Function]}
+/>
+`;

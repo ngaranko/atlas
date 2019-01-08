@@ -111,3 +111,7 @@ $base-padding: calc(#{$base-whitespace} * 2);
 .c-catalogus-theme__icon--educatie-jeugd-diversiteit {
   @include icon-button-text-right("educatie-jeugd-diversiteit", "", "red");
 }
+
+.qa-theme-link {
+  display: block;
+}

@@ -1,6 +1,6 @@
 import { toPanorama } from '../../../../src/store/redux-first-router';
 
-describe('The dp-straatbeeld-thumbnail component', function () {
+describe('The dp-panorama-thumbnail component', function () {
     let $compile,
         $rootScope,
         parentScope,
@@ -33,7 +33,7 @@ describe('The dp-straatbeeld-thumbnail component', function () {
     });
 
     function getComponent (panorama, isLoading) {
-        const element = document.createElement('dp-straatbeeld-thumbnail');
+        const element = document.createElement('dp-panorama-thumbnail');
         element.setAttribute('panorama', 'panorama');
         element.setAttribute('is-loading', 'isLoading');
 
@@ -54,7 +54,7 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading');
 
         expect(component.find('img').length).toBe(0);
-        expect(component.find('.qa-found-no-straatbeeld').length).toBe(0);
+        expect(component.find('.qa-found-no-panorama').length).toBe(0);
     });
 
     it('shows the thumbnail when provided', () => {
@@ -65,7 +65,7 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         };
         const component = getComponent(panorama, false);
         const scope = component.isolateScope();
-        expect(component.find('.qa-found-no-straatbeeld').length).toBe(0);
+        expect(component.find('.qa-found-no-panorama').length).toBe(0);
         expect(component.find('img').attr('src')).toBe('http://example.com/example.png');
         expect(component.find('dp-redux-link').attr('to')).toBe('vm.linkTo');
         expect(scope.vm.linkTo).toEqual(toPanorama(42, 99));
@@ -97,11 +97,11 @@ describe('The dp-straatbeeld-thumbnail component', function () {
         expect(component.find('img').length).toBe(0);
         expect(scope.vm.isLoading).toBe(false);
 
-        expect(component.find('.qa-found-no-straatbeeld').text())
+        expect(component.find('.qa-found-no-panorama').text())
             .toContain(
                 'Geen panoramabeeld beschikbaar (binnen 50m van deze locatie).'
             );
-        expect(component.find('.qa-found-no-straatbeeld').text())
+        expect(component.find('.qa-found-no-panorama').text())
             .toContain(
                 'Tip: kies via de kaart een nabije locatie.'
             );

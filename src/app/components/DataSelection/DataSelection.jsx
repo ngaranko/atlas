@@ -6,8 +6,8 @@ import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { setPage as setDatasetPage } from '../../../shared/ducks/data-selection/actions';
 import DATA_SELECTION_CONFIG from '../../../shared/services/data-selection/data-selection-config';
-import { getUser } from '../../../shared/ducks/user/user';
-import NotAuthorizedPanel from '../PanelMessages/NotAuthorizedMessage';
+import { getUser, getUserScopes } from '../../../shared/ducks/user/user';
+import NotAuthorizedMessage from '../PanelMessages/NotAuthorizedMessage';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 import { getFilters } from '../../../shared/ducks/filters/filters';
 import DataSelectionActiveFilters from '../../containers/DataSelectionActiveFiltersContainer';
@@ -25,6 +25,7 @@ const DataSelection = ({
   dataset,
   activeFilters,
   user,
+  userScopes,
   setPage,
   authError,
   results: {
@@ -35,10 +36,6 @@ const DataSelection = ({
   },
   page: currentPage
 }) => {
-  if (isLoading) {
-    return <LoadingIndicator />;
-  }
-
   // Local state
   const showHeader = (view === VIEWS.LIST || !isLoading);
   const showFilters = (view !== VIEWS.LIST) && numberOfRecords > 0;
@@ -48,6 +45,9 @@ const DataSelection = ({
   const showMessageMaxPages = MAX_AVAILABLE_PAGES && currentPage > MAX_AVAILABLE_PAGES;
   const showMessageClusteredMarkers =
     (view === VIEWS.LIST) && numberOfRecords > MAX_NUMBER_OF_CLUSTERED_MARKERS;
+
+  const datasetScope = DATA_SELECTION_CONFIG.datasets[dataset].AUTH_SCOPE;
+  const authScopeError = datasetScope ? !userScopes.includes(datasetScope) : false;
 
   const widthClass = classNames({
     'u-col-sm--12': !showFilters,
@@ -65,6 +65,7 @@ const DataSelection = ({
             dataset,
             availableFilters,
             filters: activeFilters,
+            isLoading,
             numberOfRecords,
             showHeader,
             user,
@@ -74,14 +75,16 @@ const DataSelection = ({
 
         <DataSelectionActiveFilters />
 
-        {(!numberOfRecords && !authError) ?
+        {(isLoading) && <LoadingIndicator /> }
+
+        {(!isLoading && !numberOfRecords && !authError && !authScopeError) ?
           <NoResultsForSearchType
             message={'Tip: verwijder een of meer criteria'}
           />
           : ''
         }
 
-        {(!authError) && (
+        {(!isLoading && !authError) && (
           <div className="u-grid qa-data-grid">
             <div className="u-row">
               {showFilters && (
@@ -133,7 +136,7 @@ const DataSelection = ({
                       <p className="c-panel__paragraph">Deze resultaten worden niet getoond op
                         de
                         kaart, omdat deze niet meer
-                        dan {MAX_NUMBER_OF_CLUSTERED_MARKERS} resultaten tegelijk kan
+                        dan {MAX_NUMBER_OF_CLUSTERED_MARKERS.toLocaleString('nl-NL')} resultaten tegelijk kan
                         weergeven (om technische redenen).</p>
                       <p className="c-panel__paragraph">Tip: Bekijk de lijst resultaten in
                         kleinere delen. Dit kan door een voor een filtercriteria toe te voegen
@@ -182,9 +185,8 @@ const DataSelection = ({
             </div>
           </div>
         )}
-
-        {authError && (
-          <NotAuthorizedPanel />
+        {(!isLoading && (authError || authScopeError)) && (
+          <NotAuthorizedMessage scopeError={datasetScope} />
         )}
       </div>
     </div>
@@ -201,6 +203,7 @@ DataSelection.propTypes = {
   dataset: PropTypes.string.isRequired,
   activeFilters: PropTypes.shape({}).isRequired,
   user: PropTypes.shape({}).isRequired,
+  userScopes: PropTypes.arrayOf(PropTypes.string).isRequired,
   authError: PropTypes.bool.isRequired,
   page: PropTypes.number.isRequired,
   setPage: PropTypes.func.isRequired,
@@ -222,7 +225,8 @@ const mapStateToProps = (state) => {
     page,
     activeFilters: getFilters(state),
     results: getDataSelectionResult(state),
-    user: getUser(state)
+    user: getUser(state),
+    userScopes: getUserScopes(state)
   });
 };
 

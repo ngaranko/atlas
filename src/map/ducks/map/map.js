@@ -1,4 +1,5 @@
 import { routing } from '../../../app/routes';
+import { normalizeCoordinate } from '../../../shared/services/coordinate-reference-system';
 import { FETCH_MAP_DETAIL_SUCCESS } from '../detail/constants';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { SET_SELECTION } from '../../../shared/ducks/selection/selection';
@@ -227,16 +228,16 @@ export const toggleMapOverlayVisibility = (mapLayerId, isVisible) => ({
 export const updatePan = (payload) => ({
   type: MAP_PAN,
   payload: {
-    latitude: payload.lat,
-    longitude: payload.lng
+    latitude: normalizeCoordinate(payload.lat, 7),
+    longitude: normalizeCoordinate(payload.lng, 7)
   }
 });
 export const setSelectedLocation = (payload) => ({
   type: SET_MAP_CLICK_LOCATION,
   payload: {
     location: {
-      latitude: payload.latlng.lat,
-      longitude: payload.latlng.lng
+      latitude: normalizeCoordinate(payload.latlng.lat, 7),
+      longitude: normalizeCoordinate(payload.latlng.lng, 7)
     }
   }
 });

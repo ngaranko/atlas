@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NotAuthorizedPanel should render everything 1`] = `
+exports[`NotAuthorizedMessage should render everything 1`] = `
 <Notification
   canClose={true}
   className=""
@@ -11,7 +11,7 @@ exports[`NotAuthorizedPanel should render everything 1`] = `
     <p
       className="c-panel__paragraph"
     >
-      Medewerkers met speciale bevoegdheden kunnen inloggen om kadastrale objecten met zakelijk rechthebbenden te bekijken.
+      Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke activiteiten en vestigingen te bekijken.
     </p>
     <p
       className="c-panel__paragraph"
@@ -22,7 +22,7 @@ exports[`NotAuthorizedPanel should render everything 1`] = `
         to={
           Object {
             "payload": Object {
-              "deeplink": "inloggen",
+              "deeplink": "snelwegwijsitem9",
             },
             "type": "atlasRouter/CONTROLS",
           }

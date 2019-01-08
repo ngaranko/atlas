@@ -77,6 +77,7 @@ export const extractIdEndpoint = (endpoint) => {
   const matches = endpoint.match(/\/([\w-]+)\/?$/);
   return matches[1];
 };
+
 const getDetailPageData = (endpoint) => {
   const matches = endpoint.match(/(\w+)\/([\w-]+)\/([\w\.-]+)\/?$/); // eslint-disable-line no-useless-escape
   return {
@@ -85,12 +86,14 @@ const getDetailPageData = (endpoint) => {
     id: matches[3]
   };
 };
+
 export const getPageActionEndpoint = (endpoint, view) => {
   const { type, subtype, id } = getDetailPageData(endpoint);
   return preserveQuery(toDataDetail(id, type, subtype), {
     [PARAMETERS.VIEW]: view
   });
 };
+
 export const pageTypeToEndpoint = (type, subtype, id) => {
   let endpoint = 'https://acc.api.data.amsterdam.nl/';
   endpoint += `${type}/${subtype}/${id}/`; // TODO: refactor, get back-end to return detail as detail GET not listing!
@@ -140,6 +143,7 @@ export const toDataSuggestion = (payload) => {
   };
   return action;
 };
+
 export const toDatasetSuggestion = (payload) => ({
   type: routing.datasetsDetail.type,
   payload,
@@ -160,6 +164,13 @@ const DATASET_ROUTE_MAPPER = {
 export const toDatasetPage = (dataset) => ({
   type: DATASET_ROUTE_MAPPER[dataset]
 });
+
+export const toDatasetsTableWithFilter = (datasetType, filter) => actionWithQueries({
+  type: datasetType
+}, {
+  [PARAMETERS.FILTERS]: btoa(JSON.stringify(filter))
+});
+
 
 // Selectors
 const getLocation = (state) => state[REDUCER_KEY];

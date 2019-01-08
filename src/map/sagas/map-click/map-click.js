@@ -6,14 +6,14 @@ import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
 import { setPanoramaLocation } from '../../../panorama/ducks/actions';
+import { normalizeLocation } from '../../../shared/services/coordinate-reference-system';
 
 const latitudeLongitudeToArray = (location) => [location.latitude, location.longitude];
 
 /* istanbul ignore next */ // TODO: refactor, test
 export function* switchClickAction(action) {
   const selectionType = yield select(getSelectionType);
-  const { location } = action.payload;
-
+  const location = normalizeLocation(action.payload.location, 7);
   if (selectionType === SELECTION_TYPE.PANORAMA) {
     const locationArray = latitudeLongitudeToArray(location);
     yield put(setPanoramaLocation(locationArray));

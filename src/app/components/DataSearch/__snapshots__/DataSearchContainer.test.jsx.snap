@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataSearchContainer should render 1`] = `
+<DataSearch
+  fetchDetailPage={[Function]}
+  numberOfResults={0}
+  searchQuery="foo"
+  searchResults={Array []}
+  setSearchCategory={[Function]}
+  userScopes={Array []}
+/>
+`;

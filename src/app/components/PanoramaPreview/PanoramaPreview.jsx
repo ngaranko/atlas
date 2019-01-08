@@ -6,8 +6,8 @@ const PanoramaPreview = ({ panoramaPreview, isLoading }) => (
   <div className="c-search-results__thumbnail-container">
     <div className="c-search-results__thumbnail">
       <AngularWrapper
-        moduleName={'dpStraatbeeldThumbnailWrapper'}
-        component="dpStraatbeeldThumbnail"
+        moduleName={'dpPanoramaThumbnailWrapper'}
+        component="dpPanoramaThumbnail"
         dependencies={['atlas']}
         bindings={{
           panorama: panoramaPreview,
@@ -19,7 +19,7 @@ const PanoramaPreview = ({ panoramaPreview, isLoading }) => (
 );
 
 PanoramaPreview.defaultProps = {
-  panoramaPreview: false
+  panoramaPreview: null
 };
 
 PanoramaPreview.propTypes = {

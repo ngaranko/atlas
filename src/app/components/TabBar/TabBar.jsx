@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// Todo: DP-6389
 const TabBar = ({
   totalNumberOfResults,
   goToDatasets,

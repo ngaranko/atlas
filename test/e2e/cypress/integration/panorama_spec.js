@@ -5,7 +5,7 @@ const panorama = '.c-panorama';
 describe('panorama module', () => {
   beforeEach(() => {
     cy.server();
-    cy.route('/panorama/panoramas/*/adjacencies/?newest_in_range=true').as('getResults');
+    cy.route('/panorama/panoramas/*/adjacencies/?newest_in_range=true&mission_type=bi').as('getResults');
 
     // go to the homepage
     cy.visit('/');
@@ -95,7 +95,7 @@ describe('panorama module', () => {
 
   describe.only('user should be able to interact with the panorama', () => {
     it('should remember the state when closing the pano, and update to search results when clicked in map', () => {
-      const panoUrl = '/datasets/panorama/TMX7316010203-000714_pano_0001_002608?heading=-35.000000000000064&lagen=cGFubzox&lat=52.3734172850645&legenda=false&lng=4.8935938669686';
+      const panoUrl = '/datasets/panorama/TMX7316010203-000714_pano_0001_002608?heading=325&legenda=false&reference=03630000004153%2Cbag%2Copenbareruimte&reference=03630000004153%2Cbag%2Copenbareruimte';
       let newUrl;
 
       cy.defineGeoSearchRoutes();
@@ -114,19 +114,19 @@ describe('panorama module', () => {
 
       cy.wait('@getOpenbareRuimte');
       cy.wait('@getPanoThumbnail');
-      cy.get('img.c-panorama-thumbnail--img').should('exist').and('be.visible');
-      cy.get('h2.qa-title').should('exist').and('be.visible').contains('Leidsegracht');
-      cy.get('img.c-panorama-thumbnail--img').click();
+      cy.get('img.map-detail-result__header-pano').should('exist').and('be.visible');
+      cy.get('h2.map-detail-result__header-subtitle').should('exist').and('be.visible').contains('Leidsegracht');
+      cy.get('img.map-detail-result__header-pano').click();
 
       cy.wait('@getResults');
       cy.location().then((loc) => {
-        newUrl = loc.pathname + loc.search;
+        newUrl = loc.pathname + loc.search + '&reference=03630000004153%2Cbag%2Copenbareruimte';
         expect(newUrl).to.equal(panoUrl);
       });
 
       let largestButtonSize = 0;
       let largestButton;
-      cy.get('.qa-hotspot-rotation:visible').each((button) => {
+      cy.get('.qa-hotspot-rotation').each((button) => {
         // get largest (e.g. closest by) navigation button
         cy.wrap(button).should('have.css', 'width').then((width) => {
           if (parseInt(width.replace('px', ''), 10) > largestButtonSize) {
@@ -145,10 +145,10 @@ describe('panorama module', () => {
         expect(newUrl).not.to.equal(panoUrl);
       });
 
-      cy.get('button.c-panorama__close').click();
-      cy.get('img.c-panorama-thumbnail--img').should('exist').and('be.visible');
-      cy.get('h2.qa-title').should('exist').and('be.visible').contains('Leidsegracht');
-      cy.get('img.c-panorama-thumbnail--img').click();
+      cy.get('button.button-new__right').last().click();
+      cy.get('img.map-detail-result__header-pano').should('exist').and('be.visible');
+      cy.get('h2.map-detail-result__header-subtitle').should('exist').and('be.visible').contains('Leidsegracht');
+      cy.get('img.map-detail-result__header-pano').click();
 
       cy.get('.leaflet-container').click(20, 100);
 
@@ -158,11 +158,14 @@ describe('panorama module', () => {
         const thisUrl = loc.pathname + loc.hash;
         expect(thisUrl).not.to.equal(newUrl);
       });
-      cy.get('button.c-panorama__close').click();
+      cy.get('button.button-new__right').last().click();
 
-      cy.waitForGeoSearch();
-      cy.get('h1.o-header__title').contains('Resultaten').should('exist').and('be.visible');
-      cy.get('h2').contains('Openbare ruimte').should('exist').and('be.visible');
+      cy.wait('@getOpenbareRuimte');
+      cy.wait('@getPanoThumbnail');
+
+      // should show the openbareruimte again
+      cy.get('img.map-detail-result__header-pano').should('exist').and('be.visible');
+      cy.get('h2.map-detail-result__header-subtitle').should('exist').and('be.visible').contains('Leidsegracht');
     });
   });
 });

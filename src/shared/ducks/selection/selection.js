@@ -13,7 +13,7 @@ export const SELECTION_TYPE = {
   PANORAMA: 'PANORAMA'
 };
 
-const initialState = {
+export const initialState = {
   type: SELECTION_TYPE.NONE
 };
 

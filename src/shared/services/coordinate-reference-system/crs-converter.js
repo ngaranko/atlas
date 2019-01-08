@@ -62,3 +62,17 @@ export function rdToWgs84(rdCoordinates) {
     longitude: wgs84Coordinates[0]
   };
 }
+
+export const parseLocationString = (location) => ({
+  lat: parseFloat(location.split(',')[0]),
+  lng: parseFloat(location.split(',')[1])
+});
+
+export const normalizeCoordinate = (coordinate, precision) =>
+  (coordinate ? parseFloat(coordinate.toFixed(precision)) : 0);
+
+export const normalizeLocation = (location, precision) =>
+  Object.keys(location).reduce((acc, key) => {
+    acc[key] = normalizeCoordinate(location[key], precision);
+    return acc;
+  }, {});

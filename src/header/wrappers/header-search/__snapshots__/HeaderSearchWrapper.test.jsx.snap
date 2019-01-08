@@ -20,7 +20,6 @@ exports[`HeaderSearchWrapper should render 1`] = `
   openDatasetSuggestion={[Function]}
   pageName=""
   prefillQuery=""
-  searchQuery="dam"
   suggestions={
     Array [
       Object {
