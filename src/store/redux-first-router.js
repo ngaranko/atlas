@@ -1,30 +1,35 @@
-import { createSelector } from 'reselect';
-import queryString from 'querystring';
 import get from 'lodash.get';
-import { routing } from '../app/routes';
+import queryString from 'querystring';
+import { createSelector } from 'reselect';
 import PAGES from '../app/pages';
-import paramsRegistry from './params-registry';
+import { routing } from '../app/routes';
+import { DATASETS } from '../shared/ducks/data-selection/constants';
 import PARAMETERS from './parameters';
-import { VIEWS } from '../shared/ducks/data-selection/constants';
+import paramsRegistry from './params-registry';
 
 export const REDUCER_KEY = 'location';
 
 // TODO: refactor unit test or remove all together
 // Action creators
+const actionWithQueries = (action, additionalParams, extraQueries = {}) => ({
+  ...action,
+  meta: {
+    ...(action.meta) ? action.meta : {},
+    query: {
+      ...extraQueries,
+      ...paramsRegistry.getNextQueries(additionalParams, action.type)
+    }
+  }
+});
 
 export const preserveQuery = (action, additionalParams = {}) => {
   const search = location.search && location.search.substr(1);
-  return {
-    ...action,
-    meta: {
-      query: {
-        ...queryString.decode(search), // Todo: temporary solution to pass existing query
-        ...get(action, 'meta.query'),
-        ...paramsRegistry.getNextQueries(additionalParams, action.type)
-      }
-    }
-  };
+  return actionWithQueries(action, additionalParams, {
+    ...queryString.decode(search), // Todo: temporary solution to pass existing query
+    ...get(action, 'meta.query')
+  });
 };
+
 export const toDataDetail = (id, type, subtype) => ({
   type: routing.dataDetail.type,
   payload: {
@@ -34,24 +39,25 @@ export const toDataDetail = (id, type, subtype) => ({
   }
 });
 
-const toDataSearch_ = () => ({
+const toDataSearch = () => ({
   type: routing.dataSearch.type
 });
 
-export const toDataSearchLocationAndPreserveQuery = (location) => preserveQuery(
-  toDataSearch_(), {
+export const toDataSearchLocation = (location) => actionWithQueries(
+  toDataSearch(), {
     [PARAMETERS.LOCATION]: location
   }
 );
 
-export const toDataSearchLocation = (payload) => ({ // TODO rename
+export const toDataSearchQuery = (searchQuery, skipFetch = false) => actionWithQueries({
   type: routing.dataSearch.type,
   meta: {
-    query: {
-      [PARAMETERS.LOCATION]: payload
-    }
+    skipFetch
   }
+}, {
+  [PARAMETERS.QUERY]: searchQuery
 });
+
 export const toMap = () => ({ type: routing.map.type });
 export const toPanorama = (id) => ({
   type: routing.panorama.type,
@@ -90,35 +96,25 @@ export const pageTypeToEndpoint = (type, subtype, id) => {
   endpoint += `${type}/${subtype}/${id}/`; // TODO: refactor, get back-end to return detail as detail GET not listing!
   return endpoint;
 };
-export const toDataSearch = (searchQuery, skipFetch = false) => ({
-  type: routing.dataSearch.type,
-  meta: {
-    skipFetch,
-    query: {
-      [PARAMETERS.QUERY]: searchQuery
+
+export const toDataSearchCategory = (searchQuery, category) => actionWithQueries(
+  {
+    type: routing.dataSearchCategory.type,
+    payload: {
+      category
     }
+  }, {
+    [PARAMETERS.QUERY]: searchQuery
   }
-});
-export const toDataSearchCategory = (searchQuery, category) => ({
-  type: routing.dataSearchCategory.type,
-  payload: {
-    category
-  },
-  meta: {
-    query: {
-      [PARAMETERS.QUERY]: searchQuery
-    }
-  }
-});
+);
 export const toDatasets = () => ({ type: routing.datasets.type });
-export const toDatasetSearch = (searchQuery, skipFetch = false) => ({
+export const toDatasetSearch = (searchQuery, skipFetch = false) => preserveQuery({
   type: routing.searchDatasets.type,
   meta: {
-    skipFetch,
-    query: {
-      [PARAMETERS.QUERY]: searchQuery
-    }
+    skipFetch
   }
+}, {
+  [PARAMETERS.QUERY]: searchQuery
 });
 
 export const toDatasetsWithFilter = () => ({
@@ -155,15 +151,15 @@ export const toDatasetSuggestion = (payload) => ({
   }
 });
 
-export const toDatasetsTable = (route) =>
-  ({
-    type: route,
-    meta: {
-      query: {
-        [PARAMETERS.VIEW]: VIEWS.TABLE
-      }
-    }
-  });
+const DATASET_ROUTE_MAPPER = {
+  [DATASETS.HR]: routing.establishments.type,
+  [DATASETS.BAG]: routing.addresses.type,
+  [DATASETS.BRK]: routing.cadastralObjects.type
+};
+
+export const toDatasetPage = (dataset) => ({
+  type: DATASET_ROUTE_MAPPER[dataset]
+});
 
 // Selectors
 const getLocation = (state) => state[REDUCER_KEY];
@@ -230,13 +226,3 @@ export const isDataSearch = createSelector(
   (page, mapActive, locationSelected) =>
     (page === PAGES.DATA_SEARCH || (mapActive && locationSelected))
 );
-
-const DATASET_ROUTE_MAPPER = {
-  hr: routing.establishments.type,
-  bag: routing.addresses.type,
-  brk: routing.cadastralObjects.type
-};
-
-export const toDatasetPage = (dataset) => ({
-  type: DATASET_ROUTE_MAPPER[dataset]
-});

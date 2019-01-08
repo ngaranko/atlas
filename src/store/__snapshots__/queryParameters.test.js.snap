@@ -247,7 +247,7 @@ Object {
       "atlasRouter/SEARCH_DATA": Object {
         "addHistory": false,
         "decode": [Function],
-        "defaultValue": undefined,
+        "defaultValue": "",
         "encode": [Function],
         "reducerKey": "dataSearch",
         "selector": [Function],
@@ -256,7 +256,7 @@ Object {
       "atlasRouter/SEARCH_DATASETS": Object {
         "addHistory": false,
         "decode": [Function],
-        "defaultValue": undefined,
+        "defaultValue": "",
         "encode": [Function],
         "reducerKey": "dataSearch",
         "selector": [Function],

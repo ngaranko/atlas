@@ -23,7 +23,7 @@ import { getLocationId } from '../../ducks/map/map-selectors';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import {
   getDetailLocation,
-  toDataSearchLocationAndPreserveQuery,
+  toDataSearchLocation,
   toMap,
   toPanoramaAndPreserveQuery
 } from '../../../store/redux-first-router';
@@ -101,7 +101,7 @@ describe('MapPreviewPanelContainer', () => {
     getDetailLocation.mockImplementation(() => (['123', '321']));
     toPanoramaAndPreserveQuery.mockImplementation(() => ({ type: 'sometype' }));
     toMap.mockImplementation(() => ({ type: 'sometype' }));
-    toDataSearchLocationAndPreserveQuery.mockImplementation(() => ({ type: 'sometype' }));
+    toDataSearchLocation.mockImplementation(() => ({ type: 'sometype' }));
     fetchPanoramaPreview.mockImplementation(() => ({ type: FETCH_PANORAMA_PREVIEW_REQUEST }));
     selectNotClickableVisibleMapLayers.mockImplementation(() => ([]));
     isGeoSearch.mockImplementation((state) => !(state.detail && state.detail.endpoint));

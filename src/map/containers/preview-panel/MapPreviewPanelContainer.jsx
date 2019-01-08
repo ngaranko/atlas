@@ -18,7 +18,7 @@ import { getPanoramaPreview } from '../../../panorama/ducks/preview/panorama-pre
 import {
   getDetailLocation,
   getPageActionEndpoint,
-  toDataSearchLocationAndPreserveQuery,
+  toDataSearchLocation,
   toMap,
   toPanoramaAndPreserveQuery
 } from '../../../store/redux-first-router';
@@ -47,7 +47,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     closePanel: toMap,
-    onSearchMaximize: toDataSearchLocationAndPreserveQuery,
+    onSearchMaximize: toDataSearchLocation,
     openPano: toPanoramaAndPreserveQuery
   }, dispatch),
   openPreviewDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP)),

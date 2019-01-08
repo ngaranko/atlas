@@ -26,9 +26,7 @@ exports[`HomepageAddressBlock should render links 1`] = `
         to={
           Object {
             "meta": Object {
-              "query": Object {
-                "view": "TABLE",
-              },
+              "query": Object {},
             },
             "type": "atlasRouter/ADDRESSES",
           }
@@ -54,9 +52,7 @@ exports[`HomepageAddressBlock should render links 1`] = `
         to={
           Object {
             "meta": Object {
-              "query": Object {
-                "view": "TABLE",
-              },
+              "query": Object {},
             },
             "type": "atlasRouter/ESTABLISHMENTS",
           }
@@ -82,9 +78,7 @@ exports[`HomepageAddressBlock should render links 1`] = `
         to={
           Object {
             "meta": Object {
-              "query": Object {
-                "view": "TABLE",
-              },
+              "query": Object {},
             },
             "type": "atlasRouter/CADASTRAL_OBJECTS",
           }

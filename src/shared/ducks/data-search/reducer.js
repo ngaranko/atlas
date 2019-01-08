@@ -30,11 +30,17 @@ export default function reducer(state = initialState, action) {
         ...enrichedState,
         category: action.payload.category
       };
+
     case FETCH_QUERY_SEARCH_RESULTS_REQUEST:
       return {
         ...initialState,
         isLoading: true,
         query: action.payload
+      };
+
+    case 'RESET_QUERY':
+      return {
+        ...initialState
       };
 
     case FETCH_QUERY_SEARCH_RESULTS_SUCCESS: {

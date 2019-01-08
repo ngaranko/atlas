@@ -140,7 +140,6 @@ function* switchPage(additionalParams = {}) {
 }
 
 function* setGeometryFilters(action) {
-  console.log(action.payload);
   if (action.payload) {
     yield put(setShapeFilter(createShapeFilter(action.payload)));
   }

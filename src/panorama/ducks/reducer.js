@@ -29,6 +29,7 @@ export default function reducer(state = initialState, action) {
     ...state,
     ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action)
   };
+
   switch (action.type) {
     case routing.panorama.type: {
       return {
@@ -46,7 +47,7 @@ export default function reducer(state = initialState, action) {
 
     case FETCH_PANORAMA_REQUEST_TOGGLE:
       return {
-        ...state,
+        ...enrichedState,
         history: action.payload
       };
 
@@ -60,8 +61,8 @@ export default function reducer(state = initialState, action) {
       return {
         ...enrichedState,
         date: action.payload.date,
-        pitch: state.pitch || initialState.pitch,
-        fov: state.fov || PANORAMA_CONFIG.DEFAULT_FOV,
+        pitch: enrichedState.pitch || initialState.pitch,
+        fov: enrichedState.fov || PANORAMA_CONFIG.DEFAULT_FOV,
         hotspots: action.payload.hotspots,
         isLoading: false,
         location: action.payload.location,
@@ -102,7 +103,7 @@ export default function reducer(state = initialState, action) {
       };
 
     default:
-      return enrichedState;
+      return state;
   }
 }
 
