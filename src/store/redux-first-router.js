@@ -49,13 +49,14 @@ export const toDataSearchLocation = (location) => actionWithQueries(
   }
 );
 
-export const toDataSearchQuery = (searchQuery, skipFetch = false) => actionWithQueries({
+export const toDataSearchQuery = (searchQuery, filters, skipFetch = false) => actionWithQueries({
   type: routing.dataSearch.type,
   meta: {
     skipFetch
   }
 }, {
-  [PARAMETERS.QUERY]: searchQuery
+  [PARAMETERS.QUERY]: searchQuery,
+  [PARAMETERS.FILTERS]: filters
 });
 
 export const toMap = () => ({ type: routing.map.type });

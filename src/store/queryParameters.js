@@ -191,7 +191,7 @@ export default paramsRegistry
         }
       },
       selector: getFilters,
-      encode: (selectorResult) => (
+      encode: (selectorResult = {}) => (
         Object.keys(selectorResult).length ? btoa(JSON.stringify(selectorResult)) : undefined
       )
     });

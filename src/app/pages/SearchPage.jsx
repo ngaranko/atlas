@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import QuerySearch from '../components/QuerySearch';
 import { getDataSearchLocation } from '../../shared/ducks/data-search/selectors';
@@ -29,9 +28,9 @@ const mapStateToProps = (state) => ({
   geoSearch: !!getDataSearchLocation(state)
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  toMap: preserveQuery(toMapActionCreator())
-}, dispatch);
+const mapDispatchToProps = (dispatch) => ({
+  toMap: () => dispatch(preserveQuery(toMapActionCreator()))
+});
 
 SearchPage.propTypes = {
   geoSearch: PropTypes.bool.isRequired,

@@ -8,7 +8,6 @@ import Dataset from '../Dataset';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 import { DataSearchQuery } from '../DataSearch';
 import MoreResultsWhenLoggedIn from '../PanelMessages/MoreResultsWhenLoggedIn';
-import { preserveQuery } from '../../../store/redux-first-router';
 
 const QuerySearch = ({
   isLoading,
@@ -18,6 +17,7 @@ const QuerySearch = ({
   currentPage,
   toDataPage,
   toDatasetPage,
+  filters,
   user
 }) => (
   <div className="c-data-selection c-dashboard__content">
@@ -34,12 +34,12 @@ const QuerySearch = ({
             <Tab
               label="Data"
               count={numberOfDataResults}
-              onClick={() => preserveQuery(toDataPage(query, true))}
+              onClick={() => toDataPage(query, filters, true)}
             />
             <Tab
               label="Datasets"
               count={numberOfDatasetResults}
-              onClick={() => preserveQuery(toDatasetPage(query, true))}
+              onClick={() => toDatasetPage(query, filters, true)}
             />
           </Tabs>
         </TabBar>
@@ -68,6 +68,7 @@ QuerySearch.defaultProps = {
 
 QuerySearch.propTypes = {
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  filters: PropTypes.shape({}).isRequired,
   isLoading: PropTypes.bool,
   query: PropTypes.string,
   currentPage: PropTypes.string.isRequired,
