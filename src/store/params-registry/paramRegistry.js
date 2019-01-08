@@ -201,7 +201,7 @@ class ParamsRegistery {
           const urlParam = get(action, `meta.query[${parameter}]`);
           return (reducerObject.reducerKey === reducerKey) ? {
             ...acc,
-            [reducerObject.stateKey]: reducerObject.decode(urlParam)
+            [reducerObject.stateKey]: reducerObject.decode(urlParam) || reducerObject.defaultValue
           } : acc;
         }
         const reducerObj = Object
