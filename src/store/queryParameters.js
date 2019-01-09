@@ -20,8 +20,8 @@ import { DATA_SELECTION } from '../shared/ducks/data-selection/reducer';
 import { initialState as dataSelectionInitialState } from '../shared/ducks/data-selection/constants';
 import { DATASETS, getPage } from '../shared/ducks/datasets/datasets';
 import { DATA, initialState as datasetsDataInitialState } from '../shared/ducks/datasets/data/data';
-import { getDetailView } from '../shared/ducks/detail/selectors';
 import { initialState as detailInitialState } from '../shared/ducks/detail/constants';
+import { getDetailView } from '../shared/ducks/detail/selectors';
 import { DETAIL } from '../shared/ducks/detail/reducer';
 import { initialState as mapInitialState, MAP } from '../map/ducks/map/map';
 import {
@@ -55,7 +55,11 @@ import PARAMETERS from './parameters';
 
 export default paramsRegistry
   .addParameter(PARAMETERS.QUERY, (routes) => {
-    routes.add([routing.dataSearch.type, routing.searchDatasets.type], DATA_SEARCH_REDUCER, 'query', {
+    routes.add([
+      routing.dataSearch.type,
+      routing.dataSearchCategory.type,
+      routing.searchDatasets.type
+    ], DATA_SEARCH_REDUCER, 'query', {
       selector: getSearchQuery,
       defaultValue: dataSearchInitialState.query
     });
