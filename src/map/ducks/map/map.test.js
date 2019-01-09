@@ -36,7 +36,6 @@ describe('Map Reducer', () => {
     const state = { shapeMarkers: 2 };
     expect(reducer(state, mapClear())).toEqual({
       ...state,
-      overlays: [],
       drawingMode: initialState.drawingMode,
       shapeDistanceTxt: initialState.shapeDistanceTxt,
       shapeAreaTxt: initialState.shapeAreaTxt
@@ -138,7 +137,6 @@ describe('Map Reducer', () => {
     expect(reducer({}, {
       type: routing.dataDetail.type
     })).toEqual({
-      mapPanelActive: false,
       overlays: []
     });
 
