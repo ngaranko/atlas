@@ -9,7 +9,7 @@ import {
   getDetailGeometry,
   getDetailView
 } from '../../shared/ducks/detail/selectors';
-import { getPageActionEndpoint as endpointActionCreator } from '../../store/redux-first-router';
+import { getPageActionEndpoint as endpointActionCreator } from '../../store/redux-first-router/actions';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 import { DETAIL_VIEW } from '../../shared/ducks/detail/constants';
 import { getSelectionType } from '../../shared/ducks/selection/selection';

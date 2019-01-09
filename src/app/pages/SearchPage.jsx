@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import QuerySearch from '../components/QuerySearch';
 import { getDataSearchLocation } from '../../shared/ducks/data-search/selectors';
-import { preserveQuery, toMap as toMapActionCreator } from '../../store/redux-first-router';
+import { toMap as toMapAction } from '../../store/redux-first-router/actions';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 import LocationSearchContainer from '../containers/LocationSearchContainer';
 
@@ -29,7 +29,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toMap: () => dispatch(preserveQuery(toMapActionCreator()))
+  toMap: () => dispatch(toMapAction(true))
 });
 
 SearchPage.propTypes = {

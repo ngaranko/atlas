@@ -2,7 +2,7 @@ import { routing } from '../../../app/routes';
 import { FETCH_DETAIL, initialState, SET_VIEW, SHOW_DETAIL, REDUCER_KEY } from './constants';
 import paramsRegistry from '../../../store/params-registry';
 import PAGES from '../../../app/pages';
-import { shouldResetState } from '../../../store/redux-first-router';
+import { shouldResetState } from '../../../store/redux-first-router/actions';
 
 export { REDUCER_KEY as DETAIL };
 

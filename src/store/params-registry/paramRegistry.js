@@ -1,4 +1,5 @@
 import get from 'lodash.get';
+import isUndefined from 'lodash.isundefined';
 import queryString from 'querystring';
 import createHistory from 'history/createBrowserHistory';
 
@@ -199,9 +200,12 @@ class ParamsRegistery {
 
         if (reducerObject && reducerObject.reducerKey === reducerKey) {
           const urlParam = get(action, `meta.query[${parameter}]`);
+          const decodedValue = reducerObject.decode(urlParam);
           return (reducerObject.reducerKey === reducerKey) ? {
             ...acc,
-            [reducerObject.stateKey]: reducerObject.decode(urlParam) || reducerObject.defaultValue
+            [reducerObject.stateKey]: isUndefined(decodedValue) ?
+              reducerObject.defaultValue :
+              decodedValue
           } : acc;
         }
         const reducerObj = Object
@@ -218,16 +222,18 @@ class ParamsRegistery {
   /**
    * If we need to go to a route and also set a new URL param, this method can be used to retrieve
    * the encoded value
-   * @param additionalParams
+   * @param parameters
    * @param route
+   * @param encode Tell if we should encode the parameters values
    * @returns {*}
    */
-  getNextQueries(additionalParams, route) {
-    return Object.entries(additionalParams).reduce((acc, [parameter, value]) => {
-      const encode = get(this.result, `${parameter}.routes[${route}].encode`);
-      return encode ? {
+  getNextQueries(parameters, route, encode = true) {
+    return Object.entries(parameters).reduce((acc, [parameter, value]) => {
+      const encodeFn = get(this.result, `${parameter}.routes[${route}].encode`, (val) => val);
+      const valueToSet = encode ? encodeFn(value) : value;
+      return encodeFn ? {
         ...acc,
-        [parameter]: encode(value)
+        [parameter]: valueToSet
       } : acc;
     }, {});
   }

@@ -7,10 +7,7 @@ import Footer from '../components/Footer/Footer';
 import PreviewVideo from '../components/PreviewVideo/PreviewVideo';
 import HomepageAddressBlock from '../../homepage/components/address-block/HomepageAddressBlock';
 import HomepageBlock from '../../homepage/components/block/HomepageBlock';
-import {
-  toDatasets,
-  toPanoramaAndPreserveQuery
-} from '../../store/redux-first-router';
+import { toDatasets, toPanoramaAndPreserveQuery } from '../../store/redux-first-router/actions';
 
 const HOMEPAGE_CONFIG = {
   PANORAMA: {

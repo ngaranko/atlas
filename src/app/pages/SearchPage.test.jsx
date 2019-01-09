@@ -3,11 +3,11 @@ import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 
 import { getDataSearchLocation } from '../../shared/ducks/data-search/selectors';
-import { preserveQuery } from '../../store/redux-first-router';
+import { preserveQuery } from '../../store/redux-first-router/actions';
 import SearchPage from './SearchPage';
 
 jest.mock('../../shared/ducks/data-search/selectors');
-jest.mock('../../store/redux-first-router');
+jest.mock('../../store/redux-first-router/actions');
 
 // jest.mock();
 

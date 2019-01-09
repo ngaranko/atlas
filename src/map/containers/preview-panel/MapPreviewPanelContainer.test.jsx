@@ -21,12 +21,12 @@ import {
 } from '../../../panorama/ducks/preview/panorama-preview';
 import { getLocationId } from '../../ducks/map/map-selectors';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
+import { getDetailLocation } from '../../../store/redux-first-router/selectors';
 import {
-  getDetailLocation,
   toDataSearchLocation,
   toMap,
   toPanoramaAndPreserveQuery
-} from '../../../store/redux-first-router';
+} from '../../../store/redux-first-router/actions';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 
 jest.mock('../../../shared/ducks/detail/selectors');
@@ -36,7 +36,8 @@ jest.mock('../../ducks/detail/map-detail');
 jest.mock('../../ducks/map/map-selectors');
 jest.mock('../../../panorama/ducks/preview/panorama-preview');
 jest.mock('../../../shared/ducks/selection/selection');
-jest.mock('../../../store/redux-first-router');
+jest.mock('../../../store/redux-first-router/selectors');
+jest.mock('../../../store/redux-first-router/actions');
 jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
 
 describe('MapPreviewPanelContainer', () => {

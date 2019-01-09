@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import { LOCATION } from '../store/redux-first-router/constants';
 import AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest';
 import ErrorMessageReducer from '../shared/ducks/error-message';
 import PageReducer from '../shared/ducks/page/page';
@@ -39,7 +40,7 @@ export default (routeReducer) => (oldState = {}, action) => {
     [USER]: UserReducer,
     mapLayers,
     autoSuggest: AutoSuggestReducer,
-    location: routeReducer,
+    [LOCATION]: routeReducer,
     [DETAIL]: DetailReducer,
     [DATA_SEARCH_REDUCER]: DataSearchReducer,
     [SELECTION]: SelectionReducer,
