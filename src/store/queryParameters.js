@@ -148,16 +148,23 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.ZOOM, (routes) => {
-    routes.add([routing.map.type, routing.dataSearch.type], MAP, 'zoom', {
+    routes.add([
+      routing.map.type,
+      routing.dataSearch.type,
+      routing.dataDetail.type
+    ], MAP, 'zoom', {
       defaultValue: mapInitialState.zoom,
       decode: (val) => parseFloat(val) || mapInitialState.zoom,
       selector: getMapZoom
     });
   })
   .addParameter(PARAMETERS.LEGEND, (routes) => {
-    routes.add(routing.map.type, MAP, 'mapPanelActive', {
+    routes.add([
+      routing.map.type,
+      routing.dataDetail.type
+    ], MAP, 'mapPanelActive', {
       defaultValue: mapInitialState.mapPanelActive,
-      decode: (val) => val === 'true',
+      decode: (val) => val === true,
       selector: isMapPanelActive
     });
   })
@@ -202,8 +209,8 @@ export default paramsRegistry
       decode: (val) => (val && val.length ? val.split(',') : panoramaInitialState.reference),
       selector: getReference,
       encode: (selectorResult) => (selectorResult.length ?
-          selectorResult.join() :
-          panoramaInitialState.reference
+        selectorResult.join() :
+        panoramaInitialState.reference
       )
     }, false);
   })
@@ -232,24 +239,27 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.LAYERS, (routes) => {
-    routes.add(routing.map.type, MAP, 'overlays', {
+    routes.add([
+      routing.map.type,
+      routing.dataDetail.type
+    ], MAP, 'overlays', {
       defaultValue: mapInitialState.overlays,
       decode: (val) => {
         try {
-          return atob(val).split('|').map((obj) => {
+          return val ? atob(val).split('|').map((obj) => {
             const layerInfo = obj.split(':');
             return { id: layerInfo[0], isVisible: !!parseInt(layerInfo[1], 0) };
-          });
+          }) : mapInitialState.overlays;
         } catch (e) {
           return mapInitialState.overlays;
         }
       },
       selector: getMapOverlays,
       encode: (selectorResult) => (
-        btoa(
-          selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
+          btoa(
+            selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
+          )
         )
-      )
     });
   })
   .addParameter(PARAMETERS.LOCATION, (routes) => {

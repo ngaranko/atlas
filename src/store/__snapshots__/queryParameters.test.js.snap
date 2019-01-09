@@ -142,6 +142,15 @@ Object {
   },
   "lagen": Object {
     "routes": Object {
+      "atlasRouter/DATA_DETAIL": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Array [],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "overlays",
+      },
       "atlasRouter/MAP": Object {
         "addHistory": true,
         "decode": [Function],
@@ -155,6 +164,15 @@ Object {
   },
   "legenda": Object {
     "routes": Object {
+      "atlasRouter/DATA_DETAIL": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": true,
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "mapPanelActive",
+      },
       "atlasRouter/MAP": Object {
         "addHistory": true,
         "decode": [Function],
@@ -398,6 +416,15 @@ Object {
   },
   "zoom": Object {
     "routes": Object {
+      "atlasRouter/DATA_DETAIL": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": 11,
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "zoom",
+      },
       "atlasRouter/MAP": Object {
         "addHistory": true,
         "decode": [Function],
