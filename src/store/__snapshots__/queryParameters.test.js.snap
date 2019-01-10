@@ -41,6 +41,18 @@ Object {
         "selector": [Function],
         "stateKey": "viewCenter",
       },
+      "atlasRouter/DATA_DETAIL": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Array [
+          52.3731081,
+          4.8932945,
+        ],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "viewCenter",
+      },
       "atlasRouter/DATA_GEO_SEARCH": Object {
         "addHistory": true,
         "decode": [Function],
@@ -161,6 +173,15 @@ Object {
         "selector": [Function],
         "stateKey": "filters",
       },
+      "atlasRouter/SEARCH_DATA_CATEGORY": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Object {},
+        "encode": [Function],
+        "reducerKey": "filter",
+        "selector": [Function],
+        "stateKey": "filters",
+      },
     },
   },
   "geo": Object {
@@ -237,6 +258,24 @@ Object {
   },
   "legenda": Object {
     "routes": Object {
+      "atlasRouter/ADDRESSES": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": true,
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "mapPanelActive",
+      },
+      "atlasRouter/CADASTRAL_OBJECTS": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": true,
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "mapPanelActive",
+      },
       "atlasRouter/DATA_DETAIL": Object {
         "addHistory": true,
         "decode": [Function],
@@ -247,6 +286,15 @@ Object {
         "stateKey": "mapPanelActive",
       },
       "atlasRouter/DATA_GEO_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": true,
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "mapPanelActive",
+      },
+      "atlasRouter/ESTABLISHMENTS": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": true,
@@ -482,6 +530,24 @@ Object {
   },
   "zoom": Object {
     "routes": Object {
+      "atlasRouter/ADDRESSES": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": 11,
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "zoom",
+      },
+      "atlasRouter/CADASTRAL_OBJECTS": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": 11,
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "zoom",
+      },
       "atlasRouter/DATA_DETAIL": Object {
         "addHistory": true,
         "decode": [Function],
@@ -492,6 +558,15 @@ Object {
         "stateKey": "zoom",
       },
       "atlasRouter/DATA_GEO_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": 11,
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "zoom",
+      },
+      "atlasRouter/ESTABLISHMENTS": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": 11,

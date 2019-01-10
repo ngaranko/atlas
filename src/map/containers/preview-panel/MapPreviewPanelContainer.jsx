@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  getPageActionEndpoint,
+  toDetailFromEndpoint,
   toGeoSearch,
   toMap,
   toPanoramaAndPreserveQuery
@@ -50,8 +50,8 @@ const mapDispatchToProps = (dispatch) => ({
     onSearchMaximize: toGeoSearch,
     openPano: toPanoramaAndPreserveQuery
   }, dispatch),
-  openPreviewDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP)),
-  openDetail: (endpoint) => dispatch(getPageActionEndpoint(endpoint, DETAIL_VIEW.MAP_DETAIL))
+  openPreviewDetail: (endpoint) => dispatch(toDetailFromEndpoint(endpoint, DETAIL_VIEW.MAP)),
+  openDetail: (endpoint) => dispatch(toDetailFromEndpoint(endpoint, DETAIL_VIEW.MAP_DETAIL))
 });
 
 /* eslint-enable react/no-unused-prop-types */

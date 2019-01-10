@@ -91,7 +91,7 @@ const getDetailPageData = (endpoint) => {
     id: matches[3]
   };
 };
-export const getPageActionEndpoint = (endpoint, view) => {
+export const toDetailFromEndpoint = (endpoint, view) => {
   const { type, subtype, id } = getDetailPageData(endpoint);
   return toDataDetail(id, type, subtype, {
     [PARAMETERS.VIEW]: view

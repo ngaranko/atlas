@@ -59,24 +59,35 @@ import {
 import PARAMETERS from './parameters';
 import paramsRegistry from './params-registry';
 
+const routesWithSearch = [
+  routing.dataQuerySearch.type,
+  routing.dataSearchCategory.type,
+  routing.searchDatasets.type
+];
+
+const routesWithDataSelection = [
+  routing.addresses.type,
+  routing.cadastralObjects.type,
+  routing.establishments.type
+];
+
+const routesWithMapActive = [
+  ...routesWithDataSelection,
+  routing.home.type,
+  routing.dataGeoSearch.type,
+  routing.dataDetail.type
+];
+
 export default paramsRegistry
   .addParameter(PARAMETERS.QUERY, (routes) => {
-    routes.add([
-      routing.dataQuerySearch.type,
-      routing.dataSearchCategory.type,
-      routing.searchDatasets.type
-    ], DATA_SEARCH_REDUCER, 'query', {
+    routes.add(routesWithSearch, DATA_SEARCH_REDUCER, 'query', {
       selector: getSearchQuery,
       defaultValue: dataSearchInitialState.query
     });
   })
   .addParameter(PARAMETERS.PAGE, (routes) => {
     routes
-      .add([
-        routing.addresses.type,
-        routing.establishments.type,
-        routing.cadastralObjects.type
-      ], DATA_SELECTION, 'page', {
+      .add(routesWithDataSelection, DATA_SELECTION, 'page', {
         defaultValue: dataSelectionInitialState.page,
         selector: getDataSelectionPage,
         decode: (value) => (Number.isInteger(value) ? parseFloat(value) : value)
@@ -88,11 +99,7 @@ export default paramsRegistry
       });
   })
   .addParameter(PARAMETERS.GEO, (routes) => {
-    routes.add([
-      routing.addresses.type,
-      routing.establishments.type,
-      routing.cadastralObjects.type
-    ], DATA_SELECTION, 'geometryFilter', {
+    routes.add(routesWithDataSelection, DATA_SELECTION, 'geometryFilter', {
       selector: getGeometryFilters,
       encode: ({ markers, description }) => {
         if (markers && description) {
@@ -121,11 +128,7 @@ export default paramsRegistry
   })
   .addParameter(PARAMETERS.VIEW, (routes) => {
     routes
-      .add([
-        routing.addresses.type,
-        routing.establishments.type,
-        routing.cadastralObjects.type
-      ], DATA_SELECTION, 'view', {
+      .add(routesWithDataSelection, DATA_SELECTION, 'view', {
         selector: getDataSelectionView,
         decode: (val) => PARAMS_TO_VIEWS[val],
         encode: (val) => VIEWS_TO_PARAMS[val]
@@ -154,13 +157,7 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.VIEW_CENTER, (routes) => {
-    routes.add([
-      routing.home.type,
-      routing.dataGeoSearch.type,
-      routing.addresses.type,
-      routing.establishments.type,
-      routing.cadastralObjects.type
-    ], MAP, 'viewCenter', {
+    routes.add(routesWithMapActive, MAP, 'viewCenter', {
       defaultValue: mapInitialState.viewCenter,
       decode: (val = mapInitialState.viewCenter.join(',')) => val.split(',').map((ltLng) => normalizeCoordinate(parseFloat(ltLng), 7)),
       encode: (selectorResult) => selectorResult.join(','),
@@ -168,22 +165,14 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.ZOOM, (routes) => {
-    routes.add([
-      routing.home.type,
-      routing.dataGeoSearch.type,
-      routing.dataDetail.type
-    ], MAP, 'zoom', {
+    routes.add(routesWithMapActive, MAP, 'zoom', {
       defaultValue: mapInitialState.zoom,
       decode: (val) => parseFloat(val) || mapInitialState.zoom,
       selector: getMapZoom
     });
   })
   .addParameter(PARAMETERS.LEGEND, (routes) => {
-    routes.add([
-      routing.home.type,
-      routing.dataGeoSearch.type,
-      routing.dataDetail.type
-    ], MAP, 'mapPanelActive', {
+    routes.add(routesWithMapActive, MAP, 'mapPanelActive', {
       defaultValue: mapInitialState.mapPanelActive,
       decode: (val) => val === 'true',
       selector: isMapPanelActive
@@ -223,11 +212,8 @@ export default paramsRegistry
   .addParameter(PARAMETERS.FILTERS, (routes) => {
     routes.add([
       routing.datasets.type,
-      routing.searchDatasets.type,
-      routing.dataQuerySearch.type,
-      routing.addresses.type,
-      routing.cadastralObjects.type,
-      routing.establishments.type
+      ...routesWithSearch,
+      ...routesWithDataSelection
     ], FILTER, 'filters', {
       defaultValue: filterInitialState.filters,
       decode: (val) => {
@@ -249,8 +235,8 @@ export default paramsRegistry
       decode: (val) => (val && val.length ? val.split(',') : panoramaInitialState.reference),
       selector: getReference,
       encode: (selectorResult) => (selectorResult.length ?
-        selectorResult.join() :
-        panoramaInitialState.reference
+          selectorResult.join() :
+          panoramaInitialState.reference
       )
     }, false);
   })
@@ -297,10 +283,10 @@ export default paramsRegistry
       },
       selector: getMapOverlays,
       encode: (selectorResult) => (
-          btoa(
-            selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
-          )
+        btoa(
+          selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
         )
+      )
     });
   })
   .addParameter(PARAMETERS.LOCATION, (routes) => {
@@ -315,7 +301,7 @@ export default paramsRegistry
             panoramaInitialState.location
         )
       })
-      .add([routing.dataGeoSearch.type], DATA_SEARCH_REDUCER, 'geoSearch', {
+      .add(routing.dataGeoSearch.type, DATA_SEARCH_REDUCER, 'geoSearch', {
         defaultValue: null,
         selector: getDataSearchLocation,
         encode: (selectorResult) => {
