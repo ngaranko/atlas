@@ -22,7 +22,6 @@ import PARAMETERS from '../../../../src/store/parameters';
 
         vm.themes = CATALOGUS_THEMES_CONFIG.map(theme => {
             const linkTo = preserveQuery(toDatasetsWithFilter(), {
-                // eslint-disable-next-line angular/json-functions
                 [PARAMETERS.FILTERS]: { groups: theme.slug }
             });
             return {

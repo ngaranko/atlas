@@ -9,7 +9,7 @@ import { toDatasetsTableWithFilter } from '../../../../src/store/redux-first-rou
         .module('dpDetail')
         .component('dpDataSelectionLinks', {
             bindings: {
-                activeFilters: '='
+                activeFilters: '<'
             },
             templateUrl: 'modules/detail/components/data-selection-links/data-selection-links.html',
             controller: DpDataSelectionLinksController,
@@ -20,10 +20,12 @@ import { toDatasetsTableWithFilter } from '../../../../src/store/redux-first-rou
         var vm = this;
         vm.eigendommen = features.eigendommen;
 
-        vm.getBAG = toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.bag, vm.activeFilters);
+        this.$onChanges = (changes) => {
+            vm.getBAG = toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.bag, vm.activeFilters);
 
-        vm.getHR = toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.hr, vm.activeFilters);
+            vm.getHR = toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.hr, vm.activeFilters);
 
-        vm.getBRK = toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.brk, vm.activeFilters);
+            vm.getBRK = toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.brk, vm.activeFilters);
+        };
     }
 })();
