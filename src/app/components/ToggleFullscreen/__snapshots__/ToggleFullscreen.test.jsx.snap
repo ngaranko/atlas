@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ToggleFullscreen actions rendering should render with fullscreen is turned off 1`] = `
-<Button
+<IconButton
   alignLeft={false}
+  icon="minimize"
   onClick={
     [MockFunction] {
       "calls": Array [
@@ -12,17 +13,13 @@ exports[`ToggleFullscreen actions rendering should render with fullscreen is tur
     }
   }
   title="ABC verkleinen"
->
-  <Icon
-    alignLeft={false}
-    icon="minimize"
-  />
-</Button>
+/>
 `;
 
 exports[`ToggleFullscreen actions rendering should render with fullscreen is turned on 1`] = `
-<Button
+<IconButton
   alignLeft={false}
+  icon="minimize"
   onClick={
     [MockFunction] {
       "calls": Array [
@@ -32,10 +29,5 @@ exports[`ToggleFullscreen actions rendering should render with fullscreen is tur
     }
   }
   title="ABC verkleinen"
->
-  <Icon
-    alignLeft={false}
-    icon="minimize"
-  />
-</Button>
+/>
 `;

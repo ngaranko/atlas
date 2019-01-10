@@ -22,8 +22,7 @@ import { getOrientation, initialize, loadScene } from '../services/marzipano/mar
 import StatusBar from '../components/StatusBar/StatusBar';
 import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullscreen';
 import { getPanorama, getPanoramaLocation, getReference } from '../ducks/selectors';
-import Button from '../../app/components/Button/Button';
-import Icon from '../../app/components/Icon/Icon';
+import IconButton from '../../app/components/IconButton/IconButton';
 import { getMapDetail } from '../../map/ducks/detail/map-detail';
 
 class PanoramaContainer extends React.Component {
@@ -129,14 +128,13 @@ class PanoramaContainer extends React.Component {
           alignLeft
         />
 
-        <Button
+        <IconButton
           onClick={() => {
             onClose(panoramaLocation, detailReference);
           }}
           title="Sluit panorama"
-        >
-          <Icon icon="cross" />
-        </Button>
+          icon="cross"
+        />
 
         {(panoramaState.date && panoramaState.location) ? (
           <StatusBar
