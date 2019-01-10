@@ -22,14 +22,14 @@ export const VIEWS = {
   MAP: 'MAP'
 };
 
-export const CONSTANTS_PARAMS = {
+export const VIEWS_TO_PARAMS = {
   [VIEWS.LIST]: 'lijst-kaart',
   [VIEWS.MAP]: 'tabel',
   [VIEWS.TABLE]: 'kaart'
 };
 
-export const PARAMS_CONSTANTS =
-  Object.entries(CONSTANTS_PARAMS).reduce((acc, [key, param]) => ({ ...acc, [param]: key }), {});
+export const PARAMS_TO_VIEWS =
+  Object.entries(VIEWS_TO_PARAMS).reduce((acc, [key, param]) => ({ ...acc, [param]: key }), {});
 
 export const DATASETS = {
   BAG: 'bag',

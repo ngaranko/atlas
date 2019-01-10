@@ -24,9 +24,9 @@ import {
   getSearchQuery
 } from '../shared/ducks/data-search/selectors';
 import {
-  CONSTANTS_PARAMS,
+  VIEWS_TO_PARAMS,
   initialState as dataSelectionInitialState,
-  PARAMS_CONSTANTS
+  PARAMS_TO_VIEWS
 } from '../shared/ducks/data-selection/constants';
 import { DATA_SELECTION } from '../shared/ducks/data-selection/reducer';
 import {
@@ -122,8 +122,8 @@ export default paramsRegistry
         routing.cadastralObjects.type
       ], DATA_SELECTION, 'view', {
         selector: getDataSelectionView,
-        decode: (val) => PARAMS_CONSTANTS[val],
-        encode: (val) => CONSTANTS_PARAMS[val]
+        decode: (val) => PARAMS_TO_VIEWS[val],
+        encode: (val) => VIEWS_TO_PARAMS[val]
       })
       .add(routing.dataDetail.type, DETAIL, 'view', {
         selector: getDetailView,

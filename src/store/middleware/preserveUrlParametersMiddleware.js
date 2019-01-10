@@ -11,8 +11,10 @@ const preserveUrlParametersMiddleware = ({ getState }) => (next) => (action) => 
         ...nextAction.meta,
         query: {
           ...(nextAction.meta.query) ? nextAction.meta.query : {},
-          ...paramsRegistry.getNextQueries(getLocationQuery(getState()), action.type, false),
-          ...(additionalParams) ? paramsRegistry.getNextQueries(additionalParams, action.type) : {}
+          ...paramsRegistry.getParametersForRoute(getLocationQuery(getState()), action.type, false),
+          ...(additionalParams) ?
+            paramsRegistry.getParametersForRoute(additionalParams, action.type) :
+            {}
         }
       }
     };

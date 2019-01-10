@@ -221,13 +221,13 @@ class ParamsRegistery {
 
   /**
    * If we need to go to a route and also set a new URL param, this method can be used to retrieve
-   * the encoded value
+   * the values for that specific route
    * @param parameters
    * @param route
    * @param encode Tell if we should encode the parameters values
    * @returns {*}
    */
-  getNextQueries(parameters, route, encode = true) {
+  getParametersForRoute(parameters, route, encode = true) {
     return Object.entries(parameters).reduce((acc, [parameter, value]) => {
       const encodeFn = get(this.result, `${parameter}.routes[${route}].encode`, (val) => val);
       const valueToSet = encode ? encodeFn(value) : value;
