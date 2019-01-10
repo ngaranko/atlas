@@ -2,6 +2,8 @@ import get from 'lodash.get';
 import { routing } from '../../../app/routes';
 import paramsRegistry from '../../../store/params-registry';
 import PARAMETERS from '../../../store/parameters';
+import PAGES from '../../../app/pages';
+import { shouldResetState } from '../../../store/redux-first-router';
 
 const REDUCER_KEY = 'autoSuggest';
 export { REDUCER_KEY as AUTO_SUGGEST };
@@ -20,6 +22,11 @@ const initialState = {
 };
 
 export default function AutoSuggestReducer(state = initialState, action) {
+  // cleanup the state for this reducer when not on the search routes
+  if (shouldResetState(action, [PAGES.DATA_SEARCH, PAGES.SEARCH_DATASETS])) {
+    return initialState;
+  }
+
   const enrichedState = {
     ...state,
     ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action)

@@ -1,16 +1,6 @@
-import {
-  normalizeCoordinate,
-  parseLocationString
-} from '../shared/services/coordinate-reference-system';
-import paramsRegistry from './params-registry';
 import { routing } from '../app/routes';
 import { DATA_SEARCH_REDUCER } from '../shared/ducks/data-search/reducer';
 import { initialState as dataSearchInitialState } from '../shared/ducks/data-search/constants';
-import {
-  getDataSearchLocation,
-  getSearchCategory,
-  getSearchQuery
-} from '../shared/ducks/data-search/selectors';
 import {
   getDataSelectionPage,
   getDataSelectionView,
@@ -30,8 +20,8 @@ import {
   getMapZoom,
   isMapPanelActive
 } from '../map/ducks/map/map-selectors';
-import { PANORAMA } from '../panorama/ducks/reducer';
 import { initialState as panoramaInitialState } from '../panorama/ducks/constants';
+import { PANORAMA } from '../panorama/ducks/reducer';
 import {
   getPanoramaHeading,
   getPanoramaLocation,
@@ -40,7 +30,12 @@ import {
   getReference
 } from '../panorama/ducks/selectors';
 import {
-  getFilters,
+  getDataSearchLocation,
+  getSearchCategory,
+  getSearchQuery
+} from '../shared/ducks/data-search/selectors';
+import {
+  getFiltersWithoutShape,
   initialState as filterInitialState,
   REDUCER_KEY as FILTER
 } from '../shared/ducks/filters/filters';
@@ -51,7 +46,12 @@ import {
   isPrintMode,
   UI
 } from '../shared/ducks/ui/ui';
+import {
+  normalizeCoordinate,
+  parseLocationString
+} from '../shared/services/coordinate-reference-system';
 import PARAMETERS from './parameters';
+import paramsRegistry from './params-registry';
 
 export default paramsRegistry
   .addParameter(PARAMETERS.QUERY, (routes) => {
@@ -152,16 +152,23 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.ZOOM, (routes) => {
-    routes.add([routing.map.type, routing.dataSearch.type], MAP, 'zoom', {
+    routes.add([
+      routing.map.type,
+      routing.dataSearch.type,
+      routing.dataDetail.type
+    ], MAP, 'zoom', {
       defaultValue: mapInitialState.zoom,
       decode: (val) => parseFloat(val) || mapInitialState.zoom,
       selector: getMapZoom
     });
   })
   .addParameter(PARAMETERS.LEGEND, (routes) => {
-    routes.add(routing.map.type, MAP, 'mapPanelActive', {
+    routes.add([
+      routing.map.type,
+      routing.dataDetail.type
+    ], MAP, 'mapPanelActive', {
       defaultValue: mapInitialState.mapPanelActive,
-      decode: (val) => val === 'true',
+      decode: (val) => val === true,
       selector: isMapPanelActive
     });
   })
@@ -194,7 +201,7 @@ export default paramsRegistry
           return {};
         }
       },
-      selector: getFilters,
+      selector: getFiltersWithoutShape,
       encode: (selectorResult = {}) => (
         Object.keys(selectorResult).length ? btoa(JSON.stringify(selectorResult)) : undefined
       )
@@ -206,8 +213,8 @@ export default paramsRegistry
       decode: (val) => (val && val.length ? val.split(',') : panoramaInitialState.reference),
       selector: getReference,
       encode: (selectorResult) => (selectorResult.length ?
-          selectorResult.join() :
-          panoramaInitialState.reference
+        selectorResult.join() :
+        panoramaInitialState.reference
       )
     }, false);
   })
@@ -236,24 +243,27 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.LAYERS, (routes) => {
-    routes.add(routing.map.type, MAP, 'overlays', {
+    routes.add([
+      routing.map.type,
+      routing.dataDetail.type
+    ], MAP, 'overlays', {
       defaultValue: mapInitialState.overlays,
       decode: (val) => {
         try {
-          return atob(val).split('|').map((obj) => {
+          return val ? atob(val).split('|').map((obj) => {
             const layerInfo = obj.split(':');
             return { id: layerInfo[0], isVisible: !!parseInt(layerInfo[1], 0) };
-          });
+          }) : mapInitialState.overlays;
         } catch (e) {
           return mapInitialState.overlays;
         }
       },
       selector: getMapOverlays,
       encode: (selectorResult) => (
-        btoa(
-          selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
+          btoa(
+            selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
+          )
         )
-      )
     });
   })
   .addParameter(PARAMETERS.LOCATION, (routes) => {

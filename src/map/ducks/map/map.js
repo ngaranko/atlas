@@ -51,6 +51,13 @@ export default function MapReducer(state = initialState, action) {
 
   switch (action.type) {
     case routing.dataDetail.type:
+      return {
+        ...enrichedState,
+        overlays: enrichedState.overlays ? [...enrichedState.overlays.filter(
+          (overlay) => !isPanoLayer(overlay)
+        )] : []
+      };
+
     case routing.dataSearch.type:
     case routing.addresses.type:
     case routing.cadastralObjects.type:
@@ -170,10 +177,17 @@ export default function MapReducer(state = initialState, action) {
       };
 
     case routing.home.type:
-    case MAP_CLEAR:
       return {
         ...state,
         overlays: initialState.overlays,
+        drawingMode: initialState.drawingMode,
+        shapeDistanceTxt: initialState.shapeDistanceTxt,
+        shapeAreaTxt: initialState.shapeAreaTxt
+      };
+
+    case MAP_CLEAR:
+      return {
+        ...state,
         drawingMode: initialState.drawingMode,
         shapeDistanceTxt: initialState.shapeDistanceTxt,
         shapeAreaTxt: initialState.shapeAreaTxt
