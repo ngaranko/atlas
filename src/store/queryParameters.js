@@ -16,6 +16,7 @@ import { initialState as mapInitialState, MAP } from '../map/ducks/map/map';
 import {
   getCenter,
   getMapOverlays,
+  getMapView,
   getMapZoom,
   isMapPanelActive
 } from '../map/ducks/map/map-selectors';
@@ -32,12 +33,12 @@ import {
 import {
   getDataSearchLocation,
   getSearchCategory,
-  getSearchQuery
+  getSearchQuery, getView
 } from '../shared/ducks/data-search/selectors';
 import {
-  VIEWS_TO_PARAMS,
   initialState as dataSelectionInitialState,
-  PARAMS_TO_VIEWS
+  PARAMS_TO_VIEWS,
+  VIEWS_TO_PARAMS
 } from '../shared/ducks/data-selection/constants';
 import {
   getFiltersWithoutShape,
@@ -61,7 +62,7 @@ import paramsRegistry from './params-registry';
 export default paramsRegistry
   .addParameter(PARAMETERS.QUERY, (routes) => {
     routes.add([
-      routing.dataSearch.type,
+      routing.dataQuerySearch.type,
       routing.dataSearchCategory.type,
       routing.searchDatasets.type
     ], DATA_SEARCH_REDUCER, 'query', {
@@ -136,17 +137,26 @@ export default paramsRegistry
       .add(routing.panorama.type, PANORAMA, 'view', {
         defaultValue: panoramaInitialState.view,
         selector: getPanoramaView
+      })
+      .add(routing.dataGeoSearch.type, DATA_SEARCH_REDUCER, 'view', {
+        defaultValue: dataSearchInitialState.view,
+        selector: getView
+      })
+      .add(routing.home.type, MAP, 'view', {
+        defaultValue: mapInitialState.view,
+        selector: getMapView
       });
   })
   .addParameter(PARAMETERS.CATEGORY, (routes) => {
-    routes.add(routing.dataSearch.type, DATA_SEARCH_REDUCER, 'category', {
+    routes.add(routing.dataQuerySearch.type, DATA_SEARCH_REDUCER, 'category', {
       defaultValue: dataSelectionInitialState.category,
       selector: getSearchCategory
     });
   })
   .addParameter(PARAMETERS.VIEW_CENTER, (routes) => {
     routes.add([
-      routing.map.type,
+      routing.home.type,
+      routing.dataGeoSearch.type,
       routing.addresses.type,
       routing.establishments.type,
       routing.cadastralObjects.type
@@ -159,8 +169,8 @@ export default paramsRegistry
   })
   .addParameter(PARAMETERS.ZOOM, (routes) => {
     routes.add([
-      routing.map.type,
-      routing.dataSearch.type,
+      routing.home.type,
+      routing.dataGeoSearch.type,
       routing.dataDetail.type
     ], MAP, 'zoom', {
       defaultValue: mapInitialState.zoom,
@@ -170,11 +180,12 @@ export default paramsRegistry
   })
   .addParameter(PARAMETERS.LEGEND, (routes) => {
     routes.add([
-      routing.map.type,
+      routing.home.type,
+      routing.dataGeoSearch.type,
       routing.dataDetail.type
     ], MAP, 'mapPanelActive', {
       defaultValue: mapInitialState.mapPanelActive,
-      decode: (val) => val === true,
+      decode: (val) => val === 'true',
       selector: isMapPanelActive
     });
   })
@@ -213,7 +224,7 @@ export default paramsRegistry
     routes.add([
       routing.datasets.type,
       routing.searchDatasets.type,
-      routing.dataSearch.type,
+      routing.dataQuerySearch.type,
       routing.addresses.type,
       routing.cadastralObjects.type,
       routing.establishments.type
@@ -244,7 +255,7 @@ export default paramsRegistry
     }, false);
   })
   .addParameter(PARAMETERS.EMBED_PREVIEW, (routes) => {
-    routes.add(routing.map.type, UI, 'isEmbedPreview', {
+    routes.add(routing.home.type, UI, 'isEmbedPreview', {
       defaultValue: UIInitialState.isEmbedPreview,
       selector: isEmbedPreview,
       encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
@@ -252,7 +263,7 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.EMBED, (routes) => {
-    routes.add(routing.map.type, UI, 'isEmbed', {
+    routes.add(routing.home.type, UI, 'isEmbed', {
       defaultValue: UIInitialState.isEmbed,
       selector: isEmbedded,
       encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
@@ -260,7 +271,7 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.PRINT, (routes) => {
-    routes.add(routing.map.type, UI, 'isPrintMode', {
+    routes.add(routing.home.type, UI, 'isPrintMode', {
       defaultValue: UIInitialState.isPrintMode,
       selector: isPrintMode,
       encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
@@ -269,7 +280,8 @@ export default paramsRegistry
   })
   .addParameter(PARAMETERS.LAYERS, (routes) => {
     routes.add([
-      routing.map.type,
+      routing.home.type,
+      routing.dataGeoSearch.type,
       routing.dataDetail.type
     ], MAP, 'overlays', {
       defaultValue: mapInitialState.overlays,
@@ -303,7 +315,7 @@ export default paramsRegistry
             panoramaInitialState.location
         )
       })
-      .add([routing.map.type, routing.dataSearch.type], DATA_SEARCH_REDUCER, 'geoSearch', {
+      .add([routing.dataGeoSearch.type], DATA_SEARCH_REDUCER, 'geoSearch', {
         defaultValue: null,
         selector: getDataSearchLocation,
         encode: (selectorResult) => {

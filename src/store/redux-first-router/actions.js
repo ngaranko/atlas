@@ -1,6 +1,7 @@
 import { ROUTER_NAMESPACE, routing } from '../../app/routes';
 import { DATASET_ROUTE_MAPPER } from '../../shared/ducks/data-selection/constants';
 import PARAMETERS from '../parameters';
+import { VIEWS } from '../../shared/ducks/data-search/constants';
 
 export const preserveQuery = (action, additionalParams = null) => ({
   ...action,
@@ -15,6 +16,7 @@ export const shouldResetState = (action, allowedRoutes = []) => (action.type &&
   action.type.startsWith(ROUTER_NAMESPACE) &&
   allowedRoutes.every((route) => !action.type.includes(route))
 );
+
 export const toDataDetail = (id, type, subtype, additionalParams = null) => preserveQuery({
   type: routing.dataDetail.type,
   payload: {
@@ -25,7 +27,7 @@ export const toDataDetail = (id, type, subtype, additionalParams = null) => pres
 }, additionalParams);
 
 const toDataSearch = (additionalParams = null) => ({
-  type: routing.dataSearch.type,
+  type: routing.dataQuerySearch.type,
   meta: {
     additionalParams
   }
@@ -36,8 +38,16 @@ export const toDataSearchLocation = (location) => (
     [PARAMETERS.LOCATION]: location
   })
 );
+
+export const toGeoSearch = (location, view = VIEWS.LIST) => preserveQuery({
+  type: routing.dataGeoSearch.type
+}, {
+  [PARAMETERS.LOCATION]: location,
+  [PARAMETERS.VIEW]: view
+});
+
 export const toDataSearchQuery = (searchQuery, filters, skipFetch = false) => ({
-  type: routing.dataSearch.type,
+  type: routing.dataQuerySearch.type,
   meta: {
     skipFetch,
     additionalParams: {
@@ -46,7 +56,13 @@ export const toDataSearchQuery = (searchQuery, filters, skipFetch = false) => ({
     }
   }
 });
-export const toMap = () => ({ type: routing.map.type });
+export const toMap = (additionalParams = null) => ({
+  type: routing.home.type,
+  meta: {
+    additionalParams
+  }
+});
+
 export const toPanorama = (id, additionalParams = null) => ({
   type: routing.panorama.type,
   payload: {

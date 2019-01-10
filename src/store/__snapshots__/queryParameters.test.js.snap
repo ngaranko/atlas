@@ -4,7 +4,7 @@ exports[`QueryParameters should match the snapshot 1`] = `
 Object {
   "category": Object {
     "routes": Object {
-      "atlasRouter/SEARCH_DATA": Object {
+      "atlasRouter/DATA_QUERY_SEARCH": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": undefined,
@@ -41,6 +41,18 @@ Object {
         "selector": [Function],
         "stateKey": "viewCenter",
       },
+      "atlasRouter/DATA_GEO_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Array [
+          52.3731081,
+          4.8932945,
+        ],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "viewCenter",
+      },
       "atlasRouter/ESTABLISHMENTS": Object {
         "addHistory": true,
         "decode": [Function],
@@ -53,7 +65,7 @@ Object {
         "selector": [Function],
         "stateKey": "viewCenter",
       },
-      "atlasRouter/MAP": Object {
+      "atlasRouter/HOME": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": Array [
@@ -69,7 +81,7 @@ Object {
   },
   "embed": Object {
     "routes": Object {
-      "atlasRouter/MAP": Object {
+      "atlasRouter/HOME": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": false,
@@ -82,7 +94,7 @@ Object {
   },
   "embed-preview": Object {
     "routes": Object {
-      "atlasRouter/MAP": Object {
+      "atlasRouter/HOME": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": false,
@@ -122,7 +134,7 @@ Object {
         "selector": [Function],
         "stateKey": "filters",
       },
-      "atlasRouter/ESTABLISHMENTS": Object {
+      "atlasRouter/DATA_QUERY_SEARCH": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": Object {},
@@ -131,7 +143,7 @@ Object {
         "selector": [Function],
         "stateKey": "filters",
       },
-      "atlasRouter/SEARCH_DATA": Object {
+      "atlasRouter/ESTABLISHMENTS": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": Object {},
@@ -203,7 +215,16 @@ Object {
         "selector": [Function],
         "stateKey": "overlays",
       },
-      "atlasRouter/MAP": Object {
+      "atlasRouter/DATA_GEO_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Array [],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "overlays",
+      },
+      "atlasRouter/HOME": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": Array [],
@@ -225,7 +246,16 @@ Object {
         "selector": [Function],
         "stateKey": "mapPanelActive",
       },
-      "atlasRouter/MAP": Object {
+      "atlasRouter/DATA_GEO_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": true,
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "mapPanelActive",
+      },
+      "atlasRouter/HOME": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": true,
@@ -238,7 +268,7 @@ Object {
   },
   "locatie": Object {
     "routes": Object {
-      "atlasRouter/MAP": Object {
+      "atlasRouter/DATA_GEO_SEARCH": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": null,
@@ -255,15 +285,6 @@ Object {
         "reducerKey": "panorama",
         "selector": [Function],
         "stateKey": "location",
-      },
-      "atlasRouter/SEARCH_DATA": Object {
-        "addHistory": true,
-        "decode": [Function],
-        "defaultValue": null,
-        "encode": [Function],
-        "reducerKey": "dataSearch",
-        "selector": [Function],
-        "stateKey": "geoSearch",
       },
     },
   },
@@ -322,7 +343,7 @@ Object {
   },
   "print": Object {
     "routes": Object {
-      "atlasRouter/MAP": Object {
+      "atlasRouter/HOME": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": false,
@@ -366,7 +387,7 @@ Object {
   },
   "term": Object {
     "routes": Object {
-      "atlasRouter/SEARCH_DATA": Object {
+      "atlasRouter/DATA_QUERY_SEARCH": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": "",
@@ -422,11 +443,29 @@ Object {
         "selector": [Function],
         "stateKey": "view",
       },
+      "atlasRouter/DATA_GEO_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "kaart",
+        "encode": [Function],
+        "reducerKey": "dataSearch",
+        "selector": [Function],
+        "stateKey": "view",
+      },
       "atlasRouter/ESTABLISHMENTS": Object {
         "addHistory": true,
         "decode": [Function],
         "encode": [Function],
         "reducerKey": "dataSelection",
+        "selector": [Function],
+        "stateKey": "view",
+      },
+      "atlasRouter/HOME": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "home",
+        "encode": [Function],
+        "reducerKey": "map",
         "selector": [Function],
         "stateKey": "view",
       },
@@ -452,7 +491,7 @@ Object {
         "selector": [Function],
         "stateKey": "zoom",
       },
-      "atlasRouter/MAP": Object {
+      "atlasRouter/DATA_GEO_SEARCH": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": 11,
@@ -461,7 +500,7 @@ Object {
         "selector": [Function],
         "stateKey": "zoom",
       },
-      "atlasRouter/SEARCH_DATA": Object {
+      "atlasRouter/HOME": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": 11,

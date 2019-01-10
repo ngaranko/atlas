@@ -11,11 +11,7 @@ import {
   setView as setPanoramaView
 } from '../ducks/actions';
 import PANORAMA_VIEW from '../ducks/panorama-view';
-import {
-  pageTypeToEndpoint,
-  toDataDetail,
-  toDataSearchLocation
-} from '../../store/redux-first-router/actions';
+import { toDataDetail, toGeoSearch, pageTypeToEndpoint } from '../../store/redux-first-router/actions';
 
 import { getOrientation, initialize, loadScene } from '../services/marzipano/marzipano';
 
@@ -166,7 +162,7 @@ const mapDispatchToProps = (dispatch) => ({
     if (reference.length) {
       dispatch(toDataDetail(...reference));
     } else {
-      dispatch(toDataSearchLocation(panoramaLocation));
+      dispatch(toGeoSearch(panoramaLocation));
     }
   }
 });

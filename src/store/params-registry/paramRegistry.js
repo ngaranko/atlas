@@ -13,6 +13,13 @@ import createHistory from 'history/createBrowserHistory';
  * reducer B also updates, as it is in sync with the url param.
  */
 class ParamsRegistery {
+  static orderQuery(query) {
+    return Object.entries(query).sort().reduce((acc, [key, value]) => ({
+      ...acc,
+      [key]: value
+    }), {});
+  }
+
   static getDefaultReducerSettings(reducerKey, stateKey, overrideOptions = {}) {
     const reducerSettingsKeys = {
       encode: 'encode',
@@ -161,10 +168,7 @@ class ParamsRegistery {
 
       return acc;
     }, {});
-    const orderedQuery = Object.entries(query).sort().reduce((acc, [key, value]) => ({
-      ...acc,
-      [key]: value
-    }), {});
+    const orderedQuery = ParamsRegistery.orderQuery(query);
 
     const searchQuery = queryString.stringify(orderedQuery);
     const currentPath = window.location.pathname;
@@ -201,17 +205,16 @@ class ParamsRegistery {
         if (reducerObject && reducerObject.reducerKey === reducerKey) {
           const urlParam = get(action, `meta.query[${parameter}]`);
           const decodedValue = reducerObject.decode(urlParam);
-          return (reducerObject.reducerKey === reducerKey) ? {
+          return {
             ...acc,
             [reducerObject.stateKey]: isUndefined(decodedValue) ?
               reducerObject.defaultValue :
               decodedValue
-          } : acc;
+          };
         }
         const reducerObj = Object
           .values(object.routes)
           .find((obj) => obj.reducerKey === reducerKey);
-
         return {
           ...acc,
           ...reducerObj ? { [reducerObj.stateKey]: reducerObj.defaultValue } : {}
@@ -229,11 +232,12 @@ class ParamsRegistery {
    */
   getParametersForRoute(parameters, route, encode = true) {
     return Object.entries(parameters).reduce((acc, [parameter, value]) => {
-      const encodeFn = get(this.result, `${parameter}.routes[${route}].encode`, (val) => val);
-      const valueToSet = encode ? encodeFn(value) : value;
+      const reducerObject = get(this.result, `${parameter}.routes[${route}]`, {});
+      const encodeFn = reducerObject.encode;
+      const valueToSet = (encode && encodeFn) ? encodeFn(value) : value;
       return encodeFn ? {
         ...acc,
-        [parameter]: valueToSet
+        ...(reducerObject.defaultValue !== valueToSet) ? { [parameter]: valueToSet } : {}
       } : acc;
     }, {});
   }

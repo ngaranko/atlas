@@ -11,9 +11,11 @@ import { getPanorama, getPanoramaHistory } from '../../../panorama/ducks/selecto
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
 import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
-import { setGeoLocation } from '../../../shared/ducks/data-search/actions';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 import { getImageDataByLocation } from '../../../panorama/services/panorama-api/panorama-api';
+import { toGeoSearch } from '../../../store/redux-first-router/actions';
+import { getPage } from '../../../store/redux-first-router/selectors';
+import { getView } from '../../../shared/ducks/data-search/selectors';
 
 describe('watchMapClick', () => {
   const action = { type: SET_MAP_CLICK_LOCATION };
@@ -93,9 +95,9 @@ describe('switchClickAction', () => {
 
   const mapPanelLayersWithSelection = [...mockPanelLayers, matchingPanelLayer];
 
-  const providePanorama = ({ selector }, next) => (
-    selector === getPanorama ? null : next()
-  );
+  const providePanorama = ({ selector }, next) => (selector === getPanorama ? null : next());
+  const providePage = ({ selector }, next) => (selector === getPage ? null : next());
+  const provideView = ({ selector }, next) => (selector === getView ? null : next());
 
   const provideMapLayers = ({ selector }, next) => (
     selector === getActiveMapLayers ||
@@ -123,6 +125,8 @@ describe('switchClickAction', () => {
       .provide({
         select: composeProviders(
           providePanorama,
+          providePage,
+          provideView,
           provideMapLayers,
           provideMapZoom,
           provideMapPanelLayers,
@@ -151,12 +155,14 @@ describe('switchClickAction', () => {
       .provide({
         select: composeProviders(
           providePanorama,
+          providePage,
+          provideView,
           provideMapZoom,
           provideMapPanelLayers,
           provideSelectionTypePoint
         )
       })
-      .put(setGeoLocation(payload.location))
+      .put(toGeoSearch(payload.location, 'kaart'))
       .run();
   });
 
