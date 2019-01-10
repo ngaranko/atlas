@@ -1,7 +1,7 @@
 import {
-    getDetailLocation,
     toPanoramaAndPreserveQuery
-} from '../../../../src/store/redux-first-router';
+} from '../../../../src/store/redux-first-router/actions';
+import { getDetailLocation } from '../../../../src/store/redux-first-router/selectors';
 
 (function () {
     'use strict';

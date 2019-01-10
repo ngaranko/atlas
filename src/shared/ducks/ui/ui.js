@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { VIEWS } from '../data-selection/constants';
-import { isMapPage, isPanoPage } from '../../../store/redux-first-router';
+import { isMapPage, isPanoPage } from '../../../store/redux-first-router/selectors';
 import { getDataSelectionView } from '../data-selection/selectors';
 import paramsRegistry from '../../../store/params-registry';
 

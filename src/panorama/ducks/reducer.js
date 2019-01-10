@@ -14,7 +14,7 @@ import {
   REDUCER_KEY
 } from './constants';
 import paramsRegistry from '../../store/params-registry';
-import { shouldResetState } from '../../store/redux-first-router';
+import { shouldResetState } from '../../store/redux-first-router/actions';
 
 export { REDUCER_KEY as PANORAMA };
 

@@ -1,4 +1,7 @@
-import { preserveQuery, toDatasetsWithFilter } from '../../../../src/store/redux-first-router';
+import {
+    preserveQuery,
+    toDatasetsWithFilter
+} from '../../../../src/store/redux-first-router/actions';
 import PARAMETERS from '../../../../src/store/parameters';
 
 (function () {

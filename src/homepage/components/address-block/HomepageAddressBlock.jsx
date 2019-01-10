@@ -5,7 +5,7 @@ import HomepageBlock from '../block/HomepageBlock';
 
 import { features } from '../../../shared/environment';
 import { routing } from '../../../app/routes';
-import { preserveQuery, toDatasetPage } from '../../../store/redux-first-router';
+import { preserveQuery, toDatasetPage } from '../../../store/redux-first-router/actions';
 import PARAMETERS from '../../../store/parameters';
 import { DATASETS, VIEWS } from '../../../shared/ducks/data-selection/constants';
 

@@ -15,11 +15,6 @@ export const ROUTE_DATASET_MAPPER = {
   [routing.establishments.type]: 'hr',
   [routing.addresses.type]: 'bag'
 };
-export const DATASET_ROUTE_MAPPER = {
-  hr: routing.establishments.type,
-  bag: routing.addresses.type,
-  brk: routing.cadastralObjects.type
-};
 
 export const VIEWS = {
   LIST: 'LIST',
@@ -27,10 +22,25 @@ export const VIEWS = {
   MAP: 'MAP'
 };
 
+export const VIEWS_TO_PARAMS = {
+  [VIEWS.LIST]: 'lijst-kaart',
+  [VIEWS.MAP]: 'tabel',
+  [VIEWS.TABLE]: 'kaart'
+};
+
+export const PARAMS_TO_VIEWS =
+  Object.entries(VIEWS_TO_PARAMS).reduce((acc, [key, param]) => ({ ...acc, [param]: key }), {});
+
 export const DATASETS = {
   BAG: 'bag',
   BRK: 'brk',
   HR: 'hr'
+};
+
+export const DATASET_ROUTE_MAPPER = {
+  [DATASETS.HR]: routing.establishments.type,
+  [DATASETS.BAG]: routing.addresses.type,
+  [DATASETS.BRK]: routing.cadastralObjects.type
 };
 
 export const initialState = {

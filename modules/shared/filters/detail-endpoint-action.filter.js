@@ -1,4 +1,4 @@
-import { getPageActionEndpoint } from '../../../src/store/redux-first-router';
+import { getPageActionEndpoint } from '../../../src/store/redux-first-router/actions';
 import { DETAIL_VIEW } from '../../../src/shared/ducks/detail/constants';
 
 (function () {

@@ -29,12 +29,8 @@ import {
   replaceBuurtcombinatie,
   search as vanillaSearch
 } from '../../services/search/search';
-import {
-  isDataSearch,
-  isMapActive,
-  isMapPage,
-  toDataSearchLocation
-} from '../../../store/redux-first-router';
+import { toDataSearchLocation } from '../../../store/redux-first-router/actions';
+import { isDataSearch, isMapActive, isMapPage } from '../../../store/redux-first-router/selectors';
 import { getMapZoom } from '../../../map/ducks/map/map-selectors';
 import ActiveOverlaysClass from '../../services/active-overlays/active-overlays';
 import { waitForAuthentication } from '../user/user';
