@@ -23,7 +23,7 @@ const environmentConfig = {
   [ENVIRONMENTS.DEVELOPMENT]: {
     API_ROOT: 'https://acc.api.data.amsterdam.nl/',
     ROOT: 'https://acc.data.amsterdam.nl/',
-    CACHE_EXPIRATION: 30 // minutes
+    CACHE_EXPIRATION: 0 // minutes
   }
 };
 

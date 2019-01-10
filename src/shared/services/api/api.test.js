@@ -36,7 +36,7 @@ describe('Api service', () => {
     });
 
     it('should return the response from fetch', async () => {
-      fetch.mockResponse(JSON.stringify(response), { status: 503 });
+      fetch.mockResponse(Promise.resolve((response), Promise.resolve({ ok: 503 })));
 
       expect(getWithToken(
         'http://localhost/',
