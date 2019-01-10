@@ -12,6 +12,7 @@ import {
 } from '../ducks/actions';
 import PANORAMA_VIEW from '../ducks/panorama-view';
 import {
+  pageTypeToEndpoint,
   toDataDetail,
   toDataSearchLocation
 } from '../../store/redux-first-router/actions';
@@ -23,6 +24,7 @@ import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullsc
 import { getPanorama, getPanoramaLocation, getReference } from '../ducks/selectors';
 import Button from '../../app/components/Button/Button';
 import Icon from '../../app/components/Icon/Icon';
+import { getMapDetail } from '../../map/ducks/detail/map-detail';
 
 class PanoramaContainer extends React.Component {
   constructor(props) {
@@ -43,11 +45,17 @@ class PanoramaContainer extends React.Component {
   }
 
   componentDidMount() {
+    const { detailReference, fetchMapDetail } = this.props;
     this.panoramaViewer = initialize(this.panoramaRef);
     this.loadPanoramaScene();
 
     if (this.panoramaViewer) {
       this.panoramaViewer.addEventListener('viewChange', this.updateOrientationThrottled);
+    }
+
+    if (detailReference.length > 0) {
+      const [id, type, subtype] = detailReference;
+      fetchMapDetail(pageTypeToEndpoint(type, subtype, id));
     }
   }
 
@@ -153,7 +161,8 @@ const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     setOrientation: setPanoramaOrientation,
     setView: setPanoramaView,
-    fetchPanoramaById: fetchPanoramaRequest
+    fetchPanoramaById: fetchPanoramaRequest,
+    fetchMapDetail: getMapDetail
   }, dispatch),
   onClose: (panoramaLocation, reference) => {
     if (reference.length) {
@@ -172,6 +181,7 @@ PanoramaContainer.propTypes = {
   detailReference: PropTypes.arrayOf(PropTypes.string).isRequired,
   panoramaLocation: PropTypes.arrayOf(PropTypes.any).isRequired,
   setOrientation: PropTypes.func.isRequired,
+  fetchMapDetail: PropTypes.func.isRequired,
   fetchPanoramaById: PropTypes.func.isRequired
 };
 
