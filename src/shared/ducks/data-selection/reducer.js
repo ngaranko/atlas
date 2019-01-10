@@ -1,3 +1,5 @@
+import PAGES from '../../../app/pages';
+import { shouldResetState } from '../../../store/redux-first-router/actions';
 import {
   FETCH_DATA_SELECTION_FAILURE,
   FETCH_DATA_SELECTION_REQUEST,
@@ -19,6 +21,9 @@ import paramsRegistry from '../../../store/params-registry';
 export { REDUCER_KEY as DATA_SELECTION };
 
 export default function reducer(state = initialState, action) {
+  if (shouldResetState(action, [PAGES.ADDRESSES, PAGES.ESTABLISHMENTS, PAGES.CADASTRAL_OBJECTS])) {
+    return initialState;
+  }
   const enrichedState = {
     ...state,
     ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action),

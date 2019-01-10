@@ -8,7 +8,7 @@ import {
   removeGeometryFilter
 } from '../../ducks/data-selection/actions';
 import { routing } from '../../../app/routes';
-import dataselectionConfig from '../../services/data-selection/data-selection-config';
+import dataSelectionConfig from '../../services/data-selection/data-selection-config';
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
 import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
 import {
@@ -17,13 +17,11 @@ import {
   getFiltersWithoutShape,
   REMOVE_FILTER
 } from '../../ducks/filters/filters';
+import { preserveQuery, toDatasetPage } from '../../../store/redux-first-router/actions';
+import { isDataSelectionPage } from '../../../store/redux-first-router/selectors';
 import {
-  isDataSelectionPage,
-  preserveQuery,
-  toDatasetPage
-} from '../../../store/redux-first-router';
-import {
-  FETCH_DATA_SELECTION_REQUEST, REMOVE_GEOMETRY_FILTER,
+  FETCH_DATA_SELECTION_REQUEST,
+  REMOVE_GEOMETRY_FILTER,
   SET_DATASET,
   SET_GEOMETRY_FILTER,
   SET_PAGE,
@@ -82,7 +80,7 @@ function* retrieveDataSelection(action) {
     }));
 
     // Check if markers need to be fetched
-    const { MAX_NUMBER_OF_CLUSTERED_MARKERS } = dataselectionConfig.datasets[dataset];
+    const { MAX_NUMBER_OF_CLUSTERED_MARKERS } = dataSelectionConfig.datasets[dataset];
     const markersShouldBeFetched = (
       view !== VIEWS.TABLE && result.numberOfRecords <= MAX_NUMBER_OF_CLUSTERED_MARKERS
     );
@@ -127,7 +125,6 @@ function* switchPage(additionalParams = {}) {
 
 function* setGeometryFilters() {
   const geometryFilters = yield select(getGeometryFilters);
-
   yield call(switchPage, {
     [PARAMETERS.GEO]: geometryFilters,
     [PARAMETERS.VIEW]: VIEWS.LIST

@@ -10,6 +10,7 @@ import { initialState as panoramaInitialState } from '../panorama/ducks/constant
 import { PANORAMA } from '../panorama/ducks/reducer';
 import {
   getPanoramaHeading,
+  getPanoramaHistory,
   getPanoramaLocation,
   getPanoramaPitch,
   getPanoramaView,
@@ -22,7 +23,11 @@ import {
   getSearchCategory,
   getSearchQuery
 } from '../shared/ducks/data-search/selectors';
-import { initialState as dataSelectionInitialState } from '../shared/ducks/data-selection/constants';
+import {
+  VIEWS_TO_PARAMS,
+  initialState as dataSelectionInitialState,
+  PARAMS_TO_VIEWS
+} from '../shared/ducks/data-selection/constants';
 import { DATA_SELECTION } from '../shared/ducks/data-selection/reducer';
 import {
   getDataSelectionPage,
@@ -69,7 +74,7 @@ export default paramsRegistry
       ], DATA_SELECTION, 'page', {
         defaultValue: dataSelectionInitialState.page,
         selector: getDataSelectionPage,
-        decode: (value) => parseFloat(value)
+        decode: (value) => (Number.isInteger(value) ? parseFloat(value) : value)
       })
       .add(routing.datasets.type, `${DATASETS}.${DATA}`, 'page', {
         defaultValue: datasetsDataInitialState.page,
@@ -117,7 +122,8 @@ export default paramsRegistry
         routing.cadastralObjects.type
       ], DATA_SELECTION, 'view', {
         selector: getDataSelectionView,
-        decode: (val) => val
+        decode: (val) => PARAMS_TO_VIEWS[val],
+        encode: (val) => VIEWS_TO_PARAMS[val]
       })
       .add(routing.dataDetail.type, DETAIL, 'view', {
         selector: getDetailView,
@@ -172,6 +178,25 @@ export default paramsRegistry
     routes.add(routing.panorama.type, PANORAMA, 'heading', {
       defaultValue: panoramaInitialState.heading,
       selector: getPanoramaHeading
+    });
+  })
+  .addParameter(PARAMETERS.PANORAMA_SET, (routes) => {
+    routes.add(routing.panorama.type, PANORAMA, 'history', {
+      defaultValue: panoramaInitialState.history,
+      selector: getPanoramaHistory,
+      encode: (selectorResult) => `${selectorResult.year}.${selectorResult.missionType}`,
+      decode: (val) => {
+        if (val) {
+          const [year, missionType] = val.split('.');
+          return {
+            year: parseFloat(year),
+            missionType,
+            label: `Alleen ${year} ${missionType}`,
+            layerName: `pano${year}${missionType}`
+          };
+        }
+        return val;
+      }
     });
   })
   .addParameter(PARAMETERS.PITCH, (routes) => {

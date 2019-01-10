@@ -73,7 +73,7 @@ describe('The dp-catalogus-themes', () => {
         expect(link).toHaveAttr('to', 'theme.linkTo');
         expect(scope.vm.themes[4].linkTo).toEqual({
             type: routing.datasets.type,
-            meta: { query: {} }
+            meta: { preserve: true, additionalParams: { filters: { groups: 'thema-e' } } }
         });
 
         store.dispatch.calls.reset();

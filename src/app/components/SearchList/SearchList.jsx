@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getPageActionEndpoint } from '../../../store/redux-first-router';
+import { getPageActionEndpoint } from '../../../store/redux-first-router/actions';
 import SearchListItem from '../SearchListItem/SearchListItem';
 import { DETAIL_VIEW } from '../../../shared/ducks/detail/constants';
 

@@ -3,7 +3,7 @@ import { routing } from '../../../app/routes';
 import paramsRegistry from '../../../store/params-registry';
 import PARAMETERS from '../../../store/parameters';
 import PAGES from '../../../app/pages';
-import { shouldResetState } from '../../../store/redux-first-router';
+import { shouldResetState } from '../../../store/redux-first-router/actions';
 
 const REDUCER_KEY = 'autoSuggest';
 export { REDUCER_KEY as AUTO_SUGGEST };

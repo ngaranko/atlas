@@ -9,7 +9,8 @@ import {
   isLoading as isDatasetsLoading
 } from '../../../shared/ducks/datasets/datasets';
 import { getFilters } from '../../../shared/ducks/filters/filters';
-import { getPage, toDataSearchQuery, toDatasetSearch } from '../../../store/redux-first-router';
+import { toDataSearchQuery, toDatasetSearch } from '../../../store/redux-first-router/actions';
+import { getPage } from '../../../store/redux-first-router/selectors';
 import QuerySearch from './QuerySearch';
 import { getUser } from '../../../shared/ducks/user/user';
 
