@@ -17,6 +17,7 @@ import { toGeoSearch } from '../../../store/redux-first-router/actions';
 import { getPage } from '../../../store/redux-first-router/selectors';
 import { getView as getDataSearchView, getView } from '../../../shared/ducks/data-search/selectors';
 import { getView as getDetailView } from '../../../shared/ducks/detail/selectors';
+import { getDataSelectionView } from '../../../shared/ducks/data-selection/selectors';
 
 describe('watchMapClick', () => {
   const action = { type: SET_MAP_CLICK_LOCATION };
@@ -101,6 +102,10 @@ describe('switchClickAction', () => {
   const provideDataSearchView = ({ selector }, next) =>
     (selector === getDataSearchView ? null : next());
   const provideDetailView = ({ selector }, next) => (selector === getDetailView ? null : next());
+  const provideDataSelectionView = ({ selector }, next) => (selector === getDataSelectionView ?
+    null :
+    next()
+  );
 
   const provideMapLayers = ({ selector }, next) => (
     selector === getActiveMapLayers ||
@@ -129,6 +134,7 @@ describe('switchClickAction', () => {
         select: composeProviders(
           providePage,
           provideDataSearchView,
+          provideDataSelectionView,
           provideDetailView,
           provideView,
           provideMapLayers,
@@ -160,6 +166,7 @@ describe('switchClickAction', () => {
         select: composeProviders(
           providePage,
           provideDataSearchView,
+          provideDataSelectionView,
           provideDetailView,
           provideView,
           provideMapZoom,

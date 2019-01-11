@@ -13,12 +13,19 @@ import { VIEWS } from '../../../shared/ducks/data-search/constants';
 import { getView as getDataSearchView } from '../../../shared/ducks/data-search/selectors';
 import { DETAIL_VIEW } from '../../../shared/ducks/detail/constants';
 import { getView as getDetailView } from '../../../shared/ducks/detail/selectors';
+import { getDataSelectionView } from '../../../shared/ducks/data-selection/selectors';
+import { VIEWS as DATA_SELECTION_VIEWS } from '../../../shared/ducks/data-selection/constants';
 
 const latitudeLongitudeToArray = (location) => [location.latitude, location.longitude];
 
-const showGeoSearchList = (pageType, dataSearchView, detailView) => (
+const showGeoSearchList = (pageType, dataSearchView, detailView, dataSelectionView) => (
   ((pageType === PAGES.DATA_GEO_SEARCH) && dataSearchView !== VIEWS.MAP) ||
-  ((pageType === PAGES.DATA_DETAIL) && detailView !== DETAIL_VIEW.MAP)
+  ((pageType === PAGES.DATA_DETAIL) && detailView !== DETAIL_VIEW.MAP) ||
+  ((
+    pageType === PAGES.ADDRESSES ||
+    pageType === PAGES.ESTABLISHMENTS ||
+    pageType === PAGES.CADASTRAL_OBJECTS
+  ) && dataSelectionView !== DATA_SELECTION_VIEWS.MAP)
 );
 
 /* istanbul ignore next */ // TODO: refactor, test
@@ -26,6 +33,7 @@ export function* switchClickAction(action) {
   const selectionType = yield select(getSelectionType);
   const pageType = yield select(getPage);
   const dataSearchView = yield select(getDataSearchView);
+  const dataSelectionView = yield select(getDataSelectionView);
   const detailView = yield select(getDetailView);
   const location = normalizeLocation(action.payload.location, 7);
   if (selectionType === SELECTION_TYPE.PANORAMA) {
@@ -44,7 +52,9 @@ export function* switchClickAction(action) {
         }
       });
     } else {
-      const view = showGeoSearchList(pageType, dataSearchView, detailView) ? VIEWS.LIST : VIEWS.MAP;
+      const view = showGeoSearchList(pageType, dataSearchView, detailView, dataSelectionView) ?
+        VIEWS.LIST :
+        VIEWS.MAP;
       yield put(toGeoSearch(location, view));
     }
   }
