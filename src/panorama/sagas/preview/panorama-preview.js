@@ -38,8 +38,8 @@ function* fireFetchPanoPreview(action) {
 export default function* watchPanoPreview() {
   yield takeLatest(FETCH_PANORAMA_PREVIEW_REQUEST, fetchMapPano);
   yield takeLatest([
-    routing.map.type,
-    routing.dataQuerySearch.type,
+    routing.home.type,
+    routing.dataGeoSearch.type,
     FETCH_GEO_SEARCH_RESULTS_REQUEST
   ], possiblyFirePanoPreview);
   yield takeLatest(FETCH_MAP_DETAIL_SUCCESS, fireFetchPanoPreview);

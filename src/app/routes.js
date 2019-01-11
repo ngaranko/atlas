@@ -9,12 +9,6 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.HOME}`,
     page: PAGES.HOME
   },
-  map: {
-    title: 'Grote kaart',
-    path: '/kaart',
-    type: `${ROUTER_NAMESPACE}/${PAGES.MAP}`,
-    page: PAGES.MAP
-  },
   datasets: {
     title: 'Datasets',
     path: '/datasets',
