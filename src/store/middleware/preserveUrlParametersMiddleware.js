@@ -17,7 +17,9 @@ const preserveUrlParametersMiddleware = () => (next) => (action) => {
         {}
     };
 
-    const query = ParamsRegistery.orderQuery(newQuery);
+    const query = ParamsRegistery.orderQuery(
+      paramsRegistry.removeParamsWithDefaultValue(newQuery, action.type)
+    );
 
     nextAction = {
       ...nextAction,

@@ -10,22 +10,23 @@ import { toGeoSearch } from '../../../store/redux-first-router/actions';
 import { getPage } from '../../../store/redux-first-router/selectors';
 import PAGES from '../../../app/pages';
 import { VIEWS } from '../../../shared/ducks/data-search/constants';
-import { getView } from '../../../shared/ducks/data-search/selectors';
+import { getView as getDataSearchView } from '../../../shared/ducks/data-search/selectors';
+import { DETAIL_VIEW } from '../../../shared/ducks/detail/constants';
+import { getView as getDetailView } from '../../../shared/ducks/detail/selectors';
 
 const latitudeLongitudeToArray = (location) => [location.latitude, location.longitude];
 
-const showGeoSearchList = (pageType, currentView) => (
-  pageType === (
-    (PAGES.DATA_GEO_SEARCH && currentView !== VIEWS.MAP) ||
-    PAGES.DATA_DETAIL
-  )
+const showGeoSearchList = (pageType, dataSearchView, detailView) => (
+  ((pageType === PAGES.DATA_GEO_SEARCH) && dataSearchView !== VIEWS.MAP) ||
+  ((pageType === PAGES.DATA_DETAIL) && detailView !== DETAIL_VIEW.MAP)
 );
 
 /* istanbul ignore next */ // TODO: refactor, test
 export function* switchClickAction(action) {
   const selectionType = yield select(getSelectionType);
   const pageType = yield select(getPage);
-  const currentView = yield select(getView);
+  const dataSearchView = yield select(getDataSearchView);
+  const detailView = yield select(getDetailView);
   const location = normalizeLocation(action.payload.location, 7);
   if (selectionType === SELECTION_TYPE.PANORAMA) {
     const locationArray = latitudeLongitudeToArray(location);
@@ -43,7 +44,7 @@ export function* switchClickAction(action) {
         }
       });
     } else {
-      const view = showGeoSearchList(pageType, currentView) ? VIEWS.LIST : VIEWS.MAP;
+      const view = showGeoSearchList(pageType, dataSearchView, detailView) ? VIEWS.LIST : VIEWS.MAP;
       yield put(toGeoSearch(location, view));
     }
   }

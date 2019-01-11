@@ -7,7 +7,7 @@ import {
   getLayers,
   getMapPanelLayers
 } from '../../ducks/panel-layers/map-panel-layers';
-import { getPanorama, getPanoramaHistory } from '../../../panorama/ducks/selectors';
+import { getPanoramaHistory } from '../../../panorama/ducks/selectors';
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
 import { getMapZoom } from '../../ducks/map/map-selectors';
 import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
@@ -15,7 +15,8 @@ import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selectio
 import { getImageDataByLocation } from '../../../panorama/services/panorama-api/panorama-api';
 import { toGeoSearch } from '../../../store/redux-first-router/actions';
 import { getPage } from '../../../store/redux-first-router/selectors';
-import { getView } from '../../../shared/ducks/data-search/selectors';
+import { getView as getDataSearchView, getView } from '../../../shared/ducks/data-search/selectors';
+import { getView as getDetailView } from '../../../shared/ducks/detail/selectors';
 
 describe('watchMapClick', () => {
   const action = { type: SET_MAP_CLICK_LOCATION };
@@ -95,9 +96,11 @@ describe('switchClickAction', () => {
 
   const mapPanelLayersWithSelection = [...mockPanelLayers, matchingPanelLayer];
 
-  const providePanorama = ({ selector }, next) => (selector === getPanorama ? null : next());
   const providePage = ({ selector }, next) => (selector === getPage ? null : next());
   const provideView = ({ selector }, next) => (selector === getView ? null : next());
+  const provideDataSearchView = ({ selector }, next) =>
+    (selector === getDataSearchView ? null : next());
+  const provideDetailView = ({ selector }, next) => (selector === getDetailView ? null : next());
 
   const provideMapLayers = ({ selector }, next) => (
     selector === getActiveMapLayers ||
@@ -124,8 +127,9 @@ describe('switchClickAction', () => {
     return expectSaga(switchClickAction, { payload })
       .provide({
         select: composeProviders(
-          providePanorama,
           providePage,
+          provideDataSearchView,
+          provideDetailView,
           provideView,
           provideMapLayers,
           provideMapZoom,
@@ -154,8 +158,9 @@ describe('switchClickAction', () => {
     return expectSaga(switchClickAction, { payload })
       .provide({
         select: composeProviders(
-          providePanorama,
           providePage,
+          provideDataSearchView,
+          provideDetailView,
           provideView,
           provideMapZoom,
           provideMapPanelLayers,

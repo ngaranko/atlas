@@ -222,6 +222,20 @@ class ParamsRegistery {
       }, {}) : {});
   }
 
+  getReduxObject(parameter, route) {
+    return get(this.result, `${parameter}.routes[${route}]`, {});
+  }
+
+  removeParamsWithDefaultValue(parameters, route) {
+    return Object.entries(parameters).reduce((acc, [parameter, value]) => {
+      const reducerObject = this.getReduxObject(parameter, route);
+      return {
+        ...acc,
+        ...(reducerObject.defaultValue !== value) ? { [parameter]: value } : {}
+      };
+    }, {});
+  }
+
   /**
    * If we need to go to a route and also set a new URL param, this method can be used to retrieve
    * the values for that specific route
@@ -232,12 +246,12 @@ class ParamsRegistery {
    */
   getParametersForRoute(parameters, route, encode = true) {
     return Object.entries(parameters).reduce((acc, [parameter, value]) => {
-      const reducerObject = get(this.result, `${parameter}.routes[${route}]`, {});
+      const reducerObject = this.getReduxObject(parameter, route);
       const encodeFn = reducerObject.encode;
       const valueToSet = (encode && encodeFn) ? encodeFn(value) : value;
       return encodeFn ? {
         ...acc,
-        ...(reducerObject.defaultValue !== valueToSet) ? { [parameter]: valueToSet } : {}
+        [parameter]: valueToSet
       } : acc;
     }, {});
   }
