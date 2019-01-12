@@ -4,7 +4,8 @@ import {
   getMapCenter,
   getMapOverlays,
   getMapZoom,
-  getRdGeoJsons
+  getRdGeoJsons,
+  isMapBusy
 } from './map-selectors';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { getPanoramaLocation } from '../../../panorama/ducks/selectors';
@@ -20,7 +21,8 @@ describe('Map Selectors', () => {
     viewCenter: true,
     overlays: [{ overlay: '' }],
     zoom: 2,
-    selectedLocation: '123,456'
+    selectedLocation: '123,456',
+    isMapBusy: false
   };
   const panorama = {
     location: 'sss'
@@ -69,6 +71,12 @@ describe('Map Selectors', () => {
         ...state,
         some: 'state' // force the state to change so it clears the cache
       })).toEqual('panorama location');
+    });
+  });
+
+  describe('isMapBusy selector', () => {
+    it('should return the correct value', () => {
+      expect(isMapBusy(state)).toEqual(false);
     });
   });
 });

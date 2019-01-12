@@ -1,4 +1,5 @@
 import reducer, {
+  initialState,
   mapClear,
   mapEmptyGeometry,
   mapEndDrawing,
@@ -17,17 +18,6 @@ import reducer, {
 import { routing } from '../../../app/routes';
 
 describe('Map Reducer', () => {
-  const initialState = {
-    baseLayer: 'topografie',
-    drawingMode: 'none',
-    isLoading: false,
-    overlays: [],
-    shapeAreaTxt: '',
-    shapeDistanceTxt: '',
-    viewCenter: [52.3731081, 4.8932945],
-    zoom: 11,
-    mapPanelActive: true
-  };
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });

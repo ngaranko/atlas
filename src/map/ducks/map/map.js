@@ -21,6 +21,7 @@ export const TOGGLE_MAP_OVERLAY_PANORAMA = 'TOGGLE_MAP_OVERLAY_PANORAMA';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
 export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
 export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
+export const MAP_LOADING = 'MAP_LOADING';
 
 export const DEFAULT_LAT = 52.3731081;
 export const DEFAULT_LNG = 4.8932945;
@@ -35,7 +36,8 @@ export const initialState = {
   drawingMode: drawToolConfig.DRAWING_MODE.NONE,
   shapeDistanceTxt: '',
   shapeAreaTxt: '',
-  mapPanelActive: true
+  mapPanelActive: true,
+  isMapBusy: false
 };
 
 let polygon = {};
@@ -201,6 +203,12 @@ export default function MapReducer(state = initialState, action) {
         shapeAreaTxt: initialState.shapeAreaTxt
       };
 
+    case MAP_LOADING:
+      return {
+        ...state,
+        isMapBusy: action.payload
+      };
+
     default:
       return enrichedState;
   }
@@ -259,3 +267,5 @@ export const updateBoundingBox = (payload) => ({
   type: MAP_BOUNDING_BOX,
   payload
 });
+
+export const mapLoadingAction = (isBusy) => ({ type: MAP_LOADING, payload: isBusy });
