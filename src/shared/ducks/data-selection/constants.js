@@ -24,8 +24,8 @@ export const VIEWS = {
 
 export const VIEWS_TO_PARAMS = {
   [VIEWS.LIST]: 'lijst-kaart',
-  [VIEWS.MAP]: 'tabel',
-  [VIEWS.TABLE]: 'kaart'
+  [VIEWS.MAP]: 'kaart',
+  [VIEWS.TABLE]: 'tabel'
 };
 
 export const PARAMS_TO_VIEWS =
