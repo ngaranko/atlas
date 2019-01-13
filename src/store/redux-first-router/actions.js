@@ -2,6 +2,7 @@ import { ROUTER_NAMESPACE, routing } from '../../app/routes';
 import { DATASET_ROUTE_MAPPER } from '../../shared/ducks/data-selection/constants';
 import PARAMETERS from '../parameters';
 import { VIEWS } from '../../shared/ducks/data-search/constants';
+import PANORAMA_VIEW from '../../panorama/ducks/panorama-view';
 
 export const preserveQuery = (action, additionalParams = null) => ({
   ...action,
@@ -76,7 +77,8 @@ export const toPanorama = (id, additionalParams = null) => ({
 
 export const toPanoramaAndPreserveQuery = (id, heading, reference = []) => toPanorama(id, {
   heading,
-  ...(reference.length === 3 ? { [PARAMETERS.REFERENCE]: reference } : {})
+  ...(reference.length === 3 ? { [PARAMETERS.REFERENCE]: reference } : {}),
+  [PARAMETERS.VIEW]: PANORAMA_VIEW.MAP_PANO
 });
 
 export const extractIdEndpoint = (endpoint) => {

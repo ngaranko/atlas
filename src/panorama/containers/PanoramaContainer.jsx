@@ -104,7 +104,6 @@ class PanoramaContainer extends React.Component {
 
   render() {
     const { isFullscreen, panoramaState, onClose, detailReference, panoramaLocation } = this.props;
-
     return (
       <div className="c-panorama">
         <div
