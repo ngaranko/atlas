@@ -49,7 +49,7 @@ const piwikMiddleware = () => (next) => (action) => {
   const actionMap = actionsToPiwik[action.type];
 
   if (actionMap) {
-    const { tracking } = action.meta;
+    const { tracking } = action.meta || {};
 
     if (tracking) {
       piwikTracker(actionMap(tracking));

@@ -22,14 +22,20 @@ export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
 export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
 export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
 export const MAP_LOADING = 'MAP_LOADING';
+export const SET_VIEW = 'SET_VIEW';
 
 export const DEFAULT_LAT = 52.3731081;
 export const DEFAULT_LNG = 4.8932945;
 export const PANORAMA = 'pano';
+export const VIEWS = {
+  MAP: 'kaart',
+  HOME: 'home'
+};
 
 export const initialState = {
   viewCenter: [DEFAULT_LAT, DEFAULT_LNG],
   baseLayer: 'topografie',
+  view: VIEWS.HOME,
   zoom: 11,
   overlays: [],
   isLoading: false,
@@ -60,7 +66,7 @@ export default function MapReducer(state = initialState, action) {
         )] : []
       };
 
-    case routing.dataSearch.type:
+    case routing.dataQuerySearch.type:
     case routing.addresses.type:
     case routing.cadastralObjects.type:
     case routing.establishments.type:
@@ -139,6 +145,12 @@ export default function MapReducer(state = initialState, action) {
         baseLayer: action.payload
       };
 
+    case SET_VIEW:
+      return {
+        ...enrichedState,
+        view: action.payload
+      };
+
     case TOGGLE_MAP_PANEL:
       return {
         ...enrichedState,
@@ -180,7 +192,7 @@ export default function MapReducer(state = initialState, action) {
 
     case routing.home.type:
       return {
-        ...state,
+        ...enrichedState,
         overlays: initialState.overlays,
         drawingMode: initialState.drawingMode,
         shapeDistanceTxt: initialState.shapeDistanceTxt,
@@ -189,7 +201,7 @@ export default function MapReducer(state = initialState, action) {
 
     case MAP_CLEAR:
       return {
-        ...state,
+        ...enrichedState,
         drawingMode: initialState.drawingMode,
         shapeDistanceTxt: initialState.shapeDistanceTxt,
         shapeAreaTxt: initialState.shapeAreaTxt
@@ -197,7 +209,7 @@ export default function MapReducer(state = initialState, action) {
 
     case SET_SELECTION:
       return {
-        ...state,
+        ...enrichedState,
         drawingMode: initialState.drawingMode,
         shapeDistanceTxt: initialState.shapeDistanceTxt,
         shapeAreaTxt: initialState.shapeAreaTxt

@@ -3,19 +3,24 @@ import PropTypes from 'prop-types';
 import Panel from '../Panel/Panel';
 import SearchList from '../SearchList';
 import NoResultsForSearchType from '../Messages/NoResultsForSearchType';
+import { DETAIL_VIEW } from '../../../shared/ducks/detail/constants';
 
 const DataSearch = ({
+  userAuthenticated,
   userScopes,
   searchResults,
   searchQuery,
   numberOfResults,
   setSearchCategory,
-  fetchDetailPage,
+  toDetail,
   category
 }) => {
   if (numberOfResults === 0) {
     return (
-      <NoResultsForSearchType />
+      <NoResultsForSearchType
+        message="Tip: maak de zoekcriteria minder specifiek."
+        authMessage={!userAuthenticated}
+      />
     );
   }
   return (
@@ -86,7 +91,7 @@ const DataSearch = ({
                       <button
                         className="qa-show-more c-show-more o-list__separate-item"
                         type="button"
-                        onClick={() => fetchDetailPage(result.more.endpoint)}
+                        onClick={() => toDetail(result.more.endpoint, DETAIL_VIEW.MAP_DETAIL)}
                       >
                         {result.more.label}
                       </button>
@@ -108,7 +113,7 @@ const DataSearch = ({
                     searchResults={result.subResults}
                     numberOfResults={numberOfResults}
                     {...{
-                      fetchDetailPage,
+                      toDetail,
                       setSearchCategory,
                       userScopes
                     }}
@@ -125,13 +130,14 @@ const DataSearch = ({
 };
 
 DataSearch.propTypes = {
+  userAuthenticated: PropTypes.bool.isRequired,
   userScopes: PropTypes.arrayOf(PropTypes.string).isRequired,
   numberOfResults: PropTypes.number.isRequired,
   category: PropTypes.oneOfType( // eslint-disable-line react/require-default-props
     [PropTypes.string, PropTypes.object]
   ),
   setSearchCategory: PropTypes.func.isRequired,
-  fetchDetailPage: PropTypes.func.isRequired,
+  toDetail: PropTypes.func.isRequired,
   searchResults: PropTypes.arrayOf(PropTypes.object).isRequired,
   searchQuery: PropTypes.string.isRequired
 };

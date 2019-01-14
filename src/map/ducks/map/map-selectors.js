@@ -56,5 +56,6 @@ export const getMarkers = createSelector(
     [...searchMarkers, ...panoramaMarkers]
   ));
 
+export const getMapView = createSelector(getMap, (mapState) => mapState.view);
 export const isMarkerActive = createSelector(getDetail, (detail) => !detail);
 export const isMapPanelActive = createSelector(getMap, (map) => map.mapPanelActive);
