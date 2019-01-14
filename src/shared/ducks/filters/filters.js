@@ -83,7 +83,9 @@ export const selectDataSelectionFilters = createSelector(
           }];
         }
 
-        const option = filter.options.find((opt) => opt.id === value);
+        const option = filter.options.find((opt) => opt.id === value) ||
+          (activeFilters.sbi_code && { label: activeFilters.sbi_code.replace(/['[\]]/g, '') });
+
         return {
           slug: filter.slug,
           label: filter.label,
@@ -93,6 +95,7 @@ export const selectDataSelectionFilters = createSelector(
     if (activeFilters.shape) {
       formattedFilters.push(activeFilters.shape);
     }
+
     return formattedFilters;
   });
 
