@@ -34,7 +34,7 @@ import {
   getGeometryFilters
 } from '../../ducks/data-selection/selectors';
 import { waitForAuthentication } from '../user/user';
-import { MAP_BOUNDING_BOX } from '../../../map/ducks/map/map';
+import { MAP_BOUNDING_BOX, mapLoadingAction } from '../../../map/ducks/map/map';
 import PARAMETERS from '../../../store/parameters';
 
 function* getMapMarkers(dataset, activeFilters) {
@@ -86,13 +86,16 @@ function* retrieveDataSelection(action) {
     );
 
     if (markersShouldBeFetched) {
+      yield put(mapLoadingAction(true));
       yield call(getMapMarkers, dataset, { ...activeFilters, shape });
+      yield put(mapLoadingAction(false));
     }
   } catch (e) {
     yield put(receiveDataSelectionFailure({
       error: e.message,
       dataset
     }));
+    yield put(mapLoadingAction(false));
   }
 }
 

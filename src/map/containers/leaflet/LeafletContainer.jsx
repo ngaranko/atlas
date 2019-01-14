@@ -15,7 +15,8 @@ import {
   getDrawingMode,
   getMapZoom,
   getMarkers,
-  getRdGeoJsons
+  getRdGeoJsons,
+  isMapBusy
 } from '../../ducks/map/map-selectors';
 import {
   getClusterMarkers,
@@ -40,7 +41,8 @@ const mapStateToProps = (state) => ({
   markers: getMarkers(state),
   layers: getLayers(state),
   drawingMode: getDrawingMode(state),
-  zoom: getMapZoom(state)
+  zoom: getMapZoom(state),
+  loading: isMapBusy(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -127,7 +129,8 @@ class LeafletContainer extends React.Component {
       getLeafletInstance,
       layers,
       markers,
-      zoom
+      zoom,
+      loading
     } = this.props;
 
     const showMarker = markers.length > 0;
@@ -151,6 +154,7 @@ class LeafletContainer extends React.Component {
         scaleControlOptions={scaleControlOptions}
         zoomControlOptions={zoomControlOptions}
         zoom={zoom}
+        loading={loading}
       />
     );
   }
@@ -192,6 +196,7 @@ LeafletContainer.propTypes = {
     url: PropTypes.string.isRequired
   })),
   zoom: PropTypes.number.isRequired,
+  loading: PropTypes.bool.isRequired,
 
   onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,

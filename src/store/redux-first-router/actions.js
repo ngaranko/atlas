@@ -1,7 +1,6 @@
 import { ROUTER_NAMESPACE, routing } from '../../app/routes';
-import { DATASET_ROUTE_MAPPER } from '../../shared/ducks/data-selection/constants';
+import { DATASET_ROUTE_MAPPER, VIEWS } from '../../shared/ducks/data-selection/constants';
 import PARAMETERS from '../parameters';
-import { VIEWS } from '../../shared/ducks/data-search/constants';
 import PANORAMA_VIEW from '../../panorama/ducks/panorama-view';
 
 export const preserveQuery = (action, additionalParams = null) => ({
@@ -170,7 +169,8 @@ export const toDatasetsTableWithFilter = (datasetType, filter) => ({
   type: datasetType,
   meta: {
     additionalParams: {
-      [PARAMETERS.FILTERS]: btoa(JSON.stringify(filter))
+      [PARAMETERS.FILTERS]: filter,
+      [PARAMETERS.VIEW]: VIEWS.TABLE
     }
   }
 });
