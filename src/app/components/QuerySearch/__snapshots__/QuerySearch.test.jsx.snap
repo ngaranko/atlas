@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QuerySearch should not render while loading 1`] = `
+<div
+  className="c-data-selection c-dashboard__content"
+>
+  <LoadingIndicator />
+</div>
+`;
+
+exports[`QuerySearch should render with results 1`] = `
+<div
+  className="c-data-selection c-dashboard__content"
+>
+  <div
+    className="qa-data-selection-content"
+  >
+    <Connect(TabBar)
+      showDatasetsButton={false}
+      totalNumberOfResults={2}
+    >
+      <Tabs
+        currentTab="Datasets"
+      >
+        <Tab
+          count={1}
+          isCurrentTab={false}
+          label="Data"
+          onClick={[Function]}
+        />
+        <Tab
+          count={1}
+          isCurrentTab={false}
+          label="Datasets"
+          onClick={[Function]}
+        />
+      </Tabs>
+    </Connect(TabBar)>
+    <div
+      className="qa-search-results"
+    />
+  </div>
+</div>
+`;

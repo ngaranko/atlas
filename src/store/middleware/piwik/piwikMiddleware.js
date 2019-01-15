@@ -20,7 +20,7 @@ const PIWIK_CONFIG = {
 };
 
 // Initialize connection with Piwik
-const initializePiwik = () => {
+export const initializePiwik = () => {
   const urlBase = 'https://piwik.data.amsterdam.nl/';
 
   window._paq = window._paq || [];
@@ -44,7 +44,7 @@ const initializePiwik = () => {
 };
 
 // Map actions to be tracked
-const actionsToPiwik = {
+export const actionsToPiwik = {
   ...events,
   ...routes
 };

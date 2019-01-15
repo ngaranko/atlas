@@ -1,5 +1,6 @@
-export const NAVIGATE_HOME_REQUEST = 'NAVIGATE_HOME_REQUEST';
-export const REPORT_PROBLEM_REQUEST = 'REPORT_PROBLEM_REQUEST';
+export const NAMESPACE = 'header';
+export const NAVIGATE_HOME_REQUEST = `${NAMESPACE}/NAVIGATE_HOME_REQUEST`;
+export const REPORT_PROBLEM_REQUEST = `${NAMESPACE}/REPORT_PROBLEM_REQUEST`;
 
 // Action creators
 export const navigateHomeAction = () => ({

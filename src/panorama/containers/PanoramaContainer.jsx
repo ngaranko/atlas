@@ -6,7 +6,7 @@ import throttle from 'lodash.throttle';
 
 import './PanoramaContainer.scss';
 import {
-  fetchPanoramaRequestClick,
+  fetchPanoramaHotspotRequest,
   setPanoramaOrientation,
   setView as setPanoramaView
 } from '../ducks/actions';
@@ -157,7 +157,7 @@ const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     setOrientation: setPanoramaOrientation,
     setView: setPanoramaView,
-    fetchPanoramaById: fetchPanoramaRequestClick,
+    fetchPanoramaById: fetchPanoramaHotspotRequest,
     fetchMapDetail: getMapDetail
   }, dispatch),
   onClose: (panoramaLocation, reference) => {

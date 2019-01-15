@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 import PanoramaContainer from './PanoramaContainer';
 import { getOrientation, loadScene } from '../services/marzipano/marzipano';
-import { fetchPanoramaRequestClick, setView } from '../ducks/actions';
+import { fetchPanoramaHotspotRequest, setView } from '../ducks/actions';
 import { VIEWS } from '../ducks/constants';
 import { getPanorama, getPanoramaLocation, getReference } from '../ducks/selectors';
 
@@ -65,7 +65,7 @@ describe('PanoramaContainer', () => {
     ).dive();
 
     wrapper.instance().hotspotClickHandler('XYZ');
-    expect(store.dispatch).toHaveBeenCalledWith(fetchPanoramaRequestClick({ id: 'XYZ' }));
+    expect(store.dispatch).toHaveBeenCalledWith(fetchPanoramaHotspotRequest({ id: 'XYZ' }));
   });
 
   it('should toggle size of panorama image', () => {

@@ -6,7 +6,7 @@ import {
   SET_PANORAMA_LOCATION,
   SET_PANORAMA_ORIENTATION,
   SET_PANORAMA_VIEW,
-  FETCH_PANORAMA_REQUEST_CLICK,
+  FETCH_PANORAMA_HOTSPOT_REQUEST,
   FETCH_PANORAMA_REQUEST_TOGGLE
 } from './constants';
 
@@ -18,8 +18,8 @@ export const fetchPanoramaRequest = (payload) => ({
   }
 });
 
-export const fetchPanoramaRequestClick = (payload) => ({
-  type: FETCH_PANORAMA_REQUEST_CLICK,
+export const fetchPanoramaHotspotRequest = (payload) => ({
+  type: FETCH_PANORAMA_HOTSPOT_REQUEST,
   payload,
   meta: {
     tracking: true

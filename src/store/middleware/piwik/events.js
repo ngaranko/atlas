@@ -28,11 +28,14 @@ import {
 } from '../../../shared/ducks/ui/ui';
 import {
   SET_MAP_BASE_LAYER,
-  SET_MAP_CLICK_LOCATION,
-  TOGGLE_MAP_OVERLAY
+  SET_MAP_CLICK_LOCATION
 } from '../../../map/ducks/map/map';
 import {
-  FETCH_PANORAMA_REQUEST_CLICK,
+  NAVIGATE_HOME_REQUEST,
+  REPORT_PROBLEM_REQUEST
+} from '../../../header/ducks/actions';
+import {
+  FETCH_PANORAMA_HOTSPOT_REQUEST,
   FETCH_PANORAMA_REQUEST_TOGGLE,
   SET_PANORAMA_LOCATION,
   SET_PANORAMA_VIEW,
@@ -51,6 +54,12 @@ const events = {
     'trackEvent',
     'navigation',
     isPanoPage(state) ? 'panorama-verlaten' : 'detail-volledig-weergeven',
+    null
+  ],
+  [NAVIGATE_HOME_REQUEST]: () => [
+    'trackEvent',
+    'navigation',
+    'home',
     null
   ],
   [SET_GEOSEARCH_VIEW]: () => [
@@ -135,10 +144,10 @@ const events = {
   [SET_MAP_CLICK_LOCATION]: () => [
     'trackEvent',
     'kaart',
-    'kaart-tekenlijn',
+    'kaart-puntzoek',
     null
   ],
-  [TOGGLE_MAP_OVERLAY]: ({ category, title }) => [
+  TOGGLE_MAP_OVERLAY: ({ category, title }) => [
     'trackEvent',
     'kaartlaag',
     category.toLowerCase().replace(/[: ][ ]*/g, '_'),
@@ -196,7 +205,7 @@ const events = {
     (year > 0) ? `panorama-set-${year}${missionType}` : 'panorama-set-recent',
     null
   ],
-  [FETCH_PANORAMA_REQUEST_CLICK]: (state) => isPanoPage(state) && ([
+  [FETCH_PANORAMA_HOTSPOT_REQUEST]: (state) => isPanoPage(state) && ([
     'trackEvent',
     'panorama-navigation',
     'panorama-hotspot-klik',
@@ -209,6 +218,12 @@ const events = {
     null
   ],
   // MENU
+  [REPORT_PROBLEM_REQUEST]: () => [
+    'trackEvent',
+    'menu',
+    'menu-terugmelden',
+    null
+  ],
   [SHOW_EMBED_PREVIEW]: () => [
     'trackEvent',
     'menu',

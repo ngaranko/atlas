@@ -20,7 +20,7 @@ import {
   CLOSE_PANORAMA,
   FETCH_PANORAMA_ERROR,
   FETCH_PANORAMA_REQUEST,
-  FETCH_PANORAMA_REQUEST_CLICK,
+  FETCH_PANORAMA_HOTSPOT_REQUEST,
   FETCH_PANORAMA_REQUEST_TOGGLE,
   FETCH_PANORAMA_SUCCESS,
   SET_PANORAMA_LOCATION,
@@ -65,7 +65,7 @@ describe('watchFetchPanorama', () => {
       .next()
       .all([
         takeLatest(FETCH_PANORAMA_REQUEST, fetchPanoramaById),
-        takeLatest(FETCH_PANORAMA_REQUEST_CLICK, fetchPanoramaById),
+        takeLatest(FETCH_PANORAMA_HOTSPOT_REQUEST, fetchPanoramaById),
         takeLatest(FETCH_PANORAMA_SUCCESS, setPanoramaId),
         takeLatest([
           SET_PANORAMA_YEAR,
