@@ -4,7 +4,6 @@ exports[`App should render 1`] = `
 <div
   className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
 >
-  <PiwikComponent />
   <AngularWrapper
     bindings={
       Object {

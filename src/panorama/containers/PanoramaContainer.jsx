@@ -6,11 +6,11 @@ import throttle from 'lodash.throttle';
 
 import './PanoramaContainer.scss';
 import {
-  fetchPanoramaRequest,
+  fetchPanoramaRequestClick,
   setPanoramaOrientation,
   setView as setPanoramaView
 } from '../ducks/actions';
-import PANORAMA_VIEW from '../ducks/panorama-view';
+import { VIEWS } from '../ducks/constants';
 import { toDataDetail, toGeoSearch, pageTypeToEndpoint } from '../../store/redux-first-router/actions';
 
 import { getOrientation, initialize, loadScene } from '../services/marzipano/marzipano';
@@ -96,10 +96,10 @@ class PanoramaContainer extends React.Component {
     const { isFullscreen, setView } = this.props;
 
     if (isFullscreen) {
-      return setView(PANORAMA_VIEW.MAP_PANO);
+      return setView(VIEWS.MAP_PANO);
     }
 
-    return setView(PANORAMA_VIEW.PANO);
+    return setView(VIEWS.PANO);
   }
 
   render() {
@@ -154,7 +154,7 @@ const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     setOrientation: setPanoramaOrientation,
     setView: setPanoramaView,
-    fetchPanoramaById: fetchPanoramaRequest,
+    fetchPanoramaById: fetchPanoramaRequestClick,
     fetchMapDetail: getMapDetail
   }, dispatch),
   onClose: (panoramaLocation, reference) => {

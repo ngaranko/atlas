@@ -7,22 +7,22 @@ import MapContainer from '../../map/containers/map/MapContainer';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 import { setView } from '../../panorama/ducks/actions';
 import PanoramaContainer from '../../panorama/containers/PanoramaContainer';
-import PANORAMA_VIEW from '../../panorama/ducks/panorama-view';
+import { VIEWS } from '../../panorama/ducks/constants';
 
 /* istanbul ignore next */ // TODO: refactor, test
 const PanoramaPage = ({ view, setPanoramaView }) => {
   const openPanoView = (newView) => setPanoramaView(newView);
 
   switch (view) {
-    case PANORAMA_VIEW.PANO:
+    case VIEWS.PANO:
       return (
         <PanoramaContainer isFullscreen />
       );
-    case PANORAMA_VIEW.MAP:
+    case VIEWS.MAP:
       return (
         <MapContainer
           isFullscreen
-          toggleFullscreen={() => openPanoView(PANORAMA_VIEW.MAP_PANO)}
+          toggleFullscreen={() => openPanoView(VIEWS.MAP_PANO)}
         />
       );
     default: {
@@ -31,7 +31,7 @@ const PanoramaPage = ({ view, setPanoramaView }) => {
           leftComponent={(
             <MapContainer
               isFullscreen={false}
-              toggleFullscreen={() => openPanoView(PANORAMA_VIEW.MAP)}
+              toggleFullscreen={() => openPanoView(VIEWS.MAP)}
             />
           )}
           rightComponent={(
@@ -44,7 +44,7 @@ const PanoramaPage = ({ view, setPanoramaView }) => {
 };
 
 PanoramaPage.propTypes = {
-  view: PropTypes.oneOf(Object.values(PANORAMA_VIEW)).isRequired,
+  view: PropTypes.oneOf(Object.values(VIEWS)).isRequired,
   setPanoramaView: PropTypes.func.isRequired
 };
 

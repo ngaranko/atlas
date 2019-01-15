@@ -188,19 +188,8 @@ export default paramsRegistry
     routes.add(routing.panorama.type, PANORAMA, 'history', {
       defaultValue: panoramaInitialState.history,
       selector: getPanoramaHistory,
-      encode: (selectorResult) => `${selectorResult.year}.${selectorResult.missionType}`,
-      decode: (val) => {
-        if (val) {
-          const [year, missionType] = val.split('.');
-          return {
-            year: parseFloat(year),
-            missionType,
-            label: `Alleen ${year} ${missionType}`,
-            layerName: `pano${year}${missionType}`
-          };
-        }
-        return val;
-      }
+      encode: (selectorResult) => btoa(JSON.stringify(selectorResult)),
+      decode: (val) => val && JSON.parse(atob(val))
     });
   })
   .addParameter(PARAMETERS.PITCH, (routes) => {

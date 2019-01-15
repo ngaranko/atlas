@@ -8,6 +8,7 @@ import {
 import {
   CLOSE_PANORAMA,
   FETCH_PANORAMA_REQUEST,
+  FETCH_PANORAMA_REQUEST_CLICK,
   FETCH_PANORAMA_REQUEST_TOGGLE,
   SET_PANORAMA_LOCATION,
   SET_PANORAMA_YEAR
@@ -62,6 +63,7 @@ export function* fetchPanoramaByLocation() {
 export function* watchFetchPanorama() {
   yield all([
     takeLatest(FETCH_PANORAMA_REQUEST, fetchPanoramaById),
+    takeLatest(FETCH_PANORAMA_REQUEST_CLICK, fetchPanoramaById),
     takeLatest([
       SET_PANORAMA_YEAR,
       SET_PANORAMA_LOCATION,

@@ -1,18 +1,30 @@
+import { REPORT_PROBLEM_REQUEST } from '../../../../src/header/ducks/actions';
+
 describe('The dp-terugmelden-button component', function () {
     var $compile,
         $rootScope,
         $location,
+        store,
         currentUrl = 'http://www.example.com/path/filename.html?foo=bar#baz';
 
     beforeEach(function () {
-        angular.mock.module('dpHeader');
+        angular.mock.module(
+            'dpHeader',
+            {
+                store: {
+                    dispatch: function () {}
+                }
+            }
+        );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$location_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _$location_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $location = _$location_;
+            store = _store_;
         });
 
+        spyOn(store, 'dispatch');
         spyOn($location, 'absUrl').and.returnValue(currentUrl);
     });
 
@@ -65,5 +77,11 @@ describe('The dp-terugmelden-button component', function () {
     it('has a default fallback class if no className is specified', function () {
         const component = getComponent();
         expect(component.find('.qa-link').attr('class')).toContain('o-btn o-btn--link');
+    });
+
+    it('dispatches an action for piwik on click', function () {
+        const component = getComponent();
+        component.find('.qa-link').click();
+        expect(store.dispatch).toHaveBeenCalledWith({ type: REPORT_PROBLEM_REQUEST, meta: { tracking: true } });
     });
 });

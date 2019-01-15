@@ -14,9 +14,7 @@ import {
 export const fetchDataSelection = (payload) => ({ type: FETCH_DATA_SELECTION_REQUEST, payload });
 export const setMarkers = (payload) => ({ type: SET_MARKERS, payload });
 export const setPage = (payload) => ({ type: SET_PAGE, payload });
-export const setView = (payload) => ({ type: SET_VIEW, payload });
 export const setDataset = (payload) => ({ type: SET_DATASET, payload });
-export const setGeometryFilter = (payload) => ({ type: SET_GEOMETRY_FILTER, payload });
 export const removeGeometryFilter = () => ({ type: REMOVE_GEOMETRY_FILTER });
 export const receiveDataSelectionSuccess = (payload) => ({
   type: FETCH_DATA_SELECTION_SUCCESS,
@@ -28,6 +26,20 @@ export const receiveDataSelectionFailure = (payload) => ({
 });
 export const downloadDataSelection = (payload) => ({
   type: DOWNLOAD_DATA_SELECTION,
+  meta: {
+    tracking: payload
+  }
+});
+export const setGeometryFilter = (payload) => ({
+  type: SET_GEOMETRY_FILTER,
+  payload,
+  meta: {
+    tracking: true
+  }
+});
+export const setView = (payload) => ({
+  type: SET_VIEW,
+  payload,
   meta: {
     tracking: payload
   }

@@ -33,6 +33,7 @@ exports[`SearchList should render a results list 1`] = `
                 "view": "detail-kaart",
               },
               "preserve": true,
+              "tracking": true,
             },
             "payload": Object {
               "id": "id03630003761571",
@@ -70,6 +71,7 @@ exports[`SearchList should render a results list 1`] = `
                 "view": "detail-kaart",
               },
               "preserve": true,
+              "tracking": true,
             },
             "payload": Object {
               "id": "id03630011909911",

@@ -6,9 +6,3 @@
 export default function piwikTracker(data) {
   window._paq.push(data);
 }
-
-export function trackPageNavigation() {
-  piwikTracker(['setDocumentTitle', window.document.title]);
-  piwikTracker(['setCustomUrl', window.location.href]);
-  piwikTracker(['trackPageView']);
-}

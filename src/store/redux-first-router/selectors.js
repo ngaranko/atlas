@@ -26,9 +26,13 @@ export const getPage = createSelector(getLocation, (location = {}) => {
   const key = Object.keys(routing).find((route) => routing[route].type === location.type);
   return (key && routing[key].page) || routing.niet_gevonden.page;
 });
-export const isMapView = createSelector(
+export const getView = createSelector(
   getLocationQuery,
-  (query) => (query.view === VIEWS.MAP)
+  (query) => query.view
+);
+export const isMapView = createSelector(
+  getView,
+  (view) => (view === VIEWS.MAP)
 );
 export const isLocationSelected = createSelector(
   getLocationQuery,

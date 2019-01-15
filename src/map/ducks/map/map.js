@@ -265,6 +265,9 @@ export const setSelectedLocation = (payload) => ({
       latitude: normalizeCoordinate(payload.latlng.lat, 7),
       longitude: normalizeCoordinate(payload.latlng.lng, 7)
     }
+  },
+  meta: {
+    tracking: true
   }
 });
 export const updateBoundingBox = (payload) => ({

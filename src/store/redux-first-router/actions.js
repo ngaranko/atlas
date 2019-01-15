@@ -2,7 +2,7 @@ import { ROUTER_NAMESPACE, routing } from '../../app/routes';
 import { DATASET_ROUTE_MAPPER } from '../../shared/ducks/data-selection/constants';
 import PARAMETERS from '../parameters';
 import { VIEWS } from '../../shared/ducks/data-search/constants';
-import PANORAMA_VIEW from '../../panorama/ducks/panorama-view';
+import { VIEWS as PANORAMA_VIEWS } from '../../panorama/ducks/constants';
 
 export const preserveQuery = (action, additionalParams = null) => ({
   ...action,
@@ -24,6 +24,9 @@ export const toDataDetail = (id, type, subtype, additionalParams = null) => pres
     type,
     subtype,
     id: `id${id}`
+  },
+  meta: {
+    tracking: true
   }
 }, additionalParams);
 
@@ -41,7 +44,10 @@ export const toDataSearchLocation = (location) => (
 );
 
 export const toGeoSearch = (location, view = VIEWS.LIST) => preserveQuery({
-  type: routing.dataGeoSearch.type
+  type: routing.dataGeoSearch.type,
+  meta: {
+    tracking: true
+  }
 }, {
   [PARAMETERS.LOCATION]: location,
   [PARAMETERS.VIEW]: view
@@ -78,7 +84,7 @@ export const toPanorama = (id, additionalParams = null) => ({
 export const toPanoramaAndPreserveQuery = (id, heading, reference = []) => toPanorama(id, {
   heading,
   ...(reference.length === 3 ? { [PARAMETERS.REFERENCE]: reference } : {}),
-  [PARAMETERS.VIEW]: PANORAMA_VIEW.MAP_PANO
+  [PARAMETERS.VIEW]: PANORAMA_VIEWS.MAP_PANO
 });
 
 export const extractIdEndpoint = (endpoint) => {

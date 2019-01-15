@@ -1,3 +1,5 @@
+import { reportProblemAction } from '../../../../src/header/ducks/actions';
+
 (function () {
     'use strict';
 
@@ -13,9 +15,9 @@
             controllerAs: 'vm'
         });
 
-    DpTerugmeldenButtonController.$inject = ['$window', '$location'];
+    DpTerugmeldenButtonController.$inject = ['$window', '$location', 'store'];
 
-    function DpTerugmeldenButtonController ($window, $location) {
+    function DpTerugmeldenButtonController ($window, $location, store) {
         var vm = this,
             recipient,
             subject,
@@ -35,5 +37,7 @@
         vm.mailtoLink = 'mailto:' + recipient +
             '?subject=' + $window.encodeURIComponent(subject) +
             '&body=' + $window.encodeURIComponent(body);
+
+        vm.reportProblemClick = () => store.dispatch(reportProblemAction());
     }
 })();
