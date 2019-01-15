@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
-import LocationSearchContainer from '../containers/LocationSearchContainer';
+import LocationSearchContainer from '../components/LocationSearch/LocationSearchContainer';
 import { getView } from '../../shared/ducks/data-search/selectors';
 import { setView as setViewAction } from '../../shared/ducks/data-search/actions';
 import { VIEWS } from '../../shared/ducks/data-search/constants';

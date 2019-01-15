@@ -3,7 +3,6 @@ import 'angular';
 import 'angular-aria';
 import 'angular-i18n/nl-nl';
 import 'angular-sanitize';
-import 'imports-loader?angulartics!angulartics-piwik/src/angulartics-piwik';
 import 'leaflet';  // Required to define window.L before leaflet plugins are imported
 import 'leaflet.markercluster';
 import 'leaflet-draw';

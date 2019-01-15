@@ -9,12 +9,10 @@ describe('DrawTool', () => {
 
   beforeEach(() => {
     defaultProps = {
-      isEnabled: false,
-      toggleDrawing: jest.fn(),
-      onClearDrawing: jest.fn(),
+      drawingEnabled: false,
       drawingMode: drawToolConfig.DRAWING_MODE.NONE,
       shapeMarkers: 0,
-      shapeDistanceTxt: 'myDistanceTxt'
+      markersLeft: 4
     };
   });
 

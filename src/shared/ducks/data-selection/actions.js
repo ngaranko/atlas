@@ -1,14 +1,17 @@
 import {
+  CANCEL_DATA_SELECTION,
+  END_DATA_SELECTION,
   FETCH_DATA_SELECTION_FAILURE,
   FETCH_DATA_SELECTION_REQUEST,
   FETCH_DATA_SELECTION_SUCCESS,
   DOWNLOAD_DATA_SELECTION,
+  RESET_DATA_SELECTION,
   REMOVE_GEOMETRY_FILTER,
   SET_DATASET,
   SET_GEOMETRY_FILTER,
   SET_MARKERS,
   SET_PAGE,
-  SET_VIEW
+  SET_VIEW, START_DATA_SELECTION
 } from './constants';
 
 export const fetchDataSelection = (payload) => ({ type: FETCH_DATA_SELECTION_REQUEST, payload });
@@ -31,4 +34,21 @@ export const downloadDataSelection = (payload) => ({
   meta: {
     tracking: payload
   }
+});
+
+export const resetDrawing = (payload = false) => ({
+  type: RESET_DATA_SELECTION,
+  payload
+});
+
+export const cancelDrawing = () => ({
+  type: CANCEL_DATA_SELECTION
+});
+
+export const endDataSelection = () => ({
+  type: END_DATA_SELECTION
+});
+
+export const startDrawing = () => ({
+  type: START_DATA_SELECTION
 });

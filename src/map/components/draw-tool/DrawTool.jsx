@@ -3,53 +3,37 @@ import PropTypes from 'prop-types';
 
 import './_draw-tool.scss';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
-import ToggleDrawing from '../toggle-drawing/ToggleDrawing';
-import ShapeSummary from '../shape-summary/ShapeSummary';
+import ToggleDrawing from '../toggle-drawing/ToggleDrawingContainer';
+import ShapeSummary from '../shape-summary/ShapeSummaryContainer';
 import PointsAvailable from '../points-available/PointsAvailable';
 
 const DrawTool = ({
   drawingMode,
-  isEnabled,
-  onClearDrawing, // TODO: rename
-  shapeDistanceTxt,
+  drawingEnabled,
   shapeMarkers,
-  toggleDrawing
-}) => {
-  const markersLeft = drawToolConfig.MAX_MARKERS - shapeMarkers;
-  return (
-    <section className="draw-tool">
-      <ToggleDrawing
+  markersLeft
+}) => (
+  <section className="draw-tool">
+    <ToggleDrawing />
+    {(!drawingEnabled && shapeMarkers === 2) &&
+    <ShapeSummary />
+    }
+    {
+      markersLeft <= drawToolConfig.MARKERS_LEFT_WARNING &&
+      drawingEnabled &&
+      <PointsAvailable
+        markersLeft={markersLeft}
         drawingMode={drawingMode}
-        shapeMarkers={shapeMarkers}
-        toggleDrawing={toggleDrawing}
       />
-      {
-        !isEnabled && shapeMarkers === 2
-        &&
-        <ShapeSummary
-          shapeDistanceTxt={shapeDistanceTxt}
-          onClearDrawing={onClearDrawing}
-        />
-      }
-      {
-        markersLeft <= drawToolConfig.MARKERS_LEFT_WARNING &&
-        isEnabled &&
-        <PointsAvailable
-          markersLeft={markersLeft}
-          drawingMode={drawingMode}
-        />
-      }
-    </section>
-  );
-};
+    }
+  </section>
+);
 
 DrawTool.propTypes = {
   drawingMode: PropTypes.string.isRequired,
-  isEnabled: PropTypes.bool.isRequired,
-  onClearDrawing: PropTypes.func.isRequired,
-  shapeDistanceTxt: PropTypes.string.isRequired,
+  drawingEnabled: PropTypes.bool.isRequired,
   shapeMarkers: PropTypes.number.isRequired,
-  toggleDrawing: PropTypes.func.isRequired
+  markersLeft: PropTypes.number.isRequired
 };
 
 export default DrawTool;
