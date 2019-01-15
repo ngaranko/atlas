@@ -12,7 +12,6 @@ import {
   toMap,
   toPanoramaAndPreserveQuery
 } from '../../store/redux-first-router/actions';
-import { VIEWS } from '../../map/ducks/map/map';
 
 const HOMEPAGE_CONFIG = {
   PANORAMA: {
@@ -64,7 +63,7 @@ const Home = ({ showFooter }) => (
                   <div className="qa-map-link">
                     <HomepageBlock
                       classes="c-homepage__block--left"
-                      linkAction={toMap({ view: VIEWS.MAP })}
+                      linkAction={toMap()}
                       title="Data op de kaart"
                       description="Selecteer kaartlagen, vind gegevens op een punt in de kaart,
                         meet of teken een gebied"

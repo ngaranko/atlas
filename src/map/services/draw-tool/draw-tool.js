@@ -1,3 +1,4 @@
+import get from 'lodash.get';
 // TODO: R: clean file, overlay complex and contains state
 
 /* eslint-disable no-use-before-define,no-underscore-dangle */
@@ -220,7 +221,6 @@ export function autoClose() {
 
 // handle any leaflet.draw event
 export function handleDrawEvent(eventName, e) {
-  // debugger;
   const handlers = {
     // Triggered when the user has chosen to draw a particular vector or marker
     DRAWSTART: () => setDrawingMode(drawToolConfig.DRAWING_MODE.DRAW),
@@ -492,7 +492,7 @@ function deleteAllMarkers() {
     return;
   }
 
-  const firstMarker = drawTool.drawShapeHandler._markers[0];
+  const firstMarker = get(drawTool, 'drawShapeHandler._markers[0]');
   if (firstMarker) {
     currentShape.deleteMarker = firstMarker;
     deleteMarker();

@@ -6,12 +6,8 @@ import DrawToolContainer from './DrawToolContainer';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 import { isEnabled } from '../../services/draw-tool/draw-tool';
-import {
-  mapClear,
-  mapEndDrawing,
-  mapStartDrawing,
-  mapUpdateShape
-} from '../../ducks/map/map';
+import { mapClear, mapStartDrawing, mapUpdateShape } from '../../ducks/map/map';
+import { setGeometryFilter } from '../../../shared/ducks/data-selection/actions';
 
 jest.mock('../../services/draw-tool/draw-tool');
 
@@ -94,20 +90,13 @@ describe('DrawToolContainer', () => {
   });
 
   it('should render DrawToolContainer', () => {
-    const setPolygonMock = jest.spyOn(props, 'setPolygon');
     const initializeMock = jest.spyOn(props, 'initialize');
     wrapper = shallow(
       <DrawToolContainer {...props} />, { context: { store } }
     ).dive().dive();
     wrapperInstance = wrapper.instance();
     expect(wrapper).toMatchSnapshot();
-    expect(setPolygonMock).toHaveBeenCalled();
     expect(initializeMock).toHaveBeenCalled();
-    expect(wrapperInstance.state).toEqual({
-      drawingMode: drawToolConfig.DRAWING_MODE.NONE,
-      previousMarkers: [],
-      dataSelection: null
-    });
   });
 
   describe('DrawToolContainer methods', () => {
@@ -124,13 +113,6 @@ describe('DrawToolContainer', () => {
       spy.mockReset();
     });
 
-    it('should update the state when the drawingMode is changed to draw', () => {
-      wrapper.setState({ drawingMode: drawToolConfig.DRAWING_MODE.NONE });
-      wrapper.setProps({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW });
-
-      expect(wrapperInstance.state.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.DRAW);
-    });
-
     describe('componentWillUnmount', () => {
       it('should dispatch MAP_CLEAR', () => {
         wrapper.unmount();
@@ -139,18 +121,9 @@ describe('DrawToolContainer', () => {
     });
 
     describe('onDrawingMode', () => {
-      it('should dispatch MAP_END_DRAWING when the drawing mode set to NONE', () => {
-        const oldState = wrapperInstance.state;
-        wrapperInstance.onDrawingMode(drawToolConfig.DRAWING_MODE.NONE);
-        expect(wrapperInstance.state).toEqual(oldState);
-        expect(store.dispatch).toHaveBeenCalledWith(mapEndDrawing());
-      });
-
       it('should dispatch MAP_START_DRAWING when the drawing mode set to DRAW', () => {
         wrapper.setProps({ currentShape: { markers } });
-        const oldState = wrapperInstance.state;
         wrapperInstance.onDrawingMode(drawToolConfig.DRAWING_MODE.DRAW);
-        expect(wrapperInstance.state).toEqual({ ...oldState, previousMarkers: markers });
         expect(store.dispatch).toHaveBeenCalledWith(
           mapStartDrawing({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW })
         );
@@ -158,9 +131,7 @@ describe('DrawToolContainer', () => {
 
       it('should dispatch MAP_START_DRAWING when the drawing mode set to EDIT', () => {
         wrapper.setProps({ currentShape: { markers } });
-        const oldState = wrapperInstance.state;
         wrapperInstance.onDrawingMode(drawToolConfig.DRAWING_MODE.EDIT);
-        expect(wrapperInstance.state).toEqual({ ...oldState, previousMarkers: markers });
         expect(store.dispatch).toHaveBeenCalledWith(
           mapStartDrawing({ drawingMode: drawToolConfig.DRAWING_MODE.EDIT })
         );
@@ -204,24 +175,13 @@ describe('DrawToolContainer', () => {
         expect(store.dispatch).not.toHaveBeenCalled();
       });
 
-      it('should ignore the action when the polygon is not changed', () => {
-        const polygon = {
-          ...polygonMock
-        };
-        wrapper.setState({ previousMarkers: polygonMock.markers });
-        const oldState = wrapperInstance.state;
-        wrapperInstance.onFinishShape(polygon);
-        expect(wrapperInstance.state).toEqual(oldState);
-        expect(store.dispatch).not.toHaveBeenCalled();
-      });
-
       it('should dispatch MAP_END_DRAWING when the polygon has only two points', () => {
         const polygon = {
           ...polygonMock,
           markers: [...markers.filter((item, index) => index < 2)]
         };
         wrapperInstance.onFinishShape(polygon);
-        expect(store.dispatch).toHaveBeenCalledWith(mapEndDrawing({ polygon }));
+        expect(store.dispatch).toHaveBeenCalledWith(setGeometryFilter(polygon));
       });
 
       it('should set new Markers and dispatch MAP_END_DRAWING when the polygon has more than two points', () => {
@@ -230,7 +190,7 @@ describe('DrawToolContainer', () => {
           markers: [...markers.filter((item, index) => index < 3)]
         };
         wrapperInstance.onFinishShape(polygon);
-        expect(store.dispatch).toHaveBeenCalledWith(mapEndDrawing({ polygon }));
+        expect(store.dispatch).toHaveBeenCalledWith(setGeometryFilter(polygon));
       });
     });
 

@@ -113,6 +113,8 @@ const DataSearch = ({
                     searchResults={result.subResults}
                     numberOfResults={numberOfResults}
                     {...{
+                      searchQuery,
+                      userAuthenticated,
                       toDetail,
                       setSearchCategory,
                       userScopes

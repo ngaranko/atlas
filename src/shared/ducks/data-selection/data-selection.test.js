@@ -63,6 +63,22 @@ describe('Data Selection Reducer', () => {
       ['geometryFilter']
     ),
     ...getExpectations(
+      actionCreators.startDrawing.name,
+      ['']
+    ),
+    ...getExpectations(
+      actionCreators.endDataSelection.name,
+      ['']
+    ),
+    ...getExpectations(
+      actionCreators.cancelDrawing.name,
+      ['']
+    ),
+    ...getExpectations(
+      actionCreators.resetDrawing.name,
+      ['geometryFilter', 'markers', 'shape']
+    ),
+    ...getExpectations(
       actionCreators.receiveDataSelectionSuccess.name,
       ['isLoading', 'markers', 'errorMessage', 'authError', 'data'],
       [{ data: { some: 'data' } }]

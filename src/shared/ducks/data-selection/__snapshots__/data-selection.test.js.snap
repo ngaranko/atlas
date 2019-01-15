@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Data Selection Reducer should set  state when dispatching cancelDrawing 1`] = `Object {}`;
+
 exports[`Data Selection Reducer should set  state when dispatching downloadDataSelection 1`] = `Object {}`;
+
+exports[`Data Selection Reducer should set  state when dispatching endDataSelection 1`] = `Object {}`;
+
+exports[`Data Selection Reducer should set  state when dispatching startDrawing 1`] = `Object {}`;
 
 exports[`Data Selection Reducer should set dataset state when dispatching setDataset 1`] = `
 Object {
@@ -16,11 +22,18 @@ Object {
 
 exports[`Data Selection Reducer should set geometryFilter state when dispatching setGeometryFilter 1`] = `
 Object {
-  "geometryFilter": Array [
-    Object {
-      "filter": "foo",
-    },
-  ],
+  "geometryFilter": Object {
+    "description": "undefined en undefined",
+    "markers": undefined,
+  },
+}
+`;
+
+exports[`Data Selection Reducer should set geometryFilter, markers, shape state when dispatching resetDrawing 1`] = `
+Object {
+  "geometryFilter": Object {},
+  "markers": Array [],
+  "shape": "",
 }
 `;
 

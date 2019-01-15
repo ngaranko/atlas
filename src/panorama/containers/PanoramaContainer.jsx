@@ -11,7 +11,11 @@ import {
   setView as setPanoramaView
 } from '../ducks/actions';
 import PANORAMA_VIEW from '../ducks/panorama-view';
-import { toDataDetail, toGeoSearch, pageTypeToEndpoint } from '../../store/redux-first-router/actions';
+import {
+  pageTypeToEndpoint,
+  toDataDetail,
+  toGeoSearch
+} from '../../store/redux-first-router/actions';
 
 import { getOrientation, initialize, loadScene } from '../services/marzipano/marzipano';
 
@@ -68,7 +72,6 @@ class PanoramaContainer extends React.Component {
 
   loadPanoramaScene() {
     const { panoramaState } = this.props;
-
     if (panoramaState.image) {
       loadScene(
         this.panoramaViewer,

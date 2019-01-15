@@ -2,36 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import isEqual from 'lodash.isequal';
+import get from 'lodash.get';
 
 import DrawTool from '../../components/draw-tool/DrawTool';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
-import { setPageName } from '../../../shared/ducks/page/page';
-
 import {
-  cancel,
   currentShape,
   initialize,
   isEnabled,
   setPolygon
 } from '../../services/draw-tool/draw-tool';
-import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
-import {
-  mapClear,
-  mapEmptyGeometry,
-  mapEndDrawing,
-  mapStartDrawing,
-  mapUpdateShape
-} from '../../ducks/map/map';
+import { mapClear, mapEmptyGeometry, mapStartDrawing, mapUpdateShape } from '../../ducks/map/map';
 import {
   getDrawingMode,
   getGeometry,
   getShapeDistanceTxt,
   isDrawingEnabled
 } from '../../ducks/map/map-selectors';
-import { setGeometryFilter } from '../../../shared/ducks/data-selection/actions';
+import { endDataSelection, setGeometryFilter } from '../../../shared/ducks/data-selection/actions';
 import {
   getDataSelection,
   getNumberOfDrawMarkers
@@ -39,7 +28,7 @@ import {
 
 const mapStateToProps = (state) => ({
   drawingMode: getDrawingMode(state),
-  isEnabled: isDrawingEnabled(state),
+  drawingEnabled: isDrawingEnabled(state),
   shapeMarkers: getNumberOfDrawMarkers(state),
   shapeDistanceTxt: getShapeDistanceTxt(state),
   dataSelection: getDataSelection(state),
@@ -50,23 +39,16 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onClearDrawing: mapEmptyGeometry,
   onEmptyGeometry: mapEmptyGeometry,
   onMapUpdateShape: mapUpdateShape,
-  setGeometryFilter,
+  onSetGeometryFilter: setGeometryFilter,
   onStartDrawing: mapStartDrawing,
-  onEndDrawing: mapEndDrawing,
-  onMapClear: mapClear,
-  onSetPageName: setPageName
+  onEndDrawing: endDataSelection,
+  onMapClear: mapClear
 }, dispatch);
 
 // TODO: Get all business logic out of this file, probably to Redux!
 class DrawToolContainer extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      drawingMode: props.drawingMode,
-      previousMarkers: [],
-      dataSelection: null
-    };
 
     this.onFinishShape = this.onFinishShape.bind(this);
     this.onDrawingMode = this.onDrawingMode.bind(this);
@@ -85,57 +67,41 @@ class DrawToolContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { geometry, dataSelection } = this.props;
     // Clear Polygon if the dataSelection filter changes
-    if (prevProps.dataSelection.geometryFilter !== this.props.dataSelection.geometryFilter) {
+    if (prevProps.dataSelection.geometryFilter !== dataSelection.geometryFilter) {
       this.setPolygon();
-    }
-
-    // Update DrawingMode on props update
-    if (prevProps.drawingMode !== this.props.drawingMode) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({ drawingMode: this.props.drawingMode });
     }
 
     // if the markers have changed save the old markers as previous markers
-    if (prevProps.geometry !== this.props.geometry) {
+    if (prevProps.geometry !== geometry) {
       this.setPolygon();
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({ previousMarkers: [...prevProps.geometry] });
     }
   }
 
   componentWillUnmount() {
-    this.props.onMapClear();
+    const { onMapClear } = this.props;
+    onMapClear();
   }
 
   onFinishShape(polygon) {
+    const { onSetGeometryFilter } = this.props;
     const has2Markers = polygon && polygon.markers && polygon.markers.length === 2;
     const moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
 
-    if (moreThan2Markers && !isEqual(this.state.previousMarkers, polygon.markers)) {
-      this.props.setGeometryFilter({
-        markers: polygon.markers,
-        description: `${polygon.distanceTxt} en ${polygon.areaTxt}`
-      });
-
-      this.props.onEndDrawing({ polygon });
-      this.props.onSetPageName({ name: null });
-    } else if (has2Markers) {
-      this.props.onEndDrawing({ polygon });
+    if (moreThan2Markers || has2Markers) {
+      onSetGeometryFilter(polygon);
     }
   }
 
   onDrawingMode(drawingMode) {
-    if (drawingMode !== drawToolConfig.DRAWING_MODE.NONE) {
-      this.setState({ previousMarkers: [...this.props.currentShape.markers] });
-      this.props.onStartDrawing({ drawingMode });
-    } else {
-      this.props.onEndDrawing();
-    }
+    const { onStartDrawing } = this.props;
+    onStartDrawing({ drawingMode });
   }
 
   onUpdateShape(newShape) {
-    this.props.onMapUpdateShape({
+    const { onMapUpdateShape } = this.props;
+    onMapUpdateShape({
       shapeMarkers: newShape.markers.length,
       shapeDistanceTxt: newShape.distanceTxt,
       shapeAreaTxt: newShape.areaTxt
@@ -143,24 +109,32 @@ class DrawToolContainer extends React.Component {
   }
 
   setPolygon() {
+    const { onSetPolygon } = this.props;
     if (!isEnabled()) {
-      this.props.setPolygon(this.getMarkers());
+      onSetPolygon(this.getMarkers());
     }
   }
 
   getMarkers() {
-    return this.props.geometry && this.props.geometry.length > 0 ? this.props.geometry :
-      ((this.props.dataSelection && this.props.dataSelection.geometryFilter &&
-        this.props.dataSelection.geometryFilter.markers) || []);
+    const { geometry, dataSelection } = this.props;
+    return geometry && geometry.length > 0 ?
+      geometry :
+      get(dataSelection, 'geometryFilter.markers', []);
   }
 
   render() {
-    const markersLeft = drawToolConfig.MAX_MARKERS - this.props.shapeMarkers;
-    return (<DrawTool
-      markersLeft={markersLeft}
-      {...this.props}
-      isEnabled={this.props.isEnabled}
-    />);
+    const { shapeMarkers, drawingMode, drawingEnabled } = this.props;
+    const markersLeft = drawToolConfig.MAX_MARKERS - shapeMarkers;
+    return (
+      <DrawTool
+        markersLeft={markersLeft}
+        {...{
+          shapeMarkers,
+          drawingMode,
+          drawingEnabled
+        }}
+      />
+    );
   }
 }
 
@@ -182,19 +156,16 @@ DrawToolContainer.propTypes = {
 
   leafletInstance: PropTypes.shape({}).isRequired,
 
-  toggleDrawing: PropTypes.func.isRequired,
-  isEnabled: PropTypes.bool.isRequired,
-  cancel: PropTypes.func.isRequired,
-  setPolygon: PropTypes.func.isRequired,
+  drawingEnabled: PropTypes.bool.isRequired,
+  onSetPolygon: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
 
   onClearDrawing: PropTypes.func.isRequired,
   onEmptyGeometry: PropTypes.func.isRequired,
   onMapUpdateShape: PropTypes.func.isRequired,
-  setGeometryFilter: PropTypes.func.isRequired,
+  onSetGeometryFilter: PropTypes.func.isRequired,
   onStartDrawing: PropTypes.func.isRequired,
   onEndDrawing: PropTypes.func.isRequired,
-  onSetPageName: PropTypes.func.isRequired,
   onMapClear: PropTypes.func.isRequired
 };
 
@@ -207,10 +178,8 @@ DrawToolContainer.defaultProps = {
 export default connect(mapStateToProps, mapDispatchToProps)((props) => (
   <DrawToolContainer
     currentShape={currentShape}
-    toggleDrawing={toggleDrawing}
-    cancel={cancel}
     initialize={initialize}
-    setPolygon={setPolygon}
+    onSetPolygon={setPolygon}
     {...props}
   />
 ));

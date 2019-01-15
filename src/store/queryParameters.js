@@ -20,7 +20,7 @@ import {
   getMapZoom,
   isMapPanelActive
 } from '../map/ducks/map/map-selectors';
-import { initialState as panoramaInitialState } from '../panorama/ducks/constants';
+import { historyOptions, initialState as panoramaInitialState } from '../panorama/ducks/constants';
 import { PANORAMA } from '../panorama/ducks/reducer';
 import {
   getPanoramaHeading,
@@ -192,12 +192,10 @@ export default paramsRegistry
       decode: (val) => {
         if (val) {
           const [year, missionType] = val.split('.');
-          return {
-            year: parseFloat(year),
-            missionType,
-            label: `Alleen ${year} ${missionType}`,
-            layerName: `pano${year}${missionType}`
-          };
+          const parsedYear = parseFloat(year);
+          return historyOptions.find((opt) => (
+            opt.year === parsedYear && opt.missionType === missionType
+          )) || panoramaInitialState.history;
         }
         return val;
       }
