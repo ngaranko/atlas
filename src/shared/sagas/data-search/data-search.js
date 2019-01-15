@@ -27,7 +27,7 @@ import {
   getView
 } from '../../ducks/data-search/selectors';
 import {
-  getNumberOfResults as getNrOfSearchResults,
+  getNumberOfResults as getNrOfSearchResults, getNumberOfResultsPanel,
   loadMore as vanillaLoadMore,
   replaceBuurtcombinatie,
   search as vanillaSearch
@@ -54,7 +54,10 @@ export function* fetchMapSearchResults() {
       yield put(fetchMapSearchResultsSuccessList(results, getNrOfSearchResults(geoSearchResults)));
     } else {
       const mapSearchResults = yield call(search, location, user);
-      yield put(fetchMapSearchResultsSuccessPanel(mapSearchResults));
+      yield put(fetchMapSearchResultsSuccessPanel(
+        mapSearchResults,
+        getNumberOfResultsPanel(mapSearchResults)
+      ));
     }
   } catch (error) {
     const payload = ActiveOverlaysClass.getOverlaysWarning(zoom);

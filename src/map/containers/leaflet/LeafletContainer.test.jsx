@@ -11,7 +11,8 @@ import {
   getMapZoom,
   getMarkers,
   getRdGeoJsons,
-  isMarkerActive
+  isMarkerActive,
+  isMapBusy
 } from '../../ducks/map/map-selectors';
 
 import {
@@ -97,6 +98,7 @@ describe('LeafletContainer', () => {
     updatePan.mockImplementation(() => ({}));
     setSelectedLocation.mockImplementation(() => ({}));
     updateZoom.mockImplementation(() => ({}));
+    isMapBusy.mockImplementation(() => false);
     getUrlTemplate.mockImplementation(() => 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png');
   });
 
@@ -107,9 +109,10 @@ describe('LeafletContainer', () => {
         map: {
           viewCenter: [52.4138254, 4.8728099],
           baseLayer: 'topografie',
-          zoom: 8,
+          zoom: 9,
           overlays: [],
-          drawingMode: 'none'
+          drawingMode: 'none',
+          isMapBusy: false
         },
         user: {
           authenticated: false,
@@ -131,7 +134,7 @@ describe('LeafletContainer', () => {
       jest.resetAllMocks();
     });
 
-    it('should render', () => {
+    it.only('should render correct', () => {
       const store = configureMockStore()({ ...initialState });
       const wrapper = shallow(
         <LeafletContainer
@@ -159,7 +162,8 @@ describe('LeafletContainer', () => {
               isVisible: true
             }
           ],
-          drawingMode: 'none'
+          drawingMode: 'none',
+          isMapBusy: false
         }
       };
       getCenter.mockImplementation(() => [52.4333137, 4.9108908]);

@@ -4,8 +4,8 @@ import {
   fetchDataSelection,
   receiveDataSelectionFailure,
   receiveDataSelectionSuccess,
-  setMarkers,
-  removeGeometryFilter
+  removeGeometryFilter,
+  setMarkers
 } from '../../ducks/data-selection/actions';
 import { routing } from '../../../app/routes';
 import dataSelectionConfig from '../../services/data-selection/data-selection-config';
@@ -19,13 +19,18 @@ import {
 } from '../../ducks/filters/filters';
 import { preserveQuery, toDatasetPage } from '../../../store/redux-first-router/actions';
 import { isDataSelectionPage } from '../../../store/redux-first-router/selectors';
+import { cancel, disable, enable, setPolygon } from '../../../map/services/draw-tool/draw-tool';
 import {
+  CANCEL_DATA_SELECTION,
+  END_DATA_SELECTION,
   FETCH_DATA_SELECTION_REQUEST,
   REMOVE_GEOMETRY_FILTER,
+  RESET_DATA_SELECTION,
   SET_DATASET,
   SET_GEOMETRY_FILTER,
   SET_PAGE,
   SET_VIEW,
+  START_DATA_SELECTION,
   VIEWS
 } from '../../ducks/data-selection/constants';
 import {
@@ -34,8 +39,15 @@ import {
   getGeometryFilters
 } from '../../ducks/data-selection/selectors';
 import { waitForAuthentication } from '../user/user';
-import { MAP_BOUNDING_BOX } from '../../../map/ducks/map/map';
+import {
+  MAP_BOUNDING_BOX,
+  mapEmptyGeometry,
+  mapEndDrawing,
+  mapStartDrawing,
+  mapLoadingAction
+} from '../../../map/ducks/map/map';
 import PARAMETERS from '../../../store/parameters';
+import drawToolConfig from '../../../map/services/draw-tool/draw-tool.config';
 
 function* getMapMarkers(dataset, activeFilters) {
   // Since bounding box can be set later, we check if we have to wait for the boundingbox to get set
@@ -86,13 +98,16 @@ function* retrieveDataSelection(action) {
     );
 
     if (markersShouldBeFetched) {
+      yield put(mapLoadingAction(true));
       yield call(getMapMarkers, dataset, { ...activeFilters, shape });
+      yield put(mapLoadingAction(false));
     }
   } catch (e) {
     yield put(receiveDataSelectionFailure({
       error: e.message,
       dataset
     }));
+    yield put(mapLoadingAction(false));
   }
 }
 
@@ -123,12 +138,38 @@ function* switchPage(additionalParams = {}) {
   yield put(preserveQuery(toDatasetPage(dataSelection.dataset), additionalParams));
 }
 
-function* setGeometryFilters() {
+function* setGeometryFilters({ payload }) {
   const geometryFilters = yield select(getGeometryFilters);
-  yield call(switchPage, {
-    [PARAMETERS.GEO]: geometryFilters,
-    [PARAMETERS.VIEW]: VIEWS.LIST
-  });
+  yield put(mapEndDrawing({ polygon: payload }));
+
+  // Don't switch page if line is drawn
+  if (payload.markers.length > 2) {
+    yield call(switchPage, {
+      [PARAMETERS.GEO]: geometryFilters,
+      [PARAMETERS.VIEW]: VIEWS.LIST
+    });
+  }
+}
+
+function* clearDrawing() {
+  yield call(setPolygon, []);
+  yield call(enable);
+  yield put(mapEmptyGeometry());
+}
+
+function* startDrawing() {
+  yield call(setPolygon, []);
+  yield call(enable);
+  yield put(mapStartDrawing({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW }));
+}
+
+function* endDrawing() {
+  yield call(disable);
+}
+
+function* cancelDrawing() {
+  yield put(mapEmptyGeometry());
+  yield call(cancel);
 }
 
 export default function* watchFetchDataSelection() {
@@ -144,4 +185,9 @@ export default function* watchFetchDataSelection() {
   // Actions
   yield takeLatest(FETCH_DATA_SELECTION_REQUEST, retrieveDataSelection);
   yield takeLatest([SET_DATASET], switchPage);
+
+  yield takeLatest(RESET_DATA_SELECTION, clearDrawing);
+  yield takeLatest(START_DATA_SELECTION, startDrawing);
+  yield takeLatest(END_DATA_SELECTION, endDrawing);
+  yield takeLatest(CANCEL_DATA_SELECTION, cancelDrawing);
 }

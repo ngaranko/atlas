@@ -20,7 +20,7 @@ import {
   getMapZoom,
   isMapPanelActive
 } from '../map/ducks/map/map-selectors';
-import { initialState as panoramaInitialState } from '../panorama/ducks/constants';
+import { historyOptions, initialState as panoramaInitialState } from '../panorama/ducks/constants';
 import { PANORAMA } from '../panorama/ducks/reducer';
 import {
   getPanoramaHeading,
@@ -188,8 +188,17 @@ export default paramsRegistry
     routes.add(routing.panorama.type, PANORAMA, 'history', {
       defaultValue: panoramaInitialState.history,
       selector: getPanoramaHistory,
-      encode: (selectorResult) => btoa(JSON.stringify(selectorResult)),
-      decode: (val) => val && JSON.parse(atob(val))
+      encode: (selectorResult) => `${selectorResult.year}.${selectorResult.missionType}`,
+      decode: (val) => {
+        if (val) {
+          const [year, missionType] = val.split('.');
+          const parsedYear = parseFloat(year);
+          return historyOptions.find((opt) => (
+            opt.year === parsedYear && opt.missionType === missionType
+          )) || panoramaInitialState.history;
+        }
+        return val;
+      }
     });
   })
   .addParameter(PARAMETERS.PITCH, (routes) => {

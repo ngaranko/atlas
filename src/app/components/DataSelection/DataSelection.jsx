@@ -96,7 +96,7 @@ const DataSelection = ({
                       dependencies={['atlas']}
                       bindings={{
                         availableFilters,
-                        filters: activeFilters
+                        activeFilters
                       }}
                     />
                   )}

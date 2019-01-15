@@ -10,20 +10,15 @@
 
         // Shared module
         'dpShared',
-
-        // Third party modules
-        'angulartics.piwik',
-
         'ngAria'
     ];
 
     // eslint-disable-next-line angular/di
     angular.module('atlas', moduleDependencies)
-        .config(['$analyticsProvider', '$provide', analyticsProvider]);
+        .config(['$provide', urlChangeProvider]);
 
-    analyticsProvider.$inject = ['$analyticsProvider', '$provide'];
-    function analyticsProvider ($analyticsProvider, $provide) {
-        $analyticsProvider.virtualPageviews(false);
+    urlChangeProvider.$inject = ['$provide'];
+    function urlChangeProvider ($provide) {
         $provide.decorator('$browser', ['$delegate', function ($delegate) {
             $delegate.onUrlChange = function () { };
             $delegate.url = function () { return ''; };

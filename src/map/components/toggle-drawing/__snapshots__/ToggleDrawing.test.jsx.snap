@@ -52,8 +52,5 @@ exports[`ToggleDrawing should render with drawing mode none and no markers 1`] =
   <span
     className="toggle-drawing__icon"
   />
-  <span
-    className="toggle-drawing__label"
-  />
 </button>
 `;

@@ -12,7 +12,7 @@ import {
   SET_MARKERS,
   SET_PAGE,
   SET_VIEW,
-  REDUCER_KEY
+  REDUCER_KEY, RESET_DATA_SELECTION
 } from './constants';
 import { routing } from '../../../app/routes';
 import { SET_SELECTION } from '../selection/selection';
@@ -82,11 +82,16 @@ export default function reducer(state = initialState, action) {
         dataset: action.payload
       };
 
-    case SET_GEOMETRY_FILTER:
+    case SET_GEOMETRY_FILTER: {
+      const { markers, distanceTxt, areaTxt } = action.payload;
       return {
         ...enrichedState,
-        geometryFilter: action.payload
+        geometryFilter: {
+          markers,
+          description: `${distanceTxt} en ${areaTxt}`
+        }
       };
+    }
 
     case REMOVE_GEOMETRY_FILTER:
       return {
@@ -104,6 +109,14 @@ export default function reducer(state = initialState, action) {
       return {
         ...enrichedState,
         view: action.payload
+      };
+
+    case RESET_DATA_SELECTION:
+      return {
+        ...enrichedState,
+        geometryFilter: {},
+        markers: [],
+        shape: ''
       };
 
     default:

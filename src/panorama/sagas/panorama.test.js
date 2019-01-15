@@ -1,11 +1,13 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
-import { select, takeLatest } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import {
   doClosePanorama,
   fetchPanoramaById,
   fetchPanoramaByLocation,
   fetchPanoramaRequest,
   fireFetchPanormaRequest,
+  handlePanoramaRequest,
+  setPanoramaId,
   watchClosePanorama,
   watchFetchPanorama,
   watchPanoramaRoute
@@ -64,6 +66,7 @@ describe('watchFetchPanorama', () => {
       .all([
         takeLatest(FETCH_PANORAMA_REQUEST, fetchPanoramaById),
         takeLatest(FETCH_PANORAMA_REQUEST_CLICK, fetchPanoramaById),
+        takeLatest(FETCH_PANORAMA_SUCCESS, setPanoramaId),
         takeLatest([
           SET_PANORAMA_YEAR,
           SET_PANORAMA_LOCATION,
@@ -98,91 +101,70 @@ describe('watchClosePanorama', () => {
 });
 
 describe('fetchPanorma and fetchPanoramaByLocation', () => {
-  it('should call fetchPanorama and dispatch the correct action', () => {
-    testSaga(fetchPanoramaById)
-      .next()
-      .all([
-        select(getPanoramaId),
-        select(getPanoramaHistory)
-      ])
-      .next(['id', 'history'])
-      .call(getImageDataById, 'id', 'history')
-      .next('imageData')
-      .put({
-        type: FETCH_PANORAMA_SUCCESS,
-        payload: 'imageData',
-        meta: {
-          tracking: 'imageData'
-        }
-      })
-      .next()
-      .put({
-        type: TOGGLE_MAP_OVERLAY_PANORAMA,
-        payload: 'pano'
-      })
-      .next()
-      .isDone();
+  describe('fetchPanoramaById', () => {
+    it('should call handlePanoramaRequest with getImageDataById and id as an argument', () => {
+      testSaga(fetchPanoramaById)
+        .next()
+        .select(getPanoramaId)
+        .next('id123')
+        .call(handlePanoramaRequest, getImageDataById, 'id123')
+        .next()
+        .isDone();
+    });
   });
 
-  it('should call fetchPanorama and throw an error', () => {
-    testSaga(fetchPanoramaById)
-      .next()
-      .all([
-        select(getPanoramaId),
-        select(getPanoramaHistory)
-      ])
-      .next(['id', 'history'])
-      .call(getImageDataById, 'id', 'history')
-      .throw('error')
-      .put({
-        type: FETCH_PANORAMA_ERROR,
-        payload: 'error'
-      })
-      .next()
-      .isDone();
+  describe('fetchPanoramaByLocation', () => {
+    it('should call handlePanoramaRequest with getImageDataByLocation and location as an argument', () => {
+      testSaga(fetchPanoramaByLocation)
+        .next()
+        .select(getPanoramaLocation)
+        .next([123, 321])
+        .call(handlePanoramaRequest, getImageDataByLocation, [123, 321])
+        .next()
+        .isDone();
+    });
   });
 
-  it('should call fetchPanoramaByLocation and dispatch the correct action', () => {
-    testSaga(fetchPanoramaByLocation)
-      .next()
-      .all([
-        select(getPanoramaLocation),
-        select(getPanoramaHistory)
-      ])
-      .next(['location', 'history'])
-      .call(getImageDataByLocation, 'location', 'history')
-      .next('imageData')
-      .put({
-        type: FETCH_PANORAMA_SUCCESS,
-        payload: 'imageData',
-        meta: {
-          tracking: 'imageData'
-        }
-      })
-      .next()
-      .put({
-        type: TOGGLE_MAP_OVERLAY_PANORAMA,
-        payload: 'pano'
-      })
-      .next()
-      .isDone();
-  });
 
-  it('should call fetchPanoramaByLocation and throw an error', () => {
-    testSaga(fetchPanoramaByLocation)
-      .next()
-      .all([
-        select(getPanoramaLocation),
-        select(getPanoramaHistory)
-      ])
-      .next(['location', 'history'])
-      .call(getImageDataByLocation, 'location', 'history')
-      .throw('error')
-      .put({
-        type: FETCH_PANORAMA_ERROR,
-        payload: 'error'
-      })
-      .next()
-      .isDone();
+  describe('handlePanoramaRequest', () => {
+    it('should dispatch a given function and dispatch FETCH_PANORAMA_SUCCESS', () => {
+      const mockFn = jest.fn();
+      testSaga(handlePanoramaRequest, mockFn, 'id123')
+        .next()
+        .select(getPanoramaHistory)
+        .next({ year: 0 })
+        .call(mockFn, 'id123', { year: 0 })
+        .next('imageData')
+        .put({
+          type: FETCH_PANORAMA_SUCCESS,
+          payload: 'imageData',
+          meta: {
+            tracking: 'imageData'
+          }
+        })
+        .next()
+        .put({
+          type: TOGGLE_MAP_OVERLAY_PANORAMA,
+          payload: 'pano'
+        })
+        .next()
+        .isDone();
+    });
+
+    it('should dispatch a given function and dispatch FETCH_PANORAMA_ERROR', () => {
+      const mockFn = jest.fn();
+      testSaga(handlePanoramaRequest, mockFn, 'id123')
+        .next()
+        .select(getPanoramaHistory)
+        .next({ year: 0 })
+        .call(mockFn, 'id123', { year: 0 })
+        .throw('error')
+        .put({
+          type: FETCH_PANORAMA_ERROR,
+          payload: 'error'
+        })
+        .next()
+        .isDone();
+    });
   });
 });

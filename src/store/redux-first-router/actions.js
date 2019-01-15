@@ -1,8 +1,9 @@
 import { ROUTER_NAMESPACE, routing } from '../../app/routes';
-import { DATASET_ROUTE_MAPPER } from '../../shared/ducks/data-selection/constants';
+import { DATASET_ROUTE_MAPPER, VIEWS as DATASET_VIEWS } from '../../shared/ducks/data-selection/constants';
 import PARAMETERS from '../parameters';
-import { VIEWS } from '../../shared/ducks/data-search/constants';
+import { VIEWS as DATA_SEARCH_VIEW } from '../../shared/ducks/data-search/constants';
 import { VIEWS as PANORAMA_VIEWS } from '../../panorama/ducks/constants';
+import { VIEWS } from '../../map/ducks/map/map';
 
 export const preserveQuery = (action, additionalParams = null) => ({
   ...action,
@@ -43,11 +44,8 @@ export const toDataSearchLocation = (location) => (
   })
 );
 
-export const toGeoSearch = (location, view = VIEWS.LIST) => preserveQuery({
-  type: routing.dataGeoSearch.type,
-  meta: {
-    tracking: true
-  }
+export const toGeoSearch = (location, view = DATA_SEARCH_VIEW.LIST) => preserveQuery({
+  type: routing.dataGeoSearch.type
 }, {
   [PARAMETERS.LOCATION]: location,
   [PARAMETERS.VIEW]: view
@@ -63,10 +61,10 @@ export const toDataSearchQuery = (searchQuery, filters, skipFetch = false) => ({
     }
   }
 });
-export const toMap = (additionalParams = null) => ({
+export const toMap = () => ({
   type: routing.home.type,
   meta: {
-    additionalParams
+    additionalParams: { view: VIEWS.MAP }
   }
 });
 
@@ -176,7 +174,8 @@ export const toDatasetsTableWithFilter = (datasetType, filter) => ({
   type: datasetType,
   meta: {
     additionalParams: {
-      [PARAMETERS.FILTERS]: btoa(JSON.stringify(filter))
+      [PARAMETERS.FILTERS]: filter,
+      [PARAMETERS.VIEW]: DATASET_VIEWS.TABLE
     }
   }
 });

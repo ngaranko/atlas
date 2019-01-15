@@ -90,3 +90,9 @@ export function getNumberOfResults(searchResults) {
       : 0)
   ), 0);
 }
+
+export const getNumberOfResultsPanel = (results) => (
+  results.reduce((acc, { results: subResults }) => (
+    acc + (subResults.length)
+  ), 0)
+);

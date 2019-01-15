@@ -6,7 +6,6 @@ import * as Datasets from '../shared/ducks/datasets/datasets';
 import * as DataSelectionCatalogReducer
   from '../shared/ducks/datasets/apiSpecification/apiSpecification';
 import * as ErrorMessageReducer from '../shared/ducks/error-message';
-import * as PageReducer from '../shared/ducks/page/page';
 import * as UiReducer from '../shared/ducks/ui/ui';
 import * as UserReducer from '../shared/ducks/user/user';
 import * as MapDetailReducer from '../map/ducks/detail/map-detail';
@@ -26,7 +25,6 @@ describe('the root reducer', () => {
   DataSelectionReducer.default = () => 'dataSelection';
   DataSelectionCatalogReducer.default = () => 'catalogFilters';
   ErrorMessageReducer.default = () => 'error';
-  PageReducer.default = () => 'page';
   UiReducer.default = () => 'ui';
   UserReducer.default = () => 'user';
   DetailReducer.default = () => 'detail';
@@ -51,7 +49,6 @@ describe('the root reducer', () => {
       .toEqual({
         dataSelection: 'dataSelection',
         datasets: 'datasets',
-        page: 'page',
         error: 'error',
         filter: 'filter',
         map: 'map',
