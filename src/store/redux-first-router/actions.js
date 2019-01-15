@@ -103,14 +103,12 @@ export const toDataSearchCategory = (searchQuery, category) => ({
   }
 });
 export const toDatasets = () => ({ type: routing.datasets.type });
-export const toDatasetSearch = (searchQuery, skipFetch = false) => ({
+export const toDatasetSearch = (additionalParams = null, skipFetch = false) => ({
   type: routing.searchDatasets.type,
   meta: {
     skipFetch,
     preserveQuery: true,
-    additionalParams: {
-      [PARAMETERS.QUERY]: searchQuery
-    }
+    additionalParams
   }
 });
 export const toDatasetsWithFilter = (additionalParams = {}, preserve = false) => ({

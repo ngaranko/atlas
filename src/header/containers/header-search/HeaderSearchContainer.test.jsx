@@ -257,7 +257,9 @@ describe('HeaderSearchContainer', () => {
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onFormSubmit();
-      expect(store.dispatch).toHaveBeenCalledWith(toDatasetSearch(query));
+      expect(store.dispatch).toHaveBeenCalledWith(toDatasetSearch({
+        [PARAMETERS.QUERY]: query
+      }));
     });
   });
 
