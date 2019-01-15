@@ -44,7 +44,9 @@ const mapDispatchToProps = (dispatch) => ({
     onGetSuggestions: getSuggestionsAction,
     onSuggestionActivate: setActiveSuggestionAction
   }, dispatch),
-  onDatasetSearch: (query) => dispatch(toDatasetSearch(query)),
+  onDatasetSearch: (query) => dispatch(toDatasetSearch({
+    [PARAMETERS.QUERY]: query
+  })),
   onDataSearch: (query) => dispatch(toDataSearchQuery({
     [PARAMETERS.QUERY]: query
   })),

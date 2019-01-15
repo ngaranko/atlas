@@ -169,7 +169,7 @@ export default paramsRegistry
       defaultValue: mapInitialState.zoom,
       decode: (val) => parseFloat(val) || mapInitialState.zoom,
       selector: getMapZoom
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.LEGEND, (routes) => {
     routes.add(routesWithMapActive, MAP, 'mapPanelActive', {
