@@ -1,6 +1,5 @@
 import removeMd from 'remove-markdown';
 import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/data/data';
-import { showDetail } from '../../../../src/shared/ducks/detail/actions';
 
 (function () {
     angular
@@ -12,7 +11,9 @@ import { showDetail } from '../../../../src/shared/ducks/detail/actions';
                 isPreviewPanoramaLoading: '<',
                 isLoading: '=',
                 catalogFilters: '=',
-                user: '<'
+                user: '<',
+                detailTemplateUrl: '<',
+                detailData: '<'
             },
             templateUrl: 'modules/detail/components/detail/detail.html',
             controller: DpDetailController,
@@ -20,105 +21,31 @@ import { showDetail } from '../../../../src/shared/ducks/detail/actions';
         });
 
     DpDetailController.$inject = [
-        '$scope',
-        'store',
-        'api',
-        'endpointParser',
-        'geometry',
-        'geojson',
-        'crsConverter',
-        'dataFormatter',
-        'markdownParser'
+        'store'
     ];
 
-    /* eslint-disable max-params */
-    function DpDetailController (
-        $scope,
-        store,
-        api,
-        endpointParser,
-        geometry,
-        geojson,
-        crsConverter,
-        dataFormatter,
-        markdownParser
-    ) {
-        /* eslint-enable max-params */
+    function DpDetailController (store) {
         const vm = this;
-
-        // (Re)load the data when the endpoint is set or gets changed
-        $scope.$watch('vm.endpoint', getData);
-
-        // Ensure the catalog filters for dcatd endpoints
-        $scope.$watch('vm.catalogFilters', () => {
-            if (vm.catalogFilters) {
-                getData(vm.endpoint);
-            }
-        });
-
-        // (Re)load the data when the user logs in or out or on a change of authorization level
-        $scope.$watch('vm.user.scopes', (newValue, oldValue) => {
-            if (newValue !== oldValue) {
-                getData(vm.endpoint);
-            }
-        });
 
         vm.stripMarkdown = (val) => removeMd(val);
 
-        vm.downloadResource = (dataset, resourceUrl) => store.dispatch(downloadDatasetResource({dataset, resourceUrl}));
+        vm.downloadResource = (dataset, resourceUrl) =>
+            store.dispatch(downloadDatasetResource({ dataset, resourceUrl }));
 
-        function getData (endpoint) {
-            vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
-
-            const [category, subject] = endpointParser.getParts(endpoint);
-
-            if ((category === 'brk' && subject === 'subject' && !vm.user.scopes.includes('BRK/RS')) ||
-                (category === 'handelsregister' && !vm.user.scopes.includes('HR/R')) ||
-                (category === 'grondexploitatie' && !vm.user.scopes.includes('GREX/R'))
-            ) {
-                // User is not authorized to view
-                //   BRK Kadastrale Subjecten, nor
-                //   handelsregister, nor
-                //   grondexploitatie
-                // so do not fetch data
-                delete vm.apiData;
-                errorHandler();
-            } else if (category === 'dcatd' && subject === 'datasets' && !vm.catalogFilters) {
-                // The catalogFilters data is not present so do not fetch data
-                delete vm.apiData;
-                errorHandler();
-            } else {
-                const endpointVersion = category === 'grondexploitatie' ? '?version=3' : '';
-                api.getByUrl(`${endpoint}${endpointVersion}`).then(function (data) {
-                    data = dataFormatter.formatData(data, subject, vm.catalogFilters);
-
-                    if (category === 'dcatd' && subject === 'datasets') {
-                        const fields = ['dct:description', 'overheid:grondslag', 'overheidds:doel'];
-                        const markdownFields = fields.reduce((acc, field) => {
-                            if (data[field]) {
-                                acc[field] = markdownParser.parse(data[field]);
-                            }
-                            return acc;
-                        }, {});
-
-                        data = { ...data, ...markdownFields };
-
-                        data.canEditDataset = vm.user.scopes.includes('CAT/W');
-                    }
-
-                    vm.apiData = {
-                        results: data
-                    };
-
-                    vm.filterSelection = {
-                        [subject]: vm.apiData.results.naam
-                    };
-                }, errorHandler);
+        vm.$onChanges = (changes) => {
+            if (changes.detailTemplateUrl) {
+                vm.includeSrc = changes.detailTemplateUrl.currentValue;
             }
-        }
 
-        function errorHandler () {
-            store.dispatch(showDetail({}));
-        }
+            if (changes.detailData) {
+                vm.apiData = {
+                    results: changes.detailData.currentValue
+                };
+
+                // vm.filterSelection = {
+                //     [subject]: vm.apiData.results.naam
+                // };
+            }
+        };
     }
 })();

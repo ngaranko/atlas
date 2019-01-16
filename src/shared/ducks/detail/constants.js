@@ -1,6 +1,17 @@
 export const REDUCER_KEY = 'detail';
-export const FETCH_DETAIL = 'FETCH_DETAIL';
-export const SHOW_DETAIL = 'SHOW_DETAIL';
+export const FETCH_DETAIL = `${REDUCER_KEY}/FETCH_DETAIL`;
+export const SHOW_DETAIL = `${REDUCER_KEY}/SHOW_DETAIL`;
+export const SET_VIEW = `${REDUCER_KEY}/SET_VIEW`;
+export const FETCH_DETAIL_REQUEST = `${REDUCER_KEY}/FETCH_DETAIL_REQUEST`;
+export const FETCH_DETAIL_SUCCESS = `${REDUCER_KEY}/FETCH_DETAIL_SUCCESS`;
+export const FETCH_DETAIL_FAILURE = `${REDUCER_KEY}/FETCH_DETAIL_FAILURE`;
+
+export const DETAIL_VIEW = {
+  MAP: 'kaart',
+  MAP_DETAIL: 'detail-kaart',
+  DETAIL: 'detail'
+};
+
 export const initialState = {
   isLoading: false
 };
