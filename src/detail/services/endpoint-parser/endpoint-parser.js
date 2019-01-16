@@ -27,14 +27,18 @@ export const getTemplateUrl = (endpoint) => {
   return `modules/detail/components/detail/templates/${category}/${subject}.html`;
 };
 
-export const getGlossaryKey = (endpoint) => {
-  const [type, subject] = getParts(endpoint);
+export const toGlossaryKey = (type, subject) => {
   let key = subject;
   if (type === 'grondexploitatie') {
     // grondexploitatie subject === "project", 'grondexploitatie' is more descriptive value.
     key = type;
   }
   return key.toUpperCase().replace(/-/g, '_');
+};
+
+export const getGlossaryKey = (endpoint) => {
+  const [type, subject] = getParts(endpoint);
+  return toGlossaryKey(type, subject);
 };
 
 const endpointParser = {
