@@ -1,4 +1,3 @@
-import { routing } from '../../app/routes';
 import { PANORAMA_CONFIG } from '../services/panorama-api/panorama-api';
 import PAGES from '../../app/pages';
 import {
@@ -20,7 +19,6 @@ export { REDUCER_KEY as PANORAMA };
 
 export default function reducer(state = initialState, action) {
   if (shouldResetState(action, [PAGES.PANORAMA])) {
-    console.log('reset!')
     return initialState;
   }
 
@@ -96,7 +94,7 @@ export default function reducer(state = initialState, action) {
       };
 
     default:
-      return state;
+      return enrichedState;
   }
 }
 
