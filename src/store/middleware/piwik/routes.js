@@ -1,16 +1,13 @@
 import { routing } from '../../../app/routes';
 
-const mappedRoutes = {};
-// eslint-disable-next-line array-callback-return
-Object.keys(routing).map((key) => {
-  mappedRoutes[routing[key].type] = () => [
+const routes = Object.entries(routing).reduce((acc, [, value]) => ({
+  ...acc,
+  [value.type]: () => [
     'trackPageView',
-    routing[key].title,
+    value.title,
     window.location.href,
     null
-  ];
-});
-
-const routes = mappedRoutes;
+  ]
+}));
 
 export default routes;
