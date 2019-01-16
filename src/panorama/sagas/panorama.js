@@ -23,11 +23,27 @@ export function* fireFetchPanormaRequest(action) {
   yield put(fetchPanoramaRequest(action.payload));
 }
 
-export function* handlePanoramaRequest(fn, idOrLocation) {
+export function* maybeChangeRoute(id) {
+  const { id: urlId } = yield select(getLocationPayload);
+  if (id && (urlId !== id)) {
+    yield put(toPanorama(id));
+  }
+}
+
+export function* handlePanoramaRequest(fn, id, location) {
   const history = yield select(getPanoramaHistory);
   try {
-    const imageData = yield call(fn, idOrLocation, history);
-    yield put(fetchPanoramaSuccess(imageData));
+    // Navigate to new panorama if the id in URL is not the same
+    // We check this before we fetch the panoramaData so prevents a useless call
+    yield call(maybeChangeRoute, id);
+
+    // continue getting the panoramaData
+    const panoramaData = yield call(fn, (id || location), history);
+
+    // Again check if we need to navigate, as we know our ID now
+    yield call(maybeChangeRoute, panoramaData.id);
+
+    yield put(fetchPanoramaSuccess(panoramaData));
     yield put(toggleMapOverlayPanorama(history));
   } catch (error) {
     yield put(fetchPanoramaError(error));
@@ -35,19 +51,12 @@ export function* handlePanoramaRequest(fn, idOrLocation) {
 }
 
 export function* fetchPanoramaById(action) {
-  const { id } = action.payload;
-  const { id: urlId } = yield select(getLocationPayload);
-
-  if (urlId !== id) { // Navigate to new panorama if the id in URL is not the same
-    yield put(toPanorama(action.payload.id));
-  } else {
-    yield call(handlePanoramaRequest, getImageDataById, action.payload.id);
-  }
+  yield call(handlePanoramaRequest, getImageDataById, action.payload.id);
 }
 
 export function* fetchPanoramaByLocation() {
   const location = yield select(getPanoramaLocation);
-  yield call(handlePanoramaRequest, getImageDataByLocation, location);
+  yield call(handlePanoramaRequest, getImageDataByLocation, undefined, location);
 }
 
 export function* watchFetchPanorama() {

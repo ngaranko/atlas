@@ -1,6 +1,7 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { takeLatest } from 'redux-saga/effects';
 import {
+  maybeChangeRoute,
   doClosePanorama,
   fetchPanoramaById,
   fetchPanoramaByLocation,
@@ -12,9 +13,9 @@ import {
   watchPanoramaRoute
 } from './panorama';
 import { routing } from '../../app/routes';
-import { getImageDataByLocation } from '../services/panorama-api/panorama-api';
+import { getImageDataById, getImageDataByLocation } from '../services/panorama-api/panorama-api';
 import { TOGGLE_MAP_OVERLAY_PANORAMA } from '../../map/ducks/map/map';
-import { toMap, toPanorama } from '../../store/redux-first-router/actions';
+import { toMap } from '../../store/redux-first-router/actions';
 import {
   CLOSE_PANORAMA,
   FETCH_PANORAMA_ERROR,
@@ -26,7 +27,6 @@ import {
   SET_PANORAMA_YEAR
 } from '../../panorama/ducks/constants';
 import { getPanoramaHistory, getPanoramaLocation } from '../ducks/selectors';
-import { getLocationPayload } from '../../store/redux-first-router/selectors';
 
 describe('watchPanoramaRoute', () => {
   const action = { type: routing.panorama.type };
@@ -103,9 +103,7 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
     it('should call handlePanoramaRequest with getImageDataById and id as an argument', () => {
       testSaga(fetchPanoramaById, { payload: { id: 'id123' } })
         .next()
-        .select(getLocationPayload)
-        .next('id1234')
-        .put(toPanorama('id123'))
+        .call(handlePanoramaRequest, getImageDataById, 'id123')
         .next()
         .isDone();
     });
@@ -117,7 +115,7 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
         .next()
         .select(getPanoramaLocation)
         .next([123, 321])
-        .call(handlePanoramaRequest, getImageDataByLocation, [123, 321])
+        .call(handlePanoramaRequest, getImageDataByLocation, undefined, [123, 321])
         .next()
         .isDone();
     });
@@ -131,13 +129,17 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
         .next()
         .select(getPanoramaHistory)
         .next({ year: 0 })
+        .call(maybeChangeRoute, 'id123')
+        .next()
         .call(mockFn, 'id123', { year: 0 })
-        .next('imageData')
+        .next({ id: 'newId' })
+        .call(maybeChangeRoute, 'newId')
+        .next()
         .put({
           type: FETCH_PANORAMA_SUCCESS,
-          payload: 'imageData',
+          payload: { id: 'newId' },
           meta: {
-            tracking: 'imageData'
+            tracking: { id: 'newId' }
           }
         })
         .next()
@@ -155,6 +157,8 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
         .next()
         .select(getPanoramaHistory)
         .next({ year: 0 })
+        .call(maybeChangeRoute, 'id123')
+        .next()
         .call(mockFn, 'id123', { year: 0 })
         .throw('error')
         .put({
