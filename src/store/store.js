@@ -9,7 +9,7 @@ import * as auth from '../shared/services/auth/auth';
 import { authenticateReload } from '../shared/ducks/user/user';
 import rootReducer from '../reducers/root';
 import documentHeadMiddleware from './middleware/documentHead';
-import piwikMiddleware from './middleware/piwikMiddleware';
+import piwikMiddleware from './middleware/piwik/piwikMiddleware';
 import urlParamsMiddleware from './middleware/urlParamsMiddleware';
 import preserveUrlParametersMiddleware from './middleware/preserveUrlParametersMiddleware';
 

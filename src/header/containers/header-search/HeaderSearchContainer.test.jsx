@@ -5,7 +5,6 @@ import { shallow } from 'enzyme';
 import HeaderSearchContainer from './HeaderSearchContainer';
 import { getSuggestionsAction, getTypedQuery } from '../../ducks/auto-suggest/auto-suggest';
 
-import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { fetchDetail } from '../../../shared/ducks/detail/actions';
 import { ROUTER_NAMESPACE } from '../../../app/routes';
 import PAGES from '../../../app/pages';
@@ -22,20 +21,17 @@ import PARAMETERS from '../../../store/parameters';
 
 
 jest.mock('../../ducks/auto-suggest/auto-suggest');
-jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
 jest.mock('../../../shared/ducks/detail/actions');
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
     getSuggestionsAction.mockImplementation(() => ({ type: 'getSuggestionsAction' }));
     fetchDetail.mockImplementation((endpoint) => ({ type: FETCH_DETAIL, payload: endpoint }));
-    piwikTracker.mockImplementation(() => jest.fn());
   });
 
   afterEach(() => {
     getSuggestionsAction.mockReset();
     fetchDetail.mockReset();
-    piwikTracker.mockReset();
   });
 
   const initialState = {

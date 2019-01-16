@@ -63,11 +63,21 @@ export default function UiReducer(state = initialState, action) {
 }
 
 // Todo: wire these actions properly when ui reducer is obsolete
-export const showEmbedPreview = () => ({ type: SHOW_EMBED_PREVIEW });
-export const showPrintMode = () => ({ type: SHOW_PRINT });
+export const showEmbedPreview = () => ({
+  type: SHOW_EMBED_PREVIEW,
+  meta: {
+    tracking: true
+  }
+});
+export const showPrintMode = () => ({
+  type: SHOW_PRINT,
+  meta: {
+    tracking: true
+  }
+});
 export const hidePrintMode = () => ({ type: HIDE_PRINT });
 export const hideEmbedMode = () => ({ type: HIDE_EMBED_PREVIEW });
-export const toggleMapPanelHandle = () => ({ type: 'NOOP' });
+export const toggleMapPanelHandle = () => ({ type: TOGGLE_MAP_PANEL_HANDLE });
 
 // Selectors
 const getUIState = (state) => state[REDUCER_KEY];

@@ -4,7 +4,6 @@ import { AngularWrapper } from 'react-angular';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MapPage from './pages/MapPage';
-import Piwik from './components/Piwik/Piwik';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import DataSelection from './pages/DataSelection';
@@ -86,7 +85,6 @@ const App = ({
     <div
       className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
     >
-      <Piwik />
       {!embedMode &&
       <AngularWrapper
         moduleName={'dpHeaderWrapper'}

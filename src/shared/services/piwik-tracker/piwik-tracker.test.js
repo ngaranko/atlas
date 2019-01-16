@@ -1,4 +1,4 @@
-import piwikTracker, { trackPageNavigation } from './piwik-tracker';
+import piwikTracker from './piwik-tracker';
 
 describe('piwikTracker', () => {
   beforeEach(() => {
@@ -12,12 +12,4 @@ describe('piwikTracker', () => {
 
     expect(global.window._paq.push).toHaveBeenCalledWith({});
   });
-
-  describe('trackPageNavigation', () => {
-    it('should call piwikTracker 3 times', () => {
-      trackPageNavigation();
-      expect(global.window._paq.push).toHaveBeenLastCalledWith(['trackPageView']);
-    });
-  });
 });
-

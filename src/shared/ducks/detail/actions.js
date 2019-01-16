@@ -12,5 +12,8 @@ export const showDetail = (payload) => ({
 
 export const setView = (payload) => ({
   type: SET_VIEW,
-  payload
+  payload,
+  meta: {
+    tracking: true
+  }
 });

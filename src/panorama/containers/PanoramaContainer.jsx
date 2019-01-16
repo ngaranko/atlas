@@ -6,11 +6,11 @@ import throttle from 'lodash.throttle';
 
 import './PanoramaContainer.scss';
 import {
-  fetchPanoramaRequest,
+  fetchPanoramaHotspotRequest,
   setPanoramaOrientation,
   setView as setPanoramaView
 } from '../ducks/actions';
-import PANORAMA_VIEW from '../ducks/panorama-view';
+import { VIEWS } from '../ducks/constants';
 import {
   pageTypeToEndpoint,
   toDataDetail,
@@ -99,10 +99,10 @@ class PanoramaContainer extends React.Component {
     const { isFullscreen, setView } = this.props;
 
     if (isFullscreen) {
-      return setView(PANORAMA_VIEW.MAP_PANO);
+      return setView(VIEWS.MAP_PANO);
     }
 
-    return setView(PANORAMA_VIEW.PANO);
+    return setView(VIEWS.PANO);
   }
 
   render() {
@@ -157,7 +157,7 @@ const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     setOrientation: setPanoramaOrientation,
     setView: setPanoramaView,
-    fetchPanoramaById: fetchPanoramaRequest,
+    fetchPanoramaById: fetchPanoramaHotspotRequest,
     fetchMapDetail: getMapDetail
   }, dispatch),
   onClose: (panoramaLocation, reference) => {

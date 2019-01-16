@@ -1,8 +1,10 @@
-import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+import { NAVIGATE_HOME_REQUEST } from '../../../../src/header/ducks/actions';
+import { routing } from '../../../../src/app/routes';
 
 describe('The dp-logo component', () => {
     let $compile,
-        $rootScope;
+        $rootScope,
+        store;
 
     beforeEach(() => {
         angular.mock.module(
@@ -14,12 +16,13 @@ describe('The dp-logo component', () => {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
+            store = _store_;
         });
 
-        spyOn(piwik, 'default').and.callFake(angular.noop);
+        spyOn(store, 'dispatch');
     });
 
     function getComponent (size) {
@@ -55,9 +58,10 @@ describe('The dp-logo component', () => {
             expect(component.find('.qa-logo__image')[0].getAttribute('src')).toContain('logo-short');
         });
 
-        it('it handles piwik on ng-click', () => {
+        it('dispatches an action for piwik and directs to home on click', () => {
             component.find('.c-logo__link').click();
-            expect(piwik.default).toHaveBeenCalledWith(['trackEvent', 'navigation', 'home', '']);
+            expect(store.dispatch).toHaveBeenCalledWith({ type: routing.home.type });
+            expect(store.dispatch).toHaveBeenCalledWith({ type: NAVIGATE_HOME_REQUEST, meta: { tracking: true } });
         });
     });
 

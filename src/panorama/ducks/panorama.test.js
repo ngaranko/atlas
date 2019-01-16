@@ -7,7 +7,7 @@ import {
   fetchPanoramaSuccess,
   setPanoramaOrientation
 } from './actions';
-import PANORAMA_VIEW from './panorama-view';
+import { VIEWS } from './constants';
 import { PANORAMA_CONFIG } from '../services/panorama-api/panorama-api';
 
 describe('Panorama Reducer', () => {
@@ -21,7 +21,7 @@ describe('Panorama Reducer', () => {
     const state = reducer(undefined, {});
     expect(state).toEqual({
       date: null,
-      view: PANORAMA_VIEW.MAP_PANO,
+      view: VIEWS.MAP_PANO,
       fov: null,
       heading: 0,
       history: {

@@ -2,7 +2,7 @@ import { ROUTER_NAMESPACE, routing } from '../../app/routes';
 import { DATASET_ROUTE_MAPPER, VIEWS as DATASET_VIEWS } from '../../shared/ducks/data-selection/constants';
 import PARAMETERS from '../parameters';
 import { VIEWS as DATA_SEARCH_VIEW } from '../../shared/ducks/data-search/constants';
-import PANORAMA_VIEW from '../../panorama/ducks/panorama-view';
+import { VIEWS as PANORAMA_VIEWS } from '../../panorama/ducks/constants';
 import { VIEWS } from '../../map/ducks/map/map';
 import { DETAIL_VIEW } from '../../shared/ducks/detail/constants';
 
@@ -26,6 +26,9 @@ export const toDataDetail = (id, type, subtype, additionalParams = null) => pres
     type,
     subtype,
     id: `id${id}`
+  },
+  meta: {
+    tracking: true
   }
 }, additionalParams);
 
@@ -65,7 +68,7 @@ export const toPanorama = (id, additionalParams = null) => ({
 export const toPanoramaAndPreserveQuery = (id, heading, reference = []) => toPanorama(id, {
   heading,
   ...(reference.length === 3 ? { [PARAMETERS.REFERENCE]: reference } : {}),
-  [PARAMETERS.VIEW]: PANORAMA_VIEW.MAP_PANO
+  [PARAMETERS.VIEW]: PANORAMA_VIEWS.MAP_PANO
 });
 
 export const extractIdEndpoint = (endpoint) => {

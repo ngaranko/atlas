@@ -20,6 +20,7 @@ import {
   CLOSE_PANORAMA,
   FETCH_PANORAMA_ERROR,
   FETCH_PANORAMA_REQUEST,
+  FETCH_PANORAMA_HOTSPOT_REQUEST,
   FETCH_PANORAMA_REQUEST_TOGGLE,
   FETCH_PANORAMA_SUCCESS,
   SET_PANORAMA_LOCATION,
@@ -30,6 +31,7 @@ import { getPanoramaHistory, getPanoramaId, getPanoramaLocation } from '../ducks
 describe('watchPanoramaRoute', () => {
   const action = { type: routing.panorama.type };
   const payload = { id: 'payload' };
+  const meta = { tracking: true };
 
   it(`should watch ${routing.panorama.type} and call fireFetchPanormaRequest`, () => {
     testSaga(watchPanoramaRoute)
@@ -48,7 +50,8 @@ describe('watchPanoramaRoute', () => {
       })
       .put({
         type: FETCH_PANORAMA_REQUEST,
-        payload
+        payload,
+        meta
       })
       .run()
   ));
@@ -62,6 +65,7 @@ describe('watchFetchPanorama', () => {
       .next()
       .all([
         takeLatest(FETCH_PANORAMA_REQUEST, fetchPanoramaById),
+        takeLatest(FETCH_PANORAMA_HOTSPOT_REQUEST, fetchPanoramaById),
         takeLatest(FETCH_PANORAMA_SUCCESS, setPanoramaId),
         takeLatest([
           SET_PANORAMA_YEAR,
@@ -133,7 +137,10 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
         .next('imageData')
         .put({
           type: FETCH_PANORAMA_SUCCESS,
-          payload: 'imageData'
+          payload: 'imageData',
+          meta: {
+            tracking: 'imageData'
+          }
         })
         .next()
         .put({

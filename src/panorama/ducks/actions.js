@@ -6,12 +6,24 @@ import {
   SET_PANORAMA_LOCATION,
   SET_PANORAMA_ORIENTATION,
   SET_PANORAMA_VIEW,
+  FETCH_PANORAMA_HOTSPOT_REQUEST,
   FETCH_PANORAMA_REQUEST_TOGGLE
 } from './constants';
 
 export const fetchPanoramaRequest = (payload) => ({
   type: FETCH_PANORAMA_REQUEST,
-  payload
+  payload,
+  meta: {
+    tracking: true
+  }
+});
+
+export const fetchPanoramaHotspotRequest = (payload) => ({
+  type: FETCH_PANORAMA_HOTSPOT_REQUEST,
+  payload,
+  meta: {
+    tracking: true
+  }
 });
 
 export const fetchPanoramaRequestToggle = (payload) => ({
@@ -21,7 +33,10 @@ export const fetchPanoramaRequestToggle = (payload) => ({
 
 export const fetchPanoramaSuccess = (payload) => ({
   type: FETCH_PANORAMA_SUCCESS,
-  payload
+  payload,
+  meta: {
+    tracking: payload
+  }
 });
 export const fetchPanoramaError = (error) => ({
   type: FETCH_PANORAMA_ERROR,
@@ -29,11 +44,17 @@ export const fetchPanoramaError = (error) => ({
 });
 export const setPanoramaLocation = (payload) => ({
   type: SET_PANORAMA_LOCATION,
-  payload
+  payload,
+  meta: {
+    tracking: true
+  }
 });
 export const setView = (payload) => ({
   type: SET_PANORAMA_VIEW,
-  payload
+  payload,
+  meta: {
+    tracking: payload
+  }
 });
 export const setPanoramaOrientation = ({ heading, pitch, fov }) => ({
   type: SET_PANORAMA_ORIENTATION,
