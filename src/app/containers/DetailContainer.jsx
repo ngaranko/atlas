@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { AngularWrapper } from 'react-angular';
-import { getDetailEndpoint, isDetailLoading, getDetailTemplateUrl, getDetailData } from '../../shared/ducks/detail/selectors';
+import {
+  getDetailEndpoint,
+  isDetailLoading,
+  getDetailTemplateUrl,
+  getDetailData,
+  getDetailFilterSelection
+} from '../../shared/ducks/detail/selectors';
 import { getUser } from '../../shared/ducks/user/user';
 import {
   getPanoramaPreview,
@@ -18,7 +24,8 @@ const mapStateToProps = (state) => ({
   previewPanorama: getPanoramaPreview(state),
   isPreviewPanoramaLoading: isPanoramaPreviewLoading(state),
   detailTemplateUrl: getDetailTemplateUrl(state),
-  detailData: getDetailData(state)
+  detailData: getDetailData(state),
+  detailFilterSelection: getDetailFilterSelection(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -40,7 +47,8 @@ class DetailContainer extends React.Component {
       previewPanorama,
       isPreviewPanoramaLoading,
       detailTemplateUrl,
-      detailData
+      detailData,
+      detailFilterSelection
     } = this.props;
     return (<div className="qa-detail">
       <AngularWrapper
@@ -53,7 +61,8 @@ class DetailContainer extends React.Component {
           previewPanorama,
           isPreviewPanoramaLoading,
           detailTemplateUrl,
-          detailData
+          detailData,
+          detailFilterSelection
         }}
         interpolateBindings={{
           endpoint
@@ -66,7 +75,10 @@ class DetailContainer extends React.Component {
 
 DetailContainer.defaultProps = {
   previewPanorama: undefined,
-  isPreviewPanoramaLoading: undefined
+  isPreviewPanoramaLoading: undefined,
+  detailTemplateUrl: undefined,
+  detailData: undefined,
+  detailFilterSelection: undefined
 };
 
 DetailContainer.propTypes = {
@@ -77,6 +89,7 @@ DetailContainer.propTypes = {
   isPreviewPanoramaLoading: PropTypes.bool,
   detailTemplateUrl: PropTypes.string.isRequired,
   detailData: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  detailFilterSelection: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   onFetchDetailRequest: PropTypes.func.isRequired
 };
 

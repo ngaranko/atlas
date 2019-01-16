@@ -32,6 +32,11 @@ export const getDetailData = createSelector(
   (detailObject) => detailObject && detailObject.data
 );
 
+export const getDetailFilterSelection = createSelector(
+  getDetailObject,
+  (detailObject) => detailObject && detailObject.filterSelection
+);
+
 // Todo: DP-6571
 export const shouldShowFullScreen = createSelector(
   getDetailGeometry,

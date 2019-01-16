@@ -13,7 +13,8 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
                 catalogFilters: '=',
                 user: '<',
                 detailTemplateUrl: '<',
-                detailData: '<'
+                detailData: '<',
+                detailFilterSelection: '<'
             },
             templateUrl: 'modules/detail/components/detail/detail.html',
             controller: DpDetailController,
@@ -41,10 +42,10 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
                 vm.apiData = {
                     results: changes.detailData.currentValue
                 };
+            }
 
-                // vm.filterSelection = {
-                //     [subject]: vm.apiData.results.naam
-                // };
+            if (changes.detailFilterSelection) {
+                vm.filterSelection = changes.detailFilterSelection.currentValue;
             }
         };
     }
