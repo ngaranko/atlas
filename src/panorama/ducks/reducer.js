@@ -11,7 +11,7 @@ import {
   SET_PANORAMA_VIEW,
   SET_PANORAMA_YEAR,
   FETCH_PANORAMA_REQUEST_TOGGLE,
-  REDUCER_KEY
+  REDUCER_KEY, FETCH_PANORAMA_HOTSPOT_REQUEST
 } from './constants';
 import paramsRegistry from '../../store/params-registry';
 import { shouldResetState } from '../../store/redux-first-router/actions';
@@ -20,6 +20,7 @@ export { REDUCER_KEY as PANORAMA };
 
 export default function reducer(state = initialState, action) {
   if (shouldResetState(action, [PAGES.PANORAMA])) {
+    console.log('reset!')
     return initialState;
   }
 
@@ -29,17 +30,10 @@ export default function reducer(state = initialState, action) {
   };
 
   switch (action.type) {
-    case routing.panorama.type: {
-      return {
-        ...enrichedState,
-        id: action.payload.id
-      };
-    }
-
+    case FETCH_PANORAMA_HOTSPOT_REQUEST:
     case FETCH_PANORAMA_REQUEST:
       return {
         ...enrichedState,
-        id: action.payload.id,
         isLoading: true
       };
 
@@ -58,6 +52,7 @@ export default function reducer(state = initialState, action) {
     case FETCH_PANORAMA_SUCCESS:
       return {
         ...enrichedState,
+        id: action.payload.id,
         date: action.payload.date,
         pitch: enrichedState.pitch || initialState.pitch,
         fov: enrichedState.fov || PANORAMA_CONFIG.DEFAULT_FOV,
