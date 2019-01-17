@@ -65,7 +65,7 @@ describe('The dp-dcatd-button component', () => {
             expect($window.sessionStorage.setItem)
                 .toHaveBeenCalledWith('DCATD_DETAIL_REDIRECT_URL', jasmine.any(String));
 
-            expect($window.location.assign).toHaveBeenCalledWith('dcatd_admin#/datasets/_');
+            expect($window.location.assign).toHaveBeenCalledWith('/dcatd_admin#/datasets/_');
         });
 
         it('when clicking the wijzigen button', () => {
@@ -75,7 +75,7 @@ describe('The dp-dcatd-button component', () => {
             expect($window.sessionStorage.setItem)
                 .toHaveBeenCalledWith('DCATD_DETAIL_REDIRECT_URL', jasmine.any(String));
 
-            expect($window.location.assign).toHaveBeenCalledWith('dcatd_admin#/datasets/id-van-te-wijzigen-dataset');
+            expect($window.location.assign).toHaveBeenCalledWith('/dcatd_admin#/datasets/id-van-te-wijzigen-dataset');
         });
     });
 });

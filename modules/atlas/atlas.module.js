@@ -18,6 +18,7 @@
         .config(['$provide', urlChangeProvider]);
 
     urlChangeProvider.$inject = ['$provide'];
+    /* istanbul ignore next */
     function urlChangeProvider ($provide) {
         $provide.decorator('$browser', ['$delegate', function ($delegate) {
             $delegate.onUrlChange = function () { };

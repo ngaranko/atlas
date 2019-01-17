@@ -21,7 +21,7 @@
 
         function onClick () {
             sessionStorage.setItem('DCATD_DETAIL_REDIRECT_URL', document.location.href);
-            $window.location.assign(`dcatd_admin#/datasets/${vm.id}`);
+            $window.location.assign(`/dcatd_admin#/datasets/${vm.id}`);
         }
 
         vm.onClick = onClick;
