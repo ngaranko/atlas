@@ -482,6 +482,7 @@ Object {
       "atlasRouter/ADDRESSES": Object {
         "addHistory": true,
         "decode": [Function],
+        "defaultValue": "TABLE",
         "encode": [Function],
         "reducerKey": "dataSelection",
         "selector": [Function],
@@ -490,6 +491,7 @@ Object {
       "atlasRouter/CADASTRAL_OBJECTS": Object {
         "addHistory": true,
         "decode": [Function],
+        "defaultValue": "TABLE",
         "encode": [Function],
         "reducerKey": "dataSelection",
         "selector": [Function],
@@ -498,7 +500,7 @@ Object {
       "atlasRouter/DATA_DETAIL": Object {
         "addHistory": true,
         "decode": [Function],
-        "defaultValue": "kaart",
+        "defaultValue": "detail-kaart",
         "encode": [Function],
         "reducerKey": "detail",
         "selector": [Function],
@@ -516,6 +518,7 @@ Object {
       "atlasRouter/ESTABLISHMENTS": Object {
         "addHistory": true,
         "decode": [Function],
+        "defaultValue": "TABLE",
         "encode": [Function],
         "reducerKey": "dataSelection",
         "selector": [Function],
