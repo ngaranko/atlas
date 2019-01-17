@@ -3,6 +3,7 @@ import { toGlossaryKey } from '../../../detail/services/endpoint-parser/endpoint
 import GLOSSARY from '../../../detail/services/glossary.constant';
 import { routing } from '../../../app/routes';
 import { VIEW_MODE } from '../../ducks/ui/ui';
+import { FETCH_DETAIL_SUCCESS } from '../../ducks/detail/constants';
 
 export const homeDocumentTitle = (action, defaultTitle) => {
   let pageTitle = defaultTitle;
@@ -23,18 +24,40 @@ export const detailDocumentTitle = (action, defaultTitle = 'UNKNOWN') => {
   const glossaryDefinition = GLOSSARY.DEFINITIONS[glossaryKey];
   const label = glossaryDefinition ? glossaryDefinition.label_singular : defaultTitle;
 
-  return label;
+  return `${label}: %display% `;
 };
 
-const documentTitleRouteMapping = [
+export const datasetDetailDocumentTitle = () => {
+  const label = 'Datasets';
+
+  return `${label}: %display% `;
+};
+
+export const detailDocumentTitleWithName = (action) => {
+  // For now we fill the title for details in 2 steps
+  const title = document.title
+    .replace('%display%', action.payload.data._display)
+    .replace(' - Dataportaal', '');
+  return title;
+};
+
+const titleActionMapping = [
   {
-    route: routing.home.type,
+    actionType: routing.home.type,
     getTitle: homeDocumentTitle
   },
   {
-    route: routing.dataDetail.type,
+    actionType: routing.dataDetail.type,
     getTitle: detailDocumentTitle
+  },
+  {
+    actionType: routing.datasetsDetail.type,
+    getTitle: datasetDetailDocumentTitle
+  },
+  {
+    actionType: FETCH_DETAIL_SUCCESS,
+    getTitle: detailDocumentTitleWithName
   }
 ];
 
-export default documentTitleRouteMapping;
+export default titleActionMapping;

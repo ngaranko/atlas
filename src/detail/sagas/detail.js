@@ -37,8 +37,8 @@ export function* getData(endpoint) {
     return {};
   }
   const endpointVersion = category === 'grondexploitatie' ? '?version=3' : '';
-  const data = yield getByUrl(`${endpoint}${endpointVersion}`);
   const catalogFilters = yield select(getApiSpecificationData);
+  const data = yield getByUrl(`${endpoint}${endpointVersion}`);
   const formatedData = formatDetailData(data, category, subject, catalogFilters, scopes);
   return {
     includeSrc,
