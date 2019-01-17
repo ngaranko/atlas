@@ -174,16 +174,6 @@ export function getAccessToken() {
 }
 
 /**
- * Restores the access token from session storage when available.
- */
-function restoreAccessToken() {
-  const accessToken = getAccessToken();
-  if (accessToken) {
-    tokenData = accessTokenParser(accessToken);
-  }
-}
-
-/**
  * Redirects to the OAuth2 authorization service.
  */
 export function login() {
@@ -210,6 +200,24 @@ export function logout() {
   // Clear cache and ACCESS_TOKEN from sessionStorage
   sessionStorage.clear();
   location.reload();
+}
+
+/**
+ * Restores the access token from session storage when available.
+ */
+function restoreAccessToken() {
+  const accessToken = getAccessToken();
+  if (accessToken) {
+    const parsedToken = accessTokenParser(accessToken);
+    const now = Math.floor(new Date().getTime() / 1000);
+
+    if (!parsedToken.expiresAt || (parsedToken.expiresAt <= now)) {
+      tokenData = {};
+      logout();
+    }
+
+    tokenData = parsedToken;
+  }
 }
 
 /**

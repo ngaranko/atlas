@@ -160,6 +160,23 @@ describe('The auth service', () => {
         expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('stateToken');
       });
 
+      it('Deletes the sessionStorage when token is expired', () => {
+        const queryString = '?access_token=123AccessToken&token_type=token&expires_in=0&state=123StateToken';
+        global.location.hash = queryString;
+        queryObject = {
+          access_token: '123AccessToken',
+          token_type: 'token',
+          expires_in: '0',
+          state: '123StateToken'
+        };
+        savedStateToken = '123StateToken';
+        savedReturnPath = '/path/leading/back';
+
+        initAuth();
+        expect(global.sessionStorage.clear).toHaveBeenCalled();
+        expect(global.location.reload).toHaveBeenCalledWith();
+      });
+
       it('Works when receiving unexpected parameters', () => {
         const queryString = '?access_token=123AccessToken&token_type=token&expires_in=36000&state=123StateToken&extra=sauce';
         global.location.hash = queryString;
