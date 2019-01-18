@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
   toDetailFromEndpoint,
-  toGeoSearch,
   toPanoramaAndPreserveQuery,
   toMapAndPreserveQuery
 } from '../../../store/redux-first-router/actions';
@@ -15,6 +14,7 @@ import { getDetail, getDetailEndpoint } from '../../../shared/ducks/detail/selec
 import MapPreviewPanel from './MapPreviewPanel';
 import { getLocationId } from '../../ducks/map/map-selectors';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
+import { setView } from '../../../shared/ducks/data-search/actions';
 import {
   getDataSearch,
   getDataSearchLocation,
@@ -47,7 +47,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
     closePanel: toMapAndPreserveQuery,
-    onSearchMaximize: toGeoSearch,
+    onSearchMaximize: setView,
     openPano: toPanoramaAndPreserveQuery
   }, dispatch),
   openPreviewDetail: (endpoint) => dispatch(toDetailFromEndpoint(endpoint, DETAIL_VIEW.MAP)),

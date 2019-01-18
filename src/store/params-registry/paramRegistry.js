@@ -1,7 +1,6 @@
 import get from 'lodash.get';
 import isUndefined from 'lodash.isundefined';
 import queryString from 'querystring';
-import createHistory from 'history/createBrowserHistory';
 
 /**
  * ParamsRegistry manages the relations between url parameters, reducers and routes.
@@ -12,7 +11,10 @@ import createHistory from 'history/createBrowserHistory';
  * that is used in reducers A and B. If in the same route reducer A sets the value of "view",
  * reducer B also updates, as it is in sync with the url param.
  */
-class ParamsRegistery {
+
+let instance;
+
+class ParamsRegistry {
   static orderQuery(query) {
     return Object.entries(query).sort().reduce((acc, [key, value]) => ({
       ...acc,
@@ -46,13 +48,23 @@ class ParamsRegistery {
     };
   }
 
+  static queryShouldChangeHistory(addHistory, parameter, value) {
+    const search = location.search && location.search.substr(1);
+    const currentQuery = search ? queryString.decode(search) : {};
+    return !(!addHistory && currentQuery[parameter] && (currentQuery[parameter] !== value));
+  }
+
+  static destroy() {
+    instance = null;
+  }
+
   /**
    *
    * @param routerNamespace
-   * @returns {ParamsRegistery}
+   * @returns {ParamsRegistry}
    *
    * @example
-   * const paramsRegistery = new ParamsRegistery('ROUTE_NAMESPACE')
+   * const paramsRegistery = new ParamsRegistry('ROUTE_NAMESPACE')
    * paramsRegistery.addParameter('view', (routes) => {
    *     routes
    *     .add('ROUTE_NAMESPACE/search', {
@@ -71,13 +83,18 @@ class ParamsRegistery {
     this.getStateFromQueries = this.getStateFromQueries.bind(this);
     this.bindRouteToReducerSettings = this.bindRouteToReducerSettings.bind(this);
 
+    this.historyObject = null;
+
     this.settings = {
       routerNamespace
     };
 
-    this.separateHistory = createHistory();
+    if (instance) {
+      return instance;
+    }
 
-    return this;
+    instance = this;
+    return instance;
   }
 
   addParameter(param, callback) {
@@ -103,6 +120,10 @@ class ParamsRegistery {
     return this;
   }
 
+  isRouterType(action) {
+    return (action.type && action.type.startsWith(this.settings.routerNamespace));
+  }
+
   /**
    *
    * @param param
@@ -121,7 +142,7 @@ class ParamsRegistery {
     paramRouteReducerSettings = {
       ...paramRouteReducerSettings,
       [route]: {
-        ...ParamsRegistery.getDefaultReducerSettings(reducerKey, stateKey, reducerObject),
+        ...ParamsRegistry.getDefaultReducerSettings(reducerKey, stateKey, reducerObject),
         addHistory
       }
     };
@@ -134,16 +155,31 @@ class ParamsRegistery {
     };
   }
 
-  setQueriesFromState(locationType, state) {
+  shouldRouteChange(action, currentState) {
+    return (this.isRouterType(action)) ? (
+      Object.entries(get(action, 'meta.query', [])).some(([parameter, value]) => {
+        const { selector, decode } = get(this.result[parameter], `[routes][${action.type}]`, null);
+        if (selector && decode) {
+          return JSON.stringify(selector(currentState)) !== JSON.stringify(decode(value));
+        }
+        return false;
+      })
+    ) : false;
+  }
+
+  setQueriesFromState(currentLocationType, state, nextAction) {
     let addHistory = true;
+    if (this.isRouterType(nextAction)) {
+      return undefined;
+    }
     const query = Object.entries(this.result).reduce((acc, [parameter, paramObject]) => {
-      const reducerObject = get(paramObject, `[routes][${locationType}]`, null);
+      const reducerObject = get(paramObject, `[routes][${currentLocationType}]`, null);
       if (reducerObject) {
         const encodedValue = reducerObject.encode(reducerObject.selector(state));
 
         // We need to set addHistory to true if even one route needs to change the history
-        if (addHistory && (reducerObject && !reducerObject.addHistory)) {
-          addHistory = false;
+        if (addHistory) {
+          addHistory = ParamsRegistry.queryShouldChangeHistory(get(reducerObject, 'addHistory'), parameter, encodedValue);
         }
         let newQuery = {};
 
@@ -168,7 +204,7 @@ class ParamsRegistery {
 
       return acc;
     }, {});
-    const orderedQuery = ParamsRegistery.orderQuery(query);
+    const orderedQuery = ParamsRegistry.orderQuery(query);
 
     const searchQuery = queryString.stringify(orderedQuery);
     const currentPath = window.location.pathname;
@@ -176,15 +212,11 @@ class ParamsRegistery {
     // the history should be changed only when the url string is changed
     // this check prevents recording history changes on every action.
     const recordHistory = searchQuery !== window.location.search.substring(1);
-    if (recordHistory) {
-      // NOTE: changing history using different history wrapper than the one used in
-      // redux-first-router! We need to work with a different history object to prevent
-      // redux-first-router from reacting to query changes. If we were to use the same
-      // history object, a route change would fire for every query change.
+    if (recordHistory && this.history) {
       if (addHistory) {
-        this.separateHistory.push(`${currentPath}?${searchQuery}`);
+        this.history.push(`${currentPath}?${searchQuery}`);
       } else {
-        this.separateHistory.replace(`${currentPath}?${searchQuery}`);
+        this.history.replace(`${currentPath}?${searchQuery}`);
       }
     }
 
@@ -198,7 +230,7 @@ class ParamsRegistery {
    * @returns {*}
    */
   getStateFromQueries(reducerKey, action) {
-    return ((action.type && action.type.startsWith(this.settings.routerNamespace)) ?
+    return (this.isRouterType(action) ?
       Object.entries(this.result).reduce((acc, [parameter, object]) => {
         const reducerObject = get(object, `routes[${action.type}]`);
 
@@ -229,9 +261,10 @@ class ParamsRegistery {
   removeParamsWithDefaultValue(parameters, route) {
     return Object.entries(parameters).reduce((acc, [parameter, value]) => {
       const reducerObject = this.getReduxObject(parameter, route);
+      const shouldAddQuery = (value && ((value !== reducerObject.defaultValue && value !== '') || (Array.isArray(value) && value.length !== 0)));
       return {
         ...acc,
-        ...(reducerObject.defaultValue !== value) ? { [parameter]: value } : {}
+        ...(shouldAddQuery) ? { [parameter]: value } : {}
       };
     }, {});
   }
@@ -256,6 +289,14 @@ class ParamsRegistery {
     }, {});
   }
 
+  set history(history) {
+    this.historyObject = history;
+  }
+
+  get history() {
+    return this.historyObject;
+  }
+
   set result(result) {
     this.queryParamResult = {
       ...this.queryParamResult,
@@ -268,4 +309,4 @@ class ParamsRegistery {
   }
 }
 
-export default ParamsRegistery;
+export default ParamsRegistry;

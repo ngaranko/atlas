@@ -11,6 +11,7 @@ import {
   setView as setPanoramaView
 } from '../ducks/actions';
 import { VIEWS } from '../ducks/constants';
+import { VIEWS as DATA_SEARCH_VIEWS } from '../../shared/ducks/data-search/constants';
 import {
   toDataDetail,
   toGeoSearch
@@ -23,6 +24,8 @@ import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullsc
 import { getPanorama, getPanoramaLocation, getReference } from '../ducks/selectors';
 import IconButton from '../../app/components/IconButton/IconButton';
 import { getMapDetail } from '../../map/ducks/detail/map-detail';
+import PARAMETERS from '../../store/parameters';
+import { getMapOverlaysWithoutPanorama } from '../../map/ducks/map/map-selectors';
 import { pageTypeToEndpoint } from '../../map/services/map-detail';
 
 class PanoramaContainer extends React.Component {
@@ -106,7 +109,14 @@ class PanoramaContainer extends React.Component {
   }
 
   render() {
-    const { isFullscreen, panoramaState, onClose, detailReference, panoramaLocation } = this.props;
+    const {
+      isFullscreen,
+      panoramaState,
+      onClose,
+      detailReference,
+      panoramaLocation,
+      overlaysWithoutPanorama
+    } = this.props;
     return (
       <div className="c-panorama">
         <div
@@ -128,7 +138,7 @@ class PanoramaContainer extends React.Component {
 
         <IconButton
           onClick={() => {
-            onClose(panoramaLocation, detailReference);
+            onClose(panoramaLocation, detailReference, overlaysWithoutPanorama);
           }}
           title="Sluit panorama"
           icon="cross"
@@ -150,7 +160,8 @@ class PanoramaContainer extends React.Component {
 const mapStateToProps = (state) => ({
   panoramaState: getPanorama(state),
   detailReference: getReference(state),
-  panoramaLocation: getPanoramaLocation(state)
+  panoramaLocation: getPanoramaLocation(state),
+  overlaysWithoutPanorama: getMapOverlaysWithoutPanorama(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -160,17 +171,25 @@ const mapDispatchToProps = (dispatch) => ({
     fetchPanoramaById: fetchPanoramaHotspotRequest,
     fetchMapDetail: getMapDetail
   }, dispatch),
-  onClose: (panoramaLocation, reference) => {
+  // Todo: move to panorama
+  onClose: (panoramaLocation, reference, overlaysWithoutPanorama) => {
     if (reference.length) {
-      dispatch(toDataDetail(...reference));
+      dispatch(toDataDetail(reference, {
+        [PARAMETERS.LAYERS]: overlaysWithoutPanorama
+      }));
     } else {
-      dispatch(toGeoSearch(panoramaLocation));
+      dispatch(toGeoSearch({
+        [PARAMETERS.LOCATION]: panoramaLocation,
+        [PARAMETERS.VIEW]: DATA_SEARCH_VIEWS.LIST,
+        [PARAMETERS.LAYERS]: overlaysWithoutPanorama
+      }));
     }
   }
 });
 
 PanoramaContainer.propTypes = {
   panoramaState: PropTypes.shape({}).isRequired,
+  overlaysWithoutPanorama: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFullscreen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   setView: PropTypes.func.isRequired,

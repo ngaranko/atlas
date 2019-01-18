@@ -1,18 +1,16 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { takeLatest } from 'redux-saga/effects';
 import {
-  maybeChangeRoute,
   doClosePanorama,
+  fetchFetchPanoramaEffect,
   fetchPanoramaById,
   fetchPanoramaByLocation,
   fetchPanoramaRequest,
-  fireFetchPanormaRequest,
   handlePanoramaRequest,
+  maybeChangeRoute,
   watchClosePanorama,
-  watchFetchPanorama,
-  watchPanoramaRoute
+  watchFetchPanorama
 } from './panorama';
-import { routing } from '../../app/routes';
 import { getImageDataById, getImageDataByLocation } from '../services/panorama-api/panorama-api';
 import { TOGGLE_MAP_OVERLAY_PANORAMA } from '../../map/ducks/map/map';
 import { toMap } from '../../store/redux-first-router/actions';
@@ -29,20 +27,11 @@ import {
 import { getPanoramaHistory, getPanoramaLocation } from '../ducks/selectors';
 
 describe('watchPanoramaRoute', () => {
-  const action = { type: routing.panorama.type };
   const payload = { id: 'payload' };
   const meta = { tracking: true };
 
-  it(`should watch ${routing.panorama.type} and call fireFetchPanormaRequest`, () => {
-    testSaga(watchPanoramaRoute)
-      .next()
-      .takeLatestEffect(routing.panorama.type, fireFetchPanormaRequest)
-      .next(action)
-      .isDone();
-  });
-
   it('should dispatch the correct action', () => (
-    expectSaga(fireFetchPanormaRequest, { payload })
+    expectSaga(fetchFetchPanoramaEffect, { payload })
       .provide({
         call(effect, next) {
           return effect.fn === fetchPanoramaRequest ? 'payload' : next();

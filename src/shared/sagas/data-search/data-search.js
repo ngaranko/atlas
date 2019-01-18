@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest, fork } from 'redux-saga/effects';
 import { getUser } from '../../../shared/ducks/user/user';
 import search from '../../../map/services/map-search/map-search';
 import geosearch from '../../../shared/services/search/geosearch';
@@ -10,7 +10,6 @@ import {
   fetchMoreResultsSuccess,
   showSearchResults
 } from '../../ducks/data-search/actions';
-import { routing } from '../../../app/routes';
 import {
   FETCH_GEO_SEARCH_RESULTS_REQUEST,
   FETCH_QUERY_SEARCH_MORE_RESULTS_REQUEST,
@@ -26,7 +25,8 @@ import {
   getView
 } from '../../ducks/data-search/selectors';
 import {
-  getNumberOfResults as getNrOfSearchResults, getNumberOfResultsPanel,
+  getNumberOfResults as getNrOfSearchResults,
+  getNumberOfResultsPanel,
   loadMore as vanillaLoadMore,
   replaceBuurtcombinatie,
   search as vanillaSearch
@@ -36,6 +36,7 @@ import { getMapZoom } from '../../../map/ducks/map/map-selectors';
 import ActiveOverlaysClass from '../../services/active-overlays/active-overlays';
 import { waitForAuthentication } from '../user/user';
 import { SELECTION_TYPE, setSelection } from '../../ducks/selection/selection';
+import { fetchDatasetsEffect } from '../dataset/dataset';
 
 // Todo: DP-6390
 export function* fetchMapSearchResults() {
@@ -93,13 +94,13 @@ function* fetchQuerySearchResults() {
   }
 }
 
-export function* fireGeoSearchResultsRequest() {
+export function* fetchGeoSearchResultsEffect() {
   const location = yield select(getDataSearchLocation);
   const isMap = yield select(isMapPage);
   yield put(fetchMapSearchResultsRequest(location, isMap));
 }
 
-export function* fireQuerySearchResultsRequest() {
+export function* fetchQuerySearchResultsEffect() {
   const query = yield select(getSearchQuery);
   const category = yield select(getSearchCategory);
   yield call(fetchQuerySearchResults, query, category);
@@ -111,24 +112,14 @@ function* loadMore() {
   yield put(fetchMoreResultsSuccess([results]));
 }
 
+export function* fetchQuerySearchEffect() {
+  yield fork(fetchQuerySearchResultsEffect);
+  yield fork(fetchDatasetsEffect);
+}
+
 export default function* watchDataSearch() {
-  yield takeLatest([
-    FETCH_GEO_SEARCH_RESULTS_REQUEST
-  ], fetchMapSearchResults);
-
-  yield takeLatest([
-    FETCH_QUERY_SEARCH_MORE_RESULTS_REQUEST
-  ], loadMore);
-
-  yield takeLatest([
-    SET_VIEW,
-    routing.dataGeoSearch.type
-  ], fireGeoSearchResultsRequest);
-
-  yield takeLatest([
-    SET_QUERY_CATEGORY,
-    routing.dataQuerySearch.type,
-    routing.searchDatasets.type,
-    routing.dataSearchCategory.type
-  ], fireQuerySearchResultsRequest);
+  yield takeLatest(FETCH_GEO_SEARCH_RESULTS_REQUEST, fetchMapSearchResults);
+  yield takeLatest(FETCH_QUERY_SEARCH_MORE_RESULTS_REQUEST, loadMore);
+  yield takeLatest(SET_VIEW, fetchGeoSearchResultsEffect);
+  yield takeLatest(SET_QUERY_CATEGORY, fetchQuerySearchResultsEffect);
 }

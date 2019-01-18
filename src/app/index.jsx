@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
 import App from './App';
 import configureStore from '../store/store';
 import './angularModules';
 import routes from './routes';
 import resolveLegacyRoutes from './legacy-routes';
 
-const history = createHistory();
-const store = configureStore(history, routes);
-
-window.reactHistory = history;
+const store = configureStore(routes);
 
 // eslint-disable-next-line no-undef,no-console
 console.log(`CityData: version: ${VERSION}, build: ${__BUILD_ID__}`);

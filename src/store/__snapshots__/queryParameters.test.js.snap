@@ -31,7 +31,7 @@ Object {
   "center": Object {
     "routes": Object {
       "atlasRouter/ADDRESSES": Object {
-        "addHistory": true,
+        "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [
           52.3731081,
@@ -43,7 +43,7 @@ Object {
         "stateKey": "viewCenter",
       },
       "atlasRouter/CADASTRAL_OBJECTS": Object {
-        "addHistory": true,
+        "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [
           52.3731081,
@@ -55,7 +55,7 @@ Object {
         "stateKey": "viewCenter",
       },
       "atlasRouter/DATA_DETAIL": Object {
-        "addHistory": true,
+        "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [
           52.3731081,
@@ -67,7 +67,7 @@ Object {
         "stateKey": "viewCenter",
       },
       "atlasRouter/DATA_GEO_SEARCH": Object {
-        "addHistory": true,
+        "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [
           52.3731081,
@@ -79,7 +79,7 @@ Object {
         "stateKey": "viewCenter",
       },
       "atlasRouter/ESTABLISHMENTS": Object {
-        "addHistory": true,
+        "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [
           52.3731081,
@@ -91,7 +91,19 @@ Object {
         "stateKey": "viewCenter",
       },
       "atlasRouter/HOME": Object {
-        "addHistory": true,
+        "addHistory": false,
+        "decode": [Function],
+        "defaultValue": Array [
+          52.3731081,
+          4.8932945,
+        ],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "viewCenter",
+      },
+      "atlasRouter/PANORAMA": Object {
+        "addHistory": false,
         "decode": [Function],
         "defaultValue": Array [
           52.3731081,
@@ -264,7 +276,7 @@ Object {
   "heading": Object {
     "routes": Object {
       "atlasRouter/PANORAMA": Object {
-        "addHistory": true,
+        "addHistory": false,
         "decode": [Function],
         "defaultValue": 0,
         "encode": [Function],
@@ -276,6 +288,24 @@ Object {
   },
   "lagen": Object {
     "routes": Object {
+      "atlasRouter/ADDRESSES": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Array [],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "overlays",
+      },
+      "atlasRouter/CADASTRAL_OBJECTS": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Array [],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "overlays",
+      },
       "atlasRouter/DATA_DETAIL": Object {
         "addHistory": true,
         "decode": [Function],
@@ -294,7 +324,25 @@ Object {
         "selector": [Function],
         "stateKey": "overlays",
       },
+      "atlasRouter/ESTABLISHMENTS": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Array [],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "overlays",
+      },
       "atlasRouter/HOME": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": Array [],
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "overlays",
+      },
+      "atlasRouter/PANORAMA": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": Array [],
@@ -353,6 +401,15 @@ Object {
         "stateKey": "mapPanelActive",
       },
       "atlasRouter/HOME": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": true,
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "mapPanelActive",
+      },
+      "atlasRouter/PANORAMA": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": true,
@@ -428,7 +485,7 @@ Object {
   "pitch": Object {
     "routes": Object {
       "atlasRouter/PANORAMA": Object {
-        "addHistory": true,
+        "addHistory": false,
         "decode": [Function],
         "defaultValue": 0,
         "encode": [Function],
@@ -628,6 +685,15 @@ Object {
         "stateKey": "zoom",
       },
       "atlasRouter/HOME": Object {
+        "addHistory": false,
+        "decode": [Function],
+        "defaultValue": 11,
+        "encode": [Function],
+        "reducerKey": "map",
+        "selector": [Function],
+        "stateKey": "zoom",
+      },
+      "atlasRouter/PANORAMA": Object {
         "addHistory": false,
         "decode": [Function],
         "defaultValue": 11,

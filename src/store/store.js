@@ -1,5 +1,6 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import createHistory from 'history/createBrowserHistory';
 import { connectRoutes } from 'redux-first-router';
 import restoreScroll from 'redux-first-router-restore-scroll';
 import queryString from 'querystring';
@@ -10,27 +11,33 @@ import { authenticateReload } from '../shared/ducks/user/user';
 import rootReducer from '../reducers/root';
 import documentHeadMiddleware from './middleware/documentHead';
 import piwikMiddleware from './middleware/piwik/piwikMiddleware';
-import urlParamsMiddleware from './middleware/urlParamsMiddleware';
+import urlParamsMiddleware from './middleware/addMetaToRoutesMiddleware';
 import preserveUrlParametersMiddleware from './middleware/preserveUrlParametersMiddleware';
-
+import setQueriesFromStateMiddleware from './middleware/setQueriesFromStateMiddleware';
+import paramsRegistry from '../store/params-registry';
 import './queryParameters';
 
 window.reducer = rootReducer;
-const configureStore = (history, routesMap) => {
+const configureStore = (routesMap) => {
   const routingOptions = {
     querySerializer: queryString,
     restoreScroll: restoreScroll(),
-    initialDispatch: false
+    initialDispatch: false,
+    createHistory
   };
   const {
     reducer: routeReducer,
     middleware: routeMiddleware,
     enhancer: routeEnhancer,
-    initialDispatch: initialRouteDispatch
+    initialDispatch: initialRouteDispatch,
+    history
   } = connectRoutes(
     routesMap,
     routingOptions
   );
+
+
+  paramsRegistry.history = history;
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const sagaMiddleware = createSagaMiddleware();
@@ -40,6 +47,7 @@ const configureStore = (history, routesMap) => {
       preserveUrlParametersMiddleware,
       routeMiddleware,
       urlParamsMiddleware,
+      setQueriesFromStateMiddleware,
       documentHeadMiddleware,
       piwikMiddleware,
       sagaMiddleware

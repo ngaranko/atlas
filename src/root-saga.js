@@ -1,5 +1,4 @@
 import { all, fork } from 'redux-saga/effects';
-
 import watchFetchPanoPreview from './panorama/sagas/preview/panorama-preview';
 import watchFetchSuggestions from './header/sagas/auto-suggest/auto-suggest';
 import watchDataSearch from './shared/sagas/data-search/data-search';
@@ -9,15 +8,11 @@ import watchFetchMapPanelLayers from './map/sagas/map-panel-layers';
 import watchFetchMapDetail from './map/sagas/detail';
 import watchMapClick from './map/sagas/map-click';
 import watchFetchNearestDetails from './map/sagas/nearest-details';
-import {
-  watchClosePanorama,
-  watchFetchPanorama,
-  watchPanoramaRoute
-} from './panorama/sagas/panorama';
-import watchDetailRoute from './detail/sagas/detail';
+import { watchClosePanorama, watchFetchPanorama } from './panorama/sagas/panorama';
 import watchFetchDataSelection from './shared/sagas/data-selection/data-selection';
 import watchFetchDatasets from './shared/sagas/dataset/dataset';
 import watchAuthenticationRequest from './shared/sagas/user/user';
+import routeSaga from './store/redux-first-router/routeSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -33,11 +28,8 @@ export default function* rootSaga() {
     fork(watchMapClick),
     fork(watchFetchNearestDetails),
     fork(watchAuthenticationRequest),
-
-    // route change watchers
-    fork(watchDetailRoute),
-    fork(watchPanoramaRoute),
     fork(watchFetchDataSelection),
-    fork(watchFetchDatasets)
+    fork(watchFetchDatasets),
+    fork(routeSaga)
   ]);
 }

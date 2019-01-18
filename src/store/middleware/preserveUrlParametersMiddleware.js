@@ -1,6 +1,6 @@
 import paramsRegistry from '../params-registry';
 import { getLocationQuery } from '../redux-first-router/selectors';
-import ParamsRegistery from '../params-registry/paramRegistry';
+import ParamsRegistry from '../params-registry/paramRegistry';
 
 const preserveUrlParametersMiddleware = () => (next) => (action) => {
   let nextAction = action;
@@ -17,7 +17,7 @@ const preserveUrlParametersMiddleware = () => (next) => (action) => {
         {}
     };
 
-    const query = ParamsRegistery.orderQuery(
+    const query = ParamsRegistry.orderQuery(
       paramsRegistry.removeParamsWithDefaultValue(newQuery, action.type)
     );
 

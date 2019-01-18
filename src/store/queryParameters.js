@@ -76,6 +76,7 @@ const routesWithDataSelection = [
 const routesWithMapActive = [
   ...routesWithDataSelection,
   routing.home.type,
+  routing.panorama.type,
   routing.dataGeoSearch.type,
   routing.dataDetail.type
 ];
@@ -163,9 +164,9 @@ export default paramsRegistry
     routes.add(routesWithMapActive, MAP, 'viewCenter', {
       defaultValue: mapInitialState.viewCenter,
       decode: (val = mapInitialState.viewCenter.join(',')) => val.split(',').map((ltLng) => normalizeCoordinate(parseFloat(ltLng), 7)),
-      encode: (selectorResult) => selectorResult.join(','),
+      encode: (selectorResult) => selectorResult.map((coordinate) => normalizeCoordinate(coordinate, 7)).join(','),
       selector: getCenter
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.ZOOM, (routes) => {
     routes.add(routesWithMapActive, MAP, 'zoom', {
@@ -185,7 +186,7 @@ export default paramsRegistry
     routes.add(routing.panorama.type, PANORAMA, 'heading', {
       defaultValue: panoramaInitialState.heading,
       selector: getPanoramaHeading
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.MAP_BACKGROUND, (routes) => {
     routes.add(routing.home.type, MAP, 'baseLayer', {
@@ -214,7 +215,7 @@ export default paramsRegistry
     routes.add(routing.panorama.type, PANORAMA, 'pitch', {
       defaultValue: panoramaInitialState.pitch,
       selector: getPanoramaPitch
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.FILTERS, (routes) => {
     routes.add([
@@ -280,11 +281,7 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.LAYERS, (routes) => {
-    routes.add([
-      routing.home.type,
-      routing.dataGeoSearch.type,
-      routing.dataDetail.type
-    ], MAP, 'overlays', {
+    routes.add(routesWithMapActive, MAP, 'overlays', {
       defaultValue: mapInitialState.overlays,
       decode: (val) => (
         val ? val.split('|').map((obj) => {

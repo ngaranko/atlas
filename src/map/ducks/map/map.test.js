@@ -2,21 +2,20 @@ import reducer, {
   initialState,
   mapClear,
   mapEmptyGeometry,
-  mapLoadingAction,
   mapEndDrawing,
+  mapLoadingAction,
   mapStartDrawing,
   mapUpdateShape,
   setMapBaseLayer,
   setSelectedLocation,
+  TOGGLE_MAP_OVERLAY_PANORAMA,
   toggleMapOverlay,
   toggleMapOverlayVisibility,
   toggleMapPanel,
   updateBoundingBox,
   updatePan,
-  updateZoom,
-  TOGGLE_MAP_OVERLAY_PANORAMA
+  updateZoom
 } from './map';
-import { routing } from '../../../app/routes';
 
 describe('Map Reducer', () => {
   it('should return the initial state', () => {
@@ -127,20 +126,6 @@ describe('Map Reducer', () => {
     )).toEqual({
       ...initialState,
       mapPanelActive: !initialState.mapPanelActive
-    });
-  });
-
-  it('should toggle mapPanel when opening detailPage or Panorama', () => {
-    expect(reducer({}, {
-      type: routing.dataDetail.type
-    })).toEqual({
-      overlays: []
-    });
-
-    expect(reducer({}, {
-      type: routing.panorama.type
-    })).toEqual({
-      mapPanelActive: false
     });
   });
 

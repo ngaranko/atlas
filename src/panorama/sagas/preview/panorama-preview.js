@@ -1,15 +1,13 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import {
   FETCH_PANORAMA_PREVIEW_REQUEST,
-  fetchPanoramaPreviewSuccess,
-  fetchPanoramaPreviewFailure, fetchPanoramaPreview
+  fetchPanoramaPreview,
+  fetchPanoramaPreviewFailure,
+  fetchPanoramaPreviewSuccess
 } from '../../ducks/preview/panorama-preview';
 
 import panoPreview from '../../services/preview/panorama-preview';
-import {
-  getDataSearchLocation
-} from '../../../shared/ducks/data-search/selectors';
-import { routing } from '../../../app/routes';
+import { getDataSearchLocation } from '../../../shared/ducks/data-search/selectors';
 import { FETCH_MAP_DETAIL_SUCCESS } from '../../../map/ducks/detail/constants';
 import { FETCH_GEO_SEARCH_RESULTS_REQUEST } from '../../../shared/ducks/data-search/constants';
 
@@ -23,11 +21,9 @@ export function* fetchMapPano(action) {
   }
 }
 
-function* possiblyFirePanoPreview() {
+export function* getPanoramaPreview() {
   const location = yield select(getDataSearchLocation);
-  if (location) {
-    yield put(fetchPanoramaPreview(location));
-  }
+  yield put(fetchPanoramaPreview(location));
 }
 
 function* fireFetchPanoPreview(action) {
@@ -37,10 +33,6 @@ function* fireFetchPanoPreview(action) {
 
 export default function* watchPanoPreview() {
   yield takeLatest(FETCH_PANORAMA_PREVIEW_REQUEST, fetchMapPano);
-  yield takeLatest([
-    routing.home.type,
-    routing.dataGeoSearch.type,
-    FETCH_GEO_SEARCH_RESULTS_REQUEST
-  ], possiblyFirePanoPreview);
+  yield takeLatest(FETCH_GEO_SEARCH_RESULTS_REQUEST, getPanoramaPreview);
   yield takeLatest(FETCH_MAP_DETAIL_SUCCESS, fireFetchPanoPreview);
 }

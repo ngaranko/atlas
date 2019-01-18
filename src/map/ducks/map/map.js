@@ -1,4 +1,3 @@
-import { routing } from '../../../app/routes';
 import { normalizeCoordinate } from '../../../shared/services/coordinate-reference-system';
 import { FETCH_MAP_DETAIL_SUCCESS } from '../detail/constants';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
@@ -57,36 +56,6 @@ export default function MapReducer(state = initialState, action) {
   };
 
   switch (action.type) {
-    case routing.dataDetail.type:
-      return {
-        ...enrichedState,
-        overlays: enrichedState.overlays ? [...enrichedState.overlays.filter(
-          (overlay) => !isPanoLayer(overlay)
-        )] : []
-      };
-
-    case routing.dataQuerySearch.type:
-    case routing.addresses.type:
-    case routing.cadastralObjects.type:
-    case routing.establishments.type:
-      // When opening these pages, close legend, remove pano layer
-      return {
-        ...enrichedState,
-        isLoading: true,
-        mapPanelActive: false,
-        overlays: enrichedState.overlays ? [...enrichedState.overlays.filter(
-          (overlay) => !isPanoLayer(overlay)
-        )] : []
-      };
-
-    case routing.panorama.type:
-      // When opening these pages, close legend
-      return {
-        ...enrichedState,
-        mapPanelActive: false,
-        overlays: enrichedState.overlays
-      };
-
     case MAP_PAN:
       return {
         ...enrichedState,

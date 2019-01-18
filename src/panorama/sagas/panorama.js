@@ -1,5 +1,4 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
-import { routing } from '../../app/routes';
 import {
   fetchPanoramaError,
   fetchPanoramaRequest,
@@ -19,7 +18,7 @@ import { getImageDataById, getImageDataByLocation } from '../services/panorama-a
 import { toMap, toPanorama } from '../../store/redux-first-router/actions';
 import { getLocationPayload } from '../../store/redux-first-router/selectors';
 
-export function* fireFetchPanormaRequest(action) {
+export function* fetchFetchPanoramaEffect(action) {
   yield put(fetchPanoramaRequest(action.payload));
 }
 
@@ -72,10 +71,6 @@ export function* watchFetchPanorama() {
 
 export function* doClosePanorama() {
   yield put(toMap());
-}
-
-export function* watchPanoramaRoute() {
-  yield takeLatest(routing.panorama.type, fireFetchPanormaRequest);
 }
 
 export function* watchClosePanorama() {

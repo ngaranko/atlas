@@ -1,10 +1,16 @@
-import ParamsRegistery from './paramRegistry';
+import ParamsRegistry from './paramRegistry';
 
-describe('ParamsRegistery singleton', () => {
+describe('ParamsRegistry singleton', () => {
   let paramsRegistry;
 
   beforeEach(() => {
-    paramsRegistry = new ParamsRegistery();
+    ParamsRegistry.destroy();
+    paramsRegistry = new ParamsRegistry();
+  });
+
+  Object.defineProperty(window.location, 'location', {
+    writable: true,
+    value: '?njakns=famk&snakjs=2'
   });
 
   describe('Result object', () => {
@@ -91,7 +97,7 @@ describe('ParamsRegistery singleton', () => {
 
   describe('static orderQuery', () => {
     it('should return an object with keys in alphabetical order', () => {
-      const result = JSON.stringify(ParamsRegistery.orderQuery({ h: 3, a: 1, c: 2 }));
+      const result = JSON.stringify(ParamsRegistry.orderQuery({ h: 3, a: 1, c: 2 }));
       const expectation = JSON.stringify({ a: 1, c: 2, h: 3 });
       expect(result).toMatch(expectation);
     });
@@ -135,33 +141,31 @@ describe('ParamsRegistery singleton', () => {
             });
         });
 
-      paramsRegistry.separateHistory = {
+      paramsRegistry.history = {
         replace: jest.fn(),
         push: jest.fn()
       };
     });
-    it('should call history.replace with the right querystring', () => {
-      const state = { reducerKey2: { foo: 'hello!' } };
-      paramsRegistry.setQueriesFromState('ROUTER/foo', state);
-      expect(paramsRegistry.separateHistory.push).toHaveBeenCalledWith('/?map=hello!');
-    });
+
+    const getResult = (state, route = 'ROUTER/bar') => {
+      paramsRegistry.setQueriesFromState(route, state, {
+        type: 'OTHER_TYPE_THAN_ROUTE/bazz'
+      });
+    };
 
     it('should call history.push with the right querystring', () => {
-      const state = { reducerKey: { foo: 'hello!' } };
-      paramsRegistry.setQueriesFromState('ROUTER/bar', state);
-      expect(paramsRegistry.separateHistory.replace).toHaveBeenCalledWith('/?map=hello!');
+      getResult({ reducerKey: { foo: 'hello!' } });
+      expect(paramsRegistry.history.push).toHaveBeenCalledWith('/?map=hello!');
     });
 
     it('should not set the query if the general defaultValue is set and equal to the encoded value', () => {
-      const state = { reducerKey: { foo: '123', bar: 'bla' } };
-      paramsRegistry.setQueriesFromState('ROUTER/bar', state);
-      expect(paramsRegistry.separateHistory.replace).toHaveBeenCalledWith('/?anotherParam=bla');
+      getResult({ reducerKey: { foo: '123', bar: 'bla' } });
+      expect(paramsRegistry.history.push).toHaveBeenCalledWith('/?anotherParam=bla');
     });
 
     it('should not set the query if the defaultValue per route is set and equal to the encoded value', () => {
-      const state = { reducerKey: { foo: '1234', bar: '321' } };
-      paramsRegistry.setQueriesFromState('ROUTER/bar', state);
-      expect(paramsRegistry.separateHistory.replace).toHaveBeenCalledWith('/?map=1234');
+      getResult({ reducerKey: { foo: '1234', bar: '321' } });
+      expect(paramsRegistry.history.push).toHaveBeenCalledWith('/?map=1234');
     });
   });
 
@@ -225,8 +229,7 @@ describe('ParamsRegistery singleton', () => {
     it('should throw an error if reducerKey or stateKey is not given', () => {
       expect(() => paramsRegistry
         .addParameter('foo', (routes) => {
-          routes
-            .add('/bar');
+          routes.add('/bar');
         })).toThrow('Param "foo" with route "/bar" must contain a reducerKey and stateKe');
 
       expect(() => paramsRegistry
@@ -252,6 +255,24 @@ describe('ParamsRegistery singleton', () => {
               foo: 'reducerKey'
             });
         })).toThrow('Key given to reducer settings is not allowed: "foo"');
+    });
+  });
+
+  describe('static queryShouldChangeHistory', () => {
+    it('should return false if only the parameter that should not replace the history is changed', () => {
+      jsdom.reconfigure({ url: 'https://www.someurl.com/?zoom=14' });
+      const expectation1 = ParamsRegistry.queryShouldChangeHistory(false, 'zoom', '13');
+      expect(expectation1).toBe(false);
+
+      jsdom.reconfigure({ url: 'https://www.someurl.com/?zoom=13&bla=foo' });
+      const expectation2 = ParamsRegistry.queryShouldChangeHistory(false, 'zoom', '12');
+      expect(expectation2).toBe(false);
+    });
+
+    it('should return true if the parameter that should replace the history is not changed', () => {
+      jsdom.reconfigure({ url: 'https://www.someurl.com/?zoom=14' });
+      const expectation1 = ParamsRegistry.queryShouldChangeHistory(false, 'zoom', '14');
+      expect(expectation1).toBe(true);
     });
   });
 });

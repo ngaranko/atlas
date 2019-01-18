@@ -1,5 +1,4 @@
 import { call, put, select, take, takeLatest } from 'redux-saga/effects';
-import get from 'lodash.get';
 import {
   fetchDataSelection,
   receiveDataSelectionFailure,
@@ -7,7 +6,6 @@ import {
   removeGeometryFilter,
   setMarkers
 } from '../../ducks/data-selection/actions';
-import { routing } from '../../../app/routes';
 import dataSelectionConfig from '../../services/data-selection/data-selection-config';
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
 import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
@@ -43,8 +41,8 @@ import {
   MAP_BOUNDING_BOX,
   mapEmptyGeometry,
   mapEndDrawing,
-  mapStartDrawing,
-  mapLoadingAction
+  mapLoadingAction,
+  mapStartDrawing
 } from '../../../map/ducks/map/map';
 import PARAMETERS from '../../../store/parameters';
 import drawToolConfig from '../../../map/services/draw-tool/draw-tool.config';
@@ -112,13 +110,12 @@ function* retrieveDataSelection(action) {
   }
 }
 
-function* fireRequest(action) {
+export function* fetchDataSelectionEffect() {
   const state = yield select();
 
   // Always ensure we are on the right page, otherwise this can be called unintentionally
-  if (isDataSelectionPage(state) && !get(action, 'meta.skipFetch')) {
+  if (isDataSelectionPage(state)) {
     const dataSelection = getDataSelection(state);
-
     yield put(
       fetchDataSelection({
         ...dataSelection
@@ -177,10 +174,8 @@ export default function* watchFetchDataSelection() {
   yield takeLatest(REMOVE_FILTER, clearShapeFilter);
   yield takeLatest(SET_GEOMETRY_FILTER, setGeometryFilters);
   yield takeLatest(
-    [SET_VIEW, SET_PAGE, ADD_FILTER, REMOVE_FILTER, REMOVE_GEOMETRY_FILTER, EMPTY_FILTERS,
-      routing.addresses.type, routing.establishments.type, routing.cadastralObjects.type
-    ],
-    fireRequest
+    [SET_VIEW, SET_PAGE, ADD_FILTER, REMOVE_FILTER, REMOVE_GEOMETRY_FILTER, EMPTY_FILTERS],
+    fetchDataSelectionEffect
   );
 
   // Actions

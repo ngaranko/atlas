@@ -1,7 +1,9 @@
 import { ROUTER_NAMESPACE, routing } from '../../app/routes';
-import { DATASET_ROUTE_MAPPER, VIEWS as DATASET_VIEWS } from '../../shared/ducks/data-selection/constants';
+import {
+  DATASET_ROUTE_MAPPER,
+  VIEWS as DATASET_VIEWS
+} from '../../shared/ducks/data-selection/constants';
 import PARAMETERS from '../parameters';
-import { VIEWS as DATA_SEARCH_VIEW } from '../../shared/ducks/data-search/constants';
 import { VIEWS as PANORAMA_VIEWS } from '../../panorama/ducks/constants';
 import { VIEWS } from '../../map/ducks/map/map';
 
@@ -19,8 +21,9 @@ export const shouldResetState = (action, allowedRoutes = []) => (action.type &&
   allowedRoutes.every((route) => !action.type.includes(route))
 );
 
-export const toDataDetail =
-  (id, type, subtype, additionalParams = null, tracking = true) => preserveQuery({
+export const toDataDetail = (detailReference, additionalParams = null, tracking = true) => {
+  const [id, type, subtype] = detailReference;
+  return preserveQuery({
     type: routing.dataDetail.type,
     payload: {
       type,
@@ -31,18 +34,19 @@ export const toDataDetail =
       tracking
     }
   }, additionalParams);
+};
 
-export const toGeoSearch = (location, view = DATA_SEARCH_VIEW.LIST) => preserveQuery({
-  type: routing.dataGeoSearch.type
-}, {
-  [PARAMETERS.LOCATION]: location,
-  [PARAMETERS.VIEW]: view
-});
+export const toGeoSearch = (additionalParams) => preserveQuery({
+  type: routing.dataGeoSearch.type,
+  meta: {
+    forceSaga: true
+  }
+}, additionalParams);
 
-export const toDataSearchQuery = (additionalParams = null, skipFetch = false) => ({
+export const toDataSearchQuery = (additionalParams = null, skipSaga = false) => ({
   type: routing.dataQuerySearch.type,
   meta: {
-    skipFetch,
+    skipSaga,
     additionalParams
   }
 });
@@ -51,7 +55,9 @@ export const toMap = (preserve = false) => ({
   type: routing.home.type,
   meta: {
     preserve,
-    additionalParams: { view: VIEWS.MAP }
+    additionalParams: {
+      [PARAMETERS.VIEW]: VIEWS.MAP
+    }
   }
 });
 
@@ -99,7 +105,7 @@ const getDetailPageData = (endpoint) => {
 };
 export const toDetailFromEndpoint = (endpoint, view) => {
   const { type, subtype, id } = getDetailPageData(endpoint);
-  return toDataDetail(id, type, subtype, {
+  return toDataDetail([id, type, subtype], {
     [PARAMETERS.VIEW]: view
   });
 };
@@ -116,10 +122,10 @@ export const toDataSearchCategory = (searchQuery, category) => ({
   }
 });
 export const toDatasets = () => ({ type: routing.datasets.type });
-export const toDatasetSearch = (additionalParams = null, skipFetch = false) => ({
+export const toDatasetSearch = (additionalParams = null, skipSaga = false) => ({
   type: routing.searchDatasets.type,
   meta: {
-    skipFetch,
+    skipSaga,
     preserveQuery: true,
     additionalParams
   }
@@ -139,7 +145,7 @@ export const toDataSuggestion = (payload) => {
     query: payload.typedQuery
   };
 
-  return toDataDetail(id, type, subtype, null, tracking);
+  return toDataDetail([id, type, subtype], null, tracking);
 };
 export const toDatasetSuggestion = (payload) => ({
   type: routing.datasetsDetail.type,
