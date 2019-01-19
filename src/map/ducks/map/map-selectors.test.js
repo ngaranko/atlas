@@ -1,11 +1,18 @@
 import {
   getActiveBaseLayer,
   getCenter,
+  getDrawingMode,
+  getMapBoundingBox,
   getMapCenter,
   getMapOverlays,
   getMapZoom,
   getRdGeoJsons,
-  isMapBusy
+  getGeometry,
+  getShapeDistanceTxt,
+  isMarkerActive,
+  isMapBusy,
+  isMapLoading,
+  isMapPanelActive
 } from './map-selectors';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { getPanoramaLocation } from '../../../panorama/ducks/selectors';
@@ -16,13 +23,20 @@ jest.mock('../../../shared/ducks/data-search/selectors');
 jest.mock('../../../panorama/ducks/selectors');
 jest.mock('../detail/map-detail');
 describe('Map Selectors', () => {
+  const detail = {};
   const map = {
     baseLayer: 'baseLayer',
+    boundingBox: {},
+    drawingMode: 'draw',
     viewCenter: true,
     overlays: [{ overlay: '' }],
     zoom: 2,
     selectedLocation: '123,456',
-    isMapBusy: false
+    isMapBusy: false,
+    isLoading: false,
+    mapPanelActive: false,
+    geometry: [],
+    shapeDistanceTxt: 'foo'
   };
   const panorama = {
     location: 'sss'
@@ -30,6 +44,7 @@ describe('Map Selectors', () => {
   const selection = {};
 
   const state = {
+    detail,
     map,
     panorama,
     selection
@@ -40,6 +55,14 @@ describe('Map Selectors', () => {
       expect(getActiveBaseLayer(state)).toEqual(map.baseLayer);
       expect(getMapZoom(state)).toEqual(map.zoom);
       expect(getMapCenter(state)).toEqual(map.viewCenter);
+      expect(getGeometry(state)).toEqual(map.geometry);
+      expect(getDrawingMode(state)).toEqual(map.drawingMode);
+      expect(getShapeDistanceTxt(state)).toEqual(map.shapeDistanceTxt);
+      expect(isMapBusy(state)).toEqual(map.isMapBusy);
+      expect(isMapLoading(state)).toEqual(map.isLoading);
+      expect(getMapBoundingBox(state)).toEqual(map.boundingBox);
+      expect(isMarkerActive(state)).toEqual(!detail);
+      expect(isMapPanelActive(state)).toEqual(map.mapPanelActive);
 
       getRdGeoJsons(state);
       expect(getDetailGeoJson).toHaveBeenCalledWith(state);
@@ -71,12 +94,6 @@ describe('Map Selectors', () => {
         ...state,
         some: 'state' // force the state to change so it clears the cache
       })).toEqual('panorama location');
-    });
-  });
-
-  describe('isMapBusy selector', () => {
-    it('should return the correct value', () => {
-      expect(isMapBusy(state)).toEqual(false);
     });
   });
 });
