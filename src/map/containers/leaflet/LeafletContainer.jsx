@@ -16,8 +16,7 @@ import {
   getMapZoom,
   getMarkers,
   getRdGeoJsons,
-  isMapBusy,
-  isMapLoading
+  isMapBusy
 } from '../../ducks/map/map-selectors';
 import {
   getClusterMarkers,
@@ -43,8 +42,7 @@ const mapStateToProps = (state) => ({
   layers: getLayers(state),
   drawingMode: getDrawingMode(state),
   zoom: getMapZoom(state),
-  isBusy: isMapBusy(state),
-  isLoading: isMapLoading(state)
+  isBusy: isMapBusy(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -105,8 +103,8 @@ class LeafletContainer extends React.Component {
   }
 
   handleClick(event) {
-    const { drawingMode, isLoading } = this.props;
-    if (!isDrawingActive(drawingMode) && !isLoading) {
+    const { drawingMode, isBusy } = this.props;
+    if (!isDrawingActive(drawingMode) && !isBusy) {
       this.props.onUpdateClick(event);
     }
   }
@@ -189,13 +187,10 @@ LeafletContainer.propTypes = {
   })),
   zoom: PropTypes.number.isRequired,
   isBusy: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-
   onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
   onUpdateBoundingBox: PropTypes.func.isRequired,
-
   onFetchMapBaseLayers: PropTypes.func.isRequired,
   onFetchMapLayers: PropTypes.func.isRequired,
   onFetchPanelLayers: PropTypes.func.isRequired

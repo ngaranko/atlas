@@ -73,6 +73,7 @@ export default function MapReducer(state = initialState, action) {
       // When opening these pages, close legend, remove pano layer
       return {
         ...enrichedState,
+        isMapBusy: true,
         mapPanelActive: false,
         overlays: enrichedState.overlays ? [...enrichedState.overlays.filter(
           (overlay) => !isPanoLayer(overlay)
@@ -136,7 +137,7 @@ export default function MapReducer(state = initialState, action) {
         ...enrichedState,
         drawingMode: drawToolConfig.DRAWING_MODE.NONE,
         geometry: has2Markers ? polygon.markers : moreThan2Markers ? [] : enrichedState.geometry,
-        isLoading: moreThan2Markers ? true : enrichedState.isLoading
+        isLoading: enrichedState.isLoading
       };
 
     case SET_MAP_BASE_LAYER:

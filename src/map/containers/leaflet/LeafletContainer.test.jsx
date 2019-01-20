@@ -12,8 +12,7 @@ import {
   getMarkers,
   getRdGeoJsons,
   isMarkerActive,
-  isMapBusy,
-  isMapLoading
+  isMapBusy
 } from '../../ducks/map/map-selectors';
 
 import {
@@ -98,7 +97,6 @@ describe('LeafletContainer', () => {
     setSelectedLocation.mockImplementation(() => ({}));
     updateZoom.mockImplementation(() => ({}));
     isMapBusy.mockImplementation(() => false);
-    isMapLoading.mockImplementation(() => false);
     getUrlTemplate.mockImplementation(() => 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png');
   });
 
@@ -112,8 +110,7 @@ describe('LeafletContainer', () => {
           zoom: 9,
           overlays: [],
           drawingMode: 'none',
-          isMapBusy: false,
-          isLoading: false
+          isMapBusy: false
         },
         user: {
           authenticated: false,
@@ -164,8 +161,7 @@ describe('LeafletContainer', () => {
             }
           ],
           drawingMode: 'none',
-          isMapBusy: false,
-          isLoading: false
+          isMapBusy: false
         }
       };
       getCenter.mockImplementation(() => [52.4333137, 4.9108908]);
@@ -406,13 +402,13 @@ describe('LeafletContainer', () => {
       it('should do nothing when the drawing is active or map is loading', () => {
         const event = {};
         wrapperInstance.handleClick(event);
+        isMapBusy.mockImplementation(() => true);
         expect(store.dispatch).not.toHaveBeenCalled();
       });
 
       it('should trigger setSelectedLocation when the drawing is not active', () => {
         const event = { latlng: { lat: 0, lng: 0 } };
         isDrawingActive.mockImplementation(() => false);
-        isMapLoading.mockImplementation(() => false);
         setSelectedLocation.mockImplementation(() => ({
           type: 'SOME_ACTION'
         }));
