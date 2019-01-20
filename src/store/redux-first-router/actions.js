@@ -47,12 +47,15 @@ export const toDataSearchQuery = (additionalParams = null, skipFetch = false) =>
   }
 });
 
-export const toMap = () => ({
+export const toMap = (preserve = false) => ({
   type: routing.home.type,
   meta: {
+    preserve,
     additionalParams: { view: VIEWS.MAP }
   }
 });
+
+export const toMapAndPreserveQuery = () => toMap(true);
 
 export const toPanorama = (id, additionalParams = null) => ({
   type: routing.panorama.type,

@@ -24,8 +24,8 @@ import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import { getDetailLocation } from '../../../store/redux-first-router/selectors';
 import {
   toGeoSearch,
-  toMap,
-  toPanoramaAndPreserveQuery
+  toPanoramaAndPreserveQuery,
+  toMapAndPreserveQuery
 } from '../../../store/redux-first-router/actions';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 
@@ -33,8 +33,8 @@ jest.mock('../../../shared/ducks/detail/selectors');
 jest.mock('../../../shared/ducks/data-search/selectors');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
 jest.mock('../../ducks/detail/map-detail');
-jest.mock('../../ducks/map/map-selectors');
 jest.mock('../../../panorama/ducks/preview/panorama-preview');
+jest.mock('../../ducks/map/map-selectors');
 jest.mock('../../../shared/ducks/selection/selection');
 jest.mock('../../../store/redux-first-router/selectors');
 jest.mock('../../../store/redux-first-router/actions');
@@ -101,7 +101,7 @@ describe('MapPreviewPanelContainer', () => {
     getMapDetail.mockImplementation(() => ({ type: FETCH_MAP_DETAIL_REQUEST }));
     getDetailLocation.mockImplementation(() => (['123', '321']));
     toPanoramaAndPreserveQuery.mockImplementation(() => ({ type: 'sometype' }));
-    toMap.mockImplementation(() => ({ type: 'sometype' }));
+    toMapAndPreserveQuery.mockImplementation(() => ({ type: 'sometype' }));
     toGeoSearch.mockImplementation(() => ({ type: 'sometype' }));
     fetchPanoramaPreview.mockImplementation(() => ({ type: FETCH_PANORAMA_PREVIEW_REQUEST }));
     selectNotClickableVisibleMapLayers.mockImplementation(() => ([]));
@@ -132,7 +132,7 @@ describe('MapPreviewPanelContainer', () => {
     const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive();
     wrapper.find('.map-preview-panel__button').at(1).simulate('click');
 
-    expect(store.dispatch).toHaveBeenCalledWith(toMap());
+    expect(store.dispatch).toHaveBeenCalledWith(toMapAndPreserveQuery());
   });
 
   describe('onPanoPreviewClick', () => {

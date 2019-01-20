@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 import {
   toDetailFromEndpoint,
   toGeoSearch,
-  toMap,
-  toPanoramaAndPreserveQuery
+  toPanoramaAndPreserveQuery,
+  toMapAndPreserveQuery
 } from '../../../store/redux-first-router/actions';
 import { getDetailLocation } from '../../../store/redux-first-router/selectors';
 
@@ -46,7 +46,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
-    closePanel: toMap,
+    closePanel: toMapAndPreserveQuery,
     onSearchMaximize: toGeoSearch,
     openPano: toPanoramaAndPreserveQuery
   }, dispatch),
