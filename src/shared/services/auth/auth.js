@@ -96,7 +96,7 @@ function handleError(code, description) {
   location.assign(`${location.protocol}//${location.host}${location.pathname}`);
 
   throw new Error('Authorization service responded with error ' +
-      `${code} [${description}] (${ERROR_MESSAGES[code]})`);
+    `${code} [${description}] (${ERROR_MESSAGES[code]})`);
 }
 
 /**
@@ -214,10 +214,12 @@ function restoreAccessToken() {
     if (!parsedToken.expiresAt || (parsedToken.expiresAt <= now)) {
       tokenData = {};
       logout();
+      return false;
     }
 
     tokenData = parsedToken;
   }
+  return true;
 }
 
 /**
@@ -230,9 +232,10 @@ function restoreAccessToken() {
  */
 export function initAuth() {
   returnPath = '';
-  restoreAccessToken(); // Restore acces token from session storage
-  catchError(); // Catch any error from the OAuth2 authorization service
-  handleCallback(); // Handle a callback from the OAuth2 authorization service
+  if (restoreAccessToken()) { // Restore acces token from session storage
+    catchError(); // Catch any error from the OAuth2 authorization service
+    handleCallback(); // Handle a callback from the OAuth2 authorization service
+  }
 }
 
 /**
