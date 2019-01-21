@@ -24,20 +24,22 @@ export const detailDocumentTitle = (action, defaultTitle = 'UNKNOWN') => {
   const glossaryDefinition = GLOSSARY.DEFINITIONS[glossaryKey];
   const label = glossaryDefinition ? glossaryDefinition.label_singular : defaultTitle;
 
-  return `${label}: %display% `;
+  return `${label}`;
 };
 
 export const datasetDetailDocumentTitle = () => {
   const label = 'Datasets';
 
-  return `${label}: %display% `;
+  return `${label}`;
 };
 
 export const detailDocumentTitleWithName = (action) => {
   // For now we fill the title for details in 2 steps
-  const title = document.title
-    .replace('%display%', action.payload.data._display)
-    .replace(' - Dataportaal', '');
+  const title = document.title.replace(' - Dataportaal', '');
+  if (title.indexOf(':') === -1) {
+    return `${title}: ${action.payload.data._display}`;
+  }
+
   return title;
 };
 
