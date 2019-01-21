@@ -9,7 +9,7 @@ import {
 } from '../../ducks/panel-layers/map-panel-layers';
 import { getPanoramaHistory } from '../../../panorama/ducks/selectors';
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
-import { getMapZoom } from '../../ducks/map/map-selectors';
+import { getMapZoom, getMapView } from '../../ducks/map/map-selectors';
 import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 import { getImageDataByLocation } from '../../../panorama/services/panorama-api/panorama-api';
@@ -116,6 +116,10 @@ describe('switchClickAction', () => {
     selector === getMapZoom ? 8 : next()
   );
 
+  const provideMapView = ({ selector }, next) => (
+    selector === getMapView ? 'kaart' : next()
+  );
+
   const provideSelectionTypePoint = ({ selector }, next) => (
     selector === getSelectionType ? SELECTION_TYPE.POINT : next()
   );
@@ -138,6 +142,7 @@ describe('switchClickAction', () => {
           provideView,
           provideMapLayers,
           provideMapZoom,
+          provideMapView,
           provideMapPanelLayers,
           provideSelectionTypePoint
         )
@@ -147,7 +152,8 @@ describe('switchClickAction', () => {
         payload: {
           location: payload.location,
           layers: [...mockMapLayers],
-          zoom: 8
+          zoom: 8,
+          view: 'kaart'
         }
       })
       .run();
@@ -169,6 +175,7 @@ describe('switchClickAction', () => {
           provideDetailView,
           provideView,
           provideMapZoom,
+          provideMapView,
           provideMapPanelLayers,
           provideSelectionTypePoint
         )

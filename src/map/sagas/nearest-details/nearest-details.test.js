@@ -27,7 +27,8 @@ describe('fetchNearestDetails', () => {
         longitude: 1
       },
       layers: [],
-      zoom: 12
+      zoom: 12,
+      view: 'kaart'
     }
   };
   it('should call fetchNearestDetails and dispatch the correct actions if uri is returned', () => (
