@@ -96,7 +96,7 @@ function handleError(code, description) {
   location.assign(`${location.protocol}//${location.host}${location.pathname}`);
 
   throw new Error('Authorization service responded with error ' +
-      `${code} [${description}] (${ERROR_MESSAGES[code]})`);
+    `${code} [${description}] (${ERROR_MESSAGES[code]})`);
 }
 
 /**
@@ -174,16 +174,6 @@ export function getAccessToken() {
 }
 
 /**
- * Restores the access token from session storage when available.
- */
-function restoreAccessToken() {
-  const accessToken = getAccessToken();
-  if (accessToken) {
-    tokenData = accessTokenParser(accessToken);
-  }
-}
-
-/**
  * Redirects to the OAuth2 authorization service.
  */
 export function login() {
@@ -213,6 +203,26 @@ export function logout() {
 }
 
 /**
+ * Restores the access token from session storage when available.
+ */
+function restoreAccessToken() {
+  const accessToken = getAccessToken();
+  if (accessToken) {
+    const parsedToken = accessTokenParser(accessToken);
+    const now = Math.floor(new Date().getTime() / 1000);
+
+    if (!parsedToken.expiresAt || (parsedToken.expiresAt <= now)) {
+      tokenData = {};
+      logout();
+      return false;
+    }
+
+    tokenData = parsedToken;
+  }
+  return true;
+}
+
+/**
  * Initializes the auth service when needed. Catches any callback params and
  * errors from the OAuth2 authorization service when available.
  *
@@ -222,9 +232,10 @@ export function logout() {
  */
 export function initAuth() {
   returnPath = '';
-  restoreAccessToken(); // Restore acces token from session storage
-  catchError(); // Catch any error from the OAuth2 authorization service
-  handleCallback(); // Handle a callback from the OAuth2 authorization service
+  if (restoreAccessToken()) { // Restore acces token from session storage
+    catchError(); // Catch any error from the OAuth2 authorization service
+    handleCallback(); // Handle a callback from the OAuth2 authorization service
+  }
 }
 
 /**

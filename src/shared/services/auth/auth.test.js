@@ -7,6 +7,8 @@ jest.mock('../query-string-parser/query-string-parser');
 jest.mock('../state-token-generator/state-token-generator');
 jest.mock('../access-token-parser/access-token-parser');
 
+const notExpiredTimestamp = () => (Math.floor(new Date().getTime() / 1000) + 1000);
+
 describe('The auth service', () => {
   const noop = () => {
   };
@@ -17,6 +19,7 @@ describe('The auth service', () => {
   let savedReturnPath;
   let savedStateToken;
   let stateToken;
+  let notExpiredAccesToken;
 
   beforeEach(() => {
     origSessionStorage = global.sessionStorage;
@@ -50,6 +53,8 @@ describe('The auth service', () => {
 
     queryStringParser.mockImplementation(() => queryObject);
     stateTokenGenerator.mockImplementation(() => stateToken);
+    notExpiredAccesToken = { expiresAt: notExpiredTimestamp() };
+    parseAccessToken.mockImplementation(() => ({ ...notExpiredAccesToken }));
 
     queryObject = {};
     stateToken = '123StateToken';
@@ -158,6 +163,25 @@ describe('The auth service', () => {
         expect(global.sessionStorage.getItem).toHaveBeenCalledWith('returnPath');
         expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('returnPath');
         expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('stateToken');
+      });
+
+      it('Deletes the sessionStorage when token is expired', () => {
+        parseAccessToken.mockImplementation(() => ({ expiresAt: 0 }));
+        global.sessionStorage.getItem.mockReturnValueOnce('123AccessToken');
+        const queryString = '?access_token=123AccessToken&token_type=token&expires_in=0&state=123StateToken';
+        global.location.hash = queryString;
+        queryObject = {
+          access_token: '123AccessToken',
+          token_type: 'token',
+          expires_in: '0',
+          state: '123StateToken'
+        };
+        savedStateToken = '';
+        savedReturnPath = '/path/leading/back';
+
+        initAuth();
+        expect(global.sessionStorage.clear).toHaveBeenCalled();
+        expect(global.location.reload).toHaveBeenCalledWith();
       });
 
       it('Works when receiving unexpected parameters', () => {
@@ -275,6 +299,9 @@ describe('The auth service', () => {
 
   describe('Retrieving the auth headers', () => {
     it('Creates an object defining the headers', () => {
+      parseAccessToken.mockImplementation(() => ({
+        ...notExpiredAccesToken
+      }));
       savedAccessToken = '123AccessToken';
       initAuth();
       const authHeaders = getAuthHeaders();
@@ -287,8 +314,6 @@ describe('The auth service', () => {
 
   describe('getScopes', () => {
     it('should return a an empty array', () => {
-      parseAccessToken.mockImplementation(() => ({}));
-
       savedAccessToken = '123AccessToken';
       initAuth();
       const authHeaders = getScopes();
@@ -298,6 +323,7 @@ describe('The auth service', () => {
 
     it('should return the scopes', () => {
       parseAccessToken.mockImplementation(() => ({
+        ...notExpiredAccesToken,
         scopes: 'scopes!'
       }));
 
@@ -311,8 +337,6 @@ describe('The auth service', () => {
 
   describe('getName', () => {
     it('should return a an empty string', () => {
-      parseAccessToken.mockImplementation(() => ({}));
-
       savedAccessToken = '123AccessToken';
       initAuth();
       const authHeaders = getName();
@@ -322,6 +346,7 @@ describe('The auth service', () => {
 
     it('should return the scopes', () => {
       parseAccessToken.mockImplementation(() => ({
+        ...notExpiredAccesToken,
         name: 'name!'
       }));
 
