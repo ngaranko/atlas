@@ -163,7 +163,7 @@ class MapLeaflet extends React.Component {
       scaleControlOptions,
       zoomControlOptions,
       zoom,
-      loading
+      isBusy
     } = this.props;
     return (
       <ResizeAware
@@ -259,7 +259,7 @@ class MapLeaflet extends React.Component {
               <ZoomControl {...zoomControlOptions} />
             )
           }
-          <MapBusyIndicator loading={loading} />
+          <MapBusyIndicator loading={isBusy} />
         </Map>
       </ResizeAware>
     );
@@ -282,7 +282,7 @@ MapLeaflet.defaultProps = {
   scaleControlOptions: {},
   zoomControlOptions: {},
   zoom: 11,
-  loading: false,
+  isBusy: false,
   isZoomControlVisible: true,
   onClick: () => 'click',  //
   onMoveEnd: () => 'moveend',
@@ -320,7 +320,7 @@ MapLeaflet.propTypes = {
   scaleControlOptions: PropTypes.shape({}),
   zoomControlOptions: PropTypes.shape({}),
   zoom: PropTypes.number,
-  loading: PropTypes.bool
+  isBusy: PropTypes.bool
 };
 
 export default MapLeaflet;

@@ -23,7 +23,6 @@ import {
   updatePan,
   updateZoom
 } from '../../ducks/map/map';
-
 import {
   FETCH_MAP_BASE_LAYERS_REQUEST,
   fetchMapBaseLayers,
@@ -35,7 +34,6 @@ import {
   fetchPanelLayers
 } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
-import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { getClusterMarkers, getGeoJsons } from '../../../shared/ducks/data-selection/selectors';
 
 jest.mock('../../../shared/ducks/data-selection/selectors');
@@ -357,39 +355,6 @@ describe('LeafletContainer', () => {
       });
     });
 
-    describe('componentWillReceiveProps', () => {
-      it('should not change the state when the drawingMode is not changed', () => {
-        jest.useFakeTimers();
-
-        wrapper.setProps({ drawingMode: drawToolConfig.DRAWING_MODE.NONE });
-        const oldState = wrapperInstance.state;
-
-        wrapperInstance.componentWillReceiveProps({
-          drawingMode: drawToolConfig.DRAWING_MODE.NONE
-        });
-
-        expect(setTimeout).toHaveBeenCalledTimes(0);
-        expect(wrapperInstance.state).toEqual(oldState);
-      });
-
-      it('should set the drawingMode in the state when the drawingMode is changed', () => {
-        jest.useFakeTimers();
-
-        wrapper.setProps({ drawingMode: drawToolConfig.DRAWING_MODE.NONE });
-        const oldState = wrapperInstance.state;
-
-        wrapperInstance.componentWillReceiveProps({
-          drawingMode: drawToolConfig.DRAWING_MODE.DRAW
-        });
-        jest.runAllTimers();
-        expect(setTimeout).toHaveBeenCalledTimes(1);
-        expect(wrapperInstance.state).toEqual({
-          ...oldState,
-          drawingMode: drawToolConfig.DRAWING_MODE.DRAW
-        });
-      });
-    });
-
     describe('handleZoom', () => {
       it('should trigger updateZoom and updateBoundingBox', () => {
         const event = { center: { lat: 1, lon: 5 } };
@@ -434,9 +399,10 @@ describe('LeafletContainer', () => {
     });
 
     describe('handleClick', () => {
-      it('should do nothing when the drawing is active', () => {
+      it('should do nothing when the drawing is active or map is loading', () => {
         const event = {};
         wrapperInstance.handleClick(event);
+        isMapBusy.mockImplementation(() => true);
         expect(store.dispatch).not.toHaveBeenCalled();
       });
 

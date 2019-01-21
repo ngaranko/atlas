@@ -42,7 +42,7 @@ const mapStateToProps = (state) => ({
   layers: getLayers(state),
   drawingMode: getDrawingMode(state),
   zoom: getMapZoom(state),
-  loading: isMapBusy(state)
+  isBusy: isMapBusy(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -83,17 +83,6 @@ class LeafletContainer extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { drawingMode } = nextProps;
-    if (this.state.drawingMode !== drawingMode) {
-      // fixes race condition in firefox
-      // with ending a shape with the DrawTool and clicking in the mapLeaflet
-      setTimeout(() => {
-        this.setState({ drawingMode });
-      }, 300);
-    }
-  }
-
   handleZoom(event) {
     const { drawingMode, onUpdateZoom, onUpdateBoundingBox } = this.props;
     const drawingActive = isDrawingActive(drawingMode);
@@ -114,7 +103,8 @@ class LeafletContainer extends React.Component {
   }
 
   handleClick(event) {
-    if (!isDrawingActive(this.state.drawingMode)) {
+    const { drawingMode, isBusy } = this.props;
+    if (!isDrawingActive(drawingMode) && !isBusy) {
       this.props.onUpdateClick(event);
     }
   }
@@ -130,7 +120,7 @@ class LeafletContainer extends React.Component {
       layers,
       markers,
       zoom,
-      loading
+      isBusy
     } = this.props;
 
     const showMarker = markers.length > 0;
@@ -154,7 +144,7 @@ class LeafletContainer extends React.Component {
         scaleControlOptions={scaleControlOptions}
         zoomControlOptions={zoomControlOptions}
         zoom={zoom}
-        loading={loading}
+        isBusy={isBusy}
       />
     );
   }
@@ -196,13 +186,11 @@ LeafletContainer.propTypes = {
     url: PropTypes.string.isRequired
   })),
   zoom: PropTypes.number.isRequired,
-  loading: PropTypes.bool.isRequired,
-
+  isBusy: PropTypes.bool.isRequired,
   onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
   onUpdateBoundingBox: PropTypes.func.isRequired,
-
   onFetchMapBaseLayers: PropTypes.func.isRequired,
   onFetchMapLayers: PropTypes.func.isRequired,
   onFetchPanelLayers: PropTypes.func.isRequired

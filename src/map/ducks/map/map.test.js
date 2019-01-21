@@ -2,6 +2,7 @@ import reducer, {
   initialState,
   mapClear,
   mapEmptyGeometry,
+  mapLoadingAction,
   mapEndDrawing,
   mapStartDrawing,
   mapUpdateShape,
@@ -29,6 +30,14 @@ describe('Map Reducer', () => {
       drawingMode: initialState.drawingMode,
       shapeDistanceTxt: initialState.shapeDistanceTxt,
       shapeAreaTxt: initialState.shapeAreaTxt
+    });
+  });
+
+  it('should set the map loading status when dispatching mapLoadingAction', () => {
+    expect(reducer(initialState, mapLoadingAction(true)
+    )).toEqual({
+      ...initialState,
+      isMapBusy: true
     });
   });
 
@@ -61,8 +70,7 @@ describe('Map Reducer', () => {
     }))).toEqual({
       ...initialState,
       drawingMode: 'none',
-      geometry: undefined,
-      isLoading: false
+      geometry: undefined
     });
 
     expect(reducer(initialState, mapEndDrawing({
@@ -72,8 +80,7 @@ describe('Map Reducer', () => {
     }))).toEqual({
       ...initialState,
       drawingMode: 'none',
-      geometry: [],
-      isLoading: true
+      geometry: []
     });
 
     expect(reducer(initialState, mapEndDrawing({
