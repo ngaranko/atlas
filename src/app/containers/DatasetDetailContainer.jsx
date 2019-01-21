@@ -62,7 +62,9 @@ class DatasetDetailContainer extends React.Component {
 }
 
 DatasetDetailContainer.defaultProps = {
-  isLoading: false
+  isLoading: false,
+  detailTemplateUrl: undefined,
+  detailData: undefined
 };
 
 DatasetDetailContainer.propTypes = {
@@ -70,8 +72,8 @@ DatasetDetailContainer.propTypes = {
   catalogFilters: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   endpoint: PropTypes.string.isRequired,
-  detailTemplateUrl: PropTypes.string.isRequired,
-  detailData: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  detailTemplateUrl: PropTypes.string,
+  detailData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   onFetchDetailRequest: PropTypes.func.isRequired
 };
 

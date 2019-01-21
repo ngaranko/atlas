@@ -87,9 +87,9 @@ DetailContainer.propTypes = {
   endpoint: PropTypes.string.isRequired,
   previewPanorama: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   isPreviewPanoramaLoading: PropTypes.bool,
-  detailTemplateUrl: PropTypes.string.isRequired,
-  detailData: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  detailFilterSelection: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  detailTemplateUrl: PropTypes.string,
+  detailData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  detailFilterSelection: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   onFetchDetailRequest: PropTypes.func.isRequired
 };
 

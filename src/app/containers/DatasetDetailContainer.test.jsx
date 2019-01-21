@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
-import DatasetsDetailContainer from '../DatasetDetailContainer';
+import DatasetsDetailContainer from './DatasetDetailContainer';
 
 const initialState = {
   detail: {
@@ -15,7 +15,7 @@ const initialState = {
   user: {},
   location: {
     payload: {
-      id: 1
+      id: 2
     }
   }
 };
