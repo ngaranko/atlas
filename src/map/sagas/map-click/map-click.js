@@ -1,7 +1,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
-import { getMapZoom } from '../../ducks/map/map-selectors';
+import { getMapZoom, getMapView } from '../../ducks/map/map-selectors';
 import { REQUEST_NEAREST_DETAILS } from '../geosearch/geosearch';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 import { setPanoramaLocation } from '../../../panorama/ducks/actions';
@@ -36,6 +36,7 @@ export function* goToGeoSearch(location) {
   const view = showGeoSearchList(pageType, dataSearchView, detailView, dataSelectionView) ?
     VIEWS.LIST :
     VIEWS.MAP;
+
   yield put(toGeoSearch(location, view));
 }
 
@@ -49,13 +50,17 @@ export function* switchClickAction(action) {
   } else {
     const zoom = yield select(getMapZoom);
     const layers = yield select(getLayers);
+    const view = yield select(getMapView);
+    const detailView = yield select(getDetailView);
+
     if (layers.length) {
       yield put({
         type: REQUEST_NEAREST_DETAILS,
         payload: {
           location,
           layers,
-          zoom
+          zoom,
+          view: (view !== VIEWS.MAP) ? detailView : view
         }
       });
     } else {
