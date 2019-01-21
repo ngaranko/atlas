@@ -248,7 +248,11 @@ export default paramsRegistry
     }, false);
   })
   .addParameter(PARAMETERS.EMBED_PREVIEW, (routes) => {
-    routes.add(routing.home.type, UI, 'isEmbedPreview', {
+    routes.add([
+      routing.home.type,
+      routing.dataGeoSearch.type,
+      routing.dataDetail.type
+    ], UI, 'isEmbedPreview', {
       defaultValue: UIInitialState.isEmbedPreview,
       selector: isEmbedPreview,
       encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
@@ -256,7 +260,11 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.EMBED, (routes) => {
-    routes.add(routing.home.type, UI, 'isEmbed', {
+    routes.add([
+      routing.home.type,
+      routing.dataGeoSearch.type,
+      routing.dataDetail.type
+    ], UI, 'isEmbed', {
       defaultValue: UIInitialState.isEmbed,
       selector: isEmbedded,
       encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
