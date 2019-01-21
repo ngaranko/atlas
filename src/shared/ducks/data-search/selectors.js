@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { REDUCER_KEY } from './constants';
+import { REDUCER_KEY, VIEWS } from './constants';
 
 export const getDataSearch = (state) => state[REDUCER_KEY];
 const getStateOfKey = (key) =>
@@ -11,6 +11,12 @@ export const isSearchLoading = getStateOfKey('isLoading');
 export const getSearchQuery = getStateOfKey('query');
 export const getSearchCategory = getStateOfKey('category');
 export const getView = getStateOfKey('view');
+
+// Views
+export const isMapView = createSelector(
+  getView,
+  (view) => view === VIEWS.MAP
+);
 
 // Results
 export const getSearchQueryResults = getStateOfKey('resultsQuery');

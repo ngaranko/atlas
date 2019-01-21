@@ -106,6 +106,24 @@ Object {
   },
   "embed": Object {
     "routes": Object {
+      "atlasRouter/DATA_DETAIL": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": false,
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "isEmbed",
+      },
+      "atlasRouter/DATA_GEO_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": false,
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "isEmbed",
+      },
       "atlasRouter/HOME": Object {
         "addHistory": true,
         "decode": [Function],
@@ -119,6 +137,24 @@ Object {
   },
   "embed-preview": Object {
     "routes": Object {
+      "atlasRouter/DATA_DETAIL": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": false,
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "isEmbedPreview",
+      },
+      "atlasRouter/DATA_GEO_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": false,
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "isEmbedPreview",
+      },
       "atlasRouter/HOME": Object {
         "addHistory": true,
         "decode": [Function],
