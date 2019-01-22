@@ -73,9 +73,9 @@ const DataSelection = ({
           }}
         />
 
-        <DataSelectionActiveFilters />
-
         {(isLoading) && <LoadingIndicator /> }
+
+        {(!isLoading) && <DataSelectionActiveFilters /> }
 
         {(!isLoading && !numberOfRecords && !authError && !authScopeError) ?
           <NoResultsForSearchType

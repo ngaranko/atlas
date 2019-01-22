@@ -55,6 +55,17 @@ export const toMap = (preserve = false) => ({
   }
 });
 
+export const toMapWithLegendOn = () => ({
+  type: routing.home.type,
+  meta: {
+    preserve: false,
+    additionalParams: {
+      [PARAMETERS.VIEW]: VIEWS.MAP,
+      [PARAMETERS.LEGEND]: 'true'
+    }
+  }
+});
+
 export const toMapAndPreserveQuery = () => toMap(true);
 
 export const toPanorama = (id, additionalParams = null) => ({
