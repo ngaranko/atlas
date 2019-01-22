@@ -40,18 +40,24 @@ class ParamsRegistry {
 
     return {
       selector: (state) => get(state, `[${reducerKey}][${stateKey}]`),
-      decode: (val) => val,
-      encode: (val) => val,
+      decode: (val) => {
+        if (val === 'true' || val === 'false') {
+          return val === 'true';
+        } else if (!isNaN(val)) {
+          return parseFloat(val);
+        }
+        return val;
+      },
+      encode: (val) => {
+        if (typeof val === 'boolean' || typeof val === 'number') {
+          return String(val);
+        }
+        return val;
+      },
       reducerKey,
       stateKey,
       ...overrideOptions
     };
-  }
-
-  static queryShouldChangeHistory(addHistory, parameter, value) {
-    const search = location.search && location.search.substr(1);
-    const currentQuery = search ? queryString.decode(search) : {};
-    return !(!addHistory && currentQuery[parameter] && (currentQuery[parameter] !== value));
   }
 
   static destroy() {
@@ -167,8 +173,17 @@ class ParamsRegistry {
     ) : false;
   }
 
+  queryShouldChangeHistory(newQuery, route) {
+    const search = location.search && location.search.substr(1);
+    const currentQuery = search ? queryString.decode(search) : {};
+    const diff = Object.entries(newQuery).reduce((acc, [key, value]) => ([
+      ...acc,
+      ...(currentQuery[key] !== value) ? [key] : []
+    ]), []);
+    return diff.map((parameter) => get(this.result, `${parameter}[routes][${route}].addHistory`, true)).every((val) => val);
+  }
+
   setQueriesFromState(currentLocationType, state, nextAction) {
-    let addHistory = true;
     if (this.isRouterType(nextAction)) {
       return undefined;
     }
@@ -176,14 +191,13 @@ class ParamsRegistry {
       const reducerObject = get(paramObject, `[routes][${currentLocationType}]`, null);
       if (reducerObject) {
         const encodedValue = reducerObject.encode(reducerObject.selector(state));
-
-        // We need to set addHistory to true if even one route needs to change the history
-        if (addHistory) {
-          addHistory = ParamsRegistry.queryShouldChangeHistory(get(reducerObject, 'addHistory'), parameter, encodedValue);
-        }
         let newQuery = {};
 
         // we need to use JSON.stringify here to also check if arrays and objects are equal
+        if (parameter === 'legenda') {
+
+          // console.log(reducerObject.decode(encodedValue), reducerObject.defaultValue)
+        }
         const isDefaultValue = !!(
           reducerObject && (
             JSON.stringify(reducerObject.decode(encodedValue)) ===
@@ -205,7 +219,6 @@ class ParamsRegistry {
       return acc;
     }, {});
     const orderedQuery = ParamsRegistry.orderQuery(query);
-
     const searchQuery = queryString.stringify(orderedQuery);
     const currentPath = window.location.pathname;
 
@@ -213,7 +226,7 @@ class ParamsRegistry {
     // this check prevents recording history changes on every action.
     const recordHistory = searchQuery !== window.location.search.substring(1);
     if (recordHistory && this.history) {
-      if (addHistory) {
+      if (this.queryShouldChangeHistory(orderedQuery, currentLocationType, state)) {
         this.history.push(`${currentPath}?${searchQuery}`);
       } else {
         this.history.replace(`${currentPath}?${searchQuery}`);
@@ -239,7 +252,7 @@ class ParamsRegistry {
           const decodedValue = reducerObject.decode(urlParam);
           return {
             ...acc,
-            [reducerObject.stateKey]: isUndefined(decodedValue) ?
+            [reducerObject.stateKey]: isUndefined(urlParam) ?
               reducerObject.defaultValue :
               decodedValue
           };

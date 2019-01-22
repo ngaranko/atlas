@@ -190,7 +190,7 @@ describe('ParamsRegistry singleton', () => {
       expect(paramsRegistry.getStateFromQueries('reducerKey', {
         type: 'ROUTER/bar',
         meta: { query: { map: '123' } }
-      })).toEqual({ foo: '123' });
+      })).toEqual({ foo: 123 });
 
       expect(paramsRegistry.getStateFromQueries('reducerKey4', {
         type: 'ROUTER/foo',
@@ -201,7 +201,7 @@ describe('ParamsRegistry singleton', () => {
     it('should return an empty object when reducer or route don\'t match', () => {
       expect(paramsRegistry.getStateFromQueries('reducerKey3', {
         type: 'ROUTER/bar',
-        meta: { query: { map: '123' } }
+        meta: { query: { map: 123 } }
       })).toEqual({});
 
       expect(paramsRegistry.getStateFromQueries('reducerKey4', {
@@ -258,20 +258,34 @@ describe('ParamsRegistry singleton', () => {
     });
   });
 
-  describe('static queryShouldChangeHistory', () => {
+  describe('queryShouldChangeHistory', () => {
+    beforeEach(() => {
+      paramsRegistry
+        .addParameter('zoom', (routes) => {
+          routes
+            .add('ROUTER/bar', 'reducerKey', 'zoom', {
+              defaultValue: 12
+            }, false);
+        })
+        .addParameter('page', (routes) => {
+          routes
+            .add('ROUTER/foo', 'reducerKey2', 'page');
+        });
+    });
+
     it('should return false if only the parameter that should not replace the history is changed', () => {
       jsdom.reconfigure({ url: 'https://www.someurl.com/?zoom=14' });
-      const expectation1 = ParamsRegistry.queryShouldChangeHistory(false, 'zoom', '13');
+      const expectation1 = paramsRegistry.queryShouldChangeHistory({ zoom: 14 }, 'ROUTER/bar');
       expect(expectation1).toBe(false);
 
       jsdom.reconfigure({ url: 'https://www.someurl.com/?zoom=13&bla=foo' });
-      const expectation2 = ParamsRegistry.queryShouldChangeHistory(false, 'zoom', '12');
+      const expectation2 = paramsRegistry.queryShouldChangeHistory({ zoom: 14 }, 'ROUTER/bar');
       expect(expectation2).toBe(false);
     });
 
     it('should return true if the parameter that should replace the history is not changed', () => {
-      jsdom.reconfigure({ url: 'https://www.someurl.com/?zoom=14' });
-      const expectation1 = ParamsRegistry.queryShouldChangeHistory(false, 'zoom', '14');
+      jsdom.reconfigure({ url: 'https://www.someurl.com/?page=2' });
+      const expectation1 = paramsRegistry.queryShouldChangeHistory({ page: 1 }, 'ROUTER/foo');
       expect(expectation1).toBe(true);
     });
   });

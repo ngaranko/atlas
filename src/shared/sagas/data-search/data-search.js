@@ -37,6 +37,7 @@ import ActiveOverlaysClass from '../../services/active-overlays/active-overlays'
 import { waitForAuthentication } from '../user/user';
 import { SELECTION_TYPE, setSelection } from '../../ducks/selection/selection';
 import { fetchDatasetsEffect } from '../dataset/dataset';
+import { closeMapPanel } from '../../../map/ducks/map/map';
 
 // Todo: DP-6390
 export function* fetchMapSearchResults() {
@@ -97,6 +98,10 @@ function* fetchQuerySearchResults() {
 export function* fetchGeoSearchResultsEffect() {
   const location = yield select(getDataSearchLocation);
   const isMap = yield select(isMapPage);
+  const view = yield select(getView);
+  if (view === VIEWS.LIST) {
+    yield put(closeMapPanel());
+  }
   yield put(fetchMapSearchResultsRequest(location, isMap));
 }
 

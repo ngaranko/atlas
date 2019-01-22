@@ -31,7 +31,8 @@ export const toDataDetail = (detailReference, additionalParams = null, tracking 
       id: `id${id}`
     },
     meta: {
-      tracking
+      tracking,
+      forceSaga: true
     }
   }, additionalParams);
 };

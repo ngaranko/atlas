@@ -32,6 +32,7 @@ exports[`SearchList should render a results list 1`] = `
               "additionalParams": Object {
                 "view": "detail-kaart",
               },
+              "forceSaga": true,
               "preserve": true,
               "tracking": true,
             },
@@ -70,6 +71,7 @@ exports[`SearchList should render a results list 1`] = `
               "additionalParams": Object {
                 "view": "detail-kaart",
               },
+              "forceSaga": true,
               "preserve": true,
               "tracking": true,
             },

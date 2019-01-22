@@ -92,13 +92,11 @@ export default paramsRegistry
     routes
       .add(routesWithDataSelection, DATA_SELECTION, 'page', {
         defaultValue: dataSelectionInitialState.page,
-        selector: getDataSelectionPage,
-        decode: (value) => (Number.isInteger(value) ? parseFloat(value) : value)
+        selector: getDataSelectionPage
       })
       .add(routing.datasets.type, `${DATASETS}.${DATA}`, 'page', {
         defaultValue: datasetsDataInitialState.page,
-        selector: getPage,
-        decode: (value) => (Number.isInteger(value) ? parseFloat(value) : value)
+        selector: getPage
       });
   })
   .addParameter(PARAMETERS.GEO, (routes) => {
@@ -178,9 +176,8 @@ export default paramsRegistry
   .addParameter(PARAMETERS.LEGEND, (routes) => {
     routes.add(routesWithMapActive, MAP, 'mapPanelActive', {
       defaultValue: mapInitialState.mapPanelActive,
-      decode: (val) => val === 'true',
       selector: isMapPanelActive
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.HEADING, (routes) => {
     routes.add(routing.panorama.type, PANORAMA, 'heading', {
@@ -189,7 +186,7 @@ export default paramsRegistry
     }, false);
   })
   .addParameter(PARAMETERS.MAP_BACKGROUND, (routes) => {
-    routes.add(routing.home.type, MAP, 'baseLayer', {
+    routes.add(routesWithMapActive, MAP, 'baseLayer', {
       defaultValue: mapInitialState.baseLayer,
       selector: getActiveBaseLayer
     });
@@ -255,9 +252,7 @@ export default paramsRegistry
       routing.dataDetail.type
     ], UI, 'isEmbedPreview', {
       defaultValue: UIInitialState.isEmbedPreview,
-      selector: isEmbedPreview,
-      encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
-      decode: (val) => val === 'true'
+      selector: isEmbedPreview
     });
   })
   .addParameter(PARAMETERS.EMBED, (routes) => {
@@ -267,17 +262,13 @@ export default paramsRegistry
       routing.dataDetail.type
     ], UI, 'isEmbed', {
       defaultValue: UIInitialState.isEmbed,
-      selector: isEmbedded,
-      encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
-      decode: (val) => val === 'true'
+      selector: isEmbedded
     });
   })
   .addParameter(PARAMETERS.PRINT, (routes) => {
     routes.add(routing.home.type, UI, 'isPrintMode', {
       defaultValue: UIInitialState.isPrintMode,
-      selector: isPrintMode,
-      encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
-      decode: (val) => val === 'true'
+      selector: isPrintMode
     });
   })
   .addParameter(PARAMETERS.LAYERS, (routes) => {
@@ -293,7 +284,7 @@ export default paramsRegistry
       encode: (selectorResult) => (
         selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
       )
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.LOCATION, (routes) => {
     routes

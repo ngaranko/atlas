@@ -20,6 +20,7 @@ export const TOGGLE_MAP_OVERLAY_PANORAMA = 'TOGGLE_MAP_OVERLAY_PANORAMA';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
 export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
 export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
+export const CLOSE_MAP_PANEL = 'CLOSE_MAP_PANEL';
 export const MAP_LOADING = 'MAP_LOADING';
 export const SET_VIEW = 'SET_VIEW';
 
@@ -126,6 +127,12 @@ export default function MapReducer(state = initialState, action) {
         mapPanelActive: !enrichedState.mapPanelActive
       };
 
+    case CLOSE_MAP_PANEL:
+      return {
+        ...enrichedState,
+        mapPanelActive: false
+      };
+
     case TOGGLE_MAP_OVERLAY:
       return {
         ...enrichedState,
@@ -194,6 +201,7 @@ export const mapEndDrawing = (payload) => ({ type: MAP_END_DRAWING, payload });
 export const mapClear = () => ({ type: MAP_CLEAR });
 export const updateZoom = (payload) => ({ type: MAP_ZOOM, payload });
 export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
+export const closeMapPanel = () => ({ type: CLOSE_MAP_PANEL });
 export const setMapBaseLayer = (payload) => ({
   type: SET_MAP_BASE_LAYER,
   payload,
@@ -243,4 +251,4 @@ export const updateBoundingBox = (payload) => ({
   payload
 });
 
-export const mapLoadingAction = (isLoading) => ({ type: MAP_LOADING, payload: isLoading });
+export const mapLoadingAction = (payload) => ({ type: MAP_LOADING, payload });

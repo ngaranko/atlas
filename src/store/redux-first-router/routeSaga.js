@@ -12,7 +12,9 @@ import { fetchDetailEffect } from '../../map/sagas/detail/map-detail';
 
 const yieldOnFirstAction = (sideEffect) => (function* gen(action) {
   const { skipSaga, firstAction, forceSaga } = action.meta || {};
+  console.log('..', action)
   if (!skipSaga && (firstAction || forceSaga)) {
+    console.log('cal')
     yield call(sideEffect, action);
   }
 });

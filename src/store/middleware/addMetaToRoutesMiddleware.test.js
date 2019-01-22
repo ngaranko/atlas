@@ -44,16 +44,4 @@ describe('addMetaToRoutesMiddleware', () => {
     addMetaToRoutesMiddleware(store)(next)(action);
     expect(next).toHaveBeenCalledWith(action);
   });
-
-  it('should add firstAction to the action\'s meta if locationType is equal to action.type, but user navigates back and has ', () => {
-    paramsRegistry.shouldRouteChange = jest.fn(() => true);
-    setState({
-      location: {
-        type: 'some type'
-      }
-    });
-    const action = { type: 'some type', meta: { location: { kind: 'pop' } } };
-    addMetaToRoutesMiddleware(store)(next)(action);
-    expect(next).toHaveBeenCalledWith({ ...action, meta: { ...action.meta, firstAction: true } });
-  });
 });
