@@ -110,17 +110,22 @@ function* retrieveDataSelection(action) {
   }
 }
 
+function* requestDataSelectionEffect() {
+  yield put(mapLoadingAction(true));
+  const dataSelection = yield select(getDataSelection);
+  yield put(
+    fetchDataSelection({
+      ...dataSelection
+    })
+  );
+}
+
 export function* fetchDataSelectionEffect() {
-  const state = yield select();
+  const dataSelectionPage = yield select(isDataSelectionPage);
 
   // Always ensure we are on the right page, otherwise this can be called unintentionally
-  if (isDataSelectionPage(state)) {
-    const dataSelection = getDataSelection(state);
-    yield put(
-      fetchDataSelection({
-        ...dataSelection
-      })
-    );
+  if (dataSelectionPage) {
+    yield call(requestDataSelectionEffect);
   }
 }
 
@@ -131,21 +136,26 @@ function* clearShapeFilter(action) {
 }
 
 function* switchPage(additionalParams = {}) {
-  const state = yield select();
-  const dataSelection = getDataSelection(state);
-  yield put(preserveQuery(toDatasetPage(dataSelection.dataset), additionalParams));
+  const { dataset } = yield select(getDataSelection);
+  yield put(preserveQuery(toDatasetPage(dataset), additionalParams));
 }
 
 function* setGeometryFilters({ payload }) {
   const geometryFilters = yield select(getGeometryFilters);
+  const dataSelectionPage = yield select(isDataSelectionPage);
   yield put(mapEndDrawing({ polygon: payload }));
 
   // Don't switch page if line is drawn
   if (payload.markers.length > 2) {
-    yield call(switchPage, {
-      [PARAMETERS.GEO]: geometryFilters,
-      [PARAMETERS.VIEW]: VIEWS.LIST
-    });
+    // We shouldn't switch page if we are on a dataSelection page
+    if (dataSelectionPage) {
+      yield call(requestDataSelectionEffect);
+    } else {
+      yield call(switchPage, {
+        [PARAMETERS.GEO]: geometryFilters,
+        [PARAMETERS.VIEW]: VIEWS.LIST
+      });
+    }
   }
 }
 
