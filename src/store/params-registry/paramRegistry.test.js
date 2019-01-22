@@ -130,14 +130,14 @@ describe('ParamsRegistry singleton', () => {
         .addParameter('map', (routes) => {
           routes
             .add('ROUTER/bar', 'reducerKey', 'foo', {
-              defaultValue: '123'
+              defaultValue: 123
             }, false)
             .add('ROUTER/foo', 'reducerKey2', 'foo');
         })
         .addParameter('anotherParam', (routes) => {
           routes
             .add('ROUTER/bar', 'reducerKey', 'bar', {
-              defaultValue: '321'
+              defaultValue: 321
             });
         });
 
@@ -154,17 +154,20 @@ describe('ParamsRegistry singleton', () => {
     };
 
     it('should call history.push with the right querystring', () => {
+      jest.spyOn(paramsRegistry, 'queryShouldChangeHistory').mockReturnValue(false);
       getResult({ reducerKey: { foo: 'hello!' } });
-      expect(paramsRegistry.history.push).toHaveBeenCalledWith('/?map=hello!');
+      expect(paramsRegistry.history.replace).toHaveBeenCalledWith('/?map=hello!');
     });
 
     it('should not set the query if the general defaultValue is set and equal to the encoded value', () => {
-      getResult({ reducerKey: { foo: '123', bar: 'bla' } });
+      jest.spyOn(paramsRegistry, 'queryShouldChangeHistory').mockReturnValue(true);
+      getResult({ reducerKey: { foo: 123, bar: 'bla' } });
       expect(paramsRegistry.history.push).toHaveBeenCalledWith('/?anotherParam=bla');
     });
 
     it('should not set the query if the defaultValue per route is set and equal to the encoded value', () => {
-      getResult({ reducerKey: { foo: '1234', bar: '321' } });
+      jest.spyOn(paramsRegistry, 'queryShouldChangeHistory').mockReturnValue(true);
+      getResult({ reducerKey: { foo: 1234, bar: 321 } });
       expect(paramsRegistry.history.push).toHaveBeenCalledWith('/?map=1234');
     });
   });

@@ -161,18 +161,6 @@ class ParamsRegistry {
     };
   }
 
-  shouldRouteChange(action, currentState) {
-    return (this.isRouterType(action)) ? (
-      Object.entries(get(action, 'meta.query', [])).some(([parameter, value]) => {
-        const { selector, decode } = get(this.result[parameter], `[routes][${action.type}]`, null);
-        if (selector && decode) {
-          return JSON.stringify(selector(currentState)) !== JSON.stringify(decode(value));
-        }
-        return false;
-      })
-    ) : false;
-  }
-
   queryShouldChangeHistory(newQuery, route) {
     const search = location.search && location.search.substr(1);
     const currentQuery = search ? queryString.decode(search) : {};

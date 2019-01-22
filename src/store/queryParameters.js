@@ -102,6 +102,7 @@ export default paramsRegistry
   .addParameter(PARAMETERS.GEO, (routes) => {
     routes.add(routesWithDataSelection, DATA_SELECTION, 'geometryFilter', {
       selector: getGeometryFilters,
+      defaultValue: dataSelectionInitialState.geometryFilter,
       encode: ({ markers, description }) => {
         if (markers && description) {
           return JSON.stringify({

@@ -24,7 +24,7 @@ import { toMap, toPanorama } from '../../store/redux-first-router/actions';
 import { getLocationPayload } from '../../store/redux-first-router/selectors';
 
 export function* fetchFetchPanoramaEffect(action) {
-  const view = yield select(getPanoramaView)
+  const view = yield select(getPanoramaView);
   if (view === VIEWS.PANO || view === VIEWS.MAP_PANO) {
     yield put(closeMapPanel());
   }

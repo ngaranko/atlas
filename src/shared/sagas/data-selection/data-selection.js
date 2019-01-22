@@ -32,12 +32,13 @@ import {
   VIEWS
 } from '../../ducks/data-selection/constants';
 import {
-  getDataSelection,
+  getDataSelection, getDataSelectionView,
   getGeomarkersShape,
   getGeometryFilters
 } from '../../ducks/data-selection/selectors';
 import { waitForAuthentication } from '../user/user';
 import {
+  closeMapPanel,
   MAP_BOUNDING_BOX,
   mapEmptyGeometry,
   mapEndDrawing,
@@ -122,6 +123,10 @@ function* requestDataSelectionEffect() {
 
 export function* fetchDataSelectionEffect() {
   const dataSelectionPage = yield select(isDataSelectionPage);
+  const view = yield select(getDataSelectionView);
+  if (view === VIEWS.LIST) {
+    yield put(closeMapPanel());
+  }
 
   // Always ensure we are on the right page, otherwise this can be called unintentionally
   if (dataSelectionPage) {

@@ -5,9 +5,8 @@ import HomepageBlock from '../block/HomepageBlock';
 
 import { features } from '../../../shared/environment';
 import { routing } from '../../../app/routes';
-import { preserveQuery, toDatasetPage } from '../../../store/redux-first-router/actions';
-import PARAMETERS from '../../../store/parameters';
-import { DATASETS, VIEWS } from '../../../shared/ducks/data-selection/constants';
+import { toDatasetPage } from '../../../store/redux-first-router/actions';
+import { DATASETS } from '../../../shared/ducks/data-selection/constants';
 
 
 const BLOCK_ITEMS = {
@@ -48,9 +47,7 @@ const HomepageAddressBlock = () => (
             <Link
               className="c-link homepage-block__link"
               title={title}
-              to={preserveQuery(toDatasetPage(id), {
-                [PARAMETERS.VIEW]: VIEWS.TABLE
-              })}
+              to={toDatasetPage(id)}
             >
               <span className={`homepage-block__icon homepage-block__icon--${id}`} />
               <span className="homepage-block__label">
