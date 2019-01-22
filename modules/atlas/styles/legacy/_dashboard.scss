@@ -94,6 +94,10 @@
 
 .c-dashboard--max-width {
   background-color: $secondary-gray10;
+
+  .c-dashboard__body {
+    margin-left: calc(100vw - 100%); // Fixes wrongfully set overflow-y as its not on the root container
+  }
 }
 
 .c-dashboard--full-height {
