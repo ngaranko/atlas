@@ -28,6 +28,6 @@ export const initialState = {
   isLoading: false,
   numberOfResults: 0,
   category: null,
-  view: VIEWS.MAP,
+  view: VIEWS.LIST,
   error: null
 };
