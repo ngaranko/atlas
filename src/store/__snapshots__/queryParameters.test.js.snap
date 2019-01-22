@@ -495,7 +495,7 @@ Object {
         "stateKey": "geoSearch",
       },
       "atlasRouter/PANORAMA": Object {
-        "addHistory": true,
+        "addHistory": false,
         "decode": [Function],
         "defaultValue": null,
         "encode": [Function],

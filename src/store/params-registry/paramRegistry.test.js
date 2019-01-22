@@ -170,6 +170,14 @@ describe('ParamsRegistry singleton', () => {
       getResult({ reducerKey: { foo: 1234, bar: 321 } });
       expect(paramsRegistry.history.push).toHaveBeenCalledWith('/?map=1234');
     });
+
+    it('should return undefined if action type is not a route', () => {
+      const result = paramsRegistry.setQueriesFromState('ROUTER/bar', {}, {
+        type: 'ROUTER/bazz'
+      });
+
+      expect(result).toBeUndefined();
+    });
   });
 
   describe('getStateFromQueries method', () => {
@@ -290,6 +298,54 @@ describe('ParamsRegistry singleton', () => {
       jsdom.reconfigure({ url: 'https://www.someurl.com/?page=2' });
       const expectation1 = paramsRegistry.queryShouldChangeHistory({ page: 1 }, 'ROUTER/foo');
       expect(expectation1).toBe(true);
+    });
+  });
+
+  describe('removeParamsWithDefaultValue', () => {
+    beforeEach(() => {
+      paramsRegistry
+        .addParameter('zoom', (routes) => {
+          routes
+            .add('ROUTER/bar', 'reducerKey', 'zoom', {
+              defaultValue: 12
+            }, false);
+        })
+        .addParameter('page', (routes) => {
+          routes
+            .add('ROUTER/bar', 'reducerKey2', 'page');
+        });
+    });
+
+    it('should return an object without the parameters with a default value', () => {
+      const expectation2 = paramsRegistry.removeParamsWithDefaultValue({
+        zoom: 12,
+        page: 1
+      }, 'ROUTER/bar');
+      expect(JSON.toString(expectation2)).toBe(JSON.toString({ page: 1 }));
+    });
+  });
+
+  describe('getParametersForRoute', () => {
+    beforeEach(() => {
+      paramsRegistry
+        .addParameter('zoom', (routes) => {
+          routes
+            .add('ROUTER/bar', 'reducerKey', 'zoom', {
+              defaultValue: 12
+            }, false);
+        })
+        .addParameter('page', (routes) => {
+          routes
+            .add('ROUTER/bar', 'reducerKey2', 'page');
+        });
+    });
+
+    it('should return an object with parameters per route, encoded', () => {
+      const expectation2 = paramsRegistry.getParametersForRoute({
+        zoom: 12,
+        page: 1
+      }, 'ROUTER/bar');
+      expect(JSON.toString(expectation2)).toBe(JSON.toString({ page: 1 }));
     });
   });
 });

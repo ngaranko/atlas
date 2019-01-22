@@ -164,11 +164,18 @@ class ParamsRegistry {
   queryShouldChangeHistory(newQuery, route) {
     const search = location.search && location.search.substr(1);
     const currentQuery = search ? queryString.decode(search) : {};
-    const diff = Object.entries(newQuery).reduce((acc, [key, value]) => ([
+    const diffA = Object.entries(newQuery).reduce((acc, [key, value]) => ([
       ...acc,
       ...(currentQuery[key] !== value) ? [key] : []
     ]), []);
-    return diff.map((parameter) => get(this.result, `${parameter}[routes][${route}].addHistory`, true)).every((val) => val);
+
+    const diffB = Object.entries(currentQuery).reduce((acc, [key, value]) => ([
+      ...acc,
+      ...(newQuery[key] !== value) ? [key] : []
+    ]), []);
+    return [...new Set([...diffA, ...diffB])]
+      .map((parameter) => this.getReduxObject(parameter, route).addHistory)
+      .includes(true);
   }
 
   setQueriesFromState(currentLocationType, state, nextAction) {

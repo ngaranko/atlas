@@ -298,7 +298,7 @@ export default paramsRegistry
             selectorResult.join() :
             panoramaInitialState.location
         )
-      })
+      }, false)
       .add(routing.dataGeoSearch.type, DATA_SEARCH_REDUCER, 'geoSearch', {
         defaultValue: null,
         selector: getDataSearchLocation,
