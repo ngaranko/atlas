@@ -4,7 +4,6 @@ import {
     isHomepage,
     isMapActive
 } from '../../../src/store/redux-first-router/selectors';
-import { isMapView } from '../../../src/shared/ducks/data-search/selectors';
 
 (function () {
     'use strict';
@@ -25,7 +24,7 @@ import { isMapView } from '../../../src/shared/ducks/data-search/selectors';
             const state = store.getState();
 
             vm.hasPrintButton = (!isDataSelectionPage(state) || isListView(state)) && !isHomepage(state);
-            vm.hasEmbedButton = isMapActive(state) || isMapView(state);
+            vm.hasEmbedButton = isMapActive(state);
         }
     }
 })();
