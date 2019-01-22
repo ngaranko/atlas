@@ -59,9 +59,10 @@ const piwikMiddleware = ({ getState }) => (next) => (action) => {
   if (actionMap) {
     const { tracking, location } = action.meta || {};
     const state = getState();
+    const { href } = window.location;
 
     if (tracking || location) {
-      piwikTracker(actionMap(tracking, state));
+      piwikTracker(actionMap(tracking, state, href));
     }
   }
 

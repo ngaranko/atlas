@@ -133,11 +133,11 @@ const events = {
     'Locatie ingetekend'
   ],
   // MAP
-  [routing.home.type]: () => [
+  [routing.home.type]: (tracking = null, state = null, href) => [
     PIWIK_CONSTANTS.TRACK_EVENT,
     'embed',
     'embedkaart',
-    window.location.href
+    href
   ],
   [SET_MAP_BASE_LAYER]: (tracking) => [
     PIWIK_CONSTANTS.TRACK_EVENT,
