@@ -23,15 +23,16 @@ import { getLocationId } from '../../ducks/map/map-selectors';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import { getDetailLocation } from '../../../store/redux-first-router/selectors';
 import {
-  toGeoSearch,
-  toPanoramaAndPreserveQuery,
-  toMapAndPreserveQuery
+  toMapAndPreserveQuery,
+  toPanoramaAndPreserveQuery
 } from '../../../store/redux-first-router/actions';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
+import { setView } from '../../../shared/ducks/data-search/actions';
 
 jest.mock('../../../shared/ducks/detail/selectors');
 jest.mock('../../../shared/ducks/data-search/selectors');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
+jest.mock('../../../shared/ducks/data-search/actions');
 jest.mock('../../ducks/detail/map-detail');
 jest.mock('../../../panorama/ducks/preview/panorama-preview');
 jest.mock('../../ducks/map/map-selectors');
@@ -102,7 +103,7 @@ describe('MapPreviewPanelContainer', () => {
     getDetailLocation.mockImplementation(() => (['123', '321']));
     toPanoramaAndPreserveQuery.mockImplementation(() => ({ type: 'sometype' }));
     toMapAndPreserveQuery.mockImplementation(() => ({ type: 'sometype' }));
-    toGeoSearch.mockImplementation(() => ({ type: 'sometype' }));
+    setView.mockImplementation(() => ({ type: 'sometype' }));
     fetchPanoramaPreview.mockImplementation(() => ({ type: FETCH_PANORAMA_PREVIEW_REQUEST }));
     selectNotClickableVisibleMapLayers.mockImplementation(() => ([]));
     isGeoSearch.mockImplementation((state) => !(state.detail && state.detail.endpoint));

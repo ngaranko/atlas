@@ -1,10 +1,16 @@
-import ParamsRegistery from './paramRegistry';
+import ParamsRegistry from './paramRegistry';
 
-describe('ParamsRegistery singleton', () => {
+describe('ParamsRegistry singleton', () => {
   let paramsRegistry;
 
   beforeEach(() => {
-    paramsRegistry = new ParamsRegistery();
+    ParamsRegistry.destroy();
+    paramsRegistry = new ParamsRegistry();
+  });
+
+  Object.defineProperty(window.location, 'location', {
+    writable: true,
+    value: '?njakns=famk&snakjs=2'
   });
 
   describe('Result object', () => {
@@ -91,7 +97,7 @@ describe('ParamsRegistery singleton', () => {
 
   describe('static orderQuery', () => {
     it('should return an object with keys in alphabetical order', () => {
-      const result = JSON.stringify(ParamsRegistery.orderQuery({ h: 3, a: 1, c: 2 }));
+      const result = JSON.stringify(ParamsRegistry.orderQuery({ h: 3, a: 1, c: 2 }));
       const expectation = JSON.stringify({ a: 1, c: 2, h: 3 });
       expect(result).toMatch(expectation);
     });
@@ -124,44 +130,53 @@ describe('ParamsRegistery singleton', () => {
         .addParameter('map', (routes) => {
           routes
             .add('ROUTER/bar', 'reducerKey', 'foo', {
-              defaultValue: '123'
+              defaultValue: 123
             }, false)
             .add('ROUTER/foo', 'reducerKey2', 'foo');
         })
         .addParameter('anotherParam', (routes) => {
           routes
             .add('ROUTER/bar', 'reducerKey', 'bar', {
-              defaultValue: '321'
+              defaultValue: 321
             });
         });
 
-      paramsRegistry.separateHistory = {
+      paramsRegistry.history = {
         replace: jest.fn(),
         push: jest.fn()
       };
     });
-    it('should call history.replace with the right querystring', () => {
-      const state = { reducerKey2: { foo: 'hello!' } };
-      paramsRegistry.setQueriesFromState('ROUTER/foo', state);
-      expect(paramsRegistry.separateHistory.push).toHaveBeenCalledWith('/?map=hello!');
-    });
+
+    const getResult = (state, route = 'ROUTER/bar') => {
+      paramsRegistry.setQueriesFromState(route, state, {
+        type: 'OTHER_TYPE_THAN_ROUTE/bazz'
+      });
+    };
 
     it('should call history.push with the right querystring', () => {
-      const state = { reducerKey: { foo: 'hello!' } };
-      paramsRegistry.setQueriesFromState('ROUTER/bar', state);
-      expect(paramsRegistry.separateHistory.replace).toHaveBeenCalledWith('/?map=hello!');
+      jest.spyOn(paramsRegistry, 'queryShouldChangeHistory').mockReturnValue(false);
+      getResult({ reducerKey: { foo: 'hello!' } });
+      expect(paramsRegistry.history.replace).toHaveBeenCalledWith('/?map=hello!');
     });
 
     it('should not set the query if the general defaultValue is set and equal to the encoded value', () => {
-      const state = { reducerKey: { foo: '123', bar: 'bla' } };
-      paramsRegistry.setQueriesFromState('ROUTER/bar', state);
-      expect(paramsRegistry.separateHistory.replace).toHaveBeenCalledWith('/?anotherParam=bla');
+      jest.spyOn(paramsRegistry, 'queryShouldChangeHistory').mockReturnValue(true);
+      getResult({ reducerKey: { foo: 123, bar: 'bla' } });
+      expect(paramsRegistry.history.push).toHaveBeenCalledWith('/?anotherParam=bla');
     });
 
     it('should not set the query if the defaultValue per route is set and equal to the encoded value', () => {
-      const state = { reducerKey: { foo: '1234', bar: '321' } };
-      paramsRegistry.setQueriesFromState('ROUTER/bar', state);
-      expect(paramsRegistry.separateHistory.replace).toHaveBeenCalledWith('/?map=1234');
+      jest.spyOn(paramsRegistry, 'queryShouldChangeHistory').mockReturnValue(true);
+      getResult({ reducerKey: { foo: 1234, bar: 321 } });
+      expect(paramsRegistry.history.push).toHaveBeenCalledWith('/?map=1234');
+    });
+
+    it('should return undefined if action type is not a route', () => {
+      const result = paramsRegistry.setQueriesFromState('ROUTER/bar', {}, {
+        type: 'ROUTER/bazz'
+      });
+
+      expect(result).toBeUndefined();
     });
   });
 
@@ -186,7 +201,7 @@ describe('ParamsRegistery singleton', () => {
       expect(paramsRegistry.getStateFromQueries('reducerKey', {
         type: 'ROUTER/bar',
         meta: { query: { map: '123' } }
-      })).toEqual({ foo: '123' });
+      })).toEqual({ foo: 123 });
 
       expect(paramsRegistry.getStateFromQueries('reducerKey4', {
         type: 'ROUTER/foo',
@@ -197,7 +212,7 @@ describe('ParamsRegistery singleton', () => {
     it('should return an empty object when reducer or route don\'t match', () => {
       expect(paramsRegistry.getStateFromQueries('reducerKey3', {
         type: 'ROUTER/bar',
-        meta: { query: { map: '123' } }
+        meta: { query: { map: 123 } }
       })).toEqual({});
 
       expect(paramsRegistry.getStateFromQueries('reducerKey4', {
@@ -225,8 +240,7 @@ describe('ParamsRegistery singleton', () => {
     it('should throw an error if reducerKey or stateKey is not given', () => {
       expect(() => paramsRegistry
         .addParameter('foo', (routes) => {
-          routes
-            .add('/bar');
+          routes.add('/bar');
         })).toThrow('Param "foo" with route "/bar" must contain a reducerKey and stateKe');
 
       expect(() => paramsRegistry
@@ -252,6 +266,86 @@ describe('ParamsRegistery singleton', () => {
               foo: 'reducerKey'
             });
         })).toThrow('Key given to reducer settings is not allowed: "foo"');
+    });
+  });
+
+  describe('queryShouldChangeHistory', () => {
+    beforeEach(() => {
+      paramsRegistry
+        .addParameter('zoom', (routes) => {
+          routes
+            .add('ROUTER/bar', 'reducerKey', 'zoom', {
+              defaultValue: 12
+            }, false);
+        })
+        .addParameter('page', (routes) => {
+          routes
+            .add('ROUTER/foo', 'reducerKey2', 'page');
+        });
+    });
+
+    it('should return false if only the parameter that should not replace the history is changed', () => {
+      jsdom.reconfigure({ url: 'https://www.someurl.com/?zoom=14' });
+      const expectation1 = paramsRegistry.queryShouldChangeHistory({ zoom: 14 }, 'ROUTER/bar');
+      expect(expectation1).toBe(false);
+
+      jsdom.reconfigure({ url: 'https://www.someurl.com/?zoom=13&bla=foo' });
+      const expectation2 = paramsRegistry.queryShouldChangeHistory({ zoom: 14 }, 'ROUTER/bar');
+      expect(expectation2).toBe(false);
+    });
+
+    it('should return true if the parameter that should replace the history is not changed', () => {
+      jsdom.reconfigure({ url: 'https://www.someurl.com/?page=2' });
+      const expectation1 = paramsRegistry.queryShouldChangeHistory({ page: 1 }, 'ROUTER/foo');
+      expect(expectation1).toBe(true);
+    });
+  });
+
+  describe('removeParamsWithDefaultValue', () => {
+    beforeEach(() => {
+      paramsRegistry
+        .addParameter('zoom', (routes) => {
+          routes
+            .add('ROUTER/bar', 'reducerKey', 'zoom', {
+              defaultValue: 12
+            }, false);
+        })
+        .addParameter('page', (routes) => {
+          routes
+            .add('ROUTER/bar', 'reducerKey2', 'page');
+        });
+    });
+
+    it('should return an object without the parameters with a default value', () => {
+      const expectation2 = paramsRegistry.removeParamsWithDefaultValue({
+        zoom: 12,
+        page: 1
+      }, 'ROUTER/bar');
+      expect(JSON.toString(expectation2)).toBe(JSON.toString({ page: 1 }));
+    });
+  });
+
+  describe('getParametersForRoute', () => {
+    beforeEach(() => {
+      paramsRegistry
+        .addParameter('zoom', (routes) => {
+          routes
+            .add('ROUTER/bar', 'reducerKey', 'zoom', {
+              defaultValue: 12
+            }, false);
+        })
+        .addParameter('page', (routes) => {
+          routes
+            .add('ROUTER/bar', 'reducerKey2', 'page');
+        });
+    });
+
+    it('should return an object with parameters per route, encoded', () => {
+      const expectation2 = paramsRegistry.getParametersForRoute({
+        zoom: 12,
+        page: 1
+      }, 'ROUTER/bar');
+      expect(JSON.toString(expectation2)).toBe(JSON.toString({ page: 1 }));
     });
   });
 });

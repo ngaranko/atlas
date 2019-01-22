@@ -1,5 +1,4 @@
 import { call, put, select, take, takeLatest } from 'redux-saga/effects';
-import get from 'lodash.get';
 import {
   fetchDataSelection,
   receiveDataSelectionFailure,
@@ -7,7 +6,6 @@ import {
   removeGeometryFilter,
   setMarkers
 } from '../../ducks/data-selection/actions';
-import { routing } from '../../../app/routes';
 import dataSelectionConfig from '../../services/data-selection/data-selection-config';
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
 import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
@@ -34,17 +32,18 @@ import {
   VIEWS
 } from '../../ducks/data-selection/constants';
 import {
-  getDataSelection,
+  getDataSelection, getDataSelectionView,
   getGeomarkersShape,
   getGeometryFilters
 } from '../../ducks/data-selection/selectors';
 import { waitForAuthentication } from '../user/user';
 import {
+  closeMapPanel,
   MAP_BOUNDING_BOX,
   mapEmptyGeometry,
   mapEndDrawing,
-  mapStartDrawing,
-  mapLoadingAction
+  mapLoadingAction,
+  mapStartDrawing
 } from '../../../map/ducks/map/map';
 import PARAMETERS from '../../../store/parameters';
 import drawToolConfig from '../../../map/services/draw-tool/draw-tool.config';
@@ -112,18 +111,26 @@ function* retrieveDataSelection(action) {
   }
 }
 
-function* fireRequest(action) {
-  const state = yield select();
+function* requestDataSelectionEffect() {
+  yield put(mapLoadingAction(true));
+  const dataSelection = yield select(getDataSelection);
+  yield put(
+    fetchDataSelection({
+      ...dataSelection
+    })
+  );
+}
+
+export function* fetchDataSelectionEffect() {
+  const dataSelectionPage = yield select(isDataSelectionPage);
+  const view = yield select(getDataSelectionView);
+  if (view === VIEWS.LIST) {
+    yield put(closeMapPanel());
+  }
 
   // Always ensure we are on the right page, otherwise this can be called unintentionally
-  if (isDataSelectionPage(state) && !get(action, 'meta.skipFetch')) {
-    const dataSelection = getDataSelection(state);
-
-    yield put(
-      fetchDataSelection({
-        ...dataSelection
-      })
-    );
+  if (dataSelectionPage) {
+    yield call(requestDataSelectionEffect);
   }
 }
 
@@ -134,21 +141,26 @@ function* clearShapeFilter(action) {
 }
 
 function* switchPage(additionalParams = {}) {
-  const state = yield select();
-  const dataSelection = getDataSelection(state);
-  yield put(preserveQuery(toDatasetPage(dataSelection.dataset), additionalParams));
+  const { dataset } = yield select(getDataSelection);
+  yield put(preserveQuery(toDatasetPage(dataset), additionalParams));
 }
 
 function* setGeometryFilters({ payload }) {
   const geometryFilters = yield select(getGeometryFilters);
+  const dataSelectionPage = yield select(isDataSelectionPage);
   yield put(mapEndDrawing({ polygon: payload }));
 
   // Don't switch page if line is drawn
   if (payload.markers.length > 2) {
-    yield call(switchPage, {
-      [PARAMETERS.GEO]: geometryFilters,
-      [PARAMETERS.VIEW]: VIEWS.LIST
-    });
+    // We shouldn't switch page if we are on a dataSelection page
+    if (dataSelectionPage) {
+      yield call(requestDataSelectionEffect);
+    } else {
+      yield call(switchPage, {
+        [PARAMETERS.GEO]: geometryFilters,
+        [PARAMETERS.VIEW]: VIEWS.LIST
+      });
+    }
   }
 }
 
@@ -177,10 +189,8 @@ export default function* watchFetchDataSelection() {
   yield takeLatest(REMOVE_FILTER, clearShapeFilter);
   yield takeLatest(SET_GEOMETRY_FILTER, setGeometryFilters);
   yield takeLatest(
-    [SET_VIEW, SET_PAGE, ADD_FILTER, REMOVE_FILTER, REMOVE_GEOMETRY_FILTER, EMPTY_FILTERS,
-      routing.addresses.type, routing.establishments.type, routing.cadastralObjects.type
-    ],
-    fireRequest
+    [SET_VIEW, SET_PAGE, ADD_FILTER, REMOVE_FILTER, REMOVE_GEOMETRY_FILTER, EMPTY_FILTERS],
+    fetchDataSelectionEffect
   );
 
   // Actions

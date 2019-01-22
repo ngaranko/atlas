@@ -1,6 +1,5 @@
 import get from 'lodash.get';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { routing } from '../../../app/routes';
 import { query } from '../../services/data-selection/data-selection-api';
 import { ADD_FILTER, EMPTY_FILTERS, getFilters, REMOVE_FILTER } from '../../ducks/filters/filters';
 import {
@@ -48,9 +47,8 @@ function* retrieveDataset(action) {
   }
 }
 
-function* fireRequest(action) {
+export function* fetchDatasetsEffect(action) {
   const state = yield select();
-
   const activeFilters = getFilters(state);
   const catalogFilters = getApiSpecificationData(state);
   const page = getPage(state);
@@ -59,11 +57,11 @@ function* fireRequest(action) {
   // This can be done by refactoring the datasets-filters service
   if (!Object.keys(getApiSpecificationData(state) || {}).length) {
     yield put(fetchApiSpecification());
-  } else if (!get(action, 'meta.skipFetch')) {
+  } else {
     yield put(
       fetchDatasets({
         activeFilters,
-        page: action.type === ADD_FILTER ? initialState.page : page,
+        page: (action && action.type === ADD_FILTER) ? initialState.page : page,
         catalogFilters,
         searchText
       })
@@ -82,13 +80,8 @@ export function* retrieveApiSpecification() {
 
 export default function* watchFetchDatasets() {
   yield takeLatest(
-    [ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS, FETCH_API_SPECIFICATION_SUCCESS, SET_PAGE,
-      routing.datasets.type,
-      routing.datasetsDetail.type,
-      routing.dataQuerySearch.type,
-      routing.searchDatasets.type
-    ],
-    fireRequest
+    [ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS, FETCH_API_SPECIFICATION_SUCCESS, SET_PAGE],
+    fetchDatasetsEffect
   );
 
   yield takeLatest(FETCH_API_SPECIFICATION_REQUEST, retrieveApiSpecification);

@@ -1,20 +1,18 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { takeLatest } from 'redux-saga/effects';
 import {
-  maybeChangeRoute,
   doClosePanorama,
+  fetchFetchPanoramaEffect,
   fetchPanoramaById,
   fetchPanoramaByLocation,
-  fetchPanoramaRequest,
-  fireFetchPanormaRequest,
   handlePanoramaRequest,
+  maybeChangeRoute,
   watchClosePanorama,
-  watchFetchPanorama,
-  watchPanoramaRoute
+  watchFetchPanorama
 } from './panorama';
-import { routing } from '../../app/routes';
+import { fetchPanoramaRequest } from '../ducks/actions';
 import { getImageDataById, getImageDataByLocation } from '../services/panorama-api/panorama-api';
-import { TOGGLE_MAP_OVERLAY_PANORAMA } from '../../map/ducks/map/map';
+import { closeMapPanel, TOGGLE_MAP_OVERLAY_PANORAMA } from '../../map/ducks/map/map';
 import { toMap } from '../../store/redux-first-router/actions';
 import {
   CLOSE_PANORAMA,
@@ -24,37 +22,25 @@ import {
   FETCH_PANORAMA_REQUEST_TOGGLE,
   FETCH_PANORAMA_SUCCESS,
   SET_PANORAMA_LOCATION,
-  SET_PANORAMA_YEAR
+  SET_PANORAMA_YEAR,
+  VIEWS
 } from '../../panorama/ducks/constants';
-import { getPanoramaHistory, getPanoramaLocation } from '../ducks/selectors';
+import { getPanoramaHistory, getPanoramaLocation, getPanoramaView } from '../ducks/selectors';
 
 describe('watchPanoramaRoute', () => {
-  const action = { type: routing.panorama.type };
   const payload = { id: 'payload' };
-  const meta = { tracking: true };
 
-  it(`should watch ${routing.panorama.type} and call fireFetchPanormaRequest`, () => {
-    testSaga(watchPanoramaRoute)
+  it('should dispatch the correct action', () => {
+    testSaga(fetchFetchPanoramaEffect, { payload })
       .next()
-      .takeLatestEffect(routing.panorama.type, fireFetchPanormaRequest)
-      .next(action)
+      .select(getPanoramaView)
+      .next(VIEWS.PANO)
+      .put(closeMapPanel())
+      .next()
+      .put(fetchPanoramaRequest(payload))
+      .next()
       .isDone();
   });
-
-  it('should dispatch the correct action', () => (
-    expectSaga(fireFetchPanormaRequest, { payload })
-      .provide({
-        call(effect, next) {
-          return effect.fn === fetchPanoramaRequest ? 'payload' : next();
-        }
-      })
-      .put({
-        type: FETCH_PANORAMA_REQUEST,
-        payload,
-        meta
-      })
-      .run()
-  ));
 });
 
 describe('watchFetchPanorama', () => {

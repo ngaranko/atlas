@@ -15,6 +15,7 @@ import { DETAIL_VIEW } from '../../../shared/ducks/detail/constants';
 import { getView as getDetailView } from '../../../shared/ducks/detail/selectors';
 import { getDataSelectionView } from '../../../shared/ducks/data-selection/selectors';
 import { VIEWS as DATA_SELECTION_VIEWS } from '../../../shared/ducks/data-selection/constants';
+import PARAMETERS from '../../../store/parameters';
 
 const latitudeLongitudeToArray = (location) => [location.latitude, location.longitude];
 
@@ -36,8 +37,10 @@ export function* goToGeoSearch(location) {
   const view = showGeoSearchList(pageType, dataSearchView, detailView, dataSelectionView) ?
     VIEWS.LIST :
     VIEWS.MAP;
-
-  yield put(toGeoSearch(location, view));
+  yield put(toGeoSearch({
+    [PARAMETERS.LOCATION]: location,
+    [PARAMETERS.VIEW]: view
+  }));
 }
 
 /* istanbul ignore next */ // TODO: refactor, test

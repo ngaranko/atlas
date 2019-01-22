@@ -76,6 +76,7 @@ const routesWithDataSelection = [
 const routesWithMapActive = [
   ...routesWithDataSelection,
   routing.home.type,
+  routing.panorama.type,
   routing.dataGeoSearch.type,
   routing.dataDetail.type
 ];
@@ -91,18 +92,17 @@ export default paramsRegistry
     routes
       .add(routesWithDataSelection, DATA_SELECTION, 'page', {
         defaultValue: dataSelectionInitialState.page,
-        selector: getDataSelectionPage,
-        decode: (value) => (Number.isInteger(value) ? parseFloat(value) : value)
+        selector: getDataSelectionPage
       })
       .add(routing.datasets.type, `${DATASETS}.${DATA}`, 'page', {
         defaultValue: datasetsDataInitialState.page,
-        selector: getPage,
-        decode: (value) => (Number.isInteger(value) ? parseFloat(value) : value)
+        selector: getPage
       });
   })
   .addParameter(PARAMETERS.GEO, (routes) => {
     routes.add(routesWithDataSelection, DATA_SELECTION, 'geometryFilter', {
       selector: getGeometryFilters,
+      defaultValue: dataSelectionInitialState.geometryFilter,
       encode: ({ markers, description }) => {
         if (markers && description) {
           return JSON.stringify({
@@ -163,9 +163,9 @@ export default paramsRegistry
     routes.add(routesWithMapActive, MAP, 'viewCenter', {
       defaultValue: mapInitialState.viewCenter,
       decode: (val = mapInitialState.viewCenter.join(',')) => val.split(',').map((ltLng) => normalizeCoordinate(parseFloat(ltLng), 7)),
-      encode: (selectorResult) => selectorResult.join(','),
+      encode: (selectorResult) => selectorResult.map((coordinate) => normalizeCoordinate(coordinate, 7)).join(','),
       selector: getCenter
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.ZOOM, (routes) => {
     routes.add(routesWithMapActive, MAP, 'zoom', {
@@ -177,18 +177,17 @@ export default paramsRegistry
   .addParameter(PARAMETERS.LEGEND, (routes) => {
     routes.add(routesWithMapActive, MAP, 'mapPanelActive', {
       defaultValue: mapInitialState.mapPanelActive,
-      decode: (val) => val === 'true',
       selector: isMapPanelActive
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.HEADING, (routes) => {
     routes.add(routing.panorama.type, PANORAMA, 'heading', {
       defaultValue: panoramaInitialState.heading,
       selector: getPanoramaHeading
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.MAP_BACKGROUND, (routes) => {
-    routes.add(routing.home.type, MAP, 'baseLayer', {
+    routes.add(routesWithMapActive, MAP, 'baseLayer', {
       defaultValue: mapInitialState.baseLayer,
       selector: getActiveBaseLayer
     });
@@ -214,7 +213,7 @@ export default paramsRegistry
     routes.add(routing.panorama.type, PANORAMA, 'pitch', {
       defaultValue: panoramaInitialState.pitch,
       selector: getPanoramaPitch
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.FILTERS, (routes) => {
     routes.add([
@@ -254,9 +253,7 @@ export default paramsRegistry
       routing.dataDetail.type
     ], UI, 'isEmbedPreview', {
       defaultValue: UIInitialState.isEmbedPreview,
-      selector: isEmbedPreview,
-      encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
-      decode: (val) => val === 'true'
+      selector: isEmbedPreview
     });
   })
   .addParameter(PARAMETERS.EMBED, (routes) => {
@@ -266,25 +263,17 @@ export default paramsRegistry
       routing.dataDetail.type
     ], UI, 'isEmbed', {
       defaultValue: UIInitialState.isEmbed,
-      selector: isEmbedded,
-      encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
-      decode: (val) => val === 'true'
+      selector: isEmbedded
     });
   })
   .addParameter(PARAMETERS.PRINT, (routes) => {
     routes.add(routing.home.type, UI, 'isPrintMode', {
       defaultValue: UIInitialState.isPrintMode,
-      selector: isPrintMode,
-      encode: (selectorResult) => (selectorResult ? 'true' : 'false'),
-      decode: (val) => val === 'true'
+      selector: isPrintMode
     });
   })
   .addParameter(PARAMETERS.LAYERS, (routes) => {
-    routes.add([
-      routing.home.type,
-      routing.dataGeoSearch.type,
-      routing.dataDetail.type
-    ], MAP, 'overlays', {
+    routes.add(routesWithMapActive, MAP, 'overlays', {
       defaultValue: mapInitialState.overlays,
       decode: (val) => (
         val ? val.split('|').map((obj) => {
@@ -296,7 +285,7 @@ export default paramsRegistry
       encode: (selectorResult) => (
         selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
       )
-    });
+    }, false);
   })
   .addParameter(PARAMETERS.LOCATION, (routes) => {
     routes
@@ -309,7 +298,7 @@ export default paramsRegistry
             selectorResult.join() :
             panoramaInitialState.location
         )
-      })
+      }, false)
       .add(routing.dataGeoSearch.type, DATA_SEARCH_REDUCER, 'geoSearch', {
         defaultValue: null,
         selector: getDataSearchLocation,
