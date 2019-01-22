@@ -32,6 +32,6 @@ Object {
   "resultsMap": Array [],
   "resultsMapPanel": Array [],
   "resultsQuery": Array [],
-  "view": "kaart",
+  "view": "lijst-kaart",
 }
 `;

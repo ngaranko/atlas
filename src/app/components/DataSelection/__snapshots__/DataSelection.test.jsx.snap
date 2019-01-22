@@ -31,7 +31,6 @@ exports[`DataSelection should render LoadingIndicator 1`] = `
       interpolateBindings={Object {}}
       moduleName="dpDataSelectionHeaderWrapper"
     />
-    <Connect(DataSelectionActiveFilters) />
     <LoadingIndicator />
   </div>
 </div>
