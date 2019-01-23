@@ -1,9 +1,7 @@
-import { isListView } from '../../../src/shared/ducks/data-selection/selectors';
 import {
     isDataSelectionPage,
-    isHomepage,
-    isMapActive
-} from '../../../src/store/redux-first-router/selectors';
+    isHomepage} from '../../../src/store/redux-first-router/selectors';
+import { getViewMode, isMapActive, VIEW_MODE } from '../../../src/shared/ducks/ui/ui';
 
 (function () {
     'use strict';
@@ -23,7 +21,8 @@ import {
         function update () {
             const state = store.getState();
 
-            vm.hasPrintButton = (!isDataSelectionPage(state) || isListView(state)) && !isHomepage(state);
+            vm.hasPrintButton = (!isDataSelectionPage(state) ||
+                getViewMode(state) === VIEW_MODE.SPLIT) && !isHomepage(state);
             vm.hasEmbedButton = isMapActive(state);
         }
     }
