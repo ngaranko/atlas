@@ -1,6 +1,8 @@
 import PAGES from '../../../src/app/pages';
 import { ROUTER_NAMESPACE } from '../../../src/app/routes';
 import * as routerSelectors from '../../../src/store/redux-first-router/selectors';
+import * as ui from '../../../src/shared/ducks/ui/ui';
+import { VIEW_MODE } from '../../../src/shared/ducks/ui/ui';
 
 describe('The header controller', function () {
     var $controller,
@@ -41,7 +43,8 @@ describe('The header controller', function () {
         routerSelectors.isDataSelectionPage = () => true;
         routerSelectors.isDatasetPage = () => true;
         routerSelectors.isHomepage = () => true;
-        routerSelectors.isMapActive = () => true;
+        ui.getViewMode = () => VIEW_MODE.SPLIT;
+        ui.isMapActive = () => true;
     });
 
     function getController () {
@@ -111,7 +114,7 @@ describe('The header controller', function () {
         });
 
         it('should not show when map page is not active', function () {
-            routerSelectors.isMapActive = () => false;
+            ui.isMapActive = () => false;
             const controller = getController();
 
             expect(controller.hasEmbedButton).toBe(false);
