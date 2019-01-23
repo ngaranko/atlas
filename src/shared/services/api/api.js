@@ -21,7 +21,9 @@ const handleErrors = (response, reloadOnUnauthorized) => {
 
 
 const handleCache = (response, key) => {
-  if (sessionStorage.length > SHARED_CONFIG.CACHE_THRESHOLD) {
+  const sessionStorageSize = unescape(encodeURIComponent(JSON.stringify(sessionStorage))).length;
+
+  if (sessionStorageSize > SHARED_CONFIG.CACHE_THRESHOLD) {
     Object.entries(sessionStorage).forEach(([itemKey]) => {
       if (itemKey.startsWith('http')) {
         const cache = JSON.parse(sessionStorage.getItem(itemKey));

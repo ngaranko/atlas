@@ -7,7 +7,7 @@ const baseConfig = {
   AUTH_HEADER_PREFIX: 'Bearer ',
   // Allows sanity checking input of root keys based on white listing
   ROOT_KEYS: ['API_ROOT'],
-  CACHE_THRESHOLD: 200
+  CACHE_THRESHOLD: 200000 // size in bytes
 };
 
 const environmentConfig = {
@@ -24,7 +24,7 @@ const environmentConfig = {
   [ENVIRONMENTS.DEVELOPMENT]: {
     API_ROOT: 'https://acc.api.data.amsterdam.nl/',
     ROOT: 'https://acc.data.amsterdam.nl/',
-    CACHE_EXPIRATION: 0 // minutes
+    CACHE_EXPIRATION: 2 // minutes
   }
 };
 
