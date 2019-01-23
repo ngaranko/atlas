@@ -27,6 +27,7 @@ export const VIEWS = {
 export const initialState = {
   view: VIEWS.MAP_PANO,
   location: null,   // eg: [52.8, 4.9]
+  targetLocation: null,
   history: historyOptions[0],
   pitch: 0,         // eg: -10
   heading: 0,       // eg: 270
