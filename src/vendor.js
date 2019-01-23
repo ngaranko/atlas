@@ -20,3 +20,10 @@ window.Marzipano = Marzipano;
 window.d3 = d3;
 window.Redux = Redux;
 window.marked = marked;
+
+// Internet Explorer 11
+var isIE = false || !!document.documentMode;
+if (isIE) {
+  // This solves inconsistency in the leaflet draw for IE11
+  window.L.Browser.touch = false;
+}
