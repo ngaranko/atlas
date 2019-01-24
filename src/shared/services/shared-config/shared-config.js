@@ -7,7 +7,7 @@ const baseConfig = {
   AUTH_HEADER_PREFIX: 'Bearer ',
   // Allows sanity checking input of root keys based on white listing
   ROOT_KEYS: ['API_ROOT'],
-  CACHE_THRESHOLD: 200000 // size in bytes
+  CACHE_THRESHOLD: 30 // number of records
 };
 
 const environmentConfig = {
