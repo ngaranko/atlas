@@ -11,7 +11,12 @@ import {
 } from '../ducks/actions';
 import { toDataDetail, toGeoSearch } from '../../store/redux-first-router/actions';
 
-import { getOrientation, initialize, loadScene } from '../services/marzipano/marzipano';
+import {
+  getOrientation,
+  initialize,
+  loadScene,
+  getHeadingDegrees
+} from '../services/marzipano/marzipano';
 
 import StatusBar from '../components/StatusBar/StatusBar';
 import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullscreen';
@@ -70,12 +75,16 @@ class PanoramaContainer extends React.Component {
 
   loadPanoramaScene() {
     const { panoramaState } = this.props;
+    const { heading: currentHeading, location, targetLocation } = panoramaState;
+    const heading = (Array.isArray(location) && Array.isArray(targetLocation))
+      ? getHeadingDegrees(location, targetLocation)
+      : currentHeading;
     if (panoramaState.image) {
       loadScene(
         this.panoramaViewer,
         this.hotspotClickHandler,
         panoramaState.image,
-        panoramaState.heading,
+        heading,
         panoramaState.pitch,
         panoramaState.fov,
         panoramaState.hotspots
