@@ -203,11 +203,11 @@ describe('the dp-detail component', () => {
 
     function getComponent (endpoint,
                            isLoading,
-                           detailTemplateUrl = '',
-                           detailData = undefined,
-                           detailFilterSelection = undefined,
                            show = true,
-                           catalogFilters = undefined
+                           catalogFilters = undefined,
+                           detailTemplateUrl,
+                           detailData,
+                           detailFilterSelection
     ) {
         var component,
             element,
@@ -252,6 +252,16 @@ describe('the dp-detail component', () => {
         });
     });
 
+    describe('onChanges', () => {
+        it('should ignore the changes when the detail is not changed', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
+            // Change the endpoint
+            const scope = component.isolateScope();
+            scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/object/789/';
+            $rootScope.$apply();
+            expect(scope.vm.endpoint).toEqual('http://www.fake-endpoint.com/brk/object/789/');
+        });
+    });
     xit('puts data on the scope based on the endpoint', () => {
         var component,
             scope;

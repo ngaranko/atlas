@@ -33,18 +33,19 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
         vm.downloadResource = (dataset, resourceUrl) =>
             store.dispatch(downloadDatasetResource({ dataset, resourceUrl }));
 
+        /* istanbul ignore next */
         vm.$onChanges = (changes) => {
-            if (changes.detailTemplateUrl) {
+            if (changes.detailTemplateUrl.previousValue !== changes.detailTemplateUrl.currentValue) {
                 vm.includeSrc = changes.detailTemplateUrl.currentValue;
             }
 
-            if (changes.detailData) {
+            if (changes.detailData.previousValue !== changes.detailData.currentValue) {
                 vm.apiData = {
                     results: changes.detailData.currentValue
                 };
             }
 
-            if (changes.detailFilterSelection) {
+            if (changes.detailFilterSelection.previousValue !== changes.detailFilterSelection.currentValue) {
                 vm.filterSelection = changes.detailFilterSelection.currentValue;
             }
         };
