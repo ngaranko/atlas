@@ -4,7 +4,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
 import DetailContainer from '../containers/DetailContainer';
-import { getDetailEndpoint, getDetailGeometry } from '../../shared/ducks/detail/selectors';
+import {
+  getDetailEndpoint,
+  shouldShowFullScreen
+} from '../../shared/ducks/detail/selectors';
 import { toDetailFromEndpoint as endpointActionCreator } from '../../store/redux-first-router/actions';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 import DataSelection from '../components/DataSelection/DataSelection';
@@ -21,15 +24,12 @@ const MapSplitPage = ({
   currentPage,
   setViewMode,
   viewMode,
-  hasGeometry
+  forceFullScreen
 }) => {
-  let forceFullScreen = false;
   let mapProps = {};
-  let Component;
+  let Component = null;
   switch (currentPage) {
     case PAGES.DATA_DETAIL:
-      // Todo: hack. fix this properly (UX wise or from info API response)
-      forceFullScreen = !hasGeometry;
       Component = <DetailContainer />;
       mapProps = {
         showPreviewPanel: hasSelection
@@ -70,7 +70,9 @@ const MapSplitPage = ({
       };
   }
 
-  if (viewMode === VIEW_MODE.FULL || forceFullScreen) {
+  if (viewMode === VIEW_MODE.MAP) {
+    return <MapContainer {...mapProps} />;
+  } else if ((Component && viewMode === VIEW_MODE.FULL) || (Component && forceFullScreen)) {
     return Component;
   } else if (viewMode === VIEW_MODE.SPLIT && Component) {
     return (
@@ -85,11 +87,12 @@ const MapSplitPage = ({
       />
     );
   }
-  return <MapContainer {...mapProps} />;
+
+  return null;
 };
 
 const mapStateToProps = (state) => ({
-  hasGeometry: Boolean(getDetailGeometry(state)),
+  forceFullScreen: shouldShowFullScreen(state),
   endpoint: getDetailEndpoint(state),
   hasSelection: !!getSelectionType(state),
   viewMode: getViewMode(state),
@@ -102,7 +105,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 }, dispatch);
 
 MapSplitPage.propTypes = {
-  hasGeometry: PropTypes.bool.isRequired,
+  forceFullScreen: PropTypes.bool.isRequired,
   hasSelection: PropTypes.bool.isRequired,
   setViewMode: PropTypes.func.isRequired,
   viewMode: PropTypes.string.isRequired,
