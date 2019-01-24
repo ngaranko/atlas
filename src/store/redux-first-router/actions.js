@@ -54,19 +54,9 @@ export const toDataSearchQuery = (
 });
 
 export const toMap = (preserve = false) => ({
-  type: routing.home.type,
+  type: routing.data.type,
   meta: {
     preserve,
-    additionalParams: {
-      [PARAMETERS.VIEW]: VIEW_MODE.MAP
-    }
-  }
-});
-
-export const toMapWithLegendOn = () => ({
-  type: routing.home.type,
-  meta: {
-    preserve: false,
     additionalParams: {
       [PARAMETERS.VIEW]: VIEW_MODE.MAP
     }
