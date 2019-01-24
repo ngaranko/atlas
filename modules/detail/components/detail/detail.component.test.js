@@ -1,4 +1,6 @@
 import { DOWNLOAD_DATASET_RESOURCE } from '../../../../src/shared/ducks/datasets/data/data';
+import { toNotFoundPage } from '../../../../src/store/redux-first-router/actions';
+import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/constants';
 
 describe('the dp-detail component', () => {
     var $compile,
@@ -78,6 +80,8 @@ describe('the dp-detail component', () => {
                             q.reject();
                         } else if (endpoint === dcatdEndPoint) {
                             q.resolve({ 'dct:description': 'description' });
+                        } else if (endpoint === 'http://www.fake-endpoint.com/dcatd/datasets/404') {
+                            q.reject({status: 404});
                         }
 
                         return q.promise;
@@ -356,6 +360,74 @@ describe('the dp-detail component', () => {
                 dummy: 'B',
                 something: -90
             }
+        });
+    });
+
+    xdescribe('"kadastraal subject" data', () => {
+        it('should remove apiData if not authorized', () => {
+            // Special case where user is logged out while on detail page and the user loses access to content
+            mockedUser.scopes = ['BRK/RS'];
+            const component = getComponent(naturalPersonEndPoint);
+            const scope = component.isolateScope();
+            store.dispatch.calls.reset();
+            expect(scope.vm.apiData).toBeDefined(); // data shown
+
+            mockedUser.scopes = []; // triggers $watch
+            scope.$digest();
+
+            expect(scope.vm.apiData).toBeUndefined();
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: SHOW_DETAIL,
+                payload: {}
+            });
+        });
+    });
+
+    xdescribe('"grondexploitatie" data', () => {
+        it('should be fetched if is authenticated as EMPLOYEE', () => {
+            mockedUser.scopes = ['GREX/R'];
+
+            getComponent(grondexploitatieEndPoint);
+        });
+
+        it('should not fetch data if not authorized', () => {
+            const component = getComponent(grondexploitatieEndPoint);
+
+            const scope = component.isolateScope();
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: SHOW_DETAIL,
+                payload: {}
+            });
+
+            expect(scope.vm.apiData).toBeUndefined();
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    xdescribe('"dcatd" data', () => {
+        it('should not fetch data when catalogFilters are not provided', () => {
+            const component = getComponent(dcatdEndPoint);
+            const scope = component.isolateScope();
+
+            expect(scope.vm.apiData).toBeUndefined();
+            expect(api.getByUrl).not.toHaveBeenCalled();
+        });
+
+        it('should fetch data when the catatalogFilters are set', () => {
+            const component = getComponent(dcatdEndPoint, true, true, true, {});
+
+            const scope = component.isolateScope();
+
+            expect(scope.vm.apiData).not.toBeUndefined();
+            expect(api.getByUrl).toHaveBeenCalled();
+        });
+
+        it('should redirect to notFound when the dataset is not available', () => {
+            getComponent('http://www.fake-endpoint.com/dcatd/datasets/404', false);
+
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+            expect(store.dispatch).toHaveBeenCalledWith(toNotFoundPage());
         });
     });
 

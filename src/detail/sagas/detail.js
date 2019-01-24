@@ -1,7 +1,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { routing } from '../../app/routes';
 import { fetchDetail as fetchDetailActionCreator, fetchDetailSuccess, fetchDetailFailure } from '../../shared/ducks/detail/actions';
-import { pageTypeToEndpoint } from '../../store/redux-first-router/actions';
+import { pageTypeToEndpoint, toNotFoundPage } from '../../store/redux-first-router/actions';
 import { getDetail } from '../../shared/ducks/detail/selectors';
 import { FETCH_DETAIL_REQUEST } from '../../shared/ducks/detail/constants';
 import { getUserScopes } from '../../shared/ducks/user/user';
@@ -54,7 +54,12 @@ export function* retrieveDetailData(action) {
     const data = yield call(getData, action.payload.endpoint);
     yield put(fetchDetailSuccess(data));
   } catch (error) {
-    yield put(fetchDetailFailure(error));
+    console.error(error); // eslint-disable-line no-console, angular/log
+    if (error && error.status === 404) {
+      yield put(toNotFoundPage());
+    } else {
+      yield put(fetchDetailFailure(error));
+    }
   }
 }
 
