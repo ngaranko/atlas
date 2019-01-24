@@ -1,5 +1,11 @@
 import { createSelector } from 'reselect';
-import { isHomepage, isPanoPage } from '../../../store/redux-first-router/selectors';
+import {
+  isDataSelectionPage,
+  isDatasetPage,
+  isDatasetDetailPage,
+  isHomepage,
+  isPanoPage
+} from '../../../store/redux-first-router/selectors';
 import paramsRegistry from '../../../store/params-registry';
 
 const REDUCER_KEY = 'ui';
@@ -119,6 +125,26 @@ export const isMapActive = createSelector(
   getViewMode, isMapPage,
   (viewMode, isMapPageActive) => viewMode === VIEW_MODE.MAP || isMapPageActive
 );
+export const hasPrintMode = createSelector(
+  isDataSelectionPage,
+  isDatasetPage,
+  isDatasetDetailPage,
+  isHomepage,
+  isMapActive,
+  getViewMode,
+  (
+    dataSelectionPage,
+    datasetPage,
+    datasetDetailPage,
+    dataDetailPage,
+    homePage,
+    mapActive,
+    viewMode
+  ) =>
+    (!dataSelectionPage || viewMode === VIEW_MODE.SPLIT || viewMode === VIEW_MODE.MAP) &&
+    (!datasetPage || datasetDetailPage) &&
+    (!homePage || mapActive)
+);
 export const isPrintModeLandscape = createSelector(
   isPrintMode,
   isPanoPage,
@@ -126,7 +152,6 @@ export const isPrintModeLandscape = createSelector(
   getViewMode,
   (printMode, panoPageActive, mapPageActive, viewMode) =>
     (printMode &&
-      (panoPageActive || mapPageActive || (viewMode === VIEW_MODE.SPLIT))
+      (panoPageActive || mapPageActive || (viewMode === VIEW_MODE.MAP))
     )
 );
-

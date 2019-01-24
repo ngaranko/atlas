@@ -12,7 +12,7 @@ import { toDetailFromEndpoint as endpointActionCreator } from '../../store/redux
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 import DataSelection from '../components/DataSelection/DataSelection';
 import { getSelectionType } from '../../shared/ducks/selection/selection';
-import { getViewMode, setViewMode as setViewModeAction, VIEW_MODE } from '../../shared/ducks/ui/ui';
+import { getViewMode, isPrintMode, setViewMode as setViewModeAction, VIEW_MODE } from '../../shared/ducks/ui/ui';
 import { getPage } from '../../store/redux-first-router/selectors';
 import PAGES from '../pages';
 import PanoramaContainer from '../../panorama/containers/PanoramaContainer';
@@ -24,7 +24,8 @@ const MapSplitPage = ({
   currentPage,
   setViewMode,
   viewMode,
-  forceFullScreen
+  forceFullScreen,
+  printMode
 }) => {
   let mapProps = {};
   let Component = null;
@@ -92,6 +93,7 @@ const MapSplitPage = ({
             />
           )}
           rightComponent={Component}
+          printMode={printMode}
         />
       );
     }
@@ -105,7 +107,8 @@ const mapStateToProps = (state) => ({
   endpoint: getDetailEndpoint(state),
   hasSelection: !!getSelectionType(state),
   viewMode: getViewMode(state),
-  currentPage: getPage(state)
+  currentPage: getPage(state),
+  printMode: isPrintMode(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -118,7 +121,8 @@ MapSplitPage.propTypes = {
   hasSelection: PropTypes.bool.isRequired,
   setViewMode: PropTypes.func.isRequired,
   viewMode: PropTypes.string.isRequired,
-  currentPage: PropTypes.string.isRequired
+  currentPage: PropTypes.string.isRequired,
+  printMode: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapSplitPage);

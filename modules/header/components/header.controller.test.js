@@ -1,8 +1,6 @@
 import PAGES from '../../../src/app/pages';
 import { ROUTER_NAMESPACE } from '../../../src/app/routes';
-import * as routerSelectors from '../../../src/store/redux-first-router/selectors';
 import * as ui from '../../../src/shared/ducks/ui/ui';
-import { VIEW_MODE } from '../../../src/shared/ducks/ui/ui';
 
 describe('The header controller', function () {
     var $controller,
@@ -40,10 +38,7 @@ describe('The header controller', function () {
             }
         };
 
-        routerSelectors.isDataSelectionPage = () => true;
-        routerSelectors.isDatasetPage = () => true;
-        routerSelectors.isHomepage = () => true;
-        ui.getViewMode = () => VIEW_MODE.SPLIT;
+        ui.hasPrintMode = () => false;
         ui.isMapActive = () => true;
     });
 
@@ -68,7 +63,6 @@ describe('The header controller', function () {
     });
 
     it('doesn\'t break when search is null', function () {
-        routerSelectors.isDatasetPage = () => false;
         mockedState = {
             search: null
         };
@@ -97,8 +91,7 @@ describe('The header controller', function () {
         });
 
         it('all other pages and non dataSelection content has a printButton', function () {
-            routerSelectors.isDataSelectionPage = () => false;
-            routerSelectors.isHomepage = () => false;
+            ui.hasPrintMode = () => true;
 
             const controller = getController();
 
