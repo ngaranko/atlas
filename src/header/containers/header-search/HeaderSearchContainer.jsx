@@ -24,13 +24,14 @@ import {
 } from '../../../store/redux-first-router/actions';
 import { isDatasetPage } from '../../../store/redux-first-router/selectors';
 import PARAMETERS from '../../../store/parameters';
-import { isMapPage } from '../../../shared/ducks/ui/ui';
+import { getViewMode, isMapPage, VIEW_MODE } from '../../../shared/ducks/ui/ui';
 
 
 const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),
   displayQuery: getDisplayQuery(state),
   isDatasetView: isDatasetPage(state),
+  view: getViewMode(state),
   isMapActive: isMapPage(state),
   numberOfSuggestions: getNumberOfSuggestions(state),
   pageName: state.page ? state.page.name : '',
@@ -51,7 +52,7 @@ const mapDispatchToProps = (dispatch) => ({
   onDataSearch: (query) => dispatch(toDataSearchQuery({
     [PARAMETERS.QUERY]: query
   }, false, true)),
-  openDataSuggestion: (suggestion) => dispatch(toDataSuggestion(suggestion)),
+  openDataSuggestion: (suggestion, view) => dispatch(toDataSuggestion(suggestion, view)),
   openDatasetSuggestion: (suggestion) => dispatch(toDatasetSuggestion(suggestion))
 });
 
@@ -94,7 +95,8 @@ class HeaderSearchContainer extends React.Component {
     const {
       openDataSuggestion,
       openDatasetSuggestion,
-      typedQuery
+      typedQuery,
+      view
     } = this.props;
 
     if (shouldOpenInNewWindow) {
@@ -109,7 +111,9 @@ class HeaderSearchContainer extends React.Component {
       const id = extractIdEndpoint(suggestion.uri);
       openDatasetSuggestion({ id, typedQuery });
     } else {
-      openDataSuggestion({ endpoint: suggestion.uri, category: suggestion.category, typedQuery });
+      openDataSuggestion({
+        endpoint: suggestion.uri, category: suggestion.category, typedQuery
+      }, (view === VIEW_MODE.FULL) ? VIEW_MODE.SPLIT : view);
     }
   }
 
@@ -196,6 +200,7 @@ HeaderSearchContainer.propTypes = {
     uri: PropTypes.string
   }),
   displayQuery: PropTypes.string,
+  view: PropTypes.string.isRequired,
   isDatasetView: PropTypes.bool,
   isMapActive: PropTypes.bool.isRequired,
   numberOfSuggestions: PropTypes.number,

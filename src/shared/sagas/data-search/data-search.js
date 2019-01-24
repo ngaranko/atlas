@@ -48,7 +48,7 @@ export function* fetchMapSearchResults() {
     yield call(waitForAuthentication);
     const user = yield select(getUser);
 
-    if (view === VIEW_MODE.SPLIT) {
+    if (view === VIEW_MODE.SPLIT || view === VIEW_MODE.FULL) {
       const geoSearchResults = yield call(geosearch, location, user);
       const results = replaceBuurtcombinatie(geoSearchResults);
       yield put(fetchMapSearchResultsSuccessList(results, getNrOfSearchResults(geoSearchResults)));

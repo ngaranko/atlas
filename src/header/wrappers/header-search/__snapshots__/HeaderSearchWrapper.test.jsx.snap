@@ -71,5 +71,6 @@ exports[`HeaderSearchWrapper should render 1`] = `
     ]
   }
   typedQuery="dam"
+  view="split"
 />
 `;
