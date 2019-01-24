@@ -179,7 +179,8 @@ const mapDispatchToProps = (dispatch) => ({
   onClose: (panoramaLocation, reference, overlaysWithoutPanorama) => {
     if (reference.length) {
       dispatch(toDataDetail(reference, {
-        [PARAMETERS.LAYERS]: overlaysWithoutPanorama
+        [PARAMETERS.LAYERS]: overlaysWithoutPanorama,
+        [PARAMETERS.VIEW]: VIEW_MODE.SPLIT
       }));
     } else {
       dispatch(toGeoSearch({
