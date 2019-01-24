@@ -37,6 +37,13 @@ const MapSplitPage = ({
 
       break;
 
+    case PAGES.DATA:
+      mapProps = {
+        showPreviewPanel: false
+      };
+
+      break;
+
     case PAGES.PANORAMA:
       Component = <PanoramaContainer isFullscreen={viewMode === VIEW_MODE.FULL} />;
       mapProps = {
@@ -72,20 +79,22 @@ const MapSplitPage = ({
 
   if (viewMode === VIEW_MODE.MAP) {
     return <MapContainer {...mapProps} />;
-  } else if ((Component && viewMode === VIEW_MODE.FULL) || (Component && forceFullScreen)) {
-    return Component;
-  } else if (viewMode === VIEW_MODE.SPLIT && Component) {
-    return (
-      <SplitScreen
-        leftComponent={(
-          <MapContainer
-            isFullscreen={false}
-            toggleFullscreen={() => setViewMode(VIEW_MODE.MAP)}
-          />
-        )}
-        rightComponent={Component}
-      />
-    );
+  } else if (Component) {
+    if (viewMode === VIEW_MODE.FULL || forceFullScreen) {
+      return Component;
+    } else if (viewMode === VIEW_MODE.SPLIT) {
+      return (
+        <SplitScreen
+          leftComponent={(
+            <MapContainer
+              isFullscreen={false}
+              toggleFullscreen={() => setViewMode(VIEW_MODE.MAP)}
+            />
+          )}
+          rightComponent={Component}
+        />
+      );
+    }
   }
 
   return null;

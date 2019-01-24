@@ -9,6 +9,12 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.HOME}`,
     page: PAGES.HOME
   },
+  data: {
+    title: 'Data',
+    path: '/data',
+    type: `${ROUTER_NAMESPACE}/${PAGES.DATA}`,
+    page: PAGES.DATA
+  },
   datasets: {
     title: 'Datasets',
     path: '/datasets',
