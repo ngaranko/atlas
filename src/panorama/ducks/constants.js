@@ -18,7 +18,7 @@ export const historyOptions = [
 ];
 
 export const initialState = {
-  location: [],   // eg: [52.8, 4.9]
+  location: null,   // eg: [52.8, 4.9]
   targetLocation: null,
   history: historyOptions[0],
   pitch: 0,         // eg: -10

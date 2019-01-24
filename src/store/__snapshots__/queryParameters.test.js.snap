@@ -497,7 +497,7 @@ Object {
       "atlasRouter/PANORAMA": Object {
         "addHistory": false,
         "decode": [Function],
-        "defaultValue": Array [],
+        "defaultValue": null,
         "encode": [Function],
         "reducerKey": "panorama",
         "selector": [Function],
