@@ -20,7 +20,6 @@ export const END_DATA_SELECTION = `${REDUCER_KEY}/END_DATA_SELECTION`;
 
 export const SET_PAGE = `${REDUCER_KEY}/SET_PAGE`;
 export const SET_DATASET = `${REDUCER_KEY}/SET_DATASET`;
-export const SET_MARKERS = `${REDUCER_KEY}/SET_MARKERS`;
 export const ROUTE_DATASET_MAPPER = {
   [routing.cadastralObjects.type]: 'brk',
   [routing.establishments.type]: 'hr',
@@ -32,9 +31,6 @@ export const VIEWS_TO_PARAMS = {
   [VIEW_MODE.MAP]: 'MAP',
   [VIEW_MODE.FULL]: 'TABLE'
 };
-
-export const PARAMS_TO_VIEWS =
-  Object.entries(VIEWS_TO_PARAMS).reduce((acc, [key, param]) => ({ ...acc, [param]: key }), {});
 
 export const DATASETS = {
   BAG: 'bag',

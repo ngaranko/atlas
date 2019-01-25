@@ -144,7 +144,7 @@ class LeafletContainer extends React.Component {
           scaleControlOptions,
           zoomControlOptions,
           zoom,
-          isLoading,
+          isLoading
         }}
         markers={(showMarker) ? markers : []}
         onClick={this.handleClick}
@@ -185,7 +185,7 @@ LeafletContainer.propTypes = {
   rdGeoJsons: PropTypes.arrayOf(PropTypes.shape({})),
   getLeafletInstance: PropTypes.func.isRequired,
   markers: PropTypes.arrayOf(PropTypes.shape({})),
-  brkMarkers: PropTypes.arrayOf(PropTypes.shape({})),
+  brkMarkers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,

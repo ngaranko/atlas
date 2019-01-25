@@ -9,7 +9,6 @@ import {
   REMOVE_GEOMETRY_FILTER,
   SET_DATASET,
   SET_GEOMETRY_FILTER,
-  SET_MARKERS,
   SET_PAGE,
   START_DATA_SELECTION, FETCH_MARKERS_REQUEST, FETCH_MARKERS_SUCCESS, FETCH_MARKERS_FAILURE
 } from './constants';
@@ -21,7 +20,6 @@ export const fetchMarkersFailure = (payload) => (
   { type: FETCH_MARKERS_FAILURE, payload, error: true }
 );
 
-export const setMarkers = (payload) => ({ type: SET_MARKERS, payload });
 export const setPage = (payload) => ({ type: SET_PAGE, payload });
 export const setDataset = (payload) => ({ type: SET_DATASET, payload });
 export const removeGeometryFilter = () => ({ type: REMOVE_GEOMETRY_FILTER });

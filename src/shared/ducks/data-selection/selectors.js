@@ -70,7 +70,7 @@ export const getGeomarkersShape = createSelector(
     markers.map(([lat, lng]) => [lng, lat])
   )
 );
-export const areMarkersLoading = createSelector(
+export const isLoading = createSelector(
   getDataSelection,
-  (dataSelection) => dataSelection.loadingMarkers
+  (dataSelection) => dataSelection.loadingMarkers || dataSelection.isLoading
 );
