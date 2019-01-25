@@ -11,10 +11,16 @@ import {
   SET_GEOMETRY_FILTER,
   SET_MARKERS,
   SET_PAGE,
-  START_DATA_SELECTION
+  START_DATA_SELECTION, FETCH_MARKERS_REQUEST, FETCH_MARKERS_SUCCESS, FETCH_MARKERS_FAILURE
 } from './constants';
 
 export const fetchDataSelection = (payload) => ({ type: FETCH_DATA_SELECTION_REQUEST, payload });
+export const fetchMarkersRequest = () => ({ type: FETCH_MARKERS_REQUEST });
+export const fetchMarkersSuccess = (payload) => ({ type: FETCH_MARKERS_SUCCESS, payload });
+export const fetchMarkersFailure = (payload) => (
+  { type: FETCH_MARKERS_FAILURE, payload, error: true }
+);
+
 export const setMarkers = (payload) => ({ type: SET_MARKERS, payload });
 export const setPage = (payload) => ({ type: SET_PAGE, payload });
 export const setDataset = (payload) => ({ type: SET_DATASET, payload });
