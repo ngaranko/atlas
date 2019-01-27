@@ -1,7 +1,7 @@
 import {
     ERROR_TYPES,
     resetGlobalError
-} from '../../../../src/shared/ducks/error-message';
+} from '../../../../src/shared/ducks/error/error-message';
 
 (function () {
     angular

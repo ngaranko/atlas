@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+
 const RESET_GLOBAL_ERROR = 'RESET_GLOBAL_ERROR';
 const SET_GLOBAL_ERROR = 'SET_GLOBAL_ERROR';
 
@@ -35,3 +37,5 @@ export default function ErrorMessageReducer(state = initialState, action) {
 export const resetGlobalError = () => ({ type: RESET_GLOBAL_ERROR });
 export const setGlobalError = (errorType) => ({ type: SET_GLOBAL_ERROR, payload: errorType });
 
+const getErrorState = (state) => state.error;
+export const hasGlobalError = createSelector(getErrorState, (error) => error.hasErrors);

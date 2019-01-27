@@ -1,7 +1,8 @@
 import ErrorMessageReducer,
   {
     setGlobalError,
-    resetGlobalError
+    resetGlobalError,
+    hasGlobalError
   } from './error-message';
 
 let initialState;
@@ -31,5 +32,9 @@ describe('The error message reducer', () => {
       foo: 'bar'
     }, resetGlobalError()))
       .toEqual(initialState);
+  });
+
+  it('should return if the global state has errors', () => {
+    expect(hasGlobalError({ error: initialState })).toEqual(initialState.hasErrors);
   });
 });

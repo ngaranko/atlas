@@ -5,7 +5,7 @@ import * as DataSelectionReducer from '../shared/ducks/data-selection/reducer';
 import * as Datasets from '../shared/ducks/datasets/datasets';
 import * as DataSelectionCatalogReducer
   from '../shared/ducks/datasets/apiSpecification/apiSpecification';
-import * as ErrorMessageReducer from '../shared/ducks/error-message';
+import * as ErrorMessageReducer from '../shared/ducks/error/error-message';
 import * as UiReducer from '../shared/ducks/ui/ui';
 import * as UserReducer from '../shared/ducks/user/user';
 import * as MapDetailReducer from '../map/ducks/detail/map-detail';

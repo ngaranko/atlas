@@ -16,7 +16,10 @@ describe('App', () => {
       map: {
         view: 'home'
       },
-      user: {}
+      user: {},
+      error: {
+        hassErrors: false
+      }
     });
     const component = shallow(
       <App />, { context: { store } }
@@ -35,7 +38,10 @@ describe('App', () => {
       map: {
         view: 'home'
       },
-      user: {}
+      user: {},
+      error: {
+        hassErrors: false
+      }
     });
     const component = shallow(
       <App />, { context: { store } }

@@ -8,7 +8,8 @@
             controller: DpErrorController,
             controllerAs: 'vm',
             bindings: {
-                isHomePage: '@',
+                isHomePage: '<',
+                visibilityError: '<',
                 hasMaxWidth: '@'
             }
         });
