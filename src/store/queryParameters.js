@@ -228,7 +228,7 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.PRINT, (routes) => {
-    routes.add(routing.data.type, UI, 'isPrintMode', {
+    routes.add(routesWithMapActive, UI, 'isPrintMode', {
       defaultValue: UIInitialState.isPrintMode,
       selector: isPrintMode
     });
