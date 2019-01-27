@@ -121,10 +121,11 @@ function* retrieveDataSelection(action) {
 
     // Check if markers need to be fetched
     const { MAX_NUMBER_OF_CLUSTERED_MARKERS } = dataSelectionConfig.datasets[dataset];
+    const filtersWithoutShape = yield select(getFiltersWithoutShape);
     const markersShouldBeFetched = (
       view !== VIEW_MODE.FULL &&
       result.numberOfRecords <= MAX_NUMBER_OF_CLUSTERED_MARKERS &&
-      shape !== '[]'
+      (shape !== '[]' || Object.keys(filtersWithoutShape).length)
     );
     if (markersShouldBeFetched) {
       yield put(fetchMarkersRequest());
