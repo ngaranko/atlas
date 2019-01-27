@@ -141,7 +141,8 @@ export const hasPrintMode = createSelector(
     viewMode
   ) =>
     (!dataSelectionPage || viewMode === VIEW_MODE.SPLIT || viewMode === VIEW_MODE.MAP) &&
-    (!datasetPage || datasetDetailPage) && (dataPage || mapActive)
+    (!datasetPage || datasetDetailPage) &&
+    (dataPage || mapActive || viewMode === VIEW_MODE.SPLIT)
 );
 export const isPrintModeLandscape = createSelector(
   isPrintMode,
