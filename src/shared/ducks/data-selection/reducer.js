@@ -3,7 +3,8 @@ import { shouldResetState } from '../../../store/redux-first-router/actions';
 import {
   FETCH_DATA_SELECTION_FAILURE,
   FETCH_DATA_SELECTION_REQUEST,
-  FETCH_DATA_SELECTION_SUCCESS, FETCH_MARKERS_FAILURE,
+  FETCH_DATA_SELECTION_SUCCESS,
+  FETCH_MARKERS_FAILURE,
   FETCH_MARKERS_REQUEST,
   FETCH_MARKERS_SUCCESS,
   initialState,
@@ -50,8 +51,9 @@ export default function reducer(state = initialState, action) {
     case FETCH_DATA_SELECTION_REQUEST:
       return {
         ...enrichedState,
-        isLoading: true,
-        markers: []
+        dataset: action.payload.dataset,
+        page: action.payload.page,
+        isLoading: true
       };
 
     case FETCH_DATA_SELECTION_SUCCESS: {
@@ -71,15 +73,17 @@ export default function reducer(state = initialState, action) {
         isLoading: false,
         authError: (action.payload.error === 'Unauthorized'),
         errorMessage: action.payload.error,
-        dataset: action.payload.dataset,
         result: {},
         markers: []
       };
 
     case FETCH_MARKERS_FAILURE:
       return {
-        ...initialState,
-        errorMessage: action.payload
+        ...enrichedState,
+        isLoading: false,
+        errorMessage: action.payload,
+        result: {},
+        markers: []
       };
 
     case FETCH_MARKERS_SUCCESS:

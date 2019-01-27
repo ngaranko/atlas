@@ -1,4 +1,4 @@
-import { call, put, select, take, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, take, takeLatest, throttle } from 'redux-saga/effects';
 import {
   fetchDataSelection,
   fetchMarkersFailure,
@@ -18,7 +18,7 @@ import {
   REMOVE_FILTER
 } from '../../ducks/filters/filters';
 import { preserveQuery, toDatasetPage } from '../../../store/redux-first-router/actions';
-import { isDataSelectionPage } from '../../../store/redux-first-router/selectors';
+import { getPage, isDataSelectionPage } from '../../../store/redux-first-router/selectors';
 import { cancel, disable, enable, setPolygon } from '../../../map/services/draw-tool/draw-tool';
 import {
   CANCEL_DATA_SELECTION,
@@ -35,6 +35,7 @@ import {
 } from '../../ducks/data-selection/constants';
 import {
   getDataSelection,
+  getDataSelectionPage,
   getDataset,
   getGeomarkersShape,
   getGeometryFilters
@@ -50,19 +51,23 @@ import {
 import PARAMETERS from '../../../store/parameters';
 import drawToolConfig from '../../../map/services/draw-tool/draw-tool.config';
 import { getViewMode, SET_VIEW_MODE, VIEW_MODE } from '../../ducks/ui/ui';
+import PAGES from '../../../app/pages';
 
 export function* mapBoundsEffect() {
-  const dataSelectionPage = yield select(isDataSelectionPage);
-  if (dataSelectionPage) {
+  const page = yield select(getPage);
+
+  if (page === PAGES.CADASTRAL_OBJECTS) {
     yield put(fetchMarkersRequest());
   }
 }
 
 export function* requestMarkersEffect() {
   // Since bounding box can be set later, we check if we have to wait for the boundingbox to get set
-  const activeFilters = yield select(getFiltersWithoutShape);
-  const dataset = yield select(getDataset);
-  const shape = yield select(getGeomarkersShape);
+  const [activeFilters, dataset, shape] = yield all([
+    select(getFiltersWithoutShape),
+    select(getDataset),
+    select(getGeomarkersShape)
+  ]);
   let boundingBox = yield select(getMapBoundingBox);
   if (!boundingBox) {
     yield take(MAP_BOUNDING_BOX);
@@ -80,17 +85,19 @@ export function* requestMarkersEffect() {
 
 function* retrieveDataSelection(action) {
   const {
-    dataset,
-    page,
     searchText,
     catalogFilters
   } = action.payload;
 
   try {
     yield call(waitForAuthentication);
-    const activeFilters = yield select(getFiltersWithoutShape);
-    const shape = yield select(getGeomarkersShape);
-    const view = yield select(getViewMode);
+    const [activeFilters, shape, view, dataset, page] = yield all([
+      select(getFiltersWithoutShape),
+      select(getGeomarkersShape),
+      select(getViewMode),
+      select(getDataset),
+      select(getDataSelectionPage)
+    ]);
     // exclude the geometryFilter from the attribute filters
     // TODO DP-6442 improve the geometryFilter handling
     const activeAttributeFilters = Object.keys(activeFilters)
@@ -109,24 +116,22 @@ function* retrieveDataSelection(action) {
       shape,
       catalogFilters
     );
-
     // Put the results in the reducer
-    yield put(receiveDataSelectionSuccess({
-      dataset, activeFilters, page, shape, result
-    }));
+    yield put(receiveDataSelectionSuccess({ activeFilters, shape, result }));
 
     // Check if markers need to be fetched
     const { MAX_NUMBER_OF_CLUSTERED_MARKERS } = dataSelectionConfig.datasets[dataset];
     const markersShouldBeFetched = (
-      view !== VIEW_MODE.FULL && result.numberOfRecords <= MAX_NUMBER_OF_CLUSTERED_MARKERS
+      view !== VIEW_MODE.FULL &&
+      result.numberOfRecords <= MAX_NUMBER_OF_CLUSTERED_MARKERS &&
+      shape !== '[]'
     );
     if (markersShouldBeFetched) {
       yield put(fetchMarkersRequest());
     }
   } catch (e) {
     yield put(receiveDataSelectionFailure({
-      error: e.message,
-      dataset
+      error: e.message
     }));
   }
 }
@@ -207,7 +212,7 @@ function* cancelDrawing() {
 export default function* watchFetchDataSelection() {
   yield takeLatest(REMOVE_FILTER, clearShapeFilter);
   yield takeLatest(SET_GEOMETRY_FILTER, setGeometryFilters);
-  yield takeLatest(MAP_BOUNDING_BOX, mapBoundsEffect);
+  yield throttle(1500, MAP_BOUNDING_BOX, mapBoundsEffect);
   yield takeLatest(
     [
       SET_VIEW_MODE,

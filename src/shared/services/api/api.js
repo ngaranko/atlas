@@ -2,7 +2,6 @@ import getState from '../redux/get-state';
 import SHARED_CONFIG from '../shared-config/shared-config';
 import { encodeQueryParams } from '../query-string-parser/query-string-parser';
 import { logout } from '../auth/auth';
-// import { addToCache, getFromCache } from '../cache/cache';
 
 export const getAccessToken = () => getState().user.accessToken;
 
@@ -17,54 +16,6 @@ const handleErrors = (response, reloadOnUnauthorized) => {
     throw Error(response.statusText);
   }
   return response;
-};
-
-
-const handleCache = (response, key) => {
-  if (sessionStorage.length > SHARED_CONFIG.CACHE_THRESHOLD) {
-    Object.entries(sessionStorage).forEach(([itemKey]) => {
-      if (itemKey.startsWith('http')) {
-        const cache = JSON.parse(sessionStorage.getItem(itemKey));
-
-        const now = new Date().getTime();
-        let expiration = new Date(cache.timestamp);
-        expiration = expiration.setMinutes(expiration.getMinutes()
-          + SHARED_CONFIG.CACHE_EXPIRATION);
-
-        if (now >= expiration) {
-          sessionStorage.removeItem(itemKey);
-        } else {
-          sessionStorage.clear();
-        }
-      }
-    });
-  }
-
-  sessionStorage.setItem(
-    key,
-    JSON.stringify({
-      timestamp: new Date(),
-      data: response
-    })
-  );
-
-  return response;
-};
-
-const getFromCache = (key) => {
-  const cache = JSON.parse(sessionStorage.getItem(key));
-  if (!cache) return null;
-
-  const now = new Date().getTime();
-  let expiration = new Date(cache.timestamp);
-  expiration = expiration.setMinutes(expiration.getMinutes() + SHARED_CONFIG.CACHE_EXPIRATION);
-
-  if (now >= expiration) {
-    sessionStorage.removeItem(key);
-    return null;
-  }
-
-  return cache.data;
 };
 
 export const getWithToken = (url, params, cancel, token, reloadOnUnauthorized = false) => {
@@ -86,12 +37,9 @@ export const getWithToken = (url, params, cancel, token, reloadOnUnauthorized = 
   const fullUrl = `${url}${params ? `?${generateParams(params)}` : ''}`;
 
   // Retrieve from cache, otherwise execute API call
-  const cachedResult = getFromCache(fullUrl);
-  return cachedResult ||
-    fetch(fullUrl, options)
-      .then((response) => handleErrors(response, reloadOnUnauthorized))
-      .then((response) => response.json())
-      .then((response) => handleCache(response, fullUrl));
+  return fetch(fullUrl, options)
+    .then((response) => handleErrors(response, reloadOnUnauthorized))
+    .then((response) => response.json());
 };
 
 export const getByUrl = async (url, params, cancel, reloadOnUnauthorized) => {

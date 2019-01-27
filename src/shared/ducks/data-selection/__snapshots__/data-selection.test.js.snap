@@ -29,10 +29,9 @@ Object {
 }
 `;
 
-exports[`Data Selection Reducer should set isLoading, authError, errorMessage, dataset, result, markers state when dispatching receiveDataSelectionFailure 1`] = `
+exports[`Data Selection Reducer should set isLoading, authError, errorMessage, result, markers state when dispatching receiveDataSelectionFailure 1`] = `
 Object {
   "authError": false,
-  "dataset": undefined,
   "errorMessage": "error message",
   "isLoading": false,
   "markers": Array [],
@@ -40,25 +39,12 @@ Object {
 }
 `;
 
-exports[`Data Selection Reducer should set isLoading, loadingMarkers, markers, geometryFilter, dataset, authError, errorMessage, page state when dispatching fetchMarkersFailure 1`] = `
+exports[`Data Selection Reducer should set isLoading, errorMessage, result, markers state when dispatching fetchMarkersFailure 1`] = `
 Object {
-  "authError": false,
-  "dataset": "bag",
   "errorMessage": "error",
-  "geometryFilter": Object {
-    "markers": undefined,
-  },
   "isLoading": false,
-  "loadingMarkers": false,
   "markers": Array [],
-  "page": 1,
-}
-`;
-
-exports[`Data Selection Reducer should set isLoading, markers state when dispatching fetchDataSelection 1`] = `
-Object {
-  "isLoading": true,
-  "markers": Array [],
+  "result": Object {},
 }
 `;
 
@@ -71,6 +57,22 @@ Object {
   "errorMessage": "",
   "isLoading": false,
   "markers": Array [],
+}
+`;
+
+exports[`Data Selection Reducer should set isLoading, page, dataset state when dispatching fetchDataSelection 1`] = `
+Object {
+  "dataset": undefined,
+  "isLoading": true,
+  "page": undefined,
+}
+`;
+
+exports[`Data Selection Reducer should set isLoading, page, dataset state when dispatching fetchDataSelection 1`] = `
+Object {
+  "dataset": undefined,
+  "isLoading": true,
+  "page": undefined,
 }
 `;
 
