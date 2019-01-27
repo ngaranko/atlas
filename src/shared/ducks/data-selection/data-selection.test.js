@@ -1,6 +1,5 @@
 import reducer from './reducer';
 import * as actionCreators from './actions';
-import { initialState as realInitialState } from './constants';
 import { routing } from '../../../app/routes';
 
 describe('Data Selection Reducer', () => {
@@ -32,7 +31,8 @@ describe('Data Selection Reducer', () => {
   const expectations = {
     ...getExpectations(
       actionCreators.fetchDataSelection.name,
-      ['isLoading', 'markers']
+      ['isLoading', 'page', 'dataset'],
+      ['dataset']
     ),
     ...getExpectations(
       actionCreators.setPage.name,
@@ -56,7 +56,7 @@ describe('Data Selection Reducer', () => {
     ),
     ...getExpectations(
       actionCreators.fetchMarkersFailure.name,
-      [...Object.keys(realInitialState)],
+      ['isLoading', 'errorMessage', 'result', 'markers'],
       ['error']
     ),
     ...getExpectations(
@@ -91,7 +91,7 @@ describe('Data Selection Reducer', () => {
     ),
     ...getExpectations(
       actionCreators.receiveDataSelectionFailure.name,
-      ['isLoading', 'authError', 'errorMessage', 'dataset', 'result', 'markers'],
+      ['isLoading', 'authError', 'errorMessage', 'result', 'markers'],
       [{ error: 'error message' }]
     ),
     ...getExpectations(
