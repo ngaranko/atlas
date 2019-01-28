@@ -25,6 +25,7 @@ import DatasetPage from './pages/DatasetPage';
 import { DataSearchQuery } from './components/DataSearch';
 import MapSplitPage from './pages/MapSplitPage';
 import ActualityContainer from './containers/ActualityContainer';
+import GeneralErrorMessage from './components/PanelMessages/ErrorMessage';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -94,19 +95,8 @@ const App = ({
         }}
       />
       }
-      <AngularWrapper
-        moduleName={'dpErrorWrapper'}
-        component="dpError"
-        dependencies={['atlas']}
-        bindings={{
-          isHomePage: homePage,
-          visibilityError
-        }}
-        interpolateBindings={{
-          hasMaxWidth
-        }}
-      />
       <div className={`c-dashboard__body ${bodyClasses}`}>
+        {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
         {embedPreviewMode ?
           <EmbedIframeComponent /> :
           <div className="u-grid u-full-height">

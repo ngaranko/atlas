@@ -2,25 +2,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import 'babel-polyfill';
 import angular from 'angular';
-
- // Import the templates and inject them into angular
-const templates = require.context('../modules', true, /\.html$/);
-const origInject = angular.mock.inject;
-angular.mock.inject = (callback) => {
-  origInject(($templateCache) => {
-    templates.keys().forEach((key) => {
-      // Remove the dot from './dir/template.html' and prepend with
-      // 'modules' to get 'modules/dir/template.html'.
-      const templateId = `modules${key.substr(1)}`;
-      $templateCache.put(templateId, templates(key));
-    });
-  });
-  origInject(callback);
-};
-
 // All third party dependencies
 import './vendor';
-
 // All our modules' javascript
 import '../modules/atlas/atlas.module';
 import '../modules/atlas/atlas.run';
@@ -105,7 +88,6 @@ import '../modules/shared/shared.module';
 import '../modules/shared/components/anchor-link/anchor-link.component';
 import '../modules/shared/components/anchor-link/anchor-link.constant';
 import '../modules/shared/components/anchor-link/anchor-link.run';
-import '../modules/shared/components/api-error/api-error.component';
 import '../modules/shared/components/coordinates/coordinates.filter';
 import '../modules/shared/components/dcatd-button/dcatd-button.component';
 import '../modules/shared/components/expand-collapse/expand-collapse.directive';
@@ -141,12 +123,10 @@ import '../modules/shared/services/user-settings/user-settings.constant';
 import '../modules/shared/services/user-settings/user-settings.factory';
 import '../modules/shared/shared-config.factory';
 import '../modules/shared/shared.vendor';
-
 // The mocks
 import 'angular-mocks';
 import '../modules/shared/components/button/button.component.mock';
 import '../modules/shared/components/link/link.component.mock';
-
 // All our modules' javascript tests
 import '../modules/data-selection/components/available-filters/available-filters.component.test';
 import '../modules/data-selection/components/sbi-filter/sbi-filter.component.test';
@@ -208,7 +188,6 @@ import '../modules/detail/services/geometry/geometry.factory.test';
 import '../modules/detail/services/endpoint-parser/endpoint-parser.factory.test';
 import '../modules/detail/services/date-converter/date-converter.factory.test';
 import '../modules/shared/shared-config.factory.test';
-import '../modules/shared/components/api-error/api-error.component.test';
 import '../modules/shared/components/link-to-page/link-to-page.component.test';
 import '../modules/shared/components/expand-collapse/expand-collapse.directive.test';
 import '../modules/shared/components/anchor-link/anchor-link.component.test';
@@ -236,3 +215,19 @@ import '../modules/shared/filters/filesize.filter.test';
 import '../modules/shared/filters/kebabcase.filter.test';
 import '../modules/shared/services/combined-document-title/combined-document-title.factory.test';
 import '../modules/header/components/header.controller.test';
+
+// Import the templates and inject them into angular
+const templates = require.context('../modules', true, /\.html$/);
+const origInject = angular.mock.inject;
+angular.mock.inject = (callback) => {
+  origInject(($templateCache) => {
+    templates.keys().forEach((key) => {
+      // Remove the dot from './dir/template.html' and prepend with
+      // 'modules' to get 'modules/dir/template.html'.
+      const templateId = `modules${key.substr(1)}`;
+      $templateCache.put(templateId, templates(key));
+    });
+  });
+  origInject(callback);
+};
+

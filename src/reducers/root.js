@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import { LOCATION } from '../store/redux-first-router/constants';
 import AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest';
-import ErrorMessageReducer from '../shared/ducks/error/error-message';
+import ErrorMessageReducer, { REDUCER_KEY as ERROR } from '../shared/ducks/error/error-message';
 import UiReducer, { UI } from '../shared/ducks/ui/ui';
 import UserReducer, { REDUCER_KEY as USER } from '../shared/ducks/user/user';
 import MapDetailReducer from '../map/ducks/detail/map-detail';
@@ -28,7 +28,7 @@ export default (routeReducer) => (oldState = {}, action) => {
 
   // Use combine reducer for new reducers
   const newRootReducer = combineReducers({
-    error: ErrorMessageReducer,
+    [ERROR]: ErrorMessageReducer,
     [FILTER]: FiltersReducer,
     [MAP]: MapReducer,
     mapDetail: MapDetailReducer,

@@ -6,7 +6,9 @@ exports[`NoDetailsAvailable should render everything 1`] = `
 >
   <Panel
     canClose={true}
+    closeAction={[Function]}
     isPanelVisible={null}
+    size=""
     type="warning"
   >
     Geen details beschikbaar van: 
