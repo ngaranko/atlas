@@ -27,7 +27,10 @@ export const toDataDetail = (detailReference, additionalParams = null, tracking 
       id: `id${id}`
     },
     meta: {
-      tracking,
+      tracking: {
+        ...tracking,
+        id
+      },
       forceSaga: true
     }
   }, additionalParams);
