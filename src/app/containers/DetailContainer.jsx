@@ -39,6 +39,16 @@ class DetailContainer extends React.Component {
     onFetchDetailRequest({ endpoint });
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { endpoint } = nextProps;
+    if (this.props.endpoint !== endpoint) {
+      console.log('DetailContainer new endpoint', endpoint);
+      // eslint-disable-next-line no-undef
+      const { onFetchDetailRequest } = this.props;
+      onFetchDetailRequest({ endpoint });
+    }
+  }
+
   render() {
     const {
       isLoading,
@@ -50,6 +60,7 @@ class DetailContainer extends React.Component {
       detailData,
       detailFilterSelection
     } = this.props;
+    // console.log('DetailContainer render', this.props);
     return (<div className="qa-detail">
       <AngularWrapper
         moduleName={'dpDetailWrapper'}

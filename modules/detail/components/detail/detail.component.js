@@ -35,6 +35,9 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
 
         /* istanbul ignore next */
         vm.$onChanges = (changes) => {
+            // console.log('changes', changes);
+            const {detailTemplateUrl, detailData, detailFilterSelection} = changes;
+            if (!(detailTemplateUrl && detailData && detailFilterSelection)) return;
             if (changes.detailTemplateUrl.previousValue !== changes.detailTemplateUrl.currentValue) {
                 vm.includeSrc = changes.detailTemplateUrl.currentValue;
             }

@@ -30,6 +30,12 @@ class DatasetDetailContainer extends React.Component {
     onFetchDetailRequest({ endpoint });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.endpoint !== nextProps.endpoint) {
+      this.props.onFetchDetailRequest({ endpoint: nextProps.endpoint });
+    }
+  }
+
   render() {
     const {
       isLoading,
