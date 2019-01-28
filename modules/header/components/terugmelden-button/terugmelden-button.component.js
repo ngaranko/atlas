@@ -15,9 +15,9 @@ import { reportProblemAction } from '../../../../src/header/ducks/actions';
             controllerAs: 'vm'
         });
 
-    DpTerugmeldenButtonController.$inject = ['$window', '$location', 'store'];
+    DpTerugmeldenButtonController.$inject = ['$window', 'store'];
 
-    function DpTerugmeldenButtonController ($window, $location, store) {
+    function DpTerugmeldenButtonController ($window, store) {
         var vm = this,
             recipient,
             subject,
@@ -27,7 +27,7 @@ import { reportProblemAction } from '../../../../src/header/ducks/actions';
 
         recipient = 'terugmelding.basisinformatie@amsterdam.nl';
         subject = 'Terugmelding data.amsterdam.nl';
-        body = 'Terugmeldingen voor de pagina: ' + $location.absUrl() + '\n\n' +
+        body = 'Terugmeldingen voor de pagina: ' + $window.location.href + '\n\n' +
             'Beschrijf zo volledig mogelijk van welk onjuist gegeven je een melding wilt maken:\n' +
             '- Welk gegeven is kennelijk onjuist of ontbreekt?\n' +
             '- Weet je wat het wel zou moeten zijn?\n' +
