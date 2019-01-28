@@ -4,7 +4,7 @@ import GLOSSARY from '../../../detail/services/glossary.constant';
 import { routing } from '../../../app/routes';
 import { VIEW_MODE } from '../../ducks/ui/ui';
 
-export const homeDocumentTitle = (action, defaultTitle) => {
+export const mapDocumentTitle = (action, defaultTitle) => {
   let pageTitle = defaultTitle;
   const view = get(action, 'meta.query.view', '');
   const embed = get(action, 'meta.query.embed', 'false');
@@ -28,8 +28,8 @@ export const detailDocumentTitle = (action, defaultTitle = 'UNKNOWN') => {
 
 const documentTitleRouteMapping = [
   {
-    route: routing.home.type,
-    getTitle: homeDocumentTitle
+    route: routing.data.type,
+    getTitle: mapDocumentTitle
   },
   {
     route: routing.dataDetail.type,
