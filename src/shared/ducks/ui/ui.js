@@ -1,5 +1,11 @@
 import { createSelector } from 'reselect';
-import { isHomepage, isPanoPage } from '../../../store/redux-first-router/selectors';
+import {
+  isDataSelectionPage,
+  isDatasetPage,
+  isDatasetDetailPage,
+  isPanoPage,
+  isDataPage
+} from '../../../store/redux-first-router/selectors';
 import paramsRegistry from '../../../store/params-registry';
 
 const REDUCER_KEY = 'ui';
@@ -92,8 +98,18 @@ export const setViewMode = (payload, tracking = true) => ({
   payload,
   meta: { tracking }
 });
-export const hidePrintMode = () => ({ type: HIDE_PRINT });
-export const hideEmbedMode = () => ({ type: HIDE_EMBED_PREVIEW });
+export const hidePrintMode = () => ({
+  type: HIDE_PRINT,
+  meta: {
+    tracking: true
+  }
+});
+export const hideEmbedMode = () => ({
+  type: HIDE_EMBED_PREVIEW,
+  meta: {
+    tracking: true
+  }
+});
 export const toggleMapPanelHandle = () => ({ type: TOGGLE_MAP_PANEL_HANDLE });
 
 // Selectors
@@ -112,12 +128,31 @@ export const isMapLayersVisible = createSelector(getUIState, (ui) => ui.isMapLay
 export const isMapPanelHandleVisible =
   createSelector(getUIState, (ui) => ui.isMapPanelHandleVisible);
 
-export const isMapPage = createSelector(isHomepage, getViewMode, (homePage, viewMode) => (
-  homePage && viewMode === VIEW_MODE.MAP
+export const isMapPage = createSelector(isDataPage, getViewMode, (dataPage, viewMode) => (
+  dataPage && viewMode === VIEW_MODE.MAP
 ));
 export const isMapActive = createSelector(
   getViewMode, isMapPage,
   (viewMode, isMapPageActive) => viewMode === VIEW_MODE.MAP || isMapPageActive
+);
+export const hasPrintMode = createSelector(
+  isDataSelectionPage,
+  isDatasetPage,
+  isDatasetDetailPage,
+  isDataPage,
+  isMapActive,
+  getViewMode,
+  (
+    dataSelectionPage,
+    datasetPage,
+    datasetDetailPage,
+    dataPage,
+    mapActive,
+    viewMode
+  ) =>
+    (!dataSelectionPage || viewMode === VIEW_MODE.SPLIT || viewMode === VIEW_MODE.MAP) &&
+    (!datasetPage || datasetDetailPage) &&
+    (dataPage || mapActive || viewMode === VIEW_MODE.SPLIT)
 );
 export const isPrintModeLandscape = createSelector(
   isPrintMode,
@@ -126,7 +161,6 @@ export const isPrintModeLandscape = createSelector(
   getViewMode,
   (printMode, panoPageActive, mapPageActive, viewMode) =>
     (printMode &&
-      (panoPageActive || mapPageActive || (viewMode === VIEW_MODE.SPLIT))
+      (panoPageActive || mapPageActive || (viewMode === VIEW_MODE.MAP))
     )
 );
-

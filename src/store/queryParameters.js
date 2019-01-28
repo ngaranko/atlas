@@ -62,7 +62,7 @@ const routesWithDataSelection = [
 
 const routesWithMapActive = [
   ...routesWithDataSelection,
-  routing.home.type,
+  routing.data.type,
   routing.panorama.type,
   routing.dataGeoSearch.type,
   routing.dataDetail.type
@@ -117,13 +117,7 @@ export default paramsRegistry
   })
   .addParameter(PARAMETERS.VIEW, (routes) => {
     routes
-      .add([
-        ...routesWithDataSelection,
-        routing.dataDetail.type,
-        routing.panorama.type,
-        routing.dataGeoSearch.type,
-        routing.home.type
-      ], UI, 'viewMode', {
+      .add(routesWithMapActive, UI, 'viewMode', {
         selector: getViewMode,
         defaultValue: UIInitialState.viewMode
       });
@@ -222,27 +216,19 @@ export default paramsRegistry
     }, false);
   })
   .addParameter(PARAMETERS.EMBED_PREVIEW, (routes) => {
-    routes.add([
-      routing.home.type,
-      routing.dataGeoSearch.type,
-      routing.dataDetail.type
-    ], UI, 'isEmbedPreview', {
+    routes.add(routesWithMapActive, UI, 'isEmbedPreview', {
       defaultValue: UIInitialState.isEmbedPreview,
       selector: isEmbedPreview
     });
   })
   .addParameter(PARAMETERS.EMBED, (routes) => {
-    routes.add([
-      routing.home.type,
-      routing.dataGeoSearch.type,
-      routing.dataDetail.type
-    ], UI, 'isEmbed', {
+    routes.add(routesWithMapActive, UI, 'isEmbed', {
       defaultValue: UIInitialState.isEmbed,
       selector: isEmbedded
     });
   })
   .addParameter(PARAMETERS.PRINT, (routes) => {
-    routes.add(routing.home.type, UI, 'isPrintMode', {
+    routes.add(routesWithMapActive, UI, 'isPrintMode', {
       defaultValue: UIInitialState.isPrintMode,
       selector: isPrintMode
     });

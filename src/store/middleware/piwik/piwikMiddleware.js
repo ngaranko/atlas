@@ -19,6 +19,12 @@ const PIWIK_CONFIG = {
   }
 };
 
+export const PIWIK_CONSTANTS = {
+  TRACK_EVENT: 'trackEvent',
+  TRACK_SEARCH: 'trackSiteSearch',
+  TRACK_VIEW: 'trackPageView'
+};
+
 // Initialize connection with Piwik
 export const initializePiwik = () => {
   const urlBase = 'https://piwik.data.amsterdam.nl/';
@@ -43,26 +49,29 @@ export const initializePiwik = () => {
   }
 };
 
-// Map actions to be tracked
-export const actionsToPiwik = {
-  ...events,
-  ...routes
-};
-
 // Execute Piwik actions
 const piwikMiddleware = ({ getState }) => (next) => (action) => {
   initializePiwik();
   const nextAction = action;
 
-  const actionMap = actionsToPiwik[action.type];
+  const actionsToPiwik = [];
+  if (routes[action.type]) {
+    actionsToPiwik.push(routes[action.type]);
+  }
+  if (events[action.type]) {
+    actionsToPiwik.push(events[action.type]);
+  }
 
-  if (actionMap) {
-    const { tracking, location } = action.meta || {};
+  if (actionsToPiwik.length) {
+    const { firstAction, location, query, tracking } = action.meta || {};
     const state = getState();
-    const { href } = window.location;
+    const href = window.location.href;
+    const title = document.title;
 
     if (tracking || location) {
-      piwikTracker(actionMap(tracking, state, href));
+      actionsToPiwik.forEach((piwikAction) => {
+        piwikTracker(piwikAction({ tracking, firstAction, query, state, title, href }));
+      });
     }
   }
 

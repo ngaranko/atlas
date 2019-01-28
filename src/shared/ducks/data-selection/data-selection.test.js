@@ -31,12 +31,8 @@ describe('Data Selection Reducer', () => {
   const expectations = {
     ...getExpectations(
       actionCreators.fetchDataSelection.name,
-      ['isLoading', 'markers']
-    ),
-    ...getExpectations(
-      actionCreators.setMarkers.name,
-      ['markers', 'isLoading'],
-      [[{ markers: [] }]]
+      ['isLoading', 'page', 'dataset'],
+      ['dataset']
     ),
     ...getExpectations(
       actionCreators.setPage.name,
@@ -47,6 +43,21 @@ describe('Data Selection Reducer', () => {
       actionCreators.setDataset.name,
       ['dataset'],
       ['foobar']
+    ),
+    ...getExpectations(
+      actionCreators.fetchMarkersRequest.name,
+      ['loadingMarkers'],
+      []
+    ),
+    ...getExpectations(
+      actionCreators.fetchMarkersSuccess.name,
+      ['loadingMarkers', 'markers'],
+      ['foobar']
+    ),
+    ...getExpectations(
+      actionCreators.fetchMarkersFailure.name,
+      ['isLoading', 'errorMessage', 'result', 'markers'],
+      ['error']
     ),
     ...getExpectations(
       actionCreators.setGeometryFilter.name,
@@ -80,7 +91,7 @@ describe('Data Selection Reducer', () => {
     ),
     ...getExpectations(
       actionCreators.receiveDataSelectionFailure.name,
-      ['isLoading', 'authError', 'errorMessage', 'dataset', 'result', 'markers'],
+      ['isLoading', 'authError', 'errorMessage', 'result', 'markers'],
       [{ error: 'error message' }]
     ),
     ...getExpectations(

@@ -1,18 +1,20 @@
 import PAGES from '../../../app/pages';
 import { shouldResetState } from '../../../store/redux-first-router/actions';
 import {
-  initialState,
   FETCH_DATA_SELECTION_FAILURE,
   FETCH_DATA_SELECTION_REQUEST,
   FETCH_DATA_SELECTION_SUCCESS,
+  FETCH_MARKERS_FAILURE,
+  FETCH_MARKERS_REQUEST,
+  FETCH_MARKERS_SUCCESS,
+  initialState,
+  REDUCER_KEY,
+  REMOVE_GEOMETRY_FILTER,
+  RESET_DATA_SELECTION,
   ROUTE_DATASET_MAPPER,
   SET_DATASET,
-  REMOVE_GEOMETRY_FILTER,
   SET_GEOMETRY_FILTER,
-  SET_MARKERS,
-  SET_PAGE,
-  REDUCER_KEY,
-  RESET_DATA_SELECTION
+  SET_PAGE
 } from './constants';
 import { routing } from '../../../app/routes';
 import { SET_SELECTION } from '../selection/selection';
@@ -40,11 +42,18 @@ export default function reducer(state = initialState, action) {
       };
     }
 
+    case FETCH_MARKERS_REQUEST:
+      return {
+        ...enrichedState,
+        loadingMarkers: true
+      };
+
     case FETCH_DATA_SELECTION_REQUEST:
       return {
         ...enrichedState,
-        isLoading: true,
-        markers: []
+        dataset: action.payload.dataset,
+        page: action.payload.page,
+        isLoading: true
       };
 
     case FETCH_DATA_SELECTION_SUCCESS: {
@@ -64,15 +73,23 @@ export default function reducer(state = initialState, action) {
         isLoading: false,
         authError: (action.payload.error === 'Unauthorized'),
         errorMessage: action.payload.error,
-        dataset: action.payload.dataset,
         result: {},
         markers: []
       };
 
-    case SET_MARKERS:
+    case FETCH_MARKERS_FAILURE:
       return {
         ...enrichedState,
         isLoading: false,
+        errorMessage: action.payload,
+        result: {},
+        markers: []
+      };
+
+    case FETCH_MARKERS_SUCCESS:
+      return {
+        ...enrichedState,
+        loadingMarkers: false,
         markers: action.payload
       };
 

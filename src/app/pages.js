@@ -8,6 +8,7 @@ const PAGES = {
   DATASETS: 'DATASETS',
   DATASETS_DETAIL: 'DATASETS_DETAIL',
 
+  DATA: 'DATA',
   DATA_QUERY_SEARCH: 'DATA_QUERY_SEARCH',
   DATA_GEO_SEARCH: 'DATA_GEO_SEARCH',
   DATA_SEARCH_CATEGORY: 'SEARCH_DATA_CATEGORY',
@@ -16,6 +17,7 @@ const PAGES = {
   // text pages
   NEWS: 'NEWS',
   PROCLAIMER: 'PROCLAIMER',
+  ACTUALITY: 'ACTUALITY',
   HELP: 'HELP',
   CONTROLS: 'CONTROLS',
   DATA_INFO: 'DATA_INFO',
@@ -33,6 +35,7 @@ export default PAGES;
 export const isCmsPage = (page) =>
   page === PAGES.NEWS ||
   page === PAGES.HELP ||
+  page === PAGES.ACTUALITEIT ||
   page === PAGES.PROCLAIMER ||
   page === PAGES.CONTROLS ||
   page === PAGES.CONTROLS ||

@@ -18,6 +18,7 @@ import {
 } from '../../../store/redux-first-router/actions';
 import { FETCH_DETAIL } from '../../../shared/ducks/detail/constants';
 import PARAMETERS from '../../../store/parameters';
+import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 
 
 jest.mock('../../ducks/auto-suggest/auto-suggest');
@@ -39,7 +40,7 @@ describe('HeaderSearchContainer', () => {
       query: 'dam'
     },
     ui: {
-      viewMode: 'split'
+      viewMode: VIEW_MODE.SPLIT
     },
     autoSuggest: {
       count: 6,
@@ -126,7 +127,7 @@ describe('HeaderSearchContainer', () => {
           endpoint: selectedSuggestion.uri,
           category: selectedSuggestion.category,
           typedQuery: ''
-        })
+        }, VIEW_MODE.SPLIT)
       );
     });
 
@@ -199,6 +200,7 @@ describe('HeaderSearchContainer', () => {
         },
         page: {},
         ui: {
+          viewMode: VIEW_MODE.SPLIT,
           isMapFullscreen: true
         }
       });

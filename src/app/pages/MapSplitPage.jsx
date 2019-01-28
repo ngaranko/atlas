@@ -12,7 +12,7 @@ import { toDetailFromEndpoint as endpointActionCreator } from '../../store/redux
 import SplitScreen from '../components/SplitScreen/SplitScreen';
 import DataSelection from '../components/DataSelection/DataSelection';
 import { getSelectionType } from '../../shared/ducks/selection/selection';
-import { getViewMode, setViewMode as setViewModeAction, VIEW_MODE } from '../../shared/ducks/ui/ui';
+import { getViewMode, isPrintMode, setViewMode as setViewModeAction, VIEW_MODE } from '../../shared/ducks/ui/ui';
 import { getPage } from '../../store/redux-first-router/selectors';
 import PAGES from '../pages';
 import PanoramaContainer from '../../panorama/containers/PanoramaContainer';
@@ -24,7 +24,8 @@ const MapSplitPage = ({
   currentPage,
   setViewMode,
   viewMode,
-  forceFullScreen
+  forceFullScreen,
+  printMode
 }) => {
   let mapProps = {};
   let Component = null;
@@ -33,6 +34,13 @@ const MapSplitPage = ({
       Component = <DetailContainer />;
       mapProps = {
         showPreviewPanel: hasSelection
+      };
+
+      break;
+
+    case PAGES.DATA:
+      mapProps = {
+        showPreviewPanel: false
       };
 
       break;
@@ -72,20 +80,23 @@ const MapSplitPage = ({
 
   if (viewMode === VIEW_MODE.MAP) {
     return <MapContainer {...mapProps} />;
-  } else if ((Component && viewMode === VIEW_MODE.FULL) || (Component && forceFullScreen)) {
-    return Component;
-  } else if (viewMode === VIEW_MODE.SPLIT && Component) {
-    return (
-      <SplitScreen
-        leftComponent={(
-          <MapContainer
-            isFullscreen={false}
-            toggleFullscreen={() => setViewMode(VIEW_MODE.MAP)}
-          />
-        )}
-        rightComponent={Component}
-      />
-    );
+  } else if (Component) {
+    if (viewMode === VIEW_MODE.FULL || forceFullScreen) {
+      return Component;
+    } else if (viewMode === VIEW_MODE.SPLIT) {
+      return (
+        <SplitScreen
+          leftComponent={(
+            <MapContainer
+              isFullscreen={false}
+              toggleFullscreen={() => setViewMode(VIEW_MODE.MAP)}
+            />
+          )}
+          rightComponent={Component}
+          printMode={printMode}
+        />
+      );
+    }
   }
 
   return null;
@@ -96,7 +107,8 @@ const mapStateToProps = (state) => ({
   endpoint: getDetailEndpoint(state),
   hasSelection: !!getSelectionType(state),
   viewMode: getViewMode(state),
-  currentPage: getPage(state)
+  currentPage: getPage(state),
+  printMode: isPrintMode(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -109,7 +121,8 @@ MapSplitPage.propTypes = {
   hasSelection: PropTypes.bool.isRequired,
   setViewMode: PropTypes.func.isRequired,
   viewMode: PropTypes.string.isRequired,
-  currentPage: PropTypes.string.isRequired
+  currentPage: PropTypes.string.isRequired,
+  printMode: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapSplitPage);

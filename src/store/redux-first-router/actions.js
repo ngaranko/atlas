@@ -54,19 +54,9 @@ export const toDataSearchQuery = (
 });
 
 export const toMap = (preserve = false) => ({
-  type: routing.home.type,
+  type: routing.data.type,
   meta: {
     preserve,
-    additionalParams: {
-      [PARAMETERS.VIEW]: VIEW_MODE.MAP
-    }
-  }
-});
-
-export const toMapWithLegendOn = () => ({
-  type: routing.home.type,
-  meta: {
-    preserve: false,
     additionalParams: {
       [PARAMETERS.VIEW]: VIEW_MODE.MAP
     }
@@ -139,15 +129,16 @@ export const toDatasetsWithFilter = (additionalParams = {}, preserve = false) =>
     preserve
   }
 });
-export const toDataSuggestion = (payload) => {
+export const toDataSuggestion = (payload, view) => {
   const { type, subtype, id } = getDetailPageData(payload.endpoint);
   const tracking = {
     category: payload.category,
     event: 'auto-suggest',
     query: payload.typedQuery
   };
-
-  return toDataDetail([id, type, subtype], null, tracking);
+  return toDataDetail([id, type, subtype], {
+    [PARAMETERS.VIEW]: view
+  }, tracking);
 };
 export const toDatasetSuggestion = (payload) => ({
   type: routing.datasetsDetail.type,
