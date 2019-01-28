@@ -34,7 +34,9 @@ exports[`SearchList should render a results list 1`] = `
               },
               "forceSaga": true,
               "preserve": true,
-              "tracking": true,
+              "tracking": Object {
+                "id": "03630003761571",
+              },
             },
             "payload": Object {
               "id": "id03630003761571",
@@ -73,7 +75,9 @@ exports[`SearchList should render a results list 1`] = `
               },
               "forceSaga": true,
               "preserve": true,
-              "tracking": true,
+              "tracking": Object {
+                "id": "03630011909911",
+              },
             },
             "payload": Object {
               "id": "id03630011909911",
