@@ -34,7 +34,6 @@ import ActiveOverlaysClass from '../../services/active-overlays/active-overlays'
 import { waitForAuthentication } from '../user/user';
 import { SELECTION_TYPE, setSelection } from '../../ducks/selection/selection';
 import { fetchDatasetsEffect } from '../dataset/dataset';
-import { closeMapPanel } from '../../../map/ducks/map/map';
 import { getViewMode, isMapPage, SET_VIEW_MODE, VIEW_MODE } from '../../ducks/ui/ui';
 import PAGES from '../../../app/pages';
 
@@ -97,13 +96,9 @@ function* fetchQuerySearchResults() {
 export function* fetchGeoSearchResultsEffect() {
   const location = yield select(getDataSearchLocation);
   const isMap = yield select(isMapPage);
-  const view = yield select(getViewMode);
   const page = yield select(getPage);
 
   if (page === PAGES.DATA_GEO_SEARCH) {
-    if (view === VIEW_MODE.SPLIT) {
-      yield put(closeMapPanel());
-    }
     yield put(fetchMapSearchResultsRequest(location, isMap));
   }
 }

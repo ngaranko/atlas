@@ -1,3 +1,4 @@
+import get from 'lodash.get';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import {
@@ -13,7 +14,7 @@ import { FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/constants';
 import { getUser } from '../../../shared/ducks/user/user';
 import { waitForAuthentication } from '../../../shared/sagas/user/user';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
-import { getViewMode, VIEW_MODE } from '../../../shared/ducks/ui/ui';
+import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 
 export function* fetchMapDetail() {
   try {
@@ -29,16 +30,18 @@ export function* fetchMapDetail() {
   }
 }
 
-export default function* watchMapDetail() {
-  yield takeLatest(FETCH_MAP_DETAIL_REQUEST, fetchMapDetail);
-}
-
-export function* fetchDetailEffect() {
-  const view = yield select(getViewMode);
-  if (view === VIEW_MODE.SPLIT || view === VIEW_MODE.FULL) {
+export function* fetchDetailEffect(action) {
+  const oldView = get(action, 'meta.location.prev.query.view', null);
+  const newView = get(action, 'meta.location.current.query.view', null);
+  if (oldView !== newView && newView === VIEW_MODE.SPLIT) {
     yield put(closeMapPanel());
   }
+
   const endpoint = yield select(getDetailEndpoint);
   yield put(getMapDetail(endpoint));
   yield call(fetchLegacyDetail);
+}
+
+export default function* watchMapDetail() {
+  yield takeLatest(FETCH_MAP_DETAIL_REQUEST, fetchMapDetail);
 }
