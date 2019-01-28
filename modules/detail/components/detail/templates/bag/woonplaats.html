@@ -18,7 +18,10 @@
          class="c-detail__block">
       <dp-glossary-header definition="OPENBARERUIMTE" use-plural="true"></dp-glossary-header>
 
-      <dp-api-call endpoint="{{vm.apiData.results.openbare_ruimtes.href}}" partial="adressen_lijst" user="vm.user"></dp-api-call>
+      <dp-api-call
+          endpoint="{{vm.apiData.results.openbare_ruimtes.href}}"
+          partial="adressen_lijst"
+          user="vm.user">
+      </dp-api-call>
     </div>
 </div>
-
