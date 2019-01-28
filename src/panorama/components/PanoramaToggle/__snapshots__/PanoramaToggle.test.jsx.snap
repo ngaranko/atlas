@@ -14,7 +14,6 @@ exports[`PanoramaToggle menu opens on button click 1`] = `
               c-panorama-toggle__button--active
             "
       onClick={[Function]}
-      onKeyPress={[Function]}
     >
       ABC
     </button>
@@ -22,26 +21,26 @@ exports[`PanoramaToggle menu opens on button click 1`] = `
       className="c-panorama-toggle__menu qa-panorama-toggle__menu"
     >
       <li
-        className="
-                  c-panorama-toggle__item
-                  qa-panorama-toggle__item
-                "
         key="2020ABC"
       >
         <button
+          className="
+                    c-panorama-toggle__item
+                    qa-panorama-toggle__item
+                  "
           onClick={[Function]}
         >
           ABC
         </button>
       </li>
       <li
-        className="
-                  c-panorama-toggle__item
-                  qa-panorama-toggle__item
-                "
         key="2020XYZ"
       >
         <button
+          className="
+                    c-panorama-toggle__item
+                    qa-panorama-toggle__item
+                  "
           onClick={[Function]}
         >
           XYZ
@@ -84,7 +83,6 @@ exports[`PanoramaToggle should render everything 1`] = `
               
             "
       onClick={[Function]}
-      onKeyPress={[Function]}
     >
       ABC
     </button>

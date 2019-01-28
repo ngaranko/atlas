@@ -67,7 +67,7 @@ describe('PanoramaToggle', () => {
     wrapper.instance().setState({ showMenu: true });
     wrapper.update();
 
-    wrapper.find('.c-panorama-toggle__item button').at(1).simulate('click');
+    wrapper.find('.c-panorama-toggle__item').at(1).simulate('click');
 
     expect(wrapper.instance().state.showMenu).toBe(false);
   });
