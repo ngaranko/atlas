@@ -37,6 +37,7 @@ import { fetchDatasetsEffect } from '../dataset/dataset';
 import { closeMapPanel } from '../../../map/ducks/map/map';
 import { getViewMode, isMapPage, SET_VIEW_MODE, VIEW_MODE } from '../../ducks/ui/ui';
 import PAGES from '../../../app/pages';
+import { ERROR_TYPES, setGlobalError } from '../../ducks/error/error-message';
 
 // Todo: DP-6390
 export function* fetchMapSearchResults() {
@@ -53,11 +54,15 @@ export function* fetchMapSearchResults() {
       const results = replaceBuurtcombinatie(geoSearchResults);
       yield put(fetchMapSearchResultsSuccessList(results, getNrOfSearchResults(geoSearchResults)));
     } else {
-      const mapSearchResults = yield call(search, location, user);
+      const { results, errors } = yield call(search, location, user);
       yield put(fetchMapSearchResultsSuccessPanel(
-        mapSearchResults,
-        getNumberOfResultsPanel(mapSearchResults)
+        results,
+        getNumberOfResultsPanel(results)
       ));
+
+      if (errors) {
+        yield put(setGlobalError(ERROR_TYPES.GENERAL_ERROR));
+      }
     }
   } catch (error) {
     const payload = ActiveOverlaysClass.getOverlaysWarning(zoom);
@@ -84,13 +89,12 @@ function* fetchQuerySearchResults() {
   const user = yield select(getUser);
   const isQuery = isString(query);
   if (isQuery) {
-    if (isString(category) && category.length) {
-      const results = yield vanillaSearch(query, category, user);
-      yield call(setSearchResults, results);
-    } else {
-      const results = yield vanillaSearch(query, undefined, user);
-      yield call(setSearchResults, results);
+    const categorySlug = (isString(category) && category.length) ? category : undefined;
+    const { results, errors } = yield vanillaSearch(query, categorySlug, user);
+    if (errors) {
+      yield put(setGlobalError(ERROR_TYPES.GENERAL_ERROR));
     }
+    yield call(setSearchResults, results);
   }
 }
 

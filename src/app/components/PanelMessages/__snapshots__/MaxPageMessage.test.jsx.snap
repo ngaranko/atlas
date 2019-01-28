@@ -3,7 +3,9 @@
 exports[`MaxPageMessage should render everything 1`] = `
 <Panel
   canClose={true}
+  closeAction={[Function]}
   isPanelVisible={true}
+  size=""
   type="warning"
 >
   <div

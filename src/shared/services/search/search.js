@@ -3,7 +3,7 @@
 import SEARCH_CONFIG from './search-config';
 import { getByUrl } from '../api/api';
 import SHARED_CONFIG from '../shared-config/shared-config';
-import { formatCategories, formatCategory, formatLinks } from './search-formatter';
+import { formatCategories, formatLinks } from './search-formatter';
 
 function isString(value) {
   return typeof value === 'string';
@@ -12,6 +12,7 @@ function isString(value) {
 // Todo: user.scopes.includes(endpoint.authScope)
 export function search(query, categorySlug, user) {
   const queries = [];
+  const errorType = 'error';
   const params = { q: query };
   SEARCH_CONFIG.QUERY_ENDPOINTS.forEach((endpoint) => {
     if ((!isString(categorySlug) || categorySlug === endpoint.slug) &&
@@ -23,19 +24,15 @@ export function search(query, categorySlug, user) {
         getByUrl(
           `${SHARED_CONFIG.API_ROOT}${endpoint.uri}`,
           { ...params, ...options }
-        ).then((data) => data, () => [])
+        ).then((data) => data, (code) => ({ type: errorType, code }))
       );
     }
   });
 
-  if (isString(categorySlug)) {
-    // A single category
-    return Promise.all(queries).then((searchResults) =>
-      [formatCategory(categorySlug, searchResults[0])]
-    );
-  }
-  // All search results
-  return Promise.all(queries).then((results) => formatCategories(results, user));
+  return Promise.all(queries).then((results) => ({
+    results: formatCategories(results, user),
+    errors: results.some((result) => (result && result.type === errorType))
+  }));
 }
 
 export function loadMore(category) {

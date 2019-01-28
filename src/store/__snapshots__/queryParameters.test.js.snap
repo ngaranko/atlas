@@ -69,7 +69,7 @@ Object {
       },
     },
   },
-  "category": Object {
+  "categorie": Object {
     "routes": Object {
       "atlasRouter/DATA_QUERY_SEARCH": Object {
         "addHistory": true,
@@ -577,7 +577,74 @@ Object {
       },
     },
   },
-  "page": Object {
+  "modus": Object {
+    "routes": Object {
+      "atlasRouter/ADDRESSES": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "volledig",
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "viewMode",
+      },
+      "atlasRouter/CADASTRAL_OBJECTS": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "volledig",
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "viewMode",
+      },
+      "atlasRouter/DATA": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "volledig",
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "viewMode",
+      },
+      "atlasRouter/DATA_DETAIL": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "volledig",
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "viewMode",
+      },
+      "atlasRouter/DATA_GEO_SEARCH": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "volledig",
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "viewMode",
+      },
+      "atlasRouter/ESTABLISHMENTS": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "volledig",
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "viewMode",
+      },
+      "atlasRouter/PANORAMA": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "volledig",
+        "encode": [Function],
+        "reducerKey": "ui",
+        "selector": [Function],
+        "stateKey": "viewMode",
+      },
+    },
+  },
+  "pagina": Object {
     "routes": Object {
       "atlasRouter/ADDRESSES": Object {
         "addHistory": true,
@@ -697,7 +764,7 @@ Object {
       },
     },
   },
-  "reference": Object {
+  "ref": Object {
     "routes": Object {
       "atlasRouter/PANORAMA": Object {
         "addHistory": false,
@@ -756,73 +823,6 @@ Object {
         "reducerKey": "dataSearch",
         "selector": [Function],
         "stateKey": "query",
-      },
-    },
-  },
-  "view": Object {
-    "routes": Object {
-      "atlasRouter/ADDRESSES": Object {
-        "addHistory": true,
-        "decode": [Function],
-        "defaultValue": "volledig",
-        "encode": [Function],
-        "reducerKey": "ui",
-        "selector": [Function],
-        "stateKey": "viewMode",
-      },
-      "atlasRouter/CADASTRAL_OBJECTS": Object {
-        "addHistory": true,
-        "decode": [Function],
-        "defaultValue": "volledig",
-        "encode": [Function],
-        "reducerKey": "ui",
-        "selector": [Function],
-        "stateKey": "viewMode",
-      },
-      "atlasRouter/DATA": Object {
-        "addHistory": true,
-        "decode": [Function],
-        "defaultValue": "volledig",
-        "encode": [Function],
-        "reducerKey": "ui",
-        "selector": [Function],
-        "stateKey": "viewMode",
-      },
-      "atlasRouter/DATA_DETAIL": Object {
-        "addHistory": true,
-        "decode": [Function],
-        "defaultValue": "volledig",
-        "encode": [Function],
-        "reducerKey": "ui",
-        "selector": [Function],
-        "stateKey": "viewMode",
-      },
-      "atlasRouter/DATA_GEO_SEARCH": Object {
-        "addHistory": true,
-        "decode": [Function],
-        "defaultValue": "volledig",
-        "encode": [Function],
-        "reducerKey": "ui",
-        "selector": [Function],
-        "stateKey": "viewMode",
-      },
-      "atlasRouter/ESTABLISHMENTS": Object {
-        "addHistory": true,
-        "decode": [Function],
-        "defaultValue": "volledig",
-        "encode": [Function],
-        "reducerKey": "ui",
-        "selector": [Function],
-        "stateKey": "viewMode",
-      },
-      "atlasRouter/PANORAMA": Object {
-        "addHistory": true,
-        "decode": [Function],
-        "defaultValue": "volledig",
-        "encode": [Function],
-        "reducerKey": "ui",
-        "selector": [Function],
-        "stateKey": "viewMode",
       },
     },
   },

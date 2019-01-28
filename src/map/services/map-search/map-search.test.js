@@ -76,14 +76,13 @@ describe('mapSearch service', () => {
         dataset: 'bag'
       };
       address.fetchHoofdadresByStandplaatsId
-        .mockImplementation(() => Promise.resolve({ id: 2000 }));
+             .mockImplementation(() => Promise.resolve({ id: 2000 }));
       vestiging.fetchByAddressId
-        .mockImplementation(() => Promise.resolve([vestigingResult]));
+               .mockImplementation(() => Promise.resolve([vestigingResult]));
       const results = await fetchRelatedForUser(user)({ features });
       expect(results).toEqual([...features, {
         ...vestigingResult,
-        properties:
-        {
+        properties: {
           uri: vestigingResult._links.self.href,
           display: vestigingResult._display,
           type: 'vestiging',
@@ -111,14 +110,13 @@ describe('mapSearch service', () => {
         dataset: 'bag'
       };
       address.fetchHoofdadresByLigplaatsId
-        .mockImplementation(() => Promise.resolve({ id: 1000 }));
+             .mockImplementation(() => Promise.resolve({ id: 1000 }));
       vestiging.fetchByAddressId
-        .mockImplementation(() => Promise.resolve([vestigingResult]));
+               .mockImplementation(() => Promise.resolve([vestigingResult]));
       const results = await fetchRelatedForUser(user)({ features });
       expect(results).toEqual([...features, {
         ...vestigingResult,
-        properties:
-        {
+        properties: {
           uri: vestigingResult._links.self.href,
           display: vestigingResult._display,
           type: 'vestiging',
@@ -147,7 +145,7 @@ describe('mapSearch service', () => {
       error: false
     });
 
-    expect(data).toEqual([{
+    expect(data.results).toEqual([{
       categoryLabel: 'Explosief',
       results: Array(7).fill({
         categoryLabel: 'Explosief',
@@ -188,7 +186,7 @@ describe('mapSearch service', () => {
       error: false
     });
 
-    expect(data).toEqual([{
+    expect(data.results).toEqual([{
       categoryLabel: 'Explosief',
       results: Array(6).fill({
         categoryLabel: 'Explosief',
