@@ -1,4 +1,4 @@
-import { getEnvironment, ENVIRONMENT } from '../../../../src/shared/environment';
+import { getEnvironment, ENVIRONMENTS } from '../../../../src/shared/environment';
 
 (function () {
     'use strict';
@@ -13,7 +13,7 @@ import { getEnvironment, ENVIRONMENT } from '../../../../src/shared/environment'
         const config = {
             NAME: getEnvironment($location.host())
         };
-        config.isDevelopment = () => config.NAME === ENVIRONMENT.DEVELOPMENT;
+        config.isDevelopment = () => config.NAME === ENVIRONMENTS.DEVELOPMENT;
         return config;
     }
 })();

@@ -1,3 +1,5 @@
+import stateUrlConverter from '../../../../src/shared/services/routing/state-url-converter';
+
 (function () {
     'use strict';
 
@@ -11,30 +13,42 @@
                 inline: '@',
                 hoverText: '@',
                 type: '@',
-                payload: '<'
+                payload: '<',
+                tabIndex: '@'
             },
             controller: DpLinkController,
             controllerAs: 'vm'
         });
 
-    DpLinkController.$inject = ['$scope', 'store', 'ACTIONS', 'applicationState'];
+    DpLinkController.$inject = ['$scope', 'store', 'ACTIONS', '$location', '$window'];
 
-    function DpLinkController ($scope, store, ACTIONS, applicationState) {
+    function DpLinkController ($scope, store, ACTIONS, $location, $window) {
         const vm = this;
-
-        const BUTTON = 'button',
-            LINK = 'a';
+        vm.activeUrl = $location.url();
 
         vm.className = vm.className || 'o-btn o-btn--link';
         vm.inline = vm.inline || false;
+        vm.tabIndex = vm.tabIndex || '0';
 
         $scope.$watch('vm.payload', function () {
-            vm.tagName = getTagName(vm.type, vm.payload);
+            vm.href = getHref(vm.type, vm.payload);
+            // Do not catch a click event and handle the state change
+            // internally, this prevents users from CTRL/CMD clicking!
         });
 
         vm.dispatch = function () {
             store.dispatch(getAction(vm.type, vm.payload));
         };
+
+        store.subscribe(() => {
+            // exclude the zoom level (mpz) and the location (mpv) from the tests
+            var regex = /mpz=\d*&mpv=\d*.\d*:\d*.\d*/gi;
+            const currentUrl = $location.url();
+            if (currentUrl.replace(regex, '') !== vm.activeUrl.replace(regex, '')) {
+                vm.href = getHref(vm.type, vm.payload);
+                vm.activeUrl = currentUrl;
+            }
+        });
 
         function getAction (type, payload) {
             const action = {
@@ -46,28 +60,17 @@
             return action;
         }
 
-        function getTagName (type, payload) {
-            if (ACTIONS[type] && ACTIONS[type].isButton) {
-                return BUTTON;
-            } else {
-                vm.href = getHref(type, payload);
-                // Do not catch a click event and handle the state change
-                // internally, this prevents users from CTRL/CMD clicking!
-                return LINK;
-            }
-        }
-
         function getHref (type, payload) {
             // Remove state properties that do not relate to the url
             // by converting the state to a url and back
             // This prevents deep copying of large state objects in the reducer (eg dataSelection.markers)
-            const reducer = applicationState.getReducer(),
-                state = applicationState.getStore().getState(),
-                params = applicationState.getStateUrlConverter().state2params(state),
-                sourceState = applicationState.getStateUrlConverter().params2state({}, params),
+            const reducer = $window.reducer,
+                state = store.getState(),
+                params = stateUrlConverter.state2params(state),
+                sourceState = stateUrlConverter.params2state({}, params),
                 targetState = reducer(sourceState, getAction(type, payload));
 
-            return applicationState.getStateUrlConverter().state2url(targetState);
+            return stateUrlConverter.state2url(targetState);
         }
     }
 })();

@@ -7,5 +7,14 @@ exports[`MapDetailGebiedenBuurt should render everything 1`] = `
   panoUrl="panoUrl"
   subTitle="Buurt label"
   title="Buurt"
-/>
+>
+  <ul
+    className="map-detail-result__list"
+  >
+    <MapDetailResultItem
+      label="Volledige code"
+      value="A"
+    />
+  </ul>
+</MapDetailResultWrapper>
 `;

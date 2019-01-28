@@ -1,0 +1,16 @@
+<div>
+  <div ng-if="apiData.results">
+    <dl class="c-key-value-list c-key-value-list--sub c-key-value-list--border-bottom">
+        <dt>Totale begroting baten</dt>
+        <dd>{{ apiData.results.totaal_baten_display }}</dd>
+        <dt>Totale begroting kosten</dt>
+        <dd>{{ apiData.results.totaal_kosten_display }}</dd>
+        <dt>Verschil</dt>
+        <dd>{{ apiData.results.totaal_resultaat_display }}</dd>
+    </dl>
+    <dp-grondexploitatie-graph-totals
+        has-secondary-title="true"
+        data="apiData.results">
+    </dp-grondexploitatie-graph-totals>
+  </div>
+</div>

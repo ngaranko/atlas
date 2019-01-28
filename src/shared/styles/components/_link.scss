@@ -9,16 +9,20 @@
   color: $primary-light;
   text-decoration: underline;
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: $primary-light;
+    outline: none;
   }
 }
 
 .c-link--light {
   color: $primary-light;
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: $primary-light;
+    outline: none;
   }
 }
 
@@ -41,8 +45,32 @@
 
 .c-link--inline {
   @extend %link--inline;
- }
+}
 
 .c-link__wrapper--inine-block {
   display: inline-block;
+
+  a {
+    color: $primary-contrast-blue;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+      color: $primary-contrast;
+      outline: none;
+      text-decoration: underline;
+    }
+  }
+}
+
+.c-panel--warning .c-link__wrapper--inine-block { // sass-lint:disable-line force-element-nesting
+  a {
+    color: $primary-light;
+
+    &:hover,
+    &:focus {
+      color: $primary-light;
+      outline: none;
+    }
+  }
 }

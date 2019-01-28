@@ -28,8 +28,8 @@ const categoryLabels = {
     plural: 'Kadastrale objecten'
   },
   ligplaats: {
-    singular: 'Ligplaats',
-    plural: 'Ligplaatsen'
+    singular: 'Adres',
+    plural: 'Adressen'
   },
   meetbout: {
     singular: 'Meetbout',
@@ -52,8 +52,8 @@ const categoryLabels = {
     plural: 'Panden'
   },
   standplaats: {
-    singular: 'Standplaats',
-    plural: 'Standplaatsen'
+    singular: 'Adres',
+    plural: 'Adressen'
   },
   vestiging: {
     singular: 'Vestiging',

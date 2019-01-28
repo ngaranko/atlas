@@ -57,7 +57,12 @@
                 },
                 BIZ: {
                     label_singular: 'Bedrijfsinvesteringszone',
-                    label_plural: 'Bedrijfsinvesteringszones'
+                    label_plural: 'Bedrijfsinvesteringszones',
+                    description: 'Een bedrijfsinvesteringszone (BIZ) is een afgebakend gebied zoals ' +
+                        'een winkelstraat of een bedrijventerrein waarbinnen ondernemers en/of de ' +
+                        'eigenaren samen investeren in de kwaliteit van hun bedrijfsomgeving. ' +
+                        'Een BIZ kan worden opgezet door ondernemers, ondernemers en eigenaren ' +
+                        'samen of alleen door eigenaren.'
                 },
                 BOUWBLOK: {
                     label_singular: 'Bouwblok',
@@ -143,13 +148,19 @@
                 GEVRIJWAARDGEBIED: {
                     label_singular: 'Gevrijwaard gebied',
                     label_plural: 'Gevrijwaarde gebieden',
-                    description: null,
+                    description: 'Binnen een gevrijwaarde gebied is detectie onderzoek uitgevoerd ' +
+                        'in de ondergrond. Daarbij is geen niet-gesprongen explosief aangetroffen.',
                     url: null,
                     meta: []
                 },
                 GRONDEXPLOITATIE: {
                     label_singular: 'Grondexploitatie',
-                    label_plural: 'Grondexploitaties'
+                    label_plural: 'Grondexploitaties',
+                    description: 'Een grondexploitatiebegroting geeft de kosten en opbrengsten ' +
+                        'weer van een gebiedsontwikkeling. Aan de kostenkant staan de mogelijke ' +
+                        'aankoop van vastgoed, eventueel slopen en saneren, het bouw-en woonrijp ' +
+                        'maken en de proceskosten. Aan de opbrengsten kant staan de ' +
+                        'grondopbrengsten die voortkomen uit de in erfpacht uit te geven grond.'
                 },
                 GROOTSTEDELIJKGEBIED: {
                     label_singular: 'Grootstedelijk gebied',
@@ -171,7 +182,7 @@
                 INSLAGEN: {
                     label_singular: 'Inslag',
                     label_plural: 'Inslagen',
-                    description: null,
+                    description: 'Op deze locatie is tijdens de Tweede Wereldoorlog een vliegtuigbom ingeslagen.',
                     url: null,
                     meta: []
                 },
@@ -363,7 +374,21 @@
                 UITGEVOERDONDERZOEK: {
                     label_singular: 'Reeds uitgevoerd CE onderzoek',
                     label_plural: 'Reeds uitgevoerde CE onderzoeken',
-                    description: null,
+                    description: 'CE staat voor conventionele explosieven. Binnen dit gebied is al een ' +
+                        'keer onderzoek gedaan naar mogelijk achtergebleven explosieven uit de Tweede Wereldoorlog. ' +
+                        'Het resultaat van de onderzoeken leidt tot de conclusie wel of niet verdacht. Indien er ' +
+                        'sprake is van een conclusie ‘verdacht’ dan wordt dit als verdacht gebied op de kaart ' +
+                        'opgenomen.' +
+                        '<ul class="c-panel__list"><li>Een Vooronderzoek betreft een historisch onderzoek op ' +
+                        'basis van onder andere luchtfoto’s</li>' +
+                        '<li>Een Projectgebonden risicoanalyse kijkt gericht naar het veilig kunnen ' +
+                        'uitvoeren van voorgenomen werkzaamheden binnen een verdacht gebied. De resultaten zeggen ' +
+                        'dus niet per definitie dat ook andere werkzaamheden (dieper, meer trillingen veroorzakend) ' +
+                        'binnen het onderzoeksgebied veilig zijn uit te voeren zonder aanvullend onderzoek. ' +
+                        'Daar is mogelijk een andere projectgebonden risicoanalyse voor nodig.</li>' +
+                        '<li>Bij detectieonderzoek wordt de grond met radartechnieken onderzocht op verstoringen. ' +
+                        'Indien geen verstoringen worden aangetroffen tot de einddiepte waarop CE aanwezig zouden ' +
+                        'kunnen zijn, leidt dit tot de conclusie ‘gevrijwaard gebied’.</li></ul>',
                     url: null,
                     meta: []
                 },
@@ -397,7 +422,11 @@
                 VERDACHTGEBIED: {
                     label_singular: 'Verdacht gebied',
                     label_plural: ' Verdachte gebieden',
-                    description: null,
+                    description: 'Het gebied valt binnen een contour van een gebeurtenis in de ' +
+                        'Tweede Wereldoorlog, bijvoorbeeld een bombardement. Het is niet uit te ' +
+                        'sluiten dat niet-gesprongen- explosieven nog in de (water-)bodem aanwezig ' +
+                        'zijn. Bij grondroerende werkzaamheden (zoals heien) is mogelijk ' +
+                        'aanvullend onderzoek nodig om veilig werken te kunnen waarborgen.',
                     url: null,
                     meta: []
                 },

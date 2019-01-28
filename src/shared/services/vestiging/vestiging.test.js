@@ -35,9 +35,13 @@ describe('The vestiging resource', () => {
           sbi_omschrijving: 'Activity 2 description',
           something: 'more'
         }],
-        _bijzondere_rechts_toestand: 'bijzondere rechtstoestand',
+        _bijzondere_rechts_toestand: {
+          faillissement: true,
+          status: 'Status'
+        },
         _display: 'Vestiging display name 1',
         geometrie: { type: 'Point' },
+        vestigingsnummer: '0001',
         maatschappelijke_activiteit:
           'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
         something: 'abc123'
@@ -75,12 +79,20 @@ describe('The vestiging resource', () => {
             sbiDescription: 'Activity 2 description',
             something: 'more'
           }],
-          _bijzondere_rechts_toestand: 'bijzondere rechtstoestand',
-          bijzondereRechtstoestand: 'bijzondere rechtstoestand',
+          _bijzondere_rechts_toestand: {
+            faillissement: true,
+            status: 'Status'
+          },
+          bijzondereRechtstoestand: {
+            faillissement: true,
+            status: 'Status',
+            surseanceVanBetaling: false
+          },
           geometrie: { type: 'Point' },
           kvkNumber: 'KvK number',
           label: 'Vestiging display name 1',
           location: { latitude: 3, longitude: 4 },
+          vestigingsnummer: '0001',
           maatschappelijke_activiteit:
             'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
           something: 'abc123',
@@ -103,6 +115,7 @@ describe('The vestiging resource', () => {
           geometrie: { type: 'Point' },
           something: 'else'
         },
+        vestigingsnummer: '0001',
         maatschappelijke_activiteit:
           'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678'
       }));
@@ -121,10 +134,13 @@ describe('The vestiging resource', () => {
             geometrie: { type: 'Point' },
             something: 'else'
           },
-          bijzondereRechtstoestand: undefined,
+          bijzondereRechtstoestand: {
+            surseanceVanBetaling: false
+          },
           kvkNumber: undefined,
           label: undefined,
           location: { latitude: 3, longitude: 4 },
+          vestigingsnummer: '0001',
           maatschappelijke_activiteit:
             'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
           visitingAddress: {
@@ -135,6 +151,90 @@ describe('The vestiging resource', () => {
         expect(getCenter).toHaveBeenCalledWith({ type: 'Point' });
         expect(maatschappelijkeActiviteit).toHaveBeenCalledWith(
           'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678');
+      });
+
+      expect(fetch.mock.calls[0][0]).toBe(uri);
+      return promise;
+    });
+
+    it('marks `surseanceVanBetaling` when `bijzondereRechtstoestand` is `voorlopig` ', () => {
+      const uri = 'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456';
+
+      fetch.mockResponseOnce(JSON.stringify({
+        _bijzondere_rechts_toestand: {
+          faillissement: true,
+          status: 'Voorlopig'
+        },
+        maatschappelijke_activiteit:
+          'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678'
+      }));
+      maatschappelijkeActiviteit.mockImplementation(() => (
+        new Promise((resolve) => {
+          resolve({});
+        })
+      ));
+
+      const promise = fetchByUri(uri).then((response) => {
+        expect(response).toEqual({
+          activities: [],
+          _bijzondere_rechts_toestand: {
+            faillissement: true,
+            status: 'Voorlopig'
+          },
+          bijzondereRechtstoestand: {
+            faillissement: true,
+            status: 'Voorlopig',
+            surseanceVanBetaling: true
+          },
+          kvkNumber: undefined,
+          label: undefined,
+          location: null,
+          maatschappelijke_activiteit:
+            'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
+          visitingAddress: undefined
+        });
+      });
+
+      expect(fetch.mock.calls[0][0]).toBe(uri);
+      return promise;
+    });
+
+    it('marks `surseanceVanBetaling` when `bijzondereRechtstoestand` is `definitief` ', () => {
+      const uri = 'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456';
+
+      fetch.mockResponseOnce(JSON.stringify({
+        _bijzondere_rechts_toestand: {
+          faillissement: false,
+          status: 'Definitief'
+        },
+        maatschappelijke_activiteit:
+          'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678'
+      }));
+      maatschappelijkeActiviteit.mockImplementation(() => (
+        new Promise((resolve) => {
+          resolve({});
+        })
+      ));
+
+      const promise = fetchByUri(uri).then((response) => {
+        expect(response).toEqual({
+          activities: [],
+          _bijzondere_rechts_toestand: {
+            faillissement: false,
+            status: 'Definitief'
+          },
+          bijzondereRechtstoestand: {
+            faillissement: false,
+            status: 'Definitief',
+            surseanceVanBetaling: true
+          },
+          kvkNumber: undefined,
+          label: undefined,
+          location: null,
+          maatschappelijke_activiteit:
+            'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
+          visitingAddress: undefined
+        });
       });
 
       expect(fetch.mock.calls[0][0]).toBe(uri);
@@ -157,7 +257,9 @@ describe('The vestiging resource', () => {
       const promise = fetchByUri(uri).then((response) => {
         expect(response).toEqual({
           activities: [],
-          bijzondereRechtstoestand: undefined,
+          bijzondereRechtstoestand: {
+            surseanceVanBetaling: false
+          },
           kvkNumber: undefined,
           label: undefined,
           location: null,

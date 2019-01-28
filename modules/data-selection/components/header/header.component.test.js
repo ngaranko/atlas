@@ -21,15 +21,24 @@ describe('The dp-data-selection-header', () => {
             datasets: {
                 bag: {
                     MAX_AVAILABLE_PAGES: 50,
-                    TITLE: 'BAG Adressen'
+                    TITLE: 'BAG Adressen',
+                    TITLE_TAB: 'BAG Adressen',
+                    SHOW_NUMBER_OF_RECORDS: true
+                },
+                brk: {
+                    MAX_AVAILABLE_PAGES: 50,
+                    TITLE: 'Kadastrale objecten',
+                    TITLE_TAB: 'Kadastrale objecten'
                 },
                 hr: {
                     MAX_AVAILABLE_PAGES: 50,
-                    TITLE: 'HR Vestigingen'
+                    TITLE: 'HR Vestigingen',
+                    TITLE_TAB: 'HR Vestigingen'
                 },
                 dcatd: {
                     MAX_AVAILABLE_PAGES: 50,
-                    TITLE: 'Datasets'
+                    TITLE: 'Datasets',
+                    TITLE_TAB: 'Datasets'
                 }
             }
         };
@@ -141,7 +150,6 @@ describe('The dp-data-selection-header', () => {
         scope.availableFilters = {};
         scope.numberOfRecords = mockedInput.numberOfRecords;
         scope.showHeader = mockedInput.showHeader;
-
         const compiledComponent = $compile(element)(scope);
         scope.$apply();
 
@@ -225,9 +233,9 @@ describe('The dp-data-selection-header', () => {
 
         it('in CATALOG view shows the number of results followed using \'Datasets(number)\'', () => {
             // Singular
-            mockedInputCatalog.numberOfRecords = 1;
+            mockedInputCatalog.numberOfRecords = 10;
             component = getComponent(mockedInputCatalog);
-            expect(component.find('.qa-title').text().trim()).toBe('Datasets (1)');
+            expect(component.find('.qa-title').text().trim()).toBe('Datasets (10)');
 
             // Plural, with thousand separator
             mockedInputCatalog.numberOfRecords = 1234;
@@ -342,7 +350,7 @@ describe('The dp-data-selection-header', () => {
     });
 
     describe('the tabs in LIST view', () => {
-        it('use the TITLE values from DATA_SELECTION_CONFIG', () => {
+        it('use the TITLE_TAB values from DATA_SELECTION_CONFIG', () => {
             component = getComponent(mockedInputList);
 
             expect(component.find('.qa-tabs li:nth-child(1)').text().trim()).toBe('BAG Adressen');

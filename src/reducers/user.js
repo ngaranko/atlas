@@ -9,9 +9,9 @@ const initialState = {
   error: false
 };
 
-export default function UserReducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   switch (action.type) {
-    case 'AUTHENTICATE_USER':
+    case AUTHENTICATE_USER:
       return {
         ...state,
         authenticated: true,
@@ -20,7 +20,7 @@ export default function UserReducer(state = initialState, action) {
         scopes: action.scopes
       };
 
-    case 'AUTHENTICATE_ERROR':
+    case AUTHENTICATE_ERROR:
       return {
         ...state,
         error: true
@@ -35,6 +35,3 @@ export const authenticateUser = (accessToken, name, scopes) =>
   ({ type: AUTHENTICATE_USER, accessToken, name, scopes });
 
 export const authenticateError = () => ({ type: AUTHENTICATE_ERROR });
-
-window.reducers = window.reducers || {};
-window.reducers.UserReducer = UserReducer;

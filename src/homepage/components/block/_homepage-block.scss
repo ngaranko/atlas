@@ -1,0 +1,74 @@
+@import "../../../shared/styles/config";
+
+$block-item-height: 40px;
+
+.homepage-block {
+  padding: 15px 20px 20px 8px;
+
+  &:hover {
+    cursor: auto;
+  }
+
+  &__link {
+    height: $block-item-height;
+    margin-bottom: 5px;
+    text-align: left;
+    width: 100%;
+
+    &:hover,
+    &:focus {
+      .homepage-block__label {
+        text-decoration: underline;
+      }
+
+      .homepage-block__icon--bag {
+        @include icon-sprite("icon-bag", $primary-contrast, $primary-contrast, $block-item-height);
+      }
+
+      .homepage-block__icon--brk {
+        @include icon-sprite("icon-brk", $primary-contrast, $primary-contrast, $block-item-height);
+      }
+
+      .homepage-block__icon--hr {
+        @include icon-sprite("icon-hr", $primary-contrast, $primary-contrast, $block-item-height);
+      }
+    }
+  }
+
+  &__icon {
+    display: inline-block;
+    height: $block-item-height;
+    vertical-align: middle;
+    width: $block-item-height;
+
+    &--bag {
+      @include icon-sprite("icon-bag", $primary-dark, $primary-contrast, $block-item-height);
+    }
+
+    &--brk {
+      @include icon-sprite("icon-brk", $primary-dark, $primary-contrast, $block-item-height);
+    }
+
+    &--hr {
+      @include icon-sprite("icon-hr", $primary-dark, $primary-contrast, $block-item-height);
+    }
+  }
+
+  &__label {
+    @include font-weight($normal-weight);
+    display: inline-block;
+    max-width: calc(100% - #{$block-item-height});
+    padding-left: 5px;
+    vertical-align: middle;
+  }
+
+  .c-homepage__block-button {
+    text-align: left;
+  }
+
+  &__item {
+    &--invisible {
+      display: none;
+    }
+  }
+}

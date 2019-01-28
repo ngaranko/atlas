@@ -1,7 +1,10 @@
 import getState from '../redux/get-state';
-import SOURCES from '../layers/overlays.constant';
 
-class ActiveOverlays {
+import mapLayers from '../../../map/services/map-layers/map-layers.config';
+
+const findLayer = (id) => mapLayers.find((mapLayer) => mapLayer.id === id);
+
+export class ActiveOverlays {
   constructor() {
     this.allOverlays = [];
   }
@@ -11,12 +14,14 @@ class ActiveOverlays {
       .filter((overlay) => ActiveOverlays.isAuthorised(overlay));
   }
 
+  // Todo: this always returns false: look into mapLayers, since it doesn't have a minZoom / maxZoom
   static isVisibleAtCurrentZoom(overlay, zoomLevel) {
-    if (!SOURCES[overlay]) {
+    const layer = findLayer(overlay);
+    if (!layer) {
       return false;
     }
     const zoom = zoomLevel || getState().map.zoom;
-    return zoom >= SOURCES[overlay].minZoom && zoom <= SOURCES[overlay].maxZoom;
+    return zoom >= layer.minZoom && zoom <= layer.maxZoom;
   }
 
   static isAuthorised(overlay) {
@@ -32,19 +37,9 @@ class ActiveOverlays {
     ));
     const authScope = layer && layer.authScope;
 
-    return SOURCES[overlay.id] && layer && (
+    return findLayer(overlay.id) && layer && (
       !authScope || (user.authenticated && user.scopes.includes(authScope))
     );
-  }
-
-  setOverlays(newOverlays) {
-    this.allOverlays = newOverlays;
-  }
-
-  getVisibleOverlays(zoom) {
-    return this.getVisibleSources(zoom)
-      .filter((source) => source.detailUrl && source.detailItem)
-      .filter((a, index, self) => self.findIndex((b) => b.detailItem === a.detailItem === index));
   }
 
   getOverlaysWarning(zoom) {
@@ -54,13 +49,6 @@ class ActiveOverlays {
       .join(', ');
   }
 
-  getOverlaysLabels(zoom) {
-    const labels = this.getVisibleSources(zoom)
-      .map((a) => a.parent_label || a.label_short);
-
-    return [...new Set(labels)].join(', ');
-  }
-
   getVisibleSources(zoom) {
     return this.allOverlays
       .filter((source) => (
@@ -68,7 +56,7 @@ class ActiveOverlays {
         ActiveOverlays.isAuthorised(source) &&
         ActiveOverlays.isVisibleAtCurrentZoom(source.id, zoom)
       ))
-      .map((source) => SOURCES[source.id]);
+      .map((source) => findLayer(source.id));
   }
 }
 

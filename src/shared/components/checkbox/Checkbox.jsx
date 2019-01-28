@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './_checkbox.scss';
-import TickIcon from '../../../../public/images/icon-tick.svg';
 
 class Checkbox extends React.Component {
   static evaluateChecked(checked) {
@@ -45,12 +44,12 @@ class Checkbox extends React.Component {
           onChange={this.handleChange}
           type="checkbox"
         />
-        <TickIcon />
       </span>
     );
   }
 }
 
+/* istanbul ignore next */
 Checkbox.defaultProps = {
   checked: false,
   onChange: () => {}

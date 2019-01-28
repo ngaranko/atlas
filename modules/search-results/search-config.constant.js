@@ -7,16 +7,24 @@
             QUERY_ENDPOINTS: [
                 {
                     // The slug variable is used to identify this category in list.component.js
-                    slug: 'openbareruimte',
-                    label_singular: 'Openbare ruimte',
-                    label_plural: 'Openbare ruimtes',
-                    uri: 'atlas/search/openbareruimte/'
+                    slug: 'straatnamen',
+                    label_singular: 'Straatnamen',
+                    label_plural: 'Straatnamen',
+                    uri: 'atlas/search/openbareruimte/',
+                    options: { subtype: 'weg' }
                 }, {
                     // The slug variable is used to identify this category in list.component.js
                     slug: 'adres',
                     label_singular: 'Adres',
                     label_plural: 'Adressen',
                     uri: 'atlas/search/adres/'
+                }, {
+                    // The slug variable is used to identify this category in list.component.js
+                    slug: 'openbareruimte',
+                    label_singular: 'Openbare ruimte',
+                    label_plural: 'Openbare ruimtes',
+                    uri: 'atlas/search/openbareruimte/',
+                    options: { subtype: 'not_weg' }
                 }, {
                     slug: 'vestiging',
                     label_singular: 'Vestiging',
@@ -99,13 +107,13 @@
                     features: ['bag/pand']
                 }, {
                     slug: 'standplaats',
-                    label_singular: 'Standplaats',
-                    label_plural: 'Standplaatsen',
+                    label_singular: 'Adres',
+                    label_plural: 'Adressen',
                     features: ['bag/standplaats']
                 }, {
                     slug: 'ligplaats',
-                    label_singular: 'Ligplaats',
-                    label_plural: 'Ligplaatsen',
+                    label_singular: 'Adres',
+                    label_plural: 'Adressen',
                     features: ['bag/ligplaats']
                 }, {
                     slug: 'kadastraal-object',

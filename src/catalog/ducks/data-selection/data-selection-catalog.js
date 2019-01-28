@@ -2,18 +2,31 @@ export const FETCH_CATALOG_FILTERS_REQUEST = 'FETCH_CATALOG_FILTERS_REQUEST';
 export const FETCH_CATALOG_FILTERS_SUCCESS = 'FETCH_CATALOG_FILTERS_SUCCESS';
 export const FETCH_CATALOG_FILTERS_FAILURE = 'FETCH_CATALOG_FILTERS_FAILURE';
 
-const initialState = {};
+const initialState = {
+  isLoading: false,
+  error: null
+};
 
 export default function DataSelectionCatalogReducer(state = initialState, action) {
   switch (action.type) {
+    case FETCH_CATALOG_FILTERS_REQUEST:
+      return {
+        isLoading: true,
+        error: null
+      };
+
     case FETCH_CATALOG_FILTERS_SUCCESS:
       return {
-        ...action.payload
+        ...state,
+        ...action.payload,
+        isLoading: false,
+        error: null
       };
 
     case FETCH_CATALOG_FILTERS_FAILURE:
       return {
-        ...action.payload
+        isLoading: false,
+        error: action.payload
       };
 
     default:
@@ -21,10 +34,6 @@ export default function DataSelectionCatalogReducer(state = initialState, action
   }
 }
 
-export const fetchCatalogFilters = (payload) => ({
-  type: FETCH_CATALOG_FILTERS_REQUEST,
-  payload
+export const fetchCatalogFilters = () => ({
+  type: FETCH_CATALOG_FILTERS_REQUEST
 });
-
-window.reducers = window.reducers || {};
-window.reducers.DataSelectionCatalogReducer = DataSelectionCatalogReducer;

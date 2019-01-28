@@ -1,9 +1,9 @@
 import getState from '../redux/get-state';
-import getSharedConfig from '../shared-config/shared-config';
+import SHARED_CONFIG from '../shared-config/shared-config';
 
 export const getAccessToken = () => getState().user.accessToken;
 
-const generateParams = (data) => Object.entries(data).map((pair) => pair.map(encodeURIComponent).join('=')).join('&');
+export const generateParams = (data) => Object.entries(data).map((pair) => pair.map(encodeURIComponent).join('=')).join('&');
 
 const handleErrors = (response) => {
   if (!response.ok) {
@@ -13,13 +13,13 @@ const handleErrors = (response) => {
 };
 
 
-// TODO: Service is not used yet because it is not finished
+// TODO: This function is not used yet because it is not finished
 // cancel functionality doesn't work yet and is needed for the straatbeeld-api.js
 export const getWithToken = (url, params, cancel, token) => {
   const headers = {};
 
   if (token) {
-    headers.Authorization = getSharedConfig().AUTH_HEADER_PREFIX + token;
+    headers.Authorization = SHARED_CONFIG.AUTH_HEADER_PREFIX + token;
   }
 
   const options = {
@@ -40,4 +40,20 @@ export const getWithToken = (url, params, cancel, token) => {
 export const getByUrl = async (url, params, cancel) => {
   const token = getAccessToken();
   return Promise.resolve(getWithToken(url, params, cancel, token));
+};
+
+const encodeQueryParams = (params) =>
+  (Object.keys(params)
+    .map((param) => `${encodeURIComponent(param)}=${encodeURIComponent(params[param])}`)
+    .join('&'));
+
+export const createUrlWithToken = (url, token) => {
+  const params = {};
+  if (token) {
+    params.access_token = token;
+  }
+  const queryStart = url.indexOf('?') !== -1 ? '&' : '?';
+  const paramString = encodeQueryParams(params);
+  const queryString = paramString ? queryStart + paramString : '';
+  return url + queryString;
 };

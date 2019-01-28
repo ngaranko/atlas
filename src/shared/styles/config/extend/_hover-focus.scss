@@ -1,0 +1,27 @@
+%active-button {
+  background-color: $secondary-gray20;
+  border-color: $primary-dark;
+  color: $primary-dark;
+  fill: $primary-dark;
+  outline: none;
+
+  svg {
+    fill: $primary-dark;
+  }
+}
+
+
+%hover-focus-button {
+  &:hover,
+  &:focus {
+    @extend %active-button;
+  }
+}
+
+%hover-focus-listitem {
+  &:hover,
+  &:focus {
+    background-color: $secondary-gray10;
+    outline: none;
+  }
+}

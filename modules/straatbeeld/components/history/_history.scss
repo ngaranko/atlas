@@ -5,6 +5,7 @@
 }
 
 .c-straatbeeld-history__button {
+  @extend %hover-focus-button;
   @include font-size($s-font);
   @include font-weight($bold-weight);
 
@@ -17,8 +18,8 @@
   cursor: pointer;
 
   &::before {
-    @extend %dp-clock-black-icon;
     @extend %icon-button-text-extra;
+    @include sprite("clock-black");
 
     position: absolute;
     top: 0;
@@ -26,52 +27,21 @@
   }
 
   &::after {
-    @extend %dp-up-black-icon;
     @extend %icon-button-text-extra;
+    @include sprite("up-black");
 
     position: absolute;
     top: 0;
     right: 4px;
   }
 
-  &:focus {
-    outline: none;
-    background-color: $secondary-gray10;
-    color: $primary-dark;
-    fill: $primary-dark;
-  }
 
-  &:hover {
-    border-color: $primary-contrast;
-    background-color: $primary-contrast;
-    color: $primary-light;
-
-    &::before {
-      @extend %dp-clock-white-icon;
-    }
-
-    &::after {
-      @extend %dp-up-white-icon;
-    }
-  }
 
   &.c-straatbeeld-history__button--active {
-    border-color: $primary-contrast;
-    background-color: $primary-contrast;
-    color: $primary-light;
-
-    &::before {
-      @extend %dp-clock-white-icon;
-    }
+    @extend %active-button;
 
     &::after {
-      @extend %dp-down-white-icon;
-    }
-
-    &:hover {
-      &::after {
-        @extend %dp-down-white-icon;
-      }
+      @include sprite("down-black");
     }
   }
 }
@@ -86,6 +56,7 @@
 }
 
 .c-straatbeeld-history__item {
+  @extend %hover-focus-listitem;
   @include font-weight($bold-weight);
 
   height: 32px;
@@ -98,14 +69,16 @@
     background-color: $secondary-gray10;
 
     &:hover,
-    &:active {
-      background-color: $secondary-gray10;
+    &:active,
+    &:focus {
+      background-color: $secondary-gray4 !important;
     }
   }
 
   &:hover,
-  &:active {
-    background-color: $secondary-gray4;
+  &:active,
+  &:focus {
+    background-color: $secondary-gray4 !important;
   }
 }
 
@@ -126,7 +99,8 @@
   opacity: .6;
 
   &:active,
-  &:hover {
+  &:hover,
+  &:focus {
     opacity: 1;
   }
 }

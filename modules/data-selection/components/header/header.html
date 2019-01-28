@@ -16,7 +16,7 @@
         </dp-dcatd-button>
         <h1 ng-if="vm.state.view === 'TABLE'">
             {{vm.datasetTitle}}
-            <span ng-if="vm.numberOfRecords !== null">({{vm.numberOfRecords | number}})</span>
+            <span ng-if="vm.showNumberOfRecords">({{vm.numberOfRecords | number}})</span>
         </h1>
         <h1 ng-if="vm.state.view === 'CATALOG'">Datasets ({{vm.numberOfRecords | number}})</h1>
         <h1 ng-if="vm.state.view === 'LIST'">Resultaten</h1>

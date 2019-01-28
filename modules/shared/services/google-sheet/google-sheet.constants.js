@@ -1,3 +1,5 @@
+import { ENVIRONMENTS } from '../../../../src/shared/environment';
+
 (function () {
     'use strict';
 
@@ -5,10 +7,10 @@
         .module('dpShared')
         .constant('GOOGLE_SHEET_CMS', {
             getStatic: {   // when to get CMS static data (daily refreshed) or dynamically direct from the sheet
-                PRODUCTION: true,
-                PRE_PRODUCTION: true,
-                ACCEPTATION: false,
-                DEVELOPMENT: false
+                [ENVIRONMENTS.PRODUCTION]: true,
+                [ENVIRONMENTS.PRE_PRODUCTION]: true,
+                [ENVIRONMENTS.ACCEPTANCE]: false,
+                [ENVIRONMENTS.DEVELOPMENT]: false
             },
             staticAddress: 'https://data.amsterdam.nl/cms',
             key: '1ZExuZHhmvBRP-7rhuY43Lv7dWuAsGKXwfKd1_3BZfbI',

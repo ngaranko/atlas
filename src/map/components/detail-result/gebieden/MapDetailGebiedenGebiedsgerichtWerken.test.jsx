@@ -6,7 +6,8 @@ import MapDetailGebiedenGebiedsgerichtWerken from './MapDetailGebiedenGebiedsger
 describe('MapDetailGebiedenGebiedsgerichtWerken', () => {
   it('should render everything', () => {
     const gebiedsgerichtWerken = {
-      label: 'Gebiedsgericht werken label'
+      label: 'Gebiedsgericht werken label',
+      code: 'A'
     };
     const clickHandler = jest.fn();
     const wrapper = shallow(

@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomepageAddressBlock should render with the default block-link 1`] = `
+<HomepageBlock
+  description="Selecteer en download als spreadsheet"
+  hasTallDescription={true}
+  onBlockLinkClick={[Function]}
+  title="Adressentabel"
+>
+  <div
+    className="homepage-block__item"
+  >
+    <button
+      className="c-link homepage-block__link"
+      onClick={[Function]}
+      title="Bekijk Adressentabel"
+    >
+      <span
+        className="homepage-block__icon homepage-block__icon--bag"
+      />
+      <span
+        className="homepage-block__label"
+      >
+        Adressentabel
+      </span>
+    </button>
+  </div>
+  <div
+    className="homepage-block__item"
+  >
+    <button
+      className="c-link homepage-block__link"
+      onClick={[Function]}
+      title="Bekijk handelsregister-tabel"
+    >
+      <span
+        className="homepage-block__icon homepage-block__icon--hr"
+      />
+      <span
+        className="homepage-block__label"
+      >
+        Handelsregister-tabel
+      </span>
+    </button>
+  </div>
+  <div
+    className="homepage-block__item "
+  >
+    <button
+      className="c-link homepage-block__link"
+      onClick={[Function]}
+      title="Bekijk kadaster-tabel"
+    >
+      <span
+        className="homepage-block__icon homepage-block__icon--brk"
+      />
+      <span
+        className="homepage-block__label"
+      >
+        Kadaster-tabel
+      </span>
+    </button>
+  </div>
+</HomepageBlock>
+`;

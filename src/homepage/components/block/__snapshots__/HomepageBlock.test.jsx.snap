@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomepageBlock should render with the children and default block-link 1`] = `
+<div
+  className="homepage-block c-homepage__block c-homepage__block--tall"
+  onKeyDown={[Function]}
+  tabIndex="0"
+>
+  <div>
+    <span>
+      This is a child of the homepageblock
+    </span>
+  </div>
+  <button
+    className="c-homepage__block-button "
+    onClick={[MockFunction]}
+    tabIndex="-1"
+    title="Bekijk test block"
+  >
+    <div
+      className="o-btn--transparent"
+    >
+      test block
+    </div>
+    <div
+      className="c-homepage__block-details"
+    >
+      click here for the test link in the block
+    </div>
+  </button>
+</div>
+`;
+
+exports[`HomepageBlock should render with the default block-link 1`] = `
+<div
+  className="homepage-block c-homepage__block c-homepage__block--tall"
+  onKeyDown={[Function]}
+  tabIndex="0"
+>
+  <button
+    className="c-homepage__block-button "
+    onClick={[MockFunction]}
+    tabIndex="-1"
+    title="Bekijk test block"
+  >
+    <div
+      className="o-btn--transparent"
+    >
+      test block
+    </div>
+    <div
+      className="c-homepage__block-details"
+    >
+      click here for the test link in the block
+    </div>
+  </button>
+</div>
+`;

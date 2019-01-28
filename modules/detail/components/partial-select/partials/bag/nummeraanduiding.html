@@ -12,11 +12,33 @@
         </dp-glossary-header>
 
         <dp-panel
-            ng-if="apiData.results.status.code === '18'"
+            ng-if="
+              !apiData.results.ligplaats &&
+              !apiData.results.ligplaatsidentificatie &&
+              !apiData.results.standplaats &&
+              !apiData.results.standplaatsidentificatie &&
+              apiData.results.status.code !== '20' &&
+              apiData.results.status.code !== '21'"
             is-panel-visible="true"
             class-name="c-panel--offsets-below-page-title"
             type="danger">
             Status: {{apiData.results.status.omschrijving}}
+        </dp-panel>
+
+        <dp-panel
+            ng-if="apiData.results.indicatie_geconstateerd"
+            is-panel-visible="true"
+            class-name="c-panel--offsets-below-page-title"
+            type="danger">
+            Indicatie geconstateerd
+        </dp-panel>
+
+        <dp-panel
+            ng-if="apiData.results.aanduiding_in_onderzoek"
+            is-panel-visible="true"
+            class-name="c-panel--offsets-below-page-title"
+            type="danger">
+            In onderzoek
         </dp-panel>
 
         <dp-panel ng-if="!apiData.results.hoofdadres"

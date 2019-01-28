@@ -12,7 +12,7 @@
 
         <dp-link ng-if="vm.showReset()"
                  type="FETCH_DATA_SELECTION"
-                 class-name="c-tab-header__reset qa-go-to-catalogus"
+                 class-name="c-tab-header__reset-button qa-go-to-catalogus"
                  payload="{
                      dataset: 'dcatd',
                      emptyFilters: true,
@@ -20,7 +20,7 @@
                      view: 'CATALOG',
                      page: 1
                  }">
-                 <span>Alle datasets tonen</span>
+                 <span class="c-tab-header__reset-button--color">Alle datasets tonen</span>
         </dp-link>
     </h1>
 

@@ -17,6 +17,7 @@ describe('The gebieden wijk resource', () => {
       fetch.mockResponseOnce(JSON.stringify({
         geometrie: { type: 'Point' },
         naam: 'Wijk display name 1',
+        volledige_code: 'A',
         something: 'abc123'
       }));
       getCenter.mockImplementation(() => ({ x: 1, y: 2 }));
@@ -28,6 +29,8 @@ describe('The gebieden wijk resource', () => {
           label: 'Wijk display name 1',
           location: { latitude: 3, longitude: 4 },
           naam: 'Wijk display name 1',
+          volledige_code: 'A',
+          volledigeCode: 'A',
           something: 'abc123'
         });
       });
@@ -44,6 +47,7 @@ describe('The gebieden wijk resource', () => {
       const promise = fetchByUri(uri).then((response) => {
         expect(response).toEqual({
           label: undefined,
+          volledigeCodecode: undefined,
           location: null
         });
       });

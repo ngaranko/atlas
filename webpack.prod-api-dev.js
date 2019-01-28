@@ -1,6 +1,3 @@
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const devConfig = require('./webpack.dev.js');
 
 module.exports = function(env) {

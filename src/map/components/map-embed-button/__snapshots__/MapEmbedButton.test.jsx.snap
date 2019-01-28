@@ -4,11 +4,12 @@ exports[`MapEmbedButton should render the link 1`] = `
 <a
   className="c-embed-button qa-embed-button"
   href="foo/bar"
+  rel="noopener noreferrer"
   target="_blank"
   title="Naar interactieve kaart (Amsterdam City Data)"
 >
-  <Component
-    className="c-embed-button__icon"
+  <span
+    className="c-embed-button__icon c-embed-button__icon--maximize"
   />
   <span
     className="c-embed-button__label"

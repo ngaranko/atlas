@@ -1,8 +1,7 @@
 import { getAuthHeaders } from '../auth/auth';
 import getCenter from '../geo-json/geo-json';
 import { rdToWgs84 } from '../coordinate-reference-system/crs-converter';
-import apiUrl from '../api';
-
+import SHARED_CONFIG from '../shared-config/shared-config';
 
 export default function fetchByUri(uri) {
   return fetch(uri, { headers: getAuthHeaders() })
@@ -33,7 +32,7 @@ export function fetchByPandId(pandId) {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&');
 
-  return fetch(`${apiUrl}monumenten/monumenten/?${queryString}`,
+  return fetch(`${SHARED_CONFIG.API_ROOT}monumenten/monumenten/?${queryString}`,
     { headers: getAuthHeaders() }
   )
     .then((response) => response.json())

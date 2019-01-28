@@ -47,6 +47,8 @@
                                 if (feature.opr_type) {
                                     // Openbare ruimtes
                                     subtype = feature.opr_type.toLowerCase();
+                                } else if (feature.type === 'bag/ligplaats' || feature.type === 'bag/standplaats') {
+                                    subtype = feature.type.split('/')[1];
                                 } else {
                                     ['gebieden', 'bommenkaart'].forEach((category) => {
                                         const regex = new RegExp('^' + category + '/');

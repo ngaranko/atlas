@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AutoSuggestCategory from './AutoSuggestCategory';
-import SearchIcon from '../../../../public/images/icon-search.svg';
-import ClearIcon from '../../../../public/images/icon-clear.svg';
+import AutoSuggestCategory, { MORE_RESULTS_INDEX } from './AutoSuggestCategory';
 
 import './_auto-suggest.scss';
 
@@ -63,9 +61,6 @@ class AutoSuggest extends React.Component {
       query
     } = this.props;
 
-    this.setState({
-      showSuggestions: true
-    });
     if (query.length && !suggestions.length) {
       onTextInput(query);
     }
@@ -75,23 +70,25 @@ class AutoSuggest extends React.Component {
     const {
       onSuggestionSelection
     } = this.props;
-
     event.preventDefault();
     event.stopPropagation();
-    const shouldOpenInNewWindow = event.ctrlKey || event.metaKey;
 
-    onSuggestionSelection(suggestion, shouldOpenInNewWindow);
+    if (suggestion.index === MORE_RESULTS_INDEX) {
+      this.resetActiveSuggestion();
+      this.onFormSubmit(event);
+    } else {
+      const shouldOpenInNewWindow = event.ctrlKey || event.metaKey;
+      onSuggestionSelection(suggestion, shouldOpenInNewWindow);
 
-    if (!shouldOpenInNewWindow) {
-      this.clearQuery();
-      this.textInput.blur();
+      if (!shouldOpenInNewWindow) {
+        this.clearQuery();
+        this.textInput.blur();
+      }
     }
   }
 
   onFormSubmit(event) {
-    const {
-      onSubmit
-    } = this.props;
+    const { onSubmit } = this.props;
 
     event.preventDefault();
     event.stopPropagation();
@@ -162,14 +159,12 @@ class AutoSuggest extends React.Component {
     }
   }
 
-  clearQuery(shouldFocus = true) {
+  clearQuery() {
     const {
       onTextInput
     } = this.props;
 
-    if (shouldFocus) {
-      this.textInput.focus();
-    }
+    this.textInput.focus();
     this.resetActiveSuggestion();
     this.setState({
       showSuggestions: false
@@ -178,12 +173,9 @@ class AutoSuggest extends React.Component {
   }
 
   resetActiveSuggestion() {
-    // wrapper function to improve readability
-    const {
-      onSuggestionActivate
-    } = this.props;
+    const { onSuggestionActivate } = this.props;
 
-    onSuggestionActivate({ index: -1 });
+    onSuggestionActivate();
   }
 
   render() {
@@ -208,7 +200,7 @@ class AutoSuggest extends React.Component {
         }
       >
         <fieldset>
-          {legendTitle && <legend className="u-sr-only">legendTitle</legend>}
+          {legendTitle && <legend className="u-sr-only">{legendTitle}</legend>}
           <div className="auto-suggest-container">
             <label htmlFor="auto-suggest__input" className="u-sr-only">zoektekst</label>
             <input
@@ -222,10 +214,13 @@ class AutoSuggest extends React.Component {
               onChange={this.onInput}
               onKeyDown={this.navigateSuggestions}
               placeholder={placeHolder}
-              ref={(input) => { this.textInput = input; }}
+              ref={(input) => {
+                this.textInput = input;
+              }}
               spellCheck="false"
               type="text"
               value={query || ''}
+              autoFocus="true" // eslint-disable-line jsx-a11y/no-autofocus
             />
 
             {query &&
@@ -235,7 +230,6 @@ class AutoSuggest extends React.Component {
                 onClick={this.clearQuery}
                 title="Wis zoektekst"
               >
-                <ClearIcon />
                 <span className="u-sr-only">Wis zoektekst</span>
               </button>
             }
@@ -260,7 +254,6 @@ class AutoSuggest extends React.Component {
             title="Zoeken"
             type="submit"
           >
-            <SearchIcon />
             <span className="u-sr-only">Zoeken</span>
           </button>
         </fieldset>

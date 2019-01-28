@@ -16,6 +16,16 @@
 
     </div>
 
+    <div class="grex-stadsdelen c-detail__block">
+      <dp-glossary-header definition="GRONDEXPLOITATIE" use-plural="true"></dp-glossary-header>
+      <div ng-if="!vm.user.scopes.includes('GREX/R')"
+          ng-include="'modules/detail/components/detail/templates/grondexploitatie/unauthorized.html'">
+      </div>
+      <div ng-if="vm.apiData.results.code && vm.user.scopes.includes('GREX/R')">
+          <dp-api-call add-api-root="true" endpoint="grondexploitatie/stadsdeel/{{vm.apiData.results.code}}/" partial="grex/grex-stadsdelen" user="vm.user"></dp-api-call>
+      </div>
+    </div>
+
     <div ng-if="vm.apiData.results.buurtcombinaties.count"
          class="c-detail__block">
         <dp-glossary-header definition="BUURTCOMBINATIE" use-plural="true"></dp-glossary-header>

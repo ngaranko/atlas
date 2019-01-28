@@ -56,9 +56,10 @@
                     <dp-search-results-list category="(vm.searchResults | filter: { slug: vm.category })[0]"></dp-search-results-list>
 
                     <a ng-if="vm.hasLoadMore()"
-                            class="c-show-more c-show-more--gray qa-show-more"
-                            ng-click="vm.loadMore()"
-                        >Toon meer</a>
+                        class="c-show-more c-show-more--gray qa-show-more"
+                        ng-click="vm.loadMore()"
+                        tabindex="0"
+                    >Toon meer</a>
 
                     <dp-loading-indicator is-loading="vm.isLoadMoreLoading" use-delay="true" show-inline="true">
                     </dp-loading-indicator>

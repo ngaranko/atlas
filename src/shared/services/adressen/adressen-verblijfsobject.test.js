@@ -16,6 +16,7 @@ describe('The adressen verblijfsobject resource', () => {
 
       fetch.mockResponseOnce(JSON.stringify({
         _display: 'Verblijfsobject display name 1',
+        aanduiding_in_onderzoek: true,
         eigendomsverhouding: { omschrijving: 'Eigendomsverhouding description' },
         gebruiksdoelen: [{
           code: '01',
@@ -26,7 +27,12 @@ describe('The adressen verblijfsobject resource', () => {
           code_plus: '0400',
           omschrijving_plus: 'Gebruiksdoel 2 description plus'
         }],
+        gebruik: {
+          code: 14,
+          omschrijving: 'horeca'
+        },
         geometrie: { type: 'Point' },
+        indicatie_geconstateerd: false,
         oppervlakte: 23820,
         something: 'abc123',
         type_woonobject: { omschrijving: 'Type description' },
@@ -38,6 +44,8 @@ describe('The adressen verblijfsobject resource', () => {
       const promise = fetchByUri(uri).then((response) => {
         expect(response).toEqual({
           _display: 'Verblijfsobject display name 1',
+          aanduidingInOnderzoek: true,
+          aanduiding_in_onderzoek: true,
           eigendomsverhouding: 'Eigendomsverhouding description',
           status: {
             code: '01',
@@ -55,7 +63,17 @@ describe('The adressen verblijfsobject resource', () => {
             description: 'Gebruiksdoel 2 description',
             descriptionPlus: 'Gebruiksdoel 2 description plus'
           }],
+          gebruik: {
+            code: 14,
+            omschrijving: 'horeca'
+          },
+          use: {
+            code: 14,
+            description: 'horeca'
+          },
           geometrie: { type: 'Point' },
+          indicatieGeconstateerd: false,
+          indicatie_geconstateerd: false,
           label: 'Verblijfsobject display name 1',
           location: { latitude: 3, longitude: 4 },
           oppervlakte: 23820,
@@ -109,12 +127,18 @@ describe('The adressen verblijfsobject resource', () => {
 
       const promise = fetchByUri(uri).then((response) => {
         expect(response).toEqual({
+          aanduidingInOnderzoek: undefined,
           eigendomsverhouding: undefined,
           gebruiksdoelen: [],
+          indicatieGeconstateerd: undefined,
           label: undefined,
           location: null,
           size: 0,
           status: {
+            code: '',
+            description: ''
+          },
+          use: {
             code: '',
             description: ''
           },

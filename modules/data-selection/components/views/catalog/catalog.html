@@ -1,21 +1,22 @@
 <div class="c-data-selection-catalog u-margin__bottom--1">
-    <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint" ng-repeat="row in vm.items" class-name="c-data-selection-catalog__list" inline="false">
+    <dp-link type="FETCH_DETAIL" payload="row.detailEndpoint" ng-repeat="row in vm.items" class-name="c-data-selection-catalog__list" inline="false"
+        tab-index="-1">
 
         <button class="c-data-selection-catalog__item qa-catalog-fetch-detail u-no-presentation">
             <div class="c-data-selection-catalog__header">
                 <h2>
                     {{row.header}}
                 </h2>
-                <div>Metadata {{row.modification | modificationDate}}</div>
+                <div>{{row.modified | modificationDate}}</div>
             </div>
 
             <span class="c-data-selection-catalog__formats">
                 <div ng-repeat="format in row.formats" class="c-data-selection-file-type">
-                    <span class="c-data-selection-file-type__name c-data-selection-file-type__format-{{format.name | optionLabel:vm.catalogFilters.formatTypes| lowercase }}">
-                        {{format.name | optionLabel:vm.catalogFilters.formatTypes| lowercase }}
+                    <span class="c-data-selection-file-type__name c-data-selection-file-type__format-{{format.name | kebabcase }}">
+                        {{format.name}}
                     </span>
                     <span class="c-data-selection-file-type__x">x</span>
-                    <span class="c-data-selection-file-type__count ng-binding">{{format.count}}</span>
+                    <span class="c-data-selection-file-type__count">{{format.count}}</span>
                 </div>
             </span>
 

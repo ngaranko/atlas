@@ -4,30 +4,17 @@
         .run(runBlock);
 
     runBlock.$inject = [
-        'applicationState',
-        'freeze',
-        'reducer',
-        'stateUrlConverter',
-        'contextMiddleware',
-        'stateToUrlMiddleware',
-        'environment'
+        '$timeout',
+        '$rootScope',
+        '$window',
+        'stateToUrl'
     ];
 
-    function runBlock (
-            applicationState,
-            freeze,
-            reducer,
-            stateUrlConverter,
-            contextMiddleware,
-            stateToUrlMiddleware,
-            environment) {
-        const urlDefaultState = stateUrlConverter.getDefaultState();
-        const initialState = environment.isDevelopment() ? freeze.deepFreeze(urlDefaultState) : urlDefaultState;
-        applicationState.initialize(
-            reducer,
-            stateUrlConverter,
-            initialState,
-            contextMiddleware,
-            stateToUrlMiddleware);
+    function runBlock ($timeout, $rootScope, $window, stateToUrl) {
+        $window.stateToUrl = stateToUrl;
+
+        $window.reduxStore.subscribe(() => {
+            $timeout(() => $rootScope.$digest());
+        });
     }
 })();

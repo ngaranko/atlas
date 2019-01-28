@@ -3,9 +3,16 @@ describe('The DataSelectionController', function () {
         $rootScope,
         store,
         mockedState = {
+            catalogFilters: ['catalog', 'filters'],
             dataSelection: {
                 mocked: 'things',
                 some: 'setting'
+            },
+            map: {
+                zoom: 11,
+                boundingBox: {
+                    bounding: 'box'
+                }
             },
             filters: {
                 foo: 'bar'
@@ -74,5 +81,31 @@ describe('The DataSelectionController', function () {
         expect(controller.filters).toEqual({
             foo: 'bar'
         });
+    });
+
+    it('sets the map zoom level based on the state', function () {
+        var controller;
+
+        controller = getController();
+
+        expect(controller.zoomLevel).toEqual(11);
+    });
+
+    it('sets the map bounding box based on the state', function () {
+        var controller;
+
+        controller = getController();
+
+        expect(controller.boundingBox).toEqual({
+            bounding: 'box'
+        });
+    });
+
+    it('sets the catalog filters based on the state', function () {
+        var controller;
+
+        controller = getController();
+
+        expect(controller.catalogFilters).toEqual(['catalog', 'filters']);
     });
 });

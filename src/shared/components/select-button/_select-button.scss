@@ -1,4 +1,5 @@
 @import "../../styles/config";
+$handle-height: 24px;
 
 .select-button {
   background-color: $primary-light;
@@ -7,6 +8,7 @@
   position: relative;
 
   &__wrapper {
+    @extend %hover-focus-button;
     align-items: center;
     border: 1px solid $secondary-gray52;
     border-radius: 0;
@@ -18,18 +20,19 @@
     overflow: hidden;
     width: calc(100% - 32px);
 
-    &:hover {
-      background-color: $primary-contrast;
-      border-color: $primary-contrast;
-      color: $primary-light;
+    &:hover,
+    &:focus {
+      border-right: none;
 
-      svg { // sass-lint:disable-line nesting-depth
-        fill: $primary-light;
+      // sass-lint:disable nesting-depth
+      .select-button__label {
+        color: $primary-dark;
       }
     }
   }
 
   &__icon-wrapper {
+    @extend %hover-focus-button;
     border: 1px solid $secondary-gray52;
     border-radius: 0;
     bottom: 0;
@@ -40,30 +43,36 @@
     right: 0;
     width: 32px;
 
-    &:hover {
-      background-color: $primary-contrast;
-      border-color: $primary-contrast;
-      color: $primary-light;
+    &:hover,
+    &:focus {
+      .select-button__icon-collapse { // sass-lint:disable nesting-depth
+        @include icon-sprite("icon-arrow-up", $primary-dark, $primary-dark, $handle-height - 2px);
+      }
 
-      svg { // sass-lint:disable-line nesting-depth
-        fill: $primary-light;
+      .select-button__icon-expand { // sass-lint:disable nesting-depth
+        @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height - 2px);
       }
     }
   }
 
   &__icon {
-    svg {
-      height: 22px;
-      width: 22px;
+    display: block;
+    height: $handle-height - 2px;
+    width: $handle-height - 2px;
+
+    &-collapse {
+      @include icon-sprite("icon-arrow-up", $secondary-gray60, $primary-dark, $handle-height - 2px);
+    }
+
+    &-expand {
+      @include icon-sprite("icon-arrow-down", $secondary-gray60, $primary-dark, $handle-height - 2px);
     }
   }
 
-  &__icon--expand {
-    display: inline;
-  }
-
-  &__icon--collapse {
-    display: none;
+  &--enabled {
+    .select-button__icon-expand {
+      @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height - 2px);
+    }
   }
 
   &--expanded {
@@ -71,50 +80,25 @@
       display: block;
     }
 
-    .select-button__icon--expand {
-      display: none;
-    }
-
-    .select-button__icon--collapse {
-      display: inline;
-    }
-
     .select-button__icon-wrapper {
-      background-color: $primary-contrast;
-      border-color: $primary-contrast;
-      color: $primary-light;
-
-      svg {
-        fill: $primary-light;
-      }
+      background-color: $secondary-gray20;
+      border-color: $primary-dark;
+      color: $primary-dark;
     }
   }
 
   &--disabled {
     .select-button__wrapper,
     .select-button__icon-wrapper {
+      @extend %hover-focus-button;
       border-color: $secondary-gray32;
       color: $secondary-gray60;
-
-      &:hover {
-        background-color: $primary-contrast;
-        border-color: $primary-contrast;
-        color: $primary-light;
-
-        svg { // sass-lint:disable-line nesting-depth
-          fill: $primary-light;
-        }
-      }
     }
 
     &.select-button--expanded {
       .select-button__icon-wrapper {
-        border-color: $primary-contrast;
+        border-color: $primary-dark;
       }
-    }
-
-    svg {
-      fill: $secondary-gray60;
     }
   }
 
@@ -160,7 +144,6 @@
   }
 
   &__drop-down-button {
-    // TODO: Configure `autoprefixer` in Storybook build to prevent prefixing
     -webkit-appearance: none; // sass-lint:disable-line no-vendor-prefixes
     appearance: none;
     border: none;
@@ -170,7 +153,8 @@
     outline: none;
     padding: 7px 10px 7px 40px;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: $secondary-gray4;
     }
   }

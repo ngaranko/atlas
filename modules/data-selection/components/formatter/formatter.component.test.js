@@ -3,7 +3,8 @@ describe('The dp-data-selection-formatter component', function () {
         $rootScope,
         $httpBackend,
         singleParamFormatterFilter,
-        doubleParamFormatterFilter;
+        doubleParamFormatterFilter,
+        scope;
 
     beforeEach(function () {
         angular.mock.module(
@@ -46,7 +47,7 @@ describe('The dp-data-selection-formatter component', function () {
 
         element.setAttribute('use-inline', 'useInline');
 
-        const scope = $rootScope.$new();
+        scope = $rootScope.$new();
         scope.variables = variables;
         scope.useInline = useInline;
         scope.template = template;
@@ -96,6 +97,27 @@ describe('The dp-data-selection-formatter component', function () {
             false
         );
         expect(component.find('div strong').text()).toBe('my_first_value');
+    });
+
+    it('updates the view when component receives new attribute values', function () {
+        const component = getComponent(
+            [{
+                key: 'my_var_1',
+                value: 'my_first_value'
+            }],
+            undefined,
+            false
+        );
+        expect(component.find('.qa-table-value').text()).toBe('my_first_value');
+
+        scope.variables = [{
+            key: 'my_var_2',
+            value: 'updated_value'
+        }];
+
+        scope.$digest();
+
+        expect(component.find('.qa-table-value').text()).toBe('updated_value');
     });
 
     it('has a use-inline option that renders the formatted output in a span instead of a div', function () {

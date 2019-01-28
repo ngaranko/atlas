@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderSearchWrapper should render 1`] = `
+<HeaderSearchContainer
+  activeSuggestion={
+    Object {
+      "index": -1,
+    }
+  }
+  displayQuery=""
+  isDatasetView={false}
+  isMapFullscreen={false}
+  numberOfSuggestions={6}
+  onCleanDatasetOverview={[Function]}
+  onDatasetSearch={[Function]}
+  onDetailLoad={[Function]}
+  onGetSuggestions={[Function]}
+  onSearch={[Function]}
+  onSuggestionActivate={[Function]}
+  pageName=""
+  prefillQuery=""
+  suggestions={
+    Array [
+      Object {
+        "content": Array [
+          Object {
+            "category": "Straatnamen",
+            "index": 0,
+            "label": "Dam",
+            "uri": "bag/openbareruimte/03630000003186/",
+          },
+          Object {
+            "category": "Straatnamen",
+            "index": 1,
+            "label": "Damloperspad",
+            "uri": "bag/openbareruimte/03630000001038/",
+          },
+          Object {
+            "category": "Straatnamen",
+            "index": 2,
+            "label": "Damrak",
+            "uri": "bag/openbareruimte/03630000003187/",
+          },
+        ],
+        "label": "Straatnamen",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "category": "Monumenten",
+            "index": 3,
+            "label": "Damrak 1",
+            "uri": "monumenten/monumenten/8e8ae1dd-78a2-4a5f-841d-1870631b7e33/",
+          },
+          Object {
+            "category": "Monumenten",
+            "index": 4,
+            "label": "Dam 10",
+            "uri": "monumenten/monumenten/aa3f9081-2ac4-49ea-95d2-0aad7aecd883/",
+          },
+          Object {
+            "category": "Monumenten",
+            "index": 5,
+            "label": "Damrak 15",
+            "uri": "monumenten/monumenten/f93e31ba-89eb-4784-87e1-d32c33b5236d/",
+          },
+        ],
+        "label": "Monumenten",
+      },
+    ]
+  }
+  typedQuery="dam"
+/>
+`;

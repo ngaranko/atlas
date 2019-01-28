@@ -38,6 +38,12 @@
             <dd>{{ vm.apiData.results.naam }}</dd>
             <dt>KvK-nummer</dt>
             <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/kvk-nummer" user="vm.user"></dp-api-call>
+            <dt>Vestigingsnummer</dt>
+            <dd> {{  vm.apiData.results.vestigingsnummer }} </dd>
+            <dt>Type vestiging</dt>
+            <dd>
+                {{ vm.apiData.results.hoofdvestiging ? "Hoofdvestiging" : vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
+            </dd>
             <dt>Postadres</dt>
             <dd>
                 {{ vm.apiData.results.postadres.volledig_adres }}
@@ -52,26 +58,14 @@
                     <span>Officieel BAG-adres niet bekend, schatting: {{ ::vm.apiData.results.bezoekadres.query_string }}</span>
                 </dp-message>
             </dd>
-            <dt>Indicatie non-mailing</dt>
-            <dp-api-call endpoint="{{vm.apiData.results.maatschappelijke_activiteit}}" partial="handelsregister/non-mailing" user="vm.user"></dp-api-call>
-            <dt>Afgeschermd</dt>
-            <dd>{{ vm.apiData.results.bezoekadres.afgeschermd?'Ja':'Nee' }}</dd>
-            <dt>Type vestiging</dt>
-            <dd>
-                {{ vm.apiData.results.hoofdvestiging ? "Hoofdvestiging" : vm.apiData.results.hoofdvestiging === false ? "Nevenvestiging" : "" }}
-            </dd>
             <dt>SBI-code en -omschrijving</dt>
             <dd>
                 <div ng-repeat="object in vm.apiData.results.activiteiten">
                     {{ object.sbi_code }}: {{ object.sbi_omschrijving }}
                 </div>
             </dd>
-            <dt>Vestigingsnummer</dt>
-            <dd> {{  vm.apiData.results.vestigingsnummer }} </dd>
             <dt>Datum aanvang</dt>
             <dd> {{ vm.apiData.results.datum_aanvang | date:'dd-MM-yyyy' }} </dd>
-            <dt>Datum einde</dt>
-            <dd> {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }} </dd>
             <dt>Soort bijzondere rechtstoestand</dt>
             <dd class="{{vm.apiData.results._bijzondere_rechts_toestand.faillissement
                 || vm.apiData.results._bijzondere_rechts_toestand.status === 'Voorlopig'

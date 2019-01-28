@@ -28,9 +28,12 @@
 
             scope.toggleDropdown = function () {
                 scope.isVisible = !scope.isVisible;
+                if (scope.isVisible) {
+                    everywhere.on('click', clickHandler);
+                }
             };
 
-            everywhere.bind('click', function (event) {
+            function clickHandler (event) {
                 const button = element.find('button'),
                     span = button.find('span'),
                     nav = element.find('nav'),
@@ -40,10 +43,10 @@
 
                 if (!isButtonClick) {
                     scope.isVisible = false;
+                    everywhere.off('click', clickHandler);
+                    scope.$apply();
                 }
-
-                scope.$apply();
-            });
+            }
         }
     }
 })();

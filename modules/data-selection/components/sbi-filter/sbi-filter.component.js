@@ -27,7 +27,7 @@
                         slug: filter.slug
                     }));
                 })
-                .reduce((a, b) => a.concat(b))
+                .reduce((a, b) => a.concat(b), [])
                 .slice(0, 100);
 
         vm.sbiCode = vm.activeFilters.sbi_code && vm.activeFilters.sbi_code.replace(/['\[\]]/g, '');

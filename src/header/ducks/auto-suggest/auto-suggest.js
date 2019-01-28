@@ -1,7 +1,7 @@
-const SET_ACTIVE_SUGGESTION = 'SET_ACTIVE_SUGGESTION';
-const FETCH_SUGGESTIONS_REQUEST = 'FETCH_SUGGESTIONS_REQUEST';
-const FETCH_SUGGESTIONS_SUCCESS = 'FETCH_SUGGESTIONS_SUCCESS';
-const FETCH_SUGGESTIONS_FAILURE = 'FETCH_SUGGESTIONS_FAILURE';
+export const SET_ACTIVE_SUGGESTION = 'SET_ACTIVE_SUGGESTION';
+export const FETCH_SUGGESTIONS_REQUEST = 'FETCH_SUGGESTIONS_REQUEST';
+export const FETCH_SUGGESTIONS_SUCCESS = 'FETCH_SUGGESTIONS_SUCCESS';
+export const FETCH_SUGGESTIONS_FAILURE = 'FETCH_SUGGESTIONS_FAILURE';
 
 const initialState = {
   count: 0,
@@ -18,10 +18,10 @@ export default function AutoSuggestReducer(state = initialState, action) {
       return {
         ...state,
         count: 0,
-        displayQuery: action.query || '', // if action.query is null, put an empty string
+        displayQuery: action.query,
         error: '',
         isLoading: true,
-        typedQuery: action.query || '' // if action.query is null, put an empty string
+        typedQuery: action.query
       };
     case FETCH_SUGGESTIONS_SUCCESS:
       return {
@@ -49,11 +49,8 @@ export default function AutoSuggestReducer(state = initialState, action) {
   }
 }
 
-export const setActiveSuggestion = (suggestion = { index: -1 }) =>
+export const setActiveSuggestionAction = (suggestion = { index: -1 }) =>
   ({ type: SET_ACTIVE_SUGGESTION, suggestion });
 
-export const getSuggestions = (query = '') =>
+export const getSuggestionsAction = (query = '') =>
   ({ type: FETCH_SUGGESTIONS_REQUEST, query });
-
-window.reducers = window.reducers || {};
-window.reducers.AutoSuggestReducer = AutoSuggestReducer;

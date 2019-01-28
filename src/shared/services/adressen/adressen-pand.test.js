@@ -18,6 +18,7 @@ describe('The adressen pand resource', () => {
         _display: 'Pand display name 1',
         geometrie: { type: 'Point' },
         oorspronkelijk_bouwjaar: '1893',
+        pandnaam: 'Gebouw!',
         something: 'abc123',
         status: {
           code: '01',
@@ -32,6 +33,7 @@ describe('The adressen pand resource', () => {
           _display: 'Pand display name 1',
           geometrie: { type: 'Point' },
           label: 'Pand display name 1',
+          pandnaam: 'Gebouw!',
           location: { latitude: 3, longitude: 4 },
           oorspronkelijk_bouwjaar: '1893',
           something: 'abc123',
@@ -39,7 +41,8 @@ describe('The adressen pand resource', () => {
             code: '01',
             description: 'Status description'
           },
-          year: '1893'
+          year: '1893',
+          name: 'Gebouw!'
         });
       });
 

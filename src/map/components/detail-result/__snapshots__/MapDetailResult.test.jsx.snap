@@ -6,6 +6,7 @@ exports[`MapDetailResult should render adressen ligplaats 1`] = `
 <MapDetailAdressenLigplaats
   ligplaats={
     Object {
+      "endpointType": "bag/ligplaats/",
       "label": "value",
       "status": Object {
         "description": "description",
@@ -25,6 +26,7 @@ exports[`MapDetailResult should render adressen nummeraanduiding 1`] = `
   panoUrl="panoUrl"
   verblijfsobject={
     Object {
+      "endpointType": "bag/nummeraanduiding/",
       "label": "value",
       "status": Object {
         "description": "description",
@@ -40,6 +42,7 @@ exports[`MapDetailResult should render adressen openbareruimte 1`] = `
   onPanoPreviewClick={[MockFunction]}
   openbareRuimte={
     Object {
+      "endpointType": "bag/openbareruimte/",
       "label": "value",
       "status": Object {
         "description": "description",
@@ -56,6 +59,7 @@ exports[`MapDetailResult should render adressen pand 1`] = `
   onPanoPreviewClick={[MockFunction]}
   pand={
     Object {
+      "endpointType": "bag/pand/",
       "label": "value",
       "status": Object {
         "description": "description",
@@ -73,6 +77,7 @@ exports[`MapDetailResult should render adressen standplaats 1`] = `
   panoUrl="panoUrl"
   standplaats={
     Object {
+      "endpointType": "bag/standplaats/",
       "label": "value",
       "status": Object {
         "description": "description",
@@ -89,6 +94,7 @@ exports[`MapDetailResult should render adressen verblijfsobject 1`] = `
   panoUrl="panoUrl"
   verblijfsobject={
     Object {
+      "endpointType": "bag/verblijfsobject/",
       "label": "value",
       "status": Object {
         "description": "description",
@@ -102,6 +108,7 @@ exports[`MapDetailResult should render bedrijfsinvesteringszone 1`] = `
 <MapDetailBedrijfsinvesteringszone
   bedrijfsinvesteringszone={
     Object {
+      "endpointType": "vsd/biz/",
       "label": "value",
     }
   }
@@ -115,6 +122,7 @@ exports[`MapDetailResult should render explosieven gevrijwaard gebied 1`] = `
 <MapDetailExplosievenGevrijwaardGebied
   gevrijwaardGebied={
     Object {
+      "endpointType": "milieuthemas/explosieven/gevrijwaardgebied/",
       "label": "value",
     }
   }
@@ -128,6 +136,7 @@ exports[`MapDetailResult should render explosieven inslag 1`] = `
 <MapDetailExplosievenInslag
   inslag={
     Object {
+      "endpointType": "milieuthemas/explosieven/inslagen/",
       "label": "value",
     }
   }
@@ -144,6 +153,7 @@ exports[`MapDetailResult should render explosieven uitgevoerd onderzoek 1`] = `
   panoUrl="panoUrl"
   uitgevoerdOnderzoek={
     Object {
+      "endpointType": "milieuthemas/explosieven/uitgevoerdonderzoek/",
       "label": "value",
     }
   }
@@ -157,6 +167,7 @@ exports[`MapDetailResult should render explosieven verdacht gebied 1`] = `
   panoUrl="panoUrl"
   verdachtGebied={
     Object {
+      "endpointType": "milieuthemas/explosieven/verdachtgebied/",
       "label": "value",
     }
   }
@@ -167,6 +178,7 @@ exports[`MapDetailResult should render gebieden bouwblok 1`] = `
 <MapDetailGebiedenBouwblok
   bouwblok={
     Object {
+      "endpointType": "gebieden/bouwblok/",
       "label": "value",
     }
   }
@@ -180,6 +192,7 @@ exports[`MapDetailResult should render gebieden buurt 1`] = `
 <MapDetailGebiedenBuurt
   buurt={
     Object {
+      "endpointType": "gebieden/buurt/",
       "label": "value",
     }
   }
@@ -193,6 +206,7 @@ exports[`MapDetailResult should render gebieden gebiedsgericht-werken 1`] = `
 <MapDetailGebiedenGebiedsgerichtWerken
   gebiedsgerichtWerken={
     Object {
+      "endpointType": "gebieden/gebiedsgerichtwerken/",
       "label": "value",
     }
   }
@@ -206,6 +220,7 @@ exports[`MapDetailResult should render gebieden grootstedelijk 1`] = `
 <MapDetailGebiedenGrootstedelijk
   grootstedelijk={
     Object {
+      "endpointType": "gebieden/grootstedelijkgebied/",
       "label": "value",
     }
   }
@@ -222,6 +237,7 @@ exports[`MapDetailResult should render gebieden stadsdeel 1`] = `
   panoUrl="panoUrl"
   stadsdeel={
     Object {
+      "endpointType": "gebieden/stadsdeel/",
       "label": "value",
     }
   }
@@ -235,6 +251,7 @@ exports[`MapDetailResult should render gebieden unesco 1`] = `
   panoUrl="panoUrl"
   unesco={
     Object {
+      "endpointType": "gebieden/unesco/",
       "label": "value",
     }
   }
@@ -248,9 +265,23 @@ exports[`MapDetailResult should render gebieden wijk 1`] = `
   panoUrl="panoUrl"
   wijk={
     Object {
+      "endpointType": "gebieden/buurtcombinatie/",
       "label": "value",
     }
   }
+/>
+`;
+
+exports[`MapDetailResult should render grondexploitatie 1`] = `
+<MapDetailGrondexploitatie
+  detail={
+    Object {
+      "endpointType": "grondexploitatie/project/",
+      "label": "value",
+    }
+  }
+  onMaximize={[MockFunction]}
+  panoUrl="panoUrl"
 />
 `;
 
@@ -258,6 +289,7 @@ exports[`MapDetailResult should render kadastraal object 1`] = `
 <MapDetailKadastraalObject
   kadastraalObject={
     Object {
+      "endpointType": "brk/object/",
       "label": "value",
     }
   }
@@ -271,6 +303,7 @@ exports[`MapDetailResult should render meetbout 1`] = `
 <MapDetailMeetbout
   meetbout={
     Object {
+      "endpointType": "meetbouten/meetbout/",
       "label": "value",
     }
   }
@@ -284,6 +317,7 @@ exports[`MapDetailResult should render monument 1`] = `
 <MapDetailMonument
   monument={
     Object {
+      "endpointType": "monumenten/monumenten/",
       "label": "value",
     }
   }
@@ -300,6 +334,7 @@ exports[`MapDetailResult should render nap peilmerk 1`] = `
   panoUrl="panoUrl"
   peilmerk={
     Object {
+      "endpointType": "nap/peilmerk/",
       "label": "value",
     }
   }
@@ -313,6 +348,7 @@ exports[`MapDetailResult should render vestiging 1`] = `
   panoUrl="panoUrl"
   vestiging={
     Object {
+      "endpointType": "handelsregister/vestiging/",
       "label": "value",
     }
   }

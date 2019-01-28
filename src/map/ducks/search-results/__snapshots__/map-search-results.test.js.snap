@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`handles search results request 1`] = `
+exports[`mapSearch reducer handles search results request 1`] = `
 Object {
   "isLoading": true,
   "mapSearchResultsError": null,
 }
 `;
 
-exports[`handles search results success 1`] = `
+exports[`mapSearch reducer handles search results success 1`] = `
 Object {
   "isLoading": false,
   "mapSearchResultsByLocation": Object {
@@ -17,10 +17,13 @@ Object {
       },
     ],
   },
+  "search": Object {
+    "isLoading": false,
+  },
 }
 `;
 
-exports[`sets the initial state 1`] = `
+exports[`mapSearch reducer sets the initial state 1`] = `
 Object {
   "isLoading": false,
   "mapSearchResultsByLocation": Object {},

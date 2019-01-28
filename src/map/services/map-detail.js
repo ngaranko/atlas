@@ -81,13 +81,33 @@ const servicesByEndpointType = {
   [endpointTypes.vestiging]: { fetch: vestiging, authScope: 'HR/R' }
 };
 
-export default function fetchDetail(endpoint, user) {
+const getEndpointTypeForResult = (endpointType, detail) => {
+  if (endpointType === endpointTypes.adressenNummeraanduiding) {
+    if (detail.ligplaats) {
+      return endpointTypes.adressenLigplaats;
+    } else if (detail.standplaats) {
+      return endpointTypes.adressenStandplaats;
+    }
+    return endpointTypes.adressenVerblijfsobject;
+  }
+  return endpointType;
+};
+
+export default async function fetchDetail(endpoint, user) {
   const endpointType = Object.keys(servicesByEndpointType).find((type) => endpoint.includes(type));
   const endpointConfig = endpointType && servicesByEndpointType[endpointType];
   const fetchFn = endpointConfig && endpointConfig.fetch;
   const authScope = endpointConfig && endpointConfig.authScope;
-  return fetchFn && (!authScope || user.scopes.includes(authScope)) &&
-    fetchFn(endpoint);
+  const detail = fetchFn && (!authScope || user.scopes.includes(authScope)) &&
+    await fetchFn(endpoint, user);
+  const endpointTypeForResult = getEndpointTypeForResult(endpointType, detail);
+
+  return detail ? {
+    ...detail,
+    endpointType: endpointTypeForResult
+  } : {
+    endpointType: endpointTypeForResult
+  };
 }
 
 window.mapPreviewPanelDetailEndpointTypes = endpointTypes;

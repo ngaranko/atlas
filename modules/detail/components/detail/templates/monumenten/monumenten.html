@@ -73,17 +73,17 @@
         </dp-api-call>
     </div>
 
-    <div ng-if="vm.apiData.results.betreft_pand._links.self.href"
+    <div ng-if="vm.apiData.results.betreft_pand.length > 0"
          class="c-detail__block">
         <dp-glossary-header
           definition="PAND"
-          use-plural="true">
+          use-plural="vm.apiData.results.betreft_pand.length > 1">
         </dp-glossary-header>
-        <dp-api-call
-          endpoint="{{ vm.apiData.results.betreft_pand._links.self.href }}"
-          partial="monumenten/pand"
+        <dp-partial-select
+          api-data="vm.apiData.results.betreft_pand"
+          partial="monumenten/pand_lijst"
           user="vm.user">
-        </dp-api-call>
+        </dp-partial-select>
     </div>
 
     <div ng-if="vm.apiData.results.heeft_situeringen.count"

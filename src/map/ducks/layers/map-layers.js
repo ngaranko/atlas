@@ -1,62 +1,74 @@
+import { createSelector } from 'reselect';
+
+import { createUrlWithToken } from '../../../shared/services/api/api';
+import { getMapOverlays } from '../map/map';
+import MAP_CONFIG from '../../services/map-config';
+
 export const FETCH_MAP_LAYERS_REQUEST = 'FETCH_MAP_LAYERS_REQUEST';
 export const FETCH_MAP_LAYERS_SUCCESS = 'FETCH_MAP_LAYERS_SUCCESS';
 export const FETCH_MAP_LAYERS_FAILURE = 'FETCH_MAP_LAYERS_FAILURE';
 
 const initialState = {
-  mapLayers: null,
+  items: [],
   isLoading: false,
-  mapLayersError: null
+  error: null
 };
+
+const findLayer = (layers, id) => layers.find((mapLayer) => mapLayer.id === id);
+const generateLayer = (layers, overlay, url, params) => ({
+  ...overlay,
+  url,
+  overlayOptions: {
+    ...MAP_CONFIG.OVERLAY_OPTIONS,
+    layers: findLayer(layers, overlay.id).layers
+  },
+  params
+});
+export const getMapLayers = (state) => state.mapLayers.layers.items;
+export const getAccessToken = (state) => state.user.accessToken;
+
+export const getLayers = createSelector(
+  [getMapOverlays, getAccessToken, getMapLayers],
+  (overlays, token, layers) => (
+    overlays.map((overlay) => {
+      const layer = findLayer(layers, overlay.id);
+      if (!layer) {
+        return false;
+      }
+      const layerUrl = layer.external ? layer.url : `${MAP_CONFIG.OVERLAY_ROOT}${layer.url}`;
+      if (!layer.authScope) {
+        return generateLayer(layers, overlay, layerUrl, layer.params);
+      }
+      if (token) {
+        return generateLayer(
+          layers,
+          overlay,
+          createUrlWithToken(layerUrl, token),
+          layer.params
+        );
+      }
+      return false;
+    })
+    .filter((layer) => layer))
+);
 
 export default function MapLayersReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_MAP_LAYERS_REQUEST:
-      return { ...state, isLoading: true, mapLayersError: null };
+      return { ...state, isLoading: true, error: null };
 
     case FETCH_MAP_LAYERS_SUCCESS:
-      return { ...state, isLoading: false, mapLayers: action.mapLayers };
+      return { ...state, isLoading: false, items: action.mapLayers };
 
     case FETCH_MAP_LAYERS_FAILURE:
-      return { ...state, isLoading: false, mapLayersError: action.error };
+      return { ...state, isLoading: false, error: action.error };
 
     default:
       return state;
   }
 }
 
-export const getMapLayers = () => ({ type: FETCH_MAP_LAYERS_REQUEST });
-
-export const selectActiveMapLayers = (state) => {
-  const mapLayerIds = state.map.overlays.map((mapLayer) => mapLayer.id);
-  return state.mapLayers
-    .filter((mapLayer) => (
-      [
-        mapLayer.id,
-        ...mapLayer.legendItems.map((legendItem) => legendItem.id)
-      ]
-      .filter((mapLayerId) => Boolean(mapLayerId))
-      .some((mapLayerId) => state.map.overlays
-        .map((overlay) => overlay.id)
-        .includes(mapLayerId))
-    ))
-    .sort((a, b) => {
-      const aId = a.id || a.legendItems[0].id;
-      const bId = b.id || b.legendItems[0].id;
-      return mapLayerIds.indexOf(aId) < mapLayerIds.indexOf(bId);
-    });
-};
-
-export const selectNotClickableVisibleMapLayers = (state) => {
-  const zoomLevel = state.map.zoom;
-
-  return selectActiveMapLayers(state)
-    .filter((mapLayer) => (zoomLevel >= mapLayer.minZoom && zoomLevel <= mapLayer.maxZoom))
-    .map((mapLayer) => [mapLayer, ...mapLayer.legendItems])
-    .reduce((accumulator, legendItems) => accumulator.concat(legendItems), [])
-    .filter((legendItem) => legendItem.notClickable)
-    .filter((legendItem) => state.map.overlays
-      .some((overlay) => overlay.id === legendItem.id && overlay.isVisible));
-};
+export const fetchMapLayers = () => ({ type: FETCH_MAP_LAYERS_REQUEST });
 
 window.reducers = window.reducers || {};
 window.reducers.MapLayersReducer = MapLayersReducer;

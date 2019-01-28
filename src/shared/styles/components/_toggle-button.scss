@@ -1,4 +1,5 @@
 .c-toggle-button {
+  @extend %hover-focus-button;
   background-color: $primary-light;
   border: 1px solid $secondary-gray20;
   box-shadow: 2px 2px 0 0 $secondary-gray40;
@@ -9,21 +10,6 @@
   outline: none;
   padding: 4px;
   width: 24px;
-
-  &:focus {
-    background-color: $secondary-gray10;
-    color: $primary-dark;
-    fill: $primary-dark;
-  }
-
-  &:hover {
-    background-color: $primary-contrast;
-    border-color: $primary-contrast;
-
-    svg {
-      fill: $primary-light;
-    }
-  }
 
   svg {
     fill: $secondary-gray60;

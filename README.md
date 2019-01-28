@@ -2,14 +2,22 @@
 # City Data
 
 ## Requirements
-- npm
 
-## Installations
-- npm install
+- [npm](https://www.npmjs.com/)
+
+## Installation
+
+Install all dependencies:
+
+    npm install
 
 ## Development
-- NODE_ENV=development npm start
-- Open the server at http://localhost:8080/
+
+Start the application:
+
+    NODE_ENV=development npm start
+
+Then, open the application in your browser at [localhost:8080](http://localhost:8080/).
 
 ## Testing
 
@@ -51,22 +59,20 @@ In order to test authentication the following environment variables must be set:
 They can simply be added by using the `export` command from the command line, or by adding these
 variables to `.bash_profile`.
 
-### E2E Functional testing
-
 Make sure the app is running locally by running `npm start`.
-Then, in a second terminal, run `npm run test-e2e-functional` (single run).
-Or open the UI using `npm run test-e2e-functional-watch`.
+Then, in a second terminal, run `npm run test-e2e` (single run).
+Or open the UI using `npm run test-e2e-watch`.
 
 Test using docker-compose:
 ```
-docker-compose up --build test-e2e-functional
+docker-compose up --build test-e2e
 ```
 
 To test against production APIs you can use the same tasks, suffixed with `prod`:
 
 - Make sure the app is running locally by running `npm run start-prod`.
-- Then, in a second terminal, run `npm run test-e2e-functional-prod` (single run).
-- Or open the UI using `npm run test-e2e-functional-prod-watch`.
+- Then, in a second terminal, run `npm run test-e2e-prod` (single run).
+- Or open the UI using `npm run test-e2e-prod-watch`.
 
 ### E2E Aria testing
 
@@ -78,17 +84,14 @@ Test using docker-compose:
 docker-compose up --build test-e2e-aria
 ```
 
-### E2E Visual testing
-
-_Currently not working in CI_
-
-`docker-compose up --build test-e2e-visual`
-
-
 ## Other useful commands
 
 - `npm run clean`
-- `npm run test-lint`
+- `npm run lint`
+
+## Related projects
+
+- API health checks used in this project buid pipeline: https://github.com/Amsterdam/atlas-health-checks
 
 ## Techniques used
 - AngularJS
@@ -105,3 +108,7 @@ _Currently not working in CI_
 - BEM namespaces (http://csswizardry.com/2015/03/more-transparent-ui-code-with-namespaces/)
 - [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) without tags and a release branch
 
+## Known issues
+- on windows there is a bug in sass-lint that prevents `npm run lint` to fail when there are linting errors.
+  work-around: install sass-lint globally and run commands specified in the  `lint:style` script direct in a bash
+  terminal

@@ -1,3 +1,9 @@
+import {
+  MAP_ZOOM,
+  MAP_PAN,
+  MAP_ADD_PANO_OVERLAY,
+  MAP_REMOVE_PANO_OVERLAY
+} from '../map/ducks/map/map';
 //
 // ACTIONS are identified by their id
 // Optionally an action can specify:
@@ -5,8 +11,6 @@
 //   The action will not change the url
 // - replace: true
 //   The action will replace the url (not adding a new entry in the browser history)
-// - isButton: true
-//   The action will be triggered by a button instead of a link
 //
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -20,11 +24,6 @@
 export default {
   URL_CHANGE: {
     id: 'URL_CHANGE',
-    ignore: true
-  },
-
-  AUTHENTICATE_USER: {
-    id: 'AUTHENTICATE_USER',
     ignore: true
   },
 
@@ -43,17 +42,12 @@ export default {
   SHOW_SEARCH_RESULTS: {
     id: 'SHOW_SEARCH_RESULTS'
   },
-
-  SHOW_MAP: {
-    id: 'SHOW_MAP',
-    isButton: false
-  },
   MAP_ADD_PANO_OVERLAY: {
-    id: 'MAP_ADD_PANO_OVERLAY',
+    id: MAP_ADD_PANO_OVERLAY,
     ignore: true
   },
   MAP_REMOVE_PANO_OVERLAY: {
-    id: 'MAP_REMOVE_PANO_OVERLAY',
+    id: MAP_REMOVE_PANO_OVERLAY,
     ignore: true
   },
   MAP_CLICK: {
@@ -65,35 +59,24 @@ export default {
     ignore: true
   },
   MAP_PAN: {
-    id: 'MAP_PAN',
+    id: MAP_PAN,
     replace: true
   },
   MAP_ZOOM: {
-    id: 'MAP_ZOOM',
+    id: MAP_ZOOM,
     replace: true
-  },
-  MAP_HIGHLIGHT: {
-    id: 'MAP_HIGHLIGHT',
-    ignore: true
   },
   MAP_START_DRAWING: {
     id: 'MAP_START_DRAWING',
-    ignore: true,
-    isButton: true
-  },
-  MAP_CLEAR_DRAWING: {
-    id: 'MAP_CLEAR_DRAWING',
-    isButton: true
+    ignore: true
   },
   MAP_END_DRAWING: {
-    id: 'MAP_END_DRAWING',
-    isButton: true
+    id: 'MAP_END_DRAWING'
   },
 
   FETCH_DETAIL: {
     id: 'FETCH_DETAIL',
-    ignore: true,
-    isButton: false
+    ignore: true
   },
   SHOW_DETAIL: {
     id: 'SHOW_DETAIL'
@@ -122,13 +105,11 @@ export default {
     replace: true
   },
   STRAATBEELD_FULLSCREEN: {
-    id: 'STRAATBEELD_FULLSCREEN',
-    isButton: true
+    id: 'STRAATBEELD_FULLSCREEN'
   },
   HIDE_STRAATBEELD: {
     id: 'HIDE_STRAATBEELD',
-    ignore: true,
-    isButton: true
+    ignore: true
   },
   SET_STRAATBEELD_ORIENTATION: {
     id: 'SET_STRAATBEELD_ORIENTATION',
@@ -153,8 +134,7 @@ export default {
     id: 'NAVIGATE_DATA_SELECTION'
   },
   SET_DATA_SELECTION_VIEW: {
-    id: 'SET_DATA_SELECTION_VIEW',
-    isButton: true
+    id: 'SET_DATA_SELECTION_VIEW'
   },
 
   SHOW_HOME: {

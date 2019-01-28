@@ -9,7 +9,7 @@ describe('ToggleFullscreen', () => {
       const onToggleFullscreen = jest.fn();
       const wrapper = shallow(
         <ToggleFullscreen
-          isFullscreen={true}
+          isFullscreen
           onToggleFullscreen={onToggleFullscreen}
         />
       );
@@ -34,7 +34,7 @@ describe('ToggleFullscreen', () => {
         const onToggleFullscreen = jest.fn();
         const wrapper = shallow(
           <ToggleFullscreen
-            isFullscreen={true}
+            isFullscreen
             onToggleFullscreen={onToggleFullscreen}
           />
         );

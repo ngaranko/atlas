@@ -1,4 +1,4 @@
-import apiUrl from '../../../shared/services/api';
+import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config';
 import { getAuthHeaders } from '../../../shared/services/auth/auth';
 
 function formatData(categories) {
@@ -24,10 +24,15 @@ function formatData(categories) {
 }
 
 function search(query) {
-  const uri = `${apiUrl}typeahead?q=${query}`;
-  return fetch(uri, { headers: getAuthHeaders() })
-    .then((response) => response.json())
-    .then((response) => formatData(response));
+  // Minimun length for typeahead query in backend is 3 characters
+  const uri = (query && query.length >= 3) && `${SHARED_CONFIG.API_ROOT}typeahead?q=${query}`;
+
+  if (uri) {
+    return fetch(uri, { headers: getAuthHeaders() })
+      .then((response) => response.json())
+      .then((response) => formatData(response));
+  }
+  return {};
 }
 
 export default search;

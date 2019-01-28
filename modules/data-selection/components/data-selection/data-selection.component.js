@@ -1,3 +1,5 @@
+import { mapLoadingAction } from '../../../../src/map/ducks/map/map';
+
 (function () {
     'use strict';
 
@@ -6,9 +8,12 @@
         .component('dpDataSelection', {
             templateUrl: 'modules/data-selection/components/data-selection/data-selection.html',
             bindings: {
-                state: '<',
+                boundingBox: '<',
+                catalogFilters: '<',
                 filters: '<',
-                user: '<'
+                state: '<',
+                user: '<',
+                zoomLevel: '<'
             },
             controller: DpDataSelectionController,
             controllerAs: 'vm'
@@ -42,19 +47,19 @@
             userSettings.showCatalogusIntroduction.value = vm.showCatalogusIntroduction.toString();
         });
 
-        $scope.$watch(function () {
+        $scope.$watchGroup([
             // Watching all state variables except markers and isLoading
-            return [
-                vm.state.dataset,
-                vm.state.view,
-                vm.filters,
-                vm.state.geometryFilter,
-                vm.state.page,
-                vm.state.query,
-                vm.user.scopes,
-                store.getState().catalogFilters
-            ];
-        }, fetchData, true);
+            'vm.boundingBox',
+            'vm.catalogFilters',
+            'vm.filters',
+            'vm.state.dataset',
+            'vm.state.geometryFilter',
+            'vm.state.page',
+            'vm.state.query',
+            'vm.state.view',
+            'vm.user.scopes',
+            'vm.zoomLevel'
+        ], fetchData);
 
         vm.tabHeader = new TabHeader('data-datasets');
         vm.tabHeader.activeTab = vm.tabHeader.getTab('datasets');
@@ -69,7 +74,6 @@
 
         function fetchData () {
             const config = DATA_SELECTION_CONFIG.datasets[vm.state.dataset];
-            const catalogFilters = store.getState().catalogFilters;
             const isListView = vm.state.view === 'LIST';
             vm.view = vm.state.view;
 
@@ -80,11 +84,10 @@
             vm.numberOfRecords = null;
             vm.numberOfPages = null;
 
-            vm.showContent = false;
-            vm.disabled = false;
-
             if (config.AUTH_SCOPE && !vm.user.scopes.includes(config.AUTH_SCOPE)) {
                 vm.disabled = true;
+                vm.notAuthorizedMessageSrc =
+                    `modules/data-selection/components/data-selection/not-authorized-message/${vm.state.dataset}.html`;
                 vm.availableFilters = [];
                 store.dispatch({
                     type: ACTIONS.SHOW_DATA_SELECTION,
@@ -93,73 +96,83 @@
                 return;
             }
 
-            vm.isLoading = true;
+            vm.showContent = false;
+            vm.isLoading = !vm.showContent;
+            vm.disabled = false;
 
-            dataSelectionApi.query(vm.state.dataset,
+            const activeFilters = angular.extend({
+                shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
+            }, vm.filters);
+
+            // Load Basic BAG Information
+            dataSelectionApi.query(
+                vm.state.dataset,
                 vm.state.view,
                 vm.filters,
                 vm.currentPage,
                 vm.state.query,
                 vm.state.geometryFilter.markers,
-                catalogFilters)
-                .then(data => {
-                    vm.availableFilters = data.filters;
-                    vm.data = data.data;
-                    vm.numberOfRecords = data.numberOfRecords;
-                    vm.numberOfPages = data.numberOfPages;
+                vm.catalogFilters
+            ).then((data) => {
+                vm.showContent = true;
+                vm.isLoading = !vm.showContent;
 
-                    vm.showFilters = !isListView && vm.numberOfRecords > 0;
+                vm.availableFilters = data.filters;
+                vm.data = data.data;
+                vm.numberOfRecords = data.numberOfRecords;
+                vm.numberOfPages = data.numberOfPages;
 
-                    // determine if warning messages should be shown
-                    vm.maxAvailablePages = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
-                    vm.showMessageMaxPages = vm.maxAvailablePages && vm.state.page > vm.maxAvailablePages;
+                vm.showFilters = !isListView && vm.numberOfRecords > 0;
 
-                    vm.maxNumberOfClusteredMarkers = DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS;
-                    vm.showMessageClusteredMarkers = isListView && vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
+                updateTabHeader(vm.state.query, vm.numberOfRecords);
 
-                    updateTabHeader(vm.state.query, vm.numberOfRecords);
+                // Determine if warning messages should be shown
+                vm.maxAvailablePages =
+                    DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES;
+                vm.showMessageMaxPages = vm.maxAvailablePages &&
+                    vm.state.page > vm.maxAvailablePages;
 
-                    vm.showContent =
-                        vm.numberOfRecords &&
-                        (
-                            angular.isUndefined(DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES) ||
-                            vm.state.page <= DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_AVAILABLE_PAGES
-                        );
+                vm.showContent = vm.numberOfRecords && (
+                    angular.isUndefined(vm.maxAvailablePages) ||
+                    vm.state.page <= vm.maxAvailablePages
+                );
 
-                    const activeFilters = angular.extend({
-                        shape: angular.toJson(vm.state.geometryFilter.markers.map(([lat, lng]) => [lng, lat]))
-                    }, vm.filters);
+                vm.maxNumberOfClusteredMarkers =
+                    DATA_SELECTION_CONFIG.datasets[vm.state.dataset].MAX_NUMBER_OF_CLUSTERED_MARKERS;
+                vm.showMessageClusteredMarkers = isListView &&
+                    vm.numberOfRecords > vm.maxNumberOfClusteredMarkers;
 
-                    if (
-                        isListView &&
-                        isListView &&
-                        vm.numberOfRecords <= DATA_SELECTION_CONFIG.options.MAX_NUMBER_OF_CLUSTERED_MARKERS
-                    ) {
-                        // Get marker data and update the state to show the
-                        // data
-                        dataSelectionApi.getMarkers(vm.state.dataset, activeFilters).then(markerData => {
-                            store.dispatch({
-                                type: ACTIONS.SHOW_DATA_SELECTION,
-                                payload: markerData
-                            });
-                        });
-                    } else if (vm.state.reset) {
-                        // Update the state to show the data, do not trigger a
-                        // url state change however
-                        store.dispatch({
-                            type: ACTIONS.RESET_DATA_SELECTION,
-                            payload: []
-                        });
-                    } else {
-                        // Update the state to show the data
+                // Load geolocation markers for clusters
+                if (isListView && vm.numberOfRecords && vm.numberOfRecords <= vm.maxNumberOfClusteredMarkers) {
+                    store.dispatch(mapLoadingAction(true));
+                    dataSelectionApi.getMarkers(
+                        vm.state.dataset,
+                        activeFilters,
+                        vm.zoomLevel,
+                        vm.boundingBox
+                    ).then((markerData) => {
                         store.dispatch({
                             type: ACTIONS.SHOW_DATA_SELECTION,
-                            payload: []
+                            payload: markerData
                         });
-                    }
-                }).finally(() => {
-                    vm.isLoading = false;
-                });
+                    }).finally(() => {
+                        store.dispatch(mapLoadingAction(false));
+                    });
+                } else {
+                    store.dispatch({
+                        type: ACTIONS.SHOW_DATA_SELECTION,
+                        payload: []
+                    });
+                }
+
+                // Update state to show the data, do not trigger a url state change however
+                if (vm.state.reset) {
+                    store.dispatch({
+                        type: ACTIONS.RESET_DATA_SELECTION,
+                        payload: []
+                    });
+                }
+            });
         }
     }
 })();

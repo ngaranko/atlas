@@ -104,8 +104,8 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
         onClick={[MockFunction]}
         title="Volledig weergeven"
       >
-        <Component
-          className="map-search-results__button-icon"
+        <span
+          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
         />
         Volledig weergeven
       </button>
@@ -166,8 +166,8 @@ exports[`MapSearchResults rendering should render empty results 1`] = `
         onClick={[MockFunction]}
         title="Volledig weergeven"
       >
-        <Component
-          className="map-search-results__button-icon"
+        <span
+          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
         />
         Volledig weergeven
       </button>
@@ -193,7 +193,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
           "
       disabled={false}
       onClick={[MockFunction]}
-      title="Bekijk Panorama view"
+      title="Panoramabeeld tonen"
     >
       <img
         alt="Panoramabeeld"
@@ -229,6 +229,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
     >
       <li>
         <Notification
+          canClose={true}
           className=""
           level="info"
         >
@@ -279,8 +280,8 @@ exports[`MapSearchResults rendering should render results 1`] = `
         onClick={[MockFunction]}
         title="Volledig weergeven"
       >
-        <Component
-          className="map-search-results__button-icon"
+        <span
+          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
         />
         Volledig weergeven
       </button>
@@ -306,7 +307,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
           "
       disabled={false}
       onClick={[MockFunction]}
-      title="Bekijk Panorama view"
+      title="Panoramabeeld tonen"
     >
       <img
         alt="Panoramabeeld"
@@ -383,8 +384,8 @@ exports[`MapSearchResults rendering should update results 1`] = `
         onClick={[MockFunction]}
         title="Volledig weergeven"
       >
-        <Component
-          className="map-search-results__button-icon"
+        <span
+          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
         />
         Volledig weergeven
       </button>
@@ -410,7 +411,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
           "
       disabled={false}
       onClick={[MockFunction]}
-      title="Bekijk Panorama view"
+      title="Panoramabeeld tonen"
     >
       <img
         alt="Panoramabeeld"
@@ -446,6 +447,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
     >
       <li>
         <Notification
+          canClose={true}
           className=""
           level="info"
         >
@@ -513,8 +515,8 @@ exports[`MapSearchResults rendering should update results 2`] = `
         onClick={[MockFunction]}
         title="Volledig weergeven"
       >
-        <Component
-          className="map-search-results__button-icon"
+        <span
+          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
         />
         Volledig weergeven
       </button>

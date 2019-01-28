@@ -1,3 +1,5 @@
+import { encodeQueryParams } from '../../../../src/shared/services/query-string-parser/query-string-parser';
+
 (function () {
     'use strict';
 
@@ -119,12 +121,6 @@
 
         function getByUri (uri, params) {
             return getByUrl(sharedConfig.API_ROOT + uri, params);
-        }
-
-        function encodeQueryParams (params) {
-            return Object.keys(params)
-                .map(param => encodeURIComponent(param) + '=' + encodeURIComponent(params[param]))
-                .join('&');
         }
     }
 })();

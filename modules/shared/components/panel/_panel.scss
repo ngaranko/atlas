@@ -27,7 +27,7 @@
 
 .c-panel--warning {
   padding: $base-whitespace * .3 $base-whitespace;
-  background-color: $thema-10;
+  background-color: $darkish-blue;
   color: $primary-light;
 }
 
@@ -55,4 +55,13 @@
 
 .c-panel--can-close {
   padding-right: $button-size;
+}
+
+.c-panel__list {
+  margin: 0 20px;
+  list-style: disc;
+
+  li {
+    margin-top: 10px;
+  }
 }

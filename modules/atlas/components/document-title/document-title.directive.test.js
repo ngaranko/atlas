@@ -1,4 +1,5 @@
 import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+import * as mapDocumentTitle from '../../../../src/map/services/document-title/document-title';
 
 describe('The dp-document-title directive', function () {
     let $compile,
@@ -14,7 +15,6 @@ describe('The dp-document-title directive', function () {
         dashboardColumns = { determineVisibility: angular.noop, determineActivity: angular.noop },
         dataSelectionDocumentTitle = { getTitle: angular.noop },
         detailDocumentTitle = { getTitle: angular.noop },
-        mapDocumentTitle = { getTitle: angular.noop },
         pageDocumentTitle = { getTitle: angular.noop },
         searchResultsDocumentTitle = { getTitle: angular.noop },
         straatbeeldDocumentTitle = { getTitle: angular.noop },
@@ -28,7 +28,6 @@ describe('The dp-document-title directive', function () {
                 $provide.value('dashboardColumns', dashboardColumns);
                 $provide.value('dpDataSelectionDocumentTitle', dataSelectionDocumentTitle);
                 $provide.value('dpDetailDocumentTitle', detailDocumentTitle);
-                $provide.value('dpMapDocumentTitle', mapDocumentTitle);
                 $provide.value('dpPageDocumentTitle', pageDocumentTitle);
                 $provide.value('dpSearchResultsDocumentTitle', searchResultsDocumentTitle);
                 $provide.value('dpStraatbeeldDocumentTitle', straatbeeldDocumentTitle);

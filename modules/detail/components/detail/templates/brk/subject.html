@@ -41,7 +41,7 @@
                 </dd>
                 <dt>Postadres postbus</dt>
                 <dd>
-                  {{ vm.apiData.results.postadres.postbus_nummer }} {{ vm.apiData.results.postadres.postbus_postcode }} {{ vm.apiData.results.postadres.postbus_woonplaats }}
+                  <span ng-if="vm.apiData.results.postadres.postbus_nummer">Postbus {{ vm.apiData.results.postadres.postbus_nummer }}</span> {{ vm.apiData.results.postadres.postbus_postcode }} {{ vm.apiData.results.postadres.postbus_woonplaats }}
                 </dd>
             </dl>
 
@@ -56,13 +56,13 @@
                 <dt>Geslacht</dt>
                 <dd>{{ vm.apiData.results.geslacht.omschrijving }}</dd>
                 <dt>Geboortedatum</dt>
-                <dd>{{ vm.apiData.results.geboortedatum }}</dd>
+                <dd>{{ vm.apiData.results.geboortedatum | date:'dd-MM-yyyy'}}</dd>
                 <dt>Geboorteplaats</dt>
                 <dd>{{ vm.apiData.results.geboorteplaats }}</dd>
                 <dt>Geboorteland</dt>
                 <dd>{{ vm.apiData.results.geboorteland.omschrijving }}</dd>
                 <dt>Datum van overlijden</dt>
-                <dd>{{ vm.apiData.results.overlijdensdatum }}</dd>
+                <dd>{{ vm.apiData.results.overlijdensdatum | date:'dd-MM-yyyy'}}</dd>
                 <dt>Woonadres</dt>
                 <dd>
                     {{ vm.apiData.results.woonadres.openbareruimte_naam }} {{ vm.apiData.results.woonadres.huisnummer }}{{ vm.apiData.results.woonadres.huisletter }}<span ng-if="vm.apiData.results.woonadres.toevoeging">-{{ vm.apiData.results.woonadres.toevoeging }}</span> {{ vm.apiData.results.woonadres.postcode }} {{ vm.apiData.results.woonadres.woonplaats }}
@@ -81,7 +81,7 @@
                 </dd>
                 <dt>Postadres postbus</dt>
                 <dd>
-                    {{ vm.apiData.results.postadres.postbus_nummer }} {{ vm.apiData.results.postadres.postbus_postcode }} {{ vm.apiData.results.postadres.postbus_woonplaats }}
+                    <span ng-if="vm.apiData.results.postadres.postbus_nummer">Postbus {{ vm.apiData.results.postadres.postbus_nummer }}</span> {{ vm.apiData.results.postadres.postbus_postcode }} {{ vm.apiData.results.postadres.postbus_woonplaats }}
                 </dd>
             </dl>
         </div>

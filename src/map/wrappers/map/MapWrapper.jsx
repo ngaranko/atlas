@@ -13,5 +13,6 @@ const MapWrapper = () => (
 export default MapWrapper;
 
 window.React = window.React || React;
+// istanbul ignore next
 window.render = window.render || render;
 window.MapWrapper = MapWrapper;

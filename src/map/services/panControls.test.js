@@ -1,28 +1,20 @@
-import ACTIONS from '../../shared/actions';
+
 import {
     getCurrentLocation,
-    initialize,
     panTo
 } from './panControls';
 
 describe('zoom controls', () => {
   let leafletMap;
-  let store;
-  let dragEventHandler;
   const mockCenter = {
     lat: 1.3,
     lng: 3.7
   };
 
   beforeEach(() => {
-    store = {
-      dispatch: jest.fn()
-    };
-
     leafletMap = {
       getCenter: () => mockCenter,
-      panTo: jest.fn(),
-      on: (name, handler) => { dragEventHandler = handler; }
+      panTo: jest.fn()
     };
   });
 
@@ -45,16 +37,5 @@ describe('zoom controls', () => {
     panTo(leafletMap, Object.values(mockCenter));
 
     expect(leafletMap.panTo.mock.calls.length).toBe(0);
-  });
-
-  it('listens for Leaflet\'s dragend event, then it fires the MAP_PAN action', () => {
-    initialize(store, leafletMap);
-
-    dragEventHandler();
-
-    expect(store.dispatch.mock.calls[0][0]).toEqual({
-      type: ACTIONS.MAP_PAN,
-      payload: Object.values(mockCenter)
-    });
   });
 });

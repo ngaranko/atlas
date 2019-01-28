@@ -1,8 +1,17 @@
 export const STRAATBEELD_OFF = 'STRAATBEELD_OFF';
 
+export const historyOptions = [
+  { year: 0, missionType: 'bi', label: 'Meest recent', layerName: 'pano' },
+  { year: 2018, missionType: 'bi', label: 'Alleen 2018', layerName: 'pano2018bi' },
+  { year: 2017, missionType: 'bi', label: 'Alleen 2017', layerName: 'pano2017bi' },
+  { year: 2016, missionType: 'bi', label: 'Alleen 2016', layerName: 'pano2016bi' },
+  { year: 2018, missionType: 'woz', label: 'T.b.v. WOZ 2018', layerName: 'pano2018woz' },
+  { year: 2017, missionType: 'woz', label: 'T.b.v. WOZ 2017', layerName: 'pano2017woz' }
+];
+
 const initialState = {
   location: null, // eg: [52.8, 4.9]
-  history: 0,     // eg: 2016
+  history: historyOptions[0],
   pitch: 0,       // eg: -10
   heading: 0,     // eg: 270
   fov: 0,         // eg: 65
@@ -28,6 +37,3 @@ export default function StraatbeeldReducer(state = initialState, action) {
 }
 
 export const setStraatbeeldOff = () => ({ type: STRAATBEELD_OFF });
-
-window.reducers = window.reducers || {};
-window.reducers.StraatbeeldReducer = StraatbeeldReducer;

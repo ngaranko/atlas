@@ -1,5 +1,8 @@
-import apiUrl from '../api';
+import SHARED_CONFIG from '../shared-config/shared-config';
 import verblijfsobject from './adressen-verblijfsobject';
+
+import getCenter from '../geo-json/geo-json';
+import { rdToWgs84 } from '../coordinate-reference-system/crs-converter';
 
 export default function fetchByUri(uri) {
   return fetch(uri)
@@ -18,7 +21,17 @@ export default function fetchByUri(uri) {
             isNevenadres: result.isNevenadres
           })) :
         result
-    ));
+    ))
+    .then((result) => {
+      // eslint-disable-next-line no-underscore-dangle
+      const geometryCenter = result._geometrie && getCenter(result._geometrie);
+      const wgs84Center = geometryCenter && rdToWgs84(geometryCenter);
+
+      return {
+        ...result,
+        location: result.location || wgs84Center
+      };
+    });
 }
 
 export function fetchByPandId(pandId) {
@@ -30,7 +43,7 @@ export function fetchByPandId(pandId) {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&');
 
-  return fetch(`${apiUrl}bag/nummeraanduiding/?${queryString}`)
+  return fetch(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`)
     .then((response) => response.json())
     .then((data) => data.results);
 }
@@ -44,7 +57,7 @@ export function fetchByLigplaatsId(ligplaatsId) {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&');
 
-  return fetch(`${apiUrl}bag/nummeraanduiding/?${queryString}`)
+  return fetch(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`)
     .then((response) => response.json())
     .then((data) => data.results
       .map((result) => ({
@@ -68,7 +81,7 @@ export function fetchByStandplaatsId(standplaatsId) {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&');
 
-  return fetch(`${apiUrl}bag/nummeraanduiding/?${queryString}`)
+  return fetch(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`)
     .then((response) => response.json())
     .then((data) => data.results
       .map((result) => ({

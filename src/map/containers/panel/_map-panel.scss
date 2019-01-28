@@ -1,6 +1,8 @@
+@import "../../../shared/styles/config";
 $map-panel-heading-height: 33px;
 $map-panel-offset: 130px;
 $map-panel-max-width: 444px;
+$handle-height: 24px;
 
 .map-panel {
   background-color: $primary-light;
@@ -20,14 +22,11 @@ $map-panel-max-width: 444px;
   z-index: 100;
 
   &--collapsed {
+    border: none;
     height: auto;
     min-width: auto;
     top: auto;
     width: auto;
-
-    &:hover {
-      border-color: $primary-contrast;
-    }
 
     .scroll-wrapper {
       display: none;
@@ -44,28 +43,19 @@ $map-panel-max-width: 444px;
 
       &:focus,
       &:hover {
-        background-color: $primary-contrast;
         cursor: pointer;
-
-        .map-panel__heading-icon, // sass-lint:disable-line nesting-depth
-        .map-panel__toggle-icon {
-          fill: $primary-light;
-        }
       }
     }
-  }
 
-  &__heading-icon {
-    fill: $secondary-gray60;
-    height: 24px;
-    width: 24px;
-
-    .map-panel--collapsed & {
-      fill: $secondary-gray60;
+    &-icon {
+      @include icon-sprite("icon-map-layers", $secondary-gray60, $primary-dark, $handle-height);
+      height: $handle-height;
+      width: $handle-height;
     }
   }
 
   &__heading-title {
+    color: $secondary-gray60;
     flex-grow: 1;
     font-family: "Avenir LT W01 85 Heavy";
     font-size: 16px;
@@ -79,6 +69,7 @@ $map-panel-max-width: 444px;
   }
 
   &__toggle {
+    @extend %hover-focus-button;
     align-items: center;
     border-radius: 0;
     display: flex;
@@ -87,51 +78,47 @@ $map-panel-max-width: 444px;
     padding: 4px;
     width: 100%;
 
-    &:focus {
-      background-color: $secondary-gray10;
-      color: $primary-dark;
-
-      .map-panel__heading-icon,
-      .map-panel__toggle-icon {
-        fill: $primary-dark;
-      }
-    }
-
-    &:hover {
-      background-color: $primary-contrast;
-      color: $primary-light;
-
-      .map-panel__heading-icon,
-      .map-panel__toggle-icon {
-        fill: $primary-light;
-      }
-    }
-
-  }
-
-  &__toggle-icon {
-    fill: $secondary-gray60;
-    height: 24px;
-    width: 24px;
-
     .map-panel--collapsed & {
-      fill: $secondary-gray60;
+      border: solid 1px $secondary-gray20;
     }
 
-    .map-panel--collapsed &--expanded {
-      display: none;
+    &--icon {
+      height: $handle-height;
+      width: $handle-height;
+
+      &-collapse {
+        @include icon-sprite("icon-arrow-down", $secondary-gray60, $primary-dark, $handle-height);
+      }
+
+      &-expand {
+        @include icon-sprite("icon-arrow-up", $secondary-gray60, $primary-dark, $handle-height);
+      }
     }
 
-    .map-panel--expanded &--collapsed {
-      display: none;
+    &:hover,
+    &:focus {
+      .map-panel__heading-title {
+        color: $primary-dark;
+      }
+
+      .map-panel__heading-icon {
+        @include icon-sprite("icon-map-layers", $primary-dark, $primary-dark, $handle-height);
+      }
+
+      .map-panel__toggle--icon-collapse {
+        @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height);
+      }
+
+      .map-panel__toggle--icon-expand {
+        @include icon-sprite("icon-arrow-up", $primary-dark, $primary-dark, $handle-height);
+      }
     }
   }
 
   .scroll-wrapper {
     max-height: calc(100% - #{$dashboard-heading-height} - #{$map-panel-offset} - #{$map-panel-heading-height});
     overflow-x: hidden;
-    overflow-y: auto;
-    // NB: Workaround to force smooth scrolling on Chrome
+    overflow-y: auto; // NB: Workaround to force smooth scrolling on Chrome
     will-change: transform;
 
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //sass-lint:disable-line no-vendor-prefixes
@@ -143,8 +130,7 @@ $map-panel-max-width: 444px;
   .is-print-mode & {
     height: auto;
     max-height: none;
-    position: absolute;
-    // Make sure the width is fixed
+    position: absolute; // Make sure the width is fixed
     width: $map-panel-max-width;
 
 
@@ -158,9 +144,7 @@ $map-panel-max-width: 444px;
 
     .scroll-wrapper {
       height: auto;
-    }
-
-    // This hack makes sure IE also has a white background when printing
+    } // This hack makes sure IE also has a white background when printing
     // https://stackoverflow.com/a/27822161
     @media print {
       &::before {
@@ -205,8 +189,10 @@ $map-panel-max-width: 444px;
 
   .leaflet-control-zoom-in,
   .leaflet-control-zoom-out {
+    @extend %hover-focus-button;
     background-color: $primary-light;
     border: 1px solid $secondary-gray20;
+    border-bottom: 1px solid !important;
     border-radius: 0 !important;
     box-shadow: 2px 2px 0 0 $secondary-gray40;
     box-sizing: content-box;
@@ -216,18 +202,6 @@ $map-panel-max-width: 444px;
     outline: none;
     padding: 4px;
     width: 24px !important;
-
-    &:focus {
-      background-color: $secondary-gray10;
-      color: $primary-dark;
-    }
-
-    &:hover {
-      background-color: $primary-contrast;
-      border-color: $primary-contrast;
-      color: $primary-light;
-    }
-
   }
 
   .leaflet-control-zoom-in {
@@ -249,12 +223,7 @@ $map-panel-max-width: 444px;
   display: flex;
   flex-shrink: 0;
   font-size: 0;
-  height: 26px;
+  height: $handle-height + 2px;
   justify-content: center;
-  width: 26px;
-
-  svg {
-    height: 24px;
-    width: 24px;
-  }
+  width: $handle-height + 2px;
 }

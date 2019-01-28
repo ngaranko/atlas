@@ -80,8 +80,10 @@
   padding-left: $base-whitespace * 2;
   border-bottom: 1px solid $secondary-gray20;
 
-  &:hover {
+  &:hover,
+  &:focus {
     @include o-tag;
+    outline: none;
     background-color: $secondary-gray10;
   }
 
@@ -114,5 +116,5 @@
 }
 
 .c-data-selection-file-type__name {
-  padding-bottom: 2px;
+  padding: 2px 5px 0;
 }

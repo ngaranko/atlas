@@ -26,13 +26,8 @@ import MapDetailMonument from './MapDetailMonument';
 import MapDetailNapPeilmerk from './MapDetailNapPeilmerk';
 import MapDetailVestiging from './MapDetailVestiging';
 
-const MapDetailResult = ({ endpoint, panoUrl, result, onMaximize, onPanoPreviewClick }) => {
-  const endpointTypeKey = Object
-    .keys(endpointTypes)
-    .find((typeKey) => endpoint.includes(endpointTypes[typeKey]));
-  const endpointType = endpointTypes[endpointTypeKey];
-
-  switch (endpointType) {
+const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => {
+  switch (result.endpointType) {
     case endpointTypes.adressenLigplaats:
       return (
         <MapDetailAdressenLigplaats
@@ -251,7 +246,6 @@ MapDetailResult.defaultProps = {
 };
 
 MapDetailResult.propTypes = {
-  endpoint: PropTypes.string.isRequired,
   panoUrl: PropTypes.string,
   onMaximize: PropTypes.func.isRequired,
   onPanoPreviewClick: PropTypes.func.isRequired,

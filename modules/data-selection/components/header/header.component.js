@@ -1,3 +1,5 @@
+import { features } from '../../../../src/shared/environment';
+
 (function () {
     'use strict';
 
@@ -42,12 +44,21 @@
             vm.showActiveFilters = Object.keys(vm.filters).length || vm.state.geometryFilter.markers.length;
 
             vm.canEditDataset = vm.user.scopes.includes('CAT/W');
+            vm.showNumberOfRecords = vm.numberOfRecords > 0 &&
+                DATA_SELECTION_CONFIG.datasets[vm.state.dataset].SHOW_NUMBER_OF_RECORDS;
             vm.datasetTitle = DATA_SELECTION_CONFIG.datasets[vm.state.dataset].TITLE;
 
-            vm.tabs = ['bag', 'hr'].map(dataset => {
+            const tabs = ['bag', 'hr'];
+
+            /* istanbul ignore next */
+            if (features.eigendommen) {
+                tabs.push('brk');
+            }
+
+            vm.tabs = tabs.map(dataset => {
                 return {
                     dataset: dataset,
-                    title: DATA_SELECTION_CONFIG.datasets[dataset].TITLE,
+                    title: DATA_SELECTION_CONFIG.datasets[dataset].TITLE_TAB,
                     isActive: vm.state.dataset === dataset
                 };
             });

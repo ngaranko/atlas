@@ -5,7 +5,7 @@ exports[`Notification should add the notification level as class name 1`] = `
   className="
         
         notification
-        notification--error
+        notification--alert
       "
 >
   <span
@@ -17,7 +17,9 @@ exports[`Notification should add the notification level as class name 1`] = `
     className="notification__button"
     onClick={[Function]}
   >
-    <Component />
+    <span
+      className="notification__button--close"
+    />
   </button>
 </p>
 `;
@@ -43,7 +45,9 @@ exports[`Notification should be able to render \`a\` elements 1`] = `
     className="notification__button"
     onClick={[Function]}
   >
-    <Component />
+    <span
+      className="notification__button--close"
+    />
   </button>
 </p>
 `;
@@ -54,6 +58,22 @@ exports[`Notification should not show the close button for the message level 1`]
         
         notification
         notification--message
+      "
+>
+  <span
+    className="notification__content"
+  >
+    Test message
+  </span>
+</p>
+`;
+
+exports[`Notification should not show the close button when disabled 1`] = `
+<p
+  className="
+        
+        notification
+        notification--info
       "
 >
   <span
@@ -81,7 +101,9 @@ exports[`Notification should render the provided message 1`] = `
     className="notification__button"
     onClick={[Function]}
   >
-    <Component />
+    <span
+      className="notification__button--close"
+    />
   </button>
 </p>
 `;

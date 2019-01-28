@@ -22,10 +22,12 @@
                 vm.targetView = 'LIST';
                 vm.targetLabel = 'Kaart weergeven';
                 vm.targetHover = 'Resultaten op de kaart weergeven';
+                vm.targetIcon = 'kaart';
             } else {
                 vm.targetView = 'TABLE';
                 vm.targetLabel = 'Tabel weergeven';
                 vm.targetHover = 'Resultaten in tabel weergeven';
+                vm.targetIcon = 'list';
             }
         });
     }

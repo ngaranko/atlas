@@ -39,14 +39,18 @@
         <div class="u-row">
             <div class="u-col-sm--6 c-homepage__block--data-selection">
                 <!-- Links to data selection themes -->
-                <div class="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--datasets" ng-class="{ 'c-homepage__block--shadow': datasetsHover }">
-                    <dp-link class-name="c-homepage__block-button" type="FETCH_DATA_SELECTION" payload="{
+                <div class="c-homepage__block c-homepage__block--left c-homepage__block--tall c-homepage__block--datasets"
+                     ng-class="{ 'c-homepage__block--shadow': datasetsHover }"
+                >
+                    <dp-link tabindex="-1" class-name="c-homepage__block-button" type="FETCH_DATA_SELECTION" payload="{
                              dataset: 'dcatd',
                              filters: {},
                              view: 'CATALOG',
                              page: 1
                          }" ng-mouseover="datasetsHover = true" ng-mouseout="datasetsHover = false">
-                        <div class-name="c-homepage__block-button" ng-mouseover="datasetsHover = true" ng-mouseout="datasetsHover = false">
+                        <div class-name="c-homepage__block-button" ng-mouseover="datasetsHover = true" ng-mouseout="datasetsHover = false"
+                             tabindex="-1"
+                        >
                             <div class="o-btn--transparent">Datasetcatalogus</div>
                             <div class="c-homepage__block-details">Blader door datasets (verzamelingen gegevens)</div>
                         </div>
@@ -54,27 +58,10 @@
                     <dp-catalogus-themes></dp-catalogus-themes>
                 </div>
             </div>
-            <div class="u-col-sm--3 c-homepage__block--adressen-vestigingen">
-                <div>
-                    <!-- Link to data selection BAG -->
-                    <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--middle c-homepage__block--short c-homepage__block--adressen" payload="{dataset: 'bag', filters: {}, page: 1}">
-                        <div class="c-homepage__block-button c-homepage__block-button--tall">
-                            <div class="o-btn--transparent">Adressentabel</div>
-                            <div class="c-homepage__block-details">Selecteer adressen en download spreadsheet</div>
-                        </div>
-                    </dp-link>
-                </div>
 
-                <div>
-                    <!-- Link to data selection HR -->
-                    <dp-link type="FETCH_DATA_SELECTION" class-name="c-homepage__block c-homepage__block--right c-homepage__block--short c-homepage__block--vestigingen" payload="{dataset: 'hr', filters: {}, page: 1}">
-                        <div class="c-homepage__block-button c-homepage__block-button--tall">
-                            <div class="o-btn--transparent">Vestigingentabel</div>
-                            <div class="c-homepage__block-details">Selecteer vestigingen en download spreadsheet</div>
-                        </div>
-                    </dp-link>
-                </div>
+            <div class="u-col-sm--3 c-homepage__block--address" id="homepage-address-block">
             </div>
+
             <div class="u-col-sm--3">
                 <!-- Link to straatbeeld -->
                 <div class="qa-straatbeeld-link">

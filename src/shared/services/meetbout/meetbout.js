@@ -12,7 +12,8 @@ export default function fetchByUri(uri) {
         ...result,
         address: result.adres,
         label: result.meetboutidentificatie,
-        location: result.location || wgs84Center
+        location: result.location || wgs84Center,
+        speed: parseFloat(result.zakkingssnelheid)
       };
     });
 }

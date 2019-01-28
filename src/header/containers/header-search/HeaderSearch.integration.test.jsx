@@ -10,7 +10,7 @@ import watchFetchSuggestions from '../../../header/sagas/auto-suggest/auto-sugge
 import AutoSuggestReducer from '../../ducks/auto-suggest/auto-suggest';
 import DataSelectionReducer from '../../../shared/ducks/data-selection/data-selection';
 
-import * as search from '../../../reducers/search';
+import * as search from '../../ducks/search/search';
 import * as details from '../../../reducers/details';
 
 // mock authentication call, as this is not part of this test scope

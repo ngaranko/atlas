@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Checkbox } from '../../../shared/components/checkbox';
-import RemoveIcon from '../../../../public/images/icon-cross.svg';
+import MAP_CONFIG from '../../services/map-config';
 
 import './_map-legend.scss';
 
@@ -19,15 +19,17 @@ class MapLegend extends React.Component {
     if (legendItem.iconUrl) {
       return legendItem.iconUrl;
     }
+
+    const url = MAP_CONFIG.OVERLAY_ROOT.slice(0, -1); // This removes last character '/'
+
     return [
-      '//',
-      process.env.NODE_ENV !== 'production' ? 'acc.map.data.amsterdam.nl' : 'map.data.amsterdam.nl',
+      url,
       `${mapLayer.url}&`,
       'request=GetLegendGraphic&',
       'sld_version=1.1.0&',
       `layer=${legendItem.layer || mapLayer.layers[0]}&`,
       'format=image/svg%2Bxml&',
-      `rule=${encodeURIComponent(legendItem.title)}`
+      `rule=${encodeURIComponent(legendItem.imageRule || legendItem.title)}`
     ].join('');
   }
 
@@ -46,7 +48,9 @@ class MapLegend extends React.Component {
   }
 
   determineLegendItemVisibility(legendItem) {
-    return this.props.overlays.some((overlay) => overlay.id === legendItem.id && overlay.isVisible);
+    return this.props.overlays.some((overlay) =>
+      (overlay.id === legendItem.id && overlay.isVisible) || !legendItem.selectable
+    );
   }
 
   toggleLayer(mapLayer) {
@@ -82,17 +86,18 @@ class MapLegend extends React.Component {
                 `}
               >
                 <Checkbox
-                  checked={() => this.determineLayerVisibility(mapLayer)}
+                  checked={this.determineLayerVisibility(mapLayer)}
                   name={mapLayer.title}
-                  onChange={() => this.toggleLayerVisibility(mapLayer)}
+                  onChange={
+                    /* istanbul ignore next */
+                    () => this.toggleLayerVisibility(mapLayer)
+                  }
                 />
                 <h4 className="map-legend__category-title">{mapLayer.title}</h4>
                 <button
                   className="map-legend__toggle map-legend__toggle--remove"
                   onClick={() => this.toggleLayer(mapLayer)}
-                >
-                  <RemoveIcon />
-                </button>
+                />
               </div>
               {!isAuthorised(mapLayer, user) && (
                 <div className="map-legend__notification">
@@ -108,14 +113,20 @@ class MapLegend extends React.Component {
                 <ul className="map-legend__items">
                   {mapLayer.legendItems.map((legendItem) => (
                     <li
-                      className="map-legend__item"
+                      className={`
+                        map-legend__item
+                        map-legend__item--${this.determineLegendItemVisibility(legendItem) ? 'visible' : 'hidden'}
+                      `}
                       key={legendItem.title}
                     >
                       {legendItem.selectable && (
                         <Checkbox
-                          checked={() => this.determineLegendItemVisibility(legendItem)}
+                          checked={this.determineLegendItemVisibility(legendItem)}
                           name={legendItem.title}
-                          onChange={() => onLayerVisibilityToggle(legendItem.id)}
+                          onChange={
+                            /* istanbul ignore next */
+                            () => onLayerVisibilityToggle(legendItem.id)
+                          }
                         />
                       )}
                       <div className={`

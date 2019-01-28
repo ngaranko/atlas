@@ -60,6 +60,10 @@ describe('The dataSelectionApiDcatd factory', function () {
         };
 
         catalogFilters = {
+            statusTypes: [{
+                id: 'id',
+                label: 'label'
+            }],
             groupTypes: [{
                 id: 'milieu-water',
                 label: 'Thema\'s'
@@ -104,7 +108,7 @@ describe('The dataSelectionApiDcatd factory', function () {
     it('calls the api factory with when no parameters are provided', function () {
         let output;
 
-        dataSelectionApiDcatd.query(config, {}, 1).then(function (_output_) {
+        dataSelectionApiDcatd.query(config, 'CATALOG', {}, 1).then(function (_output_) {
             output = _output_;
         });
         $rootScope.$apply();
@@ -118,7 +122,7 @@ describe('The dataSelectionApiDcatd factory', function () {
 
     it('calls the api factory with theme parameter and searchText', function () {
         // With an active filter and search text
-        dataSelectionApiDcatd.query(config, {
+        dataSelectionApiDcatd.query(config, 'CATALOG', {
             groups: 'energie'
         }, 1, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
@@ -131,7 +135,7 @@ describe('The dataSelectionApiDcatd factory', function () {
 
     it('calls the api factory with active filters and searchText', function () {
         // With active filters
-        dataSelectionApiDcatd.query(config, {
+        dataSelectionApiDcatd.query(config, 'CATALOG', {
             groups: 'energie',
             formats: 'application/pdf'
         }, 1, 'searchText', undefined, catalogFilters);
@@ -140,13 +144,13 @@ describe('The dataSelectionApiDcatd factory', function () {
             limit: config.MAX_ITEMS_PER_PAGE,
             q: 'searchText',
             '/properties/dcat:theme/items': 'eq=theme:energie',
-            '/properties/dcat:distribution/items/properties/dct:format': 'eq=application/pdf'
+            '/properties/dcat:distribution/items/properties/dcat:mediaType': 'eq=application/pdf'
         });
 
         api.getByUri.calls.reset();
 
         // With another page
-        dataSelectionApiDcatd.query(config, {}, 2, 'searchText', undefined, catalogFilters);
+        dataSelectionApiDcatd.query(config, 'CATALOG', {}, 2, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
             offset: 2,
             limit: config.MAX_ITEMS_PER_PAGE,
@@ -156,7 +160,7 @@ describe('The dataSelectionApiDcatd factory', function () {
 
     it('calls the api factory with owner parameter and searchText', function () {
         // With an active filter and search text
-        dataSelectionApiDcatd.query(config, {
+        dataSelectionApiDcatd.query(config, 'CATALOG', {
             owners: 'owner'
         }, 1, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
@@ -169,7 +173,7 @@ describe('The dataSelectionApiDcatd factory', function () {
 
     it('calls the api factory with serviceType parameter and searchText', function () {
         // With an active filter and search text
-        dataSelectionApiDcatd.query(config, {
+        dataSelectionApiDcatd.query(config, 'CATALOG', {
             serviceTypes: 'wms'
         }, 1, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
@@ -182,7 +186,7 @@ describe('The dataSelectionApiDcatd factory', function () {
 
     it('calls the api factory with distributionType parameter and searchText', function () {
         // With an active filter and search text
-        dataSelectionApiDcatd.query(config, {
+        dataSelectionApiDcatd.query(config, 'CATALOG', {
             distributionTypes: 'file'
         }, 1, 'searchText', undefined, catalogFilters);
         expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
@@ -193,10 +197,23 @@ describe('The dataSelectionApiDcatd factory', function () {
         });
     });
 
+    it('calls the api factory with status parameter and searchText', function () {
+        // With an active filter and search text
+        dataSelectionApiDcatd.query(config, 'CATALOG', {
+            status: 'beschikbaar'
+        }, 1, 'searchText', undefined, catalogFilters);
+        expect(api.getByUri).toHaveBeenCalledWith(config.ENDPOINT_PREVIEW, {
+            offset: 0,
+            limit: config.MAX_ITEMS_PER_PAGE,
+            q: 'searchText',
+            '/properties/ams:status': 'eq=beschikbaar'
+        });
+    });
+
     it('returns the total number of pages', function () {
         let output;
 
-        dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(function (_output_) {
+        dataSelectionApiDcatd.query(config, 'CATALOG', {}, 1, '', undefined, catalogFilters).then(function (_output_) {
             output = _output_;
         });
         $rootScope.$apply();
@@ -209,7 +226,7 @@ describe('The dataSelectionApiDcatd factory', function () {
 
         config.ENDPOINT_PREVIEW = 'dcatd/empty';
 
-        dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(function (_output_) {
+        dataSelectionApiDcatd.query(config, 'CATALOG', {}, 1, '', undefined, catalogFilters).then(function (_output_) {
             output = _output_;
         });
         $rootScope.$apply();
@@ -223,7 +240,7 @@ describe('The dataSelectionApiDcatd factory', function () {
 
         config.ENDPOINT_PREVIEW = 'dcatd/reject';
 
-        dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(() => {
+        dataSelectionApiDcatd.query(config, 'CATALOG', {}, 1, '', undefined, catalogFilters).then(() => {
             thenCalled = true;
         }, () => {
             catchCalled = true;
@@ -237,7 +254,7 @@ describe('The dataSelectionApiDcatd factory', function () {
     it('processes the results correctly', function () {
         let output = {};
 
-        dataSelectionApiDcatd.query(config, {}, 1, '', undefined, catalogFilters).then(function (_output_) {
+        dataSelectionApiDcatd.query(config, 'CATALOG', {}, 1, '', undefined, catalogFilters).then(function (_output_) {
             output = _output_;
         });
         $rootScope.$apply();

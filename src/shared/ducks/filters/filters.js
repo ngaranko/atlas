@@ -1,7 +1,8 @@
 /*
     TODO:
     move all the logic from
-    modules/atlas/services/redux/reducers/filters-reducers.factory.js to here
+    src/reducers/deprecated/filters-reducers.js
+    to here
  */
 
 const emptyFilters = () =>

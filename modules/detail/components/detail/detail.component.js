@@ -1,3 +1,8 @@
+import removeMd from 'remove-markdown';
+
+import { getMapClickLocation } from '../../../../src/map/ducks/click-location/map-click-location';
+import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+
 (function () {
     angular
         .module('dpDetail')
@@ -7,7 +12,7 @@
                 endpoint: '@',
                 reload: '=',
                 isLoading: '=',
-                isMapHighlight: '=',
+                skippedSearchResults: '=',
                 catalogFilters: '=',
                 user: '<'
             },
@@ -26,7 +31,6 @@
         'geojson',
         'crsConverter',
         'dataFormatter',
-        'nearestDetail',
         'markdownParser'
     ];
 
@@ -41,7 +45,6 @@
         geojson,
         crsConverter,
         dataFormatter,
-        nearestDetail,
         markdownParser
     ) {
         /* eslint-enable max-params */
@@ -72,12 +75,19 @@
             }
         });
 
+        vm.stripMarkdown = (val) => removeMd(val);
+
+        // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
+        vm.geosearchButtonClick = () => sendPiwikEvent();
+
         function getData (endpoint) {
             vm.location = null;
 
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
 
-            vm.geosearchButton = vm.isMapHighlight ? false : nearestDetail.getLocation();
+            const location = getMapClickLocation(store.getState());
+
+            vm.geosearchButton = vm.skippedSearchResults ? [location.latitude, location.longitude] : false;
 
             const [category, subject] = endpointParser.getParts(endpoint);
 
@@ -97,13 +107,21 @@
                 delete vm.apiData;
                 errorHandler();
             } else {
-                const endpointVersion = category === 'grondexploitatie' ? '?version=2' : '';
+                const endpointVersion = category === 'grondexploitatie' ? '?version=3' : '';
                 api.getByUrl(`${endpoint}${endpointVersion}`).then(function (data) {
                     data = dataFormatter.formatData(data, subject, vm.catalogFilters);
 
                     if (category === 'dcatd' && subject === 'datasets') {
-                        data['dct:description'] = data['dct:description'] &&
-                            markdownParser.parse(data['dct:description']);
+                        const fields = ['dct:description', 'overheid:grondslag', 'overheidds:doel'];
+                        const markdownFields = fields.reduce((acc, field) => {
+                            if (data[field]) {
+                                acc[field] = markdownParser.parse(data[field]);
+                            }
+                            return acc;
+                        }, {});
+
+                        data = { ...data, ...markdownFields };
+
                         data.canEditDataset = vm.user.scopes.includes('CAT/W');
                     }
 
@@ -120,7 +138,7 @@
                             vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
                         }
 
-                        if (vm.isMapHighlight) {
+                        if (!vm.skippedSearchResults) {
                             store.dispatch({
                                 type: ACTIONS.DETAIL_FULLSCREEN,
                                 payload: subject === 'api' || !geoJSON
@@ -144,6 +162,18 @@
                 type: ACTIONS.SHOW_DETAIL,
                 payload: {}
             });
+        }
+
+        // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
+        function sendPiwikEvent () {
+            const piwik = {
+                TRACK_EVENT: 'trackEvent',
+                SHOW_ALL_RESULTS: 'show-all-results',
+                NAVIGATION: 'navigation'
+            };
+
+            piwikTracker([piwik.TRACK_EVENT, piwik.NAVIGATION,
+                piwik.SHOW_ALL_RESULTS, window.document.title]);
         }
     }
 })();

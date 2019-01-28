@@ -12,6 +12,8 @@ export default function fetchByUri(uri) {
 
       return {
         ...result,
+        aanduidingInOnderzoek: result.aanduiding_in_onderzoek,
+        indicatieGeconstateerd: result.indicatie_geconstateerd,
         status: {
           code: result.status ? result.status.code : '',
           description: result.status ? result.status.omschrijving : ''
@@ -22,6 +24,10 @@ export default function fetchByUri(uri) {
           description: item.omschrijving,
           descriptionPlus: item.omschrijving_plus
         })),
+        use: {
+          code: result.gebruik ? result.gebruik.code : '',
+          description: result.gebruik ? result.gebruik.omschrijving : ''
+        },
         label: result._display,
         location: result.location || wgs84Center,
         // The API even returns a value of `1` when the size is unknown

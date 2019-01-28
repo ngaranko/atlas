@@ -4,19 +4,19 @@
     angular
         .module('dpDataSelection')
         .constant('DATA_SELECTION_CONFIG', {
-            options: {
-                MAX_NUMBER_OF_CLUSTERED_MARKERS: 10000
-            },
             datasets: {
                 bag: {
                     CUSTOM_API: 'dataSelectionApiDataSelection',
                     MAX_AVAILABLE_PAGES: 100,
+                    MAX_NUMBER_OF_CLUSTERED_MARKERS: 10000,
                     ENDPOINT_PREVIEW: 'dataselectie/bag/',
                     ENDPOINT_MARKERS: 'dataselectie/bag/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/bag/export/',
                     ENDPOINT_DETAIL: 'bag/nummeraanduiding/',
                     PRIMARY_KEY: 'nummeraanduiding_id',
                     TITLE: 'Adressen',
+                    TITLE_TAB: 'Adressen',
+                    SHOW_NUMBER_OF_RECORDS: true,
                     SORT_FILTERS: false,
                     FILTERS: [
                         {
@@ -126,10 +126,119 @@
                         ]
                     }
                 },
+                brk: {
+                    AUTH_SCOPE: 'BRK/RSN',
+                    CUSTOM_API: 'dataSelectionApiBrk',
+                    MAX_AVAILABLE_PAGES: 100,
+                    MAX_NUMBER_OF_CLUSTERED_MARKERS: Infinity,
+                    ENDPOINT_PREVIEW: {
+                        TABLE: 'dataselectie/brk/',
+                        LIST: 'dataselectie/brk/kot/'
+                    },
+                    ENDPOINT_MARKERS: 'dataselectie/brk/geolocation/',
+                    ENDPOINT_EXPORT: 'dataselectie/brk/export/',
+                    ENDPOINT_DETAIL: 'brk/object/',
+                    PRIMARY_KEY: 'kadastraal_object_id',
+                    TITLE: 'Kadastrale objecten met zakelijk rechthebbenden',
+                    TITLE_TAB: 'Kadastrale objecten',
+                    SHOW_NUMBER_OF_RECORDS: true,
+                    SORT_FILTERS: false,
+                    FILTERS: [
+                        {
+                            slug: 'eigenaar_type',
+                            label: 'Type zakelijk gerechtigde',
+                            order: [
+                                'Grondeigenaar',
+                                'Pandeigenaar',
+                                'Appartementseigenaar'
+                            ],
+                            info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadaster-tabel/' +
+                            '#PagCls_14462665'
+                        }, {
+                            slug: 'eigenaar_cat',
+                            label: 'Zakelijk gerechtigde',
+                            order: [
+                                'Gemeente Amsterdam',
+                                'Overige gemeenten',
+                                'Staat',
+                                'Provincies',
+                                'Waterschappen',
+                                'Woningbouwcorporaties',
+                                'Verenigingen van eigenaren',
+                                'Spoorwegen/ProRail',
+                                'Overige niet-natuurlijke personen',
+                                'Overige natuurlijke personen'
+                            ],
+                            info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadaster-tabel/' +
+                            '#PagCls_14466834'
+                        }, {
+                            slug: 'stadsdeel_naam',
+                            label: 'Stadsdeel'
+                        }, {
+                            slug: 'ggw_naam',
+                            label: 'GGW-gebied'
+                        }, {
+                            slug: 'buurtcombinatie_naam',
+                            label: 'Wijk'
+                        }, {
+                            slug: 'buurt_naam',
+                            label: 'Buurt'
+                        }
+                    ],
+                    CONTENT: {
+                        TABLE: [
+                            {
+                                label: 'Kad. object',
+                                variables: ['aanduiding']
+                            },
+                            {
+                                label: '-eerste adres',
+                                variables: ['eerste_adres']
+                            },
+                            {
+                                label: 'Kad. gemeente',
+                                variables: ['kadastrale_gemeentenaam']
+                            },
+                            {
+                                label: 'Gemeente',
+                                variables: ['burgerlijke_gemeentenaam']
+                            },
+                            {
+                                label: 'Zakelijk recht: aard',
+                                variables: ['aard_zakelijk_recht']
+                            },
+                            {
+                                label: '-aandeel',
+                                variables: ['zakelijk_recht_aandeel']
+                            },
+                            {
+                                label: 'Natuurlijk persoon: naam',
+                                variables: ['sjt_naam']
+                            },
+                            {
+                                label: '-datum overlijden',
+                                variables: ['sjt_datum_overlijden'],
+                                formatter: 'date'
+                            },
+                            {
+                                label: 'Niet-natuurlijk persoon: statutaire naam',
+                                variables: ['sjt_statutaire_naam']
+                            },
+                            {
+                                label: '-rechtsvorm',
+                                variables: ['sjt_statutaire_rechtsvorm']
+                            }
+                        ],
+                        LIST: [
+                            { variables: ['aanduiding'] }
+                        ]
+                    }
+                },
                 hr: {
                     CUSTOM_API: 'dataSelectionApiDataSelection',
                     AUTH_SCOPE: 'HR/R',
                     MAX_AVAILABLE_PAGES: 100,
+                    MAX_NUMBER_OF_CLUSTERED_MARKERS: 10000,
                     ENDPOINT_PREVIEW: 'dataselectie/hr/',
                     ENDPOINT_MARKERS: 'dataselectie/hr/geolocation/',
                     ENDPOINT_EXPORT: 'dataselectie/hr/export/',
@@ -137,6 +246,8 @@
                     ENDPOINT_DETAIL: 'handelsregister/vestiging/',
                     PRIMARY_KEY: 'vestiging_id',
                     TITLE: 'Vestigingen',
+                    TITLE_TAB: 'Vestigingen',
+                    SHOW_NUMBER_OF_RECORDS: true,
                     SORT_FILTERS: false,
                     FILTERS: [
                         {
@@ -218,11 +329,16 @@
                     ENDPOINT_PREVIEW: 'dcatd/datasets',
                     ENDPOINT_DETAIL: 'dcatd/datasets',
                     TITLE: 'Catalogus',
+                    TITLE_TAB: 'Catalogus',
+                    SHOW_NUMBER_OF_RECORDS: true,
                     PRIMARY_KEY: 'dct:identifier',
                     SHOW_FILTER_OPTION_COUNTS: false,
                     SORT_FILTERS: true,
                     FILTERS: [
                         {
+                            slug: 'status',
+                            label: 'Status'
+                        }, {
                             slug: 'groups',
                             label: 'Thema\'s'
                         }, {

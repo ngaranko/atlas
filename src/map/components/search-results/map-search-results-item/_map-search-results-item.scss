@@ -6,11 +6,8 @@
     border-top: 1px solid $secondary-gray10;
   }
 
-  &:hover {
-    background-color: $secondary-gray10;
-  }
-
   &__button {
+    @extend %hover-focus-listitem;
     align-items: center;
     display: flex;
     padding: 4px 8px;
@@ -52,7 +49,8 @@
   }
 
   &__arrow {
-    fill: $secondary-gray60;
+    @include icon-sprite("icon-arrow-right", $secondary-gray60, $secondary-gray60, 24px);
+
     flex-shrink: 0;
     height: 24px;
     width: 24px;

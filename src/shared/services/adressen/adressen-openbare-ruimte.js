@@ -15,7 +15,8 @@ export default function fetchByUri(uri) {
         status: {
           code: result.status ? result.status.code : '',
           description: result.status ? result.status.omschrijving : ''
-        }
+        },
+        nenName: result.naam_24_posities || ''
       };
     });
 }

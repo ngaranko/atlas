@@ -77,6 +77,7 @@
 
         function updateConfig () {
             vm.showOptionCounts = DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS;
+            vm.stelselpediaUrl = DATA_SELECTION_CONFIG.datasets[vm.dataset].STELSELPEDIA_URL;
         }
 
         function applyFilters (filters) {

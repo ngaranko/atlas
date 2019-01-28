@@ -1,6 +1,5 @@
 <span class="c-link__wrapper" ng-class="{
     'c-link__wrapper--inine-block': {{vm.inline}}
 }">
-    <button ng-if="vm.tagName === 'button'" ng-click="vm.dispatch()" class="{{vm.className}} qa-dp-link" title="{{vm.hoverText}}"><ng-transclude></ng-transclude></button>
-    <a ng-if="vm.tagName === 'a'" ng-href="{{vm.href}}" class="{{vm.className}} qa-dp-link" title="{{vm.hoverText}}"><ng-transclude></ng-transclude></a>
+    <a ng-href="{{vm.href}}" onclick="this.blur();" class="{{vm.className}} qa-dp-link" title="{{vm.hoverText}}" tabindex="{{vm.tabIndex}}"><ng-transclude></ng-transclude></a>
 </span>

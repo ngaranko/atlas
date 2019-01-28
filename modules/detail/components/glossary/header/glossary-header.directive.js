@@ -41,10 +41,10 @@
         vm.glossaryLabel = vm.usePlural
             ? GLOSSARY.DEFINITIONS[vm.definition].label_plural
             : GLOSSARY.DEFINITIONS[vm.definition].label_singular;
-        vm.glossaryDescription = GLOSSARY.DEFINITIONS[vm.definition].description;
+        vm.glossaryDescription = $sce.trustAsHtml(GLOSSARY.DEFINITIONS[vm.definition].description);
         vm.stelselpediaUrl = GLOSSARY.DEFINITIONS[vm.definition].url;
 
-        vm.hasHelp = angular.isString(vm.glossaryDescription);
+        vm.hasHelp = !!vm.glossaryDescription;
         vm.hasMetaData = angular.isDefined(vm.metaData);
         vm.hasButton = vm.hasHelp || vm.hasMetaData;
 

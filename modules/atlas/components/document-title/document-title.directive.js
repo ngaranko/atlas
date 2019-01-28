@@ -1,4 +1,5 @@
 import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+import * as mapDocumentTitle from '../../../../src/map/services/document-title/document-title';
 
 (function () {
     angular
@@ -12,7 +13,6 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
         'dashboardColumns',
         'dpDataSelectionDocumentTitle',
         'dpDetailDocumentTitle',
-        'dpMapDocumentTitle',
         'dpPageDocumentTitle',
         'dpSearchResultsDocumentTitle',
         'dpStraatbeeldDocumentTitle',
@@ -27,7 +27,6 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
         dashboardColumns,
         dpDataSelectionDocumentTitle,
         dpDetailDocumentTitle,
-        dpMapDocumentTitle,
         dpPageDocumentTitle,
         dpSearchResultsDocumentTitle,
         dpStraatbeeldDocumentTitle,
@@ -65,7 +64,7 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                 state: 'map'
             }, {
                 visibility: 'map',
-                documentTitle: dpMapDocumentTitle,
+                documentTitle: mapDocumentTitle,
                 state: 'map'
             }];
 
@@ -143,7 +142,8 @@ import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-trac
                 const getTitle = displayNewTitle ? current.documentTitle.getTitle : null;
                 const printOrEmbedOrPreviewTitleAddition = getPrintOrEmbedOrPreviewTitleAddition(state);
 
-                if (hasPreviewPanel || isDataSelectionOnMap) {
+                if (hasPreviewPanel || current && current.state === 'map' || isDataSelectionOnMap) {
+                    // if previewpanel or current state = map, pass along full state
                     titleData = getTitle ? getTitle(state) : null;
                 } else {
                     titleData = getTitle ? getTitle(stateData, state.filters) : null;

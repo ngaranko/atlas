@@ -1,4 +1,4 @@
-import getSharedConfig from '../../src/shared/services/shared-config/shared-config';
+import SHARED_CONFIG from '../../src/shared/services/shared-config/shared-config';
 
 (function () {
     'use strict';
@@ -10,6 +10,6 @@ import getSharedConfig from '../../src/shared/services/shared-config/shared-conf
     sharedConfigFactory.$inject = ['environment'];
 
     function sharedConfigFactory (environment) {
-        return getSharedConfig(environment);
+        return SHARED_CONFIG;
     }
 })();

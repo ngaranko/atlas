@@ -5,15 +5,20 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{js,jsx}',
     '!**/*.constant.js',
-    '!**/*.mock.js'
+    '!**/*.config.js',
+    '!**/*.{integration}.test.{js,jsx}',
+    '!**/*.mock.js',
+    '!**/index.js',
+    '!src/*.js',
+    '!src/.*.js'
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
-      statements: 24,
-      branches: 35.7,
-      functions: 38.7,
-      lines: 32
+      statements: 100,
+      branches: 92,
+      functions: 100,
+      lines: 100
     }
   },
   coverageReporters: process.env.CI ? [
@@ -33,18 +38,17 @@ module.exports = {
     'enzyme-to-json/serializer'
   ],
   testMatch: [
-    '**/!(*.visual|*.integration).test.js?(x)',
+    '**/!(*.integration).test.js?(x)'
     // Do match:
     // foo.test.jsx
     // barService.test.js
     // Do not match:
     // fooService.jsx
-    // foo.visual.test.jsx
     // foo.integration.test.jsx
   ],
+  testURL: 'http://localhost:8080/',
   testEnvironment: 'jest-environment-jsdom-global',
   testPathIgnorePatterns: [
-    '/e2e/',
     '/modules/',
     '/node_modules/'
   ],

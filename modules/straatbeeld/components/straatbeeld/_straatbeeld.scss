@@ -25,6 +25,7 @@
 }
 
 .c-straatbeeld__close {
+  @extend %hover-focus-button;
   position: absolute;
   top: $container-whitespace;
   right: $container-whitespace;

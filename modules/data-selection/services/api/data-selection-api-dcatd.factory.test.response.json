@@ -31,7 +31,7 @@
       "data": 1778,
       "vis": 89
     },
-    "/properties/dcat:distribution/items/properties/dct:format": {
+    "/properties/dcat:distribution/items/properties/dcat:mediaType": {
       "text/html": 133,
       "application/vnd.ms-excel": 1431
     },

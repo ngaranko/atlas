@@ -14,12 +14,11 @@ describe('The dp-data-selection component', function () {
 
     beforeEach(function () {
         config = {
-            options: {
-                MAX_NUMBER_OF_CLUSTERED_MARKERS: 1000
-            },
             datasets: {
                 zwembaden: {
+                    MAX_NUMBER_OF_CLUSTERED_MARKERS: 1000,
                     TITLE: 'Zwembaden',
+                    TITLE_TAB: 'Zwembaden',
                     MAX_AVAILABLE_PAGES: 5
                 }
             }
@@ -99,7 +98,11 @@ describe('The dp-data-selection component', function () {
             },
             page: 2,
             isLoading: false,
-            catalogFilters: {}
+            catalogFilters: {
+                formatTypes: [],
+                serviceTypes: [],
+                distributionTypes: []
+            }
         };
 
         mockedFilters = {
@@ -122,11 +125,13 @@ describe('The dp-data-selection component', function () {
             data: 'MOCKED_PREVIEW_DATA'
         };
 
-        mockedApiMarkersData = [
-            [52.1, 4.1],
-            [52.2, 4.2],
-            [52.3, 4.3]
-        ];
+        mockedApiMarkersData = {
+            clusterMarkers: [
+                [52.1, 4.1],
+                [52.2, 4.2],
+                [52.3, 4.3]
+            ]
+        };
 
         spyOn(dataSelectionApi, 'query').and.callThrough();
         spyOn(dataSelectionApi, 'getMarkers').and.callThrough();
@@ -313,11 +318,13 @@ describe('The dp-data-selection component', function () {
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_DATA_SELECTION,
-                payload: [
-                    [52.1, 4.1],
-                    [52.2, 4.2],
-                    [52.3, 4.3]
-                ]
+                payload: {
+                    clusterMarkers: [
+                        [52.1, 4.1],
+                        [52.2, 4.2],
+                        [52.3, 4.3]
+                    ]
+                }
             });
 
             // It should send an empty Array with more than MAX_NUMBER_OF_CLUSTERED_MARKERS
@@ -338,11 +345,13 @@ describe('The dp-data-selection component', function () {
 
             expect(store.dispatch).toHaveBeenCalledWith({
                 type: ACTIONS.SHOW_DATA_SELECTION,
-                payload: [
-                    [52.1, 4.1],
-                    [52.2, 4.2],
-                    [52.3, 4.3]
-                ]
+                payload: {
+                    clusterMarkers: [
+                        [52.1, 4.1],
+                        [52.2, 4.2],
+                        [52.3, 4.3]
+                    ]
+                }
             });
         });
     });
@@ -425,8 +434,11 @@ describe('The dp-data-selection component', function () {
         const component = getComponent(mockedState, mockedFilters);
         expect(component.find('.qa-data-grid').length).toBe(1);
 
+        // Use existing dataset name
+        mockedState.dataset = 'hr';
+        config.datasets.hr = config.datasets.zwembaden;
         // With required auth scope
-        config.datasets.zwembaden.AUTH_SCOPE = 'HR/R';
+        config.datasets.hr.AUTH_SCOPE = 'HR/R';
         // which the user does not have
         mockedUser.scopes = [];
 

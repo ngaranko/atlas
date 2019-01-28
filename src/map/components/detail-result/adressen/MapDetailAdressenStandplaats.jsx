@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MapDetailResultItem from '../MapDetailResultItem';
+import MapDetailResultStatusItem from '../MapDetailResultStatusItem';
 import MapDetailResultWrapper from '../MapDetailResultWrapper';
+import Notification from '../../../../shared/components/notification/Notification';
 
 const MapDetailAdressenStandplaats = ({
   panoUrl,
@@ -15,12 +16,30 @@ const MapDetailAdressenStandplaats = ({
     onMaximize={onMaximize}
     onPanoPreviewClick={onPanoPreviewClick}
     subTitle={standplaats.label}
-    title="Standplaats"
+    title="Adres (standplaats)"
   >
     <ul className="map-detail-result__list">
-      <MapDetailResultItem
-        label="Status"
-        value={standplaats.status.description}
+      {standplaats.indicatieGeconstateerd && <li className="map-detail-result__notification">
+        <Notification
+          level="alert"
+          canClose={false}
+        >Indicatie geconstateerd</Notification>
+      </li>}
+      {standplaats.aanduidingInOnderzoek && <li className="map-detail-result__notification">
+        <Notification
+          level="alert"
+          canClose={false}
+        >In onderzoek</Notification>
+      </li>}
+      <MapDetailResultStatusItem
+        label="Indicatie geconstateerd"
+        value={standplaats.indicatieGeconstateerd ? 'Ja' : 'Nee'}
+        status={standplaats.indicatieGeconstateerd ? 'alert' : ''}
+      />
+      <MapDetailResultStatusItem
+        label="Aanduiding in onderzoek"
+        value={standplaats.aanduidingInOnderzoek ? 'Ja' : 'Nee'}
+        status={standplaats.aanduidingInOnderzoek ? 'alert' : ''}
       />
     </ul>
   </MapDetailResultWrapper>
@@ -28,11 +47,9 @@ const MapDetailAdressenStandplaats = ({
 
 MapDetailAdressenStandplaats.propTypes = {
   standplaats: PropTypes.shape({
-    label: PropTypes.string,
-    status: PropTypes.shape({
-      description: PropTypes.string,
-      code: PropTypes.string
-    }).isRequired
+    aanduidingInOnderzoek: PropTypes.boolean,
+    indicatieGeconstateerd: PropTypes.boolean,
+    label: PropTypes.string
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,

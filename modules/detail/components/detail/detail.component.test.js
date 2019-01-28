@@ -1,3 +1,5 @@
+import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+
 describe('the dp-detail component', () => {
     var $compile,
         $rootScope,
@@ -24,7 +26,7 @@ describe('the dp-detail component', () => {
         angular.mock.module(
             'dpDetail', {
                 store: {
-                    dispatch: () => { },
+                    dispatch: () => {},
                     getState: angular.noop
                 },
                 api: {
@@ -161,9 +163,6 @@ describe('the dp-detail component', () => {
                         ];
                     }
                 },
-                nearestDetail: {
-                    getLocation: () => [52.654, 4.987]
-                },
                 markdownParser: {
                     parse: angular.noop
                 }
@@ -199,14 +198,13 @@ describe('the dp-detail component', () => {
 
         spyOn(store, 'dispatch');
         spyOn(store, 'getState').and.returnValue({
-            map: {
-                highlight: true
-            }
+            mapClickLocation: { latitude: 52.654, longitude: 4.987 }
         });
         spyOn(api, 'getByUrl').and.callThrough();
+        spyOn(piwik, 'default').and.callFake(angular.noop);
     });
 
-    function getComponent (endpoint, isLoading, isMapHighlight = true, show = true, catalogFilters = undefined) {
+    function getComponent (endpoint, isLoading, skippedSearchResults = false, show = true, catalogFilters = undefined) {
         var component,
             element,
             scope;
@@ -217,7 +215,7 @@ describe('the dp-detail component', () => {
         element.setAttribute('is-loading', 'isLoading');
         element.setAttribute('reload', 'reload');
         element.setAttribute('user', 'user');
-        element.setAttribute('is-map-highlight', 'isMapHighlight');
+        element.setAttribute('skipped-search-results', 'skippedSearchResults');
         element.setAttribute('catalog-filters', 'catalogFilters');
 
         scope = $rootScope.$new();
@@ -226,7 +224,7 @@ describe('the dp-detail component', () => {
         scope.isLoading = isLoading;
         scope.reload = false;
         scope.user = mockedUser;
-        scope.isMapHighlight = isMapHighlight;
+        scope.skippedSearchResults = skippedSearchResults;
         scope.catalogFilters = catalogFilters;
 
         component = $compile(element)(scope);
@@ -330,8 +328,8 @@ describe('the dp-detail component', () => {
         });
     });
 
-    it('triggers the SHOW_DETAIL and not DETAIL_FULLSCREEN action when highlight is off', () => {
-        getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, false);
+    it('triggers the SHOW_DETAIL and not DETAIL_FULLSCREEN action when skippedSearchResults is true', () => {
+        getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, true);
 
         expect(store.dispatch).toHaveBeenCalledWith({
             type: ACTIONS.SHOW_DETAIL,
@@ -616,11 +614,29 @@ describe('the dp-detail component', () => {
             expect(scope.vm.geosearchButton).toBe(false);
         });
 
-        it('is shown when highlight is false', () => {
-            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, false);
+        it('is shown when skippedSearchResults is true', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, true);
 
             const scope = component.isolateScope();
             expect(scope.vm.geosearchButton).toEqual([52.654, 4.987]);
+        });
+
+        it('it handles piwik on ng-click', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, true);
+            component.find('.c-detail__geosearch').click();
+            expect(piwik.default).toHaveBeenCalledWith(['trackEvent', 'navigation', 'show-all-results', '']);
+        });
+    });
+
+    describe('the stripMarkdown function', () => {
+        it('returns a value', () => {
+            const component = getComponent('http://www.fake-endpoint.com/dcatd/datasets/789/', false);
+
+            const scope = component.isolateScope();
+            const vm = scope.vm;
+            const description = vm.stripMarkdown('test description');
+
+            expect(description).toEqual('test description');
         });
     });
 });

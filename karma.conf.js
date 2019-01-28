@@ -12,6 +12,7 @@ const webpackConfig = {
   resolve: {
     modules: ['./node_modules']
   },
+  mode: 'development',
   devtool: 'inline-source-map',
   module: {
     rules: [
@@ -62,6 +63,7 @@ const webpackConfig = {
   },
   plugins: [
     new webpack.DefinePlugin({
+      VERSION: JSON.stringify(require("./package.json").version),
       '__BUILD_ID__': JSON.stringify(nodeEnv),
       'process.env': {
         'NODE_ENV': JSON.stringify(nodeEnv)
@@ -72,6 +74,7 @@ const webpackConfig = {
 
 module.exports = function (config) {
   config.set({
+    plugins: ['@metahub/karma-jasmine-jquery', 'karma-*'],
     frameworks: ['jasmine-jquery', 'jasmine'],
     files: [
       { pattern: './node_modules/leaflet/dist/leaflet.js', watched: false },

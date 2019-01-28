@@ -21,7 +21,10 @@ describe('The kadastraal object resource', () => {
         kadastrale_gemeente: {
           _display: 'Kadastrale gemeente display name',
           naam: 'Kadastrale gemeente name',
-          something: 'else'
+          something: 'else',
+          gemeente: {
+            gemeente: 'Gemeentenaam'
+          }
         },
         objectnummer: '6444',
         something: 'abc123'
@@ -37,13 +40,17 @@ describe('The kadastraal object resource', () => {
           kadastrale_gemeente: {
             _display: 'Kadastrale gemeente display name',
             naam: 'Kadastrale gemeente name',
+            gemeente: {
+              gemeente: 'Gemeentenaam'
+            },
             something: 'else'
           },
           kadastraleGemeente: {
             _display: 'Kadastrale gemeente display name',
             label: 'Kadastrale gemeente display name',
-            naam: 'Kadastrale gemeente name',
             name: 'Kadastrale gemeente name',
+            naam: 'Kadastrale gemeente name',
+            gemeente: 'Gemeentenaam',
             something: 'else'
           },
           label: 'Kadastraal object display name 1',
@@ -68,7 +75,8 @@ describe('The kadastraal object resource', () => {
         expect(response).toEqual({
           kadastraleGemeente: {
             label: undefined,
-            name: undefined
+            name: undefined,
+            gemeente: undefined
           },
           label: undefined,
           location: null,

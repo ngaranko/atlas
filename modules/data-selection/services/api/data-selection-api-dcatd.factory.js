@@ -7,8 +7,9 @@
 
     function dataSelectionApiDcatdFactory ($window, $q, $filter, sharedConfig, api) {
         const propertyName = {
+            status: '/properties/ams:status',
             theme: '/properties/dcat:theme/items',
-            format: '/properties/dcat:distribution/items/properties/dct:format',
+            format: '/properties/dcat:distribution/items/properties/dcat:mediaType',
             owner: '/properties/ams:owner',
             distributionType: '/properties/dcat:distribution/items/properties/ams:distributionType',
             serviceType: '/properties/dcat:distribution/items/properties/ams:serviceType'
@@ -18,11 +19,13 @@
             query: query
         };
 
-        function query (config, activeFilters, page, searchText = '', geometryFilter = undefined, catalogFilters = {}) {
+        function query (config, view, activeFilters, page, searchText = '', geometryFilter = undefined,
+                        catalogFilters = {}) {
             const searchParams = {
                     offset: (page - 1) * config.MAX_ITEMS_PER_PAGE,
                     limit: config.MAX_ITEMS_PER_PAGE
                 },
+                queryStatus = activeFilters.status && `eq=${activeFilters.status}`,
                 queryTheme = activeFilters.groups && `eq=theme:${activeFilters.groups}`,
                 queryFormat = activeFilters.formats && `eq=${activeFilters.formats}`,
                 queryOwner = activeFilters.owners && `eq=${activeFilters.owners}`,
@@ -32,6 +35,11 @@
             if (searchText) {
                 // Optional search text
                 searchParams.q = searchText;
+            }
+
+            if (queryStatus) {
+                // optional status filter
+                searchParams[propertyName.status] = queryStatus;
             }
 
             if (queryTheme) {
@@ -73,7 +81,7 @@
         function getFacetOptions (facet, filterCatalog, namespace) {
             return Object.keys(facet).map(option => {
                 const id = namespace ? option.replace(`${namespace}:`, '') : option;
-                const catalogOption = filterCatalog.filter(item => item.id === id)[0];
+                const catalogOption = filterCatalog && filterCatalog.filter(item => item.id === id)[0];
                 return {
                     id: id,
                     label: catalogOption ? catalogOption.label : id,
@@ -83,6 +91,7 @@
         }
 
         function formatFilters (filters, catalogFilters) {
+            filters[propertyName.status] = filters[propertyName.status] || {};
             filters[propertyName.theme] = filters[propertyName.theme] || {};
             filters[propertyName.format] = filters[propertyName.format] || {};
             filters[propertyName.owner] = filters[propertyName.owner] || {};
@@ -90,6 +99,10 @@
             filters[propertyName.serviceType] = filters[propertyName.serviceType] || {};
 
             const resultFilters = {
+                status: {
+                    numberOfOptions: Object.keys(filters[propertyName.status]).length,
+                    options: getFacetOptions(filters[propertyName.status], catalogFilters.statusTypes, 'status')
+                },
                 groups: {
                     numberOfOptions: Object.keys(filters[propertyName.theme]).length,
                     options: getFacetOptions(filters[propertyName.theme], catalogFilters.groupTypes, 'theme')

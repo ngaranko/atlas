@@ -16,7 +16,9 @@ describe('The adressen ligplaats resource', () => {
 
       fetch.mockResponseOnce(JSON.stringify({
         _display: 'Ligplaats display name 1',
+        aanduiding_in_onderzoek: true,
         geometrie: { type: 'Point' },
+        indicatie_geconstateerd: false,
         something: 'abc123',
         status: { omschrijving: 'Status description', code: '01' }
       }));
@@ -26,7 +28,11 @@ describe('The adressen ligplaats resource', () => {
       const promise = fetchByUri(uri).then((response) => {
         expect(response).toEqual({
           _display: 'Ligplaats display name 1',
+          aanduidingInOnderzoek: true,
+          aanduiding_in_onderzoek: true,
           geometrie: { type: 'Point' },
+          indicatieGeconstateerd: false,
+          indicatie_geconstateerd: false,
           label: 'Ligplaats display name 1',
           location: { latitude: 3, longitude: 4 },
           something: 'abc123',
@@ -48,6 +54,8 @@ describe('The adressen ligplaats resource', () => {
 
       const promise = fetchByUri(uri).then((response) => {
         expect(response).toEqual({
+          aanduidingInOnderzoek: undefined,
+          indicatieGeconstateerd: undefined,
           label: undefined,
           location: null,
           status: {

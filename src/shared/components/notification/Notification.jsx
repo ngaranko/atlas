@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CloseIcon from '../../../../public/images/icon-cross-big.svg';
-
 import './_notification.scss';
 
 class Notification extends React.Component {
@@ -27,12 +25,12 @@ class Notification extends React.Component {
       `}
       >
         <span className="notification__content">{this.props.children}</span>
-        { this.props.level !== 'message' &&
+        { this.props.level !== 'message' && this.props.canClose &&
           <button
             className="notification__button"
             onClick={this.hideNotification}
           >
-            <CloseIcon />
+            <span className="notification__button--close" />
           </button>
         }
       </p>
@@ -41,17 +39,19 @@ class Notification extends React.Component {
 }
 
 Notification.defaultProps = {
+  canClose: true,
   className: '',
   level: 'info'
 };
 
 Notification.propTypes = {
+  canClose: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
   className: PropTypes.string,
-  level: PropTypes.oneOf(['error', 'info', 'message'])
+  level: PropTypes.oneOf(['alert', 'info', 'message'])
 };
 
 export default Notification;

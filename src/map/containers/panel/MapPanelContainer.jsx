@@ -3,28 +3,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getMapBaseLayers, setMapBaseLayer } from '../../ducks/base-layers/map-base-layers';
-import { toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/overlays/map-overlays';
-import { getMapLayers, selectActiveMapLayers } from '../../ducks/layers/map-layers';
+import { setMapBaseLayer, toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/map/map';
+import { selectActivePanelLayers } from '../../ducks/panel-layers/map-panel-layers';
+import { getBaseLayers } from '../../ducks/base-layers/map-base-layers';
 import { toggleMapPanel, toggleMapPanelHandle } from '../../../shared/ducks/ui/ui';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapPanelHandle from '../../components/panel-handle/MapPanelHandle';
 import MapType from '../../components/type/MapType';
-import CollapseIcon from '../../../../public/images/icon-arrow-down.svg';
-import ExpandIcon from '../../../../public/images/icon-arrow-up.svg';
-import MapLayersIcon from '../../../../public/images/icon-map-layers.svg';
+
+import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 
 const mapStateToProps = (state) => ({
   activeBaseLayer: state.map.baseLayer,
-  activeMapLayers: selectActiveMapLayers(state),
+  activeMapLayers: selectActivePanelLayers(state),
   atlas: state.atlas,
   isMapPanelVisible: state.ui.isMapPanelVisible,
   isMapLayersVisible: state.ui.isMapLayersVisible,
-  isEachOverlayInvisible: state.map.overlays.every((overlay) => overlay.isVisible),
+  isEachOverlayInvisible: state.map.overlays.every((overlay) => !overlay.isVisible),
   isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,
-  mapBaseLayers: state.mapBaseLayers,
-  mapLayers: state.mapLayers,
+  mapBaseLayers: getBaseLayers(state),
+  mapLayers: state.mapLayers.panelLayers.items,
   overlays: state.map.overlays,
   zoomLevel: state.map.zoom,
   user: state.user
@@ -39,17 +38,47 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapPanelToggle: toggleMapPanel
 }, dispatch);
 
-class MapPanelContainer extends React.Component {
-  componentDidMount() {
-    this.context.store.dispatch(getMapBaseLayers());
-    this.context.store.dispatch(getMapLayers());
-  }
+// TODO DP-6031: Create Redux Middelware, use ACTION_TYPE as constants
+const piwik = {
+  TRACK_EVENT: 'trackEvent',
+  ADD_BASE_LAYER: 'achtergrond',
+  ADD_MAP_LAYER: 'kaartlaag',
+  BASE_LAYER_aerial: 'luchtfoto',
+  BASE_LAYER_topography: 'topografie'
+};
 
+class MapPanelContainer extends React.Component {
   componentDidUpdate(prevProps) {
-    if (this.props.isMapPanelVisible && prevProps.overlays.length < this.props.overlays.length) {
-      const scrollEl = document.querySelector('.map-panel .map-legend');
-      if (scrollEl) {
-        scrollEl.scrollIntoView({ behavior: 'smooth' });
+    const {
+      activeBaseLayer,
+      activeMapLayers,
+      isMapPanelVisible,
+      mapBaseLayers,
+      overlays
+    } = this.props;
+
+    if (isMapPanelVisible && prevProps.overlays.length < overlays.length) {
+      const scrollElement = document.querySelector('.map-panel .map-legend');
+      scrollElement.scrollIntoView({ behavior: 'smooth' });
+    }
+    // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
+    if (activeBaseLayer && prevProps.activeBaseLayer !== activeBaseLayer) {
+      const baseLayers = [...mapBaseLayers.aerial, ...mapBaseLayers.topography];
+      const newBaseLayer = baseLayers.find((b) => b.value === activeBaseLayer);
+      const baseLayerCategory = newBaseLayer.category &&
+        piwik[`BASE_LAYER_${newBaseLayer.category}`];
+      piwikTracker([piwik.TRACK_EVENT, piwik.ADD_BASE_LAYER,
+        baseLayerCategory, newBaseLayer.label]);
+    }
+    if (activeMapLayers && prevProps.activeMapLayers !== activeMapLayers) {
+      const newMapLayer = activeMapLayers.filter((b) =>
+        !prevProps.activeMapLayers.find((b2) => b.title === b2.title)
+      );
+      if (newMapLayer && newMapLayer.length > 0) {
+        const mapLayerCategory = newMapLayer[0].category &&
+          newMapLayer[0].category.toLowerCase().replace(/[: ][ ]*/g, '_');
+        piwikTracker([piwik.TRACK_EVENT, piwik.ADD_MAP_LAYER,
+          mapLayerCategory, newMapLayer[0].title]);
       }
     }
   }
@@ -64,7 +93,7 @@ class MapPanelContainer extends React.Component {
           map-panel
           map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
           map-panel--has${this.props.activeMapLayers.length > 0 ? '' : '-no'}-active-layers
-          map-panel--has${this.props.isEachOverlayInvisible ? '-not' : ''}-just-invisible-layers
+          map-panel--has${this.props.isEachOverlayInvisible ? '' : '-not'}-just-invisible-layers
         `}
       >
         <div className="map-panel__heading">
@@ -73,10 +102,13 @@ class MapPanelContainer extends React.Component {
             onClick={this.props.onMapPanelToggle}
             title={this.props.isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
           >
-            <MapLayersIcon className="map-panel__heading-icon" />
+            <span className="map-panel__heading-icon" />
             <h2 className="map-panel__heading-title" aria-hidden="true">Kaartlagen</h2>
-            <CollapseIcon className="map-panel__toggle-icon map-panel__toggle-icon--expanded" />
-            <ExpandIcon className="map-panel__toggle-icon map-panel__toggle-icon--collapsed" />
+            <span className={`
+              map-panel__toggle--icon
+              map-panel__toggle--icon-${this.props.isMapPanelVisible ? 'collapse' : 'expand'}
+            `}
+            />
           </button>
         </div>
         <div className="scroll-wrapper">

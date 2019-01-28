@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
 import MapSearchResultsCategory from './map-search-results-category/MapSearchResultsCategory';
 import Notification from '../../../shared/components/notification/Notification';
-import MaximizeIcon from '../../../../public/images/icon-maximize.svg';
 
 const MapSearchResults = ({
   resultLimit,
@@ -40,7 +39,7 @@ const MapSearchResults = ({
           `}
           disabled={!panoUrl}
           onClick={onPanoPreviewClick}
-          title={panoUrl ? 'Bekijk Panorama view' : 'Geen Panoramabeeld beschikbaar'}
+          title={panoUrl ? 'Panoramabeeld tonen' : 'Geen Panoramabeeld beschikbaar'}
         >
           {panoUrl && (
             <img
@@ -83,7 +82,10 @@ const MapSearchResults = ({
             onClick={onMaximize}
             title="Volledig weergeven"
           >
-            <MaximizeIcon className="map-search-results__button-icon" />
+            <span className="
+              map-search-results__button-icon
+              map-search-results__button-icon--maximize"
+            />
             Volledig weergeven
           </button>
         </footer>

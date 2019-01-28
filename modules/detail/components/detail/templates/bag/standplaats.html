@@ -3,6 +3,12 @@
     <dp-api-call
         endpoint="{{vm.apiData.results.hoofdadres._links.self.href}}"
         partial="bag/nummeraanduiding"
+        merge="{
+            results: {
+                indicatie_geconstateerd: vm.apiData.results.indicatie_geconstateerd,
+                aanduiding_in_onderzoek: vm.apiData.results.aanduiding_in_onderzoek
+            }
+        }"
         user="vm.user">
     </dp-api-call>
 

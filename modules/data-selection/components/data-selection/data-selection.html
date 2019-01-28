@@ -72,15 +72,13 @@
                         current-page="vm.currentPage"
                         number-of-pages="vm.numberOfPages">
                     </dp-data-selection-pagination>
+
                 </div>
             </div>
         </div>
 
         <dp-panel ng-if="vm.disabled" is-panel-visible="true" can-close="true" type="warning" class="qa-disabled-message">
-            <p class="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke activiteiten en vestigingen te bekijken.</p>
-            <p class="c-panel__paragraph">
-                Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
-            </p>
+            <div ng-include="vm.notAuthorizedMessageSrc"></div>
         </dp-panel>
     </div>
 </div>

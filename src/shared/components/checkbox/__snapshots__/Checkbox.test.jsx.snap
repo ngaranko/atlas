@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox should render everything 1`] = `
+<span
+  className="checkbox"
+>
+  <input
+    aria-label="checkbox"
+    checked={false}
+    name="checkbox"
+    onChange={[Function]}
+    type="checkbox"
+  />
+</span>
+`;
+
+exports[`Checkbox should render with default props 1`] = `
+<span
+  className="checkbox"
+>
+  <input
+    aria-label="test"
+    checked={false}
+    name="test"
+    onChange={[Function]}
+    type="checkbox"
+  />
+</span>
+`;

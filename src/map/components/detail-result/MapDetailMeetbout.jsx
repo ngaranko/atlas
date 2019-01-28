@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import formatNumber from '../../../shared/services/number-formatter/number-formatter';
+
 import MapDetailResultItem from './MapDetailResultItem';
 import MapDetailResultWrapper from './MapDetailResultWrapper';
 
@@ -14,12 +16,12 @@ const MapDetailMeetbout = ({ panoUrl, meetbout, onMaximize, onPanoPreviewClick }
   >
     <ul className="map-detail-result__list">
       <MapDetailResultItem
-        label="Status"
-        value={meetbout.status}
-      />
-      <MapDetailResultItem
         label="Adres"
         value={meetbout.address}
+      />
+      <MapDetailResultItem
+        label="Zaksnelheid (mm/j)"
+        value={(meetbout.zakkingssnelheid || meetbout.zakkingssnelheid === 0) ? `${formatNumber(meetbout.zakkingssnelheid)}` : ''}
       />
     </ul>
   </MapDetailResultWrapper>
@@ -29,7 +31,7 @@ MapDetailMeetbout.propTypes = {
   meetbout: PropTypes.shape({
     address: PropTypes.string,
     label: PropTypes.string,
-    status: PropTypes.string
+    speed: PropTypes.number
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,

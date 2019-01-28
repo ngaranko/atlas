@@ -1,12 +1,10 @@
 // For now simply import everything we need, from here
-import './state';
-import './map/wrappers/panel/MapPanelWrapper';
-import './map/wrappers/preview-panel/MapPreviewPanelWrapper';
+import './store';
 import './map/wrappers/map/MapWrapper';
-import './map/wrappers/map-embed-button/MapEmbedButtonWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphTotalsWrapper';
 import './detail/wrappers/DetailGrondexploitatieGraphPhasedWrapper';
 import './header/wrappers/header-search/HeaderSearchWrapper';
+import './homepage/wrappers/address-block/HomepageAddressBlockWrapper';
 
 // All third party dependencies
 import './vendor';
@@ -17,14 +15,12 @@ import '../modules/atlas/atlas.scss';
 import '../modules/data-selection/data-selection.scss';
 import '../modules/detail/detail.scss';
 import '../modules/header/header.scss';
-import '../modules/map/map.scss';
 import '../modules/page/page.scss';
 import '../modules/search-results/search-results.scss';
 import '../modules/straatbeeld/straatbeeld.scss';
 
 // New style sass
 import './_styles.scss';
-
 // Import this here, because `modules/atlas/services/redux%reducer.factory`
 // cannoct do, because that would break the grunt build...
 import detailReducer from './reducers/details'; // eslint-disable-line
@@ -33,9 +29,10 @@ import userReducer from './reducers/user'; // eslint-disable-line
 // All our modules' javascript
 import '../modules/atlas/atlas.module';
 import '../modules/atlas/atlas.run';
-import '../modules/atlas/atlas.version.webpack';
+import '../modules/atlas/atlas.version';
 import '../modules/atlas/components/dashboard/dashboard-columns.factory';
 import '../modules/atlas/components/dashboard/dashboard.component';
+import '../modules/atlas/components/dashboard/wrappers/map-wrapper/map-wrapper.component';
 import '../modules/atlas/components/dashboard/synchronisation/data-selection.controller';
 import '../modules/atlas/components/dashboard/synchronisation/detail.controller';
 import '../modules/atlas/components/dashboard/synchronisation/header.controller';
@@ -47,28 +44,11 @@ import '../modules/atlas/components/document-title/document-title.directive';
 import '../modules/atlas/components/max-width-class/max-width-class.directive';
 import '../modules/atlas/components/preview-state/preview-state.directive';
 import '../modules/atlas/components/scrollable-content/scrollable-content.directive';
-import '../modules/atlas/services/freeze/freeze.factory';
 import '../modules/atlas/services/piwik/piwik-config.constant';
 import '../modules/atlas/services/piwik/piwik.factory';
 import '../modules/atlas/services/piwik/piwik.run';
-import '../modules/atlas/services/redux/middleware/context-middleware.factory';
-import '../modules/atlas/services/redux/middleware/state-to-url-middleware.factory';
-import '../modules/atlas/services/redux/deprecated-reducer.factory';
-import '../modules/atlas/services/redux/reducer.factory';
-import '../modules/atlas/services/redux/reducers/data-selection-reducers.factory';
-import '../modules/atlas/services/redux/reducers/filters-reducers.factory';
-import '../modules/atlas/services/redux/reducers/home-reducers.factory';
-import '../modules/atlas/services/redux/reducers/map-reducers.factory';
-import '../modules/atlas/services/redux/reducers/page-reducers.factory';
-import '../modules/atlas/services/redux/reducers/search-reducers.factory';
-import '../modules/atlas/services/redux/reducers/straatbeeld-reducers.factory';
-import '../modules/atlas/services/redux/reducers/url-reducers.factory';
 import '../modules/atlas/services/redux/store.run';
 import '../modules/atlas/services/routing/state-to-url.factory';
-import '../modules/atlas/services/routing/state-url-conversion.factory';
-import '../modules/atlas/services/routing/state-url-converter.factory';
-import '../modules/atlas/services/routing/url-to-state.factory';
-import '../modules/atlas/services/routing/url-to-state.run';
 import '../modules/data-selection/data-selection.module';
 import '../modules/data-selection/components/active-filters/active-filters.component';
 import '../modules/data-selection/components/available-filters/available-filters.component';
@@ -77,6 +57,7 @@ import '../modules/data-selection/components/data-selection/data-selection.compo
 import '../modules/data-selection/components/formatter/aggregate/aggregate.filter';
 import '../modules/data-selection/components/formatter/align-right/align-right.filter';
 import '../modules/data-selection/components/formatter/bag-address/bag-address.filter';
+import '../modules/data-selection/components/formatter/date/date.filter';
 import '../modules/data-selection/components/formatter/formatter.component';
 import '../modules/data-selection/components/formatter/hr-bezoekadres/hr-bezoekadres.filter';
 import '../modules/data-selection/components/formatter/modification-date/modification-date.filter';
@@ -94,6 +75,7 @@ import '../modules/data-selection/components/views/catalog/catalog.component';
 import '../modules/data-selection/components/views/list/list.component';
 import '../modules/data-selection/components/views/table/table.component';
 import '../modules/data-selection/data-selection-config.constant';
+import '../modules/data-selection/services/api/data-selection-api-brk.factory';
 import '../modules/data-selection/services/api/data-selection-api-dcatd.factory';
 import '../modules/data-selection/services/api/data-selection-api-data-selection.factory';
 import '../modules/data-selection/services/api/data-selection-api.factory';
@@ -145,20 +127,6 @@ import '../modules/header/components/site-header/site-header.component';
 import '../modules/header/components/terugmelden-button/terugmelden-button.component';
 import '../modules/header/header-config.constant';
 import '../modules/header/header.constant';
-import '../modules/map/map.module';
-import '../modules/map/components/map/map.directive';
-import '../modules/map/map-config.factory';
-import '../modules/map/map.vendor';
-import '../modules/map/services/document-title/document-title.factory';
-import '../modules/map/services/highlight/clustered-markers-config.factory';
-import '../modules/map/services/highlight/highlight.factory';
-import '../modules/map/services/highlight/icon-config.constant';
-import '../modules/map/services/layers.factory';
-import '../modules/map/services/leaflet-draw/leaflet-draw-translations.factory';
-import '../modules/map/services/leaflet-draw/leaflet-draw-translations.run';
-import '../modules/map/services/on-map-click.factory';
-import '../modules/map/services/panning.factory';
-import '../modules/map/services/zoom.factory';
 import '../modules/page/page.module';
 import '../modules/page/components/homepage/catalogus-themes/catalogus-themes-config.constant';
 import '../modules/page/components/homepage/catalogus-themes/catalogus-themes.component';
@@ -189,6 +157,7 @@ import '../modules/shared/components/anchor-link/anchor-link.component';
 import '../modules/shared/components/anchor-link/anchor-link.constant';
 import '../modules/shared/components/anchor-link/anchor-link.run';
 import '../modules/shared/components/api-error/api-error.component';
+import '../modules/shared/components/button/button.component';
 import '../modules/shared/components/coordinates/coordinates.filter';
 import '../modules/shared/components/dcatd-button/dcatd-button.component';
 import '../modules/shared/components/expand-collapse/expand-collapse.directive';
@@ -199,7 +168,6 @@ import '../modules/shared/components/long-name-shortener/long-name-config.consta
 import '../modules/shared/components/long-name-shortener/long-name-shortener.filter';
 import '../modules/shared/components/message/message.component';
 import '../modules/shared/components/panel/panel.component';
-import '../modules/shared/components/straatbeeld-thumbnail/dp-alt.component';
 import '../modules/shared/components/straatbeeld-thumbnail/straatbeeld-thumbnail.component';
 import '../modules/shared/components/tab-header/tab-header.component';
 import '../modules/shared/components/tab-header/tab-header.constant';
@@ -207,13 +175,12 @@ import '../modules/shared/components/tab-header/tab-header.factory';
 import '../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter';
 import '../modules/shared/components/video/video.component';
 import '../modules/shared/filters/filesize.filter';
+import '../modules/shared/filters/kebabcase.filter';
 import '../modules/shared/services/active-overlays/active-overlays.factory';
 import '../modules/shared/services/api/api.factory';
-import '../modules/shared/services/base-coder/base-coder.factory';
 import '../modules/shared/services/bounding-box/boundig-box.constant';
 import '../modules/shared/services/crs/crs-config.constant';
 import '../modules/shared/services/crs/crs-converter.factory';
-import '../modules/shared/services/crs/crs.factory';
 import '../modules/shared/services/embed/embed.factory';
 import '../modules/shared/services/environment/environment.factory';
 import '../modules/shared/services/geojson/geojson.factory';
@@ -225,13 +192,10 @@ import '../modules/shared/services/http-error-registrar/http-error-registrar.fac
 import '../modules/shared/services/http-error-registrar/http-status.factory';
 import '../modules/shared/services/localization/localization.factory';
 import '../modules/shared/services/markdown-parser/markdown-parser.factory';
-import '../modules/shared/services/nearest-detail/nearest-detail.factory';
 import '../modules/shared/services/redux/actions.constant';
-import '../modules/shared/services/redux/application-state.factory';
 import '../modules/shared/services/redux/store.factory';
 import '../modules/shared/services/storage/instance-storage.factory';
 import '../modules/shared/services/storage/storage.factory';
-import '../modules/shared/services/uri-stripper/uri-stripper.factory';
 import '../modules/shared/services/user-settings/setting.factory';
 import '../modules/shared/services/user-settings/user-settings.constant';
 import '../modules/shared/services/user-settings/user-settings.factory';

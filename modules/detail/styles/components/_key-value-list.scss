@@ -5,8 +5,16 @@
     @extend %clearfix;
   }
 
+  &--sub {
+    margin-bottom: 40px;
+  }
+
   .c-key-value-list__border-top {
     border-top: 1px solid $secondary-gray20 !important;
+  }
+
+  &--border-bottom {
+    border-bottom: 1px solid $secondary-gray20;
   }
 
   .c-key-value-list__multiple-values {
@@ -14,6 +22,12 @@
     padding-bottom: 4.375px;
     border: none;
     line-height: $base-line-height;
+  }
+
+  .c-key-value-md {
+    p {
+      margin-bottom: 0;
+    }
   }
 
   .c-key-value-list__key {

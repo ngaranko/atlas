@@ -16,7 +16,6 @@ $sbi-filter-item-height: 32px;
 
 .c-sbi-filter__category-label {
   margin-bottom: $base-whitespace;
-  color: $primary-contrast;
 }
 
 .c-sbi-filter__form {
@@ -55,24 +54,17 @@ $sbi-filter-item-height: 32px;
   }
 
   &:focus {
-    border-color: $primary-dark;
+    border: 2px solid $primary-dark;
   }
 }
 
 .c-sbi-filter__submit {
+  @extend %base-button;
+  // @extend %icon--border;
   @include font-size($s-font);
   @include font-weight($bold-weight);
   margin-left: $base-whitespace;
   padding: 3px 7px;
-  border: 1px solid $secondary-gray20;
-  background-color: $primary-light;
-  color: $secondary-gray60;
-
-  &:hover {
-    border-color: $primary-contrast;
-    background-color: $primary-contrast;
-    color: $primary-light;
-  }
 }
 
 .c-sbi-filter__item {
@@ -85,11 +77,26 @@ $sbi-filter-item-height: 32px;
   align-items: center;
 
   width: calc(100% - 5px);
+
+  &::before {
+    top: -5px;
+  }
+
+  &:hover,
+  &:focus {
+    outline: none;
+    text-decoration: underline;
+
+    .c-sbi-filter__item-label {
+      text-decoration: underline;
+    }
+  }
 }
 
 .c-sbi-filter__item-label {
   display: inline-block;
   width: inherit;
+  margin-top: 7px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -108,8 +115,8 @@ $sbi-filter-item-height: 32px;
 .c-sbi-filter__item--sbi_l3 + .c-sbi-filter__item--sbi_l4,      // sass-lint:disable-line class-name-format
 .c-sbi-filter__item--sbi_l4 + .c-sbi-filter__item--sbi_l5 {     // sass-lint:disable-line class-name-format
   height: $sbi-filter-item-height + 15px;
-  margin: 0 -20px;
-  padding: 15px 20px 0;
+  margin: 8px -20px 0;
+  padding: 8px 20px 0;
   border-top: 1px solid $secondary-gray10;
 }
 

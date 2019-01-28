@@ -1,4 +1,4 @@
-import { getEnvironment, ENVIRONMENT } from '../../src/shared/environment';
+import { getEnvironment, ENVIRONMENTS } from '../../src/shared/environment';
 
 (function () {
     'use strict';
@@ -9,7 +9,6 @@ import { getEnvironment, ENVIRONMENT } from '../../src/shared/environment';
         'dpPage',
         'dpDetail',
         'dpSearchResults',
-        'dpMap',
         'dpStraatbeeld',
         'dpDataSelection',
 
@@ -34,7 +33,7 @@ import { getEnvironment, ENVIRONMENT } from '../../src/shared/environment';
     };
 
     /* istanbul ignore next */
-    if (environment === ENVIRONMENT.DEVELOPMENT) {
+    if (environment === ENVIRONMENTS.DEVELOPMENT) {
         Raven.setShouldSendCallback(() => false);
         Raven.isSetup = () => true;
     }

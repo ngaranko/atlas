@@ -3,9 +3,9 @@
         .module('dpShared')
         .factory('store', storeFactory);
 
-    storeFactory.$inject = ['applicationState'];
+    storeFactory.$inject = ['$window'];
 
-    function storeFactory (applicationState) {
-        return applicationState.getStore();
+    function storeFactory ($window) {
+        return $window.reduxStore;
     }
 })();

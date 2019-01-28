@@ -9,15 +9,15 @@
     <div ng-if="!vm.isEmbed" ng-class="{ 'u-fixed': !vm.isPrintMode && !vm.isEmbedPreview }">
         <div class="c-dashboard__heading"
              ng-class="{ 'o-max-width': vm.hasMaxWidth }"
-             ng-controller="HeaderController as header">
+             ng-controller="HeaderController as headerController">
             <div ng-class="{ 'o-max-width__inner': vm.hasMaxWidth }">
                 <div ng-if="!vm.isPrintOrEmbedOrPreview" class="qa-dashboard__header">
                     <dp-site-header size="vm.headerSize"
                                     user="vm.user"
-                                    has-print-button="header.hasPrintButton"
-                                    has-embed-button="header.hasEmbedButton"
-                                    search-action="header.searchAction"
-                                    query="{{header.query}}"></dp-site-header>
+                                    has-print-button="headerController.hasPrintButton"
+                                    has-embed-button="headerController.hasEmbedButton"
+                                    search-action="headerController.searchAction"
+                                    query="{{headerController.query}}"></dp-site-header>
                 </div>
                 <div ng-if="vm.isPrintMode" class="qa-dashboard__print-header">
                     <dp-print-header></dp-print-header>
@@ -54,15 +54,8 @@
                 <div ng-show="vm.columnSizes.middle"
                     class="c-dashboard__column u-col-sm--{{vm.columnSizes.middle}} qa-dashboard__column--middle"
                     ng-class="{ 'u-page-break-after': vm.columnSizes.middle && vm.columnSizes.right }">
-
-                    <!-- Map -->
-                    <div ng-if="vm.activity.map" ng-show="vm.visibility.map" ng-controller="MapController as map" class="qa-map">
-                        <dp-map
-                            map-state="map.mapState"
-                            markers="map.markers"
-                            draw-geometry="map.drawGeometry"
-                            resize="[vm.isPrintMode, vm.isEmbedPreview, vm.isEmbed, vm.visibility.error, vm.visibility.map, vm.columnSizes.middle]">
-                        </dp-map>
+                    <div ng-if="vm.activity.map && vm.visibility.map" class="qa-map">
+                      <dp-map-wrapper></dp-map-wrapper>
                     </div>
                 </div>
 
@@ -71,14 +64,14 @@
                      class="c-dashboard__column c-dashboard__content u-col-sm--{{vm.columnSizes.right}} qa-dashboard__column--right">
 
                     <!-- Detail -->
-                    <div ng-if="vm.activity.detail" ng-show="vm.visibility.detail" ng-controller="DetailController as detail" class="qa-detail">
+                    <div ng-if="vm.activity.detail" ng-show="vm.visibility.detail" ng-controller="DetailController as detailController" class="qa-detail">
                         <dp-detail
                             show="vm.visibility.detail"
-                            endpoint="{{detail.endpoint}}"
-                            reload="detail.reload"
-                            is-loading="detail.isLoading"
-                            is-map-highlight="detail.isMapHighlight"
-                            catalog-filters="detail.catalogFilters"
+                            endpoint="{{detailController.endpoint}}"
+                            reload="detailController.reload"
+                            is-loading="detailController.isLoading"
+                            skipped-search-results="detailController.skippedSearchResults"
+                            catalog-filters="detailController.catalogFilters"
                             user="vm.user">
                         </dp-detail>
                     </div>
@@ -87,10 +80,10 @@
                     <div ng-if="vm.activity.page" ng-show="vm.visibility.page" class="c-dashboard__page o-max-width">
                         <div class="c-dashboard__page-inner o-max-width__inner"
                              ng-class="{ 'u-gutter': vm.isHomePage }">
-                            <div ng-controller="PageController as page" class="qa-page">
-                                <dp-page name="{{page.pageName}}"
-                                         type="{{page.pageType}}"
-                                         item="{{page.pageItem}}"></dp-page>
+                            <div ng-controller="PageController as pageController" class="qa-page">
+                                <dp-page name="{{pageController.pageName}}"
+                                         type="{{pageController.pageType}}"
+                                         item="{{pageController.pageItem}}"></dp-page>
                             </div>
                         </div>
                         <footer ng-if="vm.isHomePage" class="c-dashboard__footer o-max-width">
@@ -143,33 +136,45 @@
                     </div>
 
                     <!-- Search results -->
-                    <div ng-if="vm.activity.searchResults" ng-show="vm.visibility.searchResults" ng-controller="SearchResultsController as searchResults" class="qa-search-results">
+                    <div ng-if="vm.activity.searchResults" ng-show="vm.visibility.searchResults" ng-controller="SearchResultsController as searchResultsController" class="qa-search-results">
                         <dp-search-results
                             show="vm.visibility.searchResults"
-                            is-loading="searchResults.isLoading"
-                            query="{{searchResults.query}}"
-                            location="searchResults.location"
-                            category="{{searchResults.category}}"
-                            number-of-results="searchResults.numberOfResults"
+                            is-loading="searchResultsController.isLoading"
+                            query="{{searchResultsController.query}}"
+                            location="searchResultsController.location"
+                            category="{{searchResultsController.category}}"
+                            number-of-results="searchResultsController.numberOfResults"
                             user="vm.user">
                         </dp-search-results>
                     </div>
 
                     <!-- Straatbeeld -->
                     <div ng-if="vm.activity.straatbeeld" ng-show="vm.visibility.straatbeeld"
-                        ng-controller="StraatbeeldController as straatbeeld"
+                        ng-controller="StraatbeeldController as straatbeeldController"
                         class="u-full-height qa-straatbeeld">
 
                         <!--Resize straatbeeld when any of printMode, errorMode or fullscreen changes-->
                         <dp-straatbeeld
-                            state="straatbeeld.straatbeeldState"
+                            state="straatbeeldController.straatbeeldState"
                             resize="[vm.isPrintMode, vm.isEmbedPreview, vm.isEmbed, vm.visibility.error, vm.visibility.straatbeeld, vm.columnSizes.right]">
                         </dp-straatbeeld>
                     </div>
 
                     <!-- Data selection -->
-                    <div ng-if="vm.activity.dataSelection" ng-show="vm.visibility.dataSelection" ng-controller="DataSelectionController as dataSelection" class="qa-data-selection">
-                        <dp-data-selection state="dataSelection.dataSelectionState" filters="dataSelection.filters" user="vm.user"></dp-data-selection>
+                    <div
+                        ng-if="vm.activity.dataSelection"
+                        ng-show="vm.visibility.dataSelection"
+                        ng-controller="DataSelectionController as dataSelectionController"
+                        class="qa-data-selection"
+                    >
+                        <dp-data-selection
+                            bounding-box="dataSelectionController.boundingBox"
+                            catalog-filters="dataSelectionController.catalogFilters"
+                            filters="dataSelectionController.filters"
+                            state="dataSelectionController.dataSelectionState"
+                            user="vm.user"
+                            zoom-level="dataSelectionController.zoomLevel"
+                        ></dp-data-selection>
                     </div>
                 </div>
             </div>

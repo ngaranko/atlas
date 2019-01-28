@@ -7,10 +7,11 @@
 
     function dataSelectionApiDataSelectionFactory (sharedConfig, api) {
         return {
-            query: query
+            query,
+            getMarkers
         };
 
-        function query (config, activeFilters, page, search, geometryFilter) {
+        function query (config, view, activeFilters, page, search, geometryFilter) {
             let searchPage = page;
 
             const shape = (angular.isDefined(geometryFilter)) ? geometryFilter : [];
@@ -31,7 +32,9 @@
                 activeFilters
             );
 
-            return api.getByUri(config.ENDPOINT_PREVIEW, searchParams)
+            const uri = config.ENDPOINT_PREVIEW[view] || config.ENDPOINT_PREVIEW;
+
+            return api.getByUri(uri, searchParams)
                 .then(function (data) {
                     if (searchPage !== page) {
                         // Requested page was out of api reach, dumping data
@@ -82,6 +85,17 @@
             }
             return sharedConfig.API_ROOT + config.ENDPOINT_DETAIL +
                 rawDataRow[config.PRIMARY_KEY] + '/';
+        }
+
+        function getMarkers (config, activeFilters) {
+            return api
+                .getByUri(config.ENDPOINT_MARKERS, activeFilters)
+                .then((data) => ({
+                    clusterMarkers: data.object_list
+                        .map(object => object._source.centroid)
+                        .filter(angular.identity)
+                        .map(([lon, lat]) => ({position: [lat, lon]}))
+                }));
         }
     }
 })();

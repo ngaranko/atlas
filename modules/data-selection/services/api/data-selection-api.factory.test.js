@@ -8,23 +8,20 @@ describe('The dataSelectionApi factory', function () {
         TabHeader;
 
     const mockedApiService = {
-            query: function () {
-                const q = $q.defer();
+        query: function () {
+            const q = $q.defer();
+            q.resolve(mockedApiPreviewResponse);
 
-                q.resolve(mockedApiPreviewResponse);
-
-                return q.promise;
-            }
+            return q.promise;
         },
-        api = {
-            getByUri: function (url) {
-                const q = $q.defer();
+        getMarkers: () => {
+            const q = $q.defer();
 
-                q.resolve(mockedApiMarkersResponse);
+            q.resolve(mockedApiMarkersResponse);
 
-                return q.promise;
-            }
-        };
+            return q.promise;
+        }
+    };
 
     beforeEach(function () {
         mockedConfig = {
@@ -39,7 +36,8 @@ describe('The dataSelectionApi factory', function () {
                             label: 'Type accomodatie'
                         }, {
                             slug: 'water',
-                            label: 'Watersoort'
+                            label: 'Watersoort',
+                            order: ['Verwarmd', 'Koud', 'Tropisch', 'Not present']
                         }
                     ],
                     CONTENT: {
@@ -81,10 +79,7 @@ describe('The dataSelectionApi factory', function () {
 
         angular.mock.module(
             'dpDataSelection',
-            {
-                api,
-                mockedApiService
-            },
+            { mockedApiService },
             function ($provide) {
                 $provide.constant('DATA_SELECTION_CONFIG', mockedConfig);
             }
@@ -98,7 +93,7 @@ describe('The dataSelectionApi factory', function () {
         });
 
         spyOn(mockedApiService, 'query').and.callThrough();
-        spyOn(api, 'getByUri').and.callThrough();
+        spyOn(mockedApiService, 'getMarkers').and.callThrough();
     });
 
     describe('query function', function () {
@@ -124,12 +119,12 @@ describe('The dataSelectionApi factory', function () {
                         numberOfOptions: 2,
                         options: [
                             {
-                                count: 4,
-                                label: 'Buitenbad'
-                            },
-                            {
                                 count: 2,
                                 label: 'Overdekt'
+                            },
+                            {
+                                count: 4,
+                                label: 'Buitenbad'
                             },
                             {
                                 count: 666,
@@ -219,13 +214,13 @@ describe('The dataSelectionApi factory', function () {
         it('calls the api factory with the configuration, (optional) active filters and page', function () {
             // Without active filters
             dataSelectionApi.query('zwembaden', 'TABLE', undefined, 1, [], {});
-            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {},
-                1, [], {}, undefined);
+            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden,
+                'TABLE', {}, 1, [], {}, undefined);
 
             // With active filters
             mockedApiService.query.calls.reset();
             dataSelectionApi.query('zwembaden', 'TABLE', { water: 'Verwarmd' }, 1, 'searchText', [], {});
-            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, {
+            expect(mockedApiService.query).toHaveBeenCalledWith(mockedConfig.datasets.zwembaden, 'TABLE', {
                 water: 'Verwarmd'
             }, 1, 'searchText', [], {});
         });
@@ -282,6 +277,7 @@ describe('The dataSelectionApi factory', function () {
         describe('it returns all available filters', function () {
             it('orders the filters based on the configuration', function () {
                 let output = {};
+                mockedConfig.datasets.zwembaden.SORT_FILTERS = false;
 
                 dataSelectionApi.query('zwembaden', 'TABLE', {}, 1).then(function (_output_) {
                     output = _output_;
@@ -295,12 +291,12 @@ describe('The dataSelectionApi factory', function () {
                         numberOfOptions: 2,
                         options: [
                             {
-                                label: 'Buitenbad',
-                                count: 4
-                            },
-                            {
                                 label: 'Overdekt',
                                 count: 2
+                            },
+                            {
+                                label: 'Buitenbad',
+                                count: 4
                             },
                             {
                                 label: 'Overdekt',
@@ -313,15 +309,16 @@ describe('The dataSelectionApi factory', function () {
                         numberOfOptions: 3,
                         options: [
                             {
+                                label: 'Verwarmd',
+                                count: 4
+                            },
+                            {
                                 label: 'Koud',
                                 count: 1
                             },
                             {
                                 label: 'Tropisch',
                                 count: 1
-                            }, {
-                                label: 'Verwarmd',
-                                count: 4
                             }
                         ]
                     }
@@ -345,12 +342,12 @@ describe('The dataSelectionApi factory', function () {
                         numberOfOptions: 2,
                         options: [
                             {
-                                label: 'Buitenbad',
-                                count: 4
-                            },
-                            {
                                 label: 'Overdekt',
                                 count: 2
+                            },
+                            {
+                                label: 'Buitenbad',
+                                count: 4
                             },
                             {
                                 label: 'Overdekt',
@@ -363,13 +360,13 @@ describe('The dataSelectionApi factory', function () {
                         numberOfOptions: 3,
                         options: [
                             {
-                                label: 'Tropisch',
-                                count: 1
-                            }, {
                                 label: 'Verwarmd',
                                 count: 4
                             }, {
                                 label: 'Koud',
+                                count: 1
+                            }, {
+                                label: 'Tropisch',
                                 count: 1
                             }
                         ]
@@ -522,40 +519,45 @@ describe('The dataSelectionApi factory', function () {
     describe('the getMarkers function', function () {
         beforeEach(function () {
             mockedApiMarkersResponse = {
-                object_list: [
-                    {
-                        _source: {
-                            centroid: [4.1, 52.1]
-                        }
-                    }, {
-                        _source: {
-                            centroid: [4.2, 52.2]
-                        }
-                    }, {
-                        _source: {
-                            centroid: [4.3, 52.3]
-                        }
-                    }
+                clusterMarkers: [
+                    [52.1, 4.1],
+                    [52.2, 4.2],
+                    [52.3, 4.3]
                 ]
             };
         });
 
         it('calls the api factory with the active filters as searchParams', function () {
             // Without filters
-            dataSelectionApi.getMarkers('zwembaden', {});
+            dataSelectionApi.getMarkers(
+                'zwembaden',
+                {},
+                11,
+                { bounding: 'box' }
+            );
             $rootScope.$apply();
 
-            expect(api.getByUri).toHaveBeenCalledWith('zwembaden/markers/', {});
+            expect(mockedApiService.getMarkers).toHaveBeenCalledWith(
+                mockedConfig.datasets.zwembaden,
+                {},
+                11,
+                { bounding: 'box' }
+            );
 
             // With filters
-            api.getByUri.calls.reset();
-            dataSelectionApi.getMarkers('zwembaden', { water: 'Verwarmd' });
+            mockedApiService.getMarkers.calls.reset();
+            dataSelectionApi.getMarkers(
+                'zwembaden',
+                { water: 'Verwarmd' },
+                11,
+                { bounding: 'box' }
+            );
 
-            expect(api.getByUri).toHaveBeenCalledWith(
-                'zwembaden/markers/',
-                {
-                    water: 'Verwarmd'
-                }
+            expect(mockedApiService.getMarkers).toHaveBeenCalledWith(
+                mockedConfig.datasets.zwembaden,
+                { water: 'Verwarmd' },
+                11,
+                { bounding: 'box' }
             );
         });
 
@@ -567,11 +569,13 @@ describe('The dataSelectionApi factory', function () {
             });
             $rootScope.$apply();
 
-            expect(output).toEqual([
-                [52.1, 4.1],
-                [52.2, 4.2],
-                [52.3, 4.3]
-            ]);
+            expect(output).toEqual({
+                clusterMarkers: [
+                    [52.1, 4.1],
+                    [52.2, 4.2],
+                    [52.3, 4.3]
+                ]
+            });
         });
     });
 
@@ -592,6 +596,7 @@ describe('The dataSelectionApi factory', function () {
 
             expect(mockedApiService.query).toHaveBeenCalledWith(
                 mockedConfig.datasets.zwembaden,
+                'TABLE',
                 {
                     water: 'Verwarmd'
                     // Note that fake_filter is missing here
@@ -607,17 +612,21 @@ describe('The dataSelectionApi factory', function () {
             dataSelectionApi.getMarkers(
                 'zwembaden',
                 {
-                    water: 'Verwarmd',
-                    fake_filter: 'woohoo'
-                }
+                    water: 'Verwarmd'
+                    // Note that fake_filter is missing here
+                },
+                11,
+                { bounding: 'box' }
             );
 
-            expect(api.getByUri).toHaveBeenCalledWith(
-                'zwembaden/markers/',
+            expect(mockedApiService.getMarkers).toHaveBeenCalledWith(
+                mockedConfig.datasets.zwembaden,
                 {
                     water: 'Verwarmd'
-                    // Not that fake_filter isn't part of the api call
-                }
+                    // Note that fake_filter isn't part of the api call
+                },
+                11,
+                { bounding: 'box' }
             );
         });
     });

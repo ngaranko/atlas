@@ -18,6 +18,7 @@ export default function fetchByUri(uri) {
           code: result.status ? result.status.code : '',
           description: result.status ? result.status.omschrijving : ''
         },
+        name: result.pandnaam,
         year: result.oorspronkelijk_bouwjaar !== yearUnknownValue ?
           result.oorspronkelijk_bouwjaar : ''
       };

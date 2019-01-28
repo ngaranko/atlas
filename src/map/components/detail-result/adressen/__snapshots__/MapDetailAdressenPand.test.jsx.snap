@@ -15,6 +15,10 @@ exports[`MapDetailAdressenPand should render everything 1`] = `
       label="Oorspronkelijk bouwjaar"
       value="2020"
     />
+    <MapDetailResultItem
+      label="Naam"
+      value="Gebouw!"
+    />
     <MapDetailResultStatusItem
       label="Status"
       status=""
@@ -24,7 +28,7 @@ exports[`MapDetailAdressenPand should render everything 1`] = `
 </MapDetailResultWrapper>
 `;
 
-exports[`MapDetailAdressenPand should render unknown for empty year 1`] = `
+exports[`MapDetailAdressenPand should render unknown for empty year and empty name 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
@@ -39,6 +43,10 @@ exports[`MapDetailAdressenPand should render unknown for empty year 1`] = `
       label="Oorspronkelijk bouwjaar"
       value="onbekend"
     />
+    <MapDetailResultItem
+      label="Naam"
+      value=""
+    />
     <MapDetailResultStatusItem
       label="Status"
       status=""
@@ -48,7 +56,7 @@ exports[`MapDetailAdressenPand should render unknown for empty year 1`] = `
 </MapDetailResultWrapper>
 `;
 
-exports[`MapDetailAdressenPand should render unknown without year 1`] = `
+exports[`MapDetailAdressenPand should render unknown without year and name 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
@@ -62,6 +70,10 @@ exports[`MapDetailAdressenPand should render unknown without year 1`] = `
     <MapDetailResultItem
       label="Oorspronkelijk bouwjaar"
       value="onbekend"
+    />
+    <MapDetailResultItem
+      label="Naam"
+      value=""
     />
     <MapDetailResultStatusItem
       label="Status"

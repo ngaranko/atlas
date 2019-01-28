@@ -1,4 +1,4 @@
-// TODO: R: clean file, overly complex and contains state
+// TODO: R: clean file, overlay complex and contains state
 
 /* eslint-disable no-use-before-define,no-underscore-dangle */
 /* global L */
@@ -8,13 +8,14 @@ import isEqual from 'lodash.isequal';
 import debounce from 'lodash.debounce';
 
 import { isBusy, start } from '../suppress/suppress';
-import drawToolConfig from './draw-tool-config';
+import drawToolConfig from './draw-tool.config';
 
-  // holds all information about the state of the shape being created or edited
+// holds all information about the state of the shape being created or edited
 const DEFAULTS = {
   isConsistent: true,
   type: null,
   layer: null,
+  layerPrev: null,
   markers: [],
   markersPrev: [],
   markersEdit: [],
@@ -60,6 +61,14 @@ export function initialize(map, onFinish, onDrawingMode, onUpdateShape) {
   registerMapEvents();
 }
 
+export function destroy() {
+  deRegisterMapEvents();
+  deRegisterDrawEvents();
+  deleteAllMarkers();
+  deletePolygon();
+  cancel();
+}
+
 // triggered when a polygon has finished drawing or editing
 function onFinishPolygon() {
   if (typeof _onFinishPolygon === 'function') {
@@ -93,6 +102,8 @@ function onChangePolygon() {
 
 // Construct a polygon from a array of coordinates
 export function setPolygon(latLngs) {
+  // Save the previous layer
+  currentShape.layerPrev = currentShape.layer;
   deletePolygon(); // delete any existing polygon
   if (latLngs.length > 0) {
     createPolygon(new L.Polygon(latLngs));
@@ -114,17 +125,31 @@ function deletePolygon() {
 
 // Create a new polygon by registering the layer, show the layer and register a click
 // handler to start/end edit
-function createPolygon(layer) {
+export function createPolygon(layer) {
   currentShape.layer = layer;
   drawTool.drawnItems.addLayer(layer);
+  drawTool.drawnItems.bringToFront();
   layer.on('click', toggleEditModeOnShapeClick);
 }
 
 // Called when a polygon is finished (end draw or end edit)
-function finishPolygon() {
+export function finishPolygon() {
   currentShape.markersEdit = [];
-  if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT && !currentShape.isConsistent) {
-    setPolygon([...currentShape.markersPrev]); // restore previous polygon
+  if (
+    drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT &&
+    !currentShape.isConsistent
+  ) {
+    // Exit edit mode with an inconsistent shape; restore previous shape
+    setPolygon([...currentShape.markersPrev]);
+    updateShape();
+  } else if (
+    drawTool.drawingMode === drawToolConfig.DRAWING_MODE.DRAW &&
+    currentShape.markers.length <= 1 &&
+    currentShape.layerPrev
+  ) {
+    // Exit draw mode without having drawn a line or shape;
+    // Restore the previous polygon layer if available
+    createPolygon(currentShape.layerPrev);
     updateShape();
   }
   setPolygon(currentShape.markers);
@@ -141,9 +166,18 @@ function setDrawingMode(drawingMode) {
   }
 }
 
+function clearTexts(obj) {
+  return Object.keys(obj).reduce((acc, key) => ({
+    ...acc,
+    [key]: typeof obj[key] === 'object' ? clearTexts(obj[key]) : (
+      typeof obj[key] === 'string' ? '' : obj[key])
+  }), {});
+}
+
 // Initialisation of the draw tool, initialise drawing and register required objects
 // in the drawTool object
 function initDrawTool(map) {
+  L.drawLocal = clearTexts(L.drawLocal);
   L.drawLocal.format = drawToolConfig.format;
 
   drawTool.map = map;
@@ -160,7 +194,7 @@ function initDrawTool(map) {
 }
 
 // enforce the maximum markers limit and the non-intersection of line segments limit
-function enforceLimits() {
+export function enforceLimits() {
   if (!currentShape.isConsistent) {
     const markersPrev = [...currentShape.markersPrev]; // restore previous state
 
@@ -177,7 +211,7 @@ function enforceLimits() {
 }
 
 // Auto close polygon when in drawing mode and max markers has been reached
-function autoClose() {
+export function autoClose() {
   if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.DRAW &&
     currentShape.markers.length === currentShape.markersMaxCount) {
     defer(() => disable());
@@ -185,10 +219,14 @@ function autoClose() {
 }
 
 // handle any leaflet.draw event
-function handleDrawEvent(eventName, e) {
+export function handleDrawEvent(eventName, e) {
+  // debugger;
   const handlers = {
     // Triggered when the user has chosen to draw a particular vector or marker
     DRAWSTART: () => setDrawingMode(drawToolConfig.DRAWING_MODE.DRAW),
+
+    // Triggered when the user has chosen to exit the drawing mode
+    DRAWSTOP: finishPolygon,
 
     // Triggered when a vertex is created on a polyline or polygon
     DRAWVERTEX: bindLastDrawnMarker,
@@ -210,6 +248,8 @@ function handleDrawEvent(eventName, e) {
     // Triggered when layers have been removed (and saved) from the FeatureGroup
     DELETED: () => {
       currentShape.layer = null;
+      // cancel();
+      // setDrawingMode(drawToolConfig.DRAWING_MODE.NONE);
     }
   };
 
@@ -251,29 +291,55 @@ function registerDrawEvents() {
       });
     });
   });
+  setTimeout(() => {
+    // fix for firefox _onUpdateShape not fired
+    onChangePolygon();
+  });
+}
+
+function deRegisterDrawEvents() {
+  Object.keys(L.Draw.Event).forEach((eventName) => {
+    drawTool.map.off(L.Draw.Event[eventName]);
+  });
 }
 
 // register any non-leaflet.draw events
 function registerMapEvents() {
-  // Click outside shape => delete shape
-  drawTool.map.on('click', () => {
-    if (isBusy()) {
-      return;
-    }
+  drawTool.map.on('click', onMapClick);
+  drawTool.map.on('layeradd', onMapLayerAdd);
+}
 
-    // In edit mode => disable()
-    if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT) {
-      disable();
-    } else if (drawTool.drawingMode !== drawToolConfig.DRAWING_MODE.DRAW && currentShape.layer) {
-      // If not in Draw or EDIT mode and a polygon exists
-      // then the current polygon gets deleted
-      // Note: In draw mode the click on map adds a new marker
-      deletePolygon();
-      updateShape();
-      onFinishPolygon();
-      disable();
-    }
-  });
+function deRegisterMapEvents() {
+  drawTool.map.off('layeradd', onMapLayerAdd);
+  drawTool.map.off('click', onMapClick);
+}
+
+// Click outside shape => delete shape
+function onMapClick() {
+  if (isBusy()) {
+    return;
+  }
+
+  // In edit mode => disable()
+  if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT) {
+    disable();
+  } else if (drawTool.drawingMode !== drawToolConfig.DRAWING_MODE.DRAW && currentShape.layer) {
+    // If not in Draw or EDIT mode and a polygon exists
+    // then the current polygon gets deleted
+    // Note: In draw mode the click on map adds a new marker
+    deletePolygon();
+    updateShape();
+    onFinishPolygon();
+    disable();
+  }
+}
+
+// When a new layer gets added to the map...
+function onMapLayerAdd() {
+  // ...make sure the layer of the drawn shape stays on top,
+  // so it can still be clicked to enter edit mode.
+  // This will not affect markers, they'll stay on top anyway.
+  drawTool.drawnItems.bringToFront();
 }
 
 // Click on the shape toggles EDIT mode
@@ -316,6 +382,7 @@ export function disable() {
         // Close the polyline between the first and last points
         drawTool.drawShapeHandler.completeShape();
       } else {
+        deleteAllMarkers();
         drawTool.drawShapeHandler.disable();
       }
     } else {
@@ -331,6 +398,7 @@ export function disable() {
 export function cancel() {
   if (isEnabled()) {
     if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.DRAW) {
+      deleteAllMarkers();
       drawTool.drawShapeHandler.disable();
     } else {
       drawTool.editShapeHandler.disable();
@@ -343,7 +411,7 @@ export function cancel() {
 // Shape method for shape.info
 // while drawing the polygon is not closed => distance is distance of the lines
 // When editing the polygon is closed => distance is surrounding
-// When only tow points => distance is line length
+// When only two points => distance is line length
 function getDistance(latLngs, isClosed) {
   return latLngs.reduce((total, latlng, i) => {
     if (i > 0) {
@@ -355,7 +423,7 @@ function getDistance(latLngs, isClosed) {
 }
 
 // Update the internal information about the current shape
-function updateShape() {
+export function updateShape() {
   const DISTANCE_IN_KILOMETERS = 1000; // Show in km starting from this #meters, else show in m
 
   let latLngs = [];
@@ -413,9 +481,22 @@ function updateShape() {
 function updateShapeInfo() {
   // Copy a set of properties of the current shape into the shapeInfo object
   ['type', 'markers', 'markersMaxCount', 'area', 'areaTxt', 'distance', 'distanceTxt']
-  .forEach((key) => {
-    shapeInfo[key] = currentShape[key];
-  });
+    .forEach((key) => {
+      shapeInfo[key] = currentShape[key];
+    });
+}
+
+// Delete all markers in DRAW mode
+function deleteAllMarkers() {
+  if (!isEnabled()) {
+    return;
+  }
+
+  const firstMarker = drawTool.drawShapeHandler._markers[0];
+  if (firstMarker) {
+    currentShape.deleteMarker = firstMarker;
+    deleteMarker();
+  }
 }
 
 // delete a marker in DRAW mode
@@ -428,6 +509,8 @@ function deleteMarker() {
   while (nDelete > 0) {
     // Remove the last vertex from the polyline, removes polyline from map if only one point
     // exists
+    markers[markers.length - 1].off('click');
+    markers[markers.length - 1].off('mousedown');
     drawShapeHandler.deleteLastVertex();
     nDelete -= 1;
   }
@@ -457,6 +540,9 @@ function bindLastDrawnMarker() {
         const isLineOrPolygon = currentShape.markers.length > 1;
         disable(); // Includes auto close for any line or polygon
         if (!isLineOrPolygon) {
+          if (currentShape.markers.length) {
+            setPolygon([]);
+          }
           // Reopen draw mode to place first marker somewhere else
           enable();
         }
@@ -467,5 +553,7 @@ function bindLastDrawnMarker() {
     }
   }));
 }
+
+export const isDrawingActive = (drawingMode) => drawingMode !== drawToolConfig.DRAWING_MODE.NONE;
 
 /* eslint-enable no-use-before-define,no-underscore-dangle */

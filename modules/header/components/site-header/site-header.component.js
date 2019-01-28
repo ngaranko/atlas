@@ -31,14 +31,14 @@
             vm.menuSize = vm.size === HEADER.SIZE.TALL ? HEADER.SIZE.SHORT : HEADER.SIZE.TALL;
             vm.isTall = vm.size === HEADER.SIZE.TALL;
             vm.isShort = vm.size === HEADER.SIZE.SHORT;
-            setSearchComponent();
+            $timeout(setSearchComponent);
         }
 
         function setSearchComponent () {
-            $timeout(() => {
-                const autosuggestContainer = $window.document.querySelector('.react-auto-suggest-container');
+            const autosuggestContainer = $window.document.querySelector('.react-auto-suggest-container');
+            if (autosuggestContainer) {
                 render(React.createElement(searchWrapper, null), autosuggestContainer);
-            });
+            }
         }
     }
 })();
