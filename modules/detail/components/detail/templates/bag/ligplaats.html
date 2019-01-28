@@ -27,10 +27,11 @@
     <!-- monumenten -->
     <div ng-if="vm.apiData.results.ligplaatsidentificatie">
         <dp-api-call
+            ng-if="vm.apiData.results.ligplaatsidentificatie"
             endpoint="monumenten/situeringen/?betreft_nummeraanduiding={{vm.apiData.results.ligplaatsidentificatie}}"
             add-api-root="true"
             partial="monumenten/situering"
-            user="vm.user"
-        />
+            user="vm.user">
+        </dp-api-call>
     </div>
 </div>
