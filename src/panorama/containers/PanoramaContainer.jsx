@@ -6,24 +6,23 @@ import throttle from 'lodash.throttle';
 
 import './PanoramaContainer.scss';
 import {
+  closePanorama,
   fetchPanoramaHotspotRequest,
   setPanoramaOrientation
 } from '../ducks/actions';
-import { toDataDetail, toGeoSearch } from '../../store/redux-first-router/actions';
 
 import {
+  getHeadingDegrees,
   getOrientation,
   initialize,
-  loadScene,
-  getHeadingDegrees
+  loadScene
 } from '../services/marzipano/marzipano';
 
 import StatusBar from '../components/StatusBar/StatusBar';
 import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullscreen';
-import { getPanorama, getPanoramaLocation, getReference } from '../ducks/selectors';
+import { getDetailReference, getPanorama, getPanoramaLocation } from '../ducks/selectors';
 import IconButton from '../../app/components/IconButton/IconButton';
 import { getMapDetail } from '../../map/ducks/detail/map-detail';
-import PARAMETERS from '../../store/parameters';
 import { getMapOverlaysWithoutPanorama } from '../../map/ducks/map/map-selectors';
 import { pageTypeToEndpoint } from '../../map/services/map-detail';
 import { setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
@@ -116,10 +115,7 @@ class PanoramaContainer extends React.Component {
     const {
       isFullscreen,
       panoramaState,
-      onClose,
-      detailReference,
-      panoramaLocation,
-      overlaysWithoutPanorama
+      onClose
     } = this.props;
     return (
       <div className="c-panorama">
@@ -141,9 +137,7 @@ class PanoramaContainer extends React.Component {
         />
 
         <IconButton
-          onClick={() => {
-            onClose(panoramaLocation, detailReference, overlaysWithoutPanorama);
-          }}
+          onClick={onClose}
           title="Sluit panorama"
           icon="cross"
         />
@@ -163,7 +157,8 @@ class PanoramaContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
   panoramaState: getPanorama(state),
-  detailReference: getReference(state),
+  detailReference: getDetailReference(state),
+  pageReference: getDetailReference(state),
   panoramaLocation: getPanoramaLocation(state),
   overlaysWithoutPanorama: getMapOverlaysWithoutPanorama(state)
 });
@@ -173,33 +168,17 @@ const mapDispatchToProps = (dispatch) => ({
     setOrientation: setPanoramaOrientation,
     setView: setViewMode,
     fetchPanoramaById: fetchPanoramaHotspotRequest,
-    fetchMapDetail: getMapDetail
-  }, dispatch),
-  // Todo: move to panorama
-  onClose: (panoramaLocation, reference, overlaysWithoutPanorama) => {
-    if (reference.length) {
-      dispatch(toDataDetail(reference, {
-        [PARAMETERS.LAYERS]: overlaysWithoutPanorama,
-        [PARAMETERS.VIEW]: VIEW_MODE.SPLIT
-      }));
-    } else {
-      dispatch(toGeoSearch({
-        [PARAMETERS.LOCATION]: panoramaLocation,
-        [PARAMETERS.VIEW]: VIEW_MODE.SPLIT,
-        [PARAMETERS.LAYERS]: overlaysWithoutPanorama
-      }));
-    }
-  }
+    fetchMapDetail: getMapDetail,
+    onClose: closePanorama
+  }, dispatch)
 });
 
 PanoramaContainer.propTypes = {
   panoramaState: PropTypes.shape({}).isRequired,
-  overlaysWithoutPanorama: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFullscreen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   setView: PropTypes.func.isRequired,
   detailReference: PropTypes.arrayOf(PropTypes.string).isRequired,
-  panoramaLocation: PropTypes.arrayOf(PropTypes.number).isRequired,
   setOrientation: PropTypes.func.isRequired,
   fetchMapDetail: PropTypes.func.isRequired,
   fetchPanoramaById: PropTypes.func.isRequired

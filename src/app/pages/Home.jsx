@@ -138,7 +138,9 @@ const Home = ({ showFooter }) => (
                       linkAction={
                         toPanoramaAndPreserveQuery(
                           HOMEPAGE_CONFIG.PANORAMA.id,
-                          HOMEPAGE_CONFIG.PANORAMA.heading
+                          HOMEPAGE_CONFIG.PANORAMA.heading,
+                          [],
+                          'home'
                         )
                       }
                       title="Panoramabeelden"

@@ -4,9 +4,9 @@ import configureMockStore from 'redux-mock-store';
 import PanoramaContainer from './PanoramaContainer';
 import { getOrientation, loadScene } from '../services/marzipano/marzipano';
 import { fetchPanoramaHotspotRequest } from '../ducks/actions';
-import { getPanorama, getPanoramaLocation, getReference } from '../ducks/selectors';
+import { getDetailReference, getPanorama, getPanoramaLocation } from '../ducks/selectors';
 import { getMapOverlaysWithoutPanorama } from '../../map/ducks/map/map-selectors';
-import { VIEW_MODE, setViewMode } from '../../shared/ducks/ui/ui';
+import { setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
 
 jest.mock('../../map/ducks/map/map-selectors');
 jest.mock('../services/marzipano/marzipano');
@@ -34,7 +34,7 @@ describe('PanoramaContainer', () => {
     }
   }));
   setViewMode.mockImplementation(() => ({ type: 'some type' }));
-  getReference.mockImplementation(() => []);
+  getDetailReference.mockImplementation(() => []);
   getMapOverlaysWithoutPanorama.mockImplementation(() => ([]));
   getPanoramaLocation.mockImplementation(() => []);
 
