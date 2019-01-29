@@ -3,11 +3,12 @@ import { toGlossaryKey } from '../../../detail/services/endpoint-parser/endpoint
 import GLOSSARY from '../../../detail/services/glossary.constant';
 import { routing } from '../../../app/routes';
 import { VIEW_MODE } from '../../ducks/ui/ui';
+import PARAMETERS from '../../../store/parameters';
 
 export const mapDocumentTitle = (action, defaultTitle) => {
   let pageTitle = defaultTitle;
-  const view = get(action, 'meta.query.modus', '');
-  const embed = get(action, 'meta.query.embed', 'false');
+  const view = get(action, `meta.query[${PARAMETERS.VIEW}]`, '');
+  const embed = get(action, `meta.query[${PARAMETERS.EMBED}]`, 'false');
   if (view === VIEW_MODE.MAP) {
     pageTitle = 'Grote kaart';
     if (embed === 'true') {

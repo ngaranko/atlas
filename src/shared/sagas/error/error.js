@@ -11,6 +11,7 @@ import {
   FETCH_QUERY_SEARCH_MORE_RESULTS_FAILURE,
   FETCH_QUERY_SEARCH_RESULTS_FAILURE
 } from '../../ducks/data-search/constants';
+import { FETCH_PANORAMA_ERROR } from '../../../panorama/ducks/constants';
 
 export function* setErrorsEffect() {
   yield put(setGlobalError(ERROR_TYPES.GENERAL_ERROR));
@@ -23,6 +24,7 @@ export default function* watchErrors() {
     FETCH_DATA_SELECTION_FAILURE,
     FETCH_DATASETS_FAILURE,
     FETCH_GEO_SEARCH_RESULTS_FAILURE,
+    FETCH_PANORAMA_ERROR,
     FETCH_QUERY_SEARCH_RESULTS_FAILURE,
     FETCH_QUERY_SEARCH_MORE_RESULTS_FAILURE
   ], setErrorsEffect);
