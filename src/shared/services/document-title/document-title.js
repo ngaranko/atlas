@@ -6,7 +6,7 @@ import { VIEW_MODE } from '../../ducks/ui/ui';
 
 export const mapDocumentTitle = (action, defaultTitle) => {
   let pageTitle = defaultTitle;
-  const view = get(action, 'meta.query.view', '');
+  const view = get(action, 'meta.query.modus', '');
   const embed = get(action, 'meta.query.embed', 'false');
   if (view === VIEW_MODE.MAP) {
     pageTitle = 'Grote kaart';

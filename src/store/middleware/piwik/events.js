@@ -63,12 +63,12 @@ const events = {
       'auto-suggest', // NAVIGATION -> SELECT AUTOSUGGEST OPTION
       tracking.category,
       tracking.query
-    ] : (getViewMode(state) === VIEW_MODE.MAP && query.view === VIEW_MODE.SPLIT) ? [
+    ] : (getViewMode(state) === VIEW_MODE.MAP && query.modus === VIEW_MODE.SPLIT) ? [
       PIWIK_CONSTANTS.TRACK_EVENT,
       'navigation', // NAVIGATION -> CLICK TOGGLE FULLSCREEN FROM MAP
       'detail-volledig-weergeven',
       null
-    ] : (getViewMode(state) === VIEW_MODE.SPLIT && query.view === VIEW_MODE.MAP) ? [
+    ] : (getViewMode(state) === VIEW_MODE.SPLIT && query.modus === VIEW_MODE.MAP) ? [
       PIWIK_CONSTANTS.TRACK_EVENT,
       'navigation', // NAVIGATION -> CLICK TOGGLE FULLSCREEN FROM SPLITSCREEN
       'detail-kaart-vergroten',
