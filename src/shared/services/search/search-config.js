@@ -65,6 +65,11 @@ export default {
       label_singular: 'Monument',
       label_plural: 'Monumenten',
       uri: 'monumenten/search/'
+    }, {
+      slug: 'pand',
+      label_singular: 'Pand',
+      label_plural: 'Panden',
+      uri: 'atlas/search/pand/'
     }
   ],
   COORDINATES_ENDPOINTS: [

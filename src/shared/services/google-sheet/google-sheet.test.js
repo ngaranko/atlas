@@ -157,17 +157,17 @@ describe('The google sheet factory', () => {
       delete cache[GOOGLE_SHEET_CMS.key];
     });
 
-    it('builds a URL and calls getByUrl with it', () => {
-      api.getByUrl = jest.fn(() => Promise.resolve());
+    it('builds a URL and calls getByUri with it', () => {
+      api.getByUri = jest.fn(() => Promise.resolve());
       getContents('beleid');
-      expect(api.getByUrl).toHaveBeenCalledWith(`https://data.amsterdam.nl/cms/${GOOGLE_SHEET_CMS.key}.${GOOGLE_SHEET_CMS.index.beleid}.json`, null, null, false);
+      expect(api.getByUri).toHaveBeenCalledWith(`https://data.amsterdam.nl/cms/${GOOGLE_SHEET_CMS.key}.${GOOGLE_SHEET_CMS.index.beleid}.json`);
     });
 
     it('uses the cached value if loaded twice', async () => {
-      api.getByUrl = jest.fn(() => Promise.resolve());
+      api.getByUri = jest.fn(() => Promise.resolve());
       await getContents('beleid');
       await getContents('beleid');
-      expect(api.getByUrl).toHaveBeenCalledTimes(1);
+      expect(api.getByUri).toHaveBeenCalledTimes(1);
     });
 
     it('returns an empty feed when the get fails', async () => {
@@ -205,7 +205,7 @@ describe('The google sheet factory', () => {
     });
 
     it('processes the global feed properties', async () => {
-      api.getByUrl = jest.fn(() => Promise.resolve(response));
+      api.getByUri = jest.fn(() => Promise.resolve(response));
       await getContents('beleid');
       expect(cache).toMatchObject({
         [GOOGLE_SHEET_CMS.key]: {
