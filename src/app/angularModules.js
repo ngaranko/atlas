@@ -82,7 +82,6 @@ import '../../modules/shared/shared.module';
 import '../../modules/shared/components/anchor-link/anchor-link.component';
 import '../../modules/shared/components/anchor-link/anchor-link.constant';
 import '../../modules/shared/components/anchor-link/anchor-link.run';
-import '../../modules/shared/components/api-error/api-error.component';
 import '../../modules/shared/components/button/button.component';
 import '../../modules/shared/components/coordinates/coordinates.filter';
 import '../../modules/shared/components/dcatd-button/dcatd-button.component';
@@ -123,6 +122,5 @@ import '../../modules/shared/shared-config.factory';
 import '../../modules/shared/shared.vendor';
 import '../../modules/shared/services/combined-document-title/combined-document-title.factory';
 // Components from deprecated dashboard
-import '../../modules/shared/components/api-error/error.component';
 import '../../modules/header/components/header.controller';
 import '../../modules/header/components/header/header.component';

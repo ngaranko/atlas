@@ -161,52 +161,13 @@
 
 .o-btn--close {
   @extend %btn-close;
-  @include icon-sprite("icon-cross", $primary-light, $primary-dark);
+  @include icon-sprite("icon-clear", $primary-light, $primary-dark, 26px);
+  height: 26px;
+  width: 24px;
 
-  &--info {
-    @include icon-sprite("icon-cross", $primary-light, $primary-dark);
-
-    height: 24px;
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    width: 24px;
-
-    &:hover,
-    &:focus {
-      background-color: $secondary-gray20;
-    }
-  }
-
-  &--danger {
-    @include icon-sprite("icon-cross", $primary-light, $primary-dark);
-
-    height: 24px;
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    width: 24px;
-
-    &:hover,
-    &:focus {
-      background-color: $secondary-gray20;
-    }
-  }
-
-  &--warning {
-    @include icon-sprite("icon-cross", $primary-light, $primary-dark);
-
-    height: 24px;
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    width: 24px;
-
-    &:hover,
-    &:focus {
-      background-color: $secondary-gray20;
-    }
-
+  &:hover,
+  &:focus {
+    background-color: $secondary-gray20;
   }
 }
 

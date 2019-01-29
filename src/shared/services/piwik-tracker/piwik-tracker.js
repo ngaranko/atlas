@@ -5,6 +5,8 @@
  */
 export default function piwikTracker(data = []) {
   if (data.length) {
+    window._paq.push(['setDocumentTitle', window.document.title]);
+    window._paq.push(['setCustomUrl', window.location.href]);
     window._paq.push(data);
   }
 }

@@ -22,9 +22,15 @@
   a {
     color: $secondary-gray70;
     text-decoration: none;
+
+    &:focus {
+      border-bottom: 2px solid $primary-contrast !important;
+      color: $primary-contrast !important;
+    }
   }
 
   &:hover,
+  &:active,
   &:focus {
     .c-menu__title {
       border-bottom: 2px solid $primary-contrast !important;

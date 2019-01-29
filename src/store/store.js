@@ -5,7 +5,7 @@ import { connectRoutes } from 'redux-first-router';
 import restoreScroll from 'redux-first-router-restore-scroll';
 import queryString from 'querystring';
 import rootSaga from '../root-saga';
-import '../shared/ducks/error-message';
+import '../shared/ducks/error/error-message';
 import * as auth from '../shared/services/auth/auth';
 import { authenticateReload } from '../shared/ducks/user/user';
 import rootReducer from '../reducers/root';

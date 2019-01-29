@@ -1,7 +1,7 @@
 import get from 'lodash.get';
 import {
     setGlobalError
-} from '../../../../src/shared/ducks/error-message';
+} from '../../../../src/shared/ducks/error/error-message';
 
 (function () {
     'use strict';

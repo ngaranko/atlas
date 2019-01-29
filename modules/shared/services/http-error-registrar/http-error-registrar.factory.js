@@ -1,4 +1,4 @@
-import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
+import { ERROR_TYPES } from '../../../../src/shared/ducks/error/error-message';
 
 (function () {
     'use strict';

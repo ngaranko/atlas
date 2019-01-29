@@ -1,4 +1,10 @@
 import reducer from './reducer';
+import {
+  getDetail,
+  getDetailGeometry,
+  getDetailDisplay,
+  isDetailLoading
+} from './selectors';
 import { FETCH_DETAIL, SHOW_DETAIL } from './constants';
 import { fetchDetail } from './actions';
 
@@ -47,5 +53,16 @@ describe('Detail Actions', () => {
         payload: 'endpoint'
       });
     });
+  });
+});
+
+describe('Detail Selectors', () => {
+  const initialState = reducer(undefined, {});
+
+  it('should return detail information from the state', () => {
+    expect(getDetail({ detail: initialState })).toEqual(initialState);
+    expect(getDetailGeometry({ detail: initialState })).toEqual(initialState.geometry);
+    expect(getDetailDisplay({ detail: initialState })).toEqual(initialState.display);
+    expect(isDetailLoading({ detail: initialState })).toEqual(initialState.isLoading);
   });
 });

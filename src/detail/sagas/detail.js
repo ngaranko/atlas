@@ -3,7 +3,6 @@ import { routing } from '../../app/routes';
 import { fetchDetail as fetchDetailActionCreator, fetchDetailSuccess, fetchDetailFailure } from '../../shared/ducks/detail/actions';
 import { pageTypeToEndpoint, toNotFoundPage } from '../../store/redux-first-router/actions';
 import { getDetail } from '../../shared/ducks/detail/selectors';
-import { FETCH_DETAIL_REQUEST } from '../../shared/ducks/detail/constants';
 import { getUserScopes } from '../../shared/ducks/user/user';
 import { getByUrl } from '../../shared/services/api/api';
 import { getTemplateUrl, getParts } from '../services/endpoint-parser/endpoint-parser';
@@ -51,13 +50,13 @@ export function* getData(endpoint) {
 
 export function* retrieveDetailData(action) {
   try {
-    console.log('retrieveDetailData, start call fetchDetailSuccess');
+    // console.log('retrieveDetailData, start call fetchDetailSuccess');
     const data = yield call(getData, action.payload.endpoint);
-    console.log('retrieveDetailData, after call fetchDetailSuccess', data);
+    // console.log('retrieveDetailData, after call fetchDetailSuccess', data);
     yield put(fetchDetailSuccess(data));
-    console.log('retrieveDetailData set', data);
+    // console.log('retrieveDetailData set', data);
   } catch (error) {
-    console.log(error); // eslint-disable-line no-console, angular/log
+    // console.log(error); // eslint-disable-line no-console, angular/log
     if (error && error.status === 404) {
       yield put(toNotFoundPage());
     } else {

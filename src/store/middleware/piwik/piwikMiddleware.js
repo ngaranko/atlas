@@ -66,7 +66,7 @@ const piwikMiddleware = ({ getState }) => (next) => (action) => {
     const { firstAction, location, query, tracking } = action.meta || {};
     const state = getState();
     const href = window.location.href;
-    const title = document.title;
+    const title = window.document.title;
 
     if (tracking || location) {
       actionsToPiwik.forEach((piwikAction) => {

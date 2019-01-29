@@ -53,7 +53,6 @@ class PanoramaToggle extends React.Component {
               ${(showMenu) ? 'c-panorama-toggle__button--active' : ''}
             `}
             onClick={this.toggleMenu}
-            onKeyPress={this.toggleMenu}
           >
             { history.label }
           </button>
@@ -61,12 +60,16 @@ class PanoramaToggle extends React.Component {
             {historyOptions.map((option) => (
               <li
                 key={option.layerName}
-                className={`
-                  c-panorama-toggle__item
-                  qa-panorama-toggle__item
-                `}
               >
-                <button onClick={() => this.setSelectedOption(option)}>{ option.label }</button>
+                <button
+                  className={`
+                    c-panorama-toggle__item
+                    qa-panorama-toggle__item
+                  `}
+                  onClick={() => this.setSelectedOption(option)}
+                >
+                  { option.label }
+                </button>
               </li>
             ))}
             <li
