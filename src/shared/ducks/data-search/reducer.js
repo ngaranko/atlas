@@ -34,6 +34,8 @@ export default function reducer(state = initialState, action) {
       return {
         ...enrichedState,
         isLoading: true,
+        resultsQuery: [],
+        numberOfResults: 0,
         query: action.payload
       };
 
