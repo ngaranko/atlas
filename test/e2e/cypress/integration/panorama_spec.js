@@ -1,6 +1,6 @@
 const homepage = '.c-homepage';
-const statusBarInfo = '.c-straatbeeld-status-bar__info-item';
-const straatbeeld = '.c-straatbeeld';
+const statusBarInfo = '.c-panorama-status-bar__info-item';
+const panorama = '.c-panorama';
 
 describe('panorama module', () => {
   beforeEach(() => {
@@ -12,21 +12,21 @@ describe('panorama module', () => {
     // the homepage should be visible
     cy.get(homepage).should('be.visible');
     // check if the link is in the dom and visible
-    cy.get('.qa-straatbeeld-link').should('exist').and('be.visible');
-    // the straatbeeld should not exist yet
-    cy.get(straatbeeld).should('not.exist');
+    cy.get('.qa-panorama-link').should('exist').and('be.visible');
+    // the panorama should not exist yet
+    cy.get(panorama).should('not.exist');
     // click on the link to go to the map
-    cy.get('.qa-straatbeeld-link').click();
+    cy.get('.qa-panorama-link').click();
 
     cy.wait('@getResults');
   });
 
-  describe('user should be able to navigate to the panoram from the homepage', () => {
+  describe('user should be able to navigate to the panorama from the homepage', () => {
     it('should open the panorama viewer', () => {
       // the homepage should not be visible anymore
       cy.get(homepage).should('not.be.visible');
       // the map should be visible
-      cy.get(straatbeeld).should('exist').and('be.visible');
+      cy.get(panorama).should('exist').and('be.visible');
     });
   });
 
@@ -45,7 +45,7 @@ describe('panorama module', () => {
 
         cy.wait('@getResults');
         // the coordinates should be different
-        cy.get(statusBarInfo).first()
+        cy.get(statusBarInfo).first().find('span')
           .contains(coordinates)
           .should('not.exist');
       });
@@ -95,7 +95,7 @@ describe('panorama module', () => {
 
   describe('user should be able to interact with the panorama', () => {
     it('should remember the state when closing the pano, and update to search results when clicked in map', () => {
-      const panoUrl = '/#?dte=bag%2Fopenbareruimte%2F03630000004153%2F&mpb=topografie&mpz=11&mpo=pano::T&mpv=52.3663002:4.883519&sbf=Cu&sbh=qQ&sbi=TMX7316010203-000714_pano_0001_002608&sbl=ZREfS:3IuGM&sbmt=bi&sbln=pano&sblb=Meest%2520recent';
+      const panoUrl = '/data/panorama/TMX7316010203-000714_pano_0001_002608?heading=325&reference=03630000004153%2Cbag%2Copenbareruimte&reference=03630000004153%2Cbag%2Copenbareruimte';
       let newUrl;
 
       cy.defineGeoSearchRoutes();
@@ -114,19 +114,19 @@ describe('panorama module', () => {
 
       cy.wait('@getOpenbareRuimte');
       cy.wait('@getPanoThumbnail');
-      cy.get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
-      cy.get('h2.qa-title').should('exist').and('be.visible').contains('Leidsegracht');
-      cy.get('img.c-straatbeeld-thumbnail--img').click();
+      cy.get('.c-panorama-thumbnail--img').should('exist').and('be.visible');
+      cy.get('h2.o-header__title').should('exist').and('be.visible').contains('Leidsegracht');
+      cy.get('.c-panorama-thumbnail--img').click();
 
       cy.wait('@getResults');
       cy.location().then((loc) => {
-        newUrl = loc.pathname + loc.hash;
+        newUrl = `${loc.pathname + loc.search  }&reference=03630000004153%2Cbag%2Copenbareruimte`;
         expect(newUrl).to.equal(panoUrl);
       });
 
       let largestButtonSize = 0;
       let largestButton;
-      cy.get('.qa-hotspot-rotation:visible').each((button) => {
+      cy.get('.qa-hotspot-rotation').each((button) => {
         // get largest (e.g. closest by) navigation button
         cy.wrap(button).should('have.css', 'width').then((width) => {
           if (parseInt(width.replace('px', ''), 10) > largestButtonSize) {
@@ -141,28 +141,42 @@ describe('panorama module', () => {
       cy.wait('@getResults');
       // verify that something happened by comparing the url
       cy.location().then((loc) => {
-        newUrl = loc.pathname + loc.hash;
+        newUrl = loc.pathname + loc.search;
         expect(newUrl).not.to.equal(panoUrl);
       });
 
-      cy.get('button.c-straatbeeld__close').click();
-      cy.get('img.c-straatbeeld-thumbnail--img').should('exist').and('be.visible');
-      cy.get('h2.qa-title').should('exist').and('be.visible').contains('Leidsegracht');
-      cy.get('img.c-straatbeeld-thumbnail--img').click();
+      cy.wait('@getResults');
+      cy.wait(250);
+
+      cy.get('button.icon-button__right').should('exist');
+      // click on the maximize button to open the map view
+      cy.get('button.icon-button__right').last().click();
+
+      cy.wait('@getOpenbareRuimte');
+      cy.wait('@getPanoThumbnail');
+      cy.wait(500);
+
+      cy.get('.c-panorama-thumbnail--img').should('exist').and('be.visible');
+      cy.get('h2.o-header__title').should('exist').and('be.visible').contains('Leidsegracht');
+      cy.get('.c-panorama-thumbnail--img').click();
 
       cy.get('.leaflet-container').click(20, 100);
 
       cy.wait('@getResults');
+
       // verify that something happened by comparing the url
       cy.location().then((loc) => {
         const thisUrl = loc.pathname + loc.hash;
         expect(thisUrl).not.to.equal(newUrl);
       });
-      cy.get('button.c-straatbeeld__close').click();
+      cy.get('button.icon-button__right').last().click();
 
-      cy.waitForGeoSearch();
-      cy.get('h1.o-header__title').contains('Resultaten').should('exist').and('be.visible');
-      cy.get('h2').contains('Openbare ruimte').should('exist').and('be.visible');
+      // should show the openbareruimte again
+      cy.wait('@getOpenbareRuimte');
+      cy.wait('@getPanoThumbnail');
+
+      cy.get('.c-panorama-thumbnail--img').should('exist').and('be.visible');
+      cy.get('h2.o-header__title').should('exist').and('be.visible').contains('Leidsegracht');
     });
   });
 });

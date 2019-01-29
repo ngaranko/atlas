@@ -4,16 +4,15 @@ import AutoSuggestCategory, { MORE_RESULTS_INDEX } from './AutoSuggestCategory';
 
 import './_auto-suggest.scss';
 
-class AutoSuggest extends React.Component {
-  static getSuggestionByIndex(searchResults, suggestionIndex) {
-    return searchResults
-      .reduce((flatResults, category) =>
-        [...flatResults, ...category.content], [])
-      .find((flatSuggestion) =>
-        flatSuggestion.index === suggestionIndex
-      );
-  }
+const getSuggestionByIndex = (searchResults, suggestionIndex) =>
+  searchResults
+    .reduce((flatResults, category) =>
+      [...flatResults, ...category.content], [])
+    .find((flatSuggestion) =>
+      flatSuggestion.index === suggestionIndex
+    );
 
+class AutoSuggest extends React.Component {
   constructor(props) {
     super(props);
     this.clearQuery = this.clearQuery.bind(this);
@@ -122,7 +121,7 @@ class AutoSuggest extends React.Component {
         }
 
         onSuggestionActivate(
-          AutoSuggest.getSuggestionByIndex(
+          getSuggestionByIndex(
             suggestions,
             Math.max(activeSuggestion.index - 1, -1)
           )
@@ -134,7 +133,7 @@ class AutoSuggest extends React.Component {
           return;
         }
         onSuggestionActivate(
-          AutoSuggest.getSuggestionByIndex(
+          getSuggestionByIndex(
             suggestions,
             Math.min(activeSuggestion.index + 1, numberOfSuggestions - 1)
           )

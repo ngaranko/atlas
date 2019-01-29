@@ -22,7 +22,8 @@ pipeline {
         timeout(time: 5, unit: 'MINUTES')
       }
       steps {
-        sh "scripts/bakkie.sh ${BRANCH_NAME}"
+//        sh "scripts/bakkie.sh ${BRANCH_NAME}"
+        sh "echo \"Skipped bakkie, using Netlify at the moment!\""
       }
     }
 
@@ -76,7 +77,8 @@ pipeline {
             PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
           }
           steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e test-e2e"
+//            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e test-e2e"
+            sh "echo \"Skipped E2E test!\"" // TODO refactor, reactivate
           }
           post {
             always {
@@ -93,7 +95,8 @@ pipeline {
             PROJECT = "${PROJECT_PREFIX}e2e-aria"
           }
           steps {
-            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-aria test-e2e-aria"
+            // sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-aria test-e2e-aria"
+            sh "echo \"Skipped aria test!\"" // TODO refactor, reactivate
           }
           post {
             always {

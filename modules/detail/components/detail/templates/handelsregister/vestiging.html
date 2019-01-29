@@ -88,10 +88,10 @@
             definition="MAATSCHAPPELIJKEACTIVITEIT">
         </dp-glossary-header>
 
-        <dp-link type="FETCH_DETAIL"
-                 payload="vm.apiData.results.maatschappelijke_activiteit"
-                 class-name="c-link c-link--arrow o-list__separate-item"
-            >{{ vm.apiData.results.naam }}</dp-link>
+        <dp-redux-link
+            to="vm.apiData.results.maatschappelijke_activiteit | detailEndpointAction"
+            link-class="o-btn o-btn--link"
+        >{{ vm.apiData.results.naam }}</dp-redux-link>
     </div>
 
     <div ng-if="vm.apiData" ng-include="'modules/detail/components/detail/templates/hr-disclaimer.html'"></div>

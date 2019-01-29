@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataSelection should render LoadingIndicator 1`] = `
+<div
+  className="c-data-selection c-dashboard__content"
+>
+  <div
+    className="qa-data-selection-content"
+  >
+    <AngularWrapper
+      bindings={
+        Object {
+          "availableFilters": undefined,
+          "dataset": "bag",
+          "filters": Object {},
+          "isLoading": true,
+          "numberOfRecords": undefined,
+          "showHeader": false,
+          "user": Object {
+            "scopes": Array [],
+          },
+          "view": undefined,
+        }
+      }
+      component="dpDataSelectionHeader"
+      dependencies={
+        Array [
+          "atlas",
+        ]
+      }
+      interpolateBindings={Object {}}
+      moduleName="dpDataSelectionHeaderWrapper"
+    />
+    <LoadingIndicator />
+  </div>
+</div>
+`;
+
+exports[`DataSelection should render as gesplitst 1`] = `
+<div
+  className="c-data-selection c-dashboard__content"
+>
+  <div
+    className="qa-data-selection-content"
+  >
+    <AngularWrapper
+      bindings={
+        Object {
+          "availableFilters": undefined,
+          "dataset": "bag",
+          "filters": Object {},
+          "isLoading": false,
+          "numberOfRecords": undefined,
+          "showHeader": true,
+          "user": Object {
+            "scopes": Array [],
+          },
+          "view": undefined,
+        }
+      }
+      component="dpDataSelectionHeader"
+      dependencies={
+        Array [
+          "atlas",
+        ]
+      }
+      interpolateBindings={Object {}}
+      moduleName="dpDataSelectionHeaderWrapper"
+    />
+    <Connect(DataSelectionActiveFilters) />
+    <NoResultsForSearchType
+      authMessage={false}
+      message="Tip: verwijder een of meer criteria"
+    />
+    <div
+      className="u-grid qa-data-grid"
+    >
+      <div
+        className="u-row"
+      >
+        <div
+          className="u-col-sm--12"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DataSelection should render as volledig 1`] = `
+<div
+  className="c-data-selection c-dashboard__content"
+>
+  <div
+    className="qa-data-selection-content"
+  >
+    <AngularWrapper
+      bindings={
+        Object {
+          "availableFilters": undefined,
+          "dataset": "bag",
+          "filters": Object {},
+          "isLoading": false,
+          "numberOfRecords": undefined,
+          "showHeader": true,
+          "user": Object {
+            "scopes": Array [],
+          },
+          "view": undefined,
+        }
+      }
+      component="dpDataSelectionHeader"
+      dependencies={
+        Array [
+          "atlas",
+        ]
+      }
+      interpolateBindings={Object {}}
+      moduleName="dpDataSelectionHeaderWrapper"
+    />
+    <Connect(DataSelectionActiveFilters) />
+    <NoResultsForSearchType
+      authMessage={false}
+      message="Tip: verwijder een of meer criteria"
+    />
+    <div
+      className="u-grid qa-data-grid"
+    >
+      <div
+        className="u-row"
+      >
+        <div
+          className="u-col-sm--12"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DataSelection should show authorization message if user has no permission 1`] = `
+<div
+  className="c-data-selection c-dashboard__content"
+>
+  <div
+    className="qa-data-selection-content"
+  >
+    <AngularWrapper
+      bindings={
+        Object {
+          "availableFilters": undefined,
+          "dataset": "bag",
+          "filters": Object {},
+          "isLoading": false,
+          "numberOfRecords": undefined,
+          "showHeader": true,
+          "user": Object {
+            "scopes": Array [],
+          },
+          "view": undefined,
+        }
+      }
+      component="dpDataSelectionHeader"
+      dependencies={
+        Array [
+          "atlas",
+        ]
+      }
+      interpolateBindings={Object {}}
+      moduleName="dpDataSelectionHeaderWrapper"
+    />
+    <Connect(DataSelectionActiveFilters) />
+    <NotAuthorizedMessage
+      scopeError=""
+    />
+  </div>
+</div>
+`;

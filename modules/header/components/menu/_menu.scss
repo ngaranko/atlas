@@ -19,7 +19,18 @@
   text-decoration: none;
   cursor: pointer;
 
+  a {
+    color: $secondary-gray70;
+    text-decoration: none;
+
+    &:focus {
+      border-bottom: 2px solid $primary-contrast !important;
+      color: $primary-contrast !important;
+    }
+  }
+
   &:hover,
+  &:active,
   &:focus {
     .c-menu__title {
       border-bottom: 2px solid $primary-contrast !important;
@@ -30,7 +41,7 @@
 
 .c-menu__item--help {
   .c-menu__title {
-    .c-dashboard--page-type-help & {
+    .c-dashboard--page-type--help & {
       border-bottom: 2px solid $primary-contrast;
     }
   }

@@ -1,8 +1,43 @@
+import * as dataSelectionConfig
+    from '../../../../../src/shared/services/data-selection/data-selection-config';
+import isDefined from '../../../../../src/shared/services/is-defined';
+import { DOWNLOAD_DATA_SELECTION } from '../../../../../src/shared/ducks/data-selection/constants';
+
 describe('The dp-data-selection-download-button component', function () {
     let $compile,
         $q,
         $rootScope,
+        store,
         api;
+
+    const config = {
+        datasets: {
+            dataset_a: {
+                ENDPOINT: 'datasets/a/',
+                ENDPOINT_EXPORT: 'datasets/a/download/',
+                FILTERS: [
+                    {
+                        slug: 'filter_a'
+                    }, {
+                        slug: 'filter_b'
+                    }
+                ],
+                TITLE: 'foo'
+            },
+            dataset_b: {
+                ENDPOINT: 'datasets/b/',
+                ENDPOINT_EXPORT: 'datasets/b/download/',
+                ENDPOINT_EXPORT_PARAM: 'dataset=ves',
+                FILTERS: [
+                    {
+                        slug: 'filter_a'
+                    }, {
+                        slug: 'filter_b'
+                    }
+                ]
+            }
+        }
+    };
 
     beforeEach(function () {
         angular.mock.module(
@@ -10,46 +45,24 @@ describe('The dp-data-selection-download-button component', function () {
             {
                 sharedConfig: {
                     API_ROOT: 'http://www.example.com/'
+                },
+                store: {
+                    dispatch: angular.noop
                 }
-            },
-            function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', {
-                    datasets: {
-                        dataset_a: {
-                            ENDPOINT: 'datasets/a/',
-                            ENDPOINT_EXPORT: 'datasets/a/download/',
-                            FILTERS: [
-                                {
-                                    slug: 'filter_a'
-                                }, {
-                                    slug: 'filter_b'
-                                }
-                            ]
-                        },
-                        dataset_b: {
-                            ENDPOINT: 'datasets/b/',
-                            ENDPOINT_EXPORT: 'datasets/b/download/',
-                            ENDPOINT_EXPORT_PARAM: 'dataset=ves',
-                            FILTERS: [
-                                {
-                                    slug: 'filter_a'
-                                }, {
-                                    slug: 'filter_b'
-                                }
-                            ]
-                        }
-                    }
-                });
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$q_, _$rootScope_, _api_) {
+        dataSelectionConfig.default = config;
+
+        angular.mock.inject(function (_$compile_, _$q_, _$rootScope_, _store_, _api_) {
             $compile = _$compile_;
             $q = _$q_;
             $rootScope = _$rootScope_;
+            store = _store_;
             api = _api_;
         });
 
+        spyOn(store, 'dispatch');
         spyOn(api, 'createUrlWithToken').and.callFake($q.resolve); // wrap url in promise
     });
 
@@ -58,7 +71,7 @@ describe('The dp-data-selection-download-button component', function () {
         element.setAttribute('dataset', dataset);
         element.setAttribute('active-filters', 'activeFilters');
 
-        if (angular.isDefined(geometryMarkers)) {
+        if (isDefined(geometryMarkers)) {
             element.setAttribute('geometry-filter', 'geometryFilter');
         }
 
@@ -153,5 +166,12 @@ describe('The dp-data-selection-download-button component', function () {
             filter_a: 'äéë'
         });
         expect(component.find('a').attr('href')).toBe('tokenUrl');
+    });
+
+    it('dispatches an action that is tracked by piwik', function () {
+        const component = getComponent('dataset_a', {});
+        component.find('a').click();
+
+        expect(store.dispatch).toHaveBeenCalledWith({ type: DOWNLOAD_DATA_SELECTION, meta: { tracking: 'foo' } });
     });
 });

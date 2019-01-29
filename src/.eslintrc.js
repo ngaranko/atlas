@@ -34,6 +34,11 @@ module.exports = {
         "_southWest"
       ]
     }],
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [ "a" ],
+      "specialLink": [ "hrefLeft", "hrefRight" ],
+      "aspects": [ "noHref", "invalidHref", "preferButton" ]
+    }],
     "linebreak-style": "off"
   },
   "parserOptions": {

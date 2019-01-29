@@ -1,66 +1,64 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Link from 'redux-first-router-link';
 
 import HomepageBlock from '../block/HomepageBlock';
 
 import { features } from '../../../shared/environment';
+import { routing } from '../../../app/routes';
+import { toDatasetPage } from '../../../store/redux-first-router/actions';
+import { DATASETS } from '../../../shared/ducks/data-selection/constants';
 
-const HomepageAddressBlock = (props) => {
-  const { onLinkClick } = props;
-  const brkClassName = `homepage-block__item ${features.eigendommen ? '' : 'homepage-block__item--invisible'}`;
 
-  return (
-    <HomepageBlock
-      onBlockLinkClick={() => onLinkClick({ dataset: 'bag', filters: {}, page: 1 })}
-      title={'Adressentabel'}
-      description={'Selecteer en download als spreadsheet'}
-      hasTallDescription
-    >
-      <div className={'homepage-block__item'}>
-        <button
-          className={'c-link homepage-block__link'}
-          title={'Bekijk Adressentabel'}
-          onClick={() => onLinkClick({ dataset: 'bag', filters: {}, page: 1 })}
-        >
-          <span className="homepage-block__icon homepage-block__icon--bag" />
-          <span className="homepage-block__label">
-            Adressentabel
-          </span>
-        </button>
-      </div>
-
-      <div className={'homepage-block__item'}>
-        <button
-          className={'c-link homepage-block__link'}
-          title={'Bekijk handelsregister-tabel'}
-          onClick={() => onLinkClick({ dataset: 'hr', filters: {}, page: 1 })}
-        >
-          <span className="homepage-block__icon homepage-block__icon--hr" />
-          <span className="homepage-block__label">
-            Handelsregister-tabel
-          </span>
-        </button>
-      </div>
-
-      <div className={brkClassName}>
-        <button
-          className={'c-link homepage-block__link'}
-          title={'Bekijk kadaster-tabel'}
-          onClick={() => onLinkClick({ dataset: 'brk', filters: {}, page: 1 })}
-        >
-          <span className="homepage-block__icon homepage-block__icon--brk" />
-          <span className="homepage-block__label">
-            Kadaster-tabel
-          </span>
-        </button>
-      </div>
-
-    </HomepageBlock>
-  );
+const BLOCK_ITEMS = {
+  ADRESSEN: {
+    label: 'Adressentabel',
+    id: DATASETS.BAG,
+    route: routing.addresses.type,
+    title: 'Bekijk Adressentabel'
+  },
+  HANDELSREGISTER: {
+    label: 'Handelsregister-tabel',
+    id: DATASETS.HR,
+    route: routing.establishments.type,
+    title: 'Bekijk handelsregister-tabel'
+  },
+  KADASTER: {
+    label: 'Kadaster-tabel',
+    id: DATASETS.BRK,
+    route: routing.cadastralObjects.type,
+    title: 'Bekijk kadaster-tabel'
+  }
 };
 
-HomepageAddressBlock.propTypes = {
-  onLinkClick: PropTypes.func.isRequired
-};
+const HomepageAddressBlock = () => (
+  <HomepageBlock
+    linkAction={{ type: routing.addresses.type }}
+    title="Adressentabel"
+    description="Selecteer en download als spreadsheet"
+    hasTallDescription
+    blockIsLink={false}
+  >
+    <div className="homepage-block">
+      {Object.keys(BLOCK_ITEMS).map((key) => {
+        const extraClass = (key === 'KADASTER' && !features.eigendommen) ? 'homepage-block__item--invisible' : '';
+        const { label, id, title } = BLOCK_ITEMS[key];
+        return (
+          <div key={key} className={`homepage-block__item ${extraClass}`}>
+            <Link
+              className="c-link homepage-block__link"
+              title={title}
+              to={toDatasetPage(id)}
+            >
+              <span className={`homepage-block__icon homepage-block__icon--${id}`} />
+              <span className="homepage-block__label">
+                {label}
+              </span>
+            </Link>
+          </div>
+        );
+      })}
+    </div>
+  </HomepageBlock>
+);
 
 export default HomepageAddressBlock;

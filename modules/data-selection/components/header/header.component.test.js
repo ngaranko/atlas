@@ -1,3 +1,7 @@
+import * as dataSelectionConfig
+    from '../../../../src/shared/services/data-selection/data-selection-config';
+import { setDataset } from '../../../../src/shared/ducks/data-selection/actions';
+
 describe('The dp-data-selection-header', () => {
     const anonymousUser = {
         authenticated: false,
@@ -7,7 +11,6 @@ describe('The dp-data-selection-header', () => {
     let $compile,
         $rootScope,
         store,
-        ACTIONS,
         component,
         config,
         mockedViewInput,
@@ -51,8 +54,6 @@ describe('The dp-data-selection-header', () => {
                 }
             },
             function ($provide) {
-                $provide.constant('DATA_SELECTION_CONFIG', config);
-
                 $provide.factory('dpDataSelectionToggleViewButtonDirective', () => {
                     return {};
                 });
@@ -67,17 +68,18 @@ describe('The dp-data-selection-header', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_) => {
+        dataSelectionConfig.default = config;
+
+        angular.mock.inject((_$compile_, _$rootScope_, _store_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         mockedInputTable = {
+            dataset: 'bag',
+            view: 'TABLE',
             state: {
-                dataset: 'bag',
-                view: 'TABLE',
                 geometryFilter: {
                     markers: [],
                     description: 'geometryFilter description'
@@ -99,9 +101,9 @@ describe('The dp-data-selection-header', () => {
         };
 
         mockedInputList = {
+            dataset: 'hr',
+            view: 'LIST',
             state: {
-                dataset: 'hr',
-                view: 'LIST',
                 geometryFilter: {
                     markers: [],
                     description: 'geometryFilter description'
@@ -115,9 +117,9 @@ describe('The dp-data-selection-header', () => {
         };
 
         mockedInputCatalog = {
+            dataset: 'dcatd',
+            view: 'CATALOG',
             state: {
-                dataset: 'dcatd',
-                view: 'CATALOG',
                 geometryFilter: {
                     markers: [],
                     description: 'geometryFilter description'
@@ -142,6 +144,8 @@ describe('The dp-data-selection-header', () => {
         element.setAttribute('available-filters', 'availableFilters');
         element.setAttribute('number-of-records', 'numberOfRecords');
         element.setAttribute('show-header', 'showHeader');
+        element.setAttribute('dataset', 'dataset');
+        element.setAttribute('view', 'view');
 
         const scope = $rootScope.$new();
         scope.user = mockedInput.user || anonymousUser;
@@ -150,6 +154,8 @@ describe('The dp-data-selection-header', () => {
         scope.availableFilters = {};
         scope.numberOfRecords = mockedInput.numberOfRecords;
         scope.showHeader = mockedInput.showHeader;
+        scope.dataset = mockedInput.dataset;
+        scope.view = mockedInput.view;
         const compiledComponent = $compile(element)(scope);
         scope.$apply();
 
@@ -277,18 +283,6 @@ describe('The dp-data-selection-header', () => {
                 expect(component.find('.qa-title').length).toBe(1);
             });
 
-            it('potentially shows the no results found message', function () {
-                // When there are results
-                mockedViewInput.numberOfRecords = 1;
-                component = getComponent(mockedViewInput);
-                expect(component.find('.qa-no-results-found').length).toBe(0);
-
-                // When there are no results
-                mockedViewInput.numberOfRecords = 0;
-                component = getComponent(mockedViewInput);
-                expect(component.find('.qa-no-results-found').length).toBe(1);
-            });
-
             it('doesn\'t show tabs', function () {
                 component = getComponent(mockedViewInput);
 
@@ -310,43 +304,6 @@ describe('The dp-data-selection-header', () => {
 
             expect(component.find('.qa-tabs').length).toBe(1);
         });
-
-        it('potentially shows the no results found message', function () {
-            // Don't show the message
-            mockedInputList.numberOfRecords = 1234;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-no-results-found').length).toBe(0);
-
-            // Show the message
-            mockedInputList.numberOfRecords = 0;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-no-results-found').length).toBe(1);
-            expect(component.find('.qa-no-results-found').text()).toContain('Tip: verwijder een of meer criteria');
-        });
-    });
-
-    it('the active filters are only shown when at least one filter is active', () => {
-        const mockedInput = {
-            TABLE: mockedInputTable,
-            LIST: mockedInputList,
-            CATALOG: mockedInputCatalog
-        };
-
-        // With one active filter
-        ['TABLE', 'LIST', 'CATALOG'].forEach(viewName => {
-            component = getComponent(mockedInput[viewName]);
-            expect(component.find('.qa-active-filters').length).toBe(1);
-        });
-
-        // Without any active filter
-        mockedInput.TABLE.filters = {};
-        mockedInput.LIST.filters = {};
-        mockedInput.CATALOG.filters = {};
-
-        ['TABLE', 'LIST', 'CATALOG'].forEach(viewName => {
-            component = getComponent(mockedInput[viewName]);
-            expect(component.find('.qa-active-filters').length).toBe(0);
-        });
     });
 
     describe('the tabs in LIST view', () => {
@@ -358,23 +315,16 @@ describe('The dp-data-selection-header', () => {
         });
 
         it('inactive tabs are links to the first page of other datasets', () => {
-            mockedInputList.state.dataset = 'hr';
+            mockedInputList.dataset = 'hr';
             mockedInputList.state.page = 123;
             component = getComponent(mockedInputList);
 
             component.find('.qa-tabs li:nth-child(1) dp-link .o-tabs__tab--link').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DATA_SELECTION,
-                payload: jasmine.objectContaining({
-                    dataset: 'bag',
-                    view: 'LIST',
-                    page: 1
-                })
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(setDataset('bag'));
         });
 
         it('active tabs are just text (instead of a link)', () => {
-            mockedInputList.state.dataset = 'hr';
+            mockedInputList.dataset = 'hr';
             mockedInputList.state.page = 123;
             component = getComponent(mockedInputList);
             expect(store.dispatch).not.toHaveBeenCalled();
@@ -393,7 +343,7 @@ describe('The dp-data-selection-header', () => {
             expect(component.find('.qa-tabs li:nth-child(2)').text()).toContain(' (12.345)');
 
             // When BAG is active
-            mockedInputList.state.dataset = 'bag';
+            mockedInputList.dataset = 'bag';
             component = getComponent(mockedInputList);
 
             expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain('BAG Adressen');

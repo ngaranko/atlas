@@ -2,13 +2,12 @@
 
 exports[`MapPanelContainer should render MapLegend if store contains active map layers 1`] = `
 <section
-  aria-expanded={false}
-  aria-label="Kaartlagen legenda, Kaartlagen tonen"
+  aria-expanded={true}
+  aria-label="Kaartlagen legenda, Kaartlagen verbergen"
   className="
           map-panel
-          map-panel--collapsed
+          map-panel--expanded
           map-panel--has-active-layers
-          map-panel--has-just-invisible-layers
         "
 >
   <div
@@ -17,7 +16,7 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
     <button
       className="map-panel__toggle"
       onClick={[Function]}
-      title="Kaartlagen tonen"
+      title="Kaartlagen verbergen"
     >
       <span
         className="map-panel__heading-icon"
@@ -31,7 +30,7 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
       <span
         className="
               map-panel__toggle--icon
-              map-panel__toggle--icon-expand
+              map-panel__toggle--icon-collapse
             "
       />
     </button>
@@ -45,6 +44,7 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
           Object {},
         ]
       }
+      isEmbedOrPrint={false}
       onLayerToggle={[Function]}
       onLayerVisibilityToggle={[Function]}
       overlays={
@@ -82,13 +82,12 @@ exports[`MapPanelContainer should render MapLegend if store contains active map 
 
 exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
 <section
-  aria-expanded={false}
-  aria-label="Kaartlagen legenda, Kaartlagen tonen"
+  aria-expanded={true}
+  aria-label="Kaartlagen legenda, Kaartlagen verbergen"
   className="
           map-panel
-          map-panel--collapsed
+          map-panel--expanded
           map-panel--has-no-active-layers
-          map-panel--has-not-just-invisible-layers
         "
 >
   <div
@@ -97,7 +96,7 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
     <button
       className="map-panel__toggle"
       onClick={[Function]}
-      title="Kaartlagen tonen"
+      title="Kaartlagen verbergen"
     >
       <span
         className="map-panel__heading-icon"
@@ -111,7 +110,7 @@ exports[`MapPanelContainer should render MapType and MapLayers 1`] = `
       <span
         className="
               map-panel__toggle--icon
-              map-panel__toggle--icon-expand
+              map-panel__toggle--icon-collapse
             "
       />
     </button>

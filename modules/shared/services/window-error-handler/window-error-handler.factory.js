@@ -1,4 +1,4 @@
-import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
+import { ERROR_TYPES } from '../../../../src/shared/ducks/error/error-message';
 
 (function () {
     'use strict';
@@ -7,19 +7,18 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
         .module('dpShared')
         .factory('windowErrorHandler', windowErrorHandlerFactory);
 
-    windowErrorHandlerFactory.inject = [
+    windowErrorHandlerFactory.$inject = [
         '$log',
         '$rootScope',
         '$window',
-        'httpStatus',
-        'Raven'];
+        'httpStatus'
+    ];
 
     function windowErrorHandlerFactory (
         $log,
         $rootScope,
         $window,
-        httpStatus,
-        Raven
+        httpStatus
     ) {
         return () => {
             $window.addEventListener('error', function (event) {
@@ -46,11 +45,10 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
                     });
                 }
 
-                // Log exception in Sentry, use error object if available
+                // Todo: DP-6286 - Add sentry back, log to sentry
                 if (event.error) {
-                    Raven.captureException(event.error, {
-                        extra: { message }
-                    });
+                    // eslint-disable-next-line no-console,angular/log
+                    console.warn(message, event.error);
                 } else {
                     httpStatus.logResponse(message);
                 }

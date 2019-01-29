@@ -1,3 +1,4 @@
+
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -11,6 +12,11 @@ module.exports = function(env) {
     mode: 'development',
     devtool: 'source-map',
     devServer: {
+      historyApiFallback: {
+        // allow "." character in URL path: https://stackoverflow.com/a/38576357
+        // e.g.: http://localhost:8080/datasets/brk/subject/NL.KAD.Persoon.1234
+        disableDotRule: true
+      },
       disableHostCheck: true,
       contentBase: dist,
       compress: true,

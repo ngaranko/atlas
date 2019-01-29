@@ -1,6 +1,9 @@
 <div>
-    <div class="c-detail__block">
-        <dp-glossary-header definition="LIGPLAATS" meta-data="apiData"></dp-glossary-header>
+    <div
+        ng-if="apiData.results._display"
+        class="c-detail__block"
+    >
+        <dp-glossary-header definition="LIGPLAATS" meta-data="apiData" />
 
         <dl class="c-key-value-list">
             <dt>Status</dt>
@@ -13,14 +16,20 @@
     </div>
 
     <!-- Vestiging -->
-    <div class="c-detail__block">
-        <dp-glossary-header definition="VESTIGING" use-plural="true"></dp-glossary-header>
+    <div ng-if-"apiData.results.hoofdadres.landelijk_id" class="c-detail__block">
+        <dp-glossary-header definition="VESTIGING" use-plural="true" />
 
         <dp-panel is-panel-visible="!user.scopes.includes('HR/R')" can-close="true" type="warning">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen te bekijken.
-            Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
+            Zie <dp-link-to-page class-name="c-link--light" />.
         </dp-panel>
 
-        <dp-api-call ng-if="user.scopes.includes('HR/R')" endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}" add-api-root="true" partial="lijst" user="user"></dp-api-call>
+        <dp-api-call
+            ng-if="user.scopes.includes('HR/R') && apiData.results.hoofdadres.landelijk_id"
+            endpoint="handelsregister/vestiging/?nummeraanduiding={{ apiData.results.hoofdadres.landelijk_id }}"
+            add-api-root="true"
+            partial="lijst"
+            user="user"
+        />
     </div>
 </div>

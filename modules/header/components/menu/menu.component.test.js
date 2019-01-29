@@ -1,3 +1,5 @@
+import { AUTHENTICATE_USER_ERROR } from '../../../../src/shared/ducks/user/user';
+
 describe('The dp-menu component', () => {
     let $compile,
         $rootScope,
@@ -148,7 +150,7 @@ describe('The dp-menu component', () => {
 
         it('calls the auth login method', () => {
             component.find('.qa-menu__login').click();
-            expect(store.dispatch).toHaveBeenCalledWith({ type: 'AUTHENTICATE_ERROR' });
+            expect(store.dispatch).toHaveBeenCalledWith({ type: AUTHENTICATE_USER_ERROR });
         });
     });
 

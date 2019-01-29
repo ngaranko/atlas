@@ -17,7 +17,7 @@
             <dp-parent-relations content="vm.apiData.results"></dp-parent-relations>
         </div>
         <div class="u-col-sm--6">
-            <dp-straatbeeld-thumbnail location="vm.location"></dp-straatbeeld-thumbnail>
+            <dp-panorama-thumbnail panorama="vm.previewPanorama" is-loading="vm.isPreviewPanoramaLoading"></dp-panorama-thumbnail>
         </div>
     </div>
 
@@ -26,6 +26,7 @@
 
     <!-- monumenten -->
     <dp-api-call
+        ng-if="apiData.results.hoofdadres.landelijk_id"
         endpoint="monumenten/situeringen/?betreft_nummeraanduiding={{vm.apiData.results.landelijk_id}}"
         add-api-root="true"
         partial="monumenten/situering"

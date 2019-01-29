@@ -1,21 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { LatLngBounds } from 'leaflet';
 
-import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
+import { isEmbedded } from '../../../shared/ducks/ui/ui';
 
-import DrawTool from '../../containers/draw-tool/DrawToolContainer'; //eslint-disable-line
-import ToggleFullscreen from '../../components/toggle-fullscreen/ToggleFullscreen';
+import DrawTool from '../../containers/draw-tool/DrawToolContainer';
+import ToggleFullscreen from '../../../app/components/ToggleFullscreen/ToggleFullscreen';
 
 import LeafletContainer from '../leaflet/LeafletContainer';
 import MapPanelContainer from '../../containers/panel/MapPanelContainer';
 import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
 import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
-
-import getEmbedLink from '../../ducks/embed/embed';
-import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
+import { previewDataAvailable as previewDataAvailableSelector } from '../../../shared/ducks/selection/selection';
+import { getDrawingMode } from '../../ducks/map/map-selectors';
 
 export const overrideLeafletGetBounds = (map) => {
   // We override here the getBounds method of Leaflet
@@ -32,14 +30,10 @@ export const overrideLeafletGetBounds = (map) => {
 };
 
 const mapStateToProps = (state) => ({
-  isFullscreen: state.ui.isMapFullscreen,
-  drawMode: state.map.drawingMode,
-  embedLink: getEmbedLink(state)
+  drawMode: getDrawingMode(state),
+  embedMode: isEmbedded(state),
+  previewDataAvailable: previewDataAvailableSelector(state)
 });
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onToggleFullscreen: toggleMapFullscreen
-}, dispatch);
 
 class MapContainer extends React.Component {
   constructor(props) {
@@ -48,24 +42,6 @@ class MapContainer extends React.Component {
       leafletInstance: null
     };
     this.setLeafletInstance = this.setLeafletInstance.bind(this);
-    this.onToggleFullscreen = this.onToggleFullscreen.bind(this);
-  }
-
-  // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
-  onToggleFullscreen() {
-    const { isFullscreen, onToggleFullscreen } = this.props;
-    const piwik = {
-      TRACK_EVENT: 'trackEvent',
-      MINIMIZE_MAP: 'map-minimize',
-      NAVIGATION: 'navigation'
-    };
-
-    if (isFullscreen) {
-      piwikTracker([piwik.TRACK_EVENT, piwik.NAVIGATION,
-        piwik.MINIMIZE_MAP, window.document.title]);
-    }
-
-    return onToggleFullscreen();
   }
 
   setLeafletInstance(leafletInstance) {
@@ -74,29 +50,44 @@ class MapContainer extends React.Component {
   }
 
   render() {
+    const {
+      embedMode,
+      isFullscreen,
+      toggleFullscreen,
+      drawMode,
+      showPreviewPanel,
+      previewDataAvailable
+    } = this.props;
     return (
-      <div className={`c-map c-map--drawing-mode-${this.props.drawMode} qa-map-container`}>
-        <LeafletContainer
-          getLeafletInstance={this.setLeafletInstance}
-        />
-        {
-          this.state.leafletInstance && (
-            <DrawTool
-              leafletInstance={this.state.leafletInstance}
+      <div className="qa-map">
+        {/* Note: map must not be unmounted when showing the iframe */}
+        {/* as it will reset the map's state */}
+        <div className={`c-map c-map--drawing-mode-${drawMode} qa-map-container`}>
+          <LeafletContainer
+            getLeafletInstance={this.setLeafletInstance}
+          />
+          {
+            this.state.leafletInstance && (
+              <DrawTool
+                leafletInstance={this.state.leafletInstance}
+              />
+            )
+          }
+          {toggleFullscreen && (
+            <ToggleFullscreen
+              isFullscreen={isFullscreen}
+              title="Kaart"
+              onToggleFullscreen={toggleFullscreen}
             />
-          )
-        }
-        <ToggleFullscreen
-          isFullscreen={this.props.isFullscreen}
-          onToggleFullscreen={this.onToggleFullscreen}
-        />
-        <MapPanelContainer />
-        {
-          this.props.embedLink.length ? (
-            <MapEmbedButton link={this.props.embedLink} />
-          ) : ''
-        }
-        <MapPreviewPanelContainer />
+          )}
+          <MapPanelContainer isMapPanelVisible />
+          {
+            embedMode ? (
+              <MapEmbedButton />
+            ) : ''
+          }
+          {showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer />}
+        </div>
       </div>
     );
   }
@@ -109,15 +100,19 @@ MapContainer.contextTypes = {
 MapContainer.defaultProps = {
   geometry: null,
   leafletInstance: null,
+  showPreviewPanel: false,
   drawMode: 'none',
-  embedLink: ''
+  toggleFullscreen: null,
+  isFullscreen: true
 };
 
 MapContainer.propTypes = {
-  isFullscreen: PropTypes.bool.isRequired,
-  onToggleFullscreen: PropTypes.func.isRequired,
+  isFullscreen: PropTypes.bool,
+  toggleFullscreen: PropTypes.func,
   drawMode: PropTypes.string,
-  embedLink: PropTypes.string
+  embedMode: PropTypes.bool.isRequired,
+  showPreviewPanel: PropTypes.bool,
+  previewDataAvailable: PropTypes.bool.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapContainer);
+export default connect(mapStateToProps)(MapContainer);

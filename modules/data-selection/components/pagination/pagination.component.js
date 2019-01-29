@@ -1,3 +1,5 @@
+// Todo: move to react
+/* istanbul ignore next */
 (function () {
     'use strict';
 
@@ -6,16 +8,15 @@
         .component('dpDataSelectionPagination', {
             bindings: {
                 currentPage: '<',
-                numberOfPages: '<'
+                numberOfPages: '<',
+                setPage: '&'
             },
             templateUrl: 'modules/data-selection/components/pagination/pagination.html',
             controller: DpDataSelectionPaginationController,
             controllerAs: 'vm'
         });
 
-    DpDataSelectionPaginationController.$inject = ['store', 'ACTIONS'];
-
-    function DpDataSelectionPaginationController (store, ACTIONS) {
+    function DpDataSelectionPaginationController () {
         const vm = this;
 
         vm.$onChanges = function () {
@@ -28,28 +29,28 @@
                 vm.firstPage = {
                     label: 'Eerste',
                     class_name: 'c-data-selection-pagination-link--first',
-                    page: 1,
+                    action: () => vm.setPage()(1),
                     enabled: !isFirstPage
                 };
 
                 vm.previousPage = {
                     label: 'Vorige',
                     class_name: 'c-data-selection-pagination-link--previous',
-                    page: isFirstPage ? null : vm.currentPage - 1,
+                    action: () => vm.setPage()(isFirstPage ? null : vm.currentPage - 1),
                     enabled: !isFirstPage
                 };
 
                 vm.nextPage = {
                     label: 'Volgende',
                     class_name: 'c-data-selection-pagination-link--next',
-                    page: isLastPage ? null : vm.currentPage + 1,
+                    action: () => vm.setPage()(isLastPage ? null : vm.currentPage + 1),
                     enabled: !isLastPage
                 };
 
                 vm.lastPage = {
                     label: 'Laatste',
                     class_name: 'c-data-selection-pagination-link--last',
-                    page: vm.numberOfPages,
+                    action: () => vm.setPage()(vm.numberOfPages),
                     enabled: !isLastPage
                 };
             }
@@ -59,18 +60,12 @@
             event.preventDefault();
 
             if (angular.isNumber(vm.currentPage) && vm.currentPage >= 1 && vm.currentPage <= vm.numberOfPages) {
-                store.dispatch({
-                    type: ACTIONS.NAVIGATE_DATA_SELECTION,
-                    payload: vm.currentPage
-                });
+                vm.setPage()(vm.currentPage);
             }
         };
 
-        if (vm.currentPage > vm.numberOfPages) {
-            store.dispatch({
-                type: ACTIONS.NAVIGATE_DATA_SELECTION,
-                payload: 1
-            });
+        if (vm.numberOfPages && (vm.currentPage > vm.numberOfPages)) {
+            vm.setPage()(1);
         }
     }
 })();

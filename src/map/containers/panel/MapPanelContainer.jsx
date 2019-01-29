@@ -3,30 +3,47 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { setMapBaseLayer, toggleMapOverlay, toggleMapOverlayVisibility } from '../../ducks/map/map';
-import { selectActivePanelLayers } from '../../ducks/panel-layers/map-panel-layers';
+import {
+  getMapPanelLayers,
+  selectActivePanelLayers
+} from '../../ducks/panel-layers/map-panel-layers';
 import { getBaseLayers } from '../../ducks/base-layers/map-base-layers';
-import { toggleMapPanel, toggleMapPanelHandle } from '../../../shared/ducks/ui/ui';
+import {
+  isPrintOrEmbedMode,
+  isMapLayersVisible,
+  isMapPanelHandleVisible,
+  toggleMapPanelHandle
+} from '../../../shared/ducks/ui/ui';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapPanelHandle from '../../components/panel-handle/MapPanelHandle';
 import MapType from '../../components/type/MapType';
-
-import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
+import {
+  setMapBaseLayer,
+  toggleMapOverlay,
+  toggleMapOverlayVisibility,
+  toggleMapPanel
+} from '../../ducks/map/map';
+import {
+  getActiveBaseLayer,
+  getMapOverlays,
+  getMapZoom,
+  isMapPanelActive
+} from '../../ducks/map/map-selectors';
+import { getUser } from '../../../shared/ducks/user/user';
 
 const mapStateToProps = (state) => ({
-  activeBaseLayer: state.map.baseLayer,
+  activeBaseLayer: getActiveBaseLayer(state),
   activeMapLayers: selectActivePanelLayers(state),
-  atlas: state.atlas,
-  isMapPanelVisible: state.ui.isMapPanelVisible,
-  isMapLayersVisible: state.ui.isMapLayersVisible,
-  isEachOverlayInvisible: state.map.overlays.every((overlay) => !overlay.isVisible),
-  isMapPanelHandleVisible: !state.map.overlays.length || state.ui.isMapPanelHandleVisible,
+  isMapLayersVisible: isMapLayersVisible(state),
+  isMapPanelHandleVisible: !state.map.overlays.length || isMapPanelHandleVisible(state),
   mapBaseLayers: getBaseLayers(state),
-  mapLayers: state.mapLayers.panelLayers.items,
-  overlays: state.map.overlays,
-  zoomLevel: state.map.zoom,
-  user: state.user
+  mapLayers: getMapPanelLayers(state),
+  overlays: getMapOverlays(state),
+  zoomLevel: getMapZoom(state),
+  user: getUser(state),
+  isEmbedOrPrint: isPrintOrEmbedMode(state),
+  isMapPanelVisible: isMapPanelActive(state)
 });
 
 // TODO: Add method that checks whether layer is active and toggles accordingly
@@ -38,22 +55,10 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onMapPanelToggle: toggleMapPanel
 }, dispatch);
 
-// TODO DP-6031: Create Redux Middelware, use ACTION_TYPE as constants
-const piwik = {
-  TRACK_EVENT: 'trackEvent',
-  ADD_BASE_LAYER: 'achtergrond',
-  ADD_MAP_LAYER: 'kaartlaag',
-  BASE_LAYER_aerial: 'luchtfoto',
-  BASE_LAYER_topography: 'topografie'
-};
-
 class MapPanelContainer extends React.Component {
   componentDidUpdate(prevProps) {
     const {
-      activeBaseLayer,
-      activeMapLayers,
       isMapPanelVisible,
-      mapBaseLayers,
       overlays
     } = this.props;
 
@@ -61,46 +66,31 @@ class MapPanelContainer extends React.Component {
       const scrollElement = document.querySelector('.map-panel .map-legend');
       scrollElement.scrollIntoView({ behavior: 'smooth' });
     }
-    // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
-    if (activeBaseLayer && prevProps.activeBaseLayer !== activeBaseLayer) {
-      const baseLayers = [...mapBaseLayers.aerial, ...mapBaseLayers.topography];
-      const newBaseLayer = baseLayers.find((b) => b.value === activeBaseLayer);
-      const baseLayerCategory = newBaseLayer.category &&
-        piwik[`BASE_LAYER_${newBaseLayer.category}`];
-      piwikTracker([piwik.TRACK_EVENT, piwik.ADD_BASE_LAYER,
-        baseLayerCategory, newBaseLayer.label]);
-    }
-    if (activeMapLayers && prevProps.activeMapLayers !== activeMapLayers) {
-      const newMapLayer = activeMapLayers.filter((b) =>
-        !prevProps.activeMapLayers.find((b2) => b.title === b2.title)
-      );
-      if (newMapLayer && newMapLayer.length > 0) {
-        const mapLayerCategory = newMapLayer[0].category &&
-          newMapLayer[0].category.toLowerCase().replace(/[: ][ ]*/g, '_');
-        piwikTracker([piwik.TRACK_EVENT, piwik.ADD_MAP_LAYER,
-          mapLayerCategory, newMapLayer[0].title]);
-      }
-    }
   }
 
   render() {
+    const {
+      isMapPanelVisible, activeBaseLayer, mapBaseLayers, onBaseLayerToggle, mapLayers,
+      onMapPanelHandleToggle, activeMapLayers, onMapPanelToggle, onLayerToggle,
+      onLayerVisibilityToggle, overlays, user, isEmbedOrPrint, zoomLevel,
+      isMapPanelHandleVisible: mapPanelHandleVisisble
+    } = this.props;
     return (
       <section
-        aria-label={this.props.isMapPanelVisible ? 'Kaartlagen legenda, Kaartlagen verbergen' :
+        aria-label={isMapPanelVisible ? 'Kaartlagen legenda, Kaartlagen verbergen' :
           'Kaartlagen legenda, Kaartlagen tonen'}
-        aria-expanded={this.props.isMapPanelVisible}
+        aria-expanded={isMapPanelVisible}
         className={`
           map-panel
-          map-panel--${this.props.isMapPanelVisible ? 'expanded' : 'collapsed'}
-          map-panel--has${this.props.activeMapLayers.length > 0 ? '' : '-no'}-active-layers
-          map-panel--has${this.props.isEachOverlayInvisible ? '' : '-not'}-just-invisible-layers
+          map-panel--${isMapPanelVisible ? 'expanded' : 'collapsed'}
+          map-panel--has${activeMapLayers.length > 0 ? '' : '-no'}-active-layers
         `}
       >
         <div className="map-panel__heading">
           <button
             className="map-panel__toggle"
-            onClick={this.props.onMapPanelToggle}
-            title={this.props.isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
+            onClick={onMapPanelToggle}
+            title={isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
           >
             <span className="map-panel__heading-icon" />
             <h2 className="map-panel__heading-title" aria-hidden="true">Kaartlagen</h2>
@@ -112,29 +102,30 @@ class MapPanelContainer extends React.Component {
           </button>
         </div>
         <div className="scroll-wrapper">
-          {this.props.activeMapLayers.length > 0 && (
+          {activeMapLayers.length > 0 && (
             <MapLegend
-              activeMapLayers={this.props.activeMapLayers}
-              onLayerToggle={this.props.onLayerToggle}
-              onLayerVisibilityToggle={this.props.onLayerVisibilityToggle}
-              overlays={this.props.overlays}
-              user={this.props.user}
-              zoomLevel={this.props.zoomLevel}
+              activeMapLayers={activeMapLayers}
+              onLayerToggle={onLayerToggle}
+              onLayerVisibilityToggle={onLayerVisibilityToggle}
+              overlays={overlays}
+              user={user}
+              zoomLevel={zoomLevel}
+              isEmbedOrPrint={isEmbedOrPrint}
             />
           )}
           <MapPanelHandle
-            isMapPanelHandleVisible={this.props.isMapPanelHandleVisible}
-            onMapPanelHandleToggle={this.props.onMapPanelHandleToggle}
+            isMapPanelHandleVisible={mapPanelHandleVisisble}
+            onMapPanelHandleToggle={onMapPanelHandleToggle}
           >
             <MapType
-              activeBaseLayer={this.props.activeBaseLayer}
-              baseLayers={this.props.mapBaseLayers}
-              onBaseLayerToggle={this.props.onBaseLayerToggle}
+              activeBaseLayer={activeBaseLayer}
+              baseLayers={mapBaseLayers}
+              onBaseLayerToggle={onBaseLayerToggle}
             />
             <MapLayers
-              activeMapLayers={this.props.activeMapLayers}
-              layers={this.props.mapLayers}
-              onLayerToggle={this.props.onLayerToggle}
+              activeMapLayers={activeMapLayers}
+              layers={mapLayers}
+              onLayerToggle={onLayerToggle}
             />
           </MapPanelHandle>
         </div>
@@ -149,8 +140,7 @@ MapPanelContainer.contextTypes = {
 
 MapPanelContainer.defaultProps = {
   activeMapLayers: [],
-  atlas: {},
-  isMapPanelVisible: false,
+  isMapPanelVisible: true,
   map: {},
   mapBaseLayers: {},
   mapLayers: [],
@@ -161,20 +151,19 @@ MapPanelContainer.defaultProps = {
 MapPanelContainer.propTypes = {
   activeBaseLayer: PropTypes.string.isRequired,
   activeMapLayers: PropTypes.array, // eslint-disable-line
-  atlas: PropTypes.object, // eslint-disable-line
-  isEachOverlayInvisible: PropTypes.bool.isRequired,
   isMapPanelHandleVisible: PropTypes.bool.isRequired,
   isMapPanelVisible: PropTypes.bool,
+  isEmbedOrPrint: PropTypes.bool.isRequired,
   map: PropTypes.object, // eslint-disable-line
   mapBaseLayers: PropTypes.object, // eslint-disable-line
-  mapLayers: PropTypes.array, // eslint-disable-line
-  onBaseLayerToggle: PropTypes.func, // eslint-disable-line
-  onLayerToggle: PropTypes.func, // eslint-disable-line
-  onLayerVisibilityToggle: PropTypes.func, // eslint-disable-line
-  onMapPanelHandleToggle: PropTypes.func, // eslint-disable-line
+  mapLayers: PropTypes.arrayOf(PropTypes.object),
+  onBaseLayerToggle: PropTypes.func.isRequired,
+  onLayerToggle: PropTypes.func.isRequired,
+  onLayerVisibilityToggle: PropTypes.func.isRequired,
+  onMapPanelHandleToggle: PropTypes.func.isRequired,
   onMapPanelToggle: PropTypes.func.isRequired,
-  overlays: PropTypes.array, // eslint-disable-line
-  user: PropTypes.object, // eslint-disable-line
+  overlays: PropTypes.arrayOf(PropTypes.object).isRequired,
+  user: PropTypes.shape({}),
   zoomLevel: PropTypes.number
 };
 

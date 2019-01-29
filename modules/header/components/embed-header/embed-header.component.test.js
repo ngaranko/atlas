@@ -1,10 +1,7 @@
 describe('The dp-embed-header component', () => {
     let $compile,
         $rootScope,
-        embed,
-        store,
-        scope,
-        mockState;
+        scope;
 
     beforeEach(() => {
         angular.mock.module(
@@ -15,35 +12,27 @@ describe('The dp-embed-header component', () => {
                         callbackFn();
                     },
                     getState: angular.noop
-                },
-                embed: {
-                    getLink: angular.noop,
-                    getHtml: angular.noop
                 }
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _embed_) => {
+        angular.mock.inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            embed = _embed_;
-            store = _store_;
         });
-
-        mockState = {
-            ui: {}
-        };
-
-        spyOn(store, 'subscribe').and.callThrough();
-        spyOn(store, 'getState').and.returnValue(mockState);
-        spyOn(embed, 'getLink').and.returnValue('123');
-        spyOn(embed, 'getHtml').and.returnValue('abc');
     });
 
     function getComponent () {
         var component,
             element;
 
+        document.getElementById = () => ({
+            contentWindow: {
+                location: {
+                    href: 'https://fakeurl.com/'
+                }
+            }
+        });
         element = document.createElement('dp-embed-header');
 
         scope = $rootScope.$new();
@@ -54,19 +43,11 @@ describe('The dp-embed-header component', () => {
         return component;
     }
 
-    it('subscribes to the store to listen for changes', () => {
-        getComponent();
-
-        expect(store.subscribe).toHaveBeenCalledWith(jasmine.any(Function));
-    });
-
     it('updates the values in the form', () => {
         const component = getComponent();
-
-        expect(component.find('.qa-embed-header-form-link .qa-embed-header-form-input')[0].value).toBe('123');
-        expect(component.find('.qa-embed-header-form-html .qa-embed-header-form-input')[0].value).toBe('abc');
-
-        expect(embed.getLink).toHaveBeenCalled();
-        expect(embed.getHtml).toHaveBeenCalled();
+        expect(component.find('.qa-embed-header-form-link .qa-embed-header-form-input')[0].value)
+            .toBe('https://fakeurl.com/');
+        expect(component.find('.qa-embed-header-form-html .qa-embed-header-form-input')[0].value)
+            .toBe('<iframe width="500" height="400" src="https://fakeurl.com/" frameborder="0"></iframe>');
     });
 });

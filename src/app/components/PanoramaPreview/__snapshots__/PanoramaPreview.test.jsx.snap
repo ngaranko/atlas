@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PanoramaPreview should render the component 1`] = `
+<div
+  className="c-search-results__thumbnail-container"
+>
+  <div
+    className="c-search-results__thumbnail"
+  >
+    <AngularWrapper
+      bindings={
+        Object {
+          "isLoading": false,
+          "panorama": null,
+        }
+      }
+      component="dpPanoramaThumbnail"
+      dependencies={
+        Array [
+          "atlas",
+        ]
+      }
+      interpolateBindings={Object {}}
+      moduleName="dpPanoramaThumbnailWrapper"
+    />
+  </div>
+</div>
+`;

@@ -1,18 +1,17 @@
 import removeMd from 'remove-markdown';
-
-import { getMapClickLocation } from '../../../../src/map/ducks/click-location/map-click-location';
-import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/data/data';
+import { showDetail } from '../../../../src/shared/ducks/detail/actions';
+import { toNotFoundPage } from '../../../../src/store/redux-first-router/actions';
 
 (function () {
     angular
         .module('dpDetail')
         .component('dpDetail', {
             bindings: {
-                show: '=',
                 endpoint: '@',
-                reload: '=',
+                previewPanorama: '<',
+                isPreviewPanoramaLoading: '<',
                 isLoading: '=',
-                skippedSearchResults: '=',
                 catalogFilters: '=',
                 user: '<'
             },
@@ -24,7 +23,6 @@ import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tr
     DpDetailController.$inject = [
         '$scope',
         'store',
-        'ACTIONS',
         'api',
         'endpointParser',
         'geometry',
@@ -38,7 +36,6 @@ import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tr
     function DpDetailController (
         $scope,
         store,
-        ACTIONS,
         api,
         endpointParser,
         geometry,
@@ -48,15 +45,7 @@ import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tr
         markdownParser
     ) {
         /* eslint-enable max-params */
-        var vm = this;
-
-        // Reload the data when the reload flag has been set (endpoint has not
-        // changed)
-        $scope.$watch('vm.reload', reload => {
-            if (reload) {
-                getData(vm.endpoint);
-            }
-        });
+        const vm = this;
 
         // (Re)load the data when the endpoint is set or gets changed
         $scope.$watch('vm.endpoint', getData);
@@ -77,17 +66,10 @@ import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tr
 
         vm.stripMarkdown = (val) => removeMd(val);
 
-        // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
-        vm.geosearchButtonClick = () => sendPiwikEvent();
+        vm.downloadResource = (dataset, resourceUrl) => store.dispatch(downloadDatasetResource({dataset, resourceUrl}));
 
         function getData (endpoint) {
-            vm.location = null;
-
             vm.includeSrc = endpointParser.getTemplateUrl(endpoint);
-
-            const location = getMapClickLocation(store.getState());
-
-            vm.geosearchButton = vm.skippedSearchResults ? [location.latitude, location.longitude] : false;
 
             const [category, subject] = endpointParser.getParts(endpoint);
 
@@ -132,48 +114,17 @@ import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tr
                     vm.filterSelection = {
                         [subject]: vm.apiData.results.naam
                     };
-
-                    geometry.getGeoJSON(endpoint).then(function (geoJSON) {
-                        if (geoJSON !== null) {
-                            vm.location = crsConverter.rdToWgs84(geojson.getCenter(geoJSON));
-                        }
-
-                        if (!vm.skippedSearchResults) {
-                            store.dispatch({
-                                type: ACTIONS.DETAIL_FULLSCREEN,
-                                payload: subject === 'api' || !geoJSON
-                            });
-                        }
-
-                        store.dispatch({
-                            type: ACTIONS.SHOW_DETAIL,
-                            payload: {
-                                display: data._display,
-                                geometry: geoJSON
-                            }
-                        });
-                    }, errorHandler);
                 }, errorHandler);
             }
         }
 
-        function errorHandler () {
-            store.dispatch({
-                type: ACTIONS.SHOW_DETAIL,
-                payload: {}
-            });
-        }
-
-        // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
-        function sendPiwikEvent () {
-            const piwik = {
-                TRACK_EVENT: 'trackEvent',
-                SHOW_ALL_RESULTS: 'show-all-results',
-                NAVIGATION: 'navigation'
-            };
-
-            piwikTracker([piwik.TRACK_EVENT, piwik.NAVIGATION,
-                piwik.SHOW_ALL_RESULTS, window.document.title]);
+        function errorHandler (error) {
+            console.error(error); // eslint-disable-line no-console, angular/log
+            if (error && error.status === 404) {
+                store.dispatch(toNotFoundPage());
+            } else {
+                store.dispatch(showDetail({}));
+            }
         }
     }
 })();

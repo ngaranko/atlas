@@ -2,7 +2,6 @@ describe('The dp-data-selection-list component', function () {
     let $compile,
         $rootScope,
         store,
-        ACTIONS,
         mockedContent;
 
     beforeEach(function () {
@@ -15,11 +14,10 @@ describe('The dp-data-selection-list component', function () {
             }
         );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_, _ACTIONS_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         mockedContent = {
@@ -107,34 +105,21 @@ describe('The dp-data-selection-list component', function () {
         expect(component.find('ul li').length).toBe(2);
     });
 
-    it('groups the first group of variables inside a dp-link to FETCH_DETAIL', function () {
+    it('groups the first group of variables inside a dp-redux-link to FETCH_DETAIL', function () {
         const component = getComponent();
 
         // The first item
-        expect(component.find('li:nth-child(1) dp-link').length).toBe(1);
-        expect(component.find('li:nth-child(1) dp-link').text()).toContain('VALUE_1_A1 VALUE_1_A2');
+        expect(component.find('li:nth-child(1) dp-redux-link').length).toBe(1);
+        expect(component.find('li:nth-child(1) dp-redux-link').text()).toContain('VALUE_1_A1 VALUE_1_A2');
 
-        expect(store.dispatch).not.toHaveBeenCalled();
-        component.find('li:nth-child(1) dp-link button').click();
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DETAIL,
-            payload: 'https://www.example.com/path/to/1/'
-        });
+        component.find('li:nth-child(1) dp-redux-link button').click();
 
         // The second item
-        expect(component.find('li:nth-child(2) dp-link').length).toBe(1);
-        expect(component.find('li:nth-child(2) dp-link').text()).toContain('VALUE_2_A1 VALUE_2_A2');
-
-        component.find('li:nth-child(2) dp-link button').click();
-        expect(store.dispatch).toHaveBeenCalledTimes(2);
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DETAIL,
-            payload: 'https://www.example.com/path/to/2/'
-        });
+        expect(component.find('li:nth-child(2) dp-redux-link').length).toBe(1);
+        expect(component.find('li:nth-child(2) dp-redux-link').text()).toContain('VALUE_2_A1 VALUE_2_A2');
     });
 
-    it('lists the other formatted groups of variables behind the dp-link', function () {
+    it('lists the other formatted groups of variables behind the dp-redux-link', function () {
         const component = getComponent();
 
         // First row, second group of variables

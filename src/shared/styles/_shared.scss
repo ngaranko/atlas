@@ -2,6 +2,7 @@
 
 @import "base/reset";
 @import "base/typography";
+@import "base/body";
 
 @import "layout/grid";
 @import "layout/offset";
@@ -28,6 +29,7 @@
 @import "utilities/height";
 @import "utilities/margin";
 @import "utilities/no-presentation";
+@import "utilities/overflow";
 @import "utilities/padding";
 @import "utilities/screen-reader";
 @import "utilities/print";

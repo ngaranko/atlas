@@ -1,10 +1,11 @@
 import { features } from '../../../../src/shared/environment';
+import { toDatasetsTableWithFilter } from '../../../../src/store/redux-first-router/actions';
+import { DATASET_ROUTE_MAPPER } from '../../../../src/shared/ducks/data-selection/constants';
 
 describe('The dp-data-selection-link component', () => {
     let $compile,
         $rootScope,
-        store,
-        ACTIONS;
+        store;
 
     beforeEach(() => {
         angular.mock.module(
@@ -16,11 +17,10 @@ describe('The dp-data-selection-link component', () => {
             }
         );
 
-        angular.mock.inject((_$compile_, _$rootScope_, _store_, _ACTIONS_) => {
+        angular.mock.inject((_$compile_, _$rootScope_, _store_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
         });
 
         spyOn(store, 'dispatch');
@@ -58,48 +58,29 @@ describe('The dp-data-selection-link component', () => {
         const component = getComponent(activeFilters);
 
         component.find('dp-link button').click();
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
-            payload: {
-                dataset: 'bag',
-                view: 'TABLE',
-                filters: activeFilters,
-                page: 1
-            }
-        });
+        expect(store.dispatch).toHaveBeenCalledWith(
+            toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.bag, activeFilters)
+        );
     });
 
-    it('has links to the TABLE view of data-selection for HR', () => {
+    it('has links to the data-selection for HR', () => {
         const activeFilters = { stadsdeel_naam: 'Noord', buurt_naam: 'Ghetto C' };
         const component = getComponent(activeFilters);
 
         component.find('dp-link button').click();
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.FETCH_DATA_SELECTION,
-            payload: {
-                dataset: 'hr',
-                view: 'TABLE',
-                filters: activeFilters,
-                page: 1
-            }
-        });
+        expect(store.dispatch).toHaveBeenCalledWith(
+            toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.hr, activeFilters)
+        );
     });
 
-    it('has links to the TABLE view of data-selection for BRK', () => {
+    it('has links to the data-selection for BRK', () => {
         const activeFilters = { stadsdeel_naam: 'Noord', buurt_naam: 'Ghetto C' };
         const component = getComponent(activeFilters);
-
         if (features.eigendommen) {
             component.find('dp-link button').click();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.FETCH_DATA_SELECTION,
-                payload: {
-                    dataset: 'brk',
-                    view: 'TABLE',
-                    filters: activeFilters,
-                    page: 1
-                }
-            });
+            expect(store.dispatch).toHaveBeenCalledWith(
+                toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.brk, activeFilters)
+            );
         }
     });
 });

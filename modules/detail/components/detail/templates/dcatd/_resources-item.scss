@@ -4,8 +4,10 @@
 
 .resources-item {
   @extend %base-font;
+  color: inherit;
   flex-grow: 1;
   position: relative;
+  text-decoration: none;
 
   &__title {
     @extend %heavy-font;

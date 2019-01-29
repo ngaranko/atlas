@@ -2,53 +2,9 @@
 
 exports[`DrawToolContainer should render DrawToolContainer 1`] = `
 <DrawTool
-  cancel={[MockFunction]}
-  currentShape={
-    Object {
-      "markers": Array [],
-    }
-  }
-  dataSelection={null}
+  drawingEnabled={false}
   drawingMode="none"
-  geometry={Array []}
-  initialize={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {},
-          [Function],
-          [Function],
-          [Function],
-        ],
-      ],
-    }
-  }
-  isEnabled={false}
-  leafletInstance={Object {}}
   markersLeft={40}
-  onClearDrawing={[Function]}
-  onEmptyGeometry={[Function]}
-  onEndDrawing={[Function]}
-  onMapClear={[Function]}
-  onMapUpdateShape={[Function]}
-  onSetMapFullscreen={[Function]}
-  onSetPageName={[Function]}
-  onStartDrawing={[Function]}
-  onStraatbeeldOff={[Function]}
-  resetGeometryFilter={[Function]}
-  setGeometryFilter={[Function]}
-  setPolygon={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Array [],
-        ],
-      ],
-    }
-  }
-  shapeDistanceTxt=""
   shapeMarkers={0}
-  toggleDrawing={[MockFunction]}
-  uiMapFullscreen={true}
 />
 `;

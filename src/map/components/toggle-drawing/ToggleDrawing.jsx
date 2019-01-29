@@ -1,34 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import drawToolConfig from '../../services/draw-tool/draw-tool.config';
-
 import './_toggle-drawing.scss';
 
-const ToggleDrawing = ({ drawingMode, shapeMarkers, toggleDrawing }) => {
-  const title = drawingMode !== drawToolConfig.DRAWING_MODE.NONE ? 'Eindig' :
-    (shapeMarkers > 0 ? 'Opnieuw' : 'Begin');
-  const label = title === 'Begin' ? '' : title;
+const ToggleDrawing = ({
+  isEnabled, shapeMarkers, onReset, onEnd, onStart, onCancel, shapeDistance
+}) => {
+  const expanded = !!(isEnabled || shapeMarkers > 1);
+  let label = 'Begin';
+  let clickEvent = onStart;
 
-  return (<button
-    className={`
+  if (expanded) {
+    if (isEnabled) {
+      label = 'Eindig';
+      clickEvent = (shapeDistance === '0,0 m' || shapeDistance === '') ? onCancel : onEnd;
+    } else if (shapeMarkers > 1) {
+      label = 'Opnieuw';
+      clickEvent = onReset;
+    }
+  }
+
+  return (
+    <button
+      className={`
       toggle-drawing
-      ${drawingMode !== drawToolConfig.DRAWING_MODE.NONE || shapeMarkers > 0 ? 'toggle-drawing--expanded' : 'toggle-drawing--collapsed'}
+      ${expanded ? 'toggle-drawing--expanded' : 'toggle-drawing--collapsed'}
     `}
-    onClick={() => toggleDrawing(shapeMarkers)}
-    title={`${title} meten en intekenen`}
-  >
-    <span className="toggle-drawing__icon" />
-    <span className="toggle-drawing__label">
-      {label}
-    </span>
-  </button>
+      onClick={clickEvent}
+      title={`${label} meten en intekenen`}
+    >
+      <span className="toggle-drawing__icon" />
+      {expanded &&
+      <span className="toggle-drawing__label">
+          {label}
+        </span>
+      }
+    </button>
   );
 };
 
 ToggleDrawing.propTypes = {
-  toggleDrawing: PropTypes.func.isRequired,
-  drawingMode: PropTypes.string.isRequired,
+  onEnd: PropTypes.func.isRequired,
+  onStart: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired,
+  isEnabled: PropTypes.bool.isRequired,
+  shapeDistance: PropTypes.string.isRequired,
   shapeMarkers: PropTypes.number.isRequired
 };
 

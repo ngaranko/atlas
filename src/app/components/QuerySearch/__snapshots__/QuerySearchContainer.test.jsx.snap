@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QuerySearchContainer should render 1`] = `
+<QuerySearch
+  currentPage="NOT_FOUND"
+  filters={Object {}}
+  isLoading={false}
+  numberOfDataResults={1}
+  numberOfDatasetResults={1}
+  toDataPage={[Function]}
+  toDatasetPage={[Function]}
+  user={
+    Object {
+      "authenticated": false,
+      "scopes": Array [],
+    }
+  }
+/>
+`;

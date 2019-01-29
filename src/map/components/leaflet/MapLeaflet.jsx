@@ -6,13 +6,14 @@ import { Map, TileLayer, ZoomControl, ScaleControl, GeoJSON } from 'react-leafle
 import CustomMarker from './custom/marker/CustomMarker';
 import ClusterGroup from './custom/cluster-group/ClusterGroup';
 import NonTiledLayer from './custom/non-tiled-layer';
-import RdGeoJson from './custom/geo-json';
 import icons from './services/icons.constant';
 import geoJsonConfig from './services/geo-json-config.constant';
 import markerConfig from './services/marker-config.constant';
 import createClusterIcon from './services/cluster-icon';
 import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
 import MapBusyIndicator from './custom/map-busy-indicator/MapBusyIndicator';
+import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/map';
+import RdGeoJson from './custom/geo-json/RdGeoJson';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
@@ -162,7 +163,8 @@ class MapLeaflet extends React.Component {
       scaleControlOptions,
       zoomControlOptions,
       zoom,
-      loading
+      brkMarkers,
+      isLoading
     } = this.props;
     return (
       <ResizeAware
@@ -231,6 +233,18 @@ class MapLeaflet extends React.Component {
             ))
           }
           {
+            brkMarkers.map((marker) => Boolean(marker.position) && (
+              <CustomMarker
+                ref={markerConfig[marker.type].requestFocus && this.setActiveElement}
+                position={marker.position}
+                key={marker.position.toString() + marker.type}
+                icon={icons[marker.type](marker.iconData)}
+                zIndexOffset={100}
+                rotationAngle={marker.heading || 0}
+              />
+            ))
+          }
+          {
             geoJsons.map((shape) => Boolean(shape.geoJson) && (
               <GeoJSON
                 data={shape.geoJson}
@@ -242,7 +256,7 @@ class MapLeaflet extends React.Component {
           }
           {
             rdGeoJsons.map((shape) =>
-              (Boolean(shape.geoJson) && Boolean(shape.geoJson.label)) && (
+              Boolean(shape.geoJson) && (
                 <RdGeoJson
                   data={shape.geoJson}
                   key={shape.id}
@@ -257,7 +271,7 @@ class MapLeaflet extends React.Component {
               <ZoomControl {...zoomControlOptions} />
             )
           }
-          <MapBusyIndicator loading={loading} />
+          <MapBusyIndicator loading={isLoading} />
         </Map>
       </ResizeAware>
     );
@@ -270,7 +284,7 @@ MapLeaflet.defaultProps = {
     urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
     baseLayerOptions: {}
   },
-  center: [52.3731081, 4.8932945],
+  center: [DEFAULT_LAT, DEFAULT_LNG],
   clusterMarkers: [],
   geoJsons: [],
   rdGeoJsons: [],
@@ -280,7 +294,7 @@ MapLeaflet.defaultProps = {
   scaleControlOptions: {},
   zoomControlOptions: {},
   zoom: 11,
-  loading: false,
+  isLoading: false,
   isZoomControlVisible: true,
   onClick: () => 'click',  //
   onMoveEnd: () => 'moveend',
@@ -299,6 +313,7 @@ MapLeaflet.propTypes = {
   geoJsons: PropTypes.arrayOf(PropTypes.shape({})),
   rdGeoJsons: PropTypes.arrayOf(PropTypes.shape({})),
   getLeafletInstance: PropTypes.func.isRequired,
+  brkMarkers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   isZoomControlVisible: PropTypes.bool,
   mapOptions: PropTypes.shape({}),
   markers: PropTypes.arrayOf(PropTypes.shape({})),
@@ -318,7 +333,7 @@ MapLeaflet.propTypes = {
   scaleControlOptions: PropTypes.shape({}),
   zoomControlOptions: PropTypes.shape({}),
   zoom: PropTypes.number,
-  loading: PropTypes.bool
+  isLoading: PropTypes.bool
 };
 
 export default MapLeaflet;

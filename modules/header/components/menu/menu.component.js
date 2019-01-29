@@ -1,4 +1,5 @@
-import { authenticateError } from '../../../../src/reducers/user';
+import { authenticateError, authenticateRequest } from '../../../../src/shared/ducks/user/user';
+import { routing } from '../../../../src/app/routes';
 
 (function () {
     'use strict';
@@ -17,13 +18,16 @@ import { authenticateError } from '../../../../src/reducers/user';
             controllerAs: 'vm'
         });
 
-    DpMenuController.$inject = ['$scope', '$window', 'store', 'ACTIONS'];
+    DpMenuController.$inject = ['$scope', '$window', 'store'];
 
-    function DpMenuController ($scope, $window, store, ACTIONS) {
+    function DpMenuController ($scope, $window, store) {
         const vm = this;
+
+        vm.helpAction = { type: routing.help.type };
 
         vm.login = () => {
             try {
+                store.dispatch(authenticateRequest('inloggen'));
                 $window.auth.login();
             } catch (error) {
                 store.dispatch(authenticateError());

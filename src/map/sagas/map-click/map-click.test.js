@@ -1,55 +1,40 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { composeProviders } from 'redux-saga-test-plan/providers';
 
-import watchMapClick, { getActiveMapLayers, switchClickAction } from './map-click';
+import watchMapClick, { goToGeoSearch, switchClickAction } from './map-click';
+import {
+  getActiveMapLayers,
+  getLayers,
+  getMapPanelLayers
+} from '../../ducks/panel-layers/map-panel-layers';
+import { getPanoramaHistory } from '../../../panorama/ducks/selectors';
+import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
+import { getMapZoom } from '../../ducks/map/map-selectors';
+import { requestNearestDetails } from '../../../shared/ducks/data-search/actions';
+import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
+import { getImageDataByLocation } from '../../../panorama/services/panorama-api/panorama-api';
+import { getPage } from '../../../store/redux-first-router/selectors';
+import { getViewMode, VIEW_MODE } from '../../../shared/ducks/ui/ui';
 
-import ACTIONS from '../../../shared/actions';
+describe('watchMapClick', () => {
+  const action = { type: SET_MAP_CLICK_LOCATION };
 
-import { getMapPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
-import { getStraatbeeld } from '../../ducks/straatbeeld/straatbeeld';
-import { getMapZoom } from '../../ducks/map/map';
-
-describe('getActiveMapLayers', () => {
-  const state = {
-    map: {
-      overlays: []
-    }
-  };
-  it('should return an empty array if there are no overlays active', () => {
-    const selected = getActiveMapLayers(state);
-    expect(selected).toEqual([]);
-  });
-
-  it('should return an empty array if there are no overlays visible', () => {
-    state.map.overlays = [state.map.overlays, { isVisible: false }];
-    const selected = getActiveMapLayers(state);
-    expect(selected).toEqual([]);
-  });
-
-  it('should return an empty array if there are no overlays found in the map layers', () => {
-    state.map.overlays = [state.map.overlays, { id: 'id', isVisible: true }];
-    state.mapLayers = { layers: { items: [] } };
-    const selected = getActiveMapLayers(state);
-    expect(selected).toEqual([]);
-  });
-
-  it('should return an empty array if there are no overlays found in the map layers', () => {
-    state.map.overlays = [state.map.overlays, { id: 'id', isVisible: true }];
-    state.mapLayers = { layers: { items: [] } };
-    const selected = getActiveMapLayers(state);
-    expect(selected).toEqual([]);
-  });
-
-  it('should return the maplayers that matches the id with the visible overlays', () => {
-    state.map.overlays = [state.map.overlays, { id: 'id', isVisible: true }];
-    state.mapLayers = { layers: { items: [{ id: 'id', detailUrl: 'url' }] } };
-    const selected = getActiveMapLayers(state);
-    expect(selected).toEqual([{ id: 'id', detailUrl: 'url' }]);
+  it('should watch "SET_MAP_CLICK_LOCATION" and call switchClickAction', () => {
+    testSaga(watchMapClick)
+      .next()
+      .takeLatestEffect(SET_MAP_CLICK_LOCATION, switchClickAction)
+      .next(action)
+      .isDone();
   });
 });
 
-describe('watchMapClick', () => {
-  const action = { type: ACTIONS.SET_MAP_CLICK_LOCATION.id };
+describe('switchClickAction', () => {
+  const payload = {
+    location: {
+      latitude: 52.11,
+      longitude: 4.11
+    }
+  };
 
   const mockMapLayers = [
     {
@@ -107,80 +92,104 @@ describe('watchMapClick', () => {
     url: '/maps/brk?version=1.3.0&service=WMS'
   };
 
-  it('should watch "ACTIONS.SET_MAP_CLICK_LOCATION.id" and call switchClickAction', () => {
-    testSaga(watchMapClick)
-      .next()
-      .takeLatestEffect(ACTIONS.SET_MAP_CLICK_LOCATION.id, switchClickAction)
-      .next(action)
-      .isDone();
+  const mapPanelLayersWithSelection = [...mockPanelLayers, matchingPanelLayer];
+
+  const providePage = ({ selector }, next) => (selector === getPage ? null : next());
+  const provideViewMode = ({ selector }, next) => (selector === getViewMode ? 'split' : next());
+  const provideDataSelectionView = ({ selector }, next) => (selector === getViewMode ?
+      null :
+      next()
+  );
+
+  const provideMapLayers = ({ selector }, next) => (
+    selector === getActiveMapLayers ||
+    selector === getLayers
+      ? mockMapLayers : next()
+  );
+
+  const provideMapZoom = ({ selector }, next) => (
+    selector === getMapZoom ? 8 : next()
+  );
+
+  const provideSelectionTypePoint = ({ selector }, next) => (
+    selector === getSelectionType ? SELECTION_TYPE.POINT : next()
+  );
+
+  const provideSelectionTypePanorama = ({ selector }, next) => (
+    selector === getSelectionType ? SELECTION_TYPE.PANORAMA : next()
+  );
+
+  it('should dispatch the REQUEST_NEAREST_DETAILS when the panorama is not enabled', () => {
+    const provideMapPanelLayers = ({ selector }, next) => (
+      selector === getMapPanelLayers ? mapPanelLayersWithSelection : next()
+    );
+    return expectSaga(switchClickAction, { payload })
+      .provide({
+        select: composeProviders(
+          providePage,
+          provideDataSelectionView,
+          provideMapLayers,
+          provideMapZoom,
+          provideViewMode,
+          provideMapPanelLayers,
+          provideSelectionTypePoint
+        )
+      })
+      .put(requestNearestDetails({
+        location: payload.location,
+        layers: [...mockMapLayers],
+        zoom: 8,
+        view: VIEW_MODE.SPLIT
+      }))
+      .run();
   });
 
-  describe('switchClickAction', () => {
-    const payload = {
-      location: {
-        latitude: 52.11,
-        longitude: 4.11
+  it('should dispatch setGeolocation when the panorama is not enabled and there is no panelLayer found ', () => {
+    const provideMapPanelLayers = ({ selector }, next) => (
+      selector === getActiveMapLayers ||
+      selector === getLayers
+        ? [] : next()
+    );
+
+    return expectSaga(switchClickAction, { payload })
+      .provide({
+        select: composeProviders(
+          providePage,
+          provideDataSelectionView,
+          provideViewMode,
+          provideMapZoom,
+          provideMapPanelLayers,
+          provideSelectionTypePoint
+        )
+      })
+      .call(goToGeoSearch, payload.location)
+      .run();
+  });
+
+  it('should get panorama by location when in pano mode', () => {
+    const provideCallGetImageDataByLocation = ({ fn }, next) => {
+      if (fn === getImageDataByLocation) {
+        return {
+          id: '123',
+          location: Object.keys(payload.location).map((key) => payload.location[key])
+        };
       }
+      return next();
     };
 
-    const mapPanelLayersWithSelection = [...mockPanelLayers, matchingPanelLayer];
-
-    const provideStraatbeeld = ({ selector }, next) => (
-      selector === getStraatbeeld ? null : next()
+    const provideSelectPanoramaHistory = ({ selector }, next) => (
+      selector === getPanoramaHistory
+        ? { year: 2018, missionType: 'woz' } : next()
     );
 
-    const provideMapLayers = ({ selector }, next) => (
-      selector === getActiveMapLayers ?
-        mockMapLayers : next()
-    );
-
-    const provideMapZoom = ({ selector }, next) => (
-      selector === getMapZoom ? 8 : next()
-    );
-
-    it('should dispatch the REQUEST_NEAREST_DETAILS when the straatbeeld is not enabled', () => {
-      const provideMapPanelLayers = ({ selector }, next) => (
-        selector === getMapPanelLayers ? mapPanelLayersWithSelection : next()
-      );
-      expectSaga(switchClickAction, payload)
-        .provide({
-          select: composeProviders(
-            provideStraatbeeld,
-            provideMapLayers,
-            provideMapZoom,
-            provideMapPanelLayers
-          )
-        })
-        .put({
-          type: 'REQUEST_NEAREST_DETAILS',
-          payload: {
-            location: payload.location,
-            layers: [...mockMapLayers],
-            zoom: 8
-          }
-        })
-        .run();
-    });
-
-    it('should dispatch the REQUEST_GEOSEARCH when the straatbeeld is not enabled and there is not panelLayer found ', () => {
-      const provideMapPanelLayers = ({ selector }, next) => (
-        selector === getMapPanelLayers ? [...mockPanelLayers] : next()
-      );
-
-      expectSaga(switchClickAction, payload)
-        .provide({
-          select: composeProviders(
-            provideStraatbeeld,
-            provideMapLayers,
-            provideMapZoom,
-            provideMapPanelLayers
-          )
-        })
-        .put({
-          type: 'REQUEST_GEOSEARCH',
-          payload: [payload.location.latitude, payload.location.longitude]
-        })
-        .run();
-    });
+    return expectSaga(switchClickAction, { payload })
+      .provide({
+        select: composeProviders(
+          provideSelectionTypePanorama,
+          provideSelectPanoramaHistory
+        ),
+        call: provideCallGetImageDataByLocation
+      })
+      .run();
   });
 });

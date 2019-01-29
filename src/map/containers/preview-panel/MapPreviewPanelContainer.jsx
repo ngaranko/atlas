@@ -1,47 +1,56 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {
+  toDetailFromEndpoint,
+  toPanoramaAndPreserveQuery,
+  toMapAndPreserveQuery
+} from '../../../store/redux-first-router/actions';
+import { getDetailLocation } from '../../../store/redux-first-router/selectors';
 
-import { maximizeMapPreviewPanel, closeMapPreviewPanel, fetchSearchResults }
-  from '../../ducks/preview-panel/map-preview-panel';
-import { selectLatestMapSearchResults }
-  from '../../ducks/search-results/map-search-results';
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
-import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
-import { fetchStraatbeeldById } from '../../ducks/straatbeeld/straatbeeld';
-import { fetchDetail as legacyFetchDetail } from '../../../reducers/details';
+import { isEmbedded, isEmbedPreview, setViewMode, VIEW_MODE } from '../../../shared/ducks/ui/ui';
+import { getDetail, getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import MapPreviewPanel from './MapPreviewPanel';
-
+import { getLocationId } from '../../ducks/map/map-selectors';
+import { isGeoSearch } from '../../../shared/ducks/selection/selection';
+import {
+  getDataSearch,
+  getDataSearchLocation,
+  getMapPanelResults,
+  isSearchLoading
+} from '../../../shared/ducks/data-search/selectors';
+import { getPanoramaPreview } from '../../../panorama/ducks/preview/panorama-preview';
 
 const mapStateToProps = (state) => ({
-  isMapPreviewPanelVisible: state.isMapPreviewPanelVisible,
-  mapClickLocation: state.mapClickLocation,
-  pano: state.pano,
-  results: selectLatestMapSearchResults(state),
-  search: state.search,
-  searchLocation: state.search && state.search.location && {
-    latitude: state.search.location[0],
-    longitude: state.search.location[1]
-  },
-  searchLocationId: state.search && state.search.location && state.search.location.toString(),
+  panoPreview: getPanoramaPreview(state),
+  searchResults: getMapPanelResults(state),
+  dataQuerySearch: getDataSearch(state),
+  detailLocation: getDetailLocation(state),
+  searchLocation: getDataSearchLocation(state),
+  searchLocationId: getLocationId(state),
+  isSearchLoaded: !isSearchLoading(state) && getMapPanelResults(state),
   missingLayers: selectNotClickableVisibleMapLayers(state)
     .map((mapLayer) => mapLayer.title)
     .join(', '),
-  detail: state.detail,
+  detail: getDetail(state),
+  detailEndpoint: getDetailEndpoint(state),
   mapDetail: state.mapDetail,
-  detailResult: selectLatestMapDetail(state) || {},
+  detailResult: selectLatestMapDetail(state) || null,
   user: state.user,
-  isEmbed: state.ui && (state.ui.isEmbed || state.ui.isEmbedPreview)
+  isEmbed: isEmbedPreview(state) || isEmbedded(state),
+  isSearchPreview: isGeoSearch(state)
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onSearch: fetchSearchResults,
-  onMapPreviewPanelClose: closeMapPreviewPanel,
-  onMapPreviewPanelMaximize: maximizeMapPreviewPanel,
-  onMapSearchResultsItemClick: legacyFetchDetail,
-  onOpenPanoById: fetchStraatbeeldById,
-  closeMapFullScreen: toggleMapFullscreen
-}, dispatch);
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({
+    closePanel: toMapAndPreserveQuery,
+    onSearchMaximize: setViewMode,
+    openPano: toPanoramaAndPreserveQuery
+  }, dispatch),
+  openPreviewDetail: (endpoint) => dispatch(toDetailFromEndpoint(endpoint, VIEW_MODE.MAP)),
+  openDetail: (endpoint) => dispatch(toDetailFromEndpoint(endpoint, VIEW_MODE.SPLIT))
+});
 
 /* eslint-enable react/no-unused-prop-types */
 export default connect(mapStateToProps, mapDispatchToProps)(MapPreviewPanel);

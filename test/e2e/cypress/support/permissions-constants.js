@@ -1,4 +1,22 @@
 const urls = {
+  address: '/data/bag/verblijfsobject/id03630000749400?lat=52.37026793589415&legenda=false&lng=4.893407140678303&zoom=16',
+  business: '/data/brk/object/idNL.KAD.OnroerendeZaak.11460857510001?lat=52.370780184456194&legenda=false&lng=4.893603037285888&zoom=16',
+  gemeentelijkeBeperking: '/data/wkpb/beperking/id1006388',
+  geoSearch: '/data/geozoek?locatie=52.3736166%2C4.8943521&view=lijst-kaart',
+  ligplaats: '/data/bag/ligplaats/id03630001025735?view=lijst-kaart',
+  maatschappelijkeActiviteit: '/data/handelsregister/maatschappelijkeactiviteit/id01029509',
+  map: '/?center=52.3731081%2C4.8932945&view=kaart',
+  monument: '/data/monumenten/monumenten/idc115314a-59d4-4574-bfe9-1f7df5cb20c4',
+  monumentComplex: '/data/monumenten/complexen/id182a9861-4052-4127-8300-6450cd75b6a5',
+  natuurlijk: '/data/brk/subject/idNL.KAD.Persoon.171720901',
+  nietNatuurlijk: 'data/brk/subject/idNL.KAD.Persoon.423186718',
+  pand: '/data/bag/pand/id0363100012168052?legenda=false',
+  standplaats: '/data/bag/standplaats/id03630000691684?view=lijst-kaart',
+  vestiging: '/data/handelsregister/vestiging/id000003579875?view=lijst-kaart',
+  vestigingenTabel: '/data/hr/vestigingen?legenda=false&zoom=11'
+};
+
+const oldTestUrls = {
   address: '/#?dte=bag%2Fverblijfsobject%2F03630000749400%2F&mpb=topografie&mpz=16&mpv=52.3702716:4.8933987',
   business: '/#?dte=brk%2Fobject%2FNL.KAD.OnroerendeZaak.11460857510001%2F&mpb=topografie&mpz=16&mpv=52.370289:4.8931626',
   gemeentelijkeBeperking: '/#?dte=wkpb%2Fbeperking%2F1006388%2F&mpb=topografie&mpz=13&mpo=gbep::T&mpv=52.3777106:4.8920377',
@@ -15,6 +33,7 @@ const urls = {
   vestiging: '/#?dte=handelsregister%2Fvestiging%2F000003579875%2F&mpb=topografie&mpz=16&mpv=52.3606667:4.8941516',
   vestigingenTabel: '/#?dsd=hr&dsp=1&dsv=TABLE&mpb=topografie&mpz=11&mpv=52.3731081:4.8932945'
 };
+
 
 const queries = {
   autoSuggestHeader: '.qa-auto-suggest-header',
@@ -34,7 +53,8 @@ const queries = {
   nietNatuurlijkPersoon: 'dl.qa-niet-natuurlijk-persoon',
   searchHeader: '.qa-search-header',
   table: '.c-table',
-  warningPanel: '.c-panel--warning'
+  warningPanel: '.notification--info',
+  warningPanelAngular: '.c-panel--warning'
 };
 
 const values = {

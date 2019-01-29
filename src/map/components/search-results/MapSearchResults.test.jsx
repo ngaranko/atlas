@@ -38,6 +38,7 @@ describe('MapSearchResults', () => {
       const clickHandler = jest.fn();
       const wrapper = shallow(
         <MapSearchResults
+          location={{}}
           onItemClick={clickHandler}
           onMaximize={clickHandler}
           onPanoPreviewClick={clickHandler}

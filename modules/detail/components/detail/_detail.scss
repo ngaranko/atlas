@@ -1,5 +1,6 @@
 .c-detail {
   padding: $detail-padding;
+  background-color: $primary-light;
 
   // Needs to be nested to gain more importance over `o-btn`
   & .c-detail__table-link {
@@ -32,15 +33,6 @@
         border: none;
       }
     }
-  }
-}
-
-.o-btn--plus {
-  &.c-detail__geosearch {
-    display: block;
-    margin: 0;
-    padding: $base-whitespace (4 * $base-whitespace);
-    border-bottom: 1px solid $secondary-gray20;
   }
 }
 

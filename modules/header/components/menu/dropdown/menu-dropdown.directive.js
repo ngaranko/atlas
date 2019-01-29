@@ -1,3 +1,5 @@
+import { showEmbedPreview, showPrintMode } from '../../../../../src/shared/ducks/ui/ui';
+
 (function () {
     'use strict';
 
@@ -25,6 +27,9 @@
 
             scope.isVisible = false;
             scope.align = scope.align === 'left' ? 'left' : 'right';
+
+            scope.embedAction = showEmbedPreview();
+            scope.printAction = showPrintMode();
 
             scope.toggleDropdown = function () {
                 scope.isVisible = !scope.isVisible;

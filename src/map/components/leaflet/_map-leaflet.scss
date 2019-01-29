@@ -8,18 +8,16 @@
 .is-embed-preview,
 .is-embed {
   @import "assets/styles/map-print";
+
+  &--landscape {
+    .c-map {
+      height: 700px;
+    }
+  }
 }
 
 .is-embed {
   @import "assets/styles/map-embed";
-}
-
-
-// temporary fix remove if dp-map-wrapper is deprecated
-dp-map-wrapper {
-  > div {
-    height: 100%;
-  }
 }
 
 .test-cx {

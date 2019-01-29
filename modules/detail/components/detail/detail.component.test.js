@@ -1,11 +1,12 @@
-import * as piwik from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/constants';
+import { DOWNLOAD_DATASET_RESOURCE } from '../../../../src/shared/ducks/datasets/data/data';
+import { toNotFoundPage } from '../../../../src/store/redux-first-router/actions';
 
 describe('the dp-detail component', () => {
     var $compile,
         $rootScope,
         $q,
         store,
-        ACTIONS,
         api,
         mockedUser,
         mockedGeometryPoint = {
@@ -26,7 +27,8 @@ describe('the dp-detail component', () => {
         angular.mock.module(
             'dpDetail', {
                 store: {
-                    dispatch: () => {},
+                    dispatch: () => {
+                    },
                     getState: angular.noop
                 },
                 api: {
@@ -77,7 +79,9 @@ describe('the dp-detail component', () => {
                         } else if (endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/subject/404/') {
                             q.reject();
                         } else if (endpoint === dcatdEndPoint) {
-                            q.resolve({'dct:description': 'description'});
+                            q.resolve({ 'dct:description': 'description' });
+                        } else if (endpoint === 'http://www.fake-endpoint.com/dcatd/datasets/404') {
+                            q.reject({status: 404});
                         }
 
                         return q.promise;
@@ -152,7 +156,7 @@ describe('the dp-detail component', () => {
                 },
                 geojson: {
                     getCenter: () => {
-                        return [52.123, 4.123];
+                        return { x: 52.123, y: 4.123 };
                     }
                 },
                 crsConverter: {
@@ -179,14 +183,12 @@ describe('the dp-detail component', () => {
             _$rootScope_,
             _$q_,
             _store_,
-            _ACTIONS_,
             _api_
         ) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $q = _$q_;
             store = _store_;
-            ACTIONS = _ACTIONS_;
             api = _api_;
         });
 
@@ -201,10 +203,9 @@ describe('the dp-detail component', () => {
             mapClickLocation: { latitude: 52.654, longitude: 4.987 }
         });
         spyOn(api, 'getByUrl').and.callThrough();
-        spyOn(piwik, 'default').and.callFake(angular.noop);
     });
 
-    function getComponent (endpoint, isLoading, skippedSearchResults = false, show = true, catalogFilters = undefined) {
+    function getComponent (endpoint, isLoading, show = true, catalogFilters = undefined) {
         var component,
             element,
             scope;
@@ -213,18 +214,14 @@ describe('the dp-detail component', () => {
         element.setAttribute('show', 'show');
         element.setAttribute('endpoint', '{{endpoint}}');
         element.setAttribute('is-loading', 'isLoading');
-        element.setAttribute('reload', 'reload');
         element.setAttribute('user', 'user');
-        element.setAttribute('skipped-search-results', 'skippedSearchResults');
         element.setAttribute('catalog-filters', 'catalogFilters');
 
         scope = $rootScope.$new();
         scope.show = show;
         scope.endpoint = endpoint;
         scope.isLoading = isLoading;
-        scope.reload = false;
         scope.user = mockedUser;
-        scope.skippedSearchResults = skippedSearchResults;
         scope.catalogFilters = catalogFilters;
 
         component = $compile(element)(scope);
@@ -239,11 +236,12 @@ describe('the dp-detail component', () => {
             expect(component.find('.qa-detail-content').length).toBe(0);
         });
 
-        it('is not visible when `show` is false while not loading', () => {
-            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/',
-                false, true, false);
-            expect(component.find('.qa-detail-content').length).toBe(0);
-        });
+        // TODO: refactor: activate or remove
+        // it('is not visible when `show` is false while not loading', () => {
+        //     const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/',
+        //         false, true, false);
+        //     expect(component.find('.qa-detail-content').length).toBe(0);
+        // });
 
         it('is not visible when `show` is true while loading', () => {
             const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', true);
@@ -311,42 +309,7 @@ describe('the dp-detail component', () => {
         });
     });
 
-    it('triggers the SHOW_DETAIL and DETAIL_FULLSCREEN action with the display and geometry as its payload', () => {
-        getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
-            payload: {
-                display: 'Adresstraat 1A',
-                geometry: mockedGeometryPoint
-            }
-        });
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.DETAIL_FULLSCREEN,
-            payload: false
-        });
-    });
-
-    it('triggers the SHOW_DETAIL and not DETAIL_FULLSCREEN action when skippedSearchResults is true', () => {
-        getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, true);
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
-            payload: {
-                display: 'Adresstraat 1A',
-                geometry: mockedGeometryPoint
-            }
-        });
-
-        expect(store.dispatch).not.toHaveBeenCalledWith({
-            type: ACTIONS.DETAIL_FULLSCREEN,
-            payload: false
-        });
-    });
-
-    it('loads new API data and triggers a new SHOW_DETAIL and DETAIL_FULLSCREEN action when the endpoint ' +
-        'changes', () => {
+    it('loads new API data and triggers a new SHOW_DETAIL action when the endpoint changes', () => {
         var component,
             scope,
             endpoint;
@@ -366,20 +329,8 @@ describe('the dp-detail component', () => {
                 naam: 'naam'
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(2);
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
-            payload: {
-                display: 'Adresstraat 1A',
-                geometry: mockedGeometryPoint
-            }
-        });
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.DETAIL_FULLSCREEN,
-            payload: false
-        });
 
-            // Change the endpoint
+        // Change the endpoint
         scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/object/789/';
         $rootScope.$apply();
 
@@ -390,162 +341,9 @@ describe('the dp-detail component', () => {
                 something: -90
             }
         });
-        expect(store.dispatch).toHaveBeenCalledTimes(4);
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
-            payload: {
-                display: 'Een of ander kadastraal object',
-                geometry: mockedGeometryMultiPolygon
-            }
-        });
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.DETAIL_FULLSCREEN,
-            payload: false
-        });
-    });
-
-    it('loads new API data and triggers a new SHOW_DETAIL and DETAIL_FULLSCREEN action when the reload flag has been ' +
-        'set', () => {
-        var component,
-            scope,
-            endpoint;
-
-        expect(store.dispatch).not.toHaveBeenCalled();
-
-            // Set an initial endpoint
-        endpoint = 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/';
-        component = getComponent(endpoint, false);
-        scope = component.isolateScope();
-
-            // Turn on the reload flag
-        scope.vm.reload = true;
-        $rootScope.$apply();
-
-        expect(scope.vm.apiData).toEqual({
-            results: {
-                _display: 'Adresstraat 1A',
-                dummy: 'A',
-                something: 3,
-                naam: 'naam'
-            }
-        });
-        expect(store.dispatch).toHaveBeenCalledTimes(4);
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
-            payload: {
-                display: 'Adresstraat 1A',
-                geometry: mockedGeometryPoint
-            }
-        });
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.DETAIL_FULLSCREEN,
-            payload: false
-        });
-    });
-
-    it('sets the SHOW_DETAIL geometry payload to null if there is no geometry', () => {
-        mockedUser.scopes = ['BRK/RS'];
-
-        getComponent(naturalPersonEndPoint);
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
-            payload: jasmine.objectContaining({
-                geometry: null
-            })
-        });
-    });
-
-    describe('the DETAIL_FULLSCREEN payload', () => {
-        it('sets it to true when the subject is \'api\'', () => {
-            getComponent('http://fake-endpoint.amsterdam.nl/api/subject/123/');
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.DETAIL_FULLSCREEN,
-                payload: true
-            });
-        });
-
-        it('sets it to true when there is no geometry', () => {
-            mockedUser.scopes = ['BRK/RS'];
-
-            getComponent('http://www.fake-endpoint.com/brk/subject/123/');
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.DETAIL_FULLSCREEN,
-                payload: true
-            });
-        });
-
-        it('sets it to false otherwise', () => {
-            getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/');
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.DETAIL_FULLSCREEN,
-                payload: false
-            });
-        });
-    });
-
-    it('sets the center location of the geometry on the scope (for the straatbeeld thumbnail)', () => {
-        var component,
-            scope;
-
-        // Something with geometry (converted from RD to WGS84)
-        component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/');
-        scope = component.isolateScope();
-        expect(scope.vm.location).toEqual([51.123, 3.123]);
-
-        // Something without geometry
-        scope.vm.endpoint = naturalPersonEndPoint;
-        scope.$apply();
-        expect(scope.vm.location).toBeNull();
-    });
-
-    it('gracefully handles a 404 with no data', () => {
-        getComponent('http://www.fake-endpoint.amsterdam.nl/brk/subject/404/');
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
-            payload: {}
-        });
-    });
-
-    it('gracefully handles a 404 from geo json', () => {
-        getComponent('http://www.fake-endpoint.amsterdam.nl/brk/geo/404/');
-
-        expect(store.dispatch).toHaveBeenCalledWith({
-            type: ACTIONS.SHOW_DETAIL,
-            payload: {}
-        });
     });
 
     describe('"kadastraal subject" data', () => {
-        it('should be fetched if is authenticated as EMPLOYEE', () => {
-            mockedUser.scopes = ['BRK/RS'];
-
-            getComponent(naturalPersonEndPoint);
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DETAIL,
-                payload: jasmine.objectContaining({
-                    geometry: null
-                })
-            });
-        });
-        it('should not fetch data if not authorized', () => {
-            const component = getComponent(naturalPersonEndPoint);
-
-            const scope = component.isolateScope();
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DETAIL,
-                payload: {}
-            });
-
-            expect(scope.vm.apiData).toBeUndefined();
-            expect(store.dispatch).toHaveBeenCalledTimes(1);
-        });
         it('should remove apiData if not authorized', () => {
             // Special case where user is logged out while on detail page and the user loses access to content
             mockedUser.scopes = ['BRK/RS'];
@@ -559,7 +357,7 @@ describe('the dp-detail component', () => {
 
             expect(scope.vm.apiData).toBeUndefined();
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DETAIL,
+                type: SHOW_DETAIL,
                 payload: {}
             });
         });
@@ -578,7 +376,7 @@ describe('the dp-detail component', () => {
             const scope = component.isolateScope();
 
             expect(store.dispatch).toHaveBeenCalledWith({
-                type: ACTIONS.SHOW_DETAIL,
+                type: SHOW_DETAIL,
                 payload: {}
             });
 
@@ -604,27 +402,12 @@ describe('the dp-detail component', () => {
             expect(scope.vm.apiData).not.toBeUndefined();
             expect(api.getByUrl).toHaveBeenCalled();
         });
-    });
 
-    describe('the geosearch button', () => {
-        it('is not shown by default', () => {
-            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
+        it('should redirect to notFound when the dataset is not available', () => {
+            getComponent('http://www.fake-endpoint.com/dcatd/datasets/404', false);
 
-            const scope = component.isolateScope();
-            expect(scope.vm.geosearchButton).toBe(false);
-        });
-
-        it('is shown when skippedSearchResults is true', () => {
-            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, true);
-
-            const scope = component.isolateScope();
-            expect(scope.vm.geosearchButton).toEqual([52.654, 4.987]);
-        });
-
-        it('it handles piwik on ng-click', () => {
-            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false, true);
-            component.find('.c-detail__geosearch').click();
-            expect(piwik.default).toHaveBeenCalledWith(['trackEvent', 'navigation', 'show-all-results', '']);
+            expect(store.dispatch).toHaveBeenCalledTimes(1);
+            expect(store.dispatch).toHaveBeenCalledWith(toNotFoundPage());
         });
     });
 
@@ -637,6 +420,27 @@ describe('the dp-detail component', () => {
             const description = vm.stripMarkdown('test description');
 
             expect(description).toEqual('test description');
+        });
+    });
+
+    describe('the downloadResource function', () => {
+        it('dispatches  a value', () => {
+            const component = getComponent('http://www.fake-endpoint.com/dcatd/datasets/789/', false);
+
+            const scope = component.isolateScope();
+            store.dispatch.calls.reset();
+            const vm = scope.vm;
+            vm.downloadResource('dataset name', 'dataset url');
+
+            expect(store.dispatch).toHaveBeenCalledWith({
+                type: DOWNLOAD_DATASET_RESOURCE,
+                meta: {
+                    tracking: {
+                        dataset: 'dataset name',
+                        resourceUrl: 'dataset url'
+                    }
+                }
+            });
         });
     });
 });

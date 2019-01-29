@@ -1,6 +1,7 @@
+import get from 'lodash.get';
 import {
     setGlobalError
-} from '../../../../src/shared/ducks/error-message';
+} from '../../../../src/shared/ducks/error/error-message';
 
 (function () {
     'use strict';
@@ -9,23 +10,24 @@ import {
         .module('dpShared')
         .factory('httpStatus', httpStatusFactory);
 
-    httpStatusFactory.inject = [
-        '$window',
-        'Raven'
-    ];
+    httpStatusFactory.$inject = ['$window'];
 
-    function httpStatusFactory ($window, Raven) {
+    function httpStatusFactory ($window) {
         return {
             logResponse,
             registerError
         };
 
         function logResponse (message, statusCode) {
-            Raven.captureMessage(new Error(message), { tags: { statusCode } });
+            // Todo: DP-6286 - Add sentry back, log to sentry
+            console.warn(message, statusCode); // eslint-disable-line no-console,angular/log
         }
 
         function registerError (errorType) {
-            $window.reduxStore.dispatch(setGlobalError(errorType));
+            const dispatch = get($window, 'reduxStore.dispatch');
+            if (dispatch) {
+                dispatch(setGlobalError(errorType));
+            }
         }
     }
 })();

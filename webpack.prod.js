@@ -19,7 +19,7 @@ module.exports = function(env) {
         new UglifyJSPlugin({
           // Do not minify our legacy code (app.bundle.js); this doesn't work with
           // angular dependancy injection
-          exclude: /app/,
+          exclude: /modules/,
           sourceMap: true
         }),
       ]

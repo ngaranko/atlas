@@ -1,3 +1,10 @@
+import { routing } from '../../../../src/app/routes';
+
+/**
+ * DEPRECATED component
+ * Creates link to login help.
+ * DO NOT USE FOR ANYTHING ELSE AND REMOVE IF POSSIBLE!
+ */
 (function () {
     'use strict';
 
@@ -7,29 +14,22 @@
             templateUrl: 'modules/shared/components/link-to-page/link-to-page.html',
             transclude: true,
             bindings: {
-                type: '@',
-                item: '@',
                 className: '@'
             },
             controller: DpLinkToPageController,
             controllerAs: 'vm'
         });
 
-    DpLinkToPageController.$inject = ['$transclude'];
+    DpLinkToPageController.$inject = [];
 
-    function DpLinkToPageController ($transclude) {
-        const vm = this,
-            label = $transclude().text();
-
-        vm.payload = {
-            name: 'content-overzicht',
-            type: vm.type || 'snelwegwijs'
+    function DpLinkToPageController () {
+        const vm = this;
+        vm.linkAction = {
+            type: routing.bediening.type
+            // Todo: put this back if redux-first-router supports this
+            // meta: {
+            //     hash: BEDIENINING_LOGIN_DEEPLINK
+            // }
         };
-
-        if (vm.item) {
-            vm.payload.item = vm.item;
-        }
-
-        vm.label = label || 'Help > Bediening > Inloggen';
     }
 })();

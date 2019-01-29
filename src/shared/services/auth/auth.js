@@ -96,7 +96,7 @@ function handleError(code, description) {
   location.assign(`${location.protocol}//${location.host}${location.pathname}`);
 
   throw new Error('Authorization service responded with error ' +
-      `${code} [${description}] (${ERROR_MESSAGES[code]})`);
+    `${code} [${description}] (${ERROR_MESSAGES[code]})`);
 }
 
 /**
@@ -158,7 +158,6 @@ function handleCallback() {
     returnPath = sessionStorage.getItem(RETURN_PATH);
     sessionStorage.removeItem(RETURN_PATH);
     sessionStorage.removeItem(STATE_TOKEN);
-
     // Clean up URL; remove query and hash
     // https://stackoverflow.com/questions/4508574/remove-hash-from-url
     history.replaceState('', document.title, window.location.pathname);
@@ -175,21 +174,11 @@ export function getAccessToken() {
 }
 
 /**
- * Restores the access token from session storage when available.
- */
-function restoreAccessToken() {
-  const accessToken = getAccessToken();
-  if (accessToken) {
-    tokenData = accessTokenParser(accessToken);
-  }
-}
-
-/**
  * Redirects to the OAuth2 authorization service.
  */
 export function login() {
   // Get the URI the OAuth2 authorization service needs to use as callback
-  const callback = encodeURIComponent(`${location.protocol}//${location.host}${location.pathname}`);
+  const callback = encodeURIComponent(`${location.protocol}//${location.host}/`);
   // Get a random string to prevent CSRF
   const stateToken = stateTokenGenerator();
   const encodedStateToken = encodeURIComponent(stateToken);
@@ -198,16 +187,39 @@ export function login() {
     throw new Error('crypto library is not available on the current browser');
   }
 
-  sessionStorage.removeItem(ACCESS_TOKEN);
-  sessionStorage.setItem(RETURN_PATH, location.hash);
-  sessionStorage.setItem(STATE_TOKEN, stateToken);
+  // Clear cache and ACCESS_TOKEN from sessionStorage
+  sessionStorage.clear();
 
+  // Set RETURN_PATH and ACCESS_TOKEN on login
+  sessionStorage.setItem(RETURN_PATH, location.href);
+  sessionStorage.setItem(STATE_TOKEN, stateToken);
   location.assign(`${API_ROOT}${AUTH_PATH}&state=${encodedStateToken}&redirect_uri=${callback}`);
 }
 
 export function logout() {
-  sessionStorage.removeItem(ACCESS_TOKEN);
+  // Clear cache and ACCESS_TOKEN from sessionStorage
+  sessionStorage.clear();
   location.reload();
+}
+
+/**
+ * Restores the access token from session storage when available.
+ */
+function restoreAccessToken() {
+  const accessToken = getAccessToken();
+  if (accessToken) {
+    const parsedToken = accessTokenParser(accessToken);
+    const now = Math.floor(new Date().getTime() / 1000);
+
+    if (!parsedToken.expiresAt || (parsedToken.expiresAt <= now)) {
+      tokenData = {};
+      logout();
+      return false;
+    }
+
+    tokenData = parsedToken;
+  }
+  return true;
 }
 
 /**
@@ -220,9 +232,10 @@ export function logout() {
  */
 export function initAuth() {
   returnPath = '';
-  restoreAccessToken(); // Restore acces token from session storage
-  catchError(); // Catch any error from the OAuth2 authorization service
-  handleCallback(); // Handle a callback from the OAuth2 authorization service
+  if (restoreAccessToken()) { // Restore acces token from session storage
+    catchError(); // Catch any error from the OAuth2 authorization service
+    handleCallback(); // Handle a callback from the OAuth2 authorization service
+  }
 }
 
 /**

@@ -1,3 +1,6 @@
+import { setViewMode, VIEW_MODE } from '../../../../../src/shared/ducks/ui/ui';
+import { VIEWS_TO_PARAMS } from '../../../../../src/shared/ducks/data-selection/constants';
+
 (function () {
     'use strict';
 
@@ -18,15 +21,15 @@
         const vm = this;
 
         $scope.$watch('vm.view', function () {
-            if (vm.view === 'TABLE') {
-                vm.targetView = 'LIST';
+            if (vm.view === VIEWS_TO_PARAMS[VIEW_MODE.FULL]) {
                 vm.targetLabel = 'Kaart weergeven';
                 vm.targetHover = 'Resultaten op de kaart weergeven';
+                vm.action = setViewMode(VIEW_MODE.SPLIT, 'kaart-weergeven');
                 vm.targetIcon = 'kaart';
             } else {
-                vm.targetView = 'TABLE';
                 vm.targetLabel = 'Tabel weergeven';
                 vm.targetHover = 'Resultaten in tabel weergeven';
+                vm.action = setViewMode(VIEW_MODE.FULL, 'tabel-weergeven');
                 vm.targetIcon = 'list';
             }
         });

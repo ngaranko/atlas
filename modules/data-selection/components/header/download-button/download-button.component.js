@@ -1,3 +1,8 @@
+import DATA_SELECTION_CONFIG
+    from '../../../../../src/shared/services/data-selection/data-selection-config';
+import isDefined from '../../../../../src/shared/services/is-defined';
+import { downloadDataSelection } from '../../../../../src/shared/ducks/data-selection/actions';
+
 (function () {
     'use strict';
 
@@ -19,7 +24,7 @@
         '$scope',
         'api',
         'sharedConfig',
-        'DATA_SELECTION_CONFIG'
+        'store'
     ];
 
     function DpDataSelectionDownloadButtonController (
@@ -27,7 +32,7 @@
         $scope,
         api,
         sharedConfig,
-        DATA_SELECTION_CONFIG
+        store
     ) {
         const vm = this,
             filterParams = [];
@@ -49,7 +54,7 @@
                 }
             });
 
-            if (angular.isDefined(vm.geometryFilter)) {
+            if (isDefined(vm.geometryFilter)) {
                 filterParams.push('shape=' + angular.toJson(vm.geometryFilter.markers.map(([lat, lng]) => [lng, lat])));
             }
 
@@ -62,6 +67,10 @@
             }
 
             api.createUrlWithToken(url).then(tokenUrl => vm.downloadUrl = tokenUrl);
+
+            vm.downloadDataSelection = () => store.dispatch(
+                downloadDataSelection(DATA_SELECTION_CONFIG.datasets[vm.dataset].TITLE)
+            );
         }
     }
 })();

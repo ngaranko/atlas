@@ -1,6 +1,13 @@
-import { wgs84ToRd, rdToWgs84 } from './crs-converter';
+import { wgs84ToRd,
+  rdToWgs84,
+  parseLocationString,
+  normalizeCoordinate,
+  normalizeLocation } from './crs-converter';
 
 export {
   wgs84ToRd,
-  rdToWgs84
+  rdToWgs84,
+  parseLocationString,
+  normalizeCoordinate,
+  normalizeLocation
 };

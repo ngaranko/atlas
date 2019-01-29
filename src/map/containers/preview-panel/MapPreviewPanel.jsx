@@ -1,123 +1,39 @@
 import React from 'react';
 import get from 'lodash.get';
 import PropTypes from 'prop-types';
-import has from 'lodash.has';
-import { toggleMapFullscreen } from '../../../shared/ducks/ui/ui';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 import MapDetailResult from '../../components/detail-result/MapDetailResult';
 import MapSearchResults from '../../components/search-results/MapSearchResults';
-import { getMapDetail } from '../../ducks/detail/map-detail';
-import { getPanoPreview } from '../../../pano/ducks/preview/pano-preview';
-import { getMapSearchResults } from '../../ducks/search-results/map-search-results';
-
-import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
+import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 
 const previewPanelSearchResultLimit = 3;
-
-const isUpdated = (props, prevProps, paths) => {
-  if (typeof paths === 'string') {
-    const newValue = get(props, paths);
-    const oldValue = get(prevProps, paths);
-    return newValue && oldValue !== newValue;
-  }
-
-  // Every path must exist in props
-  return paths.every((path) => has(props, path)) &&
-    // Some paths must have been updated
-    paths.some((path) => isUpdated(props, prevProps, path));
-};
-
-const update = (dispatch, props, prevProps = {}) => {
-  // Don't just copy this. It's an anti-pattern.
-  if (isUpdated(props, prevProps, 'detail.endpoint')) {
-    dispatch(getMapDetail(props.detail.endpoint, props.user));
-  } else if (isUpdated(props, prevProps, 'detailResult.location')) {
-    dispatch(getPanoPreview(props.detailResult.location));
-  } else if (isUpdated(props, prevProps, ['searchLocation.latitude', 'searchLocation.longitude'])) {
-    dispatch(getMapSearchResults(props.searchLocation, props.user));
-    dispatch(getPanoPreview(props.searchLocation));
-  }
-};
 
 class MapPreviewPanel extends React.Component {
   constructor() {
     super();
     this.onPanoPreviewClick = this.onPanoPreviewClick.bind(this);
-    this.onDisplayAllResults = this.onDisplayAllResults.bind(this);
-  }
-
-  componentDidMount() {
-    // Don't just copy this. It's an anti-pattern.
-    update(this.context.store.dispatch, this.props);
-  }
-
-  componentDidUpdate(prevProps) {
-    // Don't just copy this. It's an anti-pattern.
-    update(this.context.store.dispatch, this.props, prevProps);
-  }
-
-  // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
-  onDisplayAllResults(mapClickLocation) {
-    const piwik = {
-      TRACK_EVENT: 'trackEvent',
-      SHOW_ALL_RESULTS: 'show-all-results',
-      NAVIGATION: 'navigation'
-    };
-
-    piwikTracker([piwik.TRACK_EVENT, piwik.NAVIGATION,
-      piwik.SHOW_ALL_RESULTS, window.document.title]);
-
-    return this.props.onSearch(mapClickLocation);
   }
 
   onPanoPreviewClick() {
-    const { onOpenPanoById, search, pano } = this.props;
-    const location = search ? search.location.join(',') : `${pano.location.latitude},${pano.location.longitude}`;
-    const selectedPano = pano.previews[location];
-    if (!selectedPano) {
-      return;
-    }
-    this.context.store.dispatch(onOpenPanoById(selectedPano));
-    this.context.store.dispatch(toggleMapFullscreen());
+    const { openPano, panoPreview, detailLocation } = this.props;
+    openPano(panoPreview.id, panoPreview.heading, detailLocation);
   }
 
   render() {
     const props = this.props;
-    const detailLocationId = get(props, 'detailResult.location') && Object
-      .keys(props.detailResult.location)
-      .map((key) => props.detailResult.location[key])
-      .toString();
-    const panoSearchPreview = get(props, `pano.previews['${props.searchLocationId}']`, {});
-    const panoDetailPreview = get(props, `pano.previews['${detailLocationId}']`, {});
-    const showDisplayAllResultsButton = get(props, 'detail.skippedSearchResults');
-    const isLoading = get(props, 'search.isLoading') || get(props, 'mapDetail.isLoading');
-    const isSearchLoaded = !isLoading && props.search && props.searchLocation;
+    const isLoading = get(props, 'dataQuerySearch.isLoading') || get(props, 'mapDetail.isLoading');
     const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult;
+
+    const openDetailEndpoint = () => props.openDetail(props.detailEndpoint);
+    const onMaximize = () => props.onSearchMaximize(VIEW_MODE.SPLIT);
 
     return !props.isEmbed && (
       <div className="map-preview-panel-wrapper">
-        <section className={`
-          map-preview-panel
-          map-preview-panel--${props.isMapPreviewPanelVisible ? 'visible' : 'hidden'}
-        `}
-        >
+        <section className="map-preview-panel map-preview-panel--visible">
           <div className="map-preview-panel__heading">
-            {showDisplayAllResultsButton && (
-              <button
-                className="map-preview-panel__button map-preview-panel__button--show-all"
-                onClick={() => this.onDisplayAllResults(props.mapClickLocation)}
-                title="Alle resultaten tonen"
-              >
-                <span className="
-                  map-preview-panel__button-icon
-                  map-preview-panel__button-icon--plus"
-                />
-                <span className="map-preview-panel__button-label">Alle resultaten tonen</span>
-              </button>
-            )}
             <button
               className="map-preview-panel__button"
-              onClick={props.onMapPreviewPanelMaximize}
+              onClick={(props.isSearchPreview) ? onMaximize : openDetailEndpoint}
               title="Volledige weergave tonen"
             >
               <span className="
@@ -127,7 +43,7 @@ class MapPreviewPanel extends React.Component {
             </button>
             <button
               className="map-preview-panel__button"
-              onClick={props.onMapPreviewPanelClose}
+              onClick={props.closePanel}
               title="Sluiten"
             >
               <span className="
@@ -145,24 +61,24 @@ class MapPreviewPanel extends React.Component {
             {isLoading && (
               <LoadingIndicator />
             )}
-            {isDetailLoaded && (
+            {!props.isSearchPreview && isDetailLoaded && (
               <MapDetailResult
-                panoUrl={panoDetailPreview.url}
-                onMaximize={props.onMapPreviewPanelMaximize}
+                panoUrl={props.panoPreview.url}
+                onMaximize={openDetailEndpoint}
                 onPanoPreviewClick={this.onPanoPreviewClick}
                 result={props.detailResult}
               />
             )}
-            {!isDetailLoaded && isSearchLoaded && (
+            {props.isSearchPreview && props.isSearchLoaded && props.searchLocation && (
               <MapSearchResults
                 location={props.searchLocation}
                 missingLayers={props.missingLayers}
-                onItemClick={props.onMapSearchResultsItemClick}
-                onMaximize={props.onMapPreviewPanelMaximize}
+                onItemClick={props.openPreviewDetail}
+                onMaximize={onMaximize}
                 onPanoPreviewClick={this.onPanoPreviewClick}
-                panoUrl={panoSearchPreview.url}
+                panoUrl={props.panoPreview.url}
                 resultLimit={previewPanelSearchResultLimit}
-                results={props.results}
+                results={props.searchResults}
               />
             )}
           </div>
@@ -179,12 +95,12 @@ MapPreviewPanel.contextTypes = {
 MapPreviewPanel.defaultProps = {
   detail: {},
   detailResult: {},
+  detailEndpoint: undefined,
   isEmbed: false,
-  isMapPreviewPanelVisible: false,
   mapDetail: {},
   missingLayers: '',
-  pano: {},
-  results: [],
+  panoPreview: {},
+  searchResults: [],
   search: {},
   searchLocation: null,
   searchLocationId: '',
@@ -195,17 +111,18 @@ MapPreviewPanel.defaultProps = {
 MapPreviewPanel.propTypes = {
   detail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   detailResult: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  detailEndpoint: PropTypes.string,
   isEmbed: PropTypes.bool,
-  isMapPreviewPanelVisible: PropTypes.bool,
   mapDetail: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   missingLayers: PropTypes.string,
-  onMapPreviewPanelClose: PropTypes.func.isRequired,
-  onMapPreviewPanelMaximize: PropTypes.func.isRequired,
-  onMapSearchResultsItemClick: PropTypes.func.isRequired,
-  onOpenPanoById: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
-  pano: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  results: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  detailLocation: PropTypes.arrayOf(PropTypes.string).isRequired,
+  closePanel: PropTypes.func.isRequired,
+  openDetail: PropTypes.func.isRequired,
+  // onMapPreviewPanelMaximizeSearch: PropTypes.func.isRequired,
+  // onMapSearchResultsItemClick: PropTypes.func.isRequired,
+  openPano: PropTypes.func.isRequired,
+  panoPreview: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  searchResults: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   search: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   searchLocation: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   searchLocationId: PropTypes.string,

@@ -1,4 +1,4 @@
-import stateUrlConverter from '../../../../src/shared/services/routing/state-url-converter';
+import isDefined from '../../../../src/shared/services/is-defined';
 
 (function () {
     'use strict';
@@ -6,7 +6,7 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
     angular
         .module('dpShared')
         .component('dpLink', {
-            templateUrl: 'modules/shared/components/link/link.html',
+            template: require('./link.html'),
             transclude: true,
             bindings: {
                 className: '@',
@@ -14,15 +14,17 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
                 hoverText: '@',
                 type: '@',
                 payload: '<',
+                query: '<',
+                action: '<',
                 tabIndex: '@'
             },
             controller: DpLinkController,
             controllerAs: 'vm'
         });
 
-    DpLinkController.$inject = ['$scope', 'store', 'ACTIONS', '$location', '$window'];
+    DpLinkController.$inject = ['$scope', 'store', '$location'];
 
-    function DpLinkController ($scope, store, ACTIONS, $location, $window) {
+    function DpLinkController ($scope, store, $location) {
         const vm = this;
         vm.activeUrl = $location.url();
 
@@ -30,47 +32,28 @@ import stateUrlConverter from '../../../../src/shared/services/routing/state-url
         vm.inline = vm.inline || false;
         vm.tabIndex = vm.tabIndex || '0';
 
-        $scope.$watch('vm.payload', function () {
-            vm.href = getHref(vm.type, vm.payload);
-            // Do not catch a click event and handle the state change
-            // internally, this prevents users from CTRL/CMD clicking!
-        });
-
-        vm.dispatch = function () {
-            store.dispatch(getAction(vm.type, vm.payload));
+        vm.dispatch = function (e) {
+            e.preventDefault();
+            if (vm.action) {
+                store.dispatch(vm.action);
+            } else {
+                store.dispatch(getAction(vm.type, vm.payload, vm.query));
+            }
         };
 
-        store.subscribe(() => {
-            // exclude the zoom level (mpz) and the location (mpv) from the tests
-            var regex = /mpz=\d*&mpv=\d*.\d*:\d*.\d*/gi;
-            const currentUrl = $location.url();
-            if (currentUrl.replace(regex, '') !== vm.activeUrl.replace(regex, '')) {
-                vm.href = getHref(vm.type, vm.payload);
-                vm.activeUrl = currentUrl;
-            }
-        });
-
-        function getAction (type, payload) {
+        function getAction (type, payload, query) {
             const action = {
-                type: ACTIONS[type] || type
+                type
             };
-            if (angular.isDefined(payload)) {
+            if (isDefined(payload)) {
                 action.payload = payload;
             }
+
+            if (angular.isDefined(query)) {
+                action.meta = {};
+                action.meta.query = query;
+            }
             return action;
-        }
-
-        function getHref (type, payload) {
-            // Remove state properties that do not relate to the url
-            // by converting the state to a url and back
-            // This prevents deep copying of large state objects in the reducer (eg dataSelection.markers)
-            const reducer = $window.reducer,
-                state = store.getState(),
-                params = stateUrlConverter.state2params(state),
-                sourceState = stateUrlConverter.params2state({}, params),
-                targetState = reducer(sourceState, getAction(type, payload));
-
-            return stateUrlConverter.state2url(targetState);
         }
     }
 })();

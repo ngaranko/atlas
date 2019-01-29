@@ -7,6 +7,7 @@ import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import transformResultByType from './transform-result-by-type';
 
 import { createMapSearchResultsModel } from '../../services/map-search-results/map-search-results';
+import { getByUrl } from '../../../shared/services/api/api';
 
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
@@ -68,28 +69,29 @@ export const fetchRelatedForUser = (user) => (data) => {
   const requests = resources.map((resource) => (
     (resource.authScope &&
       (!user.authenticated || !user.scopes.includes(resource.authScope))
-    ) ? [] :
-      resource.fetch(item.properties.id)
-        .then((results) => results
-            .map((result) => ({
-              ...result,
-              properties: {
-                uri: result._links.self.href,
-                display: result._display,
-                type: resource.type,
-                parent: item.properties.type
-              }
-            }))
-        )
+    ) ? []
+      : resource.fetch(item.properties.id)
+                .then((results) => results
+                  .map((result) => ({
+                    ...result,
+                    properties: {
+                      uri: result._links.self.href,
+                      display: result._display,
+                      type: resource.type,
+                      parent: item.properties.type
+                    }
+                  }))
+                )
   ));
 
   return Promise.all(requests)
-    .then((results) => results
-        .reduce((accumulator, subResults) => accumulator.concat(subResults),
-          data.features));
+                .then((results) => results
+                  .reduce((accumulator, subResults) => accumulator.concat(subResults),
+                    data.features));
 };
 
 export default function search(location, user) {
+  const errorType = 'error';
   const allRequests = endpoints.map((endpoint) => {
     const searchParams = {
       ...endpoint.extra_params,
@@ -103,15 +105,23 @@ export default function search(location, user) {
       .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
       .join('&');
 
-    return fetch(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`)
-      .then((response) => response.json())
+    return getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`)
       .then(fetchRelatedForUser(user))
-      .then((features) => features.map((feature) => transformResultByType(feature)));
+      .then((features) => features.map((feature) => transformResultByType(feature)), (code) => ({
+        type: errorType,
+        code
+      }));
   });
-  return Promise.all(allRequests
+  const allResults = Promise.all(allRequests
     .map((p) => p
       .then((result) => Promise.resolve(result))
-      .catch(() => Promise.resolve([]))))  // ignore the failing calls
+      .catch(() => Promise.resolve([]))));  // ignore the failing calls
+  return allResults
     .then((results) => [].concat.apply([], [...results]))
-    .then((results) => createMapSearchResultsModel(results));
+    .then((results) => ({
+      results: createMapSearchResultsModel(
+        results.filter((result) => (result && result.type !== errorType))
+      ),
+      errors: results.some((result) => (result && result.type === errorType))
+    }));
 }
