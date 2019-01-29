@@ -2,61 +2,53 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import isEqual from 'lodash.isequal';
+import get from 'lodash.get';
 
 import DrawTool from '../../components/draw-tool/DrawTool';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
-import { mapClearDrawing, mapEmptyGeometry, mapUpdateShape, mapStartDrawing, mapEndDrawing, mapClear } from '../../ducks/map/map';
-import { setDataSelectionGeometryFilter, resetDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
-import { setPageName } from '../../../shared/ducks/page/page';
-import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
-import { setStraatbeeldOff } from '../../../shared/ducks/straatbeeld/straatbeeld';
-
 import {
-  cancel,
   currentShape,
   initialize,
-  setPolygon,
-  isEnabled
+  isEnabled,
+  setPolygon
 } from '../../services/draw-tool/draw-tool';
-import toggleDrawing from '../../services/draw-tool/draw-tool-toggle';
+import { mapClear, mapEmptyGeometry, mapStartDrawing, mapUpdateShape } from '../../ducks/map/map';
+import {
+  getDrawingMode,
+  getGeometry,
+  getShapeDistanceTxt,
+  isDrawingEnabled,
+  getShapeMarkers
+} from '../../ducks/map/map-selectors';
+import { endDataSelection, setGeometryFilter } from '../../../shared/ducks/data-selection/actions';
+import {
+  getDataSelection
+} from '../../../shared/ducks/data-selection/selectors';
 
 const mapStateToProps = (state) => ({
-  drawingMode: state.map.drawingMode,
-  isEnabled: state.map.drawingMode !== drawToolConfig.DRAWING_MODE.NONE,
-  shapeMarkers: state.map.shapeMarkers,
-  shapeDistanceTxt: state.map.shapeDistanceTxt,
-  dataSelection: state.dataSelection,
-  geometry: state.map.geometry,
-  uiMapFullscreen: state.ui.isMapFullscreen
+  drawingMode: getDrawingMode(state),
+  drawingEnabled: isDrawingEnabled(state),
+  shapeMarkers: getShapeMarkers(state),
+  shapeDistanceTxt: getShapeDistanceTxt(state),
+  dataSelection: getDataSelection(state),
+  geometry: getGeometry(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onClearDrawing: mapClearDrawing,
+  onClearDrawing: mapEmptyGeometry,
   onEmptyGeometry: mapEmptyGeometry,
   onMapUpdateShape: mapUpdateShape,
-  setGeometryFilter: setDataSelectionGeometryFilter,
-  resetGeometryFilter: resetDataSelectionGeometryFilter,
+  onSetGeometryFilter: setGeometryFilter,
   onStartDrawing: mapStartDrawing,
-  onEndDrawing: mapEndDrawing,
-  onMapClear: mapClear,
-  onSetPageName: setPageName,
-  onSetMapFullscreen: setMapFullscreen,
-  onStraatbeeldOff: setStraatbeeldOff
+  onEndDrawing: endDataSelection,
+  onMapClear: mapClear
 }, dispatch);
 
 // TODO: Get all business logic out of this file, probably to Redux!
 class DrawToolContainer extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      drawingMode: props.drawingMode,
-      previousMarkers: [],
-      dataSelection: null
-    };
 
     this.onFinishShape = this.onFinishShape.bind(this);
     this.onDrawingMode = this.onDrawingMode.bind(this);
@@ -74,70 +66,39 @@ class DrawToolContainer extends React.Component {
     this.setPolygon();
   }
 
-  componentWillReceiveProps(props) {
-    const markers = this.getMarkers();
-    if (!isEqual(this.state.previousMarkers, markers)) {
-      // if the markers have changed save the new markers as previous markers
+  componentDidUpdate(prevProps) {
+    const { geometry, dataSelection } = this.props;
+    // Clear Polygon if the dataSelection filter changes
+    if (prevProps.dataSelection.geometryFilter !== dataSelection.geometryFilter) {
       this.setPolygon();
-      this.setState({ previousMarkers: [...markers] });
     }
 
-    if (!props.dataSelection && props.geometry && props.geometry.length === 0 &&
-      props.drawingMode !== drawToolConfig.DRAWING_MODE.DRAW) {
-      // if dataSelection and geometry are empty then remove the drawn polygon
-      this.props.onEndDrawing();
-      this.props.setPolygon([]);
-    }
-
-    if (this.state.drawingMode !== props.drawingMode) {
-      if (props.drawingMode === drawToolConfig.DRAWING_MODE.NONE) {
-        // after drawing mode has changed the draw tool should be cancelled after navigating
-        this.props.cancel();
-      }
-      this.setState({ drawingMode: props.drawingMode });
-    }
-
-    if (this.state.dataSelection !== props.dataSelection) {
-      this.setState({ dataSelection: props.dataSelection });
-      this.onUpdateShape(props.currentShape);
+    // if the markers have changed save the old markers as previous markers
+    if (prevProps.geometry !== geometry) {
+      this.setPolygon();
     }
   }
 
   componentWillUnmount() {
-    this.props.onMapClear();
+    const { onMapClear } = this.props;
+    onMapClear();
   }
 
   onFinishShape(polygon) {
-    const has2Markers = polygon && polygon.markers && polygon.markers.length === 2;
-    const moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
-
-    if (moreThan2Markers && !isEqual(this.state.previousMarkers, polygon.markers)) {
-      this.props.setGeometryFilter({
-        markers: polygon.markers,
-        description: `${polygon.distanceTxt} en ${polygon.areaTxt}`
-      });
-
-      this.props.onStraatbeeldOff();
-      this.props.onEndDrawing({ polygon });
-      this.props.onSetPageName({ name: null });
-
-      this.props.onSetMapFullscreen({ isMapFullscreen: false });
-    } else if (has2Markers) {
-      this.props.onEndDrawing({ polygon });
+    const { onSetGeometryFilter } = this.props;
+    if (polygon && polygon.markers && polygon.markers.length > 2) {
+      onSetGeometryFilter(polygon);
     }
   }
 
   onDrawingMode(drawingMode) {
-    if (drawingMode !== drawToolConfig.DRAWING_MODE.NONE) {
-      this.setState({ previousMarkers: [...this.props.currentShape.markers] });
-      this.props.onStartDrawing({ drawingMode });
-    } else {
-      this.props.onEndDrawing();
-    }
+    const { onStartDrawing } = this.props;
+    onStartDrawing({ drawingMode });
   }
 
   onUpdateShape(newShape) {
-    this.props.onMapUpdateShape({
+    const { onMapUpdateShape } = this.props;
+    onMapUpdateShape({
       shapeMarkers: newShape.markers.length,
       shapeDistanceTxt: newShape.distanceTxt,
       shapeAreaTxt: newShape.areaTxt
@@ -145,24 +106,32 @@ class DrawToolContainer extends React.Component {
   }
 
   setPolygon() {
+    const { onSetPolygon } = this.props;
     if (!isEnabled()) {
-      this.props.setPolygon(this.getMarkers());
+      onSetPolygon(this.getMarkers());
     }
   }
 
   getMarkers() {
-    return this.props.geometry && this.props.geometry.length > 0 ? this.props.geometry :
-      ((this.props.dataSelection && this.props.dataSelection.geometryFilter &&
-        this.props.dataSelection.geometryFilter.markers) || []);
+    const { geometry, dataSelection } = this.props;
+    return geometry && geometry.length > 0 ?
+      geometry :
+      get(dataSelection, 'geometryFilter.markers', []);
   }
 
   render() {
-    const markersLeft = drawToolConfig.MAX_MARKERS - this.props.shapeMarkers;
-    return (<DrawTool
-      markersLeft={markersLeft}
-      {...this.props}
-      isEnabled={this.props.isEnabled}
-    />);
+    const { shapeMarkers, drawingMode, drawingEnabled } = this.props;
+    const markersLeft = drawToolConfig.MAX_MARKERS - shapeMarkers;
+    return (
+      <DrawTool
+        markersLeft={markersLeft}
+        {...{
+          shapeMarkers,
+          drawingMode,
+          drawingEnabled
+        }}
+      />
+    );
   }
 }
 
@@ -184,22 +153,16 @@ DrawToolContainer.propTypes = {
 
   leafletInstance: PropTypes.shape({}).isRequired,
 
-  toggleDrawing: PropTypes.func.isRequired,
-  isEnabled: PropTypes.bool.isRequired,
-  cancel: PropTypes.func.isRequired,
-  setPolygon: PropTypes.func.isRequired,
+  drawingEnabled: PropTypes.bool.isRequired,
+  onSetPolygon: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
 
   onClearDrawing: PropTypes.func.isRequired,
   onEmptyGeometry: PropTypes.func.isRequired,
   onMapUpdateShape: PropTypes.func.isRequired,
-  setGeometryFilter: PropTypes.func.isRequired,
-  resetGeometryFilter: PropTypes.func.isRequired,
+  onSetGeometryFilter: PropTypes.func.isRequired,
   onStartDrawing: PropTypes.func.isRequired,
   onEndDrawing: PropTypes.func.isRequired,
-  onSetPageName: PropTypes.func.isRequired,
-  onSetMapFullscreen: PropTypes.func.isRequired,
-  onStraatbeeldOff: PropTypes.func.isRequired,
   onMapClear: PropTypes.func.isRequired
 };
 
@@ -212,11 +175,8 @@ DrawToolContainer.defaultProps = {
 export default connect(mapStateToProps, mapDispatchToProps)((props) => (
   <DrawToolContainer
     currentShape={currentShape}
-    toggleDrawing={toggleDrawing}
-    cancel={cancel}
     initialize={initialize}
-    setPolygon={setPolygon}
+    onSetPolygon={setPolygon}
     {...props}
   />
-)
-);
+));

@@ -3,44 +3,45 @@ import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
 import HeaderSearchContainer from './HeaderSearchContainer';
-import { getSuggestionsAction, setActiveSuggestionAction } from '../../ducks/auto-suggest/auto-suggest';
+import { getSuggestionsAction, getTypedQuery } from '../../ducks/auto-suggest/auto-suggest';
 
-import { fetchDataSelection, fetchSearchResultsByQuery } from '../../ducks/search/search';
+import { fetchDetail } from '../../../shared/ducks/detail/actions';
+import { ROUTER_NAMESPACE } from '../../../app/routes';
+import PAGES from '../../../app/pages';
+import { emptyFilters } from '../../../shared/ducks/filters/filters';
 
-import { fetchDetail } from '../../../reducers/details';
-import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
+import {
+  toDataSearchQuery,
+  toDatasetSearch,
+  toDatasetSuggestion,
+  toDataSuggestion
+} from '../../../store/redux-first-router/actions';
+import { FETCH_DETAIL } from '../../../shared/ducks/detail/constants';
+import PARAMETERS from '../../../store/parameters';
+import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
+
 
 jest.mock('../../ducks/auto-suggest/auto-suggest');
-jest.mock('../../../reducers/details');
-jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
-jest.mock('../../ducks/search/search');
+jest.mock('../../../shared/ducks/detail/actions');
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
-    setActiveSuggestionAction.mockImplementation(() => ({ type: 'SET_ACTIVE_SUGGESTION' }));
-    getSuggestionsAction.mockImplementation(() => ({ type: 'FETCH_SUGGESTIONS_REQUEST' }));
-    fetchDetail.mockImplementation((endpoint) => ({ type: 'FETCH_DETAIL', payload: endpoint }));
-    piwikTracker.mockImplementation(() => jest.fn());
-    fetchDataSelection.mockImplementation((query) => ({
-      type: 'FETCH_DATA_SELECTION',
-      payload: query
-    }));
-    fetchSearchResultsByQuery.mockImplementation((query) => ({
-      type: 'FETCH_SEARCH_RESULTS_BY_QUERY',
-      payload: query
-    }));
+    getSuggestionsAction.mockImplementation(() => ({ type: 'getSuggestionsAction' }));
+    fetchDetail.mockImplementation((endpoint) => ({ type: FETCH_DETAIL, payload: endpoint }));
   });
 
   afterEach(() => {
-    setActiveSuggestionAction.mockReset();
     getSuggestionsAction.mockReset();
     fetchDetail.mockReset();
-    piwikTracker.mockReset();
-    fetchDataSelection.mockReset();
-    fetchSearchResultsByQuery.mockReset();
   });
 
   const initialState = {
+    dataQuerySearch: {
+      query: 'dam'
+    },
+    ui: {
+      viewMode: VIEW_MODE.SPLIT
+    },
     autoSuggest: {
       count: 6,
       suggestions: [
@@ -100,18 +101,17 @@ describe('HeaderSearchContainer', () => {
     jest.spyOn(store, 'dispatch');
     shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
-    expect(setActiveSuggestionAction).not.toHaveBeenCalled();
     expect(getSuggestionsAction).not.toHaveBeenCalled();
     expect(fetchDetail).not.toHaveBeenCalled();
     expect(store.dispatch).not.toHaveBeenCalled();
   });
 
   describe('onSuggestionSelection', () => {
-    it('does the fetch detail dispatch upon called', () => {
+    it('opens data from the suggestions', () => {
       const store = configureMockStore()({ ...initialState });
       const shouldOpenInNewWindow = false;
       const selectedSuggestion = {
-        uri: 'bag/openbareruimte/03630000001038/',
+        uri: 'bag/openbareruimte/GgCm07EqNVIpwQ',
         label: 'Damloperspad',
         index: 1,
         category: 'Straatnamen'
@@ -122,15 +122,37 @@ describe('HeaderSearchContainer', () => {
 
       headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
 
-      expect(fetchDetail).toHaveBeenCalled();
-
-      expect(store.dispatch).toHaveBeenCalledWith({
-        type: 'FETCH_DETAIL',
-        payload: 'https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000001038/'
-      });
+      expect(store.dispatch).toHaveBeenCalledWith(
+        toDataSuggestion({
+          endpoint: selectedSuggestion.uri,
+          category: selectedSuggestion.category,
+          typedQuery: ''
+        }, VIEW_MODE.SPLIT)
+      );
     });
 
-    it('does call to open new window if shouldOpenInNewWindow is true', () => {
+    it('opens a dataset from the suggestions', () => {
+      const store = configureMockStore()({ ...initialState });
+      const shouldOpenInNewWindow = false;
+      const selectedSuggestion = {
+        uri: 'dcatd/datasets/GgCm07EqNVIpwQ',
+        label: 'Damloperspad',
+        index: 1,
+        category: 'Straatnamen'
+      };
+
+      jest.spyOn(store, 'dispatch');
+      const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
+
+      headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
+
+      expect(store.dispatch).toHaveBeenCalledWith(
+        toDatasetSuggestion({ id: 'GgCm07EqNVIpwQ', typedQuery: '' })
+      );
+    });
+
+    xit('does call to open new window if shouldOpenInNewWindow is true', () => {
+      // TODO: refactor, allow opening in new window.
       const store = configureMockStore()({ ...initialState });
       const shouldOpenInNewWindow = true;
       const selectedSuggestion = {
@@ -178,72 +200,67 @@ describe('HeaderSearchContainer', () => {
         },
         page: {},
         ui: {
+          viewMode: VIEW_MODE.SPLIT,
           isMapFullscreen: true
         }
       });
 
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
+      jest.spyOn(store, 'dispatch');
       headerSearch.instance().onFormSubmit();
 
-      expect(fetchDataSelection).not.toHaveBeenCalled();
-      expect(fetchSearchResultsByQuery).not.toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalled();
     });
 
-    it('does the "fetchSearchResultsByQuery" call', () => {
+    it('does data search', () => {
+      const query = 'foo';
+      getTypedQuery.mockImplementation(() => query);
       const store = configureMockStore()({
         ...initialState,
         autoSuggest: {
           activeSuggestion: {
             index: -1
-          }
+          },
+          typedQuery: query
         },
-        dataSelection: {
-          view: 'NOT_CARDS'
-        }
+        currentPage: PAGES.HOME
       });
+      jest.spyOn(store, 'dispatch');
 
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onFormSubmit();
 
-      expect(fetchDataSelection).not.toHaveBeenCalled();
-      expect(fetchSearchResultsByQuery).toHaveBeenCalled();
+      expect(store.dispatch).toHaveBeenCalledWith(emptyFilters());
+      expect(store.dispatch).toHaveBeenCalledWith(toDataSearchQuery({
+        [PARAMETERS.QUERY]: query
+      }, false, true));
     });
 
-    it('does the "fetchDataSelection" call', () => {
+    it('does dataset search', () => {
+      const query = 'foo';
+      getTypedQuery.mockImplementation(() => query);
       const store = configureMockStore()({
         ...initialState,
         autoSuggest: {
           activeSuggestion: {
             index: -1
-          }
+          },
+          typedQuery: query
         },
-        dataSelection: {
-          view: 'CATALOG'
+        location: {
+          type: `${ROUTER_NAMESPACE}/${PAGES.DATASETS}`
         }
       });
+      jest.spyOn(store, 'dispatch');
 
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onFormSubmit();
-
-      expect(fetchDataSelection).toHaveBeenCalled();
-      expect(fetchSearchResultsByQuery).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('openDetailOnLoad', () => {
-    it('should be called when window.suggestionToLoadUri and window.opener are true', () => {
-      global.suggestionToLoadUri = true;
-      global.opener = true;
-      const store = configureMockStore()({
-        ...initialState
-      });
-
-      shallow(<HeaderSearchContainer />, { context: { store } }).dive();
-
-      expect(fetchDetail).toHaveBeenCalled();
+      expect(store.dispatch).toHaveBeenCalledWith(toDatasetSearch({
+        [PARAMETERS.QUERY]: query
+      }, false, true));
     });
   });
 
@@ -287,13 +304,13 @@ describe('HeaderSearchContainer', () => {
       const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
       wrapper.setProps({
         prefillQuery: '123',
-        isMapFullscreen: true
+        isMapActive: true
       });
 
       expect(getSuggestionsAction).not.toHaveBeenCalled();
     });
 
-    it('should call getSuggestions when navigated', () => {
+    it('should not call getSuggestions', () => {
       global.suggestionToLoadUri = true;
       global.opener = true;
       const store = configureMockStore()({
@@ -303,11 +320,11 @@ describe('HeaderSearchContainer', () => {
       const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
       wrapper.setProps({
         prefillQuery: '',
-        pageName: 'test',
-        isMapFullscreen: false
+        pageName: '',
+        isMapActive: false
       });
 
-      expect(getSuggestionsAction).toHaveBeenCalled();
+      expect(getSuggestionsAction).not.toHaveBeenCalledWith();
     });
   });
 });

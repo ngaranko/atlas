@@ -2,32 +2,46 @@
 
 exports[`MapContainer should render 1`] = `
 <div
-  className="c-map c-map--drawing-mode-none qa-map-container"
+  className="qa-map"
 >
-  <Connect(LeafletContainer)
-    getLeafletInstance={[Function]}
-  />
-  <ToggleFullscreen
-    isFullscreen={false}
-    onToggleFullscreen={[Function]}
-  />
-  <Connect(MapPanelContainer) />
-  <Connect(MapPreviewPanel) />
+  <div
+    className="c-map c-map--drawing-mode-none qa-map-container"
+  >
+    <Connect(LeafletContainer)
+      getLeafletInstance={[Function]}
+    />
+    <ToggleFullscreen
+      alignLeft={false}
+      isFullscreen={false}
+      onToggleFullscreen={[Function]}
+      title="Kaart"
+    />
+    <Connect(MapPanelContainer)
+      isMapPanelVisible={true}
+    />
+  </div>
 </div>
 `;
 
 exports[`MapContainer should render with drawingmode: draw 1`] = `
 <div
-  className="c-map c-map--drawing-mode-draw qa-map-container"
+  className="qa-map"
 >
-  <Connect(LeafletContainer)
-    getLeafletInstance={[Function]}
-  />
-  <ToggleFullscreen
-    isFullscreen={false}
-    onToggleFullscreen={[Function]}
-  />
-  <Connect(MapPanelContainer) />
-  <Connect(MapPreviewPanel) />
+  <div
+    className="c-map c-map--drawing-mode-draw qa-map-container"
+  >
+    <Connect(LeafletContainer)
+      getLeafletInstance={[Function]}
+    />
+    <ToggleFullscreen
+      alignLeft={false}
+      isFullscreen={false}
+      onToggleFullscreen={[Function]}
+      title="Kaart"
+    />
+    <Connect(MapPanelContainer)
+      isMapPanelVisible={true}
+    />
+  </div>
 </div>
 `;

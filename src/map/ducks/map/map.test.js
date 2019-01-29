@@ -1,44 +1,43 @@
 import reducer, {
-  MAP_ADD_PANO_OVERLAY,
-  MAP_REMOVE_PANO_OVERLAY,
+  initialState,
   mapClear,
-  mapClearDrawing,
   mapEmptyGeometry,
   mapEndDrawing,
+  mapLoadingAction,
   mapStartDrawing,
   mapUpdateShape,
   setMapBaseLayer,
+  setSelectedLocation,
+  TOGGLE_MAP_OVERLAY_PANORAMA,
   toggleMapOverlay,
   toggleMapOverlayVisibility,
+  toggleMapPanel,
   updateBoundingBox,
   updatePan,
-  updateZoom,
-  mapLoadingAction
+  updateZoom
 } from './map';
 
 describe('Map Reducer', () => {
-  const initialState = {
-    baseLayer: 'topografie',
-    drawingMode: 'none',
-    loading: false,
-    overlays: [],
-    shapeAreaTxt: '',
-    shapeDistanceTxt: '',
-    shapeMarkers: 0,
-    viewCenter: [52.3731081, 4.8932945],
-    zoom: 11
-  };
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });
 
   it('should clear the map state', () => {
-    expect(reducer({ shapeMarkers: 2 }, mapClear())).toEqual(initialState);
+    const state = { shapeMarkers: 2 };
+    expect(reducer(state, mapClear())).toEqual({
+      ...state,
+      drawingMode: initialState.drawingMode,
+      shapeMarkers: initialState.shapeMarkers,
+      shapeDistanceTxt: initialState.shapeDistanceTxt,
+      shapeAreaTxt: initialState.shapeAreaTxt
+    });
   });
 
-  it('should clear the map drawing when dispatching mapClearDrawing', () => {
-    expect(reducer({ geometry: ['foo'] }, mapClearDrawing())).toEqual({
-      geometry: []
+  it('should set the map loading status when dispatching mapLoadingAction', () => {
+    expect(reducer(initialState, mapLoadingAction(true)
+    )).toEqual({
+      ...initialState,
+      isLoading: true
     });
   });
 
@@ -50,7 +49,6 @@ describe('Map Reducer', () => {
 
   it('should set the shape state when dispatching mapUpdateShape', () => {
     const payloadAndResult = {
-      shapeMarkers: [1, 2],
       shapeDistanceTxt: 'foo',
       shapeAreaTxt: 'bar'
     };
@@ -92,7 +90,8 @@ describe('Map Reducer', () => {
     }))).toEqual({
       ...initialState,
       drawingMode: 'none',
-      geometry: [{}, {}]
+      geometry: [{}, {}],
+      isLoading: false
     });
   });
 
@@ -102,42 +101,44 @@ describe('Map Reducer', () => {
     });
   });
 
-  it('should set the viewCenter and zoom state', () => {
-    const expectedResult = {
-      zoom: 1,
-      viewCenter: [
-        123, 321
-      ]
-    };
-    expect(reducer({}, updateZoom({
-      zoom: 1,
-      center: {
-        lat: 123,
-        lng: 321
+  it('should update zoom when dispatching updateZoom', () => {
+    expect(reducer(initialState, updateZoom({
+      zoom: 12
+    }))).toEqual({
+      ...initialState,
+      zoom: {
+        zoom: 12
       }
-    }, true))).toEqual(expectedResult);
-
-    expect(reducer({}, updateZoom({
-      zoom: 1,
-      center: {
-        lat: 123,
-        lng: 321
-      }
-    }, true))).toEqual(expectedResult);
+    });
   });
 
-  it('should set the viewCenter when dispatching updatePan', () => {
-    const expectedResult = {
-      viewCenter: [
-        123, 321
-      ]
-    };
-    expect(reducer({}, updatePan({
-      center: {
-        lat: 123,
-        lng: 321
+  it('should update panorama when dispatching updatePan', () => {
+    expect(reducer(initialState, updatePan({
+      lat: 51.3731081,
+      lng: 5.8932945
+    }))).toEqual({
+      ...initialState,
+      viewCenter: [51.3731081, 5.8932945]
+    });
+  });
+
+  it('should toggle mapPanel when dispatching toggleMapPanel', () => {
+    expect(reducer(initialState, toggleMapPanel()
+    )).toEqual({
+      ...initialState,
+      mapPanelActive: !initialState.mapPanelActive
+    });
+  });
+
+  it('should set a marker when location is selected', () => {
+    expect(reducer(initialState, setSelectedLocation({
+      latlng: {
+        lat: 51.3731081,
+        lng: 5.8932945
       }
-    }, true))).toEqual(expectedResult);
+    }))).toEqual({
+      ...initialState
+    });
   });
 
   it('should set the boundingBox state when dispatching updateBoundingBox', () => {
@@ -150,151 +151,87 @@ describe('Map Reducer', () => {
     expect(reducer({}, updateBoundingBox(expectedResult, false))).toEqual(expectedResult);
   });
 
-  it('should set the overlays except the overlay matching the id from payload', () => {
+  it('should remove toggled overlays from the active ones', () => {
     const state = {
       overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 3
-        },
-        {
-          id: 4
-        }
+        { id: '1' },
+        { id: '2' },
+        { id: '3' }
       ]
     };
 
-    expect(reducer(state, toggleMapOverlay(3))).toEqual({
-      overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 4
-        }
+    const newOverlay = {
+      legendItems: [
+        { id: '3' }
       ]
-    });
-
-    expect(reducer(state, toggleMapOverlay(10))).toEqual({
+    };
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
       overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 3
-        },
-        {
-          id: 4
-        },
-        {
-          id: 10,
-          isVisible: true
-        }
+        { id: '1' },
+        { id: '2' }
       ]
     });
   });
 
-  it('should toggle the overlay visibility', () => {
+  it('should add toggled overlays from to active ones', () => {
     const state = {
       overlays: [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        },
-        {
-          id: 3
-        },
-        {
-          id: 4
-        }
+        { id: '2' },
+        { id: '3' }
       ]
     };
-    expect(reducer(state, toggleMapOverlayVisibility(1, true))).toEqual({
+
+    const newOverlay = {
+      legendItems: [
+        { id: '4' }
+      ]
+    };
+    expect(reducer(state, toggleMapOverlay(newOverlay))).toEqual({
       overlays: [
-        {
-          id: 1,
-          isVisible: true
-        },
-        {
-          id: 2,
-          isVisible: undefined
-        },
-        {
-          id: 3,
-          isVisible: undefined
-        },
-        {
-          id: 4,
-          isVisible: undefined
-        }
+        { id: '2' },
+        { id: '3' },
+        { id: '4', isVisible: true }
       ]
     });
   });
 
-  it(`should add a pano overlay when dispatching ${MAP_ADD_PANO_OVERLAY}`, () => {
+  it(`should add a pano overlay when dispatching ${TOGGLE_MAP_OVERLAY_PANORAMA}`, () => {
     expect(reducer({ overlays: [] }, {
-      type: MAP_ADD_PANO_OVERLAY,
-      payload: {
-        id: 'panob',
-        history: {
-          year: 0,
-          layerName: 'pano'
-        }
-      }
+      type: TOGGLE_MAP_OVERLAY_PANORAMA,
+      payload: 'pano'
     })).toEqual({
       overlays: [{ id: 'pano', isVisible: true }]
     });
 
-    expect(reducer({ overlays: [{ id: 'panoaaa' }] }, {
-      type: MAP_ADD_PANO_OVERLAY,
-      payload: {}
-    })).toEqual({
-      overlays: [{ id: 'pano', isVisible: true }]
-    });
-
-    expect(reducer({ map: { overlays: [{ id: 'pano' }] } }, {
-      type: MAP_ADD_PANO_OVERLAY,
-      payload: {
-        id: 'panoaaa'
-      }
-    })).toEqual({ map: { overlays: [{ id: 'pano' }] } });
+    // expect(reducer({ overlays: [{ id: 'pano' }] }, {
+    //   type: TOGGLE_MAP_OVERLAY_PANORAMA,
+    //   payload: 'pano'
+    // })).toEqual({
+    //   overlays: []
+    // });
   });
 
-  it(`should remove a pano overlay when dispatching ${MAP_REMOVE_PANO_OVERLAY}`, () => {
-    expect(reducer({ overlays: [{ id: 'panob' }] }, {
-      type: MAP_REMOVE_PANO_OVERLAY,
-      payload: {
-        id: 'panoa'
-      }
-    })).toEqual({
-      overlays: []
+  it('should toggle the overlay visibility with and without show action', () => {
+    const state = {
+      overlays: [
+        { id: '1' },
+        { id: '2' },
+        { id: '3' }
+      ]
+    };
+    expect(reducer(state, toggleMapOverlayVisibility('1', true))).toEqual({
+      overlays: [
+        { id: '1', isVisible: false },
+        { id: '2', isVisible: undefined },
+        { id: '3', isVisible: undefined }
+      ]
     });
-
-    expect(reducer({ overlays: [{ id: 'notpano' }] }, {
-      type: MAP_REMOVE_PANO_OVERLAY,
-      payload: {
-        id: 'panoa'
-      }
-    })).toEqual({
-      overlays: [{ id: 'notpano' }]
-    });
-  });
-
-  it('should set the loading flag when dispatching the mapLoadingAction', () => {
-    expect(reducer({ }, mapLoadingAction(true))).toEqual({
-      loading: true
+    expect(reducer(state, toggleMapOverlayVisibility('2'))).toEqual({
+      overlays: [
+        { id: '1', isVisible: undefined },
+        { id: '2', isVisible: true },
+        { id: '3', isVisible: undefined }
+      ]
     });
   });
 });

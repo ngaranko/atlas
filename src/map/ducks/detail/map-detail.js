@@ -1,9 +1,16 @@
 import { createSelector } from 'reselect';
+import {
+  getDetailDisplay,
+  getDetailEndpoint,
+  getDetailGeometry
+} from '../../../shared/ducks/detail/selectors';
+import { isDataDetailPage, isPanoPage } from '../../../store/redux-first-router/selectors';
+import {
+  FETCH_MAP_DETAIL_FAILURE,
+  FETCH_MAP_DETAIL_REQUEST,
+  FETCH_MAP_DETAIL_SUCCESS
+} from './constants';
 
-import { isSearchActive } from '../search-results/map-search-results';
-import { getDataSelection } from '../data-selection/data-selection';
-
-const detailSelector = (state) => state.detail;
 const mapDetailSelector = (state) => state.mapDetail;
 
 export const getCurrentEndpoint = createSelector(mapDetailSelector,
@@ -19,37 +26,33 @@ export const selectLatestMapDetail = createSelector([getCurrentEndpoint, getAllR
 
 export const getMapDetailGeometry = createSelector(selectLatestMapDetail,
   (activeMapDetail) => (
-     activeMapDetail && activeMapDetail.geometrie
+    activeMapDetail && activeMapDetail.geometrie
   ));
 
-export const getDetailId = createSelector(detailSelector, getCurrentEndpoint,
-  (detail, currentEndpoint) => (detail && detail.endpoint) || currentEndpoint);
+export const getDetailId = createSelector(getDetailEndpoint, getCurrentEndpoint,
+  (detailEndpoint, currentEndpoint) => detailEndpoint || currentEndpoint);
 
-export const getGeometry = createSelector([detailSelector, getMapDetailGeometry],
-  (detail, mapDetailGeometry) => (
-    detail && detail.geometry ? detail.geometry : mapDetailGeometry
-  ));
+export const getGeometry = createSelector(
+  getDetailGeometry,
+  (detailGeometry) => detailGeometry
+);
 
-export const shouldShowGeoJson = createSelector([detailSelector, isSearchActive, getDataSelection],
-  (detailActive, searchActive, dataSelectionActive) => (
-    Boolean(detailActive && !searchActive && !dataSelectionActive)
-  ));
+export const shouldShowGeoJson = () => isDataDetailPage || isPanoPage;
 
 export const getGeoJson = createSelector(
-  [shouldShowGeoJson, getGeometry, detailSelector, getDetailId],
-  (isGeoJsonActive, geometry, detail, detailId) => (
+  shouldShowGeoJson,
+  getGeometry,
+  getDetailDisplay,
+  getDetailId,
+  (isGeoJsonActive, geometry, detailDisplay, detailId) => (
     (isGeoJsonActive && geometry) ? {
       id: detailId,
       geoJson: {
-        geometry,
-        label: detail && detail.display ? detail.display : ''
+        geometry: geometry || '',
+        label: detailDisplay || ''
       }
     } : {}
   ));
-
-export const FETCH_MAP_DETAIL_REQUEST = 'FETCH_MAP_DETAIL_REQUEST';
-export const FETCH_MAP_DETAIL_SUCCESS = 'FETCH_MAP_DETAIL_SUCCESS';
-export const FETCH_MAP_DETAIL_FAILURE = 'FETCH_MAP_DETAIL_FAILURE';
 
 const initialState = {
   byEndpoint: {},
@@ -63,7 +66,7 @@ export default function MapDetailReducer(state = initialState, action) {
     case FETCH_MAP_DETAIL_REQUEST:
       return {
         ...state,
-        currentEndpoint: action.endpoint,
+        currentEndpoint: action.payload,
         isLoading: true
       };
 
@@ -89,10 +92,9 @@ export default function MapDetailReducer(state = initialState, action) {
   }
 }
 
-export const getMapDetail = (endpoint, user) => ({
+export const getMapDetail = (payload) => ({
   type: FETCH_MAP_DETAIL_REQUEST,
-  endpoint,
-  user
+  payload
 });
 export const fetchMapDetailFailure = (error) => ({ type: FETCH_MAP_DETAIL_FAILURE, error });
 export const fetchMapDetailSuccess = (endpoint, mapDetail) => ({

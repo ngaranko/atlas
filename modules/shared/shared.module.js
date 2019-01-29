@@ -2,5 +2,5 @@
     'use strict';
 
     angular
-        .module('dpShared', ['ngRaven']);
+        .module('dpShared', []);
 })();

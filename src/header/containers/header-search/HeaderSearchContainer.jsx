@@ -4,52 +4,64 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
+  getActiveSuggestions,
+  getAutoSuggestSuggestions,
+  getDisplayQuery,
+  getNumberOfSuggestions,
   getSuggestionsAction,
+  getTypedQuery,
   setActiveSuggestionAction
 } from '../../ducks/auto-suggest/auto-suggest';
-import { fetchDetail } from '../../../reducers/details';
-import {
-  fetchDataSelection,
-  fetchSearchResultsByQuery
-} from '../../ducks/search/search';
-import emptyFilters from '../../../shared/ducks/filters/filters';
 
 import AutoSuggest from '../../components/auto-suggest/AutoSuggest';
-import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config';
+import { emptyFilters } from '../../../shared/ducks/filters/filters';
+import {
+  extractIdEndpoint,
+  toDataSearchQuery,
+  toDatasetSearch,
+  toDatasetSuggestion,
+  toDataSuggestion
+} from '../../../store/redux-first-router/actions';
+import { isDatasetPage } from '../../../store/redux-first-router/selectors';
+import PARAMETERS from '../../../store/parameters';
+import { getViewMode, isMapPage, VIEW_MODE } from '../../../shared/ducks/ui/ui';
+
 
 const mapStateToProps = (state) => ({
-  activeSuggestion: state.autoSuggest.activeSuggestion,
-  displayQuery: state.autoSuggest.displayQuery,
-  isDatasetView: state.dataSelection && state.dataSelection.view === 'CATALOG',
-  isMapFullscreen: state.ui ? state.ui.isMapFullscreen : false,
-  numberOfSuggestions: state.autoSuggest.count,
+  activeSuggestion: getActiveSuggestions(state),
+  displayQuery: getDisplayQuery(state),
+  isDatasetView: isDatasetPage(state),
+  view: getViewMode(state),
+  isMapActive: isMapPage(state),
+  numberOfSuggestions: getNumberOfSuggestions(state),
   pageName: state.page ? state.page.name : '',
   prefillQuery: state.search ? state.search.query : state.dataSelection ? state.dataSelection.query : '',
-  suggestions: state.autoSuggest.suggestions,
-  typedQuery: state.autoSuggest.typedQuery
+  suggestions: getAutoSuggestSuggestions(state),
+  typedQuery: getTypedQuery(state)
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onCleanDatasetOverview: emptyFilters,
-  onDatasetSearch: fetchDataSelection,
-  onDetailLoad: fetchDetail,
-  onGetSuggestions: getSuggestionsAction,
-  onSearch: fetchSearchResultsByQuery,
-  onSuggestionActivate: setActiveSuggestionAction
-}, dispatch);
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators({
+    onCleanDatasetOverview: emptyFilters,
+    onGetSuggestions: getSuggestionsAction,
+    onSuggestionActivate: setActiveSuggestionAction
+  }, dispatch),
+  onDatasetSearch: (query) => dispatch(toDatasetSearch({
+    [PARAMETERS.QUERY]: query
+  }, false, true)),
+  onDataSearch: (query) => dispatch(toDataSearchQuery({
+    [PARAMETERS.QUERY]: query
+  }, false, true)),
+  openDataSuggestion: (suggestion, view) => dispatch(toDataSuggestion(suggestion, view)),
+  openDatasetSuggestion: (suggestion) => dispatch(toDatasetSuggestion(suggestion))
+});
 
 class HeaderSearchContainer extends React.Component {
   constructor(props) {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
-
-    if (window.opener && window.suggestionToLoadUri) {
-      // if user is sent here with a ctrl+click action
-      // open the detail page
-      this.openDetailOnLoad();
-    }
+    this.onUserInput = this.onUserInput.bind(this);
   }
 
   componentDidMount() {
@@ -62,14 +74,14 @@ class HeaderSearchContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     const {
-      isMapFullscreen,
+      isMapActive,
       onGetSuggestions,
       pageName,
       prefillQuery
     } = this.props;
 
     const doResetQuery =
-      prevProps.isMapFullscreen !== isMapFullscreen ||
+      prevProps.isMapActive !== isMapActive ||
       prevProps.pageName !== pageName;
 
     // on navigation, clear auto-suggest
@@ -81,19 +93,27 @@ class HeaderSearchContainer extends React.Component {
   // Opens suggestion on mouseclick or enter
   onSuggestionSelection(suggestion, shouldOpenInNewWindow) {
     const {
-      onDetailLoad,
-      typedQuery
+      openDataSuggestion,
+      openDatasetSuggestion,
+      typedQuery,
+      view
     } = this.props;
 
-    piwikTracker(['trackEvent', 'auto-suggest', suggestion.category, typedQuery]);
-
     if (shouldOpenInNewWindow) {
-      const newWindow = window.open(`${window.location.href}`, '_blank');
-      // setting uri to the window, as window.postMessage does not work for some reason
-      // (webpack overrides the data it seems)
-      newWindow.window.suggestionToLoadUri = suggestion.uri;
+      // const newWindow = window.open(`${window.location.href}`, '_blank');
+      // // setting uri to the window, as window.postMessage does not work for some reason
+      // // (webpack overrides the data it seems)
+      // newWindow.window.suggestionToLoadUri = suggestion.uri;
+    }
+
+    if (suggestion.uri.match(/^dcatd\//)) {
+      // Suggestion of type dataset, formerly known as "catalog"
+      const id = extractIdEndpoint(suggestion.uri);
+      openDatasetSuggestion({ id, typedQuery });
     } else {
-      onDetailLoad(`${SHARED_CONFIG.API_ROOT}${suggestion.uri}`);
+      openDataSuggestion({
+        endpoint: suggestion.uri, category: suggestion.category, typedQuery
+      }, (view === VIEW_MODE.FULL) ? VIEW_MODE.SPLIT : view);
     }
   }
 
@@ -101,32 +121,29 @@ class HeaderSearchContainer extends React.Component {
     const {
       activeSuggestion,
       isDatasetView,
-      numberOfSuggestions,
+      typedQuery,
       onCleanDatasetOverview,
       onDatasetSearch,
-      onSearch,
-      typedQuery
+      onDataSearch
     } = this.props;
-
-    piwikTracker(['trackSiteSearch', typedQuery, isDatasetView ? 'datasets' : 'data', numberOfSuggestions]);
 
     if (activeSuggestion.index === -1) {
       // Load the search results
-      onCleanDatasetOverview();
+      onCleanDatasetOverview(); // TODO, refactor: don't clean dataset on search
       if (isDatasetView) {
         onDatasetSearch(typedQuery);
       } else {
-        onSearch(typedQuery);
+        onDataSearch(typedQuery);
       }
     }
   }
 
-  openDetailOnLoad() {
-    const { onDetailLoad } = this.props;
-    // if user is sent here with a ctrl+click action open the detail page
-    const suggestionUri = window.suggestionToLoadUri;
-    onDetailLoad(`${SHARED_CONFIG.API_ROOT}${suggestionUri}`);
-    window.suggestionToLoadUri = undefined;
+  onUserInput(query) {
+    const {
+      onGetSuggestions
+    } = this.props;
+
+    onGetSuggestions(query);
   }
 
   render() {
@@ -183,14 +200,16 @@ HeaderSearchContainer.propTypes = {
     uri: PropTypes.string
   }),
   displayQuery: PropTypes.string,
+  view: PropTypes.string.isRequired,
   isDatasetView: PropTypes.bool,
-  isMapFullscreen: PropTypes.bool.isRequired,
+  isMapActive: PropTypes.bool.isRequired,
   numberOfSuggestions: PropTypes.number,
   onCleanDatasetOverview: PropTypes.func.isRequired,
   onDatasetSearch: PropTypes.func.isRequired,
-  onDetailLoad: PropTypes.func.isRequired,
+  onDataSearch: PropTypes.func.isRequired,
+  openDataSuggestion: PropTypes.func.isRequired,
+  openDatasetSuggestion: PropTypes.func.isRequired,
   onGetSuggestions: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
   onSuggestionActivate: PropTypes.func.isRequired,
   pageName: PropTypes.string,
   prefillQuery: PropTypes.string,

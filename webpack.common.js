@@ -20,6 +20,7 @@ function commonConfig ({ nodeEnv }) {
     },
     output: {
       filename: '[name].bundle.js',
+      publicPath: '/',
       path: dist
     },
     resolve: {
@@ -49,6 +50,9 @@ function commonConfig ({ nodeEnv }) {
             {
               loader: 'css-loader',
               options: {
+                // Todo: eventually turn on modules: true
+                // For now we explicitly tell classnames to be local
+                localIdentName: '[name]__[local]--[hash:base64:5]',
                 url: false // Disable URL parsing in css for now
               }
             },
@@ -68,6 +72,7 @@ function commonConfig ({ nodeEnv }) {
         {
           test: /\.html$/,
           include: [
+            src,
             legacy
           ],
           use: 'html-loader'
@@ -168,23 +173,23 @@ function commonConfig ({ nodeEnv }) {
             rel: 'stylesheet'
           },
           {
-            href: 'leaflet.css',
+            href: '/leaflet.css',
             rel: 'stylesheet'
           },
           {
-            href: 'leaflet.draw.css',
+            href: '/leaflet.draw.css',
             rel: 'stylesheet'
           },
           {
-            href: 'bbga.css',
+            href: '/bbga.css',
             rel: 'stylesheet'
           }
         ],
         scripts: [
-          'leaflet.js',
-          'NonTiledLayer.js',
-          'proj4.js',
-          'proj4leaflet.js'
+          '/leaflet.js',
+          '/NonTiledLayer.js',
+          '/proj4.js',
+          '/proj4leaflet.js'
         ]
       })
     ]

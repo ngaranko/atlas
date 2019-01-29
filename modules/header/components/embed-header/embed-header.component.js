@@ -6,25 +6,34 @@
         .component('dpEmbedHeader', {
             controller: DpEmbedHeader,
             templateUrl: 'modules/header/components/embed-header/embed-header.html',
+            bindings: {
+                closeAction: '<'
+            },
             controllerAs: 'vm'
         });
 
-    DpEmbedHeader.$inject = ['store', 'embed'];
+    DpEmbedHeader.$inject = ['$interval', '$scope'];
 
-    function DpEmbedHeader (store, embed) {
+    function DpEmbedHeader ($interval, $scope) {
         const vm = this;
 
-        store.subscribe(update);
-        update();
+        const iframe = window.document.getElementById('atlas-iframe-map');
 
-        function update () {
-            const ghostState = angular.copy(store.getState());
-
-            // create link and iframe without embed AND embed preview in href
-            ghostState.ui.isEmbedPreview = false;
-            ghostState.ui.isEmbed = true;
-            vm.link = embed.getLink(ghostState);
-            vm.html = embed.getHtml(ghostState);
+        function setUrlFromIframe () {
+            const { location: { href } } = iframe.contentWindow;
+            vm.link = href;
+            vm.html = `<iframe width="500" height="400" src="${href}" frameborder="0"></iframe>`;
         }
+
+        setUrlFromIframe();
+
+        // Todo: figure out a better way to embed a map
+        // (e.g. by only sharing locations / results instead of just any state of the map)
+        // Now we need to check the URL of the iFrame, as this can change
+        const iframeChecker = $interval(setUrlFromIframe, 500);
+
+        $scope.$on('$destroy', function () {
+            $interval.cancel(iframeChecker);
+        });
     }
 })();

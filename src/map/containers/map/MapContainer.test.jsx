@@ -1,14 +1,16 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-
 import MapContainer, { overrideLeafletGetBounds } from './MapContainer';
-
-import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
+import { isEmbedded, isEmbedPreview, isMapActive } from '../../../shared/ducks/ui/ui';
+import { previewDataAvailable } from '../../../shared/ducks/selection/selection';
+import { getDrawingMode } from '../../ducks/map/map-selectors';
 
 jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
-
-let initialState;
+jest.mock('../../../store/redux-first-router/selectors');
+jest.mock('../../../shared/ducks/selection/selection');
+jest.mock('../../../shared/ducks/ui/ui');
+jest.mock('../../ducks/map/map-selectors');
 
 describe('overrideLeafletGetBounds', () => {
   it('should overide the getBounds', () => {
@@ -51,48 +53,58 @@ describe('overrideLeafletGetBounds', () => {
 });
 
 describe('MapContainer', () => {
+  let initialState;
   beforeEach(() => {
-    initialState = {
-      ui: {
-        isMapFullscreen: false
-      },
-      map: {
-        drawingMode: 'none'
-      }
-    };
+    initialState = {};
+
+    isMapActive.mockReturnValue(true);
+    getDrawingMode.mockReturnValue('none');
+    isEmbedded.mockReturnValue(false);
+    isEmbedPreview.mockReturnValue(false);
+    previewDataAvailable.mockReturnValue(false);
   });
 
   it('should render', () => {
     const store = configureMockStore()({ ...initialState });
-    const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
+    const wrapper = shallow(
+      <MapContainer
+        isFullscreen={false}
+        toggleFullscreen={() => {
+        }}
+      />,
+      { context: { store } }
+    ).dive();
 
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should render with drawingmode: draw', () => {
-    const store = configureMockStore()({ ...initialState, map: { drawingMode: 'draw' } });
-    const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
+    getDrawingMode.mockImplementation(() => 'draw');
+    const store = configureMockStore()({ ...initialState });
+    const wrapper = shallow(
+      <MapContainer
+        isFullscreen={false}
+        toggleFullscreen={() => {
+        }}
+      />,
+      { context: { store } }
+    ).dive();
 
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should set the leaflet instance state', () => {
     const store = configureMockStore()({ ...initialState });
-    const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
+    const wrapper = shallow(
+      <MapContainer
+        isFullscreen={false}
+        toggleFullscreen={() => {
+        }}
+      />,
+      { context: { store } }
+    ).dive();
     wrapper.instance().setLeafletInstance({});
     expect(wrapper.instance().state.leafletInstance).toBeTruthy();
     expect(wrapper.instance().state.leafletInstance.getBounds).toBeDefined();
-  });
-
-  it('should hide the fullscreen and send piwik action', () => {
-    const store = configureMockStore()({ ...initialState, ui: { isMapFullscreen: true } });
-    const wrapper = shallow(<MapContainer />, { context: { store } }).dive();
-    wrapper.instance().onToggleFullscreen();
-    piwikTracker.mockImplementation(() => jest.fn());
-    expect(piwikTracker).toHaveBeenCalled();
-    // should not send another piwik event if map is maximized
-    wrapper.setProps({ isFullscreen: false });
-    wrapper.instance().onToggleFullscreen();
-    expect(piwikTracker).toHaveBeenCalledTimes(1);
   });
 });

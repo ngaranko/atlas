@@ -1,12 +1,9 @@
-import { ERROR_TYPES } from '../../../../src/shared/ducks/error-message';
+import { ERROR_TYPES } from '../../../../src/shared/ducks/error/error-message';
 
 describe('The window error handler', function () {
     const httpStatus = {
         logResponse: angular.noop,
         registerError: angular.noop
-    };
-    const Raven = {
-        captureException: angular.noop
     };
 
     let $rootScope,
@@ -24,8 +21,7 @@ describe('The window error handler', function () {
         };
 
         angular.mock.module('dpShared', {
-            httpStatus,
-            Raven
+            httpStatus
         });
 
         angular.mock.module(function ($provide) {
@@ -43,7 +39,6 @@ describe('The window error handler', function () {
 
         spyOn(httpStatus, 'registerError');
         spyOn(httpStatus, 'logResponse');
-        spyOn(Raven, 'captureException');
     });
 
     it('registers target-less window errors', () => {
@@ -67,10 +62,6 @@ describe('The window error handler', function () {
 
         expect(httpStatus.registerError).not.toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR);
         expect(httpStatus.logResponse).not.toHaveBeenCalled();
-        expect(Raven.captureException).toHaveBeenCalledWith(
-            error,
-            { extra: { message } }
-        );
     });
 
     it('registers url load errors by listening to window error events', function () {
@@ -97,6 +88,5 @@ describe('The window error handler', function () {
 
         expect(httpStatus.registerError).not.toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR);
         expect(httpStatus.logResponse).not.toHaveBeenCalled();
-        expect(Raven.captureException).not.toHaveBeenCalled();
     });
 });

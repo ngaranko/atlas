@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PreviewVideo should render 1`] = `
+<div
+  className="c-video"
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
+>
+  <Video
+    play={false}
+    position={0}
+    poster="/poster.jpg"
+    src="/video.mp4"
+    type="video/mp4"
+  />
+</div>
+`;

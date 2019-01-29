@@ -19,10 +19,10 @@ describe('MapLegend', () => {
       authenticated: true,
       scopes: ['authscope1']
     },
+    isEmbedOrPrint: false,
     activeMapLayers: [
       {
         title: 'title',
-        id: 1,
         maxZoom: 3,
         minZoom: 1,
         authScope: 'authscope1',
@@ -40,7 +40,7 @@ describe('MapLegend', () => {
       },
       {
         title: 'title',
-        id: 2,
+        id: 1,
         maxZoom: 3,
         minZoom: 1,
         authScope: false,
@@ -83,10 +83,10 @@ describe('MapLegend', () => {
       />
     );
     component.find('button').at(0).simulate('click');
-    expect(onLayerToggleMock).toHaveBeenCalledWith(1);
+    expect(onLayerToggleMock).toHaveBeenCalledWith(props.activeMapLayers[0]);
 
     component.find('button').at(1).simulate('click');
-    expect(onLayerToggleMock).toHaveBeenCalledWith(2);
+    expect(onLayerToggleMock).toHaveBeenCalledWith(props.activeMapLayers[1]);
   });
 
   it('should handle the checkbox click', () => {
@@ -115,8 +115,14 @@ describe('MapLegend', () => {
         onLayerVisibilityToggle={onLayerVisibilityToggleMock}
       />
     );
-    component.instance().toggleLayerVisibility(props.activeMapLayers[1]);
+
+    // With legendaItems
+    component.instance().toggleLayerVisibility(props.activeMapLayers[0]);
     expect(onLayerVisibilityToggleMock).toHaveBeenCalled();
+
+    // Without legendaItems
+    component.instance().toggleLayerVisibility(props.activeMapLayers[1]);
+    expect(onLayerVisibilityToggleMock).toHaveBeenCalledTimes(2);
   });
 })
 ;

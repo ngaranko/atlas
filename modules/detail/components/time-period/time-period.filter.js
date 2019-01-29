@@ -1,4 +1,5 @@
 import formatDate from '../../../../src/shared/services/date-formatter/date-formatter';
+import isObject from '../../../../src/shared/services/is-object';
 
 (function () {
     'use strict';
@@ -9,7 +10,7 @@ import formatDate from '../../../../src/shared/services/date-formatter/date-form
 
     function timePeriodFilter () {
         return function (input) {
-            if (angular.isObject(input)) {
+            if (isObject(input)) {
                 const startDate = input['time:hasBeginning'] && new Date(input['time:hasBeginning']);
                 const endDate = input['time:hasEnd'] && new Date(input['time:hasEnd']);
                 const result = startDate ? `${formatDate(startDate)} ` : '';

@@ -1,55 +1,55 @@
-import { put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { getLayers } from '../../ducks/panel-layers/map-panel-layers';
+import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
+import { getMapZoom } from '../../ducks/map/map-selectors';
+import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
+import { setPanoramaLocation } from '../../../panorama/ducks/actions';
+import { normalizeLocation } from '../../../shared/services/coordinate-reference-system';
+import { toGeoSearch } from '../../../store/redux-first-router/actions';
+import PARAMETERS from '../../../store/parameters';
+import { requestNearestDetails } from '../../../shared/ducks/data-search/actions';
+import { getViewMode, VIEW_MODE } from '../../../shared/ducks/ui/ui';
 
-import { getMapPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
-import { getStraatbeeld } from '../../ducks/straatbeeld/straatbeeld';
-import { getMapZoom } from '../../ducks/map/map';
+const latitudeLongitudeToArray = (location) => [location.latitude, location.longitude];
 
-import ACTIONS from '../../../shared/actions';
+export function* goToGeoSearch(location) {
+  const viewMode = yield select(getViewMode);
+  const view = viewMode === VIEW_MODE.SPLIT ?
+    VIEW_MODE.SPLIT :
+    VIEW_MODE.MAP;
+  yield put(toGeoSearch({
+    [PARAMETERS.LOCATION]: location,
+    [PARAMETERS.VIEW]: view
+  }));
+}
 
-export const getActiveMapLayers = (state) => (
-  state.map.overlays
-    .filter((overlay) => overlay.isVisible)
-    .map((overlay) => (
-      state.mapLayers.layers.items.find((layer) => layer.id === overlay.id) || {}
-    ))
-    .filter((layer) => (
-      layer.detailUrl && !layer.noDetail &&
-      (!layer.authScope || state.user.scopes.includes(layer.authScope))
-    ))
-);
-
-export function* switchClickAction(payload) {
-  const straatbeeld = yield select(getStraatbeeld);
-  const zoom = yield select(getMapZoom);
-  const panelLayers = yield select(getMapPanelLayers);
-  const activeMapLayers = yield select(getActiveMapLayers);
-
-  const layers = activeMapLayers.filter((layer) => {
-    const matchingPanelLayer = panelLayers.find((panelLayer) => (
-      panelLayer.id === layer.id ||
-      panelLayer.legendItems.some((legendItem) => legendItem.id === layer.id)
-    ));
-    return matchingPanelLayer &&
-      zoom <= matchingPanelLayer.maxZoom &&
-      zoom >= matchingPanelLayer.minZoom;
-  });
-  if (!straatbeeld && layers.length) {
-    yield put({
-      type: 'REQUEST_NEAREST_DETAILS',
-      payload: {
-        location: payload.location,
-        layers,
-        zoom
-      }
-    });
+/* istanbul ignore next */ // TODO: refactor, test
+export function* switchClickAction(action) {
+  const selectionType = yield select(getSelectionType);
+  const location = normalizeLocation(action.payload.location, 7);
+  if (selectionType === SELECTION_TYPE.PANORAMA) {
+    const locationArray = latitudeLongitudeToArray(location);
+    yield put(setPanoramaLocation(locationArray));
   } else {
-    yield put({
-      type: 'REQUEST_GEOSEARCH',
-      payload: [payload.location.latitude, payload.location.longitude]
-    });
+    const zoom = yield select(getMapZoom);
+    const layers = yield select(getLayers);
+    const view = yield select(getViewMode);
+
+    if (layers.length) {
+      yield put(
+        requestNearestDetails({
+          location,
+          layers,
+          zoom,
+          view: (view !== VIEW_MODE.MAP) ? VIEW_MODE.SPLIT : VIEW_MODE.MAP
+        })
+      );
+    } else {
+      yield call(goToGeoSearch, location);
+    }
   }
 }
 
 export default function* watchMapClick() {
-  yield takeLatest(ACTIONS.SET_MAP_CLICK_LOCATION.id, switchClickAction);
+  yield takeLatest(SET_MAP_CLICK_LOCATION, switchClickAction);
 }

@@ -17,7 +17,7 @@
             <dp-parent-relations content="vm.apiData.results"></dp-parent-relations>
         </div>
         <div class="u-col-sm--6">
-            <dp-straatbeeld-thumbnail location="vm.location"></dp-straatbeeld-thumbnail>
+            <dp-panorama-thumbnail panorama="vm.previewPanorama" is-loading="vm.isPreviewPanoramaLoading"></dp-panorama-thumbnail>
         </div>
     </div>
 
@@ -25,10 +25,13 @@
     <dp-partial-select partial="bag/ligplaats" api-data="vm.apiData" user="vm.user"></dp-partial-select>
 
     <!-- monumenten -->
-    <dp-api-call
-        endpoint="monumenten/situeringen/?betreft_nummeraanduiding={{vm.apiData.results.ligplaatsidentificatie}}"
-        add-api-root="true"
-        partial="monumenten/situering"
-        user="vm.user">
-    </dp-api-call>
+    <div ng-if="vm.apiData.results.ligplaatsidentificatie">
+        <dp-api-call
+            ng-if="vm.apiData.results.ligplaatsidentificatie"
+            endpoint="monumenten/situeringen/?betreft_nummeraanduiding={{vm.apiData.results.ligplaatsidentificatie}}"
+            add-api-root="true"
+            partial="monumenten/situering"
+            user="vm.user">
+        </dp-api-call>
+    </div>
 </div>

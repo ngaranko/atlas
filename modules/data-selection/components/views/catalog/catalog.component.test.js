@@ -1,4 +1,5 @@
-import mockedContentJson from './catalog.component.test.content';
+import mockedContentJson from './catalog.component.test.content.json';
+import { routing } from '../../../../../src/app/routes';
 
 describe('The catalog component', function () {
     'use strict';
@@ -6,12 +7,7 @@ describe('The catalog component', function () {
     let $rootScope,
         $compile,
         $window,
-        store,
         origSessionStorage;
-
-    const mockedStore = {
-        getState: angular.noop
-    };
 
     const mockedContent =
         mockedContentJson['dcat:dataset'].map(item => {
@@ -21,25 +17,26 @@ describe('The catalog component', function () {
                     self: 'endpoint'
                 }
             };
-        })
-        ;
+        });
+    const mockedCatalogFilters = {
+        formatTypes: [{}],
+        serviceTypes: [{}],
+        distributionTypes: [{}]
+    };
 
     const mockedOptionLabelFilter = () => 'label';
 
     beforeEach(function () {
-        angular.mock.module('dpDataSelection', {
-            store: mockedStore
-        },
+        angular.mock.module('dpDataSelection', {},
             function ($provide) {
                 $provide.value('optionLabelFilter', mockedOptionLabelFilter);
             }
         );
 
-        angular.mock.inject(function (_$rootScope_, _$compile_, _$window_, _store_) {
+        angular.mock.inject(function (_$rootScope_, _$compile_, _$window_) {
             $rootScope = _$rootScope_;
             $compile = _$compile_;
             $window = _$window_;
-            store = _store_;
         });
 
         origSessionStorage = $window.sessionStorage;
@@ -54,11 +51,13 @@ describe('The catalog component', function () {
         $window.sessionStorage = origSessionStorage;
     });
 
-    function getComponent (filterFormatter) {
+    function getComponent (catalogFilters = {}) {
         const element = document.createElement('dp-data-selection-catalog');
+        element.setAttribute('catalog-filters', 'catalogFilters');
         element.setAttribute('content', 'content');
 
         const scope = $rootScope.$new();
+        scope.catalogFilters = catalogFilters;
         scope.content = mockedContent;
 
         const component = $compile(element)(scope);
@@ -67,20 +66,30 @@ describe('The catalog component', function () {
         return component;
     }
 
-    it('can load a detail page for a catalog', function () {
-        spyOn(store, 'getState').and.returnValue({
-            catalogFilters: {
-                formatTypes: [{}],
-                serviceTypes: [{}],
-                distributionTypes: [{}]
-            }
-        });
-
+    it('should render without catalog filters', () => {
         const component = getComponent();
+        const scope = component.isolateScope();
 
-        component.find('.qa-catalog-fetch-detail')[0].click();
+        expect(scope.vm.items).toBeFalsy();
+    });
+
+    it('sets the redirect url', () => {
+        getComponent(mockedCatalogFilters);
 
         expect($window.sessionStorage.setItem)
             .toHaveBeenCalledWith('DCATD_LIST_REDIRECT_URL', jasmine.any(String));
+    });
+
+    it('can load a detail page for a catalog', function () {
+        const component = getComponent(mockedCatalogFilters);
+        const scope = component.isolateScope();
+        const link = component.find('.qa-catalog-fetch-detail')[0];
+
+        const id = mockedContentJson['dcat:dataset'][0]['dct:identifier'];
+        expect(link).toHaveAttr('to', 'row.linkTo');
+        expect(scope.vm.items[0].linkTo).toEqual({
+            type: routing.datasetsDetail.type,
+            payload: { id }
+        });
     });
 });

@@ -5,21 +5,25 @@ import { bindActionCreators } from 'redux';
 
 import MapLeaflet from '../../components/leaflet/MapLeaflet';
 import MAP_CONFIG from '../../services/map-config';
-import {
-  getCenter,
-  getClusterMarkers,
-  getGeoJsons,
-  getMarkers,
-  getRdGeoJsons,
-  updateBoundingBox,
-  updatePan,
-  updateZoom
-} from '../../ducks/map/map';
-import { updateClick } from '../../ducks/click-location/map-click-location';
+import { setSelectedLocation, updateBoundingBox, updatePan, updateZoom } from '../../ducks/map/map';
 import { fetchMapBaseLayers, getUrlTemplate } from '../../ducks/base-layers/map-base-layers';
 import { fetchMapLayers, getLayers } from '../../ducks/layers/map-layers';
 import { fetchPanelLayers } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
+import {
+  getCenter,
+  getDrawingMode,
+  getMapZoom,
+  getMarkers,
+  getRdGeoJsons,
+  isMapLoading
+} from '../../ducks/map/map-selectors';
+import {
+  getBrkMarkers,
+  getClusterMarkers,
+  getGeoJsons
+} from '../../../shared/ducks/data-selection/selectors';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 const baseLayerOptions = MAP_CONFIG.BASE_LAYER_OPTIONS;
 const mapOptions = MAP_CONFIG.MAP_OPTIONS;
@@ -36,16 +40,17 @@ const mapStateToProps = (state) => ({
   geoJsons: getGeoJsons(state),
   rdGeoJsons: getRdGeoJsons(state),
   markers: getMarkers(state),
+  brkMarkers: getBrkMarkers(state),
   layers: getLayers(state),
-  drawingMode: state.map.drawingMode,
-  zoom: state.map.zoom,
-  loading: state.map.loading ? state.map.loading : false
+  drawingMode: getDrawingMode(state),
+  zoom: getMapZoom(state),
+  isLoading: isMapLoading(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onUpdateZoom: updateZoom,
   onUpdatePan: updatePan,
-  onUpdateClick: updateClick,
+  onUpdateClick: setSelectedLocation,
   onUpdateBoundingBox: updateBoundingBox,
 
   onFetchMapBaseLayers: fetchMapBaseLayers,
@@ -58,7 +63,7 @@ class LeafletContainer extends React.Component {
     super(props);
     this.state = {
       uiState: '',
-      drawingMode: 'none'
+      drawingMode: drawToolConfig.DRAWING_MODE.NONE
     };
     this.setMapLeaflet = (element) => {
       this.MapLeaflet = element;
@@ -80,28 +85,17 @@ class LeafletContainer extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { drawingMode } = nextProps;
-    if (this.state.drawingMode !== drawingMode) {
-      // fixes race condition in firefox
-      // with ending a shape with the DrawTool and clicking in the mapLeaflet
-      setTimeout(() => {
-        this.setState({ drawingMode });
-      }, 300);
-    }
-  }
-
   handleZoom(event) {
     const { drawingMode, onUpdateZoom, onUpdateBoundingBox } = this.props;
     const drawingActive = isDrawingActive(drawingMode);
-    onUpdateZoom(event, drawingActive);
+    onUpdateZoom(event.zoom, drawingActive);
     onUpdateBoundingBox(event, drawingActive);
   }
 
   handlePan(event) {
     const { drawingMode, onUpdateBoundingBox, onUpdatePan } = this.props;
     const drawingActive = isDrawingActive(drawingMode);
-    onUpdatePan(event, drawingActive);
+    onUpdatePan(event.center, drawingActive);
     onUpdateBoundingBox(event, drawingActive);
   }
 
@@ -111,7 +105,9 @@ class LeafletContainer extends React.Component {
   }
 
   handleClick(event) {
-    if (!isDrawingActive(this.state.drawingMode)) {
+    const { drawingMode, isLoading } = this.props;
+
+    if (!isDrawingActive(drawingMode) && !isLoading) {
       this.props.onUpdateClick(event);
     }
   }
@@ -127,28 +123,35 @@ class LeafletContainer extends React.Component {
       layers,
       markers,
       zoom,
-      loading
+      brkMarkers,
+      isLoading
     } = this.props;
+
+    const showMarker = markers.length > 0;
+
     return baseLayer.urlTemplate && (
       <MapLeaflet
-        getLeafletInstance={getLeafletInstance}
-        baseLayer={baseLayer}
-        center={center}
-        clusterMarkers={clusterMarkers}
-        geoJsons={geoJsons}
-        rdGeoJsons={rdGeoJsons}
-        layers={layers}
-        mapOptions={mapOptions}
-        markers={markers}
+        {...{
+          getLeafletInstance,
+          baseLayer,
+          center,
+          brkMarkers,
+          clusterMarkers,
+          geoJsons,
+          rdGeoJsons,
+          layers,
+          mapOptions,
+          scaleControlOptions,
+          zoomControlOptions,
+          zoom,
+          isLoading
+        }}
+        markers={(showMarker) ? markers : []}
         onClick={this.handleClick}
         onDragEnd={this.handlePan}
         onZoomEnd={this.handleZoom}
         onResizeEnd={this.handleResize}
         ref={this.setMapLeaflet}
-        scaleControlOptions={scaleControlOptions}
-        zoomControlOptions={zoomControlOptions}
-        zoom={zoom}
-        loading={loading}
       />
     );
   }
@@ -182,6 +185,7 @@ LeafletContainer.propTypes = {
   rdGeoJsons: PropTypes.arrayOf(PropTypes.shape({})),
   getLeafletInstance: PropTypes.func.isRequired,
   markers: PropTypes.arrayOf(PropTypes.shape({})),
+  brkMarkers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,
@@ -190,14 +194,11 @@ LeafletContainer.propTypes = {
     url: PropTypes.string.isRequired
   })),
   zoom: PropTypes.number.isRequired,
-  loading: PropTypes.bool.isRequired,
-
+  isLoading: PropTypes.bool.isRequired,
   onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
   onUpdateBoundingBox: PropTypes.func.isRequired,
-
-
   onFetchMapBaseLayers: PropTypes.func.isRequired,
   onFetchMapLayers: PropTypes.func.isRequired,
   onFetchPanelLayers: PropTypes.func.isRequired

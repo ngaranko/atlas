@@ -1,12 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapEmbedButton should render the link 1`] = `
-<a
+exports[`MapEmbedButton should render the component 1`] = `
+<button
   className="c-embed-button qa-embed-button"
-  href="foo/bar"
-  rel="noopener noreferrer"
-  target="_blank"
+  onClick={[Function]}
   title="Naar interactieve kaart (Amsterdam City Data)"
+  type="button"
 >
   <span
     className="c-embed-button__icon c-embed-button__icon--maximize"
@@ -16,5 +15,5 @@ exports[`MapEmbedButton should render the link 1`] = `
   >
     City Data
   </span>
-</a>
+</button>
 `;

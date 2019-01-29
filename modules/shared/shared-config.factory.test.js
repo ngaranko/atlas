@@ -25,7 +25,7 @@ describe('The sharedConfig factory', function () {
             // Global config
             expect(sharedConfig.RADIUS).toBe(50);
             expect(sharedConfig.THUMBNAIL_WIDTH).toBe(240);
-            expect(sharedConfig.STRAATBEELD_THUMB_URL).toBe('panorama/thumbnail/');
+            expect(sharedConfig.PANORAMA_THUMBNAIL_URL).toBe('panorama/thumbnail/');
 
             // Environment config
             expect(sharedConfig.API_ROOT).toBe('https://acc.api.data.amsterdam.nl/');
@@ -37,7 +37,7 @@ describe('The sharedConfig factory', function () {
             // Global config
             expect(sharedConfig.RADIUS).toBe(50);
             expect(sharedConfig.THUMBNAIL_WIDTH).toBe(240);
-            expect(sharedConfig.STRAATBEELD_THUMB_URL).toBe('panorama/thumbnail/');
+            expect(sharedConfig.PANORAMA_THUMBNAIL_URL).toBe('panorama/thumbnail/');
 
             // Environment config
             expect(sharedConfig.API_ROOT).toBe('https://acc.api.data.amsterdam.nl/');

@@ -9,14 +9,15 @@ exports[`HeaderSearchWrapper should render 1`] = `
   }
   displayQuery=""
   isDatasetView={false}
-  isMapFullscreen={false}
+  isMapActive={false}
   numberOfSuggestions={6}
   onCleanDatasetOverview={[Function]}
+  onDataSearch={[Function]}
   onDatasetSearch={[Function]}
-  onDetailLoad={[Function]}
   onGetSuggestions={[Function]}
-  onSearch={[Function]}
   onSuggestionActivate={[Function]}
+  openDataSuggestion={[Function]}
+  openDatasetSuggestion={[Function]}
   pageName=""
   prefillQuery=""
   suggestions={
@@ -70,5 +71,6 @@ exports[`HeaderSearchWrapper should render 1`] = `
     ]
   }
   typedQuery="dam"
+  view="split"
 />
 `;

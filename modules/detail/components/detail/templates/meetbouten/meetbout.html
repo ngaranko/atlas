@@ -14,9 +14,10 @@
             <dd>{{ vm.apiData.results.geometrie.coordinates | coordinates: 'RD' }}</dd>
             <dt>Bouwblok</dt>
             <dd>
-                <dp-link type="FETCH_DETAIL"
-                         payload="vm.apiData.results.bouwblok_link"
-                    >{{ vm.apiData.results.bouwblok }}</dp-link>
+                <dp-redux-link
+                    to="vm.apiData.results.bouwblok_link | detailEndpointAction"
+                    link-class="o-btn o-btn--link"
+                >{{ vm.apiData.results.bouwblok }}</dp-redux-link>
             </dd>
             <dt>Bouwblokzijde</dt>
             <dd>{{ vm.apiData.results.bouwblokzijde }}</dd>
@@ -24,9 +25,10 @@
             <dd>{{ vm.apiData.results.blokeenheid }}</dd>
             <dt>Stadsdeel</dt>
             <dd>
-                <dp-link type="FETCH_DETAIL"
-                         payload="vm.apiData.results.stadsdeel_link"
-                    >{{ vm.apiData.results.stadsdeel }}</dp-link>
+                <dp-redux-link
+                    to="vm.apiData.results.stadsdeel_link | detailEndpointAction"
+                    link-class="o-btn o-btn--link"
+                >{{ vm.apiData.results.stadsdeel }}</dp-redux-link>
             </dd>
             <dt>Indicatie beveiligd</dt>
             <dd>{{ vm.apiData.results.beveiligd | yesNo }}</dd>
@@ -35,7 +37,7 @@
 
     <div class="u-row">
         <div class="u-col-sm--6 u-padding__right--2">
-            <dp-straatbeeld-thumbnail location="vm.location"></dp-straatbeeld-thumbnail>
+            <dp-panorama-thumbnail panorama="vm.previewPanorama" is-loading="vm.isPreviewPanoramaLoading"></dp-panorama-thumbnail>
         </div>
     </div>
 
@@ -52,7 +54,7 @@
 
         <h3 ng-if="vm.apiData.results.metingen.count > 1">Zakking cumulatief (mm)</h3>
 
-        <dp-meetbout-graph
+        <dp-meetbout-graph ng-if="vm.apiData.results.metingen.href"
             page-size="vm.apiData.results.metingen.count"
             href="{{vm.apiData.results.metingen.href}}">
         </dp-meetbout-graph>

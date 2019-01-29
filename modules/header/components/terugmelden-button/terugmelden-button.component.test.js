@@ -1,19 +1,27 @@
+import { REPORT_PROBLEM_REQUEST } from '../../../../src/header/ducks/actions';
+
 describe('The dp-terugmelden-button component', function () {
     var $compile,
         $rootScope,
-        $location,
-        currentUrl = 'http://www.example.com/path/filename.html?foo=bar#baz';
+        store;
 
     beforeEach(function () {
-        angular.mock.module('dpHeader');
+        angular.mock.module(
+            'dpHeader',
+            {
+                store: {
+                    dispatch: function () {}
+                }
+            }
+        );
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$location_) {
+        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-            $location = _$location_;
+            store = _store_;
         });
 
-        spyOn($location, 'absUrl').and.returnValue(currentUrl);
+        spyOn(store, 'dispatch');
     });
 
     function getComponent (transcludeStr, className) {
@@ -42,13 +50,14 @@ describe('The dp-terugmelden-button component', function () {
         var component = getComponent();
 
         expect(component.find('a').attr('href'))
-            .toBe('mailto:terugmelding.basisinformatie@amsterdam.nl?subject=Terugmelding%20data.amsterdam.nl&body=Te' +
-                'rugmeldingen%20voor%20de%20pagina%3A%20http%3A%2F%2Fwww.example.com%2Fpath%2Ffilename.html%3Ffoo%3Db' +
-                'ar%23baz%0A%0ABeschrijf%20zo%20volledig%20mogelijk%20van%20welk%20onjuist%20gegeven%20je%20een%20mel' +
-                'ding%20wilt%20maken%3A%0A-%20Welk%20gegeven%20is%20kennelijk%20onjuist%20of%20ontbreekt%3F%0A-%20Wee' +
-                't%20je%20wat%20het%20wel%20zou%20moeten%20zijn%3F%0A-%20Waarop%20is%20jouw%20constatering%20gebaseer' +
-                'd%3F%20Omschrijf%20de%20reden%20en%20voeg%20indien%20mogelijk%20relevante%20documenten%20in%20de%20b' +
-                'ijlage%20toe%20(bijvoorbeeld%3A%20een%20bouwtekening%2C%20koopakte%2C%20et%20cetera).');
+            .toBe('mailto:terugmelding.basisinformatie@amsterdam.nl?subject=Terugmelding%20data.amsterdam.nl&body=' +
+            'Terugmeldingen%20voor%20de%20pagina%3A%20http%3A%2F%2Flocalhost%3A9876%2Fcontext.html%0A%0ABeschrijf%20' +
+            'zo%20volledig%20mogelijk%20van%20welk%20onjuist%20gegeven%20je%20een%20melding%20wilt%20maken%3A%0A-%20' +
+            'Welk%20gegeven%20is%20kennelijk%20onjuist%20of%20ontbreekt%3F%0A-%20Weet%20je%20wat%20het%20wel%20zou%20' +
+            'moeten%20zijn%3F%0A-%20Waarop%20is%20jouw%20constatering%20gebaseerd%3F%20Omschrijf%20de%20reden%20en%20' +
+            'voeg%20indien%20mogelijk%20relevante%20documenten%20in%20de%20bijlage%20toe%20(bijvoorbeeld%3A%20een%20' +
+            'bouwtekening%2C%20koopakte%2C%20et%20cetera).'
+        );
     });
 
     it('has transclude enabled', function () {
@@ -65,5 +74,11 @@ describe('The dp-terugmelden-button component', function () {
     it('has a default fallback class if no className is specified', function () {
         const component = getComponent();
         expect(component.find('.qa-link').attr('class')).toContain('o-btn o-btn--link');
+    });
+
+    it('dispatches an action for piwik on click', function () {
+        const component = getComponent();
+        component.find('.qa-link').click();
+        expect(store.dispatch).toHaveBeenCalledWith({ type: REPORT_PROBLEM_REQUEST, meta: { tracking: true } });
     });
 });

@@ -1,3 +1,7 @@
+import DATA_SELECTION_CONFIG
+    from '../../../../src/shared/services/data-selection/data-selection-config';
+import isDefined from '../../../../src/shared/services/is-defined';
+
 (function () {
     'use strict';
 
@@ -6,9 +10,9 @@
         .module('dpDataSelection')
         .factory('dpDataSelectionDocumentTitle', dpDataSelectionDocumentTitleFactory);
 
-    dpDataSelectionDocumentTitleFactory.$inject = ['DATA_SELECTION_CONFIG', 'lowercaseFilter'];
+    dpDataSelectionDocumentTitleFactory.$inject = ['lowercaseFilter'];
 
-    function dpDataSelectionDocumentTitleFactory (DATA_SELECTION_CONFIG, lowercaseFilter) {
+    function dpDataSelectionDocumentTitleFactory (lowercaseFilter) {
         return {
             getTitle: getTitle
         };
@@ -41,7 +45,7 @@
                 markers = dataSelectionState.geometryFilter.markers || [];
                 criteria = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].FILTERS
                     // Retrieve all the active filters
-                    .filter(availableFilter => angular.isDefined(filtersState[availableFilter.slug]))
+                    .filter(availableFilter => isDefined(filtersState[availableFilter.slug]))
                     // Show the value of each active filter
                     .map(activeFilter => {
                         if (filtersState[activeFilter.slug] === '') {

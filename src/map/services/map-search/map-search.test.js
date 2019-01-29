@@ -1,10 +1,12 @@
-
 import search, { fetchRelatedForUser } from './map-search';
 
 import * as address from '../../../shared/services/adressen/adressen-nummeraanduiding';
 // import * as monument from '../../../shared/services/monument/monument';
 import * as vestiging from '../../../shared/services/vestiging/vestiging';
 
+import { getByUrl } from '../../../shared/services/api/api';
+
+jest.mock('../../../shared/services/api/api');
 jest.mock('../../../shared/services/adressen/adressen-nummeraanduiding');
 jest.mock('../../../shared/services/monument/monument');
 jest.mock('../../../shared/services/vestiging/vestiging');
@@ -74,14 +76,13 @@ describe('mapSearch service', () => {
         dataset: 'bag'
       };
       address.fetchHoofdadresByStandplaatsId
-        .mockImplementation(() => Promise.resolve({ id: 2000 }));
+             .mockImplementation(() => Promise.resolve({ id: 2000 }));
       vestiging.fetchByAddressId
-        .mockImplementation(() => Promise.resolve([vestigingResult]));
+               .mockImplementation(() => Promise.resolve([vestigingResult]));
       const results = await fetchRelatedForUser(user)({ features });
       expect(results).toEqual([...features, {
         ...vestigingResult,
-        properties:
-        {
+        properties: {
           uri: vestigingResult._links.self.href,
           display: vestigingResult._display,
           type: 'vestiging',
@@ -109,14 +110,13 @@ describe('mapSearch service', () => {
         dataset: 'bag'
       };
       address.fetchHoofdadresByLigplaatsId
-        .mockImplementation(() => Promise.resolve({ id: 1000 }));
+             .mockImplementation(() => Promise.resolve({ id: 1000 }));
       vestiging.fetchByAddressId
-        .mockImplementation(() => Promise.resolve([vestigingResult]));
+               .mockImplementation(() => Promise.resolve([vestigingResult]));
       const results = await fetchRelatedForUser(user)({ features });
       expect(results).toEqual([...features, {
         ...vestigingResult,
-        properties:
-        {
+        properties: {
           uri: vestigingResult._links.self.href,
           display: vestigingResult._display,
           type: 'vestiging',
@@ -127,7 +127,7 @@ describe('mapSearch service', () => {
   });
 
   it('should return results from search ', async () => {
-    const mockResponse = {
+    getByUrl.mockReturnValue(Promise.resolve({
       features: [
         {
           properties: {
@@ -135,15 +135,7 @@ describe('mapSearch service', () => {
           }
         }
       ]
-    };
-
-    global.fetch = jest.fn().mockImplementation(() => (
-        new Promise((resolve) => {
-          resolve({
-            ok: true,
-            json: () => mockResponse
-          });
-        })));
+    }));
 
     const data = await search({ latitude: 1, longitude: 0 }, {
       authenticated: false,
@@ -152,7 +144,8 @@ describe('mapSearch service', () => {
       name: '',
       error: false
     });
-    expect(data).toEqual([{
+
+    expect(data.results).toEqual([{
       categoryLabel: 'Explosief',
       results: Array(7).fill({
         categoryLabel: 'Explosief',
@@ -168,29 +161,21 @@ describe('mapSearch service', () => {
   });
 
   it('should return results and ignore the ignore the failing calls (http 500 errors)', async () => {
-    const mockResponse = {
-      features: [
-        {
-          properties: {
-            type: 'bommenkaart/verdachtgebied' // not in map-search
-          }
-        }
-      ]
-    };
-
-    global.fetch = jest.fn().mockImplementation((url) => {
+    getByUrl.mockImplementation((url) => {
       if (url.indexOf('/nap/') > 0) {
-        return new Promise(() => {
-          throw new Error('nap api not available ');
-        });
+        return Promise.reject();
       }
       return (
-        new Promise((resolve) => {
-          resolve({
-            ok: true,
-            json: () => mockResponse
-          });
-        }));
+        Promise.resolve({
+          features: [
+            {
+              properties: {
+                type: 'bommenkaart/verdachtgebied' // not in map-search
+              }
+            }
+          ]
+        })
+      );
     });
 
     const data = await search({ latitude: 1, longitude: 0 }, {
@@ -200,7 +185,8 @@ describe('mapSearch service', () => {
       name: '',
       error: false
     });
-    expect(data).toEqual([{
+
+    expect(data.results).toEqual([{
       categoryLabel: 'Explosief',
       results: Array(6).fill({
         categoryLabel: 'Explosief',

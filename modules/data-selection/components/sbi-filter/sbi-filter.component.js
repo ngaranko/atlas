@@ -1,3 +1,5 @@
+import { addFilter, removeFilter } from '../../../../src/shared/ducks/filters/filters';
+
 (() => {
     'use strict';
 
@@ -13,9 +15,9 @@
             controllerAs: 'vm'
         });
 
-    DpSbiFilterController.$inject = ['$scope', 'store', 'ACTIONS'];
+    DpSbiFilterController.$inject = ['$scope', 'store'];
 
-    function DpSbiFilterController ($scope, store, ACTIONS) {
+    function DpSbiFilterController ($scope, store) {
         const vm = this,
             sbiLevelFilters = vm.availableFilters.filter(filter => filter.slug.startsWith('sbi_l')),
             numberOfOptions = sbiLevelFilters
@@ -30,7 +32,7 @@
                 .reduce((a, b) => a.concat(b), [])
                 .slice(0, 100);
 
-        vm.sbiCode = vm.activeFilters.sbi_code && vm.activeFilters.sbi_code.replace(/['\[\]]/g, '');
+        vm.sbiCode = vm.activeFilters && vm.activeFilters.sbi_code && vm.activeFilters.sbi_code.replace(/['\[\]]/g, '');
         vm.showMoreThreshold = 10;
         vm.isExpanded = false;
         vm.filterSlug = 'sbi_code';
@@ -42,24 +44,23 @@
         };
 
         vm.onSubmit = () => {
-            vm.addFilter(vm.sbiCode);
+            vm.addOrRemoveFilter(vm.sbiCode);
         };
 
-        vm.addFilter = (value) => {
-            const filters = {...vm.activeFilters},
-                formattedValue = value.split(',').map(data => `'${data.trim()}'`).join(', ');
+        vm.addOrRemoveFilter = (value) => {
+            const formattedValue = value.split(',').map(data => `'${data.trim()}'`).join(', ');
 
             if (value === '') {
-                delete filters[vm.filterSlug];
+                store.dispatch(removeFilter(vm.filterSlug));
             } else {
-                filters[vm.filterSlug] = `[${formattedValue}]`;
+                store.dispatch(addFilter({
+                    [vm.filterSlug]: `[${formattedValue}]`
+                }));
             }
-
-            applyFilters(filters);
         };
 
         vm.clickFilter = (string) => {
-            vm.addFilter(string.replace(/: .*$/g, ''));
+            vm.addOrRemoveFilter(string.replace(/: .*$/g, ''));
         };
 
         vm.showExpandButton = function () {
@@ -81,12 +82,5 @@
         vm.canExpandImplode = function () {
             return vm.filter.options.length > vm.showMoreThreshold;
         };
-
-        function applyFilters (filters) {
-            store.dispatch({
-                type: ACTIONS.APPLY_FILTERS,
-                payload: filters
-            });
-        }
     }
 })();

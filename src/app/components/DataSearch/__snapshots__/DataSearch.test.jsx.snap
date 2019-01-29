@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataSearch should render with search results 1`] = `
+<div
+  className="qa-search-results-content"
+>
+  <div
+    className="qa-search-result"
+  >
+    <div />
+  </div>
+</div>
+`;
+
+exports[`DataSearch should render without search results 1`] = `
+<NoResultsForSearchType
+  authMessage={true}
+  message="Tip: maak de zoekcriteria minder specifiek."
+/>
+`;

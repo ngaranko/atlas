@@ -3,7 +3,10 @@
 $block-item-height: 40px;
 
 .homepage-block {
-  padding: 15px 20px 20px 8px;
+  padding-bottom: $base-whitespace * 2;
+  padding-left: $base-whitespace * 1.5;
+  padding-right: $base-whitespace * 1.5;
+  padding-top: $base-whitespace * 1.5;
 
   &:hover {
     cursor: auto;
@@ -60,10 +63,6 @@ $block-item-height: 40px;
     max-width: calc(100% - #{$block-item-height});
     padding-left: 5px;
     vertical-align: middle;
-  }
-
-  .c-homepage__block-button {
-    text-align: left;
   }
 
   &__item {

@@ -1,116 +1,87 @@
-import {
-  getActiveBaseLayer,
-  getCenter,
-  getClusterMarkers,
-  getGeoJsons,
-  getMap,
-  getMapCenter,
-  getMapOverlays,
-  getMapZoom,
-  getMarkers,
-  getRdGeoJsons
-} from './map-selectors';
+import { normalizeCoordinate } from '../../../shared/services/coordinate-reference-system';
+import { FETCH_MAP_DETAIL_SUCCESS } from '../detail/constants';
+import drawToolConfig from '../../services/draw-tool/draw-tool.config';
+import { SET_SELECTION } from '../../../shared/ducks/selection/selection';
+import paramsRegistry from '../../../store/params-registry';
 
-export {
-  getActiveBaseLayer,
-  getCenter,
-  getClusterMarkers,
-  getGeoJsons,
-  getMap,
-  getMapCenter,
-  getMapOverlays,
-  getMapZoom,
-  getMarkers,
-  getRdGeoJsons
-};
-
-export const MAP_ADD_PANO_OVERLAY = 'MAP_ADD_PANO_OVERLAY';
+const REDUCER_KEY = 'map';
+export { REDUCER_KEY as MAP };
 export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
-export const MAP_BOUNDING_BOX_SILENT = 'MAP_BOUNDING_BOX_SILENT';
-export const MAP_CLEAR_DRAWING = 'MAP_CLEAR_DRAWING';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
 export const MAP_PAN = 'MAP_PAN';
-export const MAP_PAN_SILENT = 'MAP_PAN_SILENT';
-export const MAP_REMOVE_PANO_OVERLAY = 'MAP_REMOVE_PANO_OVERLAY';
 export const MAP_START_DRAWING = 'MAP_START_DRAWING';
 export const MAP_UPDATE_SHAPE = 'MAP_UPDATE_SHAPE';
 export const MAP_ZOOM = 'MAP_ZOOM';
-export const MAP_ZOOM_SILENT = 'MAP_ZOOM_SILENT';
 export const MAP_CLEAR = 'MAP_CLEAR';
 export const SET_MAP_BASE_LAYER = 'SET_MAP_BASE_LAYER';
 export const TOGGLE_MAP_OVERLAY = 'TOGGLE_MAP_OVERLAY';
+export const TOGGLE_MAP_OVERLAY_PANORAMA = 'TOGGLE_MAP_OVERLAY_PANORAMA';
 export const TOGGLE_MAP_OVERLAY_VISIBILITY = 'TOGGLE_MAP_OVERLAY_VISIBILITY';
+export const SET_MAP_CLICK_LOCATION = 'SET_MAP_CLICK_LOCATION';
+export const TOGGLE_MAP_PANEL = 'TOGGLE_MAP_PANEL';
+export const CLOSE_MAP_PANEL = 'CLOSE_MAP_PANEL';
+export const MAP_LOADING = 'MAP_LOADING';
 
-const MAP_LOADING = 'MAP_LOADING';
+export const DEFAULT_LAT = 52.3731081;
+export const DEFAULT_LNG = 4.8932945;
+export const PANORAMA = 'pano';
 
-const initialState = {
-  viewCenter: [52.3731081, 4.8932945],
+export const initialState = {
+  viewCenter: [DEFAULT_LAT, DEFAULT_LNG],
   baseLayer: 'topografie',
   zoom: 11,
   overlays: [],
-  loading: false,
-  drawingMode: 'none',
+  isLoading: false,
+  drawingMode: drawToolConfig.DRAWING_MODE.NONE,
   shapeMarkers: 0,
   shapeDistanceTxt: '',
-  shapeAreaTxt: ''
+  shapeAreaTxt: '',
+  mapPanelActive: true
 };
 
 let polygon = {};
 let has2Markers;
 let moreThan2Markers;
-
-const getNewLayer = (straatbeeld) => (
-  straatbeeld && straatbeeld.history
-    ? straatbeeld.history.layerName
-    : 'pano'
-  );
-
-const overlayExists = (state, newLayer) => (
-  state.map && state.map.overlays.filter((overlay) =>
-    overlay.id === newLayer).length === 1
-);
+export const isPanoLayer = (layer) => layer.id.startsWith(PANORAMA);
 
 export default function MapReducer(state = initialState, action) {
+  const enrichedState = {
+    ...state,
+    ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action)
+  };
+
   switch (action.type) {
-    case MAP_BOUNDING_BOX:
-    case MAP_BOUNDING_BOX_SILENT:
+    case MAP_PAN:
       return {
-        ...state,
+        ...enrichedState,
+        viewCenter: [
+          action.payload.latitude,
+          action.payload.longitude
+        ]
+      };
+    case MAP_ZOOM:
+      return {
+        ...enrichedState,
+        zoom: action.payload
+      };
+
+    case MAP_BOUNDING_BOX:
+      return {
+        ...enrichedState,
         boundingBox: action.payload.boundingBox
       };
 
-    case MAP_PAN:
-    case MAP_PAN_SILENT:
-      return {
-        ...state,
-        viewCenter: action.payload
-      };
-
-    case MAP_ZOOM:
-    case MAP_ZOOM_SILENT:
-      return {
-        ...state,
-        zoom: action.payload.zoom,
-        viewCenter: Array.isArray(action.payload.viewCenter) ?
-          action.payload.viewCenter : state.viewCenter
-      };
-
-    case MAP_CLEAR_DRAWING:
-      return {
-        ...state,
-        geometry: []
-      };
-
     case MAP_EMPTY_GEOMETRY:
+    case FETCH_MAP_DETAIL_SUCCESS:
       return {
-        ...state,
+        ...enrichedState,
         geometry: []
       };
 
     case MAP_UPDATE_SHAPE:
       return {
-        ...state,
+        ...enrichedState,
         shapeMarkers: action.payload.shapeMarkers,
         shapeDistanceTxt: action.payload.shapeDistanceTxt,
         shapeAreaTxt: action.payload.shapeAreaTxt
@@ -118,7 +89,7 @@ export default function MapReducer(state = initialState, action) {
 
     case MAP_START_DRAWING:
       return {
-        ...state,
+        ...enrichedState,
         drawingMode: action.payload.drawingMode
       };
 
@@ -128,106 +99,154 @@ export default function MapReducer(state = initialState, action) {
       moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
 
       return {
-        ...state,
-        drawingMode: 'none',
-        geometry: has2Markers ? polygon.markers : moreThan2Markers ? [] : state.geometry
+        ...enrichedState,
+        drawingMode: drawToolConfig.DRAWING_MODE.NONE,
+        geometry: has2Markers ? polygon.markers : moreThan2Markers ? [] : enrichedState.geometry,
+        isLoading: enrichedState.isLoading
       };
 
     case SET_MAP_BASE_LAYER:
       return {
-        ...state,
+        ...enrichedState,
         baseLayer: action.payload
       };
 
-    case MAP_ADD_PANO_OVERLAY: //eslint-disable-line
-      const newLayer = getNewLayer(action.payload);
-      return overlayExists(state, newLayer) ? state : {
-        ...state,
-        overlays: [
-          ...(state.overlays.filter((overlay) =>
-            !overlay.id.startsWith('pano'))
-          ),
-          { id: newLayer, isVisible: true }
-        ]
+    case TOGGLE_MAP_PANEL:
+      return {
+        ...enrichedState,
+        mapPanelActive: !enrichedState.mapPanelActive
       };
 
-    case MAP_REMOVE_PANO_OVERLAY: //eslint-disable-line
-      // Remove all active 'pano' layers
-      const overlays = state && state.overlays
-          .filter((overlay) => !overlay.id.startsWith('pano'));
-
-      return state && overlays.length === state.overlays.length ? state : {
-        ...state,
-        overlays
+    case CLOSE_MAP_PANEL:
+      return {
+        ...enrichedState,
+        mapPanelActive: false
       };
 
     case TOGGLE_MAP_OVERLAY:
       return {
-        ...state,
-        overlays: state.overlays.some((overlay) => overlay.id === action.mapLayerId) ?
-          [...state.overlays.filter((overlay) => overlay.id !== action.mapLayerId)] :
-          [...state.overlays, { id: action.mapLayerId, isVisible: true }]
+        ...enrichedState,
+        overlays: enrichedState.overlays.some(
+          (overlay) => !isPanoLayer(overlay) && action.payload.mapLayers.includes(overlay.id)
+        ) ? [...enrichedState.overlays.filter(
+          (overlay) => !action.payload.mapLayers.includes(overlay.id)
+        )] : [...enrichedState.overlays, ...action.payload.mapLayers.map(
+          (mapLayerId) => ({ id: mapLayerId, isVisible: true })
+        )]
+      };
+
+    case TOGGLE_MAP_OVERLAY_PANORAMA:
+      return {
+        ...enrichedState,
+        overlays: [
+          { id: action.payload, isVisible: true },
+          ...enrichedState.overlays.filter(
+            (overlay) => !isPanoLayer(overlay)
+          )]
       };
 
     case TOGGLE_MAP_OVERLAY_VISIBILITY:
       return {
-        ...state,
-        overlays: state.overlays.map((overlay) => ({
+        ...enrichedState,
+        overlays: enrichedState.overlays.map((overlay) => ({
           ...overlay,
-          isVisible: overlay.id !== action.mapLayerId ? overlay.isVisible :
-            (action.show !== undefined ? action.show : !overlay.isVisible)
+          isVisible: overlay.id === action.mapLayerId ?
+            action.isVisible :
+            overlay.isVisible
         }))
       };
 
     case MAP_CLEAR:
-      return initialState;
+      return {
+        ...enrichedState,
+        drawingMode: initialState.drawingMode,
+        shapeMarkers: initialState.shapeMarkers,
+        shapeDistanceTxt: initialState.shapeDistanceTxt,
+        shapeAreaTxt: initialState.shapeAreaTxt
+      };
+
+    case SET_SELECTION:
+      return {
+        ...enrichedState,
+        drawingMode: initialState.drawingMode,
+        shapeMarkers: initialState.shapeMarkers,
+        shapeDistanceTxt: initialState.shapeDistanceTxt,
+        shapeAreaTxt: initialState.shapeAreaTxt
+      };
 
     case MAP_LOADING:
       return {
         ...state,
-        loading: action.payload
+        isLoading: action.payload
       };
 
-
     default:
-      return state;
+      return enrichedState;
   }
 }
 
-export const mapClearDrawing = () => ({ type: MAP_CLEAR_DRAWING });
+// Actions
 export const mapEmptyGeometry = () => ({ type: MAP_EMPTY_GEOMETRY });
 export const mapUpdateShape = (payload) => ({ type: MAP_UPDATE_SHAPE, payload });
-export const mapStartDrawing = (payload) => ({ type: MAP_START_DRAWING, payload });
+export const mapStartDrawing = (payload) => ({
+  type: MAP_START_DRAWING,
+  payload,
+  meta: {
+    tracking: payload.drawingMode
+  }
+});
 export const mapEndDrawing = (payload) => ({ type: MAP_END_DRAWING, payload });
 export const mapClear = () => ({ type: MAP_CLEAR });
-export const setMapBaseLayer = (payload) => ({ type: SET_MAP_BASE_LAYER, payload });
-
-export const toggleMapOverlay = (mapLayerId) => ({ type: TOGGLE_MAP_OVERLAY, mapLayerId });
-export const toggleMapOverlayVisibility = (mapLayerId, show) => ({
+export const updateZoom = (payload) => ({ type: MAP_ZOOM, payload });
+export const toggleMapPanel = () => ({ type: TOGGLE_MAP_PANEL });
+export const closeMapPanel = () => ({ type: CLOSE_MAP_PANEL });
+export const setMapBaseLayer = (payload) => ({
+  type: SET_MAP_BASE_LAYER,
+  payload,
+  meta: {
+    tracking: payload
+  }
+});
+export const toggleMapOverlay = (payload) => ({
+  type: TOGGLE_MAP_OVERLAY,
+  payload: {
+    mapLayers: (payload.id) ? [payload.id] : payload.legendItems.map((overlay) => overlay.id)
+  },
+  meta: {
+    tracking: payload
+  }
+});
+export const toggleMapOverlayPanorama = (payload) => ({
+  type: TOGGLE_MAP_OVERLAY_PANORAMA,
+  payload: (payload.year) ? `${PANORAMA}${payload.year}${payload.missionType}` : PANORAMA
+});
+export const toggleMapOverlayVisibility = (mapLayerId, isVisible) => ({
   type: TOGGLE_MAP_OVERLAY_VISIBILITY,
   mapLayerId,
-  show
+  isVisible: !isVisible
+});
+export const updatePan = (payload) => ({
+  type: MAP_PAN,
+  payload: {
+    latitude: normalizeCoordinate(payload.lat, 7),
+    longitude: normalizeCoordinate(payload.lng, 7)
+  }
+});
+export const setSelectedLocation = (payload) => ({
+  type: SET_MAP_CLICK_LOCATION,
+  payload: {
+    location: {
+      latitude: normalizeCoordinate(payload.latlng.lat, 7),
+      longitude: normalizeCoordinate(payload.latlng.lng, 7)
+    }
+  },
+  meta: {
+    tracking: true
+  }
+});
+export const updateBoundingBox = (payload) => ({
+  type: MAP_BOUNDING_BOX,
+  payload
 });
 
-export const updateZoom = (payload, isDrawingActive) =>
-  ({
-    type: isDrawingActive ? MAP_ZOOM_SILENT : MAP_ZOOM,
-    payload: {
-      ...payload,
-      viewCenter: [payload.center.lat, payload.center.lng]
-    }
-  });
-
-export const updatePan = (payload, isDrawingActive) =>
-  ({
-    type: isDrawingActive ? MAP_PAN_SILENT : MAP_PAN,
-    payload: [payload.center.lat, payload.center.lng]
-  });
-
-export const updateBoundingBox = (payload, isDrawingActive) =>
-  ({
-    type: isDrawingActive ? MAP_BOUNDING_BOX_SILENT : MAP_BOUNDING_BOX,
-    payload
-  });
-
-export const mapLoadingAction = (loading) => ({ type: MAP_LOADING, payload: loading });
+export const mapLoadingAction = (payload) => ({ type: MAP_LOADING, payload });

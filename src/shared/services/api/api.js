@@ -1,21 +1,24 @@
 import getState from '../redux/get-state';
 import SHARED_CONFIG from '../shared-config/shared-config';
+import { encodeQueryParams } from '../query-string-parser/query-string-parser';
+import { logout } from '../auth/auth';
 
 export const getAccessToken = () => getState().user.accessToken;
 
 export const generateParams = (data) => Object.entries(data).map((pair) => pair.map(encodeURIComponent).join('=')).join('&');
 
-const handleErrors = (response) => {
+// Todo: DP-6393
+const handleErrors = (response, reloadOnUnauthorized) => {
+  if (response.status >= 400 && response.status <= 401 && reloadOnUnauthorized) {
+    logout();
+  }
   if (!response.ok) {
-    throw Error(response.statusText);
+    throw Error(response.status);
   }
   return response;
 };
 
-
-// TODO: This function is not used yet because it is not finished
-// cancel functionality doesn't work yet and is needed for the straatbeeld-api.js
-export const getWithToken = (url, params, cancel, token) => {
+export const getWithToken = (url, params, cancel, token, reloadOnUnauthorized = false) => {
   const headers = {};
 
   if (token) {
@@ -32,20 +35,17 @@ export const getWithToken = (url, params, cancel, token) => {
   }
 
   const fullUrl = `${url}${params ? `?${generateParams(params)}` : ''}`;
+
+  // Retrieve from cache, otherwise execute API call
   return fetch(fullUrl, options)
-    .then((response) => handleErrors(response))
+    .then((response) => handleErrors(response, reloadOnUnauthorized))
     .then((response) => response.json());
 };
 
-export const getByUrl = async (url, params, cancel) => {
+export const getByUrl = async (url, params, cancel, reloadOnUnauthorized) => {
   const token = getAccessToken();
-  return Promise.resolve(getWithToken(url, params, cancel, token));
+  return Promise.resolve(getWithToken(url, params, cancel, token, reloadOnUnauthorized));
 };
-
-const encodeQueryParams = (params) =>
-  (Object.keys(params)
-    .map((param) => `${encodeURIComponent(param)}=${encodeURIComponent(params[param])}`)
-    .join('&'));
 
 export const createUrlWithToken = (url, token) => {
   const params = {};

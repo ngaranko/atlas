@@ -5,7 +5,10 @@
 
     <ul class="o-list">
         <li>
-            <dp-link type="FETCH_DETAIL" payload="apiData.results._links.self.href">{{ apiData.results.complexnaam }}</dp-link>
+            <dp-redux-link
+                to="apiData.results._links.self.href | detailEndpointAction"
+                link-class="o-btn o-btn--link"
+            >{{ apiData.results.complexnaam }}</dp-redux-link>
         </li>
     </ul>
 </div>

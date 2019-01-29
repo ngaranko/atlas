@@ -1,65 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HomepageAddressBlock should render with the default block-link 1`] = `
+exports[`HomepageAddressBlock should render links 1`] = `
 <HomepageBlock
+  blockIsLink={false}
+  classes=""
   description="Selecteer en download als spreadsheet"
   hasTallDescription={true}
-  onBlockLinkClick={[Function]}
+  linkAction={
+    Object {
+      "type": "atlasRouter/ADDRESSES",
+    }
+  }
   title="Adressentabel"
 >
   <div
-    className="homepage-block__item"
+    className="homepage-block"
   >
-    <button
-      className="c-link homepage-block__link"
-      onClick={[Function]}
-      title="Bekijk Adressentabel"
+    <div
+      className="homepage-block__item "
+      key="ADRESSEN"
     >
-      <span
-        className="homepage-block__icon homepage-block__icon--bag"
-      />
-      <span
-        className="homepage-block__label"
+      <Connect(Link)
+        className="c-link homepage-block__link"
+        title="Bekijk Adressentabel"
+        to={
+          Object {
+            "type": "atlasRouter/ADDRESSES",
+          }
+        }
       >
-        Adressentabel
-      </span>
-    </button>
-  </div>
-  <div
-    className="homepage-block__item"
-  >
-    <button
-      className="c-link homepage-block__link"
-      onClick={[Function]}
-      title="Bekijk handelsregister-tabel"
+        <span
+          className="homepage-block__icon homepage-block__icon--bag"
+        />
+        <span
+          className="homepage-block__label"
+        >
+          Adressentabel
+        </span>
+      </Connect(Link)>
+    </div>
+    <div
+      className="homepage-block__item "
+      key="HANDELSREGISTER"
     >
-      <span
-        className="homepage-block__icon homepage-block__icon--hr"
-      />
-      <span
-        className="homepage-block__label"
+      <Connect(Link)
+        className="c-link homepage-block__link"
+        title="Bekijk handelsregister-tabel"
+        to={
+          Object {
+            "type": "atlasRouter/ESTABLISHMENTS",
+          }
+        }
       >
-        Handelsregister-tabel
-      </span>
-    </button>
-  </div>
-  <div
-    className="homepage-block__item "
-  >
-    <button
-      className="c-link homepage-block__link"
-      onClick={[Function]}
-      title="Bekijk kadaster-tabel"
+        <span
+          className="homepage-block__icon homepage-block__icon--hr"
+        />
+        <span
+          className="homepage-block__label"
+        >
+          Handelsregister-tabel
+        </span>
+      </Connect(Link)>
+    </div>
+    <div
+      className="homepage-block__item "
+      key="KADASTER"
     >
-      <span
-        className="homepage-block__icon homepage-block__icon--brk"
-      />
-      <span
-        className="homepage-block__label"
+      <Connect(Link)
+        className="c-link homepage-block__link"
+        title="Bekijk kadaster-tabel"
+        to={
+          Object {
+            "type": "atlasRouter/CADASTRAL_OBJECTS",
+          }
+        }
       >
-        Kadaster-tabel
-      </span>
-    </button>
+        <span
+          className="homepage-block__icon homepage-block__icon--brk"
+        />
+        <span
+          className="homepage-block__label"
+        >
+          Kadaster-tabel
+        </span>
+      </Connect(Link)>
+    </div>
   </div>
 </HomepageBlock>
 `;

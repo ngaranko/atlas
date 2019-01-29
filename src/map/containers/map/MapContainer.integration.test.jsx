@@ -8,15 +8,14 @@ import MapContainer from './MapContainer';
 import rootSaga from '../../../root-saga';
 
 import BaseLayerReducer from '../../ducks/base-layers/map-base-layers';
-import ClickLocationReducer from '../../ducks/click-location/map-click-location';
 import MapDetailReducer from '../../ducks/detail/map-detail';
 import MapLayersReducer from '../../ducks/layers/map-layers';
 import MapReducer from '../../ducks/map/map';
 import PanelLayersReducer from '../../ducks/panel-layers/map-panel-layers';
-import MapSearchResultsReducer from '../../ducks/search-results/map-search-results';
+import reducer from '../../../shared/ducks/data-search/reducer';
 
 import UiReducer from '../../../shared/ducks/ui/ui';
-import UserReducer from '../../../reducers/user';
+import UserReducer from '../../../shared/ducks/user/user';
 
 const mapLayersReducer = combineReducers({
   layers: MapLayersReducer,
@@ -25,9 +24,8 @@ const mapLayersReducer = combineReducers({
 });
 
 const mainReducer = combineReducers({
-  mapClickLocation: ClickLocationReducer,
   mapDetail: MapDetailReducer,
-  mapSearchResultsByLocation: MapSearchResultsReducer,
+  resultsMap: reducer,
   user: UserReducer,
   ui: UiReducer,
   map: MapReducer,

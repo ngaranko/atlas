@@ -5,19 +5,9 @@ import { shallow } from 'enzyme';
 import DrawToolContainer from './DrawToolContainer';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
-import {
-  MAP_CLEAR,
-  mapClear,
-  mapEndDrawing,
-  mapStartDrawing,
-  mapUpdateShape
-} from '../../ducks/map/map';
-import { setDataSelectionGeometryFilter } from '../../../shared/ducks/data-selection/data-selection';
-import { setPageName } from '../../../shared/ducks/page/page';
-import { setMapFullscreen } from '../../../shared/ducks/ui/ui';
-import { setStraatbeeldOff } from '../../../shared/ducks/straatbeeld/straatbeeld';
-
 import { isEnabled } from '../../services/draw-tool/draw-tool';
+import { mapClear, mapStartDrawing, mapUpdateShape } from '../../ducks/map/map';
+import { setGeometryFilter } from '../../../shared/ducks/data-selection/actions';
 
 jest.mock('../../services/draw-tool/draw-tool');
 
@@ -33,8 +23,11 @@ describe('DrawToolContainer', () => {
       shapeMarkers: 0,
       shapeDistanceTxt: ''
     },
-    dataSelection: null,
-    ui: { isMapFullscreen: true }
+    dataSelection: {
+      geometryFilter: {
+        markers: []
+      }
+    }
   };
 
   const props = {
@@ -98,20 +91,13 @@ describe('DrawToolContainer', () => {
   });
 
   it('should render DrawToolContainer', () => {
-    const setPolygonMock = jest.spyOn(props, 'setPolygon');
     const initializeMock = jest.spyOn(props, 'initialize');
     wrapper = shallow(
       <DrawToolContainer {...props} />, { context: { store } }
     ).dive().dive();
     wrapperInstance = wrapper.instance();
     expect(wrapper).toMatchSnapshot();
-    expect(setPolygonMock).toHaveBeenCalled();
     expect(initializeMock).toHaveBeenCalled();
-    expect(wrapperInstance.state).toEqual({
-      drawingMode: drawToolConfig.DRAWING_MODE.NONE,
-      previousMarkers: [],
-      dataSelection: null
-    });
   });
 
   describe('DrawToolContainer methods', () => {
@@ -128,83 +114,17 @@ describe('DrawToolContainer', () => {
       spy.mockReset();
     });
 
-    describe('componentWillReceiveProps', () => {
-      it('should reset the polygon when there is no geometry or dataSelection', () => {
-        wrapperInstance.props.setPolygon.mockClear();
-
-        wrapperInstance.componentWillReceiveProps({
-          ...props,
-          drawingMode: drawToolConfig.DRAWING_MODE.NONE,
-          geometry: [],
-          dataSelection: null
-        });
-
-        expect(wrapperInstance.props.setPolygon).toHaveBeenCalledWith([]);
-      });
-
-      it('should save the markers as previous markers', () => {
-        const geometry = [...markers.filter((item, index) => index < 2)];
-        wrapperInstance.props.setPolygon.mockClear();
-        wrapper.setProps({ geometry });
-        const oldState = wrapperInstance.state;
-
-        wrapperInstance.componentWillReceiveProps({
-          ...props,
-          geometry,
-          drawingMode: drawToolConfig.DRAWING_MODE.NONE
-        });
-
-        expect(wrapperInstance.state).toEqual({
-          ...oldState,
-          drawingMode: drawToolConfig.DRAWING_MODE.NONE,
-          previousMarkers: [...geometry]
-        });
-        expect(wrapperInstance.props.setPolygon).toHaveBeenCalled();
-      });
-
-      it('should not cancel after the drawingMode is changed to draw', () => {
-        wrapper.setState({ drawingMode: drawToolConfig.DRAWING_MODE.NONE });
-        wrapperInstance.props.cancel.mockClear();
-        wrapperInstance.componentWillReceiveProps({
-          ...props,
-          drawingMode: drawToolConfig.DRAWING_MODE.DRAW
-        });
-        expect(wrapperInstance.props.cancel).not.toHaveBeenCalled();
-        expect(wrapperInstance.state.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.DRAW);
-      });
-
-      it('should cancel after the drawingMode is changed to NONE', () => {
-        wrapper.setState({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW });
-        wrapperInstance.props.cancel.mockClear();
-        wrapperInstance.componentWillReceiveProps({
-          ...props,
-          drawingMode: drawToolConfig.DRAWING_MODE.NONE
-        });
-        expect(wrapperInstance.props.cancel).toHaveBeenCalled();
-        expect(wrapperInstance.state.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.NONE);
-      });
-    });
-
     describe('componentWillUnmount', () => {
-      it(`should dispatch ${MAP_CLEAR}`, () => {
+      it('should dispatch MAP_CLEAR', () => {
         wrapper.unmount();
         expect(store.dispatch).toHaveBeenCalledWith(mapClear());
       });
     });
 
     describe('onDrawingMode', () => {
-      it('should dispatch MAP_END_DRAWING when the drawing mode set to NONE', () => {
-        const oldState = wrapperInstance.state;
-        wrapperInstance.onDrawingMode(drawToolConfig.DRAWING_MODE.NONE);
-        expect(wrapperInstance.state).toEqual(oldState);
-        expect(store.dispatch).toHaveBeenCalledWith(mapEndDrawing());
-      });
-
       it('should dispatch MAP_START_DRAWING when the drawing mode set to DRAW', () => {
         wrapper.setProps({ currentShape: { markers } });
-        const oldState = wrapperInstance.state;
         wrapperInstance.onDrawingMode(drawToolConfig.DRAWING_MODE.DRAW);
-        expect(wrapperInstance.state).toEqual({ ...oldState, previousMarkers: markers });
         expect(store.dispatch).toHaveBeenCalledWith(
           mapStartDrawing({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW })
         );
@@ -212,9 +132,7 @@ describe('DrawToolContainer', () => {
 
       it('should dispatch MAP_START_DRAWING when the drawing mode set to EDIT', () => {
         wrapper.setProps({ currentShape: { markers } });
-        const oldState = wrapperInstance.state;
         wrapperInstance.onDrawingMode(drawToolConfig.DRAWING_MODE.EDIT);
-        expect(wrapperInstance.state).toEqual({ ...oldState, previousMarkers: markers });
         expect(store.dispatch).toHaveBeenCalledWith(
           mapStartDrawing({ drawingMode: drawToolConfig.DRAWING_MODE.EDIT })
         );
@@ -258,40 +176,22 @@ describe('DrawToolContainer', () => {
         expect(store.dispatch).not.toHaveBeenCalled();
       });
 
-      it('should ignore the action when the polygon is not changed', () => {
-        const polygon = {
-          ...polygonMock
-        };
-        wrapper.setState({ previousMarkers: polygonMock.markers });
-        const oldState = wrapperInstance.state;
-        wrapperInstance.onFinishShape(polygon);
-        expect(wrapperInstance.state).toEqual(oldState);
-        expect(store.dispatch).not.toHaveBeenCalled();
-      });
-
-      it('should dispatch MAP_END_DRAWING when the polygon has only two points', () => {
+      it('should not dispatch SET_GEOMETRY_FILTER when the polygon has only two points', () => {
         const polygon = {
           ...polygonMock,
           markers: [...markers.filter((item, index) => index < 2)]
         };
         wrapperInstance.onFinishShape(polygon);
-        expect(store.dispatch).toHaveBeenCalledWith(mapEndDrawing({ polygon }));
+        expect(store.dispatch).not.toHaveBeenCalledWith(setGeometryFilter(polygon));
       });
 
-      it('should set the geometry filter when the polygon is changed', () => {
-        const polygon = { ...polygonMock };
-        const geometryFilter = {
-          markers: polygon.markers,
-          description: `${polygon.distanceTxt} en ${polygon.areaTxt}`
+      it('should set new Markers and dispatch SET_GEOMETRY_FILTER when the polygon has more than two points', () => {
+        const polygon = {
+          ...polygonMock,
+          markers: [...markers.filter((item, index) => index < 3)]
         };
-
         wrapperInstance.onFinishShape(polygon);
-
-        expect(store.dispatch).toHaveBeenCalledWith(setDataSelectionGeometryFilter(geometryFilter));
-        expect(store.dispatch).toHaveBeenCalledWith(setStraatbeeldOff());
-        expect(store.dispatch).toHaveBeenCalledWith(mapEndDrawing({ polygon }));
-        expect(store.dispatch).toHaveBeenCalledWith(setPageName({ name: null }));
-        expect(store.dispatch).toHaveBeenCalledWith(setMapFullscreen({ isMapFullscreen: false }));
+        expect(store.dispatch).toHaveBeenCalledWith(setGeometryFilter(polygon));
       });
     });
 

@@ -37,6 +37,7 @@ describe('MapLeaflet component', () => {
         mapOptions={mapOptions}
         onMoveEnd={clickHandler}
         onZoomEnd={clickHandler}
+        brkMarkers={[]}
         scaleControlOptions={scaleControlOptions}
         zoomControlOptions={zoomControlOptions}
       />
@@ -58,6 +59,7 @@ describe('MapLeaflet component', () => {
     const layers = [];
     const wrapper = shallow(
       <MapLeaflet
+        brkMarkers={[]}
         baseLayer={baseLayer}
         center={center}
         getLeafletInstance={getLeafletInstance}
@@ -100,6 +102,7 @@ describe('MapLeaflet component', () => {
     const layers = [];
     const wrapper = shallow(
       <MapLeaflet
+        brkMarkers={[]}
         baseLayer={baseLayer}
         center={center}
         getLeafletInstance={getLeafletInstance}
@@ -128,11 +131,12 @@ describe('MapLeaflet component', () => {
         }
       ],
       rdGeoJsons: [
-        {},
         {
           geoJson: {
-            coordinates: [120983, 487047],
-            type: 'Point'
+            geometry: {
+              coordinates: [120983, 487047],
+              type: 'Point'
+            }
           },
           id: 'YE39'
         }
@@ -155,11 +159,12 @@ describe('MapLeaflet component', () => {
         }
       ],
       rdGeoJsons: [
-        {},
         {
           geoJson: {
-            coordinates: [120983, 487047],
-            type: 'Point',
+            geometry: {
+              coordinates: [120983, 487047],
+              type: 'Point'
+            },
             label: 'Adres YE39'
           },
           id: 'YE39'
@@ -185,25 +190,27 @@ describe('MapLeaflet component', () => {
       rdGeoJsons: [
         {
           geoJson: {
-            coordinates: [
-              [
+            geometry: {
+              coordinates: [
                 [
-                  [[115689.261, 488181.641]],
-                  [[115697.26, 488181.8]],
-                  [[115705.37, 488181.959]],
-                  [[115705.522, 488173.844]],
-                  [[115705.67, 488165.845]],
-                  [[115705.819, 488157.847]],
-                  [[115705.969, 488149.729]],
-                  [[115697.865, 488149.576]],
-                  [[115689.866, 488149.424]],
-                  [[115681.759, 488149.269]],
-                  [[115681.15, 488181.479]],
-                  [[115689.261, 488181.641]]
+                  [
+                    [[115689.261, 488181.641]],
+                    [[115697.26, 488181.8]],
+                    [[115705.37, 488181.959]],
+                    [[115705.522, 488173.844]],
+                    [[115705.67, 488165.845]],
+                    [[115705.819, 488157.847]],
+                    [[115705.969, 488149.729]],
+                    [[115697.865, 488149.576]],
+                    [[115689.866, 488149.424]],
+                    [[115681.759, 488149.269]],
+                    [[115681.15, 488181.479]],
+                    [[115689.261, 488181.641]]
+                  ]
                 ]
-              ]
-            ],
-            type: 'MultiPolygon',
+              ],
+              type: 'MultiPolygon'
+            },
             label: 'Object YE39'
           },
           id: 'YE39'
@@ -221,6 +228,7 @@ describe('MapLeaflet component', () => {
       <MapLeaflet
         baseLayer={baseLayer}
         center={center}
+        brkMarkers={[]}
         getLeafletInstance={getLeafletInstance}
         layers={layers}
         mapOptions={mapOptions}
@@ -365,6 +373,7 @@ describe('MapLeaflet component', () => {
       <MapLeaflet
         baseLayer={baseLayer}
         center={center}
+        brkMarkers={[]}
         clusterMarkers={clusterMarkers}
         getLeafletInstance={getLeafletInstance}
         layers={layers}
@@ -463,11 +472,11 @@ describe('MapLeaflet component', () => {
       },
       {
         position: [52.37282671971952, 4.883399484657263],
-        type: 'straatbeeldPersonType'
+        type: 'panoramaPersonType'
       },
       {
         position: [52.37282671971952, 4.883399484657263],
-        type: 'straatbeeldOrientationType',
+        type: 'panoramaOrientationType',
         heading: 45
       }
     ];
@@ -478,6 +487,7 @@ describe('MapLeaflet component', () => {
         baseLayer={baseLayer}
         center={center}
         markers={markers}
+        brkMarkers={[]}
         getLeafletInstance={getLeafletInstance}
         layers={layers}
         mapOptions={mapOptions}
@@ -494,6 +504,41 @@ describe('MapLeaflet component', () => {
       zoom: 9
     });
 
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render brkMarkers', () => {
+    const center = [52.3731081, 4.8932945];
+    const zoom = 11;
+    const brkMarkers = [{
+      iconData: {
+        zoomLevel: 14,
+        count: 4
+      },
+      position: [
+        52.378971546685705,
+        4.854030078341637
+      ],
+      type: 'dataSelectionType'
+    }];
+    const clickHandler = jest.fn();
+    const layers = [];
+    const wrapper = shallow(
+      <MapLeaflet
+        baseLayer={baseLayer}
+        center={center}
+        markers={[]}
+        brkMarkers={brkMarkers}
+        getLeafletInstance={getLeafletInstance}
+        layers={layers}
+        mapOptions={mapOptions}
+        onMoveEnd={clickHandler}
+        onZoomEnd={clickHandler}
+        scaleControlOptions={scaleControlOptions}
+        zoomControlOptions={zoomControlOptions}
+        zoom={zoom}
+      />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -543,6 +588,7 @@ describe('MapLeaflet component', () => {
 
       wrapper = shallow(
         <MapLeaflet
+          brkMarkers={[]}
           baseLayer={baseLayer}
           getLeafletInstance={getLeafletInstance}
           mapOptions={mapOptions}

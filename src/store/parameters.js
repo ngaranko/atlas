@@ -1,0 +1,21 @@
+export default {
+  QUERY: 'term',
+  MAP_BACKGROUND: 'achtergrond',
+  PAGE: 'pagina',
+  GEO: 'geo',
+  VIEW: 'modus',
+  CATEGORY: 'categorie',
+  VIEW_CENTER: 'center',
+  ZOOM: 'zoom',
+  LEGEND: 'legenda',
+  HEADING: 'heading',
+  PANORAMA_SET: 'set',
+  PITCH: 'pitch',
+  FILTERS: 'filters',
+  REFERENCE: 'ref',
+  EMBED_PREVIEW: 'embed-preview',
+  EMBED: 'embed',
+  PRINT: 'print',
+  LAYERS: 'lagen',
+  LOCATION: 'locatie'
+};

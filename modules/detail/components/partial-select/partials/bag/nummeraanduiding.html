@@ -51,9 +51,10 @@
         <dl class="c-key-value-list">
             <dt>Naam openbare ruimte</dt>
             <dd ng-if="apiData.results.openbare_ruimte">
-                <dp-link type="FETCH_DETAIL"
-                         payload="apiData.results.openbare_ruimte._links.self.href"
-                    >{{ apiData.results.openbare_ruimte._display }}</dp-link>
+                <dp-redux-link
+                    to="apiData.results.openbare_ruimte._links.self.href | detailEndpointAction"
+                    link-class="o-btn o-btn--link"
+                >{{ apiData.results.openbare_ruimte._display }}</dp-redux-link>
             </dd>
             <dt>Huisnummer</dt>
             <dd>{{ apiData.results.huisnummer }}</dd>
@@ -65,9 +66,10 @@
             <dd>{{ apiData.results.postcode }}</dd>
             <dt>Woonplaats</dt>
             <dd ng-if="apiData.results.woonplaats">
-                <dp-link type="FETCH_DETAIL"
-                         payload="apiData.results.woonplaats._links.self.href"
-                    >{{ apiData.results.woonplaats._display }}</dp-link>
+                <dp-redux-link
+                    to="apiData.results.woonplaats._links.self.href | detailEndpointAction"
+                    link-class="o-btn o-btn--link"
+                >{{ apiData.results.woonplaats._display }}</dp-redux-link>
             </dd>
         </dl>
     </div>

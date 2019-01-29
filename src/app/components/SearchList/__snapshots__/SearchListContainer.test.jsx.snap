@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchListContainer should render the container with the basic properties 1`] = `
+<SearchList
+  category={Object {}}
+  categoryResults={
+    Object {
+      "results": Array [],
+    }
+  }
+  fetchMoreResults={[Function]}
+  hasLoadMore={false}
+  limit={1}
+  searchResults={Array []}
+/>
+`;

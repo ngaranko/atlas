@@ -1,15 +1,12 @@
 @import "styles/config";
-
 @import "components/anchor-link/anchor-link";
-@import "components/api-error/api-error";
 @import "components/dcatd-button/dcatd-button";
 @import "components/link-to-page/link-to-page";
 @import "components/loading-indicator/loading-indicator";
 @import "components/message/message";
 @import "components/panel/panel";
-@import "components/straatbeeld-thumbnail/straatbeeld-thumbnail";
+@import "components/panorama-thumbnail/panorama-thumbnail";
 @import "components/tab-header/tab-header";
-@import "components/video/video";
 
 .is-print-mode,
 .is-embed-preview,

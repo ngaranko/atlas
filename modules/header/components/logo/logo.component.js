@@ -1,4 +1,5 @@
-import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tracker';
+import { navigateHomeAction } from '../../../../src/header/ducks/actions';
+import { routing } from '../../../../src/app/routes';
 
 (function () {
     'use strict';
@@ -14,31 +15,20 @@ import piwikTracker from '../../../../src/shared/services/piwik-tracker/piwik-tr
             controllerAs: 'vm'
         });
 
-    DpLogoController.$inject = ['$scope', 'HEADER'];
+    DpLogoController.$inject = ['$scope', 'store', 'HEADER'];
 
-    function DpLogoController ($scope, HEADER) {
+    function DpLogoController ($scope, store, HEADER) {
         const vm = this;
+
+        vm.homeType = routing.home.type;
 
         $scope.$watch('vm.size', updateSize);
 
-        // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
-        vm.navigateHomeClick = () => sendPiwikEvent();
+        vm.navigateHomeClick = () => store.dispatch(navigateHomeAction());
 
         function updateSize (size) {
             vm.isTall = vm.size === HEADER.SIZE.TALL;
             vm.isShort = vm.size === HEADER.SIZE.SHORT;
-        }
-
-        // TODO DP-6031: Create Redux Middelware, map Piwik events to ACTIONS
-        function sendPiwikEvent () {
-            const piwik = {
-                TRACK_EVENT: 'trackEvent',
-                NAVIGATE_HOME: 'home',
-                NAVIGATION: 'navigation'
-            };
-
-            piwikTracker([piwik.TRACK_EVENT, piwik.NAVIGATION,
-                piwik.NAVIGATE_HOME, window.document.title]);
         }
     }
 })();

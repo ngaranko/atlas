@@ -5,7 +5,7 @@
         .module('dpShared')
         .factory('markdownParser', markdownParserFactory);
 
-    markdownParserFactory.inject = ['marked'];
+    markdownParserFactory.$inject = ['marked'];
 
     function markdownParserFactory (marked) {
         return {

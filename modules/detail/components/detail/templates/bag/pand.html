@@ -29,7 +29,7 @@
             <dp-parent-relations content="vm.apiData.results"></dp-parent-relations>
         </div>
         <div class="u-col-sm--6">
-            <dp-straatbeeld-thumbnail location="vm.location"></dp-straatbeeld-thumbnail>
+            <dp-panorama-thumbnail panorama="vm.previewPanorama" is-loading="vm.isPreviewPanoramaLoading"></dp-panorama-thumbnail>
         </div>
     </div>
 
@@ -55,10 +55,16 @@
 
         <dp-panel is-panel-visible="!vm.user.scopes.includes('HR/R')" can-close="true" type="warning">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen te bekijken.
-            Zie <dp-link-to-page item="item9" class-name="c-link--light"></dp-link-to-page>.
+            Zie <dp-link-to-page class-name="c-link--light"></dp-link-to-page>.
         </dp-panel>
 
-        <dp-api-call ng-if="vm.user.scopes.includes('HR/R')" endpoint="handelsregister/vestiging/?pand={{ vm.apiData.results.pandidentificatie }}" add-api-root="true" partial="lijst" user="vm.user"></dp-api-call>
+        <dp-api-call
+            ng-if="vm.user.scopes.includes('HR/R') && vm.apiData.results.pandidentificatie"
+            endpoint="handelsregister/vestiging/?pand={{ vm.apiData.results.pandidentificatie }}"
+            add-api-root="true"
+            partial="lijst"
+            user="vm.user">
+        </dp-api-call>
     </div>
 
     <dp-api-call endpoint="{{vm.apiData.results._monumenten.href}}" partial="monumenten_lijst" user="vm.user"></dp-api-call>

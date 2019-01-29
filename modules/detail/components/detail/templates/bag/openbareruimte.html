@@ -12,7 +12,13 @@
             <dt>Naam 17-posities (post)</dt>
             <dd>{{ vm.apiData.results.naam_17_posities }}</dd>
             <dt>Woonplaats</dt>
-            <dd><dp-link type="FETCH_DETAIL" payload="vm.apiData.results.woonplaats._links.self.href">{{ vm.apiData.results.woonplaats._display }}</dp-link></dd>
+            <dd>
+                <dp-redux-link
+                    to="vm.apiData.results.woonplaats._links.self.href | detailEndpointAction"
+                    link-class="o-btn o-btn--link"
+                >{{ vm.apiData.results.woonplaats._display }}</dp-redux-link>
+            </dd>
+
             <dt>Type</dt>
             <dd>{{ vm.apiData.results.type }}</dd>
             <dt>Status</dt>
@@ -29,7 +35,7 @@
 
     <div class="u-row">
         <div class="u-col-sm--6 u-padding__right--2">
-            <dp-straatbeeld-thumbnail location="vm.location"></dp-straatbeeld-thumbnail>
+            <dp-panorama-thumbnail panorama="vm.previewPanorama" is-loading="vm.isPreviewPanoramaLoading"></dp-panorama-thumbnail>
         </div>
     </div>
 

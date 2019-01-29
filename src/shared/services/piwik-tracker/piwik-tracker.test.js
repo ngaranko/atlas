@@ -1,4 +1,4 @@
-import piwikTracker, { trackPageNavigation } from './piwik-tracker';
+import piwikTracker from './piwik-tracker';
 
 describe('piwikTracker', () => {
   beforeEach(() => {
@@ -8,16 +8,14 @@ describe('piwikTracker', () => {
   });
 
   it('should call window._paq.push', () => {
-    piwikTracker({});
+    piwikTracker(['test']);
 
-    expect(global.window._paq.push).toHaveBeenCalledWith({});
+    expect(global.window._paq.push).toHaveBeenCalledWith(['test']);
   });
 
-  describe('trackPageNavigation', () => {
-    it('should call piwikTracker 3 times', () => {
-      trackPageNavigation();
-      expect(global.window._paq.push).toHaveBeenLastCalledWith(['trackPageView']);
-    });
+  it('should not call window._paq.push without data', () => {
+    piwikTracker([]);
+
+    expect(global.window._paq.push).not.toHaveBeenCalled();
   });
 });
-

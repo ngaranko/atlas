@@ -5,6 +5,12 @@ import HeaderSearchWrapper from './HeaderSearchWrapper';
 
 describe('HeaderSearchWrapper', () => {
   const initialState = {
+    dataQuerySearch: {
+      query: 'dam'
+    },
+    ui: {
+      viewMode: 'split'
+    },
     autoSuggest: {
       count: 6,
       suggestions: [
