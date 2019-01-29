@@ -31,8 +31,8 @@ export function* fetchMapDetail() {
 }
 
 export function* fetchDetailEffect(action) {
-  const oldView = get(action, 'meta.location.prev.query.view', null);
-  const newView = get(action, 'meta.location.current.query.view', null);
+  const oldView = get(action, 'meta.location.prev.query.modus', null);
+  const newView = get(action, 'meta.location.current.query.modus', null);
   if (oldView !== newView && newView === VIEW_MODE.SPLIT) {
     yield put(closeMapPanel());
   }

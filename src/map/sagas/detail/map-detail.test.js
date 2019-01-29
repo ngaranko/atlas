@@ -28,8 +28,8 @@ describe('fetchDetailEffect', () => {
     const action = {
       meta: {
         location: {
-          prev: { query: { view: VIEW_MODE.MAP } },
-          current: { query: { view: VIEW_MODE.SPLIT } }
+          prev: { query: { modus: VIEW_MODE.MAP } },
+          current: { query: { modus: VIEW_MODE.SPLIT } }
         }
       }
     };
@@ -51,8 +51,8 @@ describe('fetchDetailEffect', () => {
     const action = {
       meta: {
         location: {
-          prev: { query: { view: VIEW_MODE.SPLIT } },
-          current: { query: { view: VIEW_MODE.SPLIT } }
+          prev: { query: { modus: VIEW_MODE.SPLIT } },
+          current: { query: { modus: VIEW_MODE.SPLIT } }
         }
       }
     };
