@@ -19,7 +19,7 @@ describe('UiReducer', () => {
       isEmbedPreview: false,
       isEmbed: false,
       isPrintMode: false,
-      viewMode: VIEW_MODE.FULL
+      viewMode: VIEW_MODE.SPLIT
     });
   });
 

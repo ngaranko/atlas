@@ -1,3 +1,4 @@
+import get from 'lodash.get';
 import { routing } from '../../../app/routes';
 import {
   getPage,
@@ -53,6 +54,7 @@ import {
 } from '../../../panorama/ducks/constants';
 import PAGES from '../../../app/pages';
 import { PIWIK_CONSTANTS } from './piwikMiddleware';
+import PARAMETERS from '../../parameters';
 
 const events = {
   // NAVIGATION
@@ -63,12 +65,12 @@ const events = {
       'auto-suggest', // NAVIGATION -> SELECT AUTOSUGGEST OPTION
       tracking.category,
       tracking.query
-    ] : (getViewMode(state) === VIEW_MODE.MAP && query.modus === VIEW_MODE.SPLIT) ? [
+    ] : (getViewMode(state) === VIEW_MODE.MAP && get(query, `${PARAMETERS.VIEW}`) === VIEW_MODE.SPLIT) ? [
       PIWIK_CONSTANTS.TRACK_EVENT,
       'navigation', // NAVIGATION -> CLICK TOGGLE FULLSCREEN FROM MAP
       'detail-volledig-weergeven',
       null
-    ] : (getViewMode(state) === VIEW_MODE.SPLIT && query.modus === VIEW_MODE.MAP) ? [
+    ] : (getViewMode(state) === VIEW_MODE.SPLIT && get(query, `${PARAMETERS.VIEW}`) === VIEW_MODE.MAP) ? [
       PIWIK_CONSTANTS.TRACK_EVENT,
       'navigation', // NAVIGATION -> CLICK TOGGLE FULLSCREEN FROM SPLITSCREEN
       'detail-kaart-vergroten',

@@ -70,6 +70,16 @@ export const toMap = (preserve = false) => ({
   }
 });
 
+export const toMapWithLegendOpen = () => ({
+  type: routing.data.type,
+  meta: {
+    additionalParams: {
+      [PARAMETERS.VIEW]: VIEW_MODE.MAP,
+      [PARAMETERS.LEGEND]: true
+    }
+  }
+});
+
 export const toMapAndPreserveQuery = () => toMap(true);
 
 export const toPanorama = (id, additionalParams = null) => ({
@@ -167,7 +177,7 @@ export const toDatasetsTableWithFilter = (datasetType, filter) => ({
   type: datasetType,
   meta: {
     additionalParams: {
-      [PARAMETERS.FILTERS]: filter,
+      ...filter ? { [PARAMETERS.FILTERS]: filter } : {},
       [PARAMETERS.VIEW]: VIEW_MODE.FULL
     }
   }
