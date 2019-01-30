@@ -170,6 +170,19 @@ Object {
       },
     },
   },
+  "detail-ref": Object {
+    "routes": Object {
+      "atlasRouter/PANORAMA": Object {
+        "addHistory": false,
+        "decode": [Function],
+        "defaultValue": Array [],
+        "encode": [Function],
+        "reducerKey": "panorama",
+        "selector": [Function],
+        "stateKey": "detailReference",
+      },
+    },
+  },
   "embed": Object {
     "routes": Object {
       "atlasRouter/ADDRESSES": Object {
@@ -644,6 +657,19 @@ Object {
       },
     },
   },
+  "page-ref": Object {
+    "routes": Object {
+      "atlasRouter/PANORAMA": Object {
+        "addHistory": false,
+        "decode": [Function],
+        "defaultValue": "",
+        "encode": [Function],
+        "reducerKey": "panorama",
+        "selector": [Function],
+        "stateKey": "pageReference",
+      },
+    },
+  },
   "pagina": Object {
     "routes": Object {
       "atlasRouter/ADDRESSES": Object {
@@ -761,19 +787,6 @@ Object {
         "reducerKey": "ui",
         "selector": [Function],
         "stateKey": "isPrintMode",
-      },
-    },
-  },
-  "ref": Object {
-    "routes": Object {
-      "atlasRouter/PANORAMA": Object {
-        "addHistory": false,
-        "decode": [Function],
-        "defaultValue": Array [],
-        "encode": [Function],
-        "reducerKey": "panorama",
-        "selector": [Function],
-        "stateKey": "reference",
       },
     },
   },

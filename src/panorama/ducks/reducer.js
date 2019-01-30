@@ -1,15 +1,16 @@
 import { PANORAMA_CONFIG } from '../services/panorama-api/panorama-api';
 import PAGES from '../../app/pages';
 import {
-  CLOSE_PANORAMA,
   FETCH_PANORAMA_ERROR,
+  FETCH_PANORAMA_HOTSPOT_REQUEST,
   FETCH_PANORAMA_REQUEST,
-  FETCH_PANORAMA_SUCCESS,
-  initialState, SET_PANORAMA_LOCATION,
-  SET_PANORAMA_ORIENTATION,
-  SET_PANORAMA_YEAR,
   FETCH_PANORAMA_REQUEST_TOGGLE,
-  REDUCER_KEY, FETCH_PANORAMA_HOTSPOT_REQUEST
+  FETCH_PANORAMA_SUCCESS,
+  initialState,
+  REDUCER_KEY,
+  SET_PANORAMA_LOCATION,
+  SET_PANORAMA_ORIENTATION,
+  SET_PANORAMA_YEAR
 } from './constants';
 import paramsRegistry from '../../store/params-registry';
 import { shouldResetState } from '../../store/redux-first-router/actions';
@@ -72,13 +73,6 @@ export default function reducer(state = initialState, action) {
         heading: action.payload.heading,
         pitch: action.payload.pitch,
         fov: action.payload.fov
-      };
-
-    case CLOSE_PANORAMA:
-      return {
-        ...enrichedState,
-        location: initialState.location,
-        image: initialState.image
       };
 
     case SET_PANORAMA_LOCATION:

@@ -33,22 +33,22 @@ describe('panorama module', () => {
   describe('user should be able to use the panorama viewer', () => {
     it('should be able to click a hotspot and change the coordinates', () => {
       cy.get(statusBarInfo).first()
-      .then((coordinatesEl) => {
-        const coordinates = coordinatesEl[0].innerText;
+        .then((coordinatesEl) => {
+          const coordinates = coordinatesEl[0].innerText;
 
-        cy.get(statusBarInfo).first()
-          .contains(coordinates)
-          .should('exist');
+          cy.get(statusBarInfo).first()
+            .contains(coordinates)
+            .should('exist');
 
-        // the click the first hotspot
-        cy.get('.qa-hotspot-button:visible').first().click();
+          // the click the first hotspot
+          cy.get('.qa-hotspot-button:visible').first().click();
 
-        cy.wait('@getResults');
-        // the coordinates should be different
-        cy.get(statusBarInfo).first().find('span')
-          .contains(coordinates)
-          .should('not.exist');
-      });
+          cy.wait('@getResults');
+          // the coordinates should be different
+          cy.get(statusBarInfo).first().find('span')
+            .contains(coordinates)
+            .should('not.exist');
+        });
     });
   });
 
@@ -74,28 +74,28 @@ describe('panorama module', () => {
 
     it('should change the coordinates when clicked on the map', () => {
       cy.get(statusBarInfo).first()
-      .then((coordinatesEl) => {
-        const coordinates = coordinatesEl[0].innerText;
+        .then((coordinatesEl) => {
+          const coordinates = coordinatesEl[0].innerText;
 
-        cy.get(statusBarInfo).first()
-          .contains(coordinates)
-          .should('exist');
+          cy.get(statusBarInfo).first()
+            .contains(coordinates)
+            .should('exist');
 
-        // click on the leaflet map with a different position
-        cy.get('.leaflet-container').trigger('click', 20, 100);
+          // click on the leaflet map with a different position
+          cy.get('.leaflet-container').trigger('click', 20, 100);
 
-        cy.wait('@getResults');
-        // the coordinates should be different
-        cy.get(statusBarInfo).first()
-          .contains(coordinates)
-          .should('not.exist');
-      });
+          cy.wait('@getResults');
+          // the coordinates should be different
+          cy.get(statusBarInfo).first()
+            .contains(coordinates)
+            .should('not.exist');
+        });
     });
   });
 
   describe('user should be able to interact with the panorama', () => {
     it('should remember the state when closing the pano, and update to search results when clicked in map', () => {
-      const panoUrl = '/data/panorama/TMX7316010203-000714_pano_0001_002608?heading=325&reference=03630000004153%2Cbag%2Copenbareruimte&reference=03630000004153%2Cbag%2Copenbareruimte';
+      const panoUrl = '/data/panorama/TMX7316010203-000714_pano_0001_002608?heading=325&detailReference=03630000004153%2Cbag%2Copenbareruimte&detailReference=03630000004153%2Cbag%2Copenbareruimte';
       let newUrl;
 
       cy.defineGeoSearchRoutes();
@@ -120,7 +120,7 @@ describe('panorama module', () => {
 
       cy.wait('@getResults');
       cy.location().then((loc) => {
-        newUrl = `${loc.pathname + loc.search  }&reference=03630000004153%2Cbag%2Copenbareruimte`;
+        newUrl = `${loc.pathname + loc.search}&reference=03630000004153%2Cbag%2Copenbareruimte`;
         expect(newUrl).to.equal(panoUrl);
       });
 

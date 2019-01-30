@@ -31,7 +31,8 @@ describe('Panorama Reducer', () => {
       hotspots: [],
       image: null,
       isLoading: true,
-      reference: [],
+      detailReference: [],
+      pageReference: '',
       location: null,
       targetLocation: null,
       pitch: 0
