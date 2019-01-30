@@ -26,34 +26,36 @@ import isDefined from '../../../../src/shared/services/is-defined';
 
     function DpLinkController ($scope, store, $location) {
         const vm = this;
-        vm.activeUrl = $location.url();
+        this.$onInit = function () {
+            vm.activeUrl = $location.url();
 
-        vm.className = vm.className || 'o-btn o-btn--link';
-        vm.inline = vm.inline || false;
-        vm.tabIndex = vm.tabIndex || '0';
+            vm.className = vm.className || 'o-btn o-btn--link';
+            vm.inline = vm.inline || false;
+            vm.tabIndex = vm.tabIndex || '0';
 
-        vm.dispatch = function (e) {
-            e.preventDefault();
-            if (vm.action) {
-                store.dispatch(vm.action);
-            } else {
-                store.dispatch(getAction(vm.type, vm.payload, vm.query));
+            vm.dispatch = function (e) {
+                e.preventDefault();
+                if (vm.action) {
+                    store.dispatch(vm.action);
+                } else {
+                    store.dispatch(getAction(vm.type, vm.payload, vm.query));
+                }
+            };
+
+            function getAction (type, payload, query) {
+                const action = {
+                    type
+                };
+                if (isDefined(payload)) {
+                    action.payload = payload;
+                }
+
+                if (angular.isDefined(query)) {
+                    action.meta = {};
+                    action.meta.query = query;
+                }
+                return action;
             }
         };
-
-        function getAction (type, payload, query) {
-            const action = {
-                type
-            };
-            if (isDefined(payload)) {
-                action.payload = payload;
-            }
-
-            if (angular.isDefined(query)) {
-                action.meta = {};
-                action.meta.query = query;
-            }
-            return action;
-        }
     }
 })();

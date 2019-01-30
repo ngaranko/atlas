@@ -15,7 +15,7 @@ const mapStateToProps = (state) => ({
   endpoint: `${API_ROOT}dcatd/datasets/${getLocationPayload(state).id}` // TODO: refactor use API_ROOT and such
 });
 
-const DatasetDetailContainer = ({
+export const DatasetDetail = ({
   isLoading,
   catalogFilters,
   user,
@@ -38,15 +38,15 @@ const DatasetDetailContainer = ({
   </div>
 );
 
-DatasetDetailContainer.defaultProps = {
+DatasetDetail.defaultProps = {
   isLoading: false
 };
 
-DatasetDetailContainer.propTypes = {
+DatasetDetail.propTypes = {
   isLoading: PropTypes.bool,
   catalogFilters: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   endpoint: PropTypes.string.isRequired
 };
 
-export default connect(mapStateToProps, null)(DatasetDetailContainer);
+export default connect(mapStateToProps, null)(DatasetDetail);

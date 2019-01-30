@@ -7,9 +7,10 @@
         .module('dpShared')
         .config(configuration);
 
-    configuration.$inject = ['$provide'];
+    configuration.$inject = ['$provide', '$qProvider'];
 
-    function configuration ($provide) {
+    function configuration ($provide, $qProvider) {
+        $qProvider.errorOnUnhandledRejections(false);
         $provide.constant('L', L);
         $provide.constant('proj4', proj4);
         $provide.constant('Redux', Redux);

@@ -1,0 +1,33 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:angular:20150315':
+    - react-angular > angular:
+        reason: None given
+        expires: '2019-02-28T14:30:22.961Z'
+  'npm:angular:20171018':
+    - react-angular > angular:
+        reason: None given
+        expires: '2019-02-28T14:30:22.961Z'
+  'npm:angular:20180202':
+    - react-angular > angular:
+        reason: None given
+        expires: '2019-02-28T14:30:22.961Z'
+  'npm:ua-parser-js:20180227':
+    - create-react-class > fbjs > ua-parser-js:
+        reason: None given
+        expires: '2019-02-28T14:30:22.961Z'
+    - react-angular > prop-types > fbjs > ua-parser-js:
+        reason: None given
+        expires: '2019-02-28T14:30:22.961Z'
+    - react-angular > react > fbjs > ua-parser-js:
+        reason: None given
+        expires: '2019-02-28T14:30:22.961Z'
+    - react-angular > react > create-react-class > fbjs > ua-parser-js:
+        reason: None given
+        expires: '2019-02-28T14:30:22.961Z'
+    - react-angular > react > prop-types > fbjs > ua-parser-js:
+        reason: None given
+        expires: '2019-02-28T14:30:22.961Z'
+patch: {}

@@ -9,7 +9,7 @@ exports[`DetailContainer should render 1`] = `
       Object {
         "isLoading": false,
         "isPreviewPanoramaLoading": false,
-        "previewPanorama": Object {},
+        "previewPanorama": undefined,
         "user": Object {},
       }
     }
@@ -21,7 +21,7 @@ exports[`DetailContainer should render 1`] = `
     }
     interpolateBindings={
       Object {
-        "endpoint": "myEndpoint",
+        "endpoint": "http://example.com",
       }
     }
     moduleName="dpDetailWrapper"

@@ -17,7 +17,7 @@ const mapStateToProps = (state) => ({
   isPreviewPanoramaLoading: isPanoramaPreviewLoading(state)
 });
 
-const DetailContainer = ({
+export const Detail = ({
   isLoading,
   user,
   endpoint,
@@ -42,12 +42,12 @@ const DetailContainer = ({
   </div>
 );
 
-DetailContainer.defaultProps = {
+Detail.defaultProps = {
   previewPanorama: undefined,
   isPreviewPanoramaLoading: undefined
 };
 
-DetailContainer.propTypes = {
+Detail.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   endpoint: PropTypes.string.isRequired,
@@ -55,4 +55,4 @@ DetailContainer.propTypes = {
   isPreviewPanoramaLoading: PropTypes.bool
 };
 
-export default connect(mapStateToProps, null)(DetailContainer);
+export default connect(mapStateToProps, null)(Detail);

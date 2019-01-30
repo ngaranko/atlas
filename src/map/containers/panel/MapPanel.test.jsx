@@ -2,41 +2,63 @@ import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import MapPanelContainer from './MapPanelContainer';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapType from '../../components/type/MapType';
+import MapPanel from './MapPanel';
+import MapPanelContainer from './MapPanelContainer';
 
-describe('MapPanelContainer', () => {
-  let store;
+describe('MapPanel', () => {
   let wrapper;
+  const store = configureMockStore()({
+    map: {
+      baseLayer: '',
+      overlays: [{
+        isVisible: true
+      }]
+    },
+    mapLayers: {
+      layers: {
+        items: []
+      },
+      baseLayers: {
+        items: []
+      },
+      panelLayers: {
+        items: []
+      }
+    },
+    overlays: [{}],
+    selection: {
+      type: 'none'
+    },
+    ui: { isMapPanelHandleVisible: true, isEmbed: false, isPrint: false }
+  });
 
   beforeEach(() => {
-    store = configureMockStore()({
-      map: {
-        baseLayer: '',
-        overlays: [{
-          isVisible: true
-        }]
-      },
-      mapLayers: {
-        layers: {
-          items: []
-        },
-        baseLayers: {
-          items: []
-        },
-        panelLayers: {
-          items: []
-        }
-      },
-      overlays: [{}],
-      selection: {
-        type: 'none'
-      },
-      ui: { isMapPanelHandleVisible: true, isEmbed: false, isPrint: false }
-    });
-    wrapper = shallow(<MapPanelContainer />, { context: { store } }).dive();
+    wrapper = shallow(
+      <MapPanel
+        activeBaseLayer=""
+        activeMapLayers={[]}
+        isMapPanelHandleVisible
+        mapBaseLayers={{}}
+        mapLayers={[]}
+        overlays={[{}]}
+        zoomLevel={10}
+        user={{}}
+        isEmbedOrPrint={false}
+        isMapPanelVisible={false}
+        onLayerToggle={jest.fn}
+        onBaseLayerToggle={jest.fn}
+        onLayerVisibilityToggle={jest.fn}
+        onMapPanelHandleToggle={jest.fn}
+        onMapPanelToggle={jest.fn}
+      />
+    );
+  });
+
+  it('should render the container', () => {
+    expect(shallow(<MapPanelContainer />, { context: { store } })).toMatchSnapshot();
   });
 
   it('should render MapType and MapLayers', () => {
