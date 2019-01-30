@@ -25,6 +25,11 @@ exports[`HomepageAddressBlock should render links 1`] = `
         title="Bekijk Adressentabel"
         to={
           Object {
+            "meta": Object {
+              "additionalParams": Object {
+                "modus": "volledig",
+              },
+            },
             "type": "atlasRouter/ADDRESSES",
           }
         }
@@ -48,6 +53,11 @@ exports[`HomepageAddressBlock should render links 1`] = `
         title="Bekijk handelsregister-tabel"
         to={
           Object {
+            "meta": Object {
+              "additionalParams": Object {
+                "modus": "volledig",
+              },
+            },
             "type": "atlasRouter/ESTABLISHMENTS",
           }
         }
@@ -71,6 +81,11 @@ exports[`HomepageAddressBlock should render links 1`] = `
         title="Bekijk kadaster-tabel"
         to={
           Object {
+            "meta": Object {
+              "additionalParams": Object {
+                "modus": "volledig",
+              },
+            },
             "type": "atlasRouter/CADASTRAL_OBJECTS",
           }
         }
