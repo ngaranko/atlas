@@ -16,7 +16,7 @@
     "build": "npm run build-prod",
     "build-acc": "webpack --config webpack.acc.js",
     "build-dev": "webpack --config webpack.dev.js",
-    "build-prod": "webpack --config webpack.prod.js",
+    "build-prod": "webpack --config webpack.prod.js && rimraf ./dist/**/*.map",
     "build-test": "webpack --config webpack.acc.js",
     "clean": "npm run clean-cache && npm run clean-dirs",
     "clean-cache": "npm cache verify",
