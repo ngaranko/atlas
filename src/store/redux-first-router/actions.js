@@ -54,6 +54,7 @@ export const toDataSearchQuery = (
 ) => ({
   type: routing.dataQuerySearch.type,
   meta: {
+    preserve: true,
     skipSaga,
     forceSaga,
     additionalParams
@@ -135,9 +136,9 @@ export const toDatasets = () => ({ type: routing.datasets.type });
 export const toDatasetSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
   type: routing.searchDatasets.type,
   meta: {
+    preserve: true,
     skipSaga,
     forceSaga,
-    preserveQuery: true,
     additionalParams
   }
 });
