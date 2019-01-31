@@ -26,6 +26,8 @@ export const GOOGLE_SHEET_CMS = {
     statistieken: 9,
     verplaatst: 10,
     nietgevonden: 11
+    // important when change/add index: don't forget to update the
+    // jenkins import script: Imports/job/Imports/job/Import_CMS/
   }
 };
 
