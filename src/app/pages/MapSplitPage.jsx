@@ -81,7 +81,7 @@ const MapSplitPage = ({
       };
   }
 
-  if (viewMode === VIEW_MODE.MAP) {
+  if (viewMode === VIEW_MODE.MAP && !forceFullScreen) {
     return <MapContainer {...mapProps} />;
   } else if (Component) {
     if (viewMode === VIEW_MODE.FULL || forceFullScreen) {
