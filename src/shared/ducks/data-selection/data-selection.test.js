@@ -56,7 +56,7 @@ describe('Data Selection Reducer', () => {
     ),
     ...getExpectations(
       actionCreators.fetchMarkersFailure.name,
-      ['isLoading', 'errorMessage', 'result', 'markers'],
+      ['loadingMarkers', 'errorMessage', 'result', 'markers'],
       ['error']
     ),
     ...getExpectations(

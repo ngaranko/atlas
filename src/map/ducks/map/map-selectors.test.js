@@ -2,21 +2,21 @@ import {
   getActiveBaseLayer,
   getCenter,
   getDrawingMode,
+  getGeometry,
   getMapBoundingBox,
   getMapCenter,
   getMapOverlays,
   getMapZoom,
   getRdGeoJsons,
-  getGeometry,
   getShapeDistanceTxt,
-  isMarkerActive,
   isMapLoading,
-  isMapPanelActive
+  isMapPanelActive,
+  isMarkerActive
 } from './map-selectors';
 import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
 import { getPanoramaLocation } from '../../../panorama/ducks/selectors';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
-import { isLoading } from '../../../shared/ducks/data-selection/selectors';
+import { areMarkersLoading } from '../../../shared/ducks/data-selection/selectors';
 
 jest.mock('../../../shared/ducks/selection/selection');
 jest.mock('../../../shared/ducks/data-selection/selectors');
@@ -49,7 +49,7 @@ describe('Map Selectors', () => {
     panorama,
     selection
   };
-  isLoading.mockImplementation(() => false);
+  areMarkersLoading.mockImplementation(() => false);
 
   describe('simple selectors', () => {
     it('should return the proper result', () => {
