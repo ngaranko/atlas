@@ -28,7 +28,7 @@ export const initialState = {
   isEmbedPreview: false,
   isEmbed: false,
   isPrintMode: false,
-  viewMode: VIEW_MODE.FULL
+  viewMode: VIEW_MODE.SPLIT
 };
 
 export default function UiReducer(state = initialState, action) {

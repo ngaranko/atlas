@@ -9,7 +9,7 @@ import HomepageAddressBlock from '../../homepage/components/address-block/Homepa
 import HomepageBlock from '../../homepage/components/block/HomepageBlock';
 import {
   toDatasets,
-  toMap,
+  toMapWithLegendOpen,
   toPanoramaAndPreserveQuery
 } from '../../store/redux-first-router/actions';
 
@@ -63,7 +63,7 @@ const Home = ({ showFooter }) => (
                   <div className="qa-map-link">
                     <HomepageBlock
                       classes="c-homepage__block--left"
-                      linkAction={toMap(true)}
+                      linkAction={toMapWithLegendOpen()}
                       title="Data op de kaart"
                       description="Selecteer kaartlagen, vind gegevens op een punt in de kaart,
                         meet of teken een gebied"
@@ -138,7 +138,9 @@ const Home = ({ showFooter }) => (
                       linkAction={
                         toPanoramaAndPreserveQuery(
                           HOMEPAGE_CONFIG.PANORAMA.id,
-                          HOMEPAGE_CONFIG.PANORAMA.heading
+                          HOMEPAGE_CONFIG.PANORAMA.heading,
+                          [],
+                          'home'
                         )
                       }
                       title="Panoramabeelden"
