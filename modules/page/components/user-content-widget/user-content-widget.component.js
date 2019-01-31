@@ -21,16 +21,18 @@ import { routing } from '../../../../src/app/routes';
     function DpUserContentWidgetController ($scope) {
         const vm = this;
 
-        vm.routing = routing;
+        this.$onInit = function () {
+            vm.routing = routing;
 
-        vm.feed = null;
-        vm.entries = [];
+            vm.feed = null;
+            vm.entries = [];
 
-        getContents(vm.type)
-            .then(contents => {
-                vm.feed = contents.feed;
-                vm.entries = contents.entries;
-                $scope.$digest();
-            });
+            getContents (vm.type)
+                .then(contents => {
+                    vm.feed = contents.feed;
+                    vm.entries = contents.entries;
+                    $scope.$digest();
+                });
+        };
     }
 })();

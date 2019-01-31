@@ -219,33 +219,32 @@ class AutoSuggest extends React.Component {
               spellCheck="false"
               type="text"
               value={query || ''}
-              autoFocus="true" // eslint-disable-line jsx-a11y/no-autofocus
             />
 
             {query &&
-              <button
-                type="button"
-                className="qa-search-form__clear auto-suggest__clear"
-                onClick={this.clearQuery}
-                title="Wis zoektekst"
-              >
-                <span className="u-sr-only">Wis zoektekst</span>
-              </button>
+            <button
+              type="button"
+              className="qa-search-form__clear auto-suggest__clear"
+              onClick={this.clearQuery}
+              title="Wis zoektekst"
+            >
+              <span className="u-sr-only">Wis zoektekst</span>
+            </button>
             }
           </div>
           {suggestions.length > 0 && showSuggestions &&
-            <div className="auto-suggest__dropdown">
-              <h3 className="auto-suggest__tip">Enkele suggesties</h3>
-              {suggestions.map((category) => (
-                <AutoSuggestCategory
-                  activeSuggestion={activeSuggestion}
-                  category={category}
-                  key={category.label}
-                  onSuggestionSelection={this.onSuggestionSelection}
-                  query={highlightQuery}
-                />
-              ))}
-            </div>
+          <div className="auto-suggest__dropdown">
+            <h3 className="auto-suggest__tip">Enkele suggesties</h3>
+            {suggestions.map((category) => (
+              <AutoSuggestCategory
+                activeSuggestion={activeSuggestion}
+                category={category}
+                key={category.label}
+                onSuggestionSelection={this.onSuggestionSelection}
+                query={highlightQuery}
+              />
+            ))}
+          </div>
           }
           <button
             className="auto-suggest__submit qa-search-form-submit"

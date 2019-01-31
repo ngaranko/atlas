@@ -1,23 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { bindActionCreators } from 'redux';
-import { setPage as setDatasetPage } from '../../../shared/ducks/data-selection/actions';
 import DATA_SELECTION_CONFIG from '../../../shared/services/data-selection/data-selection-config';
-import { getUser, getUserScopes } from '../../../shared/ducks/user/user';
 import NotAuthorizedMessage from '../PanelMessages/NotAuthorizedMessage';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
-import { getFilters } from '../../../shared/ducks/filters/filters';
 import DataSelectionActiveFilters from '../../containers/DataSelectionActiveFiltersContainer';
 import MaxPageMessage from '../PanelMessages/MaxPageMessage';
-import {
-  getDataSelection,
-  getDataSelectionResult
-} from '../../../shared/ducks/data-selection/selectors';
 import NoResultsForSearchType from '../Messages/NoResultsForSearchType';
-import { getViewMode, VIEW_MODE } from '../../../shared/ducks/ui/ui';
+import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import { VIEWS_TO_PARAMS } from '../../../shared/ducks/data-selection/constants';
 
 const DataSelection = ({
@@ -74,9 +65,9 @@ const DataSelection = ({
           }}
         />
 
-        {(isLoading) && <LoadingIndicator /> }
+        {(isLoading) && <LoadingIndicator />}
 
-        {(!isLoading) && <DataSelectionActiveFilters /> }
+        {(!isLoading) && <DataSelectionActiveFilters />}
 
         {(!isLoading && !numberOfRecords && !authError && !authScopeError) ?
           <NoResultsForSearchType
@@ -137,7 +128,8 @@ const DataSelection = ({
                       <p className="c-panel__paragraph">Deze resultaten worden niet getoond op
                         de
                         kaart, omdat deze niet meer
-                        dan {MAX_NUMBER_OF_CLUSTERED_MARKERS.toLocaleString('nl-NL')} resultaten tegelijk kan
+                        dan {MAX_NUMBER_OF_CLUSTERED_MARKERS.toLocaleString('nl-NL')} resultaten
+                        tegelijk kan
                         weergeven (om technische redenen).</p>
                       <p className="c-panel__paragraph">Tip: Bekijk de lijst resultaten in
                         kleinere delen. Dit kan door een voor een filtercriteria toe te voegen
@@ -216,23 +208,4 @@ DataSelection.propTypes = {
   })
 };
 
-const mapStateToProps = (state) => {
-  const { isLoading, dataset, authError, page } = getDataSelection(state);
-  return ({
-    isLoading,
-    dataset,
-    authError,
-    page,
-    view: getViewMode(state),
-    activeFilters: getFilters(state),
-    results: getDataSelectionResult(state),
-    user: getUser(state),
-    userScopes: getUserScopes(state)
-  });
-};
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  setPage: setDatasetPage
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(DataSelection);
+export default DataSelection;

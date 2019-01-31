@@ -9,16 +9,17 @@ module.exports = {
     '!**/*.{integration}.test.{js,jsx}',
     '!**/*.mock.js',
     '!**/index.js',
+    '!**/angularModules.js',
     '!src/*.js',
     '!src/.*.js'
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
-      statements: 80,
-      branches: 73, // TODO refactor, get coverage up
+      statements: 82,
+      branches: 74, // TODO refactor, get coverage up
       functions: 79,
-      lines: 81
+      lines: 83
     }
   },
   coverageReporters: process.env.CI ? [

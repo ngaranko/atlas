@@ -30,12 +30,14 @@
     function DpPanelController () {
         var vm = this;
 
-        vm.sizeClass = vm.size ? `c-panel--${vm.size}` : '';
-        vm.typeClass = vm.type ? `c-panel--${vm.type}` : '';
+        this.$onInit = function () {
+            vm.sizeClass = vm.size ? `c-panel--${vm.size}` : '';
+            vm.typeClass = vm.type ? `c-panel--${vm.type}` : '';
 
-        vm.close = function () {
-            vm.isPanelVisible = false;
-            vm.closeAction && vm.closeAction(); // eslint-disable-line no-unused-expressions
+            vm.close = function () {
+                vm.isPanelVisible = false;
+                vm.closeAction && vm.closeAction(); // eslint-disable-line no-unused-expressions
+            };
         };
     }
 })();

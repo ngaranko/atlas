@@ -88,10 +88,6 @@ class MapPreviewPanel extends React.Component {
   }
 }
 
-MapPreviewPanel.contextTypes = {
-  store: PropTypes.object.isRequired
-};
-
 MapPreviewPanel.defaultProps = {
   detail: {},
   detailResult: {},
