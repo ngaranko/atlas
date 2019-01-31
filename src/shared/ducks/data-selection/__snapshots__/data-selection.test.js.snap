@@ -32,7 +32,9 @@ Object {
 exports[`Data Selection Reducer should set isLoading, authError, errorMessage, result, markers state when dispatching receiveDataSelectionFailure 1`] = `
 Object {
   "authError": false,
-  "errorMessage": "error message",
+  "errorMessage": Object {
+    "error": "error message",
+  },
   "isLoading": false,
   "markers": Array [],
   "result": Object {},
@@ -57,14 +59,6 @@ Object {
   "errorMessage": "",
   "isLoading": false,
   "markers": Array [],
-}
-`;
-
-exports[`Data Selection Reducer should set isLoading, page, dataset state when dispatching fetchDataSelection 1`] = `
-Object {
-  "dataset": undefined,
-  "isLoading": true,
-  "page": undefined,
 }
 `;
 
