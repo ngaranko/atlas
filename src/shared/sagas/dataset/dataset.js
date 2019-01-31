@@ -19,7 +19,7 @@ import {
   fetchApiSpecificationFailure,
   fetchApiSpecificationSuccess
 } from '../../ducks/datasets/apiSpecification/apiSpecification';
-import { getApiSpecificationData, getPage } from '../../ducks/datasets/datasets';
+import { getApiSpecificationData, getDatasetsData, getPage } from '../../ducks/datasets/datasets';
 import getApiSpecification from '../../services/datasets-filters/datasets-filters';
 import { getSearchQuery } from '../../ducks/data-search/selectors';
 import PARAMETERS from '../../../store/parameters';
@@ -66,6 +66,20 @@ export function* fetchDatasetsEffect(action) {
         searchText
       })
     );
+  }
+}
+
+/**
+ * For some reason we need the whole list of datasets to be able to show the dataset detail page
+ * (angularjs legacy detail.component).
+ * That's why we need to check if we need to fetch datasets if it didn't. This way we prevent
+ * fetching on every dataset page.
+ * @returns {IterableIterator<*>}
+ */
+export function* fetchDatasetsOptionalEffect() {
+  const datasets = yield select(getDatasetsData);
+  if (get(datasets, 'result.numberOfRecords') === 0) {
+    yield call(fetchDatasetsEffect);
   }
 }
 
