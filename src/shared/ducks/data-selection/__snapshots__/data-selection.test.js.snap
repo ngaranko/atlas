@@ -64,7 +64,13 @@ Object {
 exports[`Data Selection Reducer should set loadingMarkers state when dispatching fetchMarkersRequest 1`] = `
 Object {
   "loadingMarkers": true,
+}
+`;
+
+exports[`Data Selection Reducer should set loadingMarkers, errorMessage, result, markers state when dispatching fetchMarkersFailure 1`] = `
+Object {
   "errorMessage": "error",
+  "loadingMarkers": false,
   "markers": Array [],
   "result": Object {},
 }
