@@ -23,6 +23,9 @@ class Video extends React.Component {
         this.playPromise.then(() => {
           videoPlayer.pause();
         });
+      } else {
+        // IE11 doesn't support promises, we need to force stop the player
+        videoPlayer.pause();
       }
     }
 

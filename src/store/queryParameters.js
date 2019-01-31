@@ -16,11 +16,12 @@ import {
 import { historyOptions, initialState as panoramaInitialState } from '../panorama/ducks/constants';
 import { PANORAMA } from '../panorama/ducks/reducer';
 import {
+  getDetailReference,
+  getPageReference,
   getPanoramaHeading,
   getPanoramaHistory,
   getPanoramaLocation,
-  getPanoramaPitch,
-  getReference
+  getPanoramaPitch
 } from '../panorama/ducks/selectors';
 import {
   getDataSearchLocation,
@@ -204,15 +205,21 @@ export default paramsRegistry
       )
     });
   })
-  .addParameter(PARAMETERS.REFERENCE, (routes) => {
-    routes.add(routing.panorama.type, PANORAMA, 'reference', {
-      defaultValue: panoramaInitialState.reference,
-      decode: (val) => (val && val.length ? val.split(',') : panoramaInitialState.reference),
-      selector: getReference,
+  .addParameter(PARAMETERS.DETAIL_REFERENCE, (routes) => {
+    routes.add(routing.panorama.type, PANORAMA, 'detailReference', {
+      defaultValue: panoramaInitialState.detailReference,
+      decode: (val) => (val && val.length ? val.split(',') : panoramaInitialState.detailReference),
+      selector: getDetailReference,
       encode: (selectorResult) => (selectorResult.length ?
           selectorResult.join() :
-          panoramaInitialState.reference
+          panoramaInitialState.detailReference
       )
+    }, false);
+  })
+  .addParameter(PARAMETERS.PAGE_REFERENCE, (routes) => {
+    routes.add(routing.panorama.type, PANORAMA, 'pageReference', {
+      defaultValue: panoramaInitialState.pageReference,
+      selector: getPageReference
     }, false);
   })
   .addParameter(PARAMETERS.EMBED_PREVIEW, (routes) => {

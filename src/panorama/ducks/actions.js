@@ -1,10 +1,11 @@
 // Actions creators
 import {
+  CLOSE_PANORAMA,
   FETCH_PANORAMA_ERROR,
   FETCH_PANORAMA_HOTSPOT_REQUEST,
   FETCH_PANORAMA_REQUEST,
-  FETCH_PANORAMA_REQUEST_TOGGLE,
   FETCH_PANORAMA_REQUEST_EXTERNAL,
+  FETCH_PANORAMA_REQUEST_TOGGLE,
   FETCH_PANORAMA_SUCCESS,
   SET_PANORAMA_LOCATION,
   SET_PANORAMA_ORIENTATION
@@ -51,6 +52,10 @@ export const fetchPanoramaSuccess = (payload) => ({
 export const fetchPanoramaError = (error) => ({
   type: FETCH_PANORAMA_ERROR,
   payload: error
+});
+
+export const closePanorama = () => ({
+  type: CLOSE_PANORAMA
 });
 export const setPanoramaLocation = (payload) => ({
   type: SET_PANORAMA_LOCATION,
