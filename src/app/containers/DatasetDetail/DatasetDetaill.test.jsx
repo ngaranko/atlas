@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { DatasetDetail } from './DatasetDetailContainer';
+import DatasetDetail from './DatasetDetail';
 
-describe('DatasetsDetailContainer', () => {
+describe('DatasetsDetail', () => {
   it('should render', () => {
     const component = shallow(
       <DatasetDetail

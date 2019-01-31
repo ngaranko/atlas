@@ -49,7 +49,7 @@ jest.mock('../../ducks/panel-layers/map-panel-layers');
 jest.mock('../../services/draw-tool/draw-tool');
 jest.mock('../../ducks/map/map-selectors');
 
-describe.skip('LeafletContainer', () => {
+describe('LeafletContainer', () => {
   let initialState;
 
   const mapLayers = {

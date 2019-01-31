@@ -4,7 +4,7 @@ import './StatusBar.scss';
 import { historyOptions } from '../../ducks/constants';
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system/crs-converter';
 import { dateToString } from '../../../shared/services/date-formatter/date-formatter';
-import PanoramaToggle from '../PanoramaToggle/PanoramaToggleContainer';
+import PanoramaToggleContainer from '../PanoramaToggle/PanoramaToggleContainer';
 
 const convertLocation = (location) => {
   const [latitude, longitude] = location;
@@ -16,7 +16,7 @@ const convertLocation = (location) => {
 
 const StatusBar = ({ date, location, heading, history }) => (
   <div className="c-panorama-status-bar">
-    <PanoramaToggle {...{ heading, history, historyOptions, location }} />
+    <PanoramaToggleContainer {...{ heading, history, historyOptions, location }} />
 
     <div className="c-panorama-status-bar__info">
       <div className="c-panorama-status-bar__info-item">

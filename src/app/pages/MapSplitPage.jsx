@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
-import DetailContainer from '../containers/DetailContainer';
+import DetailContainer from '../containers/DetailContainer/DetailContainer';
 
 import { getDetailEndpoint, shouldShowFullScreen } from '../../shared/ducks/detail/selectors';
 import { toDetailFromEndpoint as endpointActionCreator } from '../../store/redux-first-router/actions';
