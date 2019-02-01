@@ -4,7 +4,7 @@ import { REQUEST_NEAREST_DETAILS } from '../../../shared/ducks/data-search/const
 import { toDetailFromEndpoint } from '../../../store/redux-first-router/actions';
 import { showDetail } from '../../../shared/ducks/detail/actions';
 import { FETCH_MAP_DETAIL_SUCCESS } from '../../ducks/detail/constants';
-import { getGeometry } from '../../../shared/services/geometry/geometry';
+import getGeometry from '../../../shared/services/geometry/geometry';
 import { goToGeoSearch } from '../map-click/map-click';
 
 export function* fetchNearestDetails(action) {

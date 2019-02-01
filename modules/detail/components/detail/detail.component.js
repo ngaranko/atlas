@@ -28,14 +28,16 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
     function DpDetailController (store) {
         const vm = this;
 
-        vm.stripMarkdown = (val) => removeMd(val);
+        vm.$onInit = () => {
+            vm.stripMarkdown = (val) => removeMd(val);
 
-        vm.downloadResource = (dataset, resourceUrl) =>
-            store.dispatch(downloadDatasetResource({ dataset, resourceUrl }));
+            vm.downloadResource = (dataset, resourceUrl) =>
+                store.dispatch(downloadDatasetResource({ dataset, resourceUrl }));
+        };
 
         /* istanbul ignore next */
         vm.$onChanges = (changes) => {
-            const {detailTemplateUrl, detailData, detailFilterSelection} = changes;
+            const { detailTemplateUrl, detailData, detailFilterSelection } = changes;
             if (!(detailTemplateUrl && detailData && detailFilterSelection)) return;
             if (detailTemplateUrl && detailTemplateUrl.previousValue !== detailTemplateUrl.currentValue) {
                 vm.includeSrc = detailTemplateUrl.currentValue;

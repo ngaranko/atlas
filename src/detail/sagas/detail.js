@@ -1,5 +1,4 @@
-import { put, select, takeLatest } from 'redux-saga/effects';
-import { routing } from '../../app/routes';
+import { put, select } from 'redux-saga/effects';
 import { fetchDetail as fetchDetailActionCreator } from '../../shared/ducks/detail/actions';
 import { pageTypeToEndpoint } from '../../store/redux-first-router/actions';
 import { getDetail } from '../../shared/ducks/detail/selectors';
@@ -7,6 +6,7 @@ import { getUserScopes } from '../../shared/ducks/user/user';
 import { getTemplateUrl, getParts } from '../services/endpoint-parser/endpoint-parser';
 import { getApiSpecificationData } from '../../shared/ducks/datasets/datasets';
 import formatDetailData from '../services/data-formatter/data-formatter';
+import { getByUrl } from '../../shared/services/api/api';
 
 /* istanbul ignore next */
 export function* fetchDetail() {
@@ -35,13 +35,18 @@ export function* getDetailData(endpoint, mapDetail) {
     return {};
   }
 
-  console.log('append version=3 to grondexploitaties');
-  // TODO append
-  // const endpointVersion = category === 'grondexploitatie' ? '?version=3' : '';
+  // TODO console.log('append version=3 to grondexploitaties');
+  const endpointVersion = category === 'grondexploitatie' ? '?version=3' : '';
   const catalogFilters = yield select(getApiSpecificationData);
-  // const data = yield getByUrl(`${endpoint}${endpointVersion}`);
-  const data = mapDetail;
-  const formatedData = formatDetailData(data, category, subject, catalogFilters, scopes);
+
+  // TODO replace this call with mapDetail value
+  const data = yield getByUrl(`${endpoint}${endpointVersion}`);
+  const formatedData = {
+    ...mapDetail,
+    ...formatDetailData(data, category, subject, catalogFilters, scopes)
+    // ...mapDetail
+  };
+
   return {
     includeSrc,
     data: formatedData,
@@ -53,5 +58,5 @@ export function* getDetailData(endpoint, mapDetail) {
 
 /* istanbul ignore next */ // TODO: refactor, test
 export default function* watchDetailRoute() {
-  yield takeLatest([routing.dataDetail.type], fetchDetail);
+  // yield takeLatest([routing.dataDetail.type], fetchDetail);
 }

@@ -27,8 +27,7 @@ export const isVestigingAmsterdam = (data) => {
   return isVestiging;
 };
 
-
-export const getGeometry = (data) => {
+const getGeometry = (data) => {
   if (isObject(data.geometrie)) {
     return data.geometrie;
   } else if (isVestigingAmsterdam(data)) {

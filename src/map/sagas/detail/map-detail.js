@@ -15,9 +15,10 @@ import { getUser } from '../../../shared/ducks/user/user';
 import { waitForAuthentication } from '../../../shared/sagas/user/user';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
-import { fetchDetailSuccess, fetchDetailFailure } from '../../../shared/ducks/detail/actions';
+import { fetchDetailSuccess, fetchDetailFailure, showDetail } from '../../../shared/ducks/detail/actions';
 import PARAMETER from '../../../store/parameters';
 import { toNotFoundPage } from '../../../store/redux-first-router/actions';
+import getGeometry from '../../../shared/services/geometry/geometry';
 
 export function* fetchMapDetail() {
   try {
@@ -29,8 +30,11 @@ export function* fetchMapDetail() {
     yield put(mapLoadingAction(false));
 
     const detailData = yield call(getDetailData, endpoint, mapDetail);
-    console.log('fetchMapDetail, after call fetchDetailSuccess', detailData);
     yield put(fetchDetailSuccess(detailData));
+    yield put(showDetail({
+      display: mapDetail._display,
+      geometry: getGeometry(mapDetail)
+    }));
   } catch (error) {
     yield put(mapLoadingAction(false));
     if (error && error.status === 404) {
@@ -50,6 +54,7 @@ export function* fetchDetailEffect(action) {
   }
 
   const endpoint = yield select(getDetailEndpoint);
+  // yield call(fetchMapDetail);
   yield put(getMapDetail(endpoint));
   yield call(fetchLegacyDetail);
 }
