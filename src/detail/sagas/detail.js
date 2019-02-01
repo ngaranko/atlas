@@ -1,10 +1,9 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { put, select, takeLatest } from 'redux-saga/effects';
 import { routing } from '../../app/routes';
-import { fetchDetail as fetchDetailActionCreator, fetchDetailSuccess, fetchDetailFailure } from '../../shared/ducks/detail/actions';
-import { pageTypeToEndpoint, toNotFoundPage } from '../../store/redux-first-router/actions';
+import { fetchDetail as fetchDetailActionCreator } from '../../shared/ducks/detail/actions';
+import { pageTypeToEndpoint } from '../../store/redux-first-router/actions';
 import { getDetail } from '../../shared/ducks/detail/selectors';
 import { getUserScopes } from '../../shared/ducks/user/user';
-import { getByUrl } from '../../shared/services/api/api';
 import { getTemplateUrl, getParts } from '../services/endpoint-parser/endpoint-parser';
 import { getApiSpecificationData } from '../../shared/ducks/datasets/datasets';
 import formatDetailData from '../services/data-formatter/data-formatter';
@@ -17,7 +16,7 @@ export function* fetchDetail() {
   yield put(fetchAction);
 }
 
-export function* getData(endpoint) {
+export function* getDetailData(endpoint, mapDetail) {
   const includeSrc = getTemplateUrl(endpoint);
   const [category, subject] = getParts(endpoint);
 
@@ -35,9 +34,13 @@ export function* getData(endpoint) {
     // so do not fetch data
     return {};
   }
-  const endpointVersion = category === 'grondexploitatie' ? '?version=3' : '';
+
+  console.log('append version=3 to grondexploitaties');
+  // TODO append
+  // const endpointVersion = category === 'grondexploitatie' ? '?version=3' : '';
   const catalogFilters = yield select(getApiSpecificationData);
-  const data = yield getByUrl(`${endpoint}${endpointVersion}`);
+  // const data = yield getByUrl(`${endpoint}${endpointVersion}`);
+  const data = mapDetail;
   const formatedData = formatDetailData(data, category, subject, catalogFilters, scopes);
   return {
     includeSrc,
@@ -48,21 +51,7 @@ export function* getData(endpoint) {
   };
 }
 
-export function* retrieveDetailData(action) {
-  try {
-    const data = yield call(getData, action.payload.endpoint);
-    yield put(fetchDetailSuccess(data));
-  } catch (error) {
-    if (error && error.status === 404) {
-      yield put(toNotFoundPage());
-    } else {
-      yield put(fetchDetailFailure(error));
-    }
-  }
-}
-
 /* istanbul ignore next */ // TODO: refactor, test
 export default function* watchDetailRoute() {
   yield takeLatest([routing.dataDetail.type], fetchDetail);
-  // yield takeLatest(FETCH_DETAIL_REQUEST, retrieveDetailData);
 }
