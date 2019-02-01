@@ -44,6 +44,6 @@ export const shouldShowFullScreen = createSelector(
   isDetailLoading,
   getPage,
   (geometry, viewMode, isLoading, currentPage) => (
-    !isLoading && viewMode === VIEW_MODE.SPLIT &&
+    !isLoading && (viewMode === VIEW_MODE.SPLIT || viewMode === VIEW_MODE.MAP) &&
     !geometry && currentPage === PAGES.DATA_DETAIL)
 );

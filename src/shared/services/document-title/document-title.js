@@ -4,11 +4,12 @@ import GLOSSARY from '../../../detail/services/glossary.constant';
 import { routing } from '../../../app/routes';
 import { VIEW_MODE } from '../../ducks/ui/ui';
 import { FETCH_DETAIL_SUCCESS } from '../../ducks/detail/constants';
+import PARAMETERS from '../../../store/parameters';
 
 export const mapDocumentTitle = (action, defaultTitle) => {
   let pageTitle = defaultTitle;
-  const view = get(action, 'meta.query.view', '');
-  const embed = get(action, 'meta.query.embed', 'false');
+  const view = get(action, `meta.query[${PARAMETERS.VIEW}]`, '');
+  const embed = get(action, `meta.query[${PARAMETERS.EMBED}]`, 'false');
   if (view === VIEW_MODE.MAP) {
     pageTitle = 'Grote kaart';
     if (embed === 'true') {

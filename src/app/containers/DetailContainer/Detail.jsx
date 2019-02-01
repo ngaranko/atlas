@@ -9,13 +9,13 @@ import {
   getDetailTemplateUrl,
   getDetailData,
   getDetailFilterSelection
-} from '../../shared/ducks/detail/selectors';
-import { getUser } from '../../shared/ducks/user/user';
+} from '../../../shared/ducks/detail/selectors';
+import { getUser } from '../../../shared/ducks/user/user';
 import {
   getPanoramaPreview,
   isPanoramaPreviewLoading
-} from '../../panorama/ducks/preview/panorama-preview';
-import { fetchDetailRequest } from '../../shared/ducks/detail/actions';
+} from '../../../panorama/ducks/preview/panorama-preview';
+import { fetchDetailRequest } from '../../../shared/ducks/detail/actions';
 
 const mapStateToProps = (state) => ({
   isLoading: isDetailLoading(state),

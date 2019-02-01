@@ -3,16 +3,19 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MapContainer from '../../map/containers/map/MapContainer';
-import DetailContainer from '../containers/DetailContainer';
-import {
-  getDetailEndpoint,
-  shouldShowFullScreen
-} from '../../shared/ducks/detail/selectors';
+import DetailContainer from '../containers/DetailContainer/DetailContainer';
+
+import { getDetailEndpoint, shouldShowFullScreen } from '../../shared/ducks/detail/selectors';
 import { toDetailFromEndpoint as endpointActionCreator } from '../../store/redux-first-router/actions';
 import SplitScreen from '../components/SplitScreen/SplitScreen';
-import DataSelection from '../components/DataSelection/DataSelection';
+import DataSelection from '../components/DataSelection/DataSelectionContainer';
 import { getSelectionType } from '../../shared/ducks/selection/selection';
-import { getViewMode, isPrintMode, setViewMode as setViewModeAction, VIEW_MODE } from '../../shared/ducks/ui/ui';
+import {
+  getViewMode,
+  isPrintMode,
+  setViewMode as setViewModeAction,
+  VIEW_MODE
+} from '../../shared/ducks/ui/ui';
 import { getPage } from '../../store/redux-first-router/selectors';
 import PAGES from '../pages';
 import PanoramaContainer from '../../panorama/containers/PanoramaContainer';
@@ -78,7 +81,7 @@ const MapSplitPage = ({
       };
   }
 
-  if (viewMode === VIEW_MODE.MAP) {
+  if (viewMode === VIEW_MODE.MAP && !forceFullScreen) {
     return <MapContainer {...mapProps} />;
   } else if (Component) {
     if (viewMode === VIEW_MODE.FULL || forceFullScreen) {

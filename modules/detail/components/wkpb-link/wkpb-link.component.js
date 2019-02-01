@@ -17,6 +17,8 @@
     function DpWkpbLinkController (sharedConfig) {
         const vm = this;
 
-        vm.wkpbEndpoint = sharedConfig.ROOT + 'brk/object-wkpb/' + vm.brkId + '/';
+        this.$onInit = function () {
+            vm.wkpbEndpoint = sharedConfig.ROOT + 'brk/object-wkpb/' + vm.brkId + '/';
+        };
     }
 })();

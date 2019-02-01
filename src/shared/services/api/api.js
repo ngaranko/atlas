@@ -18,6 +18,9 @@ const handleErrors = (response, reloadOnUnauthorized) => {
   return response;
 };
 
+export const getByUri = (uri) =>
+  fetch(uri).then((response) => response.json());
+
 export const getWithToken = (url, params, cancel, token, reloadOnUnauthorized = false) => {
   const headers = {};
 

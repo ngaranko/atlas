@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import './_app.scss';
-import DatasetDetailContainer from './containers/DatasetDetailContainer';
+import DatasetDetailContainer from './containers/DatasetDetail/DatasetDetailContainer';
 import {
   isEmbedded,
   isEmbedPreview,
@@ -25,7 +25,7 @@ import DatasetPage from './pages/DatasetPage';
 import { DataSearchQuery } from './components/DataSearch';
 import MapSplitPage from './pages/MapSplitPage';
 import ActualityContainer from './containers/ActualityContainer';
-import GeneralErrorMessage from './components/PanelMessages/ErrorMessage';
+import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer';
 
 // TodoReactMigration: implement logic
 const App = ({

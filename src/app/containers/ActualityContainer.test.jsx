@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ActualityContainer from '../ActualityContainer';
+import ActualityContainer from './ActualityContainer';
 
 describe('ActualityContainer', () => {
   it('should render', () => {

@@ -9,6 +9,7 @@ module.exports = {
     '!**/*.{integration}.test.{js,jsx}',
     '!**/*.mock.js',
     '!**/index.js',
+    '!**/angularModules.js',
     '!src/*.js',
     '!src/.*.js'
   ],

@@ -5,13 +5,15 @@ import Video from './Video';
 describe('Video', () => {
   let component;
   let componentInstance;
-  const videoPlayerMock = {
-    play: jest.fn(() => Promise.resolve()),
-    pause: jest.fn(),
-    currentTime: 0
-  };
+  let videoPlayerMock;
 
   beforeEach(() => {
+    videoPlayerMock = {
+      play: jest.fn(() => Promise.resolve()),
+      pause: jest.fn(),
+      currentTime: 0
+    };
+
     component = shallow(
       <Video
         poster="/assets/video/map.png"
@@ -61,7 +63,28 @@ describe('Video', () => {
       expect(videoPlayerMock.pause).toHaveBeenCalled();
     });
 
+    it('should pause the video in IE11', async () => {
+      videoPlayerMock.play.mockReset();
+      videoPlayerMock.pause.mockReset();
+      component.setProps({
+        play: true
+      });
+      expect(videoPlayerMock.play).toHaveBeenCalled();
+      expect(videoPlayerMock.pause).not.toHaveBeenCalled();
+      componentInstance.playPromise = undefined;
+      videoPlayerMock.play.mockReset();
+      videoPlayerMock.pause.mockReset();
+      await component.setProps({
+        play: false
+      });
+
+      expect(videoPlayerMock.play).not.toHaveBeenCalled();
+      expect(videoPlayerMock.pause).toHaveBeenCalled();
+    });
+
     it('should do nothing when stopping the video while play is not defined', () => {
+      videoPlayerMock.play.mockReset();
+      videoPlayerMock.pause.mockReset();
       component.setProps({
         play: true,
         position: 0
@@ -74,7 +97,6 @@ describe('Video', () => {
         position: 0
       });
       expect(videoPlayerMock.play).not.toHaveBeenCalled();
-      expect(videoPlayerMock.pause).not.toHaveBeenCalled();
     });
   });
 });

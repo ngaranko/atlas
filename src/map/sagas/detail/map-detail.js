@@ -16,6 +16,7 @@ import { waitForAuthentication } from '../../../shared/sagas/user/user';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import { fetchDetailSuccess } from '../../../shared/ducks/detail/actions';
+import PARAMETER from '../../../store/parameters';
 
 export function* fetchMapDetail() {
   try {
@@ -37,8 +38,8 @@ export function* fetchMapDetail() {
 }
 
 export function* fetchDetailEffect(action) {
-  const oldView = get(action, 'meta.location.prev.query.modus', null);
-  const newView = get(action, 'meta.location.current.query.modus', null);
+  const oldView = get(action, `meta.location.prev.query[${PARAMETER.VIEW}]`, null);
+  const newView = get(action, `meta.location.current.query[${PARAMETER.VIEW}]`, null);
   if (oldView !== newView && newView === VIEW_MODE.SPLIT) {
     yield put(closeMapPanel());
   }

@@ -14,12 +14,12 @@ describe('The Detail DocumentTitle service', () => {
     });
 
     it('should return the map name when the view is map', () => {
-      const action = { meta: { query: { view: 'kaart' } } };
+      const action = { meta: { query: { modus: 'kaart' } } };
       expect(mapDocumentTitle(action, 'Home')).toBe('Grote kaart');
     });
 
     it('should return the map embeded name when the map is embeded', () => {
-      const action = { meta: { query: { view: 'kaart', embed: 'true' } } };
+      const action = { meta: { query: { modus: 'kaart', embed: 'true' } } };
       expect(mapDocumentTitle(action, 'Home')).toBe('Grote kaart | Embeded');
     });
   });

@@ -38,18 +38,18 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
             // console.log('changes', changes);
             const {detailTemplateUrl, detailData, detailFilterSelection} = changes;
             if (!(detailTemplateUrl && detailData && detailFilterSelection)) return;
-            if (changes.detailTemplateUrl.previousValue !== changes.detailTemplateUrl.currentValue) {
-                vm.includeSrc = changes.detailTemplateUrl.currentValue;
+            if (detailTemplateUrl && detailTemplateUrl.previousValue !== detailTemplateUrl.currentValue) {
+                vm.includeSrc = detailTemplateUrl.currentValue;
             }
 
-            if (changes.detailData.previousValue !== changes.detailData.currentValue) {
+            if (detailData && detailData.previousValue !== detailData.currentValue) {
                 vm.apiData = {
-                    results: changes.detailData.currentValue
+                    results: detailData.currentValue
                 };
             }
 
-            if (changes.detailFilterSelection.previousValue !== changes.detailFilterSelection.currentValue) {
-                vm.filterSelection = changes.detailFilterSelection.currentValue;
+            if (detailFilterSelection && detailFilterSelection.previousValue !== detailFilterSelection.currentValue) {
+                vm.filterSelection = detailFilterSelection.currentValue;
             }
         };
     }

@@ -27,6 +27,43 @@ exports[`ErrorMessage should render everything 1`] = `
             <span
               className="qa-api-general-error"
             >
+              This is an error message
+            </span>
+          </div>
+        </Panel>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ErrorMessage should render the container 1`] = `
+<div
+  className="c-dashboard__error"
+>
+  <div
+    className="u-background-color__primary--light "
+  >
+    <div
+      className=""
+    >
+      <div
+        className="c-api-error__panel"
+      >
+        <Panel
+          canClose={true}
+          className="qa-api-error"
+          closeAction={[Function]}
+          isPanelVisible={true}
+          size="small"
+          type="danger"
+        >
+          <div
+            className="c-api-error__panel-text"
+          >
+            <span
+              className="qa-api-general-error"
+            >
               Tanjkns
             </span>
           </div>

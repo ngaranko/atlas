@@ -30,10 +30,12 @@
             }, 150, 1);
         };
 
-        if (vm.autoScroll) {
-            $scope.$applyAsync(() => {
-                vm.scrollTo(vm.link);
-            });
-        }
+        this.$onInit = function () {
+            if (vm.autoScroll) {
+                $scope.$applyAsync(() => {
+                    vm.scrollTo(vm.link);
+                });
+            }
+        };
     }
 })();

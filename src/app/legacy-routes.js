@@ -51,11 +51,11 @@ const routesDictionary = [
   // https://www.amsterdam.nl/ondernemen/biz/
   {
     old: '#?mpb=topografie&mpz=9&mpfs=T&mpo=biz::T&mpv=52.3676245:4.8804992&pgn=home&uvm=T',
-    new: 'data?modus=kaart&lagen=biz%3A1&legenda=true&zoom=9'
+    new: '/data/?modus=kaart&lagen=biz%3A1&legenda=true&zoom=9'
   },
   {
     old: '#?ate=T&mpb=topografie&mpz=9&mpfs=T&mpo=biz::T&mpv=52.3676245:4.8804992&pgn=home&uvm=T',
-    new: 'data?modus=kaart&embed=true&lagen=biz%3A1&legenda=true&zoom=9'
+    new: '/data/?modus=kaart&embed=true&lagen=biz%3A1&legenda=true&zoom=9'
   },
   // home map
   {

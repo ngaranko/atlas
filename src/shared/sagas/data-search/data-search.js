@@ -86,8 +86,7 @@ function* fetchQuerySearchResults() {
   const category = yield select(getSearchCategory);
   yield call(waitForAuthentication);
   const user = yield select(getUser);
-  const isQuery = isString(query);
-  if (isQuery) {
+  if (query) {
     const categorySlug = (isString(category) && category.length) ? category : undefined;
     const { results, errors } = yield vanillaSearch(query, categorySlug, user);
     if (errors) {

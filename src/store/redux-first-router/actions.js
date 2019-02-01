@@ -36,6 +36,10 @@ export const toDataDetail = (detailReference, additionalParams = null, tracking 
   }, additionalParams);
 };
 
+export const toHome = () => ({
+  type: routing.home.type
+});
+
 export const toGeoSearch = (additionalParams) => preserveQuery({
   type: routing.dataGeoSearch.type,
   meta: {
@@ -50,6 +54,7 @@ export const toDataSearchQuery = (
 ) => ({
   type: routing.dataQuerySearch.type,
   meta: {
+    preserve: true,
     skipSaga,
     forceSaga,
     additionalParams
@@ -62,6 +67,16 @@ export const toMap = (preserve = false) => ({
     preserve,
     additionalParams: {
       [PARAMETERS.VIEW]: VIEW_MODE.MAP
+    }
+  }
+});
+
+export const toMapWithLegendOpen = () => ({
+  type: routing.data.type,
+  meta: {
+    additionalParams: {
+      [PARAMETERS.VIEW]: VIEW_MODE.MAP,
+      [PARAMETERS.LEGEND]: true
     }
   }
 });
@@ -79,11 +94,13 @@ export const toPanorama = (id, additionalParams = null) => ({
   }
 });
 
-export const toPanoramaAndPreserveQuery = (id, heading, reference = []) => toPanorama(id, {
-  heading,
-  ...(reference.length === 3 ? { [PARAMETERS.REFERENCE]: reference } : {}),
-  [PARAMETERS.VIEW]: VIEW_MODE.SPLIT
-});
+export const toPanoramaAndPreserveQuery = (id, heading, reference = [], pageReference = null) =>
+  toPanorama(id, {
+    heading,
+    ...(reference.length === 3 ? { [PARAMETERS.DETAIL_REFERENCE]: reference } : {}),
+    ...(pageReference ? { [PARAMETERS.PAGE_REFERENCE]: pageReference } : {}),
+    [PARAMETERS.VIEW]: VIEW_MODE.SPLIT
+  });
 
 export const extractIdEndpoint = (endpoint) => {
   const matches = endpoint.match(/\/([\w-]+)\/?$/);
@@ -119,9 +136,9 @@ export const toDatasets = () => ({ type: routing.datasets.type });
 export const toDatasetSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
   type: routing.searchDatasets.type,
   meta: {
+    preserve: true,
     skipSaga,
     forceSaga,
-    preserveQuery: true,
     additionalParams
   }
 });
@@ -161,7 +178,7 @@ export const toDatasetsTableWithFilter = (datasetType, filter) => ({
   type: datasetType,
   meta: {
     additionalParams: {
-      [PARAMETERS.FILTERS]: filter,
+      ...filter ? { [PARAMETERS.FILTERS]: filter } : {},
       [PARAMETERS.VIEW]: VIEW_MODE.FULL
     }
   }
