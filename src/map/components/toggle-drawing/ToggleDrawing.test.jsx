@@ -1,53 +1,60 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import configureMockStore from 'redux-mock-store';
 
-import ToggleDrawing from './ToggleDrawingContainer';
-
-import { getShapeMarkers, getShapeDistanceTxt, isDrawingEnabled } from '../../ducks/map/map-selectors';
-import * as dataSelectionActions from '../../../shared/ducks/data-selection/actions';
-
-jest.mock('../../../shared/ducks/data-selection/actions');
-jest.mock('../../ducks/map/map-selectors');
+import ToggleDrawing from './ToggleDrawing';
 
 describe('ToggleDrawing', () => {
-  const store = configureMockStore()({});
   let wrapper;
 
-  dataSelectionActions.cancelDrawing.mockImplementation(() => ({ type: 'SOME_ACTION' }));
-  dataSelectionActions.endDataSelection.mockImplementation(() => ({ type: 'SOME_ACTION' }));
-  dataSelectionActions.resetDrawing.mockImplementation(() => ({ type: 'SOME_ACTION' }));
-  dataSelectionActions.startDrawing.mockImplementation(() => ({ type: 'SOME_ACTION' }));
-
-  const setupComponent = (shapeDistanceTxt, drawingEnabled, numberOfMarkers) => {
-    getShapeDistanceTxt.mockImplementation(() => shapeDistanceTxt);
-    isDrawingEnabled.mockImplementation(() => drawingEnabled);
-    getShapeMarkers.mockImplementation(() => numberOfMarkers);
-    wrapper = shallow(<ToggleDrawing />, { context: { store } }).dive();
+  const setupComponent = (shapeDistanceTxt, drawingEnabled, numberOfMarkers, overrides) => {
+    wrapper = shallow(
+      <ToggleDrawing
+        onCancel={jest.fn}
+        onEnd={jest.fn}
+        onReset={jest.fn}
+        onStart={jest.fn}
+        isEnabled={drawingEnabled}
+        shapeMarkers={numberOfMarkers}
+        shapeDistance={shapeDistanceTxt}
+        {...overrides}
+      />
+    );
   };
 
   it('should trigger end drawing action drawing on when clicked', () => {
-    setupComponent('0,3 m', true, 3);
+    const mockFn = jest.fn();
+    setupComponent('0,3 m', true, 3, {
+      onEnd: mockFn
+    });
     wrapper.find('button').at(0).simulate('click');
-    expect(dataSelectionActions.endDataSelection).toHaveBeenCalled();
+    expect(mockFn).toHaveBeenCalled();
   });
 
   it('should trigger cancel drawing action drawing on when clicked', () => {
-    setupComponent('0,0 m', true, 0);
+    const mockFn = jest.fn();
+    setupComponent('0,0 m', true, 0, {
+      onCancel: mockFn
+    });
     wrapper.find('button').at(0).simulate('click');
-    expect(dataSelectionActions.cancelDrawing).toHaveBeenCalled();
+    expect(mockFn).toHaveBeenCalled();
   });
 
   it('should trigger cancel drawing action drawing on when clicked', () => {
-    setupComponent('0,3 m', false, 3);
+    const mockFn = jest.fn();
+    setupComponent('0,3 m', false, 3, {
+      onReset: mockFn
+    });
     wrapper.find('button').at(0).simulate('click');
-    expect(dataSelectionActions.resetDrawing).toHaveBeenCalled();
+    expect(mockFn).toHaveBeenCalled();
   });
 
   it('should trigger start drawing action drawing on when clicked', () => {
-    setupComponent('', false, 0);
+    const mockFn = jest.fn();
+    setupComponent('', false, 0, {
+      onStart: mockFn
+    });
     wrapper.find('button').at(0).simulate('click');
-    expect(dataSelectionActions.startDrawing).toHaveBeenCalled();
+    expect(mockFn).toHaveBeenCalled();
   });
 
   it('should render with drawing mode none and no markers', () => {

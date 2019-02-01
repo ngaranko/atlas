@@ -157,10 +157,6 @@ class LeafletContainer extends React.Component {
   }
 }
 
-LeafletContainer.contextTypes = {
-  store: PropTypes.object.isRequired
-};
-
 LeafletContainer.defaultProps = {
   baseLayer: {
     urlTemplate: ''

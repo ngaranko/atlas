@@ -34,9 +34,9 @@ import ActiveOverlaysClass from '../../services/active-overlays/active-overlays'
 import { waitForAuthentication } from '../user/user';
 import { SELECTION_TYPE, setSelection } from '../../ducks/selection/selection';
 import { fetchDatasetsEffect } from '../dataset/dataset';
-import { closeMapPanel } from '../../../map/ducks/map/map';
 import { getViewMode, isMapPage, SET_VIEW_MODE, VIEW_MODE } from '../../ducks/ui/ui';
 import PAGES from '../../../app/pages';
+import { ERROR_TYPES, setGlobalError } from '../../ducks/error/error-message';
 
 // Todo: DP-6390
 export function* fetchMapSearchResults() {
@@ -53,11 +53,15 @@ export function* fetchMapSearchResults() {
       const results = replaceBuurtcombinatie(geoSearchResults);
       yield put(fetchMapSearchResultsSuccessList(results, getNrOfSearchResults(geoSearchResults)));
     } else {
-      const mapSearchResults = yield call(search, location, user);
+      const { results, errors } = yield call(search, location, user);
       yield put(fetchMapSearchResultsSuccessPanel(
-        mapSearchResults,
-        getNumberOfResultsPanel(mapSearchResults)
+        results,
+        getNumberOfResultsPanel(results)
       ));
+
+      if (errors) {
+        yield put(setGlobalError(ERROR_TYPES.GENERAL_ERROR));
+      }
     }
   } catch (error) {
     const payload = ActiveOverlaysClass.getOverlaysWarning(zoom);
@@ -82,28 +86,22 @@ function* fetchQuerySearchResults() {
   const category = yield select(getSearchCategory);
   yield call(waitForAuthentication);
   const user = yield select(getUser);
-  const isQuery = isString(query);
-  if (isQuery) {
-    if (isString(category) && category.length) {
-      const results = yield vanillaSearch(query, category, user);
-      yield call(setSearchResults, results);
-    } else {
-      const results = yield vanillaSearch(query, undefined, user);
-      yield call(setSearchResults, results);
+  if (query) {
+    const categorySlug = (isString(category) && category.length) ? category : undefined;
+    const { results, errors } = yield vanillaSearch(query, categorySlug, user);
+    if (errors) {
+      yield put(setGlobalError(ERROR_TYPES.GENERAL_ERROR));
     }
+    yield call(setSearchResults, results);
   }
 }
 
 export function* fetchGeoSearchResultsEffect() {
   const location = yield select(getDataSearchLocation);
   const isMap = yield select(isMapPage);
-  const view = yield select(getViewMode);
   const page = yield select(getPage);
 
   if (page === PAGES.DATA_GEO_SEARCH) {
-    if (view === VIEW_MODE.SPLIT) {
-      yield put(closeMapPanel());
-    }
     yield put(fetchMapSearchResultsRequest(location, isMap));
   }
 }

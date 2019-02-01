@@ -71,8 +71,8 @@ export default function reducer(state = initialState, action) {
       return {
         ...enrichedState,
         isLoading: false,
-        authError: (action.payload.error === 'Unauthorized'),
-        errorMessage: action.payload.error,
+        authError: (action.payload === 'Unauthorized'),
+        errorMessage: action.payload,
         result: {},
         markers: []
       };
@@ -80,7 +80,7 @@ export default function reducer(state = initialState, action) {
     case FETCH_MARKERS_FAILURE:
       return {
         ...enrichedState,
-        isLoading: false,
+        loadingMarkers: false,
         errorMessage: action.payload,
         result: {},
         markers: []

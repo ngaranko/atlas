@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapPanel should render MapLegend if store contains active map layers 1`] = `
+<section
+  aria-expanded={false}
+  aria-label="Kaartlagen legenda, Kaartlagen tonen"
+  className="
+          map-panel
+          map-panel--collapsed
+          map-panel--has-active-layers
+        "
+>
+  <div
+    className="map-panel__heading"
+  >
+    <button
+      className="map-panel__toggle"
+      onClick={[Function]}
+      title="Kaartlagen tonen"
+    >
+      <span
+        className="map-panel__heading-icon"
+      />
+      <h2
+        aria-hidden="true"
+        className="map-panel__heading-title"
+      >
+        Kaartlagen
+      </h2>
+      <span
+        className="
+              map-panel__toggle--icon
+              map-panel__toggle--icon-expand
+            "
+      />
+    </button>
+  </div>
+  <div
+    className="scroll-wrapper"
+  >
+    <MapLegend
+      activeMapLayers={
+        Array [
+          Object {},
+        ]
+      }
+      isEmbedOrPrint={false}
+      onLayerToggle={[Function]}
+      onLayerVisibilityToggle={[Function]}
+      overlays={
+        Array [
+          Object {},
+        ]
+      }
+      user={Object {}}
+      zoomLevel={10}
+    />
+    <MapPanelHandle
+      isMapPanelHandleVisible={true}
+      onMapPanelHandleToggle={[Function]}
+    >
+      <MapType
+        activeBaseLayer=""
+        baseLayers={Object {}}
+        onBaseLayerToggle={[Function]}
+      />
+      <MapLayers
+        activeMapLayers={
+          Array [
+            Object {},
+          ]
+        }
+        layers={Array []}
+        onLayerToggle={[Function]}
+      />
+    </MapPanelHandle>
+  </div>
+</section>
+`;
+
+exports[`MapPanel should render MapType and MapLayers 1`] = `
+<section
+  aria-expanded={false}
+  aria-label="Kaartlagen legenda, Kaartlagen tonen"
+  className="
+          map-panel
+          map-panel--collapsed
+          map-panel--has-no-active-layers
+        "
+>
+  <div
+    className="map-panel__heading"
+  >
+    <button
+      className="map-panel__toggle"
+      onClick={[Function]}
+      title="Kaartlagen tonen"
+    >
+      <span
+        className="map-panel__heading-icon"
+      />
+      <h2
+        aria-hidden="true"
+        className="map-panel__heading-title"
+      >
+        Kaartlagen
+      </h2>
+      <span
+        className="
+              map-panel__toggle--icon
+              map-panel__toggle--icon-expand
+            "
+      />
+    </button>
+  </div>
+  <div
+    className="scroll-wrapper"
+  >
+    <MapPanelHandle
+      isMapPanelHandleVisible={true}
+      onMapPanelHandleToggle={[Function]}
+    >
+      <MapType
+        activeBaseLayer=""
+        baseLayers={Object {}}
+        onBaseLayerToggle={[Function]}
+      />
+      <MapLayers
+        activeMapLayers={Array []}
+        layers={Array []}
+        onLayerToggle={[Function]}
+      />
+    </MapPanelHandle>
+  </div>
+</section>
+`;
+
+exports[`MapPanel should render the container 1`] = `
+<MapPanel
+  activeBaseLayer=""
+  activeMapLayers={Array []}
+  isEmbedOrPrint={false}
+  isMapPanelHandleVisible={true}
+  isMapPanelVisible={true}
+  map={Object {}}
+  mapBaseLayers={Object {}}
+  mapLayers={Array []}
+  onBaseLayerToggle={[Function]}
+  onLayerToggle={[Function]}
+  onLayerVisibilityToggle={[Function]}
+  onMapPanelHandleToggle={[Function]}
+  onMapPanelToggle={[Function]}
+  overlays={
+    Array [
+      Object {
+        "isVisible": true,
+      },
+    ]
+  }
+  user={Object {}}
+  zoomLevel={0}
+/>
+`;

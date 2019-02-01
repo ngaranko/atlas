@@ -36,7 +36,7 @@ describe('fetchMapSearchResults', () => {
       .next()
       .next('user')
       .call(search, 'location', 'user')
-      .next([])
+      .next({ results: [], error: false })
       .put(fetchMapSearchResultsSuccessPanel([], 0))
       .next()
       .isDone();

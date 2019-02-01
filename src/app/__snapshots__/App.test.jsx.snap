@@ -24,26 +24,6 @@ exports[`App should render the homepage 1`] = `
     interpolateBindings={Object {}}
     moduleName="dpHeaderWrapper"
   />
-  <AngularWrapper
-    bindings={
-      Object {
-        "isHomePage": false,
-        "visibilityError": false,
-      }
-    }
-    component="dpError"
-    dependencies={
-      Array [
-        "atlas",
-      ]
-    }
-    interpolateBindings={
-      Object {
-        "hasMaxWidth": true,
-      }
-    }
-    moduleName="dpErrorWrapper"
-  />
   <div
     className="c-dashboard__body "
   >
@@ -88,26 +68,6 @@ exports[`App should render the mapview 1`] = `
     }
     interpolateBindings={Object {}}
     moduleName="dpHeaderWrapper"
-  />
-  <AngularWrapper
-    bindings={
-      Object {
-        "isHomePage": false,
-        "visibilityError": false,
-      }
-    }
-    component="dpError"
-    dependencies={
-      Array [
-        "atlas",
-      ]
-    }
-    interpolateBindings={
-      Object {
-        "hasMaxWidth": true,
-      }
-    }
-    moduleName="dpErrorWrapper"
   />
   <div
     className="c-dashboard__body "

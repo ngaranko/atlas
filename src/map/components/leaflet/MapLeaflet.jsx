@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResizeAware from 'react-resize-aware';
-import { Map, TileLayer, ZoomControl, ScaleControl, GeoJSON } from 'react-leaflet';
+import { GeoJSON, Map, ScaleControl, TileLayer, ZoomControl } from 'react-leaflet';
 
 import CustomMarker from './custom/marker/CustomMarker';
 import ClusterGroup from './custom/cluster-group/ClusterGroup';
@@ -10,7 +10,7 @@ import icons from './services/icons.constant';
 import geoJsonConfig from './services/geo-json-config.constant';
 import markerConfig from './services/marker-config.constant';
 import createClusterIcon from './services/cluster-icon';
-import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
+import { boundsToString, getBounds, isBoundsAPoint, isValidBounds } from './services/bounds';
 import MapBusyIndicator from './custom/map-busy-indicator/MapBusyIndicator';
 import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/map';
 import RdGeoJson from './custom/geo-json/RdGeoJson';
@@ -30,6 +30,7 @@ const convertBounds = (map) => {
     }
   });
 };
+
 class MapLeaflet extends React.Component {
   constructor() {
     super();

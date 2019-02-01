@@ -5,7 +5,7 @@ exports[`Video should render 1`] = `
   className="c-video__element"
   data-object-fit={true}
   loop={true}
-  muted="true"
+  muted={true}
   poster="/assets/video/map.png"
   preload="metadata"
 >

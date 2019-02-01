@@ -11,7 +11,7 @@
             </div>
 
             <span class="c-data-selection-catalog__formats">
-                <div ng-repeat="format in row.formats" class="c-data-selection-file-type">
+                <div ng-repeat="format in row.formats track by $index" class="c-data-selection-file-type">
                     <span class="c-data-selection-file-type__name c-data-selection-file-type__format-{{format.name | kebabcase }}">
                         {{format.name}}
                     </span>
@@ -21,7 +21,7 @@
             </span>
 
             <span class="c-data-selection-catalog__tags">
-                <ul ng-repeat="tag in row.tags" class="u-inline">
+                <ul ng-repeat="tag in row.tags track by $index" class="u-inline">
                     <li class="u-inline">
                         <div class="dataset-tag-small">
                             <i class="dataset-tag-small__arrow"></i>

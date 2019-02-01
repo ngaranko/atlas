@@ -1,3 +1,5 @@
+import { toHome } from '../../store/redux-first-router/actions';
+
 export const REDUCER_KEY = 'panorama';
 export const FETCH_PANORAMA_REQUEST = `${REDUCER_KEY}/FETCH_PANORAMA_REQUEST`;
 export const FETCH_PANORAMA_SUCCESS = `${REDUCER_KEY}/FETCH_PANORAMA_SUCCESS`;
@@ -32,5 +34,14 @@ export const initialState = {
   hotspots: [],     // eg: [{id: 'ABC124', heading: 90, distance: 18}],
   date: null,       // eg: new Date()
   isLoading: true,
-  reference: []
+  detailReference: [],
+  pageReference: ''
+};
+
+export const PAGE_REFS = {
+  HOME: 'home'
+};
+
+export const PAGE_REF_MAPPING = {
+  [PAGE_REFS.HOME]: toHome
 };

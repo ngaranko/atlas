@@ -71,26 +71,27 @@ export const fetchRelatedForUser = (user) => (data) => {
       (!user.authenticated || !user.scopes.includes(resource.authScope))
     ) ? []
       : resource.fetch(item.properties.id)
-        .then((results) => results
-          .map((result) => ({
-            ...result,
-            properties: {
-              uri: result._links.self.href,
-              display: result._display,
-              type: resource.type,
-              parent: item.properties.type
-            }
-          }))
-        )
+                .then((results) => results
+                  .map((result) => ({
+                    ...result,
+                    properties: {
+                      uri: result._links.self.href,
+                      display: result._display,
+                      type: resource.type,
+                      parent: item.properties.type
+                    }
+                  }))
+                )
   ));
 
   return Promise.all(requests)
-    .then((results) => results
-        .reduce((accumulator, subResults) => accumulator.concat(subResults),
-          data.features));
+                .then((results) => results
+                  .reduce((accumulator, subResults) => accumulator.concat(subResults),
+                    data.features));
 };
 
 export default function search(location, user) {
+  const errorType = 'error';
   const allRequests = endpoints.map((endpoint) => {
     const searchParams = {
       ...endpoint.extra_params,
@@ -106,12 +107,21 @@ export default function search(location, user) {
 
     return getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`)
       .then(fetchRelatedForUser(user))
-      .then((features) => features.map((feature) => transformResultByType(feature)));
+      .then((features) => features.map((feature) => transformResultByType(feature)), (code) => ({
+        type: errorType,
+        code
+      }));
   });
-  return Promise.all(allRequests
+  const allResults = Promise.all(allRequests
     .map((p) => p
       .then((result) => Promise.resolve(result))
-      .catch(() => Promise.resolve([]))))  // ignore the failing calls
+      .catch(() => Promise.resolve([]))));  // ignore the failing calls
+  return allResults
     .then((results) => [].concat.apply([], [...results]))
-    .then((results) => createMapSearchResultsModel(results));
+    .then((results) => ({
+      results: createMapSearchResultsModel(
+        results.filter((result) => (result && result.type !== errorType))
+      ),
+      errors: results.some((result) => (result && result.type === errorType))
+    }));
 }

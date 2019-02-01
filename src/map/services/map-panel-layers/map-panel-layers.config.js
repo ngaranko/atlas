@@ -318,6 +318,7 @@ export default [
       {
         id: 'ggwpg',
         layer: 'gebiedsgerichtwerkenpraktijkgebieden',
+        notClickable: true,
         selectable: true,
         title: 'Gebiedsgerichtwerken-praktijkgebied'
       }
@@ -836,18 +837,21 @@ export default [
         id: 'oovoalg',
         layer: 'algemeen_overlastgebied',
         selectable: true,
+        notClickable: true,
         title: 'Algemeen overlastgebied'
       },
       {
         id: 'oovodlrs',
         layer: 'dealeroverlastgebied',
         selectable: true,
+        notClickable: true,
         title: 'Dealeroverlastgebied'
       },
       {
         id: 'oovouitg',
         layer: 'uitgaansoverlastgebied',
         selectable: true,
+        notClickable: true,
         title: 'Uitgaansoverlastgebied'
       }
     ],
@@ -866,6 +870,7 @@ export default [
         title: 'Cameratoezichtgebied'
       }
     ],
+    notClickable: true,
     maxZoom: 16,
     minZoom: 8,
     title: 'Cameratoezichtgebieden',
@@ -882,6 +887,7 @@ export default [
         title: 'Alcoholverbodsgebied'
       }
     ],
+    notClickable: true,
     maxZoom: 16,
     minZoom: 8,
     title: 'Alcoholverbodsgebieden',
@@ -898,6 +904,7 @@ export default [
         imageRule: 'Taxi-standplaatsgebied'
       }
     ],
+    notClickable: true,
     maxZoom: 16,
     minZoom: 8,
     title: 'Omgeving taxi-standplaatsen',
@@ -916,6 +923,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 8,
+    notClickable: true,
     title: 'Vuurwerkvrije zones',
     url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
   },
@@ -1134,6 +1142,7 @@ export default [
         iconUrl: '/assets/images/map-legend/icon-bro-sondering.png'
       }
     ],
+    notClickable: true,
     maxZoom: 16,
     minZoom: 8,
     title: 'Geotechnische sonderingen (CPT BRO)'

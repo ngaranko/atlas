@@ -6,7 +6,7 @@ import {
 } from '../../ducks/detail/map-detail';
 import { closeMapPanel, mapLoadingAction } from '../../ducks/map/map';
 import { FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/constants';
-import { getViewMode, VIEW_MODE } from '../../../shared/ducks/ui/ui';
+import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import fetchLegacyDetail from '../../../detail/sagas/detail';
 
@@ -24,11 +24,18 @@ describe('watchFetchMapDetail', () => {
 });
 
 describe('fetchDetailEffect', () => {
-  it('should close the map panel if not on MAP view', () => {
-    testSaga(fetchDetailEffect)
+  it('should close the map panel if navigating to the split view', () => {
+    const action = {
+      meta: {
+        location: {
+          prev: { query: { modus: VIEW_MODE.MAP } },
+          current: { query: { modus: VIEW_MODE.SPLIT } }
+        }
+      }
+    };
+    testSaga(fetchDetailEffect, action)
       .next()
-      .select(getViewMode)
-      .next(VIEW_MODE.SPLIT)
+      // .next()
       .put(closeMapPanel())
       .next()
       .select(getDetailEndpoint)
@@ -38,11 +45,19 @@ describe('fetchDetailEffect', () => {
       .call(fetchLegacyDetail)
       .next()
       .isDone();
+  });
 
-    testSaga(fetchDetailEffect)
+  it('should close the map panel if not switching to SPLIT view', () => {
+    const action = {
+      meta: {
+        location: {
+          prev: { query: { modus: VIEW_MODE.SPLIT } },
+          current: { query: { modus: VIEW_MODE.SPLIT } }
+        }
+      }
+    };
+    testSaga(fetchDetailEffect, action)
       .next()
-      .select(getViewMode)
-      .next(VIEW_MODE.MAP)
       .select(getDetailEndpoint)
       .next('endpoint')
       .put(getMapDetail('endpoint'))

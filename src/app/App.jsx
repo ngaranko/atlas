@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import './_app.scss';
-import DatasetDetailContainer from './containers/DatasetDetailContainer';
+import DatasetDetailContainer from './containers/DatasetDetail/DatasetDetailContainer';
 import {
   isEmbedded,
   isEmbedPreview,
@@ -14,21 +14,24 @@ import {
   isPrintModeLandscape,
   isPrintOrEmbedMode
 } from '../shared/ducks/ui/ui';
+import { hasGlobalError } from '../shared/ducks/error/error-message';
 import { CMS_PAGE_MAPPING } from './pages/CMSPageMapping';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
-import { getPage } from '../store/redux-first-router/selectors';
+import { getPage, isHomepage } from '../store/redux-first-router/selectors';
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe';
 import QuerySearchPage from './pages/QuerySearchPage';
 import DatasetPage from './pages/DatasetPage';
 import { DataSearchQuery } from './components/DataSearch';
 import MapSplitPage from './pages/MapSplitPage';
 import ActualityContainer from './containers/ActualityContainer';
+import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer';
 
 // TodoReactMigration: implement logic
 const App = ({
   isFullHeight,
   visibilityError,
+  homePage,
   currentPage,
   embedMode,
   printMode,
@@ -37,18 +40,17 @@ const App = ({
   printOrEmbedMode,
   user
 }) => {
-  const isHomePage = (currentPage === PAGES.HOME);
   const isCmsPage = pageIsCmsPage(currentPage);
   let cmsPageData;
   if (isCmsPage) {
     cmsPageData = CMS_PAGE_MAPPING[currentPage];
   }
-  const hasMaxWidth = isHomePage || isCmsPage;
+  const hasMaxWidth = homePage || isCmsPage;
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
     'c-dashboard--full-height': isFullHeight,
-    'c-dashboard--homepage': isHomePage
+    'c-dashboard--homepage': homePage
   });
   const bodyClasses = classNames({
     'c-dashboard__body--error': visibilityError
@@ -84,7 +86,7 @@ const App = ({
         component="dpHeader"
         dependencies={['atlas']}
         bindings={{
-          isHomePage,
+          isHomePage: homePage,
           hasMaxWidth,
           user,
           isPrintMode: printMode,
@@ -93,24 +95,13 @@ const App = ({
         }}
       />
       }
-      <AngularWrapper
-        moduleName={'dpErrorWrapper'}
-        component="dpError"
-        dependencies={['atlas']}
-        bindings={{
-          isHomePage,
-          visibilityError
-        }}
-        interpolateBindings={{
-          hasMaxWidth
-        }}
-      />
       <div className={`c-dashboard__body ${bodyClasses}`}>
+        {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
         {embedPreviewMode ?
           <EmbedIframeComponent /> :
           <div className="u-grid u-full-height">
             <div className="u-row u-full-height">
-              {isHomePage && <Home showFooter />}
+              {homePage && <Home showFooter />}
 
               {(currentPage === PAGES.DATA_QUERY_SEARCH || currentPage === PAGES.SEARCH_DATASETS) &&
               <QuerySearchPage />
@@ -168,6 +159,7 @@ App.propTypes = {
   currentPage: PropTypes.string.isRequired,
   visibilityError: PropTypes.bool, // vm.visibility.error
   embedMode: PropTypes.bool.isRequired,
+  homePage: PropTypes.bool.isRequired,
   printMode: PropTypes.bool.isRequired,
   printOrEmbedMode: PropTypes.bool.isRequired,
   printModeLandscape: PropTypes.bool.isRequired,
@@ -178,11 +170,13 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   currentPage: getPage(state),
   embedMode: isEmbedded(state),
+  homePage: isHomepage(state),
   printMode: isPrintMode(state),
   printModeLandscape: isPrintModeLandscape(state),
   embedPreviewMode: isEmbedPreview(state),
   printOrEmbedMode: isPrintOrEmbedMode(state),
-  user: getUser(state)
+  user: getUser(state),
+  visibilityError: hasGlobalError(state)
 });
 
 const AppContainer = connect(mapStateToProps, null)(App);

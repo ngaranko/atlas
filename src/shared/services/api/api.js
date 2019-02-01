@@ -13,10 +13,13 @@ const handleErrors = (response, reloadOnUnauthorized) => {
     logout();
   }
   if (!response.ok) {
-    throw Error(response.statusText);
+    throw Error(response.status);
   }
   return response;
 };
+
+export const getByUri = (uri) =>
+  fetch(uri).then((response) => response.json());
 
 export const getWithToken = (url, params, cancel, token, reloadOnUnauthorized = false) => {
   const headers = {};

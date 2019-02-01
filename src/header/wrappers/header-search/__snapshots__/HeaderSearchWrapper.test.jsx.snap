@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeaderSearchWrapper should render 1`] = `
-<HeaderSearchContainer
+<HeaderSearch
   activeSuggestion={
     Object {
       "index": -1,

@@ -2,25 +2,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import 'babel-polyfill';
 import angular from 'angular';
-
- // Import the templates and inject them into angular
-const templates = require.context('../modules', true, /\.html$/);
-const origInject = angular.mock.inject;
-angular.mock.inject = (callback) => {
-  origInject(($templateCache) => {
-    templates.keys().forEach((key) => {
-      // Remove the dot from './dir/template.html' and prepend with
-      // 'modules' to get 'modules/dir/template.html'.
-      const templateId = `modules${key.substr(1)}`;
-      $templateCache.put(templateId, templates(key));
-    });
-  });
-  origInject(callback);
-};
-
 // All third party dependencies
 import './vendor';
-
 // All our modules' javascript
 import '../modules/atlas/atlas.module';
 import '../modules/atlas/atlas.run';
@@ -61,7 +44,6 @@ import '../modules/detail/components/current-date/current-date.directive';
 import '../modules/detail/components/data-selection-links/data-selection-links.component';
 import '../modules/detail/components/date/date.filter';
 import '../modules/detail/components/detail/detail.component';
-import '../modules/detail/components/detail/follow-link/follow-link.directive';
 import '../modules/detail/components/filename/filename.filter';
 import '../modules/detail/components/option-label/option-label.filter';
 import '../modules/detail/components/glossary/glossary.constant';
@@ -105,15 +87,12 @@ import '../modules/shared/shared.module';
 import '../modules/shared/components/anchor-link/anchor-link.component';
 import '../modules/shared/components/anchor-link/anchor-link.constant';
 import '../modules/shared/components/anchor-link/anchor-link.run';
-import '../modules/shared/components/api-error/api-error.component';
 import '../modules/shared/components/coordinates/coordinates.filter';
 import '../modules/shared/components/dcatd-button/dcatd-button.component';
 import '../modules/shared/components/expand-collapse/expand-collapse.directive';
 import '../modules/shared/components/link-to-page/link-to-page.component';
 // import '../modules/shared/components/link/link.component';
 import '../modules/shared/components/loading-indicator/loading-indicator.component';
-import '../modules/shared/components/long-name-shortener/long-name-config.constant';
-import '../modules/shared/components/long-name-shortener/long-name-shortener.filter';
 import '../modules/shared/components/message/message.component';
 import '../modules/shared/components/panel/panel.component';
 import '../modules/shared/components/panorama-thumbnail/panorama-thumbnail.component';
@@ -141,12 +120,9 @@ import '../modules/shared/services/user-settings/user-settings.constant';
 import '../modules/shared/services/user-settings/user-settings.factory';
 import '../modules/shared/shared-config.factory';
 import '../modules/shared/shared.vendor';
-
 // The mocks
 import 'angular-mocks';
-import '../modules/shared/components/button/button.component.mock';
 import '../modules/shared/components/link/link.component.mock';
-
 // All our modules' javascript tests
 import '../modules/data-selection/components/available-filters/available-filters.component.test';
 import '../modules/data-selection/components/sbi-filter/sbi-filter.component.test';
@@ -198,7 +174,6 @@ import '../modules/detail/components/wkpb-link/wkpb-link.component.test';
 import '../modules/detail/components/parent-relations/parent-relations.directive.test';
 import '../modules/detail/components/data-selection-links/data-selection-links.component.test';
 import '../modules/detail/components/detail/detail.component.test';
-import '../modules/detail/components/detail/follow-link/follow-link.directive.test';
 import '../modules/detail/components/yes-no/yes-no.filter.test';
 import '../modules/detail/components/bbga-graphs/bbga-data.factory.test';
 import '../modules/detail/components/bbga-graphs/tevredenheid/bbga-tevredenheid.component.test';
@@ -208,7 +183,6 @@ import '../modules/detail/services/geometry/geometry.factory.test';
 import '../modules/detail/services/endpoint-parser/endpoint-parser.factory.test';
 import '../modules/detail/services/date-converter/date-converter.factory.test';
 import '../modules/shared/shared-config.factory.test';
-import '../modules/shared/components/api-error/api-error.component.test';
 import '../modules/shared/components/link-to-page/link-to-page.component.test';
 import '../modules/shared/components/expand-collapse/expand-collapse.directive.test';
 import '../modules/shared/components/anchor-link/anchor-link.component.test';
@@ -218,7 +192,6 @@ import '../modules/shared/components/panel/panel.component.test';
 import '../modules/shared/components/message/message.component.test';
 import '../modules/shared/components/loading-indicator/loading-indicator.component.test';
 import '../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter.test';
-import '../modules/shared/components/long-name-shortener/long-name-shortener.filter.test';
 import '../modules/shared/components/coordinates/coordinates.filter.test';
 import '../modules/shared/components/dcatd-button/dcatd-button.component.test';
 import '../modules/shared/services/storage/storage.factory.test';
@@ -236,3 +209,19 @@ import '../modules/shared/filters/filesize.filter.test';
 import '../modules/shared/filters/kebabcase.filter.test';
 import '../modules/shared/services/combined-document-title/combined-document-title.factory.test';
 import '../modules/header/components/header.controller.test';
+
+// Import the templates and inject them into angular
+const templates = require.context('../modules', true, /\.html$/);
+const origInject = angular.mock.inject;
+angular.mock.inject = (callback) => {
+  origInject(($templateCache) => {
+    templates.keys().forEach((key) => {
+      // Remove the dot from './dir/template.html' and prepend with
+      // 'modules' to get 'modules/dir/template.html'.
+      const templateId = `modules${key.substr(1)}`;
+      $templateCache.put(templateId, templates(key));
+    });
+  });
+  origInject(callback);
+};
+

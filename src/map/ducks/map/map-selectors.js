@@ -8,19 +8,19 @@ import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { getDataSearchLocation } from '../../../shared/ducks/data-search/selectors';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 import { isPanoLayer } from './map';
-import { isLoading as isDataSelectionLoading } from '../../../shared/ducks/data-selection/selectors';
+import { areMarkersLoading } from '../../../shared/ducks/data-selection/selectors';
 
 export const getMap = (state) => state.map;
 export const getActiveBaseLayer = createSelector(getMap, (mapState) => mapState.baseLayer);
 export const getMapZoom = createSelector(getMap, (mapState) => mapState.zoom);
-export const isMapLoading = createSelector(getMap, isDataSelectionLoading,
+export const isMapLoading = createSelector(getMap, areMarkersLoading,
   (mapState, dataSelectionLoading) => mapState.isLoading || dataSelectionLoading);
 
 export const getMapOverlays = createSelector(getMap, (mapState) => mapState && mapState.overlays);
 export const getMapOverlaysWithoutPanorama = createSelector(
   getMapOverlays, (overlays) => overlays.filter(
-  (overlay) => !isPanoLayer(overlay)
-));
+    (overlay) => !isPanoLayer(overlay)
+  ));
 
 export const getMapCenter = createSelector(getMap, (mapState) => mapState && mapState.viewCenter);
 export const getMapBoundingBox = createSelector(getMap, (mapState) => mapState.boundingBox);

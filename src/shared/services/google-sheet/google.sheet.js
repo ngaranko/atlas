@@ -1,5 +1,5 @@
 import marked from 'marked';
-import { getByUrl } from '../api/api';
+import { getByUri } from '../api/api';
 import { ENVIRONMENTS, getEnvironment } from '../../environment';
 
 export const cache = {};    // local cache of parsed sheets
@@ -26,6 +26,8 @@ export const GOOGLE_SHEET_CMS = {
     statistieken: 9,
     verplaatst: 10,
     nietgevonden: 11
+    // important when change/add index: don't forget to update the
+    // jenkins import script: Imports/job/Imports/job/Import_CMS/
   }
 };
 
@@ -34,7 +36,7 @@ function getStaticSheet(key, index) {
   // The contents is refreshed on a daily basis or on demand by a curl script that is run by Jenkins
   // Like curl https://spreadsheets.google.com/feeds/list/$KEY/$INDEX/public/basic?alt=json > [somefile]
   // No params, no cancel promise, don't send the user token along with the request
-  return getByUrl(`${GOOGLE_SHEET_CMS.staticAddress}/${key}.${index}.json`, null, null, false);
+  return getByUri(`${GOOGLE_SHEET_CMS.staticAddress}/${key}.${index}.json`);
 }
 
 function getDynamicSheet(key, index) {

@@ -38,8 +38,10 @@
             }
         };
 
-        if (vm.template) {
-            vm.templatePath = `modules/data-selection/components/formatter/templates/${vm.template}.html`;
-        }
+        this.$onInit = function () {
+            if (vm.template) {
+                vm.templatePath = `modules/data-selection/components/formatter/templates/${vm.template}.html`;
+            }
+        };
     }
 })();

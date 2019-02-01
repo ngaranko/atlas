@@ -36,8 +36,6 @@
     top: 0;
   }
 
-
-
   &.c-panorama-toggle__button--active {
     @extend %active-button;
 
@@ -60,14 +58,13 @@
   @extend %hover-focus-listitem;
 
   cursor: pointer;
+  font-family: "Avenir LT W01 85 Heavy";
   height: 32px;
   line-height: 32px;
   padding: 0 32px;
+  text-align: left;
   white-space: nowrap;
-
-  & button {
-    @include font-weight($bold-weight);
-  }
+  width: 100%;
 
   &.c-panorama-toggle__item--active {
     background-color: $secondary-gray10;

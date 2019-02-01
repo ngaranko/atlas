@@ -131,9 +131,7 @@ function* retrieveDataSelection(action) {
       yield put(fetchMarkersRequest());
     }
   } catch (e) {
-    yield put(receiveDataSelectionFailure({
-      error: e.message
-    }));
+    yield put(receiveDataSelectionFailure(e.message));
   }
 }
 

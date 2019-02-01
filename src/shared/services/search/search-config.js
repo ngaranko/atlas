@@ -66,10 +66,10 @@ export default {
       label_plural: 'Monumenten',
       uri: 'monumenten/search/'
     }, {
-      slug: 'landelijk_id',
-      label_singular: 'Landelijk ID',
-      label_plural: 'Landelijke ID\'s',
-      uri: 'atlas/search/landelijk_id/'
+      slug: 'pand',
+      label_singular: 'Pand',
+      label_plural: 'Panden',
+      uri: 'atlas/search/pand/'
     }
   ],
   COORDINATES_ENDPOINTS: [

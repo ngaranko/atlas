@@ -37,7 +37,7 @@ export const initialState = {
   shapeMarkers: 0,
   shapeDistanceTxt: '',
   shapeAreaTxt: '',
-  mapPanelActive: true
+  mapPanelActive: false
 };
 
 let polygon = {};

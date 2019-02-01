@@ -15,29 +15,31 @@ import { reportProblemAction } from '../../../../src/header/ducks/actions';
             controllerAs: 'vm'
         });
 
-    DpTerugmeldenButtonController.$inject = ['$window', '$location', 'store'];
+    DpTerugmeldenButtonController.$inject = ['$window', 'store'];
 
-    function DpTerugmeldenButtonController ($window, $location, store) {
+    function DpTerugmeldenButtonController ($window, store) {
         var vm = this,
             recipient,
             subject,
             body;
 
-        vm.className = vm.className || 'o-btn o-btn--link';
+        this.$onInit = function () {
+            vm.className = vm.className || 'o-btn o-btn--link';
 
-        recipient = 'terugmelding.basisinformatie@amsterdam.nl';
-        subject = 'Terugmelding data.amsterdam.nl';
-        body = 'Terugmeldingen voor de pagina: ' + $location.absUrl() + '\n\n' +
-            'Beschrijf zo volledig mogelijk van welk onjuist gegeven je een melding wilt maken:\n' +
-            '- Welk gegeven is kennelijk onjuist of ontbreekt?\n' +
-            '- Weet je wat het wel zou moeten zijn?\n' +
-            '- Waarop is jouw constatering gebaseerd? Omschrijf de reden en voeg indien mogelijk relevante ' +
-            'documenten in de bijlage toe (bijvoorbeeld: een bouwtekening, koopakte, et cetera).';
+            recipient = 'terugmelding.basisinformatie@amsterdam.nl';
+            subject = 'Terugmelding data.amsterdam.nl';
+            body = 'Terugmeldingen voor de pagina: ' + $window.location.href + '\n\n' +
+                'Beschrijf zo volledig mogelijk van welk onjuist gegeven je een melding wilt maken:\n' +
+                '- Welk gegeven is kennelijk onjuist of ontbreekt?\n' +
+                '- Weet je wat het wel zou moeten zijn?\n' +
+                '- Waarop is jouw constatering gebaseerd? Omschrijf de reden en voeg indien mogelijk relevante ' +
+                'documenten in de bijlage toe (bijvoorbeeld: een bouwtekening, koopakte, et cetera).';
 
-        vm.mailtoLink = 'mailto:' + recipient +
-            '?subject=' + $window.encodeURIComponent(subject) +
-            '&body=' + $window.encodeURIComponent(body);
+            vm.mailtoLink = 'mailto:' + recipient +
+                '?subject=' + $window.encodeURIComponent(subject) +
+                '&body=' + $window.encodeURIComponent(body);
 
-        vm.reportProblemClick = () => store.dispatch(reportProblemAction());
+            vm.reportProblemClick = () => store.dispatch(reportProblemAction());
+        };
     }
 })();

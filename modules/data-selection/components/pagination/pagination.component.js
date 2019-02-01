@@ -59,13 +59,18 @@
         vm.goToPage = function (event) {
             event.preventDefault();
 
-            if (angular.isNumber(vm.currentPage) && vm.currentPage >= 1 && vm.currentPage <= vm.numberOfPages) {
+            if (angular.isNumber(vm.currentPage) &&
+                vm.currentPage >= 1 &&
+                vm.currentPage <= vm.numberOfPages
+            ) {
                 vm.setPage()(vm.currentPage);
             }
         };
 
-        if (vm.numberOfPages && (vm.currentPage > vm.numberOfPages)) {
-            vm.setPage()(1);
-        }
+        this.$onInit = function () {
+            if (vm.numberOfPages && (vm.currentPage > vm.numberOfPages)) {
+                vm.setPage()(1);
+            }
+        };
     }
 })();

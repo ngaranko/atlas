@@ -1,5 +1,4 @@
 @import "../shared/styles/config";
-
 @import "styles/config";
 @import "styles/utilities/fixed";
 @import "styles/utilities/full-height";
@@ -8,6 +7,7 @@
 @import "styles/legacy/dashboard";
 @import "styles/legacy/active-filters";
 @import "styles/legacy/search-results";
+@import "styles/legacy/api-error";
 
 .is-print-mode {
   @import "styles/legacy/dashboard-print";
