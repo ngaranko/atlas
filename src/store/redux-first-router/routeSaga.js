@@ -7,7 +7,10 @@ import {
   fetchQuerySearchResultsEffect
 } from '../../shared/sagas/data-search/data-search';
 import { fetchDataSelectionEffect } from '../../shared/sagas/data-selection/data-selection';
-import { fetchDatasetsEffect } from '../../shared/sagas/dataset/dataset';
+import {
+  fetchDatasetsEffect,
+  fetchDatasetsOptionalEffect
+} from '../../shared/sagas/dataset/dataset';
 import { fetchDetailEffect } from '../../map/sagas/detail/map-detail';
 
 const yieldOnFirstAction = (sideEffect) => (function* gen(action) {
@@ -32,9 +35,12 @@ export default function* routeSaga() {
   ], yieldOnFirstAction(fetchDataSelectionEffect));
 
   yield takeLatest([
-    routing.datasets.type,
-    routing.datasetsDetail.type
+    routing.datasets.type
   ], yieldOnFirstAction(fetchDatasetsEffect));
+
+  yield takeLatest([
+    routing.datasetsDetail.type
+  ], yieldOnFirstAction(fetchDatasetsOptionalEffect));
 
   yield takeLatest(
     routing.dataSearchCategory.type,
