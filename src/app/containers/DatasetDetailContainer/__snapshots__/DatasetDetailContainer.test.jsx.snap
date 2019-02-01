@@ -8,8 +8,6 @@ exports[`DatasetsDetailContainer should render 1`] = `
     bindings={
       Object {
         "catalogFilters": Object {},
-        "detailData": undefined,
-        "detailTemplateUrl": undefined,
         "isLoading": false,
         "user": Object {},
       }

@@ -50,13 +50,9 @@ export function* getData(endpoint) {
 
 export function* retrieveDetailData(action) {
   try {
-    // console.log('retrieveDetailData, start call fetchDetailSuccess');
     const data = yield call(getData, action.payload.endpoint);
-    // console.log('retrieveDetailData, after call fetchDetailSuccess', data);
     yield put(fetchDetailSuccess(data));
-    // console.log('retrieveDetailData set', data);
   } catch (error) {
-    // console.log(error); // eslint-disable-line no-console, angular/log
     if (error && error.status === 404) {
       yield put(toNotFoundPage());
     } else {

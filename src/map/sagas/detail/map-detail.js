@@ -24,12 +24,12 @@ export function* fetchMapDetail() {
     const user = yield select(getUser);
     const endpoint = yield select(getCurrentEndpoint);
     const mapDetail = yield call(fetchDetail, endpoint, user);
-    // console.log('fetchMapDetail', endpoint, mapDetail);
+    console.log('fetchMapDetail', endpoint, mapDetail);
     yield put(fetchMapDetailSuccess(endpoint, mapDetail || {}));
     yield put(mapLoadingAction(false));
 
     const data = yield call(getData, endpoint);
-    // console.log('fetchMapDetail, after call fetchDetailSuccess', data);
+    console.log('fetchMapDetail, after call fetchDetailSuccess', data);
     yield put(fetchDetailSuccess(data));
   } catch (error) {
     yield put(fetchMapDetailFailure(error));

@@ -1,17 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
-import DetailContainer from './DetailContainer/DetailContainer';
-import { isDetailLoading, getDetailEndpoint } from '../../shared/ducks/detail/selectors';
-import { getUser } from '../../shared/ducks/user/user';
+import DetailContainer from './DetailContainer';
+import { isDetailLoading, getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
+import { getUser } from '../../../shared/ducks/user/user';
 import {
   getPanoramaPreview,
   isPanoramaPreviewLoading
-} from '../../panorama/ducks/preview/panorama-preview';
+} from '../../../panorama/ducks/preview/panorama-preview';
 
-jest.mock('../../shared/ducks/detail/selectors');
-jest.mock('../../shared/ducks/user/user');
-jest.mock('../../panorama/ducks/preview/panorama-preview');
+jest.mock('../../../shared/ducks/detail/selectors');
+jest.mock('../../../shared/ducks/user/user');
+jest.mock('../../../panorama/ducks/preview/panorama-preview');
 
 describe('DetailContainer', () => {
   beforeEach(() => {

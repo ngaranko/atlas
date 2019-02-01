@@ -7,9 +7,12 @@ exports[`Detail should render 1`] = `
   <AngularWrapper
     bindings={
       Object {
+        "detailData": Object {},
+        "detailFilterSelection": Object {},
+        "detailTemplateUrl": "",
         "isLoading": false,
         "isPreviewPanoramaLoading": false,
-        "previewPanorama": undefined,
+        "previewPanorama": null,
         "user": Object {},
       }
     }

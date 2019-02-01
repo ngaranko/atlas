@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
   isLoading: isDetailLoading(state),
   catalogFilters: getApiSpecificationData(state),
   user: getUser(state),
-  endpoint: `${API_ROOT}dcatd/datasets/${getLocationPayload(state).id}` // TODO: refactor use API_ROOT and such
+  endpoint: `${API_ROOT}dcatd/datasets/${getLocationPayload(state).id}`
 });
 
 export default connect(mapStateToProps, null)(DatasetDetail);

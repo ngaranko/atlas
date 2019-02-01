@@ -1,38 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { AngularWrapper } from 'react-angular';
-import {
-  getDetailEndpoint,
-  isDetailLoading,
-  getDetailTemplateUrl,
-  getDetailData,
-  getDetailFilterSelection
-} from '../../../shared/ducks/detail/selectors';
-import { getUser } from '../../../shared/ducks/user/user';
-import {
-  getPanoramaPreview,
-  isPanoramaPreviewLoading
-} from '../../../panorama/ducks/preview/panorama-preview';
-import { fetchDetailRequest } from '../../../shared/ducks/detail/actions';
 
-const mapStateToProps = (state) => ({
-  isLoading: isDetailLoading(state),
-  user: getUser(state),
-  endpoint: getDetailEndpoint(state),
-  previewPanorama: getPanoramaPreview(state),
-  isPreviewPanoramaLoading: isPanoramaPreviewLoading(state),
-  detailTemplateUrl: getDetailTemplateUrl(state),
-  detailData: getDetailData(state),
-  detailFilterSelection: getDetailFilterSelection(state)
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onFetchDetailRequest: fetchDetailRequest
-}, dispatch);
-
-class DetailContainer extends React.Component {
+class Detail extends React.Component {
 
   componentDidMount() {
     const { endpoint, onFetchDetailRequest } = this.props;
@@ -42,8 +12,6 @@ class DetailContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { endpoint } = nextProps;
     if (this.props.endpoint !== endpoint) {
-      console.log('DetailContainer new endpoint', endpoint);
-      // eslint-disable-next-line no-undef
       const { onFetchDetailRequest } = this.props;
       onFetchDetailRequest({ endpoint });
     }
@@ -60,7 +28,6 @@ class DetailContainer extends React.Component {
       detailData,
       detailFilterSelection
     } = this.props;
-    // console.log('DetailContainer render', this.props);
     return (<div className="qa-detail">
       <AngularWrapper
         moduleName={'dpDetailWrapper'}
@@ -84,7 +51,7 @@ class DetailContainer extends React.Component {
   }
 }
 
-DetailContainer.defaultProps = {
+Detail.defaultProps = {
   previewPanorama: undefined,
   isPreviewPanoramaLoading: undefined,
   detailTemplateUrl: undefined,
@@ -92,7 +59,7 @@ DetailContainer.defaultProps = {
   detailFilterSelection: undefined
 };
 
-DetailContainer.propTypes = {
+Detail.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   endpoint: PropTypes.string.isRequired,
@@ -104,4 +71,4 @@ DetailContainer.propTypes = {
   onFetchDetailRequest: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailContainer);
+export default Detail;

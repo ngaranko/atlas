@@ -9,6 +9,7 @@ import { FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/constants';
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import fetchLegacyDetail from '../../../detail/sagas/detail';
+import { fetchDetailSuccess } from '../../../shared/ducks/detail/actions';
 
 describe('watchFetchMapDetail', () => {
   const action = { type: FETCH_MAP_DETAIL_REQUEST };
@@ -84,6 +85,9 @@ describe('fetchNearestDetails', () => {
       .put(fetchMapDetailSuccess(action.endpoint, 'mapDetail'))
       .next()
       .put(mapLoadingAction(false))
+      .next()
+      .next(action.endpoint)
+      .put(fetchDetailSuccess(action.endpoint))
       .next()
       .isDone();
   });

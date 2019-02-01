@@ -11,7 +11,6 @@ export { REDUCER_KEY as DETAIL };
 
 export default function detailReducer(state = initialState, action) {
   if (shouldResetState(action, [PAGES.DATA_DETAIL])) {
-    // console.log('state reset');
     return initialState;
   }
 
