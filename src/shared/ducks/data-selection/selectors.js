@@ -9,11 +9,11 @@ export const getDataSelectionPage = createSelector(
   getDataSelection,
   (dataSelection) => dataSelection.page);
 
-export const getGeometryFilters = createSelector(
+export const getGeometryFilter = createSelector(
   getDataSelection,
   (dataSelection) => dataSelection.geometryFilter);
 export const getGeometryFiltersMarkers = createSelector(
-  getGeometryFilters,
+  getGeometryFilter,
   (filters) => (filters && filters.markers) || []);
 
 export const getDataset = createSelector(

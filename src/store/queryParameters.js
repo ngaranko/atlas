@@ -1,7 +1,7 @@
 import { routing } from '../app/routes';
 import { DATA_SEARCH_REDUCER } from '../shared/ducks/data-search/reducer';
 import { initialState as dataSearchInitialState } from '../shared/ducks/data-search/constants';
-import { getDataSelectionPage, getGeometryFilters } from '../shared/ducks/data-selection/selectors';
+import { getDataSelectionPage, getGeometryFilter } from '../shared/ducks/data-selection/selectors';
 import { DATA_SELECTION } from '../shared/ducks/data-selection/reducer';
 import { DATASETS, getPage } from '../shared/ducks/datasets/datasets';
 import { DATA, initialState as datasetsDataInitialState } from '../shared/ducks/datasets/data/data';
@@ -89,7 +89,7 @@ export default paramsRegistry
   })
   .addParameter(PARAMETERS.GEO, (routes) => {
     routes.add(routesWithDataSelection, DATA_SELECTION, 'geometryFilter', {
-      selector: getGeometryFilters,
+      selector: getGeometryFilter,
       defaultValue: dataSelectionInitialState.geometryFilter,
       encode: ({ markers, description }) => {
         if (markers && description) {
