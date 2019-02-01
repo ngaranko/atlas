@@ -38,7 +38,7 @@ import {
   getDataSelectionPage,
   getDataset,
   getGeomarkersShape,
-  getGeometryFilters
+  getGeometryFilter
 } from '../../ducks/data-selection/selectors';
 import { waitForAuthentication } from '../user/user';
 import {
@@ -169,7 +169,7 @@ function* switchPage(additionalParams = {}) {
 }
 
 function* setGeometryFilters({ payload }) {
-  const geometryFilters = yield select(getGeometryFilters);
+  const geometryFilters = yield select(getGeometryFilter);
   const dataSelectionPage = yield select(isDataSelectionPage);
   yield put(mapEndDrawing({ polygon: payload }));
 

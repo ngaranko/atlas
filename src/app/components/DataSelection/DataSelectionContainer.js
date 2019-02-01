@@ -5,7 +5,8 @@ import { getUser, getUserScopes } from '../../../shared/ducks/user/user';
 import { getFilters } from '../../../shared/ducks/filters/filters';
 import {
   getDataSelection,
-  getDataSelectionResult
+  getDataSelectionResult,
+  getGeometryFilter
 } from '../../../shared/ducks/data-selection/selectors';
 import { getViewMode } from '../../../shared/ducks/ui/ui';
 import DataSelection from './DataSelection';
@@ -18,6 +19,7 @@ const mapStateToProps = (state) => {
     authError,
     page,
     view: getViewMode(state),
+    geometryFilter: getGeometryFilter(state),
     activeFilters: getFilters(state),
     results: getDataSelectionResult(state),
     user: getUser(state),
