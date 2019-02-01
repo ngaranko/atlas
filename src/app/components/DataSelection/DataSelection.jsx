@@ -14,7 +14,8 @@ import DataSelectionActiveFilters from '../../containers/DataSelectionActiveFilt
 import MaxPageMessage from '../PanelMessages/MaxPageMessage';
 import {
   getDataSelection,
-  getDataSelectionResult
+  getDataSelectionResult,
+  getGeometryFilter
 } from '../../../shared/ducks/data-selection/selectors';
 import NoResultsForSearchType from '../Messages/NoResultsForSearchType';
 import { getViewMode, VIEW_MODE } from '../../../shared/ducks/ui/ui';
@@ -29,6 +30,7 @@ const DataSelection = ({
   userScopes,
   setPage,
   authError,
+  geometryFilter,
   results: {
     numberOfRecords,
     filters: availableFilters,
@@ -65,6 +67,7 @@ const DataSelection = ({
           bindings={{
             dataset,
             availableFilters,
+            geometryFilter,
             filters: activeFilters,
             isLoading,
             numberOfRecords,
@@ -74,9 +77,9 @@ const DataSelection = ({
           }}
         />
 
-        {(isLoading) && <LoadingIndicator /> }
+        {(isLoading) && <LoadingIndicator />}
 
-        {(!isLoading) && <DataSelectionActiveFilters /> }
+        {(!isLoading) && <DataSelectionActiveFilters />}
 
         {(!isLoading && !numberOfRecords && !authError && !authScopeError) ?
           <NoResultsForSearchType
@@ -137,7 +140,8 @@ const DataSelection = ({
                       <p className="c-panel__paragraph">Deze resultaten worden niet getoond op
                         de
                         kaart, omdat deze niet meer
-                        dan {MAX_NUMBER_OF_CLUSTERED_MARKERS.toLocaleString('nl-NL')} resultaten tegelijk kan
+                        dan {MAX_NUMBER_OF_CLUSTERED_MARKERS.toLocaleString('nl-NL')} resultaten
+                        tegelijk kan
                         weergeven (om technische redenen).</p>
                       <p className="c-panel__paragraph">Tip: Bekijk de lijst resultaten in
                         kleinere delen. Dit kan door een voor een filtercriteria toe te voegen
@@ -203,6 +207,7 @@ DataSelection.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   dataset: PropTypes.string.isRequired,
   activeFilters: PropTypes.shape({}).isRequired,
+  geometryFilter: PropTypes.shape({}).isRequired,
   user: PropTypes.shape({}).isRequired,
   userScopes: PropTypes.arrayOf(PropTypes.string).isRequired,
   authError: PropTypes.bool.isRequired,
@@ -225,6 +230,7 @@ const mapStateToProps = (state) => {
     page,
     view: getViewMode(state),
     activeFilters: getFilters(state),
+    geometryFilter: getGeometryFilter(state),
     results: getDataSelectionResult(state),
     user: getUser(state),
     userScopes: getUserScopes(state)
