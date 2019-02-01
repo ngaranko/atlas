@@ -104,7 +104,7 @@ describe('map module', () => {
       // ensure the viewport is always the same in this test, so the clicks can be aligned properly
       cy.viewport(1000, 660);
 
-      cy.visit('/?center=52.3728007%2C4.899258&view=kaart');
+      cy.visit('/?center=52.3728007%2C4.899258&modus=kaart');
 
       // the map-panel should have the class collapsed by default
       cy.get('.map-panel').should('have.class', 'map-panel--collapsed');
@@ -180,7 +180,7 @@ describe('map module', () => {
   describe('user should be able to use the map', () => {
     it('should render the leaflet map', () => {
       // route to the map by url
-      cy.visit('/?view=kaart');
+      cy.visit('/data?modus=kaart');
       // the map container should exist
       cy.get(map).should('exist').and('be.visible');
       // the leaflet map should exist
@@ -191,7 +191,7 @@ describe('map module', () => {
 
     it('should add a map-layer to the leaflet map', () => {
       // route to the map
-      cy.visit('/?center=52.3731081%2C4.8932945&view=kaart');
+      cy.visit('/data?center=52.3731081%2C4.8932945&modus=kaart');
 
       // the map-panel should have the class collapsed by default
       cy.get('.map-panel').should('have.class', 'map-panel--collapsed');
@@ -214,7 +214,7 @@ describe('map module', () => {
   describe('user should be able to open the map panel when collapsed', () => {
     it('should add open the map panel component', () => {
       // route to the map
-      cy.visit('/?view=kaart');
+      cy.visit('/data?modus=kaart');
       // the map-panel should have the class collapsed
       cy.get('.map-panel').should('have.class', 'map-panel--collapsed');
       // the scroll wrapper should not be visible when map panel is collapsed

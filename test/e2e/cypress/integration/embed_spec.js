@@ -1,31 +1,36 @@
 const checkbox = 'input[type="checkbox"]';
 const header = 'header';
 
+const menuLink = '.qa-menu__link';
+const embedButton = '.qa-menu__dropdown ul li:nth(1)';
+
 describe('embed module', () => {
   beforeEach(() => {
     // go to the homepage
     cy.visit('/');
   });
 
+
   it('should show the user the embed preview of the map', () => {
-    cy.visit('/?center=52.3617139%2C4.8888734&lagen=bgem%3A1%7Ckgem%3A1%7Cksec%3A0%7Ckot%3A0&legenda=true&view=kaart');
+    cy.visit('/data/?center=52.3617139%2C4.8888734&lagen=bgem%3A1%7Ckgem%3A1%7Cksec%3A0%7Ckot%3A0&legenda=true&modus=kaart');
     cy.get(header).should('exist');
     cy.get(checkbox).should('exist').and('be.visible');
 
     // the menu button should exist
-    cy.get('.c-menu__item--toggle').should('exist').and('be.visible');
+    cy.get(menuLink).should('exist').and('be.visible');
     // expand the menu
-    cy.get('.c-menu__item--toggle').click();
+    cy.get(menuLink).click();
     // click on the embed button
-    cy.get('.c-menu__subitem').first().should('exist').and('be.visible');
-    cy.get('.c-menu__subitem').first().click();
+    cy.get(embedButton).should('exist').and('be.visible');
+    cy.get(embedButton).first().click();
     // the header should be hidden
     cy.get(header).should('not.exist');
     // the embed preview parameter should be present in the url
-    cy.url().should('include', '?center=52.3617139%2C4.8888734&embed-preview=true&lagen=bgem%3A1%7Ckgem%3A1%7Cksec%3A0%7Ckot%3A0&legenda=true&view=kaart');
+    cy.url().should('include', '?modus=kaart&center=52.3617139%2C4.8888734&embed-preview=true&lagen=bgem%3A1%7Ckgem%3A1%7Cksec%3A0%7Ckot%3A0&legenda=true');
   });
+
   it('should show the user the embed view of the map', () => {
-    cy.visit('/?center=52.3617139%2C4.8888734&embed=true&lagen=bgem%3A1%7Ckgem%3A1%7Cksec%3A0%7Ckot%3A0&legenda=true&view=kaart');
+    cy.visit('/data?center=52.3617139%2C4.8888734&embed=true&lagen=bgem%3A1%7Ckgem%3A1%7Cksec%3A0%7Ckot%3A0&legenda=true&modus=kaart');
     // the header should be hidden
     cy.get(header).should('not.exist');
     // the button to go to city data should exist

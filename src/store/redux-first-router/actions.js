@@ -171,6 +171,15 @@ export const toDatasetSuggestion = (payload) => ({
   }
 });
 
+export const toAdresses = () => ({
+  type: routing.addresses.type,
+  meta: {
+    query: {
+      [PARAMETERS.VIEW]: VIEW_MODE.FULL
+    }
+  }
+});
+
 export const toDatasetPage = (dataset) => ({
   type: DATASET_ROUTE_MAPPER[dataset]
 });
