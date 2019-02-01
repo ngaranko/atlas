@@ -35,17 +35,18 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
 
         /* istanbul ignore next */
         vm.$onChanges = (changes) => {
-            if (changes.detailTemplateUrl.previousValue !== changes.detailTemplateUrl.currentValue) {
+            const {detailTemplateUrl, detailData, detailFilterSelection} = changes;
+            if (detailTemplateUrl && detailTemplateUrl.previousValue !== detailTemplateUrl.currentValue) {
                 vm.includeSrc = changes.detailTemplateUrl.currentValue;
             }
 
-            if (changes.detailData.previousValue !== changes.detailData.currentValue) {
+            if (detailData && detailData.previousValue !== detailData.currentValue) {
                 vm.apiData = {
                     results: changes.detailData.currentValue
                 };
             }
 
-            if (changes.detailFilterSelection.previousValue !== changes.detailFilterSelection.currentValue) {
+            if (detailFilterSelection && detailFilterSelection.previousValue !== detailFilterSelection.currentValue) {
                 vm.filterSelection = changes.detailFilterSelection.currentValue;
             }
         };
