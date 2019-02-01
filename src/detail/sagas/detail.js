@@ -1,22 +1,12 @@
-import { put, select } from 'redux-saga/effects';
-import { fetchDetail as fetchDetailActionCreator } from '../../shared/ducks/detail/actions';
-import { pageTypeToEndpoint } from '../../store/redux-first-router/actions';
-import { getDetail } from '../../shared/ducks/detail/selectors';
+import { select } from 'redux-saga/effects';
 import { getUserScopes } from '../../shared/ducks/user/user';
 import { getTemplateUrl, getParts } from '../services/endpoint-parser/endpoint-parser';
 import { getApiSpecificationData } from '../../shared/ducks/datasets/datasets';
 import formatDetailData from '../services/data-formatter/data-formatter';
 import { getByUrl } from '../../shared/services/api/api';
 
-/* istanbul ignore next */
-export function* fetchDetail() {
-  const { type, subtype, id } = yield select(getDetail);
-  const endpoint = pageTypeToEndpoint(type, subtype, id);
-  const fetchAction = fetchDetailActionCreator(endpoint);
-  yield put(fetchAction);
-}
 
-export function* getDetailData(endpoint, mapDetail) {
+export function* getDetailData(endpoint, mapDetail = {}) {
   const includeSrc = getTemplateUrl(endpoint);
   const [category, subject] = getParts(endpoint);
 
@@ -44,7 +34,6 @@ export function* getDetailData(endpoint, mapDetail) {
   const formatedData = {
     ...mapDetail,
     ...formatDetailData(data, category, subject, catalogFilters, scopes)
-    // ...mapDetail
   };
 
   return {

@@ -6,7 +6,9 @@ const DatasetDetail = ({
   isLoading,
   catalogFilters,
   user,
-  endpoint
+  endpoint,
+  detailTemplateUrl,
+  detailData
 }) => (
   <div className="c-dashboard__content qa-detail">
     <AngularWrapper
@@ -16,7 +18,9 @@ const DatasetDetail = ({
       bindings={{
         isLoading,
         catalogFilters,
-        user
+        user,
+        detailTemplateUrl,
+        detailData
       }}
       interpolateBindings={{
         endpoint
@@ -26,14 +30,18 @@ const DatasetDetail = ({
 );
 
 DatasetDetail.defaultProps = {
-  isLoading: false
+  isLoading: false,
+  detailTemplateUrl: undefined,
+  detailData: undefined
 };
 
 DatasetDetail.propTypes = {
   isLoading: PropTypes.bool,
   catalogFilters: PropTypes.shape({}).isRequired,
   user: PropTypes.shape({}).isRequired,
-  endpoint: PropTypes.string.isRequired
+  endpoint: PropTypes.string.isRequired,
+  detailTemplateUrl: PropTypes.string,
+  detailData: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 export default DatasetDetail;

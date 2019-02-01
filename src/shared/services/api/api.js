@@ -38,8 +38,6 @@ export const getWithToken = (url, params, cancel, token, reloadOnUnauthorized = 
   }
 
   const fullUrl = `${url}${params ? `?${generateParams(params)}` : ''}`;
-
-  // Retrieve from cache, otherwise execute API call
   return fetch(fullUrl, options)
     .then((response) => handleErrors(response, reloadOnUnauthorized))
     .then((response) => response.json());

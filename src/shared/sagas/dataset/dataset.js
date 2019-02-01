@@ -1,5 +1,5 @@
 import get from 'lodash.get';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest, take, race } from 'redux-saga/effects';
 import { query } from '../../services/data-selection/data-selection-api';
 import { ADD_FILTER, EMPTY_FILTERS, getFilters, REMOVE_FILTER } from '../../ducks/filters/filters';
 import {
@@ -17,14 +17,34 @@ import {
   FETCH_API_SPECIFICATION_SUCCESS,
   fetchApiSpecification,
   fetchApiSpecificationFailure,
-  fetchApiSpecificationSuccess
+  fetchApiSpecificationSuccess,
+  FETCH_API_SPECIFICATION_FAILURE
 } from '../../ducks/datasets/apiSpecification/apiSpecification';
-import { getApiSpecificationData, getDatasetsData, getPage } from '../../ducks/datasets/datasets';
+import { getApiSpecificationData, getPage } from '../../ducks/datasets/datasets';
 import getApiSpecification from '../../services/datasets-filters/datasets-filters';
 import { getSearchQuery } from '../../ducks/data-search/selectors';
 import PARAMETERS from '../../../store/parameters';
+import { waitForAuthentication } from '../user/user';
+import { fetchDetailSuccess } from '../../ducks/detail/actions';
+import formatDetailData from '../../../detail/services/data-formatter/data-formatter';
+import { getUserScopes } from '../../ducks/user/user';
+import { getParts, getTemplateUrl } from '../../../detail/services/endpoint-parser/endpoint-parser';
+import { getByUrl } from '../../../shared/services/api/api';
+import { API_ROOT } from '../../services/auth/auth';
 
-function* retrieveDataset(action) {
+export function* ensureCatalogFilters() {
+  const state = yield select();
+  const catalogFilters = getApiSpecificationData(state);
+  if (Object.keys(catalogFilters || {}).length > 0) return;
+
+  yield put(fetchApiSpecification());
+  yield race([
+    take(FETCH_API_SPECIFICATION_SUCCESS),
+    take(FETCH_API_SPECIFICATION_FAILURE)
+  ]);
+}
+
+function* retrieveDatasets(action) {
   const { activeFilters, page, searchText, geometryFilter, catalogFilters } =
     action.payload;
   try {
@@ -47,26 +67,42 @@ function* retrieveDataset(action) {
   }
 }
 
+export function* getDatasetData(endpoint) {
+  const includeSrc = getTemplateUrl(endpoint);
+  const [category, subject] = getParts(endpoint);
+
+  const scopes = yield select(getUserScopes);
+
+  // TODO console.log('append version=3 to grondexploitaties');
+  const catalogFilters = yield select(getApiSpecificationData);
+
+  // TODO replace this call with mapDetail value
+  const data = yield getByUrl(`${endpoint}`);
+  const formatedData = {
+    ...formatDetailData(data, category, subject, catalogFilters, scopes)
+  };
+
+  return {
+    includeSrc,
+    data: formatedData
+  };
+}
+
 export function* fetchDatasetsEffect(action) {
+  yield call(ensureCatalogFilters);
   const state = yield select();
   const activeFilters = getFilters(state);
   const catalogFilters = getApiSpecificationData(state);
   const page = getPage(state);
   const searchText = get(action, `meta.query[${PARAMETERS.QUERY}]`) || getSearchQuery(state);
-  // Todo: make it possible to fetch both api specification and dataset data simultaneously
-  // This can be done by refactoring the datasets-filters service
-  if (!Object.keys(getApiSpecificationData(state) || {}).length) {
-    yield put(fetchApiSpecification());
-  } else {
-    yield put(
-      fetchDatasets({
-        activeFilters,
-        page: (action && action.type === ADD_FILTER) ? initialState.page : page,
-        catalogFilters,
-        searchText
-      })
-    );
-  }
+  yield put(
+    fetchDatasets({
+      activeFilters,
+      page: (action && action.type === ADD_FILTER) ? initialState.page : page,
+      catalogFilters,
+      searchText
+    })
+  );
 }
 
 /**
@@ -76,11 +112,13 @@ export function* fetchDatasetsEffect(action) {
  * fetching on every dataset page.
  * @returns {IterableIterator<*>}
  */
-export function* fetchDatasetsOptionalEffect() {
-  const datasets = yield select(getDatasetsData);
-  if (get(datasets, 'result.numberOfRecords') === 0) {
-    yield call(fetchDatasetsEffect);
-  }
+export function* fetchDatasetsOptionalEffect(action) {
+  yield call(waitForAuthentication);
+  yield call(ensureCatalogFilters);
+  const endpoint = `${API_ROOT}dcatd/datasets/${action.payload.id}`;
+
+  const detailData = yield call(getDatasetData, endpoint);
+  yield put(fetchDetailSuccess(detailData));
 }
 
 export function* retrieveApiSpecification() {
@@ -94,10 +132,10 @@ export function* retrieveApiSpecification() {
 
 export default function* watchFetchDatasets() {
   yield takeLatest(
-    [ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS, FETCH_API_SPECIFICATION_SUCCESS, SET_PAGE],
+    [ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS, SET_PAGE],
     fetchDatasetsEffect
   );
 
   yield takeLatest(FETCH_API_SPECIFICATION_REQUEST, retrieveApiSpecification);
-  yield takeLatest(FETCH_DATASETS_REQUEST, retrieveDataset);
+  yield takeLatest(FETCH_DATASETS_REQUEST, retrieveDatasets);
 }
