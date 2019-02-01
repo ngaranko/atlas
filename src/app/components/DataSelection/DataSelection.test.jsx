@@ -39,6 +39,7 @@ describe('DataSelection', () => {
       setPage={jest.fn}
       page={1}
       activeFilters={{}}
+      geometryFilter={{}}
       authError={false}
       dataset={DATASETS.BAG}
       userScopes={[]}

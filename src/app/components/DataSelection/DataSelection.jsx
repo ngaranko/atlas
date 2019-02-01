@@ -20,6 +20,7 @@ const DataSelection = ({
   userScopes,
   setPage,
   authError,
+  geometryFilter,
   results: {
     numberOfRecords,
     filters: availableFilters,
@@ -56,6 +57,7 @@ const DataSelection = ({
           bindings={{
             dataset,
             availableFilters,
+            geometryFilter,
             filters: activeFilters,
             isLoading,
             numberOfRecords,
@@ -195,6 +197,7 @@ DataSelection.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   dataset: PropTypes.string.isRequired,
   activeFilters: PropTypes.shape({}).isRequired,
+  geometryFilter: PropTypes.shape({}).isRequired,
   user: PropTypes.shape({}).isRequired,
   userScopes: PropTypes.arrayOf(PropTypes.string).isRequired,
   authError: PropTypes.bool.isRequired,
