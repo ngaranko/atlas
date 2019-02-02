@@ -94,7 +94,6 @@ class MapContainer extends React.Component {
 }
 
 MapContainer.defaultProps = {
-  geometry: null,
   leafletInstance: null,
   showPreviewPanel: false,
   drawMode: 'none',

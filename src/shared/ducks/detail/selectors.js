@@ -37,7 +37,6 @@ export const getDetailFilterSelection = createSelector(
   (detailObject) => detailObject && detailObject.filterSelection
 );
 
-// Todo: DP-6571
 export const shouldShowFullScreen = createSelector(
   getDetailGeometry,
   getViewMode,

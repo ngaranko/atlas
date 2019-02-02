@@ -1,7 +1,8 @@
 import { routing } from '../../../app/routes';
 import {
-  FETCH_DETAIL, initialState, SET_VIEW, SHOW_DETAIL, REDUCER_KEY,
-  FETCH_DETAIL_REQUEST, FETCH_DETAIL_FAILURE, FETCH_DETAIL_SUCCESS
+  initialState, SET_VIEW, SHOW_DETAIL, REDUCER_KEY,
+  FETCH_DETAIL_REQUEST, FETCH_DETAIL_FAILURE,
+  FETCH_DETAIL_SUCCESS, CLEAR_MAP_DETAIL
 } from './constants';
 import paramsRegistry from '../../../store/params-registry';
 import PAGES from '../../../app/pages';
@@ -34,7 +35,7 @@ export default function detailReducer(state = initialState, action) {
       };
     }
 
-    case FETCH_DETAIL:
+    case CLEAR_MAP_DETAIL:
       return {
         ...enrichedState,
         display: undefined,

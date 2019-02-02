@@ -1,5 +1,5 @@
 export const REDUCER_KEY = 'detail';
-export const FETCH_DETAIL = `${REDUCER_KEY}/FETCH_DETAIL`;
+export const CLEAR_MAP_DETAIL = `${REDUCER_KEY}/CLEAR_MAP_DETAIL`;
 export const SHOW_DETAIL = `${REDUCER_KEY}/SHOW_DETAIL`;
 export const SET_VIEW = `${REDUCER_KEY}/SET_VIEW`;
 export const FETCH_DETAIL_REQUEST = `${REDUCER_KEY}/FETCH_DETAIL_REQUEST`;

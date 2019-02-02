@@ -73,10 +73,9 @@ export function* getDatasetData(endpoint) {
 
   const scopes = yield select(getUserScopes);
 
-  // TODO console.log('append version=3 to grondexploitaties');
+  yield call(ensureCatalogFilters);
   const catalogFilters = yield select(getApiSpecificationData);
 
-  // TODO replace this call with mapDetail value
   const data = yield getByUrl(`${endpoint}`);
   const formatedData = {
     ...formatDetailData(data, category, subject, catalogFilters, scopes)
@@ -114,7 +113,6 @@ export function* fetchDatasetsEffect(action) {
  */
 export function* fetchDatasetsOptionalEffect(action) {
   yield call(waitForAuthentication);
-  yield call(ensureCatalogFilters);
   const endpoint = `${API_ROOT}dcatd/datasets/${action.payload.id}`;
 
   const detailData = yield call(getDatasetData, endpoint);

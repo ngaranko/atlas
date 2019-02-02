@@ -1,8 +1,12 @@
 
-import { FETCH_DETAIL, SET_VIEW, SHOW_DETAIL, FETCH_DETAIL_REQUEST, FETCH_DETAIL_SUCCESS, FETCH_DETAIL_FAILURE } from './constants';
+import {
+  CLEAR_MAP_DETAIL, SET_VIEW, SHOW_DETAIL,
+  FETCH_DETAIL_REQUEST, FETCH_DETAIL_SUCCESS,
+  FETCH_DETAIL_FAILURE
+} from './constants';
 
-export const fetchDetail = (payload) => ({
-  type: FETCH_DETAIL,
+export const clearMapDetail = (payload) => ({
+  type: CLEAR_MAP_DETAIL,
   payload
 });
 
