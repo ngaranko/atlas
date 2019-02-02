@@ -38,7 +38,7 @@ describe('Api service', () => {
     it('should not return the response from fetch when service is unavailable', async () => {
       fetch.mockResponseOnce(JSON.stringify(response), { status: 503 });
 
-      expect(getWithToken(
+      return expect(getWithToken(
         'http://localhost/',
         {
           entryOne: 'foo',

@@ -13,7 +13,7 @@ const handleErrors = (response, reloadOnUnauthorized) => {
     logout();
   }
   if (!response.ok) {
-    throw Error(response.status);
+    throw Error(response.statusText);
   }
   return response;
 };

@@ -15,7 +15,7 @@ import {
 import {
   FETCH_API_SPECIFICATION_REQUEST,
   FETCH_API_SPECIFICATION_SUCCESS,
-  fetchApiSpecification,
+  fetchApiSpecificationRequest,
   fetchApiSpecificationFailure,
   fetchApiSpecificationSuccess,
   FETCH_API_SPECIFICATION_FAILURE
@@ -37,7 +37,7 @@ export function* ensureCatalogFilters() {
   const catalogFilters = getApiSpecificationData(state);
   if (Object.keys(catalogFilters || {}).length > 0) return;
 
-  yield put(fetchApiSpecification());
+  yield put(fetchApiSpecificationRequest());
   yield race([
     take(FETCH_API_SPECIFICATION_SUCCESS),
     take(FETCH_API_SPECIFICATION_FAILURE)

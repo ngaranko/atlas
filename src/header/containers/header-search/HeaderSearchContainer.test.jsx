@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import HeaderSearchContainer from './HeaderSearchContainer';
 import { getSuggestionsAction, getTypedQuery } from '../../ducks/auto-suggest/auto-suggest';
 
-import { fetchDetail } from '../../../shared/ducks/detail/actions';
+import { clearMapDetail } from '../../../shared/ducks/detail/actions';
 import { ROUTER_NAMESPACE } from '../../../app/routes';
 import PAGES from '../../../app/pages';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
@@ -16,7 +16,7 @@ import {
   toDatasetSuggestion,
   toDataSuggestion
 } from '../../../store/redux-first-router/actions';
-import { FETCH_DETAIL } from '../../../shared/ducks/detail/constants';
+import { CLEAR_MAP_DETAIL } from '../../../shared/ducks/detail/constants';
 import PARAMETERS from '../../../store/parameters';
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 
@@ -27,12 +27,15 @@ jest.mock('../../../shared/ducks/detail/actions');
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
     getSuggestionsAction.mockImplementation(() => ({ type: 'getSuggestionsAction' }));
-    fetchDetail.mockImplementation((endpoint) => ({ type: FETCH_DETAIL, payload: endpoint }));
+    clearMapDetail.mockImplementation((endpoint) => ({
+      type: CLEAR_MAP_DETAIL,
+      payload: endpoint
+    }));
   });
 
   afterEach(() => {
     getSuggestionsAction.mockReset();
-    fetchDetail.mockReset();
+    clearMapDetail.mockReset();
   });
 
   const initialState = {
@@ -102,7 +105,7 @@ describe('HeaderSearchContainer', () => {
     shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
     expect(getSuggestionsAction).not.toHaveBeenCalled();
-    expect(fetchDetail).not.toHaveBeenCalled();
+    expect(clearMapDetail).not.toHaveBeenCalled();
     expect(store.dispatch).not.toHaveBeenCalled();
   });
 
@@ -151,7 +154,7 @@ describe('HeaderSearchContainer', () => {
       );
     });
 
-    xit('does call to open new window if shouldOpenInNewWindow is true', () => {
+    it('does call to open new window if shouldOpenInNewWindow is true', () => {
       // TODO: refactor, allow opening in new window.
       const store = configureMockStore()({ ...initialState });
       const shouldOpenInNewWindow = true;
@@ -163,20 +166,13 @@ describe('HeaderSearchContainer', () => {
       };
 
       jest.spyOn(store, 'dispatch');
-      global.open = () => { // eslint-disable-line arrow-body-style
-        return {
-          window: {}
-        }; // eslint-disable-line arrow-body-style
-      };
-      jest.spyOn(global, 'open');
 
       const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive();
 
       headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
 
-      expect(fetchDetail).not.toHaveBeenCalled();
-      expect(store.dispatch).not.toHaveBeenCalled();
-      expect(global.open).toHaveBeenCalled();
+      expect(clearMapDetail).not.toHaveBeenCalled();
+      expect(store.dispatch).toHaveBeenCalled();
     });
   });
 

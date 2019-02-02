@@ -35,9 +35,11 @@ export const datasetDetailDocumentTitle = () => {
 };
 
 export const detailDocumentTitleWithName = (action) => {
-  // For now we fill the title for details in 2 steps
+  // We fill the title for details in 2 steps
   const title = document.title.replace(' - Dataportaal', '');
-  if (title.indexOf(':') === -1) {
+
+  const isDataset = !!action.payload.data.editDatasetId;
+  if (isDataset && title.indexOf(':') === -1) {
     return `${title}: ${action.payload.data._display}`;
   }
 
