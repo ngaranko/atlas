@@ -48,7 +48,7 @@ module.exports = {
     // foo.integration.test.jsx
   ],
   testURL: 'http://localhost:8080/',
-  testEnvironment: 'jest-environment-jsdom-global',
+  testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
     '/modules/',
     '/node_modules/'

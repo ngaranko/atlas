@@ -1,27 +1,31 @@
-import { getAuthHeaders, getName, getReturnPath, getScopes, initAuth, login, logout } from './auth';
-import queryStringParser from '../query-string-parser/query-string-parser';
-import stateTokenGenerator from '../state-token-generator/state-token-generator';
-import parseAccessToken from '../access-token-parser/access-token-parser';
+/**
+ * @jest-environment jsdom-global
+ */
 
-jest.mock('../query-string-parser/query-string-parser');
-jest.mock('../state-token-generator/state-token-generator');
-jest.mock('../access-token-parser/access-token-parser');
+ import { getAuthHeaders, getName, getReturnPath, getScopes, initAuth, login, logout } from './auth';
+ import queryStringParser from '../query-string-parser/query-string-parser';
+ import stateTokenGenerator from '../state-token-generator/state-token-generator';
+ import parseAccessToken from '../access-token-parser/access-token-parser';
 
-const notExpiredTimestamp = () => (Math.floor(new Date().getTime() / 1000) + 1000);
+ jest.mock('../query-string-parser/query-string-parser');
+ jest.mock('../state-token-generator/state-token-generator');
+ jest.mock('../access-token-parser/access-token-parser');
 
-describe('The auth service', () => {
-  const noop = () => {
+ const notExpiredTimestamp = () => (Math.floor(new Date().getTime() / 1000) + 1000);
+
+ describe('The auth service', () => {
+   const noop = () => {
   };
 
-  let origSessionStorage;
-  let queryObject;
-  let savedAccessToken;
-  let savedReturnPath;
-  let savedStateToken;
-  let stateToken;
-  let notExpiredAccesToken;
+   let origSessionStorage;
+   let queryObject;
+   let savedAccessToken;
+   let savedReturnPath;
+   let savedStateToken;
+   let stateToken;
+   let notExpiredAccesToken;
 
-  beforeEach(() => {
+   beforeEach(() => {
     origSessionStorage = global.sessionStorage;
     Object.defineProperty(window, 'sessionStorage', {
       value: {
@@ -63,14 +67,14 @@ describe('The auth service', () => {
     savedAccessToken = '';
   });
 
-  afterEach(() => {
+   afterEach(() => {
     global.history.replaceState.mockRestore();
     global.location.assign.mockRestore();
     global.location.reload.mockRestore();
     Object.defineProperty(window, 'sessionStorage', origSessionStorage);
   });
 
-  describe('init funtion', () => {
+   describe('init funtion', () => {
     describe('receiving response errors from the auth service', () => {
       it('throws an error', () => {
         const queryString = '?error=invalid_request&error_description=invalid%20request';
@@ -219,7 +223,7 @@ describe('The auth service', () => {
     });
   });
 
-  describe('Login process', () => {
+   describe('Login process', () => {
     it('throws an error when the crypto library is not supported by the browser', () => {
       stateToken = '';
       expect(() => {
@@ -249,7 +253,7 @@ describe('The auth service', () => {
     });
   });
 
-  describe('Logout process', () => {
+   describe('Logout process', () => {
     it('Removes the access token from the session storage', () => {
       logout();
       expect(global.sessionStorage.clear).toHaveBeenCalled();
@@ -261,7 +265,7 @@ describe('The auth service', () => {
     });
   });
 
-  describe('Retrieving the return path', () => {
+   describe('Retrieving the return path', () => {
     it('returns the return path after initialized with a successful callback', () => {
       queryObject = {
         access_token: '123AccessToken',
@@ -297,7 +301,7 @@ describe('The auth service', () => {
     });
   });
 
-  describe('Retrieving the auth headers', () => {
+   describe('Retrieving the auth headers', () => {
     it('Creates an object defining the headers', () => {
       parseAccessToken.mockImplementation(() => ({
         ...notExpiredAccesToken
@@ -312,7 +316,7 @@ describe('The auth service', () => {
     });
   });
 
-  describe('getScopes', () => {
+   describe('getScopes', () => {
     it('should return a an empty array', () => {
       savedAccessToken = '123AccessToken';
       initAuth();
@@ -335,7 +339,7 @@ describe('The auth service', () => {
     });
   });
 
-  describe('getName', () => {
+   describe('getName', () => {
     it('should return a an empty string', () => {
       savedAccessToken = '123AccessToken';
       initAuth();
@@ -357,4 +361,4 @@ describe('The auth service', () => {
       expect(authHeaders).toEqual('name!');
     });
   });
-});
+ });
