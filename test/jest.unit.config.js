@@ -51,7 +51,8 @@ module.exports = {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
     '/modules/',
-    '/node_modules/'
+    '/node_modules/',
+    '/test/'
   ],
   watchPathIgnorePatterns: [
     '/modules/'

@@ -10,6 +10,16 @@ exports[`ToggleFullscreen actions rendering should render with fullscreen is tur
         Array [],
         Array [],
       ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
     }
   }
   title="ABC verkleinen"
@@ -25,6 +35,16 @@ exports[`ToggleFullscreen actions rendering should render with fullscreen is tur
       "calls": Array [
         Array [],
         Array [],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
       ],
     }
   }
