@@ -2,22 +2,22 @@
  * @jest-environment jsdom-global
  */
 
- import ParamsRegistry from './paramRegistry';
+import ParamsRegistry from './paramRegistry';
 
- describe('ParamsRegistry singleton', () => {
-   let paramsRegistry;
+describe('ParamsRegistry singleton', () => {
+  let paramsRegistry;
 
-   beforeEach(() => {
+  beforeEach(() => {
     ParamsRegistry.destroy();
     paramsRegistry = new ParamsRegistry();
   });
 
-   Object.defineProperty(window.location, 'location', {
+  Object.defineProperty(window.location, 'location', {
     writable: true,
     value: '?njakns=famk&snakjs=2'
   });
 
-   describe('Result object', () => {
+  describe('Result object', () => {
     it('should return an object with a parameter and 2 routes, each bound to a reducer', () => {
       paramsRegistry
         .addParameter('map', (routes) => {
@@ -99,7 +99,7 @@
     });
   });
 
-   describe('static orderQuery', () => {
+  describe('static orderQuery', () => {
     it('should return an object with keys in alphabetical order', () => {
       const result = JSON.stringify(ParamsRegistry.orderQuery({ h: 3, a: 1, c: 2 }));
       const expectation = JSON.stringify({ a: 1, c: 2, h: 3 });
@@ -107,7 +107,7 @@
     });
   });
 
-   describe('Errors', () => {
+  describe('Errors', () => {
     it('should throw an error when there is a duplicate parameter', () => {
       expect(() => paramsRegistry
         .addParameter('map', (routes) => {
@@ -128,7 +128,7 @@
     });
   });
 
-   describe('setQueriesFromState method', () => {
+  describe('setQueriesFromState method', () => {
     beforeEach(() => {
       paramsRegistry
         .addParameter('map', (routes) => {
@@ -184,7 +184,7 @@
     });
   });
 
-   describe('getStateFromQueries method', () => {
+  describe('getStateFromQueries method', () => {
     beforeEach(() => {
       paramsRegistry
         .addParameter('map', (routes) => {
@@ -240,7 +240,7 @@
     });
   });
 
-   describe('reducer settings passed to the route', () => {
+  describe('reducer settings passed to the route', () => {
     it('should throw an error if reducerKey or stateKey is not given', () => {
       expect(() => paramsRegistry
         .addParameter('foo', (routes) => {
@@ -273,7 +273,7 @@
     });
   });
 
-   describe('queryShouldChangeHistory', () => {
+  describe('queryShouldChangeHistory', () => {
     beforeEach(() => {
       paramsRegistry
         .addParameter('zoom', (routes) => {
@@ -305,7 +305,7 @@
     });
   });
 
-   describe('removeParamsWithDefaultValue', () => {
+  describe('removeParamsWithDefaultValue', () => {
     beforeEach(() => {
       paramsRegistry
         .addParameter('zoom', (routes) => {
@@ -329,7 +329,7 @@
     });
   });
 
-   describe('getParametersForRoute', () => {
+  describe('getParametersForRoute', () => {
     beforeEach(() => {
       paramsRegistry
         .addParameter('zoom', (routes) => {
@@ -352,4 +352,4 @@
       expect(JSON.toString(expectation2)).toBe(JSON.toString({ page: 1 }));
     });
   });
- });
+});

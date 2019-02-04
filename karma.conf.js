@@ -46,16 +46,20 @@ const webpackConfig = {
         use: {
           loader: 'babel-loader',
           options: {
-            "presets": ["@babel/preset-env","@babel/preset-react"],
+            "presets": [
+              ["@babel/preset-env", {
+                "modules": "commonjs"
+              }]
+            ],
             "plugins": ["@babel/plugin-proposal-object-rest-spread",
-                "@babel/plugin-transform-runtime",
-                ['istanbul', {
-                  'exclude': [
-                    '**/*.spec.js',
-                    '**/*.test.js',
-                    'src/*'
-                  ]
-                }]
+              "@babel/plugin-transform-runtime",
+              ['istanbul', {
+                'exclude': [
+                  '**/*.spec.js',
+                  '**/*.test.js',
+                  'src/*'
+                ]
+              }]
             ]
           }
         }
