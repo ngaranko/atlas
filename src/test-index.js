@@ -1,6 +1,7 @@
 /* eslint-disable import/first */
 /* eslint-disable import/no-extraneous-dependencies */
-import 'babel-polyfill';
+import 'core-js/shim';
+import 'regenerator-runtime/runtime';
 import angular from 'angular';
 // All third party dependencies
 import './vendor';

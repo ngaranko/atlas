@@ -1,5 +1,4 @@
 // Todo: fix / add tests
-/* istanbul ignore file */
 import SEARCH_CONFIG from './search-config';
 import isObject from '../is-object';
 

@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom-global
+ */
+
 import { getAuthHeaders, getName, getReturnPath, getScopes, initAuth, login, logout } from './auth';
 import queryStringParser from '../query-string-parser/query-string-parser';
 import stateTokenGenerator from '../state-token-generator/state-token-generator';
