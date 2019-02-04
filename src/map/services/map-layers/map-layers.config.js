@@ -1,3 +1,5 @@
+import mapLayerTypes from '../map-layer-types.config';
+
 export default [
   {
     id: 'biz',
@@ -6,6 +8,14 @@ export default [
     detailUrl: 'geosearch/biz/', // Geosearch URL
     detailItem: 'biz', // Not needed for this API endpoint, but needed to trigger nearest detail on click...
     detailIsShape: true
+  },
+  {
+    id: 'publieke-werken-1943',
+    type: mapLayerTypes.TMS,
+    layers: ['publieke-werken'],
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-rd/{z}/{x}/{y}.png',
+    noDetail: true,
+    external: true
   },
   {
     id: 'hvo',
