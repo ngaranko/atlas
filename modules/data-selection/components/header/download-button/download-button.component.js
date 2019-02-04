@@ -54,7 +54,7 @@ import { downloadDataSelection } from '../../../../../src/shared/ducks/data-sele
                 }
             });
 
-            if (isDefined(vm.geometryFilter)) {
+            if (isDefined(vm.geometryFilter && vm.geometryFilter.markers)) {
                 filterParams.push('shape=' + angular.toJson(vm.geometryFilter.markers.map(([lat, lng]) => [lng, lat])));
             }
 
