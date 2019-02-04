@@ -26,6 +26,20 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
           "m",
         ],
       ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
     }
   }
   placeHolder=""
@@ -173,6 +187,20 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
           "m",
         ],
       ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
     }
   }
   placeHolder=""
@@ -316,6 +344,20 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
         Array [
           "m",
         ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
       ],
     }
   }
@@ -461,6 +503,20 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
           "m",
         ],
       ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
     }
   }
   placeHolder=""
@@ -604,6 +660,20 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
         Array [
           "m",
         ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
       ],
     }
   }

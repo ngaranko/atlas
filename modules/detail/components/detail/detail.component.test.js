@@ -1,6 +1,4 @@
-import { SHOW_DETAIL } from '../../../../src/shared/ducks/detail/constants';
 import { DOWNLOAD_DATASET_RESOURCE } from '../../../../src/shared/ducks/datasets/data/data';
-import { toNotFoundPage } from '../../../../src/store/redux-first-router/actions';
 
 describe('the dp-detail component', () => {
     var $compile,
@@ -205,7 +203,14 @@ describe('the dp-detail component', () => {
         spyOn(api, 'getByUrl').and.callThrough();
     });
 
-    function getComponent (endpoint, isLoading, show = true, catalogFilters = undefined) {
+    function getComponent (endpoint,
+                           isLoading,
+                           show = true,
+                           catalogFilters = undefined,
+                           detailTemplateUrl,
+                           detailData,
+                           detailFilterSelection
+    ) {
         var component,
             element,
             scope;
@@ -223,7 +228,9 @@ describe('the dp-detail component', () => {
         scope.isLoading = isLoading;
         scope.user = mockedUser;
         scope.catalogFilters = catalogFilters;
-
+        scope.detailTemplateUrl = detailTemplateUrl;
+        scope.detailData = detailData;
+        scope.detailFilterSelection = detailFilterSelection;
         component = $compile(element)(scope);
         scope.$apply();
 
@@ -236,13 +243,6 @@ describe('the dp-detail component', () => {
             expect(component.find('.qa-detail-content').length).toBe(0);
         });
 
-        // TODO: refactor: activate or remove
-        // it('is not visible when `show` is false while not loading', () => {
-        //     const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/',
-        //         false, true, false);
-        //     expect(component.find('.qa-detail-content').length).toBe(0);
-        // });
-
         it('is not visible when `show` is true while loading', () => {
             const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', true);
             expect(component.find('.qa-detail-content').length).toBe(0);
@@ -254,160 +254,14 @@ describe('the dp-detail component', () => {
         });
     });
 
-    it('puts data on the scope based on the endpoint', () => {
-        var component,
-            scope;
-
-        component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
-        scope = component.isolateScope();
-
-        expect(scope.vm.apiData).toEqual({
-            results: {
-                _display: 'Adresstraat 1A',
-                dummy: 'A',
-                something: 3,
-                naam: 'naam'
-            }
-        });
-    });
-
-    it('puts data on the scope based on the hr endpoint', () => {
-        var component,
-            scope;
-
-        component = getComponent('http://www.fake-endpoint.com/handelsregister/vestiging/987/', false);
-        scope = component.isolateScope();
-
-        expect(scope.vm.apiData).toEqual({
-            results: {
-                _display: 'Een of andere vestiging',
-                dummy: 'D',
-                something: 666
-            }
-        });
-    });
-
-    it('puts a template URL on the scope based on the endpoint', () => {
-        var component,
-            scope;
-
-        component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
-        scope = component.isolateScope();
-
-        expect(scope.vm.includeSrc).toBe('modules/detail/components/detail/templates/bag/nummeraanduiding.html');
-    });
-
-    it('puts a filter selection on the scope based on the endpoint', () => {
-        var component,
-            scope;
-
-        component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
-        scope = component.isolateScope();
-
-        expect(scope.vm.filterSelection).toEqual({
-            nummeraanduiding: 'naam'
-        });
-    });
-
-    it('loads new API data and triggers a new SHOW_DETAIL action when the endpoint changes', () => {
-        var component,
-            scope,
-            endpoint;
-
-        expect(store.dispatch).not.toHaveBeenCalled();
-
-        // Set an initial endpoint
-        endpoint = 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/';
-        component = getComponent(endpoint, false);
-        scope = component.isolateScope();
-
-        expect(scope.vm.apiData).toEqual({
-            results: {
-                _display: 'Adresstraat 1A',
-                dummy: 'A',
-                something: 3,
-                naam: 'naam'
-            }
-        });
-
-        // Change the endpoint
-        scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/object/789/';
-        $rootScope.$apply();
-
-        expect(scope.vm.apiData).toEqual({
-            results: {
-                _display: 'Een of ander kadastraal object',
-                dummy: 'B',
-                something: -90
-            }
-        });
-    });
-
-    describe('"kadastraal subject" data', () => {
-        it('should remove apiData if not authorized', () => {
-            // Special case where user is logged out while on detail page and the user loses access to content
-            mockedUser.scopes = ['BRK/RS'];
-            const component = getComponent(naturalPersonEndPoint);
+    describe('onChanges', () => {
+        it('should ignore the changes when the detail is not changed', () => {
+            const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', false);
+            // Change the endpoint
             const scope = component.isolateScope();
-            store.dispatch.calls.reset();
-            expect(scope.vm.apiData).toBeDefined(); // data shown
-
-            mockedUser.scopes = []; // triggers $watch
-            scope.$digest();
-
-            expect(scope.vm.apiData).toBeUndefined();
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: SHOW_DETAIL,
-                payload: {}
-            });
-        });
-    });
-
-    describe('"grondexploitatie" data', () => {
-        it('should be fetched if is authenticated as EMPLOYEE', () => {
-            mockedUser.scopes = ['GREX/R'];
-
-            getComponent(grondexploitatieEndPoint);
-        });
-
-        it('should not fetch data if not authorized', () => {
-            const component = getComponent(grondexploitatieEndPoint);
-
-            const scope = component.isolateScope();
-
-            expect(store.dispatch).toHaveBeenCalledWith({
-                type: SHOW_DETAIL,
-                payload: {}
-            });
-
-            expect(scope.vm.apiData).toBeUndefined();
-            expect(store.dispatch).toHaveBeenCalledTimes(1);
-        });
-    });
-
-    describe('"dcatd" data', () => {
-        it('should not fetch data when catalogFilters are not provided', () => {
-            const component = getComponent(dcatdEndPoint);
-            const scope = component.isolateScope();
-
-            expect(scope.vm.apiData).toBeUndefined();
-            expect(api.getByUrl).not.toHaveBeenCalled();
-        });
-
-        it('should fetch data when the catatalogFilters are set', () => {
-            const component = getComponent(dcatdEndPoint, true, true, true, {});
-
-            const scope = component.isolateScope();
-
-            expect(scope.vm.apiData).not.toBeUndefined();
-            expect(api.getByUrl).toHaveBeenCalled();
-        });
-
-        it('should redirect to notFound when the dataset is not available', () => {
-            getComponent('http://www.fake-endpoint.com/dcatd/datasets/404', false);
-
-            expect(store.dispatch).toHaveBeenCalledTimes(1);
-            expect(store.dispatch).toHaveBeenCalledWith(toNotFoundPage());
+            scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/object/789/';
+            $rootScope.$apply();
+            expect(scope.vm.endpoint).toEqual('http://www.fake-endpoint.com/brk/object/789/');
         });
     });
 

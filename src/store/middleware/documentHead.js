@@ -1,6 +1,7 @@
 import get from 'lodash.get';
 import { routing } from '../../app/routes';
-import documentTitleRouteMapping from '../../shared/services/document-title/document-title';
+import titleActionMapping from '../../shared/services/document-title/document-title';
+import { FETCH_DETAIL_SUCCESS } from '../../shared/ducks/detail/constants';
 
 const TITLE_SUFFIX = 'Dataportaal';
 const TITLE_DEFAULT = 'Dataportaal';
@@ -8,15 +9,14 @@ const TITLE_DEFAULT = 'Dataportaal';
 const getDefaultDocumentTitle = (page) => () => get(routing, `[${page}].title`, TITLE_DEFAULT);
 
 const documentHead = () => (next) => (action) => {
-  const typeIsRoute = Object.keys(routing).map((key) => routing[key].type).includes(action.type);
-  if (typeIsRoute) {
+  // The change of the route and some actions should change the document title
+  const shouldChangeTitle =
+    Object.keys(routing).map((key) => routing[key].type).includes(action.type) ||
+    action.type === FETCH_DETAIL_SUCCESS;
+  if (shouldChangeTitle) {
     const page = Object.keys(routing).find((key) => routing[key].type === action.type);
-    const pageType = get(routing, `[${page}].type`, '');
 
-    const titleResolver = documentTitleRouteMapping.filter(
-      (item) => pageType === item.route
-    )[0];
-
+    const titleResolver = titleActionMapping.find((item) => item.actionType === action.type);
     const getTitle = get(titleResolver, 'getTitle', getDefaultDocumentTitle(page));
     const pageTitle = getTitle(action, getDefaultDocumentTitle(page)());
 

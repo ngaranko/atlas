@@ -16,10 +16,10 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
-      statements: 82,
-      branches: 74, // TODO refactor, get coverage up
+      statements: 79,
+      branches: 70,
       functions: 79,
-      lines: 83
+      lines: 80
     }
   },
   coverageReporters: process.env.CI ? [
@@ -48,10 +48,11 @@ module.exports = {
     // foo.integration.test.jsx
   ],
   testURL: 'http://localhost:8080/',
-  testEnvironment: 'jest-environment-jsdom-global',
+  testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
     '/modules/',
-    '/node_modules/'
+    '/node_modules/',
+    '/test/'
   ],
   watchPathIgnorePatterns: [
     '/modules/'

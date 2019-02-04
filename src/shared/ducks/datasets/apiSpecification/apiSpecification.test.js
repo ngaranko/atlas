@@ -2,7 +2,7 @@ import reducer, {
   FETCH_API_SPECIFICATION_FAILURE,
   FETCH_API_SPECIFICATION_REQUEST,
   FETCH_API_SPECIFICATION_SUCCESS,
-  fetchApiSpecification
+  fetchApiSpecificationRequest
 } from './apiSpecification';
 
 const initialState = {
@@ -57,7 +57,7 @@ describe('data-selection-catalog actions', () => {
       const expectedAction = {
         type: FETCH_API_SPECIFICATION_REQUEST
       };
-      expect(fetchApiSpecification()).toEqual(expectedAction);
+      expect(fetchApiSpecificationRequest()).toEqual(expectedAction);
     });
   });
 });

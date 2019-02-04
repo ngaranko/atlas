@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom-global
+ */
+
 import { getIframeUrl, getEmbedButtonLink } from './embed-url';
 
 describe('getIframeUrl', () => {

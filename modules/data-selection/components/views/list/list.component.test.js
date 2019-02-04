@@ -105,7 +105,7 @@ describe('The dp-data-selection-list component', function () {
         expect(component.find('ul li').length).toBe(2);
     });
 
-    it('groups the first group of variables inside a dp-redux-link to FETCH_DETAIL', function () {
+    it('groups the first group of variables inside a dp-redux-link', function () {
         const component = getComponent();
 
         // The first item

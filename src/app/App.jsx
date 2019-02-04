@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import './_app.scss';
-import DatasetDetailContainer from './containers/DatasetDetail/DatasetDetailContainer';
+import DatasetDetailContainer from './containers/DatasetDetailContainer/DatasetDetailContainer';
 import {
   isEmbedded,
   isEmbedPreview,

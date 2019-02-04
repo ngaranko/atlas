@@ -9,6 +9,8 @@ import { FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/constants';
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import fetchLegacyDetail from '../../../detail/sagas/detail';
+import { fetchDetailSuccess, clearMapDetail, showDetail, fetchDetailFailure } from '../../../shared/ducks/detail/actions';
+import { toNotFoundPage } from '../../../store/redux-first-router/actions';
 
 describe('watchFetchMapDetail', () => {
   const action = { type: FETCH_MAP_DETAIL_REQUEST };
@@ -68,34 +70,62 @@ describe('fetchDetailEffect', () => {
   });
 });
 
-describe('fetchNearestDetails', () => {
+describe('fetchMapDetail', () => {
   const action = {
     endpoint: 'bag/ligplaats/',
     user: 'user'
   };
 
   it('should call fetchMapDetail and dispatch the correct action', () => {
+    const mapDetailMock = {
+      _display: 'display',
+      geometrie: {}
+    };
     testSaga(fetchMapDetail)
       .next()
+      .next()  // waitForAuthentication
+      .next()  // select
+      .next(action.endpoint)  // select
+      .put(clearMapDetail())
       .next()
+      .next(mapDetailMock) // fetchDetail
+      .put(fetchMapDetailSuccess(action.endpoint, mapDetailMock))
       .next()
-      .next(action.endpoint)
-      .next('mapDetail')
-      .put(fetchMapDetailSuccess(action.endpoint, 'mapDetail'))
+      .put(showDetail({ display: 'display', geometry: {} }))
       .next()
       .put(mapLoadingAction(false))
+      .next()
+      .next(action.endpoint)
+      .put(fetchDetailSuccess(action.endpoint))
       .next()
       .isDone();
   });
 
-  it('should throw error and dispatch geosearch', () => {
+  it('should throw dispatch geosearch when api error occurs', () => {
     const error = new Error('My Error');
     testSaga(fetchMapDetail, action)
       .next()
       .throw(error)
+      .put(mapLoadingAction(false))
+      .next()
+      .put(fetchDetailFailure(error))
+      .next()
       .put(fetchMapDetailFailure(error))
       .next()
+      .isDone();
+  });
+
+  it('should throw error and go to not found page when api not found', () => {
+    const error = new Error('My Error');
+    error.status = 404;
+    testSaga(fetchMapDetail, action)
+      .next()
+      .throw(error)
       .put(mapLoadingAction(false))
+      .next()
+      .put(toNotFoundPage())
+      .next()
+      .put(fetchMapDetailFailure(error))
       .next()
       .isDone();
   });

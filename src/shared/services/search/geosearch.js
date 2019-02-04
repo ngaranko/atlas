@@ -1,5 +1,4 @@
 // Todo: fix / add tests
-/* istanbul ignore file */
 /* eslint-disable no-underscore-dangle,no-param-reassign */
 import identity from 'lodash.identity';
 import SEARCH_CONFIG from './search-config';

@@ -42,7 +42,7 @@ export default function reducer(state = initialState, action) {
 }
 
 // Actions
-export const fetchApiSpecification = () => ({
+export const fetchApiSpecificationRequest = () => ({
   type: FETCH_API_SPECIFICATION_REQUEST
 });
 
