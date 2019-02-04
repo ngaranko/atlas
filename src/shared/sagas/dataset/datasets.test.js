@@ -21,7 +21,7 @@ describe('watchFetchCatalogFilters', () => {
   });
 });
 
-describe('fetchApiSpecification', () => {
+describe('fetchApiSpecificationRequest', () => {
   it('should dispatch the correct action', () => (
     expectSaga(retrieveApiSpecification)
       .provide({

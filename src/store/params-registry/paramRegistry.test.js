@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom-global
+ */
+
 import ParamsRegistry from './paramRegistry';
 
 describe('ParamsRegistry singleton', () => {

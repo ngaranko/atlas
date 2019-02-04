@@ -1,5 +1,3 @@
-// Todo: fix / add tests
-/* istanbul ignore file */
 export default {
   QUERY_ENDPOINTS: [
     {

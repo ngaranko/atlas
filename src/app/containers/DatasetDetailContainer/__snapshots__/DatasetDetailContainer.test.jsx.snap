@@ -1,18 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Detail should render 1`] = `
+exports[`DatasetsDetailContainer should render 1`] = `
 <div
-  className="qa-detail"
+  className="c-dashboard__content qa-detail"
 >
   <AngularWrapper
     bindings={
       Object {
-        "detailData": Object {},
-        "detailFilterSelection": Object {},
-        "detailTemplateUrl": "",
+        "catalogFilters": Object {},
+        "detailData": undefined,
+        "detailTemplateUrl": undefined,
         "isLoading": false,
-        "isPreviewPanoramaLoading": false,
-        "previewPanorama": null,
         "user": Object {},
       }
     }
@@ -24,7 +22,7 @@ exports[`Detail should render 1`] = `
     }
     interpolateBindings={
       Object {
-        "endpoint": "http://example.com",
+        "endpoint": "https://acc.api.data.amsterdam.nl/dcatd/datasets/2",
       }
     }
     moduleName="dpDetailWrapper"
