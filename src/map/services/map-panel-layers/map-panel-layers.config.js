@@ -620,7 +620,7 @@ export default [
     url: '/maps/meetbouten?version=1.3.0&service=WMS'
   },
   {
-    category: 'Stedelijke ontwikkeling',
+    category: 'Topografie: historisch',
     disabled: true,
     legendItems: [
       {
