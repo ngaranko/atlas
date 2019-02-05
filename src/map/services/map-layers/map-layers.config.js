@@ -10,15 +10,6 @@ export default [
     detailIsShape: true
   },
   {
-    id: 'publieke-werken-1943',
-    type: mapLayerTypes.TMS,
-    layers: ['publieke-werken'],
-    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-rd/{z}/{x}/{y}.png',
-    noDetail: true,
-    external: true,
-    bounds: [[52.3292, 4.8382], [52.4173, 4.9646]]
-  },
-  {
     id: 'hvo',
     authScope: 'HR/R',
     url: 'maps/handelsregister',
@@ -549,6 +540,16 @@ export default [
     layers: ['monumenten'],
     detailUrl: 'geosearch/search/',
     detailItem: 'monument'
+  },
+  // Stedelijke ontwikkeling
+  {
+    id: 'pw1943',
+    type: mapLayerTypes.TMS,
+    layers: ['publieke-werken'],
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-rd/{z}/{x}/{y}.png',
+    noDetail: true,
+    external: true,
+    bounds: [[52.3292, 4.8382], [52.4173, 4.9646]]
   },
   // Verkeer
   {

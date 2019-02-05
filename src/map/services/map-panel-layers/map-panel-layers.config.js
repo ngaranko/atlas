@@ -64,22 +64,6 @@ export default [
     url: '/maps/panorama&version=1.3.0&service=WMS'
   },
   {
-    category: 'Historische kaartlagen',
-    disabled: true,
-    legendItems: [
-      {
-        id: 'publieke-werken-1943',
-        notClickable: false,
-        layer: 'burgerlijke_gemeente',
-        selectable: false,
-        title: 'Historische kaartlaag 1943'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 8,
-    title: 'Dienst der Publieke Werken (1943)'
-  },
-  {
     category: 'Geografie: onroerende zaken',
     legendItems: [
       {
@@ -634,6 +618,22 @@ export default [
     minZoom: 12,
     title: 'Meetbouten - Referentiepunten',
     url: '/maps/meetbouten?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Stedelijke ontwikkeling',
+    disabled: true,
+    legendItems: [
+      {
+        id: 'pw1943',
+        notClickable: false,
+        layer: 'burgerlijke_gemeente',
+        selectable: false,
+        title: 'Dienst der Publieke Werken (1943)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Dienst der Publieke Werken (1943)'
   },
   {
     category: 'Verkeer en infrastructuur',
