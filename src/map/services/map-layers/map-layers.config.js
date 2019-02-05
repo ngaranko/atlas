@@ -226,24 +226,6 @@ export default [
     layers: ['buurt', 'buurt_label']
   },
   {
-    id: 'grexProjecten',
-    authScope: 'GREX/R',
-    url: 'maps/grondexploitatie?service=wms',
-    layers: ['grondexploitatie_polygons'],
-    detailUrl: 'geosearch/search/', // Geosearch URL
-    detailItem: 'grondexploitatie', // Geosearch name
-    detailIsShape: true
-  },
-  {
-    id: 'grexStadsdelen',
-    authScope: 'GREX/R',
-    url: 'maps/grondexploitatie?service=wms',
-    layers: ['stadsdeel_polygons'],
-    detailUrl: 'geosearch/search/', // Geosearch URL
-    detailItem: 'stadsdeel', // Geosearch name
-    detailIsShape: true
-  },
-  {
     id: 'bbn',
     url: 'maps/gebieden?service=wms',
     layers: ['bouwblok', 'bouwblok_label'],
@@ -542,7 +524,6 @@ export default [
     detailUrl: 'geosearch/search/',
     detailItem: 'monument'
   },
-  // Stedelijke ontwikkeling
   {
     id: 'pw1943',
     type: mapLayerTypes.TMS,
@@ -757,6 +738,25 @@ export default [
     layers: ['erfpacht'],
     detailUrl: 'geosearch/search/',
     detailItem: 'kadastraal_object',
+    detailIsShape: true
+  },
+  // Stedelijke ontwikkeling
+  {
+    id: 'grexProjecten',
+    authScope: 'GREX/R',
+    url: 'maps/grondexploitatie?service=wms',
+    layers: ['grondexploitatie_polygons'],
+    detailUrl: 'geosearch/search/', // Geosearch URL
+    detailItem: 'grondexploitatie', // Geosearch name
+    detailIsShape: true
+  },
+  {
+    id: 'grexStadsdelen',
+    authScope: 'GREX/R',
+    url: 'maps/grondexploitatie?service=wms',
+    layers: ['stadsdeel_polygons'],
+    detailUrl: 'geosearch/search/', // Geosearch URL
+    detailItem: 'stadsdeel', // Geosearch name
     detailIsShape: true
   }
 ];
