@@ -18,7 +18,11 @@ import {
   REMOVE_FILTER
 } from '../../ducks/filters/filters';
 import { preserveQuery, toDatasetPage } from '../../../store/redux-first-router/actions';
-import { getPage, isDataSelectionPage } from '../../../store/redux-first-router/selectors';
+import {
+  getPage,
+  isDataSelectionAuthPage,
+  isDataSelectionPage
+} from '../../../store/redux-first-router/selectors';
 import { cancel, disable, enable, setPolygon } from '../../../map/services/draw-tool/draw-tool';
 import {
   CANCEL_DATA_SELECTION,
@@ -52,11 +56,14 @@ import PARAMETERS from '../../../store/parameters';
 import drawToolConfig from '../../../map/services/draw-tool/draw-tool.config';
 import { getViewMode, SET_VIEW_MODE, VIEW_MODE } from '../../ducks/ui/ui';
 import PAGES from '../../../app/pages';
+import { userIsAuthenticated } from '../../ducks/user/user';
 
 export function* mapBoundsEffect() {
   const page = yield select(getPage);
+  yield call(waitForAuthentication);
+  const isAuthenticated = yield select(userIsAuthenticated);
 
-  if (page === PAGES.CADASTRAL_OBJECTS) {
+  if (page === PAGES.CADASTRAL_OBJECTS && isAuthenticated) {
     yield put(fetchMarkersRequest());
   }
 }
@@ -145,14 +152,22 @@ function* requestDataSelectionEffect() {
 }
 
 export function* fetchDataSelectionEffect() {
-  const dataSelectionPage = yield select(isDataSelectionPage);
+  let callDataSelection = true;
+  const dataSelectionAuthPage = yield select(isDataSelectionAuthPage);
   const view = yield select(getViewMode);
   if (view === VIEW_MODE.SPLIT) {
     yield put(closeMapPanel());
   }
 
+  if (dataSelectionAuthPage) {
+    yield call(waitForAuthentication);
+    const isAuthenticated = yield select(userIsAuthenticated);
+
+    callDataSelection = isAuthenticated;
+  }
+
   // Always ensure we are on the right page, otherwise this can be called unintentionally
-  if (dataSelectionPage) {
+  if (callDataSelection) {
     yield call(requestDataSelectionEffect);
   }
 }
@@ -225,7 +240,7 @@ export default function* watchFetchDataSelection() {
   );
 
   yield takeLatest(FETCH_DATA_SELECTION_REQUEST, retrieveDataSelection);
-  yield takeLatest([SET_DATASET], switchPage);
+  yield takeLatest(SET_DATASET, switchPage);
   yield takeLatest(FETCH_MARKERS_REQUEST, requestMarkersEffect);
 
   yield takeLatest(RESET_DATA_SELECTION, clearDrawing);

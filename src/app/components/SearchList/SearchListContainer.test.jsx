@@ -7,6 +7,9 @@ const initialState = {
   dataSearch: {
     category: {},
     resultsQuery: []
+  },
+  user: {
+    scopes: []
   }
 };
 
