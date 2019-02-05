@@ -225,12 +225,6 @@ describe('visitor permissions', () => {
       cy.get(queries.headerTitle).should('not.exist');
       cy.get(queries.warningPanelAngular).contains('Medewerkers/ketenpartners van Gemeente Amsterdam');
       cy.get(queries.keyValueList).should('not.exist');
-      // the map view maximize button should exist
-      cy.get('button.icon-button__right');
-      // click on the maximize button to open the map view
-      cy.get('button.icon-button__right').first().click();
-      cy.get(queries.infoNotification).contains('Medewerkers/ketenpartners van Gemeente Amsterdam');
-      cy.get(queries.mapDetailResultHeaderSubTitle).should('not.exist');
     });
 
     it('G. Should NOT allow a visitor to view "maatschappelijke activiteit"', () => {
