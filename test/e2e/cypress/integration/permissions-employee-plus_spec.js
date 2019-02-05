@@ -135,7 +135,7 @@ describe('employee PLUS permissions', () => {
     cy.get(queries.keyValueList).contains(values.documentnaam);
   });
 
-  it('6. Should allow a plus employee to view all map layers', () => {
+  it.skip('6. Should allow a plus employee to view all map layers', () => {
     cy.visit(urls.map);
     cy.get(queries.mapLayersCategory).should(($values) => {
       expect($values).to.contain(values.economieEnHaven);
