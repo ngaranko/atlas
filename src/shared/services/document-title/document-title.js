@@ -29,7 +29,7 @@ export const detailDocumentTitle = (action, defaultTitle = 'UNKNOWN') => {
 };
 
 export const datasetDetailDocumentTitle = () => {
-  const label = 'Datasets';
+  const label = 'Dataset';
 
   return `${label}`;
 };
