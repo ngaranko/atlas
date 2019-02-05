@@ -33,7 +33,7 @@
             Datum einde: {{ vm.apiData.results.datum_einde | date:'dd-MM-yyyy' }}
         </dp-panel>
 
-        <dl ng-if="vm.apiData" class="c-key-value-list">
+        <dl ng-if="vm.apiData.results" class="c-key-value-list">
             <dt>Eerste handelsnaam</dt>
             <dd>{{ vm.apiData.results.naam }}</dd>
             <dt>KvK-nummer</dt>
@@ -83,7 +83,7 @@
         </dl>
     </div>
 
-    <div ng-if="vm.apiData" class="c-detail__block">
+    <div ng-if="vm.apiData.results" class="c-detail__block">
         <dp-glossary-header
             definition="MAATSCHAPPELIJKEACTIVITEIT">
         </dp-glossary-header>
@@ -94,5 +94,5 @@
         >{{ vm.apiData.results.naam }}</dp-redux-link>
     </div>
 
-    <div ng-if="vm.apiData" ng-include="'modules/detail/components/detail/templates/hr-disclaimer.html'"></div>
+    <div ng-if="vm.apiData.results" ng-include="'modules/detail/components/detail/templates/hr-disclaimer.html'"></div>
 </div>

@@ -25,7 +25,7 @@
             class-name="c-panel--offsets-below-page-title"
             type="danger">Bijzondere rechtstoestand: Surseance van betaling</dp-panel>
 
-        <dl ng-if="vm.apiData" class="c-key-value-list">
+        <dl ng-if="vm.apiData.results" class="c-key-value-list">
             <dt>Handelsnaam</dt>
             <dd ng-if="!vm.apiData.results.onderneming.handelsnamen[0]"></dd>
             <dd class="c-key-value-list__multiple-values" ng-if="vm.apiData.results.onderneming.handelsnamen" ng-repeat="object in vm.apiData.results.onderneming.handelsnamen">
@@ -62,7 +62,7 @@
         </dl>
     </div>
 
-    <div ng-if="vm.apiData" class="c-detail__block">
+    <div ng-if="vm.apiData.results" class="c-detail__block">
         <dp-glossary-header definition="FUNCTIEVERVULLING" use-plural="true"></dp-glossary-header>
 
         <dp-api-call endpoint="{{vm.apiData.results.eigenaar}}" partial="handelsregister/functievervullingen" user="vm.user"></dp-api-call>
@@ -75,5 +75,5 @@
         <dp-api-call endpoint="{{vm.apiData.results.vestigingen.href}}" partial="lijst" user="vm.user"></dp-api-call>
     </div>
 
-    <div ng-if="vm.apiData" ng-include="'modules/detail/components/detail/templates/hr-disclaimer.html'"></div>
+    <div ng-if="vm.apiData.results" ng-include="'modules/detail/components/detail/templates/hr-disclaimer.html'"></div>
 </div>

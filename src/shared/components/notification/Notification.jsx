@@ -22,16 +22,17 @@ class Notification extends React.Component {
         ${this.props.className}
         notification
         notification--${this.props.level}
+        qa-notification
       `}
       >
         <span className="notification__content">{this.props.children}</span>
-        { this.props.level !== 'message' && this.props.canClose &&
-          <button
-            className="notification__button"
-            onClick={this.hideNotification}
-          >
-            <span className="notification__button--close" />
-          </button>
+        {this.props.level !== 'message' && this.props.canClose &&
+        <button
+          className="notification__button"
+          onClick={this.hideNotification}
+        >
+          <span className="notification__button--close" />
+        </button>
         }
       </div>
     );

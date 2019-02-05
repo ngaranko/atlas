@@ -73,7 +73,7 @@ describe('data search module', () => {
 
     // check that the address is open in right column
     cy.waitForGeoSearch();
-    cy.get('.map-search-results-item__name')
+    cy.get('.qa-list-item-link')
       .contains('Ad Windighof 2')
       .should('exist').and('be.visible');
   });

@@ -17,7 +17,7 @@ describe('addresses module', () => {
     // the data-selection should not exist yet
     cy.get(dataSelection).should('not.exist');
     // click on the link to go to the addresses
-    cy.get('.c-homepage__block-button').contains('Adressentabel').click();
+    cy.get('.homepage-block__link').contains('Adressentabel').click();
     // get the adresses page
     cy.wait('@getResults');
     // check if the page is loaded
@@ -136,12 +136,12 @@ describe('addresses module', () => {
               cy.get('.map-preview-panel').should('exist').and('be.visible');
               // the preview panel has the right title
               cy.get('.map-detail-result__header-subtitle').contains(selectedValue)
-              .should('exist').and('be.visible');
+                .should('exist').and('be.visible');
               // the show more button should exist and be visible
               cy.get('.map-search-results__button').should('exist').scrollIntoView().and('be.visible');
             });
-          });
-      });
+        });
+    });
   });
 
   describe('user should be able to view a cursor in the leaflet map', () => {

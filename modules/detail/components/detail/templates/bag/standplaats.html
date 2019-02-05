@@ -26,7 +26,7 @@
 
     <!-- monumenten -->
     <dp-api-call
-        ng-if="apiData.results.hoofdadres.landelijk_id"
+        ng-if="vm.apiData.results.hoofdadres.hoofdadres"
         endpoint="monumenten/situeringen/?betreft_nummeraanduiding={{vm.apiData.results.landelijk_id}}"
         add-api-root="true"
         partial="monumenten/situering"

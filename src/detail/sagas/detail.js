@@ -22,7 +22,10 @@ export function* getDetailData(endpoint, mapDetail = {}) {
     //   handelsregister, nor
     //   grondexploitatie
     // so do not fetch data
-    return {};
+    return {
+      includeSrc,
+      data: null
+    };
   }
 
   // TODO console.log('append version=3 to grondexploitaties');
@@ -45,7 +48,7 @@ export function* getDetailData(endpoint, mapDetail = {}) {
   };
 }
 
-/* istanbul ignore next */ // TODO: refactor, test
+/* istanbul ignore next */
 export default function* watchDetailRoute() {
   // yield takeLatest([routing.dataDetail.type], fetchDetail);
 }
