@@ -1,6 +1,6 @@
 const dataSelection = '.c-data-selection';
 const homepage = '.c-homepage';
-const notification = '.c-panel--warning';
+const notification = '.notification--info';
 const table = '.c-table';
 
 describe('trade-register (vestigingen) module', () => {
@@ -59,13 +59,11 @@ describe('trade-register (vestigingen) module', () => {
       cy.server();
       cy.route('/dataselectie/hr/*').as('getResults');
 
-      // go to the homepage
-      cy.visit('/');
-      // click on the link to go to the trade register
-      cy.get('.homepage-block__link').contains('Handelsregister-tabel').click();
+      // go to the vestigingen
+      cy.visit('/data/hr/vestigingen/?modus=volledig');
 
       cy.wait('@getResults');
-      cy.scrollTo('top');
+      // cy.scrollTo('top');
     });
 
     describe('user should be able to view the trade register', () => {
@@ -85,7 +83,7 @@ describe('trade-register (vestigingen) module', () => {
         cy.server();
         cy.route('/handelsregister/vestiging/*').as('getVestiging');
 
-        cy.get('.c-table__content-row:first-child').click();
+        cy.get('.c-table__content-row:first-child > td:first-of-type a').click();
 
         cy.wait('@getVestiging');
         cy.get('.qa-detail').should('exist').and('be.visible');
