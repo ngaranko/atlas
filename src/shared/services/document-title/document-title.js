@@ -48,7 +48,7 @@ export const detailDocumentTitleWithName = (action) => {
 
 const titleActionMapping = [
   {
-    route: routing.data.type,
+    actionType: routing.data.type,
     getTitle: mapDocumentTitle
   },
   {
