@@ -8,6 +8,8 @@ import { getDataset, getGeomarkersShape } from '../../ducks/data-selection/selec
 import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
 import { getMarkers } from '../../services/data-selection/data-selection-api';
 import PAGES from '../../../app/pages';
+import { waitForAuthentication } from '../user/user';
+import { userIsAuthenticated } from '../../ducks/user/user';
 
 describe('data-selection sagas', () => {
   describe('mapBoundsEffect', () => {
@@ -16,6 +18,10 @@ describe('data-selection sagas', () => {
         .next()
         .select(getPage)
         .next(PAGES.CADASTRAL_OBJECTS)
+        .call(waitForAuthentication)
+        .next()
+        .select(userIsAuthenticated)
+        .next(true)
         .put(fetchMarkersRequest())
         .next()
         .isDone();
@@ -23,7 +29,21 @@ describe('data-selection sagas', () => {
       testSaga(mapBoundsEffect, {})
         .next()
         .select(getPage)
+        .next(PAGES.CADASTRAL_OBJECTS)
+        .call(waitForAuthentication)
+        .next()
+        .select(userIsAuthenticated)
+        .next(false)
+        .isDone();
+
+      testSaga(mapBoundsEffect, {})
+        .next()
+        .select(getPage)
         .next('other page')
+        .call(waitForAuthentication)
+        .next()
+        .select(userIsAuthenticated)
+        .next(true)
         .isDone();
     });
   });

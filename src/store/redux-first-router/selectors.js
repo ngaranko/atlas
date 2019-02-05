@@ -38,9 +38,14 @@ export const isDatasetPage = createSelector(
     || page === PAGES.DATASETS_DETAIL
     || page === PAGES.SEARCH_DATASETS
 );
-export const isDataSelectionPage = createSelector(
+
+export const isDataSelectionAuthPage = createSelector(
   getPage,
-  (page) => page === PAGES.ADDRESSES
-    || page === PAGES.CADASTRAL_OBJECTS
+  (page) => page === PAGES.CADASTRAL_OBJECTS
     || page === PAGES.ESTABLISHMENTS
+);
+
+export const isDataSelectionPage = createSelector(
+  getPage, isDataSelectionAuthPage,
+  (page, dataSelectionAuthPages) => dataSelectionAuthPages || page === PAGES.ESTABLISHMENTS
 );
