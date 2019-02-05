@@ -926,23 +926,24 @@ export default [
     title: 'Omgeving taxi-standplaatsen',
     url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
   },
-  {
-    category: 'Openbare orde en veiligheid',
-    id: 'oovvz',
-    layers: ['vuurwerkvrijezone'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Vuurwerkvrije zone',
-        imageRule: 'vuurwerkvrijezone'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 8,
-    notClickable: true,
-    title: 'Vuurwerkvrije zones',
-    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
-  },
+  // to revive end of 2019
+  //{
+  //  category: 'Openbare orde en veiligheid',
+  //  id: 'oovvz',
+  //  layers: ['vuurwerkvrijezone'],
+  //  legendItems: [
+  //    {
+  //      selectable: false,
+  //      title: 'Vuurwerkvrije zone',
+  //      imageRule: 'vuurwerkvrijezone'
+  //    }
+  //  ],
+  //  maxZoom: 16,
+  //  minZoom: 8,
+  //  notClickable: true,
+  //  title: 'Vuurwerkvrije zones',
+  //  url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+  //},
   {
     category: 'Toerisme en cultuur',
     id: 'tcmnmt',

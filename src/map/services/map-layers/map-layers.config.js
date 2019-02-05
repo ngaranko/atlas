@@ -528,11 +528,12 @@ export default [
     url: 'maps/overlastgebieden',
     layers: ['taxi-standplaatsgebied', 'taxi-standplaatsgebied_label']
   },
-  {
-    id: 'oovvz',
-    url: 'maps/overlastgebieden',
-    layers: ['vuurwerkvrijezone', 'vuurwerkvrijezone_label']
-  },
+  // to revive end of 2019
+  //{
+  //  id: 'oovvz',
+  //  url: 'maps/overlastgebieden',
+  //  layers: ['vuurwerkvrijezone', 'vuurwerkvrijezone_label']
+  //},
   // Toerisme en cultuur
   {
     id: 'tcmnmt',
