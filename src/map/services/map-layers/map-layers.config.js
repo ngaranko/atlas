@@ -15,7 +15,8 @@ export default [
     layers: ['publieke-werken'],
     url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-rd/{z}/{x}/{y}.png',
     noDetail: true,
-    external: true
+    external: true,
+    bounds: [[52.3292, 4.8382], [52.4173, 4.9646]]
   },
   {
     id: 'hvo',
