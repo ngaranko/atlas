@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const findLayer = (layers, id) => layers.find((mapLayer) => mapLayer.id === id);
-const generateLayer = (layers, overlay, url, params, type) => ({
+const generateLayer = (layers, overlay, url, params, type, bounds) => ({
   ...overlay,
   url,
   overlayOptions: {
@@ -23,7 +23,8 @@ const generateLayer = (layers, overlay, url, params, type) => ({
     layers: findLayer(layers, overlay.id).layers
   },
   type,
-  params
+  params,
+  bounds
 });
 export const getMapLayers = (state) => state.mapLayers.layers.items;
 export const getAccessToken = (state) => state.user.accessToken;
@@ -38,7 +39,7 @@ export const getLayers = createSelector(
       }
       const layerUrl = layer.external ? layer.url : `${MAP_CONFIG.OVERLAY_ROOT}${layer.url}`;
       if (!layer.authScope) {
-        return generateLayer(layers, overlay, layerUrl, layer.params, layer.type);
+        return generateLayer(layers, overlay, layerUrl, layer.params, layer.type, layer.bounds);
       }
       if (token) {
         return generateLayer(
@@ -46,7 +47,8 @@ export const getLayers = createSelector(
           overlay,
           createUrlWithToken(layerUrl, token),
           layer.params,
-          layer.type
+          layer.type,
+          layer.bounds
         );
       }
       return false;

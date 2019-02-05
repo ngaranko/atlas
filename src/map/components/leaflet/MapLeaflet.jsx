@@ -198,23 +198,28 @@ class MapLeaflet extends React.Component {
             {...baseLayer.baseLayerOptions}
             url={baseLayer.urlTemplate}
           />
-          {tmsLayers.map((layer) => (
+          {tmsLayers.map(({ id: key, isVisible, url, bounds }) => (
             <TileLayer
-              key={layer.id}
+              {...{
+                key,
+                url,
+                bounds
+              }}
               tms
               subdomains={baseLayer.baseLayerOptions.subdomains}
-              opacity={visibleToOpacity(layer.isVisible)}
-              url={layer.url}
+              opacity={visibleToOpacity(isVisible)}
             />
           ))}
 
-          {nonTmsLayers.map((layer) => (
+          {nonTmsLayers.map(({ id: key, isVisible, url, params, overlayOptions }) => (
             <NonTiledLayer
-              key={layer.id}
-              {...layer.overlayOptions}
-              url={layer.url}
-              params={layer.params}
-              opacity={visibleToOpacity(layer.isVisible)}
+              {...{
+                key,
+                url,
+                params
+              }}
+              {...overlayOptions}
+              opacity={visibleToOpacity(isVisible)}
             />
           ))}
           {
