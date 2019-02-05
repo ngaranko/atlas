@@ -44,7 +44,7 @@ Panel.defaultProps = {
 Panel.propTypes = {
   isPanelVisible: PropTypes.bool,
   canClose: PropTypes.bool,
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['info', 'warning', 'danger']),
   size: PropTypes.string,
   closeAction: PropTypes.func,
   children: PropTypes.node
