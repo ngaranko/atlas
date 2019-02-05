@@ -17,6 +17,7 @@ exports[`PanoramaContainer should render StatusBar when panoramaState is complet
   />
   <IconButton
     alignLeft={false}
+    extraClass=""
     icon="cross"
     onClick={[Function]}
     title="Sluit panorama"
@@ -58,6 +59,7 @@ exports[`PanoramaContainer should render everything 1`] = `
   />
   <IconButton
     alignLeft={false}
+    extraClass=""
     icon="cross"
     onClick={[Function]}
     title="Sluit panorama"
