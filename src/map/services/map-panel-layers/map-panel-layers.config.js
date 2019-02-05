@@ -628,12 +628,12 @@ export default [
         notClickable: false,
         layer: 'burgerlijke_gemeente',
         selectable: false,
-        title: 'Dienst der Publieke Werken (1943)'
+        title: '1943 (Dienst der Publieke Werken)'
       }
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: 'Dienst der Publieke Werken (1943)'
+    title: '1943 (Dienst der Publieke Werken)'
   },
   {
     category: 'Verkeer en infrastructuur',
