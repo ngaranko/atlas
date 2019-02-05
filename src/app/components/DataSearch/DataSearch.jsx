@@ -70,7 +70,7 @@ const DataSearch = ({
 
                   {(!!result.warning) &&
                   <Panel
-                    isPanelVisible={result.warning}
+                    isPanelVisible={!!result.warning}
                     canClose
                     type="warning"
                   >

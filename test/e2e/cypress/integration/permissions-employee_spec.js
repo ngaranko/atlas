@@ -146,7 +146,7 @@ describe('employee permissions', () => {
 
   it('7A. Should allow an employee to view "Vestigingen"', () => {
     cy.server();
-    cy.route('/data/hr/*').as('getResults');
+    cy.route('/dataselectie/hr/*').as('getResults');
 
     cy.visit(urls.vestigingenTabel);
 
@@ -193,7 +193,7 @@ describe('employee permissions', () => {
 
     cy.get(queries.warningPanel).should('not.exist');
     cy.get(queries.headerSubTitle).contains(values.vestigingen);
-    cy.get('button.toggle-fullscreen').click();
+    cy.get('.qa-toggle-fullscreen').click();
     cy.get(queries.mapSearchResultsCategoryHeader).contains(values.vestigingen);
   });
 
@@ -215,7 +215,7 @@ describe('employee permissions', () => {
     cy.get(queries.listItem).contains(values.ligplaatsVestigingName);
   });
 
-  it.only('7E. Should show an employee all information in "standplaats" search', () => {
+  it('7E. Should show an employee all information in "standplaats" search', () => {
     cy.server();
     cy.route('/bag/standplaats/*').as('getResults');
     cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding');
@@ -246,7 +246,7 @@ describe('employee permissions', () => {
     cy.get(queries.warningPanel).should('not.exist');
     cy.get(queries.keyValueList).contains(values.vestigingName);
 
-    cy.get('button.toggle-fullscreen').click();
+    cy.get('.qa-toggle-fullscreen').click();
     cy.get(queries.infoNotification).should('not.exist');
     cy.get(queries.mapDetailResultHeaderSubTitle).contains(values.vestigingName);
   });
@@ -283,7 +283,7 @@ describe('employee permissions', () => {
     cy.get(queries.headerTitle).contains('Museumtuin met hekwerken en bouwfragmenten');
     cy.get(queries.warningPanel).should('not.exist');
     cy.get(queries.keyValueList).contains(values.redengevendeOmschrijving);
-    cy.get('button.toggle-fullscreen').click();
+    cy.get('.qa-toggle-fullscreen').click();
     cy.get(queries.mapDetailResultItem).contains(values.type);
   });
 

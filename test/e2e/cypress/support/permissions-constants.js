@@ -2,8 +2,8 @@ const urls = {
   address: '/data/bag/verblijfsobject/id03630000749400?lat=52.37026793589415&legenda=false&lng=4.893407140678303&zoom=16',
   business: '/data/brk/object/idNL.KAD.OnroerendeZaak.11460857510001?lat=52.370780184456194&legenda=false&lng=4.893603037285888&zoom=16',
   gemeentelijkeBeperking: '/data/wkpb/beperking/id1006388',
-  geoSearch: '/data/geozoek?locatie=52.3736166%2C4.8943521&modus=gesplitst',
-  ligplaats: '/data/bag/ligplaats/id03630001025735?modus=gesplitst',
+  geoSearch: '/data/geozoek?locatie=52.3736166%2C4.8943521',
+  ligplaats: '/data/bag/ligplaats/id03630001025735',
   maatschappelijkeActiviteit: '/data/handelsregister/maatschappelijkeactiviteit/id01029509',
   map: '/data?center=52.3731081%2C4.8932945&modus=kaart&legenda=true',
   monument: '/data/monumenten/monumenten/idc115314a-59d4-4574-bfe9-1f7df5cb20c4',
@@ -11,9 +11,9 @@ const urls = {
   natuurlijk: '/data/brk/subject/idNL.KAD.Persoon.171720901',
   nietNatuurlijk: 'data/brk/subject/idNL.KAD.Persoon.423186718',
   pand: '/data/bag/pand/id0363100012168052?legenda=false',
-  standplaats: '/data/bag/standplaats/id03630000691684?modus=gesplitst',
-  vestiging: '/data/handelsregister/vestiging/id000003579875?modus=gesplitst',
-  vestigingenTabel: '/data/hr/vestigingen?legenda=false&zoom=11'
+  standplaats: '/data/bag/standplaats/id03630000691684',
+  vestiging: '/data/handelsregister/vestiging/id000003579875',
+  vestigingenTabel: '/data/hr/vestigingen?modus=volledig&legenda=false&zoom=11'
 };
 
 const queries = {
