@@ -65,8 +65,8 @@ export function initialize(
 }
 
 export function destroy() {
-  deRegisterMapEvents();
-  deRegisterDrawEvents();
+  unregisterMapEvents();
+  unregisterDrawEvents();
   deleteAllMarkers();
   deletePolygon();
   cancel();
@@ -84,9 +84,9 @@ function onChangePolygon() {
 
   if (!isEqual(currentShape.markers, currentShape.markersPrev)) {
     defer(() => {
+      // call any registered callback function, applyAsync because triggered by a leaflet event
+      drawTool.onUpdateShape(currentShape);
     });
-    // call any registered callback function, applyAsync because triggered by a leaflet event
-    drawTool.onUpdateShape(currentShape);
   }
 
   // triggered when the drawing mode has changed
@@ -292,7 +292,7 @@ function registerDrawEvents() {
   });
 }
 
-function deRegisterDrawEvents() {
+function unregisterDrawEvents() {
   Object.keys(L.Draw.Event).forEach((eventName) => {
     drawTool.map.off(L.Draw.Event[eventName]);
   });
@@ -304,7 +304,7 @@ function registerMapEvents() {
   drawTool.map.on('layeradd', onMapLayerAdd);
 }
 
-function deRegisterMapEvents() {
+function unregisterMapEvents() {
   drawTool.map.off('layeradd', onMapLayerAdd);
   drawTool.map.off('click', onMapClick);
 }
