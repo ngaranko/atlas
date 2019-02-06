@@ -2,6 +2,7 @@ import sharedConfig from '../shared-config/shared-config';
 import { getByUrl } from '../api/api';
 
 const propertyName = {
+  status: '/properties/ams:status',
   theme: '/properties/dcat:theme/items',
   format: '/properties/dcat:distribution/items/properties/dct:format',
   owner: '/properties/ams:owner',
@@ -27,6 +28,7 @@ const getFacetOptions = (facet, filterCatalog, namespace) => (
 
 function formatFilters(filters, catalogFilters) {
   const newFilters = { ...filters };
+  newFilters[propertyName.status] = newFilters[propertyName.status] || {};
   newFilters[propertyName.theme] = newFilters[propertyName.theme] || {};
   newFilters[propertyName.format] = newFilters[propertyName.format] || {};
   newFilters[propertyName.owner] = newFilters[propertyName.owner] || {};
@@ -34,6 +36,10 @@ function formatFilters(filters, catalogFilters) {
   newFilters[propertyName.serviceType] = newFilters[propertyName.serviceType] || {};
 
   const resultFilters = {
+    status: {
+      numberOfOptions: Object.keys(newFilters[propertyName.status]).length,
+      options: getFacetOptions(newFilters[propertyName.status], catalogFilters.statusTypes, 'status')
+    },
     groups: {
       numberOfOptions: Object.keys(newFilters[propertyName.theme]).length,
       options: getFacetOptions(newFilters[propertyName.theme], catalogFilters.groupTypes, 'theme')
@@ -60,11 +66,11 @@ function formatFilters(filters, catalogFilters) {
   };
 
   return Object.keys(resultFilters)
-               .filter((key) => resultFilters[key].numberOfOptions > 0)
-               .reduce((result, key) => ({
-                 ...result,
-                 [key]: resultFilters[key]
-               }), {});
+    .filter((key) => resultFilters[key].numberOfOptions > 0)
+    .reduce((result, key) => ({
+      ...result,
+      [key]: resultFilters[key]
+    }), {});
 }
 
 function formatData(config, rawData) {
@@ -82,6 +88,7 @@ function formatData(config, rawData) {
 export function query(config, view, activeFilters, page, searchText = '', geometryFilter = undefined, catalogFilters = {}) {
   const searchParams = {};
 
+  const queryStatus = activeFilters.status && `eq=${activeFilters.status}`;
   const queryTheme = activeFilters.groups && `eq=theme:${activeFilters.groups}`;
   const queryFormat = activeFilters.formats && `eq=${activeFilters.formats}`;
   const queryOwner = activeFilters.owners && `eq=${activeFilters.owners}`;
@@ -91,6 +98,11 @@ export function query(config, view, activeFilters, page, searchText = '', geomet
   if (searchText) {
     // Optional search text
     searchParams.q = searchText;
+  }
+
+  if (queryStatus) {
+    // optional status filter
+    searchParams[propertyName.status] = queryStatus;
   }
 
   if (queryTheme) {
