@@ -3,6 +3,7 @@ import queryString from 'querystring';
 import PAGES from '../../app/pages';
 import { routing } from '../../app/routes';
 import { REDUCER_KEY } from './constants';
+import { getUser } from '../../shared/ducks/user/user';
 
 const getLocation = (state) => state[REDUCER_KEY];
 export const getLocationType = (state) => state[REDUCER_KEY].type;
@@ -39,13 +40,18 @@ export const isDatasetPage = createSelector(
     || page === PAGES.SEARCH_DATASETS
 );
 
-export const isDataSelectionAuthPage = createSelector(
+export const isDataSelectionPage = createSelector(
   getPage,
-  (page) => page === PAGES.CADASTRAL_OBJECTS
+  (page) => page === PAGES.ADDRESSES
+    || page === PAGES.CADASTRAL_OBJECTS
     || page === PAGES.ESTABLISHMENTS
 );
 
-export const isDataSelectionPage = createSelector(
-  getPage, isDataSelectionAuthPage,
-  (page, dataSelectionAuthPages) => dataSelectionAuthPages || page === PAGES.ESTABLISHMENTS
+export const hasUserAccesToPage = createSelector(
+  getPage, getUser,
+  (page, user) => (page === PAGES.ADDRESSES
+      || (page === PAGES.ESTABLISHMENTS && user.authenticated)
+      || (page === PAGES.CADASTRAL_OBJECTS && user.scopes.includes('BRK/RSN'))
+    )
 );
+
