@@ -1,5 +1,6 @@
 import getContents from '../../../../src/shared/services/google-sheet/google.sheet';
 import { routing } from '../../../../src/app/routes';
+import { NAVIGATE } from '../../../../src/shared/ducks/content/constants';
 
 (function () {
     'use strict';
@@ -21,6 +22,7 @@ import { routing } from '../../../../src/app/routes';
     function DpUserContentWidgetController ($scope) {
         const vm = this;
 
+        vm.actionType = NAVIGATE;
         this.$onInit = function () {
             vm.routing = routing;
 

@@ -15,7 +15,6 @@ import {
   isPrintOrEmbedMode
 } from '../shared/ducks/ui/ui';
 import { hasGlobalError } from '../shared/ducks/error/error-message';
-import { CMS_PAGE_MAPPING } from './pages/CMSPageMapping';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
 import { getPage, isHomepage } from '../store/redux-first-router/selectors';
@@ -41,10 +40,6 @@ const App = ({
   user
 }) => {
   const isCmsPage = pageIsCmsPage(currentPage);
-  let cmsPageData;
-  if (isCmsPage) {
-    cmsPageData = CMS_PAGE_MAPPING[currentPage];
-  }
   const hasMaxWidth = homePage || isCmsPage;
 
   const rootClasses = classNames({
@@ -135,11 +130,7 @@ const App = ({
               )}
 
               {isCmsPage && (
-                <ContentPage
-                  name={cmsPageData.template}
-                  type={cmsPageData.type}
-                  item={cmsPageData.item}
-                />
+                <ContentPage />
               )}
             </div>
           </div>
