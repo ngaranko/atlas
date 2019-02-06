@@ -195,8 +195,6 @@ export function enforceLimits() {
 
     deletePolygon(); // delete current polygon
 
-    defer(() => {
-    });
     setPolygon(markersPrev); // restore previous polygon
     updateShape();
   } else {
@@ -209,7 +207,6 @@ export function enforceLimits() {
 export function autoClose() {
   if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.DRAW &&
     currentShape.markers.length === currentShape.markersMaxCount) {
-    // defer(() => disable());
     disable();
   }
 }
@@ -274,8 +271,6 @@ function registerDrawEvents() {
 
       updateShape(); // Update current shape and tooltip
 
-      defer(() => {
-      });
       // Force Leaflet to enable TextSelection (tg-2728)
       L.DomUtil.enableTextSelection();
 
@@ -286,7 +281,7 @@ function registerDrawEvents() {
       }
     });
   });
-  setTimeout(() => {
+  defer(() => {
     // fix for firefox onUpdateShape not fired
     onChangePolygon();
   });

@@ -70,7 +70,8 @@ describe('Map Reducer', () => {
     }))).toEqual({
       ...initialState,
       drawingMode: 'none',
-      geometry: undefined
+      geometry: undefined,
+      isLoading: true
     });
 
     expect(reducer(initialState, mapEndDrawing({
@@ -80,7 +81,8 @@ describe('Map Reducer', () => {
     }))).toEqual({
       ...initialState,
       drawingMode: 'none',
-      geometry: []
+      geometry: [],
+      isLoading: true
     });
 
     expect(reducer(initialState, mapEndDrawing({
@@ -91,7 +93,7 @@ describe('Map Reducer', () => {
       ...initialState,
       drawingMode: 'none',
       geometry: [{}, {}],
-      isLoading: false
+      isLoading: true
     });
   });
 

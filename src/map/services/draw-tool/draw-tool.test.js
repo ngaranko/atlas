@@ -462,10 +462,7 @@ describe('draw-tool service', () => {
         currentShape.markers = latLngsArray;
         currentShape.markersMaxCount = 4;
         drawTool.drawingMode = drawToolConfig.DRAWING_MODE.DRAW;
-        jest.useFakeTimers();
         autoClose();
-        expect(drawTool.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.DRAW);
-        jest.runAllTimers();
         expect(drawTool.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.NONE);
       });
     });
