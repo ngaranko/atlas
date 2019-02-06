@@ -17,6 +17,7 @@ describe('SearchList', () => {
           }
         ]
       },
+      userScopes: [],
       fetchMoreResults: jest.fn(),
       hasLoadMore: null,
       limit: 10
@@ -30,10 +31,11 @@ describe('SearchList', () => {
 
   it('should render an empty list ', () => {
     const props = {
-      categoryResults: { },
+      categoryResults: {},
       fetchMoreResults: jest.fn(),
       hasLoadMore: null,
-      limit: 10
+      limit: 10,
+      userScopes: []
     };
 
     const component = shallow(
@@ -44,10 +46,11 @@ describe('SearchList', () => {
 
   it('should render the Toon meer button when the hasLoadMore flag is set ', () => {
     const props = {
-      categoryResults: { },
+      categoryResults: {},
       fetchMoreResults: jest.fn(),
       hasLoadMore: true,
-      limit: 10
+      limit: 10,
+      userScopes: []
     };
 
     const component = shallow(

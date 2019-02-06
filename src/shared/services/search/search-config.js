@@ -42,7 +42,8 @@ export default {
       label_singular: 'Kadastraal subject',
       label_plural: 'Kadastrale subjecten',
       uri: 'atlas/search/kadastraalsubject/',
-      authScope: 'BRK/RS'
+      authScope: 'BRK/RS',
+      specialAuthScope: 'BRK/RSN'
     }, {
       // The slug variable is used to identify this category in list.component.js
       slug: 'gebied',

@@ -41,7 +41,7 @@ function getCatalogFilters(data) {
   return datasetsFilters;
 }
 
-export default function fetchApiSpecification() {
-  return getByUrl(`${SHARED_CONFIG.API_ROOT}dcatd/openapi`)
-    .then((data) => getCatalogFilters(data));
+export default async function fetchApiSpecification() {
+  const data = await getByUrl(`${SHARED_CONFIG.API_ROOT}dcatd/openapi`);
+  return getCatalogFilters(data);
 }
