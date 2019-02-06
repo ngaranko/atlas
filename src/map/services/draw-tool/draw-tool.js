@@ -36,13 +36,12 @@ export const drawTool = {
   drawnItems: null,
   drawShapeHandler: null,
   editShapeHandler: null,
-  lastEvent: null
+  lastEvent: null,
+  // these callback methods will be called on a finished polygon and on a change of drawing mode
+  onFinishShape: () => {},
+  onDrawingMode: () => {},
+  onUpdateShape: () => {}
 };
-
-// these callback methods will be called on a finished polygon and on a change of drawing mode
-let _onFinishShape;
-let _onDrawingMode;
-let _onUpdateShape;
 
 // initialise factory; initialise draw tool, register callback methods and register events
 export function initialize(
@@ -53,9 +52,13 @@ export function initialize(
   currentShape = { ...DEFAULTS };
 
   initDrawTool(map);
-  _onFinishShape = onFinishShapeCallback; // callback method to call on finish draw/edit polygon
-  _onDrawingMode = onDrawingModeCallback; // callback method to call on change of drawing mode
-  _onUpdateShape = onUpdateShapeCallback; // callback method to call on change of shape
+
+  // callback method to call on finish draw/edit polygon
+  drawTool.onFinishShape = onFinishShapeCallback;
+  // callback method to call on change of drawing mode
+  drawTool.onDrawingMode = onDrawingModeCallback;
+  // callback method to call on change of shape
+  drawTool.onUpdateShape = onUpdateShapeCallback;
 
   registerDrawEvents();
   registerMapEvents();
@@ -69,14 +72,6 @@ export function destroy() {
   cancel();
 }
 
-// triggered when a polygon has finished drawing or editing
-function onFinishPolygon() {
-  if (typeof _onFinishShape === 'function') {
-    // call any registered callback function, applyAsync because triggered by a leaflet event
-    _onFinishShape(currentShape);
-  }
-}
-
 // triggered when a polygon has changed to a new valid state
 function onChangePolygon() {
   // add class to drawn polygon
@@ -87,10 +82,10 @@ function onChangePolygon() {
   // update the publicly available shape info, applyAsync because triggered by a leaflet event
   updateShape();
 
-  if (!isEqual(currentShape.markers, currentShape.markersPrev) && typeof _onUpdateShape === 'function') {
+  if (!isEqual(currentShape.markers, currentShape.markersPrev)) {
     defer(() => {
       // call any registered callback function, applyAsync because triggered by a leaflet event
-      _onUpdateShape(currentShape);
+      drawTool.onUpdateShape(currentShape);
     });
   }
 
@@ -155,14 +150,14 @@ export function finishPolygon() {
   setPolygon(currentShape.markers);
   // Silently change the drawing mode
   setDrawingMode(drawToolConfig.DRAWING_MODE.NONE);
-  onFinishPolygon();
+  drawTool.onFinishShape(currentShape);
 }
 
 // updates the drawing mode and trigger any callback method
 function setDrawingMode(drawingMode) {
   if (drawTool.drawingMode !== drawingMode) {
     drawTool.drawingMode = drawingMode;
-    _onDrawingMode(drawingMode);
+    drawTool.onDrawingMode(drawingMode);
   }
 }
 
@@ -328,7 +323,7 @@ function onMapClick() {
     // Note: In draw mode the click on map adds a new marker
     deletePolygon();
     updateShape();
-    onFinishPolygon();
+    drawTool.onFinishShape(currentShape);
     disable();
   }
 }
