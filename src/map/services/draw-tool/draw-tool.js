@@ -30,33 +30,32 @@ const DEFAULTS = {
 
 export let currentShape = { ...DEFAULTS };  // eslint-disable-line import/no-mutable-exports
 
-// holds all publicly available information about the last consistent state of the current shape
-const shapeInfo = {};
-updateShapeInfo(currentShape); // initialise to initial current shape
-
 // holds all information of the leaflet.draw drawing and editing structures
 export const drawTool = {
   drawingMode: drawToolConfig.DRAWING_MODE.NONE,
   drawnItems: null,
   drawShapeHandler: null,
   editShapeHandler: null,
-  lastEvent: null,
-  timeout: null
+  lastEvent: null
 };
 
 // these callback methods will be called on a finished polygon and on a change of drawing mode
-let _onFinishPolygon;
+let _onFinishShape;
 let _onDrawingMode;
 let _onUpdateShape;
 
 // initialise factory; initialise draw tool, register callback methods and register events
-export function initialize(map, onFinish, onDrawingMode, onUpdateShape) {
+export function initialize(
+  map,
+  onFinishShapeCallback,
+  onDrawingModeCallback,
+  onUpdateShapeCallback) {
   currentShape = { ...DEFAULTS };
 
   initDrawTool(map);
-  _onFinishPolygon = onFinish; // callback method to call on finish draw/edit polygon
-  _onDrawingMode = onDrawingMode; // callback method to call on change of drawing mode
-  _onUpdateShape = onUpdateShape; // callback method to call on change of shape
+  _onFinishShape = onFinishShapeCallback; // callback method to call on finish draw/edit polygon
+  _onDrawingMode = onDrawingModeCallback; // callback method to call on change of drawing mode
+  _onUpdateShape = onUpdateShapeCallback; // callback method to call on change of shape
 
   registerDrawEvents();
   registerMapEvents();
@@ -72,9 +71,9 @@ export function destroy() {
 
 // triggered when a polygon has finished drawing or editing
 function onFinishPolygon() {
-  if (typeof _onFinishPolygon === 'function') {
+  if (typeof _onFinishShape === 'function') {
     // call any registered callback function, applyAsync because triggered by a leaflet event
-    _onFinishPolygon(shapeInfo);
+    _onFinishShape(currentShape);
   }
 }
 
@@ -472,19 +471,9 @@ export function updateShape() {
   if (currentShape.isConsistent) {
     L.drawLocal.edit.handlers.edit.tooltip.text = currentShape.areaTxt;
     L.drawLocal.edit.handlers.edit.tooltip.subtext = currentShape.distanceTxt;
-    updateShapeInfo(); // update public shape info of new consistent state of the polygon
   }
 }
 
-// Updates the publicly available info for the current shape
-// Only to be called when shape is in a consistent state
-function updateShapeInfo() {
-  // Copy a set of properties of the current shape into the shapeInfo object
-  ['type', 'markers', 'markersMaxCount', 'area', 'areaTxt', 'distance', 'distanceTxt']
-    .forEach((key) => {
-      shapeInfo[key] = currentShape[key];
-    });
-}
 
 // Delete all markers in DRAW mode
 function deleteAllMarkers() {
