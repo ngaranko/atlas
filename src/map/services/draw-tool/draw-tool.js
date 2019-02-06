@@ -84,9 +84,9 @@ function onChangePolygon() {
 
   if (!isEqual(currentShape.markers, currentShape.markersPrev)) {
     defer(() => {
-      // call any registered callback function, applyAsync because triggered by a leaflet event
-      drawTool.onUpdateShape(currentShape);
     });
+    // call any registered callback function, applyAsync because triggered by a leaflet event
+    drawTool.onUpdateShape(currentShape);
   }
 
   // triggered when the drawing mode has changed
@@ -95,7 +95,7 @@ function onChangePolygon() {
   currentShape.markersPrev = [...currentShape.markers];
 }
 
-// Construct a polygon from a array of coordinates
+// Construct a polygon from an array of coordinates
 export function setPolygon(latLngs) {
   // Save the previous layer
   currentShape.layerPrev = currentShape.layer;
@@ -196,9 +196,9 @@ export function enforceLimits() {
     deletePolygon(); // delete current polygon
 
     defer(() => {
-      setPolygon(markersPrev); // restore previous polygon
-      updateShape();
     });
+    setPolygon(markersPrev); // restore previous polygon
+    updateShape();
   } else {
     // check for auto close of shape in drawing mode
     autoClose();
@@ -209,7 +209,8 @@ export function enforceLimits() {
 export function autoClose() {
   if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.DRAW &&
     currentShape.markers.length === currentShape.markersMaxCount) {
-    defer(() => disable());
+    // defer(() => disable());
+    disable();
   }
 }
 
@@ -274,19 +275,19 @@ function registerDrawEvents() {
       updateShape(); // Update current shape and tooltip
 
       defer(() => {
-        // Force Leaflet to enable TextSelection (tg-2728)
-        L.DomUtil.enableTextSelection();
-
-        // Execute this code after leaflet.draw has finished the event
-        enforceLimits(); // max vertices, auto close when max reached
-        if (currentShape.isConsistent) {
-          onChangePolygon(); // trigger change on new consistent state of the polygon
-        }
       });
+      // Force Leaflet to enable TextSelection (tg-2728)
+      L.DomUtil.enableTextSelection();
+
+      // Execute this code after leaflet.draw has finished the event
+      enforceLimits(); // max vertices, auto close when max reached
+      if (currentShape.isConsistent) {
+        onChangePolygon(); // trigger change on new consistent state of the polygon
+      }
     });
   });
   setTimeout(() => {
-    // fix for firefox _onUpdateShape not fired
+    // fix for firefox onUpdateShape not fired
     onChangePolygon();
   });
 }
@@ -323,8 +324,8 @@ function onMapClick() {
     // Note: In draw mode the click on map adds a new marker
     deletePolygon();
     updateShape();
-    drawTool.onFinishShape(currentShape);
     disable();
+    drawTool.onFinishShape(currentShape);
   }
 }
 
@@ -468,7 +469,6 @@ export function updateShape() {
     L.drawLocal.edit.handlers.edit.tooltip.subtext = currentShape.distanceTxt;
   }
 }
-
 
 // Delete all markers in DRAW mode
 function deleteAllMarkers() {

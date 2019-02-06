@@ -31,7 +31,8 @@ import {
   SET_GEOMETRY_FILTER,
   SET_PAGE,
   START_DATA_SELECTION,
-  VIEWS_TO_PARAMS
+  VIEWS_TO_PARAMS,
+  FETCH_MARKERS_SUCCESS
 } from '../../ducks/data-selection/constants';
 import {
   getDataSelection,
@@ -46,7 +47,8 @@ import {
   MAP_BOUNDING_BOX,
   mapEmptyGeometry,
   mapEndDrawing,
-  mapStartDrawing
+  mapSetDrawingMode,
+  mapLoadingAction
 } from '../../../map/ducks/map/map';
 import PARAMETERS from '../../../store/parameters';
 import drawToolConfig from '../../../map/services/draw-tool/draw-tool.config';
@@ -196,7 +198,7 @@ function* clearDrawing() {
 function* startDrawing() {
   yield call(setPolygon, []);
   yield call(enable);
-  yield put(mapStartDrawing({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW }));
+  yield put(mapSetDrawingMode({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW }));
 }
 
 function* endDrawing() {
@@ -206,6 +208,10 @@ function* endDrawing() {
 function* cancelDrawing() {
   yield put(mapEmptyGeometry());
   yield call(cancel);
+}
+
+function* finishMapLoading() {
+  yield put(mapLoadingAction(false));
 }
 
 export default function* watchFetchDataSelection() {
@@ -227,6 +233,7 @@ export default function* watchFetchDataSelection() {
   yield takeLatest(FETCH_DATA_SELECTION_REQUEST, retrieveDataSelection);
   yield takeLatest([SET_DATASET], switchPage);
   yield takeLatest(FETCH_MARKERS_REQUEST, requestMarkersEffect);
+  yield takeLatest(FETCH_MARKERS_SUCCESS, finishMapLoading);
 
   yield takeLatest(RESET_DATA_SELECTION, clearDrawing);
   yield takeLatest(START_DATA_SELECTION, startDrawing);
