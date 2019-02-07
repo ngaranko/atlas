@@ -44,7 +44,7 @@ class Video extends React.Component {
         }}
         data-object-fit
         preload="metadata"
-        muted="true"
+        muted
         className="c-video__element"
         poster={poster}
         loop

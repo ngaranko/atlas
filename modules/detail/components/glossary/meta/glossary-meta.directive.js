@@ -25,14 +25,16 @@
     function DpGlossaryMetaController (GLOSSARY) {
         const vm = this;
 
-        vm.metaFields = [];
+        this.$onInit = function () {
+            vm.metaFields = [];
 
-        GLOSSARY.DEFINITIONS[vm.definition].meta.forEach(field => {
-            vm.metaFields.push({
-                label: GLOSSARY.META[field].label,
-                value: vm.apiData.results[field],
-                type: GLOSSARY.META[field].type
+            GLOSSARY.DEFINITIONS[vm.definition].meta.forEach(field => {
+                vm.metaFields.push({
+                    label: GLOSSARY.META[field].label,
+                    value: vm.apiData.results[field],
+                    type: GLOSSARY.META[field].type
+                });
             });
-        });
+        };
     }
 })();

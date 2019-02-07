@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "bluebird": "3.5.2",
-    "cross-env": "^5.2.0",
-    "cypress": "3.1.0"
+    "cross-env": "^5.2.0"
+  },
+  "devDependencies": {
+    "cypress": "^3.1.5"
   }
 }

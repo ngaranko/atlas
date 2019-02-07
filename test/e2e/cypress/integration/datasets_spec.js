@@ -48,7 +48,7 @@ describe('datasets module', () => {
       cy.get(dataSelection).should('exist').and('be.visible');
       // the title should contain Datasets
       cy.get('h1').contains('Datasets').should('exist').and('be.visible');
-      cy.get('.c-data-selection-catalog__item').first().click();
+      cy.get('.c-data-selection-catalog__item').first().find('h2').click();
       cy.wait('@getResultsDetail');
 
       // as downloading is not testable, we check for the presence of href

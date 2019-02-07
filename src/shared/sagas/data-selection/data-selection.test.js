@@ -1,13 +1,14 @@
 import { select } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import { mapBoundsEffect, requestMarkersEffect } from './data-selection';
-import { getPage } from '../../../store/redux-first-router/selectors';
+import { getPage, hasUserAccesToPage } from '../../../store/redux-first-router/selectors';
 import { fetchMarkersRequest, fetchMarkersSuccess } from '../../ducks/data-selection/actions';
 import { getFiltersWithoutShape } from '../../ducks/filters/filters';
 import { getDataset, getGeomarkersShape } from '../../ducks/data-selection/selectors';
 import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
 import { getMarkers } from '../../services/data-selection/data-selection-api';
 import PAGES from '../../../app/pages';
+import { waitForAuthentication } from '../user/user';
 
 describe('data-selection sagas', () => {
   describe('mapBoundsEffect', () => {
@@ -16,6 +17,10 @@ describe('data-selection sagas', () => {
         .next()
         .select(getPage)
         .next(PAGES.CADASTRAL_OBJECTS)
+        .call(waitForAuthentication)
+        .next()
+        .select(hasUserAccesToPage)
+        .next(true)
         .put(fetchMarkersRequest())
         .next()
         .isDone();
@@ -23,7 +28,21 @@ describe('data-selection sagas', () => {
       testSaga(mapBoundsEffect, {})
         .next()
         .select(getPage)
-        .next('other page')
+        .next(PAGES.CADASTRAL_OBJECTS)
+        .call(waitForAuthentication)
+        .next()
+        .select(hasUserAccesToPage)
+        .next(false)
+        .isDone();
+
+      testSaga(mapBoundsEffect, {})
+        .next()
+        .select(getPage)
+        .next(PAGES.ADDRESSES)
+        .call(waitForAuthentication)
+        .next()
+        .select(hasUserAccesToPage)
+        .next(true)
         .isDone();
     });
   });

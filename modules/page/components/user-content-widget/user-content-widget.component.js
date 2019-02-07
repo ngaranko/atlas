@@ -1,5 +1,6 @@
 import getContents from '../../../../src/shared/services/google-sheet/google.sheet';
 import { routing } from '../../../../src/app/routes';
+import { NAVIGATE } from '../../../../src/shared/ducks/content/constants';
 
 (function () {
     'use strict';
@@ -21,16 +22,19 @@ import { routing } from '../../../../src/app/routes';
     function DpUserContentWidgetController ($scope) {
         const vm = this;
 
-        vm.routing = routing;
+        vm.actionType = NAVIGATE;
+        this.$onInit = function () {
+            vm.routing = routing;
 
-        vm.feed = null;
-        vm.entries = [];
+            vm.feed = null;
+            vm.entries = [];
 
-        getContents(vm.type)
-            .then(contents => {
-                vm.feed = contents.feed;
-                vm.entries = contents.entries;
-                $scope.$digest();
-            });
+            getContents (vm.type)
+                .then(contents => {
+                    vm.feed = contents.feed;
+                    vm.entries = contents.entries;
+                    $scope.$digest();
+                });
+        };
     }
 })();

@@ -13,7 +13,8 @@ import {
   isEnabled,
   setPolygon
 } from '../../services/draw-tool/draw-tool';
-import { mapClear, mapEmptyGeometry, mapStartDrawing, mapUpdateShape } from '../../ducks/map/map';
+import { mapClear, mapEmptyGeometry, mapSetDrawingMode, mapUpdateShape
+} from '../../ducks/map/map';
 import {
   getDrawingMode,
   getGeometry,
@@ -40,7 +41,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   onEmptyGeometry: mapEmptyGeometry,
   onMapUpdateShape: mapUpdateShape,
   onSetGeometryFilter: setGeometryFilter,
-  onStartDrawing: mapStartDrawing,
+  onSetDrawingMode: mapSetDrawingMode,
   onEndDrawing: endDataSelection,
   onMapClear: mapClear
 }, dispatch);
@@ -92,8 +93,8 @@ class DrawToolContainer extends React.Component {
   }
 
   onDrawingMode(drawingMode) {
-    const { onStartDrawing } = this.props;
-    onStartDrawing({ drawingMode });
+    const { onSetDrawingMode } = this.props;
+    onSetDrawingMode({ drawingMode });
   }
 
   onUpdateShape(newShape) {
@@ -161,7 +162,7 @@ DrawToolContainer.propTypes = {
   onEmptyGeometry: PropTypes.func.isRequired,
   onMapUpdateShape: PropTypes.func.isRequired,
   onSetGeometryFilter: PropTypes.func.isRequired,
-  onStartDrawing: PropTypes.func.isRequired,
+  onSetDrawingMode: PropTypes.func.isRequired,
   onEndDrawing: PropTypes.func.isRequired,
   onMapClear: PropTypes.func.isRequired
 };

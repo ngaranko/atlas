@@ -19,6 +19,7 @@ import * as FiltersReducer from '../shared/ducks/filters/filters';
 import * as DataSearchReducer from '../shared/ducks/data-search/reducer';
 import * as SelectionReducer from '../shared/ducks/selection/selection';
 import * as DetailReducer from '../shared/ducks/detail/reducer';
+import * as Content from '../shared/ducks/content/reducer';
 
 describe('the root reducer', () => {
   AutoSuggestReducer.default = () => 'autoSuggest';
@@ -39,34 +40,13 @@ describe('the root reducer', () => {
   SelectionReducer.default = () => 'selection';
   FiltersReducer.default = () => 'filter';
   Datasets.default = () => 'datasets';
+  Content.default = () => 'content';
 
   it('combines many reducers', () => {
     const state = {};
     const action = {};
 
     const output = rootReducer(() => 'location')(state, action);
-    expect(output)
-      .toEqual({
-        dataSelection: 'dataSelection',
-        datasets: 'datasets',
-        error: 'error',
-        filter: 'filter',
-        map: 'map',
-        detail: 'detail',
-        mapDetail: 'mapDetail',
-        location: 'location',
-        panoramaPreview: 'panoramaPreview',
-        panorama: 'panorama',
-        ui: 'ui',
-        user: 'user',
-        dataSearch: 'dataSearch',
-        selection: 'selection',
-        mapLayers: {
-          baseLayers: 'baseLayers',
-          layers: 'layers',
-          panelLayers: 'panelLayers'
-        },
-        autoSuggest: 'autoSuggest'
-      });
+    expect(output).toMatchSnapshot();
   });
 });

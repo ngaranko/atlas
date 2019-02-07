@@ -1,6 +1,7 @@
 /* eslint-disable import/first */
 /* eslint-disable import/no-extraneous-dependencies */
-import 'babel-polyfill';
+import 'core-js/shim';
+import 'regenerator-runtime/runtime';
 import angular from 'angular';
 // All third party dependencies
 import './vendor';
@@ -44,7 +45,6 @@ import '../modules/detail/components/current-date/current-date.directive';
 import '../modules/detail/components/data-selection-links/data-selection-links.component';
 import '../modules/detail/components/date/date.filter';
 import '../modules/detail/components/detail/detail.component';
-import '../modules/detail/components/detail/follow-link/follow-link.directive';
 import '../modules/detail/components/filename/filename.filter';
 import '../modules/detail/components/option-label/option-label.filter';
 import '../modules/detail/components/glossary/glossary.constant';
@@ -94,8 +94,6 @@ import '../modules/shared/components/expand-collapse/expand-collapse.directive';
 import '../modules/shared/components/link-to-page/link-to-page.component';
 // import '../modules/shared/components/link/link.component';
 import '../modules/shared/components/loading-indicator/loading-indicator.component';
-import '../modules/shared/components/long-name-shortener/long-name-config.constant';
-import '../modules/shared/components/long-name-shortener/long-name-shortener.filter';
 import '../modules/shared/components/message/message.component';
 import '../modules/shared/components/panel/panel.component';
 import '../modules/shared/components/panorama-thumbnail/panorama-thumbnail.component';
@@ -125,7 +123,6 @@ import '../modules/shared/shared-config.factory';
 import '../modules/shared/shared.vendor';
 // The mocks
 import 'angular-mocks';
-import '../modules/shared/components/button/button.component.mock';
 import '../modules/shared/components/link/link.component.mock';
 // All our modules' javascript tests
 import '../modules/data-selection/components/available-filters/available-filters.component.test';
@@ -178,7 +175,6 @@ import '../modules/detail/components/wkpb-link/wkpb-link.component.test';
 import '../modules/detail/components/parent-relations/parent-relations.directive.test';
 import '../modules/detail/components/data-selection-links/data-selection-links.component.test';
 import '../modules/detail/components/detail/detail.component.test';
-import '../modules/detail/components/detail/follow-link/follow-link.directive.test';
 import '../modules/detail/components/yes-no/yes-no.filter.test';
 import '../modules/detail/components/bbga-graphs/bbga-data.factory.test';
 import '../modules/detail/components/bbga-graphs/tevredenheid/bbga-tevredenheid.component.test';
@@ -197,7 +193,6 @@ import '../modules/shared/components/panel/panel.component.test';
 import '../modules/shared/components/message/message.component.test';
 import '../modules/shared/components/loading-indicator/loading-indicator.component.test';
 import '../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter.test';
-import '../modules/shared/components/long-name-shortener/long-name-shortener.filter.test';
 import '../modules/shared/components/coordinates/coordinates.filter.test';
 import '../modules/shared/components/dcatd-button/dcatd-button.component.test';
 import '../modules/shared/services/storage/storage.factory.test';

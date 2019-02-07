@@ -2,7 +2,6 @@
 
 exports[`SearchListContainer should render the container with the basic properties 1`] = `
 <SearchList
-  category={Object {}}
   categoryResults={
     Object {
       "results": Array [],
@@ -12,5 +11,6 @@ exports[`SearchListContainer should render the container with the basic properti
   hasLoadMore={false}
   limit={1}
   searchResults={Array []}
+  userScopes={Array []}
 />
 `;

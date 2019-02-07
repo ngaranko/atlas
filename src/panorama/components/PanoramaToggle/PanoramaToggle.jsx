@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import './PanoramaToggle.scss';
-import { fetchPanoramaRequestToggle, fetchPanoramaRequestExternal } from '../../ducks/actions';
 
 const getStreetViewUrl = (location, heading) => {
   const [latitude, longitude] = location;
@@ -54,7 +51,7 @@ class PanoramaToggle extends React.Component {
             `}
             onClick={this.toggleMenu}
           >
-            { history.label }
+            {history.label}
           </button>
           {(showMenu) ? <ul className="c-panorama-toggle__menu qa-panorama-toggle__menu">
             {historyOptions.map((option) => (
@@ -68,7 +65,7 @@ class PanoramaToggle extends React.Component {
                   `}
                   onClick={() => this.setSelectedOption(option)}
                 >
-                  { option.label }
+                  {option.label}
                 </button>
               </li>
             ))}
@@ -99,13 +96,6 @@ class PanoramaToggle extends React.Component {
   }
 }
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  fetchPanoramaRequest: fetchPanoramaRequestToggle,
-  openPanoramaExternal: fetchPanoramaRequestExternal
-}, dispatch);
-
 PanoramaToggle.defaultProps = {
   fetchPanoramaRequest: ''
 };
@@ -119,4 +109,4 @@ PanoramaToggle.propTypes = {
   openPanoramaExternal: PropTypes.oneOfType([PropTypes.string, PropTypes.func]) // eslint-disable-line
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PanoramaToggle);
+export default PanoramaToggle;

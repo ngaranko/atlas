@@ -8,6 +8,7 @@ const ToggleFullscreen = ({ isFullscreen, title, onToggleFullscreen, alignLeft }
     icon={isFullscreen ? 'minimize' : 'maximize'}
     onClick={onToggleFullscreen}
     alignLeft={alignLeft}
+    extraClass={'qa-toggle-fullscreen'}
   />
 );
 

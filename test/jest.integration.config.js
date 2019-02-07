@@ -24,7 +24,7 @@ module.exports = {
     // barService.test.js
   ],
   testURL: 'http://localhost:8080/',
-  testEnvironment: 'jest-environment-jsdom-global',
+  testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
     '/e2e/',
     '/modules/',

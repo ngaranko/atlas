@@ -6,6 +6,7 @@ exports[`Notification should add the notification level as class name 1`] = `
         
         notification
         notification--alert
+        qa-notification
       "
 >
   <span
@@ -30,6 +31,7 @@ exports[`Notification should be able to render \`a\` elements 1`] = `
         
         notification
         notification--info
+        qa-notification
       "
 >
   <span
@@ -58,6 +60,7 @@ exports[`Notification should not show the close button for the message level 1`]
         
         notification
         notification--message
+        qa-notification
       "
 >
   <span
@@ -74,6 +77,7 @@ exports[`Notification should not show the close button when disabled 1`] = `
         
         notification
         notification--info
+        qa-notification
       "
 >
   <span
@@ -90,6 +94,7 @@ exports[`Notification should render the provided message 1`] = `
         
         notification
         notification--info
+        qa-notification
       "
 >
   <span

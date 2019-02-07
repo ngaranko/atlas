@@ -74,7 +74,6 @@ const piwikMiddleware = ({ getState }) => (next) => (action) => {
       });
     }
   }
-
   next(nextAction);
 };
 

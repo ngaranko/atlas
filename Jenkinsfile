@@ -16,17 +16,6 @@ pipeline {
 
   stages {
 
-    stage('Deploy feature branch (Bakkie)') {
-      when { not { branch 'master' } }
-      options {
-        timeout(time: 5, unit: 'MINUTES')
-      }
-      steps {
-//        sh "scripts/bakkie.sh ${BRANCH_NAME}"
-        sh "echo \"Skipped bakkie, using Netlify at the moment!\""
-      }
-    }
-
     stage('Check API\'s health') {
       options {
         timeout(time: 2, unit: 'MINUTES')
@@ -77,8 +66,7 @@ pipeline {
             PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
           }
           steps {
-//            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e test-e2e"
-            sh "echo \"Skipped E2E test!\"" // TODO refactor, reactivate
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e test-e2e"
           }
           post {
             always {

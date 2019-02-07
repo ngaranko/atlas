@@ -20,15 +20,17 @@ import { routing } from '../../../../src/app/routes';
     function DpLogoController ($scope, store, HEADER) {
         const vm = this;
 
-        vm.homeType = routing.home.type;
+        this.$onInit = function () {
+            vm.homeType = routing.home.type;
 
-        $scope.$watch('vm.size', updateSize);
+            $scope.$watch('vm.size', updateSize);
 
-        vm.navigateHomeClick = () => store.dispatch(navigateHomeAction());
+            vm.navigateHomeClick = () => store.dispatch(navigateHomeAction());
 
-        function updateSize (size) {
-            vm.isTall = vm.size === HEADER.SIZE.TALL;
-            vm.isShort = vm.size === HEADER.SIZE.SHORT;
-        }
+            function updateSize (size) {
+                vm.isTall = vm.size === HEADER.SIZE.TALL;
+                vm.isShort = vm.size === HEADER.SIZE.SHORT;
+            }
+        };
     }
 })();

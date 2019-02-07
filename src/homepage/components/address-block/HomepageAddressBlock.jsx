@@ -5,8 +5,8 @@ import HomepageBlock from '../block/HomepageBlock';
 
 import { features } from '../../../shared/environment';
 import { routing } from '../../../app/routes';
-import { toDatasetsTableWithFilter } from '../../../store/redux-first-router/actions';
-import { DATASETS, DATASET_ROUTE_MAPPER } from '../../../shared/ducks/data-selection/constants';
+import { toAdresses, toDatasetsTableWithFilter } from '../../../store/redux-first-router/actions';
+import { DATASET_ROUTE_MAPPER, DATASETS } from '../../../shared/ducks/data-selection/constants';
 
 
 const BLOCK_ITEMS = {
@@ -32,7 +32,7 @@ const BLOCK_ITEMS = {
 
 const HomepageAddressBlock = () => (
   <HomepageBlock
-    linkAction={{ type: routing.addresses.type }}
+    linkAction={toAdresses()}
     title="Adressentabel"
     description="Selecteer en download als spreadsheet"
     hasTallDescription

@@ -1,3 +1,5 @@
+import mapLayerTypes from '../map-layer-types.config';
+
 export default [
   {
     id: 'biz',
@@ -224,24 +226,6 @@ export default [
     layers: ['buurt', 'buurt_label']
   },
   {
-    id: 'grexProjecten',
-    authScope: 'GREX/R',
-    url: 'maps/grondexploitatie?service=wms',
-    layers: ['grondexploitatie_polygons'],
-    detailUrl: 'geosearch/search/', // Geosearch URL
-    detailItem: 'grondexploitatie', // Geosearch name
-    detailIsShape: true
-  },
-  {
-    id: 'grexStadsdelen',
-    authScope: 'GREX/R',
-    url: 'maps/grondexploitatie?service=wms',
-    layers: ['stadsdeel_polygons'],
-    detailUrl: 'geosearch/search/', // Geosearch URL
-    detailItem: 'stadsdeel', // Geosearch name
-    detailIsShape: true
-  },
-  {
     id: 'bbn',
     url: 'maps/gebieden?service=wms',
     layers: ['bouwblok', 'bouwblok_label'],
@@ -291,7 +275,34 @@ export default [
     layers: ['referentiepunten'],
     noDetail: true
   },
-
+  // historisch
+  {
+    id: 'pw1909',
+    type: mapLayerTypes.TMS,
+    layers: ['publieke-werken'],
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1909-rd/{z}/{x}/{y}.png',
+    noDetail: true,
+    external: true,
+    bounds: [[52.3361, 4.84049], [52.4185, 4.96617]]
+  },
+  {
+    id: 'pw1943',
+    type: mapLayerTypes.TMS,
+    layers: ['publieke-werken'],
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-rd/{z}/{x}/{y}.png',
+    noDetail: true,
+    external: true,
+    bounds: [[52.3292, 4.8382], [52.4173, 4.9646]]
+  },
+  {
+    id: 'pw1985',
+    type: mapLayerTypes.TMS,
+    layers: ['publieke-werken'],
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1985-rd/{z}/{x}/{y}.png',
+    noDetail: true,
+    external: true,
+    bounds: [[52.2756, 4.74026], [52.4374, 5.04781]]
+  },
   // milieu bodem
   {
     id: 'mbgm',
@@ -526,11 +537,12 @@ export default [
     url: 'maps/overlastgebieden',
     layers: ['taxi-standplaatsgebied', 'taxi-standplaatsgebied_label']
   },
-  {
-    id: 'oovvz',
-    url: 'maps/overlastgebieden',
-    layers: ['vuurwerkvrijezone', 'vuurwerkvrijezone_label']
-  },
+  // to revive end of 2019
+  // {
+  //   id: 'oovvz',
+  //   url: 'maps/overlastgebieden',
+  //   layers: ['vuurwerkvrijezone', 'vuurwerkvrijezone_label']
+  // },
   // Toerisme en cultuur
   {
     id: 'tcmnmt',
@@ -744,6 +756,25 @@ export default [
     layers: ['erfpacht'],
     detailUrl: 'geosearch/search/',
     detailItem: 'kadastraal_object',
+    detailIsShape: true
+  },
+  // Stedelijke ontwikkeling
+  {
+    id: 'grexProjecten',
+    authScope: 'GREX/R',
+    url: 'maps/grondexploitatie?service=wms',
+    layers: ['grondexploitatie_polygons'],
+    detailUrl: 'geosearch/search/', // Geosearch URL
+    detailItem: 'grondexploitatie', // Geosearch name
+    detailIsShape: true
+  },
+  {
+    id: 'grexStadsdelen',
+    authScope: 'GREX/R',
+    url: 'maps/grondexploitatie?service=wms',
+    layers: ['stadsdeel_polygons'],
+    detailUrl: 'geosearch/search/', // Geosearch URL
+    detailItem: 'stadsdeel', // Geosearch name
     detailIsShape: true
   }
 ];

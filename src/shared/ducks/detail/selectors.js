@@ -16,13 +16,33 @@ export const getDetailEndpoint = createSelector(getDetail, (detail) => {
 export const getDetailDisplay = createSelector(getDetail, (detail) => detail && detail.display);
 export const isDetailLoading = createSelector(getDetail, (detail) => detail && detail.isLoading);
 
-// Todo: DP-6571
+export const getView = createSelector(getDetail, (detail) => detail && detail.view);
+
+export const getDetailObject = createSelector(
+  getDetail,
+  (detail) => detail && detail.detaiObject
+);
+
+export const getDetailTemplateUrl = createSelector(
+  getDetailObject,
+  (detailObject) => detailObject && detailObject.includeSrc
+);
+export const getDetailData = createSelector(
+  getDetailObject,
+  (detailObject) => detailObject && detailObject.data
+);
+
+export const getDetailFilterSelection = createSelector(
+  getDetailObject,
+  (detailObject) => detailObject && detailObject.filterSelection
+);
+
 export const shouldShowFullScreen = createSelector(
   getDetailGeometry,
   getViewMode,
   isDetailLoading,
   getPage,
   (geometry, viewMode, isLoading, currentPage) => (
-    !isLoading && viewMode === VIEW_MODE.SPLIT &&
+    !isLoading && (viewMode === VIEW_MODE.SPLIT || viewMode === VIEW_MODE.MAP) &&
     !geometry && currentPage === PAGES.DATA_DETAIL)
 );

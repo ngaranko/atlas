@@ -93,12 +93,7 @@ class MapContainer extends React.Component {
   }
 }
 
-MapContainer.contextTypes = {
-  store: PropTypes.object.isRequired
-};
-
 MapContainer.defaultProps = {
-  geometry: null,
   leafletInstance: null,
   showPreviewPanel: false,
   drawMode: 'none',

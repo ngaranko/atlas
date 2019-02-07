@@ -5,8 +5,8 @@ import {
   getDetailDisplay,
   isDetailLoading
 } from './selectors';
-import { FETCH_DETAIL, SHOW_DETAIL } from './constants';
-import { fetchDetail } from './actions';
+import { CLEAR_MAP_DETAIL, SHOW_DETAIL } from './constants';
+import { clearMapDetail } from './actions';
 
 describe('DetailReducer', () => {
   const initialState = {};
@@ -20,9 +20,9 @@ describe('DetailReducer', () => {
     });
   });
 
-  it(`should set the location when ${FETCH_DETAIL} is dispatched`, () => {
+  it(`should set the location when ${CLEAR_MAP_DETAIL} is dispatched`, () => {
     expect(reducer(initialState, {
-      type: FETCH_DETAIL,
+      type: CLEAR_MAP_DETAIL,
       payload: 'payload'
     })).toEqual({
       isLoading: true
@@ -46,10 +46,10 @@ describe('DetailReducer', () => {
 });
 
 describe('Detail Actions', () => {
-  describe('fetchDetail method', () => {
+  describe('clearMapDetail method', () => {
     it('should return an object with action type and payload containing an endpoint', () => {
-      expect(fetchDetail('endpoint')).toEqual({
-        type: FETCH_DETAIL,
+      expect(clearMapDetail('endpoint')).toEqual({
+        type: CLEAR_MAP_DETAIL,
         payload: 'endpoint'
       });
     });

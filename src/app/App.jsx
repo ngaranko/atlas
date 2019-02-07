@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import './_app.scss';
-import DatasetDetailContainer from './containers/DatasetDetailContainer';
+import DatasetDetailContainer from './containers/DatasetDetailContainer/DatasetDetailContainer';
 import {
   isEmbedded,
   isEmbedPreview,
@@ -15,7 +15,6 @@ import {
   isPrintOrEmbedMode
 } from '../shared/ducks/ui/ui';
 import { hasGlobalError } from '../shared/ducks/error/error-message';
-import { CMS_PAGE_MAPPING } from './pages/CMSPageMapping';
 import Home from './pages/Home';
 import { getUser } from '../shared/ducks/user/user';
 import { getPage, isHomepage } from '../store/redux-first-router/selectors';
@@ -25,7 +24,7 @@ import DatasetPage from './pages/DatasetPage';
 import { DataSearchQuery } from './components/DataSearch';
 import MapSplitPage from './pages/MapSplitPage';
 import ActualityContainer from './containers/ActualityContainer';
-import GeneralErrorMessage from './components/PanelMessages/ErrorMessage';
+import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -41,10 +40,6 @@ const App = ({
   user
 }) => {
   const isCmsPage = pageIsCmsPage(currentPage);
-  let cmsPageData;
-  if (isCmsPage) {
-    cmsPageData = CMS_PAGE_MAPPING[currentPage];
-  }
   const hasMaxWidth = homePage || isCmsPage;
 
   const rootClasses = classNames({
@@ -135,11 +130,7 @@ const App = ({
               )}
 
               {isCmsPage && (
-                <ContentPage
-                  name={cmsPageData.template}
-                  type={cmsPageData.type}
-                  item={cmsPageData.item}
-                />
+                <ContentPage />
               )}
             </div>
           </div>

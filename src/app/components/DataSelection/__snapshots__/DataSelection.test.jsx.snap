@@ -13,16 +13,12 @@ exports[`DataSelection should render LoadingIndicator 1`] = `
           "availableFilters": undefined,
           "dataset": "bag",
           "filters": Object {},
-          "geometryFilter": Object {
-            "markers": Array [],
-          },
+          "geometryFilter": Object {},
           "isLoading": true,
-          "numberOfRecords": undefined,
+          "numberOfRecords": 10,
           "showHeader": false,
-          "user": Object {
-            "scopes": Array [],
-          },
-          "view": undefined,
+          "user": Object {},
+          "view": "TABLE",
         }
       }
       component="dpDataSelectionHeader"
@@ -52,16 +48,12 @@ exports[`DataSelection should render as gesplitst 1`] = `
           "availableFilters": undefined,
           "dataset": "bag",
           "filters": Object {},
-          "geometryFilter": Object {
-            "markers": Array [],
-          },
+          "geometryFilter": Object {},
           "isLoading": false,
-          "numberOfRecords": undefined,
+          "numberOfRecords": 10,
           "showHeader": true,
-          "user": Object {
-            "scopes": Array [],
-          },
-          "view": undefined,
+          "user": Object {},
+          "view": "LIST",
         }
       }
       component="dpDataSelectionHeader"
@@ -74,10 +66,6 @@ exports[`DataSelection should render as gesplitst 1`] = `
       moduleName="dpDataSelectionHeaderWrapper"
     />
     <Connect(DataSelectionActiveFilters) />
-    <NoResultsForSearchType
-      authMessage={false}
-      message="Tip: verwijder een of meer criteria"
-    />
     <div
       className="u-grid qa-data-grid"
     >
@@ -86,7 +74,42 @@ exports[`DataSelection should render as gesplitst 1`] = `
       >
         <div
           className="u-col-sm--12"
-        />
+        >
+          <div>
+            <AngularWrapper
+              bindings={
+                Object {
+                  "content": undefined,
+                }
+              }
+              component="dpDataSelectionList"
+              dependencies={
+                Array [
+                  "atlas",
+                ]
+              }
+              interpolateBindings={Object {}}
+              moduleName="dpDataSelectionListWrapper"
+            />
+            <AngularWrapper
+              bindings={
+                Object {
+                  "currentPage": 1,
+                  "numberOfPages": undefined,
+                  "setPage": [Function],
+                }
+              }
+              component="dpDataSelectionPagination"
+              dependencies={
+                Array [
+                  "atlas",
+                ]
+              }
+              interpolateBindings={Object {}}
+              moduleName="dpDataSelectionPaginationWrapper"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -94,6 +117,112 @@ exports[`DataSelection should render as gesplitst 1`] = `
 `;
 
 exports[`DataSelection should render as volledig 1`] = `
+<div
+  className="c-data-selection c-dashboard__content"
+>
+  <div
+    className="qa-data-selection-content"
+  >
+    <AngularWrapper
+      bindings={
+        Object {
+          "availableFilters": undefined,
+          "dataset": "bag",
+          "filters": Object {},
+          "geometryFilter": Object {},
+          "isLoading": false,
+          "numberOfRecords": 10,
+          "showHeader": true,
+          "user": Object {},
+          "view": "TABLE",
+        }
+      }
+      component="dpDataSelectionHeader"
+      dependencies={
+        Array [
+          "atlas",
+        ]
+      }
+      interpolateBindings={Object {}}
+      moduleName="dpDataSelectionHeaderWrapper"
+    />
+    <Connect(DataSelectionActiveFilters) />
+    <div
+      className="u-grid qa-data-grid"
+    >
+      <div
+        className="u-row"
+      >
+        <div
+          className="u-col-sm--3 c-data-selection__available-filters"
+        >
+          <AngularWrapper
+            bindings={
+              Object {
+                "activeFilters": Object {},
+                "availableFilters": undefined,
+              }
+            }
+            component="dpDataSelectionAvailableFilters"
+            dependencies={
+              Array [
+                "atlas",
+              ]
+            }
+            interpolateBindings={
+              Object {
+                "dataset": "bag",
+              }
+            }
+            moduleName="dpDataSelectionAvailableFiltersWrapper"
+          />
+        </div>
+        <div
+          className="u-col-sm--9"
+        >
+          <div>
+            <AngularWrapper
+              bindings={
+                Object {
+                  "content": undefined,
+                  "dataset": "bag",
+                }
+              }
+              component="dpDataSelectionTable"
+              dependencies={
+                Array [
+                  "atlas",
+                ]
+              }
+              interpolateBindings={Object {}}
+              moduleName="dpDataSelectionTableWrapper"
+            />
+            <AngularWrapper
+              bindings={
+                Object {
+                  "currentPage": 1,
+                  "numberOfPages": undefined,
+                  "setPage": [Function],
+                }
+              }
+              component="dpDataSelectionPagination"
+              dependencies={
+                Array [
+                  "atlas",
+                ]
+              }
+              interpolateBindings={Object {}}
+              moduleName="dpDataSelectionPaginationWrapper"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DataSelection should render the container 1`] = `
 <div
   className="c-data-selection c-dashboard__content"
 >
@@ -115,7 +244,7 @@ exports[`DataSelection should render as volledig 1`] = `
           "user": Object {
             "scopes": Array [],
           },
-          "view": undefined,
+          "view": "LIST",
         }
       }
       component="dpDataSelectionHeader"
@@ -160,16 +289,12 @@ exports[`DataSelection should show authorization message if user has no permissi
           "availableFilters": undefined,
           "dataset": "bag",
           "filters": Object {},
-          "geometryFilter": Object {
-            "markers": Array [],
-          },
+          "geometryFilter": Object {},
           "isLoading": false,
-          "numberOfRecords": undefined,
+          "numberOfRecords": 10,
           "showHeader": true,
-          "user": Object {
-            "scopes": Array [],
-          },
-          "view": undefined,
+          "user": Object {},
+          "view": "TABLE",
         }
       }
       component="dpDataSelectionHeader"

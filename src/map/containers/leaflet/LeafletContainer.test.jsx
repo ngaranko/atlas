@@ -11,8 +11,8 @@ import {
   getMapZoom,
   getMarkers,
   getRdGeoJsons,
-  isMarkerActive,
-  isMapLoading
+  isMapLoading,
+  isMarkerActive
 } from '../../ducks/map/map-selectors';
 
 import {
@@ -34,7 +34,11 @@ import {
   fetchPanelLayers
 } from '../../ducks/panel-layers/map-panel-layers';
 import { isDrawingActive } from '../../services/draw-tool/draw-tool';
-import { getClusterMarkers, getGeoJsons, getBrkMarkers } from '../../../shared/ducks/data-selection/selectors';
+import {
+  getBrkMarkers,
+  getClusterMarkers,
+  getGeoJsons
+} from '../../../shared/ducks/data-selection/selectors';
 
 jest.mock('../../../shared/ducks/data-selection/selectors');
 jest.mock('../../ducks/base-layers/map-base-layers');

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResizeAware from 'react-resize-aware';
-import { Map, TileLayer, ZoomControl, ScaleControl, GeoJSON } from 'react-leaflet';
+import { GeoJSON, Map, ScaleControl, TileLayer, ZoomControl } from 'react-leaflet';
 
 import CustomMarker from './custom/marker/CustomMarker';
 import ClusterGroup from './custom/cluster-group/ClusterGroup';
@@ -10,10 +10,11 @@ import icons from './services/icons.constant';
 import geoJsonConfig from './services/geo-json-config.constant';
 import markerConfig from './services/marker-config.constant';
 import createClusterIcon from './services/cluster-icon';
-import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
+import { boundsToString, getBounds, isBoundsAPoint, isValidBounds } from './services/bounds';
 import MapBusyIndicator from './custom/map-busy-indicator/MapBusyIndicator';
 import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/map';
 import RdGeoJson from './custom/geo-json/RdGeoJson';
+import mapLayerTypes from '../../services/map-layer-types.config';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
@@ -30,6 +31,7 @@ const convertBounds = (map) => {
     }
   });
 };
+
 class MapLeaflet extends React.Component {
   constructor() {
     super();
@@ -166,6 +168,9 @@ class MapLeaflet extends React.Component {
       brkMarkers,
       isLoading
     } = this.props;
+
+    const tmsLayers = layers.filter((layer) => (layer.type === mapLayerTypes.TMS));
+    const nonTmsLayers = layers.filter((layer) => (layer.type !== mapLayerTypes.TMS));
     return (
       <ResizeAware
         style={{
@@ -193,17 +198,30 @@ class MapLeaflet extends React.Component {
             {...baseLayer.baseLayerOptions}
             url={baseLayer.urlTemplate}
           />
-          {
-            layers.map((layer) => (
-              <NonTiledLayer
-                key={layer.id}
-                {...layer.overlayOptions}
-                url={layer.url}
-                params={layer.params}
-                opacity={visibleToOpacity(layer.isVisible)}
-              />
-            ))
-          }
+          {tmsLayers.map(({ id: key, isVisible, url, bounds }) => (
+            <TileLayer
+              {...{
+                key,
+                url,
+                bounds
+              }}
+              tms
+              subdomains={baseLayer.baseLayerOptions.subdomains}
+              opacity={visibleToOpacity(isVisible)}
+            />
+          ))}
+
+          {nonTmsLayers.map(({ id: key, isVisible, url, params, overlayOptions }) => (
+            <NonTiledLayer
+              {...{
+                key,
+                url,
+                params
+              }}
+              {...overlayOptions}
+              opacity={visibleToOpacity(isVisible)}
+            />
+          ))}
           {
             Boolean(clusterMarkers.length) && (
               <ClusterGroup

@@ -318,6 +318,7 @@ export default [
       {
         id: 'ggwpg',
         layer: 'gebiedsgerichtwerkenpraktijkgebieden',
+        notClickable: true,
         selectable: true,
         title: 'Gebiedsgerichtwerken-praktijkgebied'
       }
@@ -619,6 +620,54 @@ export default [
     url: '/maps/meetbouten?version=1.3.0&service=WMS'
   },
   {
+    category: 'Topografie: historisch',
+    disabled: true,
+    legendItems: [
+      {
+        id: 'pw1909',
+        notClickable: false,
+        layer: 'burgerlijke_gemeente',
+        selectable: false,
+        title: '1909 (Dienst der Publieke Werken)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: '1909 (Dienst der Publieke Werken)'
+  },
+  {
+    category: 'Topografie: historisch',
+    disabled: true,
+    legendItems: [
+      {
+        id: 'pw1943',
+        notClickable: false,
+        layer: 'burgerlijke_gemeente',
+        selectable: false,
+        title: '1943 (Dienst der Publieke Werken)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: '1943 (Dienst der Publieke Werken)'
+  },
+  {
+    category: 'Topografie: historisch',
+    disabled: true,
+    legendItems: [
+      {
+        id: 'pw1985',
+        notClickable: false,
+        layer: 'burgerlijke_gemeente',
+        selectable: false,
+        title: '1985 (Dienst der Publieke Werken)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: '1985 (Dienst der Publieke Werken)'
+  },
+  {
     category: 'Verkeer en infrastructuur',
     legendItems: [
       {
@@ -836,18 +885,21 @@ export default [
         id: 'oovoalg',
         layer: 'algemeen_overlastgebied',
         selectable: true,
+        notClickable: true,
         title: 'Algemeen overlastgebied'
       },
       {
         id: 'oovodlrs',
         layer: 'dealeroverlastgebied',
         selectable: true,
+        notClickable: true,
         title: 'Dealeroverlastgebied'
       },
       {
         id: 'oovouitg',
         layer: 'uitgaansoverlastgebied',
         selectable: true,
+        notClickable: true,
         title: 'Uitgaansoverlastgebied'
       }
     ],
@@ -866,6 +918,7 @@ export default [
         title: 'Cameratoezichtgebied'
       }
     ],
+    notClickable: true,
     maxZoom: 16,
     minZoom: 8,
     title: 'Cameratoezichtgebieden',
@@ -882,6 +935,7 @@ export default [
         title: 'Alcoholverbodsgebied'
       }
     ],
+    notClickable: true,
     maxZoom: 16,
     minZoom: 8,
     title: 'Alcoholverbodsgebieden',
@@ -898,27 +952,30 @@ export default [
         imageRule: 'Taxi-standplaatsgebied'
       }
     ],
+    notClickable: true,
     maxZoom: 16,
     minZoom: 8,
     title: 'Omgeving taxi-standplaatsen',
     url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
   },
-  {
-    category: 'Openbare orde en veiligheid',
-    id: 'oovvz',
-    layers: ['vuurwerkvrijezone'],
-    legendItems: [
-      {
-        selectable: false,
-        title: 'Vuurwerkvrije zone',
-        imageRule: 'vuurwerkvrijezone'
-      }
-    ],
-    maxZoom: 16,
-    minZoom: 8,
-    title: 'Vuurwerkvrije zones',
-    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
-  },
+  // to revive end of 2019
+  // {
+  //   category: 'Openbare orde en veiligheid',
+  //   id: 'oovvz',
+  //   layers: ['vuurwerkvrijezone'],
+  //   legendItems: [
+  //     {
+  //       selectable: false,
+  //       title: 'Vuurwerkvrije zone',
+  //       imageRule: 'vuurwerkvrijezone'
+  //     }
+  //   ],
+  //   maxZoom: 16,
+  //   minZoom: 8,
+  //   notClickable: true,
+  //   title: 'Vuurwerkvrije zones',
+  //   url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+  // },
   {
     category: 'Toerisme en cultuur',
     id: 'tcmnmt',
@@ -1134,6 +1191,7 @@ export default [
         iconUrl: '/assets/images/map-legend/icon-bro-sondering.png'
       }
     ],
+    notClickable: true,
     maxZoom: 16,
     minZoom: 8,
     title: 'Geotechnische sonderingen (CPT BRO)'

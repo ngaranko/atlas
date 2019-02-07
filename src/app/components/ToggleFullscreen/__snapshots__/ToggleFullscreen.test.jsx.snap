@@ -3,12 +3,23 @@
 exports[`ToggleFullscreen actions rendering should render with fullscreen is turned off 1`] = `
 <IconButton
   alignLeft={false}
+  extraClass="qa-toggle-fullscreen"
   icon="minimize"
   onClick={
     [MockFunction] {
       "calls": Array [
         Array [],
         Array [],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
       ],
     }
   }
@@ -19,12 +30,23 @@ exports[`ToggleFullscreen actions rendering should render with fullscreen is tur
 exports[`ToggleFullscreen actions rendering should render with fullscreen is turned on 1`] = `
 <IconButton
   alignLeft={false}
+  extraClass="qa-toggle-fullscreen"
   icon="minimize"
   onClick={
     [MockFunction] {
       "calls": Array [
         Array [],
         Array [],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
       ],
     }
   }

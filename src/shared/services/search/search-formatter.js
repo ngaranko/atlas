@@ -1,5 +1,4 @@
 // Todo: fix / add tests
-/* istanbul ignore file */
 import SEARCH_CONFIG from './search-config';
 import isObject from '../is-object';
 
@@ -51,6 +50,7 @@ export function formatCategory(slug, endpointSearchResults) {
     results: formatLinks(slug, links),
     useIndenting: false,
     authScope: endpointConfig.authScope || null,
+    specialAuthScope: endpointConfig.specialAuthScope || null,
     next: (isObject(endpointSearchResults) &&
       endpointSearchResults._links &&
       endpointSearchResults._links.next.href) || null

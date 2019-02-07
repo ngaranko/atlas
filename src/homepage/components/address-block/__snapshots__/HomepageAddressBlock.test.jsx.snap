@@ -8,6 +8,11 @@ exports[`HomepageAddressBlock should render links 1`] = `
   hasTallDescription={true}
   linkAction={
     Object {
+      "meta": Object {
+        "query": Object {
+          "modus": "volledig",
+        },
+      },
       "type": "atlasRouter/ADDRESSES",
     }
   }

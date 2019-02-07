@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'redux-first-router-link';
 import { routing } from '../../routes';
 import Notification from '../../../shared/components/notification/Notification';
-import { BEDIENING_LOGIN_DEEPLINK } from '../../pages/CMSPageMapping';
+import { BEDIENING_LOGIN_DEEPLINK } from '../../../shared/ducks/content/constants';
 
 const MoreResultsWhenLoggedIn = () => (
   <Notification

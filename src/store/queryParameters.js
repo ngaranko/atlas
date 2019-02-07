@@ -241,7 +241,10 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.LAYERS, (routes) => {
-    routes.add(routesWithMapActive, MAP, 'overlays', {
+    routes.add([
+      ...routesWithMapActive,
+      ...routesWithSearch
+    ], MAP, 'overlays', {
       defaultValue: mapInitialState.overlays,
       decode: (val) => (
         val ? val.split('|').map((obj) => {

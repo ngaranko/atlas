@@ -462,10 +462,7 @@ describe('draw-tool service', () => {
         currentShape.markers = latLngsArray;
         currentShape.markersMaxCount = 4;
         drawTool.drawingMode = drawToolConfig.DRAWING_MODE.DRAW;
-        jest.useFakeTimers();
         autoClose();
-        expect(drawTool.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.DRAW);
-        jest.runAllTimers();
         expect(drawTool.drawingMode).toEqual(drawToolConfig.DRAWING_MODE.NONE);
       });
     });
@@ -582,12 +579,6 @@ describe('draw-tool service', () => {
         drawTool.drawnItems = layer;
         layer.getLatLngs.mockImplementation(() => ([latLngsPolygon]));
         polygonMock.mockImplementation(() => ({ ...layer }));
-      });
-
-      it('should ignore the unknown events', () => {
-        drawTool.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
-        handleDrawEvent('UNKNOWN_EVENT');
-        expect(drawTool.lastEvent).toEqual('UNKNOWN_EVENT');
       });
 
       it('should handle the DRAWSTART event', () => {
