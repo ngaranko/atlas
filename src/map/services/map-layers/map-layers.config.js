@@ -275,7 +275,34 @@ export default [
     layers: ['referentiepunten'],
     noDetail: true
   },
-
+  // historisch
+  {
+    id: 'pw1909',
+    type: mapLayerTypes.TMS,
+    layers: ['publieke-werken'],
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1909-rd/{z}/{x}/{y}.png',
+    noDetail: true,
+    external: true,
+    bounds: [[52.3361, 4.84049], [52.4185, 4.96617]]
+  },
+  {
+    id: 'pw1943',
+    type: mapLayerTypes.TMS,
+    layers: ['publieke-werken'],
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-rd/{z}/{x}/{y}.png',
+    noDetail: true,
+    external: true,
+    bounds: [[52.3292, 4.8382], [52.4173, 4.9646]]
+  },
+  {
+    id: 'pw1985',
+    type: mapLayerTypes.TMS,
+    layers: ['publieke-werken'],
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1985-rd/{z}/{x}/{y}.png',
+    noDetail: true,
+    external: true,
+    bounds: [[52.2756, 4.74026], [52.4374, 5.04781]]
+  },
   // milieu bodem
   {
     id: 'mbgm',
@@ -523,15 +550,6 @@ export default [
     layers: ['monumenten'],
     detailUrl: 'geosearch/search/',
     detailItem: 'monument'
-  },
-  {
-    id: 'pw1943',
-    type: mapLayerTypes.TMS,
-    layers: ['publieke-werken'],
-    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-rd/{z}/{x}/{y}.png',
-    noDetail: true,
-    external: true,
-    bounds: [[52.3292, 4.8382], [52.4173, 4.9646]]
   },
   // Verkeer
   {
