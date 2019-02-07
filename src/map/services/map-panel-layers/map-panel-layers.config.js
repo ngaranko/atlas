@@ -624,6 +624,22 @@ export default [
     disabled: true,
     legendItems: [
       {
+        id: 'pw1909',
+        notClickable: false,
+        layer: 'burgerlijke_gemeente',
+        selectable: false,
+        title: '1909 (Dienst der Publieke Werken)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: '1909 (Dienst der Publieke Werken)'
+  },
+  {
+    category: 'Topografie: historisch',
+    disabled: true,
+    legendItems: [
+      {
         id: 'pw1943',
         notClickable: false,
         layer: 'burgerlijke_gemeente',
@@ -634,6 +650,22 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: '1943 (Dienst der Publieke Werken)'
+  },
+  {
+    category: 'Topografie: historisch',
+    disabled: true,
+    legendItems: [
+      {
+        id: 'pw1985',
+        notClickable: false,
+        layer: 'burgerlijke_gemeente',
+        selectable: false,
+        title: '1985 (Dienst der Publieke Werken)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: '1985 (Dienst der Publieke Werken)'
   },
   {
     category: 'Verkeer en infrastructuur',
