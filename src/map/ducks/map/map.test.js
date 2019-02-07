@@ -4,7 +4,7 @@ import reducer, {
   mapEmptyGeometry,
   mapEndDrawing,
   mapLoadingAction,
-  mapStartDrawing,
+  mapSetDrawingMode,
   mapUpdateShape,
   setMapBaseLayer,
   setSelectedLocation,
@@ -55,11 +55,11 @@ describe('Map Reducer', () => {
     expect(reducer({}, mapUpdateShape(payloadAndResult))).toEqual(payloadAndResult);
   });
 
-  it('should set the drawing mode when dispatching mapStartDrawing', () => {
+  it('should set the drawing mode when dispatching mapSetDrawingMode', () => {
     const payloadAndResult = {
       drawingMode: 1
     };
-    expect(reducer({}, mapStartDrawing(payloadAndResult))).toEqual(payloadAndResult);
+    expect(reducer({}, mapSetDrawingMode(payloadAndResult))).toEqual(payloadAndResult);
   });
 
   it('should set the geometry and drawing mode when dispatching mapEndDrawing', () => {
@@ -70,7 +70,8 @@ describe('Map Reducer', () => {
     }))).toEqual({
       ...initialState,
       drawingMode: 'none',
-      geometry: undefined
+      geometry: undefined,
+      isLoading: true
     });
 
     expect(reducer(initialState, mapEndDrawing({
@@ -80,7 +81,8 @@ describe('Map Reducer', () => {
     }))).toEqual({
       ...initialState,
       drawingMode: 'none',
-      geometry: []
+      geometry: [],
+      isLoading: true
     });
 
     expect(reducer(initialState, mapEndDrawing({
@@ -91,7 +93,7 @@ describe('Map Reducer', () => {
       ...initialState,
       drawingMode: 'none',
       geometry: [{}, {}],
-      isLoading: false
+      isLoading: true
     });
   });
 

@@ -6,7 +6,7 @@ import DrawToolContainer from './DrawToolContainer';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 
 import { isEnabled } from '../../services/draw-tool/draw-tool';
-import { mapClear, mapStartDrawing, mapUpdateShape } from '../../ducks/map/map';
+import { mapClear, mapSetDrawingMode, mapUpdateShape } from '../../ducks/map/map';
 import { setGeometryFilter } from '../../../shared/ducks/data-selection/actions';
 
 jest.mock('../../services/draw-tool/draw-tool');
@@ -122,19 +122,19 @@ describe('DrawToolContainer', () => {
     });
 
     describe('onDrawingMode', () => {
-      it('should dispatch MAP_START_DRAWING when the drawing mode set to DRAW', () => {
+      it('should dispatch MAP_CHANGE_MAP_SET_DRAWING_MODEDRAWING_MODE when the drawing mode set to DRAW', () => {
         wrapper.setProps({ currentShape: { markers } });
         wrapperInstance.onDrawingMode(drawToolConfig.DRAWING_MODE.DRAW);
         expect(store.dispatch).toHaveBeenCalledWith(
-          mapStartDrawing({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW })
+          mapSetDrawingMode({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW })
         );
       });
 
-      it('should dispatch MAP_START_DRAWING when the drawing mode set to EDIT', () => {
+      it('should dispatch MAP_SET_DRAWING_MODE when the drawing mode set to EDIT', () => {
         wrapper.setProps({ currentShape: { markers } });
         wrapperInstance.onDrawingMode(drawToolConfig.DRAWING_MODE.EDIT);
         expect(store.dispatch).toHaveBeenCalledWith(
-          mapStartDrawing({ drawingMode: drawToolConfig.DRAWING_MODE.EDIT })
+          mapSetDrawingMode({ drawingMode: drawToolConfig.DRAWING_MODE.EDIT })
         );
       });
     });

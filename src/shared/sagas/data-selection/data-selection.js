@@ -20,8 +20,8 @@ import {
 import { preserveQuery, toDatasetPage } from '../../../store/redux-first-router/actions';
 import {
   getPage,
-  isDataSelectionAuthPage,
-  isDataSelectionPage
+  isDataSelectionPage,
+  hasUserAccesToPage
 } from '../../../store/redux-first-router/selectors';
 import { cancel, disable, enable, setPolygon } from '../../../map/services/draw-tool/draw-tool';
 import {
@@ -35,7 +35,9 @@ import {
   SET_GEOMETRY_FILTER,
   SET_PAGE,
   START_DATA_SELECTION,
-  VIEWS_TO_PARAMS
+  VIEWS_TO_PARAMS,
+  FETCH_MARKERS_SUCCESS,
+  FETCH_DATA_SELECTION_SUCCESS
 } from '../../ducks/data-selection/constants';
 import {
   getDataSelection,
@@ -50,20 +52,20 @@ import {
   MAP_BOUNDING_BOX,
   mapEmptyGeometry,
   mapEndDrawing,
-  mapStartDrawing
+  mapSetDrawingMode,
+  mapLoadingAction
 } from '../../../map/ducks/map/map';
 import PARAMETERS from '../../../store/parameters';
 import drawToolConfig from '../../../map/services/draw-tool/draw-tool.config';
 import { getViewMode, SET_VIEW_MODE, VIEW_MODE } from '../../ducks/ui/ui';
 import PAGES from '../../../app/pages';
-import { userIsAuthenticated } from '../../ducks/user/user';
 
 export function* mapBoundsEffect() {
   const page = yield select(getPage);
   yield call(waitForAuthentication);
-  const isAuthenticated = yield select(userIsAuthenticated);
+  const callFetchMarkers = yield select(hasUserAccesToPage);
 
-  if (page === PAGES.CADASTRAL_OBJECTS && isAuthenticated) {
+  if (page === PAGES.CADASTRAL_OBJECTS && callFetchMarkers) {
     yield put(fetchMarkersRequest());
   }
 }
@@ -98,31 +100,34 @@ function* retrieveDataSelection(action) {
 
   try {
     yield call(waitForAuthentication);
-    const [activeFilters, shape, view, dataset, page] = yield all([
+
+    const [activeFilters, shape, view, dataset, page, userAccesToPage] = yield all([
       select(getFiltersWithoutShape),
       select(getGeomarkersShape),
       select(getViewMode),
       select(getDataset),
-      select(getDataSelectionPage)
+      select(getDataSelectionPage),
+      select(hasUserAccesToPage)
     ]);
     // exclude the geometryFilter from the attribute filters
     // TODO DP-6442 improve the geometryFilter handling
     const activeAttributeFilters = Object.keys(activeFilters)
-                                         .reduce((result, key) => ({
-                                           ...result,
-                                           [key]: activeFilters[key]
-                                         }), {});
+      .reduce((result, key) => ({
+        ...result,
+        [key]: activeFilters[key]
+      }), {});
 
-    const result = yield call(
-      query,
-      dataset,
-      VIEWS_TO_PARAMS[view],
-      activeAttributeFilters,
-      page,
-      searchText,
-      shape,
-      catalogFilters
-    );
+    const result = (userAccesToPage)
+      ? yield call(
+        query,
+        dataset,
+        VIEWS_TO_PARAMS[view],
+        activeAttributeFilters,
+        page,
+        searchText,
+        shape,
+        catalogFilters
+      ) : {};
     // Put the results in the reducer
     yield put(receiveDataSelectionSuccess({ activeFilters, shape, result }));
 
@@ -152,23 +157,21 @@ function* requestDataSelectionEffect() {
 }
 
 export function* fetchDataSelectionEffect() {
-  let callDataSelection = true;
-  const dataSelectionAuthPage = yield select(isDataSelectionAuthPage);
   const view = yield select(getViewMode);
   if (view === VIEW_MODE.SPLIT) {
     yield put(closeMapPanel());
   }
 
-  if (dataSelectionAuthPage) {
-    yield call(waitForAuthentication);
-    const isAuthenticated = yield select(userIsAuthenticated);
-
-    callDataSelection = isAuthenticated;
-  }
+  yield call(waitForAuthentication);
+  const callDataSelection = yield select(hasUserAccesToPage);
 
   // Always ensure we are on the right page, otherwise this can be called unintentionally
   if (callDataSelection) {
     yield call(requestDataSelectionEffect);
+  } else {
+    yield put(receiveDataSelectionSuccess({
+      result: null
+    }));
   }
 }
 
@@ -211,7 +214,7 @@ function* clearDrawing() {
 function* startDrawing() {
   yield call(setPolygon, []);
   yield call(enable);
-  yield put(mapStartDrawing({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW }));
+  yield put(mapSetDrawingMode({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW }));
 }
 
 function* endDrawing() {
@@ -221,6 +224,14 @@ function* endDrawing() {
 function* cancelDrawing() {
   yield put(mapEmptyGeometry());
   yield call(cancel);
+}
+
+function* startMapLoading() {
+  yield put(mapLoadingAction(true));
+}
+
+function* endMapLoading() {
+  yield put(mapLoadingAction(false));
 }
 
 export default function* watchFetchDataSelection() {
@@ -242,6 +253,8 @@ export default function* watchFetchDataSelection() {
   yield takeLatest(FETCH_DATA_SELECTION_REQUEST, retrieveDataSelection);
   yield takeLatest(SET_DATASET, switchPage);
   yield takeLatest(FETCH_MARKERS_REQUEST, requestMarkersEffect);
+  yield takeLatest([FETCH_DATA_SELECTION_REQUEST, FETCH_MARKERS_REQUEST], startMapLoading);
+  yield takeLatest([FETCH_DATA_SELECTION_SUCCESS, FETCH_MARKERS_SUCCESS], endMapLoading);
 
   yield takeLatest(RESET_DATA_SELECTION, clearDrawing);
   yield takeLatest(START_DATA_SELECTION, startDrawing);

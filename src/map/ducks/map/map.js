@@ -10,7 +10,7 @@ export const MAP_BOUNDING_BOX = 'MAP_BOUNDING_BOX';
 export const MAP_EMPTY_GEOMETRY = 'MAP_EMPTY_GEOMETRY';
 export const MAP_END_DRAWING = 'MAP_END_DRAWING';
 export const MAP_PAN = 'MAP_PAN';
-export const MAP_START_DRAWING = 'MAP_START_DRAWING';
+export const MAP_SET_DRAWING_MODE = 'MAP_SET_DRAWING_MODE';
 export const MAP_UPDATE_SHAPE = 'MAP_UPDATE_SHAPE';
 export const MAP_ZOOM = 'MAP_ZOOM';
 export const MAP_CLEAR = 'MAP_CLEAR';
@@ -87,7 +87,7 @@ export default function MapReducer(state = initialState, action) {
         shapeAreaTxt: action.payload.shapeAreaTxt
       };
 
-    case MAP_START_DRAWING:
+    case MAP_SET_DRAWING_MODE:
       return {
         ...enrichedState,
         drawingMode: action.payload.drawingMode
@@ -97,12 +97,11 @@ export default function MapReducer(state = initialState, action) {
       polygon = action.payload && action.payload.polygon;
       has2Markers = polygon && polygon.markers && polygon.markers.length === 2;
       moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2;
-
       return {
         ...enrichedState,
         drawingMode: drawToolConfig.DRAWING_MODE.NONE,
         geometry: has2Markers ? polygon.markers : moreThan2Markers ? [] : enrichedState.geometry,
-        isLoading: enrichedState.isLoading
+        isLoading: true
       };
 
     case SET_MAP_BASE_LAYER:
@@ -176,7 +175,7 @@ export default function MapReducer(state = initialState, action) {
 
     case MAP_LOADING:
       return {
-        ...state,
+        ...enrichedState,
         isLoading: action.payload
       };
 
@@ -188,8 +187,8 @@ export default function MapReducer(state = initialState, action) {
 // Actions
 export const mapEmptyGeometry = () => ({ type: MAP_EMPTY_GEOMETRY });
 export const mapUpdateShape = (payload) => ({ type: MAP_UPDATE_SHAPE, payload });
-export const mapStartDrawing = (payload) => ({
-  type: MAP_START_DRAWING,
+export const mapSetDrawingMode = (payload) => ({
+  type: MAP_SET_DRAWING_MODE,
   payload,
   meta: {
     tracking: payload.drawingMode

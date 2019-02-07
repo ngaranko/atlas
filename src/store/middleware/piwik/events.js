@@ -40,7 +40,7 @@ import {
 import {
   SET_MAP_BASE_LAYER,
   SET_MAP_CLICK_LOCATION,
-  MAP_START_DRAWING
+  MAP_SET_DRAWING_MODE
 } from '../../../map/ducks/map/map';
 import { getShapeMarkers } from '../../../map/ducks/map/map-selectors';
 import {
@@ -223,7 +223,7 @@ const events = {
     null
   ],
   // DRAW TOOL
-  [MAP_START_DRAWING]: function trackDrawing({ tracking, state, title }) {
+  [MAP_SET_DRAWING_MODE]: function trackDrawing({ tracking, state, title }) {
     const markers = getShapeMarkers(state);
     return (tracking === 'none' && markers === 2) ? [
       PIWIK_CONSTANTS.TRACK_EVENT,
