@@ -6,7 +6,7 @@ import SearchListItem from '../SearchListItem/SearchListItem';
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import Panel from '../Panel/Panel';
 import { routing } from '../../routes';
-import { BEDIENING_LOGIN_DEEPLINK } from '../../pages/CMSPageMapping';
+import { BEDIENING_LOGIN_DEEPLINK } from '../../../shared/ducks/content/constants';
 
 const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults, userScopes }) => {
   const results = (categoryResults && categoryResults.results) ?
