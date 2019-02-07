@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'redux-first-router-link';
 import { toDetailFromEndpoint } from '../../../store/redux-first-router/actions';
 import SearchListItem from '../SearchListItem/SearchListItem';
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import Panel from '../Panel/Panel';
+import { routing } from '../../routes';
+import { BEDIENING_LOGIN_DEEPLINK } from '../../pages/CMSPageMapping';
 
 const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults, userScopes }) => {
   const results = (categoryResults && categoryResults.results) ?
@@ -15,13 +18,24 @@ const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults, use
   const showSpecialPermissionMessage = (
     categoryResults.specialAuthScope && !userScopes.includes(categoryResults.specialAuthScope)
   );
+  const link = (
+    <Link
+      className="c-link--light qa-link-to-page-button qa-dp-link"
+      to={{
+        type: routing.bediening.type,
+        payload: { deeplink: BEDIENING_LOGIN_DEEPLINK }
+      }}
+    >
+      Help &#62; Bediening &#62; Inloggen
+    </Link>
+  );
   return (
     <div className="qa-search-results-list">
       {showSpecialPermissionMessage && (
         <Panel canClose type="warning" isPanelVisible>
           <p className="c-panel__paragraph">
-            Medewerkers met speciale bevoegdheden kunnen inloggen om kadastrale objecten met
-            zakelijk rechthebbenden te bekijken.
+            Medewerkers met speciale bevoegdheden kunnen alle gegevens vinden
+            (ook natuurlijke personen). Zie {link}
           </p>
         </Panel>
       )}
