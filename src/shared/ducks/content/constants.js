@@ -1,4 +1,14 @@
-import PAGES from '../pages';
+import PAGES from '../../../app/pages';
+
+export const REDUCER_KEY = 'content';
+export const NAVIGATE = `${REDUCER_KEY}/NAVIGATE`;
+export const SET_ITEM = `${REDUCER_KEY}/SET_ITEM`;
+
+export const initialState = {
+  item: '',
+  type: '',
+  template: ''
+};
 
 const PAGE_TEMPLATE = {
   home: 'home',
@@ -19,9 +29,6 @@ const PAGE_TYPES = {
   verplaatst: 'verplaatst',
   niet_gevonden: 'nietgevonden'
 };
-
-// Help > Bediening > Inloggen deeplink id
-export const BEDIENING_LOGIN_DEEPLINK = 'snelwegwijsitem9';
 
 /**
  * Maps site page to CMS page variables
@@ -87,3 +94,6 @@ export const CMS_PAGE_MAPPING = {
     type: PAGE_TYPES.niet_gevonden
   }
 };
+
+// Help > Bediening > Inloggen deeplink id
+export const BEDIENING_LOGIN_DEEPLINK = 'snelwegwijsitem9';

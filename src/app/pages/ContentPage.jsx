@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
+import { connect } from 'react-redux';
 import Footer from '../components/Footer/Footer';
+import { getItem, getTemplateName, getType } from '../../shared/ducks/content/selectors';
 
 /* istanbul ignore next */ // TODO: refactor, test
-const ContentPage = ({ name, item, type, showFooter }) => (
+const ContentPage = ({ templateName, item, type, showFooter }) => (
   <div
     style={{ display: 'block' }}
     className="c-dashboard__column  u-col-sm--12 qa-dashboard__column--right"
@@ -17,7 +19,7 @@ const ContentPage = ({ name, item, type, showFooter }) => (
             component={'dpPage'}
             dependencies={['atlas']}
             interpolateBindings={{
-              name,
+              name: templateName,
               type,
               item
             }}
@@ -32,16 +34,20 @@ const ContentPage = ({ name, item, type, showFooter }) => (
 );
 
 ContentPage.defaultProps = {
-  type: '',
-  showFooter: false,
-  item: []
+  showFooter: false
 };
 
 ContentPage.propTypes = {
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  item: PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  templateName: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  item: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
   showFooter: PropTypes.bool
 };
 
-export default ContentPage;
+const mapStateToProps = (state) => ({
+  item: getItem(state),
+  type: getType(state),
+  templateName: getTemplateName(state)
+});
+
+export default connect(mapStateToProps, null)(ContentPage);

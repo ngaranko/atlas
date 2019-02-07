@@ -33,12 +33,7 @@ exports[`App should render the homepage 1`] = `
       <div
         className="u-row u-full-height"
       >
-        <ContentPage
-          item={Array []}
-          name="content-overzicht"
-          showFooter={false}
-          type="nietgevonden"
-        />
+        <Connect(ContentPage) />
       </div>
     </div>
   </div>
@@ -78,12 +73,7 @@ exports[`App should render the mapview 1`] = `
       <div
         className="u-row u-full-height"
       >
-        <ContentPage
-          item={Array []}
-          name="content-overzicht"
-          showFooter={false}
-          type="nietgevonden"
-        />
+        <Connect(ContentPage) />
       </div>
     </div>
   </div>

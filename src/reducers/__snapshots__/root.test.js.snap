@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the root reducer combines many reducers 1`] = `
+Object {
+  "autoSuggest": "autoSuggest",
+  "content": "content",
+  "dataSearch": "dataSearch",
+  "dataSelection": "dataSelection",
+  "datasets": "datasets",
+  "detail": "detail",
+  "error": "error",
+  "filter": "filter",
+  "location": "location",
+  "map": "map",
+  "mapDetail": "mapDetail",
+  "mapLayers": Object {
+    "baseLayers": "baseLayers",
+    "layers": "layers",
+    "panelLayers": "panelLayers",
+  },
+  "panorama": "panorama",
+  "panoramaPreview": "panoramaPreview",
+  "selection": "selection",
+  "ui": "ui",
+  "user": "user",
+}
+`;
