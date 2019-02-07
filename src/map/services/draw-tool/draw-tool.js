@@ -36,7 +36,6 @@ export const drawTool = {
   drawnItems: null,
   drawShapeHandler: null,
   editShapeHandler: null,
-  lastEvent: null,
   // these callback methods will be called on a finished polygon and on a change of drawing mode
   onFinishShape: () => {},
   onDrawingMode: () => {},
@@ -200,6 +199,7 @@ export function enforceLimits() {
   } else {
     // check for auto close of shape in drawing mode
     autoClose();
+    onChangePolygon(); // trigger change on new consistent state of the polygon
   }
 }
 
@@ -240,8 +240,6 @@ export function handleDrawEvent(eventName, e) {
     // Triggered when layers have been removed (and saved) from the FeatureGroup
     DELETED: () => {
       currentShape.layer = null;
-      // cancel();
-      // setDrawingMode(drawToolConfig.DRAWING_MODE.NONE);
     }
   };
 
@@ -249,8 +247,6 @@ export function handleDrawEvent(eventName, e) {
   if (handler) {
     handler(e);
   }
-
-  drawTool.lastEvent = eventName;
 }
 
 function editVertex(vertex) {
@@ -275,14 +271,14 @@ function registerDrawEvents() {
       L.DomUtil.enableTextSelection();
 
       // Execute this code after leaflet.draw has finished the event
-      enforceLimits(); // max vertices, auto close when max reached
-      if (currentShape.isConsistent) {
-        onChangePolygon(); // trigger change on new consistent state of the polygon
-      }
+      defer(() => {
+        enforceLimits(); // max vertices, auto close when max reached
+      });
     });
   });
+
+  // fix for firefox onUpdateShape not fired
   defer(() => {
-    // fix for firefox onUpdateShape not fired
     onChangePolygon();
   });
 }
