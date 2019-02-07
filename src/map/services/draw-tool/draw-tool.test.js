@@ -581,12 +581,6 @@ describe('draw-tool service', () => {
         polygonMock.mockImplementation(() => ({ ...layer }));
       });
 
-      it('should ignore the unknown events', () => {
-        drawTool.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
-        handleDrawEvent('UNKNOWN_EVENT');
-        expect(drawTool.lastEvent).toEqual('UNKNOWN_EVENT');
-      });
-
       it('should handle the DRAWSTART event', () => {
         drawTool.drawingMode = drawToolConfig.DRAWING_MODE.NONE;
         handleDrawEvent('DRAWSTART');
