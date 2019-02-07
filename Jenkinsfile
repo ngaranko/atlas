@@ -17,7 +17,6 @@ pipeline {
   stages {
 
     stage('Check API\'s health') {
-      when { not { branch 'master' } }
       options {
         timeout(time: 2, unit: 'MINUTES')
       }
@@ -37,7 +36,6 @@ pipeline {
     }
 
     stage('Unit tests') {
-      when { not { branch 'master' } }
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
@@ -55,7 +53,6 @@ pipeline {
     }
 
     stage('Run tests') {
-      when { not { branch 'master' } }
       parallel {
         stage('E2E tests') {
           options {
@@ -99,8 +96,7 @@ pipeline {
     }
 
     stage('Build A') {
-      when { not { branch 'master' } }
-      // when { branch 'master' }
+      when { branch 'master' }
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
@@ -114,8 +110,7 @@ pipeline {
     }
 
     stage('Deploy A (Master)') {
-      when { not { branch 'master' } }
-      // when { branch 'master' }
+      when { branch 'master' }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
