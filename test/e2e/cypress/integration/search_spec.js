@@ -15,7 +15,7 @@ const SEARCHPAGE_SELECTORS = {
 
 const DETAIL_PAGE = '.qa-detail';
 
-const HEADINGS = ['Straatnamen', 'Adressen', 'Openbare ruimte', 'Monumenten', 'Pand'];
+const HEADINGS = ['Straatnamen', 'Adressen', 'Openbare ruimte', 'Pand', 'Monumenten'];
 
 describe('search module', () => {
   beforeEach(() => {

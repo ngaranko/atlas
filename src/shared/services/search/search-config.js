@@ -21,6 +21,11 @@ export default {
       uri: 'atlas/search/openbareruimte/',
       options: { subtype: 'not_weg' }
     }, {
+      slug: 'pand',
+      label_singular: 'Pand',
+      label_plural: 'Panden',
+      uri: 'atlas/search/pand/'
+    }, {
       slug: 'vestiging',
       label_singular: 'Vestiging',
       label_plural: 'Vestigingen',
@@ -64,11 +69,6 @@ export default {
       label_singular: 'Monument',
       label_plural: 'Monumenten',
       uri: 'monumenten/search/'
-    }, {
-      slug: 'pand',
-      label_singular: 'Pand',
-      label_plural: 'Panden',
-      uri: 'atlas/search/pand/'
     }
   ],
   COORDINATES_ENDPOINTS: [
