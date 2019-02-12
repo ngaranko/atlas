@@ -728,77 +728,66 @@ export default [
   },
   {
     category: 'Verkeer en infrastructuur',
-    id: 'pvr',
-    notClickable: true,
-    layers: ['parkeervakken_reservering'],
     legendItems: [
       {
-        selectable: false,
+        id: 'pvrf',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
         title: 'FISCAAL'
       },
       {
-        selectable: false,
+        id: 'pvrpv',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
         title: 'Parkeerverbod'
       },
       {
-        selectable: false,
-        title: 'Verbod stil te staan'
-      },
-      {
-        selectable: false,
-        title: 'Verbod (brom)fietsen plaatsen'
-      },
-      {
-        selectable: false,
-        title: 'Parkeergelegenheid'
-      },
-      {
-        selectable: false,
+        id: 'pvrts',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
         title: 'Taxistandplaats'
       },
       {
-        selectable: false,
-        title: 'Gehandicaptenplaats'
-      },
-      {
-        selectable: false,
+        id: 'pvrga',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
         title: 'Gehandicaptenplaats algemeen'
       },
       {
-        selectable: false,
+        id: 'pvrgk',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
         title: 'Gehandicaptenplaats kenteken'
       },
       {
-        selectable: false,
+        id: 'pvrll',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
         title: 'Laden lossen'
       },
       {
-        selectable: false,
+        id: 'pvrsv',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
         title: 'Specifieke voertuigcategorie'
       },
       {
-        selectable: false,
+        id: 'pvrvh',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
         title: 'Vergunninghouders'
       },
       {
-        selectable: false,
+        id: 'pvrbz',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
         title: 'Blauwe zone'
       },
       {
-        selectable: false,
-        title: 'Einde blauwe zone'
-      },
-      {
-        selectable: false,
+        id: 'pvrpr',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
         title: 'Park & Ride'
-      },
-      {
-        selectable: false,
-        title: 'Carpool'
-      },
-      {
-        selectable: false,
-        title: 'MULDER'
       }
     ],
     maxZoom: 16,
