@@ -59,7 +59,8 @@ const scopes = [
   'GREX/R', // Leesrechten
 
   // Catalogus (Dcatd) admin
-  'CAT/W' // Schrijfrechten
+  'CAT/R', // Redacteursrechten
+  'CAT/W' // Beheerdersrechten
 ];
 const encodedScopes = encodeURIComponent(scopes.join(' '));
 // The URI we need to redirect to for communication with the OAuth2
