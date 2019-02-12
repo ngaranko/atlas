@@ -13,15 +13,15 @@ import {
   getMapZoom,
   isMapPanelActive
 } from '../map/ducks/map/map-selectors';
-import { historyOptions, initialState as panoramaInitialState } from '../panorama/ducks/constants';
+import { initialState as panoramaInitialState } from '../panorama/ducks/constants';
 import { PANORAMA } from '../panorama/ducks/reducer';
 import {
   getDetailReference,
   getPageReference,
   getPanoramaHeading,
-  getPanoramaHistory,
   getPanoramaLocation,
-  getPanoramaPitch
+  getPanoramaPitch,
+  getPanoramaTags
 } from '../panorama/ducks/selectors';
 import {
   getDataSearchLocation,
@@ -163,19 +163,11 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.PANORAMA_SET, (routes) => {
-    routes.add(routing.panorama.type, PANORAMA, 'history', {
-      defaultValue: panoramaInitialState.history,
-      selector: getPanoramaHistory,
-      encode: (selectorResult) => selectorResult.tags.join(','),
-      decode: (val) => {
-        if (val) {
-          const tags = val.split(',');
-          return historyOptions.find((opt) => (
-            JSON.stringify(opt.tags.sort()) === JSON.stringify(tags)
-          )) || panoramaInitialState.history;
-        }
-        return val;
-      }
+    routes.add(routing.panorama.type, PANORAMA, 'tags', {
+      defaultValue: panoramaInitialState.tags,
+      selector: getPanoramaTags,
+      encode: (selectorResult) => selectorResult.join(','),
+      decode: (val) => ((val) && val.split(','))
     });
   })
   .addParameter(PARAMETERS.PITCH, (routes) => {

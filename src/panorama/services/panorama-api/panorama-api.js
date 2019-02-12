@@ -36,8 +36,8 @@ export const PANORAMA_CONFIG = {
 const prefix = PANORAMA_CONFIG.PANORAMA_ENDPOINT_PREFIX;
 const suffix = PANORAMA_CONFIG.PANORAMA_ENDPOINT_SUFFIX;
 
-export const getLocationHistoryParams = (location, history) => {
-  const tags = (history && history.tags) ? `&tags=${history.tags}` : '';
+export const getLocationHistoryParams = (location, tags) => {
+  const tagsQuery = (Array.isArray(tags)) ? `&tags=${tags}` : '';
   const newestInRange = 'newest_in_range=true';
   const pageSize = 'page_size=1';
 
@@ -47,8 +47,8 @@ export const getLocationHistoryParams = (location, history) => {
     newestInRange,
     standardRadius: `radius=${PANORAMA_CONFIG.MAX_RADIUS}`,
     largeRadius: `radius=${PANORAMA_CONFIG.LARGE_RADIUS}`,
-    tags,
-    adjacenciesParams: `${newestInRange}${tags}`
+    tagsQuery,
+    adjacenciesParams: `${newestInRange}${tagsQuery}`
   };
 };
 
@@ -103,7 +103,7 @@ function getAdjacencies(url, params) {
   return fetchPanorama(getAdjacenciesUrl);
 }
 
-export function getImageDataByLocation(location, history) {
+export function getImageDataByLocation(location, tags) {
   if (!Array.isArray(location)) {
     return null;
   }
@@ -114,9 +114,9 @@ export function getImageDataByLocation(location, history) {
     locationRange,
     newestInRange,
     standardRadius,
-    tags
-  } = getLocationHistoryParams(location, history);
-  const getLocationUrl = `${sharedConfig.API_ROOT}${prefix}/?${locationRange}${tags}`;
+    tagsQuery
+  } = getLocationHistoryParams(location, tags);
+  const getLocationUrl = `${sharedConfig.API_ROOT}${prefix}/?${locationRange}${tagsQuery}`;
   const limitResults = 'limit_results=1';
 
   const promise = new Promise((resolve, reject) => {
@@ -139,8 +139,8 @@ export function getImageDataByLocation(location, history) {
   return promise;
 }
 
-export function getImageDataById(id, history) {
-  const { adjacenciesParams } = getLocationHistoryParams(null, history);
+export function getImageDataById(id, tags) {
+  const { adjacenciesParams } = getLocationHistoryParams(null, tags);
 
   return fetchPanorama(
     `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}/?${adjacenciesParams}`

@@ -3,10 +3,7 @@ import { FETCH_MAP_DETAIL_SUCCESS } from '../detail/constants';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { SET_SELECTION } from '../../../shared/ducks/selection/selection';
 import paramsRegistry from '../../../store/params-registry';
-import {
-  historyOptions,
-  initialState as panoramaInitialState
-} from '../../../panorama/ducks/constants';
+import { getLabelObjectByTags } from '../../../panorama/ducks/selectors';
 
 const REDUCER_KEY = 'map';
 export { REDUCER_KEY as MAP };
@@ -220,11 +217,9 @@ export const toggleMapOverlay = (payload) => ({
   }
 });
 
-export const toggleMapOverlayPanorama = (panoramaHistory) => ({
+export const toggleMapOverlayPanorama = (tags) => ({
   type: TOGGLE_MAP_OVERLAY_PANORAMA,
-  payload: historyOptions.find((opt) => (
-    JSON.stringify(opt.tags.sort()) === JSON.stringify(panoramaHistory.tags)
-  )).layerName || panoramaInitialState.history[0].layerName
+  payload: getLabelObjectByTags(tags).layerId
 });
 
 export const toggleMapOverlayVisibility = (mapLayerId, isVisible) => ({
