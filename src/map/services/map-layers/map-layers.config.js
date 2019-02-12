@@ -577,9 +577,106 @@ export default [
     noDetail: true
   },
   {
-    id: 'pvr',
-    url: 'maps/parkeervakken',
-    layers: ['parkeervakken_reservering', 'parkeervakken_reservering_label'],
+    id: 'pvrf',
+    url: 'maps/parkeervakken?categorie=fiscaal',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  // the next 4 layers do not have an associated geometry and are not relevant for this layer.
+  // {
+  //   id: 'pvrpv',
+  //   url: 'maps/parkeervakken?categorie=parkeerverbod',
+  //   layers: ['parkeervakken_reservering'],
+  //   noDetail: true
+  // },
+  // {
+  //   id: 'pvrvs',
+  //   url: 'maps/parkeervakken?categorie=stopverbod',
+  //   layers: ['parkeervakken_reservering'],
+  //   noDetail: true
+  // },
+  // {
+  //   id: 'pvrfv',
+  //   url: 'maps/parkeervakken?categorie=fietsverbod',
+  //   layers: ['parkeervakken_reservering'],
+  //   noDetail: true
+  // },
+  // {
+  //   id: 'pvrpk',
+  //   url: 'maps/parkeervakken?categorie=parkeren',
+  //   layers: ['parkeervakken_reservering'],
+  //   noDetail: true
+  // },
+  {
+    id: 'pvrts',
+    url: 'maps/parkeervakken?categorie=taxistandplaats',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  {
+    id: 'pvrgs',
+    url: 'maps/parkeervakken?categorie=gehandicapten_plaats',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  {
+    id: 'pvrga',
+    url: 'maps/parkeervakken?categorie=gehandicapten_algemeen',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  {
+    id: 'pvrgk',
+    url: 'maps/parkeervakken?categorie=gehandicapten_kenteken',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  {
+    id: 'pvrll',
+    url: 'maps/parkeervakken?categorie=laden_lossen',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  {
+    id: 'pvrsv',
+    url: 'maps/parkeervakken?categorie=specifiek_voertuig',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  {
+    id: 'pvrvh',
+    url: 'maps/parkeervakken?categorie=vergunning_houders',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  {
+    id: 'pvrbz',
+    url: 'maps/parkeervakken?categorie=blauwe_zone',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  {
+    id: 'pvreb',
+    url: 'maps/parkeervakken?categorie=einde_blauwe_zone',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  {
+    id: 'pvrpr',
+    url: 'maps/parkeervakken?categorie=park_ride',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  {
+    id: 'pvrcp',
+    url: 'maps/parkeervakken?categorie=carpool',
+    layers: ['parkeervakken_reservering'],
+    noDetail: true
+  },
+  {
+    id: 'pvrmd',
+    url: 'maps/parkeervakken?categorie=mulder',
+    layers: ['parkeervakken_reservering'],
     noDetail: true
   },
   {
