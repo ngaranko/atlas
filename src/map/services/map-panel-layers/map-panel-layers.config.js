@@ -748,12 +748,6 @@ export default [
         title: 'Taxistandplaats'
       },
       {
-        id: 'pvrgs',
-        layer: 'parkeervakken_reservering',
-        selectable: true,
-        title: 'Gehandicaptenplaats'
-      },
-      {
         id: 'pvrga',
         layer: 'parkeervakken_reservering',
         selectable: true,
