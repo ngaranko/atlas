@@ -735,31 +735,12 @@ export default [
         selectable: true,
         title: 'FISCAAL'
       },
-      // the next 4 layers have no geometry and not relevant for this theme
-      // {
-      //   id: 'pvrpv',
-      //   layer: 'parkeervakken_reservering',
-      //   selectable: true,
-      //   title: 'Parkeerverbod'
-      // },
-      // {
-      //   id: 'pvrvs',
-      //   layer: 'parkeervakken_reservering',
-      //   selectable: true,
-      //   title: 'Verbod stil te staan'
-      // },
-      // {
-      //   id: 'pvrfv',
-      //   layer: 'parkeervakken_reservering',
-      //   selectable: true,
-      //   title: 'Verbod (brom)fietsen plaatsen'
-      // },
-      // {
-      //   id: 'pvrpk',
-      //   layer: 'parkeervakken_reservering',
-      //   selectable: true,
-      //   title: 'Parkeergelegenheid'
-      // },
+      {
+        id: 'pvrpv',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
+        title: 'Parkeerverbod'
+      },
       {
         id: 'pvrts',
         layer: 'parkeervakken_reservering',
@@ -808,23 +789,11 @@ export default [
         selectable: true,
         title: 'Blauwe zone'
       },
-      // {
-      //   id: 'pvreb',
-      //   layer: 'parkeervakken_reservering',
-      //   selectable: true,
-      //   title: 'Einde blauwe zone'
-      // },
       {
         id: 'pvrpr',
         layer: 'parkeervakken_reservering',
         selectable: true,
         title: 'Park & Ride'
-      },
-      {
-        id: 'pvrcp',
-        layer: 'parkeervakken_reservering',
-        selectable: true,
-        title: 'Carpool'
       }
     ],
     maxZoom: 16,
