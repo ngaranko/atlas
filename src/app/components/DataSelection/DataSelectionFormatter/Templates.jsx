@@ -5,7 +5,7 @@ import classNames from 'classnames';
 const BezoekAdres = ({ variables, formattedValue }) => (
   <div
     className={classNames({
-      'c-bezoekadres__non-mailing': (variables[1]) ? variables[1].value : false
+      'c-bezoekadres__non-mailing': variables.non_mailing
     })}
   >
     {formattedValue}

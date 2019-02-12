@@ -1,65 +1,69 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import Link from 'redux-first-router-link';
 import DataSelectionFormatter from '../DataSelectionFormatter/DataSelectionFormatter';
-import { toDetailFromEndpoint } from '../../../../store/redux-first-router/actions';
-import { VIEW_MODE } from '../../../../shared/ducks/ui/ui';
+import './DataSelectionTable.scss';
+import { routing } from '../../../routes';
+import { getDetailPageData } from '../../../../store/redux-first-router/actions';
 
-const DataSelectionTable = ({ content, navigateToDetail }) => (
-  (content.body && content.body.length > 0) && (
-    <table className="c-table">
-      <thead>
-        <tr className="c-table__header-row">
-          {content.head.map((field, i) => (
-            <th key={i} className="c-table__field c-table__header-field">
-              {field}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {content.body.map((row) => (
-          <tr
-            key={row.detailEndpoint}
-            role="link"
-            className="c-table__content-row qa-table-link"
-            onClick={() => {
-              if (!row.detailEndpoint) {
-                return;
-              }
-              navigateToDetail(row.detailEndpoint, VIEW_MODE.SPLIT);
-            }}
-          >
-            {row.content.map((variables, i) => (
-              <td
-                key={`${variables[0].value}_${variables[0].key}_${i}`}
-                className="c-table__field c-table__field--link c-table__content-field"
-              >
-                <DataSelectionFormatter
-                  variables={variables}
-                  formatter={content.formatters[i]}
-                  template={content.templates[i]}
-                />
-              </td>
+const DataSelectionTable = ({ content }) => {
+  const buildLink = (row) => {
+    const { id, type, subtype } = getDetailPageData(row.detailEndpoint);
+    return {
+      type: routing.dataDetail.type,
+      payload: {
+        type,
+        subtype,
+        id: `id${id}`
+      }
+    };
+  };
+
+  return (
+    (content.body && content.body.length > 0) && (
+      <div className="c-ds-table">
+
+        <div className="c-ds-table__head">
+          <div className="c-ds-table__row">
+            {content.head.map((field, i) => (
+              <div key={i} className="c-ds-table__cell">
+                {field}
+              </div>
             ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>)
-);
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  navigateToDetail: toDetailFromEndpoint
-}, dispatch);
+          </div>
+        </div>
+        <div className="c-ds-table__body">
+          {content.body.map((row) => (
+            <Link
+              key={row.detailEndpoint}
+              className="c-ds-table__row"
+              to={buildLink(row)}
+            >
+              {row.content.map((variables, i) => (
+                <div
+                  key={`${variables[0].value}_${variables[0].key}_${i}`}
+                  className="c-ds-table__cell"
+                >
+                  <DataSelectionFormatter
+                    variables={variables}
+                    formatter={content.formatters[i]}
+                    template={content.templates[i]}
+                  />
+                </div>
+              ))}
+            </Link>
+          ))}
+        </div>
+      </div>)
+  );
+};
 
 DataSelectionTable.propTypes = {
   content: PropTypes.shape({
     head: PropTypes.array,
     body: PropTypes.array
-  }).isRequired,
-  navigateToDetail: PropTypes.func.isRequired
+  }).isRequired
 };
 
-export default connect(null, mapDispatchToProps)(DataSelectionTable);
+export default DataSelectionTable;
