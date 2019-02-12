@@ -21,8 +21,7 @@ import {
   FETCH_PANORAMA_REQUEST,
   FETCH_PANORAMA_REQUEST_TOGGLE,
   FETCH_PANORAMA_SUCCESS,
-  SET_PANORAMA_LOCATION,
-  SET_PANORAMA_YEAR
+  SET_PANORAMA_LOCATION
 } from '../../panorama/ducks/constants';
 import { getPanoramaHistory, getPanoramaLocation } from '../ducks/selectors';
 import { getViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
@@ -52,7 +51,6 @@ describe('watchFetchPanorama', () => {
       .all([
         takeLatest([FETCH_PANORAMA_HOTSPOT_REQUEST, FETCH_PANORAMA_REQUEST], fetchPanoramaById),
         takeLatest([
-          SET_PANORAMA_YEAR,
           SET_PANORAMA_LOCATION,
           FETCH_PANORAMA_REQUEST_TOGGLE
         ], fetchPanoramaByLocation)

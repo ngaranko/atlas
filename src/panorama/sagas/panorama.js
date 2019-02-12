@@ -23,8 +23,7 @@ import {
   FETCH_PANORAMA_REQUEST,
   FETCH_PANORAMA_REQUEST_TOGGLE,
   PAGE_REF_MAPPING,
-  SET_PANORAMA_LOCATION,
-  SET_PANORAMA_YEAR
+  SET_PANORAMA_LOCATION
 } from '../ducks/constants';
 
 export function* fetchFetchPanoramaEffect(action) {
@@ -37,8 +36,9 @@ export function* fetchFetchPanoramaEffect(action) {
 
 export function* maybeChangeRoute(id) {
   const { id: urlId } = yield select(getLocationPayload);
+  const history = yield select(getPanoramaHistory);
   if (id && (urlId !== id)) {
-    yield put(toPanorama(id));
+    yield put(toPanorama(id, { [PARAMETERS.PANORAMA_SET]: history.tags }));
   }
 }
 
@@ -75,7 +75,6 @@ export function* watchFetchPanorama() {
   yield all([
     takeLatest([FETCH_PANORAMA_HOTSPOT_REQUEST, FETCH_PANORAMA_REQUEST], fetchPanoramaById),
     takeLatest([
-      SET_PANORAMA_YEAR,
       SET_PANORAMA_LOCATION,
       FETCH_PANORAMA_REQUEST_TOGGLE
     ], fetchPanoramaByLocation)

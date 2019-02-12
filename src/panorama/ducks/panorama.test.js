@@ -25,8 +25,7 @@ describe('Panorama Reducer', () => {
       history: {
         label: 'Meest recent',
         layerName: 'pano',
-        missionType: 'bi',
-        year: 0
+        tags: ['mission-bi']
       },
       hotspots: [],
       image: null,
