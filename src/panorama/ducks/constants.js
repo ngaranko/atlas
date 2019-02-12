@@ -12,12 +12,12 @@ export const FETCH_PANORAMA_HOTSPOT_REQUEST = `${REDUCER_KEY}/FETCH_PANORAMA_HOT
 export const FETCH_PANORAMA_REQUEST_TOGGLE = `${REDUCER_KEY}/FETCH_PANORAMA_REQUEST_TOGGLE`;
 export const FETCH_PANORAMA_REQUEST_EXTERNAL = `${REDUCER_KEY}/FETCH_PANORAMA_REQUEST_EXTERNAL`;
 export const historyOptions = [
-  { year: 0, missionType: 'bi', label: 'Meest recent', layerName: 'pano' },
-  { year: 2018, missionType: 'bi', label: 'Alleen 2018', layerName: 'pano2018bi' },
-  { year: 2017, missionType: 'bi', label: 'Alleen 2017', layerName: 'pano2017bi' },
-  { year: 2016, missionType: 'bi', label: 'Alleen 2016', layerName: 'pano2016bi' },
-  { year: 2018, missionType: 'woz', label: 'Alleen 2018 WOZ', layerName: 'pano2018woz' },
-  { year: 2017, missionType: 'woz', label: 'Alleen 2017 WOZ', layerName: 'pano2017woz' }
+  { tags: ['mission-bi'], label: 'Meest recent', layerName: 'pano' },
+  { tags: ['mission-bi', 'mission-2018'], label: 'Alleen 2018', layerName: 'pano2018bi' },
+  { tags: ['mission-bi', 'mission-2017'], label: 'Alleen 2017', layerName: 'pano2017bi' },
+  { tags: ['mission-bi', 'mission-2016'], label: 'Alleen 2016', layerName: 'pano2016bi' },
+  { tags: ['mission-woz', 'mission-2018'], label: 'Alleen 2018 WOZ', layerName: 'pano2018woz' },
+  { tags: ['mission-woz', 'mission-2017'], label: 'Alleen 2017 WOZ', layerName: 'pano2017woz' }
 ];
 
 export const initialState = {

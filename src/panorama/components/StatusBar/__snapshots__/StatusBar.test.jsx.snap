@@ -12,38 +12,49 @@ exports[`StatusBar should render 1`] = `
         Object {
           "label": "Meest recent",
           "layerName": "pano",
-          "missionType": "bi",
-          "year": 0,
+          "tags": Array [
+            "mission-bi",
+          ],
         },
         Object {
           "label": "Alleen 2018",
           "layerName": "pano2018bi",
-          "missionType": "bi",
-          "year": 2018,
+          "tags": Array [
+            "mission-bi",
+            "mission-2018",
+          ],
         },
         Object {
           "label": "Alleen 2017",
           "layerName": "pano2017bi",
-          "missionType": "bi",
-          "year": 2017,
+          "tags": Array [
+            "mission-bi",
+            "mission-2017",
+          ],
         },
         Object {
           "label": "Alleen 2016",
           "layerName": "pano2016bi",
-          "missionType": "bi",
-          "year": 2016,
+          "tags": Array [
+            "mission-bi",
+            "mission-2016",
+          ],
         },
         Object {
           "label": "Alleen 2018 WOZ",
           "layerName": "pano2018woz",
-          "missionType": "woz",
-          "year": 2018,
+          "tags": Array [
+            "mission-woz",
+            "mission-2018",
+          ],
         },
         Object {
           "label": "Alleen 2017 WOZ",
           "layerName": "pano2017woz",
-          "missionType": "woz",
-          "year": 2017,
+          "tags": Array [
+            "mission-woz",
+            "mission-2017",
+          ],
         },
       ]
     }

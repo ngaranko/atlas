@@ -825,8 +825,9 @@ Object {
         "defaultValue": Object {
           "label": "Meest recent",
           "layerName": "pano",
-          "missionType": "bi",
-          "year": 0,
+          "tags": Array [
+            "mission-bi",
+          ],
         },
         "encode": [Function],
         "reducerKey": "panorama",

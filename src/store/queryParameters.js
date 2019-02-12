@@ -166,13 +166,12 @@ export default paramsRegistry
     routes.add(routing.panorama.type, PANORAMA, 'history', {
       defaultValue: panoramaInitialState.history,
       selector: getPanoramaHistory,
-      encode: (selectorResult) => `${selectorResult.year}.${selectorResult.missionType}`,
+      encode: (selectorResult) => selectorResult.tags.join(','),
       decode: (val) => {
         if (val) {
-          const [year, missionType] = val.split('.');
-          const parsedYear = parseFloat(year);
+          const tags = val.split(',');
           return historyOptions.find((opt) => (
-            opt.year === parsedYear && opt.missionType === missionType
+            JSON.stringify(opt.tags.sort()) === JSON.stringify(tags)
           )) || panoramaInitialState.history;
         }
         return val;

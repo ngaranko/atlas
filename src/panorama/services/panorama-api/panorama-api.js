@@ -37,9 +37,7 @@ const prefix = PANORAMA_CONFIG.PANORAMA_ENDPOINT_PREFIX;
 const suffix = PANORAMA_CONFIG.PANORAMA_ENDPOINT_SUFFIX;
 
 export const getLocationHistoryParams = (location, history) => {
-  const missionYear = (history && history.year) ? `&mission_year=${history.year}` : '';
-  const missionType = (history && history.missionType) ? `&mission_type=${history.missionType}` : '';
-  const yearTypeMission = `${missionYear}${missionType}`;
+  const tags = (history && history.tags) ? `&tags=${history.tags}` : '';
   const newestInRange = 'newest_in_range=true';
   const pageSize = 'page_size=1';
 
@@ -49,8 +47,8 @@ export const getLocationHistoryParams = (location, history) => {
     newestInRange,
     standardRadius: `radius=${PANORAMA_CONFIG.MAX_RADIUS}`,
     largeRadius: `radius=${PANORAMA_CONFIG.LARGE_RADIUS}`,
-    yearTypeMission,
-    adjacenciesParams: `${newestInRange}${yearTypeMission}`
+    tags,
+    adjacenciesParams: `${newestInRange}${tags}`
   };
 };
 
@@ -116,9 +114,9 @@ export function getImageDataByLocation(location, history) {
     locationRange,
     newestInRange,
     standardRadius,
-    yearTypeMission
+    tags
   } = getLocationHistoryParams(location, history);
-  const getLocationUrl = `${sharedConfig.API_ROOT}${prefix}/?${locationRange}${yearTypeMission}`;
+  const getLocationUrl = `${sharedConfig.API_ROOT}${prefix}/?${locationRange}${tags}`;
   const limitResults = 'limit_results=1';
 
   const promise = new Promise((resolve, reject) => {
