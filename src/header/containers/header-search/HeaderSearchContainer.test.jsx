@@ -12,8 +12,8 @@ import { emptyFilters } from '../../../shared/ducks/filters/filters';
 
 import {
   toDataSearchQuery,
+  toDatasetDetail,
   toDatasetSearch,
-  toDatasetSuggestion,
   toDataSuggestion
 } from '../../../store/redux-first-router/actions';
 import { CLEAR_MAP_DETAIL } from '../../../shared/ducks/detail/constants';
@@ -150,7 +150,7 @@ describe('HeaderSearchContainer', () => {
       headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
 
       expect(store.dispatch).toHaveBeenCalledWith(
-        toDatasetSuggestion({ id: 'GgCm07EqNVIpwQ', typedQuery: '' })
+        toDatasetDetail({ id: 'GgCm07EqNVIpwQ', typedQuery: '' })
       );
     });
 

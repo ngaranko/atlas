@@ -88,7 +88,7 @@ describe('The catalog component', function () {
         const id = mockedContentJson['dcat:dataset'][0]['dct:identifier'];
         expect(link).toHaveAttr('to', 'row.linkTo');
         expect(scope.vm.items[0].linkTo).toEqual({
-            type: routing.datasetsDetail.type,
+            type: routing.datasetDetail.type,
             payload: { id }
         });
     });
