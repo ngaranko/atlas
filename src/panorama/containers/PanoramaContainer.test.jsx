@@ -4,7 +4,13 @@ import configureMockStore from 'redux-mock-store';
 import PanoramaContainer from './PanoramaContainer';
 import { getOrientation, loadScene } from '../services/marzipano/marzipano';
 import { fetchPanoramaHotspotRequest } from '../ducks/actions';
-import { getDetailReference, getPanorama, getPanoramaLocation } from '../ducks/selectors';
+import {
+  getDetailReference,
+  getLabelObjectByTags,
+  getPanorama,
+  getPanoramaLocation,
+  getPanoramaTags
+} from '../ducks/selectors';
 import { getMapOverlaysWithoutPanorama } from '../../map/ducks/map/map-selectors';
 import { setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
 
@@ -26,13 +32,10 @@ describe('PanoramaContainer', () => {
     heading: 999,
     image: 'ABC_IMAGE.jpg',
     date: '2012-12-12T00:00:00.000Z',
-    location: [1, 2],
-    history: {
-      year: 2020,
-      label: 'ABC',
-      missionType: 'ABC'
-    }
+    location: [1, 2]
   }));
+  getLabelObjectByTags.mockImplementation(() => ({ label: 'Meest recent' }));
+  getPanoramaTags.mockImplementation(() => (['mission-bi']));
   setViewMode.mockImplementation(() => ({ type: 'some type' }));
   getDetailReference.mockImplementation(() => []);
   getMapOverlaysWithoutPanorama.mockImplementation(() => ([]));
@@ -89,7 +92,7 @@ describe('PanoramaContainer', () => {
     expect(store.dispatch).toHaveBeenCalledWith(setViewMode(VIEW_MODE.SPLIT));
   });
 
-  it('should load new scene when panorama image information changes', () => {
+  it.only('should load new scene when panorama image information changes', () => {
     loadScene.mockImplementation();
     const wrapper = shallow(
       <PanoramaContainer {...props} />, { context: { store } }
