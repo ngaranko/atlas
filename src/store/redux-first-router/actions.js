@@ -160,10 +160,12 @@ export const toDataSuggestion = (payload, view) => {
     [PARAMETERS.VIEW]: view
   }, tracking);
 };
-export const toDatasetSuggestion = (payload) => ({
-  type: routing.datasetsDetail.type,
+
+export const toDatasetDetail = (payload) => ({
+  type: routing.datasetDetail.type,
   payload,
   meta: {
+    forceSaga: true,
     tracking: {
       event: 'auto-suggest',
       query: payload.typedQuery

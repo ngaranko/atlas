@@ -43,7 +43,7 @@ import { routing } from '../../../../../src/app/routes';
 
                 const id = item['dct:identifier'];
                 const linkTo = {
-                    type: routing.datasetsDetail.type,
+                    type: routing.datasetDetail.type,
                     payload: { id }
                 };
 
