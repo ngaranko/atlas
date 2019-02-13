@@ -37,7 +37,7 @@ const DataSelectionTable = ({ content }) => {
           {content.body.map((row) => (
             <Link
               key={row.detailEndpoint}
-              className="c-ds-table__row"
+              className="c-ds-table__row qa-table-link"
               to={buildLink(row)}
             >
               {row.content.map((variables, i) => (
