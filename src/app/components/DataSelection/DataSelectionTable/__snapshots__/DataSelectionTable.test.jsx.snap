@@ -1,34 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DataSelectionTable should render without failing 1`] = `
-<table
-  className="c-table"
+<div
+  className="c-ds-table"
 >
-  <thead>
-    <tr
-      className="c-table__header-row"
+  <div
+    className="c-ds-table__head"
+  >
+    <div
+      className="c-ds-table__row"
     >
-      <th
-        className="c-table__field c-table__header-field"
+      <div
+        className="c-ds-table__cell"
         key="0"
       >
         foo
-      </th>
-      <th
-        className="c-table__field c-table__header-field"
+      </div>
+      <div
+        className="c-ds-table__cell"
         key="1"
       >
         bar
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      className="c-table__content-row qa-table-link"
+      </div>
+    </div>
+  </div>
+  <div
+    className="c-ds-table__body"
+  >
+    <Connect(Link)
+      className="c-ds-table__row qa-table-link"
       key="http://example.com"
-      onClick={[Function]}
-      role="link"
+      to={
+        Object {
+          "payload": Object {
+            "id": "idundefined",
+            "subtype": undefined,
+            "type": undefined,
+          },
+          "type": "atlasRouter/DATA_DETAIL",
+        }
+      }
     />
-  </tbody>
-</table>
+  </div>
+</div>
 `;
