@@ -11,7 +11,7 @@ import {
   getPanoramaLocation,
   getPanoramaTags
 } from '../ducks/selectors';
-import { getMapOverlaysWithoutPanorama } from '../../map/ducks/map/map-selectors';
+import { getMapOverlays } from '../../map/ducks/map/map-selectors';
 import { setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
 
 jest.mock('../../map/ducks/map/map-selectors');
@@ -38,7 +38,7 @@ describe('PanoramaContainer', () => {
   getPanoramaTags.mockImplementation(() => (['mission-bi']));
   setViewMode.mockImplementation(() => ({ type: 'some type' }));
   getDetailReference.mockImplementation(() => []);
-  getMapOverlaysWithoutPanorama.mockImplementation(() => ([]));
+  getMapOverlays.mockImplementation(() => ([]));
   getPanoramaLocation.mockImplementation(() => []);
 
   beforeEach(() => {
@@ -92,7 +92,7 @@ describe('PanoramaContainer', () => {
     expect(store.dispatch).toHaveBeenCalledWith(setViewMode(VIEW_MODE.SPLIT));
   });
 
-  it.only('should load new scene when panorama image information changes', () => {
+  it('should load new scene when panorama image information changes', () => {
     loadScene.mockImplementation();
     const wrapper = shallow(
       <PanoramaContainer {...props} />, { context: { store } }
