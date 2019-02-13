@@ -29,7 +29,7 @@ exports[`DataSelectionTable should render without failing 1`] = `
   >
     <Connect(Link)
       className="c-ds-table__row qa-table-link"
-      key="http://example.com"
+      key="0"
       to={
         Object {
           "payload": Object {

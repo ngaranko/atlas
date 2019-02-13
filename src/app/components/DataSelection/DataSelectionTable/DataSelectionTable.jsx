@@ -34,21 +34,21 @@ const DataSelectionTable = ({ content }) => {
           </div>
         </div>
         <div className="c-ds-table__body">
-          {content.body.map((row) => (
+          {content.body.map((row, i) => (
             <Link
-              key={row.detailEndpoint}
+              key={i}
               className="c-ds-table__row qa-table-link"
               to={buildLink(row)}
             >
-              {row.content.map((variables, i) => (
+              {row.content.map((variables, j) => (
                 <div
-                  key={`${variables[0].value}_${variables[0].key}_${i}`}
+                  key={`${variables[0].value}_${variables[0].key}_${j}`}
                   className="c-ds-table__cell"
                 >
                   <DataSelectionFormatter
                     variables={variables}
-                    formatter={content.formatters[i]}
-                    template={content.templates[i]}
+                    formatter={content.formatters[j]}
+                    template={content.templates[j]}
                   />
                 </div>
               ))}
