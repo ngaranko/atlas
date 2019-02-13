@@ -76,7 +76,7 @@ export default {
       uri: 'geosearch/nap/',
       radius: 25
     }, {
-      uri: 'geosearch/atlas/',
+      uri: 'geosearch/bag/',
       radius: null
     }, {
       uri: 'geosearch/munitie/',

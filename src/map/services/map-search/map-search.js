@@ -12,7 +12,7 @@ import { API_ROOT } from '../../../shared/services/auth/auth';
 
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
-  { uri: 'geosearch/atlas/' },
+  { uri: 'geosearch/bag/' },
   { uri: 'geosearch/munitie/' },
   { uri: 'geosearch/bominslag/', radius: 25 },
   {
