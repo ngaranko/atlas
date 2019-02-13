@@ -1,7 +1,7 @@
 import { getByUrl } from '../../../shared/services/api/api';
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config';
 import MAP_CONFIG from '../map-config';
-import { API_ROOT } from '../../../shared/services/auth/auth';
+import { getFeaturesFromResult } from '../map-search/map-search';
 
 const generateParams = (layer, location, zoom) => ({
   lat: location.latitude,
@@ -28,23 +28,6 @@ const retrieveLayers = (detailItems, detailIsShape) => (
     ...item.properties
   })));
 
-export const geosearchTypes = {
-  parkeervakken: 'parkeervakken/geosearch/'
-};
-
-// this handles the geosearch endpoints that are not included in the geosearch api
-// and don't implement the geosearch api interface
-const getFeaturesFromResult = (endpointType, result) => {
-  if (endpointType === geosearchTypes.parkeervakken) {
-    return (result.map((item) => ({
-      properties: {
-        uri: API_ROOT + item._links.self.href.substring(1)
-      }
-    })));
-  }
-
-  return result.features;
-};
 
 export default async function fetchNearestDetail(location, layers, zoom) {
   const results = sortResults(

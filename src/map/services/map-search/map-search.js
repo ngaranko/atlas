@@ -8,6 +8,7 @@ import transformResultByType from './transform-result-by-type';
 
 import { createMapSearchResultsModel } from '../../services/map-search-results/map-search-results';
 import { getByUrl } from '../../../shared/services/api/api';
+import { API_ROOT } from '../../../shared/services/auth/auth';
 
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
@@ -60,6 +61,26 @@ const relatedResourcesByType = {
   ]
 };
 
+export const geosearchTypes = {
+  parkeervakken: 'parkeervakken/geosearch/'
+};
+
+// this handles the geosearch endpoints that are not included in the geosearch api
+// and don't implement the geosearch api interface
+export const getFeaturesFromResult = (endpointType, result) => {
+  if (endpointType === geosearchTypes.parkeervakken) {
+    return (result.map((item) => ({
+      properties: {
+        type: 'parkeervakken/parkeervakken',
+        uri: API_ROOT + item._links.self.href.substring(1)
+      }
+    })));
+  }
+
+  return result.features;
+};
+
+
 export const fetchRelatedForUser = (user) => (data) => {
   const item = data.features.find((feature) => relatedResourcesByType[feature.properties.type]);
   if (!item) {
@@ -72,23 +93,23 @@ export const fetchRelatedForUser = (user) => (data) => {
       (!user.authenticated || !user.scopes.includes(resource.authScope))
     ) ? []
       : resource.fetch(item.properties.id)
-                .then((results) => results
-                  .map((result) => ({
-                    ...result,
-                    properties: {
-                      uri: result._links.self.href,
-                      display: result._display,
-                      type: resource.type,
-                      parent: item.properties.type
-                    }
-                  }))
-                )
+        .then((results) => results
+          .map((result) => ({
+            ...result,
+            properties: {
+              uri: result._links.self.href,
+              display: result._display,
+              type: resource.type,
+              parent: item.properties.type
+            }
+          }))
+        )
   ));
 
   return Promise.all(requests)
-                .then((results) => results
-                  .reduce((accumulator, subResults) => accumulator.concat(subResults),
-                    data.features));
+    .then((results) => results
+      .reduce((accumulator, subResults) => accumulator.concat(subResults),
+        data.features));
 };
 
 export default function search(location, user) {
@@ -105,8 +126,8 @@ export default function search(location, user) {
       .keys(searchParams)
       .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
       .join('&');
-
     return getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`)
+      .then((result) => ({ features: getFeaturesFromResult(endpoint.uri, result) }))
       .then(fetchRelatedForUser(user))
       .then((features) => features.map((feature) => transformResultByType(feature)), (code) => ({
         type: errorType,
@@ -119,10 +140,13 @@ export default function search(location, user) {
       .catch(() => Promise.resolve([]))));  // ignore the failing calls
   return allResults
     .then((results) => [].concat.apply([], [...results]))
-    .then((results) => ({
-      results: createMapSearchResultsModel(
-        results.filter((result) => (result && result.type !== errorType))
-      ),
-      errors: results.some((result) => (result && result.type === errorType))
-    }));
+    .then((results) => {
+      const res = ({
+        results: createMapSearchResultsModel(
+          results.filter((result) => (result && result.type !== errorType))
+        ),
+        errors: results.some((result) => (result && result.type === errorType))
+      });
+      return res;
+    });
 }
