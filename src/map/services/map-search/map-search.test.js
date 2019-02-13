@@ -126,7 +126,7 @@ describe('mapSearch service', () => {
     });
   });
 
-  it('should return results from search ', async () => {
+  it('should return results from search for bommen', async () => {
     getByUrl.mockReturnValue(Promise.resolve({
       features: [
         {
@@ -147,7 +147,7 @@ describe('mapSearch service', () => {
 
     expect(data.results).toEqual([{
       categoryLabel: 'Explosief',
-      results: Array(7).fill({
+      results: Array(8).fill({
         categoryLabel: 'Explosief',
         label: undefined,
         parent: undefined,
@@ -188,7 +188,7 @@ describe('mapSearch service', () => {
 
     expect(data.results).toEqual([{
       categoryLabel: 'Explosief',
-      results: Array(6).fill({
+      results: Array(7).fill({
         categoryLabel: 'Explosief',
         label: undefined,
         parent: undefined,

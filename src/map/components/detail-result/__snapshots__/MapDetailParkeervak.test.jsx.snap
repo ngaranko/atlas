@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MapDetailMeetbout should render everything 1`] = `
+exports[`MapDetailParkeervak should render everything 1`] = `
 <MapDetailResultWrapper
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
