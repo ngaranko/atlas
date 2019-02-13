@@ -1,4 +1,3 @@
-// Todo: fix / add tests
 /* eslint-disable no-underscore-dangle,no-param-reassign */
 import identity from 'lodash.identity';
 import SEARCH_CONFIG from './search-config';
@@ -128,7 +127,7 @@ function getRelatedObjects(geosearchResults, user) {
   });
 }
 
-export default function search(location, user) {
+export default function geosearch(location, user) {
   const allRequests = [];
 
   SEARCH_CONFIG.COORDINATES_ENDPOINTS.forEach((endpoint) => {
@@ -144,7 +143,6 @@ export default function search(location, user) {
 
     const request = getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}`, searchParams, false, true)
       .then((data) => data, () => ({ features: [] })); // empty features on failure of api call
-
     allRequests.push(request);
   });
 
