@@ -23,7 +23,7 @@ import monument from '../../shared/services/monument/monument';
 import napPeilmerk from '../../shared/services/nap-peilmerk/nap-peilmerk';
 import parkeervak from '../../shared/services/parkeervak/parkeervak';
 import vestiging from '../../shared/services/vestiging/vestiging';
-import { API_ROOT } from '../../shared/services/auth/auth';
+import SHARED_CONFIG from '../../shared/services/shared-config/shared-config';
 
 export const maxDisplayValuesPerProperty = 5;
 
@@ -36,7 +36,7 @@ export const pageEndpointTypeMapping = {
 
 export const pageTypeToEndpoint = (type, subtype, id) => {
   const endpoinType = pageEndpointTypeMapping[`${type}/${subtype}/`] || `${type}/${subtype}/`;
-  return `${API_ROOT}${endpoinType}${id}/`;
+  return `${SHARED_CONFIG.API_ROOT}${endpoinType}${id}/`;
 };
 
 export const endpointTypes = {

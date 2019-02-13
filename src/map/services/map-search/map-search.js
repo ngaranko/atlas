@@ -8,7 +8,6 @@ import transformResultByType from './transform-result-by-type';
 
 import { createMapSearchResultsModel } from '../../services/map-search-results/map-search-results';
 import { getByUrl } from '../../../shared/services/api/api';
-import { API_ROOT } from '../../../shared/services/auth/auth';
 
 const endpoints = [
   { uri: 'geosearch/nap/', radius: 25 },
@@ -73,7 +72,7 @@ export const getFeaturesFromResult = (endpointType, result) => {
       properties: {
         display: item.id,
         type: 'parkeervakken/parkeervakken',
-        uri: API_ROOT + item._links.self.href.substring(1)
+        uri: SHARED_CONFIG.API_ROOT + item._links.self.href.substring(1)
       }
     })));
   }
