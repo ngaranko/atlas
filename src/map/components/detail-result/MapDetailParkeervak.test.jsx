@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import MapDetailParkeervak from './MapDetailParkeervak';
 
 
-describe('MapDetailMeetbout', () => {
+describe('MapDetailParkeervak', () => {
   it('should render everything', () => {
     const item = {
       straatnaam: 'Straatnaam',

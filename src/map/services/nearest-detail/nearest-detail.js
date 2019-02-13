@@ -22,14 +22,11 @@ export const sortResults = (results) => (
     return 1;
   }));
 
-const retrieveLayers = (detailItems, detailIsShape) => {
-  const result = (
-    detailItems.map((item) => ({
-      detailIsShape,
-      ...item.properties
-    })));
-  return result;
-};
+const retrieveLayers = (detailItems, detailIsShape) => (
+  detailItems.map((item) => ({
+    detailIsShape,
+    ...item.properties
+  })));
 
 export const geosearchTypes = {
   parkeervakken: 'parkeervakken/geosearch/'
