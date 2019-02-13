@@ -71,6 +71,7 @@ export const getFeaturesFromResult = (endpointType, result) => {
   if (endpointType === geosearchTypes.parkeervakken) {
     return (result.map((item) => ({
       properties: {
+        display: item.id,
         type: 'parkeervakken/parkeervakken',
         uri: API_ROOT + item._links.self.href.substring(1)
       }
@@ -79,7 +80,6 @@ export const getFeaturesFromResult = (endpointType, result) => {
 
   return result.features;
 };
-
 
 export const fetchRelatedForUser = (user) => (data) => {
   const item = data.features.find((feature) => relatedResourcesByType[feature.properties.type]);
@@ -140,13 +140,10 @@ export default function search(location, user) {
       .catch(() => Promise.resolve([]))));  // ignore the failing calls
   return allResults
     .then((results) => [].concat.apply([], [...results]))
-    .then((results) => {
-      const res = ({
-        results: createMapSearchResultsModel(
-          results.filter((result) => (result && result.type !== errorType))
-        ),
-        errors: results.some((result) => (result && result.type === errorType))
-      });
-      return res;
-    });
+    .then((results) => ({
+      results: createMapSearchResultsModel(
+        results.filter((result) => (result && result.type !== errorType))
+      ),
+      errors: results.some((result) => (result && result.type === errorType))
+    }));
 }
