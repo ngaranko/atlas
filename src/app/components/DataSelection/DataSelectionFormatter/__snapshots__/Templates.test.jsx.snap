@@ -10,7 +10,7 @@ exports[`Templates should render without failing 1`] = `
 
 exports[`Templates should render without failing 2`] = `
 <div
-  className="c-bezoekadres__non-mailing"
+  className=""
 />
 `;
 

@@ -19,7 +19,7 @@ exports[`Catalog should render without failing 1`] = `
             "payload": Object {
               "id": 1,
             },
-            "type": "atlasRouter/DATASETS_DETAIL",
+            "type": "atlasRouter/DATASET_DETAIL",
           }
         }
       >

@@ -6,19 +6,21 @@ import {
   getAutoSuggestSuggestions,
   getDisplayQuery,
   getNumberOfSuggestions,
-  getTypedQuery
+  getSuggestionsAction,
+  getTypedQuery,
+  setActiveSuggestionAction
 } from '../../ducks/auto-suggest/auto-suggest';
 import { emptyFilters } from '../../../shared/ducks/filters/filters';
 import {
   toDataSearchQuery,
+  toDatasetDetail,
   toDatasetSearch,
-  toDatasetSuggestion
+  toDataSuggestion
 } from '../../../store/redux-first-router/actions';
 import { isDatasetPage } from '../../../store/redux-first-router/selectors';
 import PARAMETERS from '../../../store/parameters';
 import { getViewMode, isMapPage } from '../../../shared/ducks/ui/ui';
 import HeaderSearch from './HeaderSearch';
-import { getSuggestionsAction, setActiveSuggestionAction, selectSuggestionAction } from '../../ducks/auto-suggest/actions';
 
 const mapStateToProps = (state) => ({
   activeSuggestion: getActiveSuggestions(state),
@@ -45,8 +47,8 @@ const mapDispatchToProps = (dispatch) => ({
   onDataSearch: (query) => dispatch(toDataSearchQuery({
     [PARAMETERS.QUERY]: query
   }, false, true)),
-  openDataSuggestion: (suggestion, view) => dispatch(selectSuggestionAction(suggestion, view)),
-  openDatasetSuggestion: (suggestion) => dispatch(toDatasetSuggestion(suggestion))
+  openDataSuggestion: (suggestion, view) => dispatch(toDataSuggestion(suggestion, view)),
+  openDatasetSuggestion: (suggestion) => dispatch(toDatasetDetail(suggestion))
 });
 
 

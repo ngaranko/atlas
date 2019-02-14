@@ -76,7 +76,9 @@ exports[`DataSelection should render as gesplitst 1`] = `
           className="u-col-sm--12"
         >
           <div>
-            <Connect(DataSelectionList) />
+            <Connect(DataSelectionList)
+              content={Object {}}
+            />
             <AngularWrapper
               bindings={
                 Object {
@@ -167,7 +169,9 @@ exports[`DataSelection should render as volledig 1`] = `
           className="u-col-sm--9"
         >
           <div>
-            <Connect(DataSelectionTable) />
+            <DataSelectionTable
+              content={Object {}}
+            />
             <AngularWrapper
               bindings={
                 Object {

@@ -1,7 +1,7 @@
 const dataSelection = '.c-data-selection';
 const homepage = '.c-homepage';
 const notification = '.notification--info';
-const table = '.c-table';
+const table = '.c-ds-table';
 
 describe('trade-register (vestigingen) module', () => {
   describe('user should be able to navigate to the trade-register from the homepage', () => {

@@ -3,9 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
 import HeaderSearchContainer from './HeaderSearchContainer';
-import {
-  getTypedQuery
-} from '../../ducks/auto-suggest/auto-suggest';
+import { getSuggestionsAction, getTypedQuery } from '../../ducks/auto-suggest/auto-suggest';
 
 import { clearMapDetail } from '../../../shared/ducks/detail/actions';
 import { ROUTER_NAMESPACE } from '../../../app/routes';
@@ -14,23 +12,20 @@ import { emptyFilters } from '../../../shared/ducks/filters/filters';
 
 import {
   toDataSearchQuery,
+  toDatasetDetail,
   toDatasetSearch,
-  toDatasetSuggestion
+  toDataSuggestion
 } from '../../../store/redux-first-router/actions';
 import { CLEAR_MAP_DETAIL } from '../../../shared/ducks/detail/constants';
 import PARAMETERS from '../../../store/parameters';
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
-import { selectSuggestionAction, getSuggestionsAction } from '../../ducks/auto-suggest/actions';
-
 
 jest.mock('../../ducks/auto-suggest/auto-suggest');
-jest.mock('../../ducks/auto-suggest/actions');
 jest.mock('../../../shared/ducks/detail/actions');
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
     getSuggestionsAction.mockImplementation(() => ({ type: 'getSuggestionsAction' }));
-    selectSuggestionAction.mockImplementation(() => ({ type: 'selectSuggestionAction' }));
     clearMapDetail.mockImplementation((endpoint) => ({
       type: CLEAR_MAP_DETAIL,
       payload: endpoint
@@ -39,7 +34,6 @@ describe('HeaderSearchContainer', () => {
 
   afterEach(() => {
     getSuggestionsAction.mockReset();
-    selectSuggestionAction.mockReset();
     clearMapDetail.mockReset();
   });
 
@@ -131,7 +125,7 @@ describe('HeaderSearchContainer', () => {
       headerSearch.instance().onSuggestionSelection(suggestionMock, shouldOpenInNewWindow);
 
       expect(store.dispatch).toHaveBeenCalledWith(
-        selectSuggestionAction({
+        toDataSuggestion({
           endpoint: suggestionMock.uri,
           category: suggestionMock.category,
           typedQuery: ''
@@ -155,7 +149,7 @@ describe('HeaderSearchContainer', () => {
       headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow);
 
       expect(store.dispatch).toHaveBeenCalledWith(
-        toDatasetSuggestion({ id: 'GgCm07EqNVIpwQ', typedQuery: '' })
+        toDatasetDetail({ id: 'GgCm07EqNVIpwQ', typedQuery: '' })
       );
     });
 
