@@ -38,7 +38,7 @@ describe('mapSearch service', () => {
     });
 
     it('should return just the base features when user related features found but user is not authorized', async () => {
-      user.scopes = ['CAT/W'];
+      user.scopes = ['CAT/W', 'CAT/R'];
       const features = [
         {
           properties: {
