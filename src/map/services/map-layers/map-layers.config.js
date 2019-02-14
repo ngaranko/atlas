@@ -604,13 +604,17 @@ export default [
     id: 'pv',
     url: 'maps/parkeervakken',
     layers: ['alle_parkeervakken', 'parkeervakken_label'],
-    noDetail: true
+    detailUrl: 'parkeervakken/geosearch/',
+    detailItem: 'parkeervak',
+    detailIsShape: true
   },
   {
     id: 'pvb',
     url: 'maps/parkeervakken',
-    layers: ['alle_parkeervakken', 'parkeervakken_bord'],
-    noDetail: true
+    layers: ['parkeervakken_bord'],
+    detailUrl: 'parkeervakken/geosearch/',
+    detailItem: 'parkeervak',
+    detailIsShape: true
   },
   // Parkeervakken
   {
