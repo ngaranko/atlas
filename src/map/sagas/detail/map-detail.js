@@ -7,7 +7,7 @@ import {
   getCurrentEndpoint,
   getMapDetail
 } from '../../ducks/detail/map-detail';
-import { closeMapPanel, mapLoadingAction } from '../../ducks/map/map';
+import { closeMapPanel, mapLoadingAction } from '../../ducks/map/actions';
 import fetchLegacyDetail, { getDetailData } from '../../../detail/sagas/detail';
 import fetchDetail from '../../services/map-detail';
 import { FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/constants';

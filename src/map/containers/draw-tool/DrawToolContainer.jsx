@@ -14,7 +14,7 @@ import {
   setPolygon
 } from '../../services/draw-tool/draw-tool';
 import { mapClear, mapEmptyGeometry, mapSetDrawingMode, mapUpdateShape
-} from '../../ducks/map/map';
+} from '../../ducks/map/actions';
 import {
   getDrawingMode,
   getGeometry,

@@ -48,13 +48,15 @@ import {
 } from '../../ducks/data-selection/selectors';
 import { waitForAuthentication } from '../user/user';
 import {
+  MAP_BOUNDING_BOX
+} from '../../../map/ducks/map/constants';
+import {
   closeMapPanel,
-  MAP_BOUNDING_BOX,
   mapEmptyGeometry,
   mapEndDrawing,
   mapSetDrawingMode,
   mapLoadingAction
-} from '../../../map/ducks/map/map';
+} from '../../../map/ducks/map/actions';
 import PARAMETERS from '../../../store/parameters';
 import drawToolConfig from '../../../map/services/draw-tool/draw-tool.config';
 import { getViewMode, SET_VIEW_MODE, VIEW_MODE } from '../../ducks/ui/ui';

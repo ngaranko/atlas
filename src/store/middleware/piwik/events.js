@@ -35,7 +35,7 @@ import {
   MAP_SET_DRAWING_MODE,
   SET_MAP_BASE_LAYER,
   SET_MAP_CLICK_LOCATION
-} from '../../../map/ducks/map/map';
+} from '../../../map/ducks/map/constants';
 import { getShapeMarkers } from '../../../map/ducks/map/map-selectors';
 import { NAVIGATE_HOME_REQUEST, REPORT_PROBLEM_REQUEST } from '../../../header/ducks/actions';
 import {

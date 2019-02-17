@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getLayers } from '../../ducks/panel-layers/map-panel-layers';
-import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/map';
+import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/constants';
 import { getMapZoom } from '../../ducks/map/map-selectors';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 import { setPanoramaLocation } from '../../../panorama/ducks/actions';

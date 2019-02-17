@@ -17,12 +17,14 @@ import {
 
 import {
   MAP_BOUNDING_BOX,
-  MAP_PAN,
+  MAP_PAN
+} from '../../ducks/map/constants';
+import {
   setSelectedLocation,
   updateBoundingBox,
   updatePan,
   updateZoom
-} from '../../ducks/map/map';
+} from '../../ducks/map/actions';
 import {
   FETCH_MAP_BASE_LAYERS_REQUEST,
   fetchMapBaseLayers,
@@ -42,7 +44,7 @@ import {
 
 jest.mock('../../../shared/ducks/data-selection/selectors');
 jest.mock('../../ducks/base-layers/map-base-layers');
-jest.mock('../../ducks/map/map');
+jest.mock('../../ducks/map/actions');
 jest.mock('../../ducks/map/map-selectors');
 jest.mock('../../ducks/layers/map-layers');
 jest.mock('../../ducks/panel-layers/map-panel-layers');

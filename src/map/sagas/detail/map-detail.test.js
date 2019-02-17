@@ -4,7 +4,7 @@ import {
   fetchMapDetailFailure,
   fetchMapDetailSuccess, getMapDetail
 } from '../../ducks/detail/map-detail';
-import { closeMapPanel, mapLoadingAction } from '../../ducks/map/map';
+import { closeMapPanel, mapLoadingAction } from '../../ducks/map/actions';
 import { FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/constants';
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';

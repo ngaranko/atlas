@@ -6,7 +6,8 @@ import ErrorMessageReducer, { REDUCER_KEY as ERROR } from '../shared/ducks/error
 import UiReducer, { UI } from '../shared/ducks/ui/ui';
 import UserReducer, { REDUCER_KEY as USER } from '../shared/ducks/user/user';
 import MapDetailReducer from '../map/ducks/detail/map-detail';
-import MapReducer, { MAP } from '../map/ducks/map/map';
+import { REDUCER_KEY as MAP } from '../map/ducks/map/constants';
+import MapReducer from '../map/ducks/map/map';
 import MapLayersReducer from '../map/ducks/layers/map-layers';
 import MapBaseLayersReducer from '../map/ducks/base-layers/map-base-layers';
 import MapPanelLayersReducer from '../map/ducks/panel-layers/map-panel-layers';

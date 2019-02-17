@@ -17,7 +17,7 @@ import {
   toggleMapOverlay,
   toggleMapOverlayVisibility,
   toggleMapPanel
-} from '../../ducks/map/map';
+} from '../../ducks/map/actions';
 import {
   getActiveBaseLayer,
   getMapOverlays,
