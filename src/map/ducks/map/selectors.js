@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { getPanoramaLocation, getPanoramaMarkers } from '../../../panorama/ducks/selectors';
-import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
+import { getGeoJson as getDetailGeoJson } from '../detail/selectors';
 import { geoSearchType } from '../../components/leaflet/services/icons.constant';
 import { getDetail } from '../../../shared/ducks/detail/selectors';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';

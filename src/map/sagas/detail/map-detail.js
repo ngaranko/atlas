@@ -4,9 +4,9 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import {
   fetchMapDetailFailure,
   fetchMapDetailSuccess,
-  getCurrentEndpoint,
   getMapDetail
-} from '../../ducks/detail/map-detail';
+} from '../../ducks/detail/actions';
+import { getCurrentEndpoint } from '../../ducks/detail/selectors';
 import { closeMapPanel, mapLoadingAction } from '../../ducks/map/actions';
 import fetchLegacyDetail, { getDetailData } from '../../../detail/sagas/detail';
 import fetchDetail from '../../services/map-detail';

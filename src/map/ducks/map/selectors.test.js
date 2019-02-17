@@ -13,7 +13,7 @@ import {
   isMapPanelActive,
   isMarkerActive
 } from './selectors';
-import { getGeoJson as getDetailGeoJson } from '../detail/map-detail';
+import { getGeoJson as getDetailGeoJson } from '../detail/selectors';
 import { getPanoramaLocation } from '../../../panorama/ducks/selectors';
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 import { areMarkersLoading } from '../../../shared/ducks/data-selection/selectors';
@@ -22,7 +22,7 @@ jest.mock('../../../shared/ducks/selection/selection');
 jest.mock('../../../shared/ducks/data-selection/selectors');
 jest.mock('../../../shared/ducks/data-search/selectors');
 jest.mock('../../../panorama/ducks/selectors');
-jest.mock('../detail/map-detail');
+jest.mock('../detail/selectors');
 describe('Map Selectors', () => {
   const detail = {};
   const map = {

@@ -8,7 +8,7 @@ import {
 import { getDetailLocation } from '../../../store/redux-first-router/selectors';
 
 import { selectNotClickableVisibleMapLayers } from '../../ducks/panel-layers/map-panel-layers';
-import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
+import { selectLatestMapDetail } from '../../ducks/detail/selectors';
 import { isEmbedded, isEmbedPreview, setViewMode, VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import { getDetail, getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import MapPreviewPanel from './MapPreviewPanel';

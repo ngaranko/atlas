@@ -5,7 +5,7 @@ import AutoSuggestReducer from '../header/ducks/auto-suggest/auto-suggest';
 import ErrorMessageReducer, { REDUCER_KEY as ERROR } from '../shared/ducks/error/error-message';
 import UiReducer, { UI } from '../shared/ducks/ui/ui';
 import UserReducer, { REDUCER_KEY as USER } from '../shared/ducks/user/user';
-import MapDetailReducer from '../map/ducks/detail/map-detail';
+import MapDetailReducer from '../map/ducks/detail/reducer';
 import { REDUCER_KEY as MAP } from '../map/ducks/map/constants';
 import MapReducer from '../map/ducks/map/reducer';
 import MapLayersReducer from '../map/ducks/layers/map-layers';

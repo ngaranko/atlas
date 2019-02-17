@@ -8,7 +8,7 @@ import * as DataSelectionCatalogReducer
 import * as ErrorMessageReducer from '../shared/ducks/error/error-message';
 import * as UiReducer from '../shared/ducks/ui/ui';
 import * as UserReducer from '../shared/ducks/user/user';
-import * as MapDetailReducer from '../map/ducks/detail/map-detail';
+import * as MapDetailReducer from '../map/ducks/detail/reducer';
 import * as MapReducer from '../map/ducks/map/reducer';
 import * as MapLayersReducer from '../map/ducks/layers/map-layers';
 import * as MapBaseLayersReducer from '../map/ducks/base-layers/map-base-layers';
