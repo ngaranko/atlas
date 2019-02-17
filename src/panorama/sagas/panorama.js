@@ -16,7 +16,7 @@ import { toDataDetail, toGeoSearch, toPanorama } from '../../store/redux-first-r
 import { getLocationPayload } from '../../store/redux-first-router/selectors';
 import { getViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
 import PARAMETERS from '../../store/parameters';
-import { getMapOverlays } from '../../map/ducks/map/map-selectors';
+import { getMapOverlays } from '../../map/ducks/map/selectors';
 import {
   CLOSE_PANORAMA,
   FETCH_PANORAMA_HOTSPOT_REQUEST,

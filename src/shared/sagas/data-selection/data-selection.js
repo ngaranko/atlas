@@ -10,7 +10,7 @@ import {
 } from '../../ducks/data-selection/actions';
 import dataSelectionConfig from '../../services/data-selection/data-selection-config';
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
-import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/map-selectors';
+import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/selectors';
 import {
   ADD_FILTER,
   EMPTY_FILTERS,

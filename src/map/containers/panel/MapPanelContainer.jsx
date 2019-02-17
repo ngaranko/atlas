@@ -23,7 +23,7 @@ import {
   getMapOverlays,
   getMapZoom,
   isMapPanelActive
-} from '../../ducks/map/map-selectors';
+} from '../../ducks/map/selectors';
 import { getUser } from '../../../shared/ducks/user/user';
 
 const mapStateToProps = (state) => ({

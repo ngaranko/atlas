@@ -13,7 +13,7 @@ import {
   getRdGeoJsons,
   isMapLoading,
   isMarkerActive
-} from '../../ducks/map/map-selectors';
+} from '../../ducks/map/selectors';
 
 import {
   MAP_BOUNDING_BOX,
@@ -45,11 +45,10 @@ import {
 jest.mock('../../../shared/ducks/data-selection/selectors');
 jest.mock('../../ducks/base-layers/map-base-layers');
 jest.mock('../../ducks/map/actions');
-jest.mock('../../ducks/map/map-selectors');
+jest.mock('../../ducks/map/selectors');
 jest.mock('../../ducks/layers/map-layers');
 jest.mock('../../ducks/panel-layers/map-panel-layers');
 jest.mock('../../services/draw-tool/draw-tool');
-jest.mock('../../ducks/map/map-selectors');
 
 describe('LeafletContainer', () => {
   let initialState;

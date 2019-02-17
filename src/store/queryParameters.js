@@ -12,7 +12,7 @@ import {
   getMapOverlays,
   getMapZoom,
   isMapPanelActive
-} from '../map/ducks/map/map-selectors';
+} from '../map/ducks/map/selectors';
 import { initialState as panoramaInitialState } from '../panorama/ducks/constants';
 import { PANORAMA } from '../panorama/ducks/reducer';
 import {

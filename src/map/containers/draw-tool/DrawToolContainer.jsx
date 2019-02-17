@@ -21,7 +21,7 @@ import {
   getShapeDistanceTxt,
   isDrawingEnabled,
   getShapeMarkers
-} from '../../ducks/map/map-selectors';
+} from '../../ducks/map/selectors';
 import { endDataSelection, setGeometryFilter } from '../../../shared/ducks/data-selection/actions';
 import {
   getDataSelection

@@ -20,7 +20,7 @@ import {
   getMarkers,
   getRdGeoJsons,
   isMapLoading
-} from '../../ducks/map/map-selectors';
+} from '../../ducks/map/selectors';
 import {
   getBrkMarkers,
   getClusterMarkers,

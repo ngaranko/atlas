@@ -12,7 +12,7 @@ import { selectLatestMapDetail } from '../../ducks/detail/map-detail';
 import { isEmbedded, isEmbedPreview, setViewMode, VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import { getDetail, getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import MapPreviewPanel from './MapPreviewPanel';
-import { getLocationId } from '../../ducks/map/map-selectors';
+import { getLocationId } from '../../ducks/map/selectors';
 import { isGeoSearch } from '../../../shared/ducks/selection/selection';
 import {
   getDataSearch,

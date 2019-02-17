@@ -15,7 +15,7 @@ import {
   updatePan,
   updateZoom
 } from './actions';
-import reducer from './map';
+import reducer from './reducer';
 
 
 describe('Map Reducer', () => {
