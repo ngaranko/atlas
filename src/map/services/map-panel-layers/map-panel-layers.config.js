@@ -840,7 +840,7 @@ export default [
       },
       {
         selectable: false,
-        title: 'Parkeervak'
+        title: 'Niet FISCAAL'
       }
     ],
     maxZoom: 16,
@@ -851,7 +851,6 @@ export default [
   {
     category: 'Verkeer en infrastructuur',
     id: 'pvb',
-    notClickable: true,
     layers: ['parkeervakken_bord'],
     legendItems: [
       {
@@ -860,7 +859,7 @@ export default [
       }
     ],
     maxZoom: 16,
-    minZoom: 8,
+    minZoom: 11,
     title: 'Parkeervakken - Speciale bestemmingen',
     url: '/maps/parkeervakken?version=1.3.0&service=WMS'
   },
