@@ -172,7 +172,6 @@ describe('map module', () => {
 
       cy.get(columnRight).should('exist').and('not.be.visible');
       cy.get('.map-preview-panel.map-preview-panel--visible')
-        // .get('img.map-detail-result__header-pano')
         .should('exist').and('be.visible');
       cy.checkPreviewPanel(['Nieuwmarkt 25', '10581111']);
     });
