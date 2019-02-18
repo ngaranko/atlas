@@ -146,7 +146,7 @@ const mockApiData = {
           },
           'ams:status': {
             default: 'gepland',
-            description: 'Datasets met status 'beschikbaar' worden weergegeven in dataportaal. Datasets 'in onderzoek' ook, maar voorzien van een kanttekening totdat een beheerder de datasets gecontroleerd en weer beschikbaar heeft gemaakt. Datasets met andere statussen zijn niet vindbaar in dataportaal, maar mogelijk wel via andere wegen (als je de link hebt).',
+            description: 'Datasets met status "beschikbaar" worden weergegeven in dataportaal. Datasets "in onderzoek" ook, maar voorzien van een kanttekening totdat een beheerder de datasets gecontroleerd en weer beschikbaar heeft gemaakt. Datasets met andere statussen zijn niet vindbaar in dataportaal, maar mogelijk wel via andere wegen (als je de link hebt).',
             enum: [
               'in_onderzoek',
               'niet_beschikbaar',
