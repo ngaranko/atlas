@@ -733,6 +733,7 @@ export default [
     layers: ['milieuzones'],
     legendItems: [
       {
+        imageRule: 'Bestelauto',
         selectable: false,
         title: 'Milieuzone bestelauto'
       }
@@ -749,6 +750,7 @@ export default [
     layers: ['milieuzones'],
     legendItems: [
       {
+        imageRule: 'Brom- en snorfiets',
         selectable: false,
         title: 'Milieuzone brom- en snorfiets'
       }
