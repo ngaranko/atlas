@@ -976,7 +976,7 @@ export default [
         notClickable: true,
         layer: 'busbaan_geen_taxi',
         selectable: true,
-        title: 'Taxi busbaanontheffing'
+        title: 'Taxi busbaanverbod'
       },
       {
         id: 'tar',
