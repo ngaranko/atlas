@@ -733,7 +733,6 @@ export default [
     layers: ['milieuzones'],
     legendItems: [
       {
-        imageRule: 'Bestelauto',
         selectable: false,
         title: 'Milieuzone bestelauto'
       }
@@ -750,7 +749,6 @@ export default [
     layers: ['milieuzones'],
     legendItems: [
       {
-        imageRule: 'Brom- en snorfiets',
         selectable: false,
         title: 'Milieuzone brom- en snorfiets'
       }
@@ -827,6 +825,43 @@ export default [
     minZoom: 8,
     title: 'Milieuzones - Vrachtauto',
     url: '/maps/milieuzones?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Verkeer en infrastructuur',
+    legendItems: [
+      {
+        id: 'nlpb',
+        imageRule: 'Normaal beschikbaar',
+        layer: 'normaal_beschikbaar',
+        selectable: true,
+        title: 'Gewoon laadpunt (beschikbaar)'
+      },
+      {
+        id: 'nlpnb',
+        imageRule: 'Normaal niet beschikbaar',
+        layer: 'normaal_niet_beschikbaar',
+        selectable: true,
+        title: 'Gewoon laadpunt (niet beschikbaar)'
+      },
+      {
+        id: 'slpb',
+        imageRule: 'Snel beschikbaar',
+        layer: 'snel_beschikbaar',
+        selectable: true,
+        title: 'Snellaadpunt (beschikbaar)'
+      },
+      {
+        id: 'slpnb',
+        imageRule: 'Snel niet beschikbaar',
+        layer: 'snel_niet_beschikbaar',
+        selectable: true,
+        title: 'Snellaadpunt (niet beschikbaar)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Oplaadpunten - Status (±15 min. geleden)',
+    url: '/maps/oplaadpunten?version=1.3.0&service=WMS'
   },
   {
     category: 'Verkeer en infrastructuur',

@@ -711,6 +711,36 @@ export default [
     layers: ['reistijdenauto'],
     noDetail: true
   },
+  // Oplaadpunten
+  {
+    id: 'nlpb',
+    url: 'maps/oplaadpunten',
+    layers: ['normaal_beschikbaar'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'oplaadpunten'
+  },
+  {
+    id: 'nlpnb',
+    url: 'maps/oplaadpunten',
+    layers: ['normaal_niet_beschikbaar'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'oplaadpunten'
+  },
+  {
+    id: 'slpb',
+    url: 'maps/oplaadpunten',
+    layers: ['snel_beschikbaar'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'oplaadpunten'
+  },
+  {
+    id: 'slpnb',
+    url: 'maps/oplaadpunten',
+    layers: ['snel_niet_beschikbaar'],
+    detailUrl: 'geosearch/search/',
+    detailItem: 'oplaadpunten'
+  },
+  // Hoofdroutes
   {
     id: 'bgt',
     url: 'maps/hoofdroutes?service=wms',
