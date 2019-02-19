@@ -21,6 +21,7 @@ import kadastraalObject from '../../shared/services/kadastraal-object/kadastraal
 import meetbout from '../../shared/services/meetbout/meetbout';
 import monument from '../../shared/services/monument/monument';
 import napPeilmerk from '../../shared/services/nap-peilmerk/nap-peilmerk';
+import oplaadpunten from '../../shared/services/oplaadpunten/oplaadpunten';
 import parkeervak from '../../shared/services/parkeervak/parkeervak';
 import vestiging from '../../shared/services/vestiging/vestiging';
 import SHARED_CONFIG from '../../shared/services/shared-config/shared-config';
@@ -63,6 +64,7 @@ export const endpointTypes = {
   meetbout: 'meetbouten/meetbout/',
   monument: 'monumenten/monumenten/',
   napPeilmerk: 'nap/peilmerk/',
+  oplaadpunten: 'vsd/oplaadpunten/',
   parkeervak: 'parkeervakken/parkeervakken/',
   vestiging: 'handelsregister/vestiging/'
 };
@@ -91,6 +93,7 @@ const servicesByEndpointType = {
   [endpointTypes.meetbout]: { fetch: meetbout },
   [endpointTypes.monument]: { fetch: monument },
   [endpointTypes.napPeilmerk]: { fetch: napPeilmerk },
+  [endpointTypes.oplaadpunten]: { fetch: oplaadpunten },
   [endpointTypes.parkeervak]: { fetch: parkeervak },
   [endpointTypes.vestiging]: { fetch: vestiging, authScope: 'HR/R' }
 };

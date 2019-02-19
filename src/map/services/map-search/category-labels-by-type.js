@@ -27,6 +27,7 @@ const categoryLabelsByType = {
   'parkeervakken/parkeervakken': categoryLabels.parkeervak,
   vestiging: categoryLabels.vestiging,
   'vsd/biz': categoryLabels.bedrijfsinvesteringszone,
+  'vsd/oplaadpunten': categoryLabels.oplaadpunten,
   'wkpb/beperking': categoryLabels.gemeentelijkeBeperking
 };
 
