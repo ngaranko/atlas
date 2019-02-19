@@ -295,7 +295,7 @@ const GLOSSARY = {
         'openbare_ruimte_code'
       ]
     },
-    OPLAADPUNT: {
+    OPLAADPUNTEN: {
       label_singular: 'Oplaadpunt',
       label_plural: 'Oplaadpunten',
       description: null,
