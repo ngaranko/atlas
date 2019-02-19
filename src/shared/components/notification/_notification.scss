@@ -1,6 +1,7 @@
 @import "../../styles/config";
 
 $icon-dimension: 24px;
+$icon-padding: 4px;
 
 .notification {
   color: $primary-light;
@@ -8,8 +9,8 @@ $icon-dimension: 24px;
   font-family: "Avenir LT W01 65 Medium";
   justify-content: space-between;
   margin: 0;
-  padding: 6px 8px;
-  padding-right: $icon-dimension;
+  padding: 6px $icon-padding * 2;
+  padding-right: $icon-dimension + $icon-padding * 2;
   position: relative;
 
   &--info {
@@ -55,8 +56,8 @@ $icon-dimension: 24px;
     height: $icon-dimension;
     line-height: 0;
     position: absolute;
-    right: 4px;
-    top: 4px;
+    right: $icon-padding;
+    top: $icon-padding;
     width: $icon-dimension;
 
     &:hover,
