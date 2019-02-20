@@ -733,6 +733,7 @@ export default [
     layers: ['milieuzones'],
     legendItems: [
       {
+        imageRule: 'Bestelauto',
         selectable: false,
         title: 'Milieuzone bestelauto'
       }
@@ -749,6 +750,7 @@ export default [
     layers: ['milieuzones'],
     legendItems: [
       {
+        imageRule: 'Brom- en snorfiets',
         selectable: false,
         title: 'Milieuzone brom- en snorfiets'
       }
@@ -871,11 +873,11 @@ export default [
     legendItems: [
       {
         selectable: false,
-        title: 'FISCAAL'
+        title: 'Fiscaal'
       },
       {
         selectable: false,
-        title: 'Niet FISCAAL'
+        title: 'Niet fiscaal'
       }
     ],
     maxZoom: 16,
@@ -905,7 +907,7 @@ export default [
         id: 'pvrf',
         layer: 'parkeervakken_reservering',
         selectable: true,
-        title: 'FISCAAL'
+        title: 'Fiscaal'
       },
       {
         id: 'pvrpv',
@@ -976,7 +978,7 @@ export default [
         notClickable: true,
         layer: 'busbaan_geen_taxi',
         selectable: true,
-        title: 'Taxi busbaanontheffing'
+        title: 'Taxi busbaanverbod'
       },
       {
         id: 'tar',

@@ -295,7 +295,7 @@ const GLOSSARY = {
         'openbare_ruimte_code'
       ]
     },
-    OPLAADPUNT: {
+    OPLAADPUNTEN: {
       label_singular: 'Oplaadpunt',
       label_plural: 'Oplaadpunten',
       description: null,
@@ -333,7 +333,7 @@ const GLOSSARY = {
         'sleutelverzendend'
       ]
     },
-    PARKEERVAK: {
+    PARKEERVAKKEN: {
       label_singular: 'Parkeervak',
       label_plural: 'Parkeervakken',
       description: 'Een parkeerplaats of parkeervak is een ruimte die is bestemd voor het parkeren van één voertuig.',
