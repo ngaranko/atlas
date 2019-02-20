@@ -191,9 +191,14 @@ export default [
   },
   // geografie: gebieden
   {
-    id: 'gsg',
+    id: 'ggra',
     url: 'maps/gebieden?service=wms',
-    layers: ['grootstedelijkgebied', 'grootstedelijkgebied_label']
+    layers: ['grootstedelijk_regio_amsterdam']
+  },
+  {
+    id: 'ggro',
+    url: 'maps/gebieden?service=wms',
+    layers: ['grootstedelijk_regio_omgevingsdienst']
   },
   {
     id: 'ggwpg',
