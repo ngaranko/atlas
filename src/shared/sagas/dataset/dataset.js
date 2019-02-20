@@ -31,6 +31,7 @@ import { getUserScopes } from '../../ducks/user/user';
 import { getParts, getTemplateUrl } from '../../../detail/services/endpoint-parser/endpoint-parser';
 import { getByUrl } from '../../../shared/services/api/api';
 import SHARED_CONFIG from '../../services/shared-config/shared-config';
+import { toNotFoundPage } from '../../../store/redux-first-router/actions';
 
 export function* ensureCatalogFilters() {
   const state = yield select();
@@ -44,9 +45,8 @@ export function* ensureCatalogFilters() {
   ]);
 }
 
-function* retrieveDatasets(action) {
-  const { activeFilters, page, searchText, geometryFilter, catalogFilters } =
-    action.payload;
+export function* retrieveDatasets(action) {
+  const { activeFilters, page, searchText, geometryFilter, catalogFilters } = action.payload;
   try {
     const result = yield call(query,
       DEFAULT_DATASET,
@@ -76,15 +76,20 @@ export function* getDatasetData(endpoint) {
   yield call(ensureCatalogFilters);
   const catalogFilters = yield select(getApiSpecificationData);
 
-  const data = yield getByUrl(`${endpoint}`);
-  const formatedData = {
-    ...formatDetailData(data, category, subject, catalogFilters, scopes)
-  };
+  try {
+    const data = yield getByUrl(`${endpoint}`);
 
-  return {
-    includeSrc,
-    data: formatedData
-  };
+    const formatedData = {
+      ...formatDetailData(data, category, subject, catalogFilters, scopes)
+    };
+
+    return {
+      includeSrc,
+      data: formatedData
+    };
+  } catch (e) {
+    return false;
+  }
 }
 
 export function* fetchDatasetsEffect(action) {
@@ -116,6 +121,10 @@ export function* fetchDatasetsOptionalEffect(action) {
   const endpoint = `${SHARED_CONFIG.API_ROOT}dcatd/datasets/${action.payload.id}`;
 
   const detailData = yield call(getDatasetData, endpoint);
+
+  if (!detailData) {
+    yield put(toNotFoundPage());
+  }
   yield put(fetchDetailSuccess(detailData));
 }
 
@@ -123,8 +132,8 @@ export function* retrieveApiSpecification() {
   try {
     const data = yield call(getApiSpecification);
     yield put(fetchApiSpecificationSuccess(data));
-  } catch (error) {
-    yield put(fetchApiSpecificationFailure(error));
+  } catch (e) {
+    yield put(fetchApiSpecificationFailure(e));
   }
 }
 
