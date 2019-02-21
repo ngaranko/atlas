@@ -913,18 +913,21 @@ export default [
         id: 'pvrts',
         layer: 'parkeervakken_reservering',
         selectable: true,
+        imageRule: 'Taxistandplaats',
         title: 'Taxistandplaats'
       },
       {
         id: 'pvrll',
         layer: 'parkeervakken_reservering',
         selectable: true,
+        imageRule: 'Laden en lossen',
         title: 'Laden lossen'
       },
       {
         id: 'pvrpr',
         layer: 'parkeervakken_reservering',
         selectable: true,
+        imageRule: 'Park & Ride',
         title: 'Park & Ride'
       }
     ],
