@@ -920,8 +920,8 @@ export default [
         id: 'pvrll',
         layer: 'parkeervakken_reservering',
         selectable: true,
-        imageRule: 'Laden en lossen',
-        title: 'Laden lossen'
+        imageRule: 'Laden lossen',
+        title: 'Laden en lossen'
       },
       {
         id: 'pvrpr',
