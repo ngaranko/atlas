@@ -366,17 +366,23 @@ export default [
   },
   {
     category: 'Geografie: gebieden',
-    id: 'gsg',
-    layers: ['grootstedelijkgebied'],
     legendItems: [
       {
-        selectable: false,
-        title: 'Grootstedelijk gebied'
+        id: 'ggra',
+        layer: 'grootstedelijk_regio_amsterdam',
+        selectable: true,
+        title: 'Regie Gemeente Amsterdam'
+      },
+      {
+        id: 'ggro',
+        layer: 'grootstedelijk_regio_omgevingsdienst',
+        selectable: true,
+        title: 'Regie Omgevingsdienst'
       }
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: 'Grootstedelijke gebieden',
+    title: 'Grootstedelijke gebieden, projecten en belangen',
     url: '/maps/gebieden?version=1.3.0&service=WMS'
   },
   {
