@@ -838,37 +838,46 @@ export default [
     category: 'Verkeer en infrastructuur',
     legendItems: [
       {
-        id: 'nlpb',
-        imageRule: 'Normaal beschikbaar',
-        layer: 'normaal_beschikbaar',
-        selectable: true,
-        title: 'Gewoon laadpunt (beschikbaar)'
-      },
-      {
-        id: 'nlpnb',
-        imageRule: 'Normaal niet beschikbaar',
-        layer: 'normaal_niet_beschikbaar',
-        selectable: true,
-        title: 'Gewoon laadpunt (niet beschikbaar)'
-      },
-      {
         id: 'slpb',
         imageRule: 'Snel beschikbaar',
         layer: 'snel_beschikbaar',
         selectable: true,
-        title: 'Snellaadpunt (beschikbaar)'
+        title: 'Snellaadpunt (beschikbaar, ±15 min. geleden)'
       },
       {
         id: 'slpnb',
         imageRule: 'Snel niet beschikbaar',
         layer: 'snel_niet_beschikbaar',
         selectable: true,
-        title: 'Snellaadpunt (niet beschikbaar)'
+        title: 'Snellaadpunt (niet beschikbaar, ±15 min. geleden)'
       }
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: 'Oplaadpunten - Status (±15 min. geleden)',
+    title: 'Oplaadpunten - Snel laden',
+    url: '/maps/oplaadpunten?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Verkeer en infrastructuur',
+    legendItems: [
+      {
+        id: 'nlpb',
+        imageRule: 'Normaal beschikbaar',
+        layer: 'normaal_beschikbaar',
+        selectable: true,
+        title: 'Gewoon laadpunt (beschikbaar, ±15 min. geleden)'
+      },
+      {
+        id: 'nlpnb',
+        imageRule: 'Normaal niet beschikbaar',
+        layer: 'normaal_niet_beschikbaar',
+        selectable: true,
+        title: 'Gewoon laadpunt (niet beschikbaar, ±15 min. geleden)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Oplaadpunten - Gewoon laden',
     url: '/maps/oplaadpunten?version=1.3.0&service=WMS'
   },
   {
@@ -986,6 +995,39 @@ export default [
     minZoom: 11,
     title: 'Parkeervakken - Gereserveerd (overige)',
     url: '/maps/parkeervakken?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Verkeer en infrastructuur',
+    legendItems: [
+      {
+        id: 'bgt',
+        imageRule: 'Busbaan geen taxi',
+        notClickable: true,
+        layer: 'busbaan_geen_taxi',
+        selectable: true,
+        title: 'Taxi busbaanverbod'
+      },
+      {
+        id: 'tar',
+        imageRule: 'Taxiroutes',
+        notClickable: true,
+        layer: 'taxiroutes',
+        selectable: true,
+        title: 'Taxi hoofdroute'
+      },
+      {
+        id: 'vrr',
+        imageRule: 'Vrachtroutes',
+        notClickable: true,
+        layer: 'vrachtroutes',
+        selectable: true,
+        title: 'Vrachtauto 7,5t-route'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Routes - Taxi en vrachtauto',
+    url: '/maps/hoofdroutes?version=1.3.0&service=WMS'
   },
   {
     category: 'Verkeer en infrastructuur',
