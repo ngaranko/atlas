@@ -40,8 +40,8 @@ import { getShapeMarkers } from '../../../map/ducks/map/map-selectors';
 import { NAVIGATE_HOME_REQUEST, REPORT_PROBLEM_REQUEST } from '../../../header/ducks/actions';
 import {
   FETCH_PANORAMA_HOTSPOT_REQUEST,
-  FETCH_PANORAMA_REQUEST_EXTERNAL,
-  FETCH_PANORAMA_REQUEST_TOGGLE
+  SET_PANORAMA_TAGS,
+  FETCH_PANORAMA_REQUEST_EXTERNAL
 } from '../../../panorama/ducks/constants';
 import PAGES from '../../../app/pages';
 import { PIWIK_CONSTANTS } from './piwikMiddleware';
@@ -301,7 +301,7 @@ const events = {
   },
   // PANORAMA
   // PANORAMA -> TOGGLE "missionType" / "missionYear"
-  [FETCH_PANORAMA_REQUEST_TOGGLE]: ({ tracking }) => [
+  [SET_PANORAMA_TAGS]: ({ tracking }) => [
     PIWIK_CONSTANTS.TRACK_EVENT,
     'panorama-set',
     (tracking.year > 0) ? `panorama-set-${tracking.year}${tracking.missionType}` : 'panorama-set-recent',

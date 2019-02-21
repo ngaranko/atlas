@@ -21,6 +21,11 @@ export default {
       uri: 'atlas/search/openbareruimte/',
       options: { subtype: 'not_weg' }
     }, {
+      slug: 'pand',
+      label_singular: 'Pand',
+      label_plural: 'Panden',
+      uri: 'atlas/search/pand/'
+    }, {
       slug: 'vestiging',
       label_singular: 'Vestiging',
       label_plural: 'Vestigingen',
@@ -64,11 +69,6 @@ export default {
       label_singular: 'Monument',
       label_plural: 'Monumenten',
       uri: 'monumenten/search/'
-    }, {
-      slug: 'pand',
-      label_singular: 'Pand',
-      label_plural: 'Panden',
-      uri: 'atlas/search/pand/'
     }
   ],
   COORDINATES_ENDPOINTS: [
@@ -76,7 +76,7 @@ export default {
       uri: 'geosearch/nap/',
       radius: 25
     }, {
-      uri: 'geosearch/atlas/',
+      uri: 'geosearch/bag/',
       radius: null
     }, {
       uri: 'geosearch/munitie/',
@@ -92,7 +92,9 @@ export default {
       }
     },
     { uri: 'geosearch/grondexploitatie/' },
-    { uri: 'geosearch/biz/' }
+    { uri: 'geosearch/biz/' },
+    { uri: 'parkeervakken/geosearch/' },
+    { uri: 'geosearch/oplaadpunten/' }
   ],
   COORDINATES_HIERARCHY: [
     {
@@ -154,6 +156,11 @@ export default {
       label_plural: 'NAP Peilmerken',
       features: ['nap/peilmerk']
     }, {
+      slug: 'oplaadpunten',
+      label_singular: 'Oplaadpunt',
+      label_plural: 'Oplaadpunten',
+      features: ['vsd/oplaadpunten']
+    }, {
       slug: 'explosief',
       label_singular: 'Explosief',
       label_plural: 'Explosieven',
@@ -186,6 +193,11 @@ export default {
       label_singular: 'Bedrijfsinvesteringszone',
       label_plural: 'Bedrijfsinvesteringszones',
       features: ['vsd/biz']
+    }, {
+      slug: 'parkeervakken',
+      label_singular: 'Parkeervak',
+      label_plural: 'Parkeervakken',
+      features: ['parkeervakken/parkeervakken']
     }
   ]
 };
