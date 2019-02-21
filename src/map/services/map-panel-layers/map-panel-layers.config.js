@@ -977,29 +977,11 @@ export default [
         layer: 'parkeervakken_reservering',
         selectable: true,
         title: 'Blauwe zone'
-      },
-      {
-        id: 'pvrts',
-        layer: 'parkeervakken_reservering',
-        selectable: true,
-        title: 'Taxistandplaats'
-      },
-      {
-        id: 'pvrll',
-        layer: 'parkeervakken_reservering',
-        selectable: true,
-        title: 'Laden lossen'
-      },
-      {
-        id: 'pvrpr',
-        layer: 'parkeervakken_reservering',
-        selectable: true,
-        title: 'Park & Ride'
       }
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Parkeervakken - Gereserveerd',
+    title: 'Parkeervakken - Gereserveerd (overige)',
     url: '/maps/parkeervakken?version=1.3.0&service=WMS'
   },
   {
