@@ -910,6 +910,36 @@ export default [
     category: 'Verkeer en infrastructuur',
     legendItems: [
       {
+        id: 'pvrts',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
+        imageRule: 'Taxistandplaats',
+        title: 'Taxistandplaats'
+      },
+      {
+        id: 'pvrll',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
+        imageRule: 'Laden lossen',
+        title: 'Laden en lossen'
+      },
+      {
+        id: 'pvrpr',
+        layer: 'parkeervakken_reservering',
+        selectable: true,
+        imageRule: 'Park & Ride',
+        title: 'Park & Ride'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 11,
+    title: 'Parkeervakken - Gereserveerd (logistiek)',
+    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Verkeer en infrastructuur',
+    legendItems: [
+      {
         id: 'pvrf',
         layer: 'parkeervakken_reservering',
         selectable: true,
@@ -922,12 +952,6 @@ export default [
         title: 'Parkeerverbod'
       },
       {
-        id: 'pvrts',
-        layer: 'parkeervakken_reservering',
-        selectable: true,
-        title: 'Taxistandplaats'
-      },
-      {
         id: 'pvrga',
         layer: 'parkeervakken_reservering',
         selectable: true,
@@ -938,12 +962,6 @@ export default [
         layer: 'parkeervakken_reservering',
         selectable: true,
         title: 'Gehandicaptenplaats kenteken'
-      },
-      {
-        id: 'pvrll',
-        layer: 'parkeervakken_reservering',
-        selectable: true,
-        title: 'Laden lossen'
       },
       {
         id: 'pvrsv',
@@ -962,17 +980,11 @@ export default [
         layer: 'parkeervakken_reservering',
         selectable: true,
         title: 'Blauwe zone'
-      },
-      {
-        id: 'pvrpr',
-        layer: 'parkeervakken_reservering',
-        selectable: true,
-        title: 'Park & Ride'
       }
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Parkeervakken - Gereserveerd',
+    title: 'Parkeervakken - Gereserveerd (overige)',
     url: '/maps/parkeervakken?version=1.3.0&service=WMS'
   },
   {
