@@ -698,6 +698,22 @@ export default [
     disabled: true,
     legendItems: [
       {
+        id: 'pw1943-2500',
+        notClickable: false,
+        layer: 'burgerlijke_gemeente',
+        selectable: false,
+        title: '1943 (Dienst der Publieke Werken 1:2500)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: '1943 (Dienst der Publieke Werken 1:2500)'
+  },
+  {
+    category: 'Topografie: historisch',
+    disabled: true,
+    legendItems: [
+      {
         id: 'pw1985',
         notClickable: false,
         layer: 'burgerlijke_gemeente',

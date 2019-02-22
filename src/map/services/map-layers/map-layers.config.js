@@ -300,6 +300,15 @@ export default [
     bounds: [[52.3292, 4.8382], [52.4173, 4.9646]]
   },
   {
+    id: 'pw1943-2500',
+    type: mapLayerTypes.TMS,
+    layers: ['publieke-werken'],
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-2500-rd/{z}/{x}/{y}.png',
+    noDetail: true,
+    external: true,
+    bounds: [[52.2815, 4.7287], [52.4174, 4.9927]]
+  },
+  {
     id: 'pw1985',
     type: mapLayerTypes.TMS,
     layers: ['publieke-werken'],
