@@ -33,15 +33,17 @@ const convertBounds = (map) => {
 };
 
 class MapLeaflet extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.onZoomEnd = this.onZoomEnd.bind(this);
     this.onClick = this.onClick.bind(this);
     this.onMoveEnd = this.onMoveEnd.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.handleLoaded = this.handleLoaded.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this);
     this.state = {
+      pendingCalls: 0,
       previousFitBoundsId: ''
     };
 
@@ -58,6 +60,12 @@ class MapLeaflet extends React.Component {
         this.checkIfActiveElementNeedsUpdate(this.activeElement);
       }
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.pendingCalls === 0 && prevProps.layers !== this.props.layers) {
+      this.setState({ pendingCalls: this.props.layers.length})
+    }
   }
 
   onZoomEnd(event) {
@@ -152,6 +160,10 @@ class MapLeaflet extends React.Component {
     }
   }
 
+  handleLoaded() {
+    this.setState({ pendingCalls: this.state.pendingCalls > 0 ?  this.state.pendingCalls - 1 : 0 })
+  }
+
   render() {
     const {
       center,
@@ -171,6 +183,8 @@ class MapLeaflet extends React.Component {
 
     const tmsLayers = layers.filter((layer) => (layer.type === mapLayerTypes.TMS));
     const nonTmsLayers = layers.filter((layer) => (layer.type !== mapLayerTypes.TMS));
+
+    console.log(this.state.pendingCalls, this.props.layers.length, tmsLayers);
     return (
       <ResizeAware
         style={{
@@ -197,6 +211,7 @@ class MapLeaflet extends React.Component {
           <TileLayer
             {...baseLayer.baseLayerOptions}
             url={baseLayer.urlTemplate}
+            onLoad={ this.handleLoaded }
           />
           {tmsLayers.map(({ id: key, isVisible, url, bounds }) => (
             <TileLayer
@@ -210,6 +225,7 @@ class MapLeaflet extends React.Component {
               minZoom={baseLayer.baseLayerOptions.minZoom}
               maxZoom={baseLayer.baseLayerOptions.maxZoom}
               opacity={visibleToOpacity(isVisible)}
+              onLoad={ this.handleLoaded }
             />
           ))}
 
@@ -222,6 +238,7 @@ class MapLeaflet extends React.Component {
               }}
               {...overlayOptions}
               opacity={visibleToOpacity(isVisible)}
+              onLoad={ this.handleLoaded }
             />
           ))}
           {
@@ -291,7 +308,8 @@ class MapLeaflet extends React.Component {
               <ZoomControl {...zoomControlOptions} />
             )
           }
-          <MapBusyIndicator loading={isLoading} />
+          <MapBusyIndicator loading={ isLoading || this.state.pendingCalls > 0 } />
+
         </Map>
       </ResizeAware>
     );
