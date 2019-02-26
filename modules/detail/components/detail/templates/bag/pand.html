@@ -26,10 +26,10 @@
             <dt>Oorspronkelijk bouwjaar</dt>
             <dd ng-if="vm.apiData.results.oorspronkelijk_bouwjaar !== '1005'">{{ vm.apiData.results.oorspronkelijk_bouwjaar }}</dd>
             <dd ng-if="vm.apiData.results.oorspronkelijk_bouwjaar === '1005'">onbekend</dd>
-            <dt><i class="c-key-value-list--icon"></i>Naam</dt>
-            <dd>{{ vm.apiData.results.pandnaam }}</dd>
             <dt>Status</dt>
             <dd>{{ vm.apiData.results.status.omschrijving }}</dd>
+            <dt><i class="c-key-value-list--attention"></i>Naam</dt>
+            <dd>{{ vm.apiData.results.pandnaam }}</dd>
         </dl>
     </div>
 

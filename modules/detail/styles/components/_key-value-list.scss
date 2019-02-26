@@ -17,12 +17,14 @@
     border-bottom: 1px solid $secondary-gray20;
   }
 
-  &--icon {
-    @include icon("question-mark");
-
-    width: 16px;
-    height: 16px;
+  &--attention {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-top: 4px;
     margin-right: 8px;
+    border-radius: 50%;
+    background-color: $red;
     vertical-align: text-top;
 
     &:hover,
