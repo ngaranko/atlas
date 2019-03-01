@@ -11,8 +11,8 @@ describe('piwikTracker', () => {
     piwikTracker(['test'], 'foo', 'string');
 
     expect(global.window._paq.push).toHaveBeenCalledWith(['test']);
-    expect(global.window._paq.push).toHaveBeenCalledWith('foo');
-    expect(global.window._paq.push).toHaveBeenCalledWith('string');
+    expect(global.window._paq.push).toHaveBeenCalledWith(['setCustomUrl', 'foo']);
+    expect(global.window._paq.push).toHaveBeenCalledWith(['setDocumentTitle', 'string']);
   });
 
   it('should saet customDimensions', () => {
