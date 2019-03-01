@@ -31,7 +31,7 @@ describe('piwikMiddleware', () => {
 
     piwikMiddleware(store)(next)(action);
 
-    expect(piwikTracker).toHaveBeenCalledWith(['foo', 'foo', 'data', null]);
+    expect(piwikTracker).toHaveBeenCalled();
   });
 
   it('should send a request to piwik if action should be tracked and has tracking metadata', () => {
