@@ -14,7 +14,7 @@ jest.mock('./events', () => ({
 describe('piwikMiddleware', () => {
   const next = jest.fn();
   const store = jest.fn();
-  store.getState = jest.fn();
+  store.getState = jest.fn(() => ({ user: { authenticated: false, scopes: [] } }));
 
   beforeEach(() => {
     global.window._paq = {
