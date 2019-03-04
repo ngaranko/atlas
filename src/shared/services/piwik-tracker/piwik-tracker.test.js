@@ -8,13 +8,21 @@ describe('piwikTracker', () => {
   });
 
   it('should call window._paq.push', () => {
-    piwikTracker(['test']);
+    piwikTracker(['test'], 'foo', 'string');
 
     expect(global.window._paq.push).toHaveBeenCalledWith(['test']);
+    expect(global.window._paq.push).toHaveBeenCalledWith(['setCustomUrl', 'foo']);
+    expect(global.window._paq.push).toHaveBeenCalledWith(['setDocumentTitle', 'string']);
+  });
+
+  it('should saet customDimensions', () => {
+    piwikTracker(['test'], 'foo', 'string', [{ id: 1, value: 'test' }]);
+
+    expect(global.window._paq.push).toHaveBeenCalledWith(['setCustomDimension', 1, 'test']);
   });
 
   it('should not call window._paq.push without data', () => {
-    piwikTracker([]);
+    piwikTracker([], '', '');
 
     expect(global.window._paq.push).not.toHaveBeenCalled();
   });
