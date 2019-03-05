@@ -675,7 +675,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: '1909 (Dienst der Publieke Werken)'
+    title: '1909 (Dienst der Publieke Werken, 1:1000)'
   },
   {
     category: 'Topografie: historisch',
@@ -686,12 +686,12 @@ export default [
         notClickable: false,
         layer: 'burgerlijke_gemeente',
         selectable: false,
-        title: '1943 (Dienst der Publieke Werken)'
+        title: '1943 (Dienst der Publieke Werken, 1:1000)'
       }
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: '1943 (Dienst der Publieke Werken)'
+    title: '1943 (Dienst der Publieke Werken, 1:1000)'
   },
   {
     category: 'Topografie: historisch',
@@ -702,12 +702,12 @@ export default [
         notClickable: false,
         layer: 'burgerlijke_gemeente',
         selectable: false,
-        title: '1943 (Dienst der Publieke Werken 1:2500)'
+        title: '1943 (Dienst der Publieke Werken, 1:2500)'
       }
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: '1943 (Dienst der Publieke Werken 1:2500)'
+    title: '1943 (Dienst der Publieke Werken, 1:2500)'
   },
   {
     category: 'Topografie: historisch',
@@ -723,7 +723,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: '1985 (Dienst der Publieke Werken)'
+    title: '1985 (Dienst der Publieke Werken, 1:1000)'
   },
   {
     category: 'Verkeer en infrastructuur',
