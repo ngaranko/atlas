@@ -4,6 +4,7 @@ import { getUserScopes, userIsAuthenticated } from '../../../shared/ducks/user/u
 import { dcatdScopes } from '../../../shared/services/auth/auth';
 import events from './events';
 import routes from './routes';
+import { routing } from '../../../app/routes';
 
 // Configure environment variables
 const PIWIK_CONFIG = {
@@ -77,13 +78,18 @@ const authCustomDimensions = (state) => {
   ];
 };
 
+// Delay logging the datasetDetail route in piwik,
+//    to allow logging the document title
+//    this will evolve to an exclusion list of routes as soon as this extra functionality is needed
+const logRoute = (actionType) => actionType !== routing.datasetDetail.type;
+
 // Execute Piwik actions
 const piwikMiddleware = ({ getState }) => (next) => (action) => {
   initializePiwik();
   const nextAction = action;
 
   const actionsToPiwik = [];
-  if (routes[action.type]) {
+  if (routes[action.type] && logRoute(action.type)) {
     actionsToPiwik.push(routes[action.type]);
   }
   if (events[action.type]) {
