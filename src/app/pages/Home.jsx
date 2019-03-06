@@ -243,16 +243,16 @@ const Home = ({ showFooter }) => (
                                 c-homepage__visie-paragraph--panel`}
                           >
                             Meer weten over data en de gemeente Amsterdam? Informatie over beleid,
-                            samenwerkingsverbanden, inspirerende voorbeelden van toepassingen en
+                            inspirerende voorbeelden van toepassingen en
                             informatie voor de pers vindt u op:
                           </p>
                           <a
                             className="c-link c-link--arrow"
-                            href="https://amsterdam.nl/data"
+                            href="https://www.amsterdam.nl/ois"
                             rel="noopener noreferrer"
                             target="_blank"
                           >
-                            amsterdam.nl/data
+                            amsterdam.nl/ois
                           </a>
                         </div>
                       </AngularWrapper>
