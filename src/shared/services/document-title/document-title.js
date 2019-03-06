@@ -5,7 +5,6 @@ import { routing } from '../../../app/routes';
 import { VIEW_MODE } from '../../ducks/ui/ui';
 import { FETCH_DETAIL_SUCCESS } from '../../ducks/detail/constants';
 import PARAMETERS from '../../../store/parameters';
-import piwikTracker from '../piwik-tracker/piwik-tracker';
 
 export const mapDocumentTitle = (action, defaultTitle) => {
   let pageTitle = defaultTitle;
@@ -43,11 +42,6 @@ export const detailDocumentTitleWithName = (action) => {
   if (isDataset && title.indexOf(':') === -1) {
     title = `${title}: ${action.payload.data._display}`;
   }
-
-  // log the document title in piwik (the piwik route change logging
-  //   is skiped in the middleware to prevent double registration
-  const href = window.location.href;
-  piwikTracker([], href, title);
 
   return title;
 };
