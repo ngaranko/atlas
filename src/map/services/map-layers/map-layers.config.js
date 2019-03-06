@@ -781,6 +781,12 @@ export default [
     layers: ['vrachtroutes'],
     noDetail: true
   },
+  {
+    id: 'vezips',
+    url: 'maps/vezips?service=wms',
+    layers: ['vezips'],
+    noDetail: true
+  },
   // Panoramabeelden
   {
     id: 'pano',
