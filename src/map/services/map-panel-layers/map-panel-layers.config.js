@@ -1944,6 +1944,52 @@ export default [
     url: '/maps/biz?version=1.3.0&service=WMS'
   },
   {
+    category: 'Economie en haven',
+    id: 'winkgeb',
+    layers: ['winkgeb'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Kernwinkelgebied',
+        imageRule: 'Winkelgebieden K'
+      },
+      {
+        selectable: false,
+        title: 'Stadsdeelcentra',
+        imageRule: 'Winkelgebieden SC'
+      },
+      {
+        selectable: false,
+        title: 'Wijkcentrum groot',
+        imageRule: 'Winkelgebieden WG'
+      },
+      {
+        selectable: false,
+        title: 'Wijkcentrum klein',
+        imageRule: 'Winkelgebieden WK'
+      },
+      {
+        selectable: false,
+        title: 'Buurtcentrum',
+        imageRule: 'Winkelgebieden BU'
+      },
+      {
+        selectable: false,
+        title: 'Locatie voor perifere winkels',
+        imageRule: 'Winkelgebieden PDV'
+      },
+      {
+        selectable: false,
+        title: 'Trafficlocaties',
+        imageRule: 'Winkelgebieden TR'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Winkelgebieden',
+    url: '/maps/winkgeb?version=1.3.0&service=WMS'
+  },
+  {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'bouw',
