@@ -73,7 +73,7 @@ describe('The dp-menu component', () => {
         });
 
         it('shows the login button', () => {
-            expect(component.find('.qa-menu__login').length).toBe(1);
+            expect(component.find('.qa-menu__login').length).toBe(2);
         });
 
         it('doesn\'t show the user menu', () => {
@@ -89,7 +89,7 @@ describe('The dp-menu component', () => {
 
         it('doesn\'t show the login button', () => {
             const component = getComponent('tall');
-            expect(component.find('.qa-menu__login').length).toBe(0);
+            expect(component.find('.qa-menu__login').length).toBe(1);
         });
 
         it('shows the user menu', () => {

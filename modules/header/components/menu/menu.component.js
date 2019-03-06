@@ -25,6 +25,12 @@ import { routing } from '../../../../src/app/routes';
 
         vm.helpAction = { type: routing.help.type };
 
+        const openFeedbackFormEvent = new CustomEvent('openFeedbackForm');
+
+        vm.openFeedbackForm = () => {
+            $window.dispatchEvent(openFeedbackFormEvent);
+        };
+
         vm.login = () => {
             try {
                 store.dispatch(authenticateRequest('inloggen'));

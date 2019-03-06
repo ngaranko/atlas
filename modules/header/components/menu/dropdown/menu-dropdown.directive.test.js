@@ -73,7 +73,6 @@ describe('The dp-menu-dropdown directive', () => {
 
         expect(directive.find('.qa-menu__dropdown').length).toBe(0);
         expect(directive.find('dp-print-button').length).toBe(0);
-        expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
     });
 
@@ -85,7 +84,6 @@ describe('The dp-menu-dropdown directive', () => {
 
         // print and  embed should be openend
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
-        expect(directive.find('dp-terugmelden-button').length).toBe(1);
         expect(directive.find('dp-link').length).toBe(2);
 
         // Click it again
@@ -93,7 +91,6 @@ describe('The dp-menu-dropdown directive', () => {
 
         // It should be closed again
         expect(directive.find('.qa-menu__dropdown').length).toBe(0);
-        expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
     });
 
@@ -105,7 +102,6 @@ describe('The dp-menu-dropdown directive', () => {
 
         // print and  embed should be openend
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
-        expect(directive.find('dp-terugmelden-button').length).toBe(1);
         expect(directive.find('dp-link').length).toBe(2);
 
         // Click it again
@@ -113,7 +109,6 @@ describe('The dp-menu-dropdown directive', () => {
 
         // It should be closed again
         expect(directive.find('.qa-menu__dropdown').length).toBe(0);
-        expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
     });
 
@@ -197,7 +192,6 @@ describe('The dp-menu-dropdown directive', () => {
 
         // It should be openend
         expect(directive.find('.qa-menu__dropdown').length).toBe(1);
-        expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-logout-button').length).toBe(1);
         expect(directive.find('dp-link').length).toBe(0);
 
@@ -206,7 +200,6 @@ describe('The dp-menu-dropdown directive', () => {
 
         // It should be closed again
         expect(directive.find('.qa-menu__dropdown').length).toBe(0);
-        expect(directive.find('dp-terugmelden-button').length).toBe(0);
         expect(directive.find('dp-logout-button').length).toBe(0);
         expect(directive.find('dp-link').length).toBe(0);
     });
