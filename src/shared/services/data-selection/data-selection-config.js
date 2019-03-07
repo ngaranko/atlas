@@ -12,7 +12,7 @@ const DATA_SELECTION_CONFIG = {
       ENDPOINT_MARKERS: 'dataselectie/bag/geolocation/',
       ENDPOINT_EXPORT: 'dataselectie/bag/export/',
       ENDPOINT_DETAIL: 'bag/nummeraanduiding/',
-      PRIMARY_KEY: 'nummeraanduiding_id',
+      PRIMARY_KEY: 'landelijk_id',
       TITLE: 'Adressen',
       TITLE_TAB: 'Adressen',
       SHOW_NUMBER_OF_RECORDS: true,
