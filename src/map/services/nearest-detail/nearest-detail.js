@@ -13,7 +13,9 @@ const generateParams = (layer, location, zoom) => ({
 
 export const sortResults = (results) => (
   results.sort((a, b) => {
-    if (!a.detailIsShape) {
+    if (a.detailIsShape && b.detailIsShape) {
+      return a.distance - b.distance;
+    } else if (!a.detailIsShape) {
       if (!b.detailIsShape) {
         return a.distance - b.distance;
       }
