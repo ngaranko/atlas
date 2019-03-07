@@ -64,7 +64,7 @@ const authCustomDimensions = (state) => {
 
   let role = PIWIK_CONSTANTS.DIMENSION4.UNDEFINED;
   if (scopes.length > 0) {
-    role = scopes.join('|');
+    role = scopes.sort().join('|');
   }
 
   return [
