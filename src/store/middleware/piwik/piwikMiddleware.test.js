@@ -2,7 +2,7 @@ import piwikMiddleware from './piwikMiddleware';
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 
 jest.mock('../../../shared/services/piwik-tracker/piwik-tracker');
-jest.mock('./events', () => ({
+jest.mock('./trackEvents', () => ({
   YOUR_ACTION_TYPE: ({ tracking }) => [
     'foo',
     'foo',
@@ -14,7 +14,7 @@ jest.mock('./events', () => ({
 describe('piwikMiddleware', () => {
   const next = jest.fn();
   const store = jest.fn();
-  store.getState = jest.fn();
+  store.getState = jest.fn(() => ({ user: { authenticated: false, scopes: [] } }));
 
   beforeEach(() => {
     global.window._paq = {
@@ -31,7 +31,7 @@ describe('piwikMiddleware', () => {
 
     piwikMiddleware(store)(next)(action);
 
-    expect(piwikTracker).toHaveBeenCalledWith(['foo', 'foo', 'data', null]);
+    expect(piwikTracker).toHaveBeenCalled();
   });
 
   it('should send a request to piwik if action should be tracked and has tracking metadata', () => {

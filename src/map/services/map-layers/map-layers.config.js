@@ -10,6 +10,14 @@ export default [
     detailIsShape: true
   },
   {
+    id: 'winkgeb',
+    url: 'maps/winkgeb',
+    layers: ['winkgeb'],
+    detailUrl: 'geosearch/winkgeb/', // Geosearch URL
+    detailItem: 'winkgeb', // Not needed for this API endpoint, but needed to trigger nearest detail on click...
+    detailIsShape: true
+  },
+  {
     id: 'hvo',
     authScope: 'HR/R',
     url: 'maps/handelsregister',
@@ -298,6 +306,15 @@ export default [
     noDetail: true,
     external: true,
     bounds: [[52.3292, 4.8382], [52.4173, 4.9646]]
+  },
+  {
+    id: 'pw1943-2500',
+    type: mapLayerTypes.TMS,
+    layers: ['publieke-werken'],
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-2500-rd/{z}/{x}/{y}.png',
+    noDetail: true,
+    external: true,
+    bounds: [[52.2815, 4.7287], [52.4174, 4.9927]]
   },
   {
     id: 'pw1985',
@@ -762,6 +779,12 @@ export default [
     id: 'vrr',
     url: 'maps/hoofdroutes?service=wms',
     layers: ['vrachtroutes'],
+    noDetail: true
+  },
+  {
+    id: 'vezips',
+    url: 'maps/vezips?service=wms',
+    layers: ['vezips'],
     noDetail: true
   },
   // Panoramabeelden

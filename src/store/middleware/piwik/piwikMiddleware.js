@@ -1,7 +1,8 @@
 import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker';
 import { ENVIRONMENTS, getEnvironment } from '../../../shared/environment';
-import events from './events';
-import routes from './routes';
+import { getUserScopes, userIsAuthenticated } from '../../../shared/ducks/user/user';
+import trackEvents from './trackEvents';
+import trackViews from './trackViews';
 
 // Configure environment variables
 const PIWIK_CONFIG = {
@@ -22,7 +23,14 @@ const PIWIK_CONFIG = {
 export const PIWIK_CONSTANTS = {
   TRACK_EVENT: 'trackEvent',
   TRACK_SEARCH: 'trackSiteSearch',
-  TRACK_VIEW: 'trackPageView'
+  TRACK_VIEW: 'trackPageView',
+  DIMENSION3: {
+    AUTHENTICATED: true,
+    UNAUTHENTICATED: false
+  },
+  DIMENSION4: {
+    UNDEFINED: null
+  }
 };
 
 // Initialize connection with Piwik
@@ -49,28 +57,51 @@ export const initializePiwik = () => {
   }
 };
 
+const authCustomDimensions = (state) => {
+  const authenticated = (userIsAuthenticated(state))
+    ? PIWIK_CONSTANTS.DIMENSION3.AUTHENTICATED : PIWIK_CONSTANTS.DIMENSION3.UNAUTHENTICATED;
+  const scopes = (authenticated) ? getUserScopes(state) : [];
+
+  let role = PIWIK_CONSTANTS.DIMENSION4.UNDEFINED;
+  if (scopes.length > 0) {
+    role = scopes.sort().join('|');
+  }
+
+  return [
+    { id: 3, value: authenticated }, // customDimension = 'Authenticated'
+    { id: 4, value: role } // customDimension = 'Role'
+  ];
+};
+
 // Execute Piwik actions
 const piwikMiddleware = ({ getState }) => (next) => (action) => {
   initializePiwik();
   const nextAction = action;
 
   const actionsToPiwik = [];
-  if (routes[action.type]) {
-    actionsToPiwik.push(routes[action.type]);
+  if (trackViews[action.type]) {
+    actionsToPiwik.push(trackViews[action.type]);
   }
-  if (events[action.type]) {
-    actionsToPiwik.push(events[action.type]);
+  if (trackEvents[action.type]) {
+    actionsToPiwik.push(trackEvents[action.type]);
   }
 
   if (actionsToPiwik.length) {
     const { firstAction, location, query, tracking } = action.meta || {};
     const state = getState();
+
     const href = window.location.href;
     const title = window.document.title;
 
     if (tracking || location) {
+      const customDimensions = authCustomDimensions(state);
       actionsToPiwik.forEach((piwikAction) => {
-        piwikTracker(piwikAction({ tracking, firstAction, query, state, title, href }));
+        piwikTracker(
+          piwikAction({ tracking, firstAction, query, state, title, href }),
+          href,
+          title,
+          customDimensions
+        );
       });
     }
   }

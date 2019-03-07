@@ -25,14 +25,14 @@ describe('Filters', () => {
     });
 
     it('accepts empty tags', () => {
-      expect(aggregateFilter(['aap', undefined])).toEqual([
+      expect(aggregateFilter(['aap', undefined, undefined, 'aap'])).toEqual([
         {
           name: 'aap',
-          count: 1
+          count: 2
         },
         {
           name: undefined,
-          count: 1
+          count: 2
         }
       ]);
     });

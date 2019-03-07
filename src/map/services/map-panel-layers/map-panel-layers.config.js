@@ -675,7 +675,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: '1909 (Dienst der Publieke Werken)'
+    title: '1909 (Dienst der Publieke Werken, 1:1000)'
   },
   {
     category: 'Topografie: historisch',
@@ -686,12 +686,28 @@ export default [
         notClickable: false,
         layer: 'burgerlijke_gemeente',
         selectable: false,
-        title: '1943 (Dienst der Publieke Werken)'
+        title: '1943 (Dienst der Publieke Werken, 1:1000)'
       }
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: '1943 (Dienst der Publieke Werken)'
+    title: '1943 (Dienst der Publieke Werken, 1:1000)'
+  },
+  {
+    category: 'Topografie: historisch',
+    disabled: true,
+    legendItems: [
+      {
+        id: 'pw1943-2500',
+        notClickable: false,
+        layer: 'burgerlijke_gemeente',
+        selectable: false,
+        title: '1943 (Dienst der Publieke Werken, 1:2500)'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: '1943 (Dienst der Publieke Werken, 1:2500)'
   },
   {
     category: 'Topografie: historisch',
@@ -707,7 +723,7 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 8,
-    title: '1985 (Dienst der Publieke Werken)'
+    title: '1985 (Dienst der Publieke Werken, 1:1000)'
   },
   {
     category: 'Verkeer en infrastructuur',
@@ -1109,6 +1125,22 @@ export default [
     minZoom: 8,
     title: 'Verkeersstromen - Snelheden (±5 min. geleden)',
     url: '/maps/reistijdenauto?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Verkeer en infrastructuur',
+    legendItems: [
+      {
+        id: 'vezips',
+        notClickable: true,
+        layer: 'vezips',
+        selectable: false,
+        title: 'Verzinkbare palen'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Verzinkbare palen',
+    url: '/maps/vezips?version=1.3.0&service=WMS'
   },
   {
     category: 'Openbare orde en veiligheid',
@@ -1926,6 +1958,45 @@ export default [
     minZoom: 8,
     title: 'Bedrijfsinvesteringszones',
     url: '/maps/biz?version=1.3.0&service=WMS'
+  },
+  {
+    category: 'Economie en haven',
+    id: 'winkgeb',
+    layers: ['winkgeb'],
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Kernwinkelgebied'
+      },
+      {
+        selectable: false,
+        title: 'Stadsdeelcentra'
+      },
+      {
+        selectable: false,
+        title: 'Wijkcentrum groot'
+      },
+      {
+        selectable: false,
+        title: 'Wijkcentrum klein'
+      },
+      {
+        selectable: false,
+        title: 'Buurtcentrum'
+      },
+      {
+        selectable: false,
+        title: 'Locatie voor perifere winkels'
+      },
+      {
+        selectable: false,
+        title: 'Trafficlocaties'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    title: 'Winkelgebieden',
+    url: '/maps/winkgeb?version=1.3.0&service=WMS'
   },
   {
     authScope: 'HR/R',

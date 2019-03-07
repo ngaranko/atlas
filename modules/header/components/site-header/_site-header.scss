@@ -35,6 +35,7 @@ $contact-height: 60px;
   }
 
   .c-site-header__search {
+    width: 100%;
     margin-top: ($site-header-toolbar-height - $site-header-search-form-height) / 2;
     margin-bottom: ($site-header-toolbar-height - $site-header-search-form-height) / 2;
   }
@@ -49,9 +50,11 @@ $contact-height: 60px;
 
   .c-site-header__logo {
     height: $site-header-height;
+    margin-right: $site-header-logo-margin;
   }
 
   .c-site-header__search {
+    width: 100%;
     margin: ($site-header-height - $site-header-search-form-height) / 2
       ($site-header-height - $site-header-search-form-height) / 2
         $base-whitespace * 2;

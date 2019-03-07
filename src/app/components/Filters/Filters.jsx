@@ -18,7 +18,8 @@ export const aggregateFilter = (input) => {
 
   return result.sort((a, b) => {
     if (a.count === b.count) {
-      return a.name && b.name ? a.name.localeCompare(b.name) : -1;
+      return a.name && b.name ? a.name.localeCompare(b.name) :
+        a.name ? -1 : 1;
     }
     return b.count - a.count;
   });
