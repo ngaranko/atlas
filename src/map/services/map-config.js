@@ -47,25 +47,25 @@ const environmentConfig = {
     BASE_LAYER_OPTIONS: {
       subdomains: ['t1', 't2', 't3', 't4']
     },
-    OVERLAY_ROOT: 'https://map.data.amsterdam.nl/'
+    OVERLAY_ROOT: 'https://map.data.amsterdam.nl'
   },
   [ENVIRONMENTS.PRE_PRODUCTION]: {
     BASE_LAYER_OPTIONS: {
       subdomains: ['t1', 't2', 't3', 't4']
     },
-    OVERLAY_ROOT: 'https://map.data.amsterdam.nl/'
+    OVERLAY_ROOT: 'https://map.data.amsterdam.nl'
   },
   [ENVIRONMENTS.ACCEPTANCE]: {
     BASE_LAYER_OPTIONS: {
       subdomains: ['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4']
     },
-    OVERLAY_ROOT: 'https://acc.map.data.amsterdam.nl/'
+    OVERLAY_ROOT: 'https://acc.map.data.amsterdam.nl'
   },
   [ENVIRONMENTS.DEVELOPMENT]: {
     BASE_LAYER_OPTIONS: {
       subdomains: ['acc.t1', 'acc.t2', 'acc.t3', 'acc.t4']
     },
-    OVERLAY_ROOT: 'https://acc.map.data.amsterdam.nl/'
+    OVERLAY_ROOT: 'https://acc.map.data.amsterdam.nl'
   }
 };
 

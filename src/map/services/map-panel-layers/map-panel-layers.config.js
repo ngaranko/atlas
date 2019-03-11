@@ -1,7 +1,13 @@
+import mapLayerTypes from '../map-layer-types.config';
+
+const THEMES = {
+  PANORAMA: 'Panoramabeelden'
+}
+
 export default [
   {
     id: 'pano',
-    layers: ['panorama_new'],
+    layer: 'panorama_new',
     legendItems: [
       {
         selectable: false,
@@ -19,12 +25,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     notClosable: true,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
+    title: THEMES.PANORAMA,
+    url: '/maps/panorama?version=1.3.0&service=WMS',
+    params: {
+      mission_type: 'bi'
+    }
   },
   {
     id: 'pano2018bi',
-    layers: ['panorama_new'],
+    layer: 'panorama_new',
     legendItems: [
       {
         selectable: false,
@@ -33,13 +42,17 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Panoramabeelden',
+    title: THEMES.PANORAMA,
     notClosable: true,
-    url: '/maps/panorama?version=1.3.0&service=WMS'
+    url: '/maps/panorama?version=1.3.0&service=WMS',
+    params: {
+      mission_year: 2018,
+      mission_type: 'bi'
+    }
   },
   {
     id: 'pano2018woz',
-    layers: ['panorama_new'],
+    layer: 'panorama_new',
     legendItems: [
       {
         imageRule: '2018',
@@ -50,12 +63,16 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     notClosable: true,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
+    title: THEMES.PANORAMA,
+    url: '/maps/panorama?version=1.3.0&service=WMS',
+    params: {
+      mission_year: 2018,
+      mission_type: 'woz'
+    }
   },
   {
     id: 'pano2017bi',
-    layers: ['panorama_new'],
+    layer: 'panorama_new',
     legendItems: [
       {
         selectable: false,
@@ -65,12 +82,16 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     notClosable: true,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
+    title: THEMES.PANORAMA,
+    url: '/maps/panorama?version=1.3.0&service=WMS',
+    params: {
+      mission_year: 2017,
+      mission_type: 'bi'
+    }
   },
   {
     id: 'pano2017woz',
-    layers: ['panorama_new'],
+    layer: 'panorama_new',
     legendItems: [
       {
         imageRule: '2017',
@@ -80,13 +101,17 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 11,
-    title: 'Panoramabeelden',
+    title: THEMES.PANORAMA,
     notClosable: true,
-    url: '/maps/panorama?version=1.3.0&service=WMS'
+    url: '/maps/panorama?version=1.3.0&service=WMS',
+    params: {
+      mission_year: 2017,
+      mission_type: 'woz'
+    }
   },
   {
     id: 'pano2016bi',
-    layers: ['panorama_new'],
+    layer: 'panorama_new',
     legendItems: [
       {
         selectable: false,
@@ -96,8 +121,12 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     notClosable: true,
-    title: 'Panoramabeelden',
-    url: '/maps/panorama?version=1.3.0&service=WMS'
+    title: THEMES.PANORAMA,
+    url: '/maps/panorama?version=1.3.0&service=WMS',
+    params: {
+      mission_year: 2016,
+      mission_type: 'bi'
+    }
   },
   {
     category: 'Geografie: onroerende zaken',
@@ -105,29 +134,32 @@ export default [
       {
         id: 'bgem',
         notClickable: true,
-        layer: 'burgerlijke_gemeente',
         selectable: true,
-        title: 'Burgerlijke gemeente'
+        title: 'Burgerlijke gemeente',
+        layer: 'burgerlijke_gemeente'
       },
       {
         id: 'kgem',
         notClickable: true,
-        layer: 'kadastrale_gemeente',
         selectable: true,
-        title: 'Kadastrale gemeente'
+        title: 'Kadastrale gemeente',
+        layer: 'kadastrale_gemeente'
       },
       {
         id: 'ksec',
         notClickable: true,
-        layer: 'kadastrale_sectie',
         selectable: true,
-        title: 'Kadastrale sectie'
+        title: 'Kadastrale sectie',
+        layer: 'kadastrale_sectie'
       },
       {
         id: 'kot',
-        layer: 'kadastraal_object',
         selectable: true,
-        title: 'Kadastraal object'
+        title: 'Kadastraal object',
+        layer: 'kadastraal_object',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true
       }
     ],
     maxZoom: 16,
@@ -143,70 +175,140 @@ export default [
         layer: 'eigendommen',
         selectable: true,
         title: 'Gemeente Amsterdam',
-        iconUrl: '/assets/images/map-legend/icon-egdm-cat-1.svg'
+        iconUrl: '/assets/images/map-legend/icon-egdm-cat-1.svg',
+        url: 'maps/eigendommen?categorie=1',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true,
+        params: {
+          categorie: 1
+        }
       },
       {
         id: 'egog',
         layer: 'eigendommen',
         selectable: true,
         title: 'Overige gemeenten',
-        iconUrl: '/assets/images/map-legend/icon-egdm-cat-2.svg'
+        iconUrl: '/assets/images/map-legend/icon-egdm-cat-2.svg',
+        url: 'maps/eigendommen?categorie=2',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true,
+        params: {
+          categorie: 2
+        }
       },
       {
         id: 'egst',
         layer: 'eigendommen',
         selectable: true,
         title: 'Staat',
-        iconUrl: '/assets/images/map-legend/icon-egdm-cat-3.svg'
+        iconUrl: '/assets/images/map-legend/icon-egdm-cat-3.svg',
+        url: 'maps/eigendommen?categorie=3',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true,
+        params: {
+          categorie: 3
+        }
       },
       {
         id: 'egpr',
         layer: 'eigendommen',
         selectable: true,
         title: 'Provincies',
-        iconUrl: '/assets/images/map-legend/icon-egdm-cat-4.svg'
+        iconUrl: '/assets/images/map-legend/icon-egdm-cat-4.svg',
+        url: 'maps/eigendommen?categorie=4',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true,
+        params: {
+          categorie: 4
+        }
       },
       {
         id: 'egwa',
         layer: 'eigendommen',
         selectable: true,
         title: 'Waterschappen',
-        iconUrl: '/assets/images/map-legend/icon-egdm-cat-5.svg'
+        iconUrl: '/assets/images/map-legend/icon-egdm-cat-5.svg',
+        url: 'maps/eigendommen?categorie=5',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true,
+        params: {
+          categorie: 5
+        }
       },
       {
         id: 'egwo',
         layer: 'eigendommen',
         selectable: true,
         title: 'Woningbouwcorporaties',
-        iconUrl: '/assets/images/map-legend/icon-egdm-cat-6.svg'
+        iconUrl: '/assets/images/map-legend/icon-egdm-cat-6.svg',
+        url: 'maps/eigendommen?categorie=6',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true,
+        params: {
+          categorie: 6
+        }
       },
       {
         id: 'egve',
         layer: 'eigendommen',
         selectable: true,
         title: 'Verenigingen van eigenaren',
-        iconUrl: '/assets/images/map-legend/icon-egdm-cat-7.svg'
+        iconUrl: '/assets/images/map-legend/icon-egdm-cat-7.svg',
+        url: 'maps/eigendommen?categorie=7',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true,
+        params: {
+          categorie: 7
+        }
       },
       {
         id: 'egsp',
         layer: 'eigendommen',
         selectable: true,
         title: 'Spoorwegen/ProRail',
-        iconUrl: '/assets/images/map-legend/icon-egdm-cat-8.svg'
+        iconUrl: '/assets/images/map-legend/icon-egdm-cat-8.svg',
+        url: 'maps/eigendommen?categorie=8',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true,
+        params: {
+          categorie: 8
+        }
       },
       {
         id: 'egnnp',
         layer: 'eigendommen',
         selectable: true,
         title: 'Overige niet-natuurlijke personen',
-        iconUrl: '/assets/images/map-legend/icon-egdm-cat-9.svg'
+        iconUrl: '/assets/images/map-legend/icon-egdm-cat-9.svg',
+        url: 'maps/eigendommen?categorie=9',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true,
+        params: {
+          categorie: 9
+        }
       },
       {
         id: 'egnp',
         layer: 'eigendommen',
         selectable: true,
         title: 'Overige natuurlijke personen',
-        iconUrl: '/assets/images/map-legend/icon-egdm-cat-10.svg'
+        iconUrl: '/assets/images/map-legend/icon-egdm-cat-10.svg',
+        url: 'maps/eigendommen?categorie=10',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true,
+        params: {
+          categorie: 10
+        }
       }
     ],
     maxZoom: 16,
@@ -222,14 +324,22 @@ export default [
         layer: 'erfpacht',
         selectable: true,
         title: 'Gemeente Amsterdam',
-        iconUrl: '/assets/images/map-legend/icon-erf-cat-1.svg'
+        iconUrl: '/assets/images/map-legend/icon-erf-cat-1.svg',
+        url: 'maps/erfpacht?categorie=1',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true
       },
       {
         id: 'efov',
         layer: 'erfpacht',
         selectable: true,
         title: 'Overig',
-        iconUrl: '/assets/images/map-legend/icon-erf-cat-2.svg'
+        iconUrl: '/assets/images/map-legend/icon-erf-cat-2.svg',
+        url: 'maps/erfpacht?categorie=2',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'kadastraal_object',
+        detailIsShape: true
       }
     ],
     maxZoom: 16,
@@ -330,7 +440,7 @@ export default [
   {
     category: 'Geografie: gebieden',
     id: 'bbn',
-    layers: ['bouwblok'],
+    layer: 'bouwblok',
     legendItems: [
       {
         selectable: false,
@@ -340,7 +450,10 @@ export default [
     maxZoom: 16,
     minZoom: 12,
     title: 'Bouwblokken',
-    url: '/maps/gebieden?version=1.3.0&service=WMS'
+    url: '/maps/gebieden?version=1.3.0&service=WMS',
+    detailUrl: 'geosearch/search/',
+    detailItem: 'bouwblok',
+    detailIsShape: true
   },
   {
     category: 'Geografie: gebieden',
@@ -388,7 +501,7 @@ export default [
   {
     category: 'Geografie: gebieden',
     id: 'unesco',
-    layers: ['unesco'],
+    layer: 'unesco',
     legendItems: [
       {
         selectable: false,
@@ -408,7 +521,7 @@ export default [
     category: 'Geografie: hoogte',
     id: 'dsm',
     notClickable: true,
-    layers: ['ahn3_05m_dtm'],
+    layer: 'ahn3_05m_dtm',
     legendItems: [
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-minus-10.svg',
@@ -468,13 +581,16 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 10,
-    title: 'Terreinmodel (DTM AHN)'
+    title: 'Terreinmodel (DTM AHN)',
+    url: 'https://geodata.nationaalgeoregister.nl/ahn3/wms?',
+    external: true,
+    noDetail: true
   },
   {
     category: 'Geografie: hoogte',
     id: 'dtm',
     notClickable: true,
-    layers: ['ahn3_05m_dsm'],
+    layer: 'ahn3_05m_dsm',
     legendItems: [
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-minus-10.svg',
@@ -534,12 +650,15 @@ export default [
     ],
     maxZoom: 16,
     minZoom: 10,
-    title: 'Oppervlaktemodel (DSM AHN)'
+    title: 'Oppervlaktemodel (DSM AHN)',
+    url: 'https://geodata.nationaalgeoregister.nl/ahn3/wms?',
+    external: true,
+    noDetail: true
   },
   {
     category: 'Geografie: hoogte',
     id: 'nap',
-    layers: ['peilmerk_hoogte'],
+    layer: 'peilmerk_hoogte',
     legendItems: [
       {
         selectable: false,
@@ -577,12 +696,14 @@ export default [
     maxZoom: 16,
     minZoom: 10,
     title: 'Normaal Amsterdams Peil (NAP)',
-    url: '/maps/nap?version=1.3.0&service=WMS'
+    url: '/maps/nap?version=1.3.0&service=WMS',
+    detailUrl: 'geosearch/search/',
+    detailItem: 'peilmerk'
   },
   {
     category: 'Geografie: hoogte',
     id: 'mbs',
-    layers: ['meetbouten_status'],
+    layer: 'meetbouten_status',
     legendItems: [
       {
         selectable: false,
@@ -596,12 +717,14 @@ export default [
     maxZoom: 16,
     minZoom: 12,
     title: 'Meetbouten - Status',
-    url: '/maps/meetbouten?version=1.3.0&service=WMS'
+    url: '/maps/meetbouten?version=1.3.0&service=WMS',
+    detailUrl: 'geosearch/search/',
+    detailItem: 'meetbout'
   },
   {
     category: 'Geografie: hoogte',
     id: 'mbz',
-    layers: ['meetbouten_zaksnelheid'],
+    layer: 'meetbouten_zaksnelheid',
     legendItems: [
       {
         selectable: false,
@@ -643,13 +766,15 @@ export default [
     maxZoom: 16,
     minZoom: 12,
     title: 'Meetbouten - Zaksnelheid',
-    url: '/maps/meetbouten?version=1.3.0&service=WMS'
+    url: '/maps/meetbouten?version=1.3.0&service=WMS',
+    detailUrl: 'geosearch/search/',
+    detailItem: 'meetbout'
   },
   {
     category: 'Geografie: hoogte',
     id: 'mbr',
     notClickable: true,
-    layers: ['referentiepunt'],
+    layer: 'referentiepunt',
     legendItems: [
       {
         selectable: false,
@@ -659,7 +784,9 @@ export default [
     maxZoom: 16,
     minZoom: 12,
     title: 'Meetbouten - Referentiepunten',
-    url: '/maps/meetbouten?version=1.3.0&service=WMS'
+    url: '/maps/meetbouten?version=1.3.0&service=WMS',
+    // layers: ['referentiepunten'],
+    noDetail: true
   },
   {
     category: 'Topografie: historisch',
@@ -668,9 +795,14 @@ export default [
       {
         id: 'pw1909',
         notClickable: false,
-        layer: 'burgerlijke_gemeente',
         selectable: false,
-        title: '1909 (Dienst der Publieke Werken)'
+        title: '1909 (Dienst der Publieke Werken)',
+        type: mapLayerTypes.TMS,
+        layer: 'publieke-werken',
+        url: 'https://{s}.data.amsterdam.nl/publieke-werken-1909-rd/{z}/{x}/{y}.png',
+        noDetail: true,
+        external: true,
+        bounds: [[52.3361, 4.84049], [52.4185, 4.96617]]
       }
     ],
     maxZoom: 16,
@@ -684,9 +816,14 @@ export default [
       {
         id: 'pw1943',
         notClickable: false,
-        layer: 'burgerlijke_gemeente',
         selectable: false,
-        title: '1943 (Dienst der Publieke Werken, 1:1000)'
+        title: '1943 (Dienst der Publieke Werken, 1:1000)',
+        type: mapLayerTypes.TMS,
+        layer: 'publieke-werken',
+        url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-rd/{z}/{x}/{y}.png',
+        noDetail: true,
+        external: true,
+        bounds: [[52.3292, 4.8382], [52.4173, 4.9646]]
       }
     ],
     maxZoom: 16,
@@ -700,9 +837,14 @@ export default [
       {
         id: 'pw1943-2500',
         notClickable: false,
-        layer: 'burgerlijke_gemeente',
         selectable: false,
-        title: '1943 (Dienst der Publieke Werken, 1:2500)'
+        title: '1943 (Dienst der Publieke Werken, 1:2500)',
+        type: mapLayerTypes.TMS,
+        layer: 'publieke-werken',
+        url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-2500-rd/{z}/{x}/{y}.png',
+        noDetail: true,
+        external: true,
+        bounds: [[52.2815, 4.7287], [52.4174, 4.9927]]
       }
     ],
     maxZoom: 16,
@@ -716,9 +858,14 @@ export default [
       {
         id: 'pw1985',
         notClickable: false,
-        layer: 'burgerlijke_gemeente',
         selectable: false,
-        title: '1985 (Dienst der Publieke Werken)'
+        title: '1985 (Dienst der Publieke Werken)',
+        type: mapLayerTypes.TMS,
+        layer: 'publieke-werken',
+        url: 'https://{s}.data.amsterdam.nl/publieke-werken-1985-rd/{z}/{x}/{y}.png',
+        noDetail: true,
+        external: true,
+        bounds: [[52.2756, 4.74026], [52.4374, 5.04781]]
       }
     ],
     maxZoom: 16,
@@ -733,14 +880,16 @@ export default [
         notClickable: true,
         layer: 'metrolijnen',
         selectable: true,
-        title: 'Metrolijn'
+        title: 'Metrolijn',
+        noDetail: true
       },
       {
         id: 'trm',
         notClickable: true,
         layer: 'tramlijnen',
         selectable: true,
-        title: 'Tramlijn'
+        title: 'Tramlijn',
+        noDetail: true
       }
     ],
     maxZoom: 16,
@@ -752,7 +901,7 @@ export default [
     category: 'Verkeer en infrastructuur',
     id: 'mzb',
     notClickable: true,
-    layers: ['milieuzones'],
+    layer: 'milieuzones',
     legendItems: [
       {
         imageRule: 'Bestelauto',
@@ -763,13 +912,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Milieuzones - Bestelauto',
-    url: '/maps/milieuzones?version=1.3.0&service=WMS'
+    url: '/maps/milieuzones?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Verkeer en infrastructuur',
     id: 'mzbs',
     notClickable: true,
-    layers: ['milieuzones'],
+    layer: 'milieuzones',
     legendItems: [
       {
         imageRule: 'Brom- en snorfiets',
@@ -780,13 +930,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Milieuzones - Brom- en snorfiets',
-    url: '/maps/milieuzones?version=1.3.0&service=WMS'
+    url: '/maps/milieuzones?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Verkeer en infrastructuur',
     id: 'mzt',
     notClickable: true,
-    layers: ['milieuzones'],
+    layer: 'milieuzones',
     legendItems: [
       {
         imageRule: 'Taxi',
@@ -797,13 +948,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Milieuzones - Taxi',
-    url: '/maps/milieuzones?version=1.3.0&service=WMS'
+    url: '/maps/milieuzones?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Verkeer en infrastructuur',
     id: 'mztc',
     notClickable: true,
-    layers: ['milieuzones'],
+    layer: 'milieuzones',
     legendItems: [
       {
         imageRule: 'Touringcar',
@@ -814,13 +966,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Milieuzones - Touringcar',
-    url: '/maps/milieuzones?version=1.3.0&service=WMS'
+    url: '/maps/milieuzones?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Verkeer en infrastructuur',
     id: 'mztc2020',
     notClickable: true,
-    layers: ['milieuzones'],
+    layer: 'milieuzones',
     legendItems: [
       {
         imageRule: 'Touringcar na 2020',
@@ -831,13 +984,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Milieuzones - Touringcar (vanaf 1-1-2020)',
-    url: '/maps/milieuzones?version=1.3.0&service=WMS'
+    url: '/maps/milieuzones?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Verkeer en infrastructuur',
     id: 'mzva',
     notClickable: true,
-    layers: ['milieuzones'],
+    layer: 'milieuzones',
     legendItems: [
       {
         imageRule: 'Vrachtauto',
@@ -848,7 +1002,8 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Milieuzones - Vrachtauto',
-    url: '/maps/milieuzones?version=1.3.0&service=WMS'
+    url: '/maps/milieuzones?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Verkeer en infrastructuur',
@@ -858,14 +1013,18 @@ export default [
         imageRule: 'Snel beschikbaar',
         layer: 'snel_beschikbaar',
         selectable: true,
-        title: 'Snellaadpunt (beschikbaar, ±15 min. geleden)'
+        title: 'Snellaadpunt (beschikbaar, ±15 min. geleden)',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'oplaadpunten'
       },
       {
         id: 'slpnb',
         imageRule: 'Snel niet beschikbaar',
         layer: 'snel_niet_beschikbaar',
         selectable: true,
-        title: 'Snellaadpunt (niet beschikbaar, ±15 min. geleden)'
+        title: 'Snellaadpunt (niet beschikbaar, ±15 min. geleden)',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'oplaadpunten'
       }
     ],
     maxZoom: 16,
@@ -881,14 +1040,18 @@ export default [
         imageRule: 'Normaal beschikbaar',
         layer: 'normaal_beschikbaar',
         selectable: true,
-        title: 'Gewoon laadpunt (beschikbaar, ±15 min. geleden)'
+        title: 'Gewoon laadpunt (beschikbaar, ±15 min. geleden)',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'oplaadpunten'
       },
       {
         id: 'nlpnb',
         imageRule: 'Normaal niet beschikbaar',
         layer: 'normaal_niet_beschikbaar',
         selectable: true,
-        title: 'Gewoon laadpunt (niet beschikbaar, ±15 min. geleden)'
+        title: 'Gewoon laadpunt (niet beschikbaar, ±15 min. geleden)',
+        detailUrl: 'geosearch/search/',
+        detailItem: 'oplaadpunten'
       }
     ],
     maxZoom: 16,
@@ -900,7 +1063,7 @@ export default [
     category: 'Verkeer en infrastructuur',
     id: 'pv',
     notClickable: true,
-    layers: ['alle_parkeervakken'],
+    layer: 'alle_parkeervakken',
     legendItems: [
       {
         selectable: false,
@@ -914,12 +1077,15 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Parkeervakken - Fiscale indeling',
-    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
+    url: '/maps/parkeervakken?version=1.3.0&service=WMS',
+    detailUrl: 'parkeervakken/geosearch/',
+    detailItem: 'parkeervak',
+    detailIsShape: true
   },
   {
     category: 'Verkeer en infrastructuur',
     id: 'pvb',
-    layers: ['parkeervakken_bord'],
+    layer: 'parkeervakken_bord',
     legendItems: [
       {
         selectable: false,
@@ -929,7 +1095,10 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Parkeervakken - Speciale bestemmingen',
-    url: '/maps/parkeervakken?version=1.3.0&service=WMS'
+    url: '/maps/parkeervakken?version=1.3.0&service=WMS',
+    detailUrl: 'parkeervakken/geosearch/',
+    detailItem: 'parkeervak',
+    detailIsShape: true
   },
   {
     category: 'Verkeer en infrastructuur',
@@ -939,21 +1108,33 @@ export default [
         layer: 'parkeervakken_reservering',
         selectable: true,
         imageRule: 'Taxistandplaats',
-        title: 'Taxistandplaats'
+        title: 'Taxistandplaats',
+        url: 'maps/parkeervakken?categorie=taxistandplaats',
+        detailUrl: 'parkeervakken/geosearch/',
+        detailItem: 'parkeervak',
+        detailIsShape: true
       },
       {
         id: 'pvrll',
         layer: 'parkeervakken_reservering',
         selectable: true,
         imageRule: 'Laden lossen',
-        title: 'Laden en lossen'
+        title: 'Laden en lossen',
+        url: 'maps/parkeervakken?categorie=laden_lossen',
+        detailUrl: 'parkeervakken/geosearch/',
+        detailItem: 'parkeervak',
+        detailIsShape: true
       },
       {
         id: 'pvrpr',
         layer: 'parkeervakken_reservering',
         selectable: true,
         imageRule: 'Park & Ride',
-        title: 'Park & Ride'
+        title: 'Park & Ride',
+        url: 'maps/parkeervakken?categorie=park_ride',
+        detailUrl: 'parkeervakken/geosearch/',
+        detailItem: 'parkeervak',
+        detailIsShape: true
       }
     ],
     maxZoom: 16,
@@ -968,43 +1149,71 @@ export default [
         id: 'pvrf',
         layer: 'parkeervakken_reservering',
         selectable: true,
-        title: 'Fiscaal'
+        title: 'Fiscaal',
+        url: 'maps/parkeervakken?categorie=fiscaal',
+        detailUrl: 'parkeervakken/geosearch/',
+        detailItem: 'parkeervak',
+        detailIsShape: true
       },
       {
         id: 'pvrpv',
         layer: 'parkeervakken_reservering',
         selectable: true,
-        title: 'Parkeerverbod'
+        title: 'Parkeerverbod',
+        url: 'maps/parkeervakken?categorie=parkeerverbod',
+        detailUrl: 'parkeervakken/geosearch/',
+        detailItem: 'parkeervak',
+        detailIsShape: true
       },
       {
         id: 'pvrga',
         layer: 'parkeervakken_reservering',
         selectable: true,
-        title: 'Gehandicaptenplaats algemeen'
+        title: 'Gehandicaptenplaats algemeen',
+        url: 'maps/parkeervakken?categorie=gehandicapten_algemeen',
+        detailUrl: 'parkeervakken/geosearch/',
+        detailItem: 'parkeervak',
+        detailIsShape: true
       },
       {
         id: 'pvrgk',
         layer: 'parkeervakken_reservering',
         selectable: true,
-        title: 'Gehandicaptenplaats kenteken'
+        title: 'Gehandicaptenplaats kenteken',
+        url: 'maps/parkeervakken?categorie=gehandicapten_kenteken',
+        detailUrl: 'parkeervakken/geosearch/',
+        detailItem: 'parkeervak',
+        detailIsShape: true
       },
       {
         id: 'pvrsv',
         layer: 'parkeervakken_reservering',
         selectable: true,
-        title: 'Specifieke voertuigcategorie'
+        title: 'Specifieke voertuigcategorie',
+        url: 'maps/parkeervakken?categorie=specifiek_voertuig',
+        detailUrl: 'parkeervakken/geosearch/',
+        detailItem: 'parkeervak',
+        detailIsShape: true
       },
       {
         id: 'pvrvh',
         layer: 'parkeervakken_reservering',
         selectable: true,
-        title: 'Vergunninghouders'
+        title: 'Vergunninghouders',
+        url: 'maps/parkeervakken?categorie=vergunning_houders',
+        detailUrl: 'parkeervakken/geosearch/',
+        detailItem: 'parkeervak',
+        detailIsShape: true
       },
       {
         id: 'pvrbz',
         layer: 'parkeervakken_reservering',
         selectable: true,
-        title: 'Blauwe zone'
+        title: 'Blauwe zone',
+        url: 'maps/parkeervakken?categorie=blauwe_zone',
+        detailUrl: 'parkeervakken/geosearch/',
+        detailItem: 'parkeervak',
+        detailIsShape: true
       }
     ],
     maxZoom: 16,
@@ -1021,7 +1230,8 @@ export default [
         notClickable: true,
         layer: 'busbaan_geen_taxi',
         selectable: true,
-        title: 'Taxi busbaanverbod'
+        title: 'Taxi busbaanverbod',
+        noDetail: true
       },
       {
         id: 'tar',
@@ -1029,7 +1239,8 @@ export default [
         notClickable: true,
         layer: 'taxiroutes',
         selectable: true,
-        title: 'Taxi hoofdroute'
+        title: 'Taxi hoofdroute',
+        noDetail: true
       }
     ],
     maxZoom: 16,
@@ -1046,7 +1257,8 @@ export default [
         notClickable: true,
         layer: 'vrachtroutes',
         selectable: true,
-        title: 'Vrachtauto 7,5t-route'
+        title: 'Vrachtauto 7,5t-route',
+        noDetail: true
       }
     ],
     maxZoom: 16,
@@ -1058,7 +1270,7 @@ export default [
     category: 'Verkeer en infrastructuur',
     id: 'pr',
     notClickable: true,
-    layers: ['reistijdenauto'],
+    layer: 'reistijdenauto',
     legendItems: [
       {
         selectable: false,
@@ -1124,7 +1336,8 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Verkeersstromen - Snelheden (±5 min. geleden)',
-    url: '/maps/reistijdenauto?version=1.3.0&service=WMS'
+    url: '/maps/reistijdenauto?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Verkeer en infrastructuur',
@@ -1134,7 +1347,8 @@ export default [
         notClickable: true,
         layer: 'vezips',
         selectable: false,
-        title: 'Verzinkbare palen'
+        title: 'Verzinkbare palen',
+        noDetail: true
       }
     ],
     maxZoom: 16,
@@ -1175,7 +1389,7 @@ export default [
   {
     category: 'Openbare orde en veiligheid',
     id: 'oovctg',
-    layers: ['cameratoezichtgebied'],
+    // layers: ['cameratoezichtgebied'],
     legendItems: [
       {
         selectable: false,
@@ -1186,15 +1400,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Cameratoezichtgebieden',
-    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS',
+    layers: ['cameratoezichtgebied', 'cameratoezichtgebied_label']
   },
   {
     category: 'Openbare orde en veiligheid',
     id: 'oovoalco',
-    layers: ['Alcoholverbodsgebied'],
     legendItems: [
       {
-        layer: 'alcoholverbodsgebied',
         selectable: false,
         title: 'Alcoholverbodsgebied'
       }
@@ -1203,12 +1416,12 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Alcoholverbodsgebieden',
-    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS',
+    layer: 'alcoholverbodsgebied'
   },
   {
     category: 'Openbare orde en veiligheid',
     id: 'oovtig',
-    layers: ['taxi-standplaatsgebied'],
     legendItems: [
       {
         selectable: false,
@@ -1220,32 +1433,33 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Omgeving taxi-standplaatsen',
-    url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS',
+    layer: 'taxi-standplaatsgebied'
   },
   // to revive end of 2019
-  // {
-  //   category: 'Openbare orde en veiligheid',
-  //   id: 'oovvz',
-  //   layers: ['vuurwerkvrijezone'],
-  //   legendItems: [
-  //     {
-  //       selectable: false,
-  //       title: 'Vuurwerkvrije zone',
-  //       imageRule: 'vuurwerkvrijezone'
-  //     }
-  //   ],
-  //   maxZoom: 16,
-  //   minZoom: 8,
-  //   notClickable: true,
-  //   title: 'Vuurwerkvrije zones',
-  //   url: '/maps/overlastgebieden?version=1.3.0&service=WMS'
-  // },
+  {
+    category: 'Openbare orde en veiligheid',
+    id: 'oovvz',
+    legendItems: [
+      {
+        selectable: false,
+        title: 'Vuurwerkvrije zone',
+        imageRule: 'vuurwerkvrijezone'
+      }
+    ],
+    maxZoom: 16,
+    minZoom: 8,
+    notClickable: true,
+    title: 'Vuurwerkvrije zones',
+    url: '/maps/overlastgebieden?version=1.3.0&service=WMS',
+    layer: 'vuurwerkvrijezone'
+  },
   {
     category: 'Toerisme en cultuur',
     id: 'tcmnmt',
     legendItems: [
       {
-        layer: ['monument_coordinaten'],
+        layer: 'monument_coordinaten',
         selectable: false,
         title: 'Monument (pandgerelateerd)'
       },
@@ -1258,13 +1472,15 @@ export default [
     maxZoom: 16,
     minZoom: 12,
     title: 'Monumenten',
-    url: '/maps/monumenten?version=1.3.0&service=WMS'
+    url: '/maps/monumenten?version=1.3.0&service=WMS',
+    detailUrl: 'geosearch/search/',
+    detailItem: 'monument'
   },
   {
     category: 'Milieu: bodem',
     id: 'mbgm',
     notClickable: true,
-    layers: ['grondmonsters'],
+    layer: 'grondmonsters',
     legendItems: [
       {
         selectable: false,
@@ -1286,13 +1502,14 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Grondmonsters',
-    url: '/maps/bodem?version=1.3.0&service=WMS'
+    url: '/maps/bodem?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: bodem',
     id: 'mbaig',
     notClickable: true,
-    layers: ['asbest'],
+    layer: 'asbest',
     legendItems: [
       {
         selectable: false,
@@ -1314,13 +1531,14 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Grondmonsters asbest',
-    url: '/maps/bodem?version=1.3.0&service=WMS'
+    url: '/maps/bodem?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: bodem',
     id: 'mbgwm',
     notClickable: true,
-    layers: ['grondwatermonsters'],
+    layer: 'grondwatermonsters',
     legendItems: [
       {
         selectable: false,
@@ -1342,12 +1560,13 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Grondwatermonsters',
-    url: '/maps/bodem?version=1.3.0&service=WMS'
+    url: '/maps/bodem?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: bodem',
     id: 'exin',
-    layers: ['inslagen'],
+    layer: 'inslagen',
     legendItems: [
       {
         selectable: false,
@@ -1377,12 +1596,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Explosieven - Inslagen',
-    url: '/maps/bommenkaart?version=1.3.0&service=WMS'
+    url: '/maps/bommenkaart?version=1.3.0&service=WMS',
+    detailUrl: 'geosearch/search/',
+    detailItem: 'bominslag'
   },
   {
     category: 'Milieu: bodem',
     id: 'exvg',
-    layers: ['verdachte_gebieden'],
+    layer: 'verdachte_gebieden',
     legendItems: [
       {
         selectable: false,
@@ -1409,7 +1630,7 @@ export default [
   {
     category: 'Milieu: bodem',
     id: 'exgg',
-    layers: ['gevrijwaarde_gebieden'],
+    layer: 'gevrijwaarde_gebieden',
     legendItems: [
       {
         selectable: false,
@@ -1424,7 +1645,7 @@ export default [
   {
     category: 'Milieu: bodem',
     id: 'exuo',
-    layers: ['uitgevoerde_CE_onderzoeken'],
+    layer: 'uitgevoerde_CE_onderzoeken',
     legendItems: [
       {
         selectable: false,
@@ -1447,7 +1668,7 @@ export default [
   {
     category: 'Milieu: bodem',
     id: 'bros',
-    layers: ['cpt'],
+    layer: 'cpt',
     legendItems: [
       {
         selectable: false,
@@ -1458,13 +1679,15 @@ export default [
     notClickable: true,
     maxZoom: 16,
     minZoom: 8,
-    title: 'Geotechnische sonderingen (CPT BRO)'
+    title: 'Geotechnische sonderingen (CPT BRO)',
+    url: 'https://geodata.nationaalgeoregister.nl/brocpt/wms?',
+    external: true,
+    noDetail: true
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpgv',
     notClickable: true,
-    layers: ['milieu_veiligheid_lpg_vulpunt'],
     legendItems: [
       {
         layer: 'lpgvulpuntplaatsgebondenrisico105',
@@ -1485,13 +1708,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'LPG-vulpunten - Risicozones',
-    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpga',
     notClickable: true,
-    layers: ['milieu_veiligheid_lpg_afleverzuil'],
+    layer: 'milieu_veiligheid_lpg_afleverzuil',
     legendItems: [
       {
         layer: 'lpgafleverzuillocaties',
@@ -1507,13 +1731,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'LPG-afleverzuilen - Risicozones',
-    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpgt',
     notClickable: true,
-    layers: ['milieu_veiligheid_lpg_tank'],
+    layer: 'milieu_veiligheid_lpg_tank',
     legendItems: [
       {
         layer: 'lpgtankligging',
@@ -1534,13 +1759,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'LPG-tanks - Risicozones',
-    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvlpgs',
     notClickable: true,
-    layers: ['milieu_veiligheid_lpg_station'],
+    layer: 'milieu_veiligheid_lpg_station',
     legendItems: [
       {
         layer: 'lpgstationslocaties',
@@ -1556,16 +1782,13 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'LPG-stations - Risicozones',
-    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvbr',
     notClickable: true,
-    layers: [
-      'overigerisicobedrijfplaatsgebondenrisico106',
-      'overigerisicobedrijfsbronnen'
-    ],
     legendItems: [
       {
         layer: 'overigerisicobedrijfplaatsgebondenrisico106',
@@ -1581,17 +1804,17 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Bedrijven - Bronnen en risicozones',
-    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     authScope: 'HR/R',
     category: 'Milieu: externe veiligheid',
     id: 'mvi',
     notClickable: true,
-    layers: ['overigerisicobedrijfinvloedsgebied'],
+    layer: 'overigerisicobedrijfinvloedsgebied',
     legendItems: [
       {
-        layer: 'overigerisicobedrijfinvloedsgebied',
         selectable: false,
         title: 'Invloedsgebied'
       }
@@ -1599,13 +1822,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Bedrijven - Invloedsgebieden',
-    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvbd',
     notClickable: true,
-    layers: ['milieu_veiligheid_bedrijf'],
+    layer: 'milieu_veiligheid_bedrijf',
     legendItems: [
       {
         layer: 'overigerisicobedrijfslocaties',
@@ -1621,13 +1845,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Bedrijven - Terreingrenzen',
-    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvabl',
     notClickable: true,
-    layers: ['milieu_veiligheid_aardgasbuisleidingen'],
+    layer: 'milieu_veiligheid_aardgasbuisleidingen',
     legendItems: [
       {
         layer: 'milieu_veiligheid_aardgasbuisleidingen_legenda',
@@ -1658,13 +1883,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Aardgasbuisleidingen - Risicozones',
-    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvsw',
     notClickable: true,
-    layers: ['risicozonesspoorweg'],
+    layer: 'risicozonesspoorweg',
     legendItems: [
       {
         selectable: false,
@@ -1674,13 +1900,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Spoorwegen - Risicozones',
-    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvvw',
     notClickable: true,
-    layers: ['risicozonesvaarweg'],
+    layer: 'risicozonesvaarweg',
     legendItems: [
       {
         selectable: false,
@@ -1690,13 +1917,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Vaarwegen - Risicozones',
-    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: externe veiligheid',
     id: 'mvw',
     notClickable: true,
-    layers: ['risicozonesweg'],
+    layer: 'risicozoneswg',
     legendItems: [
       {
         selectable: false,
@@ -1706,7 +1934,8 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Wegen - Risicozones',
-    url: '/maps/externeveiligheid?version=1.3.0&service=WMS'
+    url: '/maps/externeveiligheid?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: externe veiligheid',
@@ -1716,42 +1945,48 @@ export default [
         notClickable: true,
         layer: 'milieu_veiligheid_vuurwerk',
         selectable: true,
-        title: 'Vuurwerkopslag'
+        title: 'Vuurwerkopslag',
+        noDetail: true
       },
       {
         id: 'mvmo',
         notClickable: true,
         layer: 'milieu_veiligheid_munitie',
         selectable: true,
-        title: 'Munitieopslag'
+        title: 'Munitieopslag',
+        noDetail: true
       },
       {
         id: 'mvgms',
         notClickable: true,
         layer: 'milieu_veiligheid_gasdrukregel_meetstation',
         selectable: true,
-        title: 'Gasdrukregel- en meetstation'
+        title: 'Gasdrukregel- en meetstation',
+        noDetail: true
       },
       {
         id: 'mvsls',
         notClickable: true,
         layer: 'milieu_veiligheid_sluis',
         selectable: true,
-        title: 'Sluis'
+        title: 'Sluis',
+        noDetail: true
       },
       {
         id: 'mvwp',
         notClickable: true,
         layer: 'milieu_veiligheid_wachtplaats',
         selectable: true,
-        title: 'Wachtplaats'
+        title: 'Wachtplaats',
+        noDetail: true
       },
       {
         id: 'mvbs',
         notClickable: true,
         layer: 'milieu_veiligheid_bunkerschepen',
         selectable: true,
-        title: 'Bunkerschip'
+        title: 'Bunkerschip',
+        noDetail: true
       }
     ],
     maxZoom: 16,
@@ -1763,7 +1998,7 @@ export default [
     category: 'Milieu: zones',
     id: 'mgpind',
     notClickable: true,
-    layers: ['geluidzoneindustrieterrein'],
+    // layers: ['geluidzoneindustrieterrein'],
     legendItems: [
       {
         layer: 'gezoneerdindustrieterrein',
@@ -1771,6 +2006,7 @@ export default [
         title: 'Gezoneerd industrieterrein'
       },
       {
+        layer: 'geluidzoneindustrieterrein',
         selectable: false,
         title: 'Geluidzone industrieterrein'
       }
@@ -1778,13 +2014,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Industrie - Geluidszones',
-    url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS'
+    url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: zones',
     id: 'mgsw',
     notClickable: true,
-    layers: ['spoorwegen'],
+    layer: 'spoorwegen',
     legendItems: [
       {
         selectable: false,
@@ -1794,13 +2031,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Spoorwegen - Geluidszones',
-    url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS'
+    url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: zones',
     id: 'mgpm',
     notClickable: true,
-    layers: ['metro'],
+    layer: 'metro',
     legendItems: [
       {
         selectable: false,
@@ -1810,13 +2048,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Metro - Geluidszones',
-    url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS'
+    url: '/maps/planologischegeluidszones?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: zones',
     id: 'mgpsh',
     notClickable: true,
-    layers: ['geluidszoneschiphol'],
+    layer: 'geluidszoneschiphol',
     legendItems: [
       {
         selectable: false,
@@ -1830,13 +2069,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Schiphol - Ruimtelijke beperkingen',
-    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
+    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: zones',
     id: 'mgth',
     notClickable: true,
-    layers: ['maatgevendetoetshoogteschiphol'],
+    layer: 'maatgevendetoetshoogteschiphol',
     legendItems: [
       {
         selectable: false,
@@ -1878,13 +2118,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Schiphol - Maatgevende toetshoogte',
-    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
+    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: zones',
     id: 'mthr',
     notClickable: true,
-    layers: ['toetshoogteradarschiphol'],
+    layer: 'toetshoogteradarschiphol',
     legendItems: [
       {
         selectable: false,
@@ -1926,13 +2167,14 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Schiphol - Toetshoogte i.v.m. radar',
-    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
+    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Milieu: zones',
     id: 'mgvvgsh',
     notClickable: true,
-    layers: ['vogelvrijwaringsgebiedschiphol'],
+    layer: 'vogelvrijwaringsgebiedschiphol',
     legendItems: [
       {
         selectable: false,
@@ -1942,12 +2184,13 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Schiphol - Vogelvrijwaringsgebied',
-    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS'
+    url: '/maps/planologischezonesschiphol?version=1.3.0&service=WMS',
+    noDetail: true
   },
   {
     category: 'Economie en haven',
     id: 'biz',
-    layers: ['biz_polygons'],
+    layer: 'biz_polygons',
     legendItems: [
       {
         selectable: false,
@@ -1957,12 +2200,15 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Bedrijfsinvesteringszones',
-    url: '/maps/biz?version=1.3.0&service=WMS'
+    url: '/maps/biz?version=1.3.0&service=WMS',
+    detailUrl: 'geosearch/biz/', // Geosearch URL
+    detailItem: 'biz', // Not needed for this API endpoint, but needed to trigger nearest detail on click...
+    detailIsShape: true
   },
   {
     category: 'Economie en haven',
     id: 'winkgeb',
-    layers: ['winkgeb'],
+    layer: 'winkgeb',
     legendItems: [
       {
         selectable: false,
@@ -1996,13 +2242,16 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Winkelgebieden',
-    url: '/maps/winkgeb?version=1.3.0&service=WMS'
+    url: '/maps/winkgeb?version=1.3.0&service=WMS',
+    detailUrl: 'geosearch/winkgeb/', // Geosearch URL
+    detailItem: 'winkgeb', // Not needed for this API endpoint, but needed to trigger nearest detail on click...
+    detailIsShape: true
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'bouw',
-    layers: ['bouw'],
+    layer: 'bouw',
     legendItems: [
       {
         selectable: false,
@@ -2036,13 +2285,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Bouw',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'bouw'
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'csr',
-    layers: ['cultuur_sport_recreatie'],
+    layer: 'cultuur_sport_recreatie',
     legendItems: [
       {
         selectable: false,
@@ -2068,13 +2319,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Cultuur, sport, recreatie',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'cultuur_sport_recreatie'
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'fdvrog',
-    layers: ['financiele_dienstverlening_verhuur'],
+    layer: 'financiele_dienstverlening_verhuur',
     legendItems: [
       {
         selectable: false,
@@ -2100,13 +2353,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Financiële dienstv., verhuur van (on)roerend goed',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'financiele_dienstverlening_verhuur'
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'hvo',
-    layers: ['handel_vervoer_opslag'],
+    layer: 'handel_vervoer_opslag',
     legendItems: [
       {
         selectable: false,
@@ -2144,13 +2399,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Handel, vervoer, opslag',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'handel_vervoer_opslag'
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'hrc',
-    layers: ['horeca'],
+    layer: 'horeca',
     legendItems: [
       {
         selectable: false,
@@ -2188,13 +2445,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Horeca',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'horeca'
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'itc',
-    layers: ['telecommunicatie'],
+    layer: 'telecommunicatie',
     legendItems: [
       {
         selectable: false,
@@ -2220,13 +2479,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Informatie, telecommunicatie',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'informatie_telecommunicatie'
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'lb',
-    layers: ['landbouw'],
+    layer: 'landbouw',
     legendItems: [
       {
         selectable: false,
@@ -2260,13 +2521,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Landbouw',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'landbouw'
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'ooz',
-    layers: ['overheid_onderwijs_zorg'],
+    layer: 'overheid_onderwijs_zorg',
     legendItems: [
       {
         selectable: false,
@@ -2288,13 +2551,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Overheid, onderwijs, zorg',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'overheid_onderwijs_zorg'
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'pd',
-    layers: ['persoonlijke_dienstverlening'],
+    layer: 'persoonlijke_dienstverlening',
     legendItems: [
       {
         selectable: false,
@@ -2324,13 +2589,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Persoonlijke dienstverlening',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'persoonlijke_dienstverlening'
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'pir',
-    layers: ['productie_installatie_reparatie'],
+    layer: 'productie_installatie_reparatie',
     legendItems: [
       {
         selectable: false,
@@ -2352,13 +2619,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Productie, installatie, reparatie',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'productie_installatie_reparatie'
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'zd',
-    layers: ['zakelijke_dienstverlening'],
+    layer: 'zakelijke_dienstverlening',
     legendItems: [
       {
         selectable: false,
@@ -2412,13 +2681,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Zakelijke dienstverlening',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'zakelijke_dienstverlening'
   },
   {
     authScope: 'HR/R',
     category: 'Economie en haven',
     id: 'ovrg',
-    layers: ['overige'],
+    layer: 'overige',
     legendItems: [
       {
         selectable: false,
@@ -2444,13 +2715,15 @@ export default [
     maxZoom: 16,
     minZoom: 11,
     title: 'Vestigingen - Overige',
-    url: '/maps/handelsregister?version=1.3.0&service=WMS'
+    url: '/maps/handelsregister?version=1.3.0&service=WMS',
+    detailUrl: 'handelsregister/geosearch/',
+    detailItem: 'overige'
   },
   {
     authScope: 'GREX/R',
     id: 'grexProjecten',
     category: 'Stedelijke ontwikkeling',
-    layers: ['grondexploitatie_polygons'],
+    layer: 'grondexploitatie_polygons',
     legendItems: [
       {
         selectable: false,
@@ -2464,13 +2737,16 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Grondexploitaties - Projecten',
-    url: '/maps/grondexploitatie?version=1.3.0&service=WMS'
+    url: '/maps/grondexploitatie?version=1.3.0&service=WMS',
+    detailUrl: 'geosearch/search/', // Geosearch URL
+    detailItem: 'grondexploitatie', // Geosearch name
+    detailIsShape: true
   },
   {
     authScope: 'GREX/R',
     id: 'grexStadsdelen',
     category: 'Stedelijke ontwikkeling',
-    layers: ['stadsdeel_polygons'],
+    layer: 'stadsdeel_polygons',
     legendItems: [
       {
         selectable: false,
@@ -2481,6 +2757,9 @@ export default [
     maxZoom: 16,
     minZoom: 8,
     title: 'Grondexploitaties - Stadsdelen',
-    url: '/maps/grondexploitatie?version=1.3.0&service=WMS'
+    url: '/maps/grondexploitatie?version=1.3.0&service=WMS',
+    detailUrl: 'geosearch/search/', // Geosearch URL
+    detailItem: 'stadsdeel', // Geosearch name
+    detailIsShape: true
   }
 ];
