@@ -190,8 +190,6 @@ class MapLeaflet extends React.Component {
       onLoad: ({ sourceTarget }) => this.handleLoaded(sourceTarget)
     };
 
-    console.log(layers)
-
     return (
       <ResizeAware
         style={{

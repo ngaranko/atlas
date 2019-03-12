@@ -20,7 +20,7 @@ const generateLayer = (layers, overlay, url, params, type, bounds) => ({
   url,
   overlayOptions: {
     ...MAP_CONFIG.OVERLAY_OPTIONS,
-    layers: findLayer(layers, overlay.id).layer
+    layers: findLayer(layers, overlay.id).layers
   },
   type,
   params,
@@ -34,10 +34,6 @@ export const getLayers = createSelector(
   (overlays, token, layers) => (
     overlays.map((overlay) => {
       const layer = findLayer(layers, overlay.id);
-
-      console.log(layer)
-
-
       if (!layer) {
         return false;
       }

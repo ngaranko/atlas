@@ -132,8 +132,6 @@ class LeafletContainer extends React.Component {
 
     const showMarker = markers.length > 0;
 
-    console.log(layers)
-
     return baseLayer.urlTemplate && (
       <MapLeaflet
         {...{

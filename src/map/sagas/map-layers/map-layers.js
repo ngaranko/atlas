@@ -5,11 +5,11 @@ import {
   FETCH_MAP_LAYERS_SUCCESS
 } from '../../ducks/layers/map-layers';
 
-import { getPanelLayers } from '../../services';
+import { getMapLayers } from '../../services';
 
 export function* fetchMapLayers() {
   try {
-    const mapLayers = yield call(getPanelLayers);
+    const mapLayers = yield call(getMapLayers);
     yield put({ type: FETCH_MAP_LAYERS_SUCCESS, mapLayers });
   } catch (error) {
     yield put({ type: FETCH_MAP_LAYERS_FAILURE, error });

@@ -7,10 +7,8 @@ class NonTiledLayer extends TileLayer {
   createLeafletElement(props) {
     const { url, params, ...args } = props;
 
-    console.log(props)
-
     const query = (params) ? queryString.stringify(params) : '';
-    const layerUrl = (query) ? `${url}&${query}` : url;
+    const layerUrl = (query) ? `${url}?${query}` : url;
 
     return L.nonTiledLayer.wms(layerUrl, this.getOptions(args));
   }
