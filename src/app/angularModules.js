@@ -52,7 +52,6 @@ import '../../modules/header/components/menu/menu.component';
 import '../../modules/header/components/print-button/print-button.component';
 import '../../modules/header/components/print-header/print-header.component';
 import '../../modules/header/components/site-header/site-header.component';
-import '../../modules/header/components/terugmelden-button/terugmelden-button.component';
 import '../../modules/header/header-config.constant';
 import '../../modules/header/header.constant';
 import '../../modules/page/page.module';
