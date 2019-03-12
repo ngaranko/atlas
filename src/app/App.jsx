@@ -26,7 +26,7 @@ import { DataSearchQuery } from './components/DataSearch';
 import MapSplitPage from './pages/MapSplitPage';
 import ActualityContainer from './containers/ActualityContainer';
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer';
-import ModalComponent from './components/Modal/Modal';
+import ModalComponent from './components/Modal';
 
 // TodoReactMigration: implement logic
 const App = ({

@@ -49,7 +49,7 @@ exports[`App should render the homepage 1`] = `
           className="u-row u-full-height"
         >
           <Connect(ContentPage) />
-          <ModalComponent />
+          <Connect(ModalComponent) />
         </div>
       </div>
     </div>
@@ -106,7 +106,7 @@ exports[`App should render the mapview 1`] = `
           className="u-row u-full-height"
         >
           <Connect(ContentPage) />
-          <ModalComponent />
+          <Connect(ModalComponent) />
         </div>
       </div>
     </div>

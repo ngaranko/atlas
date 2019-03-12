@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Divider, IconButton, ListItem, Modal, TopBar, Typography } from '@datapunt/asc-ui';
-// eslint-disable-next-line
+// eslint-disable-next-line import/no-unresolved, import/no-webpack-loader-syntax
 import Close from 'svg-react-loader?name=Close!@datapunt/asc-assets/lib/Icons/Close.svg';
 import { routing } from '../../../app/routes';
 
 const FEEDBACK_RECIPIENT = 'terugmelding.basisinformatie@amsterdam.nl';
 const FEEDBACK_SUBJECT = 'Terugmelding data.amsterdam.nl';
-const FEEDBACK_BODY = (location) => `Terugmeldingen voor de pagina: ${location}\n\n
-  Beschrijf zo volledig mogelijk van welk onjuist gegeven je een melding wilt maken:\n
-  - Welk gegeven is kennelijk onjuist of ontbreekt?\n
-  - Weet je wat het wel zou moeten zijn?\n
+const FEEDBACK_BODY = (location) => `Terugmeldingen voor de pagina: ${location}\n
+  Beschrijf zo volledig mogelijk van welk onjuist gegeven je een melding wilt maken:
+  - Welk gegeven is kennelijk onjuist of ontbreekt?
+  - Weet je wat het wel zou moeten zijn?
   - Waarop is jouw constatering gebaseerd? Omschrijf de reden en voeg indien mogelijk relevante 
   documenten in de bijlage toe (bijvoorbeeld: een bouwtekening, koopakte, et cetera).
   `;
 
 const PROBLEM_RECIPIENT = 'datapunt@amsterdam.nl';
 const PROBLEM_SUBJECT = 'Probleem melden of suggestie voor data.amsterdam.nl';
-const PROBLEM_BODY = (location) => `Probleem melden voor de pagina: ${location}\n\n
-  Beschrijf zo volledig mogelijk waar je tegenaan loopt: \n
-  - Om welk onderdeel van de pagina gaat het? \n
-  - Wat zie je op het scherm als je een probleem ondervindt? \n
+const PROBLEM_BODY = (location) => `Probleem melden voor de pagina: ${location}\n
+  Beschrijf zo volledig mogelijk waar je tegenaan loopt:
+  - Om welk onderdeel van de pagina gaat het?
+  - Wat zie je op het scherm als je een probleem ondervindt?
   - Heb je een suggestie hoe het anders zou kunnen? 
   `;
 
 const getMailtoLink = (recipient, subject, body) => `mailto:${recipient}
-?subject=window.encodeURIComponent(${subject})
+?subject=${window.encodeURIComponent(subject)}
 &body=${window.encodeURIComponent(body)}`;
 
 class ModalComponent extends Component {
@@ -57,6 +58,7 @@ class ModalComponent extends Component {
 
   render() {
     const { open } = this.state;
+    const { reportProblemAction } = this.props;
     return (
       <Modal
         aria-labelledby="feedback"
@@ -84,12 +86,13 @@ class ModalComponent extends Component {
           </Typography>
           <Button
             as="a"
+            color="primary"
+            onClick={reportProblemAction}
             href={getMailtoLink(
               FEEDBACK_RECIPIENT,
               FEEDBACK_SUBJECT,
               FEEDBACK_BODY(window.location.href)
             )}
-            color="primary"
           >
             Terugmelden
           </Button>
@@ -107,6 +110,7 @@ class ModalComponent extends Component {
           <Button
             as="a"
             color="primary"
+            onClick={reportProblemAction}
             href={getMailtoLink(
               PROBLEM_RECIPIENT,
               PROBLEM_SUBJECT,
@@ -126,5 +130,9 @@ class ModalComponent extends Component {
     );
   }
 }
+
+ModalComponent.propTypes = {
+  reportProblemAction: PropTypes.func.isRequired
+};
 
 export default ModalComponent;
