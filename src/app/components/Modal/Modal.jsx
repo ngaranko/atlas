@@ -4,8 +4,28 @@ import { Button, Divider, IconButton, ListItem, Modal, TopBar, Typography } from
 import Close from 'svg-react-loader?name=Close!@datapunt/asc-assets/lib/Icons/Close.svg';
 import { routing } from '../../../app/routes';
 
-const MAILTO_FEEDBACK = 'mailto:terugmelding.basisinformatie@amsterdam.nl?subject=Terugmelding%20data.amsterdam.nl&body=Terugmeldingen%20voor%20de%20pagina%3A%20http%3A%2F%2Flocalhost%3A8080%2Fdata%2Fbag%2Fpand%2Fid0363100012168052%2F%3Fcenter%3D52.3727874%252C4.8032235%26zoom%3D13%0A%0ABeschrijf%20zo%20volledig%20mogelijk%20van%20welk%20onjuist%20gegeven%20je%20een%20melding%20wilt%20maken%3A%0A-%20Welk%20gegeven%20is%20kennelijk%20onjuist%20of%20ontbreekt%3F%0A-%20Weet%20je%20wat%20het%20wel%20zou%20moeten%20zijn%3F%0A-%20Waarop%20is%20jouw%20constatering%20gebaseerd%3F%20Omschrijf%20de%20reden%20en%20voeg%20indien%20mogelijk%20relevante%20documenten%20in%20de%20bijlage%20toe%20(bijvoorbeeld%3A%20een%20bouwtekening%2C%20koopakte%2C%20et%20cetera).';
-const MAILTO_PROBLEM = 'mailto:datapunt@amsterdam.nl?subject=Probleem%20melden%20of%20suggestie%20voor%20data.amsterdam.nl&body=Probleem%20melden%20voor%20de%20pagina%3A%20https%3A%2F%2Fdata.amsterdam.nl%2F%0A%0ABeschrijf%20zo%20volledig%20mogelijk%20waar%20je%20tegenaan%20loopt%3A%0A-%20Om%20welk%20onderdeel%20van%20de%20pagina%20gaat%20het%3F%0A-%20Wat%20zie%20je%20op%20het%20scherm%20als%20je%20een%20probleem%20ondervindt%3F%0A-%20Heb%20je%20een%20suggestie%20hoe%20het%20anders%20zou%20kunnen%3F%20';
+const FEEDBACK_RECIPIENT = 'terugmelding.basisinformatie@amsterdam.nl';
+const FEEDBACK_SUBJECT = 'Terugmelding data.amsterdam.nl';
+const FEEDBACK_BODY = (location) => `Terugmeldingen voor de pagina: ${location}\n\n
+  Beschrijf zo volledig mogelijk van welk onjuist gegeven je een melding wilt maken:\n
+  - Welk gegeven is kennelijk onjuist of ontbreekt?\n
+  - Weet je wat het wel zou moeten zijn?\n
+  - Waarop is jouw constatering gebaseerd? Omschrijf de reden en voeg indien mogelijk relevante 
+  documenten in de bijlage toe (bijvoorbeeld: een bouwtekening, koopakte, et cetera).
+  `;
+
+const PROBLEM_RECIPIENT = 'datapunt@amsterdam.nl';
+const PROBLEM_SUBJECT = 'Probleem melden of suggestie voor data.amsterdam.nl';
+const PROBLEM_BODY = (location) => `Probleem melden voor de pagina: ${location}\n\n
+  Beschrijf zo volledig mogelijk waar je tegenaan loopt: \n
+  - Om welk onderdeel van de pagina gaat het? \n
+  - Wat zie je op het scherm als je een probleem ondervindt? \n
+  - Heb je een suggestie hoe het anders zou kunnen? 
+  `;
+
+const getMailtoLink = (recipient, subject, body) => `mailto:${recipient}
+?subject=window.encodeURIComponent(${subject})
+&body=${window.encodeURIComponent(body)}`;
 
 class ModalComponent extends Component {
   constructor(props) {
@@ -64,7 +84,11 @@ class ModalComponent extends Component {
           </Typography>
           <Button
             as="a"
-            href={MAILTO_FEEDBACK}
+            href={getMailtoLink(
+              FEEDBACK_RECIPIENT,
+              FEEDBACK_SUBJECT,
+              FEEDBACK_BODY(window.location.href)
+            )}
             color="primary"
           >
             Terugmelden
@@ -80,7 +104,17 @@ class ModalComponent extends Component {
             aan
             ons door.
           </Typography>
-          <Button as="a" color="primary" href={MAILTO_PROBLEM}>Probleem melden</Button>
+          <Button
+            as="a"
+            color="primary"
+            href={getMailtoLink(
+              PROBLEM_RECIPIENT,
+              PROBLEM_SUBJECT,
+              PROBLEM_BODY(window.location.href)
+            )}
+          >
+            Probleem melden
+          </Button>
         </ListItem>
         <Divider transparent />
         <ListItem>
