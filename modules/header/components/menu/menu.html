@@ -1,7 +1,18 @@
 <nav class="c-menu _extra-space-for-the-menu-keep-right qa-menu"
      ng-class="'c-menu--' + vm.size">
-    <button ng-if="!vm.user.authenticated" ng-click="vm.login()" class="c-menu__item c-menu__link qa-menu__login"
-        ><span class="c-menu__title">Inloggen</span></button>
+    <button
+        ng-if="!vm.user.authenticated"
+        ng-click="vm.login()"
+        class="c-menu__item c-menu__link qa-menu__login"
+    >
+        <span class="c-menu__title">Inloggen</span>
+    </button>
+    <button
+        ng-click="vm.openFeedbackForm()"
+        class="c-menu__item c-menu__link qa-menu__login"
+    >
+        <span class="c-menu__title">Feedback</span>
+    </button>
     <dp-menu-dropdown ng-if="vm.user.authenticated"
                       class="qa-menu__user-menu"
                       title="{{vm.userMenuLabel}}"

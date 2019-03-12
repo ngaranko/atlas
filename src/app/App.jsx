@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { AngularWrapper } from 'react-angular';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { ThemeProvider } from '@datapunt/asc-ui';
 import ContentPage from './pages/ContentPage';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import './_app.scss';
@@ -25,6 +26,7 @@ import { DataSearchQuery } from './components/DataSearch';
 import MapSplitPage from './pages/MapSplitPage';
 import ActualityContainer from './containers/ActualityContainer';
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer';
+import ModalComponent from './components/Modal/Modal';
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -72,71 +74,87 @@ const App = ({
   const pageTypeClass = currentPage.toLowerCase().replace('_', '-');
 
   return (
-    <div
-      className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
-    >
-      {!embedMode &&
-      <AngularWrapper
-        moduleName={'dpHeaderWrapper'}
-        component="dpHeader"
-        dependencies={['atlas']}
-        bindings={{
-          isHomePage: homePage,
-          hasMaxWidth,
-          user,
-          isPrintMode: printMode,
-          isEmbedPreview: embedPreviewMode,
-          isPrintOrEmbedOrPreview: printOrEmbedMode
-        }}
-      />
-      }
-      <div className={`c-dashboard__body ${bodyClasses}`}>
-        {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
-        {embedPreviewMode ?
-          <EmbedIframeComponent /> :
-          <div className="u-grid u-full-height">
-            <div className="u-row u-full-height">
-              {homePage && <Home showFooter />}
-
-              {(currentPage === PAGES.DATA_QUERY_SEARCH || currentPage === PAGES.SEARCH_DATASETS) &&
-              <QuerySearchPage />
-              }
-
-              {/* Todo: DP-6391 */}
-              {(currentPage === PAGES.DATA_SEARCH_CATEGORY) && (
-                <div className="c-search-results u-grid">
-                  <DataSearchQuery />
-                </div>
-              )}
-
-              {(currentPage === PAGES.ACTUALITY) && (
-                <ActualityContainer />
-              )}
-
-              {(currentPage === PAGES.DATA ||
-                currentPage === PAGES.PANORAMA ||
-                currentPage === PAGES.DATA_DETAIL ||
-                currentPage === PAGES.ADDRESSES ||
-                currentPage === PAGES.ESTABLISHMENTS ||
-                currentPage === PAGES.DATA_GEO_SEARCH ||
-                currentPage === PAGES.CADASTRAL_OBJECTS)
-              && <MapSplitPage />
-              }
-
-              {currentPage === PAGES.DATASETS && <DatasetPage />}
-
-              {currentPage === PAGES.DATASET_DETAIL && (
-                <DatasetDetailContainer />
-              )}
-
-              {isCmsPage && (
-                <ContentPage />
-              )}
-            </div>
-          </div>
+    <ThemeProvider
+      overrides={{
+        typography: {
+          fontFamily: '"Avenir LT W01 55 Roman", Arial, sans-serif',
+          h4: {
+            fontFamily: '"Avenir LT W01 85 Heavy", Arial, sans-serif'
+          },
+          h5: {
+            fontFamily: '"Avenir LT W01 85 Heavy", Arial, sans-serif'
+          }
         }
+      }}
+    >
+      <div
+        className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
+      >
+        {!embedMode &&
+        <AngularWrapper
+          moduleName={'dpHeaderWrapper'}
+          component="dpHeader"
+          dependencies={['atlas']}
+          bindings={{
+            isHomePage: homePage,
+            hasMaxWidth,
+            user,
+            isPrintMode: printMode,
+            isEmbedPreview: embedPreviewMode,
+            isPrintOrEmbedOrPreview: printOrEmbedMode
+          }}
+        />
+        }
+        <div className={`c-dashboard__body ${bodyClasses}`}>
+          {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
+          {embedPreviewMode ?
+            <EmbedIframeComponent /> :
+            <div className="u-grid u-full-height">
+              <div className="u-row u-full-height">
+                {homePage && <Home showFooter />}
+
+                {(currentPage === PAGES.DATA_QUERY_SEARCH ||
+                  currentPage === PAGES.SEARCH_DATASETS
+                ) && <QuerySearchPage />}
+
+                {/* Todo: DP-6391 */}
+                {(currentPage === PAGES.DATA_SEARCH_CATEGORY) && (
+                  <div className="c-search-results u-grid">
+                    <DataSearchQuery />
+                  </div>
+                )}
+
+                {(currentPage === PAGES.ACTUALITY) && (
+                  <ActualityContainer />
+                )}
+
+                {(currentPage === PAGES.DATA ||
+                  currentPage === PAGES.PANORAMA ||
+                  currentPage === PAGES.DATA_DETAIL ||
+                  currentPage === PAGES.ADDRESSES ||
+                  currentPage === PAGES.ESTABLISHMENTS ||
+                  currentPage === PAGES.DATA_GEO_SEARCH ||
+                  currentPage === PAGES.CADASTRAL_OBJECTS)
+                && <MapSplitPage />
+                }
+
+                {currentPage === PAGES.DATASETS && <DatasetPage />}
+
+                {currentPage === PAGES.DATASET_DETAIL && (
+                  <DatasetDetailContainer />
+                )}
+
+                {isCmsPage && (
+                  <ContentPage />
+                )}
+
+                <ModalComponent />
+              </div>
+            </div>
+          }
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 
