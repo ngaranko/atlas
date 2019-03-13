@@ -1865,9 +1865,9 @@ export const mapPanelLayers = ([
 ]);
 
 export default [
-  ...mapLayers.map((mapLayer) => (!mapLayer.id)
+  ...mapLayers.map((mapLayer) => (Object.prototype.hasOwnProperty.call(mapLayer, 'id')
     ? mapLayer
-    : mapLayer.legendItems.map((legendItem) => (!legendItem.id)
+    : mapLayer.legendItems.map((legendItem) => (Object.prototype.hasOwnProperty.call(legendItem, 'id')
       ? ({
         layers: mapLayer.layers,
         url: mapLayer.url,
@@ -1878,7 +1878,7 @@ export default [
         ...legendItem
       })
       : null
-    )
-  )
+    ))
+  ))
 ].reduce((acc, val) => acc.concat(val), []); // Alternative to .flat()
 /* eslint-enable max-len */
