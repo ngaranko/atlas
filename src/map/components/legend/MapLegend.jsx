@@ -20,14 +20,14 @@ class MapLegend extends React.Component {
       return legendItem.iconUrl;
     }
 
-    const url = MAP_CONFIG.OVERLAY_ROOT.slice(0, -1); // This removes last character '/'
-
     return [
-      url,
-      `${mapLayer.url}&`,
+      MAP_CONFIG.OVERLAY_ROOT,
+      `${mapLayer.url}?`,
+      `version=${MAP_CONFIG.VERSION_NUMBER}&`,
+      'service=WMS&',
       'request=GetLegendGraphic&',
-      'sld_version=1.1.0&',
-      `layer=${legendItem.layer || mapLayer.layers[0]}&`,
+      `sld_version=${MAP_CONFIG.SLD_VERSION}&`,
+      `layer=${(legendItem.layers && legendItem.layers[0]) || (mapLayer.layers && mapLayer.layers[0])}&`,
       'format=image/svg%2Bxml&',
       `rule=${encodeURIComponent(legendItem.imageRule || legendItem.title)}`
     ].join('');
