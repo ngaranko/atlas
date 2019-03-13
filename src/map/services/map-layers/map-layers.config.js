@@ -1843,7 +1843,7 @@ export const mapPanelLayers = ([
   ...mapLayers.map(({
     authScope,
     category,
-    id,
+    id = false,
     layers = [],
     legendItems,
     maxZoom = MAP_CONFIG.MAX_ZOOM,
@@ -1855,10 +1855,14 @@ export const mapPanelLayers = ([
     category,
     id,
     layers,
-    legendItems,
+    legendItems: [
+      ...legendItems.map((legendItem) => ({
+        ...legendItem,
+        selectable: (!!legendItem.id)
+      }))
+    ],
     maxZoom,
     minZoom,
-    selectable: (!!id),
     title,
     url
   }))
