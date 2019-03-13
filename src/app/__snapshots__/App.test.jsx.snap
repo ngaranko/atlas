@@ -1,81 +1,115 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App should render the homepage 1`] = `
-<div
-  className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
+<ASCDefaultThemeProvider
+  overrides={
+    Object {
+      "typography": Object {
+        "fontFamily": "\\"Avenir LT W01 55 Roman\\", Arial, sans-serif",
+        "h4": Object {
+          "fontFamily": "\\"Avenir LT W01 85 Heavy\\", Arial, sans-serif",
+        },
+        "h5": Object {
+          "fontFamily": "\\"Avenir LT W01 85 Heavy\\", Arial, sans-serif",
+        },
+      },
+    }
+  }
 >
-  <AngularWrapper
-    bindings={
-      Object {
-        "hasMaxWidth": true,
-        "isEmbedPreview": false,
-        "isHomePage": false,
-        "isPrintMode": false,
-        "isPrintOrEmbedOrPreview": false,
-        "user": Object {},
-      }
-    }
-    component="dpHeader"
-    dependencies={
-      Array [
-        "atlas",
-      ]
-    }
-    interpolateBindings={Object {}}
-    moduleName="dpHeaderWrapper"
-  />
   <div
-    className="c-dashboard__body "
+    className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
   >
+    <AngularWrapper
+      bindings={
+        Object {
+          "hasMaxWidth": true,
+          "isEmbedPreview": false,
+          "isHomePage": false,
+          "isPrintMode": false,
+          "isPrintOrEmbedOrPreview": false,
+          "user": Object {},
+        }
+      }
+      component="dpHeader"
+      dependencies={
+        Array [
+          "atlas",
+        ]
+      }
+      interpolateBindings={Object {}}
+      moduleName="dpHeaderWrapper"
+    />
     <div
-      className="u-grid u-full-height"
+      className="c-dashboard__body "
     >
       <div
-        className="u-row u-full-height"
+        className="u-grid u-full-height"
       >
-        <Connect(ContentPage) />
+        <div
+          className="u-row u-full-height"
+        >
+          <Connect(ContentPage) />
+          <Connect(ModalComponent) />
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ASCDefaultThemeProvider>
 `;
 
 exports[`App should render the mapview 1`] = `
-<div
-  className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
+<ASCDefaultThemeProvider
+  overrides={
+    Object {
+      "typography": Object {
+        "fontFamily": "\\"Avenir LT W01 55 Roman\\", Arial, sans-serif",
+        "h4": Object {
+          "fontFamily": "\\"Avenir LT W01 85 Heavy\\", Arial, sans-serif",
+        },
+        "h5": Object {
+          "fontFamily": "\\"Avenir LT W01 85 Heavy\\", Arial, sans-serif",
+        },
+      },
+    }
+  }
 >
-  <AngularWrapper
-    bindings={
-      Object {
-        "hasMaxWidth": true,
-        "isEmbedPreview": false,
-        "isHomePage": false,
-        "isPrintMode": false,
-        "isPrintOrEmbedOrPreview": false,
-        "user": Object {},
-      }
-    }
-    component="dpHeader"
-    dependencies={
-      Array [
-        "atlas",
-      ]
-    }
-    interpolateBindings={Object {}}
-    moduleName="dpHeaderWrapper"
-  />
   <div
-    className="c-dashboard__body "
+    className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
   >
+    <AngularWrapper
+      bindings={
+        Object {
+          "hasMaxWidth": true,
+          "isEmbedPreview": false,
+          "isHomePage": false,
+          "isPrintMode": false,
+          "isPrintOrEmbedOrPreview": false,
+          "user": Object {},
+        }
+      }
+      component="dpHeader"
+      dependencies={
+        Array [
+          "atlas",
+        ]
+      }
+      interpolateBindings={Object {}}
+      moduleName="dpHeaderWrapper"
+    />
     <div
-      className="u-grid u-full-height"
+      className="c-dashboard__body "
     >
       <div
-        className="u-row u-full-height"
+        className="u-grid u-full-height"
       >
-        <Connect(ContentPage) />
+        <div
+          className="u-row u-full-height"
+        >
+          <Connect(ContentPage) />
+          <Connect(ModalComponent) />
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ASCDefaultThemeProvider>
 `;
