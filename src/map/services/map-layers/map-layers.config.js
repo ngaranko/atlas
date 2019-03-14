@@ -28,7 +28,11 @@ const mapLayers = [
     "bounds": {Array} "Array of a GEO location, only use this when the bounds are predefined",
     "notClosable": {Boolean} "Hides the close button for this layer when set to TRUE",
     "minZoom": {Number} "Can be used to overwrite the default value for MIN_ZOOM in MAP_CONFIG",
-    "maxZoom": {Number} "Can be used to overwrite the default value for MAX_ZOOM in MAP_CONFIG"
+    "maxZoom": {Number} "Can be used to overwrite the default value for MAX_ZOOM in MAP_CONFIG",
+    "detailUrl": {String} "Relative endpoint for GeoSearch",
+    "detailItem": {String} "Identifier for GeoSearch",
+    "detailIsShape": {Boolean} "True when GeoSearch is a GeoJSON and not a location point (Default: false)",
+    "noDetail": {Boolean} "True when the GeoSearch result has no a Detail Page (Default: false)"
   }
 ]
 
@@ -1910,7 +1914,8 @@ export const mapPanelLayers = ([
     legendItems: [
       ...legendItems.map((legendItem) => ({
         ...legendItem,
-        selectable: (!!legendItem.id)
+        selectable: (!!legendItem.id),
+        noDetail: (!!noDetail)
       }))
     ],
     maxZoom,
