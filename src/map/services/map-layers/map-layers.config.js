@@ -162,17 +162,20 @@ const mapLayers = [
       {
         id: 'bgem',
         title: 'Burgerlijke gemeente',
-        layers: ['burgerlijke_gemeente', 'burgerlijke_gemeente_label']
+        layers: ['burgerlijke_gemeente', 'burgerlijke_gemeente_label'],
+        noDetail: true
       },
       {
         id: 'kgem',
         title: 'Kadastrale gemeente',
-        layers: ['kadastrale_gemeente', 'kadastrale_gemeente_label']
+        layers: ['kadastrale_gemeente', 'kadastrale_gemeente_label'],
+        noDetail: true
       },
       {
         id: 'ksec',
         title: 'Kadastrale sectie',
-        layers: ['kadastrale_sectie', 'kadastrale_sectie_label']
+        layers: ['kadastrale_sectie', 'kadastrale_sectie_label'],
+        noDetail: true
       },
       {
         id: 'kot',
@@ -447,7 +450,7 @@ const mapLayers = [
   },
   {
     category: THEMES.GEOGRAPHY_HEIGHT,
-    id: 'dsm',
+    id: 'dtm',
     layers: ['ahn3_05m_dtm'],
     legendItems: [
       {
@@ -503,7 +506,7 @@ const mapLayers = [
   },
   {
     category: THEMES.GEOGRAPHY_HEIGHT,
-    id: 'dtm',
+    id: 'dsm',
     layers: ['ahn3_05m_dsm'],
     legendItems: [
       {
@@ -699,7 +702,8 @@ const mapLayers = [
       }
     ],
     title: 'Metro en tram - Spoorlijnen',
-    url: '/maps/trm'
+    url: '/maps/trm',
+    noDetail: true
   },
   {
     category: THEMES.TRAFFIC,
@@ -713,7 +717,10 @@ const mapLayers = [
     ],
     title: 'Milieuzones - Bestelauto',
     url: '/maps/milieuzones',
-    noDetail: true
+    noDetail: true,
+    params: {
+      id: 63363
+    }
   },
   {
     category: THEMES.TRAFFIC,
@@ -727,7 +734,10 @@ const mapLayers = [
     ],
     title: 'Milieuzones - Brom- en snorfiets',
     url: '/maps/milieuzones',
-    noDetail: true
+    noDetail: true,
+    params: {
+      id: 63324
+    }
   },
   {
     category: THEMES.TRAFFIC,
@@ -741,7 +751,10 @@ const mapLayers = [
     ],
     title: 'Milieuzones - Taxi',
     url: '/maps/milieuzones',
-    noDetail: true
+    noDetail: true,
+    params: {
+      id: 63360
+    }
   },
   {
     category: THEMES.TRAFFIC,
@@ -755,7 +768,10 @@ const mapLayers = [
     ],
     title: 'Milieuzones - Touringcar',
     url: '/maps/milieuzones',
-    noDetail: true
+    noDetail: true,
+    params: {
+      id: 63361
+    }
   },
   {
     category: THEMES.TRAFFIC,
@@ -769,7 +785,10 @@ const mapLayers = [
     ],
     title: 'Milieuzones - Touringcar (vanaf 1-1-2020)',
     url: '/maps/milieuzones',
-    noDetail: true
+    noDetail: true,
+    params: {
+      id: 63316
+    }
   },
   {
     category: THEMES.TRAFFIC,
@@ -783,7 +802,10 @@ const mapLayers = [
     ],
     title: 'Milieuzones - Vrachtauto',
     url: '/maps/milieuzones',
-    noDetail: true
+    noDetail: true,
+    params: {
+      id: 63362
+    }
   },
   {
     category: THEMES.TRAFFIC,
@@ -877,6 +899,7 @@ const mapLayers = [
         id: 'pvrll',
         layers: ['parkeervakken_reservering'],
         title: 'Laden en lossen',
+        imageRule: 'Laden lossen',
         params: {
           categorie: 'laden_lossen'
         }
@@ -975,7 +998,8 @@ const mapLayers = [
       }
     ],
     title: 'Routes - Taxi',
-    url: '/maps/hoofdroutes'
+    url: '/maps/hoofdroutes',
+    noDetail: true
   },
   {
     category: THEMES.TRAFFIC,
@@ -988,7 +1012,8 @@ const mapLayers = [
       }
     ],
     title: 'Routes - Vrachtauto',
-    url: '/maps/hoofdroutes'
+    url: '/maps/hoofdroutes',
+    noDetail: true
   },
   {
     category: THEMES.TRAFFIC,
@@ -1012,7 +1037,8 @@ const mapLayers = [
       { title: 'meer dan 60 km/h - weg' }
     ],
     title: 'Verkeersstromen - Snelheden (±5 min. geleden)',
-    url: '/maps/reistijdenauto'
+    url: '/maps/reistijdenauto',
+    noDetail: true
   },
   {
     category: THEMES.TRAFFIC,
@@ -1024,7 +1050,8 @@ const mapLayers = [
       }
     ],
     title: 'Verzinkbare palen',
-    url: '/maps/vezips'
+    url: '/maps/vezips',
+    noDetail: true
   },
   {
     category: THEMES.SAFETY,
@@ -1085,7 +1112,7 @@ const mapLayers = [
     title: 'Omgeving taxi-standplaatsen',
     url: '/maps/overlastgebieden'
   },
-  // to revive end of 2019
+  /* to revive end of 2019
   {
     category: THEMES.SAFETY,
     id: 'oovvz',
@@ -1098,7 +1125,7 @@ const mapLayers = [
     ],
     title: 'Vuurwerkvrije zones',
     url: '/maps/overlastgebieden'
-  },
+  }, */
   {
     category: THEMES.TOURISM,
     id: 'tcmnmt',
@@ -1130,7 +1157,8 @@ const mapLayers = [
     ],
     minZoom: 11,
     title: 'Grondmonsters',
-    url: '/maps/bodem'
+    url: '/maps/bodem',
+    noDetail: true
   },
   {
     category: THEMES.MIL_GROUND,
@@ -1239,17 +1267,19 @@ const mapLayers = [
         title: 'Plaatsgebonden risico 10-6'
       },
       {
-        layers: [
-          'lpgvulpuntinvloedsgebied',
-          'lpgvulpuntplaatsgebondenrisico106',
-          'lpgvulpuntplaatsgebondenrisico105',
-          'lpgvulpuntlocaties'
-        ],
+        layers: ['lpgvulpuntinvloedsgebied'],
         title: 'Invloedsgebied groepsrisico'
       }
     ],
+    layers: [
+      'lpgvulpuntinvloedsgebied',
+      'lpgvulpuntplaatsgebondenrisico106',
+      'lpgvulpuntplaatsgebondenrisico105',
+      'lpgvulpuntlocaties'
+    ],
     title: 'LPG-vulpunten - Risicozones',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     category: THEMES.MIL_SAFETY,
@@ -1266,7 +1296,8 @@ const mapLayers = [
       }
     ],
     title: 'LPG-afleverzuilen - Risicozones',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     category: THEMES.MIL_SAFETY,
@@ -1287,7 +1318,8 @@ const mapLayers = [
       }
     ],
     title: 'LPG-tanks - Risicozones',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     category: THEMES.MIL_SAFETY,
@@ -1304,7 +1336,8 @@ const mapLayers = [
       }
     ],
     title: 'LPG-stations - Risicozones',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     category: THEMES.MIL_SAFETY,
@@ -1320,7 +1353,8 @@ const mapLayers = [
       }
     ],
     title: 'Bedrijven - Bronnen en risicozones',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     authScope: 'HR/R',
@@ -1331,7 +1365,8 @@ const mapLayers = [
       { title: 'Invloedsgebied' }
     ],
     title: 'Bedrijven - Invloedsgebieden',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     category: THEMES.MIL_SAFETY,
@@ -1348,7 +1383,8 @@ const mapLayers = [
       }
     ],
     title: 'Bedrijven - Terreingrenzen',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     category: THEMES.MIL_SAFETY,
@@ -1377,7 +1413,8 @@ const mapLayers = [
       }
     ],
     title: 'Aardgasbuisleidingen - Risicozones',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     category: THEMES.MIL_SAFETY,
@@ -1389,7 +1426,8 @@ const mapLayers = [
       }
     ],
     title: 'Spoorwegen - Risicozones',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     category: THEMES.MIL_SAFETY,
@@ -1404,12 +1442,13 @@ const mapLayers = [
   {
     category: THEMES.MIL_SAFETY,
     id: 'mvw',
-    layers: ['risicozoneswg'],
+    layers: ['risicozonesweg'],
     legendItems: [
       { title: 'Invloedsgebied wegen' }
     ],
     title: 'Wegen - Risicozones',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     category: THEMES.MIL_SAFETY,
@@ -1446,7 +1485,8 @@ const mapLayers = [
       }
     ],
     title: 'Veiligheidsafstanden',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     category: THEMES.MIL_ZONES,
@@ -1461,8 +1501,13 @@ const mapLayers = [
         title: 'Geluidzone industrieterrein'
       }
     ],
+    layers: [
+      'geluidzoneindustrieterrein',
+      'gezoneerdindustrieterrein'
+    ],
     title: 'Industrie - Geluidszones',
-    url: '/maps/planologischegeluidszones'
+    url: '/maps/planologischegeluidszones',
+    noDetail: true
   },
   {
     category: THEMES.MIL_ZONES,
@@ -1472,7 +1517,8 @@ const mapLayers = [
       { title: 'Geluidszone spoorwegen' }
     ],
     title: 'Spoorwegen - Geluidszones',
-    url: '/maps/planologischegeluidszones'
+    url: '/maps/planologischegeluidszones',
+    noDetail: true
   },
   {
     category: THEMES.MIL_ZONES,
@@ -1482,7 +1528,8 @@ const mapLayers = [
       { title: 'Geluidszone metro' }
     ],
     title: 'Metro - Geluidszones',
-    url: '/maps/planologischegeluidszones'
+    url: '/maps/planologischegeluidszones',
+    noDetail: true
   },
   {
     category: THEMES.MIL_ZONES,
@@ -1493,7 +1540,8 @@ const mapLayers = [
       { title: '20 Ke contour' }
     ],
     title: 'Schiphol - Ruimtelijke beperkingen',
-    url: '/maps/planologischezonesschiphol'
+    url: '/maps/planologischezonesschiphol',
+    noDetail: true
   },
   {
     category: THEMES.MIL_ZONES,
@@ -1511,7 +1559,8 @@ const mapLayers = [
       { title: 'Hoger dan 140m NAP' }
     ],
     title: 'Schiphol - Maatgevende toetshoogte',
-    url: '/maps/planologischezonesschiphol'
+    url: '/maps/planologischezonesschiphol',
+    noDetail: true
   },
   {
     category: THEMES.MIL_ZONES,
@@ -1529,7 +1578,8 @@ const mapLayers = [
       { title: 'Hoger dan 140m NAP' }
     ],
     title: 'Schiphol - Toetshoogte i.v.m. radar',
-    url: '/maps/planologischezonesschiphol'
+    url: '/maps/planologischezonesschiphol',
+    noDetail: true
   },
   {
     category: THEMES.MIL_ZONES,
@@ -1539,7 +1589,8 @@ const mapLayers = [
       { title: 'Vogelvrijwaringsgebied' }
     ],
     title: 'Schiphol - Vogelvrijwaringsgebied',
-    url: '/maps/planologischezonesschiphol'
+    url: '/maps/planologischezonesschiphol',
+    noDetail: true
   },
   {
     category: THEMES.ECONOMY_HARBOR,
@@ -1848,6 +1899,7 @@ export const mapPanelLayers = ([
     legendItems,
     maxZoom = MAP_CONFIG.MAX_ZOOM,
     minZoom = MAP_CONFIG.MIN_ZOOM,
+    noDetail,
     title,
     url
   }) => ({
@@ -1863,6 +1915,7 @@ export const mapPanelLayers = ([
     ],
     maxZoom,
     minZoom,
+    noDetail,
     title,
     url
   }))
