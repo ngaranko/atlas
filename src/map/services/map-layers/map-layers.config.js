@@ -416,7 +416,8 @@ const mapLayers = [
           'gebiedsgerichtwerkenpraktijkgebieden',
           'gebiedsgerichtwerkenpraktijkgebieden_label'
         ],
-        title: 'Gebiedsgerichtwerken-praktijkgebied'
+        title: 'Gebiedsgerichtwerken-praktijkgebied',
+        noDetail: true
       }
     ],
     minZoom: 6,
@@ -856,7 +857,6 @@ const mapLayers = [
   {
     category: THEMES.TRAFFIC,
     id: 'pv',
-    noDetail: true,
     layers: ['alle_parkeervakken', 'parkeervakken_label'],
     legendItems: [
       {
@@ -1077,7 +1077,8 @@ const mapLayers = [
       }
     ],
     title: 'Overlastgebieden',
-    url: '/maps/overlastgebieden'
+    url: '/maps/overlastgebieden',
+    noDetail: true
   },
   {
     category: THEMES.SAFETY,
@@ -1089,7 +1090,8 @@ const mapLayers = [
       }
     ],
     title: 'Cameratoezichtgebieden',
-    url: '/maps/overlastgebieden'
+    url: '/maps/overlastgebieden',
+    noDetail: true
   },
   {
     category: THEMES.SAFETY,
@@ -1101,7 +1103,8 @@ const mapLayers = [
       }
     ],
     title: 'Alcoholverbodsgebieden',
-    url: '/maps/overlastgebieden'
+    url: '/maps/overlastgebieden',
+    noDetail: true
   },
   {
     category: THEMES.SAFETY,
@@ -1114,7 +1117,8 @@ const mapLayers = [
       }
     ],
     title: 'Omgeving taxi-standplaatsen',
-    url: '/maps/overlastgebieden'
+    url: '/maps/overlastgebieden',
+    noDetail: true
   },
   /* to revive end of 2019
   {
@@ -1128,7 +1132,8 @@ const mapLayers = [
       }
     ],
     title: 'Vuurwerkvrije zones',
-    url: '/maps/overlastgebieden'
+    url: '/maps/overlastgebieden',
+    noDetail: true
   }, */
   {
     category: THEMES.TOURISM,
@@ -1176,7 +1181,8 @@ const mapLayers = [
     ],
     minZoom: 11,
     title: 'Grondmonsters asbest',
-    url: '/maps/bodem'
+    url: '/maps/bodem',
+    noDetail: true
   },
   {
     category: THEMES.MIL_GROUND,
@@ -1189,7 +1195,8 @@ const mapLayers = [
       { title: 'Sterk verontreinigd' }
     ],
     title: 'Grondwatermonsters',
-    url: '/maps/bodem'
+    url: '/maps/bodem',
+    noDetail: true
   },
   {
     category: THEMES.MIL_GROUND,
@@ -1441,7 +1448,8 @@ const mapLayers = [
       { title: 'Invloedsgebied vaarwegen' }
     ],
     title: 'Vaarwegen - Risicozones',
-    url: '/maps/externeveiligheid'
+    url: '/maps/externeveiligheid',
+    noDetail: true
   },
   {
     category: THEMES.MIL_SAFETY,
@@ -1915,7 +1923,7 @@ export const mapPanelLayers = ([
       ...legendItems.map((legendItem) => ({
         ...legendItem,
         selectable: (!!legendItem.id),
-        noDetail: (!!noDetail)
+        noDetail: (!!noDetail || !!legendItem.noDetail)
       }))
     ],
     maxZoom,
