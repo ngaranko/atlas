@@ -19,7 +19,7 @@ $dashboard-heading-padding-print-version: 46px;
     top: auto;
     height: calc(100% - #{$dashboard-heading-height-print-version});
     margin-left: auto;
-    padding: $base-whitespace * 2;
+    padding: $base-whitespace;
     border: 2px solid $secondary-gray40;
     background-color: $primary-light;
 }
