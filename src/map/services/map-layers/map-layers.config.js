@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 /**
 
-const mapLayers = [
-  {
+ const mapLayers = [
+ {
     (X) "id": {String} "Unique identifier for this layer, only required when other layers in group are NOT selectable",
     (X) "layers": {Array} "Layer names as defined in MapServer, only required layer has own MapServer definition",
     (X) "url": {String} "Url to MapServer",
@@ -34,12 +34,12 @@ const mapLayers = [
     "detailIsShape": {Boolean} "True when GeoSearch is a GeoJSON and not a location point (Default: false)",
     "noDetail": {Boolean} "True when the GeoSearch result has no a Detail Page (Default: false)"
   }
-]
+ ]
 
-(*) Are required fields
-(X) Are required fields for either the mapLayer objects or legendaItem objects
+ (*) Are required fields
+ (X) Are required fields for either the mapLayer objects or legendaItem objects
 
-*/
+ */
 
 import mapLayerTypes from './map-layer-types.config';
 import MAP_CONFIG from '../map-config';
@@ -907,14 +907,6 @@ const mapLayers = [
         params: {
           categorie: 'laden_lossen'
         }
-      },
-      {
-        id: 'pvrpr',
-        layers: ['parkeervakken_reservering'],
-        title: 'Park & Ride',
-        params: {
-          categorie: 'park_ride'
-        }
       }
     ],
     minZoom: 11,
@@ -992,13 +984,13 @@ const mapLayers = [
         id: 'bgt',
         imageRule: 'Busbaan geen taxi',
         layers: ['busbaan_geen_taxi'],
-        title: 'Taxi busbaanverbod'
+        title: 'Verbod lijnbusbaan'
       },
       {
         id: 'tar',
         imageRule: 'Taxiroutes',
         layers: ['taxiroutes'],
-        title: 'Taxi hoofdroute'
+        title: 'Hoofdroutes Taxi\'s'
       }
     ],
     title: 'Routes - Taxi',
@@ -1936,19 +1928,19 @@ export const mapPanelLayers = ([
 
 export default [
   ...mapLayers.map((mapLayer) => (Object.prototype.hasOwnProperty.call(mapLayer, 'id')
-    ? mapLayer
-    : mapLayer.legendItems.map((legendItem) => (Object.prototype.hasOwnProperty.call(legendItem, 'id')
-      ? ({
-        layers: mapLayer.layers,
-        url: mapLayer.url,
-        detailUrl: mapLayer.detailUrl,
-        detailItem: mapLayer.detailItem,
-        detailIsShape: mapLayer.detailIsShape,
-        minZoom: mapLayer.minZoom,
-        ...legendItem
-      })
-      : null
-    ))
+      ? mapLayer
+      : mapLayer.legendItems.map((legendItem) => (Object.prototype.hasOwnProperty.call(legendItem, 'id')
+          ? ({
+            layers: mapLayer.layers,
+            url: mapLayer.url,
+            detailUrl: mapLayer.detailUrl,
+            detailItem: mapLayer.detailItem,
+            detailIsShape: mapLayer.detailIsShape,
+            minZoom: mapLayer.minZoom,
+            ...legendItem
+          })
+          : null
+      ))
   ))
 ].reduce((acc, val) => acc.concat(val), []); // Alternative to .flat()
 /* eslint-enable max-len */
