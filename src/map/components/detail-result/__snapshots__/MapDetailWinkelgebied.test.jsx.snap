@@ -8,6 +8,13 @@ exports[`MapDetailWinkelgebied should render everything 1`] = `
   subTitle="Foo"
   title="Winkelgebied"
 >
+  <Notification
+    canClose={true}
+    className=""
+    level="info"
+  >
+    De grenzen van dit winkelgebied zijn indicatief. Er kunnen geen rechten aan worden ontleend.
+  </Notification>
   <ul
     className="map-detail-result__list"
   >
