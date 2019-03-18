@@ -1,37 +1,45 @@
 @import "../../styles/config";
 
 $checkbox-height: 24px;
+$checkbox-width: 30px;
 
 .checkbox {
   @include icon-sprite("icon-tick", $primary-dark, $primary-dark, $checkbox-height);
   background-color: $primary-light;
   cursor: pointer;
+  box-sizing: border-box;
   display: block;
   height: $checkbox-height;
-  margin-right: 10px;
+  margin-right: $base-whitespace;
   position: relative;
-  width: $checkbox-height;
+  width: $checkbox-width;
 
   // NB: Fix width for IE11
   @media screen and (-ms-high-contrast: active), // sass-lint:disable-line no-vendor-prefixes
   screen and (-ms-high-contrast: none) {  // sass-lint:disable-line no-vendor-prefixes
-    width: 32px;
+    width: $checkbox-width;
+  }
+
+  border: 1px solid $primary-dark;
+
+  &:hover,
+  &:focus {
+    border: 2px solid $primary-dark;
   }
 
   input {
+    position: absolute;
     appearance: none;
-    border: 1px solid $primary-dark;
-    height: inherit;
+    height: 100%;
     outline: none;
-    width: inherit;
+    width: 100%;
 
     &:not(:checked) {
       background-color: $primary-light;
     }
 
-    &:hover,
-    &:focus {
-      border: 2px solid $primary-dark;
+    &::-ms-check {// sass-lint:disable-line no-vendor-prefixes
+      display: none;
     }
   }
 
