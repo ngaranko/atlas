@@ -125,7 +125,7 @@ class PanoramaContainer extends React.Component {
       tags
     } = this.props;
     return (
-      <div className="c-panorama">
+      <div className="c-panorama u-page-break-before">
         <div
           ref={
             //eslint-disable-next-line

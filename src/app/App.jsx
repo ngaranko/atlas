@@ -60,14 +60,17 @@ const App = ({
   ];
   const printEmbedModeClasses = classNames({
     [printAndEmbedClasses[0]]: printMode,
-    [printAndEmbedClasses[1]]: printModeLandscape, // Todo: implement
+    [printAndEmbedClasses[1]]: printModeLandscape,
     [printAndEmbedClasses[2]]: embedMode,
     [printAndEmbedClasses[3]]: embedPreviewMode
   });
 
   document.documentElement.classList.remove(...printAndEmbedClasses);
   if (printEmbedModeClasses) {
-    document.documentElement.classList.add(...printEmbedModeClasses.split(' '));
+    // Adding multiple classes as string doesn't seem to work in IE11. Add them one by one.
+    printEmbedModeClasses.split(' ').forEach((element) => {
+      document.documentElement.classList.add(element);
+    });
   }
 
   // Todo: don't use page types, this will be used
