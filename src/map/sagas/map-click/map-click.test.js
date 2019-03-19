@@ -13,7 +13,7 @@ import { requestNearestDetails } from '../../../shared/ducks/data-search/actions
 import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection';
 import { getImageDataByLocation } from '../../../panorama/services/panorama-api/panorama-api';
 import { getPage } from '../../../store/redux-first-router/selectors';
-import { getViewMode, VIEW_MODE } from '../../../shared/ducks/ui/ui';
+import { getViewMode, isEmbedded, VIEW_MODE } from '../../../shared/ducks/ui/ui';
 
 describe('watchMapClick', () => {
   const action = { type: SET_MAP_CLICK_LOCATION };
@@ -110,6 +110,10 @@ describe('switchClickAction', () => {
     selector === getMapZoom ? 8 : next()
   );
 
+  const provideEmbed = ({ selector }, next) => (
+    selector === isEmbedded ? false : next()
+  );
+
   const provideSelectionTypePoint = ({ selector }, next) => (
     selector === getSelectionType ? SELECTION_TYPE.POINT : next()
   );
@@ -131,7 +135,8 @@ describe('switchClickAction', () => {
           provideMapZoom,
           provideViewMode,
           provideMapPanelLayers,
-          provideSelectionTypePoint
+          provideSelectionTypePoint,
+          provideEmbed
         )
       })
       .put(requestNearestDetails({
@@ -158,7 +163,8 @@ describe('switchClickAction', () => {
           provideViewMode,
           provideMapZoom,
           provideMapPanelLayers,
-          provideSelectionTypePoint
+          provideSelectionTypePoint,
+          provideEmbed
         )
       })
       .call(goToGeoSearch, payload.location)
