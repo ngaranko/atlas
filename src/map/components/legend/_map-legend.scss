@@ -143,14 +143,17 @@ $icon-height: 24px;
       padding-bottom: 0;
 
       &::after,
-      button,
-      .checkbox {
+      button {
         display: none;
       }
     }
 
     &__image {
       margin-left: 0;
+
+      &--not-selectable {
+        margin-left: 36px;
+      }
     }
 
     &__item {
@@ -161,6 +164,14 @@ $icon-height: 24px;
       }
 
       &--hidden {
+        display: none;
+      }
+    }
+  }
+
+  .is-print-mode {
+    &__category {
+      .checkbox {
         display: none;
       }
     }
