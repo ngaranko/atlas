@@ -7,7 +7,7 @@ pipeline {
   environment {
     COMMIT_HASH = GIT_COMMIT.substring(0, 8)
     PROJECT_PREFIX = "${BRANCH_NAME}_${COMMIT_HASH}_${BUILD_NUMBER}_"
-    IMAGE_BASE = "build.datapunt.amsterdam.nl:5000/atlas/app"
+    IMAGE_BASE = "repo.data.amsterdam.nl/atlas/app"
     IMAGE_BUILD = "${IMAGE_BASE}:${BUILD_NUMBER}"
     IMAGE_ACCEPTANCE = "${IMAGE_BASE}:acceptance"
     IMAGE_PRODUCTION = "${IMAGE_BASE}:production"
@@ -96,7 +96,7 @@ pipeline {
     }
 
     stage('Build A') {
-      when { branch 'master' }
+      when { branch 'dev' }
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
@@ -110,7 +110,7 @@ pipeline {
     }
 
     stage('Deploy A (Master)') {
-      when { branch 'master' }
+      when { branch 'dev' }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
@@ -126,7 +126,7 @@ pipeline {
     }
 
     stage('Build P (Master)') {
-      when { branch 'master' }
+      when { branch 'dev' }
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
@@ -142,7 +142,7 @@ pipeline {
     }
 
     stage('Deploy pre P (Master)') {
-      when { branch 'master' }
+      when { branch 'dev' }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
@@ -155,7 +155,7 @@ pipeline {
     }
 
     stage('Waiting for approval (Master)') {
-      when { branch 'master' }
+      when { branch 'dev' }
       steps {
         script {
           input "Deploy to Production?"
@@ -165,7 +165,7 @@ pipeline {
     }
 
     stage('Deploy P (Master)') {
-      when { branch 'master' }
+      when { branch 'dev' }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
