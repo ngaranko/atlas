@@ -1898,6 +1898,7 @@ export const mapPanelLayers = ([
   ...mapLayers.map(({
     authScope,
     category,
+    disabled,
     id = false,
     layers = [],
     legendItems,
@@ -1909,6 +1910,7 @@ export const mapPanelLayers = ([
   }) => ({
     authScope,
     category,
+    disabled,
     id,
     layers,
     legendItems: [
