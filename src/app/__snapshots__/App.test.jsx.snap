@@ -17,11 +17,7 @@ exports[`App should render the homepage 1`] = `
   }
 >
   <React.Suspense
-    fallback={
-      <LoadingIndicator
-        loading={true}
-      />
-    }
+    fallback={<React.Fragment />}
   >
     <div
       className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
@@ -82,11 +78,7 @@ exports[`App should render the mapview 1`] = `
   }
 >
   <React.Suspense
-    fallback={
-      <LoadingIndicator
-        loading={true}
-      />
-    }
+    fallback={<React.Fragment />}
   >
     <div
       className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
