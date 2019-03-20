@@ -990,7 +990,7 @@ const mapLayers = [
         id: 'tar',
         imageRule: 'Taxiroutes',
         layers: ['taxiroutes'],
-        title: 'Hoofdroutes Taxi\'s'
+        title: 'Hoofdroutes taxi\'s'
       }
     ],
     title: 'Routes - Taxi',
