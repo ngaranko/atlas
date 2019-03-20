@@ -6,8 +6,9 @@ $checkbox-width: 30px;
 .checkbox {
   @include icon-sprite("icon-tick", $primary-dark, $primary-dark, $checkbox-height);
   background-color: $primary-light;
-  cursor: pointer;
+  border: 1px solid $primary-dark;
   box-sizing: border-box;
+  cursor: pointer;
   display: block;
   height: $checkbox-height;
   margin-right: $base-whitespace;
@@ -20,18 +21,16 @@ $checkbox-width: 30px;
     width: $checkbox-width;
   }
 
-  border: 1px solid $primary-dark;
-
   &:hover,
   &:focus {
     border: 2px solid $primary-dark;
   }
 
   input {
-    position: absolute;
     appearance: none;
     height: 100%;
     outline: none;
+    position: absolute;
     width: 100%;
 
     &:not(:checked) {

@@ -67,9 +67,13 @@ const App = ({
     [printAndEmbedClasses[3]]: embedPreviewMode
   });
 
-  document.documentElement.classList.remove(...printAndEmbedClasses);
+  // Adding/removing multiple classes as string doesn't seem to work in IE11.
+  // Add/remove them one by one.
+  printAndEmbedClasses.forEach((element) => {
+    document.documentElement.classList.remove(element);
+  });
+
   if (printEmbedModeClasses) {
-    // Adding multiple classes as string doesn't seem to work in IE11. Add them one by one.
     printEmbedModeClasses.split(' ').forEach((element) => {
       document.documentElement.classList.add(element);
     });
@@ -97,19 +101,19 @@ const App = ({
           className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
         >
           {!embedMode &&
-          <AngularWrapper
-            moduleName={'dpHeaderWrapper'}
-            component="dpHeader"
-            dependencies={['atlas']}
-            bindings={{
-              isHomePage: homePage,
-              hasMaxWidth,
-              user,
-              isPrintMode: printMode,
-              isEmbedPreview: embedPreviewMode,
-              isPrintOrEmbedOrPreview: printOrEmbedMode
-            }}
-          />
+            <AngularWrapper
+              moduleName={'dpHeaderWrapper'}
+              component="dpHeader"
+              dependencies={['atlas']}
+              bindings={{
+                isHomePage: homePage,
+                hasMaxWidth,
+                user,
+                isPrintMode: printMode,
+                isEmbedPreview: embedPreviewMode,
+                isPrintOrEmbedOrPreview: printOrEmbedMode
+              }}
+            />
           }
           <div className={`c-dashboard__body ${bodyClasses}`}>
             {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
@@ -141,8 +145,8 @@ const App = ({
                     currentPage === PAGES.ESTABLISHMENTS ||
                     currentPage === PAGES.DATA_GEO_SEARCH ||
                     currentPage === PAGES.CADASTRAL_OBJECTS)
-                  &&
-                  <MapSplitPage />
+                    &&
+                    <MapSplitPage />
                   }
 
                   {currentPage === PAGES.DATASETS && <DatasetPage />}
