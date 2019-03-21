@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const { commonConfig, dist } = require('./webpack.common.js');
 
 module.exports = function (env) {
@@ -37,7 +36,6 @@ module.exports = function (env) {
       }
     },
     plugins: [
-      new BundleAnalyzerPlugin(),
       new webpack.DefinePlugin({
         VERSION: JSON.stringify(require('./package.json').version),
         '__BUILD_ID__': JSON.stringify(buildId),
