@@ -22,7 +22,7 @@ import ModalComponent from './components/Modal';
 
 const ContentPage = React.lazy(() => import('./pages/ContentPage'));
 const Home = React.lazy(() => import('./pages/Home'));
-const { DataSearchQuery } = React.lazy(() => import('./components/DataSearch'));
+const DataSearchQuery = React.lazy(() => import('./components/DataSearch/DataSearchQuery'));
 const QuerySearchPage = React.lazy(() => import('./pages/QuerySearchPage'));
 const DatasetPage = React.lazy(() => import('./pages/DatasetPage'));
 const ActualityContainer = React.lazy(() => import('./containers/ActualityContainer'));
@@ -100,19 +100,19 @@ const App = ({
           className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
         >
           {!embedMode &&
-            <AngularWrapper
-              moduleName={'dpHeaderWrapper'}
-              component="dpHeader"
-              dependencies={['atlas']}
-              bindings={{
-                isHomePage: homePage,
-                hasMaxWidth,
-                user,
-                isPrintMode: printMode,
-                isEmbedPreview: embedPreviewMode,
-                isPrintOrEmbedOrPreview: printOrEmbedMode
-              }}
-            />
+          <AngularWrapper
+            moduleName={'dpHeaderWrapper'}
+            component="dpHeader"
+            dependencies={['atlas']}
+            bindings={{
+              isHomePage: homePage,
+              hasMaxWidth,
+              user,
+              isPrintMode: printMode,
+              isEmbedPreview: embedPreviewMode,
+              isPrintOrEmbedOrPreview: printOrEmbedMode
+            }}
+          />
           }
           <div className={`c-dashboard__body ${bodyClasses}`}>
             {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
@@ -144,8 +144,8 @@ const App = ({
                     currentPage === PAGES.ESTABLISHMENTS ||
                     currentPage === PAGES.DATA_GEO_SEARCH ||
                     currentPage === PAGES.CADASTRAL_OBJECTS)
-                    &&
-                    <MapSplitPage />
+                  &&
+                  <MapSplitPage />
                   }
 
                   {currentPage === PAGES.DATASETS && <DatasetPage />}

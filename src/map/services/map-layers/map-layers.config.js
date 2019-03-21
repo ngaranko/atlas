@@ -907,6 +907,14 @@ const mapLayers = [
         params: {
           categorie: 'laden_lossen'
         }
+      },
+      {
+        id: 'pvrpr',
+        layers: ['parkeervakken_reservering'],
+        title: 'Kiss & Ride',
+        params: {
+          categorie: 'kiss_ride'
+        }
       }
     ],
     minZoom: 11,
@@ -1930,19 +1938,19 @@ export const mapPanelLayers = ([
 
 export default [
   ...mapLayers.map((mapLayer) => (Object.prototype.hasOwnProperty.call(mapLayer, 'id')
-    ? mapLayer
-    : mapLayer.legendItems.map((legendItem) => (Object.prototype.hasOwnProperty.call(legendItem, 'id')
-      ? ({
-        layers: mapLayer.layers,
-        url: mapLayer.url,
-        detailUrl: mapLayer.detailUrl,
-        detailItem: mapLayer.detailItem,
-        detailIsShape: mapLayer.detailIsShape,
-        minZoom: mapLayer.minZoom,
-        ...legendItem
-      })
-      : null
-    ))
+      ? mapLayer
+      : mapLayer.legendItems.map((legendItem) => (Object.prototype.hasOwnProperty.call(legendItem, 'id')
+          ? ({
+            layers: mapLayer.layers,
+            url: mapLayer.url,
+            detailUrl: mapLayer.detailUrl,
+            detailItem: mapLayer.detailItem,
+            detailIsShape: mapLayer.detailIsShape,
+            minZoom: mapLayer.minZoom,
+            ...legendItem
+          })
+          : null
+      ))
   ))
 ].reduce((acc, val) => acc.concat(val), []); // Alternative to .flat()
 /* eslint-enable max-len */
