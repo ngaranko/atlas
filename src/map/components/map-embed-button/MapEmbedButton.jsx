@@ -1,12 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import { getEmbedButtonLink } from '../../../shared/services/embed-url/embed-url';
+import { toggleEmbedButtonAction } from '../../../map/ducks/map/actions';
 
-const MapEmbedButton = () => (
+const MapEmbedButton = ({ toggleEmbedButton }) => (
   <button
     type="button"
     onClick={(e) => {
       e.preventDefault();
-      window.open(getEmbedButtonLink(), '_blank');
+      toggleEmbedButton();
+      setTimeout(() => window.open(getEmbedButtonLink(), '_blank'), 300);
     }}
     title="Naar interactieve kaart (Amsterdam City Data)"
     className="c-embed-button qa-embed-button"
@@ -16,4 +21,12 @@ const MapEmbedButton = () => (
   </button>
 );
 
-export default MapEmbedButton;
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  toggleEmbedButton: toggleEmbedButtonAction
+}, dispatch);
+
+MapEmbedButton.propTypes = {
+  toggleEmbedButton: PropTypes.func.isRequired
+};
+
+export default connect(null, mapDispatchToProps)(MapEmbedButton);

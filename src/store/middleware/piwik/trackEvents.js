@@ -34,9 +34,11 @@ import {
 import {
   MAP_SET_DRAWING_MODE,
   SET_MAP_BASE_LAYER,
-  SET_MAP_CLICK_LOCATION
+  SET_MAP_CLICK_LOCATION,
+  TOGGLE_MAP_EMBED
 } from '../../../map/ducks/map/constants';
 import { getShapeMarkers } from '../../../map/ducks/map/selectors';
+import { getLabelObjectByTags } from '../../../panorama/ducks/selectors';
 import {
   SHOW_MODAL,
   CLOSE_MODAL,
@@ -47,6 +49,7 @@ import {
 import {
   FETCH_PANORAMA_HOTSPOT_REQUEST,
   SET_PANORAMA_TAGS,
+  CLOSE_PANORAMA,
   FETCH_PANORAMA_REQUEST_EXTERNAL
 } from '../../../panorama/ducks/constants';
 import PAGES from '../../../app/pages';
@@ -79,15 +82,13 @@ const trackEvents = {
       null
     ] : [];
   },
-  // NAVIGATION -> NAVIGATE TO GEO SEARCH
-  [routing.dataGeoSearch.type]: function trackGeoSearch({ state }) {
-    return isPanoPage(state) ? [
-      PIWIK_CONSTANTS.TRACK_EVENT,
-      'navigation', // NAVIGATION -> CLICK CLOSE FROM PANORAMA
-      'panorama-verlaten',
-      null
-    ] : [];
-  },
+  // NAVIGATION -> CLICK CLOSE FROM PANORAMA
+  [CLOSE_PANORAMA]: () => [
+    PIWIK_CONSTANTS.TRACK_EVENT,
+    'navigation',
+    'panorama-verlaten',
+    null
+  ],
   // NAVIGATION -> CLOSE PRINT VIEW
   [HIDE_PRINT]: () => [
     PIWIK_CONSTANTS.TRACK_EVENT,
@@ -108,6 +109,13 @@ const trackEvents = {
     'navigation',
     'home',
     title
+  ],
+  // NAVIGATION -> TOGGLE FROM EMBEDDED MAP
+  [TOGGLE_MAP_EMBED]: () => [
+    PIWIK_CONSTANTS.TRACK_EVENT,
+    'navigation',
+    'embedkaart-naar-portaal',
+    null
   ],
   // NAVIGATION -> CHANGE VIEW MODE
   [SET_VIEW_MODE]: ({ tracking, state }) => {
@@ -307,12 +315,17 @@ const trackEvents = {
   },
   // PANORAMA
   // PANORAMA -> TOGGLE "missionType" / "missionYear"
-  [SET_PANORAMA_TAGS]: ({ tracking }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
-    'panorama-set',
-    (tracking.year > 0) ? `panorama-set-${tracking.year}${tracking.missionType}` : 'panorama-set-recent',
-    null
-  ],
+  [SET_PANORAMA_TAGS]: function trackPanoramaTags({ tracking }) {
+    const { layerId } = getLabelObjectByTags(tracking);
+    const set = (tracking.length > 1) ? layerId.replace('pano', '') : 'recent';
+
+    return ([
+      PIWIK_CONSTANTS.TRACK_EVENT,
+      'panorama-set',
+      `panorama-set-${set}`,
+      null
+    ]);
+  },
   // PANORAMA -> TOGGLE "external"
   [FETCH_PANORAMA_REQUEST_EXTERNAL]: () => [
     PIWIK_CONSTANTS.TRACK_EVENT,
