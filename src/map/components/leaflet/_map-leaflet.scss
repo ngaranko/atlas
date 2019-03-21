@@ -8,9 +8,13 @@
 .is-embed {
   @import "assets/styles/map-print";
 
+  & .c-map {
+    height: 350px;
+  }
+
   &--landscape {
     .c-map {
-      height: 700px;
+      height: 650px;
     }
   }
 }

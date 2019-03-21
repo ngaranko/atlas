@@ -61,14 +61,21 @@ const App = ({
   ];
   const printEmbedModeClasses = classNames({
     [printAndEmbedClasses[0]]: printMode,
-    [printAndEmbedClasses[1]]: printModeLandscape, // Todo: implement
+    [printAndEmbedClasses[1]]: printModeLandscape,
     [printAndEmbedClasses[2]]: embedMode,
     [printAndEmbedClasses[3]]: embedPreviewMode
   });
 
-  document.documentElement.classList.remove(...printAndEmbedClasses);
+  // Adding/removing multiple classes as string doesn't seem to work in IE11.
+  // Add/remove them one by one.
+  printAndEmbedClasses.forEach((element) => {
+    document.documentElement.classList.remove(element);
+  });
+
   if (printEmbedModeClasses) {
-    document.documentElement.classList.add(...printEmbedModeClasses.split(' '));
+    printEmbedModeClasses.split(' ').forEach((element) => {
+      document.documentElement.classList.add(element);
+    });
   }
 
   // Todo: don't use page types, this will be used
@@ -93,19 +100,19 @@ const App = ({
           className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
         >
           {!embedMode &&
-          <AngularWrapper
-            moduleName={'dpHeaderWrapper'}
-            component="dpHeader"
-            dependencies={['atlas']}
-            bindings={{
-              isHomePage: homePage,
-              hasMaxWidth,
-              user,
-              isPrintMode: printMode,
-              isEmbedPreview: embedPreviewMode,
-              isPrintOrEmbedOrPreview: printOrEmbedMode
-            }}
-          />
+            <AngularWrapper
+              moduleName={'dpHeaderWrapper'}
+              component="dpHeader"
+              dependencies={['atlas']}
+              bindings={{
+                isHomePage: homePage,
+                hasMaxWidth,
+                user,
+                isPrintMode: printMode,
+                isEmbedPreview: embedPreviewMode,
+                isPrintOrEmbedOrPreview: printOrEmbedMode
+              }}
+            />
           }
           <div className={`c-dashboard__body ${bodyClasses}`}>
             {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
@@ -137,8 +144,8 @@ const App = ({
                     currentPage === PAGES.ESTABLISHMENTS ||
                     currentPage === PAGES.DATA_GEO_SEARCH ||
                     currentPage === PAGES.CADASTRAL_OBJECTS)
-                  &&
-                  <MapSplitPage />
+                    &&
+                    <MapSplitPage />
                   }
 
                   {currentPage === PAGES.DATASETS && <DatasetPage />}
