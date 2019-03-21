@@ -1,5 +1,4 @@
 import { routing } from '../../../app/routes';
-import { isEmbedded } from '../../../shared/ducks/ui/ui';
 import { getDetail } from '../../../shared/ducks/detail/selectors';
 import { PIWIK_CONSTANTS } from './piwikMiddleware';
 import { FETCH_DETAIL_SUCCESS } from '../../../shared/ducks/detail/constants';
@@ -7,8 +6,8 @@ import { isDatasetDetailPage } from '../../redux-first-router/selectors';
 
 let views = Object.entries(routing).reduce((acc, [, value]) => ({
   ...acc,
-  [value.type]: function trackView({ firstAction = null, href, title }) {
-    return (firstAction) ? [
+  [value.type]: function trackView({ firstAction = null, query = {}, href, title }) {
+    return (firstAction || !!query.print) ? [
       PIWIK_CONSTANTS.TRACK_VIEW,
       title,
       href,
@@ -19,28 +18,23 @@ let views = Object.entries(routing).reduce((acc, [, value]) => ({
 
 views = {
   ...views,
-  'atlasRouter/HOME': function trackView({ firstAction = null, href, title }) {
-    return (firstAction) ? [
+  'atlasRouter/HOME': function trackView({ firstAction = null, query = {}, href, title }) {
+    return (firstAction || !!query.print) ? [
       PIWIK_CONSTANTS.TRACK_VIEW,
       title,
       href,
       null
     ] : [];
   },
-  'atlasRouter/DATA': function trackView({ firstAction = null, href, title, state }) {
-    return (isEmbedded(state)) ? [
-      PIWIK_CONSTANTS.TRACK_EVENT,
-      'embed', // PAGEVIEW -> MAP IN EMBED VIEW
-      'embedkaart',
-      href
-    ] : (firstAction) ? [
+  'atlasRouter/DATA': function trackView({ firstAction = null, query = {}, href, title }) {
+    return (firstAction || !!query.print) ? [
       PIWIK_CONSTANTS.TRACK_VIEW,
       title, // PAGEVIEW -> MAP
       href,
       null
     ] : [];
   },
-  'atlasRouter/DATA_DETAIL': function trackView({ firstAction = null, href, title, state, tracking }) {
+  'atlasRouter/DATA_DETAIL': function trackView({ firstAction = null, query = {}, href, title, state, tracking }) {
     return (
       !firstAction && (tracking && tracking.id !== getDetail(state).id)
     ) ? [
@@ -48,7 +42,7 @@ views = {
       title, // PAGEVIEW -> DETAIL VIEW CLICK THROUGH VIEWS
       href,
       null
-    ] : (firstAction) ? [
+    ] : (firstAction || !!query.print) ? [
       PIWIK_CONSTANTS.TRACK_VIEW,
       title, // PAGEVIEW -> DETAIL VIEW INITIAL LOAD
       href,

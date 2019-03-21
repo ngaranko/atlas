@@ -1,6 +1,6 @@
 {
   "name": "atlas",
-  "version": "3.3.1",
+  "version": "3.4.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Amsterdam/atlas.git"
@@ -37,6 +37,8 @@
     "test-karma-watch": "karma start --no-single-run"
   },
   "dependencies": {
+    "@datapunt/asc-assets": "0.5.1-alpha.0",
+    "@datapunt/asc-ui": "0.5.1-alpha.0",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",
     "angular-i18n": "~1.5.11",
@@ -69,7 +71,7 @@
     "proj4leaflet": "1.0.2",
     "prop-types": "15.6.2",
     "query-string": "6.2.0",
-    "react": "16.8.2",
+    "react": "^16.8.2",
     "react-angular": "https://github.com/Amsterdam/react-angular#master",
     "react-dom": "16.8.2",
     "react-leaflet": "1.9.1",
@@ -91,6 +93,7 @@
     "@babel/core": "7.3.3",
     "@babel/plugin-proposal-class-properties": "7.3.3",
     "@babel/plugin-proposal-object-rest-spread": "7.3.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-regenerator": "7.0.0",
     "@babel/plugin-transform-runtime": "7.2.0",
     "@babel/polyfill": "7.2.5",
@@ -100,7 +103,8 @@
     "angular-mocks": "~1.5.11",
     "autoprefixer": "9.4.7",
     "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "24.1.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
     "babel-loader": "8.0.5",
     "babel-plugin-istanbul": "5.1.1",
     "babel-preset-react-app": "7.0.1",
@@ -110,7 +114,7 @@
     "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "1.9.1",
     "enzyme-to-json": "3.3.5",
-    "eslint": "3.19.0",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "15.1.0",
     "eslint-config-angular": "0.5.0",
     "eslint-config-standard": "6.2.1",
@@ -130,12 +134,12 @@
     "identity-obj-proxy": "3.0.0",
     "imports-loader": "0.8.0",
     "jasmine-core": "2.99.0",
-    "jest": "24.1.0",
-    "jest-environment-jsdom": "24.0.0",
-    "jest-environment-jsdom-global": "1.0.3",
-    "jest-environment-node": "24.0.0",
+    "jest": "24.4.0",
+    "jest-environment-jsdom": "24.4.0",
+    "jest-environment-jsdom-global": "1.1.1",
+    "jest-environment-node": "24.4.0",
     "jest-fetch-mock": "2.1.0",
-    "karma": "4.0.0",
+    "karma": "^4.0.1",
     "karma-babel-preprocessor": "8.0.0",
     "karma-coverage": "1.1.2",
     "karma-coverage-istanbul-reporter": "2.0.5",
@@ -158,9 +162,10 @@
     "svg-react-loader": "0.4.6",
     "svg-spritemap-webpack-plugin": "3.2.1",
     "uglifyjs-webpack-plugin": "2.1.1",
-    "webpack": "4.29.5",
+    "webpack": "4.28.4",
+    "webpack-bundle-analyzer": "^3.1.0",
     "webpack-cli": "3.2.3",
-    "webpack-dev-server": "3.1.14",
+    "webpack-dev-server": "3.2.1",
     "webpack-merge": "4.2.1"
   }
 }

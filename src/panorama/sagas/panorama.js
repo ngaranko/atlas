@@ -16,8 +16,9 @@ import { toDataDetail, toGeoSearch, toPanorama } from '../../store/redux-first-r
 import { getLocationPayload } from '../../store/redux-first-router/selectors';
 import { getViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
 import PARAMETERS from '../../store/parameters';
-import { getMapOverlays } from '../../map/ducks/map/selectors';
+import { getMapOverlays, getMapCenter } from '../../map/ducks/map/selectors';
 import {
+  initialState,
   CLOSE_PANORAMA,
   FETCH_PANORAMA_HOTSPOT_REQUEST,
   FETCH_PANORAMA_REQUEST,
@@ -34,50 +35,54 @@ export function* fetchFetchPanoramaEffect(action) {
   yield put(fetchPanoramaRequest(action.payload));
 }
 
-export function* maybeChangeRoute(id) {
-  const { id: urlId } = yield select(getLocationPayload);
-  const tags = yield select(getPanoramaTags);
-  if (id && (urlId !== id)) {
-    yield put(toPanorama(id, { [PARAMETERS.PANORAMA_SET]: tags }));
-  }
-}
-
-export function* handlePanoramaRequest(fn, id, location) {
-  const tags = yield select(getPanoramaTags);
+export function* handlePanoramaRequest(fn, input, tags) {
   try {
-    // Navigate to new panorama if the id in URL is not the same
-    // We check this before we fetch the panoramaData so prevents a useless call
-    yield call(maybeChangeRoute, id);
+    const panoramaData = yield call(fn, input, tags);
+    const { id } = yield select(getLocationPayload);
 
-    // continue getting the panoramaData
-    const panoramaData = yield call(fn, (id || location), tags);
-
-    // Again check if we need to navigate, as we know our ID now
-    yield call(maybeChangeRoute, panoramaData.id);
-
-    yield put(fetchPanoramaSuccess(panoramaData));
     yield put(toggleMapOverlayPanorama(tags));
+
+    if (id && id !== panoramaData.id) {
+      const viewCenter = yield select(getMapCenter);
+      const location = yield select(getPanoramaLocation);
+      const panoramaTags = (tags !== initialState.tags)
+        ? { [PARAMETERS.PANORAMA_TAGS]: tags.join() }
+        : {};
+
+      const additionalParams = {
+        ...panoramaTags,
+        [PARAMETERS.VIEW_CENTER]: viewCenter,
+        [PARAMETERS.LOCATION]: location
+      };
+
+      yield put(toPanorama(panoramaData.id, { additionalParams }));
+    }
+    yield put(fetchPanoramaSuccess({ ...panoramaData, tags }));
   } catch (error) {
     yield put(fetchPanoramaError(error));
   }
 }
 
 export function* fetchPanoramaById(action) {
-  yield call(handlePanoramaRequest, getImageDataById, action.payload.id);
+  const tags = yield select(getPanoramaTags);
+  yield call(handlePanoramaRequest, getImageDataById, action.payload.id, tags);
 }
 
-export function* fetchPanoramaByLocation() {
+export function* fetchPanoramaByLocation(action) {
+  const tags = yield select(getPanoramaTags);
+  yield call(handlePanoramaRequest, getImageDataByLocation, action.payload, tags);
+}
+
+export function* fetchPanoramaByTags(action) {
   const location = yield select(getPanoramaLocation);
-  yield call(handlePanoramaRequest, getImageDataByLocation, undefined, location);
+  yield call(handlePanoramaRequest, getImageDataByLocation, location, action.payload);
 }
 
 export function* watchFetchPanorama() {
   yield all([
     takeLatest([FETCH_PANORAMA_HOTSPOT_REQUEST, FETCH_PANORAMA_REQUEST], fetchPanoramaById),
-    takeLatest([
-      SET_PANORAMA_LOCATION,
-      SET_PANORAMA_TAGS
-    ], fetchPanoramaByLocation)
+    takeLatest([SET_PANORAMA_LOCATION], fetchPanoramaByLocation),
+    takeLatest([SET_PANORAMA_TAGS], fetchPanoramaByTags)
   ]);
 }
 

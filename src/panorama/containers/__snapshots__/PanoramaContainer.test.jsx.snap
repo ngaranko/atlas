@@ -2,7 +2,7 @@
 
 exports[`PanoramaContainer should render StatusBar when panoramaState is complete 1`] = `
 <div
-  className="c-panorama"
+  className="c-panorama u-page-break-before"
 >
   <div
     className="c-panorama__marzipano js-marzipano-viewer"
@@ -38,7 +38,7 @@ exports[`PanoramaContainer should render StatusBar when panoramaState is complet
 
 exports[`PanoramaContainer should render everything 1`] = `
 <div
-  className="c-panorama"
+  className="c-panorama u-page-break-before"
 >
   <div
     className="c-panorama__marzipano js-marzipano-viewer"

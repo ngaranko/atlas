@@ -55,7 +55,7 @@
 
     // sass-lint:disable no-duplicate-properties
     cursor: grab;
-    cursor: url("../assets/images/cursors/grab.cur"), url("assets/images/cursors/grab.cur"), pointer; // no grab icon for ie
+    cursor: url("assets/images/cursors/grab.cur"), url("/assets/images/cursors/grab.cur"), pointer; // no grab icon for ie
     // sass-lint:enable no-duplicate-properties
 
     height: 14px !important;
@@ -66,7 +66,7 @@
     .leaflet-dragging & {
       // sass-lint:disable no-duplicate-properties
       cursor: grabbing;
-      cursor: url("../assets/images/cursors/grabbing.cur"), url("assets/images/cursors/grabbing.cur"), pointer; // no grabbing icon for ie
+      cursor: url("assets/images/cursors/grabbing.cur"), url("/assets/images/cursors/grabbing.cur"), pointer; // no grabbing icon for ie
       // sass-lint:enable no-duplicate-properties
     }
 
@@ -79,7 +79,7 @@
   &.o-highlight-cluster {
     // sass-lint:disable no-duplicate-properties
     cursor: zoom-in;
-    cursor: url("../assets/images/cursors/zoom-in.cur"), url("assets/images/cursors/zoom-in.cur"), pointer; // no zoom-in icon for ie
+    cursor: url("assets/images/cursors/zoom-in.cur"), url("/assets/images/cursors/zoom-in.cur"), pointer; // no zoom-in icon for ie
     // sass-lint:enable no-duplicate-properties
 
     .leaflet-dragging & {
@@ -106,10 +106,10 @@
 
       // drawn polygon on the map
       &.c-map__leaflet-drawn-polygon {
-        cursor: url("../assets/images/cursors/edit.cur"), url("assets/images/cursors/edit.cur"), pointer;
+        cursor: url("assets/images/cursors/edit.cur"), url("/assets/images/cursors/edit.cur"), pointer;
 
         .c-map--drawing-mode-edit & {
-          cursor: url("../assets/images/cursors/save.cur"), url("assets/images/cursors/save.cur"), pointer;
+          cursor: url("assets/images/cursors/save.cur"), url("/assets/images/cursors/save.cur"), pointer;
         }
 
         .leaflet-dragging & {

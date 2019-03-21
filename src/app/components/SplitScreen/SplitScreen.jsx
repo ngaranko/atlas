@@ -9,7 +9,7 @@ const SplitScreen = ({ leftComponent, rightComponent, printMode }) => (
         c-dashboard__column
         u-col-sm--${(printMode) ? '12' : '4'}
         qa-dashboard__column--middle
-        u-page-break-after
+
       `}
     >
       {leftComponent}
