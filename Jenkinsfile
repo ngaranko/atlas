@@ -54,7 +54,7 @@ pipeline {
 
     stage('Run tests') {
       parallel {
-        stage('E2E tests') {
+        /* stage('E2E tests') {
           options {
             timeout(time: 60, unit: 'MINUTES')
           }
@@ -73,7 +73,7 @@ pipeline {
               sh "docker-compose -p ${PROJECT} down -v || true"
             }
           }
-        }
+        } */
 
         stage('E2E tests (Aria)') {
           options {
