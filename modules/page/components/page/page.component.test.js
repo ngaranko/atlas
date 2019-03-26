@@ -1,4 +1,4 @@
-import * as getContents from '../../../../src/shared/services/google-sheet/google.sheet';
+import * as getContents from '../../../../src/shared/services/google-sheet/google-sheet';
 
 describe('The page component', function () {
     var $compile,
