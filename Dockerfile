@@ -4,11 +4,12 @@ LABEL maintainer="datapunt@amsterdam.nl"
 
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get install -y \
+RUN sed -e '/deb http:\/\/deb.debian.org\/debian jessie-updates main/ s/^#*/#/' -i /etc/apt/sources.list && \
+      apt-get update && \
+      apt-get install -y \
       netcat \
       git && \
-    rm -rf /var/lib/apt/lists/*
+      rm -rf /var/lib/apt/lists/*
 
 COPY package.json package-lock.json /app/
 
@@ -16,7 +17,7 @@ COPY package.json package-lock.json /app/
 #  * Changing git URL because network is blocking git protocol...
 RUN git config --global url."https://".insteadOf git:// && \
     git config --global url."https://github.com/".insteadOf git@github.com: && \
-#    npm config set registry https://repo.datapunt.amsterdam.nl/repository/npm-group/ && \
+    npm config set registry https://nexus.data.amsterdam.nl/repository/npm-group/ && \
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     npm --production=false \
         --unsafe-perm \
