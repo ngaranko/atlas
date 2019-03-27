@@ -14,21 +14,21 @@ import { boundsToString, getBounds, isBoundsAPoint, isValidBounds } from './serv
 import LoadingIndicator from '../loading-indicator/LoadingIndicator';
 import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/constants';
 import RdGeoJson from './custom/geo-json/RdGeoJson';
-import mapLayerTypes from '../../services/map-layer-types.config';
+import mapLayerTypes from '../../services/map-layers/map-layer-types.config';
 
 const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
 
 const convertBounds = (map) => {
   const leafletBounds = map.getBounds();
   return ({
-    northEast: {
-      latitude: leafletBounds._northEast.lat,
-      longitude: leafletBounds._northEast.lng
-    },
-    southWest: {
-      latitude: leafletBounds._southWest.lat,
-      longitude: leafletBounds._southWest.lng
-    }
+    northEast: [
+      leafletBounds._northEast.lat,
+      leafletBounds._northEast.lng
+    ],
+    southWest: [
+      leafletBounds._southWest.lat,
+      leafletBounds._southWest.lng
+    ]
   });
 };
 

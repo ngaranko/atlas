@@ -57,7 +57,6 @@ import '../modules/header/components/menu/dropdown/menu-dropdown.directive';
 import '../modules/header/components/menu/menu.component';
 import '../modules/header/components/print-button/print-button.component';
 import '../modules/header/components/site-header/site-header.component';
-import '../modules/header/components/terugmelden-button/terugmelden-button.component';
 import '../modules/header/header-config.constant';
 import '../modules/header/header.constant';
 import '../modules/page/page.module';
@@ -97,7 +96,6 @@ import '../modules/shared/services/window-error-handler/window-error-handler.run
 import '../modules/shared/services/http-error-registrar/http-error-registrar.factory';
 import '../modules/shared/services/http-error-registrar/http-status.factory';
 import '../modules/shared/services/localization/localization.factory';
-import '../modules/shared/services/markdown-parser/markdown-parser.factory';
 import '../modules/shared/services/redux/store.factory';
 import '../modules/shared/services/storage/instance-storage.factory';
 import '../modules/shared/services/storage/storage.factory';
@@ -117,7 +115,6 @@ import '../modules/data-selection/components/header/toggle-view-button/toggle-vi
 import '../modules/data-selection/components/header/header.component.test';
 import '../modules/data-selection/services/document-title/document-title.factory.test';
 import '../modules/header/components/logout-button/logout-button.component.test';
-import '../modules/header/components/terugmelden-button/terugmelden-button.component.test';
 import '../modules/header/components/menu/dropdown/menu-dropdown.directive.test';
 import '../modules/header/components/menu/menu.component.test';
 import '../modules/header/components/embed-header/embed-header.component.test';
@@ -166,7 +163,6 @@ import '../modules/shared/components/uppercase-first-letter/uppercase-first-lett
 import '../modules/shared/components/coordinates/coordinates.filter.test';
 import '../modules/shared/components/dcatd-button/dcatd-button.component.test';
 import '../modules/shared/services/storage/storage.factory.test';
-import '../modules/shared/services/markdown-parser/markdown-parser.factory.test';
 import '../modules/shared/services/redux/store.factory.test';
 import '../modules/shared/services/window-error-handler/window-error-handler.factory.test';
 import '../modules/shared/services/http-error-registrar/http-error-registrar.factory.test';

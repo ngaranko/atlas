@@ -9,7 +9,7 @@ exports[`SplitScreen should render 1`] = `
         c-dashboard__column
         u-col-sm--4
         qa-dashboard__column--middle
-        u-page-break-after
+
       "
   >
     <p>
@@ -41,7 +41,7 @@ exports[`SplitScreen should render in print mode 1`] = `
         c-dashboard__column
         u-col-sm--12
         qa-dashboard__column--middle
-        u-page-break-after
+
       "
   >
     <p>

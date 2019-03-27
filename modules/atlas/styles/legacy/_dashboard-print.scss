@@ -16,10 +16,10 @@ $dashboard-heading-padding-print-version: 46px;
 }
 
 .c-dashboard__body {
-  top: initial;
+  top: auto;
   height: calc(100% - #{$dashboard-heading-height-print-version});
   margin-left: auto;
-  padding: $base-whitespace * 2;
+  padding: $base-whitespace;
   border: 2px solid $secondary-gray40;
   background-color: $primary-light;
 }
@@ -59,9 +59,8 @@ $dashboard-heading-padding-print-version: 46px;
   &-search-data {
     .c-dashboard__column-holder {
       .c-dashboard__column {
-        width: 100%;
+        width: 100%; // Hide map
 
-        // Hide map
         &:nth-child(1) {
           display: none;
         }
@@ -78,4 +77,5 @@ $dashboard-heading-padding-print-version: 46px;
     }
   }
 }
+
 // sass-lint:enable nesting-depth

@@ -1,7 +1,6 @@
 .c-dashboard {
   height: 100%;
   background-color: $primary-light;
-  overflow: auto;
 }
 
 .c-dashboard__heading {
@@ -94,10 +93,6 @@
 
 .c-dashboard--max-width {
   background-color: $secondary-gray10;
-
-  .c-dashboard__body {
-    margin-left: calc(100vw - 100%); // Fixes wrongfully set overflow-y as its not on the root container
-  }
 }
 
 .c-dashboard--full-height {

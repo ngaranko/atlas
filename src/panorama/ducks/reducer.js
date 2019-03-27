@@ -38,7 +38,7 @@ export default function reducer(state = initialState, action) {
     case SET_PANORAMA_TAGS:
       return {
         ...enrichedState,
-        tags: action.payload
+        isLoading: true
       };
 
     case FETCH_PANORAMA_SUCCESS:
@@ -51,7 +51,8 @@ export default function reducer(state = initialState, action) {
         hotspots: action.payload.hotspots,
         isLoading: false,
         location: action.payload.location,
-        image: action.payload.image
+        image: action.payload.image,
+        tags: action.payload.tags
       };
     case FETCH_PANORAMA_ERROR:
       return {
@@ -80,4 +81,3 @@ export default function reducer(state = initialState, action) {
       return enrichedState;
   }
 }
-

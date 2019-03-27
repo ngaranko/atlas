@@ -13,6 +13,6 @@ COPY package.json package-lock.json  /home/
 #  * Setting `CI=true` to stop cypress install progress from flooding the CI log
 RUN npm config set registry https://nexus.data.amsterdam.nl/repository/npm-group/ && \
     CI=true npm ci && \
-     npm cache clean --force
+    npm cache clean --force
 
 COPY . /home/

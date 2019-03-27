@@ -10,7 +10,7 @@ import {
 } from '../../ducks/data-selection/actions';
 import dataSelectionConfig from '../../services/data-selection/data-selection-config';
 import { getMarkers, query } from '../../services/data-selection/data-selection-api';
-import { getMapBoundingBox, getMapZoom } from '../../../map/ducks/map/selectors';
+import { getMapZoom, getMapBoundingBox } from '../../../map/ducks/map/selectors';
 import {
   ADD_FILTER,
   EMPTY_FILTERS,
@@ -44,7 +44,8 @@ import {
   getDataSelectionPage,
   getDataset,
   getGeomarkersShape,
-  getGeometryFilter
+  getGeometryFilter,
+  getGeometryFiltersMarkers
 } from '../../ducks/data-selection/selectors';
 import { waitForAuthentication } from '../user/user';
 import {
@@ -61,6 +62,7 @@ import PARAMETERS from '../../../store/parameters';
 import drawToolConfig from '../../../map/services/draw-tool/draw-tool.config';
 import { getViewMode, SET_VIEW_MODE, VIEW_MODE } from '../../ducks/ui/ui';
 import PAGES from '../../../app/pages';
+import BOUNDING_BOX from '../../../map/services/bounding-box.constant';
 
 export function* mapBoundsEffect() {
   const page = yield select(getPage);
@@ -72,6 +74,26 @@ export function* mapBoundsEffect() {
   }
 }
 
+export function* calculateBoundingBoxForSelection() {
+  const filterMarkers = yield select(getGeometryFiltersMarkers);
+
+  // When there is a geometry filter used use the wole extend of Amsterdam,
+  //   in this way also parcels that are outside the current map view are selected
+  let boundingBox = filterMarkers.length > 0 ? BOUNDING_BOX.COORDINATES : null;
+  if (!boundingBox) {
+    // When there are just attribute filters present, use the current map extent for the filters.
+    boundingBox = yield select(getMapBoundingBox);
+
+    // Since bounding box can be set later,
+    //   we check if we have to wait for the boundingbox to get set
+    if (!boundingBox) {
+      yield take(MAP_BOUNDING_BOX);
+      boundingBox = yield select(getMapBoundingBox);
+    }
+  }
+  return boundingBox;
+}
+
 export function* requestMarkersEffect() {
   // Since bounding box can be set later, we check if we have to wait for the boundingbox to get set
   const [activeFilters, dataset, shape] = yield all([
@@ -79,11 +101,8 @@ export function* requestMarkersEffect() {
     select(getDataset),
     select(getGeomarkersShape)
   ]);
-  let boundingBox = yield select(getMapBoundingBox);
-  if (!boundingBox) {
-    yield take(MAP_BOUNDING_BOX);
-    boundingBox = yield select(getMapBoundingBox);
-  }
+
+  const boundingBox = yield calculateBoundingBoxForSelection();
   const mapZoom = yield select(getMapZoom);
   try {
     const markerData = yield call(getMarkers,
@@ -239,7 +258,7 @@ function* endMapLoading() {
 export default function* watchFetchDataSelection() {
   yield takeLatest(REMOVE_FILTER, clearShapeFilter);
   yield takeLatest(SET_GEOMETRY_FILTER, setGeometryFilters);
-  yield throttle(1500, MAP_BOUNDING_BOX, mapBoundsEffect);
+  yield throttle(5000, MAP_BOUNDING_BOX, mapBoundsEffect);
   yield takeLatest(
     [
       SET_VIEW_MODE,

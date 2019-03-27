@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import throttle from 'lodash.throttle';
+import classNames from 'classnames';
 
 import './PanoramaContainer.scss';
 import {
@@ -125,7 +126,7 @@ class PanoramaContainer extends React.Component {
       tags
     } = this.props;
     return (
-      <div className="c-panorama">
+      <div className={classNames({ 'c-panorama': true, 'u-page-break-before': !isFullscreen })}>
         <div
           ref={
             //eslint-disable-next-line

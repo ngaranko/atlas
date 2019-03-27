@@ -9,7 +9,7 @@ import { routing } from '../../../app/routes';
  * @param payload
  * @returns {IterableIterator<*|PutEffect<{type}>>}
  */
-function* navigate({ payload }) {
+export function* navigate({ payload }) {
   const page = Object.keys(CMS_PAGE_MAPPING).find((key) =>
     (CMS_PAGE_MAPPING[key].type === payload.type &&
       CMS_PAGE_MAPPING[key].item === payload.item
