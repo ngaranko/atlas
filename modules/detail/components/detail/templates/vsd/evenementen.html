@@ -1,0 +1,25 @@
+<div>
+    <div class="c-detail__block">
+        <dp-glossary-header heading="{{vm.apiData.results.label}}" definition="EVENEMENTEN">
+        </dp-glossary-header>
+
+        <dl class="c-key-value-list">
+            <dt>Id</dt>
+            <dd>{{ vm.apiData.results.id }}</dd>
+            <dt>Titel</dt>
+            <dd>{{ vm.apiData.results.titel }}</dd>
+            <dt>Omschrijving</dt>
+            <dd>{{ vm.apiData.results.omschrijving }}</dd>
+            <dt>Startdatum</dt>
+            <dd>{{ vm.apiData.results.startdatum }}</dd>
+            <dt>Einddatum</dt>
+            <dd>{{ vm.apiData.results.einddatum }}</dd>
+            <dt>Starttijd</dt>
+            <dd>{{ vm.apiData.results.starttijd }}</dd>
+            <dt>Eindtijd</dt>
+            <dd>{{ vm.apiData.results.eindtijd }}</dd>
+            <dt>Url</dt>
+            <dd><a target="_blank" ng-href="{{vm.apiData.results.url}}">klik hier om naar de evenement te gaan</a></dd>
+        </dl>
+    </div>
+</div>

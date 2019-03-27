@@ -1155,6 +1155,21 @@ const mapLayers = [
     detailItem: 'monument'
   },
   {
+    category: THEMES.TOURISM,
+    id: 'tcevt',
+    layers: ['evenementen'],
+    legendItems: [
+      {
+        title: 'Evenementen'
+      }
+    ],
+    minZoom: 12,
+    title: 'Evenementen',
+    url: '/maps/evenementen',
+    detailUrl: 'geosearch/evenementen/',
+    detailItem: 'evenement'
+  },
+  {
     category: THEMES.MIL_GROUND,
     id: 'mbgm',
     layers: ['grondmonsters'],
