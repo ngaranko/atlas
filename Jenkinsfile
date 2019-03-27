@@ -96,7 +96,7 @@ pipeline {
     }
 
     stage('Build A') {
-      when { branch 'dev' }
+      when { branch 'master' }
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
@@ -110,7 +110,7 @@ pipeline {
     }
 
     stage('Deploy A (Master)') {
-      when { branch 'dev' }
+      when { branch 'master' }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
@@ -126,7 +126,7 @@ pipeline {
     }
 
     stage('Build P (Master)') {
-      when { branch 'dev' }
+      when { branch 'master' }
       options {
         timeout(time: 30, unit: 'MINUTES')
       }
@@ -142,7 +142,7 @@ pipeline {
     }
 
     stage('Deploy pre P (Master)') {
-      when { branch 'dev' }
+      when { branch 'master' }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
@@ -155,7 +155,7 @@ pipeline {
     }
 
     stage('Waiting for approval (Master)') {
-      when { branch 'dev' }
+      when { branch 'master' }
       steps {
         script {
           input "Deploy to Production?"
@@ -165,7 +165,7 @@ pipeline {
     }
 
     stage('Deploy P (Master)') {
-      when { branch 'dev' }
+      when { branch 'master' }
       options {
         timeout(time: 5, unit: 'MINUTES')
       }
