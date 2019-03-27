@@ -53,7 +53,7 @@ const Catalog = ({ content, catalogFilters }) => {
     };
   });
   return (
-    <div className="c-data-selection-catalog u-margin__bottom--1">
+    <div className="c-data-selection-catalog u-margin__bottom--4">
       {items.map((row) => (
         <div key={row.id} className="c-data-selection-catalog__list">
           <div className="c-data-selection-catalog__item qa-catalog-fetch-detail u-no-presentation">
