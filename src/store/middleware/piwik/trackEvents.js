@@ -29,7 +29,8 @@ import {
   SET_VIEW_MODE,
   SHOW_EMBED_PREVIEW,
   SHOW_PRINT,
-  VIEW_MODE
+  VIEW_MODE,
+  SHARE_PAGE
 } from '../../../shared/ducks/ui/ui';
 import {
   MAP_SET_DRAWING_MODE,
@@ -381,6 +382,13 @@ const trackEvents = {
     PIWIK_CONSTANTS.TRACK_EVENT,
     'menu',
     'menu-printversie',
+    title
+  ],
+  // MENU SHARE -> "bottomPage"
+  [SHARE_PAGE]: ({ title, tracking }) => [
+    PIWIK_CONSTANTS.TRACK_EVENT,
+    'menu',
+    `menu-delen-${tracking}`,
     title
   ]
 };
