@@ -101,7 +101,7 @@ describe('mapSearch service', () => {
     });
   });
 
-  describe('fetchRelatedForUser', async () => {
+  describe('fetchRelatedForUser', () => {
     it('should return just the base features when no user related features found', () => {
       const features = [
         {
@@ -153,9 +153,9 @@ describe('mapSearch service', () => {
         dataset: 'bag'
       };
       address.fetchHoofdadresByStandplaatsId
-        .mockImplementation(() => Promise.resolve({ id: 2000 }));
+             .mockImplementation(() => Promise.resolve({ id: 2000 }));
       vestiging.fetchByAddressId
-        .mockImplementation(() => Promise.resolve([vestigingResult]));
+               .mockImplementation(() => Promise.resolve([vestigingResult]));
       const results = await fetchRelatedForUser(user)({ features });
       expect(results).toEqual([...features, {
         ...vestigingResult,
@@ -187,9 +187,9 @@ describe('mapSearch service', () => {
         dataset: 'bag'
       };
       address.fetchHoofdadresByLigplaatsId
-        .mockImplementation(() => Promise.resolve({ id: 1000 }));
+             .mockImplementation(() => Promise.resolve({ id: 1000 }));
       vestiging.fetchByAddressId
-        .mockImplementation(() => Promise.resolve([vestigingResult]));
+               .mockImplementation(() => Promise.resolve([vestigingResult]));
       const results = await fetchRelatedForUser(user)({ features });
       expect(results).toEqual([...features, {
         ...vestigingResult,
