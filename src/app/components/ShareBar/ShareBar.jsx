@@ -6,9 +6,14 @@ import Linkedin from '@datapunt/asc-assets/lib/Icons/Linkedin.svg';
 import Email from '@datapunt/asc-assets/lib/Icons/Email.svg';
 import Print from '@datapunt/asc-assets/lib/Icons/Print.svg';
 import { ShareBar, ShareButton } from '@datapunt/asc-ui';
-import { handlePageShare, handlePrintMode } from './ShareBarContainer';
 
-const ShareBarComponent = ({ hasPrintButton, sharePage, showPrintMode }) => (
+const ShareBarComponent = ({
+  handlePageShare,
+  handlePrintMode,
+  hasPrintButton,
+  sharePage,
+  showPrintMode
+}) => (
   <ShareBar>
     <ShareButton
       onClick={() => handlePageShare('facebook', sharePage)}
@@ -44,6 +49,8 @@ const ShareBarComponent = ({ hasPrintButton, sharePage, showPrintMode }) => (
 );
 
 ShareBarComponent.propTypes = {
+  handlePageShare: PropTypes.func.isRequired,
+  handlePrintMode: PropTypes.func.isRequired,
   hasPrintButton: PropTypes.bool.isRequired,
   sharePage: PropTypes.func.isRequired,
   showPrintMode: PropTypes.func.isRequired

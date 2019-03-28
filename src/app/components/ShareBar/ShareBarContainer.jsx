@@ -23,7 +23,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   sharePage,
-  showPrintMode
+  showPrintMode,
+  handlePageShare,
+  handlePrintMode
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShareBar);
