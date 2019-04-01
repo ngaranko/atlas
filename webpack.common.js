@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const root = path.resolve(__dirname);
 const src = path.resolve(root, 'src');
@@ -90,14 +91,6 @@ function commonConfig({ nodeEnv }) {
               outputPath: 'assets/'
             }
           }]
-        },
-        {
-          test: /\.svg$/,
-          exclude: [
-            /node_modules/,
-            /modules/
-          ],
-          loader: 'svg-react-loader'
         }
       ]
     },
@@ -108,9 +101,41 @@ function commonConfig({ nodeEnv }) {
           filename: 'sprite.svg',
           chunk: {
             name: 'sprite'
+          },
+          svgo: {
+            plugins: [
+              { removeXMLNS: true },
+              { removeViewBox: false },
+              { removeDimensions: true },
+              { removeDoctype: true },
+              { removeComments: true },
+              { removeMetadata: true },
+              { removeEditorsNSData: true },
+              { cleanupIDs: true },
+              { removeRasterImages: true },
+              { removeUselessDefs: true },
+              { removeUnknownsAndDefaults: true },
+              { removeUselessStrokeAndFill: true },
+              { removeHiddenElems: true },
+              { removeEmptyText: true },
+              { removeEmptyAttrs: true },
+              { removeEmptyContainers: true },
+              { removeUnusedNS: true },
+              { removeDesc: true },
+              { prefixIds: true }
+            ]
           }
         },
-        styles: 'src/shared/styles/config/mixins/_sprites.scss'
+        styles: {
+          filename: path.join(__dirname, 'src/shared/styles/config/mixins/_sprites.scss')
+        }
+      }),
+      new OptimizeCssAssetsPlugin({
+        cssProcessor: require('cssnano'),
+        cssProcessorPluginOptions: {
+          preset: ['default', { svgo: { exclude: true } }]
+        },
+        canPrint: true
       }),
       new CopyWebpackPlugin([
         { from: './public/', to: './assets/' },

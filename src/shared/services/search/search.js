@@ -8,32 +8,29 @@ function isString(value) {
   return typeof value === 'string';
 }
 
-export async function querySearch(query, categorySlug, user) {
+export function querySearch(query, categorySlug, user) {
+  const queries = [];
   const errorType = 'error';
   const params = { q: query };
-
-  let queryResults = await Promise
-    .all(SEARCH_CONFIG.QUERY_ENDPOINTS.map(async (endpoint) => {
-      if ((!isString(categorySlug) || categorySlug === endpoint.slug) &&
-        endpoint.uri &&
-        (!endpoint.authScope || user.scopes.includes(endpoint.authScope))
-      ) {
-        const options = endpoint.options || {};
-        const res = await getByUrl(
+  SEARCH_CONFIG.QUERY_ENDPOINTS.forEach((endpoint) => {
+    if ((!isString(categorySlug) || categorySlug === endpoint.slug) &&
+      endpoint.uri &&
+      (!endpoint.authScope || user.scopes.includes(endpoint.authScope))
+    ) {
+      const options = endpoint.options || {};
+      queries.push(
+        getByUrl(
           `${SHARED_CONFIG.API_ROOT}${endpoint.uri}`,
           { ...params, ...options }
-        );
-        return res;
-      }
-      return undefined;
-    }));
+        ).then((data) => data, (code) => ({ type: errorType, code }))
+      );
+    }
+  });
 
-  queryResults = queryResults.filter((res) => (res && res.results && res.results.length));
-
-  return {
-    results: formatCategories(queryResults, user, categorySlug),
-    errors: queryResults.some((queryResult) => (queryResult && queryResult.type === errorType))
-  };
+  return Promise.all(queries).then((results) => ({
+    results: formatCategories(results, user, categorySlug),
+    errors: results.some((result) => (result && result.type === errorType))
+  }));
 }
 
 export function loadMore(category) {
@@ -70,6 +67,12 @@ export function replaceBuurtcombinatie(searchResults) {
   });
 
   return results;
+}
+
+export function hasLoadMore(category, searchResults, isLoadMoreLoading) {
+  return isString(category) &&
+    searchResults[0].count > searchResults[0].results.length &&
+    !isLoadMoreLoading;
 }
 
 export function getNumberOfResults(searchResults) {

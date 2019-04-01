@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Divider, IconButton, ListItem, Modal, TopBar, Typography } from '@datapunt/asc-ui';
-// eslint-disable-next-line import/no-unresolved, import/no-webpack-loader-syntax
 import Close from '@datapunt/asc-assets/lib/Icons/Close.svg';
 import { routing } from '../../../app/routes';
 
