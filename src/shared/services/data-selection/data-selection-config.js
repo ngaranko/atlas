@@ -171,7 +171,7 @@ const DATA_SELECTION_CONFIG = {
       PRIMARY_KEY: 'kadastraal_object_id',
       TITLE: 'Kadastrale objecten met zakelijk rechthebbenden',
       TITLE_TAB: 'Kadastrale objecten',
-      SHOW_NUMBER_OF_RECORDS: true,
+      SHOW_NUMBER_OF_RECORDS: false,
       SORT_FILTERS: false,
       FILTERS: [
         {
