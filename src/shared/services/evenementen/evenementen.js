@@ -12,7 +12,8 @@ export default function fetchByUri(uri) {
       return {
         ...result,
         label: result.titel,
-        location: wgs84Center
+        location: wgs84Center,
+        geometrie: result.wkb_geometry
       };
     });
 }
