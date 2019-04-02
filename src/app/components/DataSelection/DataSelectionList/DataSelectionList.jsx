@@ -8,8 +8,8 @@ import DataSelectionFormatter from '../DataSelectionFormatter/DataSelectionForma
 
 const DataSelectionList = ({ content, navigateToDetail }) => (
   <ul className="o-list u-margin__bottom--1">
-    {content.body.map((row) => (
-      <li key={row.detailEndpoint}>
+    {content.body.map((row, index) => (
+      <li key={`${index}/${row.detailEndpoint}`}>
         <button
           className="o-btn o-btn--link"
           onClick={() => navigateToDetail(row.detailEndpoint)}

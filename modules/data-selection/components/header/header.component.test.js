@@ -233,13 +233,6 @@ describe('The dp-data-selection-header', () => {
             expect(component.find('.qa-title').text()).toContain('(1.234)');
         });
 
-        it('in TABLE view shows does not show the number of results when not available', () => {
-            mockedInputTable.numberOfRecords = null;
-            component = getComponent(mockedInputTable);
-
-            expect(component.find('.qa-title').text().trim()).toBe('BAG Adressen');
-        });
-
         it('in CATALOG view shows the number of results followed using \'Datasets(number)\'', () => {
             // Singular
             mockedInputCatalog.numberOfRecords = 10;
