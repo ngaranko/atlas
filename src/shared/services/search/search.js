@@ -8,8 +8,7 @@ function isString(value) {
   return typeof value === 'string';
 }
 
-// Todo: user.scopes.includes(endpoint.authScope)
-export function search(query, categorySlug, user) {
+export function querySearch(query, categorySlug, user) {
   const queries = [];
   const errorType = 'error';
   const params = { q: query };

@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const root = path.resolve(__dirname);
 const src = path.resolve(root, 'src');
@@ -90,14 +91,6 @@ function commonConfig({ nodeEnv }) {
               outputPath: 'assets/'
             }
           }]
-        },
-        {
-          test: /\.svg$/,
-          exclude: [
-            /node_modules/,
-            /modules/
-          ],
-          loader: 'svg-react-loader'
         }
       ]
     },
@@ -108,12 +101,45 @@ function commonConfig({ nodeEnv }) {
           filename: 'sprite.svg',
           chunk: {
             name: 'sprite'
+          },
+          svgo: {
+            plugins: [
+              { removeXMLNS: true },
+              { removeViewBox: false },
+              { removeDimensions: true },
+              { removeDoctype: true },
+              { removeComments: true },
+              { removeMetadata: true },
+              { removeEditorsNSData: true },
+              { cleanupIDs: true },
+              { removeRasterImages: true },
+              { removeUselessDefs: true },
+              { removeUnknownsAndDefaults: true },
+              { removeUselessStrokeAndFill: true },
+              { removeHiddenElems: true },
+              { removeEmptyText: true },
+              { removeEmptyAttrs: true },
+              { removeEmptyContainers: true },
+              { removeUnusedNS: true },
+              { removeDesc: true },
+              { prefixIds: true }
+            ]
           }
         },
-        styles: 'src/shared/styles/config/mixins/_sprites.scss'
+        styles: {
+          filename: path.join(__dirname, 'src/shared/styles/config/mixins/_sprites.scss')
+        }
+      }),
+      new OptimizeCssAssetsPlugin({
+        cssProcessor: require('cssnano'),
+        cssProcessorPluginOptions: {
+          preset: ['default', { svgo: { exclude: true } }]
+        },
+        canPrint: true
       }),
       new CopyWebpackPlugin([
         { from: './public/', to: './assets/' },
+        { from: './public/static/', to: './' },
         // Simply copy the leaflet styling for now
         { from: './node_modules/leaflet/dist/leaflet.css' },
         { from: './node_modules/leaflet-draw/dist/leaflet.draw.css' },
@@ -161,7 +187,7 @@ function commonConfig({ nodeEnv }) {
         favicon: './favicon.png',
         links: [
           {
-            href: 'https://fast.fonts.net/cssapi/3680cf49-2b05-4b8a-af28-fa9e27d2bed0.css',
+            href: '/3680cf49-2b05-4b8a-af28-fa9e27d2bed0.css',
             rel: 'stylesheet'
           },
           {
@@ -181,7 +207,8 @@ function commonConfig({ nodeEnv }) {
           '/leaflet.js',
           '/NonTiledLayer.js',
           '/proj4.js',
-          '/proj4leaflet.js'
+          '/proj4leaflet.js',
+          '/mtiFontTrackingCode.js'
         ]
       })
     ]
