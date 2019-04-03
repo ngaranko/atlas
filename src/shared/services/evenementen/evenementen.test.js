@@ -1,4 +1,4 @@
-import fetchByUri from './evenementen';
+import fetchByUri, { formatEvenementResult } from './evenementen';
 import getCenter from '../geo-json/geo-json';
 import { rdToWgs84 } from '../coordinate-reference-system/crs-converter';
 
@@ -27,12 +27,16 @@ describe('The evenement resource', () => {
       rdToWgs84.mockImplementation(() => ({ latitude: 3, longitude: 4 }));
 
       const promise = fetchByUri(uri).then((response) => {
-        expect(response).toEqual({
-          label: 'evenement titel',
-          id: '123456',
+        const result = formatEvenementResult(response);
+        expect(result).toEqual({
           titel: 'evenement titel',
           wkb_geometriy: { type: 'Point' },
-          location: { latitude: 3, longitude: 4 }
+          id: '123456',
+          startdatum: '',
+          einddatum: '',
+          label: 'evenement titel',
+          location: { latitude: 3, longitude: 4 },
+          geometrie: undefined
         });
       });
 
@@ -46,9 +50,13 @@ describe('The evenement resource', () => {
       getByUrl.mockReturnValueOnce(Promise.resolve({}));
 
       const promise = fetchByUri(uri).then((response) => {
-        expect(response).toEqual({
+        const result = formatEvenementResult(response);
+        expect(result).toEqual({
+          startdatum: '',
+          einddatum: '',
           label: undefined,
-          location: undefined
+          location: undefined,
+          geometrie: undefined
         });
       });
 

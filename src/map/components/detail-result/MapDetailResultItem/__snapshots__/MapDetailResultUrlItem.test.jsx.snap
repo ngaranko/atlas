@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapDetailResultUrlItem should render the url  1`] = `
+<li
+  className="map-detail-result__item"
+>
+  <section
+    className="map-detail-result__item-content"
+  >
+    <div
+      className="map-detail-result__item-label"
+    >
+      label
+    </div>
+    <div
+      className="map-detail-result__item-value
+          map-detail-result__item-value--elipsis"
+    >
+      <a
+        href="link"
+      >
+        description
+      </a>
+    </div>
+  </section>
+</li>
+`;
