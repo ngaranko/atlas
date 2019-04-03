@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import formatDate from '../../../shared/services/date-formatter/date-formatter';
+import formatDate from '../../../../shared/services/date-formatter/date-formatter';
 
 import MapDetailResultDateItem
   from './MapDetailResultDateItem';

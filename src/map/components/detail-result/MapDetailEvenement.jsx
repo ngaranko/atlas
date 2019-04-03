@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MapDetailResultItem from './MapDetailResultItem';
+import MapDetailResultItem, { MapDetailResultUrlItem } from './MapDetailResultItem';
 import MapDetailResultWrapper from './MapDetailResultWrapper';
 
 const MapDetailEvenement = ({ panoUrl, item, onMaximize, onPanoPreviewClick }) => (
@@ -25,9 +25,10 @@ const MapDetailEvenement = ({ panoUrl, item, onMaximize, onPanoPreviewClick }) =
         label="Einddatum"
         value={item.einddatum}
       />
-      <MapDetailResultItem
+      <MapDetailResultUrlItem
         label="Website"
-        value={item.url}
+        description={item.url}
+        link={item.url}
       />
     </ul>
   </MapDetailResultWrapper>
