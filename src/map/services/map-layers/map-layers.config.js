@@ -1140,8 +1140,14 @@ const mapLayers = [
     id: 'tcmnmt',
     layers: ['monument_coordinaten', 'monument_coordinaten_nopand'],
     legendItems: [
-      { title: 'Monument (pandgerelateerd)' },
-      { title: 'Monument (overige)' }
+      {
+        layers: ['monument_coordinaten'],
+        title: 'Monument (pandgerelateerd)'
+      },
+      {
+        layers: ['monument_coordinaten_nopand'],
+        title: 'Monument (overige)'
+      }
     ],
     minZoom: 12,
     title: 'Monumenten',
@@ -1350,8 +1356,14 @@ const mapLayers = [
     id: 'mvbr',
     layers: ['overigerisicobedrijfplaatsgebondenrisico106', 'overigerisicobedrijfsbronnen'],
     legendItems: [
-      { title: 'Plaatsgebonden risico 10-6' },
-      { title: 'Bron' }
+      {
+        layers: ['overigerisicobedrijfplaatsgebondenrisico106'],
+        title: 'Plaatsgebonden risico 10-6'
+      },
+      {
+        layers: ['overigerisicobedrijfsbronnen'],
+        title: 'Bron'
+      }
     ],
     title: 'Bedrijven - Bronnen en risicozones',
     url: '/maps/externeveiligheid',
