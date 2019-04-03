@@ -22,11 +22,15 @@
   top: $dashboard-heading-height;
   height: calc(100% - #{$dashboard-heading-height});
   z-index: $body-z-index;
-}
 
-.c-dashboard__body--error {
-  top: $dashboard-heading-height + $dashboard-error-height;
-  height: calc(100% - #{$dashboard-heading-height + $dashboard-error-height});
+  &--error {
+    top: $dashboard-heading-height + $dashboard-error-height;
+    height: calc(100% - #{$dashboard-heading-height + $dashboard-error-height});
+  }
+
+  &--overflow {
+    overflow-x: scroll;
+  }
 }
 
 .c-dashboard__column-holder,
