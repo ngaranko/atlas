@@ -14,11 +14,19 @@ const MapDetailEvenement = ({ panoUrl, item, onMaximize, onPanoPreviewClick }) =
   >
     <ul className="map-detail-result__list">
       <MapDetailResultItem
-        label="Id"
-        value={item.id}
+        label="Titel"
+        value={item.titel}
       />
       <MapDetailResultItem
-        label="Url"
+        label="Startdatum"
+        value={item.startdatum}
+      />
+      <MapDetailResultItem
+        label="Einddatum"
+        value={item.einddatum}
+      />
+      <MapDetailResultItem
+        label="Website"
         value={item.url}
       />
     </ul>

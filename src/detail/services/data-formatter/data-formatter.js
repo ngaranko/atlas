@@ -30,7 +30,7 @@ const formatData = (data, subject, catalogFilters) => {
     case 'datasets': // dcat data
       return formatCatalogData(data, catalogFilters);
     default:
-      return data;
+      return {};
   }
 };
 
