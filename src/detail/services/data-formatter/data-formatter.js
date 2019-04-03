@@ -29,8 +29,10 @@ const formatData = (data, subject, catalogFilters) => {
   switch (subject) {
     case 'datasets': // dcat data
       return formatCatalogData(data, catalogFilters);
-    default:
+    case 'evenementen': // use the formating from the saga.
       return {};
+    default:
+      return data;
   }
 };
 
