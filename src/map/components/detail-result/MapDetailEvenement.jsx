@@ -14,10 +14,6 @@ const MapDetailEvenement = ({ panoUrl, item, onMaximize, onPanoPreviewClick }) =
   >
     <ul className="map-detail-result__list">
       <MapDetailResultItem
-        label="Titel"
-        value={item.titel}
-      />
-      <MapDetailResultItem
         label="Startdatum"
         value={item.startdatum}
       />

@@ -1163,7 +1163,6 @@ const mapLayers = [
         title: 'Evenementen'
       }
     ],
-    minZoom: 12,
     title: 'Evenementen',
     url: '/maps/evenementen',
     detailUrl: 'geosearch/evenementen/',

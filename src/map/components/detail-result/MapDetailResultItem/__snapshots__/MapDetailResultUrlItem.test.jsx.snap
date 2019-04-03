@@ -18,6 +18,7 @@ exports[`MapDetailResultUrlItem should render the url  1`] = `
     >
       <a
         href="link"
+        target="_blank"
       >
         description
       </a>

@@ -13,7 +13,7 @@ const MapDetailResultUrlItem = ({ label, description, link }) => link && (
           }`
         }
       >
-        <a href={link} >{description}</a>
+        <a href={link} target="_blank">{description}</a>
       </div>
     </section>
   </li>
