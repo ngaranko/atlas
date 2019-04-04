@@ -21,7 +21,7 @@ exports[`MapDetailEvenement should render everything 1`] = `
     />
     <MapDetailResultUrlItem
       description="https://evenement/link"
-      label="Website"
+      label="Meer informatie"
       link="https://evenement/link"
     />
   </ul>

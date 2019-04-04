@@ -22,7 +22,7 @@ const MapDetailEvenement = ({ panoUrl, item, onMaximize, onPanoPreviewClick }) =
         value={item.einddatum}
       />
       <MapDetailResultUrlItem
-        label="Website"
+        label="Meer informatie"
         description={item.url}
         link={item.url}
       />
