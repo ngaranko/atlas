@@ -17,6 +17,7 @@ exports[`MapDetailResultUrlItem should render the url  1`] = `
           map-detail-result__item-value--elipsis"
     >
       <a
+        className="o-btn o-btn--link"
         href="link"
         target="_blank"
       >
