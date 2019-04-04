@@ -116,7 +116,7 @@ const GLOSSARY = {
       url: null,
       meta: []
     },
-    EVENEMENT: {
+    EVENEMENTEN: {
       label_singular: 'Evenement',
       label_plural: 'Evenementen',
       description: 'Activiteiten en evenementen op het gebied van sport, recreatie, ' +
@@ -306,7 +306,7 @@ const GLOSSARY = {
       ]
     },
     OPLAADPUNTEN: {
-      label_singular: 'Oplaadpunt',
+      label_singular: 'Oplaadpuntaaa',
       label_plural: 'Oplaadpunten',
       description: null,
       url: null,
