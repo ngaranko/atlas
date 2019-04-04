@@ -1160,7 +1160,7 @@ const mapLayers = [
     layers: ['evenementen'],
     legendItems: [
       {
-        title: 'Evenementen'
+        title: 'Evenement'
       }
     ],
     title: 'Evenementen',
