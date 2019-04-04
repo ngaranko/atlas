@@ -1138,6 +1138,7 @@ const mapLayers = [
   {
     category: THEMES.TOURISM,
     id: 'tcmnmt',
+    layers: ['monument_coordinaten', 'monument_coordinaten_nopand'],
     legendItems: [
       {
         layers: ['monument_coordinaten'],
@@ -1368,13 +1369,14 @@ const mapLayers = [
   {
     category: THEMES.MIL_SAFETY,
     id: 'mvbr',
+    layers: ['overigerisicobedrijfplaatsgebondenrisico106', 'overigerisicobedrijfsbronnen'],
     legendItems: [
       {
         layers: ['overigerisicobedrijfplaatsgebondenrisico106'],
         title: 'Plaatsgebonden risico 10-6'
       },
       {
-        layers: ['overigerisicobedrijfsbronnen', 'overigerisicobedrijfplaatsgebondenrisico106'],
+        layers: ['overigerisicobedrijfsbronnen'],
         title: 'Bron'
       }
     ],
