@@ -1,4 +1,5 @@
 const checkbox = 'input[type="checkbox"]';
+const checkboxChecked = 'input[type="checkbox"]:checked';
 const header = 'header';
 
 const menuLink = '.qa-menu__link';
@@ -29,7 +30,7 @@ describe('embed module', () => {
     cy.url().should('include', '?modus=kaart&center=52.3617139%2C4.8888734&embed-preview=true&lagen=bgem%3A1%7Ckgem%3A1%7Cksec%3A0%7Ckot%3A0&legenda=true');
   });
 
-  it('should show the user the embed view of the map', () => {
+  it.only('should show the user the embed view of the map', () => {
     cy.visit('/data?center=52.3617139%2C4.8888734&embed=true&lagen=bgem%3A1%7Ckgem%3A1%7Cksec%3A0%7Ckot%3A0&legenda=true&modus=kaart');
     // the header should be hidden
     cy.get(header).should('not.exist');
@@ -40,8 +41,9 @@ describe('embed module', () => {
       expect(titles.length).to.eq(1);
     });
     // this layer has 2 active legend items
-    cy.get('ul.map-legend__items').find('li.map-legend__item').should('have.length', 2);
-    // the user should not be able to toggle map layers
-    cy.get(checkbox).should('not.be.visible');
+    cy.get('ul.map-legend__items').find('li.map-legend__item').should('have.length', 4);
+    // the user should be able to toggle map layers
+    cy.get(checkbox).should('have.length', 5);
+    cy.get(checkboxChecked).should('have.length', 3);
   });
 });
