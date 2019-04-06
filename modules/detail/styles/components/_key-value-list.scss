@@ -65,13 +65,13 @@
     border-top: none;
   }
 
-  &__value--ellipsis {
+  .c-key-value-list__value--ellipsis {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
   }
 
-  &__value-inline {
+  .c-key-value-list__value-inline {
     display: inline;
   }
 
