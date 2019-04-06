@@ -1,5 +1,5 @@
 import { updateScroll } from 'redux-first-router';
-import getContents from '../../../../src/shared/services/google-sheet/google.sheet';
+import getContents from '../../../../src/shared/services/google-sheet/google-sheet';
 
 (function () {
     'use strict';

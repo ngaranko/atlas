@@ -2,20 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
 
+// eslint-disable-next-line react/prefer-stateless-function
 class Detail extends React.Component {
-
-  componentDidMount() {
-    const { endpoint, onFetchDetailRequest } = this.props;
-    onFetchDetailRequest({ endpoint });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { endpoint } = nextProps;
-    if (this.props.endpoint !== endpoint) {
-      const { onFetchDetailRequest } = this.props;
-      onFetchDetailRequest({ endpoint });
-    }
-  }
 
   render() {
     const {
@@ -67,8 +55,7 @@ Detail.propTypes = {
   isPreviewPanoramaLoading: PropTypes.bool,
   detailTemplateUrl: PropTypes.string,
   detailData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  detailFilterSelection: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  onFetchDetailRequest: PropTypes.func.isRequired
+  detailFilterSelection: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 export default Detail;

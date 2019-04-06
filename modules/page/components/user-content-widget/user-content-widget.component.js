@@ -1,4 +1,4 @@
-import getContents from '../../../../src/shared/services/google-sheet/google.sheet';
+import getContents from '../../../../src/shared/services/google-sheet/google-sheet';
 import { routing } from '../../../../src/app/routes';
 import { NAVIGATE } from '../../../../src/shared/ducks/content/constants';
 

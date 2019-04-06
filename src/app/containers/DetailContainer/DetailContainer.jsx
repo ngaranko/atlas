@@ -6,7 +6,6 @@ import {
   isPanoramaPreviewLoading
 } from '../../../panorama/ducks/preview/panorama-preview';
 import Detail from './Detail';
-import { fetchDetailRequest } from '../../../shared/ducks/detail/actions';
 import {
   getDetailEndpoint,
   isDetailLoading,
@@ -28,7 +27,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onFetchDetailRequest: fetchDetailRequest
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);
