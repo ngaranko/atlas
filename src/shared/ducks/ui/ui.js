@@ -124,6 +124,10 @@ export const isPrintOrEmbedMode = createSelector(
   isEmbedPreview,
   (embedded, print, preview) =>
     Boolean(embedded || print || preview));
+export const hasOverflowScroll = createSelector(
+  getViewMode,
+  isDataSelectionPage,
+  (viewMode, isDataSelection) => viewMode === VIEW_MODE.FULL && isDataSelection);
 export const isMapLayersVisible = createSelector(getUIState, (ui) => ui.isMapLayersVisible);
 export const isMapPanelHandleVisible =
   createSelector(getUIState, (ui) => ui.isMapPanelHandleVisible);

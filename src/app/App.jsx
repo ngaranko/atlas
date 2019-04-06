@@ -11,7 +11,8 @@ import {
   isEmbedPreview,
   isPrintMode,
   isPrintModeLandscape,
-  isPrintOrEmbedMode
+  isPrintOrEmbedMode,
+  hasOverflowScroll
 } from '../shared/ducks/ui/ui';
 import { hasGlobalError } from '../shared/ducks/error/error-message';
 import { getUser } from '../shared/ducks/user/user';
@@ -38,6 +39,7 @@ const App = ({
   embedMode,
   printMode,
   embedPreviewMode,
+  overflowScroll,
   printModeLandscape,
   printOrEmbedMode,
   user
@@ -51,7 +53,8 @@ const App = ({
     'c-dashboard--homepage': homePage
   });
   const bodyClasses = classNames({
-    'c-dashboard__body--error': visibilityError
+    'c-dashboard__body--error': visibilityError,
+    'c-dashboard__body--overflow': overflowScroll
   });
 
   // Todo: preferably don't modify html class, now needed since these classes add height: auto to
@@ -184,6 +187,7 @@ App.propTypes = {
   printOrEmbedMode: PropTypes.bool.isRequired,
   printModeLandscape: PropTypes.bool.isRequired,
   embedPreviewMode: PropTypes.bool.isRequired,
+  overflowScroll: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
@@ -194,6 +198,7 @@ const mapStateToProps = (state) => ({
   printMode: isPrintMode(state),
   printModeLandscape: isPrintModeLandscape(state),
   embedPreviewMode: isEmbedPreview(state),
+  overflowScroll: hasOverflowScroll(state),
   printOrEmbedMode: isPrintOrEmbedMode(state),
   user: getUser(state),
   visibilityError: hasGlobalError(state)

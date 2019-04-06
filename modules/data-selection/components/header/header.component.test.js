@@ -31,17 +31,20 @@ describe('The dp-data-selection-header', () => {
                 brk: {
                     MAX_AVAILABLE_PAGES: 50,
                     TITLE: 'Kadastrale objecten',
-                    TITLE_TAB: 'Kadastrale objecten'
+                    TITLE_TAB: 'Kadastrale objecten',
+                    SHOW_NUMBER_OF_RECORDS: false
                 },
                 hr: {
                     MAX_AVAILABLE_PAGES: 50,
                     TITLE: 'HR Vestigingen',
-                    TITLE_TAB: 'HR Vestigingen'
+                    TITLE_TAB: 'HR Vestigingen',
+                    SHOW_NUMBER_OF_RECORDS: false
                 },
                 dcatd: {
                     MAX_AVAILABLE_PAGES: 50,
                     TITLE: 'Datasets',
-                    TITLE_TAB: 'Datasets'
+                    TITLE_TAB: 'Datasets',
+                    SHOW_NUMBER_OF_RECORDS: true
                 }
             }
         };
@@ -230,13 +233,6 @@ describe('The dp-data-selection-header', () => {
             expect(component.find('.qa-title').text()).toContain('(1.234)');
         });
 
-        it('in TABLE view shows does not show the number of results when not available', () => {
-            mockedInputTable.numberOfRecords = null;
-            component = getComponent(mockedInputTable);
-
-            expect(component.find('.qa-title').text().trim()).toBe('BAG Adressen');
-        });
-
         it('in CATALOG view shows the number of results followed using \'Datasets(number)\'', () => {
             // Singular
             mockedInputCatalog.numberOfRecords = 10;
@@ -339,8 +335,7 @@ describe('The dp-data-selection-header', () => {
             component = getComponent(mockedInputList);
 
             expect(component.find('.qa-tabs li:nth-child(1)').text().trim()).toBe('BAG Adressen');
-            expect(component.find('.qa-tabs li:nth-child(2)').text()).toContain('HR Vestigingen');
-            expect(component.find('.qa-tabs li:nth-child(2)').text()).toContain(' (12.345)');
+            expect(component.find('.qa-tabs li:nth-child(2)').text().trim()).toBe('HR Vestigingen');
 
             // When BAG is active
             mockedInputList.dataset = 'bag';

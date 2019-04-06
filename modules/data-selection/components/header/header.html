@@ -14,10 +14,7 @@
           Toevoegen
           <span class="u-sr-only">Toevoegen</span>
         </dp-dcatd-button>
-        <h1 ng-if="vm.view === 'TABLE'">
-            {{vm.datasetTitle}}
-            <span ng-if="vm.showNumberOfRecords">({{vm.numberOfRecords | number}})</span>
-        </h1>
+        <h1 ng-if="vm.view === 'TABLE'">{{vm.datasetTitle}} ({{vm.numberOfRecords | number}})</h1>
         <h1 ng-if="vm.view === 'CATALOG'">Datasets ({{vm.numberOfRecords | number}})</h1>
         <h1 ng-if="vm.view === 'LIST'">Resultaten</h1>
     </div>
@@ -33,7 +30,7 @@
 
             <span ng-if="tab.isActive" class="o-tabs__tab o-tabs__tab--active">
                 {{tab.title}}
-                <span ng-if="tab.isActive && !vm.isLoading && vm.numberOfRecords">({{vm.numberOfRecords | number}})</span>
+                <span ng-if="tab.isActive && !vm.isLoading && vm.showNumberOfRecords">({{vm.numberOfRecords | number}})</span>
             </span>
         </li>
     </ul>
