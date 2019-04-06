@@ -54,7 +54,7 @@ pipeline {
 
     stage('Run tests') {
       parallel {
-        /* stage('E2E tests') {
+        stage('E2E tests') {
           options {
             timeout(time: 60, unit: 'MINUTES')
           }
@@ -66,14 +66,14 @@ pipeline {
             PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
           }
           steps {
-            # sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e test-e2e"
+            sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e test-e2e"
           }
           post {
             always {
-              # sh "docker-compose -p ${PROJECT} down -v || true"
+               sh "docker-compose -p ${PROJECT} down -v || true"
             }
           }
-        } */
+        }
 
         stage('E2E tests (Aria)') {
           options {
