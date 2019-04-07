@@ -6,9 +6,9 @@ exports[`MapDetailResultWrapper should not render empty panoUrl 1`] = `
 >
   <header
     className="
-        map-detail-result__header
-        map-detail-result__header--no-pano
-      "
+      map-detail-result__header
+      map-detail-result__header--no-pano
+    "
   >
     <div
       className="map-detail-result__header-container"
@@ -45,7 +45,10 @@ exports[`MapDetailResultWrapper should not render empty panoUrl 1`] = `
         title="Volledig weergeven"
       >
         <span
-          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
+          className="
+                    map-search-results__button-icon
+                    map-search-results__button-icon--maximize
+                  "
         />
         Volledig weergeven
       </button>
@@ -60,9 +63,9 @@ exports[`MapDetailResultWrapper should not render empty sub title 1`] = `
 >
   <header
     className="
-        map-detail-result__header
-        map-detail-result__header--no-pano
-      "
+      map-detail-result__header
+      map-detail-result__header--no-pano
+    "
   >
     <div
       className="map-detail-result__header-container"
@@ -94,7 +97,10 @@ exports[`MapDetailResultWrapper should not render empty sub title 1`] = `
         title="Volledig weergeven"
       >
         <span
-          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
+          className="
+                    map-search-results__button-icon
+                    map-search-results__button-icon--maximize
+                  "
         />
         Volledig weergeven
       </button>
@@ -109,9 +115,9 @@ exports[`MapDetailResultWrapper should not render missing children 1`] = `
 >
   <header
     className="
-        map-detail-result__header
-        map-detail-result__header--no-pano
-      "
+      map-detail-result__header
+      map-detail-result__header--no-pano
+    "
   >
     <div
       className="map-detail-result__header-container"
@@ -135,7 +141,10 @@ exports[`MapDetailResultWrapper should not render missing children 1`] = `
         title="Volledig weergeven"
       >
         <span
-          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
+          className="
+                    map-search-results__button-icon
+                    map-search-results__button-icon--maximize
+                  "
         />
         Volledig weergeven
       </button>
@@ -150,9 +159,9 @@ exports[`MapDetailResultWrapper should not render missing sub title 1`] = `
 >
   <header
     className="
-        map-detail-result__header
-        map-detail-result__header--no-pano
-      "
+      map-detail-result__header
+      map-detail-result__header--no-pano
+    "
   >
     <div
       className="map-detail-result__header-container"
@@ -184,7 +193,10 @@ exports[`MapDetailResultWrapper should not render missing sub title 1`] = `
         title="Volledig weergeven"
       >
         <span
-          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
+          className="
+                    map-search-results__button-icon
+                    map-search-results__button-icon--maximize
+                  "
         />
         Volledig weergeven
       </button>
@@ -199,15 +211,15 @@ exports[`MapDetailResultWrapper should render everything 1`] = `
 >
   <header
     className="
-        map-detail-result__header
-        map-detail-result__header--pano
-      "
+      map-detail-result__header
+      map-detail-result__header--pano
+    "
   >
     <button
       className="
-            map-detail-result__header-pano-button
-            map-detail-result__header-pano-button--enabled
-          "
+              map-detail-result__header-pano-button
+              map-detail-result__header-pano-button--enabled
+            "
       disabled={false}
       onClick={[MockFunction]}
       title="Panoramabeeld tonen"
@@ -255,7 +267,10 @@ exports[`MapDetailResultWrapper should render everything 1`] = `
         title="Volledig weergeven"
       >
         <span
-          className=" map-search-results__button-icon map-search-results__button-icon--maximize"
+          className="
+                    map-search-results__button-icon
+                    map-search-results__button-icon--maximize
+                  "
         />
         Volledig weergeven
       </button>

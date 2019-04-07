@@ -107,7 +107,11 @@ exports[`PanoramaToggle menu opens on button click 1`] = `
         key="google-street-view"
       >
         <a
-          className=" c-link c-link--arrow c-panorama-toggle__external-link qa-panorama-toggle__external-link"
+          className="
+                  c-link
+                  c-link--arrow
+                  c-panorama-toggle__external-link
+                  qa-panorama-toggle__external-link"
           href="http://maps.google.com/maps?q=&layer=c&cbll=2,3&cbp=11,999,0,0,0"
           onClick={[Function]}
           rel="noopener"
