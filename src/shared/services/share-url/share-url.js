@@ -1,16 +1,30 @@
 import { SHARE_OPTIONS } from '../../ducks/ui/ui';
 
-export default function getSocialUrl(target, window) {
+export default function getShareUrl(target, window) {
+  const href = window.location.href;
+  const title = window.document.title;
   switch (target) {
     case SHARE_OPTIONS.FACEBOOK:
-      return `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}&title=${window.document.title}`;
+      return {
+        url: `https://www.facebook.com/sharer/sharer.php?u=${href}&og:title=${title}`,
+        target: '_blank'
+      };
     case SHARE_OPTIONS.TWITTER:
-      return `https://twitter.com/intent/tweet?url=${window.location.href}&text=${window.document.title}`;
+      return {
+        url: `https://twitter.com/intent/tweet?url=${href}&text=${title}`,
+        target: '_blank'
+      };
     case SHARE_OPTIONS.LINKEDIN:
-      return `https://www.linkedin.com/shareArticle?url=${window.location.href}&mini=true&title=${window.document.title}`;
+      return {
+        url: `https://www.linkedin.com/shareArticle?url=${href}&mini=true&title=${title}`,
+        target: '_blank'
+      };
     case SHARE_OPTIONS.EMAIL:
-      return `mailto:?subject='Gemaild vanaf data.amsterdam.nl'&title='Zie: ${escape(window.location.href)}'`;
+      return {
+        url: `mailto:?subject=Gemaild vanaf data.amsterdam.nl&body=Zie: ${escape(href)}`,
+        target: '_self'
+      };
     default:
-      return false;
+      return null;
   }
 }

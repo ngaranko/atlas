@@ -7,7 +7,7 @@ import Footer from '../components/Footer/Footer';
 import PreviewVideo from '../components/PreviewVideo/PreviewVideo';
 import HomepageAddressBlock from '../../homepage/components/address-block/HomepageAddressBlock';
 import HomepageBlock from '../../homepage/components/block/HomepageBlock';
-import ShareBar from '../components/ShareBar/ShareBarContainer';
+import ShareBarContainer from '../components/ShareBar/ShareBarContainer';
 import {
   toDatasets,
   toMapWithLegendOpen,
@@ -288,7 +288,7 @@ const Home = ({ showFooter }) => (
             </div>
             <div className="u-row">
               <div className="u-col-sm--12">
-                <div className="u-margin__left--3"><ShareBar /></div>
+                <div className="u-margin__left--3"><ShareBarContainer /></div>
               </div>
             </div>
           </div>

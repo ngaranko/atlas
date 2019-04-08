@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
 import { connect } from 'react-redux';
 import Footer from '../components/Footer/Footer';
-import ShareBar from '../components/ShareBar/ShareBarContainer';
+import ShareBarContainer from '../components/ShareBar/ShareBarContainer';
 import { getItem, getTemplateName, getType } from '../../shared/ducks/content/selectors';
 
 /* istanbul ignore next */ // TODO: refactor, test
@@ -26,7 +26,7 @@ const ContentPage = ({ templateName, item, type, showFooter }) => (
             }}
           />
           <div className="u-col-sm--offset-1 u-col-sm--7">
-            <ShareBar />
+            <ShareBarContainer />
           </div>
         </div>
       </div>

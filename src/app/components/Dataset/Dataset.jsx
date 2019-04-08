@@ -8,7 +8,7 @@ import { DEFAULT_DATASET } from '../../../shared/ducks/datasets/data/data';
 import MaxPageMessage from '../PanelMessages/MaxPageMessage';
 import NoResultsForSearchType from '../Messages/NoResultsForSearchType';
 import Catalog from './Catalog/Catalog';
-import ShareBar from '../../components/ShareBar/ShareBarContainer';
+import ShareBarContainer from '../../components/ShareBar/ShareBarContainer';
 
 const Dataset = ({
   setPage,
@@ -82,7 +82,7 @@ const Dataset = ({
             />
             <div className="u-row">
               <div className="u-col-sm--12">
-                <div className="u-margin__top--4"><ShareBar /></div>
+                <div className="u-margin__top--4"><ShareBarContainer /></div>
               </div>
             </div>
           </div>

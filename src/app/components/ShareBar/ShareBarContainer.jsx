@@ -6,10 +6,10 @@ import getShareUrl from '../../../shared/services/share-url/share-url';
 
 export const handlePageShare = (target, fn) => {
   fn(target);
-  const redirectUrl = getShareUrl(target, window);
+  const link = getShareUrl(target, window);
 
-  if (redirectUrl) {
-    window.open(redirectUrl, '_blank');
+  if (link) {
+    window.open(link.url, link.target);
   }
 };
 
