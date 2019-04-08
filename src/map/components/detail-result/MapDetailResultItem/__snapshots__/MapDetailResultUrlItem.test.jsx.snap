@@ -13,11 +13,10 @@ exports[`MapDetailResultUrlItem should render the url  1`] = `
       label
     </div>
     <div
-      className="map-detail-result__item-value
-          map-detail-result__item-value--elipsis"
+      className="map-detail-result__item-value"
     >
       <a
-        className="o-btn o-btn--link"
+        className="o-btn o-btn--link map-detail-result__item-value--inline"
         href="link"
         target="_blank"
       >

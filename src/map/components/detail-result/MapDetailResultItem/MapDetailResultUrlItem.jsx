@@ -5,16 +5,9 @@ const MapDetailResultUrlItem = ({ label, description, link }) => link && (
   <li className="map-detail-result__item">
     <section className="map-detail-result__item-content">
       <div className="map-detail-result__item-label">{label}</div>
-      <div className={
-        `map-detail-result__item-value
-          ${link && link.length ?
-          'map-detail-result__item-value--elipsis' :
-          ''
-        }`
-      }
-      >
+      <div className={'map-detail-result__item-value'}>
         <a
-          className={'o-btn o-btn--link'}
+          className={'o-btn o-btn--link map-detail-result__item-value--inline'}
           href={link}
           target="_blank"
         >{description}</a>

@@ -153,6 +153,10 @@ $icon-height: 24px;
           display: inline-block;
         }
       }
+
+      & > &--inline {
+        display: inline;
+      }
     }
 
     &-list {
