@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { getUser } from '../../../shared/ducks/user/user';
 import {
   getPanoramaPreview,
@@ -26,7 +25,4 @@ const mapStateToProps = (state) => ({
   detailFilterSelection: getDetailFilterSelection(state)
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Detail);
+export default connect(mapStateToProps)(Detail);
