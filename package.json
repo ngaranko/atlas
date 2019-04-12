@@ -39,6 +39,7 @@
   "dependencies": {
     "@datapunt/asc-assets": "0.5.1-alpha.0",
     "@datapunt/asc-ui": "0.5.3-alpha.0",
+    "@svgr/webpack": "^4.2.0",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",
     "angular-i18n": "~1.5.11",
@@ -86,7 +87,9 @@
     "redux-saga": "0.16.0",
     "redux-watch": "1.1.1",
     "remove-markdown": "0.3.0",
-    "reselect": "4.0.0"
+    "reselect": "4.0.0",
+    "svg-url-loader": "^2.3.2",
+    "url-loader": "^1.1.2"
   },
   "devDependencies": {
     "@babel/cli": "7.2.3",

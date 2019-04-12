@@ -1,0 +1,31 @@
+@import "../../../shared/styles/config";
+
+.context-menu {
+  bottom: $container-whitespace;
+  left: calc(#{$map-panel-button-width} + #{$container-whitespace * 2});
+  position: absolute;
+
+  &--offset {
+    left: calc(#{$map-panel-width} + #{$container-whitespace * 2});
+  }
+
+  & > div {
+    z-index: 9;
+  }
+
+  & > div > button {
+    border: 1px solid $secondary-gray20;
+    box-shadow: 2px 2px 0 0 $secondary-gray40;
+    z-index: 9;
+
+    &:hover,
+    &:focus {
+      border: 1px solid $primary-dark;
+    }
+  }
+
+  & > div > div {
+    min-width: 200px;
+    z-index: 9;
+  }
+}

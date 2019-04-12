@@ -16,11 +16,20 @@ export const SHOW_EMBED_PREVIEW = `${REDUCER_KEY}/SHOW_EMBED_PREVIEW`;
 export const SHOW_PRINT = `${REDUCER_KEY}/SHOW_PRINT`;
 export const TOGGLE_MAP_PANEL_HANDLE = `${REDUCER_KEY}/TOGGLE_MAP_PANEL_HANDLE`;
 export const SET_VIEW_MODE = `${REDUCER_KEY}/SET_VIEW_MODE`;
+export const SHARE_PAGE = `${REDUCER_KEY}/SHARE_PAGE`;
 
 export const VIEW_MODE = {
   MAP: 'kaart',
   SPLIT: 'gesplitst',
   FULL: 'volledig'
+};
+
+export const SHARE_OPTIONS = {
+  FACEBOOK: 'facebook',
+  TWITTER: 'twitter',
+  LINKEDIN: 'linkedin',
+  EMAIL: 'email',
+  PRINT: 'printversie'
 };
 
 export const initialState = {
@@ -108,6 +117,12 @@ export const hideEmbedMode = () => ({
   type: HIDE_EMBED_PREVIEW,
   meta: {
     tracking: true
+  }
+});
+export const sharePage = (payload) => ({
+  type: SHARE_PAGE,
+  meta: {
+    tracking: payload
   }
 });
 export const toggleMapPanelHandle = () => ({ type: TOGGLE_MAP_PANEL_HANDLE });

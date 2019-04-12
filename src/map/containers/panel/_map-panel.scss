@@ -1,8 +1,4 @@
 @import "../../../shared/styles/config";
-$map-panel-heading-height: 33px;
-$map-panel-offset: 130px;
-$map-panel-max-width: 444px;
-$handle-height: 24px;
 
 .map-panel {
   background-color: $primary-light;
@@ -14,19 +10,17 @@ $handle-height: 24px;
   font-family: "Avenir LT W01 55 Roman";
   left: $container-whitespace;
   max-height: calc(100% - #{$dashboard-heading-height} - #{$map-panel-offset});
-  max-width: $map-panel-max-width;
-  min-width: 268px;
   overflow: hidden;
   position: absolute;
-  width: 28vw;
+  width: $map-panel-width;
   z-index: 100;
 
   &--collapsed {
     border: none;
     height: auto;
-    min-width: auto;
+    min-width: $map-panel-button-width;
     top: auto;
-    width: auto;
+    width: $map-panel-button-width;
 
     .scroll-wrapper {
       display: none;

@@ -7,6 +7,7 @@ import { isEmbedded } from '../../../shared/ducks/ui/ui';
 
 import DrawTool from '../../containers/draw-tool/DrawToolContainer';
 import ToggleFullscreen from '../../../app/components/ToggleFullscreen/ToggleFullscreen';
+import ContextMenu from '../../../app/components/ContextMenu/ContextMenu';
 
 import LeafletContainer from '../leaflet/LeafletContainer';
 import MapPanelContainer from '../../containers/panel/MapPanelContainer';
@@ -80,12 +81,15 @@ class MapContainer extends React.Component {
               onToggleFullscreen={toggleFullscreen}
             />
           )}
-          <MapPanelContainer isMapPanelVisible />
-          {
-            embedMode ? (
-              <MapEmbedButton />
-            ) : ''
-          }
+          <section className="bottom-left">
+            <MapPanelContainer isMapPanelVisible />
+            {
+              embedMode ? (
+                <MapEmbedButton />
+              ) : ''
+            }
+            <ContextMenu isMapPanelVisible />
+          </section>
           {showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer />}
         </div>
       </div>

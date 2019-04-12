@@ -80,6 +80,10 @@ function commonConfig({ nodeEnv }) {
           use: 'html-loader'
         },
         {
+          test: /\.svg$/,
+          use: ['@svgr/webpack', 'url-loader'],
+        },
+        {
           test: /\.(png|svg|cur)$/,
           include: [
             legacy

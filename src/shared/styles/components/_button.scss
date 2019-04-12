@@ -40,7 +40,7 @@ $icon-height: 24px;
   @markup
     <button class="btn btn--link">Lorem ipsum</button>
   */
-  background-color: transparent;
+  // background-color: transparent;
   font-size: inherit;
   overflow: visible;
   text-align: left;
@@ -119,7 +119,6 @@ $icon-height: 24px;
 
 .o-btn--transparent {
   @extend %o-btn;
-  background-color: transparent;
   height: $base-whitespace * 5;
   line-height: $base-whitespace * 5;
 }

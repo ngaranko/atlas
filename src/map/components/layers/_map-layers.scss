@@ -76,7 +76,6 @@ $icon-height: 24px;
     button {
       @extend %hover-focus-listitem;
       align-items: center;
-      background-color: transparent;
       border: none;
       cursor: pointer;
       display: flex;

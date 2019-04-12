@@ -16,9 +16,16 @@ exports[`MapContainer should render 1`] = `
       onToggleFullscreen={[Function]}
       title="Kaart"
     />
-    <Connect(MapPanel)
-      isMapPanelVisible={true}
-    />
+    <section
+      className="bottom-left"
+    >
+      <Connect(MapPanel)
+        isMapPanelVisible={true}
+      />
+      <Connect(ContextMenuComponent)
+        isMapPanelVisible={true}
+      />
+    </section>
   </div>
 </div>
 `;
@@ -39,9 +46,16 @@ exports[`MapContainer should render with drawingmode: draw 1`] = `
       onToggleFullscreen={[Function]}
       title="Kaart"
     />
-    <Connect(MapPanel)
-      isMapPanelVisible={true}
-    />
+    <section
+      className="bottom-left"
+    >
+      <Connect(MapPanel)
+        isMapPanelVisible={true}
+      />
+      <Connect(ContextMenuComponent)
+        isMapPanelVisible={true}
+      />
+    </section>
   </div>
 </div>
 `;
