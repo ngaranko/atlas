@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FacebookPadded from '@datapunt/asc-assets/lib/Icons/FacebookPadded.svg';
-import Twitter from '@datapunt/asc-assets/lib/Icons/Twitter.svg';
-import Linkedin from '@datapunt/asc-assets/lib/Icons/Linkedin.svg';
-import Email from '@datapunt/asc-assets/lib/Icons/Email.svg';
-import Print from '@datapunt/asc-assets/lib/Icons/Print.svg';
-import Ellipsis from '@datapunt/asc-assets/lib/Icons/Ellipsis.svg';
+import { ReactComponent as FacebookPadded } from '@datapunt/asc-assets/lib/Icons/FacebookPadded.svg';
+import { ReactComponent as Twitter } from '@datapunt/asc-assets/lib/Icons/Twitter.svg';
+import { ReactComponent as Linkedin } from '@datapunt/asc-assets/lib/Icons/Linkedin.svg';
+import { ReactComponent as Email } from '@datapunt/asc-assets/lib/Icons/Email.svg';
+import { ReactComponent as Print } from '@datapunt/asc-assets/lib/Icons/Print.svg';
+import { ReactComponent as Ellipsis } from '@datapunt/asc-assets/lib/Icons/Ellipsis.svg';
 import { ContextMenu, ContextMenuItem, Icon } from '@datapunt/asc-ui';
 
 import './ContextMenu.scss';

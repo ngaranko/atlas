@@ -210,5 +210,10 @@
 @media (min-width: $breakpoint-lg) {
   .map-panel {
     width: $map-panel-max-width;
+
+    &--collapsed {
+      min-width: $map-panel-button-width;
+      width: $map-panel-button-width;
+    }
   }
 }
