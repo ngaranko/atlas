@@ -16,16 +16,34 @@
   & > div > button {
     border: 1px solid $secondary-gray20;
     box-shadow: 2px 2px 0 0 $secondary-gray40;
+    height: 34px;
     z-index: 9;
 
     &:hover,
     &:focus {
       border: 1px solid $primary-dark;
+      outline: 0;
+
+      span > svg {
+        fill: $primary-dark;
+      }
+    }
+
+    span > svg {
+      fill: $secondary-gray60;
     }
   }
 
   & > div > div {
     min-width: 200px;
     z-index: 9;
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .context-menu {
+    &--offset {
+      left: calc(#{$map-panel-max-width} + #{$container-whitespace * 2});
+    }
   }
 }

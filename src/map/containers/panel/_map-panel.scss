@@ -78,14 +78,18 @@
 
     &--icon {
       height: $handle-height;
+      margin-left: 8px;
       width: $handle-height;
 
-      &-collapse {
-        @include icon-sprite("icon-arrow-down", $secondary-gray60, $primary-dark, $handle-height);
+      svg {
+        fill: $secondary-gray60;
+        height: $handle-height;
+        padding: 4px;
+        width: $handle-height;
       }
 
-      &-expand {
-        @include icon-sprite("icon-arrow-up", $secondary-gray60, $primary-dark, $handle-height);
+      &-collapse {
+        transform: rotate(180deg);
       }
     }
 
@@ -99,12 +103,8 @@
         @include icon-sprite("icon-map-layers", $primary-dark, $primary-dark, $handle-height);
       }
 
-      .map-panel__toggle--icon-collapse {
-        @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height);
-      }
-
-      .map-panel__toggle--icon-expand {
-        @include icon-sprite("icon-arrow-up", $primary-dark, $primary-dark, $handle-height);
+      svg {
+        fill: $primary-dark;
       }
     }
   }
@@ -204,5 +204,11 @@
 
   .leaflet-control-scale {
     margin: 0 8px 8px 0 !important;
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .map-panel {
+    width: $map-panel-max-width;
   }
 }

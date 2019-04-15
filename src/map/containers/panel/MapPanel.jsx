@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ReactComponent as ChevronTop } from '@datapunt/asc-assets/lib/Icons/Chevron-Top.svg';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapPanelHandle from '../../components/panel-handle/MapPanelHandle';
@@ -48,7 +49,7 @@ class MapPanel extends React.Component {
               map-panel__toggle--icon
               map-panel__toggle--icon-${this.props.isMapPanelVisible ? 'collapse' : 'expand'}
             `}
-            />
+            ><ChevronTop /></span>
           </button>
         </div>
         <div className="scroll-wrapper">
