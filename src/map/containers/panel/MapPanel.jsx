@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ReactComponent as ChevronTop } from '@datapunt/asc-assets/lib/Icons/Chevron-Top.svg';
+import { ReactComponent as ChevronTop } from '@datapunt/asc-assets/lib/Icons/ChevronTop.svg';
 import MapLayers from '../../components/layers/MapLayers';
 import MapLegend from '../../components/legend/MapLegend';
 import MapPanelHandle from '../../components/panel-handle/MapPanelHandle';

@@ -32,7 +32,9 @@ exports[`MapPanel should render MapLegend if store contains active map layers 1`
               map-panel__toggle--icon
               map-panel__toggle--icon-expand
             "
-      />
+      >
+        <IconMock />
+      </span>
     </button>
   </div>
   <div
@@ -110,7 +112,9 @@ exports[`MapPanel should render MapType and MapLayers 1`] = `
               map-panel__toggle--icon
               map-panel__toggle--icon-expand
             "
-      />
+      >
+        <IconMock />
+      </span>
     </button>
   </div>
   <div

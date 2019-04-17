@@ -1,3 +1,1 @@
-module.exports = function () {
-    return 'mock-svg';
-};
+module.exports = { ReactComponent: 'IconMock' }
