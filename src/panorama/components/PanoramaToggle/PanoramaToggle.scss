@@ -1,5 +1,11 @@
 @import "../../../shared/styles/config";
 
+.panorama-menu {
+  bottom: $container-whitespace;
+  left: $container-whitespace;
+  position: absolute;
+}
+
 .c-panorama-toggle {
   @include font-size($s-font);
   position: relative;

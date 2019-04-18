@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ContextMenu, ContextMenuItem, Icon } from '@datapunt/asc-ui';
+import { ReactComponent as Embed } from '@datapunt/asc-assets/lib/Icons/Embed.svg';
+import { ReactComponent as ExternalLink } from '@datapunt/asc-assets/lib/Icons/ExternalLink.svg';
 
 import './PanoramaToggle.scss';
 import { PANO_LABELS } from '../../ducks/constants';
@@ -11,6 +14,67 @@ const getStreetViewUrl = (location, heading) => {
 
   return `${path}${parameters}`;
 };
+
+const PanoramaToggleComponent = ({ heading, currentLabel, location, setPanoramaTags, openPanoramaExternal }) => {
+  const [showMenu, showMenuToggle] = React.useState(false);
+
+  const handleOpenPanoramaExternal = () => {
+    openPanoramaExternal();
+    showMenuToggle(false);
+  }
+
+  const handleSetPanoramaTags = (option) => {
+    setPanoramaTags(option);
+    showMenuToggle(false);
+  }
+
+  return (
+    <section className="context-menu panorama-menu">
+    {console.log('showMenu', showMenu)}
+      <ContextMenu
+        alt="Actiemenu"
+        open={showMenu}
+        onClick={() => showMenuToggle(!showMenu)}
+        icon={
+          <Icon padding={4} inline size={24}>
+            <Embed />
+          </Icon>
+        }
+        label={currentLabel}
+        position="bottom"
+      >
+      {PANO_LABELS.map((label, index) => (
+        <ContextMenuItem
+          key={label.layerId}
+          divider={ index === PANO_LABELS.length - 1 }
+          role="button"
+          onClick={() => handleSetPanoramaTags(label.tags)}
+          icon={
+            <Icon padding={4} inline size={24} />
+          }
+        >
+          { label.label }
+        </ContextMenuItem>
+      ))}
+        <ContextMenuItem
+          key="google-street-view"
+          role="button"
+          onClick={() => console.log('hi')}
+          icon={
+            <Icon padding={4} inline size={24}>
+              <ExternalLink />
+            </Icon>
+          }
+        >
+          Google Street View
+        </ContextMenuItem>
+      </ContextMenu>
+    </section>
+  )
+}
+
+export default PanoramaToggleComponent;
+
 
 class PanoramaToggle extends React.Component {
   constructor() {
@@ -109,4 +173,4 @@ PanoramaToggle.propTypes = {
   openPanoramaExternal: PropTypes.oneOfType([PropTypes.string, PropTypes.func]) // eslint-disable-line
 };
 
-export default PanoramaToggle;
+//export default PanoramaToggle;

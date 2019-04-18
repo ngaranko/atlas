@@ -20,6 +20,7 @@ import {
 } from '../services/marzipano/marzipano';
 
 import StatusBar from '../components/StatusBar/StatusBar';
+import PanoramaToggle from '../components/PanoramaToggle/PanoramaToggle';
 import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullscreen';
 import {
   getDetailReference,
@@ -149,6 +150,12 @@ class PanoramaContainer extends React.Component {
           title="Sluit panorama"
           icon="cross"
         />
+
+      <PanoramaToggle
+        location={panoramaState.location}
+        heading={panoramaState.heading}
+        currentLabel={getLabelObjectByTags(tags).label}
+         />
 
         {(panoramaState.date && panoramaState.location) ? (
           <StatusBar

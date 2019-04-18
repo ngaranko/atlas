@@ -5,6 +5,7 @@ import { ReactComponent as Twitter } from '@datapunt/asc-assets/lib/Icons/Twitte
 import { ReactComponent as Linkedin } from '@datapunt/asc-assets/lib/Icons/Linkedin.svg';
 import { ReactComponent as Email } from '@datapunt/asc-assets/lib/Icons/Email.svg';
 import { ReactComponent as Print } from '@datapunt/asc-assets/lib/Icons/Print.svg';
+import { ReactComponent as Embed } from '@datapunt/asc-assets/lib/Icons/Embed.svg';
 import { ReactComponent as Ellipsis } from '@datapunt/asc-assets/lib/Icons/Ellipsis.svg';
 import { ContextMenu, ContextMenuItem, Icon } from '@datapunt/asc-ui';
 
@@ -14,11 +15,14 @@ const ContextMenuComponent = ({
   isMapPanelVisible,
   handlePageShare,
   handlePrintMode,
+  handleEmbedMode,
   sharePage,
-  showPrintMode
+  showPrintMode,
+  showEmbedPreview
 }) => (
   <section className={`context-menu ${isMapPanelVisible && 'context-menu--offset'}`}>
     <ContextMenu
+      alt="Actiemenu"
       icon={
         <Icon padding={4} inline size={24}>
           <Ellipsis />
@@ -28,7 +32,6 @@ const ContextMenuComponent = ({
     >
       <ContextMenuItem
         role="button"
-        divider
         onClick={() => handlePrintMode(showPrintMode)}
         icon={
           <Icon padding={4} inline size={24}>
@@ -37,6 +40,18 @@ const ContextMenuComponent = ({
         }
       >
         Printen
+      </ContextMenuItem>
+      <ContextMenuItem
+        role="button"
+        divider
+        onClick={() => handleEmbedMode(showEmbedPreview)}
+        icon={
+          <Icon padding={4} inline size={24}>
+            <Embed />
+          </Icon>
+        }
+      >
+        Embedden
       </ContextMenuItem>
       <ContextMenuItem
         role="button"

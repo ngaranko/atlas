@@ -10,16 +10,17 @@
   }
 
   & > div {
-    z-index: 9;
+    z-index: 10;
   }
 
   & > div > button {
     border: 1px solid $secondary-gray20;
     box-shadow: 2px 2px 0 0 $secondary-gray40;
     height: 34px;
-    z-index: 9;
+    z-index: 10;
 
     &:hover,
+    &:active,
     &:focus {
       border: 1px solid $primary-dark;
       outline: 0;
@@ -35,6 +36,7 @@
   }
 
   & > div > div {
+    box-shadow: 2px 2px 0 0 $secondary-gray40;
     min-width: 200px;
     z-index: 9;
   }

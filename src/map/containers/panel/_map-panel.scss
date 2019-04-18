@@ -178,7 +178,8 @@
   .leaflet-control-zoom {
     border: none;
     box-shadow: none;
-    margin-right: 8px;
+    margin-bottom: $container-whitespace;
+    margin-right: $container-whitespace;
   }
 
   .leaflet-control-zoom-in,
@@ -203,7 +204,7 @@
   }
 
   .leaflet-control-scale {
-    margin: 0 8px 8px 0 !important;
+    margin: 0 $container-whitespace $container-whitespace 0 !important;
   }
 }
 

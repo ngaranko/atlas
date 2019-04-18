@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchPanoramaRequestExternal, setPanoramaTags } from '../../ducks/actions';
-import PanoramaToggle from './PanoramaToggle';
+import PanoramaToggleComponent from './PanoramaToggleComponent';
 
 const mapStateToProps = () => ({});
 
@@ -10,4 +10,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   openPanoramaExternal: fetchPanoramaRequestExternal
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(PanoramaToggle);
+export default connect(mapStateToProps, mapDispatchToProps)(PanoramaToggleComponent);

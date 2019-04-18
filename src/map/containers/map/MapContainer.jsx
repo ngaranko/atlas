@@ -88,7 +88,7 @@ class MapContainer extends React.Component {
                 <MapEmbedButton />
               ) : ''
             }
-            <ContextMenu isMapPanelVisible />
+            { (!embedMode && isFullscreen) && <ContextMenu isMapPanelVisible /> }
           </section>
           {showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer />}
         </div>

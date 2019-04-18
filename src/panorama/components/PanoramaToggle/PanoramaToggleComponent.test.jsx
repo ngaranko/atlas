@@ -3,15 +3,15 @@ import { shallow } from 'enzyme';
 
 import { setPanoramaTags } from '../../ducks/actions';
 
-import PanoramaToggle from './PanoramaToggle';
+import PanoramaToggleComponent from './PanoramaToggleComponent';
 
 jest.mock('../../ducks/actions');
 
-describe('PanoramaToggle', () => {
+describe('PanoramaToggleComponent', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(
-      <PanoramaToggle
+      <PanoramaToggleComponent
         {...{
           heading: 999,
           currentLabel: 'Meest recent',
