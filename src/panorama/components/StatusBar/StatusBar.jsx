@@ -12,7 +12,7 @@ const convertLocation = (location) => {
   return `${rdX.toFixed(2)}, ${rdY.toFixed(2)} (${formattedWgs84Location})`;
 };
 
-const StatusBar = ({ date, location, heading, currentLabel }) => (
+const StatusBar = ({ date, location }) => (
   <div className="c-panorama-status-bar">
     <div className="c-panorama-status-bar__items">
       <div className="c-panorama-status-bar__history">
@@ -30,10 +30,8 @@ StatusBar.defaultProps = {
 };
 
 StatusBar.propTypes = {
-  heading: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
-  currentLabel: PropTypes.string.isRequired,
-  location: PropTypes.array.isRequired //eslint-disable-line
+  location: PropTypes.instanceOf(Array).isRequired //eslint-disable-line
 };
 
 export default StatusBar;

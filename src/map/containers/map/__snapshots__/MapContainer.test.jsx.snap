@@ -22,9 +22,6 @@ exports[`MapContainer should render 1`] = `
       <Connect(MapPanel)
         isMapPanelVisible={true}
       />
-      <Connect(ContextMenuComponent)
-        isMapPanelVisible={true}
-      />
     </section>
   </div>
 </div>
@@ -50,9 +47,6 @@ exports[`MapContainer should render with drawingmode: draw 1`] = `
       className="bottom-left"
     >
       <Connect(MapPanel)
-        isMapPanelVisible={true}
-      />
-      <Connect(ContextMenuComponent)
         isMapPanelVisible={true}
       />
     </section>

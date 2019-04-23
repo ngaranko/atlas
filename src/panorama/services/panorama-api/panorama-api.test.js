@@ -3,6 +3,7 @@ import {
   getImageDataById,
   getImageDataByLocation,
   getLocationHistoryParams,
+  getStreetViewUrl,
   PANORAMA_CONFIG
 } from './panorama-api';
 import sharedConfig from '../../../shared/services/shared-config/shared-config';
@@ -288,6 +289,15 @@ describe('The Panorama Api', () => {
       expect(getByUrl).toHaveBeenCalledWith(
         `${sharedConfig.API_ROOT}${prefix}/ABC/${suffix}/?${newestInRange}`
       );
+    });
+  });
+
+  describe('the external streeview url', () => {
+    const location = [2, 3];
+    const heading = 10;
+
+    it('should return an url to google streeview', () => {
+      expect(getStreetViewUrl(location, heading)).toBe(`http://maps.google.com/maps?q=&layer=c&cbll=${location[0]},${location[1]}&cbp=11,${heading},0,0,0`);
     });
   });
 });

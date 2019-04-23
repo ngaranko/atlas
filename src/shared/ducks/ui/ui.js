@@ -154,6 +154,10 @@ export const isMapActive = createSelector(
   getViewMode, isMapPage,
   (viewMode, isMapPageActive) => viewMode === VIEW_MODE.MAP || isMapPageActive
 );
+export const isPanoFullscreen = createSelector(
+  getViewMode, isPanoPage,
+  (viewMode, isPano) => viewMode === VIEW_MODE.FULL && isPano
+);
 export const hasPrintMode = createSelector(
   isDataSelectionPage,
   isDatasetPage,

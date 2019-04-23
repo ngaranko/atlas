@@ -22,6 +22,7 @@ import {
 import StatusBar from '../components/StatusBar/StatusBar';
 import PanoramaToggle from '../components/PanoramaToggle/PanoramaToggle';
 import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullscreen';
+import ContextMenu from '../../app/components/ContextMenu/ContextMenu';
 import {
   getDetailReference,
   getLabelObjectByTags,
@@ -33,7 +34,7 @@ import IconButton from '../../app/components/IconButton/IconButton';
 import { getMapDetail } from '../../map/ducks/detail/actions';
 import { getMapOverlays } from '../../map/ducks/map/selectors';
 import { pageTypeToEndpoint } from '../../map/services/map-detail';
-import { setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
+import { isPrintOrEmbedMode, setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
 
 class PanoramaContainer extends React.Component {
   constructor(props) {
@@ -122,6 +123,7 @@ class PanoramaContainer extends React.Component {
   render() {
     const {
       isFullscreen,
+      hasContextMenu,
       panoramaState,
       onClose,
       tags
@@ -151,11 +153,13 @@ class PanoramaContainer extends React.Component {
           icon="cross"
         />
 
-      <PanoramaToggle
-        location={panoramaState.location}
-        heading={panoramaState.heading}
-        currentLabel={getLabelObjectByTags(tags).label}
-         />
+        <PanoramaToggle
+          location={panoramaState.location}
+          heading={panoramaState.heading}
+          currentLabel={getLabelObjectByTags(tags).label}
+        />
+
+        { hasContextMenu && <ContextMenu /> }
 
         {(panoramaState.date && panoramaState.location) ? (
           <StatusBar
@@ -176,7 +180,8 @@ const mapStateToProps = (state) => ({
   detailReference: getDetailReference(state),
   pageReference: getDetailReference(state),
   panoramaLocation: getPanoramaLocation(state),
-  overlays: getMapOverlays(state)
+  overlays: getMapOverlays(state),
+  hasContextMenu: !isPrintOrEmbedMode(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -192,6 +197,7 @@ const mapDispatchToProps = (dispatch) => ({
 PanoramaContainer.propTypes = {
   panoramaState: PropTypes.shape({}).isRequired,
   isFullscreen: PropTypes.bool.isRequired,
+  hasContextMenu: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   setView: PropTypes.func.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,

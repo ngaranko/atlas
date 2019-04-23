@@ -1,14 +1,18 @@
 @import "../../../shared/styles/config";
 
+$statusbar-background: rgba(255, 255, 255, .67);
+$tatusbar-shadow: 1px 0 0 0 #999;
+
 .c-panorama-status-bar {
-  box-shadow: 1px 0 0 0 #999;
-  background-color: rgba(255, 255, 255, 0.67);
+  background-color: $statusbar-background;
+  border-right: 1px solid $secondary-gray20;
   bottom: $container-whitespace;
-  right: 0px;
+  box-shadow: $tatusbar-shadow;
   color: $primary-dark;
   height: 34px;
   line-height: 34px;
   position: absolute;
+  right: 0;
 
   &__items {
     display: flex;
