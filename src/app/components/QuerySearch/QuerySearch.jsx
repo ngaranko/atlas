@@ -8,7 +8,7 @@ import Dataset from '../Dataset';
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
 import { DataSearchQuery } from '../DataSearch';
 import MoreResultsWhenLoggedIn from '../PanelMessages/MoreResultsWhenLoggedIn';
-import ShareBarContainer from '../../components/ShareBar/ShareBarContainer';
+import ShareBar from '../../components/ShareBar/ShareBar';
 
 const QuerySearch = ({
   isLoading,
@@ -52,7 +52,7 @@ const QuerySearch = ({
             }
             <div className="u-row">
               <div className="u-col-sm--12">
-                <div className="u-margin__top--4"><ShareBarContainer /></div>
+                <div className="u-margin__top--4"><ShareBar /></div>
               </div>
             </div>
           </div>

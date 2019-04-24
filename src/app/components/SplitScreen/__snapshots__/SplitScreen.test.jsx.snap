@@ -37,7 +37,7 @@ exports[`SplitScreen should render 1`] = `
         <div
           className="u-margin__left--2 u-margin__bottom--2"
         >
-          <Connect(ShareBarComponent) />
+          <Connect(ShareBar) />
         </div>
       </div>
     </div>

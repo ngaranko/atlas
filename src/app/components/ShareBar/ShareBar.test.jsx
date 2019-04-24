@@ -1,56 +1,50 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import configureMockStore from 'redux-mock-store';
+import { sharePage, showPrintMode } from '../../../shared/ducks/ui/ui';
 import ShareBar from './ShareBar';
 
-describe('ShareBar', () => {
-  const sharePage = jest.fn();
-  const showPrintMode = jest.fn();
-  const handlePageShare = jest.fn();
-  const handlePrintMode = jest.fn();
+jest.mock('../../../shared/ducks/ui/ui');
 
+describe('ShareBar', () => {
   const props = {
-    hasPrintButton: true,
-    sharePage,
-    showPrintMode,
-    handlePageShare,
-    handlePrintMode
+    hasPrintButton: false
   };
 
-  it('should render all the share buttons', () => {
-    const component = shallow(
-      <ShareBar {...props} />
-    );
+  const store = configureMockStore()({});
+  const component = shallow(<ShareBar {...props} />, { context: { store } }).dive();
 
-    expect(component.find('ShareButton').length).toBe(5);
+  sharePage.mockImplementation(() => ({ type: 'action' }));
+  showPrintMode.mockImplementation(() => ({ type: 'action' }));
+
+  beforeEach(() => {
+    global.window.title = 'Page title';
+    global.window.open = jest.fn();
   });
 
-  it('should not render the print button', () => {
-    const component = shallow(
-      <ShareBar
-        {...props}
-        hasPrintButton={false}
-      />
-    );
-
-    expect(component.find('ShareButton').length).toBe(4);
-  });
-
-  it('should handle onClick event on share buttons', () => {
-    const component = shallow(
-      <ShareBar {...props} />
-    );
-
+  it('should handle onClick event on buttons', () => {
     component.find('ShareButton').at(0).simulate('click');
-    expect(handlePageShare).toHaveBeenCalledWith('facebook', sharePage);
+    expect(sharePage).toHaveBeenCalledWith('facebook');
+
+    component.find('ShareButton').at(1).simulate('click');
+    expect(sharePage).toHaveBeenCalledWith('twitter');
+
+    component.find('ShareButton').at(2).simulate('click');
+    expect(sharePage).toHaveBeenCalledWith('linkedin');
+
+    component.find('ShareButton').at(3).simulate('click');
+    expect(sharePage).toHaveBeenCalledWith('email');
   });
 
-  it('should handle onClick event on print button', () => {
-    const component = shallow(
-      <ShareBar {...props} />
-    );
+  describe('should render all the items of the menu', () => {
+    expect(component.find('ShareButton').length).toBe(4);
 
-    component.find('ShareButton').at(4).simulate('click');
-    expect(handlePrintMode).toHaveBeenCalledWith(showPrintMode);
+    it('should only render the print button on certain scenario\'s', () => {
+      component.setProps({ hasPrintButton: true });
+      expect(component.find('ShareButton').length).toBe(5);
+
+      component.find('ShareButton').at(4).simulate('click');
+      expect(showPrintMode).toHaveBeenCalled();
+    });
   });
 });

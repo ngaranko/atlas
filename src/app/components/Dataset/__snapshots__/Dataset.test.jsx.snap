@@ -68,7 +68,7 @@ exports[`Dataset should render with search results 1`] = `
             <div
               className="u-margin__top--4"
             >
-              <Connect(ShareBarComponent) />
+              <Connect(ShareBar) />
             </div>
           </div>
         </div>

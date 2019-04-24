@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
-import ShareBarContainer from '../../components/ShareBar/ShareBarContainer';
+import ShareBar from '../../components/ShareBar/ShareBar';
 
 const DatasetDetail = ({
   isLoading,
@@ -29,7 +29,7 @@ const DatasetDetail = ({
     />
     <div className="u-row">
       <div className="u-col-sm--12">
-        <div className="u-margin__left--2 u-margin__bottom--2"><ShareBarContainer /></div>
+        <div className="u-margin__left--2 u-margin__bottom--2"><ShareBar /></div>
       </div>
     </div>
   </div>

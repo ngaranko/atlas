@@ -44,7 +44,7 @@ exports[`Dataset should render the component 1`] = `
             <div
               className="u-margin__top--4"
             >
-              <Connect(ShareBarComponent) />
+              <Connect(ShareBar) />
             </div>
           </div>
         </div>

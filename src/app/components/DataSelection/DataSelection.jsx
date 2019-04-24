@@ -12,7 +12,7 @@ import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import { VIEWS_TO_PARAMS } from '../../../shared/ducks/data-selection/constants';
 import DataSelectionTable from './DataSelectionTable/DataSelectionTable';
 import DataSelectionList from './DataSelectionList/DataSelectionList';
-import ShareBarContainer from '../../../app/components/ShareBar/ShareBarContainer';
+import ShareBar from '../../../app/components/ShareBar/ShareBar';
 
 const DataSelection = ({
   view,
@@ -168,7 +168,7 @@ const DataSelection = ({
                     {view === VIEW_MODE.FULL && (
                       <div className="u-row">
                         <div className="u-col-sm--12">
-                          <div className="u-margin__top--4"><ShareBarContainer /></div>
+                          <div className="u-margin__top--4"><ShareBar /></div>
                         </div>
                       </div>
                     )}
