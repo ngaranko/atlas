@@ -28,8 +28,7 @@ const ShareBar = ({
       <ShareButton
         onClick={() => handlePageShare('facebook')}
         hoverColor="#3b5999"
-        alignIcon="bottom"
-        iconSize={24}
+        iconSize={30}
       >
         <Facebook />
       </ShareButton>
