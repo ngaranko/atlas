@@ -31,7 +31,7 @@ StatusBar.defaultProps = {
 
 StatusBar.propTypes = {
   date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
-  location: PropTypes.instanceOf(Array).isRequired //eslint-disable-line
+  location: PropTypes.instanceOf(Array).isRequired
 };
 
 export default StatusBar;

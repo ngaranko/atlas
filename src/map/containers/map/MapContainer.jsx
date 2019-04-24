@@ -81,15 +81,13 @@ class MapContainer extends React.Component {
               onToggleFullscreen={toggleFullscreen}
             />
           )}
-          <section className="bottom-left">
-            <MapPanelContainer isMapPanelVisible />
-            {
-              embedMode ? (
-                <MapEmbedButton />
-              ) : ''
-            }
-            { (!embedMode && isFullscreen) && <ContextMenu isMapPanelVisible /> }
-          </section>
+          <MapPanelContainer isMapPanelVisible />
+          {
+            embedMode ? (
+              <MapEmbedButton />
+            ) : ''
+          }
+          { (!embedMode && isFullscreen) && <ContextMenu isMapPanelVisible /> }
           {showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer />}
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ReactComponent as FacebookPadded } from '@datapunt/asc-assets/lib/Icons/FacebookPadded.svg';
@@ -32,7 +33,11 @@ const ContextMenu = ({
   };
 
   return (
-    <section className={`context-menu ${isMapPanelVisible && 'context-menu--offset'}`}>
+    <section className={`
+        context-menu
+        ${classNames({ 'context-menu--offset': isMapPanelVisible })}
+      `}
+    >
       <ContextMenuComponent
         alt="Actiemenu"
         icon={
@@ -115,10 +120,15 @@ const ContextMenu = ({
   );
 };
 
+ContextMenu.defaultProps = {
+  hasPrintButton: false,
+  hasEmbedButton: false
+};
+
 ContextMenu.propTypes = {
+  hasPrintButton: PropTypes.bool,
+  hasEmbedButton: PropTypes.bool,
   isMapPanelVisible: PropTypes.bool.isRequired,
-  hasPrintButton: PropTypes.bool.isRequired,
-  hasEmbedButton: PropTypes.bool.isRequired,
   openSharePage: PropTypes.func.isRequired,
   openPrintMode: PropTypes.func.isRequired,
   openEmbedPreview: PropTypes.func.isRequired
