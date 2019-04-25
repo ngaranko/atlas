@@ -30,7 +30,7 @@ describe('embed module', () => {
     cy.url().should('include', '?modus=kaart&center=52.3617139%2C4.8888734&embed-preview=true&lagen=bgem%3A1%7Ckgem%3A1%7Cksec%3A0%7Ckot%3A0&legenda=true');
   });
 
-  it.only('should show the user the embed view of the map', () => {
+  it('should show the user the embed view of the map', () => {
     cy.visit('/data?center=52.3617139%2C4.8888734&embed=true&lagen=bgem%3A1%7Ckgem%3A1%7Cksec%3A0%7Ckot%3A0&legenda=true&modus=kaart');
     // the header should be hidden
     cy.get(header).should('not.exist');
