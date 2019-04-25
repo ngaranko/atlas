@@ -59,6 +59,19 @@ exports[`Dataset should render with search results 1`] = `
           interpolateBindings={Object {}}
           moduleName="dpDataSelectionPaginationWrapper"
         />
+        <div
+          className="u-row"
+        >
+          <div
+            className="u-col-sm--12"
+          >
+            <div
+              className="u-margin__top--4"
+            >
+              <Connect(ShareBar) />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

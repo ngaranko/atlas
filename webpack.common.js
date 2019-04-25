@@ -124,6 +124,10 @@ function commonConfig({ nodeEnv }) {
               outputPath: 'assets/'
             }
           }]
+        },
+        {
+          test: /\.svg$/,
+          use: ['@svgr/webpack', 'url-loader'],
         }
       ]
     },

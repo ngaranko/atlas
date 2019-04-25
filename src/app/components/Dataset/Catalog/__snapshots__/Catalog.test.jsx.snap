@@ -2,7 +2,7 @@
 
 exports[`Catalog should render without failing 1`] = `
 <div
-  className="c-data-selection-catalog u-margin__bottom--1"
+  className="c-data-selection-catalog u-margin__bottom--4"
 >
   <div
     className="c-data-selection-catalog__list"
