@@ -8,6 +8,7 @@ import {
   fetchMapSearchResultsSuccessList,
   fetchMapSearchResultsSuccessPanel,
   fetchMoreResultsSuccess,
+  fetchSearchResultsByQuery,
   showSearchResults
 } from '../../ducks/data-search/actions';
 import {
@@ -73,16 +74,18 @@ function isString(value) {
   return typeof value === 'string';
 }
 
-function* setSearchResults(searchResults) {
+export function* setSearchResults(searchResults) {
   const numberOfResults = getNrOfSearchResults(searchResults);
   const query = yield select(getSearchQuery);
   const result = replaceBuurtcombinatie(searchResults);
+
   yield put(showSearchResults(result, query, numberOfResults));
 }
 
-function* fetchQuerySearchResults() {
+export function* fetchQuerySearchResults() {
   const query = yield select(getSearchQuery);
   const category = yield select(getSearchCategory);
+  yield put(fetchSearchResultsByQuery(query));
   yield call(waitForAuthentication);
   const user = yield select(getUser);
   if (query) {
