@@ -82,11 +82,11 @@ class PanoramaToggle extends React.Component {
                 href={getStreetViewUrl(location, heading)}
                 target="_blank"
                 rel="noopener"
-                className="
+                className={`
                   c-link
                   c-link--arrow
                   c-panorama-toggle__external-link
-                  qa-panorama-toggle__external-link"
+                  qa-panorama-toggle__external-link`}
                 onClick={this.onOpenPanoramaExternal}
               >Google Street View</a>
             </li>

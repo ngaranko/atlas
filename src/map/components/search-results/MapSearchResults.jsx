@@ -84,9 +84,10 @@ const MapSearchResults = ({
             onClick={onMaximize}
             title="Volledig weergeven"
           >
-            <span className="
-              map-search-results__button-icon
-              map-search-results__button-icon--maximize"
+            <span className={`
+                    map-search-results__button-icon
+                    map-search-results__button-icon--maximize
+                  `}
             />
             Volledig weergeven
           </button>

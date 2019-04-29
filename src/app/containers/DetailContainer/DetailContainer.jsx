@@ -1,12 +1,10 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { getUser } from '../../../shared/ducks/user/user';
 import {
   getPanoramaPreview,
   isPanoramaPreviewLoading
 } from '../../../panorama/ducks/preview/panorama-preview';
 import Detail from './Detail';
-import { fetchDetailRequest } from '../../../shared/ducks/detail/actions';
 import {
   getDetailEndpoint,
   isDetailLoading,
@@ -27,8 +25,4 @@ const mapStateToProps = (state) => ({
   detailFilterSelection: getDetailFilterSelection(state)
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onFetchDetailRequest: fetchDetailRequest
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Detail);
+export default connect(mapStateToProps)(Detail);

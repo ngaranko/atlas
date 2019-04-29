@@ -69,7 +69,7 @@ function camelCase(identifier) {
   ), '');
 }
 
-function parseContents(contents) {
+export function parseContents(contents) {
   const isDateValue = /(\d{1,2})-(\d{1,2})-(\d{4})/;
   const isDateKey = /datum/i;
   const isHref = /^(\[link |<a href=)/;
@@ -133,7 +133,9 @@ export default function getContents(type) {
       };
       getSheet(key, index)
         .then((contents) => {
-          result = parseContents(contents);
+          if (contents) {
+            result = parseContents(contents);
+          }
         })
         .finally(() => {
           cache[key][index] = result;

@@ -1,4 +1,4 @@
-import * as googleSheet from '../../../../src/shared/services/google-sheet/google.sheet';
+import * as googleSheet from '../../../../src/shared/services/google-sheet/google-sheet';
 
 describe('The user content widget component', function () {
     var $compile,
