@@ -2,12 +2,23 @@ import { testSaga } from 'redux-saga-test-plan';
 import {
   fetchMapSearchResultsFailure,
   fetchMapSearchResultsSuccessList,
-  fetchMapSearchResultsSuccessPanel
+  fetchMapSearchResultsSuccessPanel,
+  fetchSearchResultsByQuery
 } from '../../ducks/data-search/actions';
-import { fetchMapSearchResults } from './data-search';
+import {
+  getSearchCategory,
+  getSearchQuery
+} from '../../ducks/data-search/selectors';
+import {
+  querySearch
+} from '../../services/search/search';
+import { fetchMapSearchResults, fetchQuerySearchResults, setSearchResults } from './data-search';
 import geosearch from '../../services/search/geosearch';
 import search from '../../../map/services/map-search/map-search';
 import { VIEW_MODE } from '../../ducks/ui/ui';
+import { getUser } from '../../../shared/ducks/user/user';
+import { waitForAuthentication } from '../user/user';
+import { ERROR_TYPES, setGlobalError } from '../../ducks/error/error-message';
 
 describe('fetchMapSearchResults', () => {
   it('should do a geo search in a list view', () => {
@@ -54,6 +65,50 @@ describe('fetchMapSearchResults', () => {
       .next()
       .throw(error)
       .put(fetchMapSearchResultsFailure(''))
+      .next()
+      .isDone();
+  });
+});
+
+describe('fetchQuerySearchResults', () => {
+  it('should do a query search', () => {
+    testSaga(fetchQuerySearchResults, {})
+      .next()
+      .select(getSearchQuery)
+      .next('query')
+      .select(getSearchCategory)
+      .next('category')
+      .put(fetchSearchResultsByQuery('query'))
+      .next()
+      .call(waitForAuthentication)
+      .next()
+      .select(getUser)
+      .next('user')
+      .call(querySearch, 'query', 'category', 'user')
+      .next({ results: [], errors: false })
+      .call(setSearchResults, [])
+      .next()
+      .isDone();
+  });
+
+  it('should handle errors on a query search', () => {
+    testSaga(fetchQuerySearchResults, {})
+      .next()
+      .select(getSearchQuery)
+      .next('query')
+      .select(getSearchCategory)
+      .next('category')
+      .put(fetchSearchResultsByQuery('query'))
+      .next()
+      .call(waitForAuthentication)
+      .next()
+      .select(getUser)
+      .next('user')
+      .call(querySearch, 'query', 'category', 'user')
+      .next({ results: [], errors: true })
+      .put(setGlobalError(ERROR_TYPES.GENERAL_ERROR))
+      .next()
+      .call(setSearchResults, [])
       .next()
       .isDone();
   });
