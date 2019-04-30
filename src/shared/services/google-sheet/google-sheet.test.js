@@ -160,7 +160,7 @@ describe('The google sheet factory', () => {
     it('builds a URL and calls getByUri with it', () => {
       api.getByUri = jest.fn(() => Promise.resolve());
       getContents('beleid');
-      expect(api.getByUri).toHaveBeenCalledWith(`https://data.amsterdam.nl/cms/${GOOGLE_SHEET_CMS.key}.${GOOGLE_SHEET_CMS.index.beleid}.json`);
+      expect(api.getByUri).toHaveBeenCalledWith(`https://8cf50dff44f54b5a9d59d5b77fe672b3.objectstore.eu/cms/${GOOGLE_SHEET_CMS.key}.${GOOGLE_SHEET_CMS.index.beleid}.json`);
     });
 
     it('uses the cached value if loaded twice', async () => {
