@@ -2,8 +2,13 @@
 
 .context-menu {
   bottom: $container-whitespace;
+  color: $secondary-gray60;
   left: calc(#{$map-panel-button-width} + #{$container-whitespace * 2});
   position: absolute;
+
+  svg {
+    fill: $secondary-gray60;
+  }
 
   &--offset {
     left: calc(#{$map-panel-width} + #{$container-whitespace * 2});
@@ -22,16 +27,13 @@
     &:hover,
     &:active,
     &:focus {
+      background-color: $secondary-gray20;
       border: 1px solid $primary-dark;
       outline: 0;
 
-      span > svg {
+      svg {
         fill: $primary-dark;
       }
-    }
-
-    span > svg {
-      fill: $secondary-gray60;
     }
   }
 
@@ -39,6 +41,18 @@
     box-shadow: 2px 2px 0 0 $secondary-gray40;
     min-width: 200px;
     z-index: 9;
+
+    & > ul > li {
+      &:hover,
+      &:active,
+      &:focus {
+        color: $primary-dark;
+
+        svg {
+          fill: $primary-dark;
+        }
+      }
+    }
   }
 }
 

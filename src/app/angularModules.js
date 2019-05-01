@@ -47,7 +47,6 @@ import '../../modules/header/header.module';
 import '../../modules/header/components/embed-header/embed-header.component';
 import '../../modules/header/components/logo/logo.component';
 import '../../modules/header/components/logout-button/logout-button.component';
-import '../../modules/header/components/menu/dropdown/menu-dropdown.directive';
 import '../../modules/header/components/menu/menu.component';
 import '../../modules/header/components/print-button/print-button.component';
 import '../../modules/header/components/print-header/print-header.component';

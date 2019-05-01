@@ -181,6 +181,20 @@ export const hasPrintMode = createSelector(
     panoPageActive
 );
 
+export const hasEmbedMode = createSelector(
+  isMapActive,
+  isPanoPage,
+  isPanoFullscreen,
+  isDataSelectionPage,
+  (
+    mapActive,
+    panoPage,
+    panoFullscreen,
+    dataSelectionPage
+  ) =>
+    (mapActive && !panoPage && !dataSelectionPage) || (panoPage && panoFullscreen)
+);
+
 export const isPrintModeLandscape = createSelector(
   isPrintMode,
   isPanoPage,

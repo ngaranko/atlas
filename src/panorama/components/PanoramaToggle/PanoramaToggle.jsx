@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ContextMenu, ContextMenuItem, Icon } from '@datapunt/asc-ui';
-import { ReactComponent as Embed } from '@datapunt/asc-assets/lib/Icons/Embed.svg';
 import { ReactComponent as ExternalLink } from '@datapunt/asc-assets/lib/Icons/ExternalLink.svg';
+import { ReactComponent as Clock } from '../../../shared/assets/icons/Clock.svg';
 import { setPanoramaTags, fetchPanoramaRequestExternal } from '../../ducks/actions';
 import { PANO_LABELS } from '../../ducks/constants';
 import { getStreetViewUrl } from '../../services/panorama-api/panorama-api';
@@ -44,7 +44,7 @@ const PanoramaToggle = ({
         open={showMenu}
         icon={
           <Icon padding={4} inline size={24}>
-            <Embed />
+            <Clock />
           </Icon>
         }
         label={currentLabel}

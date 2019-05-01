@@ -34,7 +34,12 @@ import IconButton from '../../app/components/IconButton/IconButton';
 import { getMapDetail } from '../../map/ducks/detail/actions';
 import { getMapOverlays } from '../../map/ducks/map/selectors';
 import { pageTypeToEndpoint } from '../../map/services/map-detail';
-import { isPrintOrEmbedMode, setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
+import {
+  isPrintOrEmbedMode,
+  isPrintMode,
+  setViewMode,
+  VIEW_MODE
+} from '../../shared/ducks/ui/ui';
 
 class PanoramaContainer extends React.Component {
   constructor(props) {
@@ -70,9 +75,14 @@ class PanoramaContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { panoramaState } = this.props;
+    const { panoramaState, printOrEmbedMode } = this.props;
 
     if (panoramaState.image !== prevProps.panoramaState.image) {
+      this.loadPanoramaScene();
+    }
+
+    if (printOrEmbedMode !== prevProps.printOrEmbedMode) {
+      this.panoramaViewer = initialize(this.panoramaRef);
       this.loadPanoramaScene();
     }
   }
@@ -123,7 +133,8 @@ class PanoramaContainer extends React.Component {
   render() {
     const {
       isFullscreen,
-      hasContextMenu,
+      printOrEmbedMode,
+      printMode,
       panoramaState,
       onClose,
       tags
@@ -153,13 +164,13 @@ class PanoramaContainer extends React.Component {
           icon="cross"
         />
 
-        <PanoramaToggle
+        { !printMode && <PanoramaToggle
           location={panoramaState.location}
           heading={panoramaState.heading}
           currentLabel={getLabelObjectByTags(tags).label}
-        />
+        /> }
 
-        { hasContextMenu && <ContextMenu /> }
+        { !printOrEmbedMode && <ContextMenu /> }
 
         {(panoramaState.date && panoramaState.location) ? (
           <StatusBar
@@ -181,7 +192,8 @@ const mapStateToProps = (state) => ({
   pageReference: getDetailReference(state),
   panoramaLocation: getPanoramaLocation(state),
   overlays: getMapOverlays(state),
-  hasContextMenu: !isPrintOrEmbedMode(state)
+  printOrEmbedMode: isPrintOrEmbedMode(state),
+  printMode: isPrintMode(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -197,7 +209,8 @@ const mapDispatchToProps = (dispatch) => ({
 PanoramaContainer.propTypes = {
   panoramaState: PropTypes.shape({}).isRequired,
   isFullscreen: PropTypes.bool.isRequired,
-  hasContextMenu: PropTypes.bool.isRequired,
+  printOrEmbedMode: PropTypes.bool.isRequired,
+  printMode: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   setView: PropTypes.func.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,

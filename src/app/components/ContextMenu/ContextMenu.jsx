@@ -11,7 +11,7 @@ import { ReactComponent as Print } from '@datapunt/asc-assets/lib/Icons/Print.sv
 import { ReactComponent as Embed } from '@datapunt/asc-assets/lib/Icons/Embed.svg';
 import { ReactComponent as Ellipsis } from '@datapunt/asc-assets/lib/Icons/Ellipsis.svg';
 import { ContextMenu as ContextMenuComponent, ContextMenuItem, Icon } from '@datapunt/asc-ui';
-import { hasPrintMode, isMapActive, isPanoFullscreen, sharePage, showPrintMode, showEmbedPreview } from '../../../shared/ducks/ui/ui';
+import { hasPrintMode, hasEmbedMode, sharePage, showPrintMode, showEmbedPreview } from '../../../shared/ducks/ui/ui';
 import { isMapPanelActive } from '../../../map/ducks/map/selectors';
 import getShareUrl from '../../../shared/services/share-url/share-url';
 
@@ -137,7 +137,7 @@ ContextMenu.propTypes = {
 const mapStateToProps = (state) => ({
   isMapPanelVisible: isMapPanelActive(state),
   hasPrintButton: hasPrintMode(state),
-  hasEmbedButton: isMapActive(state) || isPanoFullscreen(state)
+  hasEmbedButton: hasEmbedMode(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
