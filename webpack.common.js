@@ -80,6 +80,19 @@ function commonConfig({ nodeEnv }) {
           use: 'html-loader'
         },
         {
+          test: /\.(png|svg|cur)$/,
+          include: [
+            legacy
+          ],
+          exclude: /src/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              outputPath: 'assets/'
+            }
+          }]
+        },
+        {
           test: /\.svg$/,
           use: [
             {
@@ -109,25 +122,8 @@ function commonConfig({ nodeEnv }) {
                 }
               }
             },
-            'url-loader'
+            'file-loader'
           ],
-        },
-        {
-          test: /\.(png|svg|cur)$/,
-          include: [
-            legacy
-          ],
-          exclude: /src/,
-          use: [{
-            loader: 'file-loader',
-            options: {
-              outputPath: 'assets/'
-            }
-          }]
-        },
-        {
-          test: /\.svg$/,
-          use: ['@svgr/webpack', 'url-loader'],
         }
       ]
     },

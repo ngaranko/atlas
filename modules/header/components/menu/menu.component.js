@@ -9,9 +9,7 @@ import { routing } from '../../../../src/app/routes';
         .module('dpHeader')
         .component('dpMenu', {
             bindings: {
-                hasPrintButton: '<',
                 isHomepage: '<',
-                hasEmbedButton: '<',
                 size: '=',
                 user: '<'
             },

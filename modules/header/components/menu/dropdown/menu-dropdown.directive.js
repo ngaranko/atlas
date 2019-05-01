@@ -1,5 +1,3 @@
-import { showEmbedPreview, showPrintMode } from '../../../../../src/shared/ducks/ui/ui';
-
 (function () {
     'use strict';
 
@@ -14,9 +12,7 @@ import { showEmbedPreview, showPrintMode } from '../../../../../src/shared/ducks
                 title: '@',
                 type: '@',
                 align: '@',
-                isHomepage: '<',
-                hasPrintButton: '<',
-                hasEmbedButton: '<'
+                isHomepage: '<'
             },
             transclude: true,
             templateUrl: 'modules/header/components/menu/dropdown/menu-dropdown.html',
@@ -28,9 +24,6 @@ import { showEmbedPreview, showPrintMode } from '../../../../../src/shared/ducks
 
             scope.isVisible = false;
             scope.align = scope.align === 'left' ? 'left' : 'right';
-
-            scope.embedAction = showEmbedPreview();
-            scope.printAction = showPrintMode();
 
             scope.toggleDropdown = function () {
                 scope.isVisible = !scope.isVisible;
