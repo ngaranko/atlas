@@ -9,7 +9,7 @@ export const GOOGLE_SHEET_CMS = {
   getStatic: {
     [ENVIRONMENTS.PRODUCTION]: true,
     [ENVIRONMENTS.PRE_PRODUCTION]: true,
-    [ENVIRONMENTS.ACCEPTANCE]: false,
+    [ENVIRONMENTS.ACCEPTANCE]: true,
     [ENVIRONMENTS.DEVELOPMENT]: false
   },
   staticAddress: 'https://8cf50dff44f54b5a9d59d5b77fe672b3.objectstore.eu/cms',
