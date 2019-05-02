@@ -102,7 +102,7 @@ describe('mapSearch service', () => {
   });
 
   describe('fetchRelatedForUser', () => {
-    it('should return just the base features when no user related features found', () => {
+    it('should return just the base features when no user related features found', async () => {
       const features = [
         {
           properties: {
@@ -110,7 +110,7 @@ describe('mapSearch service', () => {
           }
         }
       ];
-      const results = fetchRelatedForUser(user)({ features });
+      const results = await fetchRelatedForUser(user)({ features });
       expect(results).toEqual(features);
     });
 

@@ -1,4 +1,4 @@
-import getContents, { cache, GOOGLE_SHEET_CMS } from './google.sheet';
+import getContents, { cache, GOOGLE_SHEET_CMS } from './google-sheet';
 import * as api from '../api/api';
 import * as environments from '../../environment';
 
@@ -164,9 +164,11 @@ describe('The google sheet factory', () => {
     });
 
     it('uses the cached value if loaded twice', async () => {
-      api.getByUri = jest.fn(() => Promise.resolve());
+      const resolved = Promise.resolve();
+      api.getByUri = jest.fn(() => resolved);
       await getContents('beleid');
       await getContents('beleid');
+      await resolved;
       expect(api.getByUri).toHaveBeenCalledTimes(1);
     });
 

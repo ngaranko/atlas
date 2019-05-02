@@ -84,9 +84,10 @@ const MapSearchResults = ({
             onClick={onMaximize}
             title="Volledig weergeven"
           >
-            <span className="
-              map-search-results__button-icon
-              map-search-results__button-icon--maximize"
+            <span className={`
+                    map-search-results__button-icon
+                    map-search-results__button-icon--maximize
+                  `}
             />
             Volledig weergeven
           </button>
@@ -102,7 +103,7 @@ MapSearchResults.defaultProps = {
 };
 
 MapSearchResults.propTypes = {
-  location: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  location: PropTypes.shape({}).isRequired,
   missingLayers: PropTypes.string, // eslint-disable-line
   onItemClick: PropTypes.func.isRequired,
   onMaximize: PropTypes.func.isRequired,
