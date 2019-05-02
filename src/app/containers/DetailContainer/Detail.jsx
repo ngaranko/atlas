@@ -32,13 +32,13 @@ const Detail = ({
         endpoint
       }}
     />
-  {!printMode && (
-    <div className="u-row">
-      <div className="u-col-sm--12">
-        <div className="u-margin__left--2 u-margin__top--2"><ShareBar /></div>
+    {!printMode && (
+      <div className="u-row">
+        <div className="u-col-sm--12">
+          <div className="u-margin__left--2 u-margin__top--2"><ShareBar /></div>
+        </div>
       </div>
-    </div>
-  )}
+    )}
   </div>
   );
 
