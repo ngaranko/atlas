@@ -9,11 +9,11 @@ export const GOOGLE_SHEET_CMS = {
   getStatic: {
     [ENVIRONMENTS.PRODUCTION]: true,
     [ENVIRONMENTS.PRE_PRODUCTION]: true,
-    [ENVIRONMENTS.ACCEPTANCE]: true,
+    [ENVIRONMENTS.ACCEPTANCE]: false,
     [ENVIRONMENTS.DEVELOPMENT]: false
   },
-  staticAddress: 'https://8cf50dff44f54b5a9d59d5b77fe672b3.objectstore.eu/cms',
-  staticAddressProxy: 'https://data.amsterdam.nl/cms',
+  // TODO DP-6908 replace this to files.data.amsterdam.nl/cms when made available
+  staticAddress: '/cms',
   key: '1ZExuZHhmvBRP-7rhuY43Lv7dWuAsGKXwfKd1_3BZfbI',
   index: {
     news: 1,
