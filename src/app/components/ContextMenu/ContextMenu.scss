@@ -8,6 +8,10 @@
 
   svg {
     fill: $secondary-gray60;
+
+    & > g > g {
+      fill: $secondary-gray60;
+    }
   }
 
   &--offset {
@@ -22,7 +26,17 @@
     border: 1px solid $secondary-gray20;
     box-shadow: 2px 2px 0 0 $secondary-gray40;
     height: 34px;
+    padding: 0 4px;
     z-index: 10;
+
+    & > span {
+      text-align: left;
+      width: 100%;
+
+      &:not(:last-child) {
+        margin-right: 4px;
+      }
+    }
 
     &:hover,
     &:active,
@@ -33,6 +47,10 @@
 
       svg {
         fill: $primary-dark;
+
+        & > g > g {
+          fill: $primary-dark;
+        }
       }
     }
   }

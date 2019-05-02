@@ -87,14 +87,17 @@ $button-height: 24px;
 
       &--close {
         @include icon-sprite("icon-clear", $secondary-gray60, $primary-dark, $button-height);
+        background-color: $primary-light;
       }
 
       &--maximize {
         @include icon-sprite("icon-maximize", $secondary-gray60, $primary-dark, $button-height);
+        background-color: $primary-light;
       }
 
       &--plus {
         @include icon-sprite("icon-plus", $secondary-gray60, $primary-dark, $button-height);
+        background-color: $primary-light;
       }
     }
   }

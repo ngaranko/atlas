@@ -66,6 +66,8 @@ $icon-height: 20px;
 }
 
 .select-button__wrapper {
+  background-color: $primary-light;
+
   &:hover,
   &:focus {
     .icon--topography {
@@ -76,4 +78,8 @@ $icon-height: 20px;
       @include icon-sprite("icon-aerial", $primary-dark, $primary-dark, $icon-height);
     }
   }
+}
+
+.select-button__icon-wrapper {
+  background-color: $primary-light;
 }

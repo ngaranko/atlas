@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ShareBar from '../../components/ShareBar/ShareBar';
 
 /* istanbul ignore next */ // TODO: refactor, test
 const SplitScreen = ({ leftComponent, rightComponent, printMode }) => (
@@ -25,12 +24,6 @@ const SplitScreen = ({ leftComponent, rightComponent, printMode }) => (
       `}
     >
       {rightComponent}
-      {printMode ? '' : <div className="u-row">
-        <div className="u-col-sm--12">
-          <div className="u-margin__left--2 u-margin__bottom--2"><ShareBar /></div>
-        </div>
-      </div>
-      }
     </div>
   </div>
 );

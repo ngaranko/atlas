@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { getUser } from '../../../shared/ducks/user/user';
+import { isPrintMode } from '../../../shared/ducks/ui/ui';
 import {
   getDataSearchError,
   getDataSearchLocation,
@@ -16,6 +17,7 @@ const mapStateToProps = (state) => ({
   searchResults: getMapListResults(state),
   numberOfResults: getNumberOfResults(state),
   panoramaPreview: !!getPanoramaPreview(state),
+  printMode: isPrintMode(state),
   location: getDataSearchLocation(state),
   layerWarning: getDataSearchError(state)
 });

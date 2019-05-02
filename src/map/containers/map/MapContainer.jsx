@@ -102,7 +102,8 @@ MapContainer.defaultProps = {
   showPreviewPanel: false,
   drawMode: 'none',
   toggleFullscreen: null,
-  isFullscreen: true
+  isFullscreen: true,
+  printOrEmbedMode: false
 };
 
 MapContainer.propTypes = {
@@ -110,7 +111,7 @@ MapContainer.propTypes = {
   toggleFullscreen: PropTypes.func,
   drawMode: PropTypes.string,
   embedMode: PropTypes.bool.isRequired,
-  printOrEmbedMode: PropTypes.bool.isRequired,
+  printOrEmbedMode: PropTypes.bool,
   showPreviewPanel: PropTypes.bool,
   previewDataAvailable: PropTypes.bool.isRequired
 };

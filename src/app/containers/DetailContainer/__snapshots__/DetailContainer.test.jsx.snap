@@ -29,5 +29,18 @@ exports[`DetailContainer should render 1`] = `
     }
     moduleName="dpDetailWrapper"
   />
+  <div
+    className="u-row"
+  >
+    <div
+      className="u-col-sm--12"
+    >
+      <div
+        className="u-margin__left--2 u-margin__top--2"
+      >
+        <Connect(ShareBar) />
+      </div>
+    </div>
+  </div>
 </div>
 `;

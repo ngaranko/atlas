@@ -65,6 +65,7 @@
   &__toggle {
     @extend %hover-focus-button;
     align-items: center;
+    background-color: $primary-light;
     border-radius: 0;
     display: flex;
     height: 100%;

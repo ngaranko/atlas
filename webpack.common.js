@@ -80,19 +80,6 @@ function commonConfig({ nodeEnv }) {
           use: 'html-loader'
         },
         {
-          test: /\.(png|svg|cur)$/,
-          include: [
-            legacy
-          ],
-          exclude: /src/,
-          use: [{
-            loader: 'file-loader',
-            options: {
-              outputPath: 'assets/'
-            }
-          }]
-        },
-        {
           test: /\.svg$/,
           use: [
             {
@@ -122,9 +109,21 @@ function commonConfig({ nodeEnv }) {
                 }
               }
             },
-            'file-loader'
+            'url-loader'
           ],
-        }
+        },
+        {
+          test: /\.(png|svg|cur)$/,
+          include: [
+            legacy
+          ],
+          use: [{
+            loader: 'file-loader',
+            options: {
+              outputPath: 'assets/'
+            }
+          }]
+        },
       ]
     },
     plugins: [

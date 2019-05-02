@@ -206,11 +206,16 @@ const mapDispatchToProps = (dispatch) => ({
   }, dispatch)
 });
 
+PanoramaContainer.defaultProps = {
+  printOrEmbedMode: false,
+  printMode: false
+};
+
 PanoramaContainer.propTypes = {
   panoramaState: PropTypes.shape({}).isRequired,
   isFullscreen: PropTypes.bool.isRequired,
-  printOrEmbedMode: PropTypes.bool.isRequired,
-  printMode: PropTypes.bool.isRequired,
+  printOrEmbedMode: PropTypes.bool,
+  printMode: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   setView: PropTypes.func.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
