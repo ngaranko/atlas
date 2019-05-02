@@ -45,6 +45,7 @@
     "angular-sanitize": "~1.5.11",
     "bbga_visualisatie_d3": "https://github.com/Amsterdam/bbga_visualisatie_d3.git#master",
     "classnames": "2.2.6",
+    "core-js": "^3.0.1",
     "cross-env": "5.2.0",
     "d3": "3.5.17",
     "deep-copy": "1.4.2",

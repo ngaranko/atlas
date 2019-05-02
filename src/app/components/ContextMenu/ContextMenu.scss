@@ -30,6 +30,14 @@
     z-index: 10;
 
     & > span {
+      color: $secondary-gray60;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: $primary-dark;
+      }
+
       &:not(:last-child) {
         margin-right: 4px;
 
