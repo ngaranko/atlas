@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* eslint-disable import/first */
 /* eslint-disable import/no-extraneous-dependencies */
 import 'core-js/shim';
@@ -185,3 +186,4 @@ angular.mock.inject = (callback) => {
   });
   origInject(callback);
 };
+/* eslint-enable */
