@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    <div ng-if="vm.apiData"
+    <div ng-if="vm.apiData && vm.user.scopes.includes('BRK/RS')"
          class="c-detail__block qa-kadastraal-subject-recht">
         <dp-glossary-header definition="ZAKELIJK_RECHT" use-plural="true"></dp-glossary-header>
 

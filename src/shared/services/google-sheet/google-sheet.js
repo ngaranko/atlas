@@ -12,7 +12,8 @@ export const GOOGLE_SHEET_CMS = {
     [ENVIRONMENTS.ACCEPTANCE]: false,
     [ENVIRONMENTS.DEVELOPMENT]: false
   },
-  staticAddress: 'https://data.amsterdam.nl/cms',
+  // TODO DP-6908 replace this to files.data.amsterdam.nl/cms when made available
+  staticAddress: '/cms',
   key: '1ZExuZHhmvBRP-7rhuY43Lv7dWuAsGKXwfKd1_3BZfbI',
   index: {
     news: 1,
@@ -69,7 +70,7 @@ function camelCase(identifier) {
   ), '');
 }
 
-function parseContents(contents) {
+export function parseContents(contents) {
   const isDateValue = /(\d{1,2})-(\d{1,2})-(\d{4})/;
   const isDateKey = /datum/i;
   const isHref = /^(\[link |<a href=)/;
@@ -133,7 +134,9 @@ export default function getContents(type) {
       };
       getSheet(key, index)
         .then((contents) => {
-          result = parseContents(contents);
+          if (contents) {
+            result = parseContents(contents);
+          }
         })
         .finally(() => {
           cache[key][index] = result;

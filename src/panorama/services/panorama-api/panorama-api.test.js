@@ -146,7 +146,7 @@ describe('The Panorama Api', () => {
       let response;
       getImageDataById('###', {}).then((_response_) => {
         response = _response_;
-      });
+      }).catch(() => {});
 
       expect(getByUrl).toHaveBeenCalled();
       expect(response).toBe(undefined);
@@ -194,7 +194,7 @@ describe('The Panorama Api', () => {
       let response;
       getImageDataByLocation([999, 999], {}).then((_response_) => {
         response = _response_;
-      });
+      }).catch(() => {});
 
       expect(getByUrl).toHaveBeenCalled();
       expect(response).toBe(undefined);
