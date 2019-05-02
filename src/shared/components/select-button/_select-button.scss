@@ -146,6 +146,7 @@ $handle-height: 24px;
   &__drop-down-button {
     -webkit-appearance: none; // sass-lint:disable-line no-vendor-prefixes
     appearance: none;
+    background-color: transparent;
     border: none;
     font-family: "Avenir LT W01 55 Roman";
     font-size: 16px;

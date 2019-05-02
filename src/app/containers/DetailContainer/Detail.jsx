@@ -11,7 +11,8 @@ const Detail = ({
   isPreviewPanoramaLoading,
   detailTemplateUrl,
   detailData,
-  detailFilterSelection
+  detailFilterSelection,
+  printMode
 }) =>
   (<div className="qa-detail">
     <AngularWrapper
@@ -31,11 +32,13 @@ const Detail = ({
         endpoint
       }}
     />
+  {!printMode && (
     <div className="u-row">
       <div className="u-col-sm--12">
         <div className="u-margin__left--2 u-margin__top--2"><ShareBar /></div>
       </div>
     </div>
+  )}
   </div>
   );
 
@@ -44,7 +47,8 @@ Detail.defaultProps = {
   isPreviewPanoramaLoading: undefined,
   detailTemplateUrl: undefined,
   detailData: undefined,
-  detailFilterSelection: undefined
+  detailFilterSelection: undefined,
+  printMode: false
 };
 
 Detail.propTypes = {
@@ -52,6 +56,7 @@ Detail.propTypes = {
   user: PropTypes.shape({}).isRequired,
   endpoint: PropTypes.string.isRequired,
   previewPanorama: PropTypes.shape({}),
+  printMode: PropTypes.bool,
   isPreviewPanoramaLoading: PropTypes.bool,
   detailTemplateUrl: PropTypes.string,
   detailData: PropTypes.shape({}),

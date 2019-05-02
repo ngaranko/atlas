@@ -30,8 +30,10 @@
     z-index: 10;
 
     & > span {
-      text-align: left;
-      width: 100%;
+      &:nth-child(2):not(:last-child) {
+        text-align: left;
+        width: 100%;
+      }
 
       &:not(:last-child) {
         margin-right: 4px;
