@@ -1019,31 +1019,6 @@ const mapLayers = [
     url: '/maps/hoofdroutes',
     noDetail: true
   },
-  //{
-  //  category: THEMES.TRAFFIC,
-  //  id: 'pr',
-  //  layers: ['reistijdenauto'],
-  //  legendItems: [
-  //    { title: '0 tot 20 km/h - snelweg' },
-  //    { title: '20 tot 40 km/h - snelweg' },
-  //    { title: '40 tot 60 km/h - snelweg' },
-  //    { title: '60 tot 80 km/h - snelweg' },
-  //    { title: '80 tot 100 km/h - snelweg' },
-  //    { title: '100 tot 120 km/h - snelweg' },
-  //    { title: '120 tot 140 km/h - snelweg' },
-  //    { title: 'meer dan 140 km/h - snelweg' },
-  //    { title: '0 tot 10 km/h - weg' },
-  //    { title: '10 tot 20 km/h - weg' },
-  //    { title: '20 tot 30 km/h - weg' },
-  //    { title: '30 tot 40 km/h - weg' },
-  //    { title: '40 tot 50 km/h - weg' },
-  //    { title: '50 tot 60 km/h - weg' },
-  //    { title: 'meer dan 60 km/h - weg' }
-  //  ],
-  //  title: 'Verkeersstromen - Snelheden (±5 min. geleden)',
-  //  url: '/maps/reistijdenauto',
-  //  noDetail: true
-  //},
   {
     category: THEMES.TRAFFIC,
     id: 'vezips',
