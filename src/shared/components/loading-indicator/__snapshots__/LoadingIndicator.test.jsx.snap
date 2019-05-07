@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Checkbox should render everything 1`] = `
-<span
+<div
   className="loading-indicator"
-/>
+>
+  <span
+    className="icon"
+  />
+</div>
 `;
