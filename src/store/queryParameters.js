@@ -227,7 +227,7 @@ export default paramsRegistry
         },
         selector: getFiltersWithoutShape,
         encode: (selectorResult = {}) =>
-          (Object.keys(selectorResult).length ? JSON.stringify(selectorResult) : undefined)
+          Object.keys(selectorResult).length ? JSON.stringify(selectorResult) : undefined
       }
     );
   })
@@ -239,10 +239,10 @@ export default paramsRegistry
       {
         defaultValue: panoramaInitialState.detailReference,
         decode: (val) =>
-          (val && val.length ? val.split(',') : panoramaInitialState.detailReference),
+          val && val.length ? val.split(',') : panoramaInitialState.detailReference,
         selector: getDetailReference,
         encode: (selectorResult) =>
-          (selectorResult.length ? selectorResult.join() : panoramaInitialState.detailReference)
+          selectorResult.length ? selectorResult.join() : panoramaInitialState.detailReference
       },
       false
     );
@@ -284,14 +284,13 @@ export default paramsRegistry
       'overlays',
       {
         defaultValue: mapInitialState.overlays,
-        decode: (val) => (
+        decode: (val) =>
           val
             ? val.split('|').map((obj) => {
               const layerInfo = obj.split(':');
               return { id: layerInfo[0], isVisible: !!parseInt(layerInfo[1], 0) };
             })
-            : mapInitialState.overlays
-          ),
+            : mapInitialState.overlays,
         selector: getMapOverlays,
         encode: (selectorResult) =>
           selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
@@ -307,13 +306,13 @@ export default paramsRegistry
         'location',
       {
         decode: (val) =>
-            (val
+            val
               ? val.split(',').map((string) => parseFloat(string))
-              : panoramaInitialState.location),
+              : panoramaInitialState.location,
         defaultValue: panoramaInitialState.location,
         selector: getPanoramaLocation,
         encode: (selectorResult) =>
-            (selectorResult ? selectorResult.join() : panoramaInitialState.location)
+            selectorResult ? selectorResult.join() : panoramaInitialState.location
       },
         false
       )
@@ -349,8 +348,10 @@ export default paramsRegistry
         defaultValue: mapInitialState.marker,
         decode: (val) =>
           val && val.split(',').map((ltLng) => normalizeCoordinate(parseFloat(ltLng), 7)),
-        encode: (selectorResult) =>
-        selectorResult && selectorResult.map((coordinate) => normalizeCoordinate(coordinate, 7)).join(','),
+        encode: (value) => {
+          console.log('TCL: coordinate', value);
+          return value && value.position && value.position.join(',');
+        },
         selector: getMarkerLocation
       },
       false

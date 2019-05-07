@@ -175,6 +175,7 @@ class MapLeaflet extends React.Component {
       layers,
       mapOptions,
       markers,
+      marker,
       scaleControlOptions,
       zoomControlOptions,
       zoom,
@@ -288,6 +289,16 @@ class MapLeaflet extends React.Component {
             ))
           }
           {
+            marker && (
+              <CustomMarker
+                position={marker.position}
+                key={marker.toString()}
+                icon={icons[marker.type](marker.iconData)}
+              />
+            )
+          }
+
+          {
             geoJsons.map((shape) => Boolean(shape.geoJson) && (
               <GeoJSON
                 data={shape.geoJson}
@@ -335,6 +346,7 @@ MapLeaflet.defaultProps = {
   layers: [],
   mapOptions: {},
   markers: [],
+  marker: null,
   scaleControlOptions: {},
   zoomControlOptions: {},
   zoom: 11,
@@ -360,6 +372,7 @@ MapLeaflet.propTypes = {
   isZoomControlVisible: PropTypes.bool,
   mapOptions: PropTypes.shape({}),
   markers: PropTypes.arrayOf(PropTypes.shape({})),
+  marker: PropTypes.shape({}),
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,

@@ -8,12 +8,14 @@ export const dataSelectionType = 'dataSelectionType';
 export const detailPointType = 'detailPointType';
 export const panoramaPersonType = 'panoramaPersonType';
 export const panoramaOrientationType = 'panoramaOrientationType';
+export const markerPointType = 'markerPointType';
 
 const icons = {
   [geoSearchType]: searchIcon,
   [dataSelectionType]: dataSelectionIcon,
   [detailPointType]: detailIcon,
   [panoramaPersonType]: panoramaPersonIcon,
-  [panoramaOrientationType]: panoramaOrientationIcon
+  [panoramaOrientationType]: panoramaOrientationIcon,
+  [markerPointType]: searchIcon
 };
 export default icons;

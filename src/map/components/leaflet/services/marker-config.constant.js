@@ -3,7 +3,8 @@ import {
   dataSelectionType,
   detailPointType,
   panoramaPersonType,
-  panoramaOrientationType
+  panoramaOrientationType,
+  markerPointType
 } from './icons.constant';
 
 const markerConfig = {
@@ -11,6 +12,7 @@ const markerConfig = {
   [dataSelectionType]: {},
   [detailPointType]: { requestFocus: true },
   [panoramaPersonType]: { requestFocus: true },
-  [panoramaOrientationType]: { requestFocus: true }
+  [panoramaOrientationType]: { requestFocus: true },
+  [markerPointType]: {}
 };
 export default markerConfig;
