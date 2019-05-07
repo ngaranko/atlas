@@ -1,8 +1,4 @@
 @import "../../../shared/styles/config";
-$map-panel-heading-height: 33px;
-$map-panel-offset: 130px;
-$map-panel-max-width: 444px;
-$handle-height: 24px;
 
 .map-panel {
   background-color: $primary-light;
@@ -14,19 +10,17 @@ $handle-height: 24px;
   font-family: "Avenir LT W01 55 Roman";
   left: $container-whitespace;
   max-height: calc(100% - #{$dashboard-heading-height} - #{$map-panel-offset});
-  max-width: $map-panel-max-width;
-  min-width: 268px;
   overflow: hidden;
   position: absolute;
-  width: 28vw;
+  width: $map-panel-width;
   z-index: 100;
 
   &--collapsed {
     border: none;
     height: auto;
-    min-width: auto;
+    min-width: $map-panel-button-width;
     top: auto;
-    width: auto;
+    width: $map-panel-button-width;
 
     .scroll-wrapper {
       display: none;
@@ -71,6 +65,7 @@ $handle-height: 24px;
   &__toggle {
     @extend %hover-focus-button;
     align-items: center;
+    background-color: $primary-light;
     border-radius: 0;
     display: flex;
     height: 100%;
@@ -84,14 +79,18 @@ $handle-height: 24px;
 
     &--icon {
       height: $handle-height;
+      margin-left: 8px;
       width: $handle-height;
 
-      &-collapse {
-        @include icon-sprite("icon-arrow-down", $secondary-gray60, $primary-dark, $handle-height);
+      svg {
+        fill: $secondary-gray60;
+        height: $handle-height;
+        padding: 4px;
+        width: $handle-height;
       }
 
-      &-expand {
-        @include icon-sprite("icon-arrow-up", $secondary-gray60, $primary-dark, $handle-height);
+      &-collapse {
+        transform: rotate(180deg);
       }
     }
 
@@ -105,12 +104,8 @@ $handle-height: 24px;
         @include icon-sprite("icon-map-layers", $primary-dark, $primary-dark, $handle-height);
       }
 
-      .map-panel__toggle--icon-collapse {
-        @include icon-sprite("icon-arrow-down", $primary-dark, $primary-dark, $handle-height);
-      }
-
-      .map-panel__toggle--icon-expand {
-        @include icon-sprite("icon-arrow-up", $primary-dark, $primary-dark, $handle-height);
+      svg {
+        fill: $primary-dark;
       }
     }
   }
@@ -184,7 +179,8 @@ $handle-height: 24px;
   .leaflet-control-zoom {
     border: none;
     box-shadow: none;
-    margin-right: 8px;
+    margin-bottom: $container-whitespace;
+    margin-right: $container-whitespace;
   }
 
   .leaflet-control-zoom-in,
@@ -209,6 +205,17 @@ $handle-height: 24px;
   }
 
   .leaflet-control-scale {
-    margin: 0 8px 8px 0 !important;
+    margin: 0 $container-whitespace $container-whitespace 0 !important;
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .map-panel {
+    width: $map-panel-max-width;
+
+    &--collapsed {
+      min-width: $map-panel-button-width;
+      width: $map-panel-button-width;
+    }
   }
 }

@@ -16,11 +16,20 @@ export const SHOW_EMBED_PREVIEW = `${REDUCER_KEY}/SHOW_EMBED_PREVIEW`;
 export const SHOW_PRINT = `${REDUCER_KEY}/SHOW_PRINT`;
 export const TOGGLE_MAP_PANEL_HANDLE = `${REDUCER_KEY}/TOGGLE_MAP_PANEL_HANDLE`;
 export const SET_VIEW_MODE = `${REDUCER_KEY}/SET_VIEW_MODE`;
+export const SHARE_PAGE = `${REDUCER_KEY}/SHARE_PAGE`;
 
 export const VIEW_MODE = {
   MAP: 'kaart',
   SPLIT: 'gesplitst',
   FULL: 'volledig'
+};
+
+export const SHARE_OPTIONS = {
+  FACEBOOK: 'facebook',
+  TWITTER: 'twitter',
+  LINKEDIN: 'linkedin',
+  EMAIL: 'email',
+  PRINT: 'printversie'
 };
 
 export const initialState = {
@@ -110,6 +119,12 @@ export const hideEmbedMode = () => ({
     tracking: true
   }
 });
+export const sharePage = (payload) => ({
+  type: SHARE_PAGE,
+  meta: {
+    tracking: payload
+  }
+});
 export const toggleMapPanelHandle = () => ({ type: TOGGLE_MAP_PANEL_HANDLE });
 
 // Selectors
@@ -139,6 +154,10 @@ export const isMapActive = createSelector(
   getViewMode, isMapPage,
   (viewMode, isMapPageActive) => viewMode === VIEW_MODE.MAP || isMapPageActive
 );
+export const isPanoFullscreen = createSelector(
+  getViewMode, isPanoPage,
+  (viewMode, isPano) => viewMode === VIEW_MODE.FULL && isPano
+);
 export const hasPrintMode = createSelector(
   isDataSelectionPage,
   isDatasetPage,
@@ -160,6 +179,20 @@ export const hasPrintMode = createSelector(
     (!datasetPage || datasetDetailPage) &&
     (dataPage || mapActive || viewMode === VIEW_MODE.SPLIT)) ||
     panoPageActive
+);
+
+export const hasEmbedMode = createSelector(
+  isMapActive,
+  isPanoPage,
+  isPanoFullscreen,
+  isDataSelectionPage,
+  (
+    mapActive,
+    panoPage,
+    panoFullscreen,
+    dataSelectionPage
+  ) =>
+    (mapActive && !panoPage && !dataSelectionPage) || (panoPage && panoFullscreen)
 );
 
 export const isPrintModeLandscape = createSelector(

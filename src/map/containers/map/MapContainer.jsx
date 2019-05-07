@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { LatLngBounds } from 'leaflet';
 
-import { isEmbedded } from '../../../shared/ducks/ui/ui';
+import { isEmbedded, isPrintOrEmbedMode } from '../../../shared/ducks/ui/ui';
 
 import DrawTool from '../../containers/draw-tool/DrawToolContainer';
 import ToggleFullscreen from '../../../app/components/ToggleFullscreen/ToggleFullscreen';
+import ContextMenu from '../../../app/components/ContextMenu/ContextMenu';
 
 import LeafletContainer from '../leaflet/LeafletContainer';
 import MapPanelContainer from '../../containers/panel/MapPanelContainer';
@@ -32,6 +33,7 @@ export const overrideLeafletGetBounds = (map) => {
 const mapStateToProps = (state) => ({
   drawMode: getDrawingMode(state),
   embedMode: isEmbedded(state),
+  printOrEmbedMode: isPrintOrEmbedMode(state),
   previewDataAvailable: previewDataAvailableSelector(state)
 });
 
@@ -52,6 +54,7 @@ class MapContainer extends React.Component {
   render() {
     const {
       embedMode,
+      printOrEmbedMode,
       isFullscreen,
       toggleFullscreen,
       drawMode,
@@ -86,6 +89,7 @@ class MapContainer extends React.Component {
               <MapEmbedButton />
             ) : ''
           }
+          { (!printOrEmbedMode && isFullscreen) && <ContextMenu isMapPanelVisible /> }
           {showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer />}
         </div>
       </div>
@@ -98,7 +102,8 @@ MapContainer.defaultProps = {
   showPreviewPanel: false,
   drawMode: 'none',
   toggleFullscreen: null,
-  isFullscreen: true
+  isFullscreen: true,
+  printOrEmbedMode: false
 };
 
 MapContainer.propTypes = {
@@ -106,6 +111,7 @@ MapContainer.propTypes = {
   toggleFullscreen: PropTypes.func,
   drawMode: PropTypes.string,
   embedMode: PropTypes.bool.isRequired,
+  printOrEmbedMode: PropTypes.bool,
   showPreviewPanel: PropTypes.bool,
   previewDataAvailable: PropTypes.bool.isRequired
 };

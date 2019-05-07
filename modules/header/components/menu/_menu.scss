@@ -84,6 +84,7 @@
   @include font-weight($normal-weight);
   display: block;
   width: 100%;
+  background-color: $secondary-gray10;
   color: $secondary-gray70;
   line-height: 2;
   text-align: left;

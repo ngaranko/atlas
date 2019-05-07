@@ -52,8 +52,6 @@ describe('The dp-menu component', () => {
         const element = document.createElement('dp-menu');
         element.setAttribute('user', 'user');
         element.setAttribute('size', 'size');
-        element.setAttribute('has-print-button', true);
-        element.setAttribute('has-embed-button', true);
 
         const scope = $rootScope.$new();
         scope.user = mockedUser;

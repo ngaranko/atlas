@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Divider, IconButton, ListItem, Modal, TopBar, Typography } from '@datapunt/asc-ui';
-import Close from '@datapunt/asc-assets/lib/Icons/Close.svg';
+import { ReactComponent as Close } from '@datapunt/asc-assets/lib/Icons/Close.svg';
 import { routing } from '../../../app/routes';
 
 const FEEDBACK_RECIPIENT = 'terugmelding.basisinformatie@amsterdam.nl';
