@@ -3,7 +3,9 @@ import React from 'react';
 import './_loading-indicator.scss';
 
 const LoadingIndicator = () => (
-  <span className="loading-indicator" />
+  <div className="loading-indicator">
+    <span className="icon" />
+  </div>
 );
 
 export default LoadingIndicator;
