@@ -10,6 +10,7 @@ import { ReactComponent as Email } from '@datapunt/asc-assets/lib/Icons/Email.sv
 import { ReactComponent as Print } from '@datapunt/asc-assets/lib/Icons/Print.svg';
 import { ReactComponent as Embed } from '@datapunt/asc-assets/lib/Icons/Embed.svg';
 import { ReactComponent as Ellipsis } from '@datapunt/asc-assets/lib/Icons/Ellipsis.svg';
+import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
 import { ContextMenu as ContextMenuComponent, ContextMenuItem, Icon } from '@datapunt/asc-ui';
 import { hasPrintMode, hasEmbedMode, sharePage, showPrintMode, showEmbedPreview } from '../../../shared/ducks/ui/ui';
 import { isMapPanelActive } from '../../../map/ducks/map/selectors';
@@ -40,6 +41,7 @@ const ContextMenu = ({
     >
       <ContextMenuComponent
         alt="Actiemenu"
+        arrowIcon={<ChevronDown />}
         icon={
           <Icon padding={4} inline size={24}>
             <Ellipsis />

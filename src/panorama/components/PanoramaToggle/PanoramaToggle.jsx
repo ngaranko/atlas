@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ContextMenu, ContextMenuItem, Icon } from '@datapunt/asc-ui';
 import { ReactComponent as ExternalLink } from '@datapunt/asc-assets/lib/Icons/ExternalLink.svg';
+import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
 import { ReactComponent as Clock } from '../../../shared/assets/icons/Clock.svg';
 import { setPanoramaTags, fetchPanoramaRequestExternal } from '../../ducks/actions';
 import { PANO_LABELS } from '../../ducks/constants';
@@ -42,6 +43,7 @@ const PanoramaToggle = ({
       <ContextMenu
         alt="Actiemenu"
         open={showMenu}
+        arrowIcon={<ChevronDown />}
         icon={
           <Icon padding={4} inline size={24}>
             <Clock />
