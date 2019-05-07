@@ -265,26 +265,26 @@ class MapLeaflet extends React.Component {
             )
           }
           {
-            markers.map((marker) => Boolean(marker.position) && (
+            markers.map((item) => Boolean(item.position) && (
               <CustomMarker
-                ref={markerConfig[marker.type].requestFocus && this.setActiveElement}
-                position={marker.position}
-                key={marker.position.toString() + marker.type}
-                icon={icons[marker.type](marker.iconData)}
+                ref={markerConfig[item.type].requestFocus && this.setActiveElement}
+                position={item.position}
+                key={item.position.toString() + item.type}
+                icon={icons[item.type](item.iconData)}
                 zIndexOffset={100}
-                rotationAngle={marker.heading || 0}
+                rotationAngle={item.heading || 0}
               />
             ))
           }
           {
-            brkMarkers.map((marker) => Boolean(marker.position) && (
+            brkMarkers.map((item) => Boolean(item.position) && (
               <CustomMarker
-                ref={markerConfig[marker.type].requestFocus && this.setActiveElement}
-                position={marker.position}
-                key={marker.position.toString() + marker.type}
-                icon={icons[marker.type](marker.iconData)}
+                ref={markerConfig[item.type].requestFocus && this.setActiveElement}
+                position={item.position}
+                key={item.position.toString() + item.type}
+                icon={icons[item.type](item.iconData)}
                 zIndexOffset={100}
-                rotationAngle={marker.heading || 0}
+                rotationAngle={item.heading || 0}
               />
             ))
           }

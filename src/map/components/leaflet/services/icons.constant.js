@@ -2,6 +2,7 @@ import searchIcon from './search-icon';
 import { panoramaPersonIcon, panoramaOrientationIcon } from './panorama-icon';
 import detailIcon from './detail-icon';
 import dataSelectionIcon from './data-selection-icon';
+import locationIcon from './location-icon';
 
 export const geoSearchType = 'geoSearchType';
 export const dataSelectionType = 'dataSelectionType';
@@ -16,6 +17,6 @@ const icons = {
   [detailPointType]: detailIcon,
   [panoramaPersonType]: panoramaPersonIcon,
   [panoramaOrientationType]: panoramaOrientationIcon,
-  [markerPointType]: searchIcon
+  [markerPointType]: locationIcon
 };
 export default icons;
