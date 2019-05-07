@@ -206,6 +206,7 @@ exports[`LeafletContainer LeafletContainer snapshot should render correct 1`] = 
       "zoomControl": false,
     }
   }
+  marker={null}
   markers={Array []}
   onClick={[Function]}
   onDragEnd={[Function]}
@@ -496,6 +497,7 @@ exports[`LeafletContainer LeafletContainer snapshot should render different base
       "zoomControl": false,
     }
   }
+  marker={null}
   markers={
     Array [
       Object {
