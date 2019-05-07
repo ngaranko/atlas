@@ -31,5 +31,6 @@ export const initialState = {
   shapeMarkers: 0,
   shapeDistanceTxt: '',
   shapeAreaTxt: '',
-  mapPanelActive: false
+  mapPanelActive: false,
+  marker: null
 };

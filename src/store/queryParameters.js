@@ -11,7 +11,8 @@ import {
   getCenter,
   getMapOverlays,
   getMapZoom,
-  isMapPanelActive
+  isMapPanelActive,
+  getMarkerLocation
 } from '../map/ducks/map/selectors';
 import { initialState as panoramaInitialState } from '../panorama/ducks/constants';
 import { PANORAMA } from '../panorama/ducks/reducer';
@@ -105,9 +106,12 @@ export default paramsRegistry
         if (geo) {
           const { markers, description } = JSON.parse(geo);
           geometryFilter = {
-            markers: markers && markers.length
-              ? markers.split('|').map((latLng) => latLng.split(':').map((str) => parseFloat(str)))
-              : [],
+            markers:
+              markers && markers.length
+                ? markers
+                    .split('|')
+                    .map((latLng) => latLng.split(':').map((str) => parseFloat(str)))
+                : [],
             description
           };
         }
@@ -117,11 +121,10 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.VIEW, (routes) => {
-    routes
-      .add(routesWithMapActive, UI, 'viewMode', {
-        selector: getViewMode,
-        defaultValue: UIInitialState.viewMode
-      });
+    routes.add(routesWithMapActive, UI, 'viewMode', {
+      selector: getViewMode,
+      defaultValue: UIInitialState.viewMode
+    });
   })
   .addParameter(PARAMETERS.CATEGORY, (routes) => {
     routes.add(routing.dataQuerySearch.type, DATA_SEARCH_REDUCER, 'category', {
@@ -130,31 +133,57 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.VIEW_CENTER, (routes) => {
-    routes.add(routesWithMapActive, MAP, 'viewCenter', {
-      defaultValue: mapInitialState.viewCenter,
-      decode: (val = mapInitialState.viewCenter.join(',')) => val.split(',').map((ltLng) => normalizeCoordinate(parseFloat(ltLng), 7)),
-      encode: (selectorResult) => selectorResult.map((coordinate) => normalizeCoordinate(coordinate, 7)).join(','),
-      selector: getCenter
-    }, false);
+    routes.add(
+      routesWithMapActive,
+      MAP,
+      'viewCenter',
+      {
+        defaultValue: mapInitialState.viewCenter,
+        decode: (val = mapInitialState.viewCenter.join(',')) =>
+          val.split(',').map((ltLng) => normalizeCoordinate(parseFloat(ltLng), 7)),
+        encode: (selectorResult) =>
+          selectorResult.map((coordinate) => normalizeCoordinate(coordinate, 7)).join(','),
+        selector: getCenter
+      },
+      false
+    );
   })
   .addParameter(PARAMETERS.ZOOM, (routes) => {
-    routes.add(routesWithMapActive, MAP, 'zoom', {
-      defaultValue: mapInitialState.zoom,
-      decode: (val) => parseFloat(val) || mapInitialState.zoom,
-      selector: getMapZoom
-    }, false);
+    routes.add(
+      routesWithMapActive,
+      MAP,
+      'zoom',
+      {
+        defaultValue: mapInitialState.zoom,
+        decode: (val) => parseFloat(val) || mapInitialState.zoom,
+        selector: getMapZoom
+      },
+      false
+    );
   })
   .addParameter(PARAMETERS.LEGEND, (routes) => {
-    routes.add(routesWithMapActive, MAP, 'mapPanelActive', {
-      defaultValue: mapInitialState.mapPanelActive,
-      selector: isMapPanelActive
-    }, false);
+    routes.add(
+      routesWithMapActive,
+      MAP,
+      'mapPanelActive',
+      {
+        defaultValue: mapInitialState.mapPanelActive,
+        selector: isMapPanelActive
+      },
+      false
+    );
   })
   .addParameter(PARAMETERS.HEADING, (routes) => {
-    routes.add(routing.panorama.type, PANORAMA, 'heading', {
-      defaultValue: panoramaInitialState.heading,
-      selector: getPanoramaHeading
-    }, false);
+    routes.add(
+      routing.panorama.type,
+      PANORAMA,
+      'heading',
+      {
+        defaultValue: panoramaInitialState.heading,
+        selector: getPanoramaHeading
+      },
+      false
+    );
   })
   .addParameter(PARAMETERS.MAP_BACKGROUND, (routes) => {
     routes.add(routesWithMapActive, MAP, 'baseLayer', {
@@ -167,51 +196,68 @@ export default paramsRegistry
       defaultValue: panoramaInitialState.tags,
       selector: getPanoramaTags,
       encode: (selectorResult) => selectorResult.join(','),
-      decode: (val) => ((val) && val.split(','))
+      decode: (val) => val && val.split(',')
     });
   })
   .addParameter(PARAMETERS.PITCH, (routes) => {
-    routes.add(routing.panorama.type, PANORAMA, 'pitch', {
-      defaultValue: panoramaInitialState.pitch,
-      selector: getPanoramaPitch
-    }, false);
+    routes.add(
+      routing.panorama.type,
+      PANORAMA,
+      'pitch',
+      {
+        defaultValue: panoramaInitialState.pitch,
+        selector: getPanoramaPitch
+      },
+      false
+    );
   })
   .addParameter(PARAMETERS.FILTERS, (routes) => {
-    routes.add([
-      routing.datasets.type,
-      ...routesWithSearch,
-      ...routesWithDataSelection
-    ], FILTER, 'filters', {
-      defaultValue: filterInitialState.filters,
-      decode: (val) => {
-        try {
-          return Object.assign({}, JSON.parse(val));
-        } catch (e) {
-          return filterInitialState.filters;
-        }
-      },
-      selector: getFiltersWithoutShape,
-      encode: (selectorResult = {}) => (
-        Object.keys(selectorResult).length ? JSON.stringify(selectorResult) : undefined
-      )
-    });
+    routes.add(
+      [routing.datasets.type, ...routesWithSearch, ...routesWithDataSelection],
+      FILTER,
+      'filters',
+      {
+        defaultValue: filterInitialState.filters,
+        decode: (val) => {
+          try {
+            return Object.assign({}, JSON.parse(val));
+          } catch (e) {
+            return filterInitialState.filters;
+          }
+        },
+        selector: getFiltersWithoutShape,
+        encode: (selectorResult = {}) =>
+          (Object.keys(selectorResult).length ? JSON.stringify(selectorResult) : undefined)
+      }
+    );
   })
   .addParameter(PARAMETERS.DETAIL_REFERENCE, (routes) => {
-    routes.add(routing.panorama.type, PANORAMA, 'detailReference', {
-      defaultValue: panoramaInitialState.detailReference,
-      decode: (val) => (val && val.length ? val.split(',') : panoramaInitialState.detailReference),
-      selector: getDetailReference,
-      encode: (selectorResult) => (selectorResult.length ?
-          selectorResult.join() :
-          panoramaInitialState.detailReference
-      )
-    }, false);
+    routes.add(
+      routing.panorama.type,
+      PANORAMA,
+      'detailReference',
+      {
+        defaultValue: panoramaInitialState.detailReference,
+        decode: (val) =>
+          (val && val.length ? val.split(',') : panoramaInitialState.detailReference),
+        selector: getDetailReference,
+        encode: (selectorResult) =>
+          (selectorResult.length ? selectorResult.join() : panoramaInitialState.detailReference)
+      },
+      false
+    );
   })
   .addParameter(PARAMETERS.PAGE_REFERENCE, (routes) => {
-    routes.add(routing.panorama.type, PANORAMA, 'pageReference', {
-      defaultValue: panoramaInitialState.pageReference,
-      selector: getPageReference
-    }, false);
+    routes.add(
+      routing.panorama.type,
+      PANORAMA,
+      'pageReference',
+      {
+        defaultValue: panoramaInitialState.pageReference,
+        selector: getPageReference
+      },
+      false
+    );
   })
   .addParameter(PARAMETERS.EMBED_PREVIEW, (routes) => {
     routes.add(routesWithMapActive, UI, 'isEmbedPreview', {
@@ -232,35 +278,45 @@ export default paramsRegistry
     });
   })
   .addParameter(PARAMETERS.LAYERS, (routes) => {
-    routes.add([
-      ...routesWithMapActive,
-      ...routesWithSearch
-    ], MAP, 'overlays', {
-      defaultValue: mapInitialState.overlays,
-      decode: (val) => (
-        val ? val.split('|').map((obj) => {
-          const layerInfo = obj.split(':');
-          return { id: layerInfo[0], isVisible: !!parseInt(layerInfo[1], 0) };
-        }) : mapInitialState.overlays
-      ),
-      selector: getMapOverlays,
-      encode: (selectorResult) => (
-        selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
-      )
-    }, false);
+    routes.add(
+      [...routesWithMapActive, ...routesWithSearch],
+      MAP,
+      'overlays',
+      {
+        defaultValue: mapInitialState.overlays,
+        decode: (val) => (
+          val
+            ? val.split('|').map((obj) => {
+              const layerInfo = obj.split(':');
+              return { id: layerInfo[0], isVisible: !!parseInt(layerInfo[1], 0) };
+            })
+            : mapInitialState.overlays
+          ),
+        selector: getMapOverlays,
+        encode: (selectorResult) =>
+          selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
+      },
+      false
+    );
   })
   .addParameter(PARAMETERS.LOCATION, (routes) => {
     routes
-      .add(routing.panorama.type, PANORAMA, 'location', {
-        decode: (val) => (val ? val.split(',').map((string) => parseFloat(string)) : panoramaInitialState.location),
+      .add(
+        routing.panorama.type,
+        PANORAMA,
+        'location',
+      {
+        decode: (val) =>
+            (val
+              ? val.split(',').map((string) => parseFloat(string))
+              : panoramaInitialState.location),
         defaultValue: panoramaInitialState.location,
         selector: getPanoramaLocation,
-        encode: (selectorResult) => (
-          selectorResult ?
-            selectorResult.join() :
-            panoramaInitialState.location
-        )
-      }, false)
+        encode: (selectorResult) =>
+            (selectorResult ? selectorResult.join() : panoramaInitialState.location)
+      },
+        false
+      )
       .add(routing.dataGeoSearch.type, DATA_SEARCH_REDUCER, 'geoSearch', {
         defaultValue: null,
         selector: getDataSearchLocation,
@@ -283,4 +339,20 @@ export default paramsRegistry
           return null;
         }
       });
+  })
+  .addParameter(PARAMETERS.MARKER, (routes) => {
+    routes.add(
+      routesWithMapActive,
+      MAP,
+      'marker',
+      {
+        defaultValue: mapInitialState.marker,
+        decode: (val) =>
+          val && val.split(',').map((ltLng) => normalizeCoordinate(parseFloat(ltLng), 7)),
+        encode: (selectorResult) =>
+        selectorResult && selectorResult.map((coordinate) => normalizeCoordinate(coordinate, 7)).join(','),
+        selector: getMarkerLocation
+      },
+      false
+    );
   });
