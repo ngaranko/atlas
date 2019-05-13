@@ -56,6 +56,9 @@ const scopes = [
   // Handelsregister
   'HR/R', // Leesrechten
 
+  // Bouwdossiers
+  'BD/R',
+
   // Grondexploitatie
   'GREX/R', // Leesrechten
 

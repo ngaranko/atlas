@@ -10,9 +10,11 @@ exports[`DetailContainer should render 1`] = `
         "detailData": undefined,
         "detailFilterSelection": undefined,
         "detailTemplateUrl": undefined,
+        "id": "1",
         "isLoading": false,
         "isPreviewPanoramaLoading": false,
         "previewPanorama": Object {},
+        "subType": "nummeraanduiding",
         "user": Object {},
       }
     }

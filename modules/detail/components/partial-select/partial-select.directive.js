@@ -14,7 +14,9 @@
                 partial: '@',
                 apiData: '=',
                 loadMoreFn: '=',
-                user: '<'
+                user: '<',
+                subType: '<',
+                id: '<'
             },
             link: linkFunction
         };
