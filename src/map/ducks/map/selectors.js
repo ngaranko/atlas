@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import { getPanoramaLocation, getPanoramaMarkers } from '../../../panorama/ducks/selectors';
 import { getGeoJson as getDetailGeoJson } from '../detail/selectors';
-import { geoSearchType } from '../../components/leaflet/services/icons.constant';
+import { geoSearchType, markerPointType } from '../../components/leaflet/services/icons.constant';
 import { getDetail } from '../../../shared/ducks/detail/selectors';
 import drawToolConfig from '../../services/draw-tool/draw-tool.config';
 import { getDataSearchLocation } from '../../../shared/ducks/data-search/selectors';
@@ -42,6 +42,11 @@ export const getCenter = createSelector([getMapCenter, getPanoramaLocation],
   (mapCenter, panoramaLocation) => (
     panoramaLocation || mapCenter
   ));
+export const getMarkerLocation = createSelector(getMap, (mapState) => mapState && mapState.marker &&
+  {
+    position: mapState.marker,
+    type: markerPointType
+  });
 
 export const getRdGeoJsons = createSelector(getDetailGeoJson, (geoJson) => [geoJson]);
 

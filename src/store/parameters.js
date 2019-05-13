@@ -18,5 +18,6 @@ export default {
   EMBED: 'embed',
   PRINT: 'print',
   LAYERS: 'lagen',
-  LOCATION: 'locatie'
+  LOCATION: 'locatie',
+  MARKER: 'marker'
 };
