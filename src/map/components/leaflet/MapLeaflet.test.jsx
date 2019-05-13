@@ -549,7 +549,9 @@ describe('MapLeaflet component', () => {
       getMaxZoom: jest.fn(),
       getMinZoom: jest.fn(),
       getCenter: jest.fn(),
-      panInsideBounds: jest.fn()
+      panInsideBounds: jest.fn(),
+      getNorthEast: jest.fn(),
+      getSouthWest: jest.fn()
     };
 
     const bounds = {
@@ -757,6 +759,13 @@ describe('MapLeaflet component', () => {
           wrapperInstance.MapElement.getBoundsZoom.mockImplementation(() => 8);
           wrapperInstance.fitActiveElement(bounds);
           expect(wrapperInstance.MapElement.fitBounds).toHaveBeenCalledWith(bounds);
+        });
+
+        it('should do nothing when the bounds represent a point', () => {
+          wrapperInstance.MapElement.getNorthEast.mockImplementation(() => [1,1]);
+          wrapperInstance.MapElement.getSouthWest.mockImplementation(() => [1,1]);
+          wrapperInstance.fitActiveElement(bounds);
+          expect(wrapperInstance.MapElement.fitBounds).not.toHaveBeenCalled();
         });
 
         it('should pan to the element when the zoom level is ', () => {

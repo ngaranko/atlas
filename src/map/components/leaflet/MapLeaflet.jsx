@@ -138,8 +138,8 @@ class MapLeaflet extends React.Component {
     if (!elementFits) {
       const elementZoom = this.MapElement.getBoundsZoom(bounds);
       if (elementZoom < zoom) {
-        // pan and zoom to the geoJson element
-        this.MapElement.fitBounds(bounds);
+        // pan and zoom to the geoJson element, only when not a point
+        !isBoundsAPoint(bounds) && this.MapElement.fitBounds(bounds);
       } else {
         // only pan to the geoJson element
         this.MapElement.panInsideBounds(bounds);
