@@ -761,16 +761,17 @@ describe('MapLeaflet component', () => {
           expect(wrapperInstance.MapElement.fitBounds).toHaveBeenCalledWith(bounds);
         });
 
-        it('should do nothing when the bounds represent a point', () => {
-          wrapperInstance.MapElement.getNorthEast.mockImplementation(() => [1,1]);
-          wrapperInstance.MapElement.getSouthWest.mockImplementation(() => [1,1]);
-          wrapperInstance.fitActiveElement(bounds);
-          expect(wrapperInstance.MapElement.fitBounds).not.toHaveBeenCalled();
-        });
-
-        it('should pan to the element when the zoom level is ', () => {
+        it('should pan to the element when the zoom level is within range', () => {
           wrapperInstance.MapElement.getBoundsZoom.mockImplementation(() => 12);
           wrapperInstance.fitActiveElement(bounds);
+          expect(wrapperInstance.MapElement.panInsideBounds).toHaveBeenCalledWith(bounds);
+        });
+
+        it('should pan to the element when the bounds represent a point', () => {
+          wrapperInstance.MapElement.getNorthEast.mockImplementation(() => [1, 1]);
+          wrapperInstance.MapElement.getSouthWest.mockImplementation(() => [1, 1]);
+          wrapperInstance.fitActiveElement(bounds);
+          expect(wrapperInstance.MapElement.fitBounds).not.toHaveBeenCalled();
           expect(wrapperInstance.MapElement.panInsideBounds).toHaveBeenCalledWith(bounds);
         });
       });
