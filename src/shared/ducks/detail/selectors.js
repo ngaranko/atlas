@@ -13,6 +13,8 @@ export const getDetailEndpoint = createSelector(getDetail, (detail) => {
   }
   return undefined;
 });
+export const getSubType = createSelector(getDetail, (detail) => detail.subtype);
+export const getID = createSelector(getDetail, (detail) => detail.id);
 export const getDetailDisplay = createSelector(getDetail, (detail) => detail && detail.display);
 export const isDetailLoading = createSelector(getDetail, (detail) => detail && detail.isLoading);
 

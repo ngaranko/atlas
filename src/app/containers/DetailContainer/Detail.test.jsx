@@ -13,7 +13,9 @@ describe('Detail', () => {
       detailTemplateUrl: '',
       detailData: {},
       detailFilterSelection: {},
-      onFetchDetailRequest: jest.fn()
+      onFetchDetailRequest: jest.fn(),
+      id: '1',
+      subType: 'nummeraanduiding'
     };
     const component = shallow(<Detail {...props} />);
     expect(component).toMatchSnapshot();
