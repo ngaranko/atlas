@@ -7,12 +7,16 @@ import { DATASETS, getPage } from '../shared/ducks/datasets/datasets';
 import { DATA, initialState as datasetsDataInitialState } from '../shared/ducks/datasets/data/data';
 import { initialState as mapInitialState, REDUCER_KEY as MAP } from '../map/ducks/map/constants';
 import {
+  initialState as filesInitialState,
+  REDUCER_KEY as FILES
+} from '../shared/ducks/files/constants';
+import {
   getActiveBaseLayer,
   getCenter,
   getMapOverlays,
   getMapZoom,
-  isMapPanelActive,
-  getMarkerLocation
+  getMarkerLocation,
+  isMapPanelActive
 } from '../map/ducks/map/selectors';
 import { initialState as panoramaInitialState } from '../panorama/ducks/constants';
 import { PANORAMA } from '../panorama/ducks/reducer';
@@ -49,6 +53,7 @@ import {
 } from '../shared/services/coordinate-reference-system';
 import PARAMETERS from './parameters';
 import paramsRegistry from './params-registry';
+import { getFileName } from '../shared/ducks/files/selectors';
 
 const routesWithSearch = [
   routing.dataQuerySearch.type,
@@ -177,6 +182,12 @@ export default paramsRegistry
       selector: getPanoramaPitch
     }, false);
   })
+  .addParameter(PARAMETERS.FILE, (routes) => {
+    routes.add(routing.bouwdossiers.type, FILES, 'fileName', {
+      defaultValue: filesInitialState.fileName,
+      selector: getFileName
+    }, true);
+  })
   .addParameter(PARAMETERS.FILTERS, (routes) => {
     routes.add([
       routing.datasets.type,
@@ -193,8 +204,8 @@ export default paramsRegistry
       },
       selector: getFiltersWithoutShape,
       encode: (selectorResult = {}) => (
-          Object.keys(selectorResult).length ? JSON.stringify(selectorResult) : undefined
-        )
+        Object.keys(selectorResult).length ? JSON.stringify(selectorResult) : undefined
+      )
     });
   })
   .addParameter(PARAMETERS.DETAIL_REFERENCE, (routes) => {
@@ -203,8 +214,8 @@ export default paramsRegistry
       decode: (val) => (val && val.length ? val.split(',') : panoramaInitialState.detailReference),
       selector: getDetailReference,
       encode: (selectorResult) => (selectorResult.length ?
-        selectorResult.join() :
-        panoramaInitialState.detailReference
+          selectorResult.join() :
+          panoramaInitialState.detailReference
       )
     }, false);
   })
@@ -239,15 +250,15 @@ export default paramsRegistry
     ], MAP, 'overlays', {
       defaultValue: mapInitialState.overlays,
       decode: (val) => (
-          val ? val.split('|').map((obj) => {
-            const layerInfo = obj.split(':');
-            return { id: layerInfo[0], isVisible: !!parseInt(layerInfo[1], 0) };
-          }) : mapInitialState.overlays
-        ),
+        val ? val.split('|').map((obj) => {
+          const layerInfo = obj.split(':');
+          return { id: layerInfo[0], isVisible: !!parseInt(layerInfo[1], 0) };
+        }) : mapInitialState.overlays
+      ),
       selector: getMapOverlays,
       encode: (selectorResult) => (
-          selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
-        )
+        selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
+      )
     }, false);
   })
   .addParameter(PARAMETERS.LOCATION, (routes) => {

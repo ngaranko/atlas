@@ -6,14 +6,14 @@ import { ThemeProvider } from '@datapunt/asc-ui';
 import PAGES, { isCmsPage as pageIsCmsPage } from './pages';
 import './_app.scss';
 import {
-  isEmbedded,
-  isEmbedPreview,
-  isPrintMode,
-  isPrintModeLandscape,
-  isPrintOrEmbedMode,
   hasOverflowScroll,
   hasPrintMode,
-  isMapActive
+  isEmbedded,
+  isEmbedPreview,
+  isMapActive,
+  isPrintMode,
+  isPrintModeLandscape,
+  isPrintOrEmbedMode
 } from '../shared/ducks/ui/ui';
 import { hasGlobalError } from '../shared/ducks/error/error-message';
 import { getUser } from '../shared/ducks/user/user';
@@ -31,6 +31,7 @@ const DatasetPage = React.lazy(() => import('./pages/DatasetPage'));
 const ActualityContainer = React.lazy(() => import('./containers/ActualityContainer'));
 const DatasetDetailContainer = React.lazy(() => import('./containers/DatasetDetailContainer/DatasetDetailContainer'));
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'));
+const ConstructionFiles = React.lazy(() => import('./pages/ConstructionFiles'));
 
 // TodoReactMigration: implement logic
 const App = ({
@@ -107,16 +108,16 @@ const App = ({
           className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
         >
           {!embedMode &&
-            <Header
-              homePage={homePage}
-              hasMaxWidth={hasMaxWidth}
-              user={user}
-              printMode={printMode}
-              embedPreviewMode={embedPreviewMode}
-              printOrEmbedMode={printOrEmbedMode}
-              hasPrintButton={hasPrintButton}
-              hasEmbedButton={hasEmbedButton}
-            />
+          <Header
+            homePage={homePage}
+            hasMaxWidth={hasMaxWidth}
+            user={user}
+            printMode={printMode}
+            embedPreviewMode={embedPreviewMode}
+            printOrEmbedMode={printOrEmbedMode}
+            hasPrintButton={hasPrintButton}
+            hasEmbedButton={hasEmbedButton}
+          />
           }
           <div className={`c-dashboard__body ${bodyClasses}`}>
             {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
@@ -148,14 +149,18 @@ const App = ({
                     currentPage === PAGES.ESTABLISHMENTS ||
                     currentPage === PAGES.DATA_GEO_SEARCH ||
                     currentPage === PAGES.CADASTRAL_OBJECTS)
-                    &&
-                    <MapSplitPage />
+                  &&
+                  <MapSplitPage />
                   }
 
                   {currentPage === PAGES.DATASETS && <DatasetPage />}
 
                   {currentPage === PAGES.DATASET_DETAIL && (
                     <DatasetDetailContainer />
+                  )}
+
+                  {currentPage === PAGES.BOUWDOSSIERS && (
+                    <ConstructionFiles />
                   )}
 
                   {isCmsPage && (

@@ -1,0 +1,78 @@
+@import "../../../shared/styles/config";
+
+$offset: 10px;
+
+.viewer-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+
+  &-item {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: flex-end;
+    pointer-events: all;
+
+    button {
+      // These styles are temporary, until we move to the new amsterdam style
+      border: 1px solid $secondary-gray20;
+      box-shadow: 2px 2px 0 0 $secondary-gray40;
+
+      & + button {
+        margin-top: 2px;
+      }
+    }
+
+    & > * + * {
+      margin-top: $offset;
+    }
+
+    &--top-left {
+      top: $offset;
+      left: $offset;
+    }
+
+    &--top-right {
+      top: $offset;
+      right: $offset;
+    }
+
+    &--bottom-right {
+      right: $offset;
+      bottom: $offset;
+    }
+
+    &--bottom-left {
+      bottom: $offset;
+      left: $offset;
+    }
+  }
+
+  // Split to seperate component
+  &__meta {
+    $meta-bg: rgba(255, 255, 255, .67);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: $offset * -1;
+    box-shadow: 1px 0 0 0 $secondary-gray40;
+
+    &__item {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      height: 32px;
+      padding: 0 10px;
+      background-color: $meta-bg;
+
+      & + & {
+        margin-left: 1px;
+      }
+    }
+  }
+}

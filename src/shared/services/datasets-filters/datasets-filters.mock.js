@@ -889,7 +889,7 @@ const mockApiData = {
                 'fietsenstalling',
                 'fietsnetwerk',
                 'fietspaden',
-                'files',
+                'reducer.js',
                 'film',
                 'filtering',
                 'financien',
