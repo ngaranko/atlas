@@ -313,6 +313,26 @@ const mapLayers = [
   },
   {
     category: THEMES.GEOGRAPHY_ONR,
+    layers: ['vastgoed'],
+    legendItems: [
+      {
+        id: 'vge',
+        title: 'Volledig eigendom',
+        imageRule: 'vastgoed',
+        layers: ['vastgoed_eigendom']
+      },
+      {
+        id: 'vga',
+        title: 'Appartementsrecht',
+        imageRule: 'vastgoed',
+        layers: ['vastgoed_appartementsrecht']
+      }
+    ],
+    title: 'Gemeentelijk eigendom',
+    url: '/maps/vastgoed'
+  },
+  {
+    category: THEMES.GEOGRAPHY_ONR,
     legendItems: [
       {
         id: 'gbvv',
