@@ -3,6 +3,7 @@ $tab-border-radius: 2px;
 $tab-v-padding: 7px;
 
 .o-tabs {
+  background-color: transparent;
   position: relative;
 
   &::before {
