@@ -1,0 +1,17 @@
+.files {
+  display: flex;
+  flex-wrap: wrap;
+
+  &-item {
+    flex-basis: percentage(1 / 3);
+  }
+
+  img {
+    width: 100%;
+    vertical-align: top;
+  }
+
+  button {
+    margin: 7.5px 7.5px;
+  }
+}

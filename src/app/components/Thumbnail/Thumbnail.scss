@@ -1,0 +1,20 @@
+.thumbnail {
+  position: relative;
+  overflow: hidden;
+
+  img {
+    transition: transform .3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+
+  // .viewer-controls__meta
+  figcaption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+}

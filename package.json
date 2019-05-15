@@ -36,8 +36,8 @@
     "test-karma-watch": "karma start --no-single-run"
   },
   "dependencies": {
-    "@datapunt/asc-assets": "^0.6.3",
-    "@datapunt/asc-ui": "^0.6.5",
+    "@datapunt/asc-assets": "^0.6.6",
+    "@datapunt/asc-ui": "^0.6.6",
     "@svgr/webpack": "^4.2.0",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",
@@ -68,6 +68,7 @@
     "marked": "0.6.2",
     "marzipano": "git+https://github.com/Amsterdam/marzipano.git#master",
     "objectFitPolyfill": "2.1.1",
+    "openseadragon": "^2.4.0",
     "proj4": "2.4.4",
     "proj4leaflet": "1.0.2",
     "prop-types": "15.6.2",

@@ -19,5 +19,6 @@ export default {
   PRINT: 'print',
   LAYERS: 'lagen',
   LOCATION: 'locatie',
+  FILE: 'bestand',
   MARKER: 'marker'
 };
