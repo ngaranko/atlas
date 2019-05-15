@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './StatusBar.scss';
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system/crs-converter';
 import { dateToString } from '../../../shared/services/date-formatter/date-formatter';
-import PanoramaToggleContainer from '../PanoramaToggle/PanoramaToggleContainer';
 
 const convertLocation = (location) => {
   const [latitude, longitude] = location;
@@ -13,16 +12,14 @@ const convertLocation = (location) => {
   return `${rdX.toFixed(2)}, ${rdY.toFixed(2)} (${formattedWgs84Location})`;
 };
 
-const StatusBar = ({ date, location, heading, currentLabel }) => (
+const StatusBar = ({ date, location }) => (
   <div className="c-panorama-status-bar">
-    <PanoramaToggleContainer {...{ heading, currentLabel, location }} />
-
-    <div className="c-panorama-status-bar__info">
-      <div className="c-panorama-status-bar__info-item">
-        <span>{convertLocation(location)}</span>
-      </div>
-      <div className="c-panorama-status-bar__info-item">
+    <div className="c-panorama-status-bar__items">
+      <div className="c-panorama-status-bar__history">
         <span>{dateToString(date)}</span>
+      </div>
+      <div className="c-panorama-status-bar__coordinates">
+        <span>{convertLocation(location)}</span>
       </div>
     </div>
   </div>
@@ -33,10 +30,8 @@ StatusBar.defaultProps = {
 };
 
 StatusBar.propTypes = {
-  heading: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
-  currentLabel: PropTypes.string.isRequired,
-  location: PropTypes.array.isRequired //eslint-disable-line
+  location: PropTypes.instanceOf(Array).isRequired
 };
 
 export default StatusBar;

@@ -1111,6 +1111,36 @@ exports[`MapLeaflet component should render map with base layer and update base 
       tms={true}
       url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
     />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "dp-leaflet-location-icon",
+            "iconAnchor": Array [
+              10,
+              10,
+            ],
+            "iconSize": Array [
+              28,
+              28,
+            ],
+            "iconUrl": "/assets/images/map/locatie.svg",
+            "popupAnchor": null,
+            "shadowAnchor": null,
+            "shadowSize": null,
+            "shadowUrl": null,
+          },
+        }
+      }
+      key="[object Object]"
+      position={
+        Array [
+          52.3731081,
+          4.8932945,
+        ]
+      }
+    />
     <ScaleControl
       imperial={false}
       metric={true}
@@ -1348,6 +1378,36 @@ exports[`MapLeaflet component should render map with base layer and update base 
       }
       tms={true}
       url="https://{s}.data.amsterdam.nl/lufo2017_RD/{z}/{x}/{y}.jpeg"
+    />
+    <CustomMarker
+      icon={
+        NewClass {
+          "_initHooksCalled": true,
+          "options": Object {
+            "className": "dp-leaflet-location-icon",
+            "iconAnchor": Array [
+              10,
+              10,
+            ],
+            "iconSize": Array [
+              28,
+              28,
+            ],
+            "iconUrl": "/assets/images/map/locatie.svg",
+            "popupAnchor": null,
+            "shadowAnchor": null,
+            "shadowSize": null,
+            "shadowUrl": null,
+          },
+        }
+      }
+      key="[object Object]"
+      position={
+        Array [
+          52.3731081,
+          4.8932945,
+        ]
+      }
     />
     <ScaleControl
       imperial={false}

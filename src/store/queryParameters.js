@@ -11,7 +11,8 @@ import {
   getCenter,
   getMapOverlays,
   getMapZoom,
-  isMapPanelActive
+  isMapPanelActive,
+  getMarkerLocation
 } from '../map/ducks/map/selectors';
 import { initialState as panoramaInitialState } from '../panorama/ducks/constants';
 import { PANORAMA } from '../panorama/ducks/reducer';
@@ -192,8 +193,8 @@ export default paramsRegistry
       },
       selector: getFiltersWithoutShape,
       encode: (selectorResult = {}) => (
-        Object.keys(selectorResult).length ? JSON.stringify(selectorResult) : undefined
-      )
+          Object.keys(selectorResult).length ? JSON.stringify(selectorResult) : undefined
+        )
     });
   })
   .addParameter(PARAMETERS.DETAIL_REFERENCE, (routes) => {
@@ -202,8 +203,8 @@ export default paramsRegistry
       decode: (val) => (val && val.length ? val.split(',') : panoramaInitialState.detailReference),
       selector: getDetailReference,
       encode: (selectorResult) => (selectorResult.length ?
-          selectorResult.join() :
-          panoramaInitialState.detailReference
+        selectorResult.join() :
+        panoramaInitialState.detailReference
       )
     }, false);
   })
@@ -238,15 +239,15 @@ export default paramsRegistry
     ], MAP, 'overlays', {
       defaultValue: mapInitialState.overlays,
       decode: (val) => (
-        val ? val.split('|').map((obj) => {
-          const layerInfo = obj.split(':');
-          return { id: layerInfo[0], isVisible: !!parseInt(layerInfo[1], 0) };
-        }) : mapInitialState.overlays
-      ),
+          val ? val.split('|').map((obj) => {
+            const layerInfo = obj.split(':');
+            return { id: layerInfo[0], isVisible: !!parseInt(layerInfo[1], 0) };
+          }) : mapInitialState.overlays
+        ),
       selector: getMapOverlays,
       encode: (selectorResult) => (
-        selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
-      )
+          selectorResult.map((overlay) => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|')
+        )
     }, false);
   })
   .addParameter(PARAMETERS.LOCATION, (routes) => {
@@ -283,4 +284,19 @@ export default paramsRegistry
           return null;
         }
       });
+  })
+  .addParameter(PARAMETERS.MARKER, (routes) => {
+    routes.add(
+      routesWithMapActive,
+      MAP,
+      'marker',
+      {
+        defaultValue: mapInitialState.marker,
+        decode: (val) =>
+          val && val.split(',').map((ltLng) => normalizeCoordinate(parseFloat(ltLng), 7)),
+        encode: (value) => value && value.position.join(','),
+        selector: getMarkerLocation
+      },
+      false
+    );
   });

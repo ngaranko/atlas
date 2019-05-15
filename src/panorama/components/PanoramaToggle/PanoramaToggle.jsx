@@ -1,112 +1,98 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { ContextMenu, ContextMenuItem, Icon } from '@datapunt/asc-ui';
+import { ReactComponent as ExternalLink } from '@datapunt/asc-assets/lib/Icons/ExternalLink.svg';
+import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
+import { ReactComponent as Clock } from '../../../shared/assets/icons/Clock.svg';
+import { setPanoramaTags, fetchPanoramaRequestExternal } from '../../ducks/actions';
+import { PANO_LABELS } from '../../ducks/constants';
+import { getStreetViewUrl } from '../../services/panorama-api/panorama-api';
 
 import './PanoramaToggle.scss';
-import { PANO_LABELS } from '../../ducks/constants';
 
-const getStreetViewUrl = (location, heading) => {
-  const [latitude, longitude] = location;
-  const path = 'http://maps.google.com/maps?q=&layer=c&';
-  const parameters = `cbll=${latitude},${longitude}&cbp=11,${heading},0,0,0`;
+const PanoramaToggle = ({
+  heading,
+  currentLabel,
+  location,
+  openPanoramaTags,
+  openPanoramaExternal
+}) => {
+  const [showMenu, showMenuToggle] = React.useState(null);
 
-  return `${path}${parameters}`;
-};
+  React.useEffect(() => {
+    showMenuToggle(null);
+  }, [currentLabel]);
 
-class PanoramaToggle extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      showMenu: false
-    };
-    this.toggleMenu = this.toggleMenu.bind(this);
-    this.setPanoramaTags = this.setPanoramaTags.bind(this);
-    this.onOpenPanoramaExternal = this.onOpenPanoramaExternal.bind(this);
-  }
+  const handleOpenPanoramaExternal = () => {
+    const url = getStreetViewUrl(location, heading);
 
-  onOpenPanoramaExternal() {
-    this.props.openPanoramaExternal();
-    this.toggleMenu();
-  }
+    openPanoramaExternal();
+    showMenuToggle(false);
+    window.open(url, '_blank');
+  };
 
-  setPanoramaTags(option) {
-    this.props.setPanoramaTags(option);
-    this.toggleMenu();
-  }
+  const handleSetPanoramaTags = (tags) => {
+    openPanoramaTags(tags);
+    showMenuToggle(false);
+  };
 
-  toggleMenu() {
-    this.setState({ showMenu: !this.state.showMenu });
-  }
-
-  render() {
-    const { heading, currentLabel, location } = this.props;
-    const { showMenu } = this.state;
-
-    return (
-      <div className="c-panorama-status-bar__history">
-        <div className="c-panorama-toggle qa-panorama-toggle">
-          <button
-            className={`
-              c-panorama-toggle__button
-              qa-panorama-toggle__button
-              ${(showMenu) ? 'c-panorama-toggle__button--active' : ''}
-            `}
-            onClick={this.toggleMenu}
+  return (
+    <section className="context-menu panorama-menu">
+      <ContextMenu
+        alt="Actiemenu"
+        open={showMenu}
+        arrowIcon={<ChevronDown />}
+        icon={
+          <Icon padding={4} inline size={24}>
+            <Clock />
+          </Icon>
+        }
+        label={currentLabel}
+        position="bottom"
+      >
+        {PANO_LABELS.map((label, index) => (
+          <ContextMenuItem
+            key={label.layerId}
+            divider={index === PANO_LABELS.length - 1}
+            role="button"
+            onClick={() => handleSetPanoramaTags(label.tags)}
+            icon={
+              <Icon padding={4} inline size={24} />
+            }
           >
-            {currentLabel}
-          </button>
-          {(showMenu) ? <ul className="c-panorama-toggle__menu qa-panorama-toggle__menu">
-            {PANO_LABELS.map((label) => (
-              <li
-                key={label.layerId}
-              >
-                <button
-                  className={`
-                    c-panorama-toggle__item
-                    qa-panorama-toggle__item
-                  `}
-                  onClick={() => this.setPanoramaTags(label.tags)}
-                >
-                  {label.label}
-                </button>
-              </li>
-            ))}
-            <li
-              key="divider"
-              className="c-panorama-toggle__devider qa-panorama-toggle__devider"
-            />
-            <li
-              key="google-street-view"
-              className="c-panorama-toggle__external qa-panorama-toggle__external"
-            >
-              <a
-                href={getStreetViewUrl(location, heading)}
-                target="_blank"
-                rel="noopener"
-                className={`
-                  c-link
-                  c-link--arrow
-                  c-panorama-toggle__external-link
-                  qa-panorama-toggle__external-link`}
-                onClick={this.onOpenPanoramaExternal}
-              >Google Street View</a>
-            </li>
-          </ul> : ''}
-        </div>
-      </div>
-    );
-  }
-}
-
-PanoramaToggle.defaultProps = {
-  fetchPanoramaRequest: ''
+            { label.label }
+          </ContextMenuItem>
+        ))}
+        <ContextMenuItem
+          key="google-street-view"
+          role="button"
+          onClick={() => handleOpenPanoramaExternal()}
+          icon={
+            <Icon padding={4} inline size={24}>
+              <ExternalLink />
+            </Icon>
+          }
+        >
+          Google Street View
+        </ContextMenuItem>
+      </ContextMenu>
+    </section>
+  );
 };
 
 PanoramaToggle.propTypes = {
   heading: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   currentLabel: PropTypes.string.isRequired,
-  location: PropTypes.array.isRequired,  // eslint-disable-line
-  setPanoramaTags: PropTypes.oneOfType([PropTypes.string, PropTypes.func]), // eslint-disable-line
-  openPanoramaExternal: PropTypes.oneOfType([PropTypes.string, PropTypes.func]) // eslint-disable-line
+  location: PropTypes.instanceOf(Array).isRequired,
+  openPanoramaTags: PropTypes.PropTypes.func.isRequired,
+  openPanoramaExternal: PropTypes.PropTypes.func.isRequired
 };
 
-export default PanoramaToggle;
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  openPanoramaTags: setPanoramaTags,
+  openPanoramaExternal: fetchPanoramaRequestExternal
+}, dispatch);
+
+export default connect(null, mapDispatchToProps)(PanoramaToggle);

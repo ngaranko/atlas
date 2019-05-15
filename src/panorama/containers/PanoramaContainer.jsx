@@ -20,7 +20,9 @@ import {
 } from '../services/marzipano/marzipano';
 
 import StatusBar from '../components/StatusBar/StatusBar';
+import PanoramaToggle from '../components/PanoramaToggle/PanoramaToggle';
 import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullscreen';
+import ContextMenu from '../../app/components/ContextMenu/ContextMenu';
 import {
   getDetailReference,
   getLabelObjectByTags,
@@ -32,7 +34,12 @@ import IconButton from '../../app/components/IconButton/IconButton';
 import { getMapDetail } from '../../map/ducks/detail/actions';
 import { getMapOverlays } from '../../map/ducks/map/selectors';
 import { pageTypeToEndpoint } from '../../map/services/map-detail';
-import { setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
+import {
+  isPrintOrEmbedMode,
+  isPrintMode,
+  setViewMode,
+  VIEW_MODE
+} from '../../shared/ducks/ui/ui';
 
 class PanoramaContainer extends React.Component {
   constructor(props) {
@@ -68,9 +75,14 @@ class PanoramaContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { panoramaState } = this.props;
+    const { panoramaState, printOrEmbedMode } = this.props;
 
     if (panoramaState.image !== prevProps.panoramaState.image) {
+      this.loadPanoramaScene();
+    }
+
+    if (printOrEmbedMode !== prevProps.printOrEmbedMode) {
+      this.panoramaViewer = initialize(this.panoramaRef);
       this.loadPanoramaScene();
     }
   }
@@ -121,6 +133,8 @@ class PanoramaContainer extends React.Component {
   render() {
     const {
       isFullscreen,
+      printOrEmbedMode,
+      printMode,
       panoramaState,
       onClose,
       tags
@@ -150,6 +164,14 @@ class PanoramaContainer extends React.Component {
           icon="cross"
         />
 
+        { !printMode && <PanoramaToggle
+          location={panoramaState.location}
+          heading={panoramaState.heading}
+          currentLabel={getLabelObjectByTags(tags).label}
+        /> }
+
+        { !printOrEmbedMode && <ContextMenu /> }
+
         {(panoramaState.date && panoramaState.location) ? (
           <StatusBar
             date={panoramaState.date}
@@ -169,7 +191,9 @@ const mapStateToProps = (state) => ({
   detailReference: getDetailReference(state),
   pageReference: getDetailReference(state),
   panoramaLocation: getPanoramaLocation(state),
-  overlays: getMapOverlays(state)
+  overlays: getMapOverlays(state),
+  printOrEmbedMode: isPrintOrEmbedMode(state),
+  printMode: isPrintMode(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -182,9 +206,16 @@ const mapDispatchToProps = (dispatch) => ({
   }, dispatch)
 });
 
+PanoramaContainer.defaultProps = {
+  printOrEmbedMode: false,
+  printMode: false
+};
+
 PanoramaContainer.propTypes = {
   panoramaState: PropTypes.shape({}).isRequired,
   isFullscreen: PropTypes.bool.isRequired,
+  printOrEmbedMode: PropTypes.bool,
+  printMode: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   setView: PropTypes.func.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,

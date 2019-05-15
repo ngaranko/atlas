@@ -17,6 +17,8 @@
   width: 18px;
   height: 18px;
   margin-right: $base-whitespace;
+  background: url("assets/images/spinner.svg") no-repeat;
+  background-size: auto 100%;
   animation: rotating-spinner 1s linear infinite;
 }
 

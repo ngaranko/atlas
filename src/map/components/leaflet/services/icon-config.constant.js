@@ -56,6 +56,11 @@ const ICON_CONFIG = {
     iconUrl: '/assets/images/map/panorama-person.svg',
     iconSize: [18, 31],
     iconAnchor: [9, 22]
+  },
+  LOCATION_MARKER: {
+    iconUrl: '/assets/images/map/locatie.svg',
+    iconSize: [28, 28],
+    iconAnchor: [10, 10]
   }
 };
 

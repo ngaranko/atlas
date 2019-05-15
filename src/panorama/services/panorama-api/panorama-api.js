@@ -146,3 +146,11 @@ export function getImageDataById(id, tags) {
     `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}/?${adjacenciesParams}`
   );
 }
+
+export function getStreetViewUrl(location, heading) {
+  const [latitude, longitude] = location;
+  const path = 'http://maps.google.com/maps?q=&layer=c&';
+  const parameters = `cbll=${latitude},${longitude}&cbp=11,${heading},0,0,0`;
+
+  return `${path}${parameters}`;
+}

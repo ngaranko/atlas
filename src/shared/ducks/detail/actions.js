@@ -1,6 +1,7 @@
 
 import {
   CLEAR_MAP_DETAIL, SET_VIEW, SHOW_DETAIL,
+  FETCH_DETAIL_REQUEST,
   FETCH_DETAIL_SUCCESS,
   FETCH_DETAIL_FAILURE
 } from './constants';
@@ -17,6 +18,11 @@ export const showDetail = (payload) => ({
 
 export const setView = (payload) => ({
   type: SET_VIEW,
+  payload
+});
+
+export const fetchDetailRequest = (payload) => ({
+  type: FETCH_DETAIL_REQUEST,
   payload
 });
 

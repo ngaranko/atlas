@@ -1,6 +1,7 @@
 .c-show-more {
   @extend %link--plus;
 
+  background-color: $primary-light;
   color: $secondary-gray60;
   display: block;
   line-height: $list-item-height;

@@ -1,6 +1,7 @@
+/* eslint-disable */
 /* eslint-disable import/first */
 /* eslint-disable import/no-extraneous-dependencies */
-import 'core-js/shim';
+import 'core-js';
 import 'regenerator-runtime/runtime';
 import angular from 'angular';
 // All third party dependencies
@@ -52,7 +53,6 @@ import '../modules/header/header.module';
 import '../modules/header/components/embed-header/embed-header.component';
 import '../modules/header/components/logo/logo.component';
 import '../modules/header/components/logout-button/logout-button.component';
-import '../modules/header/components/menu/dropdown/menu-dropdown.directive';
 import '../modules/header/components/menu/menu.component';
 import '../modules/header/components/print-button/print-button.component';
 import '../modules/header/components/site-header/site-header.component';
@@ -112,7 +112,6 @@ import '../modules/data-selection/components/header/toggle-view-button/toggle-vi
 import '../modules/data-selection/components/header/header.component.test';
 import '../modules/data-selection/services/document-title/document-title.factory.test';
 import '../modules/header/components/logout-button/logout-button.component.test';
-import '../modules/header/components/menu/dropdown/menu-dropdown.directive.test';
 import '../modules/header/components/menu/menu.component.test';
 import '../modules/header/components/embed-header/embed-header.component.test';
 import '../modules/header/components/site-header/site-header.component.test';
@@ -187,4 +186,4 @@ angular.mock.inject = (callback) => {
   });
   origInject(callback);
 };
-
+/* eslint-enable */

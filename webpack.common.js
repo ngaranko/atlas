@@ -80,18 +80,50 @@ function commonConfig({ nodeEnv }) {
           use: 'html-loader'
         },
         {
+          test: /\.svg$/,
+          use: [
+            {
+              loader: '@svgr/webpack',
+              options: {
+                svgo: {
+                  plugins: [
+                    { removeViewBox: false },
+                    { removeDimensions: true },
+                    { removeDoctype: true },
+                    { removeComments: true },
+                    { removeMetadata: true },
+                    { removeEditorsNSData: true },
+                    { cleanupIDs: true },
+                    { removeRasterImages: true },
+                    { removeUselessDefs: true },
+                    { removeUnknownsAndDefaults: true },
+                    { removeUselessStrokeAndFill: true },
+                    { removeHiddenElems: true },
+                    { removeEmptyText: true },
+                    { removeEmptyAttrs: true },
+                    { removeEmptyContainers: true },
+                    { removeUnusedNS: true },
+                    { removeDesc: true },
+                    { prefixIds: true }
+                  ]
+                }
+              }
+            },
+            'url-loader'
+          ],
+        },
+        {
           test: /\.(png|svg|cur)$/,
           include: [
             legacy
           ],
-          exclude: /src/,
           use: [{
             loader: 'file-loader',
             options: {
               outputPath: 'assets/'
             }
           }]
-        }
+        },
       ]
     },
     plugins: [

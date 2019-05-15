@@ -19,7 +19,8 @@ import {
   getMapZoom,
   getMarkers,
   getRdGeoJsons,
-  isMapLoading
+  isMapLoading,
+  getMarkerLocation
 } from '../../ducks/map/selectors';
 import {
   getBrkMarkers,
@@ -43,6 +44,7 @@ const mapStateToProps = (state) => ({
   geoJsons: getGeoJsons(state),
   rdGeoJsons: getRdGeoJsons(state),
   markers: getMarkers(state),
+  marker: getMarkerLocation(state),
   brkMarkers: getBrkMarkers(state),
   layers: getLayers(state),
   drawingMode: getDrawingMode(state),
@@ -125,6 +127,7 @@ class LeafletContainer extends React.Component {
       getLeafletInstance,
       layers,
       markers,
+      marker,
       zoom,
       brkMarkers,
       isLoading
@@ -142,6 +145,7 @@ class LeafletContainer extends React.Component {
           clusterMarkers,
           geoJsons,
           rdGeoJsons,
+          marker,
           layers,
           mapOptions,
           scaleControlOptions,
@@ -169,7 +173,8 @@ LeafletContainer.defaultProps = {
   geoJsons: [],
   rdGeoJsons: [],
   layers: [],
-  markers: []
+  markers: [],
+  marker: null
 };
 
 LeafletContainer.propTypes = {
@@ -184,6 +189,7 @@ LeafletContainer.propTypes = {
   rdGeoJsons: PropTypes.arrayOf(PropTypes.shape({})),
   getLeafletInstance: PropTypes.func.isRequired,
   markers: PropTypes.arrayOf(PropTypes.shape({})),
+  marker: PropTypes.shape({}),
   brkMarkers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,

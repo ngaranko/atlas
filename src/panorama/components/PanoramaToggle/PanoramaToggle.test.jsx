@@ -1,47 +1,42 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
-import { setPanoramaTags } from '../../ducks/actions';
-
+import configureMockStore from 'redux-mock-store';
+import { setPanoramaTags, fetchPanoramaRequestExternal } from '../../ducks/actions';
+import { PANO_LABELS } from '../../ducks/constants';
+import { getStreetViewUrl } from '../../services/panorama-api/panorama-api';
 import PanoramaToggle from './PanoramaToggle';
 
 jest.mock('../../ducks/actions');
+jest.mock('../../services/panorama-api/panorama-api');
 
 describe('PanoramaToggle', () => {
-  let wrapper;
+  const props = {
+    heading: 10,
+    location: [2, 3],
+    currentLabel: '2018'
+  };
+  const store = configureMockStore()({});
+  const component = shallow(<PanoramaToggle {...props} />, { context: { store } }).dive();
+
+  setPanoramaTags.mockImplementation(() => ({ type: 'action' }));
+  fetchPanoramaRequestExternal.mockImplementation(() => ({ type: 'action' }));
+
   beforeEach(() => {
-    wrapper = shallow(
-      <PanoramaToggle
-        {...{
-          heading: 999,
-          currentLabel: 'Meest recent',
-          location: [2, 3],
-          setPanoramaTags: jest.fn
-        }}
-      />
-    );
+    global.window.open = jest.fn();
   });
 
-  setPanoramaTags.mockReturnValue({ type: '' });
-
-  it('should render everything', () => {
-    expect(wrapper).toMatchSnapshot();
+  it('should render all the items of the menu', () => {
+    expect(component.find('ContextMenuItem').length).toBe(PANO_LABELS.length + 1);
   });
 
-  it('menu opens on button click', () => {
-    expect(wrapper.instance().state.showMenu).toBe(false);
-
-    wrapper.find('.c-panorama-toggle__button').simulate('click');
-
-    expect(wrapper.instance().state.showMenu).toBe(true);
-    expect(wrapper).toMatchSnapshot();
+  it('should handle onClick event on pano buttons', () => {
+    component.find('ContextMenuItem').at(1).simulate('click');
+    expect(setPanoramaTags).toHaveBeenCalledWith(PANO_LABELS[1].tags);
   });
 
-  it('fires panoramaRequest on button click in menu', () => {
-    wrapper.instance().setState({ showMenu: true });
-    wrapper.update();
-
-    wrapper.find('.c-panorama-toggle__item').at(1).simulate('click');
-    expect(wrapper.instance().state.showMenu).toBe(false);
+  it('should handle onClick event on external pano button', () => {
+    component.find('ContextMenuItem').at(PANO_LABELS.length).simulate('click');
+    expect(getStreetViewUrl).toHaveBeenCalledWith(props.location, props.heading);
+    expect(fetchPanoramaRequestExternal).toHaveBeenCalled();
   });
 });

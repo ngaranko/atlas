@@ -137,8 +137,8 @@ class MapLeaflet extends React.Component {
     const elementFits = mapBounds.contains(bounds);
     if (!elementFits) {
       const elementZoom = this.MapElement.getBoundsZoom(bounds);
-      if (elementZoom < zoom) {
-        // pan and zoom to the geoJson element
+      if (!isBoundsAPoint(bounds) && elementZoom < zoom) {
+        // pan and zoom to the geoJson element, only when not a point
         this.MapElement.fitBounds(bounds);
       } else {
         // only pan to the geoJson element
@@ -175,6 +175,7 @@ class MapLeaflet extends React.Component {
       layers,
       mapOptions,
       markers,
+      marker,
       scaleControlOptions,
       zoomControlOptions,
       zoom,
@@ -264,29 +265,39 @@ class MapLeaflet extends React.Component {
             )
           }
           {
-            markers.map((marker) => Boolean(marker.position) && (
+            markers.map((item) => Boolean(item.position) && (
               <CustomMarker
-                ref={markerConfig[marker.type].requestFocus && this.setActiveElement}
-                position={marker.position}
-                key={marker.position.toString() + marker.type}
-                icon={icons[marker.type](marker.iconData)}
+                ref={markerConfig[item.type].requestFocus && this.setActiveElement}
+                position={item.position}
+                key={item.position.toString() + item.type}
+                icon={icons[item.type](item.iconData)}
                 zIndexOffset={100}
-                rotationAngle={marker.heading || 0}
+                rotationAngle={item.heading || 0}
               />
             ))
           }
           {
-            brkMarkers.map((marker) => Boolean(marker.position) && (
+            brkMarkers.map((item) => Boolean(item.position) && (
               <CustomMarker
-                ref={markerConfig[marker.type].requestFocus && this.setActiveElement}
-                position={marker.position}
-                key={marker.position.toString() + marker.type}
-                icon={icons[marker.type](marker.iconData)}
+                ref={markerConfig[item.type].requestFocus && this.setActiveElement}
+                position={item.position}
+                key={item.position.toString() + item.type}
+                icon={icons[item.type](item.iconData)}
                 zIndexOffset={100}
-                rotationAngle={marker.heading || 0}
+                rotationAngle={item.heading || 0}
               />
             ))
           }
+          {
+            marker && (
+              <CustomMarker
+                position={marker.position}
+                key={marker.toString()}
+                icon={icons[marker.type](marker.iconData)}
+              />
+            )
+          }
+
           {
             geoJsons.map((shape) => Boolean(shape.geoJson) && (
               <GeoJSON
@@ -335,6 +346,7 @@ MapLeaflet.defaultProps = {
   layers: [],
   mapOptions: {},
   markers: [],
+  marker: null,
   scaleControlOptions: {},
   zoomControlOptions: {},
   zoom: 11,
@@ -360,6 +372,7 @@ MapLeaflet.propTypes = {
   isZoomControlVisible: PropTypes.bool,
   mapOptions: PropTypes.shape({}),
   markers: PropTypes.arrayOf(PropTypes.shape({})),
+  marker: PropTypes.shape({}),
   layers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     isVisible: PropTypes.bool.isRequired,

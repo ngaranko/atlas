@@ -6,6 +6,7 @@ import MapLeaflet from './MapLeaflet';
 import MAP_CONFIG from '../../services/map-config';
 
 import { boundsToString, getBounds, isValidBounds, isBoundsAPoint } from './services/bounds';
+import { markerPointType } from './services/icons.constant';
 
 jest.mock('./services/bounds');
 
@@ -28,6 +29,7 @@ describe('MapLeaflet component', () => {
 
   it('should render map with base layer and update base layer if props change', () => {
     const center = [52.3731081, 4.8932945];
+    const marker = { position: [...center], type: markerPointType };
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapLeaflet
@@ -37,6 +39,7 @@ describe('MapLeaflet component', () => {
         mapOptions={mapOptions}
         onZoomEnd={clickHandler}
         brkMarkers={[]}
+        marker={marker}
         scaleControlOptions={scaleControlOptions}
         zoomControlOptions={zoomControlOptions}
       />
@@ -549,7 +552,9 @@ describe('MapLeaflet component', () => {
       getMaxZoom: jest.fn(),
       getMinZoom: jest.fn(),
       getCenter: jest.fn(),
-      panInsideBounds: jest.fn()
+      panInsideBounds: jest.fn(),
+      getNorthEast: jest.fn(),
+      getSouthWest: jest.fn()
     };
 
     const bounds = {
@@ -759,11 +764,48 @@ describe('MapLeaflet component', () => {
           expect(wrapperInstance.MapElement.fitBounds).toHaveBeenCalledWith(bounds);
         });
 
-        it('should pan to the element when the zoom level is ', () => {
+        it('should pan to the element when the zoom level is within range', () => {
           wrapperInstance.MapElement.getBoundsZoom.mockImplementation(() => 12);
           wrapperInstance.fitActiveElement(bounds);
           expect(wrapperInstance.MapElement.panInsideBounds).toHaveBeenCalledWith(bounds);
         });
+
+        it('should pan to the element when the bounds represent a point', () => {
+          wrapperInstance.MapElement.getNorthEast.mockImplementation(() => [1, 1]);
+          wrapperInstance.MapElement.getSouthWest.mockImplementation(() => [1, 1]);
+          wrapperInstance.fitActiveElement(bounds);
+          expect(wrapperInstance.MapElement.fitBounds).not.toHaveBeenCalled();
+          expect(wrapperInstance.MapElement.panInsideBounds).toHaveBeenCalledWith(bounds);
+        });
+      });
+    });
+
+    describe('loading events', () => {
+      it('should change the state when the loading event is triggerd', () => {
+        const layer = {
+          leafletId: 'id'
+        };
+        wrapperInstance.handleLoading(layer);
+        expect(wrapperInstance.state.pendingLayers.length).toBe(1);
+      });
+
+      it('should add a layer to the pending changes only once when the loading event is triggerd', () => {
+        const layer = {
+          leafletId: 'id'
+        };
+        wrapperInstance.handleLoading(layer);
+        wrapperInstance.handleLoading(layer);
+        expect(wrapperInstance.state.pendingLayers.length).toBe(1);
+      });
+
+      it('should remove the layer from the pending layers when the loaded event is triggerd', () => {
+        const layer = {
+          leafletId: 'id'
+        };
+        wrapperInstance.handleLoading(layer);
+        expect(wrapperInstance.state.pendingLayers.length).toBe(1);
+        wrapperInstance.handleLoaded(layer);
+        expect(wrapperInstance.state.pendingLayers.length).toBe(0);
       });
     });
   });

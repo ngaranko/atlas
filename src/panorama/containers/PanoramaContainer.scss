@@ -11,11 +11,9 @@
 
 .c-panorama__marzipano {
   border: solid $secondary-gray20 1px;
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
+  height: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .c-panorama__status-bar {

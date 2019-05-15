@@ -4,69 +4,7 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    [
-      "inline-react-svg",
-      {
-        "svgo": {
-          "plugins": [
-            {
-              "removeViewBox": false
-            },
-            {
-              "removeDimensions": true
-            },
-            {
-              "removeDoctype": true
-            },
-            {
-              "removeComments": true
-            },
-            {
-              "removeMetadata": true
-            },
-            {
-              "removeEditorsNSData": true
-            },
-            {
-              "cleanupIDs": true
-            },
-            {
-              "removeRasterImages": true
-            },
-            {
-              "removeUselessDefs": true
-            },
-            {
-              "removeUnknownsAndDefaults": true
-            },
-            {
-              "removeUselessStrokeAndFill": true
-            },
-            {
-              "removeHiddenElems": true
-            },
-            {
-              "removeEmptyText": true
-            },
-            {
-              "removeEmptyAttrs": true
-            },
-            {
-              "removeEmptyContainers": true
-            },
-            {
-              "removeUnusedNS": true
-            },
-            {
-              "removeDesc": true
-            },
-            {
-              "prefixIds": true
-            }
-          ]
-        }
-      }
-    ],
+    ["dynamic-import-node", { "noInterop": true }],
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-transform-runtime",
     "@babel/plugin-syntax-dynamic-import"

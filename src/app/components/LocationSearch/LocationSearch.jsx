@@ -6,6 +6,7 @@ import { DataSearchLocation } from '../DataSearch';
 import NoDetailsAvailable from '../PanelMessages/NoDetailsAvailable';
 import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
 import MoreResultsWhenLoggedIn from '../PanelMessages/MoreResultsWhenLoggedIn';
+import ShareBar from '../ShareBar/ShareBar';
 
 const LocationSearch = ({
   isLoading,
@@ -14,7 +15,8 @@ const LocationSearch = ({
   user,
   numberOfResults,
   location,
-  panoramaPreview
+  panoramaPreview,
+  printMode
 }) => {
   const { x: rdX, y: rdY } = wgs84ToRd(location);
   return (
@@ -49,6 +51,14 @@ const LocationSearch = ({
           {(!!numberOfResults && (!user.scopes.includes('HR/R') || !user.scopes.includes('BRK/RS'))) &&
           <MoreResultsWhenLoggedIn />
           }
+
+          {!printMode && (
+            <div className="u-row">
+              <div className="u-col-sm--12">
+                <div className="u-margin__top--4"><ShareBar /></div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -61,6 +71,7 @@ LocationSearch.defaultProps = {
 
 LocationSearch.propTypes = {
   panoramaPreview: PropTypes.bool.isRequired,
+  printMode: PropTypes.bool.isRequired,
   numberOfResults: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
   layerWarning: PropTypes.string,
