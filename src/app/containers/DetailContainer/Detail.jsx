@@ -32,7 +32,7 @@ const Detail = ({
         endpoint
       }}
     />
-  {!isLoading && !printMode && (
+    {!isLoading && !printMode && (
       <div className="u-row">
         <div className="u-col-sm--12">
           <div className="u-margin__left--2 u-margin__bottom--1"><ShareBar /></div>
