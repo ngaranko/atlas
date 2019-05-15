@@ -12,6 +12,7 @@ import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors';
 import {
   clearMapDetail,
   fetchDetailFailure,
+  fetchDetailRequest,
   fetchDetailSuccess,
   showDetail
 } from '../../../shared/ducks/detail/actions';
@@ -42,7 +43,6 @@ describe('fetchDetailEffect', () => {
     };
     testSaga(fetchDetailEffect, action)
       .next()
-      // .next()
       .put(closeMapPanel())
       .next()
       .select(getDetailEndpoint)
@@ -84,6 +84,8 @@ describe('fetchMapDetail', () => {
     };
     testSaga(fetchMapDetail)
       .next()
+      .put(fetchDetailRequest())
+      .next()
       .next()  // waitForAuthentication
       .next()  // select
       .next(action.endpoint)  // select
@@ -106,6 +108,8 @@ describe('fetchMapDetail', () => {
     const error = new Error('My Error');
     testSaga(fetchMapDetail, action)
       .next()
+      .put(fetchDetailRequest())
+      .next()
       .throw(error)
       .put(mapLoadingAction(false))
       .next()
@@ -120,6 +124,8 @@ describe('fetchMapDetail', () => {
     const error = new Error('My Error');
     error.status = 404;
     testSaga(fetchMapDetail, action)
+      .next()
+      .put(fetchDetailRequest())
       .next()
       .throw(error)
       .put(mapLoadingAction(false))
