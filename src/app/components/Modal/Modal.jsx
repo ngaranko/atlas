@@ -81,8 +81,7 @@ class ModalComponent extends Component {
             Onjuiste of ontbrekende gegevens?
           </Typography>
           <Typography paragraph element="p" gutterBottom>
-            Geef aan welke gegevens onjuist zijn of ontbreken. Ook als je weet wat het wel moet
-            zijn. We horen het graag.
+            Geef aan welke gegevens op deze pagina onjuist zijn of ontbreken. We horen het graag.
           </Typography>
           <Button
             as="a"
