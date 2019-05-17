@@ -252,15 +252,11 @@ const GLOSSARY = {
     BOUWDOSSIERS: {
       label_singular: 'Bouwdossier',
       label_plural: 'Bouwdossiers',
-      description: 'Een monument is een onroerende zaak (fysiek bouwwerk of historische structuur) die ' +
-        'beschermd is door middel van een status op grond van de Erfgoedverordening Amsterdam (voor ' +
-        'gemeentelijke monumenten) of de Monumentenwet 1988 (voor rijksmonumenten), vanwege het algemeen ' +
-        'belang wegens zijn schoonheid, betekenis voor de wetenschap of cultuurhistorische waarde.',
-      url: 'https://www.amsterdam.nl/stelselpedia/monumenten-index/catalogus-monumenten/objectklasse/',
-      meta: [
-        'monument_aanwijzingsdatum',
-        'identificerende_sleutel_monument'
-      ]
+      description: 'Een bouwdossier bevat de behandeling van de aanvraag tot een bouwvergunning ' +
+        '(waaronder ook splitsings-, reclame- en sloopvergunningen), de vergunningverlening ervan ' +
+        ' met de bijbehorende bouwtekeningen en het toezicht en de handhaving daarop.',
+      url: null,
+      meta: []
     },
     NUMMERAANDUIDING: {
       label_singular: 'Adres',
