@@ -1,3 +1,5 @@
+import SHARED_CONFIG from '../../../../src/shared/services/shared-config/shared-config';
+
 (function () {
     'use strict';
 
@@ -22,6 +24,7 @@
         };
 
         function linkFunction (scope, element) {
+            scope.apiUrl = SHARED_CONFIG.API_ROOT;
             var templateUrl = 'modules/detail/components/partial-select/partials/' + scope.partial + '.html';
 
             partialCompiler.getHtml(templateUrl, scope).then(function (partial) {
