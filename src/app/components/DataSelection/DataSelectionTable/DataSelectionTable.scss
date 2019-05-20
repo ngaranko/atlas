@@ -6,9 +6,8 @@
   width: 100%;
 
   &__head {
-    @include font-weight($bold-weight);
-
     display: table-header-group;
+    font-weight: $bold-weight;
     white-space: nowrap;
 
     #{$self}__cell {

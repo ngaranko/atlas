@@ -5,7 +5,7 @@
 
   p,
   li {
-    @include font-weight($normal-weight);
+    font-weight: $normal-weight;
     margin-bottom: .6 * $base-whitespace;
   }
 }

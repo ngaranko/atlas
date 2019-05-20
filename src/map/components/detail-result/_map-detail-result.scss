@@ -60,16 +60,14 @@ $icon-height: 24px;
     }
 
     &-title {
-      font-family: "Avenir LT W01 55 Roman";
-      font-size: 14px;
-      font-weight: normal;
+      font-size: $xs-font-size;
+      font-weight: 400;
       line-height: 1;
     }
 
     &-subtitle {
-      font-family: "Avenir LT W01 85 Heavy";
-      font-size: 16px;
-      font-weight: normal;
+      font-size: $s-font-size;
+      font-weight: 900;
       line-height: 1;
       padding-top: 4px;
     }
@@ -87,9 +85,8 @@ $icon-height: 24px;
 
   &__category-title {
     color: $primary-dark;
-    font-family: "Avenir LT W01 85 Heavy";
-    font-size: 16px;
-    font-weight: normal;
+    font-size: $s-font-size;
+    font-weight: 900;
     line-height: 1;
     margin-top: 8px;
     padding: 0 8px;
@@ -120,7 +117,7 @@ $icon-height: 24px;
 
     &-label {
       color: $secondary-gray40;
-      font-size: 14px;
+      font-size: $xs-font-size;
       padding-bottom: 4px;
     }
 
@@ -178,7 +175,7 @@ $icon-height: 24px;
     border-radius: 0;
     color: $secondary-gray60;
     display: flex;
-    font-family: "Avenir LT W01 85 Heavy", Arial, sans-serif;
+    font-weight: 900;
     justify-content: center;
     margin: auto;
     padding: 6px 16px 6px 8px;

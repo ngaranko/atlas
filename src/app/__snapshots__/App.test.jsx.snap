@@ -1,17 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App should render the homepage 1`] = `
-<ThemeProvider
+<DefaultThemeProvider
   overrides={
     Object {
       "typography": Object {
-        "fontFamily": "\\"Avenir LT W01 55 Roman\\", Arial, sans-serif",
-        "h4": Object {
-          "fontFamily": "\\"Avenir LT W01 85 Heavy\\", Arial, sans-serif",
-        },
-        "h5": Object {
-          "fontFamily": "\\"Avenir LT W01 85 Heavy\\", Arial, sans-serif",
-        },
+        "fontFamily": "\\"AvenirLT\\", Arial, sans-serif",
       },
     }
   }
@@ -48,21 +42,15 @@ exports[`App should render the homepage 1`] = `
       </div>
     </div>
   </React.Suspense>
-</ThemeProvider>
+</DefaultThemeProvider>
 `;
 
 exports[`App should render the mapview 1`] = `
-<ThemeProvider
+<DefaultThemeProvider
   overrides={
     Object {
       "typography": Object {
-        "fontFamily": "\\"Avenir LT W01 55 Roman\\", Arial, sans-serif",
-        "h4": Object {
-          "fontFamily": "\\"Avenir LT W01 85 Heavy\\", Arial, sans-serif",
-        },
-        "h5": Object {
-          "fontFamily": "\\"Avenir LT W01 85 Heavy\\", Arial, sans-serif",
-        },
+        "fontFamily": "\\"AvenirLT\\", Arial, sans-serif",
       },
     }
   }
@@ -99,5 +87,5 @@ exports[`App should render the mapview 1`] = `
       </div>
     </div>
   </React.Suspense>
-</ThemeProvider>
+</DefaultThemeProvider>
 `;

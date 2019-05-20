@@ -1,6 +1,4 @@
 %description-list-key {
-  @include font-weight($medium-weight);
-
   width: 50%;
   padding-right: $base-whitespace;
   padding-left: $detail-padding;
@@ -8,6 +6,7 @@
   clear: both;
   border-top: 1px solid $secondary-gray20;
   color: $secondary-gray60;
+  font-weight: $medium-weight;
   word-wrap: break-word;
 
   &:first-of-type {

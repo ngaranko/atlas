@@ -13,9 +13,9 @@
 }
 
 .c-user-content-overview__toc-header {
-  @include font-weight($bold-weight);
   margin-bottom: $base-whitespace;
   color: $primary-contrast;
+  font-weight: $bold-weight;
 }
 
 .c-user-content-overview__date {
