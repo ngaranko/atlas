@@ -1058,17 +1058,10 @@ const mapLayers = [
     layers: ['bekendmakingen'],
     legendItems: [
       {
-        id: 'evever',
-        title: 'Evenementenvergunning',
+        id: 'bespla',
+        title: 'Bestemmingsplan',
         params: {
-          onderwerp: 'evenementenvergunning'
-        }
-      },
-      {
-        id: 'verreg',
-        title: 'Verordeningen en reglementen',
-        params: {
-          onderwerp: 'verordeningen_en_reglementen'
+          onderwerp: 'bestemmingsplan'
         }
       },
       {
@@ -1079,52 +1072,10 @@ const mapLayers = [
         }
       },
       {
-        id: 'inspra',
-        title: 'Inspraak',
+        id: 'evever',
+        title: 'Evenementenvergunning',
         params: {
-          onderwerp: 'inspraak'
-        }
-      },
-      {
-        id: 'bespla',
-        title: 'Bestemmingsplan',
-        params: {
-          onderwerp: 'bestemmingsplan'
-        }
-      },
-      {
-        id: 'terras',
-        title: 'Terrasvergunning',
-        params: {
-          onderwerp: 'terrasvergunning'
-        }
-      },
-      {
-        id: 'ligpla',
-        title: 'Ligplaatsvergunning',
-        params: {
-          onderwerp: 'ligplaatsvergunning'
-        }
-      },
-      {
-        id: 'onttre',
-        title: 'Onttrekkingsvergunning',
-        params: {
-          onderwerp: 'onttrekkingsvergunning'
-        }
-      },
-      {
-        id: 'meldin',
-        title: 'Meldingen',
-        params: {
-          onderwerp: 'meldingen'
-        }
-      },
-      {
-        id: 'kapver',
-        title: 'Kapvergunning',
-        params: {
-          onderwerp: 'kapvergunning'
+          onderwerp: 'evenementenvergunning'
         }
       },
       {
@@ -1135,31 +1086,38 @@ const mapLayers = [
         }
       },
       {
-        id: 'overig',
-        title: 'Overig',
+        id: 'inspra',
+        title: 'Inspraak',
         params: {
-          onderwerp: 'overig'
+          onderwerp: 'inspraak'
         }
       },
       {
-        id: 'optijd',
-        title: 'Openingstijden',
+        id: 'kapver',
+        title: 'Kapvergunning',
         params: {
-          onderwerp: 'openingstijden'
+          onderwerp: 'kapvergunning'
         }
       },
       {
-        id: 'splits',
-        title: 'Splitsingsvergunning',
+        id: 'ligpla',
+        title: 'Ligplaatsvergunning',
         params: {
-          onderwerp: 'splitsingsvergunning'
+          onderwerp: 'ligplaatsvergunning'
         }
       },
       {
-        id: 'verbes',
-        title: 'Verkeersbesluit',
+        id: 'medede',
+        title: 'Mededelingen',
         params: {
-          onderwerp: 'verkeersbesluit'
+          onderwerp: 'mededelingen'
+        }
+      },
+      {
+        id: 'meldin',
+        title: 'Meldingen',
+        params: {
+          onderwerp: 'meldingen'
         }
       },
       {
@@ -1170,10 +1128,17 @@ const mapLayers = [
         }
       },
       {
-        id: 'medede',
-        title: 'Mededelingen',
+        id: 'onttre',
+        title: 'Onttrekkingsvergunning',
         params: {
-          onderwerp: 'mededelingen'
+          onderwerp: 'onttrekkingsvergunning'
+        }
+      },
+      {
+        id: 'optijd',
+        title: 'Openingstijden',
+        params: {
+          onderwerp: 'openingstijden'
         }
       },
       {
@@ -1189,9 +1154,44 @@ const mapLayers = [
         params: {
           onderwerp: 'speelautomatenvergunning'
         }
+      },
+      {
+        id: 'splits',
+        title: 'Splitsingsvergunning',
+        params: {
+          onderwerp: 'splitsingsvergunning'
+        }
+      },
+      {
+        id: 'terras',
+        title: 'Terrasvergunning',
+        params: {
+          onderwerp: 'terrasvergunning'
+        }
+      },
+      {
+        id: 'verbes',
+        title: 'Verkeersbesluit',
+        params: {
+          onderwerp: 'verkeersbesluit'
+        }
+      },
+      {
+        id: 'verreg',
+        title: 'Verordeningen en reglementen',
+        params: {
+          onderwerp: 'verordeningen_en_reglementen'
+        }
+      },
+      {
+        id: 'overig',
+        title: 'Overig',
+        params: {
+          onderwerp: 'overig'
+        }
       }
     ],
-    title: 'Bekendmakingen',
+    title: 'Gemeentelijke bekendmakingen',
     url: '/maps/bekendmakingen',
     detailUrl: 'geosearch/search/',
     detailItem: 'bekendmakingen'
