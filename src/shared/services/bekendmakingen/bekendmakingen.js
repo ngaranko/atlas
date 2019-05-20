@@ -10,8 +10,6 @@ export default function fetchByUri(uri) {
       const geometryCenter = result.wkb_geometry && getCenter(result.wkb_geometry);
       const wgs84Center = geometryCenter ? rdToWgs84(geometryCenter) : null;
 
-      console.log(result)
-
       return {
         geometrie: result.wkb_geometry,
         label: result._display,

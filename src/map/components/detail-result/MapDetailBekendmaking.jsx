@@ -14,6 +14,10 @@ const MapDetailBekendmaking = ({ panoUrl, bekendmaking, onMaximize, onPanoPrevie
   >
     <ul className="map-detail-result__list">
       <MapDetailResultItem
+        label="Datum"
+        value={bekendmaking.datum}
+      />
+      <MapDetailResultItem
         label="Categorie"
         value={bekendmaking.categorie}
       />
@@ -22,8 +26,8 @@ const MapDetailBekendmaking = ({ panoUrl, bekendmaking, onMaximize, onPanoPrevie
         value={bekendmaking.onderwerp}
       />
       <MapDetailResultItem
-        label="Datum"
-        value={bekendmaking.datum}
+        label="Beschrijving"
+        value={bekendmaking.beschrijving}
       />
       <MapDetailResultUrlItem
         label="Meer informatie"
@@ -40,6 +44,7 @@ MapDetailBekendmaking.propTypes = {
     label: PropTypes.string,
     categorie: PropTypes.string,
     onderwerp: PropTypes.string,
+    beschrijving: PropTypes.string,
     url: PropTypes.string,
     label: PropTypes.date,
   }).isRequired,
