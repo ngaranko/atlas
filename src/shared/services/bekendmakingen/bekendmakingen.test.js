@@ -60,7 +60,7 @@ describe('The bekendmakingen resource', () => {
         expect(response).toEqual({
           beschrijving: undefined,
           label: undefined,
-          location: undefined,
+          location: null,
           onderwerp: undefined,
           categorie: undefined,
           geometrie: undefined,

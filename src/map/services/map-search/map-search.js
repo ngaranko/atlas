@@ -26,7 +26,8 @@ const endpoints = [
   { uri: 'geosearch/winkgeb/' },
   { uri: 'parkeervakken/geosearch/' },
   { uri: 'geosearch/oplaadpunten/', radius: 25 },
-  { uri: 'geosearch/bekendmakingen/', radius: 25 }
+  { uri: 'geosearch/bekendmakingen/', radius: 25 },
+  { uri: 'geosearch/evenementen/', radius: 25 }
 ];
 
 const relatedResourcesByType = {

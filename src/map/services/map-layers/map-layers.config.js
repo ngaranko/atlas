@@ -1307,7 +1307,7 @@ const mapLayers = [
     title: 'Evenementen',
     url: '/maps/evenementen',
     detailUrl: 'geosearch/evenementen/',
-    detailItem: 'evenement'
+    detailItem: 'evenementen'
   },
   {
     category: THEMES.MIL_GROUND,
