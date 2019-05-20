@@ -1193,6 +1193,8 @@ const mapLayers = [
     ],
     title: 'Bekendmakingen',
     url: '/maps/bekendmakingen',
+    detailUrl: 'geosearch/search/',
+    detailItem: 'bekendmakingen'
   },
   {
     category: THEMES.SAFETY,

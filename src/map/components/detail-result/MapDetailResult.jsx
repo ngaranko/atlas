@@ -8,6 +8,7 @@ import MapDetailAdressenPand from './adressen/MapDetailAdressenPand';
 import MapDetailAdressenStandplaats from './adressen/MapDetailAdressenStandplaats';
 import MapDetailAdressenVerblijfsobject from './adressen/MapDetailAdressenVerblijfsobject';
 import MapDetailBedrijfsinvesteringszone from './MapDetailBedrijfsinvesteringszone';
+import MapDetailBekendmaking from './MapDetailBekendmaking';
 import MapDetailExplosievenGevrijwaardGebied from './explosieven/MapDetailExplosievenGevrijwaardGebied';
 import MapDetailExplosievenInslag from './explosieven/MapDetailExplosievenInslag';
 import MapDetailExplosievenUitgevoerdOnderzoek from './explosieven/MapDetailExplosievenUitgevoerdOnderzoek';
@@ -31,6 +32,7 @@ import MapDetailVestiging from './MapDetailVestiging';
 import MapDetailWinkelgebied from './MapDetailWinkelgebied';
 
 const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => {
+  console.log('MapDetailResult', result)
   switch (result.endpointType) {
     case endpointTypes.adressenLigplaats:
       return (
@@ -82,6 +84,15 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
       return (
         <MapDetailBedrijfsinvesteringszone
           bedrijfsinvesteringszone={result}
+          onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
+          panoUrl={panoUrl}
+        />
+      );
+    case endpointTypes.bekendmakingen:
+      return (
+        <MapDetailBekendmaking
+          bekendmaking={result}
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}

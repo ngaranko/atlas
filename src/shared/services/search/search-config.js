@@ -96,7 +96,8 @@ export default {
     { uri: 'geosearch/winkgeb/' },
     { uri: 'parkeervakken/geosearch/' },
     { uri: 'geosearch/oplaadpunten/' },
-    { uri: 'geosearch/evenementen/', radius: 25 }
+    { uri: 'geosearch/evenementen/', radius: 25 },
+    { uri: 'geosearch/bekendmakingen/', radius: 25 }
   ],
   COORDINATES_HIERARCHY: [
     {
@@ -162,6 +163,11 @@ export default {
       label_singular: 'Oplaadpunt',
       label_plural: 'Oplaadpunten',
       features: ['vsd/oplaadpunten']
+    }, {
+      slug: 'bekendmakingen',
+      label_singular: 'Bekendmaking',
+      label_plural: 'Bekendmakingen',
+      features: ['vsd/bekendmakingen']
     }, {
       slug: 'explosief',
       label_singular: 'Explosief',

@@ -27,7 +27,8 @@ const categoryTypeOrder = [
   'vsd/biz',
   'vsd/winkgeb',
   'parkeervakken/parkeervakken',
-  'vsd/oplaadpunten'
+  'vsd/oplaadpunten',
+  'vsd/bekendmakingen'
 ];
 
 export default categoryTypeOrder;

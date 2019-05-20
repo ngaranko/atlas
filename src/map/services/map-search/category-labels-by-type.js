@@ -26,6 +26,7 @@ const categoryLabelsByType = {
   'nap/peilmerk': categoryLabels.napPijlmerk,
   'parkeervakken/parkeervakken': categoryLabels.parkeervak,
   vestiging: categoryLabels.vestiging,
+  'vsd/bekendmakingen': categoryLabels.bekendmakingen,
   'vsd/biz': categoryLabels.bedrijfsinvesteringszone,
   'vsd/oplaadpunten': categoryLabels.oplaadpunten,
   'vsd/winkgeb': categoryLabels.winkelgebied,
