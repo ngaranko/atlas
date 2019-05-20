@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
 import { routing } from '../../routes';
 import Notification from '../../../shared/components/notification/Notification';
 import { BEDIENING_LOGIN_DEEPLINK } from '../../../shared/ducks/content/constants';
 
-const MoreResultsWhenLoggedIn = ({ excludedResults = '' }) => (
+const MoreResultsWhenLoggedIn = ({ excludedResults }) => (
   <Notification
     type="warning"
   >
@@ -26,5 +27,13 @@ const MoreResultsWhenLoggedIn = ({ excludedResults = '' }) => (
     </p>
   </Notification>
 );
+
+MoreResultsWhenLoggedIn.defaultProps = {
+  excludedResults: ''
+};
+
+MoreResultsWhenLoggedIn.propTypes = {
+  excludedResults: PropTypes.string
+};
 
 export default MoreResultsWhenLoggedIn;
