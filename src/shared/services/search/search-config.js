@@ -91,7 +91,7 @@ export default {
         monumenttype: 'isnot_pand_bouwblok'
       }
     },
-    { uri: 'geosearch/grondexploitatie/' },
+    { uri: 'geosearch/grondexploitatie/', authScope: 'BRK/RS' },
     { uri: 'geosearch/biz/' },
     { uri: 'geosearch/winkgeb/' },
     { uri: 'parkeervakken/geosearch/' },
