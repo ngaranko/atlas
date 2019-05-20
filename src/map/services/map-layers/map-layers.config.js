@@ -1191,7 +1191,7 @@ const mapLayers = [
         }
       }
     ],
-    title: 'Bekendmakingen',
+    title: 'Gemeentelijke bekendmakingen',
     url: '/maps/bekendmakingen',
     detailUrl: 'geosearch/search/',
     detailItem: 'bekendmakingen'
