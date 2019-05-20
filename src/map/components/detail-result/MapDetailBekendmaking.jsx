@@ -46,7 +46,7 @@ MapDetailBekendmaking.propTypes = {
     onderwerp: PropTypes.string,
     beschrijving: PropTypes.string,
     url: PropTypes.string,
-    label: PropTypes.date,
+    datum: PropTypes.date
   }).isRequired,
   onMaximize: PropTypes.func.isRequired,
   onPanoPreviewClick: PropTypes.func.isRequired

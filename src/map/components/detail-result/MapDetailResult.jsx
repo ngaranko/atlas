@@ -32,7 +32,6 @@ import MapDetailVestiging from './MapDetailVestiging';
 import MapDetailWinkelgebied from './MapDetailWinkelgebied';
 
 const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => {
-  console.log('MapDetailResult', result)
   switch (result.endpointType) {
     case endpointTypes.adressenLigplaats:
       return (
