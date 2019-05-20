@@ -132,7 +132,10 @@ export default function geosearch(location, user) {
   const allRequests = [];
 
   SEARCH_CONFIG.COORDINATES_ENDPOINTS.forEach((endpoint) => {
-    if (!endpoint.authScope || endpoint.authScope && user.scopes && user.scopes.includes(endpoint.authScope)) {
+    const isInScope = endpoint.authScope && user.scopes
+      && user.scopes.includes(endpoint.authScope);
+
+    if (!endpoint.authScope || isInScope) {
       const searchParams = {
         ...endpoint.extra_params,
         lat: Array.isArray(location) ? location[0] : location.latitude,
