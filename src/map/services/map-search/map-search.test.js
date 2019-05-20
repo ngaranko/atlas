@@ -99,6 +99,18 @@ describe('mapSearch service', () => {
         type: 'bommenkaart/verdachtgebied'
       }]);
     });
+
+    it('should return results based on user scope', async () => {
+      let data = await search({ latitude: 1, longitude: 0 }, {});
+
+      expect(data.results[0].results.length).toBe(7);
+
+      data = await search({ latitude: 1, longitude: 0 }, {
+        scopes: ['GREX/R'] // Returns more results now
+      });
+
+      expect(data.results[0].results.length).toBe(8);
+    });
   });
 
   describe('fetchRelatedForUser', () => {
