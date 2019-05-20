@@ -15,7 +15,7 @@ exports[`MoreResultsWhenLoggedIn should render everything 1`] = `
   <p
     className="c-panel__paragraph"
   >
-    Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer te vinden: kadastrale subjecten, vestigingen en maatschappelijke activiteiten. Zie 
+    Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer te vinden. Zie 
     <Connect(Link)
       className="c-link--light qa-link-to-page-button qa-dp-link"
       to={
@@ -29,6 +29,7 @@ exports[`MoreResultsWhenLoggedIn should render everything 1`] = `
     >
       Help &gt; Bediening &gt; Inloggen
     </Connect(Link)>
+    \`
   </p>
 </Notification>
 `;
