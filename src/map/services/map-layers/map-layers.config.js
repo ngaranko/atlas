@@ -53,6 +53,7 @@ const THEMES = {
   HISTORY: 'Topografie: historisch',
   TRAFFIC: 'Verkeer en infrastructuur',
   SAFETY: 'Openbare orde en veiligheid',
+  ORGANISATION: 'Bestuur en organisatie',
   TOURISM: 'Toerisme en cultuur',
   MIL_GROUND: 'Milieu: bodem',
   MIL_SAFETY: 'Milieu: externe veiligheid',
@@ -1051,6 +1052,147 @@ const mapLayers = [
     title: 'Verzinkbare palen',
     url: '/maps/vezips',
     noDetail: true
+  },
+  {
+    category: THEMES.ORGANISATION,
+    layers: ['bekendmakingen'],
+    legendItems: [
+      {
+        id: 'evever',
+        title: 'Evenementenvergunning',
+        params: {
+          onderwerp: 'evenementenvergunning'
+        }
+      },
+      {
+        id: 'verreg',
+        title: 'Verordeningen en reglementen',
+        params: {
+          onderwerp: 'verordeningen_en_reglementen'
+        }
+      },
+      {
+        id: 'drahor',
+        title: 'Drank- en horecavergunning',
+        params: {
+          onderwerp: 'drank_en_horecavergunning'
+        }
+      },
+      {
+        id: 'inspra',
+        title: 'Inspraak',
+        params: {
+          onderwerp: 'inspraak'
+        }
+      },
+      {
+        id: 'bespla',
+        title: 'Bestemmingsplan',
+        params: {
+          onderwerp: 'bestemmingsplan'
+        }
+      },
+      {
+        id: 'terras',
+        title: 'Terrasvergunning',
+        params: {
+          onderwerp: 'terrasvergunning'
+        }
+      },
+      {
+        id: 'ligpla',
+        title: 'Ligplaatsvergunning',
+        params: {
+          onderwerp: 'ligplaatsvergunning'
+        }
+      },
+      {
+        id: 'onttre',
+        title: 'Onttrekkingsvergunning',
+        params: {
+          onderwerp: 'onttrekkingsvergunning'
+        }
+      },
+      {
+        id: 'meldin',
+        title: 'Meldingen',
+        params: {
+          onderwerp: 'meldingen'
+        }
+      },
+      {
+        id: 'kapver',
+        title: 'Kapvergunning',
+        params: {
+          onderwerp: 'kapvergunning'
+        }
+      },
+      {
+        id: 'exploi',
+        title: 'Exploitatievergunning',
+        params: {
+          onderwerp: 'exploitatievergunning'
+        }
+      },
+      {
+        id: 'overig',
+        title: 'Overig',
+        params: {
+          onderwerp: 'overig'
+        }
+      },
+      {
+        id: 'optijd',
+        title: 'Openingstijden',
+        params: {
+          onderwerp: 'openingstijden'
+        }
+      },
+      {
+        id: 'splits',
+        title: 'Splitsingsvergunning',
+        params: {
+          onderwerp: 'splitsingsvergunning'
+        }
+      },
+      {
+        id: 'verbes',
+        title: 'Verkeersbesluit',
+        params: {
+          onderwerp: 'verkeersbesluit'
+        }
+      },
+      {
+        id: 'omgver',
+        title: 'Omgevingsvergunning',
+        params: {
+          onderwerp: 'omgevingsvergunning'
+        }
+      },
+      {
+        id: 'medede',
+        title: 'Mededelingen',
+        params: {
+          onderwerp: 'mededelingen'
+        }
+      },
+      {
+        id: 'rectif',
+        title: 'Rectificatie',
+        params: {
+          onderwerp: 'rectificatie'
+        }
+      },
+      {
+        id: 'speela',
+        title: 'Speelautomatenvergunning',
+        params: {
+          onderwerp: 'speelautomatenvergunning'
+        }
+      }
+    ],
+    title: 'Bekendmakingen',
+    url: '/maps/bekendmakingen',
   },
   {
     category: THEMES.SAFETY,
