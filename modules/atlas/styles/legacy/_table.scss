@@ -21,13 +21,13 @@ $hover-table-color: #eee;
 
     .c-data-selection-table__header-field {
       @include font-size-responsive($m-header-font);
-      @include font-weight($medium-weight);
       height: $button-size;
       padding: {
         top: 0;
         bottom: 0;
       }
       border: none;
+      font-weight: $medium-weight;
     }
   }
 

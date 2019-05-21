@@ -9,8 +9,8 @@ $icon-dimension: 24px;
 
   &__title {
     @include font-size-responsive($l-header-font);
-    @include font-weight($bold-weight);
     margin-bottom: $base-whitespace;
+    font-weight: $bold-weight;
 
     // @at-root div.c-panel {
     //   padding: $base-whitespace;
@@ -92,7 +92,7 @@ $icon-dimension: 24px;
   }
 
   a {
-    @include font-weight($normal-weight);
+    font-weight: $normal-weight;
     text-decoration: underline;
   }
 

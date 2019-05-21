@@ -9,7 +9,7 @@ $tatusbar-shadow: 1px 0 0 0 #999;
   bottom: $base-whitespace;
   box-shadow: $tatusbar-shadow;
   color: $primary-dark;
-  font-size: 14px;
+  font-size: $xs-font-size;
   height: 34px;
   line-height: 34px;
   position: absolute;

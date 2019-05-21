@@ -13,8 +13,8 @@
 %icon-button-text {
   @extend %link;
   @include font-size($s-font);
-  @include font-weight($bold-weight);
   color: inherit;
+  font-weight: $bold-weight;
   height: $button-size;
   margin-left: 0;
 }

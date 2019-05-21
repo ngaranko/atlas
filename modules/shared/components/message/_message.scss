@@ -1,6 +1,6 @@
 dp-message {
-  @include font-weight($light-weight);
   display: block;
   color: $secondary-gray40;
   font-style: italic;
+  font-weight: $light-weight;
 }

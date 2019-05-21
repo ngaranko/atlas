@@ -1,4 +1,5 @@
 @import "../../styles/config";
+
 $handle-height: 24px;
 
 .select-button {
@@ -132,8 +133,8 @@ $handle-height: 24px;
 
   &__label,
   &__drop-down-button {
-    font-family: "Avenir LT W01 85 Heavy";
-    font-size: 16px;
+    font-size: $s-font-size;
+    font-weight: 900;
     padding-right: 10px;
     text-align: left;
     width: inherit;
@@ -148,8 +149,8 @@ $handle-height: 24px;
     appearance: none;
     background-color: transparent;
     border: none;
-    font-family: "Avenir LT W01 55 Roman";
-    font-size: 16px;
+    font-size: $s-font-size;
+    font-weight: 400;
     margin: 0;
     outline: none;
     padding: 7px 10px 7px 40px;

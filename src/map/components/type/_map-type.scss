@@ -11,8 +11,8 @@ $icon-height: 20px;
   }
 
   &__title {
-    font-family: "Avenir LT W01 85 Heavy";
-    font-size: 16px;
+    font-size: $s-font-size;
+    font-weight: 900;
     line-height: 1.25;
     margin: 8px 0;
   }
