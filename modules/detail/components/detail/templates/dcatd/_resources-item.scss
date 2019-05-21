@@ -3,21 +3,22 @@
 @import "./styles/config";
 
 .resources-item {
-  @extend %base-font;
+  font-size: $s-font-size;
+  font-weight: 400;
   color: inherit;
   flex-grow: 1;
   position: relative;
   text-decoration: none;
 
   &__title {
-    @extend %heavy-font;
+    font-weight: 900;
     color: $brownish-grey;
     margin-bottom: 2px;
   }
 
   &__modified {
     color: $warm-grey;
-    font-size: 14px;
+    font-size: $xs-font-size;
     line-height: 23px;
     margin-bottom: 2px;
 

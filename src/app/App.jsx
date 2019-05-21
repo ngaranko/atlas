@@ -93,13 +93,7 @@ const App = ({
     <ThemeProvider
       overrides={{
         typography: {
-          fontFamily: '"Avenir LT W01 55 Roman", Arial, sans-serif',
-          h4: {
-            fontFamily: '"Avenir LT W01 85 Heavy", Arial, sans-serif'
-          },
-          h5: {
-            fontFamily: '"Avenir LT W01 85 Heavy", Arial, sans-serif'
-          }
+          fontFamily: '"AvenirLT", Arial, sans-serif'
         }
       }}
     >

@@ -95,6 +95,13 @@ const GLOSSARY = {
         'identificerende_sleutel_complex'
       ]
     },
+    BEKENDMAKINGEN: {
+      label_singular: 'Bekendmaking',
+      label_plural: 'Bekendmakingen',
+      description: 'Bekendmakingen en kennisgevingen van Gemeente Amsterdam zijn bijvoorbeeld aanvragen voor vergunningen en ontheffingen en besluiten hierover, algemene mededelingen van de gemeente of inspraakmogelijkheden.',
+      url: null,
+      meta: []
+    },
     BUURTCOMBINATIE: {
       label_singular: 'Wijk',
       label_plural: 'Wijken',

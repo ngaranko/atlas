@@ -1,6 +1,7 @@
 import { routing } from '../../../app/routes';
 import {
   CLEAR_MAP_DETAIL,
+  FETCH_DETAIL_REQUEST,
   FETCH_DETAIL_FAILURE,
   FETCH_DETAIL_SUCCESS,
   initialState,
@@ -61,17 +62,25 @@ export default function detailReducer(state = initialState, action) {
         view: action.payload
       };
 
-    case FETCH_DETAIL_FAILURE:
+    case FETCH_DETAIL_REQUEST:
       return {
         ...enrichedState,
-        isLoading: false,
-        detaiObject: {}
+        detailObject: {},
+        isLoading: true
       };
 
     case FETCH_DETAIL_SUCCESS:
       return {
         ...enrichedState,
-        detaiObject: { ...action.payload }
+        detailObject: { ...action.payload },
+        isLoading: false
+      };
+
+    case FETCH_DETAIL_FAILURE:
+      return {
+        ...enrichedState,
+        detailObject: {},
+        isLoading: false
       };
 
     default:

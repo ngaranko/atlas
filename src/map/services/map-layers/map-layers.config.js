@@ -53,6 +53,7 @@ const THEMES = {
   HISTORY: 'Topografie: historisch',
   TRAFFIC: 'Verkeer en infrastructuur',
   SAFETY: 'Openbare orde en veiligheid',
+  ORGANISATION: 'Bestuur en organisatie',
   TOURISM: 'Toerisme en cultuur',
   MIL_GROUND: 'Milieu: bodem',
   MIL_SAFETY: 'Milieu: externe veiligheid',
@@ -310,6 +311,26 @@ const mapLayers = [
     detailUrl: 'geosearch/search/',
     detailItem: 'kadastraal_object',
     detailIsShape: true
+  },
+  {
+    category: THEMES.GEOGRAPHY_ONR,
+    layers: ['vastgoed'],
+    legendItems: [
+      {
+        id: 'vge',
+        title: 'Volledig eigendom',
+        imageRule: 'vastgoed',
+        layers: ['vastgoed_eigendom']
+      },
+      {
+        id: 'vga',
+        title: 'Appartementsrecht',
+        imageRule: 'vastgoed',
+        layers: ['vastgoed_appartementsrecht']
+      }
+    ],
+    title: 'Gemeentelijk eigendom',
+    url: '/maps/vastgoed'
   },
   {
     category: THEMES.GEOGRAPHY_ONR,
@@ -1033,6 +1054,149 @@ const mapLayers = [
     noDetail: true
   },
   {
+    category: THEMES.ORGANISATION,
+    layers: ['bekendmakingen'],
+    legendItems: [
+      {
+        id: 'bespla',
+        title: 'Bestemmingsplan',
+        params: {
+          onderwerp: 'bestemmingsplan'
+        }
+      },
+      {
+        id: 'drahor',
+        title: 'Drank- en horecavergunning',
+        params: {
+          onderwerp: 'drank_en_horecavergunning'
+        }
+      },
+      {
+        id: 'evever',
+        title: 'Evenementenvergunning',
+        params: {
+          onderwerp: 'evenementenvergunning'
+        }
+      },
+      {
+        id: 'exploi',
+        title: 'Exploitatievergunning',
+        params: {
+          onderwerp: 'exploitatievergunning'
+        }
+      },
+      {
+        id: 'inspra',
+        title: 'Inspraak',
+        params: {
+          onderwerp: 'inspraak'
+        }
+      },
+      {
+        id: 'kapver',
+        title: 'Kapvergunning',
+        params: {
+          onderwerp: 'kapvergunning'
+        }
+      },
+      {
+        id: 'ligpla',
+        title: 'Ligplaatsvergunning',
+        params: {
+          onderwerp: 'ligplaatsvergunning'
+        }
+      },
+      {
+        id: 'medede',
+        title: 'Mededelingen',
+        params: {
+          onderwerp: 'mededelingen'
+        }
+      },
+      {
+        id: 'meldin',
+        title: 'Meldingen',
+        params: {
+          onderwerp: 'meldingen'
+        }
+      },
+      {
+        id: 'omgver',
+        title: 'Omgevingsvergunning',
+        params: {
+          onderwerp: 'omgevingsvergunning'
+        }
+      },
+      {
+        id: 'onttre',
+        title: 'Onttrekkingsvergunning',
+        params: {
+          onderwerp: 'onttrekkingsvergunning'
+        }
+      },
+      {
+        id: 'optijd',
+        title: 'Openingstijden',
+        params: {
+          onderwerp: 'openingstijden'
+        }
+      },
+      {
+        id: 'rectif',
+        title: 'Rectificatie',
+        params: {
+          onderwerp: 'rectificatie'
+        }
+      },
+      {
+        id: 'speela',
+        title: 'Speelautomatenvergunning',
+        params: {
+          onderwerp: 'speelautomatenvergunning'
+        }
+      },
+      {
+        id: 'splits',
+        title: 'Splitsingsvergunning',
+        params: {
+          onderwerp: 'splitsingsvergunning'
+        }
+      },
+      {
+        id: 'terras',
+        title: 'Terrasvergunning',
+        params: {
+          onderwerp: 'terrasvergunning'
+        }
+      },
+      {
+        id: 'verbes',
+        title: 'Verkeersbesluit',
+        params: {
+          onderwerp: 'verkeersbesluit'
+        }
+      },
+      {
+        id: 'verreg',
+        title: 'Verordeningen en reglementen',
+        params: {
+          onderwerp: 'verordeningen_en_reglementen'
+        }
+      },
+      {
+        id: 'overig',
+        title: 'Overig',
+        params: {
+          onderwerp: 'overig'
+        }
+      }
+    ],
+    title: 'Gemeentelijke bekendmakingen',
+    url: '/maps/bekendmakingen',
+    detailUrl: 'geosearch/search/',
+    detailItem: 'bekendmakingen'
+  },
+  {
     category: THEMES.SAFETY,
     legendItems: [
       {
@@ -1143,7 +1307,7 @@ const mapLayers = [
     title: 'Evenementen',
     url: '/maps/evenementen',
     detailUrl: 'geosearch/evenementen/',
-    detailItem: 'evenement'
+    detailItem: 'evenementen'
   },
   {
     category: THEMES.MIL_GROUND,

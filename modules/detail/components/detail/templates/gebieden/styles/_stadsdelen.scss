@@ -7,8 +7,8 @@
 
   &__title {
     @include font-size-responsive($l-header-font);
-    @include font-weight($bold-weight);
     margin-bottom: 8px;
     color: $primary-contrast;
+    font-weight: $bold-weight;
   }
 }

@@ -5,6 +5,7 @@ import adressenPand from '../../shared/services/adressen/adressen-pand';
 import adressenStandplaats from '../../shared/services/adressen/adressen-standplaats';
 import adressenVerblijfsobject from '../../shared/services/adressen/adressen-verblijfsobject';
 import bedrijfsinvesteringszone from '../../shared/services/bedrijfsinvesteringszone/bedrijfsinvesteringszone';
+import bekendmakingen from '../../shared/services/bekendmakingen/bekendmakingen';
 import explosievenGevrijwaardGebied from '../../shared/services/explosieven/explosieven-gevrijwaard-gebied';
 import explosievenInslag from '../../shared/services/explosieven/explosieven-inslag';
 import explosievenUitgevoerdOnderzoek from '../../shared/services/explosieven/explosieven-uitgevoerd-onderzoek';
@@ -50,6 +51,7 @@ export const endpointTypes = {
   adressenStandplaats: 'bag/standplaats/',
   adressenVerblijfsobject: 'bag/verblijfsobject/',
   bedrijfsinvesteringszone: 'vsd/biz/',
+  bekendmakingen: 'vsd/bekendmakingen/',
   explosievenGevrijwaardGebied: 'milieuthemas/explosieven/gevrijwaardgebied/',
   explosievenInslag: 'milieuthemas/explosieven/inslagen/',
   explosievenUitgevoerdOnderzoek: 'milieuthemas/explosieven/uitgevoerdonderzoek/',
@@ -81,6 +83,7 @@ const servicesByEndpointType = {
   [endpointTypes.adressenStandplaats]: { fetch: adressenStandplaats },
   [endpointTypes.adressenVerblijfsobject]: { fetch: adressenVerblijfsobject },
   [endpointTypes.bedrijfsinvesteringszone]: { fetch: bedrijfsinvesteringszone },
+  [endpointTypes.bekendmakingen]: { fetch: bekendmakingen },
   [endpointTypes.explosievenGevrijwaardGebied]: { fetch: explosievenGevrijwaardGebied },
   [endpointTypes.explosievenInslag]: { fetch: explosievenInslag },
   [endpointTypes.explosievenUitgevoerdOnderzoek]: { fetch: explosievenUitgevoerdOnderzoek },
