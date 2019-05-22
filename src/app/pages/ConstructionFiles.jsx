@@ -26,24 +26,19 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   const [loading, setLoading] = React.useState(false);
 
   async function fetchConstructionFiles() {
-    console.log('...fetchConstructionFiles');
     setLoading(true);
     try {
       const data = await getByUrl(endpoint);
-      console.log('fetched...', data.results);
       setResults(data.results[0]);
     } catch (e) {
       setErrorMessage(ERROR_MESSAGE);
     }
+    setLoading(false);
   }
 
   React.useEffect(() => {
     fetchConstructionFiles();
   }, []);
-
-  React.useEffect(() => {
-    setLoading(false);
-  }, [error, results]);
 
   const {
     titel,
@@ -125,7 +120,7 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
       <React.Fragment>
         {fileName && <ImageViewer {...{ fileName, results }} />}
         {loading && <LoadingIndicator />}
-        {results ? foundResults : noResultsFound}
+        {!loading && (results ? foundResults : noResultsFound)}
       </React.Fragment>)
     : notAuthorized;
 };
