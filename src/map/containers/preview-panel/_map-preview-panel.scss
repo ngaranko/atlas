@@ -8,7 +8,7 @@ $button-height: 24px;
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  font-family: "Avenir LT W01 55 Roman";
+  font-weight: 400;
   margin-bottom: $map-preview-panel-bottom;
   margin-left: auto;
   margin-right: $container-whitespace;
@@ -75,8 +75,8 @@ $button-height: 24px;
 
       .map-preview-panel__button-label {
         color: $secondary-gray60;
-        font-family: "Avenir LT W01 85 Heavy";
-        font-size: 14px;
+        font-size: $xs-font-size;
+        font-weight: 900;
       }
     }
 

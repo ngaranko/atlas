@@ -176,9 +176,9 @@ $show-more-height: 70px;
 }
 
 .c-homepage__block-details {
-  @include font-weight($normal-weight);
   width: 100%;
   color: $primary-dark;
+  font-weight: $normal-weight;
   line-height: 3.5 * $base-whitespace;
 
   .c-homepage__block-button--tall & {

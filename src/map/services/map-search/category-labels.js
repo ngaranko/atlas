@@ -7,11 +7,15 @@ const categoryLabels = {
     singular: 'Bedrijfsinvesteringszone',
     plural: 'Bedrijfsinvesteringszones'
   },
+  bekendmakingen: {
+    singular: 'Bekendmaking',
+    plural: 'Bekendmakingen'
+  },
   explosief: {
     singular: 'Explosief',
     plural: 'Explosieven'
   },
-  evenement: {
+  evenementen: {
     singular: 'Evenement',
     plural: 'Evenementen'
   },

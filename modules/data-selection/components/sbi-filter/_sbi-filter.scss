@@ -36,8 +36,8 @@ $sbi-filter-item-height: 32px;
   appearance: none;
 
   &::placeholder {
-    @include font-weight($normal-weight);
     color: $secondary-gray60;
+    font-weight: $normal-weight;
   }
 
   &:-ms-input-placeholder { /* IE11 */   // sass-lint:disable-line no-vendor-prefixes
@@ -62,9 +62,9 @@ $sbi-filter-item-height: 32px;
   @extend %base-button;
   // @extend %icon--border;
   @include font-size($s-font);
-  @include font-weight($bold-weight);
   margin-left: $base-whitespace;
   padding: 3px 7px;
+  font-weight: $bold-weight;
 }
 
 .c-sbi-filter__item {

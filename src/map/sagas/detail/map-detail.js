@@ -18,6 +18,7 @@ import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
 import {
   clearMapDetail,
   fetchDetailFailure,
+  fetchDetailRequest,
   fetchDetailSuccess,
   showDetail
 } from '../../../shared/ducks/detail/actions';
@@ -26,6 +27,8 @@ import { toNotFoundPage } from '../../../store/redux-first-router/actions';
 import getGeometry from '../../../shared/services/geometry/geometry';
 
 export function* fetchMapDetail() {
+  yield put(fetchDetailRequest());
+
   try {
     yield call(waitForAuthentication);
     const user = yield select(getUser);

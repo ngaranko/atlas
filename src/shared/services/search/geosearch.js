@@ -132,22 +132,27 @@ export default function geosearch(location, user) {
   const allRequests = [];
 
   SEARCH_CONFIG.COORDINATES_ENDPOINTS.forEach((endpoint) => {
-    const searchParams = {
-      ...endpoint.extra_params,
-      lat: Array.isArray(location) ? location[0] : location.latitude,
-      lon: Array.isArray(location) ? location[1] : location.longitude
-    };
+    const isInScope = endpoint.authScope && user.scopes
+      && user.scopes.includes(endpoint.authScope);
 
-    if (isNumber(endpoint.radius)) {
-      searchParams.radius = endpoint.radius;
+    if (!endpoint.authScope || isInScope) {
+      const searchParams = {
+        ...endpoint.extra_params,
+        lat: Array.isArray(location) ? location[0] : location.latitude,
+        lon: Array.isArray(location) ? location[1] : location.longitude
+      };
+
+      if (isNumber(endpoint.radius)) {
+        searchParams.radius = endpoint.radius;
+      }
+
+      const request = getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}`, searchParams, false, true)
+        .then((data) =>
+          ({ features: getFeaturesFromResult(endpoint.uri, data) }),
+          () => ({ features: [] })
+        ); // empty features on failure of api call
+      allRequests.push(request);
     }
-
-    const request = getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}`, searchParams, false, true)
-      .then((data) =>
-        ({ features: getFeaturesFromResult(endpoint.uri, data) }),
-        () => ({ features: [] })
-      ); // empty features on failure of api call
-    allRequests.push(request);
   });
 
   return Promise.all(allRequests)

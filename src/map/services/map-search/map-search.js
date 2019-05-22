@@ -21,11 +21,13 @@ const endpoints = [
       monumenttype: 'isnot_pand_bouwblok'
     }
   },
-  { uri: 'geosearch/grondexploitatie/' },
+  { uri: 'geosearch/grondexploitatie/', authScope: 'GREX/R' },
   { uri: 'geosearch/biz/' },
   { uri: 'geosearch/winkgeb/' },
   { uri: 'parkeervakken/geosearch/' },
-  { uri: 'geosearch/oplaadpunten/', radius: 25 }
+  { uri: 'geosearch/oplaadpunten/', radius: 25 },
+  { uri: 'geosearch/bekendmakingen/', radius: 25 },
+  { uri: 'geosearch/evenementen/', radius: 25 }
 ];
 
 const relatedResourcesByType = {
@@ -115,26 +117,36 @@ export const fetchRelatedForUser = (user) => (data) => {
 
 export default function search(location, user) {
   const errorType = 'error';
-  const allRequests = endpoints.map((endpoint) => {
-    const searchParams = {
-      ...endpoint.extra_params,
-      lat: location.latitude,
-      lon: location.longitude,
-      radius: endpoint.radius || 0
-    };
+  const allRequests = [];
 
-    const queryString = Object
-      .keys(searchParams)
-      .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
-      .join('&');
-    return getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`)
-      .then((result) => ({ features: getFeaturesFromResult(endpoint.uri, result) }))
-      .then(fetchRelatedForUser(user))
-      .then((features) => features.map((feature) => transformResultByType(feature)), (code) => ({
-        type: errorType,
-        code
-      }));
+  endpoints.forEach((endpoint) => {
+    const isInScope = endpoint.authScope && user.scopes
+      && user.scopes.includes(endpoint.authScope);
+
+    if (!endpoint.authScope || isInScope) {
+      const searchParams = {
+        ...endpoint.extra_params,
+        lat: location.latitude,
+        lon: location.longitude,
+        radius: endpoint.radius || 0
+      };
+
+      const queryString = Object
+        .keys(searchParams)
+        .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
+        .join('&');
+
+      const request = getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`)
+        .then((result) => ({ features: getFeaturesFromResult(endpoint.uri, result) }))
+        .then(fetchRelatedForUser(user))
+        .then((features) => features.map((feature) => transformResultByType(feature)), (code) => ({
+          type: errorType,
+          code
+        }));
+      allRequests.push(request);
+    }
   });
+
   const allResults = Promise.all(allRequests
     .map((p) => p
       .then((result) => Promise.resolve(result))

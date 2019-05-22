@@ -5,13 +5,13 @@ import {
   getDetailDisplay,
   isDetailLoading
 } from './selectors';
-import { CLEAR_MAP_DETAIL, SHOW_DETAIL } from './constants';
+import { CLEAR_MAP_DETAIL, SHOW_DETAIL, FETCH_DETAIL_REQUEST, FETCH_DETAIL_SUCCESS, FETCH_DETAIL_FAILURE } from './constants';
 import { clearMapDetail } from './actions';
 
 describe('DetailReducer', () => {
   const initialState = {};
   const stateAfterRequest = {
-    some: 'data'
+    detailObject: { data: 'data' }
   };
 
   it('should return the initial state', () => {
@@ -37,9 +37,37 @@ describe('DetailReducer', () => {
         geometry: 'geometry'
       }
     })).toEqual({
-      some: 'data',
+      detailObject: { data: 'data' },
       display: 'display',
       geometry: 'geometry',
+      isLoading: false
+    });
+  });
+
+  it('should clear any detail data when a route change is initialized', () => {
+    expect(reducer(stateAfterRequest, {
+      type: FETCH_DETAIL_REQUEST
+    })).toEqual({
+      detailObject: {},
+      isLoading: true
+    });
+  });
+
+  it(`should set the detail data when ${FETCH_DETAIL_SUCCESS} is dispatched`, () => {
+    expect(reducer(initialState, {
+      type: FETCH_DETAIL_SUCCESS,
+      payload: { data: 'data' }
+    })).toEqual({
+      detailObject: { data: 'data' },
+      isLoading: false
+    });
+  });
+
+  it(`should not set the detail data when ${FETCH_DETAIL_FAILURE} is dispatched`, () => {
+    expect(reducer(initialState, {
+      type: FETCH_DETAIL_FAILURE
+    })).toEqual({
+      detailObject: {},
       isLoading: false
     });
   });

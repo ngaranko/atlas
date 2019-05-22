@@ -12,19 +12,19 @@
 
 .c-data-selection-pagination__controls {
   @include font-size($s-font);
-  @include font-weight($normal-weight);
 
   position: relative;
   height: $button-size;
+  font-weight: $normal-weight;
   text-align: center;
 }
 
 .c-data-selection-pagination__input {
-  @include font-weight($normal-weight);
   width: 3rem;
   height: $button-size;
   border: 1px solid $secondary-gray20;
   outline: none;
+  font-weight: $normal-weight;
   text-align: center;
   vertical-align: middle;
 

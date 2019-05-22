@@ -22,7 +22,7 @@ export const getView = createSelector(getDetail, (detail) => detail && detail.vi
 
 export const getDetailObject = createSelector(
   getDetail,
-  (detail) => detail && detail.detaiObject
+  (detail) => detail && detail.detailObject
 );
 
 export const getDetailTemplateUrl = createSelector(

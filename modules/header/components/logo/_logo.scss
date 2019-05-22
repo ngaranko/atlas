@@ -83,8 +83,8 @@ $title-short-hover-height: 40px;
 }
 
 .c-logo__title {
-  @include font-weight($bold-weight);
   display: inline-block;
+  font-weight: $bold-weight;
   line-height: normal;
 
   .c-logo--short & {

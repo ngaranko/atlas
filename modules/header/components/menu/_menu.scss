@@ -15,6 +15,7 @@
   padding-right: 6px; // Was $base-whitespace;
   padding-left: 6px;  // We need to save space for the usermenu
   outline: none;
+  background-color: transparent;
   color: $secondary-gray70;
   text-decoration: none;
   cursor: pointer;
@@ -81,11 +82,11 @@
 
 .c-menu__subitem {
   @extend %link--arrow;
-  @include font-weight($normal-weight);
   display: block;
   width: 100%;
   background-color: $secondary-gray10;
   color: $secondary-gray70;
+  font-weight: $normal-weight;
   line-height: 2;
   text-align: left;
   white-space: nowrap;

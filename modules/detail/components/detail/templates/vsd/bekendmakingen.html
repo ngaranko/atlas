@@ -1,0 +1,27 @@
+<div>
+    <div class="c-detail__block">
+        <dp-glossary-header
+            heading="{{vm.apiData.results.label}}"
+            definition="BEKENDMAKINGEN">
+        </dp-glossary-header>
+
+        <dl class="c-key-value-list">
+            <dt>Titel</dt>
+            <dd>{{ vm.apiData.results.label }}</dd>
+            <dt>Datum</dt>
+            <dd>{{ vm.apiData.results.datum }}</dd>
+            <dt>Categorie</dt>
+            <dd>{{ vm.apiData.results.categorie }}</dd>
+            <dt>Onderwerp</dt>
+            <dd>{{ vm.apiData.results.onderwerp }}</dd>
+            <dt>Beschrijving</dt>
+            <dd>{{ vm.apiData.results.beschrijving }}</dd>
+
+            <dt>Meer informatie</dt>
+            <dd class="c-key-value-list__value--ellipsis">
+                <a class='o-btn o-btn--link c-key-value-list__value-inline' target="_blank"
+                    ng-href="{{vm.apiData.results.url}}">{{vm.apiData.results.url}}</a>
+            </dd>
+        </dl>
+    </div>
+</div>

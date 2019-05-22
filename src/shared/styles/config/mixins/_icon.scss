@@ -30,7 +30,7 @@
 
 %icon-label {
   @include font-size($s-font);
-  @include font-weight($bold-weight);
+  font-weight: $bold-weight;
 }
 
 @mixin icon-label-left($icon, $state: "", $hover-state: "red", $tall: "") {
@@ -148,7 +148,7 @@
 }
 
 @mixin icon-sprite($name, $fill: "#FFF", $hover-fill: "", $size: auto 100%) {
-  @include sprite($name, ( fill: $fill));
+  @include sprite($name, (fill: $fill));
 
   @if $size {
     background-size: $size;
@@ -157,7 +157,7 @@
   @if $hover-fill {
     &:hover,
     &:focus {
-      @include sprite($name, ( fill: $hover-fill));
+      @include sprite($name, (fill: $hover-fill));
 
       @if $size {
         background-size: $size;
