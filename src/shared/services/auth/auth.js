@@ -71,6 +71,9 @@ const scopes = [
   // Bouwdossiers
   SCOPES['BD/R'],
 
+  // Bouwdossiers
+  'BD/R',
+
   // Grondexploitatie
   SCOPES['GREX/R'], // Leesrechten
 
