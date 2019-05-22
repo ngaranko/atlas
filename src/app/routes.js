@@ -81,11 +81,11 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
     page: PAGES.PANORAMA
   },
-  bouwdossiers: {
-    title: 'Bouwdossiers',
-    path: `/${MAIN_PATHS.DATA}/bouwdossiers/:id/`,
-    type: `${ROUTER_NAMESPACE}/${PAGES.BOUWDOSSIERS}`,
-    page: PAGES.BOUWDOSSIERS
+  bouwdossier: {
+    title: 'Bouwdossier',
+    path: `/${MAIN_PATHS.DATA}/stadsarchief/bouwdossier/:id/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.BOUWDOSSIER}`,
+    page: PAGES.BOUWDOSSIER
   },
   nieuws: {
     title: 'Nieuws',

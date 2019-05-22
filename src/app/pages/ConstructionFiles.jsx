@@ -1,24 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import { Typography } from '@datapunt/asc-ui';
 import { getByUrl } from '../../shared/services/api/api';
 import { setCurrentFile } from '../../shared/ducks/files/actions';
 import { getFileName } from '../../shared/ducks/files/selectors';
-import Thumbnail from '../components/Thumbnail/Thumbnail';
+import { getUser } from '../../shared/ducks/user/user';
+import { SCOPES } from '../../shared/services/auth/auth';
+import NotAuthorizedMessage from '../components/PanelMessages/NotAuthorizedMessage';
+import SHARED_CONFIG from '../../shared/services/shared-config/shared-config';
+import { getLocationPayload } from '../../store/redux-first-router/selectors';
 import './Files.scss';
+import Gallery from '../components/Gallery/Gallery';
+import LoadingIndicator from '../../shared/components/loading-indicator/LoadingIndicator';
+import ErrorMessage from '../components/PanelMessages/ErrorMessage/ErrorMessage';
 
 const ImageViewer = React.lazy(() => import('../components/ImageViewer/ImageViewer'));
 
-const ConstructionFiles = ({ setFileName, fileName }) => {
-  const [results, setResults] = React.useState([]);
+const ERROR_MESSAGE = 'Er kunnen door een technische storing helaas geen bouwdossiers worden getoond. Probeer het later nog eens.';
+
+const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
+  const [results, setResults] = React.useState(null);
+  const [error, setErrorMessage] = React.useState(false);
 
   async function fetchConstructionFiles() {
     try {
-      const data = await getByUrl('https://acc.api.data.amsterdam.nl/stadsarchief/bouwdossier/?dossiernr=12338');
-      console.log(data);
-      setResults(data.results);
+      const data = await getByUrl(endpoint);
+      setResults(data.results[0]);
     } catch (e) {
-      console.log('Show warning!');
+      setErrorMessage(ERROR_MESSAGE);
     }
   }
 
@@ -26,49 +37,91 @@ const ConstructionFiles = ({ setFileName, fileName }) => {
     fetchConstructionFiles();
   }, []);
 
-  return (
-    <div style={{ width: '100%', height: '100%' }}>
-      {fileName && <ImageViewer {...{ fileName, results }} />}
-      {!fileName && results && results.map(({ id, titel, subdossiers }) => (
-        <div key={id}>
-          <h3>{titel}</h3>
-          {subdossiers.length &&
-          <div>
-            {subdossiers.map(({ bestanden, titel: subdossierTitle }) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <div>
-                <h4>{subdossierTitle}</h4>
-                {bestanden &&
-                <ul className="files">
-                  {bestanden.map((file) => (
-                    <li className="files-item">
-                      <button
-                        onClick={() => {
-                          setFileName(encodeURIComponent(file.match(/SA(.*)/g)));
-                        }}
-                      >
-                        <Thumbnail
-                          src={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${encodeURIComponent(file.match(/SA(.*)/g))}/square/500,500/0/default.jpg`}
-                          title="De titel!"
-                        />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-                }
-              </div>
-            ))}
-          </div>
-          }
-        </div>
-      ))}
+  const {
+    titel,
+    subdossiers,
+    datering: date,
+    dossier_type: fileType,
+    dossiernr: fileNumber
+  } = results || {};
 
-    </div>
+  return error ? <ErrorMessage errorMessage={error} /> : (
+    user.scopes.includes(SCOPES['BD/R'])
+      ? (
+        <React.Fragment>
+          {fileName && <ImageViewer {...{ fileName, results }} />}
+          {!fileName && ((results) ? (
+            <div className="c-construction-files">
+              <div className="c-data-selection c-dashboard__content">
+                <Typography
+                  className="c-construction-files__title"
+                  element="h3"
+                >
+                  Bouwdossier
+                </Typography>
+                <Typography element="h1">{titel}</Typography>
+              </div>
+
+              <div className="c-ds-table">
+                <div className="c-ds-table__body">
+                  <div className="c-ds-table__row">
+                    <div className="c-ds-table__cell">
+                      <div className="qa-table-value">Datering</div>
+                    </div>
+                    <div className="c-ds-table__cell">
+                      <div className="qa-table-value">{date}</div>
+                    </div>
+                  </div>
+                  <div className="c-ds-table__row">
+                    <div className="c-ds-table__cell">
+                      <div className="qa-table-value">Type</div>
+                    </div>
+                    <div className="c-ds-table__cell">
+                      <div className="qa-table-value">{fileType}</div>
+                    </div>
+                  </div>
+                  <div className="c-ds-table__row">
+                    <div className="c-ds-table__cell">
+                      <div className="qa-table-value">Dossier nummer</div>
+                    </div>
+                    <div className="c-ds-table__cell">
+                      <div className="qa-table-value">{fileNumber}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {subdossiers &&
+              subdossiers.length &&
+              subdossiers.map(({ bestanden, titel: subdossierTitle }) => (
+                <Gallery
+                  key={subdossierTitle}
+                  title={subdossierTitle}
+                  thumbs={bestanden}
+                  onClick={setFileName}
+                  max={6}
+                />
+              ))}
+            </div>
+          ) : <LoadingIndicator />)}
+        </React.Fragment>)
+      : <div className="c-data-selection c-dashboard__content">
+        <NotAuthorizedMessage />
+      </div>
   );
 };
 
+ConstructionFiles.propTypes = {
+  setFileName: PropTypes.func.isRequired,
+  fileName: PropTypes.string.isRequired,
+  user: PropTypes.shape({}).isRequired,
+  endpoint: PropTypes.string.isRequired
+};
+
 const mapStateToProps = (state) => ({
-  fileName: getFileName(state)
+  fileName: getFileName(state),
+  endpoint: `${SHARED_CONFIG.API_ROOT}stadsarchief/bouwdossier/?dossiernr=${getLocationPayload(state).id.replace('id', '')}`,
+  user: getUser(state)
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

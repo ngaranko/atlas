@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import OpenSeadragon from 'openseadragon';
+import PropTypes from 'prop-types';
 import { ContextMenu, ContextMenuItem, Icon, IconButton } from '@datapunt/asc-ui';
 import { ReactComponent as Download } from '@datapunt/asc-assets/lib/Icons/Download.svg';
 import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
@@ -157,6 +158,15 @@ class ImageViewer extends React.Component {
     );
   }
 }
+
+ImageViewer.defaultProps = {
+  fileName: ''
+};
+
+ImageViewer.propTypes = {
+  fileName: PropTypes.string,
+  resetFileName: PropTypes.func.isRequired
+};
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   resetFileName: () => setCurrentFile('')

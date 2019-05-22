@@ -1,20 +1,39 @@
+@import "../../../shared/styles/config";
+
 .thumbnail {
-  position: relative;
+  animation: perceived-performance-animation 3s infinite;
+  background-color: $secondary-gray20;
+  height: 100%;
   overflow: hidden;
+  position: relative;
+
+  @keyframes perceived-performance-animation {
+    0% {
+      background: $secondary-gray20;
+    }
+
+    50% {
+      background: $secondary-gray10;
+    }
+
+    100% {
+      background: $secondary-gray20;
+    }
+  }
 
   img {
     transition: transform .3s ease-in-out;
+    vertical-align: top;
+    width: 100%;
 
     &:hover {
       transform: scale(1.1);
     }
   }
 
-
-  // .viewer-controls__meta
   figcaption {
-    position: absolute;
     bottom: 0;
+    position: absolute;
     width: 100%;
   }
 }

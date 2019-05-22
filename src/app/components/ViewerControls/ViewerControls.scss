@@ -3,19 +3,19 @@
 $offset: 10px;
 
 .viewer-controls {
-  position: absolute;
-  top: 0;
-  right: 0;
   bottom: 0;
   left: 0;
   pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
 
   &-item {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
     align-items: flex-end;
+    display: flex;
+    flex-direction: column;
     pointer-events: all;
+    position: absolute;
 
     button {
       // These styles are temporary, until we move to the new amsterdam style
@@ -32,18 +32,18 @@ $offset: 10px;
     }
 
     &--top-left {
-      top: $offset;
       left: $offset;
+      top: $offset;
     }
 
     &--top-right {
-      top: $offset;
       right: $offset;
+      top: $offset;
     }
 
     &--bottom-right {
-      right: $offset;
       bottom: $offset;
+      right: $offset;
     }
 
     &--bottom-left {
@@ -56,19 +56,19 @@ $offset: 10px;
   &__meta {
     $meta-bg: rgba(255, 255, 255, .67);
 
+    align-items: center;
+    box-shadow: 1px 0 0 0 $secondary-gray40;
     display: flex;
     flex-direction: row;
-    align-items: center;
     margin-right: $offset * -1;
-    box-shadow: 1px 0 0 0 $secondary-gray40;
 
     &__item {
+      align-items: center;
+      background-color: $meta-bg;
       display: flex;
       flex-grow: 1;
-      align-items: center;
       height: 32px;
       padding: 0 10px;
-      background-color: $meta-bg;
 
       & + & {
         margin-left: 1px;

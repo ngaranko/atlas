@@ -9,6 +9,10 @@ Object {
   "datasets": "datasets",
   "detail": "detail",
   "error": "error",
+  "files": Object {
+    "fileName": "",
+    "type": "default",
+  },
   "filter": "filter",
   "location": "location",
   "map": "map",

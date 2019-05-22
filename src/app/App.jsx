@@ -153,7 +153,7 @@ const App = ({
                     <DatasetDetailContainer />
                   )}
 
-                  {currentPage === PAGES.BOUWDOSSIERS && (
+                  {currentPage === PAGES.BOUWDOSSIER && (
                     <ConstructionFiles />
                   )}
 

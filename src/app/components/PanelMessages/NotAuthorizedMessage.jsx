@@ -4,6 +4,7 @@ import Link from 'redux-first-router-link';
 import { routing } from '../../routes';
 import Notification from '../../../shared/components/notification/Notification';
 import { BEDIENING_LOGIN_DEEPLINK } from '../../../shared/ducks/content/constants';
+import { SCOPES } from '../../../shared/services/auth/auth';
 
 const NotAuthorizedMessage = ({ scopeError }) => {
   const link = (<Link
@@ -19,7 +20,7 @@ const NotAuthorizedMessage = ({ scopeError }) => {
   return (
     <Notification type="warning">
       <div>
-        {(scopeError === 'BRK/RSN')
+        {(scopeError === SCOPES['BRK/RSN'])
           ? <p className="c-panel__paragraph">
             Medewerkers met speciale bevoegdheden kunnen inloggen om kadastrale objecten met
             zakelijk rechthebbenden te bekijken.

@@ -1,0 +1,63 @@
+@import "../../../shared/styles/config";
+
+%focus {
+  &:focus {
+    outline-color: $focus;
+    outline-style: solid;
+    outline-width: 3px;
+  }
+}
+
+.c-gallery {
+  border-bottom: 1px solid $secondary-gray30;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+
+  &__title {
+    margin-bottom: 12px !important;
+  }
+
+  &__button {
+    @extend %focus;
+
+    border: solid 1px $primary-dark;
+    display: flex;
+    font-weight: 700;
+    height: 32px;
+    margin-top: 20px;
+    padding: 0 10px;
+    transition: background-color .2s ease-in-out;
+
+    &:hover {
+      background-color: $primary-dark-alpha10;
+    }
+
+    &-icon {
+      align-self: center;
+      height: 12px !important;
+      margin-right: 10px;
+      width: 12px !important;
+    }
+  }
+
+  &__thumbnail {
+    @extend %focus;
+  }
+
+  &__square {
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
+
+    & > * {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  }
+}
