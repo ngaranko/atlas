@@ -23,10 +23,14 @@ const ERROR_MESSAGE = 'Er kunnen door een technische storing helaas geen bouwdos
 const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   const [results, setResults] = React.useState(null);
   const [error, setErrorMessage] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   async function fetchConstructionFiles() {
+    console.log('...fetchConstructionFiles');
+    setLoading(true);
     try {
       const data = await getByUrl(endpoint);
+      console.log('fetched...', data.results);
       setResults(data.results[0]);
     } catch (e) {
       setErrorMessage(ERROR_MESSAGE);
@@ -37,6 +41,10 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
     fetchConstructionFiles();
   }, []);
 
+  React.useEffect(() => {
+    setLoading(false);
+  }, [error, results]);
+
   const {
     titel,
     subdossiers,
@@ -45,70 +53,81 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
     dossiernr: fileNumber
   } = results || {};
 
-  return error ? <ErrorMessage errorMessage={error} /> : (
-    user.scopes.includes(SCOPES['BD/R'])
-      ? (
-        <React.Fragment>
-          {fileName && <ImageViewer {...{ fileName, results }} />}
-          {!fileName && ((results) ? (
-            <div className="c-construction-files">
-              <div className="c-data-selection c-dashboard__content">
-                <Typography
-                  className="c-construction-files__title"
-                  element="h3"
-                >
-                  Bouwdossier
-                </Typography>
-                <Typography element="h1">{titel}</Typography>
-              </div>
-
-              <div className="c-ds-table">
-                <div className="c-ds-table__body">
-                  <div className="c-ds-table__row">
-                    <div className="c-ds-table__cell">
-                      <div className="qa-table-value">Datering</div>
-                    </div>
-                    <div className="c-ds-table__cell">
-                      <div className="qa-table-value">{date}</div>
-                    </div>
-                  </div>
-                  <div className="c-ds-table__row">
-                    <div className="c-ds-table__cell">
-                      <div className="qa-table-value">Type</div>
-                    </div>
-                    <div className="c-ds-table__cell">
-                      <div className="qa-table-value">{fileType}</div>
-                    </div>
-                  </div>
-                  <div className="c-ds-table__row">
-                    <div className="c-ds-table__cell">
-                      <div className="qa-table-value">Dossier nummer</div>
-                    </div>
-                    <div className="c-ds-table__cell">
-                      <div className="qa-table-value">{fileNumber}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {subdossiers &&
-              subdossiers.length &&
-              subdossiers.map(({ bestanden, titel: subdossierTitle }) => (
-                <Gallery
-                  key={subdossierTitle}
-                  title={subdossierTitle}
-                  thumbs={bestanden}
-                  onClick={setFileName}
-                  max={6}
-                />
-              ))}
-            </div>
-          ) : <LoadingIndicator />)}
-        </React.Fragment>)
-      : <div className="c-data-selection c-dashboard__content">
-        <NotAuthorizedMessage />
-      </div>
+  const noResultsFound = (
+    <div className="c-data-selection c-dashboard__content">
+      <Typography element="em">Geen resultaten gevonden</Typography>
+    </div>
   );
+
+  const notAuthorized = (
+    <div className="c-data-selection c-dashboard__content">
+      <NotAuthorizedMessage />
+    </div>
+  );
+
+  const foundResults = (
+    <div className="c-construction-files">
+      <div className="c-data-selection c-dashboard__content">
+        <Typography
+          className="c-construction-files__title"
+          element="h3"
+        >
+          Bouwdossier
+        </Typography>
+        <Typography element="h1">{titel}</Typography>
+      </div>
+
+      <div className="c-ds-table">
+        <div className="c-ds-table__body">
+          <div className="c-ds-table__row">
+            <div className="c-ds-table__cell">
+              <div className="qa-table-value">Datering</div>
+            </div>
+            <div className="c-ds-table__cell">
+              <div className="qa-table-value">{date}</div>
+            </div>
+          </div>
+          <div className="c-ds-table__row">
+            <div className="c-ds-table__cell">
+              <div className="qa-table-value">Type</div>
+            </div>
+            <div className="c-ds-table__cell">
+              <div className="qa-table-value">{fileType}</div>
+            </div>
+          </div>
+          <div className="c-ds-table__row">
+            <div className="c-ds-table__cell">
+              <div className="qa-table-value">Dossier nummer</div>
+            </div>
+            <div className="c-ds-table__cell">
+              <div className="qa-table-value">{fileNumber}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {subdossiers &&
+      subdossiers.length &&
+      subdossiers.map(({ bestanden, titel: subdossierTitle }) => (
+        <Gallery
+          key={subdossierTitle}
+          title={subdossierTitle}
+          thumbs={bestanden}
+          onClick={setFileName}
+          max={6}
+        />
+      ))}
+    </div>
+  );
+
+  return user.scopes.includes(SCOPES['BD/R'])
+    ? error ? <ErrorMessage errorMessage={error} /> : (
+      <React.Fragment>
+        {fileName && <ImageViewer {...{ fileName, results }} />}
+        {loading && <LoadingIndicator />}
+        {results ? foundResults : noResultsFound}
+      </React.Fragment>)
+    : notAuthorized;
 };
 
 ConstructionFiles.propTypes = {

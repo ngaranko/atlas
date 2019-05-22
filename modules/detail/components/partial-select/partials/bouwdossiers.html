@@ -1,7 +1,7 @@
 <ul class="o-list">
     <li ng-repeat="object in apiData.results">
         <dp-redux-link
-            to="object._links.self.href | detailEndpointAction"
+            to="object._links.self.href | constructionFilesEndpointAction"
             link-class="o-btn o-btn--link"
         >{{ object._display }}</dp-redux-link>
     </li>

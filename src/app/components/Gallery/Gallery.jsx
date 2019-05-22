@@ -41,8 +41,7 @@ const Gallery = ({ title, thumbs, onClick }) => {
                       '50%',
                       '50%',
                       `${100 / 3}%`,
-                      `${100 / 4}%`,
-                      `${100 / 6}%`
+                      '300px'
                     ]}
                     className="c-gallery__item"
                   >
