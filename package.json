@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@datapunt/asc-assets": "^0.7.0-alpha.0",
-    "@datapunt/asc-ui": "^0.7.0-alpha.0",
+    "@datapunt/asc-ui": "^0.7.1-alpha.0",
     "@svgr/webpack": "^4.2.0",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",
