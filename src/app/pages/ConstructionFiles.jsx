@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { Typography } from '@datapunt/asc-ui';
-import { getByUrl } from '../../shared/services/api/api';
+import { GridContainer, GridItem, Typography } from '@datapunt/asc-ui';
 import { setCurrentFile } from '../../shared/ducks/files/actions';
 import { getFileName } from '../../shared/ducks/files/selectors';
 import { getUser } from '../../shared/ducks/user/user';
@@ -11,10 +10,11 @@ import { SCOPES } from '../../shared/services/auth/auth';
 import NotAuthorizedMessage from '../components/PanelMessages/NotAuthorizedMessage';
 import SHARED_CONFIG from '../../shared/services/shared-config/shared-config';
 import { getLocationPayload } from '../../store/redux-first-router/selectors';
-import './Files.scss';
 import Gallery from '../components/Gallery/Gallery';
 import LoadingIndicator from '../../shared/components/loading-indicator/LoadingIndicator';
 import ErrorMessage from '../components/PanelMessages/ErrorMessage/ErrorMessage';
+import { getByUrl } from '../../shared/services/api/api';
+import './ConstructionFiles.scss';
 
 const ImageViewer = React.lazy(() => import('../components/ImageViewer/ImageViewer'));
 
@@ -29,7 +29,7 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
     setLoading(true);
     try {
       const data = await getByUrl(endpoint);
-      setResults(data.results[0]);
+      setResults(data);
     } catch (e) {
       setErrorMessage(ERROR_MESSAGE);
     }
@@ -48,29 +48,38 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
     dossiernr: fileNumber
   } = results || {};
 
-  const noResultsFound = (
-    <div className="c-data-selection c-dashboard__content">
-      <Typography element="em">Geen resultaten gevonden</Typography>
-    </div>
+  const withGrid = (children) => (
+    <GridContainer direction="column" gutterX={20} gutterY={20}>
+      <GridItem>
+        {children}
+      </GridItem>
+    </GridContainer>
+  );
+  const noResultsTemplate = withGrid(
+    <Typography element="em">Geen resultaten gevonden</Typography>
   );
 
-  const notAuthorized = (
-    <div className="c-data-selection c-dashboard__content">
-      <NotAuthorizedMessage />
-    </div>
+  const notAuthorizedTemplate = withGrid(
+    <NotAuthorizedMessage />
   );
 
-  const foundResults = (
+  const loadingTemplate = withGrid(
+    <LoadingIndicator />
+  );
+
+  const resultsTemplate = (
     <div className="c-construction-files">
-      <div className="c-data-selection c-dashboard__content">
-        <Typography
-          className="c-construction-files__title"
-          element="h3"
-        >
-          Bouwdossier
-        </Typography>
-        <Typography element="h1">{titel}</Typography>
-      </div>
+      {withGrid(
+        <React.Fragment>
+          <Typography
+            className="c-construction-files__title"
+            element="h3"
+          >
+            Bouwdossier
+          </Typography>
+          <Typography element="h1">{titel}</Typography>
+        </React.Fragment>
+      )}
 
       <div className="c-ds-table">
         <div className="c-ds-table__body">
@@ -119,10 +128,10 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
     ? error ? <ErrorMessage errorMessage={error} /> : (
       <React.Fragment>
         {fileName && <ImageViewer {...{ fileName, results }} />}
-        {loading && <LoadingIndicator />}
-        {!loading && (results ? foundResults : noResultsFound)}
+        {loading && loadingTemplate}
+        {!loading && (results ? resultsTemplate : noResultsTemplate)}
       </React.Fragment>)
-    : notAuthorized;
+    : notAuthorizedTemplate;
 };
 
 ConstructionFiles.propTypes = {
@@ -134,7 +143,7 @@ ConstructionFiles.propTypes = {
 
 const mapStateToProps = (state) => ({
   fileName: getFileName(state),
-  endpoint: `${SHARED_CONFIG.API_ROOT}stadsarchief/bouwdossier/?dossiernr=${getLocationPayload(state).id.replace('id', '')}`,
+  endpoint: `${SHARED_CONFIG.API_ROOT}stadsarchief/bouwdossier/${getLocationPayload(state).id.replace('id', '')}/`,
   user: getUser(state)
 });
 

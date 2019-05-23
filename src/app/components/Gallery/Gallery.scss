@@ -10,8 +10,8 @@
 
 .c-gallery {
   border-bottom: 1px solid $secondary-gray30;
-  margin-bottom: 40px;
   padding-bottom: 20px;
+  padding-top: 40px;
 
   &__title {
     margin-bottom: 12px !important;
@@ -20,6 +20,7 @@
   &__button {
     @extend %focus;
 
+    align-items: center;
     border: solid 1px $primary-dark;
     display: flex;
     font-weight: 700;
