@@ -77,6 +77,7 @@ import '../../modules/shared/components/panel/panel.component';
 import '../../modules/shared/components/panorama-thumbnail/panorama-thumbnail.component';
 import '../../modules/shared/components/uppercase-first-letter/uppercase-first-letter.filter';
 import '../../modules/shared/filters/detail-endpoint-action.filter';
+import '../../modules/shared/filters/construction-files-endpoint-action.filter';
 import '../../modules/shared/filters/filesize.filter';
 import '../../modules/shared/filters/kebabcase.filter';
 import '../../modules/shared/services/active-overlays/active-overlays.factory';

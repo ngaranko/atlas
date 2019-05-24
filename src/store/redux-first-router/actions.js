@@ -121,6 +121,16 @@ export const toDetailFromEndpoint = (endpoint, view) => {
   });
 };
 
+export const toConstructionFilesFromEndpoint = (endpoint) => {
+  const { id } = getDetailPageData(endpoint);
+  return ({
+    type: routing.bouwdossier.type,
+    payload: {
+      id
+    }
+  });
+};
+
 export const toDataSearchCategory = (searchQuery, category) => ({
   type: routing.dataSearchCategory.type,
   payload: {

@@ -12,7 +12,13 @@ import { ReactComponent as Embed } from '@datapunt/asc-assets/lib/Icons/Embed.sv
 import { ReactComponent as Ellipsis } from '@datapunt/asc-assets/lib/Icons/Ellipsis.svg';
 import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
 import { ContextMenu as ContextMenuComponent, ContextMenuItem, Icon } from '@datapunt/asc-ui';
-import { hasPrintMode, hasEmbedMode, sharePage, showPrintMode, showEmbedPreview } from '../../../shared/ducks/ui/ui';
+import {
+  hasEmbedMode,
+  hasPrintMode,
+  sharePage,
+  showEmbedPreview,
+  showPrintMode
+} from '../../../shared/ducks/ui/ui';
 import { isMapPanelActive } from '../../../map/ducks/map/selectors';
 import getShareUrl from '../../../shared/services/share-url/share-url';
 
@@ -49,7 +55,7 @@ const ContextMenu = ({
         }
         position="bottom"
       >
-        { hasPrintButton ? <ContextMenuItem
+        {hasPrintButton ? <ContextMenuItem
           role="button"
           divider={!hasEmbedButton}
           onClick={openPrintMode}
@@ -61,7 +67,7 @@ const ContextMenu = ({
         >
           Printen
         </ContextMenuItem> : <></>}
-        { hasEmbedButton ? <ContextMenuItem
+        {hasEmbedButton ? <ContextMenuItem
           role="button"
           divider
           onClick={openEmbedPreview}

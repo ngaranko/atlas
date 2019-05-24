@@ -6,7 +6,7 @@ import { BEDIENING_LOGIN_DEEPLINK } from '../../../shared/ducks/content/constant
 
 const MoreResultsWhenLoggedIn = () => (
   <Notification
-    type="warning"
+    type="info"
   >
     <h3 className="c-panel__title">Meer resultaten na inloggen</h3>
     <p className="c-panel__paragraph">Medewerkers/ketenpartners van Gemeente Amsterdam

@@ -1,0 +1,30 @@
+@import "../../shared/styles/config";
+
+.c-construction-files {
+  background-color: $primary-light;
+  padding-bottom: 100px;
+
+  &__title {
+    margin-bottom: 7px !important;
+  }
+
+  .c-ds-table {
+    margin-bottom: 10px;
+
+    &__row {
+      &:last-child {
+        .c-ds-table__cell {
+          border-bottom: 1px solid $secondary-gray20;
+        }
+      }
+    }
+
+    &__cell {
+      padding-left: 20px;
+
+      &:first-child {
+        width: 33%;
+      }
+    }
+  }
+}

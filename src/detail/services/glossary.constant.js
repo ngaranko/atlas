@@ -256,7 +256,7 @@ const GLOSSARY = {
         'identificerende_sleutel_monument'
       ]
     },
-    BOUWDOSSIERS: {
+    BOUWDOSSIER: {
       label_singular: 'Bouwdossier',
       label_plural: 'Bouwdossiers',
       description: 'Een bouwdossier bevat de behandeling van de aanvraag tot een bouwvergunning ' +
