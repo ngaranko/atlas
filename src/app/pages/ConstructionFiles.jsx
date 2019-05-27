@@ -15,6 +15,7 @@ import LoadingIndicator from '../../shared/components/loading-indicator/LoadingI
 import ErrorMessage from '../components/PanelMessages/ErrorMessage/ErrorMessage';
 import { getByUrl } from '../../shared/services/api/api';
 import './ConstructionFiles.scss';
+import { ConstructionFiles as ContextMenu } from '../components/ContextMenu';
 
 const ImageViewer = React.lazy(() => import('../components/ImageViewer/ImageViewer'));
 
@@ -41,7 +42,7 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   }, []);
 
   const {
-    titel,
+    titel: title,
     subdossiers,
     datering: date,
     dossier_type: fileType,
@@ -77,7 +78,7 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
           >
             Bouwdossier
           </Typography>
-          <Typography element="h1">{titel}</Typography>
+          <Typography element="h1">{title}</Typography>
         </React.Fragment>
       )}
 
@@ -127,16 +128,17 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   return user.scopes.includes(SCOPES['BD/R'])
     ? error ? <ErrorMessage errorMessage={error} /> : (
       <React.Fragment>
-        {fileName && <ImageViewer {...{ fileName, results }} />}
+        {fileName &&
+        <ImageViewer {...{ fileName, title }} contextMenu={<ContextMenu fileName={fileName} />} />}
         {loading && loadingTemplate}
-        {!loading && (results ? resultsTemplate : noResultsTemplate)}
+        {(!loading && !fileName) && (results ? resultsTemplate : noResultsTemplate)}
       </React.Fragment>)
     : notAuthorizedTemplate;
 };
 
 ConstructionFiles.propTypes = {
   setFileName: PropTypes.func.isRequired,
-  fileName: PropTypes.string.isRequired,
+  fileName: PropTypes.string,
   user: PropTypes.shape({}).isRequired,
   endpoint: PropTypes.string.isRequired
 };
