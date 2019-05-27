@@ -23,7 +23,7 @@ const MoreResultsWhenLoggedIn = ({ excludedResults }) => (
         }}
       >
         Help &#62; Bediening &#62; Inloggen
-      </Link>`
+      </Link>
     </p>
   </Notification>
 );

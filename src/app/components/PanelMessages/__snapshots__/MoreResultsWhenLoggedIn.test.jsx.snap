@@ -29,7 +29,6 @@ exports[`MoreResultsWhenLoggedIn should render everything 1`] = `
     >
       Help &gt; Bediening &gt; Inloggen
     </Connect(Link)>
-    \`
   </p>
 </Notification>
 `;
