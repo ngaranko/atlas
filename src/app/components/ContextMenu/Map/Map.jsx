@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { ReactComponent as Print } from '@datapunt/asc-assets/lib/Icons/Print.svg';
 import { ReactComponent as Embed } from '@datapunt/asc-assets/lib/Icons/Embed.svg';
 import { ReactComponent as Ellipsis } from '@datapunt/asc-assets/lib/Icons/Ellipsis.svg';
@@ -10,10 +12,17 @@ import {
   ContextMenuItem,
   Icon
 } from '@datapunt/asc-ui/lib/index';
-import Container from '../Container';
 
 import './Map.scss';
 import socialItems from '../socialItems';
+import { isMapPanelActive } from '../../../../map/ducks/map/selectors';
+import {
+  hasEmbedMode,
+  hasPrintMode,
+  sharePage,
+  showEmbedPreview,
+  showPrintMode
+} from '../../../../shared/ducks/ui/ui';
 
 const Map = ({
   isMapPanelVisible,
@@ -81,4 +90,16 @@ Map.propTypes = {
   openEmbedPreview: PropTypes.func.isRequired
 };
 
-export default Container(Map);
+const mapStateToProps = (state) => ({
+  isMapPanelVisible: isMapPanelActive(state),
+  hasPrintButton: hasPrintMode(state),
+  hasEmbedButton: hasEmbedMode(state)
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  openSharePage: sharePage,
+  openPrintMode: showPrintMode,
+  openEmbedPreview: showEmbedPreview
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map);

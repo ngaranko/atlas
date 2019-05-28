@@ -7,7 +7,7 @@ import { isDatasetDetailPage } from '../../redux-first-router/selectors';
 let views = Object.entries(routing).reduce((acc, [, value]) => ({
   ...acc,
   [value.type]: function trackView({ firstAction = null, query = {}, href, title }) {
-    return (firstAction || !!query.print) ? [
+    return ((firstAction || !!query.print) && !value.useHooks) ? [
       PIWIK_CONSTANTS.TRACK_VIEW,
       title,
       href,

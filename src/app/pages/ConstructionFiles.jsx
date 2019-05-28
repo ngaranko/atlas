@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { GridContainer, GridItem, Typography } from '@datapunt/asc-ui';
+import { GridContainer, GridItem, Typography } from '@datapunt/asc-ui/lib/index';
 import { setCurrentFile } from '../../shared/ducks/files/actions';
 import { getFileName } from '../../shared/ducks/files/selectors';
 import { getUser } from '../../shared/ducks/user/user';
@@ -16,6 +16,8 @@ import ErrorMessage from '../components/PanelMessages/ErrorMessage/ErrorMessage'
 import { getByUrl } from '../../shared/services/api/api';
 import './ConstructionFiles.scss';
 import { ConstructionFiles as ContextMenu } from '../components/ContextMenu';
+import useMatomo from '../utils/useMatomo';
+import useDocumentTitle from '../utils/useDocumentTitle';
 
 const ImageViewer = React.lazy(() => import('../components/ImageViewer/ImageViewer'));
 
@@ -25,6 +27,18 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   const [results, setResults] = React.useState(null);
   const [error, setErrorMessage] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [imageViewerActive, setImageViewerActive] = React.useState(false);
+
+  const { trackPageView } = useMatomo();
+  const { documentTitle, setDocumentTitle } = useDocumentTitle();
+
+  const {
+    titel: title,
+    subdossiers,
+    datering: date,
+    dossier_type: fileType,
+    dossiernr: fileNumber
+  } = results || {};
 
   async function fetchConstructionFiles() {
     setLoading(true);
@@ -41,13 +55,19 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
     fetchConstructionFiles();
   }, []);
 
-  const {
-    titel: title,
-    subdossiers,
-    datering: date,
-    dossier_type: fileType,
-    dossiernr: fileNumber
-  } = results || {};
+  // Effect to update the documentTitle
+  React.useEffect(() => {
+    setDocumentTitle(imageViewerActive && 'Bouwtekening', [title]);
+  }, [title, imageViewerActive]);
+
+  // Track pageView when documentTitle changes
+  React.useEffect(() => {
+    trackPageView(documentTitle);
+  }, [documentTitle]);
+
+  React.useEffect(() => {
+    setImageViewerActive(!!fileName);
+  }, [fileName]);
 
   const withGrid = (children) => (
     <GridContainer direction="column" gutterX={20} gutterY={20}>
@@ -128,7 +148,7 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   return user.scopes.includes(SCOPES['BD/R'])
     ? error ? <ErrorMessage errorMessage={error} /> : (
       <React.Fragment>
-        {fileName &&
+        {imageViewerActive &&
         <ImageViewer {...{ fileName, title }} contextMenu={<ContextMenu fileName={fileName} />} />}
         {loading && loadingTemplate}
         {(!loading && !fileName) && (results ? resultsTemplate : noResultsTemplate)}

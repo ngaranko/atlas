@@ -10,25 +10,14 @@ import { ReactComponent as Minimise } from '@datapunt/asc-assets/lib/Icons/Minim
 import ViewerControls from '../ViewerControls/ViewerControls';
 import { setCurrentFile } from '../../../shared/ducks/files/actions';
 
-class ImageViewer extends React.Component {
-  constructor(props) {
-    super(props);
+const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
+  const viewerRef = React.createRef();
+  const [viewer, setViewerInstance] = React.useState(null);
 
-    this.viewer = React.createRef();
-
-    this.state = {
-      viewer: null
-    };
-
-    this.zoomOut = this.zoomOut.bind(this);
-    this.zoomIn = this.zoomIn.bind(this);
-  }
-
-  componentDidMount() {
-    const { fileName } = this.props;
+  React.useEffect(() => {
     // Todo: retrieve the document title from the filename (filter)
     OpenSeadragon({
-      element: this.viewer.current,
+      element: viewerRef.current,
       prefixUrl: 'http://openseadragon.github.io/openseadragon/images/',
       preserveViewport: true,
       visibilityRatio: 1,
@@ -38,65 +27,57 @@ class ImageViewer extends React.Component {
       showNavigationControl: false,
       showSequenceControl: false,
       tileSources: [`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${fileName}/info.json`]
-    }).addHandler('open', ({ eventSource: viewer }) => {
-      this.setState({
-        viewer
-      });
+    }).addHandler('open', ({ eventSource }) => {
+      setViewerInstance(eventSource);
     });
-  }
+  }, []);
 
-  zoomIn() {
-    const { viewer } = this.state;
+  const zoomIn = () => {
     viewer.viewport.zoomBy(1.5);
-  }
+  };
 
-  zoomOut() {
-    const { viewer } = this.state;
+  const zoomOut = () => {
     const targetZoomLevel = viewer.viewport.getZoom() - 1;
     const newZoomLevel = (targetZoomLevel < 1) ? 1 : targetZoomLevel;
     viewer.viewport.zoomTo(newZoomLevel);
-  }
+  };
 
-  render() {
-    const { viewer } = this.state;
-    const { resetFileName, fileName, title, contextMenu } = this.props;
-    return (
-      <React.Fragment>
-        <div ref={this.viewer} style={{ width: '100%', height: '100%' }} />
-        {viewer &&
-        <ViewerControls
-          metaData={[title, fileName]}
-          topRightComponent={
-            <IconButton size={32} iconSize={15} onClick={resetFileName}>
-              <Close />
+  return (
+    <React.Fragment>
+      <div ref={viewerRef} style={{ width: '100%', height: '100%' }} />
+      {viewer &&
+      <ViewerControls
+        metaData={[title, fileName]}
+        topRightComponent={
+          <IconButton size={32} iconSize={15} onClick={resetFileName}>
+            <Close />
+          </IconButton>
+        }
+        bottomRightComponent={
+          <div>
+            <IconButton
+              size={32}
+              iconSize={12}
+              onClick={zoomIn}
+            >
+              <Enlarge />
             </IconButton>
-          }
-          bottomRightComponent={
-            <div>
-              <IconButton
-                size={32}
-                iconSize={12}
-                onClick={this.zoomIn}
-              >
-                <Enlarge />
-              </IconButton>
-              <IconButton
-                size={32}
-                iconSize={12}
-                onClick={this.zoomOut}
-              >
-                <Minimise />
-              </IconButton>
-            </div>
-          }
-          bottomLeftComponent={
-            contextMenu
-          }
-        />}
-      </React.Fragment>
-    );
-  }
-}
+            <IconButton
+              size={32}
+              iconSize={12}
+              onClick={zoomOut}
+            >
+              <Minimise />
+            </IconButton>
+          </div>
+        }
+        bottomLeftComponent={
+          contextMenu
+        }
+      />}
+    </React.Fragment>
+  );
+};
 
 ImageViewer.defaultProps = {
   fileName: '',

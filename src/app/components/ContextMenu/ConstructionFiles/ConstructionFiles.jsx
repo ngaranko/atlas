@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
 import { ContextMenu, ContextMenuItem, Icon } from '@datapunt/asc-ui';
 import { ReactComponent as Ellipsis } from '@datapunt/asc-assets/lib/Icons/Ellipsis.svg';
 import { ReactComponent as Print } from '@datapunt/asc-assets/lib/Icons/Print.svg';
 import { ReactComponent as Download } from '@datapunt/asc-assets/lib/Icons/Download.svg';
-import Container from '../Container';
 import socialItems from '../socialItems';
+import { sharePage, showPrintMode } from '../../../../shared/ducks/ui/ui';
 
 const ConstructionFiles = ({ openSharePage, fileName, openPrintMode }) => (
   <ContextMenu
@@ -84,4 +86,9 @@ ConstructionFiles.propTypes = {
   fileName: PropTypes.string.isRequired
 };
 
-export default Container(ConstructionFiles);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  openSharePage: sharePage,
+  openPrintMode: showPrintMode
+}, dispatch);
+
+export default connect(null, mapDispatchToProps)(ConstructionFiles);

@@ -10,8 +10,8 @@ const getDefaultDocumentTitle = (page) => () => get(routing, `[${page}].title`, 
 
 const documentHead = () => (next) => (action) => {
   // The change of the route and some actions should change the document title
-  const shouldChangeTitle =
-    Object.keys(routing).map((key) => routing[key].type).includes(action.type) ||
+  const routeObject = Object.values(routing).find((value) => value.type === action.type);
+  const shouldChangeTitle = (routeObject && !routeObject.useHooks) ||
     action.type === FETCH_DETAIL_SUCCESS;
   if (shouldChangeTitle) {
     const page = Object.keys(routing).find((key) => routing[key].type === action.type);
