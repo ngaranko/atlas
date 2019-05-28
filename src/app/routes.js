@@ -85,6 +85,7 @@ export const routing = {
     title: 'Bouwdossier',
     path: `/${MAIN_PATHS.DATA}/stadsarchief/bouwdossier/:id/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.BOUWDOSSIER}`,
+    useHooks: true, // indicate to skip legacy documentHead and piwik middleware
     page: PAGES.BOUWDOSSIER
   },
   nieuws: {

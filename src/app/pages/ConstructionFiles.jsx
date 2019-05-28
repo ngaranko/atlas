@@ -15,6 +15,9 @@ import LoadingIndicator from '../../shared/components/loading-indicator/LoadingI
 import ErrorMessage from '../components/PanelMessages/ErrorMessage/ErrorMessage';
 import { getByUrl } from '../../shared/services/api/api';
 import './ConstructionFiles.scss';
+import { ConstructionFiles as ContextMenu } from '../components/ContextMenu';
+import useMatomo from '../utils/useMatomo';
+import useDocumentTitle from '../utils/useDocumentTitle';
 
 const ImageViewer = React.lazy(() => import('../components/ImageViewer/ImageViewer'));
 
@@ -22,8 +25,20 @@ const ERROR_MESSAGE = 'Er kunnen door een technische storing helaas geen bouwdos
 
 const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   const [results, setResults] = React.useState(null);
-  const [error, setErrorMessage] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [imageViewerActive, setImageViewerActive] = React.useState(false);
+
+  const { trackPageView } = useMatomo();
+  const { documentTitle, setDocumentTitle } = useDocumentTitle();
+
+  const {
+    titel: title,
+    subdossiers,
+    datering: date,
+    dossier_type: fileType,
+    dossiernr: fileNumber
+  } = results || {};
 
   async function fetchConstructionFiles() {
     setLoading(true);
@@ -40,13 +55,23 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
     fetchConstructionFiles();
   }, []);
 
-  const {
-    titel,
-    subdossiers,
-    datering: date,
-    dossier_type: fileType,
-    dossiernr: fileNumber
-  } = results || {};
+  // Effect to update the documentTitle
+  React.useEffect(() => {
+    if (title) {
+      setDocumentTitle(imageViewerActive && 'Bouwtekening', [title]);
+    }
+  }, [title, imageViewerActive]);
+
+  // Track pageView when documentTitle changes
+  React.useEffect(() => {
+    if (title) {
+      trackPageView(documentTitle);
+    }
+  }, [documentTitle]);
+
+  React.useEffect(() => {
+    setImageViewerActive(!!fileName);
+  }, [fileName]);
 
   const withGrid = (children) => (
     <GridContainer direction="column" gutterX={20} gutterY={20}>
@@ -77,7 +102,7 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
           >
             Bouwdossier
           </Typography>
-          <Typography element="h1">{titel}</Typography>
+          <Typography element="h1">{title}</Typography>
         </React.Fragment>
       )}
 
@@ -125,18 +150,19 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   );
 
   return user.scopes.includes(SCOPES['BD/R'])
-    ? error ? <ErrorMessage errorMessage={error} /> : (
+    ? errorMessage ? <ErrorMessage errorMessage={errorMessage} /> : (
       <React.Fragment>
-        {fileName && <ImageViewer {...{ fileName, results }} />}
+        {imageViewerActive &&
+        <ImageViewer {...{ fileName, title }} contextMenu={<ContextMenu fileName={fileName} />} />}
         {loading && loadingTemplate}
-        {!loading && (results ? resultsTemplate : noResultsTemplate)}
+        {(!loading && !fileName) && (results ? resultsTemplate : noResultsTemplate)}
       </React.Fragment>)
     : notAuthorizedTemplate;
 };
 
 ConstructionFiles.propTypes = {
   setFileName: PropTypes.func.isRequired,
-  fileName: PropTypes.string.isRequired,
+  fileName: PropTypes.string,
   user: PropTypes.shape({}).isRequired,
   endpoint: PropTypes.string.isRequired
 };
