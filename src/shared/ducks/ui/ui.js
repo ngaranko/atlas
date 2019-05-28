@@ -204,6 +204,6 @@ export const isPrintModeLandscape = createSelector(
   getViewMode,
   (printMode, panoPageActive, mapPageActive, fileName, viewMode) =>
     (printMode &&
-      (panoPageActive || mapPageActive || fileName || (viewMode === VIEW_MODE.MAP))
+      (panoPageActive || mapPageActive || !!fileName || (viewMode === VIEW_MODE.MAP))
     )
 );

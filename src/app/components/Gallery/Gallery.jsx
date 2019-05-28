@@ -79,7 +79,7 @@ const Gallery = ({ title, thumbs, onClick, maxLength }) => {
                 </button>)}
             </React.Fragment>
             :
-            <Typography element="em">Er zijn geen resultaten gevonden</Typography>
+            <Typography element="em">Geen bouwtekening(en) beschikbaar.</Typography>
           }
         </GridItem>
       </GridContainer>
