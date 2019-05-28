@@ -480,55 +480,80 @@ const mapLayers = [
     layers: ['ahn3_05m_dtm'],
     legendItems: [
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-10.svg',
-        title: '-10 m tot -5 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-minus-5.svg',
+        title: '-5 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-5.svg',
-        title: '-5 m tot -2 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-minus-4.svg',
+        title: '-4 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-minus-3.svg',
+        title: '-3 m'
       },
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-minus-2.svg',
-        title: '-2 m tot -1 m'
+        title: '-2 m'
       },
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-minus-1.svg',
-        title: '-1 m tot 0 m'
+        title: '-1 m'
       },
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-plus-0.svg',
-        title: '0 m tot 1 m'
+        title: '0 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-1.svg',
-        title: '1 m tot 2 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-1-5.svg',
+        title: '1,5 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-2.svg',
-        title: '2 m tot 5 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-3.svg',
+        title: '3 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-5.svg',
-        title: '5 m tot 10 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-4-5.svg',
+        title: '4,5 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-6.svg',
+        title: '6 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-8.svg',
+        title: '8 m'
       },
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-plus-10.svg',
-        title: '10 m tot 20 m'
+        title: '10 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-13.svg',
+        title: '13 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-16.svg',
+        title: '16 m'
       },
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-plus-20.svg',
-        title: '20 m tot 30 m'
+        title: '20 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-30.svg',
-        title: 'hoger dan 30 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-45.svg',
+        title: '45 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-80.svg',
+        title: '80 m'
       }
     ],
-    minZoom: 10,
     title: 'Terreinmodel (DTM AHN)',
-    url: 'https://geodata.nationaalgeoregister.nl/ahn3/wms?',
+    type: mapLayerTypes.TMS,
+    url: 'https://{s}.data.amsterdam.nl/ahn3/AHN3_Amsterdam_DTM_rd/{z}/{x}/{y}.png',
     external: true,
-    noDetail: true
+    noDetail: true,
+    bounds: [[52.26076, 4.65484], [52.43118, 5.09313]]
   },
   {
     category: THEMES.GEOGRAPHY_HEIGHT,
@@ -536,55 +561,80 @@ const mapLayers = [
     layers: ['ahn3_05m_dsm'],
     legendItems: [
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-10.svg',
-        title: '-10 m tot -5 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-minus-5.svg',
+        title: '-5 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-minus-5.svg',
-        title: '-5 m tot -2 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-minus-4.svg',
+        title: '-4 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-minus-3.svg',
+        title: '-3 m'
       },
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-minus-2.svg',
-        title: '-2 m tot -1 m'
+        title: '-2 m'
       },
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-minus-1.svg',
-        title: '-1 m tot 0 m'
+        title: '-1 m'
       },
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-plus-0.svg',
-        title: '0 m tot 1 m'
+        title: '0 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-1.svg',
-        title: '1 m tot 2 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-1-5.svg',
+        title: '1,5 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-2.svg',
-        title: '2 m tot 5 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-3.svg',
+        title: '3 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-5.svg',
-        title: '5 m tot 10 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-4-5.svg',
+        title: '4,5 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-6.svg',
+        title: '6 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-8.svg',
+        title: '8 m'
       },
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-plus-10.svg',
-        title: '10 m tot 20 m'
+        title: '10 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-13.svg',
+        title: '13 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-16.svg',
+        title: '16 m'
       },
       {
         iconUrl: '/assets/images/map-legend/icon-ahn-plus-20.svg',
-        title: '20 m tot 30 m'
+        title: '20 m'
       },
       {
-        iconUrl: '/assets/images/map-legend/icon-ahn-plus-30.svg',
-        title: 'hoger dan 30 m'
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-45.svg',
+        title: '45 m'
+      },
+      {
+        iconUrl: '/assets/images/map-legend/icon-ahn-plus-80.svg',
+        title: '80 m'
       }
     ],
-    minZoom: 10,
     title: 'Oppervlaktemodel (DSM AHN)',
-    url: 'https://geodata.nationaalgeoregister.nl/ahn3/wms?',
+    type: mapLayerTypes.TMS,
+    url: 'https://{s}.data.amsterdam.nl/ahn3/AHN3_Amsterdam_DSM_rd/{z}/{x}/{y}.png',
     external: true,
-    noDetail: true
+    noDetail: true,
+    bounds: [[52.26076, 4.65484], [52.43118, 5.09324]]
   },
   {
     category: THEMES.GEOGRAPHY_HEIGHT,
