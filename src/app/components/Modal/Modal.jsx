@@ -99,7 +99,7 @@ class ModalComponent extends Component {
         <Divider gutter />
         <ListItem>
           <Typography gutterBottom element="h5">
-            Vraag of een klacht?
+            Vraag of opmerking?
           </Typography>
           <Typography paragraph element="p" gutterBottom>
             Als iets op deze pagina niet goed werkt, onduidelijk is of vragen oproept, geef het
