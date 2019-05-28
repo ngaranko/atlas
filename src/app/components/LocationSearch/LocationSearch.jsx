@@ -8,6 +8,8 @@ import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system'
 import MoreResultsWhenLoggedIn from '../PanelMessages/MoreResultsWhenLoggedIn';
 import ShareBar from '../ShareBar/ShareBar';
 
+const EXCLUDED_RESULTS = 'vestigingen en grondexploitaties';
+
 const LocationSearch = ({
   isLoading,
   layerWarning,
@@ -49,7 +51,7 @@ const LocationSearch = ({
             <DataSearchLocation {...{ searchResults }} /> :
             'Van deze locatie zijn geen gegevens bekend.'}
           {(!!numberOfResults && (!user.scopes.includes('HR/R') || !user.scopes.includes('BRK/RS'))) &&
-          <MoreResultsWhenLoggedIn />
+          <MoreResultsWhenLoggedIn excludedResults={EXCLUDED_RESULTS} />
           }
 
           {!printMode && (
