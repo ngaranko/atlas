@@ -1,2 +1,29 @@
 @import "../../../shared/styles/config";
 
+.styled-header {
+  & > div > header {
+    padding: 0 10px;
+  }
+
+  & > div > header > h1 {
+    font-weight: 600;
+  }
+
+  @media screen and (min-width: 1200.02px) {
+    & > div > header {
+      padding: 0;
+    }
+  }
+
+  & > div > header > div {
+    justify-content: space-between;
+  }
+
+  [aria-hidden="true"] {
+    display: none;
+  }
+
+  .auto-suggest {
+    width: 50%;
+  }
+}

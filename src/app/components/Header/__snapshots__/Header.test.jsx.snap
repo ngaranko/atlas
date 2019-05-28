@@ -40,42 +40,66 @@ exports[`Header should render the embed header 1`] = `
 `;
 
 exports[`Header should render the main header 1`] = `
-<div
-  className="u-fixed"
+<section
+  className="styled-header"
 >
-  <div
-    className="c-dashboard__heading o-max-width"
+  <Header
+    fullWidth={true}
+    homeLink="/"
+    styledComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-jDwBTQ",
+          "isStatic": false,
+          "rules": Array [
+            "
+  background-color: ",
+            [Function],
+            ";
+  margin: 0 auto;
+  width: 100%;
+  max-width: ",
+            [Function],
+            ";
+  box-shadow: 0 4px rgba(0, 0, 0, 0.04);
+  box-sizing: content-box;
+  position: fixed; /* Unfortunately no sticky because IE11 */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2; /* Orders the header higher than the content */
+
+  ",
+            ".sc-jWBwVP",
+            " {
+    flex-grow: 1;
+    margin-left: 15px;
+  }
+
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-jDwBTQ",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    tall={false}
+    title="Data en informatie"
   >
-    <div
-      className="o-max-width__inner"
-    >
-      <div
-        className="qa-dashboard__header"
-      >
-        <AngularWrapper
-          bindings={
-            Object {
-              "hasEmbedButton": true,
-              "hasMaxWidth": true,
-              "hasPrintButton": true,
-              "isHomepage": false,
-              "size": "short",
-              "user": Object {},
-            }
-          }
-          component="dpSiteHeader"
-          dependencies={
-            Array [
-              "atlas",
-            ]
-          }
-          interpolateBindings={Object {}}
-          moduleName="dpHeaderWrapper"
-        />
-      </div>
-    </div>
-  </div>
-</div>
+    <Connect(HeaderSearch) />
+    <MenuContainer />
+  </Header>
+</section>
 `;
 
 exports[`Header should render the print header 1`] = `
