@@ -9,6 +9,7 @@ import { ReactComponent as Enlarge } from '@datapunt/asc-assets/lib/Icons/Enlarg
 import { ReactComponent as Minimise } from '@datapunt/asc-assets/lib/Icons/Minimise.svg';
 import ViewerControls from '../ViewerControls/ViewerControls';
 import { setCurrentFile } from '../../../shared/ducks/files/actions';
+import './ImageViewer.scss';
 
 const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
   const viewerRef = React.createRef();
@@ -44,7 +45,7 @@ const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
 
   return (
     <React.Fragment>
-      <div ref={viewerRef} style={{ width: '100%', height: '100%' }} />
+      <div ref={viewerRef} className="c-image-viewer" />
       {viewer &&
       <ViewerControls
         metaData={[title, fileName]}

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { GridContainer, GridItem, Typography } from '@datapunt/asc-ui/lib/index';
+import { GridContainer, GridItem, Typography } from '@datapunt/asc-ui';
 import { setCurrentFile } from '../../shared/ducks/files/actions';
 import { getFileName } from '../../shared/ducks/files/selectors';
 import { getUser } from '../../shared/ducks/user/user';
@@ -25,7 +25,7 @@ const ERROR_MESSAGE = 'Er kunnen door een technische storing helaas geen bouwdos
 
 const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   const [results, setResults] = React.useState(null);
-  const [error, setErrorMessage] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [imageViewerActive, setImageViewerActive] = React.useState(false);
 
@@ -57,12 +57,16 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
 
   // Effect to update the documentTitle
   React.useEffect(() => {
-    setDocumentTitle(imageViewerActive && 'Bouwtekening', [title]);
+    if (title) {
+      setDocumentTitle(imageViewerActive && 'Bouwtekening', [title]);
+    }
   }, [title, imageViewerActive]);
 
   // Track pageView when documentTitle changes
   React.useEffect(() => {
-    trackPageView(documentTitle);
+    if (title) {
+      trackPageView(documentTitle);
+    }
   }, [documentTitle]);
 
   React.useEffect(() => {
@@ -146,7 +150,7 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   );
 
   return user.scopes.includes(SCOPES['BD/R'])
-    ? error ? <ErrorMessage errorMessage={error} /> : (
+    ? errorMessage ? <ErrorMessage errorMessage={errorMessage} /> : (
       <React.Fragment>
         {imageViewerActive &&
         <ImageViewer {...{ fileName, title }} contextMenu={<ContextMenu fileName={fileName} />} />}
