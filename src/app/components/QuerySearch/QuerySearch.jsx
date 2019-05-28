@@ -10,6 +10,8 @@ import { DataSearchQuery } from '../DataSearch';
 import MoreResultsWhenLoggedIn from '../PanelMessages/MoreResultsWhenLoggedIn';
 import ShareBar from '../../components/ShareBar/ShareBar';
 
+const EXCLUDED_RESULTS = 'kadastrale subjecten, maatschappelijke activiteiten en vestigingen';
+
 const QuerySearch = ({
   isLoading,
   query,
@@ -49,7 +51,7 @@ const QuerySearch = ({
           <div>
             <DataSearchQuery />
             {(!!numberOfDataResults && (!user.scopes.includes('HR/R') || !user.scopes.includes('BRK/RS'))) &&
-              <MoreResultsWhenLoggedIn />
+              <MoreResultsWhenLoggedIn excludedResults={EXCLUDED_RESULTS} />
             }
             <div className="u-row">
               <div className="u-col-sm--12">

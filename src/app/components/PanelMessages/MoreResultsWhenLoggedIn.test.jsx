@@ -7,4 +7,13 @@ describe('MoreResultsWhenLoggedIn', () => {
     const component = shallow(<MoreResultsWhenLoggedIn />);
     expect(component).toMatchSnapshot();
   });
+
+  it('should render with an additional message', () => {
+    const excludedResults = 'Lorem ipsum';
+    const component = shallow(
+      <MoreResultsWhenLoggedIn excludedResults={excludedResults} />
+    );
+
+    expect(component.find('p').text()).toContain(': Lorem ipsum.');
+  });
 });
