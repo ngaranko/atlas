@@ -35,7 +35,7 @@ exports[`ContextMenu for ConstructionFiles viewer should render 1`] = `
   <ContextMenuItem
     as="a"
     download="filename.jpg_small"
-    href="https://acc.images.data.amsterdam.nl/iiif/2/edepot:filename.jpg/full/600/0/default.jpg"
+    href="https://acc.images.data.amsterdam.nl/iiif/2/edepot:filename.jpg/full/800,/0/default.jpg"
     icon={
       <Icon
         inline={true}
@@ -45,6 +45,7 @@ exports[`ContextMenu for ConstructionFiles viewer should render 1`] = `
         <IconMock />
       </Icon>
     }
+    onClick={[Function]}
     role="button"
     target="_blank"
   >
@@ -53,7 +54,7 @@ exports[`ContextMenu for ConstructionFiles viewer should render 1`] = `
   <ContextMenuItem
     as="a"
     download="filename.jpg_large"
-    href="https://acc.images.data.amsterdam.nl/iiif/2/edepot:filename.jpg/full/1268/0/default.jpg"
+    href="https://acc.images.data.amsterdam.nl/iiif/2/edepot:filename.jpg/full/1600,/0/default.jpg"
     icon={
       <Icon
         inline={true}
@@ -63,6 +64,7 @@ exports[`ContextMenu for ConstructionFiles viewer should render 1`] = `
         <IconMock />
       </Icon>
     }
+    onClick={[Function]}
     role="button"
     target="_blank"
   >
@@ -82,6 +84,7 @@ exports[`ContextMenu for ConstructionFiles viewer should render 1`] = `
         <IconMock />
       </Icon>
     }
+    onClick={[Function]}
     role="button"
     target="_blank"
   >

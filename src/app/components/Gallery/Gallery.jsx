@@ -7,8 +7,8 @@ import Thumbnail from '../Thumbnail/Thumbnail';
 import './Gallery.scss';
 
 // Todo: replace the "encodeURIComponent(file.match(/SU(.*)/g)" when files are on the proper server
-const Gallery = ({ title, thumbs, onClick, maxLength }) => {
-  const lessThumbnails = thumbs.slice(0, maxLength);
+const Gallery = ({ title, allThumbnails, onClick, maxLength }) => {
+  const lessThumbnails = allThumbnails.slice(0, maxLength);
   const [thumbnails, setThumbnails] = React.useState(lessThumbnails);
 
   return (
@@ -19,7 +19,7 @@ const Gallery = ({ title, thumbs, onClick, maxLength }) => {
             className="c-gallery__title"
             element="h3"
           >
-            {title}
+            {title} {(allThumbnails.length > maxLength) && `(${allThumbnails.length})`}
           </Typography>
           {thumbnails && thumbnails.length ?
             <React.Fragment>
@@ -62,13 +62,13 @@ const Gallery = ({ title, thumbs, onClick, maxLength }) => {
                   </GridItem>
                 ))}
               </GridContainer>
-              {thumbs.length > maxLength && ((thumbs.length !== thumbnails.length) ?
+              {allThumbnails.length > maxLength && ((allThumbnails.length !== thumbnails.length) ?
                 <button
                   className="c-gallery__button"
-                  onClick={() => setThumbnails(thumbs)}
+                  onClick={() => setThumbnails(allThumbnails)}
                 >
                   <Icon className="c-gallery__button-icon"><Enlarge /></Icon>
-                  <div>Toon alle ({thumbs.length})</div>
+                  <div>Toon alle ({allThumbnails.length})</div>
                 </button> :
                 <button
                   className="c-gallery__button"
@@ -93,7 +93,7 @@ Gallery.defaultProps = {
 
 Gallery.propTypes = {
   title: PropTypes.string.isRequired,
-  thumbs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  allThumbnails: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClick: PropTypes.func.isRequired,
   maxLength: PropTypes.number
 };

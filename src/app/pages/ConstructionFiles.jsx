@@ -29,7 +29,7 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   const [loading, setLoading] = React.useState(false);
   const [imageViewerActive, setImageViewerActive] = React.useState(false);
 
-  const { trackPageView } = useMatomo();
+  const { trackPageView, trackEvent } = useMatomo();
   const { documentTitle, setDocumentTitle } = useDocumentTitle();
 
   const {
@@ -58,7 +58,7 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   // Effect to update the documentTitle
   React.useEffect(() => {
     if (title) {
-      setDocumentTitle(imageViewerActive && 'Bouwtekening', [title]);
+      setDocumentTitle(imageViewerActive && 'Bouwtekening');
     }
   }, [title, imageViewerActive]);
 
@@ -73,6 +73,10 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
     setImageViewerActive(!!fileName);
   }, [fileName]);
 
+  const onDownloadFile = (size) => {
+    trackEvent(documentTitle, 'Download-bouwtekening', `bouwtekening-download-${size}`, fileName);
+  };
+
   const withGrid = (children) => (
     <GridContainer direction="column" gutterX={20} gutterY={20}>
       <GridItem>
@@ -85,7 +89,7 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
   );
 
   const notAuthorizedTemplate = withGrid(
-    <NotAuthorizedMessage />
+    <NotAuthorizedMessage type="bouwdossiers" />
   );
 
   const loadingTemplate = withGrid(
@@ -137,11 +141,11 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
 
       {subdossiers &&
       subdossiers.length &&
-      subdossiers.map(({ bestanden, titel: subdossierTitle }) => (
+      subdossiers.map(({ bestanden: files, titel: subdossierTitle }) => (
         <Gallery
           key={subdossierTitle}
           title={subdossierTitle}
-          thumbs={bestanden}
+          allThumbnails={files}
           onClick={setFileName}
           max={6}
         />
@@ -153,7 +157,10 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
     ? errorMessage ? <ErrorMessage errorMessage={errorMessage} /> : (
       <React.Fragment>
         {imageViewerActive &&
-        <ImageViewer {...{ fileName, title }} contextMenu={<ContextMenu fileName={fileName} />} />}
+        <ImageViewer
+          {...{ fileName, title }}
+          contextMenu={<ContextMenu onDownload={onDownloadFile} fileName={fileName} />}
+        />}
         {loading && loadingTemplate}
         {(!loading && !fileName) && (results ? resultsTemplate : noResultsTemplate)}
       </React.Fragment>)

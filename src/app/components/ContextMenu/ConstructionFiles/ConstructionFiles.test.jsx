@@ -9,7 +9,8 @@ jest.mock('../../../../shared/ducks/ui/ui');
 describe('ContextMenu for ConstructionFiles viewer', () => {
   it('should render', () => {
     const props = {
-      fileName: 'filename.jpg'
+      fileName: 'filename.jpg',
+      onDownload: jest.fn()
     };
     const initialState = {
       map: {

@@ -10,7 +10,7 @@ import { ReactComponent as Download } from '@datapunt/asc-assets/lib/Icons/Downl
 import socialItems from '../socialItems';
 import { sharePage, showPrintMode } from '../../../../shared/ducks/ui/ui';
 
-const ConstructionFiles = ({ openSharePage, fileName, openPrintMode }) => (
+const ConstructionFiles = ({ openSharePage, fileName, openPrintMode, onDownload }) => (
   <ContextMenu
     tabindex={0}
     alt="Actiemenu"
@@ -38,7 +38,10 @@ const ConstructionFiles = ({ openSharePage, fileName, openPrintMode }) => (
       role="button"
       download={`${fileName}_small`}
       target="_blank"
-      href={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${fileName}/full/600/0/default.jpg`}
+      href={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${fileName}/full/800,/0/default.jpg`}
+      onClick={() => {
+        onDownload('klein');
+      }}
       icon={
         <Icon inline size={24} padding={4}>
           <Download />
@@ -52,7 +55,10 @@ const ConstructionFiles = ({ openSharePage, fileName, openPrintMode }) => (
       role="button"
       download={`${fileName}_large`}
       target="_blank"
-      href={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${fileName}/full/1268/0/default.jpg`}
+      href={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${fileName}/full/1600,/0/default.jpg`}
+      onClick={() => {
+        onDownload('groot');
+      }}
       icon={
         <Icon inline size={24} padding={4}>
           <Download />
@@ -68,6 +74,9 @@ const ConstructionFiles = ({ openSharePage, fileName, openPrintMode }) => (
       target="_blank"
       href={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${fileName}/full/full/0/default.jpg`}
       divider
+      onClick={() => {
+        onDownload('origineel');
+      }}
       icon={
         <Icon inline size={24} padding={4}>
           <Download />
@@ -83,6 +92,7 @@ const ConstructionFiles = ({ openSharePage, fileName, openPrintMode }) => (
 ConstructionFiles.propTypes = {
   openSharePage: PropTypes.func.isRequired,
   openPrintMode: PropTypes.func.isRequired,
+  onDownload: PropTypes.func.isRequired,
   fileName: PropTypes.string.isRequired
 };
 

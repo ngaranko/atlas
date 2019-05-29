@@ -14,7 +14,7 @@ describe('Gallery', () => {
   beforeEach(() => {
     component = shallow(
       <Gallery
-        thumbs={fullArrayOfThumbnails}
+        allThumbnails={fullArrayOfThumbnails}
         onClick={jest.fn}
         title="Title!"
       />

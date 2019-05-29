@@ -27,10 +27,10 @@ import {
   HIDE_EMBED_PREVIEW,
   HIDE_PRINT,
   SET_VIEW_MODE,
+  SHARE_PAGE,
   SHOW_EMBED_PREVIEW,
   SHOW_PRINT,
-  VIEW_MODE,
-  SHARE_PAGE
+  VIEW_MODE
 } from '../../../shared/ducks/ui/ui';
 import {
   MAP_SET_DRAWING_MODE,
@@ -41,17 +41,17 @@ import {
 import { getShapeMarkers } from '../../../map/ducks/map/selectors';
 import { getLabelObjectByTags } from '../../../panorama/ducks/selectors';
 import {
-  SHOW_MODAL,
   CLOSE_MODAL,
   NAVIGATE_HOME_REQUEST,
   REPORT_FEEDBACK_REQUEST,
-  REPORT_PROBLEM_REQUEST
+  REPORT_PROBLEM_REQUEST,
+  SHOW_MODAL
 } from '../../../header/ducks/actions';
 import {
-  FETCH_PANORAMA_HOTSPOT_REQUEST,
-  SET_PANORAMA_TAGS,
   CLOSE_PANORAMA,
-  FETCH_PANORAMA_REQUEST_EXTERNAL
+  FETCH_PANORAMA_HOTSPOT_REQUEST,
+  FETCH_PANORAMA_REQUEST_EXTERNAL,
+  SET_PANORAMA_TAGS
 } from '../../../panorama/ducks/constants';
 import PAGES from '../../../app/pages';
 import { PIWIK_CONSTANTS } from './piwikMiddleware';
@@ -78,7 +78,7 @@ const trackEvents = {
       null
     ] : isPanoPage(state) ? [
       PIWIK_CONSTANTS.TRACK_EVENT,
-      'navigation', // NAVIGATION -> CLICK CLOSE FROM PANORAMA
+      '§', // NAVIGATION -> CLICK CLOSE FROM PANORAMA
       'panorama-verlaten',
       null
     ] : [];
