@@ -1053,7 +1053,6 @@ const mapLayers = [
     url: '/maps/vezips',
     noDetail: true
   },
-  /* Disable untill release of mapserver 2
   {
     category: THEMES.ORGANISATION,
     layers: ['bekendmakingen'],
@@ -1197,7 +1196,6 @@ const mapLayers = [
     detailUrl: 'geosearch/search/',
     detailItem: 'bekendmakingen'
   },
-  */
   {
     category: THEMES.SAFETY,
     legendItems: [
