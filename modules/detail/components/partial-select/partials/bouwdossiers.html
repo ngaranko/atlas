@@ -3,7 +3,7 @@
         {{apiData.count}}</h4>
 
     <p ng-if="!apiData.results.length">
-        <dp-message>Geen bouwdossiers gevonden</dp-message>
+        <dp-message>Geen of nog geen bouwdossiers beschikbaar</dp-message>
     </p>
     <ul class="o-list">
         <li ng-repeat="object in apiData.results">
