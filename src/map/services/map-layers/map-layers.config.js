@@ -1704,7 +1704,7 @@ const mapLayers = [
     id: 'mgpsh',
     layers: ['geluidszoneschiphol'],
     legendItems: [
-      { title: 'X LIB-4: beperkingengebied geluidgevoelige gebouwen' },
+      { title: 'X LIB-4: Beperkingengebied geluidgevoelige gebouwen' },
       { title: 'X LIB-5: Afwegingsgebied geluid en externe veiligheid (voorheen 20-Ke)' }
     ],
     title: 'Schiphol - Ruimtelijke beperkingen',
