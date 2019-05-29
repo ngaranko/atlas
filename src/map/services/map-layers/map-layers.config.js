@@ -1704,8 +1704,8 @@ const mapLayers = [
     id: 'mgpsh',
     layers: ['geluidszoneschiphol'],
     legendItems: [
-      { title: 'Geluidzone Schiphol (nr. 4 \'beperking gebouwen\')' },
-      { title: '20 Ke contour' }
+      { title: 'X LIB-4: beperkingengebied geluidgevoelige gebouwen' },
+      { title: 'X LIB-5: Afwegingsgebied geluid en externe veiligheid (voorheen 20-Ke)' }
     ],
     title: 'Schiphol - Ruimtelijke beperkingen',
     url: '/maps/planologischezonesschiphol',
