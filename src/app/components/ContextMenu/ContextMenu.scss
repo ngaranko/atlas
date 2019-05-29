@@ -4,6 +4,7 @@
   bottom: $container-whitespace;
   color: $secondary-gray60;
   left: #{$container-whitespace * 2};
+  pointer-events: all;
   position: relative;
 
   svg {
