@@ -3,8 +3,8 @@
 .context-menu {
   bottom: $container-whitespace;
   color: $secondary-gray60;
-  left: calc(#{$map-panel-button-width} + #{$container-whitespace * 2});
-  position: absolute;
+  left: #{$container-whitespace * 2};
+  position: relative;
 
   svg {
     fill: $secondary-gray60;
@@ -12,10 +12,6 @@
     & > g > g {
       fill: $secondary-gray60;
     }
-  }
-
-  &--offset {
-    left: calc(#{$map-panel-width} + #{$container-whitespace * 2});
   }
 
   & > div {
@@ -78,14 +74,6 @@
           fill: $primary-dark;
         }
       }
-    }
-  }
-}
-
-@media (min-width: $breakpoint-lg) {
-  .context-menu {
-    &--offset {
-      left: calc(#{$map-panel-max-width} + #{$container-whitespace * 2});
     }
   }
 }

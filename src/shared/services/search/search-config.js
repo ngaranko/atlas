@@ -91,11 +91,12 @@ export default {
         monumenttype: 'isnot_pand_bouwblok'
       }
     },
-    { uri: 'geosearch/grondexploitatie/' },
+    { uri: 'geosearch/grondexploitatie/', authScope: 'GREX/R' },
     { uri: 'geosearch/biz/' },
     { uri: 'geosearch/winkgeb/' },
     { uri: 'parkeervakken/geosearch/' },
     { uri: 'geosearch/oplaadpunten/' },
+    { uri: 'geosearch/bekendmakingen/', radius: 25 },
     { uri: 'geosearch/evenementen/', radius: 25 }
   ],
   COORDINATES_HIERARCHY: [
@@ -205,6 +206,11 @@ export default {
       label_singular: 'Parkeervak',
       label_plural: 'Parkeervakken',
       features: ['parkeervakken/parkeervakken']
+    }, {
+      slug: 'bekendmakingen',
+      label_singular: 'Bekendmaking',
+      label_plural: 'Bekendmakingen',
+      features: ['vsd/bekendmakingen']
     }, {
       slug: 'evenementen',
       label_singular: 'Evenement',

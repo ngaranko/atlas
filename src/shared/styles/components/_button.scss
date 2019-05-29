@@ -103,12 +103,12 @@ $icon-height: 24px;
 }
 
 %o-btn {
-  @include font-weight($bold-weight);
   background-color: $primary-light;
   color: $primary-dark;
   cursor: pointer;
   display: inline-block;
   font-size: $base-font-size;
+  font-weight: $bold-weight;
   height: $base-whitespace * 4;
   line-height: $base-whitespace * 4;
   overflow: hidden;

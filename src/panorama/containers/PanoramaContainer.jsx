@@ -34,12 +34,7 @@ import IconButton from '../../app/components/IconButton/IconButton';
 import { getMapDetail } from '../../map/ducks/detail/actions';
 import { getMapOverlays } from '../../map/ducks/map/selectors';
 import { pageTypeToEndpoint } from '../../map/services/map-detail';
-import {
-  isPrintOrEmbedMode,
-  isPrintMode,
-  setViewMode,
-  VIEW_MODE
-} from '../../shared/ducks/ui/ui';
+import { isPrintMode, isPrintOrEmbedMode, setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
 
 class PanoramaContainer extends React.Component {
   constructor(props) {
@@ -163,14 +158,16 @@ class PanoramaContainer extends React.Component {
           title="Sluit panorama"
           icon="cross"
         />
+        <div className="c-map__controls c-map__controls--bottom-left">
 
-        { !printMode && <PanoramaToggle
-          location={panoramaState.location}
-          heading={panoramaState.heading}
-          currentLabel={getLabelObjectByTags(tags).label}
-        /> }
+          {!printMode && <PanoramaToggle
+            location={panoramaState.location}
+            heading={panoramaState.heading}
+            currentLabel={getLabelObjectByTags(tags).label}
+          />}
 
-        { !printOrEmbedMode && <ContextMenu /> }
+          {!printOrEmbedMode && <ContextMenu />}
+        </div>
 
         {(panoramaState.date && panoramaState.location) ? (
           <StatusBar

@@ -22,11 +22,11 @@
   }
 
   p {
-    @include font-weight($normal-weight);
     margin-bottom: 1.6 * $base-whitespace;
+    font-weight: $normal-weight;
 
     strong {
-      @include font-weight($bold-weight);
+      font-weight: $bold-weight;
     }
   }
 

@@ -31,8 +31,8 @@ $embed-header-padding-icon: 4px;
   appearance: none;
 
   &::placeholder {
-    @include font-weight($normal-weight);
     color: $secondary-gray60;
+    font-weight: $normal-weight;
   }
 
   &:focus {

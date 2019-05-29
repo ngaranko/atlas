@@ -67,9 +67,9 @@
 
 .c-table__header-field {
   @include font-size-responsive($m-header-font);
-  @include font-weight($medium-weight);
 
   border: none;
+  font-weight: $medium-weight;
   height: $button-size;
   padding: {
     bottom: 0;
@@ -104,5 +104,5 @@
 }
 
 .c-table__content-field--header {
-  @include font-weight($medium-weight);
+  font-weight: $medium-weight;
 }

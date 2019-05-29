@@ -9,10 +9,10 @@ $link-offset: 3px;
 
 %link {
   @include font-size($s-font);
-  @include font-weight($bold-weight);
   color: $primary-dark;
   cursor: pointer;
   display: inline-block;
+  font-weight: $bold-weight;
   overflow: visible;
   position: relative;
   text-decoration: none;
@@ -124,8 +124,8 @@ $link-offset: 3px;
 
 %link--inline {
   @extend %link;
-  @include font-weight($normal-weight);
   color: $primary-contrast-blue;
   display: inline;
+  font-weight: $normal-weight;
   text-decoration: underline;
 }

@@ -1,11 +1,11 @@
-$light-weight: "45 Book";
-$normal-weight: "55 Roman";
-$medium-weight: "65 Medium";
-$bold-weight: "85 Heavy";
+$light-weight: 300;
+$normal-weight: 400;
+$medium-weight: 700;
+$bold-weight: 900;
 
-$base-font-before: "Avenir LT W01 ";
+$base-font-before: "AvenirLT";
 $base-font-family-after: Arial, sans-serif;
-$base-font-family: $base-font-before + $normal-weight, $base-font-family-after;
+$base-font-family: $base-font-before, $base-font-family-after;
 
 $xs-font-size: 14px;
 $s-font-size: 16px;

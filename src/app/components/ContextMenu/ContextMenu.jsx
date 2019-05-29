@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ReactComponent as FacebookPadded } from '@datapunt/asc-assets/lib/Icons/FacebookPadded.svg';
@@ -12,14 +11,18 @@ import { ReactComponent as Embed } from '@datapunt/asc-assets/lib/Icons/Embed.sv
 import { ReactComponent as Ellipsis } from '@datapunt/asc-assets/lib/Icons/Ellipsis.svg';
 import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
 import { ContextMenu as ContextMenuComponent, ContextMenuItem, Icon } from '@datapunt/asc-ui';
-import { hasPrintMode, hasEmbedMode, sharePage, showPrintMode, showEmbedPreview } from '../../../shared/ducks/ui/ui';
-import { isMapPanelActive } from '../../../map/ducks/map/selectors';
+import {
+  hasEmbedMode,
+  hasPrintMode,
+  sharePage,
+  showEmbedPreview,
+  showPrintMode
+} from '../../../shared/ducks/ui/ui';
 import getShareUrl from '../../../shared/services/share-url/share-url';
 
 import './ContextMenu.scss';
 
 const ContextMenu = ({
-  isMapPanelVisible,
   openSharePage,
   openPrintMode,
   openEmbedPreview,
@@ -34,11 +37,7 @@ const ContextMenu = ({
   };
 
   return (
-    <section className={`
-        context-menu
-        ${classNames({ 'context-menu--offset': isMapPanelVisible })}
-      `}
-    >
+    <section className="context-menu">
       <ContextMenuComponent
         alt="Actiemenu"
         arrowIcon={<ChevronDown />}
@@ -49,7 +48,7 @@ const ContextMenu = ({
         }
         position="bottom"
       >
-        { hasPrintButton ? <ContextMenuItem
+        {hasPrintButton ? <ContextMenuItem
           role="button"
           divider={!hasEmbedButton}
           onClick={openPrintMode}
@@ -61,7 +60,7 @@ const ContextMenu = ({
         >
           Printen
         </ContextMenuItem> : <></>}
-        { hasEmbedButton ? <ContextMenuItem
+        {hasEmbedButton ? <ContextMenuItem
           role="button"
           divider
           onClick={openEmbedPreview}
@@ -130,14 +129,12 @@ ContextMenu.defaultProps = {
 ContextMenu.propTypes = {
   hasPrintButton: PropTypes.bool,
   hasEmbedButton: PropTypes.bool,
-  isMapPanelVisible: PropTypes.bool.isRequired,
   openSharePage: PropTypes.func.isRequired,
   openPrintMode: PropTypes.func.isRequired,
   openEmbedPreview: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  isMapPanelVisible: isMapPanelActive(state),
   hasPrintButton: hasPrintMode(state),
   hasEmbedButton: hasEmbedMode(state)
 });

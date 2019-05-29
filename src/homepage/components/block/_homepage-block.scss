@@ -58,8 +58,8 @@ $block-item-height: 40px;
   }
 
   &__label {
-    @include font-weight($normal-weight);
     display: inline-block;
+    font-weight: $normal-weight;
     max-width: calc(100% - #{$block-item-height});
     padding-left: 5px;
     vertical-align: middle;
