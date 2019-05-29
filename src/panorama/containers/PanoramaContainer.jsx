@@ -158,14 +158,16 @@ class PanoramaContainer extends React.Component {
           title="Sluit panorama"
           icon="cross"
         />
+        <div className="c-map__controls c-map__controls--bottom-left">
 
-        {!printMode && <PanoramaToggle
-          location={panoramaState.location}
-          heading={panoramaState.heading}
-          currentLabel={getLabelObjectByTags(tags).label}
-        />}
+          {!printMode && <PanoramaToggle
+            location={panoramaState.location}
+            heading={panoramaState.heading}
+            currentLabel={getLabelObjectByTags(tags).label}
+          />}
 
-        {!printOrEmbedMode && <ContextMenu />}
+          {!printOrEmbedMode && <ContextMenu />}
+        </div>
 
         {(panoramaState.date && panoramaState.location) ? (
           <StatusBar

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ReactComponent as Print } from '@datapunt/asc-assets/lib/Icons/Print.svg';
@@ -15,7 +14,6 @@ import {
 
 import './Map.scss';
 import socialItems from '../socialItems';
-import { isMapPanelActive } from '../../../../map/ducks/map/selectors';
 import {
   hasEmbedMode,
   hasPrintMode,
@@ -25,18 +23,13 @@ import {
 } from '../../../../shared/ducks/ui/ui';
 
 const Map = ({
-  isMapPanelVisible,
   openSharePage,
   openPrintMode,
   openEmbedPreview,
   hasPrintButton,
   hasEmbedButton
 }) => (
-  <section className={`
-        context-menu
-        ${classNames({ 'context-menu--offset': isMapPanelVisible })}
-      `}
-  >
+  <section className="context-menu">
     <ContextMenuComponent
       alt="Actiemenu"
       arrowIcon={<ChevronDown />}
@@ -84,14 +77,12 @@ Map.defaultProps = {
 Map.propTypes = {
   hasPrintButton: PropTypes.bool,
   hasEmbedButton: PropTypes.bool,
-  isMapPanelVisible: PropTypes.bool.isRequired,
   openSharePage: PropTypes.func.isRequired,
   openPrintMode: PropTypes.func.isRequired,
   openEmbedPreview: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  isMapPanelVisible: isMapPanelActive(state),
   hasPrintButton: hasPrintMode(state),
   hasEmbedButton: hasEmbedMode(state)
 });
