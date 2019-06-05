@@ -2,14 +2,59 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
 import classNames from 'classnames';
-import { Header as HeaderComponent, Menu, MenuItem, SubMenu } from '@datapunt/asc-ui';
-import { hidePrintMode, hideEmbedMode } from '../../../shared/ducks/ui/ui';
+import { ReactComponent as MenuIcon } from '@datapunt/asc-assets/lib/Icons/Menu.svg';
+import { css } from '@datapunt/asc-core';
+import {
+  breakpoint,
+  Header as HeaderComponent,
+  Menu,
+  MenuItem,
+  styles,
+  SubMenu
+} from '@datapunt/asc-ui';
+import { hideEmbedMode, hidePrintMode } from '../../../shared/ducks/ui/ui';
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer';
 
-import './Header.scss';
+const style = css`
+  input {
+    line-height: 1;
+  }
+  
+  ${styles.SearchBarToggleStyle} {
+    @media screen and ${breakpoint('min-width', 'tabletM')} {
+      display: none;
+    }
+  }
 
-const MenuContainer = () => (
-  <Menu>
+  ${styles.HeaderNavigationStyle} fieldset > ${styles.SearchBarStyle} {
+    @media screen and ${breakpoint('max-width', 'tabletM')} {
+      display: none;
+    }
+
+    flex-grow: 1;
+
+    ${styles.TextFieldStyle} {
+      flex-grow: 0;
+      width: 100%;
+      max-width: 450px;
+    }
+  }
+
+  ${styles.MenuBarStyle} {
+    @media screen and ${breakpoint('max-width', 'tabletM')} {
+      display: none;
+    }
+  }
+
+  ${styles.MenuDropDownStyle} {
+    @media screen and ${breakpoint('min-width', 'tabletM')} {
+      display: none;
+    }
+  }
+`;
+
+const MenuContainer = (props) => (
+  <Menu {...props}>
     <SubMenu label="Onderdelen">
       <MenuItem>Kaart</MenuItem>
       <MenuItem>Panoramabeelden</MenuItem>
@@ -27,6 +72,8 @@ const MenuContainer = () => (
   </Menu>
 );
 
+const MenuMobile = () => <MenuContainer mobile icon={<MenuIcon />} />;
+
 const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMaxWidth }) => {
   if (!printOrEmbedMode) {
     return (
@@ -35,42 +82,47 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
           tall={homePage}
           title="Data en informatie"
           homeLink="/"
+          css={style}
           fullWidth={!homePage}
-        >
-          <HeaderSearchContainer />
-          <MenuContainer />
-        </HeaderComponent>
+          navigation={
+            <React.Fragment>
+              <HeaderSearchContainer />
+              <MenuContainer />
+              <MenuMobile />
+            </React.Fragment>
+          }
+        />
       </section>
     );
   }
   return (
     <div className={classNames({ 'u-fixed': !printMode && !embedPreviewMode })}>
-      <div className={`c-dashboard__heading ${classNames({ 'o-max-width': hasMaxWidth })}`} >
+      <div className={`c-dashboard__heading ${classNames({ 'o-max-width': hasMaxWidth })}`}>
         <div className={classNames({ 'o-max-width__inner': hasMaxWidth })}>
           {printMode &&
-            <div className="qa-dashboard__print-header">
-              <AngularWrapper
-                moduleName={'dpHeaderWrapper'}
-                component="dpPrintHeader"
-                dependencies={['atlas']}
-                bindings={{
-                  closeAction: hidePrintMode()
-                }}
-              />
-            </div>
+          <div className="qa-dashboard__print-header">
+            <AngularWrapper
+              moduleName={'dpHeaderWrapper'}
+              component="dpPrintHeader"
+              dependencies={['atlas']}
+              bindings={{
+                closeAction: hidePrintMode()
+              }}
+            />
+          </div>
           }
 
           {embedPreviewMode &&
-            <div className="qa-dashboard__embed-header">
-              <AngularWrapper
-                moduleName={'dpHeaderWrapper'}
-                component="dpEmbedHeader"
-                dependencies={['atlas']}
-                bindings={{
-                  closeAction: hideEmbedMode()
-                }}
-              />
-            </div>
+          <div className="qa-dashboard__embed-header">
+            <AngularWrapper
+              moduleName={'dpHeaderWrapper'}
+              component="dpEmbedHeader"
+              dependencies={['atlas']}
+              bindings={{
+                closeAction: hideEmbedMode()
+              }}
+            />
+          </div>
           }
         </div>
       </div>

@@ -44,61 +44,79 @@ exports[`Header should render the main header 1`] = `
   className="styled-header"
 >
   <Header
-    fullWidth={true}
-    homeLink="/"
-    styledComponent={
-      Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "attrs": Array [],
-        "componentStyle": ComponentStyle {
-          "componentId": "sc-jDwBTQ",
-          "isStatic": false,
-          "rules": Array [
-            "
-  background-color: ",
-            [Function],
-            ";
-  margin: 0 auto;
-  width: 100%;
-  max-width: ",
-            [Function],
-            ";
-  box-shadow: 0 4px rgba(0, 0, 0, 0.04);
-  box-sizing: content-box;
-  position: fixed; /* Unfortunately no sticky because IE11 */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2; /* Orders the header higher than the content */
-
+    css={
+      Array [
+        "
+  input {
+    line-height: 1;
+  }
+  
   ",
-            ".sc-jWBwVP",
-            " {
-    flex-grow: 1;
-    margin-left: 15px;
+        ".sc-bRBYWo",
+        " {
+    @media screen and ",
+        [Function],
+        " {
+      display: none;
+    }
   }
 
   ",
-            [Function],
-            "
+        ".sc-jDwBTQ",
+        " fieldset > ",
+        ".sc-csuQGl",
+        " {
+    @media screen and ",
+        [Function],
+        " {
+      display: none;
+    }
+
+    flex-grow: 1;
+
+    ",
+        ".sc-gipzik",
+        " {
+      flex-grow: 0;
+      width: 100%;
+      max-width: 450px;
+    }
+  }
+
+  ",
+        ".sc-hSdWYo",
+        " {
+    @media screen and ",
+        [Function],
+        " {
+      display: none;
+    }
+  }
+
+  ",
+        ".sc-kpOJdX",
+        " {
+    @media screen and ",
+        [Function],
+        " {
+      display: none;
+    }
+  }
 ",
-          ],
-        },
-        "displayName": "styled.div",
-        "foldedComponentIds": Array [],
-        "render": [Function],
-        "styledComponentId": "sc-jDwBTQ",
-        "target": "div",
-        "toString": [Function],
-        "warnTooManyClasses": [Function],
-        "withComponent": [Function],
-      }
+      ]
+    }
+    fullWidth={true}
+    homeLink="/"
+    navigation={
+      <React.Fragment>
+        <Connect(HeaderSearch) />
+        <MenuContainer />
+        <MenuMobile />
+      </React.Fragment>
     }
     tall={false}
     title="Data en informatie"
-  >
-    <Connect(HeaderSearch) />
-    <MenuContainer />
-  </Header>
+  />
 </section>
 `;
 
