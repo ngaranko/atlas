@@ -14,23 +14,14 @@ import {
 } from '@datapunt/asc-ui';
 import { hideEmbedMode, hidePrintMode } from '../../../shared/ducks/ui/ui';
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer';
+import { useAppReducer } from '../../utils/useAppReducer';
 
 const style = css`
   input {
     line-height: 1;
   }
-  
-  ${styles.SearchBarToggleStyle} {
-    @media screen and ${breakpoint('min-width', 'tabletM')} {
-      display: none;
-    }
-  }
 
   ${styles.HeaderNavigationStyle} fieldset > ${styles.SearchBarStyle} {
-    @media screen and ${breakpoint('max-width', 'tabletM')} {
-      display: none;
-    }
-
     flex-grow: 1;
 
     ${styles.TextFieldStyle} {
@@ -72,9 +63,17 @@ const MenuContainer = (props) => (
   </Menu>
 );
 
-const MenuMobile = () => <MenuContainer mobile icon={<MenuIcon />} />;
+const MenuMobile = () => <MenuContainer mobile align="right" icon={<MenuIcon />} />;
 
 const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMaxWidth }) => {
+  const [, actions] = useAppReducer('ui');
+  const setBackDrop = (payload) => {
+    actions.setBackDrop({
+      payload
+    });
+  };
+
+
   if (!printOrEmbedMode) {
     return (
       <section className="styled-header">
@@ -87,14 +86,18 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
           navigation={
             <React.Fragment>
               <HeaderSearchContainer />
-              <MenuContainer />
-              <MenuMobile />
+              <MenuContainer
+                showAt="tabletM"
+                onExpand={setBackDrop}
+              />
+              <MenuMobile hideAt="tabletM" />
             </React.Fragment>
           }
         />
       </section>
     );
   }
+
   return (
     <div className={classNames({ 'u-fixed': !printMode && !embedPreviewMode })}>
       <div className={`c-dashboard__heading ${classNames({ 'o-max-width': hasMaxWidth })}`}>

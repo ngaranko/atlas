@@ -21,9 +21,11 @@ const Search = ({
   return (
     <React.Fragment>
       <SearchBar
+        showAt="tabletM"
         {...searchBarProps}
       />
       <SearchBarToggle
+        hideAt="tabletM"
         {...searchBarProps}
       />
     </React.Fragment>
