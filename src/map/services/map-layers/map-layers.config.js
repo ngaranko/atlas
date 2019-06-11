@@ -312,26 +312,27 @@ const mapLayers = [
     detailItem: 'kadastraal_object',
     detailIsShape: true
   },
-  {
-    category: THEMES.GEOGRAPHY_ONR,
-    layers: ['vastgoed'],
-    legendItems: [
-      {
-        id: 'vge',
-        title: 'Volledig eigendom',
-        imageRule: 'vastgoed',
-        layers: ['vastgoed_eigendom']
-      },
-      {
-        id: 'vga',
-        title: 'Appartementsrecht',
-        imageRule: 'vastgoed',
-        layers: ['vastgoed_appartementsrecht']
-      }
-    ],
-    title: 'Gemeentelijk eigendom',
-    url: '/maps/vastgoed'
-  },
+  // Todo - Hotfix: uncomment when mapserver is up again
+  // {
+  //   category: THEMES.GEOGRAPHY_ONR,
+  //   layers: ['vastgoed'],
+  //   legendItems: [
+  //     {
+  //       id: 'vge',
+  //       title: 'Volledig eigendom',
+  //       imageRule: 'vastgoed',
+  //       layers: ['vastgoed_eigendom']
+  //     },
+  //     {
+  //       id: 'vga',
+  //       title: 'Appartementsrecht',
+  //       imageRule: 'vastgoed',
+  //       layers: ['vastgoed_appartementsrecht']
+  //     }
+  //   ],
+  //   title: 'Gemeentelijk eigendom',
+  //   url: '/maps/vastgoed'
+  // },
   {
     category: THEMES.GEOGRAPHY_ONR,
     legendItems: [
@@ -1053,7 +1054,6 @@ const mapLayers = [
     url: '/maps/vezips',
     noDetail: true
   },
-  /* Disable untill release of mapserver 2
   {
     category: THEMES.ORGANISATION,
     layers: ['bekendmakingen'],
@@ -1197,7 +1197,6 @@ const mapLayers = [
     detailUrl: 'geosearch/search/',
     detailItem: 'bekendmakingen'
   },
-  */
   {
     category: THEMES.SAFETY,
     legendItems: [
@@ -1706,8 +1705,8 @@ const mapLayers = [
     id: 'mgpsh',
     layers: ['geluidszoneschiphol'],
     legendItems: [
-      { title: 'Geluidzone Schiphol (nr. 4 \'beperking gebouwen\')' },
-      { title: '20 Ke contour' }
+      { title: 'X LIB-4: Beperkingengebied geluidgevoelige gebouwen' },
+      { title: 'X LIB-5: Afwegingsgebied geluid en externe veiligheid (voorheen 20-Ke)' }
     ],
     title: 'Schiphol - Ruimtelijke beperkingen',
     url: '/maps/planologischezonesschiphol',
