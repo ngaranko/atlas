@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ThemeProvider } from '@datapunt/asc-ui';
+import { GlobalStyle, ThemeProvider } from '@datapunt/asc-ui';
 import { isCmsPage as pageIsCmsPage } from './pages';
 import './_app.scss';
 import {
@@ -87,6 +87,7 @@ const App = ({
         }
       }}
     >
+      <GlobalStyle />
       <AppStateProvider initialState={initialState} reducer={main}>
         <Suspense fallback={<React.Fragment />}>
           <div
