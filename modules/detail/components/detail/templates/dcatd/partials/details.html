@@ -8,7 +8,7 @@
     <dt>Publicatiedatum</dt>
     <dd>{{vm.apiData.results['foaf:isPrimaryTopicOf']['dct:issued'] | date:'dd MMMM yyyy'}}</dd>
     <dt>Wijzigingsdatum</dt>
-    <dd>{{vm.apiData.results['foaf:isPrimaryTopicOf']['dct:modified'] | date:'dd MMMM yyyy'}}</dd>
+    <dd>{{vm.apiData.results['ams:sort_modified'] | date:'dd MMMM yyyy'}}</dd>
     <dt>Wijzigingsfrequentie</dt>
     <dd>{{vm.apiData.results['dct:accrualPeriodicity'] | optionLabel: vm.catalogFilters.accrualPeriodicities}}</dd>
     <dt>Tijdsperiode</dt>
