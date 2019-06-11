@@ -27,7 +27,7 @@ const style = css`
     ${styles.TextFieldStyle} {
       flex-grow: 0;
       width: 100%;
-      max-width: 450px;
+      max-width: 80%;
     }
   }
 

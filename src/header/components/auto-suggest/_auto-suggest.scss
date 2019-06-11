@@ -10,6 +10,10 @@ $clear-button-margin: 3px;
     width: 100%;
   }
 
+  fieldset {
+    padding: 0;
+  }
+
   &-container {
     float: left;
     position: relative;
