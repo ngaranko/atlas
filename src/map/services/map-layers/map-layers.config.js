@@ -1205,37 +1205,43 @@ const mapLayers = [
         id: 'wlorst',
         layers: ['rest_coordinaten'],
         title: 'Restafval',
-        imageRule: 'Restcontainer'
+        imageRule: 'Restcontainer',
+        imageSize: 30
       },
       {
         id: 'wloppr',
         layers: ['papier_coordinaten'],
         title: 'Papier',
-        imageRule: 'Papiercontainer'
+        imageRule: 'Papiercontainer',
+        imageSize: 30
       },
       {
         id: 'wlogls',
         layers: ['glas_coordinaten'],
         title: 'Glas',
-        imageRule: 'Glascontainer'
+        imageRule: 'Glascontainer',
+        imageSize: 30
       },
       {
         id: 'wlopls',
         layers: ['plastic_coordinaten'],
         title: 'Plastic',
-        imageRule: 'Plasticcontainer'
+        imageRule: 'Plasticcontainer',
+        imageSize: 30
       },
       {
         id: 'wlotxtl',
         layers: ['textiel_coordinaten'],
         title: 'Textiel',
-        imageRule: 'Textielcontainer' // TODO: rename to Textielcontainer
+        imageRule: 'Textielcontainer',
+        imageSize: 30
       },
       {
         id: 'wlokca',
         layers: ['gfe_coordinaten'],
         title: 'GFE',
-        imageRule: 'Gfecontainer'
+        imageRule: 'Gfecontainer',
+        imageSize: 30
       }
     ],
     title: 'Afvalcontainers',
