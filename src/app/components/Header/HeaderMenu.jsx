@@ -1,5 +1,7 @@
 import React from 'react';
 import { Menu, MenuItem, SubMenu } from '@datapunt/asc-ui';
+import { ReactComponent as ChevronRight } from '@datapunt/asc-assets/lib/Icons/ChevronRight.svg';
+import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
 import PropTypes from 'prop-types';
 
 const HeaderMenu = ({
@@ -26,16 +28,37 @@ const HeaderMenu = ({
   ...props
 }) => (
   <Menu {...props}>
-    <SubMenu label="Onderdelen">
-      <MenuItem role="link" href={toMapLink} onClick={toMap}>
+    <SubMenu label="Onderdelen" arrowIcon={<ChevronDown />}>
+      <MenuItem
+        icon={<ChevronRight />}
+        role="link"
+        href={toMapLink}
+        onClick={toMap}
+      >
         Kaart
       </MenuItem>
-      <MenuItem role="link" href={toPanoramaLink} onClick={toPanorama}>Panoramabeelden</MenuItem>
-      <MenuItem role="link" href={toDatasetsLink} onClick={toDatasets}>Datasets</MenuItem>
-      <MenuItem role="link" href={toApisLink} onClick={toApis}>Api&apos;s services</MenuItem>
-    </SubMenu>
-    <SubMenu label="Over">
       <MenuItem
+        icon={<ChevronRight />}
+        role="link"
+        href={toPanoramaLink}
+        onClick={toPanorama}
+      >
+        Panoramabeelden
+      </MenuItem>
+      <MenuItem
+        icon={<ChevronRight />}
+        role="link"
+        href={toDatasetsLink}
+        onClick={toDatasets}
+      >
+        Datasets
+      </MenuItem>
+      <MenuItem icon={<ChevronRight />} role="link" href={toApisLink} onClick={toApis}>Api&apos;s
+        services</MenuItem>
+    </SubMenu>
+    <SubMenu label="Over" arrowIcon={<ChevronDown />}>
+      <MenuItem
+        icon={<ChevronRight />}
         role="link"
         href={toPrivacyLink}
         onClick={toPrivacy}
@@ -43,6 +66,7 @@ const HeaderMenu = ({
         Privacy en informatiebeveiliging
       </MenuItem>
       <MenuItem
+        icon={<ChevronRight />}
         role="link"
         href={toAvailabilityLink}
         onClick={toAvailability}
@@ -50,21 +74,28 @@ const HeaderMenu = ({
         Beschikbaarheid en kwaliteit data
       </MenuItem>
       <MenuItem
+        icon={<ChevronRight />}
         role="link"
         href={toMaintenanceLink}
         onClick={toMaintenance}
       >
         Technisch beheer en werkwijze
       </MenuItem>
-      <MenuItem role="link" href="mailto:datapunt@amsterdam.nl">Contact</MenuItem>
+      <MenuItem
+        icon={<ChevronRight />}
+        role="link"
+        href="mailto:datapunt@amsterdam.nl"
+      >
+        Contact
+      </MenuItem>
     </SubMenu>
     <MenuItem role="link" onClick={showFeedbackForm}>Feedback</MenuItem>
     <MenuItem role="link" href={toHelpLink} onClick={toHelp}>Help</MenuItem>
 
     {!user.authenticated ?
-      <MenuItem onClick={login}>Inloggen</MenuItem> :
-      <SubMenu label={user.name}>
-        <MenuItem onClick={logout}>Uitloggen</MenuItem>
+      <MenuItem icon={<ChevronRight />} onClick={login}>Inloggen</MenuItem> :
+      <SubMenu label={user.name} arrowIcon={<ChevronDown />}>
+        <MenuItem icon={<ChevronRight />} onClick={logout}>Uitloggen</MenuItem>
       </SubMenu>
     }
   </Menu>
