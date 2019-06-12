@@ -67,19 +67,26 @@ export const toMap = (preserve = false) => ({
     preserve,
     additionalParams: {
       [PARAMETERS.VIEW]: VIEW_MODE.MAP
+    },
+    query: {
+      [PARAMETERS.VIEW]: VIEW_MODE.MAP
     }
   }
 });
 
-export const toMapWithLegendOpen = () => ({
-  type: routing.data.type,
-  meta: {
-    additionalParams: {
-      [PARAMETERS.VIEW]: VIEW_MODE.MAP,
-      [PARAMETERS.LEGEND]: true
+export const toMapWithLegendOpen = () => {
+  const additionalParams = {
+    [PARAMETERS.VIEW]: VIEW_MODE.MAP,
+    [PARAMETERS.LEGEND]: true
+  };
+  return {
+    type: routing.data.type,
+    meta: {
+      additionalParams,
+      query: additionalParams
     }
-  }
-});
+  };
+};
 
 export const toMapAndPreserveQuery = () => toMap(true);
 
@@ -90,7 +97,8 @@ export const toPanorama = (id, additionalParams = null) => ({
   },
   meta: {
     preserve: true,
-    additionalParams
+    additionalParams,
+    query: additionalParams
   }
 });
 

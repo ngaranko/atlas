@@ -3,27 +3,22 @@ import { Menu, MenuItem, SubMenu } from '@datapunt/asc-ui';
 import { ReactComponent as ChevronRight } from '@datapunt/asc-assets/lib/Icons/ChevronRight.svg';
 import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
 import PropTypes from 'prop-types';
+import Link from 'redux-first-router-link';
+import {
+  toApisPage,
+  toAvailabilityPage,
+  toDatasets,
+  toHelpPage,
+  toMaintentancePage,
+  toMapWithLegendOpen,
+  toPanoramaAndPreserveQuery,
+  toPrivacyPage
+} from '../../../store/redux-first-router/actions';
 
 const HeaderMenu = ({
-  toMap,
-  toPanorama,
   login,
   logout,
   user,
-  toMapLink,
-  toPanoramaLink,
-  toDatasets,
-  toDatasetsLink,
-  toApisLink,
-  toApis,
-  toPrivacyLink,
-  toPrivacy,
-  toAvailability,
-  toAvailabilityLink,
-  toMaintenanceLink,
-  toMaintenance,
-  toHelp,
-  toHelpLink,
   showFeedbackForm,
   ...props
 }) => (
@@ -31,66 +26,92 @@ const HeaderMenu = ({
     <SubMenu label="Onderdelen" arrowIcon={<ChevronDown />}>
       <MenuItem
         icon={<ChevronRight />}
-        role="link"
-        href={toMapLink}
-        onClick={toMap}
+        linkEl={Link}
+        linkElProp={{
+          to: toMapWithLegendOpen()
+        }}
       >
         Kaart
       </MenuItem>
       <MenuItem
         icon={<ChevronRight />}
-        role="link"
-        href={toPanoramaLink}
-        onClick={toPanorama}
+        linkEl={Link}
+        linkElProp={{
+          to: toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home')
+        }}
       >
         Panoramabeelden
       </MenuItem>
       <MenuItem
         icon={<ChevronRight />}
-        role="link"
-        href={toDatasetsLink}
-        onClick={toDatasets}
+        linkEl={Link}
+        linkElProp={{
+          to: toDatasets()
+        }}
       >
         Datasets
       </MenuItem>
-      <MenuItem icon={<ChevronRight />} role="link" href={toApisLink} onClick={toApis}>Api&apos;s
-        services</MenuItem>
+      <MenuItem
+        icon={<ChevronRight />}
+        linkEl={Link}
+        linkElProp={{
+          to: toApisPage()
+        }}
+      >
+        Api&apos;s services
+      </MenuItem>
     </SubMenu>
     <SubMenu label="Over" arrowIcon={<ChevronDown />}>
       <MenuItem
         icon={<ChevronRight />}
-        role="link"
-        href={toPrivacyLink}
-        onClick={toPrivacy}
+        linkEl={Link}
+        linkElProp={{
+          to: toPrivacyPage()
+        }}
       >
         Privacy en informatiebeveiliging
       </MenuItem>
       <MenuItem
         icon={<ChevronRight />}
-        role="link"
-        href={toAvailabilityLink}
-        onClick={toAvailability}
+        linkEl={Link}
+        linkElProp={{
+          to: toAvailabilityPage()
+        }}
       >
         Beschikbaarheid en kwaliteit data
       </MenuItem>
       <MenuItem
         icon={<ChevronRight />}
-        role="link"
-        href={toMaintenanceLink}
-        onClick={toMaintenance}
+        linkEl={Link}
+        linkElProp={{
+          to: toMaintentancePage()
+        }}
       >
         Technisch beheer en werkwijze
       </MenuItem>
       <MenuItem
         icon={<ChevronRight />}
-        role="link"
         href="mailto:datapunt@amsterdam.nl"
       >
         Contact
       </MenuItem>
     </SubMenu>
-    <MenuItem role="link" onClick={showFeedbackForm}>Feedback</MenuItem>
-    <MenuItem role="link" href={toHelpLink} onClick={toHelp}>Help</MenuItem>
+    <MenuItem
+      onClick={(e) => {
+        e.preventDefault();
+        showFeedbackForm();
+      }}
+    >
+      Feedback
+    </MenuItem>
+    <MenuItem
+      linkEl={Link}
+      linkElProp={{
+        to: toHelpPage()
+      }}
+    >
+      Help
+    </MenuItem>
 
     {!user.authenticated ?
       <MenuItem icon={<ChevronRight />} onClick={login}>Inloggen</MenuItem> :
@@ -102,24 +123,8 @@ const HeaderMenu = ({
 );
 
 HeaderMenu.propTypes = {
-  toAvailabilityLink: PropTypes.string.isRequired,
-  toPrivacyLink: PropTypes.string.isRequired,
-  toMaintenanceLink: PropTypes.string.isRequired,
-  toDatasetsLink: PropTypes.string.isRequired,
-  toApisLink: PropTypes.string.isRequired,
-  toMapLink: PropTypes.string.isRequired,
-  toPanoramaLink: PropTypes.string.isRequired,
-  toMap: PropTypes.func.isRequired,
-  toDatasets: PropTypes.func.isRequired,
-  toPrivacy: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  toAvailability: PropTypes.func.isRequired,
-  toApis: PropTypes.func.isRequired,
-  toMaintenance: PropTypes.func.isRequired,
-  toPanorama: PropTypes.func.isRequired,
-  toHelpLink: PropTypes.string.isRequired,
-  toHelp: PropTypes.func.isRequired,
   showFeedbackForm: PropTypes.func.isRequired,
   user: PropTypes.shape({}).isRequired
 };

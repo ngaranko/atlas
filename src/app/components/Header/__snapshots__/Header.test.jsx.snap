@@ -50,41 +50,25 @@ exports[`Header should render the main header 1`] = `
   input {
     line-height: 1;
   }
-  
+
   ",
+        ".sc-iRbamj",
+        " fieldset > ",
         ".sc-bRBYWo",
         " {
-    @media screen and ",
-        [Function],
-        " {
-      display: none;
-    }
-  }
-
-  ",
-        ".sc-jDwBTQ",
-        " fieldset > ",
-        ".sc-csuQGl",
-        " {
-    @media screen and ",
-        [Function],
-        " {
-      display: none;
-    }
-
     flex-grow: 1;
 
     ",
-        ".sc-gipzik",
+        ".sc-Rmtcm",
         " {
       flex-grow: 0;
       width: 100%;
-      max-width: 450px;
+      max-width: 80%;
     }
   }
 
   ",
-        ".sc-hSdWYo",
+        ".sc-jWBwVP",
         " {
     @media screen and ",
         [Function],
@@ -94,7 +78,7 @@ exports[`Header should render the main header 1`] = `
   }
 
   ",
-        ".sc-kpOJdX",
+        ".sc-eHgmQL",
         " {
     @media screen and ",
         [Function],
@@ -110,8 +94,13 @@ exports[`Header should render the main header 1`] = `
     navigation={
       <React.Fragment>
         <Connect(HeaderSearch) />
-        <MenuContainer />
-        <MenuMobile />
+        <Connect(HeaderMenu)
+          onExpand={[Function]}
+          showAt="tabletM"
+        />
+        <MenuMobile
+          hideAt="tabletM"
+        />
       </React.Fragment>
     }
     tall={false}
