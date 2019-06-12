@@ -10,6 +10,7 @@ exports[`App should render the homepage 1`] = `
     }
   }
 >
+  <GlobalStyleComponent />
   <AppStateProvider
     initialState={
       Object {
@@ -61,6 +62,7 @@ exports[`App should render the mapview 1`] = `
     }
   }
 >
+  <GlobalStyleComponent />
   <AppStateProvider
     initialState={
       Object {
