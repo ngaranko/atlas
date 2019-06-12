@@ -6,9 +6,10 @@ import { VIEW_MODE } from '../shared/ducks/ui/ui';
 
 describe('App', () => {
   jest.mock('react', () => {
-      const React = jest.requireActual('react');
-      React.Suspense = ({ children }) => children;
-      return React;
+    // eslint-disable-next-line no-shadow
+    const React = jest.requireActual('react');
+    React.Suspense = ({ children }) => children;
+    return React;
   });
 
   it('should render the homepage', () => {
