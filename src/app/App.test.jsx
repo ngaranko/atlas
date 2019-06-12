@@ -19,7 +19,7 @@ describe('App', () => {
     error: {
       hassErrors: false
     }
-  }
+  };
 
   it('should render the homepage', () => {
     const store = configureMockStore()({ ...initialState });
