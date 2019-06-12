@@ -4,17 +4,11 @@ import { AngularWrapper } from 'react-angular';
 import classNames from 'classnames';
 import { ReactComponent as MenuIcon } from '@datapunt/asc-assets/lib/Icons/Menu.svg';
 import { css } from '@datapunt/asc-core';
-import {
-  breakpoint,
-  Header as HeaderComponent,
-  Menu,
-  MenuItem,
-  styles,
-  SubMenu
-} from '@datapunt/asc-ui';
+import { breakpoint, Header as HeaderComponent, styles } from '@datapunt/asc-ui';
 import { hideEmbedMode, hidePrintMode } from '../../../shared/ducks/ui/ui';
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer';
 import { useAppReducer } from '../../utils/useAppReducer';
+import HeaderMenuContainer from './HeaderMenuContainer';
 
 const style = css`
   input {
@@ -32,38 +26,19 @@ const style = css`
   }
 
   ${styles.MenuBarStyle} {
-    @media screen and ${breakpoint('max-width', 'tabletM')} {
+    @media screen and ${breakpoint('max-width', 'laptop')} {
       display: none;
     }
   }
 
   ${styles.MenuDropDownStyle} {
-    @media screen and ${breakpoint('min-width', 'tabletM')} {
+    @media screen and ${breakpoint('min-width', 'laptop')} {
       display: none;
     }
   }
 `;
 
-const MenuContainer = (props) => (
-  <Menu {...props}>
-    <SubMenu label="Onderdelen">
-      <MenuItem>Kaart</MenuItem>
-      <MenuItem>Panoramabeelden</MenuItem>
-      <MenuItem>Datasets</MenuItem>
-      <MenuItem>Apis services</MenuItem>
-    </SubMenu>
-    <SubMenu label="Over">
-      <MenuItem>Privacy en informatiebeveiliging</MenuItem>
-      <MenuItem>Beschikbaarheid en kwaliteit data</MenuItem>
-      <MenuItem>Technisch beheer en werkwijze</MenuItem>
-      <MenuItem>Contact</MenuItem>
-    </SubMenu>
-    <MenuItem>Feedback</MenuItem>
-    <MenuItem>Help</MenuItem>
-  </Menu>
-);
-
-const MenuMobile = () => <MenuContainer mobile align="right" icon={<MenuIcon />} />;
+const MenuMobile = () => <HeaderMenuContainer mobile align="right" icon={<MenuIcon />} />;
 
 const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMaxWidth }) => {
   const [, actions] = useAppReducer('ui');
@@ -86,7 +61,7 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
           navigation={
             <React.Fragment>
               <HeaderSearchContainer />
-              <MenuContainer
+              <HeaderMenuContainer
                 showAt="tabletM"
                 onExpand={setBackDrop}
               />

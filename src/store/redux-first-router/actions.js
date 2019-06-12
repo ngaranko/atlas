@@ -94,7 +94,7 @@ export const toPanorama = (id, additionalParams = null) => ({
   }
 });
 
-export const toPanoramaAndPreserveQuery = (id, heading, reference = [], pageReference = null) =>
+export const toPanoramaAndPreserveQuery = (id = 'TMX7316010203-000719_pano_0000_000950', heading = 226, reference = [], pageReference = null) =>
   toPanorama(id, {
     heading,
     ...(reference.length === 3 ? { [PARAMETERS.DETAIL_REFERENCE]: reference } : {}),
@@ -197,3 +197,9 @@ export const toDatasetsTableWithFilter = (datasetType, filter) => ({
 export const toNotFoundPage = () => ({
   type: routing.niet_gevonden.type
 });
+
+export const toApisPage = () => ({ type: routing.apis.type });
+export const toPrivacyPage = () => ({ type: routing.privacy_beveiliging.type });
+export const toAvailabilityPage = () => ({ type: routing.beschikbaar_kwaliteit.type });
+export const toMaintentancePage = () => ({ type: routing.beheer_werkwijze.type });
+export const toHelpPage = () => ({ type: routing.help.type });
