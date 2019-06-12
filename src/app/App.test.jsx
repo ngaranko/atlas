@@ -5,6 +5,12 @@ import App from './App';
 import { VIEW_MODE } from '../shared/ducks/ui/ui';
 
 describe('App', () => {
+  jest.mock('react', () => {
+      const React = jest.requireActual('react');
+      React.Suspense = ({ children }) => children;
+      return React;
+  });
+
   it('should render the homepage', () => {
     const store = configureMockStore()({
       ui: {
