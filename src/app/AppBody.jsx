@@ -27,7 +27,7 @@ const AppBody = ({
 }) => {
   const [state] = useAppReducer('ui');
 
-  const extraBodyClasses = classNames({ 'c-dashboard__body--backdrop': state.backdropEnabled });
+  const extraBodyClasses = classNames({ 'c-dashboard__body--backdrop': state.nrOfBackdropTriggers });
 
   return (
     <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>

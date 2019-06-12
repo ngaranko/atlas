@@ -34,17 +34,24 @@ $backdrop-color: rgba(0, 0, 0, .5);
     overflow-x: scroll;
   }
 
+  &::before {
+    display: block;
+    position: fixed;
+    top: $site-header-height;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: opacity .2s ease-in-out;
+    background-color: $backdrop-color;
+    content: "";
+    opacity: 0;
+    z-index: 101;
+    pointer-events: none;
+  }
+
   &--backdrop {
-    &::before {
-      display: block;
-      position: fixed;
-      top: $site-header-height;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: $backdrop-color;
-      content: "";
-      z-index: 101;
+    &:before {
+      opacity: 1;
     }
   }
 }

@@ -114,7 +114,7 @@ const HeaderMenu = ({
     </MenuItem>
 
     {!user.authenticated ?
-      <MenuItem icon={<ChevronRight />} onClick={login}>Inloggen</MenuItem> :
+      <MenuItem onClick={login}>Inloggen</MenuItem> :
       <SubMenu label={user.name} arrowIcon={<ChevronDown />}>
         <MenuItem icon={<ChevronRight />} onClick={logout}>Uitloggen</MenuItem>
       </SubMenu>
