@@ -313,7 +313,7 @@ const GLOSSARY = {
       ]
     },
     OPLAADPUNTEN: {
-      label_singular: 'Oplaadpuntaaa',
+      label_singular: 'Oplaadpunt',
       label_plural: 'Oplaadpunten',
       description: null,
       url: null,
