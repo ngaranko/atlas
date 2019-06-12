@@ -1203,33 +1203,39 @@ const mapLayers = [
     legendItems: [
       {
         id: 'wlorst',
-        layers: ['container_coordinaten'],
-        title: 'Restafval'
+        layers: ['rest_coordinaten'],
+        title: 'Restafval',
+        imageRule: 'Restcontainer'
       },
       {
         id: 'wloppr',
         layers: ['papier_coordinaten'],
-        title: 'Papier'
+        title: 'Papier',
+        imageRule: 'Papiercontainer'
       },
       {
         id: 'wlogls',
         layers: ['glas_coordinaten'],
-        title: 'Glas'
+        title: 'Glas',
+        imageRule: 'Glascontainer'
       },
       {
         id: 'wlopls',
         layers: ['plastic_coordinaten'],
-        title: 'Plastic'
+        title: 'Plastic',
+        imageRule: 'Plasticcontainer'
       },
       {
         id: 'wlotxtl',
         layers: ['textiel_coordinaten'],
-        title: 'Textiel'
+        title: 'Textiel',
+        imageRule: 'Textielcontainer' // TODO: rename to Textielcontainer
       },
       {
         id: 'wlokca',
-        layers: ['kca_coordinaten'],
-        title: 'KCA'
+        layers: ['gfe_coordinaten'],
+        title: 'GFE',
+        imageRule: 'Gfecontainer'
       }
     ],
     title: 'Afvalcontainers',
