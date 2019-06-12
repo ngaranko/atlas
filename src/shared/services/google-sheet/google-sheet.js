@@ -12,8 +12,7 @@ export const GOOGLE_SHEET_CMS = {
     [ENVIRONMENTS.ACCEPTANCE]: false,
     [ENVIRONMENTS.DEVELOPMENT]: false
   },
-  // TODO DP-6908 replace this to files.data.amsterdam.nl/cms when made available
-  staticAddress: '/cms_local',
+  staticAddress: 'https://data.amsterdam.nl/cms',
   key: '1ZExuZHhmvBRP-7rhuY43Lv7dWuAsGKXwfKd1_3BZfbI',
   index: {
     news: 1,
