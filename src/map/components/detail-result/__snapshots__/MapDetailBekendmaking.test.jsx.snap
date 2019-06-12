@@ -13,7 +13,7 @@ exports[`MapDetailBekendmaking should render everything 1`] = `
   >
     <MapDetailResultItem
       label="Datum"
-      value="12-12-2012"
+      value=""
     />
     <MapDetailResultItem
       label="Categorie"
