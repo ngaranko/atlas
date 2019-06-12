@@ -52,6 +52,7 @@ const THEMES = {
   ECONOMY_HARBOR: 'Economie en haven',
   HISTORY: 'Topografie: historisch',
   TRAFFIC: 'Verkeer en infrastructuur',
+  LIVING_ENV: 'Wonen en leefomgeving',
   SAFETY: 'Openbare orde en veiligheid',
   ORGANISATION: 'Bestuur en organisatie',
   TOURISM: 'Toerisme en cultuur',
@@ -1196,6 +1197,56 @@ const mapLayers = [
     url: '/maps/bekendmakingen',
     detailUrl: 'geosearch/search/',
     detailItem: 'bekendmakingen'
+  },
+  {
+    category: THEMES.LIVING_ENV,
+    legendItems: [
+      {
+        id: 'wlorst',
+        layers: ['rest_coordinaten'],
+        title: 'Restafval',
+        imageRule: 'Restcontainer',
+        imageSize: 30
+      },
+      {
+        id: 'wloppr',
+        layers: ['papier_coordinaten'],
+        title: 'Papier',
+        imageRule: 'Papiercontainer',
+        imageSize: 30
+      },
+      {
+        id: 'wlogls',
+        layers: ['glas_coordinaten'],
+        title: 'Glas',
+        imageRule: 'Glascontainer',
+        imageSize: 30
+      },
+      {
+        id: 'wlopls',
+        layers: ['plastic_coordinaten'],
+        title: 'Plastic',
+        imageRule: 'Plasticcontainer',
+        imageSize: 30
+      },
+      {
+        id: 'wlotxtl',
+        layers: ['textiel_coordinaten'],
+        title: 'Textiel',
+        imageRule: 'Textielcontainer',
+        imageSize: 30
+      },
+      {
+        id: 'wlokca',
+        layers: ['gfe_coordinaten'],
+        title: 'GFE',
+        imageRule: 'Gfecontainer',
+        imageSize: 30
+      }
+    ],
+    title: 'Afvalcontainers',
+    url: '/maps/afval',
+    noDetail: true
   },
   {
     category: THEMES.SAFETY,
