@@ -15,7 +15,7 @@ const MapDetailBekendmaking = ({ panoUrl, bekendmaking, onMaximize, onPanoPrevie
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Datum"
-        value={bekendmaking.datum}
+        value={bekendmaking.date}
       />
       <MapDetailResultItem
         label="Categorie"
@@ -46,7 +46,7 @@ MapDetailBekendmaking.propTypes = {
     onderwerp: PropTypes.string,
     beschrijving: PropTypes.string,
     url: PropTypes.string,
-    datum: PropTypes.date
+    date: PropTypes.date
   }).isRequired,
   onMaximize: PropTypes.func.isRequired,
   onPanoPreviewClick: PropTypes.func.isRequired
