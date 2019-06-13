@@ -220,7 +220,6 @@ class AutoSuggest extends React.Component {
               activeSuggestion,
               highlightQuery
             }}
-            onFormSubmit={this.onFormSubmit}
             onSuggestionSelection={this.onSuggestionSelection}
           />
           {suggestions.length > 0 && showSuggestions &&

@@ -15,7 +15,7 @@ exports[`App should render the homepage 1`] = `
     initialState={
       Object {
         "ui": Object {
-          "backdropEnabled": false,
+          "nrOfBackdropTriggers": 0,
         },
       }
     }
@@ -67,7 +67,7 @@ exports[`App should render the mapview 1`] = `
     initialState={
       Object {
         "ui": Object {
-          "backdropEnabled": false,
+          "nrOfBackdropTriggers": 0,
         },
       }
     }

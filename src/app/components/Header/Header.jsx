@@ -11,10 +11,6 @@ import { useAppReducer } from '../../utils/useAppReducer';
 import HeaderMenuContainer from './HeaderMenuContainer';
 
 const style = css`
-  input {
-    line-height: 1;
-  }
-
   ${styles.HeaderNavigationStyle} fieldset > ${styles.SearchBarStyle} {
     flex-grow: 1;
 
@@ -26,13 +22,13 @@ const style = css`
   }
 
   ${styles.MenuBarStyle} {
-    @media screen and ${breakpoint('max-width', 'laptop')} {
+    @media screen and ${breakpoint('max-width', 'laptopM')} {
       display: none;
     }
   }
 
   ${styles.MenuDropDownStyle} {
-    @media screen and ${breakpoint('min-width', 'laptop')} {
+    @media screen and ${breakpoint('min-width', 'laptopM')} {
       display: none;
     }
   }
@@ -54,7 +50,7 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
       <section className="styled-header">
         <HeaderComponent
           tall={homePage}
-          title="Data en informatie"
+          title="City Data"
           homeLink="/"
           css={style}
           fullWidth={!homePage}

@@ -3,17 +3,28 @@ import { Menu, MenuItem, SubMenu } from '@datapunt/asc-ui';
 import { ReactComponent as ChevronRight } from '@datapunt/asc-assets/lib/Icons/ChevronRight.svg';
 import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
 import PropTypes from 'prop-types';
-import Link from 'redux-first-router-link';
 import {
   toApisPage,
   toAvailabilityPage,
   toDatasets,
   toHelpPage,
   toMaintentancePage,
-  toMapWithLegendOpen,
+  toMap,
   toPanoramaAndPreserveQuery,
   toPrivacyPage
 } from '../../../store/redux-first-router/actions';
+import getReduxLinkProps from '../../utils/getReduxLinkProps';
+
+const toPanoramaAction = toPanoramaAndPreserveQuery(
+  undefined, undefined, undefined, 'home'
+);
+const toMapAction = toMap(true);
+const toDatasetsAction = toDatasets();
+const toApisAction = toApisPage();
+const toPrivacyAction = toPrivacyPage();
+const toAvailabilityAction = toAvailabilityPage();
+const toMaintentanceAction = toMaintentancePage();
+const toHelpAction = toHelpPage();
 
 const HeaderMenu = ({
   login,
@@ -25,93 +36,66 @@ const HeaderMenu = ({
   <Menu {...props}>
     <SubMenu label="Onderdelen" arrowIcon={<ChevronDown />}>
       <MenuItem
+        title="Kaart"
         icon={<ChevronRight />}
-        linkEl={Link}
-        linkElProp={{
-          to: toMapWithLegendOpen()
-        }}
+        {...getReduxLinkProps(toMapAction)}
       >
         Kaart
       </MenuItem>
       <MenuItem
+        title="Panoramabeelden"
         icon={<ChevronRight />}
-        linkEl={Link}
-        linkElProp={{
-          to: toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home')
-        }}
+        {...getReduxLinkProps(toPanoramaAction)}
       >
         Panoramabeelden
       </MenuItem>
       <MenuItem
+        title="Datasets"
         icon={<ChevronRight />}
-        linkEl={Link}
-        linkElProp={{
-          to: toDatasets()
-        }}
+        {...getReduxLinkProps(toDatasetsAction)}
       >
         Datasets
       </MenuItem>
       <MenuItem
+        title="Api's services"
         icon={<ChevronRight />}
-        linkEl={Link}
-        linkElProp={{
-          to: toApisPage()
-        }}
+        {...getReduxLinkProps(toApisAction)}
       >
         Api&apos;s services
       </MenuItem>
     </SubMenu>
     <SubMenu label="Over" arrowIcon={<ChevronDown />}>
       <MenuItem
+        title="Privacy en informatiebeveiliging"
         icon={<ChevronRight />}
-        linkEl={Link}
-        linkElProp={{
-          to: toPrivacyPage()
-        }}
+        {...getReduxLinkProps(toPrivacyAction)}
       >
         Privacy en informatiebeveiliging
       </MenuItem>
       <MenuItem
+        title="Beschikbaarheid en kwaliteit data"
         icon={<ChevronRight />}
-        linkEl={Link}
-        linkElProp={{
-          to: toAvailabilityPage()
-        }}
+        {...getReduxLinkProps(toAvailabilityAction)}
       >
         Beschikbaarheid en kwaliteit data
       </MenuItem>
       <MenuItem
+        title="Technisch beheer en werkwijze"
         icon={<ChevronRight />}
-        linkEl={Link}
-        linkElProp={{
-          to: toMaintentancePage()
-        }}
+        {...getReduxLinkProps(toMaintentanceAction)}
       >
         Technisch beheer en werkwijze
       </MenuItem>
       <MenuItem
+        title="Contact"
         icon={<ChevronRight />}
         href="mailto:datapunt@amsterdam.nl"
       >
         Contact
       </MenuItem>
     </SubMenu>
-    <MenuItem
-      onClick={(e) => {
-        e.preventDefault();
-        showFeedbackForm();
-      }}
-    >
-      Feedback
-    </MenuItem>
-    <MenuItem
-      linkEl={Link}
-      linkElProp={{
-        to: toHelpPage()
-      }}
-    >
-      Help
-    </MenuItem>
+    <MenuItem onClick={showFeedbackForm}>Feedback</MenuItem>
+    <MenuItem {...getReduxLinkProps(toHelpAction)}>Help</MenuItem>
 
     {!user.authenticated ?
       <MenuItem onClick={login}>Inloggen</MenuItem> :

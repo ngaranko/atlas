@@ -47,10 +47,6 @@ exports[`Header should render the main header 1`] = `
     css={
       Array [
         "
-  input {
-    line-height: 1;
-  }
-
   ",
         ".sc-iRbamj",
         " fieldset > ",
@@ -104,7 +100,7 @@ exports[`Header should render the main header 1`] = `
       </React.Fragment>
     }
     tall={false}
-    title="Data en informatie"
+    title="City Data"
   />
 </section>
 `;

@@ -39,7 +39,6 @@ Search.propTypes = {
   searchBarProps: PropTypes.shape({}).isRequired,
   activeSuggestion: PropTypes.shape({}).isRequired,
   highlightQuery: PropTypes.string.isRequired,
-  onFormSubmit: PropTypes.func.isRequired,
   onSuggestionSelection: PropTypes.func.isRequired
 };
 
