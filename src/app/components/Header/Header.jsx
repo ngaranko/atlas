@@ -34,7 +34,7 @@ const style = css`
   }
 `;
 
-const MenuMobile = () => <HeaderMenuContainer mobile align="right" icon={<MenuIcon />} />;
+const MenuMobile = (props) => <HeaderMenuContainer mobile align="right" icon={<MenuIcon />} {...props} />;
 
 const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMaxWidth }) => {
   const [, actions] = useAppReducer('ui');
@@ -61,7 +61,7 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
                 showAt="tabletM"
                 onExpand={setBackDrop}
               />
-              <MenuMobile hideAt="tabletM" />
+              <MenuMobile hideAt="tabletM" onExpand={setBackDrop} />
             </React.Fragment>
           }
         />
