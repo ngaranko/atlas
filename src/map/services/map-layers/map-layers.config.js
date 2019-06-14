@@ -52,6 +52,7 @@ const THEMES = {
   ECONOMY_HARBOR: 'Economie en haven',
   HISTORY: 'Topografie: historisch',
   TRAFFIC: 'Verkeer en infrastructuur',
+  LIVING_ENV: 'Wonen en leefomgeving',
   SAFETY: 'Openbare orde en veiligheid',
   ORGANISATION: 'Bestuur en organisatie',
   TOURISM: 'Toerisme en cultuur',
@@ -312,26 +313,27 @@ const mapLayers = [
     detailItem: 'kadastraal_object',
     detailIsShape: true
   },
-  {
-    category: THEMES.GEOGRAPHY_ONR,
-    layers: ['vastgoed'],
-    legendItems: [
-      {
-        id: 'vge',
-        title: 'Volledig eigendom',
-        imageRule: 'vastgoed',
-        layers: ['vastgoed_eigendom']
-      },
-      {
-        id: 'vga',
-        title: 'Appartementsrecht',
-        imageRule: 'vastgoed',
-        layers: ['vastgoed_appartementsrecht']
-      }
-    ],
-    title: 'Gemeentelijk eigendom',
-    url: '/maps/vastgoed'
-  },
+  // Todo - Hotfix: uncomment when mapserver is up again
+  // {
+  //   category: THEMES.GEOGRAPHY_ONR,
+  //   layers: ['vastgoed'],
+  //   legendItems: [
+  //     {
+  //       id: 'vge',
+  //       title: 'Volledig eigendom',
+  //       imageRule: 'vastgoed',
+  //       layers: ['vastgoed_eigendom']
+  //     },
+  //     {
+  //       id: 'vga',
+  //       title: 'Appartementsrecht',
+  //       imageRule: 'vastgoed',
+  //       layers: ['vastgoed_appartementsrecht']
+  //     }
+  //   ],
+  //   title: 'Gemeentelijk eigendom',
+  //   url: '/maps/vastgoed'
+  // },
   {
     category: THEMES.GEOGRAPHY_ONR,
     legendItems: [
@@ -1053,7 +1055,6 @@ const mapLayers = [
     url: '/maps/vezips',
     noDetail: true
   },
-  /* Disable untill release of mapserver 2
   {
     category: THEMES.ORGANISATION,
     layers: ['bekendmakingen'],
@@ -1197,7 +1198,56 @@ const mapLayers = [
     detailUrl: 'geosearch/search/',
     detailItem: 'bekendmakingen'
   },
-  */
+  {
+    category: THEMES.LIVING_ENV,
+    legendItems: [
+      {
+        id: 'wlorst',
+        layers: ['rest_coordinaten'],
+        title: 'Restafval',
+        imageRule: 'Restcontainer',
+        imageSize: 30
+      },
+      {
+        id: 'wloppr',
+        layers: ['papier_coordinaten'],
+        title: 'Papier',
+        imageRule: 'Papiercontainer',
+        imageSize: 30
+      },
+      {
+        id: 'wlogls',
+        layers: ['glas_coordinaten'],
+        title: 'Glas',
+        imageRule: 'Glascontainer',
+        imageSize: 30
+      },
+      {
+        id: 'wlopls',
+        layers: ['plastic_coordinaten'],
+        title: 'Plastic',
+        imageRule: 'Plasticcontainer',
+        imageSize: 30
+      },
+      {
+        id: 'wlotxtl',
+        layers: ['textiel_coordinaten'],
+        title: 'Textiel',
+        imageRule: 'Textielcontainer',
+        imageSize: 30
+      },
+      {
+        id: 'wlokca',
+        layers: ['gfe_coordinaten'],
+        title: 'GFE',
+        imageRule: 'Gfecontainer',
+        imageSize: 30
+      }
+    ],
+    title: 'Afvalcontainers',
+    url: '/maps/afval',
+    noDetail: true
+  },
   {
     category: THEMES.SAFETY,
     legendItems: [
@@ -1706,8 +1756,8 @@ const mapLayers = [
     id: 'mgpsh',
     layers: ['geluidszoneschiphol'],
     legendItems: [
-      { title: 'Geluidzone Schiphol (nr. 4 \'beperking gebouwen\')' },
-      { title: '20 Ke contour' }
+      { title: 'X LIB-4: Beperkingengebied geluidgevoelige gebouwen' },
+      { title: 'X LIB-5: Afwegingsgebied geluid en externe veiligheid (voorheen 20-Ke)' }
     ],
     title: 'Schiphol - Ruimtelijke beperkingen',
     url: '/maps/planologischezonesschiphol',

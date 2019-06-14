@@ -13,6 +13,7 @@ $on-top-of-leaflet: 999;
     align-items: flex-end;
     display: flex;
     height: 100%;
+    pointer-events: none;
     position: absolute;
     width: 100%;
 

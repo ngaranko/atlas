@@ -1,6 +1,6 @@
 {
   "name": "atlas",
-  "version": "3.6.0",
+  "version": "3.6.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Amsterdam/atlas.git"
@@ -73,7 +73,7 @@
     "proj4leaflet": "1.0.2",
     "prop-types": "15.6.2",
     "query-string": "6.2.0",
-    "react": "^16.8.6",
+    "react": "16.8.6",
     "react-angular": "https://github.com/Amsterdam/react-angular#master",
     "react-dom": "16.8.6",
     "react-leaflet": "1.9.1",
@@ -118,8 +118,8 @@
     "clean-webpack-plugin": "1.0.1",
     "copy-webpack-plugin": "4.6.0",
     "css-loader": "2.1.0",
-    "enzyme": "3.9.0",
-    "enzyme-adapter-react-16": "^1.13.1",
+    "enzyme": "3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "3.3.5",
     "eslint": "3.19.0",
     "eslint-config-airbnb": "15.1.0",

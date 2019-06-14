@@ -17,7 +17,7 @@ export default function fetchByUri(uri) {
         categorie: result.categorie,
         onderwerp: result.onderwerp,
         beschrijving: result.beschrijving,
-        datum: result.datum ? dateToString(new Date(result.datum)) : '',
+        date: result.datum ? dateToString(new Date(result.datum)) : '',
         location: wgs84Center,
         url: result.url
       };
