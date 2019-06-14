@@ -23,7 +23,7 @@ const HeaderMenu = ({
   ...props
 }) => (
   <Menu {...props}>
-    <SubMenu label="Onderdelen" arrowIcon={<ChevronDown />}>
+    <SubMenu label="Onderdelen">
       <MenuItem
         icon={<ChevronRight />}
         linkEl={Link}
@@ -61,7 +61,7 @@ const HeaderMenu = ({
         Api&apos;s services
       </MenuItem>
     </SubMenu>
-    <SubMenu label="Over" arrowIcon={<ChevronDown />}>
+    <SubMenu label="Over">
       <MenuItem
         icon={<ChevronRight />}
         linkEl={Link}
@@ -115,7 +115,7 @@ const HeaderMenu = ({
 
     {!user.authenticated ?
       <MenuItem onClick={login}>Inloggen</MenuItem> :
-      <SubMenu label={user.name} arrowIcon={<ChevronDown />}>
+      <SubMenu label={user.name}>
         <MenuItem icon={<ChevronRight />} onClick={logout}>Uitloggen</MenuItem>
       </SubMenu>
     }
