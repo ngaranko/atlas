@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -89,7 +89,7 @@ const App = ({
     >
       <GlobalStyle />
       <AppStateProvider initialState={initialState} reducer={main}>
-        <Suspense fallback={<React.Fragment />}>
+        <React.Suspense fallback={<React.Fragment />}>
           <div
             className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
           >
@@ -117,7 +117,7 @@ const App = ({
               }}
             />
           </div>
-        </Suspense>
+        </React.Suspense>
       </AppStateProvider>
     </ThemeProvider>
   );

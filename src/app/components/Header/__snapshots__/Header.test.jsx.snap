@@ -47,19 +47,15 @@ exports[`Header should render the main header 1`] = `
     css={
       Array [
         "
-  input {
-    line-height: 1;
-  }
-
   ",
-        ".sc-iRbamj",
+        ".sc-jlyJG",
         " fieldset > ",
-        ".sc-bRBYWo",
+        ".sc-hzDkRC",
         " {
     flex-grow: 1;
 
     ",
-        ".sc-Rmtcm",
+        ".sc-bRBYWo",
         " {
       flex-grow: 0;
       width: 100%;
@@ -68,7 +64,7 @@ exports[`Header should render the main header 1`] = `
   }
 
   ",
-        ".sc-jWBwVP",
+        ".sc-brqgnP",
         " {
     @media screen and ",
         [Function],
@@ -78,7 +74,7 @@ exports[`Header should render the main header 1`] = `
   }
 
   ",
-        ".sc-eHgmQL",
+        ".sc-cvbbAY",
         " {
     @media screen and ",
         [Function],
@@ -100,11 +96,12 @@ exports[`Header should render the main header 1`] = `
         />
         <MenuMobile
           hideAt="tabletM"
+          onExpand={[Function]}
         />
       </React.Fragment>
     }
     tall={false}
-    title="Data en informatie"
+    title="City Data"
   />
 </section>
 `;

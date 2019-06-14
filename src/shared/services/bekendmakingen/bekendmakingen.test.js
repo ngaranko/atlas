@@ -17,7 +17,7 @@ describe('The bekendmakingen resource', () => {
   });
 
   describe('By uri', () => {
-    it('fetches a oplaadpunt', () => {
+    it('fetches a bekendmaking', () => {
       const uri = 'https://acc.api.data.amsterdam.nl/vsd/bekendmakingen/123456';
       const bekendmakingMock = {
         _display: 'bekendmaking titel',
@@ -42,7 +42,7 @@ describe('The bekendmakingen resource', () => {
           onderwerp: bekendmakingMock.onderwerp,
           categorie: bekendmakingMock.categorie,
           geometrie: bekendmakingMock.wkb_geometry,
-          datum: '2012-12-12',
+          date: '2012-12-12',
           url: bekendmakingMock.url
         });
       });
@@ -64,7 +64,7 @@ describe('The bekendmakingen resource', () => {
           onderwerp: undefined,
           categorie: undefined,
           geometrie: undefined,
-          datum: '',
+          date: '',
           url: undefined
         });
       });
