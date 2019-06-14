@@ -1,7 +1,6 @@
 import React from 'react';
 import { Menu, MenuItem, SubMenu } from '@datapunt/asc-ui';
 import { ReactComponent as ChevronRight } from '@datapunt/asc-assets/lib/Icons/ChevronRight.svg';
-import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
 import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
 import {

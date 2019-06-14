@@ -9,8 +9,6 @@ import HeaderSearchContainer from '../../../header/containers/header-search/Head
 import { useAppReducer } from '../../utils/useAppReducer';
 import HeaderMenuContainer from './HeaderMenuContainer';
 
-console.log(styles)
-
 const style = css`
   input {
     line-height: 1;
