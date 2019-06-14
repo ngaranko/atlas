@@ -203,7 +203,6 @@ class AutoSuggest extends React.Component {
       value: query || ''
     };
 
-
     return (
       <form
         onSubmit={this.onFormSubmit}
