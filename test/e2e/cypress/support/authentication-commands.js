@@ -116,3 +116,10 @@ Cypress.Commands.add('logout', () => {
 Cypress.on('window:before:load', (win) => {
   delete win.fetch; // eslint-disable-line no-param-reassign
 });
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  console.log('Uncought exception in the browser', err, runnable);
+  // returning false here prevents Cypress from
+  // failing the test
+  return false;
+});

@@ -2,8 +2,8 @@ const checkbox = 'input[type="checkbox"]';
 const checkboxChecked = 'input[type="checkbox"]:checked';
 const header = 'header';
 
-const menuLink = '.qa-menu__link';
-const embedButton = '.qa-menu__dropdown ul li:nth(1)';
+const menuLink = '.qa-context-menu';
+const embedButton = '.qa-context-menu > div > div > ul > li:nth(1)';
 
 describe('embed module', () => {
   beforeEach(() => {

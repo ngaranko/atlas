@@ -37,7 +37,7 @@ const ContextMenu = ({
   };
 
   return (
-    <section className="context-menu">
+    <section className="context-menu qa-context-menu">
       <ContextMenuComponent
         alt="Actiemenu"
         arrowIcon={<ChevronDown />}
