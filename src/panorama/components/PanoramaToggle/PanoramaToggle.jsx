@@ -85,9 +85,13 @@ const PanoramaToggle = ({
 PanoramaToggle.propTypes = {
   heading: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   currentLabel: PropTypes.string.isRequired,
-  location: PropTypes.instanceOf(Array).isRequired,
+  location: PropTypes.instanceOf(Array),
   openPanoramaTags: PropTypes.PropTypes.func.isRequired,
   openPanoramaExternal: PropTypes.PropTypes.func.isRequired
+};
+
+PanoramaToggle.defaultProps = {
+  location: []
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
