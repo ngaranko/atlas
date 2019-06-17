@@ -1,4 +1,5 @@
 const headerTitle = 'h1.c-print-header__title';
+const printLink = '.qa-share-bar > div > button:nth(4) ';
 
 describe('print module', () => {
   it('should show a print version of the page when the user click on the print button', () => {
@@ -21,10 +22,9 @@ describe('print module', () => {
     cy.get('img.c-panorama-thumbnail--img').should('exist').and('be.visible');
     cy.get('h2.qa-title').should('exist').and('be.visible').contains('10581111');
 
-    cy.get('button.qa-menu__link').click();
-    // click on the embed button
-    cy.get('.c-menu__subitem').first().should('exist').and('be.visible');
-    cy.get('.c-menu__subitem').first().click();
+    // click on the print button
+    cy.get(printLink).first().should('exist');
+    cy.get(printLink).first().click();
     cy.get(headerTitle).should('exist').and('be.visible');
     cy.get('.c-print-header__close').click();
     cy.get(headerTitle).should('not.exist').and('not.be.visible');
