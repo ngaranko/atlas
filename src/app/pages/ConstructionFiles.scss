@@ -4,8 +4,16 @@
   background-color: $primary-light;
   padding-bottom: 100px;
 
-  &__title {
+  &__subtitle {
     margin-bottom: 7px !important;
+  }
+
+  &__title {
+    display: block !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
   }
 
   .c-ds-table {
@@ -21,6 +29,7 @@
 
     &__cell {
       padding-left: 20px;
+      white-space: normal;
 
       &:first-child {
         width: 33%;

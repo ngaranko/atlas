@@ -26,7 +26,7 @@ const ViewerControls = ({
       <div className="viewer-controls__meta">
         {metaData.map((string, i) => string && (
           // eslint-disable-next-line react/no-array-index-key
-          <div key={i} className="viewer-controls__meta__item">{string}</div>
+          <div key={i} className="viewer-controls__meta__item"><span>{string}</span></div>
         ))}
       </div>
       }
