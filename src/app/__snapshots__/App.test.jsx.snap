@@ -10,7 +10,7 @@ exports[`App should render the homepage 1`] = `
     }
   }
 >
-  <Suspense
+  <React.Suspense
     fallback={<React.Fragment />}
   >
     <div
@@ -35,13 +35,13 @@ exports[`App should render the homepage 1`] = `
           <div
             className="u-row u-full-height"
           >
-            <lazy />
+            <React.Lazy />
             <Connect(ModalComponent) />
           </div>
         </div>
       </div>
     </div>
-  </Suspense>
+  </React.Suspense>
 </DefaultThemeProvider>
 `;
 
@@ -55,7 +55,7 @@ exports[`App should render the mapview 1`] = `
     }
   }
 >
-  <Suspense
+  <React.Suspense
     fallback={<React.Fragment />}
   >
     <div
@@ -80,12 +80,12 @@ exports[`App should render the mapview 1`] = `
           <div
             className="u-row u-full-height"
           >
-            <lazy />
+            <React.Lazy />
             <Connect(ModalComponent) />
           </div>
         </div>
       </div>
     </div>
-  </Suspense>
+  </React.Suspense>
 </DefaultThemeProvider>
 `;
