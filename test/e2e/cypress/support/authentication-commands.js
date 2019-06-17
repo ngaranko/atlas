@@ -118,7 +118,7 @@ Cypress.on('window:before:load', (win) => {
 });
 
 Cypress.on('uncaught:exception', (err, runnable) => {
-  console.log('Uncought exception in the browser', err, runnable);
+  console.log('Uncought exception in the browser', err, runnable); // eslint-disable-line no-console
   // returning false here prevents Cypress from
   // failing the test
   return false;
