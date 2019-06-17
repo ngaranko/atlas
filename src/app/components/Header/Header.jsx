@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
 import classNames from 'classnames';
-import { ReactComponent as MenuIcon } from '@datapunt/asc-assets/lib/Icons/Menu.svg';
 import { css } from '@datapunt/asc-core';
 import { breakpoint, Header as HeaderComponent, styles } from '@datapunt/asc-ui';
 import { hideEmbedMode, hidePrintMode } from '../../../shared/ducks/ui/ui';
@@ -34,7 +33,7 @@ const style = css`
   }
 `;
 
-const MenuMobile = (props) => <HeaderMenuContainer mobile align="right" icon={<MenuIcon />} {...props} />;
+const MenuMobile = () => <HeaderMenuContainer mobile align="right" />;
 
 const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMaxWidth }) => {
   const [, actions] = useAppReducer('ui');

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Menu, MenuItem, SubMenu } from '@datapunt/asc-ui';
 import { ReactComponent as ChevronRight } from '@datapunt/asc-assets/lib/Icons/ChevronRight.svg';
-import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
 import PropTypes from 'prop-types';
 import {
   toApisPage,
@@ -34,7 +33,7 @@ const HeaderMenu = ({
   ...props
 }) => (
   <Menu {...props}>
-    <SubMenu label="Onderdelen" arrowIcon={<ChevronDown />}>
+    <SubMenu label="Onderdelen">
       <MenuItem
         title="Kaart"
         icon={<ChevronRight />}
@@ -64,7 +63,7 @@ const HeaderMenu = ({
         Api&apos;s services
       </MenuItem>
     </SubMenu>
-    <SubMenu label="Over" arrowIcon={<ChevronDown />}>
+    <SubMenu label="Over">
       <MenuItem
         title="Privacy en informatiebeveiliging"
         icon={<ChevronRight />}
@@ -99,7 +98,7 @@ const HeaderMenu = ({
 
     {!user.authenticated ?
       <MenuItem onClick={login}>Inloggen</MenuItem> :
-      <SubMenu label={user.name} arrowIcon={<ChevronDown />}>
+      <SubMenu label={user.name}>
         <MenuItem icon={<ChevronRight />} onClick={logout}>Uitloggen</MenuItem>
       </SubMenu>
     }

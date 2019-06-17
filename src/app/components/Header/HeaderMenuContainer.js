@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import HeaderMenu from './HeaderMenu';
 import { authenticateRequest, getUser } from '../../../shared/ducks/user/user';
 
-
 const mapStateToProps = (state) => ({
   user: getUser(state)
 });
