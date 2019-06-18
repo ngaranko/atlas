@@ -10,6 +10,7 @@ const glob = Promise.promisify(require('glob'))
 
 const started = new Date()
 let numFailed = 0
+const summary = []
 
 const SCRIPTS_FOLDER =  process.env.SCRIPTS_FOLDER || 'cypress/integration';
 
@@ -37,10 +38,35 @@ return glob(SCRIPTS_FOLDER + '/**/*', {
     }
   })
   .then((results) => {
-    numFailed += results.totalFailed
+    numFailed += results.totalFailed;
+    summary.push({
+      name: spec.split("/")[spec.split("/").length - 1 ],
+      totalDuration: results.totalDuration,
+      totalSuites: results.totalSuites,
+      totalTests: results.totalTests,
+      totalFailed: results.totalFailed,
+      totalPassed: results.totalPassed,
+      totalPending: results.totalPending,
+      totalSkipped: results.totalSkipped
+    })
   })
 })
 .then(() => {
+  console.log('\n-----------------------------\n')
+  console.log(`Cypress end to end tests summary:`)
+  summary.forEach((item) => {
+    console.log(`${item.name}\n
+  - Total Suites: ${item.totalSuites}\n
+  - Total Tests: ${item.totalTests}\n
+  - Total Failed: ${item.totalFailed}\n
+  - Total Passed: ${item.totalPassed}\n
+  - Total Pending: ${item.totalPending}\n
+  - Total Screenshots: ${item.totalScreenshots}\n
+  - Total Duration: ${item.totalDuration/1000} seconds\n
+  `)
+  })
+  console.log('\n-----------------------------\n')
+
   const duration = new Date() - started
 
   console.log('\n--All Done--\n')
