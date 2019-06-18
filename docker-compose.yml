@@ -23,6 +23,8 @@ services:
       context: ./test/e2e/
     # links:
     #   - atlas:acc.data.amsterdam.nl
+    links:
+      - atlas:atlas
     environment:
       # Note that baseUrl must be formatted so
       # calls to API pass CORS check!
