@@ -66,6 +66,7 @@ $backdrop-color: rgba(0, 0, 0, .5);
   &--backdrop {
     &::before {
       opacity: 1;
+      pointer-events: all;
     }
   }
 }
