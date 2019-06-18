@@ -6,8 +6,8 @@ services:
         - BUILD_ENV=acc
       context: .
     ipc: host
-    extra_hosts:
-      - "acc.api.data.amsterdam.nl:10.243.17.201"
+    # extra_hosts:
+    #   - "acc.api.data.amsterdam.nl:10.243.17.201"
 
   test-unit-integration:
     build:
@@ -21,12 +21,12 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./test/e2e/
-    links:
-      - atlas:acc.data.amsterdam.nl
+    # links:
+    #   - atlas:acc.data.amsterdam.nl
     environment:
       # Note that baseUrl must be formatted so
       # calls to API pass CORS check!
-      - CYPRESS_baseUrl=https://acc.data.amsterdam.nl
+      - CYPRESS_baseUrl=http://atlas:80
       - USERNAME_EMPLOYEE
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
