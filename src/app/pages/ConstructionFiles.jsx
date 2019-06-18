@@ -101,17 +101,30 @@ const ConstructionFiles = ({ setFileName, fileName, user, endpoint }) => {
       {withGrid(
         <React.Fragment>
           <Typography
-            className="c-construction-files__title"
+            className="c-construction-files__subtitle"
             element="h3"
           >
             Bouwdossier
           </Typography>
-          <Typography element="h1">{title}</Typography>
+          <Typography
+            className="c-construction-files__title"
+            element="h1"
+          >
+            {title}
+          </Typography>
         </React.Fragment>
       )}
 
       <div className="c-ds-table">
         <div className="c-ds-table__body">
+          <div className="c-ds-table__row">
+            <div className="c-ds-table__cell">
+              <div className="qa-table-value">Volledige titel</div>
+            </div>
+            <div className="c-ds-table__cell">
+              <div className="qa-table-value">{title}</div>
+            </div>
+          </div>
           <div className="c-ds-table__row">
             <div className="c-ds-table__cell">
               <div className="qa-table-value">Datering</div>
