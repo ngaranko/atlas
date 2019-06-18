@@ -17,6 +17,7 @@ export const SHOW_PRINT = `${REDUCER_KEY}/SHOW_PRINT`;
 export const TOGGLE_MAP_PANEL_HANDLE = `${REDUCER_KEY}/TOGGLE_MAP_PANEL_HANDLE`;
 export const SET_VIEW_MODE = `${REDUCER_KEY}/SET_VIEW_MODE`;
 export const SHARE_PAGE = `${REDUCER_KEY}/SHARE_PAGE`;
+export const SHOW_MAP_LINK = `${REDUCER_KEY}/SHOW_MAP_LINK`;
 
 export const VIEW_MODE = {
   MAP: 'kaart',
@@ -37,7 +38,8 @@ export const initialState = {
   isEmbedPreview: false,
   isEmbed: false,
   isPrintMode: false,
-  viewMode: VIEW_MODE.SPLIT
+  viewMode: VIEW_MODE.SPLIT,
+  isMapLinkVisible: true
 };
 
 export default function UiReducer(state = initialState, action) {
@@ -84,6 +86,12 @@ export default function UiReducer(state = initialState, action) {
         isMapPanelHandleVisible: !enrichedState.isMapPanelHandleVisible
       };
 
+    case SHOW_MAP_LINK:
+      return {
+        ...enrichedState,
+        isMapLinkVisible: !action.payload
+      };
+
     default:
       return enrichedState;
   }
@@ -126,6 +134,7 @@ export const sharePage = (payload) => ({
   }
 });
 export const toggleMapPanelHandle = () => ({ type: TOGGLE_MAP_PANEL_HANDLE });
+export const showMapLink = (payload) => ({ type: SHOW_MAP_LINK, payload });
 
 // Selectors
 const getUIState = (state) => state[REDUCER_KEY];
@@ -146,6 +155,8 @@ export const hasOverflowScroll = createSelector(
 export const isMapLayersVisible = createSelector(getUIState, (ui) => ui.isMapLayersVisible);
 export const isMapPanelHandleVisible =
   createSelector(getUIState, (ui) => ui.isMapPanelHandleVisible);
+export const isMapLinkVisible =
+  createSelector(getUIState, (ui) => ui.isMapLinkVisible);
 
 export const isMapPage = createSelector(isDataPage, getViewMode, (dataPage, viewMode) => (
   dataPage && viewMode === VIEW_MODE.MAP

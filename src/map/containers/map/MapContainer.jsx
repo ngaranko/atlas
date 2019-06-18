@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { LatLngBounds } from 'leaflet';
 
-import { isEmbedded, isPrintOrEmbedMode } from '../../../shared/ducks/ui/ui';
+import { isEmbedded, isPrintOrEmbedMode, isMapLinkVisible } from '../../../shared/ducks/ui/ui';
 
 import DrawTool from '../../containers/draw-tool/DrawToolContainer';
 import ToggleFullscreen from '../../../app/components/ToggleFullscreen/ToggleFullscreen';
@@ -34,7 +34,8 @@ const mapStateToProps = (state) => ({
   drawMode: getDrawingMode(state),
   embedMode: isEmbedded(state),
   printOrEmbedMode: isPrintOrEmbedMode(state),
-  previewDataAvailable: previewDataAvailableSelector(state)
+  previewDataAvailable: previewDataAvailableSelector(state),
+  isMapLinkVisible: isMapLinkVisible(state)
 });
 
 class MapContainer extends React.Component {
@@ -59,7 +60,8 @@ class MapContainer extends React.Component {
       toggleFullscreen,
       drawMode,
       showPreviewPanel,
-      previewDataAvailable
+      previewDataAvailable,
+      isMapLinkVisible
     } = this.props;
     return (
       <div className="qa-map">
@@ -88,7 +90,7 @@ class MapContainer extends React.Component {
             {(!printOrEmbedMode && isFullscreen) && <ContextMenu isMapPanelVisible />}
           </div>
           {
-            embedMode ? (
+            embedMode && isMapLinkVisible ? (
               <MapEmbedButton />
             ) : ''
           }
@@ -105,7 +107,8 @@ MapContainer.defaultProps = {
   drawMode: 'none',
   toggleFullscreen: null,
   isFullscreen: true,
-  printOrEmbedMode: false
+  printOrEmbedMode: false,
+  isMapLinkVisible: true
 };
 
 MapContainer.propTypes = {
@@ -115,7 +118,8 @@ MapContainer.propTypes = {
   embedMode: PropTypes.bool.isRequired,
   printOrEmbedMode: PropTypes.bool,
   showPreviewPanel: PropTypes.bool,
-  previewDataAvailable: PropTypes.bool.isRequired
+  previewDataAvailable: PropTypes.bool.isRequired,
+  isMapLinkVisible: PropTypes.bool
 };
 
 export default connect(mapStateToProps)(MapContainer);
