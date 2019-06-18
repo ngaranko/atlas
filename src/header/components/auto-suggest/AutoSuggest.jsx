@@ -23,7 +23,9 @@ class AutoSuggest extends React.Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onInput = this.onInput.bind(this);
     this.onSuggestionSelection = this.onSuggestionSelection.bind(this);
+    this.onOpenSearchBarToggle = this.onOpenSearchBarToggle.bind(this);
     this.state = {
+      openSearchBarToggle: false,
       originalQuery: '',
       showSuggestions: false
     };
@@ -93,10 +95,17 @@ class AutoSuggest extends React.Component {
     event.stopPropagation();
 
     this.setState({
-      showSuggestions: false
+      showSuggestions: false,
+      openSearchBarToggle: false
     }, () => {
       this.resetActiveSuggestion();
       onSubmit();
+    });
+  }
+
+  onOpenSearchBarToggle(open) {
+    this.setState({
+      openSearchBarToggle: open
     });
   }
 
@@ -186,7 +195,8 @@ class AutoSuggest extends React.Component {
     } = this.props;
 
     const {
-      showSuggestions
+      showSuggestions,
+      openSearchBarToggle
     } = this.state;
 
     const searchBarProps = {
@@ -217,8 +227,10 @@ class AutoSuggest extends React.Component {
               legendTitle,
               searchBarProps,
               activeSuggestion,
-              highlightQuery
+              highlightQuery,
+              openSearchBarToggle
             }}
+            onOpenSearchBarToggle={this.onOpenSearchBarToggle}
             onSuggestionSelection={this.onSuggestionSelection}
           />
           {suggestions.length > 0 && showSuggestions &&

@@ -13,21 +13,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
   onSubmit={[MockFunction]}
   onSuggestionActivate={[MockFunction]}
   onSuggestionSelection={[MockFunction]}
-  onTextInput={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          "d",
-        ],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
-  }
+  onTextInput={[MockFunction]}
   placeHolder=""
   query="dam"
   queryFromUrl=""
@@ -97,7 +83,9 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
         }
         highlightQuery=""
         legendTitle=""
+        onOpenSearchBarToggle={[Function]}
         onSuggestionSelection={[Function]}
+        openSearchBarToggle={false}
         searchBarProps={
           Object {
             "autoCapitalize": "off",
@@ -195,21 +183,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
   onSubmit={[MockFunction]}
   onSuggestionActivate={[MockFunction]}
   onSuggestionSelection={[MockFunction]}
-  onTextInput={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          "d",
-        ],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
-  }
+  onTextInput={[MockFunction]}
   placeHolder=""
   query="dam"
   queryFromUrl=""
@@ -282,7 +256,9 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
         }
         highlightQuery="dam"
         legendTitle=""
+        onOpenSearchBarToggle={[Function]}
         onSuggestionSelection={[Function]}
+        openSearchBarToggle={false}
         searchBarProps={
           Object {
             "autoCapitalize": "off",
@@ -377,21 +353,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   onSubmit={[MockFunction]}
   onSuggestionActivate={[MockFunction]}
   onSuggestionSelection={[MockFunction]}
-  onTextInput={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          "d",
-        ],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
-  }
+  onTextInput={[MockFunction]}
   placeHolder=""
   query="dam"
   queryFromUrl=""
@@ -461,7 +423,9 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
         }
         highlightQuery=""
         legendTitle=""
+        onOpenSearchBarToggle={[Function]}
         onSuggestionSelection={[Function]}
+        openSearchBarToggle={false}
         searchBarProps={
           Object {
             "autoCapitalize": "off",
@@ -556,21 +520,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   onSubmit={[MockFunction]}
   onSuggestionActivate={[MockFunction]}
   onSuggestionSelection={[MockFunction]}
-  onTextInput={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          "d",
-        ],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
-  }
+  onTextInput={[MockFunction]}
   placeHolder=""
   query="dam"
   queryFromUrl=""
@@ -640,7 +590,9 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
         }
         highlightQuery=""
         legendTitle=""
+        onOpenSearchBarToggle={[Function]}
         onSuggestionSelection={[Function]}
+        openSearchBarToggle={false}
         searchBarProps={
           Object {
             "autoCapitalize": "off",
@@ -735,21 +687,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   onSubmit={[MockFunction]}
   onSuggestionActivate={[MockFunction]}
   onSuggestionSelection={[MockFunction]}
-  onTextInput={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          "d",
-        ],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
-  }
+  onTextInput={[MockFunction]}
   placeHolder=""
   query="dam"
   queryFromUrl=""
@@ -819,7 +757,9 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
         }
         highlightQuery=""
         legendTitle=""
+        onOpenSearchBarToggle={[Function]}
         onSuggestionSelection={[Function]}
+        openSearchBarToggle={false}
         searchBarProps={
           Object {
             "autoCapitalize": "off",

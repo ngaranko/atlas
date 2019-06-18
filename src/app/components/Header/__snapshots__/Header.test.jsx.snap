@@ -48,14 +48,14 @@ exports[`Header should render the main header 1`] = `
       Array [
         "
   ",
-        ".sc-jlyJG",
+        ".sc-gipzik",
         " fieldset > ",
-        ".sc-hzDkRC",
+        ".sc-jhAzac",
         " {
     flex-grow: 1;
 
     ",
-        ".sc-bRBYWo",
+        ".sc-hzDkRC",
         " {
       flex-grow: 0;
       width: 100%;
@@ -64,7 +64,7 @@ exports[`Header should render the main header 1`] = `
   }
 
   ",
-        ".sc-brqgnP",
+        ".sc-cMljjf",
         " {
     @media screen and ",
         [Function],
@@ -74,7 +74,7 @@ exports[`Header should render the main header 1`] = `
   }
 
   ",
-        ".sc-cvbbAY",
+        ".sc-jWBwVP",
         " {
     @media screen and ",
         [Function],

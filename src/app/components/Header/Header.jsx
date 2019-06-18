@@ -33,7 +33,7 @@ const style = css`
   }
 `;
 
-const MenuMobile = () => <HeaderMenuContainer mobile align="right" />;
+const MenuMobile = (props) => <HeaderMenuContainer {...props} mobile align="right" />;
 
 const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMaxWidth }) => {
   const [, actions] = useAppReducer('ui');
