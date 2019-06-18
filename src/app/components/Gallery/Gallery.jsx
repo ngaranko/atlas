@@ -49,9 +49,12 @@ const Gallery = ({ title, allThumbnails, onClick, maxLength }) => {
                     className="c-gallery__item"
                   >
                     <div className="c-gallery__square">
-                      <button
+                      <a
+                        title=""
+                        href={`/data/stadsarchief/bouwdossier/14872?bestand=${encodeURIComponent(file.match(/SU(.*)/g))}`}
                         className="c-gallery__thumbnail"
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.preventDefault();
                           onClick(encodeURIComponent(file.match(/SU(.*)/g)));
                         }}
                       >
@@ -59,7 +62,7 @@ const Gallery = ({ title, allThumbnails, onClick, maxLength }) => {
                           src={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${encodeURIComponent(file.match(/SU(.*)/g))}/square/500,500/0/default.jpg`}
                           title={file.match(/[^/]*$/g)[0]}
                         />
-                      </button>
+                      </a>
                     </div>
                   </GridItem>
                 ))}

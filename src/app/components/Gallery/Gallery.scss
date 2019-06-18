@@ -44,6 +44,8 @@
 
   &__thumbnail {
     @extend %focus;
+
+    color: inherit;
   }
 
   &__square {

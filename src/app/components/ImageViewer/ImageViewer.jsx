@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import OpenSeadragon from 'openseadragon';
 import PropTypes from 'prop-types';
 import { IconButton } from '@datapunt/asc-ui';
-import { ReactComponent as Close } from '@datapunt/asc-assets/lib/Icons/Close.svg';
-import { ReactComponent as Enlarge } from '@datapunt/asc-assets/lib/Icons/Enlarge.svg';
-import { ReactComponent as Minimise } from '@datapunt/asc-assets/lib/Icons/Minimise.svg';
+import { Close, Enlarge, Minimise } from '@datapunt/asc-assets';
 import ViewerControls from '../ViewerControls/ViewerControls';
 import { setCurrentFile } from '../../../shared/ducks/files/actions';
 import './ImageViewer.scss';
@@ -50,13 +48,14 @@ const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
       <ViewerControls
         metaData={[title, fileName]}
         topRightComponent={
-          <IconButton size={32} iconSize={15} onClick={resetFileName}>
+          <IconButton title="Bouwtekening sluiten" size={32} iconSize={15} onClick={resetFileName}>
             <Close />
           </IconButton>
         }
         bottomRightComponent={
           <div>
             <IconButton
+              title="Inzoomen"
               size={32}
               iconSize={12}
               onClick={zoomIn}
@@ -64,6 +63,7 @@ const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
               <Enlarge />
             </IconButton>
             <IconButton
+              title="Uitzoomen"
               size={32}
               iconSize={12}
               onClick={zoomOut}
