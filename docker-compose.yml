@@ -6,8 +6,6 @@ services:
         - BUILD_ENV=acc
       context: .
     ipc: host
-    # extra_hosts:
-    #   - "acc.api.data.amsterdam.nl:10.243.17.201"
 
   test-unit-integration:
     build:
@@ -21,18 +19,17 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./test/e2e/
-    # links:
-    #   - atlas:acc.data.amsterdam.nl
     links:
-      - atlas:atlas
+      - atlas:acc.data.amsterdam.nl
     environment:
       # Note that baseUrl must be formatted so
       # calls to API pass CORS check!
-      - CYPRESS_baseUrl=http://atlas:80
+      - CYPRESS_baseUrl=http://acc.data.amsterdam.nl
       - USERNAME_EMPLOYEE
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
       - PASSWORD_EMPLOYEE_PLUS
+      - NO_PROXY=elasticsearch,localhost,127.0.0.1,docker.data.amsterdam.nl,nexus.data.amsterdam.nl,repo.data.amsterdam.nl,admin.data.amsterdam.nl,acc.data.amsterdam.nl,atlas
     command: npm run test-e2e
 
   test-e2e-aria:
