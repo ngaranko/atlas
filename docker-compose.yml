@@ -20,16 +20,15 @@ services:
       dockerfile: Dockerfile
       context: ./test/e2e/
     links:
-      - atlas:acc.data.amsterdam.nl
+      - atlas:atlas
     environment:
       # Note that baseUrl must be formatted so
       # calls to API pass CORS check!
-      - CYPRESS_baseUrl=http://acc.data.amsterdam.nl
+      - CYPRESS_baseUrl=http://atlas
       - USERNAME_EMPLOYEE
       - USERNAME_EMPLOYEE_PLUS
       - PASSWORD_EMPLOYEE
       - PASSWORD_EMPLOYEE_PLUS
-      - NO_PROXY=elasticsearch,localhost,127.0.0.1,docker.data.amsterdam.nl,nexus.data.amsterdam.nl,repo.data.amsterdam.nl,admin.data.amsterdam.nl,acc.data.amsterdam.nl,atlas
     command: npm run test-e2e
 
   test-e2e-aria:
