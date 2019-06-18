@@ -66,6 +66,7 @@ $backdrop-color: rgba(0, 0, 0, .5);
   &--backdrop {
     &::before {
       opacity: 1;
+      pointer-events: all;
     }
   }
 }
@@ -81,9 +82,9 @@ $backdrop-color: rgba(0, 0, 0, .5);
 
 
 .c-dashboard__page {
-  position: relative;
-  min-height: 100%;
   background-color: $primary-light;
+  min-height: 100%;
+  position: relative;
 }
 
 .c-dashboard__page-inner {
