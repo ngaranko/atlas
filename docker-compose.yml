@@ -6,6 +6,8 @@ services:
         - BUILD_ENV=acc
       context: .
     ipc: host
+    extra_hosts:
+      - "acc.api.data.amsterdam.nl:10.243.17.201"
 
   test-unit-integration:
     build:
