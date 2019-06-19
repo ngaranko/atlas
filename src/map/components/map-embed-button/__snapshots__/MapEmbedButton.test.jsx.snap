@@ -4,7 +4,7 @@ exports[`MapEmbedButton should render the component 1`] = `
 <button
   className="c-embed-button qa-embed-button"
   onClick={[Function]}
-  title="Naar interactieve kaart (Amsterdam City Data)"
+  title="Naar interactieve kaart"
   type="button"
 >
   <span
@@ -13,7 +13,7 @@ exports[`MapEmbedButton should render the component 1`] = `
   <span
     className="c-embed-button__label"
   >
-    City Data
+    data.amsterdam.nl
   </span>
 </button>
 `;

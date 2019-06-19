@@ -70,6 +70,7 @@ class MapContainer extends React.Component {
         <div className={`c-map c-map--drawing-mode-${drawMode} qa-map-container`}>
           <LeafletContainer
             getLeafletInstance={this.setLeafletInstance}
+            showMapLink={showMapLink}
           />
           {
             this.state.leafletInstance && (
