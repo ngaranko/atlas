@@ -33,7 +33,7 @@ const HeaderMenu = ({
   ...props
 }) => (
   <Menu {...props}>
-    <SubMenu label="Onderdelen">
+    <SubMenu label="Categorieën">
       <MenuItem
         title="Kaart"
         icon={<ChevronRight />}
@@ -56,11 +56,11 @@ const HeaderMenu = ({
         Datasets
       </MenuItem>
       <MenuItem
-        title="Api's services"
+        title="Data services"
         icon={<ChevronRight />}
         {...getReduxLinkProps(toApisAction)}
       >
-        Api&apos;s services
+        Data services
       </MenuItem>
     </SubMenu>
     <SubMenu label="Over">

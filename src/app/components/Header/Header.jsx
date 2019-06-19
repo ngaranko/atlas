@@ -31,6 +31,11 @@ const style = css`
       display: none;
     }
   }
+  
+  ${styles.MenuBarStyle} li:last-child ${styles.MenuListWrapperStyle} {
+      right: -40px;
+      left: initial;
+  }
 `;
 
 const MenuMobile = (props) => <HeaderMenuContainer {...props} mobile align="right" />;

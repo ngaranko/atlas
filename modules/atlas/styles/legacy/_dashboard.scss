@@ -56,7 +56,7 @@ $backdrop-color: rgba(0, 0, 0, .5);
       top: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
     }
 
-    &:before {
+    &::before {
       @media (min-width: 1201px) {
         top: 158px;
       }
@@ -82,9 +82,9 @@ $backdrop-color: rgba(0, 0, 0, .5);
 
 
 .c-dashboard__page {
-  background-color: $primary-light;
-  min-height: 100%;
   position: relative;
+  min-height: 100%;
+  background-color: $primary-light;
 }
 
 .c-dashboard__page-inner {

@@ -89,7 +89,7 @@ class AutoSuggest extends React.Component {
   }
 
   onFormSubmit(event) {
-    const { onSubmit } = this.props;
+    const { onSubmit, query } = this.props;
 
     event.preventDefault();
     event.stopPropagation();
@@ -98,8 +98,10 @@ class AutoSuggest extends React.Component {
       showSuggestions: false,
       openSearchBarToggle: false
     }, () => {
-      this.resetActiveSuggestion();
-      onSubmit();
+      if (query) {
+        this.resetActiveSuggestion();
+        onSubmit();
+      }
     });
   }
 
