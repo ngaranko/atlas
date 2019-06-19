@@ -35,7 +35,7 @@ const mapStateToProps = (state) => ({
   embedMode: isEmbedded(state),
   printOrEmbedMode: isPrintOrEmbedMode(state),
   previewDataAvailable: previewDataAvailableSelector(state),
-  isMapLinkVisible: isMapLinkVisible(state)
+  showMapLink: isMapLinkVisible(state)
 });
 
 class MapContainer extends React.Component {
@@ -61,7 +61,7 @@ class MapContainer extends React.Component {
       drawMode,
       showPreviewPanel,
       previewDataAvailable,
-      isMapLinkVisible
+      showMapLink
     } = this.props;
     return (
       <div className="qa-map">
@@ -90,7 +90,7 @@ class MapContainer extends React.Component {
             {(!printOrEmbedMode && isFullscreen) && <ContextMenu isMapPanelVisible />}
           </div>
           {
-            embedMode && isMapLinkVisible ? (
+            embedMode && showMapLink ? (
               <MapEmbedButton />
             ) : ''
           }
@@ -108,7 +108,7 @@ MapContainer.defaultProps = {
   toggleFullscreen: null,
   isFullscreen: true,
   printOrEmbedMode: false,
-  isMapLinkVisible: true
+  showMapLink: true
 };
 
 MapContainer.propTypes = {
@@ -119,7 +119,7 @@ MapContainer.propTypes = {
   printOrEmbedMode: PropTypes.bool,
   showPreviewPanel: PropTypes.bool,
   previewDataAvailable: PropTypes.bool.isRequired,
-  isMapLinkVisible: PropTypes.bool
+  showMapLink: PropTypes.bool
 };
 
 export default connect(mapStateToProps)(MapContainer);
