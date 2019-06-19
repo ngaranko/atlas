@@ -121,7 +121,7 @@ const ConstructionFiles = ({ fileName, user, endpoint }) => {
         <div className="c-ds-table__body">
           <div className="c-ds-table__row">
             <div className="c-ds-table__cell">
-              <div className="qa-table-value">Volledige titel</div>
+              <div className="qa-table-value">Titel</div>
             </div>
             <div className="c-ds-table__cell">
               <div className="qa-table-value">{title}</div>
