@@ -1,8 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { GridContainer, GridItem, Icon, Typography } from '@datapunt/asc-ui';
-import { ReactComponent as Enlarge } from '@datapunt/asc-assets/lib/Icons/Enlarge.svg';
-import { ReactComponent as Minimise } from '@datapunt/asc-assets/lib/Icons/Minimise.svg';
+import { Minimise, Enlarge } from '@datapunt/asc-assets';
 import Thumbnail from '../Thumbnail/Thumbnail';
 import './Gallery.scss';
 import getReduxLinkProps from '../../utils/getReduxLinkProps';
