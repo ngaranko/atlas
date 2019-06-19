@@ -71,7 +71,7 @@ Object {
   },
   "bestand": Object {
     "routes": Object {
-      "atlasRouter/BOUWDOSSIER": Object {
+      "atlasRouter/CONSTRUCTION_FILE": Object {
         "addHistory": true,
         "decode": [Function],
         "defaultValue": "",

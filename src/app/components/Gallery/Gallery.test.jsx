@@ -2,6 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Gallery from './Gallery';
 
+jest.mock('../../utils/getReduxLinkProps');
+
 describe('Gallery', () => {
   let component;
 
@@ -14,6 +16,7 @@ describe('Gallery', () => {
   beforeEach(() => {
     component = shallow(
       <Gallery
+        id="foo1234"
         allThumbnails={fullArrayOfThumbnails}
         onClick={jest.fn}
         title="Title!"
