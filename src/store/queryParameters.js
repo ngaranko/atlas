@@ -183,7 +183,7 @@ export default paramsRegistry
     }, false);
   })
   .addParameter(PARAMETERS.FILE, (routes) => {
-    routes.add(routing.bouwdossier.type, FILES, 'fileName', {
+    routes.add(routing.constructionFile.type, FILES, 'fileName', {
       defaultValue: filesInitialState.fileName,
       selector: getFileName
     }, true);

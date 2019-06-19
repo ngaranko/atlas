@@ -5,9 +5,11 @@ import { ReactComponent as Enlarge } from '@datapunt/asc-assets/lib/Icons/Enlarg
 import { ReactComponent as Minimise } from '@datapunt/asc-assets/lib/Icons/Minimise.svg';
 import Thumbnail from '../Thumbnail/Thumbnail';
 import './Gallery.scss';
+import getReduxLinkProps from '../../utils/getReduxLinkProps';
+import { toConstructionFileViewer } from '../../../store/redux-first-router/actions';
 
 // Todo: replace the "encodeURIComponent(file.match(/SU(.*)/g)" when files are on the proper server
-const Gallery = ({ title, allThumbnails, onClick, maxLength }) => {
+const Gallery = ({ title, allThumbnails, id, maxLength }) => {
   const lessThumbnails = allThumbnails.slice(0, maxLength);
   const [thumbnails, setThumbnails] = React.useState(lessThumbnails);
 
@@ -51,12 +53,8 @@ const Gallery = ({ title, allThumbnails, onClick, maxLength }) => {
                     <div className="c-gallery__square">
                       <a
                         title=""
-                        href={`/data/stadsarchief/bouwdossier/14872?bestand=${encodeURIComponent(file.match(/SU(.*)/g))}`}
+                        {...getReduxLinkProps(toConstructionFileViewer(id, encodeURIComponent(file.match(/SU(.*)/g))))}
                         className="c-gallery__thumbnail"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          onClick(encodeURIComponent(file.match(/SU(.*)/g)));
-                        }}
                       >
                         <Thumbnail
                           src={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${encodeURIComponent(file.match(/SU(.*)/g))}/square/500,500/0/default.jpg`}
@@ -99,7 +97,7 @@ Gallery.defaultProps = {
 Gallery.propTypes = {
   title: PropTypes.string.isRequired,
   allThumbnails: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onClick: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
   maxLength: PropTypes.number
 };
 
