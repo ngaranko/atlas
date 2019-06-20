@@ -52,26 +52,27 @@ return glob(SCRIPTS_FOLDER + '/**/*', {
   })
 })
 .then(() => {
-  console.log('\n-----------------------------\n')
+  console.log('\n-----------------------------')
   console.log(`Cypress end to end tests summary:`)
   summary.forEach((item) => {
-    console.log(`${item.name}\n
-  - Total Suites: ${item.totalSuites}\n
-  - Total Tests: ${item.totalTests}\n
-  - Total Failed: ${item.totalFailed}\n
-  - Total Passed: ${item.totalPassed}\n
-  - Total Pending: ${item.totalPending}\n
-  - Total Screenshots: ${item.totalScreenshots}\n
-  - Total Duration: ${item.totalDuration/1000} seconds\n
+    console.log(`\n${item.name}
+  - Total Suites: ${item.totalSuites}
+  - Total Tests: ${item.totalTests}
+  - Total Failed: ${item.totalFailed}
+  - Total Passed: ${item.totalPassed}
+  - Total Pending: ${item.totalPending}
+  - Total Skipped: ${item.totalSkipped}
+  - Total Duration: ${item.totalDuration/1000} seconds
   `)
   })
-  console.log('\n-----------------------------\n')
+  console.log('\n-----------------------------')
 
   const duration = new Date() - started
 
   console.log('\n--All Done--\n')
   console.log('Total duration:', duration) // format this however you like
-  console.log('Exiting with final code:', numFailed)
+  console.log('Exiting with final code (=total tests failed):', numFailed)
+  console.log('\n-----------------------------\n')
 
   process.exit(numFailed)
 })
