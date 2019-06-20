@@ -130,7 +130,8 @@ class LeafletContainer extends React.Component {
       marker,
       zoom,
       brkMarkers,
-      isLoading
+      isLoading,
+      showMapLink
     } = this.props;
 
     const showMarker = markers.length > 0;
@@ -151,7 +152,8 @@ class LeafletContainer extends React.Component {
           scaleControlOptions,
           zoomControlOptions,
           zoom,
-          isLoading
+          isLoading,
+          showMapLink
         }}
         markers={(showMarker) ? markers : []}
         onClick={this.handleClick}
@@ -174,7 +176,8 @@ LeafletContainer.defaultProps = {
   rdGeoJsons: [],
   layers: [],
   markers: [],
-  marker: null
+  marker: null,
+  showMapLink: true
 };
 
 LeafletContainer.propTypes = {
@@ -200,6 +203,7 @@ LeafletContainer.propTypes = {
   })),
   zoom: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  showMapLink: PropTypes.bool.isRequired,
   onUpdateClick: PropTypes.func.isRequired,
   onUpdatePan: PropTypes.func.isRequired,
   onUpdateZoom: PropTypes.func.isRequired,
