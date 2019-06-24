@@ -20,6 +20,7 @@ export const TOGGLE_MAP_EMBED = 'TOGGLE_MAP_EMBED';
 export const DEFAULT_LAT = 52.3731081;
 export const DEFAULT_LNG = 4.8932945;
 export const PANORAMA = 'pano';
+export const MARKER_ICON = 'default';
 
 export const initialState = {
   viewCenter: [DEFAULT_LAT, DEFAULT_LNG],
@@ -32,5 +33,6 @@ export const initialState = {
   shapeDistanceTxt: '',
   shapeAreaTxt: '',
   mapPanelActive: false,
-  marker: null
+  marker: null,
+  markerIcon: MARKER_ICON
 };
