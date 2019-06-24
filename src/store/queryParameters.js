@@ -41,6 +41,7 @@ import {
   isEmbedded,
   isEmbedPreview,
   isPrintMode,
+  isMapLinkVisible,
   UI
 } from '../shared/ducks/ui/ui';
 import {
@@ -298,5 +299,13 @@ export default paramsRegistry
         selector: getMarkerLocation
       },
       false
+    );
+  })
+  .addParameter(PARAMETERS.MAP_LINK, (routes) => {
+    routes.add(routesWithMapActive, UI, 'isMapLinkVisible', {
+      defaultValue: UIInitialState.isMapLinkVisible,
+      selector: isMapLinkVisible
+    },
+    true
     );
   });
