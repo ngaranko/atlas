@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, MenuItem, SubMenu } from '@datapunt/asc-ui';
+import { MenuInline, MenuToggle, MenuFlyOut, MenuItem } from '@datapunt/asc-ui';
 import { ReactComponent as ChevronRight } from '@datapunt/asc-assets/lib/Icons/ChevronRight.svg';
 import PropTypes from 'prop-types';
 import {
@@ -25,90 +25,86 @@ const toAvailabilityAction = toAvailabilityPage();
 const toMaintentanceAction = toMaintentancePage();
 const toHelpAction = toHelpPage();
 
+const components = {
+  default: MenuInline,
+  mobile: MenuToggle
+};
+
 const HeaderMenu = ({
+  type,
   login,
   logout,
   user,
   showFeedbackForm,
   ...props
-}) => (
-  <Menu {...props}>
-    <SubMenu label="Categorieën">
-      <MenuItem
-        title="Kaart"
-        icon={<ChevronRight />}
-        {...getReduxLinkProps(toMapAction)}
-      >
-        Kaart
-      </MenuItem>
-      <MenuItem
-        title="Panoramabeelden"
-        icon={<ChevronRight />}
-        {...getReduxLinkProps(toPanoramaAction)}
-      >
-        Panoramabeelden
-      </MenuItem>
-      <MenuItem
-        title="Datasets"
-        icon={<ChevronRight />}
-        {...getReduxLinkProps(toDatasetsAction)}
-      >
-        Datasets
-      </MenuItem>
-      <MenuItem
-        title="Data services"
-        icon={<ChevronRight />}
-        {...getReduxLinkProps(toApisAction)}
-      >
-        Data services
-      </MenuItem>
-    </SubMenu>
-    <SubMenu label="Over">
-      <MenuItem
-        title="Privacy en informatiebeveiliging"
-        icon={<ChevronRight />}
-        {...getReduxLinkProps(toPrivacyAction)}
-      >
-        Privacy en informatiebeveiliging
-      </MenuItem>
-      <MenuItem
-        title="Beschikbaarheid en kwaliteit data"
-        icon={<ChevronRight />}
-        {...getReduxLinkProps(toAvailabilityAction)}
-      >
-        Beschikbaarheid en kwaliteit data
-      </MenuItem>
-      <MenuItem
-        title="Technisch beheer en werkwijze"
-        icon={<ChevronRight />}
-        {...getReduxLinkProps(toMaintentanceAction)}
-      >
-        Technisch beheer en werkwijze
-      </MenuItem>
-      <MenuItem
-        title="Contact"
-        icon={<ChevronRight />}
-        href="mailto:datapunt@amsterdam.nl"
-      >
-        Contact
-      </MenuItem>
-    </SubMenu>
-    <MenuItem onClick={showFeedbackForm}>Feedback</MenuItem>
-    <MenuItem {...getReduxLinkProps(toHelpAction)}>Help</MenuItem>
+}) => {
+  const Menu = components[type];
 
-    {!user.authenticated ?
-      <MenuItem onClick={login}>Inloggen</MenuItem> :
-      <SubMenu label={user.name}>
-        <MenuItem icon={<ChevronRight />} onClick={logout}>Uitloggen</MenuItem>
-      </SubMenu>
-    }
-  </Menu>
-);
+  return (
+    <Menu {...props}>
+      <MenuFlyOut label="Categorieën">
+        <MenuItem
+          {...getReduxLinkProps(toMapAction)}
+        >
+          Kaart
+      </MenuItem>
+        <MenuItem
+          {...getReduxLinkProps(toPanoramaAction)}
+        >
+          Panoramabeelden
+      </MenuItem>
+        <MenuItem
+          {...getReduxLinkProps(toDatasetsAction)}
+        >
+          Datasets
+      </MenuItem>
+        <MenuItem
+          {...getReduxLinkProps(toApisAction)}
+        >
+          Data services
+      </MenuItem>
+      </MenuFlyOut>
+      <MenuFlyOut label="Over">
+        <MenuItem
+          {...getReduxLinkProps(toPrivacyAction)}
+        >
+          Privacy en informatiebeveiliging
+      </MenuItem>
+        <MenuItem
+          {...getReduxLinkProps(toAvailabilityAction)}
+        >
+          Beschikbaarheid en kwaliteit data
+      </MenuItem>
+        <MenuItem
+          {...getReduxLinkProps(toMaintentanceAction)}
+        >
+          Technisch beheer en werkwijze
+      </MenuItem>
+        <MenuItem
+          href="mailto:datapunt@amsterdam.nl"
+        >
+          Contact
+      </MenuItem>
+      </MenuFlyOut>
+      <MenuItem onClick={showFeedbackForm}>Feedback</MenuItem>
+      <MenuItem {...getReduxLinkProps(toHelpAction)}>Help</MenuItem>
+
+      {!user.authenticated ?
+        <MenuItem onClick={login}>Inloggen</MenuItem> :
+        <MenuFlyOut label={user.name}>
+          <MenuItem icon={<ChevronRight />} onClick={logout}>Uitloggen</MenuItem>
+        </MenuFlyOut>
+      }
+    </Menu>
+  )
+    ;
+};
 
 HeaderMenu.propTypes = {
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   showFeedbackForm: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
   user: PropTypes.shape({}).isRequired
 };
 

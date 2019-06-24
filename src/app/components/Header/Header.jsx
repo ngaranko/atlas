@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
 import classNames from 'classnames';
 import { css } from '@datapunt/asc-core';
-import { breakpoint, Header as HeaderComponent, styles } from '@datapunt/asc-ui';
+import { Header as HeaderComponent, styles } from '@datapunt/asc-ui';
 import { hideEmbedMode, hidePrintMode } from '../../../shared/ducks/ui/ui';
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer';
 import { useAppReducer } from '../../utils/useAppReducer';
@@ -19,26 +19,15 @@ const style = css`
       max-width: 80%;
     }
   }
-
-  ${styles.MenuBarStyle} {
-    @media screen and ${breakpoint('max-width', 'laptopM')} {
-      display: none;
-    }
-  }
-
-  ${styles.MenuDropDownStyle} {
-    @media screen and ${breakpoint('min-width', 'laptopM')} {
-      display: none;
-    }
-  }
   
-  ${styles.MenuBarStyle} li:last-child ${styles.MenuListWrapperStyle} {
+  ${styles.MenuBarStyle} li:last-child ${styles.MenuListStyle} {
       right: -40px;
       left: initial;
   }
 `;
 
-const MenuMobile = (props) => <HeaderMenuContainer {...props} mobile align="right" />;
+const MenuDefault = (props) => <HeaderMenuContainer {...props} type="default" />;
+const MenuMobile = (props) => <HeaderMenuContainer {...props} type="mobile" align="right" />;
 
 const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMaxWidth }) => {
   const [, actions] = useAppReducer('ui');
@@ -47,7 +36,6 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
       payload
     });
   };
-
 
   if (!printOrEmbedMode) {
     return (
@@ -61,11 +49,11 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
           navigation={
             <React.Fragment>
               <HeaderSearchContainer />
-              <HeaderMenuContainer
+              <MenuDefault
                 showAt="tabletM"
                 onExpand={setBackDrop}
               />
-              <MenuMobile hideAt="tabletM" onExpand={setBackDrop} />
+              <MenuMobile hideAt="tabletM" />
             </React.Fragment>
           }
         />
