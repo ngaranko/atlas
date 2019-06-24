@@ -58,9 +58,16 @@ const ICON_CONFIG = {
     iconAnchor: [9, 22]
   },
   LOCATION_MARKER: {
-    iconUrl: '/assets/images/map/locatie.svg',
-    iconSize: [28, 28],
-    iconAnchor: [10, 10]
+    default: {
+      iconUrl: '/assets/images/map/location.svg',
+      iconSize: [30, 30],
+      iconAnchor: [10, 10]
+    },
+    home: {
+      iconUrl: '/assets/images/map/home.svg',
+      iconSize: [30, 30],
+      iconAnchor: [10, 10]
+    }
   }
 };
 
