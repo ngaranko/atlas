@@ -220,6 +220,7 @@ exports[`LeafletContainer LeafletContainer snapshot should render correct 1`] = 
       "position": "bottomright",
     }
   }
+  showMapLink={true}
   zoom={8}
   zoomControlOptions={
     Object {
@@ -564,6 +565,7 @@ exports[`LeafletContainer LeafletContainer snapshot should render different base
       "position": "bottomright",
     }
   }
+  showMapLink={true}
   zoom={10}
   zoomControlOptions={
     Object {

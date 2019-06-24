@@ -271,6 +271,7 @@ exports[`MapLeaflet component should render brkMarkers 1`] = `
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -578,6 +579,7 @@ exports[`MapLeaflet component should render clusters 1`] = `
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -885,6 +887,7 @@ exports[`MapLeaflet component should render clusters 2`] = `
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -1153,6 +1156,7 @@ exports[`MapLeaflet component should render map with base layer and update base 
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -1421,6 +1425,7 @@ exports[`MapLeaflet component should render map with base layer and update base 
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -1659,6 +1664,7 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 1`] 
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -2040,6 +2046,7 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 2`] 
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -2386,6 +2393,7 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 3`] 
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -2624,6 +2632,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -2890,6 +2899,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -3157,6 +3167,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -3499,6 +3510,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -3737,6 +3749,7 @@ exports[`MapLeaflet component should render map with without layers and add/remo
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -3989,6 +4002,7 @@ exports[`MapLeaflet component should render map with without layers and add/remo
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -4227,6 +4241,7 @@ exports[`MapLeaflet component should render map with without layers and add/remo
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -4897,6 +4912,7 @@ exports[`MapLeaflet component should render markers 1`] = `
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>
@@ -5567,6 +5583,7 @@ exports[`MapLeaflet component should render markers 2`] = `
     />
     <LoadingIndicator
       loading={false}
+      showMapLink={true}
     />
   </Map>
 </ResizeAware>

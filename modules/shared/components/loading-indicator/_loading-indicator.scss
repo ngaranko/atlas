@@ -1,8 +1,5 @@
-.c-loading-indicator {
+.c-loading-indicator__box {
   display: flex;
-}
-
-.c-loading-indicator--box {
   position: absolute;
   top: $base-whitespace;
   left: $base-whitespace;

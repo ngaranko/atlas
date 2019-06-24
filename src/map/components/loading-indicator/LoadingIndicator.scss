@@ -1,12 +1,12 @@
 @import "../../../shared/styles/config";
 
 .c-dashboard--page-type-data {
-  .qa-loading-indicator {
+  .c-loading-indicator__container {
     right: $base-whitespace - 2;
   }
 }
 
-.qa-loading-indicator { // sass-lint:disable-line force-element-nesting
+.c-loading-indicator__container { // sass-lint:disable-line force-element-nesting
   border: none;
   display: none;
   position: absolute;
@@ -17,7 +17,7 @@
     display: block;
   }
 
-  .c-loading-indicator {
+  .c-loading-indicator__box {
     font-family: $base-font-family;
     font-size: $s-font-size;
     height: $base-whitespace * 3.5;

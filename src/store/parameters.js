@@ -19,5 +19,6 @@ export default {
   PRINT: 'print',
   LAYERS: 'lagen',
   LOCATION: 'locatie',
-  MARKER: 'marker'
+  MARKER: 'marker',
+  MAP_LINK: 'map-link'
 };

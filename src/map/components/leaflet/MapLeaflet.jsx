@@ -180,7 +180,8 @@ class MapLeaflet extends React.Component {
       zoomControlOptions,
       zoom,
       brkMarkers,
-      isLoading
+      isLoading,
+      showMapLink
     } = this.props;
 
     const tmsLayers = layers.filter((layer) => (layer.type === mapLayerTypes.TMS));
@@ -325,7 +326,10 @@ class MapLeaflet extends React.Component {
               <ZoomControl {...zoomControlOptions} />
             )
           }
-          <LoadingIndicator loading={isLoading || this.state.pendingLayers.length > 0} />
+          <LoadingIndicator
+            loading={isLoading || this.state.pendingLayers.length > 0}
+            showMapLink={showMapLink}
+          />
 
         </Map>
       </ResizeAware>
@@ -351,6 +355,7 @@ MapLeaflet.defaultProps = {
   zoomControlOptions: {},
   zoom: 11,
   isLoading: false,
+  showMapLink: true,
   isZoomControlVisible: true,
   onClick: () => 'click',  //
   onDragEnd: () => 'dragend',
@@ -387,7 +392,8 @@ MapLeaflet.propTypes = {
   scaleControlOptions: PropTypes.shape({}),
   zoomControlOptions: PropTypes.shape({}),
   zoom: PropTypes.number,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  showMapLink: PropTypes.bool.isRequired
 };
 
 export default MapLeaflet;
