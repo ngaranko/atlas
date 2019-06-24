@@ -2,8 +2,8 @@ import { Icon } from 'leaflet';
 
 import ICON_CONFIG from './icon-config.constant';
 
-const locationIcon = () => new Icon({
-  ...ICON_CONFIG.LOCATION_MARKER,
+const locationIcon = (icon = 'default') => new Icon({
+  ...ICON_CONFIG.LOCATION_MARKER[icon],
   popupAnchor: null,
   shadowUrl: null,
   shadowSize: null,
