@@ -40,7 +40,7 @@ const App = ({
   hasEmbedButton
 }) => {
   const isCmsPage = pageIsCmsPage(currentPage);
-  const hasMaxWidth = homePage || isCmsPage;
+  const hasMaxWidth = !homePage && !isCmsPage;
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
