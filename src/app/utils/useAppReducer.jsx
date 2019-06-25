@@ -9,10 +9,10 @@ export const AppStateProvider = ({ reducer, initialState, children }) => {
   const memoValue = useMemo(() => value, [value]);
   return (
     <AppStateContext.Provider value={memoValue}>
-    {children}
-  </AppStateContext.Provider>
-  ) 
-;};
+      {children}
+    </AppStateContext.Provider>
+  );
+};
 
 AppStateProvider.propTypes = {
   reducer: PropTypes.func.isRequired,

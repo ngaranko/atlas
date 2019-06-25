@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { AngularWrapper } from 'react-angular';
 import classNames from 'classnames';
 import { css } from '@datapunt/asc-core';
-import { Header as HeaderComponent, styles, breakpoint } from '@datapunt/asc-ui';
+import { Header as HeaderComponent, styles } from '@datapunt/asc-ui';
 import { hideEmbedMode, hidePrintMode } from '../../../shared/ducks/ui/ui';
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer';
 import { useAppReducer } from '../../utils/useAppReducer';
