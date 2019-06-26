@@ -12,7 +12,8 @@ import {
   getMapOverlays,
   getMapZoom,
   isMapPanelActive,
-  getMarkerLocation
+  getMarkerLocation,
+  getMarkerIcon
 } from '../map/ducks/map/selectors';
 import { initialState as panoramaInitialState } from '../panorama/ducks/constants';
 import { PANORAMA } from '../panorama/ducks/reducer';
@@ -41,6 +42,7 @@ import {
   isEmbedded,
   isEmbedPreview,
   isPrintMode,
+  isMapLinkVisible,
   UI
 } from '../shared/ducks/ui/ui';
 import {
@@ -298,5 +300,19 @@ export default paramsRegistry
         selector: getMarkerLocation
       },
       false
+    );
+  })
+  .addParameter(PARAMETERS.MARKER_ICON, (routes) => {
+    routes.add(routesWithMapActive, MAP, 'markerIcon', {
+      defaultValue: mapInitialState.markerIcon,
+      selector: getMarkerIcon
+    }, false);
+  })
+  .addParameter(PARAMETERS.MAP_LINK, (routes) => {
+    routes.add(routesWithMapActive, UI, 'isMapLinkVisible', {
+      defaultValue: UIInitialState.isMapLinkVisible,
+      selector: isMapLinkVisible
+    },
+    true
     );
   });

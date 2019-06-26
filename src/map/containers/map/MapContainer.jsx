@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { LatLngBounds } from 'leaflet';
 
-import { isEmbedded, isPrintOrEmbedMode } from '../../../shared/ducks/ui/ui';
+import { isEmbedded, isPrintOrEmbedMode, isMapLinkVisible } from '../../../shared/ducks/ui/ui';
 
 import DrawTool from '../../containers/draw-tool/DrawToolContainer';
 import ToggleFullscreen from '../../../app/components/ToggleFullscreen/ToggleFullscreen';
@@ -34,7 +34,8 @@ const mapStateToProps = (state) => ({
   drawMode: getDrawingMode(state),
   embedMode: isEmbedded(state),
   printOrEmbedMode: isPrintOrEmbedMode(state),
-  previewDataAvailable: previewDataAvailableSelector(state)
+  previewDataAvailable: previewDataAvailableSelector(state),
+  showMapLink: isMapLinkVisible(state)
 });
 
 class MapContainer extends React.Component {
@@ -59,7 +60,8 @@ class MapContainer extends React.Component {
       toggleFullscreen,
       drawMode,
       showPreviewPanel,
-      previewDataAvailable
+      previewDataAvailable,
+      showMapLink
     } = this.props;
     return (
       <div className="qa-map">
@@ -68,6 +70,7 @@ class MapContainer extends React.Component {
         <div className={`c-map c-map--drawing-mode-${drawMode} qa-map-container`}>
           <LeafletContainer
             getLeafletInstance={this.setLeafletInstance}
+            showMapLink={showMapLink}
           />
           {
             this.state.leafletInstance && (
@@ -88,7 +91,7 @@ class MapContainer extends React.Component {
             {(!printOrEmbedMode && isFullscreen) && <ContextMenu isMapPanelVisible />}
           </div>
           {
-            embedMode ? (
+            embedMode && showMapLink ? (
               <MapEmbedButton />
             ) : ''
           }
@@ -105,7 +108,8 @@ MapContainer.defaultProps = {
   drawMode: 'none',
   toggleFullscreen: null,
   isFullscreen: true,
-  printOrEmbedMode: false
+  printOrEmbedMode: false,
+  showMapLink: true
 };
 
 MapContainer.propTypes = {
@@ -115,7 +119,8 @@ MapContainer.propTypes = {
   embedMode: PropTypes.bool.isRequired,
   printOrEmbedMode: PropTypes.bool,
   showPreviewPanel: PropTypes.bool,
-  previewDataAvailable: PropTypes.bool.isRequired
+  previewDataAvailable: PropTypes.bool.isRequired,
+  showMapLink: PropTypes.bool
 };
 
 export default connect(mapStateToProps)(MapContainer);
