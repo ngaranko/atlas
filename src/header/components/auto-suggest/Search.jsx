@@ -8,7 +8,8 @@ const Search = ({
   suggestions,
   searchBarProps,
   openSearchBarToggle,
-  onOpenSearchBarToggle
+  onOpenSearchBarToggle,
+  inputProps
 }) => {
   const [, actions] = useAppReducer('ui');
 
@@ -31,13 +32,15 @@ const Search = ({
     <React.Fragment>
       <SearchBar
         showAt="laptopM"
+        inputProps={inputProps}
         {...searchBarProps}
       />
       <SearchBarToggle
         hideAt="laptopM"
         onOpen={onOpenSearchToggle}
         open={openSearchBarToggle}
-        {...searchBarProps}
+        inputProps={inputProps}
+        searchBarProps={searchBarProps}
       />
     </React.Fragment>
   );
@@ -49,6 +52,7 @@ Search.propTypes = {
   legendTitle: PropTypes.string.isRequired,
   searchBarProps: PropTypes.shape({}).isRequired,
   activeSuggestion: PropTypes.shape({}).isRequired,
+  inputProps: PropTypes.shape({}).isRequired,
   highlightQuery: PropTypes.string.isRequired,
   onSuggestionSelection: PropTypes.func.isRequired,
   onOpenSearchBarToggle: PropTypes.func.isRequired,
