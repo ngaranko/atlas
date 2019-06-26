@@ -11,7 +11,7 @@ import HeaderMenuContainer from './HeaderMenuContainer';
 
 const style = css`
   ${styles.HeaderNavigationStyle} {
-    @media (min-width: 1200px) {
+    @media (min-width: 1200px) { // TODO: Replace with breakpoint function from asc-ui
       justify-content: space-between
     }
 
@@ -51,11 +51,11 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
             <React.Fragment>
               <HeaderSearchContainer />
               <MenuDefault
-                showAt="tabletM"
+                showAt="laptopM"
                 onExpand={setBackDrop}
               />
               <MenuMobile
-                hideAt="tabletM"
+                hideAt="laptopM"
                 onExpand={setBackDrop}
               />
             </React.Fragment>

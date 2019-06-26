@@ -30,11 +30,11 @@ const Search = ({
   return (
     <React.Fragment>
       <SearchBar
-        showAt="tabletM"
+        showAt="laptopM"
         {...searchBarProps}
       />
       <SearchBarToggle
-        hideAt="tabletM"
+        hideAt="laptopM"
         onOpen={onOpenSearchToggle}
         open={openSearchBarToggle}
         {...searchBarProps}
