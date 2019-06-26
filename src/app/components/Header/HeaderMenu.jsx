@@ -13,6 +13,7 @@ import {
   toPrivacyPage
 } from '../../../store/redux-first-router/actions';
 import getReduxLinkProps from '../../utils/getReduxLinkProps';
+import truncateString from '../../utils/truncateString';
 
 const toPanoramaAction = toPanoramaAndPreserveQuery(
   undefined, undefined, undefined, 'home'
@@ -91,7 +92,7 @@ const HeaderMenu = ({
 
       {!user.authenticated ?
         <MenuItem onClick={login}>Inloggen</MenuItem> :
-        <MenuFlyOut label={user.name}>
+        <MenuFlyOut label={truncateString(user.name, 9)}>
           <MenuItem icon={<ChevronRight />} onClick={logout}>Uitloggen</MenuItem>
         </MenuFlyOut>
       }
