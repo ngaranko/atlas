@@ -156,7 +156,10 @@ $backdrop-color: rgba(0, 0, 0, .5);
   }
 
   .c-dashboard__error {
-    top: $dashboard-heading-height-homepage + $dashboard-toolbar-height + $dashboard-heading-shadow-height;
+    top: 55px;
+    @media (min-width: 1200px) {
+      top: $dashboard-heading-height-homepage + $dashboard-toolbar-height + $dashboard-heading-shadow-height;
+    }
   }
 
   .c-dashboard__page-inner {
