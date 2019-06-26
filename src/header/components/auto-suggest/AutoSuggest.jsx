@@ -39,17 +39,16 @@ class AutoSuggest extends React.Component {
     }, 200);
   }
 
-  onInput(event) {
+  onInput(value) {
     const {
       onTextInput,
       activeSuggestion
     } = this.props;
 
-    event.persist();
     if (activeSuggestion.index > -1) {
       this.resetActiveSuggestion();
     }
-    onTextInput(event.target.value);
+    onTextInput(value);
 
     this.setState({
       showSuggestions: true
@@ -202,17 +201,20 @@ class AutoSuggest extends React.Component {
     } = this.state;
 
     const searchBarProps = {
-      autoCapitalize: 'off',
-      autoComplete: 'off',
-      autoCorrect: 'off',
-      id: 'auto-suggest__input',
-      placeholder: placeHolder,
-      label: placeHolder,
       onBlur: this.onBlur,
       onFocus: this.onFocus,
       onChange: this.onInput,
       onKeyDown: this.navigateSuggestions,
       value: query || ''
+    };
+
+    const inputProps = {
+      autoCapitalize: 'off',
+      autoComplete: 'off',
+      autoCorrect: 'off',
+      id: 'auto-suggest__input',
+      placeholder: placeHolder,
+      label: placeHolder
     };
 
     return (
@@ -230,7 +232,8 @@ class AutoSuggest extends React.Component {
               searchBarProps,
               activeSuggestion,
               highlightQuery,
-              openSearchBarToggle
+              openSearchBarToggle,
+              inputProps
             }}
             onOpenSearchBarToggle={this.onOpenSearchBarToggle}
             onSuggestionSelection={this.onSuggestionSelection}

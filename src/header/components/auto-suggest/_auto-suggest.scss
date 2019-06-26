@@ -123,7 +123,7 @@ $clear-button-margin: 3px;
     }
 
     @media (min-width: 769px) {
-      max-width: 80%;
+      max-width: calc(80% - 45px);
     }
 
     &-category {
