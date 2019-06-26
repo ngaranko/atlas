@@ -48,54 +48,40 @@ exports[`Header should render the main header 1`] = `
       Array [
         "
   ",
-        ".sc-gipzik",
-        " fieldset > ",
-        ".sc-jhAzac",
+        ".sc-kkGfuU",
         " {
-    flex-grow: 1;
-
-    ",
-        ".sc-hzDkRC",
-        " {
-      flex-grow: 0;
-      width: 100%;
-      max-width: 80%;
+    @media (min-width: 1200px) { // TODO: Replace with breakpoint function from asc-ui
+      justify-content: space-between
     }
-  }
 
-  ",
-        ".sc-cMljjf",
-        " {
-    @media screen and ",
-        [Function],
-        " {
-      display: none;
-    }
-  }
-
-  ",
+    fieldset > ",
         ".sc-jWBwVP",
         " {
-    @media screen and ",
-        [Function],
+      flex-grow: 1;
+      max-width: 80%;
+
+      ",
+        ".sc-cvbbAY",
         " {
-      display: none;
+        flex-grow: 0;
+        width: 100%;
+      }
     }
   }
 ",
       ]
     }
-    fullWidth={true}
+    fullWidth={false}
     homeLink="/"
     navigation={
       <React.Fragment>
         <Connect(HeaderSearch) />
-        <Connect(HeaderMenu)
+        <MenuDefault
           onExpand={[Function]}
-          showAt="tabletM"
+          showAt="laptopM"
         />
         <MenuMobile
-          hideAt="tabletM"
+          hideAt="laptopM"
           onExpand={[Function]}
         />
       </React.Fragment>
