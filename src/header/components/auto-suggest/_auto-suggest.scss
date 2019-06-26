@@ -5,6 +5,13 @@ $clear-button-margin: 3px;
 
 // the input field
 .auto-suggest {
+  // TODO: Move styling to styled component and use breakpoints form asc-ui
+  @media (min-width: 768px) {
+    position: relative;
+    width: 80%;
+  }
+
+  // TODO: Move styling to styled component and use breakpoints form asc-ui
   @media (min-width: 1200px) {
     position: relative;
     width: 60%;
