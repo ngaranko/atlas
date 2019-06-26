@@ -46,7 +46,7 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
           title="City Data"
           homeLink="/"
           css={style}
-          fullWidth={hasMaxWidth}
+          fullWidth={!hasMaxWidth}
           navigation={
             <React.Fragment>
               <HeaderSearchContainer />
