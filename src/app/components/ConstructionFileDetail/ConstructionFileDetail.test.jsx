@@ -11,6 +11,7 @@ describe('ConstructionFileDetail', () => {
     datering: 'date',
     dossier_type: 'fileType',
     dossiernr: 'fileNumber',
+    stadsdeel: 'district',
     adressen: []
   };
   let component = shallow(<ConstructionFileDetail results={mockResults} />);

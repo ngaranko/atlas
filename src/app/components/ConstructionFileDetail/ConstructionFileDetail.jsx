@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Typography } from '@datapunt/asc-ui';
 import Gallery from '../Gallery/Gallery';
 import getAddresses from '../../../normalizations/construction-files/getAddresses';
@@ -14,7 +15,7 @@ const ConstructionFileDetail = ({ results }) => {
     dossier_type: fileType,
     dossiernr: fileNumber,
     stadsdeel: district
-} = results;
+  } = results;
 
   return (
     <div className="c-construction-files">
@@ -24,7 +25,7 @@ const ConstructionFileDetail = ({ results }) => {
             className="c-construction-files__subtitle"
             element="h3"
           >
-                    Bouwdossier
+            Bouwdossier
           </Typography>
           <Typography
             className="c-construction-files__title"
@@ -33,7 +34,7 @@ const ConstructionFileDetail = ({ results }) => {
             {title}
           </Typography>
         </React.Fragment>
-        )}
+      )}
 
       <div className="c-ds-table">
         <div className="c-ds-table__body">
@@ -73,41 +74,53 @@ const ConstructionFileDetail = ({ results }) => {
       </div>
 
       {subdossiers &&
-            subdossiers.length &&
-            subdossiers.map(({ bestanden: files, titel: subdossierTitle }) => (
-              <Gallery
-                id={`${district}${fileNumber}`}
-                key={subdossierTitle}
-                title={subdossierTitle}
-                allThumbnails={files}
-                max={6}
-              />
-            ))}
+        subdossiers.length &&
+        subdossiers.map(({ bestanden: files, titel: subdossierTitle }) => (
+          <Gallery
+            id={`${district}${fileNumber}`}
+            key={subdossierTitle}
+            title={subdossierTitle}
+            allThumbnails={files}
+            max={6}
+          />
+        ))}
       {withGrid(
         <React.Fragment>
           <Typography
             className="c-construction-files__subtitle"
             element="h3"
           >
-                    Adressen
+            Adressen
           </Typography>
           <ul className="o-list">
             {getAddresses(results).map((address) => (
               <li key={address.id}>
-              <a
-                {...getReduxLinkProps(toDataDetail([address.id, 'bag', 'nummeraanduiding']))}
-                className="o-btn o-btn--link qa-dp-link"
-                title={address.label}
-              >
-                {address.label}
-              </a>
-            </li>
-                    ))}
+                <a
+                  {...getReduxLinkProps(toDataDetail([address.id, 'bag', 'nummeraanduiding']))}
+                  className="o-btn o-btn--link qa-dp-link"
+                  title={address.label}
+                >
+                  {address.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </React.Fragment>
-        )}
+      )}
     </div>
   );
+};
+
+ConstructionFileDetail.propTypes = {
+  results: PropTypes.shape({
+    titel: PropTypes.string.isRequired,
+    subdossiers: PropTypes.arrayOf(PropTypes.shape({})),
+    datering: PropTypes.string.isRequired,
+    dossier_type: PropTypes.string.isRequired,
+    dossiernr: PropTypes.string.isRequired,
+    stadsdeel: PropTypes.string.isRequired,
+    adressen: PropTypes.arrayOf(PropTypes.shape({}))
+  }).isRequired
 };
 
 export default ConstructionFileDetail;

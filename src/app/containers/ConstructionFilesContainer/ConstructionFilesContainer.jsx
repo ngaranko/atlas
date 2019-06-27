@@ -92,7 +92,10 @@ const ConstructionFiles = ({ fileName, user, endpoint }) => {
           contextMenu={<ContextMenu onDownload={onDownloadFile} fileName={fileName} />}
         />}
         {loading && loadingTemplate}
-        {(!loading && !fileName) && (results ? <ConstructionFileDetail results={results} /> : noResultsTemplate)}
+        {(!loading && !fileName) && (results
+          ? <ConstructionFileDetail results={results} />
+          : noResultsTemplate)
+        }
       </React.Fragment>)
     : notAuthorizedTemplate;
 };
