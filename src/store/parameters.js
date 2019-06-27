@@ -20,5 +20,7 @@ export default {
   LAYERS: 'lagen',
   LOCATION: 'locatie',
   FILE: 'bestand',
-  MARKER: 'marker'
+  MARKER: 'marker',
+  MARKER_ICON: 'marker-icon',
+  MAP_LINK: 'map-link'
 };

@@ -29,7 +29,7 @@ describe('MapLeaflet component', () => {
 
   it('should render map with base layer and update base layer if props change', () => {
     const center = [52.3731081, 4.8932945];
-    const marker = { position: [...center], type: markerPointType };
+    const marker = { position: [...center], type: markerPointType, iconData: { type: 'foo' } };
     const clickHandler = jest.fn();
     const wrapper = shallow(
       <MapLeaflet

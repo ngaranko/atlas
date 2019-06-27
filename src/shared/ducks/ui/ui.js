@@ -38,7 +38,8 @@ export const initialState = {
   isEmbedPreview: false,
   isEmbed: false,
   isPrintMode: false,
-  viewMode: VIEW_MODE.SPLIT
+  viewMode: VIEW_MODE.SPLIT,
+  isMapLinkVisible: true
 };
 
 export default function UiReducer(state = initialState, action) {
@@ -147,6 +148,8 @@ export const hasOverflowScroll = createSelector(
 export const isMapLayersVisible = createSelector(getUIState, (ui) => ui.isMapLayersVisible);
 export const isMapPanelHandleVisible =
   createSelector(getUIState, (ui) => ui.isMapPanelHandleVisible);
+export const isMapLinkVisible =
+  createSelector(getUIState, (ui) => ui.isMapLinkVisible);
 
 export const isMapPage = createSelector(isDataPage, getViewMode, (dataPage, viewMode) => (
   dataPage && viewMode === VIEW_MODE.MAP
@@ -176,10 +179,11 @@ export const hasPrintMode = createSelector(
     panoPageActive,
     viewMode
   ) =>
-    ((!dataSelectionPage || viewMode === VIEW_MODE.SPLIT || viewMode === VIEW_MODE.MAP) &&
+    (
+      (!dataSelectionPage || viewMode === VIEW_MODE.SPLIT || viewMode === VIEW_MODE.MAP) &&
       (!datasetPage || datasetDetailPage) &&
-      (dataPage || mapActive || viewMode === VIEW_MODE.SPLIT)) ||
-    panoPageActive
+      (dataPage || mapActive || viewMode === VIEW_MODE.SPLIT)
+    ) || panoPageActive
 );
 
 export const hasEmbedMode = createSelector(

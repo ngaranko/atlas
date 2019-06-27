@@ -2,10 +2,10 @@
 
 exports[`LoadingIndicator should render everything 1`] = `
 <div
-  className="qa-loading-indicator "
+  className="c-loading-indicator__container"
 >
   <div
-    className="c-loading-indicator c-loading-indicator--box"
+    className="c-loading-indicator__box qa-loading-indicator"
   >
     <img
       alt=""
@@ -23,10 +23,10 @@ exports[`LoadingIndicator should render everything 1`] = `
 
 exports[`LoadingIndicator should render with classname is-loadingf 1`] = `
 <div
-  className="qa-loading-indicator is-loading"
+  className="c-loading-indicator__container is-loading"
 >
   <div
-    className="c-loading-indicator c-loading-indicator--box"
+    className="c-loading-indicator__box qa-loading-indicator"
   >
     <img
       alt=""

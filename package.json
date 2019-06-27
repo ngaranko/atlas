@@ -1,6 +1,6 @@
 {
   "name": "atlas",
-  "version": "3.6.2",
+  "version": "3.7.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Amsterdam/atlas.git"
@@ -36,8 +36,10 @@
     "test-karma-watch": "karma start --no-single-run"
   },
   "dependencies": {
-    "@datapunt/asc-assets": "^0.7.1-beta.0",
-    "@datapunt/asc-ui": "^0.7.1-alpha.4",
+    "@datapunt/asc-assets": "^0.7.1-beta.2",
+    "@datapunt/asc-core": "^0.7.1-beta.1",
+    "@datapunt/asc-ui": "^0.7.2",
+    "@svgr/webpack": "^4.2.0",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",
     "angular-i18n": "~1.5.11",
@@ -70,10 +72,10 @@
     "openseadragon": "^2.4.0",
     "proj4": "2.4.4",
     "proj4leaflet": "1.0.2",
-    "prop-types": "15.7.2",
-    "query-string": "6.7.0",
+    "prop-types": "15.6.2",
+    "query-string": "6.2.0",
     "react": "16.8.6",
-    "react-angular": "git+https://github.com/Amsterdam/react-angular.git#master",
+    "react-angular": "https://github.com/Amsterdam/react-angular#master",
     "react-dom": "16.8.6",
     "react-leaflet": "1.9.1",
     "react-leaflet-markercluster": "1.1.8",
