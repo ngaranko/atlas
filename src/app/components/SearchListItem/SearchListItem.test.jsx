@@ -1,6 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import SearchListItem from './SearchListItem';
+import React from 'react'
+import { shallow } from 'enzyme'
+import SearchListItem from './SearchListItem'
 
 describe('SearchListItem', () => {
   it('should render straatnamen type weg', () => {
@@ -9,19 +9,16 @@ describe('SearchListItem', () => {
         label: 'label',
         subtype: 'weg',
         subtypeLabel: 'weg',
-        linkTo: {
-        }
+        linkTo: {},
       },
       category: {
-        slug: 'straatnamen'
-      }
-    };
+        slug: 'straatnamen',
+      },
+    }
 
-    const component = shallow(
-      <SearchListItem {...props} />
-    );
-    expect(component).toMatchSnapshot();
-  });
+    const component = shallow(<SearchListItem {...props} />)
+    expect(component).toMatchSnapshot()
+  })
 
   it('should render openbareruimte type water', () => {
     const props = {
@@ -29,19 +26,16 @@ describe('SearchListItem', () => {
         label: 'label',
         subtype: 'water',
         subtypeLabel: 'water',
-        linkTo: {
-        }
+        linkTo: {},
       },
       category: {
-        slug: 'openbareruimte'
-      }
-    };
+        slug: 'openbareruimte',
+      },
+    }
 
-    const component = shallow(
-      <SearchListItem {...props} />
-    );
-    expect(component).toMatchSnapshot();
-  });
+    const component = shallow(<SearchListItem {...props} />)
+    expect(component).toMatchSnapshot()
+  })
 
   it('should render address type verblijfsobject', () => {
     const props = {
@@ -49,24 +43,21 @@ describe('SearchListItem', () => {
         label: 'label',
         subtype: 'verblijfsobject',
         subtypeLabel: 'verblijfsobject',
-        linkTo: {
-        },
+        linkTo: {},
         hoofdadres: false,
         vbo_status: {
           code: '18',
-          omschrijving: 'Verblijfsobject gevormd'
-        }
+          omschrijving: 'Verblijfsobject gevormd',
+        },
       },
       category: {
-        slug: 'adres'
-      }
-    };
+        slug: 'adres',
+      },
+    }
 
-    const component = shallow(
-      <SearchListItem {...props} />
-    );
-    expect(component).toMatchSnapshot();
-  });
+    const component = shallow(<SearchListItem {...props} />)
+    expect(component).toMatchSnapshot()
+  })
 
   it('should render monument type complex', () => {
     const props = {
@@ -74,17 +65,14 @@ describe('SearchListItem', () => {
         label: 'label',
         subtype: 'complex',
         subtypeLabel: 'complex',
-        linkTo: {
-        }
+        linkTo: {},
       },
       category: {
-        slug: 'monument'
-      }
-    };
+        slug: 'monument',
+      },
+    }
 
-    const component = shallow(
-      <SearchListItem {...props} />
-    );
-    expect(component).toMatchSnapshot();
-  });
-});
+    const component = shallow(<SearchListItem {...props} />)
+    expect(component).toMatchSnapshot()
+  })
+})

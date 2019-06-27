@@ -1,3 +1,3 @@
-import watchFetchMapPanelLayers from './map-panel-layers';
+import watchFetchMapPanelLayers from './map-panel-layers'
 
-export default watchFetchMapPanelLayers;
+export default watchFetchMapPanelLayers

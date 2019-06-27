@@ -35,7 +35,6 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
   }
   placeHolder=""
   query="dam"
-  queryFromUrl=""
   suggestions={
     Array [
       Object {
@@ -228,7 +227,6 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
   }
   placeHolder=""
   query="dam"
-  queryFromUrl=""
   suggestions={
     Array [
       Object {
@@ -421,7 +419,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   }
   placeHolder=""
   query="dam"
-  queryFromUrl=""
   suggestions={
     Array [
       Object {
@@ -611,7 +608,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   }
   placeHolder=""
   query="dam"
-  queryFromUrl=""
   suggestions={
     Array [
       Object {
@@ -801,7 +797,6 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
   }
   placeHolder=""
   query="dam"
-  queryFromUrl=""
   suggestions={
     Array [
       Object {

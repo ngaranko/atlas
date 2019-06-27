@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { AngularWrapper } from 'react-angular';
-import ShareBar from '../../components/ShareBar/ShareBar';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { AngularWrapper } from 'react-angular'
+import ShareBar from '../../components/ShareBar/ShareBar'
 
 const DatasetDetail = ({
   isLoading,
@@ -9,11 +9,11 @@ const DatasetDetail = ({
   user,
   endpoint,
   detailTemplateUrl,
-  detailData
+  detailData,
 }) => (
   <div className="c-dashboard__content qa-detail">
     <AngularWrapper
-      moduleName={'dpDetailWrapper'}
+      moduleName="dpDetailWrapper"
       component="dpDetail"
       dependencies={['atlas']}
       bindings={{
@@ -21,25 +21,27 @@ const DatasetDetail = ({
         catalogFilters,
         user,
         detailTemplateUrl,
-        detailData
+        detailData,
       }}
       interpolateBindings={{
-        endpoint
+        endpoint,
       }}
     />
     <div className="u-row">
       <div className="u-col-sm--12">
-        <div className="u-margin__left--2 u-margin__bottom--2"><ShareBar /></div>
+        <div className="u-margin__left--2 u-margin__bottom--2">
+          <ShareBar />
+        </div>
       </div>
     </div>
   </div>
-);
+)
 
 DatasetDetail.defaultProps = {
   isLoading: false,
   detailTemplateUrl: undefined,
-  detailData: undefined
-};
+  detailData: undefined,
+}
 
 DatasetDetail.propTypes = {
   isLoading: PropTypes.bool,
@@ -47,7 +49,7 @@ DatasetDetail.propTypes = {
   user: PropTypes.shape({}).isRequired,
   endpoint: PropTypes.string.isRequired,
   detailTemplateUrl: PropTypes.string,
-  detailData: PropTypes.shape({})
-};
+  detailData: PropTypes.shape({}),
+}
 
-export default DatasetDetail;
+export default DatasetDetail

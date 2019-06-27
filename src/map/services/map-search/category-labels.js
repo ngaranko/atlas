@@ -1,84 +1,84 @@
 const categoryLabels = {
   address: {
     singular: 'Adres',
-    plural: 'Adressen'
+    plural: 'Adressen',
   },
   bedrijfsinvesteringszone: {
     singular: 'Bedrijfsinvesteringszone',
-    plural: 'Bedrijfsinvesteringszones'
+    plural: 'Bedrijfsinvesteringszones',
   },
   bekendmakingen: {
     singular: 'Bekendmaking',
-    plural: 'Bekendmakingen'
+    plural: 'Bekendmakingen',
   },
   explosief: {
     singular: 'Explosief',
-    plural: 'Explosieven'
+    plural: 'Explosieven',
   },
   evenementen: {
     singular: 'Evenement',
-    plural: 'Evenementen'
+    plural: 'Evenementen',
   },
   gebied: {
     singular: 'Gebied',
-    plural: 'Gebieden'
+    plural: 'Gebieden',
   },
   gemeentelijkeBeperking: {
     singular: 'Gemeentelijke beperking',
-    plural: 'Gemeentelijke beperkingen'
+    plural: 'Gemeentelijke beperkingen',
   },
   grondexploitatie: {
     singular: 'Grondexploitatie',
-    plural: 'Grondexploitaties'
+    plural: 'Grondexploitaties',
   },
   kadastraalObject: {
     singular: 'Kadastraal object',
-    plural: 'Kadastrale objecten'
+    plural: 'Kadastrale objecten',
   },
   ligplaats: {
     singular: 'Adres',
-    plural: 'Adressen'
+    plural: 'Adressen',
   },
   meetbout: {
     singular: 'Meetbout',
-    plural: 'Meetbouten'
+    plural: 'Meetbouten',
   },
   monument: {
     singular: 'Monument',
-    plural: 'Monumenten'
+    plural: 'Monumenten',
   },
   napPijlmerk: {
     singular: 'NAP Peilmerk',
-    plural: 'NAP Peilmerken'
+    plural: 'NAP Peilmerken',
   },
   openbareRuimte: {
     singular: 'Openbare ruimte',
-    plural: 'Openbare ruimtes'
+    plural: 'Openbare ruimtes',
   },
   oplaadpunten: {
     singular: 'Oplaadpunt',
-    plural: 'Oplaadpunten'
+    plural: 'Oplaadpunten',
   },
   pand: {
     singular: 'Pand',
-    plural: 'Panden'
+    plural: 'Panden',
   },
   parkeervak: {
     singular: 'Parkeervak',
-    plural: 'Parkeervakken'
+    plural: 'Parkeervakken',
   },
   standplaats: {
     singular: 'Adres',
-    plural: 'Adressen'
+    plural: 'Adressen',
   },
   vestiging: {
     singular: 'Vestiging',
-    plural: 'Vestigingen'
+    plural: 'Vestigingen',
   },
   winkelgebied: {
     singular: ' Winkelgebied',
-    plural: 'Winkelgebieden'
-  }
-};
+    plural: 'Winkelgebieden',
+  },
+}
 
-export default categoryLabels;
+export default categoryLabels

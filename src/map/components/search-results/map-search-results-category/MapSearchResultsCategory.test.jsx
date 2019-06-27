@@ -1,6 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import MapSearchResultsCategory from './MapSearchResultsCategory';
+import React from 'react'
+import { shallow } from 'enzyme'
+import MapSearchResultsCategory from './MapSearchResultsCategory'
 
 describe('MapSearchResultsCategory', () => {
   it('should render the component', () => {
@@ -8,30 +8,36 @@ describe('MapSearchResultsCategory', () => {
       <MapSearchResultsCategory
         category={{
           categoryLabel: '',
-          subCategories: [{
-            categoryLabel: 'label',
-            results: [],
-            type: ''
-          }, {
-            categoryLabel: 'label',
-            results: [],
-            type: ''
-          }],
-          results: [{
-            uri: 'uri',
-            label: 'label'
-          }, {
-            uri: 'uri',
-            label: 'label'
-          }],
+          subCategories: [
+            {
+              categoryLabel: 'label',
+              results: [],
+              type: '',
+            },
+            {
+              categoryLabel: 'label',
+              results: [],
+              type: '',
+            },
+          ],
+          results: [
+            {
+              uri: 'uri',
+              label: 'label',
+            },
+            {
+              uri: 'uri',
+              label: 'label',
+            },
+          ],
           type: 'bag/ligplaats',
           uri: '',
-          showMore: true
+          showMore: true,
         }}
         onItemClick={jest.fn()}
         onShowMoreClick={jest.fn()}
-      />
-    );
-    expect(component).toMatchSnapshot();
-  });
-});
+      />,
+    )
+    expect(component).toMatchSnapshot()
+  })
+})

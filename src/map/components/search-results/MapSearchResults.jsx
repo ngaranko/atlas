@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system';
-import MapSearchResultsCategory from './map-search-results-category/MapSearchResultsCategory';
-import Notification from '../../../shared/components/notification/Notification';
+import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system'
+import MapSearchResultsCategory from './map-search-results-category/MapSearchResultsCategory'
+import Notification from '../../../shared/components/notification/Notification'
 
 const MapSearchResults = ({
   isEmbed,
@@ -14,16 +14,17 @@ const MapSearchResults = ({
   panoUrl,
   results,
   onMaximize,
-  onPanoPreviewClick
+  onPanoPreviewClick,
 }) => {
-  const rdCoordinates = wgs84ToRd(location);
+  const rdCoordinates = wgs84ToRd(location)
 
-  const limitResults = (categories) => categories.map((category) => ({
-    ...category,
-    results: category.results.slice(0, resultLimit),
-    subCategories: limitResults(category.subCategories),
-    showMore: category.results.length > resultLimit
-  }));
+  const limitResults = categories =>
+    categories.map(category => ({
+      ...category,
+      results: category.results.slice(0, resultLimit),
+      subCategories: limitResults(category.subCategories),
+      showMore: category.results.length > resultLimit,
+    }))
 
   return (
     <section className="map-search-results">
@@ -34,6 +35,7 @@ const MapSearchResults = ({
         `}
       >
         <button
+          type="button"
           className={`
             map-search-results__header-pano-button
             map-search-results__header-pano-button--${panoUrl ? 'enabled' : 'disabled'}
@@ -54,7 +56,7 @@ const MapSearchResults = ({
           <div className="map-search-results__header-container">
             <h1 className="map-search-results__header-title">Resultaten</h1>
             <h2 className="map-search-results__header-subtitle">
-              locatie {rdCoordinates.x.toFixed(2)}, {rdCoordinates.y.toFixed(2)}
+              {`locatie ${rdCoordinates.x.toFixed(2)}, ${rdCoordinates.y.toFixed(2)}`}
             </h2>
           </div>
         </button>
@@ -63,44 +65,47 @@ const MapSearchResults = ({
         <ul className="map-search-results__list">
           {missingLayers && (
             <li>
-              <Notification>Geen details beschikbaar van: {missingLayers}</Notification>
+              <Notification>
+                Geen details beschikbaar van:
+                {missingLayers}
+              </Notification>
             </li>
           )}
-          {
-            limitResults(results).map((mainCategory) => (
-              <MapSearchResultsCategory
-                key={mainCategory.categoryLabel}
-                category={mainCategory}
-                onItemClick={onItemClick}
-                onShowMoreClick={onMaximize}
-              />
-            ))
-          }
+          {limitResults(results).map(mainCategory => (
+            <MapSearchResultsCategory
+              key={mainCategory.categoryLabel}
+              category={mainCategory}
+              onItemClick={onItemClick}
+              onShowMoreClick={onMaximize}
+            />
+          ))}
         </ul>
-        {!isEmbed &&
-        <footer className="map-search-results__footer">
-          <button
-            className="map-search-results__button"
-            onClick={onMaximize}
-            title="Volledig weergeven"
-          >
-            <span className={`
+        {!isEmbed && (
+          <footer className="map-search-results__footer">
+            <button
+              type="button"
+              className="map-search-results__button"
+              onClick={onMaximize}
+              title="Volledig weergeven"
+            >
+              <span
+                className={`
                     map-search-results__button-icon
                     map-search-results__button-icon--maximize
                   `}
-            />
-            Volledig weergeven
-          </button>
-        </footer>
-        }
+              />
+              Volledig weergeven
+            </button>
+          </footer>
+        )}
       </div>
     </section>
-  );
-};
+  )
+}
 
 MapSearchResults.defaultProps = {
-  resultLimit: 25
-};
+  resultLimit: 25,
+}
 
 MapSearchResults.propTypes = {
   location: PropTypes.shape({}).isRequired,
@@ -111,7 +116,7 @@ MapSearchResults.propTypes = {
   isEmbed: PropTypes.bool.isRequired,
   resultLimit: PropTypes.number,
   panoUrl: PropTypes.string, // eslint-disable-line
-  results: PropTypes.array // eslint-disable-line
-};
+  results: PropTypes.array, // eslint-disable-line
+}
 
-export default MapSearchResults;
+export default MapSearchResults

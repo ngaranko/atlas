@@ -1,1 +1,1 @@
-export { default as Checkbox } from './Checkbox'; // eslint-disable-line
+export { default as Checkbox } from './Checkbox' // eslint-disable-line

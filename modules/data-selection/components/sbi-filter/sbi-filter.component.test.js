@@ -1,245 +1,309 @@
-import { addFilter, removeFilter } from '../../../../src/shared/ducks/filters/filters';
-import * as dataSelectionConfig
-    from '../../../../src/shared/services/data-selection/data-selection-config';
+import {
+  addFilter,
+  removeFilter,
+} from '../../../../src/shared/ducks/filters/filters'
+import * as dataSelectionConfig from '../../../../src/shared/services/data-selection/data-selection-config'
 
 describe('The dp-sbi-filter component', () => {
-    var $compile,
-        $rootScope,
-        store,
-        availableFilters;
+  let $compile
+  let $rootScope
+  let store
+  let availableFilters
 
-    beforeEach(() => {
-        dataSelectionConfig.default = {
-            datasets: {
-                my_special_dataset: {
-                    FILTERS: [
-                        {
-                            slug: 'sbi_code'
-                        }, {
-                            slug: 'sbi_l1'
-                        }, {
-                            slug: 'sbi_l2'
-                        }
-                    ]
-                }
-            }
-        };
-
-        angular.mock.module(
-            'dpDataSelection',
+  beforeEach(() => {
+    dataSelectionConfig.default = {
+      datasets: {
+        my_special_dataset: {
+          FILTERS: [
             {
-                store: {
-                    dispatch: () => {}
-                }
-            }
-        );
-
-        angular.mock.inject(function (_$compile_, _$rootScope_, _store_) {
-            $compile = _$compile_;
-            $rootScope = _$rootScope_;
-            store = _store_;
-        });
-
-        availableFilters = [
+              slug: 'sbi_code',
+            },
             {
-                slug: 'sbi_code',
-                label: 'SBI-code',
-                options: [],
-                numberOfOptions: 0
-            }, {
-                slug: 'sbi_l2',
-                label: 'SBI-code',
-                options: [
-                    {
-                        label: 'de eerste van level 1',
-                        id: '01: landbouw'
-                    }, {
-                        label: 'de tweede van level 1',
-                        id: '03: visserij'
-                    }, {
-                        label: 'de derde van level 1',
-                        id: '07: vastgoed'
-                    }, {
-                        label: 'de vierde van level 1',
-                        id: '31: disco'
-                    }, {
-                        label: 'de vijfde van level 1',
-                        id: '42: zinvanhetleven'
-                    }, {
-                        label: 'de zesde van level 1',
-                        id: '54: grondverzet'
-                    }, {
-                        label: 'de zevende van level 1',
-                        id: '69: lekker'
-                    }
-                ],
-                numberOfOptions: 8
-            }, {
-                slug: 'sbi_l3',
-                label: 'SBI-code',
-                options: [
-                    {
-                        label: 'Optie van het Beest',
-                        id: '666-optievanhetbeest'
-                    }
-                ],
-                numberOfOptions: 1
-            }, {
-                slug: 'sbi_l4',
-                label: 'SBI-code',
-                options: [
-                    {
-                        label: 'Optie van de drieeenheid',
-                        id: '333-drieeenheid'
-                    }
-                ],
-                numberOfOptions: 1
-            }
-        ];
-
-        spyOn(store, 'dispatch');
-    });
-
-    function getComponent (activeFilters = {}) {
-        var component,
-            element,
-            scope;
-
-        element = document.createElement('dp-sbi-filter');
-
-        element.setAttribute('available-filters', 'availableFilters');
-        element.setAttribute('active-filters', 'activeFilters');
-
-        scope = $rootScope.$new();
-        scope.availableFilters = availableFilters;
-        scope.activeFilters = activeFilters;
-
-        component = $compile(element)(scope);
-        scope.$apply();
-
-        return component;
+              slug: 'sbi_l1',
+            },
+            {
+              slug: 'sbi_l2',
+            },
+          ],
+        },
+      },
     }
 
-    describe('shows the sbi-filter', () => {
-        it('the form', () => {
-            const component = getComponent();
+    angular.mock.module('dpDataSelection', {
+      store: {
+        dispatch: () => {},
+      },
+    })
 
-            expect(component.find('.qa-sbi-filter-form-input').length).toBe(1);
-            expect(component.find('.qa-sbi-filter-form-input').val()).toBe('');
+    angular.mock.inject(function(_$compile_, _$rootScope_, _store_) {
+      $compile = _$compile_
+      $rootScope = _$rootScope_
+      store = _store_
+    })
 
-            expect(component.find('.qa-sbi-filter-form-sumbit').length).toBe(1);
-            expect(component.find('.qa-sbi-filter-form-sumbit').text()).toBe('Selecteer');
-        });
+    availableFilters = [
+      {
+        slug: 'sbi_code',
+        label: 'SBI-code',
+        options: [],
+        numberOfOptions: 0,
+      },
+      {
+        slug: 'sbi_l2',
+        label: 'SBI-code',
+        options: [
+          {
+            label: 'de eerste van level 1',
+            id: '01: landbouw',
+          },
+          {
+            label: 'de tweede van level 1',
+            id: '03: visserij',
+          },
+          {
+            label: 'de derde van level 1',
+            id: '07: vastgoed',
+          },
+          {
+            label: 'de vierde van level 1',
+            id: '31: disco',
+          },
+          {
+            label: 'de vijfde van level 1',
+            id: '42: zinvanhetleven',
+          },
+          {
+            label: 'de zesde van level 1',
+            id: '54: grondverzet',
+          },
+          {
+            label: 'de zevende van level 1',
+            id: '69: lekker',
+          },
+        ],
+        numberOfOptions: 8,
+      },
+      {
+        slug: 'sbi_l3',
+        label: 'SBI-code',
+        options: [
+          {
+            label: 'Optie van het Beest',
+            id: '666-optievanhetbeest',
+          },
+        ],
+        numberOfOptions: 1,
+      },
+      {
+        slug: 'sbi_l4',
+        label: 'SBI-code',
+        options: [
+          {
+            label: 'Optie van de drieeenheid',
+            id: '333-drieeenheid',
+          },
+        ],
+        numberOfOptions: 1,
+      },
+    ]
 
-        it('the filter list', () => {
-            const component = getComponent();
+    spyOn(store, 'dispatch')
+  })
 
-            expect(component.find('.qa-sbi-filter').length).toBe(1);
-            expect(component.find('.qa-sbi-filter h1').text()).toBe('');
+  function getComponent(activeFilters = {}) {
+    const element = document.createElement('dp-sbi-filter')
 
-            // sbi filter
-            expect(component.find('.qa-sbi-filter h2').eq(0).text()).toBe('SBI-code');
-            expect(component.find('.qa-sbi-filter ul').eq(0).find('li').length).toBe(9);
+    element.setAttribute('available-filters', 'availableFilters')
+    element.setAttribute('active-filters', 'activeFilters')
 
-            expect(component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(0).text())
-                .toContain('de eerste van level 1');
+    const scope = $rootScope.$new()
+    scope.availableFilters = availableFilters
+    scope.activeFilters = activeFilters
 
-            expect(component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(8).text())
-                .toContain('Optie van de drieeenheid');
-        });
+    const component = $compile(element)(scope)
+    scope.$apply()
 
-        it('filter list with limit of 10 items then click show more and click show less', () => {
-            availableFilters[1].options.push({
-                label: 'de negende van level 1'
-            });
-            availableFilters[1].options.push({
-                label: 'de tiende van level 1'
-            });
-            availableFilters[1].numberOfOptions = availableFilters[1].options.length;
+    return component
+  }
 
-            const component = getComponent();
+  describe('shows the sbi-filter', () => {
+    it('the form', () => {
+      const component = getComponent()
 
-            // maximum number of items
-            expect(component.find('.qa-sbi-filter ul').eq(0).find('li').length).toBe(10);
+      expect(component.find('.qa-sbi-filter-form-input').length).toBe(1)
+      expect(component.find('.qa-sbi-filter-form-input').val()).toBe('')
 
-            expect(component.find('.qa-show-more-button').length).toBe(1);
+      expect(component.find('.qa-sbi-filter-form-sumbit').length).toBe(1)
+      expect(component.find('.qa-sbi-filter-form-sumbit').text()).toBe(
+        'Selecteer',
+      )
+    })
 
-            // Click the show more button
-            component.find('.qa-show-more-button').click();
-            $rootScope.$apply();
+    it('the filter list', () => {
+      const component = getComponent()
 
-            expect(component.find('.qa-sbi-filter ul').eq(0).find('li').length).toBe(11);
+      expect(component.find('.qa-sbi-filter').length).toBe(1)
+      expect(component.find('.qa-sbi-filter h1').text()).toBe('')
 
-            // Click the show less button
-            component.find('.qa-show-more-button').click();
-            $rootScope.$apply();
+      // sbi filter
+      expect(
+        component
+          .find('.qa-sbi-filter h2')
+          .eq(0)
+          .text(),
+      ).toBe('SBI-code')
+      expect(
+        component
+          .find('.qa-sbi-filter ul')
+          .eq(0)
+          .find('li').length,
+      ).toBe(9)
 
-            expect(component.find('.qa-sbi-filter ul').eq(0).find('li').length).toBe(10);
-        });
-    });
+      expect(
+        component
+          .find('.qa-sbi-filter ul')
+          .eq(0)
+          .find('li button')
+          .eq(0)
+          .text(),
+      ).toContain('de eerste van level 1')
 
-    describe('it dispatches an action when a filter has been selected', () => {
-        it('when selecting the first filter; one filter is communicated', () => {
-            const component = getComponent();
+      expect(
+        component
+          .find('.qa-sbi-filter ul')
+          .eq(0)
+          .find('li button')
+          .eq(8)
+          .text(),
+      ).toContain('Optie van de drieeenheid')
+    })
 
-            component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(0).click();
+    it('filter list with limit of 10 items then click show more and click show less', () => {
+      availableFilters[1].options.push({
+        label: 'de negende van level 1',
+      })
+      availableFilters[1].options.push({
+        label: 'de tiende van level 1',
+      })
+      availableFilters[1].numberOfOptions = availableFilters[1].options.length
 
-            expect(store.dispatch).toHaveBeenCalledWith(
-                addFilter({
-                    sbi_code: '[\'01\']'
-                })
-            );
-        });
+      const component = getComponent()
 
-        it('when adding another filter; all filter will be updated', () => {
-            const activeFilters = {
-                    sbi_code: '[\'01\']'
-                },
-                component = getComponent(activeFilters);
+      // maximum number of items
+      expect(
+        component
+          .find('.qa-sbi-filter ul')
+          .eq(0)
+          .find('li').length,
+      ).toBe(10)
 
-            component.find('.qa-sbi-filter ul').eq(0).find('li button').eq(4).click();
+      expect(component.find('.qa-show-more-button').length).toBe(1)
 
-            expect(store.dispatch).toHaveBeenCalledWith(
-                addFilter({
-                    sbi_code: '[\'42\']'
-                })
-            );
-        });
-    });
+      // Click the show more button
+      component.find('.qa-show-more-button').click()
+      $rootScope.$apply()
 
-    describe('it dispatches an action when filter form was used', () => {
-        it('when using input field to send 1 sbi-code', () => {
-            const component = getComponent();
+      expect(
+        component
+          .find('.qa-sbi-filter ul')
+          .eq(0)
+          .find('li').length,
+      ).toBe(11)
 
-            component.find('.qa-sbi-filter-form-input').val('888').triggerHandler('change');
+      // Click the show less button
+      component.find('.qa-show-more-button').click()
+      $rootScope.$apply()
 
-            expect(store.dispatch).toHaveBeenCalledWith(
-                addFilter({
-                    sbi_code: '[\'888\']'
-                })
-            );
-        });
+      expect(
+        component
+          .find('.qa-sbi-filter ul')
+          .eq(0)
+          .find('li').length,
+      ).toBe(10)
+    })
+  })
 
-        it('when using input field to send multiple sbi-codes', () => {
-            const component = getComponent();
+  describe('it dispatches an action when a filter has been selected', () => {
+    it('when selecting the first filter; one filter is communicated', () => {
+      const component = getComponent()
 
-            component.find('.qa-sbi-filter-form-input').val('   9999   ,  44,3').triggerHandler('change');
+      component
+        .find('.qa-sbi-filter ul')
+        .eq(0)
+        .find('li button')
+        .eq(0)
+        .click()
 
-            expect(store.dispatch).toHaveBeenCalledWith(
-                addFilter({
-                    sbi_code: '[\'9999\', \'44\', \'3\']'
-                })
-            );
-        });
+      expect(store.dispatch).toHaveBeenCalledWith(
+        addFilter({
+          sbi_code: "['01']",
+        }),
+      )
+    })
 
-        it('when using input field to send empty the sbi-code', () => {
-            const activeFilters = {
-                    sbi_code: '[\'01\']'
-                },
-                component = getComponent(activeFilters);
+    it('when adding another filter; all filter will be updated', () => {
+      const activeFilters = {
+        sbi_code: "['01']",
+      }
+      const component = getComponent(activeFilters)
 
-            component.find('.qa-sbi-filter-form-input').val('').triggerHandler('change');
-            expect(store.dispatch).toHaveBeenCalledWith(removeFilter('sbi_code'));
-        });
-    });
-});
+      component
+        .find('.qa-sbi-filter ul')
+        .eq(0)
+        .find('li button')
+        .eq(4)
+        .click()
+
+      expect(store.dispatch).toHaveBeenCalledWith(
+        addFilter({
+          sbi_code: "['42']",
+        }),
+      )
+    })
+  })
+
+  describe('it dispatches an action when filter form was used', () => {
+    it('when using input field to send 1 sbi-code', () => {
+      const component = getComponent()
+
+      component
+        .find('.qa-sbi-filter-form-input')
+        .val('888')
+        .triggerHandler('change')
+
+      expect(store.dispatch).toHaveBeenCalledWith(
+        addFilter({
+          sbi_code: "['888']",
+        }),
+      )
+    })
+
+    it('when using input field to send multiple sbi-codes', () => {
+      const component = getComponent()
+
+      component
+        .find('.qa-sbi-filter-form-input')
+        .val('   9999   ,  44,3')
+        .triggerHandler('change')
+
+      expect(store.dispatch).toHaveBeenCalledWith(
+        addFilter({
+          sbi_code: "['9999', '44', '3']",
+        }),
+      )
+    })
+
+    it('when using input field to send empty the sbi-code', () => {
+      const activeFilters = {
+        sbi_code: "['01']",
+      }
+      const component = getComponent(activeFilters)
+
+      component
+        .find('.qa-sbi-filter-form-input')
+        .val('')
+        .triggerHandler('change')
+      expect(store.dispatch).toHaveBeenCalledWith(removeFilter('sbi_code'))
+    })
+  })
+})

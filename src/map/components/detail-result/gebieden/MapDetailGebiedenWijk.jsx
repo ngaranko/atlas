@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import MapDetailResultWrapper from '../MapDetailResultWrapper';
-import MapDetailResultItem from '../MapDetailResultItem';
+import MapDetailResultWrapper from '../MapDetailResultWrapper'
+import MapDetailResultItem from '../MapDetailResultItem'
 
 const MapDetailGebiedenWijk = ({ panoUrl, wijk, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
@@ -13,22 +13,19 @@ const MapDetailGebiedenWijk = ({ panoUrl, wijk, onMaximize, onPanoPreviewClick }
     title="Wijk"
   >
     <ul className="map-detail-result__list">
-      <MapDetailResultItem
-        label="Volledige code"
-        value={wijk.volledigeCode}
-      />
+      <MapDetailResultItem label="Volledige code" value={wijk.volledigeCode} />
     </ul>
   </MapDetailResultWrapper>
-);
+)
 
 MapDetailGebiedenWijk.propTypes = {
   wijk: PropTypes.shape({
     label: PropTypes.string.isRequired,
-    volledigeCode: PropTypes.string
+    volledigeCode: PropTypes.string,
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailGebiedenWijk;
+export default MapDetailGebiedenWijk

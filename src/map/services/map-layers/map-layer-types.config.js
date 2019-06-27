@@ -1,4 +1,4 @@
 export default {
   TMS: 'tms',
-  WMS: 'wms'
-};
+  WMS: 'wms',
+}

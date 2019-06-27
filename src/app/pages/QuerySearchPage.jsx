@@ -1,8 +1,6 @@
-import React from 'react';
-import QuerySearch from '../components/QuerySearch';
+import React from 'react'
+import QuerySearch from '../components/QuerySearch'
 
-const QuerySearchPage = () => (
-  <QuerySearch />
-);
+const QuerySearchPage = () => <QuerySearch />
 
-export default QuerySearchPage;
+export default QuerySearchPage

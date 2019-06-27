@@ -17,6 +17,7 @@ exports[`MapPanel should render MapLegend if store contains active map layers 1`
       className="map-panel__toggle"
       onClick={[Function]}
       title="Kaartlagen tonen"
+      type="button"
     >
       <span
         className="map-panel__heading-icon"
@@ -97,6 +98,7 @@ exports[`MapPanel should render MapType and MapLayers 1`] = `
       className="map-panel__toggle"
       onClick={[Function]}
       title="Kaartlagen tonen"
+      type="button"
     >
       <span
         className="map-panel__heading-icon"

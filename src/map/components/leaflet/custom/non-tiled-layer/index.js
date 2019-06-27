@@ -1,3 +1,3 @@
-import NonTiledLayer from './NonTiledLayer';
+import NonTiledLayer from './NonTiledLayer'
 
-export default NonTiledLayer;
+export default NonTiledLayer

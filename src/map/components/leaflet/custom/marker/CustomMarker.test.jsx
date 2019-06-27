@@ -1,33 +1,27 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import CustomMarker from './CustomMarker';
+import React from 'react'
+import { shallow } from 'enzyme'
+import CustomMarker from './CustomMarker'
 
 describe('CustomMarker', () => {
   it('should render everything', () => {
-    const wrapper = shallow(
-      <CustomMarker
-        position={[]}
-        zIndexOffset={100}
-        rotationAngle={0}
-      />, {
-        context: {
-          layerContainer: {
-            addLayer: jest.fn(),
-            removeLayer: jest.fn()
-          }
-        }
-      }
-    );
-    const setRotationAngleMock = jest.fn();
+    const wrapper = shallow(<CustomMarker position={[]} zIndexOffset={100} rotationAngle={0} />, {
+      context: {
+        layerContainer: {
+          addLayer: jest.fn(),
+          removeLayer: jest.fn(),
+        },
+      },
+    })
+    const setRotationAngleMock = jest.fn()
 
     wrapper.instance().leafletElement = {
-      setRotationAngle: setRotationAngleMock
-    };
-    wrapper.instance().updateLeafletElement({ rotationAngle: 0 }, { rotationAngle: 1 });
+      setRotationAngle: setRotationAngleMock,
+    }
+    wrapper.instance().updateLeafletElement({ rotationAngle: 0 }, { rotationAngle: 1 })
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot()
 
-    wrapper.instance().updateLeafletElement({ rotationAngle: 1 }, { rotationAngle: 1 });
-    expect(setRotationAngleMock).toHaveBeenCalledTimes(1);
-  });
-});
+    wrapper.instance().updateLeafletElement({ rotationAngle: 1 }, { rotationAngle: 1 })
+    expect(setRotationAngleMock).toHaveBeenCalledTimes(1)
+  })
+})

@@ -1,40 +1,41 @@
-
 import {
-  CLEAR_MAP_DETAIL, SET_VIEW, SHOW_DETAIL,
+  CLEAR_MAP_DETAIL,
+  SET_VIEW,
+  SHOW_DETAIL,
   FETCH_DETAIL_REQUEST,
   FETCH_DETAIL_SUCCESS,
-  FETCH_DETAIL_FAILURE
-} from './constants';
+  FETCH_DETAIL_FAILURE,
+} from './constants'
 
-export const clearMapDetail = (payload) => ({
+export const clearMapDetail = payload => ({
   type: CLEAR_MAP_DETAIL,
-  payload
-});
+  payload,
+})
 
-export const showDetail = (payload) => ({
+export const showDetail = payload => ({
   type: SHOW_DETAIL,
-  payload
-});
+  payload,
+})
 
-export const setView = (payload) => ({
+export const setView = payload => ({
   type: SET_VIEW,
-  payload
-});
+  payload,
+})
 
-export const fetchDetailRequest = (payload) => ({
+export const fetchDetailRequest = payload => ({
   type: FETCH_DETAIL_REQUEST,
-  payload
-});
+  payload,
+})
 
-export const fetchDetailSuccess = (payload) => ({
+export const fetchDetailSuccess = payload => ({
   type: FETCH_DETAIL_SUCCESS,
   payload,
   meta: {
-    tracking: true
-  }
-});
+    tracking: true,
+  },
+})
 
-export const fetchDetailFailure = (payload) => ({
+export const fetchDetailFailure = payload => ({
   type: FETCH_DETAIL_FAILURE,
-  payload
-});
+  payload,
+})

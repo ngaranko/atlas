@@ -1,7 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from 'react'
+import { shallow } from 'enzyme'
 
-import MapDetailExplosievenUitgevoerdOnderzoek from './MapDetailExplosievenUitgevoerdOnderzoek';
+import MapDetailExplosievenUitgevoerdOnderzoek from './MapDetailExplosievenUitgevoerdOnderzoek'
 
 describe('MapDetailExplosievenUitgevoerdOnderzoek', () => {
   it('should render everything', () => {
@@ -10,17 +10,17 @@ describe('MapDetailExplosievenUitgevoerdOnderzoek', () => {
       label: 'Uitgevoerd onderzoek label',
       onderzoeksgebied: 'Uitgevoerd onderzoek onderzoeksgebied',
       type: 'Uitgevoerd onderzoek type',
-      verdachtGebied: 'Uitgevoerd onderzoek verdacht gebied'
-    };
-    const clickHandler = jest.fn();
+      verdachtGebied: 'Uitgevoerd onderzoek verdacht gebied',
+    }
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailExplosievenUitgevoerdOnderzoek
         panoUrl="panoUrl"
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}
         uitgevoerdOnderzoek={uitgevoerdOnderzoek}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-});
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+})

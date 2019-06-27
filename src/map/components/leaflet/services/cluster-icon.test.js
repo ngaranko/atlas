@@ -1,9 +1,11 @@
-import createClusterIcon from './cluster-icon';
+import createClusterIcon from './cluster-icon'
 
 describe('createClusterIcon', () => {
   it('should render', () => {
-    expect(createClusterIcon({
-      getChildCount: jest.fn().mockReturnValue(10)
-    })).toMatchSnapshot();
-  });
-});
+    expect(
+      createClusterIcon({
+        getChildCount: jest.fn().mockReturnValue(10),
+      }),
+    ).toMatchSnapshot()
+  })
+})

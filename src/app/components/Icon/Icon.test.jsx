@@ -1,12 +1,10 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import Icon from './Icon';
+import React from 'react'
+import { shallow } from 'enzyme'
+import Icon from './Icon'
 
 describe('Icon', () => {
   it('should render', () => {
-    const component = shallow(
-      <Icon icon="cross" />
-    );
-    expect(component).toMatchSnapshot();
-  });
-});
+    const component = shallow(<Icon icon="cross" />)
+    expect(component).toMatchSnapshot()
+  })
+})

@@ -1,10 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import MapDetailResultWrapper from '../MapDetailResultWrapper';
+import MapDetailResultWrapper from '../MapDetailResultWrapper'
 
 const MapDetailGebiedenGrootstedelijk = ({
-  panoUrl, grootstedelijk, onMaximize, onPanoPreviewClick
+  panoUrl,
+  grootstedelijk,
+  onMaximize,
+  onPanoPreviewClick,
 }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
@@ -13,15 +16,15 @@ const MapDetailGebiedenGrootstedelijk = ({
     subTitle={grootstedelijk.label}
     title="Grootstedelijk gebied"
   />
-);
+)
 
 MapDetailGebiedenGrootstedelijk.propTypes = {
   grootstedelijk: PropTypes.shape({
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailGebiedenGrootstedelijk;
+export default MapDetailGebiedenGrootstedelijk

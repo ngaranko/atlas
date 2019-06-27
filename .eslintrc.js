@@ -1,0 +1,41 @@
+module.exports = {
+  parser: 'babel-eslint',
+  env: {
+    browser: true,
+    node: true,
+  },
+  extends: ['prettier'],
+  globals: {
+    jsdom: true,
+    jasmine: true,
+  },
+  rules: {
+    'no-nested-ternary': 'off',
+    'no-underscore-dangle': [
+      'error',
+      {
+        allow: [
+          '__BROWSER__',
+          '__HOST__',
+          '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__',
+          '_bijzondere_rechts_toestand',
+          '_grootstedelijkgebied',
+          '_display',
+          '_embedded',
+          '_links',
+          '_northEast',
+          '_paq',
+          '_southWest',
+          '_markers',
+          '_display',
+          '_getStorage',
+          '_storage',
+          '_keys',
+          '_key',
+          '_defaultValue',
+          '_provider',
+        ],
+      },
+    ],
+  },
+}

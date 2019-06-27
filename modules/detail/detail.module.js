@@ -1,9 +1,3 @@
-(function () {
-    'use strict';
-
-    angular
-        .module('dpDetail', [
-            'ngSanitize',
-            'dpShared'
-        ]);
-})();
+;(function() {
+  angular.module('dpDetail', ['ngSanitize', 'dpShared'])
+})()

@@ -1,11 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import MapDetailResultItem from './MapDetailResultItem';
-import MapDetailResultWrapper from './MapDetailResultWrapper';
+import MapDetailResultItem from './MapDetailResultItem'
+import MapDetailResultWrapper from './MapDetailResultWrapper'
 
 const MapDetailKadastraalObject = ({
-  panoUrl, kadastraalObject, onMaximize, onPanoPreviewClick
+  panoUrl,
+  kadastraalObject,
+  onMaximize,
+  onPanoPreviewClick,
 }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
@@ -21,31 +24,32 @@ const MapDetailKadastraalObject = ({
           value={kadastraalObject.kadastraleGemeente.name}
         />
       )}
-      <MapDetailResultItem
-        label="Gemeente"
-        value={kadastraalObject.kadastraleGemeente.gemeente}
-      />
+      <MapDetailResultItem label="Gemeente" value={kadastraalObject.kadastraleGemeente.gemeente} />
       <MapDetailResultItem
         label="Grootte"
-        value={(kadastraalObject.size || kadastraalObject.size === 0) ? `${kadastraalObject.size.toLocaleString('nl-NL')} m²` : ''}
+        value={
+          kadastraalObject.size || kadastraalObject.size === 0 ?
+            `${kadastraalObject.size.toLocaleString('nl-NL')} m²` :
+            ''
+        }
       />
     </ul>
   </MapDetailResultWrapper>
-);
+)
 
 MapDetailKadastraalObject.propTypes = {
   kadastraalObject: PropTypes.shape({
     kadastraleGemeente: PropTypes.shape({
       label: PropTypes.string,
       name: PropTypes.string,
-      gemeente: PropTypes.string
+      gemeente: PropTypes.string,
     }),
     label: PropTypes.string,
-    size: PropTypes.number
+    size: PropTypes.number,
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailKadastraalObject;
+export default MapDetailKadastraalObject

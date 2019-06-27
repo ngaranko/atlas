@@ -1,5 +1,5 @@
 describe('search-config service', () => {
   it('should ', () => {
-    expect(true).toBe(true);
-  });
-});
+    expect(true).toBe(true)
+  })
+})

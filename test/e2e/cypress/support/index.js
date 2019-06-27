@@ -13,6 +13,6 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import './authentication-commands';
-import './preview-panel-commands';
-import './routing-commands';
+import './authentication-commands'
+import './preview-panel-commands'
+import './routing-commands'

@@ -29,6 +29,7 @@ exports[`MapLayer should render 1`] = `
         >
           <button
             onClick={[Function]}
+            type="button"
           >
             <span
               className="map-layers__toggle-title"
@@ -78,6 +79,7 @@ exports[`MapLayer should render without active layers 1`] = `
         >
           <button
             onClick={[Function]}
+            type="button"
           >
             <span
               className="map-layers__toggle-title"

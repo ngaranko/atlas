@@ -21,222 +21,241 @@ import UiReducer, {
   hasPrintMode,
   hasEmbedMode,
   isPrintModeLandscape,
-  isMapLinkVisible
-} from './ui';
+  isMapLinkVisible,
+} from './ui'
 
 describe('UiReducer', () => {
-  let state;
+  let state
 
   beforeEach(() => {
-    state = UiReducer(undefined, {});
-  });
+    state = UiReducer(undefined, {})
+  })
 
   it('should set the initial state', () => {
-    expect(state).toEqual(initialState);
-  });
+    expect(state).toEqual(initialState)
+  })
 
   it('should set the print mode to true', () => {
-    expect(UiReducer(state, {
-      type: SHOW_PRINT
-    })).toEqual({
+    expect(
+      UiReducer(state, {
+        type: SHOW_PRINT,
+      }),
+    ).toEqual({
       ...state,
-      isPrintMode: true
-    });
-  });
+      isPrintMode: true,
+    })
+  })
 
   it('should set the show embed preview state to true', () => {
-    expect(UiReducer(state, {
-      type: SHOW_EMBED_PREVIEW
-    })).toEqual({
+    expect(
+      UiReducer(state, {
+        type: SHOW_EMBED_PREVIEW,
+      }),
+    ).toEqual({
       ...state,
-      isEmbedPreview: true
-    });
-  });
+      isEmbedPreview: true,
+    })
+  })
 
   it('should set the show embed preview state to false', () => {
-    expect(UiReducer(state, {
-      type: HIDE_EMBED_PREVIEW
-    })).toEqual({
+    expect(
+      UiReducer(state, {
+        type: HIDE_EMBED_PREVIEW,
+      }),
+    ).toEqual({
       ...state,
-      isEmbedPreview: false
-    });
-  });
+      isEmbedPreview: false,
+    })
+  })
 
   it('should set the isPrint state to false', () => {
-    expect(UiReducer(state, {
-      type: HIDE_PRINT
-    })).toEqual({
+    expect(
+      UiReducer(state, {
+        type: HIDE_PRINT,
+      }),
+    ).toEqual({
       ...state,
-      isPrintMode: false
-    });
-  });
+      isPrintMode: false,
+    })
+  })
 
   it('should set the viewMode', () => {
-    expect(state.viewMode).toBe(VIEW_MODE.SPLIT);
-    expect(UiReducer(state, {
-      type: SET_VIEW_MODE,
-      payload: VIEW_MODE.MAP
-    })).toEqual({
+    expect(state.viewMode).toBe(VIEW_MODE.SPLIT)
+    expect(
+      UiReducer(state, {
+        type: SET_VIEW_MODE,
+        payload: VIEW_MODE.MAP,
+      }),
+    ).toEqual({
       ...state,
-      viewMode: VIEW_MODE.MAP
-    });
-  });
+      viewMode: VIEW_MODE.MAP,
+    })
+  })
 
   it('should toggle the map panel handle ', () => {
-    expect(state.isMapPanelHandleVisible).toBe(true);
-    expect(UiReducer(state, {
-      type: TOGGLE_MAP_PANEL_HANDLE
-    })).toEqual({
+    expect(state.isMapPanelHandleVisible).toBe(true)
+    expect(
+      UiReducer(state, {
+        type: TOGGLE_MAP_PANEL_HANDLE,
+      }),
+    ).toEqual({
       ...state,
-      isMapPanelHandleVisible: false
-    });
-  });
-});
-
+      isMapPanelHandleVisible: false,
+    })
+  })
+})
 
 describe('UI action creators', () => {
   it('should creat show embed preview action', () => {
     expect(showEmbedPreview()).toEqual({
       type: SHOW_EMBED_PREVIEW,
       meta: {
-        tracking: true
-      }
-    });
-  });
+        tracking: true,
+      },
+    })
+  })
 
   it('should create the show print mode action', () => {
     expect(showPrintMode()).toEqual({
       type: SHOW_PRINT,
       meta: {
-        tracking: true
-      }
-    });
-  });
+        tracking: true,
+      },
+    })
+  })
 
   it('should create the set view mode action', () => {
     expect(setViewMode(VIEW_MODE.FULL, false)).toEqual({
       type: SET_VIEW_MODE,
       payload: VIEW_MODE.FULL,
       meta: {
-        tracking: false
-      }
-    });
+        tracking: false,
+      },
+    })
 
     expect(setViewMode(VIEW_MODE.SPLIT)).toEqual({
       type: SET_VIEW_MODE,
       payload: VIEW_MODE.SPLIT,
       meta: {
-        tracking: true
-      }
-    });
-  });
+        tracking: true,
+      },
+    })
+  })
 
   it('should create the hide print mode action', () => {
     expect(hidePrintMode()).toEqual({
       type: HIDE_PRINT,
       meta: {
-        tracking: true
-      }
-    });
-  });
+        tracking: true,
+      },
+    })
+  })
 
   it('should create the hide embed mode action', () => {
     expect(hideEmbedMode()).toEqual({
       type: HIDE_EMBED_PREVIEW,
       meta: {
-        tracking: true
-      }
-    });
-  });
+        tracking: true,
+      },
+    })
+  })
 
   it('should create the share page action', () => {
     expect(sharePage(true)).toEqual({
       type: SHARE_PAGE,
       meta: {
-        tracking: true
-      }
-    });
-  });
+        tracking: true,
+      },
+    })
+  })
 
   it('should create the toggle map panel handle action', () => {
     expect(toggleMapPanelHandle()).toEqual({
-      type: TOGGLE_MAP_PANEL_HANDLE
-    });
-  });
-});
+      type: TOGGLE_MAP_PANEL_HANDLE,
+    })
+  })
+})
 
 describe('UI selectors', () => {
   it('should select the isMapLayersVisible', () => {
     const mockParameters = {
-      isMapLayersVisible: false
-    };
-    const selected = isMapLayersVisible.resultFunc(mockParameters);
-    expect(selected).toEqual(mockParameters.isMapLayersVisible);
-  });
+      isMapLayersVisible: false,
+    }
+    const selected = isMapLayersVisible.resultFunc(mockParameters)
+    expect(selected).toEqual(mockParameters.isMapLayersVisible)
+  })
 
   it('should select the isMapLinkVisible', () => {
     const mockParameters = {
-      isMapLinkVisible: false
-    };
-    const selected = isMapLinkVisible.resultFunc(mockParameters);
-    expect(selected).toEqual(mockParameters.isMapLinkVisible);
-  });
-
+      isMapLinkVisible: false,
+    }
+    const selected = isMapLinkVisible.resultFunc(mockParameters)
+    expect(selected).toEqual(mockParameters.isMapLinkVisible)
+  })
 
   describe('isMapPage selector', () => {
     it('should return false when not on the map page', () => {
       const mockParameters = {
         isDataPage: false,
-        viewMode: VIEW_MODE.MAP
-      };
-      const selected = isMapPage.resultFunc(mockParameters.isDataPage, mockParameters.viewMode);
-      expect(selected).toEqual(false);
-    });
+        viewMode: VIEW_MODE.MAP,
+      }
+      const selected = isMapPage.resultFunc(
+        mockParameters.isDataPage,
+        mockParameters.viewMode,
+      )
+      expect(selected).toEqual(false)
+    })
 
     it('should return true when view mode is map', () => {
       const mockParameters = {
         isDataPage: true,
-        viewMode: VIEW_MODE.MAP
-      };
-      const selected = isMapPage.resultFunc(mockParameters.isDataPage, mockParameters.viewMode);
-      expect(selected).toEqual(true);
-    });
+        viewMode: VIEW_MODE.MAP,
+      }
+      const selected = isMapPage.resultFunc(
+        mockParameters.isDataPage,
+        mockParameters.viewMode,
+      )
+      expect(selected).toEqual(true)
+    })
 
     it('should return false when view mode is not map', () => {
       const mockParameters = {
         isDataPage: true,
-        viewMode: VIEW_MODE.SPLIT
-      };
-      const selected = isMapPage.resultFunc(mockParameters.isDataPage, mockParameters.viewMode);
-      expect(selected).toEqual(false);
-    });
-  });
+        viewMode: VIEW_MODE.SPLIT,
+      }
+      const selected = isMapPage.resultFunc(
+        mockParameters.isDataPage,
+        mockParameters.viewMode,
+      )
+      expect(selected).toEqual(false)
+    })
+  })
 
   describe('isPanoFullscreen selector', () => {
     it('should return true when map is in the full mode on the pano page', () => {
       const mockParameters = {
         viewMode: VIEW_MODE.FULL,
-        isPanoPage: true
-      };
+        isPanoPage: true,
+      }
       const selected = isPanoFullscreen.resultFunc(
         mockParameters.viewMode,
-        mockParameters.isPanoPage
-      );
-      expect(selected).toEqual(true);
-    });
+        mockParameters.isPanoPage,
+      )
+      expect(selected).toEqual(true)
+    })
 
     it('should return false when map is in the full mode but on the pano page', () => {
       const mockParameters = {
         viewMode: VIEW_MODE.FULL,
-        isPanoPage: false
-      };
+        isPanoPage: false,
+      }
       const selected = isPanoFullscreen.resultFunc(
         mockParameters.viewMode,
-        mockParameters.isPanoPage
-      );
-      expect(selected).toEqual(false);
-    });
-  });
+        mockParameters.isPanoPage,
+      )
+      expect(selected).toEqual(false)
+    })
+  })
 
   describe('hasPrintMode selector', () => {
     const mockParameters = {
@@ -246,11 +265,11 @@ describe('UI selectors', () => {
       dataPage: false,
       mapActive: false,
       panoPageActive: false,
-      viewMode: VIEW_MODE.MAP
-    };
+      viewMode: VIEW_MODE.MAP,
+    }
 
     it('should return true when pano page is active', () => {
-      mockParameters.panoPageActive = true;
+      mockParameters.panoPageActive = true
       const selected = hasPrintMode.resultFunc(
         mockParameters.dataSelectionPage,
         mockParameters.datasetPage,
@@ -258,14 +277,14 @@ describe('UI selectors', () => {
         mockParameters.dataPage,
         mockParameters.mapActive,
         mockParameters.panoPageActive,
-        mockParameters.viewMode
-      );
-      expect(selected).toEqual(true);
-    });
+        mockParameters.viewMode,
+      )
+      expect(selected).toEqual(true)
+    })
 
     it('should return true when map page is active', () => {
-      mockParameters.dataSelectionPage = true;
-      mockParameters.mapActive = true;
+      mockParameters.dataSelectionPage = true
+      mockParameters.mapActive = true
       const selected = hasPrintMode.resultFunc(
         mockParameters.dataSelectionPage,
         mockParameters.datasetPage,
@@ -273,15 +292,15 @@ describe('UI selectors', () => {
         mockParameters.dataPage,
         mockParameters.mapActive,
         mockParameters.panoPageActive,
-        mockParameters.viewMode
-      );
-      expect(selected).toEqual(true);
-    });
+        mockParameters.viewMode,
+      )
+      expect(selected).toEqual(true)
+    })
 
     it('should return true when on dataset detail page', () => {
-      mockParameters.datasetDetailPage = true;
-      mockParameters.datasetPage = true;
-      mockParameters.dataPage = true;
+      mockParameters.datasetDetailPage = true
+      mockParameters.datasetPage = true
+      mockParameters.dataPage = true
       const selected = hasPrintMode.resultFunc(
         mockParameters.dataSelectionPage,
         mockParameters.datasetPage,
@@ -289,13 +308,13 @@ describe('UI selectors', () => {
         mockParameters.dataPage,
         mockParameters.mapActive,
         mockParameters.panoPageActive,
-        mockParameters.viewMode
-      );
-      expect(selected).toEqual(true);
-    });
+        mockParameters.viewMode,
+      )
+      expect(selected).toEqual(true)
+    })
 
     it('should return true when on detail page', () => {
-      mockParameters.viewMode = VIEW_MODE.SPLIT;
+      mockParameters.viewMode = VIEW_MODE.SPLIT
       const selected = hasPrintMode.resultFunc(
         mockParameters.dataSelectionPage,
         mockParameters.datasetPage,
@@ -303,73 +322,75 @@ describe('UI selectors', () => {
         mockParameters.dataPage,
         mockParameters.mapActive,
         mockParameters.panoPageActive,
-        mockParameters.viewMode
-      );
-      expect(selected).toEqual(true);
-    });
-  });
+        mockParameters.viewMode,
+      )
+      expect(selected).toEqual(true)
+    })
+  })
 
   describe('hasEmbedMode selector', () => {
     const mockParameters = {
       mapActive: false,
       panoPage: false,
       panoFullscreen: false,
-      dataSelectionPage: false
-    };
+      dataSelectionPage: false,
+    }
 
     it('should return true when on a map page', () => {
-      mockParameters.mapActive = true;
+      mockParameters.mapActive = true
       const selected = hasEmbedMode.resultFunc(
         mockParameters.mapActive,
         mockParameters.panoPage,
         mockParameters.panoFullscreen,
-        mockParameters.dataSelectionPage
-      );
-      expect(selected).toEqual(true);
-    });
+        mockParameters.dataSelectionPage,
+      )
+      expect(selected).toEqual(true)
+    })
 
     it('should return true when on a pano page in full screen', () => {
-      mockParameters.panoPage = true;
-      mockParameters.panoFullscreen = true;
+      mockParameters.panoPage = true
+      mockParameters.panoFullscreen = true
       const selected = hasEmbedMode.resultFunc(
         mockParameters.mapActive,
         mockParameters.panoPage,
         mockParameters.panoFullscreen,
-        mockParameters.dataSelectionPage
-      );
-      expect(selected).toEqual(true);
-    });
-  });
+        mockParameters.dataSelectionPage,
+      )
+      expect(selected).toEqual(true)
+    })
+  })
 
   describe('isPrintModeLandscape selector', () => {
-    let mockParameters;
+    let mockParameters
 
     beforeEach(() => {
       mockParameters = {
         printMode: true,
         panoPageActive: false,
         mapPageActive: false,
-        viewMode: VIEW_MODE.MAP
-      };
-    });
+        viewMode: VIEW_MODE.MAP,
+      }
+    })
 
     it('should return false when not in print mode', () => {
-      mockParameters.printMode = false;
+      mockParameters.printMode = false
       const selected = isPrintModeLandscape.resultFunc(
         mockParameters.printMode,
         mockParameters.panoPageActive,
         mockParameters.mapPageActive,
-        mockParameters.viewMode);
-      expect(selected).toEqual(false);
-    });
+        mockParameters.viewMode,
+      )
+      expect(selected).toEqual(false)
+    })
 
     it('should return true when view mode is map', () => {
       const selected = isPrintModeLandscape.resultFunc(
         mockParameters.printMode,
         mockParameters.panoPageActive,
         mockParameters.mapPageActive,
-        mockParameters.viewMode);
-      expect(selected).toEqual(true);
-    });
-  });
-});
+        mockParameters.viewMode,
+      )
+      expect(selected).toEqual(true)
+    })
+  })
+})

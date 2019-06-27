@@ -1,18 +1,14 @@
 /* globals L, proj4, Redux */
 
-(function () {
-    'use strict';
+;(function() {
+  angular.module('dpShared').config(configuration)
 
-    angular
-        .module('dpShared')
-        .config(configuration);
+  configuration.$inject = ['$provide', '$qProvider']
 
-    configuration.$inject = ['$provide', '$qProvider'];
-
-    function configuration ($provide, $qProvider) {
-        $qProvider.errorOnUnhandledRejections(false);
-        $provide.constant('L', L);
-        $provide.constant('proj4', proj4);
-        $provide.constant('Redux', Redux);
-    }
-})();
+  function configuration($provide, $qProvider) {
+    $qProvider.errorOnUnhandledRejections(false)
+    $provide.constant('L', L)
+    $provide.constant('proj4', proj4)
+    $provide.constant('Redux', Redux)
+  }
+})()

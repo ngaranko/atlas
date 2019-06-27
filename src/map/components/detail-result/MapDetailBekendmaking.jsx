@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import MapDetailResultItem, { MapDetailResultUrlItem } from './MapDetailResultItem';
-import MapDetailResultWrapper from './MapDetailResultWrapper';
+import MapDetailResultItem, { MapDetailResultUrlItem } from './MapDetailResultItem'
+import MapDetailResultWrapper from './MapDetailResultWrapper'
 
 const MapDetailBekendmaking = ({ panoUrl, bekendmaking, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
@@ -13,22 +13,10 @@ const MapDetailBekendmaking = ({ panoUrl, bekendmaking, onMaximize, onPanoPrevie
     title="Bekendmaking"
   >
     <ul className="map-detail-result__list">
-      <MapDetailResultItem
-        label="Datum"
-        value={bekendmaking.date}
-      />
-      <MapDetailResultItem
-        label="Categorie"
-        value={bekendmaking.categorie}
-      />
-      <MapDetailResultItem
-        label="Onderwerp"
-        value={bekendmaking.onderwerp}
-      />
-      <MapDetailResultItem
-        label="Beschrijving"
-        value={bekendmaking.beschrijving}
-      />
+      <MapDetailResultItem label="Datum" value={bekendmaking.date} />
+      <MapDetailResultItem label="Categorie" value={bekendmaking.categorie} />
+      <MapDetailResultItem label="Onderwerp" value={bekendmaking.onderwerp} />
+      <MapDetailResultItem label="Beschrijving" value={bekendmaking.beschrijving} />
       <MapDetailResultUrlItem
         label="Meer informatie"
         description={bekendmaking.url}
@@ -36,7 +24,7 @@ const MapDetailBekendmaking = ({ panoUrl, bekendmaking, onMaximize, onPanoPrevie
       />
     </ul>
   </MapDetailResultWrapper>
-);
+)
 
 MapDetailBekendmaking.propTypes = {
   panoUrl: PropTypes.string.isRequired,
@@ -46,10 +34,10 @@ MapDetailBekendmaking.propTypes = {
     onderwerp: PropTypes.string,
     beschrijving: PropTypes.string,
     url: PropTypes.string,
-    date: PropTypes.date
+    date: PropTypes.string,
   }).isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailBekendmaking;
+export default MapDetailBekendmaking

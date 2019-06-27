@@ -4,15 +4,15 @@ export default {
   DRAWING_MODE: {
     NONE: 'none',
     DRAW: 'draw',
-    EDIT: 'edit'
+    EDIT: 'edit',
   },
   format: {
     numeric: {
       delimiters: {
         thousands: '.',
-        decimal: ','
-      }
-    }
+        decimal: ',',
+      },
+    },
   },
   edit: {},
   draw: {
@@ -22,12 +22,12 @@ export default {
       showLength: true,
       metric: ['km', 'm'],
       precision: {
-        m: 1
-      }
+        m: 1,
+      },
     },
     marker: false,
     circle: false,
     rectangle: false,
-    polyline: false
-  }
-};
+    polyline: false,
+  },
+}
