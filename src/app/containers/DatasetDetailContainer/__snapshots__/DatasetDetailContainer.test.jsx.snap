@@ -22,7 +22,7 @@ exports[`DatasetDetailContainer should render 1`] = `
     }
     interpolateBindings={
       Object {
-        "endpoint": "undefineddcatd/datasets/2",
+        "endpoint": "https://acc.api.data.amsterdam.nl/dcatd/datasets/2",
       }
     }
     moduleName="dpDetailWrapper"
