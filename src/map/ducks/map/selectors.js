@@ -45,9 +45,13 @@ export const getCenter = createSelector([getMapCenter, getPanoramaLocation],
 export const getMarkerLocation = createSelector(getMap, (mapState) => mapState && mapState.marker &&
   {
     position: mapState.marker,
-    type: markerPointType
+    type: markerPointType,
+    iconData: {
+      type: mapState.markerIcon
+    }
   });
 
+export const getMarkerIcon = createSelector(getMap, (mapState) => mapState.markerIcon);
 export const getRdGeoJsons = createSelector(getDetailGeoJson, (geoJson) => [geoJson]);
 
 export const getLocationId = createSelector(

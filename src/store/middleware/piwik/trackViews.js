@@ -18,7 +18,7 @@ let views = Object.entries(routing).reduce((acc, [, value]) => ({
 
 views = {
   ...views,
-  'atlasRouter/HOME': function trackView({ firstAction = null, query = {}, href, title }) {
+  [routing.home.type]: function trackView({ firstAction = null, query = {}, href, title }) {
     return (firstAction || !!query.print) ? [
       PIWIK_CONSTANTS.TRACK_VIEW,
       title,
@@ -26,7 +26,7 @@ views = {
       null
     ] : [];
   },
-  'atlasRouter/DATA': function trackView({ firstAction = null, query = {}, href, title }) {
+  [routing.data.type]: function trackView({ firstAction = null, query = {}, href, title }) {
     return (firstAction || !!query.print) ? [
       PIWIK_CONSTANTS.TRACK_VIEW,
       title, // PAGEVIEW -> MAP
@@ -34,7 +34,22 @@ views = {
       null
     ] : [];
   },
-  'atlasRouter/DATA_DETAIL': function trackView({ firstAction = null, query = {}, href, title, state, tracking }) {
+  [routing.verplaatst.type]: function trackView({ href, title }) {
+    return [
+      PIWIK_CONSTANTS.TRACK_VIEW,
+      title, // PAGEVIEW -> VERPLAATS
+      href,
+      document.referrer
+    ];
+  },
+  [routing.dataDetail.type]: function trackView({
+    firstAction = null,
+    query = {},
+    href,
+    title,
+    state,
+    tracking
+  }) {
     return (
       !firstAction && (tracking && tracking.id !== getDetail(state).id)
     ) ? [

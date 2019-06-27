@@ -42,9 +42,9 @@ describe('The dp-loading-indicator', function () {
         component = getComponent(isLoading, false, true);
         $interval.flush(0);
 
-        expect(component.find('.c-loading-indicator').length).toBe(1);
+        expect(component.find('.qa-loading-indicator').length).toBe(1);
         // It's empty by design! The relevant text is shown right after the icon. Don't repeat the same text.
-        expect(component.find('.c-loading-indicator').text()).toContain('Laden');
+        expect(component.find('.qa-loading-indicator').text()).toContain('Laden');
     });
 
     it('has an option to delay the showing of the spinner (prevent unnecessary screen flickering)', function () {
@@ -56,11 +56,11 @@ describe('The dp-loading-indicator', function () {
 
         // Not enough time has passed
         $interval.flush(399);
-        expect(component.find('.c-loading-indicator').length).toBe(0);
+        expect(component.find('.qa-loading-indicator').length).toBe(0);
 
         // Enough time has passed
         $interval.flush(1);
-        expect(component.find('.c-loading-indicator').length).toBe(1);
+        expect(component.find('.qa-loading-indicator').length).toBe(1);
     });
 
     it('the delayed showing of the spinner will be cancelled when the loading is finished', function () {
@@ -72,7 +72,7 @@ describe('The dp-loading-indicator', function () {
 
         // Not enough time has passed
         $interval.flush(200);
-        expect(component.find('.c-loading-indicator').length).toBe(0);
+        expect(component.find('.qa-loading-indicator').length).toBe(0);
 
         // The loading finishes
         scope.vm.isLoading = false;
@@ -80,7 +80,7 @@ describe('The dp-loading-indicator', function () {
 
         // More time passes, but the loading indicator will never be shown
         $interval.flush(5000);
-        expect(component.find('.c-loading-indicator').length).toBe(0);
+        expect(component.find('.qa-loading-indicator').length).toBe(0);
     });
 
     describe('it has two display variants:', function () {
@@ -95,14 +95,14 @@ describe('The dp-loading-indicator', function () {
             component = getComponent(isLoading, false, true);
             $interval.flush(0);
 
-            expect(component.find('.c-loading-indicator').attr('class')).not.toContain('c-loading-indicator--box');
+            expect(component.find('.qa-loading-indicator').attr('class')).not.toContain('c-loading-indicator__box');
         });
 
         it('inline', function () {
             component = getComponent(isLoading, false, false);
             $interval.flush(0);
 
-            expect(component.find('.c-loading-indicator').attr('class')).toContain('c-loading-indicator--box');
+            expect(component.find('.qa-loading-indicator').attr('class')).toContain('c-loading-indicator__box');
         });
     });
 });

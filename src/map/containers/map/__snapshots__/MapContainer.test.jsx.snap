@@ -9,6 +9,7 @@ exports[`MapContainer should render 1`] = `
   >
     <Connect(LeafletContainer)
       getLeafletInstance={[Function]}
+      showMapLink={true}
     />
     <ToggleFullscreen
       alignLeft={false}
@@ -36,6 +37,7 @@ exports[`MapContainer should render with drawingmode: draw 1`] = `
   >
     <Connect(LeafletContainer)
       getLeafletInstance={[Function]}
+      showMapLink={true}
     />
     <ToggleFullscreen
       alignLeft={false}
