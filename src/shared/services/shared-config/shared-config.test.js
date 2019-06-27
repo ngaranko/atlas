@@ -11,7 +11,7 @@ describe('The sharedConfig service', () => {
     getEnvironment.mockImplementation(() => ('PRE_PRODUCTION'));
     expect(SHARED_CONFIG).toMatchSnapshot();
 
-    getEnvironment.mockImplementation(() => ('ACCEPTATION'));
+    getEnvironment.mockImplementation(() => ('ACCEPTANCE'));
     expect(SHARED_CONFIG).toMatchSnapshot();
 
     getEnvironment.mockImplementation(() => ('DEVELOPMENT'));

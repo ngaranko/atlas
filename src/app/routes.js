@@ -81,6 +81,13 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
     page: PAGES.PANORAMA
   },
+  constructionFile: {
+    title: 'Bouwdossier',
+    path: `/${MAIN_PATHS.DATA}/stadsarchief/bouwdossier/:id/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.CONSTRUCTION_FILE}`,
+    useHooks: true, // indicate to skip legacy documentHead and piwik middleware
+    page: PAGES.CONSTRUCTION_FILE
+  },
   nieuws: {
     title: 'Nieuws',
     path: `/${MAIN_PATHS.CONTENT}/nieuws/`,

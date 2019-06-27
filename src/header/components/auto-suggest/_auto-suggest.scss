@@ -5,9 +5,16 @@ $clear-button-margin: 3px;
 
 // the input field
 .auto-suggest {
-  @media (min-width: 769px) {
+  // TODO: Move styling to styled component and use breakpoints form asc-ui
+  @media (min-width: 768px) {
     position: relative;
-    width: 100%;
+    width: 80%;
+  }
+
+  // TODO: Move styling to styled component and use breakpoints form asc-ui
+  @media (min-width: 1200px) {
+    position: relative;
+    width: 60%;
   }
 
   fieldset {
@@ -123,7 +130,7 @@ $clear-button-margin: 3px;
     }
 
     @media (min-width: 769px) {
-      max-width: 80%;
+      max-width: calc(80% - 45px);
     }
 
     &-category {

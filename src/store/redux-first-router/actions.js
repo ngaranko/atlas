@@ -129,6 +129,16 @@ export const toDetailFromEndpoint = (endpoint, view) => {
   });
 };
 
+export const toConstructionFilesFromEndpoint = (endpoint) => {
+  const { id } = getDetailPageData(endpoint);
+  return ({
+    type: routing.constructionFile.type,
+    payload: {
+      id
+    }
+  });
+};
+
 export const toDataSearchCategory = (searchQuery, category) => ({
   type: routing.dataSearchCategory.type,
   payload: {
@@ -186,6 +196,18 @@ export const toAdresses = () => ({
   meta: {
     query: {
       [PARAMETERS.VIEW]: VIEW_MODE.FULL
+    }
+  }
+});
+
+export const toConstructionFileViewer = (id, fileName) => ({
+  type: routing.constructionFile.type,
+  payload: {
+    id
+  },
+  meta: {
+    query: {
+      [PARAMETERS.FILE]: fileName
     }
   }
 });

@@ -1,6 +1,6 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory as createHistory } from 'history';
 import { connectRoutes } from 'redux-first-router';
 import restoreScroll from 'redux-first-router-restore-scroll';
 import queryString from 'querystring';

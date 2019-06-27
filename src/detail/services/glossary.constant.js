@@ -1,4 +1,3 @@
-
 const GLOSSARY = {
   DEFINITIONS: {
     A_PERCEEL: {
@@ -256,6 +255,15 @@ const GLOSSARY = {
         'monument_aanwijzingsdatum',
         'identificerende_sleutel_monument'
       ]
+    },
+    BOUWDOSSIER: {
+      label_singular: 'Bouwdossier',
+      label_plural: 'Bouwdossiers',
+      description: 'Een bouwdossier bevat de behandeling van de aanvraag tot een bouwvergunning ' +
+        '(waaronder ook splitsings-, reclame- en sloopvergunningen), de vergunningverlening ervan ' +
+        ' met de bijbehorende bouwtekeningen en het toezicht en de handhaving daarop.',
+      url: null,
+      meta: []
     },
     NUMMERAANDUIDING: {
       label_singular: 'Adres',

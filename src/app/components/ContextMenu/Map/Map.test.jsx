@@ -1,12 +1,14 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow } from 'enzyme/build';
 import configureMockStore from 'redux-mock-store';
-import { sharePage, showPrintMode, showEmbedPreview } from '../../../shared/ducks/ui/ui';
-import ContextMenu from './ContextMenu';
+import { sharePage, showEmbedPreview, showPrintMode } from '../../../../shared/ducks/ui/ui';
+import getShareUrl from '../../../../shared/services/share-url/share-url';
+import ContextMenu from './Map';
 
-jest.mock('../../../shared/ducks/ui/ui');
+jest.mock('../../../../shared/ducks/ui/ui');
+jest.mock('../../../../shared/services/share-url/share-url');
 
-describe('ContextMenu', () => {
+describe('ContextMenu for Maps', () => {
   const initialState = {
     map: {
       mapPanelActive: true
@@ -27,6 +29,7 @@ describe('ContextMenu', () => {
   sharePage.mockImplementation(() => ({ type: 'action' }));
   showPrintMode.mockImplementation(() => ({ type: 'action' }));
   showEmbedPreview.mockImplementation(() => ({ type: 'action' }));
+  getShareUrl.mockImplementation(() => ({ url: '/foo/bar' }));
 
   beforeEach(() => {
     global.window.title = 'Page title';

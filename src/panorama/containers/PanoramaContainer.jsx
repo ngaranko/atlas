@@ -22,7 +22,7 @@ import {
 import StatusBar from '../components/StatusBar/StatusBar';
 import PanoramaToggle from '../components/PanoramaToggle/PanoramaToggle';
 import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullscreen';
-import ContextMenu from '../../app/components/ContextMenu/ContextMenu';
+import { Map as ContextMenu } from '../../app/components/ContextMenu';
 import {
   getDetailReference,
   getLabelObjectByTags,

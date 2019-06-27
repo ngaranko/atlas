@@ -16,6 +16,7 @@ import PanoPreviewReducer, { REDUCER_KEY as PANO_PREVIEW } from '../panorama/duc
 import FiltersReducer, { REDUCER_KEY as FILTER } from '../shared/ducks/filters/filters';
 import DetailReducer, { DETAIL } from '../shared/ducks/detail/reducer';
 import DataSearchReducer, { DATA_SEARCH_REDUCER } from '../shared/ducks/data-search/reducer';
+import FilesReducer, { FILES_REDUCER } from '../shared/ducks/files/reducer';
 import SelectionReducer, { REDUCER_KEY as SELECTION } from '../shared/ducks/selection/selection';
 import DataSelectionReducer, { DATA_SELECTION } from '../shared/ducks/data-selection/reducer';
 import DatasetReducer, { DATASETS } from '../shared/ducks/datasets/datasets';
@@ -46,7 +47,8 @@ export default (routeReducer) => (oldState = {}, action) => {
     [SELECTION]: SelectionReducer,
     [DATA_SELECTION]: DataSelectionReducer,
     [DATASETS]: DatasetReducer,
-    [CONTENT]: ContentReducer
+    [CONTENT]: ContentReducer,
+    [FILES_REDUCER]: FilesReducer
   });
 
   // Combine legacy and new reducer states

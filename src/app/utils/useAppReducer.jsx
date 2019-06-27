@@ -1,18 +1,22 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useMemo, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { actionsCreator } from '../react-reducers';
 
 export const AppStateContext = createContext();
-export const AppStateProvider = ({ reducer, initialState, children }) => (
-  <AppStateContext.Provider value={useReducer(reducer, initialState)}>
-    {children}
-  </AppStateContext.Provider>
-);
+export const AppStateProvider = ({ reducer, initialState, children }) => {
+  const value = useReducer(reducer, initialState);
+
+  const memoValue = useMemo(() => value, [value]);
+  return (
+    <AppStateContext.Provider value={memoValue}>
+      {children}
+    </AppStateContext.Provider>
+  );
+};
 
 AppStateProvider.propTypes = {
   reducer: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  initialState: PropTypes.any.isRequired,
+  initialState: PropTypes.shape({}).isRequired,
   children: PropTypes.node.isRequired
 };
 

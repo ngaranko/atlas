@@ -22,9 +22,12 @@
     display: table-row-group;
 
     #{$self}__row {
-      &:hover,
-      &:focus {
-        background-color: $secondary-gray10;
+
+      &--link {
+        &:hover,
+        &:focus {
+          background-color: $secondary-gray10;
+        }
       }
 
       &:last-child {

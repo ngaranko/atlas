@@ -19,6 +19,7 @@ export default {
   PRINT: 'print',
   LAYERS: 'lagen',
   LOCATION: 'locatie',
-  MARKER: 'marker',
+  FILE: 'bestand',
+  MARKER_ICON: 'marker-icon',
   MAP_LINK: 'map-link'
 };

@@ -75,7 +75,8 @@ describe('The dp-panorama-thumbnail component', function () {
             payload: { id: 42 },
             meta: {
                 preserve: true,
-                additionalParams: { heading: 99, [PARAMETERS.VIEW]: VIEW_MODE.SPLIT }
+                additionalParams: { heading: 99, [PARAMETERS.VIEW]: VIEW_MODE.SPLIT },
+                query: { heading: 99, [PARAMETERS.VIEW]: VIEW_MODE.SPLIT }
             }
         });
         expect(scope.vm.isLoading).toBe(false);
@@ -101,7 +102,8 @@ describe('The dp-panorama-thumbnail component', function () {
             payload: { id: 43 },
             meta: {
                 preserve: true,
-                additionalParams: { heading: 99, [PARAMETERS.VIEW]: VIEW_MODE.SPLIT }
+                additionalParams: { heading: 99, [PARAMETERS.VIEW]: VIEW_MODE.SPLIT },
+                query: { heading: 99, [PARAMETERS.VIEW]: VIEW_MODE.SPLIT }
             }
         });
     });

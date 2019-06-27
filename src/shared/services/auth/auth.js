@@ -32,32 +32,50 @@ export const dcatdScopes = [
   'CAT/W' // Beheerdersrechten
 ];
 
+export const SCOPES = {
+  'BRK/RS': 'BRK/RS',
+  'BRK/RSN': 'BRK/RSN',
+  'BRK/RO': 'BRK/RO',
+  'WKPB/RBDU': 'WKPB/RBDU',
+  'MON/RBC': 'MON/RBC',
+  'MON/RDM': 'MON/RDM',
+  'HR/R': 'HR/R',
+  'BD/R': 'BD/R',
+  'GREX/R': 'GREX/R'
+};
+
 const scopes = [
   // Kadaster
   // Alle attributen van een kadastraal niet-natuurlijk subject,
   // inclusief alle rechten op kadastrale objecten
-  'BRK/RS',
+  SCOPES['BRK/RS'],
   // Alle atrributen van een kadastraal subject (natuurlijk en
   // niet-natuurlijk), inclusief alle rechten op kadastrale objecten
-  'BRK/RSN',
+  SCOPES['BRK/RSN'],
   // Alle attributen van een kadastraal object, inclusief koopsom,
   // koopsom_valuta_code, koopjaar, cultuurcode_onbebouwd,
   // cultuurcode_bebouwd en zakelijke rechten van de bijbehorende
   // kadastrale subjecten
-  'BRK/RO',
+  SCOPES['BRK/RO'],
 
   // Wet Kenbaarheid Beperkingen
-  'WKPB/RBDU', // Lezen URL Brondocument
+  SCOPES['WKPB/RBDU'], // Lezen URL Brondocument
 
   // Monumenten
-  'MON/RBC', // Lezen beschrijvingen van Complexen
-  'MON/RDM', // Lezen details van Monumenten
+  SCOPES['MON/RBC'], // Lezen beschrijvingen van Complexen
+  SCOPES['MON/RDM'], // Lezen details van Monumenten
 
   // Handelsregister
-  'HR/R', // Leesrechten
+  SCOPES['HR/R'], // Leesrechten
+
+  // Bouwdossiers
+  SCOPES['BD/R'],
+
+  // Bouwdossiers
+  'BD/R',
 
   // Grondexploitatie
-  'GREX/R', // Leesrechten
+  SCOPES['GREX/R'], // Leesrechten
 
   // Catalogus (Dcatd) admin
   ...dcatdScopes

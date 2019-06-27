@@ -7,7 +7,7 @@ import { isEmbedded, isPrintOrEmbedMode, isMapLinkVisible } from '../../../share
 
 import DrawTool from '../../containers/draw-tool/DrawToolContainer';
 import ToggleFullscreen from '../../../app/components/ToggleFullscreen/ToggleFullscreen';
-import ContextMenu from '../../../app/components/ContextMenu/ContextMenu';
+import { Map as ContextMenu } from '../../../app/components/ContextMenu';
 
 import LeafletContainer from '../leaflet/LeafletContainer';
 import MapPanelContainer from '../../containers/panel/MapPanelContainer';

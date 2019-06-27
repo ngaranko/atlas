@@ -25,7 +25,7 @@ const DataSelectionTable = ({ content }) => {
       <div className="c-ds-table">
 
         <div className="c-ds-table__head">
-          <div className="c-ds-table__row">
+          <div className="c-ds-table__row c-ds-table__row--link">
             {content.head.map((field, i) => (
               <div key={i} className="c-ds-table__cell">
                 {field}
@@ -37,7 +37,7 @@ const DataSelectionTable = ({ content }) => {
           {content.body.map((row, i) => (
             <Link
               key={i}
-              className="c-ds-table__row qa-table-link"
+              className="c-ds-table__row c-ds-table__row--link qa-table-link"
               to={buildLink(row)}
             >
               {row.content.map((variables, j) => (

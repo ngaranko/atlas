@@ -17,6 +17,6 @@ const icons = {
   [detailPointType]: detailIcon,
   [panoramaPersonType]: panoramaPersonIcon,
   [panoramaOrientationType]: panoramaOrientationIcon,
-  [markerPointType]: locationIcon
+  [markerPointType]: ({ type }) => locationIcon(type)
 };
 export default icons;

@@ -212,27 +212,6 @@ describe('The AutoSuggest component', () => {
   });
 
   describe('onFormSubmit', () => {
-    it('should be triggered if form is submitted', () => {
-      // Without a query
-      const autoSuggestComponent = shallow(<AutoSuggest
-        activeSuggestion={mockFilledState.activeSuggestion}
-        onSubmit={onSubmit}
-        onSuggestionActivate={onSuggestionActivate}
-        onSuggestionSelection={onSuggestionSelection}
-        onTextInput={onTextInput}
-      />);
-
-      const form = autoSuggestComponent.find('form').first();
-      form.simulate('submit', {
-        preventDefault: () => {
-        },
-        stopPropagation: () => {
-        }
-      });
-
-      expect(onSubmit).toHaveBeenCalled();
-    });
-
     it('should be triggered when an ellipsis list item is selected', () => {
       const autoSuggestComponent = shallow(<AutoSuggest
         activeSuggestion={mockFilledState.activeSuggestion}

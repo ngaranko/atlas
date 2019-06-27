@@ -298,7 +298,6 @@ class MapLeaflet extends React.Component {
               />
             )
           }
-
           {
             geoJsons.map((shape) => Boolean(shape.geoJson) && (
               <GeoJSON

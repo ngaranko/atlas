@@ -10,7 +10,10 @@
                 addApiRoot: '=',
                 useBrkObjectExpanded: '=',
                 merge: '<',
-                user: '<'
+                noResultMessage: '@',
+                user: '<',
+                subType: '<',
+                id: '<'
             },
             templateUrl: 'modules/detail/components/api-call/api-call.html',
             controller: DpApiCallController,
