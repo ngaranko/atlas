@@ -45,7 +45,7 @@ const Gallery = ({ title, allThumbnails, id, maxLength }) => {
                       `${100 / 3}%`,
                       `${100 / 6}%`,
                       `${100 / 6}%`,
-                      '300px'
+                      '315px'
                     ]}
                     className="c-gallery__item"
                   >

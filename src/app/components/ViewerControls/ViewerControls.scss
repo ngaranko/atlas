@@ -43,7 +43,6 @@ $offset: 10px;
 
     &--bottom-right {
       bottom: $offset;
-      max-width: 90vw;
       padding-right: $offset;
       right: 0;
     }
@@ -71,10 +70,12 @@ $offset: 10px;
       display: flex;
       flex-grow: 1;
       height: 32px;
+      max-width: 70vw;
       padding: 0 10px;
 
       & + & {
         margin-left: 1px;
+        max-width: 20vw;
       }
 
       & > span {
