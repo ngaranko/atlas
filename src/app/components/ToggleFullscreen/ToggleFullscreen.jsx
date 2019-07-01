@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import IconButton from '../IconButton/IconButton';
+import React from 'react'
+import PropTypes from 'prop-types'
+import IconButton from '../IconButton/IconButton'
 
 const ToggleFullscreen = ({ isFullscreen, title, onToggleFullscreen, alignLeft }) => (
   <IconButton
@@ -8,19 +8,19 @@ const ToggleFullscreen = ({ isFullscreen, title, onToggleFullscreen, alignLeft }
     icon={isFullscreen ? 'minimize' : 'maximize'}
     onClick={onToggleFullscreen}
     alignLeft={alignLeft}
-    extraClass={'qa-toggle-fullscreen'}
+    extraClass="qa-toggle-fullscreen"
   />
-);
+)
 
 ToggleFullscreen.defaultProps = {
-  alignLeft: false
-};
+  alignLeft: false,
+}
 
 ToggleFullscreen.propTypes = {
   alignLeft: PropTypes.bool,
   isFullscreen: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  onToggleFullscreen: PropTypes.func.isRequired
-};
+  onToggleFullscreen: PropTypes.func.isRequired,
+}
 
-export default ToggleFullscreen;
+export default ToggleFullscreen

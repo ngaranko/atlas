@@ -1,69 +1,64 @@
-import React from 'react';
-import Link from 'redux-first-router-link';
-import PropTypes from 'prop-types';
+import React from 'react'
+import Link from 'redux-first-router-link'
+import PropTypes from 'prop-types'
 
-const STATUS_OBJECT_GEVORMD = 18;
+const STATUS_OBJECT_GEVORMD = 18
 
-const isString = (value) => (typeof value === 'string');
+const isString = value => typeof value === 'string'
 
 function isObject(value) {
-  return value !== null && typeof value === 'object';
+  return value !== null && typeof value === 'object'
 }
 
-const showSubtype = (categorySlug, link) => (
+const showSubtype = (categorySlug, link) =>
   isString(link.subtype) &&
-  (
-    (categorySlug === 'ligplaats' || categorySlug === 'standplaats') ||
+  (categorySlug === 'ligplaats' ||
+    categorySlug === 'standplaats' ||
     (categorySlug === 'openbareruimte' && link.subtype !== 'weg') ||
     (categorySlug === 'adres' && link.subtype !== 'verblijfsobject') ||
     categorySlug === 'gebied' ||
     categorySlug === 'explosief' ||
-    (categorySlug === 'monument' && link.subtype === 'complex')
-  )
-);
+    (categorySlug === 'monument' && link.subtype === 'complex'))
 
-const getExtraInfo = (result) => {
-  let extraInfo = '';
+const getExtraInfo = result => {
+  let extraInfo = ''
   if (result.hoofdadres === false) {
-    extraInfo += ' (nevenadres)';
+    extraInfo += ' (nevenadres)'
   }
 
   if (isObject(result.vbo_status) && Number(result.vbo_status.code) === STATUS_OBJECT_GEVORMD) {
-    extraInfo += ` (${result.vbo_status.omschrijving.toLowerCase()})`;
+    extraInfo += ` (${result.vbo_status.omschrijving.toLowerCase()})`
   }
 
-  return extraInfo;
-};
+  return extraInfo
+}
 
 const SearchListItem = ({ result, category }) => (
   <li>
-    <Link
-      className="o-btn o-btn--link qa-list-item-link"
-      to={result.linkTo}
-    >
+    <Link className="o-btn o-btn--link qa-list-item-link" to={result.linkTo}>
       {result.label}
     </Link>
 
-    <span className="qa-search-results__link-extra-info">
-      {getExtraInfo(result)}
-    </span>
+    <span className="qa-search-results__link-extra-info">{getExtraInfo(result)}</span>
 
-    {(showSubtype(category.slug, result)) ? (
+    {showSubtype(category.slug, result) ? (
       <span className="qa-subtype">
-        &nbsp;({result.subtypeLabel})
+        &nbsp;(
+        {result.subtypeLabel}
+)
       </span>
     ) : null}
   </li>
-);
+)
 
 SearchListItem.propTypes = {
   result: PropTypes.shape({
     label: PropTypes.string,
     subtype: PropTypes.string,
     subtypeLabel: PropTypes.string,
-    linkTo: PropTypes.shape()
+    linkTo: PropTypes.shape(),
   }).isRequired,
-  category: PropTypes.shape().isRequired
-};
+  category: PropTypes.shape().isRequired,
+}
 
-export default SearchListItem;
+export default SearchListItem

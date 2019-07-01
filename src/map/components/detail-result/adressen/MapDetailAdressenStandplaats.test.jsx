@@ -1,7 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from 'react'
+import { shallow } from 'enzyme'
 
-import MapDetailAdressenStandplaats from './MapDetailAdressenStandplaats';
+import MapDetailAdressenStandplaats from './MapDetailAdressenStandplaats'
 
 describe('MapDetailAdressenStandplaats', () => {
   it('should render everything', () => {
@@ -9,55 +9,55 @@ describe('MapDetailAdressenStandplaats', () => {
       label: 'Standplaats label',
       status: { description: 'description' },
       indicatieGeconstateerd: true,
-      aanduidingInOnderzoek: true
-    };
-    const clickHandler = jest.fn();
+      aanduidingInOnderzoek: true,
+    }
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailAdressenStandplaats
         panoUrl="panoUrl"
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}
         standplaats={standplaats}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
 
   it('should render `Nee` if indicatie geconstateerd is `false` and show a red bullet', () => {
     const standplaats = {
       label: 'Standplaats label',
       status: { description: 'description' },
       indicatieGeconstateerd: false,
-      aanduidingInOnderzoek: true
-    };
-    const clickHandler = jest.fn();
+      aanduidingInOnderzoek: true,
+    }
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailAdressenStandplaats
         panoUrl="panoUrl"
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}
         standplaats={standplaats}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
 
   it('should render `Nee` if aanduiding in onderzoek is `false` and show a red bullet', () => {
     const standplaats = {
       label: 'Standplaats label',
       status: { description: 'description' },
       indicatieGeconstateerd: true,
-      aanduidingInOnderzoek: false
-    };
-    const clickHandler = jest.fn();
+      aanduidingInOnderzoek: false,
+    }
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailAdressenStandplaats
         panoUrl="panoUrl"
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}
         standplaats={standplaats}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-});
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+})

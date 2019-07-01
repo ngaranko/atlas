@@ -1,13 +1,9 @@
-(function () {
-    'use strict';
+;(function() {
+  angular.module('dpPage').filter('dpPageName', dpPageNameFilter)
 
-    angular
-        .module('dpPage')
-        .filter('dpPageName', dpPageNameFilter);
+  dpPageNameFilter.$inject = ['pageName']
 
-    dpPageNameFilter.$inject = ['pageName'];
-
-    function dpPageNameFilter (pageName) {
-        return input => pageName(input);
-    }
-})();
+  function dpPageNameFilter(pageName) {
+    return input => pageName(input)
+  }
+})()

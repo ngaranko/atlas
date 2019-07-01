@@ -1,35 +1,35 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { endpointTypes } from '../../services/map-detail';
-import MapDetailAdressenLigplaats from './adressen/MapDetailAdressenLigplaats';
-import MapDetailAdressenOpenbareRuimte from './adressen/MapDetailAdressenOpenbareRuimte';
-import MapDetailAdressenPand from './adressen/MapDetailAdressenPand';
-import MapDetailAdressenStandplaats from './adressen/MapDetailAdressenStandplaats';
-import MapDetailAdressenVerblijfsobject from './adressen/MapDetailAdressenVerblijfsobject';
-import MapDetailBedrijfsinvesteringszone from './MapDetailBedrijfsinvesteringszone';
-import MapDetailBekendmaking from './MapDetailBekendmaking';
-import MapDetailExplosievenGevrijwaardGebied from './explosieven/MapDetailExplosievenGevrijwaardGebied';
-import MapDetailExplosievenInslag from './explosieven/MapDetailExplosievenInslag';
-import MapDetailExplosievenUitgevoerdOnderzoek from './explosieven/MapDetailExplosievenUitgevoerdOnderzoek';
-import MapDetailExplosievenVerdachtGebied from './explosieven/MapDetailExplosievenVerdachtGebied';
-import MapDetailEvenement from './MapDetailEvenement';
-import MapDetailGebiedenBouwblok from './gebieden/MapDetailGebiedenBouwblok';
-import MapDetailGebiedenBuurt from './gebieden/MapDetailGebiedenBuurt';
-import MapDetailGebiedenGebiedsgerichtWerken from './gebieden/MapDetailGebiedenGebiedsgerichtWerken';
-import MapDetailGebiedenGrootstedelijk from './gebieden/MapDetailGebiedenGrootstedelijk';
-import MapDetailGebiedenStadsdeel from './gebieden/MapDetailGebiedenStadsdeel';
-import MapDetailGebiedenUnesco from './gebieden/MapDetailGebiedenUnesco';
-import MapDetailGebiedenWijk from './gebieden/MapDetailGebiedenWijk';
-import MapDetailGrondexploitatie from './MapDetailGrondexploitatie';
-import MapDetailKadastraalObject from './MapDetailKadastraalObject';
-import MapDetailMeetbout from './MapDetailMeetbout';
-import MapDetailMonument from './MapDetailMonument';
-import MapDetailNapPeilmerk from './MapDetailNapPeilmerk';
-import MapDetailOplaadpunt from './MapDetailOplaadpunt';
-import MapDetailParkeervak from './MapDetailParkeervak';
-import MapDetailVestiging from './MapDetailVestiging';
-import MapDetailWinkelgebied from './MapDetailWinkelgebied';
+import { endpointTypes } from '../../services/map-detail'
+import MapDetailAdressenLigplaats from './adressen/MapDetailAdressenLigplaats'
+import MapDetailAdressenOpenbareRuimte from './adressen/MapDetailAdressenOpenbareRuimte'
+import MapDetailAdressenPand from './adressen/MapDetailAdressenPand'
+import MapDetailAdressenStandplaats from './adressen/MapDetailAdressenStandplaats'
+import MapDetailAdressenVerblijfsobject from './adressen/MapDetailAdressenVerblijfsobject'
+import MapDetailBedrijfsinvesteringszone from './MapDetailBedrijfsinvesteringszone'
+import MapDetailBekendmaking from './MapDetailBekendmaking'
+import MapDetailExplosievenGevrijwaardGebied from './explosieven/MapDetailExplosievenGevrijwaardGebied'
+import MapDetailExplosievenInslag from './explosieven/MapDetailExplosievenInslag'
+import MapDetailExplosievenUitgevoerdOnderzoek from './explosieven/MapDetailExplosievenUitgevoerdOnderzoek'
+import MapDetailExplosievenVerdachtGebied from './explosieven/MapDetailExplosievenVerdachtGebied'
+import MapDetailEvenement from './MapDetailEvenement'
+import MapDetailGebiedenBouwblok from './gebieden/MapDetailGebiedenBouwblok'
+import MapDetailGebiedenBuurt from './gebieden/MapDetailGebiedenBuurt'
+import MapDetailGebiedenGebiedsgerichtWerken from './gebieden/MapDetailGebiedenGebiedsgerichtWerken'
+import MapDetailGebiedenGrootstedelijk from './gebieden/MapDetailGebiedenGrootstedelijk'
+import MapDetailGebiedenStadsdeel from './gebieden/MapDetailGebiedenStadsdeel'
+import MapDetailGebiedenUnesco from './gebieden/MapDetailGebiedenUnesco'
+import MapDetailGebiedenWijk from './gebieden/MapDetailGebiedenWijk'
+import MapDetailGrondexploitatie from './MapDetailGrondexploitatie'
+import MapDetailKadastraalObject from './MapDetailKadastraalObject'
+import MapDetailMeetbout from './MapDetailMeetbout'
+import MapDetailMonument from './MapDetailMonument'
+import MapDetailNapPeilmerk from './MapDetailNapPeilmerk'
+import MapDetailOplaadpunt from './MapDetailOplaadpunt'
+import MapDetailParkeervak from './MapDetailParkeervak'
+import MapDetailVestiging from './MapDetailVestiging'
+import MapDetailWinkelgebied from './MapDetailWinkelgebied'
 
 const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => {
   switch (result.endpointType) {
@@ -41,7 +41,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onMaximize={onMaximize}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.adressenNummeraanduiding:
     case endpointTypes.adressenVerblijfsobject:
       return (
@@ -51,7 +51,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           verblijfsobject={result}
         />
-      );
+      )
     case endpointTypes.adressenOpenbareRuimte:
       return (
         <MapDetailAdressenOpenbareRuimte
@@ -60,7 +60,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           openbareRuimte={result}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.adressenPand:
       return (
         <MapDetailAdressenPand
@@ -69,7 +69,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           pand={result}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.adressenStandplaats:
       return (
         <MapDetailAdressenStandplaats
@@ -78,7 +78,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           standplaats={result}
         />
-      );
+      )
     case endpointTypes.bedrijfsinvesteringszone:
       return (
         <MapDetailBedrijfsinvesteringszone
@@ -87,7 +87,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.bekendmakingen:
       return (
         <MapDetailBekendmaking
@@ -96,7 +96,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.explosievenGevrijwaardGebied:
       return (
         <MapDetailExplosievenGevrijwaardGebied
@@ -105,7 +105,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.explosievenInslag:
       return (
         <MapDetailExplosievenInslag
@@ -114,7 +114,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.explosievenUitgevoerdOnderzoek:
       return (
         <MapDetailExplosievenUitgevoerdOnderzoek
@@ -123,7 +123,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           uitgevoerdOnderzoek={result}
         />
-      );
+      )
     case endpointTypes.explosievenVerdachtGebied:
       return (
         <MapDetailExplosievenVerdachtGebied
@@ -132,7 +132,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           verdachtGebied={result}
         />
-      );
+      )
     case endpointTypes.evenementen:
       return (
         <MapDetailEvenement
@@ -141,7 +141,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           item={result}
         />
-      );
+      )
     case endpointTypes.gebiedenBouwblok:
       return (
         <MapDetailGebiedenBouwblok
@@ -150,7 +150,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.gebiedenBuurt:
       return (
         <MapDetailGebiedenBuurt
@@ -159,7 +159,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.gebiedenGebiedsgerichtWerken:
       return (
         <MapDetailGebiedenGebiedsgerichtWerken
@@ -168,7 +168,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.gebiedenGrootstedelijk:
       return (
         <MapDetailGebiedenGrootstedelijk
@@ -177,7 +177,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.gebiedenStadsdeel:
       return (
         <MapDetailGebiedenStadsdeel
@@ -186,7 +186,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           stadsdeel={result}
         />
-      );
+      )
     case endpointTypes.gebiedenUnesco:
       return (
         <MapDetailGebiedenUnesco
@@ -195,7 +195,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           unesco={result}
         />
-      );
+      )
     case endpointTypes.gebiedenWijk:
       return (
         <MapDetailGebiedenWijk
@@ -204,15 +204,9 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           wijk={result}
         />
-      );
+      )
     case endpointTypes.grondexploitatie:
-      return (
-        <MapDetailGrondexploitatie
-          onMaximize={onMaximize}
-          panoUrl={panoUrl}
-          detail={result}
-        />
-      );
+      return <MapDetailGrondexploitatie onMaximize={onMaximize} panoUrl={panoUrl} detail={result} />
     case endpointTypes.kadastraalObject:
       return (
         <MapDetailKadastraalObject
@@ -221,7 +215,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.meetbout:
       return (
         <MapDetailMeetbout
@@ -230,7 +224,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.monument:
       return (
         <MapDetailMonument
@@ -239,7 +233,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
-      );
+      )
     case endpointTypes.napPeilmerk:
       return (
         <MapDetailNapPeilmerk
@@ -248,7 +242,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           peilmerk={result}
         />
-      );
+      )
     case endpointTypes.oplaadpunten:
       return (
         <MapDetailOplaadpunt
@@ -257,7 +251,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           oplaadpunt={result}
         />
-      );
+      )
     case endpointTypes.parkeervak:
       return (
         <MapDetailParkeervak
@@ -266,7 +260,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           item={result}
         />
-      );
+      )
     case endpointTypes.vestiging:
       return (
         <MapDetailVestiging
@@ -275,7 +269,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           vestiging={result}
         />
-      );
+      )
     case endpointTypes.winkelgebied:
       return (
         <MapDetailWinkelgebied
@@ -284,22 +278,22 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           winkelgebied={result}
         />
-      );
+      )
     default:
-      return '';
+      return ''
   }
-};
+}
 
 MapDetailResult.defaultProps = {
   panoUrl: '',
-  result: {}
-};
+  result: {},
+}
 
 MapDetailResult.propTypes = {
   panoUrl: PropTypes.string,
   onMaximize: PropTypes.func.isRequired,
   onPanoPreviewClick: PropTypes.func.isRequired,
-  result: PropTypes.shape({})
-};
+  result: PropTypes.shape({}),
+}
 
-export default MapDetailResult;
+export default MapDetailResult

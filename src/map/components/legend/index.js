@@ -1,1 +1,1 @@
-export { default as MapLegend } from './MapLegend'; // eslint-disable-line
+export { default as MapLegend } from './MapLegend' // eslint-disable-line

@@ -1,3 +1,3 @@
-import watchMapClick from './map-click';
+import watchMapClick from './map-click'
 
-export default watchMapClick;
+export default watchMapClick

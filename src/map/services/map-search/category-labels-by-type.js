@@ -1,4 +1,4 @@
-import categoryLabels from './category-labels';
+import categoryLabels from './category-labels'
 
 // mapping for map search results to collect the correct categoryLabel
 const categoryLabelsByType = {
@@ -31,7 +31,7 @@ const categoryLabelsByType = {
   'vsd/winkgeb': categoryLabels.winkelgebied,
   'vsd/bekendmakingen': categoryLabels.bekendmakingen,
   'vsd/evenementen': categoryLabels.evenementen,
-  'wkpb/beperking': categoryLabels.gemeentelijkeBeperking
-};
+  'wkpb/beperking': categoryLabels.gemeentelijkeBeperking,
+}
 
-export default categoryLabelsByType;
+export default categoryLabelsByType

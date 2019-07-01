@@ -1,13 +1,12 @@
-import ActiveOverlays from '../../../../src/shared/services/active-overlays/active-overlays';
-angular
-    .module('dpShared')
-    .factory('activeOverlays', activeOverlaysFactory);
+import ActiveOverlays from '../../../../src/shared/services/active-overlays/active-overlays'
 
-activeOverlaysFactory.$inject = [];
- /* istanbul ignore next */
-function activeOverlaysFactory () {
-    return {
-        getOverlays: () => ActiveOverlays.getOverlays(),
-        getOverlaysWarning: (zoom) => ActiveOverlays.getOverlaysWarning(zoom)
-    };
+angular.module('dpShared').factory('activeOverlays', activeOverlaysFactory)
+
+activeOverlaysFactory.$inject = []
+/* istanbul ignore next */
+function activeOverlaysFactory() {
+  return {
+    getOverlays: () => ActiveOverlays.getOverlays(),
+    getOverlaysWarning: zoom => ActiveOverlays.getOverlaysWarning(zoom),
+  }
 }

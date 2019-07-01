@@ -1,104 +1,92 @@
-import React from 'react';
-import L from 'leaflet';
-import { shallow } from 'enzyme';
-import NonTiledLayer from './NonTiledLayer';
+import React from 'react'
+import L from 'leaflet'
+import { shallow } from 'enzyme'
+import NonTiledLayer from './NonTiledLayer'
 
-jest.mock('leaflet');
+jest.mock('leaflet')
 
 describe('NonTiledLayer', () => {
-  let wrapper;
-  let wrapperInstance;
+  let wrapper
+  let wrapperInstance
   const props = {
     url: 'https://wms-url',
     rotationAngle: 0,
     layers: ['wms-layer'],
-    opacity: 100
-  };
+    opacity: 100,
+  }
 
   beforeEach(() => {
     L.nonTiledLayer = {
-      wms: jest.fn()
-    };
+      wms: jest.fn(),
+    }
 
-    wrapper = shallow(
-      <NonTiledLayer
-        {...props}
-      />, {
-        context: {
-          layerContainer: {
-            addLayer: jest.fn(),
-            removeLayer: jest.fn()
-          }
-        }
-      }
-    );
-    wrapperInstance = wrapper.instance();
-  });
+    wrapper = shallow(<NonTiledLayer {...props} />, {
+      context: {
+        layerContainer: {
+          addLayer: jest.fn(),
+          removeLayer: jest.fn(),
+        },
+      },
+    })
+    wrapperInstance = wrapper.instance()
+  })
 
   it('should render everything', () => {
-    expect(L.nonTiledLayer.wms).toHaveBeenCalledTimes(1);
-    expect(L.nonTiledLayer.wms).toHaveBeenCalledWith(
-      props.url,
-      {
-        rotationAngle: 0,
-        layers: ['wms-layer'],
-        opacity: 100
-      }
-    );
-  });
+    expect(L.nonTiledLayer.wms).toHaveBeenCalledTimes(1)
+    expect(L.nonTiledLayer.wms).toHaveBeenCalledWith(props.url, {
+      rotationAngle: 0,
+      layers: ['wms-layer'],
+      opacity: 100,
+    })
+  })
 
   it('should update the layers when the property is changed', () => {
     wrapperInstance.leafletElement = {
       _wmsUrl: 'http://old-wms-url',
       wmsParams: { layers: ['old-layer'] },
-      setUrl: jest.fn()
-    };
+      setUrl: jest.fn(),
+    }
 
     const fromProps = {
       url: 'http://old-wms-url',
-      layers: ['old-layer']
-    };
+      layers: ['old-layer'],
+    }
     const toProps = {
       url: 'http://new-wms-url',
-      layers: ['new-layer']
-    };
+      layers: ['new-layer'],
+    }
 
-    wrapperInstance.updateLeafletElement(fromProps, toProps);
+    wrapperInstance.updateLeafletElement(fromProps, toProps)
     // eslint-disable-next-line no-underscore-dangle
-    expect(wrapperInstance.leafletElement._wmsUrl).toEqual(toProps.url);
-  });
+    expect(wrapperInstance.leafletElement._wmsUrl).toEqual(toProps.url)
+  })
 
   it('should hide the layer', () => {
     wrapperInstance.leafletElement = {
-      setOpacity: jest.fn()
-    };
+      setOpacity: jest.fn(),
+    }
 
     const fromProps = {
-      opacity: 100
-    };
+      opacity: 100,
+    }
     const toProps = {
-      opacity: 0
-    };
+      opacity: 0,
+    }
 
-    wrapperInstance.updateLeafletElement(fromProps, toProps);
-    expect(wrapperInstance.leafletElement.setOpacity).toHaveBeenCalledWith(toProps.opacity);
-  });
-});
+    wrapperInstance.updateLeafletElement(fromProps, toProps)
+    expect(wrapperInstance.leafletElement.setOpacity).toHaveBeenCalledWith(toProps.opacity)
+  })
+})
 
 function renderComponent() {
-  return shallow(
-    <NonTiledLayer
-      url="url"
-      params={{ test: '123' }}
-    />, {
-      context: {
-        layerContainer: {
-          addLayer: jest.fn(),
-          removeLayer: jest.fn()
-        }
-      }
-    }
-  );
+  return shallow(<NonTiledLayer url="url" params={{ test: '123' }} />, {
+    context: {
+      layerContainer: {
+        addLayer: jest.fn(),
+        removeLayer: jest.fn(),
+      },
+    },
+  })
 }
 
 describe('NonTiledLayer', () => {
@@ -107,25 +95,30 @@ describe('NonTiledLayer', () => {
     url: 'https://pano.amsterdam.nl',
     params: {
       mission_type: 'bi',
-      mission_year: 2017
-    }
-  };
+      mission_year: 2017,
+    },
+  }
 
   it('should rerender everything when props change', () => {
-    const wrapper = renderComponent();
-    const setParamsMock = jest.fn();
+    const wrapper = renderComponent()
+    const setParamsMock = jest.fn()
 
     wrapper.instance().leafletElement = {
       setParams: setParamsMock,
       setOpacity: jest.fn(),
       setUrl: jest.fn(),
-      wmsParams: {}
-    };
+      wmsParams: {},
+    }
 
-    wrapper.instance().updateLeafletElement({ props }, { props });
-    expect(setParamsMock).not.toHaveBeenCalled();
+    wrapper.instance().updateLeafletElement({ props }, { props })
+    expect(setParamsMock).not.toHaveBeenCalled()
 
-    wrapper.instance().updateLeafletElement({ props }, { ...props, params: { mission_type: 'WOZ', mission_year: 2018 } });
-    expect(setParamsMock).toHaveBeenCalled();
-  });
-});
+    wrapper
+      .instance()
+      .updateLeafletElement(
+        { props },
+        { ...props, params: { mission_type: 'WOZ', mission_year: 2018 } },
+      )
+    expect(setParamsMock).toHaveBeenCalled()
+  })
+})

@@ -1,6 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import MapLegend from './MapLegend';
+import React from 'react'
+import { shallow } from 'enzyme'
+import MapLegend from './MapLegend'
 
 describe('MapLegend', () => {
   const props = {
@@ -8,16 +8,16 @@ describe('MapLegend', () => {
     overlays: [
       {
         id: 2,
-        isVisible: false
+        isVisible: false,
       },
       {
         id: 3,
-        isVisible: true
-      }
+        isVisible: true,
+      },
     ],
     user: {
       authenticated: true,
-      scopes: ['authscope1']
+      scopes: ['authscope1'],
     },
     isPrint: false,
     activeMapLayers: [
@@ -34,9 +34,9 @@ describe('MapLegend', () => {
             title: 'legendTitle',
             layer: 'layer',
             iconUrl: 'iconUrl',
-            selectable: true
-          }
-        ]
+            selectable: true,
+          },
+        ],
       },
       {
         title: 'title',
@@ -52,77 +52,65 @@ describe('MapLegend', () => {
             title: 'legendTitle',
             layer: false,
             iconUrl: false,
-            selectable: true
+            selectable: true,
           },
           {
             id: 3,
             title: 'legendTitle',
             layer: false,
             iconUrl: false,
-            selectable: false
-          }
-        ]
-      }
-    ]
-  };
+            selectable: false,
+          },
+        ],
+      },
+    ],
+  }
   it('should render the component', () => {
-    const component = shallow(
-      <MapLegend
-        {...props}
-      />
-    );
-    expect(component).toMatchSnapshot();
-  });
+    const component = shallow(<MapLegend {...props} />)
+    expect(component).toMatchSnapshot()
+  })
 
   it('should toggle the layer', () => {
-    const onLayerToggleMock = jest.fn();
-    const component = shallow(
-      <MapLegend
-        {...props}
-        onLayerToggle={onLayerToggleMock}
-      />
-    );
-    component.find('button').at(0).simulate('click');
-    expect(onLayerToggleMock).toHaveBeenCalledWith(props.activeMapLayers[0]);
+    const onLayerToggleMock = jest.fn()
+    const component = shallow(<MapLegend {...props} onLayerToggle={onLayerToggleMock} />)
+    component
+      .find('button')
+      .at(0)
+      .simulate('click')
+    expect(onLayerToggleMock).toHaveBeenCalledWith(props.activeMapLayers[0])
 
-    component.find('button').at(1).simulate('click');
-    expect(onLayerToggleMock).toHaveBeenCalledWith(props.activeMapLayers[1]);
-  });
+    component
+      .find('button')
+      .at(1)
+      .simulate('click')
+    expect(onLayerToggleMock).toHaveBeenCalledWith(props.activeMapLayers[1])
+  })
 
   it('should handle the checkbox click', () => {
-    const onLayerToggleMock = jest.fn();
-    const component = shallow(
-      <MapLegend
-        {...props}
-        onLayerToggle={onLayerToggleMock}
-      />
-    );
+    const onLayerToggleMock = jest.fn()
+    const component = shallow(<MapLegend {...props} onLayerToggle={onLayerToggleMock} />)
 
     expect(
-      component.instance().determineLegendItemVisibility(props.activeMapLayers[1].legendItems[0])
-    ).toBe(false);
+      component.instance().determineLegendItemVisibility(props.activeMapLayers[1].legendItems[0]),
+    ).toBe(false)
 
     expect(
-      component.instance().determineLegendItemVisibility(props.activeMapLayers[1].legendItems[1])
-    ).toBe(true);
-  });
+      component.instance().determineLegendItemVisibility(props.activeMapLayers[1].legendItems[1]),
+    ).toBe(true)
+  })
 
   it('should handle the checkbox onchange', () => {
-    const onLayerVisibilityToggleMock = jest.fn();
+    const onLayerVisibilityToggleMock = jest.fn()
     const component = shallow(
-      <MapLegend
-        {...props}
-        onLayerVisibilityToggle={onLayerVisibilityToggleMock}
-      />
-    );
+      <MapLegend {...props} onLayerVisibilityToggle={onLayerVisibilityToggleMock} />,
+    )
 
     // With legendaItems
-    component.instance().toggleLayerVisibility(props.activeMapLayers[0]);
-    expect(onLayerVisibilityToggleMock).toHaveBeenCalled();
+    component.instance().toggleLayerVisibility(props.activeMapLayers[0])
+    expect(onLayerVisibilityToggleMock).toHaveBeenCalled()
 
     // Without legendaItems
-    component.instance().toggleLayerVisibility(props.activeMapLayers[1]);
-    expect(onLayerVisibilityToggleMock).toHaveBeenCalledTimes(2);
-  });
+    component.instance().toggleLayerVisibility(props.activeMapLayers[1])
+    expect(onLayerVisibilityToggleMock).toHaveBeenCalledTimes(2)
+  })
 })
-;

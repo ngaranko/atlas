@@ -1,15 +1,15 @@
-const REDUCER_KEY = 'datasetApiSpecification';
-export const FETCH_API_SPECIFICATION_REQUEST = `${REDUCER_KEY}/FETCH_API_SPECIFICATION_REQUEST`;
-export const FETCH_API_SPECIFICATION_SUCCESS = `${REDUCER_KEY}/FETCH_API_SPECIFICATION_SUCCESS`;
-export const FETCH_API_SPECIFICATION_FAILURE = `${REDUCER_KEY}/FETCH_API_SPECIFICATION_FAILURE`;
+const REDUCER_KEY = 'datasetApiSpecification'
+export const FETCH_API_SPECIFICATION_REQUEST = `${REDUCER_KEY}/FETCH_API_SPECIFICATION_REQUEST`
+export const FETCH_API_SPECIFICATION_SUCCESS = `${REDUCER_KEY}/FETCH_API_SPECIFICATION_SUCCESS`
+export const FETCH_API_SPECIFICATION_FAILURE = `${REDUCER_KEY}/FETCH_API_SPECIFICATION_FAILURE`
 
-export { REDUCER_KEY as API_SPECIFICATION };
+export { REDUCER_KEY as API_SPECIFICATION }
 
 const initialState = {
   isLoading: false,
   error: null,
-  data: {}
-};
+  data: {},
+}
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -17,41 +17,41 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isLoading: true,
-        error: null
-      };
+        error: null,
+      }
 
     case FETCH_API_SPECIFICATION_SUCCESS:
       return {
         ...state,
         data: action.payload,
         isLoading: false,
-        error: null
-      };
+        error: null,
+      }
 
     case FETCH_API_SPECIFICATION_FAILURE:
       return {
         ...state,
         data: {},
         isLoading: false,
-        error: action.payload
-      };
+        error: action.payload,
+      }
 
     default:
-      return state;
+      return state
   }
 }
 
 // Actions
 export const fetchApiSpecificationRequest = () => ({
-  type: FETCH_API_SPECIFICATION_REQUEST
-});
+  type: FETCH_API_SPECIFICATION_REQUEST,
+})
 
-export const fetchApiSpecificationSuccess = (payload) => ({
+export const fetchApiSpecificationSuccess = payload => ({
   type: FETCH_API_SPECIFICATION_SUCCESS,
-  payload
-});
+  payload,
+})
 
-export const fetchApiSpecificationFailure = (payload) => ({
+export const fetchApiSpecificationFailure = payload => ({
   type: FETCH_API_SPECIFICATION_FAILURE,
-  payload
-});
+  payload,
+})

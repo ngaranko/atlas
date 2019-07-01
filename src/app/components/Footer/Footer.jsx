@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from 'redux-first-router-link';
-import { routing } from '../../routes';
+import React from 'react'
+import Link from 'redux-first-router-link'
+import { routing } from '../../routes'
 
 const FooterComponent = () => (
   <footer className="c-dashboard__footer o-max-width">
@@ -8,22 +8,24 @@ const FooterComponent = () => (
       <div className="u-col-sm--8">
         <div className="u-margin__left--2 c-dashboard__proclaimer">
           <h2 className="c-dashboard__proclaimer-header">Proclaimer</h2>
-          <p className="c-dashboard__proclaimer-paragraph">Gemeente Amsterdam
-            biedt met City Data een voorziening waar data voor iedereen
-            beschikbaar zijn en hergebruikt mogen worden. De gegevens
-            worden aangeboden door gemeentelijke en externe partijen. De
-            eigenaren van deze gegevens zijn primair verantwoordelijk
-            voor de kwaliteit van hun gepubliceerde data. Opmerkingen en
-            aanvullingen op de gegevens kunt u <a
-              className="c-link--inverse"
-              href="mailto:terugmelding.basisinformatie@amsterdam.nl"
-            >melden</a>.
+          <p className="c-dashboard__proclaimer-paragraph">
+            Gemeente Amsterdam biedt met City Data een voorziening waar data voor iedereen
+            beschikbaar zijn en hergebruikt mogen worden. De gegevens worden aangeboden door
+            gemeentelijke en externe partijen. De eigenaren van deze gegevens zijn primair
+            verantwoordelijk voor de kwaliteit van hun gepubliceerde data. Opmerkingen en
+            aanvullingen op de gegevens kunt u
+            <a className="c-link--inverse" href="mailto:terugmelding.basisinformatie@amsterdam.nl">
+              melden
+            </a>
+            .
           </p>
           <p className="c-dashboard__proclaimer-paragraph">
             <Link // eslint-disable-line jsx-a11y/anchor-is-valid
               to={{ type: routing.proclaimer.type }}
               className="o-btn o-btn--link--inverse"
-            >Lees de hele proclaimer</Link>
+            >
+              Lees de hele proclaimer
+            </Link>
           </p>
         </div>
       </div>
@@ -36,7 +38,9 @@ const FooterComponent = () => (
               href="https://twitter.com/AmsterdamNL"
               rel="external noopener noreferrer"
               target="_blank"
-            >Twitter</a>
+            >
+              Twitter
+            </a>
           </div>
           <div className="c-dashboard__social-link">
             <a
@@ -44,7 +48,9 @@ const FooterComponent = () => (
               href="https://www.facebook.com/gemeenteamsterdam"
               rel="external noopener noreferrer"
               target="_blank"
-            >Facebook</a>
+            >
+              Facebook
+            </a>
           </div>
           <div className="c-dashboard__social-link">
             <a
@@ -52,7 +58,9 @@ const FooterComponent = () => (
               href="https://www.linkedin.com/company/gemeente-amsterdam"
               rel="external noopener noreferrer"
               target="_blank"
-            >LinkedIn</a>
+            >
+              LinkedIn
+            </a>
           </div>
           <div className="c-dashboard__social-link">
             <a
@@ -60,13 +68,15 @@ const FooterComponent = () => (
               href="https://github.com/Amsterdam"
               rel="external noopener noreferrer"
               target="_blank"
-            >GitHub</a>
+            >
+              GitHub
+            </a>
           </div>
         </div>
       </div>
       <div className="u-clearfix" />
     </div>
   </footer>
-);
+)
 
-export default FooterComponent;
+export default FooterComponent

@@ -1,24 +1,20 @@
-(function () {
-    'use strict';
+;(function() {
+  angular.module('dpDetail').component('dpWkpbLink', {
+    bindings: {
+      brkId: '@',
+    },
+    templateUrl: 'modules/detail/components/wkpb-link/wkpb-link.html',
+    controller: DpWkpbLinkController,
+    controllerAs: 'vm',
+  })
 
-    angular
-        .module('dpDetail')
-        .component('dpWkpbLink', {
-            bindings: {
-                brkId: '@'
-            },
-            templateUrl: 'modules/detail/components/wkpb-link/wkpb-link.html',
-            controller: DpWkpbLinkController,
-            controllerAs: 'vm'
-        });
+  DpWkpbLinkController.$inject = ['sharedConfig']
 
-    DpWkpbLinkController.$inject = ['sharedConfig'];
+  function DpWkpbLinkController(sharedConfig) {
+    const vm = this
 
-    function DpWkpbLinkController (sharedConfig) {
-        const vm = this;
-
-        this.$onInit = function () {
-            vm.wkpbEndpoint = sharedConfig.ROOT + 'brk/object-wkpb/' + vm.brkId + '/';
-        };
+    this.$onInit = function() {
+      vm.wkpbEndpoint = `${sharedConfig.ROOT}brk/object-wkpb/${vm.brkId}/`
     }
-})();
+  }
+})()

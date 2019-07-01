@@ -1,38 +1,39 @@
-(function () {
-    'use strict';
+;(function() {
+  angular.module('dpShared').component('dpLoadingIndicator', {
+    bindings: {
+      isLoading: '=',
+      useDelay: '=',
+      showInline: '=',
+    },
+    templateUrl:
+      'modules/shared/components/loading-indicator/loading-indicator.html',
+    controller: DpLoadingIndicatorController,
+    controllerAs: 'vm',
+  })
 
-    angular
-        .module('dpShared')
-        .component('dpLoadingIndicator', {
-            bindings: {
-                isLoading: '=',
-                useDelay: '=',
-                showInline: '='
-            },
-            templateUrl: 'modules/shared/components/loading-indicator/loading-indicator.html',
-            controller: DpLoadingIndicatorController,
-            controllerAs: 'vm'
-        });
+  DpLoadingIndicatorController.$inject = ['$scope', '$interval']
 
-    DpLoadingIndicatorController.$inject = ['$scope', '$interval'];
+  function DpLoadingIndicatorController($scope, $interval) {
+    const vm = this
+    let timer
+    const threshold = 400
 
-    function DpLoadingIndicatorController ($scope, $interval) {
-        var vm = this,
-            timer,
-            threshold = 400;
+    vm.showLoadingIndicator = false
 
-        vm.showLoadingIndicator = false;
+    $scope.$watch('vm.isLoading', function(isLoading) {
+      if (isLoading) {
+        timer = $interval(
+          function() {
+            vm.showLoadingIndicator = true
+          },
+          vm.useDelay ? threshold : 0,
+          1,
+        )
+      } else {
+        $interval.cancel(timer)
 
-        $scope.$watch('vm.isLoading', function (isLoading) {
-            if (isLoading) {
-                timer = $interval(function () {
-                    vm.showLoadingIndicator = true;
-                }, vm.useDelay ? threshold : 0, 1);
-            } else {
-                $interval.cancel(timer);
-
-                vm.showLoadingIndicator = false;
-            }
-        });
-    }
-})();
+        vm.showLoadingIndicator = false
+      }
+    })
+  }
+})()

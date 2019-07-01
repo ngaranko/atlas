@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { BezoekAdres, FileType, HandelsNaam, SBIOmschrijving, Tags } from './Templates';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { BezoekAdres, FileType, HandelsNaam, SBIOmschrijving, Tags } from './Templates'
 import {
   aggregateFilter,
   alignRightFilter,
@@ -11,16 +11,16 @@ import {
   nevenadresFilter,
   nummerAanduidingTypeFilter,
   truncateHtmlAsTextFilter,
-  zipCodeFilter
-} from '../../Filters/Filters';
+  zipCodeFilter,
+} from '../../Filters/Filters'
 
 const TEMPLATE_MAPPER = {
   bezoekadres: BezoekAdres,
   'file-type': FileType,
   handelsnaam: HandelsNaam,
   'sbi-omschrijving': SBIOmschrijving,
-  tags: Tags
-};
+  tags: Tags,
+}
 
 const FORMATTER_MAPPER = {
   aggregate: aggregateFilter,
@@ -35,62 +35,78 @@ const FORMATTER_MAPPER = {
   'nummeraanduiding-type': nummerAanduidingTypeFilter,
   nummeraanduidingType: nummerAanduidingTypeFilter,
   'truncate-html-as-text': truncateHtmlAsTextFilter,
-  zipcode: zipCodeFilter
-};
+  zipcode: zipCodeFilter,
+}
 
 const DataSelectionFormatter = ({ variables, formatter, template, useInline }) => {
-  let formattedValue;
-  let component;
-  let newVariables = variables;
+  let formattedValue
+  let component
+  let newVariables = variables
 
   if (formatter && FORMATTER_MAPPER[formatter]) {
     if (variables.length === 1) {
       // Just pass the value (String) when there is only one variable
-      formattedValue = FORMATTER_MAPPER[formatter](variables[0].value);
+      formattedValue = FORMATTER_MAPPER[formatter](variables[0].value)
     } else {
       // Pass all variables as an Object if there are more variables
-      newVariables = variables.reduce((acc, { key, value }) => ({
-        ...acc,
-        [key]: value
-      }), {});
+      newVariables = variables.reduce(
+        (acc, { key, value }) => ({
+          ...acc,
+          [key]: value,
+        }),
+        {},
+      )
 
-      formattedValue = FORMATTER_MAPPER[formatter](newVariables);
+      formattedValue = FORMATTER_MAPPER[formatter](newVariables)
     }
   } else {
     // If there is no formatter; concatenate all values
-    formattedValue = variables.map((variable) => variable.value).join(' ');
+    formattedValue = variables.map(variable => variable.value).join(' ')
   }
 
   if (template) {
-    const Element = TEMPLATE_MAPPER[template];
-    component = <Element formattedValue={formattedValue} variables={newVariables} />;
+    const Element = TEMPLATE_MAPPER[template]
+    component = <Element formattedValue={formattedValue} variables={newVariables} />
   }
   return [
-    (template) && <div key="0" className="qa-table-value">{component}</div>,
+    template && (
+      <div key="0" className="qa-table-value">
+        {component}
+      </div>
+    ),
 
-    (!template && !useInline) &&
-    <div key="1" className="qa-table-value">{formattedValue}</div>,
+    !template && !useInline && (
+      <div key="1" className="qa-table-value">
+        {formattedValue}
+      </div>
+    ),
 
-    (!template && useInline) &&
-    <span key="2" className="qa-table-value">{formattedValue}</span>,
+    !template && useInline && (
+      <span key="2" className="qa-table-value">
+        {formattedValue}
+      </span>
+    ),
 
     // nbsp required for table link to fill entire table cell
-    (!template && !formattedValue && !useInline) &&
-    <div key="3" className="qa-table-value">&nbsp;</div>
-  ];
-};
+    !template && !formattedValue && !useInline && (
+      <div key="3" className="qa-table-value">
+        &nbsp;
+      </div>
+    ),
+  ]
+}
 
 DataSelectionFormatter.defaultProps = {
   formatter: undefined,
   template: undefined,
-  useInline: false
-};
+  useInline: false,
+}
 
 DataSelectionFormatter.propTypes = {
   variables: PropTypes.arrayOf(PropTypes.object).isRequired,
   formatter: PropTypes.string,
   template: PropTypes.string,
-  useInline: PropTypes.bool
-};
+  useInline: PropTypes.bool,
+}
 
-export default DataSelectionFormatter;
+export default DataSelectionFormatter

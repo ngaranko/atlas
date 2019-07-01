@@ -1,13 +1,9 @@
-(function () {
-    'use strict';
+;(function() {
+  angular.module('dpShared').filter('kebabcase', kebabCase)
 
-    angular
-        .module('dpShared')
-        .filter('kebabcase', kebabCase);
-
-    function kebabCase () {
-        return function (input) {
-            return (input) ? input.toLowerCase().replace(/[: ][ ]*/g, '-') : '';
-        };
+  function kebabCase() {
+    return function(input) {
+      return input ? input.toLowerCase().replace(/[: ][ ]*/g, '-') : ''
     }
-})();
+  }
+})()

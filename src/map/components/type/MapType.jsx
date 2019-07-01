@@ -1,13 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { SelectButton } from '../../../shared/components/select-button';
+import { SelectButton } from '../../../shared/components/select-button'
 
-import './_map-type.scss';
+import './_map-type.scss'
 
 function hasLayer(activeBaseLayer, baseLayers) {
-  return baseLayers && baseLayers.length > 0 &&
-    baseLayers.some((layer) => layer.value === activeBaseLayer);
+  return (
+    baseLayers && baseLayers.length > 0 && baseLayers.some(layer => layer.value === activeBaseLayer)
+  )
 }
 
 const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (
@@ -34,12 +35,12 @@ const MapType = ({ activeBaseLayer, baseLayers, onBaseLayerToggle }) => (
       value={hasLayer(activeBaseLayer, baseLayers.aerial) ? activeBaseLayer : null}
     />
   </section>
-);
+)
 
 MapType.propTypes = {
   activeBaseLayer: PropTypes.string.isRequired,
   baseLayers: PropTypes.object, // eslint-disable-line
-  onBaseLayerToggle: PropTypes.func.isRequired
-};
+  onBaseLayerToggle: PropTypes.func.isRequired,
+}
 
-export default MapType;
+export default MapType

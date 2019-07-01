@@ -9,7 +9,7 @@
  */
 export default function formatNumber(number, precision = 3) {
   // TODO: add thousands separator
-  const decimals = 10 ** precision;
-  const rounded = Math.round(number * decimals) / decimals;
-  return rounded.toString().replace('.', ',');
+  const decimals = 10 ** precision
+  const rounded = Math.round(number * decimals) / decimals
+  return rounded.toString().replace('.', ',')
 }

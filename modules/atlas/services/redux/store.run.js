@@ -1,17 +1,11 @@
-(function () {
-    angular
-        .module('atlas')
-        .run(runBlock);
+;(function() {
+  angular.module('atlas').run(runBlock)
 
-    runBlock.$inject = [
-        '$timeout',
-        '$rootScope',
-        '$window'
-    ];
+  runBlock.$inject = ['$timeout', '$rootScope', '$window']
 
-    function runBlock ($timeout, $rootScope, $window) {
-        $window.reduxStore.subscribe(() => {
-            $timeout(() => $rootScope.$digest());
-        });
-    }
-})();
+  function runBlock($timeout, $rootScope, $window) {
+    $window.reduxStore.subscribe(() => {
+      $timeout(() => $rootScope.$digest())
+    })
+  }
+})()

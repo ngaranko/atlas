@@ -1,10 +1,14 @@
-import React from 'react';
-import { mount, shallow } from 'enzyme';
+import React from 'react'
+import { mount, shallow } from 'enzyme'
 
-import AutoSuggest from './AutoSuggest';
-import { MORE_RESULTS_INDEX } from './AutoSuggestCategory';
+import AutoSuggest from './AutoSuggest'
+import { MORE_RESULTS_INDEX } from './AutoSuggestCategory'
 
-jest.mock('./Search', () => () => <div><input type="text" id="auto-suggest__input" /></div>);
+jest.mock('./Search', () => () => (
+  <div>
+    <input type="text" id="auto-suggest__input" />
+  </div>
+))
 
 const mockFilledState = {
   suggestions: [
@@ -14,23 +18,23 @@ const mockFilledState = {
           uri: 'bag/openbareruimte/03630000003186/',
           label: 'Dam',
           index: 0,
-          category: 'Straatnamen'
+          category: 'Straatnamen',
         },
         {
           uri: 'bag/openbareruimte/03630000001038/',
           label: 'Damloperspad',
           index: 1,
-          category: 'Straatnamen'
+          category: 'Straatnamen',
         },
         {
           uri: 'bag/openbareruimte/03630000003187/',
           label: 'Damrak',
           index: 2,
-          category: 'Straatnamen'
-        }
+          category: 'Straatnamen',
+        },
       ],
       label: 'Straatnamen',
-      total_results: 6
+      total_results: 6,
     },
     {
       content: [
@@ -38,24 +42,24 @@ const mockFilledState = {
           uri: 'monumenten/monumenten/8e8ae1dd-78a2-4a5f-841d-1870631b7e33/',
           label: 'Damrak 1',
           index: 3,
-          category: 'Monumenten'
+          category: 'Monumenten',
         },
         {
           uri: 'monumenten/monumenten/aa3f9081-2ac4-49ea-95d2-0aad7aecd883/',
           label: 'Dam 10',
           index: 4,
-          category: 'Monumenten'
+          category: 'Monumenten',
         },
         {
           uri: 'monumenten/monumenten/f93e31ba-89eb-4784-87e1-d32c33b5236d/',
           label: 'Damrak 15',
           index: 5,
-          category: 'Monumenten'
-        }
+          category: 'Monumenten',
+        },
       ],
       label: 'Monumenten',
-      total_results: 5
-    }
+      total_results: 5,
+    },
   ],
   typedQuery: 'dam',
   numberOfSuggestions: 6,
@@ -64,119 +68,133 @@ const mockFilledState = {
     uri: 'monumenten/monumenten/8e8ae1dd-78a2-4a5f-841d-1870631b7e33/',
     label: 'Damrak 1',
     index: 3,
-    category: 'Monumenten'
-  }
-};
-const onInputEvent = { target: { value: 'd' }, persist: jest.fn() };
+    category: 'Monumenten',
+  },
+}
+const onInputEvent = { target: { value: 'd' }, persist: jest.fn() }
 
-const onSubmit = jest.fn();
-const onSuggestionActivate = jest.fn();
-const onSuggestionSelection = jest.fn();
-const onTextInput = jest.fn();
+const onSubmit = jest.fn()
+const onSuggestionActivate = jest.fn()
+const onSuggestionSelection = jest.fn()
+const onTextInput = jest.fn()
 
 describe('The AutoSuggest component', () => {
   it('shows a legend if a title is provided', () => {
-    const legendTitle = 'title';
-    const autoSuggestComponent = mount(<AutoSuggest
-      activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit}
-      onSuggestionActivate={onSuggestionActivate}
-      onSuggestionSelection={onSuggestionSelection}
-      onTextInput={onTextInput}
-      legendTitle={legendTitle}
-    />);
-    const legend = autoSuggestComponent.find('legend');
-    expect(legend.text()).toBe(legendTitle);
-  });
+    const legendTitle = 'title'
+    const autoSuggestComponent = mount(
+      <AutoSuggest
+        activeSuggestion={{ index: -1 }}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+        legendTitle={legendTitle}
+      />,
+    )
+    const legend = autoSuggestComponent.find('legend')
+    expect(legend.text()).toBe(legendTitle)
+  })
 
   it('optionally fills the searchbox with a query', () => {
     // Without a query
-    const autoSuggestComponent = mount(<AutoSuggest
-      activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit}
-      onSuggestionActivate={onSuggestionActivate}
-      onSuggestionSelection={onSuggestionSelection}
-      onTextInput={onTextInput}
-    />);
-    expect(autoSuggestComponent.instance().props.query).toBe('');
+    const autoSuggestComponent = mount(
+      <AutoSuggest
+        activeSuggestion={{ index: -1 }}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+      />,
+    )
+    expect(autoSuggestComponent.instance().props.query).toBe('')
 
     // With a query
-    const prefilledAutoSuggestComponent = mount(<AutoSuggest
-      activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit}
-      onSuggestionActivate={onSuggestionActivate}
-      onSuggestionSelection={onSuggestionSelection}
-      onTextInput={onTextInput}
-    />, { disableLifecycleMethods: false });
+    const prefilledAutoSuggestComponent = mount(
+      <AutoSuggest
+        activeSuggestion={{ index: -1 }}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+      />,
+      { disableLifecycleMethods: false },
+    )
 
     // trigger the componentDidUpdate method
-    prefilledAutoSuggestComponent.setProps({ query: mockFilledState.typedQuery });
-    prefilledAutoSuggestComponent.update();
+    prefilledAutoSuggestComponent.setProps({ query: mockFilledState.typedQuery })
+    prefilledAutoSuggestComponent.update()
 
-    expect(prefilledAutoSuggestComponent.instance().props.query).toBe('dam');
-  });
+    expect(prefilledAutoSuggestComponent.instance().props.query).toBe('dam')
+  })
 
   it('should call the prop function "onTextInput" on text input', () => {
-    const autoSuggestComponent = mount(<AutoSuggest
-      activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit}
-      onSuggestionActivate={onSuggestionActivate}
-      onSuggestionSelection={onSuggestionSelection}
-      onTextInput={onTextInput}
-    />);
+    const autoSuggestComponent = mount(
+      <AutoSuggest
+        activeSuggestion={{ index: -1 }}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+      />,
+    )
 
-    autoSuggestComponent.instance().onInput(onInputEvent);
+    autoSuggestComponent.instance().onInput(onInputEvent)
 
-    expect(onTextInput).toHaveBeenCalled();
-  });
+    expect(onTextInput).toHaveBeenCalled()
+  })
 
   it('should toggle the "showsuggestions" state on focus and blur of the input field', () => {
-    jest.useFakeTimers();
-    const autoSuggestComponent = mount(<AutoSuggest
-      activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit}
-      onSuggestionActivate={onSuggestionActivate}
-      onSuggestionSelection={onSuggestionSelection}
-      onTextInput={onTextInput}
-      suggestions={mockFilledState.suggestions}
-    />, { disableLifecycleMethods: false });
+    jest.useFakeTimers()
+    const autoSuggestComponent = mount(
+      <AutoSuggest
+        activeSuggestion={{ index: -1 }}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+        suggestions={mockFilledState.suggestions}
+      />,
+      { disableLifecycleMethods: false },
+    )
 
     // trigger the componentDidUpdate method
-    autoSuggestComponent.setProps({ query: mockFilledState.typedQuery });
-    autoSuggestComponent.update();
+    autoSuggestComponent.setProps({ query: mockFilledState.typedQuery })
+    autoSuggestComponent.update()
 
-    const inputField = autoSuggestComponent.find('input#auto-suggest__input');
+    const inputField = autoSuggestComponent.find('input#auto-suggest__input')
 
-    expect(autoSuggestComponent).toMatchSnapshot();
-    inputField.simulate('focus');
-    autoSuggestComponent.update();
-    expect(autoSuggestComponent).toMatchSnapshot();
-    inputField.simulate('blur');
-    autoSuggestComponent.update();
-    jest.runAllTimers();
-    autoSuggestComponent.update();
-    expect(autoSuggestComponent).toMatchSnapshot();
-  });
+    expect(autoSuggestComponent).toMatchSnapshot()
+    inputField.simulate('focus')
+    autoSuggestComponent.update()
+    expect(autoSuggestComponent).toMatchSnapshot()
+    inputField.simulate('blur')
+    autoSuggestComponent.update()
+    jest.runAllTimers()
+    autoSuggestComponent.update()
+    expect(autoSuggestComponent).toMatchSnapshot()
+  })
 
   it('should allow the user to navigate with the keyboard', () => {
     /*
         TODO: move to integration test
         as the activesuggestion is set in the redux store
      */
-    const autoSuggestComponent = mount(<AutoSuggest
-      activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit}
-      onSuggestionActivate={onSuggestionActivate}
-      onSuggestionSelection={onSuggestionSelection}
-      onTextInput={onTextInput}
-      suggestions={mockFilledState.suggestions}
-      query={mockFilledState.typedQuery}
-      numberOfSuggestions={mockFilledState.numberOfSuggestions}
-    />);
+    const autoSuggestComponent = mount(
+      <AutoSuggest
+        activeSuggestion={{ index: -1 }}
+        onSubmit={onSubmit}
+        onSuggestionActivate={onSuggestionActivate}
+        onSuggestionSelection={onSuggestionSelection}
+        onTextInput={onTextInput}
+        suggestions={mockFilledState.suggestions}
+        query={mockFilledState.typedQuery}
+        numberOfSuggestions={mockFilledState.numberOfSuggestions}
+      />,
+    )
 
-    const inputField = autoSuggestComponent.find('input#auto-suggest__input');
-    inputField.simulate('focus');
-    expect(autoSuggestComponent).toMatchSnapshot();
+    const inputField = autoSuggestComponent.find('input#auto-suggest__input')
+    inputField.simulate('focus')
+    expect(autoSuggestComponent).toMatchSnapshot()
     inputField.simulate('keydown', {
       target: {
         keyCode: 40,
@@ -184,173 +202,182 @@ describe('The AutoSuggest component', () => {
         key: 'down arrow',
         metaKey: false,
         ctrlKey: false,
-        altKey: false
-      }
-    });
+        altKey: false,
+      },
+    })
     autoSuggestComponent.setProps({
       activeSuggestion: mockFilledState.activeSuggestion,
-      highlightQuery: mockFilledState.typedQuery
-    });
-    autoSuggestComponent.update();
-    expect(autoSuggestComponent).toMatchSnapshot();
-  });
+      highlightQuery: mockFilledState.typedQuery,
+    })
+    autoSuggestComponent.update()
+    expect(autoSuggestComponent).toMatchSnapshot()
+  })
 
   it('should trigger the onTextInput prop on focus when there is a query but no suggestions', () => {
-    const autoSuggestComponent = mount(<AutoSuggest
-      activeSuggestion={{ index: -1 }}
-      onSubmit={onSubmit}
-      onSuggestionActivate={onSuggestionActivate}
-      onSuggestionSelection={onSuggestionSelection}
-      onTextInput={onTextInput}
-      suggestions={[]}
-    />, { disableLifecycleMethods: false });
-
-    // trigger the componentDidUpdate method
-    autoSuggestComponent.setProps({ query: mockFilledState.typedQuery });
-    autoSuggestComponent.instance().onFocus();
-    expect(onTextInput).toHaveBeenCalled();
-  });
-
-  describe('onFormSubmit', () => {
-    it('should be triggered when an ellipsis list item is selected', () => {
-      const autoSuggestComponent = shallow(<AutoSuggest
-        activeSuggestion={mockFilledState.activeSuggestion}
+    const autoSuggestComponent = mount(
+      <AutoSuggest
+        activeSuggestion={{ index: -1 }}
         onSubmit={onSubmit}
         onSuggestionActivate={onSuggestionActivate}
         onSuggestionSelection={onSuggestionSelection}
         onTextInput={onTextInput}
-      />);
+        suggestions={[]}
+      />,
+      { disableLifecycleMethods: false },
+    )
 
-      const suggestion = { index: MORE_RESULTS_INDEX };
+    // trigger the componentDidUpdate method
+    autoSuggestComponent.setProps({ query: mockFilledState.typedQuery })
+    autoSuggestComponent.instance().onFocus()
+    expect(onTextInput).toHaveBeenCalled()
+  })
+
+  describe('onFormSubmit', () => {
+    it('should be triggered when an ellipsis list item is selected', () => {
+      const autoSuggestComponent = shallow(
+        <AutoSuggest
+          activeSuggestion={mockFilledState.activeSuggestion}
+          onSubmit={onSubmit}
+          onSuggestionActivate={onSuggestionActivate}
+          onSuggestionSelection={onSuggestionSelection}
+          onTextInput={onTextInput}
+        />,
+      )
+
+      const suggestion = { index: MORE_RESULTS_INDEX }
       const event = {
         preventDefault: jest.fn(),
-        stopPropagation: jest.fn()
-      };
-      autoSuggestComponent.instance().onFormSubmit = jest.fn();
-      autoSuggestComponent.instance().onSuggestionSelection(suggestion, event);
-      expect(autoSuggestComponent.instance().onFormSubmit).toHaveBeenCalledWith(event);
-    });
-  });
+        stopPropagation: jest.fn(),
+      }
+      autoSuggestComponent.instance().onFormSubmit = jest.fn()
+      autoSuggestComponent.instance().onSuggestionSelection(suggestion, event)
+      expect(autoSuggestComponent.instance().onFormSubmit).toHaveBeenCalledWith(event)
+    })
+  })
 
   describe('resetActiveSuggestion', () => {
     it('should be triggered if user is typing and there is a suggestion available', () => {
       // Without a query
-      const autoSuggestComponent = mount(<AutoSuggest
-        activeSuggestion={mockFilledState.activeSuggestion}
-        onSubmit={onSubmit}
-        onSuggestionActivate={onSuggestionActivate}
-        onSuggestionSelection={onSuggestionSelection}
-        onTextInput={onTextInput}
-      />);
+      const autoSuggestComponent = mount(
+        <AutoSuggest
+          activeSuggestion={mockFilledState.activeSuggestion}
+          onSubmit={onSubmit}
+          onSuggestionActivate={onSuggestionActivate}
+          onSuggestionSelection={onSuggestionSelection}
+          onTextInput={onTextInput}
+        />,
+      )
 
-      autoSuggestComponent.instance().resetActiveSuggestion = jest.fn();
+      autoSuggestComponent.instance().resetActiveSuggestion = jest.fn()
 
-      autoSuggestComponent.instance().onInput(onInputEvent);
+      autoSuggestComponent.instance().onInput(onInputEvent)
 
-      expect(autoSuggestComponent.instance().resetActiveSuggestion).toHaveBeenCalled();
-    });
-  });
+      expect(autoSuggestComponent.instance().resetActiveSuggestion).toHaveBeenCalled()
+    })
+  })
 
   describe('navigateSuggestions keydown events', () => {
-    let autoSuggestComponent;
+    let autoSuggestComponent
 
     beforeEach(() => {
-      autoSuggestComponent = mount(<AutoSuggest
-        activeSuggestion={{ index: 0 }}
-        onSubmit={onSubmit}
-        onSuggestionActivate={onSuggestionActivate}
-        onSuggestionSelection={onSuggestionSelection}
-        onTextInput={onTextInput}
-        numberOfSuggestions={1}
-      />);
+      autoSuggestComponent = mount(
+        <AutoSuggest
+          activeSuggestion={{ index: 0 }}
+          onSubmit={onSubmit}
+          onSuggestionActivate={onSuggestionActivate}
+          onSuggestionSelection={onSuggestionSelection}
+          onTextInput={onTextInput}
+          numberOfSuggestions={1}
+        />,
+      )
 
-      onSuggestionActivate.mockClear();
-      autoSuggestComponent.instance().resetActiveSuggestion = jest.fn();
-      autoSuggestComponent.instance().onSuggestionSelection = jest.fn();
-    });
+      onSuggestionActivate.mockClear()
+      autoSuggestComponent.instance().resetActiveSuggestion = jest.fn()
+      autoSuggestComponent.instance().onSuggestionSelection = jest.fn()
+    })
 
     it('should handle arrow up key', () => {
-      const preventDefaultMock = jest.fn();
+      const preventDefaultMock = jest.fn()
       autoSuggestComponent.instance().navigateSuggestions({
         keyCode: 38,
-        preventDefault: preventDefaultMock
-      });
+        preventDefault: preventDefaultMock,
+      })
 
-      expect(preventDefaultMock).toHaveBeenCalled();
-      expect(onSuggestionActivate).not.toHaveBeenCalled();
+      expect(preventDefaultMock).toHaveBeenCalled()
+      expect(onSuggestionActivate).not.toHaveBeenCalled()
 
-      autoSuggestComponent.setState({ showSuggestions: true });
+      autoSuggestComponent.setState({ showSuggestions: true })
 
       autoSuggestComponent.instance().navigateSuggestions({
         keyCode: 38,
-        preventDefault: preventDefaultMock
-      });
+        preventDefault: preventDefaultMock,
+      })
 
-      expect(onSuggestionActivate).toHaveBeenCalled();
-      onSuggestionActivate.mockRestore();
-    });
+      expect(onSuggestionActivate).toHaveBeenCalled()
+      onSuggestionActivate.mockRestore()
+    })
 
     it('should handle down up key', () => {
-      const preventDefaultMock = jest.fn();
+      const preventDefaultMock = jest.fn()
       autoSuggestComponent.instance().navigateSuggestions({
         keyCode: 40,
-        preventDefault: preventDefaultMock
-      });
+        preventDefault: preventDefaultMock,
+      })
 
-      expect(preventDefaultMock).not.toHaveBeenCalled();
-      expect(onSuggestionActivate).not.toHaveBeenCalled();
+      expect(preventDefaultMock).not.toHaveBeenCalled()
+      expect(onSuggestionActivate).not.toHaveBeenCalled()
 
-      autoSuggestComponent.setState({ showSuggestions: true });
+      autoSuggestComponent.setState({ showSuggestions: true })
       autoSuggestComponent.instance().navigateSuggestions({
         keyCode: 40,
-        preventDefault: preventDefaultMock
-      });
+        preventDefault: preventDefaultMock,
+      })
 
-      expect(onSuggestionActivate).toHaveBeenCalled();
-    });
+      expect(onSuggestionActivate).toHaveBeenCalled()
+    })
 
     it('should handle escape key', () => {
-      const preventDefaultMock = jest.fn();
+      const preventDefaultMock = jest.fn()
       autoSuggestComponent.instance().navigateSuggestions({
         keyCode: 27,
-        preventDefault: preventDefaultMock
-      });
+        preventDefault: preventDefaultMock,
+      })
 
-      expect(preventDefaultMock).not.toHaveBeenCalled();
-      expect(autoSuggestComponent.instance().resetActiveSuggestion).toHaveBeenCalled();
-    });
+      expect(preventDefaultMock).not.toHaveBeenCalled()
+      expect(autoSuggestComponent.instance().resetActiveSuggestion).toHaveBeenCalled()
+    })
 
     it('should handle enter key', () => {
-      const preventDefaultMock = jest.fn();
+      const preventDefaultMock = jest.fn()
       autoSuggestComponent.instance().navigateSuggestions({
         keyCode: 13,
-        preventDefault: preventDefaultMock
-      });
+        preventDefault: preventDefaultMock,
+      })
 
-      expect(preventDefaultMock).not.toHaveBeenCalled();
-      expect(autoSuggestComponent.instance().onSuggestionSelection).toHaveBeenCalled();
-    });
+      expect(preventDefaultMock).not.toHaveBeenCalled()
+      expect(autoSuggestComponent.instance().onSuggestionSelection).toHaveBeenCalled()
+    })
 
     it('should not handle enter key when index for suggestions is below 0', () => {
-      const preventDefaultMock = jest.fn();
-      autoSuggestComponent.setProps({ activeSuggestion: { index: -1 } });
+      const preventDefaultMock = jest.fn()
+      autoSuggestComponent.setProps({ activeSuggestion: { index: -1 } })
       autoSuggestComponent.instance().navigateSuggestions({
         keyCode: 13,
-        preventDefault: preventDefaultMock
-      });
+        preventDefault: preventDefaultMock,
+      })
 
-      expect(preventDefaultMock).not.toHaveBeenCalled();
-      expect(autoSuggestComponent.instance().onSuggestionSelection).not.toHaveBeenCalled();
-    });
+      expect(preventDefaultMock).not.toHaveBeenCalled()
+      expect(autoSuggestComponent.instance().onSuggestionSelection).not.toHaveBeenCalled()
+    })
 
     it('should handle any other key and do nothing', () => {
-      const preventDefaultMock = jest.fn();
+      const preventDefaultMock = jest.fn()
       autoSuggestComponent.instance().navigateSuggestions({
         keyCode: 44,
-        preventDefault: preventDefaultMock
-      });
+        preventDefault: preventDefaultMock,
+      })
 
-      expect(preventDefaultMock).not.toHaveBeenCalled();
-    });
-  });
-});
+      expect(preventDefaultMock).not.toHaveBeenCalled()
+    })
+  })
+})

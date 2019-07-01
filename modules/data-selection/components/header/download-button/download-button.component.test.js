@@ -1,177 +1,196 @@
-import * as dataSelectionConfig
-    from '../../../../../src/shared/services/data-selection/data-selection-config';
-import isDefined from '../../../../../src/shared/services/is-defined';
-import { DOWNLOAD_DATA_SELECTION } from '../../../../../src/shared/ducks/data-selection/constants';
+import * as dataSelectionConfig from '../../../../../src/shared/services/data-selection/data-selection-config'
+import isDefined from '../../../../../src/shared/services/is-defined'
+import { DOWNLOAD_DATA_SELECTION } from '../../../../../src/shared/ducks/data-selection/constants'
 
-describe('The dp-data-selection-download-button component', function () {
-    let $compile,
-        $q,
-        $rootScope,
-        store,
-        api;
+describe('The dp-data-selection-download-button component', function() {
+  let $compile
+  let $q
+  let $rootScope
+  let store
+  let api
 
-    const config = {
-        datasets: {
-            dataset_a: {
-                ENDPOINT: 'datasets/a/',
-                ENDPOINT_EXPORT: 'datasets/a/download/',
-                FILTERS: [
-                    {
-                        slug: 'filter_a'
-                    }, {
-                        slug: 'filter_b'
-                    }
-                ],
-                TITLE: 'foo'
-            },
-            dataset_b: {
-                ENDPOINT: 'datasets/b/',
-                ENDPOINT_EXPORT: 'datasets/b/download/',
-                ENDPOINT_EXPORT_PARAM: 'dataset=ves',
-                FILTERS: [
-                    {
-                        slug: 'filter_a'
-                    }, {
-                        slug: 'filter_b'
-                    }
-                ]
-            }
-        }
-    };
+  const config = {
+    datasets: {
+      dataset_a: {
+        ENDPOINT: 'datasets/a/',
+        ENDPOINT_EXPORT: 'datasets/a/download/',
+        FILTERS: [
+          {
+            slug: 'filter_a',
+          },
+          {
+            slug: 'filter_b',
+          },
+        ],
+        TITLE: 'foo',
+      },
+      dataset_b: {
+        ENDPOINT: 'datasets/b/',
+        ENDPOINT_EXPORT: 'datasets/b/download/',
+        ENDPOINT_EXPORT_PARAM: 'dataset=ves',
+        FILTERS: [
+          {
+            slug: 'filter_a',
+          },
+          {
+            slug: 'filter_b',
+          },
+        ],
+      },
+    },
+  }
 
-    beforeEach(function () {
-        angular.mock.module(
-            'dpDataSelection',
-            {
-                sharedConfig: {
-                    API_ROOT: 'http://www.example.com/'
-                },
-                store: {
-                    dispatch: angular.noop
-                }
-            }
-        );
+  beforeEach(function() {
+    angular.mock.module('dpDataSelection', {
+      sharedConfig: {
+        API_ROOT: 'http://www.example.com/',
+      },
+      store: {
+        dispatch: angular.noop,
+      },
+    })
 
-        dataSelectionConfig.default = config;
+    dataSelectionConfig.default = config
 
-        angular.mock.inject(function (_$compile_, _$q_, _$rootScope_, _store_, _api_) {
-            $compile = _$compile_;
-            $q = _$q_;
-            $rootScope = _$rootScope_;
-            store = _store_;
-            api = _api_;
-        });
+    angular.mock.inject(function(
+      _$compile_,
+      _$q_,
+      _$rootScope_,
+      _store_,
+      _api_,
+    ) {
+      $compile = _$compile_
+      $q = _$q_
+      $rootScope = _$rootScope_
+      store = _store_
+      api = _api_
+    })
 
-        spyOn(store, 'dispatch');
-        spyOn(api, 'createUrlWithToken').and.callFake($q.resolve); // wrap url in promise
-    });
+    spyOn(store, 'dispatch')
+    spyOn(api, 'createUrlWithToken').and.callFake($q.resolve) // wrap url in promise
+  })
 
-    function getComponent (dataset, activeFilters, geometryMarkers) {
-        const element = document.createElement('dp-data-selection-download-button');
-        element.setAttribute('dataset', dataset);
-        element.setAttribute('active-filters', 'activeFilters');
+  function getComponent(dataset, activeFilters, geometryMarkers) {
+    const element = document.createElement('dp-data-selection-download-button')
+    element.setAttribute('dataset', dataset)
+    element.setAttribute('active-filters', 'activeFilters')
 
-        if (isDefined(geometryMarkers)) {
-            element.setAttribute('geometry-filter', 'geometryFilter');
-        }
-
-        const scope = $rootScope.$new();
-        scope.activeFilters = activeFilters;
-
-        scope.geometryFilter = { markers: geometryMarkers, description: 'hello' };
-
-        const component = $compile(element)(scope);
-        scope.$digest();
-
-        return component;
+    if (isDefined(geometryMarkers)) {
+      element.setAttribute('geometry-filter', 'geometryFilter')
     }
 
-    it('will generate a download link for the current dataset', function () {
-        const component = getComponent('dataset_a', {});
+    const scope = $rootScope.$new()
+    scope.activeFilters = activeFilters
 
-        expect(component.find('a').attr('href')).toBe('http://www.example.com/datasets/a/download/');
-    });
+    scope.geometryFilter = { markers: geometryMarkers, description: 'hello' }
 
-    it('will filters as parameters to the download link', function () {
-        let component;
+    const component = $compile(element)(scope)
+    scope.$digest()
 
-        // With one active filter
-        component = getComponent('dataset_a', {
-            filter_b: 'eenofanderewaarde'
-        });
+    return component
+  }
 
-        expect(component.find('a').attr('href'))
-            .toBe('http://www.example.com/datasets/a/download/?filter_b=eenofanderewaarde');
+  it('will generate a download link for the current dataset', function() {
+    const component = getComponent('dataset_a', {})
 
-        // With two active filters
-        component = getComponent('dataset_a', {
-            filter_a: 'ingeschakeld',
-            filter_b: 'eenofanderewaarde'
-        });
+    expect(component.find('a').attr('href')).toBe(
+      'http://www.example.com/datasets/a/download/',
+    )
+  })
 
-        expect(component.find('a').attr('href'))
-            .toBe('http://www.example.com/datasets/a/download/?filter_a=ingeschakeld&filter_b=eenofanderewaarde');
-    });
+  it('will filters as parameters to the download link', function() {
+    let component
 
-    it('uses URL encoding for the values of the active filters', function () {
-        // With one active filter
-        const component = getComponent('dataset_a', {
-            filter_a: 'äéë',
-            filter_b: 'Waarde met spaties'
-        });
+    // With one active filter
+    component = getComponent('dataset_a', {
+      filter_b: 'eenofanderewaarde',
+    })
 
-        expect(component.find('a').attr('href'))
-            .toBe('http://www.example.com/datasets/a/download/?filter_a=%C3%A4%C3%A9%C3%AB&' +
-                'filter_b=Waarde%20met%20spaties');
-        expect(component.find('a').attr('href')).toContain('filter_a=%C3%A4%C3%A9%C3%AB');
-        expect(component.find('a').attr('href')).toContain('filter_b=Waarde%20met%20spaties');
-    });
+    expect(component.find('a').attr('href')).toBe(
+      'http://www.example.com/datasets/a/download/?filter_b=eenofanderewaarde',
+    )
 
-    it('updates the download URL when the dataset or activeFilters change', () => {
-        let component;
+    // With two active filters
+    component = getComponent('dataset_a', {
+      filter_a: 'ingeschakeld',
+      filter_b: 'eenofanderewaarde',
+    })
 
-        const dataset = 'dataset_a';
-        const activeFilters = {
-            filter_a: 'hoi'
-        };
+    expect(component.find('a').attr('href')).toBe(
+      'http://www.example.com/datasets/a/download/?filter_a=ingeschakeld&filter_b=eenofanderewaarde',
+    )
+  })
 
-        const markers = [[2, 3], [4, 5]];
+  it('uses URL encoding for the values of the active filters', function() {
+    // With one active filter
+    const component = getComponent('dataset_a', {
+      filter_a: 'äéë',
+      filter_b: 'Waarde met spaties',
+    })
 
-        component = getComponent(dataset, activeFilters);
-        const scope = component.isolateScope();
+    expect(component.find('a').attr('href')).toBe(
+      'http://www.example.com/datasets/a/download/?filter_a=%C3%A4%C3%A9%C3%AB&' +
+        'filter_b=Waarde%20met%20spaties',
+    )
+    expect(component.find('a').attr('href')).toContain(
+      'filter_a=%C3%A4%C3%A9%C3%AB',
+    )
+    expect(component.find('a').attr('href')).toContain(
+      'filter_b=Waarde%20met%20spaties',
+    )
+  })
 
-        expect(component.find('a').attr('href'))
-            .toBe('http://www.example.com/datasets/a/download/?filter_a=hoi');
+  it('updates the download URL when the dataset or activeFilters change', () => {
+    let component
 
-        // Change the dataset and activeFilters
-        scope.vm.dataset = 'dataset_b';
-        delete scope.vm.activeFilters.filter_a;
-        scope.vm.activeFilters.filter_b = 'hallo';
-        component.isolateScope().$digest();
+    const dataset = 'dataset_a'
+    const activeFilters = {
+      filter_a: 'hoi',
+    }
 
-        expect(component.find('a').attr('href'))
-            .toBe('http://www.example.com/datasets/b/download/?filter_b=hallo&dataset=ves');
+    const markers = [[2, 3], [4, 5]]
 
-        component = getComponent(dataset, activeFilters, markers);
+    component = getComponent(dataset, activeFilters)
+    const scope = component.isolateScope()
 
-        component.isolateScope().$digest();
+    expect(component.find('a').attr('href')).toBe(
+      'http://www.example.com/datasets/a/download/?filter_a=hoi',
+    )
 
-        expect(component.find('a').attr('href'))
-            .toBe('http://www.example.com/datasets/a/download/?filter_b=hallo&shape=[[3,2],[5,4]]');
-    });
+    // Change the dataset and activeFilters
+    scope.vm.dataset = 'dataset_b'
+    delete scope.vm.activeFilters.filter_a
+    scope.vm.activeFilters.filter_b = 'hallo'
+    component.isolateScope().$digest()
 
-    it('enriches the download url with the access token', () => {
-        api.createUrlWithToken.and.returnValue($q.resolve('tokenUrl'));
-        const component = getComponent('dataset_a', {
-            filter_a: 'äéë'
-        });
-        expect(component.find('a').attr('href')).toBe('tokenUrl');
-    });
+    expect(component.find('a').attr('href')).toBe(
+      'http://www.example.com/datasets/b/download/?filter_b=hallo&dataset=ves',
+    )
 
-    it('dispatches an action that is tracked by piwik', function () {
-        const component = getComponent('dataset_a', {});
-        component.find('a').click();
+    component = getComponent(dataset, activeFilters, markers)
 
-        expect(store.dispatch).toHaveBeenCalledWith({ type: DOWNLOAD_DATA_SELECTION, meta: { tracking: 'foo' } });
-    });
-});
+    component.isolateScope().$digest()
+
+    expect(component.find('a').attr('href')).toBe(
+      'http://www.example.com/datasets/a/download/?filter_b=hallo&shape=[[3,2],[5,4]]',
+    )
+  })
+
+  it('enriches the download url with the access token', () => {
+    api.createUrlWithToken.and.returnValue($q.resolve('tokenUrl'))
+    const component = getComponent('dataset_a', {
+      filter_a: 'äéë',
+    })
+    expect(component.find('a').attr('href')).toBe('tokenUrl')
+  })
+
+  it('dispatches an action that is tracked by piwik', function() {
+    const component = getComponent('dataset_a', {})
+    component.find('a').click()
+
+    expect(store.dispatch).toHaveBeenCalledWith({
+      type: DOWNLOAD_DATA_SELECTION,
+      meta: { tracking: 'foo' },
+    })
+  })
+})

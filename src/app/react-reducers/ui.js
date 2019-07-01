@@ -1,9 +1,9 @@
-export const REDUCER_KEY = 'ui';
-export const SET_BACKDROP = `${REDUCER_KEY}/SET_BACKDROP`;
+export const REDUCER_KEY = 'ui'
+export const SET_BACKDROP = `${REDUCER_KEY}/SET_BACKDROP`
 
 export const initialState = {
-  nrOfBackdropTriggers: 0
-};
+  nrOfBackdropTriggers: 0,
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -13,17 +13,18 @@ export default (state = initialState, action) => {
     case SET_BACKDROP:
       return {
         ...state,
-        nrOfBackdropTriggers: (action.payload) ?
-          state.nrOfBackdropTriggers + 1 :
-          (state.nrOfBackdropTriggers) ? state.nrOfBackdropTriggers - 1 : 0
-      };
+        nrOfBackdropTriggers: action.payload
+          ? state.nrOfBackdropTriggers + 1
+          : state.nrOfBackdropTriggers
+          ? state.nrOfBackdropTriggers - 1
+          : 0,
+      }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const actions = {
-  setBackDrop: SET_BACKDROP
-};
-
+  setBackDrop: SET_BACKDROP,
+}

@@ -1,52 +1,56 @@
-import React from 'react';
-import get from 'lodash.get';
-import PropTypes from 'prop-types';
-import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator';
-import MapDetailResult from '../../components/detail-result/MapDetailResult';
-import MapSearchResults from '../../components/search-results/MapSearchResults';
-import { VIEW_MODE } from '../../../shared/ducks/ui/ui';
+import React from 'react'
+import get from 'lodash.get'
+import PropTypes from 'prop-types'
+import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
+import MapDetailResult from '../../components/detail-result/MapDetailResult'
+import MapSearchResults from '../../components/search-results/MapSearchResults'
+import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
 
-const previewPanelSearchResultLimit = 3;
+const previewPanelSearchResultLimit = 3
 
 class MapPreviewPanel extends React.Component {
   constructor() {
-    super();
-    this.onPanoPreviewClick = this.onPanoPreviewClick.bind(this);
+    super()
+    this.onPanoPreviewClick = this.onPanoPreviewClick.bind(this)
   }
 
   onPanoPreviewClick() {
-    const { openPano, panoPreview, detailLocation } = this.props;
-    openPano(panoPreview.id, panoPreview.heading, detailLocation);
+    const { openPano, panoPreview, detailLocation } = this.props
+    openPano(panoPreview.id, panoPreview.heading, detailLocation)
   }
 
   render() {
-    const props = this.props;
-    const isLoading = get(props, 'dataQuerySearch.isLoading') || get(props, 'mapDetail.isLoading');
-    const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult;
+    const { props } = this
+    const isLoading = get(props, 'dataQuerySearch.isLoading') || get(props, 'mapDetail.isLoading')
+    const isDetailLoaded = !isLoading && props.detail && props.mapDetail && props.detailResult
 
-    const openDetailEndpoint = () => props.openDetail(props.detailEndpoint);
-    const onMaximize = () => props.onSearchMaximize(VIEW_MODE.SPLIT);
+    const openDetailEndpoint = () => props.openDetail(props.detailEndpoint)
+    const onMaximize = () => props.onSearchMaximize(VIEW_MODE.SPLIT)
 
     return (
       <div className="map-preview-panel-wrapper">
         <section className="map-preview-panel map-preview-panel--visible">
           <div className="map-preview-panel__heading">
             <button
+              type="button"
               className="map-preview-panel__button map-preview-panel__button--expand"
-              onClick={(props.isSearchPreview) ? onMaximize : openDetailEndpoint}
+              onClick={props.isSearchPreview ? onMaximize : openDetailEndpoint}
               title="Volledige weergave tonen"
             >
-              <span className="
+              <span
+                className="
                 map-preview-panel__button-icon
                 map-preview-panel__button-icon--maximize"
               />
             </button>
             <button
+              type="button"
               className="map-preview-panel__button"
               onClick={props.closePanel}
               title="Sluiten"
             >
-              <span className="
+              <span
+                className="
                 map-preview-panel__button-icon
                 map-preview-panel__button-icon--close"
               />
@@ -58,9 +62,7 @@ class MapPreviewPanel extends React.Component {
               map-preview-panel__body--${isLoading ? 'loading' : 'loaded'}
             `}
           >
-            {isLoading && (
-              <LoadingIndicator />
-            )}
+            {isLoading && <LoadingIndicator />}
             {!props.isSearchPreview && isDetailLoaded && (
               <MapDetailResult
                 panoUrl={props.panoPreview.url}
@@ -85,7 +87,7 @@ class MapPreviewPanel extends React.Component {
           </div>
         </section>
       </div>
-    );
+    )
   }
 }
 
@@ -101,8 +103,8 @@ MapPreviewPanel.defaultProps = {
   search: {},
   searchLocation: null,
   searchLocationId: '',
-  user: {}
-};
+  user: {},
+}
 
 /* eslint-disable react/no-unused-prop-types */
 MapPreviewPanel.propTypes = {
@@ -123,7 +125,7 @@ MapPreviewPanel.propTypes = {
   search: PropTypes.shape({}),
   searchLocation: PropTypes.shape({}),
   searchLocationId: PropTypes.string,
-  user: PropTypes.shape({})
-};
+  user: PropTypes.shape({}),
+}
 
-export default MapPreviewPanel;
+export default MapPreviewPanel

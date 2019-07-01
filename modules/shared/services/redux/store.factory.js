@@ -1,11 +1,9 @@
-(function () {
-    angular
-        .module('dpShared')
-        .factory('store', storeFactory);
+;(function() {
+  angular.module('dpShared').factory('store', storeFactory)
 
-    storeFactory.$inject = ['$window'];
+  storeFactory.$inject = ['$window']
 
-    function storeFactory ($window) {
-        return $window.reduxStore;
-    }
-})();
+  function storeFactory($window) {
+    return $window.reduxStore
+  }
+})()

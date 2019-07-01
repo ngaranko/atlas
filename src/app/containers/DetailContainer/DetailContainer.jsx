@@ -1,21 +1,20 @@
-import { connect } from 'react-redux';
-import { getUser } from '../../../shared/ducks/user/user';
-import { isPrintMode } from '../../../shared/ducks/ui/ui';
+import { connect } from 'react-redux'
+import { getUser } from '../../../shared/ducks/user/user'
+import { isPrintMode } from '../../../shared/ducks/ui/ui'
 import {
   getPanoramaPreview,
-  isPanoramaPreviewLoading
-} from '../../../panorama/ducks/preview/panorama-preview';
-import Detail from './Detail';
+  isPanoramaPreviewLoading,
+} from '../../../panorama/ducks/preview/panorama-preview'
+import Detail from './Detail'
 import {
   getDetailEndpoint,
   isDetailLoading,
   getDetailTemplateUrl,
   getDetailData,
-  getDetailFilterSelection
-} from '../../../shared/ducks/detail/selectors';
+  getDetailFilterSelection,
+} from '../../../shared/ducks/detail/selectors'
 
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isLoading: isDetailLoading(state),
   user: getUser(state),
   endpoint: getDetailEndpoint(state),
@@ -24,7 +23,7 @@ const mapStateToProps = (state) => ({
   detailTemplateUrl: getDetailTemplateUrl(state),
   detailData: getDetailData(state),
   detailFilterSelection: getDetailFilterSelection(state),
-  printMode: isPrintMode(state)
-});
+  printMode: isPrintMode(state),
+})
 
-export default connect(mapStateToProps)(Detail);
+export default connect(mapStateToProps)(Detail)

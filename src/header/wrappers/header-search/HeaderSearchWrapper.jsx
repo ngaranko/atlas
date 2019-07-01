@@ -1,18 +1,18 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { render } from 'react-dom';
+import React from 'react'
+import { Provider } from 'react-redux'
+import { render } from 'react-dom'
 
-import HeaderSearchContainer from '../../containers/header-search/HeaderSearchContainer';
+import HeaderSearchContainer from '../../containers/header-search/HeaderSearchContainer'
 
-const HeaderSearchWrapper = (props) => (
+const HeaderSearchWrapper = props => (
   <Provider store={window.reduxStore}>
     <HeaderSearchContainer {...props} />
   </Provider>
-);
+)
 
-export default HeaderSearchWrapper;
+export default HeaderSearchWrapper
 
-window.React = window.React || React;
+window.React = window.React || React
 // istanbul ignore next
-window.render = window.render || render;
-window.HeaderSearchWrapper = HeaderSearchWrapper;
+window.render = window.render || render
+window.HeaderSearchWrapper = HeaderSearchWrapper

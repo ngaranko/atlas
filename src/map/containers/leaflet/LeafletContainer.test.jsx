@@ -1,8 +1,8 @@
-import React from 'react';
-import configureMockStore from 'redux-mock-store';
-import { shallow } from 'enzyme';
+import React from 'react'
+import configureMockStore from 'redux-mock-store'
+import { shallow } from 'enzyme'
 
-import LeafletContainer from './LeafletContainer';
+import LeafletContainer from './LeafletContainer'
 import {
   getActiveBaseLayer,
   getCenter,
@@ -12,46 +12,43 @@ import {
   getMarkers,
   getRdGeoJsons,
   isMapLoading,
-  isMarkerActive
-} from '../../ducks/map/selectors';
+  isMarkerActive,
+} from '../../ducks/map/selectors'
 
-import {
-  MAP_BOUNDING_BOX,
-  MAP_PAN
-} from '../../ducks/map/constants';
+import { MAP_BOUNDING_BOX, MAP_PAN } from '../../ducks/map/constants'
 import {
   setSelectedLocation,
   updateBoundingBox,
   updatePan,
-  updateZoom
-} from '../../ducks/map/actions';
+  updateZoom,
+} from '../../ducks/map/actions'
 import {
   FETCH_MAP_BASE_LAYERS_REQUEST,
   fetchMapBaseLayers,
-  getUrlTemplate
-} from '../../ducks/base-layers/map-base-layers';
-import { FETCH_MAP_LAYERS_REQUEST, fetchMapLayers } from '../../ducks/layers/map-layers';
+  getUrlTemplate,
+} from '../../ducks/base-layers/map-base-layers'
+import { FETCH_MAP_LAYERS_REQUEST, fetchMapLayers } from '../../ducks/layers/map-layers'
 import {
   FETCH_PANEL_ITEMS_REQUEST,
-  fetchPanelLayers
-} from '../../ducks/panel-layers/map-panel-layers';
-import { isDrawingActive } from '../../services/draw-tool/draw-tool';
+  fetchPanelLayers,
+} from '../../ducks/panel-layers/map-panel-layers'
+import { isDrawingActive } from '../../services/draw-tool/draw-tool'
 import {
   getBrkMarkers,
   getClusterMarkers,
-  getGeoJsons
-} from '../../../shared/ducks/data-selection/selectors';
+  getGeoJsons,
+} from '../../../shared/ducks/data-selection/selectors'
 
-jest.mock('../../../shared/ducks/data-selection/selectors');
-jest.mock('../../ducks/base-layers/map-base-layers');
-jest.mock('../../ducks/map/actions');
-jest.mock('../../ducks/map/selectors');
-jest.mock('../../ducks/layers/map-layers');
-jest.mock('../../ducks/panel-layers/map-panel-layers');
-jest.mock('../../services/draw-tool/draw-tool');
+jest.mock('../../../shared/ducks/data-selection/selectors')
+jest.mock('../../ducks/base-layers/map-base-layers')
+jest.mock('../../ducks/map/actions')
+jest.mock('../../ducks/map/selectors')
+jest.mock('../../ducks/layers/map-layers')
+jest.mock('../../ducks/panel-layers/map-panel-layers')
+jest.mock('../../services/draw-tool/draw-tool')
 
 describe('LeafletContainer', () => {
-  let initialState;
+  let initialState
 
   const mapLayers = {
     layers: {
@@ -62,9 +59,9 @@ describe('LeafletContainer', () => {
           layers: ['biz_polygons'],
           detailUrl: 'geosearch/biz/',
           detailItem: 'biz',
-          detailIsShape: true
-        }
-      ]
+          detailIsShape: true,
+        },
+      ],
     },
     baseLayers: {
       items: [
@@ -73,38 +70,38 @@ describe('LeafletContainer', () => {
           label: 'Topografie',
           category: 'topography',
           selected: true,
-          urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png'
+          urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
         },
         {
           value: 'lf2018',
           label: 'Luchtfoto 2018',
           category: 'aerial',
           selected: true,
-          urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2018_RD/{z}/{x}/{y}.jpeg'
-        }
-      ]
-    }
-  };
+          urlTemplate: 'https://{s}.data.amsterdam.nl/lufo2018_RD/{z}/{x}/{y}.jpeg',
+        },
+      ],
+    },
+  }
 
   beforeEach(() => {
-    getActiveBaseLayer.mockImplementation(() => 'topografie');
-    getCenter.mockImplementation(() => [0, 0]);
-    getMapZoom.mockImplementation(() => 8);
-    getDrawingMode.mockImplementation(() => 'none');
-    getBrkMarkers.mockImplementation(() => []);
-    getClusterMarkers.mockImplementation(() => []);
-    getGeoJsons.mockImplementation(() => []);
-    getMapOverlays.mockImplementation(() => []);
-    getMarkers.mockImplementation(() => []);
-    getRdGeoJsons.mockImplementation(() => []);
-    isMarkerActive.mockImplementation(() => true);
-    updateBoundingBox.mockImplementation(() => ({}));
-    updatePan.mockImplementation(() => ({}));
-    setSelectedLocation.mockImplementation(() => ({}));
-    updateZoom.mockImplementation(() => ({}));
-    isMapLoading.mockImplementation(() => false);
-    getUrlTemplate.mockImplementation(() => 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png');
-  });
+    getActiveBaseLayer.mockImplementation(() => 'topografie')
+    getCenter.mockImplementation(() => [0, 0])
+    getMapZoom.mockImplementation(() => 8)
+    getDrawingMode.mockImplementation(() => 'none')
+    getBrkMarkers.mockImplementation(() => [])
+    getClusterMarkers.mockImplementation(() => [])
+    getGeoJsons.mockImplementation(() => [])
+    getMapOverlays.mockImplementation(() => [])
+    getMarkers.mockImplementation(() => [])
+    getRdGeoJsons.mockImplementation(() => [])
+    isMarkerActive.mockImplementation(() => true)
+    updateBoundingBox.mockImplementation(() => ({}))
+    updatePan.mockImplementation(() => ({}))
+    setSelectedLocation.mockImplementation(() => ({}))
+    updateZoom.mockImplementation(() => ({}))
+    isMapLoading.mockImplementation(() => false)
+    getUrlTemplate.mockImplementation(() => 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png')
+  })
 
   describe('LeafletContainer snapshot', () => {
     beforeEach(() => {
@@ -116,38 +113,37 @@ describe('LeafletContainer', () => {
           zoom: 9,
           overlays: [],
           drawingMode: 'none',
-          isLoading: false
+          isLoading: false,
         },
         user: {
           authenticated: false,
-          accessToken: ''
+          accessToken: '',
         },
         mapDetail: {
           currentEndpoint: '',
-          byEndpoint: {}
+          byEndpoint: {},
         },
         ui: {
           map: true,
-          detail: false
+          detail: false,
         },
-        getLeafletInstance: () => ''
-      };
-    });
+        getLeafletInstance: () => '',
+      }
+    })
 
     afterEach(() => {
-      jest.resetAllMocks();
-    });
+      jest.resetAllMocks()
+    })
 
     it('should render correct', () => {
-      const store = configureMockStore()({ ...initialState });
+      const store = configureMockStore()({ ...initialState })
       const wrapper = shallow(
-        <LeafletContainer
-          getLeafletInstance={initialState.getLeafletInstance}
-        />, { context: { store } }
-      ).dive();
+        <LeafletContainer getLeafletInstance={initialState.getLeafletInstance} />,
+        { context: { store } },
+      ).dive()
 
-      expect(wrapper).toMatchSnapshot();
-    });
+      expect(wrapper).toMatchSnapshot()
+    })
 
     it('should render different baseLayer, zoom, center and an active layer', () => {
       const stateWithDifferentCenter = {
@@ -158,269 +154,267 @@ describe('LeafletContainer', () => {
           zoom: 10,
           ui: {
             map: true,
-            detail: true
+            detail: true,
           },
           overlays: [
             {
               id: 'biz',
-              isVisible: true
-            }
+              isVisible: true,
+            },
           ],
           drawingMode: 'none',
-          isLoading: false
-        }
-      };
-      getCenter.mockImplementation(() => [52.4333137, 4.9108908]);
-      getMapZoom.mockImplementation(() => 10);
+          isLoading: false,
+        },
+      }
+      getCenter.mockImplementation(() => [52.4333137, 4.9108908])
+      getMapZoom.mockImplementation(() => 10)
       getClusterMarkers.mockImplementation(() => [
         {
           index: 0,
           position: [52.37282671970971, 4.883399484657262],
-          type: 'detailPointType'
+          type: 'detailPointType',
         },
         {
           index: 1,
           position: [52.37282671970951, 4.883399484657232],
-          type: 'detailPointType'
+          type: 'detailPointType',
         },
         {
           index: 2,
           position: [52.37282671970952, 4.883399484657263],
-          type: 'detailPointType'
+          type: 'detailPointType',
         },
         {
           index: 3,
           position: [52.37282671971952, 4.883399484657263],
-          type: 'detailPointType'
-        }
-      ]);
+          type: 'detailPointType',
+        },
+      ])
       getGeoJsons.mockImplementation(() => [
         {
           geoJson: {
             coordinates: [120983, 487047],
-            type: 'Point'
+            type: 'Point',
           },
           id: 'YE39',
-          type: 'dataSelection'
+          type: 'dataSelection',
         },
         {
           geoJson: {
             coordinates: [120983, 487047],
-            type: 'Point'
+            type: 'Point',
           },
           id: 'YE39',
-          type: 'dataSelectionAlternate'
-        }
-      ]);
+          type: 'dataSelectionAlternate',
+        },
+      ])
       getMapOverlays.mockImplementation(() => [
         {
           id: 'biz',
-          isVisible: true
-        }
-      ]);
+          isVisible: true,
+        },
+      ])
       getMarkers.mockImplementation(() => [
         {
           position: [52.37282671970971, 4.883399484657262],
-          type: 'geoSearchType'
+          type: 'geoSearchType',
         },
         {
           position: [52.37282671970951, 4.883399484657232],
-          type: 'detailPointType'
+          type: 'detailPointType',
         },
         {
           position: [52.37282671970952, 4.883399484657263],
           type: 'dataSelectionType',
-          iconData: 15
+          iconData: 15,
         },
         {
           position: [52.37282671971952, 4.883399484657263],
-          type: 'panoramaPersonType'
+          type: 'panoramaPersonType',
         },
         {
           position: [52.37282671971952, 4.883399484657263],
           type: 'panoramaOrientationType',
-          heading: 45
-        }
-      ]);
+          heading: 45,
+        },
+      ])
       getRdGeoJsons.mockImplementation(() => [
         {
           geoJson: {
             coordinates: [120983, 487047],
-            type: 'Point'
+            type: 'Point',
           },
-          id: 'YE39'
-        }
-      ]);
-      const store = configureMockStore()({ ...stateWithDifferentCenter });
+          id: 'YE39',
+        },
+      ])
+      const store = configureMockStore()({ ...stateWithDifferentCenter })
       const wrapper = shallow(
-        <LeafletContainer
-          getLeafletInstance={initialState.getLeafletInstance}
-        />, { context: { store } }).dive();
+        <LeafletContainer getLeafletInstance={initialState.getLeafletInstance} />,
+        { context: { store } },
+      ).dive()
 
-      expect(wrapper).toMatchSnapshot();
-    });
-  });
+      expect(wrapper).toMatchSnapshot()
+    })
+  })
 
   describe('componentWillMount', () => {
-    let spy;
-    let store;
-    let props;
+    let spy
+    let store
+    let props
     beforeEach(() => {
       initialState = {
         map: {
           zoom: 8,
-          drawingMode: 'none'
+          drawingMode: 'none',
         },
-        getLeafletInstance: () => ''
-      };
-      store = configureMockStore()({ ...initialState });
-      props = {};
+        getLeafletInstance: () => '',
+      }
+      store = configureMockStore()({ ...initialState })
+      props = {}
 
-      spy = jest.spyOn(store, 'dispatch');
+      spy = jest.spyOn(store, 'dispatch')
 
-      fetchMapBaseLayers.mockImplementation(() => ({ type: FETCH_MAP_BASE_LAYERS_REQUEST }));
-      fetchMapLayers.mockImplementation(() => ({ type: FETCH_MAP_LAYERS_REQUEST }));
-      fetchPanelLayers.mockImplementation(() => ({ type: FETCH_PANEL_ITEMS_REQUEST }));
-    });
+      fetchMapBaseLayers.mockImplementation(() => ({ type: FETCH_MAP_BASE_LAYERS_REQUEST }))
+      fetchMapLayers.mockImplementation(() => ({ type: FETCH_MAP_LAYERS_REQUEST }))
+      fetchPanelLayers.mockImplementation(() => ({ type: FETCH_PANEL_ITEMS_REQUEST }))
+    })
 
     afterEach(() => {
-      spy.mockReset();
-      fetchMapBaseLayers.mockReset();
-      fetchMapLayers.mockReset();
-      fetchPanelLayers.mockReset();
-    });
+      spy.mockReset()
+      fetchMapBaseLayers.mockReset()
+      fetchMapLayers.mockReset()
+      fetchPanelLayers.mockReset()
+    })
 
     it('should fetch the layers when urlTemplate is not set', () => {
-      getUrlTemplate.mockImplementation(() => '');
-      isMarkerActive.mockImplementation(() => true);
+      getUrlTemplate.mockImplementation(() => '')
+      isMarkerActive.mockImplementation(() => true)
 
       shallow(
-        <LeafletContainer
-          {...props}
-          getLeafletInstance={initialState.getLeafletInstance}
-        />, { context: { store } }
-      ).dive();
+        <LeafletContainer {...props} getLeafletInstance={initialState.getLeafletInstance} />,
+        { context: { store } },
+      ).dive()
 
-      expect(fetchMapBaseLayers).toHaveBeenCalled();
-      expect(fetchMapLayers).toHaveBeenCalled();
-      expect(fetchPanelLayers).toHaveBeenCalled();
-    });
+      expect(fetchMapBaseLayers).toHaveBeenCalled()
+      expect(fetchMapLayers).toHaveBeenCalled()
+      expect(fetchPanelLayers).toHaveBeenCalled()
+    })
 
     it('should NOT fetch the layers when urlTemplate is set', () => {
-      getUrlTemplate.mockImplementation(() => 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png');
+      getUrlTemplate.mockImplementation(
+        () => 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
+      )
 
       shallow(
-        <LeafletContainer
-          {...props}
-          getLeafletInstance={initialState.getLeafletInstance}
-        />, { context: { store } }
-      ).dive();
+        <LeafletContainer {...props} getLeafletInstance={initialState.getLeafletInstance} />,
+        { context: { store } },
+      ).dive()
 
-      expect(fetchMapBaseLayers).not.toHaveBeenCalled();
-      expect(fetchMapLayers).not.toHaveBeenCalled();
-      expect(fetchPanelLayers).not.toHaveBeenCalled();
-    });
-  });
+      expect(fetchMapBaseLayers).not.toHaveBeenCalled()
+      expect(fetchMapLayers).not.toHaveBeenCalled()
+      expect(fetchPanelLayers).not.toHaveBeenCalled()
+    })
+  })
 
   describe('LeafletContainer methods', () => {
-    let store;
-    let wrapper;
-    let wrapperInstance;
-    let spy;
+    let store
+    let wrapper
+    let wrapperInstance
+    let spy
 
     beforeEach(() => {
       initialState = {
         map: {
           zoom: 8,
-          drawingMode: 'none'
+          drawingMode: 'none',
         },
-        getLeafletInstance: () => ''
-      };
+        getLeafletInstance: () => '',
+      }
 
-      getUrlTemplate.mockImplementation(() => 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png');
-      isDrawingActive.mockImplementation(() => true);
+      getUrlTemplate.mockImplementation(
+        () => 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
+      )
+      isDrawingActive.mockImplementation(() => true)
 
-      store = configureMockStore()({ ...initialState });
-      spy = jest.spyOn(store, 'dispatch');
-      wrapper = shallow(
-        <LeafletContainer
-          getLeafletInstance={initialState.getLeafletInstance}
-        />, { context: { store } }
-      ).dive();
-      wrapperInstance = wrapper.instance();
-    });
+      store = configureMockStore()({ ...initialState })
+      spy = jest.spyOn(store, 'dispatch')
+      wrapper = shallow(<LeafletContainer getLeafletInstance={initialState.getLeafletInstance} />, {
+        context: { store },
+      }).dive()
+      wrapperInstance = wrapper.instance()
+    })
 
     afterEach(() => {
-      spy.mockReset();
-    });
+      spy.mockReset()
+    })
 
     describe('setMapLeaflet', () => {
       it('should set the MapLeaflet', () => {
-        wrapperInstance.setMapLeaflet({ map: '<FakeMmap />' });
-        expect(wrapperInstance.MapLeaflet).toEqual({ map: '<FakeMmap />' });
-      });
-    });
+        wrapperInstance.setMapLeaflet({ map: '<FakeMmap />' })
+        expect(wrapperInstance.MapLeaflet).toEqual({ map: '<FakeMmap />' })
+      })
+    })
 
     describe('handleZoom', () => {
       it('should trigger updateZoom and updateBoundingBox', () => {
-        const event = { center: { lat: 1, lon: 5 } };
+        const event = { center: { lat: 1, lon: 5 } }
 
-        wrapper.setProps({ onUpdateZoom: jest.fn(), onUpdateBoundingBox: jest.fn() });
-        wrapperInstance.handleZoom(event);
-        expect(wrapperInstance.props.onUpdateZoom).toHaveBeenCalled();
-        expect(wrapperInstance.props.onUpdateBoundingBox).toHaveBeenCalled();
-      });
-    });
+        wrapper.setProps({ onUpdateZoom: jest.fn(), onUpdateBoundingBox: jest.fn() })
+        wrapperInstance.handleZoom(event)
+        expect(wrapperInstance.props.onUpdateZoom).toHaveBeenCalled()
+        expect(wrapperInstance.props.onUpdateBoundingBox).toHaveBeenCalled()
+      })
+    })
 
     describe('handlePan', () => {
       it('should trigger updatePan and updateBoundingBox', () => {
-        const event = { center: { lat: 1, lon: 5 } };
+        const event = { center: { lat: 1, lon: 5 } }
 
-        updatePan.mockImplementation(() => ({ type: MAP_PAN }));
-        updateBoundingBox.mockImplementation(() => ({ type: MAP_BOUNDING_BOX }));
+        updatePan.mockImplementation(() => ({ type: MAP_PAN }))
+        updateBoundingBox.mockImplementation(() => ({ type: MAP_BOUNDING_BOX }))
 
-        wrapperInstance.handlePan(event);
-        expect(store.dispatch).toHaveBeenCalledWith(updatePan());
-        expect(store.dispatch).toHaveBeenCalledWith(updateBoundingBox());
+        wrapperInstance.handlePan(event)
+        expect(store.dispatch).toHaveBeenCalledWith(updatePan())
+        expect(store.dispatch).toHaveBeenCalledWith(updateBoundingBox())
 
-        updateBoundingBox.mockReset();
-      });
-    });
+        updateBoundingBox.mockReset()
+      })
+    })
 
     describe('handleResize', () => {
       it('should trigger updateBoundingBox', () => {
-        const event = {};
+        const event = {}
         const action = {
           type: MAP_BOUNDING_BOX,
-          payload: event
-        };
-        isDrawingActive.mockImplementation(() => true);
-        updateBoundingBox.mockImplementation(() => ({ type: MAP_BOUNDING_BOX }));
+          payload: event,
+        }
+        isDrawingActive.mockImplementation(() => true)
+        updateBoundingBox.mockImplementation(() => ({ type: MAP_BOUNDING_BOX }))
 
-        wrapperInstance.handleResize(event);
-        expect(store.dispatch).toHaveBeenCalledWith(updateBoundingBox(action, true));
+        wrapperInstance.handleResize(event)
+        expect(store.dispatch).toHaveBeenCalledWith(updateBoundingBox(action, true))
 
-        updateBoundingBox.mockReset();
-      });
-    });
+        updateBoundingBox.mockReset()
+      })
+    })
 
     describe('handleClick', () => {
       it('should do nothing when the drawing is active or map is loading', () => {
-        const event = {};
-        wrapperInstance.handleClick(event);
-        isMapLoading.mockImplementation(() => true);
-        expect(store.dispatch).not.toHaveBeenCalled();
-      });
+        const event = {}
+        wrapperInstance.handleClick(event)
+        isMapLoading.mockImplementation(() => true)
+        expect(store.dispatch).not.toHaveBeenCalled()
+      })
 
       it('should trigger setSelectedLocation when the drawing is not active', () => {
-        const event = { latlng: { lat: 0, lng: 0 } };
-        isDrawingActive.mockImplementation(() => false);
+        const event = { latlng: { lat: 0, lng: 0 } }
+        isDrawingActive.mockImplementation(() => false)
         setSelectedLocation.mockImplementation(() => ({
-          type: 'SOME_ACTION'
-        }));
-        wrapperInstance.handleClick(event);
-        expect(setSelectedLocation).toHaveBeenCalledWith(event);
-      });
-    });
-  });
-});
+          type: 'SOME_ACTION',
+        }))
+        wrapperInstance.handleClick(event)
+        expect(setSelectedLocation).toHaveBeenCalledWith(event)
+      })
+    })
+  })
+})

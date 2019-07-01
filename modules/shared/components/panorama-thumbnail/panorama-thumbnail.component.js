@@ -1,48 +1,42 @@
-import {
-    toPanoramaAndPreserveQuery
-} from '../../../../src/store/redux-first-router/actions';
-import { getDetailLocation } from '../../../../src/store/redux-first-router/selectors';
+import { toPanoramaAndPreserveQuery } from '../../../../src/store/redux-first-router/actions'
+import { getDetailLocation } from '../../../../src/store/redux-first-router/selectors'
+;(function() {
+  angular.module('dpShared').component('dpPanoramaThumbnail', {
+    bindings: {
+      panorama: '<',
+      isLoading: '<',
+    },
+    templateUrl:
+      'modules/shared/components/panorama-thumbnail/panorama-thumbnail.html',
+    controller: DpPanoramaThumbnailController,
+    controllerAs: 'vm',
+  })
 
-(function () {
-    'use strict';
+  DpPanoramaThumbnailController.$inject = ['sharedConfig', 'store']
 
-    angular
-        .module('dpShared')
-        .component('dpPanoramaThumbnail', {
-            bindings: {
-                panorama: '<',
-                isLoading: '<'
-            },
-            templateUrl: 'modules/shared/components/panorama-thumbnail/panorama-thumbnail.html',
-            controller: DpPanoramaThumbnailController,
-            controllerAs: 'vm'
-        });
+  function DpPanoramaThumbnailController(sharedConfig, store) {
+    const vm = this
+    const state = store.getState()
 
-    DpPanoramaThumbnailController.$inject = ['sharedConfig', 'store'];
+    const reference = getDetailLocation(state)
+    vm.radius = sharedConfig.RADIUS
 
-    function DpPanoramaThumbnailController (sharedConfig, store) {
-        const vm = this;
-        const state = store.getState();
-
-        const reference = getDetailLocation(state);
-        vm.radius = sharedConfig.RADIUS;
-
-        function setLinkTo (panorama) {
-            if (panorama) {
-                vm.linkTo = toPanoramaAndPreserveQuery(
-                    panorama.id,
-                    panorama.heading,
-                    reference
-                );
-            }
-        }
-
-        this.$onInit = function () {
-            setLinkTo(vm.panorama);
-        };
-
-        this.$onChanges = function () {
-            setLinkTo(vm.panorama);
-        };
+    function setLinkTo(panorama) {
+      if (panorama) {
+        vm.linkTo = toPanoramaAndPreserveQuery(
+          panorama.id,
+          panorama.heading,
+          reference,
+        )
+      }
     }
-})();
+
+    this.$onInit = function() {
+      setLinkTo(vm.panorama)
+    }
+
+    this.$onChanges = function() {
+      setLinkTo(vm.panorama)
+    }
+  }
+})()

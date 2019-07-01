@@ -1,3 +1,3 @@
-import watchFetchNearestDetails from './nearest-details';
+import watchFetchNearestDetails from './nearest-details'
 
-export default watchFetchNearestDetails;
+export default watchFetchNearestDetails

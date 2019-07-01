@@ -27,7 +27,7 @@ exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem should render exactl
       >
         Description 2
         <span>
-          : 
+          :
           Description 2 Plus
         </span>
       </li>
@@ -49,7 +49,7 @@ exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem should render exactl
       >
         Description 5
         <span>
-          : 
+          :
           Description 5 Plus
         </span>
       </li>
@@ -87,7 +87,7 @@ exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem should render no mor
       >
         Description 2
         <span>
-          : 
+          :
           Description 2 Plus
         </span>
       </li>
@@ -109,7 +109,7 @@ exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem should render no mor
       >
         Description 5
         <span>
-          : 
+          :
           Description 5 Plus
         </span>
       </li>
@@ -165,7 +165,7 @@ exports[`MapDetailAdressenVerblijfsobjectGebruiksdoelenItem should render two ge
       >
         Description 1
         <span>
-          : 
+          :
           Description 1 Plus
         </span>
       </li>
