@@ -1,6 +1,6 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import createHistory from 'history/createBrowserHistory'
+import { createBrowserHistory } from 'history'
 import { connectRoutes } from 'redux-first-router'
 import restoreScroll from 'redux-first-router-restore-scroll'
 import queryString from 'querystring'
@@ -23,7 +23,7 @@ const configureStore = routesMap => {
     querySerializer: queryString,
     restoreScroll: restoreScroll(),
     initialDispatch: false,
-    createHistory,
+    createHistory: createBrowserHistory,
   }
   const {
     reducer: routeReducer,
