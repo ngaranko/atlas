@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import ModalComponent from './components/Modal'
-import PAGES from './pages'
+import PAGES, { isMapSplitPage } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
 
 const ContentPage = React.lazy(() => import('./pages/ContentPage'))
@@ -16,6 +16,7 @@ const ActualityContainer = React.lazy(() => import('./containers/ActualityContai
 const DatasetDetailContainer = React.lazy(() =>
   import('./containers/DatasetDetailContainer/DatasetDetailContainer'),
 )
+const SpecialsPage = React.lazy(() => import('./pages/SpecialsPage/SpecialsPage'))
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 
 const AppBody = ({
@@ -54,17 +55,13 @@ const AppBody = ({
 
             {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
 
-            {(currentPage === PAGES.DATA ||
-              currentPage === PAGES.PANORAMA ||
-              currentPage === PAGES.DATA_DETAIL ||
-              currentPage === PAGES.ADDRESSES ||
-              currentPage === PAGES.ESTABLISHMENTS ||
-              currentPage === PAGES.DATA_GEO_SEARCH ||
-              currentPage === PAGES.CADASTRAL_OBJECTS) && <MapSplitPage />}
+            {isMapSplitPage(currentPage) && <MapSplitPage />}
 
             {currentPage === PAGES.DATASETS && <DatasetPage />}
 
             {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
+
+            {currentPage === PAGES.SPECIALS && <SpecialsPage />}
 
             {isCmsPage && <ContentPage />}
 

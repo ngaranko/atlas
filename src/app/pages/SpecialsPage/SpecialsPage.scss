@@ -1,0 +1,8 @@
+@import "../../../shared/styles/config";
+
+.iframe-container {
+    background-color: $primary-light;
+    height: 99%;
+    // Change after grid implementation from @datapunt/asc-ui
+    padding: 54px 158px 0;
+}

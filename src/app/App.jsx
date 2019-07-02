@@ -17,7 +17,7 @@ import {
 } from '../shared/ducks/ui/ui'
 import { hasGlobalError } from '../shared/ducks/error/error-message'
 import { getUser } from '../shared/ducks/user/user'
-import { getPage, isHomepage } from '../store/redux-first-router/selectors'
+import { getPage, isHomepage, isSpecialsPage } from '../store/redux-first-router/selectors'
 import Header from './components/Header/Header'
 import { AppStateProvider } from './utils/useAppReducer'
 import AppBody from './AppBody'
@@ -40,7 +40,7 @@ const App = ({
   hasEmbedButton,
 }) => {
   const isCmsPage = pageIsCmsPage(currentPage)
-  const hasMaxWidth = homePage || isCmsPage
+  const hasMaxWidth = homePage || isCmsPage || isSpecialsPage
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,

@@ -38,9 +38,9 @@
     "test-karma-watch": "karma start --no-single-run"
   },
   "dependencies": {
-    "@datapunt/asc-assets": "^0.7.1-beta.2",
-    "@datapunt/asc-core": "^0.7.1-beta.1",
-    "@datapunt/asc-ui": "^0.7.2",
+    "@datapunt/asc-assets": "^0.7.3-alpha.0",
+    "@datapunt/asc-core": "^0.7.3-alpha.0",
+    "@datapunt/asc-ui": "^0.7.3-alpha.0",
     "@svgr/webpack": "^4.2.0",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",
@@ -54,6 +54,7 @@
     "deep-copy": "1.4.2",
     "escape-string-regexp": "1.0.5",
     "history": "4.7.2",
+    "iframe-resizer": "^4.1.1",
     "isomorphic-fetch": "2.2.1",
     "leaflet": "1.4.0",
     "leaflet-draw": "1.0.0",
@@ -78,6 +79,7 @@
     "react": "16.8.6",
     "react-angular": "https://github.com/Amsterdam/react-angular#master",
     "react-dom": "16.8.6",
+    "react-iframe-resizer-super": "^0.2.2",
     "react-leaflet": "1.9.1",
     "react-leaflet-markercluster": "1.1.8",
     "react-redux": "5.1.1",
