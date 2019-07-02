@@ -43,8 +43,8 @@ $offset: 10px;
 
     &--bottom-right {
       bottom: $offset;
-      max-width: 90vw;
-      right: $offset;
+      padding-right: $offset;
+      right: 0;
     }
 
     &--bottom-left {
@@ -58,10 +58,10 @@ $offset: 10px;
     $meta-bg: rgba(255, 255, 255, .67);
 
     align-items: center;
-    box-shadow: 1px 0 0 0 $secondary-gray40;
+    box-shadow: 0 2px 0 0 $secondary-gray40;
     display: flex;
     flex-direction: row;
-    margin-right: $offset * -1;
+    margin-right: $offset * -.5;
     width: 100%;
 
     &__item {
@@ -70,12 +70,12 @@ $offset: 10px;
       display: flex;
       flex-grow: 1;
       height: 32px;
+      max-width: 70vw;
       padding: 0 10px;
-      width: 70%;
 
       & + & {
         margin-left: 1px;
-        width: 20%;
+        max-width: 20vw;
       }
 
       & > span {

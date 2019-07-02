@@ -14,6 +14,7 @@ const QuerySearchPage = React.lazy(() => import('./pages/QuerySearchPage'));
 const DatasetPage = React.lazy(() => import('./pages/DatasetPage'));
 const ActualityContainer = React.lazy(() => import('./containers/ActualityContainer'));
 const DatasetDetailContainer = React.lazy(() => import('./containers/DatasetDetailContainer/DatasetDetailContainer'));
+const ConstructionFilesContainer = React.lazy(() => import('./containers/ConstructionFilesContainer/ConstructionFilesContainer'));
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'));
 
 const AppBody = ({
@@ -64,6 +65,8 @@ const AppBody = ({
             &&
             <MapSplitPage />
             }
+
+            {currentPage === PAGES.CONSTRUCTION_FILE && <ConstructionFilesContainer />}
 
             {currentPage === PAGES.DATASETS && <DatasetPage />}
 
