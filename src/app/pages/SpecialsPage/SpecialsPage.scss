@@ -2,7 +2,19 @@
 
 .iframe-container {
     background-color: $primary-light;
-    height: 99%;
+    position: relative;
+
     // Change after grid implementation from @datapunt/asc-ui
     padding: 54px 158px 0;
+
+    .loading-indicator {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        background-color: $primary-light;
+    }
 }
