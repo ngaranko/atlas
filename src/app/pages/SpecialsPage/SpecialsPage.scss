@@ -1,20 +1,18 @@
 @import "../../../shared/styles/config";
 
 .iframe-container {
+  background-color: $primary-light;
+  padding: 54px 158px 0; // Change after grid implementation from @datapunt/asc-ui
+  position: relative;
+
+  .loading-indicator {
     background-color: $primary-light;
-    position: relative;
-
-    // Change after grid implementation from @datapunt/asc-ui
-    padding: 54px 158px 0;
-
-    .loading-indicator {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: flex;
-        justify-content: center;
-        background-color: $primary-light;
-    }
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 }

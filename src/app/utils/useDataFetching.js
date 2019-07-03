@@ -12,7 +12,7 @@ function useDataFetching() {
       const data = await getByUrl(endpoint)
       setResults(data)
     } catch (e) {
-      setErrorMessage(ERROR_MESSAGE)
+      setErrorMessage(e.message)
     }
     setLoading(false)
   }
