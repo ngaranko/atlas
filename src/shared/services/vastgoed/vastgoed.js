@@ -12,7 +12,7 @@ export default function fetchByUri(uri) {
       label: result.object_naam || result._display,
       location: wgs84Center,
       geometrie: result.bag_pand_geometrie,
-      construction_year: result.bouwjaar.toString(),
+      construction_year: result.bouwjaar && result.bouwjaar.toString(),
       status: result.status,
       monumental_status: result.monumentstatus,
       address: result.vhe_adres,

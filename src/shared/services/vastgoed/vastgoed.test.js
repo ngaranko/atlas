@@ -1,60 +1,99 @@
-// import fetchByUri from './winkelgebied'
-// import getCenter from '../geo-json/geo-json'
-// import { rdToWgs84 } from '../coordinate-reference-system/crs-converter'
+import fetchByUri, { fetchByGeoLocation } from './vastgoed'
+import getCenter from '../geo-json/geo-json'
+import { rdToWgs84 } from '../coordinate-reference-system/crs-converter'
+import SHARED_CONFIG from '../shared-config/shared-config'
 
-// import { getByUrl } from '../api/api'
+import { getByUrl } from '../api/api'
 
-// jest.mock('../geo-json/geo-json')
-// jest.mock('../api/api')
-// jest.mock('../coordinate-reference-system/crs-converter')
+jest.mock('../geo-json/geo-json')
+jest.mock('../api/api')
+jest.mock('../coordinate-reference-system/crs-converter')
 
-// describe('The winkelgebied resource', () => {
-//   afterEach(() => {
-//     getByUrl.mockReset()
-//   })
+describe('The vastgoed resource', () => {
+  const vastgoedMock = {
+    _display: 'display',
+    object_naam: 'object_naam',
+    bouwjaar: 1001,
+    status: 'status',
+    monumentstatus: 'monumentstatus',
+    vhe_adres: 'Street 123',
+    bag_verblijfsobject_gebruiksdoel_omschrijving: 'gebruiksdoel',
+    huurtype: 'huurtype',
+    oppervlakte: 123,
+    bag_pand_geometrie: { type: 'Point' },
+  }
 
-//   describe('By uri', () => {
-//     it('fetches a winkelgebied', () => {
-//       const uri = 'https://acc.api.data.amsterdam.nl/vsd/winkgeb/123456'
-//       const winkelgebiedMock = {
-//         _display: 'straat',
-//         categorie: 'String',
-//         categorie_naam: 'Foo',
-//         wkb_geometry: { type: 'Point' },
-//       }
-//       getByUrl.mockReturnValueOnce(Promise.resolve(winkelgebiedMock))
-//       getCenter.mockImplementation(() => ({ x: 1, y: 2 }))
-//       rdToWgs84.mockImplementation(() => ({ latitude: 3, longitude: 4 }))
+  afterEach(() => {
+    getByUrl.mockReset()
+  })
 
-//       const promise = fetchByUri(uri).then(response => {
-//         expect(response).toEqual({
-//           label: winkelgebiedMock._display,
-//           category: `${winkelgebiedMock.categorie_naam} (${winkelgebiedMock.categorie})`,
-//           location: { latitude: 3, longitude: 4 },
-//           geometrie: winkelgebiedMock.wkb_geometry,
-//         })
-//       })
+  describe('By uri', () => {
+    it('fetches a vastgoed instance', () => {
+      const uri = `${SHARED_CONFIG.API_ROOT}vsd/vastgoed/123456`
 
-//       expect(getByUrl).toHaveBeenCalledWith(uri)
-//       return promise
-//     })
+      getByUrl.mockReturnValueOnce(Promise.resolve(vastgoedMock))
+      getCenter.mockImplementation(() => ({ x: 1, y: 2 }))
+      rdToWgs84.mockImplementation(() => ({ latitude: 3, longitude: 4 }))
 
-//     it('fetches with empty result object', () => {
-//       const uri = 'https://acc.api.data.amsterdam.nl/vsd/winkgeb/123456'
+      const promise = fetchByUri(uri).then(response => {
+        expect(response).toEqual({
+          label: vastgoedMock.object_naam,
+          construction_year: vastgoedMock.bouwjaar.toString(),
+          status: vastgoedMock.status,
+          monumental_status: vastgoedMock.monumentstatus,
+          address: vastgoedMock.vhe_adres,
+          usage: vastgoedMock.bag_verblijfsobject_gebruiksdoel_omschrijving,
+          usage_type: vastgoedMock.huurtype,
+          size: vastgoedMock.oppervlakte,
+          location: { latitude: 3, longitude: 4 },
+          geometrie: vastgoedMock.bag_pand_geometrie,
+        })
+      })
 
-//       getByUrl.mockReturnValueOnce(Promise.resolve({}))
+      expect(getByUrl).toHaveBeenCalledWith(uri)
+      return promise
+    })
 
-//       const promise = fetchByUri(uri).then(response => {
-//         expect(response).toEqual({
-//           label: undefined,
-//           category: null,
-//           location: null,
-//           geometrie: undefined,
-//         })
-//       })
+    it('fetches with empty result object', () => {
+      const uri = `${SHARED_CONFIG.API_ROOT}vsd/vastgoed/123456`
 
-//       expect(getByUrl).toHaveBeenCalledWith(uri)
-//       return promise
-//     })
-//   })
-// })
+      getByUrl.mockReturnValueOnce(Promise.resolve({}))
+
+      const promise = fetchByUri(uri).then(response => {
+        expect(response).toEqual({
+          label: undefined,
+          construction_year: undefined,
+          status: undefined,
+          monumental_status: undefined,
+          address: undefined,
+          usage: undefined,
+          usage_type: undefined,
+          size: undefined,
+          location: null,
+          geometrie: undefined,
+        })
+      })
+
+      expect(getByUrl).toHaveBeenCalledWith(uri)
+      return promise
+    })
+  })
+
+  describe('By location', () => {
+    it('fetches the vastgoed geosearch', () => {
+      const mockLocation = { latitude: 123, longitude: 456 }
+
+      getByUrl.mockReturnValueOnce(Promise.resolve(vastgoedMock))
+
+      const promise = fetchByGeoLocation(mockLocation)
+
+      expect(getByUrl).toHaveBeenCalledWith(
+        `${SHARED_CONFIG.API_ROOT}geosearch/vastgoed/?lat=${mockLocation.latitude}&lon=${
+          mockLocation.longitude
+        }&item=vastgoed&radius=0`,
+      )
+
+      return promise
+    })
+  })
+})
