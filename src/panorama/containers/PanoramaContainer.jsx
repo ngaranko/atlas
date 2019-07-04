@@ -61,7 +61,7 @@ class PanoramaContainer extends React.Component {
 
     if (detailReference.length > 0) {
       const [id, type, subtype] = detailReference
-      fetchMapDetail(pageTypeToEndpoint(type, subtype, id))
+      fetchMapDetail({ endpoint: pageTypeToEndpoint(type, subtype, id) })
     }
   }
 

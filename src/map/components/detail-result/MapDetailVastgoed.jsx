@@ -1,7 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-
+import React from 'react'
 import MapDetailResultWrapper from './MapDetailResultWrapper'
+import MapDetailResultItem from './MapDetailResultItem'
 
 const MapDetailVastgoed = ({ panoUrl, vastgoed, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
@@ -9,9 +9,11 @@ const MapDetailVastgoed = ({ panoUrl, vastgoed, onMaximize, onPanoPreviewClick }
     onMaximize={onMaximize}
     onPanoPreviewClick={onPanoPreviewClick}
     subTitle={vastgoed.label}
-    title="Winkelgebied"
+    title="Gemeentelijk Vastgoed"
   >
     <React.Fragment>
+      <MapDetailResultItem label="Bouwjaar" value={vastgoed.construction_year} />
+      <MapDetailResultItem label="Status" value={vastgoed.status} />
     </React.Fragment>
   </MapDetailResultWrapper>
 )
