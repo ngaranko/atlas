@@ -13,7 +13,7 @@ describe('The vastgoed resource', () => {
   const vastgoedMock = {
     _display: 'display',
     object_naam: 'object_naam',
-    bouwjaar: 1001,
+    bouwjaar: 1000,
     status: 'status',
     monumentstatus: 'monumentstatus',
     vhe_adres: 'Street 123',
@@ -62,7 +62,7 @@ describe('The vastgoed resource', () => {
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
           label: undefined,
-          construction_year: undefined,
+          construction_year: 'onbekend',
           status: undefined,
           monumental_status: undefined,
           address: undefined,
