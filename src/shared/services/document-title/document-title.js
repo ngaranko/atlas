@@ -22,6 +22,7 @@ export const mapDocumentTitle = (action, defaultTitle) => {
 
 export const detailDocumentTitle = (action, defaultTitle = 'UNKNOWN') => {
   const glossaryKey = toGlossaryKey(action.payload.type, action.payload.subtype)
+  console.log(glossaryKey);
   const glossaryDefinition = GLOSSARY.DEFINITIONS[glossaryKey]
   let label = glossaryDefinition
     ? glossaryDefinition.label_singular

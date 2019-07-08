@@ -36,16 +36,3 @@ export const toGlossaryKey = (type, subject) => {
   }
   return key.toUpperCase().replace(/-/g, '_')
 }
-
-export const getGlossaryKey = endpoint => {
-  const [type, subject] = getParts(endpoint)
-  return toGlossaryKey(type, subject)
-}
-
-const endpointParser = {
-  getTemplateUrl,
-  getGlossaryKey,
-  getParts,
-}
-
-export default endpointParser
