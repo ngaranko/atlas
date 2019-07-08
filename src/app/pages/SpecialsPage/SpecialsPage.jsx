@@ -21,6 +21,9 @@ const SpecialsContainer = ({ endpoint }) => {
         if (typeof e.data === 'string' && e.data.indexOf('documentHeight:') > -1) {
           const height = e.data.split('documentHeight:')[1]
           setIFrameHeight(height)
+
+          console.log('height', height);
+          
         }
       },
       false,
@@ -49,7 +52,7 @@ const SpecialsContainer = ({ endpoint }) => {
   const iFrameLoaded = () => {
     setIFrameLoading(false)
     // Handle resize when the iframe is loaded
-    // handleResize()
+    handleResize()
   }
 
   const { field_iframe_link: iFrameLink, title } = results ? results.data[0].attributes : {}
@@ -62,15 +65,16 @@ const SpecialsContainer = ({ endpoint }) => {
         </div>
       )}
       {!loading && iFrameLink && (
-        <iframe
-          src={iFrameLink.uri}
-          title={title}
-          ref={iFrameRef}
-          onLoad={iFrameLoaded}
-          width="100%"
-          height="100%"
-          frameBorder="0"
-        />
+      <iframe
+        src={iFrameLink.uri}
+        // src="https://ois-amsterdam.gitlab.io/europese-verkiezingen-2019/"
+        title={title}
+        ref={iFrameRef}
+        onLoad={iFrameLoaded}
+        width="100%"
+        height="100%"
+        frameBorder="0"
+      />
       )}
     </div>
   )
