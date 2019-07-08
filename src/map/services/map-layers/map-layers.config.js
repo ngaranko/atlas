@@ -66,7 +66,9 @@ const mapLayers = [
   {
     id: 'pano',
     layers: ['panorama_new'],
-    legendItems: [{ title: '2018' }, { title: '2017' }, { title: '2016' }],
+    legendItems: [{ title: '2019' }, { title: '2018' }, { title: '2017' }, { title: '2016' }].map(
+      item => ({...item, extraParameters: 'scale=800'})
+    ),
     minZoom: 11,
     notClosable: true,
     title: THEMES.PANORAMA,
@@ -76,9 +78,24 @@ const mapLayers = [
     },
   },
   {
+    id: 'pano2019bi',
+    layers: ['panorama_new'],
+    legendItems: [{ title: '2019',
+    extraParameters: 'scale=800' }],
+    minZoom: 11,
+    title: THEMES.PANORAMA,
+    notClosable: true,
+    url: '/maps/panorama',
+    params: {
+      mission_year: 2019,
+      mission_type: 'bi',
+    },
+  },
+  {
     id: 'pano2018bi',
     layers: ['panorama_new'],
-    legendItems: [{ title: '2018' }],
+    legendItems: [{ title: '2018',
+    extraParameters: 'scale=800' }],
     minZoom: 11,
     title: THEMES.PANORAMA,
     notClosable: true,
@@ -95,6 +112,7 @@ const mapLayers = [
       {
         imageRule: '2018',
         title: '2018 WOZ',
+        extraParameters: 'scale=800'
       },
     ],
     minZoom: 11,
@@ -109,7 +127,8 @@ const mapLayers = [
   {
     id: 'pano2017bi',
     layers: ['panorama_new'],
-    legendItems: [{ title: '2017' }],
+    legendItems: [{ title: '2017',
+    extraParameters: 'scale=800' }],
     minZoom: 11,
     notClosable: true,
     title: THEMES.PANORAMA,
@@ -126,6 +145,7 @@ const mapLayers = [
       {
         imageRule: '2017',
         title: '2017 WOZ',
+        extraParameters: 'scale=800'
       },
     ],
     minZoom: 11,
@@ -143,6 +163,7 @@ const mapLayers = [
     legendItems: [
       {
         title: '2016',
+        extraParameters: 'scale=800'
       },
     ],
     minZoom: 11,
