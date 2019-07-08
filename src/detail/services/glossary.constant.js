@@ -385,6 +385,11 @@ const GLOSSARY = {
         'sleutelverzendend',
       ],
     },
+    PARKEERZONES: {
+      label_singular: 'Parkeerzone',
+      label_plural: 'Parkeerzones',
+      description: '',
+    },
     PEILMERK: {
       label_singular: 'NAP peilmerk',
       label_plural: 'NAP peilmerken',

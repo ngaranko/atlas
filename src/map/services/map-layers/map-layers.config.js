@@ -992,6 +992,30 @@ const mapLayers = [
     category: THEMES.TRAFFIC,
     legendItems: [
       {
+        id: 'uitzpvg',
+        title: 'Uitzondering parkeervergunninggebied',
+        imageRule: 'Parkeerzones uitzonderingen',
+        layers: ['parkeerzones_uitz'],
+        detailItem: 'parkeerzones',
+        detailUrl: 'geosearch/parkeerzones_uitz/',
+      },
+      {
+        id: 'pvg',
+        title: 'Parkeervergunninggebied',
+        imageRule: 'Parkeerzones',
+        layers: ['parkeerzones'],
+        detailItem: 'parkeerzones',
+        detailUrl: 'geosearch/parkeerzones/',
+      },
+    ],
+    title: 'Parkeervergunninggebieden',
+    url: '/maps/parkeerzones',
+    detailIsShape: true,
+  },
+  {
+    category: THEMES.TRAFFIC,
+    legendItems: [
+      {
         id: 'bgt',
         imageRule: 'Busbaan geen taxi',
         layers: ['busbaan_geen_taxi'],

@@ -28,6 +28,7 @@ import MapDetailMonument from './MapDetailMonument'
 import MapDetailNapPeilmerk from './MapDetailNapPeilmerk'
 import MapDetailOplaadpunt from './MapDetailOplaadpunt'
 import MapDetailParkeervak from './MapDetailParkeervak'
+import MapDetailParkeerzone from './MapDetailParkeerzone'
 import MapDetailVestiging from './MapDetailVestiging'
 import MapDetailWinkelgebied from './MapDetailWinkelgebied'
 
@@ -259,6 +260,15 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
           item={result}
+        />
+      )
+    case endpointTypes.parkeerzones:
+      return (
+        <MapDetailParkeerzone
+          onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
+          panoUrl={panoUrl}
+          parkeerzone={result}
         />
       )
     case endpointTypes.vestiging:
