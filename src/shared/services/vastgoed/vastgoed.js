@@ -16,7 +16,7 @@ export default function fetchByUri(uri) {
       status: result.status,
       monumental_status: result.monumentstatus,
       address: result.vhe_adres,
-      usage: result.bag_verblijfsobject_gebruiksdoel_omschrijving,
+      usage: result.bag_verblijfsobject_gebruiksdoelen,
       usage_type: result.huurtype,
       size: result.oppervlakte,
     }
