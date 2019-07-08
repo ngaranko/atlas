@@ -30,7 +30,7 @@ const formatCatalogData = (data, catalogFilters) => {
     )
 }
 
-const formatData = (data, subject, catalogFilters) => {
+export const formatData = (data, subject, catalogFilters) => {
   switch (subject) {
     case 'datasets': // dcat data
       return formatCatalogData(data, catalogFilters)

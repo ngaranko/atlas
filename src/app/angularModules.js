@@ -40,7 +40,6 @@ import '../../modules/detail/components/wkpb-link/wkpb-link.component'
 import '../../modules/detail/components/yes-no/yes-no.filter'
 
 import '../../modules/detail/detail.vendor'
-import '../../modules/detail/services/data-formatter/data-formatter.factory'
 import '../../modules/detail/services/date-converter/date-converter.factory'
 import '../../modules/detail/services/date-formatter/date-formatter.factory'
 import '../../modules/detail/services/geometry/geometry.factory'
