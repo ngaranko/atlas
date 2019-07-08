@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import throttle from 'lodash.throttle'
-import { Spinner } from '@datapunt/asc-ui'
+import { Column, Row, Spinner } from '@datapunt/asc-ui'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useDataFetching from '../../utils/useDataFetching'
@@ -21,9 +21,6 @@ const SpecialsContainer = ({ endpoint }) => {
         if (typeof e.data === 'string' && e.data.indexOf('documentHeight:') > -1) {
           const height = e.data.split('documentHeight:')[1]
           setIFrameHeight(height)
-
-          console.log('height', height);
-          
         }
       },
       false,
@@ -52,6 +49,7 @@ const SpecialsContainer = ({ endpoint }) => {
   const iFrameLoaded = () => {
     setIFrameLoading(false)
     // Handle resize when the iframe is loaded
+
     handleResize()
   }
 
@@ -59,23 +57,30 @@ const SpecialsContainer = ({ endpoint }) => {
 
   return (
     <div className="iframe-container c-dashboard__page o-max-width">
-      {iFrameLoading && (
-        <div className="loading-indicator">
-          <Spinner size={100} color="secondary" />
-        </div>
-      )}
-      {!loading && iFrameLink && (
-      <iframe
-        src={iFrameLink.uri}
-        // src="https://ois-amsterdam.gitlab.io/europese-verkiezingen-2019/"
-        title={title}
-        ref={iFrameRef}
-        onLoad={iFrameLoaded}
-        width="100%"
-        height="100%"
-        frameBorder="0"
-      />
-      )}
+      <Row>
+        <Column
+          wrap
+          span={{ small: 4, medium: 8, big: 12, large: 18 }}
+        >
+          {iFrameLoading && (
+            <div className="loading-indicator">
+              <Spinner size={100} color="secondary" />
+            </div>
+          )}
+          {!loading && iFrameLink && (
+            <iframe
+              src={iFrameLink.uri}
+              // src="https://ois-amsterdam.gitlab.io/europese-verkiezingen-2019/"
+              title={title}
+              ref={iFrameRef}
+              onLoad={iFrameLoaded}
+              width="100%"
+              height="100%"
+              frameBorder="0"
+            />
+          )}
+        </Column>
+      </Row>
     </div>
   )
 }
