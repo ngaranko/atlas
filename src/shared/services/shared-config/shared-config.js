@@ -13,18 +13,18 @@ const baseConfig = {
 const environmentConfig = {
   [ENVIRONMENTS.PRODUCTION]: {
     API_ROOT: 'https://api.data.amsterdam.nl/',
+    CMS_ROOT: 'https://cms.data.amsterdam.nl/jsonapi/node/',
     ROOT: 'https://data.amsterdam.nl/',
-    CACHE_EXPIRATION: 30, // minutes
   },
   [ENVIRONMENTS.ACCEPTANCE]: {
     API_ROOT: 'https://acc.api.data.amsterdam.nl/',
+    CMS_ROOT: 'https://acc.cms.data.amsterdam.nl/jsonapi/node/',
     ROOT: 'https://acc.data.amsterdam.nl/',
-    CACHE_EXPIRATION: 30, // minutes
   },
   [ENVIRONMENTS.DEVELOPMENT]: {
     API_ROOT: 'https://acc.api.data.amsterdam.nl/',
+    CMS_ROOT: 'https://acc.cms.data.amsterdam.nl/jsonapi/node/',
     ROOT: 'https://acc.data.amsterdam.nl/',
-    CACHE_EXPIRATION: 0, // minutes
   },
 }
 

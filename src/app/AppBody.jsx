@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
-import ModalComponent from './components/Modal'
+import { FeedbackModal, InfoModal } from './components/Modal';
 import PAGES from './pages'
 import { useAppReducer } from './utils/useAppReducer'
 
@@ -68,7 +68,8 @@ const AppBody = ({
 
             {isCmsPage && <ContentPage />}
 
-            <ModalComponent />
+            <FeedbackModal id="feedbackModal" />
+            <InfoModal id="infoModal" open />
           </div>
         </div>
       )}
