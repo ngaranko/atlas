@@ -996,7 +996,7 @@ const mapLayers = [
         title: 'Uitzondering parkeervergunninggebied',
         imageRule: 'Parkeerzones uitzonderingen',
         layers: ['parkeerzones_uitz'],
-        detailItem: 'parkeerzones',
+        detailItem: 'parkeerzones_uitz',
         detailUrl: 'geosearch/parkeerzones_uitz/',
       },
       {

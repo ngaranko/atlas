@@ -9,10 +9,10 @@ export default function fetchByUri(uri) {
     const wgs84Center = geometryCenter ? rdToWgs84(geometryCenter) : null
 
     return {
-      label: result.parent,
+      label: result.gebied_naam,
       location: wgs84Center,
       geometrie: result.wkb_geometry,
-      description: result.gebied_omschrijving,
+      description: result.omschrijving,
     }
   })
 }

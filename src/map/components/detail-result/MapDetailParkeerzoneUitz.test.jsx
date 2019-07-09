@@ -1,16 +1,16 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import MapDetailParkeerzone from './MapDetailParkeerzone'
+import MapDetailParkeerzoneUitz from './MapDetailParkeerzoneUitz'
 
-describe('MapDetailParkeerzone', () => {
+describe('MapDetailParkeerzoneUitz', () => {
   it('should render everything', () => {
     const item = {
-      label: 'Parkeerzone',
+      label: 'Uitz Parkeerzone',
       description: 'This is a ...',
     }
     const clickHandler = jest.fn()
     const wrapper = shallow(
-      <MapDetailParkeerzone
+      <MapDetailParkeerzoneUitz
         panoUrl="panoUrl"
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}

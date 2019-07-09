@@ -67,10 +67,6 @@ const categoryLabels = {
     singular: 'Parkeervak',
     plural: 'Parkeervakken',
   },
-  parkeerzones: {
-    singular: 'Parkeerzone',
-    plural: 'Parkeerzones',
-  },
   standplaats: {
     singular: 'Adres',
     plural: 'Adressen',

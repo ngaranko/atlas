@@ -386,8 +386,13 @@ const GLOSSARY = {
       ],
     },
     PARKEERZONES: {
-      label_singular: 'Parkeerzone',
-      label_plural: 'Parkeerzones',
+      label_singular: 'Parkeervergunninggebied',
+      label_plural: 'Parkeervergunninggebieden',
+      description: '',
+    },
+    PARKEERZONES_UITZ: {
+      label_singular: 'Uitzondering parkeervergunninggebied',
+      label_plural: 'Uitzondering parkeervergunninggebieden',
       description: '',
     },
     PEILMERK: {

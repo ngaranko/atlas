@@ -132,6 +132,10 @@ exports[`MapDetailResult should render de parkeervak 1`] = `
 />
 `;
 
+exports[`MapDetailResult should render de parkeerzone  1`] = `""`;
+
+exports[`MapDetailResult should render de parkeerzone uitz  1`] = `""`;
+
 exports[`MapDetailResult should render explosieven gevrijwaard gebied 1`] = `
 <MapDetailExplosievenGevrijwaardGebied
   gevrijwaardGebied={

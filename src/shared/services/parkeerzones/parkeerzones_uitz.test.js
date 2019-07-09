@@ -1,4 +1,4 @@
-import fetchByUri from './parkeerzones'
+import fetchByUri from './parkeerzones_uitz'
 import getCenter from '../geo-json/geo-json'
 import { rdToWgs84 } from '../coordinate-reference-system/crs-converter'
 
@@ -8,29 +8,29 @@ jest.mock('../geo-json/geo-json')
 jest.mock('../api/api')
 jest.mock('../coordinate-reference-system/crs-converter')
 
-describe('The parkeerzone resource', () => {
+describe('The parkeerzone uitz resource', () => {
   afterEach(() => {
     getByUrl.mockReset()
   })
 
   describe('By uri', () => {
-    it('fetches a parkeerzone', () => {
-      const uri = 'https://acc.api.data.amsterdam.nl/vsd/parkeerzone/123456'
-      const parkeerzoneMock = {
-        parent: 'parkeerzone',
-        gebied_omschrijving: 'String',
+    it('fetches a parkeerzone uitz', () => {
+      const uri = 'https://acc.api.data.amsterdam.nl/vsd/parkeerzone_uitz/123456'
+      const parkeerzoneUitzMock = {
+        gebied_naam: 'parkeerzone uitz',
+        omschrijving: 'String',
         wkb_geometry: { type: 'Point' },
       }
-      getByUrl.mockReturnValueOnce(Promise.resolve(parkeerzoneMock))
+      getByUrl.mockReturnValueOnce(Promise.resolve(parkeerzoneUitzMock))
       getCenter.mockImplementation(() => ({ x: 1, y: 2 }))
       rdToWgs84.mockImplementation(() => ({ latitude: 3, longitude: 4 }))
 
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
-          label: parkeerzoneMock.parent,
-          description: parkeerzoneMock.gebied_omschrijving,
+          label: parkeerzoneUitzMock.gebied_naam,
+          description: parkeerzoneUitzMock.omschrijving,
           location: { latitude: 3, longitude: 4 },
-          geometrie: parkeerzoneMock.wkb_geometry,
+          geometrie: parkeerzoneUitzMock.wkb_geometry,
         })
       })
 
@@ -39,7 +39,7 @@ describe('The parkeerzone resource', () => {
     })
 
     it('fetches with empty result object', () => {
-        const uri = 'https://acc.api.data.amsterdam.nl/vsd/parkeerzone/123456'
+        const uri = 'https://acc.api.data.amsterdam.nl/vsd/parkeerzone_uitz/123456'
 
       getByUrl.mockReturnValueOnce(Promise.resolve({}))
 

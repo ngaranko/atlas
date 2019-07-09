@@ -461,6 +461,42 @@ describe('MapDetailResult', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
+  it('should render de parkeerzone ', () => {
+    const panoUrl = 'panoUrl'
+    const result = {
+      endpointType: 'parkeerzone/parkeerzone/',
+      label: 'value',
+    }
+    const clickHandler = jest.fn()
+    const wrapper = shallow(
+      <MapDetailResult
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
+        panoUrl={panoUrl}
+        result={result}
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('should render de parkeerzone uitz ', () => {
+    const panoUrl = 'panoUrl'
+    const result = {
+      endpointType: 'parkeerzone/parkeerzone_uitz/',
+      label: 'value',
+    }
+    const clickHandler = jest.fn()
+    const wrapper = shallow(
+      <MapDetailResult
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
+        panoUrl={panoUrl}
+        result={result}
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+
   it('should render vestiging', () => {
     const panoUrl = 'panoUrl'
     const result = {
