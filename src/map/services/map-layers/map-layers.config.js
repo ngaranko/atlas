@@ -998,6 +998,7 @@ const mapLayers = [
         layers: ['parkeerzones_uitz'],
         detailItem: 'parkeerzones_uitz',
         detailUrl: 'geosearch/parkeerzones_uitz/',
+        url: '/maps/parkeerzones_uitz',
       },
       {
         id: 'pvg',
@@ -1006,10 +1007,10 @@ const mapLayers = [
         layers: ['parkeerzones'],
         detailItem: 'parkeerzones',
         detailUrl: 'geosearch/parkeerzones/',
+        url: '/maps/parkeerzones',
       },
     ],
     title: 'Parkeervergunninggebieden',
-    url: '/maps/parkeerzones',
     detailIsShape: true,
   },
   {

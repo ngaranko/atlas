@@ -20,7 +20,7 @@ class MapLegend extends React.Component {
 
     return [
       MAP_CONFIG.OVERLAY_ROOT,
-      `${mapLayer.url}?`,
+      `${mapLayer.url || legendItem.url}?`,
       `version=${MAP_CONFIG.VERSION_NUMBER}&`,
       'service=WMS&',
       'request=GetLegendGraphic&',
