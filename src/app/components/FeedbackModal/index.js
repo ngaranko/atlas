@@ -1,1 +1,1 @@
-export { default } from '../Modal/FeedbackModalContainer';
+export { default } from '../Modal/FeedbackModalContainer'
