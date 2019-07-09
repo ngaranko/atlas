@@ -25,7 +25,7 @@ const InfoModalWrapper = ({ hide }) => {
         <InfoModal
           id="infoModal"
           {...{ open: true, title, body: body.value }}
-          closeModalAction={() => createCookie(COOKIE_NAME, '1')}
+          closeModalAction={() => createCookie(COOKIE_NAME, '8')}
         />
       )
     }
