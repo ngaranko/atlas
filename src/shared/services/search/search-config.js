@@ -235,12 +235,6 @@ export default {
       features: ['parkeervakken/parkeervakken'],
     },
     {
-      slug: 'parkeerzones',
-      label_singular: 'Parkeerzone',
-      label_plural: 'Parkeerzones',
-      features: ['parkeerzones/parkeerzones'],
-    },
-    {
       slug: 'bekendmakingen',
       label_singular: 'Bekendmaking',
       label_plural: 'Bekendmakingen',

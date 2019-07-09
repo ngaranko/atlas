@@ -39,7 +39,7 @@ describe('The parkeerzone resource', () => {
     })
 
     it('fetches with empty result object', () => {
-        const uri = 'https://acc.api.data.amsterdam.nl/vsd/parkeerzone/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/vsd/parkeerzone/123456'
 
       getByUrl.mockReturnValueOnce(Promise.resolve({}))
 

@@ -464,8 +464,9 @@ describe('MapDetailResult', () => {
   it('should render de parkeerzone ', () => {
     const panoUrl = 'panoUrl'
     const result = {
-      endpointType: 'parkeerzone/parkeerzone/',
+      endpointType: 'vsd/parkeerzones/',
       label: 'value',
+      description: 'value',
     }
     const clickHandler = jest.fn()
     const wrapper = shallow(
@@ -482,8 +483,9 @@ describe('MapDetailResult', () => {
   it('should render de parkeerzone uitz ', () => {
     const panoUrl = 'panoUrl'
     const result = {
-      endpointType: 'parkeerzone/parkeerzone_uitz/',
+      endpointType: 'vsd/parkeerzones_uitz/',
       label: 'value',
+      description: 'value',
     }
     const clickHandler = jest.fn()
     const wrapper = shallow(

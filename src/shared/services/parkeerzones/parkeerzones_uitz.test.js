@@ -15,7 +15,8 @@ describe('The parkeerzone uitz resource', () => {
 
   describe('By uri', () => {
     it('fetches a parkeerzone uitz', () => {
-      const uri = 'https://acc.api.data.amsterdam.nl/vsd/parkeerzone_uitz/123456'
+      const uri =
+        'https://acc.api.data.amsterdam.nl/vsd/parkeerzone_uitz/123456'
       const parkeerzoneUitzMock = {
         gebied_naam: 'parkeerzone uitz',
         omschrijving: 'String',
@@ -39,7 +40,8 @@ describe('The parkeerzone uitz resource', () => {
     })
 
     it('fetches with empty result object', () => {
-        const uri = 'https://acc.api.data.amsterdam.nl/vsd/parkeerzone_uitz/123456'
+      const uri =
+        'https://acc.api.data.amsterdam.nl/vsd/parkeerzone_uitz/123456'
 
       getByUrl.mockReturnValueOnce(Promise.resolve({}))
 

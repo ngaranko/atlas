@@ -28,7 +28,6 @@ const categoryLabelsByType = {
   vestiging: categoryLabels.vestiging,
   'vsd/biz': categoryLabels.bedrijfsinvesteringszone,
   'vsd/oplaadpunten': categoryLabels.oplaadpunten,
-  'vsd/parkeerzones': categoryLabels.parkeerzones,
   'vsd/winkgeb': categoryLabels.winkelgebied,
   'vsd/bekendmakingen': categoryLabels.bekendmakingen,
   'vsd/evenementen': categoryLabels.evenementen,
