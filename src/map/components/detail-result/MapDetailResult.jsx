@@ -268,7 +268,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
-          vastgoed={result}
+          item={result}
         />
       )
     case endpointTypes.vestiging:

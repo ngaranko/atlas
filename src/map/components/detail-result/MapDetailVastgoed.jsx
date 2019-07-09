@@ -3,24 +3,28 @@ import React from 'react'
 import MapDetailResultWrapper from './MapDetailResultWrapper'
 import MapDetailResultItem from './MapDetailResultItem'
 
-const MapDetailVastgoed = ({ panoUrl, vastgoed, onMaximize, onPanoPreviewClick }) => (
+const MapDetailVastgoed = ({ panoUrl, item, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     onMaximize={onMaximize}
     onPanoPreviewClick={onPanoPreviewClick}
-    subTitle={vastgoed.label}
+    subTitle={item.label}
     title="Gemeentelijk Vastgoed"
   >
     <React.Fragment>
-      <MapDetailResultItem label="Bouwjaar" value={vastgoed.construction_year} />
-      <MapDetailResultItem label="Status" value={vastgoed.status} />
+      <MapDetailResultItem label="Bouwjaar" value={item.construction_year} />
+      <MapDetailResultItem label="Status" value={item.status} />
     </React.Fragment>
   </MapDetailResultWrapper>
 )
 
 MapDetailVastgoed.propTypes = {
   panoUrl: PropTypes.string.isRequired,
-  vastgoed: PropTypes.shape({}).isRequired,
+  item: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    construction_year: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+  }).isRequired,
   onMaximize: PropTypes.func.isRequired,
   onPanoPreviewClick: PropTypes.func.isRequired,
 }
