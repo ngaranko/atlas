@@ -10,9 +10,9 @@ import './SpecialsPage.scss'
 
 const SpecialsContainer = ({ endpoint }) => {
   const { fetchData, results, loading } = useDataFetching()
-  const [iFrameLoading, setIFrameLoading] = React.useState(true)
-  const [iFrameHeight, setIFrameHeight] = React.useState(0)
-  const iFrameRef = React.useRef(null)
+  const [iframeLoading, setIframeLoading] = React.useState(true)
+  const [iframeHeight, setIframeHeight] = React.useState(0)
+  const iframeRef = React.useRef(null)
 
   const handleResize = () =>
     window.addEventListener(
@@ -20,7 +20,7 @@ const SpecialsContainer = ({ endpoint }) => {
       e => {
         if (typeof e.data === 'string' && e.data.indexOf('documentHeight:') > -1) {
           const height = e.data.split('documentHeight:')[1]
-          setIFrameHeight(height)
+          setIframeHeight(height)
         }
       },
       false,
@@ -41,41 +41,40 @@ const SpecialsContainer = ({ endpoint }) => {
   }, [])
 
   React.useEffect(() => {
-    if (iFrameRef.current) {
-      iFrameRef.current.height = `${iFrameHeight}px`
+    if (iframeRef.current) {
+      iframeRef.current.height = `${iframeHeight}px`
     }
-  }, [iFrameHeight])
+  }, [iframeHeight])
 
-  const iFrameLoaded = () => {
-    setIFrameLoading(false)
-    // Handle resize when the iframe is loaded
-
+  const iframeLoaded = () => {
+    setIframeLoading(false)
+    
+    // Handle resize after the iframe is loaded
     handleResize()
   }
 
-  const { field_iframe_link: iFrameLink, title } = results ? results.data[0].attributes : {}
+  const { field_iframe_link: iframeLink, title } = results ? results.data[0].attributes : {}
 
   return (
     <div className="iframe-container c-dashboard__page o-max-width">
       <Row>
         <Column
-          wrap
+          wrap="true"
           span={{ small: 4, medium: 8, big: 12, large: 18 }}
         >
-          {iFrameLoading && (
+          {iframeLoading && (
             <div className="loading-indicator">
               <Spinner size={100} color="secondary" />
             </div>
           )}
-          {!loading && iFrameLink && (
+          {!loading && iframeLink && (
             <iframe
-              src={iFrameLink.uri}
-              // src="https://ois-amsterdam.gitlab.io/europese-verkiezingen-2019/"
+              src={iframeLink.uri}
               title={title}
-              ref={iFrameRef}
-              onLoad={iFrameLoaded}
+              ref={iframeRef}
+              onLoad={iframeLoaded}
               width="100%"
-              height="100%"
+              height={iframeHeight}
               frameBorder="0"
             />
           )}

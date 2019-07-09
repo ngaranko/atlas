@@ -5,7 +5,6 @@ import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import PAGES, { isMapSplitPage } from './pages'
 import { FeedbackModal, InfoModal } from './components/Modal';
-
 import { useAppReducer } from './utils/useAppReducer'
 
 const ContentPage = React.lazy(() => import('./pages/ContentPage'))

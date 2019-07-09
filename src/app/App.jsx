@@ -28,6 +28,7 @@ const App = ({
   isFullHeight,
   visibilityError,
   homePage,
+  specialsPage,
   currentPage,
   embedMode,
   printMode,
@@ -40,7 +41,7 @@ const App = ({
   hasEmbedButton,
 }) => {
   const isCmsPage = pageIsCmsPage(currentPage)
-  const hasMaxWidth = homePage || isCmsPage || isSpecialsPage
+  const hasMaxWidth = homePage || isCmsPage || specialsPage
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
@@ -149,6 +150,7 @@ const mapStateToProps = state => ({
   currentPage: getPage(state),
   embedMode: isEmbedded(state),
   homePage: isHomepage(state),
+  specialsPage: isSpecialsPage(state),
   printMode: isPrintMode(state),
   printModeLandscape: isPrintModeLandscape(state),
   embedPreviewMode: isEmbedPreview(state),

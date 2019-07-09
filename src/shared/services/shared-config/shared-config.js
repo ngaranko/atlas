@@ -30,7 +30,7 @@ const environmentConfig = {
 
 const SHARED_CONFIG = {
   ...baseConfig,
-  ...environmentConfig[ENVIRONMENT]
+  ...environmentConfig[ENVIRONMENT],
 }
 
 export default SHARED_CONFIG
