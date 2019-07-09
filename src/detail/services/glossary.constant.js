@@ -499,8 +499,8 @@ const GLOSSARY = {
       meta: [],
     },
     VASTGOED: {
-      label_singular: 'Vastgoed',
-      label_plural: 'Vastgoed',
+      label_singular: 'Gemeentelijk eigendom',
+      label_plural: 'Gemeentelijk eigendom',
       description: '',
     },
     VERBLIJFSOBJECT: {

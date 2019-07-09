@@ -3,17 +3,27 @@
     <dp-glossary-header heading="{{ vm.apiData.results.label }}" definition="VASTGOED">
     </dp-glossary-header>
 
-    <div class="c-search-results__block">
-      <dl class="c-key-value-list">
-        <dt>Bouwjaar</dt>
-        <dd>{{ vm.apiData.results.construction_year }}</dd>
-        <dt>Aantal verhuurde eenheden</dt>
-        <dd>{{ vm.apiData.results.features.length }}</dd>
-        <dt>Monumentstatus</dt>
-        <dd>{{ vm.apiData.results.monumental_status }}</dd>
-        <dt>Status</dt>
-        <dd>{{ vm.apiData.results.status }}</dd>
-      </dl>
+    <div class="u-row">
+      <div class="u-col-sm--6 u-padding__right--2">
+        <div class="c-search-results__block">
+          <dl class="c-key-value-list">
+            <dt>Bouwjaar</dt>
+            <dd>{{ vm.apiData.results.construction_year }}</dd>
+            <dt>Aantal verhuurde eenheden</dt>
+            <dd>{{ vm.apiData.results.features.length }}</dd>
+            <dt>Monumentstatus</dt>
+            <dd>{{ vm.apiData.results.monumental_status }}</dd>
+            <dt>Status</dt>
+            <dd>{{ vm.apiData.results.status }}</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="u-col-sm--6">
+        <dp-panorama-thumbnail
+          panorama="vm.previewPanorama"
+          is-loading="vm.isPreviewPanoramaLoading"
+        ></dp-panorama-thumbnail>
+      </div>
     </div>
     <div class="o-header">
       <h2 class="o-header__subtitle qa-search-header">
@@ -23,6 +33,9 @@
     <br />
     <div>
       <div class="c-search-results__block" ng-repeat="feature in vm.apiData.results.features">
+        <h3 class="o-header__subtitle o-header__subtitle--dark">
+          {{ feature.address }}
+        </h3>
         <dl class="c-key-value-list">
           <dt>Verhuurde eenheid</dt>
           <dd>{{ feature.address }}</dd>

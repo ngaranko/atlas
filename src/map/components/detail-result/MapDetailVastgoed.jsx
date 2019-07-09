@@ -9,7 +9,7 @@ const MapDetailVastgoed = ({ panoUrl, item, onMaximize, onPanoPreviewClick }) =>
     onMaximize={onMaximize}
     onPanoPreviewClick={onPanoPreviewClick}
     subTitle={item.label}
-    title="Gemeentelijk Vastgoed"
+    title="Gemeentelijk eigendom"
   >
     <React.Fragment>
       <MapDetailResultItem label="Bouwjaar" value={item.construction_year} />

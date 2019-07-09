@@ -6,7 +6,7 @@ exports[`MapDetailVastgoed should render everything 1`] = `
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
   subTitle="Foo"
-  title="Gemeentelijk Vastgoed"
+  title="Gemeentelijk eigendom"
 >
   <MapDetailResultItem
     label="Bouwjaar"
