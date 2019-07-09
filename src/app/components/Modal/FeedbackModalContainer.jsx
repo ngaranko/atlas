@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Modal from './Modal'
+import FeedbackModal from './FeedbackModal'
 import {
   closeModalAction,
   reportFeedbackAction,
@@ -20,4 +20,4 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   null,
   mapDispatchToProps,
-)(Modal)
+)(FeedbackModal)
