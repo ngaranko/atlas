@@ -15,6 +15,7 @@ import {
 } from '@datapunt/asc-ui'
 import Footer from '../../components/Footer/Footer'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
+import formatDate from '../../../shared/services/date-formatter/date-formatter'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useDataFetching from '../../utils/useDataFetching'
 
@@ -41,7 +42,7 @@ const PublicationsPage = ({ endpoint }) => {
   return (
     <div className="c-dashboard__page o-max-width">
       <Row>
-        <Column wrap="true" span={{ small: 1, medium: 1, big: 6, large: 12, xLarge: 12 }}>
+        <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
           {loading && (
             <div className="loading-indicator">
               <Spinner size={100} color="secondary" />
@@ -50,21 +51,21 @@ const PublicationsPage = ({ endpoint }) => {
           {!loading && body && (
             <Publication>
               <Row>
-                <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-                  <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
+                <Column wrap span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
+                  <Column span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
                     <PublicationContent>
                       <ArticleHeader title={title} />
                       <ArticleMetaList
                         fields={[
                           { id: 1, label: source },
+                          { id: 4, label: formatDate(new Date(created)) },
                           { id: 2, label: fileSize },
-                          { id: 3, label: fileType },
-                          { id: 4, label: created },
+                          { id: 3, label: fileType.toUpperCase() },
                         ]}
                       />
                     </PublicationContent>
                   </Column>
-                  <Column span={{ small: 1, medium: 2, big: 3, large: 6, xLarge: 6 }}>
+                  <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                     <Downloader
                       imageSrc={`${SHARED_CONFIG.CMS_ROOT}${coverUrl}`}
                       description={`Download PDF (${fileSize})`}
@@ -76,7 +77,7 @@ const PublicationsPage = ({ endpoint }) => {
                       }}
                     />
                   </Column>
-                  <Column span={{ small: 1, medium: 2, big: 3, large: 6, xLarge: 6 }}>
+                  <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                     <PublicationContent>
                       <Summary>
                         Optioneel hier kan een kleine omschrijving komen. Van de 146.500 Amsterdamse
