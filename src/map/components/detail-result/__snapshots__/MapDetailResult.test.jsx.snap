@@ -369,6 +369,8 @@ exports[`MapDetailResult should render oplaadpuntent 1`] = `
 />
 `;
 
+exports[`MapDetailResult should render vastgoed 1`] = `""`;
+
 exports[`MapDetailResult should render vestiging 1`] = `
 <MapDetailVestiging
   onMaximize={[MockFunction]}

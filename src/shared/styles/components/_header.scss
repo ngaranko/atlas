@@ -22,6 +22,10 @@
     color: $secondary-gray60;
     margin-bottom: $base-whitespace;
   }
+
+  &--dark {
+    color: $primary-dark;
+  }
 }
 
 .o-header__buttongroup {

@@ -498,6 +498,11 @@ const GLOSSARY = {
         'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/unesco-werelderfgoed/',
       meta: [],
     },
+    VASTGOED: {
+      label_singular: 'Gemeentelijk eigendom',
+      label_plural: 'Gemeentelijk eigendom',
+      description: '',
+    },
     VERBLIJFSOBJECT: {
       label_singular: 'Verblijfsobject',
       label_plural: 'Verblijfsobjecten',

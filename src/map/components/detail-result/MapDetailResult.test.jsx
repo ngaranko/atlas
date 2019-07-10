@@ -461,6 +461,24 @@ describe('MapDetailResult', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
+  it('should render vastgoed', () => {
+    const panoUrl = 'panoUrl'
+    const result = {
+      endpointType: 'vastgoed/vastgoed/',
+      label: 'value',
+    }
+    const clickHandler = jest.fn()
+    const wrapper = shallow(
+      <MapDetailResult
+        panoUrl={panoUrl}
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
+        result={result}
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+
   it('should render vestiging', () => {
     const panoUrl = 'panoUrl'
     const result = {
