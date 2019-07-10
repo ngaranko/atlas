@@ -62,9 +62,9 @@ describe('The vastgoed resource', () => {
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
           label: undefined,
-          construction_year: 'onbekend',
+          construction_year: 'Onbekend',
           status: undefined,
-          monumental_status: undefined,
+          monumental_status: 'Geen monument',
           address: undefined,
           usage: undefined,
           usage_type: undefined,
