@@ -385,6 +385,16 @@ const GLOSSARY = {
         'sleutelverzendend',
       ],
     },
+    PARKEERZONES: {
+      label_singular: 'Parkeervergunninggebied',
+      label_plural: 'Parkeervergunninggebieden',
+      description: '',
+    },
+    PARKEERZONES_UITZ: {
+      label_singular: 'Uitzondering parkeervergunninggebied',
+      label_plural: 'Uitzondering parkeervergunninggebieden',
+      description: '',
+    },
     PEILMERK: {
       label_singular: 'NAP peilmerk',
       label_plural: 'NAP peilmerken',

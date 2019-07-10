@@ -313,14 +313,14 @@ const mapLayers = [
         id: 'vge',
         title: 'Volledig eigendom',
         imageRule: 'vastgoed',
-        layers: ['vastgoed_eigendom']
+        layers: ['vastgoed_eigendom'],
       },
       {
         id: 'vga',
         title: 'Appartementsrecht',
         imageRule: 'vastgoed',
-        layers: ['vastgoed_appartementsrecht']
-      }
+        layers: ['vastgoed_appartementsrecht'],
+      },
     ],
     title: 'Gemeentelijk eigendom',
     url: '/maps/vastgoed',
@@ -988,6 +988,31 @@ const mapLayers = [
     url: '/maps/parkeervakken',
     detailUrl: 'parkeervakken/geosearch/',
     detailItem: 'parkeervak',
+    detailIsShape: true,
+  },
+  {
+    category: THEMES.TRAFFIC,
+    legendItems: [
+      {
+        id: 'uitzpvg',
+        title: 'Uitzondering parkeervergunninggebied',
+        imageRule: 'Parkeerzones uitzonderingen',
+        layers: ['parkeerzones_uitz'],
+        detailItem: 'parkeerzones_uitz',
+        detailUrl: 'geosearch/parkeerzones_uitz/',
+        url: '/maps/parkeerzones_uitz',
+      },
+      {
+        id: 'pvg',
+        title: 'Parkeervergunninggebied',
+        iconUrl: '/assets/images/map-legend/icon-parkeerzones.svg',
+        layers: ['parkeerzones'],
+        detailItem: 'parkeerzones',
+        detailUrl: 'geosearch/parkeerzones/',
+        url: '/maps/parkeerzones',
+      },
+    ],
+    title: 'Parkeervergunninggebieden',
     detailIsShape: true,
   },
   {

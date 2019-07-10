@@ -88,9 +88,7 @@ describe('The vastgoed resource', () => {
       const promise = fetchByGeoLocation(mockLocation)
 
       expect(getByUrl).toHaveBeenCalledWith(
-        `${SHARED_CONFIG.API_ROOT}geosearch/vastgoed/?lat=${mockLocation.latitude}&lon=${
-          mockLocation.longitude
-        }&item=vastgoed&radius=0`,
+        `${SHARED_CONFIG.API_ROOT}geosearch/vastgoed/?lat=${mockLocation.latitude}&lon=${mockLocation.longitude}&item=vastgoed&radius=0`,
       )
 
       return promise

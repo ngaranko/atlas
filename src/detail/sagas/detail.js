@@ -1,6 +1,9 @@
 import { select } from 'redux-saga/effects'
 import { getUserScopes } from '../../shared/ducks/user/user'
-import { getParts, getTemplateUrl } from '../services/endpoint-parser/endpoint-parser'
+import {
+  getParts,
+  getTemplateUrl,
+} from '../services/endpoint-parser/endpoint-parser'
 import { getApiSpecificationData } from '../../shared/ducks/datasets/datasets'
 import formatDetailData from '../services/data-formatter/data-formatter'
 import { getByUrl } from '../../shared/services/api/api'
@@ -15,7 +18,9 @@ export default function* getDetailData(endpoint, mapDetail = {}) {
   const scopes = yield select(getUserScopes)
 
   if (
-    (category === 'brk' && subject === 'subject' && !scopes.includes('BRK/RS')) ||
+    (category === 'brk' &&
+      subject === 'subject' &&
+      !scopes.includes('BRK/RS')) ||
     (category === 'handelsregister' && !scopes.includes('HR/R')) ||
     (category === 'grondexploitatie' && !scopes.includes('GREX/R'))
   ) {
@@ -29,8 +34,6 @@ export default function* getDetailData(endpoint, mapDetail = {}) {
       data: null,
     }
   }
-
-
 
   // Get data from individual endpoints to construct the detail view for vastgoed
   if (category === 'vsd' && subject === 'vastgoed') {

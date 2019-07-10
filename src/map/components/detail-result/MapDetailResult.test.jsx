@@ -461,6 +461,44 @@ describe('MapDetailResult', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
+  it('should render de parkeerzone ', () => {
+    const panoUrl = 'panoUrl'
+    const result = {
+      endpointType: 'vsd/parkeerzones/',
+      label: 'value',
+      description: 'value',
+    }
+    const clickHandler = jest.fn()
+    const wrapper = shallow(
+      <MapDetailResult
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
+        panoUrl={panoUrl}
+        result={result}
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('should render de parkeerzone uitz ', () => {
+    const panoUrl = 'panoUrl'
+    const result = {
+      endpointType: 'vsd/parkeerzones_uitz/',
+      label: 'value',
+      description: 'value',
+    }
+    const clickHandler = jest.fn()
+    const wrapper = shallow(
+      <MapDetailResult
+        onMaximize={clickHandler}
+        onPanoPreviewClick={clickHandler}
+        panoUrl={panoUrl}
+        result={result}
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+
   it('should render vastgoed', () => {
     const panoUrl = 'panoUrl'
     const result = {
@@ -470,9 +508,9 @@ describe('MapDetailResult', () => {
     const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailResult
-        panoUrl={panoUrl}
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}
+        panoUrl={panoUrl}
         result={result}
       />,
     )
