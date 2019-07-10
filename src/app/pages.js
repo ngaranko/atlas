@@ -15,6 +15,7 @@ const PAGES = {
   DATA_DETAIL: 'DATA_DETAIL',
 
   SPECIALS: 'SPECIALS',
+  PUBLICATIONS: 'PUBLICATIONS',
 
   // text pages
   NEWS: 'NEWS',

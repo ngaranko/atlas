@@ -17,6 +17,7 @@ const DatasetDetailContainer = React.lazy(() =>
   import('./containers/DatasetDetailContainer/DatasetDetailContainer'),
 )
 const SpecialsPage = React.lazy(() => import('./pages/SpecialsPage/SpecialsPage'))
+const PublicationsPage = React.lazy(() => import('./pages/PublicationsPage'))
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 
 const AppBody = ({
@@ -62,6 +63,8 @@ const AppBody = ({
             {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
 
             {currentPage === PAGES.SPECIALS && <SpecialsPage />}
+
+            {currentPage === PAGES.PUBLICATIONS && <PublicationsPage />}
 
             {isCmsPage && <ContentPage />}
 
