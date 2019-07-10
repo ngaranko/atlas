@@ -1,7 +1,6 @@
-import formatDetailData, { formatData } from "./data-formatter";
+import formatDetailData, { formatData } from './data-formatter'
 
 describe('The formatData service', () => {
-
   it('returns the original data for non-API data', () => {
     const result = formatData('aap')
     expect(result).toBe('aap')
@@ -50,7 +49,6 @@ describe('The formatData service', () => {
     const result = formatData({}, 'datasets', catalogFilters)
     expect(result).toEqual({})
   })
-
 })
 
 describe('formatDetailData ', () => {
@@ -62,7 +60,7 @@ describe('formatDetailData ', () => {
       },
     ],
   }
-  const category = 'dcatd';
+  const category = 'dcatd'
   const subject = 'datasets'
   const catalogFilters = {
     resourceTypes: [
@@ -74,19 +72,25 @@ describe('formatDetailData ', () => {
   }
 
   it('should return the data unchanged when not formating dcatd results', () => {
-    const result = formatDetailData(data, 'no-dcatd');
+    const result = formatDetailData(data, 'no-dcatd')
     expect(result).toEqual(data)
-  });
+  })
 
   it('should mark the result data as not editable when no write rights received', () => {
-    const result = formatDetailData(data, category, subject, catalogFilters, ["BRK/RO", "BRK/RS", "BRK/RSN"]);
+    const result = formatDetailData(data, category, subject, catalogFilters, [
+      'BRK/RO',
+      'BRK/RS',
+      'BRK/RSN',
+    ])
     expect(result.canEditDataset).toBeFalsy()
-  });
+  })
 
   it('should mark the result data as editable when write rights received', () => {
-    const result = formatDetailData(data, category, subject, catalogFilters, ["CAT/W"]);
+    const result = formatDetailData(data, category, subject, catalogFilters, [
+      'CAT/W',
+    ])
     expect(result.canEditDataset).toBeTruthy()
-  });
+  })
 
   it('should convert the mark down fields to html', () => {
     const description = `Het BBGA bevat meer dan 500 variabelen ingedeeld naar de volgende thema's:
@@ -97,16 +101,20 @@ describe('formatDetailData ', () => {
       ...data,
       'dct:description': description,
       'overheid:grondslag': description,
-      'overheidds:doel': description
+      'overheidds:doel': description,
     }
-    const result = formatDetailData(rawData, category, subject, catalogFilters, ["CAT/W"]);
+    const result = formatDetailData(
+      rawData,
+      category,
+      subject,
+      catalogFilters,
+      ['CAT/W'],
+    )
     expect(result['dct:description']).toContain('<p>')
     expect(result['dct:description']).toContain('</p>')
     expect(result['overheid:grondslag']).toContain('<p>')
     expect(result['overheid:grondslag']).toContain('</p>')
     expect(result['overheidds:doel']).toContain('<p>')
     expect(result['overheidds:doel']).toContain('</p>')
-
-
-  });
-});
+  })
+})
