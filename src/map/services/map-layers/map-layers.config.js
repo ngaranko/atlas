@@ -1003,7 +1003,7 @@ const mapLayers = [
       {
         id: 'pvg',
         title: 'Parkeervergunninggebied',
-        imageRule: 'Parkeerzones',
+        iconUrl: '/assets/images/map-legend/icon-parkeerzones.svg',
         layers: ['parkeerzones'],
         detailItem: 'parkeerzones',
         detailUrl: 'geosearch/parkeerzones/',
