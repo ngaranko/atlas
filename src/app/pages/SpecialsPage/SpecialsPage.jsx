@@ -8,7 +8,7 @@ import useDataFetching from '../../utils/useDataFetching'
 
 import './SpecialsPage.scss'
 
-const SpecialsContainer = ({ endpoint }) => {
+const SpecialsPage = ({ endpoint }) => {
   const { fetchData, results, loading } = useDataFetching()
   const [iframeLoading, setIframeLoading] = React.useState(true)
   const [iframeHeight, setIframeHeight] = React.useState(0)
@@ -48,7 +48,7 @@ const SpecialsContainer = ({ endpoint }) => {
 
   const iframeLoaded = () => {
     setIframeLoading(false)
-    
+
     // Handle resize after the iframe is loaded
     handleResize()
   }
@@ -58,10 +58,7 @@ const SpecialsContainer = ({ endpoint }) => {
   return (
     <div className="iframe-container c-dashboard__page o-max-width">
       <Row>
-        <Column
-          wrap="true"
-          span={{ small: 4, medium: 8, big: 12, large: 18 }}
-        >
+        <Column wrap="true" span={{ small: 4, medium: 8, big: 12, large: 18 }}>
           {iframeLoading && (
             <div className="loading-indicator">
               <Spinner size={100} color="secondary" />
@@ -93,4 +90,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   null,
-)(SpecialsContainer)
+)(SpecialsPage)
