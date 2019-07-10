@@ -1,3 +1,2 @@
-const isDefined = (value) => typeof value !== 'undefined';
-export default isDefined;
-
+const isDefined = value => typeof value !== 'undefined'
+export default isDefined

@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './StatusBar.scss';
-import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system/crs-converter';
-import { dateToString } from '../../../shared/services/date-formatter/date-formatter';
+import React from 'react'
+import PropTypes from 'prop-types'
+import './StatusBar.scss'
+import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system/crs-converter'
+import { dateToString } from '../../../shared/services/date-formatter/date-formatter'
 
-const convertLocation = (location) => {
-  const [latitude, longitude] = location;
-  const { x: rdX, y: rdY } = wgs84ToRd({ latitude, longitude });
-  const formattedWgs84Location = `${latitude.toFixed(7)}, ${longitude.toFixed(7)}`;
+const convertLocation = location => {
+  const [latitude, longitude] = location
+  const { x: rdX, y: rdY } = wgs84ToRd({ latitude, longitude })
+  const formattedWgs84Location = `${latitude.toFixed(7)}, ${longitude.toFixed(7)}`
 
-  return `${rdX.toFixed(2)}, ${rdY.toFixed(2)} (${formattedWgs84Location})`;
-};
+  return `${rdX.toFixed(2)}, ${rdY.toFixed(2)} (${formattedWgs84Location})`
+}
 
 const StatusBar = ({ date, location }) => (
   <div className="c-panorama-status-bar">
@@ -23,15 +23,15 @@ const StatusBar = ({ date, location }) => (
       </div>
     </div>
   </div>
-);
+)
 
 StatusBar.defaultProps = {
-  date: ''
-};
+  date: '',
+}
 
 StatusBar.propTypes = {
-  date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
-  location: PropTypes.instanceOf(Array).isRequired
-};
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  location: PropTypes.instanceOf(Array).isRequired,
+}
 
-export default StatusBar;
+export default StatusBar

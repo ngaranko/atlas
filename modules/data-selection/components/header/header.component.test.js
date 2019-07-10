@@ -1,357 +1,427 @@
-import * as dataSelectionConfig
-    from '../../../../src/shared/services/data-selection/data-selection-config';
-import { setDataset } from '../../../../src/shared/ducks/data-selection/actions';
+import * as dataSelectionConfig from '../../../../src/shared/services/data-selection/data-selection-config'
+import { setDataset } from '../../../../src/shared/ducks/data-selection/actions'
 
 describe('The dp-data-selection-header', () => {
-    const anonymousUser = {
-        authenticated: false,
-        scopes: []
-    };
+  const anonymousUser = {
+    authenticated: false,
+    scopes: [],
+  }
 
-    let $compile,
-        $rootScope,
-        store,
-        component,
-        config,
-        mockedViewInput,
-        mockedInputTable,
-        mockedInputTableAuth,
-        mockedInputList,
-        mockedInputCatalog;
+  let $compile
+  let $rootScope
+  let store
+  let component
+  let config
+  let mockedViewInput
+  let mockedInputTable
+  let mockedInputTableAuth
+  let mockedInputList
+  let mockedInputCatalog
 
-    beforeEach(() => {
-        config = {
-            datasets: {
-                bag: {
-                    MAX_AVAILABLE_PAGES: 50,
-                    TITLE: 'BAG Adressen',
-                    TITLE_TAB: 'BAG Adressen',
-                    SHOW_NUMBER_OF_RECORDS: true
-                },
-                brk: {
-                    MAX_AVAILABLE_PAGES: 50,
-                    TITLE: 'Kadastrale objecten',
-                    TITLE_TAB: 'Kadastrale objecten',
-                    SHOW_NUMBER_OF_RECORDS: false
-                },
-                hr: {
-                    MAX_AVAILABLE_PAGES: 50,
-                    TITLE: 'HR Vestigingen',
-                    TITLE_TAB: 'HR Vestigingen',
-                    SHOW_NUMBER_OF_RECORDS: false
-                },
-                dcatd: {
-                    MAX_AVAILABLE_PAGES: 50,
-                    TITLE: 'Datasets',
-                    TITLE_TAB: 'Datasets',
-                    SHOW_NUMBER_OF_RECORDS: true
-                }
-            }
-        };
-
-        angular.mock.module(
-            'dpDataSelection',
-            {
-                store: {
-                    dispatch: angular.noop
-                }
-            },
-            function ($provide) {
-                $provide.factory('dpDataSelectionToggleViewButtonDirective', () => {
-                    return {};
-                });
-
-                $provide.factory('dpDataSelectionDownloadButtonDirective', () => {
-                    return {};
-                });
-
-                $provide.factory('dpDataSelectionActiveFiltersDirective', () => {
-                    return {};
-                });
-            }
-        );
-
-        dataSelectionConfig.default = config;
-
-        angular.mock.inject((_$compile_, _$rootScope_, _store_) => {
-            $compile = _$compile_;
-            $rootScope = _$rootScope_;
-            store = _store_;
-        });
-
-        mockedInputTable = {
-            dataset: 'bag',
-            view: 'TABLE',
-            state: {
-                geometryFilter: {
-                    markers: [],
-                    description: 'geometryFilter description'
-                }
-            },
-            filters: {
-                fake_filter: 'abc'
-            },
-            numberOfRecords: null,
-            showHeader: true
-        };
-
-        mockedInputTableAuth = {
-            ...mockedInputTable,
-            user: {
-                authenticated: true,
-                scopes: ['HR/R']
-            }
-        };
-
-        mockedInputList = {
-            dataset: 'hr',
-            view: 'LIST',
-            state: {
-                geometryFilter: {
-                    markers: [],
-                    description: 'geometryFilter description'
-                }
-            },
-            filters: {
-                fake_filter: 'abc'
-            },
-            numberOfRecords: null,
-            showHeader: true
-        };
-
-        mockedInputCatalog = {
-            dataset: 'dcatd',
-            view: 'CATALOG',
-            state: {
-                geometryFilter: {
-                    markers: [],
-                    description: 'geometryFilter description'
-                },
-                page: 1
-            },
-            filters: {
-                fake_filter: 'abc'
-            },
-            numberOfRecords: null,
-            showHeader: true
-        };
-
-        spyOn(store, 'dispatch');
-    });
-
-    function getComponent (mockedInput) {
-        const element = document.createElement('dp-data-selection-header');
-        element.setAttribute('user', 'user');
-        element.setAttribute('state', 'state');
-        element.setAttribute('filters', 'filters');
-        element.setAttribute('available-filters', 'availableFilters');
-        element.setAttribute('number-of-records', 'numberOfRecords');
-        element.setAttribute('show-header', 'showHeader');
-        element.setAttribute('dataset', 'dataset');
-        element.setAttribute('view', 'view');
-
-        const scope = $rootScope.$new();
-        scope.user = mockedInput.user || anonymousUser;
-        scope.state = mockedInput.state;
-        scope.filters = mockedInput.filters;
-        scope.availableFilters = {};
-        scope.numberOfRecords = mockedInput.numberOfRecords;
-        scope.showHeader = mockedInput.showHeader;
-        scope.dataset = mockedInput.dataset;
-        scope.view = mockedInput.view;
-        const compiledComponent = $compile(element)(scope);
-        scope.$apply();
-
-        return compiledComponent;
+  beforeEach(() => {
+    config = {
+      datasets: {
+        bag: {
+          MAX_AVAILABLE_PAGES: 50,
+          TITLE: 'BAG Adressen',
+          TITLE_TAB: 'BAG Adressen',
+          SHOW_NUMBER_OF_RECORDS: true,
+        },
+        brk: {
+          MAX_AVAILABLE_PAGES: 50,
+          TITLE: 'Kadastrale objecten',
+          TITLE_TAB: 'Kadastrale objecten',
+          SHOW_NUMBER_OF_RECORDS: false,
+        },
+        hr: {
+          MAX_AVAILABLE_PAGES: 50,
+          TITLE: 'HR Vestigingen',
+          TITLE_TAB: 'HR Vestigingen',
+          SHOW_NUMBER_OF_RECORDS: false,
+        },
+        dcatd: {
+          MAX_AVAILABLE_PAGES: 50,
+          TITLE: 'Datasets',
+          TITLE_TAB: 'Datasets',
+          SHOW_NUMBER_OF_RECORDS: true,
+        },
+      },
     }
 
-    it('should not show the header if showHeader is not true', () => {
-        mockedInputTable.showHeader = false;
-        component = getComponent(mockedInputTable);
-        expect(component.find('.qa-header').length).toBe(0);
-    });
+    angular.mock.module(
+      'dpDataSelection',
+      {
+        store: {
+          dispatch: angular.noop,
+        },
+      },
+      function($provide) {
+        $provide.factory('dpDataSelectionToggleViewButtonDirective', () => {
+          return {}
+        })
 
-    describe('The buttons (download and toggle view)', () => {
-        it('are available in the TABLE view', () => {
-            component = getComponent(mockedInputTable);
-            expect(component.find('.qa-buttons').length).toBe(1);
-        });
+        $provide.factory('dpDataSelectionDownloadButtonDirective', () => {
+          return {}
+        })
 
-        it('are available in the LIST view', () => {
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-buttons').length).toBe(1);
-        });
+        $provide.factory('dpDataSelectionActiveFiltersDirective', () => {
+          return {}
+        })
+      },
+    )
 
-        it('are never available in the CATALOG view', () => {
-            component = getComponent(mockedInputCatalog);
-            expect(component.find('.qa-buttons').length).toBe(0);
-        });
-    });
+    dataSelectionConfig.default = config
 
-    describe('the download button', () => {
-        it('is hidden when there are no results', () => {
-            mockedInputTable.numberOfRecords = 1;
-            component = getComponent(mockedInputTable);
-            expect(component.find('.qa-download-button').length).toBe(1);
+    angular.mock.inject((_$compile_, _$rootScope_, _store_) => {
+      $compile = _$compile_
+      $rootScope = _$rootScope_
+      store = _store_
+    })
 
-            mockedInputTable.numberOfRecords = 0;
-            component = getComponent(mockedInputTable);
-            expect(component.find('.qa-download-button').length).toBe(0);
-        });
+    mockedInputTable = {
+      dataset: 'bag',
+      view: 'TABLE',
+      state: {
+        geometryFilter: {
+          markers: [],
+          description: 'geometryFilter description',
+        },
+      },
+      filters: {
+        fake_filter: 'abc',
+      },
+      numberOfRecords: null,
+      showHeader: true,
+    }
 
-        it('is hidden when in LIST view', () => {
-            mockedInputTable.numberOfRecords = 1;
-            component = getComponent(mockedInputTable);
-            expect(component.find('.qa-download-button').length).toBe(1);
+    mockedInputTableAuth = {
+      ...mockedInputTable,
+      user: {
+        authenticated: true,
+        scopes: ['HR/R'],
+      },
+    }
 
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-download-button').length).toBe(0);
-        });
+    mockedInputList = {
+      dataset: 'hr',
+      view: 'LIST',
+      state: {
+        geometryFilter: {
+          markers: [],
+          description: 'geometryFilter description',
+        },
+      },
+      filters: {
+        fake_filter: 'abc',
+      },
+      numberOfRecords: null,
+      showHeader: true,
+    }
 
-        it('is hidden when the authentication level is not met', () => {
-            // An authentication level is set
-            config.datasets.bag.AUTH_SCOPE = 'HR/R';
+    mockedInputCatalog = {
+      dataset: 'dcatd',
+      view: 'CATALOG',
+      state: {
+        geometryFilter: {
+          markers: [],
+          description: 'geometryFilter description',
+        },
+        page: 1,
+      },
+      filters: {
+        fake_filter: 'abc',
+      },
+      numberOfRecords: null,
+      showHeader: true,
+    }
 
-            mockedInputTableAuth.numberOfRecords = 1;
-            component = getComponent(mockedInputTableAuth);
-            expect(component.find('.qa-download-button').length).toBe(1);
+    spyOn(store, 'dispatch')
+  })
 
-            // This time there are no records however
-            mockedInputTableAuth.numberOfRecords = 0;
-            component = getComponent(mockedInputTableAuth);
-            expect(component.find('.qa-download-button').length).toBe(0);
-        });
-    });
+  function getComponent(mockedInput) {
+    const element = document.createElement('dp-data-selection-header')
+    element.setAttribute('user', 'user')
+    element.setAttribute('state', 'state')
+    element.setAttribute('filters', 'filters')
+    element.setAttribute('available-filters', 'availableFilters')
+    element.setAttribute('number-of-records', 'numberOfRecords')
+    element.setAttribute('show-header', 'showHeader')
+    element.setAttribute('dataset', 'dataset')
+    element.setAttribute('view', 'view')
 
-    describe('the header title', function () {
-        it('in TABLE view shows the name followed by the number of results', () => {
-            mockedInputTable.numberOfRecords = 1234;
-            component = getComponent(mockedInputTable);
+    const scope = $rootScope.$new()
+    scope.user = mockedInput.user || anonymousUser
+    scope.state = mockedInput.state
+    scope.filters = mockedInput.filters
+    scope.availableFilters = {}
+    scope.numberOfRecords = mockedInput.numberOfRecords
+    scope.showHeader = mockedInput.showHeader
+    scope.dataset = mockedInput.dataset
+    scope.view = mockedInput.view
+    const compiledComponent = $compile(element)(scope)
+    scope.$apply()
 
-            // Avec thousand separator
-            expect(component.find('.qa-title').text()).toContain('BAG Adressen');
-            expect(component.find('.qa-title').text()).toContain('(1.234)');
-        });
+    return compiledComponent
+  }
 
-        it('in CATALOG view shows the number of results followed using \'Datasets(number)\'', () => {
-            // Singular
-            mockedInputCatalog.numberOfRecords = 10;
-            component = getComponent(mockedInputCatalog);
-            expect(component.find('.qa-title').text().trim()).toBe('Datasets (10)');
+  it('should not show the header if showHeader is not true', () => {
+    mockedInputTable.showHeader = false
+    component = getComponent(mockedInputTable)
+    expect(component.find('.qa-header').length).toBe(0)
+  })
 
-            // Plural, with thousand separator
-            mockedInputCatalog.numberOfRecords = 1234;
-            component = getComponent(mockedInputCatalog);
-            expect(component.find('.qa-title').text().trim()).toBe('Datasets (1.234)');
-        });
+  describe('The buttons (download and toggle view)', () => {
+    it('are available in the TABLE view', () => {
+      component = getComponent(mockedInputTable)
+      expect(component.find('.qa-buttons').length).toBe(1)
+    })
 
-        it('in LIST view shows just the string \'Resultaten\'', () => {
-            // No results
-            mockedInputList.numberOfRecords = 0;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-title').text().trim()).toBe('Resultaten');
+    it('are available in the LIST view', () => {
+      component = getComponent(mockedInputList)
+      expect(component.find('.qa-buttons').length).toBe(1)
+    })
 
-            // 1 Result
-            mockedInputList.numberOfRecords = 1;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-title').text().trim()).toBe('Resultaten');
+    it('are never available in the CATALOG view', () => {
+      component = getComponent(mockedInputCatalog)
+      expect(component.find('.qa-buttons').length).toBe(0)
+    })
+  })
 
-            // Multiple results
-            mockedInputList.numberOfRecords = 1234;
-            component = getComponent(mockedInputList);
-            expect(component.find('.qa-title').text().trim()).toBe('Resultaten');
-        });
-    });
+  describe('the download button', () => {
+    it('is hidden when there are no results', () => {
+      mockedInputTable.numberOfRecords = 1
+      component = getComponent(mockedInputTable)
+      expect(component.find('.qa-download-button').length).toBe(1)
 
-    ['TABLE', 'CATALOG'].forEach(viewName => {
-        beforeEach(function () {
-            mockedViewInput = viewName === 'TABLE' ? mockedInputTable : mockedInputCatalog;
-        });
+      mockedInputTable.numberOfRecords = 0
+      component = getComponent(mockedInputTable)
+      expect(component.find('.qa-download-button').length).toBe(0)
+    })
 
-        describe(`in ${viewName} view`, () => {
-            beforeEach(() => {
-                mockedViewInput.numberOfRecords = 1234;
-            });
+    it('is hidden when in LIST view', () => {
+      mockedInputTable.numberOfRecords = 1
+      component = getComponent(mockedInputTable)
+      expect(component.find('.qa-download-button').length).toBe(1)
 
-            it('shows the title', () => {
-                component = getComponent(mockedViewInput);
+      component = getComponent(mockedInputList)
+      expect(component.find('.qa-download-button').length).toBe(0)
+    })
 
-                expect(component.find('.qa-title').length).toBe(1);
-            });
+    it('is hidden when the authentication level is not met', () => {
+      // An authentication level is set
+      config.datasets.bag.AUTH_SCOPE = 'HR/R'
 
-            it('doesn\'t show tabs', function () {
-                component = getComponent(mockedViewInput);
+      mockedInputTableAuth.numberOfRecords = 1
+      component = getComponent(mockedInputTableAuth)
+      expect(component.find('.qa-download-button').length).toBe(1)
 
-                expect(component.find('.qa-tabs').length).toBe(0);
-            });
-        });
-    });
+      // This time there are no records however
+      mockedInputTableAuth.numberOfRecords = 0
+      component = getComponent(mockedInputTableAuth)
+      expect(component.find('.qa-download-button').length).toBe(0)
+    })
+  })
 
-    describe('in LIST view', () => {
-        it('shows the buttons and title', () => {
-            component = getComponent(mockedInputList);
+  describe('the header title', function() {
+    it('in TABLE view shows the name followed by the number of results', () => {
+      mockedInputTable.numberOfRecords = 1234
+      component = getComponent(mockedInputTable)
 
-            expect(component.find('.qa-buttons').length).toBe(1);
-            expect(component.find('.qa-title').length).toBe(1);
-        });
+      // Avec thousand separator
+      expect(component.find('.qa-title').text()).toContain('BAG Adressen')
+      expect(component.find('.qa-title').text()).toContain('(1.234)')
+    })
 
-        it('shows the tabs', function () {
-            component = getComponent(mockedInputList);
+    it("in CATALOG view shows the number of results followed using 'Datasets(number)'", () => {
+      // Singular
+      mockedInputCatalog.numberOfRecords = 10
+      component = getComponent(mockedInputCatalog)
+      expect(
+        component
+          .find('.qa-title')
+          .text()
+          .trim(),
+      ).toBe('Datasets (10)')
 
-            expect(component.find('.qa-tabs').length).toBe(1);
-        });
-    });
+      // Plural, with thousand separator
+      mockedInputCatalog.numberOfRecords = 1234
+      component = getComponent(mockedInputCatalog)
+      expect(
+        component
+          .find('.qa-title')
+          .text()
+          .trim(),
+      ).toBe('Datasets (1.234)')
+    })
 
-    describe('the tabs in LIST view', () => {
-        it('use the TITLE_TAB values from DATA_SELECTION_CONFIG', () => {
-            component = getComponent(mockedInputList);
+    it("in LIST view shows just the string 'Resultaten'", () => {
+      // No results
+      mockedInputList.numberOfRecords = 0
+      component = getComponent(mockedInputList)
+      expect(
+        component
+          .find('.qa-title')
+          .text()
+          .trim(),
+      ).toBe('Resultaten')
 
-            expect(component.find('.qa-tabs li:nth-child(1)').text().trim()).toBe('BAG Adressen');
-            expect(component.find('.qa-tabs li:nth-child(2)').text().trim()).toContain('HR Vestigingen');
-        });
+      // 1 Result
+      mockedInputList.numberOfRecords = 1
+      component = getComponent(mockedInputList)
+      expect(
+        component
+          .find('.qa-title')
+          .text()
+          .trim(),
+      ).toBe('Resultaten')
 
-        it('inactive tabs are links to the first page of other datasets', () => {
-            mockedInputList.dataset = 'hr';
-            mockedInputList.state.page = 123;
-            component = getComponent(mockedInputList);
+      // Multiple results
+      mockedInputList.numberOfRecords = 1234
+      component = getComponent(mockedInputList)
+      expect(
+        component
+          .find('.qa-title')
+          .text()
+          .trim(),
+      ).toBe('Resultaten')
+    })
+  })
+  ;['TABLE', 'CATALOG'].forEach(viewName => {
+    beforeEach(function() {
+      mockedViewInput =
+        viewName === 'TABLE' ? mockedInputTable : mockedInputCatalog
+    })
 
-            component.find('.qa-tabs li:nth-child(1) dp-link .o-tabs__tab--link').click();
-            expect(store.dispatch).toHaveBeenCalledWith(setDataset('bag'));
-        });
+    describe(`in ${viewName} view`, () => {
+      beforeEach(() => {
+        mockedViewInput.numberOfRecords = 1234
+      })
 
-        it('active tabs are just text (instead of a link)', () => {
-            mockedInputList.dataset = 'hr';
-            mockedInputList.state.page = 123;
-            component = getComponent(mockedInputList);
-            expect(store.dispatch).not.toHaveBeenCalled();
+      it('shows the title', () => {
+        component = getComponent(mockedViewInput)
 
-            expect(component.find('.qa-tabs li:nth-child(2) dp-link .o-tabs__tab--text').length).toBe(0);
-            expect(component.find('.qa-tabs li:nth-child(2) .o-tabs__tab--active').length).toBe(1);
-        });
+        expect(component.find('.qa-title').length).toBe(1)
+      })
 
-        it('shows the number of results in the tab heading for the active dataset', () => {
-            // It shows the number of results for the active tab only
-            mockedInputList.numberOfRecords = 12345;
-            component = getComponent(mockedInputList);
+      it("doesn't show tabs", function() {
+        component = getComponent(mockedViewInput)
 
-            expect(component.find('.qa-tabs li:nth-child(1)').text().trim()).toBe('BAG Adressen');
-            expect(component.find('.qa-tabs li:nth-child(2)').text().trim()).toBe('HR Vestigingen');
+        expect(component.find('.qa-tabs').length).toBe(0)
+      })
+    })
+  })
 
-            // When BAG is active
-            mockedInputList.dataset = 'bag';
-            component = getComponent(mockedInputList);
+  describe('in LIST view', () => {
+    it('shows the buttons and title', () => {
+      component = getComponent(mockedInputList)
 
-            expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain('BAG Adressen');
-            expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain(' (12.345)');
-            expect(component.find('.qa-tabs li:nth-child(2)').text().trim()).toBe('HR Vestigingen');
-        });
+      expect(component.find('.qa-buttons').length).toBe(1)
+      expect(component.find('.qa-title').length).toBe(1)
+    })
 
-        it('it does not show the number of results in the tab heading when not available', () => {
-            mockedInputList.numberOfRecords = null;
-            component = getComponent(mockedInputList);
+    it('shows the tabs', function() {
+      component = getComponent(mockedInputList)
 
-            expect(component.find('.qa-tabs li:nth-child(1)').text().trim()).toBe('BAG Adressen');
-            expect(component.find('.qa-tabs li:nth-child(2)').text().trim()).toBe('HR Vestigingen');
-        });
-    });
-});
+      expect(component.find('.qa-tabs').length).toBe(1)
+    })
+  })
+
+  describe('the tabs in LIST view', () => {
+    it('use the TITLE_TAB values from DATA_SELECTION_CONFIG', () => {
+      component = getComponent(mockedInputList)
+
+      expect(
+        component
+          .find('.qa-tabs li:nth-child(1)')
+          .text()
+          .trim(),
+      ).toBe('BAG Adressen')
+      expect(
+        component
+          .find('.qa-tabs li:nth-child(2)')
+          .text()
+          .trim(),
+      ).toContain('HR Vestigingen')
+    })
+
+    it('inactive tabs are links to the first page of other datasets', () => {
+      mockedInputList.dataset = 'hr'
+      mockedInputList.state.page = 123
+      component = getComponent(mockedInputList)
+
+      component
+        .find('.qa-tabs li:nth-child(1) dp-link .o-tabs__tab--link')
+        .click()
+      expect(store.dispatch).toHaveBeenCalledWith(setDataset('bag'))
+    })
+
+    it('active tabs are just text (instead of a link)', () => {
+      mockedInputList.dataset = 'hr'
+      mockedInputList.state.page = 123
+      component = getComponent(mockedInputList)
+      expect(store.dispatch).not.toHaveBeenCalled()
+
+      expect(
+        component.find('.qa-tabs li:nth-child(2) dp-link .o-tabs__tab--text')
+          .length,
+      ).toBe(0)
+      expect(
+        component.find('.qa-tabs li:nth-child(2) .o-tabs__tab--active').length,
+      ).toBe(1)
+    })
+
+    it('shows the number of results in the tab heading for the active dataset', () => {
+      // It shows the number of results for the active tab only
+      mockedInputList.numberOfRecords = 12345
+      component = getComponent(mockedInputList)
+
+      expect(
+        component
+          .find('.qa-tabs li:nth-child(1)')
+          .text()
+          .trim(),
+      ).toBe('BAG Adressen')
+      expect(
+        component
+          .find('.qa-tabs li:nth-child(2)')
+          .text()
+          .trim(),
+      ).toBe('HR Vestigingen')
+
+      // When BAG is active
+      mockedInputList.dataset = 'bag'
+      component = getComponent(mockedInputList)
+
+      expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain(
+        'BAG Adressen',
+      )
+      expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain(
+        ' (12.345)',
+      )
+      expect(
+        component
+          .find('.qa-tabs li:nth-child(2)')
+          .text()
+          .trim(),
+      ).toBe('HR Vestigingen')
+    })
+
+    it('it does not show the number of results in the tab heading when not available', () => {
+      mockedInputList.numberOfRecords = null
+      component = getComponent(mockedInputList)
+
+      expect(
+        component
+          .find('.qa-tabs li:nth-child(1)')
+          .text()
+          .trim(),
+      ).toBe('BAG Adressen')
+      expect(
+        component
+          .find('.qa-tabs li:nth-child(2)')
+          .text()
+          .trim(),
+      ).toBe('HR Vestigingen')
+    })
+  })
+})

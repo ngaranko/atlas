@@ -11,7 +11,8 @@ exports[`NoDetailsAvailable should render everything 1`] = `
     size=""
     type="warning"
   >
-    Geen details beschikbaar van: 
+    Geen details beschikbaar van:
+     
   </Panel>
 </div>
 `;

@@ -6,6 +6,7 @@ exports[`Hotspot should render 1`] = `
 >
   <button
     className="c-hotspot c-hotspot--year-2020 qa-hotspot-button"
+    type="button"
   >
     <div
       className="qa-hotspot-rotation"

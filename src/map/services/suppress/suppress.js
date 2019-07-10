@@ -1,10 +1,10 @@
-let suppressing = false;
+let suppressing = false
 
-export const isBusy = () => suppressing;
+export const isBusy = () => suppressing
 
 export const start = (period = 100) => {
-  suppressing = true;
+  suppressing = true
   window.setTimeout(() => {
-    suppressing = false;
-  }, period);
-};
+    suppressing = false
+  }, period)
+}

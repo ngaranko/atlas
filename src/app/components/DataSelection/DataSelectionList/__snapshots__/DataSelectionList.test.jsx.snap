@@ -10,6 +10,7 @@ exports[`DataSelectionList should render without failing 1`] = `
     <button
       className="o-btn o-btn--link"
       onClick={[Function]}
+      type="button"
     >
       <DataSelectionFormatter
         useInline={true}

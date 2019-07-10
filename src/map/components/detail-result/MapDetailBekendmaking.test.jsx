@@ -1,7 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from 'react'
+import { shallow } from 'enzyme'
 
-import MapDetailBekendmaking from './MapDetailBekendmaking';
+import MapDetailBekendmaking from './MapDetailBekendmaking'
 
 describe('MapDetailBekendmaking', () => {
   it('should render everything', () => {
@@ -11,18 +11,17 @@ describe('MapDetailBekendmaking', () => {
       url: 'https://bekendmaking/link',
       label: 'Bekendmaking label',
       categorie: 'test categorie',
-      onderwerp: 'test onderwerp'
-
-    };
-    const clickHandler = jest.fn();
+      onderwerp: 'test onderwerp',
+    }
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailBekendmaking
         panoUrl="panoUrl"
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}
         bekendmaking={bekendmaking}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-});
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+})

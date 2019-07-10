@@ -1,35 +1,31 @@
 import {
-    preserveQuery,
-    toDatasetsWithFilter
-} from '../../../../src/store/redux-first-router/actions';
-import PARAMETERS from '../../../../src/store/parameters';
+  preserveQuery,
+  toDatasetsWithFilter,
+} from '../../../../src/store/redux-first-router/actions'
+import PARAMETERS from '../../../../src/store/parameters'
+;(function() {
+  angular.module('dpPage').component('dpCatalogusThemes', {
+    templateUrl:
+      'modules/page/components/catalogus-themes/catalogus-themes.html',
+    controller: DpCatalogusThemes,
+    controllerAs: 'vm',
+  })
 
-(function () {
-    'use strict';
+  DpCatalogusThemes.$inject = ['CATALOGUS_THEMES_CONFIG']
 
-    angular
-        .module('dpPage')
-        .component('dpCatalogusThemes', {
-            templateUrl: 'modules/page/components/catalogus-themes/catalogus-themes.html',
-            controller: DpCatalogusThemes,
-            controllerAs: 'vm'
-        });
+  function DpCatalogusThemes(CATALOGUS_THEMES_CONFIG) {
+    const vm = this
 
-    DpCatalogusThemes.$inject = ['CATALOGUS_THEMES_CONFIG'];
+    vm.themes = CATALOGUS_THEMES_CONFIG.map(theme => {
+      const linkTo = preserveQuery(toDatasetsWithFilter(), {
+        [PARAMETERS.FILTERS]: { groups: theme.slug },
+      })
+      return {
+        ...theme,
+        linkTo,
+      }
+    })
 
-    function DpCatalogusThemes (CATALOGUS_THEMES_CONFIG) {
-        const vm = this;
-
-        vm.themes = CATALOGUS_THEMES_CONFIG.map(theme => {
-            const linkTo = preserveQuery(toDatasetsWithFilter(), {
-                [PARAMETERS.FILTERS]: { groups: theme.slug }
-            });
-            return {
-                ...theme,
-                linkTo
-            };
-        });
-
-        vm.themesPerColumn = Math.ceil(vm.themes.length / 2);
-    }
-})();
+    vm.themesPerColumn = Math.ceil(vm.themes.length / 2)
+  }
+})()

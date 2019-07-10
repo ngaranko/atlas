@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const TabBar = ({
   numberOfDataResults,
@@ -7,21 +7,25 @@ const TabBar = ({
   goToDatasets,
   searchQuery,
   children,
-  showDatasetsButton
+  showDatasetsButton,
 }) => (
   <div>
     <h1 className="qa-tab-header__title c-tab-header__title">
       {(numberOfDataResults !== 0 || numberOfDatasetResults !== 0) && (
         <span className="c-tab-header__title__text">
-          Resultaten met &apos;{searchQuery}&apos;
+          Resultaten met &apos;
+          {searchQuery}
+          &apos;
         </span>
       )}
-      {(numberOfDataResults === 0 && numberOfDatasetResults === 0) && (
+      {numberOfDataResults === 0 && numberOfDatasetResults === 0 && (
         <span className="c-tab-header__title__text">
-          Geen resultaten met &apos;{searchQuery}&apos;
+          Geen resultaten met &apos;
+          {searchQuery}
+          &apos;
         </span>
       )}
-      {(showDatasetsButton) && (
+      {showDatasetsButton && (
         <button
           onClick={goToDatasets}
           type="button"
@@ -33,12 +37,12 @@ const TabBar = ({
     </h1>
     {children}
   </div>
-);
+)
 
 TabBar.defaultProps = {
   showDatasetsButton: false,
-  children: null
-};
+  children: null,
+}
 
 TabBar.propTypes = {
   searchQuery: PropTypes.string.isRequired,
@@ -46,7 +50,7 @@ TabBar.propTypes = {
   children: PropTypes.node,
   showDatasetsButton: PropTypes.bool,
   numberOfDataResults: PropTypes.number.isRequired,
-  numberOfDatasetResults: PropTypes.number.isRequired
-};
+  numberOfDatasetResults: PropTypes.number.isRequired,
+}
 
-export default TabBar;
+export default TabBar

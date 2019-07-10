@@ -1,35 +1,46 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { ReactComponent as ChevronTop } from '@datapunt/asc-assets/lib/Icons/ChevronTop.svg';
-import MapLayers from '../../components/layers/MapLayers';
-import MapLegend from '../../components/legend/MapLegend';
-import MapPanelHandle from '../../components/panel-handle/MapPanelHandle';
-import MapType from '../../components/type/MapType';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { ReactComponent as ChevronTop } from '@datapunt/asc-assets/lib/Icons/ChevronTop.svg'
+import MapLayers from '../../components/layers/MapLayers'
+import MapLegend from '../../components/legend/MapLegend'
+import MapPanelHandle from '../../components/panel-handle/MapPanelHandle'
+import MapType from '../../components/type/MapType'
 
 class MapPanel extends React.Component {
   componentDidUpdate(prevProps) {
-    const {
-      isMapPanelVisible,
-      overlays
-    } = this.props;
+    const { isMapPanelVisible, overlays } = this.props
 
     if (isMapPanelVisible && prevProps.overlays.length < overlays.length) {
-      const scrollElement = document.querySelector('.map-panel .map-legend');
-      scrollElement.scrollIntoView({ behavior: 'smooth' });
+      const scrollElement = document.querySelector('.map-panel .map-legend')
+      scrollElement.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
   render() {
     const {
-      isMapPanelVisible, activeBaseLayer, mapBaseLayers, onBaseLayerToggle, mapLayers,
-      onMapPanelHandleToggle, activeMapLayers, onMapPanelToggle, onLayerToggle,
-      onLayerVisibilityToggle, overlays, user, isPrint, zoomLevel,
-      isMapPanelHandleVisible: mapPanelHandleVisisble
-    } = this.props;
+      isMapPanelVisible,
+      activeBaseLayer,
+      mapBaseLayers,
+      onBaseLayerToggle,
+      mapLayers,
+      onMapPanelHandleToggle,
+      activeMapLayers,
+      onMapPanelToggle,
+      onLayerToggle,
+      onLayerVisibilityToggle,
+      overlays,
+      user,
+      isPrint,
+      zoomLevel,
+      isMapPanelHandleVisible: mapPanelHandleVisisble,
+    } = this.props
     return (
       <section
-        aria-label={isMapPanelVisible ? 'Kaartlagen legenda, Kaartlagen verbergen' :
-          'Kaartlagen legenda, Kaartlagen tonen'}
+        aria-label={
+          isMapPanelVisible
+            ? 'Kaartlagen legenda, Kaartlagen verbergen'
+            : 'Kaartlagen legenda, Kaartlagen tonen'
+        }
         aria-expanded={isMapPanelVisible}
         className={`
           map-panel
@@ -39,17 +50,23 @@ class MapPanel extends React.Component {
       >
         <div className="map-panel__heading">
           <button
+            type="button"
             className="map-panel__toggle"
             onClick={onMapPanelToggle}
             title={isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
           >
             <span className="map-panel__heading-icon" />
-            <h2 className="map-panel__heading-title" aria-hidden="true">Kaartlagen</h2>
-            <span className={`
+            <h2 className="map-panel__heading-title" aria-hidden="true">
+              Kaartlagen
+            </h2>
+            <span
+              className={`
               map-panel__toggle--icon
-              map-panel__toggle--icon-${this.props.isMapPanelVisible ? 'collapse' : 'expand'}
+              map-panel__toggle--icon-${isMapPanelVisible ? 'collapse' : 'expand'}
             `}
-            ><ChevronTop /></span>
+            >
+              <ChevronTop />
+            </span>
           </button>
         </div>
         <div className="scroll-wrapper">
@@ -81,7 +98,7 @@ class MapPanel extends React.Component {
           </MapPanelHandle>
         </div>
       </section>
-    );
+    )
   }
 }
 
@@ -92,8 +109,8 @@ MapPanel.defaultProps = {
   mapBaseLayers: {},
   mapLayers: [],
   user: {},
-  zoomLevel: 0
-};
+  zoomLevel: 0,
+}
 
 MapPanel.propTypes = {
   activeBaseLayer: PropTypes.string.isRequired,
@@ -111,7 +128,7 @@ MapPanel.propTypes = {
   onMapPanelToggle: PropTypes.func.isRequired,
   overlays: PropTypes.arrayOf(PropTypes.object).isRequired,
   user: PropTypes.shape({}),
-  zoomLevel: PropTypes.number
-};
+  zoomLevel: PropTypes.number,
+}
 
-export default MapPanel;
+export default MapPanel

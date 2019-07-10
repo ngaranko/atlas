@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import './IconButton.scss';
+import './IconButton.scss'
 
 const IconButton = ({ title, icon, onClick, alignLeft, extraClass }) => (
   <button
     type="button"
     title={title}
-    className={`icon-button icon-button${(alignLeft) ? '__left' : '__right'} ${extraClass}`}
+    className={`icon-button icon-button${alignLeft ? '__left' : '__right'} ${extraClass}`}
     onClick={onClick}
   >
     <span
@@ -17,19 +17,19 @@ const IconButton = ({ title, icon, onClick, alignLeft, extraClass }) => (
       `}
     />
   </button>
-);
+)
 
 IconButton.defaultProps = {
   alignLeft: false,
-  extraClass: ''
-};
+  extraClass: '',
+}
 
 IconButton.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   alignLeft: PropTypes.bool,
-  extraClass: PropTypes.string
-};
+  extraClass: PropTypes.string,
+}
 
-export default IconButton;
+export default IconButton

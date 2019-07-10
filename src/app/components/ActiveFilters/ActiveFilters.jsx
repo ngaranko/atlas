@@ -1,14 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-const ActiveFilters = ({ removeFilter, filters }) => (
-  filters && filters.length ?
+const ActiveFilters = ({ removeFilter, filters }) =>
+  filters && filters.length ? (
     <div className="qa-active-filters c-data-selection-active-filters">
       <ul className="c-data-selection-active-filters__list">
         {filters.map(({ slug, label, option }) => (
           <li key={slug} className="c-data-selection-active-filters__listitem">
             <span>
-              {label}: {option}
+              {label}
+:
+              {option}
             </span>
 
             <button
@@ -22,12 +24,14 @@ const ActiveFilters = ({ removeFilter, filters }) => (
           </li>
         ))}
       </ul>
-    </div> : ''
-);
+    </div>
+  ) : (
+    ''
+  )
 
 ActiveFilters.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.object).isRequired,
-  removeFilter: PropTypes.func.isRequired
-};
+  removeFilter: PropTypes.func.isRequired,
+}
 
-export default ActiveFilters;
+export default ActiveFilters

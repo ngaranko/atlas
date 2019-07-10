@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import {
   getActiveSuggestions,
@@ -8,21 +8,21 @@ import {
   getNumberOfSuggestions,
   getSuggestionsAction,
   getTypedQuery,
-  setActiveSuggestionAction
-} from '../../ducks/auto-suggest/auto-suggest';
-import { emptyFilters } from '../../../shared/ducks/filters/filters';
+  setActiveSuggestionAction,
+} from '../../ducks/auto-suggest/auto-suggest'
+import { emptyFilters } from '../../../shared/ducks/filters/filters'
 import {
   toDataSearchQuery,
   toDatasetDetail,
   toDatasetSearch,
-  toDataSuggestion
-} from '../../../store/redux-first-router/actions';
-import { isDatasetPage } from '../../../store/redux-first-router/selectors';
-import PARAMETERS from '../../../store/parameters';
-import { getViewMode, isMapPage } from '../../../shared/ducks/ui/ui';
-import HeaderSearch from './HeaderSearch';
+  toDataSuggestion,
+} from '../../../store/redux-first-router/actions'
+import { isDatasetPage } from '../../../store/redux-first-router/selectors'
+import PARAMETERS from '../../../store/parameters'
+import { getViewMode, isMapPage } from '../../../shared/ducks/ui/ui'
+import HeaderSearch from './HeaderSearch'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   activeSuggestion: getActiveSuggestions(state),
   displayQuery: getDisplayQuery(state),
   isDatasetView: isDatasetPage(state),
@@ -30,26 +30,49 @@ const mapStateToProps = (state) => ({
   isMapActive: isMapPage(state),
   numberOfSuggestions: getNumberOfSuggestions(state),
   pageName: state.page ? state.page.name : '',
-  prefillQuery: state.search ? state.search.query : state.dataSelection ? state.dataSelection.query : '',
+  prefillQuery: state.search ?
+    state.search.query :
+    state.dataSelection ?
+    state.dataSelection.query :
+    '',
   suggestions: getAutoSuggestSuggestions(state),
-  typedQuery: getTypedQuery(state)
-});
+  typedQuery: getTypedQuery(state),
+})
 
-const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({
-    onCleanDatasetOverview: emptyFilters,
-    onGetSuggestions: getSuggestionsAction,
-    onSuggestionActivate: setActiveSuggestionAction
-  }, dispatch),
-  onDatasetSearch: (query) => dispatch(toDatasetSearch({
-    [PARAMETERS.QUERY]: query
-  }, false, true)),
-  onDataSearch: (query) => dispatch(toDataSearchQuery({
-    [PARAMETERS.QUERY]: query
-  }, false, true)),
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(
+    {
+      onCleanDatasetOverview: emptyFilters,
+      onGetSuggestions: getSuggestionsAction,
+      onSuggestionActivate: setActiveSuggestionAction,
+    },
+    dispatch,
+  ),
+  onDatasetSearch: query =>
+    dispatch(
+      toDatasetSearch(
+        {
+          [PARAMETERS.QUERY]: query,
+        },
+        false,
+        true,
+      ),
+    ),
+  onDataSearch: query =>
+    dispatch(
+      toDataSearchQuery(
+        {
+          [PARAMETERS.QUERY]: query,
+        },
+        false,
+        true,
+      ),
+    ),
   openDataSuggestion: (suggestion, view) => dispatch(toDataSuggestion(suggestion, view)),
-  openDatasetSuggestion: (suggestion) => dispatch(toDatasetDetail(suggestion))
-});
+  openDatasetSuggestion: suggestion => dispatch(toDatasetDetail(suggestion)),
+})
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearch);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HeaderSearch)

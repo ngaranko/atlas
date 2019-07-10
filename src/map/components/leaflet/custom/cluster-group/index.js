@@ -1,3 +1,3 @@
-import ClusterGroup from './ClusterGroup';
+import ClusterGroup from './ClusterGroup'
 
-export default ClusterGroup;
+export default ClusterGroup

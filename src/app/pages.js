@@ -28,12 +28,12 @@ const PAGES = {
   MANAGEMENT: 'MANAGEMENT',
   STATISTICS: 'STATISTICS',
   MOVED: 'MOVED',
-  NOT_FOUND: 'NOT_FOUND'
-};
+  NOT_FOUND: 'NOT_FOUND',
+}
 
-export default PAGES;
+export default PAGES
 
-export const isCmsPage = (page) =>
+export const isCmsPage = page =>
   page === PAGES.NEWS ||
   page === PAGES.HELP ||
   page === PAGES.ACTUALITEIT ||
@@ -48,4 +48,4 @@ export const isCmsPage = (page) =>
   page === PAGES.LOGIN ||
   page === PAGES.MOVED ||
   page === PAGES.NOT_FOUND ||
-  page === PAGES.MANAGEMENT;
+  page === PAGES.MANAGEMENT

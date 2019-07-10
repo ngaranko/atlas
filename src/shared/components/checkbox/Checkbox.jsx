@@ -1,64 +1,69 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import './_checkbox.scss';
+import './_checkbox.scss'
 
 class Checkbox extends React.Component {
   static evaluateChecked(checked) {
     if (typeof checked === 'function') {
-      return !!checked();
+      return !!checked()
     }
-    return !!checked;
+    return !!checked
   }
 
   constructor(props) {
-    super(props);
+    super(props)
 
+    const { checked } = this.props
     this.state = {
-      checked: Checkbox.evaluateChecked(this.props.checked)
-    };
+      checked: Checkbox.evaluateChecked(checked),
+    }
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      checked: Checkbox.evaluateChecked(nextProps.checked)
-    });
+      checked: Checkbox.evaluateChecked(nextProps.checked),
+    })
   }
 
   handleChange(event) {
+    const { onChange } = this.props
+    const { checked } = this.state
     this.setState({
-      checked: !this.state.checked
-    });
-    this.props.onChange(event);
+      checked: !checked,
+    })
+    onChange(event)
   }
 
   render() {
+    const { name } = this.props
+    const { checked } = this.state
     return (
       <span className="checkbox">
         <input
-          checked={this.state.checked}
-          name={this.props.name}
-          aria-label={this.props.name}
+          checked={checked}
+          name={name}
+          aria-label={name}
           onChange={this.handleChange}
           type="checkbox"
         />
       </span>
-    );
+    )
   }
 }
 
 /* istanbul ignore next */
 Checkbox.defaultProps = {
   checked: false,
-  onChange: () => {}
-};
+  onChange: () => {},
+}
 
 Checkbox.propTypes = {
   checked: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func
-};
+  onChange: PropTypes.func,
+}
 
-export default Checkbox;
+export default Checkbox

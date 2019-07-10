@@ -1,19 +1,19 @@
-import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import Panel from '../../Panel/Panel';
+import React from 'react'
+import classNames from 'classnames'
+import PropTypes from 'prop-types'
+import Panel from '../../Panel/Panel'
 
 const ErrorMessage = ({ hasMaxWidth, isHomePage, dismissError, errorMessage }) => (
   <div className="c-dashboard__error">
     <div
       className={`u-background-color__primary--light ${classNames({
-        'o-max-width': hasMaxWidth
+        'o-max-width': hasMaxWidth,
       })}`}
     >
       <div
         className={classNames({
           'o-max-width__inner': hasMaxWidth,
-          'u-gutter': isHomePage
+          'u-gutter': isHomePage,
         })}
       >
         <div className="c-api-error__panel">
@@ -26,29 +26,26 @@ const ErrorMessage = ({ hasMaxWidth, isHomePage, dismissError, errorMessage }) =
             closeAction={dismissError}
           >
             <div className="c-api-error__panel-text">
-              <span className="qa-api-general-error">
-                {errorMessage}
-              </span>
+              <span className="qa-api-general-error">{errorMessage}</span>
             </div>
           </Panel>
         </div>
       </div>
     </div>
   </div>
-);
+)
 
 ErrorMessage.defaultProps = {
   hasMaxWidth: false,
   isHomePage: false,
-  dismissError: () => {
-  }
-};
+  dismissError: () => {},
+}
 
 ErrorMessage.propTypes = {
   dismissError: PropTypes.func,
   hasMaxWidth: PropTypes.bool,
   isHomePage: PropTypes.bool,
-  errorMessage: PropTypes.string.isRequired
-};
+  errorMessage: PropTypes.string.isRequired,
+}
 
-export default ErrorMessage;
+export default ErrorMessage

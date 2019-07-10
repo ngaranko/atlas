@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import MapDetailResultItem, { MapDetailResultStatusItem } from '../MapDetailResultItem';
-import MapDetailResultWrapper from '../MapDetailResultWrapper';
-import Notification from '../../../../shared/components/notification/Notification';
+import MapDetailResultItem, { MapDetailResultStatusItem } from '../MapDetailResultItem'
+import MapDetailResultWrapper from '../MapDetailResultWrapper'
+import Notification from '../../../../shared/components/notification/Notification'
 
 const statusToCssModifier = {
   24: 'info',
@@ -14,11 +14,11 @@ const statusToCssModifier = {
   29: 'info',
   30: '',
   31: '',
-  32: 'info'
-};
+  32: 'info',
+}
 
 const MapDetailAdressenPand = ({ panoUrl, pand, onMaximize, onPanoPreviewClick }) => {
-  const statusLevel = statusToCssModifier[pand.status.code];
+  const statusLevel = statusToCssModifier[pand.status.code]
   return (
     <MapDetailResultWrapper
       panoUrl={panoUrl}
@@ -28,20 +28,15 @@ const MapDetailAdressenPand = ({ panoUrl, pand, onMaximize, onPanoPreviewClick }
       title="Pand"
     >
       <ul className="map-detail-result__list">
-        {statusLevel && <li className="map-detail-result__notification">
-          <Notification
-            level={statusLevel}
-            canClose={false}
-          >{pand.status.description}</Notification>
-        </li>}
-        <MapDetailResultItem
-          label="Oorspronkelijk bouwjaar"
-          value={pand.year || 'onbekend'}
-        />
-        <MapDetailResultItem
-          label="Naam"
-          value={pand.name}
-        />
+        {statusLevel && (
+          <li className="map-detail-result__notification">
+            <Notification level={statusLevel} canClose={false}>
+              {pand.status.description}
+            </Notification>
+          </li>
+        )}
+        <MapDetailResultItem label="Oorspronkelijk bouwjaar" value={pand.year || 'onbekend'} />
+        <MapDetailResultItem label="Naam" value={pand.name} />
         <MapDetailResultStatusItem
           label="Status"
           value={pand.status.description}
@@ -49,22 +44,22 @@ const MapDetailAdressenPand = ({ panoUrl, pand, onMaximize, onPanoPreviewClick }
         />
       </ul>
     </MapDetailResultWrapper>
-  );
-};
+  )
+}
 
 MapDetailAdressenPand.propTypes = {
   pand: PropTypes.shape({
     label: PropTypes.string,
     status: PropTypes.shape({
       description: PropTypes.string,
-      code: PropTypes.string
+      code: PropTypes.string,
     }).isRequired,
     name: PropTypes.string,
-    year: PropTypes.string
+    year: PropTypes.string,
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailAdressenPand;
+export default MapDetailAdressenPand

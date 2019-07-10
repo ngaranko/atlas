@@ -21,5 +21,5 @@ export default {
   LOCATION: 'locatie',
   MARKER: 'marker',
   MARKER_ICON: 'marker-icon',
-  MAP_LINK: 'map-link'
-};
+  MAP_LINK: 'map-link',
+}

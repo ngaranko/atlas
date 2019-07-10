@@ -8,6 +8,7 @@ exports[`ToggleDrawing should render with drawing mode draw and 3 markers showin
     "
   onClick={[Function]}
   title="Eindig meten en intekenen"
+  type="button"
 >
   <span
     className="toggle-drawing__icon"
@@ -28,6 +29,7 @@ exports[`ToggleDrawing should render with drawing mode none and 3 markers showin
     "
   onClick={[Function]}
   title="Opnieuw meten en intekenen"
+  type="button"
 >
   <span
     className="toggle-drawing__icon"
@@ -48,6 +50,7 @@ exports[`ToggleDrawing should render with drawing mode none and no markers 1`] =
     "
   onClick={[Function]}
   title="Begin meten en intekenen"
+  type="button"
 >
   <span
     className="toggle-drawing__icon"

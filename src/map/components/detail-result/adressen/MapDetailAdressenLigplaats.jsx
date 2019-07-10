@@ -1,16 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { MapDetailResultStatusItem } from '../MapDetailResultItem';
-import MapDetailResultWrapper from '../MapDetailResultWrapper';
-import Notification from '../../../../shared/components/notification/Notification';
+import { MapDetailResultStatusItem } from '../MapDetailResultItem'
+import MapDetailResultWrapper from '../MapDetailResultWrapper'
+import Notification from '../../../../shared/components/notification/Notification'
 
-const MapDetailAdressenLigplaats = ({
-  panoUrl,
-  ligplaats,
-  onMaximize,
-  onPanoPreviewClick
-}) => (
+const MapDetailAdressenLigplaats = ({ panoUrl, ligplaats, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
     onMaximize={onMaximize}
     onPanoPreviewClick={onPanoPreviewClick}
@@ -19,18 +14,20 @@ const MapDetailAdressenLigplaats = ({
     title="Adres (ligplaats)"
   >
     <ul className="map-detail-result__list">
-      {ligplaats.indicatieGeconstateerd && <li className="map-detail-result__notification">
-        <Notification
-          level="alert"
-          canClose={false}
-        >Indicatie geconstateerd</Notification>
-      </li>}
-      {ligplaats.aanduidingInOnderzoek && <li className="map-detail-result__notification">
-        <Notification
-          level="alert"
-          canClose={false}
-        >In onderzoek</Notification>
-      </li>}
+      {ligplaats.indicatieGeconstateerd && (
+        <li className="map-detail-result__notification">
+          <Notification level="alert" canClose={false}>
+            Indicatie geconstateerd
+          </Notification>
+        </li>
+      )}
+      {ligplaats.aanduidingInOnderzoek && (
+        <li className="map-detail-result__notification">
+          <Notification level="alert" canClose={false}>
+            In onderzoek
+          </Notification>
+        </li>
+      )}
       <MapDetailResultStatusItem
         label="Indicatie geconstateerd"
         value={ligplaats.indicatieGeconstateerd ? 'Ja' : 'Nee'}
@@ -43,17 +40,17 @@ const MapDetailAdressenLigplaats = ({
       />
     </ul>
   </MapDetailResultWrapper>
-);
+)
 
 MapDetailAdressenLigplaats.propTypes = {
   ligplaats: PropTypes.shape({
-    aanduidingInOnderzoek: PropTypes.boolean,
-    indicatieGeconstateerd: PropTypes.boolean,
-    label: PropTypes.string
+    aanduidingInOnderzoek: PropTypes.bool,
+    indicatieGeconstateerd: PropTypes.bool,
+    label: PropTypes.string,
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailAdressenLigplaats;
+export default MapDetailAdressenLigplaats

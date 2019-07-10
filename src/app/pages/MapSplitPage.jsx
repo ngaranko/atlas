@@ -1,93 +1,96 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import MapContainer from '../../map/containers/map/MapContainer';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import MapContainer from '../../map/containers/map/MapContainer'
 
-import { getDetailEndpoint, shouldShowFullScreen } from '../../shared/ducks/detail/selectors';
-import { toDetailFromEndpoint as endpointActionCreator } from '../../store/redux-first-router/actions';
-import SplitScreen from '../components/SplitScreen/SplitScreen';
-import DataSelection from '../components/DataSelection/DataSelectionContainer';
-import { getSelectionType } from '../../shared/ducks/selection/selection';
+import { getDetailEndpoint, shouldShowFullScreen } from '../../shared/ducks/detail/selectors'
+import { toDetailFromEndpoint as endpointActionCreator } from '../../store/redux-first-router/actions'
+import SplitScreen from '../components/SplitScreen/SplitScreen'
+import DataSelection from '../components/DataSelection/DataSelectionContainer'
+import { getSelectionType } from '../../shared/ducks/selection/selection'
 import {
   getViewMode,
   isPrintMode,
   setViewMode as setViewModeAction,
-  VIEW_MODE
-} from '../../shared/ducks/ui/ui';
-import { getPage } from '../../store/redux-first-router/selectors';
-import PAGES from '../pages';
+  VIEW_MODE,
+} from '../../shared/ducks/ui/ui'
+import { getPage } from '../../store/redux-first-router/selectors'
+import PAGES from '../pages'
 
-const DetailContainer = React.lazy(() => import('../containers/DetailContainer/DetailContainer'));
-const LocationSearchContainer = React.lazy(() => import('../components/LocationSearch/LocationSearchContainer'));
-const PanoramaContainer = React.lazy(() => import('../../panorama/containers/PanoramaContainer'));
+const DetailContainer = React.lazy(() => import('../containers/DetailContainer/DetailContainer'))
+const LocationSearchContainer = React.lazy(() =>
+  import('../components/LocationSearch/LocationSearchContainer'),
+)
+const PanoramaContainer = React.lazy(() => import('../../panorama/containers/PanoramaContainer')) // TODO: refactor, test
 
-/* istanbul ignore next */ // TODO: refactor, test
-const MapSplitPage = ({
+/* istanbul ignore next */ const MapSplitPage = ({
   hasSelection,
   currentPage,
   setViewMode,
   viewMode,
   forceFullScreen,
-  printMode
+  printMode,
 }) => {
-  let mapProps = {};
-  let Component = null;
+  let mapProps = {}
+  let Component = null
   switch (currentPage) {
     case PAGES.DATA_DETAIL:
-      Component = <DetailContainer />;
+      Component = <DetailContainer />
       mapProps = {
-        showPreviewPanel: hasSelection
-      };
+        showPreviewPanel: hasSelection,
+      }
 
-      break;
+      break
 
     case PAGES.DATA:
       mapProps = {
-        showPreviewPanel: false
-      };
+        showPreviewPanel: false,
+      }
 
-      break;
+      break
 
     case PAGES.PANORAMA:
-      Component = <PanoramaContainer isFullscreen={viewMode === VIEW_MODE.FULL} />;
+      Component = <PanoramaContainer isFullscreen={viewMode === VIEW_MODE.FULL} />
       mapProps = {
         isFullscreen: true,
-        toggleFullscreen: () => setViewMode(VIEW_MODE.SPLIT)
-      };
+        toggleFullscreen: () => setViewMode(VIEW_MODE.SPLIT),
+      }
 
-      break;
+      break
 
     case PAGES.DATA_GEO_SEARCH:
-      Component = <LocationSearchContainer />;
+      Component = <LocationSearchContainer />
       mapProps = {
-        showPreviewPanel: true
-      };
+        showPreviewPanel: true,
+      }
 
-      break;
+      break
 
     case PAGES.ADDRESSES:
     case PAGES.ESTABLISHMENTS:
     case PAGES.CADASTRAL_OBJECTS:
-      Component = <DataSelection />;
+      Component = <DataSelection />
       mapProps = {
-        toggleFullscreen: () => setViewMode(VIEW_MODE.SPLIT)
-      };
+        toggleFullscreen: () => setViewMode(VIEW_MODE.SPLIT),
+      }
 
-      break;
+      break
 
     default:
       mapProps = {
-        showPreviewPanel: true
-      };
+        showPreviewPanel: true,
+      }
   }
 
   if (viewMode === VIEW_MODE.MAP && !forceFullScreen) {
-    return <MapContainer {...mapProps} />;
-  } else if (Component) {
+    return <MapContainer {...mapProps} />
+  }
+  if (Component) {
     if (viewMode === VIEW_MODE.FULL || forceFullScreen) {
-      return Component;
-    } else if (viewMode === VIEW_MODE.SPLIT) {
+      return Component
+    }
+    if (viewMode === VIEW_MODE.SPLIT) {
       return (
         <SplitScreen
           leftComponent={(
@@ -95,30 +98,34 @@ const MapSplitPage = ({
               isFullscreen={false}
               toggleFullscreen={() => setViewMode(VIEW_MODE.MAP)}
             />
-          )}
+)}
           rightComponent={Component}
           printMode={printMode}
         />
-      );
+      )
     }
   }
 
-  return null;
-};
+  return null
+}
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   forceFullScreen: shouldShowFullScreen(state),
   endpoint: getDetailEndpoint(state),
   hasSelection: !!getSelectionType(state),
   viewMode: getViewMode(state),
   currentPage: getPage(state),
-  printMode: isPrintMode(state)
-});
+  printMode: isPrintMode(state),
+})
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  getPageActionEndpoint: endpointActionCreator,
-  setViewMode: setViewModeAction
-}, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getPageActionEndpoint: endpointActionCreator,
+      setViewMode: setViewModeAction,
+    },
+    dispatch,
+  )
 
 MapSplitPage.propTypes = {
   forceFullScreen: PropTypes.bool.isRequired,
@@ -126,7 +133,10 @@ MapSplitPage.propTypes = {
   setViewMode: PropTypes.func.isRequired,
   viewMode: PropTypes.string.isRequired,
   currentPage: PropTypes.string.isRequired,
-  printMode: PropTypes.bool.isRequired
-};
+  printMode: PropTypes.bool.isRequired,
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapSplitPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MapSplitPage)

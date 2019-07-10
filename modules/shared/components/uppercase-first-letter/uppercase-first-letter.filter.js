@@ -1,13 +1,11 @@
-(function () {
-    'use strict';
+;(function() {
+  angular
+    .module('dpShared')
+    .filter('dpUppercaseFirstLetter', dpUppercaseFirstLetterFilter)
 
-    angular
-        .module('dpShared')
-        .filter('dpUppercaseFirstLetter', dpUppercaseFirstLetterFilter);
-
-    function dpUppercaseFirstLetterFilter () {
-        return function (input) {
-            return input.substring(0, 1).toUpperCase() + input.substring(1);
-        };
+  function dpUppercaseFirstLetterFilter() {
+    return function(input) {
+      return input.substring(0, 1).toUpperCase() + input.substring(1)
     }
-})();
+  }
+})()

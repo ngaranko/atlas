@@ -1,29 +1,29 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import configureMockStore from 'redux-mock-store';
-import DatasetDetailContainer from './DatasetDetailContainer';
+import React from 'react'
+import { shallow } from 'enzyme'
+import configureMockStore from 'redux-mock-store'
+import DatasetDetailContainer from './DatasetDetailContainer'
 
 const initialState = {
   detail: {
-    isLoading: false
+    isLoading: false,
   },
   datasets: {
     datasetApiSpecification: {
-      data: {}
-    }
+      data: {},
+    },
   },
   user: {},
   location: {
     payload: {
-      id: 2
-    }
-  }
-};
+      id: 2,
+    },
+  },
+}
 
 describe('DatasetDetailContainer', () => {
   it('should render', () => {
-    const store = configureMockStore()({ ...initialState });
-    const component = shallow(<DatasetDetailContainer />, { context: { store } }).dive();
-    expect(component).toMatchSnapshot();
-  });
-});
+    const store = configureMockStore()({ ...initialState })
+    const component = shallow(<DatasetDetailContainer />, { context: { store } }).dive()
+    expect(component).toMatchSnapshot()
+  })
+})

@@ -18,6 +18,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
       disabled={true}
       onClick={[MockFunction]}
       title="Geen Panoramabeeld beschikbaar"
+      type="button"
     >
       <div
         className="map-search-results__header-container"
@@ -30,10 +31,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
         <h2
           className="map-search-results__header-subtitle"
         >
-          locatie 
-          1.12
-          , 
-          654.32
+          locatie 1.12, 654.32
         </h2>
       </div>
     </button>
@@ -103,6 +101,7 @@ exports[`MapSearchResults rendering should filter external monumenten on pand re
         className="map-search-results__button"
         onClick={[MockFunction]}
         title="Volledig weergeven"
+        type="button"
       >
         <span
           className="
@@ -135,6 +134,7 @@ exports[`MapSearchResults rendering should render empty results 1`] = `
       disabled={true}
       onClick={[MockFunction]}
       title="Geen Panoramabeeld beschikbaar"
+      type="button"
     >
       <div
         className="map-search-results__header-container"
@@ -147,10 +147,7 @@ exports[`MapSearchResults rendering should render empty results 1`] = `
         <h2
           className="map-search-results__header-subtitle"
         >
-          locatie 
-          1.12
-          , 
-          654.32
+          locatie 1.12, 654.32
         </h2>
       </div>
     </button>
@@ -168,6 +165,7 @@ exports[`MapSearchResults rendering should render empty results 1`] = `
         className="map-search-results__button"
         onClick={[MockFunction]}
         title="Volledig weergeven"
+        type="button"
       >
         <span
           className="
@@ -200,6 +198,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
       disabled={false}
       onClick={[MockFunction]}
       title="Panoramabeeld tonen"
+      type="button"
     >
       <img
         alt="Panoramabeeld"
@@ -219,10 +218,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
         <h2
           className="map-search-results__header-subtitle"
         >
-          locatie 
-          1.12
-          , 
-          654.32
+          locatie 1.12, 654.32
         </h2>
       </div>
     </button>
@@ -239,7 +235,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
           className=""
           level="info"
         >
-          Geen details beschikbaar van: 
+          Geen details beschikbaar van:
           Layer 1, Layer 2
         </Notification>
       </li>
@@ -285,6 +281,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
         className="map-search-results__button"
         onClick={[MockFunction]}
         title="Volledig weergeven"
+        type="button"
       >
         <span
           className="
@@ -317,6 +314,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
       disabled={false}
       onClick={[MockFunction]}
       title="Panoramabeeld tonen"
+      type="button"
     >
       <img
         alt="Panoramabeeld"
@@ -336,10 +334,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
         <h2
           className="map-search-results__header-subtitle"
         >
-          locatie 
-          1.12
-          , 
-          654.32
+          locatie 1.12, 654.32
         </h2>
       </div>
     </button>
@@ -392,6 +387,7 @@ exports[`MapSearchResults rendering should update results 1`] = `
         className="map-search-results__button"
         onClick={[MockFunction]}
         title="Volledig weergeven"
+        type="button"
       >
         <span
           className="
@@ -424,6 +420,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
       disabled={false}
       onClick={[MockFunction]}
       title="Panoramabeeld tonen"
+      type="button"
     >
       <img
         alt="Panoramabeeld"
@@ -443,10 +440,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
         <h2
           className="map-search-results__header-subtitle"
         >
-          locatie 
-          1.12
-          , 
-          654.32
+          locatie 1.12, 654.32
         </h2>
       </div>
     </button>
@@ -463,7 +457,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
           className=""
           level="info"
         >
-          Geen details beschikbaar van: 
+          Geen details beschikbaar van:
           Layer 3
         </Notification>
       </li>
@@ -526,6 +520,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
         className="map-search-results__button"
         onClick={[MockFunction]}
         title="Volledig weergeven"
+        type="button"
       >
         <span
           className="

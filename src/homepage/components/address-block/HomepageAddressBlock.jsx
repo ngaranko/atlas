@@ -1,34 +1,33 @@
-import React from 'react';
-import Link from 'redux-first-router-link';
+import React from 'react'
+import Link from 'redux-first-router-link'
 
-import HomepageBlock from '../block/HomepageBlock';
+import HomepageBlock from '../block/HomepageBlock'
 
-import { features } from '../../../shared/environment';
-import { routing } from '../../../app/routes';
-import { toAdresses, toDatasetsTableWithFilter } from '../../../store/redux-first-router/actions';
-import { DATASET_ROUTE_MAPPER, DATASETS } from '../../../shared/ducks/data-selection/constants';
-
+import { features } from '../../../shared/environment'
+import { routing } from '../../../app/routes'
+import { toAdresses, toDatasetsTableWithFilter } from '../../../store/redux-first-router/actions'
+import { DATASET_ROUTE_MAPPER, DATASETS } from '../../../shared/ducks/data-selection/constants'
 
 const BLOCK_ITEMS = {
   ADRESSEN: {
     label: 'Adressentabel',
     id: DATASETS.BAG,
     route: routing.addresses.type,
-    title: 'Bekijk Adressentabel'
+    title: 'Bekijk Adressentabel',
   },
   HANDELSREGISTER: {
     label: 'Handelsregister-tabel',
     id: DATASETS.HR,
     route: routing.establishments.type,
-    title: 'Bekijk handelsregister-tabel'
+    title: 'Bekijk handelsregister-tabel',
   },
   KADASTER: {
     label: 'Kadaster-tabel',
     id: DATASETS.BRK,
     route: routing.cadastralObjects.type,
-    title: 'Bekijk kadaster-tabel'
-  }
-};
+    title: 'Bekijk kadaster-tabel',
+  },
+}
 
 const HomepageAddressBlock = () => (
   <HomepageBlock
@@ -39,9 +38,10 @@ const HomepageAddressBlock = () => (
     blockIsLink={false}
   >
     <div className="homepage-block">
-      {Object.keys(BLOCK_ITEMS).map((key) => {
-        const extraClass = (key === 'KADASTER' && !features.eigendommen) ? 'homepage-block__item--invisible' : '';
-        const { label, id, title } = BLOCK_ITEMS[key];
+      {Object.keys(BLOCK_ITEMS).map(key => {
+        const extraClass =
+          key === 'KADASTER' && !features.eigendommen ? 'homepage-block__item--invisible' : ''
+        const { label, id, title } = BLOCK_ITEMS[key]
         return (
           <div key={key} className={`homepage-block__item ${extraClass}`}>
             <Link
@@ -50,15 +50,13 @@ const HomepageAddressBlock = () => (
               to={toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER[id])}
             >
               <span className={`homepage-block__icon homepage-block__icon--${id}`} />
-              <span className="homepage-block__label">
-                {label}
-              </span>
+              <span className="homepage-block__label">{label}</span>
             </Link>
           </div>
-        );
+        )
       })}
     </div>
   </HomepageBlock>
-);
+)
 
-export default HomepageAddressBlock;
+export default HomepageAddressBlock

@@ -11,45 +11,46 @@ const glob = Promise.promisify(require('glob'))
 const started = new Date()
 let numFailed = 0
 
-const SCRIPTS_FOLDER =  process.env.SCRIPTS_FOLDER || 'cypress/integration';
+const SCRIPTS_FOLDER = process.env.SCRIPTS_FOLDER || 'cypress/integration'
 
 return glob(SCRIPTS_FOLDER + '/**/*', {
   nodir: true,
   realpath: true,
 })
-.tap((specs) => {
-  console.log('Found ', specs.length, ' specs:\n\n', specs)
-})
-.each((spec) => {
-  console.log('\nRunning spec:', spec)
-
-  return cypress.run({
-    spec: spec,
-    config: {
-      integrationFolder: SCRIPTS_FOLDER
-    },
-    env: {
-      API_ROOT: process.env.API_ROOT,
-      USERNAME_EMPLOYEE: process.env.USERNAME_EMPLOYEE,
-      USERNAME_EMPLOYEE_PLUS: process.env.USERNAME_EMPLOYEE_PLUS,
-      PASSWORD_EMPLOYEE: process.env.PASSWORD_EMPLOYEE,
-      PASSWORD_EMPLOYEE_PLUS: process.env.PASSWORD_EMPLOYEE_PLUS
-    }
+  .tap(specs => {
+    console.log('Found ', specs.length, ' specs:\n\n', specs)
   })
-  .then((results) => {
-    numFailed += results.totalFailed
+  .each(spec => {
+    console.log('\nRunning spec:', spec)
+
+    return cypress
+      .run({
+        spec: spec,
+        config: {
+          integrationFolder: SCRIPTS_FOLDER,
+        },
+        env: {
+          API_ROOT: process.env.API_ROOT,
+          USERNAME_EMPLOYEE: process.env.USERNAME_EMPLOYEE,
+          USERNAME_EMPLOYEE_PLUS: process.env.USERNAME_EMPLOYEE_PLUS,
+          PASSWORD_EMPLOYEE: process.env.PASSWORD_EMPLOYEE,
+          PASSWORD_EMPLOYEE_PLUS: process.env.PASSWORD_EMPLOYEE_PLUS,
+        },
+      })
+      .then(results => {
+        numFailed += results.totalFailed
+      })
   })
-})
-.then(() => {
-  const duration = new Date() - started
+  .then(() => {
+    const duration = new Date() - started
 
-  console.log('\n--All Done--\n')
-  console.log('Total duration:', duration) // format this however you like
-  console.log('Exiting with final code:', numFailed)
+    console.log('\n--All Done--\n')
+    console.log('Total duration:', duration) // format this however you like
+    console.log('Exiting with final code:', numFailed)
 
-  process.exit(numFailed)
-})
-.catch((err) => {
-  console.error(err)
-  throw err
-})
+    process.exit(numFailed)
+  })
+  .catch(err => {
+    console.error(err)
+    throw err
+  })

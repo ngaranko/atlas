@@ -1,37 +1,32 @@
-import { navigateHomeAction } from '../../../../src/header/ducks/actions';
-import { routing } from '../../../../src/app/routes';
-import HEADER_SIZE from '../../../../src/header/services/header-size/header-size.constant';
+import { navigateHomeAction } from '../../../../src/header/ducks/actions'
+import { routing } from '../../../../src/app/routes'
+import HEADER_SIZE from '../../../../src/header/services/header-size/header-size.constant'
+;(function() {
+  angular.module('dpHeader').component('dpLogo', {
+    bindings: {
+      size: '=',
+    },
+    templateUrl: 'modules/header/components/logo/logo.html',
+    controller: DpLogoController,
+    controllerAs: 'vm',
+  })
 
-(function () {
-    'use strict';
+  DpLogoController.$inject = ['$scope', 'store']
 
-    angular
-        .module('dpHeader')
-        .component('dpLogo', {
-            bindings: {
-                size: '='
-            },
-            templateUrl: 'modules/header/components/logo/logo.html',
-            controller: DpLogoController,
-            controllerAs: 'vm'
-        });
+  function DpLogoController($scope, store) {
+    const vm = this
 
-    DpLogoController.$inject = ['$scope', 'store'];
+    this.$onInit = function() {
+      vm.homeType = routing.home.type
 
-    function DpLogoController ($scope, store) {
-        const vm = this;
+      $scope.$watch('vm.size', updateSize)
 
-        this.$onInit = function () {
-            vm.homeType = routing.home.type;
+      vm.navigateHomeClick = () => store.dispatch(navigateHomeAction())
 
-            $scope.$watch('vm.size', updateSize);
-
-            vm.navigateHomeClick = () => store.dispatch(navigateHomeAction());
-
-            function updateSize (size) {
-                vm.isTall = vm.size === HEADER_SIZE.SIZE.TALL;
-                vm.isShort = vm.size === HEADER_SIZE.SIZE.SHORT;
-            }
-        };
+      function updateSize(size) {
+        vm.isTall = vm.size === HEADER_SIZE.SIZE.TALL
+        vm.isShort = vm.size === HEADER_SIZE.SIZE.SHORT
+      }
     }
-})();
+  }
+})()

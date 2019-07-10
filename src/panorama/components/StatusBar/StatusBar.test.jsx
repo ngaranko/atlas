@@ -1,11 +1,11 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import StatusBar from './StatusBar';
+import React from 'react'
+import { shallow } from 'enzyme'
+import StatusBar from './StatusBar'
 
-import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system/crs-converter';
+import { wgs84ToRd } from '../../../shared/services/coordinate-reference-system/crs-converter'
 
-jest.mock('../../../shared/services/coordinate-reference-system/crs-converter');
-jest.mock('../../../shared/services/date-formatter/date-formatter');
+jest.mock('../../../shared/services/coordinate-reference-system/crs-converter')
+jest.mock('../../../shared/services/date-formatter/date-formatter')
 
 describe('StatusBar', () => {
   it('should render', () => {
@@ -13,14 +13,12 @@ describe('StatusBar', () => {
       heading: 999,
       date: '',
       currentLabel: 'Meest recent',
-      location: [2, 3]
-    };
+      location: [2, 3],
+    }
 
-    wgs84ToRd.mockReturnValue(({ x: 12, y: 9 }));
+    wgs84ToRd.mockReturnValue({ x: 12, y: 9 })
 
-    const component = shallow(
-      <StatusBar {...props} />
-    );
-    expect(component).toMatchSnapshot();
-  });
-});
+    const component = shallow(<StatusBar {...props} />)
+    expect(component).toMatchSnapshot()
+  })
+})

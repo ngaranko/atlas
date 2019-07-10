@@ -1,3 +1,3 @@
-import RdGeoJson from './RdGeoJson';
+import RdGeoJson from './RdGeoJson'
 
-export default RdGeoJson;
+export default RdGeoJson
