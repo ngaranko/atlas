@@ -18,6 +18,11 @@ export const PANO_LABELS = [
     tags: ['mission-bi'],
   },
   {
+    layerId: 'pano2019bi',
+    label: 'Alleen 2019',
+    tags: ['mission-bi', 'mission-2019'],
+  },
+  {
     layerId: 'pano2018bi',
     label: 'Alleen 2018',
     tags: ['mission-bi', 'mission-2018'],
