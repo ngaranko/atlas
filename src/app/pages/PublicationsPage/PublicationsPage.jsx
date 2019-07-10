@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import download from 'downloadjs'
 import {
   Column,
   Row,
@@ -34,6 +35,8 @@ const PublicationsPage = ({ endpoint }) => {
     field_file_type: fileType,
     field_publication_source: source,
   } = results ? results.data[0].attributes : {}
+  const coverUrl = results ? results.included[0].attributes.uri.url : {}
+  const downloadUrl = results ? results.included[1].attributes.uri.url : {}
 
   return (
     <div className="c-dashboard__page o-max-width">
@@ -63,9 +66,14 @@ const PublicationsPage = ({ endpoint }) => {
                   </Column>
                   <Column span={{ small: 1, medium: 2, big: 3, large: 6, xLarge: 6 }}>
                     <Downloader
-                      imageSrc="https://acc.cms.data.amsterdam.nl/sites/default/files/images/2019-factsheet-jeugdwerkloosheid-2014-2018.png"
+                      imageSrc={`${SHARED_CONFIG.CMS_ROOT}${coverUrl}`}
                       description={`Download PDF (${fileSize})`}
-                      onClick={() => console.log('download')}
+                      onClick={() => {
+                        const link =
+                        `${SHARED_CONFIG.CMS_ROOT}${downloadUrl}`
+                        console.log('download', link)
+                        download(link)
+                      }}
                     />
                   </Column>
                   <Column span={{ small: 1, medium: 2, big: 3, large: 6, xLarge: 6 }}>
@@ -98,9 +106,9 @@ const PublicationsPage = ({ endpoint }) => {
 }
 
 const mapStateToProps = state => ({
-  endpoint: `${SHARED_CONFIG.CMS_ROOT}publication?filter[drupal_internal__nid]=${
+  endpoint: `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?filter[drupal_internal__nid]=${
     getLocationPayload(state).id
-  } `,
+  }&include=field_cover_image,field_publication_file`,
 })
 
 export default connect(

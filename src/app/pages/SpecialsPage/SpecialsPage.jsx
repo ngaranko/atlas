@@ -86,7 +86,7 @@ const SpecialsContainer = ({ endpoint }) => {
 }
 
 const mapStateToProps = state => ({
-  endpoint: `${SHARED_CONFIG.CMS_ROOT}special?filter[drupal_internal__nid]=${
+  endpoint: `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/special?filter[drupal_internal__nid]=${
     getLocationPayload(state).id
   } `,
 })
