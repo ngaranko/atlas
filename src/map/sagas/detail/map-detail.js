@@ -14,7 +14,7 @@ import { FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/constants'
 import { getUser } from '../../../shared/ducks/user/user'
 import { waitForAuthentication } from '../../../shared/sagas/user/user'
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors'
-import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
+import { VIEW_MODE, getViewMode } from '../../../shared/ducks/ui/ui'
 import {
   clearMapDetail,
   fetchDetailFailure,
@@ -32,6 +32,7 @@ export function* fetchMapDetail() {
   try {
     yield call(waitForAuthentication)
     const user = yield select(getUser)
+    const viewMode = yield select(getViewMode)
     const endpoint = yield select(getCurrentEndpoint)
     yield put(clearMapDetail())
     const mapDetail = yield call(fetchDetail, endpoint, user)
@@ -44,8 +45,11 @@ export function* fetchMapDetail() {
     )
     yield put(mapLoadingAction(false))
 
-    const detailData = yield call(getDetailData, endpoint, mapDetail)
-    yield put(fetchDetailSuccess(detailData))
+    // This saga will retrieve additional/formatted data that's only used by the split and full mode detail view
+    if (viewMode !== VIEW_MODE.MAP) {
+      const detailData = yield call(getDetailData, endpoint, mapDetail)
+      yield put(fetchDetailSuccess(detailData))
+    }
   } catch (error) {
     yield put(mapLoadingAction(false))
     if (error && error.status === 404) {

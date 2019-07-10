@@ -71,6 +71,10 @@ const categoryLabels = {
     singular: 'Adres',
     plural: 'Adressen',
   },
+  vastgoed: {
+    singular: 'Vastgoed',
+    plural: 'Vastgoed',
+  },
   vestiging: {
     singular: 'Vestiging',
     plural: 'Vestigingen',
