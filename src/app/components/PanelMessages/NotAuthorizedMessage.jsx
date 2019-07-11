@@ -33,7 +33,7 @@ const NotAuthorizedMessage = ({ scopeError }) => {
           </p>
         )}
         <p className="c-panel__paragraph">
-          Zie
+          {`Zie `}
           {link}
         </p>
       </div>
