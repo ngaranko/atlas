@@ -132,6 +132,36 @@ exports[`MapDetailResult should render de parkeervak 1`] = `
 />
 `;
 
+exports[`MapDetailResult should render de parkeerzone  1`] = `
+<MapDetailParkeerzone
+  item={
+    Object {
+      "description": "value",
+      "endpointType": "vsd/parkeerzones/",
+      "label": "value",
+    }
+  }
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+/>
+`;
+
+exports[`MapDetailResult should render de parkeerzone uitz  1`] = `
+<MapDetailParkeerzone
+  item={
+    Object {
+      "description": "value",
+      "endpointType": "vsd/parkeerzones_uitz/",
+      "label": "value",
+    }
+  }
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+/>
+`;
+
 exports[`MapDetailResult should render explosieven gevrijwaard gebied 1`] = `
 <MapDetailExplosievenGevrijwaardGebied
   gevrijwaardGebied={
@@ -368,6 +398,8 @@ exports[`MapDetailResult should render oplaadpuntent 1`] = `
   panoUrl="panoUrl"
 />
 `;
+
+exports[`MapDetailResult should render vastgoed 1`] = `""`;
 
 exports[`MapDetailResult should render vestiging 1`] = `
 <MapDetailVestiging

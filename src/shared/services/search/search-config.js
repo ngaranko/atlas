@@ -223,6 +223,12 @@ export default {
       features: ['vsd/biz'],
     },
     {
+      slug: 'vastgoed',
+      label_singular: 'Vastgoed',
+      label_plural: 'Vastgoed',
+      features: ['vsd/vastgoed'],
+    },
+    {
       slug: 'winkelgebieden',
       label_singular: 'Winkelgebied',
       label_plural: 'Winkelgebieden',

@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   showFeedbackForm: () => {
-    const openFeedbackFormEvent = new CustomEvent('openFeedbackForm')
+    const openFeedbackFormEvent = new CustomEvent('openForm_feedbackModal')
     window.dispatchEvent(openFeedbackFormEvent)
   },
   login: () => {

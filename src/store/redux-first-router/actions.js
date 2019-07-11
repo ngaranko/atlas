@@ -114,7 +114,7 @@ export const toPanorama = (id, additionalParams = null) => ({
 })
 
 export const toPanoramaAndPreserveQuery = (
-  id = 'TMX7316010203-000719_pano_0000_000950',
+  id = 'TMX7316010203-001187_pano_0000_001517',
   heading = 226,
   reference = [],
   pageReference = null,

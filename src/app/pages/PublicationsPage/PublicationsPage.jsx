@@ -30,14 +30,13 @@ const PublicationsPage = ({ endpoint }) => {
   const {
     title,
     created,
-    // changed
     body,
     field_file_size: fileSize,
     field_file_type: fileType,
     field_publication_source: source,
     field_publication_intro: intro,
   } = results ? results.data[0].attributes : {}
-  const coverUrl = results ? results.included[0].attributes.uri.url : {}
+  const coverUrl =  results ? results.included[0].attributes.uri.url : {}
   const downloadUrl = results ? results.included[1].attributes.uri.url : {}
 
   return (
@@ -79,7 +78,7 @@ const PublicationsPage = ({ endpoint }) => {
                   </Column>
                   <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                     <PublicationContent>
-                      <Summary>{intro}</Summary>
+                      {intro && <Summary>{intro}</Summary>}
                       <CustomHTMLBlock
                         dangerouslySetInnerHTML={{
                           __html: body.processed,
@@ -93,10 +92,6 @@ const PublicationsPage = ({ endpoint }) => {
           )}
         </Column>
       </Row>
-      {/* <Row>
-        <Column wrap="true" span={{ small: 1, medium: 1, big: 6, large: 12, xLarge: 12 }}>
-        </Column>
-      </Row> */}
       <Footer />
     </div>
   )
