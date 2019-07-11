@@ -35,6 +35,7 @@ const PublicationsPage = ({ endpoint }) => {
     field_file_size: fileSize,
     field_file_type: fileType,
     field_publication_source: source,
+    field_publication_intro: intro,
   } = results ? results.data[0].attributes : {}
   const coverUrl = results ? results.included[0].attributes.uri.url : {}
   const downloadUrl = results ? results.included[1].attributes.uri.url : {}
@@ -70,8 +71,7 @@ const PublicationsPage = ({ endpoint }) => {
                       imageSrc={`${SHARED_CONFIG.CMS_ROOT}${coverUrl}`}
                       description={`Download PDF (${fileSize})`}
                       onClick={() => {
-                        const link =
-                        `${SHARED_CONFIG.CMS_ROOT}${downloadUrl}`
+                        const link = `${SHARED_CONFIG.CMS_ROOT}${downloadUrl}`
                         console.log('download', link)
                         download(link)
                       }}
@@ -79,11 +79,7 @@ const PublicationsPage = ({ endpoint }) => {
                   </Column>
                   <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                     <PublicationContent>
-                      <Summary>
-                        Optioneel hier kan een kleine omschrijving komen. Van de 146.500 Amsterdamse
-                        jongeren in de leeftijd van 15 tot en met 26 jaar waren er in 2018 gemiddeld
-                        6.100 werkloos, dit komt neer op 6,2% van de beroepsbevolking.
-                      </Summary>
+                      <Summary>{intro}</Summary>
                       <CustomHTMLBlock
                         dangerouslySetInnerHTML={{
                           __html: body.processed,
