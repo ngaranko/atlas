@@ -3,6 +3,7 @@ import PAGES from './pages'
 export const ROUTER_NAMESPACE = 'atlasRouter'
 
 const MAIN_PATHS = {
+  ARTICLES: 'artikelen',
   DATA: 'data',
   DATASETS: 'datasets',
   CONTENT: 'content',
@@ -80,6 +81,12 @@ export const routing = {
     path: `/${MAIN_PATHS.DATA}/panorama/:id/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
     page: PAGES.PANORAMA,
+  },
+  article: {
+    title: 'Artikel',
+    path: `/${MAIN_PATHS.ARTICLES}/artikel/:id/:slug`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.ARTICLE}`,
+    page: PAGES.ARTICLE,
   },
   nieuws: {
     title: 'Nieuws',

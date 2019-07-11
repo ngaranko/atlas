@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { GlobalStyle, ThemeProvider } from '@datapunt/asc-ui'
-import { isCmsPage as pageIsCmsPage } from './pages'
+import PAGES, { isCmsPage as pageIsCmsPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
@@ -40,7 +40,8 @@ const App = ({
   hasEmbedButton,
 }) => {
   const isCmsPage = pageIsCmsPage(currentPage)
-  const hasMaxWidth = homePage || isCmsPage
+  const isArticlePage = currentPage === PAGES.ARTICLE
+  const hasMaxWidth = homePage || isCmsPage || isArticlePage
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
@@ -93,7 +94,9 @@ const App = ({
       <GlobalStyle />
       <AppStateProvider initialState={initialState} reducer={main}>
         <React.Suspense fallback={<React.Fragment />}>
-          <div className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}>
+          <div
+            className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
+          >
             {!embedMode && (
               <Header
                 homePage={homePage}

@@ -4,9 +4,18 @@ import { AngularWrapper } from 'react-angular'
 import { connect } from 'react-redux'
 import Footer from '../components/Footer/Footer'
 import ShareBar from '../components/ShareBar/ShareBar'
-import { getItem, getTemplateName, getType } from '../../shared/ducks/content/selectors' // TODO: refactor, test
+import {
+  getItem,
+  getTemplateName,
+  getType,
+} from '../../shared/ducks/content/selectors' // TODO: refactor, test
 
-/* istanbul ignore next */ const ContentPage = ({ templateName, item, type, showFooter }) => (
+/* istanbul ignore next */ const ContentPage = ({
+  templateName,
+  item,
+  type,
+  showFooter,
+}) => (
   <div
     style={{ display: 'block' }}
     className="c-dashboard__column  u-col-sm--12 qa-dashboard__column--right"
@@ -14,6 +23,11 @@ import { getItem, getTemplateName, getType } from '../../shared/ducks/content/se
     <div className="c-dashboard__page o-max-width">
       <div className="c-dashboard__page-inner c-dashboard__content o-max-width__inner u-gutter">
         <div className="qa-page">
+          {console.log({
+            name: templateName,
+            type,
+            item,
+          })}
           <AngularWrapper
             moduleName="dpPageWrapper"
             component="dpPage"

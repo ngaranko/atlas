@@ -219,6 +219,14 @@ export const toAdresses = () => ({
   },
 })
 
+export const toArticle = (id, slug = '') => ({
+  type: routing.article.type,
+  payload: {
+    id,
+    slug,
+  },
+})
+
 export const toDatasetPage = dataset => ({
   type: DATASET_ROUTE_MAPPER[dataset],
 })

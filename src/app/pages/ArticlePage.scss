@@ -1,0 +1,17 @@
+@import "../../shared/styles/config";
+
+.article {
+  background-color: $primary-light;
+
+  &-row {
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: $primary-light;
+
+    @media screen and (min-width: 768px) {
+      padding-top: 54px;
+      padding-bottom: 54px;
+    }
+  }
+}
