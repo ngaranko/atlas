@@ -1,8 +1,10 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
+import { ThemeProvider } from '@datapunt/asc-ui'
 import SpecialsPage from './SpecialsPage'
 import useDataFetching from '../../utils/useDataFetching';
+import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 
 jest.mock('../../utils/useDataFetching')
 
@@ -43,5 +45,22 @@ describe('SpecialsPage', () => {
 
     const iframe = component.find('iframe').at(0)
     expect(iframe.exists()).toBeTruthy()
+  })
+
+  it('should call the fetchData function when the component mounts', () => {    
+    const fetchDataMock = jest.fn()
+    useDataFetching.mockImplementation(() => ({
+      fetchData: fetchDataMock,
+      loading: true
+    }))
+
+    const store = configureMockStore()({ location: { payload: { id: specialsId } } })
+    const component = mount(<ThemeProvider><SpecialsPage store={store} /></ThemeProvider>)
+
+    const endpoint = `${SHARED_CONFIG.CMS_ROOT}special?filter[drupal_internal__nid]=${specialsId}`
+
+    expect(component.find('SpecialsPage').props().endpoint).toBe(endpoint)
+
+    expect(fetchDataMock).toHaveBeenCalledWith(endpoint)
   })
 })

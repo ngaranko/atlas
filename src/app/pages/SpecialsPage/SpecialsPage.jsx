@@ -84,7 +84,7 @@ const SpecialsPage = ({ endpoint }) => {
 const mapStateToProps = state => ({
   endpoint: `${SHARED_CONFIG.CMS_ROOT}special?filter[drupal_internal__nid]=${
     getLocationPayload(state).id
-  } `,
+  }`,
 })
 
 export default connect(
