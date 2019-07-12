@@ -1,14 +1,14 @@
-import piwikTracker from '../../../shared/services/piwik-tracker/piwik-tracker'
+import matomoTracker from '../../../shared/services/matomo-tracker/matomo-tracker'
 import { getEnvironment } from '../../../shared/environment'
 // eslint-disable-next-line import/no-cycle
 import trackEvents from './trackEvents'
 // eslint-disable-next-line import/no-cycle
 import trackViews from './trackViews'
 import { authCustomDimensions, viewCustomDimensions } from './customDimensions'
-import { PIWIK_CONFIG } from './constants'
+import { MATOMO_CONFIG } from './constants'
 
-// Initialize connection with Piwik
-export const initializePiwik = () => {
+// Initialize connection with Matomo
+export const initializeMatomo = () => {
   const urlBase = 'https://piwik.data.amsterdam.nl/'
 
   window._paq = window._paq || []
@@ -18,36 +18,36 @@ export const initializePiwik = () => {
     window._paq.push(['setTrackerUrl', `${urlBase}piwik.php`])
     window._paq.push([
       'setSiteId',
-      PIWIK_CONFIG[getEnvironment(window.location.hostname)].SITE_ID,
+      MATOMO_CONFIG[getEnvironment(window.location.hostname)].SITE_ID,
     ])
 
     const doc = document
-    const piwik = doc.createElement('script')
+    const matomo = doc.createElement('script')
     const scripts = doc.getElementsByTagName('script')[0]
 
-    piwik.type = 'text/javascript'
-    piwik.async = true
-    piwik.defer = true
-    piwik.src = `${urlBase}piwik.js`
+    matomo.type = 'text/javascript'
+    matomo.async = true
+    matomo.defer = true
+    matomo.src = `${urlBase}piwik.js`
 
-    scripts.parentNode.insertBefore(piwik, scripts)
+    scripts.parentNode.insertBefore(matomo, scripts)
   }
 }
 
-// Execute Piwik actions
-const piwikMiddleware = ({ getState }) => next => action => {
-  initializePiwik()
+// Execute Matomo actions
+const matomoMiddleware = ({ getState }) => next => action => {
+  initializeMatomo()
   const nextAction = action
 
-  const actionsToPiwik = []
+  const actionsToMatomo = []
   if (trackViews[action.type]) {
-    actionsToPiwik.push(trackViews[action.type])
+    actionsToMatomo.push(trackViews[action.type])
   }
   if (trackEvents[action.type]) {
-    actionsToPiwik.push(trackEvents[action.type])
+    actionsToMatomo.push(trackEvents[action.type])
   }
 
-  if (actionsToPiwik.length) {
+  if (actionsToMatomo.length) {
     const { firstAction, location, query, tracking } = action.meta || {}
     const state = getState()
 
@@ -60,9 +60,9 @@ const piwikMiddleware = ({ getState }) => next => action => {
         ...viewCustomDimensions(query, state),
       ]
 
-      actionsToPiwik.forEach(piwikAction => {
-        piwikTracker(
-          piwikAction({
+      actionsToMatomo.forEach(matomoAction => {
+        matomoTracker(
+          matomoAction({
             tracking,
             firstAction,
             query,
@@ -80,4 +80,4 @@ const piwikMiddleware = ({ getState }) => next => action => {
   next(nextAction)
 }
 
-export default piwikMiddleware
+export default matomoMiddleware

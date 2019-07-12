@@ -10,7 +10,7 @@ import * as auth from '../shared/services/auth/auth'
 import { authenticateReload } from '../shared/ducks/user/user'
 import rootReducer from '../reducers/root'
 import documentHeadMiddleware from './middleware/documentHead'
-import piwikMiddleware from './middleware/piwik/piwikMiddleware'
+import matomoMiddleware from './middleware/matomo/matomoMiddleware'
 import urlParamsMiddleware from './middleware/addMetaToRoutesMiddleware'
 import preserveUrlParametersMiddleware from './middleware/preserveUrlParametersMiddleware'
 import setQueriesFromStateMiddleware from './middleware/setQueriesFromStateMiddleware'
@@ -46,7 +46,7 @@ const configureStore = routesMap => {
       urlParamsMiddleware,
       setQueriesFromStateMiddleware,
       documentHeadMiddleware,
-      piwikMiddleware,
+      matomoMiddleware,
       sagaMiddleware,
     ),
   )

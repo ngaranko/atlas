@@ -57,7 +57,7 @@ describe('The dp-logo component', () => {
       ).toContain('logo-short')
     })
 
-    it('dispatches an action for piwik and directs to home on click', () => {
+    it('dispatches an action for matomo and directs to home on click', () => {
       component.find('.c-logo__link').click()
       expect(store.dispatch).toHaveBeenCalledWith({ type: routing.home.type })
       expect(store.dispatch).toHaveBeenCalledWith({
