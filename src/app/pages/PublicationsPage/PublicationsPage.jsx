@@ -71,7 +71,6 @@ const PublicationsPage = ({ endpoint }) => {
                       description={`Download PDF (${fileSize})`}
                       onClick={() => {
                         const link = `${SHARED_CONFIG.CMS_ROOT}${downloadUrl}`
-                        console.log('download', link)
                         download(link)
                       }}
                     />

@@ -14,16 +14,16 @@ import {
   isPrintMode,
   isPrintModeLandscape,
   isPrintOrEmbedMode,
+  hasTallHeader,
 } from '../shared/ducks/ui/ui'
 import { hasGlobalError } from '../shared/ducks/error/error-message'
 import { getUser } from '../shared/ducks/user/user'
-import { getPage, isHomepage, isSpecialsPage } from '../store/redux-first-router/selectors'
+import { getPage, isHomepage } from '../store/redux-first-router/selectors'
 import Header from './components/Header/Header'
 import { AppStateProvider } from './utils/useAppReducer'
 import AppBody from './AppBody'
 import main, { initialState } from './react-reducers'
 
-// TodoReactMigration: implement logic
 const App = ({
   isFullHeight,
   visibilityError,
@@ -38,14 +38,15 @@ const App = ({
   user,
   hasPrintButton,
   hasEmbedButton,
+  tallHeader,
 }) => {
   const isCmsPage = pageIsCmsPage(currentPage)
-  const hasMaxWidth = homePage || isCmsPage || isSpecialsPage
+  const hasMaxWidth = tallHeader || isCmsPage
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
     'c-dashboard--full-height': isFullHeight,
-    'c-dashboard--homepage': homePage,
+    'c-dashboard--homepage': tallHeader,
   })
   const bodyClasses = classNames({
     'c-dashboard__body--error': visibilityError,
@@ -96,7 +97,7 @@ const App = ({
           <div className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}>
             {!embedMode && (
               <Header
-                homePage={homePage}
+                homePage={hasTallHeader}
                 hasMaxWidth={hasMaxWidth}
                 user={user}
                 printMode={printMode}
@@ -115,6 +116,7 @@ const App = ({
                 currentPage,
                 embedPreviewMode,
                 isCmsPage,
+                hasTallHeader,
               }}
             />
           </div>
@@ -143,6 +145,7 @@ App.propTypes = {
   user: PropTypes.shape({}).isRequired,
   hasPrintButton: PropTypes.bool.isRequired,
   hasEmbedButton: PropTypes.bool.isRequired,
+  tallHeader: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -158,6 +161,7 @@ const mapStateToProps = state => ({
   visibilityError: hasGlobalError(state),
   hasPrintButton: hasPrintMode(state),
   hasEmbedButton: isMapActive(state),
+  tallHeader: hasTallHeader(state),
 })
 
 const AppContainer = connect(

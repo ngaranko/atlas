@@ -5,6 +5,8 @@ import {
   isDatasetDetailPage,
   isPanoPage,
   isDataPage,
+  isHomepage,
+  isPublicationsPage,
 } from '../../../store/redux-first-router/selectors'
 import paramsRegistry from '../../../store/params-registry'
 
@@ -228,4 +230,10 @@ export const isPrintModeLandscape = createSelector(
   (printMode, panoPageActive, mapPageActive, viewMode) =>
     printMode &&
     (panoPageActive || mapPageActive || viewMode === VIEW_MODE.MAP),
+)
+
+export const hasTallHeader = createSelector(
+  isHomepage,
+  isPublicationsPage,
+  (homePage, publicationsPage) => (homePage || publicationsPage)
 )
