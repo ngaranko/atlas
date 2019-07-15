@@ -88,7 +88,6 @@ describe('fetchMapDetail', () => {
       .next()
       .next() // waitForAuthentication
       .next() // select
-      .next() // select
       .next(action.endpoint) // select
       .put(clearMapDetail())
       .next()
