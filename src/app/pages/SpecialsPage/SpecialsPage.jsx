@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import throttle from 'lodash.throttle'
 import { Column, Row, Spinner } from '@datapunt/asc-ui'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useDataFetching from '../../utils/useDataFetching'
+import setIframeSize from '../../utils/setIframeSize'
 
 import './SpecialsPage.scss'
 
@@ -14,29 +14,17 @@ const SpecialsPage = ({ endpoint }) => {
   const [iframeHeight, setIframeHeight] = React.useState(0)
   const iframeRef = React.useRef(null)
 
-  const handleResize = () =>
-    window.addEventListener(
-      'message',
-      e => {
-        if (typeof e.data === 'string' && e.data.indexOf('documentHeight:') > -1) {
-          const height = e.data.split('documentHeight:')[1]
-          setIframeHeight(height)
-        }
-      },
-      false,
-    )
-
-  const throttledHandleResize = () => {
-    throttle(handleResize, 300)
+  const handleResize = () => {
+    setIframeSize(setIframeHeight)
   }
 
   React.useEffect(() => {
     fetchData(endpoint)
 
-    window.addEventListener('resize', throttledHandleResize)
+    window.addEventListener('resize', handleResize)
 
     return function cleanup() {
-      window.removeEventListener('resize', throttledHandleResize)
+      window.removeEventListener('resize', handleResize)
     }
   }, [])
 
@@ -50,7 +38,7 @@ const SpecialsPage = ({ endpoint }) => {
     setIframeLoading(false)
 
     // Handle resize after the iframe is loaded
-    handleResize()
+    handleResize(setIframeHeight)
   }
 
   const { field_iframe_link: iframeLink, title } = results ? results.data[0].attributes : {}
