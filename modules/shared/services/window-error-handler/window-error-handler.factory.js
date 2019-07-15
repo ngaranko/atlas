@@ -18,7 +18,7 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error/error-message'
         function(event) {
           // Initiated by browser without Raven/Sentry intervening.
           // Fired when asset load from HTML fails.
-          // e.g. Piwik fails to load, or a tile is not loaded.
+          // e.g. Matomo fails to load, or a tile is not loaded.
           // One of the causes for this may be that the connection is dropped.
 
           // not fired on exceptions
@@ -28,9 +28,9 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error/error-message'
           if (event.target && event.target.src) {
             // URL load error
             if (
-              event.target.src === 'https://piwik.data.amsterdam.nl/piwik.js'
+              event.target.src === 'https://analytics.data.amsterdam.nl/matomo.js'
             ) {
-              $log.error('piwik load error', event)
+              $log.error('matomo load error', event)
               return // Don't log error in Sentry and don't set error state
             }
 
