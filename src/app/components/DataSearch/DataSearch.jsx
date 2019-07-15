@@ -98,8 +98,7 @@ const DataSearch = ({
                               className="qa-show-more c-show-more o-list__separate-item"
                               onClick={() => setSearchCategory(searchQuery, result.slug)}
                             >
-                              Toon alle
-                              {result.count}
+                              {`Toon alle ${result.count}`}
                             </button>
                           )}
                         </div>
