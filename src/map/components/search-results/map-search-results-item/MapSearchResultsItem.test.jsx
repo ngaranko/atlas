@@ -1,51 +1,40 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from 'react'
+import { shallow } from 'enzyme'
 
-import MapSearchResultsItem from './MapSearchResultsItem';
+import MapSearchResultsItem from './MapSearchResultsItem'
 
 describe('MapSearchResultsItem', () => {
   it('should make an item clickable', () => {
-    const clickHandler = jest.fn();
-    const label = 'Dam 1';
-    const wrapper = shallow(
-      <MapSearchResultsItem
-        onClick={clickHandler}
-        label={label}
-      />
-    );
+    const clickHandler = jest.fn()
+    const label = 'Dam 1'
+    const wrapper = shallow(<MapSearchResultsItem onClick={clickHandler} label={label} />)
 
-    wrapper.find('button').at(0).simulate('click');
-    expect(clickHandler).toHaveBeenCalled();
-  });
+    wrapper
+      .find('button')
+      .at(0)
+      .simulate('click')
+    expect(clickHandler).toHaveBeenCalled()
+  })
 
   describe('rendering', () => {
     it('should render an item', () => {
-      const clickHandler = jest.fn();
-      const label = 'Dam 1';
-      const wrapper = shallow(
-        <MapSearchResultsItem
-          onClick={clickHandler}
-          label={label}
-        />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
+      const clickHandler = jest.fn()
+      const label = 'Dam 1'
+      const wrapper = shallow(<MapSearchResultsItem onClick={clickHandler} label={label} />)
+      expect(wrapper).toMatchSnapshot()
+    })
 
     it('should update an item', () => {
-      const clickHandler = jest.fn();
-      const label = 'Dam 1';
+      const clickHandler = jest.fn()
+      const label = 'Dam 1'
       const wrapper = shallow(
-        <MapSearchResultsItem
-          onClick={clickHandler}
-          label={label}
-          statusLabel={label}
-        />
-      );
+        <MapSearchResultsItem onClick={clickHandler} label={label} statusLabel={label} />,
+      )
 
       wrapper.setProps({
-        label: 'ABC123'
-      });
-      expect(wrapper).toMatchSnapshot();
-    });
-  });
-});
+        label: 'ABC123',
+      })
+      expect(wrapper).toMatchSnapshot()
+    })
+  })
+})

@@ -1,9 +1,3 @@
-(function () {
-    'use strict';
-
-    angular
-        .module('dpDataSelection', [
-            'ngSanitize',
-            'dpShared'
-        ]);
-})();
+;(() => {
+  angular.module('dpDataSelection', ['ngSanitize', 'dpShared'])
+})()

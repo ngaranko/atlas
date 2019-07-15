@@ -1,12 +1,12 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from 'react'
+import { shallow } from 'enzyme'
 
-import HomepageAddressBlock from './HomepageAddressBlock';
+import HomepageAddressBlock from './HomepageAddressBlock'
 
 describe('HomepageAddressBlock', () => {
   it('should render links', () => {
-    const wrapper = shallow(<HomepageAddressBlock />);
+    const wrapper = shallow(<HomepageAddressBlock />)
 
-    expect(wrapper).toMatchSnapshot();
-  });
-});
+    expect(wrapper).toMatchSnapshot()
+  })
+})

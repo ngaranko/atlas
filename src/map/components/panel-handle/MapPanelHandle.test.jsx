@@ -1,36 +1,30 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from 'react'
+import { shallow } from 'enzyme'
 
-import MapPanelHandle from './MapPanelHandle';
+import MapPanelHandle from './MapPanelHandle'
 
 describe('MapPanelHandle', () => {
   it('should render children by default', () => {
     const mapPanelHandle = shallow(
-      <MapPanelHandle
-        isMapPanelHandleVisible
-        onMapPanelHandleToggle={() => {}}
-      >
+      <MapPanelHandle isMapPanelHandleVisible onMapPanelHandleToggle={() => {}}>
         <div className="children-test" />
-      </MapPanelHandle>
-    );
+      </MapPanelHandle>,
+    )
 
-    expect(mapPanelHandle.find('.children-test').length).toBe(1);
-    expect(mapPanelHandle).toMatchSnapshot();
-  });
+    expect(mapPanelHandle.find('.children-test').length).toBe(1)
+    expect(mapPanelHandle).toMatchSnapshot()
+  })
 
   it('should hide children on click', () => {
-    const onButtonClickSpy = jest.fn();
+    const onButtonClickSpy = jest.fn()
     const mapPanelHandle = shallow(
-      <MapPanelHandle
-        isMapPanelHandleVisible={false}
-        onMapPanelHandleToggle={onButtonClickSpy}
-      >
+      <MapPanelHandle isMapPanelHandleVisible={false} onMapPanelHandleToggle={onButtonClickSpy}>
         <div className="children-test" />
-      </MapPanelHandle>
-    );
+      </MapPanelHandle>,
+    )
 
-    mapPanelHandle.find('.map-panel-handle__toggle').simulate('click');
-    expect(onButtonClickSpy).toHaveBeenCalledTimes(1);
-    expect(mapPanelHandle.find('.children-test').length).toBe(0);
-  });
-});
+    mapPanelHandle.find('.map-panel-handle__toggle').simulate('click')
+    expect(onButtonClickSpy).toHaveBeenCalledTimes(1)
+    expect(mapPanelHandle.find('.children-test').length).toBe(0)
+  })
+})

@@ -5,7 +5,8 @@ const mockApiData = {
         properties: {
           'ams:license': {
             default: 'unspec',
-            description: 'Geef aan onder welke open data licentie de gegevensset gepubliceerd is, indien van toepassing. Gebruik invulhulp om licentie te bepalen. Indien er sprake is van een gedeeltelijk publieke dataset, dan geldt de licentie voor het publieke deel.',
+            description:
+              'Geef aan onder welke open data licentie de gegevensset gepubliceerd is, indien van toepassing. Gebruik invulhulp om licentie te bepalen. Indien er sprake is van een gedeeltelijk publieke dataset, dan geldt de licentie voor het publieke deel.',
             enum: [
               'cc-by',
               'cc-by-nc',
@@ -19,7 +20,7 @@ const mockApiData = {
               'other-by',
               'other-nc',
               'other-not-open',
-              'unspec'
+              'unspec',
             ],
             enumNames: [
               'Creative Commons, Naamsvermelding',
@@ -34,14 +35,15 @@ const mockApiData = {
               'Anders, Naamsvermelding',
               'Anders, Niet Commercieel',
               'Anders, Niet Open',
-              'Niet gespecificeerd'
+              'Niet gespecificeerd',
             ],
             minLength: 1,
             title: 'Licentie',
-            type: 'string'
+            type: 'string',
           },
           'ams:owner': {
-            description: 'Eigenaar en verantwoordelijke voor de betreffende registratie, ook wel bronhouder genoemd. Bij de overheid is dit het bestuursorgaan of rechtspersoon aan wie bij wettelijk voorschrift de verantwoordelijkheid voor het bijhouden van gegevens in een registratie is opgedragen.',
+            description:
+              'Eigenaar en verantwoordelijke voor de betreffende registratie, ook wel bronhouder genoemd. Bij de overheid is dit het bestuursorgaan of rechtspersoon aan wie bij wettelijk voorschrift de verantwoordelijkheid voor het bijhouden van gegevens in een registratie is opgedragen.',
             examples: [
               'AEB Amsterdam',
               'Adrian Inc.',
@@ -93,18 +95,18 @@ const mockApiData = {
               'UWV',
               'Waag Society',
               'nico',
-              'q'
+              'q',
             ],
             minLength: 1,
             pattern: '^[^\\n\\r]*?\\S[^\\n\\r]*$',
             title: 'Eigenaar',
-            type: 'string'
+            type: 'string',
           },
           'ams:spatialDescription': {
             minLength: 1,
             pattern: '^[^\\n\\r]*?\\S[^\\n\\r]*$',
             title: 'Omschrijving gebied',
-            type: 'string'
+            type: 'string',
           },
           'ams:spatialUnit': {
             default: 'na',
@@ -122,7 +124,7 @@ const mockApiData = {
               'zip4',
               'zip5',
               'zip6',
-              'other'
+              'other',
             ],
             enumNames: [
               'Geen geografie',
@@ -138,31 +140,32 @@ const mockApiData = {
               'Postcode (4 cijfers)',
               'Postcode (4 cijfers, 1 letter)',
               'Postcode (4 cijfers, 2 letters)',
-              'anders'
+              'anders',
             ],
             minLength: 1,
             title: 'Gebiedseenheid',
-            type: 'string'
+            type: 'string',
           },
           'ams:status': {
             default: 'gepland',
-            description: 'Datasets met status "beschikbaar" worden weergegeven in dataportaal. Datasets "in onderzoek" ook, maar voorzien van een kanttekening totdat een beheerder de datasets gecontroleerd en weer beschikbaar heeft gemaakt. Datasets met andere statussen zijn niet vindbaar in dataportaal, maar mogelijk wel via andere wegen (als je de link hebt).',
+            description:
+              'Datasets met status "beschikbaar" worden weergegeven in dataportaal. Datasets "in onderzoek" ook, maar voorzien van een kanttekening totdat een beheerder de datasets gecontroleerd en weer beschikbaar heeft gemaakt. Datasets met andere statussen zijn niet vindbaar in dataportaal, maar mogelijk wel via andere wegen (als je de link hebt).',
             enum: [
               'in_onderzoek',
               'niet_beschikbaar',
               'beschikbaar',
-              'gepland'
+              'gepland',
             ],
             enumNames: [
               'In onderzoek',
               'Niet beschikbaar',
               'Beschikbaar',
-              'Gepland'
+              'Gepland',
             ],
             minLength: 1,
             readOnly: false,
             title: 'Status',
-            type: 'string'
+            type: 'string',
           },
           'ams:temporalUnit': {
             default: 'na',
@@ -177,7 +180,7 @@ const mockApiData = {
               'months',
               'quarters',
               'years',
-              'other'
+              'other',
             ],
             enumNames: [
               'Geen tijdseenheid',
@@ -190,98 +193,77 @@ const mockApiData = {
               'Maanden',
               'Kwartalen',
               'Jaren',
-              'anders'
+              'anders',
             ],
             minLength: 1,
             title: 'Tijdseenheid',
-            type: 'string'
+            type: 'string',
           },
           'dcat:contactPoint': {
             properties: {
               'vcard:fn': {
-                description: 'Geef de naam van de contactpersoon voor eventuele vragen over de inhoud en kwaliteit van de gegevens.',
+                description:
+                  'Geef de naam van de contactpersoon voor eventuele vragen over de inhoud en kwaliteit van de gegevens.',
                 minLength: 1,
                 pattern: '^[^\\n\\r]*?\\S[^\\n\\r]*$',
                 title: 'Inhoudelijk contactpersoon',
-                type: 'string'
+                type: 'string',
               },
               'vcard:hasEmail': {
                 format: 'email',
                 minLength: 1,
                 title: 'E-mail inhoudelijk contactpersoon',
-                type: 'string'
+                type: 'string',
               },
               'vcard:hasURL': {
                 format: 'uri',
                 minLength: 1,
                 title: 'Website inhoudelijk contactpersoon',
-                type: 'string'
-              }
+                type: 'string',
+              },
             },
-            required: [
-              'vcard:fn'
-            ],
+            required: ['vcard:fn'],
             title: '',
             type: 'object',
-            'x-order': [
-              'vcard:fn',
-              'vcard:hasEmail',
-              'vcard:hasURL'
-            ]
+            'x-order': ['vcard:fn', 'vcard:hasEmail', 'vcard:hasURL'],
           },
           'dcat:distribution': {
             default: [],
             items: {
               properties: {
                 'ams:classification': {
-                  enum: [
-                    'public'
-                  ],
-                  enumNames: [
-                    'Publiek toegankelijk'
-                  ],
+                  enum: ['public'],
+                  enumNames: ['Publiek toegankelijk'],
                   minLength: 1,
                   title: 'Classification',
-                  type: 'string'
+                  type: 'string',
                 },
                 'ams:distributionType': {
-                  enum: [
-                    'api',
-                    'file',
-                    'web'
-                  ],
-                  enumNames: [
-                    'API/Service',
-                    'Bestand',
-                    'Website'
-                  ],
+                  enum: ['api', 'file', 'web'],
+                  enumNames: ['API/Service', 'Bestand', 'Website'],
                   minLength: 1,
                   title: 'Verschijningsvorm',
-                  type: 'string'
+                  type: 'string',
                 },
                 'ams:layerIdentifier': {
-                  description: 'De Citydata kaartlaag waarmee deze dataset op de kaart getoond kan worden',
+                  description:
+                    'De Citydata kaartlaag waarmee deze dataset op de kaart getoond kan worden',
                   minLength: 1,
                   pattern: '^[^\\n\\r]*?\\S[^\\n\\r]*$',
                   title: 'Interne Kaartlaag ID',
-                  type: 'string'
+                  type: 'string',
                 },
                 'ams:resourceType': {
-                  enum: [
-                    'data',
-                    'doc',
-                    'vis',
-                    'app'
-                  ],
+                  enum: ['data', 'doc', 'vis', 'app'],
                   enumNames: [
                     'Data',
                     'Documentatie',
                     'Visualisatie',
-                    'Voorbeeldtoepassing'
+                    'Voorbeeldtoepassing',
                   ],
                   minLength: 1,
                   title: 'Type resource',
-                  type: 'string'
+                  type: 'string',
                 },
                 'ams:serviceType': {
                   description: 'Geef het type API of webservice',
@@ -294,7 +276,7 @@ const mockApiData = {
                     'wms',
                     'wmts',
                     'soap',
-                    'other'
+                    'other',
                   ],
                   enumNames: [
                     'REST: Atom feed',
@@ -305,29 +287,30 @@ const mockApiData = {
                     'WMS',
                     'WMTS',
                     'SOAP',
-                    'Anders'
+                    'Anders',
                   ],
                   minLength: 1,
                   title: 'Type API/Service',
-                  type: 'string'
+                  type: 'string',
                 },
                 'dcat:accessURL': {
-                  description: 'Toegangslink naar de daadwerkelijke gegevensset óf downloadlink om gegevensset te downloaden',
+                  description:
+                    'Toegangslink naar de daadwerkelijke gegevensset óf downloadlink om gegevensset te downloaden',
                   format: 'uri',
                   minLength: 1,
                   title: 'URL of upload',
-                  type: 'string'
+                  type: 'string',
                 },
                 'dcat:byteSize': {
                   description: 'Bestandsgrootte in bytes',
                   minimum: 0,
                   title: 'Bestandsgrootte',
-                  type: 'number'
+                  type: 'number',
                 },
                 'dct:description': {
                   minLength: 1,
                   title: 'Beschrijving',
-                  type: 'string'
+                  type: 'string',
                 },
                 'dcat:mediaType': {
                   enum: [
@@ -340,11 +323,11 @@ const mockApiData = {
                     'application/json',
                     'application/pdf',
                     'image/png',
-                    'application/zip; format=\'shp\'',
+                    "application/zip; format='shp'",
                     'application/vnd.ms-excel',
                     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                     'application/xml',
-                    'application/octet-stream'
+                    'application/octet-stream',
                   ],
                   enumNames: [
                     '',
@@ -360,66 +343,67 @@ const mockApiData = {
                     'XLS',
                     'XLSX',
                     'XML',
-                    'Anders'
+                    'Anders',
                   ],
                   minLength: 1,
                   title: 'Type bestand',
-                  type: 'string'
+                  type: 'string',
                 },
                 'dct:modified': {
                   default: '2018-07-10',
-                  description: 'De datum waarop de inhoud van deze link voor het laatst is geactualiseerd.',
+                  description:
+                    'De datum waarop de inhoud van deze link voor het laatst is geactualiseerd.',
                   format: 'date',
                   minLength: 1,
-                  pattern: '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
+                  pattern:
+                    '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
                   title: 'Verversingsdatum',
-                  type: 'string'
+                  type: 'string',
                 },
                 'dct:title': {
                   minLength: 1,
                   pattern: '^[^\\n\\r]*?\\S[^\\n\\r]*$',
                   title: 'Titel',
-                  type: 'string'
+                  type: 'string',
                 },
                 'foaf:isPrimaryTopicOf': {
                   properties: {
                     'dct:issued': {
                       default: '2018-07-10',
-                      description: 'De datum waarop deze beschrijving van de gegevensset beschikbaar is gesteld',
+                      description:
+                        'De datum waarop deze beschrijving van de gegevensset beschikbaar is gesteld',
                       format: 'date',
                       minLength: 1,
-                      pattern: '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
+                      pattern:
+                        '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
                       title: 'Publicatiedatum',
-                      type: 'string'
+                      type: 'string',
                     },
                     'dct:modified': {
                       default: '2018-07-10',
-                      description: 'De datum waarop deze beschrijving van de gegevensset voor het laatst is gewijzigd',
+                      description:
+                        'De datum waarop deze beschrijving van de gegevensset voor het laatst is gewijzigd',
                       format: 'date',
                       minLength: 1,
-                      pattern: '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
+                      pattern:
+                        '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
                       sysDefined: true,
                       title: 'Wijzigingsdatum',
-                      type: 'string'
-                    }
+                      type: 'string',
+                    },
                   },
-                  required: [
-                    'dct:modified'
-                  ],
+                  required: ['dct:modified'],
                   title: '',
                   type: 'object',
-                  'x-order': [
-                    'dct:issued',
-                    'dct:modified'
-                  ]
-                }
+                  'x-order': ['dct:issued', 'dct:modified'],
+                },
               },
               required: [
                 'dct:title',
                 'dcat:accessURL',
                 'ams:resourceType',
                 'ams:distributionType',
-                'foaf:isPrimaryTopicOf'
+                'foaf:isPrimaryTopicOf',
               ],
               type: 'object',
               'x-order': [
@@ -434,11 +418,11 @@ const mockApiData = {
                 'dct:modified',
                 'ams:classification',
                 'dcat:byteSize',
-                'foaf:isPrimaryTopicOf'
-              ]
+                'foaf:isPrimaryTopicOf',
+              ],
             },
             title: 'Resources',
-            type: 'array'
+            type: 'array',
           },
           'dcat:keyword': {
             default: [],
@@ -1733,21 +1717,21 @@ const mockApiData = {
                 'zuidoost',
                 'zwaluw',
                 'zwembad',
-                'zwembaden'
+                'zwembaden',
               ],
               minLength: 1,
               pattern: '^[^\\n\\r]*?\\S[^\\n\\r]*$',
-              type: 'string'
+              type: 'string',
             },
             title: 'Tags',
             type: 'array',
-            uniqueItems: true
+            uniqueItems: true,
           },
           'dcat:landingPage': {
             format: 'uri',
             minLength: 1,
             title: 'URL voor meer informatie',
-            type: 'string'
+            type: 'string',
           },
           'dcat:theme': {
             default: [],
@@ -1771,7 +1755,7 @@ const mockApiData = {
                 'theme:verkiezingen',
                 'theme:werk-inkomen',
                 'theme:wonen-leefomgeving',
-                'theme:zorg-welzijn'
+                'theme:zorg-welzijn',
               ],
               enumNames: [
                 'Overig',
@@ -1792,14 +1776,14 @@ const mockApiData = {
                 'Verkiezingen',
                 'Werk & Inkomen',
                 'Wonen & leefomgeving',
-                'Zorg & welzijn'
+                'Zorg & welzijn',
               ],
               minLength: 1,
-              type: 'string'
+              type: 'string',
             },
             title: 'Thema',
             type: 'array',
-            uniqueItems: true
+            uniqueItems: true,
           },
           'dct:accrualPeriodicity': {
             default: 'unknown',
@@ -1821,7 +1805,7 @@ const mockApiData = {
               'reg',
               'irreg',
               'req',
-              'other'
+              'other',
             ],
             enumNames: [
               'onbekend',
@@ -1841,38 +1825,33 @@ const mockApiData = {
               'regelmatig',
               'onregelmatig',
               'op afroep',
-              'anders'
+              'anders',
             ],
             minLength: 1,
             title: 'Wijzigingsfrequentie',
-            type: 'string'
+            type: 'string',
           },
           'dct:description': {
-            description: 'Geef een samenvatting van de inhoud van de gegevensset, welke gegevens zitten erin en wat is expliciet eruit gelaten',
+            description:
+              'Geef een samenvatting van de inhoud van de gegevensset, welke gegevens zitten erin en wat is expliciet eruit gelaten',
             minLength: 1,
             title: 'Beschrijving',
-            type: 'string'
+            type: 'string',
           },
           'dct:identifier': {
             description: 'Unieke identifier',
             minLength: 1,
             pattern: '^[^\\n\\r]*?\\S[^\\n\\r]*$',
             title: 'UID',
-            type: 'string'
+            type: 'string',
           },
           'dct:language': {
             default: 'lang1:nl',
-            enum: [
-              'lang1:nl',
-              'lang1:en'
-            ],
-            enumNames: [
-              'Nederlands',
-              'Engels'
-            ],
+            enum: ['lang1:nl', 'lang1:en'],
+            enumNames: ['Nederlands', 'Engels'],
             minLength: 1,
             title: 'Taal',
-            type: 'string'
+            type: 'string',
           },
           'dct:publisher': {
             properties: {
@@ -1880,117 +1859,115 @@ const mockApiData = {
                 format: 'uri',
                 minLength: 1,
                 title: 'Website technisch contactpersoon',
-                type: 'string'
+                type: 'string',
               },
               'foaf:mbox': {
                 format: 'email',
                 minLength: 1,
                 title: 'E-mail technisch contactpersoon',
-                type: 'string'
+                type: 'string',
               },
               'foaf:name': {
-                description: 'Geef de naam van de contactpersoon voor technische vragen over de aanlevering. Dit kan dezelfde contactpersoon zijn als voor de inhoudelijke vragen.',
+                description:
+                  'Geef de naam van de contactpersoon voor technische vragen over de aanlevering. Dit kan dezelfde contactpersoon zijn als voor de inhoudelijke vragen.',
                 minLength: 1,
                 pattern: '^[^\\n\\r]*?\\S[^\\n\\r]*$',
                 title: 'Technisch contactpersoon',
-                type: 'string'
-              }
+                type: 'string',
+              },
             },
-            required: [
-              'foaf:name'
-            ],
+            required: ['foaf:name'],
             title: '',
             type: 'object',
-            'x-order': [
-              'foaf:name',
-              'foaf:mbox',
-              'foaf:homepage'
-            ]
+            'x-order': ['foaf:name', 'foaf:mbox', 'foaf:homepage'],
           },
           'dct:spatial': {
-            description: 'Beschrijving of coördinaten van het gebied dat de gegevensset bestrijkt (boundingbox). Rijksdriehoeksstelsel (pseudo-RD)',
+            description:
+              'Beschrijving of coördinaten van het gebied dat de gegevensset bestrijkt (boundingbox). Rijksdriehoeksstelsel (pseudo-RD)',
             minLength: 1,
             pattern: '^[^\\n\\r]*?\\S[^\\n\\r]*$',
             title: 'Coördinaten gebiedskader',
-            type: 'string'
+            type: 'string',
           },
           'dct:temporal': {
             properties: {
               'time:hasBeginning': {
-                description: 'Geef de tijdsperiode aan (begindatum), die de gegevensset beslaat.',
+                description:
+                  'Geef de tijdsperiode aan (begindatum), die de gegevensset beslaat.',
                 format: 'date',
                 minLength: 1,
-                pattern: '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
+                pattern:
+                  '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
                 title: 'Tijdsperiode van',
-                type: 'string'
+                type: 'string',
               },
               'time:hasEnd': {
-                description: 'Geef de tijdsperiode aan (einddatum), die de gegevensset beslaat.',
+                description:
+                  'Geef de tijdsperiode aan (einddatum), die de gegevensset beslaat.',
                 format: 'date',
                 minLength: 1,
-                pattern: '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
+                pattern:
+                  '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
                 title: 'Tijdsperiode tot',
-                type: 'string'
-              }
+                type: 'string',
+              },
             },
             title: '',
             type: 'object',
-            'x-order': [
-              'time:hasBeginning',
-              'time:hasEnd'
-            ]
+            'x-order': ['time:hasBeginning', 'time:hasEnd'],
           },
           'dct:title': {
             minLength: 1,
             pattern: '^[^\\n\\r]*?\\S[^\\n\\r]*$',
             title: 'Titel',
-            type: 'string'
+            type: 'string',
           },
           'foaf:isPrimaryTopicOf': {
             properties: {
               'dct:issued': {
                 default: '2018-07-05',
-                description: 'De datum waarop deze beschrijving van de gegevensset beschikbaar is gesteld',
+                description:
+                  'De datum waarop deze beschrijving van de gegevensset beschikbaar is gesteld',
                 format: 'date',
                 minLength: 1,
-                pattern: '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
+                pattern:
+                  '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
                 title: 'Publicatiedatum',
-                type: 'string'
+                type: 'string',
               },
               'dct:modified': {
                 default: '2018-07-10',
-                description: 'De datum waarop deze beschrijving van de gegevensset voor het laatst is gewijzigd',
+                description:
+                  'De datum waarop deze beschrijving van de gegevensset voor het laatst is gewijzigd',
                 format: 'date',
                 minLength: 1,
-                pattern: '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
+                pattern:
+                  '^\\d\\d\\d\\d-[01]\\d-[0-3]\\d(?:T[012]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?)?(?:Z|[01]\\d(?::[0-5]\\d)?)?$',
                 sysDefined: true,
                 title: 'Wijzigingsdatum',
-                type: 'string'
-              }
+                type: 'string',
+              },
             },
-            required: [
-              'dct:modified'
-            ],
+            required: ['dct:modified'],
             title: '',
             type: 'object',
-            'x-order': [
-              'dct:issued',
-              'dct:modified'
-            ]
+            'x-order': ['dct:issued', 'dct:modified'],
           },
           'overheid:grondslag': {
-            description: 'Geef indien van toepassing aan wat is de oorspronkelijke juridische basis is van de gegevensset.',
+            description:
+              'Geef indien van toepassing aan wat is de oorspronkelijke juridische basis is van de gegevensset.',
             minLength: 1,
             title: 'Juridische grondslag',
-            type: 'string'
+            type: 'string',
           },
           'overheidds:doel': {
-            description: 'Geef aan met welk doel deze gegevensset is aangelegd. Waarom bestaat deze gegevensset?',
+            description:
+              'Geef aan met welk doel deze gegevensset is aangelegd. Waarom bestaat deze gegevensset?',
             minLength: 1,
             pattern: '^[^\\n\\r]*?\\S[^\\n\\r]*$',
             title: 'Doel',
-            type: 'string'
-          }
+            type: 'string',
+          },
         },
         required: [
           'dct:title',
@@ -2002,7 +1979,7 @@ const mockApiData = {
           'dcat:contactPoint',
           'dct:publisher',
           'dcat:theme',
-          'ams:license'
+          'ams:license',
         ],
         type: 'object',
         'x-order': [
@@ -2026,19 +2003,19 @@ const mockApiData = {
           'dcat:theme',
           'dcat:keyword',
           'ams:license',
-          'dct:identifier'
-        ]
+          'dct:identifier',
+        ],
       },
       'dcat-dataset-list': {
         items: {
-          type: 'string'
+          type: 'string',
         },
-        type: 'array'
+        type: 'array',
       },
       etag: {
-        pattern: '^(?:W/)?\'[^\']+\'$',
-        type: 'string'
-      }
+        pattern: "^(?:W/)?'[^']+'$",
+        type: 'string',
+      },
     },
     securitySchemes: {
       OAuth2: {
@@ -2046,23 +2023,24 @@ const mockApiData = {
           implicit: {
             authorizationUrl: '/oauth2/authorize',
             scopes: {
-              'CAT/W': 'Administer the data catalog'
-            }
-          }
+              'CAT/W': 'Administer the data catalog',
+            },
+          },
         },
-        type: 'oauth2'
-      }
-    }
+        type: 'oauth2',
+      },
+    },
   },
   info: {
     title: 'Data catalog',
-    version: '1.0.0-alpha'
+    version: '1.0.0-alpha',
   },
   openapi: '3.0.0',
   paths: {
     '/datasets': {
       get: {
-        description: 'Get a list of all datasets, optionally selected by a free-text query and/or facet filters. This endpoint supports paging using the limit parameter.\nSearch for datasets concerned with jeugdzorg: ``GET /datasets?q=jeugdzorg``\nGet all datasets that have ``jeugdzorg`` as one of its themes:\n``GET /datasets?/properties/dct:theme/items=in=jeugdzorg``\nGet all datasets that have ``jeugdzorg`` or ``ouderenzorg`` as one of their themes:\n``GET /datasets?/properties/dct:theme/items=in=jeugdzorg,ouderenzorg``\nGet all datasets modified in January 2017:\n``GET /datasets?/properties/dct:modified=ge=2017-01-01&/properties/dct:modified=lt=2017-01-31``',
+        description:
+          'Get a list of all datasets, optionally selected by a free-text query and/or facet filters. This endpoint supports paging using the limit parameter.\nSearch for datasets concerned with jeugdzorg: ``GET /datasets?q=jeugdzorg``\nGet all datasets that have ``jeugdzorg`` as one of its themes:\n``GET /datasets?/properties/dct:theme/items=in=jeugdzorg``\nGet all datasets that have ``jeugdzorg`` or ``ouderenzorg`` as one of their themes:\n``GET /datasets?/properties/dct:theme/items=in=jeugdzorg,ouderenzorg``\nGet all datasets modified in January 2017:\n``GET /datasets?/properties/dct:modified=ge=2017-01-01&/properties/dct:modified=lt=2017-01-31``',
         parameters: [
           {
             description: 'Free-text query',
@@ -2070,11 +2048,12 @@ const mockApiData = {
             name: 'q',
             required: false,
             schema: {
-              type: 'string'
-            }
+              type: 'string',
+            },
           },
           {
-            description: '**This is a “pseudo-paramemeter”** OpenAPI3 doesn’t allow patterned parameters (yet). Instead, this entry serves as documentation for facet filtering parameters.\nEach facet filter is a ``key=value`` pair in the request query. The *key* consists of a syntactically valid JSON pointer. The *value* starts with one of the following comparators:\n-   ``eq=``: **equals:** True if at least one value matching the JSON\n    pointer is equal to the provided ``value``.\n-   ``in=``: **in:** True if at least one value matching the JSON\n    pointer is equal to at least one of the (comma separated) set of\n    strings in the provided ``value``.\n-   ``ge=``: **greater than or equal to:** True if at least one value\n    matching the JSON pointer is greater than or equal to the provided\n    ``value``.\n-   ``le=``: **less than or equal to:** True if at least one value\n    matching the JSON pointer is less than or equal to the provided\n    ``value``.\n-   ``gt=``: **greater than:** True if at least one value\n    matching the JSON pointer is greater than the provided\n    ``value``.\n-   ``lt=``: **less than:** True if at least one value\n    matching the JSON pointer is less than the provided\n    ``value``.\n\nThis comparator is then followed by a literal, or a comma-separated set of string if the comparator is ``in=``. So example key-value pairs are:\n``/properties/dct:title=in=Hello,world`` The ``dct:title`` property must be either “Hello” or “world”.\n``/properties/dct:title=eq=Hello%20world`` The ``dct:title`` property must be “Hello world”.',
+            description:
+              '**This is a “pseudo-paramemeter”** OpenAPI3 doesn’t allow patterned parameters (yet). Instead, this entry serves as documentation for facet filtering parameters.\nEach facet filter is a ``key=value`` pair in the request query. The *key* consists of a syntactically valid JSON pointer. The *value* starts with one of the following comparators:\n-   ``eq=``: **equals:** True if at least one value matching the JSON\n    pointer is equal to the provided ``value``.\n-   ``in=``: **in:** True if at least one value matching the JSON\n    pointer is equal to at least one of the (comma separated) set of\n    strings in the provided ``value``.\n-   ``ge=``: **greater than or equal to:** True if at least one value\n    matching the JSON pointer is greater than or equal to the provided\n    ``value``.\n-   ``le=``: **less than or equal to:** True if at least one value\n    matching the JSON pointer is less than or equal to the provided\n    ``value``.\n-   ``gt=``: **greater than:** True if at least one value\n    matching the JSON pointer is greater than the provided\n    ``value``.\n-   ``lt=``: **less than:** True if at least one value\n    matching the JSON pointer is less than the provided\n    ``value``.\n\nThis comparator is then followed by a literal, or a comma-separated set of string if the comparator is ``in=``. So example key-value pairs are:\n``/properties/dct:title=in=Hello,world`` The ``dct:title`` property must be either “Hello” or “world”.\n``/properties/dct:title=eq=Hello%20world`` The ``dct:title`` property must be “Hello world”.',
             explode: true,
             in: 'query',
             name: 'any_json_pointer',
@@ -2082,15 +2061,16 @@ const mockApiData = {
             schema: {
               oneOf: [
                 {
-                  description: 'A string, if the comparator is one of ``=``, ``>``, or ``<``',
-                  type: 'string'
+                  description:
+                    'A string, if the comparator is one of ``=``, ``>``, or ``<``',
+                  type: 'string',
                 },
                 {
                   pattern: '^(/(~0|~1|[^/~<>=])+)+([<>]=|=[=<>~]).+$',
-                  type: 'string A set of strings, if the comparator is ``~``'
-                }
-              ]
-            }
+                  type: 'string A set of strings, if the comparator is ``~``',
+                },
+              ],
+            },
           },
           {
             description: 'Amount of results to return',
@@ -2098,8 +2078,8 @@ const mockApiData = {
             name: 'limit',
             required: false,
             schema: {
-              type: 'integer'
-            }
+              type: 'integer',
+            },
           },
           {
             description: 'Offset in resultset',
@@ -2107,34 +2087,35 @@ const mockApiData = {
             name: 'offset',
             required: false,
             schema: {
-              type: 'integer'
-            }
-          }
+              type: 'integer',
+            },
+          },
         ],
         responses: {
           200: {
             content: {
               'application/json': {
                 schema: {
-                  $ref: '#/components/schemas/dcat-dataset-list'
-                }
-              }
+                  $ref: '#/components/schemas/dcat-dataset-list',
+                },
+              },
             },
-            description: 'A list of datasets.'
-          }
-        }
+            description: 'A list of datasets.',
+          },
+        },
       },
       post: {
-        description: 'Upload a new dataset and let the system generate an identifier.',
+        description:
+          'Upload a new dataset and let the system generate an identifier.',
         requestBody: {
           content: {
             'application/json': {
               schema: {
-                $ref: '#/components/schemas/dcat-dataset'
-              }
-            }
+                $ref: '#/components/schemas/dcat-dataset',
+              },
+            },
           },
-          required: true
+          required: true,
         },
         responses: {
           201: {
@@ -2143,26 +2124,24 @@ const mockApiData = {
               Etag: {
                 description: 'Etag of the newly created dataset.',
                 schema: {
-                  $ref: '#/components/schemas/etag'
-                }
+                  $ref: '#/components/schemas/etag',
+                },
               },
               Location: {
                 description: 'Location of the newly created dataset.',
                 schema: {
-                  type: 'string'
-                }
-              }
-            }
-          }
+                  type: 'string',
+                },
+              },
+            },
+          },
         },
         security: [
           {
-            OAuth2: [
-              'CAT/W'
-            ]
-          }
-        ]
-      }
+            OAuth2: ['CAT/W'],
+          },
+        ],
+      },
     },
     '/datasets/{id}': {
       delete: {
@@ -2174,43 +2153,43 @@ const mockApiData = {
             required: true,
             schema: {
               minLength: 1,
-              type: 'string'
-            }
+              type: 'string',
+            },
           },
           {
-            description: 'The value *must* be the current `Etag` of the dataset resource, as last seen by the client. This prevents lost updates if multiple clients are concurrently editing the same resource.',
+            description:
+              'The value *must* be the current `Etag` of the dataset resource, as last seen by the client. This prevents lost updates if multiple clients are concurrently editing the same resource.',
             in: 'header',
             name: 'If-Match',
             required: true,
             schema: {
-              $ref: '#/components/schemas/etag'
-            }
-          }
+              $ref: '#/components/schemas/etag',
+            },
+          },
         ],
         responses: {
           204: {
-            description: 'No Content'
-          }
+            description: 'No Content',
+          },
         },
         security: [
           {
-            OAuth2: [
-              'CAT/W'
-            ]
-          }
-        ]
+            OAuth2: ['CAT/W'],
+          },
+        ],
       },
       get: {
         description: 'Get the dataset identified by id.',
         parameters: [
           {
-            description: 'This request header can be used to fetch content iff none of the given etags match.',
+            description:
+              'This request header can be used to fetch content iff none of the given etags match.',
             in: 'header',
             name: 'If-None-Match',
             required: false,
             schema: {
-              type: 'string'
-            }
+              type: 'string',
+            },
           },
           {
             in: 'path',
@@ -2218,41 +2197,42 @@ const mockApiData = {
             required: true,
             schema: {
               minLength: 1,
-              type: 'string'
-            }
-          }
+              type: 'string',
+            },
+          },
         ],
         responses: {
           200: {
             content: {
               'application/json': {
                 schema: {
-                  $ref: '#/components/schemas/dcat-dataset'
-                }
-              }
+                  $ref: '#/components/schemas/dcat-dataset',
+                },
+              },
             },
             description: 'The dataset as a dcat document.',
             headers: {
               Etag: {
                 description: 'Etag of the dataset.',
                 schema: {
-                  $ref: '#/components/schemas/etag'
-                }
-              }
-            }
+                  $ref: '#/components/schemas/etag',
+                },
+              },
+            },
           },
           304: {
-            description: 'Not Modified: The document has an etag that equals one of the given etags in If-None-Match.',
+            description:
+              'Not Modified: The document has an etag that equals one of the given etags in If-None-Match.',
             headers: {
               Etag: {
                 description: 'Etag of the dataset.',
                 schema: {
-                  $ref: '#/components/schemas/etag'
-                }
-              }
-            }
-          }
-        }
+                  $ref: '#/components/schemas/etag',
+                },
+              },
+            },
+          },
+        },
       },
       put: {
         description: 'Upload a dataset under the given ID.',
@@ -2263,38 +2243,40 @@ const mockApiData = {
             required: true,
             schema: {
               minLength: 1,
-              type: 'string'
-            }
+              type: 'string',
+            },
           },
           {
-            description: 'This request header is required if the client intends to *update* an existing `dataset` resource.  The value *must* be the current `Etag` of the dataset resource, as last seen by the client.  This prevents lost updates if multiple clients are concurrently editing the same resource.',
+            description:
+              'This request header is required if the client intends to *update* an existing `dataset` resource.  The value *must* be the current `Etag` of the dataset resource, as last seen by the client.  This prevents lost updates if multiple clients are concurrently editing the same resource.',
             in: 'header',
             name: 'If-Match',
             required: false,
             schema: {
-              $ref: '#/components/schemas/etag'
-            }
+              $ref: '#/components/schemas/etag',
+            },
           },
           {
-            description: 'This request header is required if the client intends to *create* a new `dataset` resource.  This prevents lost updates if multiple clients are concurrently creating the same resource.',
+            description:
+              'This request header is required if the client intends to *create* a new `dataset` resource.  This prevents lost updates if multiple clients are concurrently creating the same resource.',
             in: 'header',
             name: 'If-None-Match',
             required: false,
             schema: {
               pattern: '^\\*$',
-              type: 'string'
-            }
-          }
+              type: 'string',
+            },
+          },
         ],
         requestBody: {
           content: {
             'application/json': {
               schema: {
-                $ref: '#/components/schemas/dcat-dataset'
-              }
-            }
+                $ref: '#/components/schemas/dcat-dataset',
+              },
+            },
           },
-          required: true
+          required: true,
         },
         responses: {
           201: {
@@ -2303,37 +2285,36 @@ const mockApiData = {
               Etag: {
                 description: 'Etag of the newly created dataset.',
                 schema: {
-                  $ref: '#/components/schemas/etag'
-                }
+                  $ref: '#/components/schemas/etag',
+                },
               },
               Location: {
                 description: 'Location of the newly created dataset.',
                 schema: {
-                  type: 'string'
-                }
-              }
-            }
+                  type: 'string',
+                },
+              },
+            },
           },
           204: {
-            description: 'The dataset was updated successfully.  The `Etag` response header contains the new Etag.',
+            description:
+              'The dataset was updated successfully.  The `Etag` response header contains the new Etag.',
             headers: {
               Etag: {
                 description: 'New Etag of the updated dataset.',
                 schema: {
-                  $ref: '#/components/schemas/etag'
-                }
-              }
-            }
-          }
+                  $ref: '#/components/schemas/etag',
+                },
+              },
+            },
+          },
         },
         security: [
           {
-            OAuth2: [
-              'CAT/W'
-            ]
-          }
-        ]
-      }
+            OAuth2: ['CAT/W'],
+          },
+        ],
+      },
     },
     '/files': {
       post: {
@@ -2345,13 +2326,13 @@ const mockApiData = {
                 properties: {
                   distribution: {
                     format: 'binary',
-                    type: 'string'
-                  }
-                }
-              }
-            }
+                    type: 'string',
+                  },
+                },
+              },
+            },
           },
-          required: true
+          required: true,
         },
         responses: {
           201: {
@@ -2360,47 +2341,45 @@ const mockApiData = {
               Location: {
                 description: 'Location of the uploaded distribution.',
                 schema: {
-                  type: 'string'
-                }
-              }
-            }
-          }
+                  type: 'string',
+                },
+              },
+            },
+          },
         },
         security: [
           {
-            OAuth2: [
-              'CAT/W'
-            ]
-          }
-        ]
-      }
+            OAuth2: ['CAT/W'],
+          },
+        ],
+      },
     },
     '/openapi': {
       get: {
         description: 'Get the OpenAPI specification.',
         responses: {
           200: {
-            description: 'Success.'
-          }
-        }
-      }
+            description: 'Success.',
+          },
+        },
+      },
     },
     '/system/health': {
       get: {
         description: 'System health.',
         responses: {
           200: {
-            description: 'Plain text description of current system status.'
-          }
-        }
-      }
-    }
+            description: 'Plain text description of current system status.',
+          },
+        },
+      },
+    },
   },
   servers: [
     {
-      url: 'https://acc.api.data.amsterdam.nl/dcatd/'
-    }
-  ]
-};
+      url: 'https://acc.api.data.amsterdam.nl/dcatd/',
+    },
+  ],
+}
 
-export default mockApiData;
+export default mockApiData

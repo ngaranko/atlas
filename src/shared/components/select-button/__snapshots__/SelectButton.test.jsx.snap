@@ -12,6 +12,7 @@ exports[`rendering should render with default value 1`] = `
   <button
     className="select-button__wrapper"
     onClick={[Function]}
+    type="button"
   >
     <span
       className="select-button__custom-icon"
@@ -29,6 +30,7 @@ exports[`rendering should render with default value 1`] = `
   <button
     className="select-button__icon-wrapper"
     onClick={[Function]}
+    type="button"
   >
     <span
       className="
@@ -39,7 +41,6 @@ exports[`rendering should render with default value 1`] = `
       <span
         className="u-sr-only"
       >
-        $
         Uitklappen
       </span>
     </span>
@@ -57,6 +58,7 @@ exports[`rendering should render with default value 1`] = `
       <button
         className="select-button__drop-down-button"
         onClick={[Function]}
+        type="button"
         value="topografie"
       >
         Topografie
@@ -72,6 +74,7 @@ exports[`rendering should render with default value 1`] = `
       <button
         className="select-button__drop-down-button"
         onClick={[Function]}
+        type="button"
         value="topo_rd_light"
       >
         Topografie licht
@@ -87,6 +90,7 @@ exports[`rendering should render with default value 1`] = `
       <button
         className="select-button__drop-down-button"
         onClick={[Function]}
+        type="button"
         value="topo_rd_zw"
       >
         Topografie grijs
@@ -108,6 +112,7 @@ exports[`rendering should render with no options 1`] = `
   <button
     className="select-button__wrapper"
     onClick={[Function]}
+    type="button"
   >
     <span
       className="select-button__custom-icon"
@@ -123,6 +128,7 @@ exports[`rendering should render with no options 1`] = `
   <button
     className="select-button__icon-wrapper"
     onClick={[Function]}
+    type="button"
   >
     <span
       className="
@@ -133,7 +139,6 @@ exports[`rendering should render with no options 1`] = `
       <span
         className="u-sr-only"
       >
-        $
         Uitklappen
       </span>
     </span>

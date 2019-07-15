@@ -1,138 +1,135 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import get from 'lodash.get';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import get from 'lodash.get'
 
-import DrawTool from '../../components/draw-tool/DrawTool';
-import drawToolConfig from '../../services/draw-tool/draw-tool.config';
+import DrawTool from '../../components/draw-tool/DrawTool'
+import drawToolConfig from '../../services/draw-tool/draw-tool.config'
 
+import { currentShape, initialize, isEnabled, setPolygon } from '../../services/draw-tool/draw-tool'
 import {
-  currentShape,
-  initialize,
-  isEnabled,
-  setPolygon
-} from '../../services/draw-tool/draw-tool';
-import { mapClear, mapEmptyGeometry, mapSetDrawingMode, mapUpdateShape
-} from '../../ducks/map/actions';
+  mapClear,
+  mapEmptyGeometry,
+  mapSetDrawingMode,
+  mapUpdateShape,
+} from '../../ducks/map/actions'
 import {
   getDrawingMode,
   getGeometry,
   getShapeDistanceTxt,
   isDrawingEnabled,
-  getShapeMarkers
-} from '../../ducks/map/selectors';
-import { endDataSelection, setGeometryFilter } from '../../../shared/ducks/data-selection/actions';
-import {
-  getDataSelection
-} from '../../../shared/ducks/data-selection/selectors';
+  getShapeMarkers,
+} from '../../ducks/map/selectors'
+import { endDataSelection, setGeometryFilter } from '../../../shared/ducks/data-selection/actions'
+import { getDataSelection } from '../../../shared/ducks/data-selection/selectors'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   drawingMode: getDrawingMode(state),
   drawingEnabled: isDrawingEnabled(state),
   shapeMarkers: getShapeMarkers(state),
   shapeDistanceTxt: getShapeDistanceTxt(state),
   dataSelection: getDataSelection(state),
-  geometry: getGeometry(state)
-});
+  geometry: getGeometry(state),
+})
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  onClearDrawing: mapEmptyGeometry,
-  onEmptyGeometry: mapEmptyGeometry,
-  onMapUpdateShape: mapUpdateShape,
-  onSetGeometryFilter: setGeometryFilter,
-  onSetDrawingMode: mapSetDrawingMode,
-  onEndDrawing: endDataSelection,
-  onMapClear: mapClear
-}, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      onClearDrawing: mapEmptyGeometry,
+      onEmptyGeometry: mapEmptyGeometry,
+      onMapUpdateShape: mapUpdateShape,
+      onSetGeometryFilter: setGeometryFilter,
+      onSetDrawingMode: mapSetDrawingMode,
+      onEndDrawing: endDataSelection,
+      onMapClear: mapClear,
+    },
+    dispatch,
+  )
 
 // TODO: Get all business logic out of this file, probably to Redux!
 class DrawToolContainer extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.onFinishShape = this.onFinishShape.bind(this);
-    this.onDrawingMode = this.onDrawingMode.bind(this);
-    this.onUpdateShape = this.onUpdateShape.bind(this);
-    this.setPolygon = this.setPolygon.bind(this);
-    this.getMarkers = this.getMarkers.bind(this);
+    this.onFinishShape = this.onFinishShape.bind(this)
+    this.onDrawingMode = this.onDrawingMode.bind(this)
+    this.onUpdateShape = this.onUpdateShape.bind(this)
+    this.setPolygon = this.setPolygon.bind(this)
+    this.getMarkers = this.getMarkers.bind(this)
 
-    this.props.initialize(
-      this.props.leafletInstance,
-      this.onFinishShape,
-      this.onDrawingMode,
-      this.onUpdateShape
-    );
+    const { initialize: initializeProp, leafletInstance } = this.props
+    initializeProp(leafletInstance, this.onFinishShape, this.onDrawingMode, this.onUpdateShape)
 
-    this.setPolygon();
+    this.setPolygon()
   }
 
   componentDidUpdate(prevProps) {
-    const { geometry, dataSelection } = this.props;
+    const { geometry, dataSelection } = this.props
     // Clear Polygon if the dataSelection filter changes
     if (prevProps.dataSelection.geometryFilter !== dataSelection.geometryFilter) {
-      this.setPolygon();
+      this.setPolygon()
     }
 
     // if the markers have changed save the old markers as previous markers
     if (prevProps.geometry !== geometry) {
-      this.setPolygon();
+      this.setPolygon()
     }
   }
 
   componentWillUnmount() {
-    const { onMapClear } = this.props;
-    onMapClear();
+    const { onMapClear } = this.props
+    onMapClear()
   }
 
   onFinishShape(polygon) {
-    const { onSetGeometryFilter } = this.props;
+    const { onSetGeometryFilter } = this.props
     if (polygon && polygon.markers && polygon.markers.length > 2) {
-      onSetGeometryFilter(polygon);
+      onSetGeometryFilter(polygon)
     }
   }
 
   onDrawingMode(drawingMode) {
-    const { onSetDrawingMode } = this.props;
-    onSetDrawingMode({ drawingMode });
+    const { onSetDrawingMode } = this.props
+    onSetDrawingMode({ drawingMode })
   }
 
   onUpdateShape(newShape) {
-    const { onMapUpdateShape } = this.props;
+    const { onMapUpdateShape } = this.props
     onMapUpdateShape({
       shapeMarkers: newShape.markers.length,
       shapeDistanceTxt: newShape.distanceTxt,
-      shapeAreaTxt: newShape.areaTxt
-    });
+      shapeAreaTxt: newShape.areaTxt,
+    })
   }
 
   setPolygon() {
-    const { onSetPolygon } = this.props;
+    const { onSetPolygon } = this.props
     if (!isEnabled()) {
-      onSetPolygon(this.getMarkers());
+      onSetPolygon(this.getMarkers())
     }
   }
 
   getMarkers() {
-    const { geometry, dataSelection } = this.props;
-    return geometry && geometry.length > 0 ?
-      geometry :
-      get(dataSelection, 'geometryFilter.markers', []);
+    const { geometry, dataSelection } = this.props
+    return geometry && geometry.length > 0
+      ? geometry
+      : get(dataSelection, 'geometryFilter.markers', [])
   }
 
   render() {
-    const { shapeMarkers, drawingMode, drawingEnabled } = this.props;
-    const markersLeft = drawToolConfig.MAX_MARKERS - shapeMarkers;
+    const { shapeMarkers, drawingMode, drawingEnabled } = this.props
+    const markersLeft = drawToolConfig.MAX_MARKERS - shapeMarkers
     return (
       <DrawTool
         markersLeft={markersLeft}
         {...{
           shapeMarkers,
           drawingMode,
-          drawingEnabled
+          drawingEnabled,
         }}
       />
-    );
+    )
   }
 }
 
@@ -142,15 +139,15 @@ DrawToolContainer.propTypes = {
   shapeDistanceTxt: PropTypes.string.isRequired,
   dataSelection: PropTypes.shape({
     geometryFilter: PropTypes.shape({
-      markers: PropTypes.array
-    })
+      markers: PropTypes.array,
+    }),
   }),
   // Todo: figure out what shape the array is
-  geometry: PropTypes.array.isRequired, // eslint-disable-line
+  geometry: PropTypes.array, // eslint-disable-line
 
   currentShape: PropTypes.shape({
-    markers: PropTypes.array
-  }).isRequired,
+    markers: PropTypes.array,
+  }),
 
   leafletInstance: PropTypes.shape({}).isRequired,
 
@@ -164,20 +161,23 @@ DrawToolContainer.propTypes = {
   onSetGeometryFilter: PropTypes.func.isRequired,
   onSetDrawingMode: PropTypes.func.isRequired,
   onEndDrawing: PropTypes.func.isRequired,
-  onMapClear: PropTypes.func.isRequired
-};
+  onMapClear: PropTypes.func.isRequired,
+}
 
 DrawToolContainer.defaultProps = {
   dataSelection: null,
   geometry: [],
-  currentShape: null
-};
+  currentShape: null,
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)((props) => (
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(props => (
   <DrawToolContainer
     currentShape={currentShape}
     initialize={initialize}
     onSetPolygon={setPolygon}
     {...props}
   />
-));
+))

@@ -4,8 +4,8 @@ import {
   detailPointType,
   panoramaPersonType,
   panoramaOrientationType,
-  markerPointType
-} from './icons.constant';
+  markerPointType,
+} from './icons.constant'
 
 const markerConfig = {
   [geoSearchType]: { requestFocus: true },
@@ -13,6 +13,6 @@ const markerConfig = {
   [detailPointType]: { requestFocus: true },
   [panoramaPersonType]: { requestFocus: true },
   [panoramaOrientationType]: { requestFocus: true },
-  [markerPointType]: {}
-};
-export default markerConfig;
+  [markerPointType]: {},
+}
+export default markerConfig

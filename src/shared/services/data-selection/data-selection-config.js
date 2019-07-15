@@ -1,6 +1,6 @@
-import brkApi from './data-selection-api-brk';
-import dataSelectionApi from './data-selection-api-data-selection';
-import dcatApi from './data-selection-api-dcatd';
+import brkApi from './data-selection-api-brk'
+import dataSelectionApi from './data-selection-api-data-selection'
+import dcatApi from './data-selection-api-dcatd'
 
 const DATA_SELECTION_CONFIG = {
   datasets: {
@@ -20,78 +20,83 @@ const DATA_SELECTION_CONFIG = {
       FILTERS: [
         {
           slug: 'stadsdeel_naam',
-          label: 'Stadsdeel'
-        }, {
+          label: 'Stadsdeel',
+        },
+        {
           slug: 'ggw_naam',
-          label: 'GGW-gebied'
-        }, {
+          label: 'GGW-gebied',
+        },
+        {
           slug: 'buurtcombinatie_naam',
-          label: 'Wijk'
-        }, {
+          label: 'Wijk',
+        },
+        {
           slug: 'buurt_naam',
-          label: 'Buurt'
-        }, {
+          label: 'Buurt',
+        },
+        {
           slug: 'openbare_ruimte',
-          label: 'Openbare ruimte'
-        }, {
+          label: 'Openbare ruimte',
+        },
+        {
           slug: 'postcode',
-          label: 'Postcode'
-        }
+          label: 'Postcode',
+        },
       ],
       CONTENT: {
         TABLE: [
           {
             label: 'Naam openbare ruimte',
-            variables: ['_openbare_ruimte_naam']
+            variables: ['_openbare_ruimte_naam'],
           },
           {
             label: 'Num.',
-            variables: ['huisnummer']
+            variables: ['huisnummer'],
           },
           {
             label: 'Let.',
-            variables: ['huisletter']
+            variables: ['huisletter'],
           },
           {
             label: 'Toev.',
-            variables: ['huisnummer_toevoeging']
+            variables: ['huisnummer_toevoeging'],
           },
           {
             label: 'Postcode',
-            variables: ['postcode']
+            variables: ['postcode'],
           },
           {
             label: 'Stadsdeel',
-            variables: ['stadsdeel_naam']
+            variables: ['stadsdeel_naam'],
           },
           {
             label: '-code',
-            variables: ['stadsdeel_code']
+            variables: ['stadsdeel_code'],
           },
           {
             label: 'GGW-gebied',
-            variables: ['ggw_naam']
+            variables: ['ggw_naam'],
           },
           {
             label: '-code',
-            variables: ['ggw_code']
+            variables: ['ggw_code'],
           },
           {
             label: 'Wijk',
-            variables: ['buurtcombinatie_naam']
+            variables: ['buurtcombinatie_naam'],
           },
           {
             label: '-code',
-            variables: ['buurtcombinatie_code']
+            variables: ['buurtcombinatie_code'],
           },
           {
             label: 'Buurt',
-            variables: ['buurt_naam']
+            variables: ['buurt_naam'],
           },
           {
             label: '-code',
-            variables: ['buurt_code']
-          }
+            variables: ['buurt_code'],
+          },
         ],
         LIST: [
           {
@@ -99,29 +104,22 @@ const DATA_SELECTION_CONFIG = {
               '_openbare_ruimte_naam',
               'huisnummer',
               'huisletter',
-              'huisnummer_toevoeging'
+              'huisnummer_toevoeging',
             ],
-            formatter: 'bagAddress'
+            formatter: 'bagAddress',
           },
           {
-            variables: [
-              'ligplaats_id',
-              'standplaats_id'
-            ],
-            formatter: 'nummeraanduidingType'
+            variables: ['ligplaats_id', 'standplaats_id'],
+            formatter: 'nummeraanduidingType',
           },
           {
-            variables: [
-              'hoofdadres'
-            ],
-            formatter: 'nevenadres'
+            variables: ['hoofdadres'],
+            formatter: 'nevenadres',
           },
           {
-            variables: [
-              'status_id'
-            ],
-            formatter: 'verblijfsobjectGevormd'
-          }
+            variables: ['status_id'],
+            formatter: 'verblijfsobjectGevormd',
+          },
         ],
         MAP: [
           {
@@ -129,31 +127,24 @@ const DATA_SELECTION_CONFIG = {
               '_openbare_ruimte_naam',
               'huisnummer',
               'huisletter',
-              'huisnummer_toevoeging'
+              'huisnummer_toevoeging',
             ],
-            formatter: 'bagAddress'
+            formatter: 'bagAddress',
           },
           {
-            variables: [
-              'ligplaats_id',
-              'standplaats_id'
-            ],
-            formatter: 'nummeraanduidingType'
+            variables: ['ligplaats_id', 'standplaats_id'],
+            formatter: 'nummeraanduidingType',
           },
           {
-            variables: [
-              'hoofdadres'
-            ],
-            formatter: 'nevenadres'
+            variables: ['hoofdadres'],
+            formatter: 'nevenadres',
           },
           {
-            variables: [
-              'status_id'
-            ],
-            formatter: 'verblijfsobjectGevormd'
-          }
-        ]
-      }
+            variables: ['status_id'],
+            formatter: 'verblijfsobjectGevormd',
+          },
+        ],
+      },
     },
     brk: {
       AUTH_SCOPE: 'BRK/RSN',
@@ -163,7 +154,7 @@ const DATA_SELECTION_CONFIG = {
       ENDPOINT_PREVIEW: {
         TABLE: 'dataselectie/brk/',
         LIST: 'dataselectie/brk/kot/',
-        MAP: 'dataselectie/brk/kot/'
+        MAP: 'dataselectie/brk/kot/',
       },
       ENDPOINT_MARKERS: 'dataselectie/brk/geolocation/',
       ENDPOINT_EXPORT: 'dataselectie/brk/export/',
@@ -177,13 +168,11 @@ const DATA_SELECTION_CONFIG = {
         {
           slug: 'eigenaar_type',
           label: 'Type zakelijk gerechtigde',
-          order: [
-            'Grondeigenaar',
-            'Pandeigenaar',
-            'Appartementseigenaar'
-          ],
-          info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/'
-        }, {
+          order: ['Grondeigenaar', 'Pandeigenaar', 'Appartementseigenaar'],
+          info_url:
+            'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/',
+        },
+        {
           slug: 'eigenaar_cat',
           label: 'Zakelijk gerechtigde',
           order: [
@@ -196,74 +185,75 @@ const DATA_SELECTION_CONFIG = {
             'Verenigingen van eigenaren',
             'Spoorwegen/ProRail',
             'Overige niet-natuurlijke personen',
-            'Overige natuurlijke personen'
+            'Overige natuurlijke personen',
           ],
-          info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/'
-        }, {
+          info_url:
+            'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/',
+        },
+        {
           slug: 'stadsdeel_naam',
-          label: 'Stadsdeel'
-        }, {
+          label: 'Stadsdeel',
+        },
+        {
           slug: 'ggw_naam',
-          label: 'GGW-gebied'
-        }, {
+          label: 'GGW-gebied',
+        },
+        {
           slug: 'buurtcombinatie_naam',
-          label: 'Wijk'
-        }, {
+          label: 'Wijk',
+        },
+        {
           slug: 'buurt_naam',
-          label: 'Buurt'
-        }
+          label: 'Buurt',
+        },
       ],
       CONTENT: {
         TABLE: [
           {
             label: 'Kad. object',
-            variables: ['aanduiding']
+            variables: ['aanduiding'],
           },
           {
             label: '-eerste adres',
-            variables: ['eerste_adres']
+            variables: ['eerste_adres'],
           },
           {
             label: 'Kad. gemeente',
-            variables: ['kadastrale_gemeentenaam']
+            variables: ['kadastrale_gemeentenaam'],
           },
           {
             label: 'Gemeente',
-            variables: ['burgerlijke_gemeentenaam']
+            variables: ['burgerlijke_gemeentenaam'],
           },
           {
             label: 'Zakelijk recht: aard',
-            variables: ['aard_zakelijk_recht']
+            variables: ['aard_zakelijk_recht'],
           },
           {
             label: '-aandeel',
-            variables: ['zakelijk_recht_aandeel']
+            variables: ['zakelijk_recht_aandeel'],
           },
           {
             label: 'Natuurlijk persoon: naam',
-            variables: ['sjt_naam']
+            variables: ['sjt_naam'],
           },
           {
             label: '-datum overlijden',
             variables: ['sjt_datum_overlijden'],
-            formatter: 'date'
+            formatter: 'date',
           },
           {
             label: 'Niet-natuurlijk persoon: statutaire naam',
-            variables: ['sjt_statutaire_naam']
+            variables: ['sjt_statutaire_naam'],
           },
           {
             label: '-rechtsvorm',
-            variables: ['sjt_statutaire_rechtsvorm']
-          }
+            variables: ['sjt_statutaire_rechtsvorm'],
+          },
         ],
-        LIST: [
-          { variables: ['aanduiding'] }
-        ],
-        MAP: [
-          { variables: ['aanduiding'] }
-        ]
-      }
+        LIST: [{ variables: ['aanduiding'] }],
+        MAP: [{ variables: ['aanduiding'] }],
+      },
     },
     hr: {
       CUSTOM_API: dataSelectionApi,
@@ -283,80 +273,91 @@ const DATA_SELECTION_CONFIG = {
       FILTERS: [
         {
           slug: 'sbi_code',
-          label: 'SBI-code'
-        }, {
+          label: 'SBI-code',
+        },
+        {
           slug: 'sbi_l2',
-          label: 'SBI-L2'
-        }, {
+          label: 'SBI-L2',
+        },
+        {
           slug: 'sbi_l3',
-          label: 'SBI-L3'
-        }, {
+          label: 'SBI-L3',
+        },
+        {
           slug: 'sbi_l4',
-          label: 'SBI-L4'
-        }, {
+          label: 'SBI-L4',
+        },
+        {
           slug: 'sbi_l5',
-          label: 'SBI-L5'
-        }, {
+          label: 'SBI-L5',
+        },
+        {
           slug: 'bijzondere_rechtstoestand',
-          label: 'Bijzondere rechtstoestand'
-        }, {
+          label: 'Bijzondere rechtstoestand',
+        },
+        {
           slug: 'stadsdeel_naam',
-          label: 'Stadsdeel'
-        }, {
+          label: 'Stadsdeel',
+        },
+        {
           slug: 'ggw_naam',
-          label: 'GGW-gebied'
-        }, {
+          label: 'GGW-gebied',
+        },
+        {
           slug: 'buurtcombinatie_naam',
-          label: 'Wijk'
-        }, {
+          label: 'Wijk',
+        },
+        {
           slug: 'buurt_naam',
-          label: 'Buurt'
-        }, {
+          label: 'Buurt',
+        },
+        {
           slug: 'openbare_ruimte',
-          label: 'Openbare ruimte'
-        }, {
+          label: 'Openbare ruimte',
+        },
+        {
           slug: 'postcode',
-          label: 'Postcode'
-        }
+          label: 'Postcode',
+        },
       ],
       CONTENT: {
         TABLE: [
           {
             label: 'KvK-num.',
-            variables: ['kvk_nummer']
+            variables: ['kvk_nummer'],
           },
           {
             label: 'Handelsnaam',
             variables: ['handelsnaam', 'bijzondere_rechtstoestand'],
-            template: 'handelsnaam'
+            template: 'handelsnaam',
           },
           {
             label: 'SBI-code',
-            variables: ['sbi_code']
+            variables: ['sbi_code'],
           },
           {
             label: 'SBI-omschrijving',
             variables: ['sbi_omschrijving'],
-            template: 'sbi-omschrijving'
+            template: 'sbi-omschrijving',
           },
           {
             label: 'Bezoekadres',
             variables: ['bezoekadres_volledig_adres', 'non_mailing'],
             formatter: 'hrBezoekadres',
-            template: 'bezoekadres'
-          }
+            template: 'bezoekadres',
+          },
         ],
         LIST: [
           {
-            variables: ['handelsnaam']
-          }
+            variables: ['handelsnaam'],
+          },
         ],
         MAP: [
           {
-            variables: ['handelsnaam']
-          }
-        ]
-      }
+            variables: ['handelsnaam'],
+          },
+        ],
+      },
     },
     dcatd: {
       MAX_ITEMS_PER_PAGE: 100,
@@ -373,30 +374,35 @@ const DATA_SELECTION_CONFIG = {
       FILTERS: [
         {
           slug: 'status',
-          label: 'Status'
-        }, {
+          label: 'Status',
+        },
+        {
           slug: 'groups',
-          label: 'Thema\'s'
-        }, {
+          label: "Thema's",
+        },
+        {
           slug: 'owners',
-          label: 'Eigenaar'
-        }, {
+          label: 'Eigenaar',
+        },
+        {
           slug: 'distributionTypes',
-          label: 'Verschijningsvorm'
-        }, {
+          label: 'Verschijningsvorm',
+        },
+        {
           slug: 'serviceTypes',
-          label: 'API/Service formaten'
-        }, {
+          label: 'API/Service formaten',
+        },
+        {
           slug: 'formats',
           label: 'Bestandsformaten',
-          formatter: 'lowercase'
-        }
+          formatter: 'lowercase',
+        },
       ],
       CONTENT: {
-        CATALOG: []
-      }
-    }
-  }
-};
+        CATALOG: [],
+      },
+    },
+  },
+}
 
-export default DATA_SELECTION_CONFIG;
+export default DATA_SELECTION_CONFIG

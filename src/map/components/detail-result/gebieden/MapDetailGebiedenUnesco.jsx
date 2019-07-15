@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import MapDetailResultWrapper from '../MapDetailResultWrapper';
+import MapDetailResultWrapper from '../MapDetailResultWrapper'
 
 const MapDetailGebiedenUnesco = ({ panoUrl, unesco, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
@@ -11,15 +11,15 @@ const MapDetailGebiedenUnesco = ({ panoUrl, unesco, onMaximize, onPanoPreviewCli
     subTitle={unesco.label}
     title="UNESCO"
   />
-);
+)
 
 MapDetailGebiedenUnesco.propTypes = {
   unesco: PropTypes.shape({
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailGebiedenUnesco;
+export default MapDetailGebiedenUnesco

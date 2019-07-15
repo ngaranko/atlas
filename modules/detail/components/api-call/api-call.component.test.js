@@ -1,312 +1,376 @@
-describe('The dp-api-call component', function () {
-    var $compile,
-        $rootScope,
-        $q,
-        api,
-        finishApiRequest;
+describe('The dp-api-call component', function() {
+  let $compile
+  let $rootScope
+  let $q
+  let api
+  let finishApiRequest
 
-    beforeEach(function () {
-        angular.mock.module(
-            'dpDetail',
-            {
-                api: {
-                    getByUrl: function (endpoint) {
-                        return getByUrlMock(endpoint);
-                    },
-                    getByUri: function (endpoint) {
-                        return getByUrlMock('http://www.some-domain.com/' + endpoint);
-                    }
-                }
-            },
-            function ($provide) {
-                $provide.factory('dpPartialSelectDirective', function () {
-                    return {};
-                });
+  beforeEach(function() {
+    angular.mock.module(
+      'dpDetail',
+      {
+        api: {
+          getByUrl(endpoint) {
+            return getByUrlMock(endpoint)
+          },
+          getByUri(endpoint) {
+            return getByUrlMock(`http://www.some-domain.com/${endpoint}`)
+          },
+        },
+      },
+      function($provide) {
+        $provide.factory('dpPartialSelectDirective', function() {
+          return {}
+        })
 
-                $provide.factory('dpLoadingIndicatorDirective', function () {
-                    return {};
-                });
-            }
-        );
+        $provide.factory('dpLoadingIndicatorDirective', function() {
+          return {}
+        })
+      },
+    )
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$q_, _api_) {
-            $compile = _$compile_;
-            $rootScope = _$rootScope_;
-            $q = _$q_;
-            api = _api_;
-        });
+    angular.mock.inject(function(_$compile_, _$rootScope_, _$q_, _api_) {
+      $compile = _$compile_
+      $rootScope = _$rootScope_
+      $q = _$q_
+      api = _api_
+    })
 
-        finishApiRequest = null;
+    finishApiRequest = null
 
-        spyOn(api, 'getByUrl').and.callThrough();
-        spyOn(api, 'getByUri').and.callThrough();
-    });
+    spyOn(api, 'getByUrl').and.callThrough()
+    spyOn(api, 'getByUri').and.callThrough()
+  })
 
-    function getByUrlMock (endpoint) {
-        var q = $q.defer(),
-            mockedResponse;
+  function getByUrlMock(endpoint) {
+    const q = $q.defer()
+    let mockedResponse
 
-        switch (endpoint) {
-            case 'http://www.some-domain.com/without-pagination/123/':
-                mockedResponse = {
-                    var_a: 'foo',
-                    var_b: 'bar'
-                };
-
-                break;
-
-            case 'http://www.some-domain.com/with-pagination/456/':
-                mockedResponse = {
-                    count: 5,
-                    results: ['ITEM_1', 'ITEM_2', 'ITEM_3'],
-                    _links: {
-                        next: {
-                            href: 'http://www.some-domain.com/with-pagination/456/?page=2'
-                        }
-                    }
-                };
-
-                break;
-
-            case 'http://www.some-domain.com/with-pagination/456/?page=2':
-                mockedResponse = {
-                    count: 5,
-                    results: ['ITEM_4', 'ITEM_5'],
-                    _links: {
-                        next: null
-                    }
-                };
-
-                break;
-
-            case 'http://www.some-domain.com/something/123/':
-            case 'http://www.some-domain.com/brk/object/123/':
-            case 'http://www.some-domain.com/brk/object-expand/123/':
-                mockedResponse = {
-                    var_c: 'baz'
-                };
-
-                break;
+    switch (endpoint) {
+      case 'http://www.some-domain.com/without-pagination/123/':
+        mockedResponse = {
+          var_a: 'foo',
+          var_b: 'bar',
         }
 
-        finishApiRequest = function () {
-            q.resolve(mockedResponse);
-        };
+        break
 
-        return q.promise;
+      case 'http://www.some-domain.com/with-pagination/456/':
+        mockedResponse = {
+          count: 5,
+          results: ['ITEM_1', 'ITEM_2', 'ITEM_3'],
+          _links: {
+            next: {
+              href: 'http://www.some-domain.com/with-pagination/456/?page=2',
+            },
+          },
+        }
+
+        break
+
+      case 'http://www.some-domain.com/with-pagination/456/?page=2':
+        mockedResponse = {
+          count: 5,
+          results: ['ITEM_4', 'ITEM_5'],
+          _links: {
+            next: null,
+          },
+        }
+
+        break
+
+      case 'http://www.some-domain.com/something/123/':
+      case 'http://www.some-domain.com/brk/object/123/':
+      case 'http://www.some-domain.com/brk/object-expand/123/':
+        mockedResponse = {
+          var_c: 'baz',
+        }
+
+        break
     }
 
-    function getComponent (endpoint, partial, useBrkObjectExpanded, addApiRoot, merge) {
-        var component,
-            element,
-            scope;
-
-        element = document.createElement('dp-api-call');
-        element.setAttribute('endpoint', endpoint);
-        element.setAttribute('partial', partial);
-        element.setAttribute('use-brk-object-expanded', 'useBrkObjectExpanded');
-        element.setAttribute('add-api-root', 'addApiRoot');
-        element.setAttribute('merge', 'merge');
-
-        scope = $rootScope.$new();
-        scope.useBrkObjectExpanded = useBrkObjectExpanded;
-        scope.addApiRoot = addApiRoot;
-        scope.merge = merge;
-
-        component = $compile(element)(scope);
-        scope.$apply();
-
-        return component;
+    finishApiRequest = function() {
+      q.resolve(mockedResponse)
     }
 
-    it('does nothing if there is no endpoint', function () {
-        var component = getComponent('', 'some-partial', false);
+    return q.promise
+  }
 
-        expect(api.getByUrl).not.toHaveBeenCalled();
-        expect(component.find('dp-partial-select').length).toBe(0);
-    });
+  function getComponent(
+    endpoint,
+    partial,
+    useBrkObjectExpanded,
+    addApiRoot,
+    merge,
+  ) {
+    const element = document.createElement('dp-api-call')
+    element.setAttribute('endpoint', endpoint)
+    element.setAttribute('partial', partial)
+    element.setAttribute('use-brk-object-expanded', 'useBrkObjectExpanded')
+    element.setAttribute('add-api-root', 'addApiRoot')
+    element.setAttribute('merge', 'merge')
 
-    describe('content without pagination', function () {
-        it('retrieves data from the api factory and restructures it for dp-partial-select', function () {
-            var component,
-                scope;
+    const scope = $rootScope.$new()
+    scope.useBrkObjectExpanded = useBrkObjectExpanded
+    scope.addApiRoot = addApiRoot
+    scope.merge = merge
 
-            component = getComponent('http://www.some-domain.com/without-pagination/123/', 'some-partial', false);
-            scope = component.isolateScope();
+    const component = $compile(element)(scope)
+    scope.$apply()
 
-            finishApiRequest();
-            scope.$apply();
+    return component
+  }
 
-            expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/without-pagination/123/');
+  it('does nothing if there is no endpoint', function() {
+    const component = getComponent('', 'some-partial', false)
 
-            expect(component.find('dp-partial-select').length).toBe(1);
-            expect(component.find('dp-partial-select').attr('api-data')).toBe('vm.apiData');
-            expect(scope.vm.apiData).toEqual({
-                results: {
-                    var_a: 'foo',
-                    var_b: 'bar'
-                }
-            });
-        });
-    });
+    expect(api.getByUrl).not.toHaveBeenCalled()
+    expect(component.find('dp-partial-select').length).toBe(0)
+  })
 
-    describe('content with pagination', function () {
-        it('optionally sets next variable on the scope', function () {
-            var component,
-                scope;
+  describe('content without pagination', function() {
+    it('retrieves data from the api factory and restructures it for dp-partial-select', function() {
+      const component = getComponent(
+        'http://www.some-domain.com/without-pagination/123/',
+        'some-partial',
+        false,
+      )
+      const scope = component.isolateScope()
 
-            component = getComponent('http://www.some-domain.com/with-pagination/456/', 'some-partial', false);
-            scope = component.isolateScope();
+      finishApiRequest()
+      scope.$apply()
 
-            finishApiRequest();
-            scope.$apply();
+      expect(api.getByUrl).toHaveBeenCalledWith(
+        'http://www.some-domain.com/without-pagination/123/',
+      )
 
-            expect(scope.vm.apiData).toEqual(jasmine.objectContaining({
-                next: 'http://www.some-domain.com/with-pagination/456/?page=2'
-            }));
-        });
+      expect(component.find('dp-partial-select').length).toBe(1)
+      expect(component.find('dp-partial-select').attr('api-data')).toBe(
+        'vm.apiData',
+      )
+      expect(scope.vm.apiData).toEqual({
+        results: {
+          var_a: 'foo',
+          var_b: 'bar',
+        },
+      })
+    })
+  })
 
-        it('puts a loadMore function on the scope that can retrieve the next page of data', function () {
-            var component,
-                scope;
+  describe('content with pagination', function() {
+    it('optionally sets next variable on the scope', function() {
+      const component = getComponent(
+        'http://www.some-domain.com/with-pagination/456/',
+        'some-partial',
+        false,
+      )
+      const scope = component.isolateScope()
 
-            component = getComponent('http://www.some-domain.com/with-pagination/456/', 'some-partial', false);
-            scope = component.isolateScope();
+      finishApiRequest()
+      scope.$apply()
 
-            finishApiRequest();
-            scope.$apply();
+      expect(scope.vm.apiData).toEqual(
+        jasmine.objectContaining({
+          next: 'http://www.some-domain.com/with-pagination/456/?page=2',
+        }),
+      )
+    })
 
-            expect(api.getByUrl).toHaveBeenCalledTimes(1);
-            expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/with-pagination/456/');
-            expect(scope.vm.apiData.count).toBe(5);
-            expect(scope.vm.apiData.results).toEqual(['ITEM_1', 'ITEM_2', 'ITEM_3']);
-            expect(scope.vm.apiData.next).toBe('http://www.some-domain.com/with-pagination/456/?page=2');
+    it('puts a loadMore function on the scope that can retrieve the next page of data', function() {
+      const component = getComponent(
+        'http://www.some-domain.com/with-pagination/456/',
+        'some-partial',
+        false,
+      )
+      const scope = component.isolateScope()
 
-            scope.vm.loadMore();
-            finishApiRequest();
-            scope.$apply();
+      finishApiRequest()
+      scope.$apply()
 
-            expect(api.getByUrl).toHaveBeenCalledTimes(2);
-            expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/with-pagination/456/?page=2');
-            expect(scope.vm.apiData.count).toBe(5);
-            expect(scope.vm.apiData.results).toEqual(['ITEM_1', 'ITEM_2', 'ITEM_3', 'ITEM_4', 'ITEM_5']);
-            expect(scope.vm.apiData.next).toBe(null);
-        });
-    });
+      expect(api.getByUrl).toHaveBeenCalledTimes(1)
+      expect(api.getByUrl).toHaveBeenCalledWith(
+        'http://www.some-domain.com/with-pagination/456/',
+      )
+      expect(scope.vm.apiData.count).toBe(5)
+      expect(scope.vm.apiData.results).toEqual(['ITEM_1', 'ITEM_2', 'ITEM_3'])
+      expect(scope.vm.apiData.next).toBe(
+        'http://www.some-domain.com/with-pagination/456/?page=2',
+      )
 
-    it('communicates the partial variabe to dp-partial-select', function () {
-        var component;
+      scope.vm.loadMore()
+      finishApiRequest()
+      scope.$apply()
 
-        component = getComponent('http://www.some-domain.com/without-pagination/123/', 'some-partial', false);
+      expect(api.getByUrl).toHaveBeenCalledTimes(2)
+      expect(api.getByUrl).toHaveBeenCalledWith(
+        'http://www.some-domain.com/with-pagination/456/?page=2',
+      )
+      expect(scope.vm.apiData.count).toBe(5)
+      expect(scope.vm.apiData.results).toEqual([
+        'ITEM_1',
+        'ITEM_2',
+        'ITEM_3',
+        'ITEM_4',
+        'ITEM_5',
+      ])
+      expect(scope.vm.apiData.next).toBe(null)
+    })
+  })
 
-        expect(component.find('dp-partial-select').length).toBe(1);
-        expect(component.find('dp-partial-select').attr('partial')).toBe('some-partial');
-    });
+  it('communicates the partial variabe to dp-partial-select', function() {
+    const component = getComponent(
+      'http://www.some-domain.com/without-pagination/123/',
+      'some-partial',
+      false,
+    )
 
-    it('overrides the brk/object endpoint based on the useBrkObjectExpanded variable', function () {
-        // It does nothing when the endpoint doesn't match brk/object
-        getComponent('http://www.some-domain.com/something/123/', 'some-partial', true);
-        expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/something/123/');
+    expect(component.find('dp-partial-select').length).toBe(1)
+    expect(component.find('dp-partial-select').attr('partial')).toBe(
+      'some-partial',
+    )
+  })
 
-        // It does nothing when the variable is set to false
-        getComponent('http://www.some-domain.com/brk/object/123/', 'some-partial', false);
-        expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/brk/object/123/');
+  it('overrides the brk/object endpoint based on the useBrkObjectExpanded variable', function() {
+    // It does nothing when the endpoint doesn't match brk/object
+    getComponent(
+      'http://www.some-domain.com/something/123/',
+      'some-partial',
+      true,
+    )
+    expect(api.getByUrl).toHaveBeenCalledWith(
+      'http://www.some-domain.com/something/123/',
+    )
 
-        // It replaced the endpoint for brk-object when it is set to true
-        getComponent('http://www.some-domain.com/brk/object/123/', 'some-partial', true);
-        expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/brk/object-expand/123/');
-    });
+    // It does nothing when the variable is set to false
+    getComponent(
+      'http://www.some-domain.com/brk/object/123/',
+      'some-partial',
+      false,
+    )
+    expect(api.getByUrl).toHaveBeenCalledWith(
+      'http://www.some-domain.com/brk/object/123/',
+    )
 
-    describe('the add-api-root attribute', function () {
-        it('calls the url method of the api module as usual, when set to false', function () {
-            getComponent('http://www.some-domain.com/something/123/', 'some-partial', false, false);
-            expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/something/123/');
-            expect(api.getByUri.calls.any()).toEqual(false);
-        });
+    // It replaced the endpoint for brk-object when it is set to true
+    getComponent(
+      'http://www.some-domain.com/brk/object/123/',
+      'some-partial',
+      true,
+    )
+    expect(api.getByUrl).toHaveBeenCalledWith(
+      'http://www.some-domain.com/brk/object-expand/123/',
+    )
+  })
 
-        it('calls the uri method of the api module when set to true', function () {
-            getComponent('something/123/', 'some-partial', false, true);
-            expect(api.getByUrl.calls.any()).toEqual(false);
-            expect(api.getByUri).toHaveBeenCalledWith('something/123/');
-        });
-    });
+  describe('the add-api-root attribute', function() {
+    it('calls the url method of the api module as usual, when set to false', function() {
+      getComponent(
+        'http://www.some-domain.com/something/123/',
+        'some-partial',
+        false,
+        false,
+      )
+      expect(api.getByUrl).toHaveBeenCalledWith(
+        'http://www.some-domain.com/something/123/',
+      )
+      expect(api.getByUri.calls.any()).toEqual(false)
+    })
 
-    describe('the merge attribute', function () {
-        it('calls the url method of the api module as usual, when set to false', function () {
-            var component,
-                scope;
+    it('calls the uri method of the api module when set to true', function() {
+      getComponent('something/123/', 'some-partial', false, true)
+      expect(api.getByUrl.calls.any()).toEqual(false)
+      expect(api.getByUri).toHaveBeenCalledWith('something/123/')
+    })
+  })
 
-            component = getComponent('http://www.some-domain.com/without-pagination/123/', 'some-partial', false, false,
-                {
-                    results: {
-                        var_b: 'overwritten',
-                        var_c: 'baz'
-                    }
-                });
+  describe('the merge attribute', function() {
+    it('calls the url method of the api module as usual, when set to false', function() {
+      const component = getComponent(
+        'http://www.some-domain.com/without-pagination/123/',
+        'some-partial',
+        false,
+        false,
+        {
+          results: {
+            var_b: 'overwritten',
+            var_c: 'baz',
+          },
+        },
+      )
 
-            scope = component.isolateScope();
+      const scope = component.isolateScope()
 
-            finishApiRequest();
-            scope.$apply();
+      finishApiRequest()
+      scope.$apply()
 
-            expect(scope.vm.apiData).toEqual({
-                results: {
-                    var_a: 'foo',
-                    var_b: 'overwritten',
-                    var_c: 'baz'
-                }
-            });
-        });
-    });
+      expect(scope.vm.apiData).toEqual({
+        results: {
+          var_a: 'foo',
+          var_b: 'overwritten',
+          var_c: 'baz',
+        },
+      })
+    })
+  })
 
-    describe('a loading indicator', function () {
-        it('will be shown, without delay, when fetching the initial data', function () {
-            var component,
-                scope;
+  describe('a loading indicator', function() {
+    it('will be shown, without delay, when fetching the initial data', function() {
+      const component = getComponent(
+        'http://www.some-domain.com/with-pagination/456/',
+        'some-partial',
+        false,
+      )
+      const scope = component.isolateScope()
 
-            component = getComponent('http://www.some-domain.com/with-pagination/456/', 'some-partial', false);
-            scope = component.isolateScope();
+      expect(component.find('dp-loading-indicator').length).toBe(1)
+      expect(component.find('dp-loading-indicator').attr('is-loading')).toBe(
+        'vm.isLoading',
+      )
+      expect(scope.vm.isLoading).toBe(true)
 
-            expect(component.find('dp-loading-indicator').length).toBe(1);
-            expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading');
-            expect(scope.vm.isLoading).toBe(true);
+      expect(component.find('dp-loading-indicator').attr('use-delay')).toBe(
+        'vm.useLoadingIndicatorDelay',
+      )
+      expect(scope.vm.useLoadingIndicatorDelay).toBe(false)
 
-            expect(component.find('dp-loading-indicator').attr('use-delay')).toBe('vm.useLoadingIndicatorDelay');
-            expect(scope.vm.useLoadingIndicatorDelay).toBe(false);
+      finishApiRequest()
+      scope.$apply()
 
-            finishApiRequest();
-            scope.$apply();
+      expect(scope.vm.isLoading).toBe(false)
+    })
 
-            expect(scope.vm.isLoading).toBe(false);
-        });
+    it('will be shown, with delay, when fetching pages (2-n)', function() {
+      const component = getComponent(
+        'http://www.some-domain.com/with-pagination/456/',
+        'some-partial',
+        false,
+      )
+      const scope = component.isolateScope()
 
-        it('will be shown, with delay, when fetching pages (2-n)', function () {
-            var component,
-                scope;
+      // Finish the initial request
+      finishApiRequest()
+      scope.$apply()
 
-            component = getComponent('http://www.some-domain.com/with-pagination/456/', 'some-partial', false);
-            scope = component.isolateScope();
+      // Fire a load more request
+      scope.vm.loadMore()
+      scope.$apply()
 
-            // Finish the initial request
-            finishApiRequest();
-            scope.$apply();
+      expect(component.find('dp-loading-indicator').length).toBe(1)
+      expect(component.find('dp-loading-indicator').attr('is-loading')).toBe(
+        'vm.isLoading',
+      )
+      expect(scope.vm.isLoading).toBe(true)
 
-            // Fire a load more request
-            scope.vm.loadMore();
-            scope.$apply();
+      expect(component.find('dp-loading-indicator').attr('use-delay')).toBe(
+        'vm.useLoadingIndicatorDelay',
+      )
+      expect(scope.vm.useLoadingIndicatorDelay).toBe(true)
 
-            expect(component.find('dp-loading-indicator').length).toBe(1);
-            expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading');
-            expect(scope.vm.isLoading).toBe(true);
+      // Finish the load more request
+      finishApiRequest()
+      scope.$apply()
 
-            expect(component.find('dp-loading-indicator').attr('use-delay')).toBe('vm.useLoadingIndicatorDelay');
-            expect(scope.vm.useLoadingIndicatorDelay).toBe(true);
-
-            // Finish the load more request
-            finishApiRequest();
-            scope.$apply();
-
-            expect(scope.vm.isLoading).toBe(false);
-        });
-    });
-});
+      expect(scope.vm.isLoading).toBe(false)
+    })
+  })
+})

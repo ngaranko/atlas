@@ -1,18 +1,18 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import configureMockStore from 'redux-mock-store';
+import React from 'react'
+import { shallow } from 'enzyme'
+import configureMockStore from 'redux-mock-store'
 
-import MapDetailResultWrapper from './MapDetailResultWrapper';
+import MapDetailResultWrapper from './MapDetailResultWrapper'
 
 const store = configureMockStore()({
   ui: {
-    isEmbed: false
-  }
-});
+    isEmbed: false,
+  },
+})
 
 describe('MapDetailResultWrapper', () => {
   it('should render everything', () => {
-    const clickHandler = jest.fn();
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailResultWrapper
         panoUrl="panoUrl"
@@ -26,12 +26,13 @@ describe('MapDetailResultWrapper', () => {
           <li>Item 2</li>
         </ul>
       </MapDetailResultWrapper>,
-      { context: { store } }).dive();
-    expect(wrapper).toMatchSnapshot();
-  });
+      { context: { store } },
+    ).dive()
+    expect(wrapper).toMatchSnapshot()
+  })
 
   it('should not render empty panoUrl', () => {
-    const clickHandler = jest.fn();
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailResultWrapper
         panoUrl=""
@@ -45,12 +46,13 @@ describe('MapDetailResultWrapper', () => {
           <li>Item 2</li>
         </ul>
       </MapDetailResultWrapper>,
-      { context: { store } }).dive();
-    expect(wrapper).toMatchSnapshot();
-  });
+      { context: { store } },
+    ).dive()
+    expect(wrapper).toMatchSnapshot()
+  })
 
   it('should not render empty sub title', () => {
-    const clickHandler = jest.fn();
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailResultWrapper
         panoUrl=""
@@ -64,12 +66,13 @@ describe('MapDetailResultWrapper', () => {
           <li>Item 2</li>
         </ul>
       </MapDetailResultWrapper>,
-      { context: { store } }).dive();
-    expect(wrapper).toMatchSnapshot();
-  });
+      { context: { store } },
+    ).dive()
+    expect(wrapper).toMatchSnapshot()
+  })
 
   it('should not render missing sub title', () => {
-    const clickHandler = jest.fn();
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailResultWrapper
         panoUrl=""
@@ -82,19 +85,22 @@ describe('MapDetailResultWrapper', () => {
           <li>Item 2</li>
         </ul>
       </MapDetailResultWrapper>,
-      { context: { store } }).dive();
-    expect(wrapper).toMatchSnapshot();
-  });
+      { context: { store } },
+    ).dive()
+    expect(wrapper).toMatchSnapshot()
+  })
 
   it('should not render missing children', () => {
-    const clickHandler = jest.fn();
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailResultWrapper
         panoUrl=""
         title="title"
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}
-      />, { context: { store } }).dive();
-    expect(wrapper).toMatchSnapshot();
-  });
-});
+      />,
+      { context: { store } },
+    ).dive()
+    expect(wrapper).toMatchSnapshot()
+  })
+})

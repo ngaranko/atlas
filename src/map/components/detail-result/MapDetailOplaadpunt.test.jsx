@@ -1,7 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from 'react'
+import { shallow } from 'enzyme'
 
-import MapDetailOplaadpunt from './MapDetailOplaadpunt';
+import MapDetailOplaadpunt from './MapDetailOplaadpunt'
 
 describe('MapDetailOplaadpunt', () => {
   it('should render everything', () => {
@@ -12,18 +12,18 @@ describe('MapDetailOplaadpunt', () => {
       connectorType: 'Foo',
       status: 'Foo',
       quantity: '8',
-      type: 'Monument type'
-    };
+      type: 'Monument type',
+    }
 
-    const clickHandler = jest.fn();
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailOplaadpunt
         panoUrl="panoUrl"
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}
         oplaadpunt={oplaadpunt}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-});
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+})

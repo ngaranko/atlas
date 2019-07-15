@@ -1,6 +1,6 @@
-import reducer from './reducer';
-import * as actionCreators from './actions';
-import { routing } from '../../../app/routes';
+import reducer from './reducer'
+import * as actionCreators from './actions'
+import { routing } from '../../../app/routes'
 
 describe('Data Selection Reducer', () => {
   /**
@@ -18,121 +18,118 @@ describe('Data Selection Reducer', () => {
     actionCreatorName,
     expectedKeysToChange,
     payload = [],
-    initialState = {}
+    initialState = {},
   ) => ({
     [actionCreatorName]: {
       expectedKeysToChange,
       payload,
-      initialState
-    }
-  });
+      initialState,
+    },
+  })
 
   // Create the expectations what the actions would do here
   const expectations = {
     ...getExpectations(
       actionCreators.fetchDataSelection.name,
       ['isLoading', 'page', 'dataset'],
-      ['dataset']
-    ),
-    ...getExpectations(
-      actionCreators.setPage.name,
-      ['page'],
-      [1]
-    ),
-    ...getExpectations(
-      actionCreators.setDataset.name,
       ['dataset'],
-      ['foobar']
     ),
+    ...getExpectations(actionCreators.setPage.name, ['page'], [1]),
+    ...getExpectations(actionCreators.setDataset.name, ['dataset'], ['foobar']),
     ...getExpectations(
       actionCreators.fetchMarkersRequest.name,
       ['loadingMarkers'],
-      []
+      [],
     ),
     ...getExpectations(
       actionCreators.fetchMarkersSuccess.name,
       ['loadingMarkers', 'markers'],
-      ['foobar']
+      ['foobar'],
     ),
     ...getExpectations(
       actionCreators.fetchMarkersFailure.name,
       ['loadingMarkers', 'errorMessage', 'result', 'markers'],
-      ['error']
+      ['error'],
     ),
     ...getExpectations(
       actionCreators.setGeometryFilter.name,
       ['geometryFilter'],
-      [[{ filter: 'foo' }]]
+      [[{ filter: 'foo' }]],
     ),
-    ...getExpectations(
-      actionCreators.removeGeometryFilter.name,
-      ['geometryFilter']
-    ),
-    ...getExpectations(
-      actionCreators.startDrawing.name,
-      ['']
-    ),
-    ...getExpectations(
-      actionCreators.endDataSelection.name,
-      ['']
-    ),
-    ...getExpectations(
-      actionCreators.cancelDrawing.name,
-      ['']
-    ),
-    ...getExpectations(
-      actionCreators.resetDrawing.name,
-      ['shape']
-    ),
+    ...getExpectations(actionCreators.removeGeometryFilter.name, [
+      'geometryFilter',
+    ]),
+    ...getExpectations(actionCreators.startDrawing.name, ['']),
+    ...getExpectations(actionCreators.endDataSelection.name, ['']),
+    ...getExpectations(actionCreators.cancelDrawing.name, ['']),
+    ...getExpectations(actionCreators.resetDrawing.name, ['shape']),
     ...getExpectations(
       actionCreators.receiveDataSelectionSuccess.name,
       ['isLoading', 'markers', 'errorMessage', 'authError', 'data'],
-      [{ data: { some: 'data' } }]
+      [{ data: { some: 'data' } }],
     ),
     ...getExpectations(
       actionCreators.receiveDataSelectionFailure.name,
       ['isLoading', 'authError', 'errorMessage', 'result', 'markers'],
-      [{ error: 'error message' }]
+      [{ error: 'error message' }],
     ),
-    ...getExpectations(
-      actionCreators.downloadDataSelection.name,
-      [],
-      []
-    )
-  };
+    ...getExpectations(actionCreators.downloadDataSelection.name, [], []),
+  }
 
-  Object.keys(actionCreators).forEach((actionCreator) => {
-    const { payload, expectedKeysToChange, initialState = {} } = expectations[actionCreator];
-    it(`should set ${expectedKeysToChange.join(', ')} state when dispatching ${actionCreator}`, () => {
-      const action = actionCreators[actionCreator](...payload);
-      const result = reducer(initialState, action);
-      expect(result).toMatchSnapshot();
+  Object.keys(actionCreators).forEach(actionCreator => {
+    const { payload, expectedKeysToChange, initialState = {} } = expectations[
+      actionCreator
+    ]
+    it(`should set ${expectedKeysToChange.join(
+      ', ',
+    )} state when dispatching ${actionCreator}`, () => {
+      const action = actionCreators[actionCreator](...payload)
+      const result = reducer(initialState, action)
+      expect(result).toMatchSnapshot()
 
       // Check if every key is changed, not more or less than the expected keys to change
-      expect(expectedKeysToChange.sort().toString()).toEqual(Object.keys(result).sort().toString());
-    });
-  });
+      expect(expectedKeysToChange.sort().toString()).toEqual(
+        Object.keys(result)
+          .sort()
+          .toString(),
+      )
+    })
+  })
 
   describe('when a route type is dispatched', () => {
     it('should set dataset and an object from getStateFromQuery if meta.query is set', () => {
-      const expectedKeysToChange = ['dataset'];
-      const result = reducer({}, {
-        type: routing.addresses.type,
-        meta: {
-          query: {}
-        }
-      });
-      expect(result).toMatchSnapshot();
-      expect(expectedKeysToChange.sort().toString()).toEqual(Object.keys(result).sort().toString());
-    });
+      const expectedKeysToChange = ['dataset']
+      const result = reducer(
+        {},
+        {
+          type: routing.addresses.type,
+          meta: {
+            query: {},
+          },
+        },
+      )
+      expect(result).toMatchSnapshot()
+      expect(expectedKeysToChange.sort().toString()).toEqual(
+        Object.keys(result)
+          .sort()
+          .toString(),
+      )
+    })
 
     it('should set the dataset and view if meta.query is not set', () => {
-      const expectedKeysToChange = ['dataset'];
-      const result = reducer({}, {
-        type: routing.establishments.type
-      });
-      expect(result).toMatchSnapshot();
-      expect(expectedKeysToChange.sort().toString()).toEqual(Object.keys(result).sort().toString());
-    });
-  });
-});
+      const expectedKeysToChange = ['dataset']
+      const result = reducer(
+        {},
+        {
+          type: routing.establishments.type,
+        },
+      )
+      expect(result).toMatchSnapshot()
+      expect(expectedKeysToChange.sort().toString()).toEqual(
+        Object.keys(result)
+          .sort()
+          .toString(),
+      )
+    })
+  })
+})

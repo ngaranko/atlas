@@ -1,55 +1,57 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { LatLngBounds } from 'leaflet';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { LatLngBounds } from 'leaflet'
 
-import { isEmbedded, isPrintOrEmbedMode, isMapLinkVisible } from '../../../shared/ducks/ui/ui';
+import { isEmbedded, isPrintOrEmbedMode, isMapLinkVisible } from '../../../shared/ducks/ui/ui'
 
-import DrawTool from '../../containers/draw-tool/DrawToolContainer';
-import ToggleFullscreen from '../../../app/components/ToggleFullscreen/ToggleFullscreen';
-import ContextMenu from '../../../app/components/ContextMenu/ContextMenu';
+import DrawTool from '../draw-tool/DrawToolContainer'
+import ToggleFullscreen from '../../../app/components/ToggleFullscreen/ToggleFullscreen'
+import ContextMenu from '../../../app/components/ContextMenu/ContextMenu'
 
-import LeafletContainer from '../leaflet/LeafletContainer';
-import MapPanelContainer from '../../containers/panel/MapPanelContainer';
-import MapPreviewPanelContainer from '../../containers/preview-panel/MapPreviewPanelContainer';
-import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton';
-import { previewDataAvailable as previewDataAvailableSelector } from '../../../shared/ducks/selection/selection';
-import { getDrawingMode } from '../../ducks/map/selectors';
+import LeafletContainer from '../leaflet/LeafletContainer'
+import MapPanelContainer from '../panel/MapPanelContainer'
+import MapPreviewPanelContainer from '../preview-panel/MapPreviewPanelContainer'
+import MapEmbedButton from '../../components/map-embed-button/MapEmbedButton'
+import { previewDataAvailable as previewDataAvailableSelector } from '../../../shared/ducks/selection/selection'
+import { getDrawingMode } from '../../ducks/map/selectors'
 
-export const overrideLeafletGetBounds = (map) => {
+export const overrideLeafletGetBounds = map => {
   // We override here the getBounds method of Leaflet
   // To ensure the full coverage of the visible area
   // of the NonTiledLayer layer types
-  map.getBounds = () => { // eslint-disable-line no-param-reassign
-    const bounds = map.getPixelBounds();
-    const sw = map.unproject(bounds.getBottomLeft());
-    const ne = map.unproject(bounds.getTopRight());
+  // eslint-disable-next-line no-param-reassign
+  map.getBounds = () => {
+    // eslint-disable-line no-param-reassign
+    const bounds = map.getPixelBounds()
+    const sw = map.unproject(bounds.getBottomLeft())
+    const ne = map.unproject(bounds.getTopRight())
 
-    const latLngBounds = (new LatLngBounds(sw, ne)).pad(0.02);
-    return latLngBounds;
-  };
-};
+    const latLngBounds = new LatLngBounds(sw, ne).pad(0.02)
+    return latLngBounds
+  }
+}
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   drawMode: getDrawingMode(state),
   embedMode: isEmbedded(state),
   printOrEmbedMode: isPrintOrEmbedMode(state),
   previewDataAvailable: previewDataAvailableSelector(state),
-  showMapLink: isMapLinkVisible(state)
-});
+  showMapLink: isMapLinkVisible(state),
+})
 
 class MapContainer extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      leafletInstance: null
-    };
-    this.setLeafletInstance = this.setLeafletInstance.bind(this);
+      leafletInstance: null,
+    }
+    this.setLeafletInstance = this.setLeafletInstance.bind(this)
   }
 
   setLeafletInstance(leafletInstance) {
-    overrideLeafletGetBounds(leafletInstance);
-    this.setState({ leafletInstance });
+    overrideLeafletGetBounds(leafletInstance)
+    this.setState({ leafletInstance })
   }
 
   render() {
@@ -61,8 +63,10 @@ class MapContainer extends React.Component {
       drawMode,
       showPreviewPanel,
       previewDataAvailable,
-      showMapLink
-    } = this.props;
+      showMapLink,
+    } = this.props
+
+    const { leafletInstance } = this.state
     return (
       <div className="qa-map">
         {/* Note: map must not be unmounted when showing the iframe */}
@@ -72,13 +76,7 @@ class MapContainer extends React.Component {
             getLeafletInstance={this.setLeafletInstance}
             showMapLink={showMapLink}
           />
-          {
-            this.state.leafletInstance && (
-              <DrawTool
-                leafletInstance={this.state.leafletInstance}
-              />
-            )
-          }
+          {leafletInstance && <DrawTool leafletInstance={leafletInstance} />}
           {toggleFullscreen && (
             <ToggleFullscreen
               isFullscreen={isFullscreen}
@@ -88,29 +86,24 @@ class MapContainer extends React.Component {
           )}
           <div className="c-map__controls c-map__controls--bottom-left">
             <MapPanelContainer isMapPanelVisible />
-            {(!printOrEmbedMode && isFullscreen) && <ContextMenu isMapPanelVisible />}
+            {!printOrEmbedMode && isFullscreen && <ContextMenu isMapPanelVisible />}
           </div>
-          {
-            embedMode && showMapLink ? (
-              <MapEmbedButton />
-            ) : ''
-          }
+          {embedMode && showMapLink ? <MapEmbedButton /> : ''}
           {showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer />}
         </div>
       </div>
-    );
+    )
   }
 }
 
 MapContainer.defaultProps = {
-  leafletInstance: null,
   showPreviewPanel: false,
   drawMode: 'none',
   toggleFullscreen: null,
   isFullscreen: true,
   printOrEmbedMode: false,
-  showMapLink: true
-};
+  showMapLink: true,
+}
 
 MapContainer.propTypes = {
   isFullscreen: PropTypes.bool,
@@ -120,7 +113,7 @@ MapContainer.propTypes = {
   printOrEmbedMode: PropTypes.bool,
   showPreviewPanel: PropTypes.bool,
   previewDataAvailable: PropTypes.bool.isRequired,
-  showMapLink: PropTypes.bool
-};
+  showMapLink: PropTypes.bool,
+}
 
-export default connect(mapStateToProps)(MapContainer);
+export default connect(mapStateToProps)(MapContainer)

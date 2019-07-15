@@ -1,55 +1,46 @@
-describe('The dp-print-button component', function () {
-    var $compile,
-        $rootScope,
-        $window;
+describe('The dp-print-button component', function() {
+  let $compile
+  let $rootScope
+  let $window
 
-    beforeEach(function () {
-        angular.mock.module('dpHeader');
+  beforeEach(function() {
+    angular.mock.module('dpHeader')
 
-        angular.mock.inject(function (_$compile_, _$rootScope_, _$window_) {
-            $compile = _$compile_;
-            $rootScope = _$rootScope_;
-            $window = _$window_;
-        });
-    });
+    angular.mock.inject(function(_$compile_, _$rootScope_, _$window_) {
+      $compile = _$compile_
+      $rootScope = _$rootScope_
+      $window = _$window_
+    })
+  })
 
-    function getComponent (html) {
-        var component,
-            element,
-            scope;
+  function getComponent(html) {
+    const element = document.createElement('dp-print-button')
 
-        element = document.createElement('dp-print-button');
-
-        if (angular.isString(html)) {
-            element.innerHTML = html;
-        }
-
-        scope = $rootScope.$new();
-        component = $compile(element)(scope);
-        scope.$digest();
-
-        return component;
+    if (angular.isString(html)) {
+      element.innerHTML = html
     }
 
-    it('prints the page when clicking a button', function () {
-        var component;
+    const scope = $rootScope.$new()
+    const component = $compile(element)(scope)
+    scope.$digest()
 
-        spyOn($window, 'print');
+    return component
+  }
 
-        component = getComponent();
-        component.find('button').click();
+  it('prints the page when clicking a button', function() {
+    spyOn($window, 'print')
 
-        expect($window.print).toHaveBeenCalled();
-    });
+    const component = getComponent()
+    component.find('button').click()
 
-    it('transcludes stuff', function () {
-        var component,
-            html;
+    expect($window.print).toHaveBeenCalled()
+  })
 
-        html = '<span class="some-class">Afdrukken</span>';
-        component = getComponent(html);
+  it('transcludes stuff', function() {
+    const html = '<span class="some-class">Afdrukken</span>'
+    const component = getComponent(html)
 
-        expect(component.find('button span').text()).toBe('Afdrukken');
-        expect(component.find('button span').attr('class')).toContain('some-class');
-    });
-});
+    expect(component.find('button span').text()).toBe('Afdrukken')
+    expect(component.find('button span').attr('class')).toContain('some-class')
+  })
+})

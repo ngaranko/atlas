@@ -1,13 +1,15 @@
-import { expectSaga, testSaga } from 'redux-saga-test-plan';
+import { expectSaga, testSaga } from 'redux-saga-test-plan'
 
-import watchFetchNearestDetails, { fetchNearestDetails } from './nearest-details';
+import watchFetchNearestDetails, {
+  fetchNearestDetails,
+} from './nearest-details'
 
-import fetchNearestDetail from '../../services/nearest-detail/nearest-detail';
-import { REQUEST_NEAREST_DETAILS } from '../../../shared/ducks/data-search/constants';
-import { goToGeoSearch } from '../map-click/map-click';
+import fetchNearestDetail from '../../services/nearest-detail/nearest-detail'
+import { REQUEST_NEAREST_DETAILS } from '../../../shared/ducks/data-search/constants'
+import { goToGeoSearch } from '../map-click/map-click'
 
 describe('watchFetchNearestDetails', () => {
-  const action = { type: REQUEST_NEAREST_DETAILS };
+  const action = { type: REQUEST_NEAREST_DETAILS }
 
   it('should watch REQUEST_NEAREST_DETAILS and call fetchPanelLayers', () => {
     testSaga(watchFetchNearestDetails)
@@ -15,57 +17,55 @@ describe('watchFetchNearestDetails', () => {
       .takeLatestEffect(REQUEST_NEAREST_DETAILS, fetchNearestDetails)
       .next(action)
       .next()
-      .isDone();
-  });
-});
+      .isDone()
+  })
+})
 
 describe('fetchNearestDetails', () => {
   const action = {
     payload: {
       location: {
         latitude: 2,
-        longitude: 1
+        longitude: 1,
       },
       layers: [],
       zoom: 12,
-      view: 'kaart'
-    }
-  };
-  it('should call fetchNearestDetails and dispatch the correct actions if uri is returned', () => (
+      view: 'kaart',
+    },
+  }
+  it('should call fetchNearestDetails and dispatch the correct actions if uri is returned', () =>
     expectSaga(fetchNearestDetails, action)
       .provide({
         call(effect, next) {
           if (effect.fn === fetchNearestDetail) {
-            return { uri: 'uri', id: '123' };
+            return { uri: 'uri', id: '123' }
           }
-          return next();
-        }
+          return next()
+        },
       })
       .call(goToGeoSearch, action.payload.location)
-      .run()
-  ));
+      .run())
 
-  it('should call fetchNearestDetails and dispatch setGeolocation', () => (
+  it('should call fetchNearestDetails and dispatch setGeolocation', () =>
     expectSaga(fetchNearestDetails, action)
       .provide({
         call(effect, next) {
           if (effect.fn === fetchNearestDetail) {
-            return '';
+            return ''
           }
-          return next();
-        }
+          return next()
+        },
       })
       .call(goToGeoSearch, action.payload.location)
-      .run()
-  ));
+      .run())
 
   it('should throw error and dispatch setGeolocation', () => {
-    const error = new Error('My Error');
+    const error = new Error('My Error')
     testSaga(fetchNearestDetails, action)
       .next()
       .throw(error)
       .call(goToGeoSearch, action.payload.location)
       .next()
-      .isDone();
-  });
-});
+      .isDone()
+  })
+})

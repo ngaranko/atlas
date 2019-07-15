@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import MapDetailResultWrapper from '../MapDetailResultWrapper';
+import MapDetailResultWrapper from '../MapDetailResultWrapper'
 
 const MapDetailGebiedenBouwblok = ({ panoUrl, bouwblok, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
@@ -11,15 +11,15 @@ const MapDetailGebiedenBouwblok = ({ panoUrl, bouwblok, onMaximize, onPanoPrevie
     subTitle={bouwblok.label}
     title="Bouwblok"
   />
-);
+)
 
 MapDetailGebiedenBouwblok.propTypes = {
   bouwblok: PropTypes.shape({
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailGebiedenBouwblok;
+export default MapDetailGebiedenBouwblok

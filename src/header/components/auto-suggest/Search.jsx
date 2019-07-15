@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { SearchBar, SearchBarToggle } from '@datapunt/asc-ui';
-import { useAppReducer } from '../../../app/utils/useAppReducer';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { SearchBar, SearchBarToggle } from '@datapunt/asc-ui'
+import { useAppReducer } from '../../../app/utils/useAppReducer'
 
 const Search = ({
   showSuggestions,
@@ -9,32 +9,28 @@ const Search = ({
   searchBarProps,
   openSearchBarToggle,
   onOpenSearchBarToggle,
-  inputProps
+  inputProps,
 }) => {
-  const [, actions] = useAppReducer('ui');
+  const [, actions] = useAppReducer('ui')
 
-  const onOpenSearchToggle = (open) => {
-    onOpenSearchBarToggle(open);
+  const onOpenSearchToggle = open => {
+    onOpenSearchBarToggle(open)
     actions.setBackDrop({
-      payload: open
-    });
-  };
+      payload: open,
+    })
+  }
 
-  const showBackdrop = !!(showSuggestions && suggestions.length);
+  const showBackdrop = !!(showSuggestions && suggestions.length)
 
   React.useEffect(() => {
     actions.setBackDrop({
-      payload: showBackdrop
-    });
-  }, [showBackdrop]);
+      payload: showBackdrop,
+    })
+  }, [showBackdrop])
 
   return (
     <React.Fragment>
-      <SearchBar
-        showAt="tabletM"
-        inputProps={inputProps}
-        {...searchBarProps}
-      />
+      <SearchBar showAt="tabletM" inputProps={inputProps} {...searchBarProps} />
       <SearchBarToggle
         hideAt="tabletM"
         onOpen={onOpenSearchToggle}
@@ -43,8 +39,8 @@ const Search = ({
         searchBarProps={searchBarProps}
       />
     </React.Fragment>
-  );
-};
+  )
+}
 
 Search.propTypes = {
   showSuggestions: PropTypes.bool.isRequired,
@@ -56,7 +52,7 @@ Search.propTypes = {
   highlightQuery: PropTypes.string.isRequired,
   onSuggestionSelection: PropTypes.func.isRequired,
   onOpenSearchBarToggle: PropTypes.func.isRequired,
-  openSearchBarToggle: PropTypes.bool.isRequired
-};
+  openSearchBarToggle: PropTypes.bool.isRequired,
+}
 
-export default Search;
+export default Search

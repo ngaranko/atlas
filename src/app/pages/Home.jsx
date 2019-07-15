@@ -1,51 +1,50 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Link from 'redux-first-router-link';
-import { AngularWrapper } from 'react-angular';
-import { routing } from '../routes';
-import Footer from '../components/Footer/Footer';
-import PreviewVideo from '../components/PreviewVideo/PreviewVideo';
-import HomepageAddressBlock from '../../homepage/components/address-block/HomepageAddressBlock';
-import HomepageBlock from '../../homepage/components/block/HomepageBlock';
-import ShareBar from '../components/ShareBar/ShareBar';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Link from 'redux-first-router-link'
+import { AngularWrapper } from 'react-angular'
+import { routing } from '../routes'
+import Footer from '../components/Footer/Footer'
+import PreviewVideo from '../components/PreviewVideo/PreviewVideo'
+import HomepageAddressBlock from '../../homepage/components/address-block/HomepageAddressBlock'
+import HomepageBlock from '../../homepage/components/block/HomepageBlock'
+import ShareBar from '../components/ShareBar/ShareBar'
 import {
   toDatasets,
   toMapWithLegendOpen,
-  toPanoramaAndPreserveQuery
-} from '../../store/redux-first-router/actions';
+  toPanoramaAndPreserveQuery,
+} from '../../store/redux-first-router/actions'
 
 const INSTRUCTION_LINKS = {
   BEDIENING: {
     route: routing.bediening.type,
-    title: 'Bediening'
+    title: 'Bediening',
   },
   GEGEVENS: {
     route: routing.gegevens.type,
-    title: 'Gegevens'
+    title: 'Gegevens',
   },
   APIS: {
     route: routing.apis.type,
-    title: 'API\'s'
-  }
-};
+    title: "API's",
+  },
+}
 
 const ABOUT_LINKS = {
   PRIVACY_BEVEILIGING: {
     route: routing.privacy_beveiliging.type,
-    title: 'Privacy en informatiebeveiliging'
+    title: 'Privacy en informatiebeveiliging',
   },
   BESCHIKBAAR_KWALITEIT: {
     route: routing.beschikbaar_kwaliteit.type,
-    title: 'Beschikbaarheid en kwaliteit data'
+    title: 'Beschikbaarheid en kwaliteit data',
   },
   BEHEER_WERKWIJZE: {
     route: routing.beheer_werkwijze.type,
-    title: 'Technisch beheer en werkwijze'
-  }
-};
+    title: 'Technisch beheer en werkwijze',
+  },
+} // TODO: refactor, test
 
-/* istanbul ignore next */ // TODO: refactor, test
-const Home = ({ showFooter }) => (
+/* istanbul ignore next */ const Home = ({ showFooter }) => (
   <div className="c-dashboard__column u-col-sm--12 qa-dashboard__column--right">
     <div className="c-dashboard__page o-max-width">
       <div className="c-dashboard__page-inner c-dashboard__content o-max-width__inner u-gutter">
@@ -70,9 +69,9 @@ const Home = ({ showFooter }) => (
                       />
                       <div className="c-homepage__block-button">
                         <div className="o-btn--transparent">Data op de kaart</div>
-                        <div className="c-homepage__block-details">Selecteer kaartlagen, vind
-                          gegevens op
-                          een punt in de kaart, meet of teken een gebied
+                        <div className="c-homepage__block-details">
+                          Selecteer kaartlagen, vind gegevens op een punt in de kaart, meet of teken
+                          een gebied
                         </div>
                       </div>
                     </HomepageBlock>
@@ -118,10 +117,7 @@ const Home = ({ showFooter }) => (
                   </HomepageBlock>
                 </div>
 
-                <div
-                  className="u-col-sm--3 c-homepage__block--address"
-                  id="homepage-address-block"
-                >
+                <div className="u-col-sm--3 c-homepage__block--address" id="homepage-address-block">
                   <HomepageAddressBlock />
                 </div>
 
@@ -129,14 +125,12 @@ const Home = ({ showFooter }) => (
                   <div className="qa-panorama-link">
                     <HomepageBlock
                       classes="c-homepage__block--right"
-                      linkAction={
-                        toPanoramaAndPreserveQuery(
-                          undefined,
-                          undefined,
-                          undefined,
-                          'home'
-                        )
-                      }
+                      linkAction={toPanoramaAndPreserveQuery(
+                        undefined,
+                        undefined,
+                        undefined,
+                        'home',
+                      )}
                       title="Panoramabeelden"
                       description="Kijk rond ter plaatse"
                       blockIsLink
@@ -161,18 +155,15 @@ const Home = ({ showFooter }) => (
                           component="dpUserContentWidget"
                           dependencies={['atlas']}
                           bindings={{
-                            limitTo: 3
+                            limitTo: 3,
                           }}
                           interpolateBindings={{
-                            type: 'news'
+                            type: 'news',
                           }}
                         />
                       </div>
                       <div className="u-padding__left--3 c-homepage__news-show-more">
-                        <Link
-                          to={{ type: routing.nieuws.type }}
-                          className="o-btn o-btn--link"
-                        >
+                        <Link to={{ type: routing.nieuws.type }} className="o-btn o-btn--link">
                           Nieuwsoverzicht
                         </Link>
                       </div>
@@ -181,12 +172,13 @@ const Home = ({ showFooter }) => (
                   <div className="u-col-sm--3">
                     <div className="u-margin__left--1 c-homepage__news-instructions">
                       <h2 className="c-homepage__news-instructions-title">Instructies</h2>
-                      {Object.keys(INSTRUCTION_LINKS).map((key) => (
+                      {Object.keys(INSTRUCTION_LINKS).map(key => (
                         <div key={key} className="c-user-content-widget__entry">
                           <Link
                             to={{ type: INSTRUCTION_LINKS[key].route }}
                             className="o-btn o-btn--link qa-btn--link"
-                          >{INSTRUCTION_LINKS[key].title}
+                          >
+                            {INSTRUCTION_LINKS[key].title}
                           </Link>
                         </div>
                       ))}
@@ -202,10 +194,10 @@ const Home = ({ showFooter }) => (
                   <div className="u-margin__left--3 c-homepage__visie">
                     <h1 className="c-homepage__visie-header">Amsterdam City Data</h1>
                     <p className="c-homepage__visie-paragraph">
-                      Amsterdam beschikt over een schat
-                      aan gegevens over de stad. Via dit dataportaal stellen wij, in samenwerking
-                      met onze partners, deze gegevens beschikbaar. Samen met u willen wij werken
-                      aan vernieuwende datatoepassingen voor Amsterdam als leefbare stad.
+                      Amsterdam beschikt over een schat aan gegevens over de stad. Via dit
+                      dataportaal stellen wij, in samenwerking met onze partners, deze gegevens
+                      beschikbaar. Samen met u willen wij werken aan vernieuwende datatoepassingen
+                      voor Amsterdam als leefbare stad.
                     </p>
                     <p className="c-homepage__visie-paragraph">
                       Amsterdam City Data blijft zich ontwikkelen. Het aantal beschikbare gegevens
@@ -214,21 +206,21 @@ const Home = ({ showFooter }) => (
                     </p>
                     <p className="c-homepage__visie-paragraph">
                       Op dit moment is het dataportaal met name geschikt voor professionals, zoals
-                      onderzoekers en uiteraard de medewerkers en ketenpartners van
-                      Gemeente Amsterdam. Daarnaast ondersteunen we ontwikkelaars die gegevens
-                      gebruiken in eigen toepassingen.
+                      onderzoekers en uiteraard de medewerkers en ketenpartners van Gemeente
+                      Amsterdam. Daarnaast ondersteunen we ontwikkelaars die gegevens gebruiken in
+                      eigen toepassingen.
                     </p>
                     <div className="c-homepage__visie-panel">
                       <AngularWrapper
-                        moduleName={'dpPanelWrapper'}
+                        moduleName="dpPanelWrapper"
                         component="dpPanel"
                         dependencies={['atlas']}
                         bindings={{
                           isPanelVisible: true,
-                          canClose: false
+                          canClose: false,
                         }}
                         interpolateBindings={{
-                          type: 'info'
+                          type: 'info',
                         }}
                       >
                         <div>
@@ -237,8 +229,8 @@ const Home = ({ showFooter }) => (
                                 c-homepage__visie-paragraph--panel`}
                           >
                             Meer weten over data en de gemeente Amsterdam? Informatie over beleid,
-                            inspirerende voorbeelden van toepassingen en
-                            informatie voor de pers vindt u op:
+                            inspirerende voorbeelden van toepassingen en informatie voor de pers
+                            vindt u op:
                           </p>
                           <a
                             className="c-link c-link--arrow"
@@ -258,12 +250,9 @@ const Home = ({ showFooter }) => (
                   <div className="u-margin__left--1 c-homepage__beleid">
                     <div>
                       <div className="c-user-content-widget__beleid-zie-ook">Over</div>
-                      {Object.keys(ABOUT_LINKS).map((key) => (
+                      {Object.keys(ABOUT_LINKS).map(key => (
                         <div key={key} className="c-user-content-widget__entry">
-                          <Link
-                            to={{ type: ABOUT_LINKS[key].route }}
-                            className="o-btn o-btn--link"
-                          >
+                          <Link to={{ type: ABOUT_LINKS[key].route }} className="o-btn o-btn--link">
                             <div
                               className={`c-user-content-widget__short
                                   s-cms-widget-content
@@ -281,25 +270,25 @@ const Home = ({ showFooter }) => (
             </div>
             <div className="u-row">
               <div className="u-col-sm--12">
-                <div className="u-margin__left--3"><ShareBar /></div>
+                <div className="u-margin__left--3">
+                  <ShareBar />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {showFooter &&
-      <Footer />
-      }
+      {showFooter && <Footer />}
     </div>
   </div>
-);
+)
 
 Home.propTypes = {
-  showFooter: PropTypes.bool
-};
+  showFooter: PropTypes.bool,
+}
 
 Home.defaultProps = {
-  showFooter: true
-};
+  showFooter: true,
+}
 
-export default Home;
+export default Home

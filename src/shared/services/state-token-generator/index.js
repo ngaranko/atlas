@@ -1,1 +1,1 @@
-export { default } from './state-token-generator';
+export { default } from './state-token-generator'

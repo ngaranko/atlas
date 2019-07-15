@@ -1,91 +1,99 @@
-import { addFilter, removeFilter } from '../../../../src/shared/ducks/filters/filters';
+import {
+  addFilter,
+  removeFilter,
+} from '../../../../src/shared/ducks/filters/filters'
+;(() => {
+  angular.module('dpDataSelection').component('dpSbiFilter', {
+    bindings: {
+      availableFilters: '=',
+      activeFilters: '=',
+    },
+    templateUrl: 'modules/data-selection/components/sbi-filter/sbi-filter.html',
+    controller: DpSbiFilterController,
+    controllerAs: 'vm',
+  })
 
-(() => {
-    'use strict';
+  DpSbiFilterController.$inject = ['$scope', 'store']
 
-    angular
-        .module('dpDataSelection')
-        .component('dpSbiFilter', {
-            bindings: {
-                availableFilters: '=',
-                activeFilters: '='
-            },
-            templateUrl: 'modules/data-selection/components/sbi-filter/sbi-filter.html',
-            controller: DpSbiFilterController,
-            controllerAs: 'vm'
-        });
+  function DpSbiFilterController($scope, store) {
+    const vm = this
+    this.$onInit = function() {
+      const sbiLevelFilters = vm.availableFilters.filter(filter =>
+        filter.slug.startsWith('sbi_l'),
+      )
+      const numberOfOptions = sbiLevelFilters.reduce(
+        (total, amount) => total + amount.numberOfOptions,
+        0,
+      )
+      const options = sbiLevelFilters
+        .map(filter => {
+          return filter.options.map(sub => ({
+            ...sub,
+            slug: filter.slug,
+          }))
+        })
+        .reduce((a, b) => a.concat(b), [])
+        .slice(0, 100)
 
-    DpSbiFilterController.$inject = ['$scope', 'store'];
+      vm.sbiCode =
+        vm.activeFilters &&
+        vm.activeFilters.sbi_code &&
+        // eslint-disable-next-line no-useless-escape
+        vm.activeFilters.sbi_code.replace(/['\[\]]/g, '')
+      vm.showMoreThreshold = 10
+      vm.isExpanded = false
+      vm.filterSlug = 'sbi_code'
 
-    function DpSbiFilterController ($scope, store) {
-        const vm = this;
-        this.$onInit = function () {
-            const sbiLevelFilters = vm.availableFilters.filter(filter => filter.slug.startsWith('sbi_l')),
-                numberOfOptions = sbiLevelFilters
-                    .reduce((total, amount) => total + amount.numberOfOptions, 0),
-                options = sbiLevelFilters
-                    .map(filter => {
-                        return filter.options.map(sub => ({
-                            ...sub,
-                            slug: filter.slug
-                        }));
-                    })
-                    .reduce((a, b) => a.concat(b), [])
-                    .slice(0, 100);
+      vm.filter = {
+        ...vm.availableFilters.find(filter => filter.slug === 'sbi_code'),
+        options,
+        numberOfOptions,
+      }
 
-            vm.sbiCode = (vm.activeFilters &&
-                vm.activeFilters.sbi_code &&
-                vm.activeFilters.sbi_code.replace(/['\[\]]/g, '')
-            );
-            vm.showMoreThreshold = 10;
-            vm.isExpanded = false;
-            vm.filterSlug = 'sbi_code';
+      vm.onSubmit = () => {
+        vm.addOrRemoveFilter(vm.sbiCode)
+      }
 
-            vm.filter = {
-                ...vm.availableFilters.find(filter => filter.slug === 'sbi_code'),
-                options,
-                numberOfOptions
-            };
+      vm.addOrRemoveFilter = value => {
+        const formattedValue = value
+          .split(',')
+          .map(data => `'${data.trim()}'`)
+          .join(', ')
 
-            vm.onSubmit = () => {
-                vm.addOrRemoveFilter(vm.sbiCode);
-            };
+        if (value === '') {
+          store.dispatch(removeFilter(vm.filterSlug))
+        } else {
+          store.dispatch(
+            addFilter({
+              [vm.filterSlug]: `[${formattedValue}]`,
+            }),
+          )
+        }
+      }
 
-            vm.addOrRemoveFilter = (value) => {
-                const formattedValue = value.split(',').map(data => `'${data.trim()}'`).join(', ');
+      vm.clickFilter = string => {
+        vm.addOrRemoveFilter(string.replace(/: .*$/g, ''))
+      }
 
-                if (value === '') {
-                    store.dispatch(removeFilter(vm.filterSlug));
-                } else {
-                    store.dispatch(addFilter({
-                        [vm.filterSlug]: `[${formattedValue}]`
-                    }));
-                }
-            };
+      vm.showExpandButton = function() {
+        return !vm.isExpanded && vm.canExpandImplode()
+      }
 
-            vm.clickFilter = (string) => {
-                vm.addOrRemoveFilter(string.replace(/: .*$/g, ''));
-            };
+      vm.nrHiddenOptions = function(filter) {
+        return filter.numberOfOptions - filter.options.length
+      }
 
-            vm.showExpandButton = function () {
-                return !vm.isExpanded && vm.canExpandImplode();
-            };
+      vm.expandFilter = function() {
+        vm.isExpanded = true
+      }
 
-            vm.nrHiddenOptions = function (filter) {
-                return filter.numberOfOptions - filter.options.length;
-            };
+      vm.implodeFilter = function() {
+        vm.isExpanded = false
+      }
 
-            vm.expandFilter = function () {
-                vm.isExpanded = true;
-            };
-
-            vm.implodeFilter = function () {
-                vm.isExpanded = false;
-            };
-
-            vm.canExpandImplode = function () {
-                return vm.filter.options.length > vm.showMoreThreshold;
-            };
-        };
+      vm.canExpandImplode = function() {
+        return vm.filter.options.length > vm.showMoreThreshold
+      }
     }
-})();
+  }
+})()

@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import formatNumber from '../../../shared/services/number-formatter/number-formatter';
+import formatNumber from '../../../shared/services/number-formatter/number-formatter'
 
-import MapDetailResultItem from './MapDetailResultItem';
-import MapDetailResultWrapper from './MapDetailResultWrapper';
+import MapDetailResultItem from './MapDetailResultItem'
+import MapDetailResultWrapper from './MapDetailResultWrapper'
 
 const MapDetailNapPeilmerk = ({ panoUrl, peilmerk, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
@@ -17,24 +17,20 @@ const MapDetailNapPeilmerk = ({ panoUrl, peilmerk, onMaximize, onPanoPreviewClic
     <ul className="map-detail-result__list">
       <MapDetailResultItem
         label="Hoogte NAP"
-        value={(peilmerk.height || peilmerk.height === 0) ? `${formatNumber(peilmerk.height)} m` : ''}
+        value={peilmerk.height || peilmerk.height === 0 ? `${formatNumber(peilmerk.height)} m` : ''}
       />
-      <MapDetailResultItem
-        label="Omschrijving"
-        value={peilmerk.description}
-      />
-      <MapDetailResultItem
-        label="Windrichting"
-        value={peilmerk.windDirection}
-      />
-      {peilmerk.wallCoordinates && <MapDetailResultItem
-        label="Muurvlakcoördinaten (cm)"
-        cm
-        value={`${peilmerk.wallCoordinates[0]}, ${peilmerk.wallCoordinates[1]}`}
-      />}
+      <MapDetailResultItem label="Omschrijving" value={peilmerk.description} />
+      <MapDetailResultItem label="Windrichting" value={peilmerk.windDirection} />
+      {peilmerk.wallCoordinates && (
+        <MapDetailResultItem
+          label="Muurvlakcoördinaten (cm)"
+          cm
+          value={`${peilmerk.wallCoordinates[0]}, ${peilmerk.wallCoordinates[1]}`}
+        />
+      )}
     </ul>
   </MapDetailResultWrapper>
-);
+)
 
 MapDetailNapPeilmerk.propTypes = {
   panoUrl: PropTypes.string.isRequired,
@@ -43,10 +39,10 @@ MapDetailNapPeilmerk.propTypes = {
     height: PropTypes.number,
     label: PropTypes.string,
     windDirection: PropTypes.string,
-    wallCoordinates: PropTypes.array
+    wallCoordinates: PropTypes.array,
   }).isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailNapPeilmerk;
+export default MapDetailNapPeilmerk

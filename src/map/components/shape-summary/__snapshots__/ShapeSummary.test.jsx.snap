@@ -8,13 +8,14 @@ exports[`ShapeSummary should render info with 2 markers 1`] = `
     aria-label="Lijn: 23,45 km"
     className="shape-summary__label"
   >
-    Lijn: 
+    Lijn:
     23,45 km
   </span>
   <button
     className="shape-summary__button"
     onClick={[MockFunction]}
     title="Lijn verwijderen"
+    type="button"
   >
     <span
       className="shape-summary__button--close"

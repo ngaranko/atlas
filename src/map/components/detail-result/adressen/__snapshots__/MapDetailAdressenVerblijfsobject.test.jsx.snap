@@ -19,7 +19,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
         className=""
         level="alert"
       >
-        Status: 
+        Status:
         Status omschrijving
       </Notification>
     </li>
@@ -100,7 +100,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
         className=""
         level="alert"
       >
-        Status: 
+        Status:
         Status omschrijving
       </Notification>
     </li>
@@ -272,7 +272,7 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
         className=""
         level="alert"
       >
-        Status: 
+        Status:
         Status omschrijving
       </Notification>
     </li>
@@ -364,7 +364,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
         className=""
         level="alert"
       >
-        Status: 
+        Status:
         Status omschrijving
       </Notification>
     </li>

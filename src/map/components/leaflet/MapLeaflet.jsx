@@ -1,168 +1,169 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ResizeAware from 'react-resize-aware';
-import { GeoJSON, Map, ScaleControl, TileLayer, ZoomControl } from 'react-leaflet';
+import React from 'react'
+import PropTypes from 'prop-types'
+import ResizeAware from 'react-resize-aware'
+import { GeoJSON, Map, ScaleControl, TileLayer, ZoomControl } from 'react-leaflet'
 
-import CustomMarker from './custom/marker/CustomMarker';
-import ClusterGroup from './custom/cluster-group/ClusterGroup';
-import NonTiledLayer from './custom/non-tiled-layer';
-import icons from './services/icons.constant';
-import geoJsonConfig from './services/geo-json-config.constant';
-import markerConfig from './services/marker-config.constant';
-import createClusterIcon from './services/cluster-icon';
-import { boundsToString, getBounds, isBoundsAPoint, isValidBounds } from './services/bounds';
-import LoadingIndicator from '../loading-indicator/LoadingIndicator';
-import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/constants';
-import RdGeoJson from './custom/geo-json/RdGeoJson';
-import mapLayerTypes from '../../services/map-layers/map-layer-types.config';
+import CustomMarker from './custom/marker/CustomMarker'
+import ClusterGroup from './custom/cluster-group/ClusterGroup'
+import NonTiledLayer from './custom/non-tiled-layer'
+import icons from './services/icons.constant'
+import geoJsonConfig from './services/geo-json-config.constant'
+import markerConfig from './services/marker-config.constant'
+import createClusterIcon from './services/cluster-icon'
+import { boundsToString, getBounds, isBoundsAPoint, isValidBounds } from './services/bounds'
+import LoadingIndicator from '../loading-indicator/LoadingIndicator'
+import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/constants'
+import RdGeoJson from './custom/geo-json/RdGeoJson'
+import mapLayerTypes from '../../services/map-layers/map-layer-types.config'
 
-const visibleToOpacity = ((isVisible) => (isVisible ? 100 : 0));
+const visibleToOpacity = isVisible => (isVisible ? 100 : 0)
 
-const convertBounds = (map) => {
-  const leafletBounds = map.getBounds();
-  return ({
-    northEast: [
-      leafletBounds._northEast.lat,
-      leafletBounds._northEast.lng
-    ],
-    southWest: [
-      leafletBounds._southWest.lat,
-      leafletBounds._southWest.lng
-    ]
-  });
-};
+const convertBounds = map => {
+  const leafletBounds = map.getBounds()
+  return {
+    northEast: [leafletBounds._northEast.lat, leafletBounds._northEast.lng],
+    southWest: [leafletBounds._southWest.lat, leafletBounds._southWest.lng],
+  }
+}
 
 class MapLeaflet extends React.Component {
   constructor(props) {
-    super(props);
-    this.onZoomEnd = this.onZoomEnd.bind(this);
-    this.onClick = this.onClick.bind(this);
-    this.onDragEnd = this.onDragEnd.bind(this);
-    this.handleLoading = this.handleLoading.bind(this);
-    this.handleLoaded = this.handleLoaded.bind(this);
-    this.handleResize = this.handleResize.bind(this);
-    this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this);
+    super(props)
+    this.onZoomEnd = this.onZoomEnd.bind(this)
+    this.onClick = this.onClick.bind(this)
+    this.onDragEnd = this.onDragEnd.bind(this)
+    this.handleLoading = this.handleLoading.bind(this)
+    this.handleLoaded = this.handleLoaded.bind(this)
+    this.handleResize = this.handleResize.bind(this)
+    this.onClusterGroupBounds = this.onClusterGroupBounds.bind(this)
     this.state = {
       pendingLayers: [],
-      previousFitBoundsId: ''
-    };
+      previousFitBoundsId: '',
+    }
 
-    this.setMapElement = (element) => {
+    const { getLeafletInstance } = this.props
+
+    this.setMapElement = element => {
       if (element && element.leafletElement) {
-        this.MapElement = element.leafletElement;
-        this.props.getLeafletInstance(this.MapElement);
+        this.MapElement = element.leafletElement
+        getLeafletInstance(this.MapElement)
       }
-    };
+    }
 
-    this.setActiveElement = (element) => {
+    this.setActiveElement = element => {
       if (element) {
-        this.activeElement = element.leafletElement;
-        this.checkIfActiveElementNeedsUpdate(this.activeElement);
+        this.activeElement = element.leafletElement
+        this.checkIfActiveElementNeedsUpdate(this.activeElement)
       }
-    };
+    }
   }
 
   onZoomEnd(event) {
-    this.props.onZoomEnd({
+    const { onZoomEnd } = this.props
+    onZoomEnd({
       zoom: event.target.getZoom(),
       maxZoom: event.target.getMaxZoom(),
       minZoom: event.target.getMinZoom(),
       center: event.target.getCenter(),
-      boundingBox: convertBounds(this.MapElement)
-    });
+      boundingBox: convertBounds(this.MapElement),
+    })
   }
 
   onClick(event) {
-    const { latlng, containerPoint, layerPoint } = event;
-    this.props.onClick({
+    const { latlng, containerPoint, layerPoint } = event
+    const { onClick } = this.props
+    onClick({
       latlng,
       containerPoint,
-      layerPoint
-    });
+      layerPoint,
+    })
   }
 
   onDragEnd(event) {
-    this.props.onDragEnd({
+    const { onDragEnd } = this.props
+    onDragEnd({
       center: event.target.getCenter(),
-      boundingBox: convertBounds(this.MapElement)
-    });
+      boundingBox: convertBounds(this.MapElement),
+    })
   }
 
   onClusterGroupBounds(bounds) {
-    this.fitActiveElement(bounds);
+    this.fitActiveElement(bounds)
   }
 
   handleResize() {
-    this.MapElement.invalidateSize();
-    this.props.onResizeEnd({
-      boundingBox: convertBounds(this.MapElement)
-    });
+    const { onResizeEnd } = this.props
+    this.MapElement.invalidateSize()
+    onResizeEnd({
+      boundingBox: convertBounds(this.MapElement),
+    })
     if (this.activeElement) {
-      this.fitActiveElement(getBounds(this.activeElement));
+      this.fitActiveElement(getBounds(this.activeElement))
     }
   }
 
   checkIfActiveElementNeedsUpdate(element) {
-    const elementBounds = getBounds(element);
-    const elementBoundsId = boundsToString(elementBounds);
+    const { previousFitBoundsId } = this.state
+    const elementBounds = getBounds(element)
+    const elementBoundsId = boundsToString(elementBounds)
     // check if the bounds are the same in that case we don't need to update
-    if (elementBoundsId !== this.state.previousFitBoundsId && isValidBounds(elementBounds)) {
-      this.fitActiveElement(elementBounds);
-      this.zoomToActiveElement(elementBounds);
-      this.setState({ previousFitBoundsId: elementBoundsId });
+    if (elementBoundsId !== previousFitBoundsId && isValidBounds(elementBounds)) {
+      this.fitActiveElement(elementBounds)
+      this.zoomToActiveElement(elementBounds)
+      this.setState({ previousFitBoundsId: elementBoundsId })
     }
   }
 
   zoomToActiveElement(bounds) {
-    const { zoom } = this.props;
+    const { zoom } = this.props
     // if the bounds is not valid or is a point return
     if (isBoundsAPoint(bounds)) {
-      return;
+      return
     }
     // check wat the zoomlevel will be of the bounds and devide it with some margin
-    const maxZoom = Math.round(this.MapElement.getBoundsZoom(bounds) / 1.25);
+    const maxZoom = Math.round(this.MapElement.getBoundsZoom(bounds) / 1.25)
     // if the elementBounds is still bigger then the current zoom level
     if (maxZoom > zoom) {
       // zoom and pan the map to fit the bounds with a maxZoom
-      this.MapElement.fitBounds(bounds, { maxZoom });
+      this.MapElement.fitBounds(bounds, { maxZoom })
     }
   }
 
   fitActiveElement(bounds) {
     if (!isValidBounds(bounds)) {
-      return;
+      return
     }
-    const { zoom } = this.props;
-    const mapBounds = this.MapElement.getBounds();
-    const elementFits = mapBounds.contains(bounds);
+    const { zoom } = this.props
+    const mapBounds = this.MapElement.getBounds()
+    const elementFits = mapBounds.contains(bounds)
     if (!elementFits) {
-      const elementZoom = this.MapElement.getBoundsZoom(bounds);
+      const elementZoom = this.MapElement.getBoundsZoom(bounds)
       if (!isBoundsAPoint(bounds) && elementZoom < zoom) {
         // pan and zoom to the geoJson element, only when not a point
-        this.MapElement.fitBounds(bounds);
+        this.MapElement.fitBounds(bounds)
       } else {
         // only pan to the geoJson element
-        this.MapElement.panInsideBounds(bounds);
+        this.MapElement.panInsideBounds(bounds)
       }
     }
   }
 
   handleLoading(layer) {
-    const { _leaflet_id: leafletId } = layer;
+    const { _leaflet_id: leafletId } = layer
 
-    this.setState((state) => ({
+    this.setState(state => ({
       pendingLayers: !state.pendingLayers.includes(leafletId)
         ? [...state.pendingLayers, leafletId]
-        : state.pendingLayers
-    }));
+        : state.pendingLayers,
+    }))
   }
 
   handleLoaded(layer) {
-    const { _leaflet_id: leafletId } = layer;
+    const { _leaflet_id: leafletId } = layer
 
-    this.setState((state) => ({
-      pendingLayers: state.pendingLayers.filter((layerId) => layerId !== leafletId)
-    }));
+    this.setState(state => ({
+      pendingLayers: state.pendingLayers.filter(layerId => layerId !== leafletId),
+    }))
   }
 
   render() {
@@ -181,16 +182,19 @@ class MapLeaflet extends React.Component {
       zoom,
       brkMarkers,
       isLoading,
-      showMapLink
-    } = this.props;
+      showMapLink,
+      isZoomControlVisible,
+    } = this.props
 
-    const tmsLayers = layers.filter((layer) => (layer.type === mapLayerTypes.TMS));
-    const nonTmsLayers = layers.filter((layer) => (layer.type !== mapLayerTypes.TMS));
+    const { pendingLayers } = this.state
+
+    const tmsLayers = layers.filter(layer => layer.type === mapLayerTypes.TMS)
+    const nonTmsLayers = layers.filter(layer => layer.type !== mapLayerTypes.TMS)
 
     const loadingHandlers = {
       onLoading: ({ sourceTarget }) => this.handleLoading(sourceTarget),
-      onLoad: ({ sourceTarget }) => this.handleLoaded(sourceTarget)
-    };
+      onLoad: ({ sourceTarget }) => this.handleLoaded(sourceTarget),
+    }
 
     return (
       <ResizeAware
@@ -199,7 +203,7 @@ class MapLeaflet extends React.Component {
           left: '0',
           position: 'absolute',
           right: '0',
-          top: '0'
+          top: '0',
         }}
         onlyEvent
         onResize={this.handleResize}
@@ -225,7 +229,7 @@ class MapLeaflet extends React.Component {
               {...{
                 key,
                 url,
-                bounds
+                bounds,
               }}
               tms
               subdomains={baseLayer.baseLayerOptions.subdomains}
@@ -242,97 +246,90 @@ class MapLeaflet extends React.Component {
               {...{
                 key,
                 url,
-                params
+                params,
               }}
               {...overlayOptions}
               opacity={visibleToOpacity(isVisible)}
               {...loadingHandlers}
             />
           ))}
-          {
-            Boolean(clusterMarkers.length) && (
-              <ClusterGroup
-                markers={clusterMarkers}
-                showCoverageOnHover={false}
-                iconCreateFunction={createClusterIcon}
-                spiderfyOnMaxZoom={false}
-                animate={false}
-                maxClusterRadius={50}
-                chunkedLoading
-                getMarkerGroupBounds={this.onClusterGroupBounds}
-                ref={this.setActiveElement}
-                disableClusteringAtZoom={baseLayer.baseLayerOptions.maxZoom}
-              />
-            )
-          }
-          {
-            markers.map((item) => Boolean(item.position) && (
-              <CustomMarker
-                ref={markerConfig[item.type].requestFocus && this.setActiveElement}
-                position={item.position}
-                key={item.position.toString() + item.type}
-                icon={icons[item.type](item.iconData)}
-                zIndexOffset={100}
-                rotationAngle={item.heading || 0}
-              />
-            ))
-          }
-          {
-            brkMarkers.map((item) => Boolean(item.position) && (
-              <CustomMarker
-                ref={markerConfig[item.type].requestFocus && this.setActiveElement}
-                position={item.position}
-                key={item.position.toString() + item.type}
-                icon={icons[item.type](item.iconData)}
-                zIndexOffset={100}
-                rotationAngle={item.heading || 0}
-              />
-            ))
-          }
-          {
-            marker && (
-              <CustomMarker
-                position={marker.position}
-                key={marker.toString()}
-                icon={icons[marker.type](marker.iconData)}
-              />
-            )
-          }
-          {
-            geoJsons.map((shape) => Boolean(shape.geoJson) && (
-              <GeoJSON
-                data={shape.geoJson}
-                key={shape.id}
-                style={geoJsonConfig[shape.type] && geoJsonConfig[shape.type].style}
-                ref={geoJsonConfig[shape.type].requestFocus && this.setActiveElement}
-              />
-            ))
-          }
-          {
-            rdGeoJsons.map((shape) =>
+          {Boolean(clusterMarkers.length) && (
+            <ClusterGroup
+              markers={clusterMarkers}
+              showCoverageOnHover={false}
+              iconCreateFunction={createClusterIcon}
+              spiderfyOnMaxZoom={false}
+              animate={false}
+              maxClusterRadius={50}
+              chunkedLoading
+              getMarkerGroupBounds={this.onClusterGroupBounds}
+              ref={this.setActiveElement}
+              disableClusteringAtZoom={baseLayer.baseLayerOptions.maxZoom}
+            />
+          )}
+          {markers.map(
+            item =>
+              Boolean(item.position) && (
+                <CustomMarker
+                  ref={markerConfig[item.type].requestFocus && this.setActiveElement}
+                  position={item.position}
+                  key={item.position.toString() + item.type}
+                  icon={icons[item.type](item.iconData)}
+                  zIndexOffset={100}
+                  rotationAngle={item.heading || 0}
+                />
+              ),
+          )}
+          {brkMarkers.map(
+            item =>
+              Boolean(item.position) && (
+                <CustomMarker
+                  ref={markerConfig[item.type].requestFocus && this.setActiveElement}
+                  position={item.position}
+                  key={item.position.toString() + item.type}
+                  icon={icons[item.type](item.iconData)}
+                  zIndexOffset={100}
+                  rotationAngle={item.heading || 0}
+                />
+              ),
+          )}
+          {marker && (
+            <CustomMarker
+              position={marker.position}
+              key={marker.toString()}
+              icon={icons[marker.type](marker.iconData)}
+            />
+          )}
+          {geoJsons.map(
+            shape =>
+              Boolean(shape.geoJson) && (
+                <GeoJSON
+                  data={shape.geoJson}
+                  key={shape.id}
+                  style={geoJsonConfig[shape.type] && geoJsonConfig[shape.type].style}
+                  ref={geoJsonConfig[shape.type].requestFocus && this.setActiveElement}
+                />
+              ),
+          )}
+          {rdGeoJsons.map(
+            shape =>
               Boolean(shape.geoJson) && (
                 <RdGeoJson
                   data={shape.geoJson}
                   key={shape.id}
                   ref={rdGeoJsons.length === 1 && this.setActiveElement}
                 />
-              )
-            )
-          }
+              ),
+          )}
           <ScaleControl {...scaleControlOptions} />
-          {
-            this.props.isZoomControlVisible && (
-              <ZoomControl {...zoomControlOptions} />
-            )
-          }
+          {isZoomControlVisible && <ZoomControl {...zoomControlOptions} />}
           <LoadingIndicator
-            loading={isLoading || this.state.pendingLayers.length > 0}
+            loading={isLoading || pendingLayers.length > 0}
             showMapLink={showMapLink}
           />
-
         </Map>
       </ResizeAware>
-    );
+    )
   }
 }
 
@@ -340,7 +337,7 @@ class MapLeaflet extends React.Component {
 MapLeaflet.defaultProps = {
   baseLayer: {
     urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png',
-    baseLayerOptions: {}
+    baseLayerOptions: {},
   },
   center: [DEFAULT_LAT, DEFAULT_LNG],
   clusterMarkers: [],
@@ -356,16 +353,16 @@ MapLeaflet.defaultProps = {
   isLoading: false,
   showMapLink: true,
   isZoomControlVisible: true,
-  onClick: () => 'click',  //
+  onClick: () => 'click', //
   onDragEnd: () => 'dragend',
   onResizeEnd: () => 'resizeend',
-  onZoomEnd: () => 'zoomend'
-};
+  onZoomEnd: () => 'zoomend',
+}
 
 MapLeaflet.propTypes = {
   baseLayer: PropTypes.shape({
     urlTemplate: PropTypes.string,
-    baseLayerOptions: PropTypes.shape({})
+    baseLayerOptions: PropTypes.shape({}),
   }),
   center: PropTypes.arrayOf(PropTypes.number),
   clusterMarkers: PropTypes.arrayOf(PropTypes.shape({})),
@@ -377,13 +374,15 @@ MapLeaflet.propTypes = {
   mapOptions: PropTypes.shape({}),
   markers: PropTypes.arrayOf(PropTypes.shape({})),
   marker: PropTypes.shape({}),
-  layers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    isVisible: PropTypes.bool.isRequired,
-    overlayOptions: PropTypes.shape({}),
-    transparent: PropTypes.bool,
-    url: PropTypes.string.isRequired
-  })),
+  layers: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      isVisible: PropTypes.bool.isRequired,
+      overlayOptions: PropTypes.shape({}),
+      transparent: PropTypes.bool,
+      url: PropTypes.string.isRequired,
+    }),
+  ),
   onClick: PropTypes.func,
   onDragEnd: PropTypes.func,
   onResizeEnd: PropTypes.func,
@@ -392,7 +391,7 @@ MapLeaflet.propTypes = {
   zoomControlOptions: PropTypes.shape({}),
   zoom: PropTypes.number,
   isLoading: PropTypes.bool,
-  showMapLink: PropTypes.bool.isRequired
-};
+  showMapLink: PropTypes.bool,
+}
 
-export default MapLeaflet;
+export default MapLeaflet

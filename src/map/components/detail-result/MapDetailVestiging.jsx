@@ -1,18 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import MapDetailAddressItem from './MapDetailAddressItem';
-import MapDetailResultItem, { MapDetailResultStatusItem } from './MapDetailResultItem';
-import MapDetailResultWrapper from './MapDetailResultWrapper';
-import MapDetailVestigingActiviteitenItem from './MapDetailVestigingActiviteitenItem';
-import Notification from '../../../shared/components/notification/Notification';
+import MapDetailAddressItem from './MapDetailAddressItem'
+import MapDetailResultItem, { MapDetailResultStatusItem } from './MapDetailResultItem'
+import MapDetailResultWrapper from './MapDetailResultWrapper'
+import MapDetailVestigingActiviteitenItem from './MapDetailVestigingActiviteitenItem'
+import Notification from '../../../shared/components/notification/Notification'
 
 const MapDetailVestiging = ({ panoUrl, vestiging, onMaximize, onPanoPreviewClick }) => {
-  const special = vestiging.bijzondereRechtstoestand &&
+  const special =
+    vestiging.bijzondereRechtstoestand &&
     (vestiging.bijzondereRechtstoestand.faillissement ||
-      vestiging.bijzondereRechtstoestand.surseanceVanBetaling);
-  const specialLabel = vestiging.bijzondereRechtstoestand &&
-    vestiging.bijzondereRechtstoestand.faillissement ? 'Faillissement' : 'Surseance van betaling';
+      vestiging.bijzondereRechtstoestand.surseanceVanBetaling)
+  const specialLabel =
+    vestiging.bijzondereRechtstoestand && vestiging.bijzondereRechtstoestand.faillissement
+      ? 'Faillissement'
+      : 'Surseance van betaling'
 
   return (
     <MapDetailResultWrapper
@@ -24,62 +27,56 @@ const MapDetailVestiging = ({ panoUrl, vestiging, onMaximize, onPanoPreviewClick
     >
       {vestiging.label ? (
         <ul className="map-detail-result__list">
-          {special && <li className="map-detail-result__notification">
-            <Notification
-              level="alert"
-              canClose={false}
-            >{specialLabel}</Notification>
-          </li>}
-          <MapDetailResultItem
-            label="KvK-nummer"
-            value={vestiging.kvkNumber}
-          />
-          <MapDetailResultItem
-            label="Vestigingsnummer"
-            value={vestiging.vestigingsnummer}
-          />
-          <MapDetailAddressItem
-            label="Bezoekadres"
-            values={vestiging.visitingAddress}
-          />
+          {special && (
+            <li className="map-detail-result__notification">
+              <Notification level="alert" canClose={false}>
+                {specialLabel}
+              </Notification>
+            </li>
+          )}
+          <MapDetailResultItem label="KvK-nummer" value={vestiging.kvkNumber} />
+          <MapDetailResultItem label="Vestigingsnummer" value={vestiging.vestigingsnummer} />
+          <MapDetailAddressItem label="Bezoekadres" values={vestiging.visitingAddress} />
           <MapDetailVestigingActiviteitenItem activities={vestiging.activities} />
           <MapDetailResultItem
             label="Type vestiging"
             value={vestiging.hoofdvestiging ? 'Hoofdvestiging' : 'Nevenvestiging'}
           />
-          {special && (<MapDetailResultStatusItem
-            label="Soort bijzondere rechtstoestand"
-            value={specialLabel}
-            status="alert"
-          />)}
+          {special && (
+            <MapDetailResultStatusItem
+              label="Soort bijzondere rechtstoestand"
+              value={specialLabel}
+              status="alert"
+            />
+          )}
         </ul>
       ) : (
         <Notification>
-          Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om
-          maatschappelijke activiteiten en vestigingen te bekijken.
+          Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke
+          activiteiten en vestigingen te bekijken.
         </Notification>
       )}
     </MapDetailResultWrapper>
-  );
-};
+  )
+}
 
 MapDetailVestiging.propTypes = {
   panoUrl: PropTypes.string.isRequired,
   vestiging: PropTypes.shape({
     activities: PropTypes.array,
     bijzondereRechtstoestand: PropTypes.shape({
-      faillissement: PropTypes.boolean,
+      faillissement: PropTypes.bool,
       status: PropTypes.string,
-      surseanceVanBetaling: PropTypes.boolean
+      surseanceVanBetaling: PropTypes.bool,
     }),
     kvkNumber: PropTypes.string,
     label: PropTypes.string,
     visitingAddress: PropTypes.object,
     hoofdvestiging: PropTypes.bool,
-    vestigingsnummer: PropTypes.string
+    vestigingsnummer: PropTypes.string,
   }).isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailVestiging;
+export default MapDetailVestiging

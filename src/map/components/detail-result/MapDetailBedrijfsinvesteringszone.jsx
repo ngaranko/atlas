@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import MapDetailResultItem from './MapDetailResultItem';
-import MapDetailResultWrapper from './MapDetailResultWrapper';
+import MapDetailResultItem from './MapDetailResultItem'
+import MapDetailResultWrapper from './MapDetailResultWrapper'
 
 const MapDetailBedrijfsinvesteringszone = ({
   panoUrl,
   bedrijfsinvesteringszone,
   onMaximize,
-  onPanoPreviewClick
+  onPanoPreviewClick,
 }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
@@ -18,10 +18,7 @@ const MapDetailBedrijfsinvesteringszone = ({
     title="Bedrijfsinvesteringszone"
   >
     <ul className="map-detail-result__list">
-      <MapDetailResultItem
-        label="Type"
-        value={bedrijfsinvesteringszone.type}
-      />
+      <MapDetailResultItem label="Type" value={bedrijfsinvesteringszone.type} />
       <MapDetailResultItem
         label="Heffingsgrondslag"
         value={bedrijfsinvesteringszone.heffingsgrondslag}
@@ -36,7 +33,7 @@ const MapDetailBedrijfsinvesteringszone = ({
       />
     </ul>
   </MapDetailResultWrapper>
-);
+)
 
 MapDetailBedrijfsinvesteringszone.propTypes = {
   bedrijfsinvesteringszone: PropTypes.shape({
@@ -44,11 +41,11 @@ MapDetailBedrijfsinvesteringszone.propTypes = {
     heffingsgrondslag: PropTypes.string,
     heffingsplichtigen: PropTypes.number,
     label: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
   }).isRequired,
   panoUrl: PropTypes.string.isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailBedrijfsinvesteringszone;
+export default MapDetailBedrijfsinvesteringszone

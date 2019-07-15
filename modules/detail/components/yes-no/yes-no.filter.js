@@ -1,19 +1,15 @@
-(function () {
-    'use strict';
+;(function() {
+  angular.module('dpDetail').filter('yesNo', yesNoFilter)
 
-    angular
-        .module('dpDetail')
-        .filter('yesNo', yesNoFilter);
-
-    function yesNoFilter () {
-        return function (input) {
-            if (input === true) {
-                return 'Ja';
-            } else if (input === false) {
-                return 'Nee';
-            } else {
-                return '';
-            }
-        };
+  function yesNoFilter() {
+    return function(input) {
+      if (input === true) {
+        return 'Ja'
+      }
+      if (input === false) {
+        return 'Nee'
+      }
+      return ''
     }
-})();
+  }
+})()

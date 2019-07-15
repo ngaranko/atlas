@@ -17,6 +17,7 @@ exports[`Notification should add the notification level as class name 1`] = `
   <button
     className="notification__button"
     onClick={[Function]}
+    type="button"
   >
     <span
       className="notification__button--close"
@@ -46,6 +47,7 @@ exports[`Notification should be able to render \`a\` elements 1`] = `
   <button
     className="notification__button"
     onClick={[Function]}
+    type="button"
   >
     <span
       className="notification__button--close"
@@ -105,6 +107,7 @@ exports[`Notification should render the provided message 1`] = `
   <button
     className="notification__button"
     onClick={[Function]}
+    type="button"
   >
     <span
       className="notification__button--close"

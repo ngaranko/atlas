@@ -1,41 +1,43 @@
-(function () {
-    angular
-        .module('dpShared')
-        .component('dpAnchorLink', {
-            bindings: {
-                link: '@',
-                className: '@',
-                autoScroll: '<'
-            },
-            transclude: true,
-            templateUrl: 'modules/shared/components/anchor-link/anchor-link.html',
-            controller: DpAnchorLinkController,
-            controllerAs: 'vm'
-        });
+;(function() {
+  angular.module('dpShared').component('dpAnchorLink', {
+    bindings: {
+      link: '@',
+      className: '@',
+      autoScroll: '<',
+    },
+    transclude: true,
+    templateUrl: 'modules/shared/components/anchor-link/anchor-link.html',
+    controller: DpAnchorLinkController,
+    controllerAs: 'vm',
+  })
 
-    DpAnchorLinkController.$inject = ['$scope', '$interval', '$anchorScroll'];
+  DpAnchorLinkController.$inject = ['$scope', '$interval', '$anchorScroll']
 
-    function DpAnchorLinkController ($scope, $interval, $anchorScroll) {
-        const vm = this;
+  function DpAnchorLinkController($scope, $interval, $anchorScroll) {
+    const vm = this
 
-        vm.onKeydown = function (event, anchor) {
-            if (event.key === 'Enter') {
-                vm.scrollTo(anchor);
-            }
-        };
-
-        vm.scrollTo = function (anchor) {
-            $interval(() => {
-                $anchorScroll(anchor);
-            }, 150, 1);
-        };
-
-        this.$onInit = function () {
-            if (vm.autoScroll) {
-                $scope.$applyAsync(() => {
-                    vm.scrollTo(vm.link);
-                });
-            }
-        };
+    vm.onKeydown = function(event, anchor) {
+      if (event.key === 'Enter') {
+        vm.scrollTo(anchor)
+      }
     }
-})();
+
+    vm.scrollTo = function(anchor) {
+      $interval(
+        () => {
+          $anchorScroll(anchor)
+        },
+        150,
+        1,
+      )
+    }
+
+    this.$onInit = function() {
+      if (vm.autoScroll) {
+        $scope.$applyAsync(() => {
+          vm.scrollTo(vm.link)
+        })
+      }
+    }
+  }
+})()

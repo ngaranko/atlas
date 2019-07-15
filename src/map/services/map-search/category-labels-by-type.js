@@ -1,4 +1,4 @@
-import categoryLabels from './category-labels';
+import categoryLabels from './category-labels'
 
 // mapping for map search results to collect the correct categoryLabel
 const categoryLabelsByType = {
@@ -26,12 +26,13 @@ const categoryLabelsByType = {
   'nap/peilmerk': categoryLabels.napPijlmerk,
   'parkeervakken/parkeervakken': categoryLabels.parkeervak,
   vestiging: categoryLabels.vestiging,
-  'vsd/biz': categoryLabels.bedrijfsinvesteringszone,
-  'vsd/oplaadpunten': categoryLabels.oplaadpunten,
-  'vsd/winkgeb': categoryLabels.winkelgebied,
   'vsd/bekendmakingen': categoryLabels.bekendmakingen,
+  'vsd/biz': categoryLabels.bedrijfsinvesteringszone,
   'vsd/evenementen': categoryLabels.evenementen,
-  'wkpb/beperking': categoryLabels.gemeentelijkeBeperking
-};
+  'vsd/oplaadpunten': categoryLabels.oplaadpunten,
+  'vsd/vastgoed': categoryLabels.vastgoed,
+  'vsd/winkgeb': categoryLabels.winkelgebied,
+  'wkpb/beperking': categoryLabels.gemeentelijkeBeperking,
+}
 
-export default categoryLabelsByType;
+export default categoryLabelsByType

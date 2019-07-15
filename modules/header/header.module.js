@@ -1,9 +1,3 @@
-(function () {
-    'use strict';
-
-    angular
-        .module('dpHeader', [
-            'ngSanitize',
-            'dpShared'
-        ]);
-})();
+;(function() {
+  angular.module('dpHeader', ['ngSanitize', 'dpShared'])
+})()

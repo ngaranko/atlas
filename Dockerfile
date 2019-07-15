@@ -24,6 +24,7 @@ COPY modules /app/modules
 COPY public /app/public
 COPY scripts /app/scripts
 COPY .babelrc \
+     .eslintrc.js \
       webpack.* \
       index.ejs \
       favicon.png \

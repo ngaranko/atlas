@@ -5,64 +5,64 @@ import reducer, {
   fetchMapLayers,
   getAccessToken,
   getLayers,
-  getMapLayers
-} from './map-layers';
+  getMapLayers,
+} from './map-layers'
 
 const initialState = {
   items: [],
   isLoading: false,
-  error: null
-};
+  error: null,
+}
 describe('post reducer', () => {
   it('should return the initial state', () => {
-    expect(reducer(undefined, {})).toEqual(initialState);
-  });
+    expect(reducer(undefined, {})).toEqual(initialState)
+  })
 
   it('should handle FETCH_MAP_LAYERS_REQUEST', () => {
     const startAction = {
-      type: FETCH_MAP_LAYERS_REQUEST
-    };
+      type: FETCH_MAP_LAYERS_REQUEST,
+    }
     expect(reducer({}, startAction)).toEqual({
       error: null,
-      isLoading: true
-    });
-  });
+      isLoading: true,
+    })
+  })
 
   it('should handle FETCH_MAP_LAYERS_SUCCESS', () => {
     const successAction = {
       type: FETCH_MAP_LAYERS_SUCCESS,
-      mapLayers: [{ id: 1 }]
-    };
+      mapLayers: [{ id: 1 }],
+    }
     expect(reducer({}, successAction)).toEqual({
       isLoading: false,
-      items: [...successAction.mapLayers]
-    });
-  });
+      items: [...successAction.mapLayers],
+    })
+  })
 
   it('should handle FETCH_MAP_LAYERS_FAILURE', () => {
     const updateAction = {
       type: FETCH_MAP_LAYERS_FAILURE,
-      error: 'Error'
-    };
+      error: 'Error',
+    }
     expect(reducer({}, updateAction)).toEqual({
       error: 'Error',
-      isLoading: false
-    });
-  });
-});
+      isLoading: false,
+    })
+  })
+})
 
 // SELECTORS
 describe('selectors', () => {
   const overlays = [
     {
       id: 'biz',
-      isVisible: true
+      isVisible: true,
     },
     {
       id: 'hvo',
-      isVisible: true
-    }
-  ];
+      isVisible: true,
+    },
+  ]
   const mapLayers = [
     {
       id: 'biz',
@@ -70,7 +70,7 @@ describe('selectors', () => {
       layers: ['biz_polygons'],
       detailUrl: 'geosearch/biz/',
       detailItem: 'biz',
-      detailIsShape: true
+      detailIsShape: true,
     },
     {
       id: 'hvo',
@@ -78,36 +78,40 @@ describe('selectors', () => {
       url: '/maps/handelsregister',
       layers: ['handel_vervoer_opslag', 'handel_vervoer_opslag_label'],
       detailUrl: 'handelsregister/geosearch/',
-      detailItem: 'handel_vervoer_opslag'
-    }
-  ];
-  const token = 'abc123';
+      detailItem: 'handel_vervoer_opslag',
+    },
+  ]
+  const token = 'abc123'
 
   const state = {
     mapLayers: {
       layers: {
-        items: mapLayers
-      }
+        items: mapLayers,
+      },
     },
     user: {
-      accessToken: token
-    }
-  };
+      accessToken: token,
+    },
+  }
 
   describe('getLayers', () => {
     it('should return an empty array if there are no overlays active', () => {
-      const selected = getLayers.resultFunc([], token, mapLayers);
-      expect(selected).toEqual([]);
-    });
+      const selected = getLayers.resultFunc([], token, mapLayers)
+      expect(selected).toEqual([])
+    })
 
     it('should return an empty array if there are mathing active overlays and mapLayers', () => {
-      const notMatchingOverlays = [{ id: 'test', isVisible: true }];
-      const selected = getLayers.resultFunc(notMatchingOverlays, token, mapLayers);
-      expect(selected).toEqual([]);
-    });
+      const notMatchingOverlays = [{ id: 'test', isVisible: true }]
+      const selected = getLayers.resultFunc(
+        notMatchingOverlays,
+        token,
+        mapLayers,
+      )
+      expect(selected).toEqual([])
+    })
 
     it('should return an array with layers with an undefined authScope if there is no token', () => {
-      const selected = getLayers.resultFunc(overlays, '', mapLayers);
+      const selected = getLayers.resultFunc(overlays, '', mapLayers)
       expect(selected).toEqual([
         {
           authScope: undefined,
@@ -118,17 +122,17 @@ describe('selectors', () => {
             format: 'image/png',
             identify: false,
             layers: ['biz_polygons'],
-            transparent: true
+            transparent: true,
           },
           url: 'https://acc.map.data.amsterdam.nl/maps/biz',
           params: undefined,
-          type: undefined
-        }
-      ]);
-    });
+          type: undefined,
+        },
+      ])
+    })
 
     it('should return an array with all layers if there is a token', () => {
-      const selected = getLayers.resultFunc(overlays, token, mapLayers);
+      const selected = getLayers.resultFunc(overlays, token, mapLayers)
       expect(selected).toEqual([
         {
           id: 'biz',
@@ -137,9 +141,9 @@ describe('selectors', () => {
             format: 'image/png',
             identify: false,
             layers: ['biz_polygons'],
-            transparent: true
+            transparent: true,
           },
-          url: 'https://acc.map.data.amsterdam.nl/maps/biz'
+          url: 'https://acc.map.data.amsterdam.nl/maps/biz',
         },
         {
           id: 'hvo',
@@ -147,35 +151,33 @@ describe('selectors', () => {
           overlayOptions: {
             format: 'image/png',
             identify: false,
-            layers: [
-              'handel_vervoer_opslag',
-              'handel_vervoer_opslag_label'
-            ],
-            transparent: true
+            layers: ['handel_vervoer_opslag', 'handel_vervoer_opslag_label'],
+            transparent: true,
           },
-          url: 'https://acc.map.data.amsterdam.nl/maps/handelsregister?access_token=abc123'
-        }
-      ]);
-    });
-  });
+          url:
+            'https://acc.map.data.amsterdam.nl/maps/handelsregister?access_token=abc123',
+        },
+      ])
+    })
+  })
 
   it('should return map layers', () => {
-    expect(getMapLayers(state)).toEqual(mapLayers);
-  });
+    expect(getMapLayers(state)).toEqual(mapLayers)
+  })
 
   it('should return the user access token', () => {
-    expect(getAccessToken(state)).toEqual(token);
-  });
-});
+    expect(getAccessToken(state)).toEqual(token)
+  })
+})
 
 // ACTION CREATORS
 describe('actions', () => {
   describe('fetchMapLayers', () => {
     it('should create an action to request the map layers', () => {
       const expectedAction = {
-        type: FETCH_MAP_LAYERS_REQUEST
-      };
-      expect(fetchMapLayers()).toEqual(expectedAction);
-    });
-  });
-});
+        type: FETCH_MAP_LAYERS_REQUEST,
+      }
+      expect(fetchMapLayers()).toEqual(expectedAction)
+    })
+  })
+})
