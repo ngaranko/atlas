@@ -66,15 +66,17 @@ const mapLayers = [
   {
     id: 'pano',
     layers: ['panorama_new'],
-    legendItems: [{ title: '2019' }, { title: '2018' }, { title: '2017' }, { title: '2016' }].map(
-      item => ({
-        ...item,
-        params:
-        {
-          scale: 800
-        }
-      })
-    ),
+    legendItems: [
+      { title: '2019' },
+      { title: '2018' },
+      { title: '2017' },
+      { title: '2016' },
+    ].map(item => ({
+      ...item,
+      params: {
+        scale: 800,
+      },
+    })),
     minZoom: 11,
     notClosable: true,
     title: THEMES.PANORAMA,
@@ -86,13 +88,14 @@ const mapLayers = [
   {
     id: 'pano2019bi',
     layers: ['panorama_new'],
-    legendItems: [{
-      title: '2019',
-      params:
+    legendItems: [
       {
-        scale: 800
-      }
-  }],
+        title: '2019',
+        params: {
+          scale: 800,
+        },
+      },
+    ],
     minZoom: 11,
     title: THEMES.PANORAMA,
     notClosable: true,
@@ -105,13 +108,14 @@ const mapLayers = [
   {
     id: 'pano2018bi',
     layers: ['panorama_new'],
-    legendItems: [{
-      title: '2018',
-      params:
+    legendItems: [
       {
-        scale: 800
-      }
-  }],
+        title: '2018',
+        params: {
+          scale: 800,
+        },
+      },
+    ],
     minZoom: 11,
     title: THEMES.PANORAMA,
     notClosable: true,
@@ -128,10 +132,9 @@ const mapLayers = [
       {
         imageRule: '2018',
         title: '2018 WOZ',
-        params:
-        {
-          scale: 800
-        }
+        params: {
+          scale: 800,
+        },
       },
     ],
     minZoom: 11,
@@ -146,13 +149,14 @@ const mapLayers = [
   {
     id: 'pano2017bi',
     layers: ['panorama_new'],
-    legendItems: [{
-      title: '2017',
-      params:
+    legendItems: [
       {
-        scale: 800
-      }
-  }],
+        title: '2017',
+        params: {
+          scale: 800,
+        },
+      },
+    ],
     minZoom: 11,
     notClosable: true,
     title: THEMES.PANORAMA,
@@ -169,10 +173,9 @@ const mapLayers = [
       {
         imageRule: '2017',
         title: '2017 WOZ',
-        params:
-        {
-          scale: 800
-        }
+        params: {
+          scale: 800,
+        },
       },
     ],
     minZoom: 11,
@@ -190,10 +193,9 @@ const mapLayers = [
     legendItems: [
       {
         title: '2016',
-        params:
-        {
-          scale: 800
-        }
+        params: {
+          scale: 800,
+        },
       },
     ],
     minZoom: 11,
@@ -1264,42 +1266,42 @@ const mapLayers = [
         layers: ['rest_coordinaten'],
         title: 'Restafval',
         imageRule: 'Restcontainer',
-        params:{ width: 30, height: 30},
+        params: { width: 30, height: 30 },
       },
       {
         id: 'wloppr',
         layers: ['papier_coordinaten'],
         title: 'Papier',
         imageRule: 'Papiercontainer',
-        params:{ width: 30, height: 30},
+        params: { width: 30, height: 30 },
       },
       {
         id: 'wlogls',
         layers: ['glas_coordinaten'],
         title: 'Glas',
         imageRule: 'Glascontainer',
-        params:{ width: 30, height: 30},
+        params: { width: 30, height: 30 },
       },
       {
         id: 'wlopls',
         layers: ['plastic_coordinaten'],
         title: 'Plastic',
         imageRule: 'Plasticcontainer',
-        params:{ width: 30, height: 30},
+        params: { width: 30, height: 30 },
       },
       {
         id: 'wlotxtl',
         layers: ['textiel_coordinaten'],
         title: 'Textiel',
         imageRule: 'Textielcontainer',
-        params:{ width: 30, height: 30},
+        params: { width: 30, height: 30 },
       },
       {
         id: 'wlokca',
         layers: ['gfe_coordinaten'],
         title: 'GFE',
         imageRule: 'Gfecontainer',
-        params:{ width: 30, height: 30},
+        params: { width: 30, height: 30 },
       },
     ],
     title: 'Afvalcontainers',
@@ -2211,18 +2213,18 @@ export default [
     Object.prototype.hasOwnProperty.call(mapLayer, 'id')
       ? mapLayer
       : mapLayer.legendItems.map(legendItem =>
-        Object.prototype.hasOwnProperty.call(legendItem, 'id')
-          ? {
-            layers: mapLayer.layers,
-            url: mapLayer.url,
-            detailUrl: mapLayer.detailUrl,
-            detailItem: mapLayer.detailItem,
-            detailIsShape: mapLayer.detailIsShape,
-            minZoom: mapLayer.minZoom,
-            ...legendItem,
-          }
-          : null,
-      ),
+          Object.prototype.hasOwnProperty.call(legendItem, 'id')
+            ? {
+                layers: mapLayer.layers,
+                url: mapLayer.url,
+                detailUrl: mapLayer.detailUrl,
+                detailItem: mapLayer.detailItem,
+                detailIsShape: mapLayer.detailIsShape,
+                minZoom: mapLayer.minZoom,
+                ...legendItem,
+              }
+            : null,
+        ),
   ),
 ].reduce((acc, val) => acc.concat(val), []) // Alternative to .flat()
 /* eslint-enable max-len */
