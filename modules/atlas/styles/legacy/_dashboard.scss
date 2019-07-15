@@ -3,6 +3,30 @@ $backdrop-color: rgba(0, 0, 0, .5);
 .c-dashboard {
   height: 100%;
   background: $primary-light;
+
+  &--page-type-article {
+    #header {
+      @media screen and (min-width: 1200px) {
+        width: calc(100% - 48px);
+
+        &::after {
+          content: '';
+          background-color: $thema-6;
+          bottom: 0;
+          display: block;
+          position: absolute;
+          right: -24px;
+          top: 0;
+          width: 24px;
+        }
+      }
+      max-width: 1920px;
+
+      header {
+        max-width: 1920px;
+      }
+    }
+  }
 }
 
 .c-dashboard__heading {

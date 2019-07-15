@@ -9,8 +9,8 @@ import {
   CustomHTMLBlock,
   Summary,
   PublicationContent,
-  ArticleHeader,
-  ArticleMetaList,
+  BlogHeader,
+  BlogMetaList,
   Downloader,
 } from '@datapunt/asc-ui'
 import Footer from '../../components/Footer/Footer'
@@ -54,8 +54,8 @@ const PublicationsPage = ({ endpoint }) => {
                 <Column wrap span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
                   <Column span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
                     <PublicationContent>
-                      <ArticleHeader title={title} />
-                      <ArticleMetaList
+                      <BlogHeader title={title} />
+                      <BlogMetaList
                         fields={[
                           { id: 1, label: source },
                           { id: 4, label: formatDate(new Date(created)) },
