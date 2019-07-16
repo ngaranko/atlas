@@ -4,8 +4,8 @@
   background-color: $primary-light;
 
   & > &__row {
-    position: relative;
     background-color: $primary-light;
+    position: relative;
 
     /* This is a hack, we need to add a collapse functionality in the Row component */
     @media screen and (max-width: 570px) {
