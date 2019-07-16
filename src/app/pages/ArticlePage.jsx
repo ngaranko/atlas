@@ -1,6 +1,5 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import normalize from 'json-api-normalize'
 import { AngularWrapper } from 'react-angular'
 import {
   Article,
@@ -20,76 +19,25 @@ import {
 } from '@datapunt/asc-ui'
 import Footer from '../components/Footer/Footer'
 import './ArticlePage.scss'
-import { dateToString } from '../../shared/services/date-formatter/date-formatter'
 import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
 import getReduxLinkProps from '../utils/getReduxLinkProps'
 import { toArticle } from '../../store/redux-first-router/actions'
+import { normalizeArticleData } from '../utils/normalizeFromCMS'
 
+/* istanbul ignore next */
 const ArticlePage = ({ id }) => {
   const [articleData, setArticleData] = React.useState(null)
   const [showFourOhFour, setFourOhFour] = React.useState(false)
-
-  const normalizeData = data => {
-    const {
-      title,
-      body,
-      field_image: image,
-      field_downloads: downloads,
-      field_links: links,
-      field_byline: byline,
-      field_slug: slug,
-      field_intro: intro,
-      field_publication_date: pubDate,
-    } = normalize(data).get([
-      'title',
-      'body',
-      'field_image.uri',
-      'field_downloads.title',
-      'field_downloads.drupal_internal__nid',
-      'field_downloads.field_file_type',
-      'field_downloads.field_file_size',
-      'field_downloads.field_publication_file.uri',
-      'field_links',
-      'field_byline',
-      'field_slug',
-      'field_intro',
-      'field_publication_date',
-    ])[0]
-    const publicationDate = new Date(pubDate)
-    const date = dateToString(publicationDate)
-    const options = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }
-
-    const localeDate = publicationDate.toLocaleDateString('nl-NL', options)
-
-    return {
-      title,
-      slug,
-      intro,
-      date,
-      localeDate,
-      body: body.value,
-      image,
-      downloads,
-      links,
-      byline,
-    }
-  }
 
   React.useEffect(() => {
     fetch(
       `${SHARED_CONFIG.CMS_ROOT}/jsonapi/node/article?filter[drupal_internal__nid]=${id}&include=field_image,field_downloads.field_publication_file`,
     )
-      .then(response => {
-        return response.json()
-      })
+      .then(response => response.json())
       .then(response => {
         try {
           setFourOhFour(false)
-          setArticleData(normalizeData(response))
+          setArticleData(normalizeArticleData(response))
         } catch (e) {
           setFourOhFour(true)
         }
