@@ -182,7 +182,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run test"
+      "pre-push": "npm run test-jest && npm run test-karma"
     }
   },
   "lint-staged": {
