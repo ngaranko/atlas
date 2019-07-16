@@ -4,7 +4,12 @@ import PropTypes from 'prop-types'
 import MapDetailResultItem from './MapDetailResultItem'
 import MapDetailResultWrapper from './MapDetailResultWrapper'
 
-const MapDetailParkeerzone = ({ panoUrl, item, onMaximize, onPanoPreviewClick }) => (
+const MapDetailParkeerzone = ({
+  panoUrl,
+  item,
+  onMaximize,
+  onPanoPreviewClick,
+}) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     onMaximize={onMaximize}
@@ -22,7 +27,7 @@ MapDetailParkeerzone.propTypes = {
   panoUrl: PropTypes.string.isRequired,
   item: PropTypes.shape({
     label: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired
+    description: PropTypes.string.isRequired,
   }).isRequired,
   onMaximize: PropTypes.func.isRequired,
   onPanoPreviewClick: PropTypes.func.isRequired,
