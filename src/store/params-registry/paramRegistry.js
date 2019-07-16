@@ -218,9 +218,22 @@ class ParamsRegistry {
       ],
       [],
     )
-    return [...new Set([...diffA, ...diffB])]
-      .map(parameter => this.getReduxObject(parameter, route).addHistory)
+
+      
+      
+
+
+    const shouldChange = [...new Set([...diffA, ...diffB])]
+      .map(parameter => {
+        console.log(parameter, this.getReduxObject(parameter, route).addHistory);
+        
+        return this.getReduxObject(parameter, route).addHistory}
+        )
       .includes(true)
+
+console.log('queryShouldChangeHistory', diffA, diffB, shouldChange);
+
+      return shouldChange
   }
 
   setQueriesFromState(currentLocationType, state, nextAction) {
@@ -267,13 +280,13 @@ class ParamsRegistry {
     // this check prevents recording history changes on every action.
     const recordHistory = searchQuery !== window.location.search.substring(1)
     if (recordHistory && this.history) {
-      if (
-        this.queryShouldChangeHistory(orderedQuery, currentLocationType, state)
-      ) {
-        this.history.push(`${currentPath}?${searchQuery}`)
-      } else {
+      // if (
+      //   this.queryShouldChangeHistory(orderedQuery, currentLocationType, state)
+      // ) {
+      //   this.history.push(`${currentPath}?${searchQuery}`)
+      // } else {
         this.history.replace(`${currentPath}?${searchQuery}`)
-      }
+      // }
     }
 
     return searchQuery

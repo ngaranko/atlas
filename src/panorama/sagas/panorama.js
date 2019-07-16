@@ -42,6 +42,11 @@ export function* fetchFetchPanoramaEffect(action) {
   if (view === VIEW_MODE.FULL || view === VIEW_MODE.SPLIT) {
     yield put(closeMapPanel())
   }
+
+  // console.log('fetchPanoramaRequest', action);
+  
+
+
   yield put(fetchPanoramaRequest(action.payload))
 }
 
@@ -51,6 +56,11 @@ export function* handlePanoramaRequest(fn, input, tags) {
     const { id } = yield select(getLocationPayload)
 
     yield put(toggleMapOverlayPanorama(tags))
+
+
+    // console.log(id !== panoramaData.id, id, panoramaData.id);
+    
+
 
     if (id && id !== panoramaData.id) {
       const viewCenter = yield select(getMapCenter)
@@ -65,6 +75,9 @@ export function* handlePanoramaRequest(fn, input, tags) {
         [PARAMETERS.VIEW_CENTER]: viewCenter,
         [PARAMETERS.LOCATION]: location,
       }
+
+      // console.log('additionalParams', additionalParams);
+      
 
       yield put(toPanorama(panoramaData.id, { additionalParams }))
     }
