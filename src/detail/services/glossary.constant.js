@@ -385,6 +385,16 @@ const GLOSSARY = {
         'sleutelverzendend',
       ],
     },
+    PARKEERZONES: {
+      label_singular: 'Parkeervergunninggebied',
+      label_plural: 'Parkeervergunninggebieden',
+      description: '',
+    },
+    PARKEERZONES_UITZ: {
+      label_singular: 'Uitzondering parkeervergunninggebied',
+      label_plural: 'Uitzondering parkeervergunninggebieden',
+      description: '',
+    },
     PEILMERK: {
       label_singular: 'NAP peilmerk',
       label_plural: 'NAP peilmerken',
@@ -497,6 +507,11 @@ const GLOSSARY = {
       url:
         'https://www.amsterdam.nl/stelselpedia/gebieden-index/catalogus/unesco-werelderfgoed/',
       meta: [],
+    },
+    VASTGOED: {
+      label_singular: 'Gemeentelijk eigendom',
+      label_plural: 'Gemeentelijk eigendom',
+      description: '',
     },
     VERBLIJFSOBJECT: {
       label_singular: 'Verblijfsobject',

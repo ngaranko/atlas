@@ -66,7 +66,17 @@ const mapLayers = [
   {
     id: 'pano',
     layers: ['panorama_new'],
-    legendItems: [{ title: '2018' }, { title: '2017' }, { title: '2016' }],
+    legendItems: [
+      { title: '2019' },
+      { title: '2018' },
+      { title: '2017' },
+      { title: '2016' },
+    ].map(item => ({
+      ...item,
+      params: {
+        scale: 800,
+      },
+    })),
     minZoom: 11,
     notClosable: true,
     title: THEMES.PANORAMA,
@@ -76,9 +86,36 @@ const mapLayers = [
     },
   },
   {
+    id: 'pano2019bi',
+    layers: ['panorama_new'],
+    legendItems: [
+      {
+        title: '2019',
+        params: {
+          scale: 800,
+        },
+      },
+    ],
+    minZoom: 11,
+    title: THEMES.PANORAMA,
+    notClosable: true,
+    url: '/maps/panorama',
+    params: {
+      mission_year: 2019,
+      mission_type: 'bi',
+    },
+  },
+  {
     id: 'pano2018bi',
     layers: ['panorama_new'],
-    legendItems: [{ title: '2018' }],
+    legendItems: [
+      {
+        title: '2018',
+        params: {
+          scale: 800,
+        },
+      },
+    ],
     minZoom: 11,
     title: THEMES.PANORAMA,
     notClosable: true,
@@ -95,6 +132,9 @@ const mapLayers = [
       {
         imageRule: '2018',
         title: '2018 WOZ',
+        params: {
+          scale: 800,
+        },
       },
     ],
     minZoom: 11,
@@ -109,7 +149,14 @@ const mapLayers = [
   {
     id: 'pano2017bi',
     layers: ['panorama_new'],
-    legendItems: [{ title: '2017' }],
+    legendItems: [
+      {
+        title: '2017',
+        params: {
+          scale: 800,
+        },
+      },
+    ],
     minZoom: 11,
     notClosable: true,
     title: THEMES.PANORAMA,
@@ -126,6 +173,9 @@ const mapLayers = [
       {
         imageRule: '2017',
         title: '2017 WOZ',
+        params: {
+          scale: 800,
+        },
       },
     ],
     minZoom: 11,
@@ -143,6 +193,9 @@ const mapLayers = [
     legendItems: [
       {
         title: '2016',
+        params: {
+          scale: 800,
+        },
       },
     ],
     minZoom: 11,
@@ -305,27 +358,29 @@ const mapLayers = [
     detailItem: 'kadastraal_object',
     detailIsShape: true,
   },
-  // Todo - Hotfix: uncomment when mapserver is up again
-  // {
-  //   category: THEMES.GEOGRAPHY_ONR,
-  //   layers: ['vastgoed'],
-  //   legendItems: [
-  //     {
-  //       id: 'vge',
-  //       title: 'Volledig eigendom',
-  //       imageRule: 'vastgoed',
-  //       layers: ['vastgoed_eigendom']
-  //     },
-  //     {
-  //       id: 'vga',
-  //       title: 'Appartementsrecht',
-  //       imageRule: 'vastgoed',
-  //       layers: ['vastgoed_appartementsrecht']
-  //     }
-  //   ],
-  //   title: 'Gemeentelijk eigendom',
-  //   url: '/maps/vastgoed'
-  // },
+  {
+    category: THEMES.GEOGRAPHY_ONR,
+    layers: ['vastgoed'],
+    legendItems: [
+      {
+        id: 'vge',
+        title: 'Volledig eigendom',
+        imageRule: 'vastgoed',
+        layers: ['vastgoed_eigendom'],
+      },
+      {
+        id: 'vga',
+        title: 'Appartementsrecht',
+        imageRule: 'vastgoed',
+        layers: ['vastgoed_appartementsrecht'],
+      },
+    ],
+    title: 'Gemeentelijk eigendom',
+    url: '/maps/vastgoed',
+    detailUrl: 'geosearch/vastgoed/',
+    detailItem: 'vastgoed',
+    detailIsShape: true,
+  },
   {
     category: THEMES.GEOGRAPHY_ONR,
     legendItems: [
@@ -992,6 +1047,31 @@ const mapLayers = [
     category: THEMES.TRAFFIC,
     legendItems: [
       {
+        id: 'uitzpvg',
+        title: 'Uitzondering parkeervergunninggebied',
+        imageRule: 'Parkeerzones uitzonderingen',
+        layers: ['parkeerzones_uitz'],
+        detailItem: 'parkeerzones_uitz',
+        detailUrl: 'geosearch/parkeerzones_uitz/',
+        url: '/maps/parkeerzones_uitz',
+      },
+      {
+        id: 'pvg',
+        title: 'Parkeervergunninggebied',
+        iconUrl: '/assets/images/map-legend/icon-parkeerzones.svg',
+        layers: ['parkeerzones'],
+        detailItem: 'parkeerzones',
+        detailUrl: 'geosearch/parkeerzones/',
+        url: '/maps/parkeerzones',
+      },
+    ],
+    title: 'Parkeervergunninggebieden',
+    detailIsShape: true,
+  },
+  {
+    category: THEMES.TRAFFIC,
+    legendItems: [
+      {
         id: 'bgt',
         imageRule: 'Busbaan geen taxi',
         layers: ['busbaan_geen_taxi'],
@@ -1186,42 +1266,42 @@ const mapLayers = [
         layers: ['rest_coordinaten'],
         title: 'Restafval',
         imageRule: 'Restcontainer',
-        imageSize: 30,
+        params: { width: 30, height: 30 },
       },
       {
         id: 'wloppr',
         layers: ['papier_coordinaten'],
         title: 'Papier',
         imageRule: 'Papiercontainer',
-        imageSize: 30,
+        params: { width: 30, height: 30 },
       },
       {
         id: 'wlogls',
         layers: ['glas_coordinaten'],
         title: 'Glas',
         imageRule: 'Glascontainer',
-        imageSize: 30,
+        params: { width: 30, height: 30 },
       },
       {
         id: 'wlopls',
         layers: ['plastic_coordinaten'],
         title: 'Plastic',
         imageRule: 'Plasticcontainer',
-        imageSize: 30,
+        params: { width: 30, height: 30 },
       },
       {
         id: 'wlotxtl',
         layers: ['textiel_coordinaten'],
         title: 'Textiel',
         imageRule: 'Textielcontainer',
-        imageSize: 30,
+        params: { width: 30, height: 30 },
       },
       {
         id: 'wlokca',
         layers: ['gfe_coordinaten'],
         title: 'GFE',
         imageRule: 'Gfecontainer',
-        imageSize: 30,
+        params: { width: 30, height: 30 },
       },
     ],
     title: 'Afvalcontainers',

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import queryString from 'querystring'
 
 import { Checkbox } from '../../../shared/components/checkbox'
 import MAP_CONFIG from '../../services/map-config'
@@ -20,7 +21,7 @@ class MapLegend extends React.Component {
 
     return [
       MAP_CONFIG.OVERLAY_ROOT,
-      `${mapLayer.url}?`,
+      `${mapLayer.url || legendItem.url}?`,
       `version=${MAP_CONFIG.VERSION_NUMBER}&`,
       'service=WMS&',
       'request=GetLegendGraphic&',
@@ -28,7 +29,7 @@ class MapLegend extends React.Component {
       `layer=${(legendItem.layers && legendItem.layers[0]) ||
         (mapLayer.layers && mapLayer.layers[0])}&`,
       'format=image/svg%2Bxml&',
-      legendItem.imageSize ? `width=${legendItem.imageSize}&height=${legendItem.imageSize}&` : '',
+      legendItem.params ? `${queryString.stringify(legendItem.params)}&` : '',
       `rule=${encodeURIComponent(legendItem.imageRule || legendItem.title)}`,
     ].join('')
   }
