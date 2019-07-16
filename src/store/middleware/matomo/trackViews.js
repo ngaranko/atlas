@@ -2,7 +2,7 @@ import { routing } from '../../../app/routes'
 import { getDetail } from '../../../shared/ducks/detail/selectors'
 import { FETCH_DETAIL_SUCCESS } from '../../../shared/ducks/detail/constants'
 import { isDatasetDetailPage } from '../../redux-first-router/selectors'
-import { PIWIK_CONSTANTS } from './constants'
+import { MATOMO_CONSTANTS } from './constants'
 
 let views = Object.entries(routing).reduce((acc, [, value]) => ({
   ...acc,
@@ -13,7 +13,7 @@ let views = Object.entries(routing).reduce((acc, [, value]) => ({
     title,
   }) {
     return firstAction || !!query.print
-      ? [PIWIK_CONSTANTS.TRACK_VIEW, title, href, null]
+      ? [MATOMO_CONSTANTS.TRACK_VIEW, title, href, null]
       : []
   },
 }))
@@ -27,7 +27,7 @@ views = {
     title,
   }) {
     return firstAction || !!query.print
-      ? [PIWIK_CONSTANTS.TRACK_VIEW, title, href, null]
+      ? [MATOMO_CONSTANTS.TRACK_VIEW, title, href, null]
       : []
   },
   [routing.data.type]: function trackView({
@@ -38,7 +38,7 @@ views = {
   }) {
     return firstAction || !!query.print
       ? [
-          PIWIK_CONSTANTS.TRACK_VIEW,
+          MATOMO_CONSTANTS.TRACK_VIEW,
           title, // PAGEVIEW -> MAP
           href,
           null,
@@ -47,7 +47,7 @@ views = {
   },
   [routing.verplaatst.type]: function trackView({ href, title }) {
     return [
-      PIWIK_CONSTANTS.TRACK_VIEW,
+      MATOMO_CONSTANTS.TRACK_VIEW,
       title, // PAGEVIEW -> VERPLAATS
       href,
       document.referrer,
@@ -63,14 +63,14 @@ views = {
   }) {
     return !firstAction && (tracking && tracking.id !== getDetail(state).id)
       ? [
-          PIWIK_CONSTANTS.TRACK_VIEW,
+          MATOMO_CONSTANTS.TRACK_VIEW,
           title, // PAGEVIEW -> DETAIL VIEW CLICK THROUGH VIEWS
           href,
           null,
         ]
       : firstAction || !!query.print
       ? [
-          PIWIK_CONSTANTS.TRACK_VIEW,
+          MATOMO_CONSTANTS.TRACK_VIEW,
           title, // PAGEVIEW -> DETAIL VIEW INITIAL LOAD
           href,
           null,
@@ -79,7 +79,7 @@ views = {
   },
   [FETCH_DETAIL_SUCCESS]: function trackView({ href, title, state }) {
     return isDatasetDetailPage(state)
-      ? [PIWIK_CONSTANTS.TRACK_VIEW, title, href, null]
+      ? [MATOMO_CONSTANTS.TRACK_VIEW, title, href, null]
       : []
   },
 }
