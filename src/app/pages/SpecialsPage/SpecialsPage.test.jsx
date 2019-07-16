@@ -6,12 +6,19 @@ import SpecialsPage from './SpecialsPage'
 import useDataFetching from '../../utils/useDataFetching'
 import setIframeSize from '../../utils/setIframeSize'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
+import getReduxLinkProps from '../../utils/getReduxLinkProps'
 
 jest.mock('../../utils/useDataFetching')
 jest.mock('../../utils/setIframeSize')
+jest.mock('../../utils/getReduxLinkProps')
 
 describe('SpecialsPage', () => {
   const specialsId = 6
+  const specialsHref = 'https://this.is/a-link/this-is-a-slug'
+
+  getReduxLinkProps.mockImplementation(() => ({
+    href: specialsHref
+  }))
 
   const mockData = {
     fetchData: jest.fn(),
@@ -23,6 +30,7 @@ describe('SpecialsPage', () => {
             field_iframe_link: {
               uri: 'http://this.is.alink',
             },
+            slug: 'this-is-a-slug'
           },
         },
       ],
@@ -49,6 +57,19 @@ describe('SpecialsPage', () => {
 
     const iframe = component.find('iframe').at(0)
     expect(iframe.exists()).toBeTruthy()
+  })
+
+  it('should set the values for Helmet', () => {
+    useDataFetching.mockImplementation(() => mockData)
+
+    const store = configureMockStore()({ location: { payload: { id: specialsId } } })
+    const component = shallow(<SpecialsPage />, { context: { store } }).dive()
+
+    expect(getReduxLinkProps).toHaveBeenCalled()
+
+    const helmet = component.find('HelmetWrapper')
+    expect(helmet.exists()).toBeTruthy()
+    expect(helmet.find('link').props().href).toBe(specialsHref)
   })
 
   it('should call the fetchData function when the component mounts', () => {
