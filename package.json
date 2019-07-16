@@ -182,7 +182,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint"
+      "pre-push": "npm run test"
     }
   },
   "lint-staged": {
@@ -190,7 +190,7 @@
       "npm run lint:js",
       "git add"
     ],
-    "*.css": [
+    "*.scss": [
       "npm run lint:style",
       "git add"
     ]

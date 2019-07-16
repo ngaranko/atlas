@@ -34,7 +34,12 @@ import IconButton from '../../app/components/IconButton/IconButton'
 import { getMapDetail } from '../../map/ducks/detail/actions'
 import { getMapOverlays } from '../../map/ducks/map/selectors'
 import { pageTypeToEndpoint } from '../../map/services/map-detail'
-import { isPrintMode, isPrintOrEmbedMode, setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui'
+import {
+  isPrintMode,
+  isPrintOrEmbedMode,
+  setViewMode,
+  VIEW_MODE,
+} from '../../shared/ducks/ui/ui'
 
 class PanoramaContainer extends React.Component {
   constructor(props) {
@@ -56,7 +61,10 @@ class PanoramaContainer extends React.Component {
     this.loadPanoramaScene()
 
     if (this.panoramaViewer) {
-      this.panoramaViewer.addEventListener('viewChange', this.updateOrientationThrottled)
+      this.panoramaViewer.addEventListener(
+        'viewChange',
+        this.updateOrientationThrottled,
+      )
     }
 
     if (detailReference.length > 0) {
@@ -79,7 +87,10 @@ class PanoramaContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    this.panoramaViewer.removeEventListener('viewChange', this.updateOrientationThrottled)
+    this.panoramaViewer.removeEventListener(
+      'viewChange',
+      this.updateOrientationThrottled,
+    )
   }
 
   loadPanoramaScene() {
@@ -124,9 +135,21 @@ class PanoramaContainer extends React.Component {
   }
 
   render() {
-    const { isFullscreen, printOrEmbedMode, printMode, panoramaState, onClose, tags } = this.props
+    const {
+      isFullscreen,
+      printOrEmbedMode,
+      printMode,
+      panoramaState,
+      onClose,
+      tags,
+    } = this.props
     return (
-      <div className={classNames({ 'c-panorama': true, 'u-page-break-before': !isFullscreen })}>
+      <div
+        className={classNames({
+          'c-panorama': true,
+          'u-page-break-before': !isFullscreen,
+        })}
+      >
         <div
           ref={
             // eslint-disable-next-line
@@ -146,7 +169,7 @@ class PanoramaContainer extends React.Component {
 
         <IconButton onClick={onClose} title="Sluit panorama" icon="cross" />
         <div className="c-map__controls c-map__controls--bottom-left">
-          {!printMode && (
+          {!printMode && panoramaState.location && (
             <PanoramaToggle
               location={panoramaState.location}
               heading={panoramaState.heading}

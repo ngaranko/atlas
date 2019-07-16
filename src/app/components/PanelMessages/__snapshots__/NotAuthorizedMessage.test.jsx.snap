@@ -16,7 +16,7 @@ exports[`NotAuthorizedMessage should render everything 1`] = `
     <p
       className="c-panel__paragraph"
     >
-      Zie
+      Zie 
       <Connect(Link)
         className="c-link--light qa-link-to-page-button qa-dp-link"
         to={

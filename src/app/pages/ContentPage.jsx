@@ -23,11 +23,6 @@ import {
     <div className="c-dashboard__page o-max-width">
       <div className="c-dashboard__page-inner c-dashboard__content o-max-width__inner u-gutter">
         <div className="qa-page">
-          {console.log({
-            name: templateName,
-            type,
-            item,
-          })}
           <AngularWrapper
             moduleName="dpPageWrapper"
             component="dpPage"
