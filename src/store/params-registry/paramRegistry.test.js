@@ -168,31 +168,10 @@ describe('ParamsRegistry singleton', () => {
     }
 
     it('should call history.push with the right querystring', () => {
-      jest
-        .spyOn(paramsRegistry, 'queryShouldChangeHistory')
-        .mockReturnValue(false)
       getResult({ reducerKey: { foo: 'hello!' } })
       expect(paramsRegistry.history.replace).toHaveBeenCalledWith(
         '/?map=hello!',
       )
-    })
-
-    it('should not set the query if the general defaultValue is set and equal to the encoded value', () => {
-      jest
-        .spyOn(paramsRegistry, 'queryShouldChangeHistory')
-        .mockReturnValue(true)
-      getResult({ reducerKey: { foo: 123, bar: 'bla' } })
-      expect(paramsRegistry.history.push).toHaveBeenCalledWith(
-        '/?anotherParam=bla',
-      )
-    })
-
-    it('should not set the query if the defaultValue per route is set and equal to the encoded value', () => {
-      jest
-        .spyOn(paramsRegistry, 'queryShouldChangeHistory')
-        .mockReturnValue(true)
-      getResult({ reducerKey: { foo: 1234, bar: 321 } })
-      expect(paramsRegistry.history.push).toHaveBeenCalledWith('/?map=1234')
     })
 
     it('should return undefined if action type is not a route', () => {
@@ -308,51 +287,6 @@ describe('ParamsRegistry singleton', () => {
           })
         }),
       ).toThrow('Key given to reducer settings is not allowed: "foo"')
-    })
-  })
-
-  describe('queryShouldChangeHistory', () => {
-    beforeEach(() => {
-      paramsRegistry
-        .addParameter('zoom', routes => {
-          routes.add(
-            'ROUTER/bar',
-            'reducerKey',
-            'zoom',
-            {
-              defaultValue: 12,
-            },
-            false,
-          )
-        })
-        .addParameter('page', routes => {
-          routes.add('ROUTER/foo', 'reducerKey2', 'page')
-        })
-    })
-
-    it('should return false if only the parameter that should not replace the history is changed', () => {
-      jsdom.reconfigure({ url: 'https://www.someurl.com/?zoom=14' })
-      const expectation1 = paramsRegistry.queryShouldChangeHistory(
-        { zoom: 14 },
-        'ROUTER/bar',
-      )
-      expect(expectation1).toBe(false)
-
-      jsdom.reconfigure({ url: 'https://www.someurl.com/?zoom=13&bla=foo' })
-      const expectation2 = paramsRegistry.queryShouldChangeHistory(
-        { zoom: 14 },
-        'ROUTER/bar',
-      )
-      expect(expectation2).toBe(false)
-    })
-
-    it('should return true if the parameter that should replace the history is not changed', () => {
-      jsdom.reconfigure({ url: 'https://www.someurl.com/?page=2' })
-      const expectation1 = paramsRegistry.queryShouldChangeHistory(
-        { page: 1 },
-        'ROUTER/foo',
-      )
-      expect(expectation1).toBe(true)
     })
   })
 

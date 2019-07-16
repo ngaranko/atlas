@@ -24,9 +24,7 @@ class ParamsRegistry {
   static orderQuery(query) {
     return Object.entries(query)
       .sort()
-      .sort(([key1], [key2]) =>
-        key1 === PARAMETERS.VIEW ? -1 : key2 === PARAMETERS.VIEW ? 1 : 0,
-      )
+      .sort(([key1], [key2]) => (key1 === PARAMETERS.VIEW ? -1 : key2 === PARAMETERS.VIEW ? 1 : 0))
       .reduce(
         (acc, [key, value]) => ({
           ...acc,
@@ -48,9 +46,7 @@ class ParamsRegistry {
 
     Object.keys(overrideOptions).forEach(value => {
       if (!allowedKeys.includes(value)) {
-        throw new Error(
-          `Key given to reducer settings is not allowed: "${value}"`,
-        )
+        throw new Error(`Key given to reducer settings is not allowed: "${value}"`)
       }
     })
 
@@ -126,23 +122,21 @@ class ParamsRegistry {
     }
     const routeApi = {
       add: (routes, reducerKey, stateKey, reducerObject, addHistory = true) => {
-        ;[...(Array.isArray(routes) ? [...routes] : [routes])].forEach(
-          route => {
-            if (!reducerKey || typeof stateKey === 'undefined') {
-              throw new Error(
-                `Param "${param}" with route "${route}" must contain a reducerKey and stateKey`,
-              )
-            }
-            this.bindRouteToReducerSettings(
-              param,
-              route,
-              reducerKey,
-              stateKey,
-              reducerObject,
-              addHistory,
+        ;[...(Array.isArray(routes) ? [...routes] : [routes])].forEach(route => {
+          if (!reducerKey || typeof stateKey === 'undefined') {
+            throw new Error(
+              `Param "${param}" with route "${route}" must contain a reducerKey and stateKey`,
             )
-          },
-        )
+          }
+          this.bindRouteToReducerSettings(
+            param,
+            route,
+            reducerKey,
+            stateKey,
+            reducerObject,
+            addHistory,
+          )
+        })
         return routeApi
       },
     }
@@ -165,29 +159,16 @@ class ParamsRegistry {
    * @param reducerObject
    * @param addHistory
    */
-  bindRouteToReducerSettings(
-    param,
-    route,
-    reducerKey,
-    stateKey,
-    reducerObject,
-    addHistory,
-  ) {
+  bindRouteToReducerSettings(param, route, reducerKey, stateKey, reducerObject, addHistory) {
     let paramRouteReducerSettings = get(this.result, `[${param}].routes`, {})
     if (paramRouteReducerSettings[route]) {
-      throw new Error(
-        `Route is already registered for parameter "${param}" with route "${route}"`,
-      )
+      throw new Error(`Route is already registered for parameter "${param}" with route "${route}"`)
     }
 
     paramRouteReducerSettings = {
       ...paramRouteReducerSettings,
       [route]: {
-        ...ParamsRegistry.getDefaultReducerSettings(
-          reducerKey,
-          stateKey,
-          reducerObject,
-        ),
+        ...ParamsRegistry.getDefaultReducerSettings(reducerKey, stateKey, reducerObject),
         addHistory,
       },
     }
@@ -200,65 +181,33 @@ class ParamsRegistry {
     }
   }
 
-  queryShouldChangeHistory(newQuery, route) {
-    const search = window.location.search && window.location.search.substr(1)
-    const currentQuery = search ? queryString.decode(search) : {}
-    const diffA = Object.entries(newQuery).reduce(
-      (acc, [key, value]) => [
-        ...acc,
-        ...(currentQuery[key] !== value ? [key] : []),
-      ],
-      [],
-    )
-
-    const diffB = Object.entries(currentQuery).reduce(
-      (acc, [key, value]) => [
-        ...acc,
-        ...(newQuery[key] !== value ? [key] : []),
-      ],
-      [],
-    )
-    return [...new Set([...diffA, ...diffB])]
-      .map(parameter => this.getReduxObject(parameter, route).addHistory)
-      .includes(true)
-  }
-
   setQueriesFromState(currentLocationType, state, nextAction) {
     if (this.isRouterType(nextAction)) {
       return undefined
     }
-    const query = Object.entries(this.result).reduce(
-      (acc, [parameter, paramObject]) => {
-        const reducerObject = get(
-          paramObject,
-          `[routes][${currentLocationType}]`,
-          null,
+    const query = Object.entries(this.result).reduce((acc, [parameter, paramObject]) => {
+      const reducerObject = get(paramObject, `[routes][${currentLocationType}]`, null)
+      if (reducerObject) {
+        const encodedValue = reducerObject.encode(reducerObject.selector(state))
+        let newQuery = {}
+
+        // we need to use JSON.stringify here to also check if arrays and objects are equal
+        const isDefaultValue = !!(
+          reducerObject &&
+          JSON.stringify(reducerObject.decode(encodedValue)) ===
+            JSON.stringify(reducerObject.defaultValue)
         )
-        if (reducerObject) {
-          const encodedValue = reducerObject.encode(
-            reducerObject.selector(state),
-          )
-          let newQuery = {}
-
-          // we need to use JSON.stringify here to also check if arrays and objects are equal
-          const isDefaultValue = !!(
-            reducerObject &&
-            JSON.stringify(reducerObject.decode(encodedValue)) ===
-              JSON.stringify(reducerObject.defaultValue)
-          )
-          if (encodedValue && !isDefaultValue) {
-            newQuery = { [parameter]: encodedValue }
-          }
-          return {
-            ...acc,
-            ...newQuery,
-          }
+        if (encodedValue && !isDefaultValue) {
+          newQuery = { [parameter]: encodedValue }
         }
+        return {
+          ...acc,
+          ...newQuery,
+        }
+      }
 
-        return acc
-      },
-      {},
-    )
+      return acc
+    }, {})
     const orderedQuery = ParamsRegistry.orderQuery(query)
     const searchQuery = queryString.stringify(orderedQuery)
     const currentPath = window.location.pathname
@@ -267,13 +216,7 @@ class ParamsRegistry {
     // this check prevents recording history changes on every action.
     const recordHistory = searchQuery !== window.location.search.substring(1)
     if (recordHistory && this.history) {
-      if (
-        this.queryShouldChangeHistory(orderedQuery, currentLocationType, state)
-      ) {
-        this.history.push(`${currentPath}?${searchQuery}`)
-      } else {
-        this.history.replace(`${currentPath}?${searchQuery}`)
-      }
+      this.history.replace(`${currentPath}?${searchQuery}`)
     }
 
     return searchQuery
@@ -300,14 +243,10 @@ class ParamsRegistry {
                 : decodedValue,
             }
           }
-          const reducerObj = Object.values(object.routes).find(
-            obj => obj.reducerKey === reducerKey,
-          )
+          const reducerObj = Object.values(object.routes).find(obj => obj.reducerKey === reducerKey)
           return {
             ...acc,
-            ...(reducerObj
-              ? { [reducerObj.stateKey]: reducerObj.defaultValue }
-              : {}),
+            ...(reducerObj ? { [reducerObj.stateKey]: reducerObj.defaultValue } : {}),
           }
         }, {})
       : {}
