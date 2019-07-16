@@ -8,10 +8,10 @@ import {
   Publication,
   CustomHTMLBlock,
   Summary,
-  PublicationContent,
   BlogHeader,
   BlogMetaList,
   Downloader,
+  BlogContent,
 } from '@datapunt/asc-ui'
 import Footer from '../../components/Footer/Footer'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
@@ -53,7 +53,7 @@ const PublicationsPage = ({ endpoint }) => {
               <Row>
                 <Column wrap span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
                   <Column span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
-                    <PublicationContent>
+                    <BlogContent>
                       <BlogHeader title={title} />
                       <BlogMetaList
                         fields={[
@@ -63,7 +63,7 @@ const PublicationsPage = ({ endpoint }) => {
                           { id: 3, label: fileType.toUpperCase() },
                         ]}
                       />
-                    </PublicationContent>
+                    </BlogContent>
                   </Column>
                   <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                     <Downloader
@@ -76,14 +76,14 @@ const PublicationsPage = ({ endpoint }) => {
                     />
                   </Column>
                   <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
-                    <PublicationContent>
+                    <BlogContent>
                       {intro && <Summary>{intro}</Summary>}
                       <CustomHTMLBlock
                         dangerouslySetInnerHTML={{
                           __html: body.processed,
                         }}
                       />
-                    </PublicationContent>
+                    </BlogContent>
                   </Column>
                 </Column>
               </Row>
