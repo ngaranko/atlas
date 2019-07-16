@@ -91,12 +91,7 @@ const ArticlePage = ({ id }) => {
                         />
                       </BlogHeader>
                       <Summary hasLongText>{intro}</Summary>
-                      <CustomHTMLBlock
-                        hasLongText
-                        dangerouslySetInnerHTML={{
-                          __html: body,
-                        }}
-                      />
+                      <CustomHTMLBlock body={body} />
                     </BlogBody>
                   </Column>
                   <Column
