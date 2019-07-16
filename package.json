@@ -25,7 +25,7 @@
     "lint:style": "sass-lint -c src/.sass-lint.yml 'src/**/*.scss' --verbose --no-exit --ignore 'src/shared/styles/config/mixins/_sprites.scss' && sass-lint -c modules/.sass-lint.yml 'modules/**/*.scss' --verbose --no-exit",
     "preinstall": "npm cache verify",
     "prettier": "npm run prettier:js",
-    "prettier:js": "prettier-eslint --write './**/*.{js, jsx}'",
+    "prettier:js": "prettier-eslint --write './**/**/*.{js, jsx}'",
     "start": "webpack-dev-server --config webpack.dev.js",
     "start-prod": "webpack-dev-server --config webpack.prod-api-dev.js",
     "test": "npm run lint && cross-env karma start && jest --config=./test/jest.unit.config.js",
@@ -61,6 +61,7 @@
     "leaflet-rotatedmarker": "0.2.0",
     "leaflet.markercluster": "1.4.1",
     "leaflet.nontiledlayer": "1.0.7",
+    "lint-staged": "^9.2.0",
     "lodash.debounce": "4.0.8",
     "lodash.defer": "4.1.0",
     "lodash.get": "4.4.2",
@@ -183,5 +184,15 @@
     "hooks": {
       "pre-push": "npm run lint"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "npm run lint:js",
+      "git add"
+    ],
+    "*.css": [
+      "npm run lint:style",
+      "git add"
+    ]
   }
 }
