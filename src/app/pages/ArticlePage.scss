@@ -3,15 +3,13 @@
 .article {
   background-color: $primary-light;
 
-  &-row {
+  & > &__row {
     position: relative;
-    padding-top: 20px;
-    padding-bottom: 20px;
     background-color: $primary-light;
 
-    @media screen and (min-width: 768px) {
-      padding-top: 54px;
-      padding-bottom: 54px;
+    /* This is a hack, we need to add a collapse functionality in the Row component */
+    @media screen and (max-width: 570px) {
+      padding: 0;
     }
   }
 }

@@ -1,10 +1,12 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import normalize from 'json-api-normalize'
+import { AngularWrapper } from 'react-angular'
 import {
-  Blog,
+  Article,
   Row,
   Column,
+  BlogBody,
   BlogContent,
   BlogHeader,
   BlogMetaList,
@@ -17,13 +19,11 @@ import {
   Container,
 } from '@datapunt/asc-ui'
 import Footer from '../components/Footer/Footer'
-import { getByUrl } from '../../shared/services/api/api'
 import './ArticlePage.scss'
 import { dateToString } from '../../shared/services/date-formatter/date-formatter'
 import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
 import getReduxLinkProps from '../utils/getReduxLinkProps'
 import { toArticle } from '../../store/redux-first-router/actions'
-import { AngularWrapper } from 'react-angular'
 
 const ArticlePage = ({ id }) => {
   const [articleData, setArticleData] = React.useState(null)
@@ -116,84 +116,88 @@ const ArticlePage = ({ id }) => {
         <Helmet>
           <link rel="canonical" href={getReduxLinkProps(action).href} />
         </Helmet>
-        <Row className="article-row">
-          <Blog
+        <Row className="article__row">
+          <Article
             {...(image
               ? {
                   image: `${SHARED_CONFIG.CMS_ROOT}${image.uri.url}`,
                 }
               : {})}
           >
-            <Column
-              wrap
-              span={{ small: 1, medium: 2, big: 5, large: 11, xLarge: 11 }}
-              push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
-            >
-              <Column
-                span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}
-              >
-                <BlogContent>
-                  <BlogHeader title={title}>
-                    <BlogMetaList
-                      dateTime={date}
-                      dateFormatted={localeDate}
-                      fields={byline && [{ id: 1, label: byline }]}
-                    />
-                  </BlogHeader>
-                  <Summary hasLongText>{intro}</Summary>
-                  <CustomHTMLBlock
-                    hasLongText
-                    dangerouslySetInnerHTML={{
-                      __html: body,
-                    }}
-                  />
-                </BlogContent>
-              </Column>
-              <Column
-                span={{ small: 1, medium: 2, big: 2, large: 3, xLarge: 3 }}
-                push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
-              >
-                <BlogSidebar>
-                  {downloads && downloads.length ? (
-                    <>
-                      <Heading as="h2">Downloads</Heading>
-                      <LinkList>
-                        {downloads.map(
-                          ({
-                            title: fileTitle,
-                            drupal_internal__nid: key,
-                            field_file_type: type,
-                            field_file_size: size,
-                            field_publication_file: file,
-                          }) => (
-                            <LinkListItem
-                              key={key}
-                              fileInfo={`${type} ${size}`}
-                              href={`${SHARED_CONFIG.CMS_ROOT}${file.uri.url}`}
-                            >
-                              {fileTitle}
-                            </LinkListItem>
-                          ),
-                        )}
-                      </LinkList>
-                    </>
-                  ) : null}
-                  {links && links.length ? (
-                    <>
-                      <Heading as="h2">Links</Heading>
-                      <LinkList>
-                        {links.map(({ uri, title: linkTitle }) => (
-                          <LinkListItem key={uri} href={`${uri}`}>
-                            {linkTitle}
-                          </LinkListItem>
-                        ))}
-                      </LinkList>
-                    </>
-                  ) : null}
-                </BlogSidebar>
-              </Column>
-            </Column>
-          </Blog>
+            <Row className="article__row">
+              <BlogContent>
+                <Column
+                  wrap
+                  span={{ small: 1, medium: 2, big: 5, large: 11, xLarge: 11 }}
+                  push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
+                >
+                  <Column
+                    span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}
+                  >
+                    <BlogBody>
+                      <BlogHeader title={title}>
+                        <BlogMetaList
+                          dateTime={date}
+                          dateFormatted={localeDate}
+                          fields={byline && [{ id: 1, label: byline }]}
+                        />
+                      </BlogHeader>
+                      <Summary hasLongText>{intro}</Summary>
+                      <CustomHTMLBlock
+                        hasLongText
+                        dangerouslySetInnerHTML={{
+                          __html: body,
+                        }}
+                      />
+                    </BlogBody>
+                  </Column>
+                  <Column
+                    span={{ small: 1, medium: 2, big: 2, large: 3, xLarge: 3 }}
+                    push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
+                  >
+                    <BlogSidebar>
+                      {downloads && downloads.length ? (
+                        <>
+                          <Heading as="h2">Downloads</Heading>
+                          <LinkList>
+                            {downloads.map(
+                              ({
+                                title: fileTitle,
+                                drupal_internal__nid: key,
+                                field_file_type: type,
+                                field_file_size: size,
+                                field_publication_file: file,
+                              }) => (
+                                <LinkListItem
+                                  key={key}
+                                  fileInfo={`${type} ${size}`}
+                                  href={`${SHARED_CONFIG.CMS_ROOT}${file.uri.url}`}
+                                >
+                                  {fileTitle}
+                                </LinkListItem>
+                              ),
+                            )}
+                          </LinkList>
+                        </>
+                      ) : null}
+                      {links && links.length ? (
+                        <>
+                          <Heading as="h2">Links</Heading>
+                          <LinkList>
+                            {links.map(({ uri, title: linkTitle }) => (
+                              <LinkListItem key={uri} href={`${uri}`}>
+                                {linkTitle}
+                              </LinkListItem>
+                            ))}
+                          </LinkList>
+                        </>
+                      ) : null}
+                    </BlogSidebar>
+                  </Column>
+                </Column>
+              </BlogContent>
+            </Row>
+          </Article>
         </Row>
         <Footer />
       </div>
