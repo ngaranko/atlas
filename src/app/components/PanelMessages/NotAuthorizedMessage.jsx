@@ -23,17 +23,17 @@ const NotAuthorizedMessage = ({ scopeError }) => {
       <div>
         {scopeError === 'BRK/RSN' ? (
           <p className="c-panel__paragraph">
-            Medewerkers met speciale bevoegdheden kunnen inloggen om kadastrale objecten met
-            zakelijk rechthebbenden te bekijken.
+            Medewerkers met speciale bevoegdheden kunnen inloggen om kadastrale
+            objecten met zakelijk rechthebbenden te bekijken.
           </p>
         ) : (
           <p className="c-panel__paragraph">
-            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke
-            activiteiten en vestigingen te bekijken.
+            Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om
+            maatschappelijke activiteiten en vestigingen te bekijken.
           </p>
         )}
         <p className="c-panel__paragraph">
-          Zie
+          {`Zie `}
           {link}
         </p>
       </div>

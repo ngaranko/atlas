@@ -61,7 +61,7 @@ import {
 } from '../../../panorama/ducks/constants'
 import PAGES from '../../../app/pages'
 import PARAMETERS from '../../parameters'
-import { PIWIK_CONSTANTS } from './constants'
+import { MATOMO_CONSTANTS } from './constants'
 
 const trackEvents = {
   // NAVIGATION
@@ -74,7 +74,7 @@ const trackEvents = {
   }) {
     return tracking && tracking.event === 'auto-suggest'
       ? [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'auto-suggest', // NAVIGATION -> SELECT AUTOSUGGEST OPTION
           tracking.category,
           tracking.query,
@@ -82,7 +82,7 @@ const trackEvents = {
       : getViewMode(state) === VIEW_MODE.MAP &&
         get(query, `${PARAMETERS.VIEW}`) === undefined
       ? [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'navigation', // NAVIGATION -> CLICK TOGGLE FULLSCREEN FROM MAP
           'detail-volledig-weergeven',
           null,
@@ -91,14 +91,14 @@ const trackEvents = {
         getViewMode(state) === VIEW_MODE.SPLIT &&
         get(query, `${PARAMETERS.VIEW}`) === VIEW_MODE.MAP
       ? [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'navigation', // NAVIGATION -> CLICK TOGGLE FULLSCREEN FROM SPLITSCREEN
           'detail-kaart-vergroten',
           null,
         ]
       : isPanoPage(state)
       ? [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'navigation', // NAVIGATION -> CLICK CLOSE FROM PANORAMA
           'panorama-verlaten',
           null,
@@ -107,35 +107,35 @@ const trackEvents = {
   },
   // NAVIGATION -> CLICK CLOSE FROM PANORAMA
   [CLOSE_PANORAMA]: () => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'navigation',
     'panorama-verlaten',
     null,
   ],
   // NAVIGATION -> CLOSE PRINT VIEW
   [HIDE_PRINT]: () => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'navigation',
     'printversie-verlaten',
     null,
   ],
   // NAVIGATION -> CLOSE EMBED VIEW
   [HIDE_EMBED_PREVIEW]: () => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'navigation',
     'embedversie-verlaten',
     null,
   ],
   // NAVIGATION -> CLICK LOGO
   [NAVIGATE_HOME_REQUEST]: ({ title }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'navigation',
     'home',
     title,
   ],
   // NAVIGATION -> TOGGLE FROM EMBEDDED MAP
   [TOGGLE_MAP_EMBED]: () => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'navigation',
     'embedkaart-naar-portaal',
     null,
@@ -146,7 +146,7 @@ const trackEvents = {
     switch (getPage(state)) {
       case PAGES.DATA_GEO_SEARCH:
         return [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'navigation', // NAVIGATION -> CLICK TOGGLE FULLSCREEN FROM MAP Or SPLITSCREEN
           `georesultaten-${
             viewMode === VIEW_MODE.MAP
@@ -163,7 +163,7 @@ const trackEvents = {
             viewMode === VIEW_MODE.MAP ? 'kaart-verkleinen' : 'kaart-vergroten'
         }
         return [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'navigation',
           `panorama-${view}`,
           null,
@@ -179,7 +179,7 @@ const trackEvents = {
             viewMode === VIEW_MODE.MAP ? 'kaart-verkleinen' : 'kaart-vergroten'
         }
         return [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'navigation',
           `dataselectie-${view}`,
           null,
@@ -188,7 +188,7 @@ const trackEvents = {
 
       default:
         return [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'navigation',
           `detail-${
             viewMode === VIEW_MODE.MAP
@@ -207,7 +207,7 @@ const trackEvents = {
     return firstAction &&
       (searchQuery && searchQuery.length > 0) &&
       query.term === searchQuery
-      ? [PIWIK_CONSTANTS.TRACK_SEARCH, searchQuery, 'data', numberOfResults]
+      ? [MATOMO_CONSTANTS.TRACK_SEARCH, searchQuery, 'data', numberOfResults]
       : []
   },
   // SITE SEARCH -> DATA INITIAL LOAD
@@ -217,7 +217,7 @@ const trackEvents = {
   }) {
     return getPage(state) === PAGES.DATA_QUERY_SEARCH
       ? [
-          PIWIK_CONSTANTS.TRACK_SEARCH,
+          MATOMO_CONSTANTS.TRACK_SEARCH,
           tracking.query,
           'data',
           tracking.numberOfResults,
@@ -231,14 +231,19 @@ const trackEvents = {
     return firstAction &&
       (searchQuery && searchQuery.length > 0) &&
       query.term === searchQuery
-      ? [PIWIK_CONSTANTS.TRACK_SEARCH, searchQuery, 'datasets', numberOfResults]
+      ? [
+          MATOMO_CONSTANTS.TRACK_SEARCH,
+          searchQuery,
+          'datasets',
+          numberOfResults,
+        ]
       : []
   },
   // SITE SEARCH -> DATASETS INITIAL LOAD
   [FETCH_DATASETS_SUCCESS]: function trackDatasetSearch({ tracking, state }) {
     return getPage(state) === PAGES.SEARCH_DATASETS
       ? [
-          PIWIK_CONSTANTS.TRACK_SEARCH,
+          MATOMO_CONSTANTS.TRACK_SEARCH,
           tracking.query,
           'datasets',
           tracking.numberOfResults,
@@ -248,7 +253,7 @@ const trackEvents = {
   // DATASETS
   // DATASETS -> CLICK RESOURCE ON DATASET_DETAIL
   [DOWNLOAD_DATASET_RESOURCE]: ({ tracking }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'Download',
     tracking.dataset,
     tracking.resourceUrl,
@@ -256,7 +261,7 @@ const trackEvents = {
   // DATA SELECTION
   // DATA SELECTION -> BUTTON "downloaden"
   [DOWNLOAD_DATA_SELECTION]: ({ tracking }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'Download-tabel',
     `dataselectie-download-${tracking.toLowerCase()}`,
     null,
@@ -266,14 +271,14 @@ const trackEvents = {
     const markers = getShapeMarkers(state)
     return tracking === 'none' && markers === 2
       ? [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'kaart', // DRAW TOOL -> DRAW "line"
           'kaart-tekenlijn',
           title,
         ]
       : tracking === 'none' && markers > 2
       ? [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'filter', // DRAW TOOL -> DRAW "polygoon"
           'dataselectie-polygoon-filter',
           'Locatie ingetekend',
@@ -283,7 +288,7 @@ const trackEvents = {
   // MAP
   // MAP -> TOGGLE BASE LAYER
   [SET_MAP_BASE_LAYER]: ({ tracking }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'achtergrond',
     tracking.startsWith('lf') ? 'luchtfoto' : 'topografie',
     tracking,
@@ -293,14 +298,14 @@ const trackEvents = {
     return isPanoPage(state)
       ? [
           // PANORAMA -> CLICK MAP
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'panorama-navigatie',
           'panorama-kaart-klik',
           null,
         ]
       : [
           // GEOSEARCH -> CLICK MAP
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'kaart',
           'kaart-puntzoek',
           null,
@@ -308,7 +313,7 @@ const trackEvents = {
   },
   // MAP -> TOGGLE OVERLAYS
   TOGGLE_MAP_OVERLAY: ({ tracking }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'kaartlaag',
     tracking.category.toLowerCase().replace(/[: ][ ]*/g, '_'),
     tracking.title,
@@ -316,14 +321,14 @@ const trackEvents = {
   // AUTHENTICATION
   // AUTHENTICATION BUTTON -> "inloggen" / "uitloggen"
   [AUTHENTICATE_USER_REQUEST]: ({ tracking, title }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'login',
     tracking,
     title,
   ],
   // AUTHENTICATION AFTER RETURN
   [AUTHENTICATE_USER_SUCCESS]: ({ tracking }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'login',
     'ingelogd',
     tracking,
@@ -339,7 +344,7 @@ const trackEvents = {
 
     return page
       ? [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'filter',
           `${page}-filter`,
           Object.keys(tracking)[0],
@@ -356,7 +361,7 @@ const trackEvents = {
 
     return page
       ? [
-          PIWIK_CONSTANTS.TRACK_EVENT,
+          MATOMO_CONSTANTS.TRACK_EVENT,
           'filter',
           `${page}-tabel-filter-verwijder`,
           tracking,
@@ -370,7 +375,7 @@ const trackEvents = {
     const set = tracking.length > 1 ? layerId.replace('pano', '') : 'recent'
 
     return [
-      PIWIK_CONSTANTS.TRACK_EVENT,
+      MATOMO_CONSTANTS.TRACK_EVENT,
       'panorama-set',
       `panorama-set-${set}`,
       null,
@@ -378,14 +383,14 @@ const trackEvents = {
   },
   // PANORAMA -> TOGGLE "external"
   [FETCH_PANORAMA_REQUEST_EXTERNAL]: () => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'panorama-set',
     'panorama-set-google',
     null,
   ],
   // PANORAMA -> CLICK HOTSPOT
   [FETCH_PANORAMA_HOTSPOT_REQUEST]: () => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'panorama-navigatie',
     'panorama-hotspot-klik',
     null,
@@ -393,49 +398,49 @@ const trackEvents = {
   // MENU
   // MENU -> TOGGLE MODAL ON
   [SHOW_MODAL]: ({ title }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'feedback',
     'feedback-menu',
     title,
   ],
   // MENU -> TOGGLE MODAL OFF
   [CLOSE_MODAL]: () => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'feedback',
     'feedback-verlaten',
     null,
   ],
   // MENU -> "terugmelden"
   [REPORT_FEEDBACK_REQUEST]: () => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'feedback',
     'feedback-terugmelden',
     null,
   ],
   // MENU -> "probleem"
   [REPORT_PROBLEM_REQUEST]: () => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'feedback',
     'feedback-probleem',
     null,
   ],
   // MENU -> "embedden"
   [SHOW_EMBED_PREVIEW]: ({ title }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'menu',
     'menu-embedversie',
     title,
   ],
   // MENU -> "printen"
   [SHOW_PRINT]: ({ title }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'menu',
     'menu-printversie',
     title,
   ],
   // MENU SHARE -> "bottomPage"
   [SHARE_PAGE]: ({ title, tracking }) => [
-    PIWIK_CONSTANTS.TRACK_EVENT,
+    MATOMO_CONSTANTS.TRACK_EVENT,
     'menu',
     `menu-delen-${tracking}`,
     title,

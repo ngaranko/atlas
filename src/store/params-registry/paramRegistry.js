@@ -200,29 +200,6 @@ class ParamsRegistry {
     }
   }
 
-  queryShouldChangeHistory(newQuery, route) {
-    const search = window.location.search && window.location.search.substr(1)
-    const currentQuery = search ? queryString.decode(search) : {}
-    const diffA = Object.entries(newQuery).reduce(
-      (acc, [key, value]) => [
-        ...acc,
-        ...(currentQuery[key] !== value ? [key] : []),
-      ],
-      [],
-    )
-
-    const diffB = Object.entries(currentQuery).reduce(
-      (acc, [key, value]) => [
-        ...acc,
-        ...(newQuery[key] !== value ? [key] : []),
-      ],
-      [],
-    )
-    return [...new Set([...diffA, ...diffB])]
-      .map(parameter => this.getReduxObject(parameter, route).addHistory)
-      .includes(true)
-  }
-
   setQueriesFromState(currentLocationType, state, nextAction) {
     if (this.isRouterType(nextAction)) {
       return undefined
@@ -267,13 +244,7 @@ class ParamsRegistry {
     // this check prevents recording history changes on every action.
     const recordHistory = searchQuery !== window.location.search.substring(1)
     if (recordHistory && this.history) {
-      if (
-        this.queryShouldChangeHistory(orderedQuery, currentLocationType, state)
-      ) {
-        this.history.push(`${currentPath}?${searchQuery}`)
-      } else {
-        this.history.replace(`${currentPath}?${searchQuery}`)
-      }
+      this.history.replace(`${currentPath}?${searchQuery}`)
     }
 
     return searchQuery

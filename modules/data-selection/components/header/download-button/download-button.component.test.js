@@ -184,7 +184,7 @@ describe('The dp-data-selection-download-button component', function() {
     expect(component.find('a').attr('href')).toBe('tokenUrl')
   })
 
-  it('dispatches an action that is tracked by piwik', function() {
+  it('dispatches an action that is tracked by matomo', function() {
     const component = getComponent('dataset_a', {})
     component.find('a').click()
 

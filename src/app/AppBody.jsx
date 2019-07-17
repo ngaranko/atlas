@@ -6,13 +6,18 @@ import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMe
 import { FeedbackModal, InfoModal } from './components/Modal';
 import PAGES, { isMapSplitPage } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
+import ArticlePageContainer from './pages/ArticlePageContainer'
 
 const ContentPage = React.lazy(() => import('./pages/ContentPage'))
 const Home = React.lazy(() => import('./pages/Home'))
-const DataSearchQuery = React.lazy(() => import('./components/DataSearch/DataSearchQuery'))
+const DataSearchQuery = React.lazy(() =>
+  import('./components/DataSearch/DataSearchQuery'),
+)
 const QuerySearchPage = React.lazy(() => import('./pages/QuerySearchPage'))
 const DatasetPage = React.lazy(() => import('./pages/DatasetPage'))
-const ActualityContainer = React.lazy(() => import('./containers/ActualityContainer'))
+const ActualityContainer = React.lazy(() =>
+  import('./containers/ActualityContainer'),
+)
 const DatasetDetailContainer = React.lazy(() =>
   import('./containers/DatasetDetailContainer/DatasetDetailContainer'),
 )
@@ -32,7 +37,9 @@ const AppBody = ({
 }) => {
   const [state] = useAppReducer('ui')
 
-  const extraBodyClasses = classNames({ 'c-dashboard__body--backdrop': state.nrOfBackdropTriggers })
+  const extraBodyClasses = classNames({
+    'c-dashboard__body--backdrop': state.nrOfBackdropTriggers,
+  })
 
   return (
     <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
@@ -44,9 +51,8 @@ const AppBody = ({
           <div className="u-row u-full-height">
             {homePage && <Home showFooter />}
 
-            {(currentPage === PAGES.DATA_QUERY_SEARCH || currentPage === PAGES.SEARCH_DATASETS) && (
-              <QuerySearchPage />
-            )}
+            {(currentPage === PAGES.DATA_QUERY_SEARCH ||
+              currentPage === PAGES.SEARCH_DATASETS) && <QuerySearchPage />}
 
             {/* Todo: DP-6391 */}
             {currentPage === PAGES.DATA_SEARCH_CATEGORY && (
@@ -62,6 +68,7 @@ const AppBody = ({
             {currentPage === PAGES.DATASETS && <DatasetPage />}
 
             {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
+            {currentPage === PAGES.ARTICLE && <ArticlePageContainer />}
 
             {currentPage === PAGES.SPECIALS && <SpecialsPage />}
 

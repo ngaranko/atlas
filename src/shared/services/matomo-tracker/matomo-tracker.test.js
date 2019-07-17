@@ -1,6 +1,6 @@
-import piwikTracker from './piwik-tracker'
+import matomoTracker from './matomo-tracker'
 
-describe('piwikTracker', () => {
+describe('matomoTracker', () => {
   beforeEach(() => {
     global.window._paq = {
       push: jest.fn(),
@@ -8,7 +8,7 @@ describe('piwikTracker', () => {
   })
 
   it('should call window._paq.push', () => {
-    piwikTracker(['test'], 'foo', 'string')
+    matomoTracker(['test'], 'foo', 'string')
 
     expect(global.window._paq.push).toHaveBeenCalledWith(['test'])
     expect(global.window._paq.push).toHaveBeenCalledWith([
@@ -25,7 +25,7 @@ describe('piwikTracker', () => {
   })
 
   it('should set customDimensions', () => {
-    piwikTracker(['test'], 'foo', 'string', [{ id: 1, value: 'test' }])
+    matomoTracker(['test'], 'foo', 'string', [{ id: 1, value: 'test' }])
 
     expect(global.window._paq.push).toHaveBeenCalledWith([
       'setCustomDimension',
@@ -35,7 +35,7 @@ describe('piwikTracker', () => {
   })
 
   it('should not call window._paq.push without data', () => {
-    piwikTracker([], '', '')
+    matomoTracker([], '', '')
 
     expect(global.window._paq.push).not.toHaveBeenCalled()
   })
