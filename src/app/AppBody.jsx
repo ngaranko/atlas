@@ -33,7 +33,7 @@ const AppBody = ({
   currentPage,
   embedPreviewMode,
   isCmsPage,
-  hasTallHeader,
+  tallHeader,
 }) => {
   const [state] = useAppReducer('ui')
 
@@ -43,7 +43,7 @@ const AppBody = ({
 
   return (
     <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
-      {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: hasTallHeader }} />}
+      {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: tallHeader }} />}
       {embedPreviewMode ? (
         <EmbedIframeComponent />
       ) : (
@@ -93,7 +93,7 @@ AppBody.propTypes = {
   currentPage: PropTypes.string.isRequired,
   embedPreviewMode: PropTypes.bool.isRequired,
   isCmsPage: PropTypes.bool.isRequired,
-  hasTallHeader: PropTypes.bool.isRequired,
+  tallHeader: PropTypes.bool.isRequired,
 }
 
 export default AppBody

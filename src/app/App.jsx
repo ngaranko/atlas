@@ -98,7 +98,7 @@ const App = ({
           <div className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}>
             {!embedMode && (
               <Header
-                homePage={hasTallHeader}
+                homePage={tallHeader}
                 hasMaxWidth={hasMaxWidth}
                 user={user}
                 printMode={printMode}
@@ -117,7 +117,7 @@ const App = ({
                 currentPage,
                 embedPreviewMode,
                 isCmsPage,
-                hasTallHeader,
+                tallHeader,
               }}
             />
           </div>

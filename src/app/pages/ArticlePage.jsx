@@ -24,8 +24,7 @@ import getReduxLinkProps from '../utils/getReduxLinkProps'
 import { toArticle } from '../../store/redux-first-router/actions'
 import { normalizeArticleData } from '../utils/normalizeFromCMS'
 
-/* istanbul ignore next */
-const ArticlePage = ({ id }) => {
+/* istanbul ignore next */ const ArticlePage = ({ id }) => {
   const [articleData, setArticleData] = React.useState(null)
   const [showFourOhFour, setFourOhFour] = React.useState(false)
 
