@@ -46,7 +46,9 @@ describe('PublicationsPage', () => {
       loading: true,
     }))
 
-    const component = shallow(<PublicationsPage />, { context: { store } }).dive()
+    const component = shallow(<PublicationsPage />, {
+      context: { store },
+    }).dive()
 
     const spinner = component.find('Spinner').at(0)
     expect(spinner.exists()).toBeTruthy()
@@ -66,9 +68,7 @@ describe('PublicationsPage', () => {
       { context: { store } },
     )
 
-    const endpoint = `${
-      SHARED_CONFIG.CMS_ROOT
-    }jsonapi/node/publication?filter[drupal_internal__nid]=${id}&include=field_cover_image,field_publication_file`
+    const endpoint = `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?filter[drupal_internal__nid]=${id}&include=field_cover_image,field_publication_file`
 
     expect(component.find('PublicationsPage').props().endpoint).toBe(endpoint)
 

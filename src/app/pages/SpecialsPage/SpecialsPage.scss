@@ -3,15 +3,6 @@
 .iframe-container {
   background-color: $primary-light;
   position: relative;
-
-  .loading-indicator {
-    background-color: $primary-light;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
+  text-align: center;
+  width: 100%;
 }

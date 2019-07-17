@@ -29,7 +29,7 @@ exports[`PublicationsPage should render the publication when there are results 1
                   class="sc-eqIVtm kRufpp"
                 >
                   <h1
-                    class="sc-iwsKbI sc-VigVT dqakSg"
+                    class="sc-gzVnrw sc-htoDjs kcwHtd"
                   >
                     This is a title
                   </h1>
@@ -75,7 +75,7 @@ exports[`PublicationsPage should render the publication when there are results 1
                     src="https://acc.cms.data.amsterdam.nl/https://cover-link"
                   />
                   <button
-                    class="sc-bxivhb sc-cSHVUG bpPKDd"
+                    class="sc-bxivhb sc-cSHVUG kKGybK"
                     color="primary"
                   >
                     <span
@@ -93,7 +93,7 @@ exports[`PublicationsPage should render the publication when there are results 1
                       </svg>
                     </span>
                     <span
-                      class="sc-iwsKbI dECpUQ"
+                      class="sc-gzVnrw jNhboh"
                       color="bright"
                     >
                       Download PDF (file size)
@@ -109,12 +109,12 @@ exports[`PublicationsPage should render the publication when there are results 1
                 class="sc-dVhcbM fghLuF"
               >
                 <p
-                  class="sc-iwsKbI sc-gZMcBi sc-gqjmRU VhuSn"
+                  class="sc-gzVnrw sc-gqjmRU sc-VigVT hBmyaz"
                 >
                   intro
                 </p>
                 <div
-                  class="sc-kAzzGY eEqsDg"
+                  class="sc-kAzzGY hGvHEz"
                 >
                   body text
                 </div>

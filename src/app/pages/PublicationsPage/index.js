@@ -1,3 +1,3 @@
-import PublicationsPage from "./PublicationsPage";
+import PublicationsPage from './PublicationsPage'
 
 export default PublicationsPage

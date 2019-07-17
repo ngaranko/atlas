@@ -227,6 +227,14 @@ export const toArticle = (id, slug = '') => ({
   },
 })
 
+export const toSpecial = (id, slug = '') => ({
+  type: routing.specials.type,
+  payload: {
+    id,
+    slug,
+  },
+})
+
 export const toDatasetPage = dataset => ({
   type: DATASET_ROUTE_MAPPER[dataset],
 })

@@ -52,7 +52,15 @@ const PublicationsPage = ({ endpoint }) => {
             <Publication>
               <Row>
                 <Column wrap span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
-                  <Column span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
+                  <Column
+                    span={{
+                      small: 1,
+                      medium: 4,
+                      big: 6,
+                      large: 12,
+                      xLarge: 12,
+                    }}
+                  >
                     <BlogContent>
                       <BlogHeader title={title} />
                       <BlogMetaList

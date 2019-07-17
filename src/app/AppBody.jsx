@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
-import { FeedbackModal, InfoModal } from './components/Modal';
+import { FeedbackModal, InfoModal } from './components/Modal'
 import PAGES, { isMapSplitPage } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
 import ArticlePageContainer from './pages/ArticlePageContainer'
@@ -21,7 +21,9 @@ const ActualityContainer = React.lazy(() =>
 const DatasetDetailContainer = React.lazy(() =>
   import('./containers/DatasetDetailContainer/DatasetDetailContainer'),
 )
-const SpecialsPage = React.lazy(() => import('./pages/SpecialsPage/SpecialsPage'))
+const SpecialsPage = React.lazy(() =>
+  import('./pages/SpecialsPage/SpecialsPage'),
+)
 const PublicationsPage = React.lazy(() => import('./pages/PublicationsPage'))
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 
@@ -43,7 +45,9 @@ const AppBody = ({
 
   return (
     <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
-      {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: tallHeader }} />}
+      {visibilityError && (
+        <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: tallHeader }} />
+      )}
       {embedPreviewMode ? (
         <EmbedIframeComponent />
       ) : (

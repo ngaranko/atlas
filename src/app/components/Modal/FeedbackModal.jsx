@@ -83,9 +83,7 @@ const FeedbackModalComponent = ({
     </ListItem>
     <Divider gutter />
     <ListItem>
-      <Typography gutterBottom element="h5">
-        Vraag of opmerking?
-      </Typography>
+      <Heading as="h5">Vraag of opmerking?</Heading>
       <Paragraph>
         Als iets op deze pagina niet goed werkt, onduidelijk is of vragen
         oproept, geef het aan ons door.

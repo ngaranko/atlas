@@ -18,7 +18,7 @@ import {
 } from '../shared/ducks/ui/ui'
 import { hasGlobalError } from '../shared/ducks/error/error-message'
 import { getUser } from '../shared/ducks/user/user'
-import { getPage, isHomepage } from '../store/redux-first-router/selectors'
+import { getPage, isHomepage, isSpecialsPage } from '../store/redux-first-router/selectors'
 import Header from './components/Header/Header'
 import { AppStateProvider } from './utils/useAppReducer'
 import AppBody from './AppBody'
@@ -28,6 +28,7 @@ const App = ({
   isFullHeight,
   visibilityError,
   homePage,
+  specialsPage,
   currentPage,
   embedMode,
   printMode,
@@ -42,7 +43,7 @@ const App = ({
 }) => {
   const isCmsPage = pageIsCmsPage(currentPage)
   const isArticlePage = currentPage === PAGES.ARTICLE
-  const hasMaxWidth = tallHeader || isCmsPage || isArticlePage
+  const hasMaxWidth = tallHeader || isCmsPage || isArticlePage || specialsPage
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
@@ -95,7 +96,9 @@ const App = ({
       <GlobalStyle />
       <AppStateProvider initialState={initialState} reducer={main}>
         <React.Suspense fallback={<React.Fragment />}>
-          <div className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}>
+          <div
+            className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
+          >
             {!embedMode && (
               <Header
                 homePage={tallHeader}
@@ -153,6 +156,7 @@ const mapStateToProps = state => ({
   currentPage: getPage(state),
   embedMode: isEmbedded(state),
   homePage: isHomepage(state),
+  specialsPage: isSpecialsPage(state),
   printMode: isPrintMode(state),
   printModeLandscape: isPrintModeLandscape(state),
   embedPreviewMode: isEmbedPreview(state),
