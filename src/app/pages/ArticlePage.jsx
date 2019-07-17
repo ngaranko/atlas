@@ -31,7 +31,7 @@ import { routing } from '../routes'
 
   React.useEffect(() => {
     fetch(
-      `${SHARED_CONFIG.CMS_ROOT}/jsonapi/node/article?filter[drupal_internal__nid]=${id}&include=field_image,field_downloads.field_publication_file`,
+      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/article?filter[drupal_internal__nid]=${id}&include=field_image,field_downloads.field_publication_file`,
     )
       .then(response => response.json())
       .then(response => {

@@ -29,7 +29,7 @@ exports[`PublicationsPage should render the publication when there are results 1
                   class="sc-eqIVtm kRufpp"
                 >
                   <h1
-                    class="sc-gzVnrw sc-htoDjs kcwHtd"
+                    class="sc-gzVnrw sc-htoDjs dtnvst"
                   >
                     This is a title
                   </h1>
@@ -109,12 +109,12 @@ exports[`PublicationsPage should render the publication when there are results 1
                 class="sc-dVhcbM fghLuF"
               >
                 <p
-                  class="sc-gzVnrw sc-gqjmRU sc-VigVT hBmyaz"
+                  class="sc-gzVnrw sc-gqjmRU sc-VigVT fQEDrh"
                 >
                   intro
                 </p>
                 <div
-                  class="sc-kAzzGY hGvHEz"
+                  class="sc-kAzzGY keKIwT"
                 >
                   body text
                 </div>
