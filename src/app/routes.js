@@ -178,6 +178,18 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA_DETAIL}`,
     page: PAGES.DATA_DETAIL,
   },
+  specials: {
+    title: 'Specials',
+    path: `/specials/special/:id/*`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.SPECIALS}`,
+    page: PAGES.SPECIALS,
+  },
+  publications: {
+    title: 'Publicaties',
+    path: `/publicaties/:id/*`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATIONS}`,
+    page: PAGES.PUBLICATIONS,
+  },
 }
 
 // e.g. { home: '/' }, to be used by redux-first-router/connectRoutes

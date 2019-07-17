@@ -14,6 +14,9 @@ const PAGES = {
   DATA_SEARCH_CATEGORY: 'SEARCH_DATA_CATEGORY',
   DATA_DETAIL: 'DATA_DETAIL',
 
+  SPECIALS: 'SPECIALS',
+  PUBLICATIONS: 'PUBLICATIONS',
+
   // text pages
   ARTICLE: 'ARTICLE',
   NEWS: 'NEWS',
@@ -50,3 +53,12 @@ export const isCmsPage = page =>
   page === PAGES.MOVED ||
   page === PAGES.NOT_FOUND ||
   page === PAGES.MANAGEMENT
+
+export const isMapSplitPage = page =>
+  page === PAGES.DATA ||
+  page === PAGES.PANORAMA ||
+  page === PAGES.DATA_DETAIL ||
+  page === PAGES.ADDRESSES ||
+  page === PAGES.ESTABLISHMENTS ||
+  page === PAGES.DATA_GEO_SEARCH ||
+  page === PAGES.CADASTRAL_OBJECTS

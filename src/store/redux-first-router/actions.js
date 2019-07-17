@@ -252,3 +252,10 @@ export const toMaintentancePage = () => ({
   type: routing.beheer_werkwijze.type,
 })
 export const toHelpPage = () => ({ type: routing.help.type })
+
+export const toPublication = (id) => ({
+  type: routing.publications.type,
+  payload: {
+    id
+  }
+})

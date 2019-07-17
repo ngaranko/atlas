@@ -3,8 +3,8 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
-import { FeedbackModal, InfoModal } from './components/Modal'
-import PAGES from './pages'
+import { FeedbackModal, InfoModal } from './components/Modal';
+import PAGES, { isMapSplitPage } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
 import ArticlePageContainer from './pages/ArticlePageContainer'
 
@@ -21,6 +21,8 @@ const ActualityContainer = React.lazy(() =>
 const DatasetDetailContainer = React.lazy(() =>
   import('./containers/DatasetDetailContainer/DatasetDetailContainer'),
 )
+const SpecialsPage = React.lazy(() => import('./pages/SpecialsPage/SpecialsPage'))
+const PublicationsPage = React.lazy(() => import('./pages/PublicationsPage'))
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 
 const AppBody = ({
@@ -31,6 +33,7 @@ const AppBody = ({
   currentPage,
   embedPreviewMode,
   isCmsPage,
+  tallHeader,
 }) => {
   const [state] = useAppReducer('ui')
 
@@ -40,9 +43,7 @@ const AppBody = ({
 
   return (
     <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
-      {visibilityError && (
-        <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />
-      )}
+      {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: tallHeader }} />}
       {embedPreviewMode ? (
         <EmbedIframeComponent />
       ) : (
@@ -62,18 +63,16 @@ const AppBody = ({
 
             {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
 
-            {(currentPage === PAGES.DATA ||
-              currentPage === PAGES.PANORAMA ||
-              currentPage === PAGES.DATA_DETAIL ||
-              currentPage === PAGES.ADDRESSES ||
-              currentPage === PAGES.ESTABLISHMENTS ||
-              currentPage === PAGES.DATA_GEO_SEARCH ||
-              currentPage === PAGES.CADASTRAL_OBJECTS) && <MapSplitPage />}
+            {isMapSplitPage(currentPage) && <MapSplitPage />}
 
             {currentPage === PAGES.DATASETS && <DatasetPage />}
 
             {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
             {currentPage === PAGES.ARTICLE && <ArticlePageContainer />}
+
+            {currentPage === PAGES.SPECIALS && <SpecialsPage />}
+
+            {currentPage === PAGES.PUBLICATIONS && <PublicationsPage />}
 
             {isCmsPage && <ContentPage />}
 
@@ -94,6 +93,7 @@ AppBody.propTypes = {
   currentPage: PropTypes.string.isRequired,
   embedPreviewMode: PropTypes.bool.isRequired,
   isCmsPage: PropTypes.bool.isRequired,
+  tallHeader: PropTypes.bool.isRequired,
 }
 
 export default AppBody

@@ -45,6 +45,14 @@ export const isPanoPage = createSelector(
   getPage,
   page => page === PAGES.PANORAMA,
 )
+export const isSpecialsPage = createSelector(
+  getPage,
+  page => page === PAGES.SPECIALS,
+)
+export const isPublicationsPage = createSelector(
+  getPage,
+  page => page === PAGES.PUBLICATIONS,
+)
 export const isDataDetailPage = createSelector(
   getPage,
   page => page === PAGES.DATA_DETAIL,

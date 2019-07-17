@@ -25,8 +25,7 @@ import { normalizeArticleData } from '../utils/normalizeFromCMS'
 import LoadingIndicator from '../../shared/components/loading-indicator/LoadingIndicator'
 import { routing } from '../routes'
 
-/* istanbul ignore next */
-const ArticlePage = ({ id }) => {
+/* istanbul ignore next */ const ArticlePage = ({ id }) => {
   const [articleData, setArticleData] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
 
