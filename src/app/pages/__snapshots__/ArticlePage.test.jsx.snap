@@ -1,25 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ArticlePage should render 1`] = `
-<div
-  className="c-dashboard__page"
->
-  <AngularWrapper
-    bindings={Object {}}
-    component="dpPage"
-    dependencies={
-      Array [
-        "atlas",
-      ]
-    }
-    interpolateBindings={
-      Object {
-        "item": "",
-        "name": "content-overzicht",
-        "type": "nietgevonden",
-      }
-    }
-    moduleName="dpPageWrapper"
-  />
-</div>
-`;
+exports[`ArticlePage should render 1`] = `<LoadingIndicator />`;

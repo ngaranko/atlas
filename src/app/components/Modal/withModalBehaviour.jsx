@@ -50,7 +50,13 @@ function withModalBehaviour(WrappedComponent) {
 
     render() {
       const { open } = this.state
-      return <WrappedComponent {...this.props} handleClose={this.handleClose} open={open} />
+      return (
+        <WrappedComponent
+          {...this.props}
+          handleClose={this.handleClose}
+          open={open}
+        />
+      )
     }
   }
 

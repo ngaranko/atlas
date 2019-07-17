@@ -1,6 +1,5 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { AngularWrapper } from 'react-angular'
 import {
   Article,
   Row,
@@ -23,10 +22,12 @@ import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
 import getReduxLinkProps from '../utils/getReduxLinkProps'
 import { toArticle } from '../../store/redux-first-router/actions'
 import { normalizeArticleData } from '../utils/normalizeFromCMS'
+import LoadingIndicator from '../../shared/components/loading-indicator/LoadingIndicator'
+import { routing } from '../routes'
 
 /* istanbul ignore next */ const ArticlePage = ({ id }) => {
   const [articleData, setArticleData] = React.useState(null)
-  const [showFourOhFour, setFourOhFour] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
     fetch(
@@ -34,12 +35,18 @@ import { normalizeArticleData } from '../utils/normalizeFromCMS'
     )
       .then(response => response.json())
       .then(response => {
+        // Unfortunately, we always get a 200, since we use the filter on drupal_internal__nid.
+        // We couldn't find a way (yet) to get the uid of the article by slug.
+        // That's why redirect to a 404 now if the data could not be normalized (eg. if one of the fields are not in the result)
         try {
-          setFourOhFour(false)
+          setLoading(false)
           setArticleData(normalizeArticleData(response))
         } catch (e) {
-          setFourOhFour(true)
+          window.location.replace(routing.niet_gevonden.path)
         }
+      })
+      .catch(() => {
+        window.location.replace(routing.niet_gevonden.path)
       })
   }, [])
 
@@ -57,7 +64,7 @@ import { normalizeArticleData } from '../utils/normalizeFromCMS'
   } = articleData || {}
   const action = toArticle(id, slug)
 
-  return articleData && !showFourOhFour ? (
+  return !loading ? (
     <Container beamColor="valid">
       <div className="article">
         <Helmet>
@@ -145,18 +152,7 @@ import { normalizeArticleData } from '../utils/normalizeFromCMS'
       </div>
     </Container>
   ) : (
-    <div className="c-dashboard__page">
-      <AngularWrapper
-        moduleName="dpPageWrapper"
-        component="dpPage"
-        dependencies={['atlas']}
-        interpolateBindings={{
-          name: 'content-overzicht',
-          type: 'nietgevonden',
-          item: '',
-        }}
-      />
-    </div>
+    <LoadingIndicator />
   )
 }
 
