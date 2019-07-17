@@ -13,7 +13,7 @@ import {
   DocumentCover,
   BlogContent,
 } from '@datapunt/asc-ui'
-import Footer from '../../components/Footer/Footer'
+// import Footer from '../../components/Footer/Footer'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import formatDate from '../../../shared/services/date-formatter/date-formatter'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
@@ -87,7 +87,7 @@ const PublicationsPage = ({ endpoint }) => {
           )}
         </Column>
       </Row>
-      {!loading && <Footer />}
+      {/* {!loading && <Footer />} */}
     </div>
   )
 }
