@@ -25,7 +25,7 @@
     "lint:style": "sass-lint -c src/.sass-lint.yml 'src/**/*.scss' --verbose --no-exit --ignore 'src/shared/styles/config/mixins/_sprites.scss' && sass-lint -c modules/.sass-lint.yml 'modules/**/*.scss' --verbose --no-exit",
     "preinstall": "npm cache verify",
     "prettier": "npm run prettier:js",
-    "prettier:js": "prettier-eslint --write './**/*.{js, jsx}'",
+    "prettier:js": "prettier-eslint --write './**/**/*.{js, jsx}'",
     "start": "webpack-dev-server --config webpack.dev.js",
     "start-prod": "webpack-dev-server --config webpack.prod-api-dev.js",
     "test": "npm run lint && cross-env karma start && jest --config=./test/jest.unit.config.js",
@@ -38,9 +38,9 @@
     "test-karma-watch": "karma start --no-single-run"
   },
   "dependencies": {
-    "@datapunt/asc-assets": "^0.7.1-beta.2",
-    "@datapunt/asc-core": "^0.7.1-beta.1",
-    "@datapunt/asc-ui": "^0.7.2",
+    "@datapunt/asc-assets": "^0.7.4-beta.1",
+    "@datapunt/asc-core": "^0.8.0",
+    "@datapunt/asc-ui": "^0.8.0",
     "@svgr/webpack": "^4.2.0",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",
@@ -55,11 +55,13 @@
     "escape-string-regexp": "1.0.5",
     "history": "4.7.2",
     "isomorphic-fetch": "2.2.1",
+    "json-api-normalize": "^1.1.5",
     "leaflet": "1.4.0",
     "leaflet-draw": "1.0.0",
     "leaflet-rotatedmarker": "0.2.0",
     "leaflet.markercluster": "1.4.1",
     "leaflet.nontiledlayer": "1.0.7",
+    "lint-staged": "^9.2.0",
     "lodash.debounce": "4.0.8",
     "lodash.defer": "4.1.0",
     "lodash.get": "4.4.2",
@@ -78,6 +80,7 @@
     "react": "16.8.6",
     "react-angular": "https://github.com/Amsterdam/react-angular#master",
     "react-dom": "16.8.6",
+    "react-helmet": "^5.2.1",
     "react-leaflet": "1.9.1",
     "react-leaflet-markercluster": "1.1.8",
     "react-redux": "5.1.1",
@@ -179,7 +182,17 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint"
+      "pre-push": "npm run test-jest && npm run test-karma"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "npm run lint:js",
+      "git add"
+    ],
+    "*.scss": [
+      "npm run lint:style",
+      "git add"
+    ]
   }
 }

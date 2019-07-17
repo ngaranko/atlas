@@ -15,7 +15,12 @@ import {
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
 import truncateString from '../../utils/truncateString'
 
-const toPanoramaAction = toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home')
+const toPanoramaAction = toPanoramaAndPreserveQuery(
+  undefined,
+  undefined,
+  undefined,
+  'home',
+)
 const toMapAction = toMap(true)
 const toDatasetsAction = toDatasets()
 const toApisAction = toApisPage()
@@ -29,14 +34,23 @@ const components = {
   mobile: MenuToggle,
 }
 
-const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) => {
+const HeaderMenu = ({
+  type,
+  login,
+  logout,
+  user,
+  showFeedbackForm,
+  ...props
+}) => {
   const Menu = components[type]
 
   return (
     <Menu {...props}>
       <MenuFlyOut label="Categorieën">
         <MenuItem {...getReduxLinkProps(toMapAction)}>Kaart</MenuItem>
-        <MenuItem {...getReduxLinkProps(toPanoramaAction)}>Panoramabeelden</MenuItem>
+        <MenuItem {...getReduxLinkProps(toPanoramaAction)}>
+          Panoramabeelden
+        </MenuItem>
         <MenuItem {...getReduxLinkProps(toDatasetsAction)}>Datasets</MenuItem>
         <MenuItem {...getReduxLinkProps(toApisAction)}>Data services</MenuItem>
       </MenuFlyOut>
