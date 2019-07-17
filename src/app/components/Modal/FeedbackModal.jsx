@@ -51,7 +51,7 @@ const FeedbackModalComponent = ({
     aria-describedby="feedback"
     open={open}
     onClose={handleClose}
-    blurredNode={document.querySelector('#root')}
+    blurredNodeSelector="#root"
   >
     <TopBar>
       <Heading as="h4">

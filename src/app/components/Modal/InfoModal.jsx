@@ -21,7 +21,7 @@ const InfoModal = ({ open, handleClose, title, body }) => (
     aria-describedby="feedback"
     open={open}
     onClose={handleClose}
-    blurredNode={document.querySelector('#root')}
+    blurredNodeSelector="#root"
   >
     <TopBar>
       <Heading style={{ flexGrow: 1 }} as="h4">
