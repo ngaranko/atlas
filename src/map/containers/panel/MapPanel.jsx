@@ -53,7 +53,9 @@ class MapPanel extends React.Component {
             type="button"
             className="map-panel__toggle"
             onClick={onMapPanelToggle}
-            title={isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
+            title={
+              isMapPanelVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'
+            }
           >
             <span className="map-panel__heading-icon" />
             <h2 className="map-panel__heading-title" aria-hidden="true">
@@ -62,7 +64,9 @@ class MapPanel extends React.Component {
             <span
               className={`
               map-panel__toggle--icon
-              map-panel__toggle--icon-${isMapPanelVisible ? 'collapse' : 'expand'}
+              map-panel__toggle--icon-${
+                isMapPanelVisible ? 'collapse' : 'expand'
+              }
             `}
             >
               <ChevronUp />

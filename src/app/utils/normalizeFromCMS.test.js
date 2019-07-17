@@ -1,6 +1,8 @@
 import normalize from 'json-api-normalize'
 import { normalizeArticleData } from './normalizeFromCMS'
+import { dateToString } from '../../shared/services/date-formatter/date-formatter'
 
+jest.mock('../../shared/services/date-formatter/date-formatter')
 jest.mock('json-api-normalize')
 
 normalize.mockImplementation(() => ({
@@ -24,6 +26,10 @@ normalize.mockImplementation(() => ({
 describe('normalizeFromCMS', () => {
   describe('normalizeArticleData', () => {
     it('should return a normalized json', () => {
+      jest.spyOn(global, 'Date').mockImplementation(() => ({
+        toLocaleDateString: jest.fn().mockReturnValue('15 Maart 2019'),
+      }))
+      dateToString.mockReturnValue('15-03-2019')
       expect(normalizeArticleData([])).toEqual({
         title: 'title',
         byline: 'byline',
@@ -34,7 +40,7 @@ describe('normalizeFromCMS', () => {
         body: 'body',
         date: '15-03-2019',
         links: 'links',
-        localeDate: 'March 15, 2019',
+        localeDate: '15 Maart 2019',
       })
     })
   })
