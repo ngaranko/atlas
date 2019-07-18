@@ -186,7 +186,7 @@ export const routing = {
   },
   publications: {
     title: 'Publicaties',
-    path: `/publicaties/:id/*`,
+    path: `/publicaties/:id/:slug`,
     type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATIONS}`,
     page: PAGES.PUBLICATIONS,
   },

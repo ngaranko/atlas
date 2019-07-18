@@ -231,9 +231,3 @@ export const isPrintModeLandscape = createSelector(
     printMode &&
     (panoPageActive || mapPageActive || viewMode === VIEW_MODE.MAP),
 )
-
-export const hasTallHeader = createSelector(
-  isHomepage,
-  isPublicationsPage,
-  (homePage, publicationsPage) => (homePage || publicationsPage)
-)

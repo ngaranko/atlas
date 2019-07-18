@@ -5,124 +5,132 @@ exports[`PublicationsPage should render the publication when there are results 1
   class="c-dashboard__page o-max-width"
 >
   <div
-    class="sc-fMiknA duARQi"
+    class="sc-jhAzac hhZpgF"
   >
     <div
-      class="sc-hzDkRC gFrWgH"
+      class="sc-fBuWsC cpXXyN"
     >
-      <section
-        class="sc-TOsTZ sc-dNLxif kKpGYW"
+      <div
+        class="sc-fMiknA duARQi"
       >
         <div
-          class="sc-fMiknA duARQi"
+          class="sc-hzDkRC gFrWgH"
         >
-          <div
-            class="sc-hzDkRC gFrWgH"
+          <section
+            class="sc-TOsTZ sc-dNLxif kKpGYW"
           >
             <div
-              class="sc-hzDkRC ezHGij"
+              class="sc-fMiknA duARQi"
             >
               <div
-                class="sc-dVhcbM fghLuF"
-              >
-                <header
-                  class="sc-eqIVtm kRufpp"
-                >
-                  <h1
-                    class="sc-gzVnrw sc-htoDjs dtnvst"
-                  >
-                    This is a title
-                  </h1>
-                </header>
-                <ul
-                  class="sc-gisBJw bYnYvX"
-                >
-                  <li
-                    class="sc-kjoXOD kMEsSc"
-                  >
-                    source
-                  </li>
-                  <li
-                    class="sc-kjoXOD kMEsSc"
-                  >
-                    May 5, 2015
-                  </li>
-                  <li
-                    class="sc-kjoXOD kMEsSc"
-                  >
-                    file size
-                  </li>
-                  <li
-                    class="sc-kjoXOD kMEsSc"
-                  >
-                    PDF
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="sc-hzDkRC bfuVpj"
-            >
-              <div
-                class="sc-jqCOkK bNZaoH"
+                class="sc-hzDkRC gFrWgH"
               >
                 <div
-                  class="sc-bbmXgH djGpLV"
+                  class="sc-hzDkRC ezHGij"
                 >
-                  <img
-                    alt=""
-                    class="sc-uJMKN jsQhVl"
-                    src="https://acc.cms.data.amsterdam.nl/https://cover-link"
-                  />
-                  <button
-                    class="sc-bxivhb sc-cSHVUG kKGybK"
-                    color="primary"
+                  <div
+                    class="sc-dVhcbM fghLuF"
                   >
-                    <span
-                      class="sc-ifAKCX gWebnz"
-                      color="bright"
-                      size="20"
+                    <header
+                      class="sc-eqIVtm kRufpp"
                     >
-                      <svg
-                        focusable="false"
-                        viewBox="0 0 32 32"
+                      <h1
+                        class="sc-gzVnrw sc-htoDjs dtnvst"
                       >
-                        <path
-                          d="M0 27.996h32V32H0v-4.004zm22.36-13.983l2.83 2.823L16 26.044l-9.19-9.208 2.83-2.823L14 18.377V0h4v18.377l4.36-4.364z"
-                        />
-                      </svg>
-                    </span>
-                    <span
-                      class="sc-gzVnrw jNhboh"
-                      color="bright"
+                        This is a title
+                      </h1>
+                    </header>
+                    <ul
+                      class="sc-gisBJw bYnYvX"
                     >
-                      Download PDF (file size)
-                    </span>
-                  </button>
+                      <li
+                        class="sc-kjoXOD kMEsSc"
+                      >
+                        source
+                      </li>
+                      <li
+                        class="sc-kjoXOD kMEsSc"
+                      >
+                        May 5, 2015
+                      </li>
+                      <li
+                        class="sc-kjoXOD kMEsSc"
+                      >
+                        file size
+                      </li>
+                      <li
+                        class="sc-kjoXOD kMEsSc"
+                      >
+                        PDF
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="sc-hzDkRC bfuVpj"
-            >
-              <div
-                class="sc-dVhcbM fghLuF"
-              >
-                <p
-                  class="sc-gzVnrw sc-gqjmRU sc-VigVT fQEDrh"
-                >
-                  intro
-                </p>
                 <div
-                  class="sc-kAzzGY keKIwT"
+                  class="sc-hzDkRC bfuVpj"
                 >
-                  body text
+                  <div
+                    class="sc-jqCOkK bNZaoH"
+                  >
+                    <div
+                      class="sc-bbmXgH djGpLV"
+                    >
+                      <img
+                        alt=""
+                        class="sc-uJMKN jsQhVl"
+                        src="https://acc.cms.data.amsterdam.nl/https://cover-link"
+                      />
+                      <button
+                        class="sc-bxivhb sc-cSHVUG kKGybK"
+                        color="primary"
+                      >
+                        <span
+                          class="sc-ifAKCX gWebnz"
+                          color="bright"
+                          size="20"
+                        >
+                          <svg
+                            focusable="false"
+                            viewBox="0 0 32 32"
+                          >
+                            <path
+                              d="M0 27.996h32V32H0v-4.004zm22.36-13.983l2.83 2.823L16 26.044l-9.19-9.208 2.83-2.823L14 18.377V0h4v18.377l4.36-4.364z"
+                            />
+                          </svg>
+                        </span>
+                        <span
+                          class="sc-gzVnrw jNhboh"
+                          color="bright"
+                        >
+                          Download PDF (file size)
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="sc-hzDkRC bfuVpj"
+                >
+                  <div
+                    class="sc-dVhcbM fghLuF"
+                  >
+                    <p
+                      class="sc-gzVnrw sc-gqjmRU sc-VigVT fQEDrh"
+                    >
+                      intro
+                    </p>
+                    <div
+                      class="sc-kAzzGY keKIwT"
+                    >
+                      body text
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
-      </section>
+      </div>
     </div>
   </div>
 </div>
