@@ -1,31 +1,32 @@
-import get from 'lodash.get';
-import paramsRegistry from '../params-registry';
+import get from 'lodash.get'
+import paramsRegistry from '../params-registry'
 
-let nrOfRoutesDispatched = 0;
+let nrOfRoutesDispatched = 0
 
-const addMetaToRoutesMiddleware = ({ getState }) => (next) => (action) => {
+const addMetaToRoutesMiddleware = ({ getState }) => next => action => {
   if (paramsRegistry.isRouterType(action)) {
-    if (getState().location.type !== action.type ||
+    if (
+      getState().location.type !== action.type ||
       get(action, 'meta.location.kind') === 'pop'
     ) {
-      nrOfRoutesDispatched = 0;
+      nrOfRoutesDispatched = 0
     }
 
-    const firstAction = nrOfRoutesDispatched === 0;
+    const firstAction = nrOfRoutesDispatched === 0
 
-    nrOfRoutesDispatched += 1;
-    const nextAction = action;
+    nrOfRoutesDispatched += 1
+    const nextAction = action
     const meta = {
-      ...(nextAction && nextAction.meta) ? { ...nextAction.meta } : {},
-      ...(firstAction) ? { firstAction } : {}
-    };
+      ...(nextAction && nextAction.meta ? { ...nextAction.meta } : {}),
+      ...(firstAction ? { firstAction } : {}),
+    }
     return next({
       ...nextAction,
-      ...(Object.keys(meta).length) ? { meta } : {}
-    });
+      ...(Object.keys(meta).length ? { meta } : {}),
+    })
   }
 
-  return next(action);
-};
+  return next(action)
+}
 
-export default addMetaToRoutesMiddleware;
+export default addMetaToRoutesMiddleware

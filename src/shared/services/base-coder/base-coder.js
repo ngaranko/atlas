@@ -13,12 +13,16 @@ export default class BaseCoder {
      * @type {string[]}
      * @private
      */
-    this._CHARSET = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+    this._CHARSET = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(
+      '',
+    )
 
     if (BaseCoder.isInt(base) && base >= 2 && base <= this._CHARSET.length) {
-      this._base = base;
+      this._base = base
     } else {
-      throw new RangeError(`Base ${base} not within 2 and ${this._CHARSET.length}`);
+      throw new RangeError(
+        `Base ${base} not within 2 and ${this._CHARSET.length}`,
+      )
     }
 
     /**
@@ -27,13 +31,13 @@ export default class BaseCoder {
      * @returns {number} the decimal value of the character
      * @private
      */
-    this._characterValue = function (c) {
-      const i = this._CHARSET.indexOf(c);
+    this._characterValue = function(c) {
+      const i = this._CHARSET.indexOf(c)
       if (i >= 0 && i < this._base) {
-        return i;
+        return i
       }
-      throw new TypeError(`Illegal character ${c} for base ${this._base}`);
-    };
+      throw new TypeError(`Illegal character ${c} for base ${this._base}`)
+    }
 
     /**
      * Encodes a number to the base as set in _base.
@@ -42,15 +46,14 @@ export default class BaseCoder {
      * @returns {string} the string that represents the number in base _base
      * @private
      */
-    this._encodeNumber = function (n) {
+    this._encodeNumber = function(n) {
       if (n >= this._base) {
-        const quotient = Math.trunc(n / this._base);
-        const remainder = n % this._base;
-        return this._encodeNumber(quotient) +
-          this._encodeNumber(remainder);
+        const quotient = Math.trunc(n / this._base)
+        const remainder = n % this._base
+        return this._encodeNumber(quotient) + this._encodeNumber(remainder)
       }
-      return this._CHARSET[n];
-    };
+      return this._CHARSET[n]
+    }
 
     /**
      * Decodes a string representation of a _base encoded number
@@ -59,16 +62,18 @@ export default class BaseCoder {
      * @returns {number} the decimal value of the _base decoded string
      * @private
      */
-    this._decodeString = function (s, len = s.length) {
+    this._decodeString = function(s, len = s.length) {
       if (len > 1) {
-        const quotient = s.substr(0, len - 1);
-        const remainder = s.charAt(len - 1);
-        return this._base * // eslint-disable-line no-mixed-operators
-          this._decodeString(quotient, len - 1) + // eslint-disable-line no-mixed-operators
-          this._decodeString(remainder, 1);
+        const quotient = s.substr(0, len - 1)
+        const remainder = s.charAt(len - 1)
+        return (
+          this._base * // eslint-disable-line no-mixed-operators
+            this._decodeString(quotient, len - 1) + // eslint-disable-line no-mixed-operators
+          this._decodeString(remainder, 1)
+        )
       }
-      return this._characterValue(s);
-    };
+      return this._characterValue(s)
+    }
   }
 
   /**
@@ -77,7 +82,7 @@ export default class BaseCoder {
    * @returns {boolean} true when it concens a number which is an integer
    */
   static isInt(n) {
-    return typeof n === 'number' && n % 1 === 0;
+    return typeof n === 'number' && n % 1 === 0
   }
 
   /**
@@ -90,11 +95,11 @@ export default class BaseCoder {
     if (BaseCoder.isInt(nDecimals) && nDecimals !== 0) {
       if (nDecimals > 0) {
         // eslint-disable-next-line no-restricted-properties
-        return Math.pow(10, nDecimals);
+        return Math.pow(10, nDecimals)
       }
-      throw new RangeError(`Negative decimals ${nDecimals} not allowed`);
+      throw new RangeError(`Negative decimals ${nDecimals} not allowed`)
     } else {
-      throw new RangeError(`Non integer decimals ${nDecimals} not allowed`);
+      throw new RangeError(`Non integer decimals ${nDecimals} not allowed`)
     }
   }
 
@@ -106,9 +111,9 @@ export default class BaseCoder {
    */
   static toPrecision(input, decimals) {
     if (Array.isArray(input)) {
-      return input.map((item) => BaseCoder.toPrecision(item, decimals));
+      return input.map(item => BaseCoder.toPrecision(item, decimals))
     }
-    return Number(`${Math.round(`${input}e${decimals}`)}e-${decimals}`);
+    return Number(`${Math.round(`${input}e${decimals}`)}e-${decimals}`)
   }
 
   /**
@@ -118,7 +123,7 @@ export default class BaseCoder {
    * @returns {string}
    */
   encodeFromString(expr, nDecimals = 0) {
-    return this.encode(Number(expr), nDecimals);
+    return this.encode(Number(expr), nDecimals)
   }
 
   /**
@@ -128,28 +133,32 @@ export default class BaseCoder {
    * @param {number} nDecimals
    * @returns {(string|string[])}
    */
-  encode(expression, nDecimals = 0) { // eslint-disable-line consistent-return
-    let expr = expression;
+  // eslint-disable-next-line consistent-return
+  encode(expression, nDecimals = 0) {
+    // eslint-disable-line consistent-return
+    let expr = expression
     if (typeof expr === 'number') {
       if (nDecimals === 0 && !BaseCoder.isInt(expr)) {
-        return undefined;
-      } else if (nDecimals !== 0) {
-        const precisionFactor = BaseCoder.precisionFactor(nDecimals);
-        if (isFinite(precisionFactor)) {
-          expr = BaseCoder.toPrecision(expr, nDecimals);
-          expr = Math.round(expr * precisionFactor);
+        return undefined
+      }
+      if (nDecimals !== 0) {
+        const precisionFactor = BaseCoder.precisionFactor(nDecimals)
+        if (Number.isFinite(precisionFactor)) {
+          expr = BaseCoder.toPrecision(expr, nDecimals)
+          expr = Math.round(expr * precisionFactor)
         } else {
-          return Number.NaN;
+          return Number.NaN
         }
       }
-      let sign = '';
+      let sign = ''
       if (expr < 0) {
-        sign = '-';
-        expr = -expr;
+        sign = '-'
+        expr = -expr
       }
-      return sign + this._encodeNumber(expr);
-    } else if (Array.isArray(expr)) {
-      return expr.map((e) => this.encode(e, nDecimals));
+      return sign + this._encodeNumber(expr)
+    }
+    if (Array.isArray(expr)) {
+      return expr.map(e => this.encode(e, nDecimals))
     }
   }
 
@@ -160,30 +169,33 @@ export default class BaseCoder {
    * @param {number} nDecimals
    * @returns {number}
    */
-  decode(expression, nDecimals = 0) { // eslint-disable-line consistent-return
-    let expr = expression;
+  // eslint-disable-next-line consistent-return
+  decode(expression, nDecimals = 0) {
+    // eslint-disable-line consistent-return
+    let expr = expression
     if (typeof expr === 'string') {
-      let sign = 1;
+      let sign = 1
 
       if (expr === '-0') {
-        expr = '0';
+        expr = '0'
       }
       if (expr.charAt(0) === '-') {
-        sign = -1;
-        expr = expr.substr(1);
+        sign = -1
+        expr = expr.substr(1)
       }
-      let result = sign * this._decodeString(expr);
+      let result = sign * this._decodeString(expr)
       if (nDecimals !== 0) {
-        const precisionFactor = BaseCoder.precisionFactor(nDecimals);
-        if (isFinite(precisionFactor)) {
-          result /= precisionFactor;
+        const precisionFactor = BaseCoder.precisionFactor(nDecimals)
+        if (Number.isFinite(precisionFactor)) {
+          result /= precisionFactor
         } else {
-          result = Number.NaN;
+          result = Number.NaN
         }
       }
-      return result;
-    } else if (Array.isArray(expr)) {
-      return expr.map((e) => this.decode(e, nDecimals));
+      return result
+    }
+    if (Array.isArray(expr)) {
+      return expr.map(e => this.decode(e, nDecimals))
     }
   }
 }

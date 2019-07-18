@@ -1,13 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { AngularWrapper } from 'react-angular';
-import { connect } from 'react-redux';
-import Footer from '../components/Footer/Footer';
-import ShareBar from '../components/ShareBar/ShareBar';
-import { getItem, getTemplateName, getType } from '../../shared/ducks/content/selectors';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { AngularWrapper } from 'react-angular'
+import { connect } from 'react-redux'
+import Footer from '../components/Footer/Footer'
+import ShareBar from '../components/ShareBar/ShareBar'
+import { getItem, getTemplateName, getType } from '../../shared/ducks/content/selectors' // TODO: refactor, test
 
-/* istanbul ignore next */ // TODO: refactor, test
-const ContentPage = ({ templateName, item, type, showFooter }) => (
+/* istanbul ignore next */ const ContentPage = ({ templateName, item, type, showFooter }) => (
   <div
     style={{ display: 'block' }}
     className="c-dashboard__column  u-col-sm--12 qa-dashboard__column--right"
@@ -17,12 +16,12 @@ const ContentPage = ({ templateName, item, type, showFooter }) => (
         <div className="qa-page">
           <AngularWrapper
             moduleName="dpPageWrapper"
-            component={'dpPage'}
+            component="dpPage"
             dependencies={['atlas']}
             interpolateBindings={{
               name: templateName,
               type,
-              item
+              item,
             }}
           />
           <div className="u-col-sm--offset-1 u-col-sm--7">
@@ -30,28 +29,29 @@ const ContentPage = ({ templateName, item, type, showFooter }) => (
           </div>
         </div>
       </div>
-      {showFooter &&
-      <Footer />
-      }
+      {showFooter && <Footer />}
     </div>
   </div>
-);
+)
 
 ContentPage.defaultProps = {
-  showFooter: false
-};
+  showFooter: false,
+}
 
 ContentPage.propTypes = {
   templateName: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   item: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
-  showFooter: PropTypes.bool
-};
+  showFooter: PropTypes.bool,
+}
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   item: getItem(state),
   type: getType(state),
-  templateName: getTemplateName(state)
-});
+  templateName: getTemplateName(state),
+})
 
-export default connect(mapStateToProps, null)(ContentPage);
+export default connect(
+  mapStateToProps,
+  null,
+)(ContentPage)

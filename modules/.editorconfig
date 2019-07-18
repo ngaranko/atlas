@@ -1,5 +1,0 @@
-[*]
-indent_size = 4
-
-[{*.scss,*.json}]
-indent_size = 2

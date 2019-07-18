@@ -1,1 +1,1 @@
-export { default } from './QuerySearchContainer';
+export { default } from './QuerySearchContainer'

@@ -1,6 +1,3 @@
-(function () {
-    'use strict';
-
-    angular
-        .module('dpShared', []);
-})();
+;(function() {
+  angular.module('dpShared', [])
+})()

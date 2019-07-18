@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import './Icon.scss';
+import './Icon.scss'
 
 const Icon = ({ icon }) => (
   <span
@@ -10,10 +10,10 @@ const Icon = ({ icon }) => (
       rc-icon--${icon}
     `}
   />
-);
+)
 
 Icon.propTypes = {
-  icon: PropTypes.string.isRequired
-};
+  icon: PropTypes.string.isRequired,
+}
 
-export default Icon;
+export default Icon

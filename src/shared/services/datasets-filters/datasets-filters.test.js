@@ -1,19 +1,19 @@
-import fetchApiSpecification from './datasets-filters';
-import mockApiData from './datasets-filters.mock';
+import fetchApiSpecification from './datasets-filters'
+import mockApiData from './datasets-filters.mock'
 
 describe('fetchApiSpecification', () => {
   const state = {
     user: {
-      accessToken: null
-    }
-  };
+      accessToken: null,
+    },
+  }
   global.reduxStore = {
-    getState: () => state
-  };
+    getState: () => state,
+  }
 
   it('should return the correct data', async () => {
-    fetch.mockResponseOnce(JSON.stringify(mockApiData));
-    const result = await fetchApiSpecification();
-    expect(result).toMatchSnapshot();
-  });
-});
+    fetch.mockResponseOnce(JSON.stringify(mockApiData))
+    const result = await fetchApiSpecification()
+    expect(result).toMatchSnapshot()
+  })
+})

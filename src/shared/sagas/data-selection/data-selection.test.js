@@ -1,15 +1,24 @@
-import { select } from 'redux-saga/effects';
-import { testSaga } from 'redux-saga-test-plan';
-import { mapBoundsEffect, requestMarkersEffect } from './data-selection';
-import { getPage, hasUserAccesToPage } from '../../../store/redux-first-router/selectors';
-import { fetchMarkersRequest, fetchMarkersSuccess } from '../../ducks/data-selection/actions';
-import { getFiltersWithoutShape } from '../../ducks/filters/filters';
-import { getDataset, getGeomarkersShape } from '../../ducks/data-selection/selectors';
-import { getMapZoom } from '../../../map/ducks/map/selectors';
-import { getMarkers } from '../../services/data-selection/data-selection-api';
-import PAGES from '../../../app/pages';
-import { waitForAuthentication } from '../user/user';
-import BOUNDING_BOX from '../../../map/services/bounding-box.constant';
+import { select } from 'redux-saga/effects'
+import { testSaga } from 'redux-saga-test-plan'
+import { mapBoundsEffect, requestMarkersEffect } from './data-selection'
+import {
+  getPage,
+  hasUserAccesToPage,
+} from '../../../store/redux-first-router/selectors'
+import {
+  fetchMarkersRequest,
+  fetchMarkersSuccess,
+} from '../../ducks/data-selection/actions'
+import { getFiltersWithoutShape } from '../../ducks/filters/filters'
+import {
+  getDataset,
+  getGeomarkersShape,
+} from '../../ducks/data-selection/selectors'
+import { getMapZoom } from '../../../map/ducks/map/selectors'
+import { getMarkers } from '../../services/data-selection/data-selection-api'
+import PAGES from '../../../app/pages'
+import { waitForAuthentication } from '../user/user'
+import BOUNDING_BOX from '../../../map/services/bounding-box.constant'
 
 describe('data-selection sagas', () => {
   describe('mapBoundsEffect', () => {
@@ -24,7 +33,7 @@ describe('data-selection sagas', () => {
         .next(true)
         .put(fetchMarkersRequest())
         .next()
-        .isDone();
+        .isDone()
 
       testSaga(mapBoundsEffect, {})
         .next()
@@ -34,7 +43,7 @@ describe('data-selection sagas', () => {
         .next()
         .select(hasUserAccesToPage)
         .next(false)
-        .isDone();
+        .isDone()
 
       testSaga(mapBoundsEffect, {})
         .next()
@@ -44,9 +53,9 @@ describe('data-selection sagas', () => {
         .next()
         .select(hasUserAccesToPage)
         .next(true)
-        .isDone();
-    });
-  });
+        .isDone()
+    })
+  })
 
   describe('requestMarkersEffect', () => {
     it('should successfully fetch markers', () => {
@@ -55,7 +64,7 @@ describe('data-selection sagas', () => {
         .all([
           select(getFiltersWithoutShape),
           select(getDataset),
-          select(getGeomarkersShape)
+          select(getGeomarkersShape),
         ])
         .next([[], 'bag', {}])
         .next(BOUNDING_BOX.COORDINATES)
@@ -65,7 +74,7 @@ describe('data-selection sagas', () => {
         .next('result')
         .put(fetchMarkersSuccess('result'))
         .next()
-        .isDone();
-    });
-  });
-});
+        .isDone()
+    })
+  })
+})

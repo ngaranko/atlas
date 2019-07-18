@@ -1,3 +1,3 @@
-import watchFetchMapLayers from './map-layers';
+import watchFetchMapLayers from './map-layers'
 
-export default watchFetchMapLayers;
+export default watchFetchMapLayers

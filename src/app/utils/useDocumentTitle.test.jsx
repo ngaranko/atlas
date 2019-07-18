@@ -1,69 +1,69 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import useDocumentTitle from './useDocumentTitle';
-import * as routes from '../routes';
-import { getLocationType } from '../../store/redux-first-router/selectors';
+import React from 'react'
+import { shallow } from 'enzyme'
+import useDocumentTitle from './useDocumentTitle'
+import * as routes from '../routes'
+import { getLocationType } from '../../store/redux-first-router/selectors'
 
-jest.mock('../routes');
-jest.mock('../../store/redux-first-router/selectors');
+jest.mock('../routes')
+jest.mock('../../store/redux-first-router/selectors')
 
 function HookWrapper(props) {
-  // eslint-disable-next-line react/prop-types
-  const hook = props.hook ? props.hook() : undefined;
-  return <div hook={hook} />;
+  // eslint-disable-next-line react/prop-types,react/destructuring-assignment
+  const hook = props.hook ? props.hook() : undefined
+  return <div hook={hook} />
 }
 
 describe('useDocumentTitle', () => {
-  let realUseContext;
-  let useContextMock;
-  const mockTitle = 'The title!';
+  let realUseContext
+  let useContextMock
+  const mockTitle = 'The title!'
 
   beforeEach(() => {
-    realUseContext = React.useContext;
+    realUseContext = React.useContext
     // eslint-disable-next-line no-multi-assign
     useContextMock = React.useContext = jest.fn({
-      setState: jest.fn
-    });
+      setState: jest.fn,
+    })
 
     useContextMock.mockReturnValue({
       getState: jest.fn().mockReturnValue({
         location: {
-          type: 'SOME_TYPE'
-        }
-      })
-    });
+          type: 'SOME_TYPE',
+        },
+      }),
+    })
 
-    getLocationType.mockReturnValue('SOME_TYPE');
+    getLocationType.mockReturnValue('SOME_TYPE')
     routes.routing = {
       foo: {
         type: 'SOME_TYPE',
-        title: mockTitle
-      }
-    };
-  });
+        title: mockTitle,
+      },
+    }
+  })
 
   afterEach(() => {
-    React.useContext = realUseContext;
-  });
+    React.useContext = realUseContext
+  })
 
   it('should return a default title', () => {
-    const wrapper = shallow(<HookWrapper hook={() => useDocumentTitle()} />);
-    const { hook } = wrapper.find('div').props();
-    const { documentTitle } = hook;
+    const wrapper = shallow(<HookWrapper hook={() => useDocumentTitle()} />)
+    const { hook } = wrapper.find('div').props()
+    const { documentTitle } = hook
 
-    expect(documentTitle).toEqual(`${mockTitle} - Dataportaal`);
-  });
+    expect(documentTitle).toEqual(`${mockTitle} - Dataportaal`)
+  })
 
   it('should set a new title based on parameters passed to setDocumentTitle', () => {
-    const wrapper = shallow(<HookWrapper hook={() => useDocumentTitle()} />);
-    const { hook } = wrapper.find('div').props();
-    const { setDocumentTitle } = hook;
+    const wrapper = shallow(<HookWrapper hook={() => useDocumentTitle()} />)
+    const { hook } = wrapper.find('div').props()
+    const { setDocumentTitle } = hook
 
-    const documentTitle = setDocumentTitle('Overridden Title', ['Some more', 'Info']);
+    const documentTitle = setDocumentTitle('Overridden Title', ['Some more', 'Info'])
 
     // Todo: eventually test the documentTitle from the hook! Couldn't get this to work now...
     // ({ hook } = wrapper.find('div').props());
     // const { documentTitle } = hook;
-    expect(documentTitle).toEqual('Overridden Title - Some more - Info - Dataportaal');
-  });
-});
+    expect(documentTitle).toEqual('Overridden Title - Some more - Info - Dataportaal')
+  })
+})

@@ -11,20 +11,20 @@ jest.mock('../../../../shared/services/share-url/share-url');
 describe('ContextMenu for Maps', () => {
   const initialState = {
     map: {
-      mapPanelActive: true
+      mapPanelActive: true,
     },
     ui: {
-      viewMode: 'print'
-    }
-  };
+      viewMode: 'print',
+    },
+  }
   const props = {
     isMapPanelVisible: true,
     hasPrintButton: false,
-    hasEmbedButton: false
-  };
+    hasEmbedButton: false,
+  }
 
-  const store = configureMockStore()({ ...initialState });
-  const component = shallow(<ContextMenu {...props} />, { context: { store } }).dive();
+  const store = configureMockStore()({ ...initialState })
+  const component = shallow(<ContextMenu {...props} />, { context: { store } }).dive()
 
   sharePage.mockImplementation(() => ({ type: 'action' }));
   showPrintMode.mockImplementation(() => ({ type: 'action' }));
@@ -32,45 +32,63 @@ describe('ContextMenu for Maps', () => {
   getShareUrl.mockImplementation(() => ({ url: '/foo/bar' }));
 
   beforeEach(() => {
-    global.window.title = 'Page title';
-    global.window.open = jest.fn();
-  });
+    global.window.title = 'Page title'
+    global.window.open = jest.fn()
+  })
 
   describe('should render all the items of the menu', () => {
-    expect(component.find('ContextMenuItem').length).toBe(4);
+    expect(component.find('ContextMenuItem').length).toBe(4)
 
-    it('should only render the print button on certain scenario\'s', () => {
-      component.setProps({ hasPrintButton: true });
+    it("should only render the print button on certain scenario's", () => {
+      component.setProps({ hasPrintButton: true })
 
-      component.find('ContextMenuItem').at(0).simulate('click');
-      expect(showPrintMode).toHaveBeenCalled();
-    });
+      component
+        .find('ContextMenuItem')
+        .at(0)
+        .simulate('click')
+      expect(showPrintMode).toHaveBeenCalled()
+    })
 
-    it('should only render the embed button on certain scenario\'s', () => {
-      component.setProps({ hasPrintButton: false, hasEmbedButton: true });
+    it("should only render the embed button on certain scenario's", () => {
+      component.setProps({ hasPrintButton: false, hasEmbedButton: true })
 
-      component.find('ContextMenuItem').at(0).simulate('click');
-      expect(showEmbedPreview).toHaveBeenCalled();
-    });
-  });
-
-  it('should handle onClick event on pano buttons', () => {
-    component.find('ContextMenuItem').at(1).simulate('click');
-    expect(sharePage).toHaveBeenCalledWith('facebook');
-  });
-
-  it('should handle onClick event on pano buttons', () => {
-    component.find('ContextMenuItem').at(2).simulate('click');
-    expect(sharePage).toHaveBeenCalledWith('twitter');
-  });
+      component
+        .find('ContextMenuItem')
+        .at(0)
+        .simulate('click')
+      expect(showEmbedPreview).toHaveBeenCalled()
+    })
+  })
 
   it('should handle onClick event on pano buttons', () => {
-    component.find('ContextMenuItem').at(3).simulate('click');
-    expect(sharePage).toHaveBeenCalledWith('linkedin');
-  });
+    component
+      .find('ContextMenuItem')
+      .at(1)
+      .simulate('click')
+    expect(sharePage).toHaveBeenCalledWith('facebook')
+  })
 
   it('should handle onClick event on pano buttons', () => {
-    component.find('ContextMenuItem').at(4).simulate('click');
-    expect(sharePage).toHaveBeenCalledWith('email');
-  });
-});
+    component
+      .find('ContextMenuItem')
+      .at(2)
+      .simulate('click')
+    expect(sharePage).toHaveBeenCalledWith('twitter')
+  })
+
+  it('should handle onClick event on pano buttons', () => {
+    component
+      .find('ContextMenuItem')
+      .at(3)
+      .simulate('click')
+    expect(sharePage).toHaveBeenCalledWith('linkedin')
+  })
+
+  it('should handle onClick event on pano buttons', () => {
+    component
+      .find('ContextMenuItem')
+      .at(4)
+      .simulate('click')
+    expect(sharePage).toHaveBeenCalledWith('email')
+  })
+})

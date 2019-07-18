@@ -1,22 +1,18 @@
-(function () {
-    'use strict';
+;(function() {
+  angular.module('dpHeader').component('dpPrintButton', {
+    transclude: true,
+    templateUrl: 'modules/header/components/print-button/print-button.html',
+    controller: DpPrintButtonController,
+    controllerAs: 'vm',
+  })
 
-    angular
-        .module('dpHeader')
-        .component('dpPrintButton', {
-            transclude: true,
-            templateUrl: 'modules/header/components/print-button/print-button.html',
-            controller: DpPrintButtonController,
-            controllerAs: 'vm'
-        });
+  DpPrintButtonController.$inject = ['$window']
 
-    DpPrintButtonController.$inject = ['$window'];
+  function DpPrintButtonController($window) {
+    const vm = this
 
-    function DpPrintButtonController ($window) {
-        var vm = this;
-
-        vm.print = function () {
-            $window.print();
-        };
+    vm.print = function() {
+      $window.print()
     }
-})();
+  }
+})()

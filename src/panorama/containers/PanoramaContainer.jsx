@@ -1,97 +1,94 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import throttle from 'lodash.throttle';
-import classNames from 'classnames';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import throttle from 'lodash.throttle'
+import classNames from 'classnames'
 
-import './PanoramaContainer.scss';
+import './PanoramaContainer.scss'
 import {
   closePanorama,
   fetchPanoramaHotspotRequest,
-  setPanoramaOrientation
-} from '../ducks/actions';
+  setPanoramaOrientation,
+} from '../ducks/actions'
 
 import {
   getHeadingDegrees,
   getOrientation,
   initialize,
-  loadScene
-} from '../services/marzipano/marzipano';
+  loadScene,
+} from '../services/marzipano/marzipano'
 
-import StatusBar from '../components/StatusBar/StatusBar';
-import PanoramaToggle from '../components/PanoramaToggle/PanoramaToggle';
-import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullscreen';
-import { Map as ContextMenu } from '../../app/components/ContextMenu';
+import StatusBar from '../components/StatusBar/StatusBar'
+import PanoramaToggle from '../components/PanoramaToggle/PanoramaToggle'
+import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullscreen'
+import ContextMenu from '../../app/components/ContextMenu/ContextMenu'
 import {
   getDetailReference,
   getLabelObjectByTags,
   getPanorama,
   getPanoramaLocation,
-  getPanoramaTags
-} from '../ducks/selectors';
-import IconButton from '../../app/components/IconButton/IconButton';
-import { getMapDetail } from '../../map/ducks/detail/actions';
-import { getMapOverlays } from '../../map/ducks/map/selectors';
-import { pageTypeToEndpoint } from '../../map/services/map-detail';
-import { isPrintMode, isPrintOrEmbedMode, setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui';
+  getPanoramaTags,
+} from '../ducks/selectors'
+import IconButton from '../../app/components/IconButton/IconButton'
+import { getMapDetail } from '../../map/ducks/detail/actions'
+import { getMapOverlays } from '../../map/ducks/map/selectors'
+import { pageTypeToEndpoint } from '../../map/services/map-detail'
+import { isPrintMode, isPrintOrEmbedMode, setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui'
 
 class PanoramaContainer extends React.Component {
   constructor(props) {
-    super(props);
-    this.toggleFullscreen = this.toggleFullscreen.bind(this);
-    this.updateOrientation = this.updateOrientation.bind(this);
-    this.hotspotClickHandler = this.hotspotClickHandler.bind(this);
-    this.loadPanoramaScene = this.loadPanoramaScene.bind(this);
+    super(props)
+    this.toggleFullscreen = this.toggleFullscreen.bind(this)
+    this.updateOrientation = this.updateOrientation.bind(this)
+    this.hotspotClickHandler = this.hotspotClickHandler.bind(this)
+    this.loadPanoramaScene = this.loadPanoramaScene.bind(this)
 
-    this.updateOrientationThrottled = throttle(
-      this.updateOrientation,
-      300,
-      {
-        leading: true,
-        trailing: true
-      }
-    );
+    this.updateOrientationThrottled = throttle(this.updateOrientation, 300, {
+      leading: true,
+      trailing: true,
+    })
   }
 
   componentDidMount() {
-    const { detailReference, fetchMapDetail } = this.props;
-    this.panoramaViewer = initialize(this.panoramaRef);
-    this.loadPanoramaScene();
+    const { detailReference, fetchMapDetail } = this.props
+    this.panoramaViewer = initialize(this.panoramaRef)
+    this.loadPanoramaScene()
 
     if (this.panoramaViewer) {
-      this.panoramaViewer.addEventListener('viewChange', this.updateOrientationThrottled);
+      this.panoramaViewer.addEventListener('viewChange', this.updateOrientationThrottled)
     }
 
     if (detailReference.length > 0) {
-      const [id, type, subtype] = detailReference;
-      fetchMapDetail(pageTypeToEndpoint(type, subtype, id));
+      const [id, type, subtype] = detailReference
+      fetchMapDetail(pageTypeToEndpoint(type, subtype, id))
     }
   }
 
   componentDidUpdate(prevProps) {
-    const { panoramaState, printOrEmbedMode } = this.props;
+    const { panoramaState, printOrEmbedMode } = this.props
 
     if (panoramaState.image !== prevProps.panoramaState.image) {
-      this.loadPanoramaScene();
+      this.loadPanoramaScene()
     }
 
     if (printOrEmbedMode !== prevProps.printOrEmbedMode) {
-      this.panoramaViewer = initialize(this.panoramaRef);
-      this.loadPanoramaScene();
+      this.panoramaViewer = initialize(this.panoramaRef)
+      this.loadPanoramaScene()
     }
   }
 
   componentWillUnmount() {
-    this.panoramaViewer.removeEventListener('viewChange', this.updateOrientationThrottled);
+    this.panoramaViewer.removeEventListener('viewChange', this.updateOrientationThrottled)
   }
 
   loadPanoramaScene() {
-    const { panoramaState } = this.props;
-    const { heading: currentHeading, location, targetLocation } = panoramaState;
-    const heading = (Array.isArray(location) && Array.isArray(targetLocation))
-      ? getHeadingDegrees(location, targetLocation)
-      : currentHeading;
+    const { panoramaState } = this.props
+    const { heading: currentHeading, location, targetLocation } = panoramaState
+    const heading =
+      Array.isArray(location) && Array.isArray(targetLocation)
+        ? getHeadingDegrees(location, targetLocation)
+        : currentHeading
     if (panoramaState.image) {
       loadScene(
         this.panoramaViewer,
@@ -100,46 +97,40 @@ class PanoramaContainer extends React.Component {
         heading,
         panoramaState.pitch,
         panoramaState.fov,
-        panoramaState.hotspots
-      );
+        panoramaState.hotspots,
+      )
     }
   }
 
   updateOrientation() {
-    const { heading, pitch, fov } = getOrientation(this.panoramaViewer);
-    this.props.setOrientation({ heading, pitch, fov });
+    const { setOrientation } = this.props
+    const { heading, pitch, fov } = getOrientation(this.panoramaViewer)
+    setOrientation({ heading, pitch, fov })
   }
 
   hotspotClickHandler(panoramaId) {
-    const { fetchPanoramaById } = this.props;
-    return fetchPanoramaById({ id: panoramaId });
+    const { fetchPanoramaById } = this.props
+    return fetchPanoramaById({ id: panoramaId })
   }
 
   toggleFullscreen() {
-    const { isFullscreen, setView } = this.props;
+    const { isFullscreen, setView } = this.props
 
     if (isFullscreen) {
-      return setView(VIEW_MODE.SPLIT, 'beeld-verkleinen');
+      return setView(VIEW_MODE.SPLIT, 'beeld-verkleinen')
     }
 
-    return setView(VIEW_MODE.FULL, 'beeld-vergroten');
+    return setView(VIEW_MODE.FULL, 'beeld-vergroten')
   }
 
   render() {
-    const {
-      isFullscreen,
-      printOrEmbedMode,
-      printMode,
-      panoramaState,
-      onClose,
-      tags
-    } = this.props;
+    const { isFullscreen, printOrEmbedMode, printMode, panoramaState, onClose, tags } = this.props
     return (
       <div className={classNames({ 'c-panorama': true, 'u-page-break-before': !isFullscreen })}>
         <div
           ref={
-            //eslint-disable-next-line
-            (el) => this.panoramaRef = el
+            // eslint-disable-next-line
+            el => (this.panoramaRef = el)
           }
           role="button"
           tabIndex="-1"
@@ -153,36 +144,35 @@ class PanoramaContainer extends React.Component {
           alignLeft
         />
 
-        <IconButton
-          onClick={onClose}
-          title="Sluit panorama"
-          icon="cross"
-        />
+        <IconButton onClick={onClose} title="Sluit panorama" icon="cross" />
         <div className="c-map__controls c-map__controls--bottom-left">
-
-          {!printMode && <PanoramaToggle
-            location={panoramaState.location}
-            heading={panoramaState.heading}
-            currentLabel={getLabelObjectByTags(tags).label}
-          />}
+          {!printMode && panoramaState.location && (
+            <PanoramaToggle
+              location={panoramaState.location}
+              heading={panoramaState.heading}
+              currentLabel={getLabelObjectByTags(tags).label}
+            />
+          )}
 
           {!printOrEmbedMode && <ContextMenu />}
         </div>
 
-        {(panoramaState.date && panoramaState.location) ? (
+        {panoramaState.date && panoramaState.location ? (
           <StatusBar
             date={panoramaState.date}
             location={panoramaState.location}
             heading={panoramaState.heading}
             currentLabel={getLabelObjectByTags(tags).label}
           />
-        ) : ''}
+        ) : (
+          ''
+        )}
       </div>
-    );
+    )
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   panoramaState: getPanorama(state),
   tags: getPanoramaTags(state),
   detailReference: getDetailReference(state),
@@ -190,23 +180,26 @@ const mapStateToProps = (state) => ({
   panoramaLocation: getPanoramaLocation(state),
   overlays: getMapOverlays(state),
   printOrEmbedMode: isPrintOrEmbedMode(state),
-  printMode: isPrintMode(state)
-});
+  printMode: isPrintMode(state),
+})
 
-const mapDispatchToProps = (dispatch) => ({
-  ...bindActionCreators({
-    setOrientation: setPanoramaOrientation,
-    setView: setViewMode,
-    fetchPanoramaById: fetchPanoramaHotspotRequest,
-    fetchMapDetail: getMapDetail,
-    onClose: closePanorama
-  }, dispatch)
-});
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(
+    {
+      setOrientation: setPanoramaOrientation,
+      setView: setViewMode,
+      fetchPanoramaById: fetchPanoramaHotspotRequest,
+      fetchMapDetail: getMapDetail,
+      onClose: closePanorama,
+    },
+    dispatch,
+  ),
+})
 
 PanoramaContainer.defaultProps = {
   printOrEmbedMode: false,
-  printMode: false
-};
+  printMode: false,
+}
 
 PanoramaContainer.propTypes = {
   panoramaState: PropTypes.shape({}).isRequired,
@@ -219,7 +212,10 @@ PanoramaContainer.propTypes = {
   detailReference: PropTypes.arrayOf(PropTypes.string).isRequired,
   setOrientation: PropTypes.func.isRequired,
   fetchMapDetail: PropTypes.func.isRequired,
-  fetchPanoramaById: PropTypes.func.isRequired
-};
+  fetchPanoramaById: PropTypes.func.isRequired,
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(PanoramaContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PanoramaContainer)

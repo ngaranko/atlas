@@ -1,5 +1,5 @@
-import { getByUrl } from '../api/api';
+import { getByUrl } from '../api/api'
 
 export default function fetchByUri(uri) {
-  return getByUrl(uri);
+  return getByUrl(uri)
 }

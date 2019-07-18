@@ -1,29 +1,33 @@
-(function () {
-    'use strict';
+;(function() {
+  const moduleDependencies = [
+    // Main modules
+    'dpHeader',
+    'dpPage',
+    'dpDetail',
+    'dpDataSelection',
 
-    const moduleDependencies = [
-        // Main modules
-        'dpHeader',
-        'dpPage',
-        'dpDetail',
-        'dpDataSelection',
+    // Shared module
+    'dpShared',
+    'ngAria',
+  ]
 
-        // Shared module
-        'dpShared',
-        'ngAria'
-    ];
+  // eslint-disable-next-line angular/di
+  angular
+    .module('atlas', moduleDependencies)
+    .config(['$provide', urlChangeProvider])
 
-    // eslint-disable-next-line angular/di
-    angular.module('atlas', moduleDependencies)
-        .config(['$provide', urlChangeProvider]);
-
-    urlChangeProvider.$inject = ['$provide'];
-    /* istanbul ignore next */
-    function urlChangeProvider ($provide) {
-        $provide.decorator('$browser', ['$delegate', function ($delegate) {
-            $delegate.onUrlChange = function () { };
-            $delegate.url = function () { return ''; };
-            return $delegate;
-        }]);
-    }
-})();
+  urlChangeProvider.$inject = ['$provide']
+  /* istanbul ignore next */
+  function urlChangeProvider($provide) {
+    $provide.decorator('$browser', [
+      '$delegate',
+      function($delegate) {
+        $delegate.onUrlChange = function() {}
+        $delegate.url = function() {
+          return ''
+        }
+        return $delegate
+      },
+    ])
+  }
+})()

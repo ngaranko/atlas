@@ -1,13 +1,9 @@
-(function () {
-    'use strict';
+;(function() {
+  angular.module('dpPage').factory('pageName', pageNameFactory)
 
-    angular
-        .module('dpPage')
-        .factory('pageName', pageNameFactory);
+  pageNameFactory.$inject = ['PAGE_NAMES']
 
-    pageNameFactory.$inject = ['PAGE_NAMES'];
-
-    function pageNameFactory (PAGE_NAMES) {
-        return pageName => PAGE_NAMES[pageName];
-    }
-})();
+  function pageNameFactory(PAGE_NAMES) {
+    return pageName => PAGE_NAMES[pageName]
+  }
+})()

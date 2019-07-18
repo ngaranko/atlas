@@ -1,6 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import Dataset from './Dataset';
+import React from 'react'
+import { shallow } from 'enzyme'
+import Dataset from './Dataset'
 
 describe('Dataset', () => {
   const props = {
@@ -8,18 +8,16 @@ describe('Dataset', () => {
     authError: false,
     page: 1,
     results: {
-      numberOfRecords: 0
+      numberOfRecords: 0,
     },
     apiSpecification: {},
-    setPage: jest.fn
-  };
+    setPage: jest.fn,
+  }
 
   it('should render without search results', () => {
-    const component = shallow(
-      <Dataset {...props} />
-    );
-    expect(component).toMatchSnapshot();
-  });
+    const component = shallow(<Dataset {...props} />)
+    expect(component).toMatchSnapshot()
+  })
 
   it('should render with search results', () => {
     const extendedProps = {
@@ -27,12 +25,10 @@ describe('Dataset', () => {
       results: {
         ...props.results,
         data: [],
-        numberOfRecords: 2
-      }
-    };
-    const component = shallow(
-      <Dataset {...extendedProps} />
-    );
-    expect(component).toMatchSnapshot();
-  });
-});
+        numberOfRecords: 2,
+      },
+    }
+    const component = shallow(<Dataset {...extendedProps} />)
+    expect(component).toMatchSnapshot()
+  })
+})

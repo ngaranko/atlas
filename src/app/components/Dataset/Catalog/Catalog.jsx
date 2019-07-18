@@ -1,46 +1,51 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import PropTypes from 'prop-types';
-import removeMd from 'remove-markdown';
-import Link from 'redux-first-router-link';
+import React from 'react'
+import PropTypes from 'prop-types'
+import removeMd from 'remove-markdown'
+import Link from 'redux-first-router-link'
 import {
   aggregateFilter,
   kebapCaseFilter,
   modificationDateFilter,
   truncateHtmlAsTextFilter,
-  ucFirst
-} from '../../Filters/Filters';
-import { routing } from '../../../routes';
+  ucFirst,
+} from '../../Filters/Filters'
+import { routing } from '../../../routes'
 
-const arrayToObject = (array, keyField) => array.reduce((acc, item) => ({
-  ...acc,
-  [item[keyField]]: item.label
-}), {});
+const arrayToObject = (array, keyField) =>
+  array.reduce(
+    (acc, item) => ({
+      ...acc,
+      [item[keyField]]: item.label,
+    }),
+    {},
+  )
 
 const Catalog = ({ content, catalogFilters }) => {
   if (!Object.keys(catalogFilters).length) {
-    return false;
+    return false
   }
 
-  const formatMap = arrayToObject(catalogFilters.formatTypes, 'id');
-  const serviceMap = arrayToObject(catalogFilters.serviceTypes, 'id');
-  const distributionMap = arrayToObject(catalogFilters.distributionTypes, 'id');
+  const formatMap = arrayToObject(catalogFilters.formatTypes, 'id')
+  const serviceMap = arrayToObject(catalogFilters.serviceTypes, 'id')
+  const distributionMap = arrayToObject(catalogFilters.distributionTypes, 'id')
 
-  const items = content.map((item) => {
-    const formats = item['dcat:distribution'].map((resource) => {
+  const items = content.map(item => {
+    const formats = item['dcat:distribution'].map(resource => {
       if (resource['ams:distributionType'] === 'file') {
-        return formatMap[resource['dcat:mediaType']];
-      } else if (resource['ams:distributionType'] === 'api') {
-        return serviceMap[resource['ams:serviceType']];
+        return formatMap[resource['dcat:mediaType']]
       }
-      return distributionMap[resource['ams:distributionType']];
-    });
+      if (resource['ams:distributionType'] === 'api') {
+        return serviceMap[resource['ams:serviceType']]
+      }
+      return distributionMap[resource['ams:distributionType']]
+    })
 
-    const id = item['dct:identifier'];
+    const id = item['dct:identifier']
     const linkTo = {
       type: routing.datasetDetail.type,
-      payload: { id }
-    };
+      payload: { id },
+    }
 
     return {
       header: item['dct:title'],
@@ -49,23 +54,17 @@ const Catalog = ({ content, catalogFilters }) => {
       formats: aggregateFilter(formats),
       tags: item['dcat:keyword'],
       linkTo,
-      id
-    };
-  });
+      id,
+    }
+  })
   return (
     <div className="c-data-selection-catalog u-margin__bottom--4">
-      {items.map((row) => (
+      {items.map(row => (
         <div key={row.id} className="c-data-selection-catalog__list">
           <div className="c-data-selection-catalog__item qa-catalog-fetch-detail u-no-presentation">
-            <Link
-              className="qa-dp-link"
-              to={row.linkTo}
-              tabIndex="-1"
-            >
+            <Link className="qa-dp-link" to={row.linkTo} tabIndex="-1">
               <div className="c-data-selection-catalog__header">
-                <h2>
-                  {row.header}
-                </h2>
+                <h2>{row.header}</h2>
                 <div>{modificationDateFilter(row.modified)}</div>
               </div>
 
@@ -73,7 +72,9 @@ const Catalog = ({ content, catalogFilters }) => {
                 {row.formats.map((format, i) => (
                   <div key={i} className="c-data-selection-file-type">
                     <span
-                      className={`c-data-selection-file-type__name c-data-selection-file-type__format-${kebapCaseFilter(format.name)}`}
+                      className={`c-data-selection-file-type__name c-data-selection-file-type__format-${kebapCaseFilter(
+                        format.name,
+                      )}`}
                     >
                       {format.name}
                     </span>
@@ -103,12 +104,12 @@ const Catalog = ({ content, catalogFilters }) => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
 Catalog.propTypes = {
   content: PropTypes.arrayOf(PropTypes.object).isRequired,
-  catalogFilters: PropTypes.shape({}).isRequired
-};
+  catalogFilters: PropTypes.shape({}).isRequired,
+}
 
-export default Catalog;
+export default Catalog

@@ -1,3 +1,3 @@
-const getState = () => window.reduxStore.getState();
+const getState = () => window.reduxStore.getState()
 
-export default getState;
+export default getState

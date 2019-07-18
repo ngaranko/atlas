@@ -1,73 +1,75 @@
-import get from 'lodash.get';
-import { toGlossaryKey } from '../../../detail/services/endpoint-parser/endpoint-parser';
-import GLOSSARY from '../../../detail/services/glossary.constant';
-import { routing } from '../../../app/routes';
-import { VIEW_MODE } from '../../ducks/ui/ui';
-import { FETCH_DETAIL_SUCCESS } from '../../ducks/detail/constants';
-import PARAMETERS from '../../../store/parameters';
+import get from 'lodash.get'
+import { toGlossaryKey } from '../../../detail/services/endpoint-parser/endpoint-parser'
+import GLOSSARY from '../../../detail/services/glossary.constant'
+import { routing } from '../../../app/routes'
+import { VIEW_MODE } from '../../ducks/ui/ui'
+import { FETCH_DETAIL_SUCCESS } from '../../ducks/detail/constants'
+import PARAMETERS from '../../../store/parameters'
 
 export const mapDocumentTitle = (action, defaultTitle) => {
-  let pageTitle = defaultTitle;
-  const view = get(action, `meta.query[${PARAMETERS.VIEW}]`, '');
-  const embed = get(action, `meta.query[${PARAMETERS.EMBED}]`, 'false');
+  let pageTitle = defaultTitle
+  const view = get(action, `meta.query[${PARAMETERS.VIEW}]`, '')
+  const embed = get(action, `meta.query[${PARAMETERS.EMBED}]`, 'false')
   if (view === VIEW_MODE.MAP) {
-    pageTitle = 'Grote kaart';
+    pageTitle = 'Grote kaart'
   }
   if (embed === 'true') {
-    pageTitle = `${pageTitle} | Embedded`;
+    pageTitle = `${pageTitle} | Embedded`
   }
 
-  return pageTitle;
-};
+  return pageTitle
+}
 
 export const detailDocumentTitle = (action, defaultTitle = 'UNKNOWN') => {
-  const glossaryKey = toGlossaryKey(action.payload.type, action.payload.subtype);
-  const glossaryDefinition = GLOSSARY.DEFINITIONS[glossaryKey];
-  let label = glossaryDefinition ? glossaryDefinition.label_singular : defaultTitle;
-  const embed = get(action, `meta.query[${PARAMETERS.EMBED}]`, 'false');
+  const glossaryKey = toGlossaryKey(action.payload.type, action.payload.subtype)
+  const glossaryDefinition = GLOSSARY.DEFINITIONS[glossaryKey]
+  let label = glossaryDefinition
+    ? glossaryDefinition.label_singular
+    : defaultTitle
+  const embed = get(action, `meta.query[${PARAMETERS.EMBED}]`, 'false')
 
   if (embed === 'true') {
-    label = `${label} | Embedded`;
+    label = `${label} | Embedded`
   }
 
-  return `${label}`;
-};
+  return `${label}`
+}
 
 export const datasetDetailDocumentTitle = () => {
-  const label = 'Dataset';
+  const label = 'Dataset'
 
-  return `${label}`;
-};
+  return `${label}`
+}
 
-export const detailDocumentTitleWithName = (action) => {
+export const detailDocumentTitleWithName = action => {
   // We fill the title for details in 2 steps
-  let title = document.title.replace(' - Dataportaal', '');
+  let title = document.title.replace(' - Dataportaal', '')
 
-  const isDataset = !!get(action, 'payload.data.editDatasetId', null);
+  const isDataset = !!get(action, 'payload.data.editDatasetId', null)
   if (isDataset && title.indexOf(':') === -1) {
-    title = `${title}: ${action.payload.data._display}`;
+    title = `${title}: ${action.payload.data._display}`
   }
 
-  return title;
-};
+  return title
+}
 
 const titleActionMapping = [
   {
     actionType: routing.data.type,
-    getTitle: mapDocumentTitle
+    getTitle: mapDocumentTitle,
   },
   {
     actionType: routing.dataDetail.type,
-    getTitle: detailDocumentTitle
+    getTitle: detailDocumentTitle,
   },
   {
     actionType: routing.datasetDetail.type,
-    getTitle: datasetDetailDocumentTitle
+    getTitle: datasetDetailDocumentTitle,
   },
   {
     actionType: FETCH_DETAIL_SUCCESS,
-    getTitle: detailDocumentTitleWithName
-  }
-];
+    getTitle: detailDocumentTitleWithName,
+  },
+]
 
-export default titleActionMapping;
+export default titleActionMapping

@@ -13,6 +13,7 @@ exports[`MapPanelHandle should render children by default 1`] = `
         map-panel-handle__toggle--icon-collapse
       "
     onClick={[Function]}
+    type="button"
   >
     <span
       className="u-sr-only"

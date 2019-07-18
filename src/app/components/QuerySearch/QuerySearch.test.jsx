@@ -1,13 +1,13 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import QuerySearch from './QuerySearch';
+import React from 'react'
+import { shallow } from 'enzyme'
+import QuerySearch from './QuerySearch'
 
 jest.mock('../../pages', () => ({
   PAGES: {
     SEARCH_DATASETS: 'datasets',
-    DATA_QUERY_SEARCH: 'data'
-  }
-}));
+    DATA_QUERY_SEARCH: 'data',
+  },
+}))
 
 describe('QuerySearch', () => {
   const props = {
@@ -15,21 +15,19 @@ describe('QuerySearch', () => {
     filters: {},
     isLoading: true,
     user: {
-      scopes: []
+      scopes: [],
     },
     numberOfResults: 0,
     numberOfDataResults: 0,
     numberOfDatasetResults: 0,
     toDataPage: jest.fn(),
-    toDatasetPage: jest.fn()
-  };
+    toDatasetPage: jest.fn(),
+  }
 
   it('should not render while loading', () => {
-    const component = shallow(
-      <QuerySearch {...props} />
-    );
-    expect(component).toMatchSnapshot();
-  });
+    const component = shallow(<QuerySearch {...props} />)
+    expect(component).toMatchSnapshot()
+  })
 
   it('should render with results', () => {
     const extendedProps = {
@@ -37,13 +35,11 @@ describe('QuerySearch', () => {
       isLoading: false,
       numberOfResults: 2,
       numberOfDataResults: 1,
-      numberOfDatasetResults: 1
-    };
-    const component = shallow(
-      <QuerySearch {...extendedProps} />
-    );
-    expect(component).toMatchSnapshot();
-  });
+      numberOfDatasetResults: 1,
+    }
+    const component = shallow(<QuerySearch {...extendedProps} />)
+    expect(component).toMatchSnapshot()
+  })
 
   it('should fetch all data results on tab click', () => {
     const extendedProps = {
@@ -51,15 +47,16 @@ describe('QuerySearch', () => {
       isLoading: false,
       numberOfResults: 2,
       numberOfDataResults: 1,
-      numberOfDatasetResults: 1
-    };
-    const component = shallow(
-      <QuerySearch {...extendedProps} />
-    );
+      numberOfDatasetResults: 1,
+    }
+    const component = shallow(<QuerySearch {...extendedProps} />)
 
-    component.find('Tab').at(0).simulate('click');
-    expect(props.toDataPage).toHaveBeenCalled();
-  });
+    component
+      .find('Tab')
+      .at(0)
+      .simulate('click')
+    expect(props.toDataPage).toHaveBeenCalled()
+  })
 
   it('should fetch all dataset results on tab click', () => {
     const extendedProps = {
@@ -68,13 +65,14 @@ describe('QuerySearch', () => {
       isLoading: false,
       numberOfResults: 2,
       numberOfDataResults: 1,
-      numberOfDatasetResults: 1
-    };
-    const component = shallow(
-      <QuerySearch {...extendedProps} />
-    );
+      numberOfDatasetResults: 1,
+    }
+    const component = shallow(<QuerySearch {...extendedProps} />)
 
-    component.find('Tab').at(1).simulate('click');
-    expect(props.toDatasetPage).toHaveBeenCalled();
-  });
-});
+    component
+      .find('Tab')
+      .at(1)
+      .simulate('click')
+    expect(props.toDatasetPage).toHaveBeenCalled()
+  })
+})

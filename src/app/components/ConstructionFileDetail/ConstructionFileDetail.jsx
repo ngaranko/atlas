@@ -117,7 +117,7 @@ ConstructionFileDetail.propTypes = {
     subdossiers: PropTypes.arrayOf(PropTypes.shape({})),
     datering: PropTypes.string.isRequired,
     dossier_type: PropTypes.string.isRequired,
-    dossiernr: PropTypes.string.isRequired,
+    dossiernr: PropTypes.number.isRequired,
     stadsdeel: PropTypes.string.isRequired,
     adressen: PropTypes.arrayOf(PropTypes.shape({}))
   }).isRequired

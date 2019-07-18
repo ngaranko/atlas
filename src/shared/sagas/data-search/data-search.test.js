@@ -1,24 +1,26 @@
-import { testSaga } from 'redux-saga-test-plan';
+import { testSaga } from 'redux-saga-test-plan'
 import {
   fetchMapSearchResultsFailure,
   fetchMapSearchResultsSuccessList,
   fetchMapSearchResultsSuccessPanel,
-  fetchSearchResultsByQuery
-} from '../../ducks/data-search/actions';
+  fetchSearchResultsByQuery,
+} from '../../ducks/data-search/actions'
 import {
   getSearchCategory,
-  getSearchQuery
-} from '../../ducks/data-search/selectors';
+  getSearchQuery,
+} from '../../ducks/data-search/selectors'
+import { querySearch } from '../../services/search/search'
 import {
-  querySearch
-} from '../../services/search/search';
-import { fetchMapSearchResults, fetchQuerySearchResults, setSearchResults } from './data-search';
-import geosearch from '../../services/search/geosearch';
-import search from '../../../map/services/map-search/map-search';
-import { VIEW_MODE } from '../../ducks/ui/ui';
-import { getUser } from '../../../shared/ducks/user/user';
-import { waitForAuthentication } from '../user/user';
-import { ERROR_TYPES, setGlobalError } from '../../ducks/error/error-message';
+  fetchMapSearchResults,
+  fetchQuerySearchResults,
+  setSearchResults,
+} from './data-search'
+import geosearch from '../../services/search/geosearch'
+import search from '../../../map/services/map-search/map-search'
+import { VIEW_MODE } from '../../ducks/ui/ui'
+import { getUser } from '../../ducks/user/user'
+import { waitForAuthentication } from '../user/user'
+import { ERROR_TYPES, setGlobalError } from '../../ducks/error/error-message'
 
 describe('fetchMapSearchResults', () => {
   it('should do a geo search in a list view', () => {
@@ -34,8 +36,8 @@ describe('fetchMapSearchResults', () => {
       .next([])
       .put(fetchMapSearchResultsSuccessList([], 0))
       .next()
-      .isDone();
-  });
+      .isDone()
+  })
 
   it('should do a geo search in a map view', () => {
     testSaga(fetchMapSearchResults, {})
@@ -50,11 +52,11 @@ describe('fetchMapSearchResults', () => {
       .next({ results: [], error: false })
       .put(fetchMapSearchResultsSuccessPanel([], 0))
       .next()
-      .isDone();
-  });
+      .isDone()
+  })
 
   it('should throw error and put error', () => {
-    const error = new Error('My Error');
+    const error = new Error('My Error')
     testSaga(fetchMapSearchResults, {})
       .next()
       .next()
@@ -66,9 +68,9 @@ describe('fetchMapSearchResults', () => {
       .throw(error)
       .put(fetchMapSearchResultsFailure(''))
       .next()
-      .isDone();
-  });
-});
+      .isDone()
+  })
+})
 
 describe('fetchQuerySearchResults', () => {
   it('should do a query search', () => {
@@ -88,8 +90,8 @@ describe('fetchQuerySearchResults', () => {
       .next({ results: [], errors: false })
       .call(setSearchResults, [])
       .next()
-      .isDone();
-  });
+      .isDone()
+  })
 
   it('should handle errors on a query search', () => {
     testSaga(fetchQuerySearchResults, {})
@@ -110,6 +112,6 @@ describe('fetchQuerySearchResults', () => {
       .next()
       .call(setSearchResults, [])
       .next()
-      .isDone();
-  });
-});
+      .isDone()
+  })
+})

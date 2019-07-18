@@ -33,6 +33,7 @@ exports[`MapLegend should render the component 1`] = `
         <button
           className="map-legend__toggle map-legend__toggle--remove"
           onClick={[Function]}
+          type="button"
         />
       </div>
       <ul
@@ -89,6 +90,7 @@ exports[`MapLegend should render the component 1`] = `
         <button
           className="map-legend__toggle map-legend__toggle--remove"
           onClick={[Function]}
+          type="button"
         />
       </div>
       <ul

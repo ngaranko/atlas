@@ -1,13 +1,8 @@
-import dateFormatter from '../../../../src/detail/services/date-formatter/date-formatter';
+import dateFormatter from '../../../../src/detail/services/date-formatter/date-formatter'
+;(() => {
+  angular.module('dpDetail').factory('dateFormatter', dateFormatterFactory)
 
-(() => {
-    'use strict';
-
-    angular
-        .module('dpDetail')
-        .factory('dateFormatter', dateFormatterFactory);
-
-    function dateFormatterFactory () {
-        return dateFormatter;
-    }
-})();
+  function dateFormatterFactory() {
+    return dateFormatter
+  }
+})()

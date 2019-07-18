@@ -35,6 +35,14 @@
   }
 }
 
+.c-hotspot--year-2019 {
+  &:hover {
+    .c-hotspot__image {
+      background-image: url("assets/images/hotspots/2019-hover.svg");
+    }
+  }
+}
+
 .c-hotspot__image {
   background-size: cover;
   transform: scale(1);
@@ -49,6 +57,10 @@
 
   .c-hotspot--year-2018 & {
     background-image: url("assets/images/hotspots/2018.svg");
+  }
+
+  .c-hotspot--year-2019 & {
+    background-image: url("assets/images/hotspots/2019.svg");
   }
 }
 

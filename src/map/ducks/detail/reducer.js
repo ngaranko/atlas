@@ -2,9 +2,8 @@ import {
   FETCH_MAP_DETAIL_FAILURE,
   FETCH_MAP_DETAIL_REQUEST,
   FETCH_MAP_DETAIL_SUCCESS,
-  initialState
-} from './constants';
-
+  initialState,
+} from './constants'
 
 export default function MapDetailReducer(state = initialState, action) {
   switch (action.type) {
@@ -12,8 +11,8 @@ export default function MapDetailReducer(state = initialState, action) {
       return {
         ...state,
         currentEndpoint: action.payload,
-        isLoading: true
-      };
+        isLoading: true,
+      }
 
     case FETCH_MAP_DETAIL_SUCCESS:
       return {
@@ -21,18 +20,18 @@ export default function MapDetailReducer(state = initialState, action) {
         isLoading: false,
         byEndpoint: {
           ...state.byEndpoint,
-          [action.endpoint]: action.mapDetail
-        }
-      };
+          [action.endpoint]: action.mapDetail,
+        },
+      }
 
     case FETCH_MAP_DETAIL_FAILURE:
       return {
         ...state,
         isLoading: false,
-        error: action.error
-      };
+        error: action.error,
+      }
 
     default:
-      return state;
+      return state
   }
 }

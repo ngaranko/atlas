@@ -1,8 +1,8 @@
 const HEADER_SIZE = {
   SIZE: {
     TALL: 'tall',
-    SHORT: 'short'
-  }
-};
+    SHORT: 'short',
+  },
+}
 
-export default HEADER_SIZE;
+export default HEADER_SIZE

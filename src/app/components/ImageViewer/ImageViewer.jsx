@@ -87,7 +87,7 @@ ImageViewer.defaultProps = {
 };
 
 ImageViewer.propTypes = {
-  fileName: PropTypes.string.isRequired,
+  fileName: PropTypes.string,
   title: PropTypes.string,
   resetFileName: PropTypes.func.isRequired,
   contextMenu: PropTypes.node

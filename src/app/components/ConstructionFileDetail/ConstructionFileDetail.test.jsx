@@ -10,7 +10,7 @@ describe('ConstructionFileDetail', () => {
     subdossiers: null,
     datering: 'date',
     dossier_type: 'fileType',
-    dossiernr: 'fileNumber',
+    dossiernr: 1,
     stadsdeel: 'district',
     adressen: []
   };

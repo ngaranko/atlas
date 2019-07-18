@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import MapDetailResultItem from './MapDetailResultItem';
-import MapDetailResultWrapper from './MapDetailResultWrapper';
+import MapDetailResultItem from './MapDetailResultItem'
+import MapDetailResultWrapper from './MapDetailResultWrapper'
 
 const MapDetailOplaadpunt = ({ panoUrl, oplaadpunt, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
@@ -13,33 +13,15 @@ const MapDetailOplaadpunt = ({ panoUrl, oplaadpunt, onMaximize, onPanoPreviewCli
     title="Oplaadpunt"
   >
     <ul className="map-detail-result__list">
-      <MapDetailResultItem
-        label="Adres"
-        value={oplaadpunt.address}
-      />
-      <MapDetailResultItem
-        label="Aantal"
-        value={oplaadpunt.quantity}
-      />
-      <MapDetailResultItem
-        label="Soort"
-        value={oplaadpunt.type}
-      />
-      <MapDetailResultItem
-        label="Capaciteit"
-        value={oplaadpunt.capacity}
-      />
-      <MapDetailResultItem
-        label="Connectortype"
-        value={oplaadpunt.connectorType}
-      />
-      <MapDetailResultItem
-        label="Status"
-        value={oplaadpunt.currentStatus}
-      />
+      <MapDetailResultItem label="Adres" value={oplaadpunt.address} />
+      <MapDetailResultItem label="Aantal" value={oplaadpunt.quantity} />
+      <MapDetailResultItem label="Soort" value={oplaadpunt.type} />
+      <MapDetailResultItem label="Capaciteit" value={oplaadpunt.capacity} />
+      <MapDetailResultItem label="Connectortype" value={oplaadpunt.connectorType} />
+      <MapDetailResultItem label="Status" value={oplaadpunt.currentStatus} />
     </ul>
   </MapDetailResultWrapper>
-);
+)
 
 MapDetailOplaadpunt.propTypes = {
   panoUrl: PropTypes.string.isRequired,
@@ -50,10 +32,10 @@ MapDetailOplaadpunt.propTypes = {
     label: PropTypes.string,
     capacity: PropTypes.string,
     connectorType: PropTypes.string,
-    currentStatus: PropTypes.string
+    currentStatus: PropTypes.string,
   }).isRequired,
   onMaximize: PropTypes.func.isRequired,
-  onPanoPreviewClick: PropTypes.func.isRequired
-};
+  onPanoPreviewClick: PropTypes.func.isRequired,
+}
 
-export default MapDetailOplaadpunt;
+export default MapDetailOplaadpunt

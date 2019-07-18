@@ -1,26 +1,28 @@
-import React from 'react';
-import configureMockStore from 'redux-mock-store';
-import { shallow } from 'enzyme';
-import DataSelectionList from './DataSelectionList';
+import React from 'react'
+import configureMockStore from 'redux-mock-store'
+import { shallow } from 'enzyme'
+import DataSelectionList from './DataSelectionList'
 
 // Todo: DP-6235
 describe('DataSelectionList', () => {
   it('should render without failing', () => {
-    const store = configureMockStore()({});
+    const store = configureMockStore()({})
     const component = shallow(
       <DataSelectionList
         content={{
-          body: [{
-            detailEndpoint: 'http://example.com',
-            content: [[{}]]
-          }],
-          formatters: []
+          body: [
+            {
+              detailEndpoint: 'http://example.com',
+              content: [[{}]],
+            },
+          ],
+          formatters: [],
         }}
-        navigateToDetail={() => {
-        }}
-      />, { context: { store } }
-    ).dive();
+        navigateToDetail={() => {}}
+      />,
+      { context: { store } },
+    ).dive()
 
-    expect(component).toMatchSnapshot();
-  });
-});
+    expect(component).toMatchSnapshot()
+  })
+})

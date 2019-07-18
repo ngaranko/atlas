@@ -1,57 +1,68 @@
-
-import marked from 'marked';
-import { dcatdScopes } from '../../../../src/shared/services/auth/auth';
+import marked from 'marked'
+import { dcatdScopes } from '../../../shared/services/auth/auth'
 
 const formatCatalogData = (data, catalogFilters) => {
-  const resourceTypes = catalogFilters.resourceTypes;
+  const { resourceTypes } = catalogFilters
   if (!resourceTypes || !data) {
-    return {};
+    return {}
   }
-  const resources = data['dcat:distribution'];
+  const resources = data['dcat:distribution']
 
   const formattedData = {
     _display: data['dct:title'],
-    resources: resourceTypes.map((item) => ({
-      type: item.id,
-      rows: resources.filter((row) => row['ams:resourceType'] === item.id)
-    })).filter((resource) => resource.rows.length),
-    editDatasetId: data['dct:identifier']
-  };
+    resources: resourceTypes
+      .map(item => ({
+        type: item.id,
+        rows: resources.filter(row => row['ams:resourceType'] === item.id),
+      }))
+      .filter(resource => resource.rows.length),
+    editDatasetId: data['dct:identifier'],
+  }
 
-  return Object.keys(data).filter((key) => key !== 'dcat:distribution')
-    .reduce((result, key) => ({
-      ...result,
-      [key]: data[key]
-    }), formattedData);
-};
+  return Object.keys(data)
+    .filter(key => key !== 'dcat:distribution')
+    .reduce(
+      (result, key) => ({
+        ...result,
+        [key]: data[key],
+      }),
+      formattedData,
+    )
+}
 
-const formatData = (data, subject, catalogFilters) => {
+export const formatData = (data, subject, catalogFilters) => {
   switch (subject) {
     case 'datasets': // dcat data
-      return formatCatalogData(data, catalogFilters);
+      return formatCatalogData(data, catalogFilters)
     case 'evenementen': // use the formating from the saga.
-      return {};
+      return {}
     default:
-      return data;
+      return data
   }
-};
+}
 
-const formatDetailData = (rawData, category, subject, catalogFilters, scopes) => {
-  let data = formatData(rawData, subject, catalogFilters);
+const formatDetailData = (
+  rawData,
+  category,
+  subject,
+  catalogFilters,
+  scopes,
+) => {
+  let data = formatData(rawData, subject, catalogFilters)
   if (category === 'dcatd' && subject === 'datasets') {
-    const fields = ['dct:description', 'overheid:grondslag', 'overheidds:doel'];
+    const fields = ['dct:description', 'overheid:grondslag', 'overheidds:doel']
     const markdownFields = fields.reduce((acc, field) => {
       if (data[field]) {
-        acc[field] = marked(data[field]);
+        acc[field] = marked(data[field])
       }
-      return acc;
-    }, {});
+      return acc
+    }, {})
 
-    data = { ...data, ...markdownFields };
+    data = { ...data, ...markdownFields }
 
-    data.canEditDataset = scopes.some((scope) => dcatdScopes.includes(scope));
+    data.canEditDataset = scopes.some(scope => dcatdScopes.includes(scope))
   }
-  return data;
-};
+  return data
+}
 
-export default formatDetailData;
+export default formatDetailData

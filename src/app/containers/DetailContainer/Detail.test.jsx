@@ -1,6 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import Detail from './Detail';
+import React from 'react'
+import { shallow } from 'enzyme'
+import Detail from './Detail'
 
 describe('Detail', () => {
   it('should render', () => {
@@ -16,8 +16,8 @@ describe('Detail', () => {
       onFetchDetailRequest: jest.fn(),
       id: '1',
       subType: 'nummeraanduiding'
-    };
-    const component = shallow(<Detail {...props} />);
-    expect(component).toMatchSnapshot();
-  });
-});
+    }
+    const component = shallow(<Detail {...props} />)
+    expect(component).toMatchSnapshot()
+  })
+})

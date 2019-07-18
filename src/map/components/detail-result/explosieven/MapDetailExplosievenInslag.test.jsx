@@ -1,7 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from 'react'
+import { shallow } from 'enzyme'
 
-import MapDetailExplosievenInslag from './MapDetailExplosievenInslag';
+import MapDetailExplosievenInslag from './MapDetailExplosievenInslag'
 
 describe('MapDetailExplosievenInslag', () => {
   it('should render everything', () => {
@@ -10,17 +10,17 @@ describe('MapDetailExplosievenInslag', () => {
       label: 'Inslag label',
       remarks: 'Inslag remarks',
       source: 'Inslag source',
-      type: 'Inslag type'
-    };
-    const clickHandler = jest.fn();
+      type: 'Inslag type',
+    }
+    const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapDetailExplosievenInslag
         panoUrl="panoUrl"
         onMaximize={clickHandler}
         onPanoPreviewClick={clickHandler}
         inslag={inslag}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-});
+      />,
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+})

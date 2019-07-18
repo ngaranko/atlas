@@ -1,58 +1,57 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import './_notification.scss';
+import './_notification.scss'
 
 class Notification extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.state = { isNotificationVisible: true };
+    this.state = { isNotificationVisible: true }
 
-    this.hideNotification = this.hideNotification.bind(this);
+    this.hideNotification = this.hideNotification.bind(this)
   }
 
   hideNotification() {
-    this.setState({ isNotificationVisible: false });
+    this.setState({ isNotificationVisible: false })
   }
 
   render() {
-    return this.state.isNotificationVisible && (
-      <div className={`
-        ${this.props.className}
+    const { level, children, className, canClose } = this.props
+    const { isNotificationVisible } = this.state
+    return (
+      isNotificationVisible && (
+        <div
+          className={`
+        ${className}
         notification
-        notification--${this.props.level}
+        notification--${level}
         qa-notification
       `}
-      >
-        <span className="notification__content">{this.props.children}</span>
-        {this.props.level !== 'message' && this.props.canClose &&
-        <button
-          className="notification__button"
-          onClick={this.hideNotification}
         >
-          <span className="notification__button--close" />
-        </button>
-        }
-      </div>
-    );
+          <span className="notification__content">{children}</span>
+          {level !== 'message' && canClose && (
+            <button type="button" className="notification__button" onClick={this.hideNotification}>
+              <span className="notification__button--close" />
+            </button>
+          )}
+        </div>
+      )
+    )
   }
 }
 
 Notification.defaultProps = {
   canClose: true,
   className: '',
-  level: 'info'
-};
+  level: 'info',
+}
 
 Notification.propTypes = {
   canClose: PropTypes.bool,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   className: PropTypes.string,
-  level: PropTypes.oneOf(['alert', 'info', 'message'])
-};
+  level: PropTypes.oneOf(['alert', 'info', 'message']),
+}
 
-export default Notification;
+export default Notification

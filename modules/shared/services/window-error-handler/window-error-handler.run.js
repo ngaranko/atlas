@@ -1,13 +1,9 @@
-(function () {
-    'use strict';
+;(function() {
+  angular.module('dpShared').run(runBlock)
 
-    angular
-        .module('dpShared')
-        .run(runBlock);
+  runBlock.$inject = ['windowErrorHandler']
 
-    runBlock.$inject = ['windowErrorHandler'];
-
-    function runBlock (windowErrorHandler) {
-        windowErrorHandler();
-    }
-})();
+  function runBlock(windowErrorHandler) {
+    windowErrorHandler()
+  }
+})()

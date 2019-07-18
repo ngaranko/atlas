@@ -20,7 +20,7 @@ exports[`MapDetailVestigingActiviteitenItem should render exactly five activitie
         key="01"
       >
         01
-        : 
+        :
         SBI Description 1
       </li>
       <li
@@ -28,7 +28,7 @@ exports[`MapDetailVestigingActiviteitenItem should render exactly five activitie
         key="02"
       >
         02
-        : 
+        :
         SBI Description 2
       </li>
       <li
@@ -36,7 +36,7 @@ exports[`MapDetailVestigingActiviteitenItem should render exactly five activitie
         key="03"
       >
         03
-        : 
+        :
         SBI Description 3
       </li>
       <li
@@ -44,7 +44,7 @@ exports[`MapDetailVestigingActiviteitenItem should render exactly five activitie
         key="04"
       >
         04
-        : 
+        :
         SBI Description 4
       </li>
       <li
@@ -52,7 +52,7 @@ exports[`MapDetailVestigingActiviteitenItem should render exactly five activitie
         key="05"
       >
         05
-        : 
+        :
         SBI Description 5
       </li>
     </ul>
@@ -82,7 +82,7 @@ exports[`MapDetailVestigingActiviteitenItem should render no more than five acti
         key="01"
       >
         01
-        : 
+        :
         SBI Description 1
       </li>
       <li
@@ -90,7 +90,7 @@ exports[`MapDetailVestigingActiviteitenItem should render no more than five acti
         key="02"
       >
         02
-        : 
+        :
         SBI Description 2
       </li>
       <li
@@ -98,7 +98,7 @@ exports[`MapDetailVestigingActiviteitenItem should render no more than five acti
         key="03"
       >
         03
-        : 
+        :
         SBI Description 3
       </li>
       <li
@@ -106,7 +106,7 @@ exports[`MapDetailVestigingActiviteitenItem should render no more than five acti
         key="04"
       >
         04
-        : 
+        :
         SBI Description 4
       </li>
       <li
@@ -114,7 +114,7 @@ exports[`MapDetailVestigingActiviteitenItem should render no more than five acti
         key="05"
       >
         05
-        : 
+        :
         SBI Description 5
       </li>
     </ul>
@@ -142,7 +142,7 @@ exports[`MapDetailVestigingActiviteitenItem should render one activity 1`] = `
         key="01"
       >
         01
-        : 
+        :
         SBI Description 1
       </li>
     </ul>
@@ -170,7 +170,7 @@ exports[`MapDetailVestigingActiviteitenItem should render two activities 1`] = `
         key="01"
       >
         01
-        : 
+        :
         SBI Description 1
       </li>
       <li
@@ -178,7 +178,7 @@ exports[`MapDetailVestigingActiviteitenItem should render two activities 1`] = `
         key="02"
       >
         02
-        : 
+        :
         SBI Description 2
       </li>
     </ul>

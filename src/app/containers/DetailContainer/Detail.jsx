@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { AngularWrapper } from 'react-angular';
-import ShareBar from '../../components/ShareBar/ShareBar';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { AngularWrapper } from 'react-angular'
+import ShareBar from '../../components/ShareBar/ShareBar'
 
 const Detail = ({
   isLoading,
@@ -18,7 +18,7 @@ const Detail = ({
 }) => (
   <div className="qa-detail">
     <AngularWrapper
-      moduleName={'dpDetailWrapper'}
+      moduleName="dpDetailWrapper"
       component="dpDetail"
       dependencies={['atlas']}
       bindings={{
@@ -30,21 +30,23 @@ const Detail = ({
         detailData,
         detailFilterSelection,
         subType,
-        id
+        id,
       }}
       interpolateBindings={{
-        endpoint
+        endpoint,
       }}
     />
     {!isLoading && !printMode && (
       <div className="u-row">
         <div className="u-col-sm--12">
-          <div className="u-margin__left--2 u-margin__bottom--1"><ShareBar /></div>
+          <div className="u-margin__left--2 u-margin__bottom--1">
+            <ShareBar />
+          </div>
         </div>
       </div>
     )}
   </div>
-);
+)
 
 Detail.defaultProps = {
   previewPanorama: undefined,
@@ -52,8 +54,8 @@ Detail.defaultProps = {
   detailTemplateUrl: undefined,
   detailData: undefined,
   detailFilterSelection: undefined,
-  printMode: false
-};
+  printMode: false,
+}
 
 Detail.propTypes = {
   isLoading: PropTypes.bool.isRequired,
@@ -66,7 +68,7 @@ Detail.propTypes = {
   isPreviewPanoramaLoading: PropTypes.bool,
   detailTemplateUrl: PropTypes.string,
   detailData: PropTypes.shape({}),
-  detailFilterSelection: PropTypes.shape({})
-};
+  detailFilterSelection: PropTypes.shape({}),
+}
 
-export default Detail;
+export default Detail

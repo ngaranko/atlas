@@ -1,34 +1,33 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-const MapPanelHandle = (props) => (
-  <div className={`
+const MapPanelHandle = ({ isMapPanelHandleVisible, onMapPanelHandleToggle, children }) => (
+  <div
+    className={`
     map-panel-handle
-    map-panel-handle--${props.isMapPanelHandleVisible ? 'visible' : 'hidden'}
+    map-panel-handle--${isMapPanelHandleVisible ? 'visible' : 'hidden'}
   `}
   >
     <button
+      type="button"
       className={`
         map-panel-handle__toggle
-        map-panel-handle__toggle--${props.isMapPanelHandleVisible ? 'icon-collapse' : 'icon-expand'}
+        map-panel-handle__toggle--${isMapPanelHandleVisible ? 'icon-collapse' : 'icon-expand'}
       `}
-      onClick={props.onMapPanelHandleToggle}
+      onClick={onMapPanelHandleToggle}
     >
       <span className="u-sr-only">
-        {props.isMapPanelHandleVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen' }
+        {isMapPanelHandleVisible ? 'Kaartlagen verbergen' : 'Kaartlagen tonen'}
       </span>
     </button>
-    {props.isMapPanelHandleVisible && props.children}
+    {isMapPanelHandleVisible && children}
   </div>
-);
+)
 
 MapPanelHandle.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   isMapPanelHandleVisible: PropTypes.bool.isRequired,
-  onMapPanelHandleToggle: PropTypes.func.isRequired
-};
+  onMapPanelHandleToggle: PropTypes.func.isRequired,
+}
 
-export default MapPanelHandle;
+export default MapPanelHandle

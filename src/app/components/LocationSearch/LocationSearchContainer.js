@@ -1,17 +1,17 @@
-import { connect } from 'react-redux';
-import { getUser } from '../../../shared/ducks/user/user';
-import { isPrintMode } from '../../../shared/ducks/ui/ui';
+import { connect } from 'react-redux'
+import { getUser } from '../../../shared/ducks/user/user'
+import { isPrintMode } from '../../../shared/ducks/ui/ui'
 import {
   getDataSearchError,
   getDataSearchLocation,
   getMapListResults,
   getNumberOfResults,
-  isSearchLoading
-} from '../../../shared/ducks/data-search/selectors';
-import { getPanoramaPreview } from '../../../panorama/ducks/preview/panorama-preview';
-import LocationSearch from './LocationSearch';
+  isSearchLoading,
+} from '../../../shared/ducks/data-search/selectors'
+import { getPanoramaPreview } from '../../../panorama/ducks/preview/panorama-preview'
+import LocationSearch from './LocationSearch'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isLoading: isSearchLoading(state),
   user: getUser(state),
   searchResults: getMapListResults(state),
@@ -19,7 +19,10 @@ const mapStateToProps = (state) => ({
   panoramaPreview: !!getPanoramaPreview(state),
   printMode: isPrintMode(state),
   location: getDataSearchLocation(state),
-  layerWarning: getDataSearchError(state)
-});
+  layerWarning: getDataSearchError(state),
+})
 
-export default connect(mapStateToProps, null)(LocationSearch);
+export default connect(
+  mapStateToProps,
+  null,
+)(LocationSearch)
