@@ -43,7 +43,6 @@ exports[`App should render the homepage 1`] = `
           embedPreviewMode={false}
           hasMaxWidth={true}
           homePage={false}
-          isCmsPage={true}
           visibilityError={false}
         />
       </div>
@@ -95,7 +94,6 @@ exports[`App should render the mapview 1`] = `
           embedPreviewMode={false}
           hasMaxWidth={true}
           homePage={false}
-          isCmsPage={true}
           visibilityError={false}
         />
       </div>

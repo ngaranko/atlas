@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { GlobalStyle, ThemeProvider } from '@datapunt/asc-ui'
-import PAGES, { isCmsPage as pageIsCmsPage } from './pages'
+import { isOldCmsPage, isCmsPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
@@ -27,7 +27,6 @@ const App = ({
   isFullHeight,
   visibilityError,
   homePage,
-  specialsPage,
   currentPage,
   embedMode,
   printMode,
@@ -39,10 +38,7 @@ const App = ({
   hasPrintButton,
   hasEmbedButton,
 }) => {
-  const isCmsPage = pageIsCmsPage(currentPage)
-  const isArticlePage = currentPage === PAGES.ARTICLE
-  const isPublicationsPage = currentPage === PAGES.PUBLICATIONS
-  const hasMaxWidth = homePage || isCmsPage || isArticlePage || specialsPage || isPublicationsPage
+  const hasMaxWidth = homePage || isOldCmsPage(currentPage) || isCmsPage(currentPage)
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
@@ -118,7 +114,6 @@ const App = ({
                 homePage,
                 currentPage,
                 embedPreviewMode,
-                isCmsPage,
               }}
             />
           </div>

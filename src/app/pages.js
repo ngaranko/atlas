@@ -37,7 +37,7 @@ const PAGES = {
 
 export default PAGES
 
-export const isCmsPage = page =>
+export const isOldCmsPage = page =>
   page === PAGES.NEWS ||
   page === PAGES.HELP ||
   page === PAGES.ACTUALITEIT ||
@@ -53,6 +53,11 @@ export const isCmsPage = page =>
   page === PAGES.MOVED ||
   page === PAGES.NOT_FOUND ||
   page === PAGES.MANAGEMENT
+
+export const isCmsPage = page =>
+  page === PAGES.ARTICLE ||
+  page === PAGES.PUBLICATIONS ||
+  page === PAGES.SPECIALS
 
 export const isMapSplitPage = page =>
   page === PAGES.DATA ||

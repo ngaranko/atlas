@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import { FeedbackModal, InfoModal } from './components/Modal'
-import PAGES, { isMapSplitPage } from './pages'
+import PAGES, { isMapSplitPage, isOldCmsPage } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
 import ArticlePageContainer from './pages/ArticlePageContainer'
 
@@ -34,7 +34,6 @@ const AppBody = ({
   homePage,
   currentPage,
   embedPreviewMode,
-  isCmsPage,
 }) => {
   const [state] = useAppReducer('ui')
 
@@ -78,7 +77,7 @@ const AppBody = ({
 
             {currentPage === PAGES.PUBLICATIONS && <PublicationsPage />}
 
-            {isCmsPage && <ContentPage />}
+            {isOldCmsPage(currentPage) && <ContentPage />}
 
             <FeedbackModal id="feedbackModal" />
             <InfoModal id="infoModal" open />
@@ -96,7 +95,6 @@ AppBody.propTypes = {
   homePage: PropTypes.bool.isRequired,
   currentPage: PropTypes.string.isRequired,
   embedPreviewMode: PropTypes.bool.isRequired,
-  isCmsPage: PropTypes.bool.isRequired,
 }
 
 export default AppBody
