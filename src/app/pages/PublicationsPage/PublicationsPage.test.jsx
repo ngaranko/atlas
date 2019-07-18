@@ -5,11 +5,14 @@ import { ThemeProvider } from '@datapunt/asc-ui'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import PublicationsPage from './PublicationsPage'
 import useDataFetching from '../../utils/useDataFetching'
+import getReduxLinkProps from '../../utils/getReduxLinkProps'
 
 jest.mock('../../utils/useDataFetching')
+jest.mock('../../utils/getReduxLinkProps')
 
 describe('PublicationsPage', () => {
   const id = 3
+  const href = 'https://this.is/a-link/this-is-a-slug'
 
   const mockData = {
     fetchData: jest.fn(),
@@ -17,20 +20,24 @@ describe('PublicationsPage', () => {
       data: [
         {
           attributes: {
+            drupal_internal__nid: 100,
             title: 'This is a title',
             created: '2015-05-05',
             body: {
-              processed: 'body text',
+              value: 'body text',
             },
             field_file_size: 'file size',
             field_file_type: 'pdf',
             field_publication_source: 'source',
             field_publication_intro: 'intro',
+            field_slug: 'slug',
           },
         },
       ],
       included: [
         { attributes: { uri: { url: 'https://cover-link' } } },
+        { attributes: { uri: { url: 'https://cover-link' } } },
+        { attributes: { uri: { url: 'https://document-link' } } },
         { attributes: { uri: { url: 'https://document-link' } } },
       ],
     },
@@ -38,7 +45,13 @@ describe('PublicationsPage', () => {
 
   let store
   beforeEach(() => {
+    getReduxLinkProps.mockImplementation(() => ({ href }))
+
     store = configureMockStore()({ location: { payload: { id } } })
+  })
+
+  afterEach(() => {
+    jest.resetAllMocks()
   })
 
   it('should render the spinner when the request is loading', () => {
@@ -68,7 +81,9 @@ describe('PublicationsPage', () => {
       { context: { store } },
     )
 
-    const endpoint = `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?filter[drupal_internal__nid]=${id}&include=field_cover_image,field_publication_file`
+    const endpoint = `${
+      SHARED_CONFIG.CMS_ROOT
+    }jsonapi/node/publication?filter[drupal_internal__nid]=${id}&include=field_cover_image.field_media_image,field_file.field_media_file`
 
     expect(component.find('PublicationsPage').props().endpoint).toBe(endpoint)
 
