@@ -14,7 +14,6 @@ import {
   isPrintMode,
   isPrintModeLandscape,
   isPrintOrEmbedMode,
-  hasTallHeader,
 } from '../shared/ducks/ui/ui'
 import { hasGlobalError } from '../shared/ducks/error/error-message'
 import { getUser } from '../shared/ducks/user/user'
@@ -39,16 +38,16 @@ const App = ({
   user,
   hasPrintButton,
   hasEmbedButton,
-  tallHeader,
 }) => {
   const isCmsPage = pageIsCmsPage(currentPage)
   const isArticlePage = currentPage === PAGES.ARTICLE
-  const hasMaxWidth = tallHeader || isCmsPage || isArticlePage || specialsPage
+  const isPublicationsPage = currentPage === PAGES.PUBLICATIONS
+  const hasMaxWidth = homePage || isCmsPage || isArticlePage || specialsPage || isPublicationsPage
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
     'c-dashboard--full-height': isFullHeight,
-    'c-dashboard--homepage': tallHeader,
+    'c-dashboard--homepage': homePage,
   })
   const bodyClasses = classNames({
     'c-dashboard__body--error': visibilityError,
@@ -101,7 +100,7 @@ const App = ({
           >
             {!embedMode && (
               <Header
-                homePage={tallHeader}
+                homePage={homePage}
                 hasMaxWidth={hasMaxWidth}
                 user={user}
                 printMode={printMode}
@@ -120,7 +119,6 @@ const App = ({
                 currentPage,
                 embedPreviewMode,
                 isCmsPage,
-                tallHeader,
               }}
             />
           </div>
@@ -149,7 +147,6 @@ App.propTypes = {
   user: PropTypes.shape({}).isRequired,
   hasPrintButton: PropTypes.bool.isRequired,
   hasEmbedButton: PropTypes.bool.isRequired,
-  tallHeader: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -166,7 +163,6 @@ const mapStateToProps = state => ({
   visibilityError: hasGlobalError(state),
   hasPrintButton: hasPrintMode(state),
   hasEmbedButton: isMapActive(state),
-  tallHeader: hasTallHeader(state),
 })
 
 const AppContainer = connect(
