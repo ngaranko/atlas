@@ -52,11 +52,13 @@ const Gallery = ({ title, allThumbnails, id, maxLength }) => {
                     <div className="c-gallery__square">
                       <a
                         title=""
-                        {...getReduxLinkProps(toConstructionFileViewer(id, encodeURIComponent(file.match(/SU(.*)/g))))}
+                        {...getReduxLinkProps(
+                          toConstructionFileViewer(id, encodeURIComponent(file))
+                        )}
                         className="c-gallery__thumbnail"
                       >
                         <Thumbnail
-                          src={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${encodeURIComponent(file.match(/SU(.*)/g))}/square/500,500/0/default.jpg`}
+                          src={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${encodeURIComponent(file)}/square/500,500/0/default.jpg`}
                           title={file.match(/[^/]*$/g)[0]}
                         />
                       </a>
