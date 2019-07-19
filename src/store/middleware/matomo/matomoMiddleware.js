@@ -9,13 +9,13 @@ import { MATOMO_CONFIG } from './constants'
 
 // Initialize connection with Matomo
 export const initializeMatomo = () => {
-  const urlBase = 'https://analytics.data.amsterdam.nl/'
+  const urlBase = 'https://piwik.data.amsterdam.nl/'
 
   window._paq = window._paq || []
 
   if (window._paq.length === 0) {
     window._paq.push(['enableLinkTracking'])
-    window._paq.push(['setTrackerUrl', `${urlBase}matomo.php`])
+    window._paq.push(['setTrackerUrl', `${urlBase}piwik.php`])
     window._paq.push([
       'setSiteId',
       MATOMO_CONFIG[getEnvironment(window.location.hostname)].SITE_ID,
@@ -28,7 +28,7 @@ export const initializeMatomo = () => {
     matomo.type = 'text/javascript'
     matomo.async = true
     matomo.defer = true
-    matomo.src = `${urlBase}matomo.js`
+    matomo.src = `${urlBase}piwik.js`
 
     scripts.parentNode.insertBefore(matomo, scripts)
   }
