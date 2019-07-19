@@ -5,8 +5,6 @@ import {
   isDatasetDetailPage,
   isPanoPage,
   isDataPage,
-  isHomepage,
-  isPublicationsPage,
 } from '../../../store/redux-first-router/selectors'
 import paramsRegistry from '../../../store/params-registry'
 

@@ -7,6 +7,8 @@ const MAIN_PATHS = {
   DATA: 'data',
   DATASETS: 'datasets',
   CONTENT: 'content',
+  PUBLICATIONS: 'publicaties',
+  SPECIALS: 'specials'
 }
 
 export const routing = {
@@ -180,13 +182,13 @@ export const routing = {
   },
   specials: {
     title: 'Specials',
-    path: `/specials/special/:id/:slug`,
+    path: `/${MAIN_PATHS.SPECIALS}/special/:id/:slug`,
     type: `${ROUTER_NAMESPACE}/${PAGES.SPECIALS}`,
     page: PAGES.SPECIALS,
   },
   publications: {
     title: 'Publicaties',
-    path: `/publicaties/:id/:slug`,
+    path: `/${MAIN_PATHS.PUBLICATIONS}/publicatie/:id/:slug`,
     type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATIONS}`,
     page: PAGES.PUBLICATIONS,
   },

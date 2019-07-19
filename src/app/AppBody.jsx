@@ -6,7 +6,6 @@ import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMe
 import { FeedbackModal, InfoModal } from './components/Modal'
 import PAGES, { isMapSplitPage, isOldCmsPage } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
-import ArticlePageContainer from './pages/ArticlePageContainer'
 
 const ContentPage = React.lazy(() => import('./pages/ContentPage'))
 const Home = React.lazy(() => import('./pages/Home'))
@@ -22,8 +21,9 @@ const DatasetDetailContainer = React.lazy(() =>
   import('./containers/DatasetDetailContainer/DatasetDetailContainer'),
 )
 const SpecialsPage = React.lazy(() =>
-  import('./pages/SpecialsPage/SpecialsPage'),
+  import('./pages/SpecialsPage'),
 )
+const ArticlePage = React.lazy(() => import('./pages/ArticlePage'))
 const PublicationsPage = React.lazy(() => import('./pages/PublicationsPage'))
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 
@@ -71,7 +71,7 @@ const AppBody = ({
 
             {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
 
-            {currentPage === PAGES.ARTICLE && <ArticlePageContainer />}
+            {currentPage === PAGES.ARTICLE && <ArticlePage />}
 
             {currentPage === PAGES.SPECIALS && <SpecialsPage />}
 

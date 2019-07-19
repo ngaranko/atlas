@@ -1,53 +1,61 @@
 import normalize from 'json-api-normalize'
-import { dateToString } from '../../shared/services/date-formatter/date-formatter'
+import formatDate, { dateToString } from '../../shared/services/date-formatter/date-formatter'
 
 // eslint-disable-next-line import/prefer-default-export
-export const normalizeArticleData = data => {
-  const {
-    title,
-    body,
-    field_image: image,
-    field_downloads: downloads,
-    field_links: links,
-    field_byline: byline,
-    field_slug: slug,
-    field_intro: intro,
-    field_publication_date: pubDate,
-  } = normalize(data).get([
+const normalizeFromCMS = (data, fields) => {
+  // const fields = [
+  //   'field_image',
+  //   'field_downloads',
+  //   'field_links',
+  //   'field_byline',
+  //   'field_slug',
+  //   'field_intro'
+  // ]
+
+  const { title, body, created, ...otherFields } = normalize(data).get([
     'title',
     'body',
-    'field_image.uri',
-    'field_downloads.title',
-    'field_downloads.drupal_internal__nid',
-    'field_downloads.field_file_type',
-    'field_downloads.field_file_size',
-    'field_downloads.field_publication_file.uri',
-    'field_links',
-    'field_byline',
-    'field_slug',
-    'field_intro',
-    'field_publication_date',
+    'created',
+    ...fields,
   ])[0]
-  const publicationDate = new Date(pubDate)
-  const date = dateToString(publicationDate)
-  const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  }
 
-  const localeDate = publicationDate.toLocaleDateString('nl-NL', options)
+  const publicationDate = new Date(created)
+  const date = dateToString(publicationDate)
+  const localeDate = formatDate(publicationDate)
+
+  const coverUrl = data.included ? data.included[1].attributes.uri.url : {}
 
   return {
     title,
-    slug,
-    intro,
     date,
     localeDate,
     body: body.value,
-    image,
-    downloads,
-    links,
-    byline,
+    coverUrl,
+    included: data.included,
+    ...otherFields
   }
 }
+
+export default normalizeFromCMS
+
+// export const normalizePublicationData = (data) => {
+//   const normalizedData = normalizeData(data, ['field_file_size', 'field_file_type', 'field_publication_source', 'field_publication_intro', 'field_slug'])
+//   const { title, body, created, ...otherFields } = normalize(data).get([
+//     'title',
+//     'body',
+//     'created',
+//     ...fields,
+//   ])[0]
+
+//   const publicationDate = new Date(created)
+//   const date = dateToString(publicationDate)
+//   const localeDate = formatDate(publicationDate)
+
+//   return {
+//     title,
+//     date,
+//     localeDate,
+//     body: body.value,
+//     ...otherFields
+//   }
+// }

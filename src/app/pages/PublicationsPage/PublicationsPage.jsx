@@ -17,33 +17,54 @@ import {
 } from '@datapunt/asc-ui'
 // import Footer from '../../components/Footer/Footer'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
-import formatDate from '../../../shared/services/date-formatter/date-formatter'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useDataFetching from '../../utils/useDataFetching'
-import { toPublication } from '../../../store/redux-first-router/actions';
-import getReduxLinkProps from '../../utils/getReduxLinkProps';
+import { toPublication } from '../../../store/redux-first-router/actions'
+import getReduxLinkProps from '../../utils/getReduxLinkProps'
+import normalizeFromCMS from '../../utils/normalizeFromCMS'
+import { routing } from '../../routes'
 
 /* istanbul ignore next */
-const PublicationsPage = ({ endpoint }) => {
+const PublicationsPage = ({ id, endpoint }) => {
+  const [publication, setPublication] = React.useState({})
   const { fetchData, results, loading } = useDataFetching()
 
   React.useEffect(() => {
     fetchData(endpoint)
   }, [])
 
+  React.useEffect(() => {
+    if (results) {
+      try {
+        const data = normalizeFromCMS(results, [
+          'field_file_size',
+          'field_file_type',
+          'field_publication_source',
+          'field_publication_intro',
+          'field_slug',
+        ])
+  
+        setPublication(data)
+      } catch(e) {
+        window.location.replace(routing.niet_gevonden.path)
+      }
+    }
+  }, [results])
+
   const {
-    drupal_internal__nid: id,
     title,
-    created,
+    localeDate,
     body,
+    coverUrl,
     field_file_size: fileSize,
     field_file_type: fileType,
     field_publication_source: source,
     field_publication_intro: intro,
     field_slug: slug,
-  } = results ? results.data[0].attributes : {}
-  const coverUrl = results ? results.included[1].attributes.uri.url : {}
-  const downloadUrl = results ? results.included[3].attributes.uri.url : {}
+    included,
+  } = publication
+
+  const downloadUrl = included ? publication.included[3].attributes.uri.url : {}
 
   const action = toPublication(id, slug)
   const { href } = getReduxLinkProps(action)
@@ -80,7 +101,7 @@ const PublicationsPage = ({ endpoint }) => {
                         <BlogMetaList
                           fields={[
                             { id: 1, label: source },
-                            { id: 4, label: formatDate(new Date(created)) },
+                            { id: 4, label: localeDate },
                             { id: 2, label: fileSize },
                             { id: 3, label: fileType.toUpperCase() },
                           ]}
@@ -115,11 +136,15 @@ const PublicationsPage = ({ endpoint }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  endpoint: `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?filter[drupal_internal__nid]=${
-    getLocationPayload(state).id
-  }&include=field_cover_image.field_media_image,field_file.field_media_file`,
-})
+const mapStateToProps = state => {
+  const { id } = getLocationPayload(state)
+  return {
+    id,
+    endpoint: `${
+      SHARED_CONFIG.CMS_ROOT
+    }jsonapi/node/publication?filter[drupal_internal__nid]=${id}&include=field_cover_image.field_media_image,field_file.field_media_file`,
+  }
+}
 
 export default connect(
   mapStateToProps,

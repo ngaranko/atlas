@@ -5,7 +5,9 @@ import { Helmet } from 'react-helmet'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import setIframeSize from '../../utils/setIframeSize'
+import normalizeFromCMS from '../../utils/normalizeFromCMS'
 import useDataFetching from '../../utils/useDataFetching'
+import { routing } from '../../routes'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
 import { toSpecial } from '../../../store/redux-first-router/actions'
 import './SpecialsPage.scss'
@@ -14,6 +16,7 @@ const SpecialsPage = ({ id, endpoint }) => {
   const { fetchData, results, loading } = useDataFetching()
   const [iframeLoading, setIframeLoading] = React.useState(true)
   const [iframeHeight, setIframeHeight] = React.useState(0)
+  const [special, setSpecial] = React.useState(0)
   const iframeRef = React.useRef(null)
 
   const handleResize = () => {
@@ -30,6 +33,22 @@ const SpecialsPage = ({ id, endpoint }) => {
     }
   }, [])
 
+
+  React.useEffect(() => {
+    if (results) {
+      try {
+        const data = normalizeFromCMS(results, [
+          'field_iframe_link',
+          'field_slug',
+        ])
+  
+        setSpecial(data)
+      } catch(e) {
+        window.location.replace(routing.niet_gevonden.path)
+      }
+    }
+  }, [results])
+
   React.useEffect(() => {
     if (iframeRef.current) {
       iframeRef.current.height = `${iframeHeight}px`
@@ -43,9 +62,7 @@ const SpecialsPage = ({ id, endpoint }) => {
     handleResize(setIframeHeight)
   }
 
-  const { field_iframe_link: iframeLink, slug = 'needs-slug', title } = results
-    ? results.data[0].attributes
-    : {}
+  const { field_iframe_link: iframeLink, field_slug: slug, title } = special
 
   const action = toSpecial(id, slug)
   const { href } = getReduxLinkProps(action)
