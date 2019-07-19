@@ -85,7 +85,7 @@ describe('The window error handler', function() {
   it('does not register error if matomo is not loaded', function() {
     onError({
       target: {
-        src: 'https://analytics.data.amsterdam.nl/matomo.js',
+        src: 'https://piwik.data.amsterdam.nl/piwik.js',
       },
     })
     $rootScope.$digest()
