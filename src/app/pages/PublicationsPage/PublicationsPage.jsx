@@ -18,38 +18,22 @@ import {
 // import Footer from '../../components/Footer/Footer'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
-import useDataFetching from '../../utils/useDataFetching'
+import useFromCMS from '../../utils/useFromCMS'
 import { toPublication } from '../../../store/redux-first-router/actions'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
-import normalizeFromCMS from '../../utils/normalizeFromCMS'
-import { routing } from '../../routes'
 
-/* istanbul ignore next */
 const PublicationsPage = ({ id, endpoint }) => {
-  const [publication, setPublication] = React.useState({})
-  const { fetchData, results, loading } = useDataFetching()
+  const { fetchFromCMS, results, loading } = useFromCMS()
 
   React.useEffect(() => {
-    fetchData(endpoint)
+    fetchFromCMS(endpoint, [
+      'field_file_size',
+      'field_file_type',
+      'field_publication_source',
+      'field_publication_intro',
+      'field_slug',
+    ])
   }, [])
-
-  React.useEffect(() => {
-    if (results) {
-      try {
-        const data = normalizeFromCMS(results, [
-          'field_file_size',
-          'field_file_type',
-          'field_publication_source',
-          'field_publication_intro',
-          'field_slug',
-        ])
-  
-        setPublication(data)
-      } catch(e) {
-        window.location.replace(routing.niet_gevonden.path)
-      }
-    }
-  }, [results])
 
   const {
     title,
@@ -62,9 +46,9 @@ const PublicationsPage = ({ id, endpoint }) => {
     field_publication_intro: intro,
     field_slug: slug,
     included,
-  } = publication
+  } = results || {}
 
-  const downloadUrl = included ? publication.included[3].attributes.uri.url : {}
+  const downloadUrl = included ? results.included[3].attributes.uri.url : {}
 
   const action = toPublication(id, slug)
   const { href } = getReduxLinkProps(action)
@@ -113,8 +97,7 @@ const PublicationsPage = ({ id, endpoint }) => {
                         imageSrc={`${SHARED_CONFIG.CMS_ROOT}${coverUrl}`}
                         description={`Download PDF (${fileSize})`}
                         onClick={() => {
-                          const link = `${SHARED_CONFIG.CMS_ROOT}${downloadUrl}`
-                          download(link)
+                          download(`${SHARED_CONFIG.CMS_ROOT}${downloadUrl}`)
                         }}
                       />
                     </Column>

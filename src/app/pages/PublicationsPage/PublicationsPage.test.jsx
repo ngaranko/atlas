@@ -4,22 +4,20 @@ import configureMockStore from 'redux-mock-store'
 import { ThemeProvider } from '@datapunt/asc-ui'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import PublicationsPage from './PublicationsPage'
-import useDataFetching from '../../utils/useDataFetching'
+import useFromCMS from '../../utils/useFromCMS'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
 
-jest.mock('../../utils/useDataFetching')
+jest.mock('../../utils/useFromCMS')
 jest.mock('../../utils/getReduxLinkProps')
+jest.mock('downloadjs')
 
 describe('PublicationsPage', () => {
   const id = 3
   const href = 'https://this.is/a-link/this-is-a-slug'
 
   const mockData = {
-    fetchData: jest.fn(),
+    fetchFromCMS: jest.fn(),
     results: {
-      data: [
-        {
-          attributes: {
             drupal_internal__nid: 100,
             title: 'This is a title',
             created: '2015-05-05',
@@ -31,9 +29,6 @@ describe('PublicationsPage', () => {
             field_publication_source: 'source',
             field_publication_intro: 'intro',
             field_slug: 'slug',
-          },
-        },
-      ],
       included: [
         { attributes: { uri: { url: 'https://cover-link' } } },
         { attributes: { uri: { url: 'https://cover-link' } } },
@@ -55,7 +50,7 @@ describe('PublicationsPage', () => {
   })
 
   it('should render the spinner when the request is loading', () => {
-    useDataFetching.mockImplementation(() => ({
+    useFromCMS.mockImplementation(() => ({
       loading: true,
     }))
 
@@ -67,10 +62,10 @@ describe('PublicationsPage', () => {
     expect(spinner.exists()).toBeTruthy()
   })
 
-  it('should call the fetchData function when the component mounts', () => {
-    const fetchDataMock = jest.fn()
-    useDataFetching.mockImplementation(() => ({
-      fetchData: fetchDataMock,
+  it('should call the fetchFromCMS function when the component mounts', () => {
+    const fetchFromCMSMock = jest.fn()
+    useFromCMS.mockImplementation(() => ({
+      fetchFromCMS: fetchFromCMSMock,
       loading: true,
     }))
 
@@ -87,11 +82,17 @@ describe('PublicationsPage', () => {
 
     expect(component.find('PublicationsPage').props().endpoint).toBe(endpoint)
 
-    expect(fetchDataMock).toHaveBeenCalledWith(endpoint)
+    expect(fetchFromCMSMock).toHaveBeenCalledWith(endpoint, [
+      'field_file_size',
+      'field_file_type',
+      'field_publication_source',
+      'field_publication_intro',
+      'field_slug',
+    ])
   })
 
   it('should render the publication when there are results', () => {
-    useDataFetching.mockImplementation(() => mockData)
+    useFromCMS.mockImplementation(() => mockData)
     // console.log(store)
     const component = render(
       <ThemeProvider>

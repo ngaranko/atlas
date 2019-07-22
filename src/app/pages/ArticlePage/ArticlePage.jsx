@@ -23,36 +23,21 @@ import { toArticle } from '../../../store/redux-first-router/actions'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import Footer from '../../components/Footer/Footer'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
-import normalizeFromCMS from '../../utils/normalizeFromCMS'
-import useDataFetching from '../../utils/useDataFetching'
-import { routing } from '../../routes'
+import useFromCMS from '../../utils/useFromCMS'
 import './ArticlePage.scss'
 
 /* istanbul ignore next */ const ArticlePage = ({ id, endpoint }) => {
-  const [article, setArticle] = React.useState({})
-  const { fetchData, results, loading } = useDataFetching()
+  const { fetchFromCMS, results, loading } = useFromCMS()
 
   React.useEffect(() => {
-    fetchData(endpoint)
+    fetchFromCMS(endpoint, [
+      'field_downloads',
+      'field_links',
+      'field_byline',
+      'field_slug',
+      'field_intro'
+    ])
   }, [])
-
-  React.useEffect(() => {
-    if (results) {
-      try {
-        const data = normalizeFromCMS(results, [
-          'field_downloads',
-          'field_links',
-          'field_byline',
-          'field_slug',
-          'field_intro'
-        ])
-  
-        setArticle(data)
-      } catch(e) {
-        window.location.replace(routing.niet_gevonden.path)
-      }
-    }
-  }, [results])
 
   const {
     title,
@@ -65,7 +50,7 @@ import './ArticlePage.scss'
     field_byline: byline,
     field_slug: slug,
     field_intro: intro,
-  } = article
+  } = results || {}
   const action = toArticle(id, slug)
   const { href } = getReduxLinkProps(action)
 
