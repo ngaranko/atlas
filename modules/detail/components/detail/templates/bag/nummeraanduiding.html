@@ -40,7 +40,10 @@
         ng-if="vm.apiData.results.type === 'Verblijfsobject'"
         endpoint="{{vm.apiData.results.verblijfsobject}}"
         partial="bag/verblijfsobject"
-        user="vm.user">
+        user="vm.user"
+        id="vm.id"
+        sub-type="vm.subType"
+    >
     </dp-api-call>
 
     <!-- standplaats -->
@@ -58,5 +61,4 @@
         partial="bag/ligplaats"
         user="vm.user">
     </dp-api-call>
-
 </div>

@@ -13,6 +13,8 @@ const Detail = ({
   detailData,
   detailFilterSelection,
   printMode,
+  subType,
+  id
 }) => (
   <div className="qa-detail">
     <AngularWrapper
@@ -27,6 +29,8 @@ const Detail = ({
         detailTemplateUrl,
         detailData,
         detailFilterSelection,
+        subType,
+        id,
       }}
       interpolateBindings={{
         endpoint,
@@ -57,6 +61,8 @@ Detail.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   user: PropTypes.shape({}).isRequired,
   endpoint: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  subType: PropTypes.string.isRequired,
   previewPanorama: PropTypes.shape({}),
   printMode: PropTypes.bool,
   isPreviewPanoramaLoading: PropTypes.bool,

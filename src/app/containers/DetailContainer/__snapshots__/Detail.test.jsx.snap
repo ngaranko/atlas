@@ -10,9 +10,11 @@ exports[`Detail should render 1`] = `
         "detailData": Object {},
         "detailFilterSelection": Object {},
         "detailTemplateUrl": "",
+        "id": "1",
         "isLoading": false,
         "isPreviewPanoramaLoading": false,
         "previewPanorama": null,
+        "subType": "nummeraanduiding",
         "user": Object {},
       }
     }
