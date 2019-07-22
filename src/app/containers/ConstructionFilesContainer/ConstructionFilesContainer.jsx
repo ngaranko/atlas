@@ -51,6 +51,7 @@ const ConstructionFilesContainer = ({ fileName, user, endpoint }) => {
 
   // Effect to update the documentTitle
   React.useEffect(
+    /* istanbul ignore next */
     () => {
       if (title) {
         setDocumentTitle(imageViewerActive && 'Bouwtekening')
@@ -61,6 +62,7 @@ const ConstructionFilesContainer = ({ fileName, user, endpoint }) => {
 
   // Track pageView when documentTitle changes
   React.useEffect(
+    /* istanbul ignore next */
     () => {
       if (title) {
         trackPageView(documentTitle)
@@ -71,6 +73,7 @@ const ConstructionFilesContainer = ({ fileName, user, endpoint }) => {
 
   // If there is no filename, don't show the viewer
   React.useEffect(
+    /* istanbul ignore next */
     () => {
       setImageViewerActive(!!fileName)
     },

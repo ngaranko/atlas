@@ -1,4 +1,5 @@
 import React from 'react'
+import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { ThemeProvider } from '@datapunt/asc-ui'
@@ -18,11 +19,11 @@ describe('ConstructionFilesContainer', () => {
       documentTitle: 'foo',
       setDocumentTitle: mockSetDocumentTitle,
     }))
-    getByUrl.mockImplementation(() => ({
-      results: {
-        title: 'foo',
-      },
-    }))
+    getByUrl.mockReturnValue({
+
+        title: 'foo'
+      
+    })
 
     const store = configureMockStore()({
       ui: { isPrintMode: false },
@@ -33,6 +34,7 @@ describe('ConstructionFilesContainer', () => {
         },
       },
     })
+    
     component = mount(
       <ThemeProvider>
         <ConstructionFilesContainer fileName="foo" store={store} />
