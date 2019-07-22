@@ -7,10 +7,16 @@ import { sharePage } from '../../../../shared/ducks/ui/ui';
 jest.mock('../../../../shared/ducks/ui/ui');
 
 describe('ContextMenu for ConstructionFiles viewer', () => {
-  it('should render', () => {
+  let component
+const mockOnDownload = jest.fn()
+    const mockOpenPrintMode = jest.fn()
+
+  beforeEach(() => {
+    
     const props = {
       fileName: 'filename.jpg',
-      onDownload: jest.fn()
+      onDownload: mockOnDownload,
+      openPrintMode: mockOpenPrintMode
     };
     const initialState = {
       map: {
@@ -23,8 +29,24 @@ describe('ContextMenu for ConstructionFiles viewer', () => {
     sharePage.mockImplementation(() => ({ type: 'action' }));
 
     const store = configureMockStore()({ ...initialState });
-    const component = shallow(<ConstructionFiles {...props} />, { context: { store } }).dive();
+    component = shallow(<ConstructionFiles {...props} />, { context: { store } }).dive();
+  })
 
+  it('should render', () => {
     expect(component).toMatchSnapshot();
   });
+
+  it('should handle the onClick events', () => {
+    const downloadButton = component.find('ContextMenuItem')
+
+    downloadButton.at(1).simulate('click')
+    expect(mockOnDownload).toHaveBeenCalledWith('klein')
+
+    downloadButton.at(2).simulate('click')
+    expect(mockOnDownload).toHaveBeenCalledWith('groot')
+
+    downloadButton.at(3).simulate('click')
+    expect(mockOnDownload).toHaveBeenCalledWith('origineel')
+  });
+
 });

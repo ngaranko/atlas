@@ -1,0 +1,293 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConstructionFilesContainer should render 1`] = `
+<DefaultThemeProvider>
+  <ThemeProvider
+    theme={
+      Object {
+        "breakpoints": Object {
+          "desktop": [Function],
+          "desktopL": [Function],
+          "laptop": [Function],
+          "laptopL": [Function],
+          "laptopM": [Function],
+          "mobileL": [Function],
+          "mobileM": [Function],
+          "mobileS": [Function],
+          "tabletM": [Function],
+          "tabletS": [Function],
+        },
+        "colors": Object {
+          "bright": Object {
+            "main": "#ffffff",
+          },
+          "error": Object {
+            "main": "#ec0000",
+          },
+          "primary": Object {
+            "dark": "#00387a",
+            "main": "#004699",
+          },
+          "secondary": Object {
+            "dark": "#bc0000",
+            "main": "#ec0000",
+          },
+          "support": Object {
+            "focus": "#FEC813",
+            "invalid": "#EC0000",
+            "valid": "#00A03C",
+          },
+          "tint": Object {
+            "level1": "#ffffff",
+            "level2": "#F5F5F5",
+            "level3": "#E6E6E6",
+            "level4": "#B4B4B4",
+            "level5": "#767676",
+            "level6": "#323232",
+            "level7": "#000000",
+          },
+        },
+        "globalStyle": "",
+        "typography": Object {
+          "a": Object {
+            "color": "#000000",
+            "fontSize": "1rem",
+            "fontWeight": "inherit",
+            "letterSpacing": "-0.01562em",
+            "lineHeight": 1,
+          },
+          "em": Object {
+            "color": "#767676",
+            "fontSize": "1rem",
+            "fontWeight": 400,
+            "letterSpacing": "-0.01562em",
+            "lineHeight": 1.25,
+          },
+          "fontFamily": "Avenir Next, Arial, sans-serif",
+          "fontSize": "16px",
+          "h1": Object {
+            "color": "#000000",
+            "fontSize": "30px",
+            "fontWeight": 700,
+            "letterSpacing": "inherit",
+            "lineHeight": "38px",
+          },
+          "h2": Object {
+            "color": "#ec0000",
+            "fontSize": "24px",
+            "fontWeight": 700,
+            "letterSpacing": "-0.01562em",
+            "lineHeight": 1,
+          },
+          "h3": Object {
+            "color": "#ec0000",
+            "fontSize": "20px",
+            "fontWeight": 700,
+            "letterSpacing": "-0.01562em",
+            "lineHeight": 1,
+          },
+          "h4": Object {
+            "color": "#000000",
+            "fontSize": "1.125rem",
+            "fontWeight": 400,
+            "letterSpacing": "-0.01562em",
+            "lineHeight": 1,
+          },
+          "h5": Object {
+            "color": "#000000",
+            "fontSize": "1.125rem",
+            "fontWeight": 400,
+            "letterSpacing": "-0.01562em",
+            "lineHeight": 1,
+          },
+          "h6": Object {
+            "color": "#000000",
+            "fontSize": "6rem",
+            "fontWeight": 400,
+            "letterSpacing": "-0.01562em",
+            "lineHeight": 1,
+          },
+          "p": Object {
+            "color": "#000000",
+            "fontSize": "1rem",
+            "fontWeight": 400,
+            "letterSpacing": "-0.01562em",
+            "lineHeight": 1.25,
+          },
+        },
+      }
+    }
+  >
+    <Connect(ConstructionFilesContainer)
+      fileName="foo"
+      store={
+        Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        }
+      }
+    >
+      <ConstructionFilesContainer
+        dispatch={[Function]}
+        endpoint="https://acc.api.data.amsterdam.nl/stadsarchief/bouwdossier/12/"
+        store={
+          Object {
+            "clearActions": [Function],
+            "dispatch": [Function],
+            "getActions": [Function],
+            "getState": [Function],
+            "replaceReducer": [Function],
+            "subscribe": [Function],
+          }
+        }
+        storeSubscription={
+          Subscription {
+            "listeners": Object {
+              "clear": [Function],
+              "get": [Function],
+              "notify": [Function],
+              "subscribe": [Function],
+            },
+            "onStateChange": [Function],
+            "parentSub": undefined,
+            "store": Object {
+              "clearActions": [Function],
+              "dispatch": [Function],
+              "getActions": [Function],
+              "getState": [Function],
+              "replaceReducer": [Function],
+              "subscribe": [Function],
+            },
+            "unsubscribe": [Function],
+          }
+        }
+        user={
+          Object {
+            "scopes": Array [
+              "BD/R",
+            ],
+          }
+        }
+      >
+        <styled.div
+          direction="column"
+          gutterX={20}
+          gutterY={20}
+        >
+          <StyledComponent
+            direction="column"
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-iRbamj",
+                  "isStatic": false,
+                  "lastClassName": "jsYkIZ",
+                  "rules": Array [
+                    "
+  display: flex;
+  flex-direction: ",
+                    [Function],
+                    ";
+  flex-wrap: ",
+                    [Function],
+                    ";
+  ",
+                    [Function],
+                    "
+
+  ",
+                    [Function],
+                    "
+
+  ",
+                    ".sc-gPEVay",
+                    " {
+    ",
+                    [Function],
+                    "
+
+    ",
+                    [Function],
+                    "
+  }
+",
+                  ],
+                },
+                "displayName": "styled.div",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-iRbamj",
+                "target": "div",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            gutterX={20}
+            gutterY={20}
+          >
+            <div
+              className="sc-iRbamj jsYkIZ"
+              direction="column"
+            >
+              <styled.div>
+                <StyledComponent
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-gPEVay",
+                        "isStatic": false,
+                        "lastClassName": "dybjyT",
+                        "rules": Array [
+                          "
+  position: relative;
+  ",
+                          [Function],
+                          "
+",
+                        ],
+                      },
+                      "displayName": "styled.div",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "sc-gPEVay",
+                      "target": "div",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                >
+                  <div
+                    className="sc-gPEVay dybjyT"
+                  >
+                    <LoadingIndicator>
+                      <div
+                        className="loading-indicator"
+                      >
+                        <span
+                          className="icon"
+                        />
+                      </div>
+                    </LoadingIndicator>
+                  </div>
+                </StyledComponent>
+              </styled.div>
+            </div>
+          </StyledComponent>
+        </styled.div>
+      </ConstructionFilesContainer>
+    </Connect(ConstructionFilesContainer)>
+  </ThemeProvider>
+</DefaultThemeProvider>
+`;

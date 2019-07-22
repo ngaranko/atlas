@@ -23,7 +23,7 @@ const ImageViewer = React.lazy(() => import('../../components/ImageViewer/ImageV
 const ERROR_MESSAGE =
   'Er kunnen door een technische storing helaas geen bouwdossiers worden getoond. Probeer het later nog eens.'
 
-const ConstructionFiles = ({ fileName, user, endpoint }) => {
+const ConstructionFilesContainer = ({ fileName, user, endpoint }) => {
   const [results, setResults] = React.useState(null)
   const [errorMessage, setErrorMessage] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
@@ -109,7 +109,7 @@ const ConstructionFiles = ({ fileName, user, endpoint }) => {
   )
 }
 
-ConstructionFiles.propTypes = {
+ConstructionFilesContainer.propTypes = {
   fileName: PropTypes.string,
   user: PropTypes.shape({}).isRequired,
   endpoint: PropTypes.string.isRequired,
@@ -126,4 +126,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   null,
-)(ConstructionFiles)
+)(ConstructionFilesContainer)
