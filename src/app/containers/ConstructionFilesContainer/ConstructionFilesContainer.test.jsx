@@ -1,5 +1,4 @@
 import React from 'react'
-import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { ThemeProvider } from '@datapunt/asc-ui'
