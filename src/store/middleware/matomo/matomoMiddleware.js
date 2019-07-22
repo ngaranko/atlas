@@ -9,7 +9,7 @@ import { MATOMO_CONFIG } from './constants'
 
 // Initialize connection with Matomo
 export const initializeMatomo = () => {
-  const urlBase = 'https://piwik.data.amsterdam.nl/'
+  const urlBase = 'https://piwik.datapunt.amsterdam.nl/'
 
   window._paq = window._paq || []
 
