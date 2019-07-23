@@ -1,4 +1,3 @@
-
 import { act } from 'react-dom/test-utils'
 import useDataFetching from './useDataFetching'
 import testHook from '../../../test/test-hook'

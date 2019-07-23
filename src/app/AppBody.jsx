@@ -20,6 +20,7 @@ const ActualityContainer = React.lazy(() =>
 const DatasetDetailContainer = React.lazy(() =>
   import('./containers/DatasetDetailContainer/DatasetDetailContainer'),
 )
+const ConstructionFilesContainer = React.lazy(() => import('./containers/ConstructionFilesContainer/ConstructionFilesContainer'))
 const SpecialsPage = React.lazy(() =>
   import('./pages/SpecialsPage'),
 )
@@ -66,6 +67,8 @@ const AppBody = ({
             {currentPage === PAGES.ACTUALITY && <ActualityContainer />}
 
             {isMapSplitPage(currentPage) && <MapSplitPage />}
+
+            {currentPage === PAGES.CONSTRUCTION_FILE && <ConstructionFilesContainer />}
 
             {currentPage === PAGES.DATASETS && <DatasetPage />}
 

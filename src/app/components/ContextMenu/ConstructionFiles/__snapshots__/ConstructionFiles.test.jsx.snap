@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContextMenu for ConstructionFiles viewer should render 1`] = `
+<ContextMenu
+  alt="Actiemenu"
+  arrowIcon={<IconMock />}
+  icon={
+    <Icon
+      inline={true}
+      padding={4}
+      size={24}
+    >
+      <IconMock />
+    </Icon>
+  }
+  open={false}
+  position="bottom"
+  tabindex={0}
+>
+  <ContextMenuItem
+    icon={
+      <Icon
+        inline={true}
+        padding={4}
+        size={24}
+      >
+        <IconMock />
+      </Icon>
+    }
+    onClick={[Function]}
+    role="button"
+  >
+    Printen
+  </ContextMenuItem>
+  <ContextMenuItem
+    as="a"
+    download="filename.jpg_small"
+    href="https://acc.images.data.amsterdam.nl/iiif/2/edepot:filename.jpg/full/800,/0/default.jpg"
+    icon={
+      <Icon
+        inline={true}
+        padding={4}
+        size={24}
+      >
+        <IconMock />
+      </Icon>
+    }
+    onClick={[Function]}
+    role="button"
+    target="_blank"
+  >
+    Download klein
+  </ContextMenuItem>
+  <ContextMenuItem
+    as="a"
+    download="filename.jpg_large"
+    href="https://acc.images.data.amsterdam.nl/iiif/2/edepot:filename.jpg/full/1600,/0/default.jpg"
+    icon={
+      <Icon
+        inline={true}
+        padding={4}
+        size={24}
+      >
+        <IconMock />
+      </Icon>
+    }
+    onClick={[Function]}
+    role="button"
+    target="_blank"
+  >
+    Download groot
+  </ContextMenuItem>
+  <ContextMenuItem
+    as="a"
+    divider={true}
+    download="filename.jpg_original"
+    href="https://acc.images.data.amsterdam.nl/iiif/2/edepot:filename.jpg/full/full/0/default.jpg"
+    icon={
+      <Icon
+        inline={true}
+        padding={4}
+        size={24}
+      >
+        <IconMock />
+      </Icon>
+    }
+    onClick={[Function]}
+    role="button"
+    target="_blank"
+  >
+    Download origineel
+  </ContextMenuItem>
+  <ContextMenuItem
+    icon={
+      <Icon
+        inline={true}
+        padding={4}
+        size={24}
+      >
+        <IconMock />
+      </Icon>
+    }
+    key="1"
+    onClick={[Function]}
+    role="button"
+  >
+    Deel via 
+    Facebook
+  </ContextMenuItem>
+  <ContextMenuItem
+    icon={
+      <Icon
+        inline={true}
+        padding={4}
+        size={24}
+      >
+        <IconMock />
+      </Icon>
+    }
+    key="2"
+    onClick={[Function]}
+    role="button"
+  >
+    Deel via 
+    Twitter
+  </ContextMenuItem>
+  <ContextMenuItem
+    icon={
+      <Icon
+        inline={true}
+        padding={4}
+        size={24}
+      >
+        <IconMock />
+      </Icon>
+    }
+    key="3"
+    onClick={[Function]}
+    role="button"
+  >
+    Deel via 
+    Linkedin
+  </ContextMenuItem>
+  <ContextMenuItem
+    icon={
+      <Icon
+        inline={true}
+        padding={4}
+        size={24}
+      >
+        <IconMock />
+      </Icon>
+    }
+    key="4"
+    onClick={[Function]}
+    role="button"
+  >
+    Deel via 
+    E-mail
+  </ContextMenuItem>
+</ContextMenu>
+`;

@@ -16,6 +16,10 @@ import {
   REDUCER_KEY as MAP,
 } from '../map/ducks/map/constants'
 import {
+  initialState as filesInitialState,
+  REDUCER_KEY as FILES
+} from '../shared/ducks/files/constants';
+import {
   getActiveBaseLayer,
   getCenter,
   getMapOverlays,
@@ -60,6 +64,7 @@ import {
 } from '../shared/services/coordinate-reference-system'
 import PARAMETERS from './parameters'
 import paramsRegistry from './params-registry'
+import { getFileName } from '../shared/ducks/files/selectors'
 
 const routesWithSearch = [
   routing.dataQuerySearch.type,
@@ -229,6 +234,12 @@ export default paramsRegistry
       },
       false,
     )
+  })
+  .addParameter(PARAMETERS.FILE, (routes) => {
+    routes.add(routing.constructionFile.type, FILES, 'fileName', {
+      defaultValue: filesInitialState.fileName,
+      selector: getFileName
+    }, true)
   })
   .addParameter(PARAMETERS.FILTERS, routes => {
     routes.add(
