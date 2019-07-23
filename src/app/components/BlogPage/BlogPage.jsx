@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Spinner } from '@datapunt/asc-ui'
+import { Container, Spinner } from '@datapunt/asc-ui'
 import { Helmet } from 'react-helmet'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import useMatomo from '../../utils/useMatomo'
@@ -32,14 +32,12 @@ const BlogPage = ({ children, id, title, slug, loading }) => {
         <link rel="canonical" href={href} />
       </Helmet>
       <div className="blog-page__body">
-        <Row>
-          {loading && (
-            <div className="loading-indicator">
-              <Spinner size={36} color="secondary" />
-            </div>
-          )}
-          {children}
-        </Row>
+        {loading && (
+          <div className="loading-indicator">
+            <Spinner size={36} color="secondary" />
+          </div>
+        )}
+        {children}
       </div>
       <Footer noMaxWidth />
     </Container>
