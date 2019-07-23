@@ -1,0 +1,16 @@
+@import "../../../shared/styles/config";
+
+.blog-page {
+  min-height: 100%;
+
+  &__body {
+    background-color: $primary-light;
+    min-height: calc(100% - 278px);
+    position: relative;
+    width: 100%;
+  }
+
+  .loading-indicator {
+    margin-top: 56px;
+  }
+}

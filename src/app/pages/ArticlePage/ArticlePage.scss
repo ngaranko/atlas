@@ -1,8 +1,6 @@
 @import "../../../shared/styles/config";
 
 .article {
-  background-color: $primary-light;
-
   & > &__row {
     background-color: $primary-light;
     position: relative;

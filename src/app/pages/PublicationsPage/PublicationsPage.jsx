@@ -8,19 +8,16 @@ import {
   Spinner,
   Publication,
   CustomHTMLBlock,
-  Summary,
   BlogHeader,
   BlogMetaList,
   DocumentCover,
   BlogContent,
-  Container,
+  Paragraph,
 } from '@datapunt/asc-ui'
-// import Footer from '../../components/Footer/Footer'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
-import { toPublication } from '../../../store/redux-first-router/actions'
-import getReduxLinkProps from '../../utils/getReduxLinkProps'
+import BlogPage from '../../components/BlogPage/BlogPage'
 
 const PublicationsPage = ({ id, endpoint }) => {
   const { fetchFromCMS, results, loading } = useFromCMS()
@@ -52,21 +49,9 @@ const PublicationsPage = ({ id, endpoint }) => {
 
   const downloadUrl = included ? results.included[3].attributes.uri.url : {}
 
-  const action = toPublication(id, slug)
-  const { href } = getReduxLinkProps(action)
-
   return (
-    <div className="c-dashboard__page o-max-width">
-      <Container>
-        <Helmet>
-          <link rel="canonical" href={href} />
-        </Helmet>
-
-        {loading && (
-          <div className="loading-indicator">
-            <Spinner size={36} color="secondary" />
-          </div>
-        )}
+    <BlogPage {...{ id, slug, title, loading }}>
+      {!loading && (
         <Row>
           <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
             {!loading && body && (
@@ -105,7 +90,11 @@ const PublicationsPage = ({ id, endpoint }) => {
                     </Column>
                     <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                       <BlogContent>
-                        {intro && <Summary>{intro}</Summary>}
+                        {intro && (
+                          <Paragraph hasLongText strong>
+                            {intro}
+                          </Paragraph>
+                        )}
                         <CustomHTMLBlock body={body.value} />
                       </BlogContent>
                     </Column>
@@ -115,9 +104,8 @@ const PublicationsPage = ({ id, endpoint }) => {
             )}
           </Column>
         </Row>
-      </Container>
-      {/* {!loading && <Footer />} */}
-    </div>
+      )}
+    </BlogPage>
   )
 }
 
