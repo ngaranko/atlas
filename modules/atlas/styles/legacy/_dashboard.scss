@@ -4,6 +4,8 @@ $backdrop-color: rgba(0, 0, 0, .5);
   height: 100%;
   background: $primary-light;
 
+  // Hack to add a green beam on the right side of the header. When the header will be refactored to
+  // be inside the grid, this can be removed
   &--page-type-article {
     .styled-header > div {
       @media screen and (min-width: 1200px) {
@@ -20,11 +22,8 @@ $backdrop-color: rgba(0, 0, 0, .5);
           content: '';
         }
       }
-      max-width: 1920px;
 
-      header {
-        max-width: 1920px;
-      }
+      max-width: 1920px;
     }
   }
 }

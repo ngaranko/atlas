@@ -11,8 +11,8 @@ import {
   Heading,
   LinkList,
   LinkListItem,
+  Paragraph,
   Row,
-  Summary,
 } from '@datapunt/asc-ui'
 import React from 'react'
 import { Helmet } from 'react-helmet'
@@ -35,7 +35,7 @@ import './ArticlePage.scss'
       'field_links',
       'field_byline',
       'field_slug',
-      'field_intro'
+      'field_intro',
     ])
   }, [])
 
@@ -64,7 +64,10 @@ import './ArticlePage.scss'
           <Article
             {...(coverUrl
               ? {
-                  image: `${SHARED_CONFIG.CMS_ROOT}${coverUrl}`,
+                  image:
+                    typeof coverUrl === 'string'
+                      ? `${SHARED_CONFIG.CMS_ROOT}${coverUrl}`
+                      : undefined,
                 }
               : {})}
           >
@@ -84,7 +87,9 @@ import './ArticlePage.scss'
                           fields={byline && [{ id: 1, label: byline }]}
                         />
                       </BlogHeader>
-                      <Summary hasLongText>{intro}</Summary>
+                      <Paragraph strong hasLongText>
+                        {intro}
+                      </Paragraph>
                       <CustomHTMLBlock body={body} />
                     </BlogBody>
                   </Column>
