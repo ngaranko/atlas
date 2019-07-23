@@ -26,13 +26,15 @@ const PublicationsPage = ({ id, endpoint }) => {
   const { fetchFromCMS, results, loading } = useFromCMS()
 
   React.useEffect(() => {
-    fetchFromCMS(endpoint, [
-      'field_file_size',
-      'field_file_type',
-      'field_publication_source',
-      'field_publication_intro',
-      'field_slug',
-    ])
+    ;(async () => {
+      await fetchFromCMS(endpoint, [
+        'field_file_size',
+        'field_file_type',
+        'field_publication_source',
+        'field_publication_intro',
+        'field_slug',
+      ])
+    })()
   }, [])
 
   const {

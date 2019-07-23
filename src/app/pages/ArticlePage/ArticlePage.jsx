@@ -30,13 +30,15 @@ import './ArticlePage.scss'
   const { fetchFromCMS, results, loading } = useFromCMS()
 
   React.useEffect(() => {
-    fetchFromCMS(endpoint, [
-      'field_downloads',
-      'field_links',
-      'field_byline',
-      'field_slug',
-      'field_intro',
-    ])
+    ;(async () => {
+      await fetchFromCMS(endpoint, [
+        'field_downloads',
+        'field_links',
+        'field_byline',
+        'field_slug',
+        'field_intro',
+      ])
+    })()
   }, [])
 
   const {

@@ -21,7 +21,9 @@ const SpecialsPage = ({ id, endpoint }) => {
   }
 
   React.useEffect(() => {
-    fetchFromCMS(endpoint, ['field_iframe_link', 'field_slug'])
+    ;(async () => {
+      await fetchFromCMS(endpoint, ['field_iframe_link', 'field_slug'])
+    })()
 
     window.addEventListener('resize', handleResize)
 
