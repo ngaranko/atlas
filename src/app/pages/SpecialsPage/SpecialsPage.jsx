@@ -1,4 +1,4 @@
-import { BlogPost, Column, Row, Spinner } from '@datapunt/asc-ui'
+import { BlogPost, Column, Row } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
@@ -19,9 +19,10 @@ const SpecialsPage = ({ id, endpoint }) => {
   }
 
   React.useEffect(() => {
-    ;(async () => {
-      await fetchFromCMS(endpoint, ['field_iframe_link', 'field_slug'])
-    })()
+    /* istanbul ignore next */
+
+    fetchFromCMS(endpoint, ['field_iframe_link', 'field_slug'])
+
 
     window.addEventListener('resize', handleResize)
 
