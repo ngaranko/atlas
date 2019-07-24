@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography } from '@datapunt/asc-ui';
+import { Heading } from '@datapunt/asc-ui';
 import Gallery from '../Gallery/Gallery';
 import getAddresses from '../../../normalizations/construction-files/getAddresses';
 import getReduxLinkProps from '../../utils/getReduxLinkProps';
@@ -21,18 +21,19 @@ const ConstructionFileDetail = ({ results }) => {
     <div className="c-construction-files">
       {withGrid(
         <React.Fragment>
-          <Typography
+          <Heading
             className="c-construction-files__subtitle"
-            element="h3"
+            color="secondary"
+            as="h3"
           >
             Bouwdossier
-          </Typography>
-          <Typography
+          </Heading>
+          <Heading
             className="c-construction-files__title"
-            element="h1"
+            as="h1"
           >
             {title}
-          </Typography>
+          </Heading>
         </React.Fragment>
       )}
 
@@ -86,12 +87,12 @@ const ConstructionFileDetail = ({ results }) => {
         ))}
       {withGrid(
         <React.Fragment>
-          <Typography
+          <Heading
             className="c-construction-files__subtitle"
-            element="h3"
+            as="h3"
           >
             Adressen
-          </Typography>
+          </Heading>
           <ul className="o-list">
             {getAddresses(results).map((address) => (
               <li key={address.id}>
