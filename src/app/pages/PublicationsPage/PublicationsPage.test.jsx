@@ -48,8 +48,8 @@ describe('PublicationsPage', () => {
   beforeEach(() => {
     getReduxLinkProps.mockImplementation(() => ({ href }))
     Footer.mockImplementation(() => <></>)
-    useDocumentTitle.mockImplementation(() => ({ href }))
-    useMatomo.mockImplementation(() => ({ href }))
+    useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: jest.fn(), href }))
+    useMatomo.mockImplementation(() => ({ trackPageView: jest.fn(), href }))
 
     store = configureMockStore()({ location: { payload: { id } } })
   })

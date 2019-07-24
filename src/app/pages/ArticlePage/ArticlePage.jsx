@@ -20,7 +20,7 @@ import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
 import './ArticlePage.scss'
 import BlogPage from '../../components/BlogPage/BlogPage'
-import cmsConfig from '../../../shared/services/cms/cms-config';
+import cmsConfig from '../../../shared/services/cms/cms-config'
 
 /* istanbul ignore next */ const ArticlePage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS()
@@ -43,9 +43,10 @@ import cmsConfig from '../../../shared/services/cms/cms-config';
     field_slug: slug,
     field_intro: intro,
   } = results || {}
+  const documentTitle = `Artikel: ${title}`
 
   return (
-    <BlogPage {...{ id, slug, title, loading }}>
+    <BlogPage {...{ id, slug, documentTitle, loading }}>
       {!loading && (
         <div className="article">
           <Row className="article__row">

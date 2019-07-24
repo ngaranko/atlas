@@ -8,19 +8,19 @@ import getReduxLinkProps from '../../utils/getReduxLinkProps'
 import Footer from '../Footer/Footer'
 import './BlogPage.scss'
 
-const BlogPage = ({ children, id, title, slug, loading }) => {
+const BlogPage = ({ children, id, documentTitle, slug, loading }) => {
   const { setDocumentTitle } = useDocumentTitle()
   const { trackPageView } = useMatomo()
 
   React.useEffect(
     /* istanbul ignore next */
     () => {
-      if (title) {
-        setDocumentTitle(title)
-        trackPageView(title)
+      if (documentTitle) {
+        setDocumentTitle(documentTitle)
+        trackPageView(documentTitle)
       }
     },
-    [title],
+    [documentTitle],
   )
 
   const action = toSpecial(id, slug)

@@ -2,9 +2,9 @@
 
 exports[`PublicationsPage should render the publication when there are results 1`] = `
 <BlogPage
+  documentTitle="Publicatie: This is a title"
   id={3}
   slug="slug"
-  title="This is a title"
 >
   <Row
     debug={false}

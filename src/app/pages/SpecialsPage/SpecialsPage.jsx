@@ -47,9 +47,10 @@ const SpecialsPage = ({ id }) => {
   }
 
   const { field_iframe_link: iframeLink, field_slug: slug, title } = results || {}
+  const documentTitle = `Special: ${title}`
 
   return (
-    <BlogPage {...{id, slug, title}} loading={iframeLoading || loading}>
+    <BlogPage {...{id, slug, documentTitle}} loading={iframeLoading || loading}>
       <div className="iframe-container ">
         <Row>
           <BlogPost>

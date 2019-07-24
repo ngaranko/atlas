@@ -41,9 +41,10 @@ const PublicationsPage = ({ id }) => {
   } = results || {}
 
   const downloadUrl = included ? results.included[3].attributes.uri.url : {}
+  const documentTitle = `Publicatie: ${title}`
 
   return (
-    <BlogPage {...{ id, slug, title, loading }}>
+    <BlogPage {...{ id, slug, documentTitle, loading }}>
       {!loading && (
         <Row>
           <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
