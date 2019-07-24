@@ -6,8 +6,9 @@ exports[`QuerySearch should not render while loading 1`] = `
 >
   <LoadingIndicator
     IconComponent={
-      <span
-        className="icon"
+      <Spinner
+        color="secondary"
+        size={36}
       />
     }
   />

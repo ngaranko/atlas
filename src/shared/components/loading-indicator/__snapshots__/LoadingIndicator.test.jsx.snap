@@ -4,8 +4,9 @@ exports[`Checkbox should render everything 1`] = `
 <div
   className="loading-indicator"
 >
-  <span
-    className="icon"
+  <Spinner
+    color="secondary"
+    size={36}
   />
 </div>
 `;

@@ -32,8 +32,9 @@ exports[`DataSelection should render LoadingIndicator 1`] = `
     />
     <LoadingIndicator
       IconComponent={
-        <span
-          className="icon"
+        <Spinner
+          color="secondary"
+          size={36}
         />
       }
     />
