@@ -65,10 +65,7 @@ const MapSearchResults = ({
         <ul className="map-search-results__list">
           {missingLayers && (
             <li>
-              <Notification>
-                Geen details beschikbaar van:
-                {missingLayers}
-              </Notification>
+              <Notification>{`Geen details beschikbaar van: ${missingLayers}`}</Notification>
             </li>
           )}
           {limitResults(results).map(mainCategory => (

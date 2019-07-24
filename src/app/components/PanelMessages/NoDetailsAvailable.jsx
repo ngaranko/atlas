@@ -5,9 +5,7 @@ import Panel from '../Panel/Panel'
 const NoDetailsAvailable = ({ layerWarning }) => (
   <div className="qa-highlight-warning c-panel--offsets-below-page-title">
     <Panel isPanelVisible={layerWarning} canClose type="warning">
-      Geen details beschikbaar van: 
-      {' '}
-      {layerWarning}
+      {`Geen details beschikbaar van: ${layerWarning}`}
     </Panel>
   </div>
 )
