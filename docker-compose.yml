@@ -7,7 +7,7 @@ services:
       context: .
     ipc: host
 
-  test-unit-integration:
+  test-unit:
     build:
       context: .
       target: build-deps

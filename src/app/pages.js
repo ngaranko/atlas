@@ -14,9 +14,13 @@ const PAGES = {
   DATA_SEARCH_CATEGORY: 'SEARCH_DATA_CATEGORY',
   DATA_DETAIL: 'DATA_DETAIL',
 
+  SPECIALS: 'SPECIALS',
+  PUBLICATIONS: 'PUBLICATIONS',
+
   CONSTRUCTION_FILE: 'CONSTRUCTION_FILE',
 
   // text pages
+  ARTICLE: 'ARTICLE',
   NEWS: 'NEWS',
   PROCLAIMER: 'PROCLAIMER',
   ACTUALITY: 'ACTUALITY',
@@ -35,7 +39,7 @@ const PAGES = {
 
 export default PAGES
 
-export const isCmsPage = page =>
+export const isOldCmsPage = page =>
   page === PAGES.NEWS ||
   page === PAGES.HELP ||
   page === PAGES.ACTUALITEIT ||
@@ -51,3 +55,17 @@ export const isCmsPage = page =>
   page === PAGES.MOVED ||
   page === PAGES.NOT_FOUND ||
   page === PAGES.MANAGEMENT
+
+export const isCmsPage = page =>
+  page === PAGES.ARTICLE ||
+  page === PAGES.PUBLICATIONS ||
+  page === PAGES.SPECIALS
+
+export const isMapSplitPage = page =>
+  page === PAGES.DATA ||
+  page === PAGES.PANORAMA ||
+  page === PAGES.DATA_DETAIL ||
+  page === PAGES.ADDRESSES ||
+  page === PAGES.ESTABLISHMENTS ||
+  page === PAGES.DATA_GEO_SEARCH ||
+  page === PAGES.CADASTRAL_OBJECTS

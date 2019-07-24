@@ -229,6 +229,22 @@ export const toAdresses = () => ({
   },
 })
 
+export const toArticle = (id, slug = '') => ({
+  type: routing.article.type,
+  payload: {
+    id,
+    slug,
+  },
+})
+
+export const toSpecial = (id, slug = '') => ({
+  type: routing.specials.type,
+  payload: {
+    id,
+    slug,
+  },
+})
+
 export const toConstructionFileViewer = (id, fileName) => ({
   type: routing.constructionFile.type,
   payload: {
@@ -265,3 +281,11 @@ export const toMaintentancePage = () => ({
   type: routing.beheer_werkwijze.type,
 })
 export const toHelpPage = () => ({ type: routing.help.type })
+
+export const toPublication = (id, slug = '') => ({
+  type: routing.publications.type,
+  payload: {
+    id,
+    slug,
+  }
+})

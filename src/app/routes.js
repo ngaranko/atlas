@@ -3,9 +3,12 @@ import PAGES from './pages'
 export const ROUTER_NAMESPACE = 'atlasRouter'
 
 const MAIN_PATHS = {
+  ARTICLES: 'artikelen',
   DATA: 'data',
   DATASETS: 'datasets',
   CONTENT: 'content',
+  PUBLICATIONS: 'publicaties',
+  SPECIALS: 'specials'
 }
 
 export const routing = {
@@ -87,6 +90,12 @@ export const routing = {
     type: `${ROUTER_NAMESPACE}/${PAGES.CONSTRUCTION_FILE}`,
     useHooks: true, // indicate to skip legacy documentHead and piwik middleware
     page: PAGES.CONSTRUCTION_FILE
+  },
+  article: {
+    title: 'Artikel',
+    path: `/${MAIN_PATHS.ARTICLES}/artikel/:id/:slug`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.ARTICLE}`,
+    page: PAGES.ARTICLE,
   },
   nieuws: {
     title: 'Nieuws',
@@ -177,6 +186,18 @@ export const routing = {
     path: `/${MAIN_PATHS.DATA}/:type/:subtype/:id/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.DATA_DETAIL}`,
     page: PAGES.DATA_DETAIL,
+  },
+  specials: {
+    title: 'Specials',
+    path: `/${MAIN_PATHS.SPECIALS}/special/:id/:slug`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.SPECIALS}`,
+    page: PAGES.SPECIALS,
+  },
+  publications: {
+    title: 'Publicaties',
+    path: `/${MAIN_PATHS.PUBLICATIONS}/publicatie/:id/:slug`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATIONS}`,
+    page: PAGES.PUBLICATIONS,
   },
 }
 

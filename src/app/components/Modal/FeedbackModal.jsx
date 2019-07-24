@@ -7,11 +7,15 @@ import {
   ListItem,
   Modal,
   TopBar,
-  Typography,
+  Heading,
+  Paragraph,
+  Link,
 } from '@datapunt/asc-ui/lib/index'
 import { ReactComponent as Close } from '@datapunt/asc-assets/lib/Icons/Close.svg'
 import { routing } from '../../routes'
-import withModalBehaviour, { propTypes as modalPropTypes } from './withModalBehaviour'
+import withModalBehaviour, {
+  propTypes as modalPropTypes,
+} from './withModalBehaviour'
 
 const FEEDBACK_RECIPIENT = 'terugmelding.basisinformatie@amsterdam.nl'
 const FEEDBACK_SUBJECT = 'Terugmelding data.amsterdam.nl'
@@ -47,25 +51,23 @@ const FeedbackModalComponent = ({
     aria-describedby="feedback"
     open={open}
     onClose={handleClose}
-    blurredNode={document.querySelector('#root')}
+    blurredNodeSelector="#root"
   >
     <TopBar>
-      <Typography style={{ flexGrow: 1 }} element="h4">
+      <Heading as="h4">
         Feedback
         <IconButton onClick={handleClose}>
           <Close />
         </IconButton>
-      </Typography>
+      </Heading>
     </TopBar>
     <Divider />
     <ListItem>
-      <Typography gutterBottom element="h5">
-        Onjuiste of ontbrekende gegevens?
-      </Typography>
-      <Typography paragraph element="p" gutterBottom>
-        Geef aan welke gegevens onjuist zijn of ontbreken. Ook als je weet wat het wel moet zijn. We
-        horen het graag.
-      </Typography>
+      <Heading as="h4">Onjuiste of ontbrekende gegevens?</Heading>
+      <Paragraph>
+        Geef aan welke gegevens onjuist zijn of ontbreken. Ook als je weet wat
+        het wel moet zijn. We horen het graag.
+      </Paragraph>
       <Button
         as="a"
         color="primary"
@@ -81,27 +83,27 @@ const FeedbackModalComponent = ({
     </ListItem>
     <Divider gutter />
     <ListItem>
-      <Typography gutterBottom element="h5">
-        Vraag of opmerking?
-      </Typography>
-      <Typography paragraph element="p" gutterBottom>
-        Als iets op deze pagina niet goed werkt, onduidelijk is of vragen oproept, geef het aan ons
-        door.
-      </Typography>
+      <Heading as="h4">Vraag of opmerking?</Heading>
+      <Paragraph>
+        Als iets op deze pagina niet goed werkt, onduidelijk is of vragen
+        oproept, geef het aan ons door.
+      </Paragraph>
       <Button
         as="a"
         color="primary"
         onClick={reportProblemAction}
-        href={getMailtoLink(PROBLEM_RECIPIENT, PROBLEM_SUBJECT, PROBLEM_BODY(window.location.href))}
+        href={getMailtoLink(
+          PROBLEM_RECIPIENT,
+          PROBLEM_SUBJECT,
+          PROBLEM_BODY(window.location.href),
+        )}
       >
         Probleem melden
       </Button>
     </ListItem>
     <Divider transparent />
     <ListItem>
-      <Typography element="a" href={routing.help.path}>
-        Hulp nodig?
-      </Typography>
+      <Link href={routing.help.path}>Hulp nodig?</Link>
     </ListItem>
   </Modal>
 )

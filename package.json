@@ -25,22 +25,20 @@
     "lint:style": "sass-lint -c src/.sass-lint.yml 'src/**/*.scss' --verbose --no-exit --ignore 'src/shared/styles/config/mixins/_sprites.scss' && sass-lint -c modules/.sass-lint.yml 'modules/**/*.scss' --verbose --no-exit",
     "preinstall": "npm cache verify",
     "prettier": "npm run prettier:js",
-    "prettier:js": "prettier-eslint --write './**/*.{js, jsx}'",
+    "prettier:js": "prettier-eslint --write './**/**/*.{js, jsx}'",
     "start": "webpack-dev-server --config webpack.dev.js",
     "start-prod": "webpack-dev-server --config webpack.prod-api-dev.js",
     "test": "npm run lint && cross-env karma start && jest --config=./test/jest.unit.config.js",
     "test-eslint": "eslint ./modules/ ./src/ ./test/cypress/",
-    "test-integration": "cross-env NODE_ENV=development jest --config=./test/jest.integration.config.js",
-    "test-integration-watch": "cross-env NODE_ENV=development jest --config=./test/jest.integration.config.js --watch",
     "test-jest": "cross-env NODE_ENV=development jest --config=./test/jest.unit.config.js --runInBand",
     "test-jest-watch": "cross-env NODE_ENV=development jest --config=./test/jest.unit.config.js --watch --onlyChanged --coverage --runInBand",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run"
   },
   "dependencies": {
-    "@datapunt/asc-assets": "^0.7.1-beta.2",
-    "@datapunt/asc-core": "^0.7.1-beta.1",
-    "@datapunt/asc-ui": "^0.7.2",
+    "@datapunt/asc-assets": "0.9.0-alpha.0",
+    "@datapunt/asc-core": "0.9.0-alpha.0",
+    "@datapunt/asc-ui": "0.9.0",
     "@svgr/webpack": "^4.2.0",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",
@@ -52,14 +50,18 @@
     "cross-env": "5.2.0",
     "d3": "3.5.17",
     "deep-copy": "1.4.2",
+    "downloadjs": "^1.4.7",
     "escape-string-regexp": "1.0.5",
+    "iframe-resizer": "^4.1.1",
     "history": "4.9.0",
     "isomorphic-fetch": "2.2.1",
+    "json-api-normalize": "^1.1.5",
     "leaflet": "1.4.0",
     "leaflet-draw": "1.0.0",
     "leaflet-rotatedmarker": "0.2.0",
     "leaflet.markercluster": "1.4.1",
     "leaflet.nontiledlayer": "1.0.7",
+    "lint-staged": "^9.2.0",
     "lodash.debounce": "4.0.8",
     "lodash.defer": "4.1.0",
     "lodash.get": "4.4.2",
@@ -79,6 +81,8 @@
     "react": "16.8.6",
     "react-angular": "https://github.com/Amsterdam/react-angular#master",
     "react-dom": "16.8.6",
+    "react-helmet": "^5.2.1",
+    "react-iframe-resizer-super": "^0.2.2",
     "react-leaflet": "1.9.1",
     "react-leaflet-markercluster": "1.1.8",
     "react-redux": "5.1.1",
@@ -105,7 +109,9 @@
     "@babel/preset-env": "7.4.4",
     "@babel/preset-react": "7.0.0",
     "@metahub/karma-jasmine-jquery": "2.0.0",
-    "@svgr/webpack": "^4.3.0",
+    "@svgr/webpack": "4.3.2",
+    "@testing-library/react": "^8.0.6",
+    "@testing-library/react-hooks": "^1.1.0",
     "angular-mocks": "~1.5.11",
     "autoprefixer": "9.4.7",
     "babel-core": "7.0.0-bridge.0",
@@ -132,6 +138,7 @@
     "eslint-plugin-import": "2.18.0",
     "eslint-plugin-jasmine": "2.9.1",
     "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-react": "7.14.2",
     "eslint-plugin-standard": "4.0.0",
@@ -180,7 +187,17 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint"
+      "pre-push": "npm run test-jest && npm run test-karma"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "npm run lint:js",
+      "git add"
+    ],
+    "*.scss": [
+      "npm run lint:style",
+      "git add"
+    ]
   }
 }

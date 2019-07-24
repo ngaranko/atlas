@@ -10,4 +10,4 @@ const testHook = (callback) => {
   mount(<TestHook callback={callback} />);
 };
 
-export default testHook
+export default testHook 

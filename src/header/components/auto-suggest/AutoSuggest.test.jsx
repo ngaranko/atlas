@@ -175,10 +175,6 @@ describe('The AutoSuggest component', () => {
   })
 
   it('should allow the user to navigate with the keyboard', () => {
-    /*
-        TODO: move to integration test
-        as the activesuggestion is set in the redux store
-     */
     const autoSuggestComponent = mount(
       <AutoSuggest
         activeSuggestion={{ index: -1 }}

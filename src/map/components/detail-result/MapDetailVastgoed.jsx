@@ -3,7 +3,12 @@ import React from 'react'
 import MapDetailResultWrapper from './MapDetailResultWrapper'
 import MapDetailResultItem from './MapDetailResultItem'
 
-const MapDetailVastgoed = ({ panoUrl, item, onMaximize, onPanoPreviewClick }) => (
+const MapDetailVastgoed = ({
+  panoUrl,
+  item,
+  onMaximize,
+  onPanoPreviewClick,
+}) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     onMaximize={onMaximize}

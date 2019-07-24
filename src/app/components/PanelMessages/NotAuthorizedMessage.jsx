@@ -24,8 +24,8 @@ const NotAuthorizedMessage = ({ scopeError, type }) => {
       <div>
         {scopeError === SCOPES['BRK/RSN'] ? (
           <p className="c-panel__paragraph">
-            Medewerkers met speciale bevoegdheden kunnen inloggen om kadastrale objecten met
-            zakelijk rechthebbenden te bekijken.
+            Medewerkers met speciale bevoegdheden kunnen inloggen om kadastrale
+            objecten met zakelijk rechthebbenden te bekijken.
           </p>
         ) : (
           <p className="c-panel__paragraph">

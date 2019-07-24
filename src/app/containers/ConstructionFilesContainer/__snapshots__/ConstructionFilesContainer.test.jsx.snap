@@ -48,71 +48,148 @@ exports[`ConstructionFilesContainer should render 1`] = `
           },
         },
         "globalStyle": "",
+        "layouts": Object {
+          "big": Object {
+            "columns": 6,
+            "gutter": 24,
+            "margin": 24,
+            "max": 1024,
+            "min": 768,
+          },
+          "large": Object {
+            "columns": 12,
+            "gutter": 24,
+            "margin": 32,
+            "max": 1200,
+            "min": 1024,
+          },
+          "medium": Object {
+            "columns": 2,
+            "gutter": 20,
+            "margin": 20,
+            "max": 768,
+            "min": 414,
+          },
+          "small": Object {
+            "columns": 1,
+            "margin": 20,
+            "max": 414,
+          },
+          "xLarge": Object {
+            "columns": 12,
+            "gutter": 24,
+            "margin": 44,
+            "min": 1200,
+          },
+        },
+        "maxGridWidth": 1430,
         "typography": Object {
           "a": Object {
-            "color": "#000000",
+            "defaultColor": "#000000",
             "fontSize": "1rem",
             "fontWeight": "inherit",
-            "letterSpacing": "-0.01562em",
-            "lineHeight": 1,
+            "letterSpacing": "inherit",
+            "lineHeight": 1.25,
+            "marginBottom": "0",
           },
           "em": Object {
-            "color": "#767676",
-            "fontSize": "1rem",
+            "defaultColor": "#000000",
+            "fontSize": "16px",
             "fontWeight": 400,
-            "letterSpacing": "-0.01562em",
+            "letterSpacing": "inherit",
             "lineHeight": 1.25,
+            "marginBottom": "0",
           },
           "fontFamily": "Avenir Next, Arial, sans-serif",
           "fontSize": "16px",
           "h1": Object {
-            "color": "#000000",
-            "fontSize": "30px",
-            "fontWeight": 700,
-            "letterSpacing": "inherit",
-            "lineHeight": "38px",
-          },
-          "h2": Object {
-            "color": "#ec0000",
+            "breakpoints": Object {
+              "tabletS": Object {
+                "fontSize": "30px",
+                "lineHeight": "38px",
+              },
+            },
+            "defaultColor": "#000000",
             "fontSize": "24px",
             "fontWeight": 700,
-            "letterSpacing": "-0.01562em",
-            "lineHeight": 1,
+            "letterSpacing": "inherit",
+            "lineHeight": "30px",
+            "marginBottom": "0",
           },
-          "h3": Object {
-            "color": "#ec0000",
+          "h2": Object {
+            "breakpoints": Object {
+              "tabletS": Object {
+                "fontSize": "24px",
+                "lineHeight": "30px",
+              },
+            },
+            "defaultColor": "#000000",
             "fontSize": "20px",
             "fontWeight": 700,
-            "letterSpacing": "-0.01562em",
-            "lineHeight": 1,
+            "letterSpacing": "inherit",
+            "lineHeight": "28px",
+            "marginBottom": "8px",
+          },
+          "h3": Object {
+            "defaultColor": "#000000",
+            "fontSize": "20px",
+            "fontWeight": 700,
+            "letterSpacing": "inherit",
+            "lineHeight": "28px",
+            "marginBottom": "0",
           },
           "h4": Object {
-            "color": "#000000",
-            "fontSize": "1.125rem",
-            "fontWeight": 400,
-            "letterSpacing": "-0.01562em",
-            "lineHeight": 1,
+            "defaultColor": "#000000",
+            "fontSize": "18px",
+            "fontWeight": 700,
+            "letterSpacing": "inherit",
+            "lineHeight": "25px",
+            "marginBottom": "8px",
           },
           "h5": Object {
-            "color": "#000000",
-            "fontSize": "1.125rem",
+            "defaultColor": "#000000",
+            "fontSize": "18px",
             "fontWeight": 400,
-            "letterSpacing": "-0.01562em",
+            "letterSpacing": "inherit",
             "lineHeight": 1,
+            "marginBottom": "0",
           },
           "h6": Object {
-            "color": "#000000",
-            "fontSize": "6rem",
+            "defaultColor": "#000000",
+            "fontSize": "18px",
             "fontWeight": 400,
-            "letterSpacing": "-0.01562em",
+            "letterSpacing": "inherit",
             "lineHeight": 1,
+            "marginBottom": "0",
           },
           "p": Object {
-            "color": "#000000",
-            "fontSize": "1rem",
+            "breakpoints": Object {
+              "tabletS": Object {
+                "marginBottom": "24px",
+              },
+            },
+            "defaultColor": "#000000",
+            "fontSize": "16px",
             "fontWeight": 400,
-            "letterSpacing": "-0.01562em",
-            "lineHeight": 1.25,
+            "letterSpacing": "inherit",
+            "lineHeight": "22px",
+            "marginBottom": "20px",
+          },
+          "small": Object {
+            "defaultColor": "#000000",
+            "fontSize": "14px",
+            "fontWeight": 400,
+            "letterSpacing": "inherit",
+            "lineHeight": "18px",
+            "marginBottom": "0",
+          },
+          "span": Object {
+            "defaultColor": "#000000",
+            "fontSize": "14px",
+            "fontWeight": 400,
+            "letterSpacing": "inherit",
+            "lineHeight": "18px",
+            "marginBottom": "0",
           },
         },
       }
@@ -185,9 +262,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "$$typeof": Symbol(react.forward_ref),
                 "attrs": Array [],
                 "componentStyle": ComponentStyle {
-                  "componentId": "sc-iRbamj",
+                  "componentId": "sc-jhAzac",
                   "isStatic": false,
-                  "lastClassName": "jsYkIZ",
+                  "lastClassName": "enRXIj",
                   "rules": Array [
                     "
   display: flex;
@@ -206,7 +283,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                     "
 
   ",
-                    ".sc-gPEVay",
+                    ".sc-hzDkRC",
                     " {
     ",
                     [Function],
@@ -222,7 +299,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "displayName": "styled.div",
                 "foldedComponentIds": Array [],
                 "render": [Function],
-                "styledComponentId": "sc-iRbamj",
+                "styledComponentId": "sc-jhAzac",
                 "target": "div",
                 "toString": [Function],
                 "warnTooManyClasses": [Function],
@@ -234,7 +311,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             gutterY={20}
           >
             <div
-              className="sc-iRbamj jsYkIZ"
+              className="sc-jhAzac enRXIj"
               direction="column"
             >
               <styled.div>
@@ -244,9 +321,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                       "$$typeof": Symbol(react.forward_ref),
                       "attrs": Array [],
                       "componentStyle": ComponentStyle {
-                        "componentId": "sc-gPEVay",
+                        "componentId": "sc-hzDkRC",
                         "isStatic": false,
-                        "lastClassName": "dybjyT",
+                        "lastClassName": "fPWdgX",
                         "rules": Array [
                           "
   position: relative;
@@ -259,7 +336,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                       "displayName": "styled.div",
                       "foldedComponentIds": Array [],
                       "render": [Function],
-                      "styledComponentId": "sc-gPEVay",
+                      "styledComponentId": "sc-hzDkRC",
                       "target": "div",
                       "toString": [Function],
                       "warnTooManyClasses": [Function],
@@ -269,7 +346,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                   forwardedRef={null}
                 >
                   <div
-                    className="sc-gPEVay dybjyT"
+                    className="sc-hzDkRC fPWdgX"
                   >
                     <LoadingIndicator>
                       <div
