@@ -46,7 +46,7 @@ const HeaderMenu = ({
 
   return (
     <Menu {...props}>
-      <MenuFlyOut label="Categorieën">
+      <MenuFlyOut label="Onderdelen">
         <MenuItem {...getReduxLinkProps(toMapAction)}>Kaart</MenuItem>
         <MenuItem {...getReduxLinkProps(toPanoramaAction)}>
           Panoramabeelden

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Typography } from '@datapunt/asc-ui'
+import { Heading } from '@datapunt/asc-ui'
 import { getFileName } from '../../../shared/ducks/files/selectors'
 import { getUser } from '../../../shared/ducks/user/user'
 import { SCOPES } from '../../../shared/services/auth/auth'
@@ -84,7 +84,7 @@ const ConstructionFilesContainer = ({ fileName, user, endpoint }) => {
     trackEvent(documentTitle, 'Download-bouwtekening', `bouwtekening-download-${size}`, fileName)
   }
 
-  const noResultsTemplate = withGrid(<Typography element="em">Geen resultaten gevonden</Typography>)
+  const noResultsTemplate = withGrid(<Heading as="em">Geen resultaten gevonden</Heading>)
 
   const notAuthorizedTemplate = withGrid(<NotAuthorizedMessage type="bouwdossiers" />)
 
