@@ -6,6 +6,7 @@ import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMe
 import { FeedbackModal, InfoModal } from './components/Modal'
 import PAGES, { isMapSplitPage, isOldCmsPage } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
+import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
 const ContentPage = React.lazy(() => import('./pages/ContentPage'))
 const Home = React.lazy(() => import('./pages/Home'))
@@ -39,7 +40,9 @@ const AppBody = ({
   })
 
   return (
-    <Suspense fallback={<React.Fragment />}>
+    <Suspense
+      fallback={<LoadingIndicator />}
+    >
       <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
         {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
         {embedPreviewMode ? (

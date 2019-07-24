@@ -10,7 +10,8 @@ module.exports = function(env) {
 
   return merge(commonConfig({ nodeEnv, buildId }), {
     output: {
-      filename: '[name].[chunkhash].js'
+      filename: '[name].[chunkhash].js',
+      chunkFilename: '[name].[chunkhash].bundle.js',
     },
     mode: 'production',
     devtool: 'source-map',

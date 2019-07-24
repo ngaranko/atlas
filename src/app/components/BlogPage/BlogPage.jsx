@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Spinner } from '@datapunt/asc-ui'
+import { Container } from '@datapunt/asc-ui'
 import { Helmet } from 'react-helmet'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import useMatomo from '../../utils/useMatomo'
@@ -34,7 +34,7 @@ const BlogPage = ({ children, id, documentTitle, slug, loading }) => {
         <link rel="canonical" href={href} />
       </Helmet>
       <div className="blog-page__body">
-        {loading && <LoadingIndicator IconComponent={<Spinner size={36} color="secondary" />} />}
+        {loading && <LoadingIndicator />}
         {children}
       </div>
       <Footer noMaxWidth />
