@@ -8,6 +8,7 @@ import {
 } from '../../../store/redux-first-router/actions'
 import PARAMETERS from '../../../store/parameters'
 import HomepageBlock from '../block/HomepageBlock'
+import './HomepageDatasetsThemesBlock.scss'
 
 const HomepageDatasetsThemesBlock = () => {
   const CATALOGUS_THEMES_CONFIG = [
@@ -84,11 +85,11 @@ const HomepageDatasetsThemesBlock = () => {
                           to={preserveQuery(toDatasetsWithFilter(), {
                             [PARAMETERS.FILTERS]: { groups: theme.slug },
                           })}
-                          className={`qa-theme-link .c-catalogus-theme__link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--${
+                          className={`qa-theme-link c-catalogus-themes__link c-catalogus-themes__icon c-catalogus-themes__icon--${
                             theme.icon
                           }`}
                         >
-                          <div className="c-catalogus-theme__link__text">{theme.name}</div>
+                          <div className="c-catalogus-themes__link__text">{theme.name}</div>
                         </Link>
                       </li>
                     ))}
