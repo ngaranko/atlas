@@ -16,9 +16,9 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
-      statements: 80,
+      statements: 79,
       branches: 70,
-      functions: 75,
+      functions: 74,
       lines: 80,
     },
   },
@@ -32,13 +32,7 @@ module.exports = {
   setupFiles: ['raf/polyfill', './test/setup-jest.js'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testMatch: [
-    '**/!(*.integration).test.js?(x)',
-    // Do match:
-    // foo.test.jsx
-    // barService.test.js
-    // Do not match:
-    // fooService.jsx
-    // foo.integration.test.jsx
+    '**/*.test.js?(x)',
   ],
   testURL: 'http://localhost:8080/',
   testEnvironment: 'jsdom',

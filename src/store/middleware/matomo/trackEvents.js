@@ -231,7 +231,12 @@ const trackEvents = {
     return firstAction &&
       (searchQuery && searchQuery.length > 0) &&
       query.term === searchQuery
-      ? [MATOMO_CONSTANTS.TRACK_SEARCH, searchQuery, 'datasets', numberOfResults]
+      ? [
+          MATOMO_CONSTANTS.TRACK_SEARCH,
+          searchQuery,
+          'datasets',
+          numberOfResults,
+        ]
       : []
   },
   // SITE SEARCH -> DATASETS INITIAL LOAD

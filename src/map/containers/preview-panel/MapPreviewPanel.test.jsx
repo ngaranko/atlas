@@ -104,11 +104,17 @@ describe('MapPreviewPanelContainer', () => {
     toPanoramaAndPreserveQuery.mockImplementation(() => ({ type: 'sometype' }))
     toMapAndPreserveQuery.mockImplementation(() => ({ type: 'sometype' }))
     setViewMode.mockImplementation(() => ({ type: 'sometype' }))
-    fetchPanoramaPreview.mockImplementation(() => ({ type: FETCH_PANORAMA_PREVIEW_REQUEST }))
+    fetchPanoramaPreview.mockImplementation(() => ({
+      type: FETCH_PANORAMA_PREVIEW_REQUEST,
+    }))
     selectNotClickableVisibleMapLayers.mockImplementation(() => [])
-    isGeoSearch.mockImplementation(state => !(state.detail && state.detail.endpoint))
+    isGeoSearch.mockImplementation(
+      state => !(state.detail && state.detail.endpoint),
+    )
     isSearchLoading.mockReturnValue(false)
-    getDetailEndpoint.mockImplementation(state => state.detail && state.detail.endpoint)
+    getDetailEndpoint.mockImplementation(
+      state => state.detail && state.detail.endpoint,
+    )
   })
 
   afterEach(() => {
@@ -121,7 +127,9 @@ describe('MapPreviewPanelContainer', () => {
   it('should maximize the preview panel', () => {
     const store = configureMockStore()(searchState)
     jest.spyOn(store, 'dispatch')
-    const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive()
+    const wrapper = shallow(<MapPreviewPanelContainer />, {
+      context: { store },
+    }).dive()
     wrapper
       .find('.map-preview-panel__button')
       .at(0)
@@ -133,7 +141,9 @@ describe('MapPreviewPanelContainer', () => {
   it('should close the preview panel', () => {
     const store = configureMockStore()(searchState)
     jest.spyOn(store, 'dispatch')
-    const wrapper = shallow(<MapPreviewPanelContainer />, { context: { store } }).dive()
+    const wrapper = shallow(<MapPreviewPanelContainer />, {
+      context: { store },
+    }).dive()
     wrapper
       .find('.map-preview-panel__button')
       .at(1)

@@ -69,6 +69,19 @@ Object {
       },
     },
   },
+  "bestand": Object {
+    "routes": Object {
+      "atlasRouter/CONSTRUCTION_FILE": Object {
+        "addHistory": true,
+        "decode": [Function],
+        "defaultValue": "",
+        "encode": [Function],
+        "reducerKey": "files",
+        "selector": [Function],
+        "stateKey": "fileName",
+      },
+    },
+  },
   "categorie": Object {
     "routes": Object {
       "atlasRouter/DATA_QUERY_SEARCH": Object {

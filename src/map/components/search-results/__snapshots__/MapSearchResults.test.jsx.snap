@@ -235,8 +235,7 @@ exports[`MapSearchResults rendering should render results 1`] = `
           className=""
           level="info"
         >
-          Geen details beschikbaar van:
-          Layer 1, Layer 2
+          Geen details beschikbaar van: Layer 1, Layer 2
         </Notification>
       </li>
       <MapSearchResultsCategory
@@ -457,8 +456,7 @@ exports[`MapSearchResults rendering should update results 2`] = `
           className=""
           level="info"
         >
-          Geen details beschikbaar van:
-          Layer 3
+          Geen details beschikbaar van: Layer 3
         </Notification>
       </li>
       <MapSearchResultsCategory

@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { GlobalStyle, ThemeProvider } from '@datapunt/asc-ui'
-import { isCmsPage as pageIsCmsPage } from './pages'
+import { isOldCmsPage, isCmsPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
@@ -17,13 +17,12 @@ import {
 } from '../shared/ducks/ui/ui'
 import { hasGlobalError } from '../shared/ducks/error/error-message'
 import { getUser } from '../shared/ducks/user/user'
-import { getPage, isHomepage } from '../store/redux-first-router/selectors'
+import { getPage, isHomepage, isSpecialsPage } from '../store/redux-first-router/selectors'
 import Header from './components/Header/Header'
 import { AppStateProvider } from './utils/useAppReducer'
 import AppBody from './AppBody'
 import main, { initialState } from './react-reducers'
 
-// TodoReactMigration: implement logic
 const App = ({
   isFullHeight,
   visibilityError,
@@ -39,8 +38,7 @@ const App = ({
   hasPrintButton,
   hasEmbedButton,
 }) => {
-  const isCmsPage = pageIsCmsPage(currentPage)
-  const hasMaxWidth = homePage || isCmsPage
+  const hasMaxWidth = homePage || isOldCmsPage(currentPage) || isCmsPage(currentPage)
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
@@ -93,7 +91,9 @@ const App = ({
       <GlobalStyle />
       <AppStateProvider initialState={initialState} reducer={main}>
         <React.Suspense fallback={<React.Fragment />}>
-          <div className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}>
+          <div
+            className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}
+          >
             {!embedMode && (
               <Header
                 homePage={homePage}
@@ -114,7 +114,6 @@ const App = ({
                 homePage,
                 currentPage,
                 embedPreviewMode,
-                isCmsPage,
               }}
             />
           </div>
@@ -149,6 +148,7 @@ const mapStateToProps = state => ({
   currentPage: getPage(state),
   embedMode: isEmbedded(state),
   homePage: isHomepage(state),
+  specialsPage: isSpecialsPage(state),
   printMode: isPrintMode(state),
   printModeLandscape: isPrintModeLandscape(state),
   embedPreviewMode: isEmbedPreview(state),

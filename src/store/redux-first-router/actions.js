@@ -147,6 +147,16 @@ export const toDetailFromEndpoint = (endpoint, view) => {
   })
 }
 
+export const toConstructionFilesFromEndpoint = (endpoint) => {
+  const { id } = getDetailPageData(endpoint);
+  return ({
+    type: routing.constructionFile.type,
+    payload: {
+      id
+    }
+  });
+};
+
 export const toDataSearchCategory = (searchQuery, category) => ({
   type: routing.dataSearchCategory.type,
   payload: {
@@ -219,6 +229,33 @@ export const toAdresses = () => ({
   },
 })
 
+export const toArticle = (id, slug = '') => ({
+  type: routing.article.type,
+  payload: {
+    id,
+    slug,
+  },
+})
+
+export const toSpecial = (id, slug = '') => ({
+  type: routing.specials.type,
+  payload: {
+    id,
+    slug,
+  },
+})
+
+export const toConstructionFileViewer = (id, fileName) => ({
+  type: routing.constructionFile.type,
+  payload: {
+    id
+  },
+  meta: {
+    query: {
+      [PARAMETERS.FILE]: fileName
+    }
+  }
+})
 export const toDatasetPage = dataset => ({
   type: DATASET_ROUTE_MAPPER[dataset],
 })
@@ -244,3 +281,11 @@ export const toMaintentancePage = () => ({
   type: routing.beheer_werkwijze.type,
 })
 export const toHelpPage = () => ({ type: routing.help.type })
+
+export const toPublication = (id, slug = '') => ({
+  type: routing.publications.type,
+  payload: {
+    id,
+    slug,
+  }
+})

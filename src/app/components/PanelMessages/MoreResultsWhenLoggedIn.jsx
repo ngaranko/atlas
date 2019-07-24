@@ -6,7 +6,7 @@ import Notification from '../../../shared/components/notification/Notification'
 import { BEDIENING_LOGIN_DEEPLINK } from '../../../shared/ducks/content/constants'
 
 const MoreResultsWhenLoggedIn = ({ excludedResults }) => (
-  <Notification type="warning">
+  <Notification type="info">
     <h3 className="c-panel__title">Meer resultaten na inloggen</h3>
     <p className="c-panel__paragraph">
       {'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om ' +

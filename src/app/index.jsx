@@ -6,6 +6,7 @@ import configureStore from '../store/store'
 import './angularModules'
 import routes from './routes'
 import resolveRedirects from './redirects'
+import ReduxContext from './utils/reduxContext'
 
 const store = configureStore(routes)
 
@@ -17,7 +18,9 @@ if (!hasToRedirect) {
 
   ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <ReduxContext.Provider value={store}>
+        <App />
+      </ReduxContext.Provider>
     </Provider>,
     document.getElementById('root'),
   )

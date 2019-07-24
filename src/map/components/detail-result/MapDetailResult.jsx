@@ -34,7 +34,12 @@ import MapDetailVastgoed from './MapDetailVastgoed'
 import MapDetailVestiging from './MapDetailVestiging'
 import MapDetailWinkelgebied from './MapDetailWinkelgebied'
 
-const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => {
+const MapDetailResult = ({
+  panoUrl,
+  result,
+  onMaximize,
+  onPanoPreviewClick,
+}) => {
   switch (result.endpointType) {
     case endpointTypes.adressenLigplaats:
       return (
@@ -209,7 +214,13 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
         />
       )
     case endpointTypes.grondexploitatie:
-      return <MapDetailGrondexploitatie onMaximize={onMaximize} panoUrl={panoUrl} detail={result} />
+      return (
+        <MapDetailGrondexploitatie
+          onMaximize={onMaximize}
+          panoUrl={panoUrl}
+          detail={result}
+        />
+      )
     case endpointTypes.kadastraalObject:
       return (
         <MapDetailKadastraalObject
@@ -265,14 +276,14 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
         />
       )
     case endpointTypes.parkeerzones:
-        return (
-          <MapDetailParkeerzone
-            onMaximize={onMaximize}
-            onPanoPreviewClick={onPanoPreviewClick}
-            panoUrl={panoUrl}
-            item={result}
-          />
-        )
+      return (
+        <MapDetailParkeerzone
+          onMaximize={onMaximize}
+          onPanoPreviewClick={onPanoPreviewClick}
+          panoUrl={panoUrl}
+          item={result}
+        />
+      )
     case endpointTypes.parkeerzonesUitz:
       return (
         <MapDetailParkeerzoneUitz
@@ -281,7 +292,7 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           panoUrl={panoUrl}
           item={result}
         />
-        )
+      )
     case endpointTypes.vastgoed:
       return (
         <MapDetailVastgoed
