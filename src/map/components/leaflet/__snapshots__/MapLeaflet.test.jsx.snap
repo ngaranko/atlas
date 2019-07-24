@@ -5,9 +5,10 @@ exports[`MapLeaflet component should render brkMarkers 1`] = `
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -18,6 +19,7 @@ exports[`MapLeaflet component should render brkMarkers 1`] = `
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -286,9 +288,10 @@ exports[`MapLeaflet component should render clusters 1`] = `
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -299,6 +302,7 @@ exports[`MapLeaflet component should render clusters 1`] = `
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -598,9 +602,10 @@ exports[`MapLeaflet component should render clusters 2`] = `
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -611,6 +616,7 @@ exports[`MapLeaflet component should render clusters 2`] = `
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -910,9 +916,10 @@ exports[`MapLeaflet component should render map with base layer and update base 
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -923,6 +930,7 @@ exports[`MapLeaflet component should render map with base layer and update base 
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -1183,9 +1191,10 @@ exports[`MapLeaflet component should render map with base layer and update base 
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -1196,6 +1205,7 @@ exports[`MapLeaflet component should render map with base layer and update base 
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -1456,9 +1466,10 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 1`] 
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -1469,6 +1480,7 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 1`] 
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -1699,9 +1711,10 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 2`] 
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -1712,6 +1725,7 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 2`] 
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -2085,9 +2099,10 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 3`] 
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -2098,6 +2113,7 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 3`] 
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -2436,9 +2452,10 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -2449,6 +2466,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -2679,9 +2697,10 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -2692,6 +2711,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -2950,9 +2970,10 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -2963,6 +2984,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -3222,9 +3244,10 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -3235,6 +3258,7 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -3569,9 +3593,10 @@ exports[`MapLeaflet component should render map with without layers and add/remo
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -3582,6 +3607,7 @@ exports[`MapLeaflet component should render map with without layers and add/remo
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -3812,9 +3838,10 @@ exports[`MapLeaflet component should render map with without layers and add/remo
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -3825,6 +3852,7 @@ exports[`MapLeaflet component should render map with without layers and add/remo
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -4069,9 +4097,10 @@ exports[`MapLeaflet component should render map with without layers and add/remo
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -4082,6 +4111,7 @@ exports[`MapLeaflet component should render map with without layers and add/remo
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -4312,9 +4342,10 @@ exports[`MapLeaflet component should render markers 1`] = `
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -4325,6 +4356,7 @@ exports[`MapLeaflet component should render markers 1`] = `
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
@@ -4987,9 +5019,10 @@ exports[`MapLeaflet component should render markers 2`] = `
   handleHeigh={true}
   handleHeight={false}
   handleWidth={true}
+  nodeType="div"
   onResize={[Function]}
+  querySelector={null}
   refreshRate={1000}
-  resizableElementId=""
   skipOnMount={false}
   style={
     Object {
@@ -5000,6 +5033,7 @@ exports[`MapLeaflet component should render markers 2`] = `
       "top": "0",
     }
   }
+  targetDomEl={null}
 >
   <Map
     attributionControl={false}
