@@ -51,7 +51,7 @@ Notification.propTypes = {
   canClose: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   className: PropTypes.string,
-  level: PropTypes.oneOf(['alert', 'info', 'message']),
+  level: PropTypes.oneOf(['alert', 'info', 'message', 'disclaimer']),
 }
 
 export default Notification
