@@ -9,10 +9,11 @@ import HomepageAddressBlock from '../../homepage/components/address-block/Homepa
 import HomepageBlock from '../../homepage/components/block/HomepageBlock'
 import ShareBar from '../components/ShareBar/ShareBar'
 import {
-  toDatasets,
   toMapWithLegendOpen,
   toPanoramaAndPreserveQuery,
 } from '../../store/redux-first-router/actions'
+import Notification from '../../shared/components/notification/Notification'
+import HomepageDatasetsThemesBlock from '../../homepage/components/datasets-themes-block/HomepageDatasetsThemesBlock'
 
 const INSTRUCTION_LINKS = {
   BEDIENING: {
@@ -63,7 +64,7 @@ const ABOUT_LINKS = {
                       blockIsLink
                     >
                       <PreviewVideo
-                        poster="/assets/video/map.png"
+                        poster="/assets/video/map.jpg"
                         src="/assets/video/map.mp4"
                         type="video/mp4"
                       />
@@ -102,19 +103,7 @@ const ABOUT_LINKS = {
               </div>
               <div className="u-row">
                 <div className="u-col-sm--6 c-homepage__block--data-selection">
-                  <HomepageBlock
-                    classes="c-homepage__block--left c-homepage__block--datasets"
-                    linkAction={toDatasets()}
-                    title="Datasetcatalogus"
-                    description="Blader door datasets (verzamelingen gegevens)"
-                    blockIsLink
-                  >
-                    <AngularWrapper
-                      moduleName="dpCatalogusThemesWrapper"
-                      component="dpCatalogusThemes"
-                      dependencies={['atlas']}
-                    />
-                  </HomepageBlock>
+                  <HomepageDatasetsThemesBlock />
                 </div>
 
                 <div className="u-col-sm--3 c-homepage__block--address" id="homepage-address-block">
@@ -211,18 +200,7 @@ const ABOUT_LINKS = {
                       eigen toepassingen.
                     </p>
                     <div className="c-homepage__visie-panel">
-                      <AngularWrapper
-                        moduleName="dpPanelWrapper"
-                        component="dpPanel"
-                        dependencies={['atlas']}
-                        bindings={{
-                          isPanelVisible: true,
-                          canClose: false,
-                        }}
-                        interpolateBindings={{
-                          type: 'info',
-                        }}
-                      >
+                      <Notification level="disclaimer" canClose={false} className="c-panel">
                         <div>
                           <p
                             className={`c-homepage__visie-paragraph
@@ -241,7 +219,7 @@ const ABOUT_LINKS = {
                             amsterdam.nl/ois
                           </a>
                         </div>
-                      </AngularWrapper>
+                      </Notification>
                     </div>
                   </div>
                 </div>
