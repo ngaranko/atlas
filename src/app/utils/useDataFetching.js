@@ -14,7 +14,9 @@ function useDataFetching() {
     } catch (e) {
       setErrorMessage(e.message)
     }
+
     setLoading(false)
+    return results
   }
 
   return {

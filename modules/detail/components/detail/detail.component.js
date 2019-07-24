@@ -12,6 +12,8 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
       detailTemplateUrl: '<',
       detailData: '<',
       detailFilterSelection: '<',
+      subType: '<',
+      id: '<'
     },
     templateUrl: 'modules/detail/components/detail/detail.html',
     controller: DpDetailController,

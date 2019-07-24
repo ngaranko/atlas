@@ -5,7 +5,7 @@ exports[`MoreResultsWhenLoggedIn should render everything 1`] = `
   canClose={true}
   className=""
   level="info"
-  type="warning"
+  type="info"
 >
   <h3
     className="c-panel__title"

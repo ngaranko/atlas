@@ -1,111 +1,99 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { render, shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { ThemeProvider } from '@datapunt/asc-ui'
 import SpecialsPage from './SpecialsPage'
-import useDataFetching from '../../utils/useDataFetching'
+import useFromCMS from '../../utils/useFromCMS'
 import setIframeSize from '../../utils/setIframeSize'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
+import useDocumentTitle from '../../utils/useDocumentTitle'
+import Footer from '../../components/Footer/Footer';
 
-jest.mock('../../utils/useDataFetching')
+jest.mock('../../utils/useFromCMS')
 jest.mock('../../utils/setIframeSize')
 jest.mock('../../utils/getReduxLinkProps')
+jest.mock('../../utils/useDocumentTitle')
+jest.mock('../../utils/useDocumentTitle')
+jest.mock('../../components/Footer/Footer')
 
 describe('SpecialsPage', () => {
-  const specialsId = 6
-  const specialsHref = 'https://this.is/a-link/this-is-a-slug'
+  const id = 6
+  const href = 'https://this.is/a-link/this-is-a-slug'
+  const fetchDataMock = jest.fn()
 
-  getReduxLinkProps.mockImplementation(() => ({
-    href: specialsHref,
-  }))
+  let store
+  let mockData
 
-  const mockData = {
-    fetchData: jest.fn(),
-    results: {
-      data: [
-        {
-          attributes: {
-            title: 'This is a title',
-            field_iframe_link: {
-              uri: 'http://this.is.alink',
-            },
-            slug: 'this-is-a-slug',
-          },
+  beforeEach(() => {
+    getReduxLinkProps.mockImplementation(() => ({ href }))
+    useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: jest.fn() }))
+    Footer.mockImplementation(() => <></>)
+
+    store = configureMockStore()({ location: { payload: { id } } })
+    mockData = {
+      fetchData: fetchDataMock,
+      loading: false,
+      results: {
+        title: 'This is a title',
+        field_iframe_link: {
+          uri: 'http://this.is.alink',
         },
-      ],
-    },
-  }
+        field_slug: 'this-is-a-slug',
+      },
+    }
+  })
 
-  it('should render the spinner when the request is loading', () => {
-    useDataFetching.mockImplementation(() => ({
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
+
+
+  it('should set the loading prop on the blog container', () => {
+    useFromCMS.mockImplementation(() => ({
       loading: true,
     }))
 
-    const store = configureMockStore()({ location: { payload: { id: specialsId } } })
     const component = shallow(<SpecialsPage />, { context: { store } }).dive()
 
-    const spinner = component.find('Spinner').at(0)
-    expect(spinner.exists()).toBeTruthy()
+    const blogPage = component.find('BlogPage').at(0)
+    expect(blogPage.props().loading).toBeTruthy()
   })
 
-  it('should render the iframe when there are results', () => {
-    useDataFetching.mockImplementation(() => mockData)
+  it('should mount the iframe when there are results', () => {
+    useFromCMS.mockImplementation(() => mockData)
 
-    const store = configureMockStore()({ location: { payload: { id: specialsId } } })
     const component = shallow(<SpecialsPage />, { context: { store } }).dive()
 
     const iframe = component.find('iframe').at(0)
     expect(iframe.exists()).toBeTruthy()
   })
 
-  it('should set the values for Helmet', () => {
-    useDataFetching.mockImplementation(() => mockData)
-
-    const store = configureMockStore()({ location: { payload: { id: specialsId } } })
-    const component = shallow(<SpecialsPage />, { context: { store } }).dive()
-
-    expect(getReduxLinkProps).toHaveBeenCalled()
-
-    const helmet = component.find('HelmetWrapper')
-    expect(helmet.exists()).toBeTruthy()
-    expect(helmet.find('link').props().href).toBe(specialsHref)
-  })
-
   it('should call the fetchData function when the component mounts', () => {
-    const fetchDataMock = jest.fn()
-    useDataFetching.mockImplementation(() => ({
-      fetchData: fetchDataMock,
-      loading: true,
-    }))
+    useFromCMS.mockImplementation(() => mockData)
 
-    const store = configureMockStore()({ location: { payload: { id: specialsId } } })
-    const component = mount(
+    const component = render(
       <ThemeProvider>
         <SpecialsPage store={store} />
       </ThemeProvider>,
     )
 
-    const endpoint = `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/special?filter[drupal_internal__nid]=${specialsId}`
+    expect(component.find('iframe')).toBeTruthy()
 
-    expect(component.find('SpecialsPage').props().endpoint).toBe(endpoint)
+    expect(component).toMatchSnapshot()
 
-    expect(fetchDataMock).toHaveBeenCalledWith(endpoint)
+    expect(component.find('SpecialsPage')).toBeTruthy()
+    // expect(fetchDataMock).toHaveBeenCalledWith(id, cmsConfig.special)
   })
 
   it('should call the setIframeSize function', () => {
     setIframeSize.mockImplementation(() => {})
 
-    useDataFetching.mockImplementation(() => mockData)
+    useFromCMS.mockImplementation(() => mockData)
 
-    const store = configureMockStore()({ location: { payload: { id: specialsId } } })
-    const component = mount(
-      <ThemeProvider>
-        <SpecialsPage store={store} />
-      </ThemeProvider>,
-    )
+    const component = shallow(<SpecialsPage />, { context: { store } }).dive()
 
     const iframe = component.find('iframe').at(0)
+    expect(iframe.exists()).toBeTruthy()
 
     iframe.simulate('load')
 

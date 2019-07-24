@@ -7,6 +7,8 @@ const MAIN_PATHS = {
   DATA: 'data',
   DATASETS: 'datasets',
   CONTENT: 'content',
+  PUBLICATIONS: 'publicaties',
+  SPECIALS: 'specials'
 }
 
 export const routing = {
@@ -81,6 +83,13 @@ export const routing = {
     path: `/${MAIN_PATHS.DATA}/panorama/:id/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.PANORAMA}`,
     page: PAGES.PANORAMA,
+  },
+  constructionFile: {
+    title: 'Bouwdossier',
+    path: `/${MAIN_PATHS.DATA}/stadsarchief/bouwdossier/:id/`,
+    type: `${ROUTER_NAMESPACE}/${PAGES.CONSTRUCTION_FILE}`,
+    useHooks: true, // indicate to skip legacy documentHead and piwik middleware
+    page: PAGES.CONSTRUCTION_FILE
   },
   article: {
     title: 'Artikel',
@@ -180,13 +189,13 @@ export const routing = {
   },
   specials: {
     title: 'Specials',
-    path: `/specials/special/:id/:slug`,
+    path: `/${MAIN_PATHS.SPECIALS}/special/:id/:slug`,
     type: `${ROUTER_NAMESPACE}/${PAGES.SPECIALS}`,
     page: PAGES.SPECIALS,
   },
   publications: {
     title: 'Publicaties',
-    path: `/publicaties/:id/:slug`,
+    path: `/${MAIN_PATHS.PUBLICATIONS}/publicatie/:id/:slug`,
     type: `${ROUTER_NAMESPACE}/${PAGES.PUBLICATIONS}`,
     page: PAGES.PUBLICATIONS,
   },

@@ -48,7 +48,7 @@ exports[`Header should render the main header 1`] = `
       Array [
         "
   ",
-        ".sc-jWBwVP",
+        ".sc-cvbbAY",
         " {
     @media screen and ",
         "(min-width: 768.02px)",
@@ -57,13 +57,13 @@ exports[`Header should render the main header 1`] = `
     }
 
     fieldset > ",
-        ".sc-gPEVay",
+        ".sc-jDwBTQ",
         " {
       flex-grow: 1;
       max-width: 80%;
 
       ",
-        ".sc-jDwBTQ",
+        ".sc-jAaTju",
         " {
         flex-grow: 0;
         width: 100%;

@@ -43,7 +43,7 @@ pipeline {
         PROJECT = "${PROJECT_PREFIX}unit"
       }
       steps {
-        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit-integration test-unit-integration"
+        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit test-unit"
       }
       post {
         always {

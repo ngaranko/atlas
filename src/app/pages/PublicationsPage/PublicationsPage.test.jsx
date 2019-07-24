@@ -1,14 +1,21 @@
 import React from 'react'
-import { mount, shallow, render } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { ThemeProvider } from '@datapunt/asc-ui'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import PublicationsPage from './PublicationsPage'
-import useDataFetching from '../../utils/useDataFetching'
+import useFromCMS from '../../utils/useFromCMS'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
+import cmsConfig from '../../../shared/services/cms/cms-config'
+import Footer from '../../components/Footer/Footer'
+import useDocumentTitle from '../../utils/useDocumentTitle'
+import useMatomo from '../../utils/useMatomo'
 
-jest.mock('../../utils/useDataFetching')
+jest.mock('../../utils/useFromCMS')
 jest.mock('../../utils/getReduxLinkProps')
+jest.mock('downloadjs')
+jest.mock('../../components/Footer/Footer')
+jest.mock('../../utils/useDocumentTitle')
+jest.mock('../../utils/useMatomo')
 
 describe('PublicationsPage', () => {
   const id = 3
@@ -17,23 +24,17 @@ describe('PublicationsPage', () => {
   const mockData = {
     fetchData: jest.fn(),
     results: {
-      data: [
-        {
-          attributes: {
-            drupal_internal__nid: 100,
-            title: 'This is a title',
-            created: '2015-05-05',
-            body: {
-              value: 'body text',
-            },
-            field_file_size: 'file size',
-            field_file_type: 'pdf',
-            field_publication_source: 'source',
-            field_publication_intro: 'intro',
-            field_slug: 'slug',
-          },
-        },
-      ],
+      drupal_internal__nid: 100,
+      title: 'This is a title',
+      created: '2015-05-05',
+      body: {
+        value: 'body text',
+      },
+      field_file_size: 'file size',
+      field_file_type: 'pdf',
+      field_publication_source: 'source',
+      field_publication_intro: 'intro',
+      field_slug: 'slug',
       included: [
         { attributes: { uri: { url: 'https://cover-link' } } },
         { attributes: { uri: { url: 'https://cover-link' } } },
@@ -46,6 +47,9 @@ describe('PublicationsPage', () => {
   let store
   beforeEach(() => {
     getReduxLinkProps.mockImplementation(() => ({ href }))
+    Footer.mockImplementation(() => <></>)
+    useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: jest.fn(), href }))
+    useMatomo.mockImplementation(() => ({ trackPageView: jest.fn(), href }))
 
     store = configureMockStore()({ location: { payload: { id } } })
   })
@@ -55,7 +59,7 @@ describe('PublicationsPage', () => {
   })
 
   it('should render the spinner when the request is loading', () => {
-    useDataFetching.mockImplementation(() => ({
+    useFromCMS.mockImplementation(() => ({
       loading: true,
     }))
 
@@ -63,16 +67,18 @@ describe('PublicationsPage', () => {
       context: { store },
     }).dive()
 
-    const spinner = component.find('Spinner').at(0)
-    expect(spinner.exists()).toBeTruthy()
+    const blogPage = component.find('BlogPage').at(0)
+    expect(blogPage.props().loading).toBeTruthy()
   })
 
   it('should call the fetchData function when the component mounts', () => {
     const fetchDataMock = jest.fn()
-    useDataFetching.mockImplementation(() => ({
+    useFromCMS.mockImplementation(() => ({
       fetchData: fetchDataMock,
       loading: true,
     }))
+
+    store = configureMockStore()({ location: { payload: { id } } })
 
     const component = mount(
       <ThemeProvider>
@@ -81,24 +87,17 @@ describe('PublicationsPage', () => {
       { context: { store } },
     )
 
-    const endpoint = `${
-      SHARED_CONFIG.CMS_ROOT
-    }jsonapi/node/publication?filter[drupal_internal__nid]=${id}&include=field_cover_image.field_media_image,field_file.field_media_file`
+    expect(component.find('PublicationsPage').props().id).toBe(id)
 
-    expect(component.find('PublicationsPage').props().endpoint).toBe(endpoint)
-
-    expect(fetchDataMock).toHaveBeenCalledWith(endpoint)
+    expect(fetchDataMock).toHaveBeenCalledWith(id, cmsConfig.publication)
   })
 
   it('should render the publication when there are results', () => {
-    useDataFetching.mockImplementation(() => mockData)
-    // console.log(store)
-    const component = render(
-      <ThemeProvider>
-        <PublicationsPage store={store} />
-      </ThemeProvider>,
-      { context: { store } },
-    )
+    useFromCMS.mockImplementation(() => mockData)
+    const component = shallow(<PublicationsPage />, {
+      context: { store },
+    }).dive()
+
     expect(component).toMatchSnapshot()
   })
 })

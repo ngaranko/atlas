@@ -32,6 +32,7 @@ import DataSelectionReducer, {
 } from '../shared/ducks/data-selection/reducer'
 import DatasetReducer, { DATASETS } from '../shared/ducks/datasets/datasets'
 import ContentReducer, { CONTENT } from '../shared/ducks/content/reducer'
+import FilesReducer, { FILES_REDUCER } from '../shared/ducks/files/reducer'
 
 export default routeReducer => (oldState = {}, action) => {
   const mapLayers = combineReducers({
@@ -59,6 +60,7 @@ export default routeReducer => (oldState = {}, action) => {
     [DATA_SELECTION]: DataSelectionReducer,
     [DATASETS]: DatasetReducer,
     [CONTENT]: ContentReducer,
+    [FILES_REDUCER]: FilesReducer,
   })
 
   // Combine legacy and new reducer states

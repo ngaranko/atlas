@@ -1,14 +1,13 @@
 import { createSelector } from 'reselect'
 import {
-  isDataSelectionPage,
-  isDatasetPage,
-  isDatasetDetailPage,
-  isPanoPage,
   isDataPage,
-  isHomepage,
-  isPublicationsPage,
+  isDataSelectionPage,
+  isDatasetDetailPage,
+  isDatasetPage,
+  isPanoPage,
 } from '../../../store/redux-first-router/selectors'
 import paramsRegistry from '../../../store/params-registry'
+import { getFileName } from '../files/selectors'
 
 const REDUCER_KEY = 'ui'
 export { REDUCER_KEY as UI }
@@ -204,9 +203,7 @@ export const hasPrintMode = createSelector(
     panoPageActive,
     viewMode,
   ) =>
-    ((!dataSelectionPage ||
-      viewMode === VIEW_MODE.SPLIT ||
-      viewMode === VIEW_MODE.MAP) &&
+    ((!dataSelectionPage || viewMode === VIEW_MODE.SPLIT || viewMode === VIEW_MODE.MAP) &&
       (!datasetPage || datasetDetailPage) &&
       (dataPage || mapActive || viewMode === VIEW_MODE.SPLIT)) ||
     panoPageActive,
@@ -218,16 +215,15 @@ export const hasEmbedMode = createSelector(
   isPanoFullscreen,
   isDataSelectionPage,
   (mapActive, panoPage, panoFullscreen, dataSelectionPage) =>
-    (mapActive && !panoPage && !dataSelectionPage) ||
-    (panoPage && panoFullscreen),
+    (mapActive && !panoPage && !dataSelectionPage) || (panoPage && panoFullscreen),
 )
 
 export const isPrintModeLandscape = createSelector(
   isPrintMode,
   isPanoPage,
   isMapPage,
+  getFileName,
   getViewMode,
-  (printMode, panoPageActive, mapPageActive, viewMode) =>
-    printMode &&
-    (panoPageActive || mapPageActive || viewMode === VIEW_MODE.MAP),
+  (printMode, panoPageActive, mapPageActive, fileName, viewMode) =>
+    printMode && (panoPageActive || mapPageActive || !!fileName || viewMode === VIEW_MODE.MAP),
 )

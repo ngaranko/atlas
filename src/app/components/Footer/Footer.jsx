@@ -1,9 +1,10 @@
 import React from 'react'
 import Link from 'redux-first-router-link'
+import PropTypes from 'prop-types'
 import { routing } from '../../routes'
 
-const FooterComponent = () => (
-  <footer className="c-dashboard__footer o-max-width">
+const FooterComponent = ({ noMaxWidth }) => (
+  <footer className={`c-dashboard__footer ${noMaxWidth ? '' : 'o-max-width'}`}>
     <div className="c-dashboard__footer-content u-row">
       <div className="u-col-sm--8">
         <div className="u-margin__left--2 c-dashboard__proclaimer">
@@ -78,5 +79,13 @@ const FooterComponent = () => (
     </div>
   </footer>
 )
+
+FooterComponent.defaultProps = {
+  noMaxWidth: false,
+}
+
+FooterComponent.propTypes = {
+  noMaxWidth: PropTypes.bool,
+}
 
 export default FooterComponent

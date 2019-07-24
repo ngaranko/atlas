@@ -1,65 +1,51 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Helmet } from 'react-helmet'
 import download from 'downloadjs'
 import {
   Column,
   Row,
-  Spinner,
   Publication,
   CustomHTMLBlock,
-  Summary,
   BlogHeader,
   BlogMetaList,
   DocumentCover,
   BlogContent,
-  Container,
+  Paragraph,
 } from '@datapunt/asc-ui'
-// import Footer from '../../components/Footer/Footer'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
-import formatDate from '../../../shared/services/date-formatter/date-formatter'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
-import useDataFetching from '../../utils/useDataFetching'
-import { toPublication } from '../../../store/redux-first-router/actions';
-import getReduxLinkProps from '../../utils/getReduxLinkProps';
+import useFromCMS from '../../utils/useFromCMS'
+import BlogPage from '../../components/BlogPage/BlogPage'
+import cmsConfig from '../../../shared/services/cms/cms-config'
 
-/* istanbul ignore next */
-const PublicationsPage = ({ endpoint }) => {
-  const { fetchData, results, loading } = useDataFetching()
+const PublicationsPage = ({ id }) => {
+  const { fetchData, results, loading } = useFromCMS()
 
   React.useEffect(() => {
-    fetchData(endpoint)
+    ;(async () => {
+      await fetchData(id, cmsConfig.publication)
+    })()
   }, [])
 
   const {
-    drupal_internal__nid: id,
     title,
-    created,
+    localeDate,
     body,
+    coverUrl,
     field_file_size: fileSize,
     field_file_type: fileType,
     field_publication_source: source,
     field_publication_intro: intro,
     field_slug: slug,
-  } = results ? results.data[0].attributes : {}
-  const coverUrl = results ? results.included[1].attributes.uri.url : {}
-  const downloadUrl = results ? results.included[3].attributes.uri.url : {}
+    included,
+  } = results || {}
 
-  const action = toPublication(id, slug)
-  const { href } = getReduxLinkProps(action)
+  const downloadUrl = included ? results.included[3].attributes.uri.url : {}
+  const documentTitle = `Publicatie: ${title}`
 
   return (
-    <div className="c-dashboard__page o-max-width">
-      <Container>
-        <Helmet>
-          <link rel="canonical" href={href} />
-        </Helmet>
-
-        {loading && (
-          <div className="loading-indicator">
-            <Spinner size={36} color="secondary" />
-          </div>
-        )}
+    <BlogPage {...{ id, slug, documentTitle, loading }}>
+      {!loading && (
         <Row>
           <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
             {!loading && body && (
@@ -80,7 +66,7 @@ const PublicationsPage = ({ endpoint }) => {
                         <BlogMetaList
                           fields={[
                             { id: 1, label: source },
-                            { id: 4, label: formatDate(new Date(created)) },
+                            { id: 4, label: localeDate },
                             { id: 2, label: fileSize },
                             { id: 3, label: fileType.toUpperCase() },
                           ]}
@@ -92,14 +78,17 @@ const PublicationsPage = ({ endpoint }) => {
                         imageSrc={`${SHARED_CONFIG.CMS_ROOT}${coverUrl}`}
                         description={`Download PDF (${fileSize})`}
                         onClick={() => {
-                          const link = `${SHARED_CONFIG.CMS_ROOT}${downloadUrl}`
-                          download(link)
+                          download(`${SHARED_CONFIG.CMS_ROOT}${downloadUrl}`)
                         }}
                       />
                     </Column>
                     <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                       <BlogContent>
-                        {intro && <Summary>{intro}</Summary>}
+                        {intro && (
+                          <Paragraph hasLongText strong>
+                            {intro}
+                          </Paragraph>
+                        )}
                         <CustomHTMLBlock body={body.value} />
                       </BlogContent>
                     </Column>
@@ -109,17 +98,17 @@ const PublicationsPage = ({ endpoint }) => {
             )}
           </Column>
         </Row>
-      </Container>
-      {/* {!loading && <Footer />} */}
-    </div>
+      )}
+    </BlogPage>
   )
 }
 
-const mapStateToProps = state => ({
-  endpoint: `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?filter[drupal_internal__nid]=${
-    getLocationPayload(state).id
-  }&include=field_cover_image.field_media_image,field_file.field_media_file`,
-})
+const mapStateToProps = state => {
+  const { id } = getLocationPayload(state)
+  return {
+    id,
+  }
+}
 
 export default connect(
   mapStateToProps,
