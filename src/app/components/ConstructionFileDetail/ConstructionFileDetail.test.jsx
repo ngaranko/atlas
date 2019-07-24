@@ -25,8 +25,8 @@ describe('ConstructionFileDetail', () => {
   });
 
   it('should set the title', () => {
-    expect(component.at(0).find('Typography').at(1)).toBeTruthy();
-    expect(component.at(0).find('Typography').at(1).props().children).toBe(mockResults.titel);
+    expect(component.at(0).find('Heading').at(1)).toBeTruthy();
+    expect(component.at(0).find('Heading').at(1).props().children).toBe(mockResults.titel);
   });
 
   it('should render the subfiles', () => {
