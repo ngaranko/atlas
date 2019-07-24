@@ -1,15 +1,15 @@
 import { BlogPost, Column, Row } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import setIframeSize from '../../utils/setIframeSize'
 import useFromCMS from '../../utils/useFromCMS'
 import './SpecialsPage.scss'
 import BlogPage from '../../components/BlogPage/BlogPage'
+import cmsConfig from '../../../shared/services/cms/cms-config';
 
-const SpecialsPage = ({ id, endpoint }) => {
-  const { fetchFromCMS, results, loading } = useFromCMS()
+const SpecialsPage = ({ id }) => {
+  const { fetchData, results, loading } = useFromCMS()
   const [iframeLoading, setIframeLoading] = React.useState(true)
   const [iframeHeight, setIframeHeight] = React.useState(0)
   const iframeRef = React.useRef(null)
@@ -19,10 +19,9 @@ const SpecialsPage = ({ id, endpoint }) => {
   }
 
   React.useEffect(() => {
-    /* istanbul ignore next */
-
-    fetchFromCMS(endpoint, ['field_iframe_link', 'field_slug'])
-
+    ;(async () => {
+      await fetchData(id, cmsConfig.special)
+    })()
 
     window.addEventListener('resize', handleResize)
 
@@ -78,7 +77,6 @@ const mapStateToProps = state => {
   const { id } = getLocationPayload(state)
   return {
     id,
-    endpoint: `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/special?filter[drupal_internal__nid]=${id}`,
   }
 }
 

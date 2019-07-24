@@ -5,43 +5,49 @@ import { ThemeProvider } from '@datapunt/asc-ui'
 import SpecialsPage from './SpecialsPage'
 import useFromCMS from '../../utils/useFromCMS'
 import setIframeSize from '../../utils/setIframeSize'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
 import useDocumentTitle from '../../utils/useDocumentTitle'
+import cmsConfig from '../../../shared/services/cms/cms-config';
+import Footer from '../../components/Footer/Footer';
 
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../utils/setIframeSize')
 jest.mock('../../utils/getReduxLinkProps')
 jest.mock('../../utils/useDocumentTitle')
+jest.mock('../../utils/useDocumentTitle')
+jest.mock('../../components/Footer/Footer')
 
 describe('SpecialsPage', () => {
   const id = 6
   const href = 'https://this.is/a-link/this-is-a-slug'
+  const fetchDataMock = jest.fn()
 
   let store
+  let mockData
+
   beforeEach(() => {
     getReduxLinkProps.mockImplementation(() => ({ href }))
     useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: jest.fn() }))
+    Footer.mockImplementation(() => <></>)
 
     store = configureMockStore()({ location: { payload: { id } } })
+    mockData = {
+      fetchData: fetchDataMock,
+      loading: false,
+      results: {
+        title: 'This is a title',
+        field_iframe_link: {
+          uri: 'http://this.is.alink',
+        },
+        field_slug: 'this-is-a-slug',
+      },
+    }
   })
 
   afterEach(() => {
     jest.resetAllMocks()
   })
 
-  const fetchFromCMSMock = jest.fn()
-  const mockData = {
-    fetchFromCMS: fetchFromCMSMock,
-    loading: false,
-    results: {
-      title: 'This is a title',
-      field_iframe_link: {
-        uri: 'http://this.is.alink',
-      },
-      field_slug: 'this-is-a-slug',
-    },
-  }
 
   it('should set the loading prop on the blog container', () => {
     useFromCMS.mockImplementation(() => ({
@@ -63,28 +69,21 @@ describe('SpecialsPage', () => {
     expect(iframe.exists()).toBeTruthy()
   })
 
-  it('should call the fetchFromCMS function when the component mounts', () => {
+  it('should call the fetchData function when the component mounts', () => {
     useFromCMS.mockImplementation(() => mockData)
-
-console.log(store);
-
 
     const component = render(
       <ThemeProvider>
         <SpecialsPage store={store} />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
-    const iframe = component.find('iframe').at(0)
-    expect(iframe.exists()).toBeTruthy()
-
-    const endpoint = `${
-      SHARED_CONFIG.CMS_ROOT
-    }jsonapi/node/special?filter[drupal_internal__nid]=${id}`
+    expect(component.find('iframe')).toBeTruthy()
 
     expect(component).toMatchSnapshot()
 
-    expect(fetchFromCMSMock).toHaveBeenCalledWith(endpoint, ['field_iframe_link', 'field_slug'])
+    expect(component.find('SpecialsPage')).toBeTruthy()
+    // expect(fetchDataMock).toHaveBeenCalledWith(id, cmsConfig.special)
   })
 
   it('should call the setIframeSize function', () => {

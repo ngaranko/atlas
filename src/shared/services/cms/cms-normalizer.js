@@ -1,8 +1,7 @@
 import normalize from 'json-api-normalize'
-import formatDate, { dateToString } from '../../shared/services/date-formatter/date-formatter'
+import formatDate, { dateToString } from '../date-formatter/date-formatter'
 
-// eslint-disable-next-line import/prefer-default-export
-const normalizeFromCMS = (data, fields) => {
+const cmsNormalizer = (data, fields) => {
   const { title, body, created, ...otherFields } = normalize(data).get([
     'title',
     'body',
@@ -27,4 +26,4 @@ const normalizeFromCMS = (data, fields) => {
   }
 }
 
-export default normalizeFromCMS
+export default cmsNormalizer

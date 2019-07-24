@@ -2,19 +2,22 @@
 import { act } from 'react-dom/test-utils'
 import useFromCMS from './useFromCMS'
 import testHook from '../../../test/test-hook'
+import cmsConfig from '../../shared/services/cms/cms-config';
 
 jest.useFakeTimers()
 
 let mockuseFromCMS
 describe('useFromCMS', () => {
+  const id = 3
+
   beforeEach(() => {
     testHook(() => {
-      mockuseFromCMS = useFromCMS('name', ['foo'])
+      mockuseFromCMS = useFromCMS()
     })
   })
 
   it('should have a fetchData function', () => {
-    expect(mockuseFromCMS.fetchFromCMS).toBeInstanceOf(Function)
+    expect(mockuseFromCMS.fetchData).toBeInstanceOf(Function)
   })
 
   it('should have correct initial values', () => {
@@ -26,7 +29,7 @@ describe('useFromCMS', () => {
     expect(mockuseFromCMS.loading).toBe(false)
 
     act(() => {
-      mockuseFromCMS.fetchFromCMS('name', ['foo'])
+      mockuseFromCMS.fetchData(id, cmsConfig.article)
     })
 
     expect(mockuseFromCMS.loading).toBe(true)

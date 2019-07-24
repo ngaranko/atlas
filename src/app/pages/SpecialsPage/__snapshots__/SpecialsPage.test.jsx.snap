@@ -1,100 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SpecialsPage should call the fetchFromCMS function when the component mounts 1`] = `
-<BlogPage
-  id={6}
-  loading={true}
-  slug="this-is-a-slug"
-  title="This is a title"
+exports[`SpecialsPage should call the fetchData function when the component mounts 1`] = `
+<div
+  class="sc-jhAzac hhZpgF"
 >
   <div
-    className="iframe-container "
+    class="sc-fBuWsC iMmyhd"
   >
-    <Row
-      debug={false}
-      debugColor="rgba(51,102,153,0.75)"
-      hasMargin={true}
+    <div
+      class="blog-page__body"
     >
-      <BlogPost
-        StyledComponent={
-          Object {
-            "$$typeof": Symbol(react.forward_ref),
-            "attrs": Array [],
-            "componentStyle": ComponentStyle {
-              "componentId": "sc-TOsTZ",
-              "isStatic": false,
-              "rules": Array [
-                "
-  width: 100%;
-  color: ",
-                [Function],
-                ";
-  background-color: ",
-                [Function],
-                ";
-  margin-top: 20px;
-  margin-bottom: 20px;
-
-  @media screen and ",
-                [Function],
-                " {
-    margin-top: ",
-                "54",
-                "px;
-    margin-bottom: 70px;
-  }
-
-  ",
-                [Function],
-                "
-
-  ",
-                ".sc-cHGsZl",
-                " {
-    max-height: 560px;
-    min-height: 250px;
-  }
-",
-              ],
-            },
-            "displayName": "styled.section",
-            "foldedComponentIds": Array [],
-            "render": [Function],
-            "styledComponentId": "sc-TOsTZ",
-            "target": "section",
-            "toString": [Function],
-            "warnTooManyClasses": [Function],
-            "withComponent": [Function],
-          }
-        }
+      <div
+        class="loading-indicator"
       >
-        <Column
-          debug={false}
-          debugColor="rgba(51,102,153,0.5)"
-          order={0}
-          push={0}
-          span={
-            Object {
-              "big": 12,
-              "large": 12,
-              "medium": 12,
-              "small": 12,
-              "xLarge": 12,
-            }
-          }
-          wrap={true}
+        <div
+          class="sc-hqyNC kNIGoa"
+          size="36"
         >
-          <iframe
-            frameBorder="0"
-            height={0}
-            onLoad={[Function]}
-            src="http://this.is.alink"
-            title="This is a title"
-            width="100%"
-          />
-        </Column>
-      </BlogPost>
-    </Row>
+          <span
+            class="sc-ifAKCX dpdicJ"
+            color="secondary"
+            size="36"
+          >
+            <svg
+              focusable="false"
+              viewBox="0 0 100 100"
+            >
+              <path
+                d="M50 100C22.4 99.967.033 77.6 0 50h10c0 22.091 17.909 40 40 40s40-17.909 40-40-17.909-40-40-40V0c27.614 0 50 22.386 50 50s-22.386 50-50 50z"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div
+        class="iframe-container "
+      >
+        <div
+          class="sc-fMiknA duARQi"
+        >
+          <section
+            class="sc-TOsTZ eHPORN"
+          >
+            <div
+              class="sc-hzDkRC gFrWgH"
+            >
+              <iframe
+                frameborder="0"
+                height="0"
+                src="http://this.is.alink"
+                title="This is a title"
+                width="100%"
+              />
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
   </div>
-</BlogPage>
+</div>
 `;

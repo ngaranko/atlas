@@ -20,19 +20,14 @@ import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
 import './ArticlePage.scss'
 import BlogPage from '../../components/BlogPage/BlogPage'
+import cmsConfig from '../../../shared/services/cms/cms-config';
 
-/* istanbul ignore next */ const ArticlePage = ({ id, endpoint }) => {
-  const { fetchFromCMS, results, loading } = useFromCMS()
+/* istanbul ignore next */ const ArticlePage = ({ id }) => {
+  const { fetchData, results, loading } = useFromCMS()
 
   React.useEffect(() => {
     ;(async () => {
-      await fetchFromCMS(endpoint, [
-        'field_downloads',
-        'field_links',
-        'field_byline',
-        'field_slug',
-        'field_intro',
-      ])
+      await fetchData(id, cmsConfig.article)
     })()
   }, [])
 
@@ -144,9 +139,6 @@ const mapStateToProps = state => {
   const { id } = getLocationPayload(state)
   return {
     id,
-    endpoint: `${
-      SHARED_CONFIG.CMS_ROOT
-    }jsonapi/node/article?filter[drupal_internal__nid]=${id}&include=field_cover_image.field_media_image,field_downloads.field_file`,
   }
 }
 

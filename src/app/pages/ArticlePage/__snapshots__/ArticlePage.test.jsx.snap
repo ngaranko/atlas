@@ -3,7 +3,6 @@
 exports[`ArticlePage should render 1`] = `
 <ArticlePage
   dispatch={[Function]}
-  endpoint="https://acc.cms.data.amsterdam.nl/jsonapi/node/article?filter[drupal_internal__nid]=6&include=field_cover_image.field_media_image,field_downloads.field_file"
   id={6}
 />
 `;
