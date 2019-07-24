@@ -9,7 +9,7 @@ import { ReactComponent as Clock } from '../../../shared/assets/icons/Clock.svg'
 import { setPanoramaTags, fetchPanoramaRequestExternal } from '../../ducks/actions'
 import { PANO_LABELS } from '../../ducks/constants'
 import { getStreetViewUrl } from '../../services/panorama-api/panorama-api'
-
+import '../../../app/components/ContextMenu/Map/Map.scss'
 import './PanoramaToggle.scss'
 
 const PanoramaToggle = ({

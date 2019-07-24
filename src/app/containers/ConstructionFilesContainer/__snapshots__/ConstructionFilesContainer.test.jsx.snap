@@ -348,7 +348,13 @@ exports[`ConstructionFilesContainer should render 1`] = `
                   <div
                     className="sc-hzDkRC fPWdgX"
                   >
-                    <LoadingIndicator>
+                    <LoadingIndicator
+                      IconComponent={
+                        <span
+                          className="icon"
+                        />
+                      }
+                    >
                       <div
                         className="loading-indicator"
                       >

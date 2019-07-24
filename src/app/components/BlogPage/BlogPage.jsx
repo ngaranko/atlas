@@ -7,6 +7,8 @@ import { toSpecial } from '../../../store/redux-first-router/actions'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
 import Footer from '../Footer/Footer'
 import './BlogPage.scss'
+import '../../../map/components/loading-indicator/LoadingIndicator.scss'
+import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 
 const BlogPage = ({ children, id, documentTitle, slug, loading }) => {
   const { setDocumentTitle } = useDocumentTitle()
@@ -32,11 +34,7 @@ const BlogPage = ({ children, id, documentTitle, slug, loading }) => {
         <link rel="canonical" href={href} />
       </Helmet>
       <div className="blog-page__body">
-        {loading && (
-          <div className="loading-indicator">
-            <Spinner size={36} color="secondary" />
-          </div>
-        )}
+        {loading && <LoadingIndicator IconComponent={<Spinner size={36} color="secondary" />} />}
         {children}
       </div>
       <Footer noMaxWidth />

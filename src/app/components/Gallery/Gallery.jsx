@@ -3,9 +3,9 @@ import { PropTypes } from 'prop-types'
 import { GridContainer, GridItem, Icon, Heading } from '@datapunt/asc-ui'
 import { Minimise, Enlarge } from '@datapunt/asc-assets'
 import Thumbnail from '../Thumbnail/Thumbnail'
-import './Gallery.scss'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
 import { toConstructionFileViewer } from '../../../store/redux-first-router/actions'
+import './Gallery.scss'
 
 // Todo: replace the "encodeURIComponent(file.match(/SU(.*)/g)" when files are on the proper server
 const Gallery = ({ title, allThumbnails, id, maxLength }) => {

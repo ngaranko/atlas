@@ -1,0 +1,112 @@
+@import "../../../shared/styles/config";
+
+$base-padding: calc(#{$base-whitespace} * 2);
+
+.c-catalogus-themes {
+  padding: ($base-whitespace * .8) $base-padding $base-padding;
+
+  &__column {
+    font-size: 0;
+    margin: 6px 0 17px; // to position the button links under the themes
+
+    &--right {
+      margin-left: 3 * $base-whitespace;
+    }
+  }
+
+  &__icon {
+    height: 40px;
+    margin-bottom: ($base-whitespace / 2);
+    width: 100%;
+
+    &::before {
+      display: block;
+      float: left;
+      margin-top: 7px;
+    }
+
+    a {
+      color: $primary-dark;
+      text-decoration: none;
+    }
+
+    &:hover,
+    &:focus {
+      a {
+        color: $primary-contrast;
+        text-decoration: underline;
+      }
+    }
+
+    &--parkeren-beheer {
+      @include icon-button-text-right("parkeren-beheer", "", "red");
+    }
+
+    &--toerisme {
+      @include icon-button-text-right("toerisme", "", "red");
+    }
+
+    &--kaart {
+      @include icon-button-text-right("kaart", "", "red");
+    }
+
+    &--bevolking {
+      @include icon-button-text-right("bevolking", "", "red");
+    }
+
+    &--openbare-ruimte {
+      @include icon-button-text-right("openbare-ruimte", "", "red");
+    }
+
+    &--stedelijke-ontwikkeling {
+      @include icon-button-text-right("stedelijke-ontwikkeling", "", "red");
+    }
+
+    &--gezondheid-zorg-welzijn {
+      @include icon-button-text-right("gezondheid-zorg-welzijn", "", "red");
+    }
+
+    &--energie {
+      @include icon-button-text-right("energie", "", "red");
+    }
+
+    &--wonen-leefomgeving {
+      @include icon-button-text-right("wonen-leefomgeving", "", "red");
+    }
+
+    &--werk-en-inkomen {
+      @include icon-button-text-right("werk-en-inkomen", "", "red");
+    }
+
+    &--dienstverlening {
+      @include icon-button-text-right("dienstverlening", "", "red");
+    }
+
+    &--bestuur-organisatie {
+      @include icon-button-text-right("bestuur-organisatie", "", "red");
+    }
+
+    &--educatie-jeugd-diversiteit {
+      @include icon-button-text-right("educatie-jeugd-diversiteit", "", "red");
+    }
+  }
+
+  &__link {
+    display: table;
+    font-weight: $normal-weight;
+    height: 40px;
+
+    &:focus {
+      color: $primary-contrast;
+      text-decoration: underline;
+    }
+
+    &__text {
+      display: table-cell;
+      line-height: 20px;
+      padding-right: $base-whitespace;
+      vertical-align: middle;
+      width: 100%;
+    }
+  }
+}
