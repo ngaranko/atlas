@@ -7,7 +7,6 @@ import useFromCMS from '../../utils/useFromCMS'
 import setIframeSize from '../../utils/setIframeSize'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
 import useDocumentTitle from '../../utils/useDocumentTitle'
-import cmsConfig from '../../../shared/services/cms/cms-config';
 import Footer from '../../components/Footer/Footer';
 
 jest.mock('../../utils/useFromCMS')
