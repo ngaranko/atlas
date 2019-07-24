@@ -30,8 +30,6 @@
     "start-prod": "webpack-dev-server --config webpack.prod-api-dev.js",
     "test": "npm run lint && cross-env karma start && jest --config=./test/jest.unit.config.js",
     "test-eslint": "eslint ./modules/ ./src/ ./test/cypress/",
-    "test-integration": "cross-env NODE_ENV=development jest --config=./test/jest.integration.config.js",
-    "test-integration-watch": "cross-env NODE_ENV=development jest --config=./test/jest.integration.config.js --watch",
     "test-jest": "cross-env NODE_ENV=development jest --config=./test/jest.unit.config.js --runInBand",
     "test-jest-watch": "cross-env NODE_ENV=development jest --config=./test/jest.unit.config.js --watch --onlyChanged --coverage --runInBand",
     "test-karma": "karma start",

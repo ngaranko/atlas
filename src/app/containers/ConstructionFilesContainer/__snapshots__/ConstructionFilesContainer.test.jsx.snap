@@ -128,7 +128,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             "fontWeight": 700,
             "letterSpacing": "inherit",
             "lineHeight": "28px",
-            "marginBottom": "0",
+            "marginBottom": "8px",
           },
           "h3": Object {
             "defaultColor": "#000000",
@@ -262,9 +262,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "$$typeof": Symbol(react.forward_ref),
                 "attrs": Array [],
                 "componentStyle": ComponentStyle {
-                  "componentId": "sc-bRBYWo",
+                  "componentId": "sc-jhAzac",
                   "isStatic": false,
-                  "lastClassName": "knCKDx",
+                  "lastClassName": "enRXIj",
                   "rules": Array [
                     "
   display: flex;
@@ -283,7 +283,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                     "
 
   ",
-                    ".sc-Rmtcm",
+                    ".sc-hzDkRC",
                     " {
     ",
                     [Function],
@@ -299,7 +299,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "displayName": "styled.div",
                 "foldedComponentIds": Array [],
                 "render": [Function],
-                "styledComponentId": "sc-bRBYWo",
+                "styledComponentId": "sc-jhAzac",
                 "target": "div",
                 "toString": [Function],
                 "warnTooManyClasses": [Function],
@@ -311,7 +311,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             gutterY={20}
           >
             <div
-              className="sc-bRBYWo knCKDx"
+              className="sc-jhAzac enRXIj"
               direction="column"
             >
               <styled.div>
@@ -321,9 +321,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                       "$$typeof": Symbol(react.forward_ref),
                       "attrs": Array [],
                       "componentStyle": ComponentStyle {
-                        "componentId": "sc-Rmtcm",
+                        "componentId": "sc-hzDkRC",
                         "isStatic": false,
-                        "lastClassName": "hCtPIj",
+                        "lastClassName": "fPWdgX",
                         "rules": Array [
                           "
   position: relative;
@@ -336,7 +336,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                       "displayName": "styled.div",
                       "foldedComponentIds": Array [],
                       "render": [Function],
-                      "styledComponentId": "sc-Rmtcm",
+                      "styledComponentId": "sc-hzDkRC",
                       "target": "div",
                       "toString": [Function],
                       "warnTooManyClasses": [Function],
@@ -346,7 +346,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                   forwardedRef={null}
                 >
                   <div
-                    className="sc-Rmtcm hCtPIj"
+                    className="sc-hzDkRC fPWdgX"
                   >
                     <LoadingIndicator>
                       <div
