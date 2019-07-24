@@ -84,7 +84,7 @@ const HomepageDatasetsThemesBlock = () => {
                           to={preserveQuery(toDatasetsWithFilter(), {
                             [PARAMETERS.FILTERS]: { groups: theme.slug },
                           })}
-                          className={`qa-theme-link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--${
+                          className={`qa-theme-link .c-catalogus-theme__link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--${
                             theme.icon
                           }`}
                         >

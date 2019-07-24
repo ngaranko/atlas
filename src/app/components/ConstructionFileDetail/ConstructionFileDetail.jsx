@@ -6,6 +6,7 @@ import getAddresses from '../../../normalizations/construction-files/getAddresse
 import getReduxLinkProps from '../../utils/getReduxLinkProps';
 import withGrid from '../../utils/withGrid';
 import { toDataDetail } from '../../../store/redux-first-router/actions';
+import '../DataSelection/DataSelectionTable/DataSelectionTable.scss'
 
 const ConstructionFileDetail = ({ results }) => {
   const {
