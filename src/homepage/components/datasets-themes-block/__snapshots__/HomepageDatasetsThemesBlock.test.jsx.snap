@@ -34,7 +34,7 @@ exports[`HomepageDatasetsThemesBlock.test should render 1`] = `
                 key="verkeer-infrastructuur"
               >
                 <Connect(Link)
-                  className="qa-theme-link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--parkeren-beheer"
+                  className="qa-theme-link .c-catalogus-theme__link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--parkeren-beheer"
                   to={
                     Object {
                       "meta": Object {
@@ -60,7 +60,7 @@ exports[`HomepageDatasetsThemesBlock.test should render 1`] = `
                 key="toerisme-cultuur"
               >
                 <Connect(Link)
-                  className="qa-theme-link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--toerisme"
+                  className="qa-theme-link .c-catalogus-theme__link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--toerisme"
                   to={
                     Object {
                       "meta": Object {
@@ -86,7 +86,7 @@ exports[`HomepageDatasetsThemesBlock.test should render 1`] = `
                 key="geografie"
               >
                 <Connect(Link)
-                  className="qa-theme-link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--kaart"
+                  className="qa-theme-link .c-catalogus-theme__link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--kaart"
                   to={
                     Object {
                       "meta": Object {
@@ -112,7 +112,7 @@ exports[`HomepageDatasetsThemesBlock.test should render 1`] = `
                 key="bevolking"
               >
                 <Connect(Link)
-                  className="qa-theme-link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--bevolking"
+                  className="qa-theme-link .c-catalogus-theme__link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--bevolking"
                   to={
                     Object {
                       "meta": Object {
@@ -149,7 +149,7 @@ exports[`HomepageDatasetsThemesBlock.test should render 1`] = `
                 key="openbare-ruimte-groen"
               >
                 <Connect(Link)
-                  className="qa-theme-link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--openbare-ruimte"
+                  className="qa-theme-link .c-catalogus-theme__link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--openbare-ruimte"
                   to={
                     Object {
                       "meta": Object {
@@ -175,7 +175,7 @@ exports[`HomepageDatasetsThemesBlock.test should render 1`] = `
                 key="stedelijke-ontwikkeling"
               >
                 <Connect(Link)
-                  className="qa-theme-link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--stedelijke-ontwikkeling"
+                  className="qa-theme-link .c-catalogus-theme__link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--stedelijke-ontwikkeling"
                   to={
                     Object {
                       "meta": Object {
@@ -201,7 +201,7 @@ exports[`HomepageDatasetsThemesBlock.test should render 1`] = `
                 key="zorg-welzijn"
               >
                 <Connect(Link)
-                  className="qa-theme-link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--gezondheid-zorg-welzijn"
+                  className="qa-theme-link .c-catalogus-theme__link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--gezondheid-zorg-welzijn"
                   to={
                     Object {
                       "meta": Object {
@@ -227,7 +227,7 @@ exports[`HomepageDatasetsThemesBlock.test should render 1`] = `
                 key="energie"
               >
                 <Connect(Link)
-                  className="qa-theme-link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--energie"
+                  className="qa-theme-link .c-catalogus-theme__link c-catalogus-theme__link c-catalogus-theme__icon c-catalogus-theme__icon--energie"
                   to={
                     Object {
                       "meta": Object {
