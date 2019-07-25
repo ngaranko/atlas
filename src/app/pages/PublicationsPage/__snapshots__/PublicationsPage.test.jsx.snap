@@ -4,6 +4,8 @@ exports[`PublicationsPage should render the publication when there are results 1
 <BlogPage
   documentTitle="Publicatie: This is a title"
   id={3}
+  linkAction={[Function]}
+  loading={false}
   slug="slug"
 >
   <Column

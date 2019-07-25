@@ -28,9 +28,9 @@
     "prettier:js": "prettier-eslint --write './**/**/*.{js, jsx}'",
     "start": "webpack-dev-server --config webpack.dev.js",
     "start-prod": "webpack-dev-server --config webpack.prod-api-dev.js",
-    "test": "npm run lint && cross-env karma start && jest --config=./test/jest.unit.config.js",
+    "test": "npm run lint && cross-env karma start && jest ",
     "test-eslint": "eslint ./modules/ ./src/ ./test/cypress/",
-    "test-jest": "cross-env NODE_ENV=development jest --config=./test/jest.unit.config.js --runInBand",
+    "test-jest": "cross-env NODE_ENV=development jest --runInBand",
     "test-jest-watch": "cross-env NODE_ENV=development jest --config=./test/jest.unit.config.js --watch --onlyChanged --coverage --runInBand",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run"
@@ -192,11 +192,11 @@
   "lint-staged": {
     "*.{js,jsx}": [
       "npm run lint:js",
-      "prettier-eslint",
+      "eslint",
       "git add"
     ],
     "*.scss": [
-      "npm run lint:style"
+      "sass-lint"
     ]
   }
 }

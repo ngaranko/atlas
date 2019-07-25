@@ -14,7 +14,7 @@ const InfoModalWrapper = ({ hide }) => {
     const { fetchData, results } = useDataFetching()
 
     React.useEffect(() => {
-      const endpoint = `${SHARED_CONFIG.CMS_ROOT}/jsonapi/node/notification?filter[field_active]=1`
+      const endpoint = `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/notification?filter[field_active]=1`
       fetchData(endpoint)
     }, [])
 
