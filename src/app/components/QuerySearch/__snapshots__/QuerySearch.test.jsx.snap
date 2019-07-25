@@ -4,7 +4,14 @@ exports[`QuerySearch should not render while loading 1`] = `
 <div
   className="c-data-selection c-dashboard__content"
 >
-  <LoadingIndicator />
+  <LoadingIndicator
+    IconComponent={
+      <Spinner
+        color="secondary"
+        size={36}
+      />
+    }
+  />
 </div>
 `;
 

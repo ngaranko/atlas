@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ResizeAware from 'react-resize-aware'
+import ReactResizeDetector from 'react-resize-detector';
 import { GeoJSON, Map, ScaleControl, TileLayer, ZoomControl } from 'react-leaflet'
 
 import CustomMarker from './custom/marker/CustomMarker'
@@ -197,7 +197,7 @@ class MapLeaflet extends React.Component {
     }
 
     return (
-      <ResizeAware
+      <ReactResizeDetector handleWidth handleHeigh
         style={{
           bottom: '0',
           left: '0',
@@ -205,7 +205,6 @@ class MapLeaflet extends React.Component {
           right: '0',
           top: '0',
         }}
-        onlyEvent
         onResize={this.handleResize}
       >
         <Map
@@ -328,7 +327,7 @@ class MapLeaflet extends React.Component {
             showMapLink={showMapLink}
           />
         </Map>
-      </ResizeAware>
+      </ReactResizeDetector>
     )
   }
 }

@@ -13,6 +13,7 @@ import { VIEWS_TO_PARAMS } from '../../../shared/ducks/data-selection/constants'
 import DataSelectionTable from './DataSelectionTable/DataSelectionTable'
 import DataSelectionList from './DataSelectionList/DataSelectionList'
 import ShareBar from '../ShareBar/ShareBar'
+import Notification from '../../../shared/components/notification/Notification'
 
 const DataSelection = ({
   view,
@@ -110,25 +111,12 @@ const DataSelection = ({
               <div className={widthClass}>
                 {showMessageMaxPages && <MaxPageMessage maxAvailablePages={MAX_AVAILABLE_PAGES} />}
                 {showMessageClusteredMarkers && (
-                  <AngularWrapper
-                    moduleName="dpPanelWrapper"
-                    component="dpPanel"
-                    dependencies={['atlas']}
-                    bindings={{
-                      isPanelVisible: true,
-                      canClose: false,
-                    }}
-                    interpolateBindings={{
-                      type: 'warning',
-                    }}
-                  >
+                  <Notification level="info" canClose={false}>
                     <div className="qa-message-clustered-markers">
                       <p className="c-panel__paragraph">
-                        Deze resultaten worden niet getoond op de kaart, omdat deze niet meer dan
-                        {MAX_NUMBER_OF_CLUSTERED_MARKERS.toLocaleString('nl-NL')}
-                        {' '}
-resultaten
-                        tegelijk kan weergeven (om technische redenen).
+                        {`Deze resultaten worden niet getoond op de kaart, omdat deze niet meer dan ${MAX_NUMBER_OF_CLUSTERED_MARKERS.toLocaleString(
+                          'nl-NL',
+                        )} resultaten tegelijk kan weergeven (om technische redenen).`}
                       </p>
                       <p className="c-panel__paragraph">
                         Tip: Bekijk de lijst resultaten in kleinere delen. Dit kan door een voor een
@@ -136,7 +124,7 @@ resultaten
                         selectie).
                       </p>
                     </div>
-                  </AngularWrapper>
+                  </Notification>
                 )}
 
                 {numberOfRecords > 0 ? (

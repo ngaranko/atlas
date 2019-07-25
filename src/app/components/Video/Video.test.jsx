@@ -15,7 +15,7 @@ describe('Video', () => {
     }
 
     component = shallow(
-      <Video poster="/assets/video/map.png" src="/assets/video/map.mp4" type="video/mp4" />,
+      <Video poster="/assets/video/map.jpg" src="/assets/video/map.mp4" type="video/mp4" />,
     )
     componentInstance = component.instance()
     componentInstance.videoPlayer = videoPlayerMock

@@ -5,6 +5,8 @@ $spinner-height: 36px;
   display: flex;
   height: $spinner-height;
   justify-content: center;
+  position: absolute;
+  top: 50px;
   width: 100%;
 
   & > .icon {

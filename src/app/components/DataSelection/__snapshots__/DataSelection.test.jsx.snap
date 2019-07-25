@@ -30,7 +30,14 @@ exports[`DataSelection should render LoadingIndicator 1`] = `
       interpolateBindings={Object {}}
       moduleName="dpDataSelectionHeaderWrapper"
     />
-    <LoadingIndicator />
+    <LoadingIndicator
+      IconComponent={
+        <Spinner
+          color="secondary"
+          size={36}
+        />
+      }
+    />
   </div>
 </div>
 `;

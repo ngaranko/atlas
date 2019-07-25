@@ -1,11 +1,11 @@
 import React from 'react'
 import { PropTypes } from 'prop-types'
-import { GridContainer, GridItem, Icon, Typography } from '@datapunt/asc-ui'
+import { GridContainer, GridItem, Icon, Heading } from '@datapunt/asc-ui'
 import { Minimise, Enlarge } from '@datapunt/asc-assets'
 import Thumbnail from '../Thumbnail/Thumbnail'
-import './Gallery.scss'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
 import { toConstructionFileViewer } from '../../../store/redux-first-router/actions'
+import './Gallery.scss'
 
 // Todo: replace the "encodeURIComponent(file.match(/SU(.*)/g)" when files are on the proper server
 const Gallery = ({ title, allThumbnails, id, maxLength }) => {
@@ -16,9 +16,9 @@ const Gallery = ({ title, allThumbnails, id, maxLength }) => {
     <React.Fragment>
       <GridContainer className="c-gallery" key={title} direction="column" gutterX={20}>
         <GridItem>
-          <Typography className="c-gallery__title" element="h3">
+          <Heading color="secondary" className="c-gallery__title" as="h3">
             {title} {allThumbnails.length > maxLength && `(${allThumbnails.length})`}
-          </Typography>
+          </Heading>
           {thumbnails && thumbnails.length ? (
             <React.Fragment>
               <GridContainer as="ul" wrap="wrap" gutterY={7.5} gutterX={7.5} collapse>
@@ -85,7 +85,7 @@ const Gallery = ({ title, allThumbnails, id, maxLength }) => {
                 ))}
             </React.Fragment>
           ) : (
-            <Typography element="em">Geen bouwtekening(en) beschikbaar.</Typography>
+            <Heading as="em">Geen bouwtekening(en) beschikbaar.</Heading>
           )}
         </GridItem>
       </GridContainer>

@@ -348,13 +348,159 @@ exports[`ConstructionFilesContainer should render 1`] = `
                   <div
                     className="sc-hzDkRC fPWdgX"
                   >
-                    <LoadingIndicator>
+                    <LoadingIndicator
+                      IconComponent={
+                        <Spinner
+                          color="secondary"
+                          size={36}
+                        />
+                      }
+                    >
                       <div
                         className="loading-indicator"
                       >
-                        <span
-                          className="icon"
-                        />
+                        <Spinner
+                          color="secondary"
+                          size={36}
+                        >
+                          <styled.div
+                            size={36}
+                          >
+                            <StyledComponent
+                              forwardedComponent={
+                                Object {
+                                  "$$typeof": Symbol(react.forward_ref),
+                                  "attrs": Array [],
+                                  "componentStyle": ComponentStyle {
+                                    "componentId": "sc-dNLxif",
+                                    "isStatic": false,
+                                    "lastClassName": "dLqXgG",
+                                    "rules": Array [
+                                      "
+  @keyframes rotating {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  width: ",
+                                      [Function],
+                                      "px;
+  height: ",
+                                      [Function],
+                                      "px;
+
+  & svg {
+    animation: rotating 1s linear infinite;
+  }
+",
+                                    ],
+                                  },
+                                  "displayName": "styled.div",
+                                  "foldedComponentIds": Array [],
+                                  "render": [Function],
+                                  "styledComponentId": "sc-dNLxif",
+                                  "target": "div",
+                                  "toString": [Function],
+                                  "warnTooManyClasses": [Function],
+                                  "withComponent": [Function],
+                                }
+                              }
+                              forwardedRef={null}
+                              size={36}
+                            >
+                              <div
+                                className="sc-dNLxif dLqXgG"
+                                size={36}
+                              >
+                                <Icon
+                                  color="secondary"
+                                  size={36}
+                                >
+                                  <styled.span
+                                    color="secondary"
+                                    size={36}
+                                  >
+                                    <StyledComponent
+                                      color="secondary"
+                                      forwardedComponent={
+                                        Object {
+                                          "$$typeof": Symbol(react.forward_ref),
+                                          "attrs": Array [],
+                                          "componentStyle": ComponentStyle {
+                                            "componentId": "sc-ifAKCX",
+                                            "isStatic": false,
+                                            "lastClassName": "kBatGK",
+                                            "rules": Array [
+                                              "
+  display: ",
+                                              [Function],
+                                              ";
+  ",
+                                              [Function],
+                                              "
+  ",
+                                              [Function],
+                                              "
+  ",
+                                              [Function],
+                                              ";
+  box-sizing: content-box;
+  ",
+                                              [Function],
+                                              ";
+
+  & > svg {
+    width: inherit;
+    height: inherit;
+  }
+  
+  ",
+                                              [Function],
+                                              ";
+",
+                                            ],
+                                          },
+                                          "displayName": "styled.span",
+                                          "foldedComponentIds": Array [],
+                                          "render": [Function],
+                                          "styledComponentId": "sc-ifAKCX",
+                                          "target": "span",
+                                          "toString": [Function],
+                                          "warnTooManyClasses": [Function],
+                                          "withComponent": [Function],
+                                        }
+                                      }
+                                      forwardedRef={null}
+                                      size={36}
+                                    >
+                                      <span
+                                        className="sc-ifAKCX kBatGK"
+                                        color="secondary"
+                                        size={36}
+                                      >
+                                        <SvgSpinner>
+                                          <svg
+                                            focusable={false}
+                                            viewBox="0 0 100 100"
+                                          >
+                                            <path
+                                              d="M50 100C22.4 99.967.033 77.6 0 50h10c0 22.091 17.909 40 40 40s40-17.909 40-40-17.909-40-40-40V0c27.614 0 50 22.386 50 50s-22.386 50-50 50z"
+                                            />
+                                          </svg>
+                                        </SvgSpinner>
+                                      </span>
+                                    </StyledComponent>
+                                  </styled.span>
+                                </Icon>
+                              </div>
+                            </StyledComponent>
+                          </styled.div>
+                        </Spinner>
                       </div>
                     </LoadingIndicator>
                   </div>

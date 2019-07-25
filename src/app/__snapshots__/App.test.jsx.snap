@@ -21,32 +21,28 @@ exports[`App should render the homepage 1`] = `
     }
     reducer={[Function]}
   >
-    <Suspense
-      fallback={<React.Fragment />}
+    <div
+      className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
     >
-      <div
-        className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
-      >
-        <Header
-          embedPreviewMode={false}
-          hasEmbedButton={false}
-          hasMaxWidth={true}
-          hasPrintButton={false}
-          homePage={false}
-          printMode={false}
-          printOrEmbedMode={false}
-          user={Object {}}
-        />
-        <AppBody
-          bodyClasses=""
-          currentPage="NOT_FOUND"
-          embedPreviewMode={false}
-          hasMaxWidth={true}
-          homePage={false}
-          visibilityError={false}
-        />
-      </div>
-    </Suspense>
+      <Header
+        embedPreviewMode={false}
+        hasEmbedButton={false}
+        hasMaxWidth={true}
+        hasPrintButton={false}
+        homePage={false}
+        printMode={false}
+        printOrEmbedMode={false}
+        user={Object {}}
+      />
+      <AppBody
+        bodyClasses=""
+        currentPage="NOT_FOUND"
+        embedPreviewMode={false}
+        hasMaxWidth={true}
+        homePage={false}
+        visibilityError={false}
+      />
+    </div>
   </AppStateProvider>
 </DefaultThemeProvider>
 `;
@@ -72,32 +68,28 @@ exports[`App should render the mapview 1`] = `
     }
     reducer={[Function]}
   >
-    <Suspense
-      fallback={<React.Fragment />}
+    <div
+      className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
     >
-      <div
-        className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
-      >
-        <Header
-          embedPreviewMode={false}
-          hasEmbedButton={true}
-          hasMaxWidth={true}
-          hasPrintButton={true}
-          homePage={false}
-          printMode={false}
-          printOrEmbedMode={false}
-          user={Object {}}
-        />
-        <AppBody
-          bodyClasses=""
-          currentPage="NOT_FOUND"
-          embedPreviewMode={false}
-          hasMaxWidth={true}
-          homePage={false}
-          visibilityError={false}
-        />
-      </div>
-    </Suspense>
+      <Header
+        embedPreviewMode={false}
+        hasEmbedButton={true}
+        hasMaxWidth={true}
+        hasPrintButton={true}
+        homePage={false}
+        printMode={false}
+        printOrEmbedMode={false}
+        user={Object {}}
+      />
+      <AppBody
+        bodyClasses=""
+        currentPage="NOT_FOUND"
+        embedPreviewMode={false}
+        hasMaxWidth={true}
+        homePage={false}
+        visibilityError={false}
+      />
+    </div>
   </AppStateProvider>
 </DefaultThemeProvider>
 `;
