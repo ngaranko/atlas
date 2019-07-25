@@ -23,13 +23,7 @@ import BlogPage from '../../components/BlogPage/BlogPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 
 /* istanbul ignore next */ const ArticlePage = ({ id }) => {
-  const { fetchData, results, loading } = useFromCMS()
-
-  React.useEffect(() => {
-    ;(async () => {
-      await fetchData(id, cmsConfig.article)
-    })()
-  }, [])
+  const { results, loading } = useFromCMS(id, cmsConfig.article)
 
   const {
     title,

@@ -72,9 +72,7 @@ describe('PublicationsPage', () => {
   })
 
   it('should call the fetchData function when the component mounts', () => {
-    const fetchDataMock = jest.fn()
     useFromCMS.mockImplementation(() => ({
-      fetchData: fetchDataMock,
       loading: true,
     }))
 
@@ -88,8 +86,6 @@ describe('PublicationsPage', () => {
     )
 
     expect(component.find('PublicationsPage').props().id).toBe(id)
-
-    expect(fetchDataMock).toHaveBeenCalledWith(id, cmsConfig.publication)
   })
 
   it('should render the publication when there are results', () => {

@@ -19,13 +19,7 @@ import BlogPage from '../../components/BlogPage/BlogPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 
 const PublicationsPage = ({ id }) => {
-  const { fetchData, results, loading } = useFromCMS()
-
-  React.useEffect(() => {
-    ;(async () => {
-      await fetchData(id, cmsConfig.publication)
-    })()
-  }, [])
+  const { results, loading } = useFromCMS(id, cmsConfig.publication)
 
   const {
     title,

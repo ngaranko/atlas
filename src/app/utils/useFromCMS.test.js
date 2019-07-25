@@ -1,37 +1,56 @@
-
-import { act } from 'react-dom/test-utils'
+import { renderHook, act } from '@testing-library/react-hooks'
 import useFromCMS from './useFromCMS'
-import testHook from '../../../test/test-hook'
-import cmsConfig from '../../shared/services/cms/cms-config';
+import cmsConfig from '../../shared/services/cms/cms-config'
+import { getByUrl } from '../../shared/services/api/api'
+import cmsNormalizer from '../../shared/services/cms/cms-normalizer'
 
+jest.mock('../../shared/services/api/api')
+jest.mock('../../shared/services/cms/cms-normalizer')
 jest.useFakeTimers()
 
-let mockuseFromCMS
 describe('useFromCMS', () => {
   const id = 3
 
   beforeEach(() => {
-    testHook(() => {
-      mockuseFromCMS = useFromCMS()
-    })
   })
 
-  it('should have a fetchData function', () => {
-    expect(mockuseFromCMS.fetchData).toBeInstanceOf(Function)
+  afterEach(() => {
+    getByUrl.mockReset()
+    cmsNormalizer.mockReset()
   })
 
-  it('should have correct initial values', () => {
-    expect(mockuseFromCMS.loading).toBe(false)
-    expect(mockuseFromCMS.results).toBe(null)
+  it('should have correct initial values',async () => {
+    const { result } = renderHook(() => useFromCMS(id, cmsConfig.publication))
+    expect(result.current.loading).toBe(true)
+    expect(result.current.results).toBeNull()
   })
 
-  it('should set the loading state when fetchData is called', () => {
-    expect(mockuseFromCMS.loading).toBe(false)
+  it('should return results when fetchData is called', async () => {
+    const mockData = {
+      drupal_internal__nid: 100,
+      title: 'This is a title',
+      created: '2015-05-05',
+      body: {
+        value: 'body text',
+      },
+      field_file_size: 'file size',
+      field_file_type: 'pdf',
+      field_publication_source: 'source',
+      field_publication_intro: 'intro',
+      field_slug: 'slug',
+      included: [
+        { attributes: { uri: { url: 'https://cover-link' } } },
+        { attributes: { uri: { url: 'https://cover-link' } } },
+        { attributes: { uri: { url: 'https://document-link' } } },
+        { attributes: { uri: { url: 'https://document-link' } } },
+      ],
+    }
+    const { result } = renderHook(() => useFromCMS(id, cmsConfig.publication))
+    expect(result.current.loading).toBe(true)
+    getByUrl.mockReturnValueOnce(Promise.resolve(mockData))
+    cmsNormalizer.mockReturnValueOnce(Promise.resolve({...mockData}))
+    // await waitForNextUpdate()
 
-    act(() => {
-      mockuseFromCMS.fetchData(id, cmsConfig.article)
-    })
-
-    expect(mockuseFromCMS.loading).toBe(true)
+    // expect(result.current.loading).toBe(false)
   })
 })
