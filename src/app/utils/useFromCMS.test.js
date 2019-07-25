@@ -11,12 +11,19 @@ jest.useFakeTimers()
 describe('useFromCMS', () => {
   const id = 3
 
+  const { replace } = window.location
+
   beforeEach(() => {
+    Object.defineProperty(window.location, 'replace', {
+      configurable: true,
+    })
+    window.location.replace = jest.fn()
   })
 
   afterEach(() => {
     getByUrl.mockReset()
     cmsNormalizer.mockReset()
+    window.location.replace = replace
   })
 
   it('should have correct initial values',async () => {
@@ -28,29 +35,34 @@ describe('useFromCMS', () => {
   it('should return results when fetchData is called', async () => {
     const mockData = {
       drupal_internal__nid: 100,
-      title: 'This is a title',
-      created: '2015-05-05',
-      body: {
-        value: 'body text',
-      },
-      field_file_size: 'file size',
-      field_file_type: 'pdf',
-      field_publication_source: 'source',
-      field_publication_intro: 'intro',
-      field_slug: 'slug',
-      included: [
-        { attributes: { uri: { url: 'https://cover-link' } } },
-        { attributes: { uri: { url: 'https://cover-link' } } },
-        { attributes: { uri: { url: 'https://document-link' } } },
-        { attributes: { uri: { url: 'https://document-link' } } },
-      ],
     }
-    const { result } = renderHook(() => useFromCMS(id, cmsConfig.publication))
-    expect(result.current.loading).toBe(true)
     getByUrl.mockReturnValueOnce(Promise.resolve(mockData))
-    cmsNormalizer.mockReturnValueOnce(Promise.resolve({...mockData}))
-    // await waitForNextUpdate()
+    cmsNormalizer.mockReturnValueOnce(Promise.resolve(mockData))
 
-    // expect(result.current.loading).toBe(false)
+    const { result, waitForNextUpdate } = renderHook(() => useFromCMS(id, cmsConfig.publication))
+    expect(result.current.loading).toBe(true)
+    expect(result.current.results).toBeNull()
+    await waitForNextUpdate()
+
+    expect(result.current.loading).toBe(false)
+    expect(result.current.results).toEqual(mockData)
+  })
+
+  it('should redirect to no found page when the data is not available', async () => {
+    const mockData = {
+      drupal_internal__nid: 100,
+    }
+    getByUrl.mockReturnValueOnce(Promise.reject(mockData))
+    cmsNormalizer.mockReturnValueOnce(Promise.resolve(mockData))
+
+    const { result, waitForNextUpdate } = renderHook(() => useFromCMS(id, cmsConfig.publication))
+    expect(result.current.loading).toBe(true)
+    expect(result.current.results).toBeNull()
+    await waitForNextUpdate()
+
+    expect(result.current.loading).toBe(false)
+    expect(result.current.results).toBeNull()
+    expect(window.location.replace).toHaveBeenCalledTimes(1)
+
   })
 })
