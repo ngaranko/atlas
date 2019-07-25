@@ -4,7 +4,7 @@ import BlogPage from './BlogPage'
 import useMatomo from '../../utils/useMatomo'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
 import useDocumentTitle from '../../utils/useDocumentTitle'
-import Footer from '../Footer/Footer';
+import Footer from '../Footer/Footer'
 
 jest.mock('../../utils/getReduxLinkProps')
 jest.mock('../../utils/useDocumentTitle')
@@ -21,6 +21,8 @@ describe('BlogPage', () => {
     useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: mockSetDocumentTitle }))
     useMatomo.mockImplementation(() => ({ trackPageView: mockTrackPageView }))
     Footer.mockImplementation(() => <></>)
+
+    component = shallow(<BlogPage id="6" slug="foo" linkAction={() => {}} />).dive()
   })
 
   afterEach(() => {
@@ -28,21 +30,24 @@ describe('BlogPage', () => {
   })
 
   it('should display the loading indicator', () => {
-    component = shallow(<BlogPage loading />).dive()
+    component.setProps({ loading: true })
 
     expect(component.find('LoadingIndicator')).toBeTruthy()
   })
 
   it('should set the canonical title', () => {
-    component = shallow(<BlogPage id={6} slug="foo" />).dive()
-
     const link = component.find('link')
     expect(link).toBeTruthy()
     expect(link.props().href).toBe('https://this.is.alink')
   })
 
   it('should set the document title and send to analytics', () => {
-    component = mount(<BlogPage documentTitle="foo" />)
+    component = mount(<BlogPage id={6} slug="foo" linkAction={() => {}} documentTitle="" />)
+
+    expect(mockSetDocumentTitle).not.toHaveBeenCalled()
+    expect(mockTrackPageView).not.toHaveBeenCalled()
+
+    component.setProps({ documentTitle: 'foo' })
 
     expect(mockSetDocumentTitle).toHaveBeenCalledWith('foo')
     expect(mockTrackPageView).toHaveBeenCalledWith('foo')

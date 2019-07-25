@@ -6,7 +6,8 @@ import setIframeSize from '../../utils/setIframeSize'
 import useFromCMS from '../../utils/useFromCMS'
 import './SpecialsPage.scss'
 import BlogPage from '../../components/BlogPage/BlogPage'
-import cmsConfig from '../../../shared/services/cms/cms-config';
+import cmsConfig from '../../../shared/services/cms/cms-config'
+import { toSpecial } from '../../../store/redux-first-router/actions'
 
 const SpecialsPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS()
@@ -30,14 +31,11 @@ const SpecialsPage = ({ id }) => {
     }
   }, [])
 
-  React.useEffect(
-    () => {
-      if (iframeRef.current) {
-        iframeRef.current.height = `${iframeHeight}px`
-      }
-    },
-    [iframeHeight],
-  )
+  React.useEffect(() => {
+    if (iframeRef.current) {
+      iframeRef.current.height = `${iframeHeight}px`
+    }
+  }, [iframeHeight])
 
   const iframeLoaded = () => {
     setIframeLoading(false)
@@ -50,7 +48,10 @@ const SpecialsPage = ({ id }) => {
   const documentTitle = `Special: ${title}`
 
   return (
-    <BlogPage {...{id, slug, documentTitle}} loading={iframeLoading || loading}>
+    <BlogPage
+      {...{ id, slug, documentTitle, linkAction: toSpecial }}
+      loading={iframeLoading || loading}
+    >
       <div className="iframe-container ">
         <Row>
           <BlogPost>
