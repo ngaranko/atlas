@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-hooks'
 import useFromCMS from './useFromCMS'
 import cmsConfig from '../../shared/services/cms/cms-config'
 import { getByUrl } from '../../shared/services/api/api'
@@ -26,7 +26,7 @@ describe('useFromCMS', () => {
     window.location.replace = replace
   })
 
-  it('should have correct initial values',async () => {
+  it('should have correct initial values', async () => {
     const { result } = renderHook(() => useFromCMS(id, cmsConfig.publication))
     expect(result.current.loading).toBe(true)
     expect(result.current.results).toBeNull()
@@ -63,6 +63,5 @@ describe('useFromCMS', () => {
     expect(result.current.loading).toBe(false)
     expect(result.current.results).toBeNull()
     expect(window.location.replace).toHaveBeenCalledTimes(1)
-
   })
 })
