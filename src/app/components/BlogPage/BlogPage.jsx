@@ -15,7 +15,6 @@ const BlogPage = ({ children, id, documentTitle, slug, loading }) => {
   const { trackPageView } = useMatomo()
 
   React.useEffect(
-    /* istanbul ignore next */
     () => {
       if (documentTitle) {
         setDocumentTitle(documentTitle)
