@@ -19,9 +19,11 @@ describe('ConstructionFilesContainer', () => {
       setDocumentTitle: mockSetDocumentTitle,
     }))
     getByUrl.mockReturnValue({
-
-        title: 'foo'
-      
+      titel: 'foo',
+      datering: '',
+      dossier_type: '',
+      dossiernr: 1,
+      stadsdeel: '',
     })
 
     const store = configureMockStore()({
@@ -33,7 +35,7 @@ describe('ConstructionFilesContainer', () => {
         },
       },
     })
-    
+
     component = mount(
       <ThemeProvider>
         <ConstructionFilesContainer fileName="foo" store={store} />
@@ -45,7 +47,7 @@ describe('ConstructionFilesContainer', () => {
     expect(component).toMatchSnapshot()
   })
 
-  it('should get the results', () => {
+  it.only('should get the results', () => {
     expect(getByUrl).toHaveBeenCalledWith(`${SHARED_CONFIG.API_ROOT}stadsarchief/bouwdossier/12/`)
   })
 })
