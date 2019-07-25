@@ -192,11 +192,11 @@
   "lint-staged": {
     "*.{js,jsx}": [
       "npm run lint:js",
-      "prettier-eslint",
+      "eslint",
       "git add"
     ],
     "*.scss": [
-      "npm run lint:style"
+      "sass-lint"
     ]
   }
 }
