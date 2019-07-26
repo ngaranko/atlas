@@ -12,7 +12,7 @@ import {
   toPanoramaAndPreserveQuery,
   toPrivacyPage,
 } from '../../../store/redux-first-router/actions'
-import getReduxLinkProps from '../../utils/getReduxLinkProps'
+import linkAttributesFromAction from '../../utils/linkAttributesFromAction'
 import truncateString from '../../utils/truncateString'
 
 const toPanoramaAction = toPanoramaAndPreserveQuery(
@@ -47,27 +47,27 @@ const HeaderMenu = ({
   return (
     <Menu {...props}>
       <MenuFlyOut label="Onderdelen">
-        <MenuItem {...getReduxLinkProps(toMapAction)}>Kaart</MenuItem>
-        <MenuItem {...getReduxLinkProps(toPanoramaAction)}>
+        <MenuItem {...linkAttributesFromAction(toMapAction)}>Kaart</MenuItem>
+        <MenuItem {...linkAttributesFromAction(toPanoramaAction)}>
           Panoramabeelden
         </MenuItem>
-        <MenuItem {...getReduxLinkProps(toDatasetsAction)}>Datasets</MenuItem>
-        <MenuItem {...getReduxLinkProps(toApisAction)}>Data services</MenuItem>
+        <MenuItem {...linkAttributesFromAction(toDatasetsAction)}>Datasets</MenuItem>
+        <MenuItem {...linkAttributesFromAction(toApisAction)}>Data services</MenuItem>
       </MenuFlyOut>
       <MenuFlyOut label="Over">
-        <MenuItem {...getReduxLinkProps(toPrivacyAction)}>
+        <MenuItem {...linkAttributesFromAction(toPrivacyAction)}>
           Privacy en informatiebeveiliging
         </MenuItem>
-        <MenuItem {...getReduxLinkProps(toAvailabilityAction)}>
+        <MenuItem {...linkAttributesFromAction(toAvailabilityAction)}>
           Beschikbaarheid en kwaliteit data
         </MenuItem>
-        <MenuItem {...getReduxLinkProps(toMaintentanceAction)}>
+        <MenuItem {...linkAttributesFromAction(toMaintentanceAction)}>
           Technisch beheer en werkwijze
         </MenuItem>
         <MenuItem href="mailto:datapunt@amsterdam.nl">Contact</MenuItem>
       </MenuFlyOut>
       <MenuItem onClick={showFeedbackForm}>Feedback</MenuItem>
-      <MenuItem {...getReduxLinkProps(toHelpAction)}>Help</MenuItem>
+      <MenuItem {...linkAttributesFromAction(toHelpAction)}>Help</MenuItem>
 
       {!user.authenticated ? (
         <MenuItem onClick={login}>Inloggen</MenuItem>

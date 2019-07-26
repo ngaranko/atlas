@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Gallery from './Gallery';
 
-jest.mock('../../utils/getReduxLinkProps');
+jest.mock('../../utils/linkAttributesFromAction');
 
 describe('Gallery', () => {
   let component;

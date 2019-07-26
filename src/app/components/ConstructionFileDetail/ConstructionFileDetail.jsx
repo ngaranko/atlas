@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Heading } from '@datapunt/asc-ui';
 import Gallery from '../Gallery/Gallery';
 import getAddresses from '../../../normalizations/construction-files/getAddresses';
-import getReduxLinkProps from '../../utils/getReduxLinkProps';
+import linkAttributesFromAction from '../../utils/linkAttributesFromAction';
 import withGrid from '../../utils/withGrid';
 import { toDataDetail } from '../../../store/redux-first-router/actions';
 import '../DataSelection/DataSelectionTable/DataSelectionTable.scss'
@@ -98,7 +98,7 @@ const ConstructionFileDetail = ({ results }) => {
             {getAddresses(results).map((address) => (
               <li key={address.id}>
                 <a
-                  {...getReduxLinkProps(toDataDetail([address.id, 'bag', 'nummeraanduiding']))}
+                  {...linkAttributesFromAction(toDataDetail([address.id, 'bag', 'nummeraanduiding']))}
                   className="o-btn o-btn--link qa-dp-link"
                   title={address.label}
                 >

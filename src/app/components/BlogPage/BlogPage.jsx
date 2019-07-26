@@ -4,7 +4,7 @@ import { Container } from '@datapunt/asc-ui'
 import { Helmet } from 'react-helmet'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import useMatomo from '../../utils/useMatomo'
-import getReduxLinkProps from '../../utils/getReduxLinkProps'
+import linkAttributesFromAction from '../../utils/linkAttributesFromAction'
 import Footer from '../Footer/Footer'
 import './BlogPage.scss'
 import '../../../map/components/loading-indicator/LoadingIndicator.scss'
@@ -22,7 +22,7 @@ const BlogPage = ({ children, id, documentTitle, slug, loading, linkAction }) =>
   }, [documentTitle])
 
   const action = linkAction(id, slug)
-  const { href } = getReduxLinkProps(action)
+  const { href } = linkAttributesFromAction(action)
 
   return (
     <Container className="blog-page" beamColor="valid">

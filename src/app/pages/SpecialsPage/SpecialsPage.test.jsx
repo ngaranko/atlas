@@ -5,13 +5,13 @@ import { ThemeProvider } from '@datapunt/asc-ui'
 import SpecialsPage from './SpecialsPage'
 import useFromCMS from '../../utils/useFromCMS'
 import setIframeSize from '../../utils/setIframeSize'
-import getReduxLinkProps from '../../utils/getReduxLinkProps'
+import linkAttributesFromAction from '../../utils/linkAttributesFromAction'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import Footer from '../../components/Footer/Footer';
 
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../utils/setIframeSize')
-jest.mock('../../utils/getReduxLinkProps')
+jest.mock('../../utils/linkAttributesFromAction')
 jest.mock('../../utils/useDocumentTitle')
 jest.mock('../../utils/useDocumentTitle')
 jest.mock('../../components/Footer/Footer')
@@ -25,7 +25,7 @@ describe('SpecialsPage', () => {
   let mockData
 
   beforeEach(() => {
-    getReduxLinkProps.mockImplementation(() => ({ href }))
+    linkAttributesFromAction.mockImplementation(() => ({ href }))
     useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: jest.fn() }))
     Footer.mockImplementation(() => <></>)
 

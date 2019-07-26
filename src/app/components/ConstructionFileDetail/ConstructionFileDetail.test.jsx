@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import ConstructionFileDetail from './ConstructionFileDetail';
 
-jest.mock('../../utils/getReduxLinkProps');
+jest.mock('../../utils/linkAttributesFromAction');
 
 describe('ConstructionFileDetail', () => {
   let mockResults = {

@@ -2,11 +2,11 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import BlogPage from './BlogPage'
 import useMatomo from '../../utils/useMatomo'
-import getReduxLinkProps from '../../utils/getReduxLinkProps'
+import linkAttributesFromAction from '../../utils/linkAttributesFromAction'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import Footer from '../Footer/Footer'
 
-jest.mock('../../utils/getReduxLinkProps')
+jest.mock('../../utils/linkAttributesFromAction')
 jest.mock('../../utils/useDocumentTitle')
 jest.mock('../../utils/useMatomo')
 jest.mock('../Footer/Footer')
@@ -17,7 +17,7 @@ describe('BlogPage', () => {
   const mockTrackPageView = jest.fn()
 
   beforeEach(() => {
-    getReduxLinkProps.mockImplementation(() => ({ href: 'https://this.is.alink' }))
+    linkAttributesFromAction.mockImplementation(() => ({ href: 'https://this.is.alink' }))
     useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: mockSetDocumentTitle }))
     useMatomo.mockImplementation(() => ({ trackPageView: mockTrackPageView }))
     Footer.mockImplementation(() => <></>)
