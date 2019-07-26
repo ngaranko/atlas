@@ -5,6 +5,7 @@ import { Minimise, Enlarge } from '@datapunt/asc-assets'
 import Thumbnail from '../Thumbnail/Thumbnail'
 import getReduxLinkProps from '../../utils/getReduxLinkProps'
 import { toConstructionFileViewer } from '../../../store/redux-first-router/actions'
+import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import './Gallery.scss'
 
 // Todo: replace the "encodeURIComponent(file.match(/SU(.*)/g)" when files are on the proper server
@@ -49,7 +50,7 @@ const Gallery = ({ title, allThumbnails, id, maxLength }) => {
                         className="c-gallery__thumbnail"
                       >
                         <Thumbnail
-                          src={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${encodeURIComponent(
+                          src={`${SHARED_CONFIG.IIIF_ROOT}iiif/2/edepot:${encodeURIComponent(
                             file,
                           )}/square/500,500/0/default.jpg`}
                           title={file.match(/[^/]*$/g)[0]}
