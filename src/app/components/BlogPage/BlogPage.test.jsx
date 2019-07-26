@@ -2,7 +2,7 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import BlogPage from './BlogPage'
 import useMatomo from '../../utils/useMatomo'
-import linkAttributesFromAction from '../../utils/linkAttributesFromAction'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import Footer from '../Footer/Footer'
 

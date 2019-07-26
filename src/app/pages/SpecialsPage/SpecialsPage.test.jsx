@@ -5,7 +5,7 @@ import { ThemeProvider } from '@datapunt/asc-ui'
 import SpecialsPage from './SpecialsPage'
 import useFromCMS from '../../utils/useFromCMS'
 import setIframeSize from '../../utils/setIframeSize'
-import linkAttributesFromAction from '../../utils/linkAttributesFromAction'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import Footer from '../../components/Footer/Footer';
 

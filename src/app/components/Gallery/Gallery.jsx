@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types'
 import { GridContainer, GridItem, Icon, Heading } from '@datapunt/asc-ui'
 import { Minimise, Enlarge } from '@datapunt/asc-assets'
 import Thumbnail from '../Thumbnail/Thumbnail'
-import linkAttributesFromAction from '../../utils/linkAttributesFromAction'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import { toConstructionFileViewer } from '../../../store/redux-first-router/actions'
 import './Gallery.scss'
 

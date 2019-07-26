@@ -4,7 +4,7 @@ import { Container } from '@datapunt/asc-ui'
 import { Helmet } from 'react-helmet'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import useMatomo from '../../utils/useMatomo'
-import linkAttributesFromAction from '../../utils/linkAttributesFromAction'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import Footer from '../Footer/Footer'
 import './BlogPage.scss'
 import '../../../map/components/loading-indicator/LoadingIndicator.scss'
@@ -45,10 +45,7 @@ BlogPage.defaultProps = {
 }
 
 BlogPage.propTypes = {
-  id: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]).isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   documentTitle: PropTypes.string,
   linkAction: PropTypes.func.isRequired,
   loading: PropTypes.bool,

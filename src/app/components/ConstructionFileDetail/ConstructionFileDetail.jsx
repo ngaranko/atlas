@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Heading } from '@datapunt/asc-ui';
 import Gallery from '../Gallery/Gallery';
 import getAddresses from '../../../normalizations/construction-files/getAddresses';
-import linkAttributesFromAction from '../../utils/linkAttributesFromAction';
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction';
 import withGrid from '../../utils/withGrid';
 import { toDataDetail } from '../../../store/redux-first-router/actions';
 import '../DataSelection/DataSelectionTable/DataSelectionTable.scss'
