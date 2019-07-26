@@ -31,7 +31,7 @@
     "test": "npm run lint && cross-env karma start && jest ",
     "test-eslint": "eslint ./modules/ ./src/ ./test/cypress/",
     "test-jest": "cross-env NODE_ENV=development jest --runInBand",
-    "test-jest-watch": "cross-env NODE_ENV=development jest --config=./test/jest.unit.config.js --watch --onlyChanged --coverage --runInBand",
+    "test-jest-watch": "cross-env NODE_ENV=development jest --watch --onlyChanged --coverage --runInBand",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run"
   },
