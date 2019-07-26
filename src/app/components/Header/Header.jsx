@@ -50,8 +50,8 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
           navigation={(
             <React.Fragment>
               <HeaderSearchContainer />
-              <MenuDefault showAt="laptopM" onExpand={setBackDrop} />
-              <MenuMobile hideAt="laptopM" onExpand={setBackDrop} />
+              <MenuDefault data-test="header-menu-default" showAt="laptopM" onExpand={setBackDrop} />
+              <MenuMobile data-test="header-menu-mobile"  hideAt="laptopM" onExpand={setBackDrop} />
             </React.Fragment>
 )}
         />

@@ -90,6 +90,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
 >
   <form
     className="auto-suggest"
+    data-test="search-form"
     onSubmit={[Function]}
   >
     <fieldset>
@@ -105,6 +106,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
             "autoCapitalize": "off",
             "autoComplete": "off",
             "autoCorrect": "off",
+            "data-test": "search-input",
             "id": "auto-suggest__input",
             "label": "",
             "placeholder": "",
@@ -282,6 +284,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
 >
   <form
     className="auto-suggest"
+    data-test="search-form"
     onSubmit={[Function]}
   >
     <fieldset>
@@ -300,6 +303,7 @@ exports[`The AutoSuggest component should allow the user to navigate with the ke
             "autoCapitalize": "off",
             "autoComplete": "off",
             "autoCorrect": "off",
+            "data-test": "search-input",
             "id": "auto-suggest__input",
             "label": "",
             "placeholder": "",
@@ -474,6 +478,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
 >
   <form
     className="auto-suggest"
+    data-test="search-form"
     onSubmit={[Function]}
   >
     <fieldset>
@@ -489,6 +494,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "autoCapitalize": "off",
             "autoComplete": "off",
             "autoCorrect": "off",
+            "data-test": "search-input",
             "id": "auto-suggest__input",
             "label": "",
             "placeholder": "",
@@ -663,6 +669,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
 >
   <form
     className="auto-suggest"
+    data-test="search-form"
     onSubmit={[Function]}
   >
     <fieldset>
@@ -678,6 +685,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "autoCapitalize": "off",
             "autoComplete": "off",
             "autoCorrect": "off",
+            "data-test": "search-input",
             "id": "auto-suggest__input",
             "label": "",
             "placeholder": "",
@@ -852,6 +860,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
 >
   <form
     className="auto-suggest"
+    data-test="search-form"
     onSubmit={[Function]}
   >
     <fieldset>
@@ -867,6 +876,7 @@ exports[`The AutoSuggest component should toggle the "showsuggestions" state on 
             "autoCapitalize": "off",
             "autoComplete": "off",
             "autoCorrect": "off",
+            "data-test": "search-input",
             "id": "auto-suggest__input",
             "label": "",
             "placeholder": "",

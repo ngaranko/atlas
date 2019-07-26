@@ -1,4 +1,5 @@
 import stateTokenGenerator from '../../src/state-token-generator'
+import { HEADER_MENU } from './selectors'
 
 const checkEnvironmentVariablesSet = () => {
   const variables = [
@@ -76,9 +77,7 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
       .then(response =>
         cy.request({
           method: 'POST',
-          url: `${Cypress.env('API_ROOT')}/auth/idp/${response.body
-            .match(/action="(.*?)"/)
-            .pop()}`,
+          url: `${Cypress.env('API_ROOT')}/auth/idp/${response.body.match(/action="(.*?)"/).pop()}`,
           form: true,
           body: {
             email: Cypress.env(`USERNAME_${type}`),
@@ -119,12 +118,17 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
 })
 
 Cypress.Commands.add('logout', () => {
-  cy.get('.qa-menu').then(menu => {
-    if (menu && menu.find('.qa-menu__user-menu').length) {
-      cy.get('.qa-menu__user-menu button').click()
-      cy.get('.qa-menu__user-menu dp-logout-button button').click()
-    }
-  })
+  cy.get(`${HEADER_MENU.rootMobile} ${HEADER_MENU.login}`)
+    .then(element => {
+      if (!element) {
+        cy.get(`${HEADER_MENU.rootMobile}`).click()
+      }
+    })
+    .get(`${HEADER_MENU.rootMobile} ${HEADER_MENU.login}`)
+    .click()
+    .siblings('ul')
+    .find('a')
+    .click()
 })
 
 // Cypress doesn’t recognize `window.fetch` calls as XHR requests, which makes

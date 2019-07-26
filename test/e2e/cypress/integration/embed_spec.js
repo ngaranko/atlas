@@ -1,8 +1,10 @@
+import { HEADER_MENU } from '../support/selectors'
+
 const checkbox = 'input[type="checkbox"]'
 const checkboxChecked = 'input[type="checkbox"]:checked'
 const header = 'header'
 
-const menuLink = '.qa-menu__link'
+const menuLink = `${HEADER_MENU.rootMobile} ${HEADER_MENU.login}`
 const embedButton = '.qa-menu__dropdown ul li:nth(1)'
 
 describe('embed module', () => {

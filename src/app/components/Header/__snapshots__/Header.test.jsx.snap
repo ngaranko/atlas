@@ -79,10 +79,12 @@ exports[`Header should render the main header 1`] = `
       <React.Fragment>
         <Connect(HeaderSearch) />
         <MenuDefault
+          data-test="header-menu-default"
           onExpand={[Function]}
           showAt="laptopM"
         />
         <MenuMobile
+          data-test="header-menu-mobile"
           hideAt="laptopM"
           onExpand={[Function]}
         />
