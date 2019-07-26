@@ -11,7 +11,7 @@ import useDocumentTitle from '../../utils/useDocumentTitle'
 import useMatomo from '../../utils/useMatomo'
 
 jest.mock('../../utils/useFromCMS')
-jest.mock('../../utils/linkAttributesFromAction')
+jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 jest.mock('downloadjs')
 jest.mock('../../components/Footer/Footer')
 jest.mock('../../utils/useDocumentTitle')

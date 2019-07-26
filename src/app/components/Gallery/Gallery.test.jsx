@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Gallery from './Gallery';
 
-jest.mock('../../utils/linkAttributesFromAction');
+jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction');
 
 describe('Gallery', () => {
   let component;

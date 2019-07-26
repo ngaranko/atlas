@@ -11,7 +11,7 @@ import Footer from '../../components/Footer/Footer';
 
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../utils/setIframeSize')
-jest.mock('../../utils/linkAttributesFromAction')
+jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 jest.mock('../../utils/useDocumentTitle')
 jest.mock('../../utils/useDocumentTitle')
 jest.mock('../../components/Footer/Footer')

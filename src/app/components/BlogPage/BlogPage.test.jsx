@@ -6,7 +6,7 @@ import linkAttributesFromAction from '../../../shared/services/link-attributes-f
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import Footer from '../Footer/Footer'
 
-jest.mock('../../utils/linkAttributesFromAction')
+jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 jest.mock('../../utils/useDocumentTitle')
 jest.mock('../../utils/useMatomo')
 jest.mock('../Footer/Footer')

@@ -13,7 +13,7 @@ import {
   toPrivacyPage,
 } from '../../../store/redux-first-router/actions'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
-import truncateString from '../../utils/truncateString'
+import truncateString from '../../../shared/services/truncateString/truncateString'
 
 const toPanoramaAction = toPanoramaAndPreserveQuery(
   undefined,

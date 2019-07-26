@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import ConstructionFileDetail from './ConstructionFileDetail';
 
-jest.mock('../../utils/linkAttributesFromAction');
+jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction');
 
 describe('ConstructionFileDetail', () => {
   let mockResults = {
