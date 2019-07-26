@@ -12,7 +12,6 @@ import {
   Icon
 } from '@datapunt/asc-ui/lib/index';
 
-import './Map.scss';
 import socialItems from '../socialItems';
 import {
   hasEmbedMode,
@@ -21,6 +20,7 @@ import {
   showEmbedPreview,
   showPrintMode
 } from '../../../../shared/ducks/ui/ui';
+import './Map.scss';
 
 const Map = ({
   openSharePage,

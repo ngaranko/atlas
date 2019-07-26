@@ -7,7 +7,7 @@ import { isEmbedded, isPrintOrEmbedMode, isMapLinkVisible } from '../../../share
 
 import DrawTool from '../draw-tool/DrawToolContainer'
 import ToggleFullscreen from '../../../app/components/ToggleFullscreen/ToggleFullscreen'
-import ContextMenu from '../../../app/components/ContextMenu/ContextMenu'
+import { Map as ContextMenu } from '../../../app/components/ContextMenu'
 
 import LeafletContainer from '../leaflet/LeafletContainer'
 import MapPanelContainer from '../panel/MapPanelContainer'
@@ -86,7 +86,12 @@ class MapContainer extends React.Component {
           )}
           <div className="c-map__controls c-map__controls--bottom-left">
             <MapPanelContainer isMapPanelVisible />
-            {!printOrEmbedMode && isFullscreen && <ContextMenu isMapPanelVisible />}
+            {!printOrEmbedMode && isFullscreen && (
+              <div>
+                <h1>aaaaaaaaaaaaa</h1>
+                <ContextMenu isMapPanelVisible />
+              </div>
+            )}
           </div>
           {embedMode && showMapLink ? <MapEmbedButton /> : ''}
           {showPreviewPanel && previewDataAvailable && <MapPreviewPanelContainer />}
