@@ -39,9 +39,7 @@ const Detail = ({
     {!isLoading && !printMode && (
       <div className="u-row">
         <div className="u-col-sm--12">
-          <div className="u-margin__left--2 u-margin__bottom--1">
-            <ShareBar />
-          </div>
+          <div className="u-margin__left--2 u-margin__bottom--1 qa-share-bar"><ShareBar /></div>
         </div>
       </div>
     )}

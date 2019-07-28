@@ -134,6 +134,13 @@ Cypress.Commands.add('logout', () => {
 // Cypress doesn’t recognize `window.fetch` calls as XHR requests, which makes
 // it impossible to stub them. We delete `fetch` from the window object so the
 // `unfetch` polyfill (which uses proper `XMLHttpRequest`) kicks in.
-Cypress.on('window:before:load', win => {
-  delete win.fetch // eslint-disable-line no-param-reassign
-})
+Cypress.on('window:before:load', (win) => {
+  delete win.fetch; // eslint-disable-line no-param-reassign
+});
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  console.log('Uncought exception in the browser', err, runnable); // eslint-disable-line no-console
+  // returning false here prevents Cypress from
+  // failing the test
+  return false;
+});
