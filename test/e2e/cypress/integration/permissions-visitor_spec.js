@@ -29,8 +29,7 @@ describe('visitor permissions', () => {
 
     cy.get('#auto-suggest__input')
       .focus()
-      .type('bakker')
-    cy.get('.qa-search-form-submit').click()
+      .type('bakker{enter}')
 
     cy.waitForSearch(false)
     cy.get(queries.warningPanel).contains('Meer resultaten na inloggen')
