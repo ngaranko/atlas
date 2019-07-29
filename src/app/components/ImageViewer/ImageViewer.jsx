@@ -7,6 +7,7 @@ import { IconButton } from '@datapunt/asc-ui';
 import { Close, Enlarge, Minimise } from '@datapunt/asc-assets';
 import ViewerControls from '../ViewerControls/ViewerControls';
 import { setCurrentFile } from '../../../shared/ducks/files/actions';
+import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import './ImageViewer.scss';
 
 const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
@@ -17,7 +18,6 @@ const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
     // Todo: retrieve the document title from the filename (filter)
     OpenSeadragon({
       element: viewerRef.current,
-      prefixUrl: 'http://openseadragon.github.io/openseadragon/images/',
       preserveViewport: true,
       visibilityRatio: 1.0,
       minZoomLevel: 0,
@@ -25,7 +25,7 @@ const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
       sequenceMode: true,
       showNavigationControl: false,
       showSequenceControl: false,
-      tileSources: [`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${fileName}/info.json`]
+      tileSources: [`${SHARED_CONFIG.IIIF_ROOT}iiif/2/edepot:${fileName}/info.json`]
     }).addHandler('open', ({ eventSource }) => {
       setViewerInstance(eventSource);
     });

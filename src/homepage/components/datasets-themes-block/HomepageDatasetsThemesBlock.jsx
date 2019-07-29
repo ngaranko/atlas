@@ -82,6 +82,7 @@ const HomepageDatasetsThemesBlock = () => {
                     {column.themes.map(theme => (
                       <li key={theme.slug}>
                         <Link
+                          data-test="themes-block-link"
                           to={preserveQuery(toDatasetsWithFilter(), {
                             [PARAMETERS.FILTERS]: { groups: theme.slug },
                           })}

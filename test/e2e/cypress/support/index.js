@@ -16,3 +16,7 @@
 import './authentication-commands'
 import './preview-panel-commands'
 import './routing-commands'
+
+beforeEach(() => {
+  cy.setCookie('showInfoModal', '1')
+})

@@ -4,6 +4,7 @@ exports[`ContextMenu for ConstructionFiles viewer should render 1`] = `
 <ContextMenu
   alt="Actiemenu"
   arrowIcon={<IconMock />}
+  data-test="context-menu"
   icon={
     <Icon
       inline={true}

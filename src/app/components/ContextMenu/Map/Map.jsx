@@ -31,6 +31,7 @@ const Map = ({
 }) => (
   <section className="context-menu">
     <ContextMenuComponent
+      data-test="context-menu"
       alt="Actiemenu"
       arrowIcon={<ChevronDown />}
       icon={
@@ -42,6 +43,7 @@ const Map = ({
     >
       {hasPrintButton ? <ContextMenuItem
         role="button"
+        data-test="print"
         divider={!hasEmbedButton}
         onClick={openPrintMode}
         icon={
@@ -54,6 +56,7 @@ const Map = ({
       </ContextMenuItem> : <></>}
       {hasEmbedButton ? <ContextMenuItem
         role="button"
+        data-test="context-menu-embed"
         divider
         onClick={openEmbedPreview}
         icon={

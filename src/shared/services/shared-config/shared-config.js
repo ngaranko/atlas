@@ -12,16 +12,19 @@ const baseConfig = {
 
 const environmentConfig = {
   [ENVIRONMENTS.PRODUCTION]: {
+    IIIF_ROOT: 'https://images.data.amsterdam.nl/',
     API_ROOT: 'https://api.data.amsterdam.nl/',
     CMS_ROOT: 'https://cms.data.amsterdam.nl/',
     ROOT: 'https://data.amsterdam.nl/',
   },
   [ENVIRONMENTS.ACCEPTANCE]: {
+    IIIF_ROOT: 'https://acc.images.data.amsterdam.nl/',
     API_ROOT: 'https://acc.api.data.amsterdam.nl/',
     CMS_ROOT: 'https://acc.cms.data.amsterdam.nl/',
     ROOT: 'https://acc.data.amsterdam.nl/',
   },
   [ENVIRONMENTS.DEVELOPMENT]: {
+    IIIF_ROOT: 'https://acc.images.data.amsterdam.nl/',
     API_ROOT: 'https://acc.api.data.amsterdam.nl/',
     CMS_ROOT: 'https://acc.cms.data.amsterdam.nl/',
     ROOT: 'https://acc.data.amsterdam.nl/',
