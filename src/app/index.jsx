@@ -6,7 +6,7 @@ import configureStore from '../store/store'
 import './angularModules'
 import routes from './routes'
 import resolveRedirects from './redirects'
-import ReduxContext from './utils/reduxContext'
+import ReduxContext from '../store/reduxContext'
 
 const store = configureStore(routes)
 
