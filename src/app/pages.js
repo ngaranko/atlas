@@ -14,13 +14,14 @@ const PAGES = {
   DATA_SEARCH_CATEGORY: 'SEARCH_DATA_CATEGORY',
   DATA_DETAIL: 'DATA_DETAIL',
 
-  SPECIALS: 'SPECIALS',
-  PUBLICATIONS: 'PUBLICATIONS',
-
   CONSTRUCTION_FILE: 'CONSTRUCTION_FILE',
 
+  // cms pages
+  ARTICLE_DETAIL: 'ARTICLE_DETAIL',
+  SPECIAL_DETAIL: 'SPECIAL_DETAIL',
+  PUBLICATION_DETAIL: 'PUBLICATION_DETAIL',
+
   // text pages
-  ARTICLE: 'ARTICLE',
   NEWS: 'NEWS',
   PROCLAIMER: 'PROCLAIMER',
   ACTUALITY: 'ACTUALITY',
@@ -57,9 +58,9 @@ export const isOldCmsPage = page =>
   page === PAGES.MANAGEMENT
 
 export const isCmsPage = page =>
-  page === PAGES.ARTICLE ||
-  page === PAGES.PUBLICATIONS ||
-  page === PAGES.SPECIALS
+  page === PAGES.ARTICLE_DETAIL ||
+  page === PAGES.PUBLICATION_DETAIL ||
+  page === PAGES.SPECIAL_DETAIL
 
 export const isMapSplitPage = page =>
   page === PAGES.DATA ||

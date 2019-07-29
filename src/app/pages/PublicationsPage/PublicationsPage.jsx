@@ -17,7 +17,7 @@ import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
 import BlogPage from '../../components/BlogPage/BlogPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
-import { toPublication } from '../../../store/redux-first-router/actions'
+import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 
 const PublicationsPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS()
@@ -45,7 +45,7 @@ const PublicationsPage = ({ id }) => {
   const documentTitle = `Publicatie: ${title}`
 
   return (
-    <BlogPage {...{ id, slug, documentTitle, loading, linkAction: toPublication }}>
+    <BlogPage {...{ id, slug, documentTitle, loading, linkAction: toPublicationDetail }}>
       {!loading && (
         <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
           {!loading && body && (

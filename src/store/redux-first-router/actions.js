@@ -229,16 +229,16 @@ export const toAdresses = () => ({
   },
 })
 
-export const toArticle = (id, slug = '') => ({
-  type: routing.article.type,
+export const toArticleDetail = (id, slug = '') => ({
+  type: routing.articleDetail.type,
   payload: {
     id,
     slug,
   },
 })
 
-export const toSpecial = (id, slug = '') => ({
-  type: routing.specials.type,
+export const toSpecialDetail = (id, slug = '') => ({
+  type: routing.specialDetail.type,
   payload: {
     id,
     slug,
@@ -282,8 +282,8 @@ export const toMaintentancePage = () => ({
 })
 export const toHelpPage = () => ({ type: routing.help.type })
 
-export const toPublication = (id, slug = '') => ({
-  type: routing.publications.type,
+export const toPublicationDetail = (id, slug = '') => ({
+  type: routing.publicationDetail.type,
   payload: {
     id,
     slug,

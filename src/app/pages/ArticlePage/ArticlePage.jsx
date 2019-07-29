@@ -21,7 +21,7 @@ import useFromCMS from '../../utils/useFromCMS'
 import './ArticlePage.scss'
 import BlogPage from '../../components/BlogPage/BlogPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
-import { toArticle } from '../../../store/redux-first-router/actions'
+import { toArticleDetail } from '../../../store/redux-first-router/actions'
 
 /* istanbul ignore next */ const ArticlePage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS()
@@ -47,7 +47,7 @@ import { toArticle } from '../../../store/redux-first-router/actions'
   const documentTitle = `Artikel: ${title}`
 
   return (
-    <BlogPage {...{ id, slug, documentTitle, loading, linkAction: toArticle }}>
+    <BlogPage {...{ id, slug, documentTitle, loading, linkAction: toArticleDetail }}>
       {!loading && (
         <div className="article">
           <Row className="article__row">

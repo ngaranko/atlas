@@ -72,11 +72,11 @@ const AppBody = ({
 
               {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
 
-              {currentPage === PAGES.ARTICLE && <ArticlePage />}
+              {currentPage === PAGES.ARTICLE_DETAIL && <ArticlePage />}
 
-              {currentPage === PAGES.SPECIALS && <SpecialsPage />}
+              {currentPage === PAGES.SPECIAL_DETAIL && <SpecialsPage />}
 
-              {currentPage === PAGES.PUBLICATIONS && <PublicationsPage />}
+              {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationsPage />}
 
               {isOldCmsPage(currentPage) && <ContentPage />}
 

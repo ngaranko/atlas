@@ -7,7 +7,7 @@ import useFromCMS from '../../utils/useFromCMS'
 import './SpecialsPage.scss'
 import BlogPage from '../../components/BlogPage/BlogPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
-import { toSpecial } from '../../../store/redux-first-router/actions'
+import { toSpecialDetail } from '../../../store/redux-first-router/actions'
 
 const SpecialsPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS()
@@ -49,7 +49,7 @@ const SpecialsPage = ({ id }) => {
 
   return (
     <BlogPage
-      {...{ id, slug, documentTitle, linkAction: toSpecial }}
+      {...{ id, slug, documentTitle, linkAction: toSpecialDetail }}
       loading={iframeLoading || loading}
     >
       <div className="iframe-container ">

@@ -17,7 +17,7 @@ import {
 } from '../shared/ducks/ui/ui'
 import { hasGlobalError } from '../shared/ducks/error/error-message'
 import { getUser } from '../shared/ducks/user/user'
-import { getPage, isHomepage, isSpecialsPage } from '../store/redux-first-router/selectors'
+import { getPage, isHomepage } from '../store/redux-first-router/selectors'
 import Header from './components/Header/Header'
 import { AppStateProvider } from './utils/useAppReducer'
 import AppBody from './AppBody'
@@ -144,7 +144,6 @@ const mapStateToProps = state => ({
   currentPage: getPage(state),
   embedMode: isEmbedded(state),
   homePage: isHomepage(state),
-  specialsPage: isSpecialsPage(state),
   printMode: isPrintMode(state),
   printModeLandscape: isPrintModeLandscape(state),
   embedPreviewMode: isEmbedPreview(state),
