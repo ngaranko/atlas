@@ -42,6 +42,7 @@ exports[`Header should render the embed header 1`] = `
 exports[`Header should render the main header 1`] = `
 <section
   className="styled-header"
+  data-test="header"
 >
   <Header
     css={
