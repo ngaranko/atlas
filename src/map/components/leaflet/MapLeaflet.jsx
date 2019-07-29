@@ -1,7 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactResizeDetector from 'react-resize-detector';
-import { GeoJSON, Map, ScaleControl, TileLayer, ZoomControl } from 'react-leaflet'
+import ReactResizeDetector from 'react-resize-detector'
+import 'leaflet' // Required to define window.L before leaflet plugins are imported
+import 'leaflet.markercluster'
+import 'leaflet-draw'
+import 'leaflet-rotatedmarker'
+import {
+  GeoJSON,
+  Map,
+  ScaleControl,
+  TileLayer,
+  ZoomControl,
+} from 'react-leaflet'
 
 import CustomMarker from './custom/marker/CustomMarker'
 import ClusterGroup from './custom/cluster-group/ClusterGroup'
@@ -10,11 +20,22 @@ import icons from './services/icons.constant'
 import geoJsonConfig from './services/geo-json-config.constant'
 import markerConfig from './services/marker-config.constant'
 import createClusterIcon from './services/cluster-icon'
-import { boundsToString, getBounds, isBoundsAPoint, isValidBounds } from './services/bounds'
+import {
+  boundsToString,
+  getBounds,
+  isBoundsAPoint,
+  isValidBounds,
+} from './services/bounds'
 import LoadingIndicator from '../loading-indicator/LoadingIndicator'
 import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/constants'
 import RdGeoJson from './custom/geo-json/RdGeoJson'
 import mapLayerTypes from '../../services/map-layers/map-layer-types.config'
+
+const isIE = false || !!window.document.documentMode
+if (isIE) {
+  // This solves inconsistency in the leaflet draw for IE11
+  window.L.Browser.touch = false
+}
 
 const visibleToOpacity = isVisible => (isVisible ? 100 : 0)
 
@@ -107,7 +128,10 @@ class MapLeaflet extends React.Component {
     const elementBounds = getBounds(element)
     const elementBoundsId = boundsToString(elementBounds)
     // check if the bounds are the same in that case we don't need to update
-    if (elementBoundsId !== previousFitBoundsId && isValidBounds(elementBounds)) {
+    if (
+      elementBoundsId !== previousFitBoundsId &&
+      isValidBounds(elementBounds)
+    ) {
       this.fitActiveElement(elementBounds)
       this.zoomToActiveElement(elementBounds)
       this.setState({ previousFitBoundsId: elementBoundsId })
@@ -162,7 +186,9 @@ class MapLeaflet extends React.Component {
     const { _leaflet_id: leafletId } = layer
 
     this.setState(state => ({
-      pendingLayers: state.pendingLayers.filter(layerId => layerId !== leafletId),
+      pendingLayers: state.pendingLayers.filter(
+        layerId => layerId !== leafletId,
+      ),
     }))
   }
 
@@ -189,7 +215,9 @@ class MapLeaflet extends React.Component {
     const { pendingLayers } = this.state
 
     const tmsLayers = layers.filter(layer => layer.type === mapLayerTypes.TMS)
-    const nonTmsLayers = layers.filter(layer => layer.type !== mapLayerTypes.TMS)
+    const nonTmsLayers = layers.filter(
+      layer => layer.type !== mapLayerTypes.TMS,
+    )
 
     const loadingHandlers = {
       onLoading: ({ sourceTarget }) => this.handleLoading(sourceTarget),
@@ -197,7 +225,9 @@ class MapLeaflet extends React.Component {
     }
 
     return (
-      <ReactResizeDetector handleWidth handleHeigh
+      <ReactResizeDetector
+        handleWidth
+        handleHeigh
         style={{
           bottom: '0',
           left: '0',
@@ -240,18 +270,20 @@ class MapLeaflet extends React.Component {
             />
           ))}
 
-          {nonTmsLayers.map(({ id: key, isVisible, url, params, overlayOptions }) => (
-            <NonTiledLayer
-              {...{
-                key,
-                url,
-                params,
-              }}
-              {...overlayOptions}
-              opacity={visibleToOpacity(isVisible)}
-              {...loadingHandlers}
-            />
-          ))}
+          {nonTmsLayers.map(
+            ({ id: key, isVisible, url, params, overlayOptions }) => (
+              <NonTiledLayer
+                {...{
+                  key,
+                  url,
+                  params,
+                }}
+                {...overlayOptions}
+                opacity={visibleToOpacity(isVisible)}
+                {...loadingHandlers}
+              />
+            ),
+          )}
           {Boolean(clusterMarkers.length) && (
             <ClusterGroup
               markers={clusterMarkers}
@@ -270,7 +302,10 @@ class MapLeaflet extends React.Component {
             item =>
               Boolean(item.position) && (
                 <CustomMarker
-                  ref={markerConfig[item.type].requestFocus && this.setActiveElement}
+                  ref={
+                    markerConfig[item.type].requestFocus &&
+                    this.setActiveElement
+                  }
                   position={item.position}
                   key={item.position.toString() + item.type}
                   icon={icons[item.type](item.iconData)}
@@ -283,7 +318,10 @@ class MapLeaflet extends React.Component {
             item =>
               Boolean(item.position) && (
                 <CustomMarker
-                  ref={markerConfig[item.type].requestFocus && this.setActiveElement}
+                  ref={
+                    markerConfig[item.type].requestFocus &&
+                    this.setActiveElement
+                  }
                   position={item.position}
                   key={item.position.toString() + item.type}
                   icon={icons[item.type](item.iconData)}
@@ -305,8 +343,13 @@ class MapLeaflet extends React.Component {
                 <GeoJSON
                   data={shape.geoJson}
                   key={shape.id}
-                  style={geoJsonConfig[shape.type] && geoJsonConfig[shape.type].style}
-                  ref={geoJsonConfig[shape.type].requestFocus && this.setActiveElement}
+                  style={
+                    geoJsonConfig[shape.type] && geoJsonConfig[shape.type].style
+                  }
+                  ref={
+                    geoJsonConfig[shape.type].requestFocus &&
+                    this.setActiveElement
+                  }
                 />
               ),
           )}

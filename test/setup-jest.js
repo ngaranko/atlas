@@ -24,3 +24,6 @@ console.error = message => {
   // eslint-disable-line
   throw new Error(message) // eslint-disable-line
 }
+
+jest.mock('../src/app/angularModules');
+

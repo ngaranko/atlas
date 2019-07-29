@@ -9,6 +9,7 @@ import {
   getTemplateName,
   getType,
 } from '../../shared/ducks/content/selectors' // TODO: refactor, test
+import '../angularModules'
 
 /* istanbul ignore next */ const ContentPage = ({
   templateName,

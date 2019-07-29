@@ -6,14 +6,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
 
 const root = path.resolve(__dirname);
 const src = path.resolve(root, 'src');
 const legacy = path.resolve(root, 'modules');
 const dist = path.resolve(root, 'dist');
-
 
 function commonConfig({ nodeEnv }) {
   return {
@@ -178,11 +175,6 @@ function commonConfig({ nodeEnv }) {
       new CopyWebpackPlugin([
         { from: './public/', to: './assets/' },
         { from: './public/static/', to: './' },
-        // Simply copy the leaflet styling for now
-        { from: './node_modules/leaflet/dist/leaflet.css' },
-        { from: './node_modules/leaflet-draw/dist/leaflet.draw.css' },
-        { from: './node_modules/bbga_visualisatie_d3/bbga.css' },
-
         // Dumb copy of all assets for now
         // All root assets files
         {
@@ -196,18 +188,12 @@ function commonConfig({ nodeEnv }) {
           from: '**/*',
           to: 'assets'
         },
-        { from: './node_modules/bbga_visualisatie_d3/liberation-sans.eot' },
-        { from: './node_modules/bbga_visualisatie_d3/liberation-sans.woff2' },
-        { from: './node_modules/bbga_visualisatie_d3/liberation-sans.woff' },
-        { from: './node_modules/bbga_visualisatie_d3/liberation-sans.ttf' },
-        { from: './node_modules/bbga_visualisatie_d3/liberation-sans.svg' }
       ]),
-      new BundleAnalyzerPlugin(),
       new HtmlWebpackPlugin({
         inject: false,
         template: './index.ejs',
         minify: {
-          collapseWhitespace: nodeEnv === 'production' || nodeEnv === 'acceptance'
+          collapseWhitespace: true
         },
         lang: 'nl',
         title: 'Dataportaal',
@@ -217,18 +203,6 @@ function commonConfig({ nodeEnv }) {
             href: '/3680cf49-2b05-4b8a-af28-fa9e27d2bed0.css',
             rel: 'stylesheet'
           },
-          {
-            href: '/leaflet.css',
-            rel: 'stylesheet'
-          },
-          {
-            href: '/leaflet.draw.css',
-            rel: 'stylesheet'
-          },
-          {
-            href: '/bbga.css',
-            rel: 'stylesheet'
-          }
         ],
         scripts: [
           '/mtiFontTrackingCode.js'

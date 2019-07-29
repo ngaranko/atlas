@@ -12,6 +12,7 @@ import {
 import { getFilters } from '../../shared/ducks/filters/filters'
 import { getUser } from '../../shared/ducks/user/user'
 import Dataset from '../components/Dataset'
+import '../angularModules'
 
 const DatasetPage = ({
   activeFilters,

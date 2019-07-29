@@ -4,8 +4,10 @@ import './_loading-indicator.scss'
 import PropTypes from 'prop-types'
 import { Spinner } from '@datapunt/asc-ui'
 
-const LoadingIndicator = ({ IconComponent }) => (
-  <div className="loading-indicator">{IconComponent}</div>
+const LoadingIndicator = ({ IconComponent, ...otherProps }) => (
+  <div className="loading-indicator" {...otherProps}>
+    {IconComponent}
+  </div>
 )
 
 LoadingIndicator.defaultProps = {
@@ -16,4 +18,4 @@ LoadingIndicator.propTypes = {
   IconComponent: PropTypes.node,
 }
 
-export default LoadingIndicator;
+export default LoadingIndicator

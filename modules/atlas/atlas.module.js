@@ -1,3 +1,8 @@
+import 'angular'
+import 'angular-aria'
+import 'angular-i18n/nl-nl'
+import 'angular-sanitize'
+
 ;(function() {
   const moduleDependencies = [
     // Main modules

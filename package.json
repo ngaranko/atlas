@@ -95,8 +95,7 @@
     "redux-saga": "0.16.0",
     "redux-watch": "1.1.1",
     "remove-markdown": "0.3.0",
-    "reselect": "4.0.0",
-    "webpack-bundle-analyzer": "^3.3.2"
+    "reselect": "4.0.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.4",

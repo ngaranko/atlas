@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import 'leaflet'
-import 'leaflet.nontiledlayer'
 import { Print, Embed, Ellipsis, ChevronDown } from '@datapunt/asc-assets'
 import {
   ContextMenu as ContextMenuComponent,
@@ -11,7 +9,6 @@ import {
   Icon,
 } from '@datapunt/asc-ui/lib/index'
 
-import './Map.scss'
 import socialItems from '../socialItems'
 import {
   hasEmbedMode,
@@ -20,6 +17,7 @@ import {
   showEmbedPreview,
   showPrintMode,
 } from '../../../../shared/ducks/ui/ui'
+import './Map.scss'
 
 const Map = ({
   openSharePage,
@@ -40,32 +38,40 @@ const Map = ({
       }
       position="bottom"
     >
-      {hasPrintButton ? <ContextMenuItem
-        role="button"
-        data-test="print"
-        divider={!hasEmbedButton}
-        onClick={openPrintMode}
-        icon={
-          <Icon padding={4} inline size={24}>
-            <Print />
-          </Icon>
-        }
-      >
-        Printen
-      </ContextMenuItem> : <></>}
-      {hasEmbedButton ? <ContextMenuItem
-        role="button"
-        data-test="context-menu-embed"
-        divider
-        onClick={openEmbedPreview}
-        icon={
-          <Icon padding={4} inline size={24}>
-            <Embed />
-          </Icon>
-        }
-      >
-        Embedden
-      </ContextMenuItem> : <></>}
+      {hasPrintButton ? (
+        <ContextMenuItem
+          role="button"
+          data-test="print"
+          divider={!hasEmbedButton}
+          onClick={openPrintMode}
+          icon={
+            <Icon padding={4} inline size={24}>
+              <Print />
+            </Icon>
+          }
+        >
+          Printen
+        </ContextMenuItem>
+      ) : (
+        <></>
+      )}
+      {hasEmbedButton ? (
+        <ContextMenuItem
+          role="button"
+          data-test="context-menu-embed"
+          divider
+          onClick={openEmbedPreview}
+          icon={
+            <Icon padding={4} inline size={24}>
+              <Embed />
+            </Icon>
+          }
+        >
+          Embedden
+        </ContextMenuItem>
+      ) : (
+        <></>
+      )}
       {socialItems(openSharePage)}
     </ContextMenuComponent>
   </section>

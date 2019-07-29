@@ -10,30 +10,7 @@ exports[`Header should render the embed header 1`] = `
     <div
       className="o-max-width__inner"
     >
-      <div
-        className="qa-dashboard__embed-header"
-      >
-        <AngularWrapper
-          bindings={
-            Object {
-              "closeAction": Object {
-                "meta": Object {
-                  "tracking": true,
-                },
-                "type": "ui/HIDE_EMBED_PREVIEW",
-              },
-            }
-          }
-          component="dpEmbedHeader"
-          dependencies={
-            Array [
-              "atlas",
-            ]
-          }
-          interpolateBindings={Object {}}
-          moduleName="dpHeaderWrapper"
-        />
-      </div>
+      <EmbedHeader />
     </div>
   </div>
 </div>
@@ -107,30 +84,7 @@ exports[`Header should render the print header 1`] = `
     <div
       className="o-max-width__inner"
     >
-      <div
-        className="qa-dashboard__print-header"
-      >
-        <AngularWrapper
-          bindings={
-            Object {
-              "closeAction": Object {
-                "meta": Object {
-                  "tracking": true,
-                },
-                "type": "ui/HIDE_PRINT",
-              },
-            }
-          }
-          component="dpPrintHeader"
-          dependencies={
-            Array [
-              "atlas",
-            ]
-          }
-          interpolateBindings={Object {}}
-          moduleName="dpHeaderWrapper"
-        />
-      </div>
+      <PrintHeader />
     </div>
   </div>
 </div>

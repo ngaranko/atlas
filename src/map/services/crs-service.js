@@ -1,9 +1,6 @@
 import L from 'leaflet'
-import * as proj4 from 'proj4';
+import 'proj4'
 import 'proj4leaflet'
-
-window.proj4 = proj4;
-
 import CRS_CONFIG from './crs-config.constant'
 
 function getCrs() {
