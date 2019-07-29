@@ -1,3 +1,5 @@
+import { SEARCH } from '../support/selectors'
+
 const datasetsTab = '.o-tabs__tab--link'
 const datasetsCard = '.c-data-selection-catalog__item'
 
@@ -16,8 +18,8 @@ describe('datasets search module', () => {
       cy.defineSearchRoutes()
 
       cy.visit('/')
-      cy.get('.auto-suggest__input').trigger('focus')
-      cy.get('.auto-suggest__input').type('Park')
+      cy.get(SEARCH.input).trigger('focus')
+      cy.get(SEARCH.input).type('Park')
       cy.get('.auto-suggest').submit()
       cy.waitForSearch()
 
@@ -34,8 +36,8 @@ describe('datasets search module', () => {
       cy.defineSearchRoutes()
 
       cy.visit('/')
-      cy.get('.auto-suggest__input').trigger('focus')
-      cy.get('.auto-suggest__input').type('NORESULTS')
+      cy.get(SEARCH.input).trigger('focus')
+      cy.get(SEARCH.input).type('NORESULTS')
       cy.get('.auto-suggest').submit()
       cy.waitForSearch()
 

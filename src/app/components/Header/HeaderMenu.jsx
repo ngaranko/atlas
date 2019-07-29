@@ -72,7 +72,7 @@ const HeaderMenu = ({
       {!user.authenticated ? (
         <MenuItem onClick={login}>Inloggen</MenuItem>
       ) : (
-        <MenuFlyOut label={truncateString(user.name, 9)}>
+        <MenuFlyOut data-test="login" label={truncateString(user.name, 9)}>
           <MenuItem icon={<ChevronRight />} onClick={logout}>
             Uitloggen
           </MenuItem>

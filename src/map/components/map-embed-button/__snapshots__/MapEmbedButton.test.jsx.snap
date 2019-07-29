@@ -2,7 +2,8 @@
 
 exports[`MapEmbedButton should render the component 1`] = `
 <button
-  className="c-embed-button qa-embed-button"
+  className="c-embed-button"
+  data-test="embed-button"
   onClick={[Function]}
   title="Naar interactieve kaart"
   type="button"

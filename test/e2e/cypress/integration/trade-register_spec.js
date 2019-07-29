@@ -1,3 +1,5 @@
+import { HEADINGS } from '../support/selectors'
+
 const dataSelection = '.c-data-selection'
 const homepage = '.c-homepage'
 const notification = '.notification--info'
@@ -29,7 +31,7 @@ describe('trade-register (vestigingen) module', () => {
         .should('exist')
         .and('be.visible')
       // the title should contain Vestigingen
-      cy.get('h1')
+      cy.get(HEADINGS.dataSelectionHeading)
         .contains('Vestigingen')
         .should('exist')
         .and('be.visible')

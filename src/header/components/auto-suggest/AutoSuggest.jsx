@@ -190,12 +190,13 @@ class AutoSuggest extends React.Component {
       autoComplete: 'off',
       autoCorrect: 'off',
       id: 'auto-suggest__input',
+      'data-test': 'search-input',
       placeholder: placeHolder,
       label: placeHolder,
     }
 
     return (
-      <form onSubmit={this.onFormSubmit} className="auto-suggest">
+      <form onSubmit={this.onFormSubmit} className="auto-suggest" data-test="search-form">
         <fieldset>
           {legendTitle && <legend className="u-sr-only">{legendTitle}</legend>}
           <Search
