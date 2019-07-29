@@ -65,12 +65,12 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
       })
 
       // Follow redirect to login page manually
-      .then(response =>
-        cy.request({
+      .then(response =>{
+        return cy.request({
           url: response.headers.location,
           followRedirect: false,
-        }),
-      )
+        })
+      })
 
       // Post credentials and account type
       // extracts url from form

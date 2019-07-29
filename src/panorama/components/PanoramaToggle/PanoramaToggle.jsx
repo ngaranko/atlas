@@ -80,6 +80,10 @@ const PanoramaToggle = ({
   )
 }
 
+PanoramaToggle.defaultProps = {
+  location: ''
+}
+
 PanoramaToggle.propTypes = {
   heading: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   currentLabel: PropTypes.string.isRequired,

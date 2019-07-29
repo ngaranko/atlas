@@ -35,25 +35,25 @@ pipeline {
     //   }
     // }
 
-    stage('Unit tests') {
-      options {
-        timeout(time: 30, unit: 'MINUTES')
-      }
-      environment {
-        PROJECT = "${PROJECT_PREFIX}unit"
-      }
-      steps {
-        sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit test-unit"
-      }
-      post {
-        always {
-          sh "docker-compose -p ${PROJECT} down -v || true"
-        }
-      }
-    }
+    // stage('Unit tests') {
+    //   options {
+    //     timeout(time: 30, unit: 'MINUTES')
+    //   }
+    //   environment {
+    //     PROJECT = "${PROJECT_PREFIX}unit"
+    //   }
+    //   steps {
+    //     sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-unit test-unit"
+    //   }
+    //   post {
+    //     always {
+    //       sh "docker-compose -p ${PROJECT} down -v || true"
+    //     }
+    //   }
+    // }
 
-    stage('Run tests') {
-      parallel {
+    // stage('Run tests') {
+      //parallel {
         // stage('E2E tests') {
         //   options {
         //     timeout(time: 60, unit: 'MINUTES')
@@ -92,8 +92,8 @@ pipeline {
         //     }
         //   }
         // }
-      }
-    }
+      //}
+    // }
 
     stage('Build A') {
       when { branch 'master' }
