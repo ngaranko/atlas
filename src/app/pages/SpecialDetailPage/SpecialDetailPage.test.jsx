@@ -82,7 +82,6 @@ describe('SpecialDetailPage', () => {
     expect(component).toMatchSnapshot()
 
     expect(component.find('SpecialDetailPage')).toBeTruthy()
-    // expect(fetchDataMock).toHaveBeenCalledWith(id, cmsConfig.special)
   })
 
   it('should call the setIframeSize function', () => {

@@ -1,1 +1,1 @@
-export { default } from './TabBarContainer'
+export { default } from './TabBar'

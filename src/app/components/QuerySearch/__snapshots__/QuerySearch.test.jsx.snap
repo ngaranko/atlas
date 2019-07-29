@@ -25,7 +25,6 @@ exports[`QuerySearch should render with results 1`] = `
     <Connect(TabBar)
       numberOfDataResults={1}
       numberOfDatasetResults={1}
-      showDatasetsButton={false}
     >
       <Tabs
         currentTab="Datasets"

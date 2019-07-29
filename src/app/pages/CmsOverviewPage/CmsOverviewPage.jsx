@@ -1,13 +1,25 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import {
+  Column,
+  Heading,
+  Row,
+} from '@datapunt/asc-ui'
+import PAGES from '../../pages'
 
-const CmsOverviewPage = ({ type = ''}) => {
-  return <div>CmsOverviewPage = {type}</div>
+const title = {
+  [PAGES.ARTICLES]: 'Artikelen',
+  [PAGES.PUBLICATIONS]: 'Publicaties',
+  [PAGES.SPECIALS]: 'Specials'
 }
 
-const mapStateToProps = () => ({})
+const CmsOverviewPage = ({ type = ''}) => (
+  <Row>
+    <Column maxWidth={false} span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}>
+      <Heading as="h2" styleAs="h1">
+        {title[type]}
+      </Heading>
+    </Column>
+  </Row>
+)
 
-export default connect(
-  mapStateToProps,
-  null,
-)(CmsOverviewPage)
+export default CmsOverviewPage
