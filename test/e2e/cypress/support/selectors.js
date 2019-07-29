@@ -1,5 +1,5 @@
 export const HEADINGS = {
-  dataSelectionHeading: '[data-test=data-selection-heading]'
+  dataSelectionHeading: '[data-test=data-selection-heading]',
 }
 
 export const HEADER = {
@@ -9,18 +9,18 @@ export const HEADER = {
 export const MAP = {
   embedButton: '[data-test=embed-button]',
   contextMenu: '[data-test=context-menu]',
-  contextMenuItemEmbed: '[data-test=context-menu-embed]'
+  contextMenuItemEmbed: '[data-test=context-menu-embed]',
 }
 
 export const SEARCH = {
   form: '[data-test=search-form]',
-  input: '[data-test=search-input]'
+  input: '[data-test=search-input]',
 }
 
 export const HEADER_MENU = {
   rootMobile: '[data-test=header-menu-mobile]',
   rootDefault: '[data-test=header-menu-default]',
-  login: '[data-test=login]'
+  login: '[data-test=login]',
 }
 export const DATA_SELECTION_TABLE = {
   table: '.c-ds-table',
@@ -31,5 +31,5 @@ export const DATA_SELECTION_TABLE = {
 }
 
 export const HOMEPAGE_THEMES_BLOCK = {
-  link: '[data-test=themes-block-link]'
+  link: '[data-test=themes-block-link]',
 }

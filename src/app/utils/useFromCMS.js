@@ -11,7 +11,7 @@ function useFromCMS() {
     setLoading(true)
     try {
       const endpoint = config.endpoint(id)
-      const {fields} = config
+      const { fields } = config
       const data = await getByUrl(endpoint)
       const normalizedData = await cmsNormalizer(data, fields)
 
