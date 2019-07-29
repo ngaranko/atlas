@@ -41,9 +41,7 @@ const AppBody = ({
   })
 
   return (
-    <Suspense
-      fallback={<LoadingIndicator />}
-    >
+    <Suspense fallback={<LoadingIndicator />}>
       <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
         {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
         {embedPreviewMode ? (
@@ -75,8 +73,8 @@ const AppBody = ({
               {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
               {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
               {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
-              
-              {isCmsOverviewPage(currentPage) &&  <CmsOverviewPage type={currentPage} />}
+
+              {isCmsOverviewPage(currentPage) && <CmsOverviewPage type={currentPage} />}
 
               {isOldCmsPage(currentPage) && <ContentPage />}
 

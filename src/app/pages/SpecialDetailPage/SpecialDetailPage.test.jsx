@@ -7,7 +7,7 @@ import useFromCMS from '../../utils/useFromCMS'
 import setIframeSize from '../../../shared/services/set-iframe-size/setIframeSize'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import useDocumentTitle from '../../utils/useDocumentTitle'
-import Footer from '../../components/Footer/Footer';
+import Footer from '../../components/Footer/Footer'
 
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../../shared/services/set-iframe-size/setIframeSize')
@@ -46,7 +46,6 @@ describe('SpecialDetailPage', () => {
   afterEach(() => {
     jest.resetAllMocks()
   })
-
 
   it('should set the loading prop on the blog container', () => {
     useFromCMS.mockImplementation(() => ({

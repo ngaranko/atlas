@@ -1,14 +1,9 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { connect } from 'react-redux';
-import { getSearchQuery } from '../../../shared/ducks/data-search/selectors';
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
+import { getSearchQuery } from '../../../shared/ducks/data-search/selectors'
 
-const TabBar = ({
-  numberOfDataResults,
-  numberOfDatasetResults,
-  searchQuery,
-  children,
-}) => (
+const TabBar = ({ numberOfDataResults, numberOfDatasetResults, searchQuery, children }) => (
   <div>
     <h1 className="qa-tab-header__title c-tab-header__title">
       {(numberOfDataResults !== 0 || numberOfDatasetResults !== 0) && (
