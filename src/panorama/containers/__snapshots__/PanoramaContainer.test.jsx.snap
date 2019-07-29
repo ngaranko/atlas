@@ -35,7 +35,7 @@ exports[`PanoramaContainer should render StatusBar when panoramaState is complet
         ]
       }
     />
-    <Connect(ContextMenu) />
+    <Connect(Map) />
   </div>
   <StatusBar
     currentLabel="Meest recent"
@@ -86,7 +86,7 @@ exports[`PanoramaContainer should render everything 1`] = `
         ]
       }
     />
-    <Connect(ContextMenu) />
+    <Connect(Map) />
   </div>
   <StatusBar
     currentLabel="Meest recent"

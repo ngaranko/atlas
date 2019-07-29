@@ -4,13 +4,13 @@ import configureMockStore from 'redux-mock-store'
 import { ThemeProvider } from '@datapunt/asc-ui'
 import PublicationsPage from './PublicationsPage'
 import useFromCMS from '../../utils/useFromCMS'
-import getReduxLinkProps from '../../utils/getReduxLinkProps'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import Footer from '../../components/Footer/Footer'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import useMatomo from '../../utils/useMatomo'
 
 jest.mock('../../utils/useFromCMS')
-jest.mock('../../utils/getReduxLinkProps')
+jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 jest.mock('downloadjs')
 jest.mock('../../components/Footer/Footer')
 jest.mock('../../utils/useDocumentTitle')
@@ -45,7 +45,7 @@ describe('PublicationsPage', () => {
 
   let store
   beforeEach(() => {
-    getReduxLinkProps.mockImplementation(() => ({ href }))
+    linkAttributesFromAction.mockImplementation(() => ({ href }))
     Footer.mockImplementation(() => <></>)
     useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: jest.fn(), href }))
     useMatomo.mockImplementation(() => ({ trackPageView: jest.fn(), href }))

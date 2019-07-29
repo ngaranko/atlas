@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types'
 import { GridContainer, GridItem, Icon, Heading } from '@datapunt/asc-ui'
 import { Minimise, Enlarge } from '@datapunt/asc-assets'
 import Thumbnail from '../Thumbnail/Thumbnail'
-import getReduxLinkProps from '../../utils/getReduxLinkProps'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import { toConstructionFileViewer } from '../../../store/redux-first-router/actions'
 import './Gallery.scss'
 
@@ -43,7 +43,7 @@ const Gallery = ({ title, allThumbnails, id, maxLength }) => {
                     <div className="c-gallery__square">
                       <a
                         title=""
-                        {...getReduxLinkProps(
+                        {...linkAttributesFromAction(
                           toConstructionFileViewer(id, encodeURIComponent(file)),
                         )}
                         className="c-gallery__thumbnail"

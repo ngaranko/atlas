@@ -22,7 +22,7 @@ import {
 import StatusBar from '../components/StatusBar/StatusBar'
 import PanoramaToggle from '../components/PanoramaToggle/PanoramaToggle'
 import ToggleFullscreen from '../../app/components/ToggleFullscreen/ToggleFullscreen'
-import ContextMenu from '../../app/components/ContextMenu/ContextMenu'
+import { Map as ContextMenu } from '../../app/components/ContextMenu'
 import {
   getDetailReference,
   getLabelObjectByTags,
@@ -34,12 +34,7 @@ import IconButton from '../../app/components/IconButton/IconButton'
 import { getMapDetail } from '../../map/ducks/detail/actions'
 import { getMapOverlays } from '../../map/ducks/map/selectors'
 import { pageTypeToEndpoint } from '../../map/services/map-detail'
-import {
-  isPrintMode,
-  isPrintOrEmbedMode,
-  setViewMode,
-  VIEW_MODE,
-} from '../../shared/ducks/ui/ui'
+import { isPrintMode, isPrintOrEmbedMode, setViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui'
 
 class PanoramaContainer extends React.Component {
   constructor(props) {
@@ -61,10 +56,7 @@ class PanoramaContainer extends React.Component {
     this.loadPanoramaScene()
 
     if (this.panoramaViewer) {
-      this.panoramaViewer.addEventListener(
-        'viewChange',
-        this.updateOrientationThrottled,
-      )
+      this.panoramaViewer.addEventListener('viewChange', this.updateOrientationThrottled)
     }
 
     if (detailReference.length > 0) {
@@ -87,10 +79,7 @@ class PanoramaContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    this.panoramaViewer.removeEventListener(
-      'viewChange',
-      this.updateOrientationThrottled,
-    )
+    this.panoramaViewer.removeEventListener('viewChange', this.updateOrientationThrottled)
   }
 
   loadPanoramaScene() {
@@ -135,14 +124,7 @@ class PanoramaContainer extends React.Component {
   }
 
   render() {
-    const {
-      isFullscreen,
-      printOrEmbedMode,
-      printMode,
-      panoramaState,
-      onClose,
-      tags,
-    } = this.props
+    const { isFullscreen, printOrEmbedMode, printMode, panoramaState, onClose, tags } = this.props
     return (
       <div
         className={classNames({
