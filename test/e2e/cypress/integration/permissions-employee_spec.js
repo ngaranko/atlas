@@ -37,8 +37,7 @@ describe('employee permissions', () => {
 
     cy.get('#auto-suggest__input')
       .focus()
-      .type('bakker')
-    cy.get('.qa-search-form-submit').click()
+      .type('bakker{enter}')
 
     cy.waitForSearch()
     cy.get(queries.warningPanel).contains(
@@ -200,28 +199,31 @@ describe('employee permissions', () => {
   })
 
   it('7C. Should show an employee all information in a Geo search', () => {
-    cy.server()
-    cy.defineGeoSearchRoutes()
-    cy.route('/bag/pand/*').as('getResults')
-    cy.route('/monumenten/monumenten/?betreft_pand=*').as('getMonumenten')
-    cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen')
-    cy.route('/handelsregister/vestiging/?pand=*').as('getVestigingen')
-    cy.route('/panorama/thumbnail/?*').as('getPanorama')
+    cy.server();
+    cy.defineGeoSearchRoutes();
+    cy.route('/bag/pand/*').as('getResults');
+    cy.route('/monumenten/monumenten/?betreft_pand=*').as('getMonumenten');
+    cy.route('/bag/nummeraanduiding/?pand=*').as('getNummeraanduidingen');
+    cy.route('/handelsregister/vestiging/?pand=*').as('getVestigingen');
+    cy.route('/panorama/thumbnail/?*').as('getPanorama');
+    cy.route('/geosearch/grondexploitatie/*').as('getGeoSearchGrondexploitatie');
 
-    cy.visit(urls.geoSearch)
 
-    cy.waitForGeoSearch()
-    cy.wait('@getResults')
-    cy.wait('@getMonumenten')
-    cy.wait('@getNummeraanduidingen')
-    cy.wait('@getVestigingen')
-    cy.wait('@getPanorama')
+    cy.visit(urls.geoSearch);
 
-    cy.get(queries.warningPanel).should('not.exist')
-    cy.get(queries.headerSubTitle).contains(values.vestigingen)
-    cy.get('.qa-toggle-fullscreen').click()
-    cy.get(queries.mapSearchResultsCategoryHeader).contains(values.vestigingen)
-  })
+    cy.waitForGeoSearch();
+    cy.wait('@getResults');
+    cy.wait('@getMonumenten');
+    cy.wait('@getNummeraanduidingen');
+    cy.wait('@getVestigingen');
+    cy.wait('@getPanorama');
+    cy.wait('@getGeoSearchGrondexploitatie');
+
+    cy.get(queries.warningPanel).should('not.exist');
+    cy.get(queries.headerSubTitle).contains(values.vestigingen);
+    cy.get('.qa-toggle-fullscreen').click();
+    cy.get(queries.mapSearchResultsCategoryHeader).contains(values.vestigingen);
+  });
 
   it('7D. Should show an employee all information in a "ligplaats" search', () => {
     cy.server()

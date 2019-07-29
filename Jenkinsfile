@@ -52,8 +52,8 @@ pipeline {
       }
     }
 
-    stage('Run tests') {
-      parallel {
+    // stage('Run tests') {
+      //parallel {
         // stage('E2E tests') {
         //   options {
         //     timeout(time: 60, unit: 'MINUTES')
@@ -66,7 +66,7 @@ pipeline {
         //     PASSWORD_EMPLOYEE_PLUS = credentials('PASSWORD_EMPLOYEE_PLUS')
         //   }
         //   steps {
-        //     sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e test-e2e"
+        //     sh "docker-compose -p ${PROJECT} up --build --exit-code-from start start"
         //   }
         //   post {
         //     always {
@@ -75,25 +75,25 @@ pipeline {
         //   }
         // }
 
-        stage('E2E tests (Aria)') {
-          options {
-            timeout(time: 30, unit: 'MINUTES')
-          }
-          environment {
-            PROJECT = "${PROJECT_PREFIX}e2e-aria"
-          }
-          steps {
-            // sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-aria test-e2e-aria"
-            sh "echo \"Skipped aria test!\"" // TODO refactor, reactivate
-          }
-          post {
-            always {
-              sh "docker-compose -p ${PROJECT} down -v || true"
-            }
-          }
-        }
-      }
-    }
+        // stage('E2E tests (Aria)') {
+        //   options {
+        //     timeout(time: 30, unit: 'MINUTES')
+        //   }
+        //   environment {
+        //     PROJECT = "${PROJECT_PREFIX}e2e-aria"
+        //   }
+        //   steps {
+        //     // sh "docker-compose -p ${PROJECT} up --build --exit-code-from test-e2e-aria test-e2e-aria"
+        //     sh "echo \"Skipped aria test!\"" // TODO refactor, reactivate
+        //   }
+        //   post {
+        //     always {
+        //       sh "docker-compose -p ${PROJECT} down -v || true"
+        //     }
+        //   }
+        // }
+      //}
+    // }
 
     stage('Build A') {
       when { branch 'master' }

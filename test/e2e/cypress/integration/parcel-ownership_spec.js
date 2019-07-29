@@ -1,4 +1,4 @@
-import { DATA_SELECTION_TABLE } from '../support/selectors'
+import { DATA_SELECTION_TABLE, HEADINGS } from '../support/selectors'
 
 const dataSelection = '.c-data-selection'
 const homepage = '.c-homepage'
@@ -31,7 +31,7 @@ describe('parcel-ownership (eigendommen) module', () => {
         .should('exist')
         .and('be.visible')
       // the title should contain Kadastrale objecten met zakelijk rechthebbenden
-      cy.get('h1')
+      cy.get(HEADINGS.dataSelectionHeading)
         .contains('Kadastrale objecten met zakelijk rechthebbenden')
         .should('exist')
         .and('be.visible')
@@ -39,10 +39,6 @@ describe('parcel-ownership (eigendommen) module', () => {
   })
 
   describe('not authenticated', () => {
-    before(() => {
-      cy.logout()
-    })
-
     beforeEach(() => {
       // go to the homepage
       cy.visit('/')

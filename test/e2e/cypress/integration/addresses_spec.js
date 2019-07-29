@@ -1,5 +1,5 @@
 import { getCountFromHeader } from '../support/helper-functions'
-import { DATA_SELECTION_TABLE } from '../support/selectors'
+import { DATA_SELECTION_TABLE, HEADINGS } from '../support/selectors'
 
 const dataSelection = '.c-data-selection'
 const homepage = '.c-homepage'
@@ -42,7 +42,7 @@ describe('addresses module', () => {
         .should('exist')
         .and('be.visible')
       // the title should contain Adressen
-      cy.get('h1')
+      cy.get(HEADINGS.dataSelectionHeading)
         .contains('Adressen')
         .should('exist')
         .and('be.visible')
@@ -234,7 +234,7 @@ describe('addresses module', () => {
       let totalCount
 
       // Get the number in the title before filtering
-      cy.get('h1').then(title => {
+      cy.get(HEADINGS.dataSelectionHeading).then(title => {
         totalCount = getCountFromHeader(title.text())
       })
 
@@ -246,7 +246,7 @@ describe('addresses module', () => {
 
       // Expect the number in the title after filtering to be smaller than the number before
       // filtering
-      cy.get('h1').then(title => {
+      cy.get(HEADINGS.dataSelectionHeading).then(title => {
         const filteredCount = getCountFromHeader(title.text())
         expect(filteredCount).to.be.below(totalCount)
       })

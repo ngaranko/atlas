@@ -1,3 +1,5 @@
+import { SEARCH } from '../support/selectors'
+
 describe('data search module', () => {
   before(() => {
     cy.login()
@@ -110,12 +112,12 @@ describe('data search module', () => {
       cy.server()
       cy.defineSearchRoutes()
       cy.visit('/')
-      cy.get('.auto-suggest__input').trigger('focus')
+      cy.get('#auto-suggest__input').trigger('focus')
     })
 
     it('should submit the search and give results', () => {
-      cy.get('.auto-suggest__input').type('Park')
-      cy.get('.auto-suggest').submit()
+      cy.get(SEARCH.input).type('Park')
+      cy.get(SEARCH.form).submit()
       cy.waitForSearch()
       cy.get('.o-list')
         .should('exist')
@@ -123,7 +125,7 @@ describe('data search module', () => {
     })
 
     it('should submit the search and give no results', () => {
-      cy.get('.auto-suggest__input').type('NORESULTS')
+      cy.get('#auto-suggest__input').type('NORESULTS')
       cy.get('.auto-suggest').submit()
       cy.waitForSearch()
       cy.get('.o-list').should('have.length', 0)
