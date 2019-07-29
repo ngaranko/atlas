@@ -40,7 +40,7 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
 
   if (!printOrEmbedMode) {
     return (
-      <section className="styled-header">
+      <section className="styled-header" data-test="header">
         <HeaderComponent
           tall={homePage}
           title="City Data"

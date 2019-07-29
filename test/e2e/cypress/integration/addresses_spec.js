@@ -42,7 +42,7 @@ describe('addresses module', () => {
         .should('exist')
         .and('be.visible')
       // the title should contain Adressen
-      cy.get('h1')
+      cy.get(HEADINGS.dataSelectionHeading)
         .contains('Adressen')
         .should('exist')
         .and('be.visible')

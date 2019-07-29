@@ -107,7 +107,7 @@ describe('data search module', () => {
       .and('be.visible')
   })
 
-  describe.only('user should be able to submit', () => {
+  describe('user should be able to submit', () => {
     beforeEach(() => {
       cy.server()
       cy.defineSearchRoutes()

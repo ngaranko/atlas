@@ -2,6 +2,16 @@ export const HEADINGS = {
   dataSelectionHeading: '[data-test=data-selection-heading]'
 }
 
+export const HEADER = {
+  root: '[data-test=header]',
+}
+
+export const MAP = {
+  embedButton: '[data-test=embed-button]',
+  contextMenu: '[data-test=context-menu]',
+  contextMenuItemEmbed: '[data-test=context-menu-embed]'
+}
+
 export const SEARCH = {
   form: '[data-test=search-form]',
   input: '[data-test=search-input]'

@@ -14,7 +14,8 @@ const MapEmbedButton = ({ toggleEmbedButton }) => (
       setTimeout(() => window.open(getEmbedButtonLink(), '_blank'), 300)
     }}
     title="Naar interactieve kaart"
-    className="c-embed-button qa-embed-button"
+    className="c-embed-button"
+    data-test="embed-button"
   >
     <span className="c-embed-button__icon c-embed-button__icon--maximize" />
     <span className="c-embed-button__label">data.amsterdam.nl</span>

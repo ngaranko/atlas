@@ -118,15 +118,16 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
 })
 
 Cypress.Commands.add('logout', () => {
-  cy.get(`${HEADER_MENU.rootMobile} ${HEADER_MENU.login}`)
+  const loginMenuItem = `${HEADER_MENU.rootMobile} ${HEADER_MENU.login}`
+  cy.get(loginMenuItem)
     .then(element => {
-      if (!element) {
+      if (!element.is(':visible')) {
         cy.get(`${HEADER_MENU.rootMobile}`).click()
       }
     })
-    .get(`${HEADER_MENU.rootMobile} ${HEADER_MENU.login}`)
+    .get(loginMenuItem)
     .click()
-    .siblings('ul')
+    .find('ul')
     .find('a')
     .click()
 })
