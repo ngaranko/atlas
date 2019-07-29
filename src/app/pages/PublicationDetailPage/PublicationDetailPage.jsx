@@ -19,7 +19,7 @@ import BlogPage from '../../components/BlogPage/BlogPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 
-const PublicationsPage = ({ id }) => {
+const PublicationDetailPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS()
 
   React.useEffect(() => {
@@ -112,4 +112,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   null,
-)(PublicationsPage)
+)(PublicationDetailPage)

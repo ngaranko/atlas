@@ -1,13 +1,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
-import ArticlePage from './ArticlePage'
+import ArticleDetailPage from './ArticleDetailPage'
 
-describe('ArticlePage', () => {
+describe('ArticleDetailPage', () => {
   it('should render', () => {
     const store = configureMockStore()({ location: { payload: { id: 6 } } })
     
-    const component = shallow(<ArticlePage id={4} />,  { context: { store } },)
+    const component = shallow(<ArticleDetailPage id={4} />,  { context: { store } },)
     expect(component).toMatchSnapshot()
   })
 })

@@ -18,12 +18,12 @@ import { connect } from 'react-redux'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
-import './ArticlePage.scss'
+import './ArticleDetailPage.scss'
 import BlogPage from '../../components/BlogPage/BlogPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 
-/* istanbul ignore next */ const ArticlePage = ({ id }) => {
+/* istanbul ignore next */ const ArticleDetailPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS()
 
   React.useEffect(() => {
@@ -147,4 +147,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   null,
-)(ArticlePage)
+)(ArticleDetailPage)

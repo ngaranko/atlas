@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SpecialsPage should call the fetchData function when the component mounts 1`] = `
+exports[`SpecialDetailPage should call the fetchData function when the component mounts 1`] = `
 <div
   class="blog-page sc-fMiknA dFehsU"
 >

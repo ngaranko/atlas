@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import setIframeSize from '../../../shared/services/set-iframe-size/setIframeSize'
 import useFromCMS from '../../utils/useFromCMS'
-import './SpecialsPage.scss'
+import './SpecialDetailPage.scss'
 import BlogPage from '../../components/BlogPage/BlogPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toSpecialDetail } from '../../../store/redux-first-router/actions'
 
-const SpecialsPage = ({ id }) => {
+const SpecialDetailPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS()
   const [iframeLoading, setIframeLoading] = React.useState(true)
   const [iframeHeight, setIframeHeight] = React.useState(0)
@@ -85,4 +85,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   null,
-)(SpecialsPage)
+)(SpecialDetailPage)

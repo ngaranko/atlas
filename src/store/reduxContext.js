@@ -1,5 +1,5 @@
-import React from 'react';
+import React from 'react'
 
-const ReduxContext = React.createContext();
+const ReduxContext = React.createContext()
 
-export default ReduxContext;
+export default ReduxContext

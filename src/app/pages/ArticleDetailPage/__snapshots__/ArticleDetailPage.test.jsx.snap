@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ArticlePage should render 1`] = `
-<ArticlePage
+exports[`ArticleDetailPage should render 1`] = `
+<ArticleDetailPage
   dispatch={[Function]}
   id={6}
 />

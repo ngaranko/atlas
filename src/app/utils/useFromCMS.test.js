@@ -1,8 +1,7 @@
-
 import { act } from 'react-dom/test-utils'
 import useFromCMS from './useFromCMS'
 import testHook from '../../../test/test-hook'
-import cmsConfig from '../../shared/services/cms/cms-config';
+import cmsConfig from '../../shared/services/cms/cms-config'
 
 jest.useFakeTimers()
 

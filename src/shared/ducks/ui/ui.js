@@ -203,7 +203,9 @@ export const hasPrintMode = createSelector(
     panoPageActive,
     viewMode,
   ) =>
-    ((!dataSelectionPage || viewMode === VIEW_MODE.SPLIT || viewMode === VIEW_MODE.MAP) &&
+    ((!dataSelectionPage ||
+      viewMode === VIEW_MODE.SPLIT ||
+      viewMode === VIEW_MODE.MAP) &&
       (!datasetPage || datasetDetailPage) &&
       (dataPage || mapActive || viewMode === VIEW_MODE.SPLIT)) ||
     panoPageActive,
@@ -215,7 +217,8 @@ export const hasEmbedMode = createSelector(
   isPanoFullscreen,
   isDataSelectionPage,
   (mapActive, panoPage, panoFullscreen, dataSelectionPage) =>
-    (mapActive && !panoPage && !dataSelectionPage) || (panoPage && panoFullscreen),
+    (mapActive && !panoPage && !dataSelectionPage) ||
+    (panoPage && panoFullscreen),
 )
 
 export const isPrintModeLandscape = createSelector(
@@ -225,5 +228,9 @@ export const isPrintModeLandscape = createSelector(
   getFileName,
   getViewMode,
   (printMode, panoPageActive, mapPageActive, fileName, viewMode) =>
-    printMode && (panoPageActive || mapPageActive || !!fileName || viewMode === VIEW_MODE.MAP),
+    printMode &&
+    (panoPageActive ||
+      mapPageActive ||
+      !!fileName ||
+      viewMode === VIEW_MODE.MAP),
 )

@@ -2,7 +2,7 @@ import React from 'react'
 import { render, shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { ThemeProvider } from '@datapunt/asc-ui'
-import SpecialsPage from './SpecialsPage'
+import SpecialDetailPage from './SpecialDetailPage'
 import useFromCMS from '../../utils/useFromCMS'
 import setIframeSize from '../../../shared/services/set-iframe-size/setIframeSize'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
@@ -16,7 +16,7 @@ jest.mock('../../utils/useDocumentTitle')
 jest.mock('../../utils/useDocumentTitle')
 jest.mock('../../components/Footer/Footer')
 
-describe('SpecialsPage', () => {
+describe('SpecialDetailPage', () => {
   const id = 6
   const href = 'https://this.is/a-link/this-is-a-slug'
   const fetchDataMock = jest.fn()
@@ -53,7 +53,7 @@ describe('SpecialsPage', () => {
       loading: true,
     }))
 
-    const component = shallow(<SpecialsPage />, { context: { store } }).dive()
+    const component = shallow(<SpecialDetailPage />, { context: { store } }).dive()
 
     const blogPage = component.find('BlogPage').at(0)
     expect(blogPage.props().loading).toBeTruthy()
@@ -62,7 +62,7 @@ describe('SpecialsPage', () => {
   it('should mount the iframe when there are results', () => {
     useFromCMS.mockImplementation(() => mockData)
 
-    const component = shallow(<SpecialsPage />, { context: { store } }).dive()
+    const component = shallow(<SpecialDetailPage />, { context: { store } }).dive()
 
     const iframe = component.find('iframe').at(0)
     expect(iframe.exists()).toBeTruthy()
@@ -73,7 +73,7 @@ describe('SpecialsPage', () => {
 
     const component = render(
       <ThemeProvider>
-        <SpecialsPage store={store} />
+        <SpecialDetailPage store={store} />
       </ThemeProvider>,
     )
 
@@ -81,7 +81,7 @@ describe('SpecialsPage', () => {
 
     expect(component).toMatchSnapshot()
 
-    expect(component.find('SpecialsPage')).toBeTruthy()
+    expect(component.find('SpecialDetailPage')).toBeTruthy()
     // expect(fetchDataMock).toHaveBeenCalledWith(id, cmsConfig.special)
   })
 
@@ -90,7 +90,7 @@ describe('SpecialsPage', () => {
 
     useFromCMS.mockImplementation(() => mockData)
 
-    const component = shallow(<SpecialsPage />, { context: { store } }).dive()
+    const component = shallow(<SpecialDetailPage />, { context: { store } }).dive()
 
     const iframe = component.find('iframe').at(0)
     expect(iframe.exists()).toBeTruthy()

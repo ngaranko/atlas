@@ -301,11 +301,12 @@ const GLOSSARY = {
     BOUWDOSSIER: {
       label_singular: 'Bouwdossier',
       label_plural: 'Bouwdossiers',
-      description: 'Een bouwdossier bevat de behandeling van de aanvraag tot een bouwvergunning ' +
+      description:
+        'Een bouwdossier bevat de behandeling van de aanvraag tot een bouwvergunning ' +
         '(waaronder ook splitsings-, reclame- en sloopvergunningen), de vergunningverlening ervan ' +
         ' met de bijbehorende bouwtekeningen en het toezicht en de handhaving daarop.',
       url: null,
-      meta: []
+      meta: [],
     },
     NUMMERAANDUIDING: {
       label_singular: 'Adres',

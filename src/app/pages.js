@@ -18,8 +18,11 @@ const PAGES = {
 
   // cms pages
   ARTICLE_DETAIL: 'ARTICLE_DETAIL',
+  ARTICLES: 'ARTICLES',
   SPECIAL_DETAIL: 'SPECIAL_DETAIL',
+  SPECIALS: 'SPECIALS',
   PUBLICATION_DETAIL: 'PUBLICATION_DETAIL',
+  PUBLICATIONS: 'PUBLICATIONS',
 
   // text pages
   NEWS: 'NEWS',
@@ -57,10 +60,15 @@ export const isOldCmsPage = page =>
   page === PAGES.NOT_FOUND ||
   page === PAGES.MANAGEMENT
 
-export const isCmsPage = page =>
+export const isCmsDetailPage = page =>
   page === PAGES.ARTICLE_DETAIL ||
   page === PAGES.PUBLICATION_DETAIL ||
   page === PAGES.SPECIAL_DETAIL
+
+export const isCmsOverviewPage = page =>
+  page === PAGES.ARTICLES ||
+  page === PAGES.PUBLICATIONS ||
+  page === PAGES.SPECIALS
 
 export const isMapSplitPage = page =>
   page === PAGES.DATA ||

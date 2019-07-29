@@ -2,7 +2,7 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { ThemeProvider } from '@datapunt/asc-ui'
-import PublicationsPage from './PublicationsPage'
+import PublicationDetailPage from './PublicationDetailPage'
 import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import cmsConfig from '../../../shared/services/cms/cms-config'
@@ -17,7 +17,7 @@ jest.mock('../../components/Footer/Footer')
 jest.mock('../../utils/useDocumentTitle')
 jest.mock('../../utils/useMatomo')
 
-describe('PublicationsPage', () => {
+describe('PublicationDetailPage', () => {
   const id = 3
   const href = 'https://this.is/a-link/this-is-a-slug'
 
@@ -63,7 +63,7 @@ describe('PublicationsPage', () => {
       loading: true,
     }))
 
-    const component = shallow(<PublicationsPage />, {
+    const component = shallow(<PublicationDetailPage />, {
       context: { store },
     }).dive()
 
@@ -82,19 +82,19 @@ describe('PublicationsPage', () => {
 
     const component = mount(
       <ThemeProvider>
-        <PublicationsPage store={store} />
+        <PublicationDetailPage store={store} />
       </ThemeProvider>,
       { context: { store } },
     )
 
-    expect(component.find('PublicationsPage').props().id).toBe(id)
+    expect(component.find('PublicationDetailPage').props().id).toBe(id)
 
     expect(fetchDataMock).toHaveBeenCalledWith(id, cmsConfig.publication)
   })
 
   it('should render the publication when there are results', () => {
     useFromCMS.mockImplementation(() => mockData)
-    const component = shallow(<PublicationsPage />, {
+    const component = shallow(<PublicationDetailPage />, {
       context: { store },
     }).dive()
 

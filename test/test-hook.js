@@ -1,13 +1,13 @@
-import React from 'react';
-import { mount } from 'enzyme';
+import React from 'react'
+import { mount } from 'enzyme'
 
 const TestHook = ({ callback }) => {
-  callback();
-  return null;
-};
+  callback()
+  return null
+}
 
-const testHook = (callback) => {
-  mount(<TestHook callback={callback} />);
-};
+const testHook = callback => {
+  mount(<TestHook callback={callback} />)
+}
 
-export default testHook 
+export default testHook

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PublicationsPage should render the publication when there are results 1`] = `
+exports[`PublicationDetailPage should render the publication when there are results 1`] = `
 <BlogPage
   documentTitle="Publicatie: This is a title"
   id={3}
