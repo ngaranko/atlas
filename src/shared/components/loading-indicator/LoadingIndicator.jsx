@@ -16,4 +16,4 @@ LoadingIndicator.propTypes = {
   IconComponent: PropTypes.node,
 }
 
-export default LoadingIndicator
+export default LoadingIndicator;

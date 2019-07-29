@@ -6,6 +6,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 const root = path.resolve(__dirname);
 const src = path.resolve(root, 'src');
@@ -181,18 +183,6 @@ function commonConfig({ nodeEnv }) {
         { from: './node_modules/leaflet-draw/dist/leaflet.draw.css' },
         { from: './node_modules/bbga_visualisatie_d3/bbga.css' },
 
-        // proj4 is giving troubles when included by webpack, resulting in syntax
-        // errors. For now it is dumbly being copied to the output directory.
-        // This means also proj4leaflet is copied this way (otherwise it will
-        // require proj4 itself resulting in syntax errors again) and leaflet as
-        // well because it needs to be loaded before proj4. And therefor also
-        // leaflet.nontiledlayer, because it will include leaflet otherwise.
-        { from: './node_modules/leaflet/dist/leaflet.js' },
-        { from: './node_modules/leaflet.nontiledlayer/dist/NonTiledLayer.js' },
-        { from: './node_modules/leaflet.nontiledlayer/dist/NonTiledLayer.js.map' },
-        { from: './node_modules/proj4/dist/proj4.js' },
-        { from: './node_modules/proj4leaflet/src/proj4leaflet.js' },
-
         // Dumb copy of all assets for now
         // All root assets files
         {
@@ -212,6 +202,7 @@ function commonConfig({ nodeEnv }) {
         { from: './node_modules/bbga_visualisatie_d3/liberation-sans.ttf' },
         { from: './node_modules/bbga_visualisatie_d3/liberation-sans.svg' }
       ]),
+      new BundleAnalyzerPlugin(),
       new HtmlWebpackPlugin({
         inject: false,
         template: './index.ejs',
@@ -240,10 +231,6 @@ function commonConfig({ nodeEnv }) {
           }
         ],
         scripts: [
-          '/leaflet.js',
-          '/NonTiledLayer.js',
-          '/proj4.js',
-          '/proj4leaflet.js',
           '/mtiFontTrackingCode.js'
         ]
       })

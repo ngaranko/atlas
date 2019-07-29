@@ -52,8 +52,8 @@
     "deep-copy": "1.4.2",
     "downloadjs": "^1.4.7",
     "escape-string-regexp": "1.0.5",
-    "iframe-resizer": "^4.1.1",
     "history": "4.9.0",
+    "iframe-resizer": "^4.1.1",
     "isomorphic-fetch": "2.2.1",
     "json-api-normalize": "^1.1.5",
     "leaflet": "1.4.0",
@@ -95,7 +95,8 @@
     "redux-saga": "0.16.0",
     "redux-watch": "1.1.1",
     "remove-markdown": "0.3.0",
-    "reselect": "4.0.0"
+    "reselect": "4.0.0",
+    "webpack-bundle-analyzer": "^3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "7.4.4",

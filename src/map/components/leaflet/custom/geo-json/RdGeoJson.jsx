@@ -1,10 +1,12 @@
 import { GeoJSON } from 'react-leaflet'
 import L from 'leaflet'
-import proj4 from 'proj4' //eslint-disable-line
-import proj4leaflet from 'proj4leaflet' //eslint-disable-line
+import * as proj4 from 'proj4';
+import 'proj4leaflet'
 
 import { getRdObject } from '../../../../services/crs-service'
 import ICON_CONFIG from '../../services/icon-config.constant'
+
+window.proj4 = proj4;
 
 class RdGeoJson extends GeoJSON {
   createLeafletElement() {

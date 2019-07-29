@@ -1,33 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { ReactComponent as Print } from '@datapunt/asc-assets/lib/Icons/Print.svg';
-import { ReactComponent as Embed } from '@datapunt/asc-assets/lib/Icons/Embed.svg';
-import { ReactComponent as Ellipsis } from '@datapunt/asc-assets/lib/Icons/Ellipsis.svg';
-import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import 'leaflet'
+import 'leaflet.nontiledlayer'
+import { Print, Embed, Ellipsis, ChevronDown } from '@datapunt/asc-assets'
 import {
   ContextMenu as ContextMenuComponent,
   ContextMenuItem,
-  Icon
-} from '@datapunt/asc-ui/lib/index';
+  Icon,
+} from '@datapunt/asc-ui/lib/index'
 
-import socialItems from '../socialItems';
+import './Map.scss'
+import socialItems from '../socialItems'
 import {
   hasEmbedMode,
   hasPrintMode,
   sharePage,
   showEmbedPreview,
-  showPrintMode
-} from '../../../../shared/ducks/ui/ui';
-import './Map.scss';
+  showPrintMode,
+} from '../../../../shared/ducks/ui/ui'
 
 const Map = ({
   openSharePage,
   openPrintMode,
   openEmbedPreview,
   hasPrintButton,
-  hasEmbedButton
+  hasEmbedButton,
 }) => (
   <section className="context-menu">
     <ContextMenuComponent
@@ -40,57 +39,72 @@ const Map = ({
       }
       position="bottom"
     >
-      {hasPrintButton ? <ContextMenuItem
-        role="button"
-        divider={!hasEmbedButton}
-        onClick={openPrintMode}
-        icon={
-          <Icon padding={4} inline size={24}>
-            <Print />
-          </Icon>
-        }
-      >
-        Printen
-      </ContextMenuItem> : <></>}
-      {hasEmbedButton ? <ContextMenuItem
-        role="button"
-        divider
-        onClick={openEmbedPreview}
-        icon={
-          <Icon padding={4} inline size={24}>
-            <Embed />
-          </Icon>
-        }
-      >
-        Embedden
-      </ContextMenuItem> : <></>}
+      {hasPrintButton ? (
+        <ContextMenuItem
+          role="button"
+          divider={!hasEmbedButton}
+          onClick={openPrintMode}
+          icon={
+            <Icon padding={4} inline size={24}>
+              <Print />
+            </Icon>
+          }
+        >
+          Printen
+        </ContextMenuItem>
+      ) : (
+        <></>
+      )}
+      {hasEmbedButton ? (
+        <ContextMenuItem
+          role="button"
+          divider
+          onClick={openEmbedPreview}
+          icon={
+            <Icon padding={4} inline size={24}>
+              <Embed />
+            </Icon>
+          }
+        >
+          Embedden
+        </ContextMenuItem>
+      ) : (
+        <></>
+      )}
       {socialItems(openSharePage)}
     </ContextMenuComponent>
   </section>
-);
+)
 
 Map.defaultProps = {
   hasPrintButton: false,
-  hasEmbedButton: false
-};
+  hasEmbedButton: false,
+}
 
 Map.propTypes = {
   hasPrintButton: PropTypes.bool,
   hasEmbedButton: PropTypes.bool,
   openSharePage: PropTypes.func.isRequired,
   openPrintMode: PropTypes.func.isRequired,
-  openEmbedPreview: PropTypes.func.isRequired
-};
+  openEmbedPreview: PropTypes.func.isRequired,
+}
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   hasPrintButton: hasPrintMode(state),
-  hasEmbedButton: hasEmbedMode(state)
-});
+  hasEmbedButton: hasEmbedMode(state),
+})
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  openSharePage: sharePage,
-  openPrintMode: showPrintMode,
-  openEmbedPreview: showEmbedPreview
-}, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      openSharePage: sharePage,
+      openPrintMode: showPrintMode,
+      openEmbedPreview: showEmbedPreview,
+    },
+    dispatch,
+  )
 
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Map)
