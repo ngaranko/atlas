@@ -1,4 +1,4 @@
-FROM cypress/base:10
+FROM cypress/base:10.16.0
 RUN apt-get update && \
     apt-get install -y \
       netcat && \

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReduxContext from './reduxContext';
+import ReduxContext from '../../store/reduxContext';
 import { routing } from '../routes';
 import { getLocationType } from '../../store/redux-first-router/selectors';
 

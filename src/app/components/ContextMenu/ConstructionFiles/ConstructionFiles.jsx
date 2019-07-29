@@ -12,6 +12,7 @@ import { sharePage, showPrintMode } from '../../../../shared/ducks/ui/ui';
 
 const ConstructionFiles = ({ openSharePage, fileName, openPrintMode, onDownload }) => (
   <ContextMenu
+    data-test="context-menu"
     tabindex={0}
     alt="Actiemenu"
     arrowIcon={<ChevronDown />}

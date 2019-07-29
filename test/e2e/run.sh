@@ -13,4 +13,4 @@ done
 # Requires the following environment variables to be set:
 # CYPRESS_baseUrl
 
-npm run test-e2e
+npm run start

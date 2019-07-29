@@ -59,8 +59,8 @@ They can simply be added by using the `export` command from the command line, or
 variables to `.bash_profile`.
 
 Make sure the app is running locally by running `npm start`.
-Then, in a second terminal, run `npm run test-e2e` (single run).
-Or open the UI using `npm run test-e2e-watch`.
+Then, in a second terminal, go to `cd test/e2e` and run `npm run start` (single run).
+Or open the UI using `npm run watch`.
 
 Test using docker-compose:
 ```

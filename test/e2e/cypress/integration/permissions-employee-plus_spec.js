@@ -41,8 +41,7 @@ describe('employee PLUS permissions', () => {
 
     cy.get('#auto-suggest__input')
       .focus()
-      .type('bakker')
-    cy.get('.qa-search-form-submit').click()
+      .type('bakker{enter}')
 
     cy.waitForSearch()
     cy.get(queries.warningPanel).should('not.exist')

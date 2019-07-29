@@ -1,4 +1,5 @@
 import stateTokenGenerator from '../../src/state-token-generator'
+import { HEADER_MENU } from './selectors'
 
 const checkEnvironmentVariablesSet = () => {
   const variables = [
@@ -64,21 +65,19 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
       })
 
       // Follow redirect to login page manually
-      .then(response =>
-        cy.request({
+      .then(response =>{
+        return cy.request({
           url: response.headers.location,
           followRedirect: false,
-        }),
-      )
+        })
+      })
 
       // Post credentials and account type
       // extracts url from form
       .then(response =>
         cy.request({
           method: 'POST',
-          url: `${Cypress.env('API_ROOT')}/auth/idp/${response.body
-            .match(/action="(.*?)"/)
-            .pop()}`,
+          url: `${Cypress.env('API_ROOT')}/auth/idp/${response.body.match(/action="(.*?)"/).pop()}`,
           form: true,
           body: {
             email: Cypress.env(`USERNAME_${type}`),
@@ -119,17 +118,30 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
 })
 
 Cypress.Commands.add('logout', () => {
-  cy.get('.qa-menu').then(menu => {
-    if (menu && menu.find('.qa-menu__user-menu').length) {
-      cy.get('.qa-menu__user-menu button').click()
-      cy.get('.qa-menu__user-menu dp-logout-button button').click()
-    }
-  })
+  const loginMenuItem = `${HEADER_MENU.rootMobile} ${HEADER_MENU.login}`
+  cy.get(loginMenuItem)
+    .then(element => {
+      if (!element.is(':visible')) {
+        cy.get(`${HEADER_MENU.rootMobile}`).click()
+      }
+    })
+    .get(loginMenuItem)
+    .click()
+    .find('ul')
+    .find('a')
+    .click()
 })
 
 // Cypress doesn’t recognize `window.fetch` calls as XHR requests, which makes
 // it impossible to stub them. We delete `fetch` from the window object so the
 // `unfetch` polyfill (which uses proper `XMLHttpRequest`) kicks in.
-Cypress.on('window:before:load', win => {
-  delete win.fetch // eslint-disable-line no-param-reassign
-})
+Cypress.on('window:before:load', (win) => {
+  delete win.fetch; // eslint-disable-line no-param-reassign
+});
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  console.log('Uncought exception in the browser', err, runnable); // eslint-disable-line no-console
+  // returning false here prevents Cypress from
+  // failing the test
+  return false;
+});

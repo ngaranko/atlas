@@ -12,8 +12,8 @@ import {
   toPanoramaAndPreserveQuery,
   toPrivacyPage,
 } from '../../../store/redux-first-router/actions'
-import getReduxLinkProps from '../../utils/getReduxLinkProps'
-import truncateString from '../../utils/truncateString'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
+import truncateString from '../../../shared/services/truncateString/truncateString'
 
 const toPanoramaAction = toPanoramaAndPreserveQuery(
   undefined,
@@ -47,32 +47,32 @@ const HeaderMenu = ({
   return (
     <Menu {...props}>
       <MenuFlyOut label="Onderdelen">
-        <MenuItem {...getReduxLinkProps(toMapAction)}>Kaart</MenuItem>
-        <MenuItem {...getReduxLinkProps(toPanoramaAction)}>
+        <MenuItem {...linkAttributesFromAction(toMapAction)}>Kaart</MenuItem>
+        <MenuItem {...linkAttributesFromAction(toPanoramaAction)}>
           Panoramabeelden
         </MenuItem>
-        <MenuItem {...getReduxLinkProps(toDatasetsAction)}>Datasets</MenuItem>
-        <MenuItem {...getReduxLinkProps(toApisAction)}>Data services</MenuItem>
+        <MenuItem {...linkAttributesFromAction(toDatasetsAction)}>Datasets</MenuItem>
+        <MenuItem {...linkAttributesFromAction(toApisAction)}>Data services</MenuItem>
       </MenuFlyOut>
       <MenuFlyOut label="Over">
-        <MenuItem {...getReduxLinkProps(toPrivacyAction)}>
+        <MenuItem {...linkAttributesFromAction(toPrivacyAction)}>
           Privacy en informatiebeveiliging
         </MenuItem>
-        <MenuItem {...getReduxLinkProps(toAvailabilityAction)}>
+        <MenuItem {...linkAttributesFromAction(toAvailabilityAction)}>
           Beschikbaarheid en kwaliteit data
         </MenuItem>
-        <MenuItem {...getReduxLinkProps(toMaintentanceAction)}>
+        <MenuItem {...linkAttributesFromAction(toMaintentanceAction)}>
           Technisch beheer en werkwijze
         </MenuItem>
         <MenuItem href="mailto:datapunt@amsterdam.nl">Contact</MenuItem>
       </MenuFlyOut>
       <MenuItem onClick={showFeedbackForm}>Feedback</MenuItem>
-      <MenuItem {...getReduxLinkProps(toHelpAction)}>Help</MenuItem>
+      <MenuItem {...linkAttributesFromAction(toHelpAction)}>Help</MenuItem>
 
       {!user.authenticated ? (
         <MenuItem onClick={login}>Inloggen</MenuItem>
       ) : (
-        <MenuFlyOut label={truncateString(user.name, 9)}>
+        <MenuFlyOut data-test="login" label={truncateString(user.name, 9)}>
           <MenuItem icon={<ChevronRight />} onClick={logout}>
             Uitloggen
           </MenuItem>

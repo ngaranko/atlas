@@ -30,6 +30,7 @@ const Map = ({
 }) => (
   <section className="context-menu">
     <ContextMenuComponent
+      data-test="context-menu"
       alt="Actiemenu"
       arrowIcon={<ChevronDown />}
       icon={
@@ -39,38 +40,32 @@ const Map = ({
       }
       position="bottom"
     >
-      {hasPrintButton ? (
-        <ContextMenuItem
-          role="button"
-          divider={!hasEmbedButton}
-          onClick={openPrintMode}
-          icon={
-            <Icon padding={4} inline size={24}>
-              <Print />
-            </Icon>
-          }
-        >
-          Printen
-        </ContextMenuItem>
-      ) : (
-        <></>
-      )}
-      {hasEmbedButton ? (
-        <ContextMenuItem
-          role="button"
-          divider
-          onClick={openEmbedPreview}
-          icon={
-            <Icon padding={4} inline size={24}>
-              <Embed />
-            </Icon>
-          }
-        >
-          Embedden
-        </ContextMenuItem>
-      ) : (
-        <></>
-      )}
+      {hasPrintButton ? <ContextMenuItem
+        role="button"
+        data-test="print"
+        divider={!hasEmbedButton}
+        onClick={openPrintMode}
+        icon={
+          <Icon padding={4} inline size={24}>
+            <Print />
+          </Icon>
+        }
+      >
+        Printen
+      </ContextMenuItem> : <></>}
+      {hasEmbedButton ? <ContextMenuItem
+        role="button"
+        data-test="context-menu-embed"
+        divider
+        onClick={openEmbedPreview}
+        icon={
+          <Icon padding={4} inline size={24}>
+            <Embed />
+          </Icon>
+        }
+      >
+        Embedden
+      </ContextMenuItem> : <></>}
       {socialItems(openSharePage)}
     </ContextMenuComponent>
   </section>

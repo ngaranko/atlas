@@ -1,8 +1,13 @@
+import { HEADER_MENU } from '../support/selectors'
+
 describe('auth module', () => {
   describe('authentication', () => {
     it('should be verified', () => {
       cy.login()
-      cy.get('.qa-menu__title').should('contain', 'atlas.emp...')
+      cy.get(HEADER_MENU.rootMobile)
+        .click()
+        .get(`${HEADER_MENU.rootMobile} ${HEADER_MENU.login}`)
+        .contains('atlas.emp...')
       cy.logout()
     })
   })

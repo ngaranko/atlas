@@ -40,7 +40,7 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
 
   if (!printOrEmbedMode) {
     return (
-      <section className="styled-header">
+      <section className="styled-header" data-test="header">
         <HeaderComponent
           tall={homePage}
           title="City Data"
@@ -50,8 +50,8 @@ const Header = ({ homePage, printOrEmbedMode, printMode, embedPreviewMode, hasMa
           navigation={(
             <React.Fragment>
               <HeaderSearchContainer />
-              <MenuDefault showAt="laptopM" onExpand={setBackDrop} />
-              <MenuMobile hideAt="laptopM" onExpand={setBackDrop} />
+              <MenuDefault data-test="header-menu-default" showAt="laptopM" onExpand={setBackDrop} />
+              <MenuMobile data-test="header-menu-mobile"  hideAt="laptopM" onExpand={setBackDrop} />
             </React.Fragment>
 )}
         />
