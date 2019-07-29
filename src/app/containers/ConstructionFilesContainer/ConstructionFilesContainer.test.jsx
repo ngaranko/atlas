@@ -47,7 +47,7 @@ describe('ConstructionFilesContainer', () => {
     expect(component).toMatchSnapshot()
   })
 
-  it.only('should get the results', () => {
+  it('should get the results', () => {
     expect(getByUrl).toHaveBeenCalledWith(`${SHARED_CONFIG.API_ROOT}stadsarchief/bouwdossier/12/`)
   })
 })
