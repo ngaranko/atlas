@@ -39,7 +39,7 @@
     "@datapunt/asc-assets": "0.9.0-alpha.0",
     "@datapunt/asc-core": "0.9.2",
     "@datapunt/asc-ui": "0.9.2",
-    "@svgr/webpack": "4.2.0",
+    "@svgr/webpack": "4.3.2",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",
     "angular-i18n": "~1.5.11",
