@@ -17,8 +17,8 @@ import {
 } from '../map/ducks/map/constants'
 import {
   initialState as filesInitialState,
-  REDUCER_KEY as FILES
-} from '../shared/ducks/files/constants';
+  REDUCER_KEY as FILES,
+} from '../shared/ducks/files/constants'
 import {
   getActiveBaseLayer,
   getCenter,
@@ -235,11 +235,17 @@ export default paramsRegistry
       false,
     )
   })
-  .addParameter(PARAMETERS.FILE, (routes) => {
-    routes.add(routing.constructionFile.type, FILES, 'fileName', {
-      defaultValue: filesInitialState.fileName,
-      selector: getFileName
-    }, true)
+  .addParameter(PARAMETERS.FILE, routes => {
+    routes.add(
+      routing.constructionFile.type,
+      FILES,
+      'fileName',
+      {
+        defaultValue: filesInitialState.fileName,
+        selector: getFileName,
+      },
+      true,
+    )
   })
   .addParameter(PARAMETERS.FILTERS, routes => {
     routes.add(

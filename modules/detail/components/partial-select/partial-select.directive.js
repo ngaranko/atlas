@@ -1,4 +1,4 @@
-import SHARED_CONFIG from '../../../../src/shared/services/shared-config/shared-config';
+import SHARED_CONFIG from '../../../../src/shared/services/shared-config/shared-config'
 
 ;(function() {
   angular

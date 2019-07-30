@@ -147,15 +147,15 @@ export const toDetailFromEndpoint = (endpoint, view) => {
   })
 }
 
-export const toConstructionFilesFromEndpoint = (endpoint) => {
-  const { id } = getDetailPageData(endpoint);
-  return ({
+export const toConstructionFilesFromEndpoint = endpoint => {
+  const { id } = getDetailPageData(endpoint)
+  return {
     type: routing.constructionFile.type,
     payload: {
-      id
-    }
-  });
-};
+      id,
+    },
+  }
+}
 
 export const toDataSearchCategory = (searchQuery, category) => ({
   type: routing.dataSearchCategory.type,
@@ -248,13 +248,13 @@ export const toSpecial = (id, slug = '') => ({
 export const toConstructionFileViewer = (id, fileName) => ({
   type: routing.constructionFile.type,
   payload: {
-    id
+    id,
   },
   meta: {
     query: {
-      [PARAMETERS.FILE]: fileName
-    }
-  }
+      [PARAMETERS.FILE]: fileName,
+    },
+  },
 })
 export const toDatasetPage = dataset => ({
   type: DATASET_ROUTE_MAPPER[dataset],
@@ -287,5 +287,5 @@ export const toPublication = (id, slug = '') => ({
   payload: {
     id,
     slug,
-  }
+  },
 })

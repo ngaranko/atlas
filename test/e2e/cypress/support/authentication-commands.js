@@ -65,7 +65,7 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
       })
 
       // Follow redirect to login page manually
-      .then(response =>{
+      .then(response => {
         return cy.request({
           url: response.headers.location,
           followRedirect: false,
@@ -77,7 +77,9 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
       .then(response =>
         cy.request({
           method: 'POST',
-          url: `${Cypress.env('API_ROOT')}/auth/idp/${response.body.match(/action="(.*?)"/).pop()}`,
+          url: `${Cypress.env('API_ROOT')}/auth/idp/${response.body
+            .match(/action="(.*?)"/)
+            .pop()}`,
           form: true,
           body: {
             email: Cypress.env(`USERNAME_${type}`),
@@ -135,13 +137,13 @@ Cypress.Commands.add('logout', () => {
 // Cypress doesn’t recognize `window.fetch` calls as XHR requests, which makes
 // it impossible to stub them. We delete `fetch` from the window object so the
 // `unfetch` polyfill (which uses proper `XMLHttpRequest`) kicks in.
-Cypress.on('window:before:load', (win) => {
-  delete win.fetch; // eslint-disable-line no-param-reassign
-});
+Cypress.on('window:before:load', win => {
+  delete win.fetch // eslint-disable-line no-param-reassign
+})
 
 Cypress.on('uncaught:exception', (err, runnable) => {
-  console.log('Uncought exception in the browser', err, runnable); // eslint-disable-line no-console
+  console.log('Uncought exception in the browser', err, runnable) // eslint-disable-line no-console
   // returning false here prevents Cypress from
   // failing the test
-  return false;
-});
+  return false
+})

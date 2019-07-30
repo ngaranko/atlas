@@ -1,7 +1,4 @@
-import Map from './Map/Map';
-import ConstructionFiles from './ConstructionFiles/ConstructionFiles';
+import Map from './Map/Map'
+import ConstructionFiles from './ConstructionFiles/ConstructionFiles'
 
-export {
-  ConstructionFiles,
-  Map
-};
+export { ConstructionFiles, Map }
