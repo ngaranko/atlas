@@ -1,6 +1,6 @@
-const homepage = '.c-homepage';
-const statusBarCoordinates = '.c-panorama-status-bar__coordinates';
-const panorama = '.c-panorama';
+const homepage = '.c-homepage'
+const statusBarCoordinates = '.c-panorama-status-bar__coordinates'
+const panorama = '.c-panorama'
 
 describe('panorama module', () => {
   beforeEach(() => {
@@ -38,11 +38,13 @@ describe('panorama module', () => {
 
   describe('user should be able to use the panorama viewer', () => {
     it('should be able to click a hotspot and change the coordinates', () => {
-      cy.get(statusBarCoordinates).first()
-        .then((coordinatesEl) => {
-          const coordinates = coordinatesEl[0].innerText;
+      cy.get(statusBarCoordinates)
+        .first()
+        .then(coordinatesEl => {
+          const coordinates = coordinatesEl[0].innerText
 
-          cy.get(statusBarCoordinates).first()
+          cy.get(statusBarCoordinates)
+            .first()
             .contains(coordinates)
             .should('exist')
 
@@ -53,7 +55,9 @@ describe('panorama module', () => {
 
           cy.wait('@getResults')
           // the coordinates should be different
-          cy.get(statusBarCoordinates).first().find('span')
+          cy.get(statusBarCoordinates)
+            .first()
+            .find('span')
             .contains(coordinates)
             .should('not.exist')
         })
@@ -87,11 +91,13 @@ describe('panorama module', () => {
     })
 
     it('should change the coordinates when clicked on the map', () => {
-      cy.get(statusBarCoordinates).first()
-        .then((coordinatesEl) => {
-          const coordinates = coordinatesEl[0].innerText;
+      cy.get(statusBarCoordinates)
+        .first()
+        .then(coordinatesEl => {
+          const coordinates = coordinatesEl[0].innerText
 
-          cy.get(statusBarCoordinates).first()
+          cy.get(statusBarCoordinates)
+            .first()
             .contains(coordinates)
             .should('exist')
 
@@ -100,7 +106,8 @@ describe('panorama module', () => {
 
           cy.wait('@getResults')
           // the coordinates should be different
-          cy.get(statusBarCoordinates).first()
+          cy.get(statusBarCoordinates)
+            .first()
             .contains(coordinates)
             .should('not.exist')
         })

@@ -186,7 +186,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run test-jest && npm run test-karma"
+      "pre-push": "npm run test-jest && npm run test-karma",
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
