@@ -8,14 +8,15 @@ const title = {
   [PAGES.SPECIALS]: 'Specials',
 }
 
-const CmsOverviewPage = ({ type = '' }) => (
+const EditorialOverviewPage = ({ type = '' }) => (
+  <div>
   <Row>
-    <Column maxWidth={false} span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}>
+    <Column maxWidth={false} wrap span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}>
       <Heading as="h2" styleAs="h1">
         {title[type]}
       </Heading>
     </Column>
-  </Row>
+  </Row></div>
 )
 
-export default CmsOverviewPage
+export default EditorialOverviewPage

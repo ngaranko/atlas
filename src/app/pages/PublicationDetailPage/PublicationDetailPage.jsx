@@ -15,7 +15,7 @@ import {
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
-import BlogPage from '../../components/BlogPage/BlogPage'
+import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 
@@ -46,7 +46,7 @@ const PublicationDetailPage = ({ id }) => {
   const linkAction = toPublicationDetail(id, slug)
 
   return (
-    <BlogPage {...{ documentTitle, loading, linkAction }}>
+    <EditorialPage {...{ documentTitle, loading, linkAction }}>
       {!loading && (
         <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
           {!loading && body && (
@@ -99,7 +99,7 @@ const PublicationDetailPage = ({ id }) => {
           )}
         </Column>
       )}
-    </BlogPage>
+    </EditorialPage>
   )
 }
 

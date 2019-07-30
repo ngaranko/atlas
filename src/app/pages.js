@@ -60,15 +60,15 @@ export const isOldCmsPage = page =>
   page === PAGES.NOT_FOUND ||
   page === PAGES.MANAGEMENT
 
-export const isCmsDetailPage = page =>
+export const isEditorialDetailPage = page =>
   page === PAGES.ARTICLE_DETAIL ||
   page === PAGES.PUBLICATION_DETAIL ||
   page === PAGES.SPECIAL_DETAIL
 
-export const isCmsOverviewPage = page =>
-  page === PAGES.ARTICLES ||
-  page === PAGES.PUBLICATIONS ||
-  page === PAGES.SPECIALS
+export const isEditorialOverviewPage = page =>
+  page === PAGES.ARTICLES || page === PAGES.PUBLICATIONS || page === PAGES.SPECIALS
+
+export const isEditorialPage = page => isEditorialDetailPage(page) || isEditorialOverviewPage(page)
 
 export const isMapSplitPage = page =>
   page === PAGES.DATA ||

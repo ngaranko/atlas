@@ -19,7 +19,7 @@ import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
 import './ArticleDetailPage.scss'
-import BlogPage from '../../components/BlogPage/BlogPage'
+import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 
@@ -48,7 +48,7 @@ import { toArticleDetail } from '../../../store/redux-first-router/actions'
   const linkAction = toArticleDetail(id, slug)
 
   return (
-    <BlogPage {...{ documentTitle, loading, linkAction }}>
+    <EditorialPage {...{ documentTitle, loading, linkAction }}>
       {!loading && (
         <div className="article">
           <Row className="article__row">
@@ -134,7 +134,7 @@ import { toArticleDetail } from '../../../store/redux-first-router/actions'
           </Row>
         </div>
       )}
-    </BlogPage>
+    </EditorialPage>
   )
 }
 

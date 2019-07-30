@@ -5,7 +5,7 @@ import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import setIframeSize from '../../../shared/services/set-iframe-size/setIframeSize'
 import useFromCMS from '../../utils/useFromCMS'
 import './SpecialDetailPage.scss'
-import BlogPage from '../../components/BlogPage/BlogPage'
+import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toSpecialDetail } from '../../../store/redux-first-router/actions'
 
@@ -49,7 +49,7 @@ const SpecialDetailPage = ({ id }) => {
   const linkAction = toSpecialDetail(id, type, slug)
 
   return (
-    <BlogPage
+    <EditorialPage
       {...{ documentTitle, linkAction }}
       loading={iframeLoading || loading}
     >
@@ -72,7 +72,7 @@ const SpecialDetailPage = ({ id }) => {
           </BlogPost>
         </Row>
       </div>
-    </BlogPage>
+    </EditorialPage>
   )
 }
 

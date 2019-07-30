@@ -6,11 +6,11 @@ import useDocumentTitle from '../../utils/useDocumentTitle'
 import useMatomo from '../../utils/useMatomo'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import Footer from '../Footer/Footer'
-import './BlogPage.scss'
+import './EditorialPage.scss'
 import '../../../map/components/loading-indicator/LoadingIndicator.scss'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 
-const BlogPage = ({ children, documentTitle, loading, linkAction }) => {
+const EditorialPage = ({ children, documentTitle, loading, linkAction }) => {
   const { setDocumentTitle } = useDocumentTitle()
   const { trackPageView } = useMatomo()
 
@@ -24,11 +24,11 @@ const BlogPage = ({ children, documentTitle, loading, linkAction }) => {
   const { href } = linkAttributesFromAction(linkAction)
 
   return (
-    <Container className="blog-page" beamColor="valid">
+    <Container className="editorial-page" beamColor="valid">
       <Helmet>
         <link rel="canonical" href={href} />
       </Helmet>
-      <div className="blog-page__body">
+      <div className="editorial-page__body">
         {loading && <LoadingIndicator />}
         {children}
       </div>
@@ -37,15 +37,15 @@ const BlogPage = ({ children, documentTitle, loading, linkAction }) => {
   )
 }
 
-BlogPage.defaultProps = {
+EditorialPage.defaultProps = {
   documentTitle: '',
   loading: false,
 }
 
-BlogPage.propTypes = {
+EditorialPage.propTypes = {
   documentTitle: PropTypes.string,
   linkAction: PropTypes.shape({}).isRequired,
   loading: PropTypes.bool,
 }
 
-export default BlogPage
+export default EditorialPage

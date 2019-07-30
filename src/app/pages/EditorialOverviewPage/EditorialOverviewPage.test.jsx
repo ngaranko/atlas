@@ -1,10 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import CmsOverviewPage from './CmsOverviewPage'
+import EditorialOverviewPage from './EditorialOverviewPage'
 
-describe('CmsOverviewPage', () => {
+describe('EditorialOverviewPage', () => {
   it('should render the correct title', () => {
-    const component = shallow(<CmsOverviewPage type="ARTICLES" />)
+    const component = shallow(<EditorialOverviewPage type="ARTICLES" />)
 
     expect(component.find('Heading').props().children).toBe('Artikelen')
   })

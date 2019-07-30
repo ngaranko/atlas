@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import { FeedbackModal, InfoModal } from './components/Modal'
-import PAGES, { isMapSplitPage, isOldCmsPage, isCmsOverviewPage } from './pages'
+import PAGES, { isMapSplitPage, isOldCmsPage, isEditorialOverviewPage } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
@@ -23,7 +23,7 @@ const ConstructionFilesContainer = React.lazy(() =>
 const ArticleDetailPage = React.lazy(() => import('./pages/ArticleDetailPage'))
 const PublicationDetailPage = React.lazy(() => import('./pages/PublicationDetailPage'))
 const SpecialDetailPage = React.lazy(() => import('./pages/SpecialDetailPage'))
-const CmsOverviewPage = React.lazy(() => import('./pages/CmsOverviewPage'))
+const EditorialOverviewPage = React.lazy(() => import('./pages/EditorialOverviewPage'))
 const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 
 const AppBody = ({
@@ -74,7 +74,7 @@ const AppBody = ({
               {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
               {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
-              {isCmsOverviewPage(currentPage) && <CmsOverviewPage type={currentPage} />}
+              {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
 
               {isOldCmsPage(currentPage) && <ContentPage />}
 
