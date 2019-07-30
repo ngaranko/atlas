@@ -24,13 +24,7 @@ import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toArticle } from '../../../store/redux-first-router/actions'
 
 /* istanbul ignore next */ const ArticlePage = ({ id }) => {
-  const { fetchData, results, loading } = useFromCMS()
-
-  React.useEffect(() => {
-    ;(async () => {
-      await fetchData(id, cmsConfig.article)
-    })()
-  }, [])
+  const { results, loading } = useFromCMS(id, cmsConfig.article)
 
   const {
     title,

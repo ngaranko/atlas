@@ -13,7 +13,7 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
       detailData: '<',
       detailFilterSelection: '<',
       subType: '<',
-      id: '<'
+      id: '<',
     },
     templateUrl: 'modules/detail/components/detail/detail.html',
     controller: DpDetailController,

@@ -10,7 +10,7 @@ import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toSpecial } from '../../../store/redux-first-router/actions'
 
 const SpecialsPage = ({ id }) => {
-  const { fetchData, results, loading } = useFromCMS()
+  const { results, loading } = useFromCMS(id, cmsConfig.special)
   const [iframeLoading, setIframeLoading] = React.useState(true)
   const [iframeHeight, setIframeHeight] = React.useState(0)
   const iframeRef = React.useRef(null)
@@ -20,10 +20,6 @@ const SpecialsPage = ({ id }) => {
   }
 
   React.useEffect(() => {
-    ;(async () => {
-      await fetchData(id, cmsConfig.special)
-    })()
-
     window.addEventListener('resize', handleResize)
 
     return function cleanup() {

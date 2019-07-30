@@ -20,13 +20,7 @@ import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toPublication } from '../../../store/redux-first-router/actions'
 
 const PublicationsPage = ({ id }) => {
-  const { fetchData, results, loading } = useFromCMS()
-
-  React.useEffect(() => {
-    ;(async () => {
-      await fetchData(id, cmsConfig.publication)
-    })()
-  }, [])
+  const { results, loading } = useFromCMS(id, cmsConfig.publication)
 
   const {
     title,

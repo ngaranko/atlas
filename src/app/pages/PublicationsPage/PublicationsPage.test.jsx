@@ -5,7 +5,6 @@ import { ThemeProvider } from '@datapunt/asc-ui'
 import PublicationsPage from './PublicationsPage'
 import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
-import cmsConfig from '../../../shared/services/cms/cms-config'
 import Footer from '../../components/Footer/Footer'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import useMatomo from '../../utils/useMatomo'
@@ -72,9 +71,7 @@ describe('PublicationsPage', () => {
   })
 
   it('should call the fetchData function when the component mounts', () => {
-    const fetchDataMock = jest.fn()
     useFromCMS.mockImplementation(() => ({
-      fetchData: fetchDataMock,
       loading: true,
     }))
 
@@ -88,8 +85,6 @@ describe('PublicationsPage', () => {
     )
 
     expect(component.find('PublicationsPage').props().id).toBe(id)
-
-    expect(fetchDataMock).toHaveBeenCalledWith(id, cmsConfig.publication)
   })
 
   it('should render the publication when there are results', () => {

@@ -8,7 +8,7 @@ const MAIN_PATHS = {
   DATASETS: 'datasets',
   CONTENT: 'content',
   PUBLICATIONS: 'publicaties',
-  SPECIALS: 'specials'
+  SPECIALS: 'specials',
 }
 
 export const routing = {
@@ -89,7 +89,7 @@ export const routing = {
     path: `/${MAIN_PATHS.DATA}/stadsarchief/bouwdossier/:id/`,
     type: `${ROUTER_NAMESPACE}/${PAGES.CONSTRUCTION_FILE}`,
     useHooks: true, // indicate to skip legacy documentHead and piwik middleware
-    page: PAGES.CONSTRUCTION_FILE
+    page: PAGES.CONSTRUCTION_FILE,
   },
   article: {
     title: 'Artikel',

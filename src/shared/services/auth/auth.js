@@ -46,8 +46,8 @@ export const SCOPES = {
   'MON/RDM': 'MON/RDM',
   'HR/R': 'HR/R',
   'BD/R': 'BD/R',
-  'GREX/R': 'GREX/R'
-};
+  'GREX/R': 'GREX/R',
+}
 
 const scopes = [
   // Kadaster
