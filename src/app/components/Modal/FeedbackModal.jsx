@@ -66,7 +66,7 @@ const FeedbackModalComponent = ({
       <Heading as="h4">Onjuiste of ontbrekende gegevens?</Heading>
       <Paragraph>
         We horen graag welke gegevens onjuist zijn of ontbreken. Voor medewerkers
-        van de gemeente is dit 'terugmelden' overigens verplicht.
+        van de gemeente is dit &lsquo;terugmelden&lsquo; overigens verplicht.
       </Paragraph>
       <Button
         as="a"
