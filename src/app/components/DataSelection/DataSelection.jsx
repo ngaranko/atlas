@@ -14,6 +14,7 @@ import DataSelectionTable from './DataSelectionTable/DataSelectionTable'
 import DataSelectionList from './DataSelectionList/DataSelectionList'
 import ShareBar from '../ShareBar/ShareBar'
 import Notification from '../../../shared/components/notification/Notification'
+import '../../angularModules'
 
 const DataSelection = ({
   view,

@@ -1363,11 +1363,11 @@ const mapLayers = [
     layers: ['taxi-standplaatsgebied', 'taxi-standplaatsgebied_label'],
     legendItems: [
       {
-        title: 'Omgeving taxi-standplaats',
+        title: 'Omgeving taxistandplaats',
         imageRule: 'Taxi-standplaatsgebied',
       },
     ],
-    title: 'Omgeving taxi-standplaatsen',
+    title: 'Omgeving taxistandplaatsen',
     url: '/maps/overlastgebieden',
     noDetail: true,
   },

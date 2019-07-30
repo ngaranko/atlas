@@ -11,7 +11,7 @@ import { toSpecialDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer';
 
 const SpecialDetailPage = ({ id }) => {
-  const { fetchData, results, loading } = useFromCMS()
+  const { results, loading } = useFromCMS(id, cmsConfig.special)
   const [iframeLoading, setIframeLoading] = React.useState(true)
   const [iframeHeight, setIframeHeight] = React.useState(0)
   const iframeRef = React.useRef(null)
@@ -21,10 +21,6 @@ const SpecialDetailPage = ({ id }) => {
   }
 
   React.useEffect(() => {
-    (async () => {
-      await fetchData(id, cmsConfig.special)
-    })()
-
     window.addEventListener('resize', handleResize)
 
     return function cleanup() {

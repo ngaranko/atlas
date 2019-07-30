@@ -76,11 +76,11 @@ describe('SpecialDetailPage', () => {
       </ThemeProvider>,
     )
 
-    expect(component.find('iframe')).toBeTruthy()
-
     expect(component).toMatchSnapshot()
 
-    expect(component.find('SpecialDetailPage')).toBeTruthy()
+    expect(component.find('iframe')).toBeTruthy()
+
+    expect(component.find('SpecialsPage')).toBeTruthy()
   })
 
   it('should call the setIframeSize function', () => {

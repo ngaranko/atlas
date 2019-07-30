@@ -1,7 +1,6 @@
 import L from 'leaflet'
-import proj4 from 'proj4' //eslint-disable-line
-import proj4leaflet from 'proj4leaflet' //eslint-disable-line
-
+import 'proj4'
+import 'proj4leaflet'
 import CRS_CONFIG from './crs-config.constant'
 
 function getCrs() {

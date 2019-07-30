@@ -41,7 +41,7 @@ const AppBody = ({
   })
 
   return (
-    <Suspense fallback={<LoadingIndicator />}>
+    <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
       <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
         {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
         {embedPreviewMode ? (
