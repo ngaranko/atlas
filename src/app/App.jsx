@@ -38,12 +38,14 @@ const App = ({
   hasPrintButton,
   hasEmbedButton,
 }) => {
-  const hasMaxWidth = homePage || isOldCmsPage(currentPage) || isEditorialPage(currentPage)
+  const editorialPage = isEditorialPage(currentPage)
+  const hasMaxWidth = homePage || editorialPage || isOldCmsPage(currentPage)
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
     'c-dashboard--full-height': isFullHeight,
     'c-dashboard--homepage': homePage,
+    'c-dashboard--editorial': editorialPage,
   })
   const bodyClasses = classNames({
     'c-dashboard__body--error': visibilityError,

@@ -1,4 +1,4 @@
-import { BlogPost, Column, Row } from '@datapunt/asc-ui'
+import { Column, Row } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
@@ -8,6 +8,7 @@ import './SpecialDetailPage.scss'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toSpecialDetail } from '../../../store/redux-first-router/actions'
+import ContentContainer from '../../components/ContentContainer/ContentContainer';
 
 const SpecialDetailPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS()
@@ -55,7 +56,7 @@ const SpecialDetailPage = ({ id }) => {
     >
       <div className="iframe-container ">
         <Row>
-          <BlogPost>
+          <ContentContainer>
             <Column wrap span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}>
               {iframeLink && (
                 <iframe
@@ -69,7 +70,7 @@ const SpecialDetailPage = ({ id }) => {
                 />
               )}
             </Column>
-          </BlogPost>
+          </ContentContainer>
         </Row>
       </div>
     </EditorialPage>

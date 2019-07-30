@@ -1,6 +1,9 @@
 import React from 'react'
-import { Column, Heading, Row } from '@datapunt/asc-ui'
+import { Container, Column, Heading, Row } from '@datapunt/asc-ui'
 import PAGES from '../../pages'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
+
+import './EditorialOverviewPage.scss'
 
 const title = {
   [PAGES.ARTICLES]: 'Artikelen',
@@ -9,14 +12,19 @@ const title = {
 }
 
 const EditorialOverviewPage = ({ type = '' }) => (
-  <div>
-  <Row>
-    <Column maxWidth={false} wrap span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}>
-      <Heading as="h2" styleAs="h1">
-        {title[type]}
-      </Heading>
-    </Column>
-  </Row></div>
+  <Container className="editorial-overview" beamColor="valid">
+    <Row>
+      <ContentContainer>
+        <Column
+          span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}
+        >
+          <Heading as="h1">
+            {title[type]}
+          </Heading>
+        </Column>
+      </ContentContainer>
+    </Row>
+  </Container>
 )
 
 export default EditorialOverviewPage

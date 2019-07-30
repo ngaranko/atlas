@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PublicationDetailPage should render the publication when there are results 1`] = `
-<BlogPage
+<EditorialPage
   documentTitle="Publicatie: This is a title"
   linkAction={
     Object {
@@ -30,7 +30,9 @@ exports[`PublicationDetailPage should render the publication when there are resu
     }
     wrap="true"
   >
-    <Publication>
+    <ContentContainer
+      className="content-container"
+    >
       <Row
         debug={false}
         debugColor="rgba(51,102,153,0.75)"
@@ -148,7 +150,7 @@ exports[`PublicationDetailPage should render the publication when there are resu
           </Column>
         </Column>
       </Row>
-    </Publication>
+    </ContentContainer>
   </Column>
-</BlogPage>
+</EditorialPage>
 `;

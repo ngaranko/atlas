@@ -4,7 +4,6 @@ import download from 'downloadjs'
 import {
   Column,
   Row,
-  Publication,
   CustomHTMLBlock,
   BlogHeader,
   BlogMetaList,
@@ -18,6 +17,7 @@ import useFromCMS from '../../utils/useFromCMS'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toPublicationDetail } from '../../../store/redux-first-router/actions'
+import ContentContainer from '../../components/ContentContainer/ContentContainer';
 
 const PublicationDetailPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS()
@@ -50,7 +50,7 @@ const PublicationDetailPage = ({ id }) => {
       {!loading && (
         <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
           {!loading && body && (
-            <Publication>
+            <ContentContainer>
               <Row>
                 <Column wrap span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
                   <Column
@@ -95,7 +95,7 @@ const PublicationDetailPage = ({ id }) => {
                   </Column>
                 </Column>
               </Row>
-            </Publication>
+            </ContentContainer>
           )}
         </Column>
       )}

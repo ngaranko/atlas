@@ -2,13 +2,13 @@
 
 exports[`SpecialDetailPage should call the fetchData function when the component mounts 1`] = `
 <div
-  class="blog-page sc-fMiknA dFehsU"
+  class="editorial-page sc-fMiknA dFehsU"
 >
   <div
     class="sc-dVhcbM iHzKGp"
   >
     <div
-      class="blog-page__body"
+      class="editorial-page__body"
     >
       <div
         class="loading-indicator"
@@ -39,8 +39,8 @@ exports[`SpecialDetailPage should call the fetchData function when the component
         <div
           class="sc-eqIVtm gPnzQh"
         >
-          <section
-            class="sc-cJSrbW jYGWpL"
+          <div
+            class="content-container sc-tilXH fARUpG"
           >
             <div
               class="sc-fBuWsC ocKFZ"
@@ -53,7 +53,7 @@ exports[`SpecialDetailPage should call the fetchData function when the component
                 width="100%"
               />
             </div>
-          </section>
+          </div>
         </div>
       </div>
     </div>

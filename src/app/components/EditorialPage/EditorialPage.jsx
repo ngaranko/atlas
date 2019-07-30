@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Container } from '@datapunt/asc-ui'
 import { Helmet } from 'react-helmet'
+import { Container } from '@datapunt/asc-ui'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import useMatomo from '../../utils/useMatomo'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'

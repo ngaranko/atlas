@@ -54,8 +54,8 @@ describe('SpecialDetailPage', () => {
 
     const component = shallow(<SpecialDetailPage />, { context: { store } }).dive()
 
-    const blogPage = component.find('BlogPage').at(0)
-    expect(blogPage.props().loading).toBeTruthy()
+    const editorialPage = component.find('EditorialPage').at(0)
+    expect(editorialPage.props().loading).toBeTruthy()
   })
 
   it('should mount the iframe when there are results', () => {
