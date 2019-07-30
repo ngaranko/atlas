@@ -10,7 +10,7 @@ import './BlogPage.scss'
 import '../../../map/components/loading-indicator/LoadingIndicator.scss'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 
-const BlogPage = ({ children, id, documentTitle, slug, loading, linkAction }) => {
+const BlogPage = ({ children, documentTitle, loading, linkAction }) => {
   const { setDocumentTitle } = useDocumentTitle()
   const { trackPageView } = useMatomo()
 
@@ -21,8 +21,7 @@ const BlogPage = ({ children, id, documentTitle, slug, loading, linkAction }) =>
     }
   }, [documentTitle])
 
-  const action = linkAction(id, slug)
-  const { href } = linkAttributesFromAction(action)
+  const { href } = linkAttributesFromAction(linkAction)
 
   return (
     <Container className="blog-page" beamColor="valid">
@@ -40,16 +39,13 @@ const BlogPage = ({ children, id, documentTitle, slug, loading, linkAction }) =>
 
 BlogPage.defaultProps = {
   documentTitle: '',
-  slug: '',
   loading: false,
 }
 
 BlogPage.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   documentTitle: PropTypes.string,
-  linkAction: PropTypes.func.isRequired,
+  linkAction: PropTypes.shape({}).isRequired,
   loading: PropTypes.bool,
-  slug: PropTypes.string,
 }
 
 export default BlogPage

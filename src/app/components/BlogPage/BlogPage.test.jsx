@@ -22,7 +22,7 @@ describe('BlogPage', () => {
     useMatomo.mockImplementation(() => ({ trackPageView: mockTrackPageView }))
     Footer.mockImplementation(() => <></>)
 
-    component = shallow(<BlogPage id="6" slug="foo" linkAction={() => {}} />).dive()
+    component = shallow(<BlogPage linkAction={{}} />).dive()
   })
 
   afterEach(() => {
@@ -42,7 +42,7 @@ describe('BlogPage', () => {
   })
 
   it('should set the document title and send to analytics', () => {
-    component = mount(<BlogPage id={6} slug="foo" linkAction={() => {}} documentTitle="" />)
+    component = mount(<BlogPage linkAction={{}} documentTitle="" />)
 
     expect(mockSetDocumentTitle).not.toHaveBeenCalled()
     expect(mockTrackPageView).not.toHaveBeenCalled()

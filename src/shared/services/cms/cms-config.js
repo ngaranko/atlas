@@ -26,7 +26,7 @@ const cmsConfig = {
   special: {
     endpoint: id =>
       `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/special?filter[drupal_internal__nid]=${id}`,
-    fields: ['field_iframe_link', 'field_slug'],
+    fields: ['field_iframe_link', 'field_slug', 'field_special_type'],
   },
 }
 

@@ -20,7 +20,7 @@ const SpecialDetailPage = ({ id }) => {
   }
 
   React.useEffect(() => {
-    ;(async () => {
+    (async () => {
       await fetchData(id, cmsConfig.special)
     })()
 
@@ -44,12 +44,13 @@ const SpecialDetailPage = ({ id }) => {
     handleResize(setIframeHeight)
   }
 
-  const { field_iframe_link: iframeLink, field_slug: slug, title } = results || {}
+  const { field_iframe_link: iframeLink, field_slug: slug, field_special_type: type, title } = results || {}
   const documentTitle = `Special: ${title}`
+  const linkAction = toSpecialDetail(id, type, slug)
 
   return (
     <BlogPage
-      {...{ id, slug, documentTitle, linkAction: toSpecialDetail }}
+      {...{ documentTitle, linkAction }}
       loading={iframeLoading || loading}
     >
       <div className="iframe-container ">

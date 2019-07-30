@@ -27,7 +27,7 @@ import { toArticleDetail } from '../../../store/redux-first-router/actions'
   const { fetchData, results, loading } = useFromCMS()
 
   React.useEffect(() => {
-    ;(async () => {
+    (async () => {
       await fetchData(id, cmsConfig.article)
     })()
   }, [])
@@ -45,9 +45,10 @@ import { toArticleDetail } from '../../../store/redux-first-router/actions'
     field_intro: intro,
   } = results || {}
   const documentTitle = `Artikel: ${title}`
+  const linkAction = toArticleDetail(id, slug)
 
   return (
-    <BlogPage {...{ id, slug, documentTitle, loading, linkAction: toArticleDetail }}>
+    <BlogPage {...{ documentTitle, loading, linkAction }}>
       {!loading && (
         <div className="article">
           <Row className="article__row">

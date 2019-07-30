@@ -195,7 +195,7 @@ export const routing = {
   },
   specialDetail: {
     title: 'Special',
-    path: `/${MAIN_PATHS.SPECIALS}/special/:id/:slug`,
+    path: `/${MAIN_PATHS.SPECIALS}/special/:type/:id/:slug`,
     type: `${ROUTER_NAMESPACE}/${PAGES.SPECIAL_DETAIL}`,
     page: PAGES.SPECIAL_DETAIL,
   },

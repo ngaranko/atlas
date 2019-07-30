@@ -237,10 +237,11 @@ export const toArticleDetail = (id, slug = '') => ({
   },
 })
 
-export const toSpecialDetail = (id, slug = '') => ({
+export const toSpecialDetail = (id, type = '', slug = '') => ({
   type: routing.specialDetail.type,
   payload: {
     id,
+    type,
     slug,
   },
 })

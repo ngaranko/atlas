@@ -66,7 +66,9 @@ export const isCmsDetailPage = page =>
   page === PAGES.SPECIAL_DETAIL
 
 export const isCmsOverviewPage = page =>
-  page === PAGES.ARTICLES || page === PAGES.PUBLICATIONS || page === PAGES.SPECIALS
+  page === PAGES.ARTICLES ||
+  page === PAGES.PUBLICATIONS ||
+  page === PAGES.SPECIALS
 
 export const isMapSplitPage = page =>
   page === PAGES.DATA ||

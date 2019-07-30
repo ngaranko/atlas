@@ -3,10 +3,16 @@
 exports[`PublicationDetailPage should render the publication when there are results 1`] = `
 <BlogPage
   documentTitle="Publicatie: This is a title"
-  id={3}
-  linkAction={[Function]}
+  linkAction={
+    Object {
+      "payload": Object {
+        "id": 3,
+        "slug": "slug",
+      },
+      "type": "atlasRouter/PUBLICATION_DETAIL",
+    }
+  }
   loading={false}
-  slug="slug"
 >
   <Column
     debug={false}
