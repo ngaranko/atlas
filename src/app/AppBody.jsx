@@ -23,7 +23,7 @@ const ConstructionFilesContainer = React.lazy(() =>
 const SpecialsPage = React.lazy(() => import('./pages/SpecialsPage'))
 const ArticlePage = React.lazy(() => import('./pages/ArticlePage'))
 const PublicationsPage = React.lazy(() => import('./pages/PublicationsPage'))
-const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
+const MapSplitPage = React.lazy(() => import(/* webpackPrefetch: true */ './pages/MapSplitPage'))
 
 const AppBody = ({
   visibilityError,
@@ -40,9 +40,7 @@ const AppBody = ({
   })
 
   return (
-    <Suspense
-      fallback={<LoadingIndicator />}
-    >
+    <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
       <div className={`c-dashboard__body ${bodyClasses} ${extraBodyClasses}`}>
         {visibilityError && <GeneralErrorMessage {...{ hasMaxWidth, isHomePage: homePage }} />}
         {embedPreviewMode ? (

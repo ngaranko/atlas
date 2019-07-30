@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { AngularWrapper } from 'react-angular'
 import ShareBar from '../../components/ShareBar/ShareBar'
+import '../../angularModules'
 
 const DatasetDetail = ({
   isLoading,

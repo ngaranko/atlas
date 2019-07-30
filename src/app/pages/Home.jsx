@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'redux-first-router-link'
-import { AngularWrapper } from 'react-angular'
 import { routing } from '../routes'
 import Footer from '../components/Footer/Footer'
 import PreviewVideo from '../components/PreviewVideo/PreviewVideo'
@@ -14,6 +13,7 @@ import {
 } from '../../store/redux-first-router/actions'
 import Notification from '../../shared/components/notification/Notification'
 import HomepageDatasetsThemesBlock from '../../homepage/components/datasets-themes-block/HomepageDatasetsThemesBlock'
+import CMSWidget from '../components/CMSWidget/CMSWidget'
 
 const INSTRUCTION_LINKS = {
   BEDIENING: {
@@ -136,27 +136,7 @@ const ABOUT_LINKS = {
               <div className="u-row">
                 <div className="c-homepage__news">
                   <div className="u-col-sm--9">
-                    <div>
-                      <h1 className="u-padding__left--3 c-homepage__news-header">Nieuws</h1>
-                      <div>
-                        <AngularWrapper
-                          moduleName="dpUserContentWidgetWrapper"
-                          component="dpUserContentWidget"
-                          dependencies={['atlas']}
-                          bindings={{
-                            limitTo: 3,
-                          }}
-                          interpolateBindings={{
-                            type: 'news',
-                          }}
-                        />
-                      </div>
-                      <div className="u-padding__left--3 c-homepage__news-show-more">
-                        <Link to={{ type: routing.nieuws.type }} className="o-btn o-btn--link">
-                          Nieuwsoverzicht
-                        </Link>
-                      </div>
-                    </div>
+                    <CMSWidget limit={3} type="news" />
                   </div>
                   <div className="u-col-sm--3">
                     <div className="u-margin__left--1 c-homepage__news-instructions">

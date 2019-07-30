@@ -9,6 +9,7 @@ import MaxPageMessage from '../PanelMessages/MaxPageMessage'
 import NoResultsForSearchType from '../Messages/NoResultsForSearchType'
 import Catalog from './Catalog/Catalog'
 import ShareBar from '../ShareBar/ShareBar'
+import '../../angularModules'
 
 const Dataset = ({
   setPage,

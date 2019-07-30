@@ -1,5 +1,6 @@
 import React from 'react'
 import { AngularWrapper } from 'react-angular'
+import '../angularModules'
 
 const ActualityContainer = () => (
   <div className="c-page">

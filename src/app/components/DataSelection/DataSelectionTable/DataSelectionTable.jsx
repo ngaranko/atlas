@@ -3,9 +3,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'redux-first-router-link'
 import DataSelectionFormatter from '../DataSelectionFormatter/DataSelectionFormatter'
-import './DataSelectionTable.scss'
 import { routing } from '../../../routes'
 import { getDetailPageData } from '../../../../store/redux-first-router/actions'
+import './DataSelectionTable.scss'
 
 const DataSelectionTable = ({ content }) => {
   const buildLink = row => {
