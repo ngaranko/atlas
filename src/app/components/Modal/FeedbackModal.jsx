@@ -19,7 +19,7 @@ import withModalBehaviour, {
 
 const FEEDBACK_RECIPIENT = 'terugmelding.basisinformatie@amsterdam.nl'
 const FEEDBACK_SUBJECT = 'Terugmelding data.amsterdam.nl'
-const FEEDBACK_BODY = location => `Terugmeldingen voor de pagina: ${location}\n
+const FEEDBACK_BODY = location => `Onjuistheid terugmelden voor de pagina: ${location}\n
   Beschrijf zo volledig mogelijk van welk onjuist gegeven je een melding wilt maken:
   - Welk gegeven is kennelijk onjuist of ontbreekt?
   - Weet je wat het wel zou moeten zijn?
@@ -65,8 +65,8 @@ const FeedbackModalComponent = ({
     <ListItem>
       <Heading as="h4">Onjuiste of ontbrekende gegevens?</Heading>
       <Paragraph>
-        Geef aan welke gegevens onjuist zijn of ontbreken. Ook als je weet wat
-        het wel moet zijn. We horen het graag.
+        We horen graag welke gegevens onjuist zijn of ontbreken. Voor medewerkers
+        van de gemeente is dit 'terugmelden' overigens verplicht.
       </Paragraph>
       <Button
         as="a"
@@ -78,12 +78,12 @@ const FeedbackModalComponent = ({
           FEEDBACK_BODY(window.location.href),
         )}
       >
-        Terugmelden
+        Onjuistheid terugmelden
       </Button>
     </ListItem>
     <Divider gutter />
     <ListItem>
-      <Heading as="h4">Vraag of opmerking?</Heading>
+      <Heading as="h4">Probleem of suggestie?</Heading>
       <Paragraph>
         Als iets op deze pagina niet goed werkt, onduidelijk is of vragen
         oproept, geef het aan ons door.
