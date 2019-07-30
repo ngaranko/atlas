@@ -257,7 +257,9 @@ describe('map module', () => {
 
     it('should add a map-layer to the leaflet map', () => {
       // route to the map
-      cy.visit(`/${routing.data.path}?${VIEW_CENTER}=52.3731081%2C4.8932945&${VIEW}=kaart`)
+      cy.visit(
+        `/${routing.data.path}?${VIEW_CENTER}=52.3731081%2C4.8932945&${VIEW}=kaart`,
+      )
 
       // the map-panel should have the class collapsed by default
       cy.get('.map-panel').should('have.class', 'map-panel--collapsed')

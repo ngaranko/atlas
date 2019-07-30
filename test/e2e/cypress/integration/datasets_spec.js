@@ -8,9 +8,15 @@ describe('datasets module', () => {
   describe('user should be able to navigate to the datasets catalogus from the homepage', () => {
     beforeEach(() => {
       cy.server()
-      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets?*').as('getResults')
-      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets?/**').as('getResultsWithFilter')
-      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets/**').as('getResultsDetail')
+      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets?*').as(
+        'getResults',
+      )
+      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets?/**').as(
+        'getResultsWithFilter',
+      )
+      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets/**').as(
+        'getResultsDetail',
+      )
 
       // go to the homepage
       cy.visit('/')
@@ -86,7 +92,9 @@ describe('datasets module', () => {
 
     it('should open the datasets catalogus with a filter and see filtered results', () => {
       // click on the link to go to the datasets without a specified catalogus theme
-      cy.get(HOMEPAGE_THEMES_BLOCK.link).eq(3).click()
+      cy.get(HOMEPAGE_THEMES_BLOCK.link)
+        .eq(3)
+        .click()
       cy.wait('@getResultsWithFilter')
 
       // the homepage should not be visible anymore
