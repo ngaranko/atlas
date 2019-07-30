@@ -108,13 +108,9 @@ describe('MapPreviewPanelContainer', () => {
       type: FETCH_PANORAMA_PREVIEW_REQUEST,
     }))
     selectNotClickableVisibleMapLayers.mockImplementation(() => [])
-    isGeoSearch.mockImplementation(
-      state => !(state.detail && state.detail.endpoint),
-    )
+    isGeoSearch.mockImplementation(state => !(state.detail && state.detail.endpoint))
     isSearchLoading.mockReturnValue(false)
-    getDetailEndpoint.mockImplementation(
-      state => state.detail && state.detail.endpoint,
-    )
+    getDetailEndpoint.mockImplementation(state => state.detail && state.detail.endpoint)
   })
 
   afterEach(() => {

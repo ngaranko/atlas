@@ -16,11 +16,7 @@ function useDocumentTitle() {
   const [documentTitle, setTitle] = React.useState(`${storeTitle} - ${TITLE}`)
 
   function setDocumentTitle(pageTitle, documentTitleData = []) {
-    const newTitle = [
-      pageTitle || storeTitle,
-      ...documentTitleData,
-      TITLE,
-    ].join(' - ')
+    const newTitle = [pageTitle || storeTitle, ...documentTitleData, TITLE].join(' - ')
     setTitle(newTitle)
     document.title = newTitle
 

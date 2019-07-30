@@ -1,56 +1,50 @@
-// eslint-disable
-const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+/* eslint-disable global-require,import/no-extraneous-dependencies */
+const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
-const root = path.resolve(__dirname);
-const src = path.resolve(root, 'src');
-const legacy = path.resolve(root, 'modules');
-const dist = path.resolve(root, 'dist');
+const root = path.resolve(__dirname)
+const src = path.resolve(root, 'src')
+const legacy = path.resolve(root, 'modules')
+const dist = path.resolve(root, 'dist')
 
-function commonConfig({ nodeEnv }) {
+function commonConfig() {
   return {
     context: root,
     entry: {
-      app: ['isomorphic-fetch', '@babel/polyfill', './src/index.js']
+      app: ['isomorphic-fetch', '@babel/polyfill', './src/index.js'],
     },
     output: {
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
       publicPath: '/',
-      path: dist
+      path: dist,
     },
     resolve: {
       extensions: ['.js', '.jsx'],
       modules: ['./node_modules'],
       alias: {
         react: path.resolve('./node_modules/react'),
-        ['react-dom']: path.resolve('./node_modules/react-dom')
-      }
+        'react-dom': path.resolve('./node_modules/react-dom'),
+      },
     },
     module: {
       rules: [
         {
           test: /\.jsx?$/,
-          include: [
-            src,
-            legacy
-          ],
-          use: 'babel-loader'
+          include: [src, legacy],
+          use: 'babel-loader',
         },
         {
           test: /\.scss$/,
-          include: [
-            src,
-            legacy
-          ],
+          include: [src, legacy],
           use: [
             {
-              loader: MiniCssExtractPlugin.loader
+              loader: MiniCssExtractPlugin.loader,
             },
             {
               loader: 'css-loader',
@@ -58,29 +52,24 @@ function commonConfig({ nodeEnv }) {
                 // Todo: eventually turn on modules: true
                 // For now we explicitly tell classnames to be local
                 localIdentName: '[name]__[local]--[hash:base64:5]',
-                url: false // Disable URL parsing in css for now
-              }
+                url: false, // Disable URL parsing in css for now
+              },
             },
             {
               loader: 'postcss-loader',
               options: {
-                plugins: (loader) => [
-                  require('autoprefixer')({ browsers: ['last 3 versions'] })
-                ]
-              }
+                plugins: () => [require('autoprefixer')({ browsers: ['last 3 versions'] })],
+              },
             },
             {
-              loader: 'sass-loader'
-            }
-          ]
+              loader: 'sass-loader',
+            },
+          ],
         },
         {
           test: /\.html$/,
-          include: [
-            src,
-            legacy
-          ],
-          use: 'html-loader'
+          include: [src, legacy],
+          use: 'html-loader',
         },
         {
           test: /\.svg$/,
@@ -107,27 +96,27 @@ function commonConfig({ nodeEnv }) {
                     { removeEmptyContainers: true },
                     { removeUnusedNS: true },
                     { removeDesc: true },
-                    { prefixIds: true }
-                  ]
-                }
-              }
+                    { prefixIds: true },
+                  ],
+                },
+              },
             },
-            'url-loader'
+            'url-loader',
           ],
         },
         {
           test: /\.(png|svg|cur)$/,
-          include: [
-            legacy
+          include: [legacy],
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                outputPath: 'assets/',
+              },
+            },
           ],
-          use: [{
-            loader: 'file-loader',
-            options: {
-              outputPath: 'assets/'
-            }
-          }]
         },
-      ]
+      ],
     },
     plugins: [
       new CleanWebpackPlugin([dist]),
@@ -135,7 +124,7 @@ function commonConfig({ nodeEnv }) {
         output: {
           filename: 'sprite.svg',
           chunk: {
-            name: 'sprite'
+            name: 'sprite',
           },
           svgo: {
             plugins: [
@@ -157,20 +146,20 @@ function commonConfig({ nodeEnv }) {
               { removeEmptyContainers: true },
               { removeUnusedNS: true },
               { removeDesc: true },
-              { prefixIds: true }
-            ]
-          }
+              { prefixIds: true },
+            ],
+          },
         },
         styles: {
-          filename: path.join(__dirname, 'src/shared/styles/config/mixins/_sprites.scss')
-        }
+          filename: path.join(__dirname, 'src/shared/styles/config/mixins/_sprites.scss'),
+        },
       }),
       new OptimizeCssAssetsPlugin({
         cssProcessor: require('cssnano'),
         cssProcessorPluginOptions: {
-          preset: ['default', { svgo: { exclude: true } }]
+          preset: ['default', { svgo: { exclude: true } }],
         },
-        canPrint: true
+        canPrint: true,
       }),
       new CopyWebpackPlugin([
         { from: './public/', to: './assets/' },
@@ -180,20 +169,20 @@ function commonConfig({ nodeEnv }) {
         {
           context: 'modules/shared/assets',
           from: '*',
-          to: 'assets'
+          to: 'assets',
         },
         // All assets in sub folders
         {
           context: 'modules/shared/assets',
           from: '**/*',
-          to: 'assets'
+          to: 'assets',
         },
       ]),
       new HtmlWebpackPlugin({
         inject: false,
         template: './index.ejs',
         minify: {
-          collapseWhitespace: true
+          collapseWhitespace: true,
         },
         lang: 'nl',
         title: 'Dataportaal',
@@ -201,15 +190,13 @@ function commonConfig({ nodeEnv }) {
         links: [
           {
             href: '/3680cf49-2b05-4b8a-af28-fa9e27d2bed0.css',
-            rel: 'stylesheet'
+            rel: 'stylesheet',
           },
         ],
-        scripts: [
-          '/mtiFontTrackingCode.js'
-        ]
-      })
-    ]
-  };
+        scripts: ['/mtiFontTrackingCode.js'],
+      }),
+    ],
+  }
 }
 
 module.exports = {
@@ -217,5 +204,5 @@ module.exports = {
   root,
   src,
   legacy,
-  dist
-};
+  dist,
+}

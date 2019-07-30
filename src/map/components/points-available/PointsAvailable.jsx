@@ -5,9 +5,9 @@ import './_points-available.scss'
 
 const PointsAvailable = ({ markersLeft }) => {
   const label =
-    markersLeft === 0 ?
-      'Geen punten meer mogelijk' :
-      `Nog ${markersLeft} punt${markersLeft !== 1 ? 'en' : ''} mogelijk`
+    markersLeft === 0
+      ? 'Geen punten meer mogelijk'
+      : `Nog ${markersLeft} punt${markersLeft !== 1 ? 'en' : ''} mogelijk`
 
   return (
     <div className="points-available">

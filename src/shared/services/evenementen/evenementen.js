@@ -10,9 +10,7 @@ export const formatEvenementResult = result => {
 
   return {
     ...result,
-    startdatum: result.startdatum
-      ? dateToString(new Date(result.startdatum))
-      : '',
+    startdatum: result.startdatum ? dateToString(new Date(result.startdatum)) : '',
     einddatum: result.einddatum ? dateToString(new Date(result.einddatum)) : '',
     label: result.titel,
     location: wgs84Center,

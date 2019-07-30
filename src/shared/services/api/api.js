@@ -12,11 +12,7 @@ export const generateParams = data =>
 
 // Todo: DP-6393
 const handleErrors = (response, reloadOnUnauthorized) => {
-  if (
-    response.status >= 400 &&
-    response.status <= 401 &&
-    reloadOnUnauthorized
-  ) {
+  if (response.status >= 400 && response.status <= 401 && reloadOnUnauthorized) {
     logout()
   }
   if (!response.ok) {
@@ -27,13 +23,7 @@ const handleErrors = (response, reloadOnUnauthorized) => {
 
 export const getByUri = uri => fetch(uri).then(response => response.json())
 
-export const getWithToken = (
-  url,
-  params,
-  cancel,
-  token,
-  reloadOnUnauthorized = false,
-) => {
+export const getWithToken = (url, params, cancel, token, reloadOnUnauthorized = false) => {
   const headers = {}
 
   if (token) {
@@ -57,9 +47,7 @@ export const getWithToken = (
 
 export const getByUrl = async (url, params, cancel, reloadOnUnauthorized) => {
   const token = getAccessToken()
-  return Promise.resolve(
-    getWithToken(url, params, cancel, token, reloadOnUnauthorized),
-  )
+  return Promise.resolve(getWithToken(url, params, cancel, token, reloadOnUnauthorized))
 }
 
 export const createUrlWithToken = (url, token) => {

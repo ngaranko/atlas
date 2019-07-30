@@ -59,10 +59,24 @@ import { toArticle } from '../../../store/redux-first-router/actions'
                 <BlogContent>
                   <Column
                     wrap
-                    span={{ small: 1, medium: 2, big: 5, large: 11, xLarge: 11 }}
+                    span={{
+                      small: 1,
+                      medium: 2,
+                      big: 5,
+                      large: 11,
+                      xLarge: 11,
+                    }}
                     push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                   >
-                    <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
+                    <Column
+                      span={{
+                        small: 1,
+                        medium: 2,
+                        big: 4,
+                        large: 7,
+                        xLarge: 7,
+                      }}
+                    >
                       <BlogBody>
                         <BlogHeader title={title}>
                           <BlogMetaList
@@ -78,8 +92,20 @@ import { toArticle } from '../../../store/redux-first-router/actions'
                       </BlogBody>
                     </Column>
                     <Column
-                      span={{ small: 1, medium: 2, big: 2, large: 3, xLarge: 3 }}
-                      push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
+                      span={{
+                        small: 1,
+                        medium: 2,
+                        big: 2,
+                        large: 3,
+                        xLarge: 3,
+                      }}
+                      push={{
+                        small: 0,
+                        medium: 0,
+                        big: 1,
+                        large: 1,
+                        xLarge: 1,
+                      }}
                     >
                       <BlogSidebar>
                         {downloads && downloads.length ? (

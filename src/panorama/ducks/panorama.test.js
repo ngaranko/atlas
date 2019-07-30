@@ -52,9 +52,7 @@ describe('Panorama Reducer', () => {
 
   describe('setPanoramaTags', () => {
     it('sets the tags', () => {
-      expect(
-        reducer({}, setPanoramaTags(['mission-bi', 'mission-2018'])),
-      ).toEqual({
+      expect(reducer({}, setPanoramaTags(['mission-bi', 'mission-2018']))).toEqual({
         isLoading: true,
       })
     })
@@ -161,10 +159,7 @@ describe('panorama selectors', () => {
   describe('getPanoramaMarkers', () => {
     const { location, heading } = panorama
     it('should return an array of with 2 markers', () => {
-      const selected = selectors.getPanoramaMarkers.resultFunc(
-        location,
-        heading,
-      )
+      const selected = selectors.getPanoramaMarkers.resultFunc(location, heading)
       expect(selected).toEqual([
         {
           position: location,

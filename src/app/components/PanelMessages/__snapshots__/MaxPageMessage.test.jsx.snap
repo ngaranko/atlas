@@ -19,11 +19,9 @@ exports[`MaxPageMessage should render everything 1`] = `
     <p
       className="c-panel__paragraph"
     >
-      Alleen de eerste
-       
+      Alleen de eerste 
       100
-       
-      pagina's kunnen worden weergegeven (om technische redenen). Bij downloaden worden wel alle resultaten opgenomen.
+       pagina's kunnen worden weergegeven (om technische redenen). Bij downloaden worden wel alle resultaten opgenomen.
     </p>
     <p
       className="c-panel__paragraph"

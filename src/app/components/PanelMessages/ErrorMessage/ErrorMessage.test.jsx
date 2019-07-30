@@ -16,7 +16,9 @@ describe('ErrorMessage', () => {
   it('should render the container', () => {
     const store = configureMockStore()({})
     getMessage.mockImplementation(() => 'Tanjkns')
-    const component = shallow(<ErrorMessageContainer />, { context: { store } }).dive()
+    const component = shallow(<ErrorMessageContainer />, {
+      context: { store },
+    }).dive()
     expect(component).toMatchSnapshot()
   })
 })

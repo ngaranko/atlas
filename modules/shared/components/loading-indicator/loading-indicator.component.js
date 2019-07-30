@@ -5,8 +5,7 @@
       useDelay: '=',
       showInline: '=',
     },
-    templateUrl:
-      'modules/shared/components/loading-indicator/loading-indicator.html',
+    templateUrl: 'modules/shared/components/loading-indicator/loading-indicator.html',
     controller: DpLoadingIndicatorController,
     controllerAs: 'vm',
   })

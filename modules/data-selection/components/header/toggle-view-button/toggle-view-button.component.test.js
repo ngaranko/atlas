@@ -16,9 +16,7 @@ describe('The dp-data-selection-toggle-view-button component', function() {
   })
 
   function getComponent(view) {
-    const element = document.createElement(
-      'dp-data-selection-toggle-view-button',
-    )
+    const element = document.createElement('dp-data-selection-toggle-view-button')
     element.setAttribute('view', 'view')
 
     const scope = $rootScope.$new()

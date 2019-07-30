@@ -15,9 +15,7 @@ function formatLabel(item) {
 }
 
 export function formatLinks(slug, links) {
-  const endpointConfig = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(
-    endpoint => endpoint.slug === slug,
-  )[0]
+  const endpointConfig = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(endpoint => endpoint.slug === slug)[0]
 
   return links.map(item => {
     const subtype = item.subtype || null
@@ -30,9 +28,7 @@ export function formatLinks(slug, links) {
     return {
       label: formatLabel(item),
       hoofdadres: item.hoofdadres,
-      vbo_status: Array.isArray(item.vbo_status)
-        ? item.vbo_status[0]
-        : item.vbo_status,
+      vbo_status: Array.isArray(item.vbo_status) ? item.vbo_status[0] : item.vbo_status,
       endpoint: item._links.self.href,
       subtype,
       subtypeLabel,
@@ -41,18 +37,14 @@ export function formatLinks(slug, links) {
 }
 
 export function formatCategory(slug, endpointSearchResults) {
-  const endpointConfig = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(
-    endpoint => endpoint.slug === slug,
-  )[0]
-  const links =
-    (isObject(endpointSearchResults) && endpointSearchResults.results) || []
+  const endpointConfig = SEARCH_CONFIG.QUERY_ENDPOINTS.filter(endpoint => endpoint.slug === slug)[0]
+  const links = (isObject(endpointSearchResults) && endpointSearchResults.results) || []
 
   return {
     label_singular: endpointConfig.label_singular,
     label_plural: endpointConfig.label_plural,
     slug: endpointConfig.slug,
-    count:
-      (isObject(endpointSearchResults) && endpointSearchResults.count) || 0,
+    count: (isObject(endpointSearchResults) && endpointSearchResults.count) || 0,
     results: formatLinks(slug, links),
     useIndenting: false,
     authScope: endpointConfig.authScope || null,

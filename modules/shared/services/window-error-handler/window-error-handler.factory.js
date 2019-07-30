@@ -1,15 +1,8 @@
 import { ERROR_TYPES } from '../../../../src/shared/ducks/error/error-message'
 ;(function() {
-  angular
-    .module('dpShared')
-    .factory('windowErrorHandler', windowErrorHandlerFactory)
+  angular.module('dpShared').factory('windowErrorHandler', windowErrorHandlerFactory)
 
-  windowErrorHandlerFactory.$inject = [
-    '$log',
-    '$rootScope',
-    '$window',
-    'httpStatus',
-  ]
+  windowErrorHandlerFactory.$inject = ['$log', '$rootScope', '$window', 'httpStatus']
 
   function windowErrorHandlerFactory($log, $rootScope, $window, httpStatus) {
     return () => {
@@ -27,10 +20,7 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error/error-message'
           let message = event.message || 'window error event'
           if (event.target && event.target.src) {
             // URL load error
-            if (
-              event.target.src ===
-              'https://analytics.data.amsterdam.nl/matomo.js'
-            ) {
+            if (event.target.src === 'https://analytics.data.amsterdam.nl/matomo.js') {
               $log.error('matomo load error', event)
               return // Don't log error in Sentry and don't set error state
             }

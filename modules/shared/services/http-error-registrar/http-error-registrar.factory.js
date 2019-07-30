@@ -8,12 +8,7 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error/error-message'
       $httpProvider => $httpProvider.interceptors.push('httpErrorRegistrar'),
     ])
 
-  httpErrorRegistrarFactory.$inject = [
-    '$interval',
-    '$q',
-    '$window',
-    'httpStatus',
-  ]
+  httpErrorRegistrarFactory.$inject = ['$interval', '$q', '$window', 'httpStatus']
 
   function httpErrorRegistrarFactory($interval, $q, $window, httpStatus) {
     return {
@@ -51,20 +46,13 @@ import { ERROR_TYPES } from '../../../../src/shared/ducks/error/error-message'
           if (statusCode <= 0) {
             // Check if the error is due to a cancelled http request
             // e.g.: statusCode === -1 when the connection is dropped
-            if (
-              response.config.timeout &&
-              angular.isFunction(response.config.timeout.then)
-            ) {
+            if (response.config.timeout && angular.isFunction(response.config.timeout.then)) {
               response.config.timeout.then(
                 angular.noop, // request has been cancelled by resolving the timeout
                 () => {
                   // Abnormal end of request
                   httpStatus.registerError(ERROR_TYPES.GENERAL_ERROR)
-                  logResponse(
-                    'HTTP timeout request ended abnormally',
-                    url,
-                    statusCode,
-                  )
+                  logResponse('HTTP timeout request ended abnormally', url, statusCode)
                 },
               )
               return

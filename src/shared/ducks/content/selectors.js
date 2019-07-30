@@ -8,8 +8,7 @@ const getValueFromReducerOrConfig = key =>
   createSelector(
     getReducerObject,
     getPage,
-    (reducerObject, page) =>
-      reducerObject[key] || CMS_PAGE_MAPPING[page][key] || initialState[key],
+    (reducerObject, page) => reducerObject[key] || CMS_PAGE_MAPPING[page][key] || initialState[key],
   )
 
 export const getItem = createSelector(

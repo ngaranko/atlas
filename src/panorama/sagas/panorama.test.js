@@ -11,10 +11,7 @@ import {
   watchFetchPanorama,
 } from './panorama'
 import { fetchPanoramaRequest } from '../ducks/actions'
-import {
-  getImageDataById,
-  getImageDataByLocation,
-} from '../services/panorama-api/panorama-api'
+import { getImageDataById, getImageDataByLocation } from '../services/panorama-api/panorama-api'
 import { TOGGLE_MAP_OVERLAY_PANORAMA } from '../../map/ducks/map/constants'
 import { closeMapPanel } from '../../map/ducks/map/actions'
 import { toMap } from '../../store/redux-first-router/actions'
@@ -56,10 +53,7 @@ describe('watchFetchPanorama', () => {
     testSaga(watchFetchPanorama)
       .next()
       .all([
-        takeLatest(
-          [FETCH_PANORAMA_HOTSPOT_REQUEST, FETCH_PANORAMA_REQUEST],
-          fetchPanoramaById,
-        ),
+        takeLatest([FETCH_PANORAMA_HOTSPOT_REQUEST, FETCH_PANORAMA_REQUEST], fetchPanoramaById),
         takeLatest([SET_PANORAMA_LOCATION], fetchPanoramaByLocation),
         takeLatest([SET_PANORAMA_TAGS], fetchPanoramaByTags),
       ])
@@ -109,12 +103,7 @@ describe('fetchPanorma and fetchPanoramaByLocation', () => {
         .next()
         .select(getPanoramaTags)
         .next(['string'])
-        .call(
-          handlePanoramaRequest,
-          getImageDataByLocation,
-          [123, 321],
-          ['string'],
-        )
+        .call(handlePanoramaRequest, getImageDataByLocation, [123, 321], ['string'])
         .next()
         .isDone()
     })

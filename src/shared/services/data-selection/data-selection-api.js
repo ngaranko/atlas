@@ -5,8 +5,7 @@ import isObject from '../is-object'
 
 function formatFilters(dataset, rawData) {
   const formattedFilters = DATA_SELECTION_CONFIG.datasets[dataset].FILTERS
-  const sortFilters =
-    DATA_SELECTION_CONFIG.datasets[dataset].SORT_FILTERS || false
+  const sortFilters = DATA_SELECTION_CONFIG.datasets[dataset].SORT_FILTERS || false
   const newRawData = { ...rawData }
   const filters = formattedFilters
     .filter(filter => isObject(rawData[filter.slug]))
@@ -16,9 +15,7 @@ function formatFilters(dataset, rawData) {
       if (newFilter.order) {
         newRawData[newFilter.slug].options = newFilter.order
           .map(term => {
-            const found = newRawData[newFilter.slug].options.filter(
-              item => item.label === term,
-            )
+            const found = newRawData[newFilter.slug].options.filter(item => item.label === term)
             return found.length > 0 ? found[0] : null
           })
           .filter(item => !!item)
@@ -55,9 +52,7 @@ function recurGetContent(path, rawData) {
     const key = path[0]
     const rawValue = rawData[key]
 
-    return Array.isArray(rawValue)
-      ? rawValue.filter(identity).join(' | ')
-      : rawValue
+    return Array.isArray(rawValue) ? rawValue.filter(identity).join(' | ') : rawValue
   }
   const key = path[0]
   const rawValue = rawData[key]
@@ -123,15 +118,7 @@ function getMarkers(dataset, activeFilters, zoomLevel, boundingBox) {
   return apiService.getMarkers(config, filteredFilters, zoomLevel, boundingBox)
 }
 
-function query(
-  dataset,
-  view,
-  activeFilters,
-  page,
-  searchText,
-  shape,
-  catalogFilters,
-) {
+function query(dataset, view, activeFilters, page, searchText, shape, catalogFilters) {
   const customApi = DATA_SELECTION_CONFIG.datasets[dataset].CUSTOM_API
 
   return customApi

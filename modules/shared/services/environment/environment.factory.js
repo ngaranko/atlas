@@ -1,7 +1,4 @@
-import {
-  getEnvironment,
-  ENVIRONMENTS,
-} from '../../../../src/shared/environment'
+import { getEnvironment, ENVIRONMENTS } from '../../../../src/shared/environment'
 ;(function() {
   angular.module('dpShared').factory('environment', environmentFactory)
 

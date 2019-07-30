@@ -274,9 +274,15 @@ describe('LeafletContainer', () => {
 
       spy = jest.spyOn(store, 'dispatch')
 
-      fetchMapBaseLayers.mockImplementation(() => ({ type: FETCH_MAP_BASE_LAYERS_REQUEST }))
-      fetchMapLayers.mockImplementation(() => ({ type: FETCH_MAP_LAYERS_REQUEST }))
-      fetchPanelLayers.mockImplementation(() => ({ type: FETCH_PANEL_ITEMS_REQUEST }))
+      fetchMapBaseLayers.mockImplementation(() => ({
+        type: FETCH_MAP_BASE_LAYERS_REQUEST,
+      }))
+      fetchMapLayers.mockImplementation(() => ({
+        type: FETCH_MAP_LAYERS_REQUEST,
+      }))
+      fetchPanelLayers.mockImplementation(() => ({
+        type: FETCH_PANEL_ITEMS_REQUEST,
+      }))
     })
 
     afterEach(() => {
@@ -359,7 +365,10 @@ describe('LeafletContainer', () => {
       it('should trigger updateZoom and updateBoundingBox', () => {
         const event = { center: { lat: 1, lon: 5 } }
 
-        wrapper.setProps({ onUpdateZoom: jest.fn(), onUpdateBoundingBox: jest.fn() })
+        wrapper.setProps({
+          onUpdateZoom: jest.fn(),
+          onUpdateBoundingBox: jest.fn(),
+        })
         wrapperInstance.handleZoom(event)
         expect(wrapperInstance.props.onUpdateZoom).toHaveBeenCalled()
         expect(wrapperInstance.props.onUpdateBoundingBox).toHaveBeenCalled()

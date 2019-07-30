@@ -1,7 +1,5 @@
 ;(function() {
-  angular
-    .module('dpShared')
-    .directive('dpExpandCollapse', DpExpandCollapseDirective)
+  angular.module('dpShared').directive('dpExpandCollapse', DpExpandCollapseDirective)
 
   DpExpandCollapseDirective.$inject = ['$compile', '$interval']
 
@@ -50,13 +48,9 @@
             angular.element(element).addClass('c-show-more__container')
 
             if (scope.collapsed) {
-              angular
-                .element(element)
-                .addClass('c-show-more__container--collapsed')
+              angular.element(element).addClass('c-show-more__container--collapsed')
             } else {
-              angular
-                .element(element)
-                .removeClass('c-show-more__container--collapsed')
+              angular.element(element).removeClass('c-show-more__container--collapsed')
             }
           }
 

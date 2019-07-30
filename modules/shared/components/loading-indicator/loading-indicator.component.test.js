@@ -82,9 +82,9 @@ describe('The dp-loading-indicator', function() {
       component = getComponent(isLoading, false, true)
       $interval.flush(0)
 
-      expect(
-        component.find('.qa-loading-indicator').attr('class'),
-      ).not.toContain('c-loading-indicator__box')
+      expect(component.find('.qa-loading-indicator').attr('class')).not.toContain(
+        'c-loading-indicator__box',
+      )
     })
 
     it('inline', function() {

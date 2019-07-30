@@ -1,8 +1,7 @@
-/node_modules
-/scripts
+/node_modules/
+/scripts/
 
-/test/dyson
-/*.js
+/test/dyson/
 
 
 **/__snapshots__/

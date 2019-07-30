@@ -32,8 +32,7 @@ const DataSearch = ({
             searchResults.map(
               (result, i) =>
                 (result.count >= 1 || result.warning) &&
-                (!result.authScope ||
-                  userScopes.includes(result.authScope)) && (
+                (!result.authScope || userScopes.includes(result.authScope)) && (
                   <div
                     key={i}
                     className={`
@@ -65,22 +64,14 @@ const DataSearch = ({
                             {result.count > 1 && (
                               <span>{`${result.label_plural} (${result.count})`}</span>
                             )}
-                            {result.count === 1 && (
-                              <span>{result.label_singular}</span>
-                            )}
-                            {result.count === 0 && (
-                              <span>{result.label_plural}</span>
-                            )}
+                            {result.count === 1 && <span>{result.label_singular}</span>}
+                            {result.count === 0 && <span>{result.label_plural}</span>}
                           </h2>
                         </div>
                       )}
 
                       {!!result.warning && (
-                        <Panel
-                          isPanelVisible={!!result.warning}
-                          canClose
-                          type="warning"
-                        >
+                        <Panel isPanelVisible={!!result.warning} canClose type="warning">
                           {result.warning}
                         </Panel>
                       )}
@@ -88,9 +79,7 @@ const DataSearch = ({
                         categoryResults={result}
                         limit={category ? result.count : 10}
                         hasLoadMore={
-                          category &&
-                          searchResults[0].count >
-                            searchResults[0].results.length
+                          category && searchResults[0].count > searchResults[0].results.length
                         }
                       />
                       {result.count > 10 && !category && (
@@ -99,9 +88,7 @@ const DataSearch = ({
                             <button
                               className="qa-show-more c-show-more o-list__separate-item"
                               type="button"
-                              onClick={() =>
-                                toDetail(result.more.endpoint, VIEW_MODE.SPLIT)
-                              }
+                              onClick={() => toDetail(result.more.endpoint, VIEW_MODE.SPLIT)}
                             >
                               {result.more.label}
                             </button>
@@ -109,9 +96,7 @@ const DataSearch = ({
                             <button
                               type="button"
                               className="qa-show-more c-show-more o-list__separate-item"
-                              onClick={() =>
-                                setSearchCategory(searchQuery, result.slug)
-                              }
+                              onClick={() => setSearchCategory(searchQuery, result.slug)}
                             >
                               {`Toon alle ${result.count}`}
                             </button>

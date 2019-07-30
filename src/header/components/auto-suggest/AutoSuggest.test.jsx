@@ -121,7 +121,9 @@ describe('The AutoSuggest component', () => {
     )
 
     // trigger the componentDidUpdate method
-    prefilledAutoSuggestComponent.setProps({ query: mockFilledState.typedQuery })
+    prefilledAutoSuggestComponent.setProps({
+      query: mockFilledState.typedQuery,
+    })
     prefilledAutoSuggestComponent.update()
 
     expect(prefilledAutoSuggestComponent.instance().props.query).toBe('dam')

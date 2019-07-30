@@ -22,8 +22,7 @@ const getAddress = item => ({
 
 const getOpenbareRuimte = item => ({
   ...getDefault(item),
-  statusLabel:
-    item.properties.opr_type !== 'Weg' ? item.properties.opr_type : '',
+  statusLabel: item.properties.opr_type !== 'Weg' ? item.properties.opr_type : '',
 })
 
 const getParkeervak = feature => ({

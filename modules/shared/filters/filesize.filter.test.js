@@ -8,9 +8,7 @@ describe('The filesize filter', function() {
   let localization
 
   beforeEach(() => {
-    localization = jasmine.createSpyObj('localizationFactory', [
-      'toLocaleString',
-    ])
+    localization = jasmine.createSpyObj('localizationFactory', ['toLocaleString'])
     angular.mock.module('dpShared', { localization })
 
     angular.mock.inject(function($filter) {
@@ -18,9 +16,7 @@ describe('The filesize filter', function() {
     })
 
     // simulate replacement of numbers from '1.7' to '1,5' as would be done by localization
-    localization.toLocaleString.and.callFake(number =>
-      number.replace(/\./g, ','),
-    )
+    localization.toLocaleString.and.callFake(number => number.replace(/\./g, ','))
   })
 
   it('returns - on invalid input', () => {

@@ -6,8 +6,7 @@ import { toDatasetsTableWithFilter } from '../../../../src/store/redux-first-rou
     bindings: {
       activeFilters: '<',
     },
-    templateUrl:
-      'modules/detail/components/data-selection-links/data-selection-links.html',
+    templateUrl: 'modules/detail/components/data-selection-links/data-selection-links.html',
     controller: DpDataSelectionLinksController,
     controllerAs: 'vm',
   })
@@ -17,20 +16,11 @@ import { toDatasetsTableWithFilter } from '../../../../src/store/redux-first-rou
     vm.eigendommen = features.eigendommen
 
     this.$onChanges = changes => {
-      vm.getBAG = toDatasetsTableWithFilter(
-        DATASET_ROUTE_MAPPER.bag,
-        vm.activeFilters,
-      )
+      vm.getBAG = toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.bag, vm.activeFilters)
 
-      vm.getHR = toDatasetsTableWithFilter(
-        DATASET_ROUTE_MAPPER.hr,
-        vm.activeFilters,
-      )
+      vm.getHR = toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.hr, vm.activeFilters)
 
-      vm.getBRK = toDatasetsTableWithFilter(
-        DATASET_ROUTE_MAPPER.brk,
-        vm.activeFilters,
-      )
+      vm.getBRK = toDatasetsTableWithFilter(DATASET_ROUTE_MAPPER.brk, vm.activeFilters)
     }
   }
 })()

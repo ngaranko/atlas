@@ -10,12 +10,12 @@ import { BEDIENING_LOGIN_DEEPLINK } from '../../../shared/ducks/content/constant
 
 const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults, userScopes }) => {
   const results =
-    categoryResults && categoryResults.results ?
-      categoryResults.results.map(result => ({
+    categoryResults && categoryResults.results
+      ? categoryResults.results.map(result => ({
           ...result,
           linkTo: toDetailFromEndpoint(result.endpoint, VIEW_MODE.SPLIT),
-        })) :
-      []
+        }))
+      : []
 
   const showSpecialPermissionMessage =
     categoryResults.specialAuthScope && !userScopes.includes(categoryResults.specialAuthScope)
@@ -36,9 +36,7 @@ const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults, use
         <Panel canClose type="warning" isPanelVisible>
           <p className="c-panel__paragraph">
             Medewerkers met speciale bevoegdheden kunnen alle gegevens vinden (ook natuurlijke
-            personen). Zie 
-            {' '}
-            {link}
+            personen). Zie {link}
           </p>
         </Panel>
       )}

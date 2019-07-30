@@ -17,11 +17,7 @@ export const shouldResetState = (action, allowedRoutes = []) =>
   action.type.startsWith(ROUTER_NAMESPACE) &&
   allowedRoutes.every(route => !action.type.includes(route))
 
-export const toDataDetail = (
-  detailReference,
-  additionalParams = null,
-  tracking = true,
-) => {
+export const toDataDetail = (detailReference, additionalParams = null, tracking = true) => {
   const [id, type, subtype] = detailReference
   return preserveQuery(
     {
@@ -121,9 +117,7 @@ export const toPanoramaAndPreserveQuery = (
 ) =>
   toPanorama(id, {
     heading,
-    ...(reference.length === 3
-      ? { [PARAMETERS.DETAIL_REFERENCE]: reference }
-      : {}),
+    ...(reference.length === 3 ? { [PARAMETERS.DETAIL_REFERENCE]: reference } : {}),
     ...(pageReference ? { [PARAMETERS.PAGE_REFERENCE]: pageReference } : {}),
     [PARAMETERS.VIEW]: VIEW_MODE.SPLIT,
   })
@@ -169,11 +163,7 @@ export const toDataSearchCategory = (searchQuery, category) => ({
   },
 })
 export const toDatasets = () => ({ type: routing.datasets.type })
-export const toDatasetSearch = (
-  additionalParams = null,
-  skipSaga = false,
-  forceSaga = false,
-) => ({
+export const toDatasetSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
   type: routing.searchDatasets.type,
   meta: {
     preserve: true,
@@ -182,10 +172,7 @@ export const toDatasetSearch = (
     additionalParams,
   },
 })
-export const toDatasetsWithFilter = (
-  additionalParams = {},
-  preserve = false,
-) => ({
+export const toDatasetsWithFilter = (additionalParams = {}, preserve = false) => ({
   type: routing.datasets.type,
   meta: {
     additionalParams,

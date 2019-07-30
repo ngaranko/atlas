@@ -20,11 +20,7 @@
       const variables = {}
 
       BBGA_CONFIG[visualisation].forEach(function(variableConfig) {
-        variables[variableConfig.variable] = getVariable(
-          variableConfig,
-          gebiedHeading,
-          gebiedCode,
-        )
+        variables[variableConfig.variable] = getVariable(variableConfig, gebiedHeading, gebiedCode)
       })
 
       return $q.all(variables)

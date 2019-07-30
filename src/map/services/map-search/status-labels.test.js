@@ -42,8 +42,6 @@ describe('getStatusLabelAddress', () => {
         omschrijving: 'Verblijfsobject in gebruik',
       },
     }
-    expect(getStatusLabelAddress(result)).toEqual(
-      'Verblijfsobject in gebruik Nevenadres',
-    )
+    expect(getStatusLabelAddress(result)).toEqual('Verblijfsobject in gebruik Nevenadres')
   })
 })

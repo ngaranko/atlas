@@ -2,14 +2,7 @@ import { encodeQueryParams } from '../../../../src/shared/services/query-string-
 ;(function() {
   angular.module('dpShared').factory('api', apiFactory)
 
-  apiFactory.$inject = [
-    '$injector',
-    '$interval',
-    '$q',
-    '$http',
-    '$window',
-    'sharedConfig',
-  ]
+  apiFactory.$inject = ['$injector', '$interval', '$q', '$http', '$window', 'sharedConfig']
 
   function apiFactory($injector, $interval, $q, $http, $window, sharedConfig) {
     let store
@@ -60,10 +53,7 @@ import { encodeQueryParams } from '../../../../src/shared/services/query-string-
           .then(
             response => deferred.resolve(response.data),
             rejection => {
-              if (
-                attempt < maxAttempts &&
-                (rejection.status < 200 || rejection.status >= 300)
-              ) {
+              if (attempt < maxAttempts && (rejection.status < 200 || rejection.status >= 300)) {
                 rejection.errorHandled = true
                 $interval(
                   () => {

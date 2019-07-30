@@ -120,10 +120,7 @@ describe('selectors', () => {
     })
 
     it('should return an all active panelLayers and sort them', () => {
-      const selected = selectActivePanelLayers.resultFunc(panelLayers, [
-        ...overlays,
-        { id: 'pv' },
-      ])
+      const selected = selectActivePanelLayers.resultFunc(panelLayers, [...overlays, { id: 'pv' }])
       expect(selected).toEqual([panelLayers[1], panelLayers[0]])
     })
   })
@@ -147,10 +144,7 @@ describe('selectors', () => {
 
   describe('selectNotClickableVisibleMapLayers', () => {
     it('should return an array of the notClickable layers', () => {
-      const selected = selectNotClickableVisibleMapLayers.resultFunc(
-        panelLayers,
-        overlays,
-      )
+      const selected = selectNotClickableVisibleMapLayers.resultFunc(panelLayers, overlays)
       expect(selected).toEqual([
         {
           id: 'bgem',
@@ -208,9 +202,7 @@ describe('actions', () => {
         type: FETCH_PANEL_ITEMS_REQUEST,
         panelLayers: [],
       }
-      expect(fetchPanelLayers(expectedAction.panelLayers)).toEqual(
-        expectedAction,
-      )
+      expect(fetchPanelLayers(expectedAction.panelLayers)).toEqual(expectedAction)
     })
   })
 })

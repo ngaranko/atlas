@@ -1,12 +1,7 @@
 ;(function() {
   angular.module('dpDetail').factory('partialCompiler', partialCompilerFactory)
 
-  partialCompilerFactory.$inject = [
-    '$q',
-    '$compile',
-    '$rootScope',
-    '$templateRequest',
-  ]
+  partialCompilerFactory.$inject = ['$q', '$compile', '$rootScope', '$templateRequest']
 
   function partialCompilerFactory($q, $compile, $rootScope, $templateRequest) {
     return {

@@ -5,7 +5,7 @@ import { isEmbedded } from '../../../shared/ducks/ui/ui'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import useDataFetching from '../../utils/useDataFetching'
 import InfoModal from './InfoModal'
-import { createCookie, getCookie } from '../../../shared/services/cookie/cookie';
+import { createCookie, getCookie } from '../../../shared/services/cookie/cookie'
 
 const COOKIE_NAME = 'showInfoModal'
 

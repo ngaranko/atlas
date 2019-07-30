@@ -16,10 +16,7 @@ export const initializeMatomo = () => {
   if (window._paq.length === 0) {
     window._paq.push(['enableLinkTracking'])
     window._paq.push(['setTrackerUrl', `${urlBase}matomo.php`])
-    window._paq.push([
-      'setSiteId',
-      MATOMO_CONFIG[getEnvironment(window.location.hostname)].SITE_ID,
-    ])
+    window._paq.push(['setSiteId', MATOMO_CONFIG[getEnvironment(window.location.hostname)].SITE_ID])
 
     const doc = document
     const matomo = doc.createElement('script')

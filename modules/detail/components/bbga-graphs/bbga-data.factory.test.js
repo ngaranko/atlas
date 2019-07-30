@@ -144,18 +144,10 @@ describe('The bbgaDataService', function() {
     $rootScope.$digest()
 
     bbgaDataService
-      .getGraphData(
-        'MY_GRAPH_SETTINGS',
-        'Dit is een andere titel voor gebied A',
-        'GEBIED_A',
-      )
+      .getGraphData('MY_GRAPH_SETTINGS', 'Dit is een andere titel voor gebied A', 'GEBIED_A')
       .then(function(bbgaData) {
-        expect(bbgaData.VARIABELE_A.data[0].label).toBe(
-          'Dit is een andere titel voor gebied A',
-        )
-        expect(bbgaData.VARIABELE_B.data[0].label).toBe(
-          'Dit is een andere titel voor gebied A',
-        )
+        expect(bbgaData.VARIABELE_A.data[0].label).toBe('Dit is een andere titel voor gebied A')
+        expect(bbgaData.VARIABELE_B.data[0].label).toBe('Dit is een andere titel voor gebied A')
       })
     $rootScope.$digest()
   })

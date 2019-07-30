@@ -43,10 +43,7 @@ describe('normalizeFromCMS', () => {
       ],
     }
 
-    const normalizedData = cmsNormalizer(mockResult, [
-      'field_image',
-      'field_intro',
-    ])
+    const normalizedData = cmsNormalizer(mockResult, ['field_image', 'field_intro'])
 
     expect(normalizedData.field_image).toEqual(mockData.field_image)
     expect(normalizedData.field_intro).toEqual(mockData.field_intro)

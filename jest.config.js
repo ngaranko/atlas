@@ -31,10 +31,8 @@ module.exports = {
   },
   setupFiles: ['raf/polyfill', './test/setup-jest.js'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  testMatch: [
-    '**/*.test.js?(x)',
-  ],
-  setupFilesAfterEnv: ["./test/mocks.js"],
+  testMatch: ['**/*.test.js?(x)'],
+  setupFilesAfterEnv: ['./test/mocks.js'],
   testURL: 'http://localhost:8080/',
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/modules/', '/node_modules/', '/test/'],

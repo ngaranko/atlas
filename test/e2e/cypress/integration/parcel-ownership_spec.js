@@ -123,9 +123,7 @@ describe('parcel-ownership (eigendommen) module', () => {
         cy.wait('@getDataselectieBrk')
         cy.scrollTo('top')
 
-        cy.get(
-          `${DATA_SELECTION_TABLE.body} ${DATA_SELECTION_TABLE.row}:first-child`,
-        ).click()
+        cy.get(`${DATA_SELECTION_TABLE.body} ${DATA_SELECTION_TABLE.row}:first-child`).click()
 
         cy.wait('@getBrkObjectExpand')
         cy.get('.qa-detail')
@@ -175,20 +173,20 @@ describe('parcel-ownership (eigendommen) module', () => {
               .and('be.visible')
 
             // get the position of the category in the th's of the table
-            cy.get(
-              `${DATA_SELECTION_TABLE.head} ${DATA_SELECTION_TABLE.cell}`,
-            ).each((th, index) => {
-              // if the position is equal to the category
-              if (th[0].innerText === category) {
-                // get al the content the td's with the same position as the categoryGroup they all
-                // should contain the same value as the `selectedFilter`
-                cy.get(DATA_SELECTION_TABLE.row)
-                  .find(`${DATA_SELECTION_TABLE.cell}:nth-child(${index + 1})`)
-                  .contains(selectedFilter)
-                  .should('exist')
-                  .and('be.visible')
-              }
-            })
+            cy.get(`${DATA_SELECTION_TABLE.head} ${DATA_SELECTION_TABLE.cell}`).each(
+              (th, index) => {
+                // if the position is equal to the category
+                if (th[0].innerText === category) {
+                  // get al the content the td's with the same position as the categoryGroup they all
+                  // should contain the same value as the `selectedFilter`
+                  cy.get(DATA_SELECTION_TABLE.row)
+                    .find(`${DATA_SELECTION_TABLE.cell}:nth-child(${index + 1})`)
+                    .contains(selectedFilter)
+                    .should('exist')
+                    .and('be.visible')
+                }
+              },
+            )
           })
       })
     })

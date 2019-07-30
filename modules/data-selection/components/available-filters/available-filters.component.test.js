@@ -123,9 +123,7 @@ describe('The dp-data-selection-available-filters component', function() {
   })
 
   function getComponent(activeFilters) {
-    const element = document.createElement(
-      'dp-data-selection-available-filters',
-    )
+    const element = document.createElement('dp-data-selection-available-filters')
 
     element.setAttribute('dataset', 'my_special_dataset')
     element.setAttribute('available-filters', 'availableFilters')

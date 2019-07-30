@@ -15,8 +15,7 @@ fdescribe('The parkeervak resource', () => {
 
   describe('By uri', () => {
     it('fetches a parkeervak', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/parkeervakken/parkeervakken/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/parkeervakken/parkeervakken/123456'
       const parkeervakMock = {
         straatnaam: 'straat',
         type: 'type',
@@ -39,8 +38,7 @@ fdescribe('The parkeervak resource', () => {
     })
 
     it('fetches with empty result object', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/parkeervakken/parkeervakken/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/parkeervakken/parkeervakken/123456'
 
       getByUrl.mockReturnValueOnce(Promise.resolve({}))
 

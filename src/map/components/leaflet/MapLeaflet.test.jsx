@@ -29,7 +29,11 @@ describe('MapLeaflet component', () => {
 
   it('should render map with base layer and update base layer if props change', () => {
     const center = [52.3731081, 4.8932945]
-    const marker = { position: [...center], type: markerPointType, iconData: { type: 'foo' } }
+    const marker = {
+      position: [...center],
+      type: markerPointType,
+      iconData: { type: 'foo' },
+    }
     const clickHandler = jest.fn()
     const wrapper = shallow(
       <MapLeaflet
@@ -650,7 +654,9 @@ describe('MapLeaflet component', () => {
       wrapperInstance.handleResize()
 
       expect(wrapperInstance.MapElement.invalidateSize).toHaveBeenCalled()
-      expect(props.onResizeEnd).toHaveBeenCalledWith({ boundingBox: convertedBounds })
+      expect(props.onResizeEnd).toHaveBeenCalledWith({
+        boundingBox: convertedBounds,
+      })
       expect(wrapperInstance.fitActiveElement).not.toHaveBeenCalled()
     })
 
@@ -663,7 +669,9 @@ describe('MapLeaflet component', () => {
       wrapperInstance.handleResize()
 
       expect(wrapperInstance.MapElement.invalidateSize).toHaveBeenCalled()
-      expect(props.onResizeEnd).toHaveBeenCalledWith({ boundingBox: convertedBounds })
+      expect(props.onResizeEnd).toHaveBeenCalledWith({
+        boundingBox: convertedBounds,
+      })
       expect(wrapperInstance.fitActiveElement).toHaveBeenCalledWith(bounds)
     })
 
@@ -695,7 +703,10 @@ describe('MapLeaflet component', () => {
 
         wrapper.setState({ previousFitBoundsId: elementBoundsString })
         const oldState = wrapperInstance.state
-        const newState = { ...oldState, previousFitBoundsId: `${elementBoundsString}New` }
+        const newState = {
+          ...oldState,
+          previousFitBoundsId: `${elementBoundsString}New`,
+        }
 
         wrapperInstance.checkIfActiveElementNeedsUpdate(leafletMapMock)
 

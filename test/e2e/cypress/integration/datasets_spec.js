@@ -8,15 +8,9 @@ describe('datasets module', () => {
   describe('user should be able to navigate to the datasets catalogus from the homepage', () => {
     beforeEach(() => {
       cy.server()
-      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets?*').as(
-        'getResults',
-      )
-      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets?/**').as(
-        'getResultsWithFilter',
-      )
-      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets/**').as(
-        'getResultsDetail',
-      )
+      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets?*').as('getResults')
+      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets?/**').as('getResultsWithFilter')
+      cy.route('https://acc.api.data.amsterdam.nl/dcatd/datasets/**').as('getResultsDetail')
 
       // go to the homepage
       cy.visit('/')

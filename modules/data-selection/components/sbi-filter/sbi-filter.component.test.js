@@ -1,7 +1,4 @@
-import {
-  addFilter,
-  removeFilter,
-} from '../../../../src/shared/ducks/filters/filters'
+import { addFilter, removeFilter } from '../../../../src/shared/ducks/filters/filters'
 import * as dataSelectionConfig from '../../../../src/shared/services/data-selection/data-selection-config'
 
 describe('The dp-sbi-filter component', () => {
@@ -134,9 +131,7 @@ describe('The dp-sbi-filter component', () => {
       expect(component.find('.qa-sbi-filter-form-input').val()).toBe('')
 
       expect(component.find('.qa-sbi-filter-form-sumbit').length).toBe(1)
-      expect(component.find('.qa-sbi-filter-form-sumbit').text()).toBe(
-        'Selecteer',
-      )
+      expect(component.find('.qa-sbi-filter-form-sumbit').text()).toBe('Selecteer')
     })
 
     it('the filter list', () => {

@@ -76,9 +76,7 @@ describe('addresses module', () => {
             .and('be.visible')
 
           // get the position of the category in the th's of the table
-          cy.get(
-            `${DATA_SELECTION_TABLE.head} ${DATA_SELECTION_TABLE.cell}`,
-          ).each((th, index) => {
+          cy.get(`${DATA_SELECTION_TABLE.head} ${DATA_SELECTION_TABLE.cell}`).each((th, index) => {
             // if the position is equal to the category
             if (th[0].innerText === category) {
               // get al the content the td's with the same position as the categoryGroup they all
@@ -99,12 +97,8 @@ describe('addresses module', () => {
       cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
       cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject')
       cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden')
-      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as(
-        'getObjectExpand',
-      )
-      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-        'getSitueringen',
-      )
+      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as('getObjectExpand')
+      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen')
       cy.route('/monumenten/monumenten/*').as('getMonument')
     })
     it('should open the detail view with the correct address', () => {
@@ -200,12 +194,8 @@ describe('addresses module', () => {
       cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
       cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject')
       cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden')
-      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as(
-        'getObjectExpand',
-      )
-      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-        'getSitueringen',
-      )
+      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as('getObjectExpand')
+      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen')
       cy.route('/monumenten/monumenten/*').as('getMonument')
 
       // click on the first item in the table

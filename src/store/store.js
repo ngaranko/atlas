@@ -35,8 +35,7 @@ const configureStore = routesMap => {
 
   paramsRegistry.history = history
 
-  const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   const sagaMiddleware = createSagaMiddleware()
   const enhancer = composeEnhancers(
     routeEnhancer,
@@ -51,11 +50,7 @@ const configureStore = routesMap => {
     ),
   )
 
-  window.reduxStore = createStore(
-    rootReducer(routeReducer),
-    undefined,
-    enhancer,
-  )
+  window.reduxStore = createStore(rootReducer(routeReducer), undefined, enhancer)
 
   sagaMiddleware.run(rootSaga)
 

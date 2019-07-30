@@ -20,18 +20,20 @@ jest.mock('../../../panorama/ducks/preview/panorama-preview')
 
 describe('DetailContainer', () => {
   beforeEach(() => {
-    getDetailEndpoint.mockReturnValue('myEndpoint');
-    isDetailLoading.mockReturnValue(false);
-    getID.mockReturnValue('1');
-    getSubType.mockReturnValue('nummeraanduiding');
-    getUser.mockReturnValue({});
-    getPanoramaPreview.mockReturnValue({});
-    isPanoramaPreviewLoading.mockReturnValue(false);
-  });
+    getDetailEndpoint.mockReturnValue('myEndpoint')
+    isDetailLoading.mockReturnValue(false)
+    getID.mockReturnValue('1')
+    getSubType.mockReturnValue('nummeraanduiding')
+    getUser.mockReturnValue({})
+    getPanoramaPreview.mockReturnValue({})
+    isPanoramaPreviewLoading.mockReturnValue(false)
+  })
 
   it('should render', () => {
     const store = configureMockStore()({ ui: { isPrintMode: false } })
-    const component = shallow(<DetailContainer />, { context: { store } }).dive()
+    const component = shallow(<DetailContainer />, {
+      context: { store },
+    }).dive()
     expect(component).toMatchSnapshot()
   })
 })

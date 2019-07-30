@@ -158,9 +158,7 @@ describe('ActiveOverlays', () => {
           id: 'hvo',
         },
       ]
-      ActiveOverlaysDefault.isVisibleAtCurrentZoom = jest
-        .fn()
-        .mockReturnValue(true)
+      ActiveOverlaysDefault.isVisibleAtCurrentZoom = jest.fn().mockReturnValue(true)
       expect(ActiveOverlaysDefault.getVisibleSources('biz')).toEqual([])
     })
   })
@@ -168,9 +166,7 @@ describe('ActiveOverlays', () => {
   describe('getOverlaysWarning', () => {
     it('should return an empty string', () => {
       ActiveOverlays.isAuthorised = jest.fn().mockImplementation(() => true)
-      ActiveOverlays.isVisibleAtCurrentZoom = jest
-        .fn()
-        .mockImplementation(() => true)
+      ActiveOverlays.isVisibleAtCurrentZoom = jest.fn().mockImplementation(() => true)
       ActiveOverlaysDefault.allOverlays = [
         {
           id: 'biz',
@@ -185,22 +181,18 @@ describe('ActiveOverlays', () => {
     })
 
     it('should build a string from an array of objects that have a label_short and noDetail key set to true', () => {
-      ActiveOverlaysDefault.getVisibleSources = jest
-        .fn()
-        .mockImplementation(() => [
-          {
-            noDetail: true,
-            label_short: 'label one',
-          },
-          {
-            noDetail: true,
-            label_short: 'label two',
-          },
-        ])
+      ActiveOverlaysDefault.getVisibleSources = jest.fn().mockImplementation(() => [
+        {
+          noDetail: true,
+          label_short: 'label one',
+        },
+        {
+          noDetail: true,
+          label_short: 'label two',
+        },
+      ])
 
-      expect(ActiveOverlaysDefault.getOverlaysWarning(1)).toBe(
-        'label one, label two',
-      )
+      expect(ActiveOverlaysDefault.getOverlaysWarning(1)).toBe('label one, label two')
     })
   })
 })

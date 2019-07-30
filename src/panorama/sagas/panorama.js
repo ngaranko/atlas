@@ -1,28 +1,14 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects'
-import {
-  fetchPanoramaError,
-  fetchPanoramaRequest,
-  fetchPanoramaSuccess,
-} from '../ducks/actions'
+import { fetchPanoramaError, fetchPanoramaRequest, fetchPanoramaSuccess } from '../ducks/actions'
 import {
   getDetailReference,
   getPageReference,
   getPanoramaLocation,
   getPanoramaTags,
 } from '../ducks/selectors'
-import {
-  closeMapPanel,
-  toggleMapOverlayPanorama,
-} from '../../map/ducks/map/actions'
-import {
-  getImageDataById,
-  getImageDataByLocation,
-} from '../services/panorama-api/panorama-api'
-import {
-  toDataDetail,
-  toGeoSearch,
-  toPanorama,
-} from '../../store/redux-first-router/actions'
+import { closeMapPanel, toggleMapOverlayPanorama } from '../../map/ducks/map/actions'
+import { getImageDataById, getImageDataByLocation } from '../services/panorama-api/panorama-api'
+import { toDataDetail, toGeoSearch, toPanorama } from '../../store/redux-first-router/actions'
 import { getLocationPayload } from '../../store/redux-first-router/selectors'
 import { getViewMode, VIEW_MODE } from '../../shared/ducks/ui/ui'
 import PARAMETERS from '../../store/parameters'
@@ -56,9 +42,7 @@ export function* handlePanoramaRequest(fn, input, tags) {
       const viewCenter = yield select(getMapCenter)
       const location = yield select(getPanoramaLocation)
       const panoramaTags =
-        tags !== initialState.tags
-          ? { [PARAMETERS.PANORAMA_TAGS]: tags.join() }
-          : {}
+        tags !== initialState.tags ? { [PARAMETERS.PANORAMA_TAGS]: tags.join() } : {}
 
       const additionalParams = {
         ...panoramaTags,
@@ -81,30 +65,17 @@ export function* fetchPanoramaById(action) {
 
 export function* fetchPanoramaByLocation(action) {
   const tags = yield select(getPanoramaTags)
-  yield call(
-    handlePanoramaRequest,
-    getImageDataByLocation,
-    action.payload,
-    tags,
-  )
+  yield call(handlePanoramaRequest, getImageDataByLocation, action.payload, tags)
 }
 
 export function* fetchPanoramaByTags(action) {
   const location = yield select(getPanoramaLocation)
-  yield call(
-    handlePanoramaRequest,
-    getImageDataByLocation,
-    location,
-    action.payload,
-  )
+  yield call(handlePanoramaRequest, getImageDataByLocation, location, action.payload)
 }
 
 export function* watchFetchPanorama() {
   yield all([
-    takeLatest(
-      [FETCH_PANORAMA_HOTSPOT_REQUEST, FETCH_PANORAMA_REQUEST],
-      fetchPanoramaById,
-    ),
+    takeLatest([FETCH_PANORAMA_HOTSPOT_REQUEST, FETCH_PANORAMA_REQUEST], fetchPanoramaById),
     takeLatest([SET_PANORAMA_LOCATION], fetchPanoramaByLocation),
     takeLatest([SET_PANORAMA_TAGS], fetchPanoramaByTags),
   ])

@@ -13,9 +13,7 @@ import {
 } from '@datapunt/asc-ui/lib/index'
 import { ReactComponent as Close } from '@datapunt/asc-assets/lib/Icons/Close.svg'
 import { routing } from '../../routes'
-import withModalBehaviour, {
-  propTypes as modalPropTypes,
-} from './withModalBehaviour'
+import withModalBehaviour, { propTypes as modalPropTypes } from './withModalBehaviour'
 
 const FEEDBACK_RECIPIENT = 'terugmelding.basisinformatie@amsterdam.nl'
 const FEEDBACK_SUBJECT = 'Terugmelding data.amsterdam.nl'
@@ -65,8 +63,8 @@ const FeedbackModalComponent = ({
     <ListItem>
       <Heading as="h4">Onjuiste of ontbrekende gegevens?</Heading>
       <Paragraph>
-        We horen graag welke gegevens onjuist zijn of ontbreken. Voor medewerkers
-        van de gemeente is dit &lsquo;terugmelden&lsquo; overigens verplicht.
+        We horen graag welke gegevens onjuist zijn of ontbreken. Voor medewerkers van de gemeente is
+        dit &lsquo;terugmelden&lsquo; overigens verplicht.
       </Paragraph>
       <Button
         as="a"
@@ -85,18 +83,14 @@ const FeedbackModalComponent = ({
     <ListItem>
       <Heading as="h4">Probleem of suggestie?</Heading>
       <Paragraph>
-        Als iets op deze pagina niet goed werkt, onduidelijk is of vragen
-        oproept, geef het aan ons door.
+        Als iets op deze pagina niet goed werkt, onduidelijk is of vragen oproept, geef het aan ons
+        door.
       </Paragraph>
       <Button
         as="a"
         color="primary"
         onClick={reportProblemAction}
-        href={getMailtoLink(
-          PROBLEM_RECIPIENT,
-          PROBLEM_SUBJECT,
-          PROBLEM_BODY(window.location.href),
-        )}
+        href={getMailtoLink(PROBLEM_RECIPIENT, PROBLEM_SUBJECT, PROBLEM_BODY(window.location.href))}
       >
         Probleem melden
       </Button>

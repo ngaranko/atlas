@@ -25,9 +25,7 @@ export const getBaseLayers = createSelector(
     baseLayers.reduce(
       (result, item) => ({
         ...result,
-        [item.category]: result[item.category]
-          ? [...result[item.category], item]
-          : [item],
+        [item.category]: result[item.category] ? [...result[item.category], item] : [item],
       }),
       {},
     ),
@@ -35,8 +33,7 @@ export const getBaseLayers = createSelector(
 
 export const getUrlTemplate = createSelector(
   [getAllBaseLayers, getActiveBaseLayer],
-  (baseLayers, activeLayerId) =>
-    getUrlTemplateOfActiveLayer(baseLayers, activeLayerId),
+  (baseLayers, activeLayerId) => getUrlTemplateOfActiveLayer(baseLayers, activeLayerId),
 )
 
 export default function MapBaseLayersReducer(state = initialState, action) {

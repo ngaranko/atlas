@@ -40,15 +40,12 @@ export function fetchByPandId(pandId) {
   }
 
   const queryString = Object.keys(searchParams)
-    .map(
-      key =>
-        `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`,
-    )
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(
-    `${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`,
-  ).then(data => data.results)
+  return getByUrl(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(
+    data => data.results,
+  )
 }
 
 export function fetchByLigplaatsId(ligplaatsId) {
@@ -57,15 +54,10 @@ export function fetchByLigplaatsId(ligplaatsId) {
   }
 
   const queryString = Object.keys(searchParams)
-    .map(
-      key =>
-        `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`,
-    )
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(
-    `${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`,
-  ).then(data =>
+  return getByUrl(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(data =>
     data.results.map(result => ({
       ...result,
       id: result.landelijk_id,
@@ -74,9 +66,7 @@ export function fetchByLigplaatsId(ligplaatsId) {
 }
 
 export function fetchHoofdadresByLigplaatsId(ligplaatsId) {
-  return fetchByLigplaatsId(ligplaatsId).then(results =>
-    results.find(result => result.hoofdadres),
-  )
+  return fetchByLigplaatsId(ligplaatsId).then(results => results.find(result => result.hoofdadres))
 }
 
 export function fetchByStandplaatsId(standplaatsId) {
@@ -85,15 +75,10 @@ export function fetchByStandplaatsId(standplaatsId) {
   }
 
   const queryString = Object.keys(searchParams)
-    .map(
-      key =>
-        `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`,
-    )
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(
-    `${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`,
-  ).then(data =>
+  return getByUrl(`${SHARED_CONFIG.API_ROOT}bag/nummeraanduiding/?${queryString}`).then(data =>
     data.results.map(result => ({
       ...result,
       id: result.landelijk_id,

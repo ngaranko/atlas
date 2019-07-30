@@ -13,16 +13,12 @@ export default class BaseCoder {
      * @type {string[]}
      * @private
      */
-    this._CHARSET = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(
-      '',
-    )
+    this._CHARSET = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
 
     if (BaseCoder.isInt(base) && base >= 2 && base <= this._CHARSET.length) {
       this._base = base
     } else {
-      throw new RangeError(
-        `Base ${base} not within 2 and ${this._CHARSET.length}`,
-      )
+      throw new RangeError(`Base ${base} not within 2 and ${this._CHARSET.length}`)
     }
 
     /**

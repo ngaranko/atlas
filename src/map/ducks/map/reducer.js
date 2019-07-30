@@ -77,16 +77,12 @@ export default function MapReducer(state = initialState, action) {
     case MAP_END_DRAWING:
       polygon = action.payload && action.payload.polygon
       has2Markers = polygon && polygon.markers && polygon.markers.length === 2
-      moreThan2Markers =
-        polygon && polygon.markers && polygon.markers.length > 2
+      moreThan2Markers = polygon && polygon.markers && polygon.markers.length > 2
       return {
         ...enrichedState,
         drawingMode: drawToolConfig.DRAWING_MODE.NONE,
-        geometry: has2Markers
-          ? polygon.markers
-          : moreThan2Markers
-          ? []
-          : enrichedState.geometry,
+        // eslint-disable-next-line no-nested-ternary
+        geometry: has2Markers ? polygon.markers : moreThan2Markers ? [] : enrichedState.geometry,
         isLoading: true,
       }
 
@@ -112,9 +108,7 @@ export default function MapReducer(state = initialState, action) {
       return {
         ...enrichedState,
         overlays: enrichedState.overlays.some(
-          overlay =>
-            !isPanoLayer(overlay) &&
-            action.payload.mapLayers.includes(overlay.id),
+          overlay => !isPanoLayer(overlay) && action.payload.mapLayers.includes(overlay.id),
         )
           ? [
               ...enrichedState.overlays.filter(
@@ -143,10 +137,7 @@ export default function MapReducer(state = initialState, action) {
         ...enrichedState,
         overlays: enrichedState.overlays.map(overlay => ({
           ...overlay,
-          isVisible:
-            overlay.id === action.mapLayerId
-              ? action.isVisible
-              : overlay.isVisible,
+          isVisible: overlay.id === action.mapLayerId ? action.isVisible : overlay.isVisible,
         })),
       }
 

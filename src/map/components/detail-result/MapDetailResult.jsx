@@ -34,12 +34,7 @@ import MapDetailVastgoed from './MapDetailVastgoed'
 import MapDetailVestiging from './MapDetailVestiging'
 import MapDetailWinkelgebied from './MapDetailWinkelgebied'
 
-const MapDetailResult = ({
-  panoUrl,
-  result,
-  onMaximize,
-  onPanoPreviewClick,
-}) => {
+const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => {
   switch (result.endpointType) {
     case endpointTypes.adressenLigplaats:
       return (
@@ -214,13 +209,7 @@ const MapDetailResult = ({
         />
       )
     case endpointTypes.grondexploitatie:
-      return (
-        <MapDetailGrondexploitatie
-          onMaximize={onMaximize}
-          panoUrl={panoUrl}
-          detail={result}
-        />
-      )
+      return <MapDetailGrondexploitatie onMaximize={onMaximize} panoUrl={panoUrl} detail={result} />
     case endpointTypes.kadastraalObject:
       return (
         <MapDetailKadastraalObject

@@ -15,9 +15,7 @@ import {
 
 export default function AutoSuggestReducer(state = initialState, action) {
   // cleanup the state for this reducer when not on the search routes
-  if (
-    shouldResetState(action, [PAGES.DATA_QUERY_SEARCH, PAGES.SEARCH_DATASETS])
-  ) {
+  if (shouldResetState(action, [PAGES.DATA_QUERY_SEARCH, PAGES.SEARCH_DATASETS])) {
     return initialState
   }
 

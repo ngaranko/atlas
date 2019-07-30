@@ -39,26 +39,14 @@ describe('The dp-data-selection-link component', () => {
   it('renders a header for BAG, HR and BRK', () => {
     const component = getComponent({})
 
-    expect(
-      component.find('.qa-bag dp-glossary-header').attr('definition'),
-    ).toBe('NUMMERAANDUIDING')
-    expect(
-      component.find('.qa-bag dp-glossary-header').attr('use-plural'),
-    ).toBe('true')
+    expect(component.find('.qa-bag dp-glossary-header').attr('definition')).toBe('NUMMERAANDUIDING')
+    expect(component.find('.qa-bag dp-glossary-header').attr('use-plural')).toBe('true')
 
-    expect(component.find('.qa-hr dp-glossary-header').attr('definition')).toBe(
-      'VESTIGING',
-    )
-    expect(component.find('.qa-hr dp-glossary-header').attr('use-plural')).toBe(
-      'true',
-    )
+    expect(component.find('.qa-hr dp-glossary-header').attr('definition')).toBe('VESTIGING')
+    expect(component.find('.qa-hr dp-glossary-header').attr('use-plural')).toBe('true')
     if (features.eigendommen) {
-      expect(
-        component.find('.qa-brk dp-glossary-header').attr('definition'),
-      ).toBe('OBJECT')
-      expect(
-        component.find('.qa-brk dp-glossary-header').attr('use-plural'),
-      ).toBe('true')
+      expect(component.find('.qa-brk dp-glossary-header').attr('definition')).toBe('OBJECT')
+      expect(component.find('.qa-brk dp-glossary-header').attr('use-plural')).toBe('true')
     }
   })
 

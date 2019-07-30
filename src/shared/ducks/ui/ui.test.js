@@ -199,10 +199,7 @@ describe('UI selectors', () => {
         isDataPage: false,
         viewMode: VIEW_MODE.MAP,
       }
-      const selected = isMapPage.resultFunc(
-        mockParameters.isDataPage,
-        mockParameters.viewMode,
-      )
+      const selected = isMapPage.resultFunc(mockParameters.isDataPage, mockParameters.viewMode)
       expect(selected).toEqual(false)
     })
 
@@ -211,10 +208,7 @@ describe('UI selectors', () => {
         isDataPage: true,
         viewMode: VIEW_MODE.MAP,
       }
-      const selected = isMapPage.resultFunc(
-        mockParameters.isDataPage,
-        mockParameters.viewMode,
-      )
+      const selected = isMapPage.resultFunc(mockParameters.isDataPage, mockParameters.viewMode)
       expect(selected).toEqual(true)
     })
 
@@ -223,10 +217,7 @@ describe('UI selectors', () => {
         isDataPage: true,
         viewMode: VIEW_MODE.SPLIT,
       }
-      const selected = isMapPage.resultFunc(
-        mockParameters.isDataPage,
-        mockParameters.viewMode,
-      )
+      const selected = isMapPage.resultFunc(mockParameters.isDataPage, mockParameters.viewMode)
       expect(selected).toEqual(false)
     })
   })

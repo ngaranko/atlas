@@ -85,8 +85,7 @@ describe('The auth service', () => {
   describe('init funtion', () => {
     describe('receiving response errors from the auth service', () => {
       it('throws an error', () => {
-        const queryString =
-          '?error=invalid_request&error_description=invalid%20request'
+        const queryString = '?error=invalid_request&error_description=invalid%20request'
         jsdom.reconfigure({ url: `https://data.amsterdam.nl/${queryString}` })
         queryObject = {
           error: 'invalid_request',
@@ -121,9 +120,7 @@ describe('The auth service', () => {
         expect(() => {
           initAuth()
         }).toThrow()
-        expect(global.sessionStorage.removeItem).toHaveBeenCalledWith(
-          'stateToken',
-        )
+        expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('stateToken')
       })
 
       it('does not handle any errors without an error in the query string', () => {
@@ -132,9 +129,7 @@ describe('The auth service', () => {
         expect(() => {
           initAuth()
         }).not.toThrow()
-        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith([
-          'stateToken',
-        ])
+        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith(['stateToken'])
       })
 
       it('does not handle any errors without a query string', () => {
@@ -143,9 +138,7 @@ describe('The auth service', () => {
         expect(() => {
           initAuth()
         }).not.toThrow()
-        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith([
-          'stateToken',
-        ])
+        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith(['stateToken'])
       })
     })
 
@@ -164,9 +157,7 @@ describe('The auth service', () => {
 
         expect(() => {
           initAuth()
-        }).toThrow(
-          'Authenticator encountered an invalid state token (invalidStateToken)',
-        )
+        }).toThrow('Authenticator encountered an invalid state token (invalidStateToken)')
         expect(queryStringParser).toHaveBeenCalledWith(queryString)
       })
 
@@ -184,17 +175,10 @@ describe('The auth service', () => {
         savedReturnPath = '/path/leading/back'
 
         initAuth()
-        expect(global.sessionStorage.setItem).toHaveBeenCalledWith(
-          'accessToken',
-          '123AccessToken',
-        )
+        expect(global.sessionStorage.setItem).toHaveBeenCalledWith('accessToken', '123AccessToken')
         expect(global.sessionStorage.getItem).toHaveBeenCalledWith('returnPath')
-        expect(global.sessionStorage.removeItem).toHaveBeenCalledWith(
-          'returnPath',
-        )
-        expect(global.sessionStorage.removeItem).toHaveBeenCalledWith(
-          'stateToken',
-        )
+        expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('returnPath')
+        expect(global.sessionStorage.removeItem).toHaveBeenCalledWith('stateToken')
       })
 
       it('Deletes the sessionStorage when token is expired', () => {
@@ -232,15 +216,11 @@ describe('The auth service', () => {
         savedReturnPath = '/path/leading/back'
 
         initAuth()
-        expect(global.sessionStorage.setItem).toHaveBeenCalledWith(
-          'accessToken',
-          '123AccessToken',
-        )
+        expect(global.sessionStorage.setItem).toHaveBeenCalledWith('accessToken', '123AccessToken')
       })
 
       it('Does not work when a parameter is missing', () => {
-        const queryString =
-          '?access_token=123AccessToken&token_type=token&state=123StateToken'
+        const queryString = '?access_token=123AccessToken&token_type=token&state=123StateToken'
         global.location.hash = queryString
         queryObject = {
           access_token: '123AccessToken',
@@ -254,12 +234,8 @@ describe('The auth service', () => {
           'accessToken',
           '123AccessToken',
         ])
-        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith([
-          'returnPath',
-        ])
-        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith([
-          'stateToken',
-        ])
+        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith(['returnPath'])
+        expect(global.sessionStorage.removeItem).not.toHaveBeenCalledWith(['stateToken'])
       })
     })
   })
@@ -279,10 +255,7 @@ describe('The auth service', () => {
       login()
 
       expect(global.sessionStorage.clear).toHaveBeenCalled()
-      expect(global.sessionStorage.setItem).toHaveBeenCalledWith(
-        'stateToken',
-        stateToken,
-      )
+      expect(global.sessionStorage.setItem).toHaveBeenCalledWith('stateToken', stateToken)
     })
 
     it('Redirects to the auth service', () => {

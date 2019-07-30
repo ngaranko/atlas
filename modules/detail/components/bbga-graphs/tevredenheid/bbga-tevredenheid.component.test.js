@@ -86,12 +86,7 @@ describe('The dp-bbga-tevredenheid component', function() {
       },
     )
 
-    angular.mock.inject(function(
-      _$compile_,
-      _$rootScope_,
-      _$q_,
-      _bbgaDataService_,
-    ) {
+    angular.mock.inject(function(_$compile_, _$rootScope_, _$q_, _bbgaDataService_) {
       $compile = _$compile_
       $rootScope = _$rootScope_
       $q = _$q_
@@ -127,20 +122,14 @@ describe('The dp-bbga-tevredenheid component', function() {
   it('shows a header with the year of the data', function() {
     const component = getComponent()
 
-    expect(component.find('.o-header__subtitle').text()).toBe(
-      'Tevredenheid cijfers 2019',
-    )
+    expect(component.find('.o-header__subtitle').text()).toBe('Tevredenheid cijfers 2019')
   })
 
   it('shows a table with a row for each grade from the BBGA API', function() {
     const component = getComponent()
 
-    expect(component.find('.c-table tr:nth-child(1) th').text()).toBe(
-      'Variabele A',
-    )
-    expect(component.find('.c-table tr:nth-child(2) th').text()).toBe(
-      'Variabele B',
-    )
+    expect(component.find('.c-table tr:nth-child(1) th').text()).toBe('Variabele A')
+    expect(component.find('.c-table tr:nth-child(2) th').text()).toBe('Variabele B')
   })
 
   it("doesn't show a row for missing data", function() {

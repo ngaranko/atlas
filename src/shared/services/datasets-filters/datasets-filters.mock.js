@@ -150,18 +150,8 @@ const mockApiData = {
             default: 'gepland',
             description:
               'Datasets met status "beschikbaar" worden weergegeven in dataportaal. Datasets "in onderzoek" ook, maar voorzien van een kanttekening totdat een beheerder de datasets gecontroleerd en weer beschikbaar heeft gemaakt. Datasets met andere statussen zijn niet vindbaar in dataportaal, maar mogelijk wel via andere wegen (als je de link hebt).',
-            enum: [
-              'in_onderzoek',
-              'niet_beschikbaar',
-              'beschikbaar',
-              'gepland',
-            ],
-            enumNames: [
-              'In onderzoek',
-              'Niet beschikbaar',
-              'Beschikbaar',
-              'Gepland',
-            ],
+            enum: ['in_onderzoek', 'niet_beschikbaar', 'beschikbaar', 'gepland'],
+            enumNames: ['In onderzoek', 'Niet beschikbaar', 'Beschikbaar', 'Gepland'],
             minLength: 1,
             readOnly: false,
             title: 'Status',
@@ -255,29 +245,14 @@ const mockApiData = {
                 },
                 'ams:resourceType': {
                   enum: ['data', 'doc', 'vis', 'app'],
-                  enumNames: [
-                    'Data',
-                    'Documentatie',
-                    'Visualisatie',
-                    'Voorbeeldtoepassing',
-                  ],
+                  enumNames: ['Data', 'Documentatie', 'Visualisatie', 'Voorbeeldtoepassing'],
                   minLength: 1,
                   title: 'Type resource',
                   type: 'string',
                 },
                 'ams:serviceType': {
                   description: 'Geef het type API of webservice',
-                  enum: [
-                    'atom',
-                    'rest',
-                    'csw',
-                    'wcs',
-                    'wfs',
-                    'wms',
-                    'wmts',
-                    'soap',
-                    'other',
-                  ],
+                  enum: ['atom', 'rest', 'csw', 'wcs', 'wfs', 'wms', 'wmts', 'soap', 'other'],
                   enumNames: [
                     'REST: Atom feed',
                     'REST: overig',
@@ -1892,8 +1867,7 @@ const mockApiData = {
           'dct:temporal': {
             properties: {
               'time:hasBeginning': {
-                description:
-                  'Geef de tijdsperiode aan (begindatum), die de gegevensset beslaat.',
+                description: 'Geef de tijdsperiode aan (begindatum), die de gegevensset beslaat.',
                 format: 'date',
                 minLength: 1,
                 pattern:
@@ -1902,8 +1876,7 @@ const mockApiData = {
                 type: 'string',
               },
               'time:hasEnd': {
-                description:
-                  'Geef de tijdsperiode aan (einddatum), die de gegevensset beslaat.',
+                description: 'Geef de tijdsperiode aan (einddatum), die de gegevensset beslaat.',
                 format: 'date',
                 minLength: 1,
                 pattern:
@@ -2061,8 +2034,7 @@ const mockApiData = {
             schema: {
               oneOf: [
                 {
-                  description:
-                    'A string, if the comparator is one of ``=``, ``>``, or ``<``',
+                  description: 'A string, if the comparator is one of ``=``, ``>``, or ``<``',
                   type: 'string',
                 },
                 {
@@ -2105,8 +2077,7 @@ const mockApiData = {
         },
       },
       post: {
-        description:
-          'Upload a new dataset and let the system generate an identifier.',
+        description: 'Upload a new dataset and let the system generate an identifier.',
         requestBody: {
           content: {
             'application/json': {

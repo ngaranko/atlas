@@ -54,9 +54,7 @@ describe('The auto-suggest service', () => {
       expect(suggestions.data[0].label).toBe('Straatnamen (1)')
       expect(suggestions.data[0].content.length).toBe(1)
 
-      expect(suggestions.data[0].content[0].label).toBe(
-        'Linnaeusstraat (427 adressen)',
-      )
+      expect(suggestions.data[0].content[0].label).toBe('Linnaeusstraat (427 adressen)')
       expect(suggestions.data[0].content[0].uri).toBe('bag/openbareruimte/123')
       expect(suggestions.data[0].content[0].category).toBe('Straatnamen (1)')
 

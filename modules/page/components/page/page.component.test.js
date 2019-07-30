@@ -25,14 +25,8 @@ describe('The page component', function() {
       $templateCache = _$templateCache_
     })
 
-    $templateCache.put(
-      'modules/page/components/page/templates/welcome.html',
-      'THIS_IS_WELCOME',
-    )
-    $templateCache.put(
-      'modules/page/components/page/templates/about.html',
-      'THIS_IS_ABOUT',
-    )
+    $templateCache.put('modules/page/components/page/templates/welcome.html', 'THIS_IS_WELCOME')
+    $templateCache.put('modules/page/components/page/templates/about.html', 'THIS_IS_ABOUT')
 
     spyOn(getContents, 'default').and.returnValue({
       then: func => (getContentsThen = func),
@@ -66,10 +60,7 @@ describe('The page component', function() {
   })
 
   it('loads cms contents for the specified type and item', function() {
-    $templateCache.put(
-      'modules/page/components/page/templates/name.html',
-      'NAME',
-    )
+    $templateCache.put('modules/page/components/page/templates/name.html', 'NAME')
 
     const component = getComponent('name', 'type', 'item')
     const scope = component.isolateScope()

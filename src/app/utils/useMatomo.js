@@ -5,21 +5,13 @@ function useMatomo() {
   const { href } = window.location
 
   const trackPageView = documentTitle => {
-    matomoTracker(
-      [MATOMO_CONSTANTS.TRACK_VIEW, documentTitle, href, null],
-      href,
-      documentTitle,
-    )
+    matomoTracker([MATOMO_CONSTANTS.TRACK_VIEW, documentTitle, href, null], href, documentTitle)
 
     return documentTitle
   }
 
   const trackEvent = (documentTitle, category, action, name = null) => {
-    matomoTracker(
-      [MATOMO_CONSTANTS.TRACK_EVENT, category, action, name],
-      href,
-      documentTitle,
-    )
+    matomoTracker([MATOMO_CONSTANTS.TRACK_EVENT, category, action, name], href, documentTitle)
   }
 
   return {

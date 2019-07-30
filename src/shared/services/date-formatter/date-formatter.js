@@ -19,9 +19,7 @@ export default function formatDate(date) {
 
 function isValidDate(date) {
   return (
-    date &&
-    Object.prototype.toString.call(date) === '[object Date]' &&
-    !Number.isNaN(Number(date))
+    date && Object.prototype.toString.call(date) === '[object Date]' && !Number.isNaN(Number(date))
   )
 }
 
