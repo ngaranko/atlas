@@ -16,9 +16,7 @@ const StyledContainer = styled.div`
 `
 
 const ContentContainer = ({ children, className }) => (
-  <StyledContainer className={className}>
-    {children}
-  </StyledContainer>
+  <StyledContainer className={className}>{children}</StyledContainer>
 )
 
 ContentContainer.defaultProps = {

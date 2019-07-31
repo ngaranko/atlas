@@ -15,12 +15,8 @@ const EditorialOverviewPage = ({ type = '' }) => (
   <Container className="editorial-overview" beamColor="valid">
     <Row>
       <ContentContainer>
-        <Column
-          span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}
-        >
-          <Heading as="h1">
-            {title[type]}
-          </Heading>
+        <Column span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}>
+          <Heading as="h1">{title[type]}</Heading>
         </Column>
       </ContentContainer>
     </Row>

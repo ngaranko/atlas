@@ -14,7 +14,7 @@ describe('ContentContainer', () => {
   })
 
   it('should render', () => {
-      expect(component.find('.content-container').props().children).toStrictEqual(<div />)
+    expect(component.find('.content-container').props().children).toStrictEqual(<div />)
   })
 
   it('should pass the className and beamColor to the styled component', () => {

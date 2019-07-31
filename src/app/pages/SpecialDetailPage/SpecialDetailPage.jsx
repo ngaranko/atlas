@@ -8,7 +8,7 @@ import './SpecialDetailPage.scss'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toSpecialDetail } from '../../../store/redux-first-router/actions'
-import ContentContainer from '../../components/ContentContainer/ContentContainer';
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
 const SpecialDetailPage = ({ id }) => {
   const { results, loading } = useFromCMS(id, cmsConfig.special)
@@ -41,15 +41,13 @@ const SpecialDetailPage = ({ id }) => {
     handleResize(setIframeHeight)
   }
 
-  const { field_iframe_link: iframeLink, field_slug: slug, field_special_type: type, title } = results || {}
+  const { field_iframe_link: iframeLink, field_slug: slug, field_special_type: type, title } =
+    results || {}
   const documentTitle = `Special: ${title}`
   const linkAction = toSpecialDetail(id, type, slug)
 
   return (
-    <EditorialPage
-      {...{ documentTitle, linkAction }}
-      loading={iframeLoading || loading}
-    >
+    <EditorialPage {...{ documentTitle, linkAction }} loading={iframeLoading || loading}>
       <div className="iframe-container ">
         <Row>
           <ContentContainer>
