@@ -12,18 +12,22 @@ exports[`MapDetailBedrijfsinvesteringszone should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Type"
       value="Bedrijfsinvesteringszone type"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Heffingsgrondslag"
       value="Bedrijfsinvesteringszone heffingsgrondslag"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Jaarlijkse heffing"
       value="Bedrijfsinvesteringszone heffingLabel"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Aantal heffingsplichtigen"
       value="80"
     />

@@ -12,6 +12,7 @@ exports[`MapDetailGebiedenGebiedsgerichtWerken should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Code"
       value="A"
     />

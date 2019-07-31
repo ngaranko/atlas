@@ -12,26 +12,32 @@ exports[`MapDetailOplaadpunt should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Adres"
       value="Foo foo"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Aantal"
       value="8"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Soort"
       value="Monument type"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Capaciteit"
       value="Foo"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Connectortype"
       value="Foo"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Status"
       value=""
     />

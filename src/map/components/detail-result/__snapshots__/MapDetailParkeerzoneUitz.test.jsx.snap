@@ -12,6 +12,7 @@ exports[`MapDetailParkeerzoneUitz should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={true}
       label="Omschrijving"
       value="This is a ..."
     />

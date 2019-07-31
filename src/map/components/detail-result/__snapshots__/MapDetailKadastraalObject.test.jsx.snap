@@ -12,14 +12,17 @@ exports[`MapDetailKadastraalObject should not render size 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Kadastrale gemeente"
       value=""
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Gemeente"
       value=""
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Grootte"
       value=""
     />
@@ -39,14 +42,17 @@ exports[`MapDetailKadastraalObject should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Kadastrale gemeente"
       value="Kadastrale gemeente name"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Gemeente"
       value="Gemeentenaam!"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Grootte"
       value="115 m²"
     />
@@ -66,14 +72,17 @@ exports[`MapDetailKadastraalObject should render with zero value for size 1`] = 
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Kadastrale gemeente"
       value=""
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Gemeente"
       value=""
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Grootte"
       value="0 m²"
     />
@@ -93,14 +102,17 @@ exports[`MapDetailKadastraalObject should render without kadastrale gemeente 1`]
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Kadastrale gemeente"
       value=""
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Gemeente"
       value=""
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Grootte"
       value="115 m²"
     />

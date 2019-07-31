@@ -123,10 +123,13 @@ $icon-height: 24px;
 
     &-value {
       min-height: 20px;
-      overflow: hidden;
       padding-right: $base-whitespace;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+
+      &:not(&--multiline) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
       &::after {
         border-radius: 50%;

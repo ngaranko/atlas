@@ -12,10 +12,12 @@ exports[`MapDetailEvenement should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Startdatum"
       value="12-12-2012"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Einddatum"
       value="12-12-2012"
     />
