@@ -1,7 +1,6 @@
 node_modules
 /scripts
 /test/dyson
-
 /public
 coverage
 coverage-legacy
