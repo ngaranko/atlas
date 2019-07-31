@@ -1,15 +1,16 @@
-import { BlogPost, Column, Row } from '@datapunt/asc-ui'
+import { Column, Row } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import setIframeSize from '../../../shared/services/set-iframe-size/setIframeSize'
 import useFromCMS from '../../utils/useFromCMS'
-import './SpecialsPage.scss'
-import BlogPage from '../../components/BlogPage/BlogPage'
+import './SpecialDetailPage.scss'
+import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
-import { toSpecial } from '../../../store/redux-first-router/actions'
+import { toSpecialDetail } from '../../../store/redux-first-router/actions'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
-const SpecialsPage = ({ id }) => {
+const SpecialDetailPage = ({ id }) => {
   const { results, loading } = useFromCMS(id, cmsConfig.special)
   const [iframeLoading, setIframeLoading] = React.useState(true)
   const [iframeHeight, setIframeHeight] = React.useState(0)
@@ -40,17 +41,16 @@ const SpecialsPage = ({ id }) => {
     handleResize(setIframeHeight)
   }
 
-  const { field_iframe_link: iframeLink, field_slug: slug, title } = results || {}
+  const { field_iframe_link: iframeLink, field_slug: slug, field_special_type: type, title } =
+    results || {}
   const documentTitle = `Special: ${title}`
+  const linkAction = toSpecialDetail(id, type, slug)
 
   return (
-    <BlogPage
-      {...{ id, slug, documentTitle, linkAction: toSpecial }}
-      loading={iframeLoading || loading}
-    >
+    <EditorialPage {...{ documentTitle, linkAction }} loading={iframeLoading || loading}>
       <div className="iframe-container ">
         <Row>
-          <BlogPost>
+          <ContentContainer>
             <Column wrap span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}>
               {iframeLink && (
                 <iframe
@@ -64,10 +64,10 @@ const SpecialsPage = ({ id }) => {
                 />
               )}
             </Column>
-          </BlogPost>
+          </ContentContainer>
         </Row>
       </div>
-    </BlogPage>
+    </EditorialPage>
   )
 }
 
@@ -81,4 +81,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   null,
-)(SpecialsPage)
+)(SpecialDetailPage)

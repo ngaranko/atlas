@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
-import BlogPage from './BlogPage'
+import EditorialPage from './EditorialPage'
 import useMatomo from '../../utils/useMatomo'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import useDocumentTitle from '../../utils/useDocumentTitle'
@@ -11,7 +11,7 @@ jest.mock('../../utils/useDocumentTitle')
 jest.mock('../../utils/useMatomo')
 jest.mock('../Footer/Footer')
 
-describe('BlogPage', () => {
+describe('EditorialPage', () => {
   let component
   const mockSetDocumentTitle = jest.fn()
   const mockTrackPageView = jest.fn()
@@ -26,7 +26,7 @@ describe('BlogPage', () => {
     useMatomo.mockImplementation(() => ({ trackPageView: mockTrackPageView }))
     Footer.mockImplementation(() => <></>)
 
-    component = shallow(<BlogPage id="6" slug="foo" linkAction={() => {}} />).dive()
+    component = shallow(<EditorialPage linkAction={{}} />).dive()
   })
 
   afterEach(() => {
@@ -46,7 +46,7 @@ describe('BlogPage', () => {
   })
 
   it('should set the document title and send to analytics', () => {
-    component = mount(<BlogPage id={6} slug="foo" linkAction={() => {}} documentTitle="" />)
+    component = mount(<EditorialPage linkAction={{}} documentTitle="" />)
 
     expect(mockSetDocumentTitle).not.toHaveBeenCalled()
     expect(mockTrackPageView).not.toHaveBeenCalled()

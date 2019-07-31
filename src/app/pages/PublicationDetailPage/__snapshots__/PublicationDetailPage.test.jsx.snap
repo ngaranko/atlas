@@ -1,12 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PublicationsPage should render the publication when there are results 1`] = `
-<BlogPage
+exports[`PublicationDetailPage should render the publication when there are results 1`] = `
+<EditorialPage
   documentTitle="Publicatie: This is a title"
-  id={3}
-  linkAction={[Function]}
+  linkAction={
+    Object {
+      "payload": Object {
+        "id": 3,
+        "slug": "slug",
+      },
+      "type": "atlasRouter/PUBLICATION_DETAIL",
+    }
+  }
   loading={false}
-  slug="slug"
 >
   <Column
     debug={false}
@@ -24,7 +30,9 @@ exports[`PublicationsPage should render the publication when there are results 1
     }
     wrap="true"
   >
-    <Publication>
+    <ContentContainer
+      className="content-container"
+    >
       <Row
         debug={false}
         debugColor="rgba(51,102,153,0.75)"
@@ -142,7 +150,7 @@ exports[`PublicationsPage should render the publication when there are results 1
           </Column>
         </Column>
       </Row>
-    </Publication>
+    </ContentContainer>
   </Column>
-</BlogPage>
+</EditorialPage>
 `;

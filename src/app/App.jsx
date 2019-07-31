@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { GlobalStyle, ThemeProvider } from '@datapunt/asc-ui'
-import { isOldCmsPage, isCmsPage } from './pages'
+import { isOldCmsPage, isEditorialPage } from './pages'
 import './_app.scss'
 import {
   hasOverflowScroll,
@@ -17,8 +17,8 @@ import {
 } from '../shared/ducks/ui/ui'
 import { hasGlobalError } from '../shared/ducks/error/error-message'
 import { getUser } from '../shared/ducks/user/user'
-import { getPage, isHomepage, isSpecialsPage } from '../store/redux-first-router/selectors'
-import Header from './components/Header'
+import { getPage, isHomepage } from '../store/redux-first-router/selectors'
+import Header from './components/Header/Header'
 import { AppStateProvider } from './utils/useAppReducer'
 import AppBody from './AppBody'
 import main, { initialState } from './react-reducers'
@@ -38,12 +38,14 @@ const App = ({
   hasPrintButton,
   hasEmbedButton,
 }) => {
-  const hasMaxWidth = homePage || isOldCmsPage(currentPage) || isCmsPage(currentPage)
+  const editorialPage = isEditorialPage(currentPage)
+  const hasMaxWidth = homePage || editorialPage || isOldCmsPage(currentPage)
 
   const rootClasses = classNames({
     'c-dashboard--max-width': hasMaxWidth,
     'c-dashboard--full-height': isFullHeight,
     'c-dashboard--homepage': homePage,
+    'c-dashboard--editorial': editorialPage,
   })
   const bodyClasses = classNames({
     'c-dashboard__body--error': visibilityError,
@@ -144,7 +146,6 @@ const mapStateToProps = state => ({
   currentPage: getPage(state),
   embedMode: isEmbedded(state),
   homePage: isHomepage(state),
-  specialsPage: isSpecialsPage(state),
   printMode: isPrintMode(state),
   printModeLandscape: isPrintModeLandscape(state),
   embedPreviewMode: isEmbedPreview(state),

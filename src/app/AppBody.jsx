@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import { FeedbackModal, InfoModal } from './components/Modal'
-import PAGES, { isMapSplitPage, isOldCmsPage } from './pages'
+import PAGES, { isMapSplitPage, isOldCmsPage, isEditorialOverviewPage } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
@@ -20,10 +20,11 @@ const DatasetDetailContainer = React.lazy(() =>
 const ConstructionFilesContainer = React.lazy(() =>
   import('./containers/ConstructionFilesContainer/ConstructionFilesContainer'),
 )
-const SpecialsPage = React.lazy(() => import('./pages/SpecialsPage'))
-const ArticlePage = React.lazy(() => import('./pages/ArticlePage'))
-const PublicationsPage = React.lazy(() => import('./pages/PublicationsPage'))
-const MapSplitPage = React.lazy(() => import(/* webpackPrefetch: true */ './pages/MapSplitPage'))
+const ArticleDetailPage = React.lazy(() => import('./pages/ArticleDetailPage'))
+const PublicationDetailPage = React.lazy(() => import('./pages/PublicationDetailPage'))
+const SpecialDetailPage = React.lazy(() => import('./pages/SpecialDetailPage'))
+const EditorialOverviewPage = React.lazy(() => import('./pages/EditorialOverviewPage'))
+const MapSplitPage = React.lazy(() => import('./pages/MapSplitPage'))
 
 const AppBody = ({
   visibilityError,
@@ -66,15 +67,14 @@ const AppBody = ({
 
               {currentPage === PAGES.CONSTRUCTION_FILE && <ConstructionFilesContainer />}
 
+              {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
               {currentPage === PAGES.DATASETS && <DatasetPage />}
 
-              {currentPage === PAGES.DATASET_DETAIL && <DatasetDetailContainer />}
+              {currentPage === PAGES.ARTICLE_DETAIL && <ArticleDetailPage />}
+              {currentPage === PAGES.SPECIAL_DETAIL && <SpecialDetailPage />}
+              {currentPage === PAGES.PUBLICATION_DETAIL && <PublicationDetailPage />}
 
-              {currentPage === PAGES.ARTICLE && <ArticlePage />}
-
-              {currentPage === PAGES.SPECIALS && <SpecialsPage />}
-
-              {currentPage === PAGES.PUBLICATIONS && <PublicationsPage />}
+              {isEditorialOverviewPage(currentPage) && <EditorialOverviewPage type={currentPage} />}
 
               {isOldCmsPage(currentPage) && <ContentPage />}
 

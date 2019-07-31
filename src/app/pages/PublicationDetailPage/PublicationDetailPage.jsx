@@ -4,7 +4,6 @@ import download from 'downloadjs'
 import {
   Column,
   Row,
-  Publication,
   CustomHTMLBlock,
   BlogHeader,
   BlogMetaList,
@@ -15,11 +14,12 @@ import {
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
-import BlogPage from '../../components/BlogPage/BlogPage'
+import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import cmsConfig from '../../../shared/services/cms/cms-config'
-import { toPublication } from '../../../store/redux-first-router/actions'
+import { toPublicationDetail } from '../../../store/redux-first-router/actions'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
-const PublicationsPage = ({ id }) => {
+const PublicationDetailPage = ({ id }) => {
   const { results, loading } = useFromCMS(id, cmsConfig.publication)
 
   const {
@@ -37,13 +37,14 @@ const PublicationsPage = ({ id }) => {
 
   const downloadUrl = included ? results.included[3].attributes.uri.url : {}
   const documentTitle = `Publicatie: ${title}`
+  const linkAction = toPublicationDetail(id, slug)
 
   return (
-    <BlogPage {...{ id, slug, documentTitle, loading, linkAction: toPublication }}>
+    <EditorialPage {...{ documentTitle, loading, linkAction }}>
       {!loading && (
         <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
           {!loading && body && (
-            <Publication>
+            <ContentContainer>
               <Row>
                 <Column wrap span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
                   <Column
@@ -88,11 +89,11 @@ const PublicationsPage = ({ id }) => {
                   </Column>
                 </Column>
               </Row>
-            </Publication>
+            </ContentContainer>
           )}
         </Column>
       )}
-    </BlogPage>
+    </EditorialPage>
   )
 }
 
@@ -106,4 +107,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   null,
-)(PublicationsPage)
+)(PublicationDetailPage)
