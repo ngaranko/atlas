@@ -44,11 +44,11 @@ const PanoramaToggle = ({
         alt="Actiemenu"
         open={showMenu}
         arrowIcon={<ChevronDown />}
-        icon={(
+        icon={
           <Icon padding={4} inline size={24}>
             <Clock />
           </Icon>
-)}
+        }
         label={currentLabel}
         position="bottom"
       >
@@ -67,11 +67,11 @@ const PanoramaToggle = ({
           key="google-street-view"
           role="button"
           onClick={() => handleOpenPanoramaExternal()}
-          icon={(
+          icon={
             <Icon padding={4} inline size={24}>
               <ExternalLink />
             </Icon>
-)}
+          }
         >
           Google Street View
         </ContextMenuItem>
@@ -81,7 +81,7 @@ const PanoramaToggle = ({
 }
 
 PanoramaToggle.defaultProps = {
-  location: ''
+  location: '',
 }
 
 PanoramaToggle.propTypes = {

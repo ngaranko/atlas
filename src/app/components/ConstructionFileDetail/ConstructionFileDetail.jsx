@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Heading } from '@datapunt/asc-ui';
-import Gallery from '../Gallery/Gallery';
-import getAddresses from '../../../normalizations/construction-files/getAddresses';
-import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction';
-import withGrid from '../../utils/withGrid';
-import { toDataDetail } from '../../../store/redux-first-router/actions';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Heading } from '@datapunt/asc-ui'
+import Gallery from '../Gallery/Gallery'
+import getAddresses from '../../../normalizations/construction-files/getAddresses'
+import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
+import withGrid from '../../utils/withGrid'
+import { toDataDetail } from '../../../store/redux-first-router/actions'
 import '../DataSelection/DataSelectionTable/DataSelectionTable.scss'
 
 const ConstructionFileDetail = ({ results }) => {
@@ -15,27 +15,20 @@ const ConstructionFileDetail = ({ results }) => {
     datering: date,
     dossier_type: fileType,
     dossiernr: fileNumber,
-    stadsdeel: district
-  } = results;
+    stadsdeel: district,
+  } = results
 
   return (
     <div className="c-construction-files">
       {withGrid(
         <React.Fragment>
-          <Heading
-            className="c-construction-files__subtitle"
-            color="secondary"
-            as="h3"
-          >
+          <Heading className="c-construction-files__subtitle" color="secondary" as="h3">
             Bouwdossier
           </Heading>
-          <Heading
-            className="c-construction-files__title"
-            as="h1"
-          >
+          <Heading className="c-construction-files__title" as="h1">
             {title}
           </Heading>
-        </React.Fragment>
+        </React.Fragment>,
       )}
 
       <div className="c-ds-table">
@@ -88,17 +81,16 @@ const ConstructionFileDetail = ({ results }) => {
         ))}
       {withGrid(
         <React.Fragment>
-          <Heading
-            className="c-construction-files__subtitle"
-            as="h3"
-          >
+          <Heading className="c-construction-files__subtitle" as="h3">
             Adressen
           </Heading>
           <ul className="o-list">
-            {getAddresses(results).map((address) => (
+            {getAddresses(results).map(address => (
               <li key={address.id}>
                 <a
-                  {...linkAttributesFromAction(toDataDetail([address.id, 'bag', 'nummeraanduiding']))}
+                  {...linkAttributesFromAction(
+                    toDataDetail([address.id, 'bag', 'nummeraanduiding']),
+                  )}
                   className="o-btn o-btn--link qa-dp-link"
                   title={address.label}
                 >
@@ -107,11 +99,11 @@ const ConstructionFileDetail = ({ results }) => {
               </li>
             ))}
           </ul>
-        </React.Fragment>
+        </React.Fragment>,
       )}
     </div>
-  );
-};
+  )
+}
 
 ConstructionFileDetail.propTypes = {
   results: PropTypes.shape({
@@ -121,8 +113,8 @@ ConstructionFileDetail.propTypes = {
     dossier_type: PropTypes.string.isRequired,
     dossiernr: PropTypes.number.isRequired,
     stadsdeel: PropTypes.string.isRequired,
-    adressen: PropTypes.arrayOf(PropTypes.shape({}))
-  }).isRequired
-};
+    adressen: PropTypes.arrayOf(PropTypes.shape({})),
+  }).isRequired,
+}
 
-export default ConstructionFileDetail;
+export default ConstructionFileDetail

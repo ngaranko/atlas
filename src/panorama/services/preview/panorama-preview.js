@@ -11,15 +11,10 @@ export default function fetchPano(location) {
   }
 
   const queryString = Object.keys(searchParams)
-    .map(
-      key =>
-        `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`,
-    )
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
     .join('&')
 
-  return getByUrl(
-    `${SHARED_CONFIG.API_ROOT}panorama/thumbnail/?${queryString}`,
-  ).then(response => ({
+  return getByUrl(`${SHARED_CONFIG.API_ROOT}panorama/thumbnail/?${queryString}`).then(response => ({
     id: response.pano_id,
     heading: response.heading,
     url: response.url,

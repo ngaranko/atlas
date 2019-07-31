@@ -31,9 +31,7 @@ describe('The http-status component', function() {
   it('sets the error type given', () => {
     const errorType = 'foo'
     httpStatus.registerError(errorType)
-    expect($window.reduxStore.dispatch).toHaveBeenCalledWith(
-      setGlobalError(errorType),
-    )
+    expect($window.reduxStore.dispatch).toHaveBeenCalledWith(setGlobalError(errorType))
   })
 
   it('should do nothing when the reduxStore dispatch is not defined', () => {

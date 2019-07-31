@@ -29,10 +29,7 @@ describe('The localization service', function() {
       const options = { foo: 'bar' }
       localization.toLocaleString(1.2, 'nl-NL', options)
 
-      expect(Number.prototype.toLocaleString).toHaveBeenCalledWith(
-        'nl-NL',
-        options,
-      )
+      expect(Number.prototype.toLocaleString).toHaveBeenCalledWith('nl-NL', options)
     })
 
     it('simply returns the number if toLocaleString does not support arguments', () => {

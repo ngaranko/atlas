@@ -25,7 +25,7 @@ const originalConsoleError = message => {
 
 console.error = (...args) => {
   if (/Warning.*not wrapped in act/.test(args[0])) {
-    return;
+    return
   }
-  originalConsoleError(...args);
-};
+  originalConsoleError(...args)
+}

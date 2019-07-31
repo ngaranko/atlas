@@ -20,12 +20,7 @@ describe('The http error registrar', () => {
 
     angular.mock.module('dpShared', { httpStatus })
 
-    angular.mock.inject(function(
-      _$httpBackend_,
-      _$http_,
-      _$interval_,
-      _$window_,
-    ) {
+    angular.mock.inject(function(_$httpBackend_, _$http_, _$interval_, _$window_) {
       $httpBackend = _$httpBackend_
       $http = _$http_
       $interval = _$interval_
@@ -43,33 +38,19 @@ describe('The http error registrar', () => {
     }
     callbackCalled = false
 
-    $httpBackend
-      .whenGET('http://api-domain.amsterdam.nl/200')
-      .respond(200, mockedData)
+    $httpBackend.whenGET('http://api-domain.amsterdam.nl/200').respond(200, mockedData)
 
-    $httpBackend
-      .whenGET('http://api-domain.amsterdam.nl/300')
-      .respond(300, mockedData)
+    $httpBackend.whenGET('http://api-domain.amsterdam.nl/300').respond(300, mockedData)
 
-    $httpBackend
-      .whenGET('http://api-domain.amsterdam.nl/400')
-      .respond(400, mockedData)
+    $httpBackend.whenGET('http://api-domain.amsterdam.nl/400').respond(400, mockedData)
 
-    $httpBackend
-      .whenGET('http://api-domain.amsterdam.nl/401')
-      .respond(401, mockedData)
+    $httpBackend.whenGET('http://api-domain.amsterdam.nl/401').respond(401, mockedData)
 
-    $httpBackend
-      .whenGET('http://api-domain.amsterdam.nl/404')
-      .respond(404, mockedData)
+    $httpBackend.whenGET('http://api-domain.amsterdam.nl/404').respond(404, mockedData)
 
-    $httpBackend
-      .whenGET('http://api-domain.amsterdam.nl/500')
-      .respond(500, mockedData)
+    $httpBackend.whenGET('http://api-domain.amsterdam.nl/500').respond(500, mockedData)
 
-    $httpBackend
-      .whenGET('http://api-domain.amsterdam.nl/-1')
-      .respond(-1, mockedData)
+    $httpBackend.whenGET('http://api-domain.amsterdam.nl/-1').respond(-1, mockedData)
 
     spyOn($window.auth, 'logout')
     spyOn($window.auth, 'initialize')
@@ -127,10 +108,7 @@ describe('The http error registrar', () => {
     $interval.flush(FLUSH_PERIOD)
 
     expect(httpStatus.registerError).not.toHaveBeenCalled()
-    expect(httpStatus.logResponse).toHaveBeenCalledWith(
-      `Unkown HTTP response error, ${url}`,
-      300,
-    )
+    expect(httpStatus.logResponse).toHaveBeenCalledWith(`Unkown HTTP response error, ${url}`, 300)
   })
 
   it('handles client error responses and requests', () => {
@@ -140,13 +118,8 @@ describe('The http error registrar', () => {
     $httpBackend.flush()
     $interval.flush(FLUSH_PERIOD)
 
-    expect(httpStatus.registerError).toHaveBeenCalledWith(
-      ERROR_TYPES.GENERAL_ERROR,
-    )
-    expect(httpStatus.logResponse).toHaveBeenCalledWith(
-      `HTTP 4xx response, ${url}`,
-      400,
-    )
+    expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR)
+    expect(httpStatus.logResponse).toHaveBeenCalledWith(`HTTP 4xx response, ${url}`, 400)
   })
 
   it('handles 404 error', () => {
@@ -156,13 +129,8 @@ describe('The http error registrar', () => {
     $httpBackend.flush()
     $interval.flush(FLUSH_PERIOD)
 
-    expect(httpStatus.registerError).toHaveBeenCalledWith(
-      ERROR_TYPES.NOT_FOUND_ERROR,
-    )
-    expect(httpStatus.logResponse).toHaveBeenCalledWith(
-      `HTTP 404 response, ${url}`,
-      404,
-    )
+    expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.NOT_FOUND_ERROR)
+    expect(httpStatus.logResponse).toHaveBeenCalledWith(`HTTP 404 response, ${url}`, 404)
   })
 
   it('registers all http server error responses, leaves content untouched', () => {
@@ -172,13 +140,8 @@ describe('The http error registrar', () => {
     $httpBackend.flush()
     $interval.flush(FLUSH_PERIOD)
 
-    expect(httpStatus.registerError).toHaveBeenCalledWith(
-      ERROR_TYPES.GENERAL_ERROR,
-    )
-    expect(httpStatus.logResponse).toHaveBeenCalledWith(
-      `HTTP 5xx response, ${url}`,
-      500,
-    )
+    expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR)
+    expect(httpStatus.logResponse).toHaveBeenCalledWith(`HTTP 5xx response, ${url}`, 500)
   })
 
   it('registers http server error -1 for non-cancellable responses', () => {
@@ -188,13 +151,8 @@ describe('The http error registrar', () => {
     $httpBackend.flush()
     $interval.flush(FLUSH_PERIOD)
 
-    expect(httpStatus.registerError).toHaveBeenCalledWith(
-      ERROR_TYPES.GENERAL_ERROR,
-    )
-    expect(httpStatus.logResponse).toHaveBeenCalledWith(
-      `HTTP request ended abnormally, ${url}`,
-      -1,
-    )
+    expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR)
+    expect(httpStatus.logResponse).toHaveBeenCalledWith(`HTTP request ended abnormally, ${url}`, -1)
   })
 
   it('registers http server error -1 for non-cancelled responses', () => {
@@ -218,9 +176,7 @@ describe('The http error registrar', () => {
     $httpBackend.flush()
     $interval.flush(FLUSH_PERIOD)
 
-    expect(httpStatus.registerError).toHaveBeenCalledWith(
-      ERROR_TYPES.GENERAL_ERROR,
-    )
+    expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR)
     expect(httpStatus.logResponse).toHaveBeenCalledWith(
       `HTTP timeout request ended abnormally, ${url}`,
       -1,
@@ -266,8 +222,6 @@ describe('The http error registrar', () => {
 
     $interval.flush(FLUSH_PERIOD)
 
-    expect(httpStatus.registerError).toHaveBeenCalledWith(
-      ERROR_TYPES.NOT_FOUND_ERROR,
-    )
+    expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.NOT_FOUND_ERROR)
   })
 })

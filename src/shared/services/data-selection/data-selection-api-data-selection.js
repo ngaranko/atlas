@@ -17,9 +17,7 @@ const formatFilters = rawData =>
 const getDetailEndpoint = (config, rawDataRow) =>
   rawDataRow.dataset === 'mac'
     ? `${sharedConfig.API_ROOT}handelsregister/maatschappelijkeactiviteit/${rawDataRow.kvk_nummer}/`
-    : `${sharedConfig.API_ROOT}${config.ENDPOINT_DETAIL}${
-        rawDataRow[config.PRIMARY_KEY]
-      }/`
+    : `${sharedConfig.API_ROOT}${config.ENDPOINT_DETAIL}${rawDataRow[config.PRIMARY_KEY]}/`
 
 const formatData = (config, rawData) =>
   rawData.map(rawDataRow => {
@@ -33,10 +31,7 @@ const formatData = (config, rawData) =>
   })
 
 export function getMarkers(config, activeFilters) {
-  return getByUrl(
-    sharedConfig.API_ROOT + config.ENDPOINT_MARKERS,
-    activeFilters,
-  ).then(data => ({
+  return getByUrl(sharedConfig.API_ROOT + config.ENDPOINT_MARKERS, activeFilters).then(data => ({
     clusterMarkers: data.object_list
       // eslint-disable-next-line no-underscore-dangle
       .map(object => object._source.centroid)

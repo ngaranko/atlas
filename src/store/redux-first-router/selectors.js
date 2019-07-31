@@ -27,9 +27,7 @@ export const getDetailLocation = createSelector(
 export const getPage = createSelector(
   getLocation,
   (location = {}) => {
-    const key = Object.keys(routing).find(
-      route => routing[route].type === location.type,
-    )
+    const key = Object.keys(routing).find(route => routing[route].type === location.type)
     return (key && routing[key].page) || routing.niet_gevonden.page
   },
 )
@@ -57,17 +55,13 @@ export const isDatasetDetailPage = createSelector(
 export const isDatasetPage = createSelector(
   getPage,
   page =>
-    page === PAGES.DATASETS ||
-    page === PAGES.DATASET_DETAIL ||
-    page === PAGES.SEARCH_DATASETS,
+    page === PAGES.DATASETS || page === PAGES.DATASET_DETAIL || page === PAGES.SEARCH_DATASETS,
 )
 
 export const isDataSelectionPage = createSelector(
   getPage,
   page =>
-    page === PAGES.ADDRESSES ||
-    page === PAGES.CADASTRAL_OBJECTS ||
-    page === PAGES.ESTABLISHMENTS,
+    page === PAGES.ADDRESSES || page === PAGES.CADASTRAL_OBJECTS || page === PAGES.ESTABLISHMENTS,
 )
 
 export const hasUserAccesToPage = createSelector(

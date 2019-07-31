@@ -1,7 +1,5 @@
 ;(function() {
-  angular
-    .module('dpShared')
-    .filter('dpUppercaseFirstLetter', dpUppercaseFirstLetterFilter)
+  angular.module('dpShared').filter('dpUppercaseFirstLetter', dpUppercaseFirstLetterFilter)
 
   function dpUppercaseFirstLetterFilter() {
     return function(input) {

@@ -119,26 +119,20 @@ describe('DataSelection api', () => {
   it('calls the api factory with the active filters, page and shape as searchParams', async () => {
     // Without active filters
     query(config, 'LIST', {}, 1, 'search', '[[3,12]]')
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      `${sharedConfig.API_ROOT}zwembaden/`,
-      {
-        page: 1,
-        dataset: 'ves',
-        shape: '[[3,12]]',
-      },
-    )
+    expect(api.getByUrl).toHaveBeenCalledWith(`${sharedConfig.API_ROOT}zwembaden/`, {
+      page: 1,
+      dataset: 'ves',
+      shape: '[[3,12]]',
+    })
 
     // With active filters
     query(config, 'TABLE', { water: 'Verwarmd' }, 2)
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      `${sharedConfig.API_ROOT}zwembaden/`,
-      {
-        water: 'Verwarmd',
-        page: 2,
-        dataset: 'ves',
-        shape: '[]',
-      },
-    )
+    expect(api.getByUrl).toHaveBeenCalledWith(`${sharedConfig.API_ROOT}zwembaden/`, {
+      water: 'Verwarmd',
+      page: 2,
+      dataset: 'ves',
+      shape: '[]',
+    })
 
     // With yet another page
     const output = await query(config, 'LIST', {}, 9999)
@@ -317,20 +311,14 @@ describe('DataSelection api', () => {
     it('calls the api factory with the active filters as searchParams', () => {
       // Without filters
       getMarkers(config, {})
-      expect(api.getByUrl).toHaveBeenCalledWith(
-        `${sharedConfig.API_ROOT}zwembaden/markers/`,
-        {},
-      )
+      expect(api.getByUrl).toHaveBeenCalledWith(`${sharedConfig.API_ROOT}zwembaden/markers/`, {})
 
       // With filters
       getMarkers(config, { water: 'Verwarmd' })
 
-      expect(api.getByUrl).toHaveBeenCalledWith(
-        `${sharedConfig.API_ROOT}zwembaden/markers/`,
-        {
-          water: 'Verwarmd',
-        },
-      )
+      expect(api.getByUrl).toHaveBeenCalledWith(`${sharedConfig.API_ROOT}zwembaden/markers/`, {
+        water: 'Verwarmd',
+      })
     })
 
     it('returns an array of locations [lat, lon]', async () => {

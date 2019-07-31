@@ -93,12 +93,12 @@ const PanoramaContainer = React.lazy(() => import('../../panorama/containers/Pan
     if (viewMode === VIEW_MODE.SPLIT) {
       return (
         <SplitScreen
-          leftComponent={(
+          leftComponent={
             <MapContainer
               isFullscreen={false}
               toggleFullscreen={() => setViewMode(VIEW_MODE.MAP)}
             />
-)}
+          }
           rightComponent={Component}
           printMode={printMode}
         />

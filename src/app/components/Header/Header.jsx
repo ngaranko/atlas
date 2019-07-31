@@ -2,12 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { css } from '@datapunt/asc-core'
-import {
-  Header as HeaderComponent,
-  styles,
-  breakpoint,
-  ascDefaultTheme,
-} from '@datapunt/asc-ui'
+import { Header as HeaderComponent, styles, breakpoint, ascDefaultTheme } from '@datapunt/asc-ui'
 import HeaderSearchContainer from '../../../header/containers/header-search/HeaderSearchContainer'
 import { useAppReducer } from '../../utils/useAppReducer'
 import HeaderMenuContainer from './HeaderMenuContainer'
@@ -36,9 +31,7 @@ const style = css`
 `
 
 const MenuDefault = props => <HeaderMenuContainer {...props} type="default" />
-const MenuMobile = props => (
-  <HeaderMenuContainer {...props} type="mobile" align="right" />
-)
+const MenuMobile = props => <HeaderMenuContainer {...props} type="mobile" align="right" />
 
 const Header = ({
   homePage,
@@ -73,11 +66,7 @@ const Header = ({
                 showAt="laptopM"
                 onExpand={setBackDrop}
               />
-              <MenuMobile
-                data-test="header-menu-mobile"
-                hideAt="laptopM"
-                onExpand={setBackDrop}
-              />
+              <MenuMobile data-test="header-menu-mobile" hideAt="laptopM" onExpand={setBackDrop} />
             </React.Fragment>
           }
         />

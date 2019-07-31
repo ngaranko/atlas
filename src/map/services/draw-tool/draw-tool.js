@@ -130,10 +130,7 @@ export function createPolygon(layer) {
 // Called when a polygon is finished (end draw or end edit)
 export function finishPolygon() {
   currentShape.markersEdit = []
-  if (
-    drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT &&
-    !currentShape.isConsistent
-  ) {
+  if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT && !currentShape.isConsistent) {
     // Exit edit mode with an inconsistent shape; restore previous shape
     setPolygon([...currentShape.markersPrev])
     updateShape()
@@ -166,6 +163,7 @@ function clearTexts(obj) {
     (acc, key) => ({
       ...acc,
       [key]:
+        // eslint-disable-next-line no-nested-ternary
         typeof obj[key] === 'object'
           ? clearTexts(obj[key])
           : typeof obj[key] === 'string'
@@ -184,18 +182,13 @@ function initDrawTool(map) {
 
   drawTool.map = map
   drawTool.drawnItems = new L.FeatureGroup()
-  drawTool.drawShapeHandler = new L.Draw.Polygon(
-    drawTool.map,
-    drawToolConfig.draw.polygon,
-  )
+  drawTool.drawShapeHandler = new L.Draw.Polygon(drawTool.map, drawToolConfig.draw.polygon)
 
   const editConfig = { ...drawToolConfig.edit }
   editConfig.featureGroup = drawTool.drawnItems
   const editToolbar = new L.EditToolbar(editConfig)
 
-  drawTool.editShapeHandler = editToolbar.getModeHandlers(
-    drawTool.map,
-  )[0].handler
+  drawTool.editShapeHandler = editToolbar.getModeHandlers(drawTool.map)[0].handler
 
   drawTool.map.addLayer(drawTool.drawnItems)
 }
@@ -325,10 +318,7 @@ function onMapClick() {
   // In edit mode => disable()
   if (drawTool.drawingMode === drawToolConfig.DRAWING_MODE.EDIT) {
     disable()
-  } else if (
-    drawTool.drawingMode !== drawToolConfig.DRAWING_MODE.DRAW &&
-    currentShape.layer
-  ) {
+  } else if (drawTool.drawingMode !== drawToolConfig.DRAWING_MODE.DRAW && currentShape.layer) {
     // If not in Draw or EDIT mode and a polygon exists
     // then the current polygon gets deleted
     // Note: In draw mode the click on map adds a new marker
@@ -428,9 +418,7 @@ function getDistance(latLngs, isClosed) {
       }
       return total
     },
-    isClosed && latLngs.length > 2
-      ? latLngs[0].distanceTo(latLngs[latLngs.length - 1])
-      : 0,
+    isClosed && latLngs.length > 2 ? latLngs[0].distanceTo(latLngs[latLngs.length - 1]) : 0,
   )
 }
 
@@ -448,10 +436,7 @@ export function updateShape() {
     distance = getDistance(latLngs, true)
     area = L.GeometryUtil.geodesicArea(latLngs)
     intersects = currentShape.layer.intersects()
-  } else if (
-    drawTool.drawShapeHandler._markers &&
-    drawTool.drawShapeHandler._markers.length > 0
-  ) {
+  } else if (drawTool.drawShapeHandler._markers && drawTool.drawShapeHandler._markers.length > 0) {
     latLngs = drawTool.drawShapeHandler._markers.map(m => m._latlng)
     area = drawTool.drawShapeHandler._area
     distance = getDistance(latLngs, false)
@@ -474,16 +459,12 @@ export function updateShape() {
       2,
     )} km`
   } else {
-    currentShape.distanceTxt = `${L.GeometryUtil.formattedNumber(
-      distance,
-      1,
-    )} m`
+    currentShape.distanceTxt = `${L.GeometryUtil.formattedNumber(distance, 1)} m`
   }
   currentShape.intersects = intersects
 
   currentShape.isConsistent = !(
-    currentShape.markers.length > currentShape.markersMaxCount ||
-    currentShape.intersects
+    currentShape.markers.length > currentShape.markersMaxCount || currentShape.intersects
   )
 
   if (currentShape.isConsistent) {
@@ -561,7 +542,6 @@ function bindLastDrawnMarker() {
   )
 }
 
-export const isDrawingActive = drawingMode =>
-  drawingMode !== drawToolConfig.DRAWING_MODE.NONE
+export const isDrawingActive = drawingMode => drawingMode !== drawToolConfig.DRAWING_MODE.NONE
 
 /* eslint-enable no-use-before-define,no-underscore-dangle */

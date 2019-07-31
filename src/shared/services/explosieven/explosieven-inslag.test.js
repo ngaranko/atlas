@@ -15,8 +15,7 @@ describe('The explosieven inslag resource', () => {
 
   describe('By uri', () => {
     it('fetches an inslag', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/explosieven/gevrijwaardgebied/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/explosieven/gevrijwaardgebied/123456'
 
       getByUrl.mockReturnValueOnce(
         Promise.resolve({
@@ -52,8 +51,7 @@ describe('The explosieven inslag resource', () => {
     })
 
     it('fetches with empty result object', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/explosieven/gevrijwaardgebied/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/explosieven/gevrijwaardgebied/123456'
 
       getByUrl.mockReturnValueOnce(Promise.resolve({}))
 

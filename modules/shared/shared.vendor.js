@@ -1,6 +1,5 @@
 import proj4 from 'proj4'
 import * as Redux from 'redux'
-
 ;(function() {
   angular.module('dpShared').config(configuration)
 

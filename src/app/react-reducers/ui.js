@@ -13,6 +13,7 @@ export default (state = initialState, action) => {
     case SET_BACKDROP:
       return {
         ...state,
+        // eslint-disable-next-line no-nested-ternary
         nrOfBackdropTriggers: action.payload
           ? state.nrOfBackdropTriggers + 1
           : state.nrOfBackdropTriggers

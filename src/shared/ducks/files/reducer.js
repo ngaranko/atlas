@@ -1,10 +1,5 @@
 import paramsRegistry from '../../../store/params-registry'
-import {
-  initialState,
-  REDUCER_KEY,
-  SET_CURRENT_FILE,
-  SET_CURRENT_TYPE,
-} from './constants'
+import { initialState, REDUCER_KEY, SET_CURRENT_FILE, SET_CURRENT_TYPE } from './constants'
 
 export { REDUCER_KEY as FILES_REDUCER }
 

@@ -50,9 +50,7 @@ describe('The dp-panorama-thumbnail component', function() {
   it('shows a loading indicator when loading', () => {
     const component = getComponent(undefined, true)
     expect(component.find('dp-loading-indicator').length).toBe(1)
-    expect(component.find('dp-loading-indicator').attr('is-loading')).toBe(
-      'vm.isLoading',
-    )
+    expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading')
 
     expect(component.find('img').length).toBe(0)
     expect(component.find('.qa-found-no-panorama').length).toBe(0)
@@ -67,9 +65,7 @@ describe('The dp-panorama-thumbnail component', function() {
     const component = getComponent(panorama, false)
     const scope = component.isolateScope()
     expect(component.find('.qa-found-no-panorama').length).toBe(0)
-    expect(component.find('img').attr('src')).toBe(
-      'http://example.com/example.png',
-    )
+    expect(component.find('img').attr('src')).toBe('http://example.com/example.png')
     expect(component.find('dp-redux-link').attr('to')).toBe('vm.linkTo')
     expect(scope.vm.linkTo).toEqual({
       type: routing.panorama.type,

@@ -20,13 +20,7 @@ describe('The dp-partial-select directive', function() {
       },
     })
 
-    angular.mock.inject(function(
-      _$compile_,
-      _$rootScope_,
-      _$q_,
-      _partialCompiler_,
-      _api_,
-    ) {
+    angular.mock.inject(function(_$compile_, _$rootScope_, _$q_, _partialCompiler_, _api_) {
       $compile = _$compile_
       $rootScope = _$rootScope_
       $q = _$q_
@@ -62,9 +56,7 @@ describe('The dp-partial-select directive', function() {
       jasmine.any(Object), // This is a Angular scope
     )
 
-    expect(directive.find('div')[0].outerHTML).toBe(
-      '<div>This is a compiled template!</div>',
-    )
+    expect(directive.find('div')[0].outerHTML).toBe('<div>This is a compiled template!</div>')
   })
 
   it('puts a load more function on the scope', function() {

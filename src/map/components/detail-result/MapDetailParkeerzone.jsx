@@ -4,12 +4,7 @@ import PropTypes from 'prop-types'
 import MapDetailResultItem from './MapDetailResultItem'
 import MapDetailResultWrapper from './MapDetailResultWrapper'
 
-const MapDetailParkeerzone = ({
-  panoUrl,
-  item,
-  onMaximize,
-  onPanoPreviewClick,
-}) => (
+const MapDetailParkeerzone = ({ panoUrl, item, onMaximize, onPanoPreviewClick }) => (
   <MapDetailResultWrapper
     panoUrl={panoUrl}
     onMaximize={onMaximize}

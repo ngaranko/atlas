@@ -37,10 +37,7 @@ export default async function fetchNearestDetail(location, layers, zoom) {
     (await Promise.all(
       layers.map(async layer => {
         const params = generateParams(layer, location, zoom)
-        const result = await getByUrl(
-          SHARED_CONFIG.API_ROOT + layer.detailUrl,
-          params,
-        )
+        const result = await getByUrl(SHARED_CONFIG.API_ROOT + layer.detailUrl, params)
         const features = getFeaturesFromResult(layer.detailUrl, result)
         return retrieveLayers(features, layer.detailIsShape)
       }),

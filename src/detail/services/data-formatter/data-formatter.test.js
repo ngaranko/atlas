@@ -86,9 +86,7 @@ describe('formatDetailData ', () => {
   })
 
   it('should mark the result data as editable when write rights received', () => {
-    const result = formatDetailData(data, category, subject, catalogFilters, [
-      'CAT/W',
-    ])
+    const result = formatDetailData(data, category, subject, catalogFilters, ['CAT/W'])
     expect(result.canEditDataset).toBeTruthy()
   })
 
@@ -103,13 +101,7 @@ describe('formatDetailData ', () => {
       'overheid:grondslag': description,
       'overheidds:doel': description,
     }
-    const result = formatDetailData(
-      rawData,
-      category,
-      subject,
-      catalogFilters,
-      ['CAT/W'],
-    )
+    const result = formatDetailData(rawData, category, subject, catalogFilters, ['CAT/W'])
     expect(result['dct:description']).toContain('<p>')
     expect(result['dct:description']).toContain('</p>')
     expect(result['overheid:grondslag']).toContain('<p>')

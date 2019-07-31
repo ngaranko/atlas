@@ -3,9 +3,7 @@ import SEARCH_CONFIG from './search-config'
 
 const geosearchFormatter = allSearchResults => {
   const allFeaturesFlattened = allSearchResults
-    .map(searchResult =>
-      searchResult.features.map(feature => feature.properties),
-    )
+    .map(searchResult => searchResult.features.map(feature => feature.properties))
     .reduce((previous, current) => previous.concat(current), [])
 
   return SEARCH_CONFIG.COORDINATES_HIERARCHY.map(rawCategory => {
@@ -28,10 +26,7 @@ const geosearchFormatter = allSearchResults => {
           if (feature.opr_type) {
             // Openbare ruimtes
             subtype = feature.opr_type.toLowerCase()
-          } else if (
-            feature.type === 'bag/ligplaats' ||
-            feature.type === 'bag/standplaats'
-          ) {
+          } else if (feature.type === 'bag/ligplaats' || feature.type === 'bag/standplaats') {
             ;[, subtype] = feature.type.split('/')
           } else {
             ;['gebieden', 'bommenkaart'].forEach(category => {

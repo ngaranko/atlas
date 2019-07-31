@@ -20,9 +20,7 @@ describe('`dpExpandCollapse` directive', () => {
       content += content
     }
 
-    const collapsedElement = $compile(`<p dp-expand-collapse>${content}</p>`)(
-      $rootScope,
-    )
+    const collapsedElement = $compile(`<p dp-expand-collapse>${content}</p>`)($rootScope)
 
     collapsedElement.css({
       'max-height': '50px',
@@ -50,9 +48,7 @@ describe('`dpExpandCollapse` directive', () => {
 
     expect(collapsedElement.scope().collapsed).toBeFalsy()
     expect(collapsedElement).toHaveClass('c-show-more__container')
-    expect(collapsedElement).not.toHaveClass(
-      'c-show-more__container--collapsed',
-    )
+    expect(collapsedElement).not.toHaveClass('c-show-more__container--collapsed')
 
     button.click()
 
@@ -62,9 +58,7 @@ describe('`dpExpandCollapse` directive', () => {
   })
 
   it('Should leave non-lengthy content', () => {
-    const untouchedElement = $compile(`<p dp-expand-collapse>${content}</p>`)(
-      $rootScope,
-    )
+    const untouchedElement = $compile(`<p dp-expand-collapse>${content}</p>`)($rootScope)
 
     angular
       .element(document)
@@ -75,8 +69,6 @@ describe('`dpExpandCollapse` directive', () => {
 
     expect(untouchedElement.scope().collapsed).toBeUndefined()
     expect(untouchedElement).not.toHaveClass('c-show-more__container')
-    expect(untouchedElement).not.toHaveClass(
-      'c-show-more__container--collapsed',
-    )
+    expect(untouchedElement).not.toHaveClass('c-show-more__container--collapsed')
   })
 })

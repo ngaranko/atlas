@@ -1,12 +1,4 @@
-import {
-  all,
-  call,
-  put,
-  select,
-  take,
-  takeLatest,
-  throttle,
-} from 'redux-saga/effects'
+import { all, call, put, select, take, takeLatest, throttle } from 'redux-saga/effects'
 import {
   fetchDataSelection,
   fetchMarkersFailure,
@@ -17,10 +9,7 @@ import {
   removeGeometryFilter,
 } from '../../ducks/data-selection/actions'
 import dataSelectionConfig from '../../services/data-selection/data-selection-config'
-import {
-  getMarkers,
-  query,
-} from '../../services/data-selection/data-selection-api'
+import { getMarkers, query } from '../../services/data-selection/data-selection-api'
 import { getMapZoom, getMapBoundingBox } from '../../../map/ducks/map/selectors'
 import {
   ADD_FILTER,
@@ -28,21 +17,13 @@ import {
   getFiltersWithoutShape,
   REMOVE_FILTER,
 } from '../../ducks/filters/filters'
-import {
-  preserveQuery,
-  toDatasetPage,
-} from '../../../store/redux-first-router/actions'
+import { preserveQuery, toDatasetPage } from '../../../store/redux-first-router/actions'
 import {
   getPage,
   isDataSelectionPage,
   hasUserAccesToPage,
 } from '../../../store/redux-first-router/selectors'
-import {
-  cancel,
-  disable,
-  enable,
-  setPolygon,
-} from '../../../map/services/draw-tool/draw-tool'
+import { cancel, disable, enable, setPolygon } from '../../../map/services/draw-tool/draw-tool'
 import {
   CANCEL_DATA_SELECTION,
   END_DATA_SELECTION,
@@ -141,14 +122,7 @@ function* retrieveDataSelection(action) {
   try {
     yield call(waitForAuthentication)
 
-    const [
-      activeFilters,
-      shape,
-      view,
-      dataset,
-      page,
-      userAccesToPage,
-    ] = yield all([
+    const [activeFilters, shape, view, dataset, page, userAccesToPage] = yield all([
       select(getFiltersWithoutShape),
       select(getGeomarkersShape),
       select(getViewMode),
@@ -182,9 +156,7 @@ function* retrieveDataSelection(action) {
     yield put(receiveDataSelectionSuccess({ activeFilters, shape, result }))
 
     // Check if markers need to be fetched
-    const { MAX_NUMBER_OF_CLUSTERED_MARKERS } = dataSelectionConfig.datasets[
-      dataset
-    ]
+    const { MAX_NUMBER_OF_CLUSTERED_MARKERS } = dataSelectionConfig.datasets[dataset]
     const filtersWithoutShape = yield select(getFiltersWithoutShape)
     const markersShouldBeFetched =
       view !== VIEW_MODE.FULL &&
@@ -267,9 +239,7 @@ function* clearDrawing() {
 function* startDrawing() {
   yield call(setPolygon, [])
   yield call(enable)
-  yield put(
-    mapSetDrawingMode({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW }),
-  )
+  yield put(mapSetDrawingMode({ drawingMode: drawToolConfig.DRAWING_MODE.DRAW }))
 }
 
 function* endDrawing() {
@@ -294,28 +264,15 @@ export default function* watchFetchDataSelection() {
   yield takeLatest(SET_GEOMETRY_FILTER, setGeometryFilters)
   yield throttle(5000, MAP_BOUNDING_BOX, mapBoundsEffect)
   yield takeLatest(
-    [
-      SET_VIEW_MODE,
-      SET_PAGE,
-      ADD_FILTER,
-      REMOVE_FILTER,
-      REMOVE_GEOMETRY_FILTER,
-      EMPTY_FILTERS,
-    ],
+    [SET_VIEW_MODE, SET_PAGE, ADD_FILTER, REMOVE_FILTER, REMOVE_GEOMETRY_FILTER, EMPTY_FILTERS],
     fetchDataSelectionEffect,
   )
 
   yield takeLatest(FETCH_DATA_SELECTION_REQUEST, retrieveDataSelection)
   yield takeLatest(SET_DATASET, switchPage)
   yield takeLatest(FETCH_MARKERS_REQUEST, requestMarkersEffect)
-  yield takeLatest(
-    [FETCH_DATA_SELECTION_REQUEST, FETCH_MARKERS_REQUEST],
-    startMapLoading,
-  )
-  yield takeLatest(
-    [FETCH_DATA_SELECTION_SUCCESS, FETCH_MARKERS_SUCCESS],
-    endMapLoading,
-  )
+  yield takeLatest([FETCH_DATA_SELECTION_REQUEST, FETCH_MARKERS_REQUEST], startMapLoading)
+  yield takeLatest([FETCH_DATA_SELECTION_SUCCESS, FETCH_MARKERS_SUCCESS], endMapLoading)
 
   yield takeLatest(RESET_DATA_SELECTION, clearDrawing)
   yield takeLatest(START_DATA_SELECTION, startDrawing)

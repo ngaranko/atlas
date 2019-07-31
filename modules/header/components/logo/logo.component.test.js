@@ -43,18 +43,12 @@ describe('The dp-logo component', () => {
     })
 
     it('has the short modifier on the root element', () => {
-      expect(component.find('.qa-logo')[0].getAttribute('class')).toContain(
-        'c-logo--short',
-      )
-      expect(component.find('.qa-logo')[0].getAttribute('class')).not.toContain(
-        'c-logo--tall',
-      )
+      expect(component.find('.qa-logo')[0].getAttribute('class')).toContain('c-logo--short')
+      expect(component.find('.qa-logo')[0].getAttribute('class')).not.toContain('c-logo--tall')
     })
 
     it('shows the short logo image', () => {
-      expect(
-        component.find('.qa-logo__image')[0].getAttribute('src'),
-      ).toContain('logo-short')
+      expect(component.find('.qa-logo__image')[0].getAttribute('src')).toContain('logo-short')
     })
 
     it('dispatches an action for matomo and directs to home on click', () => {
@@ -75,27 +69,21 @@ describe('The dp-logo component', () => {
     })
 
     it('has the tall modifier on the root element', () => {
-      expect(component.find('.qa-logo')[0].getAttribute('class')).not.toContain(
-        'c-logo--short',
-      )
-      expect(component.find('.qa-logo')[0].getAttribute('class')).toContain(
-        'c-logo--tall',
-      )
+      expect(component.find('.qa-logo')[0].getAttribute('class')).not.toContain('c-logo--short')
+      expect(component.find('.qa-logo')[0].getAttribute('class')).toContain('c-logo--tall')
     })
 
     it('does not use grid layout', () => {
-      expect(
-        component.find('.qa-logo__image-col')[0].getAttribute('class'),
-      ).not.toContain('u-col-sm--4')
-      expect(
-        component.find('.qa-logo__title-col')[0].getAttribute('class'),
-      ).not.toContain('u-col-sm--8')
+      expect(component.find('.qa-logo__image-col')[0].getAttribute('class')).not.toContain(
+        'u-col-sm--4',
+      )
+      expect(component.find('.qa-logo__title-col')[0].getAttribute('class')).not.toContain(
+        'u-col-sm--8',
+      )
     })
 
     it('shows the tall logo image', () => {
-      expect(
-        component.find('.qa-logo__image')[0].getAttribute('src'),
-      ).toContain('logo-tall')
+      expect(component.find('.qa-logo__image')[0].getAttribute('src')).toContain('logo-tall')
     })
   })
 })

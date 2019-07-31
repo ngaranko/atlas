@@ -4,20 +4,13 @@ import ParamsRegistry from '../params-registry/paramRegistry'
 
 const preserveUrlParametersMiddleware = () => next => action => {
   let nextAction = action
-  if (
-    nextAction.meta &&
-    (nextAction.meta.preserve || nextAction.meta.additionalParams)
-  ) {
+  if (nextAction.meta && (nextAction.meta.preserve || nextAction.meta.additionalParams)) {
     const { additionalParams } = nextAction.meta
     const { preserve } = nextAction.meta
     const newQuery = {
       ...(nextAction.meta.query ? nextAction.meta.query : {}),
       ...(preserve
-        ? paramsRegistry.getParametersForRoute(
-            getLocationQuery(),
-            action.type,
-            false,
-          )
+        ? paramsRegistry.getParametersForRoute(getLocationQuery(), action.type, false)
         : {}),
       ...(additionalParams
         ? paramsRegistry.getParametersForRoute(additionalParams, action.type)

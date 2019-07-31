@@ -1,7 +1,5 @@
 ;(function() {
-  angular
-    .module('dpDetail')
-    .directive('dpParentRelations', dpParentRelationsDirective)
+  angular.module('dpDetail').directive('dpParentRelations', dpParentRelationsDirective)
 
   function dpParentRelationsDirective() {
     return {
@@ -9,8 +7,7 @@
       scope: {
         content: '<',
       },
-      templateUrl:
-        'modules/detail/components/parent-relations/parent-relations.html',
+      templateUrl: 'modules/detail/components/parent-relations/parent-relations.html',
       controller: DpParentRelationsController,
       controllerAs: 'vm',
       bindToController: true,

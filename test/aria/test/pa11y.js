@@ -35,9 +35,7 @@ const checkTestsActions = allTests => {
     (acc, next) => (next.actions ? [...acc, ...next.actions] : acc),
     [],
   )
-  const invalidActions = actions.filter(
-    value => pa11y.isValidAction(value) === false,
-  )
+  const invalidActions = actions.filter(value => pa11y.isValidAction(value) === false)
   if (invalidActions.length > 0) {
     console.error('invalid actions encountered:')
     invalidActions.forEach(console.error)
@@ -88,18 +86,15 @@ pAll(actions, {
           console.log(reporter.results(result))
 
           total.errors += result.issues.reduce(
-            (accumulator, issue) =>
-              issue.type === 'error' ? accumulator + 1 : accumulator,
+            (accumulator, issue) => (issue.type === 'error' ? accumulator + 1 : accumulator),
             0,
           )
           total.warnings += result.issues.reduce(
-            (accumulator, issue) =>
-              issue.type === 'warning' ? accumulator + 1 : accumulator,
+            (accumulator, issue) => (issue.type === 'warning' ? accumulator + 1 : accumulator),
             0,
           )
           total.notices += result.issues.reduce(
-            (accumulator, issue) =>
-              issue.type === 'notice' ? accumulator + 1 : accumulator,
+            (accumulator, issue) => (issue.type === 'notice' ? accumulator + 1 : accumulator),
             0,
           )
         }
@@ -109,10 +104,7 @@ pAll(actions, {
       },
     )
 
-    console.log(
-      'Pa11y: TOTALS found',
-      total.errors + total.warnings + total.notices,
-    )
+    console.log('Pa11y: TOTALS found', total.errors + total.warnings + total.notices)
 
     if (total.errors) {
       console.log(chalk.red('Pa11y: total errors', total.errors))

@@ -4,13 +4,7 @@ const cmsConfig = {
   article: {
     endpoint: id =>
       `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/article?filter[drupal_internal__nid]=${id}&include=field_cover_image.field_media_image,field_downloads.field_file`,
-    fields: [
-      'field_downloads',
-      'field_links',
-      'field_byline',
-      'field_slug',
-      'field_intro',
-    ],
+    fields: ['field_downloads', 'field_links', 'field_byline', 'field_slug', 'field_intro'],
   },
   publication: {
     endpoint: id =>

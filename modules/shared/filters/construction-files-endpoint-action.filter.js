@@ -1,5 +1,4 @@
 import { toConstructionFilesFromEndpoint } from '../../../src/store/redux-first-router/actions'
-
 ;(function() {
   'use strict'
 

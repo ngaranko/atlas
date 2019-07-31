@@ -25,7 +25,9 @@ jest.mock('../../../shared/ducks/detail/actions')
 
 describe('HeaderSearchContainer', () => {
   beforeEach(() => {
-    getSuggestionsAction.mockImplementation(() => ({ type: 'getSuggestionsAction' }))
+    getSuggestionsAction.mockImplementation(() => ({
+      type: 'getSuggestionsAction',
+    }))
     clearMapDetail.mockImplementation(endpoint => ({
       type: CLEAR_MAP_DETAIL,
       payload: endpoint,
@@ -120,7 +122,9 @@ describe('HeaderSearchContainer', () => {
       }
 
       jest.spyOn(store, 'dispatch')
-      const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive()
+      const headerSearch = shallow(<HeaderSearchContainer />, {
+        context: { store },
+      }).dive()
 
       headerSearch.instance().onSuggestionSelection(suggestionMock, shouldOpenInNewWindow)
 
@@ -147,7 +151,9 @@ describe('HeaderSearchContainer', () => {
       }
 
       jest.spyOn(store, 'dispatch')
-      const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive()
+      const headerSearch = shallow(<HeaderSearchContainer />, {
+        context: { store },
+      }).dive()
 
       headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow)
 
@@ -169,7 +175,9 @@ describe('HeaderSearchContainer', () => {
 
       jest.spyOn(store, 'dispatch')
 
-      const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive()
+      const headerSearch = shallow(<HeaderSearchContainer />, {
+        context: { store },
+      }).dive()
 
       headerSearch.instance().onSuggestionSelection(selectedSuggestion, shouldOpenInNewWindow)
 
@@ -203,7 +211,9 @@ describe('HeaderSearchContainer', () => {
         },
       })
 
-      const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive()
+      const headerSearch = shallow(<HeaderSearchContainer />, {
+        context: { store },
+      }).dive()
 
       jest.spyOn(store, 'dispatch')
       headerSearch.instance().onFormSubmit()
@@ -226,7 +236,9 @@ describe('HeaderSearchContainer', () => {
       })
       jest.spyOn(store, 'dispatch')
 
-      const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive()
+      const headerSearch = shallow(<HeaderSearchContainer />, {
+        context: { store },
+      }).dive()
 
       headerSearch.instance().onFormSubmit()
 
@@ -259,7 +271,9 @@ describe('HeaderSearchContainer', () => {
       })
       jest.spyOn(store, 'dispatch')
 
-      const headerSearch = shallow(<HeaderSearchContainer />, { context: { store } }).dive()
+      const headerSearch = shallow(<HeaderSearchContainer />, {
+        context: { store },
+      }).dive()
 
       headerSearch.instance().onFormSubmit()
       expect(store.dispatch).toHaveBeenCalledWith(
@@ -307,7 +321,9 @@ describe('HeaderSearchContainer', () => {
         ...initialState,
       })
 
-      const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive()
+      const wrapper = shallow(<HeaderSearchContainer />, {
+        context: { store },
+      }).dive()
       wrapper.setProps({
         prefillQuery: '123',
         isMapActive: true,
@@ -323,7 +339,9 @@ describe('HeaderSearchContainer', () => {
         ...initialState,
       })
 
-      const wrapper = shallow(<HeaderSearchContainer />, { context: { store } }).dive()
+      const wrapper = shallow(<HeaderSearchContainer />, {
+        context: { store },
+      }).dive()
       wrapper.setProps({
         prefillQuery: '',
         pageName: '',

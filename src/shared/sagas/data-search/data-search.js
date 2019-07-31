@@ -35,12 +35,7 @@ import ActiveOverlaysClass from '../../services/active-overlays/active-overlays'
 import { waitForAuthentication } from '../user/user'
 import { SELECTION_TYPE, setSelection } from '../../ducks/selection/selection'
 import { fetchDatasetsEffect } from '../dataset/dataset'
-import {
-  getViewMode,
-  isMapPage,
-  SET_VIEW_MODE,
-  VIEW_MODE,
-} from '../../ducks/ui/ui'
+import { getViewMode, isMapPage, SET_VIEW_MODE, VIEW_MODE } from '../../ducks/ui/ui'
 import PAGES from '../../../app/pages'
 import { ERROR_TYPES, setGlobalError } from '../../ducks/error/error-message'
 
@@ -57,20 +52,10 @@ export function* fetchMapSearchResults() {
     if (view === VIEW_MODE.SPLIT || view === VIEW_MODE.FULL) {
       const geoSearchResults = yield call(geosearch, location, user)
       const results = replaceBuurtcombinatie(geoSearchResults)
-      yield put(
-        fetchMapSearchResultsSuccessList(
-          results,
-          getNrOfSearchResults(geoSearchResults),
-        ),
-      )
+      yield put(fetchMapSearchResultsSuccessList(results, getNrOfSearchResults(geoSearchResults)))
     } else {
       const { results, errors } = yield call(search, location, user)
-      yield put(
-        fetchMapSearchResultsSuccessPanel(
-          results,
-          getNumberOfResultsPanel(results),
-        ),
-      )
+      yield put(fetchMapSearchResultsSuccessPanel(results, getNumberOfResultsPanel(results)))
 
       if (errors) {
         yield put(setGlobalError(ERROR_TYPES.GENERAL_ERROR))
@@ -101,14 +86,8 @@ export function* fetchQuerySearchResults() {
   yield call(waitForAuthentication)
   const user = yield select(getUser)
   if (query) {
-    const categorySlug =
-      isString(category) && category.length ? category : undefined
-    const { results, errors } = yield call(
-      querySearch,
-      query,
-      categorySlug,
-      user,
-    )
+    const categorySlug = isString(category) && category.length ? category : undefined
+    const { results, errors } = yield call(querySearch, query, categorySlug, user)
     if (errors) {
       yield put(setGlobalError(ERROR_TYPES.GENERAL_ERROR))
     }

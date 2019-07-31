@@ -41,13 +41,7 @@ export const formatData = (data, subject, catalogFilters) => {
   }
 }
 
-const formatDetailData = (
-  rawData,
-  category,
-  subject,
-  catalogFilters,
-  scopes,
-) => {
+const formatDetailData = (rawData, category, subject, catalogFilters, scopes) => {
   let data = formatData(rawData, subject, catalogFilters)
   if (category === 'dcatd' && subject === 'datasets') {
     const fields = ['dct:description', 'overheid:grondslag', 'overheidds:doel']

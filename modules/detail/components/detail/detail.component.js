@@ -37,10 +37,7 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
     vm.$onChanges = changes => {
       const { detailTemplateUrl, detailData, detailFilterSelection } = changes
       if (!(detailTemplateUrl && detailData)) return
-      if (
-        detailTemplateUrl &&
-        detailTemplateUrl.previousValue !== detailTemplateUrl.currentValue
-      ) {
+      if (detailTemplateUrl && detailTemplateUrl.previousValue !== detailTemplateUrl.currentValue) {
         vm.includeSrc = detailTemplateUrl.currentValue
       }
 
@@ -52,8 +49,7 @@ import { downloadDatasetResource } from '../../../../src/shared/ducks/datasets/d
 
       if (
         detailFilterSelection &&
-        detailFilterSelection.previousValue !==
-          detailFilterSelection.currentValue
+        detailFilterSelection.previousValue !== detailFilterSelection.currentValue
       ) {
         vm.filterSelection = detailFilterSelection.currentValue
       }

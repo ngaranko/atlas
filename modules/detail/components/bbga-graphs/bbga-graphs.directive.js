@@ -20,10 +20,7 @@
         .then(function(data) {
           const personenGraph = new BBGA.Personen()
 
-          personenGraph.create(
-            element[0].querySelector('.js-personen-graph'),
-            data,
-          )
+          personenGraph.create(element[0].querySelector('.js-personen-graph'), data)
         })
 
       bbgaDataService

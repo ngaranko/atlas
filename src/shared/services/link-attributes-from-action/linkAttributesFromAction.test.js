@@ -1,9 +1,7 @@
 import { selectLocationState } from 'redux-first-router'
 import toUrl from 'redux-first-router-link/dist/toUrl'
 
-import linkAttributesFromAction, {
-  withPreventDefault,
-} from './linkAttributesFromAction'
+import linkAttributesFromAction, { withPreventDefault } from './linkAttributesFromAction'
 
 jest.mock('redux-first-router')
 jest.mock('redux-first-router-link/dist/toUrl')

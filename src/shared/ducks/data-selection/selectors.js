@@ -49,15 +49,11 @@ export const getClusterMarkers = createSelector(
 
 export const getBrkMarkers = createSelector(
   [getMapMarkers],
-  markers =>
-    markers && markers.markers && markers.markers.length ? markers.markers : [],
+  markers => (markers && markers.markers && markers.markers.length ? markers.markers : []),
 )
 export const getGeoJsons = createSelector(
   [getMapMarkers],
-  markers =>
-    markers && markers.geoJsons && markers.geoJsons.length
-      ? markers.geoJsons
-      : [],
+  markers => (markers && markers.geoJsons && markers.geoJsons.length ? markers.geoJsons : []),
 )
 
 export const getShapeFilter = createSelector(

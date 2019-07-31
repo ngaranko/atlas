@@ -21,6 +21,7 @@ export default function fetchByUri(uri) {
         } ${result.city}`
       : null
 
+    // eslint-disable-next-line no-nested-ternary
     const type = result.charging_cap_max
       ? result.charging_cap_max >= 22
         ? CHARGER_TYPES.FAST
@@ -28,6 +29,7 @@ export default function fetchByUri(uri) {
       : null
 
     const currentStatus =
+      // eslint-disable-next-line no-nested-ternary
       result.status === 'Available'
         ? result.charging_point >= 2
           ? 'Eén of meerdere beschikbaar'

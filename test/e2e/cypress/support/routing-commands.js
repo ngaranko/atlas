@@ -13,22 +13,14 @@ Cypress.Commands.add('defineGeoSearchRoutes', () => {
 Cypress.Commands.add('defineSearchRoutes', () => {
   cy.route('/atlas/search/adres/?q=*').as('getSearchAddressResults')
   cy.route('/atlas/search/gebied/?q=*').as('getSearchGebiedResults')
-  cy.route('/atlas/search/kadastraalobject/?q=*').as(
-    'getSearchKadastraalObjectResults',
-  )
-  cy.route('/atlas/search/kadastraalsubject/?q=*').as(
-    'getSearchKadastraalSubjectResults',
-  )
-  cy.route('/atlas/search/openbareruimte/?q=*').as(
-    'getSearchOpenbareRuimteResults',
-  )
+  cy.route('/atlas/search/kadastraalobject/?q=*').as('getSearchKadastraalObjectResults')
+  cy.route('/atlas/search/kadastraalsubject/?q=*').as('getSearchKadastraalSubjectResults')
+  cy.route('/atlas/search/openbareruimte/?q=*').as('getSearchOpenbareRuimteResults')
   cy.route('/dcatd/datasets*').as('getSearchCatalogueResults')
   cy.route('/handelsregister/search/maatschappelijkeactiviteit/?q=*').as(
     'getSearchMaatschappelijkeActiviteitResults',
   )
-  cy.route('/handelsregister/search/vestiging/?q=*').as(
-    'getSearchVestigingResults',
-  )
+  cy.route('/handelsregister/search/vestiging/?q=*').as('getSearchVestigingResults')
   cy.route('/meetbouten/search/?q=*').as('getSearchMeetboutenResults')
   cy.route('/monumenten/search/?q=*').as('getSearchMonumentsResults')
 })

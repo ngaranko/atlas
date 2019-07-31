@@ -43,12 +43,8 @@ describe('map module', () => {
       cy.route('/panorama/thumbnail/*').as('getPanoThumbnail')
       cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
       cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden')
-      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as(
-        'getObjectExpand',
-      )
-      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-        'getSitueringen',
-      )
+      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as('getObjectExpand')
+      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen')
       cy.route('/monumenten/monumenten/*').as('getMonument')
       cy.route('/parkeerplekken/parkeerplekken*').as('getParkeerplekken')
 
@@ -103,9 +99,7 @@ describe('map module', () => {
 
       // click on the button inside the panel balloon thingy, and expect the large right column to
       // become visible
-      cy.get(
-        'button.map-preview-panel__button[title="Volledige weergave tonen"]',
-      ).click()
+      cy.get('button.map-preview-panel__button[title="Volledige weergave tonen"]').click()
       cy.get(columnRight)
         .should('exist')
         .and('be.visible')
@@ -257,9 +251,7 @@ describe('map module', () => {
 
     it('should add a map-layer to the leaflet map', () => {
       // route to the map
-      cy.visit(
-        `/${routing.data.path}?${VIEW_CENTER}=52.3731081%2C4.8932945&${VIEW}=kaart`,
-      )
+      cy.visit(`/${routing.data.path}?${VIEW_CENTER}=52.3731081%2C4.8932945&${VIEW}=kaart`)
 
       // the map-panel should have the class collapsed by default
       cy.get('.map-panel').should('have.class', 'map-panel--collapsed')

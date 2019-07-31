@@ -10,6 +10,17 @@ exports[`TabBar should render the component with no results 1`] = `
 />
 `;
 
+exports[`TabBar should render the component with results 1`] = `
+<TabBar
+  dispatch={[Function]}
+  goToDatasets={[MockFunction]}
+  numberOfDataResults={204}
+  numberOfDatasetResults={120}
+  searchQuery="dam"
+  showDatasetsButton={true}
+/>
+`;
+
 exports[`TabBar should render the container 1`] = `
 <TabBar
   dispatch={[Function]}

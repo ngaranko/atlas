@@ -38,17 +38,11 @@ describe('datasets selectors', () => {
     expect(getResults(state)).toEqual(state[DATASETS][DATA].result)
     expect(getSearchText(state)).toEqual(state[DATASETS][DATA].searchText)
     expect(getFilters(state)).toEqual(state[DATASETS][DATA].result.filters)
-    expect(getNumberOfResults(state)).toEqual(
-      state[DATASETS][DATA].result.numberOfRecords,
-    )
+    expect(getNumberOfResults(state)).toEqual(state[DATASETS][DATA].result.numberOfRecords)
   })
 
   it('should get dataset apiSpecification selectors', () => {
-    expect(getApiSpecification(state)).toEqual(
-      state[DATASETS][API_SPECIFICATION],
-    )
-    expect(getApiSpecificationData(state)).toEqual(
-      state[DATASETS][API_SPECIFICATION].data,
-    )
+    expect(getApiSpecification(state)).toEqual(state[DATASETS][API_SPECIFICATION])
+    expect(getApiSpecificationData(state)).toEqual(state[DATASETS][API_SPECIFICATION].data)
   })
 })

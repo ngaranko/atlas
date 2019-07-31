@@ -11,27 +11,15 @@ describe('matomoTracker', () => {
     matomoTracker(['test'], 'foo', 'string')
 
     expect(global.window._paq.push).toHaveBeenCalledWith(['test'])
-    expect(global.window._paq.push).toHaveBeenCalledWith([
-      'setCustomUrl',
-      'foo',
-    ])
-    expect(global.window._paq.push).toHaveBeenCalledWith([
-      'setDocumentTitle',
-      'string',
-    ])
-    expect(global.window._paq.push).toHaveBeenCalledWith([
-      'enableHeartBeatTimer',
-    ])
+    expect(global.window._paq.push).toHaveBeenCalledWith(['setCustomUrl', 'foo'])
+    expect(global.window._paq.push).toHaveBeenCalledWith(['setDocumentTitle', 'string'])
+    expect(global.window._paq.push).toHaveBeenCalledWith(['enableHeartBeatTimer'])
   })
 
   it('should set customDimensions', () => {
     matomoTracker(['test'], 'foo', 'string', [{ id: 1, value: 'test' }])
 
-    expect(global.window._paq.push).toHaveBeenCalledWith([
-      'setCustomDimension',
-      1,
-      'test',
-    ])
+    expect(global.window._paq.push).toHaveBeenCalledWith(['setCustomDimension', 1, 'test'])
   })
 
   it('should not call window._paq.push without data', () => {

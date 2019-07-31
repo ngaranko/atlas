@@ -17,7 +17,24 @@ describe('TabBar', () => {
       numberOfDataResults: 1,
       numberOfDatasetResults: 1,
     }
-    const component = shallow(<TabBar {...props} />, { context: { store } })
+    const component = shallow(<TabBar {...props} />, {
+      context: { store },
+    })
+    expect(component).toMatchSnapshot()
+  })
+
+  it('should render the component with results', () => {
+    const props = {
+      searchQuery: 'dam',
+      showDatasetsButton: true,
+      numberOfDataResults: 204,
+      numberOfDatasetResults: 120,
+      goToDatasets: jest.fn(),
+    }
+
+    const component = shallow(<TabBar {...props} />, {
+      context: { store },
+    })
     expect(component).toMatchSnapshot()
   })
 

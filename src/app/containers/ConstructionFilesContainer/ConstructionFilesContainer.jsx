@@ -90,6 +90,7 @@ const ConstructionFilesContainer = ({ fileName, user, endpoint }) => {
 
   const loadingTemplate = withGrid(<LoadingIndicator />)
 
+  // eslint-disable-next-line no-nested-ternary
   return user.scopes.includes(SCOPES['BD/R']) ? (
     errorMessage ? (
       <ErrorMessage errorMessage={errorMessage} />

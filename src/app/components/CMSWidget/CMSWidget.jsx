@@ -49,10 +49,7 @@ const CMSWidget = ({ type, limit }) => {
                         }}
                       />
                     ) : (
-                      <Link
-                        className="c-link"
-                        to={{ type: routing.nieuws.type }}
-                      >
+                      <Link className="c-link" to={{ type: routing.nieuws.type }}>
                         <div
                           className="s-cms-widget-content s-cms-widget-content--inline"
                           dangerouslySetInnerHTML={{
@@ -80,10 +77,7 @@ const CMSWidget = ({ type, limit }) => {
             <div className="u-clearfix" />
           </div>
           <div className="u-padding__left--3 c-homepage__news-show-more">
-            <Link
-              to={{ type: routing.nieuws.type }}
-              className="o-btn o-btn--link"
-            >
+            <Link to={{ type: routing.nieuws.type }} className="o-btn o-btn--link">
               Nieuwsoverzicht
             </Link>
           </div>

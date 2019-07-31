@@ -9,9 +9,7 @@ export class ActiveOverlays {
   }
 
   getOverlays() {
-    return this.allOverlays.filter(overlay =>
-      ActiveOverlays.isAuthorised(overlay),
-    )
+    return this.allOverlays.filter(overlay => ActiveOverlays.isAuthorised(overlay))
   }
 
   // Todo: this always returns false: look into mapLayers, since it doesn't have a minZoom / maxZoom

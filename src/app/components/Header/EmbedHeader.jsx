@@ -39,11 +39,7 @@ const EmbedHeader = ({ closeAction }) => {
         </div>
         <div className="u-col-sm--9">
           <nav>
-            <button
-              type="button"
-              onClick={closeAction}
-              className="c-embed-header__close"
-            />
+            <button type="button" onClick={closeAction} className="c-embed-header__close" />
           </nav>
         </div>
       </div>

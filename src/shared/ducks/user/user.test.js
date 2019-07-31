@@ -22,12 +22,7 @@ describe('User Reducer', () => {
   })
 
   it(`should set the user data when ${AUTHENTICATE_USER_SUCCESS} is dispatched`, () => {
-    expect(
-      reducer(
-        initialState,
-        authenticateUserSuccess('token', 'name', ['scope']),
-      ),
-    ).toEqual({
+    expect(reducer(initialState, authenticateUserSuccess('token', 'name', ['scope']))).toEqual({
       authenticated: true,
       accessToken: 'token',
       name: 'name',

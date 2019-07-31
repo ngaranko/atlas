@@ -4,9 +4,7 @@ import PARAMETERS from '../../../store/parameters'
 const getUrlQuery = () => queryString.decode(window.location.search.slice(1))
 
 const buildUrl = query => {
-  const urlParams = Object.keys(query).length
-    ? `?${queryString.encode(query)}`
-    : ''
+  const urlParams = Object.keys(query).length ? `?${queryString.encode(query)}` : ''
   return `${window.location.origin}${window.location.pathname}${urlParams}`
 }
 

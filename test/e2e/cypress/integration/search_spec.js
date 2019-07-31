@@ -15,20 +15,12 @@ const SEARCHPAGE_SELECTORS = {
 
 const DETAIL_PAGE = '.qa-detail'
 
-const HEADINGS = [
-  'Straatnamen',
-  'Adressen',
-  'Openbare ruimte',
-  'Pand',
-  'Monumenten',
-]
+const HEADINGS = ['Straatnamen', 'Adressen', 'Openbare ruimte', 'Pand', 'Monumenten']
 
 describe('search module', () => {
   beforeEach(() => {
     cy.server()
-    cy.route(
-      `https://acc.api.data.amsterdam.nl/typeahead?q=${SEARCH_QUERY}`,
-    ).as('typeaheadResults')
+    cy.route(`https://acc.api.data.amsterdam.nl/typeahead?q=${SEARCH_QUERY}`).as('typeaheadResults')
     cy.route('/bag/openbareruimte/*').as('getDetail')
     cy.defineSearchRoutes()
     cy.visit('/')

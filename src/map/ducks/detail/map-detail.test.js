@@ -1,9 +1,5 @@
 import { FETCH_MAP_DETAIL_SUCCESS, FETCH_MAP_DETAIL_FAILURE } from './constants'
-import {
-  fetchMapDetailFailure,
-  fetchMapDetailSuccess,
-  getMapDetail,
-} from './actions'
+import { fetchMapDetailFailure, fetchMapDetailSuccess, getMapDetail } from './actions'
 import reducer from './reducer'
 import {
   getAllResults,
@@ -133,10 +129,7 @@ describe('selectors', () => {
   describe('selectLatestMapDetail', () => {
     it('should return the active mapDetail results', () => {
       const { currentEndpoint, byEndpoint } = mockParameters.mapDetail
-      const selected = selectLatestMapDetail.resultFunc(
-        currentEndpoint,
-        byEndpoint,
-      )
+      const selected = selectLatestMapDetail.resultFunc(currentEndpoint, byEndpoint)
       expect(selected).toEqual(byEndpoint[currentEndpoint])
     })
 
@@ -156,9 +149,7 @@ describe('selectors', () => {
   describe('getMapDetailGeometry', () => {
     it('should return the active mapDetail geometrie', () => {
       const { currentEndpoint, byEndpoint } = mockParameters.mapDetail
-      const selected = getMapDetailGeometry.resultFunc(
-        byEndpoint[currentEndpoint],
-      )
+      const selected = getMapDetailGeometry.resultFunc(byEndpoint[currentEndpoint])
       expect(selected).toEqual(byEndpoint[currentEndpoint].geometrie)
     })
 
@@ -181,10 +172,7 @@ describe('selectors', () => {
 
     it('should return geometrie from the active mapDetail', () => {
       const { currentEndpoint, byEndpoint } = mockParameters.mapDetail
-      const selected = getGeometry.resultFunc(
-        {},
-        byEndpoint[currentEndpoint].geometrie,
-      )
+      const selected = getGeometry.resultFunc({}, byEndpoint[currentEndpoint].geometrie)
       expect(selected).toEqual(byEndpoint[currentEndpoint].geometrie)
     })
 
@@ -198,12 +186,7 @@ describe('selectors', () => {
     const geometry = { id: '1' }
     const detail = { display: 'label' }
     it('should return empty object if geoJson should not be shown', () => {
-      const selected = getGeoJson.resultFunc(
-        false,
-        geometry,
-        detail,
-        'detailId',
-      )
+      const selected = getGeoJson.resultFunc(false, geometry, detail, 'detailId')
       expect(selected).toEqual({})
     })
 
@@ -213,12 +196,7 @@ describe('selectors', () => {
     })
 
     it('should return a geoJson object', () => {
-      const selected = getGeoJson.resultFunc(
-        true,
-        geometry,
-        detail.display,
-        'detailId',
-      )
+      const selected = getGeoJson.resultFunc(true, geometry, detail.display, 'detailId')
       expect(selected).toEqual({
         id: 'detailId',
         geoJson: {
@@ -262,10 +240,7 @@ describe('actions', () => {
           id: 123,
         },
       }
-      const action = fetchMapDetailSuccess(
-        expectedAction.endpoint,
-        expectedAction.mapDetail,
-      )
+      const action = fetchMapDetailSuccess(expectedAction.endpoint, expectedAction.mapDetail)
       expect(action).toEqual(expectedAction)
     })
   })

@@ -12,12 +12,7 @@ const MapDetailAdressenVerblijfsobjectGebruiksdoelenItem = ({ gebruiksdoelen }) 
           {gebruiksdoelen.slice(0, maxDisplayValuesPerProperty).map(item => (
             <li key={item.code} className="map-detail-result__item-list-item">
               {item.description}
-              {item.descriptionPlus && (
-              <span>
-:
-                {item.descriptionPlus}
-              </span>
-)}
+              {item.descriptionPlus && <span>:{item.descriptionPlus}</span>}
             </li>
           ))}
         </ul>

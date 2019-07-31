@@ -17,8 +17,12 @@ describe('EditorialPage', () => {
   const mockTrackPageView = jest.fn()
 
   beforeEach(() => {
-    linkAttributesFromAction.mockImplementation(() => ({ href: 'https://this.is.alink' }))
-    useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: mockSetDocumentTitle }))
+    linkAttributesFromAction.mockImplementation(() => ({
+      href: 'https://this.is.alink',
+    }))
+    useDocumentTitle.mockImplementation(() => ({
+      setDocumentTitle: mockSetDocumentTitle,
+    }))
     useMatomo.mockImplementation(() => ({ trackPageView: mockTrackPageView }))
     Footer.mockImplementation(() => <></>)
 

@@ -66,19 +66,16 @@ const legacyRoutes = [
   },
   // https://www.amsterdam.nl/ondernemen/biz/
   {
-    from:
-      '#?mpb=topografie&mpz=9&mpfs=T&mpo=biz::T&mpv=52.3676245:4.8804992&pgn=home&uvm=T',
+    from: '#?mpb=topografie&mpz=9&mpfs=T&mpo=biz::T&mpv=52.3676245:4.8804992&pgn=home&uvm=T',
     to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=biz%3A1&${LEGEND}=true&${ZOOM}=9`,
   },
   {
-    from:
-      '#?ate=T&mpb=topografie&mpz=9&mpfs=T&mpo=biz::T&mpv=52.3676245:4.8804992&pgn=home&uvm=T',
+    from: '#?ate=T&mpb=topografie&mpz=9&mpfs=T&mpo=biz::T&mpv=52.3676245:4.8804992&pgn=home&uvm=T',
     to: `${routing.data.path}?${VIEW}=kaart&${EMBED}=true&${LAYERS}=biz%3A1&${LEGEND}=true&${ZOOM}=9`,
   },
   // home map
   {
-    from:
-      '#?mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home&uvm=T',
+    from: '#?mpb=topografie&mpz=11&mpfs=T&mpv=52.3731081:4.8932945&pgn=home&uvm=T',
     to: `${routing.data.path}?${VIEW}=kaart`,
   },
 ]
@@ -96,14 +93,10 @@ const shortUrls = [
 export const routesDictionary = [...legacyRoutes, ...shortUrls]
 
 const resolveRedirects = () => {
-  let routePath = routesDictionary.filter(
-    r => r.from === window.location.pathname,
-  )
+  let routePath = routesDictionary.filter(r => r.from === window.location.pathname)
   if (window.location.hash.match(/#\?/g)) {
     routePath = routesDictionary.filter(r => r.from === window.location.hash)
-    window.location.replace(
-      routePath.length && routePath[0].to ? routePath[0].to : '/verplaatst/',
-    )
+    window.location.replace(routePath.length && routePath[0].to ? routePath[0].to : '/verplaatst/')
     return true
   }
   if (routePath.length) {

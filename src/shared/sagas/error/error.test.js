@@ -1,8 +1,5 @@
 import { testSaga } from 'redux-saga-test-plan'
-import watchErrors, {
-  excludeUnauthorizedErrorEffect,
-  setErrorsEffect,
-} from './error'
+import watchErrors, { excludeUnauthorizedErrorEffect, setErrorsEffect } from './error'
 import { FETCH_DATASETS_FAILURE } from '../../ducks/datasets/data/data'
 import {
   FETCH_GEO_SEARCH_RESULTS_FAILURE,
@@ -38,10 +35,7 @@ describe('watchErrors', () => {
         setErrorsEffect,
       )
       .next(action)
-      .takeLatestEffect(
-        [FETCH_DATA_SELECTION_FAILURE],
-        excludeUnauthorizedErrorEffect,
-      )
+      .takeLatestEffect([FETCH_DATA_SELECTION_FAILURE], excludeUnauthorizedErrorEffect)
       .next(action)
       .isDone()
   })

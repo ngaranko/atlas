@@ -86,9 +86,7 @@ const HomepageDatasetsThemesBlock = () => {
                           to={preserveQuery(toDatasetsWithFilter(), {
                             [PARAMETERS.FILTERS]: { groups: theme.slug },
                           })}
-                          className={`qa-theme-link c-catalogus-themes__link c-catalogus-themes__icon c-catalogus-themes__icon--${
-                            theme.icon
-                          }`}
+                          className={`qa-theme-link c-catalogus-themes__link c-catalogus-themes__icon c-catalogus-themes__icon--${theme.icon}`}
                         >
                           <div className="c-catalogus-themes__link__text">{theme.name}</div>
                         </Link>

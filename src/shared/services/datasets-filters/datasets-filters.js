@@ -6,10 +6,7 @@ function getOptions(propertyType) {
   return propertyType.enum.map((item, i) => {
     const index = propertyType.enum[i].indexOf(':')
     return {
-      id:
-        index === -1
-          ? propertyType.enum[i]
-          : propertyType.enum[i].substring(index + 1),
+      id: index === -1 ? propertyType.enum[i] : propertyType.enum[i].substring(index + 1),
       label: propertyType.enumNames[i] ? propertyType.enumNames[i] : 'Anders',
     }
   })
@@ -18,8 +15,7 @@ function getOptions(propertyType) {
 function getCatalogFilters(data) {
   const dcatDocProperties = data.components.schemas['dcat-dataset'].properties
   const themaProperties = dcatDocProperties['dcat:theme'].items
-  const distributionProperties =
-    dcatDocProperties['dcat:distribution'].items.properties
+  const distributionProperties = dcatDocProperties['dcat:distribution'].items.properties
   const ownerProperties = dcatDocProperties['ams:owner'].examples
 
   const datasetsFilters = {
@@ -35,13 +31,9 @@ function getCatalogFilters(data) {
     licenseTypes: getOptions(dcatDocProperties['ams:license']),
     spatialUnits: getOptions(dcatDocProperties['ams:spatialUnit']),
     temporalUnits: getOptions(dcatDocProperties['ams:temporalUnit']),
-    accrualPeriodicities: getOptions(
-      dcatDocProperties['dct:accrualPeriodicity'],
-    ),
+    accrualPeriodicities: getOptions(dcatDocProperties['dct:accrualPeriodicity']),
     languages: getOptions(dcatDocProperties['dct:language']),
-    distributionTypes: getOptions(
-      distributionProperties['ams:distributionType'],
-    ),
+    distributionTypes: getOptions(distributionProperties['ams:distributionType']),
   }
 
   return datasetsFilters

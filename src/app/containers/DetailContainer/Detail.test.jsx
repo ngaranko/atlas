@@ -15,7 +15,7 @@ describe('Detail', () => {
       detailFilterSelection: {},
       onFetchDetailRequest: jest.fn(),
       id: '1',
-      subType: 'nummeraanduiding'
+      subType: 'nummeraanduiding',
     }
     const component = shallow(<Detail {...props} />)
     expect(component).toMatchSnapshot()
