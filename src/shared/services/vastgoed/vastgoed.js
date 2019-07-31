@@ -5,8 +5,7 @@ import { getByUrl } from '../api/api'
 
 export default function fetchByUri(uri) {
   return getByUrl(uri).then(result => {
-    const geometryCenter =
-      result.bag_pand_geometrie && getCenter(result.bag_pand_geometrie)
+    const geometryCenter = result.bag_pand_geometrie && getCenter(result.bag_pand_geometrie)
     const wgs84Center = geometryCenter ? rdToWgs84(geometryCenter) : null
 
     return {
@@ -14,9 +13,7 @@ export default function fetchByUri(uri) {
       location: wgs84Center,
       geometrie: result.bag_pand_geometrie,
       construction_year:
-        result.bouwjaar && result.bouwjaar !== 1005
-          ? result.bouwjaar.toString()
-          : 'Onbekend',
+        result.bouwjaar && result.bouwjaar !== 1005 ? result.bouwjaar.toString() : 'Onbekend',
       status: result.status,
       monumental_status: result.monumentstatus || 'Geen monument',
       address: result.vhe_adres,
@@ -33,9 +30,9 @@ export function fetchByGeoLocation(location) {
   return getByUrl(uri).then(result => {
     if (result.features && result.features.length > 1) {
       const features = result.features.map(({ properties }) => {
-        return fetchByUri(
-          `${SHARED_CONFIG.API_ROOT}vsd/vastgoed/${properties.id}/`,
-        ).then(property => property)
+        return fetchByUri(`${SHARED_CONFIG.API_ROOT}vsd/vastgoed/${properties.id}/`).then(
+          property => property,
+        )
       })
 
       return Promise.all(features).then(results => results)

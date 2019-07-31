@@ -15,50 +15,38 @@ export const filterNonPandMonuments = results =>
 const filterResultsByCategory = (items, label) =>
   filterNonPandMonuments(items).filter(item => item.categoryLabel === label)
 
-const getSubCategories = (items, type) =>
-  items.filter(subCategory => subCategory.parent === type)
+const getSubCategories = (items, type) => items.filter(subCategory => subCategory.parent === type)
 
-export const createMapSearchResultsModel = (
-  allResults,
-  isSubCategory = false,
-) =>
-  sortByCategoryTypeOrder(filterNonPandMonuments(allResults)).reduce(
-    (newList, currentValue) => {
-      const { categoryLabel, type, parent } = currentValue
+export const createMapSearchResultsModel = (allResults, isSubCategory = false) =>
+  sortByCategoryTypeOrder(filterNonPandMonuments(allResults)).reduce((newList, currentValue) => {
+    const { categoryLabel, type, parent } = currentValue
 
-      // if the category already exists or if the category has a parent
-      // and isSubCategory is false return the newList
-      if (
-        newList.some(item => item.categoryLabel === categoryLabel) ||
-        (parent && !isSubCategory)
-      ) {
-        return newList
-      }
+    // if the category already exists or if the category has a parent
+    // and isSubCategory is false return the newList
+    if (newList.some(item => item.categoryLabel === categoryLabel) || (parent && !isSubCategory)) {
+      return newList
+    }
 
-      const subCategories = getSubCategories(allResults, type)
+    const subCategories = getSubCategories(allResults, type)
 
-      let results = []
-      // addresses should not be sorted
-      if (categoryLabel === 'Adres') {
-        results = filterResultsByCategory(allResults, categoryLabel)
-      } else {
-        results = sortByCategoryTypeOrder(
-          filterResultsByCategory(allResults, categoryLabel),
-        )
-      }
+    let results = []
+    // addresses should not be sorted
+    if (categoryLabel === 'Adres') {
+      results = filterResultsByCategory(allResults, categoryLabel)
+    } else {
+      results = sortByCategoryTypeOrder(filterResultsByCategory(allResults, categoryLabel))
+    }
 
-      return [
-        ...newList,
-        {
-          categoryLabel,
-          type,
-          results,
-          subCategories:
-            subCategories && subCategories.length
-              ? createMapSearchResultsModel(subCategories, true)
-              : [],
-        },
-      ]
-    },
-    [],
-  )
+    return [
+      ...newList,
+      {
+        categoryLabel,
+        type,
+        results,
+        subCategories:
+          subCategories && subCategories.length
+            ? createMapSearchResultsModel(subCategories, true)
+            : [],
+      },
+    ]
+  }, [])

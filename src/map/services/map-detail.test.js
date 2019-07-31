@@ -19,9 +19,7 @@ describe('The map detail service', () => {
 
   it('calls the service fot the endpoint type specified', async () => {
     adressenLigplaats.mockImplementation(() => ({ type: 'ligplaats' }))
-    expect(
-      await detail('https://acc.api.data.amsterdam.nl/bag/ligplaats/123'),
-    ).toEqual({
+    expect(await detail('https://acc.api.data.amsterdam.nl/bag/ligplaats/123')).toEqual({
       endpointType: 'bag/ligplaats/',
       type: 'ligplaats',
     })
@@ -31,9 +29,7 @@ describe('The map detail service', () => {
     )
 
     napPeilmerk.mockImplementation(() => ({ type: 'peilmerk' }))
-    expect(
-      await detail('https://acc.api.data.amsterdam.nl/nap/peilmerk/123'),
-    ).toEqual({
+    expect(await detail('https://acc.api.data.amsterdam.nl/nap/peilmerk/123')).toEqual({
       endpointType: 'nap/peilmerk/',
       type: 'peilmerk',
     })
@@ -48,11 +44,7 @@ describe('The map detail service', () => {
       adressenNummeraanduiding.mockImplementation(() => ({
         type: 'nummeraanduiding',
       }))
-      expect(
-        await detail(
-          'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123',
-        ),
-      ).toEqual({
+      expect(await detail('https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123')).toEqual({
         endpointType: 'bag/verblijfsobject/',
         type: 'nummeraanduiding',
       })
@@ -67,11 +59,7 @@ describe('The map detail service', () => {
         type: 'nummeraanduiding',
         ligplaats: true,
       }))
-      expect(
-        await detail(
-          'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123',
-        ),
-      ).toEqual({
+      expect(await detail('https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123')).toEqual({
         endpointType: 'bag/ligplaats/',
         type: 'nummeraanduiding',
         ligplaats: true,
@@ -87,11 +75,7 @@ describe('The map detail service', () => {
         type: 'nummeraanduiding',
         standplaats: true,
       }))
-      expect(
-        await detail(
-          'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123',
-        ),
-      ).toEqual({
+      expect(await detail('https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123')).toEqual({
         endpointType: 'bag/standplaats/',
         type: 'nummeraanduiding',
         standplaats: true,
@@ -106,12 +90,9 @@ describe('The map detail service', () => {
   it('does not call the service when the user does not have the required auth scope', async () => {
     vestiging.mockImplementation(() => ({ type: 'vestiging' }))
     expect(
-      await detail(
-        'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123',
-        {
-          scopes: ['MON/R'],
-        },
-      ),
+      await detail('https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123', {
+        scopes: ['MON/R'],
+      }),
     ).toEqual({ endpointType: 'handelsregister/vestiging/' })
     expect(vestiging).not.toHaveBeenCalled()
   })
@@ -122,10 +103,7 @@ describe('The map detail service', () => {
       scopes: ['MON/R', 'HR/R'],
     }
     expect(
-      await detail(
-        'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123',
-        user,
-      ),
+      await detail('https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123', user),
     ).toEqual({ endpointType: 'handelsregister/vestiging/', type: 'vestiging' })
     expect(vestiging).toHaveBeenCalledWith(
       'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123',

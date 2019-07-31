@@ -1,9 +1,7 @@
 node_modules
 /scripts
-
 /test/dyson
-/*.js
 
 /public
-/coverage
-/coverage-legacy
+coverage
+coverage-legacy

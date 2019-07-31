@@ -64,8 +64,7 @@ describe('mapBaseLayers selectors', () => {
       value: 'topo_rd_light',
       category: 'topography',
       label: 'Topografie licht',
-      urlTemplate:
-        'https://{s}.data.amsterdam.nl/topo_rd_light/{z}/{x}/{y}.png',
+      urlTemplate: 'https://{s}.data.amsterdam.nl/topo_rd_light/{z}/{x}/{y}.png',
     },
     {
       value: 'lf2016',
@@ -91,10 +90,7 @@ describe('mapBaseLayers selectors', () => {
   })
   describe('getUrlTemplate', () => {
     it('should return the urlTemplate of the active baseLayer', () => {
-      const selected = getUrlTemplate.resultFunc(
-        baseLayers,
-        baseLayers[0].value,
-      )
+      const selected = getUrlTemplate.resultFunc(baseLayers, baseLayers[0].value)
       expect(selected).toEqual(baseLayers[0].urlTemplate)
     })
   })

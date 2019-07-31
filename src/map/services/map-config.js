@@ -2,10 +2,7 @@ import BOUNDING_BOX from './bounding-box.constant'
 import ENVIRONMENT, { ENVIRONMENTS } from '../../shared/environment'
 import getCrs from './crs-service'
 
-const BOUNDS = [
-  BOUNDING_BOX.COORDINATES.southWest,
-  BOUNDING_BOX.COORDINATES.northEast,
-]
+const BOUNDS = [BOUNDING_BOX.COORDINATES.southWest, BOUNDING_BOX.COORDINATES.northEast]
 
 const defaultConfig = {
   BASE_LAYER_OPTIONS: {

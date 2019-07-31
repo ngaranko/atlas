@@ -47,11 +47,7 @@ describe('The dp-dcatd-button component', () => {
     })
 
     it('renders wijzigen button', () => {
-      const component = getComponent(
-        'Wijzigen',
-        'wijzigen',
-        'id-van-te-wijzigen-dataset',
-      )
+      const component = getComponent('Wijzigen', 'wijzigen', 'id-van-te-wijzigen-dataset')
 
       expect(component.text().trim()).toBe('Wijzigen')
     })
@@ -71,17 +67,11 @@ describe('The dp-dcatd-button component', () => {
         jasmine.any(String),
       )
 
-      expect($window.location.assign).toHaveBeenCalledWith(
-        '/dcatd_admin#/datasets/_',
-      )
+      expect($window.location.assign).toHaveBeenCalledWith('/dcatd_admin#/datasets/_')
     })
 
     it('when clicking the wijzigen button', () => {
-      const component = getComponent(
-        'Wijzigen',
-        'wijzigen',
-        'id-van-te-wijzigen-dataset',
-      )
+      const component = getComponent('Wijzigen', 'wijzigen', 'id-van-te-wijzigen-dataset')
       component.find('button').click()
 
       expect($window.sessionStorage.setItem).toHaveBeenCalledWith(

@@ -17,7 +17,9 @@ describe('TabBar', () => {
       numberOfDataResults: 1,
       numberOfDatasetResults: 1,
     }
-    const component = shallow(<TabBarContainer {...props} />, { context: { store } })
+    const component = shallow(<TabBarContainer {...props} />, {
+      context: { store },
+    })
     expect(component).toMatchSnapshot()
   })
 

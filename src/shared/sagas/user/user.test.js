@@ -7,10 +7,7 @@ import {
   authenticateUserSuccess,
   authenticateFailed,
 } from '../../ducks/user/user'
-import watchAuthenticationRequest, {
-  authenticateUser,
-  waitForAuthentication,
-} from './user'
+import watchAuthenticationRequest, { authenticateUser, waitForAuthentication } from './user'
 
 jest.mock('../../services/auth/auth')
 

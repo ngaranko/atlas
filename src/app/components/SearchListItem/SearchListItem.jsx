@@ -44,8 +44,7 @@ const SearchListItem = ({ result, category }) => (
     {showSubtype(category.slug, result) ? (
       <span className="qa-subtype">
         &nbsp;(
-        {result.subtypeLabel}
-)
+        {result.subtypeLabel})
       </span>
     ) : null}
   </li>

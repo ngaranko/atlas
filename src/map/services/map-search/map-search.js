@@ -89,17 +89,14 @@ export const getFeaturesFromResult = (endpointType, result) => {
 }
 
 export const fetchRelatedForUser = user => data => {
-  const item = data.features.find(
-    feature => relatedResourcesByType[feature.properties.type],
-  )
+  const item = data.features.find(feature => relatedResourcesByType[feature.properties.type])
   if (!item) {
     return data.features
   }
 
   const resources = relatedResourcesByType[item.properties.type]
   const requests = resources.map(resource =>
-    resource.authScope &&
-    (!user.authenticated || !user.scopes.includes(resource.authScope))
+    resource.authScope && (!user.authenticated || !user.scopes.includes(resource.authScope))
       ? []
       : resource.fetch(item.properties.id).then(results =>
           results.map(result => ({
@@ -115,10 +112,7 @@ export const fetchRelatedForUser = user => data => {
   )
 
   return Promise.all(requests).then(results =>
-    results.reduce(
-      (accumulator, subResults) => accumulator.concat(subResults),
-      data.features,
-    ),
+    results.reduce((accumulator, subResults) => accumulator.concat(subResults), data.features),
   )
 }
 
@@ -127,10 +121,7 @@ export default function search(location, user) {
   const allRequests = []
 
   endpoints.forEach(endpoint => {
-    const isInScope =
-      endpoint.authScope &&
-      user.scopes &&
-      user.scopes.includes(endpoint.authScope)
+    const isInScope = endpoint.authScope && user.scopes && user.scopes.includes(endpoint.authScope)
 
     if (!endpoint.authScope || isInScope) {
       const searchParams = {
@@ -141,17 +132,10 @@ export default function search(location, user) {
       }
 
       const queryString = Object.keys(searchParams)
-        .map(
-          key =>
-            `${encodeURIComponent(key)}=${encodeURIComponent(
-              searchParams[key],
-            )}`,
-        )
+        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`)
         .join('&')
 
-      const request = getByUrl(
-        `${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`,
-      )
+      const request = getByUrl(`${SHARED_CONFIG.API_ROOT}${endpoint.uri}?${queryString}`)
         .then(result => ({
           features: getFeaturesFromResult(endpoint.uri, result),
         }))
@@ -169,9 +153,7 @@ export default function search(location, user) {
 
   const allResults = Promise.all(
     allRequests.map(p =>
-      p
-        .then(result => Promise.resolve(result))
-        .catch(() => Promise.resolve([])),
+      p.then(result => Promise.resolve(result)).catch(() => Promise.resolve([])),
     ),
   ) // ignore the failing calls
   return allResults

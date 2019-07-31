@@ -12,11 +12,9 @@ import { routing } from '../../../app/routes'
 export function* navigate({ payload }) {
   const page = Object.keys(CMS_PAGE_MAPPING).find(
     key =>
-      CMS_PAGE_MAPPING[key].type === payload.type &&
-      CMS_PAGE_MAPPING[key].item === payload.item,
+      CMS_PAGE_MAPPING[key].type === payload.type && CMS_PAGE_MAPPING[key].item === payload.item,
   )
-  const routeType = Object.values(routing).find(value => value.page === page)
-    .type
+  const routeType = Object.values(routing).find(value => value.page === page).type
   const action = type => ({ type })
   yield put(action(routeType))
 }

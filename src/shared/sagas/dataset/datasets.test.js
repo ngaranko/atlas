@@ -5,10 +5,7 @@ import {
   FETCH_API_SPECIFICATION_FAILURE,
   FETCH_API_SPECIFICATION_SUCCESS,
 } from '../../ducks/datasets/apiSpecification/apiSpecification'
-import {
-  FETCH_DATASETS_FAILURE,
-  FETCH_DATASETS_SUCCESS,
-} from '../../ducks/datasets/data/data'
+import { FETCH_DATASETS_FAILURE, FETCH_DATASETS_SUCCESS } from '../../ducks/datasets/data/data'
 import fetchApiSpecification from '../../services/datasets-filters/datasets-filters'
 import { query } from '../../services/data-selection/data-selection-api'
 

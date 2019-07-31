@@ -1,20 +1,11 @@
 import { routing } from '../app/routes'
 import { DATA_SEARCH_REDUCER } from '../shared/ducks/data-search/reducer'
 import { initialState as dataSearchInitialState } from '../shared/ducks/data-search/constants'
-import {
-  getDataSelectionPage,
-  getGeometryFilter,
-} from '../shared/ducks/data-selection/selectors'
+import { getDataSelectionPage, getGeometryFilter } from '../shared/ducks/data-selection/selectors'
 import { DATA_SELECTION } from '../shared/ducks/data-selection/reducer'
 import { DATASETS, getPage } from '../shared/ducks/datasets/datasets'
-import {
-  DATA,
-  initialState as datasetsDataInitialState,
-} from '../shared/ducks/datasets/data/data'
-import {
-  initialState as mapInitialState,
-  REDUCER_KEY as MAP,
-} from '../map/ducks/map/constants'
+import { DATA, initialState as datasetsDataInitialState } from '../shared/ducks/datasets/data/data'
+import { initialState as mapInitialState, REDUCER_KEY as MAP } from '../map/ducks/map/constants'
 import {
   initialState as filesInitialState,
   REDUCER_KEY as FILES,
@@ -111,9 +102,7 @@ export default paramsRegistry
       encode: ({ markers, description }) => {
         if (markers && description) {
           return JSON.stringify({
-            markers: markers
-              .map(latLong => `${latLong[0]}:${latLong[1]}`)
-              .join('|'),
+            markers: markers.map(latLong => `${latLong[0]}:${latLong[1]}`).join('|'),
             description,
           })
         }
@@ -126,11 +115,7 @@ export default paramsRegistry
           geometryFilter = {
             markers:
               markers && markers.length
-                ? markers
-                    .split('|')
-                    .map(latLng =>
-                      latLng.split(':').map(str => parseFloat(str)),
-                    )
+                ? markers.split('|').map(latLng => latLng.split(':').map(str => parseFloat(str)))
                 : [],
             description,
           }
@@ -160,13 +145,9 @@ export default paramsRegistry
       {
         defaultValue: mapInitialState.viewCenter,
         decode: (val = mapInitialState.viewCenter.join(',')) =>
-          val
-            .split(',')
-            .map(ltLng => normalizeCoordinate(parseFloat(ltLng), 7)),
+          val.split(',').map(ltLng => normalizeCoordinate(parseFloat(ltLng), 7)),
         encode: selectorResult =>
-          selectorResult
-            .map(coordinate => normalizeCoordinate(coordinate, 7))
-            .join(','),
+          selectorResult.map(coordinate => normalizeCoordinate(coordinate, 7)).join(','),
         selector: getCenter,
       },
       false,
@@ -263,9 +244,7 @@ export default paramsRegistry
         },
         selector: getFiltersWithoutShape,
         encode: (selectorResult = {}) =>
-          Object.keys(selectorResult).length
-            ? JSON.stringify(selectorResult)
-            : undefined,
+          Object.keys(selectorResult).length ? JSON.stringify(selectorResult) : undefined,
       },
     )
   })
@@ -276,15 +255,10 @@ export default paramsRegistry
       'detailReference',
       {
         defaultValue: panoramaInitialState.detailReference,
-        decode: val =>
-          val && val.length
-            ? val.split(',')
-            : panoramaInitialState.detailReference,
+        decode: val => (val && val.length ? val.split(',') : panoramaInitialState.detailReference),
         selector: getDetailReference,
         encode: selectorResult =>
-          selectorResult.length
-            ? selectorResult.join()
-            : panoramaInitialState.detailReference,
+          selectorResult.length ? selectorResult.join() : panoramaInitialState.detailReference,
       },
       false,
     )
@@ -338,9 +312,7 @@ export default paramsRegistry
             : mapInitialState.overlays,
         selector: getMapOverlays,
         encode: selectorResult =>
-          selectorResult
-            .map(overlay => `${overlay.id}:${overlay.isVisible ? 1 : 0}`)
-            .join('|'),
+          selectorResult.map(overlay => `${overlay.id}:${overlay.isVisible ? 1 : 0}`).join('|'),
       },
       false,
     )
@@ -353,15 +325,11 @@ export default paramsRegistry
         'location',
         {
           decode: val =>
-            val
-              ? val.split(',').map(string => parseFloat(string))
-              : panoramaInitialState.location,
+            val ? val.split(',').map(string => parseFloat(string)) : panoramaInitialState.location,
           defaultValue: panoramaInitialState.location,
           selector: getPanoramaLocation,
           encode: selectorResult =>
-            selectorResult
-              ? selectorResult.join()
-              : panoramaInitialState.location,
+            selectorResult ? selectorResult.join() : panoramaInitialState.location,
         },
         false,
       )
@@ -397,10 +365,7 @@ export default paramsRegistry
       {
         defaultValue: mapInitialState.marker,
         decode: val =>
-          val &&
-          val
-            .split(',')
-            .map(ltLng => normalizeCoordinate(parseFloat(ltLng), 7)),
+          val && val.split(',').map(ltLng => normalizeCoordinate(parseFloat(ltLng), 7)),
         encode: value => value && value.position.join(','),
         selector: getMarkerLocation,
       },

@@ -145,12 +145,7 @@ describe('The BaseCoder', () => {
     })
 
     it('works only for valid precisions', () => {
-      ;[
-        ['F', 16, -1],
-        ['F', 16, 1.5],
-        ['F', 16, 'aap'],
-        ['F', 16, true],
-      ].forEach(a => {
+      ;[['F', 16, -1], ['F', 16, 1.5], ['F', 16, 'aap'], ['F', 16, true]].forEach(a => {
         const f = () => decode(...a)
         expect(f).toThrowError(RangeError)
       })
@@ -176,12 +171,7 @@ describe('The BaseCoder', () => {
     })
 
     it('works only for valid precisions', () => {
-      ;[
-        [525, 10, -25],
-        [525, 10, 5.7],
-        [525, 10, 'noot'],
-        [525, 10, false],
-      ].forEach(a => {
+      ;[[525, 10, -25], [525, 10, 5.7], [525, 10, 'noot'], [525, 10, false]].forEach(a => {
         const f = () => encode(...a)
         expect(f).toThrowError(RangeError)
       })
@@ -203,22 +193,10 @@ describe('The BaseCoder', () => {
 
     it('rounds an array of numbers to the specified precision', () => {
       expect(BaseCoder.toPrecision([1, 1], 5)).toEqual([1, 1])
-      expect(BaseCoder.toPrecision([1.12345, 1.12345], 5)).toEqual([
-        1.12345,
-        1.12345,
-      ])
-      expect(BaseCoder.toPrecision([1.123454, 1.123454], 5)).toEqual([
-        1.12345,
-        1.12345,
-      ])
-      expect(BaseCoder.toPrecision([1.123455, 1.123455], 5)).toEqual([
-        1.12346,
-        1.12346,
-      ])
-      expect(BaseCoder.toPrecision([1.123456, 1.123456], 5)).toEqual([
-        1.12346,
-        1.12346,
-      ])
+      expect(BaseCoder.toPrecision([1.12345, 1.12345], 5)).toEqual([1.12345, 1.12345])
+      expect(BaseCoder.toPrecision([1.123454, 1.123454], 5)).toEqual([1.12345, 1.12345])
+      expect(BaseCoder.toPrecision([1.123455, 1.123455], 5)).toEqual([1.12346, 1.12346])
+      expect(BaseCoder.toPrecision([1.123456, 1.123456], 5)).toEqual([1.12346, 1.12346])
     })
   })
 })

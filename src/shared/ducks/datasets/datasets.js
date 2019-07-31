@@ -14,8 +14,7 @@ export default combineReducers({
 
 // Selectors
 export const getDatasetsData = state => state[REDUCER_KEY][DATA]
-export const getApiSpecification = state =>
-  state[REDUCER_KEY][API_SPECIFICATION]
+export const getApiSpecification = state => state[REDUCER_KEY][API_SPECIFICATION]
 
 const getStateOfKey = {
   data: key => state =>

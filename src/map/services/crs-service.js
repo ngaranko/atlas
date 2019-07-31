@@ -5,15 +5,8 @@ import CRS_CONFIG from './crs-config.constant'
 
 function getCrs() {
   const rdSettings = CRS_CONFIG.RD
-  rdSettings.transformation.bounds = L.bounds.apply(
-    null,
-    CRS_CONFIG.RD.transformation.bounds,
-  )
-  const crs = new L.Proj.CRS(
-    rdSettings.code,
-    rdSettings.projection,
-    rdSettings.transformation,
-  )
+  rdSettings.transformation.bounds = L.bounds.apply(null, CRS_CONFIG.RD.transformation.bounds)
+  const crs = new L.Proj.CRS(rdSettings.code, rdSettings.projection, rdSettings.transformation)
 
   crs.distance = L.CRS.Earth.distance
   crs.R = CRS_CONFIG.EARTH_RADIUS

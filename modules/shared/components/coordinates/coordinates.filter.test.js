@@ -25,9 +25,7 @@ describe('The coordinates filter', function() {
   })
 
   it('returns a string with the RD and latitude/longitude coordinates for RD coordinates', function() {
-    expect(coordinates([123456, 654123], 'RD')).toBe(
-      '123456.00, 654123.00 (52.1234560, 4.4567890)',
-    )
+    expect(coordinates([123456, 654123], 'RD')).toBe('123456.00, 654123.00 (52.1234560, 4.4567890)')
   })
 
   it('returns undefined for an unkown coordinate system', function() {

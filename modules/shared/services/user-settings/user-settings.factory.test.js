@@ -25,9 +25,7 @@ describe('the user settings factory', function() {
       storage = _storage_
     })
     ;[storage.instance, storage.session, storage.local].forEach(s =>
-      ['setItem', 'getItem', 'removeItem'].forEach(m =>
-        spyOn(s, m).and.callThrough(),
-      ),
+      ['setItem', 'getItem', 'removeItem'].forEach(m => spyOn(s, m).and.callThrough()),
     )
   })
 

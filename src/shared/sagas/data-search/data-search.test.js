@@ -5,16 +5,9 @@ import {
   fetchMapSearchResultsSuccessPanel,
   fetchSearchResultsByQuery,
 } from '../../ducks/data-search/actions'
-import {
-  getSearchCategory,
-  getSearchQuery,
-} from '../../ducks/data-search/selectors'
+import { getSearchCategory, getSearchQuery } from '../../ducks/data-search/selectors'
 import { querySearch } from '../../services/search/search'
-import {
-  fetchMapSearchResults,
-  fetchQuerySearchResults,
-  setSearchResults,
-} from './data-search'
+import { fetchMapSearchResults, fetchQuerySearchResults, setSearchResults } from './data-search'
 import geosearch from '../../services/search/geosearch'
 import search from '../../../map/services/map-search/map-search'
 import { VIEW_MODE } from '../../ducks/ui/ui'

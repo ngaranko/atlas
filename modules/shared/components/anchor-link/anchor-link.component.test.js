@@ -44,9 +44,7 @@ describe('The anchorLink component', function() {
 
   it('accepts an optional classname', function() {
     const component = getComponent('', 'some className')
-    expect(component.find('.qa-anchor-link').attr('class')).toContain(
-      'some className',
-    )
+    expect(component.find('.qa-anchor-link').attr('class')).toContain('some className')
   })
 
   it('transcludes content', function() {
@@ -72,9 +70,7 @@ describe('The anchorLink component', function() {
     const component = getComponent('a link', '', false)
     const controller = component.controller('dpAnchorLink')
     spyOn(controller, 'scrollTo')
-    component
-      .find('.qa-anchor-link')
-      .triggerHandler({ type: 'keydown', key: 'Enter' })
+    component.find('.qa-anchor-link').triggerHandler({ type: 'keydown', key: 'Enter' })
     $rootScope.$apply()
     $interval.flush(FLUSH_PERIOD)
     expect(controller.scrollTo).toHaveBeenCalled()
@@ -84,9 +80,7 @@ describe('The anchorLink component', function() {
     const component = getComponent('a link', '', false)
     const controller = component.controller('dpAnchorLink')
     spyOn(controller, 'scrollTo')
-    component
-      .find('.qa-anchor-link')
-      .triggerHandler({ type: 'keydown', key: 'Up' })
+    component.find('.qa-anchor-link').triggerHandler({ type: 'keydown', key: 'Up' })
     $rootScope.$apply()
     $interval.flush(FLUSH_PERIOD)
     expect(controller.scrollTo).not.toHaveBeenCalled()

@@ -24,21 +24,13 @@ import paramsRegistry from '../../../store/params-registry'
 export { REDUCER_KEY as DATA_SELECTION }
 
 export default function reducer(state = initialState, action) {
-  if (
-    shouldResetState(action, [
-      PAGES.ADDRESSES,
-      PAGES.ESTABLISHMENTS,
-      PAGES.CADASTRAL_OBJECTS,
-    ])
-  ) {
+  if (shouldResetState(action, [PAGES.ADDRESSES, PAGES.ESTABLISHMENTS, PAGES.CADASTRAL_OBJECTS])) {
     return initialState
   }
   const enrichedState = {
     ...state,
     ...paramsRegistry.getStateFromQueries(REDUCER_KEY, action),
-    ...(ROUTE_DATASET_MAPPER[action.type]
-      ? { dataset: ROUTE_DATASET_MAPPER[action.type] }
-      : {}),
+    ...(ROUTE_DATASET_MAPPER[action.type] ? { dataset: ROUTE_DATASET_MAPPER[action.type] } : {}),
   }
 
   switch (action.type) {

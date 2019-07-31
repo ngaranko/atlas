@@ -145,12 +145,7 @@ describe('The dp-glossary-header directive', function() {
   })
 
   it('has an optional heading that can be placed in front of the glossary label', function() {
-    const directive = getDirective(
-      'Ik ben een hele specifieke titel',
-      'BOUWBLOK',
-      false,
-      null,
-    )
+    const directive = getDirective('Ik ben een hele specifieke titel', 'BOUWBLOK', false, null)
 
     expect(
       directive
@@ -178,15 +173,11 @@ describe('The dp-glossary-header directive', function() {
     expect(directive.find('.qa-glossary').length).toBe(1)
 
     // Inside the content of the panel
-    expect(directive.find('.qa-glossary h3').text()).toBe(
-      'Uitleg over bouwblok',
-    )
+    expect(directive.find('.qa-glossary h3').text()).toBe('Uitleg over bouwblok')
     expect(directive.find('.qa-glossary p:nth-of-type(1)').text()).toBe(
       'Verhaaltje over bouwblokken',
     )
-    expect(directive.find('.qa-glossary a').attr('href')).toBe(
-      'http:// www.example.com/bouwblok/',
-    )
+    expect(directive.find('.qa-glossary a').attr('href')).toBe('http:// www.example.com/bouwblok/')
     expect(
       directive
         .find('.qa-glossary a')

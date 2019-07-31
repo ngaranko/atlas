@@ -7,7 +7,11 @@ const Hotspot = ({ year, size, angle }) => (
     <button type="button" className={`c-hotspot c-hotspot--year-${year} qa-hotspot-button`}>
       <div
         className="qa-hotspot-rotation"
-        style={{ width: `${size}px`, height: `${size}px`, transform: `rotateX(${angle}deg)` }}
+        style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          transform: `rotateX(${angle}deg)`,
+        }}
       >
         <div className="c-hotspot__image" style={{ width: `${size}px`, height: `${size}px` }} />
       </div>

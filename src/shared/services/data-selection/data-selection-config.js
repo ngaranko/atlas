@@ -169,8 +169,7 @@ const DATA_SELECTION_CONFIG = {
           slug: 'eigenaar_type',
           label: 'Type zakelijk gerechtigde',
           order: ['Grondeigenaar', 'Pandeigenaar', 'Appartementseigenaar'],
-          info_url:
-            'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/',
+          info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/',
         },
         {
           slug: 'eigenaar_cat',
@@ -187,8 +186,7 @@ const DATA_SELECTION_CONFIG = {
             'Overige niet-natuurlijke personen',
             'Overige natuurlijke personen',
           ],
-          info_url:
-            'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/',
+          info_url: 'https://www.amsterdam.nl/stelselpedia/brk-index/producten-brk/kadastertabel/',
         },
         {
           slug: 'stadsdeel_naam',

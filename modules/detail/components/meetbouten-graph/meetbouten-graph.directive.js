@@ -1,14 +1,7 @@
 ;(function() {
-  angular
-    .module('dpDetail')
-    .directive('dpMeetboutGraph', dpMeetboutGraphDirective)
+  angular.module('dpDetail').directive('dpMeetboutGraph', dpMeetboutGraphDirective)
 
-  dpMeetboutGraphDirective.$inject = [
-    'api',
-    'd3',
-    'dateConverter',
-    'dateFormatter',
-  ]
+  dpMeetboutGraphDirective.$inject = ['api', 'd3', 'dateConverter', 'dateFormatter']
 
   function dpMeetboutGraphDirective(api, d3, dateConverter, dateFormatter) {
     return {

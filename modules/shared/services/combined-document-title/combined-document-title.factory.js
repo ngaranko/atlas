@@ -1,9 +1,7 @@
 import * as mapDocumentTitle from '../../../../src/map/services/document-title/document-title'
 ;(function() {
   // This factory name is namespaced because other modules will get a similar service with the same name
-  angular
-    .module('dpShared')
-    .factory('dpCombinedDocumentTitle', documentTitleFactory)
+  angular.module('dpShared').factory('dpCombinedDocumentTitle', documentTitleFactory)
 
   documentTitleFactory.$inject = ['dpDataSelectionDocumentTitle', '$q']
 

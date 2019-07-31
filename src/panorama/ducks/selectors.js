@@ -41,6 +41,5 @@ export const getPageReference = getStateOfKey('pageReference')
 export const getPanoramaTags = getStateOfKey('tags')
 
 export const getLabelObjectByTags = tags =>
-  PANO_LABELS.find(
-    value => JSON.stringify(value.tags.sort()) === JSON.stringify(tags),
-  ) || PANO_LABELS[0]
+  PANO_LABELS.find(value => JSON.stringify(value.tags.sort()) === JSON.stringify(tags)) ||
+  PANO_LABELS[0]

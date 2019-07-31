@@ -15,12 +15,7 @@ import {
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import truncateString from '../../../shared/services/truncateString/truncateString'
 
-const toPanoramaAction = toPanoramaAndPreserveQuery(
-  undefined,
-  undefined,
-  undefined,
-  'home',
-)
+const toPanoramaAction = toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home')
 const toMapAction = toMap(true)
 const toDatasetsAction = toDatasets()
 const toApisAction = toApisPage()
@@ -34,23 +29,14 @@ const components = {
   mobile: MenuToggle,
 }
 
-const HeaderMenu = ({
-  type,
-  login,
-  logout,
-  user,
-  showFeedbackForm,
-  ...props
-}) => {
+const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) => {
   const Menu = components[type]
 
   return (
     <Menu {...props}>
       <MenuFlyOut label="Onderdelen">
         <MenuItem {...linkAttributesFromAction(toMapAction)}>Kaart</MenuItem>
-        <MenuItem {...linkAttributesFromAction(toPanoramaAction)}>
-          Panoramabeelden
-        </MenuItem>
+        <MenuItem {...linkAttributesFromAction(toPanoramaAction)}>Panoramabeelden</MenuItem>
         <MenuItem {...linkAttributesFromAction(toDatasetsAction)}>Datasets</MenuItem>
         <MenuItem {...linkAttributesFromAction(toApisAction)}>Data services</MenuItem>
       </MenuFlyOut>

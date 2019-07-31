@@ -6,8 +6,7 @@ import { FETCH_DETAIL_SUCCESS } from '../../shared/ducks/detail/constants'
 const TITLE_SUFFIX = 'Dataportaal'
 const TITLE_DEFAULT = 'Dataportaal'
 
-const getDefaultDocumentTitle = page => () =>
-  get(routing, `[${page}].title`, TITLE_DEFAULT)
+const getDefaultDocumentTitle = page => () => get(routing, `[${page}].title`, TITLE_DEFAULT)
 
 const documentHead = () => next => action => {
   // The change of the route and some actions should change the document title
@@ -16,18 +15,10 @@ const documentHead = () => next => action => {
       .map(key => routing[key].type)
       .includes(action.type) || action.type === FETCH_DETAIL_SUCCESS
   if (shouldChangeTitle) {
-    const page = Object.keys(routing).find(
-      key => routing[key].type === action.type,
-    )
+    const page = Object.keys(routing).find(key => routing[key].type === action.type)
 
-    const titleResolver = titleActionMapping.find(
-      item => item.actionType === action.type,
-    )
-    const getTitle = get(
-      titleResolver,
-      'getTitle',
-      getDefaultDocumentTitle(page),
-    )
+    const titleResolver = titleActionMapping.find(item => item.actionType === action.type)
+    const getTitle = get(titleResolver, 'getTitle', getDefaultDocumentTitle(page))
     const pageTitle = getTitle(action, getDefaultDocumentTitle(page)())
 
     document.title = `${pageTitle} - ${TITLE_SUFFIX}`

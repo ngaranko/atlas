@@ -66,17 +66,14 @@ const mapLayers = [
   {
     id: 'pano',
     layers: ['panorama_new'],
-    legendItems: [
-      { title: '2019' },
-      { title: '2018' },
-      { title: '2017' },
-      { title: '2016' },
-    ].map(item => ({
-      ...item,
-      params: {
-        scale: 800,
-      },
-    })),
+    legendItems: [{ title: '2019' }, { title: '2018' }, { title: '2017' }, { title: '2016' }].map(
+      item => ({
+        ...item,
+        params: {
+          scale: 800,
+        },
+      }),
+    ),
     minZoom: 11,
     notClosable: true,
     title: THEMES.PANORAMA,
@@ -702,8 +699,7 @@ const mapLayers = [
     title: '1909 (Dienst der Publieke Werken, 1:1000)',
     type: mapLayerTypes.TMS,
     layers: ['publieke-werken'],
-    url:
-      'https://{s}.data.amsterdam.nl/publieke-werken-1909-rd/{z}/{x}/{y}.png',
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1909-rd/{z}/{x}/{y}.png',
     noDetail: true,
     external: true,
     bounds: [[52.3361, 4.84049], [52.4185, 4.96617]],
@@ -716,8 +712,7 @@ const mapLayers = [
     title: '1943 (Dienst der Publieke Werken, 1:1000)',
     type: mapLayerTypes.TMS,
     layers: ['publieke-werken'],
-    url:
-      'https://{s}.data.amsterdam.nl/publieke-werken-1943-rd/{z}/{x}/{y}.png',
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-rd/{z}/{x}/{y}.png',
     noDetail: true,
     external: true,
     bounds: [[52.3292, 4.8382], [52.4173, 4.9646]],
@@ -730,8 +725,7 @@ const mapLayers = [
     title: '1943 (Dienst der Publieke Werken, 1:2500)',
     type: mapLayerTypes.TMS,
     layers: ['publieke-werken'],
-    url:
-      'https://{s}.data.amsterdam.nl/publieke-werken-1943-2500-rd/{z}/{x}/{y}.png',
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1943-2500-rd/{z}/{x}/{y}.png',
     noDetail: true,
     external: true,
     bounds: [[52.2815, 4.7287], [52.4174, 4.9927]],
@@ -744,8 +738,7 @@ const mapLayers = [
     title: '1985 (Dienst der Publieke Werken, 1:1000)',
     type: mapLayerTypes.TMS,
     layers: ['publieke-werken'],
-    url:
-      'https://{s}.data.amsterdam.nl/publieke-werken-1985-rd/{z}/{x}/{y}.png',
+    url: 'https://{s}.data.amsterdam.nl/publieke-werken-1985-rd/{z}/{x}/{y}.png',
     noDetail: true,
     external: true,
     bounds: [[52.2756, 4.74026], [52.4374, 5.04781]],
@@ -1589,11 +1582,7 @@ const mapLayers = [
         title: 'Plaatsgebondenrisico (25/120 m)',
       },
       {
-        layers: [
-          'lpgtankinvloedsgebied',
-          'lpgtankplaatsgebondenrisico',
-          'lpgtankligging',
-        ],
+        layers: ['lpgtankinvloedsgebied', 'lpgtankplaatsgebondenrisico', 'lpgtankligging'],
         title: 'Invloedsgebied groepsrisico',
       },
     ],
@@ -1622,10 +1611,7 @@ const mapLayers = [
   {
     category: THEMES.MIL_SAFETY,
     id: 'mvbr',
-    layers: [
-      'overigerisicobedrijfplaatsgebondenrisico106',
-      'overigerisicobedrijfsbronnen',
-    ],
+    layers: ['overigerisicobedrijfplaatsgebondenrisico106', 'overigerisicobedrijfsbronnen'],
     legendItems: [
       {
         layers: ['overigerisicobedrijfplaatsgebondenrisico106'],
@@ -1810,8 +1796,7 @@ const mapLayers = [
     legendItems: [
       { title: 'X LIB-4: Beperkingengebied geluidgevoelige gebouwen' },
       {
-        title:
-          'X LIB-5: Afwegingsgebied geluid en externe veiligheid (voorheen 20-Ke)',
+        title: 'X LIB-5: Afwegingsgebied geluid en externe veiligheid (voorheen 20-Ke)',
       },
     ],
     title: 'Schiphol - Ruimtelijke beperkingen',
@@ -1937,10 +1922,7 @@ const mapLayers = [
     authScope: 'HR/R',
     category: THEMES.ECONOMY_HARBOR,
     id: 'fdvrog',
-    layers: [
-      'financiele_dienstverlening_verhuur',
-      'financiele_dienstverlening_verhuur_label',
-    ],
+    layers: ['financiele_dienstverlening_verhuur', 'financiele_dienstverlening_verhuur_label'],
     legendItems: [
       { title: 'Financiële dienstverlening en verzekeringen' },
       { title: 'Holdings' },
@@ -1965,8 +1947,7 @@ const mapLayers = [
       },
       { title: 'Dienstverlening vervoer' },
       {
-        title:
-          'Groothandel (verkoop aan andere ondernemingen, niet zelf vervaardigd)',
+        title: 'Groothandel (verkoop aan andere ondernemingen, niet zelf vervaardigd)',
       },
       { title: "Handel en reparatie van auto's" },
       { title: 'Handelsbemiddeling (tussenpersoon, verkoopt niet zelf)' },
@@ -2060,10 +2041,7 @@ const mapLayers = [
     authScope: 'HR/R',
     category: THEMES.ECONOMY_HARBOR,
     id: 'pd',
-    layers: [
-      'persoonlijke_dienstverlening',
-      'persoonlijke_dienstverlening_label',
-    ],
+    layers: ['persoonlijke_dienstverlening', 'persoonlijke_dienstverlening_label'],
     legendItems: [
       { title: 'Kappers' },
       { title: 'Sauna, solaria' },
@@ -2082,10 +2060,7 @@ const mapLayers = [
     authScope: 'HR/R',
     category: THEMES.ECONOMY_HARBOR,
     id: 'pir',
-    layers: [
-      'productie_installatie_reparatie',
-      'productie_installatie_reparatie_label',
-    ],
+    layers: ['productie_installatie_reparatie', 'productie_installatie_reparatie_label'],
     legendItems: [
       { title: 'Installatie (geen bouw)' },
       { title: 'Productie' },

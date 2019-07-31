@@ -25,6 +25,9 @@ COPY public /app/public
 COPY scripts /app/scripts
 COPY .babelrc \
      .eslintrc.js \
+     .eslintignore \
+     .prettierrc \
+     .prettierignore \
       webpack.* \
       index.ejs \
       favicon.png \

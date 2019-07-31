@@ -57,9 +57,7 @@ export const isOldCmsPage = page =>
   page === PAGES.MANAGEMENT
 
 export const isCmsPage = page =>
-  page === PAGES.ARTICLE ||
-  page === PAGES.PUBLICATIONS ||
-  page === PAGES.SPECIALS
+  page === PAGES.ARTICLE || page === PAGES.PUBLICATIONS || page === PAGES.SPECIALS
 
 export const isMapSplitPage = page =>
   page === PAGES.DATA ||

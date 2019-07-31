@@ -113,8 +113,7 @@ const response = {
           $t: 'entry1',
         },
         content: {
-          $t:
-            'attr-datum: 1-1-2017, attr-titel: titel1, attr-contents: [link link](http://link/)',
+          $t: 'attr-datum: 1-1-2017, attr-titel: titel1, attr-contents: [link link](http://link/)',
         },
       },
       {
@@ -132,8 +131,7 @@ const response = {
           $t: 'entry3',
         },
         content: {
-          $t:
-            'attr-datum: 1-12-2017, attr-titel: titel3, attr-verkorte-titel: short3',
+          $t: 'attr-datum: 1-12-2017, attr-titel: titel3, attr-verkorte-titel: short3',
         },
       },
       {

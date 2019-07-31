@@ -122,9 +122,7 @@ describe('The dp-panel component', function() {
       expect(component.find('div').attr('class')).toContain('c-panel')
       expect(component.find('button').attr('class')).toContain('o-btn--close')
       expect(component.find('div').attr('class')).toContain('c-panel--danger')
-      expect(component.find('button').attr('class')).toContain(
-        'o-btn--close--danger',
-      )
+      expect(component.find('button').attr('class')).toContain('o-btn--close--danger')
     })
     it('has an optional warning type styling', function() {
       const component = getComponent(true, true, 'small', 'warning')
@@ -132,24 +130,14 @@ describe('The dp-panel component', function() {
       expect(component.find('div').attr('class')).toContain('c-panel')
       expect(component.find('button').attr('class')).toContain('o-btn--close')
       expect(component.find('div').attr('class')).toContain('c-panel--warning')
-      expect(component.find('button').attr('class')).toContain(
-        'o-btn--close--warning',
-      )
+      expect(component.find('button').attr('class')).toContain('o-btn--close--warning')
     })
     it('has an option to add additional classes', function() {
-      const component = getComponent(
-        true,
-        true,
-        'tiny',
-        'warning',
-        'my-class an-other-class',
-      )
+      const component = getComponent(true, true, 'tiny', 'warning', 'my-class an-other-class')
 
       expect(component.find('div').attr('class')).toContain('c-panel')
       expect(component.find('button').attr('class')).toContain('o-btn--close')
-      expect(component.find('div').attr('class')).toContain(
-        'my-class an-other-class',
-      )
+      expect(component.find('div').attr('class')).toContain('my-class an-other-class')
     })
   })
 })

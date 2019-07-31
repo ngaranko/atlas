@@ -86,8 +86,7 @@ describe('fetchNearestDetail', () => {
       detailIsShape: undefined,
       distance: 0,
       display: 'ASD03 E 09114 G 0000',
-      uri:
-        'https://acc.api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11440911470000/',
+      uri: 'https://acc.api.data.amsterdam.nl/brk/object/NL.KAD.OnroerendeZaak.11440911470000/',
       id: 'NL.KAD.OnroerendeZaak.11440911470000',
       type: 'kadaster/kadastraal_object',
     })

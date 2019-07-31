@@ -51,18 +51,14 @@ describe('Map Reducer', () => {
       shapeDistanceTxt: 'foo',
       shapeAreaTxt: 'bar',
     }
-    expect(reducer({}, mapUpdateShape(payloadAndResult))).toEqual(
-      payloadAndResult,
-    )
+    expect(reducer({}, mapUpdateShape(payloadAndResult))).toEqual(payloadAndResult)
   })
 
   it('should set the drawing mode when dispatching mapSetDrawingMode', () => {
     const payloadAndResult = {
       drawingMode: 1,
     }
-    expect(reducer({}, mapSetDrawingMode(payloadAndResult))).toEqual(
-      payloadAndResult,
-    )
+    expect(reducer({}, mapSetDrawingMode(payloadAndResult))).toEqual(payloadAndResult)
   })
 
   it('should set the geometry and drawing mode when dispatching mapEndDrawing', () => {
@@ -179,12 +175,8 @@ describe('Map Reducer', () => {
     const expectedResult = {
       boundingBox: [123, 321],
     }
-    expect(reducer({}, updateBoundingBox(expectedResult, true))).toEqual(
-      expectedResult,
-    )
-    expect(reducer({}, updateBoundingBox(expectedResult, false))).toEqual(
-      expectedResult,
-    )
+    expect(reducer({}, updateBoundingBox(expectedResult, true))).toEqual(expectedResult)
+    expect(reducer({}, updateBoundingBox(expectedResult, false))).toEqual(expectedResult)
   })
 
   it('should remove toggled overlays from the active ones', () => {

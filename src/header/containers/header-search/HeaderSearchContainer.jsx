@@ -30,11 +30,12 @@ const mapStateToProps = state => ({
   isMapActive: isMapPage(state),
   numberOfSuggestions: getNumberOfSuggestions(state),
   pageName: state.page ? state.page.name : '',
-  prefillQuery: state.search ?
-    state.search.query :
-    state.dataSelection ?
-    state.dataSelection.query :
-    '',
+  // eslint-disable-next-line no-nested-ternary
+  prefillQuery: state.search
+    ? state.search.query
+    : state.dataSelection
+    ? state.dataSelection.query
+    : '',
   suggestions: getAutoSuggestSuggestions(state),
   typedQuery: getTypedQuery(state),
 })

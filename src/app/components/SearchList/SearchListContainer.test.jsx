@@ -22,7 +22,9 @@ describe('SearchListContainer', () => {
       },
       limit: 1,
     }
-    const component = shallow(<SearchListContainer {...props} />, { context: { store } })
+    const component = shallow(<SearchListContainer {...props} />, {
+      context: { store },
+    })
     expect(component).toMatchSnapshot()
   })
 })

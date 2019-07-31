@@ -70,11 +70,10 @@ export function wgs84ToRd(wgs84Coordinates) {
  * and `longitude`.
  */
 export function rdToWgs84(rdCoordinates) {
-  const wgs84Coordinates = proj4(
-    config.rd.projection,
-    config.wgs84.projection,
-    [rdCoordinates.x, rdCoordinates.y],
-  )
+  const wgs84Coordinates = proj4(config.rd.projection, config.wgs84.projection, [
+    rdCoordinates.x,
+    rdCoordinates.y,
+  ])
   return {
     latitude: wgs84Coordinates[1],
     longitude: wgs84Coordinates[0],

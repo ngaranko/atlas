@@ -5,9 +5,9 @@ const panorama = '.c-panorama'
 describe('panorama module', () => {
   beforeEach(() => {
     cy.server()
-    cy.route(
-      '/panorama/panoramas/*/adjacencies/?newest_in_range=true&tags=mission-bi',
-    ).as('getResults')
+    cy.route('/panorama/panoramas/*/adjacencies/?newest_in_range=true&tags=mission-bi').as(
+      'getResults',
+    )
 
     // go to the homepage
     cy.visit('/')
@@ -153,8 +153,7 @@ describe('panorama module', () => {
 
       cy.wait('@getResults')
       cy.location().then(loc => {
-        newUrl = `${loc.pathname +
-          loc.search}&reference=03630000004153%2Cbag%2Copenbareruimte`
+        newUrl = `${loc.pathname + loc.search}&reference=03630000004153%2Cbag%2Copenbareruimte`
         expect(newUrl).to.equal(panoUrl)
       })
 

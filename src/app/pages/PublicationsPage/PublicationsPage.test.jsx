@@ -47,7 +47,10 @@ describe('PublicationsPage', () => {
   beforeEach(() => {
     linkAttributesFromAction.mockImplementation(() => ({ href }))
     Footer.mockImplementation(() => <></>)
-    useDocumentTitle.mockImplementation(() => ({ setDocumentTitle: jest.fn(), href }))
+    useDocumentTitle.mockImplementation(() => ({
+      setDocumentTitle: jest.fn(),
+      href,
+    }))
     useMatomo.mockImplementation(() => ({ trackPageView: jest.fn(), href }))
 
     store = configureMockStore()({ location: { payload: { id } } })

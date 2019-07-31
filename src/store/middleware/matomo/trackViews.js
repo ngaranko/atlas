@@ -6,36 +6,17 @@ import { MATOMO_CONSTANTS } from './constants'
 
 let views = Object.entries(routing).reduce((acc, [, value]) => ({
   ...acc,
-  [value.type]: function trackView({
-    firstAction = null,
-    query = {},
-    href,
-    title,
-  }) {
-    return firstAction || !!query.print
-      ? [MATOMO_CONSTANTS.TRACK_VIEW, title, href, null]
-      : []
+  [value.type]: function trackView({ firstAction = null, query = {}, href, title }) {
+    return firstAction || !!query.print ? [MATOMO_CONSTANTS.TRACK_VIEW, title, href, null] : []
   },
 }))
 
 views = {
   ...views,
-  [routing.home.type]: function trackView({
-    firstAction = null,
-    query = {},
-    href,
-    title,
-  }) {
-    return firstAction || !!query.print
-      ? [MATOMO_CONSTANTS.TRACK_VIEW, title, href, null]
-      : []
+  [routing.home.type]: function trackView({ firstAction = null, query = {}, href, title }) {
+    return firstAction || !!query.print ? [MATOMO_CONSTANTS.TRACK_VIEW, title, href, null] : []
   },
-  [routing.data.type]: function trackView({
-    firstAction = null,
-    query = {},
-    href,
-    title,
-  }) {
+  [routing.data.type]: function trackView({ firstAction = null, query = {}, href, title }) {
     return firstAction || !!query.print
       ? [
           MATOMO_CONSTANTS.TRACK_VIEW,
@@ -61,6 +42,7 @@ views = {
     state,
     tracking,
   }) {
+    // eslint-disable-next-line no-nested-ternary
     return !firstAction && (tracking && tracking.id !== getDetail(state).id)
       ? [
           MATOMO_CONSTANTS.TRACK_VIEW,
@@ -78,9 +60,7 @@ views = {
       : []
   },
   [FETCH_DETAIL_SUCCESS]: function trackView({ href, title, state }) {
-    return isDatasetDetailPage(state)
-      ? [MATOMO_CONSTANTS.TRACK_VIEW, title, href, null]
-      : []
+    return isDatasetDetailPage(state) ? [MATOMO_CONSTANTS.TRACK_VIEW, title, href, null] : []
   },
 }
 

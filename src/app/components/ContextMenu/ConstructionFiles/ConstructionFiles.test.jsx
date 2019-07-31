@@ -1,40 +1,41 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import configureMockStore from 'redux-mock-store';
-import ConstructionFiles from './ConstructionFiles';
-import { sharePage } from '../../../../shared/ducks/ui/ui';
+import React from 'react'
+import { shallow } from 'enzyme'
+import configureMockStore from 'redux-mock-store'
+import ConstructionFiles from './ConstructionFiles'
+import { sharePage } from '../../../../shared/ducks/ui/ui'
 
-jest.mock('../../../../shared/ducks/ui/ui');
+jest.mock('../../../../shared/ducks/ui/ui')
 
 describe('ContextMenu for ConstructionFiles viewer', () => {
   let component
-const mockOnDownload = jest.fn()
-    const mockOpenPrintMode = jest.fn()
+  const mockOnDownload = jest.fn()
+  const mockOpenPrintMode = jest.fn()
 
   beforeEach(() => {
-    
     const props = {
       fileName: 'filename.jpg',
       onDownload: mockOnDownload,
-      openPrintMode: mockOpenPrintMode
-    };
+      openPrintMode: mockOpenPrintMode,
+    }
     const initialState = {
       map: {
-        mapPanelActive: true
+        mapPanelActive: true,
       },
       ui: {
-        viewMode: 'print'
-      }
-    };
-    sharePage.mockImplementation(() => ({ type: 'action' }));
+        viewMode: 'print',
+      },
+    }
+    sharePage.mockImplementation(() => ({ type: 'action' }))
 
-    const store = configureMockStore()({ ...initialState });
-    component = shallow(<ConstructionFiles {...props} />, { context: { store } }).dive();
+    const store = configureMockStore()({ ...initialState })
+    component = shallow(<ConstructionFiles {...props} />, {
+      context: { store },
+    }).dive()
   })
 
   it('should render', () => {
-    expect(component).toMatchSnapshot();
-  });
+    expect(component).toMatchSnapshot()
+  })
 
   it('should handle the onClick events', () => {
     const downloadButton = component.find('ContextMenuItem')
@@ -47,6 +48,5 @@ const mockOnDownload = jest.fn()
 
     downloadButton.at(3).simulate('click')
     expect(mockOnDownload).toHaveBeenCalledWith('origineel')
-  });
-
-});
+  })
+})

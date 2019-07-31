@@ -10,10 +10,7 @@ import {
 import { SET_MAP_CLICK_LOCATION } from '../../ducks/map/constants'
 import { getMapZoom } from '../../ducks/map/selectors'
 import { requestNearestDetails } from '../../../shared/ducks/data-search/actions'
-import {
-  getSelectionType,
-  SELECTION_TYPE,
-} from '../../../shared/ducks/selection/selection'
+import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection'
 import { getImageDataByLocation } from '../../../panorama/services/panorama-api/panorama-api'
 import { getPage } from '../../../store/redux-first-router/selectors'
 import { getViewMode, isEmbedded, VIEW_MODE } from '../../../shared/ducks/ui/ui'
@@ -89,23 +86,17 @@ describe('switchClickAction', () => {
 
   const mapPanelLayersWithSelection = [...mockPanelLayers, matchingPanelLayer]
 
-  const providePage = ({ selector }, next) =>
-    selector === getPage ? null : next()
-  const provideViewMode = ({ selector }, next) =>
-    selector === getViewMode ? 'split' : next()
+  const providePage = ({ selector }, next) => (selector === getPage ? null : next())
+  const provideViewMode = ({ selector }, next) => (selector === getViewMode ? 'split' : next())
   const provideDataSelectionView = ({ selector }, next) =>
     selector === getViewMode ? null : next()
 
   const provideMapLayers = ({ selector }, next) =>
-    selector === getActiveMapLayers || selector === getLayers
-      ? mockMapLayers
-      : next()
+    selector === getActiveMapLayers || selector === getLayers ? mockMapLayers : next()
 
-  const provideMapZoom = ({ selector }, next) =>
-    selector === getMapZoom ? 8 : next()
+  const provideMapZoom = ({ selector }, next) => (selector === getMapZoom ? 8 : next())
 
-  const provideEmbed = ({ selector }, next) =>
-    selector === isEmbedded ? false : next()
+  const provideEmbed = ({ selector }, next) => (selector === isEmbedded ? false : next())
 
   const provideSelectionTypePoint = ({ selector }, next) =>
     selector === getSelectionType ? SELECTION_TYPE.POINT : next()
@@ -165,9 +156,7 @@ describe('switchClickAction', () => {
       if (fn === getImageDataByLocation) {
         return {
           id: '123',
-          location: Object.keys(payload.location).map(
-            key => payload.location[key],
-          ),
+          location: Object.keys(payload.location).map(key => payload.location[key]),
         }
       }
       return next()

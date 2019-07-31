@@ -35,17 +35,14 @@ import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
 export const maxDisplayValuesPerProperty = 5
 
 export const pageEndpointTypeMapping = {
-  'explosieven/gevrijwaardgebied/':
-    'milieuthemas/explosieven/gevrijwaardgebied/',
+  'explosieven/gevrijwaardgebied/': 'milieuthemas/explosieven/gevrijwaardgebied/',
   'explosieven/inslagen/': 'milieuthemas/explosieven/inslagen/',
-  'explosieven/uitgevoerdonderzoek/':
-    'milieuthemas/explosieven/uitgevoerdonderzoek/',
+  'explosieven/uitgevoerdonderzoek/': 'milieuthemas/explosieven/uitgevoerdonderzoek/',
   'explosieven/verdachtgebied/': 'milieuthemas/explosieven/verdachtgebied/',
 }
 
 export const pageTypeToEndpoint = (type, subtype, id) => {
-  const endpoinType =
-    pageEndpointTypeMapping[`${type}/${subtype}/`] || `${type}/${subtype}/`
+  const endpoinType = pageEndpointTypeMapping[`${type}/${subtype}/`] || `${type}/${subtype}/`
   return `${SHARED_CONFIG.API_ROOT}${endpoinType}${id}/`
 }
 
@@ -60,8 +57,7 @@ export const endpointTypes = {
   bekendmakingen: 'vsd/bekendmakingen/',
   explosievenGevrijwaardGebied: 'milieuthemas/explosieven/gevrijwaardgebied/',
   explosievenInslag: 'milieuthemas/explosieven/inslagen/',
-  explosievenUitgevoerdOnderzoek:
-    'milieuthemas/explosieven/uitgevoerdonderzoek/',
+  explosievenUitgevoerdOnderzoek: 'milieuthemas/explosieven/uitgevoerdonderzoek/',
   explosievenVerdachtGebied: 'milieuthemas/explosieven/verdachtgebied/',
   evenementen: 'vsd/evenementen/',
   gebiedenBouwblok: 'gebieden/bouwblok/',
@@ -145,16 +141,12 @@ const getEndpointTypeForResult = (endpointType, detail) => {
 }
 
 export default async function fetchDetail(endpoint, user) {
-  const endpointType = Object.keys(servicesByEndpointType).find(type =>
-    endpoint.includes(type),
-  )
+  const endpointType = Object.keys(servicesByEndpointType).find(type => endpoint.includes(type))
   const endpointConfig = endpointType && servicesByEndpointType[endpointType]
   const fetchFn = endpointConfig && endpointConfig.fetch
   const authScope = endpointConfig && endpointConfig.authScope
   const detail =
-    fetchFn &&
-    (!authScope || user.scopes.includes(authScope)) &&
-    (await fetchFn(endpoint, user))
+    fetchFn && (!authScope || user.scopes.includes(authScope)) && (await fetchFn(endpoint, user))
   const endpointTypeForResult = getEndpointTypeForResult(endpointType, detail)
 
   return detail

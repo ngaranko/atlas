@@ -102,13 +102,10 @@ describe('The dataSelectionApiDcatd factory', () => {
   it('calls the api factory with when no parameters are provided', async () => {
     const output = await query(config, 'CATALOG', {}, 1)
     expect(Object.keys(output.filters).length).toBe(0)
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW,
-      {
-        offset: 0,
-        limit: config.MAX_ITEMS_PER_PAGE,
-      },
-    )
+    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+      offset: 0,
+      limit: config.MAX_ITEMS_PER_PAGE,
+    })
   })
 
   it('calls the api factory with theme parameter and searchText', () => {
@@ -124,15 +121,12 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW,
-      {
-        offset: 0,
-        limit: config.MAX_ITEMS_PER_PAGE,
-        q: 'searchText',
-        '/properties/dcat:theme/items': 'eq=theme:energie',
-      },
-    )
+    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+      offset: 0,
+      limit: config.MAX_ITEMS_PER_PAGE,
+      q: 'searchText',
+      '/properties/dcat:theme/items': 'eq=theme:energie',
+    })
   })
 
   it('calls the api factory with active filters and searchText', () => {
@@ -149,28 +143,21 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW,
-      {
-        offset: 0,
-        limit: config.MAX_ITEMS_PER_PAGE,
-        q: 'searchText',
-        '/properties/dcat:theme/items': 'eq=theme:energie',
-        '/properties/dcat:distribution/items/properties/dcat:mediaType':
-          'eq=application/pdf',
-      },
-    )
+    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+      offset: 0,
+      limit: config.MAX_ITEMS_PER_PAGE,
+      q: 'searchText',
+      '/properties/dcat:theme/items': 'eq=theme:energie',
+      '/properties/dcat:distribution/items/properties/dcat:mediaType': 'eq=application/pdf',
+    })
 
     // With another page
     query(config, 'CATALOG', {}, 2, 'searchText', undefined, catalogFilters)
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW,
-      {
-        offset: 2,
-        limit: config.MAX_ITEMS_PER_PAGE,
-        q: 'searchText',
-      },
-    )
+    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+      offset: 2,
+      limit: config.MAX_ITEMS_PER_PAGE,
+      q: 'searchText',
+    })
   })
 
   it('calls the api factory with owner parameter and searchText', () => {
@@ -186,15 +173,12 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW,
-      {
-        offset: 0,
-        limit: config.MAX_ITEMS_PER_PAGE,
-        q: 'searchText',
-        '/properties/ams:owner': 'eq=owner',
-      },
-    )
+    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+      offset: 0,
+      limit: config.MAX_ITEMS_PER_PAGE,
+      q: 'searchText',
+      '/properties/ams:owner': 'eq=owner',
+    })
   })
 
   it('calls the api factory with serviceType parameter and searchText', () => {
@@ -210,16 +194,12 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW,
-      {
-        offset: 0,
-        limit: config.MAX_ITEMS_PER_PAGE,
-        q: 'searchText',
-        '/properties/dcat:distribution/items/properties/ams:serviceType':
-          'eq=wms',
-      },
-    )
+    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+      offset: 0,
+      limit: config.MAX_ITEMS_PER_PAGE,
+      q: 'searchText',
+      '/properties/dcat:distribution/items/properties/ams:serviceType': 'eq=wms',
+    })
   })
 
   it('calls the api factory with distributionType parameter and searchText', () => {
@@ -235,16 +215,12 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW,
-      {
-        offset: 0,
-        limit: config.MAX_ITEMS_PER_PAGE,
-        q: 'searchText',
-        '/properties/dcat:distribution/items/properties/ams:distributionType':
-          'eq=file',
-      },
-    )
+    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+      offset: 0,
+      limit: config.MAX_ITEMS_PER_PAGE,
+      q: 'searchText',
+      '/properties/dcat:distribution/items/properties/ams:distributionType': 'eq=file',
+    })
   })
 
   it('calls the api factory with status parameter and searchText', () => {
@@ -260,42 +236,23 @@ describe('The dataSelectionApiDcatd factory', () => {
       undefined,
       catalogFilters,
     )
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW,
-      {
-        offset: 0,
-        limit: config.MAX_ITEMS_PER_PAGE,
-        q: 'searchText',
-        '/properties/ams:status': 'eq=beschikbaar',
-      },
-    )
+    expect(api.getByUrl).toHaveBeenCalledWith(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, {
+      offset: 0,
+      limit: config.MAX_ITEMS_PER_PAGE,
+      q: 'searchText',
+      '/properties/ams:status': 'eq=beschikbaar',
+    })
   })
 
   it('returns the total number of pages', async () => {
-    const output = await query(
-      config,
-      'CATALOG',
-      {},
-      1,
-      '',
-      undefined,
-      catalogFilters,
-    )
+    const output = await query(config, 'CATALOG', {}, 1, '', undefined, catalogFilters)
     expect(output.numberOfPages).toBe(2)
   })
 
   it('still returns the total number of pages when facet_info is empty', async () => {
     config.ENDPOINT_PREVIEW = 'dcatd/empty'
 
-    const output = await query(
-      config,
-      'CATALOG',
-      {},
-      1,
-      '',
-      undefined,
-      catalogFilters,
-    )
+    const output = await query(config, 'CATALOG', {}, 1, '', undefined, catalogFilters)
 
     expect(output.numberOfPages).toBe(2)
   })
@@ -303,21 +260,13 @@ describe('The dataSelectionApiDcatd factory', () => {
   it('registers an error with an unsuccessful API call', async () => {
     config.ENDPOINT_PREVIEW = 'dcatd/reject'
 
-    await expect(
-      query(config, 'CATALOG', {}, 1, '', undefined, catalogFilters),
-    ).rejects.toEqual(undefined)
+    await expect(query(config, 'CATALOG', {}, 1, '', undefined, catalogFilters)).rejects.toEqual(
+      undefined,
+    )
   })
 
   it('processes the results correctly', async () => {
-    const output = await query(
-      config,
-      'CATALOG',
-      {},
-      1,
-      '',
-      undefined,
-      catalogFilters,
-    )
+    const output = await query(config, 'CATALOG', {}, 1, '', undefined, catalogFilters)
 
     expect(output.data.length).toEqual(4)
     expect(output.data[0]).toEqual({

@@ -23,9 +23,7 @@ describe('The user content widget component', function() {
       $templateCache = _$templateCache_
     })
 
-    spyOn(googleSheet, 'default').and.returnValue(
-      Promise.resolve({ feed: 'a feed', entries }),
-    )
+    spyOn(googleSheet, 'default').and.returnValue(Promise.resolve({ feed: 'a feed', entries }))
   })
 
   function getComponent(type) {
@@ -41,10 +39,7 @@ describe('The user content widget component', function() {
   }
 
   it('loads cms contents for the specified type', function() {
-    $templateCache.put(
-      'modules/page/components/user-content-widget/templates/type.html',
-      'TYPE',
-    )
+    $templateCache.put('modules/page/components/user-content-widget/templates/type.html', 'TYPE')
 
     getComponent('type')
 

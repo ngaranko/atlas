@@ -1,7 +1,5 @@
 ;(function() {
-  angular
-    .module('dpDetail')
-    .directive('dpGlossaryMeta', dpGlossaryMetaDirective)
+  angular.module('dpDetail').directive('dpGlossaryMeta', dpGlossaryMetaDirective)
 
   function dpGlossaryMetaDirective() {
     return {

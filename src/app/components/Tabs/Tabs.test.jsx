@@ -28,9 +28,7 @@ describe('Tabs', () => {
 
     const component = shallow(
       <Tabs {...props}>
-        [
-        {React.createElement(jest.fn)}
-, // invalid child
+        [{React.createElement(jest.fn)}, // invalid child
         <li key="Data" label="test-label">
           <span>This is a tab child</span>
         </li>

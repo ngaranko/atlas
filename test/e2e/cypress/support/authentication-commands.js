@@ -77,9 +77,7 @@ Cypress.Commands.add('login', (type = 'EMPLOYEE_PLUS') => {
       .then(response =>
         cy.request({
           method: 'POST',
-          url: `${Cypress.env('API_ROOT')}/auth/idp/${response.body
-            .match(/action="(.*?)"/)
-            .pop()}`,
+          url: `${Cypress.env('API_ROOT')}/auth/idp/${response.body.match(/action="(.*?)"/).pop()}`,
           form: true,
           body: {
             email: Cypress.env(`USERNAME_${type}`),

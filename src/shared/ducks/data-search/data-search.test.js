@@ -50,9 +50,7 @@ describe('data-search selectors', () => {
           resultsMapPanel: [],
         },
       }
-      expect(getMapPanelResults(state)).toEqual(
-        state[REDUCER_KEY].resultsMapPanel,
-      )
+      expect(getMapPanelResults(state)).toEqual(state[REDUCER_KEY].resultsMapPanel)
     })
   })
 })

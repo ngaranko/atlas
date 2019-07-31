@@ -45,9 +45,7 @@ describe('The window error handler', function() {
     onError({}) // without target src url
     $rootScope.$digest()
 
-    expect(httpStatus.registerError).not.toHaveBeenCalledWith(
-      ERROR_TYPES.GENERAL_ERROR,
-    )
+    expect(httpStatus.registerError).not.toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR)
     expect(httpStatus.logResponse).toHaveBeenCalledWith('window error event')
   })
 
@@ -60,9 +58,7 @@ describe('The window error handler', function() {
     })
     $rootScope.$digest()
 
-    expect(httpStatus.registerError).not.toHaveBeenCalledWith(
-      ERROR_TYPES.GENERAL_ERROR,
-    )
+    expect(httpStatus.registerError).not.toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR)
     expect(httpStatus.logResponse).not.toHaveBeenCalled()
   })
 
@@ -74,9 +70,7 @@ describe('The window error handler', function() {
     })
     $rootScope.$digest()
 
-    expect(httpStatus.registerError).toHaveBeenCalledWith(
-      ERROR_TYPES.GENERAL_ERROR,
-    )
+    expect(httpStatus.registerError).toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR)
     expect(httpStatus.logResponse).toHaveBeenCalledWith(
       'window error event, HTTP external request error, src: aap',
     )
@@ -90,9 +84,7 @@ describe('The window error handler', function() {
     })
     $rootScope.$digest()
 
-    expect(httpStatus.registerError).not.toHaveBeenCalledWith(
-      ERROR_TYPES.GENERAL_ERROR,
-    )
+    expect(httpStatus.registerError).not.toHaveBeenCalledWith(ERROR_TYPES.GENERAL_ERROR)
     expect(httpStatus.logResponse).not.toHaveBeenCalled()
   })
 })

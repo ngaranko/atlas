@@ -151,8 +151,7 @@ describe('mapSearch service', () => {
           properties: {
             id: '0363020012061429',
             type: 'bag/ligplaats',
-            uri:
-              'https://acc.api.data.amsterdam.nl/bag/ligplaats/0363020012061429/',
+            uri: 'https://acc.api.data.amsterdam.nl/bag/ligplaats/0363020012061429/',
           },
         },
       ]
@@ -166,16 +165,14 @@ describe('mapSearch service', () => {
           properties: {
             id: '0363020012061429',
             type: 'bag/standplaats',
-            uri:
-              'https://acc.api.data.amsterdam.nl/bag/ligplaats/0363020012061429/',
+            uri: 'https://acc.api.data.amsterdam.nl/bag/ligplaats/0363020012061429/',
           },
         },
       ]
       const vestigingResult = {
         _links: {
           self: {
-            href:
-              'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200012109853/',
+            href: 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200012109853/',
           },
         },
         _display: 'Singel 177',
@@ -184,12 +181,8 @@ describe('mapSearch service', () => {
         vbo_status: { code: '33', omschrijving: 'Plaats aangewezen' },
         dataset: 'bag',
       }
-      address.fetchHoofdadresByStandplaatsId.mockImplementation(() =>
-        Promise.resolve({ id: 2000 }),
-      )
-      vestiging.fetchByAddressId.mockImplementation(() =>
-        Promise.resolve([vestigingResult]),
-      )
+      address.fetchHoofdadresByStandplaatsId.mockImplementation(() => Promise.resolve({ id: 2000 }))
+      vestiging.fetchByAddressId.mockImplementation(() => Promise.resolve([vestigingResult]))
       const results = await fetchRelatedForUser(user)({ features })
       expect(results).toEqual([
         ...features,
@@ -211,16 +204,14 @@ describe('mapSearch service', () => {
           properties: {
             id: '0363020012061429',
             type: 'bag/ligplaats',
-            uri:
-              'https://acc.api.data.amsterdam.nl/bag/ligplaats/0363020012061429/',
+            uri: 'https://acc.api.data.amsterdam.nl/bag/ligplaats/0363020012061429/',
           },
         },
       ]
       const vestigingResult = {
         _links: {
           self: {
-            href:
-              'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200012109853/',
+            href: 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200012109853/',
           },
         },
         _display: 'Singel 177',
@@ -229,12 +220,8 @@ describe('mapSearch service', () => {
         vbo_status: { code: '33', omschrijving: 'Plaats aangewezen' },
         dataset: 'bag',
       }
-      address.fetchHoofdadresByLigplaatsId.mockImplementation(() =>
-        Promise.resolve({ id: 1000 }),
-      )
-      vestiging.fetchByAddressId.mockImplementation(() =>
-        Promise.resolve([vestigingResult]),
-      )
+      address.fetchHoofdadresByLigplaatsId.mockImplementation(() => Promise.resolve({ id: 1000 }))
+      vestiging.fetchByAddressId.mockImplementation(() => Promise.resolve([vestigingResult]))
       const results = await fetchRelatedForUser(user)({ features })
       expect(results).toEqual([
         ...features,

@@ -17,9 +17,7 @@ describe('FetchPanoPreview Reducer', () => {
   })
 
   it('should set the previews', () => {
-    expect(
-      reducer(initialState, fetchPanoramaPreviewSuccess('somePanoResult')),
-    ).toEqual({
+    expect(reducer(initialState, fetchPanoramaPreviewSuccess('somePanoResult'))).toEqual({
       ...initialState,
       isLoading: false,
       preview: 'somePanoResult',
@@ -27,9 +25,7 @@ describe('FetchPanoPreview Reducer', () => {
   })
 
   it('should set an error when failure is dispatched', () => {
-    expect(
-      reducer(initialState, fetchPanoramaPreviewFailure('Some error message')),
-    ).toEqual({
+    expect(reducer(initialState, fetchPanoramaPreviewFailure('Some error message'))).toEqual({
       ...initialState,
       error: 'Some error message',
       isLoading: false,

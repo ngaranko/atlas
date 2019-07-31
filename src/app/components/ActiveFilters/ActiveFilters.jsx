@@ -8,9 +8,7 @@ const ActiveFilters = ({ removeFilter, filters }) =>
         {filters.map(({ slug, label, option }) => (
           <li key={slug} className="c-data-selection-active-filters__listitem">
             <span>
-              {label}
-:
-              {option}
+              {label}:{option}
             </span>
 
             <button

@@ -1,7 +1,4 @@
-import {
-  addFilter,
-  removeFilter,
-} from '../../../../src/shared/ducks/filters/filters'
+import { addFilter, removeFilter } from '../../../../src/shared/ducks/filters/filters'
 ;(() => {
   angular.module('dpDataSelection').component('dpSbiFilter', {
     bindings: {
@@ -18,9 +15,7 @@ import {
   function DpSbiFilterController($scope, store) {
     const vm = this
     this.$onInit = function() {
-      const sbiLevelFilters = vm.availableFilters.filter(filter =>
-        filter.slug.startsWith('sbi_l'),
-      )
+      const sbiLevelFilters = vm.availableFilters.filter(filter => filter.slug.startsWith('sbi_l'))
       const numberOfOptions = sbiLevelFilters.reduce(
         (total, amount) => total + amount.numberOfOptions,
         0,

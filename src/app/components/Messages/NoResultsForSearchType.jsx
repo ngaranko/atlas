@@ -22,9 +22,7 @@ const NoResultsForSearchType = ({ message, authMessage }) => {
       {authMessage && (
         <span>
           &nbsp;Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te
-          zien, zie 
-          {' '}
-          {link}
+          zien, zie {link}
         </span>
       )}
     </div>

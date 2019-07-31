@@ -1,8 +1,6 @@
 import isDefined from '../../../../../src/shared/services/is-defined'
 ;(function() {
-  angular
-    .module('dpDetail')
-    .directive('dpGlossaryHeader', dpGlossaryHeaderDirective)
+  angular.module('dpDetail').directive('dpGlossaryHeader', dpGlossaryHeaderDirective)
 
   function dpGlossaryHeaderDirective() {
     return {
@@ -15,8 +13,7 @@ import isDefined from '../../../../../src/shared/services/is-defined'
         metaData: '=',
         brk: '=',
       },
-      templateUrl:
-        'modules/detail/components/glossary/header/glossary-header.html',
+      templateUrl: 'modules/detail/components/glossary/header/glossary-header.html',
       transclude: true,
       controller: DpGlossaryHeaderController,
       controllerAs: 'vm',
@@ -43,9 +40,7 @@ import isDefined from '../../../../../src/shared/services/is-defined'
       vm.glossaryLabel = vm.usePlural
         ? GLOSSARY.DEFINITIONS[vm.definition].label_plural
         : GLOSSARY.DEFINITIONS[vm.definition].label_singular
-      vm.glossaryDescription = $sce.trustAsHtml(
-        GLOSSARY.DEFINITIONS[vm.definition].description,
-      )
+      vm.glossaryDescription = $sce.trustAsHtml(GLOSSARY.DEFINITIONS[vm.definition].description)
       vm.stelselpediaUrl = GLOSSARY.DEFINITIONS[vm.definition].url
 
       vm.hasHelp = !!vm.glossaryDescription

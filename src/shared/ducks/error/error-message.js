@@ -14,8 +14,7 @@ export const ERROR_MESSAGES = {
   [ERROR_TYPES.GENERAL_ERROR]:
     'Momenteel wordt niet alle informatie getoond. Aan deze technische ' +
     'storing wordt gewerkt. Probeer het zodadelijk nog eens…',
-  [ERROR_TYPES.NOT_FOUND_ERROR]:
-    'Deze informatie is niet beschikbaar. Dit is reeds teruggemeld.',
+  [ERROR_TYPES.NOT_FOUND_ERROR]: 'Deze informatie is niet beschikbaar. Dit is reeds teruggemeld.',
 }
 
 const initialState = {
@@ -56,9 +55,8 @@ const getErrorState = state => state.error
 export const getMessage = createSelector(
   getErrorState,
   error =>
-    ERROR_MESSAGES[
-      Object.entries(error.types).map(([type, value]) => value && type)[0]
-    ] || ERROR_MESSAGES[ERROR_TYPES.GENERAL_ERROR],
+    ERROR_MESSAGES[Object.entries(error.types).map(([type, value]) => value && type)[0]] ||
+    ERROR_MESSAGES[ERROR_TYPES.GENERAL_ERROR],
 )
 export const hasGlobalError = createSelector(
   getErrorState,

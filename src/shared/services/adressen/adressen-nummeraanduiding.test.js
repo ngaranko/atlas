@@ -18,16 +18,14 @@ describe('The adressen nummeraanduiding resource', () => {
 
   describe('By uri', () => {
     it('fetches a nummeraanduiding', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123456'
 
       getByUrl.mockReturnValueOnce(
         Promise.resolve({
           _display: 'Address display name 1',
           hoofdadres: true,
           landelijk_id: 'abc123',
-          verblijfsobject:
-            'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/345678',
+          verblijfsobject: 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/345678',
         }),
       )
       verblijfsobject.mockImplementation(
@@ -56,8 +54,7 @@ describe('The adressen nummeraanduiding resource', () => {
     })
 
     it('fetches without verblijfsobject', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123456'
 
       getByUrl.mockReturnValueOnce(
         Promise.resolve({
@@ -82,8 +79,7 @@ describe('The adressen nummeraanduiding resource', () => {
     })
 
     it('fetches with empty result object', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123456'
 
       getByUrl.mockReturnValueOnce(Promise.resolve({}))
 

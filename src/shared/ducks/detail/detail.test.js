@@ -1,10 +1,5 @@
 import reducer from './reducer'
-import {
-  getDetail,
-  getDetailGeometry,
-  getDetailDisplay,
-  isDetailLoading,
-} from './selectors'
+import { getDetail, getDetailGeometry, getDetailDisplay, isDetailLoading } from './selectors'
 import {
   CLEAR_MAP_DETAIL,
   SHOW_DETAIL,
@@ -105,14 +100,8 @@ describe('Detail Selectors', () => {
 
   it('should return detail information from the state', () => {
     expect(getDetail({ detail: initialState })).toEqual(initialState)
-    expect(getDetailGeometry({ detail: initialState })).toEqual(
-      initialState.geometry,
-    )
-    expect(getDetailDisplay({ detail: initialState })).toEqual(
-      initialState.display,
-    )
-    expect(isDetailLoading({ detail: initialState })).toEqual(
-      initialState.isLoading,
-    )
+    expect(getDetailGeometry({ detail: initialState })).toEqual(initialState.geometry)
+    expect(getDetailDisplay({ detail: initialState })).toEqual(initialState.display)
+    expect(isDetailLoading({ detail: initialState })).toEqual(initialState.isLoading)
   })
 })

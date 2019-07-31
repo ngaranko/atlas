@@ -99,9 +99,7 @@ describe('ParamsRegistry singleton', () => {
 
   describe('static orderQuery', () => {
     it('should return an object with keys in alphabetical order', () => {
-      const result = JSON.stringify(
-        ParamsRegistry.orderQuery({ h: 3, a: 1, c: 2 }),
-      )
+      const result = JSON.stringify(ParamsRegistry.orderQuery({ h: 3, a: 1, c: 2 }))
       const expectation = JSON.stringify({ a: 1, c: 2, h: 3 })
       expect(result).toMatch(expectation)
     })
@@ -123,13 +121,9 @@ describe('ParamsRegistry singleton', () => {
     it('should throw an error when there is a duplicate route', () => {
       expect(() =>
         paramsRegistry.addParameter('map', routes => {
-          routes
-            .add('/bar', 'reducerKey', 'foo')
-            .add('/bar', 'reducerKey2', 'bar')
+          routes.add('/bar', 'reducerKey', 'foo').add('/bar', 'reducerKey2', 'bar')
         }),
-      ).toThrow(
-        'Route is already registered for parameter "map" with route "/bar"',
-      )
+      ).toThrow('Route is already registered for parameter "map" with route "/bar"')
     })
   })
 
@@ -169,9 +163,7 @@ describe('ParamsRegistry singleton', () => {
 
     it('should call history.push with the right querystring', () => {
       getResult({ reducerKey: { foo: 'hello!' } })
-      expect(paramsRegistry.history.replace).toHaveBeenCalledWith(
-        '/?map=hello!',
-      )
+      expect(paramsRegistry.history.replace).toHaveBeenCalledWith('/?map=hello!')
     })
 
     it('should return undefined if action type is not a route', () => {
@@ -191,9 +183,7 @@ describe('ParamsRegistry singleton', () => {
     beforeEach(() => {
       paramsRegistry
         .addParameter('map', routes => {
-          routes
-            .add('ROUTER/bar', 'reducerKey', 'foo')
-            .add('ROUTER/foo', 'reducerKey2', 'foo')
+          routes.add('ROUTER/bar', 'reducerKey', 'foo').add('ROUTER/foo', 'reducerKey2', 'foo')
         })
         .addParameter('page', routes => {
           routes
@@ -258,17 +248,13 @@ describe('ParamsRegistry singleton', () => {
         paramsRegistry.addParameter('foo', routes => {
           routes.add('/bar')
         }),
-      ).toThrow(
-        'Param "foo" with route "/bar" must contain a reducerKey and stateKe',
-      )
+      ).toThrow('Param "foo" with route "/bar" must contain a reducerKey and stateKe')
 
       expect(() =>
         paramsRegistry.addParameter('foo', routes => {
           routes.add('/bar', 'reducerKey')
         }),
-      ).toThrow(
-        'Param "foo" with route "/bar" must contain a reducerKey and stateKe',
-      )
+      ).toThrow('Param "foo" with route "/bar" must contain a reducerKey and stateKe')
     })
 
     it('should not throw an error when reducerKey and stateKey are set', () => {

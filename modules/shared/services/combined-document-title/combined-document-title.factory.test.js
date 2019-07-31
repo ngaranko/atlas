@@ -23,9 +23,7 @@ describe('The dpCombinedDocumentTitle factory', function() {
       return def.promise
     })
 
-    spyOn(dataSelectionDocumentTitle, 'getTitle').and.returnValue(
-      'dataSelectionTitel',
-    )
+    spyOn(dataSelectionDocumentTitle, 'getTitle').and.returnValue('dataSelectionTitel')
   })
 
   it('returns a default title with promise', function() {

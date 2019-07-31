@@ -6,20 +6,13 @@ describe('The partialCompiler factory', function() {
   beforeEach(function() {
     angular.mock.module('dpDetail')
 
-    angular.mock.inject(function(
-      _$rootScope_,
-      _$templateCache_,
-      _partialCompiler_,
-    ) {
+    angular.mock.inject(function(_$rootScope_, _$templateCache_, _partialCompiler_) {
       $rootScope = _$rootScope_
       $templateCache = _$templateCache_
       partialCompiler = _partialCompiler_
     })
 
-    $templateCache.put(
-      'basic-template.html',
-      '<p>First paragraph</p><p>Second paragraph</p>',
-    )
+    $templateCache.put('basic-template.html', '<p>First paragraph</p><p>Second paragraph</p>')
     $templateCache.put(
       'path/template-with-variables.html',
       '<h1>{{header}}</h1><p>{{paragraph}}</p>',
@@ -30,11 +23,9 @@ describe('The partialCompiler factory', function() {
     let output
     const emptyScope = $rootScope.$new()
 
-    partialCompiler
-      .getHtml('basic-template.html', emptyScope)
-      .then(function(_output_) {
-        output = _output_
-      })
+    partialCompiler.getHtml('basic-template.html', emptyScope).then(function(_output_) {
+      output = _output_
+    })
 
     // $templateRequest needs an extra digest cycle
     $rootScope.$apply()
@@ -50,21 +41,15 @@ describe('The partialCompiler factory', function() {
     scope.header = 'This is a heading'
     scope.paragraph = 'This is a paragraph.'
 
-    partialCompiler
-      .getHtml('path/template-with-variables.html', scope)
-      .then(function(_output_) {
-        output = _output_
-      })
+    partialCompiler.getHtml('path/template-with-variables.html', scope).then(function(_output_) {
+      output = _output_
+    })
 
     // $templateRequest needs an extra digest cycle
     $rootScope.$apply()
     $rootScope.$apply()
 
-    expect(output[0].outerHTML).toBe(
-      '<h1 class="ng-binding ng-scope">This is a heading</h1>',
-    )
-    expect(output[1].outerHTML).toBe(
-      '<p class="ng-binding ng-scope">This is a paragraph.</p>',
-    )
+    expect(output[0].outerHTML).toBe('<h1 class="ng-binding ng-scope">This is a heading</h1>')
+    expect(output[1].outerHTML).toBe('<p class="ng-binding ng-scope">This is a paragraph.</p>')
   })
 })

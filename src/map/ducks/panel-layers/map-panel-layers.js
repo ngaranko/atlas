@@ -14,11 +14,7 @@ const initialState = {
 export const getActiveMapLayers = state =>
   state.map.overlays
     .filter(overlay => overlay.isVisible)
-    .map(
-      overlay =>
-        state.mapLayers.layers.items.find(layer => layer.id === overlay.id) ||
-        {},
-    )
+    .map(overlay => state.mapLayers.layers.items.find(layer => layer.id === overlay.id) || {})
     .filter(
       layer =>
         layer.detailUrl &&
@@ -40,9 +36,7 @@ export const selectActivePanelLayers = createSelector(
       .filter(mapLayer =>
         [mapLayer.id, ...mapLayer.legendItems.map(legendItem => legendItem.id)]
           .filter(mapLayerId => Boolean(mapLayerId))
-          .some(mapLayerId =>
-            overlays.map(overlay => overlay.id).includes(mapLayerId),
-          ),
+          .some(mapLayerId => overlays.map(overlay => overlay.id).includes(mapLayerId)),
       )
       .sort((a, b) => {
         const aId = a.id || a.legendItems[0].id
@@ -56,8 +50,7 @@ export const getActiveMapLayersWithinZoom = createSelector(
   [getMapZoom, selectActivePanelLayers],
   (zoomLevel, activePanelLayers) =>
     activePanelLayers.filter(
-      mapLayer =>
-        zoomLevel >= mapLayer.minZoom && zoomLevel <= mapLayer.maxZoom,
+      mapLayer => zoomLevel >= mapLayer.minZoom && zoomLevel <= mapLayer.maxZoom,
     ),
 )
 
@@ -69,9 +62,7 @@ export const selectNotClickableVisibleMapLayers = createSelector(
       .reduce((accumulator, legendItems) => accumulator.concat(legendItems), [])
       .filter(legendItem => legendItem.noDetail)
       .filter(legendItem =>
-        overlays.some(
-          overlay => overlay.id === legendItem.id && overlay.isVisible,
-        ),
+        overlays.some(overlay => overlay.id === legendItem.id && overlay.isVisible),
       ),
 )
 

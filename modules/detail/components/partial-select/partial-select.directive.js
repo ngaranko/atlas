@@ -1,9 +1,6 @@
 import SHARED_CONFIG from '../../../../src/shared/services/shared-config/shared-config'
-
 ;(function() {
-  angular
-    .module('dpDetail')
-    .directive('dpPartialSelect', dpPartialSelectDirective)
+  angular.module('dpDetail').directive('dpPartialSelect', dpPartialSelectDirective)
 
   dpPartialSelectDirective.$inject = ['partialCompiler']
 

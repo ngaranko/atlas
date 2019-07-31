@@ -15,11 +15,7 @@ describe('useMatomo', () => {
       const { trackPageView } = useMatomo()
 
       trackPageView(title)
-      expect(matomoTracker).toHaveBeenCalledWith(
-        ['trackPageView', title, url, null],
-        url,
-        title,
-      )
+      expect(matomoTracker).toHaveBeenCalledWith(['trackPageView', title, url, null], url, title)
     })
   })
 })

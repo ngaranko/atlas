@@ -6,10 +6,4 @@ import {
   normalizeLocation,
 } from './crs-converter'
 
-export {
-  wgs84ToRd,
-  rdToWgs84,
-  parseLocationString,
-  normalizeCoordinate,
-  normalizeLocation,
-}
+export { wgs84ToRd, rdToWgs84, parseLocationString, normalizeCoordinate, normalizeLocation }

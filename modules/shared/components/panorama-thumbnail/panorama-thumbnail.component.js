@@ -6,8 +6,7 @@ import { getDetailLocation } from '../../../../src/store/redux-first-router/sele
       panorama: '<',
       isLoading: '<',
     },
-    templateUrl:
-      'modules/shared/components/panorama-thumbnail/panorama-thumbnail.html',
+    templateUrl: 'modules/shared/components/panorama-thumbnail/panorama-thumbnail.html',
     controller: DpPanoramaThumbnailController,
     controllerAs: 'vm',
   })
@@ -23,11 +22,7 @@ import { getDetailLocation } from '../../../../src/store/redux-first-router/sele
 
     function setLinkTo(panorama) {
       if (panorama) {
-        vm.linkTo = toPanoramaAndPreserveQuery(
-          panorama.id,
-          panorama.heading,
-          reference,
-        )
+        vm.linkTo = toPanoramaAndPreserveQuery(panorama.id, panorama.heading, reference)
       }
     }
 

@@ -10,9 +10,7 @@ import {
   Paragraph,
 } from '@datapunt/asc-ui/lib/index'
 import { ReactComponent as Close } from '@datapunt/asc-assets/lib/Icons/Close.svg'
-import withModalBehaviour, {
-  propTypes as modalPropTypes,
-} from './withModalBehaviour'
+import withModalBehaviour, { propTypes as modalPropTypes } from './withModalBehaviour'
 import './InfoModal.scss'
 
 const InfoModal = ({ open, handleClose, title, body }) => (
@@ -33,10 +31,7 @@ const InfoModal = ({ open, handleClose, title, body }) => (
     </TopBar>
     <Divider />
     <ListItem>
-      <Paragraph
-        className="infomodal__body"
-        dangerouslySetInnerHTML={{ __html: body }}
-      />
+      <Paragraph className="infomodal__body" dangerouslySetInnerHTML={{ __html: body }} />
     </ListItem>
   </Modal>
 )

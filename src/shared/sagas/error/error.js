@@ -44,8 +44,5 @@ export default function* watchErrors() {
     setErrorsEffect,
   )
 
-  yield takeLatest(
-    [FETCH_DATA_SELECTION_FAILURE],
-    excludeUnauthorizedErrorEffect,
-  )
+  yield takeLatest([FETCH_DATA_SELECTION_FAILURE], excludeUnauthorizedErrorEffect)
 }

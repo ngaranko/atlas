@@ -19,9 +19,7 @@ describe('Draw-tool service', () => {
 
   it('returns a title with one active layer', () => {
     mockState = { map: { zoom: 0 } }
-    getActiveMapLayersWithinZoom.mockImplementation(() => [
-      { title: 'Geselecteerde laag' },
-    ])
+    getActiveMapLayersWithinZoom.mockImplementation(() => [{ title: 'Geselecteerde laag' }])
     const promise = documentTitle.getTitle(mockState)
     promise.then(value => {
       expect(value).toBe('Geselecteerde laag | Grote kaart')
