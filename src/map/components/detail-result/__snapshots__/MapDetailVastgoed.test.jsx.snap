@@ -9,10 +9,12 @@ exports[`MapDetailVastgoed should render everything 1`] = `
   title="Gemeentelijk eigendom"
 >
   <MapDetailResultItem
+    hasMultiline={false}
     label="Bouwjaar"
     value="2012"
   />
   <MapDetailResultItem
+    hasMultiline={false}
     label="Status"
     value="Monument type"
   />

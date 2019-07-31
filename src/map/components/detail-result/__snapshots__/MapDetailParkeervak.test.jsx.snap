@@ -11,14 +11,17 @@ exports[`MapDetailParkeervak should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Straat"
       value="Straatnaam"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Type"
       value=""
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Bord"
       value="bord"
     />

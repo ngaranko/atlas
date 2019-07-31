@@ -13,7 +13,7 @@ const MapDetailParkeerzone = ({ panoUrl, item, onMaximize, onPanoPreviewClick })
     title="Uitzondering parkeervergunninggebied"
   >
     <ul className="map-detail-result__list">
-      <MapDetailResultItem label="Omschrijving" value={item.description} />
+      <MapDetailResultItem hasMultiline label="Omschrijving" value={item.description} />
     </ul>
   </MapDetailResultWrapper>
 )

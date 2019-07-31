@@ -12,14 +12,17 @@ exports[`MapDetailNapPeilmerk should not render empty height 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Hoogte NAP"
       value=""
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Omschrijving"
       value="Peilmerk description"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Windrichting"
       value=""
     />
@@ -39,14 +42,17 @@ exports[`MapDetailNapPeilmerk should not render without height 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Hoogte NAP"
       value=""
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Omschrijving"
       value="Peilmerk description"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Windrichting"
       value=""
     />
@@ -66,19 +72,23 @@ exports[`MapDetailNapPeilmerk should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Hoogte NAP"
       value="123,323 m"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Omschrijving"
       value="Peilmerk description"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Windrichting"
       value="W"
     />
     <MapDetailResultItem
       cm={true}
+      hasMultiline={false}
       label="Muurvlakcoördinaten (cm)"
       value="2, 3"
     />

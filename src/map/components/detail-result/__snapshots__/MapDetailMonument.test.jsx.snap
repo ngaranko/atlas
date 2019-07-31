@@ -12,14 +12,17 @@ exports[`MapDetailMonument should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Nummer"
       value="123456"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Type"
       value="Monument type"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Status"
       value="Monument status"
     />
