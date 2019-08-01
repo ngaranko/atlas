@@ -52,7 +52,7 @@ const FeedbackModalComponent = ({
     blurredNodeSelector="#root"
   >
     <TopBar>
-      <Heading as="h4">
+      <Heading as="h3">
         Feedback
         <IconButton onClick={handleClose}>
           <Close />
@@ -61,7 +61,7 @@ const FeedbackModalComponent = ({
     </TopBar>
     <Divider />
     <ListItem>
-      <Heading as="h4">Onjuiste of ontbrekende gegevens?</Heading>
+      <Heading as="h3">Onjuiste of ontbrekende gegevens?</Heading>
       <Paragraph>
         We horen graag welke gegevens onjuist zijn of ontbreken. Voor medewerkers van de gemeente is
         dit &lsquo;terugmelden&lsquo; overigens verplicht.
@@ -81,7 +81,7 @@ const FeedbackModalComponent = ({
     </ListItem>
     <Divider gutter />
     <ListItem>
-      <Heading as="h4">Probleem of suggestie?</Heading>
+      <Heading as="h3">Probleem of suggestie?</Heading>
       <Paragraph>
         Als iets op deze pagina niet goed werkt, onduidelijk is of vragen oproept, geef het aan ons
         door.
