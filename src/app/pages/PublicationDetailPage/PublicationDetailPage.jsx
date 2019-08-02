@@ -20,7 +20,11 @@ import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
 const PublicationDetailPage = ({ id }) => {
-  const { results, loading } = useFromCMS(cmsConfig.PUBLICATION, id)
+  const { fetchData, results, loading } = useFromCMS(cmsConfig.PUBLICATION, id)
+
+  React.useEffect(() => {
+    fetchData()
+  }, [id])
 
   const {
     title,

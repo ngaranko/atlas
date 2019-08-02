@@ -1,34 +1,33 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { getByUrl } from '../../shared/services/api/api'
 import cmsNormalizer from '../../shared/services/cms/cms-normalizer'
 import { routing } from '../routes'
 
 function useFromCMS(config, id = false) {
   const [results, setResults] = React.useState(null)
-  const [loading, setLoading] = React.useState(false)
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true)
-      try {
-        const endpoint = id ? config.endpoint(id) : config.endpoint()
-        const { fields } = config
-        const data = await getByUrl(endpoint)
+  const [loading, setLoading] = React.useState(true)
 
-        const normalizedData = await cmsNormalizer(data, fields)
+  const fetchData = async () => {
+    setLoading(true)
+    try {
+      const endpoint = id ? config.endpoint(id) : config.endpoint()
+      const { fields } = config
+      const data = await getByUrl(endpoint)
 
-        setResults(id ? normalizedData[0] : normalizedData)
-      } catch (e) {
-        window.location.replace(routing.niet_gevonden.path)
-      }
+      const normalizedData = await cmsNormalizer(data, fields)
 
-      setLoading(false)
-      return results
+      setResults(id ? normalizedData[0] : normalizedData)
+    } catch (e) {
+      window.location.replace(routing.niet_gevonden.path)
     }
-    fetchData(id, config)
-  }, [id, config])
+
+    setLoading(false)
+    return results
+  }
 
   return {
     loading,
+    fetchData,
     results,
   }
 }

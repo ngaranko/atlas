@@ -25,7 +25,11 @@ import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
 /* istanbul ignore next */ const ArticleDetailPage = ({ id }) => {
-  const { results, loading } = useFromCMS(cmsConfig.ARTICLE, id)
+  const { fetchData, results, loading } = useFromCMS(cmsConfig.ARTICLE, id)
+
+  React.useEffect(() => {
+    fetchData()
+  }, [id])
 
   const {
     title,

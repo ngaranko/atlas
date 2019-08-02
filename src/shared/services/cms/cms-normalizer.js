@@ -2,7 +2,7 @@ import normalize from 'json-api-normalize'
 import formatDate, { dateToString } from '../date-formatter/date-formatter'
 
 const cmsNormalizer = (data, fields) => {
-  const normalized = normalize(data)
+  return normalize(data)
     .get(['title', 'body', 'created', ...fields])
     .map(dataItem => {
       const {
@@ -14,8 +14,6 @@ const cmsNormalizer = (data, fields) => {
         field_teaser_image: teaserImage,
         ...otherFields
       } = dataItem
-
-      console.log(dataItem)
 
       const publicationDate = new Date(created)
       const date = dateToString(publicationDate)
@@ -37,10 +35,6 @@ const cmsNormalizer = (data, fields) => {
         ...otherFields,
       }
     })
-
-  console.log(normalized)
-
-  return normalized
 }
 
 export default cmsNormalizer

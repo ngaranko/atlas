@@ -11,8 +11,9 @@ describe('normalizeFromCMS', () => {
       value: 'body',
     },
     title: 'title',
-    field_image: 'image',
+    field_slug: 'image',
     field_intro: 'intro',
+    created: '2019-03-15T00:00:00+01:00',
     field_cover_image: {
       field_media_image: {
         uri: {
@@ -27,12 +28,11 @@ describe('normalizeFromCMS', () => {
         },
       },
     },
-    created: '2019-03-15T00:00:00+01:00',
   }
 
   beforeEach(() => {
     normalize.mockImplementation(() => ({
-      get: () => [{ data: mockData }],
+      get: () => [{ ...mockData }],
     }))
   })
 
@@ -44,32 +44,14 @@ describe('normalizeFromCMS', () => {
     dateToString.mockReturnValue('15-03-2019')
     formatDate.mockReturnValue('15 Maart 2019')
 
-    const mockResult = {
-      data: [
-        {
-          field_cover_image: {
-            field_media_image: {
-              uri: {
-                url: 'http://this.is.alink',
-              },
-            },
-          },
-          field_teaser_image: {
-            field_media_image: {
-              uri: {
-                url: 'http://this.is.alink',
-              },
-            },
-          },
-        },
-      ],
-    }
+    const mockResult = {}
 
-    const normalizedData = cmsNormalizer(mockResult, ['field_image', 'field_intro'])
+    const normalizedData = cmsNormalizer(mockResult, ['field_slug', 'field_intro'])
 
-    expect(normalizedData[0].field_image).toEqual(mockData.field_image)
+    expect(normalizedData[0].field_slug).toEqual(mockData.field_slug)
     expect(normalizedData[0].field_intro).toEqual(mockData.field_intro)
     expect(normalizedData[0].coverImageUrl).toBe('http://this.is.alink')
     expect(normalizedData[0].teaserImageUrl).toBe('http://this.is.alink')
+    expect(normalizedData[0].fileUrl).toBe(undefined)
   })
 })

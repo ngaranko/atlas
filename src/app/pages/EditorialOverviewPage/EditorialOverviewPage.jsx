@@ -16,7 +16,13 @@ const title = {
 }
 
 const EditorialOverviewPage = ({ type = '' }) => {
-  const { loading } = useFromCMS(cmsConfig[type])
+  const { fetchData, loading } = useFromCMS(cmsConfig[type])
+
+  React.useEffect(() => {
+    if (type) {
+      fetchData()
+    }
+  }, [type])
 
   return (
     <Container className="editorial-overview" beamColor="valid">
