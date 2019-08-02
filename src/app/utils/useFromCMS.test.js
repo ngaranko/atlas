@@ -27,7 +27,7 @@ describe('useFromCMS', () => {
   })
 
   it('should have correct initial values', async () => {
-    const { result } = renderHook(() => useFromCMS(id, cmsConfig.publication))
+    const { result } = renderHook(() => useFromCMS(cmsConfig.publication, id))
     expect(result.current.loading).toBe(true)
     expect(result.current.results).toBeNull()
   })
@@ -39,7 +39,7 @@ describe('useFromCMS', () => {
     getByUrl.mockReturnValueOnce(Promise.resolve(mockData))
     cmsNormalizer.mockReturnValueOnce(Promise.resolve(mockData))
 
-    const { result, waitForNextUpdate } = renderHook(() => useFromCMS(id, cmsConfig.publication))
+    const { result, waitForNextUpdate } = renderHook(() => useFromCMS(cmsConfig.publication, id))
     expect(result.current.loading).toBe(true)
     expect(result.current.results).toBeNull()
     await waitForNextUpdate()
@@ -55,7 +55,7 @@ describe('useFromCMS', () => {
     getByUrl.mockReturnValueOnce(Promise.reject(mockData))
     cmsNormalizer.mockReturnValueOnce(Promise.resolve(mockData))
 
-    const { result, waitForNextUpdate } = renderHook(() => useFromCMS(id, cmsConfig.publication))
+    const { result, waitForNextUpdate } = renderHook(() => useFromCMS(cmsConfig.publication, id))
     expect(result.current.loading).toBe(true)
     expect(result.current.results).toBeNull()
     await waitForNextUpdate()

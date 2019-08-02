@@ -25,20 +25,14 @@ import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
 /* istanbul ignore next */ const ArticleDetailPage = ({ id }) => {
-  const { fetchData, results, loading } = useFromCMS()
-
-  React.useEffect(() => {
-    ;(async () => {
-      await fetchData(id, cmsConfig.article)
-    })()
-  }, [])
+  const { results, loading } = useFromCMS(cmsConfig.ARTICLE, id)
 
   const {
     title,
     date,
     localeDate,
     body,
-    coverUrl,
+    coverImageUrl,
     field_downloads: downloads,
     field_links: links,
     field_byline: byline,
@@ -55,11 +49,11 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
           <Row className="article__row">
             <ContentContainer>
               <Article
-                {...(coverUrl
+                {...(coverImageUrl
                   ? {
                       image:
-                        typeof coverUrl === 'string'
-                          ? `${SHARED_CONFIG.CMS_ROOT}${coverUrl}`
+                        typeof coverImageUrl === 'string'
+                          ? `${SHARED_CONFIG.CMS_ROOT}${coverImageUrl}`
                           : undefined,
                     }
                   : {})}

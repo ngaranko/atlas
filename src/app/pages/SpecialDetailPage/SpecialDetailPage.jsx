@@ -11,7 +11,7 @@ import { toSpecialDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
 const SpecialDetailPage = ({ id }) => {
-  const { results, loading } = useFromCMS(id, cmsConfig.special)
+  const { results, loading } = useFromCMS(cmsConfig.SPECIAL, id)
   const [iframeLoading, setIframeLoading] = React.useState(true)
   const [iframeHeight, setIframeHeight] = React.useState(0)
   const iframeRef = React.useRef(null)

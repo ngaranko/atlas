@@ -20,22 +20,21 @@ import { toPublicationDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 
 const PublicationDetailPage = ({ id }) => {
-  const { results, loading } = useFromCMS(id, cmsConfig.publication)
+  const { results, loading } = useFromCMS(cmsConfig.PUBLICATION, id)
 
   const {
     title,
     localeDate,
     body,
-    coverUrl,
+    coverImageUrl,
+    fileUrl,
     field_file_size: fileSize,
     field_file_type: fileType,
     field_publication_source: source,
     field_publication_intro: intro,
     field_slug: slug,
-    included,
   } = results || {}
 
-  const downloadUrl = included ? results.included[3].attributes.uri.url : {}
   const documentTitle = `Publicatie: ${title}`
   const linkAction = toPublicationDetail(id, slug)
 
@@ -70,10 +69,10 @@ const PublicationDetailPage = ({ id }) => {
                   </Column>
                   <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                     <DocumentCover
-                      imageSrc={`${SHARED_CONFIG.CMS_ROOT}${coverUrl}`}
+                      imageSrc={`${SHARED_CONFIG.CMS_ROOT}${coverImageUrl}`}
                       description={`Download PDF (${fileSize})`}
                       onClick={() => {
-                        download(`${SHARED_CONFIG.CMS_ROOT}${downloadUrl}`)
+                        download(`${SHARED_CONFIG.CMS_ROOT}${fileUrl}`)
                       }}
                     />
                   </Column>
