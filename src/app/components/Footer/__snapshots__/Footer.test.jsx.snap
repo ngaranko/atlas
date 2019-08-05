@@ -21,14 +21,12 @@ exports[`Footer should render 1`] = `
         <p
           className="c-dashboard__proclaimer-paragraph"
         >
-          Gemeente Amsterdam biedt met City Data een voorziening waar data voor iedereen beschikbaar zijn en hergebruikt mogen worden. De gegevens worden aangeboden door gemeentelijke en externe partijen. De eigenaren van deze gegevens zijn primair verantwoordelijk voor de kwaliteit van hun gepubliceerde data. Opmerkingen en aanvullingen op de gegevens kunt u
-          <a
-            className="c-link--inverse"
-            href="mailto:terugmelding.basisinformatie@amsterdam.nl"
-          >
-            melden
-          </a>
-          .
+          Gemeente Amsterdam biedt met City Data een voorziening waar data voor iedereen
+            beschikbaar zijn en hergebruikt mogen worden. De gegevens worden aangeboden door
+            gemeentelijke en externe partijen. De eigenaren van deze gegevens zijn primair
+            verantwoordelijk voor de kwaliteit van hun gepubliceerde data. Opmerkingen en
+            aanvullingen op de gegevens kunt u &lt;a className="c-link--inverse" href="mailto:terugmelding.basisinformatie@amsterdam.nl"&gt;melden&lt;/a&gt;
+            .
         </p>
         <p
           className="c-dashboard__proclaimer-paragraph"
