@@ -55,10 +55,7 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
               <Article
                 {...(coverImageUrl
                   ? {
-                      image:
-                        typeof coverImageUrl === 'string'
-                          ? `${SHARED_CONFIG.CMS_ROOT}${coverImageUrl}`
-                          : undefined,
+                      image: typeof coverImageUrl === 'string' ? coverImageUrl : undefined,
                     }
                   : {})}
               >

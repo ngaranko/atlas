@@ -1,6 +1,7 @@
 import normalize from 'json-api-normalize'
 import cmsNormalizer from './cms-normalizer'
 import formatDate, { dateToString } from '../date-formatter/date-formatter'
+import SHARED_CONFIG from '../shared-config/shared-config'
 
 jest.mock('../date-formatter/date-formatter')
 jest.mock('json-api-normalize')
@@ -14,17 +15,10 @@ describe('normalizeFromCMS', () => {
     field_slug: 'image',
     field_intro: 'intro',
     created: '2019-03-15T00:00:00+01:00',
-    field_cover_image: {
-      field_media_image: {
-        uri: {
-          url: 'http://this.is.alink',
-        },
-      },
-    },
     field_teaser_image: {
       field_media_image: {
         uri: {
-          url: 'http://this.is.alink',
+          url: 'path/to/file',
         },
       },
     },
@@ -46,12 +40,12 @@ describe('normalizeFromCMS', () => {
 
     const mockResult = {}
 
-    const normalizedData = cmsNormalizer(mockResult, ['field_slug', 'field_intro'])
+    const { data: normalizedData } = cmsNormalizer(mockResult, ['field_slug', 'field_intro'])
 
     expect(normalizedData[0].field_slug).toEqual(mockData.field_slug)
     expect(normalizedData[0].field_intro).toEqual(mockData.field_intro)
-    expect(normalizedData[0].coverImageUrl).toBe('http://this.is.alink')
-    expect(normalizedData[0].teaserImageUrl).toBe('http://this.is.alink')
-    expect(normalizedData[0].fileUrl).toBe(undefined)
+    expect(normalizedData[0].coverImageUrl).toBe(null)
+    expect(normalizedData[0].teaserImageUrl).toBe(`${SHARED_CONFIG.CMS_ROOT}path/to/file`)
+    expect(normalizedData[0].fileUrl).toBe(null)
   })
 })

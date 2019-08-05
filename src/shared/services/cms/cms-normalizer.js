@@ -1,11 +1,13 @@
 import normalize from 'json-api-normalize'
 import formatDate, { dateToString } from '../date-formatter/date-formatter'
+import SHARED_CONFIG from '../shared-config/shared-config'
 
 const cmsNormalizer = (data, fields) => {
-  return normalize(data)
-    .get(['title', 'body', 'created', ...fields])
+  const normalizedData = normalize(data)
+    .get(['drupal_internal__nid', 'title', 'body', 'created', ...fields])
     .map(dataItem => {
       const {
+        drupal_internal__nid: id,
         title,
         body,
         created,
@@ -24,17 +26,22 @@ const cmsNormalizer = (data, fields) => {
       const { url: teaserImageUrl } = teaserImage ? teaserImage.field_media_image.uri : {}
 
       return {
+        id,
         title,
         date,
         localeDate,
         body: body && body.value,
-        coverImageUrl,
-        fileUrl,
-        teaserImageUrl,
-        included: data.included,
+        coverImageUrl: coverImageUrl ? `${SHARED_CONFIG.CMS_ROOT}${coverImageUrl}` : null,
+        fileUrl: fileUrl ? `${SHARED_CONFIG.CMS_ROOT}${fileUrl}` : null,
+        teaserImageUrl: teaserImageUrl ? `${SHARED_CONFIG.CMS_ROOT}${teaserImageUrl}` : null,
         ...otherFields,
       }
     })
+
+  return {
+    data: normalizedData,
+    links: data.links,
+  }
 }
 
 export default cmsNormalizer

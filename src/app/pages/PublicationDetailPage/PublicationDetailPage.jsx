@@ -11,7 +11,6 @@ import {
   BlogContent,
   Paragraph,
 } from '@datapunt/asc-ui'
-import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
@@ -46,7 +45,7 @@ const PublicationDetailPage = ({ id }) => {
     <EditorialPage {...{ documentTitle, loading, linkAction }}>
       {!loading && (
         <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
-          {!loading && body && (
+          {!loading && (
             <ContentContainer>
               <Row>
                 <Column wrap span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
@@ -73,10 +72,10 @@ const PublicationDetailPage = ({ id }) => {
                   </Column>
                   <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                     <DocumentCover
-                      imageSrc={`${SHARED_CONFIG.CMS_ROOT}${coverImageUrl}`}
+                      imageSrc={coverImageUrl}
                       description={`Download PDF (${fileSize})`}
                       onClick={() => {
-                        download(`${SHARED_CONFIG.CMS_ROOT}${fileUrl}`)
+                        download(fileUrl)
                       }}
                     />
                   </Column>
@@ -87,7 +86,7 @@ const PublicationDetailPage = ({ id }) => {
                           {intro}
                         </Paragraph>
                       )}
-                      <CustomHTMLBlock body={body.value} />
+                      {body && <CustomHTMLBlock body={body.value} />}
                     </BlogContent>
                   </Column>
                 </Column>

@@ -7,16 +7,20 @@ function useFromCMS(config, id = false) {
   const [results, setResults] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
 
-  const fetchData = async () => {
+  const fetchData = async endpoint => {
     setLoading(true)
     try {
-      const endpoint = id ? config.endpoint(id) : config.endpoint()
+      if (!endpoint) {
+        // eslint-disable-next-line no-param-reassign
+        endpoint = id ? config.endpoint(id) : config.endpoint()
+      }
+
       const { fields } = config
       const data = await getByUrl(endpoint)
 
       const normalizedData = await cmsNormalizer(data, fields)
 
-      setResults(id ? normalizedData[0] : normalizedData)
+      setResults(id ? normalizedData.data[0] : normalizedData)
     } catch (e) {
       window.location.replace(routing.niet_gevonden.path)
     }
