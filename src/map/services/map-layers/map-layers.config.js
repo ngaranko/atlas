@@ -831,23 +831,6 @@ const mapLayers = [
   },
   {
     category: THEMES.TRAFFIC,
-    id: 'mztc2020',
-    layers: ['milieuzones'],
-    legendItems: [
-      {
-        imageRule: 'Touringcar na 2020',
-        title: 'Milieuzone touringcar 2020 (vanaf 1-1-2020)',
-      },
-    ],
-    title: 'Milieuzones - Touringcar 2020 (vanaf 1-1-2020)',
-    url: '/maps/milieuzones',
-    noDetail: true,
-    params: {
-      id: 63316,
-    },
-  },
-  {
-    category: THEMES.TRAFFIC,
     id: 'mzva',
     layers: ['milieuzones'],
     legendItems: [
