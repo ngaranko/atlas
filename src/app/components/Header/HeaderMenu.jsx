@@ -1,6 +1,6 @@
 import React from 'react'
 import { MenuInline, MenuToggle, MenuFlyOut, MenuItem } from '@datapunt/asc-ui'
-import { ReactComponent as ChevronRight } from '@datapunt/asc-assets/lib/Icons/ChevronRight.svg'
+import { ChevronRight } from '@datapunt/asc-assets'
 import PropTypes from 'prop-types'
 import {
   toApisPage,
