@@ -65,7 +65,6 @@ exports[`MapType rendering should render select buttons with aerial value 1`] = 
         },
         Object {
           "label": "Luchtfoto 2018",
-          "selected": true,
           "urlTemplate": "https://{s}.data.amsterdam.nl/lufo2018_RD/{z}/{x}/{y}.jpeg",
           "value": "lf2018",
         },
