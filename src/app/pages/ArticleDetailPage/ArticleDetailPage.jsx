@@ -1,3 +1,4 @@
+import styled from '@datapunt/asc-core'
 import {
   Article,
   EditorialBody,
@@ -11,6 +12,7 @@ import {
   LinkList,
   LinkListItem,
   Paragraph,
+  Typography,
   Row,
 } from '@datapunt/asc-ui'
 import React from 'react'
@@ -20,18 +22,23 @@ import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
 import './ArticleDetailPage.scss'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
-import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import cmsConfig from '../../../shared/services/cms/cms-config'
 
-/* istanbul ignore next */ const ArticleDetailPage = ({ id }) => {
-  const { fetchData, results, loading } = useFromCMS()
+const ListItemContent = styled.div`
+  display: flex;
+  flex-direction: column;
 
-  React.useEffect(() => {
-    ;(async () => {
-      await fetchData(id, cmsConfig.article)
-    })()
-  }, [])
+  & > * {
+    font-weight: 700;
+    color: inherit;
+  }
+`
+
+/* istanbul ignore next */
+const ArticleDetailPage = ({ id }) => {
+  const { results, loading } = useFromCMS(id, cmsConfig.article)
 
   const {
     title,
@@ -105,10 +112,12 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
                                   }) => (
                                     <LinkListItem
                                       key={key}
-                                      fileInfo={`${type} ${size}`}
                                       href={`${SHARED_CONFIG.CMS_ROOT}${file.uri.url}`}
                                     >
-                                      {fileTitle}
+                                      <ListItemContent>
+                                        <Typography as="span">{fileTitle}</Typography>
+                                        <Typography as="small">{`${type} ${size}`}</Typography>
+                                      </ListItemContent>
                                     </LinkListItem>
                                   ),
                                 )}
