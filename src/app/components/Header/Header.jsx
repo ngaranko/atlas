@@ -10,7 +10,18 @@ import HeaderMenuContainer from './HeaderMenuContainer'
 import EmbedHeader from './EmbedHeader'
 import PrintHeader from './PrintHeader'
 
-const style = css`
+const style = homePage => css`
+  ${styles.HeaderWrapperStyle} {
+    ${homePage &&
+      css`
+        @media screen and ${breakpoint('min-width', 'laptopM')({
+            theme: ascDefaultTheme,
+          })} {
+          /* The "tall" header has a position relative on the homepage only, while the smaller header has a fixed position */
+          position: relative;
+        }
+      `}
+  }
   ${styles.HeaderNavigationStyle} {
     @media screen and ${breakpoint('min-width', 'tabletM')({
         theme: ascDefaultTheme,
@@ -56,7 +67,7 @@ const Header = ({
           tall={homePage}
           title="City Data"
           homeLink="/"
-          css={style}
+          css={() => style(homePage)}
           fullWidth={!hasMaxWidth}
           navigation={
             <React.Fragment>

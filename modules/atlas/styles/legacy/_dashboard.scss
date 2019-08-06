@@ -73,16 +73,12 @@ $backdrop-color: rgba(0, 0, 0, .5);
   }
 
   .c-dashboard--homepage & {
-    height: calc(100% - #{$dashboard-heading-height-homepage + $dashboard-toolbar-height + $dashboard-heading-shadow-height});
+    height: calc(
+      100% - #{$dashboard-heading-height-homepage + $dashboard-toolbar-height + $dashboard-heading-shadow-height}
+    );
 
     @media (min-width: 1201px) {
-      top: $dashboard-heading-height-homepage + $dashboard-toolbar-height;
-    }
-
-    &::before {
-      @media (min-width: 1201px) {
-        top: 158px;
-      }
+      top: 0; /* The "tall" header has a position relative, while the smaller header has a fixed position */
     }
   }
 
@@ -102,7 +98,6 @@ $backdrop-color: rgba(0, 0, 0, .5);
 .c-dashboard__content {
   background-color: $primary-light;
 }
-
 
 .c-dashboard__page {
   position: relative;
