@@ -2,27 +2,27 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import MapContainer from '../../map/containers/map/MapContainer'
+import MapContainer from '../../../map/containers/map/MapContainer'
 
-import { getDetailEndpoint, shouldShowFullScreen } from '../../shared/ducks/detail/selectors'
-import { toDetailFromEndpoint as endpointActionCreator } from '../../store/redux-first-router/actions'
-import SplitScreen from '../components/SplitScreen/SplitScreen'
-import DataSelection from '../components/DataSelection/DataSelectionContainer'
-import { getSelectionType } from '../../shared/ducks/selection/selection'
+import { getDetailEndpoint, shouldShowFullScreen } from '../../../shared/ducks/detail/selectors'
+import { toDetailFromEndpoint as endpointActionCreator } from '../../../store/redux-first-router/actions'
+import SplitScreen from '../../components/SplitScreen/SplitScreen'
+import DataSelection from '../../components/DataSelection/DataSelectionContainer'
+import { getSelectionType } from '../../../shared/ducks/selection/selection'
 import {
   getViewMode,
   isPrintMode,
   setViewMode as setViewModeAction,
   VIEW_MODE,
-} from '../../shared/ducks/ui/ui'
-import { getPage } from '../../store/redux-first-router/selectors'
-import PAGES from '../pages'
+} from '../../../shared/ducks/ui/ui'
+import { getPage } from '../../../store/redux-first-router/selectors'
+import PAGES from '../../pages'
 
-const DetailContainer = React.lazy(() => import('../containers/DetailContainer/DetailContainer'))
+const DetailContainer = React.lazy(() => import('../../containers/DetailContainer/DetailContainer'))
 const LocationSearchContainer = React.lazy(() =>
-  import('../components/LocationSearch/LocationSearchContainer'),
+  import('../../components/LocationSearch/LocationSearchContainer'),
 )
-const PanoramaContainer = React.lazy(() => import('../../panorama/containers/PanoramaContainer')) // TODO: refactor, test
+const PanoramaContainer = React.lazy(() => import('../../../panorama/containers/PanoramaContainer')) // TODO: refactor, test
 
 /* istanbul ignore next */ const MapSplitPage = ({
   hasSelection,
@@ -88,8 +88,13 @@ const PanoramaContainer = React.lazy(() => import('../../panorama/containers/Pan
   }
   if (Component) {
     if (viewMode === VIEW_MODE.FULL || forceFullScreen) {
+      if (viewMode !== VIEW_MODE.FULL) {
+        setViewMode(VIEW_MODE.FULL)
+      }
+
       return Component
     }
+
     if (viewMode === VIEW_MODE.SPLIT) {
       return (
         <SplitScreen
