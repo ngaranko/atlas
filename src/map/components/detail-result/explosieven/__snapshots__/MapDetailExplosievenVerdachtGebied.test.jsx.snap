@@ -22,7 +22,7 @@ exports[`MapDetailExplosievenVerdachtGebied should render everything 1`] = `
       value="Verdacht gebied sub type"
     />
     <MapDetailResultItem
-      hasMultiline={false}
+      hasMultiline={true}
       label="Opmerkingen"
       value="Verdacht gebied remarks"
     />
