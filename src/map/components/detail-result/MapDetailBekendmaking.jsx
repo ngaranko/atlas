@@ -16,7 +16,7 @@ const MapDetailBekendmaking = ({ panoUrl, bekendmaking, onMaximize, onPanoPrevie
       <MapDetailResultItem label="Datum" value={bekendmaking.date} />
       <MapDetailResultItem label="Categorie" value={bekendmaking.categorie} />
       <MapDetailResultItem label="Onderwerp" value={bekendmaking.onderwerp} />
-      <MapDetailResultItem label="Beschrijving" value={bekendmaking.beschrijving} />
+      <MapDetailResultItem hasMultiline label="Beschrijving" value={bekendmaking.beschrijving} />
       <MapDetailResultUrlItem
         label="Meer informatie"
         description={bekendmaking.url}

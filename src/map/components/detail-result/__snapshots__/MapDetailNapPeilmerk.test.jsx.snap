@@ -17,7 +17,7 @@ exports[`MapDetailNapPeilmerk should not render empty height 1`] = `
       value=""
     />
     <MapDetailResultItem
-      hasMultiline={false}
+      hasMultiline={true}
       label="Omschrijving"
       value="Peilmerk description"
     />
@@ -47,7 +47,7 @@ exports[`MapDetailNapPeilmerk should not render without height 1`] = `
       value=""
     />
     <MapDetailResultItem
-      hasMultiline={false}
+      hasMultiline={true}
       label="Omschrijving"
       value="Peilmerk description"
     />
@@ -77,7 +77,7 @@ exports[`MapDetailNapPeilmerk should render everything 1`] = `
       value="123,323 m"
     />
     <MapDetailResultItem
-      hasMultiline={false}
+      hasMultiline={true}
       label="Omschrijving"
       value="Peilmerk description"
     />
