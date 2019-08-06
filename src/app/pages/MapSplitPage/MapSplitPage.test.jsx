@@ -14,7 +14,7 @@ describe('MapSplitPage', () => {
 
     const component = shallow(<MapSplitPage />, { context: { store } })
 
-    // the shouldShowFullScreen selected shpuld return a value for the forceFullScreen prop
+    // the shouldShowFullScreen selected should return a value for the forceFullScreen prop
     expect(component.props().forceFullScreen).toBe(true)
   })
 })
