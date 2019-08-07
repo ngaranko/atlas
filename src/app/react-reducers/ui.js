@@ -16,9 +16,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         backdropKeys: state.backdropKeys.includes(key)
-          ? state.backdropKeys.filter(backdropTrigger =>
-              !open ? backdropTrigger !== key : backdropTrigger,
-            )
+          ? state.backdropKeys.filter(backdropKey => (!open ? backdropKey !== key : backdropKey))
           : [...state.backdropKeys, ...(open ? [key] : [])],
       }
     default:
