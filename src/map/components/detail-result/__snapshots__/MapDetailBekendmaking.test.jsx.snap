@@ -27,7 +27,7 @@ exports[`MapDetailBekendmaking should render everything 1`] = `
       value="test onderwerp"
     />
     <MapDetailResultItem
-      hasMultiline={false}
+      hasMultiline={true}
       label="Beschrijving"
       value=""
     />

@@ -20,7 +20,7 @@ const MapDetailExplosievenVerdachtGebied = ({
     <ul className="map-detail-result__list">
       <MapDetailResultItem label="Hoofdgroep" value={verdachtGebied.type} />
       <MapDetailResultItem label="Subsoort" value={verdachtGebied.subType} />
-      <MapDetailResultItem label="Opmerkingen" value={verdachtGebied.remarks} />
+      <MapDetailResultItem hasMultiline label="Opmerkingen" value={verdachtGebied.remarks} />
     </ul>
   </MapDetailResultWrapper>
 )

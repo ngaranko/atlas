@@ -22,35 +22,7 @@ exports[`Header should render the main header 1`] = `
   data-test="header"
 >
   <Header
-    css={
-      Array [
-        "
-  ",
-        ".sc-TOsTZ",
-        " {
-    @media screen and ",
-        "(min-width: 768.02px)",
-        " {
-      justify-content: space-between;
-    }
-
-    fieldset > ",
-        ".sc-kafWEX",
-        " {
-      flex-grow: 1;
-      max-width: 80%;
-
-      ",
-        ".sc-cIShpX",
-        " {
-        flex-grow: 0;
-        width: 100%;
-      }
-    }
-  }
-",
-      ]
-    }
+    css={[Function]}
     fullWidth={false}
     homeLink="/"
     navigation={

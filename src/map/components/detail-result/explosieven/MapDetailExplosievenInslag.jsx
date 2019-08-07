@@ -15,7 +15,7 @@ const MapDetailExplosievenInslag = ({ panoUrl, inslag, onMaximize, onPanoPreview
     <ul className="map-detail-result__list">
       <MapDetailResultDateItem label="Datum van inslag" date={inslag.date} />
       <MapDetailResultItem label="Soort handeling" value={inslag.type} />
-      <MapDetailResultItem label="Bron" value={inslag.source} />
+      <MapDetailResultItem hasMultiline label="Bron" value={inslag.source} />
       <MapDetailResultItem label="Opmerkingen" value={inslag.remarks} />
     </ul>
   </MapDetailResultWrapper>
