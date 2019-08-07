@@ -1,15 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App should render the homepage 1`] = `
-<DefaultThemeProvider
-  overrides={
-    Object {
-      "typography": Object {
-        "fontFamily": "\\"AvenirLT\\", Arial, sans-serif",
-      },
-    }
-  }
->
+<DefaultThemeProvider>
   <GlobalStyleComponent />
   <AppStateProvider
     initialState={
@@ -48,15 +40,7 @@ exports[`App should render the homepage 1`] = `
 `;
 
 exports[`App should render the mapview 1`] = `
-<DefaultThemeProvider
-  overrides={
-    Object {
-      "typography": Object {
-        "fontFamily": "\\"AvenirLT\\", Arial, sans-serif",
-      },
-    }
-  }
->
+<DefaultThemeProvider>
   <GlobalStyleComponent />
   <AppStateProvider
     initialState={

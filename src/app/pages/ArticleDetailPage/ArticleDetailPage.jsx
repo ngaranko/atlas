@@ -1,16 +1,18 @@
+import styled from '@datapunt/asc-core'
 import {
   Article,
-  BlogBody,
-  BlogContent,
-  BlogHeader,
-  BlogMetaList,
-  BlogSidebar,
+  EditorialBody,
+  EditorialContent,
+  EditorialHeader,
+  EditorialMetaList,
+  EditorialSidebar,
   Column,
   CustomHTMLBlock,
   Heading,
   LinkList,
   LinkListItem,
   Paragraph,
+  Typography,
   Row,
 } from '@datapunt/asc-ui'
 import React from 'react'
@@ -20,11 +22,22 @@ import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
 import './ArticleDetailPage.scss'
 import EditorialPage from '../../components/EditorialPage/EditorialPage'
-import cmsConfig from '../../../shared/services/cms/cms-config'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import cmsConfig from '../../../shared/services/cms/cms-config'
 
-/* istanbul ignore next */ const ArticleDetailPage = ({ id }) => {
+const ListItemContent = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    font-weight: 700;
+    color: inherit;
+  }
+`
+
+/* istanbul ignore next */
+const ArticleDetailPage = ({ id }) => {
   const { fetchData, results, loading } = useFromCMS(cmsConfig.ARTICLE, id)
 
   React.useEffect(() => {
@@ -63,32 +76,32 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
                   : {})}
               >
                 <Row className="article__row">
-                  <BlogContent>
+                  <EditorialContent>
                     <Column
                       wrap
                       span={{ small: 1, medium: 2, big: 5, large: 11, xLarge: 11 }}
                       push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                     >
                       <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
-                        <BlogBody>
-                          <BlogHeader title={title}>
-                            <BlogMetaList
+                        <EditorialBody>
+                          <EditorialHeader title={title}>
+                            <EditorialMetaList
                               dateTime={date}
                               dateFormatted={localeDate}
                               fields={byline && [{ id: 1, label: byline }]}
                             />
-                          </BlogHeader>
+                          </EditorialHeader>
                           <Paragraph strong hasLongText>
                             {intro}
                           </Paragraph>
                           <CustomHTMLBlock body={body} />
-                        </BlogBody>
+                        </EditorialBody>
                       </Column>
                       <Column
                         span={{ small: 1, medium: 2, big: 2, large: 3, xLarge: 3 }}
                         push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                       >
-                        <BlogSidebar>
+                        <EditorialSidebar>
                           {downloads && downloads.length ? (
                             <>
                               <Heading as="h2">Downloads</Heading>
@@ -103,10 +116,12 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
                                   }) => (
                                     <LinkListItem
                                       key={key}
-                                      fileInfo={`${type} ${size}`}
                                       href={`${SHARED_CONFIG.CMS_ROOT}${file.uri.url}`}
                                     >
-                                      {fileTitle}
+                                      <ListItemContent>
+                                        <Typography as="span">{fileTitle}</Typography>
+                                        <Typography as="small">{`${type} ${size}`}</Typography>
+                                      </ListItemContent>
                                     </LinkListItem>
                                   ),
                                 )}
@@ -125,10 +140,10 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
                               </LinkList>
                             </>
                           ) : null}
-                        </BlogSidebar>
+                        </EditorialSidebar>
                       </Column>
                     </Column>
-                  </BlogContent>
+                  </EditorialContent>
                 </Row>
               </Article>
             </ContentContainer>

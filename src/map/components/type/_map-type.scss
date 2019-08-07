@@ -12,7 +12,7 @@ $icon-height: 20px;
 
   &__title {
     font-size: $s-font-size;
-    font-weight: 900;
+    font-weight: $bold-weight;
     line-height: 1.25;
     margin: 8px 0;
   }

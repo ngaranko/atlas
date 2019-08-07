@@ -33,7 +33,7 @@ exports[`ArticleDetailPage should render the publication when there are results 
             debugColor="rgba(51,102,153,0.75)"
             hasMargin={true}
           >
-            <BlogContent>
+            <EditorialContent>
               <Column
                 debug={false}
                 debugColor="rgba(51,102,153,0.5)"
@@ -74,12 +74,12 @@ exports[`ArticleDetailPage should render the publication when there are results 
                   }
                   wrap={false}
                 >
-                  <BlogBody>
-                    <BlogHeader
+                  <EditorialBody>
+                    <EditorialHeader
                       title="This is a title"
                     >
-                      <BlogMetaList />
-                    </BlogHeader>
+                      <EditorialMetaList />
+                    </EditorialHeader>
                     <Paragraph
                       hasLongText={true}
                       strong={true}
@@ -91,7 +91,7 @@ exports[`ArticleDetailPage should render the publication when there are results 
                         }
                       }
                     />
-                  </BlogBody>
+                  </EditorialBody>
                 </Column>
                 <Column
                   debug={false}
@@ -117,10 +117,10 @@ exports[`ArticleDetailPage should render the publication when there are results 
                   }
                   wrap={false}
                 >
-                  <BlogContent />
+                  <EditorialContent />
                 </Column>
               </Column>
-            </BlogContent>
+            </EditorialContent>
           </Row>
         </Article>
       </ContentContainer>

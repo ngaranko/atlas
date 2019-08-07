@@ -4,7 +4,7 @@
 
 .resources {
   font-size: $s-font-size;
-  font-weight: 400;
+  font-weight: $normal-weight;
 
   &-button  {
     background-color: $white;

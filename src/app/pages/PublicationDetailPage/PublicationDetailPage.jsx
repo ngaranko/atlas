@@ -5,10 +5,10 @@ import {
   Column,
   Row,
   CustomHTMLBlock,
-  BlogHeader,
-  BlogMetaList,
+  EditorialHeader,
+  EditorialMetaList,
   DocumentCover,
-  BlogContent,
+  EditorialContent,
   Paragraph,
 } from '@datapunt/asc-ui'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
@@ -59,9 +59,9 @@ const PublicationDetailPage = ({ id }) => {
                       xLarge: 12,
                     }}
                   >
-                    <BlogContent>
-                      <BlogHeader title={title} />
-                      <BlogMetaList
+                    <EditorialContent>
+                      <EditorialHeader title={title} />
+                      <EditorialMetaList
                         fields={[
                           { id: 1, label: source },
                           { id: 4, label: localeDate },
@@ -69,7 +69,7 @@ const PublicationDetailPage = ({ id }) => {
                           { id: 3, label: fileType.toUpperCase() },
                         ]}
                       />
-                    </BlogContent>
+                    </EditorialContent>
                   </Column>
                   <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
                     <DocumentCover
@@ -81,14 +81,14 @@ const PublicationDetailPage = ({ id }) => {
                     />
                   </Column>
                   <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
-                    <BlogContent>
+                    <EditorialContent>
                       {intro && (
                         <Paragraph hasLongText strong>
                           {intro}
                         </Paragraph>
                       )}
                       <CustomHTMLBlock body={body.value} />
-                    </BlogContent>
+                    </EditorialContent>
                   </Column>
                 </Column>
               </Row>

@@ -83,13 +83,7 @@ const App = ({
   const pageTypeClass = currentPage.toLowerCase().replace('_', '-')
 
   return (
-    <ThemeProvider
-      overrides={{
-        typography: {
-          fontFamily: '"AvenirLT", Arial, sans-serif',
-        },
-      }}
-    >
+    <ThemeProvider>
       <GlobalStyle />
       <AppStateProvider initialState={initialState} reducer={main}>
         <div className={`c-dashboard c-dashboard--page-type-${pageTypeClass} ${rootClasses}`}>
