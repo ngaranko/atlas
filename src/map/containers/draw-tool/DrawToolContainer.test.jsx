@@ -83,7 +83,9 @@ describe('DrawToolContainer', () => {
     let spy
     beforeEach(() => {
       spy = jest.spyOn(store, 'dispatch')
-      wrapper = shallow(<DrawToolContainer {...props} />, { context: { store } })
+      wrapper = shallow(<DrawToolContainer {...props} />, {
+        context: { store },
+      })
         .dive()
         .dive()
       wrapperInstance = wrapper.instance()

@@ -4,10 +4,7 @@ import isDefined from '../../../../src/shared/services/is-defined'
   // This factory name is namespaced because other modules will get a similar service with the same name
   angular
     .module('dpDataSelection')
-    .factory(
-      'dpDataSelectionDocumentTitle',
-      dpDataSelectionDocumentTitleFactory,
-    )
+    .factory('dpDataSelectionDocumentTitle', dpDataSelectionDocumentTitleFactory)
 
   dpDataSelectionDocumentTitleFactory.$inject = ['lowercaseFilter']
 
@@ -27,10 +24,7 @@ import isDefined from '../../../../src/shared/services/is-defined'
         CATALOG: 'Datasets',
       }
 
-      if (
-        dataSelectionState.view === 'CATALOG' &&
-        !Object.keys(filtersState).length
-      ) {
+      if (dataSelectionState.view === 'CATALOG' && !Object.keys(filtersState).length) {
         if (dataSelectionState.query) {
           return `Datasets met '${dataSelectionState.query}'`
         }
@@ -41,13 +35,9 @@ import isDefined from '../../../../src/shared/services/is-defined'
         DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].TITLE,
       )
       const markers = dataSelectionState.geometryFilter.markers || []
-      const criteria = DATA_SELECTION_CONFIG.datasets[
-        dataSelectionState.dataset
-      ].FILTERS
+      const criteria = DATA_SELECTION_CONFIG.datasets[dataSelectionState.dataset].FILTERS
         // Retrieve all the active filters
-        .filter(availableFilter =>
-          isDefined(filtersState[availableFilter.slug]),
-        )
+        .filter(availableFilter => isDefined(filtersState[availableFilter.slug]))
         // Show the value of each active filter
         .map(activeFilter => {
           if (filtersState[activeFilter.slug] === '') {
@@ -80,10 +70,7 @@ import isDefined from '../../../../src/shared/services/is-defined'
         output += `'${dataSelectionState.query}'`
       }
 
-      if (
-        (markers.length && criteria.length) ||
-        (dataSelectionState.query && criteria.length)
-      ) {
+      if ((markers.length && criteria.length) || (dataSelectionState.query && criteria.length)) {
         output += ', '
       }
 

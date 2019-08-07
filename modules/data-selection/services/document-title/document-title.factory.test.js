@@ -76,43 +76,30 @@ describe('The dpDataSelectionDocumentTitle factory', function() {
   })
 
   it('shows a different title based on the active view', function() {
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters),
-    ).toMatch(/^Tabel/)
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toMatch(/^Tabel/)
 
     mockedBagState.view = 'LIST'
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters),
-    ).toMatch(/^Lijst/)
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toMatch(/^Lijst/)
   })
 
   it('shows a special title when showing all datasets', function() {
     delete mockedCatalogusState.query
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(
-        mockedCatalogusState,
-        mockedFilters,
-      ),
-    ).toBe('Datasets')
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters)).toBe(
+      'Datasets',
+    )
   })
 
   it('shows a the datasets query for text search in datasets', function() {
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(
-        mockedCatalogusState,
-        mockedFilters,
-      ),
-    ).toBe("Datasets met 'my query'")
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters)).toBe(
+      "Datasets met 'my query'",
+    )
   })
 
   it('shows both the query and the active filter', function() {
     mockedFilters.groups = 'bestuur-en-organisatie'
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(
-        mockedCatalogusState,
-        mockedFilters,
-      ),
-    ).toBe("Datasets met 'my query', Thema's: bestuur-en-organisatie")
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedCatalogusState, mockedFilters)).toBe(
+      "Datasets met 'my query', Thema's: bestuur-en-organisatie",
+    )
   })
 
   it('shows the surface of the current selection', function() {
@@ -121,39 +108,37 @@ describe('The dpDataSelectionDocumentTitle factory', function() {
       markers: [{}, {}],
     }
 
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters),
-    ).toBe('Tabel adressen met ingetekend (1,95 km en 216.980,2 m²)')
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toBe(
+      'Tabel adressen met ingetekend (1,95 km en 216.980,2 m²)',
+    )
   })
 
   it('shows the title of the current dataset', function() {
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters),
-    ).toBe('Tabel adressen')
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toBe(
+      'Tabel adressen',
+    )
 
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(mockedHrState, mockedFilters),
-    ).toBe('Tabel handelsregister')
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedHrState, mockedFilters)).toBe(
+      'Tabel handelsregister',
+    )
   })
 
   it('optionally lists the (selected values of the) active filters', function() {
     // One active filter
     mockedFilters.stadsdeel_naam = 'Oost'
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters),
-    ).toBe('Tabel adressen met Stadsdeel: Oost')
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toBe(
+      'Tabel adressen met Stadsdeel: Oost',
+    )
 
     // Two active filters (comma-separated)
     mockedFilters.buurt_naam = 'Flevopark'
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters),
-    ).toBe('Tabel adressen met Stadsdeel: Oost, Buurt: Flevopark')
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toBe(
+      'Tabel adressen met Stadsdeel: Oost, Buurt: Flevopark',
+    )
 
     // Two active filters (comma-separated_
     mockedFilters.postcode = ''
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters),
-    ).toBe(
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toBe(
       'Tabel adressen met Stadsdeel: Oost, Buurt: Flevopark, Postcode: (Geen)',
     )
     // double space before "zonder postcode", the browser strips this
@@ -165,8 +150,8 @@ describe('The dpDataSelectionDocumentTitle factory', function() {
       buurt_naam: 'Flevopark',
     }
 
-    expect(
-      dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters),
-    ).toBe('Tabel adressen met Stadsdeel: Oost, Buurt: Flevopark')
+    expect(dpDataSelectionDocumentTitle.getTitle(mockedBagState, mockedFilters)).toBe(
+      'Tabel adressen met Stadsdeel: Oost, Buurt: Flevopark',
+    )
   })
 })

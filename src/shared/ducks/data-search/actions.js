@@ -18,10 +18,7 @@ export const fetchMapSearchResultsRequest = (payload, isMap) => ({
     isMap,
   },
 })
-export const fetchMapSearchResultsSuccessPanel = (
-  results,
-  numberOfResults,
-) => ({
+export const fetchMapSearchResultsSuccessPanel = (results, numberOfResults) => ({
   type: FETCH_GEO_SEARCH_RESULTS_SUCCESS_PANEL,
   payload: { results, numberOfResults },
 })

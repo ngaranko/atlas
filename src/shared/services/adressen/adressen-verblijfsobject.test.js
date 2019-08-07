@@ -103,8 +103,7 @@ describe('The adressen verblijfsobject resource', () => {
 
     describe('size', () => {
       it('Changes one to zero', () => {
-        const uri =
-          'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456'
+        const uri = 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456'
 
         getByUrl.mockReturnValueOnce(Promise.resolve({ oppervlakte: 1 }))
 
@@ -114,8 +113,7 @@ describe('The adressen verblijfsobject resource', () => {
       })
 
       it('Keeps a zero as a zero', () => {
-        const uri =
-          'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456'
+        const uri = 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456'
 
         getByUrl.mockReturnValueOnce(Promise.resolve({ oppervlakte: 0 }))
 
@@ -125,8 +123,7 @@ describe('The adressen verblijfsobject resource', () => {
       })
 
       it('Uses zero for negative values', () => {
-        const uri =
-          'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456'
+        const uri = 'https://acc.api.data.amsterdam.nl/bag/verblijfsobject/123456'
 
         getByUrl.mockReturnValueOnce(Promise.resolve({ oppervlakte: -1 }))
 

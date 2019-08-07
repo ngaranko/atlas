@@ -1,3 +1,7 @@
+import 'angular'
+import 'angular-aria'
+import 'angular-i18n/nl-nl'
+import 'angular-sanitize'
 ;(function() {
   const moduleDependencies = [
     // Main modules
@@ -12,9 +16,7 @@
   ]
 
   // eslint-disable-next-line angular/di
-  angular
-    .module('atlas', moduleDependencies)
-    .config(['$provide', urlChangeProvider])
+  angular.module('atlas', moduleDependencies).config(['$provide', urlChangeProvider])
 
   urlChangeProvider.$inject = ['$provide']
   /* istanbul ignore next */

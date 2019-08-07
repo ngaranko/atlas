@@ -1,0 +1,9 @@
+@import "../../../shared/styles/config";
+
+.editorial-overview {
+  height: 100%;
+
+  & > div {
+    background-color: $primary-light;
+  }
+}

@@ -1,3 +1,8 @@
+import PARAMETERS from '../../../../src/store/parameters'
+import { routing } from '../../../../src/app/routes'
+
+const { VIEW, VIEW_CENTER } = PARAMETERS
+
 const columnRight = '.qa-dashboard__column--right'
 const homepage = '.c-homepage'
 const map = '.c-map'
@@ -38,12 +43,8 @@ describe('map module', () => {
       cy.route('/panorama/thumbnail/*').as('getPanoThumbnail')
       cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
       cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden')
-      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as(
-        'getObjectExpand',
-      )
-      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-        'getSitueringen',
-      )
+      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as('getObjectExpand')
+      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen')
       cy.route('/monumenten/monumenten/*').as('getMonument')
       cy.route('/parkeerplekken/parkeerplekken*').as('getParkeerplekken')
 
@@ -98,9 +99,7 @@ describe('map module', () => {
 
       // click on the button inside the panel balloon thingy, and expect the large right column to
       // become visible
-      cy.get(
-        'button.map-preview-panel__button[title="Volledige weergave tonen"]',
-      ).click()
+      cy.get('button.map-preview-panel__button[title="Volledige weergave tonen"]').click()
       cy.get(columnRight)
         .should('exist')
         .and('be.visible')
@@ -131,7 +130,7 @@ describe('map module', () => {
       // ensure the viewport is always the same in this test, so the clicks can be aligned properly
       cy.viewport(1000, 660)
 
-      cy.visit('/?center=52.3728007%2C4.899258&modus=kaart')
+      cy.visit(`/?${VIEW_CENTER}=52.3728007%2C4.899258&${VIEW}=kaart`)
 
       // the map-panel should have the class collapsed by default
       cy.get('.map-panel').should('have.class', 'map-panel--collapsed')
@@ -234,7 +233,7 @@ describe('map module', () => {
   describe('user should be able to use the map', () => {
     it('should render the leaflet map', () => {
       // route to the map by url
-      cy.visit('/data?modus=kaart')
+      cy.visit(`/${routing.data.path}?${VIEW}=kaart`)
       // the map container should exist
       cy.get(map)
         .should('exist')
@@ -252,7 +251,7 @@ describe('map module', () => {
 
     it('should add a map-layer to the leaflet map', () => {
       // route to the map
-      cy.visit('/data?center=52.3731081%2C4.8932945&modus=kaart')
+      cy.visit(`/${routing.data.path}?${VIEW_CENTER}=52.3731081%2C4.8932945&${VIEW}=kaart`)
 
       // the map-panel should have the class collapsed by default
       cy.get('.map-panel').should('have.class', 'map-panel--collapsed')
@@ -283,7 +282,7 @@ describe('map module', () => {
   describe('user should be able to open the map panel when collapsed', () => {
     it('should add open the map panel component', () => {
       // route to the map
-      cy.visit('/data?modus=kaart')
+      cy.visit(`/${routing.data.path}?${VIEW}=kaart`)
       // the map-panel should have the class collapsed
       cy.get('.map-panel').should('have.class', 'map-panel--collapsed')
       // the scroll wrapper should not be visible when map panel is collapsed

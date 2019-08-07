@@ -15,14 +15,7 @@ export function* authenticateUser(action) {
   const reload = action && action.type === AUTHENTICATE_USER_RELOAD
 
   if (accessToken) {
-    yield put(
-      authenticateUserSuccess(
-        accessToken,
-        auth.getName(),
-        auth.getScopes(),
-        reload,
-      ),
-    )
+    yield put(authenticateUserSuccess(accessToken, auth.getName(), auth.getScopes(), reload))
   } else {
     yield put(authenticateFailed())
   }
@@ -31,10 +24,7 @@ export function* authenticateUser(action) {
 export function* waitForAuthentication() {
   const didAuthCheck = yield select(userCheckedAuthentication)
   if (!didAuthCheck) {
-    yield race([
-      take(AUTHENTICATE_USER_SUCCESS),
-      take(AUTHENTICATE_USER_FAILED),
-    ])
+    yield race([take(AUTHENTICATE_USER_SUCCESS), take(AUTHENTICATE_USER_FAILED)])
   }
 }
 

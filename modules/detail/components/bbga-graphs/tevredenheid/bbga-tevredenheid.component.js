@@ -1,7 +1,6 @@
 ;(function() {
   angular.module('dpDetail').component('dpBbgaTevredenheid', {
-    templateUrl:
-      'modules/detail/components/bbga-graphs/tevredenheid/bbga-tevredenheid.html',
+    templateUrl: 'modules/detail/components/bbga-graphs/tevredenheid/bbga-tevredenheid.html',
     bindings: {
       gebiedHeading: '@',
       gebiedCode: '@',

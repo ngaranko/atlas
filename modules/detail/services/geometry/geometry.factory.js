@@ -43,12 +43,10 @@ import { isVestigingAmsterdam } from '../../../../src/shared/services/geometry/g
 
       function getGPerceel(aPerceelData) {
         // Retrieve a list of all related G percelen
-        return api
-          .getByUrl(aPerceelData.g_percelen.href)
-          .then(function(gPercelen) {
-            // Get the first G perceel
-            return api.getByUrl(gPercelen.results[0]._links.self.href)
-          })
+        return api.getByUrl(aPerceelData.g_percelen.href).then(function(gPercelen) {
+          // Get the first G perceel
+          return api.getByUrl(gPercelen.results[0]._links.self.href)
+        })
       }
 
       function isNummeraanduiding(anUrl) {

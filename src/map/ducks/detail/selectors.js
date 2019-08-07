@@ -4,10 +4,7 @@ import {
   getDetailEndpoint,
   getDetailGeometry,
 } from '../../../shared/ducks/detail/selectors'
-import {
-  isDataDetailPage,
-  isPanoPage,
-} from '../../../store/redux-first-router/selectors'
+import { isDataDetailPage, isPanoPage } from '../../../store/redux-first-router/selectors'
 
 const shouldShowGeoJson = () => isDataDetailPage || isPanoPage
 
@@ -25,8 +22,7 @@ export const getAllResults = createSelector(
 
 export const selectLatestMapDetail = createSelector(
   [getCurrentEndpoint, getAllResults],
-  (currentEndpoint, byEndpoint) =>
-    currentEndpoint && byEndpoint && byEndpoint[currentEndpoint],
+  (currentEndpoint, byEndpoint) => currentEndpoint && byEndpoint && byEndpoint[currentEndpoint],
 )
 
 export const getMapDetailGeometry = createSelector(

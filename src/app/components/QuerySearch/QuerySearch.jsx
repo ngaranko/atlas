@@ -30,7 +30,6 @@ const QuerySearch = ({
         <TabBar
           numberOfDataResults={numberOfDataResults}
           numberOfDatasetResults={numberOfDatasetResults}
-          showDatasetsButton={currentPage === PAGES.SEARCH_DATASETS}
         >
           <Tabs currentTab={currentPage === PAGES.DATA_QUERY_SEARCH ? 'Data' : 'Datasets'}>
             <Tab

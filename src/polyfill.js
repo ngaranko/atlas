@@ -1,10 +1,9 @@
-/* eslint-disable */
-;(function() {
+// eslint-disable-next-line consistent-return
+;(() => {
   if (typeof window.CustomEvent === 'function') return false
 
-  function CustomEvent(event, params) {
-    params = params || { bubbles: false, cancelable: false, detail: null }
-    var evt = document.createEvent('CustomEvent')
+  function CustomEvent(event, params = { bubbles: false, cancelable: false, detail: null }) {
+    const evt = document.createEvent('CustomEvent')
     evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail)
     return evt
   }

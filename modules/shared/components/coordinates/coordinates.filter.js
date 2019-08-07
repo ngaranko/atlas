@@ -13,10 +13,7 @@
       let wgs84Location
       let rdLocation
 
-      if (
-        angular.isUndefined(location) ||
-        (angular.isArray(location) && location.length !== 2)
-      ) {
+      if (angular.isUndefined(location) || (angular.isArray(location) && location.length !== 2)) {
         return
       }
 

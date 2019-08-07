@@ -33,17 +33,11 @@ describe('The Panorama Api', () => {
               direction: 116.48,
               distance: 10.14,
               mission_year: 2016,
-              cubic_img_baseurl:
-                'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
-              cubic_img_pattern:
-                'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
+              cubic_img_baseurl: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
+              cubic_img_pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
               geometry: {
                 type: 'Point',
-                coordinates: [
-                  4.91359770418102,
-                  52.3747994036985,
-                  46.9912552172318,
-                ],
+                coordinates: [4.91359770418102, 52.3747994036985, 46.9912552172318],
               },
               timestamp: '2016-05-19T13:04:15.341110Z',
               _links: {
@@ -57,17 +51,11 @@ describe('The Panorama Api', () => {
               direction: 116.48,
               distance: 10.14,
               mission_year: 2016,
-              cubic_img_baseurl:
-                'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
-              cubic_img_pattern:
-                'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
+              cubic_img_baseurl: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
+              cubic_img_pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
               geometry: {
                 type: 'Point',
-                coordinates: [
-                  4.91359770418102,
-                  52.3747994036985,
-                  46.9912552172318,
-                ],
+                coordinates: [4.91359770418102, 52.3747994036985, 46.9912552172318],
               },
               timestamp: '2016-05-19T13:04:15.341110Z',
               _links: {
@@ -83,17 +71,11 @@ describe('The Panorama Api', () => {
               direction: 116.48,
               distance: 10.14,
               mission_year: 2016,
-              cubic_img_baseurl:
-                'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
-              cubic_img_pattern:
-                'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
+              cubic_img_baseurl: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
+              cubic_img_pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
               geometry: {
                 type: 'Point',
-                coordinates: [
-                  4.91359770418102,
-                  52.3747994036985,
-                  46.9912552172318,
-                ],
+                coordinates: [4.91359770418102, 52.3747994036985, 46.9912552172318],
               },
               timestamp: '2016-05-19T13:04:15.341110Z',
               _links: {
@@ -108,17 +90,11 @@ describe('The Panorama Api', () => {
               direction: 127.37,
               distance: 5.25,
               mission_year: 2017,
-              cubic_img_baseurl:
-                'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
-              cubic_img_pattern:
-                'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
+              cubic_img_baseurl: 'http://pano.amsterdam.nl/all/cubic/abf123/base.jpg',
+              cubic_img_pattern: 'http://pano.amsterdam.nl/all/cubic/abf123/{a}/{b}/{c}.jpg',
               geometry: {
                 type: 'Point',
-                coordinates: [
-                  4.91359770418102,
-                  52.3747994036985,
-                  46.9912552172318,
-                ],
+                coordinates: [4.91359770418102, 52.3747994036985, 46.9912552172318],
               },
               timestamp: '2017-05-19T13:04:15.341110Z',
               _links: {
@@ -168,12 +144,10 @@ describe('The Panorama Api', () => {
     it('with the correct endpoint for location', () => {
       getImageDataByLocation([52, 4])
 
-      const {
-        locationRange,
-        standardRadius,
-        tagsQuery,
-        newestInRange,
-      } = getLocationHistoryParams([52, 4], null)
+      const { locationRange, standardRadius, tagsQuery, newestInRange } = getLocationHistoryParams(
+        [52, 4],
+        null,
+      )
 
       expect(getByUrl).toHaveBeenCalledWith(
         `${sharedConfig.API_ROOT}${prefix}` +
@@ -184,12 +158,10 @@ describe('The Panorama Api', () => {
     it('with the correct endpoint for location if not found, ', () => {
       getImageDataByLocation([1, 1])
 
-      const {
-        locationRange,
-        tagsQuery,
-        standardRadius,
-        newestInRange,
-      } = getLocationHistoryParams([1, 1], null)
+      const { locationRange, tagsQuery, standardRadius, newestInRange } = getLocationHistoryParams(
+        [1, 1],
+        null,
+      )
 
       expect(getByUrl).toHaveBeenCalledWith(
         `${sharedConfig.API_ROOT}${prefix}` +
@@ -256,12 +228,10 @@ describe('The Panorama Api', () => {
       const history = { year: 2020, missionType: 'WOZ' }
       getImageDataByLocation([52, 4], history)
 
-      const {
-        tagsQuery,
-        locationRange,
-        standardRadius,
-        newestInRange,
-      } = getLocationHistoryParams([52, 4], history)
+      const { tagsQuery, locationRange, standardRadius, newestInRange } = getLocationHistoryParams(
+        [52, 4],
+        history,
+      )
 
       expect(getByUrl).toHaveBeenCalledWith(
         `${sharedConfig.API_ROOT}${prefix}` +
@@ -273,10 +243,7 @@ describe('The Panorama Api', () => {
       const history = { year: 2020, missionType: 'WOZ' }
       getImageDataById('ABC', history)
 
-      const { tagsQuery, newestInRange } = getLocationHistoryParams(
-        null,
-        history,
-      )
+      const { tagsQuery, newestInRange } = getLocationHistoryParams(null, history)
 
       expect(getByUrl).toHaveBeenCalledWith(
         `${sharedConfig.API_ROOT}${prefix}/ABC/${suffix}/?${newestInRange}${tagsQuery}`,
@@ -285,12 +252,10 @@ describe('The Panorama Api', () => {
 
     it('will not change the endpoint when falsy', () => {
       getImageDataByLocation([42, 4], null)
-      const {
-        locationRange,
-        standardRadius,
-        newestInRange,
-        tagsQuery,
-      } = getLocationHistoryParams([52, 4], null)
+      const { locationRange, standardRadius, newestInRange, tagsQuery } = getLocationHistoryParams(
+        [52, 4],
+        null,
+      )
 
       expect(getByUrl).toHaveBeenCalledWith(
         `${sharedConfig.API_ROOT}${prefix}` +

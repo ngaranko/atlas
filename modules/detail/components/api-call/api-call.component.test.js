@@ -96,13 +96,7 @@ describe('The dp-api-call component', function() {
     return q.promise
   }
 
-  function getComponent(
-    endpoint,
-    partial,
-    useBrkObjectExpanded,
-    addApiRoot,
-    merge,
-  ) {
+  function getComponent(endpoint, partial, useBrkObjectExpanded, addApiRoot, merge) {
     const element = document.createElement('dp-api-call')
     element.setAttribute('endpoint', endpoint)
     element.setAttribute('partial', partial)
@@ -145,9 +139,7 @@ describe('The dp-api-call component', function() {
       )
 
       expect(component.find('dp-partial-select').length).toBe(1)
-      expect(component.find('dp-partial-select').attr('api-data')).toBe(
-        'vm.apiData',
-      )
+      expect(component.find('dp-partial-select').attr('api-data')).toBe('vm.apiData')
       expect(scope.vm.apiData).toEqual({
         results: {
           var_a: 'foo',
@@ -188,14 +180,10 @@ describe('The dp-api-call component', function() {
       scope.$apply()
 
       expect(api.getByUrl).toHaveBeenCalledTimes(1)
-      expect(api.getByUrl).toHaveBeenCalledWith(
-        'http://www.some-domain.com/with-pagination/456/',
-      )
+      expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/with-pagination/456/')
       expect(scope.vm.apiData.count).toBe(5)
       expect(scope.vm.apiData.results).toEqual(['ITEM_1', 'ITEM_2', 'ITEM_3'])
-      expect(scope.vm.apiData.next).toBe(
-        'http://www.some-domain.com/with-pagination/456/?page=2',
-      )
+      expect(scope.vm.apiData.next).toBe('http://www.some-domain.com/with-pagination/456/?page=2')
 
       scope.vm.loadMore()
       finishApiRequest()
@@ -206,13 +194,7 @@ describe('The dp-api-call component', function() {
         'http://www.some-domain.com/with-pagination/456/?page=2',
       )
       expect(scope.vm.apiData.count).toBe(5)
-      expect(scope.vm.apiData.results).toEqual([
-        'ITEM_1',
-        'ITEM_2',
-        'ITEM_3',
-        'ITEM_4',
-        'ITEM_5',
-      ])
+      expect(scope.vm.apiData.results).toEqual(['ITEM_1', 'ITEM_2', 'ITEM_3', 'ITEM_4', 'ITEM_5'])
       expect(scope.vm.apiData.next).toBe(null)
     })
   })
@@ -225,54 +207,27 @@ describe('The dp-api-call component', function() {
     )
 
     expect(component.find('dp-partial-select').length).toBe(1)
-    expect(component.find('dp-partial-select').attr('partial')).toBe(
-      'some-partial',
-    )
+    expect(component.find('dp-partial-select').attr('partial')).toBe('some-partial')
   })
 
   it('overrides the brk/object endpoint based on the useBrkObjectExpanded variable', function() {
     // It does nothing when the endpoint doesn't match brk/object
-    getComponent(
-      'http://www.some-domain.com/something/123/',
-      'some-partial',
-      true,
-    )
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      'http://www.some-domain.com/something/123/',
-    )
+    getComponent('http://www.some-domain.com/something/123/', 'some-partial', true)
+    expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/something/123/')
 
     // It does nothing when the variable is set to false
-    getComponent(
-      'http://www.some-domain.com/brk/object/123/',
-      'some-partial',
-      false,
-    )
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      'http://www.some-domain.com/brk/object/123/',
-    )
+    getComponent('http://www.some-domain.com/brk/object/123/', 'some-partial', false)
+    expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/brk/object/123/')
 
     // It replaced the endpoint for brk-object when it is set to true
-    getComponent(
-      'http://www.some-domain.com/brk/object/123/',
-      'some-partial',
-      true,
-    )
-    expect(api.getByUrl).toHaveBeenCalledWith(
-      'http://www.some-domain.com/brk/object-expand/123/',
-    )
+    getComponent('http://www.some-domain.com/brk/object/123/', 'some-partial', true)
+    expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/brk/object-expand/123/')
   })
 
   describe('the add-api-root attribute', function() {
     it('calls the url method of the api module as usual, when set to false', function() {
-      getComponent(
-        'http://www.some-domain.com/something/123/',
-        'some-partial',
-        false,
-        false,
-      )
-      expect(api.getByUrl).toHaveBeenCalledWith(
-        'http://www.some-domain.com/something/123/',
-      )
+      getComponent('http://www.some-domain.com/something/123/', 'some-partial', false, false)
+      expect(api.getByUrl).toHaveBeenCalledWith('http://www.some-domain.com/something/123/')
       expect(api.getByUri.calls.any()).toEqual(false)
     })
 
@@ -323,9 +278,7 @@ describe('The dp-api-call component', function() {
       const scope = component.isolateScope()
 
       expect(component.find('dp-loading-indicator').length).toBe(1)
-      expect(component.find('dp-loading-indicator').attr('is-loading')).toBe(
-        'vm.isLoading',
-      )
+      expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading')
       expect(scope.vm.isLoading).toBe(true)
 
       expect(component.find('dp-loading-indicator').attr('use-delay')).toBe(
@@ -356,9 +309,7 @@ describe('The dp-api-call component', function() {
       scope.$apply()
 
       expect(component.find('dp-loading-indicator').length).toBe(1)
-      expect(component.find('dp-loading-indicator').attr('is-loading')).toBe(
-        'vm.isLoading',
-      )
+      expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading')
       expect(scope.vm.isLoading).toBe(true)
 
       expect(component.find('dp-loading-indicator').attr('use-delay')).toBe(

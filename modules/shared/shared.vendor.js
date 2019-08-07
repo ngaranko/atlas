@@ -1,5 +1,5 @@
-/* globals L, proj4, Redux */
-
+import proj4 from 'proj4'
+import * as Redux from 'redux'
 ;(function() {
   angular.module('dpShared').config(configuration)
 
@@ -7,7 +7,6 @@
 
   function configuration($provide, $qProvider) {
     $qProvider.errorOnUnhandledRejections(false)
-    $provide.constant('L', L)
     $provide.constant('proj4', proj4)
     $provide.constant('Redux', Redux)
   }

@@ -9,8 +9,7 @@ describe('transformResultByType', () => {
         distance: 746.859791397161,
         id: '03630000000018',
         type: 'gebieden/stadsdeel',
-        uri:
-          'https://acc.api.data.amsterdam.nl/gebieden/stadsdeel/03630000000018/',
+        uri: 'https://acc.api.data.amsterdam.nl/gebieden/stadsdeel/03630000000018/',
       },
     }
     expect(transformResultByType(result)).toEqual({
@@ -19,8 +18,7 @@ describe('transformResultByType', () => {
       parent: undefined,
       statusLabel: 'stadsdeel',
       type: 'gebieden/stadsdeel',
-      uri:
-        'https://acc.api.data.amsterdam.nl/gebieden/stadsdeel/03630000000018/',
+      uri: 'https://acc.api.data.amsterdam.nl/gebieden/stadsdeel/03630000000018/',
     })
   })
 
@@ -30,8 +28,7 @@ describe('transformResultByType', () => {
       hoofdadres: true,
       landelijk_id: '0363200000391071',
       properties: {
-        uri:
-          'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200000391071/',
+        uri: 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200000391071/',
         display: 'Singel 190-2',
         type: 'pand/address',
         parent: 'bag/pand',
@@ -50,8 +47,7 @@ describe('transformResultByType', () => {
       },
       statusLabel: '',
       type: 'pand/address',
-      uri:
-        'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200000391071/',
+      uri: 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/0363200000391071/',
     })
   })
 
@@ -63,8 +59,7 @@ describe('transformResultByType', () => {
         id: '0363300000005142',
         opr_type: 'Weg',
         type: 'bag/openbareruimte',
-        uri:
-          'https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000005142/',
+        uri: 'https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000005142/',
       },
     }
     expect(transformResultByType(result)).toEqual({
@@ -73,8 +68,7 @@ describe('transformResultByType', () => {
       parent: undefined,
       statusLabel: '',
       type: 'bag/openbareruimte',
-      uri:
-        'https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000005142/',
+      uri: 'https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000005142/',
     })
   })
 
@@ -86,8 +80,7 @@ describe('transformResultByType', () => {
         id: '0363300000005142',
         opr_type: 'NotWeg',
         type: 'bag/openbareruimte',
-        uri:
-          'https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000005142/',
+        uri: 'https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000005142/',
       },
     }
     expect(transformResultByType(result)).toEqual({
@@ -96,8 +89,7 @@ describe('transformResultByType', () => {
       parent: undefined,
       statusLabel: 'NotWeg',
       type: 'bag/openbareruimte',
-      uri:
-        'https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000005142/',
+      uri: 'https://acc.api.data.amsterdam.nl/bag/openbareruimte/03630000005142/',
     })
   })
 })

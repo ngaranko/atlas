@@ -35,13 +35,8 @@ const LocationSearch = ({
               className={`o-header__subtitle u-color__primary--dark u-font--responsive-m
                   qa-search-header`}
             >
-              met locatie 
-              {' '}
-              {`${rdX.toFixed(2)}, ${rdY.toFixed(2)}`}
-              {' '}
-(
-              {`${location.latitude.toFixed(7)}, ${location.longitude.toFixed(7)}`}
-)
+              met locatie {`${rdX.toFixed(2)}, ${rdY.toFixed(2)}`} (
+              {`${location.latitude.toFixed(7)}, ${location.longitude.toFixed(7)}`})
             </h2>
           </div>
 

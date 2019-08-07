@@ -9,10 +9,8 @@ const ERROR_MESSAGES = {
   invalid_request:
     'The request is missing a required parameter, includes an invalid parameter value, ' +
     'includes a parameter more than once, or is otherwise malformed.',
-  unauthorized_client:
-    'The client is not authorized to request an access token using this method.',
-  access_denied:
-    'The resource owner or authorization server denied the request.',
+  unauthorized_client: 'The client is not authorized to request an access token using this method.',
+  access_denied: 'The resource owner or authorization server denied the request.',
   unsupported_response_type:
     'The authorization server does not support obtaining an access token using this method.',
   invalid_scope: 'The requested scope is invalid, unknown, or malformed.',
@@ -46,8 +44,8 @@ export const SCOPES = {
   'MON/RDM': 'MON/RDM',
   'HR/R': 'HR/R',
   'BD/R': 'BD/R',
-  'GREX/R': 'GREX/R'
-};
+  'GREX/R': 'GREX/R',
+}
 
 const scopes = [
   // Kadaster
@@ -168,9 +166,7 @@ function getAccessTokenFromParams(params) {
   if (paramsValid && !stateTokenValid) {
     // This is a callback, but the state token does not equal the
     // one we have saved; report to Sentry
-    throw new Error(
-      `Authenticator encountered an invalid state token (${params.state})`,
-    )
+    throw new Error(`Authenticator encountered an invalid state token (${params.state})`)
   }
 
   return stateTokenValid && paramsValid ? params.access_token : null
@@ -208,9 +204,7 @@ export function getAccessToken() {
  */
 export function login() {
   // Get the URI the OAuth2 authorization service needs to use as callback
-  const callback = encodeURIComponent(
-    `${window.location.protocol}//${window.location.host}/`,
-  )
+  const callback = encodeURIComponent(`${window.location.protocol}//${window.location.host}/`)
   // Get a random string to prevent CSRF
   const stateToken = stateTokenGenerator()
   const encodedStateToken = encodeURIComponent(stateToken)

@@ -7,8 +7,7 @@ import { NAVIGATE } from '../../../../src/shared/ducks/content/constants'
       type: '@',
       limitTo: '<',
     },
-    templateUrl:
-      'modules/page/components/user-content-widget/user-content-widget.html',
+    templateUrl: 'modules/page/components/user-content-widget/user-content-widget.html',
     controller: DpUserContentWidgetController,
     controllerAs: 'vm',
   })

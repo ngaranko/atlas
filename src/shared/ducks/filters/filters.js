@@ -1,8 +1,5 @@
 import { createSelector } from 'reselect'
-import {
-  getFilters as getDataSelectionFilters,
-  getShapeFilter,
-} from '../data-selection/selectors'
+import { getFilters as getDataSelectionFilters, getShapeFilter } from '../data-selection/selectors'
 import { getFilters as getDatasetFilters } from '../datasets/datasets'
 import paramsRegistry from '../../../store/params-registry'
 

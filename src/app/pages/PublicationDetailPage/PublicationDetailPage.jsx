@@ -1,0 +1,110 @@
+import React from 'react'
+import { connect } from 'react-redux'
+import download from 'downloadjs'
+import {
+  Column,
+  Row,
+  CustomHTMLBlock,
+  EditorialHeader,
+  EditorialMetaList,
+  DocumentCover,
+  EditorialContent,
+  Paragraph,
+} from '@datapunt/asc-ui'
+import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
+import { getLocationPayload } from '../../../store/redux-first-router/selectors'
+import useFromCMS from '../../utils/useFromCMS'
+import EditorialPage from '../../components/EditorialPage/EditorialPage'
+import cmsConfig from '../../../shared/services/cms/cms-config'
+import { toPublicationDetail } from '../../../store/redux-first-router/actions'
+import ContentContainer from '../../components/ContentContainer/ContentContainer'
+
+const PublicationDetailPage = ({ id }) => {
+  const { results, loading } = useFromCMS(id, cmsConfig.publication)
+
+  const {
+    title,
+    localeDate,
+    body,
+    coverUrl,
+    field_file_size: fileSize,
+    field_file_type: fileType,
+    field_publication_source: source,
+    field_publication_intro: intro,
+    field_slug: slug,
+    included,
+  } = results || {}
+
+  const downloadUrl = included ? results.included[3].attributes.uri.url : {}
+  const documentTitle = `Publicatie: ${title}`
+  const linkAction = toPublicationDetail(id, slug)
+
+  return (
+    <EditorialPage {...{ documentTitle, loading, linkAction }}>
+      {!loading && (
+        <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
+          {!loading && body && (
+            <ContentContainer>
+              <Row>
+                <Column wrap span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
+                  <Column
+                    span={{
+                      small: 1,
+                      medium: 4,
+                      big: 6,
+                      large: 12,
+                      xLarge: 12,
+                    }}
+                  >
+                    <EditorialContent>
+                      <EditorialHeader title={title} />
+                      <EditorialMetaList
+                        fields={[
+                          { id: 1, label: source },
+                          { id: 4, label: localeDate },
+                          { id: 2, label: fileSize },
+                          { id: 3, label: fileType.toUpperCase() },
+                        ]}
+                      />
+                    </EditorialContent>
+                  </Column>
+                  <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
+                    <DocumentCover
+                      imageSrc={`${SHARED_CONFIG.CMS_ROOT}${coverUrl}`}
+                      description={`Download PDF (${fileSize})`}
+                      onClick={() => {
+                        download(`${SHARED_CONFIG.CMS_ROOT}${downloadUrl}`)
+                      }}
+                    />
+                  </Column>
+                  <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
+                    <EditorialContent>
+                      {intro && (
+                        <Paragraph hasLongText strong>
+                          {intro}
+                        </Paragraph>
+                      )}
+                      <CustomHTMLBlock body={body.value} />
+                    </EditorialContent>
+                  </Column>
+                </Column>
+              </Row>
+            </ContentContainer>
+          )}
+        </Column>
+      )}
+    </EditorialPage>
+  )
+}
+
+const mapStateToProps = state => {
+  const { id } = getLocationPayload(state)
+  return {
+    id,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  null,
+)(PublicationDetailPage)

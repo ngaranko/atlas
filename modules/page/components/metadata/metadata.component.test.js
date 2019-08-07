@@ -71,9 +71,7 @@ describe('The dp-metadata component', function() {
 
     // It shows a loading indicator on initialization
     expect(component.find('dp-loading-indicator').length).toBe(1)
-    expect(component.find('dp-loading-indicator').attr('is-loading')).toBe(
-      'vm.isLoading',
-    )
+    expect(component.find('dp-loading-indicator').attr('is-loading')).toBe('vm.isLoading')
     expect(scope.vm.isLoading).toBe(true)
 
     // It hides the loading indicator when the API is done

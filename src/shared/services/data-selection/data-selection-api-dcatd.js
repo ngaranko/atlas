@@ -6,21 +6,17 @@ const propertyName = {
   theme: '/properties/dcat:theme/items',
   format: '/properties/dcat:distribution/items/properties/dcat:mediaType',
   owner: '/properties/ams:owner',
-  distributionType:
-    '/properties/dcat:distribution/items/properties/ams:distributionType',
+  distributionType: '/properties/dcat:distribution/items/properties/ams:distributionType',
   serviceType: '/properties/dcat:distribution/items/properties/ams:serviceType',
 }
 
 const getDetailEndpoint = (config, rawDataRow) =>
-  `${sharedConfig.API_ROOT}${config.ENDPOINT_DETAIL}/${
-    rawDataRow[config.PRIMARY_KEY]
-  }`
+  `${sharedConfig.API_ROOT}${config.ENDPOINT_DETAIL}/${rawDataRow[config.PRIMARY_KEY]}`
 
 const getFacetOptions = (facet, filterCatalog, namespace) =>
   Object.keys(facet).map(option => {
     const id = namespace ? option.replace(`${namespace}:`, '') : option
-    const catalogOption =
-      filterCatalog && filterCatalog.filter(item => item.id === id)[0]
+    const catalogOption = filterCatalog && filterCatalog.filter(item => item.id === id)[0]
     return {
       id,
       label: catalogOption ? catalogOption.label : id,
@@ -34,10 +30,8 @@ function formatFilters(filters, catalogFilters) {
   newFilters[propertyName.theme] = newFilters[propertyName.theme] || {}
   newFilters[propertyName.format] = newFilters[propertyName.format] || {}
   newFilters[propertyName.owner] = newFilters[propertyName.owner] || {}
-  newFilters[propertyName.distributionType] =
-    newFilters[propertyName.distributionType] || {}
-  newFilters[propertyName.serviceType] =
-    newFilters[propertyName.serviceType] || {}
+  newFilters[propertyName.distributionType] = newFilters[propertyName.distributionType] || {}
+  newFilters[propertyName.serviceType] = newFilters[propertyName.serviceType] || {}
 
   const resultFilters = {
     status: {
@@ -50,29 +44,18 @@ function formatFilters(filters, catalogFilters) {
     },
     groups: {
       numberOfOptions: Object.keys(newFilters[propertyName.theme]).length,
-      options: getFacetOptions(
-        newFilters[propertyName.theme],
-        catalogFilters.groupTypes,
-        'theme',
-      ),
+      options: getFacetOptions(newFilters[propertyName.theme], catalogFilters.groupTypes, 'theme'),
     },
     formats: {
       numberOfOptions: Object.keys(newFilters[propertyName.format]).length,
-      options: getFacetOptions(
-        newFilters[propertyName.format],
-        catalogFilters.formatTypes,
-      ),
+      options: getFacetOptions(newFilters[propertyName.format], catalogFilters.formatTypes),
     },
     owners: {
       numberOfOptions: Object.keys(newFilters[propertyName.owner]).length,
-      options: getFacetOptions(
-        newFilters[propertyName.owner],
-        catalogFilters.ownerTypes,
-      ),
+      options: getFacetOptions(newFilters[propertyName.owner], catalogFilters.ownerTypes),
     },
     distributionTypes: {
-      numberOfOptions: Object.keys(newFilters[propertyName.distributionType])
-        .length,
+      numberOfOptions: Object.keys(newFilters[propertyName.distributionType]).length,
       options: getFacetOptions(
         newFilters[propertyName.distributionType],
         catalogFilters.distributionTypes,
@@ -80,10 +63,7 @@ function formatFilters(filters, catalogFilters) {
     },
     serviceTypes: {
       numberOfOptions: Object.keys(newFilters[propertyName.serviceType]).length,
-      options: getFacetOptions(
-        newFilters[propertyName.serviceType],
-        catalogFilters.serviceTypes,
-      ),
+      options: getFacetOptions(newFilters[propertyName.serviceType], catalogFilters.serviceTypes),
     },
   }
 
@@ -128,8 +108,7 @@ export function query(
   const queryOwner = activeFilters.owners && `eq=${activeFilters.owners}`
   const queryDistributionType =
     activeFilters.distributionTypes && `eq=${activeFilters.distributionTypes}`
-  const queryServiceType =
-    activeFilters.serviceTypes && `eq=${activeFilters.serviceTypes}`
+  const queryServiceType = activeFilters.serviceTypes && `eq=${activeFilters.serviceTypes}`
 
   if (searchText) {
     // Optional search text
@@ -169,13 +148,8 @@ export function query(
   searchParams.offset = (page - 1) * config.MAX_ITEMS_PER_PAGE
   searchParams.limit = config.MAX_ITEMS_PER_PAGE
 
-  return getByUrl(
-    sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW,
-    searchParams,
-  ).then(data => ({
-    numberOfPages: Math.ceil(
-      data['void:documents'] / config.MAX_ITEMS_PER_PAGE,
-    ),
+  return getByUrl(sharedConfig.API_ROOT + config.ENDPOINT_PREVIEW, searchParams).then(data => ({
+    numberOfPages: Math.ceil(data['void:documents'] / config.MAX_ITEMS_PER_PAGE),
     numberOfRecords: data['void:documents'],
     filters:
       Object.keys(catalogFilters).length === 0

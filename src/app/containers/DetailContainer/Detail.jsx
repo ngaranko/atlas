@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { AngularWrapper } from 'react-angular'
 import ShareBar from '../../components/ShareBar/ShareBar'
+import '../../angularModules'
 
 const Detail = ({
   isLoading,
@@ -14,7 +15,7 @@ const Detail = ({
   detailFilterSelection,
   printMode,
   subType,
-  id
+  id,
 }) => (
   <div className="qa-detail">
     <AngularWrapper
@@ -39,7 +40,7 @@ const Detail = ({
     {!isLoading && !printMode && (
       <div className="u-row">
         <div className="u-col-sm--12">
-          <div className="u-margin__left--2 u-margin__bottom--1">
+          <div className="u-margin__left--2 u-margin__bottom--1 qa-share-bar">
             <ShareBar />
           </div>
         </div>

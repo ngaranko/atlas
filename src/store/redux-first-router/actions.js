@@ -17,11 +17,7 @@ export const shouldResetState = (action, allowedRoutes = []) =>
   action.type.startsWith(ROUTER_NAMESPACE) &&
   allowedRoutes.every(route => !action.type.includes(route))
 
-export const toDataDetail = (
-  detailReference,
-  additionalParams = null,
-  tracking = true,
-) => {
+export const toDataDetail = (detailReference, additionalParams = null, tracking = true) => {
   const [id, type, subtype] = detailReference
   return preserveQuery(
     {
@@ -121,9 +117,7 @@ export const toPanoramaAndPreserveQuery = (
 ) =>
   toPanorama(id, {
     heading,
-    ...(reference.length === 3
-      ? { [PARAMETERS.DETAIL_REFERENCE]: reference }
-      : {}),
+    ...(reference.length === 3 ? { [PARAMETERS.DETAIL_REFERENCE]: reference } : {}),
     ...(pageReference ? { [PARAMETERS.PAGE_REFERENCE]: pageReference } : {}),
     [PARAMETERS.VIEW]: VIEW_MODE.SPLIT,
   })
@@ -147,15 +141,15 @@ export const toDetailFromEndpoint = (endpoint, view) => {
   })
 }
 
-export const toConstructionFilesFromEndpoint = (endpoint) => {
-  const { id } = getDetailPageData(endpoint);
-  return ({
+export const toConstructionFilesFromEndpoint = endpoint => {
+  const { id } = getDetailPageData(endpoint)
+  return {
     type: routing.constructionFile.type,
     payload: {
-      id
-    }
-  });
-};
+      id,
+    },
+  }
+}
 
 export const toDataSearchCategory = (searchQuery, category) => ({
   type: routing.dataSearchCategory.type,
@@ -169,11 +163,7 @@ export const toDataSearchCategory = (searchQuery, category) => ({
   },
 })
 export const toDatasets = () => ({ type: routing.datasets.type })
-export const toDatasetSearch = (
-  additionalParams = null,
-  skipSaga = false,
-  forceSaga = false,
-) => ({
+export const toDatasetSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
   type: routing.searchDatasets.type,
   meta: {
     preserve: true,
@@ -182,10 +172,7 @@ export const toDatasetSearch = (
     additionalParams,
   },
 })
-export const toDatasetsWithFilter = (
-  additionalParams = {},
-  preserve = false,
-) => ({
+export const toDatasetsWithFilter = (additionalParams = {}, preserve = false) => ({
   type: routing.datasets.type,
   meta: {
     additionalParams,
@@ -229,18 +216,19 @@ export const toAdresses = () => ({
   },
 })
 
-export const toArticle = (id, slug = '') => ({
-  type: routing.article.type,
+export const toArticleDetail = (id, slug = '') => ({
+  type: routing.articleDetail.type,
   payload: {
     id,
     slug,
   },
 })
 
-export const toSpecial = (id, slug = '') => ({
-  type: routing.specials.type,
+export const toSpecialDetail = (id, type = '', slug = '') => ({
+  type: routing.specialDetail.type,
   payload: {
     id,
+    type,
     slug,
   },
 })
@@ -248,13 +236,13 @@ export const toSpecial = (id, slug = '') => ({
 export const toConstructionFileViewer = (id, fileName) => ({
   type: routing.constructionFile.type,
   payload: {
-    id
+    id,
   },
   meta: {
     query: {
-      [PARAMETERS.FILE]: fileName
-    }
-  }
+      [PARAMETERS.FILE]: fileName,
+    },
+  },
 })
 export const toDatasetPage = dataset => ({
   type: DATASET_ROUTE_MAPPER[dataset],
@@ -282,10 +270,10 @@ export const toMaintentancePage = () => ({
 })
 export const toHelpPage = () => ({ type: routing.help.type })
 
-export const toPublication = (id, slug = '') => ({
-  type: routing.publications.type,
+export const toPublicationDetail = (id, slug = '') => ({
+  type: routing.publicationDetail.type,
   payload: {
     id,
     slug,
-  }
+  },
 })

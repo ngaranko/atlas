@@ -144,9 +144,7 @@ describe('draw-tool service', () => {
       expect(leafletMap.addLayer).toHaveBeenCalledTimes(1)
 
       // total of all draw events + 1 map click event + 1 layeradd event
-      expect(leafletMap.on).toHaveBeenCalledTimes(
-        Object.keys(window.L.Draw.Event).length + 2,
-      )
+      expect(leafletMap.on).toHaveBeenCalledTimes(Object.keys(window.L.Draw.Event).length + 2)
     })
   })
 
@@ -177,9 +175,7 @@ describe('draw-tool service', () => {
         bringToFront: jest.fn(),
         on: jest.fn(),
         off: jest.fn(),
-        getLatLngs: jest.fn(() => [
-          [{ lat: 2, lng: 2, distanceTo: jest.fn(() => 2) }],
-        ]),
+        getLatLngs: jest.fn(() => [[{ lat: 2, lng: 2, distanceTo: jest.fn(() => 2) }]]),
         intersects: jest.fn(),
       }
       const onFinish = jest.fn()

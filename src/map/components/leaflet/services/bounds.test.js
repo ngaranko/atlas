@@ -1,10 +1,5 @@
 import { latLngBounds } from 'leaflet'
-import {
-  boundsToString,
-  getBounds,
-  isBoundsAPoint,
-  isValidBounds,
-} from './bounds'
+import { boundsToString, getBounds, isBoundsAPoint, isValidBounds } from './bounds'
 
 jest.mock('leaflet')
 
@@ -14,15 +9,11 @@ describe('bounds service', () => {
   }))
   describe('isValidBounds', () => {
     it('should return true when bounds is valid', () => {
-      expect(isValidBounds({ isValid: jest.fn().mockReturnValue(true) })).toBe(
-        true,
-      )
+      expect(isValidBounds({ isValid: jest.fn().mockReturnValue(true) })).toBe(true)
     })
 
     it('should return false when isValid is not set or returns false', () => {
-      expect(isValidBounds({ isValid: jest.fn().mockReturnValue(false) })).toBe(
-        false,
-      )
+      expect(isValidBounds({ isValid: jest.fn().mockReturnValue(false) })).toBe(false)
       expect(isValidBounds({})).toBe(false)
     })
   })

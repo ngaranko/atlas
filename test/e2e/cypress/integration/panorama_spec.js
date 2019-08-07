@@ -1,13 +1,13 @@
 const homepage = '.c-homepage'
-const statusBarInfo = '.c-panorama-status-bar__info-item'
+const statusBarCoordinates = '.c-panorama-status-bar__coordinates'
 const panorama = '.c-panorama'
 
 describe('panorama module', () => {
   beforeEach(() => {
     cy.server()
-    cy.route(
-      '/panorama/panoramas/*/adjacencies/?newest_in_range=true&tags=mission-bi',
-    ).as('getResults')
+    cy.route('/panorama/panoramas/*/adjacencies/?newest_in_range=true&tags=mission-bi').as(
+      'getResults',
+    )
 
     // go to the homepage
     cy.visit('/')
@@ -38,12 +38,12 @@ describe('panorama module', () => {
 
   describe('user should be able to use the panorama viewer', () => {
     it('should be able to click a hotspot and change the coordinates', () => {
-      cy.get(statusBarInfo)
+      cy.get(statusBarCoordinates)
         .first()
         .then(coordinatesEl => {
           const coordinates = coordinatesEl[0].innerText
 
-          cy.get(statusBarInfo)
+          cy.get(statusBarCoordinates)
             .first()
             .contains(coordinates)
             .should('exist')
@@ -55,7 +55,7 @@ describe('panorama module', () => {
 
           cy.wait('@getResults')
           // the coordinates should be different
-          cy.get(statusBarInfo)
+          cy.get(statusBarCoordinates)
             .first()
             .find('span')
             .contains(coordinates)
@@ -91,12 +91,12 @@ describe('panorama module', () => {
     })
 
     it('should change the coordinates when clicked on the map', () => {
-      cy.get(statusBarInfo)
+      cy.get(statusBarCoordinates)
         .first()
         .then(coordinatesEl => {
           const coordinates = coordinatesEl[0].innerText
 
-          cy.get(statusBarInfo)
+          cy.get(statusBarCoordinates)
             .first()
             .contains(coordinates)
             .should('exist')
@@ -106,7 +106,7 @@ describe('panorama module', () => {
 
           cy.wait('@getResults')
           // the coordinates should be different
-          cy.get(statusBarInfo)
+          cy.get(statusBarCoordinates)
             .first()
             .contains(coordinates)
             .should('not.exist')
@@ -153,8 +153,7 @@ describe('panorama module', () => {
 
       cy.wait('@getResults')
       cy.location().then(loc => {
-        newUrl = `${loc.pathname +
-          loc.search}&reference=03630000004153%2Cbag%2Copenbareruimte`
+        newUrl = `${loc.pathname + loc.search}&reference=03630000004153%2Cbag%2Copenbareruimte`
         expect(newUrl).to.equal(panoUrl)
       })
 

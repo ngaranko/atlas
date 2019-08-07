@@ -16,14 +16,17 @@ exports[`MapDetailExplosievenGevrijwaardGebied should render everything 1`] = `
       label="Datum rapport"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Soort handeling"
       value="Gevrijwaard gebied type"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Bron"
       value="Gevrijwaard gebied source"
     />
     <MapDetailResultItem
+      hasMultiline={true}
       label="Opmerkingen"
       value="Gevrijwaard gebied remarks"
     />

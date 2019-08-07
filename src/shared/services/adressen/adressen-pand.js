@@ -20,9 +20,7 @@ export default function fetchByUri(uri) {
       },
       name: result.pandnaam,
       year:
-        result.oorspronkelijk_bouwjaar !== yearUnknownValue
-          ? result.oorspronkelijk_bouwjaar
-          : '',
+        result.oorspronkelijk_bouwjaar !== yearUnknownValue ? result.oorspronkelijk_bouwjaar : '',
     }
   })
 }

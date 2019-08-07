@@ -19,6 +19,7 @@ exports[`MapDetailWinkelgebied should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Categorie"
       value="Foo foo"
     />

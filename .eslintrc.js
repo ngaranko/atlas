@@ -4,13 +4,13 @@ module.exports = {
     browser: true,
     node: true,
   },
-  extends: ['prettier'],
+  extends: ['plugin:prettier/recommended'],
   globals: {
     jsdom: true,
     jasmine: true,
   },
   rules: {
-    'no-nested-ternary': 'off',
+    'prettier/prettier': 'error',
     'no-underscore-dangle': [
       'error',
       {

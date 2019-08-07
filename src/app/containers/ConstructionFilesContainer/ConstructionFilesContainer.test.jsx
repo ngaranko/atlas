@@ -19,9 +19,11 @@ describe('ConstructionFilesContainer', () => {
       setDocumentTitle: mockSetDocumentTitle,
     }))
     getByUrl.mockReturnValue({
-
-        title: 'foo'
-      
+      titel: 'foo',
+      datering: '',
+      dossier_type: '',
+      dossiernr: 1,
+      stadsdeel: '',
     })
 
     const store = configureMockStore()({
@@ -33,7 +35,7 @@ describe('ConstructionFilesContainer', () => {
         },
       },
     })
-    
+
     component = mount(
       <ThemeProvider>
         <ConstructionFilesContainer fileName="foo" store={store} />

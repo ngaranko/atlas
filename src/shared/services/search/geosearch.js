@@ -12,13 +12,9 @@ function isNumber(value) {
 }
 
 function getPandData(geosearchResults) {
-  const pandCategories = geosearchResults.filter(
-    category => category.slug === 'pand',
-  )
+  const pandCategories = geosearchResults.filter(category => category.slug === 'pand')
   const pandCategory = pandCategories.length ? pandCategories[0] : null
-  const pandCategoryIndex = pandCategory
-    ? geosearchResults.indexOf(pandCategory)
-    : null
+  const pandCategoryIndex = pandCategory ? geosearchResults.indexOf(pandCategory) : null
   const pandEndpoint = pandCategory ? pandCategory.results[0].endpoint : null
 
   return [pandCategoryIndex, pandEndpoint]
@@ -29,12 +25,8 @@ function getPlaatsData(geosearchResults) {
     category => ['standplaats', 'ligplaats'].indexOf(category.slug) > -1,
   )
   const plaatsCategory = plaatsCategories.length ? plaatsCategories[0] : null
-  const plaatsCategoryIndex = plaatsCategory
-    ? geosearchResults.indexOf(plaatsCategory)
-    : null
-  const plaatsEndpoint = plaatsCategory
-    ? plaatsCategory.results[0].endpoint
-    : null
+  const plaatsCategoryIndex = plaatsCategory ? geosearchResults.indexOf(plaatsCategory) : null
+  const plaatsEndpoint = plaatsCategory ? plaatsCategory.results[0].endpoint : null
 
   return [plaatsCategoryIndex, plaatsEndpoint]
 }
@@ -42,9 +34,7 @@ function getPlaatsData(geosearchResults) {
 function getRelatedObjects(geosearchResults, user) {
   return new Promise(resolve => {
     const [pandCategoryIndex, pandEndpoint] = getPandData(geosearchResults)
-    const [plaatsCategoryIndex, plaatsEndpoint] = getPlaatsData(
-      geosearchResults,
-    )
+    const [plaatsCategoryIndex, plaatsEndpoint] = getPlaatsData(geosearchResults)
 
     if (plaatsEndpoint && user.scopes.includes('HR/R')) {
       // Only fetching 'vestigingen' for a standplaats/ligplaats, so
@@ -54,12 +44,8 @@ function getRelatedObjects(geosearchResults, user) {
 
         getByUrl(vestigingenUri).then(vestigingen => {
           const formatted =
-            vestigingen && vestigingen.count
-              ? formatCategory('vestiging', vestigingen)
-              : null
-          const labelLigplaats = plaats.ligplaatsidentificatie
-            ? ' binnen deze ligplaats'
-            : null
+            vestigingen && vestigingen.count ? formatCategory('vestiging', vestigingen) : null
+          const labelLigplaats = plaats.ligplaatsidentificatie ? ' binnen deze ligplaats' : null
           const labelStandplaats = plaats.standplaatsidentificatie
             ? ' binnen deze standplaats'
             : null
@@ -86,9 +72,7 @@ function getRelatedObjects(geosearchResults, user) {
       })
     } else if (pandEndpoint) {
       // pand matched, remove monumenten from top results
-      geosearchResults = geosearchResults.filter(
-        item => item.slug !== 'monument',
-      )
+      geosearchResults = geosearchResults.filter(item => item.slug !== 'monument')
       getByUrl(pandEndpoint).then(pand => {
         const vestigingenUri = `handelsregister/vestiging/?pand=${pand.pandidentificatie}`
 
@@ -99,10 +83,7 @@ function getRelatedObjects(geosearchResults, user) {
             objecten.results.forEach(result => {
               result.vbo_status = result.vbo_status || result.status
             })
-            const formatted =
-              objecten && objecten.count
-                ? formatCategory('adres', objecten)
-                : null
+            const formatted = objecten && objecten.count ? formatCategory('adres', objecten) : null
             const extended = formatted
               ? {
                   ...formatted,
@@ -115,33 +96,27 @@ function getRelatedObjects(geosearchResults, user) {
             return extended
           }),
           getByUrl(pand._monumenten.href).then(objecten =>
-            objecten && objecten.count
-              ? formatCategory('monument', objecten)
-              : null,
+            objecten && objecten.count ? formatCategory('monument', objecten) : null,
           ),
         ]
 
         if (user.scopes.includes('HR/R')) {
           requests.push(
-            getByUrl(`${SHARED_CONFIG.API_ROOT}${vestigingenUri}`).then(
-              vestigingen => {
-                const formatted =
-                  vestigingen && vestigingen.count
-                    ? formatCategory('vestiging', vestigingen)
-                    : null
-                const extended = formatted
-                  ? {
-                      ...formatted,
-                      authScope: formatted.authScope,
-                      more: {
-                        label: `Bekijk alle ${formatted.count} vestigingen binnen dit pand`,
-                        endpoint: pand._links.self.href,
-                      },
-                    }
-                  : null
-                return extended
-              },
-            ),
+            getByUrl(`${SHARED_CONFIG.API_ROOT}${vestigingenUri}`).then(vestigingen => {
+              const formatted =
+                vestigingen && vestigingen.count ? formatCategory('vestiging', vestigingen) : null
+              const extended = formatted
+                ? {
+                    ...formatted,
+                    authScope: formatted.authScope,
+                    more: {
+                      label: `Bekijk alle ${formatted.count} vestigingen binnen dit pand`,
+                      endpoint: pand._links.self.href,
+                    },
+                  }
+                : null
+              return extended
+            }),
           )
         }
 
@@ -166,10 +141,7 @@ export default function geosearch(location, user) {
   const allRequests = []
 
   SEARCH_CONFIG.COORDINATES_ENDPOINTS.forEach(endpoint => {
-    const isInScope =
-      endpoint.authScope &&
-      user.scopes &&
-      user.scopes.includes(endpoint.authScope)
+    const isInScope = endpoint.authScope && user.scopes && user.scopes.includes(endpoint.authScope)
 
     if (!endpoint.authScope || isInScope) {
       const searchParams = {

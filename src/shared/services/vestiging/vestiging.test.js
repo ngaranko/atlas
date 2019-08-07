@@ -17,8 +17,7 @@ describe('The vestiging resource', () => {
 
   describe('By uri', () => {
     it('fetches a vestiging', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
 
       getByUrl.mockReturnValueOnce(
         Promise.resolve({
@@ -116,8 +115,7 @@ describe('The vestiging resource', () => {
     })
 
     it('fetches with visiting address coordinates', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
 
       getByUrl.mockReturnValueOnce(
         Promise.resolve({
@@ -171,8 +169,7 @@ describe('The vestiging resource', () => {
     })
 
     it('marks `surseanceVanBetaling` when `bijzondereRechtstoestand` is `voorlopig` ', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
 
       getByUrl.mockReturnValueOnce(
         Promise.resolve({
@@ -217,8 +214,7 @@ describe('The vestiging resource', () => {
     })
 
     it('marks `surseanceVanBetaling` when `bijzondereRechtstoestand` is `definitief` ', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
 
       getByUrl.mockReturnValueOnce(
         Promise.resolve({
@@ -263,8 +259,7 @@ describe('The vestiging resource', () => {
     })
 
     it('fetches with empty result object', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
 
       getByUrl.mockReturnValueOnce(
         Promise.resolve({
@@ -299,8 +294,7 @@ describe('The vestiging resource', () => {
     })
 
     it('fetches without maatschappelijke activiteit', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
 
       getByUrl.mockReturnValueOnce(
         Promise.resolve({
@@ -323,8 +317,7 @@ describe('The vestiging resource', () => {
     })
 
     it('fetches without maatschappelijke activiteit, with empty result object', () => {
-      const uri =
-        'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
+      const uri = 'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123456'
 
       getByUrl.mockReturnValueOnce(Promise.resolve({}))
 

@@ -1,17 +1,15 @@
 import { setViewMode, VIEW_MODE } from '../../../../../src/shared/ducks/ui/ui'
 import { VIEWS_TO_PARAMS } from '../../../../../src/shared/ducks/data-selection/constants'
 ;(function() {
-  angular
-    .module('dpDataSelection')
-    .component('dpDataSelectionToggleViewButton', {
-      bindings: {
-        view: '<',
-      },
-      templateUrl:
-        'modules/data-selection/components/header/toggle-view-button/toggle-view-button.html',
-      controller: DpToggleViewButtonController,
-      controllerAs: 'vm',
-    })
+  angular.module('dpDataSelection').component('dpDataSelectionToggleViewButton', {
+    bindings: {
+      view: '<',
+    },
+    templateUrl:
+      'modules/data-selection/components/header/toggle-view-button/toggle-view-button.html',
+    controller: DpToggleViewButtonController,
+    controllerAs: 'vm',
+  })
 
   DpToggleViewButtonController.$inject = ['$scope']
 

@@ -12,10 +12,12 @@ exports[`MapDetailMeetbout should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Adres"
       value="Meetbout address"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Zaksnelheid (mm/j)"
       value="-10,123"
     />

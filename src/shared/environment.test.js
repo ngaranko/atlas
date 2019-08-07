@@ -18,16 +18,12 @@ describe('The environment service', () => {
 
   it('is set to pre production based on hostname', () => {
     process.env.NODE_ENV = 'production'
-    expect(getEnvironment('pre.data.amsterdam.nl')).toBe(
-      ENVIRONMENTS.PRE_PRODUCTION,
-    )
+    expect(getEnvironment('pre.data.amsterdam.nl')).toBe(ENVIRONMENTS.PRE_PRODUCTION)
   })
 
   it('is set to acceptance based on NODE_ENV', () => {
     process.env.NODE_ENV = 'acceptance'
-    expect(getEnvironment('acc.data.amsterdam.nl')).toBe(
-      ENVIRONMENTS.ACCEPTANCE,
-    )
+    expect(getEnvironment('acc.data.amsterdam.nl')).toBe(ENVIRONMENTS.ACCEPTANCE)
   })
 
   it('is set to development based on NODE_ENV', () => {

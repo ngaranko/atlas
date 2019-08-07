@@ -29,8 +29,7 @@ describe('visitor permissions', () => {
 
     cy.get('#auto-suggest__input')
       .focus()
-      .type('bakker')
-    cy.get('.qa-search-form-submit').click()
+      .type('bakker{enter}')
 
     cy.waitForSearch(false)
     cy.get(queries.warningPanel).contains('Meer resultaten na inloggen')
@@ -52,9 +51,7 @@ describe('visitor permissions', () => {
   it('2B. Should NOT allow a visitor to view a non-natural subject', () => {
     cy.visit(urls.nietNatuurlijk)
 
-    cy.get(queries.warningPanelAngular).contains(
-      'Medewerkers/ketenpartners van Gemeente Amsterdam',
-    )
+    cy.get(queries.warningPanelAngular).contains('Medewerkers/ketenpartners van Gemeente Amsterdam')
     cy.get(queries.headerTitle).should('not.exist')
     cy.get(queries.nietNatuurlijkPersoon).should('not.exist')
   })
@@ -63,18 +60,14 @@ describe('visitor permissions', () => {
     cy.server()
     cy.route('/brk/object/*').as('getResults')
     cy.route('/brk/object-expand/*').as('getObjectExpand')
-    cy.route('/bag/nummeraanduiding/?kadastraalobject=*').as(
-      'getNummeraanduidingen',
-    )
+    cy.route('/bag/nummeraanduiding/?kadastraalobject=*').as('getNummeraanduidingen')
 
     cy.visit(urls.business)
 
     cy.wait('@getResults')
     cy.wait('@getObjectExpand')
     cy.wait('@getNummeraanduidingen')
-    cy.get(queries.warningPanelAngular).contains(
-      'Medewerkers/ketenpartners van Gemeente Amsterdam',
-    )
+    cy.get(queries.warningPanelAngular).contains('Medewerkers/ketenpartners van Gemeente Amsterdam')
     cy.get(queries.headerTitle).contains('A 0001')
     cy.get(queries.headerSubTitle).should($values => {
       expect($values).to.not.contain(values.aantekeningen)
@@ -86,13 +79,9 @@ describe('visitor permissions', () => {
     cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject')
     cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
     cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden')
-    cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as(
-      'getObjectExpand',
-    )
+    cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as('getObjectExpand')
     cy.route('/monumenten/monumenten/*').as('getMonument')
-    cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-      'getSitueringen',
-    )
+    cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen')
 
     cy.visit(urls.address)
 
@@ -113,9 +102,7 @@ describe('visitor permissions', () => {
       expect($values).to.contain('Monumenten')
       expect($values).to.not.contain(values.zakelijkeRechten)
     })
-    cy.get(queries.warningPanelAngular).contains(
-      'Medewerkers/ketenpartners van Gemeente Amsterdam',
-    )
+    cy.get(queries.warningPanelAngular).contains('Medewerkers/ketenpartners van Gemeente Amsterdam')
   })
 
   it('5. Should show a visitor limited info for "Gemeentelijke beperking"', () => {
@@ -129,9 +116,7 @@ describe('visitor permissions', () => {
     cy.wait('@getResults')
     cy.wait('@getBronDocument')
     cy.wait('@getObject')
-    cy.get(queries.warningPanelAngular).contains(
-      'Medewerkers/ketenpartners van Gemeente Amsterdam',
-    )
+    cy.get(queries.warningPanelAngular).contains('Medewerkers/ketenpartners van Gemeente Amsterdam')
     cy.get(queries.headerTitle).contains('142')
     cy.get(queries.keyValueList)
       .contains(values.documentnaam)
@@ -166,9 +151,7 @@ describe('visitor permissions', () => {
   describe('7', () => {
     it('A. Should NOT allow a visitor to view "Vestigingen"', () => {
       cy.visit(urls.vestigingenTabel)
-      cy.get(queries.warningPanel).contains(
-        'Medewerkers/ketenpartners van Gemeente Amsterdam',
-      )
+      cy.get(queries.warningPanel).contains('Medewerkers/ketenpartners van Gemeente Amsterdam')
       cy.get(DATA_SELECTION_TABLE.table).should('not.exist')
     })
 
@@ -205,12 +188,8 @@ describe('visitor permissions', () => {
       cy.wait('@getResults')
       cy.wait('@getMonumenten')
       cy.wait('@getNummeraanduidingen')
-      cy.get('.o-header').contains(
-        '121437.46, 487418.76 (52.3736166, 4.8943521)',
-      )
-      cy.get(queries.warningPanel).contains(
-        'Medewerkers/ketenpartners van Gemeente Amsterdam',
-      )
+      cy.get('.o-header').contains('121437.46, 487418.76 (52.3736166, 4.8943521)')
+      cy.get(queries.warningPanel).contains('Medewerkers/ketenpartners van Gemeente Amsterdam')
       cy.get(queries.headerSubTitle)
         .contains(values.vestigingen)
         .should('not.exist')
@@ -230,9 +209,7 @@ describe('visitor permissions', () => {
       cy.server()
       cy.route('/bag/ligplaats/*').as('getResults')
       cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
-      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-        'getMonument',
-      )
+      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getMonument')
 
       cy.visit(urls.ligplaats)
 
@@ -252,9 +229,7 @@ describe('visitor permissions', () => {
       cy.server()
       cy.route('/bag/standplaats/*').as('getResults')
       cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
-      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-        'getMonument',
-      )
+      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getMonument')
 
       cy.visit(urls.standplaats)
 
@@ -299,12 +274,8 @@ describe('visitor permissions', () => {
     cy.wait('@getMonument')
     cy.wait('@getComplex')
     cy.wait('@getSitueringen')
-    cy.get(queries.headerTitle).contains(
-      'Museumtuin met hekwerken en bouwfragmenten',
-    )
-    cy.get(queries.warningPanelAngular).contains(
-      'Medewerkers/ketenpartners van Gemeente Amsterdam',
-    )
+    cy.get(queries.headerTitle).contains('Museumtuin met hekwerken en bouwfragmenten')
+    cy.get(queries.warningPanelAngular).contains('Medewerkers/ketenpartners van Gemeente Amsterdam')
     cy.get(queries.keyValueList)
       .contains(values.redengevendeOmschrijving)
       .should('not.exist')
@@ -329,9 +300,7 @@ describe('visitor permissions', () => {
     cy.wait('@getComplex')
     cy.wait('@getMonumenten')
     cy.get(queries.headerTitle).contains('Hortus Botanicus')
-    cy.get(queries.warningPanelAngular).contains(
-      'Medewerkers/ketenpartners van Gemeente Amsterdam',
-    )
+    cy.get(queries.warningPanelAngular).contains('Medewerkers/ketenpartners van Gemeente Amsterdam')
     cy.get(queries.keyValueList)
       .contains(values.beschrijving)
       .should('not.exist')

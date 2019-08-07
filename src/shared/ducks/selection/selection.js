@@ -30,8 +30,10 @@ const reducer = (state = initialState, action) => {
         id: action.payload.id,
       }
 
+    case routing.data.type:
     case routing.home.type:
     case SET_GEOMETRY_FILTER:
+    case CLEAR_SELECTION:
       return {
         ...initialState,
       }
@@ -41,11 +43,6 @@ const reducer = (state = initialState, action) => {
         type: action.payload,
       }
 
-    case CLEAR_SELECTION: {
-      return {
-        type: SELECTION_TYPE.NONE,
-      }
-    }
     default:
       return state
   }
@@ -54,11 +51,9 @@ const reducer = (state = initialState, action) => {
 // Selectors
 export const previewDataAvailable = state =>
   // If either an object is selected or a point search is in progress, show preview panel
-  state.selection.type === SELECTION_TYPE.POINT ||
-  state.selection.type === SELECTION_TYPE.OBJECT
+  state.selection.type === SELECTION_TYPE.POINT || state.selection.type === SELECTION_TYPE.OBJECT
 export const getSelectionType = state => state[REDUCER_KEY].type
-export const isGeoSearch = state =>
-  state[REDUCER_KEY].type === SELECTION_TYPE.POINT
+export const isGeoSearch = state => state[REDUCER_KEY].type === SELECTION_TYPE.POINT
 
 // Action creators
 export const setSelection = payload => ({

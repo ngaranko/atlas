@@ -12,18 +12,22 @@ exports[`MapDetailBekendmaking should render everything 1`] = `
     className="map-detail-result__list"
   >
     <MapDetailResultItem
+      hasMultiline={false}
       label="Datum"
       value=""
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Categorie"
       value="test categorie"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Onderwerp"
       value="test onderwerp"
     />
     <MapDetailResultItem
+      hasMultiline={true}
       label="Beschrijving"
       value=""
     />

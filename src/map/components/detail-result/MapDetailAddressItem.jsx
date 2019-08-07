@@ -7,16 +7,10 @@ const MapDetailAddressItem = ({ label, values }) => (
       <div className="map-detail-result__item-label">{label}</div>
       <div className="map-detail-result__item-value">
         <div>
-          {values.straatnaam} 
-          {' '}
-          {values.huisnummer} 
-          {' '}
-          {values.huisnummertoevoeging}
+          {values.straatnaam} {values.huisnummer} {values.huisnummertoevoeging}
         </div>
         <div>
-          {values.postcode} 
-          {' '}
-          {values.plaats}
+          {values.postcode} {values.plaats}
         </div>
       </div>
     </section>

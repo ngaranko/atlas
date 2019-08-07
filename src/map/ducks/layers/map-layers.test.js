@@ -102,11 +102,7 @@ describe('selectors', () => {
 
     it('should return an empty array if there are mathing active overlays and mapLayers', () => {
       const notMatchingOverlays = [{ id: 'test', isVisible: true }]
-      const selected = getLayers.resultFunc(
-        notMatchingOverlays,
-        token,
-        mapLayers,
-      )
+      const selected = getLayers.resultFunc(notMatchingOverlays, token, mapLayers)
       expect(selected).toEqual([])
     })
 
@@ -154,8 +150,7 @@ describe('selectors', () => {
             layers: ['handel_vervoer_opslag', 'handel_vervoer_opslag_label'],
             transparent: true,
           },
-          url:
-            'https://acc.map.data.amsterdam.nl/maps/handelsregister?access_token=abc123',
+          url: 'https://acc.map.data.amsterdam.nl/maps/handelsregister?access_token=abc123',
         },
       ])
     })

@@ -72,9 +72,7 @@ describe('The dp-link component', function() {
 
     spyOn(store, 'dispatch')
 
-    spyOn(mockedStateUrlConverter, 'state2url').and.returnValue(
-      mockedTargetPath,
-    )
+    spyOn(mockedStateUrlConverter, 'state2url').and.returnValue(mockedTargetPath)
   })
 
   function getComponent(className, hoverText, type, payload) {
@@ -108,21 +106,11 @@ describe('The dp-link component', function() {
     let component
 
     // A link with a custom class
-    component = getComponent(
-      'my-special-class',
-      null,
-      'ACTION_WITH_LINK',
-      mockedPayload,
-    )
+    component = getComponent('my-special-class', null, 'ACTION_WITH_LINK', mockedPayload)
     expect(component.find('button').attr('class')).toContain('my-special-class')
 
     // A button with a custom class
-    component = getComponent(
-      'my-special-class',
-      null,
-      'ACTION_WITH_BUTTON',
-      mockedPayload,
-    )
+    component = getComponent('my-special-class', null, 'ACTION_WITH_BUTTON', mockedPayload)
     expect(component.find('button').attr('class')).toContain('my-special-class')
   })
 
@@ -131,36 +119,22 @@ describe('The dp-link component', function() {
 
     // A link with the default class
     component = getComponent(null, null, 'ACTION_WITH_LINK', mockedPayload)
-    expect(component.find('button').attr('class')).toContain(
-      'o-btn o-btn--link',
-    )
+    expect(component.find('button').attr('class')).toContain('o-btn o-btn--link')
 
     // A button with the default class
     component = getComponent(null, null, 'ACTION_WITH_BUTTON', mockedPayload)
-    expect(component.find('button').attr('class')).toContain(
-      'o-btn o-btn--link',
-    )
+    expect(component.find('button').attr('class')).toContain('o-btn o-btn--link')
   })
 
   it('has an optional hover text (title attribute)', function() {
     let component
 
     // A link with hover text
-    component = getComponent(
-      null,
-      'Look at me!',
-      'ACTION_WITH_LINK',
-      mockedPayload,
-    )
+    component = getComponent(null, 'Look at me!', 'ACTION_WITH_LINK', mockedPayload)
     expect(component.find('button').attr('title')).toContain('Look at me!')
 
     // A button with hover text
-    component = getComponent(
-      null,
-      'Woohoo!',
-      'ACTION_WITH_BUTTON',
-      mockedPayload,
-    )
+    component = getComponent(null, 'Woohoo!', 'ACTION_WITH_BUTTON', mockedPayload)
     expect(component.find('button').attr('title')).toContain('Woohoo!')
   })
 

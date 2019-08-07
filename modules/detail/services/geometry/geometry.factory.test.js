@@ -33,8 +33,7 @@ describe('The geometry factory', function() {
           {
             _links: {
               self: {
-                href:
-                  'http://www.api-root.nl/brk/object/NL.KAD.OnroerendeZaak.123456/',
+                href: 'http://www.api-root.nl/brk/object/NL.KAD.OnroerendeZaak.123456/',
               },
             },
           },
@@ -46,8 +45,7 @@ describe('The geometry factory', function() {
       url: 'http://www.api-root.nl/bag/nummeraanduiding/10000001/',
       response: {
         type: 'Verblijfsobject',
-        verblijfsobject:
-          'http://mocked-atlas-api.amsterdam.nl/bag/verblijfsobject/20000001/',
+        verblijfsobject: 'http://mocked-atlas-api.amsterdam.nl/bag/verblijfsobject/20000001/',
       },
     },
     {
@@ -64,8 +62,7 @@ describe('The geometry factory', function() {
       url: 'http://www.api-root.nl/bag/nummeraanduiding/10000002/',
       response: {
         type: 'Ligplaats',
-        ligplaats:
-          'http://mocked-atlas-api.amsterdam.nl/bag/ligplaats/20000002/',
+        ligplaats: 'http://mocked-atlas-api.amsterdam.nl/bag/ligplaats/20000002/',
       },
     },
     {
@@ -82,8 +79,7 @@ describe('The geometry factory', function() {
       url: 'http://www.api-root.nl/bag/nummeraanduiding/10000003/',
       response: {
         type: 'Standplaats',
-        standplaats:
-          'http://mocked-atlas-api.amsterdam.nl/bag/standplaats/20000001/',
+        standplaats: 'http://mocked-atlas-api.amsterdam.nl/bag/standplaats/20000001/',
       },
     },
     {
@@ -176,9 +172,7 @@ describe('The geometry factory', function() {
     let response
 
     geometry
-      .getGeoJSON(
-        'http://www.api-root.nl/brk/object/NL.KAD.OnroerendeZaak.123456/',
-      )
+      .getGeoJSON('http://www.api-root.nl/brk/object/NL.KAD.OnroerendeZaak.123456/')
       .then(function(data) {
         response = data
       })
@@ -254,9 +248,7 @@ describe('The geometry factory', function() {
       let response
 
       geometry
-        .getGeoJSON(
-          'http://www.api-root.nl/brk/object/NL.KAD.OnroerendeZaak.456789/',
-        )
+        .getGeoJSON('http://www.api-root.nl/brk/object/NL.KAD.OnroerendeZaak.456789/')
         .then(function(data) {
           response = data
         })

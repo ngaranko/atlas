@@ -16,11 +16,9 @@ describe('the dp-detail component', () => {
     coordinates: 'FAKE_KADASTRAAL_OBJECT_MULTIPOLYGON',
   }
 
-  const grondexploitatieEndPoint =
-    'http://www.fake-endpoint.com/grondexploitatie/project/987/'
+  const grondexploitatieEndPoint = 'http://www.fake-endpoint.com/grondexploitatie/project/987/'
   const naturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/123/'
-  const noneNaturalPersonEndPoint =
-    'http://www.fake-endpoint.com/brk/subject/456/'
+  const noneNaturalPersonEndPoint = 'http://www.fake-endpoint.com/brk/subject/456/'
   const dcatdEndPoint = 'http://www.fake-endpoint.com/dcatd/datasets/789/'
 
   beforeEach(() => {
@@ -37,10 +35,8 @@ describe('the dp-detail component', () => {
             const q = $q.defer()
 
             if (
-              endpoint ===
-                'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
-              endpoint ===
-                'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/' ||
+              endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
+              endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/' ||
               endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/'
             ) {
               q.resolve({
@@ -49,9 +45,7 @@ describe('the dp-detail component', () => {
                 something: 3,
                 naam: 'naam',
               })
-            } else if (
-              endpoint === 'http://www.fake-endpoint.com/brk/object/789/'
-            ) {
+            } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
               q.resolve({
                 _display: 'Een of ander kadastraal object',
                 dummy: 'B',
@@ -62,10 +56,7 @@ describe('the dp-detail component', () => {
                 _display: 'My grex',
                 dummy: 'G',
               })
-            } else if (
-              endpoint ===
-              'http://www.fake-endpoint.com/handelsregister/vestiging/987/'
-            ) {
+            } else if (endpoint === 'http://www.fake-endpoint.com/handelsregister/vestiging/987/') {
               q.resolve({
                 _display: 'Een of andere vestiging',
                 dummy: 'D',
@@ -85,16 +76,11 @@ describe('the dp-detail component', () => {
                 something: 4,
                 is_natuurlijk_persoon: false,
               })
-            } else if (
-              endpoint ===
-              'http://www.fake-endpoint.amsterdam.nl/brk/subject/404/'
-            ) {
+            } else if (endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/subject/404/') {
               q.reject()
             } else if (endpoint === dcatdEndPoint) {
               q.resolve({ 'dct:description': 'description' })
-            } else if (
-              endpoint === 'http://www.fake-endpoint.com/dcatd/datasets/404'
-            ) {
+            } else if (endpoint === 'http://www.fake-endpoint.com/dcatd/datasets/404') {
               q.reject({ status: 404 })
             }
 
@@ -106,21 +92,13 @@ describe('the dp-detail component', () => {
             let category = ''
             let subject = ''
 
-            if (
-              endpoint ===
-              'http://www.fake-endpoint.com/bag/nummeraanduiding/123/'
-            ) {
+            if (endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/') {
               category = 'bag'
               subject = 'nummeraanduiding'
-            } else if (
-              endpoint === 'http://www.fake-endpoint.com/brk/object/789/'
-            ) {
+            } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
               category = 'brk'
               subject = 'object'
-            } else if (
-              endpoint ===
-              'http://www.fake-endpoint.com/handelsregister/vestiging/987/'
-            ) {
+            } else if (endpoint === 'http://www.fake-endpoint.com/handelsregister/vestiging/987/') {
               category = 'handelsregister'
               subject = 'vestiging'
             } else if (endpoint === grondexploitatieEndPoint) {
@@ -129,9 +107,7 @@ describe('the dp-detail component', () => {
             } else if (endpoint === naturalPersonEndPoint) {
               category = 'brk'
               subject = 'subject'
-            } else if (
-              endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/'
-            ) {
+            } else if (endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/') {
               subject = 'api'
             } else if (endpoint === dcatdEndPoint) {
               category = 'dcatd'
@@ -144,14 +120,11 @@ describe('the dp-detail component', () => {
             let templateUrl = 'modules/detail/components/detail/templates/'
 
             if (
-              endpoint ===
-                'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
+              endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
               endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/'
             ) {
               templateUrl += 'bag/nummeraanduiding'
-            } else if (
-              endpoint === 'http://www.fake-endpoint.com/brk/object/789/'
-            ) {
+            } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
               templateUrl += 'brk/object'
             } else if (endpoint === naturalPersonEndPoint) {
               templateUrl += 'brk/subject'
@@ -170,20 +143,15 @@ describe('the dp-detail component', () => {
             const q = $q.defer()
 
             if (
-              endpoint ===
-                'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
+              endpoint === 'http://www.fake-endpoint.com/bag/nummeraanduiding/123/' ||
               endpoint === 'http://fake-endpoint.amsterdam.nl/api/subject/123/'
             ) {
               q.resolve(mockedGeometryPoint)
-            } else if (
-              endpoint === 'http://www.fake-endpoint.com/brk/object/789/'
-            ) {
+            } else if (endpoint === 'http://www.fake-endpoint.com/brk/object/789/') {
               q.resolve(mockedGeometryMultiPolygon)
             } else if (endpoint === naturalPersonEndPoint) {
               q.resolve(null)
-            } else if (
-              endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/'
-            ) {
+            } else if (endpoint === 'http://www.fake-endpoint.amsterdam.nl/brk/geo/404/') {
               q.reject()
             }
 
@@ -212,13 +180,7 @@ describe('the dp-detail component', () => {
       },
     )
 
-    angular.mock.inject(function(
-      _$compile_,
-      _$rootScope_,
-      _$q_,
-      _store_,
-      _api_,
-    ) {
+    angular.mock.inject(function(_$compile_, _$rootScope_, _$q_, _store_, _api_) {
       $compile = _$compile_
       $rootScope = _$rootScope_
       $q = _$q_
@@ -282,10 +244,7 @@ describe('the dp-detail component', () => {
     })
 
     it('is not visible when `show` is true while loading', () => {
-      const component = getComponent(
-        'http://www.fake-endpoint.com/bag/nummeraanduiding/123/',
-        true,
-      )
+      const component = getComponent('http://www.fake-endpoint.com/bag/nummeraanduiding/123/', true)
       expect(component.find('.qa-detail-content').length).toBe(0)
     })
 
@@ -308,18 +267,13 @@ describe('the dp-detail component', () => {
       const scope = component.isolateScope()
       scope.vm.endpoint = 'http://www.fake-endpoint.com/brk/object/789/'
       $rootScope.$apply()
-      expect(scope.vm.endpoint).toEqual(
-        'http://www.fake-endpoint.com/brk/object/789/',
-      )
+      expect(scope.vm.endpoint).toEqual('http://www.fake-endpoint.com/brk/object/789/')
     })
   })
 
   describe('the stripMarkdown function', () => {
     it('returns a value', () => {
-      const component = getComponent(
-        'http://www.fake-endpoint.com/dcatd/datasets/789/',
-        false,
-      )
+      const component = getComponent('http://www.fake-endpoint.com/dcatd/datasets/789/', false)
 
       const scope = component.isolateScope()
       const { vm } = scope
@@ -331,10 +285,7 @@ describe('the dp-detail component', () => {
 
   describe('the downloadResource function', () => {
     it('dispatches  a value', () => {
-      const component = getComponent(
-        'http://www.fake-endpoint.com/dcatd/datasets/789/',
-        false,
-      )
+      const component = getComponent('http://www.fake-endpoint.com/dcatd/datasets/789/', false)
 
       const scope = component.isolateScope()
       store.dispatch.calls.reset()

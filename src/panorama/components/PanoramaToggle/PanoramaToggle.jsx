@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ContextMenu, ContextMenuItem, Icon } from '@datapunt/asc-ui'
-import { ReactComponent as ExternalLink } from '@datapunt/asc-assets/lib/Icons/ExternalLink.svg'
-import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg'
+import { ExternalLink, ChevronDown } from '@datapunt/asc-assets'
 import { ReactComponent as Clock } from '../../../shared/assets/icons/Clock.svg'
 import { setPanoramaTags, fetchPanoramaRequestExternal } from '../../ducks/actions'
 import { PANO_LABELS } from '../../ducks/constants'
@@ -44,11 +43,11 @@ const PanoramaToggle = ({
         alt="Actiemenu"
         open={showMenu}
         arrowIcon={<ChevronDown />}
-        icon={(
+        icon={
           <Icon padding={4} inline size={24}>
             <Clock />
           </Icon>
-)}
+        }
         label={currentLabel}
         position="bottom"
       >
@@ -67,11 +66,11 @@ const PanoramaToggle = ({
           key="google-street-view"
           role="button"
           onClick={() => handleOpenPanoramaExternal()}
-          icon={(
+          icon={
             <Icon padding={4} inline size={24}>
               <ExternalLink />
             </Icon>
-)}
+          }
         >
           Google Street View
         </ContextMenuItem>
@@ -80,10 +79,14 @@ const PanoramaToggle = ({
   )
 }
 
+PanoramaToggle.defaultProps = {
+  location: '',
+}
+
 PanoramaToggle.propTypes = {
   heading: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   currentLabel: PropTypes.string.isRequired,
-  location: PropTypes.instanceOf(Array).isRequired,
+  location: PropTypes.instanceOf(Array),
   openPanoramaTags: PropTypes.PropTypes.func.isRequired,
   openPanoramaExternal: PropTypes.PropTypes.func.isRequired,
 }

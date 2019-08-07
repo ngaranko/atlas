@@ -1,14 +1,8 @@
 import { createSelector } from 'reselect'
 
-import {
-  getPanoramaLocation,
-  getPanoramaMarkers,
-} from '../../../panorama/ducks/selectors'
+import { getPanoramaLocation, getPanoramaMarkers } from '../../../panorama/ducks/selectors'
 import { getGeoJson as getDetailGeoJson } from '../detail/selectors'
-import {
-  geoSearchType,
-  markerPointType,
-} from '../../components/leaflet/services/icons.constant'
+import { geoSearchType, markerPointType } from '../../components/leaflet/services/icons.constant'
 import { getDetail } from '../../../shared/ducks/detail/selectors'
 import drawToolConfig from '../../services/draw-tool/draw-tool.config'
 import { getDataSearchLocation } from '../../../shared/ducks/data-search/selectors'
@@ -29,8 +23,7 @@ export const getMapZoom = createSelector(
 export const isMapLoading = createSelector(
   getMap,
   areMarkersLoading,
-  (mapState, dataSelectionLoading) =>
-    mapState.isLoading || dataSelectionLoading,
+  (mapState, dataSelectionLoading) => mapState.isLoading || dataSelectionLoading,
 )
 
 export const getMapOverlays = createSelector(

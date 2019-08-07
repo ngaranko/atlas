@@ -51,9 +51,7 @@ describe('The api factory', function() {
     }
 
     $httpBackend
-      .whenGET(
-        'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-      )
+      .whenGET('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/')
       .respond(mockedApiData)
 
     isLoggedIn = false
@@ -74,9 +72,7 @@ describe('The api factory', function() {
     let returnValue
 
     api
-      .getByUrl(
-        'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-      )
+      .getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/')
       .then(function(data) {
         returnValue = data
       })
@@ -146,9 +142,7 @@ describe('The api factory', function() {
       'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
       $http.defaults.headers.common,
     )
-    api.getByUrl(
-      'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-    )
+    api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/')
     $httpBackend.flush()
   })
 
@@ -161,9 +155,7 @@ describe('The api factory', function() {
         Authorization: 'Bearer MY_FAKE_ACCESS_TOKEN',
       }),
     )
-    api.getByUrl(
-      'https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/',
-    )
+    api.getByUrl('https://www.i-am-the-api-root.com/path/bag/verblijfsobject/123/')
     $httpBackend.flush()
   })
 
@@ -188,15 +180,11 @@ describe('The api factory', function() {
     it('adds the access token when logged in', () => {
       isLoggedIn = true
       api.createUrlWithToken('https://test.amsterdam.nl/').then(actual => {
-        expect(actual).toBe(
-          'https://test.amsterdam.nl/?access_token=MY_FAKE_ACCESS_TOKEN',
-        )
+        expect(actual).toBe('https://test.amsterdam.nl/?access_token=MY_FAKE_ACCESS_TOKEN')
       })
 
       api.createUrlWithToken('https://test.amsterdam.nl/?a=b').then(actual => {
-        expect(actual).toBe(
-          'https://test.amsterdam.nl/?a=b&access_token=MY_FAKE_ACCESS_TOKEN',
-        )
+        expect(actual).toBe('https://test.amsterdam.nl/?a=b&access_token=MY_FAKE_ACCESS_TOKEN')
       })
 
       $rootScope.$digest()
@@ -219,17 +207,13 @@ describe('The api factory', function() {
     it('adds extra params to the url when specified', () => {
       isLoggedIn = false
 
-      api
-        .createUrlWithToken('https://test.amsterdam.nl/', { c: 'd' })
-        .then(actual => {
-          expect(actual).toBe('https://test.amsterdam.nl/?c=d')
-        })
+      api.createUrlWithToken('https://test.amsterdam.nl/', { c: 'd' }).then(actual => {
+        expect(actual).toBe('https://test.amsterdam.nl/?c=d')
+      })
 
-      api
-        .createUrlWithToken('https://test.amsterdam.nl/?a=b', { c: 'd' })
-        .then(actual => {
-          expect(actual).toBe('https://test.amsterdam.nl/?a=b&c=d')
-        })
+      api.createUrlWithToken('https://test.amsterdam.nl/?a=b', { c: 'd' }).then(actual => {
+        expect(actual).toBe('https://test.amsterdam.nl/?a=b&c=d')
+      })
 
       $rootScope.$digest()
     })

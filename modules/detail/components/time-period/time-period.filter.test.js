@@ -21,9 +21,7 @@ describe('The time-period filter', function() {
         'time:hasBeginning': '2016-11-04T12:00:00',
         'time:hasEnd': '2017-12-10T12:00:00',
       }),
-    ).toMatch(
-      /^(4 november 2016 tot 10 december 2017|november 4, 2016 tot december 10, 2017)$/i,
-    )
+    ).toMatch(/^(4 november 2016 tot 10 december 2017|november 4, 2016 tot december 10, 2017)$/i)
   })
 
   it('shows the time period when start time period is provided', function() {

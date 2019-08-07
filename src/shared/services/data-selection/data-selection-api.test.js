@@ -362,11 +362,7 @@ describe('DataSelection api', () => {
   describe('it returns the data', () => {
     it('has a single row for the head of the table based on the configuration', async () => {
       const output = await query('zwembaden', 'TABLE', {}, 1)
-      expect(output.data.head).toEqual([
-        'Adres',
-        'Openingstijden',
-        'KvK-nummer',
-      ])
+      expect(output.data.head).toEqual(['Adres', 'Openingstijden', 'KvK-nummer'])
     })
 
     it('reorders the results per row from the API to match the order of the configuration', async () => {
@@ -423,11 +419,7 @@ describe('DataSelection api', () => {
 
     it('returns the formatters for each group of variables', async () => {
       const output = await query('zwembaden', 'TABLE', {}, 1)
-      expect(output.data.formatters).toEqual([
-        undefined,
-        'openingstijdenFormatter',
-        undefined,
-      ])
+      expect(output.data.formatters).toEqual([undefined, 'openingstijdenFormatter', undefined])
     })
 
     it('uses different dataset configuration depending on the view', async () => {

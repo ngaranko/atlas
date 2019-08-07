@@ -43,9 +43,7 @@ export const getLocationHistoryParams = (location, tags) => {
 
   return {
     locationRange: location
-      ? `near=${location[1]},${location[0]}&srid=${
-          PANORAMA_CONFIG.SRID
-        }&${pageSize}`
+      ? `near=${location[1]},${location[0]}&srid=${PANORAMA_CONFIG.SRID}&${pageSize}`
       : '',
     newestInRange,
     standardRadius: `radius=${PANORAMA_CONFIG.MAX_RADIUS}`,
@@ -60,10 +58,7 @@ const imageData = response => {
   const adjacencies = response.filter(adjacency => adjacency !== response[0])
 
   const formattedGeometry = {
-    coordinates: [
-      panorama.geometry.coordinates[1],
-      panorama.geometry.coordinates[0],
-    ],
+    coordinates: [panorama.geometry.coordinates[1], panorama.geometry.coordinates[0]],
     type: panorama.geometry.type,
   }
 
@@ -124,27 +119,18 @@ export function getImageDataByLocation(location, tags) {
   const limitResults = 'limit_results=1'
 
   const promise = new Promise((resolve, reject) => {
-    getByUrl(
-      `${getLocationUrl}&${standardRadius}&${newestInRange}&${limitResults}`,
-    )
+    getByUrl(`${getLocationUrl}&${standardRadius}&${newestInRange}&${limitResults}`)
       .then(json => json._embedded.panoramas[0])
       .then(data => {
         if (data) {
           // we found a pano nearby go to it
-          resolve(
-            getAdjacencies(data._links.adjacencies.href, adjacenciesParams),
-          )
+          resolve(getAdjacencies(data._links.adjacencies.href, adjacenciesParams))
         } else {
           // there is no pano nearby search with a large radius and go to it
           resolve(
             getByUrl(`${getLocationUrl}&${largeRadius}&${limitResults}`)
               .then(json => json._embedded.panoramas[0])
-              .then(_data =>
-                getAdjacencies(
-                  _data._links.adjacencies.href,
-                  adjacenciesParams,
-                ),
-              ),
+              .then(_data => getAdjacencies(_data._links.adjacencies.href, adjacenciesParams)),
           )
         }
       })
@@ -157,9 +143,7 @@ export function getImageDataByLocation(location, tags) {
 export function getImageDataById(id, tags) {
   const { adjacenciesParams } = getLocationHistoryParams(null, tags)
 
-  return fetchPanorama(
-    `${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}/?${adjacenciesParams}`,
-  )
+  return fetchPanorama(`${sharedConfig.API_ROOT}${prefix}/${id}/${suffix}/?${adjacenciesParams}`)
 }
 
 export function getStreetViewUrl(location, heading) {

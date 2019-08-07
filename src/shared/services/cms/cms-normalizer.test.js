@@ -18,15 +18,13 @@ describe('normalizeFromCMS', () => {
 
   beforeEach(() => {
     normalize.mockImplementation(() => ({
-      get: () => [
-        {...mockData},
-      ],
+      get: () => [{ ...mockData }],
     }))
-  });
+  })
 
   afterEach(() => {
     normalize.mockReset()
-  });
+  })
 
   it('should return a normalized json', () => {
     dateToString.mockReturnValue('15-03-2019')
@@ -38,17 +36,14 @@ describe('normalizeFromCMS', () => {
         {
           attributes: {
             uri: {
-              url: 'http://this.is.alink'
-            }
-          }
-        }
-      ]
+              url: 'http://this.is.alink',
+            },
+          },
+        },
+      ],
     }
 
-    const normalizedData = cmsNormalizer(mockResult, [
-      'field_image',
-      'field_intro'
-    ])
+    const normalizedData = cmsNormalizer(mockResult, ['field_image', 'field_intro'])
 
     expect(normalizedData.field_image).toEqual(mockData.field_image)
     expect(normalizedData.field_intro).toEqual(mockData.field_intro)

@@ -1,14 +1,9 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
+import { getSearchQuery } from '../../../shared/ducks/data-search/selectors'
 
-const TabBar = ({
-  numberOfDataResults,
-  numberOfDatasetResults,
-  goToDatasets,
-  searchQuery,
-  children,
-  showDatasetsButton,
-}) => (
+const TabBar = ({ numberOfDataResults, numberOfDatasetResults, searchQuery, children }) => (
   <div>
     <h1 className="qa-tab-header__title c-tab-header__title">
       {(numberOfDataResults !== 0 || numberOfDatasetResults !== 0) && (
@@ -25,32 +20,27 @@ const TabBar = ({
           &apos;
         </span>
       )}
-      {showDatasetsButton && (
-        <button
-          onClick={goToDatasets}
-          type="button"
-          className="c-tab-header__reset-button qa-go-to-catalogus"
-        >
-          <span className="c-tab-header__reset-button--color">Alle datasets tonen</span>
-        </button>
-      )}
     </h1>
     {children}
   </div>
 )
 
 TabBar.defaultProps = {
-  showDatasetsButton: false,
   children: null,
 }
 
 TabBar.propTypes = {
   searchQuery: PropTypes.string.isRequired,
-  goToDatasets: PropTypes.func.isRequired,
   children: PropTypes.node,
-  showDatasetsButton: PropTypes.bool,
   numberOfDataResults: PropTypes.number.isRequired,
   numberOfDatasetResults: PropTypes.number.isRequired,
 }
 
-export default TabBar
+const mapStateToProps = state => ({
+  searchQuery: getSearchQuery(state),
+})
+
+export default connect(
+  mapStateToProps,
+  null,
+)(TabBar)

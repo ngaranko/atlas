@@ -1,19 +1,18 @@
-import { toConstructionFilesFromEndpoint } from '../../../src/store/redux-first-router/actions';
+import { toConstructionFilesFromEndpoint } from '../../../src/store/redux-first-router/actions'
+;(function() {
+  'use strict'
 
-(function () {
-    'use strict';
+  angular
+    .module('dpShared')
+    .filter('constructionFilesEndpointAction', constructionFilesEndpointAction)
 
-    angular
-        .module('dpShared')
-        .filter('constructionFilesEndpointAction', constructionFilesEndpointAction);
-
-    function constructionFilesEndpointAction () {
-        return (endpoint) => {
-            if (!endpoint) {
-                return;
-            }
-            const action = toConstructionFilesFromEndpoint(endpoint);
-            return action;
-        };
+  function constructionFilesEndpointAction() {
+    return endpoint => {
+      if (!endpoint) {
+        return
+      }
+      const action = toConstructionFilesFromEndpoint(endpoint)
+      return action
     }
-})();
+  }
+})()

@@ -1,5 +1,5 @@
 import { getCountFromHeader } from '../support/helper-functions'
-import { DATA_SELECTION_TABLE } from '../support/selectors'
+import { DATA_SELECTION_TABLE, HEADINGS } from '../support/selectors'
 
 const dataSelection = '.c-data-selection'
 const homepage = '.c-homepage'
@@ -42,7 +42,7 @@ describe('addresses module', () => {
         .should('exist')
         .and('be.visible')
       // the title should contain Adressen
-      cy.get('h1')
+      cy.get(HEADINGS.dataSelectionHeading)
         .contains('Adressen')
         .should('exist')
         .and('be.visible')
@@ -76,9 +76,7 @@ describe('addresses module', () => {
             .and('be.visible')
 
           // get the position of the category in the th's of the table
-          cy.get(
-            `${DATA_SELECTION_TABLE.head} ${DATA_SELECTION_TABLE.cell}`,
-          ).each((th, index) => {
+          cy.get(`${DATA_SELECTION_TABLE.head} ${DATA_SELECTION_TABLE.cell}`).each((th, index) => {
             // if the position is equal to the category
             if (th[0].innerText === category) {
               // get al the content the td's with the same position as the categoryGroup they all
@@ -99,12 +97,8 @@ describe('addresses module', () => {
       cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
       cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject')
       cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden')
-      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as(
-        'getObjectExpand',
-      )
-      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-        'getSitueringen',
-      )
+      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as('getObjectExpand')
+      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen')
       cy.route('/monumenten/monumenten/*').as('getMonument')
     })
     it('should open the detail view with the correct address', () => {
@@ -200,12 +194,8 @@ describe('addresses module', () => {
       cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
       cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject')
       cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden')
-      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as(
-        'getObjectExpand',
-      )
-      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-        'getSitueringen',
-      )
+      cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as('getObjectExpand')
+      cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen')
       cy.route('/monumenten/monumenten/*').as('getMonument')
 
       // click on the first item in the table
@@ -234,7 +224,7 @@ describe('addresses module', () => {
       let totalCount
 
       // Get the number in the title before filtering
-      cy.get('h1').then(title => {
+      cy.get(HEADINGS.dataSelectionHeading).then(title => {
         totalCount = getCountFromHeader(title.text())
       })
 
@@ -246,7 +236,7 @@ describe('addresses module', () => {
 
       // Expect the number in the title after filtering to be smaller than the number before
       // filtering
-      cy.get('h1').then(title => {
+      cy.get(HEADINGS.dataSelectionHeading).then(title => {
         const filteredCount = getCountFromHeader(title.text())
         expect(filteredCount).to.be.below(totalCount)
       })

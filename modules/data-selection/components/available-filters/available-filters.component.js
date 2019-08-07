@@ -7,8 +7,7 @@ angular.module('dpDataSelection').component('dpDataSelectionAvailableFilters', {
     availableFilters: '=',
     activeFilters: '=',
   },
-  templateUrl:
-    'modules/data-selection/components/available-filters/available-filters.html',
+  templateUrl: 'modules/data-selection/components/available-filters/available-filters.html',
   controller: DpDataSelectionAvailableFiltersController,
   controllerAs: 'vm',
 })
@@ -31,10 +30,7 @@ function DpDataSelectionAvailableFiltersController($scope, store) {
     }
 
     vm.isFilterOptionActive = function(filterSlug, id, label) {
-      return (
-        vm.activeFilters[filterSlug] === label ||
-        vm.activeFilters[filterSlug] === id
-      )
+      return vm.activeFilters[filterSlug] === label || vm.activeFilters[filterSlug] === id
     }
 
     vm.addFilter = function(filterSlug, optionId) {
@@ -84,10 +80,8 @@ function DpDataSelectionAvailableFiltersController($scope, store) {
     }
 
     function updateConfig() {
-      vm.showOptionCounts =
-        DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS
-      vm.stelselpediaUrl =
-        DATA_SELECTION_CONFIG.datasets[vm.dataset].STELSELPEDIA_URL
+      vm.showOptionCounts = DATA_SELECTION_CONFIG.datasets[vm.dataset].SHOW_FILTER_OPTION_COUNTS
+      vm.stelselpediaUrl = DATA_SELECTION_CONFIG.datasets[vm.dataset].STELSELPEDIA_URL
     }
   }
 }

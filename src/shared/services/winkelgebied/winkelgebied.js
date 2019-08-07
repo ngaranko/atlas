@@ -10,9 +10,7 @@ export default function fetchByUri(uri) {
 
     return {
       label: result._display,
-      category: result.categorie_naam
-        ? `${result.categorie_naam} (${result.categorie})`
-        : null,
+      category: result.categorie_naam ? `${result.categorie_naam} (${result.categorie})` : null,
       location: wgs84Center,
       geometrie: result.wkb_geometry,
     }

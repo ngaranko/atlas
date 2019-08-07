@@ -16,18 +16,12 @@ import {
 } from '../../../shared/ducks/datasets/datasets'
 import { DOWNLOAD_DATA_SELECTION } from '../../../shared/ducks/data-selection/constants'
 import { FETCH_QUERY_SEARCH_RESULTS_SUCCESS } from '../../../shared/ducks/data-search/constants'
-import {
-  getNumberOfResults,
-  getSearchQuery,
-} from '../../../shared/ducks/data-search/selectors'
+import { getNumberOfResults, getSearchQuery } from '../../../shared/ducks/data-search/selectors'
 import {
   AUTHENTICATE_USER_REQUEST,
   AUTHENTICATE_USER_SUCCESS,
 } from '../../../shared/ducks/user/user'
-import {
-  ADD_FILTER,
-  REMOVE_FILTER,
-} from '../../../shared/ducks/filters/filters'
+import { ADD_FILTER, REMOVE_FILTER } from '../../../shared/ducks/filters/filters'
 import {
   getViewMode,
   HIDE_EMBED_PREVIEW,
@@ -66,12 +60,8 @@ import { MATOMO_CONSTANTS } from './constants'
 const trackEvents = {
   // NAVIGATION
   // NAVIGATION -> NAVIGATE TO DATA DETAIL
-  [routing.dataDetail.type]: function trackDataDetail({
-    firstAction,
-    query,
-    tracking,
-    state,
-  }) {
+  [routing.dataDetail.type]: function trackDataDetail({ firstAction, query, tracking, state }) {
+    // eslint-disable-next-line no-nested-ternary
     return tracking && tracking.event === 'auto-suggest'
       ? [
           MATOMO_CONSTANTS.TRACK_EVENT,
@@ -79,15 +69,16 @@ const trackEvents = {
           tracking.category,
           tracking.query,
         ]
-      : getViewMode(state) === VIEW_MODE.MAP &&
-        get(query, `${PARAMETERS.VIEW}`) === undefined
+      : // eslint-disable-next-line no-nested-ternary
+      getViewMode(state) === VIEW_MODE.MAP && get(query, `${PARAMETERS.VIEW}`) === undefined
       ? [
           MATOMO_CONSTANTS.TRACK_EVENT,
           'navigation', // NAVIGATION -> CLICK TOGGLE FULLSCREEN FROM MAP
           'detail-volledig-weergeven',
           null,
         ]
-      : !firstAction &&
+      : // eslint-disable-next-line no-nested-ternary
+      !firstAction &&
         getViewMode(state) === VIEW_MODE.SPLIT &&
         get(query, `${PARAMETERS.VIEW}`) === VIEW_MODE.MAP
       ? [
@@ -106,19 +97,9 @@ const trackEvents = {
       : []
   },
   // NAVIGATION -> CLICK CLOSE FROM PANORAMA
-  [CLOSE_PANORAMA]: () => [
-    MATOMO_CONSTANTS.TRACK_EVENT,
-    'navigation',
-    'panorama-verlaten',
-    null,
-  ],
+  [CLOSE_PANORAMA]: () => [MATOMO_CONSTANTS.TRACK_EVENT, 'navigation', 'panorama-verlaten', null],
   // NAVIGATION -> CLOSE PRINT VIEW
-  [HIDE_PRINT]: () => [
-    MATOMO_CONSTANTS.TRACK_EVENT,
-    'navigation',
-    'printversie-verlaten',
-    null,
-  ],
+  [HIDE_PRINT]: () => [MATOMO_CONSTANTS.TRACK_EVENT, 'navigation', 'printversie-verlaten', null],
   // NAVIGATION -> CLOSE EMBED VIEW
   [HIDE_EMBED_PREVIEW]: () => [
     MATOMO_CONSTANTS.TRACK_EVENT,
@@ -148,26 +129,16 @@ const trackEvents = {
         return [
           MATOMO_CONSTANTS.TRACK_EVENT,
           'navigation', // NAVIGATION -> CLICK TOGGLE FULLSCREEN FROM MAP Or SPLITSCREEN
-          `georesultaten-${
-            viewMode === VIEW_MODE.MAP
-              ? 'volledig-weergeven'
-              : 'kaart-vergroten'
-          }`,
+          `georesultaten-${viewMode === VIEW_MODE.MAP ? 'volledig-weergeven' : 'kaart-vergroten'}`,
           null,
         ]
 
       case PAGES.PANORAMA: {
         let view = tracking
         if (typeof tracking === 'boolean') {
-          view =
-            viewMode === VIEW_MODE.MAP ? 'kaart-verkleinen' : 'kaart-vergroten'
+          view = viewMode === VIEW_MODE.MAP ? 'kaart-verkleinen' : 'kaart-vergroten'
         }
-        return [
-          MATOMO_CONSTANTS.TRACK_EVENT,
-          'navigation',
-          `panorama-${view}`,
-          null,
-        ]
+        return [MATOMO_CONSTANTS.TRACK_EVENT, 'navigation', `panorama-${view}`, null]
       }
 
       case PAGES.ADDRESSES:
@@ -175,26 +146,16 @@ const trackEvents = {
       case PAGES.CADASTRAL_OBJECTS: {
         let view = tracking
         if (typeof tracking === 'boolean') {
-          view =
-            viewMode === VIEW_MODE.MAP ? 'kaart-verkleinen' : 'kaart-vergroten'
+          view = viewMode === VIEW_MODE.MAP ? 'kaart-verkleinen' : 'kaart-vergroten'
         }
-        return [
-          MATOMO_CONSTANTS.TRACK_EVENT,
-          'navigation',
-          `dataselectie-${view}`,
-          null,
-        ]
+        return [MATOMO_CONSTANTS.TRACK_EVENT, 'navigation', `dataselectie-${view}`, null]
       }
 
       default:
         return [
           MATOMO_CONSTANTS.TRACK_EVENT,
           'navigation',
-          `detail-${
-            viewMode === VIEW_MODE.MAP
-              ? 'volledig-weergeven'
-              : 'kaart-vergroten'
-          }`,
+          `detail-${viewMode === VIEW_MODE.MAP ? 'volledig-weergeven' : 'kaart-vergroten'}`,
           null,
         ]
     }
@@ -204,50 +165,28 @@ const trackEvents = {
   [routing.dataQuerySearch.type]: ({ firstAction = null, query, state }) => {
     const searchQuery = getSearchQuery(state)
     const numberOfResults = getNumberOfResults(state)
-    return firstAction &&
-      (searchQuery && searchQuery.length > 0) &&
-      query.term === searchQuery
+    return firstAction && (searchQuery && searchQuery.length > 0) && query.term === searchQuery
       ? [MATOMO_CONSTANTS.TRACK_SEARCH, searchQuery, 'data', numberOfResults]
       : []
   },
   // SITE SEARCH -> DATA INITIAL LOAD
-  [FETCH_QUERY_SEARCH_RESULTS_SUCCESS]: function trackDataSearch({
-    tracking,
-    state,
-  }) {
+  [FETCH_QUERY_SEARCH_RESULTS_SUCCESS]: function trackDataSearch({ tracking, state }) {
     return getPage(state) === PAGES.DATA_QUERY_SEARCH
-      ? [
-          MATOMO_CONSTANTS.TRACK_SEARCH,
-          tracking.query,
-          'data',
-          tracking.numberOfResults,
-        ]
+      ? [MATOMO_CONSTANTS.TRACK_SEARCH, tracking.query, 'data', tracking.numberOfResults]
       : []
   },
   // SITE SEARCH -> DATASETS SWITCH TAB
   [routing.searchDatasets.type]: ({ firstAction = null, query, state }) => {
     const searchQuery = getDatasetsSearchQuery(state)
     const numberOfResults = getNumberOfDatasetsResults(state)
-    return firstAction &&
-      (searchQuery && searchQuery.length > 0) &&
-      query.term === searchQuery
-      ? [
-          MATOMO_CONSTANTS.TRACK_SEARCH,
-          searchQuery,
-          'datasets',
-          numberOfResults,
-        ]
+    return firstAction && (searchQuery && searchQuery.length > 0) && query.term === searchQuery
+      ? [MATOMO_CONSTANTS.TRACK_SEARCH, searchQuery, 'datasets', numberOfResults]
       : []
   },
   // SITE SEARCH -> DATASETS INITIAL LOAD
   [FETCH_DATASETS_SUCCESS]: function trackDatasetSearch({ tracking, state }) {
     return getPage(state) === PAGES.SEARCH_DATASETS
-      ? [
-          MATOMO_CONSTANTS.TRACK_SEARCH,
-          tracking.query,
-          'datasets',
-          tracking.numberOfResults,
-        ]
+      ? [MATOMO_CONSTANTS.TRACK_SEARCH, tracking.query, 'datasets', tracking.numberOfResults]
       : []
   },
   // DATASETS
@@ -269,6 +208,7 @@ const trackEvents = {
   // DRAW TOOL
   [MAP_SET_DRAWING_MODE]: function trackDrawing({ tracking, state, title }) {
     const markers = getShapeMarkers(state)
+    // eslint-disable-next-line no-nested-ternary
     return tracking === 'none' && markers === 2
       ? [
           MATOMO_CONSTANTS.TRACK_EVENT,
@@ -336,6 +276,7 @@ const trackEvents = {
   // FILTERS
   // ADD FILTER -> "datasets" / "dataselectie"
   [ADD_FILTER]: ({ tracking, state }) => {
+    // eslint-disable-next-line no-nested-ternary
     const page = isDataSelectionPage(state)
       ? 'dataselectie-tabel'
       : isDatasetPage(state)
@@ -343,16 +284,12 @@ const trackEvents = {
       : null
 
     return page
-      ? [
-          MATOMO_CONSTANTS.TRACK_EVENT,
-          'filter',
-          `${page}-filter`,
-          Object.keys(tracking)[0],
-        ]
+      ? [MATOMO_CONSTANTS.TRACK_EVENT, 'filter', `${page}-filter`, Object.keys(tracking)[0]]
       : []
   },
   // REMOVE FILTER -> "datasets" / "dataselectie"
   [REMOVE_FILTER]: ({ tracking, state }) => {
+    // eslint-disable-next-line no-nested-ternary
     const page = isDataSelectionPage(state)
       ? 'dataselectie'
       : isDatasetPage(state)
@@ -360,12 +297,7 @@ const trackEvents = {
       : null
 
     return page
-      ? [
-          MATOMO_CONSTANTS.TRACK_EVENT,
-          'filter',
-          `${page}-tabel-filter-verwijder`,
-          tracking,
-        ]
+      ? [MATOMO_CONSTANTS.TRACK_EVENT, 'filter', `${page}-tabel-filter-verwijder`, tracking]
       : []
   },
   // PANORAMA
@@ -374,12 +306,7 @@ const trackEvents = {
     const { layerId } = getLabelObjectByTags(tracking)
     const set = tracking.length > 1 ? layerId.replace('pano', '') : 'recent'
 
-    return [
-      MATOMO_CONSTANTS.TRACK_EVENT,
-      'panorama-set',
-      `panorama-set-${set}`,
-      null,
-    ]
+    return [MATOMO_CONSTANTS.TRACK_EVENT, 'panorama-set', `panorama-set-${set}`, null]
   },
   // PANORAMA -> TOGGLE "external"
   [FETCH_PANORAMA_REQUEST_EXTERNAL]: () => [
@@ -397,19 +324,9 @@ const trackEvents = {
   ],
   // MENU
   // MENU -> TOGGLE MODAL ON
-  [SHOW_MODAL]: ({ title }) => [
-    MATOMO_CONSTANTS.TRACK_EVENT,
-    'feedback',
-    'feedback-menu',
-    title,
-  ],
+  [SHOW_MODAL]: ({ title }) => [MATOMO_CONSTANTS.TRACK_EVENT, 'feedback', 'feedback-menu', title],
   // MENU -> TOGGLE MODAL OFF
-  [CLOSE_MODAL]: () => [
-    MATOMO_CONSTANTS.TRACK_EVENT,
-    'feedback',
-    'feedback-verlaten',
-    null,
-  ],
+  [CLOSE_MODAL]: () => [MATOMO_CONSTANTS.TRACK_EVENT, 'feedback', 'feedback-verlaten', null],
   // MENU -> "terugmelden"
   [REPORT_FEEDBACK_REQUEST]: () => [
     MATOMO_CONSTANTS.TRACK_EVENT,
@@ -432,12 +349,7 @@ const trackEvents = {
     title,
   ],
   // MENU -> "printen"
-  [SHOW_PRINT]: ({ title }) => [
-    MATOMO_CONSTANTS.TRACK_EVENT,
-    'menu',
-    'menu-printversie',
-    title,
-  ],
+  [SHOW_PRINT]: ({ title }) => [MATOMO_CONSTANTS.TRACK_EVENT, 'menu', 'menu-printversie', title],
   // MENU SHARE -> "bottomPage"
   [SHARE_PAGE]: ({ title, tracking }) => [
     MATOMO_CONSTANTS.TRACK_EVENT,

@@ -121,9 +121,7 @@ export default function getContents(type) {
   const promise = new Promise(resolve => {
     const { key } = GOOGLE_SHEET_CMS
     const index = GOOGLE_SHEET_CMS.index[type]
-    const getSheet = GOOGLE_SHEET_CMS.getStatic[
-      getEnvironment(window.location.host)
-    ]
+    const getSheet = GOOGLE_SHEET_CMS.getStatic[getEnvironment(window.location.host)]
       ? getStaticSheet
       : getDynamicSheet
 

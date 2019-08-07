@@ -4,18 +4,10 @@ import { AngularWrapper } from 'react-angular'
 import { connect } from 'react-redux'
 import Footer from '../components/Footer/Footer'
 import ShareBar from '../components/ShareBar/ShareBar'
-import {
-  getItem,
-  getTemplateName,
-  getType,
-} from '../../shared/ducks/content/selectors' // TODO: refactor, test
+import { getItem, getTemplateName, getType } from '../../shared/ducks/content/selectors' // TODO: refactor, test
+import '../angularModules'
 
-/* istanbul ignore next */ const ContentPage = ({
-  templateName,
-  item,
-  type,
-  showFooter,
-}) => (
+/* istanbul ignore next */ const ContentPage = ({ templateName, item, type, showFooter }) => (
   <div
     style={{ display: 'block' }}
     className="c-dashboard__column  u-col-sm--12 qa-dashboard__column--right"

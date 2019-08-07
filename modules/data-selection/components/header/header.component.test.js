@@ -288,8 +288,7 @@ describe('The dp-data-selection-header', () => {
   })
   ;['TABLE', 'CATALOG'].forEach(viewName => {
     beforeEach(function() {
-      mockedViewInput =
-        viewName === 'TABLE' ? mockedInputTable : mockedInputCatalog
+      mockedViewInput = viewName === 'TABLE' ? mockedInputTable : mockedInputCatalog
     })
 
     describe(`in ${viewName} view`, () => {
@@ -349,9 +348,7 @@ describe('The dp-data-selection-header', () => {
       mockedInputList.state.page = 123
       component = getComponent(mockedInputList)
 
-      component
-        .find('.qa-tabs li:nth-child(1) dp-link .o-tabs__tab--link')
-        .click()
+      component.find('.qa-tabs li:nth-child(1) dp-link .o-tabs__tab--link').click()
       expect(store.dispatch).toHaveBeenCalledWith(setDataset('bag'))
     })
 
@@ -361,13 +358,8 @@ describe('The dp-data-selection-header', () => {
       component = getComponent(mockedInputList)
       expect(store.dispatch).not.toHaveBeenCalled()
 
-      expect(
-        component.find('.qa-tabs li:nth-child(2) dp-link .o-tabs__tab--text')
-          .length,
-      ).toBe(0)
-      expect(
-        component.find('.qa-tabs li:nth-child(2) .o-tabs__tab--active').length,
-      ).toBe(1)
+      expect(component.find('.qa-tabs li:nth-child(2) dp-link .o-tabs__tab--text').length).toBe(0)
+      expect(component.find('.qa-tabs li:nth-child(2) .o-tabs__tab--active').length).toBe(1)
     })
 
     it('shows the number of results in the tab heading for the active dataset', () => {
@@ -392,12 +384,8 @@ describe('The dp-data-selection-header', () => {
       mockedInputList.dataset = 'bag'
       component = getComponent(mockedInputList)
 
-      expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain(
-        'BAG Adressen',
-      )
-      expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain(
-        ' (12.345)',
-      )
+      expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain('BAG Adressen')
+      expect(component.find('.qa-tabs li:nth-child(1)').text()).toContain(' (12.345)')
       expect(
         component
           .find('.qa-tabs li:nth-child(2)')

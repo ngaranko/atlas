@@ -41,8 +41,7 @@ describe('employee PLUS permissions', () => {
 
     cy.get('#auto-suggest__input')
       .focus()
-      .type('bakker')
-    cy.get('.qa-search-form-submit').click()
+      .type('bakker{enter}')
 
     cy.waitForSearch()
     cy.get(queries.warningPanel).should('not.exist')
@@ -57,9 +56,7 @@ describe('employee PLUS permissions', () => {
   it('2A. Should allow a plus employee to view everything of natural subject', () => {
     cy.server()
     cy.route('/brk/subject/*').as('getResults')
-    cy.route('/brk/zakelijk-recht/?kadastraal_subject=*').as(
-      'getZakelijkeRechten',
-    )
+    cy.route('/brk/zakelijk-recht/?kadastraal_subject=*').as('getZakelijkeRechten')
 
     cy.visit(urls.natuurlijk)
 
@@ -76,9 +73,7 @@ describe('employee PLUS permissions', () => {
   it('2B. Should allow a plus employee to view a non-natural subject', () => {
     cy.server()
     cy.route('/brk/subject/*').as('getResults')
-    cy.route('/brk/zakelijk-recht/?kadastraal_subject=*').as(
-      'getZakelijkeRechten',
-    )
+    cy.route('/brk/zakelijk-recht/?kadastraal_subject=*').as('getZakelijkeRechten')
 
     cy.visit(urls.nietNatuurlijk)
 
@@ -96,9 +91,7 @@ describe('employee PLUS permissions', () => {
     cy.server()
     cy.route('/brk/object/*').as('getResults')
     cy.route('/brk/object-expand/*').as('getObjectExpand')
-    cy.route('/bag/nummeraanduiding/?kadastraalobject=*').as(
-      'getNummeraanduidingen',
-    )
+    cy.route('/bag/nummeraanduiding/?kadastraalobject=*').as('getNummeraanduidingen')
 
     cy.visit(urls.business)
 
@@ -115,13 +108,9 @@ describe('employee PLUS permissions', () => {
     cy.route('/bag/verblijfsobject/*').as('getVerblijfsobject')
     cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
     cy.route('/bag/pand/?verblijfsobjecten__id=*').as('getPanden')
-    cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as(
-      'getObjectExpand',
-    )
+    cy.route('/brk/object-expand/?verblijfsobjecten__id=*').as('getObjectExpand')
     cy.route('/monumenten/monumenten/*').as('getMonument')
-    cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-      'getSitueringen',
-    )
+    cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getSitueringen')
 
     cy.visit(urls.address)
 
@@ -240,12 +229,8 @@ describe('employee PLUS permissions', () => {
     cy.server()
     cy.route('/bag/ligplaats/*').as('getResults')
     cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
-    cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-      'getMonument',
-    )
-    cy.route('/handelsregister/vestiging/?nummeraanduiding=*').as(
-      'getVestigingen',
-    )
+    cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getMonument')
+    cy.route('/handelsregister/vestiging/?nummeraanduiding=*').as('getVestigingen')
 
     cy.visit(urls.ligplaats)
 
@@ -262,12 +247,8 @@ describe('employee PLUS permissions', () => {
     cy.server()
     cy.route('/bag/standplaats/*').as('getResults')
     cy.route('/bag/nummeraanduiding/*').as('getNummeraanduiding')
-    cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as(
-      'getMonument',
-    )
-    cy.route('/handelsregister/vestiging/?nummeraanduiding=*').as(
-      'getVestigingen',
-    )
+    cy.route('/monumenten/situeringen/?betreft_nummeraanduiding=*').as('getMonument')
+    cy.route('/handelsregister/vestiging/?nummeraanduiding=*').as('getVestigingen')
 
     cy.visit(urls.standplaats)
 
@@ -283,9 +264,7 @@ describe('employee PLUS permissions', () => {
   it('7F. Should allow a plus employee to view "vestiging"', () => {
     cy.server()
     cy.route('/handelsregister/vestiging/*').as('getVestiging')
-    cy.route('/handelsregister/maatschappelijkeactiviteit/*').as(
-      'getMaatschappelijkeActiviteit',
-    )
+    cy.route('/handelsregister/maatschappelijkeactiviteit/*').as('getMaatschappelijkeActiviteit')
 
     cy.visit(urls.vestiging)
 
@@ -303,13 +282,9 @@ describe('employee PLUS permissions', () => {
 
   it('7G. Should allow a plus employee to view "maatschappelijke activiteit"', () => {
     cy.server()
-    cy.route('/handelsregister/maatschappelijkeactiviteit/*').as(
-      'getMaatschappelijkeActiviteit',
-    )
+    cy.route('/handelsregister/maatschappelijkeactiviteit/*').as('getMaatschappelijkeActiviteit')
     cy.route('/handelsregister/persoon/*').as('getPersoon')
-    cy.route('/handelsregister/vestiging/?maatschappelijke_activiteit=*').as(
-      'getVestigingen',
-    )
+    cy.route('/handelsregister/vestiging/?maatschappelijke_activiteit=*').as('getVestigingen')
     cy.route('/handelsregister/functievervulling/?heeft_aansprakelijke=*').as(
       'getFunctievervullingen',
     )
@@ -322,9 +297,7 @@ describe('employee PLUS permissions', () => {
     cy.wait('@getFunctievervullingen')
     cy.get(queries.headerTitle).contains(values.maatschappelijkeActiviteitName)
     cy.get(queries.warningPanel).should('not.exist')
-    cy.get(queries.keyValueList).contains(
-      values.maatschappelijkeActiviteitVestigingName,
-    )
+    cy.get(queries.keyValueList).contains(values.maatschappelijkeActiviteitVestigingName)
   })
 
   it('8A. Should show a plus employee all information in "monument"', () => {
@@ -338,9 +311,7 @@ describe('employee PLUS permissions', () => {
     cy.wait('@getMonument')
     cy.wait('@getComplex')
     cy.wait('@getSitueringen')
-    cy.get(queries.headerTitle).contains(
-      'Museumtuin met hekwerken en bouwfragmenten',
-    )
+    cy.get(queries.headerTitle).contains('Museumtuin met hekwerken en bouwfragmenten')
     cy.get(queries.warningPanel).should('not.exist')
     cy.get(queries.keyValueList).contains(values.redengevendeOmschrijving)
     cy.get('.qa-toggle-fullscreen').click()

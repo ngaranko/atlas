@@ -75,10 +75,7 @@ describe('Api service', () => {
 
   describe('createUrlWithToken', () => {
     it('should create an url with authorization token', () => {
-      const result = createUrlWithToken(
-        'http://localhost?foo=data',
-        'token1234',
-      )
+      const result = createUrlWithToken('http://localhost?foo=data', 'token1234')
 
       expect(result).toEqual('http://localhost?foo=data&access_token=token1234')
     })

@@ -11,9 +11,7 @@ const MapDetailVestigingActiviteitenItem = ({ activities }) =>
         <ul className="map-detail-result__item-value map-detail-result__item-list">
           {activities.slice(0, maxDisplayValuesPerProperty).map(activity => (
             <li key={activity.sbiCode} className="map-detail-result__item-list-item">
-              {activity.sbiCode}
-:
-              {activity.sbiDescription}
+              {`${activity.sbiCode}: ${activity.sbiDescription}`}
             </li>
           ))}
         </ul>

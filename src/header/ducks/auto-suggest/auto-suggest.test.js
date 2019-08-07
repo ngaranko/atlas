@@ -1,7 +1,4 @@
-import reducer, {
-  getSuggestionsAction,
-  setActiveSuggestionAction,
-} from './auto-suggest'
+import reducer, { getSuggestionsAction, setActiveSuggestionAction } from './auto-suggest'
 import { routing } from '../../../app/routes'
 import {
   FETCH_SUGGESTIONS_FAILURE,

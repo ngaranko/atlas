@@ -36,11 +36,7 @@ describe('Data Selection Reducer', () => {
     ),
     ...getExpectations(actionCreators.setPage.name, ['page'], [1]),
     ...getExpectations(actionCreators.setDataset.name, ['dataset'], ['foobar']),
-    ...getExpectations(
-      actionCreators.fetchMarkersRequest.name,
-      ['loadingMarkers'],
-      [],
-    ),
+    ...getExpectations(actionCreators.fetchMarkersRequest.name, ['loadingMarkers'], []),
     ...getExpectations(
       actionCreators.fetchMarkersSuccess.name,
       ['loadingMarkers', 'markers'],
@@ -56,9 +52,7 @@ describe('Data Selection Reducer', () => {
       ['geometryFilter'],
       [[{ filter: 'foo' }]],
     ),
-    ...getExpectations(actionCreators.removeGeometryFilter.name, [
-      'geometryFilter',
-    ]),
+    ...getExpectations(actionCreators.removeGeometryFilter.name, ['geometryFilter']),
     ...getExpectations(actionCreators.startDrawing.name, ['']),
     ...getExpectations(actionCreators.endDataSelection.name, ['']),
     ...getExpectations(actionCreators.cancelDrawing.name, ['']),
@@ -77,9 +71,7 @@ describe('Data Selection Reducer', () => {
   }
 
   Object.keys(actionCreators).forEach(actionCreator => {
-    const { payload, expectedKeysToChange, initialState = {} } = expectations[
-      actionCreator
-    ]
+    const { payload, expectedKeysToChange, initialState = {} } = expectations[actionCreator]
     it(`should set ${expectedKeysToChange.join(
       ', ',
     )} state when dispatching ${actionCreator}`, () => {

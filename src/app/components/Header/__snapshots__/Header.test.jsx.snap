@@ -10,30 +10,7 @@ exports[`Header should render the embed header 1`] = `
     <div
       className="o-max-width__inner"
     >
-      <div
-        className="qa-dashboard__embed-header"
-      >
-        <AngularWrapper
-          bindings={
-            Object {
-              "closeAction": Object {
-                "meta": Object {
-                  "tracking": true,
-                },
-                "type": "ui/HIDE_EMBED_PREVIEW",
-              },
-            }
-          }
-          component="dpEmbedHeader"
-          dependencies={
-            Array [
-              "atlas",
-            ]
-          }
-          interpolateBindings={Object {}}
-          moduleName="dpHeaderWrapper"
-        />
-      </div>
+      <EmbedHeader />
     </div>
   </div>
 </div>
@@ -42,47 +19,22 @@ exports[`Header should render the embed header 1`] = `
 exports[`Header should render the main header 1`] = `
 <section
   className="styled-header"
+  data-test="header"
 >
   <Header
-    css={
-      Array [
-        "
-  ",
-        ".sc-cvbbAY",
-        " {
-    @media screen and ",
-        "(min-width: 768.02px)",
-        " {
-      justify-content: space-between;
-    }
-
-    fieldset > ",
-        ".sc-jDwBTQ",
-        " {
-      flex-grow: 1;
-      max-width: 80%;
-
-      ",
-        ".sc-jAaTju",
-        " {
-        flex-grow: 0;
-        width: 100%;
-      }
-    }
-  }
-",
-      ]
-    }
+    css={[Function]}
     fullWidth={false}
     homeLink="/"
     navigation={
       <React.Fragment>
         <Connect(HeaderSearch) />
         <MenuDefault
+          data-test="header-menu-default"
           onExpand={[Function]}
           showAt="laptopM"
         />
         <MenuMobile
+          data-test="header-menu-mobile"
           hideAt="laptopM"
           onExpand={[Function]}
         />
@@ -104,30 +56,7 @@ exports[`Header should render the print header 1`] = `
     <div
       className="o-max-width__inner"
     >
-      <div
-        className="qa-dashboard__print-header"
-      >
-        <AngularWrapper
-          bindings={
-            Object {
-              "closeAction": Object {
-                "meta": Object {
-                  "tracking": true,
-                },
-                "type": "ui/HIDE_PRINT",
-              },
-            }
-          }
-          component="dpPrintHeader"
-          dependencies={
-            Array [
-              "atlas",
-            ]
-          }
-          interpolateBindings={Object {}}
-          moduleName="dpHeaderWrapper"
-        />
-      </div>
+      <PrintHeader />
     </div>
   </div>
 </div>

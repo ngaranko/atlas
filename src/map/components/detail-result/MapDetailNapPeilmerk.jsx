@@ -19,7 +19,7 @@ const MapDetailNapPeilmerk = ({ panoUrl, peilmerk, onMaximize, onPanoPreviewClic
         label="Hoogte NAP"
         value={peilmerk.height || peilmerk.height === 0 ? `${formatNumber(peilmerk.height)} m` : ''}
       />
-      <MapDetailResultItem label="Omschrijving" value={peilmerk.description} />
+      <MapDetailResultItem hasMultiline label="Omschrijving" value={peilmerk.description} />
       <MapDetailResultItem label="Windrichting" value={peilmerk.windDirection} />
       {peilmerk.wallCoordinates && (
         <MapDetailResultItem

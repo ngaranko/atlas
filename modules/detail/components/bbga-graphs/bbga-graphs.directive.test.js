@@ -14,13 +14,7 @@ describe('The dp-bbga-graphs directive', function() {
       })
     })
 
-    angular.mock.inject(function(
-      _$compile_,
-      _$rootScope_,
-      _$q_,
-      _BBGA_,
-      _bbgaDataService_,
-    ) {
+    angular.mock.inject(function(_$compile_, _$rootScope_, _$q_, _BBGA_, _bbgaDataService_) {
       $compile = _$compile_
       $rootScope = _$rootScope_
       $q = _$q_
@@ -77,10 +71,7 @@ describe('The dp-bbga-graphs directive', function() {
       personenDomElement,
       'fakePersonenData',
     )
-    expect(fakeBbgaHuizenGraph.create).toHaveBeenCalledWith(
-      huizenDomElement,
-      'fakeHuizenData',
-    )
+    expect(fakeBbgaHuizenGraph.create).toHaveBeenCalledWith(huizenDomElement, 'fakeHuizenData')
   })
 
   it('retrieves data for each visualisation based on the gebied-heading and gebied-code', function() {

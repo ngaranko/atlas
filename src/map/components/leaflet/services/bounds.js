@@ -1,7 +1,6 @@
 import { latLngBounds } from 'leaflet'
 
-export const isValidBounds = bounds =>
-  bounds.isValid ? bounds.isValid() : false
+export const isValidBounds = bounds => (bounds.isValid ? bounds.isValid() : false)
 
 export const getBounds = element => {
   // if activeElement is a shape
@@ -19,10 +18,7 @@ export const getBounds = element => {
   return {}
 }
 
-export const isBoundsAPoint = bounds =>
-  bounds.getNorthEast().equals(bounds.getSouthWest())
+export const isBoundsAPoint = bounds => bounds.getNorthEast().equals(bounds.getSouthWest())
 
 export const boundsToString = elementBounds =>
-  elementBounds.toBBoxString
-    ? elementBounds.toBBoxString()
-    : elementBounds.toString()
+  elementBounds.toBBoxString ? elementBounds.toBBoxString() : elementBounds.toString()

@@ -1,12 +1,5 @@
-import {
-  getUserScopes,
-  userIsAuthenticated,
-} from '../../../shared/ducks/user/user'
-import {
-  isEmbedded,
-  isEmbedPreview,
-  isPrintMode,
-} from '../../../shared/ducks/ui/ui'
+import { getUserScopes, userIsAuthenticated } from '../../../shared/ducks/user/user'
+import { isEmbedded, isEmbedPreview, isPrintMode } from '../../../shared/ducks/ui/ui'
 
 const CONSTANTS = {
   DIMENSION3: {
@@ -44,11 +37,8 @@ export const authCustomDimensions = state => {
 
 export const viewCustomDimensions = (query = {}, state) => {
   const embedView =
-    !!query.embed || isEmbedded(state) || isEmbedPreview(state)
-      ? CONSTANTS.DIMENSION5.EMBED
-      : false
-  const printView =
-    !!query.print || isPrintMode(state) ? CONSTANTS.DIMENSION5.PRINT : false
+    !!query.embed || isEmbedded(state) || isEmbedPreview(state) ? CONSTANTS.DIMENSION5.EMBED : false
+  const printView = !!query.print || isPrintMode(state) ? CONSTANTS.DIMENSION5.PRINT : false
 
   return [
     { id: CONSTANTS.DIMENSION5.ID, value: embedView || printView }, // customDimension = 'Version'

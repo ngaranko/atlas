@@ -1,12 +1,7 @@
 import get from 'lodash.get'
 import { call, put, select, takeLatest, take, race } from 'redux-saga/effects'
 import { query } from '../../services/data-selection/data-selection-api'
-import {
-  ADD_FILTER,
-  EMPTY_FILTERS,
-  getFilters,
-  REMOVE_FILTER,
-} from '../../ducks/filters/filters'
+import { ADD_FILTER, EMPTY_FILTERS, getFilters, REMOVE_FILTER } from '../../ducks/filters/filters'
 import {
   DEFAULT_DATASET,
   DEFAULT_VIEW,
@@ -33,10 +28,7 @@ import { waitForAuthentication } from '../user/user'
 import { fetchDetailSuccess } from '../../ducks/detail/actions'
 import formatDetailData from '../../../detail/services/data-formatter/data-formatter'
 import { getUserScopes } from '../../ducks/user/user'
-import {
-  getParts,
-  getTemplateUrl,
-} from '../../../detail/services/endpoint-parser/endpoint-parser'
+import { getParts, getTemplateUrl } from '../../../detail/services/endpoint-parser/endpoint-parser'
 import { getByUrl } from '../../services/api/api'
 import SHARED_CONFIG from '../../services/shared-config/shared-config'
 import { toNotFoundPage } from '../../../store/redux-first-router/actions'
@@ -47,20 +39,11 @@ export function* ensureCatalogFilters() {
   if (Object.keys(catalogFilters || {}).length > 0) return
 
   yield put(fetchApiSpecificationRequest())
-  yield race([
-    take(FETCH_API_SPECIFICATION_SUCCESS),
-    take(FETCH_API_SPECIFICATION_FAILURE),
-  ])
+  yield race([take(FETCH_API_SPECIFICATION_SUCCESS), take(FETCH_API_SPECIFICATION_FAILURE)])
 }
 
 export function* retrieveDatasets(action) {
-  const {
-    activeFilters,
-    page,
-    searchText,
-    geometryFilter,
-    catalogFilters,
-  } = action.payload
+  const { activeFilters, page, searchText, geometryFilter, catalogFilters } = action.payload
   try {
     const result = yield call(
       query,
@@ -123,8 +106,7 @@ export function* fetchDatasetsEffect(action) {
   const activeFilters = getFilters(state)
   const catalogFilters = getApiSpecificationData(state)
   const page = getPage(state)
-  const searchText =
-    get(action, `meta.query[${PARAMETERS.QUERY}]`) || getSearchQuery(state)
+  const searchText = get(action, `meta.query[${PARAMETERS.QUERY}]`) || getSearchQuery(state)
   yield put(
     fetchDatasets({
       activeFilters,
@@ -164,10 +146,7 @@ export function* retrieveApiSpecification() {
 }
 
 export default function* watchFetchDatasets() {
-  yield takeLatest(
-    [ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS, SET_PAGE],
-    fetchDatasetsEffect,
-  )
+  yield takeLatest([ADD_FILTER, REMOVE_FILTER, EMPTY_FILTERS, SET_PAGE], fetchDatasetsEffect)
 
   yield takeLatest(FETCH_API_SPECIFICATION_REQUEST, retrieveApiSpecification)
   yield takeLatest(FETCH_DATASETS_REQUEST, retrieveDatasets)

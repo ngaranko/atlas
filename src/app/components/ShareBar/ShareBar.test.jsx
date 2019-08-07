@@ -12,7 +12,9 @@ describe('ShareBar', () => {
   }
 
   const store = configureMockStore()({})
-  const component = shallow(<ShareBar {...props} />, { context: { store } }).dive()
+  const component = shallow(<ShareBar {...props} />, {
+    context: { store },
+  }).dive()
 
   sharePage.mockImplementation(() => ({ type: 'action' }))
   showPrintMode.mockImplementation(() => ({ type: 'action' }))

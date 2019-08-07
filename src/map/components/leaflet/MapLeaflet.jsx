@@ -1,6 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactResizeDetector from 'react-resize-detector';
+import ReactResizeDetector from 'react-resize-detector'
+import 'leaflet' // Required to define window.L before leaflet plugins are imported
+import 'leaflet.markercluster'
+import 'leaflet-draw'
+import 'leaflet-rotatedmarker'
 import { GeoJSON, Map, ScaleControl, TileLayer, ZoomControl } from 'react-leaflet'
 
 import CustomMarker from './custom/marker/CustomMarker'
@@ -15,6 +19,12 @@ import LoadingIndicator from '../loading-indicator/LoadingIndicator'
 import { DEFAULT_LAT, DEFAULT_LNG } from '../../ducks/map/constants'
 import RdGeoJson from './custom/geo-json/RdGeoJson'
 import mapLayerTypes from '../../services/map-layers/map-layer-types.config'
+
+const isIE = false || !!window.document.documentMode
+if (isIE) {
+  // This solves inconsistency in the leaflet draw for IE11
+  window.L.Browser.touch = false
+}
 
 const visibleToOpacity = isVisible => (isVisible ? 100 : 0)
 
@@ -197,7 +207,9 @@ class MapLeaflet extends React.Component {
     }
 
     return (
-      <ReactResizeDetector handleWidth handleHeigh
+      <ReactResizeDetector
+        handleWidth
+        handleHeigh
         style={{
           bottom: '0',
           left: '0',

@@ -37,8 +37,6 @@ const yieldOnFirstAction = sideEffect =>
 
 export default function* routeSaga() {
   yield all(
-    routeSagaMapping.map(([route, effect]) =>
-      takeEvery([route], yieldOnFirstAction(effect)),
-    ),
+    routeSagaMapping.map(([route, effect]) => takeEvery([route], yieldOnFirstAction(effect))),
   )
 }

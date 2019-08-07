@@ -114,8 +114,7 @@ describe('The dp-meetbout-graph directive', () => {
     describe('append Svg and g element to create the space for the graph', () => {
       it('should have added a svg to the page', () => {
         const directive = getGraphDirective(
-          'https://api.data.amsterdam.nl' +
-            '/meetbouten/meting/?meetbout=10581097',
+          'https://api.data.amsterdam.nl' + '/meetbouten/meting/?meetbout=10581097',
           3,
         )
         const svgContainer = directive.find('svg')
@@ -128,8 +127,7 @@ describe('The dp-meetbout-graph directive', () => {
 
       it('should have added a g element for whitespace to the svg', () => {
         const directive = getGraphDirective(
-          'https://api.data.amsterdam.nl' +
-            '/meetbouten/meting/?meetbout=10581097',
+          'https://api.data.amsterdam.nl' + '/meetbouten/meting/?meetbout=10581097',
           3,
         )
         const gContainer = directive.find('svg > g')
@@ -142,13 +140,10 @@ describe('The dp-meetbout-graph directive', () => {
     describe('background as', () => {
       it('should have appended a background to the svg g:transform element ', () => {
         const directive = getGraphDirective(
-          'https://api.data.amsterdam.nl' +
-            '/meetbouten/meting/?meetbout=10581097',
+          'https://api.data.amsterdam.nl' + '/meetbouten/meting/?meetbout=10581097',
           3,
         )
-        const background = directive.find(
-          'svg > g > g.c-meetbout__background rect',
-        )
+        const background = directive.find('svg > g > g.c-meetbout__background rect')
 
         expect(background).toExist()
         expect(background.attr('width')).toBe('655')
@@ -159,8 +154,7 @@ describe('The dp-meetbout-graph directive', () => {
     describe('x as', () => {
       it('should have appended a x axis to the svg g:transform element ', () => {
         const directive = getGraphDirective(
-          'https://api.data.amsterdam.nl' +
-            '/meetbouten/meting/?meetbout=10581097',
+          'https://api.data.amsterdam.nl' + '/meetbouten/meting/?meetbout=10581097',
           3,
         )
         const xAs = directive.find('svg > g > g.c-meetbout__axis-x')
@@ -179,16 +173,13 @@ describe('The dp-meetbout-graph directive', () => {
     describe('y as links zakking cumulatief', () => {
       it('should have appended a y axis for zakking cumulatief to the svg g:transform element ', () => {
         const directive = getGraphDirective(
-          'https://api.data.amsterdam.nl' +
-            '/meetbouten/meting/?meetbout=10581097',
+          'https://api.data.amsterdam.nl' + '/meetbouten/meting/?meetbout=10581097',
           3,
         )
         const yZakkingCum = directive.find('svg > g > g.c-meetbout__axis-y')
 
         expect(yZakkingCum).toExist()
-        expect(yZakkingCum.attr('class')).toBe(
-          'c-meetbout__axis c-meetbout__axis-y',
-        )
+        expect(yZakkingCum.attr('class')).toBe('c-meetbout__axis c-meetbout__axis-y')
         expect(yZakkingCum.attr('transform')).toBeUndefined()
 
         expect(yZakkingCum.find('.tick line').length).toBe(8)
@@ -199,16 +190,13 @@ describe('The dp-meetbout-graph directive', () => {
     describe('lijn voor grafiek zakking cumulatief', () => {
       it('should plot a line to represent the zakking cumulatief of the meetbout', () => {
         const directive = getGraphDirective(
-          'https://api.data.amsterdam.nl' +
-            '/meetbouten/meting/?meetbout=10581097',
+          'https://api.data.amsterdam.nl' + '/meetbouten/meting/?meetbout=10581097',
           3,
         )
         const line = directive.find('svg > g > path.c-meetbout__line')
 
         expect(line).toExist()
-        expect(line.attr('class')).toBe(
-          'c-meetbout__line c-meetbout__line--zakking-cum',
-        )
+        expect(line.attr('class')).toBe('c-meetbout__line c-meetbout__line--zakking-cum')
         expect(line.attr('transform')).toBeUndefined()
       })
     })

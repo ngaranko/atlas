@@ -2,17 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Divider,
-  IconButton,
+  Button,
   ListItem,
   Modal,
   TopBar,
   Heading,
   Paragraph,
 } from '@datapunt/asc-ui/lib/index'
-import { ReactComponent as Close } from '@datapunt/asc-assets/lib/Icons/Close.svg'
-import withModalBehaviour, {
-  propTypes as modalPropTypes,
-} from './withModalBehaviour'
+import { Close } from '@datapunt/asc-assets'
+import withModalBehaviour, { propTypes as modalPropTypes } from './withModalBehaviour'
 import './InfoModal.scss'
 
 const InfoModal = ({ open, handleClose, title, body }) => (
@@ -26,17 +24,12 @@ const InfoModal = ({ open, handleClose, title, body }) => (
     <TopBar>
       <Heading style={{ flexGrow: 1 }} as="h4">
         {title}
-        <IconButton onClick={handleClose}>
-          <Close />
-        </IconButton>
+        <Button variant="blank" type="button" onClick={handleClose} icon={<Close />} />
       </Heading>
     </TopBar>
     <Divider />
     <ListItem>
-      <Paragraph
-        className="infomodal__body"
-        dangerouslySetInnerHTML={{ __html: body }}
-      />
+      <Paragraph className="infomodal__body" dangerouslySetInnerHTML={{ __html: body }} />
     </ListItem>
   </Modal>
 )

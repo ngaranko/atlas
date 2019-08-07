@@ -5,10 +5,7 @@ let nrOfRoutesDispatched = 0
 
 const addMetaToRoutesMiddleware = ({ getState }) => next => action => {
   if (paramsRegistry.isRouterType(action)) {
-    if (
-      getState().location.type !== action.type ||
-      get(action, 'meta.location.kind') === 'pop'
-    ) {
+    if (getState().location.type !== action.type || get(action, 'meta.location.kind') === 'pop') {
       nrOfRoutesDispatched = 0
     }
 

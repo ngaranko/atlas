@@ -42,9 +42,7 @@ describe('The dp-wkpb-link directive', function() {
     expect(component.find('dp-redux-link').attr('to')).toBe(
       'vm.wkpbEndpoint | detailEndpointAction',
     )
-    expect(scope.vm.wkpbEndpoint).toBe(
-      'http://www.amsterdam.com/brk/object-wkpb/abc789/',
-    )
+    expect(scope.vm.wkpbEndpoint).toBe('http://www.amsterdam.com/brk/object-wkpb/abc789/')
   })
 
   it('is spelled WKPB-uittreksel', function() {

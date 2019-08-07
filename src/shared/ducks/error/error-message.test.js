@@ -37,8 +37,6 @@ describe('The error message reducer', () => {
   })
 
   it('should return if the global state has errors', () => {
-    expect(hasGlobalError({ error: initialState })).toEqual(
-      initialState.hasErrors,
-    )
+    expect(hasGlobalError({ error: initialState })).toEqual(initialState.hasErrors)
   })
 })

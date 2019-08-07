@@ -21,9 +21,7 @@ export default function getShareUrl(target, window) {
       }
     case SHARE_OPTIONS.EMAIL:
       return {
-        url: `mailto:?subject=Gemaild vanaf data.amsterdam.nl&body=Zie: ${escape(
-          href,
-        )}`,
+        url: `mailto:?subject=Gemaild vanaf data.amsterdam.nl&body=Zie: ${escape(href)}`,
         target: '_self',
       }
     default:

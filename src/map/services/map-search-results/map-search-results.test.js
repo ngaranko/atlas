@@ -1,12 +1,5 @@
-import {
-  sortByCategoryTypeOrder,
-  createMapSearchResultsModel,
-} from './map-search-results'
-import {
-  basicSortDataModel,
-  basicDataModel,
-  expectedDataModel,
-} from './map-search-results.fixture'
+import { sortByCategoryTypeOrder, createMapSearchResultsModel } from './map-search-results'
+import { basicSortDataModel, basicDataModel, expectedDataModel } from './map-search-results.fixture'
 
 describe('Map search results', () => {
   describe('sortByCategoryTypeOrder', () => {
@@ -15,10 +8,7 @@ describe('Map search results', () => {
       const calculatedOrder = items.reduce(
         (accumulator, newValue) =>
           // eslint-disable-line
-          [
-            ...accumulator,
-            basicSortDataModel.findIndex(item => item.type === newValue.type),
-          ],
+          [...accumulator, basicSortDataModel.findIndex(item => item.type === newValue.type)],
         [],
       )
       expect(calculatedOrder).toEqual([2, 0, 1])
@@ -31,9 +21,7 @@ describe('Map search results', () => {
     })
 
     it('should generate the desired datamodel', () => {
-      expect(createMapSearchResultsModel(basicDataModel)).toEqual(
-        expectedDataModel,
-      )
+      expect(createMapSearchResultsModel(basicDataModel)).toEqual(expectedDataModel)
     })
   })
 })

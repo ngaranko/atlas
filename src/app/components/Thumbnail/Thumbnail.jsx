@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './Thumbnail.scss';
+import React from 'react'
+import PropTypes from 'prop-types'
+import './Thumbnail.scss'
 
 const Thumbnail = ({ src, title }) => (
   <figure className="thumbnail">
@@ -9,11 +9,11 @@ const Thumbnail = ({ src, title }) => (
       <span className="viewer-controls__meta__item">{title}</span>
     </figcaption>
   </figure>
-);
+)
 
 Thumbnail.propTypes = {
   src: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
-};
+  title: PropTypes.string.isRequired,
+}
 
-export default Thumbnail;
+export default Thumbnail

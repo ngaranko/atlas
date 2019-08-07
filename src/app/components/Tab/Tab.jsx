@@ -5,28 +5,12 @@ const Tab = ({ label, count, onClick, isCurrentTab }) => (
   <li key={label} className={isCurrentTab ? 'is-active' : ''}>
     {!isCurrentTab && (
       <button type="button" onClick={onClick} className="o-tabs__tab o-tabs__tab--link">
-        {label} 
-        {' '}
-        {count !== null && (
-        <span>
-(
-          {count}
-)
-        </span>
-)}
+        {label} {count !== null && <span>({count})</span>}
       </button>
     )}
     {isCurrentTab && (
       <span className="qa-tab-header__active o-tabs__tab o-tabs__tab--active">
-        {label} 
-        {' '}
-        {count !== null && (
-        <span>
-(
-          {count}
-)
-        </span>
-)}
+        {label} {count !== null && <span>({count})</span>}
       </span>
     )}
   </li>

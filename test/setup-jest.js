@@ -17,10 +17,15 @@ global.L = L
 // Mock the window.fetch function
 global.fetch = require('jest-fetch-mock')
 
-// Fail tests on any warning
-// this seems to swallow up important info on errors, making it harder to debug failing tests
-// so we have to keep an eye on it
-console.error = message => {
+// TODO DP-7140 Remove when we upgrade to React >= 16.9
+const originalConsoleError = message => {
   // eslint-disable-line
   throw new Error(message) // eslint-disable-line
+}
+
+console.error = (...args) => {
+  if (/Warning.*not wrapped in act/.test(args[0])) {
+    return
+  }
+  originalConsoleError(...args)
 }

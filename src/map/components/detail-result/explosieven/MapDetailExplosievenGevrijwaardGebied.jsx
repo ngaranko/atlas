@@ -21,7 +21,7 @@ const MapDetailExplosievenGevrijwaardGebied = ({
       <MapDetailResultDateItem label="Datum rapport" date={gevrijwaardGebied.date} />
       <MapDetailResultItem label="Soort handeling" value={gevrijwaardGebied.type} />
       <MapDetailResultItem label="Bron" value={gevrijwaardGebied.source} />
-      <MapDetailResultItem label="Opmerkingen" value={gevrijwaardGebied.remarks} />
+      <MapDetailResultItem hasMultiline label="Opmerkingen" value={gevrijwaardGebied.remarks} />
     </ul>
   </MapDetailResultWrapper>
 )

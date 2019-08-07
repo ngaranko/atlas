@@ -15,10 +15,7 @@ import {
 } from './selectors'
 import { getGeoJson as getDetailGeoJson } from '../detail/selectors'
 import { getPanoramaLocation } from '../../../panorama/ducks/selectors'
-import {
-  getSelectionType,
-  SELECTION_TYPE,
-} from '../../../shared/ducks/selection/selection'
+import { getSelectionType, SELECTION_TYPE } from '../../../shared/ducks/selection/selection'
 import { areMarkersLoading } from '../../../shared/ducks/data-selection/selectors'
 
 jest.mock('../../../shared/ducks/selection/selection')

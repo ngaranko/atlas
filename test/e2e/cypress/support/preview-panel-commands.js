@@ -9,15 +9,13 @@ Cypress.Commands.add('checkPreviewPanel', expectedValues => {
     .get('img.map-detail-result__header-pano')
     .should('exist')
     .and('be.visible')
-  cy.get('.map-preview-panel.map-preview-panel--visible').should(
-    actualValues => {
-      if (Array.isArray(expectedValues)) {
-        expectedValues.forEach(expectedValue => {
-          expect(actualValues).to.contain(expectedValue)
-        })
-      } else {
-        expect(actualValues).to.contain(expectedValues)
-      }
-    },
-  )
+  cy.get('.map-preview-panel.map-preview-panel--visible').should(actualValues => {
+    if (Array.isArray(expectedValues)) {
+      expectedValues.forEach(expectedValue => {
+        expect(actualValues).to.contain(expectedValue)
+      })
+    } else {
+      expect(actualValues).to.contain(expectedValues)
+    }
+  })
 })

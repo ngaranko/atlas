@@ -52,13 +52,7 @@ describe('The dp-data-selection-download-button component', function() {
 
     dataSelectionConfig.default = config
 
-    angular.mock.inject(function(
-      _$compile_,
-      _$q_,
-      _$rootScope_,
-      _store_,
-      _api_,
-    ) {
+    angular.mock.inject(function(_$compile_, _$q_, _$rootScope_, _store_, _api_) {
       $compile = _$compile_
       $q = _$q_
       $rootScope = _$rootScope_
@@ -93,9 +87,7 @@ describe('The dp-data-selection-download-button component', function() {
   it('will generate a download link for the current dataset', function() {
     const component = getComponent('dataset_a', {})
 
-    expect(component.find('a').attr('href')).toBe(
-      'http://www.example.com/datasets/a/download/',
-    )
+    expect(component.find('a').attr('href')).toBe('http://www.example.com/datasets/a/download/')
   })
 
   it('will filters as parameters to the download link', function() {
@@ -132,12 +124,8 @@ describe('The dp-data-selection-download-button component', function() {
       'http://www.example.com/datasets/a/download/?filter_a=%C3%A4%C3%A9%C3%AB&' +
         'filter_b=Waarde%20met%20spaties',
     )
-    expect(component.find('a').attr('href')).toContain(
-      'filter_a=%C3%A4%C3%A9%C3%AB',
-    )
-    expect(component.find('a').attr('href')).toContain(
-      'filter_b=Waarde%20met%20spaties',
-    )
+    expect(component.find('a').attr('href')).toContain('filter_a=%C3%A4%C3%A9%C3%AB')
+    expect(component.find('a').attr('href')).toContain('filter_b=Waarde%20met%20spaties')
   })
 
   it('updates the download URL when the dataset or activeFilters change', () => {

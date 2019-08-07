@@ -8,10 +8,7 @@ import watchFetchMapPanelLayers from './map/sagas/map-panel-layers'
 import watchFetchMapDetail from './map/sagas/detail'
 import watchMapClick from './map/sagas/map-click'
 import watchFetchNearestDetails from './map/sagas/nearest-details'
-import {
-  watchClosePanorama,
-  watchFetchPanorama,
-} from './panorama/sagas/panorama'
+import { watchClosePanorama, watchFetchPanorama } from './panorama/sagas/panorama'
 import watchFetchDataSelection from './shared/sagas/data-selection/data-selection'
 import watchFetchDatasets from './shared/sagas/dataset/dataset'
 import watchAuthenticationRequest from './shared/sagas/user/user'

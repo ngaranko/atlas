@@ -1,17 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { ReactComponent as ChevronDown } from '@datapunt/asc-assets/lib/Icons/ChevronDown.svg';
-import { ContextMenu, ContextMenuItem, Icon } from '@datapunt/asc-ui';
-import { ReactComponent as Ellipsis } from '@datapunt/asc-assets/lib/Icons/Ellipsis.svg';
-import { ReactComponent as Print } from '@datapunt/asc-assets/lib/Icons/Print.svg';
-import { ReactComponent as Download } from '@datapunt/asc-assets/lib/Icons/Download.svg';
-import socialItems from '../socialItems';
-import { sharePage, showPrintMode } from '../../../../shared/ducks/ui/ui';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { ChevronDown, Ellipsis, Print, Download } from '@datapunt/asc-assets'
+import { ContextMenu, ContextMenuItem, Icon } from '@datapunt/asc-ui'
+import socialItems from '../socialItems'
+import { sharePage, showPrintMode } from '../../../../shared/ducks/ui/ui'
 
 const ConstructionFiles = ({ openSharePage, fileName, openPrintMode, onDownload }) => (
   <ContextMenu
+    data-test="context-menu"
     tabindex={0}
     alt="Actiemenu"
     arrowIcon={<ChevronDown />}
@@ -40,7 +38,7 @@ const ConstructionFiles = ({ openSharePage, fileName, openPrintMode, onDownload 
       target="_blank"
       href={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${fileName}/full/800,/0/default.jpg`}
       onClick={() => {
-        onDownload('klein');
+        onDownload('klein')
       }}
       icon={
         <Icon inline size={24} padding={4}>
@@ -57,7 +55,7 @@ const ConstructionFiles = ({ openSharePage, fileName, openPrintMode, onDownload 
       target="_blank"
       href={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${fileName}/full/1600,/0/default.jpg`}
       onClick={() => {
-        onDownload('groot');
+        onDownload('groot')
       }}
       icon={
         <Icon inline size={24} padding={4}>
@@ -75,7 +73,7 @@ const ConstructionFiles = ({ openSharePage, fileName, openPrintMode, onDownload 
       href={`https://acc.images.data.amsterdam.nl/iiif/2/edepot:${fileName}/full/full/0/default.jpg`}
       divider
       onClick={() => {
-        onDownload('origineel');
+        onDownload('origineel')
       }}
       icon={
         <Icon inline size={24} padding={4}>
@@ -87,18 +85,25 @@ const ConstructionFiles = ({ openSharePage, fileName, openPrintMode, onDownload 
     </ContextMenuItem>
     {socialItems(openSharePage)}
   </ContextMenu>
-);
+)
 
 ConstructionFiles.propTypes = {
   openSharePage: PropTypes.func.isRequired,
   openPrintMode: PropTypes.func.isRequired,
   onDownload: PropTypes.func.isRequired,
-  fileName: PropTypes.string.isRequired
-};
+  fileName: PropTypes.string.isRequired,
+}
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  openSharePage: sharePage,
-  openPrintMode: showPrintMode
-}, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      openSharePage: sharePage,
+      openPrintMode: showPrintMode,
+    },
+    dispatch,
+  )
 
-export default connect(null, mapDispatchToProps)(ConstructionFiles);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(ConstructionFiles)

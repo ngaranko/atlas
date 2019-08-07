@@ -41,9 +41,7 @@ export function loadMore(category) {
 
     output.slug = category.slug
     output.count = nextPageData.count
-    output.results = category.results.concat(
-      formatLinks(category.slug, nextPageData.results),
-    )
+    output.results = category.results.concat(formatLinks(category.slug, nextPageData.results))
 
     if (output.count > output.results.length) {
       output.next = nextPageData._links.next.href
@@ -83,10 +81,7 @@ export function getNumberOfResults(searchResults) {
       previous +
       current.count +
       (current.subResults
-        ? current.subResults.reduce(
-            (subPrevious, subCurrent) => subPrevious + subCurrent.count,
-            0,
-          )
+        ? current.subResults.reduce((subPrevious, subCurrent) => subPrevious + subCurrent.count, 0)
         : 0),
     0,
   )

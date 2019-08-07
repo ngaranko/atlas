@@ -20,10 +20,7 @@ function calculateHotspotPitch(height, distance) {
   Create hotspot element that will be placed in the hotspot container
 */
 function createHotspotTemplate(viewer, scene, view, hotspot, onClickHandler) {
-  const hotspotPitch = calculateHotspotPitch(
-    PANORAMA_CONFIG.CAMERA_HEIGHT,
-    hotspot.distance,
-  )
+  const hotspotPitch = calculateHotspotPitch(PANORAMA_CONFIG.CAMERA_HEIGHT, hotspot.distance)
 
   const realLifeHotspotSize = 0.6
   const minDistance = 4
@@ -34,10 +31,7 @@ function createHotspotTemplate(viewer, scene, view, hotspot, onClickHandler) {
     All hotspots are shown, the min- and maxDistance variables are only used to determine
     the minimum and maximum hotspot size.
   */
-  const correctedDistance = Math.min(
-    maxDistance,
-    Math.max(minDistance, hotspot.distance),
-  )
+  const correctedDistance = Math.min(maxDistance, Math.max(minDistance, hotspot.distance))
   const viewAngle = Math.atan(realLifeHotspotSize / correctedDistance)
 
   /*
@@ -49,9 +43,7 @@ function createHotspotTemplate(viewer, scene, view, hotspot, onClickHandler) {
   const offset = 5 / (maxDistance - correctedDistance + 1) + 8 // eslint-disable-line
   const angle = 90 - radiansToDegrees(hotspotPitch) - offset // eslint-disable-line
 
-  const size = Math.round(
-    (radiansToDegrees(viewAngle) * viewport) / PANORAMA_CONFIG.DEFAULT_FOV,
-  )
+  const size = Math.round((radiansToDegrees(viewAngle) * viewport) / PANORAMA_CONFIG.DEFAULT_FOV)
 
   /*
     Create hotspot element and render to static markup ReactdomElement
@@ -94,15 +86,7 @@ export function initialize(domElement) {
 /*
   Load the Marzipano viewer into its view components
 */
-export function loadScene(
-  viewer,
-  onClickHandler,
-  image,
-  heading,
-  pitch,
-  fov,
-  hotspots,
-) {
+export function loadScene(viewer, onClickHandler, image, heading, pitch, fov, hotspots) {
   const source = Marzipano.ImageUrlSource.fromString(image.pattern, {
     cubeMapPreviewUrl: image.preview,
   })
@@ -126,9 +110,7 @@ export function loadScene(
 
   hotspotsObject
     .sort((hotspotA, hotspotB) => hotspotB.distance - hotspotA.distance)
-    .forEach(hotspot =>
-      createHotspotTemplate(viewer, scene, view, hotspot, onClickHandler),
-    )
+    .forEach(hotspot => createHotspotTemplate(viewer, scene, view, hotspot, onClickHandler))
 
   view.setYaw(degreesToRadians(heading))
   view.setPitch(degreesToRadians(pitch))

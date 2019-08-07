@@ -17,10 +17,7 @@ import { routing } from '../../../../src/app/routes'
     const vm = this
 
     function onClick() {
-      sessionStorage.setItem(
-        'DCATD_DETAIL_REDIRECT_URL',
-        document.location.href,
-      )
+      sessionStorage.setItem('DCATD_DETAIL_REDIRECT_URL', document.location.href)
       sessionStorage.setItem(
         'DCATD_LIST_REDIRECT_URL',
         `${document.location.origin}${routing.datasets.path}`,

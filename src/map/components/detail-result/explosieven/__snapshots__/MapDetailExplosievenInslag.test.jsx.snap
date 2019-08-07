@@ -16,14 +16,17 @@ exports[`MapDetailExplosievenInslag should render everything 1`] = `
       label="Datum van inslag"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Soort handeling"
       value="Inslag type"
     />
     <MapDetailResultItem
+      hasMultiline={true}
       label="Bron"
       value="Inslag source"
     />
     <MapDetailResultItem
+      hasMultiline={false}
       label="Opmerkingen"
       value="Inslag remarks"
     />
