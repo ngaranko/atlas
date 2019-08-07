@@ -16,7 +16,7 @@ exports[`App should render the homepage 1`] = `
     <div
       className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
     >
-      <Header
+      <Connect(Header)
         embedPreviewMode={false}
         hasEmbedButton={false}
         hasMaxWidth={true}
@@ -55,7 +55,7 @@ exports[`App should render the mapview 1`] = `
     <div
       className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
     >
-      <Header
+      <Connect(Header)
         embedPreviewMode={false}
         hasEmbedButton={true}
         hasMaxWidth={true}

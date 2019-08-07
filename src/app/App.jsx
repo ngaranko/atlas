@@ -18,7 +18,7 @@ import {
 import { hasGlobalError } from '../shared/ducks/error/error-message'
 import { getUser } from '../shared/ducks/user/user'
 import { getPage, isHomepage } from '../store/redux-first-router/selectors'
-import Header from './components/Header/Header'
+import Header from './components/Header'
 import { AppStateProvider } from './utils/useAppReducer'
 import AppBody from './AppBody'
 import main, { initialState } from './react-reducers'
