@@ -14,7 +14,7 @@ import { FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/constants'
 import { getUser } from '../../../shared/ducks/user/user'
 import { waitForAuthentication } from '../../../shared/sagas/user/user'
 import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors'
-import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
+import { VIEW_MODE, setViewMode } from '../../../shared/ducks/ui/ui'
 import {
   clearMapDetail,
   fetchDetailFailure,
@@ -36,12 +36,17 @@ export function* fetchMapDetail() {
     yield put(clearMapDetail())
     const mapDetail = yield call(fetchDetail, endpoint, user)
     yield put(fetchMapDetailSuccess(endpoint, mapDetail || {}))
+    const geometry = getGeometry(mapDetail)
     yield put(
       showDetail({
         display: mapDetail._display,
-        geometry: getGeometry(mapDetail),
+        geometry,
       }),
     )
+    // When a detail doesn't have a geometry, it can only be displayed in VIEWMODE.FULL
+    if (!geometry) {
+      yield put(setViewMode(VIEW_MODE.FULL))
+    }
     yield put(mapLoadingAction(false))
 
     const detailData = yield call(getDetailData, endpoint, mapDetail)
