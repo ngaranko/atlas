@@ -51,9 +51,12 @@ const Header = ({
   hideEmbedMode,
 }) => {
   const [, actions] = useAppReducer('ui')
-  const setBackDrop = payload => {
+  const setBackDrop = open => {
     actions.setBackDrop({
-      payload,
+      payload: {
+        open,
+        key: 'menu',
+      },
     })
   }
 
