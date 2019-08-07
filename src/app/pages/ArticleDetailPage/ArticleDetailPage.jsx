@@ -68,10 +68,7 @@ const ArticleDetailPage = ({ id }) => {
               <Article
                 {...(coverImageUrl
                   ? {
-                      image:
-                        typeof coverImageUrl === 'string'
-                          ? `${SHARED_CONFIG.CMS_ROOT}${coverImageUrl}`
-                          : undefined,
+                      image: typeof coverImageUrl === 'string' ? coverImageUrl : undefined,
                     }
                   : {})}
               >

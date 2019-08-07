@@ -22,7 +22,7 @@ describe('useFromCMS', () => {
     window.location.replace = jest.fn()
 
     getByUrl.mockReturnValueOnce(Promise.resolve(mockData))
-    cmsNormalizer.mockReturnValueOnce(Promise.resolve([mockData]))
+    cmsNormalizer.mockReturnValueOnce(Promise.resolve({ data: [mockData] }))
   })
 
   afterEach(() => {
@@ -59,7 +59,7 @@ describe('useFromCMS', () => {
     await waitForNextUpdate()
 
     expect(result.current.loading).toBe(false)
-    expect(result.current.results).toEqual([mockData])
+    expect(result.current.results).toEqual({ data: [mockData] })
   })
 
   it('should return results when fetchData is called with an id', async () => {
@@ -67,6 +67,18 @@ describe('useFromCMS', () => {
 
     // call the fetchData function
     result.current.fetchData()
+
+    // wait until it resolves
+    await waitForNextUpdate()
+
+    expect(result.current.results).toEqual(mockData)
+  })
+
+  it('should return results when fetchData is called with an endpoint', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => useFromCMS(mockCMSconfig.TEST, id))
+
+    // call the fetchData function
+    result.current.fetchData('endpoint')
 
     // wait until it resolves
     await waitForNextUpdate()
