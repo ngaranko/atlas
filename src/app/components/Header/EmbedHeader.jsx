@@ -9,9 +9,9 @@ const EmbedHeader = ({ closeAction }) => {
     // Todo: figure out a better way to embed a map
     // (e.g. by only sharing locations / results instead of just any state of the map)
     // Now we need to check the URL of the iFrame, as this can change
-    const iframeObject = window.document.getElementById('atlas-iframe-map')
+    const iframeObject = document.getElementById('atlas-iframe-map')
     const setUrlFromIframe = () => {
-      if (iframe) {
+      if (iframeObject) {
         const {
           location: { href },
         } = iframeObject.contentWindow
