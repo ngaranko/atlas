@@ -80,6 +80,11 @@ $backdrop-color: rgba(0, 0, 0, .5);
     @media (min-width: 1201px) {
       top: 0; /* The "tall" header has a position relative, while the smaller header has a fixed position */
     }
+
+    &::before {
+      /* Makes sure the backdrop is at the correct distance from the top */
+      top: #{$dashboard-heading-height-homepage + $dashboard-toolbar-height + $dashboard-heading-shadow-height}
+    }
   }
 
   &--backdrop {
