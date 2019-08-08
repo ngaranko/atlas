@@ -3,7 +3,14 @@ import PropTypes from 'prop-types'
 import { SearchBar, SearchBarToggle } from '@datapunt/asc-ui'
 import { useAppReducer } from '../../../app/utils/useAppReducer'
 
-const Search = ({ searchBarProps, openSearchBarToggle, onOpenSearchBarToggle, inputProps }) => {
+const Search = ({
+  showSuggestions,
+  suggestions,
+  searchBarProps,
+  openSearchBarToggle,
+  onOpenSearchBarToggle,
+  inputProps,
+}) => {
   const [, actions] = useAppReducer('ui')
 
   const onOpenSearchToggle = open => {
@@ -16,6 +23,17 @@ const Search = ({ searchBarProps, openSearchBarToggle, onOpenSearchBarToggle, in
       },
     })
   }
+
+  const showBackdrop = !!(showSuggestions && suggestions.length)
+
+  React.useEffect(() => {
+    actions.setBackDrop({
+      payload: {
+        open: showBackdrop,
+        key: 'search',
+      },
+    })
+  }, [showBackdrop])
 
   return (
     <React.Fragment>
@@ -32,6 +50,8 @@ const Search = ({ searchBarProps, openSearchBarToggle, onOpenSearchBarToggle, in
 }
 
 Search.propTypes = {
+  showSuggestions: PropTypes.bool.isRequired,
+  suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   legendTitle: PropTypes.string.isRequired,
   searchBarProps: PropTypes.shape({}).isRequired,
   activeSuggestion: PropTypes.shape({}).isRequired,
