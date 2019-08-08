@@ -7,7 +7,7 @@ exports[`App should render the homepage 1`] = `
     initialState={
       Object {
         "ui": Object {
-          "nrOfBackdropTriggers": 0,
+          "backdropKeys": Array [],
         },
       }
     }
@@ -46,7 +46,7 @@ exports[`App should render the mapview 1`] = `
     initialState={
       Object {
         "ui": Object {
-          "nrOfBackdropTriggers": 0,
+          "backdropKeys": Array [],
         },
       }
     }
