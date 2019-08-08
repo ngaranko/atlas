@@ -52,12 +52,8 @@ const Search = ({
 Search.propTypes = {
   showSuggestions: PropTypes.bool.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  legendTitle: PropTypes.string.isRequired,
   searchBarProps: PropTypes.shape({}).isRequired,
-  activeSuggestion: PropTypes.shape({}).isRequired,
   inputProps: PropTypes.shape({}).isRequired,
-  highlightQuery: PropTypes.string.isRequired,
-  onSuggestionSelection: PropTypes.func.isRequired,
   onOpenSearchBarToggle: PropTypes.func.isRequired,
   openSearchBarToggle: PropTypes.bool.isRequired,
 }
