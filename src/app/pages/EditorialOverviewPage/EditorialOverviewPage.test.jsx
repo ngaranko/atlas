@@ -1,6 +1,5 @@
 import React from 'react'
 import { shallow /* mount */ } from 'enzyme'
-// import { ThemeProvider } from '@datapunt/asc-ui'
 import EditorialOverviewPage from './EditorialOverviewPage'
 import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
@@ -28,21 +27,4 @@ describe('EditorialOverviewPage', () => {
 
     expect(component.find('LoadingIndicator').exists()).toBeTruthy()
   })
-
-  // it('should call the fetchData function', () => {
-  //   useFromCMS.mockImplementation(() => ({
-  //     loading: false,
-  //     fetchData: fetchDataMock,
-  //   }))
-
-  //   const component = mount(
-  //     <ThemeProvider>
-  //       <EditorialOverviewPage type="ARTICLES" />
-  //     </ThemeProvider>,
-  //   )
-
-  //   expect(fetchDataMock).toHaveBeenCalled()
-
-  //   expect(component.find('Heading').props().children).toBe('Artikelen')
-  // })
 })

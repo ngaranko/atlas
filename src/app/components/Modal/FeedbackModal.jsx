@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {
   Button,
   Divider,
-  IconButton,
   ListItem,
   Modal,
   TopBar,
@@ -11,7 +10,7 @@ import {
   Paragraph,
   Link,
 } from '@datapunt/asc-ui/lib/index'
-import { ReactComponent as Close } from '@datapunt/asc-assets/lib/Icons/Close.svg'
+import { Close } from '@datapunt/asc-assets'
 import { routing } from '../../routes'
 import withModalBehaviour, { propTypes as modalPropTypes } from './withModalBehaviour'
 
@@ -52,23 +51,21 @@ const FeedbackModalComponent = ({
     blurredNodeSelector="#root"
   >
     <TopBar>
-      <Heading as="h3">
+      <Heading $as="h4">
         Feedback
-        <IconButton onClick={handleClose}>
-          <Close />
-        </IconButton>
+        <Button variant="blank" type="button" size={30} onClick={handleClose} icon={<Close />} />
       </Heading>
     </TopBar>
     <Divider />
     <ListItem>
-      <Heading as="h3">Onjuiste of ontbrekende gegevens?</Heading>
+      <Heading $as="h4">Onjuiste of ontbrekende gegevens?</Heading>
       <Paragraph>
         We horen graag welke gegevens onjuist zijn of ontbreken. Voor medewerkers van de gemeente is
         dit &lsquo;terugmelden&lsquo; overigens verplicht.
       </Paragraph>
       <Button
         as="a"
-        color="primary"
+        variant="primary"
         onClick={reportFeedbackAction}
         href={getMailtoLink(
           FEEDBACK_RECIPIENT,
@@ -81,14 +78,14 @@ const FeedbackModalComponent = ({
     </ListItem>
     <Divider gutter />
     <ListItem>
-      <Heading as="h3">Probleem of suggestie?</Heading>
+      <Heading $as="h4">Probleem of suggestie?</Heading>
       <Paragraph>
         Als iets op deze pagina niet goed werkt, onduidelijk is of vragen oproept, geef het aan ons
         door.
       </Paragraph>
       <Button
         as="a"
-        color="primary"
+        variant="primary"
         onClick={reportProblemAction}
         href={getMailtoLink(PROBLEM_RECIPIENT, PROBLEM_SUBJECT, PROBLEM_BODY(window.location.href))}
       >
@@ -97,7 +94,9 @@ const FeedbackModalComponent = ({
     </ListItem>
     <Divider transparent />
     <ListItem>
-      <Link href={routing.help.path}>Hulp nodig?</Link>
+      <Link linkType="inline" href={routing.help.path}>
+        Hulp nodig?
+      </Link>
     </ListItem>
   </Modal>
 )

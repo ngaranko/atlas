@@ -176,6 +176,14 @@ function commonConfig() {
           from: '**/*',
           to: 'assets',
         },
+        {
+          from: './node_modules/@datapunt/asc-assets/lib/assets/Fonts',
+          to: 'Fonts',
+        },
+        {
+          from: './node_modules/@datapunt/asc-assets/lib/assets/scripts',
+          to: './',
+        },
       ]),
       new HtmlWebpackPlugin({
         inject: false,
@@ -186,13 +194,7 @@ function commonConfig() {
         lang: 'nl',
         title: 'Dataportaal',
         favicon: './favicon.png',
-        links: [
-          {
-            href: '/3680cf49-2b05-4b8a-af28-fa9e27d2bed0.css',
-            rel: 'stylesheet',
-          },
-        ],
-        scripts: ['/mtiFontTrackingCode.js'],
+        scripts: ['/mtiFontTrackingCode.min.js'],
       }),
     ],
   }

@@ -19,41 +19,31 @@ exports[`MapDetailVestigingActiviteitenItem should render exactly five activitie
         className="map-detail-result__item-list-item"
         key="01"
       >
-        01
-        :
-        SBI Description 1
+        01: SBI Description 1
       </li>
       <li
         className="map-detail-result__item-list-item"
         key="02"
       >
-        02
-        :
-        SBI Description 2
+        02: SBI Description 2
       </li>
       <li
         className="map-detail-result__item-list-item"
         key="03"
       >
-        03
-        :
-        SBI Description 3
+        03: SBI Description 3
       </li>
       <li
         className="map-detail-result__item-list-item"
         key="04"
       >
-        04
-        :
-        SBI Description 4
+        04: SBI Description 4
       </li>
       <li
         className="map-detail-result__item-list-item"
         key="05"
       >
-        05
-        :
-        SBI Description 5
+        05: SBI Description 5
       </li>
     </ul>
   </section>
@@ -81,41 +71,31 @@ exports[`MapDetailVestigingActiviteitenItem should render no more than five acti
         className="map-detail-result__item-list-item"
         key="01"
       >
-        01
-        :
-        SBI Description 1
+        01: SBI Description 1
       </li>
       <li
         className="map-detail-result__item-list-item"
         key="02"
       >
-        02
-        :
-        SBI Description 2
+        02: SBI Description 2
       </li>
       <li
         className="map-detail-result__item-list-item"
         key="03"
       >
-        03
-        :
-        SBI Description 3
+        03: SBI Description 3
       </li>
       <li
         className="map-detail-result__item-list-item"
         key="04"
       >
-        04
-        :
-        SBI Description 4
+        04: SBI Description 4
       </li>
       <li
         className="map-detail-result__item-list-item"
         key="05"
       >
-        05
-        :
-        SBI Description 5
+        05: SBI Description 5
       </li>
     </ul>
   </section>
@@ -141,9 +121,7 @@ exports[`MapDetailVestigingActiviteitenItem should render one activity 1`] = `
         className="map-detail-result__item-list-item"
         key="01"
       >
-        01
-        :
-        SBI Description 1
+        01: SBI Description 1
       </li>
     </ul>
   </section>
@@ -169,17 +147,13 @@ exports[`MapDetailVestigingActiviteitenItem should render two activities 1`] = `
         className="map-detail-result__item-list-item"
         key="01"
       >
-        01
-        :
-        SBI Description 1
+        01: SBI Description 1
       </li>
       <li
         className="map-detail-result__item-list-item"
         key="02"
       >
-        02
-        :
-        SBI Description 2
+        02: SBI Description 2
       </li>
     </ul>
   </section>

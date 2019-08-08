@@ -10,15 +10,12 @@ const FooterComponent = ({ noMaxWidth }) => (
         <div className="u-margin__left--2 c-dashboard__proclaimer">
           <h2 className="c-dashboard__proclaimer-header">Proclaimer</h2>
           <p className="c-dashboard__proclaimer-paragraph">
-            Gemeente Amsterdam biedt met City Data een voorziening waar data voor iedereen
+            {`Gemeente Amsterdam biedt met City Data een voorziening waar data voor iedereen
             beschikbaar zijn en hergebruikt mogen worden. De gegevens worden aangeboden door
             gemeentelijke en externe partijen. De eigenaren van deze gegevens zijn primair
             verantwoordelijk voor de kwaliteit van hun gepubliceerde data. Opmerkingen en
-            aanvullingen op de gegevens kunt u
-            <a className="c-link--inverse" href="mailto:terugmelding.basisinformatie@amsterdam.nl">
-              melden
-            </a>
-            .
+            aanvullingen op de gegevens kunt u <a className="c-link--inverse" href="mailto:terugmelding.basisinformatie@amsterdam.nl">melden</a>
+            .`}
           </p>
           <p className="c-dashboard__proclaimer-paragraph">
             <Link // eslint-disable-line jsx-a11y/anchor-is-valid
