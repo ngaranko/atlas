@@ -27,7 +27,7 @@ const DatasetPage = ({
   return (
     <div className="c-data-selection c-dashboard__content">
       {!isLoading && numberOfRecords && (
-        <div className="qa-data-selection-content">
+        <div className="c-data-selection-content qa-data-selection-content">
           <AngularWrapper
             moduleName="dpDataSelectionHeaderWrapper"
             component="dpDataSelectionHeader"
