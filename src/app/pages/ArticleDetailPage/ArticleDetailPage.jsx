@@ -1,10 +1,10 @@
 import {
   Article,
-  BlogBody,
-  BlogContent,
-  BlogHeader,
-  BlogMetaList,
-  BlogSidebar,
+  EditorialBody,
+  EditorialContent,
+  EditorialHeader,
+  EditorialMetaList,
+  EditorialSidebar,
   Column,
   CustomHTMLBlock,
   Heading,
@@ -60,32 +60,32 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
                   : {})}
               >
                 <Row className="article__row">
-                  <BlogContent>
+                  <EditorialContent>
                     <Column
                       wrap
                       span={{ small: 1, medium: 2, big: 5, large: 11, xLarge: 11 }}
                       push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                     >
                       <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
-                        <BlogBody>
-                          <BlogHeader title={title}>
-                            <BlogMetaList
+                        <EditorialBody>
+                          <EditorialHeader title={title}>
+                            <EditorialMetaList
                               dateTime={date}
                               dateFormatted={localeDate}
                               fields={byline && [{ id: 1, label: byline }]}
                             />
-                          </BlogHeader>
+                          </EditorialHeader>
                           <Paragraph strong hasLongText>
                             {intro}
                           </Paragraph>
                           <CustomHTMLBlock body={body} />
-                        </BlogBody>
+                        </EditorialBody>
                       </Column>
                       <Column
                         span={{ small: 1, medium: 2, big: 2, large: 3, xLarge: 3 }}
                         push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                       >
-                        <BlogSidebar>
+                        <EditorialSidebar>
                           {downloads && downloads.length ? (
                             <>
                               <Heading as="h2">Downloads</Heading>
@@ -122,10 +122,10 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
                               </LinkList>
                             </>
                           ) : null}
-                        </BlogSidebar>
+                        </EditorialSidebar>
                       </Column>
                     </Column>
-                  </BlogContent>
+                  </EditorialContent>
                 </Row>
               </Article>
             </ContentContainer>

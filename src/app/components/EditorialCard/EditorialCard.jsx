@@ -8,7 +8,6 @@ import {
   Heading,
   Paragraph,
   Image,
-  styles,
   breakpoint,
   color,
   ascDefaultTheme,
@@ -39,38 +38,39 @@ const StyledLink = styled(Link)`
 
 const StyledCard = styled(Card)`
   align-items: initial;
+`
 
-  ${styles.CardMediaWrapperStyle} {
-    width: 20%;
-    max-width: 20%;
+const StyledMedia = styled(CardMedia)`
+  width: 20%;
+  max-width: 20% !important;
 
-    flex: 1 0 auto;
+  flex: 1 0 auto;
 
-    @media screen and ${breakpoint('max-width', 'mobileM')({
-        theme: ascDefaultTheme,
-      })} {
-      width: 56px;
-      height: 56px;
-      max-width: 56px;
-    }
-
-    @media screen and ${breakpoint('max-width', 'tabletM')({
-        theme: ascDefaultTheme,
-      })} {
-      width: 72px;
-      height: 72px;
-      max-width: 72px;
-    }
+  @media screen and ${breakpoint('max-width', 'mobileM')({
+      theme: ascDefaultTheme,
+    })} {
+    width: 56px;
+    height: 56px;
+    max-width: 56px;
   }
-  ${styles.CardContentStyle} {
-    padding: 0;
-    margin: 0 16px;
-    border-bottom: 1px solid
-      ${color('tint', 'level3')({
-        theme: ascDefaultTheme,
-      })};
-    position: relative;
+
+  @media screen and ${breakpoint('max-width', 'tabletM')({
+      theme: ascDefaultTheme,
+    })} {
+    width: 72px;
+    height: 72px;
+    max-width: 72px;
   }
+`
+
+const StyledCardContent = styled(CardContent)`
+  padding: 0;
+  margin: 0 16px;
+  border-bottom: 1px solid
+    ${color('tint', 'level3')({
+      theme: ascDefaultTheme,
+    })};
+  position: relative;
 `
 
 const IntroText = styled(Paragraph)`
@@ -87,7 +87,7 @@ const MetaText = styled(Paragraph)`
 const EditorialCard = ({ dataItem, href }) => (
   <StyledLink key={dataItem.id} href={href} linkType="blank">
     <StyledCard horizontal>
-      <CardMedia>
+      <StyledMedia>
         <Image
           src={
             dataItem.coverImageUrl
@@ -95,13 +95,14 @@ const EditorialCard = ({ dataItem, href }) => (
               : '../assets/images/not_found_thumbnail.jpg'
           }
           alt={dataItem.title}
+          square
         />
-      </CardMedia>
-      <CardContent>
+      </StyledMedia>
+      <StyledCardContent>
         <CardHeading $as="h4">{dataItem.title}</CardHeading>
         <IntroText>{dataItem.field_intro}</IntroText>
         <MetaText>{dataItem.localeDate}</MetaText>
-      </CardContent>
+      </StyledCardContent>
     </StyledCard>
   </StyledLink>
 )
