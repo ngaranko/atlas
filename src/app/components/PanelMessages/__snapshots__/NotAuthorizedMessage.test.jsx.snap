@@ -11,27 +11,14 @@ exports[`NotAuthorizedMessage should render everything 1`] = `
     <p
       className="c-panel__paragraph"
     >
-      Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om 
-      maatschappelijke activiteiten en vestigingen
-       te bekijken.
+      Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke activiteiten en vestigingen te bekijken. 
+      <HelpLink />
+      .
     </p>
     <p
       className="c-panel__paragraph"
     >
-      Zie 
-      <Connect(Link)
-        className="c-link--light qa-link-to-page-button qa-dp-link"
-        to={
-          Object {
-            "payload": Object {
-              "deeplink": "snelwegwijsitem9",
-            },
-            "type": "atlasRouter/CONTROLS",
-          }
-        }
-      >
-        Help &gt; Bediening &gt; Inloggen
-      </Connect(Link)>
+      <Connect(LoginLink) />
     </p>
   </div>
 </Notification>

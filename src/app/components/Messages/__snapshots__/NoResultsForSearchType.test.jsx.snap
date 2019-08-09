@@ -24,19 +24,9 @@ exports[`NoResultsForSearchType should render with login message 1`] = `
   </div>
   Tip: this is the message
   <span>
-     Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien, zie 
-    <Connect(Link)
-      to={
-        Object {
-          "payload": Object {
-            "deeplink": "snelwegwijsitem9",
-          },
-          "type": "atlasRouter/CONTROLS",
-        }
-      }
-    >
-      Help &gt; Bediening &gt; Inloggen
-    </Connect(Link)>
+     Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien. 
+    <HelpLink />
+    .
   </span>
 </div>
 `;

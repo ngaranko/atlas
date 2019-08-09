@@ -2,10 +2,10 @@
 
 exports[`SpecialDetailPage should call the fetchData function when the component mounts 1`] = `
 <div
-  class="editorial-page sc-fBuWsC cVWGyD"
+  class="editorial-page sc-fMiknA dFehsU"
 >
   <div
-    class="sc-fMiknA dhIFod"
+    class="sc-dVhcbM iHzKGp"
   >
     <div
       class="editorial-page__body"
@@ -14,11 +14,11 @@ exports[`SpecialDetailPage should call the fetchData function when the component
         class="loading-indicator"
       >
         <div
-          class="sc-jbKcbu hEtzxA"
+          class="sc-dNLxif dLqXgG"
           size="36"
         >
           <span
-            class="sc-bxivhb etLEqh"
+            class="sc-ifAKCX kBatGK"
             color="secondary"
             size="36"
           >
@@ -37,13 +37,13 @@ exports[`SpecialDetailPage should call the fetchData function when the component
         class="iframe-container "
       >
         <div
-          class="sc-dVhcbM jpapLv"
+          class="sc-eqIVtm gPnzQh"
         >
           <div
-            class="content-container sc-hEsumM clBbtQ"
+            class="content-container sc-tilXH fARUpG"
           >
             <div
-              class="sc-jhAzac giJmAs"
+              class="sc-fBuWsC ocKFZ"
             >
               <iframe
                 frameborder="0"

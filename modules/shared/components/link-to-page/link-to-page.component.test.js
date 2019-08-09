@@ -21,6 +21,6 @@ describe('The link-to-page component', function() {
 
   it('has default label', function() {
     const component = getComponent()
-    expect(component.text().trim()).toBe('Help > Bediening > Inloggen')
+    expect(component.text().trim()).toBe('Lees meer in de help.')
   })
 })

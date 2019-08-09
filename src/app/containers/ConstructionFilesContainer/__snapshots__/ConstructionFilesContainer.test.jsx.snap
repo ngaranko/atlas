@@ -262,9 +262,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "$$typeof": Symbol(react.forward_ref),
                 "attrs": Array [],
                 "componentStyle": ComponentStyle {
-                  "componentId": "sc-hzDkRC",
+                  "componentId": "sc-jhAzac",
                   "isStatic": false,
-                  "lastClassName": "kjPUud",
+                  "lastClassName": "enRXIj",
                   "rules": Array [
                     "
   display: flex;
@@ -283,7 +283,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                     "
 
   ",
-                    ".sc-bRBYWo",
+                    ".sc-hzDkRC",
                     " {
     ",
                     [Function],
@@ -299,7 +299,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "displayName": "styled.div",
                 "foldedComponentIds": Array [],
                 "render": [Function],
-                "styledComponentId": "sc-hzDkRC",
+                "styledComponentId": "sc-jhAzac",
                 "target": "div",
                 "toString": [Function],
                 "warnTooManyClasses": [Function],
@@ -311,7 +311,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             gutterY={20}
           >
             <div
-              className="sc-hzDkRC kjPUud"
+              className="sc-jhAzac enRXIj"
               direction="column"
             >
               <styled.div>
@@ -321,9 +321,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                       "$$typeof": Symbol(react.forward_ref),
                       "attrs": Array [],
                       "componentStyle": ComponentStyle {
-                        "componentId": "sc-bRBYWo",
+                        "componentId": "sc-hzDkRC",
                         "isStatic": false,
-                        "lastClassName": "fQQhSh",
+                        "lastClassName": "fPWdgX",
                         "rules": Array [
                           "
   position: relative;
@@ -336,7 +336,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                       "displayName": "styled.div",
                       "foldedComponentIds": Array [],
                       "render": [Function],
-                      "styledComponentId": "sc-bRBYWo",
+                      "styledComponentId": "sc-hzDkRC",
                       "target": "div",
                       "toString": [Function],
                       "warnTooManyClasses": [Function],
@@ -346,7 +346,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                   forwardedRef={null}
                 >
                   <div
-                    className="sc-bRBYWo fQQhSh"
+                    className="sc-hzDkRC fPWdgX"
                   >
                     <LoadingIndicator
                       IconComponent={
@@ -372,9 +372,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "$$typeof": Symbol(react.forward_ref),
                                   "attrs": Array [],
                                   "componentStyle": ComponentStyle {
-                                    "componentId": "sc-jbKcbu",
+                                    "componentId": "sc-dNLxif",
                                     "isStatic": false,
-                                    "lastClassName": "hEtzxA",
+                                    "lastClassName": "dLqXgG",
                                     "rules": Array [
                                       "
   @keyframes rotating {
@@ -403,7 +403,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "displayName": "styled.div",
                                   "foldedComponentIds": Array [],
                                   "render": [Function],
-                                  "styledComponentId": "sc-jbKcbu",
+                                  "styledComponentId": "sc-dNLxif",
                                   "target": "div",
                                   "toString": [Function],
                                   "warnTooManyClasses": [Function],
@@ -414,7 +414,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                               size={36}
                             >
                               <div
-                                className="sc-jbKcbu hEtzxA"
+                                className="sc-dNLxif dLqXgG"
                                 size={36}
                               >
                                 <Icon
@@ -432,9 +432,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                           "$$typeof": Symbol(react.forward_ref),
                                           "attrs": Array [],
                                           "componentStyle": ComponentStyle {
-                                            "componentId": "sc-bxivhb",
+                                            "componentId": "sc-ifAKCX",
                                             "isStatic": false,
-                                            "lastClassName": "etLEqh",
+                                            "lastClassName": "kBatGK",
                                             "rules": Array [
                                               "
   display: ",
@@ -468,7 +468,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                           "displayName": "styled.span",
                                           "foldedComponentIds": Array [],
                                           "render": [Function],
-                                          "styledComponentId": "sc-bxivhb",
+                                          "styledComponentId": "sc-ifAKCX",
                                           "target": "span",
                                           "toString": [Function],
                                           "warnTooManyClasses": [Function],
@@ -479,7 +479,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                       size={36}
                                     >
                                       <span
-                                        className="sc-bxivhb etLEqh"
+                                        className="sc-ifAKCX kBatGK"
                                         color="secondary"
                                         size={36}
                                       >
