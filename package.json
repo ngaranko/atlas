@@ -1,6 +1,6 @@
 {
   "name": "atlas",
-  "version": "3.7.2",
+  "version": "3.8.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Amsterdam/atlas.git"
@@ -36,9 +36,9 @@
     "test-karma-watch": "karma start --no-single-run"
   },
   "dependencies": {
-    "@datapunt/asc-assets": "0.10.0",
-    "@datapunt/asc-core": "0.10.0",
-    "@datapunt/asc-ui": "0.10.0",
+    "@datapunt/asc-assets": "0.11.0",
+    "@datapunt/asc-core": "0.11.0",
+    "@datapunt/asc-ui": "0.11.0",
     "@svgr/webpack": "4.3.2",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",

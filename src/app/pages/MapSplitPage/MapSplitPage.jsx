@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import MapContainer from '../../../map/containers/map/MapContainer'
 
-import { getDetailEndpoint, shouldShowFullScreen } from '../../../shared/ducks/detail/selectors'
+import { getDetailEndpoint } from '../../../shared/ducks/detail/selectors'
 import { toDetailFromEndpoint as endpointActionCreator } from '../../../store/redux-first-router/actions'
 import SplitScreen from '../../components/SplitScreen/SplitScreen'
 import DataSelection from '../../components/DataSelection/DataSelectionContainer'
@@ -29,7 +29,6 @@ const PanoramaContainer = React.lazy(() => import('../../../panorama/containers/
   currentPage,
   setViewMode,
   viewMode,
-  forceFullScreen,
   printMode,
 }) => {
   let mapProps = {}
@@ -83,15 +82,11 @@ const PanoramaContainer = React.lazy(() => import('../../../panorama/containers/
       }
   }
 
-  if (viewMode === VIEW_MODE.MAP && !forceFullScreen) {
+  if (viewMode === VIEW_MODE.MAP) {
     return <MapContainer {...mapProps} />
   }
   if (Component) {
-    if (viewMode === VIEW_MODE.FULL || forceFullScreen) {
-      if (viewMode !== VIEW_MODE.FULL) {
-        setViewMode(VIEW_MODE.FULL)
-      }
-
+    if (viewMode === VIEW_MODE.FULL) {
       return Component
     }
 
@@ -115,7 +110,6 @@ const PanoramaContainer = React.lazy(() => import('../../../panorama/containers/
 }
 
 const mapStateToProps = state => ({
-  forceFullScreen: shouldShowFullScreen(state),
   endpoint: getDetailEndpoint(state),
   hasSelection: !!getSelectionType(state),
   viewMode: getViewMode(state),
@@ -133,7 +127,6 @@ const mapDispatchToProps = dispatch =>
   )
 
 MapSplitPage.propTypes = {
-  forceFullScreen: PropTypes.bool.isRequired,
   hasSelection: PropTypes.bool.isRequired,
   setViewMode: PropTypes.func.isRequired,
   viewMode: PropTypes.string.isRequired,
