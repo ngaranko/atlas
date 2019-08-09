@@ -4,7 +4,7 @@ import { routing } from '../../../routes'
 
 const HelpLink = () => (
   <Link
-    className="c-link--light qa-link-to-page-button qa-dp-link"
+    className="c-link--light"
     to={{
       type: routing.bediening.type,
       payload: {},

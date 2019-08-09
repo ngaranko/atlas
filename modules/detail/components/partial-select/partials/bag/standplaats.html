@@ -27,8 +27,9 @@
 
         <dp-panel is-panel-visible="!user.scopes.includes('HR/R')" can-close="true" type="warning">
             Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om vestigingen te bekijken.
-            <dp-link-to-page class-name="c-link--light" />.
-        </dp-panel>
+            <dp-link-to-page class-name="c-link--light" login/>.
+            <dp-login-link />
+          </dp-panel>
 
         <dp-api-call
             ng-if="user.scopes.includes('HR/R') && apiData.results.hoofdadres.landelijk_id"
