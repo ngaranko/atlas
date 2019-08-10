@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Notification from '../../../shared/components/notification/Notification'
 import { SCOPES } from '../../../shared/services/auth/auth'
-import LoginLink from './LoginLink/LoginLink'
-import HelpLink from './HelpLink/HelpLink'
+import LoginLinkContainer from '../Links/LoginLink/LoginLinkContainer'
+import HelpLink from '../Links/HelpLink/HelpLink'
 
 const NotAuthorizedMessage = ({ scopeError, type }) => {
   return (
@@ -16,9 +16,7 @@ const NotAuthorizedMessage = ({ scopeError, type }) => {
             : `Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om ${type} te bekijken. `}
           <HelpLink />.
         </p>
-        <p className="c-panel__paragraph">
-          <LoginLink />
-        </p>
+        <LoginLinkContainer />
       </div>
     </Notification>
   )

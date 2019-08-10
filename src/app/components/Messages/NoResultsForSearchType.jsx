@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import HelpLink from '../PanelMessages/HelpLink/HelpLink'
+import HelpLink from '../Links/HelpLink/HelpLink'
+import LoginLinkContainer from '../Links/LoginLink/LoginLinkContainer'
 
 const NoResultsForSearchType = ({ message, authMessage }) => {
   return (
@@ -8,10 +9,13 @@ const NoResultsForSearchType = ({ message, authMessage }) => {
       <div className="u-margin__bottom--1">Geen resultaten van deze soort</div>
       {message}
       {authMessage && (
-        <span>
-          &nbsp;Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te
-          zien. <HelpLink />.
-        </span>
+        <>
+          <span>
+            &nbsp;Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens
+            te zien. <HelpLink />.
+          </span>
+          <LoginLinkContainer />
+        </>
       )}
     </div>
   )

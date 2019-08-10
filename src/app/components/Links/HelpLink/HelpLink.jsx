@@ -1,9 +1,9 @@
 import React from 'react'
-import Link from 'redux-first-router-link'
+import RouterLink from 'redux-first-router-link'
 import { routing } from '../../../routes'
 
 const HelpLink = () => (
-  <Link
+  <RouterLink
     className="c-link--light"
     to={{
       type: routing.bediening.type,
@@ -11,7 +11,7 @@ const HelpLink = () => (
     }}
   >
     Lees meer in de help
-  </Link>
+  </RouterLink>
 )
 
 export default HelpLink

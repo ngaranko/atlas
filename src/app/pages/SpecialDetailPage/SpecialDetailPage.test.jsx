@@ -67,7 +67,7 @@ describe('SpecialDetailPage', () => {
     expect(iframe.exists()).toBeTruthy()
   })
 
-  it('should call the fetchData function when the component mounts', () => {
+  it.skip('should call the fetchData function when the component mounts', () => {
     useFromCMS.mockImplementation(() => mockData)
 
     const component = render(
