@@ -88,8 +88,7 @@ $backdrop-color: rgba(0, 0, 0, .5);
 
     &::before {
       /* Makes sure the backdrop is at the correct distance from the top */
-      top: #{$dashboard-heading-height-homepage + $dashboard-toolbar-height +
-      $dashboard-heading-shadow-height};
+      top: 0;
     }
   }
 

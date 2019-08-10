@@ -20,7 +20,7 @@ exports[`QuerySearch should render with results 1`] = `
   className="c-data-selection c-dashboard__content"
 >
   <div
-    className="qa-data-selection-content"
+    className="c-data-selection-content qa-data-selection-content"
   >
     <Connect(TabBar)
       numberOfDataResults={1}
