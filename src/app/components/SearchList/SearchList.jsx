@@ -4,8 +4,8 @@ import { toDetailFromEndpoint } from '../../../store/redux-first-router/actions'
 import SearchListItem from '../SearchListItem/SearchListItem'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
 import Panel from '../Panel/Panel'
-import HelpLink from '../PanelMessages/HelpLink/HelpLink'
-import LoginLink from '../PanelMessages/LoginLink/LoginLink'
+import HelpLink from '../Links/HelpLink/HelpLink'
+import LoginLinkContainer from '../Links/LoginLink/LoginLinkContainer'
 
 const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults, userScopes }) => {
   const results =
@@ -26,9 +26,7 @@ const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults, use
             Medewerkers met speciale bevoegdheden kunnen alle gegevens vinden (ook natuurlijke
             personen). <HelpLink />.
           </p>
-          <p className="c-panel__paragraph">
-            <LoginLink />
-          </p>
+          <LoginLinkContainer />
         </Panel>
       )}
       <ul className="o-list">

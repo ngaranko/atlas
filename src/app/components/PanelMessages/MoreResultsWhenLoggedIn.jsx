@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Notification from '../../../shared/components/notification/Notification'
-import LoginLink from './LoginLink/LoginLink'
-import HelpLink from './HelpLink/HelpLink'
+import LoginLinkContainer from '../Links/LoginLink/LoginLinkContainer'
+import HelpLink from '../Links/HelpLink/HelpLink'
 
 const MoreResultsWhenLoggedIn = ({ excludedResults }) => (
   <Notification type="info">
@@ -12,9 +12,7 @@ const MoreResultsWhenLoggedIn = ({ excludedResults }) => (
         `meer te vinden${excludedResults ? `: ${excludedResults}` : ''}. Zie `}
       <HelpLink />.
     </p>
-    <p className="c-panel__paragraph">
-      <LoginLink />
-    </p>
+    <LoginLinkContainer />
   </Notification>
 )
 

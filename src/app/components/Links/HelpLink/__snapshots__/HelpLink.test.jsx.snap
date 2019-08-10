@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HelpLink should render everything 1`] = `
+<Connect(Link)
+  className="c-link--light"
+  to={
+    Object {
+      "payload": Object {},
+      "type": "atlasRouter/CONTROLS",
+    }
+  }
+>
+  Lees meer in de help
+</Connect(Link)>
+`;

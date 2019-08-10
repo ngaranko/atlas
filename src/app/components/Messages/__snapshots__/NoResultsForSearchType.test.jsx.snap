@@ -28,5 +28,6 @@ exports[`NoResultsForSearchType should render with login message 1`] = `
     <HelpLink />
     .
   </span>
+  <Connect(LoginLink) />
 </div>
 `;
