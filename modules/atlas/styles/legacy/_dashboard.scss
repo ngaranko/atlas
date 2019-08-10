@@ -1,4 +1,4 @@
-$backdrop-color: rgba(0, 0, 0, 0.5);
+$backdrop-color: rgba(0, 0, 0, .5);
 
 .c-dashboard {
   height: 100%;
@@ -19,14 +19,15 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
           bottom: 0;
           width: 24px;
           background-color: $thema-6;
-          content: '';
+          content: "";
         }
       }
 
       max-width: 1920px;
     }
   }
-  .c-dashboard__body {
+
+  &__body {
     height: initial;
   }
 }
@@ -67,9 +68,9 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
     right: 0;
     bottom: 0;
     left: 0;
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity .2s ease-in-out;
     background-color: $backdrop-color;
-    content: '';
+    content: "";
     opacity: 0;
     z-index: 101;
     pointer-events: none;
@@ -78,7 +79,7 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
   .c-dashboard--homepage & {
     height: calc(
       100% - #{$dashboard-heading-height-homepage + $dashboard-toolbar-height +
-        $dashboard-heading-shadow-height}
+      $dashboard-heading-shadow-height}
     );
 
     @media (min-width: 1201px) {
@@ -87,7 +88,8 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
 
     &::before {
       /* Makes sure the backdrop is at the correct distance from the top */
-      top: #{$dashboard-heading-height-homepage + $dashboard-toolbar-height + $dashboard-heading-shadow-height};
+      top: #{$dashboard-heading-height-homepage + $dashboard-toolbar-height +
+      $dashboard-heading-shadow-height};
     }
   }
 
@@ -187,7 +189,7 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
     top: 55px;
     @media (min-width: 1200px) {
       top: $dashboard-heading-height-homepage + $dashboard-toolbar-height +
-        $dashboard-heading-shadow-height;
+      $dashboard-heading-shadow-height;
     }
   }
 
