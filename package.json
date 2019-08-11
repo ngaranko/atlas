@@ -36,9 +36,9 @@
     "test-karma-watch": "karma start --no-single-run"
   },
   "dependencies": {
-    "@datapunt/asc-assets": "0.10.0",
-    "@datapunt/asc-core": "0.10.0",
-    "@datapunt/asc-ui": "0.10.0",
+    "@datapunt/asc-assets": "0.11.0",
+    "@datapunt/asc-core": "0.11.0",
+    "@datapunt/asc-ui": "0.11.1-alpha.0",
     "@svgr/webpack": "4.3.2",
     "angular": "1.6.9",
     "angular-aria": "~1.5.11",
