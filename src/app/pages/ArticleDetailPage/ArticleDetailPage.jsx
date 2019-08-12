@@ -38,14 +38,18 @@ const ListItemContent = styled.div`
 
 /* istanbul ignore next */
 const ArticleDetailPage = ({ id }) => {
-  const { results, loading } = useFromCMS(id, cmsConfig.article)
+  const { fetchData, results, loading } = useFromCMS(cmsConfig.ARTICLE, id)
+
+  React.useEffect(() => {
+    fetchData()
+  }, [id])
 
   const {
     title,
     date,
     localeDate,
     body,
-    coverUrl,
+    coverImageUrl,
     field_downloads: downloads,
     field_links: links,
     field_byline: byline,
@@ -62,12 +66,9 @@ const ArticleDetailPage = ({ id }) => {
           <Row className="article__row">
             <ContentContainer>
               <Article
-                {...(coverUrl
+                {...(coverImageUrl
                   ? {
-                      image:
-                        typeof coverUrl === 'string'
-                          ? `${SHARED_CONFIG.CMS_ROOT}${coverUrl}`
-                          : undefined,
+                      image: typeof coverImageUrl === 'string' ? coverImageUrl : undefined,
                     }
                   : {})}
               >

@@ -203,10 +203,7 @@ class AutoSuggest extends React.Component {
             {...{
               showSuggestions,
               suggestions,
-              legendTitle,
               searchBarProps,
-              activeSuggestion,
-              highlightQuery,
               openSearchBarToggle,
               inputProps,
             }}

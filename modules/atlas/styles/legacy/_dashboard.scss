@@ -26,6 +26,10 @@ $backdrop-color: rgba(0, 0, 0, .5);
       max-width: 1920px;
     }
   }
+
+  &__body {
+    height: initial;
+  }
 }
 
 .c-dashboard__heading {
@@ -74,7 +78,8 @@ $backdrop-color: rgba(0, 0, 0, .5);
 
   .c-dashboard--homepage & {
     height: calc(
-      100% - #{$dashboard-heading-height-homepage + $dashboard-toolbar-height + $dashboard-heading-shadow-height}
+      100% - #{$dashboard-heading-height-homepage + $dashboard-toolbar-height +
+      $dashboard-heading-shadow-height}
     );
 
     @media (min-width: 1201px) {
@@ -83,7 +88,7 @@ $backdrop-color: rgba(0, 0, 0, .5);
 
     &::before {
       /* Makes sure the backdrop is at the correct distance from the top */
-      top: #{$dashboard-heading-height-homepage + $dashboard-toolbar-height + $dashboard-heading-shadow-height};
+      top: 0;
     }
   }
 
@@ -182,7 +187,8 @@ $backdrop-color: rgba(0, 0, 0, .5);
   .c-dashboard__error {
     top: 55px;
     @media (min-width: 1200px) {
-      top: $dashboard-heading-height-homepage + $dashboard-toolbar-height + $dashboard-heading-shadow-height;
+      top: $dashboard-heading-height-homepage + $dashboard-toolbar-height +
+      $dashboard-heading-shadow-height;
     }
   }
 
