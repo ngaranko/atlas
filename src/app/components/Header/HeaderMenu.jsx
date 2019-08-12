@@ -1,7 +1,8 @@
 import React from 'react'
-import { MenuInline, MenuToggle, MenuFlyOut, MenuItem } from '@datapunt/asc-ui'
+import { MenuInline, MenuToggle, MenuFlyOut, MenuItem, MenuButton } from '@datapunt/asc-ui'
 import { ChevronRight } from '@datapunt/asc-assets'
 import PropTypes from 'prop-types'
+import Link from 'redux-first-router-link'
 import {
   toApisPage,
   toAvailabilityPage,
@@ -29,38 +30,78 @@ const components = {
   mobile: MenuToggle,
 }
 
+const StyledLink = ({ children, ...otherProps }) => (
+  <MenuButton $as={Link} {...otherProps}>
+    {children}
+  </MenuButton>
+)
+
 const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) => {
   const Menu = components[type]
 
   return (
     <Menu {...props}>
       <MenuFlyOut label="Onderdelen">
-        <MenuItem {...linkAttributesFromAction(toMapAction)}>Kaart</MenuItem>
-        <MenuItem {...linkAttributesFromAction(toPanoramaAction)}>Panoramabeelden</MenuItem>
-        <MenuItem {...linkAttributesFromAction(toDatasetsAction)}>Datasets</MenuItem>
-        <MenuItem {...linkAttributesFromAction(toApisAction)}>Data services</MenuItem>
+        <MenuItem>
+          <StyledLink iconLeft={<ChevronRight />} to={toMapAction}>
+            Kaart
+          </StyledLink>
+        </MenuItem>
+        <MenuItem>
+          <StyledLink iconLeft={<ChevronRight />} to={toPanoramaAction}>
+            Panoramabeelden
+          </StyledLink>
+        </MenuItem>
+        <MenuItem>
+          <StyledLink iconLeft={<ChevronRight />} to={toDatasetsAction}>
+            Datasets
+          </StyledLink>
+        </MenuItem>
+        <MenuItem>
+          <StyledLink iconLeft={<ChevronRight />} to={toApisAction}>
+            Data services
+          </StyledLink>
+        </MenuItem>
       </MenuFlyOut>
       <MenuFlyOut label="Over">
-        <MenuItem {...linkAttributesFromAction(toPrivacyAction)}>
-          Privacy en informatiebeveiliging
+        <MenuItem>
+          <StyledLink iconLeft={<ChevronRight />} to={toPrivacyAction}>
+            Privacy en informatiebeveiliging
+          </StyledLink>
         </MenuItem>
         <MenuItem {...linkAttributesFromAction(toAvailabilityAction)}>
-          Beschikbaarheid en kwaliteit data
+          <StyledLink iconLeft={<ChevronRight />} to={toAvailabilityAction}>
+            Beschikbaarheid en kwaliteit data
+          </StyledLink>
         </MenuItem>
         <MenuItem {...linkAttributesFromAction(toMaintentanceAction)}>
-          Technisch beheer en werkwijze
+          <StyledLink iconLeft={<ChevronRight />} to={toMaintentanceAction}>
+            Technisch beheer en werkwijze
+          </StyledLink>
         </MenuItem>
-        <MenuItem href="mailto:datapunt@amsterdam.nl">Contact</MenuItem>
+        <MenuItem>
+          <MenuButton iconLeft={<ChevronRight />} href="mailto:datapunt@amsterdam.nl">
+            Contact
+          </MenuButton>
+        </MenuItem>
       </MenuFlyOut>
-      <MenuItem onClick={showFeedbackForm}>Feedback</MenuItem>
-      <MenuItem {...linkAttributesFromAction(toHelpAction)}>Help</MenuItem>
+      <MenuItem>
+        <MenuButton onClick={showFeedbackForm}>Feedback</MenuButton>
+      </MenuItem>
+      <MenuItem>
+        <StyledLink to={toHelpAction}>Help</StyledLink>
+      </MenuItem>
 
       {!user.authenticated ? (
-        <MenuItem onClick={login}>Inloggen</MenuItem>
+        <MenuItem>
+          <MenuButton onClick={login}>Inloggen</MenuButton>
+        </MenuItem>
       ) : (
         <MenuFlyOut data-test="login" label={truncateString(user.name, 9)}>
-          <MenuItem icon={<ChevronRight />} onClick={logout}>
-            Uitloggen
+          <MenuItem>
+            <MenuButton onClick={logout} iconLeft={<ChevronRight />}>
+              Uitloggen
+            </MenuButton>
           </MenuItem>
         </MenuFlyOut>
       )}
