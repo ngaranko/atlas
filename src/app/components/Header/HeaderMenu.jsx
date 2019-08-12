@@ -13,7 +13,6 @@ import {
   toPanoramaAndPreserveQuery,
   toPrivacyPage,
 } from '../../../store/redux-first-router/actions'
-import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import truncateString from '../../../shared/services/truncateString/truncateString'
 
 const toPanoramaAction = toPanoramaAndPreserveQuery(undefined, undefined, undefined, 'home')
@@ -69,12 +68,12 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
             Privacy en informatiebeveiliging
           </StyledLink>
         </MenuItem>
-        <MenuItem {...linkAttributesFromAction(toAvailabilityAction)}>
+        <MenuItem>
           <StyledLink iconLeft={<ChevronRight />} to={toAvailabilityAction}>
             Beschikbaarheid en kwaliteit data
           </StyledLink>
         </MenuItem>
-        <MenuItem {...linkAttributesFromAction(toMaintentanceAction)}>
+        <MenuItem>
           <StyledLink iconLeft={<ChevronRight />} to={toMaintentanceAction}>
             Technisch beheer en werkwijze
           </StyledLink>
