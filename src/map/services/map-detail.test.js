@@ -20,6 +20,7 @@ describe('The map detail service', () => {
   it('calls the service fot the endpoint type specified', async () => {
     adressenLigplaats.mockImplementation(() => ({ type: 'ligplaats' }))
     expect(await detail('https://acc.api.data.amsterdam.nl/bag/ligplaats/123')).toEqual({
+      isAuthorized: true,
       endpointType: 'bag/ligplaats/',
       type: 'ligplaats',
     })
@@ -30,6 +31,7 @@ describe('The map detail service', () => {
 
     napPeilmerk.mockImplementation(() => ({ type: 'peilmerk' }))
     expect(await detail('https://acc.api.data.amsterdam.nl/nap/peilmerk/123')).toEqual({
+      isAuthorized: true,
       endpointType: 'nap/peilmerk/',
       type: 'peilmerk',
     })
@@ -45,6 +47,7 @@ describe('The map detail service', () => {
         type: 'nummeraanduiding',
       }))
       expect(await detail('https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123')).toEqual({
+        isAuthorized: true,
         endpointType: 'bag/verblijfsobject/',
         type: 'nummeraanduiding',
       })
@@ -60,6 +63,7 @@ describe('The map detail service', () => {
         ligplaats: true,
       }))
       expect(await detail('https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123')).toEqual({
+        isAuthorized: true,
         endpointType: 'bag/ligplaats/',
         type: 'nummeraanduiding',
         ligplaats: true,
@@ -76,6 +80,7 @@ describe('The map detail service', () => {
         standplaats: true,
       }))
       expect(await detail('https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123')).toEqual({
+        isAuthorized: true,
         endpointType: 'bag/standplaats/',
         type: 'nummeraanduiding',
         standplaats: true,
@@ -93,7 +98,7 @@ describe('The map detail service', () => {
       await detail('https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123', {
         scopes: ['MON/R'],
       }),
-    ).toEqual({ endpointType: 'handelsregister/vestiging/' })
+    ).toEqual({ isAuthorized: false, endpointType: 'handelsregister/vestiging/' })
     expect(vestiging).not.toHaveBeenCalled()
   })
 
@@ -104,7 +109,7 @@ describe('The map detail service', () => {
     }
     expect(
       await detail('https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123', user),
-    ).toEqual({ endpointType: 'handelsregister/vestiging/', type: 'vestiging' })
+    ).toEqual({ isAuthorized: true, endpointType: 'handelsregister/vestiging/', type: 'vestiging' })
     expect(vestiging).toHaveBeenCalledWith(
       'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123',
       user,

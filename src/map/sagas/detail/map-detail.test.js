@@ -104,10 +104,11 @@ describe('fetchMapDetail', () => {
       .isDone()
   })
 
-  it('should set the viewmode to full when no geometry is available', () => {
+  it('should set the viewmode to full when no geometry is available and user is not authorized', () => {
     const mapDetailMock = {
       _display: 'display',
       geometrie: null,
+      isAuthorized: true,
     }
     testSaga(fetchMapDetail)
       .next()

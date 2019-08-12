@@ -34,6 +34,7 @@ export function* fetchMapDetail() {
     const user = yield select(getUser)
     const endpoint = yield select(getCurrentEndpoint)
     yield put(clearMapDetail())
+
     const mapDetail = yield call(fetchDetail, endpoint, user)
     yield put(fetchMapDetailSuccess(endpoint, mapDetail || {}))
     const geometry = getGeometry(mapDetail)
@@ -44,7 +45,8 @@ export function* fetchMapDetail() {
       }),
     )
     // When a detail doesn't have a geometry, it can only be displayed in VIEWMODE.FULL
-    if (!geometry) {
+    // Some endpoints only return a geometry when the user is authenticated e.g. authorized to view it
+    if (mapDetail.isAuthorized && !geometry) {
       yield put(setViewMode(VIEW_MODE.FULL))
     }
     yield put(mapLoadingAction(false))
