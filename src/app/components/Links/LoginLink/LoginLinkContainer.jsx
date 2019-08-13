@@ -23,16 +23,29 @@ const StyledLink = styled(Link)`
   }
 `
 
-export const LoginLink = ({ login }) => (
+export const LoginLink = ({ login, linkType, children, inverted }) => (
   <Typography $as="p" className="c-panel__paragraph">
-    <StyledLink onClick={login} linkType="with-chevron">
-      Inloggen
-    </StyledLink>
+    {inverted ? (
+      <StyledLink onClick={login} linkType={linkType}>
+        {children || 'Inloggen'}
+      </StyledLink>
+    ) : (
+      <Link as="button" onClick={login} linkType={linkType}>
+        {children || 'Inloggen'}
+      </Link>
+    )}
   </Typography>
 )
 
+LoginLink.defaultProps = {
+  linkType: 'with-chevron',
+  inverted: true,
+}
+
 LoginLink.propTypes = {
   login: PropTypes.func.isRequired,
+  linkType: PropTypes.string,
+  inverted: PropTypes.bool,
 }
 
 export const mapDispatchToProps = dispatch => ({

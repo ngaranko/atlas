@@ -2,30 +2,43 @@
 
 exports[`NoResultsForSearchType should render 1`] = `
 <div
-  className="c-link__wrapper--inine-block"
+  className="-link__wrapper--inine-block"
 >
   <div
     className="u-margin__bottom--1"
   >
     Geen resultaten van deze soort
   </div>
-  Tip: this is the message
+  <div
+    className="u-margin__bottom--1"
+  >
+    Tip: this is the message
+  </div>
+  <Connect(LoginLink)
+    inverted={false}
+  />
 </div>
 `;
 
 exports[`NoResultsForSearchType should render with login message 1`] = `
 <div
-  className="c-link__wrapper--inine-block"
+  className="-link__wrapper--inine-block"
 >
   <div
     className="u-margin__bottom--1"
   >
     Geen resultaten van deze soort
   </div>
-  Tip: this is the message
-  <span>
-     Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien.
-  </span>
-  <Connect(LoginLink) />
+  <div
+    className="u-margin__bottom--1"
+  >
+    Tip: this is the message
+    <span>
+       Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien.
+    </span>
+  </div>
+  <Connect(LoginLink)
+    inverted={false}
+  />
 </div>
 `;

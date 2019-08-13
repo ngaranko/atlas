@@ -4,18 +4,20 @@ import LoginLinkContainer from '../Links/LoginLink/LoginLinkContainer'
 
 const NoResultsForSearchType = ({ message, authMessage }) => {
   return (
-    <div className="c-link__wrapper--inine-block">
+    <div className="-link__wrapper--inine-block">
       <div className="u-margin__bottom--1">Geen resultaten van deze soort</div>
-      {message}
-      {authMessage && (
-        <>
-          <span>
-            &nbsp;Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens
-            te zien.
-          </span>
-          <LoginLinkContainer />
-        </>
-      )}
+      <div className="u-margin__bottom--1">
+        {message}
+        {authMessage && (
+          <>
+            <span>
+              &nbsp;Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer
+              gegevens te zien.
+            </span>
+          </>
+        )}
+      </div>
+      <LoginLinkContainer inverted={false} />
     </div>
   )
 }
