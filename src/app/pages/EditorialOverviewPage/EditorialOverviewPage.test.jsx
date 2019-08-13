@@ -1,30 +1,86 @@
 import React from 'react'
-import { shallow /* mount */ } from 'enzyme'
+import { mount, shallow } from 'enzyme'
+import { ThemeProvider } from '@datapunt/asc-ui'
 import EditorialOverviewPage from './EditorialOverviewPage'
 import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
-
 import Footer from '../../components/Footer/Footer'
 
+jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../components/Footer/Footer')
-jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 
 describe('EditorialOverviewPage', () => {
-  // const fetchDataMock = jest.fn()
+  let component
+  const fetchDataMock = jest.fn()
 
   beforeEach(() => {
-    Footer.mockImplementation(() => <></>)
-    linkAttributesFromAction.mockImplementation(() => ({ href: 'http://this.is.a/link' }))
-  })
-
-  it('should render the spinner when the request is loading', () => {
+    linkAttributesFromAction.mockImplementation(() => ({
+      href: 'https://this.is.alink',
+    }))
     useFromCMS.mockImplementation(() => ({
       loading: true,
+      fetchData: fetchDataMock,
+    }))
+    Footer.mockImplementation(() => <></>)
+  })
+
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
+
+  it('should display the loading indicator', () => {
+    component = shallow(<EditorialOverviewPage type="ARTICLES" />)
+
+    expect(component.find('LoadingIndicator')).toBeTruthy()
+  })
+
+  it('should call the fetchData function on mount', () => {
+    component = mount(
+      <ThemeProvider>
+        <EditorialOverviewPage type="ARTICLES" />
+      </ThemeProvider>,
+    )
+
+    expect(fetchDataMock).toHaveBeenCalled()
+  })
+
+  it('should call the fetchData function when clicking the show more button', () => {
+    useFromCMS.mockImplementation(() => ({
+      loading: false,
+      fetchData: fetchDataMock,
+      results: {
+        data: [],
+        links: { next: 'link' },
+      },
     }))
 
-    const component = shallow(<EditorialOverviewPage type="ARTICLES" />)
+    component = mount(
+      <ThemeProvider>
+        <EditorialOverviewPage type="ARTICLES" />
+      </ThemeProvider>,
+    )
 
-    expect(component.find('LoadingIndicator').exists()).toBeTruthy()
+    const button = component.find('button')
+
+    button.simulate('click')
+
+    expect(fetchDataMock).toHaveBeenCalledTimes(2)
+  })
+
+  it('should display the loading indicator when fetching more results', () => {
+    useFromCMS.mockImplementation(() => ({
+      loading: true,
+      fetchData: jest.fn(),
+      results: {
+        data: [],
+        links: { next: 'link' },
+      },
+    }))
+
+    component = shallow(<EditorialOverviewPage type="ARTICLES" />)
+
+    // This is the second loading indicator at the bottom of the page
+    expect(component.find('LoadingIndicator').at(1)).toBeTruthy()
   })
 })
