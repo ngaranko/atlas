@@ -8,6 +8,7 @@ import {
   Heading,
   Paragraph,
   Image,
+  Tag,
   breakpoint,
   color,
 } from '@datapunt/asc-ui'
@@ -41,20 +42,21 @@ const StyledCardHeading = styled(CardHeading)`
 
 const StyledCardMedia = styled(CardMedia)`
   width: 20%;
-  max-width: 20% !important;
-
   flex: 1 0 auto;
 
-  @media screen and ${breakpoint('max-width', 'mobileM')} {
-    width: 56px;
-    height: 56px;
-    max-width: 56px;
+  @media screen and ${breakpoint('max-width', 'laptopM')} {
+    height: 218px;
+    flex: 1 0 218px;
   }
 
   @media screen and ${breakpoint('max-width', 'tabletM')} {
-    width: 72px;
     height: 72px;
-    max-width: 72px;
+    flex: 1 0 72px;
+  }
+
+  @media screen and ${breakpoint('max-width', 'mobileM')} {
+    height: 56px;
+    flex: 1 0 56px;
   }
 `
 
@@ -63,6 +65,10 @@ const StyledCardContent = styled(CardContent)`
   margin: 0 16px;
   border-bottom: 1px solid ${color('tint', 'level3')};
   position: relative;
+`
+
+const StyledTag = styled(Tag)`
+  text-transform: capitalize;
 `
 
 const IntroText = styled(Paragraph)`
@@ -93,7 +99,11 @@ const EditorialCard = ({ dataItem, href }) => (
       <StyledCardContent>
         <StyledCardHeading $as="h4">{dataItem.title}</StyledCardHeading>
         <IntroText>{dataItem.field_intro}</IntroText>
-        <MetaText>{dataItem.localeDate}</MetaText>
+        {dataItem.field_special_type ? (
+          <StyledTag>{dataItem.field_special_type}</StyledTag>
+        ) : (
+          <MetaText>{dataItem.localeDate}</MetaText>
+        )}
       </StyledCardContent>
     </StyledCard>
   </StyledLink>

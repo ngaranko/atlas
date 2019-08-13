@@ -7,7 +7,6 @@ import EditorialCard from '../../components/EditorialCard'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import useFromCMS from '../../utils/useFromCMS'
 import cmsConfig from '../../../shared/services/cms/cms-config'
-import Footer from '../../components/Footer/Footer'
 import {
   toPublicationDetail,
   toArticleDetail,
@@ -116,7 +115,6 @@ const EditorialOverviewPage = ({ type = '' }) => {
           </ContentContainer>
         </Row>
       </div>
-      <Footer noMaxWidth />
     </Container>
   )
 }

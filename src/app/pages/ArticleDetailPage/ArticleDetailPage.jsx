@@ -56,7 +56,7 @@ const ArticleDetailPage = ({ id }) => {
     field_slug: slug,
     field_intro: intro,
   } = results || {}
-  const documentTitle = `Artikel: ${title}`
+  const documentTitle = title && `Artikel: ${title}`
   const linkAction = toArticleDetail(id, slug)
 
   return (

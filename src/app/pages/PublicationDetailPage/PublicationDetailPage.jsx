@@ -38,7 +38,7 @@ const PublicationDetailPage = ({ id }) => {
     field_slug: slug,
   } = results || {}
 
-  const documentTitle = `Publicatie: ${title}`
+  const documentTitle = title && `Publicatie: ${title}`
   const linkAction = toPublicationDetail(id, slug)
 
   return (

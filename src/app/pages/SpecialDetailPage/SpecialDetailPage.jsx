@@ -47,7 +47,7 @@ const SpecialDetailPage = ({ id }) => {
 
   const { field_iframe_link: iframeLink, field_slug: slug, field_special_type: type, title } =
     results || {}
-  const documentTitle = `Special: ${title}`
+  const documentTitle = title && `Special: ${title}`
   const linkAction = toSpecialDetail(id, type, slug)
 
   return (
