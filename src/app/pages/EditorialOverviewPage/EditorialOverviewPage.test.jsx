@@ -58,7 +58,7 @@ describe('EditorialOverviewPage', () => {
       </ThemeProvider>,
     )
 
-    const button = component.find('button')
+    const button = component.find('Button')
 
     button.simulate('click')
 

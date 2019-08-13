@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from '@datapunt/asc-core'
-import { CardContainer, Container, Column, Heading, Row, color } from '@datapunt/asc-ui'
+import { Button, CardContainer, Container, Column, Heading, Row, color } from '@datapunt/asc-ui'
+import { Enlarge } from '@datapunt/asc-assets'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import PAGES from '../../pages'
 import EditorialCard from '../../components/EditorialCard'
@@ -97,16 +98,17 @@ const EditorialOverviewPage = ({ type = '' }) => {
                       (loading ? (
                         <LoadingIndicator style={{ position: 'inherit' }} />
                       ) : (
-                        <button
-                          type="button"
-                          className="c-show-more c-show-more--gray qa-show-more"
+                        <Button
+                          variant="primaryInverted"
+                          iconLeft={<Enlarge />}
+                          iconSize={12}
                           onClick={() => {
                             fetchData(links.next.href)
                           }}
                           tabIndex="0"
                         >
                           Toon meer
-                        </button>
+                        </Button>
                       ))}
                   </>
                 )}
