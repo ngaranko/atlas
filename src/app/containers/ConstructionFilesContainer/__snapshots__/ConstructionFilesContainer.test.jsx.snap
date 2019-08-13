@@ -372,9 +372,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "$$typeof": Symbol(react.forward_ref),
                                   "attrs": Array [],
                                   "componentStyle": ComponentStyle {
-                                    "componentId": "sc-cmTdod",
+                                    "componentId": "sc-btzYZH",
                                     "isStatic": false,
-                                    "lastClassName": "bDHWRh",
+                                    "lastClassName": "gUyeZb",
                                     "rules": Array [
                                       "
   @keyframes rotating {
@@ -403,7 +403,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "displayName": "styled.div",
                                   "foldedComponentIds": Array [],
                                   "render": [Function],
-                                  "styledComponentId": "sc-cmTdod",
+                                  "styledComponentId": "sc-btzYZH",
                                   "target": "div",
                                   "toString": [Function],
                                   "warnTooManyClasses": [Function],
@@ -414,7 +414,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                               size={36}
                             >
                               <div
-                                className="sc-cmTdod bDHWRh"
+                                className="sc-btzYZH gUyeZb"
                                 size={36}
                               >
                                 <Icon
