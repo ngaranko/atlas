@@ -12,8 +12,6 @@ exports[`NotAuthorizedMessage should render everything 1`] = `
       className="c-panel__paragraph"
     >
       Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke activiteiten en vestigingen te bekijken. 
-      <HelpLink />
-      .
     </p>
     <Connect(LoginLink) />
   </div>

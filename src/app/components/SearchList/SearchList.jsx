@@ -4,7 +4,6 @@ import { toDetailFromEndpoint } from '../../../store/redux-first-router/actions'
 import SearchListItem from '../SearchListItem/SearchListItem'
 import { VIEW_MODE } from '../../../shared/ducks/ui/ui'
 import Panel from '../Panel/Panel'
-import HelpLink from '../Links/HelpLink/HelpLink'
 import LoginLinkContainer from '../Links/LoginLink/LoginLinkContainer'
 
 const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults, userScopes }) => {
@@ -24,7 +23,7 @@ const SearchList = ({ categoryResults, limit, hasLoadMore, fetchMoreResults, use
         <Panel canClose type="warning" isPanelVisible>
           <p className="c-panel__paragraph">
             Medewerkers met speciale bevoegdheden kunnen alle gegevens vinden (ook natuurlijke
-            personen). <HelpLink />.
+            personen).
           </p>
           <LoginLinkContainer />
         </Panel>

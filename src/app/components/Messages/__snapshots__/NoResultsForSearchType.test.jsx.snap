@@ -24,9 +24,7 @@ exports[`NoResultsForSearchType should render with login message 1`] = `
   </div>
   Tip: this is the message
   <span>
-     Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien. 
-    <HelpLink />
-    .
+     Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens te zien.
   </span>
   <Connect(LoginLink) />
 </div>

@@ -15,9 +15,7 @@ exports[`MoreResultsWhenLoggedIn should render everything 1`] = `
   <p
     className="c-panel__paragraph"
   >
-    Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer te vinden. Zie 
-    <HelpLink />
-    .
+    Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer te vinden. 
   </p>
   <Connect(LoginLink) />
 </Notification>

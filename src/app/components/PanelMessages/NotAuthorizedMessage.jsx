@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Notification from '../../../shared/components/notification/Notification'
 import { SCOPES } from '../../../shared/services/auth/auth'
 import LoginLinkContainer from '../Links/LoginLink/LoginLinkContainer'
-import HelpLink from '../Links/HelpLink/HelpLink'
 
 const NotAuthorizedMessage = ({ scopeError, type }) => {
   return (
@@ -14,7 +13,6 @@ const NotAuthorizedMessage = ({ scopeError, type }) => {
             ? `Medewerkers met speciale bevoegdheden kunnen inloggen om kadastrale objecten met
             zakelijk rechthebbenden te bekijken. `
             : `Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om ${type} te bekijken. `}
-          <HelpLink />.
         </p>
         <LoginLinkContainer />
       </div>

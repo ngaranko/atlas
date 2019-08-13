@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import HelpLink from '../Links/HelpLink/HelpLink'
 import LoginLinkContainer from '../Links/LoginLink/LoginLinkContainer'
 
 const NoResultsForSearchType = ({ message, authMessage }) => {
@@ -12,7 +11,7 @@ const NoResultsForSearchType = ({ message, authMessage }) => {
         <>
           <span>
             &nbsp;Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om meer gegevens
-            te zien. <HelpLink />.
+            te zien.
           </span>
           <LoginLinkContainer />
         </>
