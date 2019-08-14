@@ -9,8 +9,9 @@ import {
   Column,
   CustomHTMLBlock,
   Heading,
-  LinkList,
-  LinkListItem,
+  List,
+  ListItem,
+  Link,
   Paragraph,
   Typography,
   Row,
@@ -102,7 +103,7 @@ const ArticleDetailPage = ({ id }) => {
                           {downloads && downloads.length ? (
                             <>
                               <Heading as="h2">Downloads</Heading>
-                              <LinkList>
+                              <List>
                                 {downloads.map(
                                   ({
                                     title: fileTitle,
@@ -111,30 +112,34 @@ const ArticleDetailPage = ({ id }) => {
                                     field_file_size: size,
                                     field_publication_file: file,
                                   }) => (
-                                    <LinkListItem
-                                      key={key}
-                                      href={`${SHARED_CONFIG.CMS_ROOT}${file.uri.url}`}
-                                    >
-                                      <ListItemContent>
-                                        <Typography as="span">{fileTitle}</Typography>
-                                        <Typography as="small">{`${type} ${size}`}</Typography>
-                                      </ListItemContent>
-                                    </LinkListItem>
+                                    <ListItem>
+                                      <Link
+                                        key={key}
+                                        href={`${SHARED_CONFIG.CMS_ROOT}${file.uri.url}`}
+                                      >
+                                        <ListItemContent>
+                                          <Typography as="span">{fileTitle}</Typography>
+                                          <Typography as="small">{`${type} ${size}`}</Typography>
+                                        </ListItemContent>
+                                      </Link>
+                                    </ListItem>
                                   ),
                                 )}
-                              </LinkList>
+                              </List>
                             </>
                           ) : null}
                           {links && links.length ? (
                             <>
                               <Heading as="h2">Links</Heading>
-                              <LinkList>
+                              <List>
                                 {links.map(({ uri, title: linkTitle }) => (
-                                  <LinkListItem key={uri} href={`${uri}`}>
-                                    {linkTitle}
-                                  </LinkListItem>
+                                  <ListItem>
+                                    <Link key={uri} href={`${uri}`}>
+                                      {linkTitle}
+                                    </Link>
+                                  </ListItem>
                                 ))}
-                              </LinkList>
+                              </List>
                             </>
                           ) : null}
                         </EditorialSidebar>

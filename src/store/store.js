@@ -50,6 +50,12 @@ const configureStore = routesMap => {
     ),
   )
 
+  // Element that have a focus should blur on a route change. This prevents issues like
+  // having a header menu open when the user navigates
+  history.listen(() => {
+    document.activeElement.blur()
+  })
+
   window.reduxStore = createStore(rootReducer(routeReducer), undefined, enhancer)
 
   sagaMiddleware.run(rootSaga)
