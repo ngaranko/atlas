@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {
   Button,
   Divider,
-  ListItem,
   Modal,
   TopBar,
   Heading,
@@ -13,6 +12,7 @@ import {
 import { Close } from '@datapunt/asc-assets'
 import { routing } from '../../routes'
 import withModalBehaviour, { propTypes as modalPropTypes } from './withModalBehaviour'
+import ModalBlock from './ModalBlock'
 
 const FEEDBACK_RECIPIENT = 'terugmelding.basisinformatie@amsterdam.nl'
 const FEEDBACK_SUBJECT = 'Terugmelding data.amsterdam.nl'
@@ -57,7 +57,7 @@ const FeedbackModalComponent = ({
       </Heading>
     </TopBar>
     <Divider />
-    <ListItem>
+    <ModalBlock>
       <Heading $as="h4">Onjuiste of ontbrekende gegevens?</Heading>
       <Paragraph>
         We horen graag welke gegevens onjuist zijn of ontbreken. Voor medewerkers van de gemeente is
@@ -75,9 +75,9 @@ const FeedbackModalComponent = ({
       >
         Onjuistheid terugmelden
       </Button>
-    </ListItem>
+    </ModalBlock>
     <Divider gutter />
-    <ListItem>
+    <ModalBlock>
       <Heading $as="h4">Probleem of suggestie?</Heading>
       <Paragraph>
         Als iets op deze pagina niet goed werkt, onduidelijk is of vragen oproept, geef het aan ons
@@ -91,13 +91,13 @@ const FeedbackModalComponent = ({
       >
         Probleem melden
       </Button>
-    </ListItem>
+    </ModalBlock>
     <Divider transparent />
-    <ListItem>
+    <ModalBlock>
       <Link linkType="inline" href={routing.help.path}>
         Hulp nodig?
       </Link>
-    </ListItem>
+    </ModalBlock>
   </Modal>
 )
 
