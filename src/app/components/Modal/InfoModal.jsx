@@ -1,17 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  Divider,
-  Button,
-  ListItem,
-  Modal,
-  TopBar,
-  Heading,
-  Paragraph,
-} from '@datapunt/asc-ui/lib/index'
+import { Divider, Button, Modal, TopBar, Heading, Paragraph } from '@datapunt/asc-ui/lib/index'
 import { Close } from '@datapunt/asc-assets'
 import withModalBehaviour, { propTypes as modalPropTypes } from './withModalBehaviour'
 import './InfoModal.scss'
+import ModalBlock from './ModalBlock'
 
 const InfoModal = ({ open, handleClose, title, body }) => (
   <Modal
@@ -28,9 +21,9 @@ const InfoModal = ({ open, handleClose, title, body }) => (
       </Heading>
     </TopBar>
     <Divider />
-    <ListItem>
+    <ModalBlock>
       <Paragraph className="infomodal__body" dangerouslySetInnerHTML={{ __html: body }} />
-    </ListItem>
+    </ModalBlock>
   </Modal>
 )
 
