@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -11,7 +12,9 @@ const src = path.resolve(root, 'src')
 const legacy = path.resolve(root, 'modules')
 const dist = path.resolve(root, 'dist')
 
-function commonConfig() {
+function commonConfig(env) {
+  const buildId = env && env.buildId ? env.buildId : env.nodeEnv
+
   return {
     context: root,
     entry: {
@@ -195,6 +198,14 @@ function commonConfig() {
         title: 'Dataportaal',
         favicon: './favicon.png',
         scripts: ['/mtiFontTrackingCode.min.js'],
+      }),
+      new webpack.DefinePlugin({
+        VERSION: JSON.stringify(require('./package.json').version),
+        __BUILD_ID__: JSON.stringify(buildId),
+        'process.env': {
+          NODE_ENV: JSON.stringify(env.nodeEnv),
+          GIT_COMMIT: JSON.stringify(process.env.GIT_COMMIT),
+        },
       }),
     ],
   }
