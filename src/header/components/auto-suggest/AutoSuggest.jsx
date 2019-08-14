@@ -72,6 +72,10 @@ class AutoSuggest extends React.Component {
         this.clearQuery()
       }
     }
+
+    this.setState({
+      openSearchBarToggle: false,
+    })
   }
 
   onFormSubmit(event) {
