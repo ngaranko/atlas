@@ -83,7 +83,7 @@ const EditorialOverviewPage = ({ type = '' }) => {
       <div className="editorial-overview__body">
         <Row>
           <ContentContainer>
-            <Column span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}>
+            <Column wrap span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 10 }}>
               <EditorialCardContainer>
                 {page === 0 && loading ? (
                   <LoadingIndicator style={{ position: 'inherit' }} />
