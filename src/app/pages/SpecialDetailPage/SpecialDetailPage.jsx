@@ -56,7 +56,7 @@ const SpecialDetailPage = ({ id }) => {
         <Row>
           <ContentContainer>
             <Column wrap span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}>
-              {iframeLink && (
+              {iframeLink && iframeLink.uri && (
                 <iframe
                   src={iframeLink.uri}
                   title={title}

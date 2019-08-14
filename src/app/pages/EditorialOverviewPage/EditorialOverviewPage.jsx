@@ -1,6 +1,15 @@
 import React from 'react'
 import styled from '@datapunt/asc-core'
-import { Button, CardContainer, Container, Column, Heading, Row, color } from '@datapunt/asc-ui'
+import {
+  Button,
+  CardContainer,
+  Container,
+  Column,
+  Heading,
+  Row,
+  color,
+  svgFill,
+} from '@datapunt/asc-ui'
 import { Enlarge } from '@datapunt/asc-assets'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
 import PAGES from '../../pages'
@@ -20,7 +29,7 @@ import './EditorialOverviewPage.scss'
 const title = {
   [PAGES.ARTICLES]: 'Artikelen',
   [PAGES.PUBLICATIONS]: 'Publicaties',
-  [PAGES.SPECIALS]: 'Specials',
+  [PAGES.SPECIALS]: 'In beeld',
 }
 
 const toDetailPage = {
@@ -37,6 +46,19 @@ const PageHeading = styled(Heading)`
 
 const EditorialCardContainer = styled(CardContainer)`
   padding: 0;
+`
+
+const StyledButton = styled(Button)`
+  border-color: ${color('tint', 'level7')};
+  color: ${color('tint', 'level7')};
+  background: #fff;
+  ${svgFill('tint', 'level7')};
+
+  &:hover,
+  &:focus {
+    outline: 0;
+    background: ${color('tint', 'level3')};
+  }
 `
 
 const EditorialOverviewPage = ({ type = '' }) => {
@@ -81,14 +103,7 @@ const EditorialOverviewPage = ({ type = '' }) => {
                             : toDetailPage[type](dataItem.id, dataItem.field_slug),
                         )
 
-                        return (
-                          <EditorialCard
-                            // eslint-disable-next-line
-                            key={dataItem.id}
-                            dataItem={dataItem}
-                            href={href}
-                          />
-                        )
+                        return <EditorialCard key={dataItem.id} dataItem={dataItem} href={href} />
                       })}
 
                     {page > 0 && loading && <LoadingIndicator />}
@@ -98,17 +113,20 @@ const EditorialOverviewPage = ({ type = '' }) => {
                       (loading ? (
                         <LoadingIndicator style={{ position: 'inherit' }} />
                       ) : (
-                        <Button
+                        <StyledButton
                           variant="primaryInverted"
                           iconLeft={<Enlarge />}
                           iconSize={12}
                           onClick={() => {
-                            fetchData(links.next.href)
+                            // Temporarily replace http:// as no changes will be made to JSON API
+                            // untill GraphQL API becomes available
+                            const nextHref = links.next.href.replace('http://', 'https://')
+
+                            fetchData(nextHref)
                           }}
-                          tabIndex="0"
                         >
                           Toon meer
-                        </Button>
+                        </StyledButton>
                       ))}
                   </>
                 )}

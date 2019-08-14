@@ -24,7 +24,8 @@ const StyledLink = styled(Link)`
   margin-bottom: 16px;
   width: 100%;
 
-  &:hover {
+  &:hover,
+  &:focus {
     ${CardHeading} {
       color: ${color('secondary')};
       border-color: ${color('secondary')};
@@ -88,8 +89,8 @@ const EditorialCard = ({ dataItem, href }) => (
       <StyledCardMedia>
         <Image
           src={
-            dataItem.coverImageUrl
-              ? dataItem.coverImageUrl
+            dataItem.teaserImageUrl
+              ? dataItem.teaserImageUrl
               : '../assets/images/not_found_thumbnail.jpg'
           }
           alt={dataItem.title}
@@ -98,7 +99,7 @@ const EditorialCard = ({ dataItem, href }) => (
       </StyledCardMedia>
       <StyledCardContent>
         <StyledCardHeading $as="h4">{dataItem.title}</StyledCardHeading>
-        <IntroText>{dataItem.field_intro}</IntroText>
+        <IntroText>{dataItem.field_intro || dataItem.field_teaser}</IntroText>
         {dataItem.field_special_type ? (
           <StyledTag>{dataItem.field_special_type}</StyledTag>
         ) : (
