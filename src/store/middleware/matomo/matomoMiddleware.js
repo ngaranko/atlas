@@ -13,7 +13,7 @@ const matomoMiddleware = ({ getState }) => next => action => {
 
   // Initialize connection with Matomo
   const MatomoInstance = new MatomoTracker({
-    urlBase: 'https://analytics.data.amsterdam.nl/',
+    urlBase: MATOMO_CONFIG.BASE_URL,
     siteId: MATOMO_CONFIG[getEnvironment(window.location.hostname)].SITE_ID,
   })
 
