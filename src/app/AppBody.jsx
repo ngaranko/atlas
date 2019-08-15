@@ -8,6 +8,8 @@ import PAGES, { isMapSplitPage, isOldCmsPage, isEditorialOverviewPage } from './
 import { useAppReducer } from './utils/useAppReducer'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
 
+import useMatomo from './utils/useMatomo'
+
 const ContentPage = React.lazy(() => import('./pages/ContentPage'))
 const Home = React.lazy(() => import('./pages/Home'))
 const DataSearchQuery = React.lazy(() => import('./components/DataSearch/DataSearchQuery'))
@@ -35,6 +37,9 @@ const AppBody = ({
   embedPreviewMode,
 }) => {
   const [state] = useAppReducer('ui')
+  const { trackPageView } = useMatomo()
+
+  trackPageView('title')
 
   const extraBodyClasses = classNames({
     'c-dashboard__body--backdrop': state.backdropKeys.length,
