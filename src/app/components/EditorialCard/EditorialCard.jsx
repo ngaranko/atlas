@@ -10,7 +10,6 @@ import {
   Image,
   breakpoint,
   color,
-  ascDefaultTheme,
 } from '@datapunt/asc-ui'
 
 const CardHeading = styled(Heading)`
@@ -26,37 +25,33 @@ const StyledLink = styled(Link)`
 
   &:hover {
     ${CardHeading} {
-      color: ${color('secondary')({
-        theme: ascDefaultTheme,
-      })};
-      border-color: ${color('secondary')({
-        theme: ascDefaultTheme,
-      })};
+      color: ${color('secondary')};
+      border-color: ${color('secondary')};
     }
   }
 `
 
 const StyledCard = styled(Card)`
-  align-items: initial;
+  align-items: stretch;
 `
 
-const StyledMedia = styled(CardMedia)`
+const StyledCardHeading = styled(CardHeading)`
+  display: inline-block;
+`
+
+const StyledCardMedia = styled(CardMedia)`
   width: 20%;
   max-width: 20% !important;
 
   flex: 1 0 auto;
 
-  @media screen and ${breakpoint('max-width', 'mobileM')({
-      theme: ascDefaultTheme,
-    })} {
+  @media screen and ${breakpoint('max-width', 'mobileM')} {
     width: 56px;
     height: 56px;
     max-width: 56px;
   }
 
-  @media screen and ${breakpoint('max-width', 'tabletM')({
-      theme: ascDefaultTheme,
-    })} {
+  @media screen and ${breakpoint('max-width', 'tabletM')} {
     width: 72px;
     height: 72px;
     max-width: 72px;
@@ -66,10 +61,7 @@ const StyledMedia = styled(CardMedia)`
 const StyledCardContent = styled(CardContent)`
   padding: 0;
   margin: 0 16px;
-  border-bottom: 1px solid
-    ${color('tint', 'level3')({
-      theme: ascDefaultTheme,
-    })};
+  border-bottom: 1px solid ${color('tint', 'level3')};
   position: relative;
 `
 
@@ -87,7 +79,7 @@ const MetaText = styled(Paragraph)`
 const EditorialCard = ({ dataItem, href }) => (
   <StyledLink key={dataItem.id} href={href} linkType="blank">
     <StyledCard horizontal>
-      <StyledMedia>
+      <StyledCardMedia>
         <Image
           src={
             dataItem.coverImageUrl
@@ -97,9 +89,9 @@ const EditorialCard = ({ dataItem, href }) => (
           alt={dataItem.title}
           square
         />
-      </StyledMedia>
+      </StyledCardMedia>
       <StyledCardContent>
-        <CardHeading $as="h4">{dataItem.title}</CardHeading>
+        <StyledCardHeading $as="h4">{dataItem.title}</StyledCardHeading>
         <IntroText>{dataItem.field_intro}</IntroText>
         <MetaText>{dataItem.localeDate}</MetaText>
       </StyledCardContent>
