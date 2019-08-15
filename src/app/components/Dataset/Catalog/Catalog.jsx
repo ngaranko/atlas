@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import removeMd from 'remove-markdown'
-import Link from 'redux-first-router-link'
+import RouterLink from 'redux-first-router-link'
 import {
   aggregateFilter,
   kebapCaseFilter,
@@ -62,7 +62,7 @@ const Catalog = ({ content, catalogFilters }) => {
       {items.map(row => (
         <div key={row.id} className="c-data-selection-catalog__list">
           <div className="c-data-selection-catalog__item qa-catalog-fetch-detail u-no-presentation">
-            <Link className="qa-dp-link" to={row.linkTo} tabIndex="-1">
+            <RouterLink className="qa-dp-link" to={row.linkTo} tabIndex="-1">
               <div className="c-data-selection-catalog__header">
                 <h2>{row.header}</h2>
                 <div>{modificationDateFilter(row.modified)}</div>
@@ -99,7 +99,7 @@ const Catalog = ({ content, catalogFilters }) => {
               <div className="c-data-selection-catalog__description">
                 {truncateHtmlAsTextFilter(row.description)}
               </div>
-            </Link>
+            </RouterLink>
           </div>
         </div>
       ))}

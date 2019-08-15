@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'redux-first-router-link'
+import RouterLink from 'redux-first-router-link'
 import PropTypes from 'prop-types'
 
 const STATUS_OBJECT_GEVORMD = 18
@@ -35,9 +35,9 @@ const getExtraInfo = result => {
 
 const SearchListItem = ({ result, category }) => (
   <li>
-    <Link className="o-btn o-btn--link qa-list-item-link" to={result.linkTo}>
+    <RouterLink className="o-btn o-btn--link qa-list-item-link" to={result.linkTo}>
       {result.label}
-    </Link>
+    </RouterLink>
 
     <span className="qa-search-results__link-extra-info">{getExtraInfo(result)}</span>
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'redux-first-router-link'
+import RouterLink from 'redux-first-router-link'
 import PropTypes from 'prop-types'
 import { routing } from '../../routes'
 
@@ -18,12 +18,12 @@ const FooterComponent = ({ noMaxWidth }) => (
             .`}
           </p>
           <p className="c-dashboard__proclaimer-paragraph">
-            <Link // eslint-disable-line jsx-a11y/anchor-is-valid
+            <RouterLink // eslint-disable-line jsx-a11y/anchor-is-valid
               to={{ type: routing.proclaimer.type }}
               className="o-btn o-btn--link--inverse"
             >
               Lees de hele proclaimer
-            </Link>
+            </RouterLink>
           </p>
         </div>
       </div>
