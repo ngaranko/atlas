@@ -5,8 +5,9 @@ import { Link, styles, svgFill, color, Typography } from '@datapunt/asc-ui'
 import { connect } from 'react-redux'
 import { authenticateRequest } from '../../../../shared/ducks/user/user'
 
-const StyledLink = styled(Link)`
+const StyledLinkInverted = styled(Link)`
   color: ${color('tint', 'level1')};
+  background-color: transparent;
 
   ${styles.IconStyle} {
     ${svgFill('tint', 'level1')};
@@ -23,16 +24,20 @@ const StyledLink = styled(Link)`
   }
 `
 
+const StyledLink = styled(Link)`
+  background-color: ${color('tint', 'level1')};
+`
+
 export const LoginLink = ({ login, linkType, children, inverted }) => (
   <Typography $as="p" className="c-panel__paragraph">
     {inverted ? (
-      <StyledLink onClick={login} linkType={linkType}>
+      <StyledLinkInverted $as="button" onClick={login} linkType={linkType}>
+        {children || 'Inloggen'}
+      </StyledLinkInverted>
+    ) : (
+      <StyledLink $as="button" onClick={login} linkType={linkType}>
         {children || 'Inloggen'}
       </StyledLink>
-    ) : (
-      <Link as="button" onClick={login} linkType={linkType}>
-        {children || 'Inloggen'}
-      </Link>
     )}
   </Typography>
 )
