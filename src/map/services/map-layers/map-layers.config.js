@@ -1286,26 +1286,42 @@ const mapLayers = [
   },
   {
     category: THEMES.SAFETY,
+    id: 'oovoalg',
+    layers: ['algemeen_overlastgebied', 'algemeen_overlastgebied_label'],
+    title: 'Algemeen overlastgebied',
+    url: '/maps/overlastgebieden',
+    noDetail: true,
     legendItems: [
       {
-        id: 'oovoalg',
-        layers: ['algemeen_overlastgebied', 'algemeen_overlastgebied_label'],
         title: 'Algemeen overlastgebied',
       },
+    ],
+  },
+  {
+    category: THEMES.SAFETY,
+    id: 'oovodlrs',
+    layers: ['dealeroverlastgebied', 'dealeroverlastgebied_label'],
+    title: 'Dealeroverlastgebied',
+    url: '/maps/overlastgebieden',
+    noDetail: true,
+    legendItems: [
       {
-        id: 'oovodlrs',
-        layers: ['dealeroverlastgebied', 'dealeroverlastgebied_label'],
         title: 'Dealeroverlastgebied',
       },
+    ],
+  },
+  {
+    category: THEMES.SAFETY,
+    id: 'oovorlv',
+    layers: ['rondleidingverbodsgebied', 'rondleidingverbodsgebied_label'],
+    title: 'Rondleidingverbodsgebied',
+    url: '/maps/overlastgebieden',
+    noDetail: true,
+    legendItems: [
       {
-        id: 'oovorlv',
-        layers: ['rondleidingverbodsgebied', 'rondleidingverbodsgebied_label'],
         title: 'Rondleidingverbodsgebied',
       },
     ],
-    title: 'Overlastgebieden',
-    url: '/maps/overlastgebieden',
-    noDetail: true,
   },
   {
     category: THEMES.SAFETY,
