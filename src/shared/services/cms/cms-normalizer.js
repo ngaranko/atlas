@@ -2,7 +2,7 @@ import normalize from 'json-api-normalize'
 import formatDate, { dateToString } from '../date-formatter/date-formatter'
 import SHARED_CONFIG from '../shared-config/shared-config'
 
-const cmsNormalizer = (data, fields) => {
+const cmsNormalizer = (type, data, fields) => {
   const normalizedData = normalize(data)
     .get(['drupal_internal__nid', 'title', 'body', 'created', ...fields])
     .map(dataItem => {
@@ -17,9 +17,26 @@ const cmsNormalizer = (data, fields) => {
         ...otherFields
       } = dataItem
 
-      const publicationDate = new Date(created)
-      const date = dateToString(publicationDate)
-      const localeDate = formatDate(publicationDate)
+      const createdData = new Date(created)
+      const date = dateToString(createdData)
+
+      let localeDate
+      if (type === 'publication') {
+        const {
+          field_publication_year: year,
+          field_publication_month: month,
+          field_publication_day: day,
+        } = otherFields || {}
+
+        // eslint-disable-next-line no-nested-ternary
+        localeDate = (year, month, day)
+          ? `${day} ${month} ${year}`
+          : (year, month)
+          ? `${month} ${year}`
+          : year
+      } else {
+        localeDate = formatDate(createdData)
+      }
 
       const { url: coverImageUrl } = coverImage ? coverImage.field_media_image.uri : {}
       const { url: fileUrl } = file ? file.field_media_file.uri : {}

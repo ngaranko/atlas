@@ -18,7 +18,7 @@ function useFromCMS(config, id = false) {
       const { fields } = config
       const data = await getByUrl(endpoint)
 
-      const normalizedData = await cmsNormalizer(data, fields)
+      const normalizedData = await cmsNormalizer(config.type, data, fields)
 
       setResults(id ? normalizedData.data[0] : normalizedData)
     } catch (e) {

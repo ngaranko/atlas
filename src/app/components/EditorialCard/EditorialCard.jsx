@@ -98,8 +98,10 @@ const EditorialCard = ({ dataItem, href }) => (
         />
       </StyledCardMedia>
       <StyledCardContent>
-        <StyledCardHeading $as="h4">{dataItem.title}</StyledCardHeading>
-        <IntroText>{dataItem.field_intro || dataItem.field_teaser}</IntroText>
+        <StyledCardHeading $as="h4">
+          {dataItem.field_short_title || dataItem.title}
+        </StyledCardHeading>
+        <IntroText>{dataItem.field_teaser || dataItem.field_intro}</IntroText>
         {dataItem.field_special_type ? (
           <StyledTag>{dataItem.field_special_type}</StyledTag>
         ) : (

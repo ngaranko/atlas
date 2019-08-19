@@ -2,6 +2,7 @@ import SHARED_CONFIG from '../shared-config/shared-config'
 
 const cmsConfig = {
   ARTICLE: {
+    type: 'article',
     endpoint: id =>
       `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/article?filter[drupal_internal__nid]=${id}&include=field_cover_image.field_media_image,field_downloads.field_file`,
     fields: [
@@ -14,6 +15,7 @@ const cmsConfig = {
     ],
   },
   ARTICLES: {
+    type: 'article',
     endpoint: () =>
       `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/article?include=field_teaser_image.field_media_image`,
     fields: [
@@ -21,9 +23,11 @@ const cmsConfig = {
       'field_teaser',
       'field_intro',
       'field_slug',
+      'field_short_title',
     ],
   },
   PUBLICATION: {
+    type: 'publication',
     endpoint: id =>
       `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?filter[drupal_internal__nid]=${id}&include=field_cover_image.field_media_image,field_file.field_media_file`,
     fields: [
@@ -32,11 +36,15 @@ const cmsConfig = {
       'field_file_size',
       'field_file_type',
       'field_publication_source',
-      'field_publication_intro',
+      'field_intro',
       'field_slug',
+      'field_publication_year',
+      'field_publication_month',
+      'field_publication_day',
     ],
   },
   PUBLICATIONS: {
+    type: 'publication',
     endpoint: () =>
       `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?include=field_teaser_image.field_media_image`,
     fields: [
@@ -44,21 +52,27 @@ const cmsConfig = {
       'field_teaser',
       'field_intro',
       'field_slug',
+      'field_short_title',
+      'field_publication_year',
+      'field_publication_month',
+      'field_publication_day',
     ],
   },
   SPECIAL: {
+    type: 'special',
     endpoint: id =>
       `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/special?filter[drupal_internal__nid]=${id}`,
     fields: ['field_iframe_link', 'field_slug', 'field_special_type'],
   },
   SPECIALS: {
+    type: 'special',
     endpoint: () =>
       `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/special?include=field_teaser_image.field_media_image`,
     fields: [
       'field_teaser_image.field_media_image.uri',
       'field_slug',
       'field_special_type',
-      'field_teaser',
+      'field_intro',
     ],
   },
 }
