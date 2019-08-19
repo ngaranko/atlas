@@ -1298,9 +1298,9 @@ const mapLayers = [
         title: 'Dealeroverlastgebied',
       },
       {
-        id: 'oovouitg',
-        layers: ['uitgaansoverlastgebied', 'uitgaansoverlastgebied_label'],
-        title: 'Uitgaansoverlastgebied',
+        id: 'oovorlv',
+        layers: ['rondleidingverbodsgebied', 'rondleidingverbodsgebied_label'],
+        title: 'Rondleidingverbodsgebied',
       },
     ],
     title: 'Overlastgebieden',
