@@ -1,21 +1,45 @@
 /**
  * @jest-environment jsdom-global
  */
+import MatomoTracker from '@datapunt/matomo-tracker-js'
 import useMatomo from './useMatomo'
-import matomoTracker from '../../shared/services/matomo-tracker/matomo-tracker'
 
-jest.mock('../../shared/services/matomo-tracker/matomo-tracker')
+jest.mock('@datapunt/matomo-tracker-js')
 
 describe('useMatomo', () => {
   describe('trackPageView', () => {
-    it('should call matomoTracker with the right parameters', () => {
-      const title = 'The title'
+    const trackPageViewMock = jest.fn()
+    const trackEventMock = jest.fn()
+
+    beforeEach(() => {
+      MatomoTracker.mockImplementation(() => ({
+        trackPageView: trackPageViewMock,
+        trackEvent: trackEventMock,
+      }))
+    })
+
+    it('should call MatomoTracker with the right parameters for page views', () => {
+      const documentTitle = 'The documentTitle'
       const url = 'https://www.someurl.com/foo/bar'
       jsdom.reconfigure({ url })
       const { trackPageView } = useMatomo()
 
-      trackPageView(title)
-      expect(matomoTracker).toHaveBeenCalledWith(['trackPageView', title, url, null], url, title)
+      trackPageView(documentTitle)
+
+      expect(trackPageViewMock).toHaveBeenCalledWith({ documentTitle })
+    })
+
+    it('should call MatomoTracker with the right parameters for events', () => {
+      const { trackEvent } = useMatomo()
+
+      const documentTitle = 'The documentTitle'
+      const action = 'track'
+      const name = 'this'
+      const value = 'value 123'
+
+      trackEvent(documentTitle, action, name, value)
+
+      expect(trackEventMock).toHaveBeenCalledWith({ documentTitle, action, name, value })
     })
   })
 })
