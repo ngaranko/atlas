@@ -69,6 +69,7 @@ const StyledCardContent = styled(CardContent)`
 `
 
 const StyledTag = styled(Tag)`
+  display: inline-block;
   text-transform: capitalize;
 `
 
