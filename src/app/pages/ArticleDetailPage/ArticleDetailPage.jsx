@@ -60,6 +60,8 @@ const ArticleDetailPage = ({ id }) => {
   const documentTitle = title && `Artikel: ${title}`
   const linkAction = toArticleDetail(id, slug)
 
+  console.log(date, localeDate)
+
   return (
     <EditorialPage {...{ documentTitle, loading, linkAction }}>
       {!loading && (
@@ -73,15 +75,13 @@ const ArticleDetailPage = ({ id }) => {
                     }
                   : {})}
               >
-                <Row debug className="article__row">
+                <Row className="article__row">
                   <EditorialContent>
                     <Column
-                      debug
                       span={{ small: 1, medium: 2, big: 5, large: 11, xLarge: 11 }}
                       push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                     >
                       <Column
-                        debug
                         style={{ width: '100%' }}
                         span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}
                       >
@@ -100,7 +100,6 @@ const ArticleDetailPage = ({ id }) => {
                         </EditorialBody>
                       </Column>
                       <Column
-                        debug
                         span={{ small: 1, medium: 2, big: 2, large: 3, xLarge: 3 }}
                         push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                       >
@@ -117,11 +116,8 @@ const ArticleDetailPage = ({ id }) => {
                                     field_file_size: size,
                                     field_publication_file: file,
                                   }) => (
-                                    <ListItem>
-                                      <Link
-                                        key={key}
-                                        href={`${SHARED_CONFIG.CMS_ROOT}${file.uri.url}`}
-                                      >
+                                    <ListItem key={key}>
+                                      <Link href={`${SHARED_CONFIG.CMS_ROOT}${file.uri.url}`}>
                                         <ListItemContent>
                                           <Typography as="span">{fileTitle}</Typography>
                                           <Typography as="small">{`${type} ${size}`}</Typography>
@@ -138,10 +134,8 @@ const ArticleDetailPage = ({ id }) => {
                               <Heading as="h2">Links</Heading>
                               <List>
                                 {links.map(({ uri, title: linkTitle }) => (
-                                  <ListItem>
-                                    <Link key={uri} href={`${uri}`}>
-                                      {linkTitle}
-                                    </Link>
+                                  <ListItem key={uri}>
+                                    <Link href={`${uri}`}>{linkTitle}</Link>
                                   </ListItem>
                                 ))}
                               </List>

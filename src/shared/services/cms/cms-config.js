@@ -12,18 +12,20 @@ const cmsConfig = {
       'field_byline',
       'field_slug',
       'field_intro',
+      'field_publication_date',
     ],
   },
   ARTICLES: {
     type: 'article',
     endpoint: () =>
-      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/article?include=field_teaser_image.field_media_image`,
+      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/article?include=field_teaser_image.field_media_image&sort=-field_publication_date`,
     fields: [
       'field_teaser_image.field_media_image.uri',
       'field_teaser',
       'field_intro',
       'field_slug',
       'field_short_title',
+      'field_publication_date',
     ],
   },
   PUBLICATION: {
@@ -46,7 +48,7 @@ const cmsConfig = {
   PUBLICATIONS: {
     type: 'publication',
     endpoint: () =>
-      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?include=field_teaser_image.field_media_image`,
+      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?include=field_teaser_image.field_media_image&sort=-field_publication_year`,
     fields: [
       'field_teaser_image.field_media_image.uri',
       'field_teaser',
@@ -67,7 +69,7 @@ const cmsConfig = {
   SPECIALS: {
     type: 'special',
     endpoint: () =>
-      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/special?include=field_teaser_image.field_media_image`,
+      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/special?include=field_teaser_image.field_media_image&sort=-created`,
     fields: [
       'field_teaser_image.field_media_image.uri',
       'field_slug',

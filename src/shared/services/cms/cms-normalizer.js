@@ -10,17 +10,18 @@ const cmsNormalizer = (type, data, fields) => {
         drupal_internal__nid: id,
         title,
         body,
-        created,
+        field_publication_date: publicationDate,
         field_cover_image: coverImage,
         field_file: file,
         field_teaser_image: teaserImage,
         ...otherFields
       } = dataItem
 
-      const createdData = new Date(created)
-      const date = dateToString(createdData)
+      const formattedDate = new Date(publicationDate)
+      const date = dateToString(formattedDate)
 
       let localeDate
+      // publications follow a different pattern for constructing the localeDate
       if (type === 'publication') {
         const {
           field_publication_year: year,
@@ -35,7 +36,7 @@ const cmsNormalizer = (type, data, fields) => {
           ? `${month} ${year}`
           : year
       } else {
-        localeDate = formatDate(createdData)
+        localeDate = formatDate(formattedDate)
       }
 
       const { url: coverImageUrl } = coverImage ? coverImage.field_media_image.uri : {}
