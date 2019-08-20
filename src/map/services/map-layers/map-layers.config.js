@@ -1339,7 +1339,7 @@ const mapLayers = [
   {
     category: THEMES.SAFETY,
     id: 'oovorlv',
-    layers: ['rondleidingverbodsgebieden'],
+    layers: ['rondleidingverbodsgebieden', 'rondleidingverbodsgebieden_label'],
     title: 'Rondleidingverbodsgebieden',
     url: '/maps/overlastgebieden',
     noDetail: true,
