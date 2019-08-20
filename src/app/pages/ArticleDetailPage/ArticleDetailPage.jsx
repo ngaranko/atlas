@@ -60,8 +60,6 @@ const ArticleDetailPage = ({ id }) => {
   const documentTitle = title && `Artikel: ${title}`
   const linkAction = toArticleDetail(id, slug)
 
-  console.log(date, localeDate)
-
   return (
     <EditorialPage {...{ documentTitle, loading, linkAction }}>
       {!loading && (
