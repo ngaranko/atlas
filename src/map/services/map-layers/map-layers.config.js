@@ -1288,7 +1288,7 @@ const mapLayers = [
     category: THEMES.SAFETY,
     id: 'oovoalg',
     layers: ['algemeen_overlastgebied', 'algemeen_overlastgebied_label'],
-    title: 'Algemeen overlastgebied',
+    title: 'Algemene overlastgebieden',
     url: '/maps/overlastgebieden',
     noDetail: true,
     legendItems: [
@@ -1301,25 +1301,12 @@ const mapLayers = [
     category: THEMES.SAFETY,
     id: 'oovodlrs',
     layers: ['dealeroverlastgebied', 'dealeroverlastgebied_label'],
-    title: 'Dealeroverlastgebied',
+    title: 'Dealeroverlastgebieden',
     url: '/maps/overlastgebieden',
     noDetail: true,
     legendItems: [
       {
         title: 'Dealeroverlastgebied',
-      },
-    ],
-  },
-  {
-    category: THEMES.SAFETY,
-    id: 'oovorlv',
-    layers: ['rondleidingverbodsgebied', 'rondleidingverbodsgebied_label'],
-    title: 'Rondleidingverbodsgebied',
-    url: '/maps/overlastgebieden',
-    noDetail: true,
-    legendItems: [
-      {
-        title: 'Rondleidingverbodsgebied',
       },
     ],
   },
@@ -1348,6 +1335,20 @@ const mapLayers = [
     title: 'Alcoholverbodsgebieden',
     url: '/maps/overlastgebieden',
     noDetail: true,
+  },
+  {
+    category: THEMES.SAFETY,
+    id: 'oovorlv',
+    layers: ['rondleidingverbodsgebieden', 'rondleidingverbodsgebieden_label'],
+    title: 'Rondleidingverbodsgebieden',
+    url: '/maps/overlastgebieden',
+    noDetail: true,
+    legendItems: [
+      {
+        title: 'Rondleidingverbodsgebied',
+        imageRule: 'rondleidingverbodsgebieden',
+      },
+    ],
   },
   {
     category: THEMES.SAFETY,
