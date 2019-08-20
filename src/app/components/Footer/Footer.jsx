@@ -1,5 +1,6 @@
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
+import styled from '@datapunt/asc-core'
 import {
   Link,
   Footer,
@@ -30,6 +31,10 @@ const StyledLink = ({ children, ...otherProps }) => (
   </Link>
 )
 
+const ProclaimLink = styled(StyledLink)`
+  align-self: flex-start;
+`
+
 const FollowLinks = () => (
   <FooterLinkList>
     <FooterLinkListItem>
@@ -38,6 +43,7 @@ const FollowLinks = () => (
         href="https://twitter.com/AmsterdamNL"
         rel="external noopener noreferrer"
         target="_blank"
+        variant="with-chevron"
       >
         Twitter
       </Link>
@@ -48,6 +54,7 @@ const FollowLinks = () => (
         href="https://www.facebook.com/gemeenteamsterdam"
         rel="external noopener noreferrer"
         target="_blank"
+        variant="with-chevron"
       >
         Facerbook
       </Link>
@@ -58,6 +65,7 @@ const FollowLinks = () => (
         href="https://www.linkedin.com/company/gemeente-amsterdam"
         rel="external noopener noreferrer"
         target="_blank"
+        variant="with-chevron"
       >
         Linkedin
       </Link>
@@ -68,6 +76,7 @@ const FollowLinks = () => (
         href="https://github.com/Amsterdam"
         rel="external noopener noreferrer"
         target="_blank"
+        variant="with-chevron"
       >
         GitHub
       </Link>
@@ -76,21 +85,31 @@ const FollowLinks = () => (
 )
 
 const ProclaimerContent = () => (
-  <Paragraph>
-    Gemeente Amsterdam biedt met City Data een voorziening waar data voor iedereen beschikbaar zijn
-    en hergebruikt mogen worden. De gegevens worden aangeboden door gemeentelijke en externe
-    partijen. De eigenaren van deze gegevens zijn primair verantwoordelijk voor de kwaliteit van hun
-    gepubliceerde data. Opmerkingen en aanvullingen op de gegevens kunt u {` `}
-    <Link
-      color="inherit"
-      className="c-link--inverse"
-      title="Terugmelden"
-      href="mailto:terugmelding.basisinformatie@amsterdam.nl"
+  <>
+    <Paragraph indent>
+      Gemeente Amsterdam biedt met City Data een voorziening waar data voor iedereen beschikbaar
+      zijn en hergebruikt mogen worden. De gegevens worden aangeboden door gemeentelijke en externe
+      partijen. De eigenaren van deze gegevens zijn primair verantwoordelijk voor de kwaliteit van
+      hun gepubliceerde data. Opmerkingen en aanvullingen op de gegevens kunt u {` `}
+      <Link
+        color="inherit"
+        className="c-link--inverse"
+        title="Terugmelden"
+        href="mailto:terugmelding.basisinformatie@amsterdam.nl"
+      >
+        melden
+      </Link>
+      .
+    </Paragraph>
+    <ProclaimLink
+      color="#fff"
+      title="Lees de hele proclaimer"
+      variant="with-chevron"
+      to={{ to: routing.proclaimer.type }}
     >
-      melden
-    </Link>
-    .
-  </Paragraph>
+      Lees de hele proclaimer
+    </ProclaimLink>
+  </>
 )
 
 const FooterComponent = () => (
@@ -100,7 +119,7 @@ const FooterComponent = () => (
         <Column wrap span={{ small: 1, medium: 2, big: 4, large: 8, xLarge: 8 }}>
           <>
             <FooterToggle title="Proclaimer" hideAt="tabletM">
-              <FooterContent>
+              <FooterContent indent>
                 <ProclaimerContent />
               </FooterContent>
             </FooterToggle>
