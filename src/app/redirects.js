@@ -86,7 +86,7 @@ const shortUrls = [
   },
   {
     from: '/themakaart/veiligheid-en-overlast',
-    to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=oovorlv%3A1%7Coovodlrs%3A1%7Coovoalg%3A1%7Coovctg%3A1%7Coovoalco%3A1&${LEGEND}=true`,
+    to: `${routing.data.path}?${VIEW}=kaart&${LAYERS}=oovorlv%3A1%7Coovoalco%3A1%7Coovctg%3A1%7Coovodlrs%3A1%7Coovoalg%3A1&${LEGEND}=true`,
   },
   {
     from: '/datablog',
