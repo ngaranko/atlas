@@ -4,6 +4,10 @@ $backdrop-color: rgba(0, 0, 0, .5);
   height: 100%;
   background: $primary-light;
 
+  .styled-header {
+    overflow: hidden; // IE11 / Edge fix
+  }
+
   // Hack to add a green beam on the right side of the header. When the header will be refactored to
   // be inside the grid, this can be removed
   &--editorial {
