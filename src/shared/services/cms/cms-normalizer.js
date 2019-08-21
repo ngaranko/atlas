@@ -17,9 +17,7 @@ const cmsNormalizer = (type, data, fields) => {
         ...otherFields
       } = dataItem
 
-      const formattedDate = new Date(publicationDate)
-      const date = dateToString(formattedDate)
-
+      let formattedDate
       let localeDate
       // publications follow a different pattern for constructing the localeDate
       if (type === 'publication') {
@@ -30,14 +28,20 @@ const cmsNormalizer = (type, data, fields) => {
         } = otherFields || {}
 
         // eslint-disable-next-line no-nested-ternary
-        localeDate = (year, month, day)
-          ? `${day} ${month} ${year}`
+        const combinedDate = (year, month, day)
+          ? `${year}, ${month}, ${day}`
           : (year, month)
-          ? `${month} ${year}`
+          ? `${year}, ${month}`
           : year
+
+        formattedDate = new Date(combinedDate)
+        localeDate = formatDate(formattedDate, !!day, !!month, !!year)
       } else {
+        formattedDate = new Date(publicationDate)
         localeDate = formatDate(formattedDate)
       }
+
+      const date = dateToString(formattedDate)
 
       const { url: coverImageUrl } = coverImage ? coverImage.field_media_image.uri : {}
       const { url: fileUrl } = file ? file.field_media_file.uri : {}

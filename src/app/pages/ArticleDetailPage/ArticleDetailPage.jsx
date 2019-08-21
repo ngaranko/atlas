@@ -80,10 +80,7 @@ const ArticleDetailPage = ({ id }) => {
                       span={{ small: 1, medium: 2, big: 5, large: 11, xLarge: 11 }}
                       push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                     >
-                      <Column
-                        style={{ width: '100%' }}
-                        span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}
-                      >
+                      <Column span={{ small: 1, medium: 2, big: 4, large: 7, xLarge: 7 }}>
                         <EditorialBody>
                           <EditorialHeader title={title}>
                             <EditorialMetaList
