@@ -76,6 +76,7 @@ const ArticleDetailPage = ({ id }) => {
                 <Row className="article__row">
                   <EditorialContent>
                     <Column
+                      wrap
                       span={{ small: 1, medium: 2, big: 5, large: 11, xLarge: 11 }}
                       push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
                     >
@@ -99,7 +100,7 @@ const ArticleDetailPage = ({ id }) => {
                       </Column>
                       <Column
                         span={{ small: 1, medium: 2, big: 2, large: 3, xLarge: 3 }}
-                        push={{ small: 0, medium: 0, big: 1, large: 1, xLarge: 1 }}
+                        push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
                       >
                         <EditorialSidebar>
                           {downloads && downloads.length ? (

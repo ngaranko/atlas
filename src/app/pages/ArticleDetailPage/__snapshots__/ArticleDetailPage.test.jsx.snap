@@ -56,7 +56,7 @@ exports[`ArticleDetailPage should render the publication when there are results 
                     "xLarge": 11,
                   }
                 }
-                wrap={false}
+                wrap={true}
               >
                 <Column
                   debug={false}
@@ -106,7 +106,7 @@ exports[`ArticleDetailPage should render the publication when there are results 
                   order={0}
                   push={
                     Object {
-                      "big": 1,
+                      "big": 0,
                       "large": 1,
                       "medium": 0,
                       "small": 0,
