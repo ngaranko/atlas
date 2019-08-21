@@ -56,7 +56,7 @@ const FollowLinks = () => (
         target="_blank"
         variant="with-chevron"
       >
-        Facerbook
+        Facebook
       </Link>
     </FooterLinkListItem>
     <FooterLinkListItem>
@@ -105,7 +105,7 @@ const ProclaimerContent = () => (
       color="#fff"
       title="Lees de hele proclaimer"
       variant="with-chevron"
-      to={{ to: routing.proclaimer.type }}
+      to={{ type: routing.proclaimer.type }}
     >
       Lees de hele proclaimer
     </ProclaimLink>
