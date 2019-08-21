@@ -39,7 +39,6 @@ jest.mock('../../ducks/map/selectors')
 jest.mock('../../../shared/ducks/selection/selection')
 jest.mock('../../../store/redux-first-router/selectors')
 jest.mock('../../../store/redux-first-router/actions')
-jest.mock('../../../shared/services/matomo-tracker/matomo-tracker')
 
 describe('MapPreviewPanelContainer', () => {
   const initialState = {

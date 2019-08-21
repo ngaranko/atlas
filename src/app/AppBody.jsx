@@ -37,7 +37,7 @@ const AppBody = ({
   const [state] = useAppReducer('ui')
 
   const extraBodyClasses = classNames({
-    'c-dashboard__body--backdrop': state.nrOfBackdropTriggers,
+    'c-dashboard__body--backdrop': state.backdropKeys.length,
   })
 
   return (

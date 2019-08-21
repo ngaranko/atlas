@@ -43,6 +43,8 @@ describe('PublicationDetailPage', () => {
     },
   }
 
+  const mockFetchData = jest.fn()
+
   let store
   beforeEach(() => {
     linkAttributesFromAction.mockImplementation(() => ({ href }))
@@ -76,6 +78,7 @@ describe('PublicationDetailPage', () => {
   it('should call the fetchData function when the component mounts', () => {
     useFromCMS.mockImplementation(() => ({
       loading: true,
+      fetchData: mockFetchData,
     }))
 
     store = configureMockStore()({ location: { payload: { id } } })
@@ -87,12 +90,13 @@ describe('PublicationDetailPage', () => {
       { context: { store } },
     )
 
+    expect(mockFetchData).toHaveBeenCalled()
     expect(component.find('PublicationDetailPage').props().id).toBe(id)
   })
 
   it('should render the publication when there are results', () => {
     useFromCMS.mockImplementation(() => mockData)
-    const component = shallow(<PublicationDetailPage />, {
+    const component = shallow(<PublicationDetailPage store={store} />, {
       context: { store },
     }).dive()
 

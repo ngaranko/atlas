@@ -12,7 +12,7 @@ const baseConfig = {
 
 const environmentConfig = {
   [ENVIRONMENTS.PRODUCTION]: {
-    IIIF_ROOT: 'https://acc.images.data.amsterdam.nl/',
+    IIIF_ROOT: 'https://images.data.amsterdam.nl/',
     API_ROOT: 'https://api.data.amsterdam.nl/',
     CMS_ROOT: 'https://cms.data.amsterdam.nl/',
     ROOT: 'https://data.amsterdam.nl/',

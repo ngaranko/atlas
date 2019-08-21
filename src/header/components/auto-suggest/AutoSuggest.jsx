@@ -72,6 +72,10 @@ class AutoSuggest extends React.Component {
         this.clearQuery()
       }
     }
+
+    this.setState({
+      openSearchBarToggle: false,
+    })
   }
 
   onFormSubmit(event) {
@@ -203,10 +207,7 @@ class AutoSuggest extends React.Component {
             {...{
               showSuggestions,
               suggestions,
-              legendTitle,
               searchBarProps,
-              activeSuggestion,
-              highlightQuery,
               openSearchBarToggle,
               inputProps,
             }}

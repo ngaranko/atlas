@@ -26,7 +26,7 @@ const QuerySearch = ({
   <div className="c-data-selection c-dashboard__content">
     {isLoading && <LoadingIndicator />}
     {!isLoading && (
-      <div className="qa-data-selection-content">
+      <div className="c-data-selection-content qa-data-selection-content">
         <TabBar
           numberOfDataResults={numberOfDataResults}
           numberOfDatasetResults={numberOfDatasetResults}

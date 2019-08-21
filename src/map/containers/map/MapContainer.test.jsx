@@ -6,7 +6,6 @@ import { isEmbedded, isEmbedPreview, isMapActive } from '../../../shared/ducks/u
 import { previewDataAvailable } from '../../../shared/ducks/selection/selection'
 import { getDrawingMode } from '../../ducks/map/selectors'
 
-jest.mock('../../../shared/services/matomo-tracker/matomo-tracker')
 jest.mock('../../../store/redux-first-router/selectors')
 jest.mock('../../../shared/ducks/selection/selection')
 jest.mock('../../../shared/ducks/ui/ui')

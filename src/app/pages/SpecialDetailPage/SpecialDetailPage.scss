@@ -4,4 +4,8 @@
   position: relative;
   text-align: center;
   width: 100%;
+
+  & iframe {
+    min-height: 80vh;
+  }
 }

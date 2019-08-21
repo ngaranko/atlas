@@ -1,18 +1,18 @@
-import matomoTracker from '../../shared/services/matomo-tracker/matomo-tracker'
-import { MATOMO_CONSTANTS } from '../../store/middleware/matomo/constants'
+import MatomoTracker from '@datapunt/matomo-tracker-js'
+import { MATOMO_CONFIG } from '../../store/middleware/matomo/constants'
+import { getEnvironment } from '../../shared/environment'
 
 function useMatomo() {
-  const { href } = window.location
+  // Initialize connection with Matomo
+  const MatomoInstance = new MatomoTracker({
+    urlBase: MATOMO_CONFIG.BASE_URL,
+    siteId: MATOMO_CONFIG[getEnvironment(window.location.hostname)].SITE_ID,
+  })
 
-  const trackPageView = documentTitle => {
-    matomoTracker([MATOMO_CONSTANTS.TRACK_VIEW, documentTitle, href, null], href, documentTitle)
+  const trackPageView = documentTitle => MatomoInstance.trackPageView({ documentTitle })
 
-    return documentTitle
-  }
-
-  const trackEvent = (documentTitle, category, action, name = null) => {
-    matomoTracker([MATOMO_CONSTANTS.TRACK_EVENT, category, action, name], href, documentTitle)
-  }
+  const trackEvent = (documentTitle, action, name, value = null) =>
+    MatomoInstance.trackEvent({ action, name, value, documentTitle })
 
   return {
     trackEvent,

@@ -116,7 +116,6 @@ exports[`PublicationDetailPage should render the publication when there are resu
           >
             <DocumentCoverContentStyle
               description="Download PDF (file size)"
-              imageSrc="https://acc.cms.data.amsterdam.nl/undefined"
               onClick={[Function]}
             />
           </Column>
@@ -137,12 +136,6 @@ exports[`PublicationDetailPage should render the publication when there are resu
             wrap={false}
           >
             <EditorialContent>
-              <Paragraph
-                hasLongText={true}
-                strong={true}
-              >
-                intro
-              </Paragraph>
               <CustomHTMLBlock
                 body="body text"
               />
