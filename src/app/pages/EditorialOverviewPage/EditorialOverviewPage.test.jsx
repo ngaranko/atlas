@@ -51,7 +51,7 @@ describe('EditorialOverviewPage', () => {
       fetchData: fetchDataMock,
       results: {
         data: [],
-        links: { next: 'link' },
+        links: { next: { href: 'http://link' } },
       },
     }))
 
@@ -61,24 +61,11 @@ describe('EditorialOverviewPage', () => {
       </ThemeProvider>,
     )
 
-    const button = component.find('button')
+    const button = component.find('Button')
 
     button.simulate('click')
 
     expect(fetchDataMock).toHaveBeenCalledTimes(2)
-  })
-
-  it('should display the loading indicator when fetching more results', () => {
-    useFromCMS.mockImplementation(() => ({
-      loading: true,
-      fetchData: jest.fn(),
-      results: {
-        data: [],
-        links: { next: 'link' },
-      },
-    }))
-
-    component = shallow(<EditorialOverviewPage type="ARTICLES" />)
 
     // This is the second loading indicator at the bottom of the page
     expect(component.find('LoadingIndicator').at(1)).toBeTruthy()

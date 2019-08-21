@@ -56,7 +56,7 @@ exports[`ArticleDetailPage should render the publication when there are results 
                     "xLarge": 11,
                   }
                 }
-                wrap={true}
+                wrap={false}
               >
                 <Column
                   debug={false}
@@ -72,6 +72,11 @@ exports[`ArticleDetailPage should render the publication when there are results 
                       "xLarge": 7,
                     }
                   }
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
                   wrap={false}
                 >
                   <EditorialBody>
@@ -83,7 +88,9 @@ exports[`ArticleDetailPage should render the publication when there are results 
                     <Paragraph
                       hasLongText={true}
                       strong={true}
-                    />
+                    >
+                      intro
+                    </Paragraph>
                     <CustomHTMLBlock
                       body={
                         Object {

@@ -47,7 +47,7 @@ const SpecialDetailPage = ({ id }) => {
 
   const { field_iframe_link: iframeLink, field_slug: slug, field_special_type: type, title } =
     results || {}
-  const documentTitle = `Special: ${title}`
+  const documentTitle = title && `Special: ${title}`
   const linkAction = toSpecialDetail(id, type, slug)
 
   return (
@@ -56,7 +56,7 @@ const SpecialDetailPage = ({ id }) => {
         <Row>
           <ContentContainer>
             <Column wrap span={{ small: 12, medium: 12, big: 12, large: 12, xLarge: 12 }}>
-              {iframeLink && (
+              {iframeLink && iframeLink.uri && (
                 <iframe
                   src={iframeLink.uri}
                   title={title}

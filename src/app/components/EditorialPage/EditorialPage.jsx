@@ -5,10 +5,10 @@ import { Container } from '@datapunt/asc-ui'
 import useDocumentTitle from '../../utils/useDocumentTitle'
 import useMatomo from '../../utils/useMatomo'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
-import Footer from '../Footer/Footer'
 import './EditorialPage.scss'
 import '../../../map/components/loading-indicator/LoadingIndicator.scss'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
+import Footer from '../Footer/Footer'
 
 const EditorialPage = ({ children, documentTitle, loading, linkAction }) => {
   const { setDocumentTitle } = useDocumentTitle()
@@ -32,7 +32,7 @@ const EditorialPage = ({ children, documentTitle, loading, linkAction }) => {
         {loading && <LoadingIndicator />}
         {children}
       </div>
-      <Footer noMaxWidth />
+      <Footer />
     </Container>
   )
 }

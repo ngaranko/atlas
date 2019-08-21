@@ -34,11 +34,11 @@ const PublicationDetailPage = ({ id }) => {
     field_file_size: fileSize,
     field_file_type: fileType,
     field_publication_source: source,
-    field_publication_intro: intro,
+    field_intro: intro,
     field_slug: slug,
   } = results || {}
 
-  const documentTitle = `Publicatie: ${title}`
+  const documentTitle = title && `Publicatie: ${title}`
   const linkAction = toPublicationDetail(id, slug)
 
   return (
