@@ -36,9 +36,10 @@
     "test-karma-watch": "karma start --no-single-run"
   },
   "dependencies": {
-    "@datapunt/asc-assets": "0.12.1",
-    "@datapunt/asc-core": "0.12.1",
-    "@datapunt/asc-ui": "^0.12.2-rc.4",
+    "@datapunt/asc-assets": "0.12.2-rc.6",
+    "@datapunt/asc-core": "0.12.2-rc.6",
+    "@datapunt/asc-ui": "0.12.2-rc.6",
+    "@datapunt/matomo-tracker-js": "0.0.3",
     "@sentry/browser": "^5.6.1",
     "@svgr/webpack": "4.3.2",
     "angular": "1.6.9",
@@ -155,6 +156,7 @@
     "jest-environment-jsdom-global": "1.1.1",
     "jest-environment-node": "24.8.0",
     "jest-fetch-mock": "2.1.0",
+    "jest-styled-components": "^6.3.3",
     "karma": "4.0.1",
     "karma-babel-preprocessor": "8.0.0",
     "karma-coverage": "1.1.2",

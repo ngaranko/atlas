@@ -5,7 +5,7 @@ import { getByUrl } from '../api/api'
 
 const CHARGER_TYPES = {
   REGULAR: 'Gewoon laadpunt',
-  FAST: 'Snelllaadpunt',
+  FAST: 'Snellaadpunt',
 }
 
 export default function fetchByUri(uri) {
