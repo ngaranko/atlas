@@ -15,6 +15,7 @@ import LoadingIndicator from '../../../shared/components/loading-indicator/Loadi
 import PAGES from '../../pages'
 import EditorialCard from '../../components/EditorialCard'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
+import Footer from '../../components/Footer/Footer'
 import useFromCMS from '../../utils/useFromCMS'
 import cmsConfig from '../../../shared/services/cms/cms-config'
 import {
@@ -135,6 +136,7 @@ const EditorialOverviewPage = ({ type = '' }) => {
           </ContentContainer>
         </Row>
       </div>
+      <Footer />
     </Container>
   )
 }

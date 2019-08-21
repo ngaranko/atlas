@@ -4,9 +4,11 @@ import { ThemeProvider } from '@datapunt/asc-ui'
 import EditorialOverviewPage from './EditorialOverviewPage'
 import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
+import Footer from '../../components/Footer/Footer'
 
 jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 jest.mock('../../utils/useFromCMS')
+jest.mock('../../components/Footer/Footer')
 
 describe('EditorialOverviewPage', () => {
   let component
@@ -20,6 +22,7 @@ describe('EditorialOverviewPage', () => {
       loading: true,
       fetchData: fetchDataMock,
     }))
+    Footer.mockImplementation(() => <></>)
   })
 
   afterEach(() => {

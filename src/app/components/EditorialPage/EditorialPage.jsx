@@ -8,6 +8,7 @@ import linkAttributesFromAction from '../../../shared/services/link-attributes-f
 import './EditorialPage.scss'
 import '../../../map/components/loading-indicator/LoadingIndicator.scss'
 import LoadingIndicator from '../../../shared/components/loading-indicator/LoadingIndicator'
+import Footer from '../Footer/Footer'
 
 const EditorialPage = ({ children, documentTitle, loading, linkAction }) => {
   const { setDocumentTitle } = useDocumentTitle()
@@ -31,6 +32,7 @@ const EditorialPage = ({ children, documentTitle, loading, linkAction }) => {
         {loading && <LoadingIndicator />}
         {children}
       </div>
+      <Footer />
     </Container>
   )
 }
