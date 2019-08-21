@@ -82,6 +82,7 @@ const MetaText = styled(Paragraph)`
   padding-bottom: 16px;
   font-size: 14px;
   line-height: 1.25;
+  text-transform: capitalize;
 `
 
 const EditorialCard = ({ dataItem, href }) => (

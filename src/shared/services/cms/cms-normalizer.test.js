@@ -35,18 +35,15 @@ describe('normalizeFromCMS', () => {
 
   afterEach(() => {
     normalize.mockReset()
+    dateToString.mockReset()
+    formatDate.mockReset()
   })
 
   it('should return a normalized json', () => {
     dateToString.mockReturnValue('15-03-2019')
     formatDate.mockReturnValue('15 Maart 2019')
 
-    const mockResult = {}
-
-    const { data: normalizedData } = cmsNormalizer('type', mockResult, [
-      'field_slug',
-      'field_intro',
-    ])
+    const { data: normalizedData } = cmsNormalizer('type', {}, ['field_slug', 'field_intro'])
 
     expect(normalizedData[0].field_slug).toEqual(mockData.field_slug)
     expect(normalizedData[0].field_intro).toEqual(mockData.field_intro)
@@ -56,12 +53,13 @@ describe('normalizeFromCMS', () => {
   })
 
   it('should return a normalized json for publication', () => {
-    dateToString.mockReturnValue('15-03-2019')
-    formatDate.mockReturnValue('15 Maart 2019')
+    const {
+      field_publication_year: year,
+      field_publication_month: month,
+      field_publication_day: day,
+    } = mockData
 
-    const mockResult = {}
-
-    const { data: normalizedData } = cmsNormalizer('publication', mockResult, [
+    cmsNormalizer('publication', {}, [
       'field_slug',
       'field_intro',
       'field_publication_year',
@@ -69,6 +67,29 @@ describe('normalizeFromCMS', () => {
       'field_publication_day',
     ])
 
-    expect(normalizedData[0].localeDate).toBe('23 september 2012')
+    const date = new Date(`${year}, ${month}, ${day}`)
+
+    expect(formatDate).toHaveBeenCalledWith(date, true, true, true)
+  })
+
+  it('should return a normalized json for publication with a different formatted date', () => {
+    normalize.mockReset()
+    normalize.mockImplementation(() => ({
+      get: () => [{ ...mockData, field_publication_day: false, field_publication_month: false }],
+    }))
+
+    const { field_publication_year: year } = mockData
+
+    cmsNormalizer('publication', {}, [
+      'field_slug',
+      'field_intro',
+      'field_publication_year',
+      'field_publication_month',
+      'field_publication_day',
+    ])
+
+    const date = new Date(`${year}`)
+
+    expect(formatDate).toHaveBeenCalledWith(date, false, false, true)
   })
 })

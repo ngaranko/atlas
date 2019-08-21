@@ -48,7 +48,7 @@ const cmsConfig = {
   PUBLICATIONS: {
     type: 'publication',
     endpoint: () =>
-      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?include=field_teaser_image.field_media_image&sort=-field_publication_year`,
+      `${SHARED_CONFIG.CMS_ROOT}jsonapi/node/publication?include=field_teaser_image.field_media_image&sort=-field_publication_year,-field_publication_month,-field_publication_day`,
     fields: [
       'field_teaser_image.field_media_image.uri',
       'field_teaser',
