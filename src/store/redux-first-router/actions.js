@@ -162,7 +162,16 @@ export const toDataSearchCategory = (searchQuery, category) => ({
     },
   },
 })
-export const toDatasets = () => ({ type: routing.datasets.type })
+
+export const toDatasets = (additionalParams = null, preserve = false, forceSaga = true) => ({
+  type: routing.datasets.type,
+  meta: {
+    preserve,
+    additionalParams,
+    forceSaga,
+  },
+})
+
 export const toDatasetSearch = (additionalParams = null, skipSaga = false, forceSaga = false) => ({
   type: routing.searchDatasets.type,
   meta: {
