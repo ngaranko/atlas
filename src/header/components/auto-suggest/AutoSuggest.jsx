@@ -31,6 +31,7 @@ class AutoSuggest extends React.Component {
     setTimeout(() => {
       this.setState({
         showSuggestions: false,
+        openSearchBarToggle: false,
       })
     }, 200)
   }

@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { Container } from '@datapunt/asc-ui'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 import useDocumentTitle from '../../utils/useDocumentTitle'
-import useMatomo from '../../utils/useMatomo'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import './EditorialPage.scss'
 import '../../../map/components/loading-indicator/LoadingIndicator.scss'
@@ -17,7 +17,7 @@ const EditorialPage = ({ children, documentTitle, loading, linkAction }) => {
   React.useEffect(() => {
     if (documentTitle) {
       setDocumentTitle(documentTitle)
-      trackPageView(documentTitle)
+      trackPageView({ documentTitle })
     }
   }, [documentTitle])
 
