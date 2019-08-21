@@ -17,7 +17,7 @@ const InfoModal = ({ open, handleClose, title, body }) => (
     <TopBar>
       <Heading style={{ flexGrow: 1 }} as="h4">
         {title}
-        <Button variant="blank" type="button" onClick={handleClose} icon={<Close />} />
+        <Button variant="blank" type="button" size={30} onClick={handleClose} icon={<Close />} />
       </Heading>
     </TopBar>
     <Divider />
