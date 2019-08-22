@@ -27,7 +27,7 @@ exports[`Header should render the main header 1`] = `
     homeLink="/"
     navigation={
       <React.Fragment>
-        <Connect(HeaderSearch) />
+        <Memo(ConnectFunction) />
         <MenuDefault
           data-test="header-menu-default"
           onExpand={[Function]}

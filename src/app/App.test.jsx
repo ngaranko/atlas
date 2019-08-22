@@ -24,7 +24,9 @@ describe('App', () => {
   it('should render the homepage', () => {
     const store = configureMockStore()({ ...initialState })
 
-    const component = shallow(<App />, { context: { store } }).dive()
+    const component = shallow(<App store={store} />)
+      .dive()
+      .dive()
     expect(component).toMatchSnapshot()
   })
 
@@ -37,7 +39,9 @@ describe('App', () => {
       },
     })
 
-    const component = shallow(<App />, { context: { store } }).dive()
+    const component = shallow(<App store={store} />)
+      .dive()
+      .dive()
     expect(component).toMatchSnapshot()
   })
 })
