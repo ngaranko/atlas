@@ -1,6 +1,6 @@
 {
   "name": "atlas",
-  "version": "3.8.3",
+  "version": "3.8.4",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Amsterdam/atlas.git"
@@ -36,9 +36,9 @@
     "test-karma-watch": "karma start --no-single-run"
   },
   "dependencies": {
-    "@datapunt/asc-assets": "latest",
-    "@datapunt/asc-core": "latest",
-    "@datapunt/asc-ui": "latest",
+    "@datapunt/asc-assets": "^0.12.6",
+    "@datapunt/asc-core": "^0.12.6",
+    "@datapunt/asc-ui": "^0.12.6",
     "@datapunt/matomo-tracker-js": "latest",
     "@datapunt/matomo-tracker-react": "latest",
     "@sentry/browser": "^5.6.1",
