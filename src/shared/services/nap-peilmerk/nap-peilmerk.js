@@ -25,7 +25,7 @@ export default function fetchByUri(uri) {
       label: result.peilmerkidentificatie,
       location: result.location || wgs84Center,
       wallCoordinates,
-      wallCoordinatesLabel: `${wallCoordinates[0]}, ${wallCoordinates[1]}`,
+      wallCoordinatesLabel: wallCoordinates ? `${wallCoordinates[0]}, ${wallCoordinates[1]}` : '',
       windDirection: result.windrichting,
       year: result.jaar,
     }

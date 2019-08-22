@@ -37,19 +37,22 @@ exports[`MapDetailResult should render adressen nummeraanduiding 1`] = `
 `;
 
 exports[`MapDetailResult should render adressen openbareruimte 1`] = `
-<MapDetailAdressenOpenbareRuimte
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
-  openbareRuimte={
+  panoUrl="panoUrl"
+  result={
     Object {
-      "endpointType": "bag/openbareruimte/",
-      "label": "value",
-      "status": Object {
-        "description": "description",
-      },
+      "items": Array [
+        Object {
+          "label": "Naam 24-posities (NEN)",
+          "value": undefined,
+        },
+      ],
+      "subTitle": "value",
+      "title": undefined,
     }
   }
-  panoUrl="panoUrl"
 />
 `;
 
@@ -105,60 +108,104 @@ exports[`MapDetailResult should render adressen verblijfsobject 1`] = `
 `;
 
 exports[`MapDetailResult should render bedrijfsinvesteringszone 1`] = `
-<MapDetailBedrijfsinvesteringszone
-  bedrijfsinvesteringszone={
-    Object {
-      "endpointType": "vsd/biz/",
-      "label": "value",
-    }
-  }
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
+  result={
+    Object {
+      "items": Array [
+        Object {
+          "label": "Type",
+          "value": undefined,
+        },
+        Object {
+          "label": "Heffingsgrondslag",
+          "value": undefined,
+        },
+        Object {
+          "label": "Jaarlijkse heffing",
+          "value": undefined,
+        },
+        Object {
+          "label": "Aantal heffingsplichtigen",
+          "value": undefined,
+        },
+      ],
+      "subTitle": "value",
+      "title": "bedrijfsinvesteringszone",
+    }
+  }
 />
 `;
 
 exports[`MapDetailResult should render de parkeervak 1`] = `
-<MapDetailParkeervak
-  item={
-    Object {
-      "endpointType": "parkeervakken/parkeervakken/",
-      "label": "value",
-    }
-  }
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
+  result={
+    Object {
+      "items": Array [
+        Object {
+          "label": "Straat",
+          "value": undefined,
+        },
+        Object {
+          "label": "Type",
+          "value": undefined,
+        },
+        Object {
+          "label": "Bord",
+          "value": undefined,
+        },
+      ],
+      "subTitle": "value",
+      "title": "Parkeervak",
+    }
+  }
 />
 `;
 
 exports[`MapDetailResult should render de parkeerzone  1`] = `
-<MapDetailParkeerzone
-  item={
-    Object {
-      "description": "value",
-      "endpointType": "vsd/parkeerzones/",
-      "label": "value",
-    }
-  }
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
+  result={
+    Object {
+      "items": Array [
+        Object {
+          "label": "Omschrijving",
+          "multiLine": true,
+          "value": "value",
+        },
+      ],
+      "subTitle": "value",
+      "title": "Parkeervergunninggebied",
+    }
+  }
 />
 `;
 
 exports[`MapDetailResult should render de parkeerzone uitz  1`] = `
-<MapDetailParkeerzone
-  item={
-    Object {
-      "description": "value",
-      "endpointType": "vsd/parkeerzones_uitz/",
-      "label": "value",
-    }
-  }
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
+  result={
+    Object {
+      "items": Array [
+        Object {
+          "label": "Omschrijving",
+          "multiLine": true,
+          "value": "value",
+        },
+      ],
+      "subTitle": "value",
+      "title": "Uitzondering parkeervergunninggebied",
+    }
+  }
 />
 `;
 
@@ -177,16 +224,35 @@ exports[`MapDetailResult should render explosieven gevrijwaard gebied 1`] = `
 `;
 
 exports[`MapDetailResult should render explosieven inslag 1`] = `
-<MapDetailExplosievenInslag
-  inslag={
-    Object {
-      "endpointType": "milieuthemas/explosieven/inslagen/",
-      "label": "value",
-    }
-  }
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
+  result={
+    Object {
+      "items": Array [
+        Object {
+          "label": "Datum van inslag",
+          "value": undefined,
+        },
+        Object {
+          "label": "Soort handeling",
+          "value": undefined,
+        },
+        Object {
+          "label": "Bron",
+          "multiLine": true,
+          "value": undefined,
+        },
+        Object {
+          "label": "Opmerkingen",
+          "value": undefined,
+        },
+      ],
+      "subTitle": "value",
+      "title": "Inslag",
+    }
+  }
 />
 `;
 
@@ -219,16 +285,17 @@ exports[`MapDetailResult should render explosieven verdacht gebied 1`] = `
 `;
 
 exports[`MapDetailResult should render gebieden bouwblok 1`] = `
-<MapDetailGebiedenBouwblok
-  bouwblok={
-    Object {
-      "endpointType": "gebieden/bouwblok/",
-      "label": "value",
-    }
-  }
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
+  result={
+    Object {
+      "items": Array [],
+      "subTitle": "value",
+      "title": "Bouwblok",
+    }
+  }
 />
 `;
 
@@ -317,85 +384,196 @@ exports[`MapDetailResult should render gebieden wijk 1`] = `
 `;
 
 exports[`MapDetailResult should render grondexploitatie 1`] = `
-<MapDetailGrondexploitatie
-  detail={
+<MapDetailPanel
+  onMaximize={[MockFunction]}
+  onPanoPreviewClick={[MockFunction]}
+  panoUrl="panoUrl"
+  result={
     Object {
-      "endpointType": "grondexploitatie/project/",
-      "label": "value",
+      "items": Array [
+        Object {
+          "label": "Nummer",
+          "value": undefined,
+        },
+        Object {
+          "label": "Startdatum",
+          "value": undefined,
+        },
+        Object {
+          "label": "Fase",
+          "value": undefined,
+        },
+        Object {
+          "label": "Totale begroting baten",
+          "value": undefined,
+        },
+        Object {
+          "label": "Totale begroting kosten",
+          "value": undefined,
+        },
+        Object {
+          "label": "Verschil",
+          "value": undefined,
+        },
+      ],
+      "notification": "Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om grondexploitaties te bekijken.",
+      "subTitle": "value",
+      "title": "Grondexploitatie",
     }
   }
-  onMaximize={[MockFunction]}
-  panoUrl="panoUrl"
 />
 `;
 
 exports[`MapDetailResult should render kadastraal object 1`] = `
-<MapDetailKadastraalObject
-  kadastraalObject={
-    Object {
-      "endpointType": "brk/object/",
-      "label": "value",
-    }
-  }
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
+  result={
+    Object {
+      "items": Array [
+        Object {
+          "label": "Kadastrale gemeente",
+          "value": false,
+        },
+        Object {
+          "label": "Gemeente",
+          "value": false,
+        },
+        Object {
+          "label": "Grootte",
+          "value": undefined,
+        },
+      ],
+      "subTitle": "value",
+      "title": "Kadastraa object",
+    }
+  }
 />
 `;
 
 exports[`MapDetailResult should render meetbout 1`] = `
-<MapDetailMeetbout
-  meetbout={
-    Object {
-      "endpointType": "meetbouten/meetbout/",
-      "label": "value",
-    }
-  }
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
+  result={
+    Object {
+      "items": Array [
+        Object {
+          "label": "Adres",
+          "value": undefined,
+        },
+        Object {
+          "label": "Zaksnelheid (mm/j)",
+          "value": undefined,
+        },
+      ],
+      "subTitle": "value",
+      "title": "Meetbout",
+    }
+  }
 />
 `;
 
 exports[`MapDetailResult should render monument 1`] = `
-<MapDetailMonument
-  monument={
-    Object {
-      "endpointType": "monumenten/monumenten/",
-      "label": "value",
-    }
-  }
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
+  result={
+    Object {
+      "items": Array [
+        Object {
+          "label": "Nummer",
+          "value": undefined,
+        },
+        Object {
+          "label": "Type",
+          "value": undefined,
+        },
+        Object {
+          "label": "Status",
+          "value": undefined,
+        },
+      ],
+      "subTitle": "value",
+      "title": "Monument",
+    }
+  }
 />
 `;
 
 exports[`MapDetailResult should render nap peilmerk 1`] = `
-<MapDetailNapPeilmerk
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
   panoUrl="panoUrl"
-  peilmerk={
+  result={
     Object {
-      "endpointType": "nap/peilmerk/",
-      "label": "value",
+      "items": Array [
+        Object {
+          "label": "Hoogte NAP",
+          "value": undefined,
+        },
+        Object {
+          "label": "Omschrijving",
+          "multiLine": true,
+          "value": undefined,
+        },
+        Object {
+          "label": "Windrichting",
+          "value": undefined,
+        },
+        Object {
+          "label": "Muurvlakcoördinaten (cm)",
+          "value": undefined,
+        },
+      ],
+      "subTitle": "value",
+      "titel": "NAP Peilmerk",
     }
   }
 />
 `;
 
 exports[`MapDetailResult should render oplaadpuntent 1`] = `
-<MapDetailOplaadpunt
+<MapDetailPanel
   onMaximize={[MockFunction]}
   onPanoPreviewClick={[MockFunction]}
-  oplaadpunt={
+  panoUrl="panoUrl"
+  result={
     Object {
-      "endpointType": "vsd/oplaadpunten/",
-      "label": "value",
+      "items": Array [
+        Object {
+          "label": "Adres",
+          "value": undefined,
+        },
+        Object {
+          "label": "Aantal",
+          "value": undefined,
+        },
+        Object {
+          "label": "Soort",
+          "value": undefined,
+        },
+        Object {
+          "label": "Capaciteit",
+          "value": undefined,
+        },
+        Object {
+          "label": "Connectortype",
+          "value": undefined,
+        },
+        Object {
+          "label": "Status",
+          "value": undefined,
+        },
+      ],
+      "subTitle": "value",
+      "title": "Oplaadpunt",
     }
   }
-  panoUrl="panoUrl"
 />
 `;
 

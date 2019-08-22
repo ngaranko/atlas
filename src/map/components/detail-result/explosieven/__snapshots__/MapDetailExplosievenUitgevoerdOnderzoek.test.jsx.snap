@@ -18,16 +18,19 @@ exports[`MapDetailExplosievenUitgevoerdOnderzoek should render everything 1`] = 
     <MapDetailResultItem
       hasMultiline={false}
       label="Soort rapportage"
+      link={false}
       value="Uitgevoerd onderzoek type"
     />
     <MapDetailResultItem
       hasMultiline={false}
       label="Onderzoeksgebied"
+      link={false}
       value="Uitgevoerd onderzoek onderzoeksgebied"
     />
     <MapDetailResultItem
       hasMultiline={false}
       label="Verdacht gebied"
+      link={false}
       value="Uitgevoerd onderzoek verdacht gebied"
     />
   </ul>

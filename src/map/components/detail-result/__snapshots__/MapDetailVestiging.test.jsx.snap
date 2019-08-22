@@ -14,11 +14,13 @@ exports[`MapDetailVestiging should not render \`bijzondere rechtstoestand\` 1`] 
     <MapDetailResultItem
       hasMultiline={false}
       label="KvK-nummer"
+      link={false}
       value="123456"
     />
     <MapDetailResultItem
       hasMultiline={false}
       label="Vestigingsnummer"
+      link={false}
       value=""
     />
     <MapDetailAddressItem
@@ -46,6 +48,7 @@ exports[`MapDetailVestiging should not render \`bijzondere rechtstoestand\` 1`] 
     <MapDetailResultItem
       hasMultiline={false}
       label="Type vestiging"
+      link={false}
       value="Nevenvestiging"
     />
   </ul>
@@ -77,11 +80,13 @@ exports[`MapDetailVestiging should render \`bijzondere rechtstoestand\` when \`s
     <MapDetailResultItem
       hasMultiline={false}
       label="KvK-nummer"
+      link={false}
       value="123456"
     />
     <MapDetailResultItem
       hasMultiline={false}
       label="Vestigingsnummer"
+      link={false}
       value=""
     />
     <MapDetailAddressItem
@@ -109,6 +114,7 @@ exports[`MapDetailVestiging should render \`bijzondere rechtstoestand\` when \`s
     <MapDetailResultItem
       hasMultiline={false}
       label="Type vestiging"
+      link={false}
       value="Nevenvestiging"
     />
     <MapDetailResultStatusItem
@@ -145,11 +151,13 @@ exports[`MapDetailVestiging should render everything 1`] = `
     <MapDetailResultItem
       hasMultiline={false}
       label="KvK-nummer"
+      link={false}
       value="123456"
     />
     <MapDetailResultItem
       hasMultiline={false}
       label="Vestigingsnummer"
+      link={false}
       value=""
     />
     <MapDetailAddressItem
@@ -177,6 +185,7 @@ exports[`MapDetailVestiging should render everything 1`] = `
     <MapDetailResultItem
       hasMultiline={false}
       label="Type vestiging"
+      link={false}
       value="Nevenvestiging"
     />
     <MapDetailResultStatusItem
@@ -202,11 +211,13 @@ exports[`MapDetailVestiging should render everything with hoofdvestiging = false
     <MapDetailResultItem
       hasMultiline={false}
       label="KvK-nummer"
+      link={false}
       value="123456"
     />
     <MapDetailResultItem
       hasMultiline={false}
       label="Vestigingsnummer"
+      link={false}
       value="0001234"
     />
     <MapDetailAddressItem
@@ -234,6 +245,7 @@ exports[`MapDetailVestiging should render everything with hoofdvestiging = false
     <MapDetailResultItem
       hasMultiline={false}
       label="Type vestiging"
+      link={false}
       value="Nevenvestiging"
     />
   </ul>

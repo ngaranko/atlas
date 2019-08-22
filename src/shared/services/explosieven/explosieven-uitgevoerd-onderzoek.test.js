@@ -32,6 +32,7 @@ describe('The explosieven uitgevoerd onderzoek resource', () => {
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
           date: new Date('1918-05-21'),
+          dateLabel: 'May 21, 1918',
           datum: '1918-05-21',
           _display: 'UitgevoerdOnderzoek display name 1',
           geometrie: { type: 'Point' },
@@ -55,6 +56,7 @@ describe('The explosieven uitgevoerd onderzoek resource', () => {
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
           date: null,
+          dateLabel: null,
           label: undefined,
           location: null,
           verdachtGebied: undefined,

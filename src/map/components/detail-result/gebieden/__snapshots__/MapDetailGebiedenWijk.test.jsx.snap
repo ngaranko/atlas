@@ -14,6 +14,7 @@ exports[`MapDetailGebiedenWijk should render everything 1`] = `
     <MapDetailResultItem
       hasMultiline={false}
       label="Volledige code"
+      link={false}
       value="A"
     />
   </ul>

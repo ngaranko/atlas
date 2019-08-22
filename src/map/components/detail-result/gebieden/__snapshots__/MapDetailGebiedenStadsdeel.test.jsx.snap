@@ -14,6 +14,7 @@ exports[`MapDetailGebiedenStadsdeel should render everything 1`] = `
     <MapDetailResultItem
       hasMultiline={false}
       label="Code"
+      link={false}
       value="A"
     />
   </ul>
@@ -34,6 +35,7 @@ exports[`MapDetailGebiedenStadsdeel should render grex 1`] = `
     <MapDetailResultItem
       hasMultiline={false}
       label="Code"
+      link={false}
       value="A"
     />
     <div>
@@ -48,16 +50,19 @@ exports[`MapDetailGebiedenStadsdeel should render grex 1`] = `
         <MapDetailResultItem
           hasMultiline={false}
           label="Totale begroting baten"
+          link={false}
           value="foo"
         />
         <MapDetailResultItem
           hasMultiline={false}
           label="Totale begroting kosten"
+          link={false}
           value="bar"
         />
         <MapDetailResultItem
           hasMultiline={false}
           label="Verschil"
+          link={false}
           value="abc"
         />
       </ul>

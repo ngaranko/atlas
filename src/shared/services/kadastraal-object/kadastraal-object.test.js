@@ -63,6 +63,7 @@ describe('The kadastraal object resource', () => {
           objectNumber: '6444',
           objectnummer: '6444',
           size: 172,
+          sizeLabel: '172 m²',
           something: 'abc123',
         })
       })
@@ -87,6 +88,7 @@ describe('The kadastraal object resource', () => {
           location: null,
           objectNumber: undefined,
           size: undefined,
+          sizeLabel: '',
         })
       })
 

@@ -58,7 +58,7 @@ describe('The bedrijfsinvesteringszone resource', () => {
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
           heffingLabel: undefined,
-          heffingsplichtigen: undefined,
+          heffingsplichtigen: '',
           label: undefined,
           location: null,
           type: undefined,

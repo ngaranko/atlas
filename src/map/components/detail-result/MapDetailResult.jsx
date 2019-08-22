@@ -287,8 +287,14 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
         title: 'Kadastraa object',
         subTitle: result.label,
         items: [
-          { label: 'Kadastrale gemeente', value: result.kadastraleGemeente.name },
-          { label: 'Gemeente', value: result.kadastraleGemeente.gemeente },
+          {
+            label: 'Kadastrale gemeente',
+            value: result.kadastraleGemeente ? result.kadastraleGemeente.name : false,
+          },
+          {
+            label: 'Gemeente',
+            value: result.kadastraleGemeente ? result.kadastraleGemeente.gemeente : false,
+          },
           { label: 'Grootte', value: result.sizeLabel },
         ],
       }

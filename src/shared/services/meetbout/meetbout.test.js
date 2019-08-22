@@ -37,7 +37,7 @@ describe('The meetbout resource', () => {
           label: 'Meetbout display name 1',
           location: { latitude: 3, longitude: 4 },
           meetboutidentificatie: 'Meetbout display name 1',
-          zakkingssnelheid: '0.12345',
+          zakkingssnelheid: '0,123',
           speed: 0.12345,
           something: 'abc123',
         })
@@ -56,7 +56,7 @@ describe('The meetbout resource', () => {
         expect(response).toEqual({
           address: undefined,
           label: undefined,
-          zakkingssnelheid: undefined,
+          zakkingssnelheid: '',
           speed: NaN,
           location: null,
         })

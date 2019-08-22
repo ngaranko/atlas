@@ -52,6 +52,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
     <MapDetailResultItem
       hasMultiline={false}
       label="Feitelijk gebruik"
+      link={false}
       value="horeca"
     />
     <MapDetailResultStatusItem
@@ -77,6 +78,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if aanduiding in
     <MapDetailResultItem
       hasMultiline={false}
       label="Oppervlakte"
+      link={false}
       value="onbekend"
     />
   </ul>
@@ -135,6 +137,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
     <MapDetailResultItem
       hasMultiline={false}
       label="Feitelijk gebruik"
+      link={false}
       value="horeca"
     />
     <MapDetailResultStatusItem
@@ -160,6 +163,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if indicatie gec
     <MapDetailResultItem
       hasMultiline={false}
       label="Oppervlakte"
+      link={false}
       value="onbekend"
     />
   </ul>
@@ -228,6 +232,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
     <MapDetailResultItem
       hasMultiline={false}
       label="Feitelijk gebruik"
+      link={false}
       value="horeca"
     />
     <MapDetailResultStatusItem
@@ -253,6 +258,7 @@ exports[`MapDetailAdressenVerblijfsobject should render \`Nee\` if is nevenadres
     <MapDetailResultItem
       hasMultiline={false}
       label="Oppervlakte"
+      link={false}
       value="onbekend"
     />
   </ul>
@@ -322,6 +328,7 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
     <MapDetailResultItem
       hasMultiline={false}
       label="Feitelijk gebruik"
+      link={false}
       value="horeca"
     />
     <MapDetailResultStatusItem
@@ -347,6 +354,7 @@ exports[`MapDetailAdressenVerblijfsobject should render everything 1`] = `
     <MapDetailResultItem
       hasMultiline={false}
       label="Oppervlakte"
+      link={false}
       value="15 m²"
     />
   </ul>
@@ -416,6 +424,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
     <MapDetailResultItem
       hasMultiline={false}
       label="Feitelijk gebruik"
+      link={false}
       value="horeca"
     />
     <MapDetailResultStatusItem
@@ -441,6 +450,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown with zero value 
     <MapDetailResultItem
       hasMultiline={false}
       label="Oppervlakte"
+      link={false}
       value="onbekend"
     />
   </ul>
@@ -498,6 +508,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
     <MapDetailResultItem
       hasMultiline={false}
       label="Feitelijk gebruik"
+      link={false}
       value="horeca"
     />
     <MapDetailResultStatusItem
@@ -523,6 +534,7 @@ exports[`MapDetailAdressenVerblijfsobject should render unknown without size 1`]
     <MapDetailResultItem
       hasMultiline={false}
       label="Oppervlakte"
+      link={false}
       value="onbekend"
     />
   </ul>

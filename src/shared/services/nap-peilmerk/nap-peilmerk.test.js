@@ -38,6 +38,7 @@ describe('The NAP peilmerk resource', () => {
           description: 'NAP peilmerk description',
           geometrie: { type: 'Point' },
           height: 2.1502,
+          heightLabel: '2,15 m',
           hoogte_nap: '2.1502',
           jaar: 2007,
           windrichting: 'W',
@@ -51,6 +52,7 @@ describe('The NAP peilmerk resource', () => {
           year: 2007,
           windDirection: 'W',
           wallCoordinates: [1, 2],
+          wallCoordinatesLabel: '1, 2',
         })
       })
 
@@ -67,11 +69,13 @@ describe('The NAP peilmerk resource', () => {
         expect(response).toEqual({
           description: undefined,
           height: NaN,
+          heightLabel: '',
           label: undefined,
           location: null,
           year: undefined,
           windDirection: undefined,
           wallCoordinates: undefined,
+          wallCoordinatesLabel: '',
         })
       })
 

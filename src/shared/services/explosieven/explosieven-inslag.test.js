@@ -34,6 +34,7 @@ describe('The explosieven inslag resource', () => {
         expect(response).toEqual({
           bron: 'source',
           date: new Date('1918-05-21'),
+          dateLabel: 'May 21, 1918',
           datum_inslag: '1918-05-21',
           _display: 'Inslag display name 1',
           geometrie: { type: 'Point' },
@@ -58,6 +59,7 @@ describe('The explosieven inslag resource', () => {
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
           date: null,
+          dateLabel: null,
           label: undefined,
           location: null,
           remarks: undefined,

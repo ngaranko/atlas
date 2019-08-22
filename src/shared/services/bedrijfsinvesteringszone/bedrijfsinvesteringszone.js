@@ -11,7 +11,7 @@ export default function fetchByUri(uri) {
     return {
       ...result,
       heffingLabel: result.heffing_display,
-      heffingsplichtigen: result.bijdrageplichtigen.toString(),
+      heffingsplichtigen: result.bijdrageplichtigen ? result.bijdrageplichtigen.toString() : '',
       label: result._display,
       location: result.location || wgs84Center,
       type: result.biz_type,

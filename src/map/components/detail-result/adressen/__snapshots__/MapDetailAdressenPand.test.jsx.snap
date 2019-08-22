@@ -14,11 +14,13 @@ exports[`MapDetailAdressenPand should render everything 1`] = `
     <MapDetailResultItem
       hasMultiline={false}
       label="Oorspronkelijk bouwjaar"
+      link={false}
       value="2020"
     />
     <MapDetailResultItem
       hasMultiline={false}
       label="Naam"
+      link={false}
       value="Gebouw!"
     />
     <MapDetailResultStatusItem
@@ -44,11 +46,13 @@ exports[`MapDetailAdressenPand should render unknown for empty year and empty na
     <MapDetailResultItem
       hasMultiline={false}
       label="Oorspronkelijk bouwjaar"
+      link={false}
       value="onbekend"
     />
     <MapDetailResultItem
       hasMultiline={false}
       label="Naam"
+      link={false}
       value=""
     />
     <MapDetailResultStatusItem
@@ -74,11 +78,13 @@ exports[`MapDetailAdressenPand should render unknown without year and name 1`] =
     <MapDetailResultItem
       hasMultiline={false}
       label="Oorspronkelijk bouwjaar"
+      link={false}
       value="onbekend"
     />
     <MapDetailResultItem
       hasMultiline={false}
       label="Naam"
+      link={false}
       value=""
     />
     <MapDetailResultStatusItem
