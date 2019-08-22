@@ -40,6 +40,7 @@
     "@datapunt/asc-core": "latest",
     "@datapunt/asc-ui": "latest",
     "@datapunt/matomo-tracker-js": "latest",
+    "@datapunt/matomo-tracker-react": "latest",
     "@sentry/browser": "^5.6.1",
     "@svgr/webpack": "4.3.2",
     "angular": "1.6.9",
