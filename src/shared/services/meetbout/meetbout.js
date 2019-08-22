@@ -1,6 +1,6 @@
 import getCenter from '../geo-json/geo-json'
 import { rdToWgs84 } from '../coordinate-reference-system/crs-converter'
-
+import formatNumber from '../number-formatter/number-formatter'
 import { getByUrl } from '../api/api'
 
 export default function fetchByUri(uri) {
@@ -14,6 +14,10 @@ export default function fetchByUri(uri) {
       label: result.meetboutidentificatie,
       location: result.location || wgs84Center,
       speed: parseFloat(result.zakkingssnelheid),
+      zakkingssnelheid:
+        result.zakkingssnelheid || result.zakkingssnelheid === 0
+          ? `${formatNumber(result.zakkingssnelheid)}`
+          : '',
     }
   })
 }

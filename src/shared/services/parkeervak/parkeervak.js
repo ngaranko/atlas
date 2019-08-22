@@ -10,6 +10,7 @@ export default function fetchByUri(uri) {
 
     return {
       ...result,
+      label: result.id,
       location: result.location || wgs84Center,
     }
   })

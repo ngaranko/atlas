@@ -22,6 +22,10 @@ export default function fetchByUri(uri) {
       location: result.location || wgs84Center,
       objectNumber: result.objectnummer,
       size: result.grootte,
+      sizeLabel:
+        result.grootte || result.grootte === 0
+          ? `${result.grootte.toLocaleString('nl-NL')} m²`
+          : '',
     }
   })
 }
