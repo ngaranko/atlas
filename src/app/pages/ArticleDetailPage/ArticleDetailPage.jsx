@@ -28,6 +28,7 @@ import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import cmsConfig from '../../../shared/services/cms/cms-config'
+import normalizeDownloadsObject from '../../../normalizations/cms/normalizeDownloadFiles'
 
 const ListItemContent = styled.div`
   display: flex;
@@ -59,40 +60,11 @@ const ArticleDetailPage = ({ id }) => {
     field_slug: slug,
     field_intro: intro,
   } = results || {}
+
   const documentTitle = title && `Artikel: ${title}`
-  const linkAction = toArticleDetail(id, slug)
+  const linkAction = slug && toArticleDetail(id, slug)
 
-  const buildDownloadsObject = () => {
-    try {
-      return (
-        downloads &&
-        downloads.length &&
-        downloads.map(
-          ({
-            title: fileName,
-            drupal_internal__nid: key,
-            field_file_type: type,
-            field_file_size: size,
-            field_file: fieldFile,
-          }) => ({
-            fileName,
-            key,
-            type,
-            size,
-            fieldFile,
-            url: fieldFile.field_media_file.uri.url.replace(/^\/+/, ''),
-          }),
-        )
-      )
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn(`Could not show downloads in article: ${e}`)
-    }
-
-    return null
-  }
-
-  const normalizedDownloads = buildDownloadsObject()
+  const normalizedDownloads = normalizeDownloadsObject(downloads)
 
   const DownloadLink = styled(Link).attrs({
     type: 'button',
