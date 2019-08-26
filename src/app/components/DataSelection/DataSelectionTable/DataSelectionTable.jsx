@@ -5,7 +5,6 @@ import RouterLink from 'redux-first-router-link'
 import DataSelectionFormatter from '../DataSelectionFormatter/DataSelectionFormatter'
 import { routing } from '../../../routes'
 import { getDetailPageData } from '../../../../store/redux-first-router/actions'
-import './DataSelectionTable.scss'
 
 const DataSelectionTable = ({ content }) => {
   const buildLink = row => {

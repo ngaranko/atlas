@@ -138,9 +138,10 @@ describe('LeafletContainer', () => {
     it('should render correct', () => {
       const store = configureMockStore()({ ...initialState })
       const wrapper = shallow(
-        <LeafletContainer getLeafletInstance={initialState.getLeafletInstance} />,
-        { context: { store } },
-      ).dive()
+        <LeafletContainer store={store} getLeafletInstance={initialState.getLeafletInstance} />,
+      )
+        .dive()
+        .dive()
 
       expect(wrapper).toMatchSnapshot()
     })
@@ -249,9 +250,10 @@ describe('LeafletContainer', () => {
       ])
       const store = configureMockStore()({ ...stateWithDifferentCenter })
       const wrapper = shallow(
-        <LeafletContainer getLeafletInstance={initialState.getLeafletInstance} />,
-        { context: { store } },
-      ).dive()
+        <LeafletContainer store={store} getLeafletInstance={initialState.getLeafletInstance} />,
+      )
+        .dive()
+        .dive()
 
       expect(wrapper).toMatchSnapshot()
     })
@@ -297,9 +299,14 @@ describe('LeafletContainer', () => {
       isMarkerActive.mockImplementation(() => true)
 
       shallow(
-        <LeafletContainer {...props} getLeafletInstance={initialState.getLeafletInstance} />,
-        { context: { store } },
-      ).dive()
+        <LeafletContainer
+          store={store}
+          {...props}
+          getLeafletInstance={initialState.getLeafletInstance}
+        />,
+      )
+        .dive()
+        .dive()
 
       expect(fetchMapBaseLayers).toHaveBeenCalled()
       expect(fetchMapLayers).toHaveBeenCalled()
@@ -312,8 +319,11 @@ describe('LeafletContainer', () => {
       )
 
       shallow(
-        <LeafletContainer {...props} getLeafletInstance={initialState.getLeafletInstance} />,
-        { context: { store } },
+        <LeafletContainer
+          store={store}
+          {...props}
+          getLeafletInstance={initialState.getLeafletInstance}
+        />,
       ).dive()
 
       expect(fetchMapBaseLayers).not.toHaveBeenCalled()
@@ -344,9 +354,11 @@ describe('LeafletContainer', () => {
 
       store = configureMockStore()({ ...initialState })
       spy = jest.spyOn(store, 'dispatch')
-      wrapper = shallow(<LeafletContainer getLeafletInstance={initialState.getLeafletInstance} />, {
-        context: { store },
-      }).dive()
+      wrapper = shallow(
+        <LeafletContainer getLeafletInstance={initialState.getLeafletInstance} store={store} />,
+      )
+        .dive()
+        .dive()
       wrapperInstance = wrapper.instance()
     })
 

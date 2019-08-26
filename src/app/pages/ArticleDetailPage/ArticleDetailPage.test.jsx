@@ -66,9 +66,9 @@ describe('ArticleDetailPage', () => {
       loading: true,
     }))
 
-    const component = shallow(<ArticleDetailPage />, {
-      context: { store },
-    }).dive()
+    const component = shallow(<ArticleDetailPage store={store} />)
+      .dive()
+      .dive()
 
     const editorialPage = component.find('EditorialPage').at(0)
     expect(editorialPage.props().loading).toBeTruthy()
@@ -95,9 +95,9 @@ describe('ArticleDetailPage', () => {
 
   it('should render the publication when there are results', () => {
     useFromCMS.mockImplementation(() => mockData)
-    const component = shallow(<ArticleDetailPage />, {
-      context: { store },
-    }).dive()
+    const component = shallow(<ArticleDetailPage store={store} />)
+      .dive()
+      .dive()
 
     expect(component).toMatchSnapshot()
   })
