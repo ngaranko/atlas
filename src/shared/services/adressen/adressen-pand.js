@@ -5,6 +5,18 @@ import { getByUrl } from '../api/api'
 
 const yearUnknownValue = '1005'
 
+const statusLevel = {
+  24: 'info',
+  25: 'info',
+  26: 'info',
+  27: 'info',
+  28: 'info',
+  29: 'info',
+  30: '',
+  31: '',
+  32: 'info',
+}
+
 export default function fetchByUri(uri) {
   return getByUrl(uri).then(result => {
     const geometryCenter = result.geometrie && getCenter(result.geometrie)
@@ -17,10 +29,13 @@ export default function fetchByUri(uri) {
       status: {
         code: result.status ? result.status.code : '',
         description: result.status ? result.status.omschrijving : '',
+        level: result.status && result.status.code ? statusLevel[result.status.code] : '',
       },
       name: result.pandnaam,
       year:
-        result.oorspronkelijk_bouwjaar !== yearUnknownValue ? result.oorspronkelijk_bouwjaar : '',
+        result.oorspronkelijk_bouwjaar !== yearUnknownValue
+          ? result.oorspronkelijk_bouwjaar
+          : 'Onbekend',
     }
   })
 }

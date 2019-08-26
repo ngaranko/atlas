@@ -2,31 +2,43 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { endpointTypes } from '../../services/map-detail'
-import MapDetailAdressenLigplaats from './adressen/MapDetailAdressenLigplaats'
-import MapDetailAdressenPand from './adressen/MapDetailAdressenPand'
-import MapDetailAdressenStandplaats from './adressen/MapDetailAdressenStandplaats'
-import MapDetailAdressenVerblijfsobject from './adressen/MapDetailAdressenVerblijfsobject'
-import MapDetailVestiging from './MapDetailVestiging'
-
-// Need to check if these are still needed
-import MapDetailGebiedenBuurt from './gebieden/MapDetailGebiedenBuurt'
-import MapDetailGebiedenGebiedsgerichtWerken from './gebieden/MapDetailGebiedenGebiedsgerichtWerken'
-import MapDetailGebiedenGrootstedelijk from './gebieden/MapDetailGebiedenGrootstedelijk'
-import MapDetailGebiedenStadsdeel from './gebieden/MapDetailGebiedenStadsdeel'
-import MapDetailGebiedenUnesco from './gebieden/MapDetailGebiedenUnesco'
-import MapDetailGebiedenWijk from './gebieden/MapDetailGebiedenWijk'
-import MapDetailExplosievenGevrijwaardGebied from './explosieven/MapDetailExplosievenGevrijwaardGebied'
-import MapDetailExplosievenUitgevoerdOnderzoek from './explosieven/MapDetailExplosievenUitgevoerdOnderzoek'
-import MapDetailExplosievenVerdachtGebied from './explosieven/MapDetailExplosievenVerdachtGebied'
 
 import MapDetailPanel from './MapDetailPanel'
 
 const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => {
   switch (result.endpointType) {
     case endpointTypes.adressenLigplaats:
+      // eslint-disable-next-line no-case-declarations
+      const adressenLigplaats = {
+        title: 'Adres (ligplaats)',
+        subTitle: result.label,
+        items: [
+          {
+            label: 'Indicatie geconstateerd',
+            value: result.indicatieGeconstateerd ? 'Ja' : 'Nee',
+            status: result.indicatieGeconstateerd ? 'alert' : '',
+          },
+          {
+            label: 'Aanduiding in onderzoek',
+            value: result.aanduidingInOnderzoek ? 'Ja' : 'Nee',
+            status: result.aanduidingInOnderzoek ? 'alert' : '',
+          },
+        ],
+        notifications: [
+          {
+            value: result.indicatieGeconstateerd ? 'Indicatie geconstateerd' : false,
+            level: 'alert',
+          },
+          {
+            value: result.aanduidingInOnderzoek ? 'In onderzoek' : false,
+            level: 'alert',
+          },
+        ],
+      }
+
       return (
-        <MapDetailAdressenLigplaats
-          ligplaats={result}
+        <MapDetailPanel
+          result={adressenLigplaats}
           onPanoPreviewClick={onPanoPreviewClick}
           onMaximize={onMaximize}
           panoUrl={panoUrl}
@@ -34,12 +46,70 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
       )
     case endpointTypes.adressenNummeraanduiding:
     case endpointTypes.adressenVerblijfsobject:
+      // eslint-disable-next-line no-case-declarations
+      const adressenNummeraanduiding = {
+        title: 'Adres (verblijfsobject)',
+        subTitle: result.label,
+        items: [
+          {
+            label: 'Gebruiksdoel',
+            value: result.gebruiksdoelenLabel,
+            multiLine: true,
+          },
+          {
+            label: 'Feitelijk gebruik',
+            value: result.use.description,
+          },
+          {
+            label: 'Status',
+            value: result.status.description,
+          },
+          {
+            label: 'Indicatie hoofdadres',
+            value: result.isNevenadres ? 'Nee' : 'Ja',
+            status: result.isNevenadres ? 'info' : '',
+          },
+          {
+            label: 'Indicatie geconstateerd',
+            value: result.indicatieGeconstateerd ? 'Ja' : 'Nee',
+            status: result.indicatieGeconstateerd ? 'alert' : '',
+          },
+          {
+            label: 'Aanduiding in onderzoek',
+            value: result.aanduidingInOnderzoek ? 'Ja' : 'Nee',
+            status: result.aanduidingInOnderzoek ? 'alert' : '',
+          },
+          {
+            label: 'Oppervlakte',
+            value: result.sizeLabel,
+          },
+        ],
+        notifications: [
+          {
+            value: result.status.level ? `Status: ${result.status.description}` : false,
+            level: result.status.level,
+          },
+          {
+            value: result.isNevenadres ? 'Dit is een nevenadres' : false,
+            level: 'info',
+          },
+          {
+            value: result.indicatieGeconstateerd ? 'Indicatie geconstateerd' : false,
+            level: 'alert',
+          },
+          {
+            value: result.aanduidingInOnderzoek ? 'In onderzoek' : false,
+            level: 'alert',
+          },
+        ],
+      }
+
       return (
-        <MapDetailAdressenVerblijfsobject
+        <MapDetailPanel
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
-          verblijfsobject={result}
+          result={adressenNummeraanduiding}
         />
       )
     case endpointTypes.adressenOpenbareRuimte:
@@ -58,21 +128,76 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
         />
       )
     case endpointTypes.adressenPand:
+      // eslint-disable-next-line no-case-declarations
+      const adressenPand = {
+        title: ' Pand',
+        subTitle: result.label,
+        items: [
+          {
+            label: 'Oorspronkelijk bouwjaar',
+            value: result.year,
+          },
+          {
+            label: 'Naam',
+            value: result.name,
+          },
+          {
+            label: 'Status',
+            value: result.status.description,
+            status: result.status.level,
+          },
+        ],
+        notifications: [
+          {
+            value: result.status && result.status.level ? result.status.description : false,
+            level: result.status ? result.status.level : '',
+          },
+        ],
+      }
+
       return (
-        <MapDetailAdressenPand
+        <MapDetailPanel
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
-          pand={result}
+          result={adressenPand}
           panoUrl={panoUrl}
         />
       )
     case endpointTypes.adressenStandplaats:
+      // eslint-disable-next-line no-case-declarations
+      const adressenStandplaats = {
+        title: 'Adres (standplaats)',
+        subTitle: result.label,
+        items: [
+          {
+            label: 'Indicatie geconstateerd',
+            value: result.indicatieGeconstateerd ? 'Ja' : 'Nee',
+            status: result.indicatieGeconstateerd ? 'alert' : '',
+          },
+          {
+            label: 'Aanduiding in onderzoek',
+            value: result.aanduidingInOnderzoek ? 'Ja' : 'Nee',
+            status: result.aanduidingInOnderzoek ? 'alert' : '',
+          },
+        ],
+        notifications: [
+          {
+            value: result.indicatieGeconstateerd ? 'Indicatie geconstateerd' : false,
+            level: 'alert',
+          },
+          {
+            value: result.aanduidingInOnderzoek ? 'In onderzoek' : false,
+            level: 'alert',
+          },
+        ],
+      }
+
       return (
-        <MapDetailAdressenStandplaats
+        <MapDetailPanel
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
-          standplaats={result}
+          result={adressenStandplaats}
         />
       )
     case endpointTypes.bedrijfsinvesteringszone:
@@ -119,9 +244,21 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
         />
       )
     case endpointTypes.explosievenGevrijwaardGebied:
+      // eslint-disable-next-line no-case-declarations
+      const explosievenGevrijwaardGebied = {
+        title: 'Gevrijwaard gebied',
+        subTitle: result.label,
+        items: [
+          { label: 'Datum rapport', value: result.dateLabel },
+          { label: 'Soort handeling', value: result.type },
+          { label: 'Bron', value: result.source },
+          { label: 'Opmerkingen', value: result.remarks, multiLine: true },
+        ],
+      }
+
       return (
-        <MapDetailExplosievenGevrijwaardGebied
-          gevrijwaardGebied={result}
+        <MapDetailPanel
+          result={explosievenGevrijwaardGebied}
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
@@ -149,21 +286,44 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
         />
       )
     case endpointTypes.explosievenUitgevoerdOnderzoek:
+      // eslint-disable-next-line no-case-declarations
+      const explosievenUitgevoerdOnderzoek = {
+        title: 'Reeds uitgevoerd CE onderzoek',
+        subTitle: result.label,
+        items: [
+          { label: 'Datum rapport', value: result.dateLabel },
+          { label: 'Soort rapportage', value: result.type },
+          { label: 'Onderzoeksgebied', value: result.onderzoeksgebied },
+          { label: 'Verdacht gebied', value: result.verdachtGebied },
+        ],
+      }
+
       return (
-        <MapDetailExplosievenUitgevoerdOnderzoek
+        <MapDetailPanel
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
-          uitgevoerdOnderzoek={result}
+          result={explosievenUitgevoerdOnderzoek}
         />
       )
     case endpointTypes.explosievenVerdachtGebied:
+      // eslint-disable-next-line no-case-declarations
+      const explosievenVerdachtGebied = {
+        title: 'Verdacht gebied',
+        subTitle: result.label,
+        items: [
+          { label: 'Hoofdgroep', value: result.type },
+          { label: 'Subsoort', value: result.subtype },
+          { label: 'Opmerkingen', value: result.remarks, multiLine: true },
+        ],
+      }
+
       return (
-        <MapDetailExplosievenVerdachtGebied
+        <MapDetailPanel
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
-          verdachtGebied={result}
+          result={explosievenVerdachtGebied}
         />
       )
     case endpointTypes.evenementen:
@@ -202,57 +362,116 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
         />
       )
     case endpointTypes.gebiedenBuurt:
+      // eslint-disable-next-line no-case-declarations
+      const gebiedenBuurt = {
+        title: 'Buurt',
+        subTitle: result.label,
+        items: [{ label: 'Code', value: result.volledigeCode }],
+      }
+
       return (
-        <MapDetailGebiedenBuurt
-          buurt={result}
+        <MapDetailPanel
+          result={gebiedenBuurt}
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       )
     case endpointTypes.gebiedenGebiedsgerichtWerken:
+      // eslint-disable-next-line no-case-declarations
+      const gebiedenGebiedsgerichtWerken = {
+        title: 'Gebiedsgerichtwerken-gebied',
+        subTitle: result.label,
+        items: [{ label: 'Code', value: result.code }],
+      }
+
       return (
-        <MapDetailGebiedenGebiedsgerichtWerken
-          gebiedsgerichtWerken={result}
+        <MapDetailPanel
+          result={gebiedenGebiedsgerichtWerken}
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       )
     case endpointTypes.gebiedenGrootstedelijk:
+      // eslint-disable-next-line no-case-declarations
+      const gebiedenGrootstedelijk = {
+        title: 'Grootstedelijk gebied',
+        subTitle: result.label,
+        items: [],
+      }
+
       return (
-        <MapDetailGebiedenGrootstedelijk
-          grootstedelijk={result}
+        <MapDetailPanel
+          result={gebiedenGrootstedelijk}
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
         />
       )
     case endpointTypes.gebiedenStadsdeel:
+      // eslint-disable-next-line no-case-declarations
+      const gebiedenStadsdeel = {
+        title: 'Stadsdeel',
+        subTitle: result.label,
+        items: [
+          { label: 'Code', value: result.code },
+          {
+            label: 'Grondexploitaties',
+            value: result.grex && [
+              { label: 'Totale begroting baten', value: result.grex.totalIncomeLabel },
+              { label: 'Totale begroting kosten', value: result.grex.totalExpenseLabel },
+              { label: 'Verschil', value: result.grex.totalResultLabel },
+            ],
+          },
+        ],
+        notifications: [
+          {
+            value: !result.grex
+              ? 'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om grondexploitaties te bekijken.'
+              : false,
+          },
+        ],
+      }
+
       return (
-        <MapDetailGebiedenStadsdeel
+        <MapDetailPanel
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
-          stadsdeel={result}
+          result={gebiedenStadsdeel}
         />
       )
     case endpointTypes.gebiedenUnesco:
+      // eslint-disable-next-line no-case-declarations
+      const gebiedenUnesco = {
+        title: 'UNESCO',
+        subTitle: result.label,
+        items: [],
+      }
+
       return (
-        <MapDetailGebiedenUnesco
+        <MapDetailPanel
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
-          unesco={result}
+          result={gebiedenUnesco}
         />
       )
     case endpointTypes.gebiedenWijk:
+      // eslint-disable-next-line no-case-declarations
+      const gebiedenWijk = {
+        title: 'Wijk',
+        subTitle: result.label,
+        items: [{ label: 'Code', value: result.code }],
+      }
+
       return (
-        <MapDetailGebiedenWijk
+        <MapDetailPanel
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
-          wijk={result}
+          result={gebiedenWijk}
         />
       )
     case endpointTypes.grondexploitatie:
@@ -268,9 +487,13 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
           { label: 'Totale begroting kosten', value: result.totaal_kosten_display },
           { label: 'Verschil', value: result.totaal_resultaat_display },
         ],
-        notification: !result.plannr
-          ? 'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om grondexploitaties te bekijken.'
-          : false,
+        notifications: [
+          {
+            value: !result.plannr
+              ? 'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om grondexploitaties te bekijken.'
+              : false,
+          },
+        ],
       }
 
       return (
@@ -462,12 +685,64 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
         />
       )
     case endpointTypes.vestiging:
+      // eslint-disable-next-line no-case-declarations
+      const vestiging = {
+        title: 'Vestiging',
+        subTitle: result.label,
+        items: [
+          {
+            label: 'KvK-nummer',
+            value: result.kvkNumber,
+          },
+          {
+            label: 'Vestigingsnummer',
+            value: result.vestigingsnummer,
+          },
+          {
+            label: 'Bezoekadres',
+            value: result.visitingAddress,
+            multiLine: true,
+          },
+          {
+            label: 'SBI-code en -omschrijving',
+            value: result.activitiesLabel,
+            multiLine: true,
+          },
+          {
+            label: 'Type',
+            value: result.type,
+          },
+          {
+            label: 'Soort bijzondere rechtstoestand',
+            value:
+              result.bijzondereRechtstoestand && result.bijzondereRechtstoestand.label
+                ? result.bijzondereRechtstoestand.label
+                : false,
+          },
+        ],
+        notifications: [
+          {
+            value:
+              result.bijzondereRechtstoestand && result.bijzondereRechtstoestand.label
+                ? result.bijzondereRechtstoestand.label
+                : false,
+            level: 'alert',
+          },
+          {
+            value: !result.label
+              ? 'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke activiteiten en vestigingen te bekijken.'
+              : false,
+            level: 'info',
+          },
+        ],
+      }
+
       return (
-        <MapDetailVestiging
+        <MapDetailPanel
           onMaximize={onMaximize}
           onPanoPreviewClick={onPanoPreviewClick}
           panoUrl={panoUrl}
-          vestiging={result}
+          result={vestiging}
         />
       )
     case endpointTypes.winkelgebied:
@@ -475,8 +750,12 @@ const MapDetailResult = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) =>
       const winkelgebied = {
         title: 'Winkelgebied',
         subTitle: result.label,
-        notification:
-          'De grenzen van dit winkelgebied zijn indicatief. Er kunnen geen rechten aan worden ontleend.',
+        notifications: [
+          {
+            value:
+              'De grenzen van dit winkelgebied zijn indicatief. Er kunnen geen rechten aan worden ontleend.',
+          },
+        ],
         items: [{ label: 'Categorie', value: result.category }],
       }
 

@@ -45,7 +45,7 @@ describe('The adressen verblijfsobject resource', () => {
           oppervlakte: 23820,
           something: 'abc123',
           type_woonobject: { omschrijving: 'Type description' },
-          status: { omschrijving: 'Status omschrijving', code: '01' },
+          status: { omschrijving: 'Status omschrijving', code: '22' },
         }),
       )
       getCenter.mockImplementation(() => ({ x: 1, y: 2 }))
@@ -58,14 +58,16 @@ describe('The adressen verblijfsobject resource', () => {
           aanduiding_in_onderzoek: true,
           eigendomsverhouding: 'Eigendomsverhouding description',
           status: {
-            code: '01',
+            code: '22',
             description: 'Status omschrijving',
+            level: 'alert',
           },
           gebruiksdoelen: [
             {
               code: '01',
               omschrijving: 'Gebruiksdoel 1 description',
               description: 'Gebruiksdoel 1 description',
+              descriptionPlus: undefined,
             },
             {
               code: '04',
@@ -76,6 +78,8 @@ describe('The adressen verblijfsobject resource', () => {
               descriptionPlus: 'Gebruiksdoel 2 description plus',
             },
           ],
+          gebruiksdoelenLabel: `Gebruiksdoel 1 description
+Gebruiksdoel 2 description: Gebruiksdoel 2 description plus`,
           gebruik: {
             code: 14,
             omschrijving: 'horeca',
@@ -91,6 +95,7 @@ describe('The adressen verblijfsobject resource', () => {
           location: { latitude: 3, longitude: 4 },
           oppervlakte: 23820,
           size: 23820,
+          sizeLabel: '23,820 m²',
           something: 'abc123',
           type_woonobject: { omschrijving: 'Type description' },
           type: 'Type description',
@@ -143,13 +148,16 @@ describe('The adressen verblijfsobject resource', () => {
           aanduidingInOnderzoek: undefined,
           eigendomsverhouding: undefined,
           gebruiksdoelen: [],
+          gebruiksdoelenLabel: '',
           indicatieGeconstateerd: undefined,
           label: undefined,
           location: null,
           size: 0,
+          sizeLabel: 'Onbekend',
           status: {
             code: '',
             description: '',
+            level: '',
           },
           use: {
             code: '',

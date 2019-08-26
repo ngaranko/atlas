@@ -85,6 +85,8 @@ describe('The vestiging resource', () => {
               something: 'more',
             },
           ],
+          activitiesLabel: `01: Activity 1 description
+04: Activity 2 description`,
           _bijzondere_rechts_toestand: {
             faillissement: true,
             status: 'Status',
@@ -92,6 +94,7 @@ describe('The vestiging resource', () => {
           bijzondereRechtstoestand: {
             faillissement: true,
             status: 'Status',
+            label: 'Faillissement',
             surseanceVanBetaling: false,
           },
           geometrie: { type: 'Point' },
@@ -102,7 +105,8 @@ describe('The vestiging resource', () => {
           maatschappelijke_activiteit:
             'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
           something: 'abc123',
-          visitingAddress: undefined,
+          type: 'Nevenvestiging',
+          visitingAddress: 'Onbekend',
         })
         expect(getCenter).toHaveBeenCalledWith({ type: 'Point' })
         expect(maatschappelijkeActiviteit).toHaveBeenCalledWith(
@@ -121,7 +125,11 @@ describe('The vestiging resource', () => {
         Promise.resolve({
           bezoekadres: {
             geometrie: { type: 'Point' },
-            something: 'else',
+            straatnaam: 'straat',
+            huisnummer: '1',
+            huisnummertoevoeging: 'A',
+            postcode: '1212AB',
+            plaats: 'City',
           },
           vestigingsnummer: '0001',
           maatschappelijke_activiteit:
@@ -140,23 +148,25 @@ describe('The vestiging resource', () => {
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
           activities: [],
+          activitiesLabel: '',
           bezoekadres: {
             geometrie: { type: 'Point' },
-            something: 'else',
+            huisnummer: '1',
+            huisnummertoevoeging: 'A',
+            plaats: 'City',
+            postcode: '1212AB',
+            straatnaam: 'straat',
           },
-          bijzondereRechtstoestand: {
-            surseanceVanBetaling: false,
-          },
+          bijzondereRechtstoestand: {},
           kvkNumber: undefined,
           label: undefined,
           location: { latitude: 3, longitude: 4 },
           vestigingsnummer: '0001',
           maatschappelijke_activiteit:
             'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
-          visitingAddress: {
-            geometrie: { type: 'Point' },
-            something: 'else',
-          },
+          type: 'Nevenvestiging',
+          visitingAddress: `straat 1 A
+1212AB City`,
         })
         expect(getCenter).toHaveBeenCalledWith({ type: 'Point' })
         expect(maatschappelijkeActiviteit).toHaveBeenCalledWith(
@@ -191,6 +201,7 @@ describe('The vestiging resource', () => {
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
           activities: [],
+          activitiesLabel: '',
           _bijzondere_rechts_toestand: {
             faillissement: true,
             status: 'Voorlopig',
@@ -199,13 +210,15 @@ describe('The vestiging resource', () => {
             faillissement: true,
             status: 'Voorlopig',
             surseanceVanBetaling: true,
+            label: 'Faillissement',
           },
           kvkNumber: undefined,
           label: undefined,
           location: null,
           maatschappelijke_activiteit:
             'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
-          visitingAddress: undefined,
+          type: 'Nevenvestiging',
+          visitingAddress: 'Onbekend',
         })
       })
 
@@ -236,21 +249,19 @@ describe('The vestiging resource', () => {
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
           activities: [],
+          activitiesLabel: '',
           _bijzondere_rechts_toestand: {
             faillissement: false,
             status: 'Definitief',
           },
-          bijzondereRechtstoestand: {
-            faillissement: false,
-            status: 'Definitief',
-            surseanceVanBetaling: true,
-          },
+          bijzondereRechtstoestand: {},
           kvkNumber: undefined,
           label: undefined,
           location: null,
           maatschappelijke_activiteit:
             'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
-          visitingAddress: undefined,
+          type: 'Nevenvestiging',
+          visitingAddress: 'Onbekend',
         })
       })
 
@@ -277,15 +288,15 @@ describe('The vestiging resource', () => {
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
           activities: [],
-          bijzondereRechtstoestand: {
-            surseanceVanBetaling: false,
-          },
+          activitiesLabel: '',
+          bijzondereRechtstoestand: {},
           kvkNumber: undefined,
           label: undefined,
           location: null,
           maatschappelijke_activiteit:
             'https://acc.api.data.amsterdam.nl/handelsregister/maatschappelijkeactiviteit/345678',
-          visitingAddress: undefined,
+          type: 'Nevenvestiging',
+          visitingAddress: 'Onbekend',
         })
       })
 
@@ -308,6 +319,7 @@ describe('The vestiging resource', () => {
           geometrie: { type: 'Point' },
           location: { latitude: 3, longitude: 4 },
           something: 'abc123',
+          type: 'Nevenvestiging',
         })
         expect(maatschappelijkeActiviteit).not.toHaveBeenCalled()
       })
@@ -324,6 +336,7 @@ describe('The vestiging resource', () => {
       const promise = fetchByUri(uri).then(response => {
         expect(response).toEqual({
           location: null,
+          type: 'Nevenvestiging',
         })
       })
 

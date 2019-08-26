@@ -14,19 +14,47 @@ const MapDetailPanel = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => 
     title={result.title}
   >
     <>
-      {!!result.notification && <Notification>{result.notification}</Notification>}
-      <ul className="map-detail-result__list">
-        {result.items.map(
-          item =>
-            item.value && (
-              <MapDetailResultItem
-                hasMultiline={!!item.multiLine}
-                link={item.link ? item.link : false}
-                label={item.label}
-                value={item.value}
-              />
+      {result.notifications &&
+        result.notifications.length &&
+        result.notifications.map(
+          notification =>
+            notification.value && (
+              <Notification canClose={!!notification.canClose} level={notification.level}>
+                {notification.value}
+              </Notification>
             ),
         )}
+
+      <ul className="map-detail-result__list">
+        {console.log(result.items)}
+
+        {result.items.lenght &&
+          result.items.map(item =>
+            item.value && Array.isArray(item.value) ? (
+              <>
+                <h4 className="map-detail-result__category-title">{item.label}</h4>
+                {item.value.map(subItem => (
+                  <MapDetailResultItem
+                    hasMultiline={!!subItem.multiLine}
+                    link={subItem.link ? subItem.link : false}
+                    label={subItem.label}
+                    value={subItem.value}
+                    status={subItem.status}
+                  />
+                ))}
+              </>
+            ) : (
+              item.value && (
+                <MapDetailResultItem
+                  hasMultiline={!!item.multiLine}
+                  link={item.link ? item.link : false}
+                  label={item.label}
+                  value={item.value}
+                  status={item.status}
+                />
+              )
+            ),
+          )}
       </ul>
     </>
   </MapDetailResultWrapper>

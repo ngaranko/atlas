@@ -7,6 +7,8 @@ import SHARED_CONFIG from '../shared-config/shared-config'
 
 import { getByUrl } from '../api/api'
 
+const maxDisplayValuesPerProperty = 5
+
 export default function fetchByUri(uri) {
   return getByUrl(uri).then(result => {
     const visitingCoordinates = get(result.bezoekadres, 'geometrie')
@@ -17,26 +19,40 @@ export default function fetchByUri(uri) {
     const vestigingResult = {
       ...result,
       location: result.location || wgs84Center,
+      type: result.hoofdvestiging ? 'Hoofdvestiging' : 'Nevenvestiging',
     }
 
     return result.maatschappelijke_activiteit
       ? maatschappelijkeActiviteit(result.maatschappelijke_activiteit).then(mac => {
           const special = vestigingResult._bijzondere_rechts_toestand || {}
+
+          const activities = (vestigingResult.activiteiten || []).map(activity => ({
+            ...activity,
+            sbiCode: activity.sbi_code,
+            sbiDescription: activity.sbi_omschrijving,
+          }))
+
           return {
             ...vestigingResult,
-            activities: (vestigingResult.activiteiten || []).map(activity => ({
-              ...activity,
-              sbiCode: activity.sbi_code,
-              sbiDescription: activity.sbi_omschrijving,
-            })),
-            bijzondereRechtstoestand: {
-              ...special,
-              surseanceVanBetaling:
-                special.status === 'Voorlopig' || special.status === 'Definitief',
-            },
+            activities,
+            activitiesLabel: (activities.slice(0, maxDisplayValuesPerProperty) || [])
+              .map(item => `${item.sbiCode}: ${item.sbiDescription}`)
+              .join('\n'),
+            bijzondereRechtstoestand: special.faillissement
+              ? {
+                  ...special,
+                  surseanceVanBetaling:
+                    special.status === 'Voorlopig' || special.status === 'Definitief',
+                  label:
+                    special && special.faillissement ? 'Faillissement' : 'Surseance van betaling',
+                }
+              : {},
             kvkNumber: mac.kvk_nummer,
             label: vestigingResult._display,
-            visitingAddress: vestigingResult.bezoekadres,
+            visitingAddress: vestigingResult.bezoekadres
+              ? `${vestigingResult.bezoekadres.straatnaam} ${vestigingResult.bezoekadres.huisnummer} ${vestigingResult.bezoekadres.huisnummertoevoeging}
+${vestigingResult.bezoekadres.postcode} ${vestigingResult.bezoekadres.plaats}`
+              : 'Onbekend',
           }
         })
       : vestigingResult
