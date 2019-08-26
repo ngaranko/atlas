@@ -20,27 +20,6 @@ describe('PublicationDetailPage', () => {
   const id = 3
   const href = 'https://this.is/a-link/this-is-a-slug'
 
-  const mockData = {
-    fetchData: jest.fn(),
-    results: {
-      drupal_internal__nid: 100,
-      title: 'This is a title',
-      created: '2015-05-05',
-      body: '<p>body text</p>',
-      field_file_size: 'file size',
-      field_file_type: 'pdf',
-      field_publication_source: 'source',
-      field_publication_intro: 'intro',
-      field_slug: 'slug',
-      included: [
-        { attributes: { uri: { url: 'https://cover-link' } } },
-        { attributes: { uri: { url: 'https://cover-link' } } },
-        { attributes: { uri: { url: 'https://document-link' } } },
-        { attributes: { uri: { url: 'https://document-link' } } },
-      ],
-    },
-  }
-
   const mockFetchData = jest.fn()
 
   let store
@@ -90,14 +69,5 @@ describe('PublicationDetailPage', () => {
 
     expect(mockFetchData).toHaveBeenCalled()
     expect(component.find('PublicationDetailPage').props().id).toBe(id)
-  })
-
-  it('should render the publication when there are results', () => {
-    useFromCMS.mockImplementation(() => mockData)
-    const component = shallow(<PublicationDetailPage store={store} />)
-      .dive()
-      .dive()
-
-    expect(component).toMatchSnapshot()
   })
 })
