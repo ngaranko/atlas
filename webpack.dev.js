@@ -17,6 +17,7 @@ module.exports = env => {
       disableHostCheck: true,
       contentBase: dist,
       compress: true,
+      hot: true,
       port: 8080,
       proxy: {
         '/dcatd_admin': {
