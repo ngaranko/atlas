@@ -15,9 +15,11 @@ import {
   Paragraph,
   Typography,
   Row,
+  color,
 } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
+import download from 'downloadjs'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
@@ -60,6 +62,49 @@ const ArticleDetailPage = ({ id }) => {
   const documentTitle = title && `Artikel: ${title}`
   const linkAction = toArticleDetail(id, slug)
 
+  const buildDownloadsObject = () => {
+    try {
+      return (
+        downloads &&
+        downloads.length &&
+        downloads.map(
+          ({
+            title: fileName,
+            drupal_internal__nid: key,
+            field_file_type: type,
+            field_file_size: size,
+            field_file: fieldFile,
+          }) => ({
+            fileName,
+            key,
+            type,
+            size,
+            fieldFile,
+            url: fieldFile.field_media_file.uri.url.replace(/^\/+/, ''),
+          }),
+        )
+      )
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn(`Could not show downloads in article: ${e}`)
+    }
+
+    return null
+  }
+
+  const normalizedDownloads = buildDownloadsObject()
+
+  const DownloadLink = styled(Link).attrs({
+    type: 'button',
+  })`
+    text-align: left;
+
+    small {
+      text-transform: uppercase;
+      color: ${color('tint', 'level6')};
+    }
+  `
+
   return (
     <EditorialPage {...{ documentTitle, loading, linkAction }}>
       {!loading && (
@@ -100,28 +145,26 @@ const ArticleDetailPage = ({ id }) => {
                         push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
                       >
                         <EditorialSidebar>
-                          {downloads && downloads.length ? (
+                          {normalizedDownloads && normalizedDownloads.length ? (
                             <>
                               <Heading as="h2">Downloads</Heading>
                               <List>
-                                {downloads.map(
-                                  ({
-                                    title: fileTitle,
-                                    drupal_internal__nid: key,
-                                    field_file_type: type,
-                                    field_file_size: size,
-                                    field_publication_file: file,
-                                  }) => (
-                                    <ListItem key={key}>
-                                      <Link href={`${SHARED_CONFIG.CMS_ROOT}${file.uri.url}`}>
-                                        <ListItemContent>
-                                          <Typography as="span">{fileTitle}</Typography>
-                                          <Typography as="small">{`${type} ${size}`}</Typography>
-                                        </ListItemContent>
-                                      </Link>
-                                    </ListItem>
-                                  ),
-                                )}
+                                {normalizedDownloads.map(({ fileName, key, type, size, url }) => (
+                                  <ListItem key={key}>
+                                    <DownloadLink
+                                      $as="button"
+                                      onClick={() => {
+                                        download(`${SHARED_CONFIG.CMS_ROOT}${url}`)
+                                      }}
+                                      variant="with-chevron"
+                                    >
+                                      <ListItemContent>
+                                        <Typography as="span">{fileName}</Typography>
+                                        <Typography as="small">({`${type} ${size}`})</Typography>
+                                      </ListItemContent>
+                                    </DownloadLink>
+                                  </ListItem>
+                                ))}
                               </List>
                             </>
                           ) : null}
