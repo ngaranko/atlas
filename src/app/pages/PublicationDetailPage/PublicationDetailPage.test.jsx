@@ -26,9 +26,7 @@ describe('PublicationDetailPage', () => {
       drupal_internal__nid: 100,
       title: 'This is a title',
       created: '2015-05-05',
-      body: {
-        value: 'body text',
-      },
+      body: '<p>body text</p>',
       field_file_size: 'file size',
       field_file_type: 'pdf',
       field_publication_source: 'source',

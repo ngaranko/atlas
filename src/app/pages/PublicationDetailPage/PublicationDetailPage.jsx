@@ -86,7 +86,7 @@ const PublicationDetailPage = ({ id }) => {
                           {intro}
                         </Paragraph>
                       )}
-                      {body && <CustomHTMLBlock body={body.value} />}
+                      {body && <CustomHTMLBlock body={body} />}
                     </EditorialContent>
                   </Column>
                 </Column>
