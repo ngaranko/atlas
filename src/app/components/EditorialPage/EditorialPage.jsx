@@ -21,13 +21,11 @@ const EditorialPage = ({ children, documentTitle, loading, linkAction }) => {
     }
   }, [documentTitle])
 
-  const { href } = linkAttributesFromAction(linkAction)
+  const href = linkAction && linkAttributesFromAction(linkAction).href
 
   return (
     <Container className="editorial-page" beamColor="valid">
-      <Helmet>
-        <link rel="canonical" href={href} />
-      </Helmet>
+      <Helmet>{href && <link rel="canonical" href={href} />}</Helmet>
       <div className="editorial-page__body">
         {loading && <LoadingIndicator />}
         {children}
@@ -40,11 +38,12 @@ const EditorialPage = ({ children, documentTitle, loading, linkAction }) => {
 EditorialPage.defaultProps = {
   documentTitle: '',
   loading: false,
+  linkAction: null,
 }
 
 EditorialPage.propTypes = {
   documentTitle: PropTypes.string,
-  linkAction: PropTypes.shape({}).isRequired,
+  linkAction: PropTypes.shape({}),
   loading: PropTypes.bool,
 }
 
