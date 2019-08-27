@@ -64,7 +64,7 @@ const FeedbackModalComponent = ({
         dit &lsquo;terugmelden&lsquo; overigens verplicht.
       </Paragraph>
       <Button
-        as="a"
+        $as="a"
         variant="primary"
         onClick={reportFeedbackAction}
         href={getMailtoLink(
@@ -84,7 +84,7 @@ const FeedbackModalComponent = ({
         door.
       </Paragraph>
       <Button
-        as="a"
+        $as="a"
         variant="primary"
         onClick={reportProblemAction}
         href={getMailtoLink(PROBLEM_RECIPIENT, PROBLEM_SUBJECT, PROBLEM_BODY(window.location.href))}
