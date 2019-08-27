@@ -137,7 +137,7 @@ exports[`PublicationDetailPage should render the publication when there are resu
           >
             <EditorialContent>
               <CustomHTMLBlock
-                body="body text"
+                body="<p>body text</p>"
               />
             </EditorialContent>
           </Column>

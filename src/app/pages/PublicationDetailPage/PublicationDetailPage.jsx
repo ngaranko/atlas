@@ -45,54 +45,52 @@ const PublicationDetailPage = ({ id }) => {
     <EditorialPage {...{ documentTitle, loading, linkAction }}>
       {!loading && (
         <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
-          {!loading && (
-            <ContentContainer>
-              <Row>
-                <Column wrap span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
-                  <Column
-                    span={{
-                      small: 1,
-                      medium: 4,
-                      big: 6,
-                      large: 12,
-                      xLarge: 12,
-                    }}
-                  >
-                    <EditorialContent>
-                      <EditorialHeader title={title} />
-                      <EditorialMetaList
-                        fields={[
-                          { id: 1, label: source },
-                          { id: 4, label: localeDate },
-                          { id: 2, label: fileSize },
-                          { id: 3, label: fileType.toUpperCase() },
-                        ]}
-                      />
-                    </EditorialContent>
-                  </Column>
-                  <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
-                    <DocumentCover
-                      imageSrc={coverImageUrl}
-                      description={`Download PDF (${fileSize})`}
-                      onClick={() => {
-                        download(fileUrl)
-                      }}
+          <ContentContainer>
+            <Row>
+              <Column wrap span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
+                <Column
+                  span={{
+                    small: 1,
+                    medium: 4,
+                    big: 6,
+                    large: 12,
+                    xLarge: 12,
+                  }}
+                >
+                  <EditorialContent>
+                    <EditorialHeader title={title} />
+                    <EditorialMetaList
+                      fields={[
+                        { id: 1, label: source },
+                        { id: 4, label: localeDate },
+                        { id: 2, label: fileSize },
+                        { id: 3, label: fileType.toUpperCase() },
+                      ]}
                     />
-                  </Column>
-                  <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
-                    <EditorialContent>
-                      {intro && (
-                        <Paragraph hasLongText strong>
-                          {intro}
-                        </Paragraph>
-                      )}
-                      {body && <CustomHTMLBlock body={body.value} />}
-                    </EditorialContent>
-                  </Column>
+                  </EditorialContent>
                 </Column>
-              </Row>
-            </ContentContainer>
-          )}
+                <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
+                  <DocumentCover
+                    imageSrc={coverImageUrl}
+                    description={`Download PDF (${fileSize})`}
+                    onClick={() => {
+                      download(fileUrl)
+                    }}
+                  />
+                </Column>
+                <Column span={{ small: 1, medium: 4, big: 3, large: 6, xLarge: 6 }}>
+                  <EditorialContent>
+                    {intro && (
+                      <Paragraph hasLongText strong>
+                        {intro}
+                      </Paragraph>
+                    )}
+                    {body && <CustomHTMLBlock body={body} />}
+                  </EditorialContent>
+                </Column>
+              </Column>
+            </Row>
+          </ContentContainer>
         </Column>
       )}
     </EditorialPage>
