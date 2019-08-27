@@ -41,7 +41,7 @@ MapDetailResultItem.defaultProps = {
 
 MapDetailResultItem.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   link: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   hasMultiline: PropTypes.bool,
 }

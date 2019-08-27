@@ -1,36 +1,21 @@
-import adressenLigplaats from '../../shared/services/adressen/adressen-ligplaats'
-import adressenNummeraanduiding from '../../shared/services/adressen/adressen-nummeraanduiding'
-import adressenOpenbareRuimte from '../../shared/services/adressen/adressen-openbare-ruimte'
-import adressenPand from '../../shared/services/adressen/adressen-pand'
-import adressenStandplaats from '../../shared/services/adressen/adressen-standplaats'
-import adressenVerblijfsobject from '../../shared/services/adressen/adressen-verblijfsobject'
-import bedrijfsinvesteringszone from '../../shared/services/bedrijfsinvesteringszone/bedrijfsinvesteringszone'
-import bekendmakingen from '../../shared/services/bekendmakingen/bekendmakingen'
-import explosievenGevrijwaardGebied from '../../shared/services/explosieven/explosieven-gevrijwaard-gebied'
-import explosievenInslag from '../../shared/services/explosieven/explosieven-inslag'
-import explosievenUitgevoerdOnderzoek from '../../shared/services/explosieven/explosieven-uitgevoerd-onderzoek'
-import explosievenVerdachtGebied from '../../shared/services/explosieven/explosieven-verdacht-gebied'
-import evenementen from '../../shared/services/evenementen/evenementen'
-import gebiedenBouwblok from '../../shared/services/gebieden/gebieden-bouwblok'
-import gebiedenBuurt from '../../shared/services/gebieden/gebieden-buurt'
-import gebiedenGebiedsgerichtWerken from '../../shared/services/gebieden/gebieden-gebiedsgericht-werken'
-import gebiedenGrootstedelijk from '../../shared/services/gebieden/gebieden-grootstedelijk'
-import gebiedenStadsdeel from '../../shared/services/gebieden/gebieden-stadsdeel'
-import gebiedenUnesco from '../../shared/services/gebieden/gebieden-unesco'
-import gebiedenWijk from '../../shared/services/gebieden/gebieden-wijk'
-import grondexploitatie from '../../shared/services/grondexploitatie/grondexploitatie'
-import kadastraalObject from '../../shared/services/kadastraal-object/kadastraal-object'
-import meetbout from '../../shared/services/meetbout/meetbout'
-import monument from '../../shared/services/monument/monument'
-import napPeilmerk from '../../shared/services/nap-peilmerk/nap-peilmerk'
-import oplaadpunten from '../../shared/services/oplaadpunten/oplaadpunten'
-import parkeervak from '../../shared/services/parkeervak/parkeervak'
-import parkeerzones from '../../shared/services/parkeerzones/parkeerzones'
-import parkeerzonesUitz from '../../shared/services/parkeerzones/parkeerzones_uitz'
-import vastgoed from '../../shared/services/vastgoed/vastgoed'
-import vestiging from '../../shared/services/vestiging/vestiging'
-import winkelgebied from '../../shared/services/winkelgebied/winkelgebied'
+import vestiging from './vestiging/vestiging'
 import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
+
+import adressenNummeraanduiding from './adressen-nummeraanduiding/adressen-nummeraanduiding'
+import gebiedenStadsdeel from './gebieden-stadsdeel/gebieden-stadsdeel'
+import vastgoed from './vastgoed/vastgoed'
+import {
+  oplaadpunten,
+  bekendmakingen,
+  napPeilmerk,
+  adressenPand,
+  adressenVerblijfsobject,
+  kadastraalObject,
+  explosieven,
+  evenementen,
+  grondexploitatie,
+} from './normalize/normalize'
+import mapFetch from './map-fetch/map-fetch'
 
 export const maxDisplayValuesPerProperty = 5
 
@@ -82,49 +67,58 @@ export const endpointTypes = {
 }
 
 const servicesByEndpointType = {
-  [endpointTypes.adressenLigplaats]: { fetch: adressenLigplaats },
-  [endpointTypes.adressenNummeraanduiding]: { fetch: adressenNummeraanduiding },
-  [endpointTypes.adressenOpenbareRuimte]: { fetch: adressenOpenbareRuimte },
-  [endpointTypes.adressenPand]: { fetch: adressenPand },
-  [endpointTypes.adressenStandplaats]: { fetch: adressenStandplaats },
-  [endpointTypes.adressenVerblijfsobject]: { fetch: adressenVerblijfsobject },
-  [endpointTypes.bedrijfsinvesteringszone]: { fetch: bedrijfsinvesteringszone },
-  [endpointTypes.bekendmakingen]: { fetch: bekendmakingen },
-  [endpointTypes.explosievenGevrijwaardGebied]: {
-    fetch: explosievenGevrijwaardGebied,
+  [endpointTypes.adressenLigplaats]: { fetch: mapFetch },
+  [endpointTypes.adressenNummeraanduiding]: {
+    fetch: mapFetch,
+    normalization: adressenNummeraanduiding,
   },
-  [endpointTypes.explosievenInslag]: { fetch: explosievenInslag },
+  [endpointTypes.adressenOpenbareRuimte]: { fetch: mapFetch },
+  [endpointTypes.adressenPand]: { fetch: mapFetch, normalization: adressenPand },
+  [endpointTypes.adressenStandplaats]: { fetch: mapFetch },
+  [endpointTypes.adressenVerblijfsobject]: {
+    fetch: mapFetch,
+    normalization: adressenVerblijfsobject,
+  },
+  [endpointTypes.bedrijfsinvesteringszone]: { fetch: mapFetch },
+  [endpointTypes.bekendmakingen]: { fetch: mapFetch, normalization: bekendmakingen },
+  [endpointTypes.explosievenGevrijwaardGebied]: {
+    fetch: mapFetch,
+    normalization: explosieven,
+  },
+  [endpointTypes.explosievenInslag]: { fetch: mapFetch, normalization: explosieven },
   [endpointTypes.explosievenUitgevoerdOnderzoek]: {
-    fetch: explosievenUitgevoerdOnderzoek,
+    fetch: mapFetch,
+    normalization: explosieven,
   },
   [endpointTypes.explosievenVerdachtGebied]: {
-    fetch: explosievenVerdachtGebied,
+    fetch: mapFetch,
   },
-  [endpointTypes.evenementen]: { fetch: evenementen },
-  [endpointTypes.gebiedenBouwblok]: { fetch: gebiedenBouwblok },
-  [endpointTypes.gebiedenBuurt]: { fetch: gebiedenBuurt },
+  [endpointTypes.evenementen]: { fetch: mapFetch, normalization: evenementen },
+  [endpointTypes.gebiedenBouwblok]: { fetch: mapFetch },
+  [endpointTypes.gebiedenBuurt]: { fetch: mapFetch },
   [endpointTypes.gebiedenGebiedsgerichtWerken]: {
-    fetch: gebiedenGebiedsgerichtWerken,
+    fetch: mapFetch,
   },
-  [endpointTypes.gebiedenGrootstedelijk]: { fetch: gebiedenGrootstedelijk },
-  [endpointTypes.gebiedenStadsdeel]: { fetch: gebiedenStadsdeel },
-  [endpointTypes.gebiedenUnesco]: { fetch: gebiedenUnesco },
-  [endpointTypes.gebiedenWijk]: { fetch: gebiedenWijk },
+  [endpointTypes.gebiedenGrootstedelijk]: { fetch: mapFetch },
+  [endpointTypes.gebiedenStadsdeel]: { fetch: mapFetch, normalization: gebiedenStadsdeel },
+  [endpointTypes.gebiedenUnesco]: { fetch: mapFetch },
+  [endpointTypes.gebiedenWijk]: { fetch: mapFetch },
   [endpointTypes.grondexploitatie]: {
-    fetch: grondexploitatie,
+    fetch: mapFetch,
+    normalization: grondexploitatie,
     authScope: 'GREX/R',
   },
-  [endpointTypes.kadastraalObject]: { fetch: kadastraalObject },
-  [endpointTypes.meetbout]: { fetch: meetbout },
-  [endpointTypes.monument]: { fetch: monument },
-  [endpointTypes.napPeilmerk]: { fetch: napPeilmerk },
-  [endpointTypes.oplaadpunten]: { fetch: oplaadpunten },
-  [endpointTypes.parkeervak]: { fetch: parkeervak },
-  [endpointTypes.parkeerzones]: { fetch: parkeerzones },
-  [endpointTypes.parkeerzonesUitz]: { fetch: parkeerzonesUitz },
-  [endpointTypes.vastgoed]: { fetch: vastgoed },
+  [endpointTypes.kadastraalObject]: { fetch: mapFetch, normalization: kadastraalObject },
+  [endpointTypes.meetbout]: { fetch: mapFetch },
+  [endpointTypes.monument]: { fetch: mapFetch },
+  [endpointTypes.napPeilmerk]: { fetch: mapFetch, normalization: napPeilmerk },
+  [endpointTypes.oplaadpunten]: { fetch: mapFetch, normalization: oplaadpunten },
+  [endpointTypes.parkeervak]: { fetch: mapFetch },
+  [endpointTypes.parkeerzones]: { fetch: mapFetch },
+  [endpointTypes.parkeerzonesUitz]: { fetch: mapFetch },
+  [endpointTypes.vastgoed]: { fetch: mapFetch, normalization: vastgoed },
   [endpointTypes.vestiging]: { fetch: vestiging, authScope: 'HR/R' },
-  [endpointTypes.winkelgebied]: { fetch: winkelgebied },
+  [endpointTypes.winkelgebied]: { fetch: mapFetch },
 }
 
 const getEndpointTypeForResult = (endpointType, detail) => {
@@ -135,7 +129,7 @@ const getEndpointTypeForResult = (endpointType, detail) => {
     if (detail.standplaats) {
       return endpointTypes.adressenStandplaats
     }
-    return endpointTypes.adressenVerblijfsobject
+    return endpointTypes.adressenNummeraanduiding
   }
   return endpointType
 }
@@ -143,22 +137,18 @@ const getEndpointTypeForResult = (endpointType, detail) => {
 export default async function fetchDetail(endpoint, user) {
   const endpointType = Object.keys(servicesByEndpointType).find(type => endpoint.includes(type))
   const endpointConfig = endpointType && servicesByEndpointType[endpointType]
-  const fetchFn = endpointConfig && endpointConfig.fetch
+  const fetchEndpoint = endpointConfig && endpointConfig.fetch
+  const normalization = endpointConfig && endpointConfig.normalization
   const authScope = endpointConfig && endpointConfig.authScope
   const isAuthorized = !authScope || user.scopes.includes(authScope)
-  const detail = fetchFn && isAuthorized && (await fetchFn(endpoint, user))
+  const detail = fetchEndpoint && isAuthorized && (await fetchEndpoint(endpoint, normalization))
   const endpointTypeForResult = getEndpointTypeForResult(endpointType, detail)
 
-  return detail
-    ? {
-        ...detail,
-        isAuthorized,
-        endpointType: endpointTypeForResult,
-      }
-    : {
-        isAuthorized,
-        endpointType: endpointTypeForResult,
-      }
+  return {
+    ...(detail || {}),
+    isAuthorized,
+    endpointType: endpointTypeForResult,
+  }
 }
 
 window.mapPreviewPanelDetailEndpointTypes = endpointTypes

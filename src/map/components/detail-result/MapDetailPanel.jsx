@@ -17,24 +17,29 @@ const MapDetailPanel = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => 
       {result.notifications &&
         result.notifications.length &&
         result.notifications.map(
-          notification =>
+          (notification, index) =>
             notification.value && (
-              <Notification canClose={!!notification.canClose} level={notification.level}>
+              <Notification
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                canClose={!!notification.canClose}
+                level={notification.level}
+              >
                 {notification.value}
               </Notification>
             ),
         )}
 
       <ul className="map-detail-result__list">
-        {console.log(result.items)}
-
-        {result.items.lenght &&
-          result.items.map(item =>
+        {result.items.length > 0 &&
+          result.items.map((item, index) =>
             item.value && Array.isArray(item.value) ? (
               <>
                 <h4 className="map-detail-result__category-title">{item.label}</h4>
-                {item.value.map(subItem => (
+                {item.value.map((subItem, subIndex) => (
                   <MapDetailResultItem
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={subIndex}
                     hasMultiline={!!subItem.multiLine}
                     link={subItem.link ? subItem.link : false}
                     label={subItem.label}
@@ -46,6 +51,8 @@ const MapDetailPanel = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => 
             ) : (
               item.value && (
                 <MapDetailResultItem
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
                   hasMultiline={!!item.multiLine}
                   link={item.link ? item.link : false}
                   label={item.label}

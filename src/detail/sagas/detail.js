@@ -5,7 +5,7 @@ import { getApiSpecificationData } from '../../shared/ducks/datasets/datasets'
 import formatDetailData from '../services/data-formatter/data-formatter'
 import { getByUrl } from '../../shared/services/api/api'
 import { VIEW_MODE, getViewMode } from '../../shared/ducks/ui/ui'
-import * as vastgoed from '../../shared/services/vastgoed/vastgoed'
+import { fetchByGeoLocation } from '../../map/services/vastgoed/vastgoed'
 
 export default function* getDetailData(endpoint, mapDetail = {}) {
   const includeSrc = getTemplateUrl(endpoint)
@@ -34,7 +34,7 @@ export default function* getDetailData(endpoint, mapDetail = {}) {
   if (viewMode !== VIEW_MODE.MAP) {
     // Get data from individual endpoints to construct the detail view for vastgoed
     if (category === 'vsd' && subject === 'vastgoed') {
-      const features = yield vastgoed.fetchByGeoLocation(mapDetail.location)
+      const features = yield fetchByGeoLocation(mapDetail.location)
 
       const data = {
         ...mapDetail,

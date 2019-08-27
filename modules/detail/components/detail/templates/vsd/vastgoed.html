@@ -34,22 +34,22 @@
     <div>
       <div class="c-search-results__block" ng-repeat="feature in vm.apiData.results.features">
         <h3 class="o-header__subtitle o-header__subtitle--dark">
-          {{ feature.address }}
+          {{ feature.vhe_adres }}
         </h3>
         <dl class="c-key-value-list">
           <dt>Verhuurde eenheid</dt>
-          <dd>{{ feature.address }}</dd>
+          <dd>{{ feature.vhe_adres }}</dd>
           <dt>Gebruiksdoel</dt>
-          <dd>{{ feature.usage }}</dd>
+          <dd>{{ feature.bag_verblijfsobject_gebruiksdoelen }}</dd>
           <dt>Oppervlakte (indicatie)</dt>
-          <dd ng-if="feature.size > 0">{{ feature.size | number }} m<sup>2</sup></dd>
-          <dd ng-if="feature.size === 0">onbekend</dd>
+          <dd ng-if="feature.oppervlakte > 0">{{ feature.oppervlakte | number }} m<sup>2</sup></dd>
+          <dd ng-if="feature.oppervlakte === 0">onbekend</dd>
           <dt>Monumentstatus</dt>
           <dd>{{ feature.monumental_status }}</dd>
           <dt>Status</dt>
           <dd>{{ feature.status }}</dd>
           <dt>Contractueel gebruik</dt>
-          <dd>{{ feature.usage_type }}</dd>
+          <dd>{{ feature.huurtype }}</dd>
         </dl>
       </div>
     </div>
