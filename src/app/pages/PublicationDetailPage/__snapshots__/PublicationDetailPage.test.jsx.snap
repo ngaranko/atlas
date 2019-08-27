@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicationDetailPage should render the publication when there are results 1`] = `
+<EditorialPage
+  documentTitle="Publicatie: This is a title"
+  linkAction={
+    Object {
+      "payload": Object {
+        "id": 3,
+        "slug": "slug",
+      },
+      "type": "atlasRouter/PUBLICATION_DETAIL",
+    }
+  }
+  loading={false}
+>
+  <Column
+    debug={false}
+    debugColor="rgba(51,102,153,0.5)"
+    order={0}
+    push={0}
+    span={
+      Object {
+        "big": 6,
+        "large": 12,
+        "medium": 4,
+        "small": 1,
+        "xLarge": 12,
+      }
+    }
+    wrap="true"
+  >
+    <ContentContainer
+      className="content-container"
+    >
+      <Row
+        debug={false}
+        debugColor="rgba(51,102,153,0.75)"
+        hasMargin={true}
+      >
+        <Column
+          debug={false}
+          debugColor="rgba(51,102,153,0.5)"
+          order={0}
+          push={0}
+          span={
+            Object {
+              "big": 6,
+              "large": 12,
+              "medium": 4,
+              "small": 1,
+              "xLarge": 12,
+            }
+          }
+          wrap={true}
+        >
+          <Column
+            debug={false}
+            debugColor="rgba(51,102,153,0.5)"
+            order={0}
+            push={0}
+            span={
+              Object {
+                "big": 6,
+                "large": 12,
+                "medium": 4,
+                "small": 1,
+                "xLarge": 12,
+              }
+            }
+            wrap={false}
+          >
+            <EditorialContent>
+              <EditorialHeader
+                title="This is a title"
+              />
+              <EditorialMetaList
+                fields={
+                  Array [
+                    Object {
+                      "id": 1,
+                      "label": "source",
+                    },
+                    Object {
+                      "id": 4,
+                      "label": undefined,
+                    },
+                    Object {
+                      "id": 2,
+                      "label": "file size",
+                    },
+                    Object {
+                      "id": 3,
+                      "label": "PDF",
+                    },
+                  ]
+                }
+              />
+            </EditorialContent>
+          </Column>
+          <Column
+            debug={false}
+            debugColor="rgba(51,102,153,0.5)"
+            order={0}
+            push={0}
+            span={
+              Object {
+                "big": 3,
+                "large": 6,
+                "medium": 4,
+                "small": 1,
+                "xLarge": 6,
+              }
+            }
+            wrap={false}
+          >
+            <DocumentCoverContentStyle
+              description="Download PDF (file size)"
+              onClick={[Function]}
+            />
+          </Column>
+          <Column
+            debug={false}
+            debugColor="rgba(51,102,153,0.5)"
+            order={0}
+            push={0}
+            span={
+              Object {
+                "big": 3,
+                "large": 6,
+                "medium": 4,
+                "small": 1,
+                "xLarge": 6,
+              }
+            }
+            wrap={false}
+          >
+            <EditorialContent>
+              <CustomHTMLBlock
+                body="<p>body text</p>"
+              />
+            </EditorialContent>
+          </Column>
+        </Column>
+      </Row>
+    </ContentContainer>
+  </Column>
+</EditorialPage>
+`;
