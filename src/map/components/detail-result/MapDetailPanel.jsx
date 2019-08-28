@@ -34,7 +34,7 @@ const MapDetailPanel = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => 
         {result.items.length > 0 &&
           result.items.map((item, index) =>
             item.value && Array.isArray(item.value) ? (
-              <>
+              <React.fragment key={item.label}>
                 <h4 className="map-detail-result__category-title">{item.label}</h4>
                 {item.value.map((subItem, subIndex) => (
                   <MapDetailResultItem
@@ -47,7 +47,7 @@ const MapDetailPanel = ({ panoUrl, result, onMaximize, onPanoPreviewClick }) => 
                     status={subItem.status}
                   />
                 ))}
-              </>
+              </React.fragment>
             ) : (
               item.value && (
                 <MapDetailResultItem
