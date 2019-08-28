@@ -6,13 +6,13 @@ import { adressenVerblijfsobject } from '../normalize/normalize'
 const normalize = async result => {
   let verblijfsobject
   if (result.verblijfsobject) {
-    verblijfsobject = mapFetch(result.verblijfsobject, adressenVerblijfsobject).then(res => {
-      return { ...res }
-    })
+    verblijfsobject = await mapFetch(result.verblijfsobject, adressenVerblijfsobject)
   }
 
-  const additionalFields = await {
+  const additionalFields = {
     ...(await verblijfsobject),
+    // eslint-disable-next-line no-underscore-dangle
+    geometry: result._geometrie,
   }
 
   return { ...result, ...additionalFields }

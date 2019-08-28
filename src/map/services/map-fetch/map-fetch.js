@@ -14,9 +14,9 @@ export default function fetchByUri(uri, normalization = params => params) {
 
     return {
       label: result._display,
+      ...(normalizedData || result),
       location: result.location || wgs84Center,
       geometrie: geometry,
-      ...(normalizedData || result),
     }
   })
 }

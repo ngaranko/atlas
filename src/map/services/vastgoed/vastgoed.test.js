@@ -1,84 +1,76 @@
-import normalize /* fetchByGeoLocation */ from './vastgoed'
+import fetchByGeoLocation from './vastgoed'
 
 import { getByUrl } from '../../../shared/services/api/api'
-// import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
+import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 
-// import mapFetch from '../map-fetch/map-fetch'
+import mapFetch from '../map-fetch/map-fetch'
+import { vastgoed } from '../normalize/normalize'
 
 jest.mock('../../../shared/services/api/api')
 jest.mock('../../../shared/services/shared-config/shared-config')
 jest.mock('../map-fetch/map-fetch')
+jest.mock('../normalize/normalize')
+
+jest.useFakeTimers()
 
 describe('The vastgoed resource', () => {
-  // const vastgoedMock = {
-  //   _display: 'display',
-  //   object_naam: 'object_naam',
-  //   bouwjaar: 1000,
-  //   status: 'status',
-  //   monumentstatus: 'monumentstatus',
-  //   vhe_adres: 'Street 123',
-  //   bag_verblijfsobject_gebruiksdoelen: 'gebruiksdoel',
-  //   huurtype: 'huurtype',
-  //   oppervlakte: 123,
-  //   bag_pand_geometrie: { type: 'Point' },
-  //   features: [{ properties: { id: 1 } }, { properties: { id: 2 } }],
-  // }
+  let vastgoedMock = {
+    _display: 'display',
+    object_naam: 'object_naam',
+    bouwjaar: 1000,
+    status: 'status',
+    monumentstatus: 'monumentstatus',
+    vhe_adres: 'Street 123',
+    bag_verblijfsobject_gebruiksdoelen: 'gebruiksdoel',
+    huurtype: 'huurtype',
+    oppervlakte: 123,
+    bag_pand_geometrie: { type: 'Point' },
+    features: [{ properties: { id: 1 } }],
+  }
 
   afterEach(() => {
     getByUrl.mockReset()
   })
 
-  it('normalized the vastgoed data', () => {
-    const input = {
-      bag_pand_geometrie: 'geo',
-      bouwjaar: 1900,
-      monumentstatus: 'foo',
-    }
+  it('fetches the vastgoed geosearch', async () => {
+    const mockLocation = { latitude: 123, longitude: 456 }
 
-    const output = normalize(input)
+    getByUrl.mockImplementation(() => vastgoedMock)
+    vastgoed.mockImplementation(() => {})
 
-    expect(output).toStrictEqual({
-      ...input,
-      geometry: input.bag_pand_geometrie,
-      construction_year: input.bouwjaar,
-      monumental_status: input.monumentstatus,
-    })
+    const result = await fetchByGeoLocation(mockLocation)
+
+    expect(getByUrl).toHaveBeenCalledWith(
+      `${SHARED_CONFIG.API_ROOT}geosearch/vastgoed/?lat=${mockLocation.latitude}&lon=${mockLocation.longitude}&item=vastgoed&radius=0`,
+    )
+
+    // The feature information is already present
+    expect(mapFetch).not.toHaveBeenCalled()
+    expect(result).toStrictEqual([])
   })
 
-  it('normalized the vastgoed data and handles exceptions', () => {
-    const input = {
-      bag_pand_geometrie: 'geo',
-      bouwjaar: 1005,
-      monumentstatus: false,
+  it('fetches the vastgoed geosearch for multiple features', async () => {
+    vastgoedMock = {
+      ...vastgoedMock,
+      features: [{ properties: { id: 1 } }, { properties: { id: 2 } }],
     }
 
-    const output = normalize(input)
+    const mockLocation = { latitude: 123, longitude: 456 }
+    const mockFeature = { feature: 'This is the feature info' }
 
-    expect(output).toStrictEqual({
-      ...input,
-      geometry: input.bag_pand_geometrie,
-      construction_year: 'Onbekend',
-      monumental_status: 'Geen monument',
-    })
+    getByUrl.mockImplementation(() => vastgoedMock)
+    mapFetch.mockImplementation(() => mockFeature)
+    vastgoed.mockImplementation(() => {})
+
+    const result = await fetchByGeoLocation(mockLocation)
+
+    // Will retrieve the information for the second feature
+    expect(mapFetch).toHaveBeenCalledWith(
+      `${SHARED_CONFIG.API_ROOT}vsd/vastgoed/${vastgoedMock.features[1].properties.id}/`,
+      vastgoed,
+    )
+
+    // Returns the result from mapFetch for both features
+    expect(result).toStrictEqual([mockFeature, mockFeature])
   })
-
-  // TODO create spy function
-  // it('fetches the vastgoed geosearch', () => {
-  //   const mockLocation = { latitude: 123, longitude: 456 }
-
-  //   getByUrl.mockReturnValueOnce(Promise.resolve(vastgoedMock))
-  //   mapFetch.mockImplementation(() => vastgoedMock)
-
-  //   normalize.mockImplementation(() => vastgoedMock)
-
-  //   const promise = fetchByGeoLocation(mockLocation)
-
-  //   expect(getByUrl).toHaveBeenCalledWith(
-  //     `${SHARED_CONFIG.API_ROOT}geosearch/vastgoed/?lat=${mockLocation.latitude}&lon=${mockLocation.longitude}&item=vastgoed&radius=0`,
-  //   )
-
-  //   expect(normalize).toHaveBeenCalled()
-
-  //   return promise
-  // })
 })

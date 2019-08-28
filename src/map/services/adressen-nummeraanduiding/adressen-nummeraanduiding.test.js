@@ -1,5 +1,4 @@
-import fetchByUri, {
-  fetchByPandId,
+import normalize, {
   fetchByLigplaatsId,
   fetchHoofdadresByLigplaatsId,
   fetchByStandplaatsId,
@@ -8,122 +7,56 @@ import fetchByUri, {
 import { adressenVerblijfsobject } from '../normalize/normalize'
 import { getByUrl } from '../../../shared/services/api/api'
 
-jest.mock('../api/api')
-jest.mock('./adressen-adressenVerblijfsobject')
+import mapFetch from '../map-fetch/map-fetch'
+
+jest.mock('../../../shared/services/api/api')
+jest.mock('../normalize/normalize')
+jest.mock('../map-fetch/map-fetch')
 
 describe('The adressen nummeraanduiding resource', () => {
   afterEach(() => {
     getByUrl.mockReset()
+    mapFetch.mockReset()
   })
 
-  describe('By uri', () => {
-    it('fetches a nummeraanduiding', () => {
-      const uri = 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123456'
+  it('fetches a nummeraanduiding', async () => {
+    const mockNummeraanduiding = {
+      _display: 'Address display name 1',
+      hoofdadres: true,
+      landelijk_id: 'abc123',
+      verblijfsobject: 'https://acc.api.data.amsterdam.nl/bag/adressenVerblijfsobject/345678',
+      _geometrie: 'geo',
+    }
 
-      getByUrl.mockReturnValueOnce(
-        Promise.resolve({
-          _display: 'Address display name 1',
-          hoofdadres: true,
-          landelijk_id: 'abc123',
-          adressenVerblijfsobject:
-            'https://acc.api.data.amsterdam.nl/bag/adressenVerblijfsobject/345678',
-        }),
-      )
-      adressenVerblijfsobject.mockImplementation(
-        () =>
-          new Promise(resolve => {
-            resolve({
-              label: 'adressenVerblijfsobject',
-              oppervlakte: '119',
-            })
-          }),
-      )
+    const result = await normalize(mockNummeraanduiding)
 
-      const promise = fetchByUri(uri).then(response => {
-        expect(response).toEqual({
-          label: 'Address display name 1',
-          isNevenadres: false,
-          oppervlakte: '119',
-        })
-        expect(adressenVerblijfsobject).toHaveBeenCalledWith(
-          'https://acc.api.data.amsterdam.nl/bag/adressenVerblijfsobject/345678',
-        )
-      })
-
-      expect(getByUrl).toHaveBeenCalledWith(uri)
-      return promise
-    })
-
-    it('fetches without adressenVerblijfsobject', () => {
-      const uri = 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123456'
-
-      getByUrl.mockReturnValueOnce(
-        Promise.resolve({
-          _display: 'Address display name 1',
-          hoofdadres: false,
-          landelijk_id: 'abc123',
-        }),
-      )
-
-      const promise = fetchByUri(uri).then(response => {
-        expect(response).toEqual({
-          _display: 'Address display name 1',
-          isNevenadres: true,
-          hoofdadres: false,
-          label: 'Address display name 1',
-          landelijk_id: 'abc123',
-        })
-      })
-
-      expect(getByUrl).toHaveBeenCalledWith(uri)
-      return promise
-    })
-
-    it('fetches with empty result object', () => {
-      const uri = 'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123456'
-
-      getByUrl.mockReturnValueOnce(Promise.resolve({}))
-
-      const promise = fetchByUri(uri).then(response => {
-        expect(response).toEqual({ isNevenadres: true, label: undefined })
-      })
-
-      expect(getByUrl).toHaveBeenCalledWith(uri)
-      return promise
-    })
-  })
-
-  it('can fetch nummeraanduidingen by pand id', () => {
-    getByUrl.mockReturnValueOnce(
-      Promise.resolve({
-        results: [
-          {
-            _display: 'Address display name 1',
-            landelijk_id: 'abc123',
-          },
-          {
-            _display: 'Address display name 2',
-            landelijk_id: 'xyz456',
-          },
-        ],
-      }),
+    expect(mapFetch).toHaveBeenCalledWith(
+      mockNummeraanduiding.verblijfsobject,
+      adressenVerblijfsobject,
     )
 
-    const promise = fetchByPandId(1).then(response => {
-      expect(response).toEqual([
-        {
-          _display: 'Address display name 1',
-          landelijk_id: 'abc123',
-        },
-        {
-          _display: 'Address display name 2',
-          landelijk_id: 'xyz456',
-        },
-      ])
+    expect(result).toEqual({
+      geometry: 'geo',
+      ...mockNummeraanduiding,
     })
+  })
 
-    expect(getByUrl.mock.calls[0][0]).toContain('pand=1')
-    return promise
+  it('fetches a nummeraanduiding without "verblijsobject"', async () => {
+    const mockNummeraanduiding = {
+      _display: 'Address display name 1',
+      hoofdadres: true,
+      landelijk_id: 'abc123',
+      _geometrie: 'geo',
+    }
+
+    const result = await normalize(mockNummeraanduiding)
+
+    expect(mapFetch).not.toHaveBeenCalled()
+
+    expect(result).toEqual({
+      geometry: 'geo',
+      ...mockNummeraanduiding,
+    })
   })
 
   it('can fetch nummeraanduidingen by ligplaats id, adds `id` attribute', () => {

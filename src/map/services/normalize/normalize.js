@@ -89,7 +89,7 @@ export const adressenVerblijfsobject = result => {
   }
 
   const additionalFields = {
-    statusLevel: statusLevel[result.status.code],
+    statusLevel: result.status && result.status.code ? statusLevel[result.status.code] : false,
     gebruiksdoelen: ((result.gebruiksdoelen && result.gebruiksdoelen.slice(0, 5)) || [])
       .map(
         item =>
@@ -142,6 +142,39 @@ export const evenementen = result => {
 export const grondexploitatie = result => {
   const additionalFields = {
     startDate: formatDate(new Date(result.startdatum)),
+  }
+
+  return normalize(result, additionalFields)
+}
+
+export const vastgoed = result => {
+  const additionalFields = {
+    geometry: result.bag_pand_geometrie,
+    construction_year: result.bouwjaar && result.bouwjaar !== 1005 ? result.bouwjaar : 'Onbekend',
+    monumental_status: result.monumentstatus || 'Geen monument',
+  }
+  return { ...result, ...additionalFields }
+}
+
+export const vestiging = result => {
+  const additionalFields = {
+    geometry: (result.bezoekadres && result.bezoekadres.geometrie) || result.geometrie,
+  }
+
+  return { ...result, ...additionalFields }
+}
+
+export const societalActivities = result => {
+  const additionalFields = {
+    activities: (result.activiteiten || []).map(activity => activity),
+    bijzondereRechtstoestand: {
+      ...(result._bijzondere_rechts_toestand || {}),
+      surseanceVanBetaling:
+        (result._bijzondere_rechts_toestand &&
+          result._bijzondere_rechts_toestand.status === 'Voorlopig') ||
+        (result._bijzondere_rechts_toestand &&
+          result._bijzondere_rechts_toestand.status === 'Definitief'),
+    },
   }
 
   return normalize(result, additionalFields)

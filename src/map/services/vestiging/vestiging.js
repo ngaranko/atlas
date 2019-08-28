@@ -1,5 +1,25 @@
 import { getByUrl } from '../../../shared/services/api/api'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
+import mapFetch from '../map-fetch/map-fetch'
+
+const normalize = async result => {
+  let societalActivities
+
+  if (result.maatschappelijke_activiteit) {
+    societalActivities = await mapFetch(result.maatschappelijke_activiteit)
+  }
+
+  const additionalFields = {
+    ...(societalActivities ? { kvkNumber: societalActivities.kvk_nummer } : {}),
+    activities: (result.activiteiten || [])
+      .map(item => `${item.sbi_code}: ${item.sbi_omschrijving ? `: ${item.sbi_omschrijving}` : ''}`)
+      .join('\n'),
+    type: result.hoofdvestiging ? 'Hoofdvestiging' : 'Nevenvestiging',
+    geometry: result.bezoekadres.geometrie || result.geometrie,
+  }
+
+  return { ...result, ...additionalFields }
+}
 
 export function fetchByPandId(pandId) {
   const searchParams = {
@@ -28,3 +48,5 @@ export function fetchByAddressId(addressId) {
     data => data.results,
   )
 }
+
+export default normalize

@@ -5,7 +5,7 @@ import { getApiSpecificationData } from '../../shared/ducks/datasets/datasets'
 import formatDetailData from '../services/data-formatter/data-formatter'
 import { getByUrl } from '../../shared/services/api/api'
 import { VIEW_MODE, getViewMode } from '../../shared/ducks/ui/ui'
-import { fetchByGeoLocation } from '../../map/services/vastgoed/vastgoed'
+import fetchByGeoLocation from '../../map/services/vastgoed/vastgoed'
 
 export default function* getDetailData(endpoint, mapDetail = {}) {
   const includeSrc = getTemplateUrl(endpoint)

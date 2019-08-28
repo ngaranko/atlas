@@ -6,6 +6,7 @@ const normalize = async result => {
   let grexStadsdeel
 
   try {
+    // if the use doesn't have the correct authentication level this will throw
     grexStadsdeel = await getByUrl(url)
   } catch (e) {
     grexStadsdeel = false

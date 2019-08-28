@@ -3,7 +3,6 @@ import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
 
 import adressenNummeraanduiding from './adressen-nummeraanduiding/adressen-nummeraanduiding'
 import gebiedenStadsdeel from './gebieden-stadsdeel/gebieden-stadsdeel'
-import vastgoed from './vastgoed/vastgoed'
 import {
   oplaadpunten,
   bekendmakingen,
@@ -14,6 +13,7 @@ import {
   explosieven,
   evenementen,
   grondexploitatie,
+  vastgoed,
 } from './normalize/normalize'
 import mapFetch from './map-fetch/map-fetch'
 
@@ -117,7 +117,7 @@ const servicesByEndpointType = {
   [endpointTypes.parkeerzones]: { fetch: mapFetch },
   [endpointTypes.parkeerzonesUitz]: { fetch: mapFetch },
   [endpointTypes.vastgoed]: { fetch: mapFetch, normalization: vastgoed },
-  [endpointTypes.vestiging]: { fetch: vestiging, authScope: 'HR/R' },
+  [endpointTypes.vestiging]: { fetch: mapFetch, authScope: 'HR/R', normalization: vestiging },
   [endpointTypes.winkelgebied]: { fetch: mapFetch },
 }
 

@@ -374,12 +374,12 @@ const fieldsByEndPointType = {
       },
       {
         label: 'Bezoekadres',
-        value: result.visitingAddress,
+        value: result.bezoekadres.volledig_adres,
         multiLine: true,
       },
       {
         label: 'SBI-code en -omschrijving',
-        value: result.activitiesLabel,
+        value: result.activities,
         multiLine: true,
       },
       {
