@@ -85,7 +85,9 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
         </MenuItem>
       </MenuFlyOut>
       <MenuItem>
-        <MenuButton onClick={showFeedbackForm}>Feedback</MenuButton>
+        <MenuButton type="button" onClick={showFeedbackForm}>
+          Feedback
+        </MenuButton>
       </MenuItem>
       <MenuItem>
         <Link to={toHelpAction}>Help</Link>
@@ -93,12 +95,14 @@ const HeaderMenu = ({ type, login, logout, user, showFeedbackForm, ...props }) =
 
       {!user.authenticated ? (
         <MenuItem>
-          <MenuButton onClick={login}>Inloggen</MenuButton>
+          <MenuButton type="button" onClick={login}>
+            Inloggen
+          </MenuButton>
         </MenuItem>
       ) : (
         <MenuFlyOut data-test="login" label={truncateString(user.name, 9)}>
           <MenuItem>
-            <MenuButton onClick={logout} iconLeft={<ChevronRight />}>
+            <MenuButton type="button" onClick={logout} iconLeft={<ChevronRight />}>
               Uitloggen
             </MenuButton>
           </MenuItem>

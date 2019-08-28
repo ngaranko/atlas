@@ -59,7 +59,9 @@ describe('SpecialDetailPage', () => {
       loading: true,
     }))
 
-    const component = shallow(<SpecialDetailPage />, { context: { store } }).dive()
+    const component = shallow(<SpecialDetailPage store={store} />)
+      .dive()
+      .dive()
 
     const editorialPage = component.find('EditorialPage').at(0)
     expect(editorialPage.props().loading).toBeTruthy()
@@ -68,7 +70,9 @@ describe('SpecialDetailPage', () => {
   it('should mount the iframe when there are results', () => {
     useFromCMS.mockImplementation(() => mockData)
 
-    const component = shallow(<SpecialDetailPage />, { context: { store } }).dive()
+    const component = shallow(<SpecialDetailPage store={store} />)
+      .dive()
+      .dive()
 
     const iframe = component.find('iframe').at(0)
     expect(iframe.exists()).toBeTruthy()
@@ -79,7 +83,9 @@ describe('SpecialDetailPage', () => {
 
     useFromCMS.mockImplementation(() => mockData)
 
-    const component = shallow(<SpecialDetailPage />, { context: { store } }).dive()
+    const component = shallow(<SpecialDetailPage store={store} />)
+      .dive()
+      .dive()
 
     const iframe = component.find('iframe').at(0)
     expect(iframe.exists()).toBeTruthy()

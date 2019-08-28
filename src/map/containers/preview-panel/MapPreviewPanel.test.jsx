@@ -122,9 +122,9 @@ describe('MapPreviewPanelContainer', () => {
   it('should maximize the preview panel', () => {
     const store = configureMockStore()(searchState)
     jest.spyOn(store, 'dispatch')
-    const wrapper = shallow(<MapPreviewPanelContainer />, {
-      context: { store },
-    }).dive()
+    const wrapper = shallow(<MapPreviewPanelContainer store={store} />)
+      .dive()
+      .dive()
     wrapper
       .find('.map-preview-panel__button')
       .at(0)
@@ -136,9 +136,9 @@ describe('MapPreviewPanelContainer', () => {
   it('should close the preview panel', () => {
     const store = configureMockStore()(searchState)
     jest.spyOn(store, 'dispatch')
-    const wrapper = shallow(<MapPreviewPanelContainer />, {
-      context: { store },
-    }).dive()
+    const wrapper = shallow(<MapPreviewPanelContainer store={store} />)
+      .dive()
+      .dive()
     wrapper
       .find('.map-preview-panel__button')
       .at(1)
@@ -163,11 +163,9 @@ describe('MapPreviewPanelContainer', () => {
       })
       getLocationId.mockImplementation(() => '123,321')
       jest.spyOn(store, 'dispatch')
-      const wrapper = shallow(<MapPreviewPanelContainer />, {
-        context: {
-          store,
-        },
-      }).dive()
+      const wrapper = shallow(<MapPreviewPanelContainer store={store} />)
+        .dive()
+        .dive()
       wrapper.instance().onPanoPreviewClick()
       expect(store.dispatch).toHaveBeenCalledWith(toPanoramaAndPreserveQuery())
     })
