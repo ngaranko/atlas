@@ -12,7 +12,7 @@ const normalize = async result => {
   const additionalFields = {
     ...(societalActivities ? { kvkNumber: societalActivities.kvk_nummer } : {}),
     activities: (result.activiteiten || [])
-      .map(item => `${item.sbi_code}: ${item.sbi_omschrijving ? `: ${item.sbi_omschrijving}` : ''}`)
+      .map(item => `${item.sbi_code}${item.sbi_omschrijving ? `: ${item.sbi_omschrijving}` : ''}`)
       .join('\n'),
     type: result.hoofdvestiging ? 'Hoofdvestiging' : 'Nevenvestiging',
     geometry: result.bezoekadres.geometrie || result.geometrie,

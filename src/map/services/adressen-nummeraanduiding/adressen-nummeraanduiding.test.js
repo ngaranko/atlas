@@ -19,7 +19,7 @@ describe('The adressen nummeraanduiding resource', () => {
     mapFetch.mockReset()
   })
 
-  it('fetches a nummeraanduiding', async () => {
+  it('normalizes a nummeraanduiding', async () => {
     const mockNummeraanduiding = {
       _display: 'Address display name 1',
       hoofdadres: true,

@@ -1,5 +1,7 @@
 import { endpointTypes } from './map-detail'
 
+/* istanbul ignore next */
+/* this is configuration and shouldn't be tested as the components using this are tested */
 const fieldsByEndPointType = {
   [endpointTypes.adressenLigplaats]: result => ({
     title: 'Adres (ligplaats)',

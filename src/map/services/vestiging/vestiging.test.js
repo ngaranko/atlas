@@ -1,12 +1,38 @@
-import { fetchByPandId, fetchByAddressId } from './vestiging'
+import normalize, { fetchByPandId, fetchByAddressId } from './vestiging'
+import mapFetch from '../map-fetch/map-fetch'
 
 import { getByUrl } from '../../../shared/services/api/api'
 
 jest.mock('../../../shared/services/api/api')
+jest.mock('../map-fetch/map-fetch')
 
 describe('The vestiging resource', () => {
   afterEach(() => {
     getByUrl.mockReset()
+  })
+
+  it('normalizes a vestiging', async () => {
+    const mockVestiging = {
+      activiteiten: [
+        {
+          sbi_code: 123,
+          sbi_omschrijving: 'foo',
+        },
+      ],
+      maatschappelijke_activiteit: 'https://api.call',
+      bezoekadres: {
+        geometrie: 'geo',
+      },
+    }
+
+    const result = await normalize(mockVestiging)
+
+    expect(mapFetch).toHaveBeenCalledWith(mockVestiging.maatschappelijke_activiteit)
+
+    expect(result).toMatchObject({
+      activities: `${mockVestiging.activiteiten[0].sbi_code}: ${mockVestiging.activiteiten[0].sbi_omschrijving}`,
+      ...mockVestiging,
+    })
   })
 
   it('can fetch a vestiging by pand id', () => {

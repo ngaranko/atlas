@@ -66,62 +66,53 @@ export const endpointTypes = {
   winkelgebied: 'vsd/winkgeb',
 }
 
-const servicesByEndpointType = {
-  [endpointTypes.adressenLigplaats]: { fetch: mapFetch },
+export const servicesByEndpointType = {
+  [endpointTypes.adressenLigplaats]: {},
   [endpointTypes.adressenNummeraanduiding]: {
-    fetch: mapFetch,
     normalization: adressenNummeraanduiding,
   },
-  [endpointTypes.adressenOpenbareRuimte]: { fetch: mapFetch },
-  [endpointTypes.adressenPand]: { fetch: mapFetch, normalization: adressenPand },
-  [endpointTypes.adressenStandplaats]: { fetch: mapFetch },
+  [endpointTypes.adressenOpenbareRuimte]: {},
+  [endpointTypes.adressenPand]: { normalization: adressenPand },
+  [endpointTypes.adressenStandplaats]: {},
   [endpointTypes.adressenVerblijfsobject]: {
-    fetch: mapFetch,
     normalization: adressenVerblijfsobject,
   },
-  [endpointTypes.bedrijfsinvesteringszone]: { fetch: mapFetch },
-  [endpointTypes.bekendmakingen]: { fetch: mapFetch, normalization: bekendmakingen },
+  [endpointTypes.bedrijfsinvesteringszone]: {},
+  [endpointTypes.bekendmakingen]: { normalization: bekendmakingen },
   [endpointTypes.explosievenGevrijwaardGebied]: {
-    fetch: mapFetch,
     normalization: explosieven,
   },
-  [endpointTypes.explosievenInslag]: { fetch: mapFetch, normalization: explosieven },
+  [endpointTypes.explosievenInslag]: { normalization: explosieven },
   [endpointTypes.explosievenUitgevoerdOnderzoek]: {
-    fetch: mapFetch,
     normalization: explosieven,
   },
-  [endpointTypes.explosievenVerdachtGebied]: {
-    fetch: mapFetch,
-  },
-  [endpointTypes.evenementen]: { fetch: mapFetch, normalization: evenementen },
-  [endpointTypes.gebiedenBouwblok]: { fetch: mapFetch },
-  [endpointTypes.gebiedenBuurt]: { fetch: mapFetch },
-  [endpointTypes.gebiedenGebiedsgerichtWerken]: {
-    fetch: mapFetch,
-  },
-  [endpointTypes.gebiedenGrootstedelijk]: { fetch: mapFetch },
-  [endpointTypes.gebiedenStadsdeel]: { fetch: mapFetch, normalization: gebiedenStadsdeel },
-  [endpointTypes.gebiedenUnesco]: { fetch: mapFetch },
-  [endpointTypes.gebiedenWijk]: { fetch: mapFetch },
+  [endpointTypes.explosievenVerdachtGebied]: {},
+  [endpointTypes.evenementen]: { normalization: evenementen },
+  [endpointTypes.gebiedenBouwblok]: {},
+  [endpointTypes.gebiedenBuurt]: {},
+  [endpointTypes.gebiedenGebiedsgerichtWerken]: {},
+  [endpointTypes.gebiedenGrootstedelijk]: {},
+  [endpointTypes.gebiedenStadsdeel]: { normalization: gebiedenStadsdeel },
+  [endpointTypes.gebiedenUnesco]: {},
+  [endpointTypes.gebiedenWijk]: {},
   [endpointTypes.grondexploitatie]: {
-    fetch: mapFetch,
     normalization: grondexploitatie,
     authScope: 'GREX/R',
   },
-  [endpointTypes.kadastraalObject]: { fetch: mapFetch, normalization: kadastraalObject },
-  [endpointTypes.meetbout]: { fetch: mapFetch },
-  [endpointTypes.monument]: { fetch: mapFetch },
-  [endpointTypes.napPeilmerk]: { fetch: mapFetch, normalization: napPeilmerk },
-  [endpointTypes.oplaadpunten]: { fetch: mapFetch, normalization: oplaadpunten },
-  [endpointTypes.parkeervak]: { fetch: mapFetch },
-  [endpointTypes.parkeerzones]: { fetch: mapFetch },
-  [endpointTypes.parkeerzonesUitz]: { fetch: mapFetch },
-  [endpointTypes.vastgoed]: { fetch: mapFetch, normalization: vastgoed },
-  [endpointTypes.vestiging]: { fetch: mapFetch, authScope: 'HR/R', normalization: vestiging },
-  [endpointTypes.winkelgebied]: { fetch: mapFetch },
+  [endpointTypes.kadastraalObject]: { normalization: kadastraalObject },
+  [endpointTypes.meetbout]: {},
+  [endpointTypes.monument]: {},
+  [endpointTypes.napPeilmerk]: { normalization: napPeilmerk },
+  [endpointTypes.oplaadpunten]: { normalization: oplaadpunten },
+  [endpointTypes.parkeervak]: {},
+  [endpointTypes.parkeerzones]: {},
+  [endpointTypes.parkeerzonesUitz]: {},
+  [endpointTypes.vastgoed]: { normalization: vastgoed },
+  [endpointTypes.vestiging]: { authScope: 'HR/R', normalization: vestiging },
+  [endpointTypes.winkelgebied]: {},
 }
 
-const getEndpointTypeForResult = (endpointType, detail) => {
+export const getEndpointTypeForResult = (endpointType, detail) => {
   if (endpointType === endpointTypes.adressenNummeraanduiding) {
     if (detail.ligplaats) {
       return endpointTypes.adressenLigplaats
@@ -137,11 +128,10 @@ const getEndpointTypeForResult = (endpointType, detail) => {
 export default async function fetchDetail(endpoint, user) {
   const endpointType = Object.keys(servicesByEndpointType).find(type => endpoint.includes(type))
   const endpointConfig = endpointType && servicesByEndpointType[endpointType]
-  const fetchEndpoint = endpointConfig && endpointConfig.fetch
   const normalization = endpointConfig && endpointConfig.normalization
   const authScope = endpointConfig && endpointConfig.authScope
   const isAuthorized = !authScope || user.scopes.includes(authScope)
-  const detail = fetchEndpoint && isAuthorized && (await fetchEndpoint(endpoint, normalization))
+  const detail = isAuthorized && (await mapFetch(endpoint, normalization))
   const endpointTypeForResult = getEndpointTypeForResult(endpointType, detail)
 
   return {
