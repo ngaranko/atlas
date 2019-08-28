@@ -10,6 +10,7 @@ import { setCurrentFile } from '../../../shared/ducks/files/actions'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import './ImageViewer.scss'
 
+/* istanbul-ignore-next */
 const ImageViewer = ({ resetFileName, fileName, title, contextMenu }) => {
   const viewerRef = React.createRef()
   const [viewer, setViewerInstance] = React.useState(null)
