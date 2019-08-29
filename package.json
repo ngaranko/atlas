@@ -81,7 +81,7 @@
     "prop-types": "15.6.2",
     "query-string": "6.2.0",
     "react": "16.8.6",
-    "react-angular": "https://github.com/Amsterdam/react-angular#master",
+    "react-angular": "git+https://github.com/Amsterdam/react-angular.git#master",
     "react-dom": "16.8.6",
     "react-helmet": "5.2.1",
     "react-leaflet": "1.9.1",
