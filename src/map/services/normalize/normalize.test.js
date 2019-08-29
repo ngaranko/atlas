@@ -10,6 +10,8 @@ import {
   grondexploitatie,
   vastgoed,
   societalActivities,
+  winkelgebied,
+  parkeerzones,
 } from './normalize'
 
 import formatDate from '../../../shared/services/date-formatter/date-formatter'
@@ -105,6 +107,18 @@ describe('normalize', () => {
       output = oplaadpunten(input)
       expect(output).toMatchObject({
         currentStatus: 'Niet beschikbaar',
+      })
+    })
+
+    it('returns the geometry', () => {
+      input = {
+        wkb_geometry: 'wkb_geometry',
+      }
+
+      output = winkelgebied(input)
+
+      expect(output).toMatchObject({
+        geometry: input.wkb_geometry,
       })
     })
   })
@@ -544,6 +558,38 @@ ${input.gebruiksdoelen[1].omschrijving}`,
         bijzondereRechtstoestand: {
           surseanceVanBetaling: false,
         },
+      })
+    })
+  })
+
+  describe('normalizes "winkelgebied', () => {
+    let input
+    let output
+    it('returns the geometry', () => {
+      input = {
+        wkb_geometry: 'wkb_geometry',
+      }
+
+      output = winkelgebied(input)
+
+      expect(output).toMatchObject({
+        geometry: input.wkb_geometry,
+      })
+    })
+  })
+
+  describe('normalizes "parkeerzones', () => {
+    let input
+    let output
+    it('returns the geometry', () => {
+      input = {
+        wkb_geometry: 'wkb_geometry',
+      }
+
+      output = parkeerzones(input)
+
+      expect(output).toMatchObject({
+        geometry: input.wkb_geometry,
       })
     })
   })

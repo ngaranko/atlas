@@ -3,7 +3,7 @@ import { rdToWgs84 } from '../../../shared/services/coordinate-reference-system/
 
 import { getByUrl } from '../../../shared/services/api/api'
 
-export default async function fetchByUri(uri, normalization = false) {
+export default async function fetchByUri(uri, detail, normalization = false) {
   const result = await getByUrl(uri)
 
   // as some APIs return data in a different format than the frontend wants to display
@@ -19,9 +19,11 @@ export default async function fetchByUri(uri, normalization = false) {
   const geometryCenter = geometry && getCenter(geometry)
   const wgs84Center = geometryCenter ? rdToWgs84(geometryCenter) : null
 
+  const returnFields = detail(normalizedData || result)
+
   return {
     label: result._display,
-    ...(normalizedData || result),
+    ...returnFields,
     // "label" may be overwritten by the result or normalizedData, but the location and geometry are constructed above
     location: result.location || wgs84Center,
     geometrie: geometry,

@@ -38,6 +38,7 @@ export const oplaadpunten = result => {
           : 'Beschikbaar'
         : 'Niet beschikbaar',
     quantity: result.charging_point || false,
+    geometry: result.wkb_geometry,
   }
 
   return normalize(result, additionalFields)
@@ -178,6 +179,22 @@ export const societalActivities = result => {
   }
 
   return normalize(result, additionalFields)
+}
+
+export const winkelgebied = result => {
+  const additionalFields = {
+    geometry: result.wkb_geometry,
+  }
+
+  return { ...result, ...additionalFields }
+}
+
+export const parkeerzones = result => {
+  const additionalFields = {
+    geometry: result.wkb_geometry,
+  }
+
+  return { ...result, ...additionalFields }
 }
 
 export default normalize

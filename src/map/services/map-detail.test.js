@@ -1,10 +1,6 @@
-import fetchDetail, {
-  endpointTypes,
-  pageTypeToEndpoint,
-  getEndpointTypeForResult,
-  servicesByEndpointType,
-} from './map-detail'
+import fetchDetail, { pageTypeToEndpoint, getEndpointTypeForResult } from './map-detail'
 import mapFetch from './map-fetch/map-fetch'
+import servicesByEndpointType, { endpointTypes } from './map-services'
 
 jest.mock('./map-fetch/map-fetch')
 
@@ -56,9 +52,13 @@ describe('map-detail', () => {
 
     const result = await fetchDetail(endpointTypes.adressenNummeraanduiding, {})
 
-    const { normalization } = servicesByEndpointType[endpointTypes.adressenNummeraanduiding]
+    const { normalization, detail } = servicesByEndpointType[endpointTypes.adressenNummeraanduiding]
 
-    expect(mapFetch).toHaveBeenCalledWith(endpointTypes.adressenNummeraanduiding, normalization)
+    expect(mapFetch).toHaveBeenCalledWith(
+      endpointTypes.adressenNummeraanduiding,
+      detail,
+      normalization,
+    )
 
     expect(result).toMatchObject({
       ...mockDetail,
