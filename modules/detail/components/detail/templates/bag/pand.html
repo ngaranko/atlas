@@ -6,7 +6,12 @@
             meta-data="vm.apiData">
         </dp-glossary-header>
 
-        <dp-panel ng-if="vm.apiData.results.status.code !== '30' && vm.apiData.results.status.code !== '31'"
+        <dp-panel ng-if="
+            vm.apiData.results.status.omschrijving !== 'Bouwvergunning verleend' &&
+            vm.apiData.results.status.omschrijving !== 'Pand in gebruik (niet ingemeten)' &&
+            vm.apiData.results.status.omschrijving !== 'Pand in gebruik' &&
+            vm.apiData.results.status.omschrijving !== 'Verbouwing pand' &&
+            vm.apiData.results.status.omschrijving !== 'Bouw gestart'"
             is-panel-visible="true"
             class-name="c-panel--offsets-below-page-title"
             type="warning">
