@@ -98,14 +98,16 @@ export const routesDictionary = [...legacyRoutes, ...shortUrls]
 
 const resolveRedirects = () => {
   let routePath = routesDictionary.filter(r => r.from === window.location.pathname)
+
   if (window.location.hash.match(/#\?/g)) {
     routePath = routesDictionary.filter(r => r.from === window.location.hash)
-    window.location.replace(routePath.length && routePath[0].to ? routePath[0].to : '/verplaatst/')
-    return true
+    return {
+      from: window.location.href,
+      to: routePath.length && routePath[0].to ? routePath[0].to : '/verplaatst/',
+    }
   }
   if (routePath.length) {
-    window.location.replace(routePath[0].to)
-    return true
+    return { from: window.location.href, to: routePath[0].to }
   }
 
   return false

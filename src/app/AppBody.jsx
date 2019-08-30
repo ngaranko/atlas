@@ -1,12 +1,14 @@
 import React, { Suspense } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 import EmbedIframeComponent from './components/EmbedIframe/EmbedIframe'
 import GeneralErrorMessage from './components/PanelMessages/ErrorMessage/ErrorMessageContainer'
 import { FeedbackModal, InfoModal } from './components/Modal'
 import PAGES, { isMapSplitPage, isOldCmsPage, isEditorialOverviewPage } from './pages'
 import { useAppReducer } from './utils/useAppReducer'
 import LoadingIndicator from '../shared/components/loading-indicator/LoadingIndicator'
+import resolveRedirects from './redirects'
 
 const ContentPage = React.lazy(() => import('./pages/ContentPage'))
 const Home = React.lazy(() => import('./pages/Home'))
@@ -35,10 +37,27 @@ const AppBody = ({
   embedPreviewMode,
 }) => {
   const [state] = useAppReducer('ui')
+  const { trackEvent } = useMatomo()
 
   const extraBodyClasses = classNames({
     'c-dashboard__body--backdrop': state.backdropKeys.length,
   })
+
+  const hasToRedirect = resolveRedirects()
+
+  if (hasToRedirect) {
+    console.log('hasToRedirect', hasToRedirect)
+
+    trackEvent({
+      category: 'redirect',
+      action: `redirect`,
+      name: hasToRedirect.from,
+    })
+
+    setTimeout(() => {
+      window.location.replace(hasToRedirect.to)
+    }, 800)
+  }
 
   return (
     <Suspense fallback={<LoadingIndicator style={{ top: '200px' }} />}>
