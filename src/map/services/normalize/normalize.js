@@ -154,6 +154,7 @@ export const vastgoed = result => {
     construction_year: result.bouwjaar && result.bouwjaar !== 1005 ? result.bouwjaar : 'Onbekend',
     monumental_status: result.monumentstatus || 'Geen monument',
   }
+
   return { ...result, ...additionalFields }
 }
 
@@ -192,6 +193,14 @@ export const winkelgebied = result => {
 export const parkeerzones = result => {
   const additionalFields = {
     geometry: result.wkb_geometry,
+  }
+
+  return { ...result, ...additionalFields }
+}
+
+export const monument = result => {
+  const additionalFields = {
+    geometry: result.monumentcoordinaten,
   }
 
   return { ...result, ...additionalFields }

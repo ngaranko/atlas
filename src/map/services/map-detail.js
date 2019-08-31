@@ -38,7 +38,8 @@ export default async function fetchDetail(endpoint, user) {
   const isAuthorized = !authScope || user.scopes.includes(authScope)
 
   const detail =
-    isAuthorized && (await mapFetch(endpoint, endpointConfig.detail, endpointConfig.normalization))
+    isAuthorized &&
+    (await mapFetch(endpoint, endpointConfig.mapDetail, endpointConfig.normalization))
   const endpointTypeForResult = getEndpointTypeForResult(endpointType, detail)
 
   return {

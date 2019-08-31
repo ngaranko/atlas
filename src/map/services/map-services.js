@@ -17,6 +17,7 @@ import {
   vastgoed,
   winkelgebied,
   parkeerzones,
+  monument,
 } from './normalize/normalize'
 
 export const endpointTypes = {
@@ -57,7 +58,7 @@ export const endpointTypes = {
 
 const servicesByEndpointType = {
   [endpointTypes.adressenLigplaats]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Adres (ligplaats)',
       subTitle: result._display,
       items: [
@@ -86,7 +87,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.adressenNummeraanduiding]: {
     normalization: adressenNummeraanduiding,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Adres (verblijfsobject)',
       subTitle: result._display,
       items: [
@@ -145,7 +146,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.adressenVerblijfsobject]: {
     normalization: adressenVerblijfsobject,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Adres (verblijfsobject)',
       subTitle: result._display,
       items: [
@@ -203,7 +204,7 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.adressenOpenbareRuimte]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: result.type,
       subTitle: result._display,
       items: [{ label: 'Naam 24-posities (NEN)', value: result.naam_24_posities }],
@@ -211,7 +212,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.adressenPand]: {
     normalization: adressenPand,
-    detail: result => ({
+    mapDetail: result => ({
       title: ' Pand',
       subTitle: result._display,
       items: [
@@ -238,7 +239,7 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.adressenStandplaats]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Adres (standplaats)',
       subTitle: result._display,
       items: [
@@ -266,7 +267,7 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.bedrijfsinvesteringszone]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'bedrijfsinvesteringszone',
       subTitle: result._display,
       items: [
@@ -279,7 +280,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.bekendmakingen]: {
     normalization: bekendmakingen,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Bekendmaking',
       subTitle: result._display,
       items: [
@@ -293,7 +294,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.explosievenGevrijwaardGebied]: {
     normalization: explosieven,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Gevrijwaard gebied',
       subTitle: result._display,
       items: [
@@ -306,7 +307,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.explosievenInslag]: {
     normalization: explosieven,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Inslag',
       subTitle: result._display,
       items: [
@@ -319,7 +320,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.explosievenUitgevoerdOnderzoek]: {
     normalization: explosieven,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Reeds uitgevoerd CE onderzoek',
       subTitle: result._display,
       items: [
@@ -331,7 +332,7 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.explosievenVerdachtGebied]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Verdacht gebied',
       subTitle: result._display,
       items: [
@@ -343,7 +344,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.evenementen]: {
     normalization: evenementen,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Evenement',
       subTitle: result.titel,
       items: [
@@ -354,28 +355,28 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.gebiedenBouwblok]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Bouwblok',
       subTitle: result._display,
       items: [],
     }),
   },
   [endpointTypes.gebiedenBuurt]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Buurt',
       subTitle: result._display,
       items: [{ label: 'Code', value: result.volledige_code }],
     }),
   },
   [endpointTypes.gebiedenGebiedsgerichtWerken]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Gebiedsgerichtwerken-gebied',
       subTitle: result._display,
       items: [{ label: 'Code', value: result.code }],
     }),
   },
   [endpointTypes.gebiedenGrootstedelijk]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Grootstedelijk gebied',
       subTitle: result._display,
       items: [],
@@ -383,7 +384,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.gebiedenStadsdeel]: {
     normalization: gebiedenStadsdeel,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Stadsdeel',
       subTitle: result._display,
       items: [
@@ -407,14 +408,14 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.gebiedenUnesco]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'UNESCO',
       subTitle: result._display,
       items: [],
     }),
   },
   [endpointTypes.gebiedenWijk]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Wijk',
       subTitle: result._display,
       items: [{ label: 'Code', value: result.code }],
@@ -423,7 +424,7 @@ const servicesByEndpointType = {
   [endpointTypes.grondexploitatie]: {
     normalization: grondexploitatie,
     authScope: 'GREX/R',
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Grondexploitatie',
       subTitle: result._display,
       items: [
@@ -445,7 +446,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.kadastraalObject]: {
     normalization: kadastraalObject,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Kadastraal object',
       subTitle: result._display,
       items: [
@@ -462,7 +463,7 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.meetbout]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Meetbout',
       subTitle: result._display,
       items: [
@@ -472,7 +473,8 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.monument]: {
-    detail: result => ({
+    normalization: monument,
+    mapDetail: result => ({
       title: 'Monument',
       subTitle: result._display,
       items: [
@@ -484,7 +486,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.napPeilmerk]: {
     normalization: napPeilmerk,
-    detail: result => ({
+    mapDetail: result => ({
       titel: 'NAP Peilmerk',
       subTitle: result._display,
       items: [
@@ -497,7 +499,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.oplaadpunten]: {
     normalization: oplaadpunten,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Oplaadpunt',
       subTitle: result._display,
       items: [
@@ -511,7 +513,7 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.parkeervak]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Parkeervak',
       subTitle: result._display,
       items: [
@@ -523,7 +525,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.parkeerzones]: {
     normalization: parkeerzones,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Parkeervergunninggebied',
       subTitle: result._display,
       items: [{ label: 'Omschrijving', value: result.gebied_omschrijving, multiLine: true }],
@@ -531,7 +533,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.parkeerzonesUitz]: {
     normalization: parkeerzones,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Uitzondering parkeervergunninggebied',
       subTitle: result._display,
       items: [{ label: 'Omschrijving', value: result.omschrijving, multiLine: true }],
@@ -539,11 +541,12 @@ const servicesByEndpointType = {
   },
   [endpointTypes.vastgoed]: {
     normalization: vastgoed,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Gemeentelijk eigendom',
       subTitle: result._display,
       items: [
         { label: 'Bouwjaar', value: result.construction_year },
+        { label: 'Monumentstatus', value: result.monumental_status },
         { label: 'Status', value: result.status },
       ],
     }),
@@ -551,7 +554,7 @@ const servicesByEndpointType = {
   [endpointTypes.vestiging]: {
     authScope: 'HR/R',
     normalization: vestiging,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Vestiging',
       subTitle: result._display,
       items: [
@@ -604,7 +607,7 @@ const servicesByEndpointType = {
   },
   [endpointTypes.winkelgebied]: {
     normalization: winkelgebied,
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Winkelgebied',
       subTitle: result._display,
       notifications: [
@@ -622,7 +625,7 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.wkpbBeperking]: {
-    detail: result => ({
+    mapDetail: result => ({
       title: 'Gemeentelijke beperking',
       subTitle: result._display,
       items: [],

@@ -9,15 +9,11 @@ export default async function fetchByGeoLocation(location) {
 
   const result = await getByUrl(url)
 
-  if (result.features && result.features.length > 1) {
-    const features = await Promise.all(
-      result.features.map(({ properties }) =>
-        mapFetch(`${SHARED_CONFIG.API_ROOT}vsd/vastgoed/${properties.id}/`, vastgoed),
-      ),
-    )
+  const units = await Promise.all(
+    result.features.map(({ properties }) =>
+      mapFetch(`${SHARED_CONFIG.API_ROOT}vsd/vastgoed/${properties.id}/`, vastgoed),
+    ),
+  )
 
-    return features
-  }
-
-  return []
+  return units
 }
