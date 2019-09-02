@@ -23,9 +23,7 @@
     "lint": "npm run lint:js",
     "lint:js": "eslint --format=node_modules/eslint-formatter-pretty src modules test/e2e/cypress --ext js,jsx",
     "preinstall": "npm cache verify",
-    "prettier": "npm run prettier:js && prettier:style",
-    "prettier:js": "prettier --write \"./**/*.{js,jsx}\"",
-    "prettier:style": "prettier --write \"./**/*.{scss,css}\"",
+    "prettier": "prettier --write \"./**/*.{js,jsx,scss,css}\"",
     "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
     "start-prod": "cross-env NODE_ENV=production webpack-dev-server --config webpack.dev.js",
     "test": "npm run lint && cross-env karma start && jest ",
@@ -38,9 +36,9 @@
     "build-storybook": "cross-env NODE_ENV=production build-storybook -c .storybook -o .sb"
   },
   "dependencies": {
-    "@datapunt/asc-assets": "^0.12.6",
-    "@datapunt/asc-core": "^0.12.6",
-    "@datapunt/asc-ui": "^0.12.6",
+    "@datapunt/asc-assets": "^0.13.1",
+    "@datapunt/asc-core": "^0.13.1",
+    "@datapunt/asc-ui": "^0.13.1",
     "@datapunt/matomo-tracker-js": "0.0.11",
     "@datapunt/matomo-tracker-react": "0.0.11",
     "@sentry/browser": "^5.6.1",
@@ -195,17 +193,18 @@
   "husky": {
     "hooks": {
       "pre-push": "npm run test-jest -- --bail && npm run test-karma",
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "post-merge": "./scripts/post-merge.sh"
     }
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "prettier:js --write",
+      "prettier --write",
       "eslint",
       "git add"
     ],
     "*.scss": [
-      "prettier:style --write",
+      "prettier --write",
       "git add"
     ]
   }

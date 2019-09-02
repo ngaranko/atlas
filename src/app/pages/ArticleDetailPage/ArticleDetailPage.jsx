@@ -15,7 +15,7 @@ import {
   Paragraph,
   Typography,
   Row,
-  color,
+  themeColor,
 } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -73,7 +73,7 @@ const ArticleDetailPage = ({ id }) => {
 
     small {
       text-transform: uppercase;
-      color: ${color('tint', 'level6')};
+      color: ${themeColor('tint', 'level6')};
     }
   `
 
