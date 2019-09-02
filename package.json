@@ -20,7 +20,7 @@
     "clean": "npm run clean-cache && npm run clean-dirs",
     "clean-cache": "npm cache verify",
     "clean-dirs": "rimraf ./node_modules ./coverage ./coverage-legacy ./dist ./build",
-    "lint": "npm run lint:js && npm run lint:style",
+    "lint": "npm run lint:js",
     "lint:js": "eslint --format=node_modules/eslint-formatter-pretty src modules test/e2e/cypress --ext js,jsx",
     "preinstall": "npm cache verify",
     "prettier": "npm run prettier:js && prettier:style",
