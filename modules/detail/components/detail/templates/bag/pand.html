@@ -6,7 +6,7 @@
             meta-data="vm.apiData">
         </dp-glossary-header>
 
-        <dp-panel 
+        <dp-panel ng-if="vm.apiData.results.status.code !== '30' && vm.apiData.results.status.code !== '31'"
             is-panel-visible="true"
             class-name="c-panel--offsets-below-page-title"
             type="warning">
