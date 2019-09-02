@@ -98,16 +98,21 @@ export const routesDictionary = [...legacyRoutes, ...shortUrls]
 
 const resolveRedirects = () => {
   let routePath = routesDictionary.filter(r => r.from === window.location.pathname)
-
   if (window.location.hash.match(/#\?/g)) {
     routePath = routesDictionary.filter(r => r.from === window.location.hash)
-    return {
-      from: window.location.href,
-      to: routePath.length && routePath[0].to ? routePath[0].to : '/verplaatst/',
-    }
+
+    setTimeout(() => {
+      window.location.replace(
+        routePath.length && routePath[0].to ? routePath[0].to : '/verplaatst/',
+      )
+      return true
+    }, 600) // Tries to prevent cancelling the network request to Matomo from the middleware
   }
   if (routePath.length) {
-    return { from: window.location.href, to: routePath[0].to }
+    setTimeout(() => {
+      window.location.replace(routePath[0].to)
+      return true
+    }, 600) // Tries to prevent cancelling the network request to Matomo from the middleware
   }
 
   return false

@@ -357,6 +357,13 @@ const trackEvents = {
     `menu-delen-${tracking}`,
     title,
   ],
+  // NOT FOUND
+  '@@redux-first-router/NOT_FOUND': ({ state }) => [
+    MATOMO_CONSTANTS.TRACK_EVENT,
+    'niet-gevonden',
+    state.location.pathname,
+    null,
+  ],
 }
 
 export default trackEvents
