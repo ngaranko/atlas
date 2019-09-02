@@ -1933,19 +1933,24 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 2`] 
       tms={true}
       url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
     />
-    <NonTiledLayer
-      format="image/png"
-      identify={false}
+    <TileLayer
       key="biz"
-      layers={
-        Array [
-          "biz_polygons",
-        ]
-      }
+      maxZoom={16}
+      minZoom={8}
       onLoad={[Function]}
       onLoading={[Function]}
       opacity={100}
+      subdomains={
+        Array [
+          "acc.t1",
+          "acc.t2",
+          "acc.t3",
+          "acc.t4",
+        ]
+      }
+      tms={true}
       url="https://acc.map.data.amsterdam.nl/maps/biz"
+      zoom={11}
     />
     <GeoJSON
       data={
@@ -2321,20 +2326,24 @@ exports[`MapLeaflet component should render map with coordinates in lat/lon 3`] 
       tms={true}
       url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
     />
-    <NonTiledLayer
-      format="image/png"
-      identify={false}
+    <TileLayer
       key="bbn"
-      layers={
-        Array [
-          "bouwblok",
-          "bouwblok_label",
-        ]
-      }
+      maxZoom={16}
+      minZoom={8}
       onLoad={[Function]}
       onLoading={[Function]}
       opacity={100}
+      subdomains={
+        Array [
+          "acc.t1",
+          "acc.t2",
+          "acc.t3",
+          "acc.t4",
+        ]
+      }
+      tms={true}
       url="https://acc.map.data.amsterdam.nl/maps/gebieden?service=wms"
+      zoom={11}
     />
     <GeoJSON
       data={
@@ -2919,19 +2928,24 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       tms={true}
       url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
     />
-    <NonTiledLayer
-      format="image/png"
-      identify={false}
+    <TileLayer
       key="biz"
-      layers={
-        Array [
-          "biz_polygons",
-        ]
-      }
+      maxZoom={16}
+      minZoom={8}
       onLoad={[Function]}
       onLoading={[Function]}
       opacity={0}
+      subdomains={
+        Array [
+          "acc.t1",
+          "acc.t2",
+          "acc.t3",
+          "acc.t4",
+        ]
+      }
+      tms={true}
       url="https://acc.map.data.amsterdam.nl/maps/biz"
+      zoom={11}
     />
     <RdGeoJson
       data={
@@ -3192,19 +3206,24 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       tms={true}
       url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
     />
-    <NonTiledLayer
-      format="image/png"
-      identify={false}
+    <TileLayer
       key="biz"
-      layers={
-        Array [
-          "biz_polygons",
-        ]
-      }
+      maxZoom={16}
+      minZoom={8}
       onLoad={[Function]}
       onLoading={[Function]}
       opacity={0}
+      subdomains={
+        Array [
+          "acc.t1",
+          "acc.t2",
+          "acc.t3",
+          "acc.t4",
+        ]
+      }
+      tms={true}
       url="https://acc.map.data.amsterdam.nl/maps/biz"
+      zoom={11}
     />
     <RdGeoJson
       data={
@@ -3466,20 +3485,24 @@ exports[`MapLeaflet component should render map with geoJSON with RD coordinates
       tms={true}
       url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
     />
-    <NonTiledLayer
-      format="image/png"
-      identify={false}
+    <TileLayer
       key="bbn"
-      layers={
-        Array [
-          "bouwblok",
-          "bouwblok_label",
-        ]
-      }
+      maxZoom={16}
+      minZoom={8}
       onLoad={[Function]}
       onLoading={[Function]}
       opacity={100}
+      subdomains={
+        Array [
+          "acc.t1",
+          "acc.t2",
+          "acc.t3",
+          "acc.t4",
+        ]
+      }
+      tms={true}
       url="https://acc.map.data.amsterdam.nl/maps/gebieden?service=wms"
+      zoom={11}
     />
     <RdGeoJson
       data={
@@ -4060,19 +4083,24 @@ exports[`MapLeaflet component should render map with without layers and add/remo
       tms={true}
       url="https://{s}.data.amsterdam.nl/topo_rd/{z}/{x}/{y}.png"
     />
-    <NonTiledLayer
-      format="image/png"
-      identify={false}
+    <TileLayer
       key="biz"
-      layers={
-        Array [
-          "biz_polygons",
-        ]
-      }
+      maxZoom={16}
+      minZoom={8}
       onLoad={[Function]}
       onLoading={[Function]}
       opacity={100}
+      subdomains={
+        Array [
+          "acc.t1",
+          "acc.t2",
+          "acc.t3",
+          "acc.t4",
+        ]
+      }
+      tms={true}
       url="https://acc.map.data.amsterdam.nl/maps/biz"
+      zoom={11}
     />
     <ScaleControl
       imperial={false}
