@@ -11,7 +11,7 @@ export default async function fetchByGeoLocation(location) {
 
   const units = await Promise.all(
     result.features.map(({ properties }) =>
-      mapFetch(`${SHARED_CONFIG.API_ROOT}vsd/vastgoed/${properties.id}/`, vastgoed),
+      mapFetch(`${SHARED_CONFIG.API_ROOT}vsd/vastgoed/${properties.id}/`, false, vastgoed),
     ),
   )
 

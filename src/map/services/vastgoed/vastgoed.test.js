@@ -50,6 +50,7 @@ describe('The vastgoed resource', () => {
     // Will retrieve the information for the second feature
     expect(mapFetch).toHaveBeenCalledWith(
       `${SHARED_CONFIG.API_ROOT}vsd/vastgoed/${vastgoedMock.features[1].properties.id}/`,
+      false,
       vastgoed,
     )
 
