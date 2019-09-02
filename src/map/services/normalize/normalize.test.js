@@ -12,6 +12,7 @@ import {
   societalActivities,
   winkelgebied,
   parkeerzones,
+  monument,
 } from './normalize'
 
 import formatDate from '../../../shared/services/date-formatter/date-formatter'
@@ -22,18 +23,20 @@ describe('normalize', () => {
   describe('normalizes "oplaadpunten', () => {
     let input
     let output
-    it('returns the address', () => {
+    it('returns the address and geometry', () => {
       input = {
         street: 'street',
         housenumber: '1',
         housenumberext: 'A',
         city: 'city',
+        wkb_geometry: 'wkb_geometry',
       }
 
       output = oplaadpunten(input)
 
       expect(output).toMatchObject({
         address: `${input.street} ${input.housenumber} ${input.housenumberext}, ${input.city}`,
+        geometry: input.wkb_geometry,
       })
 
       input = {
@@ -109,18 +112,6 @@ describe('normalize', () => {
         currentStatus: 'Niet beschikbaar',
       })
     })
-
-    it('returns the geometry', () => {
-      input = {
-        wkb_geometry: 'wkb_geometry',
-      }
-
-      output = winkelgebied(input)
-
-      expect(output).toMatchObject({
-        geometry: input.wkb_geometry,
-      })
-    })
   })
 
   describe('normalizes "napPeilmerk', () => {
@@ -158,36 +149,18 @@ describe('normalize', () => {
   describe('normalizes "adressenPand', () => {
     let input
     let output
-    it('returns the statusLevel', () => {
+    it('returns the statusLevel and year', () => {
       input = {
         status: {
           code: 26,
         },
-      }
-
-      output = adressenPand(input)
-
-      expect(output).toMatchObject({
-        statusLevel: 'info',
-      })
-
-      input = {}
-
-      output = adressenPand(input)
-
-      expect(output).toMatchObject({
-        statusLevel: false,
-      })
-    })
-
-    it('returns the year', () => {
-      input = {
         oorspronkelijk_bouwjaar: 2012,
       }
 
       output = adressenPand(input)
 
       expect(output).toMatchObject({
+        statusLevel: 'info',
         year: input.oorspronkelijk_bouwjaar,
       })
 
@@ -198,6 +171,7 @@ describe('normalize', () => {
       output = adressenPand(input)
 
       expect(output).toMatchObject({
+        statusLevel: false,
         year: 'Onbekend',
       })
     })
@@ -449,34 +423,16 @@ ${input.gebruiksdoelen[1].omschrijving}`,
       })
     })
 
-    it('returns the "monumentstatus"', () => {
+    it('returns the "monumentstatus" and year', () => {
       input = {
         monumentstatus: 'monumental_status',
-      }
-
-      output = vastgoed(input)
-
-      expect(output).toMatchObject({
-        monumental_status: input.monumentstatus,
-      })
-
-      input = {}
-
-      output = vastgoed(input)
-
-      expect(output).toMatchObject({
-        monumental_status: 'Geen monument',
-      })
-    })
-
-    it('returns the construction year', () => {
-      input = {
         bouwjaar: 1900,
       }
 
       output = vastgoed(input)
 
       expect(output).toMatchObject({
+        monumental_status: input.monumentstatus,
         construction_year: input.bouwjaar,
       })
 
@@ -487,6 +443,7 @@ ${input.gebruiksdoelen[1].omschrijving}`,
       output = vastgoed(input)
 
       expect(output).toMatchObject({
+        monumental_status: 'Geen monument',
         construction_year: 'Onbekend',
       })
     })
@@ -590,6 +547,22 @@ ${input.gebruiksdoelen[1].omschrijving}`,
 
       expect(output).toMatchObject({
         geometry: input.wkb_geometry,
+      })
+    })
+  })
+
+  describe('normalizes "monument', () => {
+    let input
+    let output
+    it('returns the geometry', () => {
+      input = {
+        monumentcoordinaten: 'monumentcoordinaten',
+      }
+
+      output = monument(input)
+
+      expect(output).toMatchObject({
+        geometry: input.monumentcoordinaten,
       })
     })
   })

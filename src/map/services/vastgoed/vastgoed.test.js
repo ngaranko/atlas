@@ -33,23 +33,6 @@ describe('The vastgoed resource', () => {
   })
 
   it('fetches the vastgoed geosearch', async () => {
-    const mockLocation = { latitude: 123, longitude: 456 }
-
-    getByUrl.mockImplementation(() => vastgoedMock)
-    vastgoed.mockImplementation(() => {})
-
-    const result = await fetchByGeoLocation(mockLocation)
-
-    expect(getByUrl).toHaveBeenCalledWith(
-      `${SHARED_CONFIG.API_ROOT}geosearch/vastgoed/?lat=${mockLocation.latitude}&lon=${mockLocation.longitude}&item=vastgoed&radius=0`,
-    )
-
-    // The feature information is already present
-    expect(mapFetch).not.toHaveBeenCalled()
-    expect(result).toStrictEqual([])
-  })
-
-  it('fetches the vastgoed geosearch for multiple features', async () => {
     vastgoedMock = {
       ...vastgoedMock,
       features: [{ properties: { id: 1 } }, { properties: { id: 2 } }],
@@ -67,6 +50,7 @@ describe('The vastgoed resource', () => {
     // Will retrieve the information for the second feature
     expect(mapFetch).toHaveBeenCalledWith(
       `${SHARED_CONFIG.API_ROOT}vsd/vastgoed/${vastgoedMock.features[1].properties.id}/`,
+      false,
       vastgoed,
     )
 

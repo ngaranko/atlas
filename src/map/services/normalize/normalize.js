@@ -73,7 +73,7 @@ export const adressenPand = result => {
 
   const additionalFields = {
     statusLevel: result.status && result.status.code ? statusLevel[result.status.code] : false,
-    year: result.oorspronkelijk_bouwjaar !== 1005 ? result.oorspronkelijk_bouwjaar : 'Onbekend',
+    year: result.oorspronkelijk_bouwjaar !== 1005 ? result.oorspronkelijk_bouwjaar : 'Onbekend', // The API returns 1005 when a year is unknown
   }
 
   return normalize(result, additionalFields)
@@ -151,9 +151,10 @@ export const grondexploitatie = result => {
 export const vastgoed = result => {
   const additionalFields = {
     geometry: result.bag_pand_geometrie,
-    construction_year: result.bouwjaar && result.bouwjaar !== 1005 ? result.bouwjaar : 'Onbekend',
+    construction_year: result.bouwjaar && result.bouwjaar !== 1005 ? result.bouwjaar : 'Onbekend', // The API returns 1005 when a year is unknown
     monumental_status: result.monumentstatus || 'Geen monument',
   }
+
   return { ...result, ...additionalFields }
 }
 
@@ -192,6 +193,14 @@ export const winkelgebied = result => {
 export const parkeerzones = result => {
   const additionalFields = {
     geometry: result.wkb_geometry,
+  }
+
+  return { ...result, ...additionalFields }
+}
+
+export const monument = result => {
+  const additionalFields = {
+    geometry: result.monumentcoordinaten,
   }
 
   return { ...result, ...additionalFields }

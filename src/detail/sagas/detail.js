@@ -33,12 +33,13 @@ export default function* getDetailData(endpoint, mapDetail = {}) {
   // This saga will retrieve additional/formatted data that's only used by the split and full mode detail view
   if (viewMode !== VIEW_MODE.MAP) {
     // Get data from individual endpoints to construct the detail view for vastgoed
+    // Can be decoupled when the detail views use a different normalizer than the map detail views
     if (category === 'vsd' && subject === 'vastgoed') {
-      const features = yield fetchByGeoLocation(mapDetail.location)
+      const units = yield fetchByGeoLocation(mapDetail.location)
 
       const data = {
         ...mapDetail,
-        features: [...(features.length > 1 ? features : [{ ...mapDetail }])],
+        units,
       }
 
       return {

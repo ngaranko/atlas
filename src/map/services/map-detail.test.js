@@ -52,11 +52,13 @@ describe('map-detail', () => {
 
     const result = await fetchDetail(endpointTypes.adressenNummeraanduiding, {})
 
-    const { normalization, detail } = servicesByEndpointType[endpointTypes.adressenNummeraanduiding]
+    const { normalization, mapDetail } = servicesByEndpointType[
+      endpointTypes.adressenNummeraanduiding
+    ]
 
     expect(mapFetch).toHaveBeenCalledWith(
       endpointTypes.adressenNummeraanduiding,
-      detail,
+      mapDetail,
       normalization,
     )
 
