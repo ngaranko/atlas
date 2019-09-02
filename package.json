@@ -35,7 +35,7 @@
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "cross-env NODE_ENV=production build-storybook -c .storybook -o .sb"
   },
   "dependencies": {
     "@datapunt/asc-assets": "^0.12.6",
