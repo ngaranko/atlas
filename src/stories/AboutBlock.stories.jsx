@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
 import AboutBlock from '../components/AboutBlock'
 
-storiesOf('Dataportaal', module)
+storiesOf('Dataportaal/Frontpage', module)
   .addDecorator(storyFn => (
     <div style={{ padding: '40px 0px', background: 'rgb(250,250,250)' }}>{storyFn()}</div>
   ))

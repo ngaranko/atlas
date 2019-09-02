@@ -1,65 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConstructionFilesContainer should render 1`] = `
-.c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 36px;
-  height: 36px;
-  box-sizing: content-box;
-  -webkit-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  transform: rotate(0deg);
-}
-
-.c4 > svg {
-  width: 36px;
-  height: 36px;
-}
-
-.c4 svg rect,
-.c4 svg polygon,
-.c4 svg path {
-  fill: #ec0000;
-}
-
-.c2 {
-  position: relative;
-}
-
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-flex-wrap: nowrap;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-}
-
-.c0 .c1 {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.c3 {
-  width: 36px;
-  height: 36px;
-}
-
-.c3 svg {
-  -webkit-animation: rotating 1s linear infinite;
-  animation: rotating 1s linear infinite;
-}
-
-<DefaultThemeProvider>
+<ThemeProvider>
   <ThemeProvider
     theme={
       Object {
@@ -217,7 +159,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             "fontSize": "16px",
             "fontWeight": 500,
             "letterSpacing": "inherit",
-            "lineHeight": 1.25,
+            "lineHeight": "20px",
             "marginBottom": "0",
           },
           "p": Object {
@@ -301,7 +243,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "componentStyle": ComponentStyle {
                   "componentId": "sc-Rmtcm",
                   "isStatic": false,
-                  "lastClassName": "c0",
+                  "lastClassName": "kUjrlu",
                   "rules": Array [
                     "
   display: flex;
@@ -320,7 +262,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                     "
 
   ",
-                    ".c1",
+                    ".sc-csuQGl",
                     " {
     ",
                     [Function],
@@ -348,7 +290,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             gutterY={20}
           >
             <div
-              className="c0"
+              className="sc-Rmtcm kUjrlu"
               direction="column"
             >
               <styled.div>
@@ -358,9 +300,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                       "$$typeof": Symbol(react.forward_ref),
                       "attrs": Array [],
                       "componentStyle": ComponentStyle {
-                        "componentId": "c1",
+                        "componentId": "sc-csuQGl",
                         "isStatic": false,
-                        "lastClassName": "c2",
+                        "lastClassName": "cdSrAo",
                         "rules": Array [
                           "
   position: relative;
@@ -373,7 +315,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                       "displayName": "styled.div",
                       "foldedComponentIds": Array [],
                       "render": [Function],
-                      "styledComponentId": "c1",
+                      "styledComponentId": "sc-csuQGl",
                       "target": "div",
                       "toString": [Function],
                       "warnTooManyClasses": [Function],
@@ -383,7 +325,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                   forwardedRef={null}
                 >
                   <div
-                    className="c1 c2"
+                    className="sc-csuQGl cdSrAo"
                   >
                     <LoadingIndicator
                       IconComponent={
@@ -409,9 +351,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "$$typeof": Symbol(react.forward_ref),
                                   "attrs": Array [],
                                   "componentStyle": ComponentStyle {
-                                    "componentId": "sc-jwKygS",
+                                    "componentId": "sc-btzYZH",
                                     "isStatic": false,
-                                    "lastClassName": "c3",
+                                    "lastClassName": "gUyeZb",
                                     "rules": Array [
                                       "
   @keyframes rotating {
@@ -440,7 +382,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                   "displayName": "styled.div",
                                   "foldedComponentIds": Array [],
                                   "render": [Function],
-                                  "styledComponentId": "sc-jwKygS",
+                                  "styledComponentId": "sc-btzYZH",
                                   "target": "div",
                                   "toString": [Function],
                                   "warnTooManyClasses": [Function],
@@ -451,7 +393,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                               size={36}
                             >
                               <div
-                                className="c3"
+                                className="sc-btzYZH gUyeZb"
                                 size={36}
                               >
                                 <Icon
@@ -471,7 +413,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                           "componentStyle": ComponentStyle {
                                             "componentId": "sc-bxivhb",
                                             "isStatic": false,
-                                            "lastClassName": "c4",
+                                            "lastClassName": "etLEqh",
                                             "rules": Array [
                                               "
   display: ",
@@ -496,7 +438,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                               [Function],
                                               "
   }
-  
+
   ",
                                               [Function],
                                               ";
@@ -517,7 +459,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                       size={36}
                                     >
                                       <span
-                                        className="c4"
+                                        className="sc-bxivhb etLEqh"
                                         color="secondary"
                                         size={36}
                                       >
@@ -550,5 +492,5 @@ exports[`ConstructionFilesContainer should render 1`] = `
       </ConstructionFilesContainer>
     </Connect(ConstructionFilesContainer)>
   </ThemeProvider>
-</DefaultThemeProvider>
+</ThemeProvider>
 `;
