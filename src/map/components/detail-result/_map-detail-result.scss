@@ -131,6 +131,11 @@ $icon-height: 24px;
         white-space: nowrap;
       }
 
+      &--multiline {
+        // Makes sure long text is wrapped and text with line breaks is respected
+        white-space: pre-wrap;
+      }
+
       &::after {
         border-radius: 50%;
         content: "";
