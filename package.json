@@ -29,8 +29,8 @@
     "test-jest-watch": "cross-env NODE_ENV=development jest --watch --onlyChanged --coverage --runInBand",
     "test-karma": "karma start",
     "test-karma-watch": "karma start --no-single-run",
-    "storybook": "start-storybook -p 6007",
-    "build-storybook": "cross-env NODE_ENV=production build-storybook -c .storybook -o .sb"
+    "storybook": "start-storybook -p 6007 -s ./node_modules/@datapunt/asc-assets/lib/assets",
+    "build-storybook": "cross-env NODE_ENV=production build-storybook -c .storybook -o .sb -s ./node_modules/@datapunt/asc-assets/lib/assets"
   },
   "dependencies": {
     "@datapunt/asc-assets": "0.13.1",
