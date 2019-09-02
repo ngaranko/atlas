@@ -10,7 +10,7 @@ import {
   Image,
   Tag,
   breakpoint,
-  color,
+  themeColor,
 } from '@datapunt/asc-ui'
 
 const CardHeading = styled(Heading)`
@@ -27,8 +27,8 @@ const StyledLink = styled(Link)`
   &:hover,
   &:focus {
     ${CardHeading} {
-      color: ${color('secondary')};
-      border-color: ${color('secondary')};
+      color: ${themeColor('secondary')};
+      border-color: ${themeColor('secondary')};
     }
   }
 `
@@ -64,7 +64,7 @@ const StyledCardMedia = styled(CardMedia)`
 const StyledCardContent = styled(CardContent)`
   padding: 0;
   margin: 0 16px;
-  border-bottom: 1px solid ${color('tint', 'level3')};
+  border-bottom: 1px solid ${themeColor('tint', 'level3')};
   position: relative;
 `
 
