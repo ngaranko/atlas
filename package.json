@@ -25,7 +25,7 @@
     "preinstall": "npm cache verify",
     "prettier": "npm run prettier:js && prettier:style",
     "prettier:js": "prettier --write \"./**/*.{js,jsx}\"",
-    "prettier:style": "prettier --write \"./**/*.{scss}\"",
+    "prettier:style": "prettier --write \"./**/*.{scss,css}\"",
     "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
     "start-prod": "cross-env NODE_ENV=production webpack-dev-server --config webpack.dev.js",
     "test": "npm run lint && cross-env karma start && jest ",
@@ -193,12 +193,12 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "prettier --write",
+      "prettier:js --write",
       "eslint",
       "git add"
     ],
     "*.scss": [
-      "prettier --write",
+      "prettier:style --write",
       "git add"
     ]
   }
