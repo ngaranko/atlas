@@ -14,7 +14,7 @@ import {
   breakpoint,
 } from '@datapunt/asc-ui'
 
-const AboutCard = styled(CardContainer)`
+/* istanbul ignore next */ const AboutCard = styled(CardContainer)`
   ${styles.ColumnStyle} {
     margin-bottom: 16px;
 
@@ -75,13 +75,13 @@ const AboutCard = styled(CardContainer)`
   }
 `
 
-const Border = styled.div`
+/* istanbul ignore next */ const Border = styled.div`
   height: 4px;
   margin-bottom: 16px;
   background-color: ${color('tint', 'level3')};
 `
 
-const AboutBlock = ({ loading }) => (
+/* istanbul ignore next */ const AboutBlock = ({ loading }) => (
   <AboutCard>
     <Row>
       <Column
