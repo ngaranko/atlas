@@ -10,13 +10,18 @@ import {
   Image,
   Row,
   Column,
-  Tag,
+  Tag as AscTag,
   Link,
   themeColor,
   breakpoint,
   styles,
 } from '@datapunt/asc-ui'
 
+const Tag = ({ children }) => (
+  <AscTag colorType="tint" colorSubtype="level3">
+    {children}
+  </AscTag>
+)
 const MainArticlesContainer = styled(CardContainer)`
   ${/* sc-selector */ styles.ColumnStyle}:first-child > ${styles.LinkStyle} {
      border-top: ${themeColor('tint', 'level3')} 1px solid;
