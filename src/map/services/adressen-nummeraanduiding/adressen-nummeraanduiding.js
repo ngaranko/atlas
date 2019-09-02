@@ -6,7 +6,7 @@ import { adressenVerblijfsobject } from '../normalize/normalize'
 const normalize = async result => {
   let verblijfsobject
   if (result.verblijfsobject) {
-    verblijfsobject = await mapFetch(result.verblijfsobject, adressenVerblijfsobject)
+    verblijfsobject = await mapFetch(result.verblijfsobject, false, adressenVerblijfsobject)
   }
 
   const additionalFields = {

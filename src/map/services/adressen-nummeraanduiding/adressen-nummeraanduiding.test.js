@@ -32,6 +32,7 @@ describe('The adressen nummeraanduiding resource', () => {
 
     expect(mapFetch).toHaveBeenCalledWith(
       mockNummeraanduiding.verblijfsobject,
+      false,
       adressenVerblijfsobject,
     )
 
