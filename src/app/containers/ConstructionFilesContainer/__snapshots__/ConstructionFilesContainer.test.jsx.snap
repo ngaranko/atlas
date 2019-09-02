@@ -15,8 +15,8 @@ exports[`ConstructionFilesContainer should render 1`] = `
 }
 
 .c4 > svg {
-  width: inherit;
-  height: inherit;
+  width: 36px;
+  height: 36px;
 }
 
 .c4 svg rect,
@@ -143,7 +143,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
         "maxGridWidth": 1430,
         "typography": Object {
           "a": Object {
-            "defaultColor": "#000000",
+            "color": "#000000",
             "fontSize": "1rem",
             "fontWeight": "inherit",
             "letterSpacing": "inherit",
@@ -151,7 +151,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             "marginBottom": "0",
           },
           "em": Object {
-            "defaultColor": "#000000",
+            "color": "#000000",
             "fontSize": "16px",
             "fontWeight": 400,
             "letterSpacing": "inherit",
@@ -167,7 +167,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "lineHeight": "38px",
               },
             },
-            "defaultColor": "#000000",
+            "color": "#000000",
             "fontSize": "24px",
             "fontWeight": 700,
             "letterSpacing": "inherit",
@@ -181,7 +181,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "lineHeight": "30px",
               },
             },
-            "defaultColor": "#000000",
+            "color": "#000000",
             "fontSize": "20px",
             "fontWeight": 700,
             "letterSpacing": "inherit",
@@ -189,7 +189,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             "marginBottom": "8px",
           },
           "h3": Object {
-            "defaultColor": "#000000",
+            "color": "#000000",
             "fontSize": "20px",
             "fontWeight": 700,
             "letterSpacing": "inherit",
@@ -197,7 +197,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             "marginBottom": "8px",
           },
           "h4": Object {
-            "defaultColor": "#000000",
+            "color": "#000000",
             "fontSize": "18px",
             "fontWeight": 700,
             "letterSpacing": "inherit",
@@ -205,7 +205,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             "marginBottom": "8px",
           },
           "h5": Object {
-            "defaultColor": "#000000",
+            "color": "#000000",
             "fontSize": "18px",
             "fontWeight": 400,
             "letterSpacing": "inherit",
@@ -213,7 +213,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             "marginBottom": "0",
           },
           "h6": Object {
-            "defaultColor": "#000000",
+            "color": "#000000",
             "fontSize": "16px",
             "fontWeight": 500,
             "letterSpacing": "inherit",
@@ -226,7 +226,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
                 "marginBottom": "24px",
               },
             },
-            "defaultColor": "#000000",
+            "color": "#000000",
             "fontSize": "16px",
             "fontWeight": 400,
             "letterSpacing": "inherit",
@@ -234,7 +234,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             "marginBottom": "20px",
           },
           "small": Object {
-            "defaultColor": "#000000",
+            "color": "#000000",
             "fontSize": "14px",
             "fontWeight": 400,
             "letterSpacing": "inherit",
@@ -242,7 +242,7 @@ exports[`ConstructionFilesContainer should render 1`] = `
             "marginBottom": "0",
           },
           "span": Object {
-            "defaultColor": "#000000",
+            "color": "#000000",
             "fontSize": "14px",
             "fontWeight": 400,
             "letterSpacing": "inherit",
@@ -492,8 +492,9 @@ exports[`ConstructionFilesContainer should render 1`] = `
                                               ";
 
   & > svg {
-    width: inherit;
-    height: inherit;
+    ",
+                                              [Function],
+                                              "
   }
   
   ",
