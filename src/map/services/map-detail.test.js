@@ -1,118 +1,68 @@
-import detail from './map-detail'
-import adressenLigplaats from '../../shared/services/adressen/adressen-ligplaats'
-import adressenNummeraanduiding from '../../shared/services/adressen/adressen-nummeraanduiding'
-import napPeilmerk from '../../shared/services/nap-peilmerk/nap-peilmerk'
-import vestiging from '../../shared/services/vestiging/vestiging'
+import fetchDetail, { pageTypeToEndpoint, getEndpointTypeForResult } from './map-detail'
+import mapFetch from './map-fetch/map-fetch'
+import servicesByEndpointType, { endpointTypes } from './map-services'
 
-jest.mock('../../shared/services/adressen/adressen-ligplaats')
-jest.mock('../../shared/services/adressen/adressen-nummeraanduiding')
-jest.mock('../../shared/services/nap-peilmerk/nap-peilmerk')
-jest.mock('../../shared/services/vestiging/vestiging')
+jest.mock('./map-fetch/map-fetch')
 
-describe('The map detail service', () => {
-  afterEach(() => {
-    adressenLigplaats.mockReset()
-    adressenNummeraanduiding.mockReset()
-    napPeilmerk.mockReset()
-    vestiging.mockReset()
+describe('map-detail', () => {
+  it('should return the correct endpoint for the page type', () => {
+    const result = pageTypeToEndpoint('type', 'subtype', 123)
+
+    expect(result).toContain('/type/subtype/123')
   })
 
-  it('calls the service fot the endpoint type specified', async () => {
-    adressenLigplaats.mockImplementation(() => ({ type: 'ligplaats' }))
-    expect(await detail('https://acc.api.data.amsterdam.nl/bag/ligplaats/123')).toEqual({
-      isAuthorized: true,
-      endpointType: 'bag/ligplaats/',
-      type: 'ligplaats',
+  // code exception
+  it("should return the correct endpoint for the page type when it's predefined", () => {
+    const result = pageTypeToEndpoint('explosieven', 'gevrijwaardgebied', 123)
+
+    expect(result).toContain('/milieuthemas/explosieven/gevrijwaardgebied/123')
+  })
+
+  it('should return the correct endpoint type for the result', () => {
+    const result = getEndpointTypeForResult('endpointType', {})
+
+    expect(result).toBe('endpointType')
+  })
+
+  // code exception
+  it('should return the correct endpoint type for the result when certain type', () => {
+    let result
+
+    result = getEndpointTypeForResult(endpointTypes.adressenNummeraanduiding, {})
+
+    expect(result).toBe(endpointTypes.adressenNummeraanduiding)
+
+    result = getEndpointTypeForResult(endpointTypes.adressenNummeraanduiding, {
+      ligplaats: true,
     })
-    expect(adressenLigplaats).toHaveBeenCalledWith(
-      'https://acc.api.data.amsterdam.nl/bag/ligplaats/123',
-      undefined,
+
+    expect(result).toBe(endpointTypes.adressenLigplaats)
+
+    result = getEndpointTypeForResult(endpointTypes.adressenNummeraanduiding, {
+      standplaats: true,
+    })
+
+    expect(result).toBe(endpointTypes.adressenStandplaats)
+  })
+
+  it('should fetch the detail based on the endpoint', async () => {
+    const mockDetail = { detail: { field: 'detail' } }
+
+    mapFetch.mockImplementationOnce(() => mockDetail)
+
+    const result = await fetchDetail(endpointTypes.adressenNummeraanduiding, {})
+
+    const { normalization, detail } = servicesByEndpointType[endpointTypes.adressenNummeraanduiding]
+
+    expect(mapFetch).toHaveBeenCalledWith(
+      endpointTypes.adressenNummeraanduiding,
+      detail,
+      normalization,
     )
 
-    napPeilmerk.mockImplementation(() => ({ type: 'peilmerk' }))
-    expect(await detail('https://acc.api.data.amsterdam.nl/nap/peilmerk/123')).toEqual({
-      isAuthorized: true,
-      endpointType: 'nap/peilmerk/',
-      type: 'peilmerk',
+    expect(result).toMatchObject({
+      ...mockDetail,
+      endpointType: endpointTypes.adressenNummeraanduiding,
     })
-    expect(napPeilmerk).toHaveBeenCalledWith(
-      'https://acc.api.data.amsterdam.nl/nap/peilmerk/123',
-      undefined,
-    )
-  })
-
-  describe('endpoint type nummeraanduiding', () => {
-    it('returns endpoint type verblijfsobject by default', async () => {
-      adressenNummeraanduiding.mockImplementation(() => ({
-        type: 'nummeraanduiding',
-      }))
-      expect(await detail('https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123')).toEqual({
-        isAuthorized: true,
-        endpointType: 'bag/verblijfsobject/',
-        type: 'nummeraanduiding',
-      })
-      expect(adressenNummeraanduiding).toHaveBeenCalledWith(
-        'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123',
-        undefined,
-      )
-    })
-
-    it('returns endpoint type ligplaats when it is a ligplaats', async () => {
-      adressenNummeraanduiding.mockImplementation(() => ({
-        type: 'nummeraanduiding',
-        ligplaats: true,
-      }))
-      expect(await detail('https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123')).toEqual({
-        isAuthorized: true,
-        endpointType: 'bag/ligplaats/',
-        type: 'nummeraanduiding',
-        ligplaats: true,
-      })
-      expect(adressenNummeraanduiding).toHaveBeenCalledWith(
-        'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123',
-        undefined,
-      )
-    })
-
-    it('returns endpoint type standplaats when it is a standplaats', async () => {
-      adressenNummeraanduiding.mockImplementation(() => ({
-        type: 'nummeraanduiding',
-        standplaats: true,
-      }))
-      expect(await detail('https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123')).toEqual({
-        isAuthorized: true,
-        endpointType: 'bag/standplaats/',
-        type: 'nummeraanduiding',
-        standplaats: true,
-      })
-      expect(adressenNummeraanduiding).toHaveBeenCalledWith(
-        'https://acc.api.data.amsterdam.nl/bag/nummeraanduiding/123',
-        undefined,
-      )
-    })
-  })
-
-  it('does not call the service when the user does not have the required auth scope', async () => {
-    vestiging.mockImplementation(() => ({ type: 'vestiging' }))
-    expect(
-      await detail('https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123', {
-        scopes: ['MON/R'],
-      }),
-    ).toEqual({ isAuthorized: false, endpointType: 'handelsregister/vestiging/' })
-    expect(vestiging).not.toHaveBeenCalled()
-  })
-
-  it('calls the service when the user has the required auth scope', async () => {
-    vestiging.mockImplementation(() => ({ type: 'vestiging' }))
-    const user = {
-      scopes: ['MON/R', 'HR/R'],
-    }
-    expect(
-      await detail('https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123', user),
-    ).toEqual({ isAuthorized: true, endpointType: 'handelsregister/vestiging/', type: 'vestiging' })
-    expect(vestiging).toHaveBeenCalledWith(
-      'https://acc.api.data.amsterdam.nl/handelsregister/vestiging/123',
-      user,
-    )
   })
 })

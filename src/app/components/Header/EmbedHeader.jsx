@@ -1,6 +1,7 @@
 import React from 'react'
 import './EmbedHeader.scss'
 
+/* istanbul ignore next */
 const EmbedHeader = ({ closeAction }) => {
   const [embedLink, setEmbedLink] = React.useState('')
   const [iframe, setIframe] = React.useState('')
