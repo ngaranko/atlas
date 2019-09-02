@@ -59,7 +59,7 @@ class HeaderSearch extends React.Component {
     }
   }
 
-  onFormSubmit() {
+  onFormSubmit(label) {
     const {
       activeSuggestion,
       isDatasetView,
@@ -69,10 +69,13 @@ class HeaderSearch extends React.Component {
       onDataSearch,
     } = this.props
 
+    // Todo: ideally we should get a 'type' back from the backend...
+    const toDataset = isDatasetView || label === 'Datasets'
+
     if (activeSuggestion.index === -1) {
       // Load the search results
       onCleanDatasetOverview() // TODO, refactor: don't clean dataset on search
-      if (isDatasetView) {
+      if (toDataset) {
         onDatasetSearch(typedQuery)
       } else {
         onDataSearch(typedQuery)
