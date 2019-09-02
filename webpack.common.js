@@ -40,6 +40,7 @@ function commonConfig(env) {
           test: /\.jsx?$/,
           include: [src, legacy],
           use: 'babel-loader',
+          exclude: /\.stories\.jsx$/,
         },
         {
           test: /\.scss$/,
