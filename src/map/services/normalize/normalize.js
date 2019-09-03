@@ -69,7 +69,7 @@ export const adressenPand = result => {
           : 'info'
         : false,
     isNevenadres: !result.hoofdadres,
-    year: result.oorspronkelijk_bouwjaar !== 1005 ? result.oorspronkelijk_bouwjaar : 'Onbekend', // The API returns 1005 when a year is unknown
+    year: result.oorspronkelijk_bouwjaar !== '1005' ? result.oorspronkelijk_bouwjaar : 'Onbekend', // The API returns 1005 when a year is unknown
   }
 
   return normalize(result, additionalFields)
