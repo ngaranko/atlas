@@ -4,16 +4,19 @@ LABEL maintainer="datapunt@amsterdam.nl"
 
 WORKDIR /app
 
-COPY package.json yarn.lock /app/
+COPY package.json package-lock.json /app/
 
 # Install all NPM dependencies, and:
 #  * Changing git URL because network is blocking git protocol...
 RUN git config --global url."https://".insteadOf git:// && \
     git config --global url."https://github.com/".insteadOf git@github.com: && \
-    yarn config list && \
-    yarn config set unsafe-perm true && \
+    npm config set registry https://nexus.data.amsterdam.nl/repository/npm-group/ && \
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    yarn --production=false --verbose && yarn cache clean
+    npm --production=false \
+        --unsafe-perm \
+        --verbose \
+        ci && \
+    npm cache clean --force
 
 # Build dependencies
 COPY src /app/src
@@ -32,7 +35,7 @@ COPY .babelrc \
 
 ENV NODE_ENV=production
 ARG BUILD_ENV=prod
-RUN yarn build-${BUILD_ENV}
+RUN npm run build:${BUILD_ENV}
 RUN echo "build= `date`" > /app/dist/version.txt
 
 # Test dependencies
