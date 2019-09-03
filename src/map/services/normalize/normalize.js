@@ -1,5 +1,6 @@
 import formatNumber from '../../../shared/services/number-formatter/number-formatter'
 import formatDate from '../../../shared/services/date-formatter/date-formatter'
+import { NORMAL_PAND_STATUSSES, NORMAL_VBO_STATUSSES } from '../map-search/status-labels'
 
 const normalize = (result, additionalFields) => {
   return {
@@ -59,38 +60,30 @@ export const napPeilmerk = result => {
 }
 
 export const adressenPand = result => {
-  const statusLevel = {
-    24: 'info',
-    25: 'info',
-    26: 'info',
-    27: 'info',
-    28: 'info',
-    29: 'info',
-    30: '',
-    31: '',
-    32: 'info',
-  }
-
   const additionalFields = {
-    statusLevel: result.status && result.status.code ? statusLevel[result.status.code] : false,
-    year: result.oorspronkelijk_bouwjaar !== '1005' ? result.oorspronkelijk_bouwjaar : 'onbekend', // The API returns 1005 when a year is unknown
+    statusLevel:
+      // eslint-disable-next-line no-nested-ternary
+      result.status && result.status.omschrijving
+        ? NORMAL_PAND_STATUSSES.includes(result.status.omschrijving)
+          ? ''
+          : 'info'
+        : false,
+    isNevenadres: !result.hoofdadres,
+    year: result.oorspronkelijk_bouwjaar !== 1005 ? result.oorspronkelijk_bouwjaar : 'Onbekend', // The API returns 1005 when a year is unknown
   }
 
   return normalize(result, additionalFields)
 }
 
 export const adressenVerblijfsobject = result => {
-  const statusLevel = {
-    18: 'alert',
-    19: 'alert',
-    20: '',
-    21: '',
-    22: 'alert',
-    23: 'alert',
-  }
-
   const additionalFields = {
-    statusLevel: result.status && result.status.code ? statusLevel[result.status.code] : false,
+    statusLevel:
+      // eslint-disable-next-line no-nested-ternary
+      result.status && result.status.omschrijving
+        ? NORMAL_VBO_STATUSSES.includes(result.status.omschrijving)
+          ? ''
+          : 'alert'
+        : false,
     isNevenadres: !result.hoofdadres,
     gebruiksdoelen: ((result.gebruiksdoelen && result.gebruiksdoelen.slice(0, 5)) || [])
       .map(
