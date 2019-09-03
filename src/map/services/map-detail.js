@@ -33,6 +33,9 @@ export const getEndpointTypeForResult = (endpointType, detail) => {
 
 export default async function fetchDetail(endpoint, user) {
   const endpointType = Object.keys(servicesByEndpointType).find(type => endpoint.includes(type))
+
+  console.log(endpointType)
+
   const endpointConfig = endpointType && servicesByEndpointType[endpointType]
   const authScope = endpointConfig && endpointConfig.authScope
   const isAuthorized = !authScope || user.scopes.includes(authScope)
