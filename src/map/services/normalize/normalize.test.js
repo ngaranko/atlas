@@ -165,7 +165,7 @@ describe('normalize', () => {
       })
 
       input = {
-        oorspronkelijk_bouwjaar: 1005,
+        oorspronkelijk_bouwjaar: '1005',
       }
 
       output = adressenPand(input)

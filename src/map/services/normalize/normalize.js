@@ -73,7 +73,7 @@ export const adressenPand = result => {
 
   const additionalFields = {
     statusLevel: result.status && result.status.code ? statusLevel[result.status.code] : false,
-    year: result.oorspronkelijk_bouwjaar !== 1005 ? result.oorspronkelijk_bouwjaar : 'onbekend', // The API returns 1005 when a year is unknown
+    year: result.oorspronkelijk_bouwjaar !== '1005' ? result.oorspronkelijk_bouwjaar : 'onbekend', // The API returns 1005 when a year is unknown
   }
 
   return normalize(result, additionalFields)
