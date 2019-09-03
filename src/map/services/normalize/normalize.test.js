@@ -153,6 +153,7 @@ describe('normalize', () => {
       input = {
         status: {
           code: 26,
+          omschrijving: 'a random, not normal status',
         },
         oorspronkelijk_bouwjaar: 2012,
       }
@@ -184,6 +185,7 @@ describe('normalize', () => {
       input = {
         status: {
           code: 22,
+          omschrijving: 'a random, not normal status',
         },
       }
 
