@@ -8,7 +8,7 @@ storiesOf('Dataportaal', module)
   .addDecorator(storyFn => (
     <div
       style={{
-        backgroundColor: 'lightgrey',
+        backgroundColor: '#E6E6E6',
         height: '100%',
         position: 'relative',
       }}

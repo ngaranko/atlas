@@ -32,7 +32,6 @@ const LandingPageStyle = styled.div`
         right: -24px;
         top: 0;
         width: 24px;
-        z-index: 300;
       }
     }
   }

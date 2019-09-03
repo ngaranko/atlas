@@ -20,7 +20,7 @@
     "lint:js": "eslint --format=node_modules/eslint-formatter-pretty src modules test/e2e/cypress --ext js,jsx",
     "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
     "start:prod": "cross-env NODE_ENV=production webpack-dev-server --config webpack.dev.js",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6007",
     "test": "concurrently \"karma start\" \"jest\"",
     "test:jest": "cross-env NODE_ENV=development jest --runInBand",
     "test:jest:watch": "cross-env NODE_ENV=development jest --watch --onlyChanged --coverage --runInBand",

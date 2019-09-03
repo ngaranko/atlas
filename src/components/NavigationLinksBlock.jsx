@@ -205,7 +205,7 @@ const NavigationLinksBlock = ({ loading }) => (
         </CardMedia>
         <CardContent>
           <Heading $as="h4">Publicaties</Heading>
-          <Paragraph>Download onderzoeksrapporten, fasctsheets of het jaarboek</Paragraph>
+          <Paragraph>Download fasctsheets en onderzoeksrapporten</Paragraph>
         </CardContent>
         <CardActions>
           <Icon size={15}>
@@ -223,7 +223,7 @@ const NavigationLinksBlock = ({ loading }) => (
         </CardMedia>
         <CardContent>
           <Heading $as="h4">Datasets</Heading>
-          <Paragraph>Download cijfers en andere (open) databestanden</Paragraph>
+          <Paragraph>Zoek en download databestanden</Paragraph>
         </CardContent>
         <CardActions>
           <Icon size={15}>
@@ -241,7 +241,7 @@ const NavigationLinksBlock = ({ loading }) => (
         </CardMedia>
         <CardContent>
           <Heading $as="h4">Tabellen</Heading>
-          <Paragraph>Selecteer data en download als spreadsheet</Paragraph>
+          <Paragraph>Selecteer data en sla op als spreadsheet</Paragraph>
         </CardContent>
         <CardActions>
           <Icon size={15}>
