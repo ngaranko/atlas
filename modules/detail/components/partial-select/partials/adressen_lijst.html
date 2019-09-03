@@ -18,7 +18,9 @@
       <span class="muted" ng-if="object.situering_nummeraanduiding === 'Actueel/Via'">
           (object kan worden betreden via dit adres)
       </span>
-      <span class="muted" ng-if="object.status.code === '18'">
+      <span class="muted" ng-if="object.status.omschrijving !== 'Verblijfsobject in gebruik (niet ingemeten)' &&
+              object.status.omschrijving !== 'Verblijfsobject in gebruik' &&
+              object.status.omschrijving !== 'Verbouwing verblijfsobject'">
           ({{object.status.omschrijving.toLowerCase()}})
       </span>
     </li>

@@ -1,8 +1,7 @@
 import React from 'react'
 import RouterLink from 'redux-first-router-link'
 import PropTypes from 'prop-types'
-
-const STATUS_OBJECT_GEVORMD = 18
+import { NORMAL_VBO_STATUSSES } from '../../../map/services/map-search/status-labels'
 
 const isString = value => typeof value === 'string'
 
@@ -26,7 +25,10 @@ const getExtraInfo = result => {
     extraInfo += ' (nevenadres)'
   }
 
-  if (isObject(result.vbo_status) && Number(result.vbo_status.code) === STATUS_OBJECT_GEVORMD) {
+  if (
+    isObject(result.vbo_status) &&
+    !NORMAL_VBO_STATUSSES.includes(result.vbo_status.omschrijving)
+  ) {
     extraInfo += ` (${result.vbo_status.omschrijving.toLowerCase()})`
   }
 
