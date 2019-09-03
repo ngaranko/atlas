@@ -43,6 +43,7 @@ export const endpointTypes = {
   gebiedenWijk: 'gebieden/buurtcombinatie/',
   grondexploitatie: 'grondexploitatie/project/',
   kadastraalObject: 'brk/object/',
+  maatschappelijkeActiviteiten: 'handelsregister/maatschappelijkeactiviteit/',
   meetbout: 'meetbouten/meetbout/',
   monument: 'monumenten/monumenten/',
   napPeilmerk: 'nap/peilmerk/',
@@ -126,8 +127,8 @@ const servicesByEndpointType = {
       ],
       notifications: [
         {
-          value: result.status.level ? `Status: ${result.status.description}` : false,
-          level: result.status.level,
+          value: result.statusLevel ? `Status: ${result.status.omschrijving}` : false,
+          level: result.statusLevel,
         },
         {
           value: result.isNevenadres ? 'Dit is een nevenadres' : false,
@@ -185,8 +186,8 @@ const servicesByEndpointType = {
       ],
       notifications: [
         {
-          value: result.status.level ? `Status: ${result.status.description}` : false,
-          level: result.status.level,
+          value: result.statusLevel ? `Status: ${result.status.omschrijving}` : false,
+          level: result.statusLevel,
         },
         {
           value: result.isNevenadres ? 'Dit is een nevenadres' : false,
@@ -350,6 +351,7 @@ const servicesByEndpointType = {
       items: [
         { label: 'Startdatum', value: result.startDate },
         { label: 'Einddatum', value: result.endDate },
+        { label: 'Omschrijving', value: result.omschrijving },
         { label: 'Meer informatie', value: result.url, link: result.url },
       ],
     }),
@@ -627,6 +629,13 @@ const servicesByEndpointType = {
   [endpointTypes.wkpbBeperking]: {
     mapDetail: result => ({
       title: 'Gemeentelijke beperking',
+      subTitle: result._display,
+      items: [],
+    }),
+  },
+  [endpointTypes.maatschappelijkeActiviteiten]: {
+    mapDetail: result => ({
+      title: 'Maatschappelijke activiteit',
       subTitle: result._display,
       items: [],
     }),

@@ -187,20 +187,25 @@ describe('normalize', () => {
           code: 22,
           omschrijving: 'a random, not normal status',
         },
+        hoofdadres: true,
       }
 
       output = adressenVerblijfsobject(input)
 
       expect(output).toMatchObject({
         statusLevel: 'alert',
+        isNevenadres: false,
       })
 
-      input = {}
+      input = {
+        hoofdadres: false,
+      }
 
       output = adressenVerblijfsobject(input)
 
       expect(output).toMatchObject({
         statusLevel: false,
+        isNevenadres: true,
       })
     })
 
@@ -446,7 +451,7 @@ ${input.gebruiksdoelen[1].omschrijving}`,
 
       expect(output).toMatchObject({
         monumental_status: 'Geen monument',
-        construction_year: 'Onbekend',
+        construction_year: 'onbekend',
       })
     })
   })
