@@ -106,13 +106,13 @@ const resolveRedirects = () => {
         routePath.length && routePath[0].to ? routePath[0].to : '/verplaatst/',
       )
       return true
-    }, 600) // Tries to prevent cancelling the network request to Matomo from the middleware
+    }, 600) // Tries to prevent cancelling the network request to Matomo from the middleware, arbitrary number that allows Matomo some time to load
   }
   if (routePath.length) {
     setTimeout(() => {
       window.location.replace(routePath[0].to)
       return true
-    }, 600) // Tries to prevent cancelling the network request to Matomo from the middleware
+    }, 600) // Tries to prevent cancelling the network request to Matomo from the middleware, arbitrary number that allows Matomo some time to load
   }
 
   return false
