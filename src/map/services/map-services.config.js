@@ -94,16 +94,16 @@ const servicesByEndpointType = {
       items: [
         {
           label: 'Gebruiksdoel',
-          value: result.gebruiksdoelen,
+          value: result.verblijfsobject ? result.verblijfsobject.gebruiksdoelen : false,
           multiLine: true,
         },
         {
           label: 'Feitelijk gebruik',
-          value: result.gebruik.omschrijving,
+          value: result.verblijfsobject ? result.verblijfsobject.gebruiksomschrijving : false,
         },
         {
           label: 'Status',
-          value: result.status.omschrijving,
+          value: result.verblijfsobject ? result.verblijfsobject.statusomschrijving : false,
         },
         {
           label: 'Indicatie hoofdadres',
@@ -122,7 +122,7 @@ const servicesByEndpointType = {
         },
         {
           label: 'Oppervlakte',
-          value: result.size,
+          value: result.verblijfsobject ? result.verblijfsobject.size : false,
         },
       ],
       notifications: [
@@ -163,6 +163,7 @@ const servicesByEndpointType = {
         {
           label: 'Status',
           value: result.status ? result.status.omschrijving : false,
+          status: result.statusLevel,
         },
         {
           label: 'Indicatie hoofdadres',
@@ -588,6 +589,7 @@ const servicesByEndpointType = {
             result.bijzondereRechtstoestand && result.bijzondereRechtstoestand.label
               ? result.bijzondereRechtstoestand.label
               : false,
+          status: 'alert',
         },
       ],
       notifications: [

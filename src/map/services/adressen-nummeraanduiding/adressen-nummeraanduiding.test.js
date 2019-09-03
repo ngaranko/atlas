@@ -38,6 +38,7 @@ describe('The adressen nummeraanduiding resource', () => {
 
     expect(result).toEqual({
       geometry: 'geo',
+      isNevenadres: false,
       ...mockNummeraanduiding,
     })
   })
@@ -45,7 +46,7 @@ describe('The adressen nummeraanduiding resource', () => {
   it('fetches a nummeraanduiding without "verblijsobject"', async () => {
     const mockNummeraanduiding = {
       _display: 'Address display name 1',
-      hoofdadres: true,
+      hoofdadres: false,
       landelijk_id: 'abc123',
       _geometrie: 'geo',
     }
@@ -56,6 +57,7 @@ describe('The adressen nummeraanduiding resource', () => {
 
     expect(result).toEqual({
       geometry: 'geo',
+      isNevenadres: true,
       ...mockNummeraanduiding,
     })
   })
