@@ -8,6 +8,8 @@ import PresentationBlock from './PresentationBlock'
 import AboutBlock from './AboutBlock'
 import FooterComponent from '../app/components/Footer/Footer'
 import Header from '../app/components/Header'
+import '../_styles.scss'
+import '../../modules/atlas/atlas.scss'
 
 const LandingPageStyle = styled.div`
   position: relative;
