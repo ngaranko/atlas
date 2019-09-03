@@ -157,11 +157,11 @@ const servicesByEndpointType = {
         },
         {
           label: 'Feitelijk gebruik',
-          value: result.gebruik.omschrijving,
+          value: result.gebruik ? result.gebruik.omschrijving : false,
         },
         {
           label: 'Status',
-          value: result.status.omschrijving,
+          value: result.status ? result.status.omschrijving : false,
         },
         {
           label: 'Indicatie hoofdadres',
