@@ -6,7 +6,8 @@ import NavigationLinksBlock from './NavigationLinksBlock'
 import MainArticlesBlock from './MainArticlesBlock'
 import PresentationBlock from './PresentationBlock'
 import AboutBlock from './AboutBlock'
-// import FooterComponent from '../app/components/Footer/Footer'
+import FooterComponent from '../app/components/Footer/Footer'
+import Header from '../app/components/Header'
 
 const LandingPageStyle = styled.div`
   position: relative;
@@ -52,13 +53,13 @@ const OverviewLink = styled(Link)`
   }
 `
 
-// const StyledFooter = styled(FooterComponent)`
-//   margin-top: 16px;
+const StyledFooter = styled(FooterComponent)`
+  margin-top: 16px;
 
-//   @media screen and ${breakpoint('min-width', 'laptopM')} {
-//     margin-top: 24px;
-//   }
-// `
+  @media screen and ${breakpoint('min-width', 'laptopM')} {
+    margin-top: 24px;
+  }
+`
 
 const StickyRow = styled(Row)`
   position: sticky;
@@ -80,7 +81,16 @@ const LandingPage = ({ loading }) => (
   <LandingPageStyle>
     <StickyRow hasMargin={false}>
       <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-        {/* <DataportaalHeader tall fullWidth={false} /> */}
+        <Header
+          homePage
+          hasMaxWidth
+          user={{}}
+          printMode={false}
+          embedPreviewMode={false}
+          printOrEmbedMode={false}
+          hasPrintButton={false}
+          hasEmbedButton={false}
+        />
       </Column>
     </StickyRow>
     <Row>
@@ -121,7 +131,7 @@ const LandingPage = ({ loading }) => (
     </Row>
     <Row hasMargin={false}>
       <Column span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
-        {/* <StyledFooter /> */}
+        <StyledFooter />
       </Column>
     </Row>
   </LandingPageStyle>
