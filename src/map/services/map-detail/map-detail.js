@@ -1,8 +1,8 @@
-import SHARED_CONFIG from '../../shared/services/shared-config/shared-config'
+import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 
-import mapFetch from './map-fetch/map-fetch'
+import mapFetch from '../map-fetch/map-fetch'
 
-import servicesByEndpointType, { endpointTypes } from './map-services'
+import servicesByEndpointType, { endpointTypes } from '../map-services.config'
 
 export const maxDisplayValuesPerProperty = 5
 
