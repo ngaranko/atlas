@@ -11,10 +11,7 @@ exports[`MapDetailResultWrapper should not render empty panoUrl 1`] = `
     "
   >
     <button
-      className="
-              map-detail-result__header-pano-button
-              map-detail-result__header-pano-button--disabled
-            "
+      className="map-detail-result__header-pano-button"
       disabled={true}
       onClick={[MockFunction]}
       title="Geen Panoramabeeld beschikbaar"
@@ -80,10 +77,7 @@ exports[`MapDetailResultWrapper should not render empty sub title 1`] = `
     "
   >
     <button
-      className="
-              map-detail-result__header-pano-button
-              map-detail-result__header-pano-button--disabled
-            "
+      className="map-detail-result__header-pano-button"
       disabled={true}
       onClick={[MockFunction]}
       title="Geen Panoramabeeld beschikbaar"
@@ -144,10 +138,7 @@ exports[`MapDetailResultWrapper should not render missing children 1`] = `
     "
   >
     <button
-      className="
-              map-detail-result__header-pano-button
-              map-detail-result__header-pano-button--disabled
-            "
+      className="map-detail-result__header-pano-button"
       disabled={true}
       onClick={[MockFunction]}
       title="Geen Panoramabeeld beschikbaar"
@@ -200,10 +191,7 @@ exports[`MapDetailResultWrapper should not render missing sub title 1`] = `
     "
   >
     <button
-      className="
-              map-detail-result__header-pano-button
-              map-detail-result__header-pano-button--disabled
-            "
+      className="map-detail-result__header-pano-button"
       disabled={true}
       onClick={[MockFunction]}
       title="Geen Panoramabeeld beschikbaar"
@@ -264,10 +252,7 @@ exports[`MapDetailResultWrapper should render everything 1`] = `
     "
   >
     <button
-      className="
-              map-detail-result__header-pano-button
-              map-detail-result__header-pano-button--enabled
-            "
+      className="map-detail-result__header-pano-button"
       disabled={false}
       onClick={[MockFunction]}
       title="Panoramabeeld tonen"
