@@ -42,7 +42,7 @@ export default async function fetchDetail(endpoint, user) {
     : endpointConfig.mapDetail(isAuthorized)
 
   const endpointTypeForResult = getEndpointTypeForResult(endpointType, detail)
-
+  console.log(isAuthorized)
   return {
     ...detail,
     isAuthorized,
