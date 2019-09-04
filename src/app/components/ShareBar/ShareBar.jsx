@@ -26,20 +26,25 @@ const ShareBar = ({ hasPrintButton, openSharePage, openPrintMode }) => {
 
   return (
     <ShareBarContainer>
-      <ShareButton onClick={() => handlePageShare('facebook')} hoverColor="#3b5999" iconSize={30}>
+      <ShareButton
+        type="button"
+        onClick={() => handlePageShare('facebook')}
+        hoverColor="#3b5999"
+        iconSize={30}
+      >
         <Facebook />
       </ShareButton>
-      <ShareButton onClick={() => handlePageShare('twitter')} hoverColor="#55acee">
+      <ShareButton type="button" onClick={() => handlePageShare('twitter')} hoverColor="#55acee">
         <Twitter />
       </ShareButton>
-      <ShareButton onClick={() => handlePageShare('linkedin')} hoverColor="#0077B5">
+      <ShareButton type="button" onClick={() => handlePageShare('linkedin')} hoverColor="#0077B5">
         <Linkedin />
       </ShareButton>
-      <ShareButton onClick={() => handlePageShare('email')}>
+      <ShareButton type="button" onClick={() => handlePageShare('email')}>
         <Email />
       </ShareButton>
       {hasPrintButton && (
-        <ShareButton onClick={openPrintMode}>
+        <ShareButton type="button" onClick={openPrintMode}>
           <Print />
         </ShareButton>
       )}

@@ -7,7 +7,7 @@ import {
   Column,
   Heading,
   Row,
-  color,
+  themeColor,
   svgFill,
 } from '@datapunt/asc-ui'
 import { Enlarge } from '@datapunt/asc-assets'
@@ -42,7 +42,7 @@ const toDetailPage = {
 const PageHeading = styled(Heading)`
   margin-bottom: 16px;
   padding-bottom: 8px;
-  border-bottom: 1px solid ${color('tint', 'level3')};
+  border-bottom: 1px solid ${themeColor('tint', 'level3')};
 `
 
 const EditorialCardContainer = styled(CardContainer)`
@@ -50,15 +50,15 @@ const EditorialCardContainer = styled(CardContainer)`
 `
 
 const StyledButton = styled(Button)`
-  border-color: ${color('tint', 'level7')};
-  color: ${color('tint', 'level7')};
+  border-color: ${themeColor('tint', 'level7')};
+  color: ${themeColor('tint', 'level7')};
   background: #fff;
   ${svgFill('tint', 'level7')};
 
   &:hover,
   &:focus {
     outline: 0;
-    background: ${color('tint', 'level3')};
+    background: ${themeColor('tint', 'level3')};
   }
 `
 

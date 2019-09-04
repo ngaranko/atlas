@@ -68,10 +68,11 @@ export const toDataSearchQuery = (
   },
 })
 
-export const toMap = (preserve = false) => ({
+export const toMap = (preserve = false, forceSaga = true) => ({
   type: routing.data.type,
   meta: {
     preserve,
+    forceSaga,
     additionalParams: {
       [PARAMETERS.VIEW]: VIEW_MODE.MAP,
     },

@@ -7,6 +7,16 @@ exports[`QuerySearchContainer should render 1`] = `
   isLoading={false}
   numberOfDataResults={1}
   numberOfDatasetResults={1}
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
   toDataPage={[Function]}
   toDatasetPage={[Function]}
   user={

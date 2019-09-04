@@ -2,18 +2,18 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { ThemeProvider } from '@datapunt/asc-ui'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 import ArticleDetailPage from './ArticleDetailPage'
 import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import Footer from '../../components/Footer/Footer'
 import useDocumentTitle from '../../utils/useDocumentTitle'
-import useMatomo from '../../utils/useMatomo'
 
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 jest.mock('../../components/Footer/Footer')
 jest.mock('../../utils/useDocumentTitle')
-jest.mock('../../utils/useMatomo')
+jest.mock('@datapunt/matomo-tracker-react')
 
 describe('ArticleDetailPage', () => {
   const id = 3
@@ -66,9 +66,9 @@ describe('ArticleDetailPage', () => {
       loading: true,
     }))
 
-    const component = shallow(<ArticleDetailPage />, {
-      context: { store },
-    }).dive()
+    const component = shallow(<ArticleDetailPage store={store} />)
+      .dive()
+      .dive()
 
     const editorialPage = component.find('EditorialPage').at(0)
     expect(editorialPage.props().loading).toBeTruthy()
@@ -95,9 +95,9 @@ describe('ArticleDetailPage', () => {
 
   it('should render the publication when there are results', () => {
     useFromCMS.mockImplementation(() => mockData)
-    const component = shallow(<ArticleDetailPage />, {
-      context: { store },
-    }).dive()
+    const component = shallow(<ArticleDetailPage store={store} />)
+      .dive()
+      .dive()
 
     expect(component).toMatchSnapshot()
   })

@@ -163,6 +163,16 @@ exports[`MapPanel should render the container 1`] = `
       },
     ]
   }
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
   user={Object {}}
   zoomLevel={0}
 />

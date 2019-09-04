@@ -1,5 +1,6 @@
 import React from 'react'
 import { AngularWrapper } from 'react-angular'
+import angular from 'angular'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import LoadingIndicator from '../../shared/components/loading-indicator/LoadingIndicator'
@@ -32,6 +33,7 @@ const DatasetPage = ({
             moduleName="dpDataSelectionHeaderWrapper"
             component="dpDataSelectionHeader"
             dependencies={['atlas']}
+            angularInstance={angular}
             bindings={{
               dataset: DEFAULT_DATASET,
               availableFilters,

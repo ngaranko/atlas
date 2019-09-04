@@ -2,19 +2,19 @@ import React from 'react'
 import { mount, shallow } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 import { ThemeProvider } from '@datapunt/asc-ui'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 import PublicationDetailPage from './PublicationDetailPage'
 import useFromCMS from '../../utils/useFromCMS'
 import linkAttributesFromAction from '../../../shared/services/link-attributes-from-action/linkAttributesFromAction'
 import Footer from '../../components/Footer/Footer'
 import useDocumentTitle from '../../utils/useDocumentTitle'
-import useMatomo from '../../utils/useMatomo'
 
 jest.mock('../../utils/useFromCMS')
 jest.mock('../../../shared/services/link-attributes-from-action/linkAttributesFromAction')
 jest.mock('downloadjs')
 jest.mock('../../components/Footer/Footer')
 jest.mock('../../utils/useDocumentTitle')
-jest.mock('../../utils/useMatomo')
+jest.mock('@datapunt/matomo-tracker-react')
 
 describe('PublicationDetailPage', () => {
   const id = 3
@@ -26,9 +26,7 @@ describe('PublicationDetailPage', () => {
       drupal_internal__nid: 100,
       title: 'This is a title',
       created: '2015-05-05',
-      body: {
-        value: 'body text',
-      },
+      body: '<p>body text</p>',
       field_file_size: 'file size',
       field_file_type: 'pdf',
       field_publication_source: 'source',
@@ -67,9 +65,9 @@ describe('PublicationDetailPage', () => {
       loading: true,
     }))
 
-    const component = shallow(<PublicationDetailPage />, {
-      context: { store },
-    }).dive()
+    const component = shallow(<PublicationDetailPage store={store} />)
+      .dive()
+      .dive()
 
     const editorialPage = component.find('EditorialPage').at(0)
     expect(editorialPage.props().loading).toBeTruthy()
@@ -96,9 +94,9 @@ describe('PublicationDetailPage', () => {
 
   it('should render the publication when there are results', () => {
     useFromCMS.mockImplementation(() => mockData)
-    const component = shallow(<PublicationDetailPage store={store} />, {
-      context: { store },
-    }).dive()
+    const component = shallow(<PublicationDetailPage store={store} />)
+      .dive()
+      .dive()
 
     expect(component).toMatchSnapshot()
   })

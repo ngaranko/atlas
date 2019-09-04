@@ -15,9 +15,11 @@ import {
   Paragraph,
   Typography,
   Row,
+  themeColor,
 } from '@datapunt/asc-ui'
 import React from 'react'
 import { connect } from 'react-redux'
+import download from 'downloadjs'
 import SHARED_CONFIG from '../../../shared/services/shared-config/shared-config'
 import { getLocationPayload } from '../../../store/redux-first-router/selectors'
 import useFromCMS from '../../utils/useFromCMS'
@@ -26,6 +28,7 @@ import EditorialPage from '../../components/EditorialPage/EditorialPage'
 import { toArticleDetail } from '../../../store/redux-first-router/actions'
 import ContentContainer from '../../components/ContentContainer/ContentContainer'
 import cmsConfig from '../../../shared/services/cms/cms-config'
+import normalizeDownloadsObject from '../../../normalizations/cms/normalizeDownloadFiles'
 
 const ListItemContent = styled.div`
   display: flex;
@@ -57,11 +60,25 @@ const ArticleDetailPage = ({ id }) => {
     field_slug: slug,
     field_intro: intro,
   } = results || {}
+
   const documentTitle = title && `Artikel: ${title}`
-  const linkAction = toArticleDetail(id, slug)
+  const linkAction = slug && toArticleDetail(id, slug)
+
+  const normalizedDownloads = normalizeDownloadsObject(downloads)
+
+  const DownloadLink = styled(Link).attrs({
+    type: 'button',
+  })`
+    text-align: left;
+
+    small {
+      text-transform: uppercase;
+      color: ${themeColor('tint', 'level6')};
+    }
+  `
 
   return (
-    <EditorialPage {...{ documentTitle, loading, linkAction }}>
+    <EditorialPage {...{ documentTitle, loading, linkAction }} description={intro}>
       {!loading && (
         <div className="article">
           <Row className="article__row">
@@ -100,28 +117,26 @@ const ArticleDetailPage = ({ id }) => {
                         push={{ small: 0, medium: 0, big: 0, large: 1, xLarge: 1 }}
                       >
                         <EditorialSidebar>
-                          {downloads && downloads.length ? (
+                          {normalizedDownloads && normalizedDownloads.length ? (
                             <>
                               <Heading as="h2">Downloads</Heading>
                               <List>
-                                {downloads.map(
-                                  ({
-                                    title: fileTitle,
-                                    drupal_internal__nid: key,
-                                    field_file_type: type,
-                                    field_file_size: size,
-                                    field_publication_file: file,
-                                  }) => (
-                                    <ListItem key={key}>
-                                      <Link href={`${SHARED_CONFIG.CMS_ROOT}${file.uri.url}`}>
-                                        <ListItemContent>
-                                          <Typography as="span">{fileTitle}</Typography>
-                                          <Typography as="small">{`${type} ${size}`}</Typography>
-                                        </ListItemContent>
-                                      </Link>
-                                    </ListItem>
-                                  ),
-                                )}
+                                {normalizedDownloads.map(({ fileName, key, type, size, url }) => (
+                                  <ListItem key={key}>
+                                    <DownloadLink
+                                      $as="button"
+                                      onClick={() => {
+                                        download(`${SHARED_CONFIG.CMS_ROOT}${url}`)
+                                      }}
+                                      variant="with-chevron"
+                                    >
+                                      <ListItemContent>
+                                        <span>{fileName}</span>
+                                        <Typography as="small">({`${type} ${size}`})</Typography>
+                                      </ListItemContent>
+                                    </DownloadLink>
+                                  </ListItem>
+                                ))}
                               </List>
                             </>
                           ) : null}
@@ -131,7 +146,9 @@ const ArticleDetailPage = ({ id }) => {
                               <List>
                                 {links.map(({ uri, title: linkTitle }) => (
                                   <ListItem key={uri}>
-                                    <Link href={`${uri}`}>{linkTitle}</Link>
+                                    <Link variant="with-chevron" href={`${uri}`}>
+                                      {linkTitle}
+                                    </Link>
                                   </ListItem>
                                 ))}
                               </List>

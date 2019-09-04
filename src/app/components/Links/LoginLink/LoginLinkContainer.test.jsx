@@ -10,7 +10,7 @@ describe('LoginLinkContainer', () => {
   })
 
   it('should render everything', () => {
-    const component = shallow(<LoginLinkContainer />, { context: { store } }).dive()
+    const component = shallow(<LoginLinkContainer store={store} />).dive()
 
     const StyledLink = component.find('Styled(Link)').at(0)
     expect(StyledLink.exists()).toBeTruthy()

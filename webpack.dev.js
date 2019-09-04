@@ -17,16 +17,11 @@ module.exports = env => {
       disableHostCheck: true,
       contentBase: dist,
       compress: true,
+      hot: true,
       port: 8080,
       proxy: {
         '/dcatd_admin': {
           target: 'http://localhost:3000',
-          secure: false,
-          changeOrigin: true,
-          logLevel: 'debug',
-        },
-        '/grondexploitatie': {
-          target: 'http://localhost:8000',
           secure: false,
           changeOrigin: true,
           logLevel: 'debug',

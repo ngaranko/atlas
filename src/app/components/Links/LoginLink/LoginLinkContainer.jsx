@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from '@datapunt/asc-core'
-import { Link, styles, svgFill, color, Typography } from '@datapunt/asc-ui'
+import { Link, styles, svgFill, themeColor, Typography } from '@datapunt/asc-ui'
 import { connect } from 'react-redux'
 import { authenticateRequest } from '../../../../shared/ducks/user/user'
 
 const StyledLinkInverted = styled(Link)`
-  color: ${color('tint', 'level1')};
+  color: ${themeColor('tint', 'level1')};
   background-color: transparent;
 
   ${styles.IconStyle} {
@@ -15,7 +15,7 @@ const StyledLinkInverted = styled(Link)`
 
   &:hover {
     cursor: pointer;
-    color: ${color('tint', 'level1')};
+    color: ${themeColor('tint', 'level1')};
     text-decoration: underline;
 
     ${styles.IconStyle} {
@@ -25,7 +25,7 @@ const StyledLinkInverted = styled(Link)`
 `
 
 const StyledLink = styled(Link)`
-  background-color: ${color('tint', 'level1')};
+  background-color: ${themeColor('tint', 'level1')};
 `
 
 export const LoginLink = ({ login, linkType, children, inverted }) => (

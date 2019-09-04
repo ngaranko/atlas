@@ -3,77 +3,85 @@
 exports[`App should render the homepage 1`] = `
 <DefaultThemeProvider>
   <GlobalStyleComponent />
-  <AppStateProvider
-    initialState={
-      Object {
-        "ui": Object {
-          "backdropKeys": Array [],
-        },
-      }
-    }
-    reducer={[Function]}
+  <MatomoProvider
+    value={MatomoTracker {}}
   >
-    <div
-      className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
+    <AppStateProvider
+      initialState={
+        Object {
+          "ui": Object {
+            "backdropKeys": Array [],
+          },
+        }
+      }
+      reducer={[Function]}
     >
-      <Connect(Header)
-        embedPreviewMode={false}
-        hasEmbedButton={false}
-        hasMaxWidth={true}
-        hasPrintButton={false}
-        homePage={false}
-        printMode={false}
-        printOrEmbedMode={false}
-        user={Object {}}
-      />
-      <AppBody
-        bodyClasses=""
-        currentPage="NOT_FOUND"
-        embedPreviewMode={false}
-        hasMaxWidth={true}
-        homePage={false}
-        visibilityError={false}
-      />
-    </div>
-  </AppStateProvider>
+      <div
+        className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
+      >
+        <Connect(Header)
+          embedPreviewMode={false}
+          hasEmbedButton={false}
+          hasMaxWidth={true}
+          hasPrintButton={false}
+          homePage={false}
+          printMode={false}
+          printOrEmbedMode={false}
+          user={Object {}}
+        />
+        <AppBody
+          bodyClasses=""
+          currentPage="NOT_FOUND"
+          embedPreviewMode={false}
+          hasMaxWidth={true}
+          homePage={false}
+          visibilityError={false}
+        />
+      </div>
+    </AppStateProvider>
+  </MatomoProvider>
 </DefaultThemeProvider>
 `;
 
 exports[`App should render the mapview 1`] = `
 <DefaultThemeProvider>
   <GlobalStyleComponent />
-  <AppStateProvider
-    initialState={
-      Object {
-        "ui": Object {
-          "backdropKeys": Array [],
-        },
-      }
-    }
-    reducer={[Function]}
+  <MatomoProvider
+    value={MatomoTracker {}}
   >
-    <div
-      className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
+    <AppStateProvider
+      initialState={
+        Object {
+          "ui": Object {
+            "backdropKeys": Array [],
+          },
+        }
+      }
+      reducer={[Function]}
     >
-      <Connect(Header)
-        embedPreviewMode={false}
-        hasEmbedButton={true}
-        hasMaxWidth={true}
-        hasPrintButton={true}
-        homePage={false}
-        printMode={false}
-        printOrEmbedMode={false}
-        user={Object {}}
-      />
-      <AppBody
-        bodyClasses=""
-        currentPage="NOT_FOUND"
-        embedPreviewMode={false}
-        hasMaxWidth={true}
-        homePage={false}
-        visibilityError={false}
-      />
-    </div>
-  </AppStateProvider>
+      <div
+        className="c-dashboard c-dashboard--page-type-not-found c-dashboard--max-width"
+      >
+        <Connect(Header)
+          embedPreviewMode={false}
+          hasEmbedButton={true}
+          hasMaxWidth={true}
+          hasPrintButton={true}
+          homePage={false}
+          printMode={false}
+          printOrEmbedMode={false}
+          user={Object {}}
+        />
+        <AppBody
+          bodyClasses=""
+          currentPage="NOT_FOUND"
+          embedPreviewMode={false}
+          hasMaxWidth={true}
+          homePage={false}
+          visibilityError={false}
+        />
+      </div>
+    </AppStateProvider>
+  </MatomoProvider>
 </DefaultThemeProvider>
 `;

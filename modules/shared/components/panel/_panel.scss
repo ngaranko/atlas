@@ -26,7 +26,6 @@ $icon-dimension: 24px;
   }
 
   &--offsets-below-page-title {
-    margin-top: -(2 * $base-whitespace);
     margin-bottom: 3 * $base-whitespace;
   }
 
@@ -86,7 +85,7 @@ $icon-dimension: 24px;
         height: 10px;
         border-radius: 50%;
         background-color: $red;
-        content: "";
+        content: '';
       }
     }
   }
@@ -99,7 +98,7 @@ $icon-dimension: 24px;
   &--attention,
   &--info {
     .o-btn--close {
-      @include icon-sprite("icon-clear", $primary-dark, $primary-dark, $icon-dimension);
+      @include icon-sprite('icon-clear', $primary-dark, $primary-dark, $icon-dimension);
 
       &:hover,
       &:focus {

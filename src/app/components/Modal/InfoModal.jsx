@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Divider, Button, Modal, TopBar, Heading, Paragraph } from '@datapunt/asc-ui/lib/index'
+import { Divider, Button, Modal, TopBar, Heading, Paragraph } from '@datapunt/asc-ui'
 import { Close } from '@datapunt/asc-assets'
 import withModalBehaviour, { propTypes as modalPropTypes } from './withModalBehaviour'
 import './InfoModal.scss'
