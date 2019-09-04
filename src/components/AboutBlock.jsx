@@ -14,7 +14,7 @@ import {
   breakpoint,
 } from '@datapunt/asc-ui'
 
-/* istanbul ignore next */ const AboutCard = styled(CardContainer)`
+/* istanbul ignore next */ const StyledAboutCard = styled(CardContainer)`
   ${styles.ColumnStyle} {
     margin-bottom: 16px;
 
@@ -57,19 +57,10 @@ import {
     padding-bottom: 20px;
   }
 
-  /*
-    The media query below is not using the breakpoint function
-    @media screen and ${breakpoint('min-width', 'tabletM')} {
-    because the Grid changes at exactly 768px, instead of breakpoint which is 768.02px
-    so that means that 768px styles different from 769px...
-   */
-  @media screen and (min-width: 768px) {
+  @media screen and ${breakpoint('min-width', 'tabletM')} {
     ${styles.ColumnStyle} {
-      margin-bottom: 48px;
-
       &.column-with-heading {
         margin-top: 0;
-        margin-bottom: 24px;
       }
     }
   }
@@ -81,9 +72,9 @@ import {
   background-color: ${color('tint', 'level3')};
 `
 
-/* istanbul ignore next */ const AboutBlock = ({ loading }) => (
-  <AboutCard>
-    <Row>
+/* istanbul ignore next */ const AboutBlock = ({ loading, ...otherProps }) => (
+  <StyledAboutCard {...otherProps}>
+    <Row hasMargin={false}>
       <Column
         className="column-with-heading"
         span={{ small: 1, medium: 2, big: 6, large: 6, xLarge: 6 }}
@@ -101,7 +92,9 @@ import {
         <Link href="/" linkType="blank">
           <Card backgroundColor="level2" shadow loading={loading}>
             <CardContent>
-              <Heading $as="h4">This is a card</Heading>
+              <Heading $as="h4" styleAs="h3">
+                This is a card
+              </Heading>
               <Paragraph>
                 Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
                 Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
@@ -117,7 +110,9 @@ import {
         <Link href="/" linkType="blank">
           <Card backgroundColor="level2" shadow loading={loading}>
             <CardContent>
-              <Heading $as="h4">This is a card with very very very long content</Heading>
+              <Heading $as="h4" styleAs="h3">
+                This is a card with very very very long content
+              </Heading>
               <Paragraph>Lorem ipsum dolor sit amet</Paragraph>
             </CardContent>
           </Card>
@@ -142,7 +137,9 @@ import {
         <Link href="/" linkType="blank">
           <Card backgroundColor="level2" shadow loading={loading}>
             <CardContent>
-              <Heading $as="h4">This is a card</Heading>
+              <Heading $as="h4" styleAs="h3">
+                This is a card
+              </Heading>
               <Paragraph>Lorem ipsum dolor sit amet</Paragraph>
             </CardContent>
           </Card>
@@ -156,14 +153,16 @@ import {
         <Link href="/" linkType="blank">
           <Card backgroundColor="level2" shadow loading={loading}>
             <CardContent>
-              <Heading $as="h4">This is a card</Heading>
+              <Heading $as="h4" styleAs="h3">
+                This is a card
+              </Heading>
               <Paragraph>Lorem ipsum dolor sit amet. </Paragraph>
             </CardContent>
           </Card>
         </Link>
       </Column>
     </Row>
-  </AboutCard>
+  </StyledAboutCard>
 )
 
 export default AboutBlock

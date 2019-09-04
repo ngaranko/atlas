@@ -16,7 +16,7 @@ import {
   styles,
 } from '@datapunt/asc-ui'
 
-const CardContainerGenericFunctions = styled(CardContainer)`
+const StyledCardContainer = styled(CardContainer)`
   position: relative;
   padding: 24px;
   background-color: ${themeColor('support', 'valid')};
@@ -92,6 +92,10 @@ const CardContainerGenericFunctions = styled(CardContainer)`
         ${({ theme }) => `border: 4px solid ${themeColor('support', 'focus')({ theme })};`}
       }
     }
+
+    &:last-child {
+      margin-bottom:0px;
+    }
   }
 
   ${styles.CardMediaWrapperStyle} {
@@ -148,18 +152,12 @@ const CardContainerGenericFunctions = styled(CardContainer)`
 
   ${styles.CardStyle} {
     min-height: 73px;
+    margin-bottom: 0;
   }
-
-  ${/* sc-selector */ styles.CardStyle}:last-of-type {
-    @media screen and ${breakpoint('min-width', 'tabletM')} {
-        margin-bottom: 0;
-    }
-  }
-
 `
 
-const NavigationLinksBlock = ({ loading }) => (
-  <CardContainerGenericFunctions>
+const NavigationLinksBlock = ({ loading, ...otherProps }) => (
+  <StyledCardContainer {...otherProps}>
     <Link href="/" linkType="blank">
       <Card horizontal loading={loading}>
         <CardMedia backgroundColor="level2">
@@ -268,7 +266,7 @@ const NavigationLinksBlock = ({ loading }) => (
         </CardActions>
       </Card>
     </Link>
-  </CardContainerGenericFunctions>
+  </StyledCardContainer>
 )
 
 export default NavigationLinksBlock

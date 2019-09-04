@@ -18,13 +18,13 @@ const StyledCardContainer = styled(CardContainer)`
   border-top: 2px solid;
 `
 
-const ArticleCardsWrapper = styled.div`
+const OrganizationBlockStyle = styled.div`
   margin-top: 40px;
-  padding: 40px 0 20px;
+  padding: 40px 20px 0;
   background-color: ${themeColor('tint', 'level2')};
 
   @media screen and ${breakpoint('max-width', 'mobileL')} {
-    padding: 40px 0 16px 0;
+    padding: 40px 20px 16px;
     margin-left:-20px;
     margin-right:-20px;
     width: calc(100% + 40px)
@@ -34,14 +34,10 @@ const ArticleCardsWrapper = styled.div`
   'max-width',
   'tabletM',
 )} {
-    padding: 48px 12px 16px 12px;
+    padding: 48px 24px 16px;
     margin-left: -24px;
     margin-right: -24px;
     width: calc(100% + 48px);
-  }
-
-  @media screen and ${breakpoint('min-width', 'laptopM')} {
-    margin-top: 80px;
   }
 `
 
@@ -61,6 +57,7 @@ const StyledCardContent = styled(CardContent)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-bottom: 40px;
 
   ${styles.HeadingStyle} {
     margin: 12px 0 24px;
@@ -73,20 +70,22 @@ const StyledRow = styled(Row)`
   }
 `
 
-const PresentationBlock = ({ loading }) => (
-  <ArticleCardsWrapper>
-    <Row>
+const OrganizationBlock = ({ loading, ...otherProps }) => (
+  <OrganizationBlockStyle {...otherProps}>
+    <Row hasMargin={false}>
       <Heading $as="h2" styleAs="h1" gutterBottom={20}>
         Onderzoek, Informatie en Statistiek
       </Heading>
     </Row>
-    <StyledRow>
+    <StyledRow hasMargin={false}>
       <Column span={{ small: 1, medium: 2, big: 3, large: 3, xLarge: 3 }}>
         <StyledCardContainer>
           <StyledCard loading={loading}>
             <StyledCardContent>
               <div>
-                <Heading $as="h4">Over IOS</Heading>
+                <Heading $as="h4" styleAs="h3">
+                  Over OIS
+                </Heading>
                 <Paragraph>
                   De afdeling Onderzoek, Informatie en Statistiek (OIS) doet onderzoek, verzamelt en
                   bewerkt data over de stad en maakt de resultaten daarvan bekend op deze website.
@@ -104,7 +103,9 @@ const PresentationBlock = ({ loading }) => (
           <StyledCard loading={loading}>
             <StyledCardContent>
               <div>
-                <Heading $as="h4">Onderzoek</Heading>
+                <Heading $as="h4" styleAs="h3">
+                  Onderzoek
+                </Heading>
                 <Paragraph>
                   We doen jaarlijks honderden onderzoeken, van kleine enquêtes tot uitgebreide
                   monitors.
@@ -122,7 +123,9 @@ const PresentationBlock = ({ loading }) => (
           <StyledCard loading={loading}>
             <StyledCardContent>
               <div>
-                <Heading $as="h4">Panels en enquêtes</Heading>
+                <Heading $as="h4" styleAs="h3">
+                  Panels en enquêtes
+                </Heading>
                 <Paragraph>
                   We doen jaarlijks honderden onderzoeken, van kleine enquêtes tot uitgebreide
                   monitors.
@@ -140,7 +143,9 @@ const PresentationBlock = ({ loading }) => (
           <StyledCard loading={loading}>
             <StyledCardContent>
               <div>
-                <Heading $as="h4">Publicaties</Heading>
+                <Heading $as="h4" styleAs="h3">
+                  Publicaties
+                </Heading>
                 <Paragraph>
                   Download onderzoeksrapporten, fasctsheets of het ons jaarboek. Het oudste dateert
                   uit 1895!
@@ -154,7 +159,7 @@ const PresentationBlock = ({ loading }) => (
         </StyledCardContainer>
       </Column>
     </StyledRow>
-  </ArticleCardsWrapper>
+  </OrganizationBlockStyle>
 )
 
-export default PresentationBlock
+export default OrganizationBlock

@@ -22,7 +22,9 @@ const Tag = ({ children }) => (
     {children}
   </AscTag>
 )
-const MainArticlesContainer = styled(CardContainer)`
+
+const StyledSpecialsBlock = styled(CardContainer)`
+
   ${/* sc-selector */ styles.ColumnStyle}:first-child > ${styles.LinkStyle} {
      border-top: ${themeColor('tint', 'level3')} 1px solid;
   }
@@ -85,26 +87,21 @@ const MainArticlesContainer = styled(CardContainer)`
 `
 
 const CardSpecialsSubtiltle = styled(Heading)`
-  margin-top: 48px;
-
   @media screen and ${breakpoint('max-width', 'tabletM')} {
-    margin-top: 48px;
     margin-bottom: 16px;
   }
 
   @media screen and ${breakpoint('max-width', 'laptopL')} {
-    margin-top: 72px;
     margin-bottom: 16px;
   }
 
   @media screen and ${breakpoint('min-width', 'laptopL')} {
-    margin-top: 80px;
     margin-bottom: 24px;
   }
 `
 
-const MainArticlesBlock = ({ loading }) => (
-  <MainArticlesContainer>
+const SpecialsBlock = ({ loading, ...otherProps }) => (
+  <StyledSpecialsBlock {...otherProps}>
     <Row hasMargin={false}>
       <Column wrap span={{ small: 1, medium: 2, big: 6, large: 12, xLarge: 12 }}>
         <CardSpecialsSubtiltle $as="h1">In Beeld</CardSpecialsSubtiltle>
@@ -115,7 +112,7 @@ const MainArticlesBlock = ({ loading }) => (
         <Link href="/" linkType="blank">
           <Card horizontal loading={loading}>
             <CardContent>
-              <Heading $as="h4" gutterBottom={8}>
+              <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex
               </Heading>
               <Paragraph>
@@ -133,7 +130,7 @@ const MainArticlesBlock = ({ loading }) => (
         <Link href="/" linkType="blank">
           <Card horizontal loading={loading}>
             <CardContent>
-              <Heading $as="h4" gutterBottom={8}>
+              <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex
               </Heading>
               <Paragraph>
@@ -151,7 +148,7 @@ const MainArticlesBlock = ({ loading }) => (
         <Link href="/" linkType="blank">
           <Card horizontal loading={loading}>
             <CardContent>
-              <Heading $as="h4" gutterBottom={8}>
+              <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex titel 16/20
               </Heading>
               <Paragraph>
@@ -168,7 +165,7 @@ const MainArticlesBlock = ({ loading }) => (
         <Link href="/" linkType="blank">
           <Card horizontal loading={loading}>
             <CardContent>
-              <Heading $as="h4" gutterBottom={8}>
+              <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex titel 16/20
               </Heading>
               <Paragraph>
@@ -186,7 +183,7 @@ const MainArticlesBlock = ({ loading }) => (
         <Link href="/" linkType="blank">
           <Card horizontal loading={loading}>
             <CardContent>
-              <Heading $as="h4" gutterBottom={8}>
+              <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex titel 16/20
               </Heading>
               <Paragraph>
@@ -203,7 +200,7 @@ const MainArticlesBlock = ({ loading }) => (
         <Link href="/" linkType="blank">
           <Card horizontal loading={loading}>
             <CardContent>
-              <Heading $as="h4" gutterBottom={8}>
+              <Heading $as="h4" styleAs="h3" gutterBottom={8}>
                 Veiligheidsindex titel 16/20
               </Heading>
               <Paragraph>
@@ -220,7 +217,7 @@ const MainArticlesBlock = ({ loading }) => (
         Bekijk overzicht
       </Link>
     </Row>
-  </MainArticlesContainer>
+  </StyledSpecialsBlock>
 )
 
-export default MainArticlesBlock
+export default SpecialsBlock

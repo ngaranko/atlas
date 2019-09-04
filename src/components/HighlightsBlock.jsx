@@ -6,11 +6,11 @@ import {
   Heading,
   ImageCardContent,
   ImageCard,
-  Paragraph,
-  CompactThemeProvider,
+  Link,
+  themeColor,
 } from '@datapunt/asc-ui'
 
-const ImageCardOuterContainer = styled.div`
+const HighlightsBlockStyle = styled.div`
   width: 100%;
 
   @media screen and ${breakpoint('min-width', 'laptop')} {
@@ -18,7 +18,7 @@ const ImageCardOuterContainer = styled.div`
   }
 `
 
-const ImageCardInnerContainer = styled.section`
+const HighlightsBlockInnerStyle = styled.section`
   width: calc(100% + 24px);
   margin-left: -12px;
   margin-right: -12px;
@@ -28,9 +28,19 @@ const ImageCardInnerContainer = styled.section`
   @media screen and ${breakpoint('min-width', 'laptop')} {
     width: calc(100% + 4px);
   }
+
+  ${styles.LinkStyle} {
+    width: 100%;
+    &:hover {
+      ${styles.TypographyStyle}.header {
+        color: ${themeColor('secondary')};
+        text-decoration: underline;
+      }
+    }
+  }
 `
 
-const ImageCardWrapperBig = styled.div`
+const ImageCardWrapperLarge = styled.div`
   flex-basis: 100%;
   @media screen and ${breakpoint('min-width', 'tabletM')} {
     flex-basis: ${100 - 100 / 3}%;
@@ -67,66 +77,67 @@ const ImageCardWrapperSmall = styled.div`
     }
   }
 
-  ${styles.TypographyStyle}.smaller-header {
-    @media screen and ${breakpoint('max-width', 'tabletM')} {
+  ${styles.TypographyStyle}.header-small {
+    @media screen and ${breakpoint('max-width', 'laptopM')} {
       font-size: 14px;
       line-height: 17px;
     }
 
-    @media screen and ${breakpoint('max-width', 'laptop')} {
-      font-size: 14px;
-      line-height: 20px;
+    @media screen and ${breakpoint('max-width', 'tabletM')} {
+      font-size: inherit;
+      line-height: inherit;
     }
   }
 `
 
-const HighlightsBlock = ({ loading }) => (
-  <ImageCardOuterContainer>
-    <ImageCardInnerContainer>
-      <CompactThemeProvider>
-        <ImageCardWrapperBig>
+const HighlightsBlock = ({ loading, ...otherProps }) => (
+  <HighlightsBlockStyle {...otherProps}>
+    <HighlightsBlockInnerStyle>
+      <ImageCardWrapperLarge>
+        <Link href="/" linkType="blank">
           <ImageCard
             margin={12}
             backgroundImage="http://lorempixel.com/output/food-q-c-640-480-3.jpg"
             loading={loading}
           >
             <ImageCardContent>
-              <Heading $as="h4" styleAs="h2">
+              <Heading $as="h4" styleAs="h2" className="header">
                 Jeugdwerkloosheid Amsterdam daalt naar 6,2%
               </Heading>
-              <Paragraph gutterBottom={0}>
-                Amsterdamse jongeren even vaak werkloos als gemiddeld in Nederland
-              </Paragraph>
             </ImageCardContent>
           </ImageCard>
-        </ImageCardWrapperBig>
-        <ImageCardWrapperSmall>
+        </Link>
+      </ImageCardWrapperLarge>
+      <ImageCardWrapperSmall>
+        <Link href="/" linkType="blank">
           <ImageCard
             margin={12}
             backgroundImage="http://lorempixel.com/output/food-q-c-640-480-3.jpg"
             loading={loading}
           >
             <ImageCardContent>
-              <Heading $as="h4" strong gutterBottom={0} className="smaller-header">
+              <Heading $as="h4" strong gutterBottom={0} className="header header-small">
                 Jeugdwerk&shy;loosheid Amsterdam daalt naar 6,2%
               </Heading>
             </ImageCardContent>
           </ImageCard>
+        </Link>
+        <Link href="/" linkType="blank">
           <ImageCard
             margin={12}
             backgroundImage="http://lorempixel.com/output/food-q-c-640-480-3.jpg"
             loading={loading}
           >
             <ImageCardContent>
-              <Heading $as="h4" strong gutterBottom={0} className="smaller-header">
+              <Heading $as="h4" strong gutterBottom={0} className="header header-small">
                 Amsterdammers voelen zich veiliger in het OV
               </Heading>
             </ImageCardContent>
           </ImageCard>
-        </ImageCardWrapperSmall>
-      </CompactThemeProvider>
-    </ImageCardInnerContainer>
-  </ImageCardOuterContainer>
+        </Link>
+      </ImageCardWrapperSmall>
+    </HighlightsBlockInnerStyle>
+  </HighlightsBlockStyle>
 )
 
 export default HighlightsBlock
