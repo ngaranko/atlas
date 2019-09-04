@@ -43,6 +43,7 @@ export const endpointTypes = {
   gebiedenWijk: 'gebieden/buurtcombinatie/',
   grondexploitatie: 'grondexploitatie/project/',
   kadastraalObject: 'brk/object/',
+  kadastraalSubject: 'brk/subject/',
   maatschappelijkeActiviteiten: 'handelsregister/maatschappelijkeactiviteit/',
   meetbout: 'meetbouten/meetbout/',
   monument: 'monumenten/monumenten/',
@@ -56,6 +57,7 @@ export const endpointTypes = {
   vestiging: 'handelsregister/vestiging/',
   winkelgebied: 'vsd/winkgeb',
   wkpbBeperking: 'wkpb/beperking',
+  wkpbUitreksel: 'brk/object-wkpb',
 }
 
 const servicesByEndpointType = {
@@ -455,6 +457,7 @@ const servicesByEndpointType = {
           }
         : {
             title: 'Grondexploitatie',
+            items: [],
             notifications: [
               {
                 value:
@@ -676,12 +679,54 @@ const servicesByEndpointType = {
       items: [],
     }),
   },
-  [endpointTypes.maatschappelijkeActiviteiten]: {
+  [endpointTypes.wkpbUitreksel]: {
     mapDetail: result => ({
-      title: 'Maatschappelijke activiteit',
+      title: 'WKPB-uittreksel',
       subTitle: result._display,
       items: [],
     }),
+  },
+  [endpointTypes.kadastraalSubject]: {
+    authScope: 'BRK/RS',
+    mapDetail: result =>
+      result
+        ? {
+            title: 'Kadastraal subject',
+            subTitle: result._display,
+            items: [],
+          }
+        : {
+            title: 'Kadastraal subject',
+            items: [],
+            notifications: [
+              {
+                value:
+                  'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om kadastrale subjecten te bekijken. Om ook zakelijke rechten van natuurlijke personen te bekijken, moet je als medewerker bovendien speciale bevoegdheden hebben.',
+                level: 'info',
+              },
+            ],
+          },
+  },
+  [endpointTypes.maatschappelijkeActiviteiten]: {
+    authScope: 'HR/R',
+    mapDetail: result =>
+      result
+        ? {
+            title: 'Maatschappelijke activiteit',
+            subTitle: result._display,
+            items: [],
+          }
+        : {
+            title: 'Maatschappelijke activiteit',
+            items: [],
+            notifications: [
+              {
+                value:
+                  'Medewerkers/ketenpartners van Gemeente Amsterdam kunnen inloggen om maatschappelijke activiteiten en vestigingen te bekijken.',
+                level: 'info',
+              },
+            ],
+          },
   },
 }
 
