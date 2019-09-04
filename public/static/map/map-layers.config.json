@@ -32,7 +32,7 @@
         ],
         "minZoom": 11,
         "notClosable": true,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "url": "/maps/panorama",
         "params": {
             "mission_type": "bi"
@@ -58,7 +58,7 @@
             }
         ],
         "minZoom": 11,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "notClosable": true,
         "url": "/maps/panorama",
         "params": {
@@ -86,7 +86,7 @@
             }
         ],
         "minZoom": 11,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "notClosable": true,
         "url": "/maps/panorama",
         "params": {
@@ -116,7 +116,7 @@
         ],
         "minZoom": 11,
         "notClosable": true,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "url": "/maps/panorama",
         "params": {
             "mission_year": 2018,
@@ -144,7 +144,7 @@
         ],
         "minZoom": 11,
         "notClosable": true,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "url": "/maps/panorama",
         "params": {
             "mission_year": 2017,
@@ -172,7 +172,7 @@
             }
         ],
         "minZoom": 11,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "notClosable": true,
         "url": "/maps/panorama",
         "params": {
@@ -201,7 +201,7 @@
         ],
         "minZoom": 11,
         "notClosable": true,
-        "title": "PANORAMA",
+        "title": "Panoramabeelden",
         "url": "/maps/panorama",
         "params": {
             "mission_year": 2016,
