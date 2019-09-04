@@ -14,6 +14,7 @@ import {
   themeColor,
   breakpoint,
   styles,
+  svgFill,
 } from '@datapunt/asc-ui'
 
 const StyledCardContainer = styled(CardContainer)`
@@ -74,9 +75,14 @@ const StyledCardContainer = styled(CardContainer)`
     width: 100%;
     margin-bottom: 8px;
 
-    &:hover ${styles.HeadingStyle} {
+    &:hover{
+       ${styles.HeadingStyle} {
       color: ${themeColor('secondary')};
-      text-decoration: underline;
+      text-decoration: underline;}
+
+      ${styles.CardActionsStyle} ${styles.IconStyle} {
+        ${svgFill('secondary')};
+      }
     }
 
     &:focus {

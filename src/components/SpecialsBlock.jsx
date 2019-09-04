@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '@datapunt/asc-core'
+import styled, { css } from '@datapunt/asc-core'
 import {
   Card,
   CardContent,
@@ -10,34 +10,33 @@ import {
   Image,
   Row,
   Column,
-  Tag as AscTag,
+  Tag,
   Link,
   themeColor,
   breakpoint,
   styles,
 } from '@datapunt/asc-ui'
 
-const Tag = ({ children }) => (
-  <AscTag colorType="tint" colorSubtype="level3">
-    {children}
-  </AscTag>
-)
+const getBorderTop = () =>
+  css`
+    border-top: ${themeColor('tint', 'level3')} 1px solid;
+  `
 
 const StyledSpecialsBlock = styled(CardContainer)`
 
   ${/* sc-selector */ styles.ColumnStyle}:first-child > ${styles.LinkStyle} {
-     border-top: ${themeColor('tint', 'level3')} 1px solid;
+    ${getBorderTop()}
   }
 
-    @media screen and ${breakpoint('min-width', 'tabletM')} {
+  @media screen and ${breakpoint('min-width', 'tabletM')} {
     ${/* sc-selector */ styles.ColumnStyle}:nth-child(2) > ${styles.LinkStyle} {
-      border-top: ${themeColor('tint', 'level3')} 1px solid;
+      ${getBorderTop()}
     }
   }
 
   @media screen and ${breakpoint('min-width', 'laptop')} {
     ${/* sc-selector */ styles.ColumnStyle}:nth-child(3) > ${styles.LinkStyle} {
-      border-top: ${themeColor('tint', 'level3')} 1px solid;
+      ${getBorderTop()}
     }
   }
 
@@ -46,11 +45,13 @@ const StyledSpecialsBlock = styled(CardContainer)`
     width: 100%;
     min-height: 66px;
 
-    &:hover > ${styles.CardStyle}
-      > ${styles.CardContentStyle}
-      > ${styles.HeadingStyle} {
-        color: ${themeColor('secondary')};
-        text-decoration: underline;
+    &:hover {
+        border-bottom: ${themeColor('secondary')} 2px solid;
+
+        h4 {
+          color: ${themeColor('secondary')};
+          text-decoration: underline;
+        }
     }
   }
 
@@ -77,10 +78,11 @@ const StyledSpecialsBlock = styled(CardContainer)`
     display: inline;
     margin-right: 5px;
     background-color: ${themeColor('tint', 'level3')};
+    color: ${themeColor('tint', 'level7')};
     padding: 2px;
   }
 
-  ${styles.RowStyle} > ${/* sc-selector */ styles.LinkStyle}:last-child {
+  ${styles.LinkStyle}.overview-link {
     margin-top: 24px;
     padding: 8px 3px 8px 0;
   }
@@ -213,7 +215,7 @@ const SpecialsBlock = ({ loading, ...otherProps }) => (
           </Card>
         </Link>
       </Column>
-      <Link linkType="with-chevron" href="/">
+      <Link linkType="with-chevron" href="/" className="overview-link">
         Bekijk overzicht
       </Link>
     </Row>
