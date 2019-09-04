@@ -19,11 +19,11 @@ export const oplaadpunten = result => {
 
   const additionalFields = {
     address: result.street
-      ? `${result.street} ${
-          result.housenumberext
-            ? `${result.housenumber} ${result.housenumberext},`
-            : `${result.housenumber},`
-        } ${result.city}`
+      ? `${result.street}${
+          result.housenumber
+            ? ` ${result.housenumber}${result.housenumberext ? ` ${result.housenumberext}` : ''}`
+            : ''
+        }, ${result.city}`
       : null,
 
     // eslint-disable-next-line no-nested-ternary

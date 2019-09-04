@@ -51,6 +51,17 @@ describe('normalize', () => {
       expect(output).toMatchObject({
         address: `${input.street} ${input.housenumber}, ${input.city}`,
       })
+
+      input = {
+        street: 'street',
+        city: 'city',
+      }
+
+      output = oplaadpunten(input)
+
+      expect(output).toMatchObject({
+        address: `${input.street}, ${input.city}`,
+      })
     })
 
     it('returns the charger type', () => {
