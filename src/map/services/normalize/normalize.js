@@ -47,6 +47,14 @@ export const oplaadpunten = result => {
   return normalize(result, additionalFields)
 }
 
+export const meetbout = result => {
+  const additionalFields = {
+    speed: result.zakkingssnelheid ? formatNumber(result.zakkingssnelheid) : '',
+  }
+
+  return normalize(result, additionalFields)
+}
+
 export const napPeilmerk = result => {
   const additionalFields = {
     wallCoordinates:

@@ -22,7 +22,7 @@ const MapDetailResultWrapper = ({
       <button
         type="button"
         className="map-detail-result__header-pano-button"
-        disabled={!panoUrl}
+        disabled={!panoUrl || isEmbed}
         title={panoUrl ? 'Panoramabeeld tonen' : 'Geen Panoramabeeld beschikbaar'}
         onClick={onPanoPreviewClick}
       >
