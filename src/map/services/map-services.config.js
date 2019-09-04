@@ -18,6 +18,7 @@ import {
   winkelgebied,
   parkeerzones,
   monument,
+  meetbout,
 } from './normalize/normalize'
 
 export const endpointTypes = {
@@ -485,12 +486,13 @@ const servicesByEndpointType = {
     }),
   },
   [endpointTypes.meetbout]: {
+    normalization: meetbout,
     mapDetail: result => ({
       title: 'Meetbout',
-      subTitle: result._display,
+      subTitle: result.meetboutidentificatie,
       items: [
         { label: 'Adres', value: result.adres },
-        { label: 'Zaksnelheid (mm/j)', value: result.zakkingssnelheid },
+        { label: 'Zaksnelheid (mm/j)', value: result.speed },
       ],
     }),
   },
@@ -521,8 +523,8 @@ const servicesByEndpointType = {
   [endpointTypes.napPeilmerk]: {
     normalization: napPeilmerk,
     mapDetail: result => ({
-      titel: 'NAP Peilmerk',
-      subTitle: result._display,
+      title: 'NAP Peilmerk',
+      subTitle: result.peilmerkidentificatie,
       items: [
         { label: 'Hoogte NAP', value: result.height },
         { label: 'Omschrijving', value: result.omschrijving, multiLine: true },
@@ -549,7 +551,7 @@ const servicesByEndpointType = {
   [endpointTypes.parkeervak]: {
     mapDetail: result => ({
       title: 'Parkeervak',
-      subTitle: result._display,
+      subTitle: result.id,
       items: [
         { label: 'Straat', value: result.straatnaam },
         { label: 'Type', value: result.e_type_desc },

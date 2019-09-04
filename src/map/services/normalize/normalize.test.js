@@ -13,6 +13,7 @@ import {
   winkelgebied,
   parkeerzones,
   monument,
+  meetbout,
   YEAR_UNKNOWN,
 } from './normalize'
 
@@ -582,6 +583,22 @@ ${input.gebruiksdoelen[1].omschrijving}`,
 
       expect(output).toMatchObject({
         geometry: input.monumentcoordinaten,
+      })
+    })
+  })
+
+  describe('normalizes "meetbout', () => {
+    let input
+    let output
+    it('returns the speed', () => {
+      input = {
+        zakkingssnelheid: 0.1212121212,
+      }
+
+      output = meetbout(input)
+
+      expect(output).toMatchObject({
+        speed: '0,121',
       })
     })
   })
