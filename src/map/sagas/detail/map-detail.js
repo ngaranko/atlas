@@ -9,7 +9,7 @@ import {
 import { getCurrentEndpoint } from '../../ducks/detail/selectors'
 import { closeMapPanel, mapLoadingAction } from '../../ducks/map/actions'
 import getDetailData from '../../../detail/sagas/detail'
-import fetchDetail from '../../services/map-detail'
+import fetchDetail from '../../services/map-detail/map-detail'
 import { FETCH_MAP_DETAIL_REQUEST } from '../../ducks/detail/constants'
 import { getUser } from '../../../shared/ducks/user/user'
 import { waitForAuthentication } from '../../../shared/sagas/user/user'
