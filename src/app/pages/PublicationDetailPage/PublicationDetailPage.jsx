@@ -42,7 +42,7 @@ const PublicationDetailPage = ({ id }) => {
   const linkAction = toPublicationDetail(id, slug)
 
   return (
-    <EditorialPage {...{ documentTitle, loading, linkAction }}>
+    <EditorialPage {...{ documentTitle, loading, linkAction }} description={intro}>
       {!loading && (
         <Column wrap="true" span={{ small: 1, medium: 4, big: 6, large: 12, xLarge: 12 }}>
           <ContentContainer>
